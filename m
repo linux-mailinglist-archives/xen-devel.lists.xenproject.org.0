@@ -2,60 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD7A1BA48D
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 15:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C5D1BA4C2
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 15:30:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jT3kO-00023W-Hx; Mon, 27 Apr 2020 13:24:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jT3pu-0002rB-7Y; Mon, 27 Apr 2020 13:30:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ku7H=6L=gmail.com=dunlapg@srs-us1.protection.inumbo.net>)
- id 1jT3kM-00023R-8A
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 13:24:30 +0000
-X-Inumbo-ID: 6c34ed18-888a-11ea-9887-bc764e2007e4
-Received: from mail-ed1-x542.google.com (unknown [2a00:1450:4864:20::542])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6c34ed18-888a-11ea-9887-bc764e2007e4;
- Mon, 27 Apr 2020 13:24:29 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id s10so13410575edy.9
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2020 06:24:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=umich.edu; s=google-2016-06-03;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=WlBltR0rEF03k7xkTSaqZHk68lS67ZBdaAH6vyJV058=;
- b=o2/G6uxdtI8Tp1vMhgc8VqL4utKm7mZKffwOvQvlQ7zAm0yGFrXgPWNhLTiIsDdRuf
- D5N3P/aQ6kYuy6be9JpDJa0mzxZSg0ZDwpIKA9k7l7T9fNOAbJC8isCO6U9Ov9i2qAkY
- 09OSXp6vKPgtTxXr99T2DJayi0mMRWTs3YJslflKQ0BvmJyqZE/6Rpj1jITwVfL1vMct
- rGLBdeR9+ONIK7UsoOmPZev9rU+K2AAeSlPGDLIJxIBpheJqVnU623/LqINb7qaeYkxo
- N3o7VDQ9wt7wH59A0xhIzz2liEAedx25SNLb3i83NpuIS6M5Vnab68iH89SFytdjPaEO
- pB9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=WlBltR0rEF03k7xkTSaqZHk68lS67ZBdaAH6vyJV058=;
- b=Q16KVfgsz4Y6ivf91xxdi+HsyYafvnRBfEA0eBdncJ/XNXUM0UQMHTvVSRnz2YkVvL
- S0zDfa2JV6d+qm5hWiQIJMOhkvuOFpm1eTn3ayaqEP6D1EBxy76ywBxn2hrycf7pFXUq
- DO73kmdpPETwAld04Vl4+tlcQSURbuI/2TuteJPKz7Ned5q4+4wVB5uYjgxbNXX7izCa
- KBNlEw+pZlowOEvGGJDQq53eSiWqez0pMYyhHFCUueJ5CQOpoTMfQClM6P4sALmHM9Tn
- j1AZ/uUeykVmbqcIXdvX/pf6gcVHRvtAMx8uPKGtK+t8SQEXR6OH3CQ28iRiFyjIP6Or
- B4vw==
-X-Gm-Message-State: AGi0PuY3n6IrYXsY373GSGi25GzZ9HjI9GJSmT0LFypfc5ooyAVwFW+y
- xJMew3O4m4cqaWvREr6YM5yRea1Dcx2aoARwNX8=
-X-Google-Smtp-Source: APiQypKgcdsaIUIbxSJbmjbCj3JjvyT+M/mQtGUqrOGBK4LLoFE78D+niHyID1BSkNhlejCaReMzQNuCv4dKQ97SnsQ=
-X-Received: by 2002:a50:d90f:: with SMTP id t15mr18115503edj.209.1587993868740; 
- Mon, 27 Apr 2020 06:24:28 -0700 (PDT)
+ (envelope-from <SRS0=5iRA=6L=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jT3pt-0002r6-Ji
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 13:30:13 +0000
+X-Inumbo-ID: 376c168c-888b-11ea-978a-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 376c168c-888b-11ea-978a-12813bfff9fa;
+ Mon, 27 Apr 2020 13:30:10 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id C4CC8ACA1;
+ Mon, 27 Apr 2020 13:30:08 +0000 (UTC)
+Subject: Re: [PATCH v2] docs/designs: re-work the xenstore migration
+ document...
+To: paul@xen.org, xen-devel@lists.xenproject.org
+References: <20200427075342.149-1-paul@xen.org>
+ <6004fb95-42e1-1ee3-5215-0d0dede73f0f@suse.com>
+ <000a01d61c80$fd1e47a0$f75ad6e0$@xen.org>
+ <ff0a5505-77aa-905b-7b77-af418a586a47@suse.com>
+ <000c01d61c86$9a9ffd20$cfdff760$@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <5008fa39-016a-6e40-50f8-fe068f57772d@suse.com>
+Date: Mon, 27 Apr 2020 15:30:08 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-References: <cover.1587695896.git.rosbrookn@ainfosec.com>
- <4dbde331aa6a0f8a78d93b86ffaa396c367fc57f.1587695896.git.rosbrookn@ainfosec.com>
-In-Reply-To: <4dbde331aa6a0f8a78d93b86ffaa396c367fc57f.1587695896.git.rosbrookn@ainfosec.com>
-From: George Dunlap <dunlapg@umich.edu>
-Date: Mon, 27 Apr 2020 14:24:17 +0100
-Message-ID: <CAFLBxZZ_HpaTxbk6eOg_xQ7OjYUR4TJB3nKCh7BZEru3ewzqXQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] tools: build golang tools if go compiler is present
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000073acbe05a445a2d7"
+In-Reply-To: <000c01d61c86$9a9ffd20$cfdff760$@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +51,242 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Cc: 'Paul Durrant' <pdurrant@amazon.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---00000000000073acbe05a445a2d7
-Content-Type: text/plain; charset="UTF-8"
+On 27.04.20 13:25, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Jürgen Groß <jgross@suse.com>
+>> Sent: 27 April 2020 12:13
+>> To: paul@xen.org; xen-devel@lists.xenproject.org
+>> Cc: 'Paul Durrant' <pdurrant@amazon.com>
+>> Subject: Re: [PATCH v2] docs/designs: re-work the xenstore migration document...
+>>
+>> On 27.04.20 12:45, Paul Durrant wrote:
+>>>> -----Original Message-----
+>>>> From: Jürgen Groß <jgross@suse.com>
+>>>> Sent: 27 April 2020 11:37
+>>>> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
+>>>> Cc: Paul Durrant <pdurrant@amazon.com>
+>>>> Subject: Re: [PATCH v2] docs/designs: re-work the xenstore migration document...
+>>>>
+>>>> On 27.04.20 09:53, Paul Durrant wrote:
+>>>>> From: Paul Durrant <pdurrant@amazon.com>
+>>>>>
+>>>>> ... to specify a separate migration stream that will also be suitable for
+>>>>> live update.
+>>>>>
+>>>>> The original scope of the document was to support non-cooperative migration
+>>>>> of guests [1] but, since then, live update of xenstored has been brought into
+>>>>> scope. Thus it makes more sense to define a separate image format for
+>>>>> serializing xenstore state that is suitable for both purposes.
+>>>>>
+>>>>> The document has been limited to specifying a new image format. The mechanism
+>>>>> for acquiring the image for live update or migration is not covered as that
+>>>>> is more appropriately dealt with by a patch to docs/misc/xenstore.txt. It is
+>>>>> also expected that, when the first implementation of live update or migration
+>>>>> making use of this specification is committed, that the document is moved from
+>>>>> docs/designs into docs/specs.
+>>>>>
+>>>>> [1] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/designs/non-cooperative-
+>> migration.md
+>>>>>
+>>>>> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+>>>>> ---
+>>>>> Juergen Gross <jgross@suse.com>
+>>>>> Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>> George Dunlap <george.dunlap@citrix.com>
+>>>>> Ian Jackson <ian.jackson@eu.citrix.com>
+>>>>> Jan Beulich <jbeulich@suse.com>
+>>>>> Julien Grall <julien@xen.org>
+>>>>> Stefano Stabellini <sstabellini@kernel.org>
+>>>>> Wei Liu <wl@xen.org>
+>>>>
+>>>> Mind adding CC: before those mail addresses in order to let git add
+>>>> those to the recipients list?
+>>>>
+>>>
+>>> D'oh... good spot.
+>>>
+>>>>>
+>>>>> v2:
+>>>>>     - Address comments from Juergen
+>>>>
+>>>> Not all unfortunately. :-(
+>>>>
+>>>
+>>> OK.
+>>>
+>>>>> +### CONNECTION_DATA
+>>>>>
+>>>>> -Each WATCH_DATA record specifies a registered watch and is formatted as
+>>>>> -follows:
+>>>>> +For live update the image format will contain a `CONNECTION_DATA` record for
+>>>>> +each connection to xenstore. For migration it will only contain a record for
+>>>>> +the domain being migrated.
+>>>>>
+>>>>>
+>>>>>     ```
+>>>>> -    0       1       2       3     octet
+>>>>> -+-------+-------+-------+-------+
+>>>>> -| WATCH_DATA                    |
+>>>>> -+-------------------------------+
+>>>>> -| wpath length                  |
+>>>>> -+-------------------------------+
+>>>>> -| wpath data                    |
+>>>>> -...
+>>>>> -| pad (0 to 3 octets)           |
+>>>>> -+-------------------------------+
+>>>>> +    0       1       2       3       4       5       6       7    octet
+>>>>> ++-------+-------+-------+-------+-------+-------+-------+-------+
+>>>>> +| conn-id                       | pad                           |
+>>>>> ++---------------+-----------------------------------------------+
+>>>>> +| conn-type     | conn-spec
+>>>>>     ...
+>>>>
+>>>> I asked whether it wouldn't be better to drop the pad and move conn-type
+>>>> and a 2-byte (unified) flag field at its position. This together ...
+>>>>
+>>>>> ++-------------------------------+-------------------------------+
+>>>>> +| data-len                      | data
+>>>>>     +-------------------------------+
+>>>>> -| token length                  |
+>>>>> -+-------------------------------+
+>>>>> -| token data                    |
+>>>>>     ...
+>>>>> -| pad (0 to 3 octets)           |
+>>>>> -+-------------------------------+
+>>>>>     ```
+>>>>>
+>>>>> -wpath length and token length are specified in octets (excluding the NUL
+>>>>> -terminator). The wpath should be as described for the `WATCH` operation in
+>>>>> -[2]. The token is an arbitrary string of octets not containing any NUL
+>>>>> -values.
+>>>>>
+>>>>> +| Field       | Description                                     |
+>>>>> +|-------------|-------------------------------------------------|
+>>>>> +| `conn-id`   | A non-zero number used to identify this         |
+>>>>> +|             | connection in subsequent connection-specific    |
+>>>>> +|             | records                                         |
+>>>>> +|             |                                                 |
+>>>>> +| `conn-type` | 0x0000: shared ring                             |
+>>>>> +|             | 0x0001: socket                                  |
+>>>>> +|             |                                                 |
+>>>>> +| `conn-spec` | See below                                       |
+>>>>> +|             |                                                 |
+>>>>> +| `data-len`  | The length (in octets) of any pending data not  |
+>>>>> +|             | yet written to the connection                   |
+>>>>> +|             |                                                 |
+>>>>> +| `data`      | Pending data (may be empty)                     |
+>>>>>
+>>>>> -**TRANSACTION_DATA**
+>>>>> +The format of `conn-spec` is dependent upon `conn-type`.
+>>>>>
+>>>>> +\pagebreak
+>>>>>
+>>>>> -Each TRANSACTION_DATA record specifies an open transaction and is formatted
+>>>>> -as follows:
+>>>>> +For `shared ring` connections it is as follows:
+>>>>>
+>>>>>
+>>>>>     ```
+>>>>> -    0       1       2       3     octet
+>>>>> -+-------+-------+-------+-------+
+>>>>> -| TRANSACTION_DATA              |
+>>>>> -+-------------------------------+
+>>>>> -| tx_id                         |
+>>>>> -+-------------------------------+
+>>>>> +    0       1       2       3       4       5       6       7    octet
+>>>>> +                +-------+-------+-------+-------+-------+-------+
+>>>>> +                | domid         | tdomid        | flags         |
+>>>>> ++---------------+---------------+---------------+---------------+
+>>>>> +| revtchn                       | levtchn                       |
+>>>>> ++-------------------------------+-------------------------------+
+>>>>> +| mfn                                                           |
+>>>>> ++---------------------------------------------------------------+
+>>>>
+>>>> ... with dropping levtchn (which isn't needed IMO) will make it much
+>>>> easier to have a union in C (which needs to be aligned to 8 bytes
+>>>> and have a length of a multiple of 8 bytes due to mfn).
+>>>>
+>>>> So something like:
+>>>>
+>>>> struct xs_state_connection {
+>>>>        uint32_t conn_id;
+>>>>        uint16_t conn_type;
+>>>> #define XS_STATE_CONN_TYPE_RING   0
+>>>> #define XS_STATE_CONN_TYPE_SOCKET 1
+>>>>        uint16_t flags;
+>>>> #define XS_STATE_CONN_INTRODUCED  0x0001
+>>>> #define XS_STATE_CONN_RELEASED    0x0002
+>>>> #define XS_STATE_CONN_READONLY    0x0004
+>>>>        union {
+>>>>            struct {
+>>>>                uint16_t domid;
+>>>>                uint16_t tdomid;
+>>>> #define XS_STATE_DOMID_INVALID  0xffffU
+>>>>                uint32_t evtchn;
+>>>>                uint64_t mfn;
+>>>> #define XS_STATE_MFN_INVALID    0xffffffffffffffffUL
+>>>>            } ring;
+>>>>            int32_t socket_fd;
+>>>>        } spec;
+>>>>        uint32_t data_out_len;
+>>>>        uint8_t  data[];
+>>>> };
+>>>
+>>> The issue is making sure that the mfn is properly aligned. If I can drop the levtchn then this gets
+>> easier.
+>>>
+>>>>
+>>>>>     ```
+>>>>>
+>>>>> -where tx_id is the non-zero identifier values of an open transaction.
+>>>>> -
+>>>>>
+>>>>> -### Protocol Extension
+>>>>> +| Field      | Description                                      |
+>>>>> +|------------|--------------------------------------------------|
+>>>>> +| `domid`    | The domain-id that owns the shared page          |
+>>>>> +|            |                                                  |
+>>>>> +| `tdomid`   | The domain-id that `domid` acts on behalf of if  |
+>>>>> +|            | it has been subject to an SET_TARGET             |
+>>>>> +|            | operation [2] or DOMID_INVALID otherwise         |
+>>>>
+>>>> DOMID_INVALID needs to be defined (or we need a reference where it is
+>>>> coming from).
+>>>
+>>> OK. It's in a public header... I'll reference it.
+>>>
+>>>>
+>>>>> +|            |                                                  |
+>>>>> +| `flags`    | A bit-wise OR of:                                |
+>>>>> +|            | 0x0001: INTRODUCE has been issued                |
+>>
+>> Just realized, I think we can drop those flags.
+>>
+>> Reasoning: if INTRODUCE hasn't been issued, there can't be an active
+>> connection to Xenstore for that domain, as Xenstore doesn't know about
+>> the parameters to connect (especially the event channel is missing).
+>>
+>>>>> +|            | 0x0002: RELEASE has been issued                  |
+>>
+>> And the same applies here: RELEASE will drop the connection to the
+>> domain, so it can't appear in a connection record.
+>>
+> 
+> I think the presence of the RESUME command in xenstore.txt makes it non-obvious that we can forget about a domain once RELEASE has been called. The text there does say:
+> 
+> "It is not clear whether this is possible since one would
+> normally expect a domain not to be restarted after being shut
+> down without being destroyed in the meantime.  There are
+> currently no users of this request in xen-unstable."
+> 
+> So, perhaps this would be the time to remove RESUME from the spec?
 
-On Fri, Apr 24, 2020 at 4:11 AM Nick Rosbrook <rosbrookn@gmail.com> wrote:
++1
 
-> By default, if the go compiler is found by the configure script, build
-> the golang tools. If the compiler is not found, and --enable-golang was
-> not explicitly set, do not build to the golang tools.
->
-> The corresponding make variable is CONFIG_GOLANG. Remove CONFIG_GOLANG
-> from tools/Rules.mk since the variable is now set by configure in
-> config/Tools.mk.
->
-> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-> Acked-by: Wei Liu <wl@xen.org>
->
 
-LGTM:
-
-Acked-by: George Dunlap <george.dunlap@citrix.com>
-
---00000000000073acbe05a445a2d7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Apr 24, 2020 at 4:11 AM Nick =
-Rosbrook &lt;<a href=3D"mailto:rosbrookn@gmail.com">rosbrookn@gmail.com</a>=
-&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
-0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">By d=
-efault, if the go compiler is found by the configure script, build<br>
-the golang tools. If the compiler is not found, and --enable-golang was<br>
-not explicitly set, do not build to the golang tools.<br>
-<br>
-The corresponding make variable is CONFIG_GOLANG. Remove CONFIG_GOLANG<br>
-from tools/Rules.mk since the variable is now set by configure in<br>
-config/Tools.mk.<br>
-<br>
-Signed-off-by: Nick Rosbrook &lt;<a href=3D"mailto:rosbrookn@ainfosec.com" =
-target=3D"_blank">rosbrookn@ainfosec.com</a>&gt;<br>
-Acked-by: Wei Liu &lt;<a href=3D"mailto:wl@xen.org" target=3D"_blank">wl@xe=
-n.org</a>&gt;<br></blockquote><div><br></div><div>LGTM:</div><div><br></div=
-><div>Acked-by: George Dunlap &lt;<a href=3D"mailto:george.dunlap@citrix.co=
-m">george.dunlap@citrix.com</a>&gt;</div><br></div></div>
-
---00000000000073acbe05a445a2d7--
+Juergen
 
