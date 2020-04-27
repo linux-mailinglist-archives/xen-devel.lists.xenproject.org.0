@@ -2,84 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEE7B1BA0A6
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 11:59:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C7F71BA0DB
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 12:13:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jT0Xw-0006Vh-2k; Mon, 27 Apr 2020 09:59:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jrem=6L=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jT0Xu-0006Vc-Sf
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 09:59:26 +0000
-X-Inumbo-ID: c492fad0-886d-11ea-9750-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c492fad0-886d-11ea-9750-12813bfff9fa;
- Mon, 27 Apr 2020 09:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587981562;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=48S0TXs23gXxDUUpiYjHmCrV+8owKESkeo9sF5f/npw=;
- b=OJFazssvCnUwwe3X6KS0EFZoAqNS+aAdco9+nQbikLVuBHUhQ6KNqtcZ
- ylTQ7i/E9AzIdOHMPW7XKRwC3Tz3lascPupfOefv4zqYpxlnZoHMa/ag/
- UQ3Q5U0BeAWREZ/wpwhYCbxf/UP2PziiPn6YI30HoJgmuDHAyeGQw1Gy0 I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: XAk5OT5Q7kEAVDG/t14KFml7B60zZImLnw5T3t6TycVbKoeVa2QuV9bPjEUdFgVUxuPiLJw0gp
- vkwvd6YtX2ecbC+xjfLVDlS1zn8f/qWpfY91SJh5h1QCJJKnkb63QuqT9VlOwACK5OL2/fYbSw
- r5V0HLLqFvrXZ88RW2AONrskWtk2lWJDS9B1pSk9U15DtPfw7W37T3Y35V8ZuAbL4l3P4nldw+
- XWAiifdiCPxBfdP608xjLShy7hjvuNNXypb8MUho9GwoL4wVcq4uVwBbbLDW9dEGUHPGHQRYUB
- fsg=
-X-SBRS: 2.7
-X-MesageID: 16304291
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,323,1583211600"; d="scan'208";a="16304291"
-Date: Mon, 27 Apr 2020 11:59:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+	id 1jT0kq-0008ET-9A; Mon, 27 Apr 2020 10:12:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Fhyl=6L=xen.org=wl@srs-us1.protection.inumbo.net>)
+ id 1jT0ko-0008EO-Nm
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 10:12:46 +0000
+X-Inumbo-ID: a3ee47ba-886f-11ea-9887-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a3ee47ba-886f-11ea-9887-bc764e2007e4;
+ Mon, 27 Apr 2020 10:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ikXeH5pqkWd9nkgispYOKOu5xKy4tP8PB0LrN6CIN/M=; b=paeT7ovTS2gkLQosjxIwZmw7VE
+ JXp/LlvIh+bmeiBBOPVq55p6FeptftX/QUbvZFyJG0RzJv3wQ+gxCYT6e0uU2JDPhIEbSjwt0slVv
+ ryEVq0ZZxIApTU3+g0ATWn1VMITytz+dObtA3MhL76XkmA7X1f/pUxOlUAWN3rUDgbxY=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <wl@xen.org>)
+ id 1jT0ki-0003iC-9I; Mon, 27 Apr 2020 10:12:40 +0000
+Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <wl@xen.org>)
+ id 1jT0kh-0005Ee-Vi; Mon, 27 Apr 2020 10:12:40 +0000
+Date: Mon, 27 Apr 2020 11:12:35 +0100
+From: Wei Liu <wl@xen.org>
 To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] x86: refine guest_mode()
-Message-ID: <20200427095913.GN28601@Air-de-Roger>
-References: <7b62d06c-1369-2857-81c0-45e2434357f4@suse.com>
+Subject: Re: [PATCH v11 1/3] x86/tlb: introduce a flush HVM ASIDs flag
+Message-ID: <20200427101235.6xko3lvt3qajo64m@debian>
+References: <20200423145611.55378-1-roger.pau@citrix.com>
+ <20200423145611.55378-2-roger.pau@citrix.com>
+ <59e48d80-8ce1-3f3d-c07e-5117adea272a@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <7b62d06c-1369-2857-81c0-45e2434357f4@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <59e48d80-8ce1-3f3d-c07e-5117adea272a@suse.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,44 +60,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ xen-devel@lists.xenproject.org, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Apr 27, 2020 at 10:03:05AM +0200, Jan Beulich wrote:
-> The 2nd of the assertions as well as the macro's return value have been
-> assuming we're on the primary stack. While for most IST exceptions we
-> eventually switch back to the main one, for #DF we intentionally never
-> do, and hence a #DF actually triggering on a user mode insn (which then
-> is still a Xen bug) would in turn trigger this assertion, rather than
-> cleanly logging state.
+On Thu, Apr 23, 2020 at 06:33:49PM +0200, Jan Beulich wrote:
+> On 23.04.2020 16:56, Roger Pau Monne wrote:
+> > Introduce a specific flag to request a HVM guest linear TLB flush,
+> > which is an ASID/VPID tickle that forces a guest linear to guest
+> > physical TLB flush for all HVM guests.
+> > 
+> > This was previously unconditionally done in each pre_flush call, but
+> > that's not required: HVM guests not using shadow don't require linear
+> > TLB flushes as Xen doesn't modify the pages tables the guest runs on
+> > in that case (ie: when using HAP). Note that shadow paging code
+> > already takes care of issuing the necessary flushes when the shadow
+> > page tables are modified.
+> > 
+> > In order to keep the previous behavior modify all shadow code TLB
+> > flushes to also flush the guest linear to physical TLB if the guest is
+> > HVM. I haven't looked at each specific shadow code TLB flush in order
+> > to figure out whether it actually requires a guest TLB flush or not,
+> > so there might be room for improvement in that regard.
+> > 
+> > Also perform ASID/VPID flushes when modifying the p2m tables as it's a
+> > requirement for AMD hardware. Finally keep the flush in
+> > switch_cr3_cr4, as it's not clear whether code could rely on
+> > switch_cr3_cr4 also performing a guest linear TLB flush. A following
+> > patch can remove the ASID/VPID tickle from switch_cr3_cr4 if found to
+> > not be necessary.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> While we could go further and also assert we're on the correct IST
-> stack in an "else" ti the "if()" added, I'm not fully convinced this
-> would be generally helpful. I'll be happy to adjust accordingly if
-> others think differently; at such a point though I think this should
-> then no longer be a macro.
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > 
-> --- a/xen/include/asm-x86/regs.h
-> +++ b/xen/include/asm-x86/regs.h
-> @@ -10,9 +10,10 @@
->      /* Frame pointer must point into current CPU stack. */                    \
->      ASSERT(diff < STACK_SIZE);                                                \
->      /* If not a guest frame, it must be a hypervisor frame. */                \
-> -    ASSERT((diff == 0) || (r->cs == __HYPERVISOR_CS));                        \
-> +    if ( diff < PRIMARY_STACK_SIZE )                                          \
-> +        ASSERT(!diff || ((r)->cs == __HYPERVISOR_CS));                        \
 
-Why not use:
+Tim, ICYMI, this patch needs your ack.
 
-ASSERT(diff >= PRIMARY_STACK_SIZE || !diff || ((r)->cs == __HYPERVISOR_CS));
-
-I'm not sure I fully understand this layout, is it possible that you
-also need to account for the size of cpu_info?
-
-Roger.
+Wei.
 
