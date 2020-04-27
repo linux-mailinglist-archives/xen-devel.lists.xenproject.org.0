@@ -2,48 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D371BB1F5
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 01:22:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C40AF1BB235
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 01:55:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTD4C-0001IY-C6; Mon, 27 Apr 2020 23:21:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jTDZw-0004KT-H6; Mon, 27 Apr 2020 23:54:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HlLs=6L=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jTD4B-0001IN-Ph
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 23:21:35 +0000
-X-Inumbo-ID: d6388a0a-88dd-11ea-ae69-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d6388a0a-88dd-11ea-ae69-bc764e2007e4;
- Mon, 27 Apr 2020 23:21:35 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BA3072075E;
- Mon, 27 Apr 2020 23:21:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588029694;
- bh=nx/nmVldIYIOy9rsYk4VVkSu6iXjMMKfmu5BQ+ZhcWw=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=QmRbRaSsPI74rTpOqE00WGqPkL5WZDa9yawhH0qThzIvAMBSDrsFB5A3MqmaKy7RH
- yti1KTxfKEnR0hnKK0ZnVtHeTZ+oVz0VmmouYM8URZfshs2UB0BbiwkNxd/o4odZWI
- EPhnof4TE+5fHtGALqfV6JTfNY944+Nlfu7aEtc0=
-Date: Mon, 27 Apr 2020 16:21:34 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall.oss@gmail.com>
-Subject: Re: arm: DomU Networking enable leads to Dom0 kernel oops
-In-Reply-To: <CAJ=z9a0s-KGyP--kFzBdohzf509toZBq6qHrnt8JQEaLAaQ7=Q@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2004271620190.29217@sstabellini-ThinkPad-T480s>
-References: <VI1PR04MB505620B32C8289C6106D0B2AF9D00@VI1PR04MB5056.eurprd04.prod.outlook.com>
- <alpine.DEB.2.21.2004241443570.7982@sstabellini-ThinkPad-T480s>
- <CAJ=z9a284froER_-dNQKWwzXkPJ5S0yodY1vyqukqDywxWtCXg@mail.gmail.com>
- <CAJ=z9a0s-KGyP--kFzBdohzf509toZBq6qHrnt8JQEaLAaQ7=Q@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=6V0E=6L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jTDZu-0004KM-F3
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 23:54:22 +0000
+X-Inumbo-ID: 6a3d58ee-88e2-11ea-97eb-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6a3d58ee-88e2-11ea-97eb-12813bfff9fa;
+ Mon, 27 Apr 2020 23:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hdlechMe9svi048ZbpC99RGV/b4cddgc3zkRwlV48iw=; b=IuAd19OhIRTXWcBmY5TW9JPB+
+ Ov93VCmVz+O2gCSFBDN3S/TBSZh017K1VSvE1DmIxr9l6ilEYIrMQap86Oguhjk7626X9ftqC0ygJ
+ dujMQa9ZBkCA8ybAvD6VmvTeeuXqFXdK2pyTnKDlyJjbTHSI8BBvz8ohzt+pvurDNNcGU=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jTDZt-0004Y2-9V; Mon, 27 Apr 2020 23:54:21 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jTDZt-00074j-0S; Mon, 27 Apr 2020 23:54:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jTDZs-0005gR-W7; Mon, 27 Apr 2020 23:54:20 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149839-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 149839: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=dd0882f912005b56653013025ebd160862e360ad
+X-Osstest-Versions-That: xen=df669de074c395a3b2eeb975fddd3da4c148da13
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 27 Apr 2020 23:54:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,38 +66,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrei Cherechesu <andrei.cherechesu@nxp.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, 25 Apr 2020, Julien Grall wrote:
-> On Sat, 25 Apr 2020 at 10:49, Julien Grall <julien.grall.oss@gmail.com> wrote:
-> >
-> > On Sat, 25 Apr 2020 at 03:01, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > > [   86.900974] ------------[ cut here ]------------
-> > > [   86.905134] Interrupt for port 6, but apparently not enabled; per-user (____ptrval____)
-> > > [   86.913228] WARNING: CPU: 0 PID: 2437 at drivers/xen/evtchn.c:167 evtchn_interrupt+0xfc/0x108
-> >
-> > The implementation of the evtchn_interrupt() is relying to be called
-> > in the top-half. On RT, interrupts handlers are forced to be threaded
-> > and use the IRQF_ONESHOT semantics if they were not threaded before.
-> >
-> > However, IRQF_ONESHOT is completely broken for event channels (this is
-> > not RT's fault) and hence why you see the warning here.
-> >
-> > Note that you can't force to run evtchn_interrupt() in the top-half
-> > because it relies on functions that may sleep.
-> >
-> > See https://lkml.org/lkml/2019/2/19/642.
-> 
-> Here at better link with the full conversation:
-> 
-> https://lore.kernel.org/lkml/5e256d9a-572c-e01e-7706-407f99245b00@arm.com/
+flight 149839 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149839/
 
-Many thanks for pointing it out to me. I think I know what the problem
-is. I replied to that thread with a patch that fixes my LinuxRT issue on ARM:
+Failures :-/ but no regressions.
 
-https://marc.info/?l=xen-devel&m=158802965821440&w=2
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  dd0882f912005b56653013025ebd160862e360ad
+baseline version:
+ xen                  df669de074c395a3b2eeb975fddd3da4c148da13
+
+Last test of basis   149837  2020-04-27 14:00:43 Z    0 days
+Testing same since   149839  2020-04-27 21:01:50 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   df669de074..dd0882f912  dd0882f912005b56653013025ebd160862e360ad -> smoke
 
