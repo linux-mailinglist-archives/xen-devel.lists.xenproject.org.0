@@ -2,84 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7991B981B
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 09:04:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 229591B988F
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 09:27:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jSxnf-0007a2-Tf; Mon, 27 Apr 2020 07:03:31 +0000
+	id 1jSy9v-0000tp-R4; Mon, 27 Apr 2020 07:26:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jrem=6L=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jSxnd-0007Zx-Tz
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 07:03:29 +0000
-X-Inumbo-ID: 324b6cb0-8855-11ea-ae69-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=wbbE=6L=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jSy9u-0000tk-MN
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 07:26:30 +0000
+X-Inumbo-ID: 694a37d4-8858-11ea-ae69-bc764e2007e4
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 324b6cb0-8855-11ea-ae69-bc764e2007e4;
- Mon, 27 Apr 2020 07:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587971008;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=BN3wGjAuN8c6DF9G6lxWdWTjyeenKN9BrohQiVa706k=;
- b=gnNrF8BOYMSKJfITc9OwDPqscKju3TrJ9DsPIsyKS0xdaPnVUU4Lt7em
- LqeBiO6pQmhpwCTpnH/GsDZT39vBgvNAlphYG1UynL2k2Bz/pphNpiqSx
- UfpGxnn1lkqLPFOZAS5JXTJkG3qIQ/ghH6zwSj1runOAC09au79zqMLVP I=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: KKixjztdLUHt7/4mGwYZ2EU00Qdufx4HQ47+20+ml1fDoCHHlUPCXXEq0jMErO1/nz3itTOtCU
- AIxgpdxXav6fezM2D/eVXBhdTKhNDrNi1EuCZCoMSxd3mxcPLFlXeJsss60LZ9TMk78cqMPpYI
- doJKdTj9mawzSCfytBrCNvR0mjt6f6l/aGbgUu/sbJsL4MePH9MP8jTmHzJyHVpfB8XV1sRDkT
- m64F8/ga+gT3OmHkk6OeR2HVlr0ku5zUmYUZE6T9XeuCC7eay/OfqOXCw8WWF2a84AYhLfhqql
- uOc=
-X-SBRS: 2.7
-X-MesageID: 16969369
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,323,1583211600"; d="scan'208";a="16969369"
-Date: Mon, 27 Apr 2020 09:03:17 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: tosher 1 <akm2tosher@yahoo.com>
-Subject: Re: Xen network domain performance for 10Gb NIC
-Message-ID: <20200427070317.GL28601@Air-de-Roger>
-References: <1359850718.562651.1587928713792.ref@mail.yahoo.com>
- <1359850718.562651.1587928713792@mail.yahoo.com>
+ id 694a37d4-8858-11ea-ae69-bc764e2007e4;
+ Mon, 27 Apr 2020 07:26:29 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id d15so17602887wrx.3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2020 00:26:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=2sFt+Wl5nQfbKLhBnpXj+yuRCjH0wwQbgpo5vn/ll8E=;
+ b=hY7F9sxspBbbidu6h43ncIlRd48Kx+6NDy194cOob4Y89WwbxUyVsHK8K0fGH1MFos
+ wAl294tUW9Q2rsW6wYYdNsEy3qLbpjPQKERMCHmK9rZqagVhW1blmpBP2R5Y0C0V0EqW
+ LDAlNkWPJs3DlxU8vQSIvSxoqKGUL8M0xLQeDoIW2LhKeJt+b4g873RDJBVKvHP2wXfd
+ SnolXGT6rFFel1uTGVOZQsNEXxkx9xiylj1K2Zlk5HwArGGNKUjGGbHu+drW/su/9b6A
+ hl4uUj2FHGpgJKJ7qEydqJrTEOGTyCUyhm//UpCgzpDiqCziX0rIdVxrFh0K+4pUnPXI
+ 6BIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=2sFt+Wl5nQfbKLhBnpXj+yuRCjH0wwQbgpo5vn/ll8E=;
+ b=e62znsbTseP0PsFQhNi8tREqWz1N1F4tjlnJ9dMxhGwdn6obIaaY6BBAChlhWz00Uk
+ 7JB3DuMG2/mfpgIfGb6D/00k/R8uNg75oXJ+he9ZsXk1w3pSWlGnphDftqvn+CTrnXvc
+ DXlqzE8y4kXCEP6AnnvL38ZK7+H7I/lF965gTyqSoEzh/tdi0LOwVd5zL7iDP4uZqjHz
+ w/hKXwortDlnDW8PJmktQ8TtW0Pfa/PN9uBt306feD8DTK2f7i4tA/6g5ZOHzkv14xEk
+ N8f8tcWjafnO7zc2k3vzek5eD79lgN54WVb6ajxCeiuqBizpiOCllVlEPViqy+Xthuqr
+ NBTA==
+X-Gm-Message-State: AGi0PubCfkie9Jj/zYppPOIRpaH/4RJlQb0RcqzfyM7hhFdc0sZqJR0R
+ trZqs978euT+mdiwvkPxWik=
+X-Google-Smtp-Source: APiQypK2bKec+4ymIXmjGvWiw4APZjCRf7StyGXywZhrVDw9ZyQWJ8wBUrrtAwZCfZuryHtH8dsfvQ==
+X-Received: by 2002:a5d:6ccb:: with SMTP id c11mr26822982wrc.416.1587972388993; 
+ Mon, 27 Apr 2020 00:26:28 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id a125sm14253155wme.3.2020.04.27.00.26.27
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 27 Apr 2020 00:26:28 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Markus Armbruster'" <armbru@redhat.com>,
+	<qemu-devel@nongnu.org>
+References: <20200424192027.11404-1-armbru@redhat.com>
+ <20200424192027.11404-3-armbru@redhat.com>
+In-Reply-To: <20200424192027.11404-3-armbru@redhat.com>
+Subject: RE: [PATCH 02/11] xen: Fix and improve handling of device_add
+ usb-host errors
+Date: Mon, 27 Apr 2020 08:26:26 +0100
+Message-ID: <000501d61c65$2a65af30$7f310d90$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <1359850718.562651.1587928713792@mail.yahoo.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain;
+	charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQMXmDKzuqWE9I5CndWgcA3L3a4P9AL+km1ypfGklyA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,31 +79,88 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
+Reply-To: paul@xen.org
+Cc: 'Anthony Perard' <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org, 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Gerd Hoffmann' <kraxel@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sun, Apr 26, 2020 at 07:18:33PM +0000, tosher 1 wrote:
->  Hi everyone,
+> -----Original Message-----
+> From: Markus Armbruster <armbru@redhat.com>
+> Sent: 24 April 2020 20:20
+> To: qemu-devel@nongnu.org
+> Cc: Stefano Stabellini <sstabellini@kernel.org>; Anthony Perard <anthony.perard@citrix.com>; Paul
+> Durrant <paul@xen.org>; Gerd Hoffmann <kraxel@redhat.com>; xen-devel@lists.xenproject.org
+> Subject: [PATCH 02/11] xen: Fix and improve handling of device_add usb-host errors
 > 
-> Lately, I have been experimenting with 10Gb NIC performance on Xen domains. I have found that network performance is very poor for PV networking when a driver domain is used as a network backend.
+> usbback_portid_add() leaks the error when qdev_device_add() fails.
+> Fix that.  While there, use the error to improve the error message.
 > 
-> My experimental setup is I have two machines connected by the 10Gb network: a server running the Xen hypervisor and a desktop machine working as a client. I have Ubuntu 18.04.3 LTS running on the Dom0, Domus, Driver Domain, and client desktop, where the Xen version is 4.9. I measured the network bandwidth using iPerf3.
+> The qemu_opts_from_qdict() similarly leaks on failure.  But any
+> failure there is a programming error.  Pass &error_abort.
 > 
-> The network bandwidth between a DomU using Dom0 as backend and the client desktop is like 9.39Gbits/sec. However, when I use a network driver domain, which has the 10Gb NIC by PCI pass through, the bandwidth between the DomU and the client desktop is like 2.41Gbit/sec is one direction and 4.48Gbits/sec in another direction. Here, by direction, I mean the client-server direction for iPerf3.
+> Fixes: 816ac92ef769f9ffc534e49a1bb6177bddce7aa2
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Anthony Perard <anthony.perard@citrix.com>
+> Cc: Paul Durrant <paul@xen.org>
+> Cc: Gerd Hoffmann <kraxel@redhat.com>
+> Cc: xen-devel@lists.xenproject.org
+> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+> ---
+>  hw/usb/xen-usb.c | 18 ++++++++----------
+>  1 file changed, 8 insertions(+), 10 deletions(-)
 > 
-> These results indicate a huge performance degradation, which is unexpected. I am wondering if I am missing any key points here which I should have taken care of or if there is any tweak that I can apply.
+> diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
+> index 961190d0f7..42643c3390 100644
+> --- a/hw/usb/xen-usb.c
+> +++ b/hw/usb/xen-usb.c
+> @@ -30,6 +30,7 @@
+>  #include "hw/usb.h"
+>  #include "hw/xen/xen-legacy-backend.h"
+>  #include "monitor/qdev.h"
+> +#include "qapi/error.h"
+>  #include "qapi/qmp/qdict.h"
+>  #include "qapi/qmp/qstring.h"
+> 
+> @@ -755,13 +756,15 @@ static void usbback_portid_add(struct usbback_info *usbif, unsigned port,
+>      qdict_put_int(qdict, "port", port);
+>      qdict_put_int(qdict, "hostbus", atoi(busid));
+>      qdict_put_str(qdict, "hostport", portname);
+> -    opts = qemu_opts_from_qdict(qemu_find_opts("device"), qdict, &local_err);
+> -    if (local_err) {
+> -        goto err;
+> -    }
+> +    opts = qemu_opts_from_qdict(qemu_find_opts("device"), qdict,
+> +                                &error_abort);
+>      usbif->ports[port - 1].dev = USB_DEVICE(qdev_device_add(opts, &local_err));
+>      if (!usbif->ports[port - 1].dev) {
+> -        goto err;
+> +        qobject_unref(qdict);
+> +        xen_pv_printf(&usbif->xendev, 0,
+> +                      "device %s could not be opened: %s\n",
+> +                      busid, error_get_pretty(local_err));
+> +        error_free(local_err);
 
-Driver domains with passthrough devices need to perform IOMMU
-operations in order to add/remove page table entries when doing grant
-maps (ie: IOMMU TLB flushes), while dom0 doesn't need to because it
-has the whole RAM identity mapped in the IOMMU tables. Depending on
-how fast your IOMMU is and what capabilities it has doing such
-operations can introduce a significant amount of overhead.
+Previously the goto caused the function to bail out. Should there not be a 'return' here?
 
-I would give a try to a newer version of Xen also, there have been
-some changes in IOMMU management, but I would guess your bottleneck
-doesn't come from the code itself, but rather from the IOMMU.
+>      }
+>      qobject_unref(qdict);
+>      speed = usbif->ports[port - 1].dev->speed;
+> @@ -793,11 +796,6 @@ static void usbback_portid_add(struct usbback_info *usbif, unsigned port,
+>      usbback_hotplug_enq(usbif, port);
+> 
+>      TR_BUS(&usbif->xendev, "port %d attached\n", port);
+> -    return;
+> -
+> -err:
+> -    qobject_unref(qdict);
+> -    xen_pv_printf(&usbif->xendev, 0, "device %s could not be opened\n", busid);
+>  }
+> 
+>  static void usbback_process_port(struct usbback_info *usbif, unsigned port)
+> --
+> 2.21.1
 
-Roger.
+
 
