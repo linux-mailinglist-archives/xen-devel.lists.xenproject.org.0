@@ -2,87 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E63D01BA15E
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 12:33:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5AFD1BA174
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 12:36:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jT14R-0001h7-Ad; Mon, 27 Apr 2020 10:33:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jrem=6L=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jT14P-0001h2-F3
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 10:33:01 +0000
-X-Inumbo-ID: 776ffe1a-8872-11ea-ae69-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 776ffe1a-8872-11ea-ae69-bc764e2007e4;
- Mon, 27 Apr 2020 10:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587983580;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=vYnkF0mZ7/2AyhwHdflxwXuELDdcHc50UWwOclnYv28=;
- b=RCcOWayZ4pF3J+7/mLUP09kBN74xg+i664B+tb9z6hQ11zTyGnoqmwLa
- Ahq1LHxDs0RlROYohaWNSH0iL0c5gqD/gc0JqKNJSBoBRnJKOJmkLU34a
- 9+sQrAEznwIIRg/KzX+lZ9UT2zz8Nf2S6NgtL4FZnr2MtX3XE/Hjh5jYq k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: gqCE6zVTPsc3jCY3aTD9CgysNlsbxYQWFAg5MYacmEFT3nuTtM0eOowMZP9Et1ondLIWFWSYta
- 9hmbkcrAs28IBxUDY1ITUr/r1Vgr2MZv7bdgi1hVJg3hS3iVlgwxiQi5An9vyTku8gRWNPdkAh
- T/cHPb2nN17XEFaHaL/USfApmeCNS44aN3wQkQ/GdR1KoL2SzzHOrjWGnFUh9/tXvl+UPgCQm7
- qqyvicH+4TRNH4B2ycAKBTcGFCN6bdDjoAnZ3TKC3GCP1jA+BI6QZCMiC7Em3UxCdQQSD+IHr/
- ec4=
-X-SBRS: 2.7
-X-MesageID: 16977722
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,323,1583211600"; d="scan'208";a="16977722"
-Date: Mon, 27 Apr 2020 12:32:52 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH v11 1/3] x86/tlb: introduce a flush HVM ASIDs flag
-Message-ID: <20200427103252.GO28601@Air-de-Roger>
-References: <20200423145611.55378-1-roger.pau@citrix.com>
- <20200423145611.55378-2-roger.pau@citrix.com>
- <59e48d80-8ce1-3f3d-c07e-5117adea272a@suse.com>
- <20200427101235.6xko3lvt3qajo64m@debian>
+	id 1jT17u-0001pC-QX; Mon, 27 Apr 2020 10:36:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5iRA=6L=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jT17t-0001p7-BL
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 10:36:37 +0000
+X-Inumbo-ID: f7901602-8872-11ea-9756-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f7901602-8872-11ea-9756-12813bfff9fa;
+ Mon, 27 Apr 2020 10:36:35 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id ABE8EAC5B;
+ Mon, 27 Apr 2020 10:36:33 +0000 (UTC)
+Subject: Re: [PATCH v2] docs/designs: re-work the xenstore migration
+ document...
+To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20200427075342.149-1-paul@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <6004fb95-42e1-1ee3-5215-0d0dede73f0f@suse.com>
+Date: Mon, 27 Apr 2020 12:36:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200427101235.6xko3lvt3qajo64m@debian>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <20200427075342.149-1-paul@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,47 +47,286 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Paul Durrant <pdurrant@amazon.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Apr 27, 2020 at 11:12:35AM +0100, Wei Liu wrote:
-> On Thu, Apr 23, 2020 at 06:33:49PM +0200, Jan Beulich wrote:
-> > On 23.04.2020 16:56, Roger Pau Monne wrote:
-> > > Introduce a specific flag to request a HVM guest linear TLB flush,
-> > > which is an ASID/VPID tickle that forces a guest linear to guest
-> > > physical TLB flush for all HVM guests.
-> > > 
-> > > This was previously unconditionally done in each pre_flush call, but
-> > > that's not required: HVM guests not using shadow don't require linear
-> > > TLB flushes as Xen doesn't modify the pages tables the guest runs on
-> > > in that case (ie: when using HAP). Note that shadow paging code
-> > > already takes care of issuing the necessary flushes when the shadow
-> > > page tables are modified.
-> > > 
-> > > In order to keep the previous behavior modify all shadow code TLB
-> > > flushes to also flush the guest linear to physical TLB if the guest is
-> > > HVM. I haven't looked at each specific shadow code TLB flush in order
-> > > to figure out whether it actually requires a guest TLB flush or not,
-> > > so there might be room for improvement in that regard.
-> > > 
-> > > Also perform ASID/VPID flushes when modifying the p2m tables as it's a
-> > > requirement for AMD hardware. Finally keep the flush in
-> > > switch_cr3_cr4, as it's not clear whether code could rely on
-> > > switch_cr3_cr4 also performing a guest linear TLB flush. A following
-> > > patch can remove the ASID/VPID tickle from switch_cr3_cr4 if found to
-> > > not be necessary.
-> > > 
-> > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > 
-> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> > 
+On 27.04.20 09:53, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
 > 
-> Tim, ICYMI, this patch needs your ack.
+> ... to specify a separate migration stream that will also be suitable for
+> live update.
+> 
+> The original scope of the document was to support non-cooperative migration
+> of guests [1] but, since then, live update of xenstored has been brought into
+> scope. Thus it makes more sense to define a separate image format for
+> serializing xenstore state that is suitable for both purposes.
+> 
+> The document has been limited to specifying a new image format. The mechanism
+> for acquiring the image for live update or migration is not covered as that
+> is more appropriately dealt with by a patch to docs/misc/xenstore.txt. It is
+> also expected that, when the first implementation of live update or migration
+> making use of this specification is committed, that the document is moved from
+> docs/designs into docs/specs.
+> 
+> [1] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/designs/non-cooperative-migration.md
+> 
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> ---
+> Juergen Gross <jgross@suse.com>
+> Andrew Cooper <andrew.cooper3@citrix.com>
+> George Dunlap <george.dunlap@citrix.com>
+> Ian Jackson <ian.jackson@eu.citrix.com>
+> Jan Beulich <jbeulich@suse.com>
+> Julien Grall <julien@xen.org>
+> Stefano Stabellini <sstabellini@kernel.org>
+> Wei Liu <wl@xen.org>
 
-Let me put Tim on the To: field, more likely to raise attention.
+Mind adding CC: before those mail addresses in order to let git add
+those to the recipients list?
 
-Roger.
+> 
+> v2:
+>   - Address comments from Juergen
+
+Not all unfortunately. :-(
+
+> +### CONNECTION_DATA
+>   
+> -Each WATCH_DATA record specifies a registered watch and is formatted as
+> -follows:
+> +For live update the image format will contain a `CONNECTION_DATA` record for
+> +each connection to xenstore. For migration it will only contain a record for
+> +the domain being migrated.
+>   
+>   
+>   ```
+> -    0       1       2       3     octet
+> -+-------+-------+-------+-------+
+> -| WATCH_DATA                    |
+> -+-------------------------------+
+> -| wpath length                  |
+> -+-------------------------------+
+> -| wpath data                    |
+> -...
+> -| pad (0 to 3 octets)           |
+> -+-------------------------------+
+> +    0       1       2       3       4       5       6       7    octet
+> ++-------+-------+-------+-------+-------+-------+-------+-------+
+> +| conn-id                       | pad                           |
+> ++---------------+-----------------------------------------------+
+> +| conn-type     | conn-spec
+>   ...
+
+I asked whether it wouldn't be better to drop the pad and move conn-type
+and a 2-byte (unified) flag field at its position. This together ...
+
+> ++-------------------------------+-------------------------------+
+> +| data-len                      | data
+>   +-------------------------------+
+> -| token length                  |
+> -+-------------------------------+
+> -| token data                    |
+>   ...
+> -| pad (0 to 3 octets)           |
+> -+-------------------------------+
+>   ```
+>   
+> -wpath length and token length are specified in octets (excluding the NUL
+> -terminator). The wpath should be as described for the `WATCH` operation in
+> -[2]. The token is an arbitrary string of octets not containing any NUL
+> -values.
+>   
+> +| Field       | Description                                     |
+> +|-------------|-------------------------------------------------|
+> +| `conn-id`   | A non-zero number used to identify this         |
+> +|             | connection in subsequent connection-specific    |
+> +|             | records                                         |
+> +|             |                                                 |
+> +| `conn-type` | 0x0000: shared ring                             |
+> +|             | 0x0001: socket                                  |
+> +|             |                                                 |
+> +| `conn-spec` | See below                                       |
+> +|             |                                                 |
+> +| `data-len`  | The length (in octets) of any pending data not  |
+> +|             | yet written to the connection                   |
+> +|             |                                                 |
+> +| `data`      | Pending data (may be empty)                     |
+>   
+> -**TRANSACTION_DATA**
+> +The format of `conn-spec` is dependent upon `conn-type`.
+>   
+> +\pagebreak
+>   
+> -Each TRANSACTION_DATA record specifies an open transaction and is formatted
+> -as follows:
+> +For `shared ring` connections it is as follows:
+>   
+>   
+>   ```
+> -    0       1       2       3     octet
+> -+-------+-------+-------+-------+
+> -| TRANSACTION_DATA              |
+> -+-------------------------------+
+> -| tx_id                         |
+> -+-------------------------------+
+> +    0       1       2       3       4       5       6       7    octet
+> +                +-------+-------+-------+-------+-------+-------+
+> +                | domid         | tdomid        | flags         |
+> ++---------------+---------------+---------------+---------------+
+> +| revtchn                       | levtchn                       |
+> ++-------------------------------+-------------------------------+
+> +| mfn                                                           |
+> ++---------------------------------------------------------------+
+
+... with dropping levtchn (which isn't needed IMO) will make it much
+easier to have a union in C (which needs to be aligned to 8 bytes
+and have a length of a multiple of 8 bytes due to mfn).
+
+So something like:
+
+struct xs_state_connection {
+     uint32_t conn_id;
+     uint16_t conn_type;
+#define XS_STATE_CONN_TYPE_RING   0
+#define XS_STATE_CONN_TYPE_SOCKET 1
+     uint16_t flags;
+#define XS_STATE_CONN_INTRODUCED  0x0001
+#define XS_STATE_CONN_RELEASED    0x0002
+#define XS_STATE_CONN_READONLY    0x0004
+     union {
+         struct {
+             uint16_t domid;
+             uint16_t tdomid;
+#define XS_STATE_DOMID_INVALID  0xffffU
+             uint32_t evtchn;
+             uint64_t mfn;
+#define XS_STATE_MFN_INVALID    0xffffffffffffffffUL
+         } ring;
+         int32_t socket_fd;
+     } spec;
+     uint32_t data_out_len;
+     uint8_t  data[];
+};
+
+>   ```
+>   
+> -where tx_id is the non-zero identifier values of an open transaction.
+> -
+>   
+> -### Protocol Extension
+> +| Field      | Description                                      |
+> +|------------|--------------------------------------------------|
+> +| `domid`    | The domain-id that owns the shared page          |
+> +|            |                                                  |
+> +| `tdomid`   | The domain-id that `domid` acts on behalf of if  |
+> +|            | it has been subject to an SET_TARGET             |
+> +|            | operation [2] or DOMID_INVALID otherwise         |
+
+DOMID_INVALID needs to be defined (or we need a reference where it is
+coming from).
+
+> +|            |                                                  |
+> +| `flags`    | A bit-wise OR of:                                |
+> +|            | 0x0001: INTRODUCE has been issued                |
+> +|            | 0x0002: RELEASE has been issued                  |
+> +|            |                                                  |
+> +| `revtchn`  | The port number of the interdomain channel used  |
+> +|            | by `domid` to communicate with xenstored         |
+> +|            |                                                  |
+> +| `levtchn`  | For a live update this will be the port number   |
+> +|            | of the interdomain channel used by xenstored     |
+> +|            | itself otherwise, for migration, it will be -1   |
+> +|            |                                                  |
+> +| `mfn`      | The MFN of the shared page for a live update or  |
+> +|            | INVALID_MFN otherwise                            |
+
+INVALID_MFN is an internal detail of the hypervisor. We should have a
+local definition for it here (as in my example above).
+
+> +
+> +Since the ABI guarantees that entry 1 in `domid`'s grant table will always
+> +contain the GFN of the shared page, so for a live update `mfn` can be used to
+> +give confidence that `domid` has not been re-cycled during the update.
+> +
+> +
+> +For `socket` connections it is as follows:
+>   
+> -Before xenstore state is migrated it is necessary to wait for any pending
+> -reads, writes, watch registrations etc. to complete, and also to make sure
+> -that xenstored does not start processing any new requests (so that new
+> -requests remain pending on the shared ring for subsequent processing on the
+> -new host). Hence the following operation is needed:
+>   
+>   ```
+> -QUIESCE                 <domid>|
+> -
+> -Complete processing of any request issued by the specified domain, and
+> -do not process any further requests from the shared ring.
+> +    0       1       2       3       4       5       6       7    octet
+> +                +-------+-------+-------+-------+-------+-------+
+> +                | flags         | socket-fd                     |
+> +                +---------------+-------------------------------+
+
+> -START_DOMAIN_TRANSACTION    <domid>|<transid>|
+> +    0       1       2       3    octet
+> ++-------+-------+-------+-------+
+> +| conn-id                       |
+> ++-------------------------------+
+> +| tx-id                         |
+> ++---------------+---------------+
+> +| access        | perm-count    |
+> ++---------------+---------------+
+> +| perm1                         |
+> ++-------------------------------+
+> +...
+> ++-------------------------------+
+> +| permN                         |
+> ++---------------+---------------+
+> +| path-len      | value-len     |
+> ++---------------+---------------+
+> +| path
+> +...
+> +| value
+> +...
+> +```
+> +
+> +
+> +| Field        | Description                                    |
+> +|--------------|------------------------------------------------|
+> +| `conn-id`    | If this value is non-zero then this record     |
+> +|              | related to a pending transaction               |
+> +|              |                                                |
+> +| `tx-id`      | This value should be ignored if `conn-id` is   |
+> +|              | zero. Otherwise it specifies the id of the     |
+> +|              | pending transaction                            |
+> +|              |                                                |
+> +| `access`     | This value should be ignored if this record    |
+> +|              | does not relate to a pending transaction,      |
+> +|              | otherwise it specifies the accesses made to    |
+> +|              | the node and hence is a bitwise OR of:         |
+> +|              |                                                |
+> +|              | 0x0001: read                                   |
+> +|              | 0x0002: written                                |
+> +|              |                                                |
+> +|              | The value will be zero for a deleted node      |
+> +|              |                                                |
+> +| `perm-count` | The number (N) of node permission specifiers   |
+> +|              | (which will be 0 for a node deleted in a       |
+> +|              | pending transaction)                           |
+> +|              |                                                |
+> +| `perm1..N`   | A list of zero or more node permission         |
+> +|              | specifiers (see below)                         |
+> +|              |                                                |
+> +| `path-len`   | The length (in octets) of `path` including the |
+> +|              | NUL terminator                                 |
+> +|              |                                                |
+> +| `value-len`  | The length (in octets) of `value` (which will  |
+> +|              | be zero for a deleted node)                    |
+
+I asked you to put the path-len and value-len fields before the perm
+array.
+
+
+Juergen
 
