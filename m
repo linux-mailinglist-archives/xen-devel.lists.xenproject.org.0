@@ -2,85 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F24191BC694
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 19:26:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9991BC6E3
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 19:38:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTTye-000150-5S; Tue, 28 Apr 2020 17:25:00 +0000
+	id 1jTUAj-00027c-BK; Tue, 28 Apr 2020 17:37:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LWR1=6M=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
- id 1jTTyc-00014u-R9
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 17:24:58 +0000
-X-Inumbo-ID: 2ee475f0-8975-11ea-b9cf-bc764e2007e4
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ <SRS0=FM82=6M=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1jTUAh-00027U-6J
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 17:37:27 +0000
+X-Inumbo-ID: ec830c9c-8976-11ea-9887-bc764e2007e4
+Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2ee475f0-8975-11ea-b9cf-bc764e2007e4;
- Tue, 28 Apr 2020 17:24:58 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03SHMjTX035908;
- Tue, 28 Apr 2020 17:24:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to : content-transfer-encoding; s=corp-2020-01-29;
- bh=a1DRwVeeZI8m8zRrIZSIlkJajtV66/ligL8DUqPAkjE=;
- b=aJO9db+uOkB7e+WYGZXpXPaUytTt5+432QDnBzrkB9IFcDAm8NdTKrnhgbvT90fu5xwA
- ZfS/N++Pru08Hu4sTwXFhs3NaEABtCV42M4IZQuMuD2W3Xh3GaaAYYYOStSePUOT7hV9
- X2IVRvEYZq+fIT+cLXn5Tzc5LR6tq0EOUUBG8ye13FKmxtE4HhmB8ifs7ueHYkXhU0CF
- j8EF6v8Nsr9DTn9Nu70LDxzl/C9xSaTsCawSc7q4yo1AyQF+vT+jhOtOfOfKiuAD1qSl
- 0ca+4QpA2ZUocSNimSYRkVjffZRD5BnfNYy8KXGOidf4Ya6FwUWZ+oN3DnEkBmTVRRzF 3w== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 30nucg1bx6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 28 Apr 2020 17:24:54 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03SHMxng050675;
- Tue, 28 Apr 2020 17:24:53 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 30my0dseh2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 28 Apr 2020 17:24:53 +0000
-Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 03SHOpMO019149;
- Tue, 28 Apr 2020 17:24:52 GMT
-Received: from char.us.oracle.com (/10.152.32.25)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 28 Apr 2020 10:24:51 -0700
-Received: by char.us.oracle.com (Postfix, from userid 1000)
- id BC1D26A011D; Tue, 28 Apr 2020 13:25:14 -0400 (EDT)
-Date: Tue, 28 Apr 2020 13:25:14 -0400
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, joe.jin@oracle.com
-Subject: Re: [PATCH] xen/swiotlb: correct the check for
- xen_destroy_contiguous_region
-Message-ID: <20200428172514.GA24178@char.us.oracle.com>
-References: <1588059225-11245-1-git-send-email-peng.fan@nxp.com>
- <1c01e97a-adcd-a703-55b5-8975b4ce4d2c@suse.com>
- <DB6PR0402MB2760A05135338B0CBB28123488AC0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <dba804ea-4268-24ff-7447-ddef00e9e20c@suse.com>
+ id ec830c9c-8976-11ea-9887-bc764e2007e4;
+ Tue, 28 Apr 2020 17:37:26 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id l11so17626457lfc.5
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2020 10:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=rWGQpfmnmwquRYh9uVw0uaulvFXrkfI1cdoNKjCi8X8=;
+ b=H/Q4D4lsqj/iLKcvJf6EYGYH3vVgdCnlUmI1FtjBRVfnDgH6n0kbB8yMBy8GYxYYw5
+ MGCDEbhyzzs5kcr8aMZvpYFTBVYC2XmbVTHjDE9aToQavlc4+DItyysjhCmDrH+tx4QI
+ BsyaC2xgfWqSwc8t1M+77Pt8tu9BqG1IjEaPgb53c94LIeVZG6ZAHn/WIzJuD3MlfY+s
+ nkTtUaD1PgBIx+Xm6fbfSEuV2+AChildm5juiRro11Z2WOzT3QC8qiYT0mXkfqSUT5oM
+ CgjDhgbmQB9I9HaS2wLO7pS8rc8/BRbSAnekw12m82qRttYkIJZ7MgGkTfvG7CZFiDQ1
+ SWng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=rWGQpfmnmwquRYh9uVw0uaulvFXrkfI1cdoNKjCi8X8=;
+ b=jlZE5HnIl98pF5WslE3tkpPhnRLX0c7y6g5OvKRi+xAO7KBG2tqPdTVLuX9lJkMMu9
+ AIxQcP223401+A2wWimO2A1FEXV3CR4kY7WwkXw2OjBRY2+i7kCKGqQAswFpF0bKR56A
+ VZT/f44TXCLCjccc2szamywMwifj4JSCIsUBBNQ6672q9rrmbQ/2WoQhryTQnXyT8twm
+ ZTbn4CL7686gwM2b6g/8XIyJjkjf9oKbKTIKGvlMZA/MhKr9qJXAJZszuh0Uv5TAwUCh
+ oBqBIZaDOxDE7G57X/jJiiFkfW/AKAN2pfOZ6CjVrg06070YKGL5G8IauYpK5FW6Wbok
+ wuAg==
+X-Gm-Message-State: AGi0PuYHYVDirbEjAqxwBNcX2ciM5QRxxZp/3wZnkSMYpta76+OZeD/9
+ 94xqLO/XAPRMV99iQIh/FaztjtV1iDpIZtFwKBI=
+X-Google-Smtp-Source: APiQypJa4QmBjZkGkyoxCWf61IrkuYYmhRnxUxUw/kU8pBeT4Sa9ntAqVwnptI9+yRsfyZyN9hlclii/EGwVRpZG340=
+X-Received: by 2002:a05:6512:406:: with SMTP id
+ u6mr20105978lfk.150.1588095444980; 
+ Tue, 28 Apr 2020 10:37:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-In-Reply-To: <dba804ea-4268-24ff-7447-ddef00e9e20c@suse.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
+References: <FC32A2FB-F339-4F3A-8237-0A4334ADF3D2@citrix.com>
+ <24225.31493.220592.722565@mariner.uk.xensource.com>
+ <24225.31669.536258.56822@mariner.uk.xensource.com>
+ <4085F05B-ABEC-446A-8BB1-06DEE57D71A5@citrix.com>
+ <C10E07AB-FDE8-4588-95E7-6109F0FDB5E2@citrix.com>
+ <CAEBZRSfUysyGhnsXDEAJiVDBeX-Kb836V-uT6Qrtomte1LKgsA@mail.gmail.com>
+ <E0DEA134-CB69-4992-B949-7233BFF3A1E4@citrix.com>
+In-Reply-To: <E0DEA134-CB69-4992-B949-7233BFF3A1E4@citrix.com>
+From: Nick Rosbrook <rosbrookn@gmail.com>
+Date: Tue, 28 Apr 2020 13:37:12 -0400
+Message-ID: <CAEBZRSfbjsSeh7ukKA8-PeuGRap986UzY1C8thB=ECryOUGFnA@mail.gmail.com>
+Subject: Re: Golang Xen packages and the golang packaging system
+To: George Dunlap <George.Dunlap@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9605
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- spamscore=0
- suspectscore=2 adultscore=0 mlxlogscore=999 bulkscore=0 phishscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004280137
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9605
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
- priorityscore=1501
- mlxlogscore=999 impostorscore=0 suspectscore=2 malwarescore=0
- lowpriorityscore=0 mlxscore=0 spamscore=0 adultscore=0 phishscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004280137
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,134 +73,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peng Fan <peng.fan@nxp.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
- dl-linux-imx <linux-imx@nxp.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>
+Cc: Ian Jackson <Ian.Jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 28, 2020 at 12:19:41PM +0200, J=FCrgen Gro=DF wrote:
-> On 28.04.20 10:25, Peng Fan wrote:
+> BTW the separate repo isn=E2=80=99t off the table.  But there were some t=
+hings other Ian pointed out:
 
-Adding Joe Jin.
+After trying (and failing) to get a go module with a remote import
+path like `golang.xenproject.org/xenlight` defined in xen.git, I would
+like to circle back to the separate repo.
 
-Joe, didn't you have some ideas on how this could be implemented?
+In theory, modules are not supposed to be tightly coupled with vcs,
+but in practice they are. It seems like you cannot define a module
+with a remote import path without pointing to the repo *root*. I tried
+many ways, but every attempt resulted in `go get enr0n.net/xenlight`
+downloading the root of xen.git as the "module", while the actual
+module in tools/golang/xenlight was excluded since it was seen as a
+nested go module. If you want to get around these issues, I think you
+would need to define your own module proxy. Or, we would need to just
+give up on the "vanity" URL and use
+`xenbits.xen.org/git-http/xen.git/tools/golang/xenlight` as the import
+path.
 
-> > > Subject: Re: [PATCH] xen/swiotlb: correct the check for
-> > > xen_destroy_contiguous_region
-> > >=20
-> > > On 28.04.20 09:33, peng.fan@nxp.com wrote:
-> > > > From: Peng Fan <peng.fan@nxp.com>
-> > > >=20
-> > > > When booting xen on i.MX8QM, met:
-> > > > "
-> > > > [    3.602128] Unable to handle kernel paging request at virtual =
-address
-> > > 0000000000272d40
-> > > > [    3.610804] Mem abort info:
-> > > > [    3.613905]   ESR =3D 0x96000004
-> > > > [    3.617332]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
-> > > > [    3.623211]   SET =3D 0, FnV =3D 0
-> > > > [    3.626628]   EA =3D 0, S1PTW =3D 0
-> > > > [    3.630128] Data abort info:
-> > > > [    3.633362]   ISV =3D 0, ISS =3D 0x00000004
-> > > > [    3.637630]   CM =3D 0, WnR =3D 0
-> > > > [    3.640955] [0000000000272d40] user address but active_mm is
-> > > swapper
-> > > > [    3.647983] Internal error: Oops: 96000004 [#1] PREEMPT SMP
-> > > > [    3.654137] Modules linked in:
-> > > > [    3.677285] Hardware name: Freescale i.MX8QM MEK (DT)
-> > > > [    3.677302] Workqueue: events deferred_probe_work_func
-> > > > [    3.684253] imx6q-pcie 5f000000.pcie: PCI host bridge to bus 0=
-000:00
-> > > > [    3.688297] pstate: 60000005 (nZCv daif -PAN -UAO)
-> > > > [    3.688310] pc : xen_swiotlb_free_coherent+0x180/0x1c0
-> > > > [    3.693993] pci_bus 0000:00: root bus resource [bus 00-ff]
-> > > > [    3.701002] lr : xen_swiotlb_free_coherent+0x44/0x1c0
-> > > > "
-> > > >=20
-> > > > In xen_swiotlb_alloc_coherent, if !(dev_addr + size - 1 <=3D dma_=
-mask)
-> > > > or range_straddles_page_boundary(phys, size) are true, it will cr=
-eate
-> > > > contiguous region. So when free, we need to free contiguous regio=
-n use
-> > > > upper check condition.
-> > >=20
-> > > No, this will break PV guests on x86.
-> >=20
-> > Could you share more details why alloc and free not matching for the =
-check?
->=20
-> xen_create_contiguous_region() is needed only in case:
->=20
-> - the bus address is not within dma_mask, or
-> - the memory region is not physically contiguous (can happen only for
->   PV guests)
->=20
-> In any case it should arrange for the memory to be suitable for the
-> DMA operation, so to be contiguous and within dma_mask afterwards. So
-> xen_destroy_contiguous_region() should only ever called for areas
-> which match above criteria, as otherwise we can be sure
-> xen_create_contiguous_region() was not used for making the area DMA-abl=
-e
-> in the beginning.
->=20
-> And this is very important in the PV case, as in those guests the page
-> tables are containing the host-PFNs, not the guest-PFNS, and
-> xen_create_contiguous_region() will fiddle with host- vs. guest-PFN
-> arrangements, and xen_destroy_contiguous_region() is reverting this
-> fiddling. Any call of xen_destroy_contiguous_region() for an area it
-> was not intended to be called for might swap physical pages beneath
-> random virtual addresses, which was the reason for this test to be
-> added by me.
->=20
->=20
-> Juergen
->=20
-> >=20
-> > Thanks,
-> > Peng.
-> >=20
-> > >=20
-> > > I think there is something wrong with your setup in combination wit=
-h the ARM
-> > > xen_create_contiguous_region() implementation.
-> > >=20
-> > > Stefano?
-> > >=20
-> > >=20
-> > > Juergen
-> > >=20
-> > > >=20
-> > > > Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> > > > ---
-> > > >    drivers/xen/swiotlb-xen.c | 4 ++--
-> > > >    1 file changed, 2 insertions(+), 2 deletions(-)
-> > > >=20
-> > > > diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.=
-c
-> > > > index b6d27762c6f8..ab96e468584f 100644
-> > > > --- a/drivers/xen/swiotlb-xen.c
-> > > > +++ b/drivers/xen/swiotlb-xen.c
-> > > > @@ -346,8 +346,8 @@ xen_swiotlb_free_coherent(struct device *hwde=
-v,
-> > > size_t size, void *vaddr,
-> > > >    	/* Convert the size to actually allocated. */
-> > > >    	size =3D 1UL << (order + XEN_PAGE_SHIFT);
-> > > >=20
-> > > > -	if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
-> > > > -		     range_straddles_page_boundary(phys, size)) &&
-> > > > +	if (((dev_addr + size - 1 > dma_mask) ||
-> > > > +	    range_straddles_page_boundary(phys, size)) &&
-> > > >    	    TestClearPageXenRemapped(virt_to_page(vaddr)))
-> > > >    		xen_destroy_contiguous_region(phys, order);
-> > > >=20
-> > > >=20
-> >=20
->=20
+For reference, I did get a test module `enr0n.net/xenlight` that
+points to github.com/enr0n/xenlight working. That part is trivial if
+you are able to point to the repo root.
+
+Overall, between fighting with Go modules, tagging versions, and
+making sure code is re-generated on IDL changes, it seems to me that
+there are more negatives with putting the module in xen.git than there
+are with putting the module in its own repo.
+
+> 1. The GPL requires that you provide the =E2=80=9Cpreferred form for modi=
+fication=E2=80=9D to all the code.  I=E2=80=99m not sure this has been adju=
+dicated in court, but there=E2=80=99s a strong argument that *generated* co=
+de doesn=E2=80=99t match that criteria: that to satisfy the GPL you=E2=80=
+=99d need to include libxl_types.idl, idl.py, gengotypes.py, and a Makefile=
+ suitable for tying them all together.  (Not that the generation needs to b=
+e run with `go build`, but that ideally the infrastructure would be there s=
+o that it *could* be run.)
+
+Is there anything involved in solving this issue besides making sure
+those files are copied to the repo in addition to the generated go
+files? Or is there some concern in doing so?
+
+> 2. Ian was concerned with how someone using the bindings would submit a p=
+atch upstream.  Suppose someone cloned our =E2=80=9Cbindings=E2=80=9D repo,=
+ made some changes so that it worked for them, then wanted to submit the pa=
+tch upstream.  How would they do that?
+
+I think we could mostly solve this with a good README explaining what
+to do. It's not uncommon to see (a) generated Go code with // DO NOT
+EDIT at the top, and (b) repos (mirrors) on github that do not accept
+PRs. Or am I oversimplifying?
+
+Thanks,
+-NR
 
