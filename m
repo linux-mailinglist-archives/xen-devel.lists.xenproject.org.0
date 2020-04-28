@@ -2,91 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C261BBC58
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 13:24:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3541D1BBC6D
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 13:30:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTOLt-0004R5-Dz; Tue, 28 Apr 2020 11:24:37 +0000
+	id 1jTORF-0005Ij-4l; Tue, 28 Apr 2020 11:30:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NU6p=6M=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jTOLr-0004Qx-5m
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 11:24:35 +0000
-X-Inumbo-ID: d5bb1af7-8942-11ea-984c-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=DYx7=6M=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jTORE-0005IL-Av
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 11:30:08 +0000
+X-Inumbo-ID: 9c40af88-8943-11ea-984e-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d5bb1af7-8942-11ea-984c-12813bfff9fa;
- Tue, 28 Apr 2020 11:24:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588073074;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=d2ppzpQoYuZU0fIiUWjzTipilifiem79IQGnX/DQMpQ=;
- b=F5iKSkWaYhvvjOu3OnvNwT+NSYLb9wfr1VkjMd09lpssBLL6Slw2SxcO
- Ap3QjegErqium6H9IbPWe9E15w5pNQhXiUVejwQ6kVIdxNKt8+rDmWu4q
- nBsAB61ZKMQW+4PeC2/o4CQbpz/W3qrCMrmFd0B/Drz8kMx6JIgBFBW97 Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: tAn3GjkbWo7SxIv9t5t5Z7/3OqX5McoKXHQMtxUiQS1z+mfbPfTu+cYirne7WjPqmFO0zBDNg4
- N7ndSmJUx9r14aJw2P5G9ztoKBXUuenrLos8YTTjaRuudU1gmNtUDR6zyfSqL/x/G9fvlRLfYR
- e0G4Xh8/vc1mx6hIkXHzoFUGysM6QstK/BrAe/mWS5OH+/riNzVqBABE/Frbad1mYxSmcHScOS
- uQGl9XEnVyj854gKZzR2bD4ALZxaXiSyU5+nkeAz9wWMweYtJ3waMzf+YI7HnbLnxdTjX/sPy1
- 7ac=
-X-SBRS: 2.7
-X-MesageID: 16675484
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,327,1583211600"; d="scan'208";a="16675484"
-Subject: Re: [PATCH] mini-os: Avoid segfaults in tc{g,s}etattr
-To: Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>
-References: <20200427034019.6251-1-jandryuk@gmail.com>
- <20200427075429.mshevnm2ype7tq32@function>
- <CAKf6xpuh3v0H-22=7y83ioYsm2GnKOs+FO8nN2s3djXanUL9BQ@mail.gmail.com>
- <20200428111645.pa6xfs6t6rifu6fu@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <3ed7eb87-070c-28ea-4f8a-aa4421cea93a@citrix.com>
-Date: Tue, 28 Apr 2020 12:24:29 +0100
+ id 9c40af88-8943-11ea-984e-12813bfff9fa;
+ Tue, 28 Apr 2020 11:30:07 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 0ED4FADCE;
+ Tue, 28 Apr 2020 11:30:05 +0000 (UTC)
+Subject: Re: [PATCH v7 08/12] xen: add /buildinfo/config entry to hypervisor
+ filesystem
+To: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+References: <20200402154616.16927-1-jgross@suse.com>
+ <20200402154616.16927-9-jgross@suse.com>
+ <19f84540-6b49-f99d-805a-e07f56330f31@suse.com>
+ <b9ddd1fb-d868-bb69-3b6b-27531beda2fa@suse.com>
+ <f7d1f3aa-3a7e-fcb2-3163-5e67756e8452@suse.com>
+ <17d65095-a51e-2e00-38ee-7c1c83d2bb99@suse.com>
+ <51e0f0d2-f9ce-83fd-79fa-ae4805356612@suse.com>
+ <31c7f4fe-847c-96f5-e598-dba99b0bb61a@suse.com>
+ <085E1F72-EC22-43D6-8F7E-EDC132CC787D@citrix.com>
+ <fb0e92cc-102f-7f87-1ad6-f3ccce1eee60@suse.com>
+ <064958B4-1FCC-4300-A98A-7A1D608376F8@citrix.com>
+ <23606595-8ce0-5151-d800-1dc0d97513d1@suse.com>
+ <563C8FE9-E852-43F6-9FCC-EEEA14B60473@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <b243c222-fb17-4efa-3b25-aad52c2d0eb1@suse.com>
+Date: Tue, 28 Apr 2020 13:30:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200428111645.pa6xfs6t6rifu6fu@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <563C8FE9-E852-43F6-9FCC-EEEA14B60473@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,47 +59,71 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: minios-devel@lists.xenproject.org,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Jan Beulich <JBeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28/04/2020 12:16, Wei Liu wrote:
->>>> ---
->>>> I can't get ioemu-stubdom to start without this.  With this, the guest
->>>> just reboots immediately, but it does that with a non-stubdom
->>>> device_model_version="qemu-xen-traditional" .  The same guest disk image
->>>> (cirros 0.5.1) boots with a linux stubdom or non-stubdom Ubuntu
->>>> qemu-system-x86_64.
->> Ubuntu gcc-9 adds -fcf-protection by default.  Somehow that flag
->> caused rombios (I think) to restart.  Setting -fcf-protection=none
->> like below (probably just the EMBEDDED_EXTRA_CFLAGS part) lets rombios
->> start properly.
+On 28.04.20 13:23, George Dunlap wrote:
+> 
+> 
+>> On Apr 28, 2020, at 9:39 AM, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 28.04.2020 10:24, George Dunlap wrote:
+>>>> On Apr 28, 2020, at 8:20 AM, Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 27.04.2020 18:25, George Dunlap wrote:
+>>>>> If Jan is OK with it simply being outside CONFIG_EXPERT, then great.  But if he insists on some kind of testing for it to be outside of CONFIG_EXPERT, then again, the people who want it to be security supported should be the ones who do the work to make it happen.
+>>>>
+>>>> I don't understand this part, I'm afraid: Without a config option,
+>>>> the code is going to be security supported as long as it doesn't
+>>>> get marked otherwise (experimental or what not). With an option
+>>>> depending on EXPERT, what would become security unsupported is the
+>>>> non-default (i.e. disabled) setting. There's not a whole lot to
+>>>> test there, it's merely a formal consequence of our general rules.
+>>>> (Of course, over time dependencies of other code may develop on
+>>>> the information being available e.g. to Dom0 userland. Just like
+>>>> there's Linux userland code assuming the kernel config is
+>>>> available in certain ways [I don't necessarily mean the equivalent
+>>>> of hypfs here], to then use it in what I'd call abusive ways in at
+>>>> least some cases.)
+>>>
+>>> Here’s an argument you might make:
+>>>
+>>> “As a member of the security team, I don’t want to be on the hook for issuing XSAs for code which isn’t at least smoke-tested.  Therefore, I oppose any patch adding CONFIG_HYPFS outside of CONFIG_EXPERT, *unless* there is a concrete plan for getting regular testing for CONFIG_HYPFS=n.”
+>>>
+>>> I’m not saying that’s an argument you *should* make.  But personally I don’t have a strong argument against such an argument. So, it seems to me, if you did make it, you have a reasonable chance of carrying your point.
+>>>
+>>> Now consider this hypothetical universe where you made that argument and nobody opposed it.  In order to get a particular feature (CONFIG_HYPFS=n security supported), there is extra work that needs to be done (getting CONFIG_HYPFS=n tested regularly).  My point was, the expectation should be that the extra work will be done by the people who want or benefit from the feature; the series shouldn’t be blocked until Juergen implements CONFIG_HYPFS=n testing (since he doesn’t personally have a stake in that feature).
+>>>
+>>> Now obviously, doing work to help someone else out in the community is of course a good thing to do; it builds goodwill, uses our aggregate resources more efficiently, and makes our community more enjoyable to work with. But the goodwill primarily comes from the fact that it was done as a voluntary choice, not as a requirement.
+>>>
+>>> Juergen was balking at having to do what he saw as extra work to implement CONFIG_HYPFS.  I wanted to make it clear that even though I see value in having CONFIG_HYPFS, *he* doesn’t have to do the work if he doesn’t want to (although it would certainly be appreciated if he did).  And this paragraph was extending the same principle into the hypothetical universe where someone insisted that CONFIG_HYPFS=n had to be tested before being security supported.
+>>>
+>>> Hope that makes sense. :-)
+>>
+>> Yes, it does, thanks for the clarification. I can see what you describe
+>> as a valid perspective to take, but really in my request to Jürgen I
+>> took another: Now that we have Kconfig, additions of larger bodies of
+>> code (possibly also just in terms of binary size) should imo generally
+>> be questioned whether they want/need to be built for everyone. I.e. it
+>> is not to be left to people being worried about binary sizes to arrange
+>> for things to not be built, but for people contributing new but not
+>> entirely essential code to consider making it option from the very
+>> beginning.
+> 
+> I think that’s a reasonable position to take, but needs to be balanced on the amount of work that this would actually require.  If it only requires adding a handful of #ifdef’s and maybe making a few stubs, then yes, asking the submitter to make the change makes sense.  But if it requires three dozen #ifdef’s throughout the code and a fairly major architectural change, then I think it’s reasonable for a submitter to push back.
+> 
+> I don’t really understand why Juergen thinks adding CONFIG_HYPFS would cause a lot of code churn; my argumentation here is based on the assumption that his assessment is correct.
 
-All it does is insert ENDBR{32,64} instructions, which are nops on older
-processors.
+The main problem I'm seeing is the setting of runtime parameters.
 
-I suspect that it is not the -fcf-protection= directly, but some change
-in alignment of a critical function.
+This will need a complete different set of macros for defining those
+parameters, split across multiple patches. And I'm fairly sure I'll
+need to touch each custom_runtime_param handling function, too, in
+order not to add dead code.
 
->>   The hypervisor needs it as well via
->> EXTRA_CFLAGS_XEN_CORE=-fcf-protection=none and maybe also added to
->> xen/arch/x86/boot/build32.mk .
-> Are you able to turn this into a proper patch? I suspect you will need
-> to test the availability of this new (?) flag.
->
-> Also Cc Jan and Andrew because it affects hypervisor build too.
 
-I need to chase this up.  It is a GCC bug breaking the hypervisor build,
-and I'm moderately disinclined to hack around it, seeing as
--fcf-protection is something we want in due course.
-
-The bug is that GCC falsely declares that -fcf-protection is
-incompatible with -mindirect-thunk=extern, despite me spending a week
-during the Spectre embargo period specifically arranging for the two to
-be compatible, because we knew we'd want to build retpoline-safe
-binaries which could also use CET on newer hardware.
-
-~Andrew
+Juergen
 
