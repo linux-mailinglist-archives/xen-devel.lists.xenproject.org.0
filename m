@@ -2,74 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39EA91BC3D9
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 17:37:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EA91BC413
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 17:50:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTSIk-00062U-6f; Tue, 28 Apr 2020 15:37:38 +0000
+	id 1jTSUI-0007AM-F6; Tue, 28 Apr 2020 15:49:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xCBN=6M=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jTSIi-00062K-Dg
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 15:37:36 +0000
-X-Inumbo-ID: 2e888844-8966-11ea-9887-bc764e2007e4
-Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KfNV=6M=xen.org=wl@srs-us1.protection.inumbo.net>)
+ id 1jTSUH-0007AH-0P
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 15:49:33 +0000
+X-Inumbo-ID: da310ce2-8967-11ea-ae69-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2e888844-8966-11ea-9887-bc764e2007e4;
- Tue, 28 Apr 2020 15:37:35 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id b11so25165612wrs.6
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2020 08:37:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=hRYwxPFLHwj8CVn3Z8B1w3R87u1K31acM/EV4UOOpmU=;
- b=oMrXPqb2Oz7Fae5LM2feUPLVhTSvYHrxLXEwT7Y0S4Ii6WjDM5bp7tFVK9KO0hGwQ7
- o5DX7Yn4nB0F84B7l5aHRAeqXQSqSZiUkely3xp8d1OaRP8iETpb1+YgTyrrInOHQdMz
- RB7XkMwpscAcGVGGiMJqt/5x71q+7udnLcNzk1Ktar0ZDNkeoBL8bkY9pqPcvwvz3bNp
- KS5HThU5Cjq9DwReqw0tlvy/0YA3wOwGgkPzwqwHt/a4mVgycdv3lLLJ/MkH9uoXl2AX
- zDmmGOC8Fa2xZSRVn9LxyYv+kqXNPVzb/TJ7+W9Y38PqWUQ2sB8asRVBFPafT5EXMrwQ
- Fb+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=hRYwxPFLHwj8CVn3Z8B1w3R87u1K31acM/EV4UOOpmU=;
- b=YWB9/xD8BSeLIeDEiuew1yMd7Yp+Se3QXo8AmaAAvlfdqqatpNbNn+rLcofk4eKHES
- UcRjrLThuYfY/HI48FpnLqC0wY3CabUTz6SDqRzCGMFhDDLKy7kflhJW/km0Mu9CD5wA
- lAa8vMgjJjdtMEnugAVbsRwI+9ncZOui3lUWF++1U3Cze0LXgK3B98/t7y1cdGBjL60B
- z+nPoFcy/e4oGtGb4zIvxrgR5exIWVOlKPM3hZp3aeKDiKD4FFAKfbd3miv+yMMMDT7x
- 4jRY+jBQMsqchD/WC7EYMSzkR2dT+bBOxYtyUXd/YSkMYufA2YP6mGzioV2kDih4glKO
- ApBQ==
-X-Gm-Message-State: AGi0PuYk07tBIBjubGydFRGEKVeAP5wId3frBpoInS69o5sb08UKuaDL
- ufjl+cVMIbujbtpKXkhMbZ0=
-X-Google-Smtp-Source: APiQypLOL8BqwVPA1RpYH8LBHUM+RBTIsWULv9hfsmarBGHNKon21M+JAtfhMf0+D/R+00uEbYnrZQ==
-X-Received: by 2002:adf:cc81:: with SMTP id p1mr36049277wrj.372.1588088254520; 
- Tue, 28 Apr 2020 08:37:34 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.187])
- by smtp.gmail.com with ESMTPSA id w10sm27108845wrg.52.2020.04.28.08.37.33
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 28 Apr 2020 08:37:33 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Julien Grall'" <julien@xen.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20200407173847.1595-1-paul@xen.org>
- <20200407173847.1595-5-paul@xen.org>
- <7f0821ed-34e8-2a63-aaab-bf781fdfb9e7@xen.org>
-In-Reply-To: <7f0821ed-34e8-2a63-aaab-bf781fdfb9e7@xen.org>
-Subject: RE: [PATCH v2 4/5] common/domain: add a domain context record for
- shared_info...
-Date: Tue, 28 Apr 2020 16:37:32 +0100
-Message-ID: <001601d61d72$efb23840$cf16a8c0$@xen.org>
+ id da310ce2-8967-11ea-ae69-bc764e2007e4;
+ Tue, 28 Apr 2020 15:49:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
+ :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=KPzvRysY2ohXq7P+b0bo07gMgLcm6XfJbumUCT2gh1o=; b=i9hHPfTJ3GQO43bqutkwlBGmaE
+ DkZyg+WqC2aehZxhUmmkaCj+wV9a5njhYHUurL1UqH0ndbwnmRCWzaaDEiojEFTJbKkNErxtSJZMe
+ 5fjjeOL2oy/50IXLBVYPZKId+4KM4NPboP6L5b2jryNfTUrAx4wfRl/YoiiDisHXW5HM=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <wl@xen.org>)
+ id 1jTSUF-0007YH-Ha; Tue, 28 Apr 2020 15:49:31 +0000
+Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <wl@xen.org>)
+ id 1jTSUF-0006UT-8F; Tue, 28 Apr 2020 15:49:31 +0000
+Date: Tue, 28 Apr 2020 16:49:28 +0100
+From: Wei Liu <wl@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 5/6] x86/pv: map and unmap page tables in
+ mark_pv_pt_pages_rdonly
+Message-ID: <20200428154928.nrhnl6xln2ci5qrf@debian>
+References: <cover.1587116799.git.hongyxia@amazon.com>
+ <9287363e13924f4a633b47b53c23b3466e26e4a8.1587116799.git.hongyxia@amazon.com>
+ <fbb4a755-c450-77dd-2aa5-44c01b42a5ff@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIOC3/NwyZzJjhdRz0oBcI7Is/lxwI2behTA1TXHdCn8nRy4A==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fbb4a755-c450-77dd-2aa5-44c01b42a5ff@suse.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,207 +60,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Paul Durrant' <pdurrant@amazon.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
+Cc: Hongyan Xia <hx242@xen.org>, julien@xen.org, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Julien Grall <julien@xen.org>
-> Sent: 20 April 2020 18:35
-> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
-> Cc: Paul Durrant <pdurrant@amazon.com>; Ian Jackson <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>;
-> Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Jan Beulich
-> <jbeulich@suse.com>; Stefano Stabellini <sstabellini@kernel.org>
-> Subject: Re: [PATCH v2 4/5] common/domain: add a domain context record for shared_info...
+On Tue, Apr 28, 2020 at 05:33:29PM +0200, Jan Beulich wrote:
+> On 17.04.2020 11:52, Hongyan Xia wrote:
+> > --- a/xen/arch/x86/pv/dom0_build.c
+> > +++ b/xen/arch/x86/pv/dom0_build.c
+> > @@ -50,17 +50,17 @@ static __init void mark_pv_pt_pages_rdonly(struct domain *d,
+> >      unsigned long count;
+> >      struct page_info *page;
+> >      l4_pgentry_t *pl4e;
+> > -    l3_pgentry_t *pl3e;
+> > -    l2_pgentry_t *pl2e;
+> > -    l1_pgentry_t *pl1e;
+> > +    l3_pgentry_t *pl3e, *l3t;
+> > +    l2_pgentry_t *pl2e, *l2t;
+> > +    l1_pgentry_t *pl1e, *l1t;
 > 
-> Hi Paul,
-> 
-> On 07/04/2020 18:38, Paul Durrant wrote:
-> > ... and update xen-domctx to dump some information describing the record.
-> >
-> > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-> > ---
-> > Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-> > Cc: Wei Liu <wl@xen.org>
-> > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Cc: George Dunlap <george.dunlap@citrix.com>
-> > Cc: Jan Beulich <jbeulich@suse.com>
-> > Cc: Julien Grall <julien@xen.org>
-> > Cc: Stefano Stabellini <sstabellini@kernel.org>
-> >
-> > v2:
-> >   - Drop the header change to define a 'Xen' page size and instead use a
-> >     variable length struct now that the framework makes this is feasible
-> >   - Guard use of 'has_32bit_shinfo' in common code with CONFIG_COMPAT
-> > ---
-> >   tools/misc/xen-domctx.c   | 11 ++++++
-> >   xen/common/domain.c       | 81 +++++++++++++++++++++++++++++++++++++++
-> >   xen/include/public/save.h | 10 ++++-
-> >   3 files changed, 101 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/tools/misc/xen-domctx.c b/tools/misc/xen-domctx.c
-> > index d663522a8b..a8d3922321 100644
-> > --- a/tools/misc/xen-domctx.c
-> > +++ b/tools/misc/xen-domctx.c
-> > @@ -59,6 +59,16 @@ static void dump_header(struct domain_save_descriptor *desc)
-> >       off += desc->length;
-> >   }
-> >
-> > +static void dump_shared_info(struct domain_save_descriptor *desc)
-> > +{
-> > +    DOMAIN_SAVE_TYPE(SHARED_INFO) s;
-> > +    READ(s);
-> > +    printf("    SHARED_INFO: field_width %u buffer size: %lu\n",
-> > +           s.field_width, desc->length - sizeof(s));
-> > +
-> > +    off += desc->length;
-> > +}
-> > +
-> >   static void dump_end(struct domain_save_descriptor *desc)
-> >   {
-> >       DOMAIN_SAVE_TYPE(END) e;
-> > @@ -125,6 +135,7 @@ int main(int argc, char **argv)
-> >           switch (desc.typecode)
-> >           {
-> >           case DOMAIN_SAVE_CODE(HEADER): dump_header(&desc); break;
-> > +        case DOMAIN_SAVE_CODE(SHARED_INFO): dump_shared_info(&desc); break;
-> >           case DOMAIN_SAVE_CODE(END): dump_end(&desc); return 0;
-> >           default:
-> >               printf("Unknown type %u: skipping\n", desc.typecode);
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index 3dcd73f67c..8b72462e07 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -33,6 +33,7 @@
-> >   #include <xen/xenoprof.h>
-> >   #include <xen/irq.h>
-> >   #include <xen/argo.h>
-> > +#include <xen/save.h>
-> >   #include <asm/debugger.h>
-> >   #include <asm/p2m.h>
-> >   #include <asm/processor.h>
-> > @@ -1646,6 +1647,86 @@ int continue_hypercall_on_cpu(
-> >       return 0;
-> >   }
-> >
-> > +static int save_shared_info(const struct vcpu *v, struct domain_context *c,
-> > +                            bool dry_run)
-> > +{
-> > +    struct domain *d = v->domain;
-> > +    struct domain_shared_info_context ctxt = {};
-> > +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
-> > +    size_t size = hdr_size + PAGE_SIZE;
-> > +    int rc;
-> > +
-> > +    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, v, size);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    if ( !dry_run )
-> 
-> NIT: I think the if is not necessary here as you don't skip that much code.
-> 
+> I don't quite see why the new local variables get introduced:
+> unmap_domain_page(), iirc, is quite fine with a non-page-
+> aligned argument.
 
-I know, but it is illustrative so I'd rather keep it.
+(Assuming this is actually written by me)
 
-> > +        ctxt.field_width =
-> > +#ifdef CONFIG_COMPAT
-> > +            has_32bit_shinfo(d) ? 4 :
-> > +#endif
-> > +            8;
-> > +
-> > +    rc = domain_save_data(c, &ctxt, hdr_size);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    rc = domain_save_data(c, d->shared_info, PAGE_SIZE);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    return domain_save_end(c);
-> > +}
-> > +
-> > +static int load_shared_info(struct vcpu *v, struct domain_context *c)
-> > +{
-> > +    struct domain *d = v->domain;
-> > +    struct domain_shared_info_context ctxt = {};
-> > +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
-> > +    size_t size = hdr_size + PAGE_SIZE;
-> > +    unsigned int i;
-> > +    int rc;
-> > +
-> > +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, v, size, true);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    rc = domain_load_data(c, &ctxt, hdr_size);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    for ( i = 0; i < ARRAY_SIZE(ctxt.pad); i++ )
-> > +        if ( ctxt.pad[i] )
-> > +            return -EINVAL;
-> > +
-> > +    switch ( ctxt.field_width )
-> > +    {
-> > +#ifdef CONFIG_COMPAT
-> > +    case 4:
-> > +        d->arch.has_32bit_shinfo = 1;
-> > +        break;
-> > +#endif
-> > +    case 8:
-> > +#ifdef CONFIG_COMPAT
-> > +        d->arch.has_32bit_shinfo = 0;
-> > +#endif
-> > +        break;
-> > +
-> > +    default:
-> > +        rc = -EINVAL;
-> > +        break;
-> > +    }
-> > +
-> > +    rc = domain_load_data(c, d->shared_info, PAGE_SIZE);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    return domain_load_end(c);
-> > +}
-> > +
-> > +DOMAIN_REGISTER_SAVE_RESTORE(SHARED_INFO, false, save_shared_info,
-> > +                             load_shared_info);
-> > +
-> >   /*
-> >    * Local variables:
-> >    * mode: C
-> > diff --git a/xen/include/public/save.h b/xen/include/public/save.h
-> > index 7e5f8752bd..ed994a8765 100644
-> > --- a/xen/include/public/save.h
-> > +++ b/xen/include/public/save.h
-> > @@ -79,6 +79,14 @@ struct domain_save_header {
-> >   };
-> >   DECLARE_DOMAIN_SAVE_TYPE(HEADER, 1, struct domain_save_header);
-> >
-> > -#define DOMAIN_SAVE_CODE_MAX 1
-> > +struct domain_shared_info_context {
-> > +    uint8_t field_width;
-> > +    uint8_t pad[7];
-> > +    uint8_t buffer[]; /* Implementation specific size */
+I wanted to make things abundantly clear: plXe points to an entry while
+lXt points to the start of a page table.
+
+In a long function the distinction could be helpful; in a short function
+(like this one?) not so much.
+
+Wei.
+
 > 
-> I would recommend to use buffer[XEN_FLEX_ARRAY_DIM].
-> 
-
-Ok.
-
-  Paul
-
-> Cheers,
-> 
-> --
-> Julien Grall
-
+> Jan
 
