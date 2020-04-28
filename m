@@ -2,93 +2,103 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A94F1BB8BB
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 10:23:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A3EB1BB8C4
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 10:24:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTLVD-00031U-0o; Tue, 28 Apr 2020 08:22:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CDey=6M=nxp.com=peng.fan@srs-us1.protection.inumbo.net>)
- id 1jTLVB-00031P-Ke
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 08:22:01 +0000
-X-Inumbo-ID: 545344ca-8929-11ea-983f-12813bfff9fa
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.8.77]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 545344ca-8929-11ea-983f-12813bfff9fa;
- Tue, 28 Apr 2020 08:21:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U5H2aIphdnPovewkY4VGFM4sEWxGucBW08FKFscQtKPSo9JzDk83sn//dkPshb8CeHlyiwcMQWK7JlKSFG8m2gPT15fGczgFqHJKnXQrMydMTfwCmRYvE137VjCp9vzSaG2zx5y8ROWCU3wSIH1xlLCVaF0VBnL7BiN5RDU9ejiwwEeN+Gc3aILVhr8ppOqlcwkmHNVLLmK/JGSfrcxWp6h9LwDgo0Ht9va0l5JwI0gXyaZ9KDHx5Jahb3+MQeUBhIh0Y01LTKxDCpODY+lGL+j+7CJEGMmxR9Wk9WL3riy6Yjnv5sECpgr4RStHdaR6wdX09SuXbQQxs/zapVBk9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wQixSruRATExyVZtZCrE5ENirdmhwGn1bocmC67jGto=;
- b=JWTlSPsac0kD2VNKVZCJuqVb8yJeVNJrGdMB2QQkeBHzICO4rhsDXXCdamZegwYAI9PymtAvRHupoCXQhG6AHjN3Z8XTFy9CImnCWTy/LFi2Pxd9YjIvjXSO8nPTTEu55yqOIGxyMDgvJqWrojnQiWbW4ewiA0VydSyIn+bF+pqEp50DhmzcrWAaaUWZZf21X/VHRdWzr1FE+dzvIkINks9JygKiWZ3zX56b3O9II45qjrnu9loXz4TJWEJ6SdF2q9+/12dL1DK8pH0YmLE9fRZmviR2iW89hEaLPTm4QQAiK5fkYM+vJ1dRMdB9j/kA/PiGVpFoJz2JymrHkGjn0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wQixSruRATExyVZtZCrE5ENirdmhwGn1bocmC67jGto=;
- b=ndxswZISDVn8wI6Z0pa9Aw8u9R77/2lMLv4rcsuApcCCn+mP/W1rpAYxiMQzTd4tb8hOffvPNImYOHoGljIltHbV0B3IDSfINwfj24ABLEO5cSQ8yRPKvcYEYef4Cj8ab5WxMjTdLR3Fv1cNwzn0z0+kwjGYGGkptDJ05hULEhA=
-Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
- by DB6PR0402MB2711.eurprd04.prod.outlook.com (2603:10a6:4:96::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13; Tue, 28 Apr
- 2020 08:21:57 +0000
-Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
- ([fe80::d17b:d767:19c3:b871]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
- ([fe80::d17b:d767:19c3:b871%6]) with mapi id 15.20.2937.023; Tue, 28 Apr 2020
- 08:21:57 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: Christoph Hellwig <hch@infradead.org>
-Subject: RE: [PATCH] xen/swiotlb: correct the check for
- xen_destroy_contiguous_region
-Thread-Topic: [PATCH] xen/swiotlb: correct the check for
- xen_destroy_contiguous_region
-Thread-Index: AQHWHTCUGLGxU19LnkuMxSfwKxPy/aiOLEEAgAAFDsA=
-Date: Tue, 28 Apr 2020 08:21:57 +0000
-Message-ID: <DB6PR0402MB2760981C819B03D6B5647E9288AC0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
-References: <1588059225-11245-1-git-send-email-peng.fan@nxp.com>
- <20200428080210.GA25643@infradead.org>
-In-Reply-To: <20200428080210.GA25643@infradead.org>
-Accept-Language: en-US
+	id 1jTLXi-0003A8-JB; Tue, 28 Apr 2020 08:24:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lSul=6M=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jTLXg-0003A3-I1
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 08:24:36 +0000
+X-Inumbo-ID: b14a0a6a-8929-11ea-ae69-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b14a0a6a-8929-11ea-ae69-bc764e2007e4;
+ Tue, 28 Apr 2020 08:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588062275;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=M/bJKdnKVYMF+ypyvWnnUGP820YYdLpMtI1STxc6/no=;
+ b=WdBjpSShDVeQcMJ3eUn98qSnFFG1wWXCXO41gSotzVTvWMylSNizxZvZ
+ PozuVXLtfLcnSjF/Zc5DonHsD0Ko2Dx6HgKNmAuQv5wbJadaSrxiSCtj9
+ 4A+Rr81ZEM/Xbkx6pjH4Pu25u36DG/ng/UwZGTGyndkruyiurmKvYDMWo Q=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=George.Dunlap@citrix.com;
+ spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ George.Dunlap@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ George.Dunlap@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: yGgEGI5YSWmVwi5KodKROZDHhuw3qA4DxVdRilOziMe2IJnDel3Ds8Dl7zj3ibpYmq6CvYwVXN
+ z6vZsx2aRFWt6Y/Rm3QAhA312eFNDufYI1MOMgw//z8jqG04AWl4Qa75M6d4zeVLMXYGkpAFOB
+ Cb/pm9itu8rGRgb1ZDb4k7AGK2nXIa6670BrMD9QvW/ZMpb0vcjg3pcvP/zTU28hAiij+O/cPX
+ QajZXfnBGqHBd60+r7ydHIMg7f+qo0LvQEflodm7DQO0UEuPP8elKG2P4py352K8yre0QfP1Un
+ MhQ=
+X-SBRS: 2.7
+X-MesageID: 16668029
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,327,1583211600"; d="scan'208";a="16668029"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v7 08/12] xen: add /buildinfo/config entry to hypervisor
+ filesystem
+Thread-Topic: [PATCH v7 08/12] xen: add /buildinfo/config entry to hypervisor
+ filesystem
+Thread-Index: AQHWCQXiBGUb+wr760WOfoEenUG4zahnVWoAgAALjICAAAX/gIAAAzMAgASARQCAITZdgIAADK2AgAD5+wCAABHcgA==
+Date: Tue, 28 Apr 2020 08:24:31 +0000
+Message-ID: <064958B4-1FCC-4300-A98A-7A1D608376F8@citrix.com>
+References: <20200402154616.16927-1-jgross@suse.com>
+ <20200402154616.16927-9-jgross@suse.com>
+ <19f84540-6b49-f99d-805a-e07f56330f31@suse.com>
+ <b9ddd1fb-d868-bb69-3b6b-27531beda2fa@suse.com>
+ <f7d1f3aa-3a7e-fcb2-3163-5e67756e8452@suse.com>
+ <17d65095-a51e-2e00-38ee-7c1c83d2bb99@suse.com>
+ <51e0f0d2-f9ce-83fd-79fa-ae4805356612@suse.com>
+ <31c7f4fe-847c-96f5-e598-dba99b0bb61a@suse.com>
+ <085E1F72-EC22-43D6-8F7E-EDC132CC787D@citrix.com>
+ <fb0e92cc-102f-7f87-1ad6-f3ccce1eee60@suse.com>
+In-Reply-To: <fb0e92cc-102f-7f87-1ad6-f3ccce1eee60@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: infradead.org; dkim=none (message not signed)
- header.d=none;infradead.org; dmarc=none action=none header.from=nxp.com;
-x-originating-ip: [119.31.174.71]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 3a00cf67-1e01-4158-e862-08d7eb4d37b0
-x-ms-traffictypediagnostic: DB6PR0402MB2711:|DB6PR0402MB2711:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DB6PR0402MB2711A6F924BF5D255E08D54E88AC0@DB6PR0402MB2711.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-forefront-prvs: 0387D64A71
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB6PR0402MB2760.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(366004)(39860400002)(376002)(346002)(136003)(66946007)(8936002)(66476007)(9686003)(2906002)(52536014)(6506007)(5660300002)(44832011)(186003)(6916009)(54906003)(478600001)(4326008)(76116006)(66446008)(26005)(86362001)(316002)(8676002)(7696005)(55016002)(33656002)(81156014)(64756008)(66556008)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: VM71IWGXE3SwEEh2mDk7gfmURNYDtfOPiQj91KRW0oVO6zySpVZux+pfJsu72Otvr8aotNQYOSehTedrTwzWpe1QoVKsPaxrBS2uJCZRz+k/Ti/FWihC/qhket7/H2A/dMro2leaDWFfiTkyQi86o/3oB3pmCKu8vNgH/IYlbKxN5gpPbHfNmRG5e34YbWRwnWCQFF/QcH8gLKhrPS6VGCYrDwwfUV6BZu/bIJcY2Pb72ldDOY8LcrTM99B4lsLlp8UPK8/bf+pkYiLHmF45rW2YfNHxWUqCKg9Z+OL16I2/K4FhUxIHpylsugUhfh61KPY+KQTkEgSTJT1J08RkMx+hP/LjJtCqlZyFZf56x9eqls093YNM/AgCmP6VCKc6n1+aTJh46jQr/BGhjwKwxV7IJgNfC1PJp/4UYYs+6OGpDK6ZaFoIWdIAP65LFy7t
-x-ms-exchange-antispam-messagedata: bYjanyY2rDDlFDlA3j/qvRVrfl4J6802rWDkQ9uV/kKT/zwxdiUtD/47rXKxWNUTmHQrbuCQhq603T2gXVvQzykLu5y60RQ84yZVpOhSallw4eSExSHMZW1XHVbKtLKBEGbUplGBinzav8gLdlwMow8DalH0SJSmqGT+hmj6+dxJYjlL6SgJw8idJG6sPgM8aPuISLKzvThngtJ+Ix26DQ+t+oulWLL/O30DXZY0RSJCrcszh0DLLstawAbkKGBmZJGGj0XvWYkvSFErdSRfWCgJoGtYgkQ2ImGT1Zk5Yx5p+X/Yd2hnQBmbzXep/NIZjqROsLkCe0s4bee8YNggotbfKcsADeoqKqVzlHEHLXMDmAsSELO6OPaH3uCBOcauDGY5IeB/WZU1ubK5Kq4t0+zvyon1lchAHXFvCVPzPP4gjiamBr1uESYi6lJkz71GRGcO2JBreWTWSncwQGIjknVd4HZ8erlKsX/2Io3P2onci7MRpfzoKuVnVCcJSxq+JbnYBJ9E18xw7Mgzz7uOzMrSjYRAaeMl2ZVpUldJ8oKZMu579Zc07Y324gB8bQTIiS9d+ujTCk5NERg3LCppFoI1OaGoBtki8rXtaMIee1wxWTyyZdOcxIkiyp2JboSHiXuQjFXvXhuX8HNmrU9t+cUyw3aU5ehSpRgU0L1Sndha+0H2Qi47DL4G0ervA6cbC6XJRXD7pFDELqg5c9mniNSTdI67onWQMZY/kLSXLSl+P2vUl0yJ0EC42zh4CNCOb+ZpDSnvluQJs7/EcVfk+Hj4DbniN1Y1WRVocXKAIZU=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-mailer: Apple Mail (2.3608.60.0.2.5)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <CB215CE703199D48A6D0C54C19446017@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a00cf67-1e01-4158-e862-08d7eb4d37b0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2020 08:21:57.4904 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XDN9/R5qN4ueHEAz+1Qrdqcr+lModtbpD/a/8lw00gnsSqQ6YQ5/jqmVdggcWCIfKhL7RQmhdDqD99sRV+flRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2711
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,67 +109,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "jgross@suse.com" <jgross@suse.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
- dl-linux-imx <linux-imx@nxp.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew
+ Cooper <Andrew.Cooper3@citrix.com>, Ian Jackson <Ian.Jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> Subject: Re: [PATCH] xen/swiotlb: correct the check for
-> xen_destroy_contiguous_region
->=20
-> On Tue, Apr 28, 2020 at 03:33:45PM +0800, peng.fan@nxp.com wrote:
-> >
-> > In xen_swiotlb_alloc_coherent, if !(dev_addr + size - 1 <=3D dma_mask)
-> > or range_straddles_page_boundary(phys, size) are true, it will create
-> > contiguous region. So when free, we need to free contiguous region use
-> > upper check condition.
-> >
-> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> > ---
-> >  drivers/xen/swiotlb-xen.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> > index b6d27762c6f8..ab96e468584f 100644
-> > --- a/drivers/xen/swiotlb-xen.c
-> > +++ b/drivers/xen/swiotlb-xen.c
-> > @@ -346,8 +346,8 @@ xen_swiotlb_free_coherent(struct device *hwdev,
-> size_t size, void *vaddr,
-> >  	/* Convert the size to actually allocated. */
-> >  	size =3D 1UL << (order + XEN_PAGE_SHIFT);
-> >
-> > -	if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
-> > -		     range_straddles_page_boundary(phys, size)) &&
-> > +	if (((dev_addr + size - 1 > dma_mask) ||
-> > +	    range_straddles_page_boundary(phys, size)) &&
-> >  	    TestClearPageXenRemapped(virt_to_page(vaddr)))
->=20
-> No need for the inner braces.
->=20
-> But more importantly please factor our a helper that can be used by alloc=
- and
-> free to make sure that they always stay in sync.  Something
-
-Thanks for reviewing. I'll take your suggestion in v2. Before that,
-I would wait to see if there are more comments in this patch,
-because there are several history commits touching this place.
-
-Thanks,
-Peng.
-
-> like:
->=20
-> static inline bool xen_swiotlb_need_contiguous_region(struct device *dev,
-> 		phys_addr_t phys, size_t size)
-> {
->=20
-> 	return xen_phys_to_bus(phys) + size - 1 > dev->coherent_dma_mask ||
-> 		range_straddles_page_boundary(phys, size)) }
-
+DQoNCj4gT24gQXByIDI4LCAyMDIwLCBhdCA4OjIwIEFNLCBKYW4gQmV1bGljaCA8amJldWxpY2hA
+c3VzZS5jb20+IHdyb3RlOg0KPiANCj4gT24gMjcuMDQuMjAyMCAxODoyNSwgR2VvcmdlIER1bmxh
+cCB3cm90ZToNCj4+IElmIEphbiBpcyBPSyB3aXRoIGl0IHNpbXBseSBiZWluZyBvdXRzaWRlIENP
+TkZJR19FWFBFUlQsIHRoZW4gZ3JlYXQuICBCdXQgaWYgaGUgaW5zaXN0cyBvbiBzb21lIGtpbmQg
+b2YgdGVzdGluZyBmb3IgaXQgdG8gYmUgb3V0c2lkZSBvZiBDT05GSUdfRVhQRVJULCB0aGVuIGFn
+YWluLCB0aGUgcGVvcGxlIHdobyB3YW50IGl0IHRvIGJlIHNlY3VyaXR5IHN1cHBvcnRlZCBzaG91
+bGQgYmUgdGhlIG9uZXMgd2hvIGRvIHRoZSB3b3JrIHRvIG1ha2UgaXQgaGFwcGVuLg0KPiANCj4g
+SSBkb24ndCB1bmRlcnN0YW5kIHRoaXMgcGFydCwgSSdtIGFmcmFpZDogV2l0aG91dCBhIGNvbmZp
+ZyBvcHRpb24sDQo+IHRoZSBjb2RlIGlzIGdvaW5nIHRvIGJlIHNlY3VyaXR5IHN1cHBvcnRlZCBh
+cyBsb25nIGFzIGl0IGRvZXNuJ3QNCj4gZ2V0IG1hcmtlZCBvdGhlcndpc2UgKGV4cGVyaW1lbnRh
+bCBvciB3aGF0IG5vdCkuIFdpdGggYW4gb3B0aW9uDQo+IGRlcGVuZGluZyBvbiBFWFBFUlQsIHdo
+YXQgd291bGQgYmVjb21lIHNlY3VyaXR5IHVuc3VwcG9ydGVkIGlzIHRoZQ0KPiBub24tZGVmYXVs
+dCAoaS5lLiBkaXNhYmxlZCkgc2V0dGluZy4gVGhlcmUncyBub3QgYSB3aG9sZSBsb3QgdG8NCj4g
+dGVzdCB0aGVyZSwgaXQncyBtZXJlbHkgYSBmb3JtYWwgY29uc2VxdWVuY2Ugb2Ygb3VyIGdlbmVy
+YWwgcnVsZXMuDQo+IChPZiBjb3Vyc2UsIG92ZXIgdGltZSBkZXBlbmRlbmNpZXMgb2Ygb3RoZXIg
+Y29kZSBtYXkgZGV2ZWxvcCBvbg0KPiB0aGUgaW5mb3JtYXRpb24gYmVpbmcgYXZhaWxhYmxlIGUu
+Zy4gdG8gRG9tMCB1c2VybGFuZC4gSnVzdCBsaWtlDQo+IHRoZXJlJ3MgTGludXggdXNlcmxhbmQg
+Y29kZSBhc3N1bWluZyB0aGUga2VybmVsIGNvbmZpZyBpcw0KPiBhdmFpbGFibGUgaW4gY2VydGFp
+biB3YXlzIFtJIGRvbid0IG5lY2Vzc2FyaWx5IG1lYW4gdGhlIGVxdWl2YWxlbnQNCj4gb2YgaHlw
+ZnMgaGVyZV0sIHRvIHRoZW4gdXNlIGl0IGluIHdoYXQgSSdkIGNhbGwgYWJ1c2l2ZSB3YXlzIGlu
+IGF0DQo+IGxlYXN0IHNvbWUgY2FzZXMuKQ0KDQpIZXJl4oCZcyBhbiBhcmd1bWVudCB5b3UgbWln
+aHQgbWFrZToNCg0K4oCcQXMgYSBtZW1iZXIgb2YgdGhlIHNlY3VyaXR5IHRlYW0sIEkgZG9u4oCZ
+dCB3YW50IHRvIGJlIG9uIHRoZSBob29rIGZvciBpc3N1aW5nIFhTQXMgZm9yIGNvZGUgd2hpY2gg
+aXNu4oCZdCBhdCBsZWFzdCBzbW9rZS10ZXN0ZWQuICBUaGVyZWZvcmUsIEkgb3Bwb3NlIGFueSBw
+YXRjaCBhZGRpbmcgQ09ORklHX0hZUEZTIG91dHNpZGUgb2YgQ09ORklHX0VYUEVSVCwgKnVubGVz
+cyogdGhlcmUgaXMgYSBjb25jcmV0ZSBwbGFuIGZvciBnZXR0aW5nIHJlZ3VsYXIgdGVzdGluZyBm
+b3IgQ09ORklHX0hZUEZTPW4u4oCdDQoNCknigJltIG5vdCBzYXlpbmcgdGhhdOKAmXMgYW4gYXJn
+dW1lbnQgeW91ICpzaG91bGQqIG1ha2UuICBCdXQgcGVyc29uYWxseSBJIGRvbuKAmXQgaGF2ZSBh
+IHN0cm9uZyBhcmd1bWVudCBhZ2FpbnN0IHN1Y2ggYW4gYXJndW1lbnQuIFNvLCBpdCBzZWVtcyB0
+byBtZSwgaWYgeW91IGRpZCBtYWtlIGl0LCB5b3UgaGF2ZSBhIHJlYXNvbmFibGUgY2hhbmNlIG9m
+IGNhcnJ5aW5nIHlvdXIgcG9pbnQuDQoNCk5vdyBjb25zaWRlciB0aGlzIGh5cG90aGV0aWNhbCB1
+bml2ZXJzZSB3aGVyZSB5b3UgbWFkZSB0aGF0IGFyZ3VtZW50IGFuZCBub2JvZHkgb3Bwb3NlZCBp
+dC4gIEluIG9yZGVyIHRvIGdldCBhIHBhcnRpY3VsYXIgZmVhdHVyZSAoQ09ORklHX0hZUEZTPW4g
+c2VjdXJpdHkgc3VwcG9ydGVkKSwgdGhlcmUgaXMgZXh0cmEgd29yayB0aGF0IG5lZWRzIHRvIGJl
+IGRvbmUgKGdldHRpbmcgQ09ORklHX0hZUEZTPW4gdGVzdGVkIHJlZ3VsYXJseSkuICBNeSBwb2lu
+dCB3YXMsIHRoZSBleHBlY3RhdGlvbiBzaG91bGQgYmUgdGhhdCB0aGUgZXh0cmEgd29yayB3aWxs
+IGJlIGRvbmUgYnkgdGhlIHBlb3BsZSB3aG8gd2FudCBvciBiZW5lZml0IGZyb20gdGhlIGZlYXR1
+cmU7IHRoZSBzZXJpZXMgc2hvdWxkbuKAmXQgYmUgYmxvY2tlZCB1bnRpbCBKdWVyZ2VuIGltcGxl
+bWVudHMgQ09ORklHX0hZUEZTPW4gdGVzdGluZyAoc2luY2UgaGUgZG9lc27igJl0IHBlcnNvbmFs
+bHkgaGF2ZSBhIHN0YWtlIGluIHRoYXQgZmVhdHVyZSkuDQoNCk5vdyBvYnZpb3VzbHksIGRvaW5n
+IHdvcmsgdG8gaGVscCBzb21lb25lIGVsc2Ugb3V0IGluIHRoZSBjb21tdW5pdHkgaXMgb2YgY291
+cnNlIGEgZ29vZCB0aGluZyB0byBkbzsgaXQgYnVpbGRzIGdvb2R3aWxsLCB1c2VzIG91ciBhZ2dy
+ZWdhdGUgcmVzb3VyY2VzIG1vcmUgZWZmaWNpZW50bHksIGFuZCBtYWtlcyBvdXIgY29tbXVuaXR5
+IG1vcmUgZW5qb3lhYmxlIHRvIHdvcmsgd2l0aC4gIEJ1dCB0aGUgZ29vZHdpbGwgcHJpbWFyaWx5
+IGNvbWVzIGZyb20gdGhlIGZhY3QgdGhhdCBpdCB3YXMgZG9uZSBhcyBhIHZvbHVudGFyeSBjaG9p
+Y2UsIG5vdCBhcyBhIHJlcXVpcmVtZW50Lg0KDQpKdWVyZ2VuIHdhcyBiYWxraW5nIGF0IGhhdmlu
+ZyB0byBkbyB3aGF0IGhlIHNhdyBhcyBleHRyYSB3b3JrIHRvIGltcGxlbWVudCBDT05GSUdfSFlQ
+RlMuICBJIHdhbnRlZCB0byBtYWtlIGl0IGNsZWFyIHRoYXQgZXZlbiB0aG91Z2ggSSBzZWUgdmFs
+dWUgaW4gaGF2aW5nIENPTkZJR19IWVBGUywgKmhlKiBkb2VzbuKAmXQgaGF2ZSB0byBkbyB0aGUg
+d29yayBpZiBoZSBkb2VzbuKAmXQgd2FudCB0byAoYWx0aG91Z2ggaXQgd291bGQgY2VydGFpbmx5
+IGJlIGFwcHJlY2lhdGVkIGlmIGhlIGRpZCkuICBBbmQgdGhpcyBwYXJhZ3JhcGggd2FzIGV4dGVu
+ZGluZyB0aGUgc2FtZSBwcmluY2lwbGUgaW50byB0aGUgaHlwb3RoZXRpY2FsIHVuaXZlcnNlIHdo
+ZXJlIHNvbWVvbmUgaW5zaXN0ZWQgdGhhdCBDT05GSUdfSFlQRlM9biBoYWQgdG8gYmUgdGVzdGVk
+IGJlZm9yZSBiZWluZyBzZWN1cml0eSBzdXBwb3J0ZWQuDQoNCkhvcGUgdGhhdCBtYWtlcyBzZW5z
+ZS4gOi0pDQoNCiAtR2Vvcmdl
 
