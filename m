@@ -2,42 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 830C21BC10B
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 16:21:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24CA01BC167
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 16:35:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTR6b-00064z-VM; Tue, 28 Apr 2020 14:21:01 +0000
+	id 1jTRJk-0007DC-3J; Tue, 28 Apr 2020 14:34:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/MZc=6M=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jTR6a-00064u-Iq
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 14:21:00 +0000
-X-Inumbo-ID: 7b5ba72e-895b-11ea-ae69-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xCBN=6M=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jTRJj-0007D7-0T
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 14:34:35 +0000
+X-Inumbo-ID: 60fe42fe-895d-11ea-b9cf-bc764e2007e4
+Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7b5ba72e-895b-11ea-ae69-bc764e2007e4;
- Tue, 28 Apr 2020 14:20:59 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C4F49ACD0;
- Tue, 28 Apr 2020 14:20:57 +0000 (UTC)
-Subject: Re: [XEN PATCH v5 08/16] build: Introduce $(cpp_flags)
-To: Anthony PERARD <anthony.perard@citrix.com>
-References: <20200421161208.2429539-1-anthony.perard@citrix.com>
- <20200421161208.2429539-9-anthony.perard@citrix.com>
- <62011f46-b208-334a-4070-0bd72cb21d28@suse.com>
- <20200428140119.GC2116@perard.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <86af7c75-8f8b-db0a-7420-343ccd70fc33@suse.com>
-Date: Tue, 28 Apr 2020 16:20:57 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 60fe42fe-895d-11ea-b9cf-bc764e2007e4;
+ Tue, 28 Apr 2020 14:34:34 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id d15so23291738wrx.3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2020 07:34:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=F/0k6PJTNvTws5L0YkLQ8tz0zw1BoEzEH61WEN+YUXY=;
+ b=WtN12I4JJt6raKYhua4fiZBL08xGq/s/hpCv6pu7OvdMoXU84aTm7MYeLs9Dc3haEI
+ Jdum/U5LZuNldzd4fF8AOeTb06w9DtBmgTJN3RGiR26umD7/YqW+Vc4Urpto3xynj8Z1
+ TZKD060inTnDwVHlT+Got5ps51T2Qn+PwwPhcG84rnKn/lRf5Oe3c8bWR+6JTaFRo4LJ
+ 1iZ9W10EFU6iY+9U20MbUYusP09If65VdQjuj1Lnh2SWTmqaYtI+ZdPMQrbqFZuX5gxy
+ dTbT3aRSM2J3nJzysGeq85YF2/+JuHhTwkjUExUhSsH/a0Xl4AvXbppAxv6ry6UwrH0I
+ W3aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:references:in-reply-to:subject
+ :date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=F/0k6PJTNvTws5L0YkLQ8tz0zw1BoEzEH61WEN+YUXY=;
+ b=Lwpm0ur2MzXVOMhecd9CtjWlJkmB3HKC+L/Hv1VzHA3v/fihfe9ggANuPeqlaFKFzx
+ Q0vd0+0w8ZIYD2u8vhGSOqw3kKeFexcfsSa+JzrrQbdrNIQZv/+r/8qw8XlLKONtmNfp
+ zRtf+9F0SPFoMg7FRFpOsTsLSTu4k3uuH7to9IOJ/8jNswO4pLhL/L1VZZiWRm/OCWYN
+ Vve9zXt8LWQY7Q8jLR66GZksxo+TBFX0xva5BobRoMssVkHEqsdsatNEX01T+7xTX/YA
+ 6Wgo3P7JnITUUNZAHHAQatMAy4o1ISYHcflcJBRUkzXaxIzAeGacmkexwyEHYX5DPejn
+ QOqw==
+X-Gm-Message-State: AGi0PuY/tJLA6VY4y5qwNlTMCkb9wnZAOmFRfm90tYsCiCIE1Lft6mPv
+ zMk2CuuTkskdr4Hv6snIyjQ=
+X-Google-Smtp-Source: APiQypLTUoIXkwlKc1eanndW+mEC1uU52R4qcSRH5XSGNqOEnuPaO6YcVE5oqpCdXCNfrv8IJr1M9w==
+X-Received: by 2002:a5d:5651:: with SMTP id j17mr32738201wrw.406.1588084473763; 
+ Tue, 28 Apr 2020 07:34:33 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.187])
+ by smtp.gmail.com with ESMTPSA id c83sm3768848wmd.23.2020.04.28.07.34.32
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 28 Apr 2020 07:34:33 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	<xen-devel@lists.xenproject.org>
+References: <75d1c852-e6ea-d3f3-3624-c77fb678412a@suse.com>
+In-Reply-To: <75d1c852-e6ea-d3f3-3624-c77fb678412a@suse.com>
+Subject: RE: [PATCH] PCI: drop a redundant variable from pci_add_device()
+Date: Tue, 28 Apr 2020 15:34:31 +0100
+Message-ID: <000e01d61d6a$22295000$667bf000$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20200428140119.GC2116@perard.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain;
+	charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQKG/isN7hcHCscEKMpqEFl4lUzD96cs1uzw
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,82 +77,22 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.04.2020 16:01, Anthony PERARD wrote:
-> On Thu, Apr 23, 2020 at 06:48:51PM +0200, Jan Beulich wrote:
->> On 21.04.2020 18:12, Anthony PERARD wrote:
->>> --- a/xen/Rules.mk
->>> +++ b/xen/Rules.mk
->>> @@ -123,6 +123,7 @@ $(obj-bin-y): XEN_CFLAGS := $(filter-out -flto,$(XEN_CFLAGS))
->>>  
->>>  c_flags = -MMD -MP -MF $(@D)/.$(@F).d $(XEN_CFLAGS) '-D__OBJECT_FILE__="$@"'
->>>  a_flags = -MMD -MP -MF $(@D)/.$(@F).d $(XEN_AFLAGS)
->>> +cpp_flags = $(filter-out -Wa$(comma)%,$(a_flags))
->>
->> I can see this happening to be this way right now, but in principle
->> I could see a_flags to hold items applicable to assembly files only,
->> but not to (the preprocessing of) C files. Hence while this is fine
->> for now, ...
->>
->>> @@ -207,7 +208,7 @@ quiet_cmd_cc_s_c = CC      $@
->>>  cmd_cc_s_c = $(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -S $< -o $@
->>>  
->>>  quiet_cmd_s_S = CPP     $@
->>> -cmd_s_S = $(CPP) $(filter-out -Wa$(comma)%,$(a_flags)) $< -o $@
->>> +cmd_s_S = $(CPP) $(cpp_flags) $< -o $@
->>
->> ... this one is a trap waiting for someone to fall in imo. Instead
->> where I'd expect this patch to use $(cpp_flags) is e.g. in
->> xen/arch/x86/mm/Makefile:
->>
->> guest_walk_%.i: guest_walk.c Makefile
->> 	$(CPP) $(cpp_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
->>
->> And note how this currently uses $(c_flags), not $(a_flags), which
->> suggests that your deriving from $(a_flags) isn't correct either.
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 28 April 2020 14:00
+> To: xen-devel@lists.xenproject.org
+> Cc: Paul Durrant <paul@xen.org>
+> Subject: [PATCH] PCI: drop a redundant variable from pci_add_device()
 > 
-> I think we can drop this patch for now, and change patch "xen/build:
-> factorise generation of the linker scripts" to not use $(cpp_flags).
+> Surrounding code already uses the available alternative, after all.
 > 
-> If we derive $(cpp_flags) from $(c_flags) instead, we would need to
-> find out if CPP commands using a_flags can use c_flags instead.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> On the other hand, I've looked at Linux source code, and they use
-> $(cpp_flags) for only a few targets, only to generate the .lds scripts.
-> For other rules, they use either a_flags or c_flags, for example:
->     %.i: %.c ; uses $(c_flags)
->     %.i: %.S ; uses $(a_flags)
->     %.s: %.S ; uses $(a_flags)
 
-The first on really ought to be use cpp_flags. I couldn't find the
-middle one. The last one clearly has to do something about -Wa,
-options, but apart from this I'd consider a_flags appropriate to
-use there.
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-> (Also, they use -Qunused-arguments clang's options, so they don't need
-> to filter out -Wa,* arguments, I think.)
-
-Maybe we should do so too then?
-
-> So, maybe having a single $(cpp_flags) when running the CPP command
-> isn't such a good idea.
-
-Right - after all in particular the use of CPP to produce .lds is
-an abuse, as the source file (named .lds.S) isn't really what its
-name says.
-
-> So, would dropping $(cpp_flags) for now, and rework the *FLAGS later, be
-> good enough?
-
-I don't think so, no, I'm sorry. cpp_flags should be there for its
-real purpose. Whether the .lds.S -> .lds rule can use it, or should
-use a_flags, or yet something else is a different thing.
-
-Jan
 
