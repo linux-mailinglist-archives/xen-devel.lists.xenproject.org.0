@@ -2,83 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 310081BBA88
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 12:01:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F4681BBAB3
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 12:06:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTN2q-0004W5-MT; Tue, 28 Apr 2020 10:00:52 +0000
+	id 1jTN80-0004of-CU; Tue, 28 Apr 2020 10:06:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p0bN=6M=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jTN2p-0004Vu-7r
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 10:00:51 +0000
-X-Inumbo-ID: 23726972-8937-11ea-ae69-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=c5nG=6M=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jTN7y-0004oa-Jj
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 10:06:10 +0000
+X-Inumbo-ID: e214778a-8937-11ea-ae69-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 23726972-8937-11ea-ae69-bc764e2007e4;
- Tue, 28 Apr 2020 10:00:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588068050;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8OesVpAHyRD5/QC7oXevGEfVAZ+AqDF+l3jln2eeii8=;
- b=fUVIknj5xTOycoJv3MLeLLHw4A4zAsQ3z1/kdFX+LNZS31sZZdRj/8Ks
- k09L6s14SZrUtKcnPfQESLEKG4AecUa1m/bJBBsjlnytkot+v0xJhqGJ6
- sWVXtsTr3oLfS+Zh47rT6z0KhcA3UQyK7uTqYXSSReDaonwe8wqxgg+E/ M=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: Q9XRAlwYkBHl97eX9Mn/+A5sOWPeQeABfBWYRpa0Ikk5cv3r9ye7Sh3rHW9GECWizqyQG0VRDE
- uRieiNWx9FeEMn4ll9XM87vFiDPZkNyvtzJRjIZAFOu6lk1Lv4wPM6pQXo36JINH0DwHAU3LDu
- MVcFQRfc6GBK2DVqeOude+yf7+Q5gSg2cbPAvFR6d1ktOTM8bCEUYnY0NxP39D7VhzKAP6Qn/g
- IWLsaxNt7Q5mklrtDMfgABrDCO7Vpm5/wrFK0OZj6SYb54HLk9wZz2LvNTRP942uPRdpQCx+7i
- CgY=
-X-SBRS: 2.7
-X-MesageID: 16671844
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,327,1583211600"; d="scan'208";a="16671844"
-Date: Tue, 28 Apr 2020 12:00:42 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Tamas K Lengyel <tamas.lengyel@intel.com>
-Subject: Re: [PATCH] mem_sharing: map shared_info page to same gfn during fork
-Message-ID: <20200428100042.GT28601@Air-de-Roger>
-References: <08d022bbca06c59624817ac9e23ddcb288121763.1588004969.git.tamas.lengyel@intel.com>
+ id e214778a-8937-11ea-ae69-bc764e2007e4;
+ Tue, 28 Apr 2020 10:06:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2428JvOxmqbJVE6MC3VW9164x8yTcsFVcaiWK3PSEyc=; b=WbVKq00uIgL8khQwD0Vx0EzIkD
+ t6EAysqr/P5uXHd9PJgrEZgrc0lYG5GLvRiNxOrk72VEynUW/lm8NShi9igI4E/2jeJdznt7nasER
+ zW+EauAezyfK5bLHFyWSBl/Yc8KeeQBfzmdw5h6m6R1ZK8GQNMusncw+YlY+PcxtjN4c=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jTN7x-0008WG-Bp; Tue, 28 Apr 2020 10:06:09 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jTN7x-00056B-0q; Tue, 28 Apr 2020 10:06:09 +0000
+Subject: Re: [PATCH v7 08/12] xen: add /buildinfo/config entry to hypervisor
+ filesystem
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200402154616.16927-1-jgross@suse.com>
+ <20200402154616.16927-9-jgross@suse.com>
+ <19f84540-6b49-f99d-805a-e07f56330f31@suse.com>
+ <b9ddd1fb-d868-bb69-3b6b-27531beda2fa@suse.com>
+ <f7d1f3aa-3a7e-fcb2-3163-5e67756e8452@suse.com>
+ <17d65095-a51e-2e00-38ee-7c1c83d2bb99@suse.com>
+ <51e0f0d2-f9ce-83fd-79fa-ae4805356612@suse.com>
+ <31c7f4fe-847c-96f5-e598-dba99b0bb61a@suse.com>
+ <085E1F72-EC22-43D6-8F7E-EDC132CC787D@citrix.com>
+ <fb0e92cc-102f-7f87-1ad6-f3ccce1eee60@suse.com>
+ <064958B4-1FCC-4300-A98A-7A1D608376F8@citrix.com>
+ <23606595-8ce0-5151-d800-1dc0d97513d1@suse.com>
+ <304ab794-4d04-ae0d-d644-a7ddb0f23bf4@xen.org>
+ <26926b3c-11ee-345b-5602-c4607dbe37ae@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e8d3539b-618b-969d-4c56-a08959393a4a@xen.org>
+Date: Tue, 28 Apr 2020 11:06:06 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <08d022bbca06c59624817ac9e23ddcb288121763.1588004969.git.tamas.lengyel@intel.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <26926b3c-11ee-345b-5602-c4607dbe37ae@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,69 +73,97 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Ian Jackson <Ian.Jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Apr 27, 2020 at 09:36:05AM -0700, Tamas K Lengyel wrote:
-> During a VM fork we copy the shared_info page; however, we also need to ensure
-> that the page is mapped into the same GFN in the fork as its in the parent.
+Hi Jan,
+
+On 28/04/2020 10:59, Jan Beulich wrote:
+> On 28.04.2020 11:43, Julien Grall wrote:
+>> Hi Jan,
+>>
+>> On 28/04/2020 09:39, Jan Beulich wrote:
+>>> On 28.04.2020 10:24, George Dunlap wrote:
+>>>>> On Apr 28, 2020, at 8:20 AM, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>> On 27.04.2020 18:25, George Dunlap wrote:
+>>>>>> If Jan is OK with it simply being outside CONFIG_EXPERT, then great.  But if he insists on some kind of testing for it to be outside of CONFIG_EXPERT, then again, the people who want it to be security supported should be the ones who do the work to make it happen.
+>>>>>
+>>>>> I don't understand this part, I'm afraid: Without a config option,
+>>>>> the code is going to be security supported as long as it doesn't
+>>>>> get marked otherwise (experimental or what not). With an option
+>>>>> depending on EXPERT, what would become security unsupported is the
+>>>>> non-default (i.e. disabled) setting. There's not a whole lot to
+>>>>> test there, it's merely a formal consequence of our general rules.
+>>>>> (Of course, over time dependencies of other code may develop on
+>>>>> the information being available e.g. to Dom0 userland. Just like
+>>>>> there's Linux userland code assuming the kernel config is
+>>>>> available in certain ways [I don't necessarily mean the equivalent
+>>>>> of hypfs here], to then use it in what I'd call abusive ways in at
+>>>>> least some cases.)
+>>>>
+>>>> Here’s an argument you might make:
+>>>>
+>>>> “As a member of the security team, I don’t want to be on the hook for issuing XSAs for code which isn’t at least smoke-tested.  Therefore, I oppose any patch adding CONFIG_HYPFS outside of CONFIG_EXPERT, *unless* there is a concrete plan for getting regular testing for CONFIG_HYPFS=n.”
+>>>>
+>>>> I’m not saying that’s an argument you *should* make.  But personally I don’t have a strong argument against such an argument. So, it seems to me, if you did make it, you have a reasonable chance of carrying your point.
+>>>>
+>>>> Now consider this hypothetical universe where you made that argument and nobody opposed it.  In order to get a particular feature (CONFIG_HYPFS=n security supported), there is extra work that needs to be done (getting CONFIG_HYPFS=n tested regularly).  My point was, the expectation should be that the extra work will be done by the people who want or benefit from the feature; the series shouldn’t be blocked until Juergen implements CONFIG_HYPFS=n testing (since he doesn’t personally have a stake in that feature).
+>>>>
+>>>> Now obviously, doing work to help someone else out in the community is of course a good thing to do; it builds goodwill, uses our aggregate resources more efficiently, and makes our community more enjoyable to work with.  But the goodwill primarily comes from the fact that it was done as a voluntary choice, not as a requirement.
+>>>>
+>>>> Juergen was balking at having to do what he saw as extra work to implement CONFIG_HYPFS.  I wanted to make it clear that even though I see value in having CONFIG_HYPFS, *he* doesn’t have to do the work if he doesn’t want to (although it would certainly be appreciated if he did).  And this paragraph was extending the same principle into the hypothetical universe where someone insisted that CONFIG_HYPFS=n had to be tested before being security supported.
+>>>>
+>>>> Hope that makes sense. :-)
+>>>
+>>> Yes, it does, thanks for the clarification. I can see what you describe
+>>> as a valid perspective to take, but really in my request to Jürgen I
+>>> took another: Now that we have Kconfig, additions of larger bodies of
+>>> code (possibly also just in terms of binary size) should imo generally
+>>> be questioned whether they want/need to be built for everyone. I.e. it
+>>> is not to be left to people being worried about binary sizes to arrange
+>>> for things to not be built, but for people contributing new but not
+>>> entirely essential code to consider making it option from the very
+>>> beginning.
+>>
+>> I like the idea to have a more configurable Xen but this also comes at the expense of the testing/support.
+>>
+>> At the moment, we are getting around the problem by gating the new config options with CONFIG_EXPERT. I have stoppped counting the number of time I sweared because my config got rewritten when using 'make clean' or explain to someone else how to use it.
+>>
+>> As it stands, CONFIG_EXPERT is unusable and most likely anything behind it will rot quite quickly. So if we want to add more stuff behind it, then I would suggest to make it more accessible so any developper can experiment with it.
 > 
-> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> Suggested-by: Roger Pau Monne <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/mm/mem_sharing.c | 29 +++++++++++++++++++++++++++++
->  1 file changed, 29 insertions(+)
+> This complaint is not new; what I'm missing are concrete suggestions
+> on how to improve the situation.
+
+It is quite easy to improve, rather than specifying on the command line 
+we could introduce a new Kconfig option so the user can select it normally.
+
+This would not be very different compare to what Linux does.
+
 > 
-> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-> index 344a5bfb3d..acbf21b22c 100644
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -1656,6 +1656,7 @@ static void copy_tsc(struct domain *cd, struct domain *d)
->  static int copy_special_pages(struct domain *cd, struct domain *d)
->  {
->      mfn_t new_mfn, old_mfn;
-> +    gfn_t old_gfn;
->      struct p2m_domain *p2m = p2m_get_hostp2m(cd);
->      static const unsigned int params[] =
->      {
-> @@ -1701,6 +1702,34 @@ static int copy_special_pages(struct domain *cd, struct domain *d)
->      new_mfn = _mfn(virt_to_mfn(cd->shared_info));
->      copy_domain_page(new_mfn, old_mfn);
->  
-> +    old_gfn = _gfn(get_gpfn_from_mfn(mfn_x(old_mfn)));
-> +
-> +    if ( !gfn_eq(old_gfn, INVALID_GFN) )
+>> Going forward, I would expect the embedded folks to want more part of Xen configurable. Requesting them to use CONFIG_EXPERT may be an issue as this means we would not security support them. At the same time, I understand that exposing a CONFIG increase the testing matrix. How about declaring we are supporting/testing a given set of .config? On Arm it would be defconfig and tiny.
+> 
+> We could do this, sure, but it would end up being rather limiting at
+> least on the x86 side.
 
-I think you need to compare the parent shared info gfn against the
-child shared info gfn, in case the child has mapped the shared info
-but the parent doesn't have it mapped. In which case you want to
-remove the mapping when doing a fork reset.
+It would not be worse than where we are today, right?
 
-> +    {
-> +        /* let's make sure shared_info is mapped to the same gfn */
-> +        gfn_t new_gfn = _gfn(get_gpfn_from_mfn(mfn_x(new_mfn)));
-> +
-> +        if ( !gfn_eq(new_gfn, INVALID_GFN) && !gfn_eq(old_gfn, new_gfn) )
+> 
+> Considering how frequently this is coming up, perhaps instead we
+> should drop use of EXPERT mostly or altogether, and declare that
+> we're willing to live with the fallout? We could document options
+> or option combinations we specifically exclude from being supported
+> then ...
 
-You can then remove the last condition in this if.
+I would not suggest to remove EXPERT so far, just to make easier to use
+of EXPERT.
 
-> +        {
-> +            /* if shared info is mapped to a different gfn just remove it */
-> +            rc = p2m->set_entry(p2m, new_gfn, INVALID_MFN, PAGE_ORDER_4K,
-> +                                p2m_invalid, p2m->default_access, -1);
-> +            if ( rc )
-> +                return rc;
-> +
-> +            new_gfn = INVALID_GFN;
-> +        }
-> +
-> +        if ( gfn_eq(new_gfn, INVALID_GFN) )
+Cheers,
 
-And this should then be if ( !gfn_eq(old_gfn, INVALID_GFN) ) ...
-
-Thanks, Roger.
+-- 
+Julien Grall
 
