@@ -2,59 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 163061BB4F9
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 06:07:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E651E1BB4FA
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 06:07:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTHWM-0001Ku-CM; Tue, 28 Apr 2020 04:06:58 +0000
+	id 1jTHWQ-0001Om-N8; Tue, 28 Apr 2020 04:07:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Vxmr=6M=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jTHWK-0001Iw-3t
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 04:06:56 +0000
-X-Inumbo-ID: 9e6a4e92-8905-11ea-9887-bc764e2007e4
-Received: from mail-qv1-xf43.google.com (unknown [2607:f8b0:4864:20::f43])
+ id 1jTHWP-0001Nr-49
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 04:07:01 +0000
+X-Inumbo-ID: 9fb25ad8-8905-11ea-9887-bc764e2007e4
+Received: from mail-qk1-x742.google.com (unknown [2607:f8b0:4864:20::742])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9e6a4e92-8905-11ea-9887-bc764e2007e4;
- Tue, 28 Apr 2020 04:06:21 +0000 (UTC)
-Received: by mail-qv1-xf43.google.com with SMTP id y19so9757487qvv.4
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2020 21:06:21 -0700 (PDT)
+ id 9fb25ad8-8905-11ea-9887-bc764e2007e4;
+ Tue, 28 Apr 2020 04:06:23 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id t3so20591207qkg.1
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2020 21:06:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=tSVk0kCBf7n4qF0esOSMv85t4GqldCzE2h0PjonxwNo=;
- b=tb3C2eJPTwYyxOnSmKGXZljy6Xj8fMhjs5HuQD8Vo64C3gCYuL18KIppYOHXsYwK7S
- 9MlT9sfKYnoL164NSLh0g6nALsr6TQLbIT5Z2v0NJr2du8KnF0ipA624WA5okByRMqq8
- suG1EkswxIIiMTevCVjug9Jd1YYMRxRWK/E6+kwITZef1w/hcKo2Bqtdu2DThZwJC7Qd
- MPnmf0qOCrzws/GMBLD/u+mm9eoezCeUVSMG4LRCY3xIz0eOgWm/R1dFNyzAc7bogJa0
- c4Z9mXQcIDTqcU6jL7yB8uCpOcU/Kue6I2mQHzlW3Y2fuq7ybh95BI57VZi25QTcxmnQ
- 6rdA==
+ bh=6DQChgQe+3bSXOEkWGb6D1mzdbV5n3lQYWfTuCEquu8=;
+ b=Xse0tAdbdB+fF1IFKZRUS6Q/2MFCrE/2W06iDpxBq7FbgQC2NuqemaAC+9W8hkPvjG
+ RqfHvzkCNFw0RhDpx9gbkTyscUSqwwx27vcOZ1aHw5AXlhA3p19LUHtcuLW9qT0rcsI/
+ /pLIQBDW1oqSM1YXXe8B9TaNlKsAxzYdv2ynChzZ0jal7NlQkA2iv2vgm6kVyjxYV0mU
+ EzOazIJ39GlhuF4YzXL88CYZdy6D0bDW8MeGEKZnogBP8RgM9o2RQ0LG5BgqEe/J25JC
+ LayBQ9TrDy0f+tJ1kOiciYt4/bP2/3/BrMzrNzGT88IcBzcLK1ZAXO3tqJXCd3634KMe
+ 2e7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=tSVk0kCBf7n4qF0esOSMv85t4GqldCzE2h0PjonxwNo=;
- b=cVcmxGvUqxisn40Y+HCmsk+ESt2+nZFpw511vF3NMncUwnVdqPcgpQDNINeoxJq1Pf
- qWjsK3JtjV828HfwwFlNZUp4f1hBTx/LQNw54oB2WEHgUQUyt7SwVUzCr5T9LGfTpZZh
- 10WvZ7RnsoFJcTQ90QEdVf2fMQfiSlXREZg4QR/kwbwldmpboRQ36kk/qHhViYoa2A+D
- VLdwfkcwLvPMIWqNTXNS4Owu/FrtfsGHioHDLpnCDwoOj/XU2CgfiIq7IBPJg8IfS+Rl
- Btlpwu4G1gaCVrpWisybvGGtftPnp9pmUlP2Br6lQvV8h2rMZb3N37yZArTZ/f1qhdA9
- jmBQ==
-X-Gm-Message-State: AGi0PuYqG2kLqTMemEywuf2p6QN9ehtKBWzmf4F8ZXsynXtsFh6c6JJm
- 1wJ9qlPsI8copSYHlS7oP++Dw/AY
-X-Google-Smtp-Source: APiQypKCttcK2Qg1o1j3J3JV4xEZ+88l5p38LSqrSIpq5oCLR1KYCeyyYSPJ6jK6YDCgqvheDVdG6w==
-X-Received: by 2002:a0c:da0e:: with SMTP id x14mr26232279qvj.47.1588046780850; 
- Mon, 27 Apr 2020 21:06:20 -0700 (PDT)
+ bh=6DQChgQe+3bSXOEkWGb6D1mzdbV5n3lQYWfTuCEquu8=;
+ b=sZsnEMzYTmNbsL0N9pv7MsKQkm3fquB0vI8C3wbp5zTx+1d5Mq4FXi1wmYOiNH8CfR
+ /HqzCZuzJp7Fwdo/VxpVXwgC0lH9oQsdj6t26vE8tZUpxlmuBgwfNiFkUs1Sb1cPcb/Q
+ r81p2O9ZDHnG3iXPdm6VWM/PAorTB18Pd2FidFIPRQ1mQNP4F2QpeFRc0xWaahxM9aiT
+ eVpeo24npYbSgCwjgDt9EEf3PaDEIgVyu+3qqcE8X92vtp/Zw+2NGryBs7c325/3aMDq
+ 8nrPkK/OIlwABj3ugPpQ19lt5sqkaJhmUORuIE3Da7CQK8D+MbC6K1+sCf8kq11/bxI9
+ mv6A==
+X-Gm-Message-State: AGi0PuawhNxJC+gG5krOqTo/KuYnaViA9wbgJNpgIxvibioUynPWm4xN
+ cfsg+8WuxWJW+ZAD/olMGDR2rQbJ
+X-Google-Smtp-Source: APiQypL32vsxRZanS1NtlmQKFUKLhxnlSdDfEXm+decCbPDZhmOs0AEQ68A8akHQ39nI7acivelvmQ==
+X-Received: by 2002:a05:620a:13b9:: with SMTP id
+ m25mr25458664qki.456.1588046782950; 
+ Mon, 27 Apr 2020 21:06:22 -0700 (PDT)
 Received: from shine.lan ([2001:470:8:67e:f1d1:23b9:fc94:a1a9])
- by smtp.gmail.com with ESMTPSA id v2sm13445480qth.66.2020.04.27.21.06.19
+ by smtp.gmail.com with ESMTPSA id v2sm13445480qth.66.2020.04.27.21.06.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2020 21:06:20 -0700 (PDT)
+ Mon, 27 Apr 2020 21:06:22 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v5 18/21] libxl: Check stubdomain kernel & ramdisk presence
-Date: Tue, 28 Apr 2020 00:04:30 -0400
-Message-Id: <20200428040433.23504-19-jandryuk@gmail.com>
+Subject: [PATCH v5 19/21] libxl: Refactor kill_device_model to
+ libxl__kill_xs_path
+Date: Tue, 28 Apr 2020 00:04:31 -0400
+Message-Id: <20200428040433.23504-20-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200428040433.23504-1-jandryuk@gmail.com>
 References: <20200428040433.23504-1-jandryuk@gmail.com>
@@ -76,45 +78,115 @@ Cc: Anthony PERARD <anthony.perard@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Just out of context is the following comment for libxl__domain_make:
-/* fixme: this function can leak the stubdom if it fails */
+Move kill_device_model to libxl__kill_xs_path so we have a helper to
+kill a process from a pid stored in xenstore.  We'll be using it to kill
+vchan-qmp-proxy.
 
-When the stubdomain kernel or ramdisk is not present, the domid and
-stubdomain name will indeed be leaked.  Avoid the leak by checking the
-file presence and erroring out when absent.  It doesn't fix all cases,
-but it avoids a big one when using a linux device model stubdomain.
+libxl__kill_xs_path takes a "what" string for use in printing error
+messages.  kill_device_model is retained in libxl_dm.c to provide the
+string.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- tools/libxl/libxl_dm.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ tools/libxl/libxl_aoutils.c  | 32 ++++++++++++++++++++++++++++++++
+ tools/libxl/libxl_dm.c       | 27 +--------------------------
+ tools/libxl/libxl_internal.h |  3 +++
+ 3 files changed, 36 insertions(+), 26 deletions(-)
 
+diff --git a/tools/libxl/libxl_aoutils.c b/tools/libxl/libxl_aoutils.c
+index 1be858c93c..c4c095a5ba 100644
+--- a/tools/libxl/libxl_aoutils.c
++++ b/tools/libxl/libxl_aoutils.c
+@@ -626,6 +626,38 @@ void libxl__kill(libxl__gc *gc, pid_t pid, int sig, const char *what)
+                 what, (unsigned long)pid, sig);
+ }
+ 
++/* Generic function to signal (HUP) a pid stored in xenstore */
++int libxl__kill_xs_path(libxl__gc *gc, const char *xs_path_pid,
++                        const char *what)
++{
++    const char *xs_pid;
++    int ret, pid;
++
++    ret = libxl__xs_read_checked(gc, XBT_NULL, xs_path_pid, &xs_pid);
++    if (ret || !xs_pid) {
++        LOG(ERROR, "unable to find %s pid in %s", what, xs_path_pid);
++        ret = ret ? : ERROR_FAIL;
++        goto out;
++    }
++    pid = atoi(xs_pid);
++
++    ret = kill(pid, SIGHUP);
++    if (ret < 0 && errno == ESRCH) {
++        LOG(ERROR, "%s already exited", what);
++        ret = 0;
++    } else if (ret == 0) {
++        LOG(DEBUG, "%s signaled", what);
++        ret = 0;
++    } else {
++        LOGE(ERROR, "failed to kill %s [%d]", what, pid);
++        ret = ERROR_FAIL;
++        goto out;
++    }
++
++out:
++    return ret;
++}
++
+ /*
+  * Local variables:
+  * mode: C
 diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
-index 5d61da1de8..a57c13bdf4 100644
+index a57c13bdf4..10ca4226ba 100644
 --- a/tools/libxl/libxl_dm.c
 +++ b/tools/libxl/libxl_dm.c
-@@ -2316,6 +2316,22 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
-         dm_config->num_vkbs = 1;
-     }
+@@ -3397,32 +3397,7 @@ out:
+ /* Generic function to signal a Qemu instance to exit */
+ static int kill_device_model(libxl__gc *gc, const char *xs_path_pid)
+ {
+-    const char *xs_pid;
+-    int ret, pid;
+-
+-    ret = libxl__xs_read_checked(gc, XBT_NULL, xs_path_pid, &xs_pid);
+-    if (ret || !xs_pid) {
+-        LOG(ERROR, "unable to find device model pid in %s", xs_path_pid);
+-        ret = ret ? : ERROR_FAIL;
+-        goto out;
+-    }
+-    pid = atoi(xs_pid);
+-
+-    ret = kill(pid, SIGHUP);
+-    if (ret < 0 && errno == ESRCH) {
+-        LOG(ERROR, "Device Model already exited");
+-        ret = 0;
+-    } else if (ret == 0) {
+-        LOG(DEBUG, "Device Model signaled");
+-        ret = 0;
+-    } else {
+-        LOGE(ERROR, "failed to kill Device Model [%d]", pid);
+-        ret = ERROR_FAIL;
+-        goto out;
+-    }
+-
+-out:
+-    return ret;
++    return libxl__kill_xs_path(gc, xs_path_pid, "Device Model");
+ }
  
-+    if (guest_config->b_info.stubdomain_kernel &&
-+        access(guest_config->b_info.stubdomain_kernel, R_OK) != 0) {
-+        LOGED(ERROR, guest_domid, "could not access stubdomain kernel %s",
-+              guest_config->b_info.stubdomain_kernel);
-+        ret = ERROR_INVAL;
-+        goto out;
-+    }
-+
-+    if (guest_config->b_info.stubdomain_ramdisk &&
-+        access(guest_config->b_info.stubdomain_ramdisk, R_OK) != 0) {
-+        LOGED(ERROR, guest_domid, "could not access stubdomain ramdisk %s",
-+              guest_config->b_info.stubdomain_ramdisk);
-+        ret = ERROR_INVAL;
-+        goto out;
-+    }
-+
-     stubdom_state->pv_kernel.path = guest_config->b_info.stubdomain_kernel;
-     stubdom_state->pv_ramdisk.path = guest_config->b_info.stubdomain_ramdisk;
+ /* Helper to destroy a Qdisk backend */
+diff --git a/tools/libxl/libxl_internal.h b/tools/libxl/libxl_internal.h
+index 00cfbe1fac..32aa797714 100644
+--- a/tools/libxl/libxl_internal.h
++++ b/tools/libxl/libxl_internal.h
+@@ -2707,6 +2707,9 @@ int libxl__async_exec_start(libxl__async_exec_state *aes);
+ bool libxl__async_exec_inuse(const libxl__async_exec_state *aes);
+ 
+ _hidden void libxl__kill(libxl__gc *gc, pid_t pid, int sig, const char *what);
++/* kill SIGHUP a pid stored in xenstore */
++_hidden int libxl__kill_xs_path(libxl__gc *gc, const char *xs_path_pid,
++                                const char *what);
+ 
+ /*----- device addition/removal -----*/
  
 -- 
 2.20.1
