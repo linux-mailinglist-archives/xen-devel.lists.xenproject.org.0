@@ -2,74 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30561BC3D5
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 17:36:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D46021BC3D8
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 17:36:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTSHQ-0005pI-Io; Tue, 28 Apr 2020 15:36:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jTSHv-0005u3-SQ; Tue, 28 Apr 2020 15:36:47 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xCBN=6M=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jTSHP-0005p9-1H
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 15:36:15 +0000
-X-Inumbo-ID: fe512bc2-8965-11ea-ae69-bc764e2007e4
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fe512bc2-8965-11ea-ae69-bc764e2007e4;
- Tue, 28 Apr 2020 15:36:14 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id k12so3292043wmj.3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2020 08:36:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=sZw6wmR3//GO8uGKaUgt+ATL89wawQJw2yUmRNDpiTs=;
- b=pRlghg/fl+V23+w3Fq2+oKZe4Q7u7kpX0v1uekaE4woddTOLnJPcpOvmgQyln4GaFY
- DFxtptWv6O9RGVtIjYSe0j5woda65qV/NkFff+NP8Z+6XBW4M7wDwedLMNgu0i3pEWb7
- Dq1zcYr2tFgi+zeMdLe4Qo7URqD2RDhmBZH+1vAGHWAydkU9OKwtt8kV1qX1aR1/WG8y
- VjfsyLk9Yi8LRTtZrW8lH8BVsY1le4LEKXJe0yo7YqEz7CaZvBRatx86gMsCl5UZvEn8
- /J3uFkZGnV28GADzQkM6cbIazNd/jKUQRudhKCxGQrKOES18+0cqorwGIWrQLEkloHsx
- AMKA==
+ <SRS0=Fewl=6M=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
+ id 1jTSHu-0005tq-FZ
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 15:36:46 +0000
+X-Inumbo-ID: 1100b97c-8966-11ea-9885-12813bfff9fa
+Received: from mail-wr1-f65.google.com (unknown [209.85.221.65])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1100b97c-8966-11ea-9885-12813bfff9fa;
+ Tue, 28 Apr 2020 15:36:45 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id d17so25188504wrg.11
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2020 08:36:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=sZw6wmR3//GO8uGKaUgt+ATL89wawQJw2yUmRNDpiTs=;
- b=Bp8ji7BEu/K5EXDypoOQN6CVSata/xls+W2HHfpg7T1jburYrztS0NxzGzBMAw6P+S
- nKgTAvyLIVvJg5b3ZBIGF68XCDbHhchRTuVf1uT6OgwiRboFFIx4vzP312B27UWS+wZ9
- iWIfXNFtr1OaW6BEnsw952qY4zljQmgxUCE267oVWXxMqg6lNBRhs0OsVjOQ+fbSllhl
- 0A0V23VRKZCczetpChCgoGn9aCBRDv4s0v3mq/V+d68ma+Diw6mvhIobohXumkKVbQpf
- lJ9T1YGK/NjjbURmhFsqU37GLr4oPoU54HwHX422bIBORWpJxQT57kpK2KluTJKGWIHk
- hoUQ==
-X-Gm-Message-State: AGi0PuaWO1vE6GTMVAF4XuCjR6LsDTgG7WLXgZx1MFCmAqc1KhCze+aM
- D2TAXbWqLRcWcwRmJ2WXckw=
-X-Google-Smtp-Source: APiQypLpRYiCbEdKpYoZfdbhZaq1W+0LL3GbXHFxAujs5ZZChPAX12UUYq6QrA1sqdgXy55ZFQE7vA==
-X-Received: by 2002:a7b:cb0c:: with SMTP id u12mr5683899wmj.137.1588088173603; 
- Tue, 28 Apr 2020 08:36:13 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id k133sm4189153wma.0.2020.04.28.08.36.11
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 28 Apr 2020 08:36:12 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Julien Grall'" <julien@xen.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20200407173847.1595-1-paul@xen.org>
- <20200407173847.1595-3-paul@xen.org>
- <f4aa5e9f-4a1c-c02a-1cee-a43591492556@xen.org>
-In-Reply-To: <f4aa5e9f-4a1c-c02a-1cee-a43591492556@xen.org>
-Subject: RE: [PATCH v2 2/5] xen/common/domctl: introduce
- XEN_DOMCTL_get/setdomaincontext
-Date: Tue, 28 Apr 2020 16:36:11 +0100
-Message-ID: <001501d61d72$bf619910$3e24cb30$@xen.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gDQQvbPT3Kzf63XvecjBNGYEsk2bb2xd9NhLfULiqJg=;
+ b=cjSlJUoKTogoeoKOW04Xhg+PRZJQ5mO37o+gijfepUxYBzE3B+xIgh6rT21B9t76dc
+ mmNIW+BFNWpbZQpUFpSiIg3K1x3wdLDjzV7qdi0QqCUl3yHjZhVg2tMuErdTq3DGZhWa
+ v+wmV3NMdSRqtnV8r3CS5HbncQG+DqxMbV/X9kipObBUx+HhlvK9xzojdoj+Kvs/avfr
+ rPgf+NYh5hwJupm8gYBXVaV7x8vDi0Vp6OKcGLPmLeoPLNwAwwyU6uSmSsEo2Pc6C5Gv
+ wB4HKZ2c0JdpvDQUW7RIunSGWp/zyIlfR/xLHf5p2x62wlaKkPeKB6OWVrun0ITS87yc
+ hurQ==
+X-Gm-Message-State: AGi0PuYHrrQ8qsDnJp7/hP6mnvCx2zJrJJ1+GRTXwRxjqZ1qmEvODWqI
+ n2qzNRDNudQWALLM22Hi7uY=
+X-Google-Smtp-Source: APiQypIOusuwAcr33CB5Ldy0/gal7sLr8hHFrxFgnuMNsSelBzKOp9T5ByiX4HEIJfDkRsL82eG/gw==
+X-Received: by 2002:adf:84c2:: with SMTP id 60mr33197060wrg.65.1588088204974; 
+ Tue, 28 Apr 2020 08:36:44 -0700 (PDT)
+Received: from
+ liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
+ ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id w12sm25355384wrk.56.2020.04.28.08.36.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Apr 2020 08:36:43 -0700 (PDT)
+From: Wei Liu <wei.liu@kernel.org>
+To: linux-pci@vger.kernel.org,
+ Xen Development List <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/xen: drop an unused parameter gsi_override
+Date: Tue, 28 Apr 2020 15:36:40 +0000
+Message-Id: <20200428153640.76476-1-wei.liu@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIOC3/NwyZzJjhdRz0oBcI7Is/lxwJNGvp/Abca5S6n/qyzMA==
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,69 +62,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Paul Durrant' <pdurrant@amazon.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>,
- 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>
+Cc: Juergen Gross <jgross@suse.com>, Wei Liu <wei.liu@kernel.org>,
+ sstabellini@kernel.org, konrad.wilk@oracle.com, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Michael Kelley <mikelley@microsoft.com>,
+ boris.ostrovsky@oracle.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Julien Grall <julien@xen.org>
-> Sent: 20 April 2020 18:26
-> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
-> Cc: Paul Durrant <pdurrant@amazon.com>; Daniel De Graaf <dgdegra@tycho.nsa.gov>; Ian Jackson
-> <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>; Andrew Cooper <andrew.cooper3@citrix.com>; George
-> Dunlap <george.dunlap@citrix.com>; Jan Beulich <jbeulich@suse.com>; Stefano Stabellini
-> <sstabellini@kernel.org>
-> Subject: Re: [PATCH v2 2/5] xen/common/domctl: introduce XEN_DOMCTL_get/setdomaincontext
-> 
-> Hi Paul,
-> 
-> On 07/04/2020 18:38, Paul Durrant wrote:
-> > diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-> > index 1ad34c35eb..8ab39acf0c 100644
-> > --- a/xen/include/public/domctl.h
-> > +++ b/xen/include/public/domctl.h
-> > @@ -38,7 +38,7 @@
-> >   #include "hvm/save.h"
-> >   #include "memory.h"
-> >
-> > -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000012
-> > +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000013
-> >
-> >   /*
-> >    * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
-> > @@ -1129,6 +1129,44 @@ struct xen_domctl_vuart_op {
-> >                                    */
-> >   };
-> >
-> > +/*
-> > + * Get/Set domain PV context. The same struct xen_domctl_domaincontext
-> 
-> I think you want to update the comments to match the split.
+All callers within the same file pass in -1 (no override).
 
-Oh yes.
+Signed-off-by: Wei Liu <wei.liu@kernel.org>
+---
+ arch/x86/pci/xen.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-> 
-> > + * is used for both commands but with slightly different field semantics
-> > + * as follows:
-> 
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
-> 
-
-Thanks,
-
-  Paul
-
-> 
-> Cheers,
-> 
-> 
-> --
-> Julien Grall
+diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
+index 91220cc25854..e3f1ca316068 100644
+--- a/arch/x86/pci/xen.c
++++ b/arch/x86/pci/xen.c
+@@ -60,8 +60,7 @@ static int xen_pcifront_enable_irq(struct pci_dev *dev)
+ }
+ 
+ #ifdef CONFIG_ACPI
+-static int xen_register_pirq(u32 gsi, int gsi_override, int triggering,
+-			     bool set_pirq)
++static int xen_register_pirq(u32 gsi, int triggering, bool set_pirq)
+ {
+ 	int rc, pirq = -1, irq = -1;
+ 	struct physdev_map_pirq map_irq;
+@@ -94,9 +93,6 @@ static int xen_register_pirq(u32 gsi, int gsi_override, int triggering,
+ 		name = "ioapic-level";
+ 	}
+ 
+-	if (gsi_override >= 0)
+-		gsi = gsi_override;
+-
+ 	irq = xen_bind_pirq_gsi_to_irq(gsi, map_irq.pirq, shareable, name);
+ 	if (irq < 0)
+ 		goto out;
+@@ -112,12 +108,12 @@ static int acpi_register_gsi_xen_hvm(struct device *dev, u32 gsi,
+ 	if (!xen_hvm_domain())
+ 		return -1;
+ 
+-	return xen_register_pirq(gsi, -1 /* no GSI override */, trigger,
++	return xen_register_pirq(gsi, trigger,
+ 				 false /* no mapping of GSI to PIRQ */);
+ }
+ 
+ #ifdef CONFIG_XEN_DOM0
+-static int xen_register_gsi(u32 gsi, int gsi_override, int triggering, int polarity)
++static int xen_register_gsi(u32 gsi, int triggering, int polarity)
+ {
+ 	int rc, irq;
+ 	struct physdev_setup_gsi setup_gsi;
+@@ -128,7 +124,7 @@ static int xen_register_gsi(u32 gsi, int gsi_override, int triggering, int polar
+ 	printk(KERN_DEBUG "xen: registering gsi %u triggering %d polarity %d\n",
+ 			gsi, triggering, polarity);
+ 
+-	irq = xen_register_pirq(gsi, gsi_override, triggering, true);
++	irq = xen_register_pirq(gsi, triggering, true);
+ 
+ 	setup_gsi.gsi = gsi;
+ 	setup_gsi.triggering = (triggering == ACPI_EDGE_SENSITIVE ? 0 : 1);
+@@ -148,7 +144,7 @@ static int xen_register_gsi(u32 gsi, int gsi_override, int triggering, int polar
+ static int acpi_register_gsi_xen(struct device *dev, u32 gsi,
+ 				 int trigger, int polarity)
+ {
+-	return xen_register_gsi(gsi, -1 /* no GSI override */, trigger, polarity);
++	return xen_register_gsi(gsi, trigger, polarity);
+ }
+ #endif
+ #endif
+@@ -491,7 +487,7 @@ int __init pci_xen_initial_domain(void)
+ 		if (acpi_get_override_irq(irq, &trigger, &polarity) == -1)
+ 			continue;
+ 
+-		xen_register_pirq(irq, -1 /* no GSI override */,
++		xen_register_pirq(irq,
+ 			trigger ? ACPI_LEVEL_SENSITIVE : ACPI_EDGE_SENSITIVE,
+ 			true /* Map GSI to PIRQ */);
+ 	}
+-- 
+2.20.1
 
 
