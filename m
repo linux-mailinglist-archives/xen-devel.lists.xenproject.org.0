@@ -2,42 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FFF81BB690
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 08:31:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368581BB73A
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 09:08:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTJl3-0000Bo-L5; Tue, 28 Apr 2020 06:30:17 +0000
+	id 1jTKL8-0003O9-6h; Tue, 28 Apr 2020 07:07:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/MZc=6M=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jTJl2-0000Bj-99
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 06:30:16 +0000
-X-Inumbo-ID: b862ae20-8919-11ea-ae69-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=p0bN=6M=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jTKL7-0003O4-03
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 07:07:33 +0000
+X-Inumbo-ID: ed9705a0-891e-11ea-ae69-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b862ae20-8919-11ea-ae69-bc764e2007e4;
- Tue, 28 Apr 2020 06:30:15 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 97538AC12;
- Tue, 28 Apr 2020 06:30:13 +0000 (UTC)
-Subject: Re: [PATCH] x86: refine guest_mode()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <7b62d06c-1369-2857-81c0-45e2434357f4@suse.com>
- <1704f4f6-7e77-971c-2c94-4f6a6719c34a@citrix.com>
- <5bbe6425-396c-d934-b5af-53b594a4afbc@suse.com>
- <16939982-3ccc-f848-0694-61b154dca89a@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5ce12c86-c894-4a2c-9fa6-1c2a6007ca28@suse.com>
-Date: Tue, 28 Apr 2020 08:30:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id ed9705a0-891e-11ea-ae69-bc764e2007e4;
+ Tue, 28 Apr 2020 07:07:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588057652;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=eAIEH6PwI+/cm8d/4tCn9x5yNlj1YcxBr6Y/UP99M1c=;
+ b=HcFc+UZglBnqB1/hganI/pg1/IvR7lrmo+INutoRqnI+JmIejXmZ9yHW
+ GIANo+rk+vm/+yIZm9JTyMc5JBNIxpoq/AopXGwknHEWB/cHDuF3oZ/nW
+ IYNlPhVKrxQJt2j/OpOiWS7hiQf4weXjcfdopm/st1ZoAGtLvdTvPzF6O s=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 4yJmwIG3VKIi3zwwoo7bxWkGV8dIafWEOwB4BR8DvhsJoR+Ok1woIU0Ge3C2fGgJwuwVBo1lQg
+ jB0Fus8wyEau+hj04wJx4NH8CyTuiAUf4EV3nL1/Y+c+TyY49QjseB5B42hQtfG9Se/PpdKzLi
+ dUnrsQCRXgJlO6EAjz1Ffm5gGqGdeVjSkjcxGFtsNtMTKOQ6lZegkN0KQ9Ik1r+8eLKjTiGzs8
+ K3s1sIbcHzC5xzi7yTTDA7fznheyOkB+5S5Ziakd/3LUXd6RP4lSrbwKS86B/DQ9AnSU1ZSbXu
+ Drs=
+X-SBRS: 2.7
+X-MesageID: 16366027
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,327,1583211600"; d="scan'208";a="16366027"
+Date: Tue, 28 Apr 2020 09:07:24 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: tosher 1 <akm2tosher@yahoo.com>
+Subject: Re: Xen network domain performance for 10Gb NIC
+Message-ID: <20200428070724.GS28601@Air-de-Roger>
+References: <1359850718.562651.1587928713792.ref@mail.yahoo.com>
+ <1359850718.562651.1587928713792@mail.yahoo.com>
+ <20200427070317.GL28601@Air-de-Roger>
+ <1693679742.27711.1588051435928@mail.yahoo.com>
 MIME-Version: 1.0
-In-Reply-To: <16939982-3ccc-f848-0694-61b154dca89a@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <1693679742.27711.1588051435928@mail.yahoo.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,77 +92,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.04.2020 22:11, Andrew Cooper wrote:
-> On 27/04/2020 16:15, Jan Beulich wrote:
->> On 27.04.2020 16:35, Andrew Cooper wrote:
->>> On 27/04/2020 09:03, Jan Beulich wrote:
->>>> The 2nd of the assertions as well as the macro's return value have been
->>>> assuming we're on the primary stack. While for most IST exceptions we
->>>> eventually switch back to the main one,
->>> "we switch to the main one when interrupting user mode".
->>>
->>> "eventually" isn't accurate as it is before we enter C.
->> Right, will change.
->>
->>>> --- a/xen/include/asm-x86/regs.h
->>>> +++ b/xen/include/asm-x86/regs.h
->>>> @@ -10,9 +10,10 @@
->>>>      /* Frame pointer must point into current CPU stack. */                    \
->>>>      ASSERT(diff < STACK_SIZE);                                                \
->>>>      /* If not a guest frame, it must be a hypervisor frame. */                \
->>>> -    ASSERT((diff == 0) || (r->cs == __HYPERVISOR_CS));                        \
->>>> +    if ( diff < PRIMARY_STACK_SIZE )                                          \
->>>> +        ASSERT(!diff || ((r)->cs == __HYPERVISOR_CS));                        \
->>>>      /* Return TRUE if it's a guest frame. */                                  \
->>>> -    (diff == 0);                                                              \
->>>> +    !diff || ((r)->cs != __HYPERVISOR_CS);                                    \
->>> The (diff == 0) already worried me before because it doesn't fail safe,
->>> but this makes things more problematic.  Consider the case back when we
->>> had __HYPERVISOR_CS32.
->> Yes - if __HYPERVISOR_CS32 would ever have been to be used for
->> anything, it would have needed checking for here.
->>
->>> Guest mode is strictly "(r)->cs & 3".
->> As long as CS (a) gets properly saved (it's a "manual" step for
->> SYSCALL/SYSRET as well as #VMEXIT) and (b) didn't get clobbered. I
->> didn't write this code, I don't think, so I can only guess that
->> there were intentions behind this along these lines.
+On Tue, Apr 28, 2020 at 05:23:55AM +0000, tosher 1 wrote:
+> > Driver domains with passthrough devices need to perform IOMMU
+> operations in order to add/remove page table entries when doing grant
+> maps (ie: IOMMU TLB flushes), while dom0 doesn't need to because it
+> has the whole RAM identity mapped in the IOMMU tables. Depending on
+> how fast your IOMMU is and what capabilities it has doing such
+> operations can introduce a significant amount of overhead.
 > 
-> Hmm - the VMExit case might be problematic here, due to the variability
-> in the poison used.
+> It makes sense to me. Do you know, in general, how to measure IOMMU performance, and what features/properties of IOMMU can contribute to getting a better network throughput? Please let me know. 
 
-"Variability" is an understatement - there's no poisoning at all
-in release builds afaics (and to be honest it seems a somewhat
-pointless to write the same values over and over again in debug
-mode). With this, ...
+Hm, not really. You would have to modify Xen and/or the Linux kernel
+in order to time the IOMMU or the grant map operations in order to get
+an idea.
 
->>> Everything else is expectations about how things ought to be laid out,
->>> but for safety in release builds, the final judgement should not depend
->>> on the expectations evaluating true.
->> Well, I can switch to a purely CS.RPL based approach, as long as
->> we're happy to live with the possible downside mentioned above.
->> Of course this would then end up being a more intrusive change
->> than originally intended ...
-> 
-> I'd certainly prefer to go for something which is more robust, even if
-> it is a larger change.
+Do you get the expected performance from the driver domain when not
+using it as a backend? Ie: running the iperf benchmarks directly on
+the driver domain and not on the guest.
 
-... what's your suggestion? Basing on _just_ CS.RPL obviously won't
-work. Not even if we put in place the guest's CS (albeit that
-somewhat depends on the meaning we assign to the macro's returned
-value). Using current inside the macro to determine whether the
-guest is HVM would also seem fragile to me - there are quite a few
-uses of guest_mode(). Which would leave passing in a const struct
-vcpu * (or domain *), requiring to touch all call sites, including
-Arm's.
-
-Compared to this it would seem to me that the change as presented
-is a clear improvement without becoming overly large of a change.
-
-Jan
+Roger.
 
