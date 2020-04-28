@@ -2,89 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0073E1BC0AB
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 16:08:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 830C21BC10B
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 16:21:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTQty-0004L3-Pd; Tue, 28 Apr 2020 14:07:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NU6p=6M=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jTQtx-0004JX-0f
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 14:07:57 +0000
-X-Inumbo-ID: a750e0be-8959-11ea-9867-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a750e0be-8959-11ea-9867-12813bfff9fa;
- Tue, 28 Apr 2020 14:07:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588082875;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=5OhOUoQl2/DHZ7IzNIxIAeEo7gVuL/FeA3J14VLMssI=;
- b=PGdIsfQ+meNyJDZ/rkveUnkevmmgWiE76N2yyljF0GWxlOziSWuKXnq7
- OYtDIeFhluvimKa7ob7tkd/l8/zM5vcBlIOVbvymkvDa2fK1I1mxwda4Y
- FGFjuN2DKtWDENDHHaNjbxolNivcq12hqO/leu5F6RKtr4ShevgCWrqJd A=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 9CAhl/zs8Ogk/RBGZ6jNVnZP3Cf4fxN2gvwm5M10M9MmGyOUDfUzDY0/PJkEpF50xyreWYUFf3
- UZhPHht45gzBcVr6gI52vFrUDXf7vPqUC4hGM6QKdcxv+3vwtmnAFAuYBlJey4IcDGZbx2W75s
- 3ZYy05eg64Fre0f0fv/qnRmUqVMwVT0rdxx3KSGie4wE6aU63xnUwdcCtGZKJ4tz2VaHaM8CSt
- /xqgrwzmroUmo8vhFrF4IRs7ikoAaQC+q48y9GAcH4Iyt0PHa17BMqbZdNWb15cFbK/zheuEuf
- 2gs=
-X-SBRS: 2.7
-X-MesageID: 17062337
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,327,1583211600"; d="scan'208";a="17062337"
-Subject: Re: [PATCH] PCI: drop a redundant variable from pci_add_device()
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <75d1c852-e6ea-d3f3-3624-c77fb678412a@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <88fdaeee-1c4f-0e11-dfdd-f3a81b4b7f0d@citrix.com>
-Date: Tue, 28 Apr 2020 15:07:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	id 1jTR6b-00064z-VM; Tue, 28 Apr 2020 14:21:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/MZc=6M=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jTR6a-00064u-Iq
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 14:21:00 +0000
+X-Inumbo-ID: 7b5ba72e-895b-11ea-ae69-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7b5ba72e-895b-11ea-ae69-bc764e2007e4;
+ Tue, 28 Apr 2020 14:20:59 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id C4F49ACD0;
+ Tue, 28 Apr 2020 14:20:57 +0000 (UTC)
+Subject: Re: [XEN PATCH v5 08/16] build: Introduce $(cpp_flags)
+To: Anthony PERARD <anthony.perard@citrix.com>
+References: <20200421161208.2429539-1-anthony.perard@citrix.com>
+ <20200421161208.2429539-9-anthony.perard@citrix.com>
+ <62011f46-b208-334a-4070-0bd72cb21d28@suse.com>
+ <20200428140119.GC2116@perard.uk.xensource.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <86af7c75-8f8b-db0a-7420-343ccd70fc33@suse.com>
+Date: Tue, 28 Apr 2020 16:20:57 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <75d1c852-e6ea-d3f3-3624-c77fb678412a@suse.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20200428140119.GC2116@perard.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,14 +48,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <paul@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28/04/2020 13:59, Jan Beulich wrote:
-> Surrounding code already uses the available alternative, after all.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 28.04.2020 16:01, Anthony PERARD wrote:
+> On Thu, Apr 23, 2020 at 06:48:51PM +0200, Jan Beulich wrote:
+>> On 21.04.2020 18:12, Anthony PERARD wrote:
+>>> --- a/xen/Rules.mk
+>>> +++ b/xen/Rules.mk
+>>> @@ -123,6 +123,7 @@ $(obj-bin-y): XEN_CFLAGS := $(filter-out -flto,$(XEN_CFLAGS))
+>>>  
+>>>  c_flags = -MMD -MP -MF $(@D)/.$(@F).d $(XEN_CFLAGS) '-D__OBJECT_FILE__="$@"'
+>>>  a_flags = -MMD -MP -MF $(@D)/.$(@F).d $(XEN_AFLAGS)
+>>> +cpp_flags = $(filter-out -Wa$(comma)%,$(a_flags))
+>>
+>> I can see this happening to be this way right now, but in principle
+>> I could see a_flags to hold items applicable to assembly files only,
+>> but not to (the preprocessing of) C files. Hence while this is fine
+>> for now, ...
+>>
+>>> @@ -207,7 +208,7 @@ quiet_cmd_cc_s_c = CC      $@
+>>>  cmd_cc_s_c = $(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -S $< -o $@
+>>>  
+>>>  quiet_cmd_s_S = CPP     $@
+>>> -cmd_s_S = $(CPP) $(filter-out -Wa$(comma)%,$(a_flags)) $< -o $@
+>>> +cmd_s_S = $(CPP) $(cpp_flags) $< -o $@
+>>
+>> ... this one is a trap waiting for someone to fall in imo. Instead
+>> where I'd expect this patch to use $(cpp_flags) is e.g. in
+>> xen/arch/x86/mm/Makefile:
+>>
+>> guest_walk_%.i: guest_walk.c Makefile
+>> 	$(CPP) $(cpp_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+>>
+>> And note how this currently uses $(c_flags), not $(a_flags), which
+>> suggests that your deriving from $(a_flags) isn't correct either.
+> 
+> I think we can drop this patch for now, and change patch "xen/build:
+> factorise generation of the linker scripts" to not use $(cpp_flags).
+> 
+> If we derive $(cpp_flags) from $(c_flags) instead, we would need to
+> find out if CPP commands using a_flags can use c_flags instead.
+> 
+> On the other hand, I've looked at Linux source code, and they use
+> $(cpp_flags) for only a few targets, only to generate the .lds scripts.
+> For other rules, they use either a_flags or c_flags, for example:
+>     %.i: %.c ; uses $(c_flags)
+>     %.i: %.S ; uses $(a_flags)
+>     %.s: %.S ; uses $(a_flags)
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+The first on really ought to be use cpp_flags. I couldn't find the
+middle one. The last one clearly has to do something about -Wa,
+options, but apart from this I'd consider a_flags appropriate to
+use there.
+
+> (Also, they use -Qunused-arguments clang's options, so they don't need
+> to filter out -Wa,* arguments, I think.)
+
+Maybe we should do so too then?
+
+> So, maybe having a single $(cpp_flags) when running the CPP command
+> isn't such a good idea.
+
+Right - after all in particular the use of CPP to produce .lds is
+an abuse, as the source file (named .lds.S) isn't really what its
+name says.
+
+> So, would dropping $(cpp_flags) for now, and rework the *FLAGS later, be
+> good enough?
+
+I don't think so, no, I'm sorry. cpp_flags should be there for its
+real purpose. Whether the .lds.S -> .lds rule can use it, or should
+use a_flags, or yet something else is a different thing.
+
+Jan
 
