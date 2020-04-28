@@ -2,59 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC7F71BB4F2
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 06:06:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 283A91BB4F3
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 06:06:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTHVm-0000nh-PR; Tue, 28 Apr 2020 04:06:22 +0000
+	id 1jTHVs-0000rj-3Y; Tue, 28 Apr 2020 04:06:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Vxmr=6M=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jTHVl-0000mk-27
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 04:06:21 +0000
-X-Inumbo-ID: 94dd3b14-8905-11ea-b07b-bc764e2007e4
-Received: from mail-qk1-x733.google.com (unknown [2607:f8b0:4864:20::733])
+ id 1jTHVq-0000qH-2L
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 04:06:26 +0000
+X-Inumbo-ID: 96654e22-8905-11ea-b9cf-bc764e2007e4
+Received: from mail-qk1-x743.google.com (unknown [2607:f8b0:4864:20::743])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 94dd3b14-8905-11ea-b07b-bc764e2007e4;
- Tue, 28 Apr 2020 04:06:05 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id b188so18961187qkd.9
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2020 21:06:05 -0700 (PDT)
+ id 96654e22-8905-11ea-b9cf-bc764e2007e4;
+ Tue, 28 Apr 2020 04:06:07 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id c63so20582478qke.2
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2020 21:06:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=igivI7+/HwMdigsHAPp76Z5QjR1GMgCyDtDB+aqMExI=;
- b=MV4b/bL97n6Tw0fTgrGdew4XotX04c6cNTbmA3PDXUiz4F8i8YjGA3iz0FsWmncQRF
- ybkDZYgm9yAg0k8Rsj6ii1ple/mhuVHKl2PBmt4Wo98QwfTGSqhr9/A9dJ9YrZVq/8lQ
- aKIs6NqBwV7+pZ61xsQrQ73IyVkBMrMdSyjDGTLsHpwM47QdU+PHR9XO+EnemLOrVcor
- 2FT03F4VmL0Y/ajNw4W0f++S07ye3K/QZnj67FnaUQ/0kD8A8egNhaIIY/0uP9ryxjpQ
- HyxvjM7pb3dVeIjd66GKN2iyXHBNpO/zRpUri649Q87BbbFRe7iqvxVLDFOIRhGebEsU
- EYug==
+ bh=5ROtHVehXF/HD8/78X0tTT0dK2u2H5EIad+/RrtpdTg=;
+ b=P6O3nAlsgkTlkXmN+WDZpgbuwKGNNPWtCnPC3L0Hj51zAMoHm7Qn21i0IhM6nS5WOY
+ RXNEZ27GuE2pkt0A8HgYn4Dmdmgnpbb/LY3HhDFAytBXp0E7mjdqc/myoL83YzxbnkFV
+ yya8+Hu6eT4VZXb8fvsBb8Cfuw8nUZZyWUNJj7Nk41/gUBbFUT/ISvjrc7WLt9OsFOaj
+ NUU/qubzeLQ9kazwDylwjj1dHO3dQCcolLpvGdFO8JcmwJoOxAJxpccbZXEoGmcjWNQI
+ wVHToW1F5AlPqzezUkygkfSO4nl9h6x6u0FXwELLAReCrJkGhjvfK1mS2of+Tvqy1s9v
+ Pb2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=igivI7+/HwMdigsHAPp76Z5QjR1GMgCyDtDB+aqMExI=;
- b=D8Rw6h1voS1F6WkN4ng13dFUfpix8tKfbdOnjgFyflYfq/ztxfBBuNv0BGWD+KPJty
- mIfBNHgRxBr9V/s9qY8lq0ep9hyP4Y9YgQ7XaO8DSQ3UfEAVOwOxebuVtoz+I/Vy1gXh
- tNFN09hXBIZKEsJgIi9MXSFCrlnDbi0CH83XbPwYG5lM26ExDh4hV3GQWslV/Mf7bJF+
- 5JFR3msZJoUVy/UJwhUt6OrzcU2x4v+aH994kJVY+Ane3qr0N0VIBVS/37Yiw64X/SQD
- M6LqxeiRI2jhifqLadLAmYxcjUbPYsrsEcm7jgrtyAlBpFzorcQ9XHb1H7+Ng/tlAPnH
- uCbg==
-X-Gm-Message-State: AGi0PuYtNXflx30szWF3gwTeR/Ic9JvHxDB7UM+HK+GPEHKsAzG4MCfG
- 1UnBC534L/+qksc0w4u1aPpjVm9s
-X-Google-Smtp-Source: APiQypKShq5B1JtltMTsAwXjnv+Qf0joWoZY07FvVc1+vt02pbOidyBwVrQ2DFfz4231atGTEYqCSQ==
-X-Received: by 2002:a37:690:: with SMTP id 138mr26032733qkg.414.1588046764271; 
- Mon, 27 Apr 2020 21:06:04 -0700 (PDT)
+ bh=5ROtHVehXF/HD8/78X0tTT0dK2u2H5EIad+/RrtpdTg=;
+ b=ch+77KcxsfkA+7HCVacSXW/YRSwbGMJAF7jwF4OgWkPplQUbipDS5q4pwF4FKTw9wP
+ ZQ7HZWc8/l1reyii+Myxrp2tTgSyFvrN03VgHROGtryMXvNcMT9uwCYU375frTg0dkz9
+ E3hhzo0nl0Ggtzf6nPFWyg7atY3vgw4tCx1wtF5LIi+FI0sQASJpRJOYWbXJV6KGfcU8
+ 5jF7tbcjl8WUoK9vPrtVymzeQL/f8fqJ88ktBKXl169ALJr6QikvfyqfYtjeAOdE060H
+ 7V+aKfsDXm8ntXHki3oHzMI8FR2aGMIKuOtfaFdqLVDFQDrD0wAFiens8rLgNjUS7BSl
+ yzHg==
+X-Gm-Message-State: AGi0PuYesVgzf/Jh4u3mix18aZeLuzfMcd20sGpiRaYiVLfOT3kBGyF+
+ V6BUrg19f/V10XA7Xt9u/gVkW+8Z
+X-Google-Smtp-Source: APiQypJcR19nCEvHNRTrQGfPB7p+WNgdZ1ISZps0CR6Nvzwdz9zVhohRx6RqqDgArjUAutTSgB3wMQ==
+X-Received: by 2002:a37:ac18:: with SMTP id e24mr26234983qkm.234.1588046767112; 
+ Mon, 27 Apr 2020 21:06:07 -0700 (PDT)
 Received: from shine.lan ([2001:470:8:67e:f1d1:23b9:fc94:a1a9])
- by smtp.gmail.com with ESMTPSA id v2sm13445480qth.66.2020.04.27.21.06.03
+ by smtp.gmail.com with ESMTPSA id v2sm13445480qth.66.2020.04.27.21.06.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2020 21:06:03 -0700 (PDT)
+ Mon, 27 Apr 2020 21:06:06 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v5 11/21] tools: add simple vchan-socket-proxy
-Date: Tue, 28 Apr 2020 00:04:23 -0400
-Message-Id: <20200428040433.23504-12-jandryuk@gmail.com>
+Subject: [PATCH v5 12/21] libxl: use vchan for QMP access with Linux stubdomain
+Date: Tue, 28 Apr 2020 00:04:24 -0400
+Message-Id: <20200428040433.23504-13-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200428040433.23504-1-jandryuk@gmail.com>
 References: <20200428040433.23504-1-jandryuk@gmail.com>
@@ -71,7 +71,8 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@citrix.com>,
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
  =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>,
  Jason Andryuk <jandryuk@gmail.com>
@@ -80,588 +81,264 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Add a simple proxy for tunneling socket connection over vchan. This is
-based on existing vchan-node* applications, but extended with socket
-support. vchan-socket-proxy serves both as a client and as a server,
-depending on parameters. It can be used to transparently communicate
-with an application in another domian that normally expose UNIX socket
-interface. Specifically, it's written to communicate with qemu running
-within stubdom.
-
-Server mode listens for vchan connections and when one is opened,
-connects to a pointed UNIX socket.  Client mode listens on UNIX
-socket and when someone connects, opens a vchan connection.  Only
-a single connection at a time is supported.
-
-Additionally, socket can be provided as a number - in which case it's
-interpreted as already open FD (in case of UNIX listening socket -
-listen() needs to be already called). Or "-" meaning stdin/stdout - in
-which case it is reduced to vchan-node2 functionality.
-
-Example usage:
-
-1. (in dom0) vchan-socket-proxy --mode=client <DOMID>
-    /local/domain/<DOMID>/data/vchan/1234 /run/qemu.(DOMID)
-
-2. (in DOMID) vchan-socket-proxy --mode=server 0
-   /local/domain/<DOMID>/data/vchan/1234 /run/qemu.(DOMID)
-
-This will listen on /run/qemu.(DOMID) in dom0 and whenever connection is
-made, it will connect to DOMID, where server process will connect to
-/run/qemu.(DOMID) there. When client disconnects, vchan connection is
-terminated and server vchan-socket-proxy process also disconnects from
-qemu.
+Access to QMP of QEMU in Linux stubdomain is possible over vchan
+connection. Handle the actual vchan connection in a separate process
+(vchan-socket-proxy). This simplified integration with QMP (already
+quite complex), but also allows preliminary filtering of (potentially
+malicious) QMP input.
+Since only one client can be connected to vchan server at the same time
+and it is not enforced by the libxenvchan itself, additional client-side
+locking is needed. It is implicitly implemented by vchan-socket-proxy,
+as it handle only one connection at a time. Note that qemu supports only
+one simultaneous client on a control socket anyway (but in UNIX socket
+case, it enforce it server-side), so it doesn't add any extra
+limitation.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
-Changes on v5:
- - Ensure bindir directory is present
- - String and comment fixes
+Changes in v4:
+ - new patch, in place of both "libxl: use vchan for QMP access ..."
+Changes in v5:
+ - Use device-model/%u/qmp-proxy-state xenstore path
+ - Rephrase comment
 ---
- .gitignore                          |   1 +
- tools/libvchan/Makefile             |   8 +-
- tools/libvchan/vchan-socket-proxy.c | 478 ++++++++++++++++++++++++++++
- 3 files changed, 486 insertions(+), 1 deletion(-)
- create mode 100644 tools/libvchan/vchan-socket-proxy.c
+ tools/configure.ac           |   9 ++
+ tools/libxl/libxl_dm.c       | 163 +++++++++++++++++++++++++++++++++--
+ tools/libxl/libxl_internal.h |   1 +
+ 3 files changed, 165 insertions(+), 8 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-index 4ca679ddbc..1760e54464 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -368,6 +368,7 @@ tools/misc/xenwatchdogd
- tools/misc/xen-hvmcrash
- tools/misc/xen-lowmemd
- tools/libvchan/vchan-node[12]
-+tools/libvchan/vchan-socket-proxy
- tools/ocaml/*/.ocamldep.make
- tools/ocaml/*/*.cm[ixao]
- tools/ocaml/*/*.cmxa
-diff --git a/tools/libvchan/Makefile b/tools/libvchan/Makefile
-index 7892750c3e..913bcc8884 100644
---- a/tools/libvchan/Makefile
-+++ b/tools/libvchan/Makefile
-@@ -13,6 +13,7 @@ LIBVCHAN_PIC_OBJS = $(patsubst %.o,%.opic,$(LIBVCHAN_OBJS))
- LIBVCHAN_LIBS = $(LDLIBS_libxenstore) $(LDLIBS_libxengnttab) $(LDLIBS_libxenevtchn)
- $(LIBVCHAN_OBJS) $(LIBVCHAN_PIC_OBJS): CFLAGS += $(CFLAGS_libxenstore) $(CFLAGS_libxengnttab) $(CFLAGS_libxenevtchn)
- $(NODE_OBJS) $(NODE2_OBJS): CFLAGS += $(CFLAGS_libxengnttab) $(CFLAGS_libxenevtchn)
-+vchan-socket-proxy.o: CFLAGS += $(CFLAGS_libxenstore) $(CFLAGS_libxenctrl) $(CFLAGS_libxengnttab) $(CFLAGS_libxenevtchn)
+diff --git a/tools/configure.ac b/tools/configure.ac
+index ea0272766f..1c0ed4c3b1 100644
+--- a/tools/configure.ac
++++ b/tools/configure.ac
+@@ -192,6 +192,15 @@ AC_SUBST(qemu_xen)
+ AC_SUBST(qemu_xen_path)
+ AC_SUBST(qemu_xen_systemd)
  
- MAJOR = 4.14
- MINOR = 0
-@@ -39,7 +40,7 @@ $(PKG_CONFIG_LOCAL): PKG_CONFIG_LIBDIR = $(CURDIR)
- $(PKG_CONFIG_LOCAL): PKG_CONFIG_CFLAGS_LOCAL = $(CFLAGS_xeninclude)
++AC_ARG_WITH([stubdom-qmp-proxy],
++    AC_HELP_STRING([--stubdom-qmp-proxy@<:@=PATH@:>@],
++        [Use supplied binary PATH as a QMP proxy into stubdomain]),[
++    stubdom_qmp_proxy="$withval"
++],[
++    stubdom_qmp_proxy="$bindir/vchan-socket-proxy"
++])
++AC_DEFINE_UNQUOTED([STUBDOM_QMP_PROXY_PATH], ["$stubdom_qmp_proxy"], [QMP proxy path])
++
+ AC_ARG_WITH([system-seabios],
+     AS_HELP_STRING([--with-system-seabios@<:@=PATH@:>@],
+        [Use system supplied seabios PATH instead of building and installing
+diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
+index 45d0dd56f5..e420c3fc7b 100644
+--- a/tools/libxl/libxl_dm.c
++++ b/tools/libxl/libxl_dm.c
+@@ -1200,7 +1200,11 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
+                       GCSPRINTF("%d", guest_domid), NULL);
+     flexarray_append(dm_args, "-no-shutdown");
  
- .PHONY: all
--all: libxenvchan.so vchan-node1 vchan-node2 libxenvchan.a $(PKG_CONFIG_INST) $(PKG_CONFIG_LOCAL)
-+all: libxenvchan.so vchan-node1 vchan-node2 vchan-socket-proxy libxenvchan.a $(PKG_CONFIG_INST) $(PKG_CONFIG_LOCAL)
+-    /* There is currently no way to access the QMP socket in the stubdom */
++    /*
++     * QMP access to qemu running in stubdomain is done over vchan. The
++     * stubdomain init script adds the appropriate monitor options for
++     * vchan-socket-proxy.
++     */
+     if (!is_stubdom) {
+         flexarray_append(dm_args, "-chardev");
+         if (state->dm_monitor_fd >= 0) {
+@@ -2194,6 +2198,23 @@ static void stubdom_pvqemu_unpaused(libxl__egc *egc,
+ static void stubdom_xswait_cb(libxl__egc *egc, libxl__xswait_state *xswait,
+                               int rc, const char *p);
  
- libxenvchan.so: libxenvchan.so.$(MAJOR)
- 	ln -sf $< $@
-@@ -59,13 +60,18 @@ vchan-node1: $(NODE_OBJS) libxenvchan.so
- vchan-node2: $(NODE2_OBJS) libxenvchan.so
- 	$(CC) $(LDFLAGS) -o $@ $(NODE2_OBJS) $(LDLIBS_libxenvchan) $(APPEND_LDFLAGS)
++static void spawn_qmp_proxy(libxl__egc *egc,
++                            libxl__stub_dm_spawn_state *sdss);
++
++static void qmp_proxy_confirm(libxl__egc *egc, libxl__spawn_state *spawn,
++                              const char *xsdata);
++
++static void qmp_proxy_startup_failed(libxl__egc *egc,
++                                     libxl__spawn_state *spawn,
++                                     int rc);
++
++static void qmp_proxy_detached(libxl__egc *egc,
++                               libxl__spawn_state *spawn);
++
++static void qmp_proxy_spawn_outcome(libxl__egc *egc,
++                                    libxl__stub_dm_spawn_state *sdss,
++                                    int rc);
++
+ char *libxl__stub_dm_name(libxl__gc *gc, const char *guest_name)
+ {
+     return GCSPRINTF("%s-dm", guest_name);
+@@ -2476,24 +2497,150 @@ static void spawn_stub_launch_dm(libxl__egc *egc,
+             goto out;
+     }
  
-+vchan-socket-proxy: vchan-socket-proxy.o libxenvchan.so
-+	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenvchan) $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
-+
- .PHONY: install
- install: all
- 	$(INSTALL_DIR) $(DESTDIR)$(libdir)
- 	$(INSTALL_DIR) $(DESTDIR)$(includedir)
-+	$(INSTALL_DIR) $(DESTDIR)$(bindir)
- 	$(INSTALL_PROG) libxenvchan.so.$(MAJOR).$(MINOR) $(DESTDIR)$(libdir)
- 	ln -sf libxenvchan.so.$(MAJOR).$(MINOR) $(DESTDIR)$(libdir)/libxenvchan.so.$(MAJOR)
- 	ln -sf libxenvchan.so.$(MAJOR) $(DESTDIR)$(libdir)/libxenvchan.so
-+	$(INSTALL_PROG) vchan-socket-proxy $(DESTDIR)$(bindir)
- 	$(INSTALL_DATA) libxenvchan.h $(DESTDIR)$(includedir)
- 	$(INSTALL_DATA) libxenvchan.a $(DESTDIR)$(libdir)
- 	$(INSTALL_DATA) xenvchan.pc $(DESTDIR)$(PKG_INSTALLDIR)
-diff --git a/tools/libvchan/vchan-socket-proxy.c b/tools/libvchan/vchan-socket-proxy.c
-new file mode 100644
-index 0000000000..13700c5d67
---- /dev/null
-+++ b/tools/libvchan/vchan-socket-proxy.c
-@@ -0,0 +1,478 @@
-+/**
-+ * @file
-+ * @section AUTHORS
-+ *
-+ * Copyright (C) 2010  Rafal Wojtczuk  <rafal@invisiblethingslab.com>
-+ *
-+ *  Authors:
-+ *       Rafal Wojtczuk  <rafal@invisiblethingslab.com>
-+ *       Daniel De Graaf <dgdegra@tycho.nsa.gov>
-+ *       Marek Marczykowski-Górecki  <marmarek@invisiblethingslab.com>
-+ *
-+ * @section LICENSE
-+ *
-+ *  This program is free software; you can redistribute it and/or
-+ *  modify it under the terms of the GNU Lesser General Public
-+ *  License as published by the Free Software Foundation; either
-+ *  version 2.1 of the License, or (at your option) any later version.
-+ *
-+ *  This program is distributed in the hope that it will be useful,
-+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ *  Lesser General Public License for more details.
-+ *
-+ *  You should have received a copy of the GNU Lesser General Public
-+ *  License along with this program; If not, see <http://www.gnu.org/licenses/>.
-+ *
-+ * @section DESCRIPTION
-+ *
-+ * This is a vchan to unix socket proxy. Vchan server is set, and on client
-+ * connection, local socket connection is established. Communication is bidirectional.
-+ * One client is served at a time, clients needs to coordinate this themselves.
-+ */
-+
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <fcntl.h>
-+#include <errno.h>
-+#include <sys/socket.h>
-+#include <sys/un.h>
-+#include <getopt.h>
-+
-+#include <xenstore.h>
-+#include <xenctrl.h>
-+#include <libxenvchan.h>
-+
-+static void usage(char** argv)
-+{
-+    fprintf(stderr, "usage:\n"
-+        "\t%s [options] domainid nodepath [socket-path|file-no|-]\n"
-+        "\n"
-+        "options:\n"
-+        "\t-m, --mode=client|server - vchan connection mode (client by default)\n"
-+        "\t-s, --state-path=path - xenstore path where write \"running\" to \n"
-+        "\t                        at startup\n"
-+        "\t-v, --verbose - verbose logging\n"
-+        "\n"
-+        "client: client of a vchan connection, fourth parameter can be:\n"
-+        "\tsocket-path: listen on a UNIX socket at this path and connect to vchan\n"
-+        "\t             whenever new connection is accepted;\n"
-+        "\t             handle multiple _subsequent_ connections, until terminated\n"
-+        "\n"
-+        "\tfile-no:     except open FD of a socket in listen mode;\n"
-+        "\t             otherwise similar to socket-path\n"
-+        "\n"
-+        "\t-:           open vchan connection immediately and pass the data\n"
-+        "\t             from stdin/stdout; terminate when vchan connection\n"
-+        "\t             is closed\n"
-+        "\n"
-+        "server: server of a vchan connection, fourth parameter can be:\n"
-+        "\tsocket-path: connect to this UNIX socket when new vchan connection\n"
-+        "\t             is accepted;\n"
-+        "\t             handle multiple _subsequent_ connections, until terminated\n"
-+        "\n"
-+        "\tfile-no:     pass data to/from this FD; terminate when vchan connection\n"
-+        "\t             is closed\n"
-+        "\n"
-+        "\t-:           pass data to/from stdin/stdout; terminate when vchan\n"
-+        "\t             connection is closed\n",
-+        argv[0]);
-+    exit(1);
-+}
-+
-+#define BUFSIZE 8192
-+char inbuf[BUFSIZE];
-+char outbuf[BUFSIZE];
-+int insiz = 0;
-+int outsiz = 0;
-+int verbose = 0;
-+
-+static void vchan_wr(struct libxenvchan *ctrl) {
-+    int ret;
-+
-+    if (!insiz)
-+        return;
-+    ret = libxenvchan_write(ctrl, inbuf, insiz);
-+    if (ret < 0) {
-+        fprintf(stderr, "vchan write failed\n");
-+        exit(1);
-+    }
-+    if (verbose)
-+        fprintf(stderr, "wrote %d bytes to vchan\n", ret);
-+    if (ret > 0) {
-+        insiz -= ret;
-+        memmove(inbuf, inbuf + ret, insiz);
-+    }
-+}
-+
-+static void socket_wr(int output_fd) {
-+    int ret;
-+
-+    if (!outsiz)
-+        return;
-+    ret = write(output_fd, outbuf, outsiz);
-+    if (ret < 0 && errno != EAGAIN)
-+        exit(1);
-+    if (ret > 0) {
-+        outsiz -= ret;
-+        memmove(outbuf, outbuf + ret, outsiz);
-+    }
-+}
-+
-+static int set_nonblocking(int fd, int nonblocking) {
-+    int flags = fcntl(fd, F_GETFL);
-+    if (flags == -1)
-+        return -1;
-+
-+    if (nonblocking)
-+        flags |= O_NONBLOCK;
-+    else
-+        flags &= ~O_NONBLOCK;
-+
-+    if (fcntl(fd, F_SETFL, flags) == -1)
-+        return -1;
-+
-+    return 0;
-+}
-+
-+static int connect_socket(const char *path_or_fd) {
-+    int fd;
-+    char *endptr;
-+    struct sockaddr_un addr;
-+
-+    fd = strtoll(path_or_fd, &endptr, 0);
-+    if (*endptr == '\0') {
-+        set_nonblocking(fd, 1);
-+        return fd;
++    sdss->qmp_proxy_spawn.ao = ao;
++    if (libxl__stubdomain_is_linux(&guest_config->b_info)) {
++        spawn_qmp_proxy(egc, sdss);
++    } else {
++        qmp_proxy_spawn_outcome(egc, sdss, 0);
 +    }
 +
-+    fd = socket(AF_UNIX, SOCK_STREAM, 0);
-+    if (fd == -1)
-+        return -1;
-+
-+    addr.sun_family = AF_UNIX;
-+    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path));
-+    if (connect(fd, (const struct sockaddr *)&addr, sizeof(addr)) == -1) {
-+        close(fd);
-+        return -1;
-+    }
-+
-+    set_nonblocking(fd, 1);
-+
-+    return fd;
-+}
-+
-+static int listen_socket(const char *path_or_fd) {
-+    int fd;
-+    char *endptr;
-+    struct sockaddr_un addr;
-+
-+    fd = strtoll(path_or_fd, &endptr, 0);
-+    if (*endptr == '\0') {
-+        return fd;
-+    }
-+
-+    /* if not a number, assume a socket path */
-+    fd = socket(AF_UNIX, SOCK_STREAM, 0);
-+    if (fd == -1)
-+        return -1;
-+
-+    addr.sun_family = AF_UNIX;
-+    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path));
-+    if (bind(fd, (const struct sockaddr *)&addr, sizeof(addr)) == -1) {
-+        close(fd);
-+        return -1;
-+    }
-+    if (listen(fd, 5) != 0) {
-+        close(fd);
-+        return -1;
-+    }
-+
-+    return fd;
-+}
-+
-+static struct libxenvchan *connect_vchan(int domid, const char *path) {
-+    struct libxenvchan *ctrl = NULL;
-+    struct xs_handle *xs = NULL;
-+    xc_interface *xc = NULL;
-+    xc_dominfo_t dominfo;
-+    char **watch_ret;
-+    unsigned int watch_num;
-+    int ret;
-+
-+    xs = xs_open(XS_OPEN_READONLY);
-+    if (!xs) {
-+        perror("xs_open");
-+        goto out;
-+    }
-+    xc = xc_interface_open(NULL, NULL, XC_OPENFLAG_NON_REENTRANT);
-+    if (!xc) {
-+        perror("xc_interface_open");
-+        goto out;
-+    }
-+    /* wait for vchan server to create *path* */
-+    xs_watch(xs, path, "path");
-+    xs_watch(xs, "@releaseDomain", "release");
-+    while ((watch_ret = xs_read_watch(xs, &watch_num))) {
-+        /* don't care about exact which fired the watch */
-+        free(watch_ret);
-+        ctrl = libxenvchan_client_init(NULL, domid, path);
-+        if (ctrl)
-+            break;
-+
-+        ret = xc_domain_getinfo(xc, domid, 1, &dominfo);
-+        /* break the loop if domain is definitely not there anymore, but
-+         * continue if it is or the call failed (like EPERM) */
-+        if (ret == -1 && errno == ESRCH)
-+            break;
-+        if (ret == 1 && (dominfo.domid != (uint32_t)domid || dominfo.dying))
-+            break;
-+    }
++    return;
 +
 +out:
-+    if (xc)
-+        xc_interface_close(xc);
-+    if (xs)
-+        xs_close(xs);
-+    return ctrl;
++    assert(ret);
++    qmp_proxy_spawn_outcome(egc, sdss, ret);
 +}
 +
-+
-+static void discard_buffers(struct libxenvchan *ctrl) {
-+    /* discard local buffers */
-+    insiz = 0;
-+    outsiz = 0;
-+
-+    /* discard remaining incoming data */
-+    while (libxenvchan_data_ready(ctrl)) {
-+        if (libxenvchan_read(ctrl, inbuf, BUFSIZE) == -1) {
-+            perror("vchan read");
-+            exit(1);
-+        }
-+    }
-+}
-+
-+int data_loop(struct libxenvchan *ctrl, int input_fd, int output_fd)
++static void spawn_qmp_proxy(libxl__egc *egc,
++                            libxl__stub_dm_spawn_state *sdss)
 +{
-+    int ret;
-+    int libxenvchan_fd;
-+    int max_fd;
++    STATE_AO_GC(sdss->qmp_proxy_spawn.ao);
++    const uint32_t guest_domid = sdss->dm.guest_domid;
++    const uint32_t dm_domid = sdss->pvqemu.guest_domid;
++    const char *dom_path = libxl__xs_get_dompath(gc, dm_domid);
++    char **args;
++    int nr = 0;
++    int rc, logfile_w, null;
 +
-+    libxenvchan_fd = libxenvchan_fd_for_select(ctrl);
-+    for (;;) {
-+        fd_set rfds;
-+        fd_set wfds;
-+        FD_ZERO(&rfds);
-+        FD_ZERO(&wfds);
-+
-+        max_fd = -1;
-+        if (input_fd != -1 && insiz != BUFSIZE) {
-+            FD_SET(input_fd, &rfds);
-+            if (input_fd > max_fd)
-+                max_fd = input_fd;
-+        }
-+        if (output_fd != -1 && outsiz) {
-+            FD_SET(output_fd, &wfds);
-+            if (output_fd > max_fd)
-+                max_fd = output_fd;
-+        }
-+        FD_SET(libxenvchan_fd, &rfds);
-+        if (libxenvchan_fd > max_fd)
-+            max_fd = libxenvchan_fd;
-+        ret = select(max_fd + 1, &rfds, &wfds, NULL, NULL);
-+        if (ret < 0) {
-+            perror("select");
-+            exit(1);
-+        }
-+        if (FD_ISSET(libxenvchan_fd, &rfds)) {
-+            libxenvchan_wait(ctrl);
-+            if (!libxenvchan_is_open(ctrl)) {
-+                if (verbose)
-+                    fprintf(stderr, "vchan client disconnected\n");
-+                while (outsiz)
-+                    socket_wr(output_fd);
-+                close(output_fd);
-+                close(input_fd);
-+                discard_buffers(ctrl);
-+                break;
-+            }
-+            vchan_wr(ctrl);
-+        }
-+
-+        if (FD_ISSET(input_fd, &rfds)) {
-+            ret = read(input_fd, inbuf + insiz, BUFSIZE - insiz);
-+            if (ret < 0 && errno != EAGAIN)
-+                exit(1);
-+            if (verbose)
-+                fprintf(stderr, "from-unix: %.*s\n", ret, inbuf + insiz);
-+            if (ret == 0) {
-+                /* EOF on socket, write everything in the buffer and close the
-+                 * input_fd socket */
-+                while (insiz) {
-+                    vchan_wr(ctrl);
-+                    libxenvchan_wait(ctrl);
-+                }
-+                close(input_fd);
-+                input_fd = -1;
-+                /* TODO: maybe signal the vchan client somehow? */
-+                break;
-+            }
-+            if (ret)
-+                insiz += ret;
-+            vchan_wr(ctrl);
-+        }
-+        if (FD_ISSET(output_fd, &wfds))
-+            socket_wr(output_fd);
-+        while (libxenvchan_data_ready(ctrl) && outsiz < BUFSIZE) {
-+            ret = libxenvchan_read(ctrl, outbuf + outsiz, BUFSIZE - outsiz);
-+            if (ret < 0)
-+                exit(1);
-+            if (verbose)
-+                fprintf(stderr, "from-vchan: %.*s\n", ret, outbuf + outsiz);
-+            outsiz += ret;
-+            socket_wr(output_fd);
-+        }
++    if (access(STUBDOM_QMP_PROXY_PATH, X_OK) < 0) {
++        LOGED(ERROR, guest_domid, "qmp proxy %s is not executable", STUBDOM_QMP_PROXY_PATH);
++        rc = ERROR_FAIL;
++        goto out;
 +    }
-+    return 0;
++
++    sdss->qmp_proxy_spawn.what = GCSPRINTF("domain %d device model qmp proxy", guest_domid);
++    sdss->qmp_proxy_spawn.pidpath = GCSPRINTF("%s/image/qmp-proxy-pid", dom_path);
++    sdss->qmp_proxy_spawn.xspath = DEVICE_MODEL_XS_PATH(gc, LIBXL_TOOLSTACK_DOMID,
++                                                        dm_domid, "/qmp-proxy-state");
++    sdss->qmp_proxy_spawn.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
++    sdss->qmp_proxy_spawn.midproc_cb = libxl__spawn_record_pid;
++    sdss->qmp_proxy_spawn.confirm_cb = qmp_proxy_confirm;
++    sdss->qmp_proxy_spawn.failure_cb = qmp_proxy_startup_failed;
++    sdss->qmp_proxy_spawn.detached_cb = qmp_proxy_detached;
++
++    const int arraysize = 6;
++    GCNEW_ARRAY(args, arraysize);
++    args[nr++] = STUBDOM_QMP_PROXY_PATH;
++    args[nr++] = GCSPRINTF("--state-path=%s", sdss->qmp_proxy_spawn.xspath);
++    args[nr++] = GCSPRINTF("%u", dm_domid);
++    args[nr++] = GCSPRINTF("%s/device-model/%u/qmp-vchan", dom_path, guest_domid);
++    args[nr++] = (char*)libxl__qemu_qmp_path(gc, guest_domid);
++    args[nr++] = NULL;
++    assert(nr == arraysize);
++
++    logfile_w = libxl__create_qemu_logfile(gc, GCSPRINTF("qmp-proxy-%s",
++                                                         sdss->dm_config.c_info.name));
++    if (logfile_w < 0) {
++        rc = logfile_w;
++        goto out;
++    }
++    null = open("/dev/null", O_RDWR);
++    if (null < 0) {
++        LOGED(ERROR, guest_domid, "unable to open /dev/null");
++        rc = ERROR_FAIL;
++        goto out_close;
++    }
++
++    rc = libxl__spawn_spawn(egc, &sdss->qmp_proxy_spawn);
++    if (rc < 0)
++        goto out_close;
++    if (!rc) { /* inner child */
++        setsid();
++        libxl__exec(gc, null, null, logfile_w, STUBDOM_QMP_PROXY_PATH, args, NULL);
++        /* unreachable */
++    }
++
++    rc = 0;
++
++out_close:
++    if (logfile_w >= 0)
++        close(logfile_w);
++    if (null >= 0)
++        close(null);
++out:
++    if (rc)
++        qmp_proxy_spawn_outcome(egc, sdss, rc);
 +}
 +
-+/**
-+    Simple libxenvchan application, both client and server.
-+    Both sides may write and read, both from the libxenvchan and from
-+    stdin/stdout (just like netcat).
-+*/
-+
-+static struct option options[] = {
-+    { "mode",       required_argument, NULL, 'm' },
-+    { "verbose",          no_argument, NULL, 'v' },
-+    { "state-path", required_argument, NULL, 's' },
-+    { }
-+};
-+
-+int main(int argc, char **argv)
++static void qmp_proxy_confirm(libxl__egc *egc, libxl__spawn_state *spawn,
++                              const char *xsdata)
 +{
-+    int is_server = 0;
-+    int socket_fd = -1;
-+    int input_fd, output_fd;
-+    struct libxenvchan *ctrl = NULL;
-+    const char *socket_path;
-+    int domid;
-+    const char *vchan_path;
-+    const char *state_path = NULL;
-+    int opt;
++    STATE_AO_GC(spawn->ao);
 +
-+    while ((opt = getopt_long(argc, argv, "m:vs:", options, NULL)) != -1) {
-+        switch (opt) {
-+            case 'm':
-+                if (strcmp(optarg, "server") == 0)
-+                    is_server = 1;
-+                else if (strcmp(optarg, "client") == 0)
-+                    is_server = 0;
-+                else {
-+                    fprintf(stderr, "invalid argument for --mode: %s\n", optarg);
-+                    usage(argv);
-+                    return 1;
-+                }
-+                break;
-+            case 'v':
-+                verbose = 1;
-+                break;
-+            case 's':
-+                state_path = optarg;
-+                break;
-+            case '?':
-+                usage(argv);
-+        }
++    if (!xsdata)
++        return;
++
++    if (strcmp(xsdata, "running"))
++        return;
++
++    libxl__spawn_initiate_detach(gc, spawn);
++}
++
++static void qmp_proxy_startup_failed(libxl__egc *egc,
++                                     libxl__spawn_state *spawn,
++                                     int rc)
++{
++    libxl__stub_dm_spawn_state *sdss = CONTAINER_OF(spawn, *sdss, qmp_proxy_spawn);
++    qmp_proxy_spawn_outcome(egc, sdss, rc);
++}
++
++static void qmp_proxy_detached(libxl__egc *egc,
++                               libxl__spawn_state *spawn)
++{
++    libxl__stub_dm_spawn_state *sdss = CONTAINER_OF(spawn, *sdss, qmp_proxy_spawn);
++    qmp_proxy_spawn_outcome(egc, sdss, 0);
++}
++
++static void qmp_proxy_spawn_outcome(libxl__egc *egc,
++                                    libxl__stub_dm_spawn_state *sdss,
++                                    int rc)
++{
++    STATE_AO_GC(sdss->qmp_proxy_spawn.ao);
++    int need_pvqemu = libxl__need_xenpv_qemu(gc, &sdss->dm_config);
++
++    if (rc) goto out;
++
++    if (need_pvqemu < 0) {
++        rc = need_pvqemu;
++        goto out;
 +    }
 +
-+    if (argc-optind != 3)
-+        usage(argv);
-+
-+    domid = atoi(argv[optind]);
-+    vchan_path = argv[optind+1];
-+    socket_path = argv[optind+2];
-+
-+    if (is_server) {
-+        ctrl = libxenvchan_server_init(NULL, domid, vchan_path, 0, 0);
-+        if (!ctrl) {
-+            perror("libxenvchan_server_init");
-+            exit(1);
-+        }
+     sdss->pvqemu.spawn.ao = ao;
+-    sdss->pvqemu.guest_domid = dm_domid;
+     sdss->pvqemu.guest_config = &sdss->dm_config;
+     sdss->pvqemu.build_state = &sdss->dm_state;
+     sdss->pvqemu.callback = spawn_stubdom_pvqemu_cb;
+-
+-    if (!need_qemu) {
++    if (need_pvqemu) {
++        libxl__spawn_local_dm(egc, &sdss->pvqemu);
 +    } else {
-+        if (strcmp(socket_path, "-") == 0) {
-+            input_fd = 0;
-+            output_fd = 1;
-+        } else {
-+            socket_fd = listen_socket(socket_path);
-+            if (socket_fd == -1) {
-+                perror("listen socket");
-+                return 1;
-+            }
-+        }
-+    }
-+
-+    if (state_path) {
-+        struct xs_handle *xs;
-+
-+        xs = xs_open(0);
-+        if (!xs) {
-+            perror("xs_open");
-+            return 1;
-+        }
-+        if (!xs_write(xs, XBT_NULL, state_path, "running", strlen("running"))) {
-+            perror("xs_write");
-+            return 1;
-+        }
-+        xs_close(xs);
-+    }
-+
-+    for (;;) {
-+        if (is_server) {
-+            /* wait for vchan connection */
-+            while (libxenvchan_is_open(ctrl) != 1)
-+                libxenvchan_wait(ctrl);
-+            /* vchan client connected, setup local FD if needed */
-+            if (strcmp(socket_path, "-") == 0) {
-+                input_fd = 0;
-+                output_fd = 1;
-+            } else {
-+                input_fd = output_fd = connect_socket(socket_path);
-+            }
-+            if (input_fd == -1) {
-+                perror("connect socket");
-+                return 1;
-+            }
-+            if (data_loop(ctrl, input_fd, output_fd) != 0)
-+                break;
-+            /* keep it running only when get UNIX socket path */
-+            if (socket_path[0] != '/')
-+                break;
-+        } else {
-+            /* wait for local socket connection */
-+            if (strcmp(socket_path, "-") != 0)
-+                input_fd = output_fd = accept(socket_fd, NULL, NULL);
-+            if (input_fd == -1) {
-+                perror("accept");
-+                return 1;
-+            }
-+            set_nonblocking(input_fd, 1);
-+            set_nonblocking(output_fd, 1);
-+            ctrl = connect_vchan(domid, vchan_path);
-+            if (!ctrl) {
-+                perror("vchan client init");
-+                return 1;
-+            }
-+            if (data_loop(ctrl, input_fd, output_fd) != 0)
-+                break;
-+            /* don't reconnect if output was stdout */
-+            if (strcmp(socket_path, "-") == 0)
-+                break;
-+
-+            libxenvchan_close(ctrl);
-+            ctrl = NULL;
-+        }
-+    }
-+    return 0;
-+}
+         /* If dom0 qemu not needed, do not launch it */
+         spawn_stubdom_pvqemu_cb(egc, &sdss->pvqemu, 0);
+-    } else {
+-        libxl__spawn_local_dm(egc, &sdss->pvqemu);
+     }
+ 
+     return;
+ 
+ out:
+-    assert(ret);
+-    spawn_stubdom_pvqemu_cb(egc, &sdss->pvqemu, ret);
++    assert(rc);
++    spawn_stubdom_pvqemu_cb(egc, &sdss->pvqemu, rc);
+ }
+ 
+ static void spawn_stubdom_pvqemu_cb(libxl__egc *egc,
+diff --git a/tools/libxl/libxl_internal.h b/tools/libxl/libxl_internal.h
+index a8f0eed945..00cfbe1fac 100644
+--- a/tools/libxl/libxl_internal.h
++++ b/tools/libxl/libxl_internal.h
+@@ -4159,6 +4159,7 @@ typedef struct {
+     libxl__destroy_domid_state dis;
+     libxl__multidev multidev;
+     libxl__xswait_state xswait;
++    libxl__spawn_state qmp_proxy_spawn;
+ } libxl__stub_dm_spawn_state;
+ 
+ _hidden void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state*);
 -- 
 2.20.1
 
