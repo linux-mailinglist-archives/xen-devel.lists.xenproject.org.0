@@ -2,65 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B6A91BB4FC
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 06:07:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 821A51BB5D9
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 07:24:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTHWb-0001Yz-AL; Tue, 28 Apr 2020 04:07:13 +0000
+	id 1jTIiu-00022K-Rw; Tue, 28 Apr 2020 05:24:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vxmr=6M=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jTHWZ-0001XE-4f
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 04:07:11 +0000
-X-Inumbo-ID: a27849d0-8905-11ea-b07b-bc764e2007e4
-Received: from mail-qv1-xf41.google.com (unknown [2607:f8b0:4864:20::f41])
+ <SRS0=g9hW=6M=yahoo.com=akm2tosher@srs-us1.protection.inumbo.net>)
+ id 1jTIit-00022B-Dq
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 05:23:59 +0000
+X-Inumbo-ID: 765c863a-8910-11ea-b07b-bc764e2007e4
+Received: from sonic309-22.consmr.mail.ne1.yahoo.com (unknown [66.163.184.148])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a27849d0-8905-11ea-b07b-bc764e2007e4;
- Tue, 28 Apr 2020 04:06:28 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id ck5so2986161qvb.11
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2020 21:06:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=62xznBzAJrZ5cBLJ6CH8pd+32QEr+JtnkMAlzxn5W2w=;
- b=bXTbQKnEynKDrvf8b9s3N/Gt9pB8jg+WpOAo3c8oczvyv/ZvMx+Vz3Bn27Up4YWLhM
- pmI5N8dyG6Pn80b8u4Rs/p5RxJUa0F7ar1LyF35vSW78hZaMa2OuEACpw/PLuYyov53k
- MmNcd5WjTDs2x3P5BjU1YDc+ONa/e89QUC/sd1cj2y3b+EOmQVuViqLcE8Y194DIlQ8R
- /ZVPOE+ylmS4+QEEEKxVwZ2ZYS2AtEKLUAwdH0hMbt5W8dWS0nhwUXM+df/lQEjZZnsI
- I+gZPwCllD/WUwUX61N31ah7t1g+yc8XKuGuR/ZtdwSqjjOXTiYIIJmOClGJX1VgAWsA
- yWUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=62xznBzAJrZ5cBLJ6CH8pd+32QEr+JtnkMAlzxn5W2w=;
- b=YTd2Xviyk3xILYpKkufTSXSgFFLeMhbMiXOzYNZlrO130JRyznnAzlRT2dzVAV5yHe
- Ok7N5PFKlMlc3QF4o8zW22dCKYvgAPveMzmXY1Eh1ecuxv3Y8Hcn90Woi6rGVssu5NuO
- 9kkpe9hgeDSCh9r50QQJcCVYYu4wLxzGsJu57BDDmFGIFd1/fWtZEmw2tWnkarx76SoO
- 69sh3V6S+qz/1jhoNBa4XeKU0s3vclyniVai3tjsAKdKo9mVtf7w5l0edFUAK5oLLyhl
- 0mU6R6fkzHQXXVv+sihMfBLAoTLtV+MVUe/MWBXA+XxELnJuAYgio0k7GBmHXYjTIuI1
- x2mw==
-X-Gm-Message-State: AGi0PuZ3C7t97Yw8ixIxgMddEmYK5DWpbNfvidkVuUjpjOnsYAf0qXxy
- uFWegAJxV+2HNL3wmHChNgpmvmcm
-X-Google-Smtp-Source: APiQypJJz9jy7S7Ew3uCA+nDzpyziyVQvXa9uf0vY7aQB+TGNx4mkQ5nvc2OxG8y5z5GaMBVpJH3xQ==
-X-Received: by 2002:a05:6214:188a:: with SMTP id
- cx10mr26208160qvb.119.1588046787600; 
- Mon, 27 Apr 2020 21:06:27 -0700 (PDT)
-Received: from shine.lan ([2001:470:8:67e:f1d1:23b9:fc94:a1a9])
- by smtp.gmail.com with ESMTPSA id v2sm13445480qth.66.2020.04.27.21.06.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2020 21:06:26 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v5 21/21] tools: Clean up vchan-socket-proxy socket
-Date: Tue, 28 Apr 2020 00:04:33 -0400
-Message-Id: <20200428040433.23504-22-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200428040433.23504-1-jandryuk@gmail.com>
-References: <20200428040433.23504-1-jandryuk@gmail.com>
+ id 765c863a-8910-11ea-b07b-bc764e2007e4;
+ Tue, 28 Apr 2020 05:23:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1588051438; bh=IccE9zI+jOrXmKqMzxvR5CDxzXIxE/txvHbTNvRih9E=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject;
+ b=eplkXkbYo7bZMWXZmhQPEqM4FSPVGWHniJSNIo5IpNafsJZbU/GZKAL1xPEWuV5j/HtcwhOQ1cLVmHWuq5P7105iq8bvuX7p/Sp3UhEp3moJTnFhepAdSwO7ozXIF4qjlJMi/+FVxIfuiwEiLbB/cer2CMMuGu4LRj0PHQ9VGUaocmurSbrYGlnOLM27ZQanWTl3exh8kA+szGDcNA008QpTGCsxfURQwKqaAcXcxFmtxutepQiI9wcYcyF4cCHUsNdD7DI1J1+UfnH6HN1S4y5ZOz4GOZykEX21AwPFdlGYA7zA0bfjoNsip6SUBc0dXC+Tusp8ufhvsV3YKNcDkQ==
+X-YMail-OSG: pUfwYCIVM1lj5kAFb91FVjcGeb2TUqP.RmXfA7Q1ZM1W9oq2qaRXvaYcLePsBNR
+ epdP2uqD.1uHHvwmL9DVHHyGUzqoonWntpZ3tYSHJXf7c2Ef4lfGX0i2.cJ9NgmKCTrUETYjaaFW
+ BY03BVoJ7l1sLkPDWmeOpoBSB7CglcQi5QKxYy8FimJqlW3xGRcdVLHQeeh5XrecMztvuHFligea
+ y.AUMEbbr.BnWglG356nNBDVQe9fZKe6Man.IXrawg64BiBwnZRY3grU6JMo5.jf3LWE0O5U00uo
+ zqZj6z22YAd_Ga7oVBAInpvvQf2r00MsfIKc8hBS_ZKPJKy5PFkJ_0vD_6HMkrD21fgSvNPndt9h
+ XKRdX7XVyk7NCpexdWaxejlqFTHkpwkdvkgHOJylyuAqrmma3_HDN62gpmTcCi9OZxDRxj5mCdZk
+ YQ09ttiM6Vj4qb9CGLFb5yTM7K5WEEvJ7H7i.09bBFGXM8alyaINxE7dHR86sO5SQeI4e0flWeKi
+ ye7wE_LOWk2kvvhD_moAar6pbUJOqikLapcU3c.oKTgOKtAGZz3haJ4zN3VLtIqTNtN5w1c29_sa
+ X0MFF0DcBvbN1Y78KJ3.lFdtlr935ps2MkeJFuUplni6OGawRV53DbBV31yufFPL1WVpk49e38gy
+ o_9uaNLnIBenBozerUiR7H0T.6QkI98m8pM.0YOPh0zEDk0LPd54uceF_XIbIWJEbC90RgJaUPYS
+ Ohr8.yBixAhDuHhrD__hVVrluOG1nQGTw6eJz740jvv5nKLmS1LuLep1YeJwQbIAbj6gfY3fEWUa
+ HogGFNhGQ6zgEGzjrQbPNnHCrVNl1UJOJa4uSxftAjv2CsI3Uxt5TI0r0T6IkASQX1oh7uerAL3M
+ x34QVMBY4VgATI6dz35by5I2Z1pDBsYDYj8q4Dx.WTooV85VDCST2Bt3U_p4Wefmer7B.1xT4q2U
+ M2SR45cF2ZcKqUFlMmcoqQDTksil_Y7YJ_1S04SntT7KtGv5Iolzg_rjp9IpMyTb0gSalwoq8o79
+ 77RkuS8h5B00qxNqqwCyAp0FHO6cy6VsJ2uyT2OF2DsUomsK8vG31Ri9NcJAzq4v9pfZr0UvnSpo
+ 7Rr_oIa2FhwIAec84vPyjeMLZqgKeLQSse87s5SzpZETm1DwnC9Np8rDvSKfG5aoovoC9otj0acR
+ YOSun6xNTqn7gSALXbR4wIdKWNfSiMXi4fEqfurGi5n1LCYsZQKZRvZ5yl6IeW7yrUXb9JE.F883
+ qk18vStXOLui7JXDxyYxSUoSwv5LZ3jldPwPikArKP5PDL6aaUo4AdMzbT_ZEYdmvYWz7HV1NQsD
+ lDqazezO5jQK2.l7rF3uKm0Mv1lBll8MWQKMDE1I-
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic309.consmr.mail.ne1.yahoo.com with HTTP; Tue, 28 Apr 2020 05:23:58 +0000
+Date: Tue, 28 Apr 2020 05:23:55 +0000 (UTC)
+From: tosher 1 <akm2tosher@yahoo.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Message-ID: <1693679742.27711.1588051435928@mail.yahoo.com>
+In-Reply-To: <20200427070317.GL28601@Air-de-Roger>
+References: <1359850718.562651.1587928713792.ref@mail.yahoo.com>
+ <1359850718.562651.1587928713792@mail.yahoo.com>
+ <20200427070317.GL28601@Air-de-Roger>
+Subject: Re: Xen network domain performance for 10Gb NIC
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.15802 YMailNorrin Mozilla/5.0 (Windows NT 10.0; Win64;
+ x64; rv:75.0) Gecko/20100101 Firefox/75.0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,75 +67,18 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>,
- Jason Andryuk <jandryuk@gmail.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-To avoid socket files lingering in /run/xen, have vchan-socket-proxy
-clean up the sockets it creates.  Use a signal handler as well as atexit
-to handle both means of termination.
+> Driver domains with passthrough devices need to perform IOMMU
+operations in order to add/remove page table entries when doing grant
+maps (ie: IOMMU TLB flushes), while dom0 doesn't need to because it
+has the whole RAM identity mapped in the IOMMU tables. Depending on
+how fast your IOMMU is and what capabilities it has doing such
+operations can introduce a significant amount of overhead.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- tools/libvchan/vchan-socket-proxy.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+It makes sense to me. Do you know, in general, how to measure IOMMU performance, and what features/properties of IOMMU can contribute to getting a better network throughput? Please let me know. 
 
-diff --git a/tools/libvchan/vchan-socket-proxy.c b/tools/libvchan/vchan-socket-proxy.c
-index 13700c5d67..0fb42964b5 100644
---- a/tools/libvchan/vchan-socket-proxy.c
-+++ b/tools/libvchan/vchan-socket-proxy.c
-@@ -33,6 +33,7 @@
- 
- #include <stdlib.h>
- #include <stdio.h>
-+#include <signal.h>
- #include <string.h>
- #include <unistd.h>
- #include <fcntl.h>
-@@ -88,6 +89,22 @@ char outbuf[BUFSIZE];
- int insiz = 0;
- int outsiz = 0;
- int verbose = 0;
-+char *cleanup_socket;
-+
-+static void cleanup(void)
-+{
-+    if (cleanup_socket) {
-+        unlink(cleanup_socket);
-+        free(cleanup_socket);
-+        cleanup_socket = NULL;
-+    }
-+}
-+
-+static void cleanup_exit(int signum)
-+{
-+    cleanup();
-+    exit(0);
-+}
- 
- static void vchan_wr(struct libxenvchan *ctrl) {
-     int ret;
-@@ -394,6 +411,9 @@ int main(int argc, char **argv)
-     vchan_path = argv[optind+1];
-     socket_path = argv[optind+2];
- 
-+    signal(SIGHUP, cleanup_exit);
-+    signal(SIGTERM, cleanup_exit);
-+
-     if (is_server) {
-         ctrl = libxenvchan_server_init(NULL, domid, vchan_path, 0, 0);
-         if (!ctrl) {
-@@ -410,6 +430,8 @@ int main(int argc, char **argv)
-                 perror("listen socket");
-                 return 1;
-             }
-+            cleanup_socket = strdup(socket_path);
-+            atexit(cleanup);
-         }
-     }
- 
--- 
-2.20.1
-
+Thanks!
 
