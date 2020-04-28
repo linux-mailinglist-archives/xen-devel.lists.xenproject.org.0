@@ -2,54 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3EA91BC413
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 17:50:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D86DD1BC41B
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 17:52:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTSUI-0007AM-F6; Tue, 28 Apr 2020 15:49:34 +0000
+	id 1jTSWU-00081d-ST; Tue, 28 Apr 2020 15:51:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KfNV=6M=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jTSUH-0007AH-0P
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 15:49:33 +0000
-X-Inumbo-ID: da310ce2-8967-11ea-ae69-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=DYx7=6M=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jTSWT-00081Y-Gy
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 15:51:49 +0000
+X-Inumbo-ID: 2b4cbcde-8968-11ea-9887-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id da310ce2-8967-11ea-ae69-bc764e2007e4;
- Tue, 28 Apr 2020 15:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=KPzvRysY2ohXq7P+b0bo07gMgLcm6XfJbumUCT2gh1o=; b=i9hHPfTJ3GQO43bqutkwlBGmaE
- DkZyg+WqC2aehZxhUmmkaCj+wV9a5njhYHUurL1UqH0ndbwnmRCWzaaDEiojEFTJbKkNErxtSJZMe
- 5fjjeOL2oy/50IXLBVYPZKId+4KM4NPboP6L5b2jryNfTUrAx4wfRl/YoiiDisHXW5HM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <wl@xen.org>)
- id 1jTSUF-0007YH-Ha; Tue, 28 Apr 2020 15:49:31 +0000
-Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jTSUF-0006UT-8F; Tue, 28 Apr 2020 15:49:31 +0000
-Date: Tue, 28 Apr 2020 16:49:28 +0100
-From: Wei Liu <wl@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 5/6] x86/pv: map and unmap page tables in
- mark_pv_pt_pages_rdonly
-Message-ID: <20200428154928.nrhnl6xln2ci5qrf@debian>
-References: <cover.1587116799.git.hongyxia@amazon.com>
- <9287363e13924f4a633b47b53c23b3466e26e4a8.1587116799.git.hongyxia@amazon.com>
- <fbb4a755-c450-77dd-2aa5-44c01b42a5ff@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fbb4a755-c450-77dd-2aa5-44c01b42a5ff@suse.com>
-User-Agent: NeoMutt/20180716
+ id 2b4cbcde-8968-11ea-9887-bc764e2007e4;
+ Tue, 28 Apr 2020 15:51:48 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 2BA73AC85;
+ Tue, 28 Apr 2020 15:51:47 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH] tools/xenstore: don't store domU's mfn of ring page in
+ xensotred
+Date: Tue, 28 Apr 2020 17:51:44 +0200
+Message-Id: <20200428155144.8253-1-jgross@suse.com>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,41 +39,104 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Hongyan Xia <hx242@xen.org>, julien@xen.org, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 28, 2020 at 05:33:29PM +0200, Jan Beulich wrote:
-> On 17.04.2020 11:52, Hongyan Xia wrote:
-> > --- a/xen/arch/x86/pv/dom0_build.c
-> > +++ b/xen/arch/x86/pv/dom0_build.c
-> > @@ -50,17 +50,17 @@ static __init void mark_pv_pt_pages_rdonly(struct domain *d,
-> >      unsigned long count;
-> >      struct page_info *page;
-> >      l4_pgentry_t *pl4e;
-> > -    l3_pgentry_t *pl3e;
-> > -    l2_pgentry_t *pl2e;
-> > -    l1_pgentry_t *pl1e;
-> > +    l3_pgentry_t *pl3e, *l3t;
-> > +    l2_pgentry_t *pl2e, *l2t;
-> > +    l1_pgentry_t *pl1e, *l1t;
-> 
-> I don't quite see why the new local variables get introduced:
-> unmap_domain_page(), iirc, is quite fine with a non-page-
-> aligned argument.
+The XS_INTRODUCE command has two parameters: the mfn (or better: gfn)
+of the domain's xenstore ring page and the event channel of the
+domain for communicating with Xenstore.
 
-(Assuming this is actually written by me)
+The gfn is not really needed. It is stored in the per-domain struct
+in xenstored and in case of another XS_INTRODUCE for the domain it
+is tested to match the original value. If it doesn't match the
+command is aborted via EINVAL.
 
-I wanted to make things abundantly clear: plXe points to an entry while
-lXt points to the start of a page table.
+Today there shouldn't be multiple XS_INTRODUCE requests for the same
+domain issued, so the mfn/gfn can just be ignored and multiple
+XS_INTRODUCE commands can be rejected without testing the mfn/gfn.
 
-In a long function the distinction could be helpful; in a short function
-(like this one?) not so much.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ tools/xenstore/xenstored_domain.c | 47 ++++++++++++++++-----------------------
+ 1 file changed, 19 insertions(+), 28 deletions(-)
 
-Wei.
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 5858185211..17328f9fc9 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -369,7 +369,6 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+ 	struct domain *domain;
+ 	char *vec[3];
+ 	unsigned int domid;
+-	unsigned long mfn;
+ 	evtchn_port_t port;
+ 	int rc;
+ 	struct xenstore_domain_interface *interface;
+@@ -381,7 +380,7 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+ 		return EACCES;
+ 
+ 	domid = atoi(vec[0]);
+-	mfn = atol(vec[1]);
++	/* Ignore the mfn, we don't need it. */
+ 	port = atoi(vec[2]);
+ 
+ 	/* Sanity check args. */
+@@ -390,34 +389,26 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+ 
+ 	domain = find_domain_by_domid(domid);
+ 
+-	if (domain == NULL) {
+-		interface = map_interface(domid);
+-		if (!interface)
+-			return errno;
+-		/* Hang domain off "in" until we're finished. */
+-		domain = new_domain(in, domid, port);
+-		if (!domain) {
+-			rc = errno;
+-			unmap_interface(interface);
+-			return rc;
+-		}
+-		domain->interface = interface;
+-		domain->mfn = mfn;
+-
+-		/* Now domain belongs to its connection. */
+-		talloc_steal(domain->conn, domain);
+-
+-		fire_watches(NULL, in, "@introduceDomain", false);
+-	} else if ((domain->mfn == mfn) && (domain->conn != conn)) {
+-		/* Use XS_INTRODUCE for recreating the xenbus event-channel. */
+-		if (domain->port)
+-			xenevtchn_unbind(xce_handle, domain->port);
+-		rc = xenevtchn_bind_interdomain(xce_handle, domid, port);
+-		domain->port = (rc == -1) ? 0 : rc;
+-		domain->remote_port = port;
+-	} else
++	if (domain)
+ 		return EINVAL;
+ 
++	interface = map_interface(domid);
++	if (!interface)
++		return errno;
++	/* Hang domain off "in" until we're finished. */
++	domain = new_domain(in, domid, port);
++	if (!domain) {
++		rc = errno;
++		unmap_interface(interface);
++		return rc;
++	}
++	domain->interface = interface;
++
++	/* Now domain belongs to its connection. */
++	talloc_steal(domain->conn, domain);
++
++	fire_watches(NULL, in, "@introduceDomain", false);
++
+ 	domain_conn_reset(domain);
+ 
+ 	send_ack(conn, XS_INTRODUCE);
+-- 
+2.16.4
 
-> 
-> Jan
 
