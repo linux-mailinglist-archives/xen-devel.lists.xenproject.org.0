@@ -2,41 +2,96 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63AB71BB8C5
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 10:24:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8402C1BB8CC
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2020 10:26:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTLXp-0003B9-Si; Tue, 28 Apr 2020 08:24:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jTLYy-0003KJ-7f; Tue, 28 Apr 2020 08:25:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/MZc=6M=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jTLXo-0003B0-E0
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 08:24:44 +0000
-X-Inumbo-ID: b5f9de78-8929-11ea-b07b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b5f9de78-8929-11ea-b07b-bc764e2007e4;
- Tue, 28 Apr 2020 08:24:43 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6948AAC2C;
- Tue, 28 Apr 2020 08:24:41 +0000 (UTC)
-Subject: Re: [PATCH] x86/ioemul: Rewrite stub generation
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200427122041.7162-1-andrew.cooper3@citrix.com>
- <ca3374ed-6e00-7ab2-8255-f74c16b5ad3d@suse.com>
- <ec073c8d-61a2-79ef-1ffe-d34e26a5319d@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <76b879d9-c3b5-900d-55d9-60b48e98adfa@suse.com>
-Date: Tue, 28 Apr 2020 10:24:33 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <ec073c8d-61a2-79ef-1ffe-d34e26a5319d@citrix.com>
-Content-Type: text/plain; charset=utf-8
+ (envelope-from <SRS0=CDey=6M=nxp.com=peng.fan@srs-us1.protection.inumbo.net>)
+ id 1jTLYx-0003KC-Dj
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2020 08:25:55 +0000
+X-Inumbo-ID: dfb53abe-8929-11ea-983f-12813bfff9fa
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.8.41]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dfb53abe-8929-11ea-983f-12813bfff9fa;
+ Tue, 28 Apr 2020 08:25:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jaPwuwp+LNVMO5sbHRRKw3zb1MbyMhefKPIvpfsY81hJeyvrUJsyuYVNgES2f4tTeJr94vNzFR9oApFmMjHfxMvJvR3DFuwEhNXc2hUIbU9E7Wf8A+LZlsig11tU4A60lyZooGAYL4PajcGYy/8jXgn82D/Xt4YgUCQDGu90sdg5BJOHosyUYWW8Ta6fB35nAn099Qr4G75TgHdqKxuOSOdm8oaELB4SWQDPF21rgBxsYs8ylgj4TiaCeWPbSYPnp391lOG9Hk8+pHMbFUGQOvnWN3YhHzgqhObrDa3h1ZGV/gQNWEBE9UayT2ux1gaOJQKUtmN0ToAvOesmSJ4ozg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dlw8bIFYxUY28tZAnQDAnDvvkdqtZ78OGLsv81bSHCc=;
+ b=hznfmm4daLQax9hlivpBd2uwMCSzEqdrnWvIJtq8X7OM33i8/lBdzdGbXxorK4suAWi4XeMa+CUV4VoaMbgFqOyJ081ZHqZl7e4nSib9GV0ab9jzEEBFX3TZznn/l2kSduqqv/maxzHppnd2kwm0UMY2ljPnIjAcku6odIg62n7RxZRcDMNP/YuijgRJdJUxXaYJeor1PxqUHnFILRXiaUO1mF5sWWS18sswKpUfy9fk8SYmDqpdrKa0OG4KrLphoGh5IyY9j2QQToSPU45BMvfK3qhmyeesLqNISAGwcFSYNha+TsoJV0DLlz5ajhfvsAbkFtwYtcq9Hui4ds6MCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dlw8bIFYxUY28tZAnQDAnDvvkdqtZ78OGLsv81bSHCc=;
+ b=ozCRrozuW7lhxMex/g5kIxsJKEN5W9AnVlaI/l+N2UXjY2PjiLT4kmdxlvwk9LBFGQ/dXri0YKkkcBDGbkQZ5ubwBEKXmbYW16Yg1ew3igACX6uvj+dL94N2g1AzQLuqaxkwFGj8uz5g3tsp5aMB73LNNQTkmWahbsDPsGG3Vhc=
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com (2603:10a6:4:a1::14)
+ by DB6PR0402MB2774.eurprd04.prod.outlook.com (2603:10a6:4:96::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.19; Tue, 28 Apr
+ 2020 08:25:51 +0000
+Received: from DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::d17b:d767:19c3:b871]) by DB6PR0402MB2760.eurprd04.prod.outlook.com
+ ([fe80::d17b:d767:19c3:b871%6]) with mapi id 15.20.2937.023; Tue, 28 Apr 2020
+ 08:25:51 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>
+Subject: RE: [PATCH] xen/swiotlb: correct the check for
+ xen_destroy_contiguous_region
+Thread-Topic: [PATCH] xen/swiotlb: correct the check for
+ xen_destroy_contiguous_region
+Thread-Index: AQHWHTCUGLGxU19LnkuMxSfwKxPy/aiOLjMAgAAEXoA=
+Date: Tue, 28 Apr 2020 08:25:51 +0000
+Message-ID: <DB6PR0402MB2760A05135338B0CBB28123488AC0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+References: <1588059225-11245-1-git-send-email-peng.fan@nxp.com>
+ <1c01e97a-adcd-a703-55b5-8975b4ce4d2c@suse.com>
+In-Reply-To: <1c01e97a-adcd-a703-55b5-8975b4ce4d2c@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=nxp.com;
+x-originating-ip: [119.31.174.71]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 3c952341-0a09-49f0-1c35-08d7eb4dc2fa
+x-ms-traffictypediagnostic: DB6PR0402MB2774:|DB6PR0402MB2774:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DB6PR0402MB2774DAE2ED2273FB88D0E18488AC0@DB6PR0402MB2774.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 0387D64A71
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB6PR0402MB2760.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(396003)(376002)(136003)(346002)(366004)(52536014)(186003)(33656002)(81156014)(8676002)(5660300002)(44832011)(6506007)(53546011)(66556008)(64756008)(66476007)(26005)(7696005)(66446008)(76116006)(66946007)(86362001)(71200400001)(45080400002)(2906002)(316002)(4326008)(9686003)(8936002)(54906003)(478600001)(110136005)(55016002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: wp5M9pRkZTNfLrbzQWLN5xAF4qPHU2zhrJC2H9zEZx6TdtZ+MqwgC/bWFSjXVv6/rC34FM4Co8KucAkwII+8CeUgRRjlgHDz9uL8ZDT4IvRT5iaGMKNa2IiOC0oxvGH6wvj0Yo9fivLxN4dRce36dnAFgPzKB77vq9hARJyWYgz5Ie+yqUbLZe09bqKLR8PjhEhYb7tbQUOwrDdC6S0RtoyGsUxgpZComiFqOVOjJ4RTkKsCy1WdJghuc4br8cGoP8IGuZDvW69kUJF3GL3FU2kcMYeLmU4uDJLU1twH1S6bBplJRxtvbHjw2DWbYNRzN93yQn9SbdsjVtaeeKsRmnIVMggmDEsZk0iAYiOfTs5ToTSTFcXkLMsHNPnY2smmd8hlAnVthUUxwsTF6f3FeCSEOAozBEXYlZ2ljSsMFQfKS7KWPybYLS1Wa/CLoUYy
+x-ms-exchange-antispam-messagedata: 9DTbD4fEBCogK3eME4Bq825PLA2tr3PbNEFE5q7ldawQmCTD2tBgamLD6UdnddwH29bQN8O8/RKIxRYemi63lCC6zLoVC+Z4dZOTWF72GDzuRZ6OvnX45MnmRDx2wVmhoZvPA1WBssbA8b3WBM1r4YcrWp0Op/Aisu1zdBUOwGYmFXU1gKlxnHMVv+3/O15dVpVx5rdiYqQughkgD8QZMQIx70fyGw4nSlRC3qhDEGk9NHOYLrTXGsRfeOl52lA3268bAMSdTUQKb7qb01+IE/b/6sX8RQFkpusJdXeiNJDWE3TNpxMxa1MMhVQi/yMEmUaP2vU7uCRhKHF7eYPZ9YADWsqp+q8BkTKeuaU7JxVg3jv1h3phLuDXiEO2JuDHs9E91vp8wNge+4fWm4Lr7rkQgO6XFSSxs7n0jrapQDwWBMoEigN7nWdPn5CJ1s0WcsU4up/fYM8xBG5WFm7+ve6GyL4SnpkMv5FqpWnVaYsr3+n0FlBH0JeURVHpVtGVBVyUwT2McSHNFjWQVBrwWFdPNooXZ4AZN7VZ+QV6i2hH90YGIVf+27dgaJIxwO9J21IZsnI18gGCWJ28CKFyJaa8pZxPII6blawP4NBdTVv6ReGpcVGK49WyNotHH9YQxPmv6d/CXaJGROJlz4E0E9QptTNVD0sJd+8jrl6SooTGrgaRn1keBYeZkEUCRilzcbKzoqXfCanYe9cYmOkHi/+lTF8Aid6ivKJVU0ijaihseqwsHx7JGvHddUnzBLcQGKGnm0nNBgaFLBpo6TuEBVIqUIR6Jl/W0OgmCq3YSVU=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c952341-0a09-49f0-1c35-08d7eb4dc2fa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2020 08:25:51.0895 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: J7dODyBu4e4WcytpCWJycYreIF9rtxjPzZXKF59BrTxzikPu8cwCgPkE7S1s9RDlQmREveKlk/PO3GYuaRRTmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2774
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,129 +102,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ dl-linux-imx <linux-imx@nxp.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.04.2020 00:20, Andrew Cooper wrote:
-> On 27/04/2020 16:28, Jan Beulich wrote:
->> On 27.04.2020 14:20, Andrew Cooper wrote:
->>> The logic is completely undocumented and almost impossible to follow.  It
->>> actually uses return oriented programming.  Rewrite it to conform to more
->>> normal call mechanics, and leave a big comment explaining thing.  As well as
->>> the code being easier to follow, it will execute faster as it isn't fighting
->>> the branch predictor.
->>>
->>> Move the ioemul_handle_quirk() function pointer from traps.c to
->>> ioport_emulate.c.  There is no reason for it to be in neither of the two
->>> translation units which use it.  Alter the behaviour to return the number of
->>> bytes written into the stub.
->>>
->>> Access the addresses of the host/guest helpers with extern const char arrays.
->>> Nothing good will come of C thinking they are regular functions.
->> I agree with the C aspect, but imo the assembly routines should,
->> with the changes you make, be marked as being ordinary functions.
-> 
-> Despite the changes, they are still very much not ordinary functions,
-> and cannot be used by C.
-> 
-> I have no objection to marking them as STT_FUNCTION (as this doesn't
-> mean C function), but...
-> 
->> A reasonable linker would then warn about the C file wanting an
->> STT_OBJECT while the assembly file provides an STT_FUNC. I'd
->> therefore prefer, along with marking the functions as such, to
->> have them also declared as functions in C.
-> 
-> ... there is literally nothing safe which C can do with them other than
-> manipulate their address.
-> 
-> Writing it like this is specifically prevents something from compiling
-> which will explode at runtime, is someone is naive enough to try using
-> the function from C.
-
-Besides being certain that such an attempt, if it made it into a
-submitted patch in the first place, would be caught by review, I
-don't see you addressing my main counter argument. Preventing a
-declared function to be called can be had by other means, e.g.
-__attribute__((__warning__())).
-
->>> @@ -19,18 +22,16 @@ static bool ioemul_handle_proliant_quirk(
->>>          0xa8, 0x80, /*    test $0x80, %al */
->>>          0x75, 0xfb, /*    jnz 1b          */
->>>          0x9d,       /*    popf            */
->>> -        0xc3,       /*    ret             */
->>>      };
->>>      uint16_t port = regs->dx;
->>>      uint8_t value = regs->al;
->>>  
->>>      if ( (opcode != 0xee) || (port != 0xcd4) || !(value & 0x80) )
->>> -        return false;
->>> +        return 0;
->>>  
->>>      memcpy(io_emul_stub, stub, sizeof(stub));
->>> -    BUILD_BUG_ON(IOEMUL_QUIRK_STUB_BYTES < sizeof(stub));
->> So you treat a build failure for a runtime crash.
-> 
-> I presume you mean s/treat/trade/ here, and the answer is no, not really.
-> 
-> There is nothing which actually forced a connection between the build
-> time checks and runtime behaviour, so it was only a facade of safety,
-> not real safety.
-
-I'm not following, I'm afraid: The above together with
-
-    BUILD_BUG_ON(STUB_BUF_SIZE / 2 < MAX(9, /* Default emul stub */
-                                         5 + IOEMUL_QUIRK_STUB_BYTES));
-
-(where the literal numbers live next to what they describe)
-did very well provide some level of guarding.
-
->>  I can see the
->> advantages of the new approach, but the original got away with
->> less stub space.
-> 
-> Stub space doesn't matter, so long as it fits.  In particular, ...
-> 
->> If our L1_CACHE_SHIFT wasn't hard coded to 7
->> just to cover some unusual CPUs, your new approach would, if I
->> got the counting and calculations right, not work (with a value
->> resulting in a 64-byte cache line size).
-> 
-> ... the SYSCALL stubs use 64 bytes so Xen cannot function with a shift
-> less than 7.
-
-Oh, my fault - I read the STUB_BUF_SHIFT expression as min() when
-it really is max(). So yes, we can rely on there being 64 bytes.
-(Everything further down therefore becomes moot afaict.)
-
->> Introducing a Kconfig
->> option for this should imo not come with a need to re-work the
->> logic here again. Therefore I'd like us to think about a way
->> to make the space needed not exceed 32 bytes.
-> 
-> And why would we ever want an option like that?  (I know how you're
-> going to answer this, so I'm going to pre-emptively point out that there
-> are hundreds of kilobytes of easier-to-shrink per-cpu data structures
-> than this one).
-
-Not sure what per-CPU data structures you talk about. I wasn't
-thinking of space savings in particular, but rather about getting
-our setting in sync with actual hardware. Its value is, afaics,
-used in a far more relevant way by xmalloc() and friends.
-
-Jan
-
-> Honestly, this suggestion is a total waste of time and effort.  It is an
-> enormous amount of complexity to micro-optimise a problem which doesn't
-> exist in the first place.
-> 
-> The stubs are already 128 bytes per CPU and cannot be made smaller. 
-> Attempting to turn this particular stub into <32 has no benefit (the
-> stubs don't actually get smaller), and major costs.
-> 
-> ~Andrew
-> 
-
+PiBTdWJqZWN0OiBSZTogW1BBVENIXSB4ZW4vc3dpb3RsYjogY29ycmVjdCB0aGUgY2hlY2sgZm9y
+DQo+IHhlbl9kZXN0cm95X2NvbnRpZ3VvdXNfcmVnaW9uDQo+IA0KPiBPbiAyOC4wNC4yMCAwOToz
+MywgcGVuZy5mYW5AbnhwLmNvbSB3cm90ZToNCj4gPiBGcm9tOiBQZW5nIEZhbiA8cGVuZy5mYW5A
+bnhwLmNvbT4NCj4gPg0KPiA+IFdoZW4gYm9vdGluZyB4ZW4gb24gaS5NWDhRTSwgbWV0Og0KPiA+
+ICINCj4gPiBbICAgIDMuNjAyMTI4XSBVbmFibGUgdG8gaGFuZGxlIGtlcm5lbCBwYWdpbmcgcmVx
+dWVzdCBhdCB2aXJ0dWFsIGFkZHJlc3MNCj4gMDAwMDAwMDAwMDI3MmQ0MA0KPiA+IFsgICAgMy42
+MTA4MDRdIE1lbSBhYm9ydCBpbmZvOg0KPiA+IFsgICAgMy42MTM5MDVdICAgRVNSID0gMHg5NjAw
+MDAwNA0KPiA+IFsgICAgMy42MTczMzJdICAgRUMgPSAweDI1OiBEQUJUIChjdXJyZW50IEVMKSwg
+SUwgPSAzMiBiaXRzDQo+ID4gWyAgICAzLjYyMzIxMV0gICBTRVQgPSAwLCBGblYgPSAwDQo+ID4g
+WyAgICAzLjYyNjYyOF0gICBFQSA9IDAsIFMxUFRXID0gMA0KPiA+IFsgICAgMy42MzAxMjhdIERh
+dGEgYWJvcnQgaW5mbzoNCj4gPiBbICAgIDMuNjMzMzYyXSAgIElTViA9IDAsIElTUyA9IDB4MDAw
+MDAwMDQNCj4gPiBbICAgIDMuNjM3NjMwXSAgIENNID0gMCwgV25SID0gMA0KPiA+IFsgICAgMy42
+NDA5NTVdIFswMDAwMDAwMDAwMjcyZDQwXSB1c2VyIGFkZHJlc3MgYnV0IGFjdGl2ZV9tbSBpcw0K
+PiBzd2FwcGVyDQo+ID4gWyAgICAzLjY0Nzk4M10gSW50ZXJuYWwgZXJyb3I6IE9vcHM6IDk2MDAw
+MDA0IFsjMV0gUFJFRU1QVCBTTVANCj4gPiBbICAgIDMuNjU0MTM3XSBNb2R1bGVzIGxpbmtlZCBp
+bjoNCj4gPiBbICAgIDMuNjc3Mjg1XSBIYXJkd2FyZSBuYW1lOiBGcmVlc2NhbGUgaS5NWDhRTSBN
+RUsgKERUKQ0KPiA+IFsgICAgMy42NzczMDJdIFdvcmtxdWV1ZTogZXZlbnRzIGRlZmVycmVkX3By
+b2JlX3dvcmtfZnVuYw0KPiA+IFsgICAgMy42ODQyNTNdIGlteDZxLXBjaWUgNWYwMDAwMDAucGNp
+ZTogUENJIGhvc3QgYnJpZGdlIHRvIGJ1cyAwMDAwOjAwDQo+ID4gWyAgICAzLjY4ODI5N10gcHN0
+YXRlOiA2MDAwMDAwNSAoblpDdiBkYWlmIC1QQU4gLVVBTykNCj4gPiBbICAgIDMuNjg4MzEwXSBw
+YyA6IHhlbl9zd2lvdGxiX2ZyZWVfY29oZXJlbnQrMHgxODAvMHgxYzANCj4gPiBbICAgIDMuNjkz
+OTkzXSBwY2lfYnVzIDAwMDA6MDA6IHJvb3QgYnVzIHJlc291cmNlIFtidXMgMDAtZmZdDQo+ID4g
+WyAgICAzLjcwMTAwMl0gbHIgOiB4ZW5fc3dpb3RsYl9mcmVlX2NvaGVyZW50KzB4NDQvMHgxYzAN
+Cj4gPiAiDQo+ID4NCj4gPiBJbiB4ZW5fc3dpb3RsYl9hbGxvY19jb2hlcmVudCwgaWYgIShkZXZf
+YWRkciArIHNpemUgLSAxIDw9IGRtYV9tYXNrKQ0KPiA+IG9yIHJhbmdlX3N0cmFkZGxlc19wYWdl
+X2JvdW5kYXJ5KHBoeXMsIHNpemUpIGFyZSB0cnVlLCBpdCB3aWxsIGNyZWF0ZQ0KPiA+IGNvbnRp
+Z3VvdXMgcmVnaW9uLiBTbyB3aGVuIGZyZWUsIHdlIG5lZWQgdG8gZnJlZSBjb250aWd1b3VzIHJl
+Z2lvbiB1c2UNCj4gPiB1cHBlciBjaGVjayBjb25kaXRpb24uDQo+IA0KPiBObywgdGhpcyB3aWxs
+IGJyZWFrIFBWIGd1ZXN0cyBvbiB4ODYuDQoNCkNvdWxkIHlvdSBzaGFyZSBtb3JlIGRldGFpbHMg
+d2h5IGFsbG9jIGFuZCBmcmVlIG5vdCBtYXRjaGluZyBmb3IgdGhlIGNoZWNrPw0KDQpUaGFua3Ms
+DQpQZW5nLg0KDQo+IA0KPiBJIHRoaW5rIHRoZXJlIGlzIHNvbWV0aGluZyB3cm9uZyB3aXRoIHlv
+dXIgc2V0dXAgaW4gY29tYmluYXRpb24gd2l0aCB0aGUgQVJNDQo+IHhlbl9jcmVhdGVfY29udGln
+dW91c19yZWdpb24oKSBpbXBsZW1lbnRhdGlvbi4NCj4gDQo+IFN0ZWZhbm8/DQo+IA0KPiANCj4g
+SnVlcmdlbg0KPiANCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IFBlbmcgRmFuIDxwZW5nLmZhbkBu
+eHAuY29tPg0KPiA+IC0tLQ0KPiA+ICAgZHJpdmVycy94ZW4vc3dpb3RsYi14ZW4uYyB8IDQgKyst
+LQ0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkN
+Cj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi9zd2lvdGxiLXhlbi5jIGIvZHJpdmVy
+cy94ZW4vc3dpb3RsYi14ZW4uYw0KPiA+IGluZGV4IGI2ZDI3NzYyYzZmOC4uYWI5NmU0Njg1ODRm
+IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMveGVuL3N3aW90bGIteGVuLmMNCj4gPiArKysgYi9k
+cml2ZXJzL3hlbi9zd2lvdGxiLXhlbi5jDQo+ID4gQEAgLTM0Niw4ICszNDYsOCBAQCB4ZW5fc3dp
+b3RsYl9mcmVlX2NvaGVyZW50KHN0cnVjdCBkZXZpY2UgKmh3ZGV2LA0KPiBzaXplX3Qgc2l6ZSwg
+dm9pZCAqdmFkZHIsDQo+ID4gICAJLyogQ29udmVydCB0aGUgc2l6ZSB0byBhY3R1YWxseSBhbGxv
+Y2F0ZWQuICovDQo+ID4gICAJc2l6ZSA9IDFVTCA8PCAob3JkZXIgKyBYRU5fUEFHRV9TSElGVCk7
+DQo+ID4NCj4gPiAtCWlmICghV0FSTl9PTigoZGV2X2FkZHIgKyBzaXplIC0gMSA+IGRtYV9tYXNr
+KSB8fA0KPiA+IC0JCSAgICAgcmFuZ2Vfc3RyYWRkbGVzX3BhZ2VfYm91bmRhcnkocGh5cywgc2l6
+ZSkpICYmDQo+ID4gKwlpZiAoKChkZXZfYWRkciArIHNpemUgLSAxID4gZG1hX21hc2spIHx8DQo+
+ID4gKwkgICAgcmFuZ2Vfc3RyYWRkbGVzX3BhZ2VfYm91bmRhcnkocGh5cywgc2l6ZSkpICYmDQo+
+ID4gICAJICAgIFRlc3RDbGVhclBhZ2VYZW5SZW1hcHBlZCh2aXJ0X3RvX3BhZ2UodmFkZHIpKSkN
+Cj4gPiAgIAkJeGVuX2Rlc3Ryb3lfY29udGlndW91c19yZWdpb24ocGh5cywgb3JkZXIpOw0KPiA+
+DQo+ID4NCg0K
 
