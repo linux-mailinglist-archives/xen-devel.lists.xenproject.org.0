@@ -2,60 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11A6E1BE06E
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 16:15:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B9871BE0E8
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 16:29:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTnUL-000671-Mp; Wed, 29 Apr 2020 14:15:01 +0000
+	id 1jTni8-0007D2-4Y; Wed, 29 Apr 2020 14:29:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2IrC=6N=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jTnUK-00066w-64
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 14:15:00 +0000
-X-Inumbo-ID: cf62daa4-8a23-11ea-b9cf-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4OoD=6N=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jTni6-0007Cx-RH
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 14:29:14 +0000
+X-Inumbo-ID: cc58919e-8a25-11ea-ae69-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cf62daa4-8a23-11ea-b9cf-bc764e2007e4;
- Wed, 29 Apr 2020 14:14:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PVFkJQZhuj4UDnCiCNLSK8NTIxMziKd2mEPqxVB/yvI=; b=4oI9G1nHDMASB+MPmjpdIBchPR
- 7a3uHk59GZdjuacgXNkslBNOUTTYvabv15bhHDVLxSF0xK5X8dAHq5s1zCmS9uqNOgoIx+mg+7VGF
- zLiYmzEBpYM5FZrYkcdSuCcUB5zQ9BJBfbDeSkfUiDJHdqfVKvlASboIHoOnV27Qe43k=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jTnUH-0002tK-Lm; Wed, 29 Apr 2020 14:14:57 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jTnUH-0007F1-Bu; Wed, 29 Apr 2020 14:14:57 +0000
-Subject: Re: [PATCH] pvcalls: Document explicitly the padding for all arches
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200419104948.31200-1-julien@xen.org>
- <e07dbb22-1300-ae87-4065-824938caec48@suse.com>
- <78288649-5930-9d01-bb8f-85e15406e4ef@xen.org>
- <6fc59120-664e-6a07-5196-57e1dbfb0dde@suse.com>
- <alpine.DEB.2.21.2004211609410.24585@sstabellini-ThinkPad-T480s>
- <240bc5e8-f8fd-217a-fa10-7628ac9d4e6e@suse.com>
- <9eb39857-2e33-4a6b-1825-f9dc537a6515@xen.org>
- <423c0369-9c90-dbfe-2f90-d49a2ce5b283@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <4cd108f9-3ad0-2262-fa7c-d2247660c635@xen.org>
-Date: Wed, 29 Apr 2020 15:14:55 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ id cc58919e-8a25-11ea-ae69-bc764e2007e4;
+ Wed, 29 Apr 2020 14:29:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588170555;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=QsJPr9iVs6pqzFsZwMChw0wq8FGtmGYc2t1CUvxjZ0E=;
+ b=cMe6R79w66lO15WHnAprk5W+aTmC9VVh7xQD+tStKZ+mfY3Hd8FABYix
+ XVxa28202UKig7TIx1bz0wuPP4Sjk4D3nEWw7rgO+BLFmTTm38B3GMVY9
+ fji/nyZ3iXbEiN24yuur2zgdKc3N26APIMS6TeHZTpDLCj9Y99LQACL34 8=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: Q47QSwH1T/DS5B0ActYX3BQu40sA6UWVichvIGhQv22eweOT6gBHgkeeVuEHtztef6rU5hyLwr
+ ukCJgeKovpRasPAdwNpp0KxLNPCWw0B0+rSd7Gv6/KHnjzEp5+yzTztf3UeMIMX3tWbOC8b2Mr
+ aGwN16dG4NN67xCUDIRIhZGXWckExnmPeNswvEYip1z2VTdnozmTflJvRxykGV/Auo/sfW6RMt
+ jAN6hsdT8SobS3pNBtqsV9vhEE6t7jK42X/hsnOCNJsCFVKpFVcyOCVZqDSP17RePYpPTcw8Ir
+ gVk=
+X-SBRS: 2.7
+X-MesageID: 16430618
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,332,1583211600"; d="scan'208";a="16430618"
+Subject: Re: [PATCH] x86/CPUID: correct error indicator for max extended leaf
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <fa32442e-158f-f855-efad-09f4d6696adf@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <56366abc-78cc-64f7-f122-bdeac9a8ee3c@citrix.com>
+Date: Wed, 29 Apr 2020 15:29:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <423c0369-9c90-dbfe-2f90-d49a2ce5b283@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <fa32442e-158f-f855-efad-09f4d6696adf@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,68 +94,17 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+On 29/04/2020 15:11, Jan Beulich wrote:
+> With the max base leaf using 0, this one should be using the extended
+> leaf counterpart thereof, rather than some arbitrary extended leaf.
+>
+> Fixes: 588a966a572e ("libx86: Introduce x86_cpu_policies_are_compatible()")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-On 29/04/2020 15:05, Jan Beulich wrote:
-> On 29.04.2020 16:01, Julien Grall wrote:
->> Hi,
->>
->> On 22/04/2020 10:20, Jan Beulich wrote:
->>>> Even if it was possible to use the sub-structs defined in the header
->>>> that way, keep in mind that we also wrote:
->>>>
->>>>           /* dummy member to force sizeof(struct xen_pvcalls_request)
->>>>            * to match across archs */
->>>>           struct xen_pvcalls_dummy {
->>>>               uint8_t dummy[56];
->>>>           } dummy;
->>>
->>> This has nothing to do with how a consumer may use the structs.
->>>
->>>> And the spec also clarifies that the size of each specific request is
->>>> always 56 bytes.
->>>
->>> Sure, and I didn't mean to imply that a consumer would be allowed
->>> to break this requirement. Still something like this
->>>
->>> int pvcall_new_socket(struct xen_pvcalls_socket *s) {
->>>       struct xen_pvcalls_request req = {
->>>           .req_id = REQ_ID,
->>>           .cmd = PVCALLS_SOCKET,
->>>           .u.socket = *s,
->>>       };
->>>
->>>       return pvcall(&req);
->>> }
->>>
->>> may break.
->>
->> I think I understand your concern now. So yes I agree this would break 32-bit consumer.
->>
->> As the padding is at the end of the structure, I think a 32-bit frontend and 64-bit backend (or vice-versa) should currently work without any trouble. The problem would come later if we decide to extend a command.
-> 
-> Can commands be extended at all, i.e. don't extensions require new
-> commands? The issue I've described has nothing to do with future
-> extending of any of the affected structures.
-
-I think my point wasn't conveyed correctly. The implicit padding is at 
-the end of the structure for all the consumers but 32-bit x86. So 
-without any modification, I think 32-bit frontend can still communicate 
-with 64-bit backend (or vice-versa).
-
-Therefore I suggest to rework the documentation and add the implicit 
-padding just for all the architectures but 32-bit x86.
-
-Cheers,
-
--- 
-Julien Grall
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
