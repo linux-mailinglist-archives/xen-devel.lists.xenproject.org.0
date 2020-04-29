@@ -2,55 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E633F1BD75A
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 10:34:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43AE91BD75B
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 10:35:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTiAL-0003ZD-Oh; Wed, 29 Apr 2020 08:34:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=totz=6N=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jTiAJ-0003Z7-Sa
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 08:33:59 +0000
-X-Inumbo-ID: 281258b2-89f4-11ea-991b-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 281258b2-89f4-11ea-991b-12813bfff9fa;
- Wed, 29 Apr 2020 08:33:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PXaz4WsdYC1NZr0B5MfR11X2HSxyd4AtDUNA4U4i3W4=; b=sdVMf6m3Kmq0gOvsDID3jMh5S
- 6Gr+asG0OR8D596svaXLoHihGNCnP1AmrGEMPjsLdBA5sqYVHcg9W8MituKl4mKPhthcO0Bkgi6+p
- icB9uMokEcP3cLq/AHi92l8A2jWaMB/Lw+kbfCjM4k9duiukdm8ntlVHu+jhyOERp/Kho=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jTiAC-0004gC-EH; Wed, 29 Apr 2020 08:33:52 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jTiAB-0003PI-To; Wed, 29 Apr 2020 08:33:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jTiAB-00034P-T9; Wed, 29 Apr 2020 08:33:51 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149869-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jTiBq-0003fI-4G; Wed, 29 Apr 2020 08:35:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yqvu=6N=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jTiBp-0003fC-8u
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 08:35:33 +0000
+X-Inumbo-ID: 637db996-89f4-11ea-ae69-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 637db996-89f4-11ea-ae69-bc764e2007e4;
+ Wed, 29 Apr 2020 08:35:32 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id BD6F6AB3D;
+ Wed, 29 Apr 2020 08:35:30 +0000 (UTC)
+Subject: Re: [PATCH] x86/pass-through: avoid double IRQ unbind during domain
+ cleanup
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <6fddc420-b582-cb2f-92ce-b3e067c420c4@suse.com>
+ <20200428161412.GU28601@Air-de-Roger>
+ <c0f222dc-2b7a-be54-29a1-75bcc5686dde@suse.com>
+ <20200429082616.GX28601@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <33a52f15-caff-a0f8-8387-b0c552c80c26@suse.com>
+Date: Wed, 29 Apr 2020 10:35:24 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [ovmf test] 149869: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=b2034179e8feed9c7d3bc8f9d40a18fd236c5b57
-X-Osstest-Versions-That: ovmf=099dfbb29d8bf0a30e397e3f5baf1da437b8f0ba
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 29 Apr 2020 08:33:51 +0000
+In-Reply-To: <20200429082616.GX28601@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,63 +49,73 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Varad Gautam <vrd@amazon.de>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149869 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149869/
+On 29.04.2020 10:26, Roger Pau Monné wrote:
+> On Wed, Apr 29, 2020 at 09:37:11AM +0200, Jan Beulich wrote:
+>> On 28.04.2020 18:14, Roger Pau Monné wrote:
+>>> On Tue, Apr 28, 2020 at 02:21:48PM +0200, Jan Beulich wrote:
+>>>> XEN_DOMCTL_destroydomain creates a continuation if domain_kill -ERESTARTs.
+>>>> In that scenario, it is possible to receive multiple _pirq_guest_unbind
+>>>> calls for the same pirq from domain_kill, if the pirq has not yet been
+>>>> removed from the domain's pirq_tree, as:
+>>>>   domain_kill()
+>>>>     -> domain_relinquish_resources()
+>>>>       -> pci_release_devices()
+>>>>         -> pci_clean_dpci_irq()
+>>>>           -> pirq_guest_unbind()
+>>>>             -> __pirq_guest_unbind()
+>>>>
+>>>> Avoid recurring invocations of pirq_guest_unbind() by removing the pIRQ
+>>>> from the tree being iterated after the first call there. In case such a
+>>>> removed entry still has a softirq outstanding, record it and re-check
+>>>> upon re-invocation.
+>>>>
+>>>> Reported-by: Varad Gautam <vrd@amazon.de>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> Tested-by: Varad Gautam <vrd@amazon.de>
+>>>>
+>>>> --- a/xen/arch/x86/irq.c
+>>>> +++ b/xen/arch/x86/irq.c
+>>>> @@ -1323,7 +1323,7 @@ void (pirq_cleanup_check)(struct pirq *p
+>>>>      }
+>>>>  
+>>>>      if ( radix_tree_delete(&d->pirq_tree, pirq->pirq) != pirq )
+>>>> -        BUG();
+>>>> +        BUG_ON(!d->is_dying);
+>>>
+>>> I think to keep the previous behavior this should be:
+>>>
+>>> BUG_ON(!is_hvm_domain(d) || !d->is_dying);
+>>>
+>>> Since the pirqs will only be removed elsewhere if the domain is HVM?
+>>
+>> pirq_cleanup_check() is a generic hook, and hence I consider it more
+>> correct to not have it behave differently in this regard for different
+>> types of guests. IOW while it _may_ (didn't check) not be the case
+>> today that this can be called multiple times even for PV guests, I'd
+>> view this as legitimate behavior.
+> 
+> Previous to this patch pirq_cleanup_check couldn't be called multiple
+> times, as it would result in the BUG triggering, that was true for
+> both PV and HVM. Now that the removal of PIRQs from the tree is done
+> elsewhere for HVM when the domain is dying the check needs to be
+> relaxed for HVM at least. I would prefer if it was kept as-is for PV
+> (since there's been no change in behavior for PV that could allow for
+> multiple calls to pirq_cleanup_check), or else a small comment in the
+> commit message would help clarify this is done on purpose.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 b2034179e8feed9c7d3bc8f9d40a18fd236c5b57
-baseline version:
- ovmf                 099dfbb29d8bf0a30e397e3f5baf1da437b8f0ba
+I've added
 
-Last test of basis   149867  2020-04-28 18:09:26 Z    0 days
-Testing same since   149869  2020-04-29 03:52:49 Z    0 days    1 attempts
+"Note that pirq_cleanup_check() gets relaxed beyond what's strictly
+ needed here, to avoid introducing an asymmetry there between HVM and PV
+ guests."
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Shenglei Zhang <shenglei.zhang@intel.com>
-  Zhang, Shenglei <shenglei.zhang@intel.com>
+Does this sound suitable to you?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   099dfbb29d..b2034179e8  b2034179e8feed9c7d3bc8f9d40a18fd236c5b57 -> xen-tested-master
+Jan
 
