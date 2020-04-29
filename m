@@ -2,59 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C97DD1BE425
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 18:42:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19E111BE500
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 19:19:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTpmb-0005Rt-FW; Wed, 29 Apr 2020 16:42:01 +0000
+	id 1jTqLb-0008TF-W4; Wed, 29 Apr 2020 17:18:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7tx0=6N=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
- id 1jTpmZ-0005Ro-ON
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 16:41:59 +0000
-X-Inumbo-ID: 57f8d71a-8a38-11ea-b07b-bc764e2007e4
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
+ <SRS0=PJZR=6N=gmail.com=ayushdosaj2313@srs-us1.protection.inumbo.net>)
+ id 1jTqLa-0008TA-Gk
+ for xen-devel@lists.xen.org; Wed, 29 Apr 2020 17:18:10 +0000
+X-Inumbo-ID: 65e8daa0-8a3d-11ea-ae69-bc764e2007e4
+Received: from mail-oi1-x229.google.com (unknown [2607:f8b0:4864:20::229])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 57f8d71a-8a38-11ea-b07b-bc764e2007e4;
- Wed, 29 Apr 2020 16:41:59 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id e26so2772630wmk.5
- for <xen-devel@lists.xenproject.org>; Wed, 29 Apr 2020 09:41:59 -0700 (PDT)
+ id 65e8daa0-8a3d-11ea-ae69-bc764e2007e4;
+ Wed, 29 Apr 2020 17:18:09 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id 19so2483646oiy.8
+ for <xen-devel@lists.xen.org>; Wed, 29 Apr 2020 10:18:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=pRcvpi37jJZmtN/lvIL5Lo9a2UxvC2fhXJil7fmcwi0=;
+ b=PNp95T4iv3qJGMcIajDyfhDo7y6S5C0cfeNWd86PJSdGzxr4m47eLG4fzuNv58o8jD
+ Qfmt7Lfy+W8LyOlDgGFQ31xHFG3EhDwxbCyQkt6IKuQ/+XTAGuWs+w383mU4hsnJWVh0
+ gFeWGQTHrcb4DU5qRo0ApXVuHl6DYSus0eTqhMObJ5rQnTRU7fFakF7d8EwaGFa+3foC
+ SFET43BLcqVBFiBMqNCYESvGbAMU1gWQB7pUvUWyfhmjrH9ydYc+esZy9QI2yhcR6zDN
+ g62CJGAeMjN7rCn/4d2P7aVlpR1ydBG2XEiYMTNzy4nWRc2YCEvynoxBrRR3Bp4xH25+
+ 4Y6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=b1NmnG+Bha+R6DCsicsXkjR18of0wt/SYtjmCqwDrqU=;
- b=ByMUSrur6ph09MPg67mnA/w3gvsZAN4fqFrrccbWGrJn9CygTcsy2RyBFxs71jUdf8
- b5Qp4+vKbEW9Y/HFn9F8MWUEaXDjacqh4BUOc6eNPq9lM4U/dycOv4OQIZaJ7PuvbS51
- LyWeE2vr0pqxFDRB+3/fN/W2jVxpmUpNMAkvAuAmGf7nbyzwBSqoDF/ihDAQ5OArHyoH
- n6CpYLsGD5S0mfJoMB3HpofGmft3UzxKt19LJZapdTJ3empXGO2aAdEPkH1ejcxEeFsz
- CbKsERjvsMIXv2WG1wpqBJ1qcnINLcqHS2RagZytfEZMDNUjGjJdL0VpI/1So31J8+uR
- MFsg==
-X-Gm-Message-State: AGi0PuY94vbXo4LiPLEIIM0Goq5kADKYknv0yHklXFcTTiVfK1V78fGw
- etsKBr5AsBRIdYqWER04nNA=
-X-Google-Smtp-Source: APiQypK92COmCk6jtDXQuM8RbqIzlQmTZkmvIjtD7/GMtqebIJTWbJ+7ip3K+A9bRbw+AFyvMNQEDw==
-X-Received: by 2002:a1c:2383:: with SMTP id j125mr4175112wmj.6.1588178518352; 
- Wed, 29 Apr 2020 09:41:58 -0700 (PDT)
-Received: from
- liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
- ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id i25sm8360761wml.43.2020.04.29.09.41.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Apr 2020 09:41:57 -0700 (PDT)
-Date: Wed, 29 Apr 2020 16:41:55 +0000
-From: Wei Liu <wei.liu@kernel.org>
-To: David Hildenbrand <david@redhat.com>
-Subject: Re: [PATCH v1 1/3] mm/memory_hotplug: Prepare passing flags to
- add_memory() and friends
-Message-ID: <20200429164154.ctflq4ouwrwwe4wq@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-References: <20200429160803.109056-1-david@redhat.com>
- <20200429160803.109056-2-david@redhat.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=pRcvpi37jJZmtN/lvIL5Lo9a2UxvC2fhXJil7fmcwi0=;
+ b=HwOcAPVwYiSltM1qWvgGo90jSOXmyXJvSXC+jArr0uuvzDbQ8e/gBrex5xZnf0gWCS
+ Dw+5keXwfyVf0aZyGgr6/rm64bR3PL8UWjmEkZg0uTjvccVKrN8fO6WBa1vKRVXjJf5t
+ DojgsDQh4NJZG7sFttkGr6bqG52vl5pBhzP0GZwE/HDgX2fLDKNxRDUfqZ/lDTImMKeF
+ naWKw/Uakwe0Ubt5r+xN1LyBCcxDHlz/6CYU+yQzz1V9xeTl4pYMFLlUPK/OT+mQ0L3n
+ SKGQ/ocwXviaQROzAj7RdYj4X+REBonUwtEMktTXiV133MYab5ckt+MLjqfkqkaiAp+L
+ CuLg==
+X-Gm-Message-State: AGi0PuZFgRQ7D8DtXjUorGzAoOIXTcYTFlZ+kReIZcvkyOxYUkqUR9sj
+ Q6+/p4hira8vTVUPeyYNBG7kK4C1TBKl05NPpm/Tsv3ydN8=
+X-Google-Smtp-Source: APiQypL4HVbQtW3CmTMgllhOzv6HKjGIcXxiVG/c7nHl+jiI1xqc6LlG1CQyWXInKmwjcibEbnczFF6/Y+VKWkg9RCo=
+X-Received: by 2002:aca:5716:: with SMTP id l22mr2331785oib.43.1588180688822; 
+ Wed, 29 Apr 2020 10:18:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200429160803.109056-2-david@redhat.com>
-User-Agent: NeoMutt/20180716
+From: Ayush Dosaj <ayushdosaj2313@gmail.com>
+Date: Wed, 29 Apr 2020 22:47:57 +0530
+Message-ID: <CAOCxVi0s5X+=Hug2_M-AyXvYpiwqfkf7G2Y66kp44MQ-xgO+KA@mail.gmail.com>
+Subject: Xen Compilation Error on Ubuntu 20.04
+To: xen-devel@lists.xen.org
+Content-Type: multipart/alternative; boundary="000000000000cbfdf305a4712183"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,59 +61,71 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Jason Wang <jasowang@redhat.com>, Heiko Carstens <heiko.carstens@de.ibm.com>,
- Pingfan Liu <kernelfans@gmail.com>, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, Paul Mackerras <paulus@samba.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, virtio-dev@lists.oasis-open.org,
- Wei Liu <wei.liu@kernel.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Dave Jiang <dave.jiang@intel.com>, Baoquan He <bhe@redhat.com>,
- linux-nvdimm@lists.01.org, Vishal Verma <vishal.l.verma@intel.com>,
- linux-acpi@vger.kernel.org, Wei Yang <richard.weiyang@gmail.com>,
- xen-devel@lists.xenproject.org, Len Brown <lenb@kernel.org>,
- Nathan Lynch <nathanl@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- linux-s390@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
- Leonardo Bras <leobras.c@gmail.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Dan Williams <dan.j.williams@intel.com>, Michal Hocko <mhocko@kernel.org>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Oscar Salvador <osalvador@suse.de>, Juergen Gross <jgross@suse.com>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, linux-kernel@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Eric Biederman <ebiederm@xmission.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Apr 29, 2020 at 06:08:01PM +0200, David Hildenbrand wrote:
-> We soon want to pass flags - prepare for that.
-> 
-> This patch is based on a similar patch by Oscar Salvador:
-> 
-> https://lkml.kernel.org/r/20190625075227.15193-3-osalvador@suse.de
-> 
-[...]
-> ---
->  drivers/hv/hv_balloon.c                         |  2 +-
+--000000000000cbfdf305a4712183
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/drivers/hv/hv_balloon.c b/drivers/hv/hv_balloon.c
-> index 32e3bc0aa665..0194bed1a573 100644
-> --- a/drivers/hv/hv_balloon.c
-> +++ b/drivers/hv/hv_balloon.c
-> @@ -726,7 +726,7 @@ static void hv_mem_hot_add(unsigned long start, unsigned long size,
->  
->  		nid = memory_add_physaddr_to_nid(PFN_PHYS(start_pfn));
->  		ret = add_memory(nid, PFN_PHYS((start_pfn)),
-> -				(HA_CHUNK << PAGE_SHIFT));
-> +				(HA_CHUNK << PAGE_SHIFT), 0);
->  
->  		if (ret) {
->  			pr_err("hot_add memory failed error is %d\n", ret);
+Hi Xen development team,
 
-Acked-by: Wei Liu <wei.liu@kernel.org>
+I am Ayush. I compiled Xen Hypervisor from source on Ubuntu 20.04 machine
+running on an intel-i9 CPU.
+I am getting compilation error due to the following two flags.
+Error: error: =E2=80=98-mindirect-branch=E2=80=99 and =E2=80=98-fcf-protect=
+ion=E2=80=99 are not compatible.
+
+Complete Error logs can be found at https://paste.ubuntu.com/p/xvvyPnhW5c/
+
+And when I compiled Xen commenting the two flags in Rules.mk file, it
+compiles and installs properly but on boot-up i see a blank black screen
+and i am stuck there.
+
+
+Best,
+Ayush Dosaj
+
+--000000000000cbfdf305a4712183
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_default"><font size=3D"2"><span style=
+=3D"font-family:georgia,serif">Hi Xen development team,</span></font></div>=
+<div class=3D"gmail_default"><font size=3D"2"><span style=3D"font-family:ge=
+orgia,serif"><br></span></font></div><div class=3D"gmail_default"><font siz=
+e=3D"2"><span style=3D"font-family:georgia,serif">I am Ayush. I compiled Xe=
+n Hypervisor from source on Ubuntu 20.04 machine running on an intel-i9 CPU=
+.</span></font></div><div class=3D"gmail_default"><font size=3D"2"><span st=
+yle=3D"font-family:georgia,serif">I am getting compilation error due to the=
+ following two flags.</span></font></div><div class=3D"gmail_default"><font=
+ size=3D"2"><span style=3D"font-family:georgia,serif">Error: error: =E2=80=
+=98-mindirect-branch=E2=80=99 and =E2=80=98-fcf-protection=E2=80=99 are not=
+ compatible.</span></font></div><div class=3D"gmail_default"><font size=3D"=
+2"><span style=3D"font-family:georgia,serif"><br></span></font></div><div c=
+lass=3D"gmail_default"><div class=3D"gmail_default"><font size=3D"2"><span =
+style=3D"font-family:georgia,serif">Complete Error logs can be found at <a =
+href=3D"https://paste.ubuntu.com/p/xvvyPnhW5c/">https://paste.ubuntu.com/p/=
+xvvyPnhW5c/</a></span></font></div><div class=3D"gmail_default"><font size=
+=3D"2"><span style=3D"font-family:georgia,serif"></span></font></div><font =
+size=3D"2"><span style=3D"font-family:georgia,serif"></span></font></div><d=
+iv class=3D"gmail_default"><font size=3D"2"><span style=3D"font-family:geor=
+gia,serif"><br></span></font></div><div class=3D"gmail_default"><font size=
+=3D"2"><span style=3D"font-family:georgia,serif">And when I compiled Xen co=
+mmenting the two flags in Rules.mk file, it compiles and installs properly =
+but on boot-up i see a blank black screen and i am stuck there.<br></span><=
+/font></div><div class=3D"gmail_default"><font size=3D"2"><span style=3D"fo=
+nt-family:georgia,serif"><br></span></font></div><div class=3D"gmail_defaul=
+t"><font size=3D"2"><span style=3D"font-family:georgia,serif"><br></span></=
+font></div><div class=3D"gmail_default"><font size=3D"2"><span style=3D"fon=
+t-family:georgia,serif">Best,<br></span></font></div><div dir=3D"ltr" class=
+=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><d=
+iv><div dir=3D"ltr"><div style=3D"text-align:left"><div><font size=3D"2"><s=
+pan style=3D"font-family:georgia,serif">Ayush Dosaj<span class=3D"gmail_def=
+ault" style=3D"font-family:arial,helvetica,sans-serif"></span></span></font=
+></div><div><font size=3D"2"><span style=3D"font-family:monospace"><br></sp=
+an></font></div><div><font size=3D"2"><br></font></div></div></div></div></=
+div></div></div>
+
+--000000000000cbfdf305a4712183--
 
