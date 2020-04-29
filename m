@@ -2,52 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77AB21BE340
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 17:59:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E0851BE364
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 18:08:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTp66-00084e-6p; Wed, 29 Apr 2020 15:58:06 +0000
+	id 1jTpGG-0001DQ-4q; Wed, 29 Apr 2020 16:08:36 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yqvu=6N=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jTp65-00084Z-Jw
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 15:58:05 +0000
-X-Inumbo-ID: 34104781-8a32-11ea-9964-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 34104781-8a32-11ea-9964-12813bfff9fa;
- Wed, 29 Apr 2020 15:58:03 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 11BAFAB91;
- Wed, 29 Apr 2020 15:58:01 +0000 (UTC)
-Subject: Re: [PATCH] pvcalls: Document explicitly the padding for all arches
-To: Julien Grall <julien@xen.org>
-References: <20200419104948.31200-1-julien@xen.org>
- <e07dbb22-1300-ae87-4065-824938caec48@suse.com>
- <78288649-5930-9d01-bb8f-85e15406e4ef@xen.org>
- <6fc59120-664e-6a07-5196-57e1dbfb0dde@suse.com>
- <alpine.DEB.2.21.2004211609410.24585@sstabellini-ThinkPad-T480s>
- <240bc5e8-f8fd-217a-fa10-7628ac9d4e6e@suse.com>
- <9eb39857-2e33-4a6b-1825-f9dc537a6515@xen.org>
- <423c0369-9c90-dbfe-2f90-d49a2ce5b283@suse.com>
- <4cd108f9-3ad0-2262-fa7c-d2247660c635@xen.org>
- <33f4c492-6400-6386-8dbe-b6b098e97fec@suse.com>
- <d9d7c77c-35d2-9096-7c4b-49f6d0931d5e@xen.org>
- <1494fe06-b353-00a5-17a6-c11cee269519@suse.com>
- <92be4ce7-3963-7ee6-7ee2-28a180411c9c@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2bb47891-bf3c-1bb4-8c54-02f6a7ea4676@suse.com>
-Date: Wed, 29 Apr 2020 17:57:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ (envelope-from <SRS0=uIcr=6N=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1jTpGE-0001DL-PX
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 16:08:34 +0000
+X-Inumbo-ID: acda2e01-8a33-11ea-9965-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id acda2e01-8a33-11ea-9965-12813bfff9fa;
+ Wed, 29 Apr 2020 16:08:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1588176513;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=RqcnavPFirGVOTXHhjY5q5DM9FLFgis6bxz7RvWdVJE=;
+ b=QZPrrd8zNNebgZXnzhIAYA2aP84wbXzXTC4SfYYO6rv5ju2/aeWwsXYRoUwkzVKNDRurdJ
+ YxExOEc0hr+rJQkkFgPUr+ph31cSB3GXU2c+/TgswYJtJaAdE4hLZ9KBhaCdgY7s0ei/vk
+ ZW/gaMqEpwiuaxXcYVMdRLbEU5DvYnE=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-480-F36vCcGRMVu93iH7TXheIg-1; Wed, 29 Apr 2020 12:08:26 -0400
+X-MC-Unique: F36vCcGRMVu93iH7TXheIg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E4E0C1895A28;
+ Wed, 29 Apr 2020 16:08:21 +0000 (UTC)
+Received: from t480s.redhat.com (ovpn-114-55.ams2.redhat.com [10.36.114.55])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id BAF7C605FB;
+ Wed, 29 Apr 2020 16:08:07 +0000 (UTC)
+From: David Hildenbrand <david@redhat.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/3] mm/memory_hotplug: Make virtio-mem play nicely with
+ kexec-tools
+Date: Wed, 29 Apr 2020 18:08:00 +0200
+Message-Id: <20200429160803.109056-1-david@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <92be4ce7-3963-7ee6-7ee2-28a180411c9c@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,100 +60,113 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Jason Wang <jasowang@redhat.com>, Heiko Carstens <heiko.carstens@de.ibm.com>,
+ Pingfan Liu <kernelfans@gmail.com>, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, Paul Mackerras <paulus@samba.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Dan Williams <dan.j.williams@intel.com>, virtio-dev@lists.oasis-open.org,
+ Wei Liu <wei.liu@kernel.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Dave Jiang <dave.jiang@intel.com>, Baoquan He <bhe@redhat.com>,
+ linux-nvdimm@lists.01.org, Michael Ellerman <mpe@ellerman.id.au>,
+ David Hildenbrand <david@redhat.com>, linux-acpi@vger.kernel.org,
+ Wei Yang <richard.weiyang@gmail.com>, xen-devel@lists.xenproject.org,
+ Len Brown <lenb@kernel.org>, Nathan Lynch <nathanl@linux.ibm.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ linux-s390@vger.kernel.org, Haiyang Zhang <haiyangz@microsoft.com>,
+ Leonardo Bras <leobras.c@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Michal Hocko <mhocko@kernel.org>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Oscar Salvador <osalvador@suse.de>, Juergen Gross <jgross@suse.com>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, Thomas Gleixner <tglx@linutronix.de>,
+ Eric Biederman <ebiederm@xmission.com>,
+ Vishal Verma <vishal.l.verma@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29.04.2020 17:30, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 29/04/2020 16:23, Jan Beulich wrote:
->> On 29.04.2020 17:06, Julien Grall wrote:
->>>
->>>
->>> On 29/04/2020 15:56, Jan Beulich wrote:
->>>> On 29.04.2020 16:14, Julien Grall wrote:
->>>>> Hi Jan,
->>>>>
->>>>> On 29/04/2020 15:05, Jan Beulich wrote:
->>>>>> On 29.04.2020 16:01, Julien Grall wrote:
->>>>>>> Hi,
->>>>>>>
->>>>>>> On 22/04/2020 10:20, Jan Beulich wrote:
->>>>>>>>> Even if it was possible to use the sub-structs defined in the header
->>>>>>>>> that way, keep in mind that we also wrote:
->>>>>>>>>
->>>>>>>>>             /* dummy member to force sizeof(struct xen_pvcalls_request)
->>>>>>>>>              * to match across archs */
->>>>>>>>>             struct xen_pvcalls_dummy {
->>>>>>>>>                 uint8_t dummy[56];
->>>>>>>>>             } dummy;
->>>>>>>>
->>>>>>>> This has nothing to do with how a consumer may use the structs.
->>>>>>>>
->>>>>>>>> And the spec also clarifies that the size of each specific request is
->>>>>>>>> always 56 bytes.
->>>>>>>>
->>>>>>>> Sure, and I didn't mean to imply that a consumer would be allowed
->>>>>>>> to break this requirement. Still something like this
->>>>>>>>
->>>>>>>> int pvcall_new_socket(struct xen_pvcalls_socket *s) {
->>>>>>>>         struct xen_pvcalls_request req = {
->>>>>>>>             .req_id = REQ_ID,
->>>>>>>>             .cmd = PVCALLS_SOCKET,
->>>>>>>>             .u.socket = *s,
->>>>>>>>         };
->>>>>>>>
->>>>>>>>         return pvcall(&req);
->>>>>>>> }
->>>>>>>>
->>>>>>>> may break.
->>>>>>>
->>>>>>> I think I understand your concern now. So yes I agree this would break 32-bit consumer.
->>>>>>>
->>>>>>> As the padding is at the end of the structure, I think a 32-bit frontend and 64-bit backend (or vice-versa) should currently work without any trouble. The problem would come later if we decide to extend a command.
->>>>>>
->>>>>> Can commands be extended at all, i.e. don't extensions require new
->>>>>> commands? The issue I've described has nothing to do with future
->>>>>> extending of any of the affected structures.
->>>>>
->>>>> I think my point wasn't conveyed correctly. The implicit padding is at
->>>>> the end of the structure for all the consumers but 32-bit x86. So
->>>>> without any modification, I think 32-bit frontend can still communicate
->>>>> with 64-bit backend (or vice-versa).
->>>>
->>>> There's no issue communicating afaics, as for communication
->>>> you wouldn't use the sub-structures, but the single container
->>>> one. The problem is, as described, with possible uses internal
->>>> to one side of the communication.
->>>
->>> I am sorry but I can't figure out how this is an issue. The
->>> problem you described would only happen if you are calling a
->>> 64-bit library from a 32-bit software.
->>
->> Why? The example given doesn't require such.
-> 
-> Your example is only valid if we change the padding. In my previous
-> e-mail I wrote "without modification" (i.e existing code) and
-> marking the implicit padding only for 64-bit x86 and Arm. So there
-> is no change in the size of the structure and therefore there is no
-> issue to recompile as the size would not change.
+This series is based on [1]:
+	[PATCH v2 00/10] virtio-mem: paravirtualized memory
+That will hopefull get picked up soon, rebased to -next.
 
-Oh, sorry, yes. I was mislead by "I think 32-bit frontend can still
-communicate with 64-bit backend (or vice-versa)", because I never
-said there would be such an issue.
+The following patches were reverted from -next [2]:
+	[PATCH 0/3] kexec/memory_hotplug: Prevent removal and accidental use
+As discussed in that thread, they should be reverted from -next already.
 
->>> Is it even possible?
->>
->> In principle yes, I think. I don't think OSes like Linux allow this,
->> though.
-> Do we really have to care about this?
+In theory, if people agree, we could take the first two patches via the
+-mm tree now and the last (virtio-mem) patch via MST's tree once picking =
+up
+virtio-mem. No strong feelings.
 
-I don't think we do, but this is a moot point anyway.
 
-Jan
+Memory added by virtio-mem is special and might contain logical holes,
+especially after memory unplug, but also when adding memory in
+sub-section size. While memory in these holes can usually be read, that
+memory should not be touched. virtio-mem managed device memory is never
+exposed via any firmware memmap (esp., e820). The device driver will
+request to plug memory from the hypervisor and add it to Linux.
+
+On a cold start, all memory is unplugged, and the guest driver will first
+request to plug memory from the hypervisor, to then add it to Linux. Afte=
+r
+a reboot, all memory will get unplugged (except in rare, special cases). =
+In
+case the device driver comes up and detects that some memory is still
+plugged after a reboot, it will manually request to unplug all memory fro=
+m
+the hypervisor first - to then request to plug memory from the hypervisor
+and add to Linux. This is essentially a defragmentation step, where all
+logical holes are removed.
+
+As the device driver is responsible for detecting, adding and managing th=
+at
+memory, also kexec should treat it like that. It is special. We need a wa=
+y
+to teach kexec-tools to not add that memory to the fixed-up firmware
+memmap, to not place kexec images onto this memory, but still allow kdump
+to dump it. Add a flag to tell memory hotplug code to
+not create /sys/firmware/memmap entries and to indicate it via
+"System RAM (driver managed)" in /proc/iomem.
+
+Before this series, kexec_file_load() already did the right thing (for
+virtio-mem) by not adding that memory to the fixed-up firmware memmap and
+letting the device driver handle it. With this series, also kexec_load() =
+-
+which relies on user space to provide a fixed up firmware memmap - does
+the right thing with virtio-mem memory.
+
+When the virtio-mem device driver(s) come up, they will request to unplug
+all memory from the hypervisor first (esp. defragment), to then request t=
+o
+plug consecutive memory ranges from the hypervisor, and add them to Linux
+- just like on a reboot where we still have memory plugged.
+
+[1] https://lore.kernel.org/r/20200311171422.10484-1-david@redhat.com/
+[2] https://lore.kernel.org/r/20200326180730.4754-1-james.morse@arm.com
+
+David Hildenbrand (3):
+  mm/memory_hotplug: Prepare passing flags to add_memory() and friends
+  mm/memory_hotplug: Introduce MHP_DRIVER_MANAGED
+  virtio-mem: Add memory with MHP_DRIVER_MANAGED
+
+ arch/powerpc/platforms/powernv/memtrace.c     |  2 +-
+ .../platforms/pseries/hotplug-memory.c        |  2 +-
+ drivers/acpi/acpi_memhotplug.c                |  2 +-
+ drivers/base/memory.c                         |  2 +-
+ drivers/dax/kmem.c                            |  2 +-
+ drivers/hv/hv_balloon.c                       |  2 +-
+ drivers/s390/char/sclp_cmd.c                  |  2 +-
+ drivers/virtio/virtio_mem.c                   |  3 +-
+ drivers/xen/balloon.c                         |  2 +-
+ include/linux/memory_hotplug.h                | 15 +++++++--
+ mm/memory_hotplug.c                           | 31 +++++++++++++------
+ 11 files changed, 44 insertions(+), 21 deletions(-)
+
+--=20
+2.25.3
+
 
