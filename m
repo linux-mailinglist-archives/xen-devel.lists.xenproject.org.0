@@ -2,41 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 577941BD728
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 10:22:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 126B31BD73C
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 10:25:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jThzC-0002Kg-1B; Wed, 29 Apr 2020 08:22:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jTi2H-0002UH-GP; Wed, 29 Apr 2020 08:25:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yqvu=6N=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jThzB-0002Ka-D4
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 08:22:29 +0000
-X-Inumbo-ID: 8f764a7e-89f2-11ea-991b-12813bfff9fa
+ (envelope-from <SRS0=fvgr=6N=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jTi2F-0002UB-RJ
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 08:25:39 +0000
+X-Inumbo-ID: 01264b7e-89f3-11ea-9887-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8f764a7e-89f2-11ea-991b-12813bfff9fa;
- Wed, 29 Apr 2020 08:22:27 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 01264b7e-89f3-11ea-9887-bc764e2007e4;
+ Wed, 29 Apr 2020 08:25:38 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 44278AD4F;
- Wed, 29 Apr 2020 08:22:25 +0000 (UTC)
-Subject: Re: [PATCH v4] x86: clear RDRAND CPUID bit on AMD family 15h/16h
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <69382ba7-b562-2c8c-1843-b17ce6c512f1@suse.com>
- <68aa71c6-a41b-9f7c-f3ca-94060fae5db0@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c150ef54-4519-2b9f-6029-cdefb13ef6c2@suse.com>
-Date: Wed, 29 Apr 2020 10:22:15 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <68aa71c6-a41b-9f7c-f3ca-94060fae5db0@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+ by mx2.suse.de (Postfix) with ESMTP id 8CF7CAB3D;
+ Wed, 29 Apr 2020 08:25:36 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v2] tools/xenstore: don't store domU's mfn of ring page in
+ xenstored
+Date: Wed, 29 Apr 2020 10:25:34 +0200
+Message-Id: <20200429082534.4143-1-jgross@suse.com>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,130 +39,127 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <Paul.Durrant@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 02.04.2020 16:25, Andrew Cooper wrote:
-> On 09/03/2020 09:08, Jan Beulich wrote:
->> Inspired by Linux commit c49a0a80137c7ca7d6ced4c812c9e07a949f6f24:
->>
->>     There have been reports of RDRAND issues after resuming from suspend on
->>     some AMD family 15h and family 16h systems. This issue stems from a BIOS
->>     not performing the proper steps during resume to ensure RDRAND continues
->>     to function properly.
->>
->>     Update the CPU initialization to clear the RDRAND CPUID bit for any family
->>     15h and 16h processor that supports RDRAND. If it is known that the family
->>     15h or family 16h system does not have an RDRAND resume issue or that the
->>     system will not be placed in suspend, the "cpuid=rdrand" kernel parameter
-> 
-> I'm not sure what is best to do here.  The type suggests that this is a
-> verbatim copy of the Linux commit message, but this tiny detail is Xen
-> specific.
+The XS_INTRODUCE command has two parameters: the mfn (or better: gfn)
+of the domain's xenstore ring page and the event channel of the
+domain for communicating with Xenstore.
 
-It simply didn't seem to make sense to leave the Linux way of
-specifying this in here, just to then say further down what the
-correct (Xen) way is.
+The gfn is not really needed. It is stored in the per-domain struct
+in xenstored and in case of another XS_INTRODUCE for the domain it
+is tested to match the original value. If it doesn't match the
+command is aborted via EINVAL.
 
->> ---
->> Still slightly RFC, and still in particular because of the change to
->> parse_xen_cpuid():
-> 
-> FWIW, that is very similar to XenServer's AVX512 off-by-default bodge
-> until the default vs max policy work is ready.
-> 
-> I don't have a better suggestion right now, but hopefully something
-> better might become obvious when we've got more users.  Either way, I'm
-> expecting it to turn into a "switch ( mid->bit )" expression in due course.
+Today there aren't multiple XS_INTRODUCE requests for the same domain
+issued, so the mfn/gfn can just be ignored and multiple XS_INTRODUCE
+commands can be rejected without testing the mfn/gfn.
 
-IOW do you want me to use switch() right away?
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+V2:
+- remove mfn from struct domain (Julien Grall)
+- replace mfn by gfn in comments (Julien Grall)
+---
+ tools/xenstore/xenstored_domain.c | 53 +++++++++++++++------------------------
+ 1 file changed, 20 insertions(+), 33 deletions(-)
 
->> @@ -646,6 +647,25 @@ static void init_amd(struct cpuinfo_x86
->>  		if (acpi_smi_cmd && (acpi_enable_value | acpi_disable_value))
->>  			amd_acpi_c1e_quirk = true;
->>  		break;
->> +
->> +	case 0x15: case 0x16:
->> +		/*
->> +		 * There are too many Fam15/Fam16 systems where upon resume
-> 
-> "some" systems.
-> 
->> +		 * from S3 firmware fails to re-setup properly functioning
->> +		 * RDRAND.
-> 
-> I think this needs another sentence of explanation.
-> 
-> By the time we can spot the problem, it is too late to take evasive
-> action, and there is nothing Xen can do to repair the problem.
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 5858185211..1ca11e5e9e 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -55,10 +55,6 @@ struct domain
+ 	   repeated domain introductions. */
+ 	evtchn_port_t remote_port;
+ 
+-	/* The mfn associated with the event channel, used only to validate
+-	   repeated domain introductions. */
+-	unsigned long mfn;
+-
+ 	/* Domain path in store. */
+ 	char *path;
+ 
+@@ -363,13 +359,12 @@ static void domain_conn_reset(struct domain *domain)
+ 	domain->interface->rsp_cons = domain->interface->rsp_prod = 0;
+ }
+ 
+-/* domid, mfn, evtchn, path */
++/* domid, gfn, evtchn, path */
+ int do_introduce(struct connection *conn, struct buffered_data *in)
+ {
+ 	struct domain *domain;
+ 	char *vec[3];
+ 	unsigned int domid;
+-	unsigned long mfn;
+ 	evtchn_port_t port;
+ 	int rc;
+ 	struct xenstore_domain_interface *interface;
+@@ -381,7 +376,7 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+ 		return EACCES;
+ 
+ 	domid = atoi(vec[0]);
+-	mfn = atol(vec[1]);
++	/* Ignore the gfn, we don't need it. */
+ 	port = atoi(vec[2]);
+ 
+ 	/* Sanity check args. */
+@@ -390,34 +385,26 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+ 
+ 	domain = find_domain_by_domid(domid);
+ 
+-	if (domain == NULL) {
+-		interface = map_interface(domid);
+-		if (!interface)
+-			return errno;
+-		/* Hang domain off "in" until we're finished. */
+-		domain = new_domain(in, domid, port);
+-		if (!domain) {
+-			rc = errno;
+-			unmap_interface(interface);
+-			return rc;
+-		}
+-		domain->interface = interface;
+-		domain->mfn = mfn;
+-
+-		/* Now domain belongs to its connection. */
+-		talloc_steal(domain->conn, domain);
+-
+-		fire_watches(NULL, in, "@introduceDomain", false);
+-	} else if ((domain->mfn == mfn) && (domain->conn != conn)) {
+-		/* Use XS_INTRODUCE for recreating the xenbus event-channel. */
+-		if (domain->port)
+-			xenevtchn_unbind(xce_handle, domain->port);
+-		rc = xenevtchn_bind_interdomain(xce_handle, domid, port);
+-		domain->port = (rc == -1) ? 0 : rc;
+-		domain->remote_port = port;
+-	} else
++	if (domain)
+ 		return EINVAL;
+ 
++	interface = map_interface(domid);
++	if (!interface)
++		return errno;
++	/* Hang domain off "in" until we're finished. */
++	domain = new_domain(in, domid, port);
++	if (!domain) {
++		rc = errno;
++		unmap_interface(interface);
++		return rc;
++	}
++	domain->interface = interface;
++
++	/* Now domain belongs to its connection. */
++	talloc_steal(domain->conn, domain);
++
++	fire_watches(NULL, in, "@introduceDomain", false);
++
+ 	domain_conn_reset(domain);
+ 
+ 	send_ack(conn, XS_INTRODUCE);
+-- 
+2.16.4
 
-Sure, added.
-
->>   Clear the feature unless force-enabled on the
->> +		 * command line.
->> +		 */
->> +		if (c == &boot_cpu_data &&
->> +		    cpu_has(c, X86_FEATURE_RDRAND) &&
->> +		    !is_forced_cpu_cap(X86_FEATURE_RDRAND)) {
->> +			static const char __initconst text[] =
->> +				"RDRAND may cease to work on this hardware upon resume from S3.\n"
->> +				"Please choose an explicit cpuid={no-}rdrand setting.\n";
->> +
->> +			setup_clear_cpu_cap(X86_FEATURE_RDRAND);
->> +			warning_add(text);
-> 
-> What do you think to clobbering RDRAND via the CPUMASK registers in this
-> case?  We've got full control there, and it would stop PV userspace as well.
-
-Why would such be needed? The host_policy -> pv_max_cpuid_policy
--> recalculate_cpuid_policy() propagation already causes the flag
-to get zapped from guest policies once it got cleared here. And
-it's the guest policy that controls what gets put in the masking
-MSRs for PV guests, isn't it?
-
->> @@ -498,6 +504,28 @@ void identify_cpu(struct cpuinfo_x86 *c)
->>  	printk("\n");
->>  #endif
->>  
->> +	/*
->> +	 * If RDRAND is available, make an attempt to check that it actually
->> +	 * (still) works.
->> +	 */
-> 
-> Do you think it would be helpful to test in the opposite case as well. 
-> If we come back from S3 and find that RDRAND does actually work, then it
-> is safe to tell the user that they can re-enable.
-
-I'd view this as a nice-to-have that isn't all that obvious how to
-actually implement in a sufficiently clean way. For example, we
-can't use arch_get_random() in that case. Therefore I'd prefer if
-this extra courtesy could be left out of here for now, and - if
-indeed deemed useful - be added later.
-
->> +	if (cpu_has(c, X86_FEATURE_RDRAND)) {
->> +		unsigned int prev = 0;
->> +
->> +		for (i = 0; i < 5; ++i)
->> +		{
->> +			unsigned int cur = arch_get_random();
->> +
->> +			if (prev && cur != prev)
->> +				break;
->> +			prev = cur;
->> +			cpu_relax();
-> 
-> Why the relax?  We're not polling hammering the memory bus waiting for
-> an unknown period of time until something changes.
-> 
-> We simply need up to 5 random numbers as fast as the RNG can produce
-> them (which is actually quite slow.  RDRAND has ~350 cycle latency minimum.)
-
-Dropped; I put it there simply to give the hardware some breathing
-room between adjacent requests.
-
-Jan
 
