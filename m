@@ -2,49 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D39C1BE90E
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 22:48:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D5721BEA15
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 23:40:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTtc9-0004Gq-VB; Wed, 29 Apr 2020 20:47:29 +0000
+	id 1jTuQA-0000iK-UV; Wed, 29 Apr 2020 21:39:10 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hWzR=6N=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jTtc8-0004Gl-D0
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 20:47:28 +0000
-X-Inumbo-ID: a2e1feed-8a5a-11ea-99b9-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=4OoD=6N=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jTuQ9-0000iF-AB
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 21:39:09 +0000
+X-Inumbo-ID: daa06ba0-8a61-11ea-99c5-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a2e1feed-8a5a-11ea-99b9-12813bfff9fa;
- Wed, 29 Apr 2020 20:47:27 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D662220BED;
- Wed, 29 Apr 2020 20:47:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588193247;
- bh=3R5YYifFP5fZiK4rtqCpLdImbEXA1mR8/vPbWuFFGzY=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=NKBTPyB9z71TIQjkA788m1hA2KjtCBKH/c+2b6Er23nthghLoIDSLNJEv6EaLq5sM
- 4jk0fsW309mkRVC5WaIryQdFZm/hzcdMa1cJwBhMmILklm2o7wnfbn3U6COzjMJfV3
- pvtE0hRTSQSbTuifrSduImRyICBj62pFl/mLDZ1c=
-Date: Wed, 29 Apr 2020 13:47:25 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 12/12] xen/arm: call iomem_permit_access for passthrough
- devices
-In-Reply-To: <521c8e55-73e8-950f-2d94-70b0c664bd3d@xen.org>
-Message-ID: <alpine.DEB.2.21.2004291318270.28941@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-12-sstabellini@kernel.org>
- <521c8e55-73e8-950f-2d94-70b0c664bd3d@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id daa06ba0-8a61-11ea-99c5-12813bfff9fa;
+ Wed, 29 Apr 2020 21:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588196347;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=aZVGHYP4QKwl6RonE5nEe5V/P6Tr3xyY8ohRc2QN858=;
+ b=AcDkrj4s/0nvbRSjNcViV2acVUrGuxpyFy+ZOkMfBZsUTjuIe2E0U7mx
+ L+Wwh+wedYXW/2vg4uPO3zIWp7OvNs9lhHzKVcRvvoGVGvd5Qn3EKuenk
+ T6zezQ20//fuD+FisBxF3XSy/BQkmJhYq4LjHb4u0NzdtnbPE1B9bcAEG Q=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: ojIZxgykRp9cbQx+zLJsUVZ/V6tjGivFewLzRLyQg1olcru5QcIBWHzlvehWDSXnKHg1gNlbN9
+ jt4PiDOer6PgB11b7t8C7XwAd5SxTp/9cuaL/4oGDHWRruM+XxQPr0coyndqhSyx0SJS1yeqT5
+ vwXBrT5KkBOEvcDsV8mibpjeW/EosM1zWuFR2Ayx7ca5ovYlvvKcO/GjEnpzdz55UsgKfAkyx2
+ DdhKy9ccO5KZ7oKrNunE97Ubd6GiLK+ypwmOCdfnpuEMln89CRKy+0JxCgKyUIpiTqx9jKAX5g
+ u5A=
+X-SBRS: 2.7
+X-MesageID: 16783390
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,333,1583211600"; d="scan'208";a="16783390"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/msr: Fix XEN_MSR_PAT to build with older binutils
+Date: Wed, 29 Apr 2020 22:39:01 +0100
+Message-ID: <20200429213901.16105-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,72 +88,40 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr_Babchuk@epam.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 15 Apr 2020, Julien Grall wrote:
-> On 15/04/2020 02:02, Stefano Stabellini wrote:
-> > iomem_permit_access should be called for MMIO regions of devices
-> > assigned to a domain. Currently it is not called for MMIO regions of
-> > passthrough devices of Dom0less guests. This patch fixes it.
-> 
-> You can already have cases today where the MMIO regions are mapped to the
-> guest but the guest doesn't have permission on them.
-> 
-> Can you explain why this is a problem here?
+Older binutils complains with:
+  trampoline.S:95: Error: junk `ul&0xffffffff' after expression
 
-I don't remember the original problem that prompted me into doing this
-investigation. It came up while I was developing and testing this
-series: I noticed the discrepancy compared to the regular (not dom0less)
-device assignment code path
-(tools/libxl/libxl_create.c:domcreate_launch_dm).
+Use an assembly-safe constant.
 
-Now I removed this patch from the series, went back to test it, and it
-still works fine. Oops, it is not needed after all :-)
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/include/asm-x86/processor.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/xen/include/asm-x86/processor.h b/xen/include/asm-x86/processor.h
+index ea6e5497f4..8f6f5a97dd 100644
+--- a/xen/include/asm-x86/processor.h
++++ b/xen/include/asm-x86/processor.h
+@@ -99,7 +99,7 @@
+  * Host IA32_CR_PAT value to cover all memory types.  This is not the default
+  * MSR_PAT value, and is an ABI with PV guests.
+  */
+-#define XEN_MSR_PAT 0x050100070406ul
++#define XEN_MSR_PAT _AC(0x050100070406, ULL)
+ 
+ #ifndef __ASSEMBLY__
+ 
+-- 
+2.11.0
 
-I think it makes sense to remove this patch from this series, I'll do
-that.
-
-But doesn't it make sense to give domU permission if it is going to get
-the memory mapped? But admittedly I can't think of something that would
-break because of the lack of the iomem_permit_access call in this code
-path.
-
-
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > ---
-> >   xen/arch/arm/domain_build.c | 11 +++++++++++
-> >   1 file changed, 11 insertions(+)
-> > 
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index d0fc497d07..d3d42eef5d 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -1846,6 +1846,17 @@ static int __init handle_passthrough_prop(struct
-> > kernel_info *kinfo,
-> >               return -EINVAL;
-> >           }
-> >   +        res = iomem_permit_access(kinfo->d, paddr_to_pfn(mstart),
-> > +                                  paddr_to_pfn(PAGE_ALIGN(mstart + size -
-> > 1)));
-> > +        if ( res )
-> > +        {
-> > +            printk(XENLOG_ERR "Unable to permit to dom%d access to"
-> > +                   " 0x%"PRIx64" - 0x%"PRIx64"\n",
-> > +                   kinfo->d->domain_id,
-> > +                   mstart & PAGE_MASK, PAGE_ALIGN(mstart + size) - 1);
-> > +            return res;
-> > +        }
-> > +
-> >           res = map_regions_p2mt(kinfo->d,
-> >                                  gaddr_to_gfn(gstart),
-> >                                  PFN_DOWN(size),
-> > 
-> 
-> -- 
-> Julien Grall
-> 
 
