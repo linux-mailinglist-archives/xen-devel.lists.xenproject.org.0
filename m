@@ -2,65 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEF6B1BD437
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 07:49:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5A651BD439
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 07:51:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTfaj-0002yG-TW; Wed, 29 Apr 2020 05:49:05 +0000
+	id 1jTfct-0003px-AN; Wed, 29 Apr 2020 05:51:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=W7WZ=6N=redhat.com=armbru@srs-us1.protection.inumbo.net>)
- id 1jTfai-0002yB-BV
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 05:49:04 +0000
-X-Inumbo-ID: 21d71d96-89dd-11ea-b07b-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 21d71d96-89dd-11ea-b07b-bc764e2007e4;
- Wed, 29 Apr 2020 05:49:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588139343;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HmW2vLbhLurlVohyVKvZrq0+70fmkVlDb+QAD99GkFc=;
- b=brVQC9frLlaAG6QwY6mUijxDwYefsAaTa5/GwDQEqmu9LgFWGwtqzGGMlbk9qY/ySQ4iQ1
- JSk7z4Q/1xKhpqtniNvLJgcB37oG1DIfWjdMvqGXPUZES+b5iGXySJmdn43a5tTPwIye9U
- 6IXDj5tH4eXGfLxN+30ph8BhM+8noFg=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-342-_W6aP5KmPouk2XvqZk6Hpg-1; Wed, 29 Apr 2020 01:49:01 -0400
-X-MC-Unique: _W6aP5KmPouk2XvqZk6Hpg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F13CD107ACCA;
- Wed, 29 Apr 2020 05:48:59 +0000 (UTC)
-Received: from blackfin.pond.sub.org (ovpn-113-6.ams2.redhat.com [10.36.113.6])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F178F1002395;
- Wed, 29 Apr 2020 05:48:56 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 7520211358BC; Wed, 29 Apr 2020 07:48:55 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: Paul Durrant <xadimgnik@gmail.com>
-Subject: Re: [PATCH 02/11] xen: Fix and improve handling of device_add
- usb-host errors
-References: <20200424192027.11404-1-armbru@redhat.com>
- <20200424192027.11404-3-armbru@redhat.com>
- <000501d61c65$2a65af30$7f310d90$@xen.org>
-Date: Wed, 29 Apr 2020 07:48:55 +0200
-In-Reply-To: <000501d61c65$2a65af30$7f310d90$@xen.org> (Paul Durrant's message
- of "Mon, 27 Apr 2020 08:26:26 +0100")
-Message-ID: <87a72ux2ns.fsf@dusky.pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
+ (envelope-from <SRS0=fvgr=6N=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jTfcr-0003pr-Co
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 05:51:17 +0000
+X-Inumbo-ID: 7057b296-89dd-11ea-ae69-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7057b296-89dd-11ea-ae69-bc764e2007e4;
+ Wed, 29 Apr 2020 05:51:15 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 1C630AC79;
+ Wed, 29 Apr 2020 05:51:14 +0000 (UTC)
+Subject: Re: [PATCH] tools/xenstore: don't store domU's mfn of ring page in
+ xensotred
+To: Julien Grall <julien.grall.oss@gmail.com>
+References: <20200428155144.8253-1-jgross@suse.com>
+ <CAJ=z9a0WfWQs+UJ-t4Kt6PGGdNnA2kMeK5p8bNnDT_eFcpDiiQ@mail.gmail.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <d1c41bd7-676e-c50a-416d-c62efcbdd41d@suse.com>
+Date: Wed, 29 Apr 2020 07:51:13 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAJ=z9a0WfWQs+UJ-t4Kt6PGGdNnA2kMeK5p8bNnDT_eFcpDiiQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,101 +47,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, paul@xen.org,
- qemu-devel@nongnu.org, 'Gerd Hoffmann' <kraxel@redhat.com>,
- 'Anthony Perard' <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Paul Durrant <xadimgnik@gmail.com> writes:
+On 28.04.20 22:55, Julien Grall wrote:
+> Hi Juergen,
+> 
+> On Tue, 28 Apr 2020 at 16:53, Juergen Gross <jgross@suse.com> wrote:
+>>
+>> The XS_INTRODUCE command has two parameters: the mfn (or better: gfn)
+>> of the domain's xenstore ring page and the event channel of the
+>> domain for communicating with Xenstore.
+>>
+>> The gfn is not really needed. It is stored in the per-domain struct
+>> in xenstored and in case of another XS_INTRODUCE for the domain it
+>> is tested to match the original value. If it doesn't match the
+>> command is aborted via EINVAL.
+>>
+>> Today there shouldn't be multiple XS_INTRODUCE requests for the same
+>> domain issued, so the mfn/gfn can just be ignored and multiple
+>> XS_INTRODUCE commands can be rejected without testing the mfn/gfn.
+> 
+> So there is a comment in the else part:
+> 
+> /* Use XS_INTRODUCE for recreating the xenbus event-channel. */
+> 
+>  From the commit message this is not entirely clear why we want to
+> prevent recreating the event-channel. Can you expand it?
 
->> -----Original Message-----
->> From: Markus Armbruster <armbru@redhat.com>
->> Sent: 24 April 2020 20:20
->> To: qemu-devel@nongnu.org
->> Cc: Stefano Stabellini <sstabellini@kernel.org>; Anthony Perard <anthony=
-.perard@citrix.com>; Paul
->> Durrant <paul@xen.org>; Gerd Hoffmann <kraxel@redhat.com>; xen-devel@lis=
-ts.xenproject.org
->> Subject: [PATCH 02/11] xen: Fix and improve handling of device_add usb-h=
-ost errors
->>=20
->> usbback_portid_add() leaks the error when qdev_device_add() fails.
->> Fix that.  While there, use the error to improve the error message.
->>=20
->> The qemu_opts_from_qdict() similarly leaks on failure.  But any
->> failure there is a programming error.  Pass &error_abort.
->>=20
->> Fixes: 816ac92ef769f9ffc534e49a1bb6177bddce7aa2
->> Cc: Stefano Stabellini <sstabellini@kernel.org>
->> Cc: Anthony Perard <anthony.perard@citrix.com>
->> Cc: Paul Durrant <paul@xen.org>
->> Cc: Gerd Hoffmann <kraxel@redhat.com>
->> Cc: xen-devel@lists.xenproject.org
->> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+Recreating the event channel would be fine, but I don't see why it
+would ever be needed. And XS_INTRODUCE is called only at domain creation
+time today, so there is obviously no need for repeating this call.
+
+Maybe the idea was to do this after sending a XS_RESUME command, which
+isn't used anywhere in Xen and is another part of Xenstore which doesn't
+make any sense today.
+
+> 
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
 >> ---
->>  hw/usb/xen-usb.c | 18 ++++++++----------
->>  1 file changed, 8 insertions(+), 10 deletions(-)
->>=20
->> diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
->> index 961190d0f7..42643c3390 100644
->> --- a/hw/usb/xen-usb.c
->> +++ b/hw/usb/xen-usb.c
->> @@ -30,6 +30,7 @@
->>  #include "hw/usb.h"
->>  #include "hw/xen/xen-legacy-backend.h"
->>  #include "monitor/qdev.h"
->> +#include "qapi/error.h"
->>  #include "qapi/qmp/qdict.h"
->>  #include "qapi/qmp/qstring.h"
->>=20
->> @@ -755,13 +756,15 @@ static void usbback_portid_add(struct usbback_info=
- *usbif, unsigned port,
->>      qdict_put_int(qdict, "port", port);
->>      qdict_put_int(qdict, "hostbus", atoi(busid));
->>      qdict_put_str(qdict, "hostport", portname);
->> -    opts =3D qemu_opts_from_qdict(qemu_find_opts("device"), qdict, &loc=
-al_err);
->> -    if (local_err) {
->> -        goto err;
->> -    }
->> +    opts =3D qemu_opts_from_qdict(qemu_find_opts("device"), qdict,
->> +                                &error_abort);
->>      usbif->ports[port - 1].dev =3D USB_DEVICE(qdev_device_add(opts, &lo=
-cal_err));
->>      if (!usbif->ports[port - 1].dev) {
->> -        goto err;
->> +        qobject_unref(qdict);
->> +        xen_pv_printf(&usbif->xendev, 0,
->> +                      "device %s could not be opened: %s\n",
->> +                      busid, error_get_pretty(local_err));
->> +        error_free(local_err);
->
-> Previously the goto caused the function to bail out. Should there not be =
-a 'return' here?
+>>   tools/xenstore/xenstored_domain.c | 47 ++++++++++++++++-----------------------
+>>   1 file changed, 19 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+>> index 5858185211..17328f9fc9 100644
+>> --- a/tools/xenstore/xenstored_domain.c
+>> +++ b/tools/xenstore/xenstored_domain.c
+>> @@ -369,7 +369,6 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+>>          struct domain *domain;
+>>          char *vec[3];
+>>          unsigned int domid;
+>> -       unsigned long mfn;
+>>          evtchn_port_t port;
+>>          int rc;
+>>          struct xenstore_domain_interface *interface;
+>> @@ -381,7 +380,7 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+>>                  return EACCES;
+>>
+>>          domid = atoi(vec[0]);
+>> -       mfn = atol(vec[1]);
+>> +       /* Ignore the mfn, we don't need it. */
+> 
+> s/mfn/GFN/
 
-Owww, of course.  Thanks!
+Okay, then I should probably change the parameter description, too.
 
->
->>      }
->>      qobject_unref(qdict);
->>      speed =3D usbif->ports[port - 1].dev->speed;
->> @@ -793,11 +796,6 @@ static void usbback_portid_add(struct usbback_info =
-*usbif, unsigned port,
->>      usbback_hotplug_enq(usbif, port);
->>=20
->>      TR_BUS(&usbif->xendev, "port %d attached\n", port);
->> -    return;
->> -
->> -err:
->> -    qobject_unref(qdict);
->> -    xen_pv_printf(&usbif->xendev, 0, "device %s could not be opened\n",=
- busid);
->>  }
->>=20
->>  static void usbback_process_port(struct usbback_info *usbif, unsigned p=
-ort)
->> --
->> 2.21.1
+> 
+>>          port = atoi(vec[2]);
+>>
+>>          /* Sanity check args. */
+>> @@ -390,34 +389,26 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+>>
+>>          domain = find_domain_by_domid(domid);
+>>
+>> -       if (domain == NULL) {
+>> -               interface = map_interface(domid);
+>> -               if (!interface)
+>> -                       return errno;
+>> -               /* Hang domain off "in" until we're finished. */
+>> -               domain = new_domain(in, domid, port);
+>> -               if (!domain) {
+>> -                       rc = errno;
+>> -                       unmap_interface(interface);
+>> -                       return rc;
+>> -               }
+>> -               domain->interface = interface;
+>> -               domain->mfn = mfn;
+> 
+> AFAICT domain->mfn is not used anymore, so could we remove the field?
 
+Oh, yes, I missed that.
+
+
+Juergen
 
