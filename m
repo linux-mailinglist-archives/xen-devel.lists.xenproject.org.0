@@ -2,57 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB2201BD81D
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 11:23:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A46771BD829
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 11:26:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTiuv-00007a-Nz; Wed, 29 Apr 2020 09:22:09 +0000
+	id 1jTiz3-0000KN-8f; Wed, 29 Apr 2020 09:26:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2IrC=6N=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jTiuu-00007T-FG
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 09:22:08 +0000
-X-Inumbo-ID: e59af8ac-89fa-11ea-9887-bc764e2007e4
+ (envelope-from <SRS0=QE4t=6N=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jTiz1-0000KG-J1
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 09:26:23 +0000
+X-Inumbo-ID: 7dec2310-89fb-11ea-b9cf-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e59af8ac-89fa-11ea-9887-bc764e2007e4;
- Wed, 29 Apr 2020 09:22:07 +0000 (UTC)
+ id 7dec2310-89fb-11ea-b9cf-bc764e2007e4;
+ Wed, 29 Apr 2020 09:26:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=IBvFVP9Y/af3Zy8vF1YUEhbF2HZkcqpnP3dwYHZKchE=; b=S1/cXFGtpTSdXGygCTxAMyksE8
- i47m/LH3YPCH58pEGobUArtB2pGPfMv1+dxz6vlkG+QZJkTlTs6xdy1b819yXi3qBFYAnPKAxulBK
- nd2YS+2SqewTShQgmuYkUPfzrQphOw2eh/AkqZ/3YvoTgulZxAw7SN6t1VZuX9yUz7RU=;
+ bh=YgStSeu4NexQHRS0NB9VnK+4/BDFKBvIfbBLjZnjZjs=; b=vtlJZKEfCrBI8ebJ29AZhXZUmJ
+ tnAFPt8yY4llVvkSop9gYTsrlGHMrdKUujJCTiZyE1HHVR76IjMpZ5zuXpLkKQb3vU7OFftn3bpeL
+ OmfP2bQqaRkTL4WqQlbFhjRxiDHr8ZxLmC1MJw/geikG1uY4ilxs8ppdyydue8v6+7aw=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jTiuq-0005a6-Km; Wed, 29 Apr 2020 09:22:04 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ (envelope-from <hx242@xen.org>)
+ id 1jTiyz-0005eH-EN; Wed, 29 Apr 2020 09:26:21 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=s3-prod-r2d2-p7995.iad7.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jTiuq-0008AH-Dl; Wed, 29 Apr 2020 09:22:04 +0000
-Subject: Re: [PATCH] tools/xenstore: don't store domU's mfn of ring page in
- xensotred
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Julien Grall <julien.grall.oss@gmail.com>
-References: <20200428155144.8253-1-jgross@suse.com>
- <CAJ=z9a0WfWQs+UJ-t4Kt6PGGdNnA2kMeK5p8bNnDT_eFcpDiiQ@mail.gmail.com>
- <d1c41bd7-676e-c50a-416d-c62efcbdd41d@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <76ed29d6-e2fc-cd48-6de7-e0032daaa2e9@xen.org>
-Date: Wed, 29 Apr 2020 10:22:02 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <d1c41bd7-676e-c50a-416d-c62efcbdd41d@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jTiyz-0008Sx-2W; Wed, 29 Apr 2020 09:26:21 +0000
+Message-ID: <e18871ea997a304394adbbc92e724ae0ec56d87a.camel@xen.org>
+Subject: Re: [PATCH 5/6] x86/pv: map and unmap page tables in
+ mark_pv_pt_pages_rdonly
+From: Hongyan Xia <hx242@xen.org>
+To: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+Date: Wed, 29 Apr 2020 10:26:19 +0100
+In-Reply-To: <c33dcaee9c8796da8816de9168f91ce90de61fc5.camel@xen.org>
+References: <cover.1587116799.git.hongyxia@amazon.com>
+ <9287363e13924f4a633b47b53c23b3466e26e4a8.1587116799.git.hongyxia@amazon.com>
+ <fbb4a755-c450-77dd-2aa5-44c01b42a5ff@suse.com>
+ <9df9c5163fde5d25ceb756b20714c58be93b2c6c.camel@xen.org>
+ <c33dcaee9c8796da8816de9168f91ce90de61fc5.camel@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,63 +63,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Igor Druzhinin <igor.druzhinin@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, julien@xen.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Juergen,
-
-On 29/04/2020 06:51, Jürgen Groß wrote:
-> On 28.04.20 22:55, Julien Grall wrote:
->> Hi Juergen,
->>
->> On Tue, 28 Apr 2020 at 16:53, Juergen Gross <jgross@suse.com> wrote:
->>>
->>> The XS_INTRODUCE command has two parameters: the mfn (or better: gfn)
->>> of the domain's xenstore ring page and the event channel of the
->>> domain for communicating with Xenstore.
->>>
->>> The gfn is not really needed. It is stored in the per-domain struct
->>> in xenstored and in case of another XS_INTRODUCE for the domain it
->>> is tested to match the original value. If it doesn't match the
->>> command is aborted via EINVAL.
->>>
->>> Today there shouldn't be multiple XS_INTRODUCE requests for the same
->>> domain issued, so the mfn/gfn can just be ignored and multiple
->>> XS_INTRODUCE commands can be rejected without testing the mfn/gfn.
->>
->> So there is a comment in the else part:
->>
->> /* Use XS_INTRODUCE for recreating the xenbus event-channel. */
->>
->>  From the commit message this is not entirely clear why we want to
->> prevent recreating the event-channel. Can you expand it?
+On Tue, 2020-04-28 at 16:59 +0100, Hongyan Xia wrote:
+> On Tue, 2020-04-28 at 16:55 +0100, Hongyan Xia wrote:
+> > On Tue, 2020-04-28 at 17:33 +0200, Jan Beulich wrote:
+> > > On 17.04.2020 11:52, Hongyan Xia wrote:
+> > > > --- a/xen/arch/x86/pv/dom0_build.c
+> > > > +++ b/xen/arch/x86/pv/dom0_build.c
+> > > > @@ -50,17 +50,17 @@ static __init void
+> > > > mark_pv_pt_pages_rdonly(struct domain *d,
+> > > >      unsigned long count;
+> > > >      struct page_info *page;
+> > > >      l4_pgentry_t *pl4e;
+> > > > -    l3_pgentry_t *pl3e;
+> > > > -    l2_pgentry_t *pl2e;
+> > > > -    l1_pgentry_t *pl1e;
+> > > > +    l3_pgentry_t *pl3e, *l3t;
+> > > > +    l2_pgentry_t *pl2e, *l2t;
+> > > > +    l1_pgentry_t *pl1e, *l1t;
+> > > 
+> > > I don't quite see why the new local variables get introduced:
+> > > unmap_domain_page(), iirc, is quite fine with a non-page-
+> > > aligned argument.
+> > 
+> > You are right, although in this function, where plXe points to may
+> > not
+> > be the page we want to unmap. When plXe becomes aligned and points
+> > to
+> > a
+> > new page, we actually want to unmap the page before it increments
+> > to
+> > an
+> > aligned value.
 > 
-> Recreating the event channel would be fine, but I don't see why it
-> would ever be needed. And XS_INTRODUCE is called only at domain creation
-> time today, so there is obviously no need for repeating this call.
-> 
-> Maybe the idea was to do this after sending a XS_RESUME command, which
-> isn't used anywhere in Xen and is another part of Xenstore which doesn't
-> make any sense today.
+> Hmm, we can just unmap(plXe - 1) if my logic is correct, and save 3
+> local variables.
 
-Commit f6cc37ea8ac71385b60507c034519f304da75f4c "tools/oxenstored: port 
-XS_INTRODUCE evtchn rebind function from cxenstored" added the exact 
-same behavior in the OCaml XenStored last year.
+Sorry for monologuing, but I still prefer separating plXe and lXt
+because it makes it clear what we are unmapping. Unmapping plXe - 1 is
+a bit hackish.
 
-This was introduced 12 years after C XenStored, so surely someone think 
-this is useful. We should check why this was introduced in OCaml 
-XenStored (I have CCed the author of the patch).
+But if people do not have a problem with plXe - 1, I will post a new
+revision for that.
 
-If we still think this is not useful, then you should add an explanation 
-in the commit message why the two implementations diverge and possibly 
-update the spec.
+Hongyan
 
-Cheers,
-
--- 
-Julien Grall
 
