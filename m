@@ -2,82 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D5721BEA15
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 23:40:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05F991BEA99
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 23:56:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTuQA-0000iK-UV; Wed, 29 Apr 2020 21:39:10 +0000
+	id 1jTugI-0002da-Cp; Wed, 29 Apr 2020 21:55:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4OoD=6N=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jTuQ9-0000iF-AB
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 21:39:09 +0000
-X-Inumbo-ID: daa06ba0-8a61-11ea-99c5-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=hWzR=6N=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jTugH-0002dV-FR
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 21:55:49 +0000
+X-Inumbo-ID: 2f784d94-8a64-11ea-99c8-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id daa06ba0-8a61-11ea-99c5-12813bfff9fa;
- Wed, 29 Apr 2020 21:39:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588196347;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=aZVGHYP4QKwl6RonE5nEe5V/P6Tr3xyY8ohRc2QN858=;
- b=AcDkrj4s/0nvbRSjNcViV2acVUrGuxpyFy+ZOkMfBZsUTjuIe2E0U7mx
- L+Wwh+wedYXW/2vg4uPO3zIWp7OvNs9lhHzKVcRvvoGVGvd5Qn3EKuenk
- T6zezQ20//fuD+FisBxF3XSy/BQkmJhYq4LjHb4u0NzdtnbPE1B9bcAEG Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: ojIZxgykRp9cbQx+zLJsUVZ/V6tjGivFewLzRLyQg1olcru5QcIBWHzlvehWDSXnKHg1gNlbN9
- jt4PiDOer6PgB11b7t8C7XwAd5SxTp/9cuaL/4oGDHWRruM+XxQPr0coyndqhSyx0SJS1yeqT5
- vwXBrT5KkBOEvcDsV8mibpjeW/EosM1zWuFR2Ayx7ca5ovYlvvKcO/GjEnpzdz55UsgKfAkyx2
- DdhKy9ccO5KZ7oKrNunE97Ubd6GiLK+ypwmOCdfnpuEMln89CRKy+0JxCgKyUIpiTqx9jKAX5g
- u5A=
-X-SBRS: 2.7
-X-MesageID: 16783390
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,333,1583211600"; d="scan'208";a="16783390"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/msr: Fix XEN_MSR_PAT to build with older binutils
-Date: Wed, 29 Apr 2020 22:39:01 +0100
-Message-ID: <20200429213901.16105-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+ id 2f784d94-8a64-11ea-99c8-12813bfff9fa;
+ Wed, 29 Apr 2020 21:55:49 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1E0F520757;
+ Wed, 29 Apr 2020 21:55:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588197348;
+ bh=diUTY46+qY1IsVc/mNZYrPbo+l09ZUWCWIW8EicgNEY=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=rmnWq5Sgtw/6VswTwO4tNgtEhHlfx+ZAPpplH7c42S8BmouIEac2pL/+Ya5pYzPkI
+ Cmx2JE+Jz4rsGhw1RIoUSIOxdrIrrqEBJUu8f4cQ2uqrPJ22OOGuzOD7RMIsc+3m5C
+ gtZ2EZD/G+MC3c+Rv2GAH/7f1Zj23OyZ9XJ7Rtvc=
+Date: Wed, 29 Apr 2020 14:55:47 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH 11/12] xen/arm: if xen_force don't try to setup the IOMMU
+In-Reply-To: <4b4263ba-bf6f-e578-037d-edb8add52aad@xen.org>
+Message-ID: <alpine.DEB.2.21.2004291400340.28941@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
+ <20200415010255.10081-11-sstabellini@kernel.org>
+ <4b4263ba-bf6f-e578-037d-edb8add52aad@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,40 +54,55 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr_Babchuk@epam.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Older binutils complains with:
-  trampoline.S:95: Error: junk `ul&0xffffffff' after expression
+On Wed, 15 Apr 2020, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 15/04/2020 02:02, Stefano Stabellini wrote:
+> > If xen_force (which means xen,force-assign-without-iommu was requested)
+> > don't try to add the device to the IOMMU. Return early instead.
+> 
+> 
+> Could you explain why this is an issue to call xen_force after
+> iommu_add_dt_device()?
 
-Use an assembly-safe constant.
+There are two issues. I should add info about both of them to the commit
+message.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/include/asm-x86/processor.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/include/asm-x86/processor.h b/xen/include/asm-x86/processor.h
-index ea6e5497f4..8f6f5a97dd 100644
---- a/xen/include/asm-x86/processor.h
-+++ b/xen/include/asm-x86/processor.h
-@@ -99,7 +99,7 @@
-  * Host IA32_CR_PAT value to cover all memory types.  This is not the default
-  * MSR_PAT value, and is an ABI with PV guests.
-  */
--#define XEN_MSR_PAT 0x050100070406ul
-+#define XEN_MSR_PAT _AC(0x050100070406, ULL)
- 
- #ifndef __ASSEMBLY__
- 
--- 
-2.11.0
+The first issue is that an error returned by iommu_add_dt_device (for
+any reason) would cause handle_passthrough_prop to stop and return error
+right away. But actually the iommu is not needed for that device if
+xen_force is set.
 
+(In fact, one of the reasons why a user might want to set
+force-assign-without-iommu is because there are iommu issues with a
+device.)
+
+
+The second issue is about the usage of "xen,force-assign-without-iommu":
+it would be useful to let the user set "xen,force-assign-without-iommu"
+for devices that are described as behind a SMMU in device tree, but
+the SMMU can't actually be used for some reason. Of course, the user
+could always manually edit the device tree to make it look like as if
+the device is not behind an IOMMU. That would work OK. However, I think
+it would be better to avoid making that a requirement.
+
+If we want to allow "xen,force-assign-without-iommu" for a device behind
+a SMMU then we need this patch, otherwise this would happen:
+
+    res = iommu_add_dt_device(node); // succeeds
+    if ( xen_force && !dt_device_is_protected(node) ) // fails because the device is protected
+        return 0;
+    return iommu_assign_dt_device(kinfo->d, node); // fails because !is_iommu_enabled(d) which is fine but then handle_prop_pfdt returns error too
+
+
+
+All in all, I thought it would make sense to avoid any iommu settings
+and potential iommu errors altogether if xen_force is set and return
+early.
 
