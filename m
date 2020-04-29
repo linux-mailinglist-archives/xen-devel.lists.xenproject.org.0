@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05F991BEA99
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 23:56:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E5551BEC28
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 00:47:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTugI-0002da-Cp; Wed, 29 Apr 2020 21:55:50 +0000
+	id 1jTvTB-0007SR-B1; Wed, 29 Apr 2020 22:46:21 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hWzR=6N=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jTugH-0002dV-FR
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 21:55:49 +0000
-X-Inumbo-ID: 2f784d94-8a64-11ea-99c8-12813bfff9fa
+ id 1jTvT9-0007SM-Qk
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 22:46:19 +0000
+X-Inumbo-ID: 3d9bb134-8a6b-11ea-99d1-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2f784d94-8a64-11ea-99c8-12813bfff9fa;
- Wed, 29 Apr 2020 21:55:49 +0000 (UTC)
+ id 3d9bb134-8a6b-11ea-99d1-12813bfff9fa;
+ Wed, 29 Apr 2020 22:46:19 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1E0F520757;
- Wed, 29 Apr 2020 21:55:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1415320757;
+ Wed, 29 Apr 2020 22:46:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588197348;
- bh=diUTY46+qY1IsVc/mNZYrPbo+l09ZUWCWIW8EicgNEY=;
+ s=default; t=1588200378;
+ bh=oedlrQGaxlAcZq0TWpE/UHeneElBWnwqThY9pMSIxW8=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=rmnWq5Sgtw/6VswTwO4tNgtEhHlfx+ZAPpplH7c42S8BmouIEac2pL/+Ya5pYzPkI
- Cmx2JE+Jz4rsGhw1RIoUSIOxdrIrrqEBJUu8f4cQ2uqrPJ22OOGuzOD7RMIsc+3m5C
- gtZ2EZD/G+MC3c+Rv2GAH/7f1Zj23OyZ9XJ7Rtvc=
-Date: Wed, 29 Apr 2020 14:55:47 -0700 (PDT)
+ b=N6cX7XWLvD8dMTs9Npwfe6WZQQwp4SCCf92uriYplgYfZaSgbfz1z7C+tnuHLVs77
+ eTyNOjJeRJK+W30+ULFIpsjhz/XqbLiGaXhXlwFqnwa9hkqNDPK4UjsDg48CF3oRhd
+ XVtw2jeBJsGmvdT5ZQ5xaKczoZRofRJy0MNhGi3U=
+Date: Wed, 29 Apr 2020 15:46:17 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 11/12] xen/arm: if xen_force don't try to setup the IOMMU
-In-Reply-To: <4b4263ba-bf6f-e578-037d-edb8add52aad@xen.org>
-Message-ID: <alpine.DEB.2.21.2004291400340.28941@sstabellini-ThinkPad-T480s>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 05/12] xen: introduce reserve_heap_pages
+In-Reply-To: <3129ab49-5898-9d2e-8fbb-d1fcaf6cdec7@suse.com>
+Message-ID: <alpine.DEB.2.21.2004291510270.28941@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-11-sstabellini@kernel.org>
- <4b4263ba-bf6f-e578-037d-edb8add52aad@xen.org>
+ <20200415010255.10081-5-sstabellini@kernel.org>
+ <3129ab49-5898-9d2e-8fbb-d1fcaf6cdec7@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -54,55 +54,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr_Babchuk@epam.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
+ Wei Liu <wl@xen.org>, andrew.cooper3@citrix.com,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 15 Apr 2020, Julien Grall wrote:
-> Hi Stefano,
+On Fri, 17 Apr 2020, Jan Beulich wrote:
+> On 15.04.2020 03:02, Stefano Stabellini wrote:
+> > Introduce a function named reserve_heap_pages (similar to
+> > alloc_heap_pages) that allocates a requested memory range. Call
+> > __alloc_heap_pages for the implementation.
+> > 
+> > Change __alloc_heap_pages so that the original page doesn't get
+> > modified, giving back unneeded memory top to bottom rather than bottom
+> > to top.
 > 
-> On 15/04/2020 02:02, Stefano Stabellini wrote:
-> > If xen_force (which means xen,force-assign-without-iommu was requested)
-> > don't try to add the device to the IOMMU. Return early instead.
+> While it may be less of a problem within a zone, doing so is
+> against our general "return high pages first" policy.
+
+Is this something you'd be OK with anyway?
+
+If not, do you have a suggestion on how to do it better? I couldn't find
+a nice way to do it without code duplication, or a big nasty 'if' in the
+middle of the function.
+
+
+> > @@ -1073,7 +1073,42 @@ static struct page_info *alloc_heap_pages(
+> >          return NULL;
+> >      }
+> >  
+> > -    __alloc_heap_pages(&pg, order, memflags, d);
+> > +    __alloc_heap_pages(pg, order, memflags, d);
+> > +    return pg;
+> > +}
+> > +
+> > +static struct page_info *reserve_heap_pages(struct domain *d,
+> > +                                            paddr_t start,
+> > +                                            unsigned int order,
+> > +                                            unsigned int memflags)
+> > +{
+> > +    nodeid_t node;
+> > +    unsigned int zone;
+> > +    struct page_info *pg;
+> > +
+> > +    if ( unlikely(order > MAX_ORDER) )
+> > +        return NULL;
+> > +
+> > +    spin_lock(&heap_lock);
+> > +
+> > +    /*
+> > +     * Claimed memory is considered unavailable unless the request
+> > +     * is made by a domain with sufficient unclaimed pages.
+> > +     */
+> > +    if ( (outstanding_claims + (1UL << order) > total_avail_pages) &&
+> > +          ((memflags & MEMF_no_refcount) ||
+> > +           !d || d->outstanding_pages < (1UL << order)) )
+> > +    {
+> > +        spin_unlock(&heap_lock);
+> > +        return NULL;
+> > +    }
 > 
+> Where would such a claim come from? Given the purpose I'd assume
+> the function (as well as reserve_domheap_pages()) can actually be
+> __init. With that I'd then also be okay with them getting built
+> unconditionally, i.e. even on x86.
+
+Yes, you are right, I'll make the function __init and also remove this
+check on claimed memory.
+
+
+> > +    pg = maddr_to_page(start);
+> > +    node = phys_to_nid(start);
+> > +    zone = page_to_zone(pg);
+> > +    page_list_del(pg, &heap(node, zone, order));
+> > +
+> > +    __alloc_heap_pages(pg, order, memflags, d);
 > 
-> Could you explain why this is an issue to call xen_force after
-> iommu_add_dt_device()?
+> I agree with Julien in not seeing how this can be safe / correct.
 
-There are two issues. I should add info about both of them to the commit
-message.
-
-
-The first issue is that an error returned by iommu_add_dt_device (for
-any reason) would cause handle_passthrough_prop to stop and return error
-right away. But actually the iommu is not needed for that device if
-xen_force is set.
-
-(In fact, one of the reasons why a user might want to set
-force-assign-without-iommu is because there are iommu issues with a
-device.)
+I haven't seen any issues so far in my testing -- I imagine it is
+because there aren't many memory allocations after setup_mm() and before
+create_domUs()  (which on ARM is called just before
+domain_unpause_by_systemcontroller at the end of start_xen.)
 
 
-The second issue is about the usage of "xen,force-assign-without-iommu":
-it would be useful to let the user set "xen,force-assign-without-iommu"
-for devices that are described as behind a SMMU in device tree, but
-the SMMU can't actually be used for some reason. Of course, the user
-could always manually edit the device tree to make it look like as if
-the device is not behind an IOMMU. That would work OK. However, I think
-it would be better to avoid making that a requirement.
+I gave a quick look at David's series. Is the idea that I should add a
+patch to do the following:
 
-If we want to allow "xen,force-assign-without-iommu" for a device behind
-a SMMU then we need this patch, otherwise this would happen:
+- avoiding adding these ranges to xenheap in setup_mm, wait for later
+  (a bit like reserved_mem regions)
 
-    res = iommu_add_dt_device(node); // succeeds
-    if ( xen_force && !dt_device_is_protected(node) ) // fails because the device is protected
-        return 0;
-    return iommu_assign_dt_device(kinfo->d, node); // fails because !is_iommu_enabled(d) which is fine but then handle_prop_pfdt returns error too
+- in construct_domU, add the range to xenheap and reserve it with reserve_heap_pages
 
-
-
-All in all, I thought it would make sense to avoid any iommu settings
-and potential iommu errors altogether if xen_force is set and return
-early.
+Is that right?
 
