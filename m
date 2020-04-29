@@ -2,33 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 126B31BD73C
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 10:25:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97A811BD73F
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 10:26:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTi2H-0002UH-GP; Wed, 29 Apr 2020 08:25:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fvgr=6N=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jTi2F-0002UB-RJ
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 08:25:39 +0000
-X-Inumbo-ID: 01264b7e-89f3-11ea-9887-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 01264b7e-89f3-11ea-9887-bc764e2007e4;
- Wed, 29 Apr 2020 08:25:38 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8CF7CAB3D;
- Wed, 29 Apr 2020 08:25:36 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2] tools/xenstore: don't store domU's mfn of ring page in
- xenstored
-Date: Wed, 29 Apr 2020 10:25:34 +0200
-Message-Id: <20200429082534.4143-1-jgross@suse.com>
-X-Mailer: git-send-email 2.16.4
+	id 1jTi33-0002Z0-U5; Wed, 29 Apr 2020 08:26:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LUw1=6N=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jTi31-0002Yo-Sr
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 08:26:27 +0000
+X-Inumbo-ID: 1cc10112-89f3-11ea-991b-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1cc10112-89f3-11ea-991b-12813bfff9fa;
+ Wed, 29 Apr 2020 08:26:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588148784;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=bpJFR9uAOQ0x077VV4diKS8R0/Zg4CNCJAVOa/uFOzM=;
+ b=aLLFp9UaajnAOq1hNrEIwIp9+Bps04bEWEQw3UyRCZQVws+D3/aC8axl
+ pawvPNr7fvSmXLY3N0w8FWZJ6GQuNPylG19i7/9Uvptu94Te+tUg6P5R2
+ ufLJOhlQd18Q2+5uy4uZFu1y6qCTtZZGQ9Ly/cJJyR6Odr5HnAVWfDreT Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: rIaHzzxQD/ESbr87uXYRZPe2i4L18R/d/Jr5rvSs4APZ68kPopx2tHdyTSMDR205+bd1tCj8t1
+ ZYV2Y6CooYCjoJoqQWQ3+1kMd2+y3tApBDba+g87BWYFnaUgTxFTAEB++tf/lb1x/w2vx0ZBUQ
+ p8GR7GT/+qVuMmUPe596jmCYQXJlSUTAvbtw14aVzMiZlW0fJE2ynl+GouwHb3BQowWlkA5ELp
+ 9Sg4lIuBeFfAm6EwHKiibQePwRygSv1FpjMQGSoGxAFktBNOw47glIeQNBS60iJU+GDA/EDlMu
+ rvg=
+X-SBRS: 2.7
+X-MesageID: 16822264
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,330,1583211600"; d="scan'208";a="16822264"
+Date: Wed, 29 Apr 2020 10:26:16 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] x86/pass-through: avoid double IRQ unbind during domain
+ cleanup
+Message-ID: <20200429082616.GX28601@Air-de-Roger>
+References: <6fddc420-b582-cb2f-92ce-b3e067c420c4@suse.com>
+ <20200428161412.GU28601@Air-de-Roger>
+ <c0f222dc-2b7a-be54-29a1-75bcc5686dde@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c0f222dc-2b7a-be54-29a1-75bcc5686dde@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,127 +94,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Varad Gautam <vrd@amazon.de>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The XS_INTRODUCE command has two parameters: the mfn (or better: gfn)
-of the domain's xenstore ring page and the event channel of the
-domain for communicating with Xenstore.
+On Wed, Apr 29, 2020 at 09:37:11AM +0200, Jan Beulich wrote:
+> On 28.04.2020 18:14, Roger Pau Monné wrote:
+> > On Tue, Apr 28, 2020 at 02:21:48PM +0200, Jan Beulich wrote:
+> >> XEN_DOMCTL_destroydomain creates a continuation if domain_kill -ERESTARTs.
+> >> In that scenario, it is possible to receive multiple _pirq_guest_unbind
+> >> calls for the same pirq from domain_kill, if the pirq has not yet been
+> >> removed from the domain's pirq_tree, as:
+> >>   domain_kill()
+> >>     -> domain_relinquish_resources()
+> >>       -> pci_release_devices()
+> >>         -> pci_clean_dpci_irq()
+> >>           -> pirq_guest_unbind()
+> >>             -> __pirq_guest_unbind()
+> >>
+> >> Avoid recurring invocations of pirq_guest_unbind() by removing the pIRQ
+> >> from the tree being iterated after the first call there. In case such a
+> >> removed entry still has a softirq outstanding, record it and re-check
+> >> upon re-invocation.
+> >>
+> >> Reported-by: Varad Gautam <vrd@amazon.de>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> Tested-by: Varad Gautam <vrd@amazon.de>
+> >>
+> >> --- a/xen/arch/x86/irq.c
+> >> +++ b/xen/arch/x86/irq.c
+> >> @@ -1323,7 +1323,7 @@ void (pirq_cleanup_check)(struct pirq *p
+> >>      }
+> >>  
+> >>      if ( radix_tree_delete(&d->pirq_tree, pirq->pirq) != pirq )
+> >> -        BUG();
+> >> +        BUG_ON(!d->is_dying);
+> > 
+> > I think to keep the previous behavior this should be:
+> > 
+> > BUG_ON(!is_hvm_domain(d) || !d->is_dying);
+> > 
+> > Since the pirqs will only be removed elsewhere if the domain is HVM?
+> 
+> pirq_cleanup_check() is a generic hook, and hence I consider it more
+> correct to not have it behave differently in this regard for different
+> types of guests. IOW while it _may_ (didn't check) not be the case
+> today that this can be called multiple times even for PV guests, I'd
+> view this as legitimate behavior.
 
-The gfn is not really needed. It is stored in the per-domain struct
-in xenstored and in case of another XS_INTRODUCE for the domain it
-is tested to match the original value. If it doesn't match the
-command is aborted via EINVAL.
+Previous to this patch pirq_cleanup_check couldn't be called multiple
+times, as it would result in the BUG triggering, that was true for
+both PV and HVM. Now that the removal of PIRQs from the tree is done
+elsewhere for HVM when the domain is dying the check needs to be
+relaxed for HVM at least. I would prefer if it was kept as-is for PV
+(since there's been no change in behavior for PV that could allow for
+multiple calls to pirq_cleanup_check), or else a small comment in the
+commit message would help clarify this is done on purpose.
 
-Today there aren't multiple XS_INTRODUCE requests for the same domain
-issued, so the mfn/gfn can just be ignored and multiple XS_INTRODUCE
-commands can be rejected without testing the mfn/gfn.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-V2:
-- remove mfn from struct domain (Julien Grall)
-- replace mfn by gfn in comments (Julien Grall)
----
- tools/xenstore/xenstored_domain.c | 53 +++++++++++++++------------------------
- 1 file changed, 20 insertions(+), 33 deletions(-)
-
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 5858185211..1ca11e5e9e 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -55,10 +55,6 @@ struct domain
- 	   repeated domain introductions. */
- 	evtchn_port_t remote_port;
- 
--	/* The mfn associated with the event channel, used only to validate
--	   repeated domain introductions. */
--	unsigned long mfn;
--
- 	/* Domain path in store. */
- 	char *path;
- 
-@@ -363,13 +359,12 @@ static void domain_conn_reset(struct domain *domain)
- 	domain->interface->rsp_cons = domain->interface->rsp_prod = 0;
- }
- 
--/* domid, mfn, evtchn, path */
-+/* domid, gfn, evtchn, path */
- int do_introduce(struct connection *conn, struct buffered_data *in)
- {
- 	struct domain *domain;
- 	char *vec[3];
- 	unsigned int domid;
--	unsigned long mfn;
- 	evtchn_port_t port;
- 	int rc;
- 	struct xenstore_domain_interface *interface;
-@@ -381,7 +376,7 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
- 		return EACCES;
- 
- 	domid = atoi(vec[0]);
--	mfn = atol(vec[1]);
-+	/* Ignore the gfn, we don't need it. */
- 	port = atoi(vec[2]);
- 
- 	/* Sanity check args. */
-@@ -390,34 +385,26 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
- 
- 	domain = find_domain_by_domid(domid);
- 
--	if (domain == NULL) {
--		interface = map_interface(domid);
--		if (!interface)
--			return errno;
--		/* Hang domain off "in" until we're finished. */
--		domain = new_domain(in, domid, port);
--		if (!domain) {
--			rc = errno;
--			unmap_interface(interface);
--			return rc;
--		}
--		domain->interface = interface;
--		domain->mfn = mfn;
--
--		/* Now domain belongs to its connection. */
--		talloc_steal(domain->conn, domain);
--
--		fire_watches(NULL, in, "@introduceDomain", false);
--	} else if ((domain->mfn == mfn) && (domain->conn != conn)) {
--		/* Use XS_INTRODUCE for recreating the xenbus event-channel. */
--		if (domain->port)
--			xenevtchn_unbind(xce_handle, domain->port);
--		rc = xenevtchn_bind_interdomain(xce_handle, domid, port);
--		domain->port = (rc == -1) ? 0 : rc;
--		domain->remote_port = port;
--	} else
-+	if (domain)
- 		return EINVAL;
- 
-+	interface = map_interface(domid);
-+	if (!interface)
-+		return errno;
-+	/* Hang domain off "in" until we're finished. */
-+	domain = new_domain(in, domid, port);
-+	if (!domain) {
-+		rc = errno;
-+		unmap_interface(interface);
-+		return rc;
-+	}
-+	domain->interface = interface;
-+
-+	/* Now domain belongs to its connection. */
-+	talloc_steal(domain->conn, domain);
-+
-+	fire_watches(NULL, in, "@introduceDomain", false);
-+
- 	domain_conn_reset(domain);
- 
- 	send_ack(conn, XS_INTRODUCE);
--- 
-2.16.4
-
+Thanks, Roger.
 
