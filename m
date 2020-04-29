@@ -2,46 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FAD21BDA3D
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 13:04:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 502061BDA3E
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 13:04:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTkVe-0001nw-Im; Wed, 29 Apr 2020 11:04:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yqvu=6N=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jTkVd-0001nr-54
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 11:04:09 +0000
-X-Inumbo-ID: 25eab45c-8a09-11ea-992b-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 25eab45c-8a09-11ea-992b-12813bfff9fa;
- Wed, 29 Apr 2020 11:04:08 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 111A9AC44;
- Wed, 29 Apr 2020 11:04:07 +0000 (UTC)
-Subject: Re: [PATCH 5/6] x86/pv: map and unmap page tables in
- mark_pv_pt_pages_rdonly
-To: Hongyan Xia <hx242@xen.org>
-References: <cover.1587116799.git.hongyxia@amazon.com>
- <9287363e13924f4a633b47b53c23b3466e26e4a8.1587116799.git.hongyxia@amazon.com>
- <fbb4a755-c450-77dd-2aa5-44c01b42a5ff@suse.com>
- <9df9c5163fde5d25ceb756b20714c58be93b2c6c.camel@xen.org>
- <c33dcaee9c8796da8816de9168f91ce90de61fc5.camel@xen.org>
- <e18871ea997a304394adbbc92e724ae0ec56d87a.camel@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <ec318c48-41c3-5cbf-e03e-8838d9f488ba@suse.com>
-Date: Wed, 29 Apr 2020 13:04:05 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	id 1jTkWJ-0001rP-UY; Wed, 29 Apr 2020 11:04:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xGEm=6N=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jTkWI-0001rF-DF
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 11:04:50 +0000
+X-Inumbo-ID: 3e280b78-8a09-11ea-9887-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3e280b78-8a09-11ea-9887-bc764e2007e4;
+ Wed, 29 Apr 2020 11:04:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588158289;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=LjuH2KmdeMFyY8lpzTjtHPe82pEtcfRL4wNcgMqa3tQ=;
+ b=aVRb57hfYy9CoDdrzLmhqUARH9opvVI03xIXfcdv2NUIYcA6kCcbk5Ah
+ azH5sZsK5Rxco4+3urt51iemABW2blrFW3dincoqMSeCCzYHRxzHtXegs
+ +SPrNbLGxx6+hKSYknsr2ym5S8O/7GSXgJDcXo6uDSD7x+ReTRAOe6Bvc 8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=igor.druzhinin@citrix.com;
+ spf=Pass smtp.mailfrom=igor.druzhinin@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ igor.druzhinin@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ igor.druzhinin@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 7uHk95UT+G1/bkQvlkFII66f6rcZWFxW2w5el+WAoZJqYqIVE1SWYtaXJ5/VTfHkU+l0euGOoN
+ 2P41A+qtWzyrQY50tshRBGB3e0Wo0H9jd7HwhxlUqHdKNNNqVanEDDPYJDyyYF0wPKVgclY55O
+ wONN/rWogRrSQg2RaZiQ1rU45UR/SwFqj6y9EJ52NxzBDM4ldGb024OYhTYZc2FMSIX9W5xUHz
+ iWAHOYEhNuHmCYkCLQBBDUByqftXGVhM/Aj2EYGqUMBEaLwbBhmmGWD5N8RxSI7nOiJvdWF0HR
+ cHk=
+X-SBRS: 2.7
+X-MesageID: 16683154
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,331,1583211600"; d="scan'208";a="16683154"
+Subject: Re: [PATCH] tools/xenstore: don't store domU's mfn of ring page in
+ xensotred
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Julien Grall
+ <julien@xen.org>, Julien Grall <julien.grall.oss@gmail.com>
+References: <20200428155144.8253-1-jgross@suse.com>
+ <CAJ=z9a0WfWQs+UJ-t4Kt6PGGdNnA2kMeK5p8bNnDT_eFcpDiiQ@mail.gmail.com>
+ <d1c41bd7-676e-c50a-416d-c62efcbdd41d@suse.com>
+ <76ed29d6-e2fc-cd48-6de7-e0032daaa2e9@xen.org>
+ <3fd79cb1-e18f-1987-69ff-94f1bd15c66f@citrix.com>
+ <3dcbe001-c66c-13a6-7a28-ef24b05eefa0@suse.com>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <c07e5106-d8de-f6a7-e406-b25ee9ff6d49@citrix.com>
+Date: Wed, 29 Apr 2020 12:04:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <e18871ea997a304394adbbc92e724ae0ec56d87a.camel@xen.org>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <3dcbe001-c66c-13a6-7a28-ef24b05eefa0@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,18 +98,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, julien@xen.org,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29.04.2020 11:26, Hongyan Xia wrote:
-> But if people do not have a problem with plXe - 1, I will post a new
-> revision for that.
+On 29/04/2020 11:49, Jürgen Groß wrote:
+> On 29.04.20 12:39, Igor Druzhinin wrote:
+>> On 29/04/2020 10:22, Julien Grall wrote:
+>>> Hi Juergen,
+>>>
+>>> On 29/04/2020 06:51, Jürgen Groß wrote:
+>>>>
+>>>> Recreating the event channel would be fine, but I don't see why it
+>>>> would ever be needed. And XS_INTRODUCE is called only at domain creation
+>>>> time today, so there is obviously no need for repeating this call.
+>>>>
+>>>> Maybe the idea was to do this after sending a XS_RESUME command, which
+>>>> isn't used anywhere in Xen and is another part of Xenstore which doesn't
+>>>> make any sense today.
+>>>
+>>> Commit f6cc37ea8ac71385b60507c034519f304da75f4c "tools/oxenstored: port XS_INTRODUCE evtchn rebind function from cxenstored" added the exact same behavior in the OCaml XenStored last year.
+>>>
+>>> This was introduced 12 years after C XenStored, so surely someone think this is useful. We should check why this was introduced in OCaml XenStored (I have CCed the author of the patch).
+>>>
+>>> If we still think this is not useful, then you should add an explanation in the commit message why the two implementations diverge and possibly update the spec.
+>>
+>> Thanks for CC, Julien.
+>>
+>> We indeed already use this functionality in our toolstack for guest kdump
+>> functions. It's not possible in XAPI to adopt libxl model where almost everything
+>> is restarted for a domain entering kdump, so we have to use this message to
+>> rebind xenstore evtchn after soft reset without shutting down backends and
+>> recreating the whole subtree (frontends reconnect fine after that).
+>>
+>> We obviously only require it for now to be present in oxenstored only.
+>> Please don't remove this functionality if possible.
+> 
+> If I read handling in libxl correctly, in the soft reset case XS_RELEASE
+> is issued before doing another XS_INTRODUCE. XS_RELEASE will result in
+> xenstored throwing away its related struct domain, so XS_INTRODUCE will
+> be possible again.
 
-I'd prefer that; I could live with the current version, but I'm
-not in favor of it.
+From what I remember it was not possible to keep xenstored data for a domain
+and at the same time perform release-introduce cycle (at least in oxenstored).
+It also involved firing @releaseDomain which caused havoc in other part of
+the toolstack.
 
-Jan
+Igor
 
