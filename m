@@ -2,88 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B9871BE0E8
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 16:29:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD1D61BE1A5
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 16:51:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTni8-0007D2-4Y; Wed, 29 Apr 2020 14:29:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4OoD=6N=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jTni6-0007Cx-RH
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 14:29:14 +0000
-X-Inumbo-ID: cc58919e-8a25-11ea-ae69-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc58919e-8a25-11ea-ae69-bc764e2007e4;
- Wed, 29 Apr 2020 14:29:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588170555;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=QsJPr9iVs6pqzFsZwMChw0wq8FGtmGYc2t1CUvxjZ0E=;
- b=cMe6R79w66lO15WHnAprk5W+aTmC9VVh7xQD+tStKZ+mfY3Hd8FABYix
- XVxa28202UKig7TIx1bz0wuPP4Sjk4D3nEWw7rgO+BLFmTTm38B3GMVY9
- fji/nyZ3iXbEiN24yuur2zgdKc3N26APIMS6TeHZTpDLCj9Y99LQACL34 8=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: Q47QSwH1T/DS5B0ActYX3BQu40sA6UWVichvIGhQv22eweOT6gBHgkeeVuEHtztef6rU5hyLwr
- ukCJgeKovpRasPAdwNpp0KxLNPCWw0B0+rSd7Gv6/KHnjzEp5+yzTztf3UeMIMX3tWbOC8b2Mr
- aGwN16dG4NN67xCUDIRIhZGXWckExnmPeNswvEYip1z2VTdnozmTflJvRxykGV/Auo/sfW6RMt
- jAN6hsdT8SobS3pNBtqsV9vhEE6t7jK42X/hsnOCNJsCFVKpFVcyOCVZqDSP17RePYpPTcw8Ir
- gVk=
-X-SBRS: 2.7
-X-MesageID: 16430618
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,332,1583211600"; d="scan'208";a="16430618"
-Subject: Re: [PATCH] x86/CPUID: correct error indicator for max extended leaf
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <fa32442e-158f-f855-efad-09f4d6696adf@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <56366abc-78cc-64f7-f122-bdeac9a8ee3c@citrix.com>
-Date: Wed, 29 Apr 2020 15:29:09 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	id 1jTo2v-0001OO-UU; Wed, 29 Apr 2020 14:50:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yqvu=6N=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jTo2u-0001OJ-A9
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 14:50:44 +0000
+X-Inumbo-ID: cc7124cc-8a28-11ea-9953-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cc7124cc-8a28-11ea-9953-12813bfff9fa;
+ Wed, 29 Apr 2020 14:50:42 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7E2C9AF7F;
+ Wed, 29 Apr 2020 14:50:40 +0000 (UTC)
+Subject: Re: [PATCH v2 2/5] xen/common/domctl: introduce
+ XEN_DOMCTL_get/setdomaincontext
+To: Paul Durrant <paul@xen.org>
+References: <20200407173847.1595-1-paul@xen.org>
+ <20200407173847.1595-3-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <70d94284-264b-b03d-1577-fafcf125a9b1@suse.com>
+Date: Wed, 29 Apr 2020 16:50:39 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <fa32442e-158f-f855-efad-09f4d6696adf@suse.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20200407173847.1595-3-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,17 +48,145 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29/04/2020 15:11, Jan Beulich wrote:
-> With the max base leaf using 0, this one should be using the extended
-> leaf counterpart thereof, rather than some arbitrary extended leaf.
->
-> Fixes: 588a966a572e ("libx86: Introduce x86_cpu_policies_are_compatible()")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 07.04.2020 19:38, Paul Durrant wrote:
+> @@ -358,6 +359,113 @@ static struct vnuma_info *vnuma_init(const struct xen_domctl_vnuma *uinfo,
+>      return ERR_PTR(ret);
+>  }
+>  
+> +struct domctl_context
+> +{
+> +    void *buffer;
+> +    size_t len;
+> +    size_t cur;
+> +};
+> +
+> +static int accumulate_size(void *priv, const void *data, size_t len)
+> +{
+> +    struct domctl_context *c = priv;
+> +
+> +    if ( c->len + len < c->len )
+> +        return -EOVERFLOW;
+> +
+> +    c->len += len;
+> +
+> +    return 0;
+> +}
+> +
+> +static int save_data(void *priv, const void *data, size_t len)
+> +{
+> +    struct domctl_context *c = priv;
+> +
+> +    if ( c->len - c->cur < len )
+> +        return -ENOSPC;
+> +
+> +    memcpy(c->buffer + c->cur, data, len);
+> +    c->cur += len;
+> +
+> +    return 0;
+> +}
+> +
+> +static int getdomaincontext(struct domain *d,
+> +                            struct xen_domctl_getdomaincontext *gdc)
+> +{
+> +    struct domctl_context c = { };
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Please can you use ZERO_BLOCK_PTR or some such for the buffer
+field, such that errnoeous use of the field would not end up
+as a (PV-controllable) NULL deref. (Yes, it's a domctl, but
+still.) This being common code you also want to get things
+right for Arm, irrespective of whether the code will be dead
+there for now.
+
+> +    int rc;
+> +
+> +    if ( d == current->domain )
+> +        return -EPERM;
+> +
+> +    if ( guest_handle_is_null(gdc->buffer) ) /* query for buffer size */
+> +    {
+> +        if ( gdc->size )
+> +            return -EINVAL;
+> +
+> +        /* dry run to acquire buffer size */
+> +        rc = domain_save(d, accumulate_size, &c, true);
+> +        if ( rc )
+> +            return rc;
+> +
+> +        gdc->size = c.len;
+> +        return 0;
+> +    }
+> +
+> +    c.len = gdc->size;
+> +    c.buffer = xmalloc_bytes(c.len);
+
+What sizes are we looking at here? It may be better to use vmalloc()
+right from the start. If not, I'd like to advocate for using
+xmalloc_array() instead of xmalloc_bytes() - see the almost-XSA
+commit cf38b4926e2b.
+
+> +    if ( !c.buffer )
+> +        return -ENOMEM;
+> +
+> +    rc = domain_save(d, save_data, &c, false);
+> +
+> +    gdc->size = c.cur;
+> +    if ( !rc && copy_to_guest(gdc->buffer, c.buffer, gdc->size) )
+
+As to my remark in patch 1 on the size field, applying to this size
+field too - copy_to_user{,_hvm}() don't support a 64-bit value (on
+y86 at least).
+
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -38,7 +38,7 @@
+>  #include "hvm/save.h"
+>  #include "memory.h"
+>  
+> -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000012
+> +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000013
+
+I don't see you making any change making the interface backwards
+incompatible, hence no need for the bump.
+
+> @@ -1129,6 +1129,44 @@ struct xen_domctl_vuart_op {
+>                                   */
+>  };
+>  
+> +/*
+> + * Get/Set domain PV context. The same struct xen_domctl_domaincontext
+> + * is used for both commands but with slightly different field semantics
+> + * as follows:
+> + *
+> + * XEN_DOMCTL_getdomaincontext
+> + * ---------------------------
+> + *
+> + * buffer (IN):   The buffer into which the context data should be
+> + *                copied, or NULL to query the buffer size that should
+> + *                be allocated.
+> + * size (IN/OUT): If 'buffer' is NULL then the value passed in must be
+> + *                zero, and the value passed out will be the size of the
+> + *                buffer to allocate.
+> + *                If 'buffer' is non-NULL then the value passed in must
+> + *                be the size of the buffer into which data may be copied.
+
+This leaves open whether the size also gets updated in this latter
+case.
+
+> + */
+> +struct xen_domctl_getdomaincontext {
+> +    uint64_t size;
+
+If this is to remain 64-bits (with too large values suitably taken
+care of for all cases - see above), uint64_aligned_t please for
+consistency, if nothing else.
+
+Jan
 
