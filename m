@@ -2,47 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D9691BDC2C
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 14:30:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E11D1BDC2D
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 14:30:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTlqF-0001cR-Uw; Wed, 29 Apr 2020 12:29:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jTlqc-0001eJ-7n; Wed, 29 Apr 2020 12:29:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fvgr=6N=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jTlqE-0001cM-Hr
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 12:29:30 +0000
-X-Inumbo-ID: 11fe7332-8a15-11ea-ae69-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 11fe7332-8a15-11ea-ae69-bc764e2007e4;
- Wed, 29 Apr 2020 12:29:29 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 55B39AEDD;
- Wed, 29 Apr 2020 12:29:27 +0000 (UTC)
-Subject: Re: [PATCH] tools/xenstore: don't store domU's mfn of ring page in
- xensotred
-To: Igor Druzhinin <igor.druzhinin@citrix.com>, Julien Grall
- <julien@xen.org>, Julien Grall <julien.grall.oss@gmail.com>
-References: <20200428155144.8253-1-jgross@suse.com>
- <CAJ=z9a0WfWQs+UJ-t4Kt6PGGdNnA2kMeK5p8bNnDT_eFcpDiiQ@mail.gmail.com>
- <d1c41bd7-676e-c50a-416d-c62efcbdd41d@suse.com>
- <76ed29d6-e2fc-cd48-6de7-e0032daaa2e9@xen.org>
- <3fd79cb1-e18f-1987-69ff-94f1bd15c66f@citrix.com>
- <3dcbe001-c66c-13a6-7a28-ef24b05eefa0@suse.com>
- <c07e5106-d8de-f6a7-e406-b25ee9ff6d49@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <f80aff47-8617-8f59-0d34-bf0385128b62@suse.com>
-Date: Wed, 29 Apr 2020 14:29:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <c07e5106-d8de-f6a7-e406-b25ee9ff6d49@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+ (envelope-from <SRS0=QE4t=6N=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jTlqb-0001e9-1n
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 12:29:53 +0000
+X-Inumbo-ID: 1fb4de8a-8a15-11ea-993d-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1fb4de8a-8a15-11ea-993d-12813bfff9fa;
+ Wed, 29 Apr 2020 12:29:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=xzqoS5LBTFFcm6HUrxQtenW6a+6Xm50klkOFRqNlNPg=; b=E+NHz1VRrwfPDDKQLqQ13yObus
+ 9dcCdcYMLBfukGC6HRBGVKyR0abzNWlj3YS6R7r6XkA2FBsszXmmgMgtaw6fttdDkGFCUbGh2YutD
+ GS1r5SPZw/e9bF81UqH2h7ZdJUAudYZHuByfj9kC/BKg276EpoIBCCjkjuBj0I5IBlZg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1jTlqZ-0000jO-5C; Wed, 29 Apr 2020 12:29:51 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=s3-prod-r2d2-p7995.iad7.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jTlqY-0007FW-QQ; Wed, 29 Apr 2020 12:29:51 +0000
+Message-ID: <40644d63e00a10636943f6322707c0ad6a73e11c.camel@xen.org>
+Subject: Re: [PATCH 5/6] x86/pv: map and unmap page tables in
+ mark_pv_pt_pages_rdonly
+From: Hongyan Xia <hx242@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Date: Wed, 29 Apr 2020 13:29:48 +0100
+In-Reply-To: <ec318c48-41c3-5cbf-e03e-8838d9f488ba@suse.com>
+References: <cover.1587116799.git.hongyxia@amazon.com>
+ <9287363e13924f4a633b47b53c23b3466e26e4a8.1587116799.git.hongyxia@amazon.com>
+ <fbb4a755-c450-77dd-2aa5-44c01b42a5ff@suse.com>
+ <9df9c5163fde5d25ceb756b20714c58be93b2c6c.camel@xen.org>
+ <c33dcaee9c8796da8816de9168f91ce90de61fc5.camel@xen.org>
+ <e18871ea997a304394adbbc92e724ae0ec56d87a.camel@xen.org>
+ <ec318c48-41c3-5cbf-e03e-8838d9f488ba@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,66 +66,90 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29.04.20 13:04, Igor Druzhinin wrote:
-> On 29/04/2020 11:49, Jürgen Groß wrote:
->> On 29.04.20 12:39, Igor Druzhinin wrote:
->>> On 29/04/2020 10:22, Julien Grall wrote:
->>>> Hi Juergen,
->>>>
->>>> On 29/04/2020 06:51, Jürgen Groß wrote:
->>>>>
->>>>> Recreating the event channel would be fine, but I don't see why it
->>>>> would ever be needed. And XS_INTRODUCE is called only at domain creation
->>>>> time today, so there is obviously no need for repeating this call.
->>>>>
->>>>> Maybe the idea was to do this after sending a XS_RESUME command, which
->>>>> isn't used anywhere in Xen and is another part of Xenstore which doesn't
->>>>> make any sense today.
->>>>
->>>> Commit f6cc37ea8ac71385b60507c034519f304da75f4c "tools/oxenstored: port XS_INTRODUCE evtchn rebind function from cxenstored" added the exact same behavior in the OCaml XenStored last year.
->>>>
->>>> This was introduced 12 years after C XenStored, so surely someone think this is useful. We should check why this was introduced in OCaml XenStored (I have CCed the author of the patch).
->>>>
->>>> If we still think this is not useful, then you should add an explanation in the commit message why the two implementations diverge and possibly update the spec.
->>>
->>> Thanks for CC, Julien.
->>>
->>> We indeed already use this functionality in our toolstack for guest kdump
->>> functions. It's not possible in XAPI to adopt libxl model where almost everything
->>> is restarted for a domain entering kdump, so we have to use this message to
->>> rebind xenstore evtchn after soft reset without shutting down backends and
->>> recreating the whole subtree (frontends reconnect fine after that).
->>>
->>> We obviously only require it for now to be present in oxenstored only.
->>> Please don't remove this functionality if possible.
->>
->> If I read handling in libxl correctly, in the soft reset case XS_RELEASE
->> is issued before doing another XS_INTRODUCE. XS_RELEASE will result in
->> xenstored throwing away its related struct domain, so XS_INTRODUCE will
->> be possible again.
-> 
->  From what I remember it was not possible to keep xenstored data for a domain
-> and at the same time perform release-introduce cycle (at least in oxenstored).
-> It also involved firing @releaseDomain which caused havoc in other part of
-> the toolstack.
+(Looks like other patches in this series have been merged. Replying to
+this one only.)
 
-Wei, Ian, can you please tell me where I'm wrong?
+From: Wei Liu <wei.liu2@citrix.com>
+Date: Tue, 5 Feb 2019 16:32:54 +0000
+Subject: [PATCH] x86/pv: map and unmap page tables in
+mark_pv_pt_pages_rdonly
 
-A soft reset should restart the domain in a clean state. AFAIK libxl is
-handling that by doing kind of in-place save-restore, including calling
-xs_release_domain() and later xs_introduce_domain(). This should result
-in xenstored throwing away all state it has regarding the domain and
-then restarting with a new (internal) domain instance.
+Also, clean up the initialisation of plXe.
 
-Is XAPI doing soft reset differently? Why should there be a need for
-keeping xenstored data across a soft reset?
+Signed-off-by: Wei Liu <wei.liu2@citrix.com>
+Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+---
+ xen/arch/x86/pv/dom0_build.c | 32 +++++++++++++++++---------------
+ 1 file changed, 17 insertions(+), 15 deletions(-)
 
+diff --git a/xen/arch/x86/pv/dom0_build.c
+b/xen/arch/x86/pv/dom0_build.c
+index abfbe5f436..3522eb0114 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -49,18 +49,11 @@ static __init void mark_pv_pt_pages_rdonly(struct
+domain *d,
+ {
+     unsigned long count;
+     struct page_info *page;
+-    l4_pgentry_t *pl4e;
+-    l3_pgentry_t *pl3e;
+-    l2_pgentry_t *pl2e;
+-    l1_pgentry_t *pl1e;
+-
+-    pl4e = l4start + l4_table_offset(vpt_start);
+-    pl3e = l4e_to_l3e(*pl4e);
+-    pl3e += l3_table_offset(vpt_start);
+-    pl2e = l3e_to_l2e(*pl3e);
+-    pl2e += l2_table_offset(vpt_start);
+-    pl1e = l2e_to_l1e(*pl2e);
+-    pl1e += l1_table_offset(vpt_start);
++    l4_pgentry_t *pl4e = l4start + l4_table_offset(vpt_start);
++    l3_pgentry_t *pl3e = map_l3t_from_l4e(*pl4e) +
+l3_table_offset(vpt_start);
++    l2_pgentry_t *pl2e = map_l2t_from_l3e(*pl3e) +
+l2_table_offset(vpt_start);
++    l1_pgentry_t *pl1e = map_l1t_from_l2e(*pl2e) +
+l1_table_offset(vpt_start);
++
+     for ( count = 0; count < nr_pt_pages; count++ )
+     {
+         l1e_remove_flags(*pl1e, _PAGE_RW);
+@@ -85,12 +78,21 @@ static __init void mark_pv_pt_pages_rdonly(struct
+domain *d,
+             if ( !((unsigned long)++pl2e & (PAGE_SIZE - 1)) )
+             {
+                 if ( !((unsigned long)++pl3e & (PAGE_SIZE - 1)) )
+-                    pl3e = l4e_to_l3e(*++pl4e);
+-                pl2e = l3e_to_l2e(*pl3e);
++                {
++                    /* Need to unmap the page before the increment. */
++                    unmap_domain_page(pl3e - 1);
++                    pl3e = map_l3t_from_l4e(*++pl4e);
++                }
++                unmap_domain_page(pl2e - 1);
++                pl2e = map_l2t_from_l3e(*pl3e);
+             }
+-            pl1e = l2e_to_l1e(*pl2e);
++            unmap_domain_page(pl1e - 1);
++            pl1e = map_l1t_from_l2e(*pl2e);
+         }
+     }
++    unmap_domain_page(pl1e);
++    unmap_domain_page(pl2e);
++    unmap_domain_page(pl3e);
+ }
+ 
+ static __init void setup_pv_physmap(struct domain *d, unsigned long
+pgtbl_pfn,
+-- 
+2.24.1.AMZN
 
-Juergen
 
