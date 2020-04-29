@@ -2,48 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62D61BEC70
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 01:10:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6717E1BEC98
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 01:21:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTvpz-0001CT-N1; Wed, 29 Apr 2020 23:09:55 +0000
+	id 1jTw07-0002rh-Ll; Wed, 29 Apr 2020 23:20:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hWzR=6N=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jTvpy-0001CO-5U
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 23:09:54 +0000
-X-Inumbo-ID: 88ba721a-8a6e-11ea-9887-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=totz=6N=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jTw06-0002rb-DP
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 23:20:22 +0000
+X-Inumbo-ID: ff2b5904-8a6f-11ea-ae69-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 88ba721a-8a6e-11ea-9887-bc764e2007e4;
- Wed, 29 Apr 2020 23:09:53 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 94C52206D9;
- Wed, 29 Apr 2020 23:09:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588201793;
- bh=ogQClBdgkF4ZlfvC1m+J7l7r216UsRuYxc3VelIEtO4=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=Qzp8c+9HNGyyh0YlFav0Ov0171e0EDWkJMhBiZd6/XU8s3aT2c42DUW0ilGsYca1P
- z0W3Mw0Z8U8jTvwAADMvlNDg61hC5t3sAxRlPFsF1Cr3zVgj6GHmfUIeo0/ZXmGlrq
- ZrQEy2Sx6R5atMU6GuHgyhnNlGwIRpTcufiNeNzI=
-Date: Wed, 29 Apr 2020 16:09:51 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 04/12] xen: split alloc_heap_pages in two halves for
- reusability
-In-Reply-To: <348994e9-7b32-33fc-0e40-f7e1a6543b92@suse.com>
-Message-ID: <alpine.DEB.2.21.2004291609440.28941@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-4-sstabellini@kernel.org>
- <348994e9-7b32-33fc-0e40-f7e1a6543b92@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id ff2b5904-8a6f-11ea-ae69-bc764e2007e4;
+ Wed, 29 Apr 2020 23:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=5hyFd66exywvMa7Ne+91ndOWTYMbATLgnbI2nGM+R0I=; b=PChShtRXFKW7seA4PZsg/JUjg
+ Mt7SrlxBWxwJtjPjCkC+hR4ANOe9ZsBNPZEPypHu+rChY9P+Jz6JoAi85cRCogzgOI7J+I5LCUhel
+ SZSOOQVvRzcQw3g5224ZnK7UjW+cmPGYFdwy94KnGj0e/kp3EtGkvN9FfLP2qi8hFM2P0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jTw05-0005B5-BB; Wed, 29 Apr 2020 23:20:21 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jTw05-000705-0I; Wed, 29 Apr 2020 23:20:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jTw04-00054k-Vr; Wed, 29 Apr 2020 23:20:20 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149884-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 149884: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=8065e1b41688592778de76c731c62f34e71f3129
+X-Osstest-Versions-That: xen=4304ff420e51b973ec9eb9dafd64a917dd9c0fb1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 29 Apr 2020 23:20:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,42 +65,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
- Wei Liu <wl@xen.org>, andrew.cooper3@citrix.com,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, 17 Apr 2020, Jan Beulich wrote:
-> On 15.04.2020 03:02, Stefano Stabellini wrote:
-> > --- a/xen/common/page_alloc.c
-> > +++ b/xen/common/page_alloc.c
-> > @@ -911,54 +911,18 @@ static struct page_info *get_free_buddy(unsigned int zone_lo,
-> >      }
-> >  }
-> >  
-> > -/* Allocate 2^@order contiguous pages. */
-> > -static struct page_info *alloc_heap_pages(
-> > -    unsigned int zone_lo, unsigned int zone_hi,
-> > -    unsigned int order, unsigned int memflags,
-> > -    struct domain *d)
-> > +static void __alloc_heap_pages(struct page_info **pgo,
-> > +                               unsigned int order,
-> > +                               unsigned int memflags,
-> > +                               struct domain *d)
-> 
-> Along the line of Wei's reply, I'd suggest the name to better reflect
-> the difference to alloc_heap_pages() itself. Maybe
-> alloc_pages_from_buddy() or alloc_buddy_pages()?
-> 
-> In addition
-> - no double leading underscores please
-> - instead of the function returning void and taking
->   struct page_info **pgo, why not have it take and return
->   struct page_info *?
-> - add a comment about the non-standard locking behavior
+flight 149884 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149884/
 
-I made all these changes
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  8065e1b41688592778de76c731c62f34e71f3129
+baseline version:
+ xen                  4304ff420e51b973ec9eb9dafd64a917dd9c0fb1
+
+Last test of basis   149883  2020-04-29 18:01:04 Z    0 days
+Testing same since   149884  2020-04-29 21:02:20 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   4304ff420e..8065e1b416  8065e1b41688592778de76c731c62f34e71f3129 -> smoke
 
