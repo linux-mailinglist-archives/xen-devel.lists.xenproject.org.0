@@ -2,57 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 001A91BDB03
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 13:48:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D9691BDC2C
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2020 14:30:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jTlBU-00068E-2z; Wed, 29 Apr 2020 11:47:24 +0000
+	id 1jTlqF-0001cR-Uw; Wed, 29 Apr 2020 12:29:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UoNI=6N=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jTlBS-000689-RE
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 11:47:22 +0000
-X-Inumbo-ID: 2f90ed68-8a0f-11ea-b9cf-bc764e2007e4
-Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fvgr=6N=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jTlqE-0001cM-Hr
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2020 12:29:30 +0000
+X-Inumbo-ID: 11fe7332-8a15-11ea-ae69-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2f90ed68-8a0f-11ea-b9cf-bc764e2007e4;
- Wed, 29 Apr 2020 11:47:22 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id x18so2151042wrq.2
- for <xen-devel@lists.xenproject.org>; Wed, 29 Apr 2020 04:47:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=sSZEYL8vziV8hz9ASR5iV4i9EF1ovhAMH5rPsBEzMD8=;
- b=ZgmigyJc3qsrLrBKHMMxEBsmWGl7a5BsI01I6S7/yVEP3Vy8C0z9hMSSAfgrW8LuoZ
- +jPO7UtcuAXzXZZW2njRiKtNoQEdStm6Ky0VLOGFRDKV+Ul++8Dkw83otluO2h1TETaJ
- EWg+HzDcPYa4aym+5kMM5FD0IBu25OOWXrC5j14GLF9uiciR8kJZoMVw1Aja47HFI+tv
- pGrIuDfA/tydfjxoF0aJvZtu7bshR35NDOX9nsuaDnCvIOUmRtHI9XKNyodW1nz3SCjG
- h83mY3zh3ylCOZrDzwZGYYoF6QXk3eOdkAR2MBS+mOxyGTq09ByZ2d9pVNvjAJB1rZeO
- QYRg==
-X-Gm-Message-State: AGi0Pua9PdUzcTOl81d07YnCCdyqRaHjUf0GmliJgTD9/46GTNGWi1bB
- 7oaFb0s+YgxpOVefohetSgc7T08S
-X-Google-Smtp-Source: APiQypIn/09EinWnIz8JP1RZZ7lAR7qt45/pc9qtUkVeWe9FOrP+4dFRupvBVMQuvlmwmNVv8sWHcg==
-X-Received: by 2002:adf:afdf:: with SMTP id y31mr38389936wrd.120.1588160840962; 
- Wed, 29 Apr 2020 04:47:20 -0700 (PDT)
-Received: from
- liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
- ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id h2sm7754246wmf.34.2020.04.29.04.47.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Apr 2020 04:47:20 -0700 (PDT)
-Date: Wed, 29 Apr 2020 11:47:18 +0000
-From: Wei Liu <wl@xen.org>
-To: Xen Development List <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86/hyperv: stash and use the configured max VP index
-Message-ID: <20200429114718.zclpy6r6sbxuo6ph@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-References: <20200429104144.17816-1-liuwe@microsoft.com>
+ id 11fe7332-8a15-11ea-ae69-bc764e2007e4;
+ Wed, 29 Apr 2020 12:29:29 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 55B39AEDD;
+ Wed, 29 Apr 2020 12:29:27 +0000 (UTC)
+Subject: Re: [PATCH] tools/xenstore: don't store domU's mfn of ring page in
+ xensotred
+To: Igor Druzhinin <igor.druzhinin@citrix.com>, Julien Grall
+ <julien@xen.org>, Julien Grall <julien.grall.oss@gmail.com>
+References: <20200428155144.8253-1-jgross@suse.com>
+ <CAJ=z9a0WfWQs+UJ-t4Kt6PGGdNnA2kMeK5p8bNnDT_eFcpDiiQ@mail.gmail.com>
+ <d1c41bd7-676e-c50a-416d-c62efcbdd41d@suse.com>
+ <76ed29d6-e2fc-cd48-6de7-e0032daaa2e9@xen.org>
+ <3fd79cb1-e18f-1987-69ff-94f1bd15c66f@citrix.com>
+ <3dcbe001-c66c-13a6-7a28-ef24b05eefa0@suse.com>
+ <c07e5106-d8de-f6a7-e406-b25ee9ff6d49@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <f80aff47-8617-8f59-0d34-bf0385128b62@suse.com>
+Date: Wed, 29 Apr 2020 14:29:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200429104144.17816-1-liuwe@microsoft.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <c07e5106-d8de-f6a7-e406-b25ee9ff6d49@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,94 +53,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <liuwe@microsoft.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michael Kelley <mikelley@microsoft.com>, Jan Beulich <jbeulich@suse.com>,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Apr 29, 2020 at 11:41:44AM +0100, Wei Liu wrote:
-> The value returned from CPUID is the maximum number for virtual
-> processors supported by Hyper-V. It could be larger than the maximum
-> number of virtual processors configured.
+On 29.04.20 13:04, Igor Druzhinin wrote:
+> On 29/04/2020 11:49, Jürgen Groß wrote:
+>> On 29.04.20 12:39, Igor Druzhinin wrote:
+>>> On 29/04/2020 10:22, Julien Grall wrote:
+>>>> Hi Juergen,
+>>>>
+>>>> On 29/04/2020 06:51, Jürgen Groß wrote:
+>>>>>
+>>>>> Recreating the event channel would be fine, but I don't see why it
+>>>>> would ever be needed. And XS_INTRODUCE is called only at domain creation
+>>>>> time today, so there is obviously no need for repeating this call.
+>>>>>
+>>>>> Maybe the idea was to do this after sending a XS_RESUME command, which
+>>>>> isn't used anywhere in Xen and is another part of Xenstore which doesn't
+>>>>> make any sense today.
+>>>>
+>>>> Commit f6cc37ea8ac71385b60507c034519f304da75f4c "tools/oxenstored: port XS_INTRODUCE evtchn rebind function from cxenstored" added the exact same behavior in the OCaml XenStored last year.
+>>>>
+>>>> This was introduced 12 years after C XenStored, so surely someone think this is useful. We should check why this was introduced in OCaml XenStored (I have CCed the author of the patch).
+>>>>
+>>>> If we still think this is not useful, then you should add an explanation in the commit message why the two implementations diverge and possibly update the spec.
+>>>
+>>> Thanks for CC, Julien.
+>>>
+>>> We indeed already use this functionality in our toolstack for guest kdump
+>>> functions. It's not possible in XAPI to adopt libxl model where almost everything
+>>> is restarted for a domain entering kdump, so we have to use this message to
+>>> rebind xenstore evtchn after soft reset without shutting down backends and
+>>> recreating the whole subtree (frontends reconnect fine after that).
+>>>
+>>> We obviously only require it for now to be present in oxenstored only.
+>>> Please don't remove this functionality if possible.
+>>
+>> If I read handling in libxl correctly, in the soft reset case XS_RELEASE
+>> is issued before doing another XS_INTRODUCE. XS_RELEASE will result in
+>> xenstored throwing away its related struct domain, so XS_INTRODUCE will
+>> be possible again.
 > 
-> Stash the configured number into a variable and use it in calculations.
-> 
-> Signed-off-by: Wei Liu <liuwe@microsoft.com>
-> ---
->  xen/arch/x86/guest/hyperv/hyperv.c  | 4 ++++
->  xen/arch/x86/guest/hyperv/private.h | 1 +
->  xen/arch/x86/guest/hyperv/tlb.c     | 2 +-
->  xen/arch/x86/guest/hyperv/util.c    | 2 +-
->  4 files changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
-> index 91a6782cd986..84221b751453 100644
-> --- a/xen/arch/x86/guest/hyperv/hyperv.c
-> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
-> @@ -33,6 +33,7 @@ DEFINE_PER_CPU_READ_MOSTLY(void *, hv_input_page);
->  DEFINE_PER_CPU_READ_MOSTLY(void *, hv_vp_assist);
->  DEFINE_PER_CPU_READ_MOSTLY(unsigned int, hv_vp_index);
->  
-> +unsigned int __read_mostly hv_max_vp_index;
->  static bool __read_mostly hcall_page_ready;
->  
->  static uint64_t generate_guest_id(void)
-> @@ -143,6 +144,9 @@ static int setup_hypercall_pcpu_arg(void)
->      rdmsrl(HV_X64_MSR_VP_INDEX, vp_index_msr);
->      this_cpu(hv_vp_index) = vp_index_msr;
->  
-> +    if ( vp_index_msr > hv_max_vp_index )
-> +        hv_max_vp_index = vp_index_msr;
-> +
->      return 0;
->  }
->  
-> diff --git a/xen/arch/x86/guest/hyperv/private.h b/xen/arch/x86/guest/hyperv/private.h
-> index 354fc7f685a7..fea3e291e944 100644
-> --- a/xen/arch/x86/guest/hyperv/private.h
-> +++ b/xen/arch/x86/guest/hyperv/private.h
-> @@ -28,6 +28,7 @@
->  DECLARE_PER_CPU(void *, hv_input_page);
->  DECLARE_PER_CPU(void *, hv_vp_assist);
->  DECLARE_PER_CPU(unsigned int, hv_vp_index);
-> +extern unsigned int hv_max_vp_index;
->  
->  static inline unsigned int hv_vp_index(unsigned int cpu)
->  {
-> diff --git a/xen/arch/x86/guest/hyperv/tlb.c b/xen/arch/x86/guest/hyperv/tlb.c
-> index 1d723d6ee679..0a44071481bd 100644
-> --- a/xen/arch/x86/guest/hyperv/tlb.c
-> +++ b/xen/arch/x86/guest/hyperv/tlb.c
-> @@ -166,7 +166,7 @@ int hyperv_flush_tlb(const cpumask_t *mask, const void *va,
->          {
->              unsigned int vpid = hv_vp_index(cpu);
->  
-> -            if ( vpid >= ms_hyperv.max_vp_index )
-> +            if ( vpid >= hv_max_vp_index )
+>  From what I remember it was not possible to keep xenstored data for a domain
+> and at the same time perform release-introduce cycle (at least in oxenstored).
+> It also involved firing @releaseDomain which caused havoc in other part of
+> the toolstack.
 
-I think the >= should be changed to > here.
+Wei, Ian, can you please tell me where I'm wrong?
 
-Wei.
+A soft reset should restart the domain in a clean state. AFAIK libxl is
+handling that by doing kind of in-place save-restore, including calling
+xs_release_domain() and later xs_introduce_domain(). This should result
+in xenstored throwing away all state it has regarding the domain and
+then restarting with a new (internal) domain instance.
 
->              {
->                  local_irq_restore(irq_flags);
->                  return -ENXIO;
-> diff --git a/xen/arch/x86/guest/hyperv/util.c b/xen/arch/x86/guest/hyperv/util.c
-> index bec61c2afd87..2c5f421b7bd9 100644
-> --- a/xen/arch/x86/guest/hyperv/util.c
-> +++ b/xen/arch/x86/guest/hyperv/util.c
-> @@ -33,7 +33,7 @@ int cpumask_to_vpset(struct hv_vpset *vpset,
->  {
->      int nr = 1;
->      unsigned int cpu, vcpu_bank, vcpu_offset;
-> -    unsigned int max_banks = ms_hyperv.max_vp_index / 64;
-> +    unsigned int max_banks = hv_max_vp_index / 64;
->  
->      /* Up to 64 banks can be represented by valid_bank_mask */
->      if ( max_banks > 64 )
-> -- 
-> 2.20.1
-> 
+Is XAPI doing soft reset differently? Why should there be a need for
+keeping xenstored data across a soft reset?
+
+
+Juergen
 
