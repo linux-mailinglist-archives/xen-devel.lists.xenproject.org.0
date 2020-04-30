@@ -2,59 +2,89 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EF391BF8B8
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 15:02:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1CD1BF9AC
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 15:38:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU8ow-00040I-Sl; Thu, 30 Apr 2020 13:01:42 +0000
+	id 1jU9N3-0006V1-MA; Thu, 30 Apr 2020 13:36:57 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ng0l=6O=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jU8ov-00040B-Dn
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 13:01:41 +0000
-X-Inumbo-ID: bb57e79d-8ae2-11ea-9a44-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rLHY=6O=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jU9N2-0006Uu-7U
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 13:36:56 +0000
+X-Inumbo-ID: a7c6f538-8ae7-11ea-9a4e-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bb57e79d-8ae2-11ea-9a44-12813bfff9fa;
- Thu, 30 Apr 2020 13:01:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lIURlg8nYfs0ZUyF0+k0do0WTwB1qNS01kZoRIe5i3Q=; b=OijnRJ2q1Sb6GsHDVJb012sN6r
- Qt46Rz1cIKm3Trsw1StgPMP2H3BliSDGMSdz/qY5RfIt8f/G19F3G1ccirWKmwMW1BInu4nJYad38
- dPeaBhjwSAhQ0IVrvUl75hl78eONbhqjW18cp45qeEm6MwwfSxz08v9UjSgW77cke7Yk=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jU8os-0003Er-FB; Thu, 30 Apr 2020 13:01:38 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jU8os-0002sS-6s; Thu, 30 Apr 2020 13:01:38 +0000
-Subject: Re: [PATCH 12/12] xen/arm: call iomem_permit_access for passthrough
- devices
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-12-sstabellini@kernel.org>
- <521c8e55-73e8-950f-2d94-70b0c664bd3d@xen.org>
- <alpine.DEB.2.21.2004291318270.28941@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <f7f01eca-2415-e102-318f-0c58606fda96@xen.org>
-Date: Thu, 30 Apr 2020 14:01:36 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ id a7c6f538-8ae7-11ea-9a4e-12813bfff9fa;
+ Thu, 30 Apr 2020 13:36:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588253815;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=tKHTrswLZqWU3bWqcbH3P8MMvB8kyTpecbbl/gntUO0=;
+ b=KnwXkBykeIlEWHRQvepS7cDMOjF/FKQrZ57H215alZDdaboRoZApI+Hc
+ 6I4gQCgsIVdGhWwIHxLNEdNZvzKQcLzFh2IuH0ow8MmuzZZK5q4icsVgj
+ UpPdN9uIVLaQQiZCyjEI76MtXKgPaSXHM0S9WLolyacEKXYtRaDexjNTL Q=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: J4vXe4bX9qcPev/7haIPJkvCvNDM02JO93GIZDG+WVj25KobvXl79siOIpkLu/JVhikakFRBV4
+ Thw2N1T2clWjzIsYZQDfwRCkxGINUsVYOXQT92cGIZpHp1jZUHciIHYRW0vXPrGFdOeioykKbS
+ cPMKng/8czHOmL7n069LFs/29knDovUgKDfxYNntxWssAQAR6HU3jr6BFH3IYTCGeZlNS27KjV
+ jcQNBscdfXNzA4mywFbCkgaYNaO+rhz9nW0mQX5vQeTR9Lb/Oy7bEyE3TNSxOR4NWZCZ1viXfr
+ UuI=
+X-SBRS: 2.7
+X-MesageID: 16494974
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,336,1583211600"; d="scan'208";a="16494974"
+Subject: Re: [PATCH] x86/EFI: correct section offsets in mkreloc diagnostics
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <5708d246-694a-424f-0998-261f26ccd118@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <917b9609-56d9-2e63-819f-2ed5e2741025@citrix.com>
+Date: Thu, 30 Apr 2020 14:36:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2004291318270.28941@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <5708d246-694a-424f-0998-261f26ccd118@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,31 +95,16 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Stefano,
+On 30/04/2020 11:24, Jan Beulich wrote:
+> These are more helpful if they point at the address where the relocated
+> value starts, rather than at the specific byte of the difference.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-On 29/04/2020 21:47, Stefano Stabellini wrote:
-> On Wed, 15 Apr 2020, Julien Grall wrote: 
-> But doesn't it make sense to give domU permission if it is going to get
-> the memory mapped? But admittedly I can't think of something that would
-> break because of the lack of the iomem_permit_access call in this code
-> path.
-
-On Arm, the permissions are only useful if you plan you DomU to delegate 
-the regions to another domain. As your domain is not even aware it is 
-running on Xen (we don't expose 'xen' node in the DT), it makes little 
-sense to add the permission.
-
-Even today, you can map IOMEM to a DomU and then revert the permission 
-right after. They IOMEM will still be mapped in the guest and it will 
-act normaly.
-
-Cheers,
-
--- 
-Julien Grall
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
