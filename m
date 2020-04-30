@@ -2,46 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAD981C087A
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 22:45:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 364AE1C087F
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 22:45:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUG3B-0002qt-1N; Thu, 30 Apr 2020 20:44:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jUG3D-0002tG-E4; Thu, 30 Apr 2020 20:44:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fL57=6O=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1jUG39-0002qK-EF
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 20:44:51 +0000
-X-Inumbo-ID: 6c920ebc-8b23-11ea-b9cf-bc764e2007e4
+ id 1jUG3B-0002sV-S0
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 20:44:53 +0000
+X-Inumbo-ID: 6d691b32-8b23-11ea-9aaf-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6c920ebc-8b23-11ea-b9cf-bc764e2007e4;
- Thu, 30 Apr 2020 20:44:45 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6d691b32-8b23-11ea-9aaf-12813bfff9fa;
+ Thu, 30 Apr 2020 20:44:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
  Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=WTEV0oPtcbmzQwnNtr2I2AVsKwc6yGr7IZ4NoXd1nT4=; b=cdbbpPvFM/mqtoRn44qvXJUJ4E
- SAz077vwekyoVNG4sLAzgzr8i2FsuLB8SvwFl0rw55f/u0ElP8VlofANR8/aRzyeJOtHaQBSzKarT
- PiJ8oEW5NYkGxTPvhqeuh7OVM/GrUQcqaVtacXAAc/XRSz5Kxlryon/f9Swfq02cHHyA=;
+ bh=X5SxQC62czR9+3XEiKLbmZlfT+782Zyy4B2JOemF0eA=; b=j45FVkk1uPTyI4beeHYTMJtL1z
+ cAUwlKi4AHWpsW4uytEQGmJBL73hKK9YgJKQkYOPVT536BsDSv774j3mGtEmYZMDLNq08gqzVhl4q
+ xtvpSix5xmaT8beOkXfhCJO6MdHxw5Ll21HTa8sDNXhT9nYhmaNdew61fpVrnQwkKkKA=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <hx242@xen.org>)
- id 1jUG32-0004LP-Mo; Thu, 30 Apr 2020 20:44:44 +0000
+ id 1jUG34-0004LV-3Z; Thu, 30 Apr 2020 20:44:46 +0000
 Received: from 54-240-197-234.amazon.com ([54.240.197.234]
  helo=u1bbd043a57dd5a.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <hx242@xen.org>)
- id 1jUG32-0005wj-Cc; Thu, 30 Apr 2020 20:44:44 +0000
+ id 1jUG33-0005wj-QZ; Thu, 30 Apr 2020 20:44:46 +0000
 From: Hongyan Xia <hx242@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 05/16] x86: map/unmap pages in restore_all_guests.
-Date: Thu, 30 Apr 2020 21:44:14 +0100
-Message-Id: <97a7680a1be26f6e34b91d29551747afa5235555.1588278317.git.hongyxia@amazon.com>
+Subject: [PATCH 06/16] x86/pv: domheap pages should be mapped while relocating
+ initrd
+Date: Thu, 30 Apr 2020 21:44:15 +0100
+Message-Id: <535925f046bcc38fa26e2d5fd1c47c58f4e41b37.1588278317.git.hongyxia@amazon.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1588278317.git.hongyxia@amazon.com>
 References: <cover.1588278317.git.hongyxia@amazon.com>
@@ -63,64 +65,55 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, julien@xen.org,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Hongyan Xia <hongyxia@amazon.com>
+From: Wei Liu <wei.liu2@citrix.com>
 
-Before, it assumed the pv cr3 could be accessed via a direct map. This
-is no longer true.
+Xen shouldn't use domheap page as if they were xenheap pages. Map and
+unmap pages accordingly.
 
-Note that we do not map and unmap root_pgt for now since it is still a
-xenheap page.
-
-Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+Signed-off-by: Wei Liu <wei.liu2@citrix.com>
+Signed-off-by: Wei Wang <wawei@amazon.de>
 ---
- xen/arch/x86/x86_64/entry.S | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ xen/arch/x86/pv/dom0_build.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index d55453f3f3..110cd0394f 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -154,7 +154,24 @@ restore_all_guest:
-         and   %rsi, %rdi
-         and   %r9, %rsi
-         add   %rcx, %rdi
--        add   %rcx, %rsi
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index 3522eb0114..b052f13462 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -515,18 +515,31 @@ int __init dom0_construct_pv(struct domain *d,
+         if ( d->arch.physaddr_bitsize &&
+              ((mfn + count - 1) >> (d->arch.physaddr_bitsize - PAGE_SHIFT)) )
+         {
++            unsigned long nr_pages;
++            unsigned long len = initrd_len;
 +
-+         /*
-+          * Without a direct map, we have to map first before copying. We only
-+          * need to map the guest root table but not the per-CPU root_pgt,
-+          * because the latter is still a xenheap page.
-+          */
-+        pushq %r9
-+        pushq %rdx
-+        pushq %rax
-+        pushq %rdi
-+        mov   %rsi, %rdi
-+        shr   $PAGE_SHIFT, %rdi
-+        callq map_domain_page
-+        mov   %rax, %rsi
-+        popq  %rdi
-+        /* Stash the pointer for unmapping later. */
-+        pushq %rax
+             order = get_order_from_pages(count);
+             page = alloc_domheap_pages(d, order, MEMF_no_scrub);
+             if ( !page )
+                 panic("Not enough RAM for domain 0 initrd\n");
 +
-         mov   $ROOT_PAGETABLE_FIRST_XEN_SLOT, %ecx
-         mov   root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rsi), %r8
-         mov   %r8, root_table_offset(SH_LINEAR_PT_VIRT_START)*8(%rdi)
-@@ -166,6 +183,14 @@ restore_all_guest:
-         sub   $(ROOT_PAGETABLE_FIRST_XEN_SLOT - \
-                 ROOT_PAGETABLE_LAST_XEN_SLOT - 1) * 8, %rdi
-         rep movsq
++            nr_pages = 1UL << order;
+             for ( count = -count; order--; )
+                 if ( count & (1UL << order) )
+                 {
+                     free_domheap_pages(page, order);
+                     page += 1UL << order;
++                    nr_pages -= 1UL << order;
+                 }
+-            memcpy(page_to_virt(page), mfn_to_virt(initrd->mod_start),
+-                   initrd_len);
 +
-+        /* Unmap the page. */
-+        popq  %rdi
-+        callq unmap_domain_page
-+        popq  %rax
-+        popq  %rdx
-+        popq  %r9
++            for ( i = 0; i < nr_pages; i++, len -= PAGE_SIZE )
++            {
++                void *p = __map_domain_page(page + i);
++                memcpy(p, mfn_to_virt(initrd_mfn + i),
++                       min(len, (unsigned long)PAGE_SIZE));
++                unmap_domain_page(p);
++            }
 +
- .Lrag_copy_done:
-         mov   %r9, STACK_CPUINFO_FIELD(xen_cr3)(%rdx)
-         movb  $1, STACK_CPUINFO_FIELD(use_pv_cr3)(%rdx)
+             mpt_alloc = (paddr_t)initrd->mod_start << PAGE_SHIFT;
+             init_domheap_pages(mpt_alloc,
+                                mpt_alloc + PAGE_ALIGN(initrd_len));
 -- 
 2.24.1.AMZN
 
