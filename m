@@ -2,107 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC3771C031B
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 18:50:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3FDC1C0366
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 19:01:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUCNl-000882-Qf; Thu, 30 Apr 2020 16:49:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EK+X=6O=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1jUCNk-00087x-ES
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 16:49:52 +0000
-X-Inumbo-ID: 9c19c1b4-8b02-11ea-ae69-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 9c19c1b4-8b02-11ea-ae69-bc764e2007e4;
- Thu, 30 Apr 2020 16:49:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588265391;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=B9luQcDf1oWYK0AhgcBL9GSRdmBN4OPZecF4rGENsoA=;
- b=NYLX7UVRyLItFaxQNIpRRPYDAzLGcfh6rIEWbd1aSTXPWm7VtLQED0Y1Oysjs+OVWcq+LU
- 9mNrN7LUUWpEVnYAFGe1ah5Bqs5h8eA4AnTDtiyqO0aMrmqVC+fUY66na0QeJYqQ9mk5HY
- S/kZwl+iMyMdLlpTCtENIb/m3kRAa8o=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-317-v8jSMvXVN_mxbmwJaY0ocA-1; Thu, 30 Apr 2020 12:49:49 -0400
-X-MC-Unique: v8jSMvXVN_mxbmwJaY0ocA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 93C0F462;
- Thu, 30 Apr 2020 16:49:46 +0000 (UTC)
-Received: from [10.36.113.172] (ovpn-113-172.ams2.redhat.com [10.36.113.172])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 929D0512E4;
- Thu, 30 Apr 2020 16:49:40 +0000 (UTC)
-Subject: Re: [PATCH v2 2/3] mm/memory_hotplug: Introduce MHP_NO_FIRMWARE_MEMMAP
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-References: <20200430102908.10107-1-david@redhat.com>
- <20200430102908.10107-3-david@redhat.com>
- <87pnbp2dcz.fsf@x220.int.ebiederm.org>
- <1b49c3be-6e2f-57cb-96f7-f66a8f8a9380@redhat.com>
- <871ro52ary.fsf@x220.int.ebiederm.org>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
- 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
-Organization: Red Hat GmbH
-Message-ID: <373a6898-4020-4af1-5b3d-f827d705dd77@redhat.com>
-Date: Thu, 30 Apr 2020 18:49:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	id 1jUCYD-0001Fy-0K; Thu, 30 Apr 2020 17:00:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kEmr=6O=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jUCYB-0001Ft-TJ
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 17:00:39 +0000
+X-Inumbo-ID: 1e27506c-8b04-11ea-9a80-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1e27506c-8b04-11ea-9a80-12813bfff9fa;
+ Thu, 30 Apr 2020 17:00:39 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 533F620661;
+ Thu, 30 Apr 2020 17:00:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588266038;
+ bh=B93+UsnDv7RgSAjrT+Hkx5AcpSSaxP4darVD6tkMveE=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=2gZE6lvI+9otreOVVbZCl0tunJWtx0+yqXV0Q7iFjKHbbAM97MigfaKbIrDKCbS29
+ vWnAWeGg7zomEbyKTeVcXc295bPQs5tZ9B0UePAx6M11xvYt9qfNOG37DYF/iVRKHm
+ Q0SONajevEhxfAwYnNxcgLy2CU0VOQQwylbODj0s=
+Date: Thu, 30 Apr 2020 10:00:37 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH 05/12] xen: introduce reserve_heap_pages
+In-Reply-To: <a316ed70-da35-8be0-a092-d992e56563d2@xen.org>
+Message-ID: <alpine.DEB.2.21.2004300928240.28941@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
+ <20200415010255.10081-5-sstabellini@kernel.org>
+ <3129ab49-5898-9d2e-8fbb-d1fcaf6cdec7@suse.com>
+ <alpine.DEB.2.21.2004291510270.28941@sstabellini-ThinkPad-T480s>
+ <a316ed70-da35-8be0-a092-d992e56563d2@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <871ro52ary.fsf@x220.int.ebiederm.org>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,148 +56,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
- Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>,
- linux-mm@kvack.org, Wei Yang <richard.weiyang@gmail.com>,
- linux-s390@vger.kernel.org, linux-nvdimm@lists.01.org,
- linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-acpi@vger.kernel.org, "Michael S . Tsirkin" <mst@redhat.com>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>, xen-devel@lists.xenproject.org,
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
- linuxppc-dev@lists.ozlabs.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ andrew.cooper3@citrix.com, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com,
+ "Woodhouse, David" <dwmw@amazon.co.uk>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30.04.20 18:33, Eric W. Biederman wrote:
-> David Hildenbrand <david@redhat.com> writes:
->=20
->> On 30.04.20 17:38, Eric W. Biederman wrote:
->>> David Hildenbrand <david@redhat.com> writes:
->>>
->>>> Some devices/drivers that add memory via add_memory() and friends (e=
-.g.,
->>>> dax/kmem, but also virtio-mem in the future) don't want to create en=
-tries
->>>> in /sys/firmware/memmap/ - primarily to hinder kexec from adding thi=
-s
->>>> memory to the boot memmap of the kexec kernel.
->>>>
->>>> In fact, such memory is never exposed via the firmware memmap as Sys=
-tem
->>>> RAM (e.g., e820), so exposing this memory via /sys/firmware/memmap/ =
-is
->>>> wrong:
->>>>  "kexec needs the raw firmware-provided memory map to setup the
->>>>   parameter segment of the kernel that should be booted with
->>>>   kexec. Also, the raw memory map is useful for debugging. For
->>>>   that reason, /sys/firmware/memmap is an interface that provides
->>>>   the raw memory map to userspace." [1]
->>>>
->>>> We don't have to worry about firmware_map_remove() on the removal pa=
-th.
->>>> If there is no entry, it will simply return with -EINVAL.
->>>>
->>>> [1]
->>>> https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-firmware-=
-memmap
->>>
->>>
->>> You know what this justification is rubbish, and I have previously
->>> explained why it is rubbish.
->>
->> Actually, no, I don't think it is rubbish. See patch #3 and the cover
->> letter why this is the right thing to do *for special memory*, *not
->> ordinary DIMMs*.
->>
->> And to be quite honest, I think your response is a little harsh. I don=
-'t
->> recall you replying to my virtio-mem-related comments.
->>
->>>
->>> Nacked-by: "Eric W. Biederman" <ebiederm@xmission.com>
->>>
->>> This needs to be based on weather the added memory is ultimately norm=
-al
->>> ram or is something special.
->>
->> Yes, that's what the caller are expected to decide, see patch #3.
->>
->> kexec should try to be as closely as possible to a real reboot - IMHO.
->=20
-> That is very fuzzy in terms of hotplug memory.  The kexec'd kernel
-> should see the hotplugged memory assuming it is ordinary memory.
->=20
-> But kexec is not a reboot although it is quite similar.   Kexec is
-> swapping one running kernel and it's state for another kernel without
-> rebooting.
+On Thu, 30 Apr 2020, Julien Grall wrote:
+> > > > +    pg = maddr_to_page(start);
+> > > > +    node = phys_to_nid(start);
+> > > > +    zone = page_to_zone(pg);
+> > > > +    page_list_del(pg, &heap(node, zone, order));
+> > > > +
+> > > > +    __alloc_heap_pages(pg, order, memflags, d);
+> > > 
+> > > I agree with Julien in not seeing how this can be safe / correct.
+> > 
+> > I haven't seen any issues so far in my testing -- I imagine it is
+> > because there aren't many memory allocations after setup_mm() and before
+> > create_domUs()  (which on ARM is called just before
+> > domain_unpause_by_systemcontroller at the end of start_xen.)
+> 
+> I am not sure why you exclude setup_mm(). Any memory allocated (boot
+> allocator, xenheap) can clash with your regions. The main memory allocations
+> are for the frametable and dom0. I would say you were lucky to not hit them.
 
-I agree (especially regarding the arm64 DIMM hotplug discussion).
-However, for the two cases
+Maybe it is because Xen typically allocates memory top-down? So if I
+chose a high range then I would see a failure? But I have been mostly
+testing with ranges close to the begin of RAM (as opposed to
+ranges close to the end of RAM.)
 
-a) dax/kmem
-b) virtio-mem
+ 
+> > I gave a quick look at David's series. Is the idea that I should add a
+> > patch to do the following:
+> > 
+> > - avoiding adding these ranges to xenheap in setup_mm, wait for later
+> >    (a bit like reserved_mem regions)
+> 
+> I guess by xenheap, you mean domheap? But the problem is not only for domheap,
+> it is also for any memory allocated via the boot allocator. So you need to
+> exclude those regions from any possible allocations.
 
-We really want to let the driver take back control and figure out "what
-to do with the memory".
+OK, I think we are saying the same thing but let me check.
 
->=20
->>> Justifying behavior by documentation that does not consider memory
->>> hotplug is bad thinking.
->>
->> Are you maybe confusing this patch series with the arm64 approach? Thi=
-s
->> is not about ordinary hotplugged DIMMs.
->=20
-> I think I am.
->=20
-> My challenge is that I don't see anything in the description that says
-> this isn't about ordinary hotplugged DIMMs.  All I saw was hotplug
-> memory.
+By boot allocator you mean alloc_boot_pages, right? That boot allocator
+operates on ranges given to it by init_boot_pages calls.
+init_boot_pages is called from setup_mm. I didn't write it clearly but
+I also meant not calling init_boot_pages on them from setup_mm.
 
-I'm sorry if that was confusing, I tried to stress that kmem and
-virtio-mem is special in the description.
+Are we saying the same thing?
 
-I squeezed a lot of that information into the cover letter and into
-patch #3.
 
->=20
-> If the class of memory is different then please by all means let's mark
-> it differently in struct resource so everyone knows it is different.
-> But that difference needs to be more than hotplug.
->=20
-> That difference needs to be the hypervisor loaned us memory and might
-> take it back at any time, or this memory is persistent and so it has
-> these different characteristics so don't use it as ordinary ram.
 
-Yes, and I think kmem took an excellent approach of explicitly putting
-that "System RAM" into a resource hierarchy. That "System RAM" won't
-show up as a root node under /proc/iomem (see patch #3), which already
-results in kexec-tools to treat it in a special way. I am thinking about
-doing the same for virtio-mem.
+> > - in construct_domU, add the range to xenheap and reserve it with
+> > reserve_heap_pages
+> 
+> I am afraid you can't give the regions to the allocator and then allocate
+> them. The allocator is free to use any page for its own purpose or exclude
+> them.
+>
+> AFAICT, the allocator doesn't have a list of page in use. It only keeps track
+> of free pages. So we can make the content of struct page_info to look like it
+> was allocated by the allocator.
+> 
+> We would need to be careful when giving a page back to allocator as the page
+> would need to be initialized (see [1]). This may not be a concern for Dom0less
+> as the domain may never be destroyed but will be for correctness PoV.
+> 
+> For LiveUpdate, the original Xen will carve out space to use by the boot
+> allocator in the new Xen. But I think this is not necessary in your context.
+> 
+> It should be sufficient to exclude the page from the boot allocators (as we do
+> for other modules).
+> 
+> One potential issue that can arise is there is no easy way today to
+> differentiate between pages allocated and pages not yet initialized. To make
+> the code robust, we need to prevent a page to be used in two places. So for
+> LiveUpdate we are marking them with a special value, this is used afterwards
+> to check we are effictively using a reserved page.
+> 
+> I hope this helps.
 
->=20
-> That information is also useful to other people looking at the system
-> and seeing what is going on.
->=20
-> Just please don't muddle the concepts, or assume that whatever subset o=
-f
-> hotplug memory you are dealing with is the only subset.
+Thanks for writing all of this down but I haven't understood some of it.
 
-I can certainly rephrase the subject/description/comment, stating that
-this is not to be used for ordinary hotplugged DIMMs - only when the
-device driver is under control to decide what to do with that memory -
-especially when kexec'ing.
+For the sake of this discussion let's say that we managed to "reserve"
+the range early enough like we do for other modules, as you wrote.
 
-(previously, I called this flag MHP_DRIVER_MANAGED, but I think
-MHP_NO_FIRMWARE_MEMMAP is clearer, we just need a better description)
+At the point where we want to call reserve_heap_pages() we would call
+init_heap_pages() just before it. We are still relatively early at boot
+so there aren't any concurrent memory operations. Why this doesn't work?
 
-Would that make it clearer?
-
-Thanks!
-
---=20
-Thanks,
-
-David / dhildenb
-
+If it doesn't work, I am not following what is your alternative
+suggestion about making "the content of struct page_info to look like it
+was allocated by the allocator."
 
