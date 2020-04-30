@@ -2,44 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2383B1BF6D6
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 13:30:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11AC01BF7CC
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 14:04:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU7OH-0003t2-6B; Thu, 30 Apr 2020 11:30:05 +0000
+	id 1jU7v2-0006y4-88; Thu, 30 Apr 2020 12:03:56 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jU7OF-0003iO-6g
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 11:30:03 +0000
-X-Inumbo-ID: ed73165a-8ad5-11ea-9a28-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=BIwo=6O=kernel.org=ardb@srs-us1.protection.inumbo.net>)
+ id 1jU7ZG-000584-0k
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 11:41:26 +0000
+X-Inumbo-ID: 8558e80e-8ad7-11ea-9a2a-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ed73165a-8ad5-11ea-9a28-12813bfff9fa;
- Thu, 30 Apr 2020 11:30:00 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DE5F5AF9F;
- Thu, 30 Apr 2020 11:29:58 +0000 (UTC)
-Subject: Re: [PATCH v2 4/5] common/domain: add a domain context record for
- shared_info...
-To: paul@xen.org
-References: <20200407173847.1595-1-paul@xen.org>
- <20200407173847.1595-5-paul@xen.org>
- <7f0821ed-34e8-2a63-aaab-bf781fdfb9e7@xen.org>
- <001601d61d72$efb23840$cf16a8c0$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <66028521-6b46-2aa8-1ba9-2ce703bbbfd8@suse.com>
-Date: Thu, 30 Apr 2020 13:29:53 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 8558e80e-8ad7-11ea-9a2a-12813bfff9fa;
+ Thu, 30 Apr 2020 11:41:25 +0000 (UTC)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 71CD12076D
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2020 11:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588246884;
+ bh=94Cb00cw2YL1QH1+9zuA6LjdU8ZZLvi1vRLitBmfivU=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=SKBAEyU6gDyezLNM9/YPnha9O7uf7VffoUJaCimYnXWaqr0lJVR4jsXW+sKQp8cmI
+ Upj5GDoxafdLiHlr2xF6Kwu1SWuzL3Vj7Mfz3rSmD8jeKSfdh88ahHgbptiNjcbVHJ
+ BQKtk3D6grKqHyFpCXK9Sy3ubIg4CnqSF5DmrL2I=
+Received: by mail-io1-f47.google.com with SMTP id u11so1091878iow.4
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2020 04:41:24 -0700 (PDT)
+X-Gm-Message-State: AGi0PuatvH9nBjPXOZN3jRJV+hksx3aZkqVfJ5NAlH+RA/1rbm6DLqg4
+ njPuc1yOGwqnp9nRGvbAVKstNAVo0MCIED+gDoE=
+X-Google-Smtp-Source: APiQypIIb8uy4dJ9kuhxCA8nd1ZpGi0t7TUZDtJTwcqSdv1SIbIj17IjDVxzeTtyg/8lb0xjHYR0lmTAyIEiPPHVWX0=
+X-Received: by 2002:a02:969a:: with SMTP id w26mr1266527jai.71.1588246883795; 
+ Thu, 30 Apr 2020 04:41:23 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <001601d61d72$efb23840$cf16a8c0$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20200429225108.GA54201@bobbye-pc>
+ <ebdd7b4a-767b-1b72-a344-78b190f42ceb@suse.com>
+ <20200430111501.336wte64pwsfptze@tomti.i.net-space.pl>
+In-Reply-To: <20200430111501.336wte64pwsfptze@tomti.i.net-space.pl>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Thu, 30 Apr 2020 13:41:12 +0200
+X-Gmail-Original-Message-ID: <CAMj1kXF1vRtqbGS-eptB682h1xJ8LYQi74YaTZgM1nyYcpFsYA@mail.gmail.com>
+Message-ID: <CAMj1kXF1vRtqbGS-eptB682h1xJ8LYQi74YaTZgM1nyYcpFsYA@mail.gmail.com>
+Subject: Re: [RFC] UEFI Secure Boot on Xen Hosts
+To: Daniel Kiper <daniel.kiper@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 30 Apr 2020 12:03:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,136 +62,146 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Paul Durrant' <pdurrant@amazon.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: michal.zygowski@3mdeb.com, Bobby Eshleman <bobbyeshleman@gmail.com>,
+ olivier.lambert@vates.fr, krystian.hebel@3mdeb.com,
+ Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+ piotr.krol@3mdeb.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.04.2020 17:37, Paul Durrant wrote:
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: 20 April 2020 18:35
->> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
->> Cc: Paul Durrant <pdurrant@amazon.com>; Ian Jackson <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>;
->> Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Jan Beulich
->> <jbeulich@suse.com>; Stefano Stabellini <sstabellini@kernel.org>
->> Subject: Re: [PATCH v2 4/5] common/domain: add a domain context record for shared_info...
->>
->> Hi Paul,
->>
->> On 07/04/2020 18:38, Paul Durrant wrote:
->>> ... and update xen-domctx to dump some information describing the record.
->>>
->>> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
->>> ---
->>> Cc: Ian Jackson <ian.jackson@eu.citrix.com>
->>> Cc: Wei Liu <wl@xen.org>
->>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Cc: George Dunlap <george.dunlap@citrix.com>
->>> Cc: Jan Beulich <jbeulich@suse.com>
->>> Cc: Julien Grall <julien@xen.org>
->>> Cc: Stefano Stabellini <sstabellini@kernel.org>
->>>
->>> v2:
->>>   - Drop the header change to define a 'Xen' page size and instead use a
->>>     variable length struct now that the framework makes this is feasible
->>>   - Guard use of 'has_32bit_shinfo' in common code with CONFIG_COMPAT
->>> ---
->>>   tools/misc/xen-domctx.c   | 11 ++++++
->>>   xen/common/domain.c       | 81 +++++++++++++++++++++++++++++++++++++++
->>>   xen/include/public/save.h | 10 ++++-
->>>   3 files changed, 101 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/tools/misc/xen-domctx.c b/tools/misc/xen-domctx.c
->>> index d663522a8b..a8d3922321 100644
->>> --- a/tools/misc/xen-domctx.c
->>> +++ b/tools/misc/xen-domctx.c
->>> @@ -59,6 +59,16 @@ static void dump_header(struct domain_save_descriptor *desc)
->>>       off += desc->length;
->>>   }
->>>
->>> +static void dump_shared_info(struct domain_save_descriptor *desc)
->>> +{
->>> +    DOMAIN_SAVE_TYPE(SHARED_INFO) s;
->>> +    READ(s);
->>> +    printf("    SHARED_INFO: field_width %u buffer size: %lu\n",
->>> +           s.field_width, desc->length - sizeof(s));
->>> +
->>> +    off += desc->length;
->>> +}
->>> +
->>>   static void dump_end(struct domain_save_descriptor *desc)
->>>   {
->>>       DOMAIN_SAVE_TYPE(END) e;
->>> @@ -125,6 +135,7 @@ int main(int argc, char **argv)
->>>           switch (desc.typecode)
->>>           {
->>>           case DOMAIN_SAVE_CODE(HEADER): dump_header(&desc); break;
->>> +        case DOMAIN_SAVE_CODE(SHARED_INFO): dump_shared_info(&desc); break;
->>>           case DOMAIN_SAVE_CODE(END): dump_end(&desc); return 0;
->>>           default:
->>>               printf("Unknown type %u: skipping\n", desc.typecode);
->>> diff --git a/xen/common/domain.c b/xen/common/domain.c
->>> index 3dcd73f67c..8b72462e07 100644
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -33,6 +33,7 @@
->>>   #include <xen/xenoprof.h>
->>>   #include <xen/irq.h>
->>>   #include <xen/argo.h>
->>> +#include <xen/save.h>
->>>   #include <asm/debugger.h>
->>>   #include <asm/p2m.h>
->>>   #include <asm/processor.h>
->>> @@ -1646,6 +1647,86 @@ int continue_hypercall_on_cpu(
->>>       return 0;
->>>   }
->>>
->>> +static int save_shared_info(const struct vcpu *v, struct domain_context *c,
->>> +                            bool dry_run)
->>> +{
->>> +    struct domain *d = v->domain;
->>> +    struct domain_shared_info_context ctxt = {};
->>> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
->>> +    size_t size = hdr_size + PAGE_SIZE;
->>> +    int rc;
->>> +
->>> +    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, v, size);
->>> +    if ( rc )
->>> +        return rc;
->>> +
->>> +    if ( !dry_run )
->>
->> NIT: I think the if is not necessary here as you don't skip that much code.
->>
-> 
-> I know, but it is illustrative so I'd rather keep it.
+On Thu, 30 Apr 2020 at 13:15, Daniel Kiper <daniel.kiper@oracle.com> wrote:
+>
+> Adding Ard...
+>
+> On Thu, Apr 30, 2020 at 09:01:45AM +0200, Jan Beulich wrote:
+> > On 30.04.2020 00:51, Bobby Eshleman wrote:
+> > > Hey all,
+> > >
+> > > We're looking to develop UEFI Secure Boot support for grub-loaded Xen and
+> > > ultimately for XCP-ng (I'm on the XCP-ng team at Vates).
+> > >
+> > > In addition to carrying the chain-of-trust through the entire boot sequence
+> > > into dom0, we would also like to build something akin to Linux's Lockdown for
+> > > dom0 and its privileged interfaces.
+> > >
+> > > It appears that there are various options and we'd like to discuss them with
+> > > the community.
+> > >
+> > > # Option #1: PE/COFF and Shim
+> > >
+> > > Shim installs a verification protocol available to subsequent programs via EFI
+> > > boot services.  The protocol is called SHIM_LOCK and it is currently supported
+> > > by xen.efi.
+> > >
+> > > Shim requires the payload under verification to be a PE/COFF executable.  In
+> > > order to support both shim and maintain the multiboot2 protocol, Daniel Kiper's
+> > > patchset [1]  (among other things) incorporates the PE/COFF header
+> > > into xen.gz and adds dom0 verification via SHIM_LOCK in
+> > > efi_multiboot2().
+> > >
+> > > There appears that some work will be needed on top of this patchset, but not
+> > > much as it seems most of the foot work has been done.
+> > >
+> > > AFAIK, the changes needed in GRUB for this approach are already upstream (the
+> > > shim_lock module is upstream), and shim would go untouched.
+> > >
+> > > # Option #2: Extended Multiboot2 and Shim
+> > >
+> > > Another approach that could be taken is to embed Xen's signature into a
+> > > new multiboot2 header and then modify shim to support it.  This would
+> > > arguably be more readable than embedding the PE/COFF header, would add
+> > > value to shim, and would fit nicely with the mb2 header code that
+> > > already exists in Xen.  The downside being that it would require a shim
+> > > fork.  Grub2 would be unchanged.
+>
+> Here you have to change the Multiboot2 protocol and singing tools too.
+> So, I do not consider this as a viable solution.
+>
+> > > I'm not familliar with Microsoft's signing process.  I do know they
+> > > support template submissions based on shim, and I'm not sure if such a
+> > > big change would impact their approval process.
+> > >
+> > > # Option #3: Lean on Grub2's LoadFile2() Verification
+> > >
+> > > Grub2 will provide a LoadFile2() method to subsequent programs that supports
+> > > signature verification of arbitrary files.  Linux is moving in the
+> > > direction of using LoadFile2() for loading the initrd [2], and Grub2 will
+> > > support verifying the signatures of files loaded via LoadFile2().  This is set
+> > > for release in GRUB 2.06 sometime in the latter half of 2020.
+>
+> s/for release in/after release/
+>
+> > > In Xen, this approach could be used for loading dom0 as well, offering a very
+> > > simple verified load interface.
+> > >
+> > > Currently the initrd argument passed from Linux to LoadFile2() is a vendor
+> > > media device path GUID [3].
+> > >
+> > > Changes to Xen:
+> > > - Xen would need to pass these device paths to Grub
+> > > - Xen would be changed to load dom0 with the LoadFile2() interface via boot services
+> > >
+> > > Changes to Grub:
+> > > - Xen dom0 kernel/initrd device paths would need to be introduced to Grub
+>
+> Maybe partially but certainly there will be some differences...
+>
+> > > Potential Issues:
+> > > - How will Xen handle more boot modules than just a dom0 and dom0
+> > >   initrd?
+> > > - Would each boot module need a unique vendor guid?
+>
+> AIUI yes but Ard, who designed this new boot protocol, may say more
+> about that.
+>
+> Anyway, the advantage of this new protocol is that it uses UEFI API to
+> load and execute PE kernel and its modules. This means that it will be
+> architecture independent. However, IIRC, if we want to add new modules
+> types to the Xen then we have to teach all bootloaders in the wild about
+> new GUIDs. Ard, am I correct?
+>
 
-While I agree with the "illustrative", I'd really see this be part
-of the struct initializer. Plus its use here made me wonder ...
+Well, if you are passing multiple files that are not interchangeable,
+each bootloader will need to do something, right? It could be another
+GUID, or we could extend the initrd media device path to take
+discriminators.
 
->>> +        ctxt.field_width =
->>> +#ifdef CONFIG_COMPAT
->>> +            has_32bit_shinfo(d) ? 4 :
->>> +#endif
->>> +            8;
->>> +
->>> +    rc = domain_save_data(c, &ctxt, hdr_size);
->>> +    if ( rc )
->>> +        return rc;
->>> +
->>> +    rc = domain_save_data(c, d->shared_info, PAGE_SIZE);
->>> +    if ( rc )
->>> +        return rc;
+So today, we have
 
-... why these don't get skipped. It took me going back through
-earlier patches to find that there's effectively redundancy in
-the passed arguments in that the write callback chosen varies with
-whether "dry_run" is true or false.
+VendorMedia(5568e427-68fc-4f3d-ac74-ca555231cc68)
 
-Jan
+which identifies /the/ initrd on Linux. As long as this keeps working
+as intended, I have no objections extending this to
+
+VendorMedia(5568e427-68fc-4f3d-ac74-ca555231cc68)/File(...)
+
+etc, if we can agree that omitting the File() part means the unnamed
+initrd, and that L"initrd" is reserved as a file name. That way, you
+can choose any abstract file name you want, but please note that the
+loader still needs to provide some kind of mapping of how these
+abstract file names relate to actual files selected by the user.
+
+One thing to keep in mind, though, is that this protocol goes away
+after ExitBootServices().
+
+
+
+> > > - Would this interfere with the DomB proposal?  I suspect not because
+> > >   the DomB proposal suggests launching DomUs from an already booted
+> > >   DomB, at which point other means could be used.
+> > >
+> > > We'd just like to get the conversation going on this topic before we
+> > > dive too far into implementing something.  Are any of these approaches a
+> > > hard no for upstreaming?  Do any stand out as best candidates?  Any
+> > > feedback / questions / criticisms would be greatly appreciated.
+> >
+> > A shim fork doesn't look desirable, which would rule out #2 unless there
+> > is an option there to avoid the fork.
+> >
+> > If the potential issues listed for #3 can be suitably addressed, I can't
+> > currently see a reason to prefer either of the two remaining options; I
+> > vaguely recall though that Daniel's change for #1 didn't look overly
+> > appealing, but perhaps this can be taken care of.
+>
+> Daniel
 
