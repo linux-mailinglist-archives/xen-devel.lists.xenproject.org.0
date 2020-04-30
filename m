@@ -2,45 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C6C91BFBDC
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 16:02:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64B1B1BFD20
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 16:10:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU9lM-0000c9-50; Thu, 30 Apr 2020 14:02:04 +0000
+	id 1jU9tL-0001Sf-0l; Thu, 30 Apr 2020 14:10:19 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0VdV=6O=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jU9lK-0000c4-O6
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 14:02:02 +0000
-X-Inumbo-ID: 29e57f6e-8aeb-11ea-9a55-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ <SRS0=DLrL=6O=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jU9tJ-0001Sa-Jb
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 14:10:17 +0000
+X-Inumbo-ID: 4f4f40a6-8aec-11ea-9a5b-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 29e57f6e-8aeb-11ea-9a55-12813bfff9fa;
- Thu, 30 Apr 2020 14:02:01 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id E2E1EAC24;
- Thu, 30 Apr 2020 14:01:59 +0000 (UTC)
-Message-ID: <93b8fef9e1ec7a06fac3a697276d43564118df5b.camel@suse.com>
-Subject: Re: [PATCH 2/2] xen: credit2: limit the max number of CPUs in a
- runqueue
-From: Dario Faggioli <dfaggioli@suse.com>
-To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, 
- xen-devel@lists.xenproject.org
-Date: Thu, 30 Apr 2020 16:01:59 +0200
-In-Reply-To: <7e039c65-4532-c3ea-8707-72a86cf48e0e@suse.com>
-References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
- <158818179558.24327.11334680191217289878.stgit@Palanthas>
- <b368ccef-d3b1-1338-6325-8f81a963876d@suse.com>
- <d60d5b917d517b1dfa8292cfb456639c736ec173.camel@suse.com>
- <7e039c65-4532-c3ea-8707-72a86cf48e0e@suse.com>
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-JpCMH30dOivjgC0gYGpK"
-User-Agent: Evolution 3.36.1 
+ id 4f4f40a6-8aec-11ea-9a5b-12813bfff9fa;
+ Thu, 30 Apr 2020 14:10:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9MXkjsDUUt1XSoMIc8i0fVdYPcYtn5tPEW5Y1X/BRls=; b=BbW2XiRSMkPp0AduzOM3sGIXb
+ O4D7m8IUkYY0A+d/Cl4aOWVDwx4/X7WGfkOOytYImoHMp99mzUy+muXN8LhXA6FFOcgoJx2Rkuk+Z
+ AATEM6to3Zo2tbOuuPF34QE02Ji1Buh+zrPJZx/gxst1RTz1sjQOQnkwKRIXsOAGfRWfw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jU9tG-0004YU-Br; Thu, 30 Apr 2020 14:10:14 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jU9tF-0004vM-Lq; Thu, 30 Apr 2020 14:10:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jU9tF-0003EF-Ko; Thu, 30 Apr 2020 14:10:13 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149886-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [libvirt test] 149886: regressions - FAIL
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=c4ccb0d0ce57264361dd2ca704f9037935f7f44d
+X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 30 Apr 2020 14:10:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,98 +79,154 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+flight 149886 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149886/
 
---=-JpCMH30dOivjgC0gYGpK
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Regressions :-(
 
-On Thu, 2020-04-30 at 14:52 +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> On 30.04.20 14:28, Dario Faggioli wrote:
-> > On Thu, 2020-04-30 at 09:35 +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> > >=20
-> > With that, when the user removes 4 CPUs, we will have the 6 vs 10
-> > situation. But we would make sure that, when she adds them back, we
-> > will go back to 10 vs. 10, instead than, say, 6 vs 14 or something
-> > like
-> > that.
-> >=20
-> > Was something like this that you had in mind? And in any case, what
-> > do
-> > you think about it?
->=20
-> Yes, this would be better already.
->=20
-Right, I'll give a try at this, and let's see how it ends up looking
-like.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
 
-> > This way if, in future, CPU 1 is removed from Pool-1 and added to
-> > Pool-0, I am sure it can go in the same runqueue where CPU 0 is. If
-> > I
-> > don't consider CPUs which currently are in another pool, we risk
-> > that
-> > when/if they're added to this very pool, they'll end up in a
-> > different
-> > runqueue.
-> >=20
-> > And we don't want that.
-> >=20
-> Yes.
->=20
-Cool. :-)
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
 
-> You should add a comment in this regard.
->=20
-Sure.
+version targeted for testing:
+ libvirt              c4ccb0d0ce57264361dd2ca704f9037935f7f44d
+baseline version:
+ libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
 
-> And you should either reject the case of less cpus per queue than
-> siblings per core, or you should handle this situation. Otherwise you
-> won't ever find a suitable run-queue. :-)
->=20
-Right, and in fact I had a check for that, rejecting smaller
-max-cpus-per-runqueue than siblings, where we validate also the other
-scheduling parameters. But indeed it's not there now, so I guess I
-removed it by mistake before sending.
+Last test of basis   146182  2020-01-17 06:00:23 Z  104 days
+Failing since        146211  2020-01-18 04:18:52 Z  103 days   96 attempts
+Testing same since   149870  2020-04-29 04:18:52 Z    1 days    2 attempts
 
-And now that I double check, I'm also missing documenting the new
-parameters.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Arnaud Patard <apatard@hupstream.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Chen Hanxiao <chen_han_xiao@126.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniel Veillard <veillard@redhat.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Erik Skultety <eskultet@redhat.com>
+  Gaurav Agrawal <agrawalgaurav@gnome.org>
+  Han Han <hhan@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Leonid Bloch <lb.workbox@gmail.com>
+  Lin Ma <LMa@suse.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mark Asselstine <mark.asselstine@windriver.com>
+  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Pavel Mores <pmores@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Philipp Hahn <hahn@univention.de>
+  Pino Toscano <ptoscano@redhat.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Rafael Fonseca <r4f4rfs@gmail.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Rikard Falkeborn <rikard.falkeborn@gmail.com>
+  Ryan Moeller <ryan@iXsystems.com>
+  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Tobin Feldman-Fitzthum <tobin@linux.vnet.ibm.com>
+  Wu Qingliang <wuqingliang4@huawei.com>
+  Yi Li <yili@winhong.com>
+  Your Name <you@example.com>
+  Zhang Bo <oscar.zhangbo@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhimin Feng <fengzhimin1@huawei.com>
 
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
---=-JpCMH30dOivjgC0gYGpK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
------BEGIN PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl6q2lcACgkQFkJ4iaW4
-c+4Xcw//WRmKpUHFdXw9LvUblxoFqFfZvlP84rWjxNCdaRpL87ZI2Emd3hMVUhvD
-JR+L1VJgkxKWossI1kVQ5GPp/7N2LUitvqke57BAkqO87hcQGRigB4/CWGgBQH67
-wEXMCzROWdmjIsAzqxmiSYK/7Gyx619rdlK0ewyQri/mt0nrxbVCIX/88DgtxGi9
-vE6SEO7U21uHc9+eaD45sHwx0Axr6l6sfglMzJkz2H1YGpFaWOBZn8MAH2Wt+rNp
-pQCpaO9DEX+cdDpglBwXp1XqQ1kcZ7tLHu3CpLUXAWOn6sioSRZ/jczl6gCeT7Er
-mupydr088uHRO/sFXxtPDF+yiLVT/m6w9/wzaJ41wUVYmj8W/9lcB2bJ7ihVRSGr
-b9yeIbVGuAoXHbkcaFYaDLVd0ld4SfH0xEgyN4UbaUs85zzMM5EpwuZ1V4zSpDBO
-ASj/lBC1G/uZS+jQqL0mnJOf+VsPwmNmt9xDCubv6cgmPERxf4OE/SVrjAKZknuM
-glN/u3wsTbAVcoc88sqrRtfgWkZPDo4ui4RSryPMGG5cRaYoxD+3z4TuL6m6zEb/
-9jYMTBCNtuNdm+cubY5YcieL0ezIN3K9KlJQwDvFwbmTuY6RJD913iixSseymaXf
-jPLYYIouG5l+TwTK8Ttync5TNR6K55hzKpIxIruQI7rb0LUHngk=
-=0QnT
------END PGP SIGNATURE-----
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---=-JpCMH30dOivjgC0gYGpK--
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+(No revision log; it would be 16767 lines long.)
 
