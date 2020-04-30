@@ -2,58 +2,107 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57B181C04B3
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 20:28:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86D9E1C04B4
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 20:28:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUDum-00087V-9p; Thu, 30 Apr 2020 18:28:04 +0000
+	id 1jUDuw-0008BC-KT; Thu, 30 Apr 2020 18:28:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ng0l=6O=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jUDul-00087E-7O
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 18:28:03 +0000
-X-Inumbo-ID: 536d1106-8b10-11ea-9887-bc764e2007e4
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DLrL=6O=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jUDuv-0008Ai-6l
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 18:28:13 +0000
+X-Inumbo-ID: 55d43442-8b10-11ea-b9cf-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 536d1106-8b10-11ea-9887-bc764e2007e4;
- Thu, 30 Apr 2020 18:28:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ id 55d43442-8b10-11ea-b9cf-bc764e2007e4;
+ Thu, 30 Apr 2020 18:28:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=XvMGg1AExOn2bF5PuPdSQImcZvoL9DZRVrvMKU0kpuM=; b=EZcoJz8LKPU/p03Ab6zQZEVGGx
- bn++xbouDs8agSMF4/8GITAMQ/irK3TpF4ArGqlUafMVMVibnI+MuwLrwhdWNttTsLt+muVOYeNQb
- skAEywUJzxItKe8mkY8j2sIrftxujBxZPmRLTYigBYebqLRIlghtdFYIGoKq3e9a6XAc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=m4XtGxf7MAGhA06KJFxfoZNIFGFMA4zXI9CExNGWWzs=; b=Wuc1yfc3VgFXWCA/aL6tvEkwD
+ 8QTJ10JUoSnlV+yRW/kY6aU4zsfO3Olu9dEn6c3ZtpgiXyguGZUT5zsqms9pNROulMF0s1/ul2ZEz
+ 1L8IFNnkX5c360xwa38JiYPBiUOyy5wWbnEp5bWBy0R/7vv9G8dE4gk4Ab2WgFNjesZso=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jUDug-0001jk-I8; Thu, 30 Apr 2020 18:27:58 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jUDug-0002p7-43; Thu, 30 Apr 2020 18:27:58 +0000
-Subject: Re: [PATCH 05/12] xen: introduce reserve_heap_pages
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-5-sstabellini@kernel.org>
- <3129ab49-5898-9d2e-8fbb-d1fcaf6cdec7@suse.com>
- <alpine.DEB.2.21.2004291510270.28941@sstabellini-ThinkPad-T480s>
- <a316ed70-da35-8be0-a092-d992e56563d2@xen.org>
- <alpine.DEB.2.21.2004300928240.28941@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <86e8fa89-c6f5-6c9e-4f3e-7f98e8e12c6a@xen.org>
-Date: Thu, 30 Apr 2020 19:27:55 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jUDuo-0001kB-8y; Thu, 30 Apr 2020 18:28:06 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jUDun-0000Zv-Pw; Thu, 30 Apr 2020 18:28:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jUDun-0002GQ-Nx; Thu, 30 Apr 2020 18:28:05 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149882-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2004300928240.28941@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [linux-linus test] 149882: tolerable FAIL - PUSHED
+X-Osstest-Failures: linux-linus:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: linux=1d2cc5ac6f6668cc15216d51051103c61467d7e8
+X-Osstest-Versions-That: linux=96c9a7802af7d500a582d89a8b864584fe878c1b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 30 Apr 2020 18:28:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,156 +113,209 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, andrew.cooper3@citrix.com,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com,
- "Woodhouse, David" <dwmw@amazon.co.uk>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+flight 149882 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149882/
 
-On 30/04/2020 18:00, Stefano Stabellini wrote:
-> On Thu, 30 Apr 2020, Julien Grall wrote:
->>>>> +    pg = maddr_to_page(start);
->>>>> +    node = phys_to_nid(start);
->>>>> +    zone = page_to_zone(pg);
->>>>> +    page_list_del(pg, &heap(node, zone, order));
->>>>> +
->>>>> +    __alloc_heap_pages(pg, order, memflags, d);
->>>>
->>>> I agree with Julien in not seeing how this can be safe / correct.
->>>
->>> I haven't seen any issues so far in my testing -- I imagine it is
->>> because there aren't many memory allocations after setup_mm() and before
->>> create_domUs()  (which on ARM is called just before
->>> domain_unpause_by_systemcontroller at the end of start_xen.)
->>
->> I am not sure why you exclude setup_mm(). Any memory allocated (boot
->> allocator, xenheap) can clash with your regions. The main memory allocations
->> are for the frametable and dom0. I would say you were lucky to not hit them.
-> 
-> Maybe it is because Xen typically allocates memory top-down? So if I
-> chose a high range then I would see a failure? But I have been mostly
-> testing with ranges close to the begin of RAM (as opposed to
-> ranges close to the end of RAM.)
+Failures :-/ but no regressions.
 
-I haven't looked at the details of the implementation, but you can try 
-to specify dom0 addresses for your domU. You should see a failure.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-rtds     18 guest-localmigrate/x10  fail blocked in 149868
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 149868
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 149868
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 149868
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 149868
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 149868
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 149868
+ test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat    fail  like 149868
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop             fail like 149868
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 149868
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
 
-> 
->   
->>> I gave a quick look at David's series. Is the idea that I should add a
->>> patch to do the following:
->>>
->>> - avoiding adding these ranges to xenheap in setup_mm, wait for later
->>>     (a bit like reserved_mem regions)
->>
->> I guess by xenheap, you mean domheap? But the problem is not only for domheap,
->> it is also for any memory allocated via the boot allocator. So you need to
->> exclude those regions from any possible allocations.
-> 
-> OK, I think we are saying the same thing but let me check.
-> 
-> By boot allocator you mean alloc_boot_pages, right? That boot allocator
-> operates on ranges given to it by init_boot_pages calls.
+version targeted for testing:
+ linux                1d2cc5ac6f6668cc15216d51051103c61467d7e8
+baseline version:
+ linux                96c9a7802af7d500a582d89a8b864584fe878c1b
 
-That's correct.
+Last test of basis   149868  2020-04-29 00:40:01 Z    1 days
+Testing same since   149882  2020-04-29 17:08:48 Z    1 days    1 attempts
 
-> init_boot_pages is called from setup_mm. I didn't write it clearly but
-> I also meant not calling init_boot_pages on them from setup_mm.
-> 
-> Are we saying the same thing?
+------------------------------------------------------------
+People who touched revisions under test:
+  Damien Le Moal <damien.lemoal@wdc.com>
+  Guenter Roeck <linux@roeck-us.net>
+  Herbert Xu <herbert@gondor.apana.org.au>
+  Ilie Halip <ilie.halip@gmail.com>
+  Iuliana Prodan <iuliana.prodan@nxp.com>
+  Kefeng Wang <wangkefeng.wang@huawei.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Palmer Dabbelt <palmerdabbelt@google.com>
 
-Yes.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-> 
-> 
->>> - in construct_domU, add the range to xenheap and reserve it with
->>> reserve_heap_pages
->>
->> I am afraid you can't give the regions to the allocator and then allocate
->> them. The allocator is free to use any page for its own purpose or exclude
->> them.
->>
->> AFAICT, the allocator doesn't have a list of page in use. It only keeps track
->> of free pages. So we can make the content of struct page_info to look like it
->> was allocated by the allocator.
->>
->> We would need to be careful when giving a page back to allocator as the page
->> would need to be initialized (see [1]). This may not be a concern for Dom0less
->> as the domain may never be destroyed but will be for correctness PoV.
->>
->> For LiveUpdate, the original Xen will carve out space to use by the boot
->> allocator in the new Xen. But I think this is not necessary in your context.
->>
->> It should be sufficient to exclude the page from the boot allocators (as we do
->> for other modules).
->>
->> One potential issue that can arise is there is no easy way today to
->> differentiate between pages allocated and pages not yet initialized. To make
->> the code robust, we need to prevent a page to be used in two places. So for
->> LiveUpdate we are marking them with a special value, this is used afterwards
->> to check we are effictively using a reserved page.
->>
->> I hope this helps.
-> 
-> Thanks for writing all of this down but I haven't understood some of it.
-> 
-> For the sake of this discussion let's say that we managed to "reserve"
-> the range early enough like we do for other modules, as you wrote.
-> 
-> At the point where we want to call reserve_heap_pages() we would call
-> init_heap_pages() just before it. We are still relatively early at boot
-> so there aren't any concurrent memory operations. Why this doesn't work?
 
-Because init_heap_pages() may exclude some pages (for instance MFN 0 is 
-carved out) or use pages for its internal structure (see 
-init_node_heap()). So you can't expect to be able to allocate the exact 
-same region by reserve_heap_pages().
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> 
-> If it doesn't work, I am not following what is your alternative
-> suggestion about making "the content of struct page_info to look like it
-> was allocated by the allocator."
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-If you look at alloc_heap_pages(), it will allocate pages, the allocator 
-will initialize some fields in struct page_info before returning the 
-page. We basically need to do the same thing, so the struct page_info 
-looks exactly the same whether we call alloc_heap_pages() or use memory 
-that was carved out from the allocator.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-David has spent more time than me on this problem, so I may be missing 
-some bits. Based on what we did in the LU PoC, my suggestion would be to:
-    1) Carve out the memory from any allocator (and before any memory is 
-allocated).
-    2) Make sure a struct page_info is allocated for those regions in 
-the boot allocator
-    3) Mark the regions as reserved in the frametable so we can 
-differentiate from the others pages.
-    4) Allocate the region when necessary
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-When it is necessary to allocate the region. For each page:
-    1) Check if it is a valid page
-    2) Check if the page is reserved
-    3) Do the necessary preparation on struct page_info
 
-At the moment, in the LU PoC, we are using count_info = PGC_allocated to 
-mark the reserved page. I don't particularly like it and not sure of the 
-consequence. So I am open to a different way to mark them.
+Pushing revision :
 
-The last part we need to take care is how to hand over the pages to the 
-allocator. This may happen if your domain die or ballooning (although 
-not in the direct map case). Even without this series, this is actually 
-already a problem today because boot allocator pages may be freed 
-afterwards (I think this can only happen on x86 so far). But we are 
-getting away because in most of the cases you never carve out a full 
-NUMA node. This is where David's patch should help.
-
-Cheers,
-
--- 
-Julien Grall
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   96c9a7802af7..1d2cc5ac6f66  1d2cc5ac6f6668cc15216d51051103c61467d7e8 -> tested/linux-linus
 
