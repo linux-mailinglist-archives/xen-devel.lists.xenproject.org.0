@@ -2,33 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 352A41BEFDB
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 07:40:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37EDF1BF04D
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 08:30:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU1uL-0003nc-Mm; Thu, 30 Apr 2020 05:38:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jU2hW-0000Jj-Ov; Thu, 30 Apr 2020 06:29:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=H9qc=6O=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jU1uJ-0003nX-He
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 05:38:47 +0000
-X-Inumbo-ID: dbfe6f7c-8aa4-11ea-9887-bc764e2007e4
+ (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jU2hV-0000Je-9p
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 06:29:37 +0000
+X-Inumbo-ID: f5894f5a-8aab-11ea-9a02-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dbfe6f7c-8aa4-11ea-9887-bc764e2007e4;
- Thu, 30 Apr 2020 05:38:46 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f5894f5a-8aab-11ea-9a02-12813bfff9fa;
+ Thu, 30 Apr 2020 06:29:35 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6276BAF17;
- Thu, 30 Apr 2020 05:38:44 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v3] tools/xenstore: don't store domU's mfn of ring page in
- xenstored
-Date: Thu, 30 Apr 2020 07:38:42 +0200
-Message-Id: <20200430053842.4376-1-jgross@suse.com>
-X-Mailer: git-send-email 2.16.4
+ by mx2.suse.de (Postfix) with ESMTP id 43A4EAB76;
+ Thu, 30 Apr 2020 06:29:33 +0000 (UTC)
+Subject: Re: [PATCH 05/12] xen: introduce reserve_heap_pages
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
+ <20200415010255.10081-5-sstabellini@kernel.org>
+ <3129ab49-5898-9d2e-8fbb-d1fcaf6cdec7@suse.com>
+ <alpine.DEB.2.21.2004291510270.28941@sstabellini-ThinkPad-T480s>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <8a517cbc-9ff7-5b9e-f2c9-08c411703d5d@suse.com>
+Date: Thu, 30 Apr 2020 08:29:28 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <alpine.DEB.2.21.2004291510270.28941@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,101 +49,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
+Cc: julien@xen.org, Wei Liu <wl@xen.org>, andrew.cooper3@citrix.com,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The XS_INTRODUCE command has two parameters: the mfn (or better: gfn)
-of the domain's xenstore ring page and the event channel of the
-domain for communicating with Xenstore.
+On 30.04.2020 00:46, Stefano Stabellini wrote:
+> On Fri, 17 Apr 2020, Jan Beulich wrote:
+>> On 15.04.2020 03:02, Stefano Stabellini wrote:
+>>> Introduce a function named reserve_heap_pages (similar to
+>>> alloc_heap_pages) that allocates a requested memory range. Call
+>>> __alloc_heap_pages for the implementation.
+>>>
+>>> Change __alloc_heap_pages so that the original page doesn't get
+>>> modified, giving back unneeded memory top to bottom rather than bottom
+>>> to top.
+>>
+>> While it may be less of a problem within a zone, doing so is
+>> against our general "return high pages first" policy.
+> 
+> Is this something you'd be OK with anyway?
 
-The gfn is not really needed. It is stored in the per-domain struct
-in xenstored and in case of another XS_INTRODUCE for the domain it
-is tested to match the original value. If it doesn't match the
-command is aborted via EINVAL, otherwise the event channel to the
-domain is recreated.
+As a last resort, maybe. But it really depends on why it needs to be
+this way.
 
-As XS_INTRODUCE is limited to dom0 and there is no real downside of
-recreating the event channel just omit the test for the gfn to
-match and don't return EINVAL for multiple XS_INTRODUCE calls.
+> If not, do you have a suggestion on how to do it better? I couldn't find
+> a nice way to do it without code duplication, or a big nasty 'if' in the
+> middle of the function.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- remove mfn from struct domain (Julien Grall)
-- replace mfn by gfn in comments (Julien Grall)
+I'd first need to understand the problem to solve.
 
-V3:
-- allow multiple XS_INTRODUCE calls (Igor Druzhinin)
----
- tools/xenstore/xenstored_domain.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+>>> +    pg = maddr_to_page(start);
+>>> +    node = phys_to_nid(start);
+>>> +    zone = page_to_zone(pg);
+>>> +    page_list_del(pg, &heap(node, zone, order));
+>>> +
+>>> +    __alloc_heap_pages(pg, order, memflags, d);
+>>
+>> I agree with Julien in not seeing how this can be safe / correct.
+> 
+> I haven't seen any issues so far in my testing -- I imagine it is
+> because there aren't many memory allocations after setup_mm() and before
+> create_domUs()  (which on ARM is called just before
+> domain_unpause_by_systemcontroller at the end of start_xen.)
+> 
+> 
+> I gave a quick look at David's series. Is the idea that I should add a
+> patch to do the following:
+> 
+> - avoiding adding these ranges to xenheap in setup_mm, wait for later
+>   (a bit like reserved_mem regions)
+> 
+> - in construct_domU, add the range to xenheap and reserve it with reserve_heap_pages
+> 
+> Is that right?
 
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 5858185211..06359503f0 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -55,10 +55,6 @@ struct domain
- 	   repeated domain introductions. */
- 	evtchn_port_t remote_port;
- 
--	/* The mfn associated with the event channel, used only to validate
--	   repeated domain introductions. */
--	unsigned long mfn;
--
- 	/* Domain path in store. */
- 	char *path;
- 
-@@ -363,13 +359,12 @@ static void domain_conn_reset(struct domain *domain)
- 	domain->interface->rsp_cons = domain->interface->rsp_prod = 0;
- }
- 
--/* domid, mfn, evtchn, path */
-+/* domid, gfn, evtchn, path */
- int do_introduce(struct connection *conn, struct buffered_data *in)
- {
- 	struct domain *domain;
- 	char *vec[3];
- 	unsigned int domid;
--	unsigned long mfn;
- 	evtchn_port_t port;
- 	int rc;
- 	struct xenstore_domain_interface *interface;
-@@ -381,7 +376,7 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
- 		return EACCES;
- 
- 	domid = atoi(vec[0]);
--	mfn = atol(vec[1]);
-+	/* Ignore the gfn, we don't need it. */
- 	port = atoi(vec[2]);
- 
- 	/* Sanity check args. */
-@@ -402,21 +397,19 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
- 			return rc;
- 		}
- 		domain->interface = interface;
--		domain->mfn = mfn;
- 
- 		/* Now domain belongs to its connection. */
- 		talloc_steal(domain->conn, domain);
- 
- 		fire_watches(NULL, in, "@introduceDomain", false);
--	} else if ((domain->mfn == mfn) && (domain->conn != conn)) {
-+	} else {
- 		/* Use XS_INTRODUCE for recreating the xenbus event-channel. */
- 		if (domain->port)
- 			xenevtchn_unbind(xce_handle, domain->port);
- 		rc = xenevtchn_bind_interdomain(xce_handle, domid, port);
- 		domain->port = (rc == -1) ? 0 : rc;
- 		domain->remote_port = port;
--	} else
--		return EINVAL;
-+	}
- 
- 	domain_conn_reset(domain);
- 
--- 
-2.16.4
+This may be one way, but it may also be not the only possible one.
+The main thing to arrange for is that there is either a guarantee
+for these ranges to be free (which I think you want to check in
+any event, rather than risking to give out something that's already
+in use elsewhere), or that you skip ranges which are already in use
+(potentially altering [decreasing?] what the specific domain gets
+allocated).
 
+Jan
 
