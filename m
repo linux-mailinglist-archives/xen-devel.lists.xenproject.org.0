@@ -2,57 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB4F1BFA2C
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 15:52:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C6C91BFBDC
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 16:02:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU9bK-00085F-06; Thu, 30 Apr 2020 13:51:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ng0l=6O=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jU9bH-00085A-Lr
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 13:51:39 +0000
-X-Inumbo-ID: b6e6dcb6-8ae9-11ea-ae69-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b6e6dcb6-8ae9-11ea-ae69-bc764e2007e4;
- Thu, 30 Apr 2020 13:51:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+yo8jQWDE6EDVgFXhgJvePM3Ow/54L7D3f3iwH/OW0I=; b=ugX7VFld/NDBY5+IF/qpjs/47Q
- tyolP1uI+0Z8JJ83ZNbwDK5JS2apl7yW32OiF83RSGtY1BCp1nhR1M9unp65I7PBdzoca7YErS729
- MS8QVmkhQpoB7YnB1QbVjIoTEbn+gOrg0/JIjuvNAhDpOCltPDNliT3F5gCjXpqkbdso=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jU9bF-00047Y-DC; Thu, 30 Apr 2020 13:51:37 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jU9bF-00060C-63; Thu, 30 Apr 2020 13:51:37 +0000
-Subject: Re: [PATCH 11/12] xen/arm: if xen_force don't try to setup the IOMMU
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-11-sstabellini@kernel.org>
- <4b4263ba-bf6f-e578-037d-edb8add52aad@xen.org>
- <alpine.DEB.2.21.2004291400340.28941@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b60d6ae3-e300-04a1-a884-e73d01a108d5@xen.org>
-Date: Thu, 30 Apr 2020 14:51:35 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+	id 1jU9lM-0000c9-50; Thu, 30 Apr 2020 14:02:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0VdV=6O=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1jU9lK-0000c4-O6
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 14:02:02 +0000
+X-Inumbo-ID: 29e57f6e-8aeb-11ea-9a55-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 29e57f6e-8aeb-11ea-9a55-12813bfff9fa;
+ Thu, 30 Apr 2020 14:02:01 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id E2E1EAC24;
+ Thu, 30 Apr 2020 14:01:59 +0000 (UTC)
+Message-ID: <93b8fef9e1ec7a06fac3a697276d43564118df5b.camel@suse.com>
+Subject: Re: [PATCH 2/2] xen: credit2: limit the max number of CPUs in a
+ runqueue
+From: Dario Faggioli <dfaggioli@suse.com>
+To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, 
+ xen-devel@lists.xenproject.org
+Date: Thu, 30 Apr 2020 16:01:59 +0200
+In-Reply-To: <7e039c65-4532-c3ea-8707-72a86cf48e0e@suse.com>
+References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
+ <158818179558.24327.11334680191217289878.stgit@Palanthas>
+ <b368ccef-d3b1-1338-6325-8f81a963876d@suse.com>
+ <d60d5b917d517b1dfa8292cfb456639c736ec173.camel@suse.com>
+ <7e039c65-4532-c3ea-8707-72a86cf48e0e@suse.com>
+Organization: SUSE
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-JpCMH30dOivjgC0gYGpK"
+User-Agent: Evolution 3.36.1 
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2004291400340.28941@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,91 +51,98 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Stefano,
 
-On 29/04/2020 22:55, Stefano Stabellini wrote:
-> On Wed, 15 Apr 2020, Julien Grall wrote:
->> Hi Stefano,
->>
->> On 15/04/2020 02:02, Stefano Stabellini wrote:
->>> If xen_force (which means xen,force-assign-without-iommu was requested)
->>> don't try to add the device to the IOMMU. Return early instead.
->>
->>
->> Could you explain why this is an issue to call xen_force after
->> iommu_add_dt_device()?
-> 
-> There are two issues. I should add info about both of them to the commit
-> message.
-> 
-> 
-> The first issue is that an error returned by iommu_add_dt_device (for
-> any reason) would cause handle_passthrough_prop to stop and return error
-> right away. But actually the iommu is not needed for that device if
-> xen_force is set.
+--=-JpCMH30dOivjgC0gYGpK
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-During boot, Xen will configure the IOMMUs to fault on any DMA 
-transactions that are not valid. So if you don't call 
-iommu_assign_dt_device(), then your device will be unusable.
+On Thu, 2020-04-30 at 14:52 +0200, J=C3=BCrgen Gro=C3=9F wrote:
+> On 30.04.20 14:28, Dario Faggioli wrote:
+> > On Thu, 2020-04-30 at 09:35 +0200, J=C3=BCrgen Gro=C3=9F wrote:
+> > >=20
+> > With that, when the user removes 4 CPUs, we will have the 6 vs 10
+> > situation. But we would make sure that, when she adds them back, we
+> > will go back to 10 vs. 10, instead than, say, 6 vs 14 or something
+> > like
+> > that.
+> >=20
+> > Was something like this that you had in mind? And in any case, what
+> > do
+> > you think about it?
+>=20
+> Yes, this would be better already.
+>=20
+Right, I'll give a try at this, and let's see how it ends up looking
+like.
 
-Without your patch, the user will know directly something went wrong. 
-With your patch, the fault may occur much later and be more difficult to 
-diagnostics.
+> > This way if, in future, CPU 1 is removed from Pool-1 and added to
+> > Pool-0, I am sure it can go in the same runqueue where CPU 0 is. If
+> > I
+> > don't consider CPUs which currently are in another pool, we risk
+> > that
+> > when/if they're added to this very pool, they'll end up in a
+> > different
+> > runqueue.
+> >=20
+> > And we don't want that.
+> >=20
+> Yes.
+>=20
+Cool. :-)
 
-> (In fact, one of the reasons why a user might want to set
-> force-assign-without-iommu is because there are iommu issues with a
-> device.)
-This would not work because of the reasons I explained above. The only 
-way would be to configure the IOMMU in bypass mode for that device.
+> You should add a comment in this regard.
+>=20
+Sure.
 
-So you would still need to call the IOMMU subsystem.
+> And you should either reject the case of less cpus per queue than
+> siblings per core, or you should handle this situation. Otherwise you
+> won't ever find a suitable run-queue. :-)
+>=20
+Right, and in fact I had a check for that, rejecting smaller
+max-cpus-per-runqueue than siblings, where we validate also the other
+scheduling parameters. But indeed it's not there now, so I guess I
+removed it by mistake before sending.
 
-> 
-> 
-> The second issue is about the usage of "xen,force-assign-without-iommu":
-> it would be useful to let the user set "xen,force-assign-without-iommu"
-> for devices that are described as behind a SMMU in device tree, but
-> the SMMU can't actually be used for some reason. Of course, the user
-> could always manually edit the device tree to make it look like as if
-> the device is not behind an IOMMU. That would work OK. However, I think
-> it would be better to avoid making that a requirement.
+And now that I double check, I'm also missing documenting the new
+parameters.
 
- From the documentation:
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
-"If xen,force-assign-without-iommu is present, Xen allows to assign a
-device even if it is not behind an IOMMU. This renders your platform
-*unsafe* if the device is DMA-capable."
 
-xen,force-assign-without-iommu was never meant to be used if the device 
-is protected behind an IOMMU. If you want to do that, then your patch is 
-not going to be sufficient (see why above).
+--=-JpCMH30dOivjgC0gYGpK
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-> 
-> If we want to allow "xen,force-assign-without-iommu" for a device behind
-> a SMMU then we need this patch, otherwise this would happen:
-> 
->      res = iommu_add_dt_device(node); // succeeds
->      if ( xen_force && !dt_device_is_protected(node) ) // fails because the device is protected
->          return 0;
->      return iommu_assign_dt_device(kinfo->d, node); // fails because !is_iommu_enabled(d) which is fine but then handle_prop_pfdt returns error too
+-----BEGIN PGP SIGNATURE-----
 
-You are mixing two things here... xen,force-assign-without-iommu doesn't 
-have a say on whether the IOMMU will be used for a domain. This decision 
-is only based on whether a partial DT exists and (with your patch #3) 
-whether the DomU memory is direct mapped.
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl6q2lcACgkQFkJ4iaW4
+c+4Xcw//WRmKpUHFdXw9LvUblxoFqFfZvlP84rWjxNCdaRpL87ZI2Emd3hMVUhvD
+JR+L1VJgkxKWossI1kVQ5GPp/7N2LUitvqke57BAkqO87hcQGRigB4/CWGgBQH67
+wEXMCzROWdmjIsAzqxmiSYK/7Gyx619rdlK0ewyQri/mt0nrxbVCIX/88DgtxGi9
+vE6SEO7U21uHc9+eaD45sHwx0Axr6l6sfglMzJkz2H1YGpFaWOBZn8MAH2Wt+rNp
+pQCpaO9DEX+cdDpglBwXp1XqQ1kcZ7tLHu3CpLUXAWOn6sioSRZ/jczl6gCeT7Er
+mupydr088uHRO/sFXxtPDF+yiLVT/m6w9/wzaJ41wUVYmj8W/9lcB2bJ7ihVRSGr
+b9yeIbVGuAoXHbkcaFYaDLVd0ld4SfH0xEgyN4UbaUs85zzMM5EpwuZ1V4zSpDBO
+ASj/lBC1G/uZS+jQqL0mnJOf+VsPwmNmt9xDCubv6cgmPERxf4OE/SVrjAKZknuM
+glN/u3wsTbAVcoc88sqrRtfgWkZPDo4ui4RSryPMGG5cRaYoxD+3z4TuL6m6zEb/
+9jYMTBCNtuNdm+cubY5YcieL0ezIN3K9KlJQwDvFwbmTuY6RJD913iixSseymaXf
+jPLYYIouG5l+TwTK8Ttync5TNR6K55hzKpIxIruQI7rb0LUHngk=
+=0QnT
+-----END PGP SIGNATURE-----
 
-The problem here is your are not enabling the IOMMU when a direct 
-mapping is used. I don't think we want the direct mapping option to 
-disable the IOMMU. This should be a separate option (maybe a bool 
-property iommu).
+--=-JpCMH30dOivjgC0gYGpK--
 
-Cheers,
-
--- 
-Julien Grall
 
