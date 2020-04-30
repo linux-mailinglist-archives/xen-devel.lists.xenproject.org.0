@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED8D1BF88E
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 14:55:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B9AA1BF88F
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 14:55:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU8iY-00033l-QF; Thu, 30 Apr 2020 12:55:06 +0000
+	id 1jU8j5-000370-3a; Thu, 30 Apr 2020 12:55:39 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ng0l=6O=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jU8iY-00033g-74
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 12:55:06 +0000
-X-Inumbo-ID: cf7c5754-8ae1-11ea-9a43-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jU8j4-00036p-6K
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 12:55:38 +0000
+X-Inumbo-ID: e297f320-8ae1-11ea-9a43-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cf7c5754-8ae1-11ea-9a43-12813bfff9fa;
- Thu, 30 Apr 2020 12:55:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=A+9ZwCAs6Ak667bWqIBnVNtQqduDdWH0n+/Tw5qPVbA=; b=s60S29kZsvnoUaCl6Lxlh4uDGZ
- srVsCXpgMvP6wZbPks0IjiqtATGIVIM53gX/5/Q+nXm5qwPMbiQoZzzIpXjGj8ekcdeKVHBaQwbm4
- XNZ7UC36ul6CTboneaAc0Hw1L/gd2zUm0/NG6rUTiFeJ/9RXsFzxtH0eg4qopErKE8rM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jU8iR-00033y-18; Thu, 30 Apr 2020 12:54:59 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jU8iQ-0002Gt-QC; Thu, 30 Apr 2020 12:54:58 +0000
-Subject: Re: [PATCH 0/12] direct-map DomUs
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <4a62c7c1-710f-21a9-a6cc-03aa290e18b1@xen.org>
- <alpine.DEB.2.21.2004291313030.28941@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <91b9d1d9-6e6f-c8b9-55ac-a3477b20a17b@xen.org>
-Date: Thu, 30 Apr 2020 13:54:56 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ id e297f320-8ae1-11ea-9a43-12813bfff9fa;
+ Thu, 30 Apr 2020 12:55:36 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B3D4CAE84;
+ Thu, 30 Apr 2020 12:55:34 +0000 (UTC)
+Subject: Re: [PATCH v6 10/15] efi: switch to new APIs in EFI code
+To: Hongyan Xia <hx242@xen.org>
+References: <cover.1587735799.git.hongyxia@amazon.com>
+ <f5fba4470f6d0a6a62e9e2139d6ef260a5c901f9.1587735799.git.hongyxia@amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <b5ca6bf6-d093-f8d7-0adc-29356590f0a7@suse.com>
+Date: Thu, 30 Apr 2020 14:55:34 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2004291313030.28941@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <f5fba4470f6d0a6a62e9e2139d6ef260a5c901f9.1587735799.git.hongyxia@amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -63,39 +47,75 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Artem_Mygaiev@epam.com, peng.fan@nxp.com, andrew.cooper3@citrix.com,
- George.Dunlap@citrix.com, Bertrand.Marquis@arm.com, jbeulich@suse.com,
- xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com
+Cc: xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Stefano,
+On 24.04.2020 16:09, Hongyan Xia wrote:
+> --- a/xen/arch/x86/efi/runtime.h
+> +++ b/xen/arch/x86/efi/runtime.h
+> @@ -1,12 +1,18 @@
+> +#include <xen/domain_page.h>
+> +#include <xen/mm.h>
+>  #include <asm/atomic.h>
+>  #include <asm/mc146818rtc.h>
+>  
+>  #ifndef COMPAT
+> -l4_pgentry_t *__read_mostly efi_l4_pgtable;
+> +mfn_t __read_mostly efi_l4_mfn = INVALID_MFN_INITIALIZER;
+>  
+>  void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e)
+>  {
+> -    if ( efi_l4_pgtable )
+> +    if ( !mfn_eq(efi_l4_mfn, INVALID_MFN) )
+> +    {
+> +        l4_pgentry_t *efi_l4_pgtable = map_domain_page(efi_l4_mfn);
+>          l4e_write(efi_l4_pgtable + l4idx, l4e);
 
-On 29/04/2020 21:16, Stefano Stabellini wrote:
-> On Thu, 16 Apr 2020, Julien Grall wrote:
->>> Stefano Stabellini (12):
->>>         xen: introduce xen_dom_flags
->>>         xen/arm: introduce arch_xen_dom_flags and direct_map
->>>         xen/arm: introduce 1:1 mapping for domUs
->>>         xen: split alloc_heap_pages in two halves for reusability
->>>         xen: introduce reserve_heap_pages
->>>         xen/arm: reserve 1:1 memory for direct_map domUs
->>>         xen/arm: new vgic: rename vgic_cpu/dist_base to c/dbase
->>>         xen/arm: if is_domain_direct_mapped use native addresses for GICv2
->>>         xen/arm: if is_domain_direct_mapped use native addresses for GICv3
->>>         xen/arm: if is_domain_direct_mapped use native UART address for vPL011
->>
->> The 3 patches above cover addresses but not interrupts. Why?
-> 
-> Hi Julien,
-> 
-> I take that you are referring to GUEST_VPL011_SPI, right?
+Blank line between declaration(s) and statement(s) please.
 
-GUEST_VPL011_SPI is at least one of them. For long term, we may want to 
-consider PPIs as well (e.g timer).
+Also, while I realize the choice of name of the local variable
+is (presumably) to avoid further code churn, I think it isn't
+really suitable for a local variable (also elsewhere below).
 
-Cheers,
+> @@ -1489,6 +1493,7 @@ static bool __init rt_range_valid(unsigned long smfn, unsigned long emfn)
+>  void __init efi_init_memory(void)
+>  {
+>      unsigned int i;
+> +    l4_pgentry_t *efi_l4_pgtable;
+>      struct rt_extra {
+>          struct rt_extra *next;
+>          unsigned long smfn, emfn;
+> @@ -1603,8 +1608,9 @@ void __init efi_init_memory(void)
+>       * Set up 1:1 page tables for runtime calls. See SetVirtualAddressMap() in
+>       * efi_exit_boot().
+>       */
+> -    efi_l4_pgtable = alloc_xen_pagetable();
+> -    BUG_ON(!efi_l4_pgtable);
+> +    efi_l4_mfn = alloc_xen_pagetable_new();
+> +    BUG_ON(mfn_eq(efi_l4_mfn, INVALID_MFN));
+> +    efi_l4_pgtable = map_domain_page(efi_l4_mfn);
+>      clear_page(efi_l4_pgtable);
+>  
+>      copy_mapping(0, max_page, ram_range_valid);
 
--- 
-Julien Grall
+Why don't you pass the already mapped L4 table into this function,
+rather than mapping the same page a 2nd time there?
+
+> @@ -1681,11 +1693,17 @@ void __init efi_init_memory(void)
+>              extra_head = extra->next;
+>              xfree(extra);
+>          }
+> +
+> +        unmap_domain_page(l1t);
+> +        unmap_domain_page(pl2e);
+> +        unmap_domain_page(pl3e);
+
+All three should be pulled further up, each to the earliest
+possible place (and then using the uppercase version of the
+construct as suitable).
+
+Jan
 
