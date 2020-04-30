@@ -2,95 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1C01BF6C8
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 13:24:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2383B1BF6D6
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 13:30:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU7IF-0003QL-H0; Thu, 30 Apr 2020 11:23:51 +0000
+	id 1jU7OH-0003t2-6B; Thu, 30 Apr 2020 11:30:05 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qeDo=6O=intel.com=dave.hansen@srs-us1.protection.inumbo.net>)
- id 1jU7ID-0003QG-Qs
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 11:23:49 +0000
-X-Inumbo-ID: 0ed7245e-8ad5-11ea-9a28-12813bfff9fa
-Received: from mga06.intel.com (unknown [134.134.136.31])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jU7OF-0003iO-6g
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 11:30:03 +0000
+X-Inumbo-ID: ed73165a-8ad5-11ea-9a28-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0ed7245e-8ad5-11ea-9a28-12813bfff9fa;
- Thu, 30 Apr 2020 11:23:47 +0000 (UTC)
-IronPort-SDR: KnI6ugwYN6dLmmWIB5xQwYCbSj/i1ksEBrfPmyWmPvSdAk3XLRMEcH4LMmU/W1OpDi4ybOfR68
- 4ovn7MZdFfbg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2020 04:23:46 -0700
-IronPort-SDR: SHV7wT4BPVHKAo0WmoTz8aq1kRHCx/RdPvBe0nAp3qbMO/SAPWXKmXN7i75QlP4e04SgRh2wTx
- AK59XRR1ll/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,334,1583222400"; d="scan'208";a="261745559"
-Received: from isdasana-mobl1.amr.corp.intel.com (HELO [10.254.74.214])
- ([10.254.74.214])
- by orsmga006.jf.intel.com with ESMTP; 30 Apr 2020 04:23:46 -0700
-Subject: Re: [PATCH v2 3/3] device-dax: Add system ram (add_memory()) with
- MHP_NO_FIRMWARE_MEMMAP
-To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
-References: <20200430102908.10107-1-david@redhat.com>
- <20200430102908.10107-4-david@redhat.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
- z5cecg==
-Message-ID: <20b86ced-7c47-02ca-0e0e-1bd5d6cc95c1@intel.com>
-Date: Thu, 30 Apr 2020 04:23:42 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ id ed73165a-8ad5-11ea-9a28-12813bfff9fa;
+ Thu, 30 Apr 2020 11:30:00 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DE5F5AF9F;
+ Thu, 30 Apr 2020 11:29:58 +0000 (UTC)
+Subject: Re: [PATCH v2 4/5] common/domain: add a domain context record for
+ shared_info...
+To: paul@xen.org
+References: <20200407173847.1595-1-paul@xen.org>
+ <20200407173847.1595-5-paul@xen.org>
+ <7f0821ed-34e8-2a63-aaab-bf781fdfb9e7@xen.org>
+ <001601d61d72$efb23840$cf16a8c0$@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <66028521-6b46-2aa8-1ba9-2ce703bbbfd8@suse.com>
+Date: Thu, 30 Apr 2020 13:29:53 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200430102908.10107-4-david@redhat.com>
+In-Reply-To: <001601d61d72$efb23840$cf16a8c0$@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,43 +50,136 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
- Michal Hocko <mhocko@suse.com>, linux-acpi@vger.kernel.org,
- Baoquan He <bhe@redhat.com>, linux-nvdimm@lists.01.org,
- linux-s390@vger.kernel.org, "Michael S . Tsirkin" <mst@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- Wei Yang <richard.weiyang@gmail.com>, Eric Biederman <ebiederm@xmission.com>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>, xen-devel@lists.xenproject.org,
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, Dan Williams <dan.j.williams@intel.com>,
- Pavel Tatashin <pasha.tatashin@soleen.com>
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Paul Durrant' <pdurrant@amazon.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 4/30/20 3:29 AM, David Hildenbrand wrote:
-> Currently, when adding memory, we create entries in /sys/firmware/memmap/
-> as "System RAM". This does not reflect the reality and will lead to
-> kexec-tools to add that memory to the fixed-up initial memmap for a
-> kexec kernel (loaded via kexec_load()). The memory will be considered
-> initial System RAM by the kexec kernel.
+On 28.04.2020 17:37, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: 20 April 2020 18:35
+>> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
+>> Cc: Paul Durrant <pdurrant@amazon.com>; Ian Jackson <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>;
+>> Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Jan Beulich
+>> <jbeulich@suse.com>; Stefano Stabellini <sstabellini@kernel.org>
+>> Subject: Re: [PATCH v2 4/5] common/domain: add a domain context record for shared_info...
+>>
+>> Hi Paul,
+>>
+>> On 07/04/2020 18:38, Paul Durrant wrote:
+>>> ... and update xen-domctx to dump some information describing the record.
+>>>
+>>> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+>>> ---
+>>> Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+>>> Cc: Wei Liu <wl@xen.org>
+>>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Cc: George Dunlap <george.dunlap@citrix.com>
+>>> Cc: Jan Beulich <jbeulich@suse.com>
+>>> Cc: Julien Grall <julien@xen.org>
+>>> Cc: Stefano Stabellini <sstabellini@kernel.org>
+>>>
+>>> v2:
+>>>   - Drop the header change to define a 'Xen' page size and instead use a
+>>>     variable length struct now that the framework makes this is feasible
+>>>   - Guard use of 'has_32bit_shinfo' in common code with CONFIG_COMPAT
+>>> ---
+>>>   tools/misc/xen-domctx.c   | 11 ++++++
+>>>   xen/common/domain.c       | 81 +++++++++++++++++++++++++++++++++++++++
+>>>   xen/include/public/save.h | 10 ++++-
+>>>   3 files changed, 101 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/tools/misc/xen-domctx.c b/tools/misc/xen-domctx.c
+>>> index d663522a8b..a8d3922321 100644
+>>> --- a/tools/misc/xen-domctx.c
+>>> +++ b/tools/misc/xen-domctx.c
+>>> @@ -59,6 +59,16 @@ static void dump_header(struct domain_save_descriptor *desc)
+>>>       off += desc->length;
+>>>   }
+>>>
+>>> +static void dump_shared_info(struct domain_save_descriptor *desc)
+>>> +{
+>>> +    DOMAIN_SAVE_TYPE(SHARED_INFO) s;
+>>> +    READ(s);
+>>> +    printf("    SHARED_INFO: field_width %u buffer size: %lu\n",
+>>> +           s.field_width, desc->length - sizeof(s));
+>>> +
+>>> +    off += desc->length;
+>>> +}
+>>> +
+>>>   static void dump_end(struct domain_save_descriptor *desc)
+>>>   {
+>>>       DOMAIN_SAVE_TYPE(END) e;
+>>> @@ -125,6 +135,7 @@ int main(int argc, char **argv)
+>>>           switch (desc.typecode)
+>>>           {
+>>>           case DOMAIN_SAVE_CODE(HEADER): dump_header(&desc); break;
+>>> +        case DOMAIN_SAVE_CODE(SHARED_INFO): dump_shared_info(&desc); break;
+>>>           case DOMAIN_SAVE_CODE(END): dump_end(&desc); return 0;
+>>>           default:
+>>>               printf("Unknown type %u: skipping\n", desc.typecode);
+>>> diff --git a/xen/common/domain.c b/xen/common/domain.c
+>>> index 3dcd73f67c..8b72462e07 100644
+>>> --- a/xen/common/domain.c
+>>> +++ b/xen/common/domain.c
+>>> @@ -33,6 +33,7 @@
+>>>   #include <xen/xenoprof.h>
+>>>   #include <xen/irq.h>
+>>>   #include <xen/argo.h>
+>>> +#include <xen/save.h>
+>>>   #include <asm/debugger.h>
+>>>   #include <asm/p2m.h>
+>>>   #include <asm/processor.h>
+>>> @@ -1646,6 +1647,86 @@ int continue_hypercall_on_cpu(
+>>>       return 0;
+>>>   }
+>>>
+>>> +static int save_shared_info(const struct vcpu *v, struct domain_context *c,
+>>> +                            bool dry_run)
+>>> +{
+>>> +    struct domain *d = v->domain;
+>>> +    struct domain_shared_info_context ctxt = {};
+>>> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+>>> +    size_t size = hdr_size + PAGE_SIZE;
+>>> +    int rc;
+>>> +
+>>> +    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, v, size);
+>>> +    if ( rc )
+>>> +        return rc;
+>>> +
+>>> +    if ( !dry_run )
+>>
+>> NIT: I think the if is not necessary here as you don't skip that much code.
+>>
 > 
-> We should let the kexec kernel decide how to use that memory - just as
-> we do during an ordinary reboot.
-...
-> -	rc = add_memory(numa_node, new_res->start, resource_size(new_res), 0);
-> +	rc = add_memory(numa_node, new_res->start, resource_size(new_res),
-> +			MHP_NO_FIRMWARE_MEMMAP);
+> I know, but it is illustrative so I'd rather keep it.
 
-Looks fine.  But, if you send another revision, could you add a comment
-about the actual goal of MHP_NO_FIRMWARE_MEMMAP?  Maybe:
+While I agree with the "illustrative", I'd really see this be part
+of the struct initializer. Plus its use here made me wonder ...
 
-	/*
-	 * MHP_NO_FIRMWARE_MEMMAP ensures that future
-	 * kexec'd kernels will not treat this as RAM.
-	 */
+>>> +        ctxt.field_width =
+>>> +#ifdef CONFIG_COMPAT
+>>> +            has_32bit_shinfo(d) ? 4 :
+>>> +#endif
+>>> +            8;
+>>> +
+>>> +    rc = domain_save_data(c, &ctxt, hdr_size);
+>>> +    if ( rc )
+>>> +        return rc;
+>>> +
+>>> +    rc = domain_save_data(c, d->shared_info, PAGE_SIZE);
+>>> +    if ( rc )
+>>> +        return rc;
 
-Not a biggie, though.
+... why these don't get skipped. It took me going back through
+earlier patches to find that there's effectively redundancy in
+the passed arguments in that the write callback chosen varies with
+whether "dry_run" is true or false.
 
-Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
+Jan
 
