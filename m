@@ -2,50 +2,87 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3FDC1C0366
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 19:01:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 229491C0461
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 20:10:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUCYD-0001Fy-0K; Thu, 30 Apr 2020 17:00:41 +0000
+	id 1jUDdA-0006FI-L1; Thu, 30 Apr 2020 18:09:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kEmr=6O=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jUCYB-0001Ft-TJ
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 17:00:39 +0000
-X-Inumbo-ID: 1e27506c-8b04-11ea-9a80-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=kYgy=6O=xmission.com=ebiederm@srs-us1.protection.inumbo.net>)
+ id 1jUDd9-0006F8-Hc
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 18:09:51 +0000
+X-Inumbo-ID: c7c7f8e8-8b0d-11ea-9a8d-12813bfff9fa
+Received: from out01.mta.xmission.com (unknown [166.70.13.231])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1e27506c-8b04-11ea-9a80-12813bfff9fa;
- Thu, 30 Apr 2020 17:00:39 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 533F620661;
- Thu, 30 Apr 2020 17:00:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588266038;
- bh=B93+UsnDv7RgSAjrT+Hkx5AcpSSaxP4darVD6tkMveE=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=2gZE6lvI+9otreOVVbZCl0tunJWtx0+yqXV0Q7iFjKHbbAM97MigfaKbIrDKCbS29
- vWnAWeGg7zomEbyKTeVcXc295bPQs5tZ9B0UePAx6M11xvYt9qfNOG37DYF/iVRKHm
- Q0SONajevEhxfAwYnNxcgLy2CU0VOQQwylbODj0s=
-Date: Thu, 30 Apr 2020 10:00:37 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 05/12] xen: introduce reserve_heap_pages
-In-Reply-To: <a316ed70-da35-8be0-a092-d992e56563d2@xen.org>
-Message-ID: <alpine.DEB.2.21.2004300928240.28941@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-5-sstabellini@kernel.org>
- <3129ab49-5898-9d2e-8fbb-d1fcaf6cdec7@suse.com>
- <alpine.DEB.2.21.2004291510270.28941@sstabellini-ThinkPad-T480s>
- <a316ed70-da35-8be0-a092-d992e56563d2@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id c7c7f8e8-8b0d-11ea-9a8d-12813bfff9fa;
+ Thu, 30 Apr 2020 18:09:49 +0000 (UTC)
+Received: from in02.mta.xmission.com ([166.70.13.52])
+ by out01.mta.xmission.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.90_1)
+ (envelope-from <ebiederm@xmission.com>)
+ id 1jUDd3-0002vZ-L9; Thu, 30 Apr 2020 12:09:45 -0600
+Received: from ip68-227-160-95.om.om.cox.net ([68.227.160.95]
+ helo=x220.xmission.com) by in02.mta.xmission.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.87)
+ (envelope-from <ebiederm@xmission.com>)
+ id 1jUDd2-0000hI-EL; Thu, 30 Apr 2020 12:09:45 -0600
+From: ebiederm@xmission.com (Eric W. Biederman)
+To: David Hildenbrand <david@redhat.com>
+References: <20200430102908.10107-1-david@redhat.com>
+ <20200430102908.10107-3-david@redhat.com>
+ <87pnbp2dcz.fsf@x220.int.ebiederm.org>
+ <1b49c3be-6e2f-57cb-96f7-f66a8f8a9380@redhat.com>
+ <871ro52ary.fsf@x220.int.ebiederm.org>
+ <373a6898-4020-4af1-5b3d-f827d705dd77@redhat.com>
+Date: Thu, 30 Apr 2020 13:06:26 -0500
+In-Reply-To: <373a6898-4020-4af1-5b3d-f827d705dd77@redhat.com> (David
+ Hildenbrand's message of "Thu, 30 Apr 2020 18:49:39 +0200")
+Message-ID: <875zdg26hp.fsf@x220.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain
+X-XM-SPF: eid=1jUDd2-0000hI-EL; ; ; mid=<875zdg26hp.fsf@x220.int.ebiederm.org>;
+ ; ; hst=in02.mta.xmission.com; ; ; ip=68.227.160.95; ; ;
+ frm=ebiederm@xmission.com; ; ; spf=neutral
+X-XM-AID: U2FsdGVkX1/0nSmexEm1WkrDW9iKj+jfV8y2wWo/acY=
+X-SA-Exim-Connect-IP: 68.227.160.95
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa05.xmission.com
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.0 required=8.0 tests=ALL_TRUSTED,BAYES_50,
+ DCC_CHECK_NEGATIVE,TR_XM_PhishingBody,T_TM2_M_HEADER_IN_MSG,
+ T_TooManySym_01,XMGappySubj_01,XMSubLong,XM_B_Phish66
+ autolearn=disabled version=3.4.2
+X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+ *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+ *      [score: 0.5000] *  0.7 XMSubLong Long Subject
+ *  0.5 XMGappySubj_01 Very gappy subject
+ *  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+ *  2.0 XM_B_Phish66 BODY: Obfuscated XMission
+ * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+ *      [sa05 1397; Body=1 Fuz1=1 Fuz2=1]
+ *  0.0 T_TooManySym_01 4+ unique symbols in subject
+ *  0.0 TR_XM_PhishingBody Phishing flag in body of message
+X-Spam-DCC: XMission; sa05 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ***;David Hildenbrand <david@redhat.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 806 ms - load_scoreonly_sql: 0.09 (0.0%),
+ signal_user_changed: 13 (1.6%), b_tie_ro: 11 (1.4%), parse: 1.99
+ (0.2%), extract_message_metadata: 23 (2.8%), get_uri_detail_list: 7
+ (0.8%), tests_pri_-1000: 19 (2.4%), tests_pri_-950: 1.58 (0.2%),
+ tests_pri_-900: 1.29 (0.2%), tests_pri_-90: 310 (38.5%), check_bayes:
+ 309 (38.3%), b_tokenize: 17 (2.1%), b_tok_get_all: 195 (24.2%),
+ b_comp_prob: 6 (0.7%), b_tok_touch_all: 87 (10.8%), b_finish: 0.91
+ (0.1%), tests_pri_0: 423 (52.5%), check_dkim_signature: 0.62 (0.1%),
+ check_dkim_adsp: 2.2 (0.3%), poll_dns_idle: 0.46 (0.1%), tests_pri_10:
+ 1.80 (0.2%), tests_pri_500: 6 (0.7%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [PATCH v2 2/3] mm/memory_hotplug: Introduce MHP_NO_FIRMWARE_MEMMAP
+X-Spam-Flag: No
+X-SA-Exim-Version: 4.2.1 (built Thu, 05 May 2016 13:38:54 -0600)
+X-SA-Exim-Scanned: Yes (on in02.mta.xmission.com)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,100 +93,165 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- andrew.cooper3@citrix.com, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com,
- "Woodhouse, David" <dwmw@amazon.co.uk>
+Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
+ Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>,
+ linux-mm@kvack.org, Wei Yang <richard.weiyang@gmail.com>,
+ linux-s390@vger.kernel.org, linux-nvdimm@lists.01.org,
+ linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-acpi@vger.kernel.org, "Michael S . Tsirkin" <mst@redhat.com>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>, xen-devel@lists.xenproject.org,
+ Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 30 Apr 2020, Julien Grall wrote:
-> > > > +    pg = maddr_to_page(start);
-> > > > +    node = phys_to_nid(start);
-> > > > +    zone = page_to_zone(pg);
-> > > > +    page_list_del(pg, &heap(node, zone, order));
-> > > > +
-> > > > +    __alloc_heap_pages(pg, order, memflags, d);
-> > > 
-> > > I agree with Julien in not seeing how this can be safe / correct.
-> > 
-> > I haven't seen any issues so far in my testing -- I imagine it is
-> > because there aren't many memory allocations after setup_mm() and before
-> > create_domUs()  (which on ARM is called just before
-> > domain_unpause_by_systemcontroller at the end of start_xen.)
-> 
-> I am not sure why you exclude setup_mm(). Any memory allocated (boot
-> allocator, xenheap) can clash with your regions. The main memory allocations
-> are for the frametable and dom0. I would say you were lucky to not hit them.
+David Hildenbrand <david@redhat.com> writes:
 
-Maybe it is because Xen typically allocates memory top-down? So if I
-chose a high range then I would see a failure? But I have been mostly
-testing with ranges close to the begin of RAM (as opposed to
-ranges close to the end of RAM.)
-
- 
-> > I gave a quick look at David's series. Is the idea that I should add a
-> > patch to do the following:
-> > 
-> > - avoiding adding these ranges to xenheap in setup_mm, wait for later
-> >    (a bit like reserved_mem regions)
-> 
-> I guess by xenheap, you mean domheap? But the problem is not only for domheap,
-> it is also for any memory allocated via the boot allocator. So you need to
-> exclude those regions from any possible allocations.
-
-OK, I think we are saying the same thing but let me check.
-
-By boot allocator you mean alloc_boot_pages, right? That boot allocator
-operates on ranges given to it by init_boot_pages calls.
-init_boot_pages is called from setup_mm. I didn't write it clearly but
-I also meant not calling init_boot_pages on them from setup_mm.
-
-Are we saying the same thing?
-
-
-
-> > - in construct_domU, add the range to xenheap and reserve it with
-> > reserve_heap_pages
-> 
-> I am afraid you can't give the regions to the allocator and then allocate
-> them. The allocator is free to use any page for its own purpose or exclude
-> them.
+> On 30.04.20 18:33, Eric W. Biederman wrote:
+>> David Hildenbrand <david@redhat.com> writes:
+>> 
+>>> On 30.04.20 17:38, Eric W. Biederman wrote:
+>>>> David Hildenbrand <david@redhat.com> writes:
+>>>>
+>>>>> Some devices/drivers that add memory via add_memory() and friends (e.g.,
+>>>>> dax/kmem, but also virtio-mem in the future) don't want to create entries
+>>>>> in /sys/firmware/memmap/ - primarily to hinder kexec from adding this
+>>>>> memory to the boot memmap of the kexec kernel.
+>>>>>
+>>>>> In fact, such memory is never exposed via the firmware memmap as System
+>>>>> RAM (e.g., e820), so exposing this memory via /sys/firmware/memmap/ is
+>>>>> wrong:
+>>>>>  "kexec needs the raw firmware-provided memory map to setup the
+>>>>>   parameter segment of the kernel that should be booted with
+>>>>>   kexec. Also, the raw memory map is useful for debugging. For
+>>>>>   that reason, /sys/firmware/memmap is an interface that provides
+>>>>>   the raw memory map to userspace." [1]
+>>>>>
+>>>>> We don't have to worry about firmware_map_remove() on the removal path.
+>>>>> If there is no entry, it will simply return with -EINVAL.
+>>>>>
+>>>>> [1]
+>>>>> https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-firmware-memmap
+>>>>
+>>>>
+>>>> You know what this justification is rubbish, and I have previously
+>>>> explained why it is rubbish.
+>>>
+>>> Actually, no, I don't think it is rubbish. See patch #3 and the cover
+>>> letter why this is the right thing to do *for special memory*, *not
+>>> ordinary DIMMs*.
+>>>
+>>> And to be quite honest, I think your response is a little harsh. I don't
+>>> recall you replying to my virtio-mem-related comments.
+>>>
+>>>>
+>>>> Nacked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+>>>>
+>>>> This needs to be based on weather the added memory is ultimately normal
+>>>> ram or is something special.
+>>>
+>>> Yes, that's what the caller are expected to decide, see patch #3.
+>>>
+>>> kexec should try to be as closely as possible to a real reboot - IMHO.
+>> 
+>> That is very fuzzy in terms of hotplug memory.  The kexec'd kernel
+>> should see the hotplugged memory assuming it is ordinary memory.
+>> 
+>> But kexec is not a reboot although it is quite similar.   Kexec is
+>> swapping one running kernel and it's state for another kernel without
+>> rebooting.
 >
-> AFAICT, the allocator doesn't have a list of page in use. It only keeps track
-> of free pages. So we can make the content of struct page_info to look like it
-> was allocated by the allocator.
-> 
-> We would need to be careful when giving a page back to allocator as the page
-> would need to be initialized (see [1]). This may not be a concern for Dom0less
-> as the domain may never be destroyed but will be for correctness PoV.
-> 
-> For LiveUpdate, the original Xen will carve out space to use by the boot
-> allocator in the new Xen. But I think this is not necessary in your context.
-> 
-> It should be sufficient to exclude the page from the boot allocators (as we do
-> for other modules).
-> 
-> One potential issue that can arise is there is no easy way today to
-> differentiate between pages allocated and pages not yet initialized. To make
-> the code robust, we need to prevent a page to be used in two places. So for
-> LiveUpdate we are marking them with a special value, this is used afterwards
-> to check we are effictively using a reserved page.
-> 
-> I hope this helps.
+> I agree (especially regarding the arm64 DIMM hotplug discussion).
+> However, for the two cases
+>
+> a) dax/kmem
+> b) virtio-mem
+>
+> We really want to let the driver take back control and figure out "what
+> to do with the memory".
 
-Thanks for writing all of this down but I haven't understood some of it.
+From reading your v1 cover letter (the description appears missing in
+v2) I see what you are talking about with respect to virtio-mem.
 
-For the sake of this discussion let's say that we managed to "reserve"
-the range early enough like we do for other modules, as you wrote.
+So I will count virt-io mem as something different.
 
-At the point where we want to call reserve_heap_pages() we would call
-init_heap_pages() just before it. We are still relatively early at boot
-so there aren't any concurrent memory operations. Why this doesn't work?
+>>>> Justifying behavior by documentation that does not consider memory
+>>>> hotplug is bad thinking.
+>>>
+>>> Are you maybe confusing this patch series with the arm64 approach? This
+>>> is not about ordinary hotplugged DIMMs.
+>> 
+>> I think I am.
+>> 
+>> My challenge is that I don't see anything in the description that says
+>> this isn't about ordinary hotplugged DIMMs.  All I saw was hotplug
+>> memory.
+>
+> I'm sorry if that was confusing, I tried to stress that kmem and
+> virtio-mem is special in the description.
+>
+> I squeezed a lot of that information into the cover letter and into
+> patch #3.
 
-If it doesn't work, I am not following what is your alternative
-suggestion about making "the content of struct page_info to look like it
-was allocated by the allocator."
+
+>> If the class of memory is different then please by all means let's mark
+>> it differently in struct resource so everyone knows it is different.
+>> But that difference needs to be more than hotplug.
+>> 
+>> That difference needs to be the hypervisor loaned us memory and might
+>> take it back at any time, or this memory is persistent and so it has
+>> these different characteristics so don't use it as ordinary ram.
+>
+> Yes, and I think kmem took an excellent approach of explicitly putting
+> that "System RAM" into a resource hierarchy. That "System RAM" won't
+> show up as a root node under /proc/iomem (see patch #3), which already
+> results in kexec-tools to treat it in a special way. I am thinking about
+> doing the same for virtio-mem.
+
+Reading this and your patch cover letters again my concern is that
+the justification seems to be letting the tail wag the dog.
+
+You want kexec-tools to behave in a certain way so you are changing the
+kernel.
+
+Rather it should be change the kernel to clearly reflect reality and if
+you can get away without a change to kexec-tools that is a bonus.
+
+>> That information is also useful to other people looking at the system
+>> and seeing what is going on.
+>> 
+>> Just please don't muddle the concepts, or assume that whatever subset of
+>> hotplug memory you are dealing with is the only subset.
+>
+> I can certainly rephrase the subject/description/comment, stating that
+> this is not to be used for ordinary hotplugged DIMMs - only when the
+> device driver is under control to decide what to do with that memory -
+> especially when kexec'ing.
+>
+> (previously, I called this flag MHP_DRIVER_MANAGED, but I think
+> MHP_NO_FIRMWARE_MEMMAP is clearer, we just need a better description)
+>
+> Would that make it clearer?
+
+I am not certain, but Andrew Morton deliberately added that
+firmware_map_add_hotplug call.  Which means that there is a reason
+for putting hotplugged memory in the firmware map.
+
+So the justification needs to take that reason into account.  The
+justification can not be it is hotplugged therefore it should not belong
+in the firmware memory map.  Unless you can show that
+firmware_map_add_hotplug that was actually a bug and should be removed.
+But as it has been that way since 2010 that seems like a long shot.
+
+So my question is what is right for the firmware map?
+
+Why does the firmware map support hotplug entries?
+
+Once we have the answers to those questions we can figure out what logic
+the special kinds of memory hotplug need.
+
+Ref: d96ae5309165 ("memory-hotplug: create /sys/firmware/memmap entry for new memory")
+
+Eric
+
 
