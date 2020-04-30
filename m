@@ -2,46 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 358F11C087E
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 22:45:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10FC51C0877
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 22:45:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUG36-0002pZ-AM; Thu, 30 Apr 2020 20:44:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jUG38-0002pu-Lu; Thu, 30 Apr 2020 20:44:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fL57=6O=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1jUG34-0002pO-Ev
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 20:44:46 +0000
-X-Inumbo-ID: 6ad52000-8b23-11ea-ae69-bc764e2007e4
+ id 1jUG36-0002pi-Ro
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 20:44:48 +0000
+X-Inumbo-ID: 6b9ad03e-8b23-11ea-9aaf-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6ad52000-8b23-11ea-ae69-bc764e2007e4;
- Thu, 30 Apr 2020 20:44:42 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6b9ad03e-8b23-11ea-9aaf-12813bfff9fa;
+ Thu, 30 Apr 2020 20:44:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
  Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=OnO+pVh1ubCsK0ipJDW4CA7CINr9chMuRxxDESUPwi4=; b=439Wd2ro1oGLaPPX0JahId3fzs
- 2UZjHr0o8rVmfbRuWbS7GpBZCoEd1PAGXxdfto+n1F2uWiEjq5qn4kL5lvCz0NR9EMQGJQYWPuIQz
- tmGc8oqYeouUa9D4QxWaoDQIiJh0JBe4ZuFGdz7L1nX6UgpjPr1SrSMOZMc5klNivpW4=;
+ bh=lV7eCfKft8Va6m4uNBBmoRi9XzqEneVzvGHlaIMLHds=; b=uYUxtIHD8MR/+KYumRVW16F+UA
+ YB51HnVj3v7KqMEsddmEI8nPi+vxoKYfqM+BP5L7PANMjASGaMa6pcOdFqqRuSwTQzI0binfimCJo
+ /e3ehVqSE2MyPpxxG9Xb3oYsvTQxLj8r80tfxjgnhMVQWR8TIH54CDxjtes744lpQQtQ=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <hx242@xen.org>)
- id 1jUG2z-0004LB-Q1; Thu, 30 Apr 2020 20:44:41 +0000
+ id 1jUG31-0004LH-7y; Thu, 30 Apr 2020 20:44:43 +0000
 Received: from 54-240-197-234.amazon.com ([54.240.197.234]
  helo=u1bbd043a57dd5a.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <hx242@xen.org>)
- id 1jUG2z-0005wj-GN; Thu, 30 Apr 2020 20:44:41 +0000
+ id 1jUG30-0005wj-US; Thu, 30 Apr 2020 20:44:43 +0000
 From: Hongyan Xia <hx242@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 03/16] x86/numa: vmap the pages for memnodemap
-Date: Thu, 30 Apr 2020 21:44:12 +0100
-Message-Id: <9a007a9965461127e2a3361cc1fde6a2d217ef48.1588278317.git.hongyxia@amazon.com>
+Subject: [PATCH 04/16] x86/srat: vmap the pages for acpi_slit
+Date: Thu, 30 Apr 2020 21:44:13 +0100
+Message-Id: <f4226fafcd333c0274fcee24601c280bf6494417.1588278317.git.hongyxia@amazon.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1588278317.git.hongyxia@amazon.com>
 References: <cover.1588278317.git.hongyxia@amazon.com>
@@ -65,38 +66,27 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Hongyan Xia <hongyxia@amazon.com>
 
-This avoids the assumption that there is a direct map and boot pages
-fall inside the direct map.
-
-Clean up the variables so that mfn actually stores a type-safe mfn.
+This avoids the assumption that boot pages are in the direct map.
 
 Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 ---
- xen/arch/x86/numa.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ xen/arch/x86/srat.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
-index f1066c59c7..51eca3f3fc 100644
---- a/xen/arch/x86/numa.c
-+++ b/xen/arch/x86/numa.c
-@@ -100,13 +100,13 @@ static int __init populate_memnodemap(const struct node *nodes,
- static int __init allocate_cachealigned_memnodemap(void)
- {
-     unsigned long size = PFN_UP(memnodemapsize * sizeof(*memnodemap));
--    unsigned long mfn = mfn_x(alloc_boot_pages(size, 1));
-+    mfn_t mfn = alloc_boot_pages(size, 1);
+diff --git a/xen/arch/x86/srat.c b/xen/arch/x86/srat.c
+index 506a56d66b..9a84c6c8a8 100644
+--- a/xen/arch/x86/srat.c
++++ b/xen/arch/x86/srat.c
+@@ -196,7 +196,8 @@ void __init acpi_numa_slit_init(struct acpi_table_slit *slit)
+ 		return;
+ 	}
+ 	mfn = alloc_boot_pages(PFN_UP(slit->header.length), 1);
+-	acpi_slit = mfn_to_virt(mfn_x(mfn));
++	acpi_slit = vmap_boot_pages(mfn, PFN_UP(slit->header.length));
++	BUG_ON(!acpi_slit);
+ 	memcpy(acpi_slit, slit, slit->header.length);
+ }
  
--    memnodemap = mfn_to_virt(mfn);
--    mfn <<= PAGE_SHIFT;
-+    memnodemap = vmap_boot_pages(mfn, size);
-+    BUG_ON(!memnodemap);
-     size <<= PAGE_SHIFT;
-     printk(KERN_DEBUG "NUMA: Allocated memnodemap from %lx - %lx\n",
--           mfn, mfn + size);
-+           mfn_to_maddr(mfn), mfn_to_maddr(mfn) + size);
-     memnodemapsize = size / sizeof(*memnodemap);
- 
-     return 0;
 -- 
 2.24.1.AMZN
 
