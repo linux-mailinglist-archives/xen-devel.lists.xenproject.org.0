@@ -2,56 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A43E31BF57D
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 12:30:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 646E61BF59F
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 12:36:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU6SC-0006Tr-GW; Thu, 30 Apr 2020 10:30:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EK+X=6O=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1jU6SB-0006Oi-B4
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 10:30:03 +0000
-X-Inumbo-ID: 8be0b594-8acd-11ea-ae69-bc764e2007e4
-Received: from us-smtp-1.mimecast.com (unknown [205.139.110.61])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 8be0b594-8acd-11ea-ae69-bc764e2007e4;
- Thu, 30 Apr 2020 10:30:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588242600;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+3PNEjodfSmVCKHuEI1uD9BcIkwvNKm68jAUXOCtpHs=;
- b=eJdl+5kSxklF6hY4hhpJgJ5wBqUY+iieKDyUMx+o0m74fIv7Qe4OBqEa/qyIw2TcTwQgmO
- pdUfpm+ipjSWIQCN+pXan0W3gohsbMPr0+bP6wu02FhT7uqqqVp3SMFAFy3EC4L2JxZjog
- 0ydh85w5oPR2slQ2l8kE5GcHIMP9PqE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-276-WVVkTXmBNpi7HsRCgZds0w-1; Thu, 30 Apr 2020 06:29:56 -0400
-X-MC-Unique: WVVkTXmBNpi7HsRCgZds0w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E3AB28015D1;
- Thu, 30 Apr 2020 10:29:53 +0000 (UTC)
-Received: from t480s.redhat.com (ovpn-113-172.ams2.redhat.com [10.36.113.172])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E14155EDEE;
- Thu, 30 Apr 2020 10:29:49 +0000 (UTC)
-From: David Hildenbrand <david@redhat.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] device-dax: Add system ram (add_memory()) with
- MHP_NO_FIRMWARE_MEMMAP
-Date: Thu, 30 Apr 2020 12:29:08 +0200
-Message-Id: <20200430102908.10107-4-david@redhat.com>
-In-Reply-To: <20200430102908.10107-1-david@redhat.com>
-References: <20200430102908.10107-1-david@redhat.com>
+	id 1jU6Xf-0007Jk-5l; Thu, 30 Apr 2020 10:35:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/gX9=6O=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jU6Xd-0007Jf-3n
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 10:35:41 +0000
+X-Inumbo-ID: 54ea7ec1-8ace-11ea-9a1f-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 54ea7ec1-8ace-11ea-9a1f-12813bfff9fa;
+ Thu, 30 Apr 2020 10:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588242939;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=b1jSX8WWP+O6RhMgYTtNX8VYzmI+wHx5nFiZBRwR9wM=;
+ b=PuYvAsV3tlkTcXhOLHMpBD2SGdfaftJl+w+sq/hAVbcq2voiDHNdJhdF
+ UFuh1QLlaC2GMK9iYC3XQFcSGxx+5pI5vGLOq5dXiN7r28xHxFuZqJ0Ct
+ EIPWirBQXvNII6dMrzKkaEqXEisNW6VSfRF4RTijcTo4EoZmfycl2zl5N E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 9wmQUI7Y/J/JVVHT7l3vKSy8QgErDhWuxyOM1ujkpOdAvgL+HCJYegi5obES0wmAfSUJmOJlqW
+ QTW5ZUv93d9v2FgdxYFJYmGmMcmv31xikBzFBYV2nbzsnpAcVL4LktTZblrr+mWv3MpvSGATZe
+ s5cef8nQY8d1ScCd4g+LORcO95ru8mjYTRW48TRM+p1k8ddyjvbSzKbNmzAkLDBpkGDVfYsyxB
+ zExCLQGealL72UdvBiWgHnTBn/aH/uCKe1w0+6tUQcbnZCyChngxKD3fI4qZ7Z0+BTU6ogMtS7
+ PvM=
+X-SBRS: 2.7
+X-MesageID: 16483360
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,334,1583211600"; d="scan'208";a="16483360"
+Date: Thu, 30 Apr 2020 12:35:28 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/amd: Initial support for Fam19h processors
+Message-ID: <20200430103528.GC28601@Air-de-Roger>
+References: <20200430095947.31958-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20200430095947.31958-1-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,147 +90,39 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
- Michal Hocko <mhocko@suse.com>, linux-acpi@vger.kernel.org,
- Baoquan He <bhe@redhat.com>, linux-nvdimm@lists.01.org,
- linux-s390@vger.kernel.org, "Michael S . Tsirkin" <mst@redhat.com>,
- David Hildenbrand <david@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- Wei Yang <richard.weiyang@gmail.com>, Eric Biederman <ebiederm@xmission.com>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>, xen-devel@lists.xenproject.org,
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, Dan Williams <dan.j.williams@intel.com>,
- Pavel Tatashin <pasha.tatashin@soleen.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Currently, when adding memory, we create entries in /sys/firmware/memmap/
-as "System RAM". This does not reflect the reality and will lead to
-kexec-tools to add that memory to the fixed-up initial memmap for a
-kexec kernel (loaded via kexec_load()). The memory will be considered
-initial System RAM by the kexec kernel.
+On Thu, Apr 30, 2020 at 10:59:47AM +0100, Andrew Cooper wrote:
+> diff --git a/xen/arch/x86/nmi.c b/xen/arch/x86/nmi.c
+> index c3f92ed231..014524486f 100644
+> --- a/xen/arch/x86/nmi.c
+> +++ b/xen/arch/x86/nmi.c
+> @@ -398,7 +398,7 @@ void setup_apic_nmi_watchdog(void)
+>      case X86_VENDOR_AMD:
+>          switch (boot_cpu_data.x86) {
+>          case 6:
+> -        case 0xf ... 0x17:
+> +        case 0xf ... 0x19:
+>              setup_k7_watchdog();
+>              break;
+>          default:
+> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+> index 0bcf554e93..33e5d21ece 100644
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -1939,7 +1939,7 @@ static unsigned int calc_ler_msr(void)
+>          switch ( boot_cpu_data.x86 )
+>          {
+>          case 6:
+> -        case 0xf ... 0x17:
+> +        case 0xf ... 0x19:
+>              return MSR_IA32_LASTINTFROMIP;
 
-We should let the kexec kernel decide how to use that memory - just as
-we do during an ordinary reboot.
+You seem to also add support for Fam18h here and in the chunk above,
+is this intentional?
 
-Before configuring the namespace:
-	[root@localhost ~]# cat /proc/iomem
-	...
-	140000000-33fffffff : Persistent Memory
-	  140000000-33fffffff : namespace0.0
-	3280000000-32ffffffff : PCI Bus 0000:00
-
-After configuring the namespace:
-	[root@localhost ~]# cat /proc/iomem
-	...
-	140000000-33fffffff : Persistent Memory
-	  140000000-1481fffff : namespace0.0
-	  148200000-33fffffff : dax0.0
-	3280000000-32ffffffff : PCI Bus 0000:00
-
-After loading kmem:
-	[root@localhost ~]# cat /proc/iomem
-	...
-	140000000-33fffffff : Persistent Memory
-	  140000000-1481fffff : namespace0.0
-	  150000000-33fffffff : dax0.0
-	    150000000-33fffffff : System RAM
-	3280000000-32ffffffff : PCI Bus 0000:00
-
-After a proper reboot:
-	[root@localhost ~]# cat /proc/iomem
-	...
-	140000000-33fffffff : Persistent Memory
-	  140000000-1481fffff : namespace0.0
-	  148200000-33fffffff : dax0.0
-	3280000000-32ffffffff : PCI Bus 0000:00
-
-Within the kexec kernel before this change:
-	[root@localhost ~]# cat /proc/iomem
-	...
-	140000000-33fffffff : Persistent Memory
-	  140000000-1481fffff : namespace0.0
-	  150000000-33fffffff : System RAM
-	3280000000-32ffffffff : PCI Bus 0000:00
-
-Within the kexec kernel after this change:
-	[root@localhost ~]# cat /proc/iomem
-	...
-	140000000-33fffffff : Persistent Memory
-	  140000000-1481fffff : namespace0.0
-	  148200000-33fffffff : dax0.0
-	3280000000-32ffffffff : PCI Bus 0000:00
-
-/sys/firmware/memmap/ before this change:
-	0000000000000000-000000000009fc00 (System RAM)
-	000000000009fc00-00000000000a0000 (Reserved)
-	00000000000f0000-0000000000100000 (Reserved)
-	0000000000100000-00000000bffdf000 (System RAM)
-	00000000bffdf000-00000000c0000000 (Reserved)
-	00000000feffc000-00000000ff000000 (Reserved)
-	00000000fffc0000-0000000100000000 (Reserved)
-	0000000100000000-0000000140000000 (System RAM)
-	0000000150000000-0000000340000000 (System RAM)
-
-/sys/firmware/memmap/ after a proper reboot:
-	0000000000000000-000000000009fc00 (System RAM)
-	000000000009fc00-00000000000a0000 (Reserved)
-	00000000000f0000-0000000000100000 (Reserved)
-	0000000000100000-00000000bffdf000 (System RAM)
-	00000000bffdf000-00000000c0000000 (Reserved)
-	00000000feffc000-00000000ff000000 (Reserved)
-	00000000fffc0000-0000000100000000 (Reserved)
-	0000000100000000-0000000140000000 (System RAM)
-
-/sys/firmware/memmap/ after this change:
-	0000000000000000-000000000009fc00 (System RAM)
-	000000000009fc00-00000000000a0000 (Reserved)
-	00000000000f0000-0000000000100000 (Reserved)
-	0000000000100000-00000000bffdf000 (System RAM)
-	00000000bffdf000-00000000c0000000 (Reserved)
-	00000000feffc000-00000000ff000000 (Reserved)
-	00000000fffc0000-0000000100000000 (Reserved)
-	0000000100000000-0000000140000000 (System RAM)
-
-kexec-tools already seem to basically ignore any System RAM that's not
-on top level when searching for areas to place kexec images - but also
-for determining crash areas to dump via kdump. This behavior is not
-changed by this patch. kexec-tools probably has to be fixed to also
-include this memory in system dumps.
-
-Note: kexec_file_load() does the right thing already within the kernel.
-
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-Cc: Wei Yang <richard.weiyang@gmail.com>
-Cc: Baoquan He <bhe@redhat.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Eric Biederman <ebiederm@xmission.com>
-Cc: Pavel Tatashin <pasha.tatashin@soleen.com>
-Cc: Dan Williams <dan.j.williams@intel.com>
-Signed-off-by: David Hildenbrand <david@redhat.com>
----
- drivers/dax/kmem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dax/kmem.c b/drivers/dax/kmem.c
-index e159184e0ba0..929823a79816 100644
---- a/drivers/dax/kmem.c
-+++ b/drivers/dax/kmem.c
-@@ -65,7 +65,8 @@ int dev_dax_kmem_probe(struct device *dev)
- 	new_res->flags =3D IORESOURCE_SYSTEM_RAM;
- 	new_res->name =3D dev_name(dev);
-=20
--	rc =3D add_memory(numa_node, new_res->start, resource_size(new_res), 0)=
-;
-+	rc =3D add_memory(numa_node, new_res->start, resource_size(new_res),
-+			MHP_NO_FIRMWARE_MEMMAP);
- 	if (rc) {
- 		release_resource(new_res);
- 		kfree(new_res);
---=20
-2.25.3
-
+Thanks, Roger.
 
