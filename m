@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37B1C1C0876
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 22:45:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 801B31C0879
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 22:45:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUG3I-0002wh-8N; Thu, 30 Apr 2020 20:45:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jUG3K-0002zB-RN; Thu, 30 Apr 2020 20:45:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fL57=6O=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1jUG3G-0002w3-Ry
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 20:44:58 +0000
-X-Inumbo-ID: 6f1a72e6-8b23-11ea-9aaf-12813bfff9fa
+ id 1jUG3J-0002yJ-F3
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 20:45:01 +0000
+X-Inumbo-ID: 701ee8de-8b23-11ea-b07b-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6f1a72e6-8b23-11ea-9aaf-12813bfff9fa;
- Thu, 30 Apr 2020 20:44:49 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 701ee8de-8b23-11ea-b07b-bc764e2007e4;
+ Thu, 30 Apr 2020 20:44:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
  Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=aO60ViVBWEWDKEHryOEaMwDjalPzlWCpuejw56ZNsYY=; b=Dw8P8ANR0KLecQjeUa+KKEQz93
- ch1rbKMtixX5Z80yFeFqneXkG5PjZDPNCPUUdWDfhLW9277bgqsxg5/EBnV7KzRJfbtsD6/QPWNrY
- pN4b74Fx87xXCF1D/JO90ahcNTiVhBF0uAKWn3ow7BAqHu6WTlLRhUcTuOZwXe8irHVg=;
+ bh=wgpps+8lZONEwS5fLM70YV18IA19BevUWAZAtXCq3Wg=; b=Tycjx5YewosH0ZNVQ/Ai+rio1p
+ sRQC/0oEorEhrqHDpNUyb9p7BJo/des8e7rOv6UuFAfSP9+nIxTNe0FT2TZOw/7qlW1ZM/tx/tpCt
+ dxmMkwXkZfljbUe+crVha8JlCQBA/jA1mlUxFRaEyFHFQVfEZLa/IxXcjmxxA+vDI6PE=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <hx242@xen.org>)
- id 1jUG36-0004Li-Vm; Thu, 30 Apr 2020 20:44:48 +0000
+ id 1jUG38-0004Lq-Dy; Thu, 30 Apr 2020 20:44:50 +0000
 Received: from 54-240-197-234.amazon.com ([54.240.197.234]
  helo=u1bbd043a57dd5a.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <hx242@xen.org>)
- id 1jUG36-0005wj-MQ; Thu, 30 Apr 2020 20:44:48 +0000
+ id 1jUG38-0005wj-4w; Thu, 30 Apr 2020 20:44:50 +0000
 From: Hongyan Xia <hx242@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 08/16] x86: add Persistent Map (PMAP) infrastructure
-Date: Thu, 30 Apr 2020 21:44:17 +0100
-Message-Id: <e92da4ad6015b6089737fcccba3ec1d6424649a5.1588278317.git.hongyxia@amazon.com>
+Subject: [PATCH 09/16] x86: lift mapcache variable to the arch level
+Date: Thu, 30 Apr 2020 21:44:18 +0100
+Message-Id: <0794bccd94b7613dafab85ecc30a832229af7997.1588278317.git.hongyxia@amazon.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1588278317.git.hongyxia@amazon.com>
 References: <cover.1588278317.git.hongyxia@amazon.com>
@@ -66,169 +65,161 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Wei Liu <wei.liu2@citrix.com>
 
-The basic idea is like Persistent Kernel Map (PKMAP) in linux. We
-pre-populate all the relevant page tables before system is fully set
-up.
+It is going to be needed by HVM and idle domain as well, because without
+the direct map, both need a mapcache to map pages.
 
-It is needed to bootstrap map domain page infrastructure -- we need
-some way to map pages to set up the mapcache without a direct map.
-
-This infrastructure is not lock-protected therefore can only be used
-before smpboot. After smpboot, mapcache has to be used.
+This only lifts the mapcache variable up. Whether we populate the
+mapcache for a domain is unchanged in this patch.
 
 Signed-off-by: Wei Liu <wei.liu2@citrix.com>
+Signed-off-by: Wei Wang <wawei@amazon.de>
 Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 ---
- xen/arch/x86/Makefile        |  1 +
- xen/arch/x86/pmap.c          | 87 ++++++++++++++++++++++++++++++++++++
- xen/include/asm-x86/fixmap.h |  3 ++
- xen/include/asm-x86/pmap.h   | 10 +++++
- 4 files changed, 101 insertions(+)
- create mode 100644 xen/arch/x86/pmap.c
- create mode 100644 xen/include/asm-x86/pmap.h
+ xen/arch/x86/domain.c        |  4 ++--
+ xen/arch/x86/domain_page.c   | 22 ++++++++++------------
+ xen/include/asm-x86/domain.h | 12 ++++++------
+ 3 files changed, 18 insertions(+), 20 deletions(-)
 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 44137d919b..c8e565867b 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -52,6 +52,7 @@ obj-y += pci.o
- obj-y += percpu.o
- obj-y += physdev.o x86_64/physdev.o
- obj-y += platform_hypercall.o x86_64/platform_hypercall.o
-+obj-bin-y += pmap.init.o
- obj-y += psr.o
- obj-y += setup.o
- obj-y += shutdown.o
-diff --git a/xen/arch/x86/pmap.c b/xen/arch/x86/pmap.c
-new file mode 100644
-index 0000000000..44d02ece89
---- /dev/null
-+++ b/xen/arch/x86/pmap.c
-@@ -0,0 +1,87 @@
-+#include <xen/init.h>
-+#include <xen/mm.h>
-+#include <xen/spinlock.h>
-+
-+#include <asm/bitops.h>
-+#include <asm/fixmap.h>
-+#include <asm/flushtlb.h>
-+
-+/*
-+ * Simple mapping infrastructure to map / unmap pages in fixed map.
-+ * This is used to set up the page table for mapcache, which is used
-+ * by map domain page infrastructure.
-+ *
-+ * This structure is not protected by any locks, so it must not be used after
-+ * smp bring-up.
-+ */
-+
-+/* Bitmap to track which slot is used */
-+static unsigned long __initdata inuse;
-+
-+void *__init pmap_map(mfn_t mfn)
-+{
-+    unsigned long flags;
-+    unsigned int idx;
-+    void *linear = NULL;
-+    enum fixed_addresses slot;
-+    l1_pgentry_t *pl1e;
-+
-+    BUILD_BUG_ON(sizeof(inuse) * BITS_PER_LONG < NUM_FIX_PMAP);
-+
-+    ASSERT(system_state < SYS_STATE_smp_boot);
-+
-+    local_irq_save(flags);
-+
-+    idx = find_first_zero_bit(&inuse, NUM_FIX_PMAP);
-+    if ( idx == NUM_FIX_PMAP )
-+        panic("Out of PMAP slots\n");
-+
-+    __set_bit(idx, &inuse);
-+
-+    slot = idx + FIX_PMAP_BEGIN;
-+    ASSERT(slot >= FIX_PMAP_BEGIN && slot <= FIX_PMAP_END);
-+
-+    linear = fix_to_virt(slot);
-+    /*
-+     * We cannot use set_fixmap() here. We use PMAP when there is no direct map,
-+     * so map_pages_to_xen() called by set_fixmap() needs to map pages on
-+     * demand, which then calls pmap() again, resulting in a loop. Modify the
-+     * PTEs directly instead. The same is true for pmap_unmap().
-+     */
-+    pl1e = &l1_fixmap[l1_table_offset((unsigned long)linear)];
-+    l1e_write_atomic(pl1e, l1e_from_mfn(mfn, PAGE_HYPERVISOR));
-+
-+    local_irq_restore(flags);
-+
-+    return linear;
-+}
-+
-+void __init pmap_unmap(void *p)
-+{
-+    unsigned long flags;
-+    unsigned int idx;
-+    l1_pgentry_t *pl1e;
-+    enum fixed_addresses slot = __virt_to_fix((unsigned long)p);
-+
-+    ASSERT(system_state < SYS_STATE_smp_boot);
-+    ASSERT(slot >= FIX_PMAP_BEGIN && slot <= FIX_PMAP_END);
-+
-+    idx = slot - FIX_PMAP_BEGIN;
-+    local_irq_save(flags);
-+
-+    __clear_bit(idx, &inuse);
-+    pl1e = &l1_fixmap[l1_table_offset((unsigned long)p)];
-+    l1e_write_atomic(pl1e, l1e_empty());
-+    flush_tlb_one_local(p);
-+
-+    local_irq_restore(flags);
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/asm-x86/fixmap.h b/xen/include/asm-x86/fixmap.h
-index 8330097a74..000f3b3375 100644
---- a/xen/include/asm-x86/fixmap.h
-+++ b/xen/include/asm-x86/fixmap.h
-@@ -24,6 +24,7 @@
- #include <xen/kexec.h>
- #include <asm/apicdef.h>
- #include <asm/msi.h>
-+#include <asm/pmap.h>
- #include <acpi/apei.h>
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index a4428190d5..e73f1efe85 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -634,6 +634,8 @@ int arch_domain_create(struct domain *d,
  
- /*
-@@ -49,6 +50,8 @@ enum fixed_addresses {
-     FIX_XEN_SHARED_INFO,
- #endif /* CONFIG_XEN_GUEST */
-     /* Everything else should go further down. */
-+    FIX_PMAP_BEGIN,
-+    FIX_PMAP_END = FIX_PMAP_BEGIN + NUM_FIX_PMAP - 1,
-     FIX_APIC_BASE,
-     FIX_IO_APIC_BASE_0,
-     FIX_IO_APIC_BASE_END = FIX_IO_APIC_BASE_0 + MAX_IO_APICS-1,
-diff --git a/xen/include/asm-x86/pmap.h b/xen/include/asm-x86/pmap.h
-new file mode 100644
-index 0000000000..790cd71fb3
---- /dev/null
-+++ b/xen/include/asm-x86/pmap.h
-@@ -0,0 +1,10 @@
-+#ifndef __X86_PMAP_H__
-+#define __X86_PMAP_H__
+     psr_domain_init(d);
+ 
++    mapcache_domain_init(d);
 +
-+/* Large enough for mapping 5 levels of page tables with some headroom */
-+#define NUM_FIX_PMAP 8
+     if ( is_hvm_domain(d) )
+     {
+         if ( (rc = hvm_domain_initialise(d)) != 0 )
+@@ -641,8 +643,6 @@ int arch_domain_create(struct domain *d,
+     }
+     else if ( is_pv_domain(d) )
+     {
+-        mapcache_domain_init(d);
+-
+         if ( (rc = pv_domain_initialise(d)) != 0 )
+             goto fail;
+     }
+diff --git a/xen/arch/x86/domain_page.c b/xen/arch/x86/domain_page.c
+index 3a244bb500..7b22e7c6ed 100644
+--- a/xen/arch/x86/domain_page.c
++++ b/xen/arch/x86/domain_page.c
+@@ -82,11 +82,11 @@ void *map_domain_page(mfn_t mfn)
+ #endif
+ 
+     v = mapcache_current_vcpu();
+-    if ( !v || !is_pv_vcpu(v) )
++    if ( !v )
+         return mfn_to_virt(mfn_x(mfn));
+ 
+-    dcache = &v->domain->arch.pv.mapcache;
+-    vcache = &v->arch.pv.mapcache;
++    dcache = &v->domain->arch.mapcache;
++    vcache = &v->arch.mapcache;
+     if ( !dcache->inuse )
+         return mfn_to_virt(mfn_x(mfn));
+ 
+@@ -187,14 +187,14 @@ void unmap_domain_page(const void *ptr)
+     ASSERT(va >= MAPCACHE_VIRT_START && va < MAPCACHE_VIRT_END);
+ 
+     v = mapcache_current_vcpu();
+-    ASSERT(v && is_pv_vcpu(v));
++    ASSERT(v);
+ 
+-    dcache = &v->domain->arch.pv.mapcache;
++    dcache = &v->domain->arch.mapcache;
+     ASSERT(dcache->inuse);
+ 
+     idx = PFN_DOWN(va - MAPCACHE_VIRT_START);
+     mfn = l1e_get_pfn(MAPCACHE_L1ENT(idx));
+-    hashent = &v->arch.pv.mapcache.hash[MAPHASH_HASHFN(mfn)];
++    hashent = &v->arch.mapcache.hash[MAPHASH_HASHFN(mfn)];
+ 
+     local_irq_save(flags);
+ 
+@@ -233,11 +233,9 @@ void unmap_domain_page(const void *ptr)
+ 
+ int mapcache_domain_init(struct domain *d)
+ {
+-    struct mapcache_domain *dcache = &d->arch.pv.mapcache;
++    struct mapcache_domain *dcache = &d->arch.mapcache;
+     unsigned int bitmap_pages;
+ 
+-    ASSERT(is_pv_domain(d));
+-
+ #ifdef NDEBUG
+     if ( !mem_hotplug && max_page <= PFN_DOWN(__pa(HYPERVISOR_VIRT_END - 1)) )
+         return 0;
+@@ -261,12 +259,12 @@ int mapcache_domain_init(struct domain *d)
+ int mapcache_vcpu_init(struct vcpu *v)
+ {
+     struct domain *d = v->domain;
+-    struct mapcache_domain *dcache = &d->arch.pv.mapcache;
++    struct mapcache_domain *dcache = &d->arch.mapcache;
+     unsigned long i;
+     unsigned int ents = d->max_vcpus * MAPCACHE_VCPU_ENTRIES;
+     unsigned int nr = PFN_UP(BITS_TO_LONGS(ents) * sizeof(long));
+ 
+-    if ( !is_pv_vcpu(v) || !dcache->inuse )
++    if ( !dcache->inuse )
+         return 0;
+ 
+     if ( ents > dcache->entries )
+@@ -293,7 +291,7 @@ int mapcache_vcpu_init(struct vcpu *v)
+     BUILD_BUG_ON(MAPHASHENT_NOTINUSE < MAPCACHE_ENTRIES);
+     for ( i = 0; i < MAPHASH_ENTRIES; i++ )
+     {
+-        struct vcpu_maphash_entry *hashent = &v->arch.pv.mapcache.hash[i];
++        struct vcpu_maphash_entry *hashent = &v->arch.mapcache.hash[i];
+ 
+         hashent->mfn = ~0UL; /* never valid to map */
+         hashent->idx = MAPHASHENT_NOTINUSE;
+diff --git a/xen/include/asm-x86/domain.h b/xen/include/asm-x86/domain.h
+index 5b6d909266..1cee04c0c5 100644
+--- a/xen/include/asm-x86/domain.h
++++ b/xen/include/asm-x86/domain.h
+@@ -271,9 +271,6 @@ struct pv_domain
+     /* Mitigate L1TF with shadow/crashing? */
+     bool check_l1tf;
+ 
+-    /* map_domain_page() mapping cache. */
+-    struct mapcache_domain mapcache;
+-
+     struct cpuidmasks *cpuidmasks;
+ };
+ 
+@@ -306,6 +303,9 @@ struct arch_domain
+     uint32_t pci_cf8;
+     uint8_t cmos_idx;
+ 
++    /* map_domain_page() mapping cache. */
++    struct mapcache_domain mapcache;
 +
-+void *pmap_map(mfn_t mfn);
-+void pmap_unmap(void *p);
+     union {
+         struct pv_domain pv;
+         struct hvm_domain hvm;
+@@ -482,9 +482,6 @@ struct arch_domain
+ 
+ struct pv_vcpu
+ {
+-    /* map_domain_page() mapping cache. */
+-    struct mapcache_vcpu mapcache;
+-
+     unsigned int vgc_flags;
+ 
+     struct trap_info *trap_ctxt;
+@@ -567,6 +564,9 @@ struct arch_vcpu
+ #define async_exception_state(t) async_exception_state[(t)-1]
+     uint8_t async_exception_mask;
+ 
++    /* map_domain_page() mapping cache. */
++    struct mapcache_vcpu mapcache;
 +
-+#endif	/* __X86_PMAP_H__ */
+     /* Virtual Machine Extensions */
+     union {
+         struct pv_vcpu pv;
 -- 
 2.24.1.AMZN
 
