@@ -2,67 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6B081C0570
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 20:59:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E60D61C087B
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 22:45:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUEOI-0002XX-Cf; Thu, 30 Apr 2020 18:58:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JErk=6O=intel.com=dan.j.williams@srs-us1.protection.inumbo.net>)
- id 1jUEOG-0002XS-Og
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 18:58:32 +0000
-X-Inumbo-ID: 9451f1ce-8b14-11ea-9887-bc764e2007e4
-Received: from mail-ej1-x642.google.com (unknown [2a00:1450:4864:20::642])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9451f1ce-8b14-11ea-9887-bc764e2007e4;
- Thu, 30 Apr 2020 18:58:29 +0000 (UTC)
-Received: by mail-ej1-x642.google.com with SMTP id nv1so5592143ejb.0
- for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2020 11:58:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VO82Y+ddPqwVbejb8yp1YADHo+TiaduERH1aUXgFNdU=;
- b=ftYR3vvy7y4XQUHnig2EWsnYgRjVl+CPW2em4ftSq034hx6ZoqSueCcso+RG9w8AGa
- w0/+YALKEw0FIaP05V+9C0XKOYuOmd59KAW1siA/r09GzwZUf48N8GmxNx1dxSbliixs
- CuBWjC2ORmo5GZgQNulH0b+ykeGy5IQzQog4ZcfdBGWxbr/kGwbKqiBi3jZCbBsGvnNW
- Q5W2E6yv533qZlcTHc6rxcPndCCEwjOVK0cZ2rz6LGVrs0kCEepYAF9z3xs1VIBjMZtf
- A5p7YNgqSxKHyCub+EuUXAZ2xuX50SSxRFhOGGuo9nNwQKHccsh0XWdv0oNDM0uH1ryy
- dbvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=VO82Y+ddPqwVbejb8yp1YADHo+TiaduERH1aUXgFNdU=;
- b=kbVUav/KmM+jpjChIPAht4Je7ydFJjDr7DxaipSy3IA+QzahEXyqHdM0EGCU5qxTI5
- GppXhvHxnKWBreDsyC/TFNERYNvdeAznDomGF7jsp29o60va2+iKlz4Vfq0qTX1HeGvY
- HomORIbJWPXL2KXxAEmaJTUhGaEyrpKscrBzH4oXN/u3PSBnk3Vu0uFDnoaP56Q4M+cJ
- G5Ej129Eozqa1IkMO1ArnszDX18vKRE6ogM2N7rVG+tuJhUm0Zjk0VSVNp9GjetPVpla
- g0Q97Adlg86CHSBDhW24w6HX9nf7zEYrFmr1lr9/j1WqVKv/AErjXLxP8U+p/J7OHb2N
- AdYg==
-X-Gm-Message-State: AGi0Puah2PCSwaj7HBSyzIrBm+3aZ4lxBopjRWBEx5AW1IA3sWxGBUjG
- NNRMCs6ULfokL09avnIv7vqH462Si4k9rqv20JPxkw==
-X-Google-Smtp-Source: APiQypLtO6lmgP+/t4n/a1LprqtsF2znfD77bnYaqHJRks9KFzncsFlKVdj99iACRR541U4ie6ERYFDj3Eno6uEUPdw=
-X-Received: by 2002:a17:906:855a:: with SMTP id
- h26mr4305126ejy.56.1588273108788; 
- Thu, 30 Apr 2020 11:58:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200430102908.10107-1-david@redhat.com>
- <20200430102908.10107-3-david@redhat.com>
- <87pnbp2dcz.fsf@x220.int.ebiederm.org>
- <1b49c3be-6e2f-57cb-96f7-f66a8f8a9380@redhat.com>
- <871ro52ary.fsf@x220.int.ebiederm.org>
- <373a6898-4020-4af1-5b3d-f827d705dd77@redhat.com>
- <875zdg26hp.fsf@x220.int.ebiederm.org>
- <b28c9e02-8cf2-33ae-646b-fe50a185738e@redhat.com>
-In-Reply-To: <b28c9e02-8cf2-33ae-646b-fe50a185738e@redhat.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Thu, 30 Apr 2020 11:58:16 -0700
-Message-ID: <CAPcyv4j33bwbrFMu2L0knRGRN1RDiC5kbknMNEwo-OFmPSw47w@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] mm/memory_hotplug: Introduce MHP_NO_FIRMWARE_MEMMAP
-To: David Hildenbrand <david@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+	id 1jUG2z-0002oT-5s; Thu, 30 Apr 2020 20:44:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fL57=6O=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jUG2x-0002oO-34
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 20:44:39 +0000
+X-Inumbo-ID: 67ddbcb8-8b23-11ea-9aaf-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 67ddbcb8-8b23-11ea-9aaf-12813bfff9fa;
+ Thu, 30 Apr 2020 20:44:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=65lvQ4PbPRxi9d54dSLD9/wIHTVMii+HQcXJixzddik=; b=RYV6TpNPcZAXOe47Tm8GnwMS4n
+ Ak++zpff4XuAzR+W5jzfjNi6XjfPVrIzK47yGEw9HrWmZ3errmV/NfoTp6TfDpiDJTfvFIvBazLOM
+ gL/dBGhV6zvnwwb1LzIkh//lr7xOZLFBSjOwjTQ+mUlPpiwrPDajxnR+W1tw8kKqTaqg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1jUG2u-0004Ko-Nk; Thu, 30 Apr 2020 20:44:36 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=u1bbd043a57dd5a.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jUG2u-0005wj-Cw; Thu, 30 Apr 2020 20:44:36 +0000
+From: Hongyan Xia <hx242@xen.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH 00/16] Remove the direct map
+Date: Thu, 30 Apr 2020 21:44:09 +0100
+Message-Id: <cover.1588278317.git.hongyxia@amazon.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,114 +54,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
- Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>,
- Linux ACPI <linux-acpi@vger.kernel.org>, Wei Yang <richard.weiyang@gmail.com>,
- linux-s390 <linux-s390@vger.kernel.org>,
- linux-nvdimm <linux-nvdimm@lists.01.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- virtualization@lists.linux-foundation.org, Linux MM <linux-mm@kvack.org>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- "Eric W. Biederman" <ebiederm@xmission.com>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Apr 30, 2020 at 11:44 AM David Hildenbrand <david@redhat.com> wrote:
->
->  >>> If the class of memory is different then please by all means let's mark
-> >>> it differently in struct resource so everyone knows it is different.
-> >>> But that difference needs to be more than hotplug.
-> >>>
-> >>> That difference needs to be the hypervisor loaned us memory and might
-> >>> take it back at any time, or this memory is persistent and so it has
-> >>> these different characteristics so don't use it as ordinary ram.
-> >>
-> >> Yes, and I think kmem took an excellent approach of explicitly putting
-> >> that "System RAM" into a resource hierarchy. That "System RAM" won't
-> >> show up as a root node under /proc/iomem (see patch #3), which already
-> >> results in kexec-tools to treat it in a special way. I am thinking about
-> >> doing the same for virtio-mem.
-> >
-> > Reading this and your patch cover letters again my concern is that
-> > the justification seems to be letting the tail wag the dog.
-> >
-> > You want kexec-tools to behave in a certain way so you are changing the
-> > kernel.
-> >
-> > Rather it should be change the kernel to clearly reflect reality and if
-> > you can get away without a change to kexec-tools that is a bonus.
-> >
->
-> Right, because user space has to have a way to figure out what to do.
->
-> But talking about the firmware memmap, indicating something via a "raw
-> firmware-provided memory map", that is not actually in the "raw
-> firmware-provided memory map" feels wrong to me. (below)
->
->
-> >>> That information is also useful to other people looking at the system
-> >>> and seeing what is going on.
-> >>>
-> >>> Just please don't muddle the concepts, or assume that whatever subset of
-> >>> hotplug memory you are dealing with is the only subset.
-> >>
-> >> I can certainly rephrase the subject/description/comment, stating that
-> >> this is not to be used for ordinary hotplugged DIMMs - only when the
-> >> device driver is under control to decide what to do with that memory -
-> >> especially when kexec'ing.
-> >>
-> >> (previously, I called this flag MHP_DRIVER_MANAGED, but I think
-> >> MHP_NO_FIRMWARE_MEMMAP is clearer, we just need a better description)
-> >>
-> >> Would that make it clearer?
-> >
-> > I am not certain, but Andrew Morton deliberately added that
-> > firmware_map_add_hotplug call.  Which means that there is a reason
-> > for putting hotplugged memory in the firmware map.
-> >
-> > So the justification needs to take that reason into account.  The
-> > justification can not be it is hotplugged therefore it should not belong
-> > in the firmware memory map.  Unless you can show that
-> > firmware_map_add_hotplug that was actually a bug and should be removed.
-> > But as it has been that way since 2010 that seems like a long shot.
-> >
-> > So my question is what is right for the firmware map?
->
-> We have documentation for that since 2008. Andrews patch is from 2010.
->
-> Documentation/ABI/testing/sysfs-firmware-memmap
->
-> It clearly talks about "raw firmware-provided memory map" and why the
-> interface was introduced at all ("on most architectures that
-> firmware-provided memory map is modified afterwards by the kernel itself").
->
-> >
-> > Why does the firmware map support hotplug entries?
->
-> I assume:
->
-> The firmware memmap was added primarily for x86-64 kexec (and still, is
-> mostly used on x86-64 only IIRC). There, we had ACPI hotplug. When DIMMs
-> get hotplugged on real HW, they get added to e820. Same applies to
-> memory added via HyperV balloon (unless memory is unplugged via
-> ballooning and you reboot ... the the e820 is changed as well). I assume
-> we wanted to be able to reflect that, to make kexec look like a real reboot.
+From: Hongyan Xia <hongyxia@amazon.com>
 
-I can at least say that this breakdown makes sense to me. Traditional
-memory hotplug results in permanent change to the raw firmware memory
-map reported by the host at next reboot. These device-driver-owned
-memory regions really want a hotplug policy per-kernel boot instance
-and should fall back to the default reserved state at reboot (kexec or
-otherwise). When I say hotplug-policy I mean whether the current
-kernel wants to treat the device range as System RAM or leave it as
-device-managed. The intent is that the follow-on kernel needs to
-re-decide the device policy.
+This series depends on Xen page table domheap conversion:
+https://lists.xenproject.org/archives/html/xen-devel/2020-04/msg01374.html.
 
->
-> This worked for a while. Then came dax/kmem. Now comes virtio-mem.
->
+After breaking the reliance on the direct map to manipulate Xen page
+tables, we can now finally remove the direct map altogether.
+
+This series:
+- fixes many places that use the direct map incorrectly or assume the
+  presence of an always-mapped direct map in a wrong way.
+- includes the early vmap patches for global mappings.
+- initialises the mapcache for all domains, disables the fast path that
+  uses the direct map for mappings.
+- maps and unmaps xenheap on-demand.
+- adds a boot command line switch to enable or disable the direct map.
+
+This previous version was in RFC state and can be found here:
+https://lists.xenproject.org/archives/html/xen-devel/2019-09/msg02647.html,
+which has since been broken into small series.
+
+Hongyan Xia (12):
+  acpi: vmap pages in acpi_os_alloc_memory
+  x86/numa: vmap the pages for memnodemap
+  x86/srat: vmap the pages for acpi_slit
+  x86: map/unmap pages in restore_all_guests.
+  x86/pv: rewrite how building PV dom0 handles domheap mappings
+  x86/mapcache: initialise the mapcache for the idle domain
+  x86: add a boot option to enable and disable the direct map
+  x86/domain_page: remove the fast paths when mfn is not in the
+    directmap
+  xen/page_alloc: add a path for xenheap when there is no direct map
+  x86/setup: leave early boot slightly earlier
+  x86/setup: vmap heap nodes when they are outside the direct map
+  x86/setup: do not create valid mappings when directmap=no
+
+Wei Liu (4):
+  x86/setup: move vm_init() before acpi calls
+  x86/pv: domheap pages should be mapped while relocating initrd
+  x86: add Persistent Map (PMAP) infrastructure
+  x86: lift mapcache variable to the arch level
+
+ docs/misc/xen-command-line.pandoc |  12 +++
+ xen/arch/arm/setup.c              |   4 +-
+ xen/arch/x86/Makefile             |   1 +
+ xen/arch/x86/domain.c             |   4 +-
+ xen/arch/x86/domain_page.c        |  53 ++++++++-----
+ xen/arch/x86/mm.c                 |   8 +-
+ xen/arch/x86/numa.c               |   8 +-
+ xen/arch/x86/pmap.c               |  87 +++++++++++++++++++++
+ xen/arch/x86/pv/dom0_build.c      |  75 ++++++++++++++----
+ xen/arch/x86/setup.c              | 125 +++++++++++++++++++++++++-----
+ xen/arch/x86/srat.c               |   3 +-
+ xen/arch/x86/x86_64/entry.S       |  27 ++++++-
+ xen/common/page_alloc.c           |  85 +++++++++++++++++---
+ xen/common/vmap.c                 |  37 +++++++--
+ xen/drivers/acpi/osl.c            |   9 ++-
+ xen/include/asm-arm/mm.h          |   5 ++
+ xen/include/asm-x86/domain.h      |  12 +--
+ xen/include/asm-x86/fixmap.h      |   3 +
+ xen/include/asm-x86/mm.h          |  17 +++-
+ xen/include/asm-x86/pmap.h        |  10 +++
+ xen/include/xen/vmap.h            |   5 ++
+ 21 files changed, 495 insertions(+), 95 deletions(-)
+ create mode 100644 xen/arch/x86/pmap.c
+ create mode 100644 xen/include/asm-x86/pmap.h
+
+-- 
+2.24.1.AMZN
+
 
