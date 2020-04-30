@@ -2,42 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0831BF2EA
+	by mail.lfdr.de (Postfix) with ESMTPS id 340321BF2E8
 	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 10:34:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU4dw-0004iI-Ss; Thu, 30 Apr 2020 08:34:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mtm3=6O=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jU4dw-0004iD-9J
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 08:34:04 +0000
-X-Inumbo-ID: 57b30174-8abd-11ea-9a10-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 57b30174-8abd-11ea-9a10-12813bfff9fa;
- Thu, 30 Apr 2020 08:34:01 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 84A34AB7F;
- Thu, 30 Apr 2020 08:33:59 +0000 (UTC)
-Subject: Re: [PATCH] x86/hap: be more selective with assisted TLB flush
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200429173601.77605-1-roger.pau@citrix.com>
- <4257a323-d37f-4af0-bdc6-a3f65c19438a@suse.com>
- <20200430082844.GZ28601@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d5a0308b-0ac3-21f5-9a07-e1402005b663@suse.com>
-Date: Thu, 30 Apr 2020 10:33:54 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	id 1jU4e9-0004js-55; Thu, 30 Apr 2020 08:34:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JErk=6O=intel.com=dan.j.williams@srs-us1.protection.inumbo.net>)
+ id 1jU4e8-0004jn-Bu
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 08:34:16 +0000
+X-Inumbo-ID: 5ddc9dd0-8abd-11ea-ae69-bc764e2007e4
+Received: from mail-ej1-x641.google.com (unknown [2a00:1450:4864:20::641])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5ddc9dd0-8abd-11ea-ae69-bc764e2007e4;
+ Thu, 30 Apr 2020 08:34:13 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id n4so3966276ejs.11
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2020 01:34:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=87dIcS/jrU3IxflLIkdtnvU4qll0iHvEZNuLGZ4o7wI=;
+ b=C7NzSwQeQ8r7hb6zu0mE43nN5BVsWOZy21t9s86oMspwPoqNG+2r9QwYXMI253bkO+
+ f2NXbqJEZlVUDXw2jKOJXTdMksOMSeCU/1+d1/KW3kPK6bDnIkjaV85ydvslVx7+7VaK
+ H/Wy8s3jtrbog9dFPbt+U8g4F9a/kPxAFzoHfDtTpSCDud/nTiDKxbIHNOx4gDT1cWli
+ scShmtfTOkTf1D6LztaDjOZAMAIUOcl9E1Ehg4s+icpPrmffJn6TfhOtMJuuVZZemCWo
+ u5q8IaOdIkls7C87+V/X7frCMtH72XB/et/faVXvhnFad5uP3/TQ8BbSLNTCllAusarT
+ BwFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=87dIcS/jrU3IxflLIkdtnvU4qll0iHvEZNuLGZ4o7wI=;
+ b=eBK7HnCm2+L9Ye86kGh2AOY2F3sNS/Z+gbFKxnbgmfAnuhNSSETHX6IqLSwc0Ah27b
+ 1h6VpKIUuDIVpooJDKOlbG7K4CfzE34nYrXvkqRNi+DGwtBFO87WHBZUmUfUL/oo9dVO
+ fxToH3GCwBGRo5CqrySxVoOAZu7kxhCFeAJWElhvEAdA4vpDazEzsRqhZshdP0ZFK47o
+ BBrMA3iuV4ESMm+j8UujRX+m6wrNo0PBCz60axlUDJTA/+IWwrgNOVFSCQWV3Wc+jQLm
+ yaw3l637rmMQ7MlqlgtC5sUyXmSh2mONCfAmtacFF95X2x43eAFpxlfJybdtBMCvJ4sb
+ xjvQ==
+X-Gm-Message-State: AGi0Pub8WUzp0yGb/xZYONJzKrZ3FlofcgfpoGcMHyuPgfJtqzlQOBQ8
+ leTLheZJ4KZlMSt3L4zV2KFzNQuPIP3P3AdG7ZO/GA==
+X-Google-Smtp-Source: APiQypLBVztlIIHfr3wCtEt+MVa/TaJHl/O1nuNqStB0TwAKkS6wTTbCgFJlPXMDG8iI601GTPaB481cRsH+FNdImHY=
+X-Received: by 2002:a17:906:7750:: with SMTP id
+ o16mr1715515ejn.12.1588235651152; 
+ Thu, 30 Apr 2020 01:34:11 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200430082844.GZ28601@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <20200429160803.109056-1-david@redhat.com>
+ <20200429160803.109056-3-david@redhat.com>
+ <a7305cd8-8b2f-1d8f-7654-ecf777c46df6@redhat.com>
+ <CAPcyv4i04+QLxiOyz04_eef2DFetEFKBUmi2A4xxw9abQD8hNQ@mail.gmail.com>
+ <e32522cd-31bb-e129-47a6-9ec13b570506@redhat.com>
+In-Reply-To: <e32522cd-31bb-e129-47a6-9ec13b570506@redhat.com>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Thu, 30 Apr 2020 01:34:00 -0700
+Message-ID: <CAPcyv4gjRE23BHsBAnaVWAPUHWdenxYMUwDBnDF7UmoejmmbNQ@mail.gmail.com>
+Subject: Re: [PATCH v1 2/3] mm/memory_hotplug: Introduce MHP_DRIVER_MANAGED
+To: David Hildenbrand <david@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,53 +70,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
+ Michal Hocko <mhocko@suse.com>, Pavel Tatashin <pasha.tatashin@soleen.com>,
+ Baoquan He <bhe@redhat.com>, Linux MM <linux-mm@kvack.org>,
+ Wei Yang <richard.weiyang@gmail.com>, linux-s390 <linux-s390@vger.kernel.org>,
+ linux-nvdimm <linux-nvdimm@lists.01.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ virtualization@lists.linux-foundation.org,
+ Linux ACPI <linux-acpi@vger.kernel.org>,
+ "Michael S . Tsirkin" <mst@redhat.com>, Eric Biederman <ebiederm@xmission.com>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30.04.2020 10:28, Roger Pau Monné wrote:
-> On Thu, Apr 30, 2020 at 09:20:58AM +0200, Jan Beulich wrote:
->> On 29.04.2020 19:36, Roger Pau Monne wrote:
->>> When doing an assisted flush on HAP the purpose of the
->>> on_selected_cpus is just to trigger a vmexit on remote CPUs that are
->>> in guest context, and hence just using is_vcpu_dirty_cpu is too lax,
->>> also check that the vCPU is running.
->>
->> Am I right to understand that the change is relevant only to
->> cover the period of time between ->is_running becoming false
->> and ->dirty_cpu becoming VCPU_CPU_CLEAN? I.e. ...
->>
->>> --- a/xen/arch/x86/mm/hap/hap.c
->>> +++ b/xen/arch/x86/mm/hap/hap.c
->>> @@ -719,7 +719,7 @@ static bool flush_tlb(bool (*flush_vcpu)(void *ctxt, struct vcpu *v),
->>>          hvm_asid_flush_vcpu(v);
->>>  
->>>          cpu = read_atomic(&v->dirty_cpu);
->>> -        if ( cpu != this_cpu && is_vcpu_dirty_cpu(cpu) )
->>> +        if ( cpu != this_cpu && is_vcpu_dirty_cpu(cpu) && v->is_running )
->>
->> ... the previous logic would have suitably covered the switch-to
->> path, but doesn't properly cover the switch-from one, due to our
->> lazy context switch approach?
-> 
-> Yes. Also __context_switch is not called from context_switch when
-> switching to the idle vcpu, and hence dirty_cpu is not cleared.
-> 
->> If so, I agree with the change:
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> It might be worth mentioning this detail in the description then,
->> though.
-> 
-> Would you mind adding to the commit message if you agree:
-> 
-> "Due to the lazy context switching done by Xen dirty_cpu won't always be
-> cleared when the guest vCPU is not running, and hence relying on
-> is_running allows more fine grained control of whether the vCPU is
-> actually running."
+On Thu, Apr 30, 2020 at 1:21 AM David Hildenbrand <david@redhat.com> wrote:
+> >> Just because we decided to use some DAX memory in the current kernel as
+> >> system ram, doesn't mean we should make that decision for the kexec
+> >> kernel (e.g., using it as initial memory, placing kexec binaries onto
+> >> it, etc.). This is also not what we would observe during a real reboot.
+> >
+> > Agree.
+> >
+> >> I can see that the "System RAM" resource will show up as child resource
+> >> under the device e.g., in /proc/iomem.
+> >>
+> >> However, entries in /sys/firmware/memmap/ are created as "System RAM".
+> >
+> > True. Do you think this rename should just be limited to what type
+> > /sys/firmware/memmap/ emits? I have the concern, but no proof
+>
+> We could split this patch into
+>
+> MHP_NO_FIRMWARE_MEMMAP (create firmware memmap entries)
+>
+> and
+>
+> MHP_DRIVER_MANAGED (name of the resource)
+>
+> See below, the latter might not be needed.
+>
+> > currently, that there are /proc/iomem walkers that explicitly look for
+> > "System RAM", but might be thrown off by "System RAM (driver
+> > managed)". I was not aware of /sys/firmware/memmap until about 5
+> > minutes ago.
+>
+> The only two users of /proc/iomem I am aware of are kexec-tools and some
+> s390x tools.
+>
+> kexec-tools on x86-64 uses /sys/firmware/memmap to craft the initial
+> memmap, but uses /proc/iomem to
+> a) Find places for kexec images
+> b) Detect memory regions to dump via kdump
+>
+> I am not yet sure if we really need the "System RAM (driver managed)"
+> part. If we can teach kexec-tools to
+> a) Don't place kexec images on "System RAM" that has a parent resource
+> (most likely requires kexec-tools changes)
+> b) Consider for kdump "System RAM" that has a parent resource
+> we might be able to avoid renaming that. (I assume that's already done)
+>
+> E.g., regarding virtio-mem (patch #3) I am currently also looking into
+> creating a parent resource instead, like dax/kmem to avoid the rename:
+>
+> :/# cat /proc/iomem
+> 00000000-00000fff : Reserved
+> [...]
+> 100000000-13fffffff : System RAM
+> 140000000-33fffffff : virtio0
+>   140000000-147ffffff : System RAM
+>   148000000-14fffffff : System RAM
+>   150000000-157ffffff : System RAM
+> 340000000-303fffffff : virtio1
+>   340000000-347ffffff : System RAM
+> 3280000000-32ffffffff : PCI Bus 0000:00
 
-Sure; I'll give it over the weekend though for others to comment, if
-so desired.
-
-Jan
+Looks good to me if it flies with kexec-tools.
 
