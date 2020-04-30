@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 958C01C04B0
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 20:27:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2E3D1C04AD
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 20:27:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUDuG-0007wX-Bo; Thu, 30 Apr 2020 18:27:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jUDuM-0007xq-Ol; Thu, 30 Apr 2020 18:27:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0VdV=6O=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jUDuE-0007wP-Ol
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 18:27:30 +0000
-X-Inumbo-ID: 4005399a-8b10-11ea-b07b-bc764e2007e4
+ id 1jUDuK-0007xQ-FE
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 18:27:36 +0000
+X-Inumbo-ID: 429940b8-8b10-11ea-9a92-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4005399a-8b10-11ea-b07b-bc764e2007e4;
- Thu, 30 Apr 2020 18:27:30 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 429940b8-8b10-11ea-9a92-12813bfff9fa;
+ Thu, 30 Apr 2020 18:27:36 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CC9FBAC4A;
- Thu, 30 Apr 2020 18:27:28 +0000 (UTC)
-Subject: [PATCH 1/3] automation: update openSUSE Tumbleweed building
- dependencies
+ by mx2.suse.de (Postfix) with ESMTP id 800D1AC4A;
+ Thu, 30 Apr 2020 18:27:34 +0000 (UTC)
+Subject: [PATCH 2/3] automation: openSUSE distro names helpers for
+ containerize.
 From: Dario Faggioli <dfaggioli@suse.com>
 To: xen-devel@lists.xenproject.org
-Date: Thu, 30 Apr 2020 20:27:28 +0200
-Message-ID: <158827124854.19371.13461510910212179854.stgit@Palanthas>
+Date: Thu, 30 Apr 2020 20:27:34 +0200
+Message-ID: <158827125424.19371.11152490489435365073.stgit@Palanthas>
 In-Reply-To: <158827088416.19371.17008531228521109457.stgit@Palanthas>
 References: <158827088416.19371.17008531228521109457.stgit@Palanthas>
 User-Agent: StGit/0.21
@@ -44,40 +45,29 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Doug Goldstein <cardoe@cardoe.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-
-We need python3 (and the respective -devel package), these days.
 
 Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
 ---
 Cc: Doug Goldstein <cardoe@cardoe.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-This patch was submitted already, but not as part of this series.
-
-Anyway, changes from v1:
-* add python3 instead of replacing python2 with it.
----
-I think the tumbleweed image in our registry needs to be updated.
----
- .../build/suse/opensuse-tumbleweed.dockerfile      |    2 ++
+ automation/scripts/containerize |    2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
-index 2676a87c85..084cce0921 100644
---- a/automation/build/suse/opensuse-tumbleweed.dockerfile
-+++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
-@@ -56,6 +56,8 @@ RUN zypper install -y --no-recommends \
-         pkg-config \
-         python \
-         python-devel \
-+        python3 \
-+        python3-devel \
-         systemd-devel \
-         tar \
-         transfig \
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index fbc4bc22d6..eb805bf96c 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -24,6 +24,8 @@ case "_${CONTAINER}" in
+     _stretch|_) CONTAINER="${BASE}/debian:stretch" ;;
+     _trusty) CONTAINER="${BASE}/ubuntu:trusty" ;;
+     _xenial) CONTAINER="${BASE}/ubuntu:xenial" ;;
++    _opensuse-leap|_leap) CONTAINER="${BASE}/suse:opensuse-leap" ;;
++    _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/suse:opensuse-tumbleweed" ;;
+ esac
+ 
+ # Use this variable to control whether root should be used
 
 
