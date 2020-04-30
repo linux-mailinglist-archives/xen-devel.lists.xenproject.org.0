@@ -2,89 +2,106 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FCB01C00C7
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 17:50:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA9A91C00EC
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 17:53:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUBS1-0002t7-CP; Thu, 30 Apr 2020 15:50:13 +0000
+	id 1jUBUZ-00030m-Rr; Thu, 30 Apr 2020 15:52:51 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rLHY=6O=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jUBS0-0002t2-79
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 15:50:12 +0000
-X-Inumbo-ID: 4583bc19-8afa-11ea-9a75-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4583bc19-8afa-11ea-9a75-12813bfff9fa;
- Thu, 30 Apr 2020 15:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588261811;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=cqT2umU96NpQ5kplgxo4+vPyoa6qqM52qyf1Yh2z2qI=;
- b=O77QpaUmPGSyoP7HKHp4VyCrF4HdJr3ZV3/LyKxym6DIpH9JCmKmAjnz
- RVthrpbHLD0PCz519fgGGVZu4bZ44DaMNxK4WuUbf5TQoGXVPNU+skMY6
- gYYS+ukqOHyn2vhCETLiLUJljeHhPmnXYp8KUW3ArtSnCqhwXEoYduY2A 0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: PIq3lKpsbk1JDrvfa7kDyCyScDRb2dBAZ3kb+Abkt3y63kS1OFp2Vq0WvcG1g5H6utZfvuVHv8
- Fx7zjUJiY38jTBuRvzYBAvvb7zT6sLyxGuzlb41v9ECFgTMlFpqPXw4pHWXQqG2n0up7hmNtTA
- f6JWJ7UKnSzKS4Q7vuTWvw2BguOoGyOd+cXL6n4O0igaQa8S0kqufghp5shEfA0DlSCo57jCcP
- +MxhaioU1TpT+WI1Tg0TE13/gJyKsH+Hw9rkvwvLTWqSHDHFFgfc7wIesf6yQimnpQq48Ijz9e
- BeE=
-X-SBRS: 2.7
-X-MesageID: 16776213
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,336,1583211600"; d="scan'208";a="16776213"
-Subject: Re: [PATCH] x86/amd: Initial support for Fam19h processors
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200430095947.31958-1-andrew.cooper3@citrix.com>
- <471aaf7e-497f-edd2-6eb0-06d337a23538@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <9dc3a9e6-4a86-f24a-b279-59fec5ef22d8@citrix.com>
-Date: Thu, 30 Apr 2020 16:50:06 +0100
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EK+X=6O=redhat.com=david@srs-us1.protection.inumbo.net>)
+ id 1jUBUY-00030g-6I
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 15:52:50 +0000
+X-Inumbo-ID: a45b94ae-8afa-11ea-9a75-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id a45b94ae-8afa-11ea-9a75-12813bfff9fa;
+ Thu, 30 Apr 2020 15:52:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1588261969;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=OP9zUYIno6x6iC1SiniLiH6Fo13bK6xGgljySSJVtbc=;
+ b=MaeNsOFPzUdEg5kMeH8PcGlDdG0C8jBywQqzGykS59e2DBr6Tx96PwffEykq8hljtxMbmN
+ AHqUg8Nh4p0eCjsIDiPP7ZNhoKhtZExbUa+odC/w+QiwLSl6T3qHLhdg+/y2DMBpO4nx3e
+ V/fXqjSadZp8Np8uixjih65JaqXZvJw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-370-scg0K8IrNv2RPP-fweQOMw-1; Thu, 30 Apr 2020 11:52:44 -0400
+X-MC-Unique: scg0K8IrNv2RPP-fweQOMw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 694A264AD9;
+ Thu, 30 Apr 2020 15:52:42 +0000 (UTC)
+Received: from [10.36.113.172] (ovpn-113-172.ams2.redhat.com [10.36.113.172])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 758B8605DE;
+ Thu, 30 Apr 2020 15:52:36 +0000 (UTC)
+Subject: Re: [PATCH v2 2/3] mm/memory_hotplug: Introduce MHP_NO_FIRMWARE_MEMMAP
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+References: <20200430102908.10107-1-david@redhat.com>
+ <20200430102908.10107-3-david@redhat.com>
+ <87pnbp2dcz.fsf@x220.int.ebiederm.org>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
+ mQINBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABtCREYXZpZCBIaWxk
+ ZW5icmFuZCA8ZGF2aWRAcmVkaGF0LmNvbT6JAlgEEwEIAEICGwMFCQlmAYAGCwkIBwMCBhUI
+ AgkKCwQWAgMBAh4BAheAFiEEG9nKrXNcTDpGDfzKTd4Q9wD/g1oFAl3pImkCGQEACgkQTd4Q
+ 9wD/g1o+VA//SFvIHUAvul05u6wKv/pIR6aICPdpF9EIgEU448g+7FfDgQwcEny1pbEzAmiw
+ zAXIQ9H0NZh96lcq+yDLtONnXk/bEYWHHUA014A1wqcYNRY8RvY1+eVHb0uu0KYQoXkzvu+s
+ Dncuguk470XPnscL27hs8PgOP6QjG4jt75K2LfZ0eAqTOUCZTJxA8A7E9+XTYuU0hs7QVrWJ
+ jQdFxQbRMrYz7uP8KmTK9/Cnvqehgl4EzyRaZppshruKMeyheBgvgJd5On1wWq4ZUV5PFM4x
+ II3QbD3EJfWbaJMR55jI9dMFa+vK7MFz3rhWOkEx/QR959lfdRSTXdxs8V3zDvChcmRVGN8U
+ Vo93d1YNtWnA9w6oCW1dnDZ4kgQZZSBIjp6iHcA08apzh7DPi08jL7M9UQByeYGr8KuR4i6e
+ RZI6xhlZerUScVzn35ONwOC91VdYiQgjemiVLq1WDDZ3B7DIzUZ4RQTOaIWdtXBWb8zWakt/
+ ztGhsx0e39Gvt3391O1PgcA7ilhvqrBPemJrlb9xSPPRbaNAW39P8ws/UJnzSJqnHMVxbRZC
+ Am4add/SM+OCP0w3xYss1jy9T+XdZa0lhUvJfLy7tNcjVG/sxkBXOaSC24MFPuwnoC9WvCVQ
+ ZBxouph3kqc4Dt5X1EeXVLeba+466P1fe1rC8MbcwDkoUo65Ag0EVcufkQEQAOfX3n0g0fZz
+ Bgm/S2zF/kxQKCEKP8ID+Vz8sy2GpDvveBq4H2Y34XWsT1zLJdvqPI4af4ZSMxuerWjXbVWb
+ T6d4odQIG0fKx4F8NccDqbgHeZRNajXeeJ3R7gAzvWvQNLz4piHrO/B4tf8svmRBL0ZB5P5A
+ 2uhdwLU3NZuK22zpNn4is87BPWF8HhY0L5fafgDMOqnf4guJVJPYNPhUFzXUbPqOKOkL8ojk
+ CXxkOFHAbjstSK5Ca3fKquY3rdX3DNo+EL7FvAiw1mUtS+5GeYE+RMnDCsVFm/C7kY8c2d0G
+ NWkB9pJM5+mnIoFNxy7YBcldYATVeOHoY4LyaUWNnAvFYWp08dHWfZo9WCiJMuTfgtH9tc75
+ 7QanMVdPt6fDK8UUXIBLQ2TWr/sQKE9xtFuEmoQGlE1l6bGaDnnMLcYu+Asp3kDT0w4zYGsx
+ 5r6XQVRH4+5N6eHZiaeYtFOujp5n+pjBaQK7wUUjDilPQ5QMzIuCL4YjVoylWiBNknvQWBXS
+ lQCWmavOT9sttGQXdPCC5ynI+1ymZC1ORZKANLnRAb0NH/UCzcsstw2TAkFnMEbo9Zu9w7Kv
+ AxBQXWeXhJI9XQssfrf4Gusdqx8nPEpfOqCtbbwJMATbHyqLt7/oz/5deGuwxgb65pWIzufa
+ N7eop7uh+6bezi+rugUI+w6DABEBAAGJAiUEGAECAA8FAlXLn5ECGwwFCQlmAYAACgkQTd4Q
+ 9wD/g1qA6w/+M+ggFv+JdVsz5+ZIc6MSyGUozASX+bmIuPeIecc9UsFRatc91LuJCKMkD9Uv
+ GOcWSeFpLrSGRQ1Z7EMzFVU//qVs6uzhsNk0RYMyS0B6oloW3FpyQ+zOVylFWQCzoyyf227y
+ GW8HnXunJSC+4PtlL2AY4yZjAVAPLK2l6mhgClVXTQ/S7cBoTQKP+jvVJOoYkpnFxWE9pn4t
+ H5QIFk7Ip8TKr5k3fXVWk4lnUi9MTF/5L/mWqdyIO1s7cjharQCstfWCzWrVeVctpVoDfJWp
+ 4LwTuQ5yEM2KcPeElLg5fR7WB2zH97oI6/Ko2DlovmfQqXh9xWozQt0iGy5tWzh6I0JrlcxJ
+ ileZWLccC4XKD1037Hy2FLAjzfoWgwBLA6ULu0exOOdIa58H4PsXtkFPrUF980EEibUp0zFz
+ GotRVekFAceUaRvAj7dh76cToeZkfsjAvBVb4COXuhgX6N4pofgNkW2AtgYu1nUsPAo+NftU
+ CxrhjHtLn4QEBpkbErnXQyMjHpIatlYGutVMS91XTQXYydCh5crMPs7hYVsvnmGHIaB9ZMfB
+ njnuI31KBiLUks+paRkHQlFcgS2N3gkRBzH7xSZ+t7Re3jvXdXEzKBbQ+dC3lpJB0wPnyMcX
+ FOTT3aZT7IgePkt5iC/BKBk3hqKteTnJFeVIT7EC+a6YUFg=
+Organization: Red Hat GmbH
+Message-ID: <1b49c3be-6e2f-57cb-96f7-f66a8f8a9380@redhat.com>
+Date: Thu, 30 Apr 2020 17:52:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <471aaf7e-497f-edd2-6eb0-06d337a23538@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <87pnbp2dcz.fsf@x220.int.ebiederm.org>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,40 +112,92 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
+ Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>,
+ linux-mm@kvack.org, Wei Yang <richard.weiyang@gmail.com>,
+ linux-s390@vger.kernel.org, linux-nvdimm@lists.01.org,
+ linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-acpi@vger.kernel.org, "Michael S . Tsirkin" <mst@redhat.com>,
+ Pankaj Gupta <pankaj.gupta.linux@gmail.com>, xen-devel@lists.xenproject.org,
+ Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30/04/2020 12:09, Jan Beulich wrote:
-> On 30.04.2020 11:59, Andrew Cooper wrote:
->> Fam19h is very similar to Fam17h in these regards.
+On 30.04.20 17:38, Eric W. Biederman wrote:
+> David Hildenbrand <david@redhat.com> writes:
+>=20
+>> Some devices/drivers that add memory via add_memory() and friends (e.g=
+.,
+>> dax/kmem, but also virtio-mem in the future) don't want to create entr=
+ies
+>> in /sys/firmware/memmap/ - primarily to hinder kexec from adding this
+>> memory to the boot memmap of the kexec kernel.
 >>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> In fact, such memory is never exposed via the firmware memmap as Syste=
+m
+>> RAM (e.g., e820), so exposing this memory via /sys/firmware/memmap/ is
+>> wrong:
+>>  "kexec needs the raw firmware-provided memory map to setup the
+>>   parameter segment of the kernel that should be booted with
+>>   kexec. Also, the raw memory map is useful for debugging. For
+>>   that reason, /sys/firmware/memmap is an interface that provides
+>>   the raw memory map to userspace." [1]
+>>
+>> We don't have to worry about firmware_map_remove() on the removal path=
+.
+>> If there is no entry, it will simply return with -EINVAL.
+>>
+>> [1]
+>> https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-firmware-me=
+mmap
+>=20
+>=20
+> You know what this justification is rubbish, and I have previously
+> explained why it is rubbish.
 
-Thanks.
+Actually, no, I don't think it is rubbish. See patch #3 and the cover
+letter why this is the right thing to do *for special memory*, *not
+ordinary DIMMs*.
 
->
-> Nevertheless a question:
->
->> --- a/xen/arch/x86/cpu/microcode/amd.c
->> +++ b/xen/arch/x86/cpu/microcode/amd.c
->> @@ -125,6 +125,7 @@ static bool_t verify_patch_size(uint32_t patch_size)
->>          max_size = F16H_MPB_MAX_SIZE;
->>          break;
->>      case 0x17:
->> +    case 0x19:
->>          max_size = F17H_MPB_MAX_SIZE;
->>          break;
-> Didn't you indicate to me the other day that the upper bound would
-> grow?
+And to be quite honest, I think your response is a little harsh. I don't
+recall you replying to my virtio-mem-related comments.
 
-That was a very non-specific patch to Linux.  I've asked around, and the
-answer seems to be 4800.
+>=20
+> Nacked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+>=20
+> This needs to be based on weather the added memory is ultimately normal
+> ram or is something special.
 
-Are you happy for your review to stand with adding a new
-F19H_MPB_MAX_SIZE define to this effect?
+Yes, that's what the caller are expected to decide, see patch #3.
 
-~Andrew
+kexec should try to be as closely as possible to a real reboot - IMHO.
+
+>=20
+> At least when we are talking memory resources.  Keeping it out of the
+> firmware map that is fine.
+>=20
+> If the hotplugged memory is the result of plugging a stick of ram
+> into the kernel and can and should used be like any other memory
+> it should be treated like any normal memory.
+>=20
+> If the hotplugged memory is something special it should be treated as
+> something special.
+
+I am really sorry, I can't make sense of what you are trying to say here.
+
+>=20
+> Justifying behavior by documentation that does not consider memory
+> hotplug is bad thinking.
+
+Are you maybe confusing this patch series with the arm64 approach? This
+is not about ordinary hotplugged DIMMs.
+
+I'd love to get Dan's, Dave's and Michal's opinion.
+
+--=20
+Thanks,
+
+David / dhildenb
+
 
