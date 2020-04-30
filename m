@@ -2,106 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C15B1BF28D
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 10:20:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED531BF2CA
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2020 10:29:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jU4Qv-0003hK-Ij; Thu, 30 Apr 2020 08:20:37 +0000
+	id 1jU4Yx-0003vC-Dj; Thu, 30 Apr 2020 08:28:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EK+X=6O=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1jU4Qt-0003hF-Nm
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 08:20:36 +0000
-X-Inumbo-ID: 76e3a9ce-8abb-11ea-ae69-bc764e2007e4
-Received: from us-smtp-1.mimecast.com (unknown [205.139.110.120])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 76e3a9ce-8abb-11ea-ae69-bc764e2007e4;
- Thu, 30 Apr 2020 08:20:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588234834;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Oj3Gb/CDuSGT8ulKk/yMbVBXnCO14VNDywwKRzXNY0s=;
- b=CNsohpyauJPtjQ/VmSkfpGVmgmJU9KEMOK6sD+Xe+GCdvedOQwALCwy3HRRUPAyXJbSBR/
- 1r3aGP4tkGvfblDR2fQBiXzEbCJ6fxVXxdkKM346i2r71bEEfd/EGUFxRwQpLpTBlefNaX
- +d5s6L3UUyHnZ1sigepsUvdzooTywIk=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-286-dm43KJQWPbG-0H4SvcZs2g-1; Thu, 30 Apr 2020 04:20:32 -0400
-X-MC-Unique: dm43KJQWPbG-0H4SvcZs2g-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 848AB1902EA2;
- Thu, 30 Apr 2020 08:20:29 +0000 (UTC)
-Received: from [10.36.113.172] (ovpn-113-172.ams2.redhat.com [10.36.113.172])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 44A771002395;
- Thu, 30 Apr 2020 08:20:22 +0000 (UTC)
-Subject: Re: [PATCH v1 2/3] mm/memory_hotplug: Introduce MHP_DRIVER_MANAGED
-To: Dan Williams <dan.j.williams@intel.com>
-References: <20200429160803.109056-1-david@redhat.com>
- <20200429160803.109056-3-david@redhat.com>
- <a7305cd8-8b2f-1d8f-7654-ecf777c46df6@redhat.com>
- <CAPcyv4i04+QLxiOyz04_eef2DFetEFKBUmi2A4xxw9abQD8hNQ@mail.gmail.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
- 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
-Organization: Red Hat GmbH
-Message-ID: <e32522cd-31bb-e129-47a6-9ec13b570506@redhat.com>
-Date: Thu, 30 Apr 2020 10:20:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/gX9=6O=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jU4Yw-0003v7-KS
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2020 08:28:54 +0000
+X-Inumbo-ID: a01f4bee-8abc-11ea-ae69-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a01f4bee-8abc-11ea-ae69-bc764e2007e4;
+ Thu, 30 Apr 2020 08:28:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588235333;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=zlmJPOZCYWIUpubzos1hzhtSRn6gIoLTRbJuO70c0rE=;
+ b=Y9RtkVo4qSXEVNepDHSS1MSQMYJy5z9oMUG5dBoVALDx9qvH8xogK6/O
+ 4wh+onDx4uZmhcxDA1skt4Z/mnLdRUshuTLrRvo7G1UKVfQ4VvRhgrizC
+ DmMLgSmUZ021cD2lx3zOznPP5rq5YESqcr8DmEiO+hIleEbnhPog4II6V E=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: eWKkNHgFWKOXqnJV6HMQGDt5c31msB0u2EpxFbbFRBtcoyKOp/oNADGEbEBg1weYpLDG/lb+51
+ af7SydN3vPw5f4QyK795XAaMbTWUq4MQOAQGVfsxy+5qXSpWvE42iPczplnZEM/8dnHj98pjN3
+ xRhj+8yCAdHIy/KIur+g5ALyXQ5uD7qww51jPsgruJyRelqFK9DBrf1qGvCwrpnRsMM3sea7XO
+ mU6FkDKkbUZMTgwkB01yVWLHNCBAzvS1VwgCkN723ZI5cqUU5+xgE1MJPG1EKOq4Cml9/pBMLB
+ f+M=
+X-SBRS: 2.7
+X-MesageID: 16891367
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,334,1583211600"; d="scan'208";a="16891367"
+Date: Thu, 30 Apr 2020 10:28:44 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] x86/hap: be more selective with assisted TLB flush
+Message-ID: <20200430082844.GZ28601@Air-de-Roger>
+References: <20200429173601.77605-1-roger.pau@citrix.com>
+ <4257a323-d37f-4af0-bdc6-a3f65c19438a@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <CAPcyv4i04+QLxiOyz04_eef2DFetEFKBUmi2A4xxw9abQD8hNQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <4257a323-d37f-4af0-bdc6-a3f65c19438a@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,241 +90,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
- Michal Hocko <mhocko@suse.com>, Pavel Tatashin <pasha.tatashin@soleen.com>,
- Baoquan He <bhe@redhat.com>, Linux MM <linux-mm@kvack.org>,
- Wei Yang <richard.weiyang@gmail.com>, linux-s390 <linux-s390@vger.kernel.org>,
- linux-nvdimm <linux-nvdimm@lists.01.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- virtualization@lists.linux-foundation.org,
- Linux ACPI <linux-acpi@vger.kernel.org>,
- "Michael S . Tsirkin" <mst@redhat.com>, Eric Biederman <ebiederm@xmission.com>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30.04.20 10:11, Dan Williams wrote:
-> On Thu, Apr 30, 2020 at 12:20 AM David Hildenbrand <david@redhat.com> w=
-rote:
->>
->> On 29.04.20 18:08, David Hildenbrand wrote:
->>> Some paravirtualized devices that add memory via add_memory() and
->>> friends (esp. virtio-mem) don't want to create entries in
->>> /sys/firmware/memmap/ - primarily to hinder kexec from adding this
->>> memory to the boot memmap of the kexec kernel.
->>>
->>> In fact, such memory is never exposed via the firmware (e.g., e820), =
-but
->>> only via the device, so exposing this memory via /sys/firmware/memmap=
-/ is
->>> wrong:
->>>  "kexec needs the raw firmware-provided memory map to setup the
->>>   parameter segment of the kernel that should be booted with
->>>   kexec. Also, the raw memory map is useful for debugging. For
->>>   that reason, /sys/firmware/memmap is an interface that provides
->>>   the raw memory map to userspace." [1]
->>>
->>> We want to let user space know that memory which is always detected,
->>> added, and managed via a (device) driver - like memory managed by
->>> virtio-mem - is special. It cannot be used for placing kexec segments
->>> and the (device) driver is responsible for re-adding memory that
->>> (eventually shrunk/grown/defragmented) memory after a reboot/kexec. I=
-t
->>> should e.g., not be added to a fixed up firmware memmap. However, it =
-should
->>> be dumped by kdump.
->>>
->>> Also, such memory could behave differently than an ordinary DIMM - e.=
-g.,
->>> memory managed by virtio-mem can have holes inside added memory resou=
-rce,
->>> which should not be touched, especially for writing.
->>>
->>> Let's expose that memory as "System RAM (driver managed)" e.g., via
->>> /pro/iomem.
->>>
->>> We don't have to worry about firmware_map_remove() on the removal pat=
-h.
->>> If there is no entry, it will simply return with -EINVAL.
->>>
->>> [1] https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-firmwa=
-re-memmap
->>>
->>> Cc: Andrew Morton <akpm@linux-foundation.org>
->>> Cc: Michal Hocko <mhocko@suse.com>
->>> Cc: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
->>> Cc: Wei Yang <richard.weiyang@gmail.com>
->>> Cc: Baoquan He <bhe@redhat.com>
->>> Cc: Eric Biederman <ebiederm@xmission.com>
->>> Signed-off-by: David Hildenbrand <david@redhat.com>
->>> ---
->>>  include/linux/memory_hotplug.h |  8 ++++++++
->>>  mm/memory_hotplug.c            | 20 ++++++++++++++++----
->>>  2 files changed, 24 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/include/linux/memory_hotplug.h b/include/linux/memory_ho=
-tplug.h
->>> index bf0e3edb8688..cc538584b39e 100644
->>> --- a/include/linux/memory_hotplug.h
->>> +++ b/include/linux/memory_hotplug.h
->>> @@ -68,6 +68,14 @@ struct mhp_params {
->>>       pgprot_t pgprot;
->>>  };
->>>
->>> +/* Flags used for add_memory() and friends. */
->>> +
->>> +/*
->>> + * Don't create entries in /sys/firmware/memmap/ and expose memory a=
-s
->>> + * "System RAM (driver managed)" in e.g., /proc/iomem
->>> + */
->>> +#define MHP_DRIVER_MANAGED           1
->>> +
->>>  /*
->>>   * Zone resizing functions
->>>   *
->>> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
->>> index ebdf6541d074..cfa0721280aa 100644
->>> --- a/mm/memory_hotplug.c
->>> +++ b/mm/memory_hotplug.c
->>> @@ -98,11 +98,11 @@ void mem_hotplug_done(void)
->>>  u64 max_mem_size =3D U64_MAX;
->>>
->>>  /* add this memory to iomem resource */
->>> -static struct resource *register_memory_resource(u64 start, u64 size=
-)
->>> +static struct resource *register_memory_resource(u64 start, u64 size=
-,
->>> +                                              const char *resource_n=
-ame)
->>>  {
->>>       struct resource *res;
->>>       unsigned long flags =3D  IORESOURCE_SYSTEM_RAM | IORESOURCE_BUS=
-Y;
->>> -     char *resource_name =3D "System RAM";
->>>
->>>       /*
->>>        * Make sure value parsed from 'mem=3D' only restricts memory a=
-dding
->>> @@ -1058,7 +1058,8 @@ int __ref add_memory_resource(int nid, struct r=
-esource *res,
->>>       BUG_ON(ret);
->>>
->>>       /* create new memmap entry */
->>> -     firmware_map_add_hotplug(start, start + size, "System RAM");
->>> +     if (!(flags & MHP_DRIVER_MANAGED))
->>> +             firmware_map_add_hotplug(start, start + size, "System R=
-AM");
->>>
->>>       /* device_online() will take the lock when calling online_pages=
-() */
->>>       mem_hotplug_done();
->>> @@ -1081,10 +1082,21 @@ int __ref add_memory_resource(int nid, struct=
- resource *res,
->>>  /* requires device_hotplug_lock, see add_memory_resource() */
->>>  int __ref __add_memory(int nid, u64 start, u64 size, unsigned long f=
-lags)
->>>  {
->>> +     const char *resource_name =3D "System RAM";
->>>       struct resource *res;
->>>       int ret;
->>>
->>> -     res =3D register_memory_resource(start, size);
->>> +     /*
->>> +      * Indicate that memory managed by a driver is special. It's al=
-ways
->>> +      * detected and added via a driver, should not be given to the =
-kexec
->>> +      * kernel for booting when manually crafting the firmware memma=
-p, and
->>> +      * no kexec segments should be placed on it. However, kdump sho=
-uld
->>> +      * dump this memory.
->>> +      */
->>> +     if (flags & MHP_DRIVER_MANAGED)
->>> +             resource_name =3D "System RAM (driver managed)";
->>> +
->>> +     res =3D register_memory_resource(start, size, resource_name);
->>>       if (IS_ERR(res))
->>>               return PTR_ERR(res);
->>>
->>>
->>
->> BTW, I was wondering if this is actually also something that
->> drivers/dax/kmem.c wants to use for adding memory.
->>
->> Just because we decided to use some DAX memory in the current kernel a=
-s
->> system ram, doesn't mean we should make that decision for the kexec
->> kernel (e.g., using it as initial memory, placing kexec binaries onto
->> it, etc.). This is also not what we would observe during a real reboot=
-.
->=20
-> Agree.
->=20
->> I can see that the "System RAM" resource will show up as child resourc=
-e
->> under the device e.g., in /proc/iomem.
->>
->> However, entries in /sys/firmware/memmap/ are created as "System RAM".
->=20
-> True. Do you think this rename should just be limited to what type
-> /sys/firmware/memmap/ emits? I have the concern, but no proof
+On Thu, Apr 30, 2020 at 09:20:58AM +0200, Jan Beulich wrote:
+> On 29.04.2020 19:36, Roger Pau Monne wrote:
+> > When doing an assisted flush on HAP the purpose of the
+> > on_selected_cpus is just to trigger a vmexit on remote CPUs that are
+> > in guest context, and hence just using is_vcpu_dirty_cpu is too lax,
+> > also check that the vCPU is running.
+> 
+> Am I right to understand that the change is relevant only to
+> cover the period of time between ->is_running becoming false
+> and ->dirty_cpu becoming VCPU_CPU_CLEAN? I.e. ...
+> 
+> > --- a/xen/arch/x86/mm/hap/hap.c
+> > +++ b/xen/arch/x86/mm/hap/hap.c
+> > @@ -719,7 +719,7 @@ static bool flush_tlb(bool (*flush_vcpu)(void *ctxt, struct vcpu *v),
+> >          hvm_asid_flush_vcpu(v);
+> >  
+> >          cpu = read_atomic(&v->dirty_cpu);
+> > -        if ( cpu != this_cpu && is_vcpu_dirty_cpu(cpu) )
+> > +        if ( cpu != this_cpu && is_vcpu_dirty_cpu(cpu) && v->is_running )
+> 
+> ... the previous logic would have suitably covered the switch-to
+> path, but doesn't properly cover the switch-from one, due to our
+> lazy context switch approach?
 
-We could split this patch into
+Yes. Also __context_switch is not called from context_switch when
+switching to the idle vcpu, and hence dirty_cpu is not cleared.
 
-MHP_NO_FIRMWARE_MEMMAP (create firmware memmap entries)
+> If so, I agree with the change:
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> It might be worth mentioning this detail in the description then,
+> though.
 
-and
+Would you mind adding to the commit message if you agree:
 
-MHP_DRIVER_MANAGED (name of the resource)
+"Due to the lazy context switching done by Xen dirty_cpu won't always be
+cleared when the guest vCPU is not running, and hence relying on
+is_running allows more fine grained control of whether the vCPU is
+actually running."
 
-See below, the latter might not be needed.
-
-> currently, that there are /proc/iomem walkers that explicitly look for
-> "System RAM", but might be thrown off by "System RAM (driver
-> managed)". I was not aware of /sys/firmware/memmap until about 5
-> minutes ago.
-
-The only two users of /proc/iomem I am aware of are kexec-tools and some
-s390x tools.
-
-kexec-tools on x86-64 uses /sys/firmware/memmap to craft the initial
-memmap, but uses /proc/iomem to
-a) Find places for kexec images
-b) Detect memory regions to dump via kdump
-
-I am not yet sure if we really need the "System RAM (driver managed)"
-part. If we can teach kexec-tools to
-a) Don't place kexec images on "System RAM" that has a parent resource
-(most likely requires kexec-tools changes)
-b) Consider for kdump "System RAM" that has a parent resource
-we might be able to avoid renaming that. (I assume that's already done)
-
-E.g., regarding virtio-mem (patch #3) I am currently also looking into
-creating a parent resource instead, like dax/kmem to avoid the rename:
-
-:/# cat /proc/iomem
-00000000-00000fff : Reserved
-[...]
-100000000-13fffffff : System RAM
-140000000-33fffffff : virtio0
-  140000000-147ffffff : System RAM
-  148000000-14fffffff : System RAM
-  150000000-157ffffff : System RAM
-340000000-303fffffff : virtio1
-  340000000-347ffffff : System RAM
-3280000000-32ffffffff : PCI Bus 0000:00
-
-
-
---=20
-Thanks,
-
-David / dhildenb
-
+Thanks, Roger.
 
