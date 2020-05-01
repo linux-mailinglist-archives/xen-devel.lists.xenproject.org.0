@@ -2,53 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135C11C1549
-	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 15:53:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA5981C154E
+	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 16:00:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUW6L-0004Bh-JR; Fri, 01 May 2020 13:53:13 +0000
+	id 1jUWDI-00055R-FP; Fri, 01 May 2020 14:00:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Po+f=6P=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1jUW6K-0004Bc-IU
- for xen-devel@lists.xenproject.org; Fri, 01 May 2020 13:53:12 +0000
-X-Inumbo-ID: 18c1d566-8bb3-11ea-b9cf-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7CKl=6P=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jUWDH-00055I-EF
+ for xen-devel@lists.xenproject.org; Fri, 01 May 2020 14:00:23 +0000
+X-Inumbo-ID: 19547744-8bb4-11ea-b9cf-bc764e2007e4
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 18c1d566-8bb3-11ea-b9cf-bc764e2007e4;
- Fri, 01 May 2020 13:53:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=l2y+h/GQCApgQHTFNSrRWEFRKreTRyjQ3vsBBRSP0fI=; b=VZkzW0mdgC07Vmj3+UOx5Jibre
- kzwFx3BPetv4xxRtSiUvvHBRSoHMHUkOPxyFr+uzHxoq4Fi4MTdFisqfaYLUic8cMd5a8Un1zByZT
- 8Y0YsiV1mr5jsPtV6NCucbYSXCHgf8yFCvthv+qnso0RLGB8BdovWu55x3zdqln4BHbQ=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1jUW6J-0002U0-H7; Fri, 01 May 2020 13:53:11 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=u1bbd043a57dd5a.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <hx242@xen.org>)
- id 1jUW6J-0004y6-3U; Fri, 01 May 2020 13:53:11 +0000
-Message-ID: <689a7c860a8a551e3b6009b16590e812dbf21055.camel@xen.org>
-Subject: Re: [PATCH 00/16] Remove the direct map
-From: Hongyan Xia <hx242@xen.org>
-To: Wei Liu <wl@xen.org>
-Date: Fri, 01 May 2020 14:53:08 +0100
-In-Reply-To: <20200501120715.hjak2gjp7ialwfq5@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-References: <cover.1588278317.git.hongyxia@amazon.com>
- <20200501120715.hjak2gjp7ialwfq5@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+ id 19547744-8bb4-11ea-b9cf-bc764e2007e4;
+ Fri, 01 May 2020 14:00:22 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id j1so11663090wrt.1
+ for <xen-devel@lists.xenproject.org>; Fri, 01 May 2020 07:00:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=j9Wb4a28pv4W3Xa7edRDFSrtb8gWICqmhdjZIosP3F0=;
+ b=vY1u5Q91lXf+b1qkJPYcumRCqZv5qZwQaSzGRQk9+PuhjnaPJq/RR8B7kFpKs6xRod
+ G5yqDN8p1daV4XZVAl2rKazNPa2jKTi/EtVAde0lDoRK2b+e2LdyQs5qCC2DVy/70Qu9
+ GQOhGJUYRQy3+exA/66ger+mL2qdomN/3J1jgMCiti3eBA2uoLLl8q4WRnpMRGzarJPz
+ uKrnJBmQPssvIB+M1SxKFqciiWNMllVSSl1bx/VTvHZ9aCFB5uSGu55SJxCdUVNmmPU0
+ ZJYZZN8SGO8kgTBor3ZG8MoAmCKwV0UpPl8zCCNacc5ePWqQf1K8r8O4xSVNhiTcFwcz
+ Zm3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=j9Wb4a28pv4W3Xa7edRDFSrtb8gWICqmhdjZIosP3F0=;
+ b=O9Vl7mU5Xq5fWDNgzPZFBly1Qez8Tgu6SeS17+oejA3fnfg1l9J0vE0G6+Mr47guBN
+ 6aVPIvQKZmwVwXepWEg1IMh0ZhgdgayIrKIazL/W/QHfveSarnUCGQLdpuxfIWynp7Se
+ uKLUUTCbq9Sk51CT8Pate0oVUFWzdJwooRffoLMmIKEe7ny/4uJm9ldnzYn6v/d13gQ5
+ P6D/LvW5J4vL34Aiit9nVo76yj9TR4ZZs7zsNiNhwGCEZ+hcrNcL2FlbE9OBdlVrXZW1
+ Zv2PWFBJo9hW6sVZyIjnJBR1q9HQ4i4L26GhURJrlQs15tpMEMiK9bua8qdm+2MsRlgr
+ 7XTQ==
+X-Gm-Message-State: AGi0Pub8PyNpf+o81vKUIHU0Eqhqnngrbw4uC4dX9/Hw8foF4UAeRhvH
+ i/tlX2zKckGlPTaXbZyXy5TDw7gAOU4+o/WQZqU=
+X-Google-Smtp-Source: APiQypKnAx7M3IjeyZyBEwiIGKHLhLjDBBoLmVdhCXGS2l6f1ASvJlLEBLAgwN2cb+yq/RsbUEJN14L1jPRD7aQ9XhU=
+X-Received: by 2002:adf:e450:: with SMTP id t16mr4651948wrm.301.1588341621975; 
+ Fri, 01 May 2020 07:00:21 -0700 (PDT)
+MIME-Version: 1.0
+References: <70ea4889e30ed35760329331ddfeb279fcd80786.1587655725.git.tamas.lengyel@intel.com>
+ <e416eac0c986fd1aba5f576d9b065a6f47660b2c.1587655725.git.tamas.lengyel@intel.com>
+In-Reply-To: <e416eac0c986fd1aba5f576d9b065a6f47660b2c.1587655725.git.tamas.lengyel@intel.com>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Fri, 1 May 2020 07:59:45 -0600
+Message-ID: <CABfawhnxoQbehu-bvT7Uhd808rsjjDsB87O=CKqHDsrBUvur-g@mail.gmail.com>
+Subject: Re: [PATCH v17 2/2] xen/tools: VM forking toolstack side
+To: Tamas K Lengyel <tamas.lengyel@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,63 +65,21 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, 2020-05-01 at 12:07 +0000, Wei Liu wrote:
-> On Thu, Apr 30, 2020 at 09:44:09PM +0100, Hongyan Xia wrote:
-> > From: Hongyan Xia <hongyxia@amazon.com>
-> > 
-> > This series depends on Xen page table domheap conversion:
-> > 
-https://lists.xenproject.org/archives/html/xen-devel/2020-04/msg01374.html
-> > .
-> > 
-> > After breaking the reliance on the direct map to manipulate Xen
-> > page
-> > tables, we can now finally remove the direct map altogether.
-> > 
-> > This series:
-> > - fixes many places that use the direct map incorrectly or assume
-> > the
-> >   presence of an always-mapped direct map in a wrong way.
-> > - includes the early vmap patches for global mappings.
-> > - initialises the mapcache for all domains, disables the fast path
-> > that
-> >   uses the direct map for mappings.
-> > - maps and unmaps xenheap on-demand.
-> > - adds a boot command line switch to enable or disable the direct
-> > map.
-> > 
-> > This previous version was in RFC state and can be found here:
-> > 
-https://lists.xenproject.org/archives/html/xen-devel/2019-09/msg02647.html
-> > ,
-> > which has since been broken into small series.
-> 
-> OOI have you done any performance measurements?
-> 
-> Seeing that now even guest table needs mapping / unmapping during
-> restore, I'm curious to know how that would impact performance.
+On Thu, Apr 23, 2020 at 9:33 AM Tamas K Lengyel <tamas.lengyel@intel.com> wrote:
+>
+> Add necessary bits to implement "xl fork-vm" commands. The command allows the
+> user to specify how to launch the device model allowing for a late-launch model
+> in which the user can execute the fork without the device model and decide to
+> only later launch it.
+>
+> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
 
-I actually have a lot of performance numbers but unfortunately on an
-older version of Xen, not staging. I need to evaluate it again before
-coming back to you. As you suspected, one strong signal from the
-performance results is definitely the impact of walking guest tables.
-For EPT, mapping and unmapping 20 times is no fun. This shows up in
-micro-benchmarks, although larger benchmarks tend to be fine.
-
-My question is, do we care about hiding EPT? I think it is fine to just
-use xenheap pages (or any other form which does the job) so that we go
-down from 20 mappings to only 4. I have done this hack with EPT and saw
-significantly reduced impact for HVM guests in micro-benchmarks.
-
-Hongyan
-
+Patch ping. If nothing else at least the libxc parts would be nice to
+get merged before the freeze.
 
