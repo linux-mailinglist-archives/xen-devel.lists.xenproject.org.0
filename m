@@ -2,56 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0828F1C0FDC
-	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 10:43:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 537D51C0FF1
+	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 10:47:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jURGs-0002kB-9o; Fri, 01 May 2020 08:43:46 +0000
+	id 1jURKK-0002sP-QG; Fri, 01 May 2020 08:47:20 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=s7FD=6P=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jURGr-0002k6-27
- for xen-devel@lists.xenproject.org; Fri, 01 May 2020 08:43:45 +0000
-X-Inumbo-ID: dd3b0c40-8b87-11ea-9af3-12813bfff9fa
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YjF2=6P=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jURKJ-0002sK-E8
+ for xen-devel@lists.xenproject.org; Fri, 01 May 2020 08:47:19 +0000
+X-Inumbo-ID: 5c39e46c-8b88-11ea-9af3-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dd3b0c40-8b87-11ea-9af3-12813bfff9fa;
- Fri, 01 May 2020 08:43:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ id 5c39e46c-8b88-11ea-9af3-12813bfff9fa;
+ Fri, 01 May 2020 08:47:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=b+53yu1rnlYHaiiQO100tmKyI0+mZyB8g8q6Jmwu8To=; b=V9sPWVIaProBwpyhJH/YqEL7cn
- I7/xMi+HdlvFazzpD3YomuC3HhRo4RdOzYS5i5PkyJnuTZ7Z2kXiDCfP+o+x/I4xhuoF4N9lZ0pCu
- WxVzGMuObs7yfejwTby5R5SBb2jgkp5IRlYLP02Ykforj8kr0/Us1TIZyaRRfyxIp6sw=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=BuRLQvS2S2w168f8xOSqY99RHcZ9DWjTPe5kA52Wacg=; b=pNXapThVYl/U8lNmRabFhrawj
+ tUGVJQSKZ7151ufUoBmdi93AO+3wFODDN94VEh/C7P4j5ANqBbnzIjFOSM/CYRhX2D57M9/LqM1ru
+ BNHHqWhXkOJBLJWxezJYmIrx76dBGMMvfoXyO+sbKqm71cpB5+It11/9lWl8Se7+RGZ00=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jURGl-00058C-NK; Fri, 01 May 2020 08:43:39 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jURGl-0002jv-Gb; Fri, 01 May 2020 08:43:39 +0000
-Subject: Re: [PATCH 11/16] x86: add a boot option to enable and disable the
- direct map
-To: Hongyan Xia <hx242@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1588278317.git.hongyxia@amazon.com>
- <7360b59e8fd39796fee56430a437b20c948d08c2.1588278317.git.hongyxia@amazon.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <91d65dd4-ef38-9d42-c4ac-275831acdb61@xen.org>
-Date: Fri, 1 May 2020 09:43:37 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jURKG-0005DU-Ks; Fri, 01 May 2020 08:47:16 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jURKG-0001uR-8Q; Fri, 01 May 2020 08:47:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jURKG-0003Oh-7A; Fri, 01 May 2020 08:47:16 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149895-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <7360b59e8fd39796fee56430a437b20c948d08c2.1588278317.git.hongyxia@amazon.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 149895: regressions - FAIL
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=c4ccb0d0ce57264361dd2ca704f9037935f7f44d
+X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 01 May 2020 08:47:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,106 +79,154 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Hongyan,
+flight 149895 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149895/
 
-On 30/04/2020 21:44, Hongyan Xia wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
-> 
-> Also add a helper function to retrieve it. Change arch_mfn_in_direct_map
-> to check this option before returning.
-> 
-> This is added as a boot command line option, not a Kconfig. We do not
-> produce different builds for EC2 so this is not introduced as a
-> compile-time configuration.
-> 
-> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> ---
->   docs/misc/xen-command-line.pandoc | 12 ++++++++++++
->   xen/arch/x86/mm.c                 |  3 +++
->   xen/arch/x86/setup.c              |  2 ++
->   xen/include/asm-arm/mm.h          |  5 +++++
->   xen/include/asm-x86/mm.h          | 17 ++++++++++++++++-
->   5 files changed, 38 insertions(+), 1 deletion(-)
-> 
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index ee12b0f53f..7027e3a15c 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -652,6 +652,18 @@ Specify the size of the console debug trace buffer. By specifying `cpu:`
->   additionally a trace buffer of the specified size is allocated per cpu.
->   The debug trace feature is only enabled in debugging builds of Xen.
->   
-> +### directmap (x86)
-> +> `= <boolean>`
-> +
-> +> Default: `true`
-> +
-> +Enable or disable the direct map region in Xen.
-> +
-> +By default, Xen creates the direct map region which maps physical memory
-> +in that region. Setting this to no will remove the direct map, blocking
-> +exploits that leak secrets via speculative memory access in the direct
-> +map.
-> +
->   ### dma_bits
->   > `= <integer>`
->   
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index b3530d2763..64da997764 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -162,6 +162,9 @@ l1_pgentry_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
->   l1_pgentry_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
->       l1_fixmap_x[L1_PAGETABLE_ENTRIES];
->   
-> +bool __read_mostly opt_directmap = true;
-> +boolean_param("directmap", opt_directmap);
-> +
->   paddr_t __read_mostly mem_hotplug;
->   
->   /* Frame table size in pages. */
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index faca8c9758..60fc4038be 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1282,6 +1282,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->       if ( highmem_start )
->           xenheap_max_mfn(PFN_DOWN(highmem_start - 1));
->   
-> +    printk("Booting with directmap %s\n", arch_has_directmap() ? "on" : "off");
-> +
->       /*
->        * Walk every RAM region and map it in its entirety (on x86/64, at least)
->        * and notify it to the boot allocator.
-> diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
-> index 7df91280bc..e6fd934113 100644
-> --- a/xen/include/asm-arm/mm.h
-> +++ b/xen/include/asm-arm/mm.h
-> @@ -366,6 +366,11 @@ int arch_acquire_resource(struct domain *d, unsigned int type, unsigned int id,
->       return -EOPNOTSUPP;
->   }
->   
-> +static inline bool arch_has_directmap(void)
-> +{
-> +    return true;
+Regressions :-(
 
-arm32 doesn't have a directmap, so this needs to be false for arm32 and 
-true for arm64.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
 
-I would also like the implementation of the helper close to 
-arch_mfn_in_directmap() in asm-arm/arm*/mm.h.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
 
-Cheers,
+version targeted for testing:
+ libvirt              c4ccb0d0ce57264361dd2ca704f9037935f7f44d
+baseline version:
+ libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
 
--- 
-Julien Grall
+Last test of basis   146182  2020-01-17 06:00:23 Z  105 days
+Failing since        146211  2020-01-18 04:18:52 Z  104 days   97 attempts
+Testing same since   149870  2020-04-29 04:18:52 Z    2 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Arnaud Patard <apatard@hupstream.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Chen Hanxiao <chen_han_xiao@126.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniel Veillard <veillard@redhat.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Erik Skultety <eskultet@redhat.com>
+  Gaurav Agrawal <agrawalgaurav@gnome.org>
+  Han Han <hhan@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Leonid Bloch <lb.workbox@gmail.com>
+  Lin Ma <LMa@suse.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mark Asselstine <mark.asselstine@windriver.com>
+  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Pavel Mores <pmores@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Philipp Hahn <hahn@univention.de>
+  Pino Toscano <ptoscano@redhat.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Rafael Fonseca <r4f4rfs@gmail.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Rikard Falkeborn <rikard.falkeborn@gmail.com>
+  Ryan Moeller <ryan@iXsystems.com>
+  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Tobin Feldman-Fitzthum <tobin@linux.vnet.ibm.com>
+  Wu Qingliang <wuqingliang4@huawei.com>
+  Yi Li <yili@winhong.com>
+  Your Name <you@example.com>
+  Zhang Bo <oscar.zhangbo@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhimin Feng <fengzhimin1@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 16767 lines long.)
 
