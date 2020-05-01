@@ -2,59 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FE081C11EB
-	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 14:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E57B1C11F2
+	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 14:16:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUUW3-0003mZ-4V; Fri, 01 May 2020 12:11:39 +0000
+	id 1jUUaA-0003wa-Lr; Fri, 01 May 2020 12:15:54 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UQub=6P=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jUUW2-0003mU-1Q
- for xen-devel@lists.xenproject.org; Fri, 01 May 2020 12:11:38 +0000
-X-Inumbo-ID: e6cd0944-8ba4-11ea-9b01-12813bfff9fa
-Received: from mail-wm1-f65.google.com (unknown [209.85.128.65])
+ id 1jUUa8-0003wV-Tb
+ for xen-devel@lists.xenproject.org; Fri, 01 May 2020 12:15:52 +0000
+X-Inumbo-ID: 7f437b54-8ba5-11ea-9b01-12813bfff9fa
+Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e6cd0944-8ba4-11ea-9b01-12813bfff9fa;
- Fri, 01 May 2020 12:11:35 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id g12so6127423wmh.3
- for <xen-devel@lists.xenproject.org>; Fri, 01 May 2020 05:11:35 -0700 (PDT)
+ id 7f437b54-8ba5-11ea-9b01-12813bfff9fa;
+ Fri, 01 May 2020 12:15:51 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id v4so9676367wme.1
+ for <xen-devel@lists.xenproject.org>; Fri, 01 May 2020 05:15:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=oISAyXYDrHJxSbEFstkEoJjITTjc22xzBIPAVa2VhQk=;
- b=DrEXsWheMDZTc7YJxxd9dd1bEBFt78YHrhZuL4xv/tqS/EUL4cT5kwdR528LTNWp9+
- zM9sxo6/JtChf6Z7AOIqCzmby9Nt4rFpwAFnZ0hiGgrPUmUT3XFceY3Tvr7qILQpIBLL
- BK5LiH3yR3tJtXGFlQosbwCUiu1Urn50EOUpRV89NY1bJeYjoCodxt879Vu5DRn2YBKt
- VVIOq0bmXteL68gdkM7fuwNaZed2zUx5cyreGrkbTZVBenna9/YSj491oFs3c3nR26IH
- cjP8YGyMiSsnRFiwvgj866NKLSGMH/uACYBcBtvVFSwog/5tHFOCqXOEO0tT+x2hT6Uh
- Utrg==
-X-Gm-Message-State: AGi0PuaKjGh0h5VC5LuwOp0DRA+2DnvhYX/iZqnXGq0/q5StOSfKfNOo
- HGf+zKXZmMU2niZpw8zowog=
-X-Google-Smtp-Source: APiQypIRtzFVm+O8Mk/G5G33UG5hi8Ufted1QM/8uykOvQQtW0zJNP0MAxmowiGouF46U0rtmd5BOA==
-X-Received: by 2002:a1c:9cca:: with SMTP id f193mr3655724wme.71.1588335094797; 
- Fri, 01 May 2020 05:11:34 -0700 (PDT)
+ bh=vICyT7apXMYKPCbuxxQqROkSh5+Ohp8a/LbOd+8OaeQ=;
+ b=jJ/SUTEeHeEfVCU5SwLt8MCoTGl+JN4CyxkxtiHb2l3r5/XfKz+8oF5omdqda33cUj
+ ypayty3SvbS0yQ9r4Ibtn0sPTiqbfisVTfhpcTs6ig1TJKP8gswOY0VmjN5cFQBV9jvf
+ DxJMZ1XTNezRU3iks0lDPBLZRUQQl4rWDb6smjJmb8tBDoLBa5NAmFec7ebWSQurSqJ4
+ oIQ2Zi0tzqRGMVfCESwxNsJxL6FuttmC+71ZM7C5t53TeXUm0pT+bhiJDHKRUvQClca7
+ Bnu0hS+lvQoGsE7ki1jy/U9S3NpPuAFaMiwIWiPdaiZp/u+YagcS1yt70Gliw5cvtXve
+ A6lw==
+X-Gm-Message-State: AGi0PubgLwkGh5kIaGRPRpUeNfecLmWMqRArPbXHgL72toZHqkLjeuTN
+ c+iD6b91iYCXTUWXFksjZqY=
+X-Google-Smtp-Source: APiQypIUZJI4F6AZaaYtMHcvccg6xv8A60GVGB38/2fKc50ytb5V2ZuNf/Ma/ky8r3SzOqKqlsEbhg==
+X-Received: by 2002:a7b:c156:: with SMTP id z22mr3973885wmi.51.1588335350613; 
+ Fri, 01 May 2020 05:15:50 -0700 (PDT)
 Received: from
  liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
  ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id a9sm3547346wmm.38.2020.05.01.05.11.33
+ by smtp.gmail.com with ESMTPSA id a24sm3644621wmb.24.2020.05.01.05.15.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 May 2020 05:11:34 -0700 (PDT)
-Date: Fri, 1 May 2020 12:11:32 +0000
+ Fri, 01 May 2020 05:15:50 -0700 (PDT)
+Date: Fri, 1 May 2020 12:15:48 +0000
 From: Wei Liu <wl@xen.org>
-To: Hongyan Xia <hx242@xen.org>
-Subject: Re: [PATCH 11/16] x86: add a boot option to enable and disable the
- direct map
-Message-ID: <20200501121132.kzhu7u2vmpoeju2x@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-References: <cover.1588278317.git.hongyxia@amazon.com>
- <7360b59e8fd39796fee56430a437b20c948d08c2.1588278317.git.hongyxia@amazon.com>
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] tools/xl: vcpu-pin: Skip global affinity when the hard
+ affinity is not changed
+Message-ID: <20200501121548.2iv5hbztxmcsxjwa@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+References: <20200430110051.8965-1-julien@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7360b59e8fd39796fee56430a437b20c948d08c2.1588278317.git.hongyxia@amazon.com>
+In-Reply-To: <20200430110051.8965-1-julien@xen.org>
 User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -66,30 +65,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Wei Liu <wl@xen.org>, Julien Grall <jgrall@amazon.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+ Pawel Wieczorkiewicz <wipawel@amazon.de>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Apr 30, 2020 at 09:44:20PM +0100, Hongyan Xia wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
+On Thu, Apr 30, 2020 at 12:00:51PM +0100, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Also add a helper function to retrieve it. Change arch_mfn_in_direct_map
-> to check this option before returning.
+> After XSA-273, it is not possible to modify the vCPU soft affinity using
+> xl vcpu-pin without modifying the hard affinity. Instead the command
+> will crash.
 > 
-> This is added as a boot command line option, not a Kconfig. We do not
-> produce different builds for EC2 so this is not introduced as a
-> compile-time configuration.
+> 42sh> gdb /usr/local/sbin/xl
+> (gdb) r vcpu-pin 0 0 - 10
+> [...]
+> Program received signal SIGSEGV, Segmentation fault.
+> [...]
+> (gdb) bt
+> 
+> This is happening because 'xl' will use NULL when an affinity doesn't
+> need to be modified. However, we will still try to apply the global
+> affinity in the this case.
+> 
+> As the hard affinity is not changed, then we don't need to apply the
+> global affinity. So skip it when hard is NULL.
+> 
+> Backport: 4.6+ # Any release with XSA-273
+> Fixes: aa67b97ed342 ("xl.conf: Add global affinity masks")
+> Reported-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Having a Kconfig will probably allow the compiler to eliminate dead
-code.
+Acked-by: Wei Liu <wl@xen.org>
 
-This is not asking you to do the work, someone can come along and adjust 
-arch_has_directmap easily.
-
-Wei.
+> ---
+>  tools/xl/xl_vcpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/xl/xl_vcpu.c b/tools/xl/xl_vcpu.c
+> index 9ff5354f749b..66877a57dee4 100644
+> --- a/tools/xl/xl_vcpu.c
+> +++ b/tools/xl/xl_vcpu.c
+> @@ -283,7 +283,7 @@ int main_vcpupin(int argc, char **argv)
+>      }
+>  
+>      /* Only hard affinity matters here */
+> -    if (!ignore_masks) {
+> +    if (!ignore_masks && hard) {
+>          libxl_dominfo dominfo;
+>  
+>          if (libxl_domain_info(ctx, &dominfo, domid)) {
+> -- 
+> 2.17.1
+> 
 
