@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C91C1C2106
-	for <lists+xen-devel@lfdr.de>; Sat,  2 May 2020 00:59:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E2B51C2109
+	for <lists+xen-devel@lfdr.de>; Sat,  2 May 2020 00:59:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUech-0007wj-FA; Fri, 01 May 2020 22:59:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jUecx-00086e-Vd; Fri, 01 May 2020 22:59:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T3Df=6P=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jUecg-0007wT-18
- for xen-devel@lists.xenproject.org; Fri, 01 May 2020 22:59:10 +0000
-X-Inumbo-ID: 5cf8f43e-8bff-11ea-9b6f-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5cf8f43e-8bff-11ea-9b6f-12813bfff9fa;
- Fri, 01 May 2020 22:59:08 +0000 (UTC)
+ id 1jUecw-00085r-4x
+ for xen-devel@lists.xenproject.org; Fri, 01 May 2020 22:59:26 +0000
+X-Inumbo-ID: 5d9ce7c4-8bff-11ea-b9cf-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5d9ce7c4-8bff-11ea-b9cf-bc764e2007e4;
+ Fri, 01 May 2020 22:59:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=citrix.com; s=securemail; t=1588373949;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=vfDg0gLirp3wqWcYHVf6YMOyxLiUvrLksiHPpLTiioo=;
- b=CWTRh3jMoBdgTb8l5JZHkZrzWJ2i0vSdsuBe5XBN8ZgsOo63lF313NXC
- jcrMgm4JJKaBTeMwUeVoA6dDaITrVacXQchFXaHEJeyNLRGmAFy70EYJM
- ReZyH0y3kedaALnaXzJwEBoVOhmM2WzXdWtUC4TuN20BTnPgajOGU/hSd s=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=yuj7W8FBuxAyknqo2wUBSETsY2vvMAq34uBhRh1QqIU=;
+ b=PFIorDf9U2lcHF4KRelD4zKVEGGgTsqywgiKwD/Bmi46SZMqu8YuZkeW
+ 0s2ljweIozajvWXyGYmH9q5BiJ49GUwSgmqXF+nDVrpUxXhYRJpILFmDZ
+ H8e3SlIc1ryWSusinCueyNFzy9pZdxvTMiYmCb9oy5lHoWHBtldDK33rx 4=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -51,30 +50,30 @@ Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: kIYvcEtKJuBgW1dMx7Ua+jevmpknfZwyDEOZbchuAhJfHUXQJf87Ye5sg9yPemW/8UqWX4hLus
- St19uT9t+tWzu0d55eT5RBQKAJxbdBzfeHAW6pOK/P81MbGa14YVdTnu4e7mi0Cmk3kNQzuEzx
- SlaZso0FMEoWSNc5fA5n1mhN2agYO9cEcTFH5WYR8JGX8bCbIZdYciuvQoRfTxC/qQFUAi88VU
- +hm++7OuEAR1TbbVXSFEMtG66NL0jubThZ0LPvqy/3f0dbqp3mkKaOzHfvlBVeaovzxEm1pQ/a
- 5Jo=
+IronPort-SDR: 1A+w2IiSnHoSp+2Fe/WtiLGlowGS5xLZFh3Kc1HlxmeFkXDESQL+ABj8ImGYUdnf88c9oSuF95
+ a2mnTEP9WFBGNQEjnPFutxWQz9U7Ez7a43V8iAZ0rtEJ06CQONN4B7XhJV7WDXek1nYwlUYK5c
+ aD8KBkD6uU11lcpIelSRNn1Y0cMSTwvSdhvhe5L9Zo9aT9Zy9YNRw1M6yDMK3fix3Mc/o6574p
+ m5HTRrk4b0vl6y0LGDEs9rEByLDJhIVH3i8BV6Df0L4cDc0L67G64vD8U8x3aBoqvuL1nUjasz
+ uNs=
 X-SBRS: 2.7
-X-MesageID: 16584680
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 17293963
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,341,1583211600"; d="scan'208";a="16584680"
+X-IronPort-AV: E=Sophos;i="5.73,341,1583211600"; d="scan'208";a="17293963"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 02/16] x86/traps: Clean up printing in
- do_reserved_trap()/fatal_trap()
-Date: Fri, 1 May 2020 23:58:24 +0100
-Message-ID: <20200501225838.9866-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 03/16] x86/traps: Factor out exception_fixup() and make
+ printing consistent
+Date: Fri, 1 May 2020 23:58:25 +0100
+Message-ID: <20200501225838.9866-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200501225838.9866-1-andrew.cooper3@citrix.com>
 References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
@@ -97,14 +96,17 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-For one, they render the vector in a different base.
+UD faults never had any diagnostics printed, and the others were inconsistent.
 
-Introduce X86_EXC_* constants and vec_name() to refer to exceptions by their
-mnemonic, which starts bringing the code/diagnostics in line with the Intel
-and AMD manuals.
+Don't use dprintk() because identifying traps.c is actively unhelpful in the
+message, as it is the location of the fixup, not the fault.  Use the new
+vec_name() infrastructure, rather than leaving raw numbers for the log.
 
-Provide constants for every archtiecturally defined exception, even those not
-implemented by Xen yet, as do_reserved_trap() is a catch-all handler.
+  (XEN) Running stub recovery selftests...
+  (XEN) Fixup #UD[0000]: ffff82d07fffd040 [ffff82d07fffd040] -> ffff82d0403ac9d6
+  (XEN) Fixup #GP[0000]: ffff82d07fffd041 [ffff82d07fffd041] -> ffff82d0403ac9d6
+  (XEN) Fixup #SS[0000]: ffff82d07fffd040 [ffff82d07fffd040] -> ffff82d0403ac9d6
+  (XEN) Fixup #BP[0000]: ffff82d07fffd041 [ffff82d07fffd041] -> ffff82d0403ac9d6
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -112,121 +114,159 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/traps.c            | 24 +++++++++++++++++++-----
- xen/include/asm-x86/processor.h |  6 +-----
- xen/include/asm-x86/x86-defns.h | 35 +++++++++++++++++++++++++++++++++++
- 3 files changed, 55 insertions(+), 10 deletions(-)
+ xen/arch/x86/traps.c | 68 ++++++++++++++++++++++++----------------------------
+ 1 file changed, 31 insertions(+), 37 deletions(-)
 
 diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index fe9457cdb6..e73f07f28a 100644
+index e73f07f28a..737ab036d2 100644
 --- a/xen/arch/x86/traps.c
 +++ b/xen/arch/x86/traps.c
-@@ -686,6 +686,20 @@ const char *trapstr(unsigned int trapnr)
-     return trapnr < ARRAY_SIZE(strings) ? strings[trapnr] : "???";
+@@ -774,10 +774,27 @@ static void do_reserved_trap(struct cpu_user_regs *regs)
+           trapnr, vec_name(trapnr), regs->error_code);
  }
  
-+static const char *vec_name(unsigned int vec)
++static bool exception_fixup(struct cpu_user_regs *regs, bool print)
 +{
-+    static const char names[][4] = {
-+#define N(x) [X86_EXC_ ## x] = #x
-+        N(DE),  N(DB),  N(NMI), N(BP),  N(OF),  N(BR),  N(UD),  N(NM),
-+        N(DF),  N(CSO), N(TS),  N(NP),  N(SS),  N(GP),  N(PF),  N(SPV),
-+        N(MF),  N(AC),  N(MC),  N(XM),  N(VE),  N(CP),
-+                                        N(HV),  N(VC),  N(SX),
-+#undef N
-+    };
++    unsigned long fixup = search_exception_table(regs);
 +
-+    return (vec < ARRAY_SIZE(names) && names[vec][0]) ? names[vec] : "??";
++    if ( unlikely(fixup == 0) )
++        return false;
++
++    /* Can currently be triggered by guests.  Make sure we ratelimit. */
++    if ( IS_ENABLED(CONFIG_DEBUG) && print )
++        printk(XENLOG_GUEST XENLOG_WARNING "Fixup #%s[%04x]: %p [%ps] -> %p\n",
++               vec_name(regs->entry_vector), regs->error_code,
++               _p(regs->rip), _p(regs->rip), _p(fixup));
++
++    regs->rip = fixup;
++
++    return true;
 +}
 +
- /*
-  * This is called for faults at very unexpected times (e.g., when interrupts
-  * are disabled). In such situations we can't do much that is safe. We try to
-@@ -743,10 +757,9 @@ void fatal_trap(const struct cpu_user_regs *regs, bool show_remote)
-         }
+ static void do_trap(struct cpu_user_regs *regs)
+ {
+     unsigned int trapnr = regs->entry_vector;
+-    unsigned long fixup;
+ 
+     if ( regs->error_code & X86_XEC_EXT )
+         goto hardware_trap;
+@@ -795,13 +812,8 @@ static void do_trap(struct cpu_user_regs *regs)
+         return;
      }
  
--    panic("FATAL TRAP: vector = %d (%s)\n"
--          "[error_code=%04x] %s\n",
--          trapnr, trapstr(trapnr), regs->error_code,
--          (regs->eflags & X86_EFLAGS_IF) ? "" : ", IN INTERRUPT CONTEXT");
-+    panic("FATAL TRAP: vec %u, #%s[%04x]%s\n",
-+          trapnr, vec_name(trapnr), regs->error_code,
-+          (regs->eflags & X86_EFLAGS_IF) ? "" : " IN INTERRUPT CONTEXT");
- }
- 
- static void do_reserved_trap(struct cpu_user_regs *regs)
-@@ -757,7 +770,8 @@ static void do_reserved_trap(struct cpu_user_regs *regs)
+-    if ( likely((fixup = search_exception_table(regs)) != 0) )
+-    {
+-        dprintk(XENLOG_ERR, "Trap %u: %p [%ps] -> %p\n",
+-                trapnr, _p(regs->rip), _p(regs->rip), _p(fixup));
+-        regs->rip = fixup;
++    if ( likely(exception_fixup(regs, true)) )
          return;
+-    }
  
-     show_execution_state(regs);
--    panic("FATAL RESERVED TRAP %#x: %s\n", trapnr, trapstr(trapnr));
-+    panic("FATAL RESERVED TRAP: vec %u, #%s[%04x]\n",
-+          trapnr, vec_name(trapnr), regs->error_code);
- }
+  hardware_trap:
+     if ( debugger_trap_fatal(trapnr, regs) )
+@@ -1109,11 +1121,8 @@ void do_invalid_op(struct cpu_user_regs *regs)
+     }
  
- static void do_trap(struct cpu_user_regs *regs)
-diff --git a/xen/include/asm-x86/processor.h b/xen/include/asm-x86/processor.h
-index 8f6f5a97dd..12b55e1022 100644
---- a/xen/include/asm-x86/processor.h
-+++ b/xen/include/asm-x86/processor.h
-@@ -43,11 +43,7 @@
- #define TRAP_virtualisation   20
- #define TRAP_nr               32
+  die:
+-    if ( (fixup = search_exception_table(regs)) != 0 )
+-    {
+-        regs->rip = fixup;
++    if ( likely(exception_fixup(regs, true)) )
+         return;
+-    }
  
--#define TRAP_HAVE_EC                                                    \
--    ((1u << TRAP_double_fault) | (1u << TRAP_invalid_tss) |             \
--     (1u << TRAP_no_segment) | (1u << TRAP_stack_error) |               \
--     (1u << TRAP_gp_fault) | (1u << TRAP_page_fault) |                  \
--     (1u << TRAP_alignment_check))
-+#define TRAP_HAVE_EC X86_EXC_HAVE_EC
+     if ( debugger_trap_fatal(TRAP_invalid_op, regs) )
+         return;
+@@ -1129,15 +1138,8 @@ void do_int3(struct cpu_user_regs *regs)
  
- /* Set for entry via SYSCALL. Informs return code to use SYSRETQ not IRETQ. */
- /* NB. Same as VGCF_in_syscall. No bits in common with any other TRAP_ defn. */
-diff --git a/xen/include/asm-x86/x86-defns.h b/xen/include/asm-x86/x86-defns.h
-index 8bf503220a..84e15b15be 100644
---- a/xen/include/asm-x86/x86-defns.h
-+++ b/xen/include/asm-x86/x86-defns.h
-@@ -118,4 +118,39 @@
+     if ( !guest_mode(regs) )
+     {
+-        unsigned long fixup;
+-
+-        if ( (fixup = search_exception_table(regs)) != 0 )
+-        {
+-            dprintk(XENLOG_DEBUG, "Trap %u: %p [%ps] -> %p\n",
+-                    TRAP_int3, _p(regs->rip), _p(regs->rip), _p(fixup));
+-            regs->rip = fixup;
++        if ( likely(exception_fixup(regs, true)) )
+             return;
+-        }
  
- #define X86_NR_VECTORS 256
+         if ( !debugger_trap_fatal(TRAP_int3, regs) )
+             printk(XENLOG_DEBUG "Hit embedded breakpoint at %p [%ps]\n",
+@@ -1435,7 +1437,7 @@ static int fixup_page_fault(unsigned long addr, struct cpu_user_regs *regs)
+  */
+ void do_page_fault(struct cpu_user_regs *regs)
+ {
+-    unsigned long addr, fixup;
++    unsigned long addr;
+     unsigned int error_code;
  
-+/* Exception Vectors */
-+#define X86_EXC_DE             0 /* Divide Error. */
-+#define X86_EXC_DB             1 /* Debug Exception. */
-+#define X86_EXC_NMI            2 /* NMI. */
-+#define X86_EXC_BP             3 /* Breakpoint. */
-+#define X86_EXC_OF             4 /* Overflow. */
-+#define X86_EXC_BR             5 /* BOUND Range. */
-+#define X86_EXC_UD             6 /* Invalid Opcode. */
-+#define X86_EXC_NM             7 /* Device Not Available. */
-+#define X86_EXC_DF             8 /* Double Fault. */
-+#define X86_EXC_CSO            9 /* Coprocessor Segment Overrun. */
-+#define X86_EXC_TS            10 /* Invalid TSS. */
-+#define X86_EXC_NP            11 /* Segment Not Present. */
-+#define X86_EXC_SS            12 /* Stack-Segment Fault. */
-+#define X86_EXC_GP            13 /* General Porection Fault. */
-+#define X86_EXC_PF            14 /* Page Fault. */
-+#define X86_EXC_SPV           15 /* PIC Spurious Interrupt Vector. */
-+#define X86_EXC_MF            16 /* Maths fault (x87 FPU). */
-+#define X86_EXC_AC            17 /* Alignment Check. */
-+#define X86_EXC_MC            18 /* Machine Check. */
-+#define X86_EXC_XM            19 /* SIMD Exception. */
-+#define X86_EXC_VE            20 /* Virtualisation Exception. */
-+#define X86_EXC_CP            21 /* Control-flow Protection. */
-+#define X86_EXC_HV            28 /* Hypervisor Injection. */
-+#define X86_EXC_VC            29 /* VMM Communication. */
-+#define X86_EXC_SX            30 /* Security Exception. */
+     addr = read_cr2();
+@@ -1466,12 +1468,11 @@ void do_page_fault(struct cpu_user_regs *regs)
+         if ( pf_type != real_fault )
+             return;
+ 
+-        if ( likely((fixup = search_exception_table(regs)) != 0) )
++        if ( likely(exception_fixup(regs, false)) )
+         {
+             perfc_incr(copy_user_faults);
+             if ( unlikely(regs->error_code & PFEC_reserved_bit) )
+                 reserved_bit_page_fault(addr, regs);
+-            regs->rip = fixup;
+             return;
+         }
+ 
+@@ -1529,7 +1530,6 @@ void do_general_protection(struct cpu_user_regs *regs)
+ #ifdef CONFIG_PV
+     struct vcpu *v = current;
+ #endif
+-    unsigned long fixup;
+ 
+     if ( debugger_trap_entry(TRAP_gp_fault, regs) )
+         return;
+@@ -1596,13 +1596,8 @@ void do_general_protection(struct cpu_user_regs *regs)
+ 
+  gp_in_kernel:
+ 
+-    if ( likely((fixup = search_exception_table(regs)) != 0) )
+-    {
+-        dprintk(XENLOG_INFO, "GPF (%04x): %p [%ps] -> %p\n",
+-                regs->error_code, _p(regs->rip), _p(regs->rip), _p(fixup));
+-        regs->rip = fixup;
++    if ( likely(exception_fixup(regs, true)) )
+         return;
+-    }
+ 
+  hardware_gp:
+     if ( debugger_trap_fatal(TRAP_gp_fault, regs) )
+@@ -1761,18 +1756,17 @@ void do_device_not_available(struct cpu_user_regs *regs)
+ 
+     if ( !guest_mode(regs) )
+     {
+-        unsigned long fixup = search_exception_table(regs);
+-
+-        gprintk(XENLOG_ERR, "#NM: %p [%ps] -> %p\n",
+-                _p(regs->rip), _p(regs->rip), _p(fixup));
+         /*
+          * We shouldn't be able to reach here, but for release builds have
+          * the recovery logic in place nevertheless.
+          */
+-        ASSERT_UNREACHABLE();
+-        BUG_ON(!fixup);
+-        regs->rip = fixup;
+-        return;
++        if ( exception_fixup(regs, true) )
++        {
++            ASSERT_UNREACHABLE();
++            return;
++        }
 +
-+/* Bitmap of exceptions which have error codes. */
-+#define X86_EXC_HAVE_EC                                             \
-+    ((1u << X86_EXC_DF) | (1u << X86_EXC_TS) | (1u << X86_EXC_NP) | \
-+     (1u << X86_EXC_SS) | (1u << X86_EXC_GP) | (1u << X86_EXC_PF) | \
-+     (1u << X86_EXC_AC) | (1u << X86_EXC_CP) |                      \
-+     (1u << X86_EXC_VC) | (1u << X86_EXC_SX))
-+
-+
- #endif	/* __XEN_X86_DEFNS_H__ */
++        fatal_trap(regs, false);
+     }
+ 
+ #ifdef CONFIG_PV
 -- 
 2.11.0
 
