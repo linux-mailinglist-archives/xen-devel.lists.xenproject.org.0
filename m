@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FF1F1C2107
-	for <lists+xen-devel@lfdr.de>; Sat,  2 May 2020 00:59:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9205C1C2116
+	for <lists+xen-devel@lfdr.de>; Sat,  2 May 2020 01:04:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUecj-0007xH-12; Fri, 01 May 2020 22:59:13 +0000
+	id 1jUehw-0001G4-5N; Fri, 01 May 2020 23:04:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T3Df=6P=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jUech-0007wd-3P
- for xen-devel@lists.xenproject.org; Fri, 01 May 2020 22:59:11 +0000
-X-Inumbo-ID: 58e26510-8bff-11ea-b07b-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1jUehu-0001FM-JM
+ for xen-devel@lists.xenproject.org; Fri, 01 May 2020 23:04:34 +0000
+X-Inumbo-ID: 1aa23f5e-8c00-11ea-ae69-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 58e26510-8bff-11ea-b07b-bc764e2007e4;
- Fri, 01 May 2020 22:59:01 +0000 (UTC)
+ id 1aa23f5e-8c00-11ea-ae69-bc764e2007e4;
+ Fri, 01 May 2020 23:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588373941;
+ d=citrix.com; s=securemail; t=1588374266;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Ap0r5eSmJ8rufFjf/AMweZgfzQrJaoB/RQzTcg9JGIc=;
- b=ErI7A2pbb2ioIashxwuWHNLQAyklofIDa/D2N96acCgo3k+vCBkNV2gK
- gmAuAy5i5iA+cQnrVzmK88VQ/LTbg75b+zi+1DEK5gVd0h5Aj9ysdA2Zo
- R8289BthNZdqkpTON6atESa0yYzB1en2ytYN+Xhv7iVQMZrSrcDJ7Zvod Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=uwqto+nsVNLj4DX0sYxzltmriQwYE0YYvDMISJG9Vwo=;
+ b=ca/Y9wdg9cmMQpC3zP2Ui4KH0I8NVjJXvc0kr3vkrt3YLGY2usoshxAX
+ nhfOsQW3Cku71pAPLN/s+m5eBRf+kvHP+SBlA5zqYSN+8KYbZYor0ro4I
+ DyI23g5Tf59uthtG8myT92ICjOsJQEXCIuhMgjH4N2KjVr/Zgt0vRVxhq 4=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,30 +50,30 @@ Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: l2SQ2JLuOddSOfsNIBJCTSLhOtnmkBvFgvONzvDTCcY8Vkp/NtCl2khdZ9t2t6JtA7zD4GarrM
- BqM+kxLU7j90gPA9Mp6887De5bHXiO5NWfRNikGaWTDozSZykal5kSAwGFRXOF2TRn2G8/vW9i
- psvTC6stvSV5iP+ognHDjvS9c8hUo0/bVTGX/mip9oFyenMUwKfYF0xuGotxrfdCAmi16TcbUO
- IZ+h13PiXE4v3ZHgGZU4m+eNTts24WDvxeJeeOa5GzXBA0gSoFcgRtRKUSN69nEpr7Ozrc7ZXV
- m00=
+IronPort-SDR: vyZJf3XChK3+6Biz+YWJLkqCcBFG7t+PFauyzWQfKb9zrybxorqUy3rh0tRdcOmcwU3CGgISvh
+ AH+Bh7Ql2I3ViuWPd3lwaZ/ovOI8NPHBZEFMxWfxzDjTzc2pnXc7vFq0zTZrOcincvZo0Ph3FH
+ tCaVyfz5hEEiOHBL60lcUiC8CQCTswwturEabnlNLXsLXQsfyZh2bRhBM6jxWb4HLI9q9hyu4N
+ Be8ZGyyI27g3DUZr1FjC13O0uesvVRjPAJPRoplG9UjBwr3UaYkomzHNjiZJTT7JJkg6DikVbw
+ oWI=
 X-SBRS: 2.7
-X-MesageID: 16584677
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 16855103
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,341,1583211600"; d="scan'208";a="16584677"
+X-IronPort-AV: E=Sophos;i="5.73,341,1583211600"; d="scan'208";a="16855103"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 09/16] x86/cpu: Adjust enable_nmis() to be shadow stack
- compatible
-Date: Fri, 1 May 2020 23:58:31 +0100
-Message-ID: <20200501225838.9866-10-andrew.cooper3@citrix.com>
+Subject: [PATCH 10/16] x86/cpu: Adjust reset_stack_and_jump() to be shadow
+ stack compatible
+Date: Fri, 1 May 2020 23:58:32 +0100
+Message-ID: <20200501225838.9866-11-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200501225838.9866-1-andrew.cooper3@citrix.com>
 References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
@@ -96,14 +96,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-When executing an IRET-to-self, the shadow stack must agree with the regular
-stack.  We can't manipulate SSP directly, so have to fake a shadow IRET frame
-by executing 3 CALLs, then editing the result to look correct.
-
-This is not a fastpath, is called on the BSP long before CET can be set up,
-and may be called on the crash path after CET is disabled.  Use the fact that
-INCSSP is allocated from the hint nop space to construct a test for CET being
-active which is safe on all processors.
+We need to unwind up to the supervisor token.  See the comment for details.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -111,64 +104,66 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/include/asm-x86/processor.h | 43 +++++++++++++++++++++++++++++++----------
- 1 file changed, 33 insertions(+), 10 deletions(-)
+ xen/include/asm-x86/current.h | 42 +++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 39 insertions(+), 3 deletions(-)
 
-diff --git a/xen/include/asm-x86/processor.h b/xen/include/asm-x86/processor.h
-index 54e1a8b605..654d46a6f4 100644
---- a/xen/include/asm-x86/processor.h
-+++ b/xen/include/asm-x86/processor.h
-@@ -544,17 +544,40 @@ static inline void enable_nmis(void)
- {
-     unsigned long tmp;
+diff --git a/xen/include/asm-x86/current.h b/xen/include/asm-x86/current.h
+index 99b66a0087..2a7b728b1e 100644
+--- a/xen/include/asm-x86/current.h
++++ b/xen/include/asm-x86/current.h
+@@ -124,13 +124,49 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+ # define CHECK_FOR_LIVEPATCH_WORK ""
+ #endif
  
--    asm volatile ( "mov %%rsp, %[tmp]     \n\t"
--                   "push %[ss]            \n\t"
--                   "push %[tmp]           \n\t"
--                   "pushf                 \n\t"
--                   "push %[cs]            \n\t"
--                   "lea 1f(%%rip), %[tmp] \n\t"
--                   "push %[tmp]           \n\t"
--                   "iretq; 1:             \n\t"
--                   : [tmp] "=&r" (tmp)
-+    asm volatile ( "mov     %%rsp, %[rsp]        \n\t"
-+                   "lea    .Ldone(%%rip), %[rip] \n\t"
 +#ifdef CONFIG_XEN_SHSTK
-+                   /* Check for CET-SS being active. */
-+                   "mov    $1, %k[ssp]           \n\t"
-+                   "rdsspq %[ssp]                \n\t"
-+                   "cmp    $1, %k[ssp]           \n\t"
-+                   "je     .Lshstk_done          \n\t"
-+
-+                   /* Push 3 words on the shadow stack */
-+                   ".rept 3                      \n\t"
-+                   "call 1f; nop; 1:             \n\t"
-+                   ".endr                        \n\t"
-+
-+                   /* Fixup to be an IRET shadow stack frame */
-+                   "wrssq  %q[cs], -1*8(%[ssp])  \n\t"
-+                   "wrssq  %[rip], -2*8(%[ssp])  \n\t"
-+                   "wrssq  %[ssp], -3*8(%[ssp])  \n\t"
-+
-+                   ".Lshstk_done:"
++/*
++ * We need to unwind the primary shadow stack to its supervisor token, located
++ * at 0x5ff8 from the base of the stack blocks.
++ *
++ * Read the shadow stack pointer, subtract it from 0x5ff8, divide by 8 to get
++ * the number of slots needing popping.
++ *
++ * INCSSPQ can't pop more than 255 entries.  We shouldn't ever need to pop
++ * that many entries, and getting this wrong will cause us to #DF later.
++ */
++# define SHADOW_STACK_WORK                      \
++    "mov $1, %[ssp];"                           \
++    "rdsspd %[ssp];"                            \
++    "cmp $1, %[ssp];"                           \
++    "je 1f;" /* CET not active?  Skip. */       \
++    "mov $"STR(0x5ff8)", %[val];"               \
++    "and $"STR(STACK_SIZE - 1)", %[ssp];"       \
++    "sub %[ssp], %[val];"                       \
++    "shr $3, %[val];"                           \
++    "cmp $255, %[val];"                         \
++    "jle 2f;"                                   \
++    "ud2a;"                                     \
++    "2: incsspq %q[val];"                       \
++    "1:"
++#else
++# define SHADOW_STACK_WORK ""
 +#endif
-+                   /* Write an IRET regular frame */
-+                   "push   %[ss]                 \n\t"
-+                   "push   %[rsp]                \n\t"
-+                   "pushf                        \n\t"
-+                   "push   %q[cs]                \n\t"
-+                   "push   %[rip]                \n\t"
-+                   "iretq                        \n\t"
-+                   ".Ldone:                      \n\t"
-+                   : [rip] "=&r" (tmp),
-+                     [rsp] "=&r" (tmp),
-+                     [ssp] "=&r" (tmp)
-                    : [ss] "i" (__HYPERVISOR_DS),
--                     [cs] "i" (__HYPERVISOR_CS) );
-+                     [cs] "r" (__HYPERVISOR_CS) );
- }
++
+ #define switch_stack_and_jump(fn, instr)                                \
+     ({                                                                  \
++        unsigned int tmp;                                               \
+         __asm__ __volatile__ (                                          \
+-            "mov %0,%%"__OP"sp;"                                        \
++            "cmc;"                                                      \
++            SHADOW_STACK_WORK                                           \
++            "mov %[stk], %%rsp;"                                        \
+             instr                                                       \
+-             "jmp %c1"                                                  \
+-            : : "r" (guest_cpu_user_regs()), "i" (fn) : "memory" );     \
++            "jmp %c[fun];"                                              \
++            : [val] "=&r" (tmp),                                        \
++              [ssp] "=&r" (tmp)                                         \
++            : [stk] "r" (guest_cpu_user_regs()),                        \
++              [fun] "i" (fn)                                            \
++            : "memory" );                                               \
+         unreachable();                                                  \
+     })
  
- void sysenter_entry(void);
 -- 
 2.11.0
 
