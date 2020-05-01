@@ -2,78 +2,81 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 222C31C200B
-	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 23:52:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F421E1C2105
+	for <lists+xen-devel@lfdr.de>; Sat,  2 May 2020 00:59:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUdZz-0002qW-A2; Fri, 01 May 2020 21:52:19 +0000
+	id 1jUecs-00083b-Md; Fri, 01 May 2020 22:59:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D0mR=6P=intel.com=dan.j.williams@srs-us1.protection.inumbo.net>)
- id 1jUdZy-0002qR-30
- for xen-devel@lists.xenproject.org; Fri, 01 May 2020 21:52:18 +0000
-X-Inumbo-ID: 04f28628-8bf6-11ea-b07b-bc764e2007e4
-Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ <SRS0=T3Df=6P=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jUecr-00082n-4H
+ for xen-devel@lists.xenproject.org; Fri, 01 May 2020 22:59:21 +0000
+X-Inumbo-ID: 5cf85420-8bff-11ea-ae69-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 04f28628-8bf6-11ea-b07b-bc764e2007e4;
- Fri, 01 May 2020 21:52:15 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id d16so8316490edv.8
- for <xen-devel@lists.xenproject.org>; Fri, 01 May 2020 14:52:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=l07ccX0wm+AEN60sydd1sDGIVZzQnw4FgS9Ujh07hXI=;
- b=mklS7vIKVEUdl7wntEpgBeCcvwVfQHQL1n/rmnKFbnOtHIZRisDisf4dMQS+dM0Nv0
- /mRQLawzCoRa0iAq+jVvpf0LYqgCjY+tO0Nl2pQjod+pUu+y/cbys3B6QuzFNwIhgq+e
- J0hSqTnwqIVOMJOuynhAAZ9fW5a6Vt9Xzotvtdm26jvNeifB0m/HBJs7okf++OwjA9rv
- 5lz3SdD51W3h8Z5eRe/aaTM0oZ8G7J5TGcoo4kQ/achD7IKEF7tdsapTw8o+0ZAJulwF
- tm+BI0y7Xg01WDXA39uPG+FQVFMkDZI0YOggS1Fzhv4x3y9WAQf7Z6g1qNe1txuqYjtH
- o9jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=l07ccX0wm+AEN60sydd1sDGIVZzQnw4FgS9Ujh07hXI=;
- b=JxuF7weXg6NMoYN5LDrkyg/I9sFd+DrN4W+YsQAen834W8ntRoKSRkM4PqHd0KUrxw
- H0HqbidSixUV7zCd+kEvUDKwMLQ2C531CJeCobKZg2R3oXF9W0UPc/+fWyazL6dpIFgY
- UtA3dkLFsIKoN2eecmcHjZd5jJ6WjHOuiWCKPoxw4SRGhEORt4zrXuc5kFKxTPmMNZdq
- Ak30hVC/VOUi57EiMuOpvtqElht/c4kdzNHFiiMPW/O8Zy1vc95NLQyjNiX2tl5HHUqZ
- gBLn5+CHvMh/YCGOIP0o9bVMssBQYICXvLRMpCY9165uijoXz4SmJN/KTbIFSl/x1JLx
- GgMQ==
-X-Gm-Message-State: AGi0PubUogUtzkBhTc9Ax24lq+cO/9I2Jti5/zziSp+utB5A3tbthpw7
- SWVtb+T88aGzH2tt0aEccPmDFKF8GGCqKO8aErcHUA==
-X-Google-Smtp-Source: APiQypJmId2DaeM7LwaM8l70eo6m7yrxIS8YHkCL5rA5nuZuCXHz7IuoKF/W4HpVt52A/r7auZb6rjukAuRVUpn3RXs=
-X-Received: by 2002:a05:6402:759:: with SMTP id
- p25mr5505386edy.102.1588369934563; 
- Fri, 01 May 2020 14:52:14 -0700 (PDT)
+ id 5cf85420-8bff-11ea-ae69-bc764e2007e4;
+ Fri, 01 May 2020 22:59:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588373948;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=gDqmpBaBuFtcNPsY5Y83vtQt6FtCDBM6ODRWWUkB7Wo=;
+ b=Tv0lhi3k/l1WKgwwMevpenyJaZiXE5d/s5JPp1EflcHKkfquzlW2lTDk
+ 4l+6JycZ1EzRzbKNjQ8ML2MD0BIaQoJWuaufKLndS/1yA5hCCVDhBWb4Q
+ jHUUoTITvB0kI5sZxMKSioGZKw6nKfLyQwGlZZVZVipMge/krzE+hPwkI E=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: tvG01VWEhW9lEFXuYuSyuiQfsPHtPwE54KCT0FZT3ZQyrETbooExtlWNlIk+4j9NJ3pKOEm75Q
+ b+x+EVLcXMtWpDKddHDvArnH8eIcgctc+pYmuZ8TqWNIRxrmeFL9W70A2t42ehsVoQ6CQoOt/V
+ 83Jgdw1iHZ4S7hCaYmL5XCCzVNDkTlPXvE6cUoeTo1eHWK8GF4abRoi4yzrYRrpgimmFNQvGIx
+ lAJ10SqevCFFx0nt3KE9hptBvQdCVuC4g1p6LoktErRxOAQqLqJ0m0czbOJ99siyvkFBRkwvxx
+ NbE=
+X-SBRS: 2.7
+X-MesageID: 16854947
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,341,1583211600"; d="scan'208";a="16854947"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH 00/16] x86: Support for CET Supervisor Shadow Stacks
+Date: Fri, 1 May 2020 23:58:22 +0100
+Message-ID: <20200501225838.9866-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <20200430102908.10107-1-david@redhat.com>
- <1b49c3be-6e2f-57cb-96f7-f66a8f8a9380@redhat.com>
- <871ro52ary.fsf@x220.int.ebiederm.org>
- <373a6898-4020-4af1-5b3d-f827d705dd77@redhat.com>
- <875zdg26hp.fsf@x220.int.ebiederm.org>
- <b28c9e02-8cf2-33ae-646b-fe50a185738e@redhat.com>
- <20200430152403.e0d6da5eb1cad06411ac6d46@linux-foundation.org>
- <5c908ec3-9495-531e-9291-cbab24f292d6@redhat.com>
- <CAPcyv4j=YKnr1HW4OhAmpzbuKjtfP7FdAn4-V7uA=b-Tcpfu+A@mail.gmail.com>
- <2d019c11-a478-9d70-abd5-4fd2ebf4bc1d@redhat.com>
- <CAPcyv4iOqS0Wbfa2KPfE1axQFGXoRB4mmPRP__Lmqpw6Qpr_ig@mail.gmail.com>
- <62dd4ce2-86cc-5b85-734f-ec8766528a1b@redhat.com>
- <0169e822-a6cc-1543-88ed-2a85d95ffb93@redhat.com>
- <CAPcyv4jGnR_fPtpKBC1rD2KRcT88bTkhqnTMmuwuc+f9Dwrz1g@mail.gmail.com>
- <9f3a813e-dc1d-b675-6e69-85beed3057a4@redhat.com>
- <CAPcyv4jjrxQ27rsfmz6wYPgmedevU=KG+wZ0GOm=qiE6tqa+VA@mail.gmail.com>
- <04242d48-5fa9-6da4-3e4a-991e401eb580@redhat.com>
- <CAPcyv4iXyOUDZgqhWH1KCObvATL=gP55xEr64rsRfUuJg5B+eQ@mail.gmail.com>
- <8242c0c5-2df2-fc0c-079a-3be62c113a11@redhat.com>
-In-Reply-To: <8242c0c5-2df2-fc0c-079a-3be62c113a11@redhat.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Fri, 1 May 2020 14:52:03 -0700
-Message-ID: <CAPcyv4h1nWjszkVJQgeXkUc=-nPv5=Me25BOGFQCpihUyFsD6w@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] mm/memory_hotplug: Introduce MHP_NO_FIRMWARE_MEMMAP
-To: David Hildenbrand <david@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,87 +87,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: virtio-dev@lists.oasis-open.org, linux-hyperv@vger.kernel.org,
- Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>,
- Linux ACPI <linux-acpi@vger.kernel.org>, Wei Yang <richard.weiyang@gmail.com>,
- linux-s390 <linux-s390@vger.kernel.org>,
- linux-nvdimm <linux-nvdimm@lists.01.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- virtualization@lists.linux-foundation.org, Linux MM <linux-mm@kvack.org>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- "Eric W. Biederman" <ebiederm@xmission.com>,
- Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 1, 2020 at 2:11 PM David Hildenbrand <david@redhat.com> wrote:
->
-> On 01.05.20 22:12, Dan Williams wrote:
-[..]
-> >>> Consider the case of EFI Special Purpose (SP) Memory that is
-> >>> marked EFI Conventional Memory with the SP attribute. In that case the
-> >>> firmware memory map marked it as conventional RAM, but the kernel
-> >>> optionally marks it as System RAM vs Soft Reserved. The 2008 patch
-> >>> simply does not consider that case. I'm not sure strict textualism
-> >>> works for coding decisions.
-> >>
-> >> I am no expert on that matter (esp EFI). But looking at the users of
-> >> firmware_map_add_early(), the single user is in arch/x86/kernel/e820.c
-> >> . So the single source of /sys/firmware/memmap is (besides hotplug) e820.
-> >>
-> >> "'e820_table_firmware': the original firmware version passed to us by
-> >> the bootloader - not modified by the kernel. ... inform the user about
-> >> the firmware's notion of memory layout via /sys/firmware/memmap"
-> >> (arch/x86/kernel/e820.c)
-> >>
-> >> How is the EFI Special Purpose (SP) Memory represented in e820?
-> >> /sys/firmware/memmap is really simple: just dump in e820. No policies IIUC.
-> >
-> > e820 now has a Soft Reserved translation for this which means "try to
-> > reserve, but treat as System RAM is ok too". It seems generically
-> > useful to me that the toggle for determining whether Soft Reserved or
-> > System RAM shows up /sys/firmware/memmap is a determination that
-> > policy can make. The kernel need not preemptively block it.
->
-> So, I think I have to clarify something here. We do have two ways to kexec
->
-> 1. kexec_load(): User space (kexec-tools) crafts the memmap (e.g., using
-> /sys/firmware/memmap on x86-64) and selects memory where to place the
-> kexec images (e.g., using /proc/iomem)
->
-> 2. kexec_file_load(): The kernel reuses the (basically) raw firmware
-> memmap and selects memory where to place kexec images.
->
-> We are talking about changing 1, to behave like 2 in regards to
-> dax/kmem. 2. does currently not add any hotplugged memory to the
-> fixed-up e820, and it should be fixed regarding hotplugged DIMMs that
-> would appear in e820 after a reboot.
->
-> Now, all these policy discussions are nice and fun, but I don't really
-> see a good reason to (ab)use /sys/firmware/memmap for that (e.g., parent
-> properties). If you want to be able to make this configurable, then
-> e.g., add a way to configure this in the kernel (for example along with
-> kmem) to make 1. and 2. behave the same way. Otherwise, you really only
-> can change 1.
+This series implements Shadow Stack support for Xen to use.
 
-That's clearer.
+You'll need a CET-capable toolchain (Binutils 2.32 and later), but no specific
+compiler support required.
 
->
->
-> Now, let's clarify what I want regarding virtio-mem:
->
-> 1. kexec should not add virtio-mem memory to the initial firmware
->    memmap. The driver has to be in charge as discussed.
-> 2. kexec should not place kexec images onto virtio-mem memory. That
->    would end badly.
-> 3. kexec should still dump virtio-mem memory via kdump.
+CET-SS makes PV32 unusable, so using shadow stacks prevents the use of 32bit
+PV guests.  Compatibilty can be obtained using PV Shim
 
-Ok, but then seems to say to me that dax/kmem is a different type of
-(driver managed) than virtio-mem and it's confusing to try to apply
-the same meaning. Why not just call your type for the distinct type it
-is "System RAM (virtio-mem)" and let any other driver managed memory
-follow the same "System RAM ($driver)" format if it wants?
+Andrew Cooper (16):
+  x86/traps: Drop last_extable_addr
+  x86/traps: Clean up printing in do_reserved_trap()/fatal_trap()
+  x86/traps: Factor out exception_fixup() and make printing consistent
+  x86/smpboot: Write the top-of-stack block in cpu_smpboot_alloc()
+  x86/shstk: Introduce Supervisor Shadow Stack support
+  x86/traps: Implement #CP handler and extend #PF for shadow stacks
+  x86/shstk: Re-layout the stack block for shadow stacks
+  x86/shstk: Create shadow stacks
+  x86/cpu: Adjust enable_nmis() to be shadow stack compatible
+  x86/cpu: Adjust reset_stack_and_jump() to be shadow stack compatible
+  x86/spec-ctrl: Adjust DO_OVERWRITE_RSB to be shadow stack compatible
+  x86/extable: Adjust extable handling to be shadow stack compatible
+  x86/ioemul: Rewrite stub generation to be shadow stack compatible
+  x86/alt: Adjust _alternative_instructions() to not create shadow stacks
+  x86/entry: Adjust guest paths to be shadow stack compatible
+  x86/shstk: Activate Supervisor Shadow Stacks
+
+ xen/arch/x86/Kconfig                |  17 +++
+ xen/arch/x86/acpi/wakeup_prot.S     |  56 ++++++++++
+ xen/arch/x86/alternative.c          |  14 +++
+ xen/arch/x86/boot/x86_64.S          |  30 +++++-
+ xen/arch/x86/cpu/common.c           |  34 +++++-
+ xen/arch/x86/crash.c                |   7 ++
+ xen/arch/x86/ioport_emulate.c       |  11 +-
+ xen/arch/x86/mm.c                   |  41 ++++---
+ xen/arch/x86/pv/emul-priv-op.c      |  91 ++++++++++++----
+ xen/arch/x86/pv/gpr_switch.S        |  37 ++-----
+ xen/arch/x86/setup.c                |  56 ++++++++++
+ xen/arch/x86/smpboot.c              |  10 +-
+ xen/arch/x86/spec_ctrl.c            |   8 ++
+ xen/arch/x86/traps.c                | 206 ++++++++++++++++++++++--------------
+ xen/arch/x86/x86_64/compat/entry.S  |   2 +-
+ xen/arch/x86/x86_64/entry.S         |  39 ++++++-
+ xen/include/asm-x86/cpufeature.h    |   1 +
+ xen/include/asm-x86/cpufeatures.h   |   1 +
+ xen/include/asm-x86/current.h       |  59 ++++++++---
+ xen/include/asm-x86/io.h            |   3 +-
+ xen/include/asm-x86/mm.h            |   1 -
+ xen/include/asm-x86/msr-index.h     |   3 +
+ xen/include/asm-x86/page.h          |   1 +
+ xen/include/asm-x86/processor.h     |  60 +++++++----
+ xen/include/asm-x86/spec_ctrl_asm.h |  16 ++-
+ xen/include/asm-x86/x86-defns.h     |  36 +++++++
+ xen/include/asm-x86/x86_64/page.h   |   1 +
+ xen/scripts/Kconfig.include         |   4 +
+ 28 files changed, 640 insertions(+), 205 deletions(-)
+
+-- 
+2.11.0
+
 
