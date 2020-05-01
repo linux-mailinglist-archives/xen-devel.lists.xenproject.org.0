@@ -2,58 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E57B1C11F2
-	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 14:16:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4A41C11F4
+	for <lists+xen-devel@lfdr.de>; Fri,  1 May 2020 14:18:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jUUaA-0003wa-Lr; Fri, 01 May 2020 12:15:54 +0000
+	id 1jUUc4-00042x-2d; Fri, 01 May 2020 12:17:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UQub=6P=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jUUa8-0003wV-Tb
- for xen-devel@lists.xenproject.org; Fri, 01 May 2020 12:15:52 +0000
-X-Inumbo-ID: 7f437b54-8ba5-11ea-9b01-12813bfff9fa
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
+ id 1jUUc2-00042s-MV
+ for xen-devel@lists.xenproject.org; Fri, 01 May 2020 12:17:50 +0000
+X-Inumbo-ID: c591095a-8ba5-11ea-9b01-12813bfff9fa
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7f437b54-8ba5-11ea-9b01-12813bfff9fa;
- Fri, 01 May 2020 12:15:51 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id v4so9676367wme.1
- for <xen-devel@lists.xenproject.org>; Fri, 01 May 2020 05:15:51 -0700 (PDT)
+ id c591095a-8ba5-11ea-9b01-12813bfff9fa;
+ Fri, 01 May 2020 12:17:49 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id x18so11352193wrq.2
+ for <xen-devel@lists.xenproject.org>; Fri, 01 May 2020 05:17:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=vICyT7apXMYKPCbuxxQqROkSh5+Ohp8a/LbOd+8OaeQ=;
- b=jJ/SUTEeHeEfVCU5SwLt8MCoTGl+JN4CyxkxtiHb2l3r5/XfKz+8oF5omdqda33cUj
- ypayty3SvbS0yQ9r4Ibtn0sPTiqbfisVTfhpcTs6ig1TJKP8gswOY0VmjN5cFQBV9jvf
- DxJMZ1XTNezRU3iks0lDPBLZRUQQl4rWDb6smjJmb8tBDoLBa5NAmFec7ebWSQurSqJ4
- oIQ2Zi0tzqRGMVfCESwxNsJxL6FuttmC+71ZM7C5t53TeXUm0pT+bhiJDHKRUvQClca7
- Bnu0hS+lvQoGsE7ki1jy/U9S3NpPuAFaMiwIWiPdaiZp/u+YagcS1yt70Gliw5cvtXve
- A6lw==
-X-Gm-Message-State: AGi0PubgLwkGh5kIaGRPRpUeNfecLmWMqRArPbXHgL72toZHqkLjeuTN
- c+iD6b91iYCXTUWXFksjZqY=
-X-Google-Smtp-Source: APiQypIUZJI4F6AZaaYtMHcvccg6xv8A60GVGB38/2fKc50ytb5V2ZuNf/Ma/ky8r3SzOqKqlsEbhg==
-X-Received: by 2002:a7b:c156:: with SMTP id z22mr3973885wmi.51.1588335350613; 
- Fri, 01 May 2020 05:15:50 -0700 (PDT)
+ bh=liMYuUxId91gL59cBzKMthRPQOfyR4BgWxxNuFgvwkk=;
+ b=nRruK9uEzHn/DE5JRtu2I8Xwcf8sJWYR2iXky6DP4GN7t5w1aAk3osBiulO0ggs8fc
+ BpcuhUMQON2Hgb0DbKkqxkIkJrL7Vr+svYFBzWS+H12++CHSf+sKcs21dHgZN5U28UYn
+ WRXfCotLF9VZIg8HH71ZX8gxSvaif8Uh1KF7MQrn+uEx8pFgXQkIBce6HSLw1TI9E7Nn
+ ZD3btS+8D7Ha2ZJ8B9VrIdhT/OMdE0wkpkJOP/NSXYij/awdNZew2065XXdavtpfXin2
+ 5CldJM3NnbvR2nRvDYEyGlOZkUXTVNgiarvPN/w+5+VLwrG340FiYLI6YGqBEpDj0sum
+ jXFg==
+X-Gm-Message-State: AGi0PuYrFaBp/y3vpRzcC6nS4c3jGGuuioZQUc4R2iOQJmqIw40IL5hY
+ ppYgbwWjYYV8C6MBgZfwlis=
+X-Google-Smtp-Source: APiQypILDFJz8N0xxelSBx2skcFO/uDfxdcAdzwAB3F4fBcu0c3DUkud3Yt4tS5q/eoqH9XkSJQfkQ==
+X-Received: by 2002:adf:cd0a:: with SMTP id w10mr3822774wrm.404.1588335468547; 
+ Fri, 01 May 2020 05:17:48 -0700 (PDT)
 Received: from
  liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
  ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id a24sm3644621wmb.24.2020.05.01.05.15.49
+ by smtp.gmail.com with ESMTPSA id u30sm4320515wru.13.2020.05.01.05.17.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 May 2020 05:15:50 -0700 (PDT)
-Date: Fri, 1 May 2020 12:15:48 +0000
+ Fri, 01 May 2020 05:17:48 -0700 (PDT)
+Date: Fri, 1 May 2020 12:17:46 +0000
 From: Wei Liu <wl@xen.org>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] tools/xl: vcpu-pin: Skip global affinity when the hard
- affinity is not changed
-Message-ID: <20200501121548.2iv5hbztxmcsxjwa@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-References: <20200430110051.8965-1-julien@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] x86/HyperV: correct hv_hcall_page for xen.efi build
+Message-ID: <20200501121746.7t6xtvtu2w5l5oxb@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+References: <c45d6098-a4e1-b565-4180-cc6da433dc57@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200430110051.8965-1-julien@xen.org>
+In-Reply-To: <c45d6098-a4e1-b565-4180-cc6da433dc57@suse.com>
 User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -65,59 +64,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Pawel Wieczorkiewicz <wipawel@amazon.de>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Apr 30, 2020 at 12:00:51PM +0100, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+On Thu, Apr 30, 2020 at 12:24:15PM +0200, Jan Beulich wrote:
+> Along the lines of what the not reverted part of 3c4b2eef4941 ("x86:
+> refine link time stub area related assertion") did, we need to transform
+> the absolute HV_HCALL_PAGE into the image base relative hv_hcall_page
+> (or else there'd be no need for two distinct symbols). Otherwise
+> mkreloc, as used for generating the base relocations of xen.efi, will
+> spit out warnings like "Difference at .text:0009b74f is 0xc0000000
+> (expected 0x40000000)". As long as the offending relocations are PC
+> relative ones, the generated binary is correct afaict, but if there ever
+> was the absolute address stored, xen.efi would miss a fixup for it.
 > 
-> After XSA-273, it is not possible to modify the vCPU soft affinity using
-> xl vcpu-pin without modifying the hard affinity. Instead the command
-> will crash.
-> 
-> 42sh> gdb /usr/local/sbin/xl
-> (gdb) r vcpu-pin 0 0 - 10
-> [...]
-> Program received signal SIGSEGV, Segmentation fault.
-> [...]
-> (gdb) bt
-> 
-> This is happening because 'xl' will use NULL when an affinity doesn't
-> need to be modified. However, we will still try to apply the global
-> affinity in the this case.
-> 
-> As the hard affinity is not changed, then we don't need to apply the
-> global affinity. So skip it when hard is NULL.
-> 
-> Backport: 4.6+ # Any release with XSA-273
-> Fixes: aa67b97ed342 ("xl.conf: Add global affinity masks")
-> Reported-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Acked-by: Wei Liu <wl@xen.org>
 
 > ---
->  tools/xl/xl_vcpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Build tested only (and generated binary inspected) - Wei, please check
+> that this doesn't break things.
 > 
-> diff --git a/tools/xl/xl_vcpu.c b/tools/xl/xl_vcpu.c
-> index 9ff5354f749b..66877a57dee4 100644
-> --- a/tools/xl/xl_vcpu.c
-> +++ b/tools/xl/xl_vcpu.c
-> @@ -283,7 +283,7 @@ int main_vcpupin(int argc, char **argv)
->      }
+
+I don't have time to verify this in next couple of weeks, but I will
+surely notice if there is a breakage.
+
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -327,7 +327,7 @@ SECTIONS
+>  #endif
 >  
->      /* Only hard affinity matters here */
-> -    if (!ignore_masks) {
-> +    if (!ignore_masks && hard) {
->          libxl_dominfo dominfo;
+>  #ifdef CONFIG_HYPERV_GUEST
+> -  hv_hcall_page = ABSOLUTE(HV_HCALL_PAGE);
+> +  hv_hcall_page = ABSOLUTE(HV_HCALL_PAGE - XEN_VIRT_START + __XEN_VIRT_START);
+>  #endif
 >  
->          if (libxl_domain_info(ctx, &dominfo, domid)) {
-> -- 
-> 2.17.1
-> 
+>    /* Sections to be discarded */
 
