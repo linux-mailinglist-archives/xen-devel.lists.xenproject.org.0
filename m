@@ -2,63 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C97E91C36C4
-	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 12:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DFC41C3703
+	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 12:36:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVYFz-0003zw-0D; Mon, 04 May 2020 10:23:27 +0000
+	id 1jVYRx-00052p-MC; Mon, 04 May 2020 10:35:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7wWN=6S=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jVYFx-0003zr-0p
- for xen-devel@lists.xenproject.org; Mon, 04 May 2020 10:23:25 +0000
-X-Inumbo-ID: 47702ca6-8df1-11ea-9d0e-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 47702ca6-8df1-11ea-9d0e-12813bfff9fa;
- Mon, 04 May 2020 10:23:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=aq185/LLIJVNFWVo267jVDYioB6vRDAzwe5R59+Z9vw=; b=n+4x8ANF+A7sMrufdi+yElB/h0
- 5TIGxnGXlxZikpMLRSq8wi61trIBUABCzjW9wWXVQ1cRcN0JeQ3OiKfi83VqeMFDgIlMmhRqUKRXA
- up+TpSvxOnDoB/6EQKxoEMcjdYjB92VEv8SzKNE+LuzvpzWW1KzgD4/4Q203tTW8W/Lc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jVYFr-0005mk-1E; Mon, 04 May 2020 10:23:19 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jVYFq-0007t2-Q3; Mon, 04 May 2020 10:23:18 +0000
-Subject: Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the
- menuconfig directly
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200430142548.23751-1-julien@xen.org>
- <20200430142548.23751-3-julien@xen.org>
- <3a4ec020-f626-031e-73a6-b2eee97ab9e8@suse.com>
- <548a9fc5-c251-5d8b-d297-4788d60b801d@xen.org>
- <36944bda-14a8-0134-cd1d-1f08becb28b0@suse.com>
- <898479ac-fd5c-48f4-28cb-8bbb2dc60d83@xen.org>
- <443018dd-d30e-037d-b7b1-d531d81bed15@suse.com>
- <3c581eac-9b2f-493c-f86e-2377450a6a2a@xen.org>
- <cb829776-b18d-3535-1869-da9dc2232ec8@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <f64a6200-3ab0-0783-8eed-2c7ec66af484@xen.org>
-Date: Mon, 4 May 2020 11:23:16 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ (envelope-from <SRS0=1i/5=6S=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1jVYRv-00052j-Tu
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2020 10:35:48 +0000
+X-Inumbo-ID: 03ac53c7-8df3-11ea-9d10-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 03ac53c7-8df3-11ea-9d10-12813bfff9fa;
+ Mon, 04 May 2020 10:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1588588547;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=p7qjpECM+aCBLbyZzL1R9qYhC5J3RWAlBF99gihbx48=;
+ b=HIFaBJLu8wmQmemuVUG5SSd2g+Ojrp1HVErTdpFwcQOh6q/0qaaHEWsxelklCf78l/fjiu
+ kUy3jXaJMkIydyN8zRTU6IWtNcTlh8oWzUBIbykRP8/LxxHwIArH/sfq1M8wBhY+I+hGrf
+ kbkh65CvQpZCkkgp6lOKwj1vPXj3Nnc=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-225-0aJGlC4TOKa8VYfm0kvVpw-1; Mon, 04 May 2020 06:35:42 -0400
+X-MC-Unique: 0aJGlC4TOKa8VYfm0kvVpw-1
+Received: by mail-wm1-f72.google.com with SMTP id 71so3269765wmb.8
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2020 03:35:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=65qtTvM5Bdj416dEt86Eaggl2O6nVd/jv4X1UlNrfBg=;
+ b=Np2PtVw2rwXJJpDJVuSiGjeJZvrFpW66W0KNUnA1puXKcUltg7Q1I5BQ2DnC5qJ+KB
+ MlCA+bLg4eLL1sO8ak/GRIjtcF0HHvDtb4pAnv3/hPcMykkx7MzxZ9JaMwFlZm1s8Ojf
+ ZEdkeFTymewMsgt2gFRGxyfBAw5WJUtzL2yXyBT0RJmn5CuXNMTfrQpUln129h87l8YQ
+ BqjNGN29TYZ1CYXPj4Cs/kocK6iLVG9A0WVl8F3wWIH9+uwHIw/pf2/KEahbPBNiq1XA
+ EJFPMkfknVND7dSa1f3+xn/bqosAcl88W0w4zphsTQoNxif4DDwkTtWp25/pw3CKCTe4
+ bjKA==
+X-Gm-Message-State: AGi0PuYIVFGx4Amm6ODGrnq5N/de2Vrbo/3CMMx0jHHP/j8Je8XRQq0T
+ tyF21eqCI9EU0psx7T9dZAHzaR0gtn5daougZ1RPOdLm5TZIkwmskDSztBo2hme5bu1nlxgqdhG
+ /wl4kG29jLSARS1ezhlfVv4+4r8E=
+X-Received: by 2002:a5d:66c5:: with SMTP id k5mr9244267wrw.17.1588588541487;
+ Mon, 04 May 2020 03:35:41 -0700 (PDT)
+X-Google-Smtp-Source: APiQypKyJu1SMZNPQhE0tcEAXzN/rWndTUAqQVqX8t6qJaWFe5I/Z+N5VZ1io0MxIvHn6HTRdzqEog==
+X-Received: by 2002:a5d:66c5:: with SMTP id k5mr9244239wrw.17.1588588541200;
+ Mon, 04 May 2020 03:35:41 -0700 (PDT)
+Received: from [192.168.1.39] (26.red-88-21-207.staticip.rima-tde.net.
+ [88.21.207.26])
+ by smtp.gmail.com with ESMTPSA id l19sm13335878wmj.14.2020.05.04.03.35.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 May 2020 03:35:40 -0700 (PDT)
+Subject: Re: [PATCH] xen: fix build without pci passthrough
+To: Roger Pau Monne <roger.pau@citrix.com>, qemu-devel@nongnu.org
+References: <20200504101443.3165-1-roger.pau@citrix.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
+Message-ID: <ccf11b67-4aaa-5fb2-e23f-674380b47a13@redhat.com>
+Date: Mon, 4 May 2020 12:35:39 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <cb829776-b18d-3535-1869-da9dc2232ec8@suse.com>
+In-Reply-To: <20200504101443.3165-1-roger.pau@citrix.com>
+Content-Language: en-US
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,71 +85,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Hi Roger,
 
+On 5/4/20 12:14 PM, Roger Pau Monne wrote:
+> has_igd_gfx_passthru is only available when QEMU is built with
+> CONFIG_XEN_PCI_PASSTHROUGH, and hence shouldn't be used in common
+> code without checking if it's available.
+>=20
+> Fixes: 46472d82322d0 ('xen: convert "-machine igd-passthru" to an acceler=
+ator property')
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-On 04/05/2020 11:18, Jan Beulich wrote:
-> On 04.05.2020 11:54, Julien Grall wrote:
->> Hi Jan,
->>
->> On 04/05/2020 10:37, Jan Beulich wrote:
->>> On 04.05.2020 11:30, Julien Grall wrote:
->>>> Hi Jan,
->>>>
->>>> On 04/05/2020 10:18, Jan Beulich wrote:
->>>>> On 30.04.2020 17:35, Julien Grall wrote:
->>>>>> On 30/04/2020 15:50, Jan Beulich wrote:
->>>>>>> On 30.04.2020 16:25, Julien Grall wrote:
->>>>>>>> EXPERT mode is currently used to gate any options that are in technical
->>>>>>>> preview or not security supported At the moment, the only way to select
->>>>>>>> it is to use XEN_CONFIG_EXPERT=y on the make command line.
->>>>>>>>
->>>>>>>> However, if the user forget to add the option of one of the make
->>>>>>>> command (even a clean), then .config will get rewritten. This may lead
->>>>>>>> to a rather frustrating experience as it is difficult to diagnostic the
->>>>>>>> issue.
->>>>>>>
->>>>>>> Is / will this still be true after Anthony's rework of the build
->>>>>>> system? Right now we already have
->>>>>>>
->>>>>>> clean-targets := %clean
->>>>>>> no-dot-config-targets := $(clean-targets) \
->>>>>>>                              ...
->>>>>>
->>>>>> I haven't tried Anthony's rework yet. But I guess the problem would
->>>>>> be the same if you forget to add XEN_CONFIG_EXPERT=y on make.
->>>>>
->>>>> Why? xen/.config would get re-written only if kconfig got run in
->>>>> the first place. It is my understanding that no-dot-config-targets
->>>>> exist to avoid including .config, and as a result make won't find
->>>>> a need anymore to cause it to re-made if out of date.
->>>>
->>>> kconfig may be executed because you change one of the */Kconfig file.
->>>> So if you happen to forget XEN_CONFIG_EXPERT=y on your build command
->>>> line, then you will have your .config rewritten without expert options.
->>>
->>> That's still a build system issue then (if this is really what happens):
->>> Dependencies of xen/.config shouldn't be evaluated as long as it doesn't
->>> get used.
->>
->> I am not sure to understand what you mean by "doesn't get used here". When you build Xen, xen/.config is a dependency for the auto-generated header. So 'make' will actually check whether there are any modification in */Kconfig.
-> 
-> But you were talking about "make clean", weren't you?
+See Kconfig fix suggested here:
+https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg61844.html
 
-In the commit message yes... You asked whether this was true and I 
-answered I didn't get a chance to test Anthony's rework. However, I also
-pointed out that it wouldn't solve a simple 'make' issue.
+> ---
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Anthony Perard <anthony.perard@citrix.com>
+> Cc: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org
+> ---
+>   hw/xen/xen-common.c | 4 ++++
+>   hw/xen/xen_pt.h     | 7 +++++++
+>   2 files changed, 11 insertions(+)
+>=20
+> diff --git a/hw/xen/xen-common.c b/hw/xen/xen-common.c
+> index a15070f7f6..c800862419 100644
+> --- a/hw/xen/xen-common.c
+> +++ b/hw/xen/xen-common.c
+> @@ -127,6 +127,7 @@ static void xen_change_state_handler(void *opaque, in=
+t running,
+>       }
+>   }
+>  =20
+> +#ifdef CONFIG_XEN_PCI_PASSTHROUGH
+>   static bool xen_get_igd_gfx_passthru(Object *obj, Error **errp)
+>   {
+>       return has_igd_gfx_passthru;
+> @@ -136,6 +137,7 @@ static void xen_set_igd_gfx_passthru(Object *obj, boo=
+l value, Error **errp)
+>   {
+>       has_igd_gfx_passthru =3D value;
+>   }
+> +#endif
+>  =20
+>   static void xen_setup_post(MachineState *ms, AccelState *accel)
+>   {
+> @@ -197,11 +199,13 @@ static void xen_accel_class_init(ObjectClass *oc, v=
+oid *data)
+>  =20
+>       compat_props_add(ac->compat_props, compat, G_N_ELEMENTS(compat));
+>  =20
+> +#ifdef CONFIG_XEN_PCI_PASSTHROUGH
+>       object_class_property_add_bool(oc, "igd-passthru",
+>           xen_get_igd_gfx_passthru, xen_set_igd_gfx_passthru,
+>           &error_abort);
+>       object_class_property_set_description(oc, "igd-passthru",
+>           "Set on/off to enable/disable igd passthrou", &error_abort);
+> +#endif
+>   }
+>  =20
+>   #define TYPE_XEN_ACCEL ACCEL_CLASS_NAME("xen")
+> diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
+> index 179775db7b..660dd8a008 100644
+> --- a/hw/xen/xen_pt.h
+> +++ b/hw/xen/xen_pt.h
+> @@ -1,6 +1,7 @@
+>   #ifndef XEN_PT_H
+>   #define XEN_PT_H
+>  =20
+> +#include "qemu/osdep.h"
+>   #include "hw/xen/xen_common.h"
+>   #include "hw/pci/pci.h"
+>   #include "xen-host-pci-device.h"
+> @@ -322,7 +323,13 @@ extern void *pci_assign_dev_load_option_rom(PCIDevic=
+e *dev,
+>                                               unsigned int domain,
+>                                               unsigned int bus, unsigned =
+int slot,
+>                                               unsigned int function);
+> +
+> +#ifdef CONFIG_XEN_PCI_PASSTHROUGH
+>   extern bool has_igd_gfx_passthru;
+> +#else
+> +# define has_igd_gfx_passthru false
+> +#endif
+> +
+>   static inline bool is_igd_vga_passthrough(XenHostPCIDevice *dev)
+>   {
+>       return (has_igd_gfx_passthru
+>=20
 
-I considered that your 'why?' were related to the simple 'make'.
-
-Cheers,
-
--- 
-Julien Grall
 
