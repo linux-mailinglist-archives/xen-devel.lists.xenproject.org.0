@@ -2,61 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8D41C366B
-	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 12:08:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49BBF1C366A
+	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 12:08:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVY0j-0001sn-OT; Mon, 04 May 2020 10:07:41 +0000
+	id 1jVY0o-0001t4-3q; Mon, 04 May 2020 10:07:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Z3vB=6S=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jVY0h-0001si-MJ
- for xen-devel@lists.xenproject.org; Mon, 04 May 2020 10:07:39 +0000
-X-Inumbo-ID: 15824f82-8def-11ea-b9cf-bc764e2007e4
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
+ id 1jVY0m-0001sw-KV
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2020 10:07:44 +0000
+X-Inumbo-ID: 16da9592-8def-11ea-b9cf-bc764e2007e4
+Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 15824f82-8def-11ea-b9cf-bc764e2007e4;
- Mon, 04 May 2020 10:07:39 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id g13so20178529wrb.8
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2020 03:07:39 -0700 (PDT)
+ id 16da9592-8def-11ea-b9cf-bc764e2007e4;
+ Mon, 04 May 2020 10:07:41 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id y3so1167475wrt.1
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2020 03:07:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/ZVZt1eZRouG8SfIcedxiaba1cChmaXwtwdN3BvQWTc=;
- b=HcRGrtw9qZwIdAjOVDw2nBeZQtDcI35wjvWlHOGFRg+YHxIgcEOeEOIUXHFvYJWe1y
- 0aEc8lF3QcOuHPeMJ45OuZQ1/+1Dnot2UsK7TlMShn1hmMCU98nR3HqSnBLrZu1ndQJM
- w1kaQH2SKAmFC3AZAy7uhqrr/gwyVu0QHVGrrHfctlxK7lQakRs3aFMLtMqke8iQsdYT
- PLVukoSv+TknjgwBfsv/LgVJCO02T7xkFe7qLDeEyKZT9f5P4xcYNT0INYTTlZ5cGDXi
- WsE3CbUxGOSfFLN2WtsdFFKoJ5fyjZFpRUSS1D0HqN6DiszZ4ePD73Tu2IZ8D9II0tF4
- AY8A==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=pqAO0bA1QvbNiBti+VeepWcwOaVLpxEZnxKr37xmzuE=;
+ b=mNzUhqyuvwbObBrckIQQRqTzNHBBsL3ym2fUD3m/+zm9Xqm7CM2aUjGEy0tWaFQrrD
+ YVDAjI8z6v9lLJx42ToBPknDZfH05+UKtCzKzgNr4MTMkCfIk/m3I+6VTw+a3ljwYwDX
+ vqw6SrYla+n8Fc7zIMhcGqQDjESGwm5u1EuKEWljsNLyKjNuANONlXznl4FYJ2xVrp40
+ VW0Oy0lzxZ/OSSeB5OKPMnQxWOlMkuv984lpi+FuBa6VtbIb57yelQpHA/eX75x4Zd5t
+ tYxJobeQgsnQgUS/GWXUbL6lTDYSgG2TenM1Q/dfLoGVkes9QJ1ghKgcevtFXHzQM8bp
+ J78Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=/ZVZt1eZRouG8SfIcedxiaba1cChmaXwtwdN3BvQWTc=;
- b=Wjwmp0yjNXlK5TgKvH/Stw5V8I9pl8wyxIyiDyWbNBiE4kK2l0xj8Pcl8Vw7zptarx
- FDeoe6ucPnB9m93axlJRTJpScBz+Tqo7WYH/5Jmrfyhkc/MTcJ4gek8pgkTfcm4YxqIV
- WOxVOflL82kkpreBTOv9ksGiWRndgU3ZkYWi/8SfwQAW9xyuseeta/RZgQDFyqBdJ/6P
- 4xZuldZgMBc1Lyk3mm+0YOwAunt9s3WRcV0bi6aJ7QZPofXkvSRPs1CSKJ3ria2GN24x
- cVxozPVhBVTsPGdPNxhZN8UONvcoaec4P/HtcEhO/7MikhdDZTUQQGLZngIo5CB5iZi/
- lRTQ==
-X-Gm-Message-State: AGi0PuarReB8iKtA4IesTP2v01PmDvF8695nHIEev2DzbVMDRSJZD9c8
- rqOxWz6wcXgkYuqwF+Tyn6o=
-X-Google-Smtp-Source: APiQypI4CLhwM1s9qsXBHl1cozRkicm4SNedwT3p1NV3wnHda5P0CMNLiBvDg4MvOP8bkIL5h8q9ag==
-X-Received: by 2002:adf:a74b:: with SMTP id e11mr16878108wrd.99.1588586858230; 
- Mon, 04 May 2020 03:07:38 -0700 (PDT)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=pqAO0bA1QvbNiBti+VeepWcwOaVLpxEZnxKr37xmzuE=;
+ b=Zbkrpwvg0oVp2gpMibD1sKPZPCnc+GCFqa2jYegO+8YAKvQbMjJe9UnIUtLw6iKfko
+ rZIBl1p/QmY7HRlyGUbELULC22cCWU0ZwciKi0HgHssz1LOPy2M08cxh+bktCdlvBtcz
+ IxfS+oRGBcPuOdjRElS38dtuRKH+Gsyc8S7uElN2izYzvzExlKP6Auw1sSBVd71dipiu
+ CgMhUZMHVIv1AxLIX79X75gqa+qYDHal8ngP2OjF1VhyCVEuGokyonMEL5l/t1oOT3b+
+ F4IRczcsL2Xl11zYK7AAp24acXdqYPkgZNhZisey+/f6/FcEthT11Cc4tRWM/RLSvnYM
+ SCEw==
+X-Gm-Message-State: AGi0PuauBYym6dCU5UJhhY/H9ndwdmpvBDa3YRlSIPvZfW6MWIjho5pc
+ irVG82WK/HlLxkzfmJGiBsA=
+X-Google-Smtp-Source: APiQypLq5H1B+qwCkRrljK1N7qAw8SaQFKARSpmFekNGsBBZxyVnzr6zXEYdT7BPPkaenEkB9e3G3w==
+X-Received: by 2002:adf:eacb:: with SMTP id o11mr10572540wrn.253.1588586860549; 
+ Mon, 04 May 2020 03:07:40 -0700 (PDT)
 Received: from x1w.redhat.com (26.red-88-21-207.staticip.rima-tde.net.
  [88.21.207.26])
- by smtp.gmail.com with ESMTPSA id k9sm18517778wrd.17.2020.05.04.03.07.36
+ by smtp.gmail.com with ESMTPSA id k9sm18517778wrd.17.2020.05.04.03.07.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 May 2020 03:07:37 -0700 (PDT)
+ Mon, 04 May 2020 03:07:39 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org
-Subject: [PATCH v2 0/3] various: Remove unnecessary casts
-Date: Mon,  4 May 2020 12:07:32 +0200
-Message-Id: <20200504100735.10269-1-f4bug@amsat.org>
+Subject: [PATCH v2 1/3] target: Remove unnecessary CPU() cast
+Date: Mon,  4 May 2020 12:07:33 +0200
+Message-Id: <20200504100735.10269-2-f4bug@amsat.org>
 X-Mailer: git-send-email 2.21.3
+In-Reply-To: <20200504100735.10269-1-f4bug@amsat.org>
+References: <20200504100735.10269-1-f4bug@amsat.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Type: text/plain; charset="utf-8"
@@ -85,6 +87,7 @@ Cc: Peter Maydell <peter.maydell@linaro.org>, Paul Durrant <paul@xen.org>,
  xen-devel@lists.xenproject.org, Richard Henderson <rth@twiddle.net>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
  Eduardo Habkost <ehabkost@redhat.com>, Corey Minyard <minyard@acm.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
  "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
  qemu-arm@nongnu.org, Peter Chubb <peter.chubb@nicta.com.au>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
@@ -97,46 +100,53 @@ Cc: Peter Maydell <peter.maydell@linaro.org>, Paul Durrant <paul@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Remove unnecessary casts using coccinelle scripts.
+The CPU() macro is defined as:
 
-The CPU()/OBJECT() patches don't introduce logical change,
-The DEVICE() one removes various OBJECT_CHECK() calls.
+  #define CPU(obj) ((CPUState *)(obj))
 
-Since v2:
-- Add A-b/R-b tags
-- Reword description (Markus)
+which expands to:
 
-Philippe Mathieu-Daudé (3):
-  target: Remove unnecessary CPU() cast
-  various: Remove unnecessary OBJECT() cast
-  hw: Remove unnecessary DEVICE() cast
+  ((CPUState *)object_dynamic_cast_assert((Object *)(obj), (name),
+                                          __FILE__, __LINE__, __func__))
 
- hw/core/bus.c                       | 2 +-
- hw/display/artist.c                 | 2 +-
- hw/display/cg3.c                    | 2 +-
- hw/display/sm501.c                  | 2 +-
- hw/display/tcx.c                    | 4 ++--
- hw/display/vga-isa.c                | 2 +-
- hw/i2c/imx_i2c.c                    | 2 +-
- hw/i2c/mpc_i2c.c                    | 2 +-
- hw/ide/ahci-allwinner.c             | 2 +-
- hw/ide/piix.c                       | 2 +-
- hw/ipmi/smbus_ipmi.c                | 2 +-
- hw/microblaze/petalogix_ml605_mmu.c | 8 ++++----
- hw/misc/macio/pmu.c                 | 2 +-
- hw/net/ftgmac100.c                  | 3 +--
- hw/net/imx_fec.c                    | 2 +-
- hw/nubus/nubus-device.c             | 2 +-
- hw/pci-host/bonito.c                | 2 +-
- hw/ppc/spapr.c                      | 2 +-
- hw/s390x/sclp.c                     | 2 +-
- hw/sh4/sh_pci.c                     | 2 +-
- hw/xen/xen-legacy-backend.c         | 2 +-
- monitor/misc.c                      | 3 +--
- qom/object.c                        | 4 ++--
- target/ppc/mmu_helper.c             | 2 +-
- 24 files changed, 29 insertions(+), 31 deletions(-)
+This assertion can only fail when @obj points to something other
+than its stated type, i.e. when we're in undefined behavior country.
 
+Remove the unnecessary CPU() casts when we already know the pointer
+is of CPUState type.
+
+Patch created mechanically using spatch with this script:
+
+  @@
+  typedef CPUState;
+  CPUState *s;
+  @@
+  -   CPU(s)
+  +   s
+
+Acked-by: David Gibson <david@gibson.dropbear.id.au>
+Reviewed-by: Cédric Le Goater <clg@kaod.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+---
+v2: Reword (Markus)
+---
+ target/ppc/mmu_helper.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/target/ppc/mmu_helper.c b/target/ppc/mmu_helper.c
+index 86c667b094..8972714775 100644
+--- a/target/ppc/mmu_helper.c
++++ b/target/ppc/mmu_helper.c
+@@ -1820,7 +1820,7 @@ static inline void do_invalidate_BAT(CPUPPCState *env, target_ulong BATu,
+     if (((end - base) >> TARGET_PAGE_BITS) > 1024) {
+         /* Flushing 1024 4K pages is slower than a complete flush */
+         LOG_BATS("Flush all BATs\n");
+-        tlb_flush(CPU(cs));
++        tlb_flush(cs);
+         LOG_BATS("Flush done\n");
+         return;
+     }
 -- 
 2.21.3
 
