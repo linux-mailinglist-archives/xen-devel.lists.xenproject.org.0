@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB5B31C3B22
-	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 15:22:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EA9A1C3BC6
+	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 15:54:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVb3H-0005DM-4C; Mon, 04 May 2020 13:22:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jVbWt-0007hb-Gd; Mon, 04 May 2020 13:53:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NHsq=6S=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jVb3F-0005DF-Mh
- for xen-devel@lists.xenproject.org; Mon, 04 May 2020 13:22:29 +0000
-X-Inumbo-ID: 4d6c1034-8e0a-11ea-ae69-bc764e2007e4
+ id 1jVbWs-0007hW-PB
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2020 13:53:06 +0000
+X-Inumbo-ID: 942213f8-8e0e-11ea-9d23-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4d6c1034-8e0a-11ea-ae69-bc764e2007e4;
- Mon, 04 May 2020 13:22:29 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 942213f8-8e0e-11ea-9d23-12813bfff9fa;
+ Mon, 04 May 2020 13:53:05 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 22D41AEA1;
- Mon,  4 May 2020 13:22:30 +0000 (UTC)
-Subject: Re: [PATCH 04/16] x86/smpboot: Write the top-of-stack block in
- cpu_smpboot_alloc()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 7F55BAD2C;
+ Mon,  4 May 2020 13:53:06 +0000 (UTC)
+Subject: Re: [PATCH 05/16] x86/shstk: Introduce Supervisor Shadow Stack support
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>
 References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-5-andrew.cooper3@citrix.com>
+ <20200501225838.9866-6-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2051a940-2cca-1e40-17cf-232a0b16f6c3@suse.com>
-Date: Mon, 4 May 2020 15:22:27 +0200
+Message-ID: <d0347fec-3ccb-daa7-5c4d-f0e74b5fb247@suse.com>
+Date: Mon, 4 May 2020 15:52:58 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200501225838.9866-5-andrew.cooper3@citrix.com>
+In-Reply-To: <20200501225838.9866-6-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -53,11 +54,107 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 02.05.2020 00:58, Andrew Cooper wrote:
-> This allows the AP boot assembly use per-cpu variables, and brings the
-> semantics closer to that of the BSP, which can use per-cpu variables from the
-> start of day.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -34,6 +34,9 @@ config ARCH_DEFCONFIG
+>  config INDIRECT_THUNK
+>  	def_bool $(cc-option,-mindirect-branch-register)
+>  
+> +config HAS_AS_CET
+> +	def_bool $(as-instr,wrssq %rax$(comma)0;setssbsy;endbr64)
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I see you add as-instr here as a side effect. Until the other
+similar checks get converted, I think for the time being we should
+use the old model, to have all such checks in one place. I realize
+this means you can't have a Kconfig dependency then.
+
+Also why do you check multiple insns, when just one (like we do
+elsewhere) would suffice?
+
+The crucial insns to check are those which got changed pretty
+close before the release of 2.29 (in the cover letter you
+mention 2.32): One of incssp{d,q}, setssbsy, or saveprevssp.
+There weren't official binutils releases with the original
+insns, but distros may still have picked up intermediate
+snapshots.
+
+> @@ -97,6 +100,20 @@ config HVM
+>  
+>  	  If unsure, say Y.
+>  
+> +config XEN_SHSTK
+> +	bool "Supervisor Shadow Stacks"
+> +	depends on HAS_AS_CET && EXPERT = "y"
+> +	default y
+> +        ---help---
+> +          Control-flow Enforcement Technology (CET) is a set of features in
+> +          hardware designed to combat Return-oriented Programming (ROP, also
+> +          call/jump COP/JOP) attacks.  Shadow Stacks are one CET feature
+> +          designed to provide return address protection.
+> +
+> +          This option arranges for Xen to use CET-SS for its own protection.
+> +          When CET-SS is active, 32bit PV guests cannot be used.  Backwards
+> +          compatiblity can be provided vai the PV Shim mechanism.
+
+Indentation looks odd here - the whole help section should
+start with hard tabs, I think.
+
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -95,6 +95,36 @@ unsigned long __initdata highmem_start;
+>  size_param("highmem-start", highmem_start);
+>  #endif
+>  
+> +static bool __initdata opt_xen_shstk = true;
+> +
+> +static int parse_xen(const char *s)
+> +{
+> +    const char *ss;
+> +    int val, rc = 0;
+> +
+> +    do {
+> +        ss = strchr(s, ',');
+> +        if ( !ss )
+> +            ss = strchr(s, '\0');
+> +
+> +        if ( (val = parse_boolean("shstk", s, ss)) >= 0 )
+> +        {
+> +#ifdef CONFIG_XEN_SHSTK
+> +            opt_xen_shstk = val;
+> +#else
+> +            no_config_param("XEN_SHSTK", "xen", s, ss);
+> +#endif
+> +        }
+> +        else
+> +            rc = -EINVAL;
+> +
+> +        s = ss + 1;
+> +    } while ( *ss );
+> +
+> +    return rc;
+> +}
+> +custom_param("xen", parse_xen);
+
+What's the idea here going forward, i.e. why the new top level
+"xen" option? Almost all options are for Xen itself, after all.
+Did you perhaps mean this to be "cet"?
+
+Also you surely meant to document this new option?
+
+> --- a/xen/scripts/Kconfig.include
+> +++ b/xen/scripts/Kconfig.include
+> @@ -31,6 +31,10 @@ cc-option = $(success,$(CC) -Werror $(CLANG_FLAGS) $(1) -E -x c /dev/null -o /de
+>  # Return y if the linker supports <flag>, n otherwise
+>  ld-option = $(success,$(LD) -v $(1))
+>  
+> +# $(as-instr,<instr>)
+> +# Return y if the assembler supports <instr>, n otherwise
+> +as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) -c -x assembler -o /dev/null -)
+
+CLANG_FLAGS caught my eye here, then noticing that cc-option
+also uses it. Anthony - what's the deal with this? It doesn't
+look to get defined anywhere, and I also don't see what clang-
+specific about these constructs.
+
+Jan
 
