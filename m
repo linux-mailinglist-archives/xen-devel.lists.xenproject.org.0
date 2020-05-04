@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B4001C3CE8
-	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 16:25:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8ED11C3D72
+	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 16:47:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVc1d-0001z7-JB; Mon, 04 May 2020 14:24:53 +0000
+	id 1jVcMb-0003iZ-Du; Mon, 04 May 2020 14:46:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NHsq=6S=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jVc1b-0001z2-Tt
- for xen-devel@lists.xenproject.org; Mon, 04 May 2020 14:24:51 +0000
-X-Inumbo-ID: 03bc855a-8e13-11ea-9d26-12813bfff9fa
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IZT0=6S=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1jVcMa-0003iU-KT
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2020 14:46:32 +0000
+X-Inumbo-ID: 0a6fa942-8e16-11ea-9d2c-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 03bc855a-8e13-11ea-9d26-12813bfff9fa;
- Mon, 04 May 2020 14:24:51 +0000 (UTC)
+ id 0a6fa942-8e16-11ea-9d2c-12813bfff9fa;
+ Mon, 04 May 2020 14:46:30 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D785DAA7C;
- Mon,  4 May 2020 14:24:51 +0000 (UTC)
-Subject: Re: [PATCH 07/16] x86/shstk: Re-layout the stack block for shadow
- stacks
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-8-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8b6e03ee-545d-eada-457e-79c183a72d6d@suse.com>
-Date: Mon, 4 May 2020 16:24:42 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by mx2.suse.de (Postfix) with ESMTP id 926DDAA7C;
+ Mon,  4 May 2020 14:46:31 +0000 (UTC)
+Message-ID: <598252160488c067b65c51bb91bdd5446ba67989.camel@suse.com>
+Subject: Re: [PATCH v3] sched: print information about scheduling granularity
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Sergey Dyasli <sergey.dyasli@citrix.com>
+Date: Mon, 04 May 2020 16:46:28 +0200
+In-Reply-To: <b8f74570-fc9f-61c5-7e52-c2a50e8350dc@suse.com>
+References: <20200422093010.12940-1-sergey.dyasli@citrix.com>
+ <b8f74570-fc9f-61c5-7e52-c2a50e8350dc@suse.com>
+Organization: SUSE
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-kjjKoyzQMaEXrnSEV1t0"
+User-Agent: Evolution 3.36.2 
 MIME-Version: 1.0
-In-Reply-To: <20200501225838.9866-8-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,62 +46,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ George Dunlap <george.dunlap@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 02.05.2020 00:58, Andrew Cooper wrote:
-> --- a/xen/arch/x86/cpu/common.c
-> +++ b/xen/arch/x86/cpu/common.c
-> @@ -732,14 +732,14 @@ void load_system_tables(void)
->  		.rsp2 = 0x8600111111111111ul,
->  
->  		/*
-> -		 * MCE, NMI and Double Fault handlers get their own stacks.
-> +		 * #DB, NMI, DF and #MCE handlers get their own stacks.
 
-Then also #DF and #MC?
+--=-kjjKoyzQMaEXrnSEV1t0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -6002,25 +6002,18 @@ void memguard_unguard_range(void *p, unsigned long l)
->  
->  void memguard_guard_stack(void *p)
->  {
-> -    /* IST_MAX IST pages + at least 1 guard page + primary stack. */
-> -    BUILD_BUG_ON((IST_MAX + 1) * PAGE_SIZE + PRIMARY_STACK_SIZE > STACK_SIZE);
-> +    map_pages_to_xen((unsigned long)p, virt_to_mfn(p), 1, _PAGE_NONE);
->  
-> -    memguard_guard_range(p + IST_MAX * PAGE_SIZE,
-> -                         STACK_SIZE - PRIMARY_STACK_SIZE - IST_MAX * PAGE_SIZE);
-> +    p += 5 * PAGE_SIZE;
+On Wed, 2020-04-22 at 12:50 +0200, Jan Beulich wrote:
+> On 22.04.2020 11:30, Sergey Dyasli wrote:
+> > +struct sched_gran_name {
+> > +    enum sched_gran mode;
+> > +    const char *name;
+> > +};
+> > +
+> > +static const struct sched_gran_name sg_name[] =3D {
+> > +    {SCHED_GRAN_cpu, "cpu"},
+> > +    {SCHED_GRAN_core, "core"},
+> > +    {SCHED_GRAN_socket, "socket"},
+> > +};
+>=20
+> Personally I think that in cases like this one it is more
+> (space) efficient to use char[8] or so for the second
+> struct member.
+>
+Yeah, I think that is actually better.
 
-The literal 5 here and ...
+Sergey, can you do it like this?
 
-> +    map_pages_to_xen((unsigned long)p, virt_to_mfn(p), 1, _PAGE_NONE);
->  }
->  
->  void memguard_unguard_stack(void *p)
->  {
-> -    memguard_unguard_range(p + IST_MAX * PAGE_SIZE,
-> -                           STACK_SIZE - PRIMARY_STACK_SIZE - IST_MAX * PAGE_SIZE);
-> -}
-> -
-> -bool memguard_is_stack_guard_page(unsigned long addr)
-> -{
-> -    addr &= STACK_SIZE - 1;
-> +    map_pages_to_xen((unsigned long)p, virt_to_mfn(p), 1, PAGE_HYPERVISOR_RW);
->  
-> -    return addr >= IST_MAX * PAGE_SIZE &&
-> -           addr < STACK_SIZE - PRIMARY_STACK_SIZE;
-> +    p += 5 * PAGE_SIZE;
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
-... here could do with macro-izing: IST_MAX + 1 would already be
-a little better, I guess.
 
-Preferably with adjustments along these lines
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+--=-kjjKoyzQMaEXrnSEV1t0
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Jan
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl6wKsQACgkQFkJ4iaW4
+c+72HA//Zg6x3lTdZhoTyGvdeUnZkkcw+m93Vweer8vXzK5OUDEVgB1gaZWrtdkc
+0kxeCASHzFXSqAUXEOa9tkyUlXR9Exez3nyvJZGPx//2FMxemrlSZ55X+Cy7kKgZ
+DucE9LNF+AXr3NbxdU0x8sJECaH8Ke34GyAYWdDDHpt0HHelbiKWXradPdZsiZzu
+kIz2cLXOajNaQebaCfMcklB/0I8sdZCUrvVhkW/UnKyl8oYSyurcoRUOOgMe3bVN
+TpNaKZau43hSzpyDZ6KhxrR+em7SyaglHZQ01gyV/wfFDsIfwaB/qvBVu0rOyt1F
+2q17KMWlY0MGJQ/e0tzTBbDE/uu3E1I9CnyL81lNhxpR84hSPv/5WWJQG2idl6Ik
+KNCTNaeWhmYb4xqShHj4P9bjcsXSQn0B1c6jOxojlsAalFq2KFC6XSjY+jFnx7ZE
+9Tq3pGl3uasmVx+LoJVL28kkht+B5OpwoIjZjH53rp0Bq9Y2Ei52HsaQ+arJdjyP
+HK3VV33Jt2BL14Sqd08+T5oiPy9hJ3VrpXMJAit2DzWLNlsjH/uICMh6EeItBPzN
+WKOvsXJ0ZUpWbIm86/q9oEIa6xKZKLGchXniB8gJlyq9vJ7DNJp8T524u7tYKVPN
+f+XHDAFg4c4xvUddGMsLwury7X5kLpDkon0jT4r6O9TTCOyeKmg=
+=yrbM
+-----END PGP SIGNATURE-----
+
+--=-kjjKoyzQMaEXrnSEV1t0--
+
 
