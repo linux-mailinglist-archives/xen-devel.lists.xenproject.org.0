@@ -2,105 +2,106 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFAED1C3A1F
-	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 14:54:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 594241C3A20
+	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 14:54:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVac5-0002Lf-VE; Mon, 04 May 2020 12:54:25 +0000
+	id 1jVac9-0002ME-8A; Mon, 04 May 2020 12:54:29 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bZZa=6S=samsung.com=m.szyprowski@srs-us1.protection.inumbo.net>)
- id 1jVac3-0002LZ-E0
- for xen-devel@lists.xenproject.org; Mon, 04 May 2020 12:54:24 +0000
-X-Inumbo-ID: 5fa87390-8e06-11ea-9d1d-12813bfff9fa
-Received: from mailout1.w1.samsung.com (unknown [210.118.77.11])
+ id 1jVac8-0002Lu-E1
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2020 12:54:28 +0000
+X-Inumbo-ID: 6108c5c8-8e06-11ea-9d1d-12813bfff9fa
+Received: from mailout2.w1.samsung.com (unknown [210.118.77.12])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5fa87390-8e06-11ea-9d1d-12813bfff9fa;
- Mon, 04 May 2020 12:54:21 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200504125420euoutp01cd3261afc5d7b4a137945f489a18d304~L1G2lw0NK2849828498euoutp01A
- for <xen-devel@lists.xenproject.org>; Mon,  4 May 2020 12:54:20 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200504125420euoutp01cd3261afc5d7b4a137945f489a18d304~L1G2lw0NK2849828498euoutp01A
+ id 6108c5c8-8e06-11ea-9d1d-12813bfff9fa;
+ Mon, 04 May 2020 12:54:24 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200504125423euoutp0292de7261d76489d5285c5aa08e293d18~L1G43A3CK1779417794euoutp02d
+ for <xen-devel@lists.xenproject.org>; Mon,  4 May 2020 12:54:23 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20200504125423euoutp0292de7261d76489d5285c5aa08e293d18~L1G43A3CK1779417794euoutp02d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1588596861;
- bh=Ttmk3z/wgaMlZxwZtUmC4+W+gIbK2TZtfskAp6FVn7g=;
+ s=mail20170921; t=1588596863;
+ bh=Q3uTnE0pCgvHZKaralFzdEAhk4lnCxC2sn9hvLGfyXI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=M+d1o5ZVhUVN1ZfQPrZfcMnshXvBbdGH9uQSDnzkA1rkF5Fa0TTbDqJeIa2JLYN5a
- ri+j49X6WhbENiIDYSQRM4Zu38uH++zQsA9puDZohEvHoy3o0dQGSx5gGmkOqaAl5V
- jX6UUXADZApBPRcOQoC87q7cSHMnDNZekKucTcDA=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ b=u8jdqki4WvlAP22BOY0JysA2WwnbFY7k30IQuiD8e7Pg3nRmFZlVZDJCKGR1pPVVA
+ 9Uf3RD0XZ0F0COg1ni+rkpZRnmEEK6Sf0mlG0k7euQhkAnQKDhGd6UQAn2w5LFM++y
+ 4CZ0k/kI7ucNo5f23Eho17C8lgyY42aK5XKPqbz4=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
  eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20200504125420eucas1p2a81c07be105dda54ab34624f355a272f~L1G2WAnsK2246922469eucas1p2m;
- Mon,  4 May 2020 12:54:20 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id 20.E2.60679.C7010BE5; Mon,  4
- May 2020 13:54:20 +0100 (BST)
+ 20200504125423eucas1p2ebcf5bcb67d9e5a919928ba62f968d29~L1G4f_XI52250922509eucas1p29;
+ Mon,  4 May 2020 12:54:23 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 7C.12.60698.E7010BE5; Mon,  4
+ May 2020 13:54:22 +0100 (BST)
 Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
  eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20200504125420eucas1p2387a795af11e62779e8aa7f7673a8562~L1G194XiM2235822358eucas1p2q;
- Mon,  4 May 2020 12:54:20 +0000 (GMT)
+ 20200504125422eucas1p206476912d5137bcad804bccbd75ed2f0~L1G4HMxes1833418334eucas1p2H;
+ Mon,  4 May 2020 12:54:22 +0000 (GMT)
 Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
  eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200504125420eusmtrp2717a6a2fb13d54ea48e921ea03000013~L1G19MkLc2826928269eusmtrp2X;
- Mon,  4 May 2020 12:54:20 +0000 (GMT)
-X-AuditID: cbfec7f4-0e5ff7000001ed07-af-5eb0107c4555
+ 20200504125422eusmtrp23b7055eba07f8554b4f4ee1eae479a56~L1G4GhHu82826928269eusmtrp2b;
+ Mon,  4 May 2020 12:54:22 +0000 (GMT)
+X-AuditID: cbfec7f5-a0fff7000001ed1a-61-5eb0107e72b4
 Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 4C.69.08375.C7010BE5; Mon,  4
- May 2020 13:54:20 +0100 (BST)
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 3F.69.08375.E7010BE5; Mon,  4
+ May 2020 13:54:22 +0100 (BST)
 Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
  eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200504125419eusmtip21a00d04f6d566f3a535fb519094872c2~L1G1UE7360241302413eusmtip2Z;
- Mon,  4 May 2020 12:54:19 +0000 (GMT)
+ 20200504125421eusmtip25b5c1e2266031611705f4c5013c31891~L1G3WvG4w0241002410eusmtip2J;
+ Mon,  4 May 2020 12:54:21 +0000 (GMT)
 From: Marek Szyprowski <m.szyprowski@samsung.com>
 To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
  linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 15/21] drm: xen: fix sg_table nents vs. orig_nents misuse
-Date: Mon,  4 May 2020 14:53:53 +0200
-Message-Id: <20200504125359.5678-15-m.szyprowski@samsung.com>
+Subject: [PATCH v2 18/21] xen: gntdev: fix sg_table nents vs. orig_nents misuse
+Date: Mon,  4 May 2020 14:53:56 +0200
+Message-Id: <20200504125359.5678-18-m.szyprowski@samsung.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200504125359.5678-1-m.szyprowski@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrJKsWRmVeSWpSXmKPExsWy7djP87o1AhviDBruaVj0njvJZLFxxnpW
- i//bJjJbXPn6ns1i5eqjTBYL9ltbfLnykMli0+NrrBaXd81hs1h75C67xYfV71ktDn54wmrx
- fctkJgdejzXz1jB63Fm6k9Fj77cFLB7bvz1g9bjffZzJY/OSeo/b/x4ze0y+sZzR4/CHKywe
- u282sHn0bVnF6PF5k1wATxSXTUpqTmZZapG+XQJXxvlZL9kK1nNWPN7Uw97A+IW9i5GDQ0LA
- ROLfQeYuRi4OIYEVjBJvW98AxTmBnC+MErcemkEkPjNK7G14ANdw/qg3RHw5o8S69l8sEA5Q
- Q+/3k2DdbAKGEl1vu9hAbBGBVkaJE708IEXMAj+YJM4tOwFWJCzgIzHz8TYmEJtFQFVi6/8e
- sAZeAVuJQ60nweISAvISqzccYAbZzAkUn9mrDjJHQuAcu8S+jlXsEDUuEuvP9DJD2MISr45v
- gYrLSPzfOZ8JoqGZUeLhubXsEE4Po8TlphmMEFXWEnfO/WID2cAsoCmxfpc+RNhRYs3uFcwQ
- L/NJ3HgrCBJmBjInbZsOFeaV6GgTgqhWk5h1fB3c2oMXLkGd4yHROW87KySADjNKfN9yiHkC
- o/wshGULGBlXMYqnlhbnpqcWG+WllusVJ+YWl+al6yXn525iBCao0/+Of9nBuOtP0iFGAQ5G
- JR7eiM/r44RYE8uKK3MPMUpwMCuJ8O5oAQrxpiRWVqUW5ccXleakFh9ilOZgURLnNV70MlZI
- ID2xJDU7NbUgtQgmy8TBKdXAqPxMeH9caFgt04/DWtmWj/x0q89+28o8YYqCp8lV+9ADG/ey
- HGZQv38jqWBe9yyDINbMG0zbeidKq9dzNs6rVbFQ1FgyPe+VmIHgMv+qZ6dyQmvz703783jt
- lZY7AdMcJiuc5mtNTj7+bNkWETFzr3ut1ztiHLdOW/n/4UGBaqV1woHdN/bPUGIpzkg01GIu
- Kk4EAL6Bl7lMAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprDIsWRmVeSWpSXmKPExsVy+t/xe7o1AhviDLat5rfoPXeSyWLjjPWs
- Fv+3TWS2uPL1PZvFytVHmSwW7Le2+HLlIZPFpsfXWC0u75rDZrH2yF12iw+r37NaHPzwhNXi
- +5bJTA68HmvmrWH0uLN0J6PH3m8LWDy2f3vA6nG/+ziTx+Yl9R63/z1m9ph8Yzmjx+EPV1g8
- dt9sYPPo27KK0ePzJrkAnig9m6L80pJUhYz84hJbpWhDCyM9Q0sLPSMTSz1DY/NYKyNTJX07
- m5TUnMyy1CJ9uwS9jPOzXrIVrOeseLyph72B8Qt7FyMHh4SAicT5o95djFwcQgJLGSW+dfWw
- dTFyAsVlJE5Oa2CFsIUl/lzrYoMo+sQocez/OrAiNgFDia63EAkRgU5GiWndH9lBHGaBf0wS
- J/ZuZwKpEhbwkZj5eBuYzSKgKrH1P8QKXgFbiUOtJ5kgVshLrN5wgBnkJE6g+MxedZCwkEC+
- xN2n/1gmMPItYGRYxSiSWlqcm55bbKhXnJhbXJqXrpecn7uJERgz24793LyD8dLG4EOMAhyM
- Sjy8EZ/XxwmxJpYVV+YeYpTgYFYS4d3RAhTiTUmsrEotyo8vKs1JLT7EaAp000RmKdHkfGA8
- 55XEG5oamltYGpobmxubWSiJ83YIHIwREkhPLEnNTk0tSC2C6WPi4JRqYDRl2smZdaTtsAHT
- T4sU8eo3p25X3D342e7br9fmfP+e7LjlGn36SPmHNtmeQ8VLFCaKr9U9sK8i+Cr72feKndd+
- N+zxMNy5z83t4wFLKTvH45pJd79N+fNWkVNEa1eZgI+P3MYGC4s0j4fnfq7WmJG/xLwkLq7m
- cL9IXfVq/U9ujQ4T11X2eyixFGckGmoxFxUnAgAhUwpyrwIAAA==
-X-CMS-MailID: 20200504125420eucas1p2387a795af11e62779e8aa7f7673a8562
+X-Brightmail-Tracker: H4sIAAAAAAAAA0WSWUwTYRSF/WfrUCkOhcQ/uECqYjRhExNHcE14mEQfUBPXWCw6AQIt2qFu
+ D4pQFatVFAkIRBqiQQsKlLaixqUFLQpUQDRQRSGgphqiWChRtNhxXN6+e+65OTc3l0SlT/Ew
+ MkOVw6pViiwZIcasj785o45Q9fJYj2UZrXc+QeiG0jqc7io5jtFT1vMo3TP+maCv1zxCaMOD
+ RLqibwk91jOI0Kahlzj9/E4FQd9o6RfRti/DOF1zM4WeMBcha2YwtZdrAXPPa8AYk/EUwdzy
+ DuDM29MOhGm8cpR55RtCmaLeasA0f+nBmLt9uQQz+s6FMWfNRsDUmV9gjMc0Nzlou3jFHjYr
+ Yz+rjlm1S5x+rnzd3kvBB0vdVXgumJToAElCail0WLfpQAAppa4B+PG1RgfEfh4D8HTFW0wo
+ PAC6Cl0I7+IHLF3FiNCoBrBTX439GzEOngC8i6DioG5ER/AcSh0HsFUfyJtQqgmFlcVuEd8I
+ oTbAk/lXf5swagEct53CeZZQK2Fbf+OfuHBYU/8Q5XcN8OuX9AsF2S2CA/WEwEmw0duJChwC
+ PzrMIoFnw6nblb83hVQ+gIPOGyKhOAPg87xSILgS4Wvnd4IPQKlFsO5OjCCvhdqvhbhwoyDY
+ OxLMy6gfL1hLUEGWwIITUsEdCcscN//F2jq7/6zDQOtwh0i4TzOA2u4CtBCEl/0PMwBgBDNZ
+ DadMY7l4FXsgmlMoOY0qLXp3ttIE/B/W5nOMN4H7P1LtgCKBLFCy1VMnl+KK/dwhpR1AEpWF
+ Spq0fkmyR3HoMKvOTlFrsljODmaRmGymJL7KvVNKpSly2EyW3cuq/3YRMiAsF6x3f46iSrg5
+ F5Nt9nK5ZoMvMXkeYt8RSU6LxV+stgwvj5i0G8zeUUlB6m4T1Yo86/ikqUcSOHTqYlh2HqVJ
+ +Pk+KSnKlxNBOMvm9q7cqLWLpzcEbrK+KjZY5PKhCeXmVGX7mjxXrdZ1rGP+G2b9h30tmYqR
+ lC33BxrG2vtDZRiXrohbjKo5xS+3tDAHXQMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrLIsWRmVeSWpSXmKPExsVy+t/xe7p1AhviDDa1K1r0njvJZLFxxnpW
+ i4vTW1ks/m+byGxx5et7NouVq48yWSzYb20x56aRxZcrD5ksNj2+xmpxedccNou1R+6yWxz8
+ 8ITVYvW6eIvvWyYzOfB7rJm3htFj77cFLB6bVnWyeWz/9oDV4373cSaPzUvqPW7/e8zsMfnG
+ ckaPwx+usHjsvtnA5vHx6S0Wj74tqxg91m+5yuLxeZNcAF+Unk1RfmlJqkJGfnGJrVK0oYWR
+ nqGlhZ6RiaWeobF5rJWRqZK+nU1Kak5mWWqRvl2CXkb/bO+CmYIVM14uYm1g/M3bxcjJISFg
+ IrH14lSmLkYuDiGBpYwSK2b/ZINIyEicnNbACmELS/y51sUGUfSJUWLr0y1MIAk2AUOJrrcQ
+ CRGBTkaJad0f2UESzAKHmCW2XpcEsYUF/CU+/JoG1sAioCrx9WAn2FReAVuJ03c3M0FskJdY
+ veEAcxcjBwcnUHxmrzpIWEggX+Lu038sExj5FjAyrGIUSS0tzk3PLTbUK07MLS7NS9dLzs/d
+ xAiMqm3Hfm7ewXhpY/AhRgEORiUe3ojP6+OEWBPLiitzDzFKcDArifDuaAEK8aYkVlalFuXH
+ F5XmpBYfYjQFumkis5Rocj4w4vNK4g1NDc0tLA3Njc2NzSyUxHk7BA7GCAmkJ5akZqemFqQW
+ wfQxcXBKNTAG5aWJznJNDp2+8r+Hwtx1YuGPTJsOn7bas4vV/Q7j7W+P17545ymbtJXhlLtq
+ f8XKkHsxey8IGdx+c3yVVzTPQQeR7c2rTKp7bXv5vY4a2/7Ufh4ovvvKo3mrfnr3Oomnhwtf
+ Lubxj9DU4VwlVSnVzPprml+15pHvPyu+zTL7kHJ5QevZoqNKLMUZiYZazEXFiQChzi19wAIA
+ AA==
+X-CMS-MailID: 20200504125422eucas1p206476912d5137bcad804bccbd75ed2f0
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200504125420eucas1p2387a795af11e62779e8aa7f7673a8562
+X-RootMTR: 20200504125422eucas1p206476912d5137bcad804bccbd75ed2f0
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20200504125420eucas1p2387a795af11e62779e8aa7f7673a8562
+X-CMS-RootMailID: 20200504125422eucas1p206476912d5137bcad804bccbd75ed2f0
 References: <20200504125017.5494-1-m.szyprowski@samsung.com>
  <20200504125359.5678-1-m.szyprowski@samsung.com>
- <CGME20200504125420eucas1p2387a795af11e62779e8aa7f7673a8562@eucas1p2.samsung.com>
+ <CGME20200504125422eucas1p206476912d5137bcad804bccbd75ed2f0@eucas1p2.samsung.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,10 +112,11 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- David Airlie <airlied@linux.ie>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Daniel Vetter <daniel@ffwll.ch>, xen-devel@lists.xenproject.org,
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
  linux-arm-kernel@lists.infradead.org,
  Marek Szyprowski <m.szyprowski@samsung.com>
@@ -133,22 +135,44 @@ Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 For more information, see '[PATCH v2 00/21] DRM: fix struct sg_table nents
 vs. orig_nents misuse' thread: https://lkml.org/lkml/2020/5/4/373
 ---
- drivers/gpu/drm/xen/xen_drm_front_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/xen/gntdev-dmabuf.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-index f0b85e0..ba4bdc5 100644
---- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-+++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-@@ -215,7 +215,7 @@ struct drm_gem_object *
- 		return ERR_PTR(ret);
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 75d3bb9..ed749fd 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -248,7 +248,7 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
+ 		if (sgt) {
+ 			if (gntdev_dmabuf_attach->dir != DMA_NONE)
+ 				dma_unmap_sg_attrs(attach->dev, sgt->sgl,
+-						   sgt->nents,
++						   sgt->orig_nents,
+ 						   gntdev_dmabuf_attach->dir,
+ 						   DMA_ATTR_SKIP_CPU_SYNC);
+ 			sg_free_table(sgt);
+@@ -288,8 +288,10 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
+ 	sgt = dmabuf_pages_to_sgt(gntdev_dmabuf->pages,
+ 				  gntdev_dmabuf->nr_pages);
+ 	if (!IS_ERR(sgt)) {
+-		if (!dma_map_sg_attrs(attach->dev, sgt->sgl, sgt->nents, dir,
+-				      DMA_ATTR_SKIP_CPU_SYNC)) {
++		sgt->nents = dma_map_sg_attrs(attach->dev, sgt->sgl,
++					      sgt->orig_nents, dir,
++					      DMA_ATTR_SKIP_CPU_SYNC);
++		if (!sgt->nents) {
+ 			sg_free_table(sgt);
+ 			kfree(sgt);
+ 			sgt = ERR_PTR(-ENOMEM);
+@@ -625,7 +627,7 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
  
- 	DRM_DEBUG("Imported buffer of size %zu with nents %u\n",
--		  size, sgt->nents);
-+		  size, sgt->orig_nents);
- 
- 	return &xen_obj->base;
- }
+ 	/* Now convert sgt to array of pages and check for page validity. */
+ 	i = 0;
+-	for_each_sg_page(sgt->sgl, &sg_iter, sgt->nents, 0) {
++	for_each_sg_page(sgt->sgl, &sg_iter, sgt->orig_nents, 0) {
+ 		struct page *page = sg_page_iter_page(&sg_iter);
+ 		/*
+ 		 * Check if page is valid: this can happen if we are given
 -- 
 1.9.1
 
