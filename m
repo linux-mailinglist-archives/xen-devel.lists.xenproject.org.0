@@ -2,81 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5DA11C39D0
-	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 14:48:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 530031C39D2
+	for <lists+xen-devel@lfdr.de>; Mon,  4 May 2020 14:48:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVaW5-0001AC-0I; Mon, 04 May 2020 12:48:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SbWK=6S=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jVaW3-0001A6-Tl
- for xen-devel@lists.xenproject.org; Mon, 04 May 2020 12:48:11 +0000
-X-Inumbo-ID: 82b78106-8e05-11ea-b07b-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82b78106-8e05-11ea-b07b-bc764e2007e4;
- Mon, 04 May 2020 12:48:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588596491;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=of9Bp0YG2XahqOQbz/YM+020tm4DXyqwFSBcCWLgl3c=;
- b=dBkNoXJqBBieRPVdbDHj6Q5wGktmf3bl+P8rhiHMM1U7wK+BVGfWsG52
- dYbZozwnYJxbSMgppgMJtDf10zGhV35q24pgsdF0X7kDhornycstMQMeC
- sNtOr4/HXiJImT1GBlEnBsaQOiQFDchzgGl1b+5WQTxXG9VTWLWxyODLw k=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: /JSZgeJBN8B6+g9eVWrT5wUa6A+V6EHzivDdQuAznTamy7nFtOybPIWxZwXuys64fD2bDZvocH
- 9o/I61CwuckcEWz7H7RCus3C1LldQQc7VuYarJIAEWC/yjK/KHfjOK+Vjao6iBKumxm/U7orYX
- RuAV1R81YcTUFrO1twgNZkPJKhzdn9TtAkjSRTHJ7WygbZue5GgnBOlNoviWSqNIgfJdD2xjrf
- 5WE9O+O1NgcMJsuOgBX1cAX6cKIPaeaoOGphoBylOROnnrIoPLTpXhWt1ulDuAEcNz3zT1OMMu
- kQM=
-X-SBRS: 2.7
-X-MesageID: 16651872
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,352,1583211600"; d="scan'208";a="16651872"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/ucode/intel: Writeback and invalidate caches before
- updating microcode
-Date: Mon, 4 May 2020 13:47:52 +0100
-Message-ID: <20200504124752.29806-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+	id 1jVaWZ-0001Dr-CJ; Mon, 04 May 2020 12:48:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NHsq=6S=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jVaWX-0001D4-Ui
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2020 12:48:41 +0000
+X-Inumbo-ID: 94da3392-8e05-11ea-9d1c-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 94da3392-8e05-11ea-9d1c-12813bfff9fa;
+ Mon, 04 May 2020 12:48:41 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 047FBABD0;
+ Mon,  4 May 2020 12:48:41 +0000 (UTC)
+Subject: Re: [PATCH v1.1 2/3] xen/sched: fix theoretical races accessing
+ vcpu->dirty_cpu
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+References: <20200430152848.20275-1-jgross@suse.com>
+ <d1b322c2-98d8-b3a3-1f48-2af89cf9407e@suse.com>
+ <9d4fd1cd-173f-5128-6a73-ac2c6d679f93@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <eafd8c4a-26a1-9db9-97d7-e78c629e9a0a@suse.com>
+Date: Mon, 4 May 2020 14:48:38 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <9d4fd1cd-173f-5128-6a73-ac2c6d679f93@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -88,53 +49,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Ashok Raj <ashok.raj@intel.com>
+On 04.05.2020 14:41, Jürgen Groß wrote:
+> On 04.05.20 13:51, Jan Beulich wrote:
+>> On 30.04.2020 17:28, Juergen Gross wrote:
+>>> @@ -1956,13 +1958,17 @@ void sync_local_execstate(void)
+>>>     void sync_vcpu_execstate(struct vcpu *v)
+>>>   {
+>>> -    if ( v->dirty_cpu == smp_processor_id() )
+>>> +    unsigned int dirty_cpu = read_atomic(&v->dirty_cpu);
+>>> +
+>>> +    if ( dirty_cpu == smp_processor_id() )
+>>>           sync_local_execstate();
+>>> -    else if ( vcpu_cpu_dirty(v) )
+>>> +    else if ( is_vcpu_dirty_cpu(dirty_cpu) )
+>>>       {
+>>>           /* Remote CPU calls __sync_local_execstate() from flush IPI handler. */
+>>> -        flush_mask(cpumask_of(v->dirty_cpu), FLUSH_VCPU_STATE);
+>>> +        flush_mask(cpumask_of(dirty_cpu), FLUSH_VCPU_STATE);
+>>>       }
+>>> +    ASSERT(read_atomic(&v->dirty_cpu) != dirty_cpu ||
+>>> +           dirty_cpu == VCPU_CPU_CLEAN);
+>>
+>> !is_vcpu_dirty_cpu(dirty_cpu) again? Also perhaps flip both
+>> sides of the || (to have the cheaper one first), and maybe
+>>
+>>      if ( is_vcpu_dirty_cpu(dirty_cpu) )
+>>          ASSERT(read_atomic(&v->dirty_cpu) != dirty_cpu);
+>>
+>> as the longer assertion string literal isn't really of that
+>> much extra value.
+> 
+> I can do that, in case we can be sure the compiler will drop the
+> test in case of a non-debug build.
 
-Updating microcode is less error prone when caches have been flushed and
-depending on what exactly the microcode is updating. For example, some of the
-issues around certain Broadwell parts can be addressed by doing a full cache
-flush.
+Modern gcc will afaik; no idea about clang though.
 
-Signed-off-by: Ashok Raj <ashok.raj@intel.com>
-Signed-off-by: Borislav Petkov <bp@suse.de>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-[Linux commit 91df9fdf51492aec9fed6b4cbd33160886740f47, ported to Xen]
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/cpu/microcode/intel.c | 3 +++
- 1 file changed, 3 insertions(+)
+>> However, having stared at it for a while now - is this race
+>> free? I can see this being fine in the (initial) case of
+>> dirty_cpu == smp_processor_id(), but if this is for a foreign
+>> CPU, can't the vCPU have gone back to that same CPU again in
+>> the meantime?
+> 
+> This should never happen. Either the vcpu in question is paused,
+> or it has been forced off the cpu due to not being allowed to run
+> there (e.g. affinity has been changed, or cpu is about to be
+> removed from cpupool). I can add a comment explaining it.
 
-diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
-index a9f4d6e829..d031196d4c 100644
---- a/xen/arch/x86/cpu/microcode/intel.c
-+++ b/xen/arch/x86/cpu/microcode/intel.c
-@@ -25,6 +25,7 @@
- #include <xen/init.h>
- 
- #include <asm/msr.h>
-+#include <asm/system.h>
- 
- #include "private.h"
- 
-@@ -267,6 +268,8 @@ static int apply_microcode(const struct microcode_patch *patch)
-     if ( microcode_update_match(patch) != NEW_UCODE )
-         return -EINVAL;
- 
-+    wbinvd();
-+
-     /* write microcode via MSR 0x79 */
-     wrmsrl(MSR_IA32_UCODE_WRITE, (unsigned long)patch->data);
-     wrmsrl(MSR_IA32_UCODE_REV, 0x0ULL);
--- 
-2.11.0
+There is a time window from late in flush_mask() to the assertion
+you add. All sorts of things can happen during this window on
+other CPUs. IOW what guarantees the vCPU not getting unpaused or
+its affinity getting changed yet another time?
 
+Jan
 
