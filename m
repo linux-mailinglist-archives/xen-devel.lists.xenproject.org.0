@@ -2,39 +2,85 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FDEA1C59B6
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 16:34:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 061431C59EC
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 16:47:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVye3-0004GL-Cy; Tue, 05 May 2020 14:34:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uapr=6T=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jVye1-0004GG-SJ
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 14:34:01 +0000
-X-Inumbo-ID: 75bd3e9a-8edd-11ea-b9cf-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 75bd3e9a-8edd-11ea-b9cf-bc764e2007e4;
- Tue, 05 May 2020 14:34:00 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 003A9AB3D;
- Tue,  5 May 2020 14:34:01 +0000 (UTC)
-Subject: Re: [PATCH] xenbus: avoid stack overflow warning
-To: Arnd Bergmann <arnd@arndb.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <20200505141546.824573-1-arnd@arndb.de>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <30d49e6d-570b-f6fd-3a6f-628abcc8b127@suse.com>
-Date: Tue, 5 May 2020 16:33:58 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	id 1jVypi-0005KZ-Ub; Tue, 05 May 2020 14:46:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XWWA=6T=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jVyph-0005KU-Gn
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 14:46:05 +0000
+X-Inumbo-ID: 2550c4de-8edf-11ea-9dc5-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2550c4de-8edf-11ea-9dc5-12813bfff9fa;
+ Tue, 05 May 2020 14:46:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588689964;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Z/06VXz1QCIMRlvIrPWSVg2baNeBhGKRScRV3SSV5vg=;
+ b=bOKQY1RTkPIYGO1eOugAY7ujYlxrreSsMeBBGfjzpTVKFP3tX6PANHM4
+ L4Be5jBc7wG/azkiF7igGcmHs/1LRAQQRvu+Z6hBRJ7ArQCwpvJ+PS1j/
+ EoqLPflGrflE4taPfu4G6quzoxbJiFww11dmSwvVo5aEOcq7wbGJOsovp 0=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: ZHb8yAuz7SXyRwf1x6QFARxzfAsQX1CEgLISabU3b+K9JkX8WspZcgJ3ol4nixTybrrH9XYv02
+ L7IFfw7dOqbPJYdvNQ5CzZsIddfVqGVmzq+b3SOKFZ1c3OPzJC7YojEHMfPWqNv9Fx4MshrGPs
+ PVGzj9DLjuJTTVkIefntrcxv6B+J+BAUq2Mld72Y5pnNb31bztj7kLcr9m46tv0+QJl7rFLfVJ
+ +awM6KXQKJV4BGQgV8l4xSr/0RK76uWd9vZ0uqmlDZtFSLxacnuHdMpfSJvP7yH4ZTJ+LIvFAa
+ w84=
+X-SBRS: 2.7
+X-MesageID: 17474732
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,355,1583211600"; d="scan'208";a="17474732"
+Date: Tue, 5 May 2020 16:45:57 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/pv: Fix Clang build with !CONFIG_PV32
+Message-ID: <20200505144557.GD1353@Air-de-Roger>
+References: <20200505142810.14827-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <20200505141546.824573-1-arnd@arndb.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200505142810.14827-1-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,141 +91,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Yan Yankovskyi <yyankovskyi@gmail.com>, linux-kernel@vger.kernel.org,
- clang-built-linux@googlegroups.com, xen-devel@lists.xenproject.org
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05.05.20 16:15, Arnd Bergmann wrote:
-> The __xenbus_map_ring() function has two large arrays, 'map' and
-> 'unmap' on its stack. When clang decides to inline it into its caller,
-> xenbus_map_ring_valloc_hvm(), the total stack usage exceeds the warning
-> limit for stack size on 32-bit architectures.
+On Tue, May 05, 2020 at 03:28:10PM +0100, Andrew Cooper wrote:
+> Clang 3.5 doesn't do enough dead-code-elimination to drop the compat_gdt
+> reference, resulting in a linker failure:
 > 
-> drivers/xen/xenbus/xenbus_client.c:592:12: error: stack frame size of 1104 bytes in function 'xenbus_map_ring_valloc_hvm' [-Werror,-Wframe-larger-than=]
+>   hidden symbol `per_cpu__compat_gdt' isn't defined
 > 
-> As far as I can tell, other compilers don't inline it here, so we get
-> no warning, but the stack usage is actually the same. It is possible
-> for both arrays to use the same location on the stack, but the compiler
-> cannot prove that this is safe because they get passed to external
-> functions that may end up using them until they go out of scope.
+> Drop the local variable, and move evaluation of this_cpu(compat_gdt) to within
+> the guarded region.
 > 
-> Move the two arrays into separate basic blocks to limit the scope
-> and force them to occupy less stack in total, regardless of the
-> inlining decision.
+> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Why don't you put both arrays into a union?
+Tested-and-reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-
-Juergen
-
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->   drivers/xen/xenbus/xenbus_client.c | 74 +++++++++++++++++-------------
->   1 file changed, 41 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-> index 040d2a43e8e3..23ca70378e36 100644
-> --- a/drivers/xen/xenbus/xenbus_client.c
-> +++ b/drivers/xen/xenbus/xenbus_client.c
-> @@ -470,54 +470,62 @@ static int __xenbus_map_ring(struct xenbus_device *dev,
->   			     unsigned int flags,
->   			     bool *leaked)
->   {
-> -	struct gnttab_map_grant_ref map[XENBUS_MAX_RING_GRANTS];
-> -	struct gnttab_unmap_grant_ref unmap[XENBUS_MAX_RING_GRANTS];
->   	int i, j;
->   	int err = GNTST_okay;
->   
-> -	if (nr_grefs > XENBUS_MAX_RING_GRANTS)
-> -		return -EINVAL;
-> +	{
-> +		struct gnttab_map_grant_ref map[XENBUS_MAX_RING_GRANTS];
->   
-> -	for (i = 0; i < nr_grefs; i++) {
-> -		memset(&map[i], 0, sizeof(map[i]));
-> -		gnttab_set_map_op(&map[i], addrs[i], flags, gnt_refs[i],
-> -				  dev->otherend_id);
-> -		handles[i] = INVALID_GRANT_HANDLE;
-> -	}
-> +		if (nr_grefs > XENBUS_MAX_RING_GRANTS)
-> +			return -EINVAL;
->   
-> -	gnttab_batch_map(map, i);
-> +		for (i = 0; i < nr_grefs; i++) {
-> +			memset(&map[i], 0, sizeof(map[i]));
-> +			gnttab_set_map_op(&map[i], addrs[i], flags,
-> +					  gnt_refs[i], dev->otherend_id);
-> +			handles[i] = INVALID_GRANT_HANDLE;
-> +		}
-> +
-> +		gnttab_batch_map(map, i);
->   
-> -	for (i = 0; i < nr_grefs; i++) {
-> -		if (map[i].status != GNTST_okay) {
-> -			err = map[i].status;
-> -			xenbus_dev_fatal(dev, map[i].status,
-> +		for (i = 0; i < nr_grefs; i++) {
-> +			if (map[i].status != GNTST_okay) {
-> +				err = map[i].status;
-> +				xenbus_dev_fatal(dev, map[i].status,
->   					 "mapping in shared page %d from domain %d",
->   					 gnt_refs[i], dev->otherend_id);
-> -			goto fail;
-> -		} else
-> -			handles[i] = map[i].handle;
-> +				goto fail;
-> +			} else
-> +				handles[i] = map[i].handle;
-> +		}
->   	}
-> -
->   	return GNTST_okay;
->   
->    fail:
-> -	for (i = j = 0; i < nr_grefs; i++) {
-> -		if (handles[i] != INVALID_GRANT_HANDLE) {
-> -			memset(&unmap[j], 0, sizeof(unmap[j]));
-> -			gnttab_set_unmap_op(&unmap[j], (phys_addr_t)addrs[i],
-> -					    GNTMAP_host_map, handles[i]);
-> -			j++;
-> +	{
-> +		struct gnttab_unmap_grant_ref unmap[XENBUS_MAX_RING_GRANTS];
-> +
-> +		for (i = j = 0; i < nr_grefs; i++) {
-> +			if (handles[i] != INVALID_GRANT_HANDLE) {
-> +				memset(&unmap[j], 0, sizeof(unmap[j]));
-> +				gnttab_set_unmap_op(&unmap[j],
-> +						    (phys_addr_t)addrs[i],
-> +						    GNTMAP_host_map,
-> +						    handles[i]);
-> +				j++;
-> +			}
->   		}
-> -	}
->   
-> -	if (HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, unmap, j))
-> -		BUG();
-> +		if (HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref,
-> +					      unmap, j))
-> +			BUG();
->   
-> -	*leaked = false;
-> -	for (i = 0; i < j; i++) {
-> -		if (unmap[i].status != GNTST_okay) {
-> -			*leaked = true;
-> -			break;
-> +		*leaked = false;
-> +		for (i = 0; i < j; i++) {
-> +			if (unmap[i].status != GNTST_okay) {
-> +				*leaked = true;
-> +				break;
-> +			}
->   		}
->   	}
->   
-> 
-
+Thanks!
 
