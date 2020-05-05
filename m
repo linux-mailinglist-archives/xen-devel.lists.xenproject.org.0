@@ -2,87 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C22C1C5844
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 16:12:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06CAC1C5881
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 16:16:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVyIW-0001tC-Rp; Tue, 05 May 2020 14:11:48 +0000
+	id 1jVyMU-00026H-Cc; Tue, 05 May 2020 14:15:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XWWA=6T=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jVyIU-0001t3-U8
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 14:11:46 +0000
-X-Inumbo-ID: 59f351d4-8eda-11ea-9887-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MjzU=6T=arndb.de=arnd@srs-us1.protection.inumbo.net>)
+ id 1jVyMT-00026C-1L
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 14:15:53 +0000
+X-Inumbo-ID: eccb781a-8eda-11ea-9887-bc764e2007e4
+Received: from mout.kundenserver.de (unknown [212.227.17.13])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 59f351d4-8eda-11ea-9887-bc764e2007e4;
- Tue, 05 May 2020 14:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588687905;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=mt9W80B1cr2KdxQEtpC2LWjZtPVcOMOx1aAqW1ajV0k=;
- b=aRSI8zOL/BJF5nTNL20mk32SA762ksj+sMRWA6cA8VE7zQeT2IPK40HZ
- xPG/DfMCJi4lD/6qxH6DYG0OHI5Z+4b+AKY68OvgnDvREEpZb1/bEFIYM
- zoM1awkDCqds42PYQK58zmhAFlozEFRpYmGCQx2on89YzDv3mWHbcBbjJ A=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: w+cUjwm19U3XJkb1qVAJ5lIOTxogNuQ5K+AfTTU8v3T/wnkZkVRA+AcSZzGDlAZeDA63LFRW0S
- ygZ/v9Oz/lvpZX1FLDgwnkUCNm6C2sr6Hz7M6LN7CrrHz2IoBjqmhcaFdQNIO/buTLXmLBNYOK
- XfhIi/o2rCOAmHVGKeYsQY+GRqTEq5xh5eHfBJaAClSZDpTXi+BxnoHxk/I5+5ln9FRzJTDnJC
- HWcq2SFv+/zX7S93801l2vQF/9DBe++c+kAhgEQMfS2MzRT/3dN7wNJJl6xosge+TUto69ePK5
- 2e8=
-X-SBRS: 2.7
-X-MesageID: 17164708
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,355,1583211600"; d="scan'208";a="17164708"
-Date: Tue, 5 May 2020 16:11:38 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 1/3] x86/mm: do not attempt to convert _PAGE_GNTTAB to a
- boolean
-Message-ID: <20200505141138.GC1353@Air-de-Roger>
-References: <20200505092454.9161-1-roger.pau@citrix.com>
- <20200505092454.9161-2-roger.pau@citrix.com>
- <20332b18-960c-a180-8150-55fae60bdc6e@suse.com>
+ id eccb781a-8eda-11ea-9887-bc764e2007e4;
+ Tue, 05 May 2020 14:15:52 +0000 (UTC)
+Received: from localhost.localdomain ([149.172.19.189]) by
+ mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPA (Nemesis) id
+ 1M9nEJ-1jSNK23B49-005rjT; Tue, 05 May 2020 16:15:47 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Juergen Gross <jgross@suse.com>
+Subject: [PATCH] xenbus: avoid stack overflow warning
+Date: Tue,  5 May 2020 16:15:37 +0200
+Message-Id: <20200505141546.824573-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20332b18-960c-a180-8150-55fae60bdc6e@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+X-Provags-ID: V03:K1:A6tw1zrTOAQW5yW+MxCDJvOopLSS/Ga3YzKkHajnYByzROmhf/Z
+ UCjmaSkpNjyjF6nnYkDrgoDTQcQKOsy9GqpcEYeDBFITW4FIlbQVan7MDSfBvVH5vKDNaMG
+ I57/Bb6kf/hHfTGPMDXpo9MiGKtA/lQKOkRk2jrdXtJteCeqspXA4ZRf6fi0zCQjBphQskO
+ vo1QzWOdqSAs5HBhhLKyg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:AVDw9QU2Bq0=:RtvByz9YZEMaNPXxSQQaan
+ cDa1tb8w5qa0/seyrGG5bEJDTWS1bQ6DU6Z3caE8AVZWP1DLGjx3JqQeK/1xFSA7XkiiMJyhk
+ g9yWhIyFP3lr0xAKhrdIAeNeM227xqBDcoaJzkkSz7XLlBTcbuKxl+ZBf6c7IvRpJTium5Wpy
+ wbna0RoQzxMBC5A1ijVWpzJPTQ7zvqxiSFQvyLxdIYvMvoRuaB1v0r0X2ffQfaZ/Czv/uqxyY
+ E9XMnNAgucakN6lhB6eQ6MOsvvookARXupmUbbnYbrkjFuSavXZ5pPP4YBTM6PZq3heRt0Ffb
+ JXcfBQqCOIzDgg7z68QhXEjzhQzOU4skSyZfx4/PAjDqxOMtEfkTgAIUF067/bJHW4AdVoJMY
+ X+QbTqcaz/Ajz1Bf4V8+HNe3gCPNTAZr5Ybk5lRqkDoEqY/Ks4zyMQ/eR4+CxwQJ9LlAs7EQJ
+ h6UvsBe6lcNJlmhfiIaAlxlQjzHwYJ2LmHLpAEq9YFUPDzY2vcYxrehJKsZD3z9sR9EMwrX1I
+ SCBTxeQ5jjvIOIGLuslnh9tYC1VW3T9yt9QsuzcNAm2vg28xGYLkrNxvRpFlltV+SGz4EriaI
+ ZKIpN/t8zQ1fTUnto9/GFaHTg0xIITo1QroKaSzEh2NeBZt5Z1ioW6I3pIWOY2xIhgHsRK/NH
+ UIcynKaRVx7azRrZE9UI8sHcKSwYGlA0KhQM/SBjFqUO6NKyqrqMAwhYjVYdRmoSIMoeKxDMm
+ ZE/GCuMVoM+OE+Jo4mT72blCEhI8HrcXl2M0M3aXX9f7P/C/S9P0oo9BzRoS655scEfNndInz
+ 7spEwdABS87Ga/MwDfUpMag/fwUWsaGdnX00Lewh0xtIkUjZQc=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,56 +58,136 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Wei Liu <wl@xen.org>, Yan Yankovskyi <yyankovskyi@gmail.com>,
+ linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 05, 2020 at 03:47:43PM +0200, Jan Beulich wrote:
-> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
-> 
-> On 05.05.2020 11:24, Roger Pau Monne wrote:
-> > Clang 10 complains with:
-> > 
-> > mm.c:1239:10: error: converting the result of '<<' to a boolean always evaluates to true
-> >       [-Werror,-Wtautological-constant-compare]
-> >     if ( _PAGE_GNTTAB && (l1e_get_flags(l1e) & _PAGE_GNTTAB) &&
-> >          ^
-> > xen/include/asm/x86_64/page.h:161:25: note: expanded from macro '_PAGE_GNTTAB'
-> > #define _PAGE_GNTTAB (1U<<22)
-> >                         ^
-> 
-> This is a rather odd warning. Do they also warn for "if ( 0 )"
-> or "do { } while ( 0 )", as we use in various places? There's
-> no difference to me between a plain number and a constant
-> composed via an expression.
+The __xenbus_map_ring() function has two large arrays, 'map' and
+'unmap' on its stack. When clang decides to inline it into its caller,
+xenbus_map_ring_valloc_hvm(), the total stack usage exceeds the warning
+limit for stack size on 32-bit architectures.
 
-Using plain 0 is fine, they just seem to dislike using << for some
-reason that escapes me. Seems like it might be useful to catch bugs
-where || is wrongly used instead of | when setting flags, ie:
+drivers/xen/xenbus/xenbus_client.c:592:12: error: stack frame size of 1104 bytes in function 'xenbus_map_ring_valloc_hvm' [-Werror,-Wframe-larger-than=]
 
-https://github.com/haproxy/haproxy/issues/588
+As far as I can tell, other compilers don't inline it here, so we get
+no warning, but the stack usage is actually the same. It is possible
+for both arrays to use the same location on the stack, but the compiler
+cannot prove that this is safe because they get passed to external
+functions that may end up using them until they go out of scope.
 
-> 
-> > Remove the conversion of _PAGE_GNTTAB to a boolean, since the and
-> > operation performed afterwards will already return false if the value
-> > of the macro is 0.
-> 
-> I'm sorry, but no. The expression was put there on purpose by
-> 0932210ac095 ("x86: Address "Bitwise-and with zero
-> CONSTANT_EXPRESSION_RESULT" Coverity issues"), and the
-> description there is clearly telling us that this wants to stay
-> unless Coverity changed in the meantime. Otherwise I'm afraid
-> a more elaborate solution will be needed to please both.
+Move the two arrays into separate basic blocks to limit the scope
+and force them to occupy less stack in total, regardless of the
+inlining decision.
 
-Clang is fine with changing this to _PAGE_GNTTAB != 0. Would you be
-OK with this approach?
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/xen/xenbus/xenbus_client.c | 74 +++++++++++++++++-------------
+ 1 file changed, 41 insertions(+), 33 deletions(-)
 
-> Or a
-> more simplistic one, like using "#if _PAGE_GNTTAB" around the
-> construct.
+diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
+index 040d2a43e8e3..23ca70378e36 100644
+--- a/drivers/xen/xenbus/xenbus_client.c
++++ b/drivers/xen/xenbus/xenbus_client.c
+@@ -470,54 +470,62 @@ static int __xenbus_map_ring(struct xenbus_device *dev,
+ 			     unsigned int flags,
+ 			     bool *leaked)
+ {
+-	struct gnttab_map_grant_ref map[XENBUS_MAX_RING_GRANTS];
+-	struct gnttab_unmap_grant_ref unmap[XENBUS_MAX_RING_GRANTS];
+ 	int i, j;
+ 	int err = GNTST_okay;
+ 
+-	if (nr_grefs > XENBUS_MAX_RING_GRANTS)
+-		return -EINVAL;
++	{
++		struct gnttab_map_grant_ref map[XENBUS_MAX_RING_GRANTS];
+ 
+-	for (i = 0; i < nr_grefs; i++) {
+-		memset(&map[i], 0, sizeof(map[i]));
+-		gnttab_set_map_op(&map[i], addrs[i], flags, gnt_refs[i],
+-				  dev->otherend_id);
+-		handles[i] = INVALID_GRANT_HANDLE;
+-	}
++		if (nr_grefs > XENBUS_MAX_RING_GRANTS)
++			return -EINVAL;
+ 
+-	gnttab_batch_map(map, i);
++		for (i = 0; i < nr_grefs; i++) {
++			memset(&map[i], 0, sizeof(map[i]));
++			gnttab_set_map_op(&map[i], addrs[i], flags,
++					  gnt_refs[i], dev->otherend_id);
++			handles[i] = INVALID_GRANT_HANDLE;
++		}
++
++		gnttab_batch_map(map, i);
+ 
+-	for (i = 0; i < nr_grefs; i++) {
+-		if (map[i].status != GNTST_okay) {
+-			err = map[i].status;
+-			xenbus_dev_fatal(dev, map[i].status,
++		for (i = 0; i < nr_grefs; i++) {
++			if (map[i].status != GNTST_okay) {
++				err = map[i].status;
++				xenbus_dev_fatal(dev, map[i].status,
+ 					 "mapping in shared page %d from domain %d",
+ 					 gnt_refs[i], dev->otherend_id);
+-			goto fail;
+-		} else
+-			handles[i] = map[i].handle;
++				goto fail;
++			} else
++				handles[i] = map[i].handle;
++		}
+ 	}
+-
+ 	return GNTST_okay;
+ 
+  fail:
+-	for (i = j = 0; i < nr_grefs; i++) {
+-		if (handles[i] != INVALID_GRANT_HANDLE) {
+-			memset(&unmap[j], 0, sizeof(unmap[j]));
+-			gnttab_set_unmap_op(&unmap[j], (phys_addr_t)addrs[i],
+-					    GNTMAP_host_map, handles[i]);
+-			j++;
++	{
++		struct gnttab_unmap_grant_ref unmap[XENBUS_MAX_RING_GRANTS];
++
++		for (i = j = 0; i < nr_grefs; i++) {
++			if (handles[i] != INVALID_GRANT_HANDLE) {
++				memset(&unmap[j], 0, sizeof(unmap[j]));
++				gnttab_set_unmap_op(&unmap[j],
++						    (phys_addr_t)addrs[i],
++						    GNTMAP_host_map,
++						    handles[i]);
++				j++;
++			}
+ 		}
+-	}
+ 
+-	if (HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, unmap, j))
+-		BUG();
++		if (HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref,
++					      unmap, j))
++			BUG();
+ 
+-	*leaked = false;
+-	for (i = 0; i < j; i++) {
+-		if (unmap[i].status != GNTST_okay) {
+-			*leaked = true;
+-			break;
++		*leaked = false;
++		for (i = 0; i < j; i++) {
++			if (unmap[i].status != GNTST_okay) {
++				*leaked = true;
++				break;
++			}
+ 		}
+ 	}
+ 
+-- 
+2.26.0
 
-Yes, that's the other solution I had in mind.
-
-Thanks, Roger.
 
