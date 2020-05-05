@@ -2,85 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 061431C59EC
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 16:47:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E44B1C59F3
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 16:48:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVypi-0005KZ-Ub; Tue, 05 May 2020 14:46:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XWWA=6T=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jVyph-0005KU-Gn
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 14:46:05 +0000
-X-Inumbo-ID: 2550c4de-8edf-11ea-9dc5-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2550c4de-8edf-11ea-9dc5-12813bfff9fa;
- Tue, 05 May 2020 14:46:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588689964;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Z/06VXz1QCIMRlvIrPWSVg2baNeBhGKRScRV3SSV5vg=;
- b=bOKQY1RTkPIYGO1eOugAY7ujYlxrreSsMeBBGfjzpTVKFP3tX6PANHM4
- L4Be5jBc7wG/azkiF7igGcmHs/1LRAQQRvu+Z6hBRJ7ArQCwpvJ+PS1j/
- EoqLPflGrflE4taPfu4G6quzoxbJiFww11dmSwvVo5aEOcq7wbGJOsovp 0=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: ZHb8yAuz7SXyRwf1x6QFARxzfAsQX1CEgLISabU3b+K9JkX8WspZcgJ3ol4nixTybrrH9XYv02
- L7IFfw7dOqbPJYdvNQ5CzZsIddfVqGVmzq+b3SOKFZ1c3OPzJC7YojEHMfPWqNv9Fx4MshrGPs
- PVGzj9DLjuJTTVkIefntrcxv6B+J+BAUq2Mld72Y5pnNb31bztj7kLcr9m46tv0+QJl7rFLfVJ
- +awM6KXQKJV4BGQgV8l4xSr/0RK76uWd9vZ0uqmlDZtFSLxacnuHdMpfSJvP7yH4ZTJ+LIvFAa
- w84=
-X-SBRS: 2.7
-X-MesageID: 17474732
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,355,1583211600"; d="scan'208";a="17474732"
-Date: Tue, 5 May 2020 16:45:57 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+	id 1jVysJ-0005T8-Ct; Tue, 05 May 2020 14:48:47 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5wz9=6T=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jVysH-0005T3-Uu
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 14:48:45 +0000
+X-Inumbo-ID: 84e55e00-8edf-11ea-b9cf-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 84e55e00-8edf-11ea-b9cf-bc764e2007e4;
+ Tue, 05 May 2020 14:48:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 96118AB3D;
+ Tue,  5 May 2020 14:48:46 +0000 (UTC)
+Subject: Re: [PATCH 09/16] x86/cpu: Adjust enable_nmis() to be shadow stack
+ compatible
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/pv: Fix Clang build with !CONFIG_PV32
-Message-ID: <20200505144557.GD1353@Air-de-Roger>
-References: <20200505142810.14827-1-andrew.cooper3@citrix.com>
+References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
+ <20200501225838.9866-10-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <478340f1-4238-1419-eeb7-c8c2ed7103a6@suse.com>
+Date: Tue, 5 May 2020 16:48:37 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200505142810.14827-1-andrew.cooper3@citrix.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <20200501225838.9866-10-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,23 +48,82 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 05, 2020 at 03:28:10PM +0100, Andrew Cooper wrote:
-> Clang 3.5 doesn't do enough dead-code-elimination to drop the compat_gdt
-> reference, resulting in a linker failure:
+On 02.05.2020 00:58, Andrew Cooper wrote:
+> When executing an IRET-to-self, the shadow stack must agree with the regular
+> stack.  We can't manipulate SSP directly, so have to fake a shadow IRET frame
+> by executing 3 CALLs, then editing the result to look correct.
 > 
->   hidden symbol `per_cpu__compat_gdt' isn't defined
+> This is not a fastpath, is called on the BSP long before CET can be set up,
+> and may be called on the crash path after CET is disabled.  Use the fact that
+> INCSSP is allocated from the hint nop space to construct a test for CET being
+> active which is safe on all processors.
 > 
-> Drop the local variable, and move evaluation of this_cpu(compat_gdt) to within
-> the guarded region.
-> 
-> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Tested-and-reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+albeit with a question which may make a further change necessary:
 
-Thanks!
+> --- a/xen/include/asm-x86/processor.h
+> +++ b/xen/include/asm-x86/processor.h
+> @@ -544,17 +544,40 @@ static inline void enable_nmis(void)
+>  {
+>      unsigned long tmp;
+>  
+> -    asm volatile ( "mov %%rsp, %[tmp]     \n\t"
+> -                   "push %[ss]            \n\t"
+> -                   "push %[tmp]           \n\t"
+> -                   "pushf                 \n\t"
+> -                   "push %[cs]            \n\t"
+> -                   "lea 1f(%%rip), %[tmp] \n\t"
+> -                   "push %[tmp]           \n\t"
+> -                   "iretq; 1:             \n\t"
+> -                   : [tmp] "=&r" (tmp)
+> +    asm volatile ( "mov     %%rsp, %[rsp]        \n\t"
+> +                   "lea    .Ldone(%%rip), %[rip] \n\t"
+> +#ifdef CONFIG_XEN_SHSTK
+> +                   /* Check for CET-SS being active. */
+> +                   "mov    $1, %k[ssp]           \n\t"
+> +                   "rdsspq %[ssp]                \n\t"
+> +                   "cmp    $1, %k[ssp]           \n\t"
+> +                   "je     .Lshstk_done          \n\t"
+> +
+> +                   /* Push 3 words on the shadow stack */
+> +                   ".rept 3                      \n\t"
+> +                   "call 1f; nop; 1:             \n\t"
+> +                   ".endr                        \n\t"
+> +
+> +                   /* Fixup to be an IRET shadow stack frame */
+> +                   "wrssq  %q[cs], -1*8(%[ssp])  \n\t"
+> +                   "wrssq  %[rip], -2*8(%[ssp])  \n\t"
+> +                   "wrssq  %[ssp], -3*8(%[ssp])  \n\t"
+> +
+> +                   ".Lshstk_done:"
+> +#endif
+> +                   /* Write an IRET regular frame */
+> +                   "push   %[ss]                 \n\t"
+> +                   "push   %[rsp]                \n\t"
+> +                   "pushf                        \n\t"
+> +                   "push   %q[cs]                \n\t"
+> +                   "push   %[rip]                \n\t"
+> +                   "iretq                        \n\t"
+> +                   ".Ldone:                      \n\t"
+> +                   : [rip] "=&r" (tmp),
+> +                     [rsp] "=&r" (tmp),
+> +                     [ssp] "=&r" (tmp)
+
+Even after an hour of reading and searching through the gcc docs
+I can't convince myself that this utilizes defined behavior. We
+do tie multiple outputs to the same C variable elsewhere, yes,
+but only in cases where we don't really care about the register,
+or where the register is a fixed one anyway. What I can't find
+is a clear statement that gcc wouldn't ever, now or in the
+future, use the same register for all three outputs. I think one
+can deduce this in certain ways, and experimentation also seems
+to confirm it, but still.
+
+Jan
 
