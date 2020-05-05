@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1141A1C500F
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 10:17:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25FCE1C5017
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 10:18:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVslY-0004fX-ME; Tue, 05 May 2020 08:17:24 +0000
+	id 1jVsmK-0004oI-VQ; Tue, 05 May 2020 08:18:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5wz9=6T=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jVslX-0004fI-3D
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 08:17:23 +0000
-X-Inumbo-ID: d75ce5c2-8ea8-11ea-b07b-bc764e2007e4
+ id 1jVsmJ-0004o0-Dr
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 08:18:11 +0000
+X-Inumbo-ID: f503539a-8ea8-11ea-ae69-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d75ce5c2-8ea8-11ea-b07b-bc764e2007e4;
- Tue, 05 May 2020 08:17:21 +0000 (UTC)
+ id f503539a-8ea8-11ea-ae69-bc764e2007e4;
+ Tue, 05 May 2020 08:18:10 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 84C8EAFF2;
- Tue,  5 May 2020 08:17:22 +0000 (UTC)
-Subject: [PATCH v8 09/12] x86/HVM: scale MPERF values reported to guests (on
- AMD)
+ by mx2.suse.de (Postfix) with ESMTP id 464D4AFF4;
+ Tue,  5 May 2020 08:18:12 +0000 (UTC)
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v8 10/12] x86/HVM: scale MPERF values reported to guests (on
+ AMD)
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
-Message-ID: <c14edd2c-3cd8-c9b4-0cc0-7cbf2c672127@suse.com>
-Date: Tue, 5 May 2020 10:17:18 +0200
+Message-ID: <5da4ed2e-8eb8-0b18-3c1f-9d419371c08a@suse.com>
+Date: Tue, 5 May 2020 10:18:08 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
