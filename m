@@ -2,105 +2,81 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 127F01C50FB
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 10:47:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28FFA1C51DF
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 11:26:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVtDt-0007ZG-3i; Tue, 05 May 2020 08:46:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jVtp8-0002Nl-Bv; Tue, 05 May 2020 09:25:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QDd3=6T=samsung.com=m.szyprowski@srs-us1.protection.inumbo.net>)
- id 1jVtDq-0007ZB-To
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 08:46:39 +0000
-X-Inumbo-ID: ec88aacc-8eac-11ea-b9cf-bc764e2007e4
-Received: from mailout1.w1.samsung.com (unknown [210.118.77.11])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec88aacc-8eac-11ea-b9cf-bc764e2007e4;
- Tue, 05 May 2020 08:46:34 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200505084633euoutp01489177e970e71a84010fda34500631e3~MFXyz1WIZ0326103261euoutp01l
- for <xen-devel@lists.xenproject.org>; Tue,  5 May 2020 08:46:33 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200505084633euoutp01489177e970e71a84010fda34500631e3~MFXyz1WIZ0326103261euoutp01l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1588668393;
- bh=XbOrFi14wZnLLR+D8IQye6yZyzXRz7ibxgFZt2Xt8y8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hL5JSfDcU+DCHzbwlON4/36WnmwtQhza0RHC2bCgARLmMp2RhZKAc+e0zyqjiP/1E
- glBuz9elbxgLBS8EGLKEhcrp4Y+FSuHU0sajYwt75ne7L1JIXLr4BuzKlG3L/6GC8D
- ab7TDZY/PRhoDjK8/5gupLnJe/5NTLLCa0/oEedE=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200505084633eucas1p1bef72d98018191e2ab095d6b5cde6d45~MFXyiloBc0600906009eucas1p1M;
- Tue,  5 May 2020 08:46:33 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id 26.CF.61286.9E721BE5; Tue,  5
- May 2020 09:46:33 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20200505084633eucas1p26a6a3f44c64955aadec834bed027e522~MFXyIHf071949019490eucas1p2L;
- Tue,  5 May 2020 08:46:33 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200505084633eusmtrp153afdf239488ef4df2fa03d0ecbc82de~MFXyHcV0-0942309423eusmtrp1f;
- Tue,  5 May 2020 08:46:33 +0000 (GMT)
-X-AuditID: cbfec7f2-ef1ff7000001ef66-ad-5eb127e955d2
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 1C.21.07950.9E721BE5; Tue,  5
- May 2020 09:46:33 +0100 (BST)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20200505084632eusmtip1c357efec5cd7eb62ab62b23c5f3547be~MFXxkQbKo0309503095eusmtip1v;
- Tue,  5 May 2020 08:46:32 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 16/25] xen: gntdev: fix common struct sg_table related
- issues
-Date: Tue,  5 May 2020 10:46:05 +0200
-Message-Id: <20200505084614.30424-16-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200505084614.30424-1-m.szyprowski@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA0VSWUwTURTldZYODcWxgrwgkaRECSqb+jEJ2GD0YyLRoPHDmIiMMkEjBdIC
- ikvEBaIFZNOACEioAVlqWWohKCrVUhFlKQVBKC5IEAxr2dxQygD+nXuWe5KbSyAiPeZMnI6I
- ZmURTLgYF6Daxh+tnsPulcE+qbWuVEpLE4+qzFZjVHtWAkr91aYjlGlmHKdKyvQ8quC5H5Xb
- s52aNn3mUVUDXRjVUZeLU6pXZj7VMPEVo+Y0mbwAe7o8vxzQ9bMFKF0z+wmjPyYZeHT1g8t0
- 78IAQmd2FwP65YQJpZ/0xOP05OAHlL6lKQW0WtOJ0paqjUHCowL/UDb8dCwr85aECE615+l5
- UWrROa26C48HqWsUwJaA5E5YfuUNogACQkQ+BNCiKALcMA1gWpuBxw0WAJvfTyErkeqnv5eF
- YgA7u77xVyOD34eWXDjpCxWjCtyKHcgEAF+n2FlNCJmEwDuqUswqrCMPwbrmjKUASm6Cpg71
- 4lqCEJISqGty59pcYVnFiyWL7SI9YOzDrXsg+YEPvwzOAc60F9akf8E4vA6OGDR8DrvA5sxk
- lAtcA/Bzi4rPDckAdlzNXk77wb6Wn7i1GSE9oLrOm6N3w6HEEtRKQ9Iedo+utdLIIszQZiEc
- LYQ3EkWcezPMMTxarW1oMy5fi4Zz983LB9YDaB7rw9OAa87/sgIASoETGyOXhrFy3wj2rJec
- kcpjIsK8TkZKq8DiczUvGKZqwYzxhA6QBBDbCY9Y1MEijImVx0l1ABKI2EFYNF8RLBKGMnHn
- WVnkcVlMOCvXgQ0EKnYS7igcPiYiw5ho9gzLRrGyFZVH2DrHA9U0dbtB6WPcpWMMtN/44W+X
- kEmNW1D69fz9IaFO2/r3MWZHlxcFgSmF0sB+F0wY4GbpmdQGNSkl4+7nplz9I3uJxnLil/n7
- 26E5paDeJBiR5j0btgF3AySJ7xoSlZ7zDhcvCu7taT24fupPhY3DyGOPm3GOW7N9L1SMHbiA
- 8MWo/BTjuwWRyZl/hn1cLlgDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrKIsWRmVeSWpSXmKPExsVy+t/xu7ov1TfGGTxYz27Re+4kk8XGGetZ
- LS5Ob2Wx+L9tIrPFla/v2SxWrj7KZLFgv7XFnJtGFl+uPGSy2PT4GqvF5V1z2CzWHrnLbnHw
- wxNWi+9bJjM58HmsmbeG0WPvtwUsHtu/PWD1uN99nMlj85J6j9v/HjN7TL6xnNHj8IcrLB67
- bzaweXx8eovFo2/LKkaP9Vuusnh83iQXwBulZ1OUX1qSqpCRX1xiqxRtaGGkZ2hpoWdkYqln
- aGwea2VkqqRvZ5OSmpNZllqkb5egl3Fx7lGmgvVCFdvWX2NrYOzn72Lk5JAQMJHYvOcPE4gt
- JLCUUeJJkxFEXEbi5LQGVghbWOLPtS62LkYuoJpPjBLPLu8ES7AJGEp0vYVIiAh0MkpM6/7I
- DuIwC0xmlni2+jrYWGGBAIlFR64zgtgsAqoSVy6vB4pzcPAK2EkcOqkOsUFeYvWGA8wgNidQ
- +PGlO2wQFxVKfDj/nXUCI98CRoZVjCKppcW56bnFRnrFibnFpXnpesn5uZsYgVG07djPLTsY
- u94FH2IU4GBU4uHd8HV9nBBrYllxZe4hRgkOZiUR3mU/NsQJ8aYkVlalFuXHF5XmpBYfYjQF
- umkis5Rocj4wwvNK4g1NDc0tLA3Njc2NzSyUxHk7BA7GCAmkJ5akZqemFqQWwfQxcXBKNTDu
- UKrVPM4bzCF1Rs89/+CqWlVf/+m3Nz0Uq9jHW7mCn9V2sj0Dq9CK5+f/xGmdtCs6dGH2izPP
- TOpb7qtK7ZjNFStx7MMcgbuFi2JdO1N81jyVul7o5Km09tfWf99qnjaJfW/rbVdf9W+C8Uc7
- n3l/7lz0F2UIXV9mu3ebqaqBdMv2pOSXD4qUWIozEg21mIuKEwEKUxAkuAIAAA==
-X-CMS-MailID: 20200505084633eucas1p26a6a3f44c64955aadec834bed027e522
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200505084633eucas1p26a6a3f44c64955aadec834bed027e522
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20200505084633eucas1p26a6a3f44c64955aadec834bed027e522
-References: <20200505083926.28503-1-m.szyprowski@samsung.com>
- <20200505084614.30424-1-m.szyprowski@samsung.com>
- <CGME20200505084633eucas1p26a6a3f44c64955aadec834bed027e522@eucas1p2.samsung.com>
+ <SRS0=XWWA=6T=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jVtp7-0002Ng-LN
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 09:25:09 +0000
+X-Inumbo-ID: 4f7acb60-8eb2-11ea-9d9d-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4f7acb60-8eb2-11ea-9d9d-12813bfff9fa;
+ Tue, 05 May 2020 09:25:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588670708;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=V2xxiJi6Vs/2wqarbDZISrlp3POhWUfUovLsxoF85tk=;
+ b=ZvsCwAcculCw5BLNsGvhScGwDmafr+dmZoAcuIJ/LPf7pVWDVOHeOrX5
+ Kaz7RI0JjLdYLDU9yaU/mpzkXMERrqv1z1+jNfJxnT2vtEFuPh0hzLSvQ
+ kYZmxp7PWVV72RPRtetCvWtP3vos+7q+OTj4otoB+zD7FPQnvr1wAM5jh g=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: sMjqAbiTLUk7yBkRd7fO9+DhePiH/RmIQDTn2bM7GhjFvnuCnr6lSLZizC3eiY++ahyIpM39P+
+ YGcgJNgRPa1DaB1XJqB47fr4Ykdu8Qh7I2zWkANymBYlA+9pstD+G4LDEO2xoHBStusAj/cmVS
+ CarqLGuGL0wlq8Ys1wDiTY0Q+xP8AYzgE9D5hzTM4dLbCxWDINVquE8jGMKdpQqLZkxcTNp9Ch
+ 1FpoKrkTarcbyIYvN7d1u9vAYP/EIHenR3a0fBswrZVlvjH8QB2C1cjiby+umDP7lwiiQgMgss
+ q9A=
+X-SBRS: 2.7
+X-MesageID: 17141822
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,354,1583211600"; d="scan'208";a="17141822"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH 0/3] build: fixes for clang 10
+Date: Tue, 5 May 2020 11:24:51 +0200
+Message-ID: <20200505092454.9161-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,69 +87,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
- linux-arm-kernel@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The Documentation/DMA-API-HOWTO.txt states that dma_map_sg returns the
-numer of the created entries in the DMA address space. However the
-subsequent calls to dma_sync_sg_for_{device,cpu} and dma_unmap_sg must be
-called with the original number of the entries passed to dma_map_sg. The
-sg_table->nents in turn holds the result of the dma_map_sg call as stated
-in include/linux/scatterlist.h. A common mistake was to ignore a result
-of the dma_map_sg function and don't use the sg_table->orig_nents at all.
+Hello,
 
-To avoid such issues, lets use common dma-mapping wrappers operating
-directly on the struct sg_table objects and adjust references to the
-nents and orig_nents respectively.
+Patches 1 and 3 are fixes in order to build Xen with Clang 10. Patch 2
+is a fix for a configure bug I've found while attempting to fix Clang
+10.
 
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
-For more information, see '[PATCH v3 00/25] DRM: fix struct sg_table nents
-vs. orig_nents misuse' thread: https://lkml.org/lkml/2020/5/5/187
----
- drivers/xen/gntdev-dmabuf.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+Thanks, Roger.
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index 75d3bb9..4b22785 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -247,8 +247,7 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
- 
- 		if (sgt) {
- 			if (gntdev_dmabuf_attach->dir != DMA_NONE)
--				dma_unmap_sg_attrs(attach->dev, sgt->sgl,
--						   sgt->nents,
-+				dma_unmap_sgtable_attrs(attach->dev, sgt,
- 						   gntdev_dmabuf_attach->dir,
- 						   DMA_ATTR_SKIP_CPU_SYNC);
- 			sg_free_table(sgt);
-@@ -288,7 +287,7 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
- 	sgt = dmabuf_pages_to_sgt(gntdev_dmabuf->pages,
- 				  gntdev_dmabuf->nr_pages);
- 	if (!IS_ERR(sgt)) {
--		if (!dma_map_sg_attrs(attach->dev, sgt->sgl, sgt->nents, dir,
-+		if (dma_map_sgtable_attrs(attach->dev, sgt, dir,
- 				      DMA_ATTR_SKIP_CPU_SYNC)) {
- 			sg_free_table(sgt);
- 			kfree(sgt);
-@@ -625,7 +624,7 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
- 
- 	/* Now convert sgt to array of pages and check for page validity. */
- 	i = 0;
--	for_each_sg_page(sgt->sgl, &sg_iter, sgt->nents, 0) {
-+	for_each_sg_page(sgt->sgl, &sg_iter, sgt->orig_nents, 0) {
- 		struct page *page = sg_page_iter_page(&sg_iter);
- 		/*
- 		 * Check if page is valid: this can happen if we are given
+Roger Pau Monne (3):
+  x86/mm: do not attempt to convert _PAGE_GNTTAB to a boolean
+  configure: also add EXTRA_PREFIX to {CPP/LD}FLAGS
+  tools/libxl: disable clang indentation check for the disk parser
+
+ m4/set_cflags_ldflags.m4    |  4 ++++
+ tools/libxl/libxlu_disk_l.l | 11 +++++++++++
+ xen/arch/x86/mm.c           |  2 +-
+ 3 files changed, 16 insertions(+), 1 deletion(-)
+
 -- 
-1.9.1
+2.26.2
 
 
