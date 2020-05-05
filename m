@@ -2,41 +2,105 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA1B1C5021
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 10:20:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 127F01C50FB
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 10:47:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVsoS-0005kA-U6; Tue, 05 May 2020 08:20:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5wz9=6T=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jVsoR-0005jv-Jk
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 08:20:23 +0000
-X-Inumbo-ID: 4380a45a-8ea9-11ea-9d95-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4380a45a-8ea9-11ea-9d95-12813bfff9fa;
- Tue, 05 May 2020 08:20:22 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id EEA90AFF3;
- Tue,  5 May 2020 08:20:23 +0000 (UTC)
-Subject: [PATCH v8 12/12] x86/HVM: don't needlessly intercept APERF/MPERF/TSC
- MSR reads
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
-Message-ID: <e92b6c1a-b2c3-13e7-116c-4772c851dd0b@suse.com>
-Date: Tue, 5 May 2020 10:20:20 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+	id 1jVtDt-0007ZG-3i; Tue, 05 May 2020 08:46:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QDd3=6T=samsung.com=m.szyprowski@srs-us1.protection.inumbo.net>)
+ id 1jVtDq-0007ZB-To
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 08:46:39 +0000
+X-Inumbo-ID: ec88aacc-8eac-11ea-b9cf-bc764e2007e4
+Received: from mailout1.w1.samsung.com (unknown [210.118.77.11])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ec88aacc-8eac-11ea-b9cf-bc764e2007e4;
+ Tue, 05 May 2020 08:46:34 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200505084633euoutp01489177e970e71a84010fda34500631e3~MFXyz1WIZ0326103261euoutp01l
+ for <xen-devel@lists.xenproject.org>; Tue,  5 May 2020 08:46:33 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200505084633euoutp01489177e970e71a84010fda34500631e3~MFXyz1WIZ0326103261euoutp01l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1588668393;
+ bh=XbOrFi14wZnLLR+D8IQye6yZyzXRz7ibxgFZt2Xt8y8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=hL5JSfDcU+DCHzbwlON4/36WnmwtQhza0RHC2bCgARLmMp2RhZKAc+e0zyqjiP/1E
+ glBuz9elbxgLBS8EGLKEhcrp4Y+FSuHU0sajYwt75ne7L1JIXLr4BuzKlG3L/6GC8D
+ ab7TDZY/PRhoDjK8/5gupLnJe/5NTLLCa0/oEedE=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200505084633eucas1p1bef72d98018191e2ab095d6b5cde6d45~MFXyiloBc0600906009eucas1p1M;
+ Tue,  5 May 2020 08:46:33 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id 26.CF.61286.9E721BE5; Tue,  5
+ May 2020 09:46:33 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200505084633eucas1p26a6a3f44c64955aadec834bed027e522~MFXyIHf071949019490eucas1p2L;
+ Tue,  5 May 2020 08:46:33 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200505084633eusmtrp153afdf239488ef4df2fa03d0ecbc82de~MFXyHcV0-0942309423eusmtrp1f;
+ Tue,  5 May 2020 08:46:33 +0000 (GMT)
+X-AuditID: cbfec7f2-ef1ff7000001ef66-ad-5eb127e955d2
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 1C.21.07950.9E721BE5; Tue,  5
+ May 2020 09:46:33 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200505084632eusmtip1c357efec5cd7eb62ab62b23c5f3547be~MFXxkQbKo0309503095eusmtip1v;
+ Tue,  5 May 2020 08:46:32 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 16/25] xen: gntdev: fix common struct sg_table related
+ issues
+Date: Tue,  5 May 2020 10:46:05 +0200
+Message-Id: <20200505084614.30424-16-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200505084614.30424-1-m.szyprowski@samsung.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA0VSWUwTURTldZYODcWxgrwgkaRECSqb+jEJ2GD0YyLRoPHDmIiMMkEjBdIC
+ ikvEBaIFZNOACEioAVlqWWohKCrVUhFlKQVBKC5IEAxr2dxQygD+nXuWe5KbSyAiPeZMnI6I
+ ZmURTLgYF6Daxh+tnsPulcE+qbWuVEpLE4+qzFZjVHtWAkr91aYjlGlmHKdKyvQ8quC5H5Xb
+ s52aNn3mUVUDXRjVUZeLU6pXZj7VMPEVo+Y0mbwAe7o8vxzQ9bMFKF0z+wmjPyYZeHT1g8t0
+ 78IAQmd2FwP65YQJpZ/0xOP05OAHlL6lKQW0WtOJ0paqjUHCowL/UDb8dCwr85aECE615+l5
+ UWrROa26C48HqWsUwJaA5E5YfuUNogACQkQ+BNCiKALcMA1gWpuBxw0WAJvfTyErkeqnv5eF
+ YgA7u77xVyOD34eWXDjpCxWjCtyKHcgEAF+n2FlNCJmEwDuqUswqrCMPwbrmjKUASm6Cpg71
+ 4lqCEJISqGty59pcYVnFiyWL7SI9YOzDrXsg+YEPvwzOAc60F9akf8E4vA6OGDR8DrvA5sxk
+ lAtcA/Bzi4rPDckAdlzNXk77wb6Wn7i1GSE9oLrOm6N3w6HEEtRKQ9Iedo+utdLIIszQZiEc
+ LYQ3EkWcezPMMTxarW1oMy5fi4Zz983LB9YDaB7rw9OAa87/sgIASoETGyOXhrFy3wj2rJec
+ kcpjIsK8TkZKq8DiczUvGKZqwYzxhA6QBBDbCY9Y1MEijImVx0l1ABKI2EFYNF8RLBKGMnHn
+ WVnkcVlMOCvXgQ0EKnYS7igcPiYiw5ho9gzLRrGyFZVH2DrHA9U0dbtB6WPcpWMMtN/44W+X
+ kEmNW1D69fz9IaFO2/r3MWZHlxcFgSmF0sB+F0wY4GbpmdQGNSkl4+7nplz9I3uJxnLil/n7
+ 26E5paDeJBiR5j0btgF3AySJ7xoSlZ7zDhcvCu7taT24fupPhY3DyGOPm3GOW7N9L1SMHbiA
+ 8MWo/BTjuwWRyZl/hn1cLlgDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrKIsWRmVeSWpSXmKPExsVy+t/xu7ov1TfGGTxYz27Re+4kk8XGGetZ
+ LS5Ob2Wx+L9tIrPFla/v2SxWrj7KZLFgv7XFnJtGFl+uPGSy2PT4GqvF5V1z2CzWHrnLbnHw
+ wxNWi+9bJjM58HmsmbeG0WPvtwUsHtu/PWD1uN99nMlj85J6j9v/HjN7TL6xnNHj8IcrLB67
+ bzaweXx8eovFo2/LKkaP9Vuusnh83iQXwBulZ1OUX1qSqpCRX1xiqxRtaGGkZ2hpoWdkYqln
+ aGwea2VkqqRvZ5OSmpNZllqkb5egl3Fx7lGmgvVCFdvWX2NrYOzn72Lk5JAQMJHYvOcPE4gt
+ JLCUUeJJkxFEXEbi5LQGVghbWOLPtS62LkYuoJpPjBLPLu8ES7AJGEp0vYVIiAh0MkpM6/7I
+ DuIwC0xmlni2+jrYWGGBAIlFR64zgtgsAqoSVy6vB4pzcPAK2EkcOqkOsUFeYvWGA8wgNidQ
+ +PGlO2wQFxVKfDj/nXUCI98CRoZVjCKppcW56bnFRnrFibnFpXnpesn5uZsYgVG07djPLTsY
+ u94FH2IU4GBU4uHd8HV9nBBrYllxZe4hRgkOZiUR3mU/NsQJ8aYkVlalFuXHF5XmpBYfYjQF
+ umkis5Rocj4wwvNK4g1NDc0tLA3Njc2NzSyUxHk7BA7GCAmkJ5akZqemFqQWwfQxcXBKNTDu
+ UKrVPM4bzCF1Rs89/+CqWlVf/+m3Nz0Uq9jHW7mCn9V2sj0Dq9CK5+f/xGmdtCs6dGH2izPP
+ TOpb7qtK7ZjNFStx7MMcgbuFi2JdO1N81jyVul7o5Km09tfWf99qnjaJfW/rbVdf9W+C8Uc7
+ n3l/7lz0F2UIXV9mu3ebqaqBdMv2pOSXD4qUWIozEg21mIuKEwEKUxAkuAIAAA==
+X-CMS-MailID: 20200505084633eucas1p26a6a3f44c64955aadec834bed027e522
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20200505084633eucas1p26a6a3f44c64955aadec834bed027e522
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200505084633eucas1p26a6a3f44c64955aadec834bed027e522
+References: <20200505083926.28503-1-m.szyprowski@samsung.com>
+ <20200505084614.30424-1-m.szyprowski@samsung.com>
+ <CGME20200505084633eucas1p26a6a3f44c64955aadec834bed027e522@eucas1p2.samsung.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,134 +111,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-If the hardware can handle accesses, we should allow it to do so. This
-way we can expose EFRO to HVM guests, and "all" that's left for exposing
-APERF/MPERF is to figure out how to handle writes to these MSRs. (Note
-that the leaf 6 guest CPUID checks will evaluate to false for now, as
-recalculate_misc() zaps the entire leaf.)
+The Documentation/DMA-API-HOWTO.txt states that dma_map_sg returns the
+numer of the created entries in the DMA address space. However the
+subsequent calls to dma_sync_sg_for_{device,cpu} and dma_unmap_sg must be
+called with the original number of the entries passed to dma_map_sg. The
+sg_table->nents in turn holds the result of the dma_map_sg call as stated
+in include/linux/scatterlist.h. A common mistake was to ignore a result
+of the dma_map_sg function and don't use the sg_table->orig_nents at all.
 
-For TSC the intercepts are made mirror the RDTSC ones.
+To avoid such issues, lets use common dma-mapping wrappers operating
+directly on the struct sg_table objects and adjust references to the
+nents and orig_nents respectively.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 ---
-v4: Make TSC intercepts mirror RDTSC ones. Re-base.
-v3: New.
+For more information, see '[PATCH v3 00/25] DRM: fix struct sg_table nents
+vs. orig_nents misuse' thread: https://lkml.org/lkml/2020/5/5/187
+---
+ drivers/xen/gntdev-dmabuf.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -595,6 +595,7 @@ static void svm_cpuid_policy_changed(str
-     struct vmcb_struct *vmcb = svm->vmcb;
-     const struct cpuid_policy *cp = v->domain->arch.cpuid;
-     u32 bitmap = vmcb_get_exception_intercepts(vmcb);
-+    unsigned int mode;
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 75d3bb9..4b22785 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -247,8 +247,7 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
  
-     if ( opt_hvm_fep ||
-          (v->domain->arch.cpuid->x86_vendor != boot_cpu_data.x86_vendor) )
-@@ -607,6 +608,17 @@ static void svm_cpuid_policy_changed(str
-     /* Give access to MSR_PRED_CMD if the guest has been told about it. */
-     svm_intercept_msr(v, MSR_PRED_CMD,
-                       cp->extd.ibpb ? MSR_INTERCEPT_NONE : MSR_INTERCEPT_RW);
-+
-+    /* Allow direct reads from APERF/MPERF if permitted by the policy. */
-+    mode = cp->basic.raw[6].c & CPUID6_ECX_APERFMPERF_CAPABILITY
-+           ? MSR_INTERCEPT_WRITE : MSR_INTERCEPT_RW;
-+    svm_intercept_msr(v, MSR_IA32_APERF, mode);
-+    svm_intercept_msr(v, MSR_IA32_MPERF, mode);
-+
-+    /* Allow direct access to their r/o counterparts if permitted. */
-+    mode = cp->extd.efro ? MSR_INTERCEPT_NONE : MSR_INTERCEPT_RW;
-+    svm_intercept_msr(v, MSR_APERF_RD_ONLY, mode);
-+    svm_intercept_msr(v, MSR_MPERF_RD_ONLY, mode);
- }
+ 		if (sgt) {
+ 			if (gntdev_dmabuf_attach->dir != DMA_NONE)
+-				dma_unmap_sg_attrs(attach->dev, sgt->sgl,
+-						   sgt->nents,
++				dma_unmap_sgtable_attrs(attach->dev, sgt,
+ 						   gntdev_dmabuf_attach->dir,
+ 						   DMA_ATTR_SKIP_CPU_SYNC);
+ 			sg_free_table(sgt);
+@@ -288,7 +287,7 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
+ 	sgt = dmabuf_pages_to_sgt(gntdev_dmabuf->pages,
+ 				  gntdev_dmabuf->nr_pages);
+ 	if (!IS_ERR(sgt)) {
+-		if (!dma_map_sg_attrs(attach->dev, sgt->sgl, sgt->nents, dir,
++		if (dma_map_sgtable_attrs(attach->dev, sgt, dir,
+ 				      DMA_ATTR_SKIP_CPU_SYNC)) {
+ 			sg_free_table(sgt);
+ 			kfree(sgt);
+@@ -625,7 +624,7 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
  
- void svm_sync_vmcb(struct vcpu *v, enum vmcb_sync_state new_state)
-@@ -860,7 +872,10 @@ static void svm_set_rdtsc_exiting(struct
-     {
-         general1_intercepts |= GENERAL1_INTERCEPT_RDTSC;
-         general2_intercepts |= GENERAL2_INTERCEPT_RDTSCP;
-+        svm_enable_intercept_for_msr(v, MSR_IA32_TSC);
-     }
-+    else
-+        svm_intercept_msr(v, MSR_IA32_TSC, MSR_INTERCEPT_WRITE);
- 
-     vmcb_set_general1_intercepts(vmcb, general1_intercepts);
-     vmcb_set_general2_intercepts(vmcb, general2_intercepts);
---- a/xen/arch/x86/hvm/svm/vmcb.c
-+++ b/xen/arch/x86/hvm/svm/vmcb.c
-@@ -108,6 +108,7 @@ static int construct_vmcb(struct vcpu *v
-     {
-         vmcb->_general1_intercepts |= GENERAL1_INTERCEPT_RDTSC;
-         vmcb->_general2_intercepts |= GENERAL2_INTERCEPT_RDTSCP;
-+        svm_intercept_msr(v, MSR_IA32_TSC, MSR_INTERCEPT_WRITE);
-     }
- 
-     /* Guest segment limits. */
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -1141,8 +1141,13 @@ static int construct_vmcs(struct vcpu *v
-         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_CS, VMX_MSR_RW);
-         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_ESP, VMX_MSR_RW);
-         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_EIP, VMX_MSR_RW);
-+
-+        if ( !(v->arch.hvm.vmx.exec_control & CPU_BASED_RDTSC_EXITING) )
-+            vmx_clear_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
-+
-         if ( paging_mode_hap(d) && (!is_iommu_enabled(d) || iommu_snoop) )
-             vmx_clear_msr_intercept(v, MSR_IA32_CR_PAT, VMX_MSR_RW);
-+
-         if ( (vmexit_ctl & VM_EXIT_CLEAR_BNDCFGS) &&
-              (vmentry_ctl & VM_ENTRY_LOAD_BNDCFGS) )
-             vmx_clear_msr_intercept(v, MSR_IA32_BNDCFGS, VMX_MSR_RW);
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -589,6 +589,18 @@ static void vmx_cpuid_policy_changed(str
-         vmx_clear_msr_intercept(v, MSR_FLUSH_CMD, VMX_MSR_RW);
-     else
-         vmx_set_msr_intercept(v, MSR_FLUSH_CMD, VMX_MSR_RW);
-+
-+    /* Allow direct reads from APERF/MPERF if permitted by the policy. */
-+    if ( cp->basic.raw[6].c & CPUID6_ECX_APERFMPERF_CAPABILITY )
-+    {
-+        vmx_clear_msr_intercept(v, MSR_IA32_APERF, VMX_MSR_R);
-+        vmx_clear_msr_intercept(v, MSR_IA32_MPERF, VMX_MSR_R);
-+    }
-+    else
-+    {
-+        vmx_set_msr_intercept(v, MSR_IA32_APERF, VMX_MSR_R);
-+        vmx_set_msr_intercept(v, MSR_IA32_MPERF, VMX_MSR_R);
-+    }
- }
- 
- int vmx_guest_x86_mode(struct vcpu *v)
-@@ -1254,7 +1266,12 @@ static void vmx_set_rdtsc_exiting(struct
-     vmx_vmcs_enter(v);
-     v->arch.hvm.vmx.exec_control &= ~CPU_BASED_RDTSC_EXITING;
-     if ( enable )
-+    {
-         v->arch.hvm.vmx.exec_control |= CPU_BASED_RDTSC_EXITING;
-+        vmx_set_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
-+    }
-+    else
-+        vmx_clear_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
-     vmx_update_cpu_exec_control(v);
-     vmx_vmcs_exit(v);
- }
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -245,7 +245,7 @@ XEN_CPUFEATURE(ENQCMD,        6*32+29) /
- 
- /* AMD-defined CPU features, CPUID level 0x80000007.edx, word 7 */
- XEN_CPUFEATURE(ITSC,          7*32+ 8) /*   Invariant TSC */
--XEN_CPUFEATURE(EFRO,          7*32+10) /*   APERF/MPERF Read Only interface */
-+XEN_CPUFEATURE(EFRO,          7*32+10) /*S  APERF/MPERF Read Only interface */
- 
- /* AMD-defined CPU features, CPUID level 0x80000008.ebx, word 8 */
- XEN_CPUFEATURE(CLZERO,        8*32+ 0) /*A  CLZERO instruction */
+ 	/* Now convert sgt to array of pages and check for page validity. */
+ 	i = 0;
+-	for_each_sg_page(sgt->sgl, &sg_iter, sgt->nents, 0) {
++	for_each_sg_page(sgt->sgl, &sg_iter, sgt->orig_nents, 0) {
+ 		struct page *page = sg_page_iter_page(&sg_iter);
+ 		/*
+ 		 * Check if page is valid: this can happen if we are given
+-- 
+1.9.1
 
 
