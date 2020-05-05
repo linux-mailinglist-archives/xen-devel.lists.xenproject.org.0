@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74AFA1C501D
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 10:19:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0771C501E
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 10:19:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVsnH-0004uy-9U; Tue, 05 May 2020 08:19:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jVsnb-0004z3-JG; Tue, 05 May 2020 08:19:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5wz9=6T=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jVsnF-0004um-Lc
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 08:19:09 +0000
-X-Inumbo-ID: 17b1e99c-8ea9-11ea-9d93-12813bfff9fa
+ id 1jVsna-0004ym-5p
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 08:19:30 +0000
+X-Inumbo-ID: 23b5f4fe-8ea9-11ea-b07b-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 17b1e99c-8ea9-11ea-9d93-12813bfff9fa;
- Tue, 05 May 2020 08:19:09 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 23b5f4fe-8ea9-11ea-b07b-bc764e2007e4;
+ Tue, 05 May 2020 08:19:29 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 773EFAFF0;
- Tue,  5 May 2020 08:19:10 +0000 (UTC)
-Subject: Re: [PATCH v8 09/12] x86/HVM: scale MPERF values reported to guests
- (on AMD)
+ by mx2.suse.de (Postfix) with ESMTP id 9AC9EAFF5;
+ Tue,  5 May 2020 08:19:30 +0000 (UTC)
+Subject: [PATCH v8 11/12] x86emul: support RDPRU
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
- <c14edd2c-3cd8-c9b4-0cc0-7cbf2c672127@suse.com>
-Message-ID: <d4ae14f1-52c2-1dfb-439b-d0b09b36282a@suse.com>
-Date: Tue, 5 May 2020 10:19:06 +0200
+Message-ID: <9cd2134c-b5fa-bcda-0ace-da138ff03a1d@suse.com>
+Date: Tue, 5 May 2020 10:19:26 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <c14edd2c-3cd8-c9b4-0cc0-7cbf2c672127@suse.com>
+In-Reply-To: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -53,21 +50,257 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05.05.2020 10:17, Jan Beulich wrote:
-> AMD's PM specifies that MPERF (and its r/o counterpart) reads are
-> affected by the TSC ratio. Hence when processing such reads in software
-> we too should scale the values. While we don't currently (yet) expose
-> the underlying feature flags, besides us allowing the MSRs to be read
-> nevertheless, RDPRU is going to expose the values even to user space.
-> 
-> Furthermore, due to the not exposed feature flags, this change has the
-> effect of making properly inaccessible (for reads) the two MSRs.
-> 
-> Note that writes to MPERF (and APERF) continue to be unsupported.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+While the PM doesn't say so, this assumes that the MPERF value read this
+way gets scaled similarly to its reading through RDMSR.
 
-Sorry, just re-sent this one with correct numbering.
+Also introduce the SVM related constants at this occasion.
 
-Jan
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v6: Re-base.
+v5: The CPUID field used is just 8 bits wide.
+v4: Add GENERAL2_INTERCEPT_RDPRU and VMEXIT_RDPRU enumerators. Fold
+    handling of out of bounds indexes into switch(). Avoid
+    recalculate_misc() clobbering what recalculate_cpu_policy() has
+    done. Re-base.
+v3: New.
+---
+RFC: Andrew promised to take care of the CPUID side of this; re-base
+     over his work once available.
+
+--- a/tools/libxl/libxl_cpuid.c
++++ b/tools/libxl/libxl_cpuid.c
+@@ -264,6 +264,7 @@ int libxl_cpuid_parse_config(libxl_cpuid
+ 
+         {"clzero",       0x80000008, NA, CPUID_REG_EBX,  0,  1},
+         {"rstr-fp-err-ptrs", 0x80000008, NA, CPUID_REG_EBX, 2, 1},
++        {"rdpru",        0x80000008, NA, CPUID_REG_EBX,  4,  1},
+         {"wbnoinvd",     0x80000008, NA, CPUID_REG_EBX,  9,  1},
+         {"ibpb",         0x80000008, NA, CPUID_REG_EBX, 12,  1},
+         {"ppin",         0x80000008, NA, CPUID_REG_EBX, 23,  1},
+--- a/tools/misc/xen-cpuid.c
++++ b/tools/misc/xen-cpuid.c
+@@ -148,6 +148,8 @@ static const char *const str_e8b[32] =
+     [ 0] = "clzero",
+     [ 2] = "rstr-fp-err-ptrs",
+ 
++    [ 4] = "rdpru",
++
+     /* [ 8] */            [ 9] = "wbnoinvd",
+ 
+     [12] = "ibpb",
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -683,6 +683,13 @@ static int read_msr(
+ {
+     switch ( reg )
+     {
++    case 0x000000e8: /* APERF */
++    case 0xc00000e8: /* APERF_RD_ONLY */
++#define APERF_LO_VALUE 0xAEAEAEAE
++#define APERF_HI_VALUE 0xEAEAEAEA
++        *val = ((uint64_t)APERF_HI_VALUE << 32) | APERF_LO_VALUE;
++        return X86EMUL_OKAY;
++
+     case 0xc0000080: /* EFER */
+         *val = ctxt->addr_size > 32 ? 0x500 /* LME|LMA */ : 0;
+         return X86EMUL_OKAY;
+@@ -2421,6 +2428,30 @@ int main(int argc, char **argv)
+     else
+         printf("skipped\n");
+ 
++    printf("%-40s", "Testing rdpru...");
++    instr[0] = 0x0f; instr[1] = 0x01; instr[2] = 0xfd;
++    regs.eip = (unsigned long)&instr[0];
++    regs.ecx = 1;
++    regs.eflags = EFLAGS_ALWAYS_SET;
++    rc = x86_emulate(&ctxt, &emulops);
++    if ( (rc != X86EMUL_OKAY) ||
++         (regs.eax != APERF_LO_VALUE) || (regs.edx != APERF_HI_VALUE) ||
++         !(regs.eflags & X86_EFLAGS_CF) ||
++         (regs.eip != (unsigned long)&instr[3]) )
++        goto fail;
++    if ( ctxt.cpuid->extd.rdpru_max < 0xffff )
++    {
++        regs.eip = (unsigned long)&instr[0];
++        regs.ecx = ctxt.cpuid->extd.rdpru_max + 1;
++        regs.eflags = EFLAGS_ALWAYS_SET | X86_EFLAGS_CF;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) || regs.eax || regs.edx ||
++             (regs.eflags & X86_EFLAGS_CF) ||
++             (regs.eip != (unsigned long)&instr[3]) )
++            goto fail;
++    }
++    printf("okay\n");
++
+     printf("%-40s", "Testing fnstenv 4(%ecx)...");
+     if ( stack_exec && cpu_has_fpu )
+     {
+--- a/tools/tests/x86_emulator/x86-emulate.c
++++ b/tools/tests/x86_emulator/x86-emulate.c
+@@ -84,6 +84,8 @@ bool emul_test_init(void)
+     cp.feat.avx512pf = cp.feat.avx512f;
+     cp.feat.rdpid = true;
+     cp.extd.clzero = true;
++    cp.extd.rdpru = true;
++    cp.extd.rdpru_max = 1;
+ 
+     if ( cpu_has_xsave )
+     {
+@@ -156,11 +158,11 @@ int emul_test_cpuid(
+     }
+ 
+     /*
+-     * The emulator doesn't itself use CLZERO, so we can always run the
++     * The emulator doesn't itself use CLZERO/RDPRU, so we can always run the
+      * respective test(s).
+      */
+     if ( leaf == 0x80000008 )
+-        res->b |= 1U << 0;
++        res->b |= (1U << 0) | (1U << 4);
+ 
+     return X86EMUL_OKAY;
+ }
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -243,8 +243,6 @@ static void recalculate_misc(struct cpui
+     /* Most of Power/RAS hidden from guests. */
+     p->extd.raw[0x7].a = p->extd.raw[0x7].b = p->extd.raw[0x7].c = 0;
+ 
+-    p->extd.raw[0x8].d = 0;
+-
+     switch ( p->x86_vendor )
+     {
+     case X86_VENDOR_INTEL:
+@@ -263,6 +261,7 @@ static void recalculate_misc(struct cpui
+ 
+         p->extd.raw[0x8].a &= 0x0000ffff;
+         p->extd.raw[0x8].c = 0;
++        p->extd.raw[0x8].d = 0;
+         break;
+ 
+     case X86_VENDOR_AMD:
+@@ -281,6 +280,7 @@ static void recalculate_misc(struct cpui
+ 
+         p->extd.raw[0x8].a &= 0x0000ffff; /* GuestMaxPhysAddr hidden. */
+         p->extd.raw[0x8].c &= 0x0003f0ff;
++        p->extd.raw[0x8].d &= 0xffff0000;
+ 
+         p->extd.raw[0x9] = EMPTY_LEAF;
+ 
+@@ -643,6 +643,11 @@ void recalculate_cpuid_policy(struct dom
+ 
+     p->extd.maxlinaddr = p->extd.lm ? 48 : 32;
+ 
++    if ( p->extd.rdpru )
++        p->extd.rdpru_max = min(p->extd.rdpru_max, max->extd.rdpru_max);
++    else
++        p->extd.rdpru_max = 0;
++
+     recalculate_xstate(p);
+     recalculate_misc(p);
+ 
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -1967,6 +1967,7 @@ amd_like(const struct x86_emulate_ctxt *
+ #define vcpu_has_fma4()        (ctxt->cpuid->extd.fma4)
+ #define vcpu_has_tbm()         (ctxt->cpuid->extd.tbm)
+ #define vcpu_has_clzero()      (ctxt->cpuid->extd.clzero)
++#define vcpu_has_rdpru()       (ctxt->cpuid->extd.rdpru)
+ #define vcpu_has_wbnoinvd()    (ctxt->cpuid->extd.wbnoinvd)
+ 
+ #define vcpu_has_bmi1()        (ctxt->cpuid->feat.bmi1)
+@@ -5855,6 +5856,50 @@ x86_emulate(
+                 limit -= sizeof(zero);
+             }
+             break;
++
++        case 0xfd: /* rdpru */
++            vcpu_must_have(rdpru);
++
++            if ( !mode_ring0() )
++            {
++                fail_if(!ops->read_cr);
++                if ( (rc = ops->read_cr(4, &cr4, ctxt)) != X86EMUL_OKAY )
++                    goto done;
++                generate_exception_if(cr4 & X86_CR4_TSD, EXC_UD);
++            }
++
++            switch ( _regs.ecx | -(_regs.ecx > ctxt->cpuid->extd.rdpru_max) )
++            {
++            case 0:  n = MSR_IA32_MPERF; break;
++            case 1:  n = MSR_IA32_APERF; break;
++            default: n = 0; break;
++            }
++
++            _regs.eflags &= ~EFLAGS_MASK;
++            if ( n )
++            {
++                fail_if(!ops->read_msr);
++                switch ( rc = ops->read_msr(n, &msr_val, ctxt) )
++                {
++                case X86EMUL_OKAY:
++                    _regs.eflags |= X86_EFLAGS_CF;
++                    break;
++
++                case X86EMUL_EXCEPTION:
++                    x86_emul_reset_event(ctxt);
++                    rc = X86EMUL_OKAY;
++                    break;
++
++                default:
++                    goto done;
++                }
++            }
++
++            if ( !(_regs.eflags & X86_EFLAGS_CF) )
++                msr_val = 0;
++            _regs.r(dx) = msr_val >> 32;
++            _regs.r(ax) = (uint32_t)msr_val;
++            break;
+         }
+ 
+ #define _GRP7(mod, reg) \
+--- a/xen/include/asm-x86/hvm/svm/vmcb.h
++++ b/xen/include/asm-x86/hvm/svm/vmcb.h
+@@ -74,7 +74,8 @@ enum GenericIntercept2bits
+     GENERAL2_INTERCEPT_MONITOR = 1 << 10,
+     GENERAL2_INTERCEPT_MWAIT   = 1 << 11,
+     GENERAL2_INTERCEPT_MWAIT_CONDITIONAL = 1 << 12,
+-    GENERAL2_INTERCEPT_XSETBV  = 1 << 13
++    GENERAL2_INTERCEPT_XSETBV  = 1 << 13,
++    GENERAL2_INTERCEPT_RDPRU   = 1 << 14,
+ };
+ 
+ 
+@@ -298,6 +299,7 @@ enum VMEXIT_EXITCODE
+     VMEXIT_MWAIT            = 139, /* 0x8b */
+     VMEXIT_MWAIT_CONDITIONAL= 140, /* 0x8c */
+     VMEXIT_XSETBV           = 141, /* 0x8d */
++    VMEXIT_RDPRU            = 142, /* 0x8e */
+     VMEXIT_NPF              = 1024, /* 0x400, nested paging fault */
+     VMEXIT_INVALID          =  -1
+ };
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -250,6 +250,7 @@ XEN_CPUFEATURE(EFRO,          7*32+10) /
+ /* AMD-defined CPU features, CPUID level 0x80000008.ebx, word 8 */
+ XEN_CPUFEATURE(CLZERO,        8*32+ 0) /*A  CLZERO instruction */
+ XEN_CPUFEATURE(RSTR_FP_ERR_PTRS, 8*32+ 2) /*A  (F)X{SAVE,RSTOR} always saves/restores FPU Error pointers */
++XEN_CPUFEATURE(RDPRU,         8*32+ 4) /*A  RDPRU instruction */
+ XEN_CPUFEATURE(WBNOINVD,      8*32+ 9) /*   WBNOINVD instruction */
+ XEN_CPUFEATURE(IBPB,          8*32+12) /*A  IBPB support only (no IBRS, used by AMD) */
+ XEN_CPUFEATURE(AMD_PPIN,      8*32+23) /*   Protected Processor Inventory Number */
+--- a/xen/include/xen/lib/x86/cpuid.h
++++ b/xen/include/xen/lib/x86/cpuid.h
+@@ -263,7 +263,7 @@ struct cpuid_policy
+                 struct { DECL_BITFIELD(e8b); };
+             };
+             uint32_t nc:8, :4, apic_id_size:4, :16;
+-            uint32_t /* d */:32;
++            uint8_t :8, :8, rdpru_max, :8;
+         };
+     } extd;
+ 
+
 
