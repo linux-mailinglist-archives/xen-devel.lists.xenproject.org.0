@@ -2,68 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B12B11C638D
-	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 00:00:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECB8F1C639E
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 00:04:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jW5aJ-0001Mg-Kb; Tue, 05 May 2020 21:58:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jW5fa-0002CR-8E; Tue, 05 May 2020 22:04:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NSdO=6T=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
- id 1jW5aH-0001Mb-Fs
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 21:58:37 +0000
-X-Inumbo-ID: 920d9908-8f1b-11ea-b9cf-bc764e2007e4
-Received: from mail-qk1-x741.google.com (unknown [2607:f8b0:4864:20::741])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 920d9908-8f1b-11ea-b9cf-bc764e2007e4;
- Tue, 05 May 2020 21:58:36 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id b188so44782qkd.9
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2020 14:58:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=UA/FDN/AZmzTyESLz4DzMK+ojUvHNwC6JyTvHuyLC6I=;
- b=D+MigUZpu4+NbAqaht/10YOmvc1yZGsK8eQvPAMo/HPfTRFq5dpRBOtv3D6YxNSv+J
- tH3PrbMQnc57orn0DQGERvRprLeJVXlExc172W5pvr86HLms/2bwaeoLh+bNJDyn4PWl
- BXv/ZlNVbUfTF6cG4qY3Q+CKqtv9+Ak5S5cE03YqZjBReH/ZHny7HbJMShIwrGnZfuo8
- fChO7iL7K59s8BQFC3o8wZTZv5hLf2GJXVvNx0gmSisFCBAPNAivpcx4ylKeQNTsDBOt
- vc5yZBFHrAqwv0Gkq9Ikg/9ENs99S6cWZHmhPEIFfpb74nfo5k1pgUM0clxIvFPeCP7F
- gPiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=UA/FDN/AZmzTyESLz4DzMK+ojUvHNwC6JyTvHuyLC6I=;
- b=EX7Wqi65Rc/rpzkaq8S7IpADw718l+my/V1tz/8aGJQwVLK2GKgDp+kLRueECAOShn
- oB6ZagDg+8ezTNysvm+20wHNZSy9cEevCWnFi72odu2bfe7VWDrkLJ42WB2qGhVh3luO
- CHujnXRIsoyHhRploVqOK9v49zUjN1WO8gwNskJzG0lspZKoZ5yTGF6EDh0kEskCvlZd
- 0qTNdlrZ2z4aQy7xtP8X/2GfnUfWFIkV3IceQ9rMyEl91jAYj0pSC0zIR+Z0ZtDxdR+e
- kDksfo9H8CwyOSexkN9Uz3eUwfluREnLFLb7l/MfOcWwsKZN8/tLJKXc97/vIDxt9Nei
- PjqA==
-X-Gm-Message-State: AGi0PuZn10ZvytqSB4v3eiUo2pqOnuDJceCoaRwPUJoQ3y/3n1DfBRYl
- wZPxE5STtoUDdx7I61pU0Ag=
-X-Google-Smtp-Source: APiQypJahDcebQMtoyWAHu+3eWyNvl+B3/0PMtj32ASJuoh0Qnr+LHHIwIj5m0QAwzxGGdj5jUFBmg==
-X-Received: by 2002:a05:620a:7e8:: with SMTP id
- k8mr5818499qkk.183.1588715916144; 
- Tue, 05 May 2020 14:58:36 -0700 (PDT)
-Received: from piano ([216.186.244.35])
- by smtp.gmail.com with ESMTPSA id d26sm145362qkk.69.2020.05.05.14.58.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2020 14:58:35 -0700 (PDT)
-Date: Tue, 5 May 2020 16:58:33 -0500
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Subject: Re: [RFC] UEFI Secure Boot on Xen Hosts
-Message-ID: <20200505215833.GB301373@piano>
-References: <20200429225108.GA54201@bobbye-pc>
- <ebdd7b4a-767b-1b72-a344-78b190f42ceb@suse.com>
- <20200430111501.336wte64pwsfptze@tomti.i.net-space.pl>
- <CAMj1kXF1vRtqbGS-eptB682h1xJ8LYQi74YaTZgM1nyYcpFsYA@mail.gmail.com>
+ <SRS0=FNY7=6T=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jW5fZ-0002CM-5I
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 22:04:05 +0000
+X-Inumbo-ID: 54328e6c-8f1c-11ea-9e00-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 54328e6c-8f1c-11ea-9e00-12813bfff9fa;
+ Tue, 05 May 2020 22:04:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=AA3aCfrNfdynb4LdrfCkVNc6OiJdtm0TYvFNv/rsb3s=; b=SnMhGGcnGDdZOCSiZyVJQ++2m
+ 3g1J/FxsoMVnOn663UubbjP4nbgF6cKZetgC5D98jipNGUbgdoAp3MdRDB0vPyHQazpCbDJ4Yt/1P
+ PQvqru4AllPv6Q+A9SNrUGHUh2O9ghss5b9ZO7Yphx/J02c6ah0zAW6BiNiwnrYP8ayXA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jW5fW-0005D8-5M; Tue, 05 May 2020 22:04:02 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jW5fV-0003Ji-U1; Tue, 05 May 2020 22:04:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jW5fV-0003mu-TE; Tue, 05 May 2020 22:04:01 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150049-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMj1kXF1vRtqbGS-eptB682h1xJ8LYQi74YaTZgM1nyYcpFsYA@mail.gmail.com>
+Subject: [xen-unstable-smoke test] 150049: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=779efdbb502b38c66b774b124fa0ceed254875bd
+X-Osstest-Versions-That: xen=2e3d87cc734a895ef5b486926274a178836b67a9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 05 May 2020 22:04:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,60 +66,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: michal.zygowski@3mdeb.com, Daniel Kiper <daniel.kiper@oracle.com>,
- krystian.hebel@3mdeb.com, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org, olivier.lambert@vates.fr, piotr.krol@3mdeb.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Apr 30, 2020 at 01:41:12PM +0200, Ard Biesheuvel wrote:
-> On Thu, 30 Apr 2020 at 13:15, Daniel Kiper <daniel.kiper@oracle.com> wrote:
-> > Anyway, the advantage of this new protocol is that it uses UEFI API to
-> > load and execute PE kernel and its modules. This means that it will be
-> > architecture independent. However, IIRC, if we want to add new modules
-> > types to the Xen then we have to teach all bootloaders in the wild about
-> > new GUIDs. Ard, am I correct?
-> >
-> 
-> Well, if you are passing multiple files that are not interchangeable,
-> each bootloader will need to do something, right? It could be another
-> GUID, or we could extend the initrd media device path to take
-> discriminators.
-> 
-> So today, we have
-> 
-> VendorMedia(5568e427-68fc-4f3d-ac74-ca555231cc68)
-> 
-> which identifies /the/ initrd on Linux. As long as this keeps working
-> as intended, I have no objections extending this to
-> 
-> VendorMedia(5568e427-68fc-4f3d-ac74-ca555231cc68)/File(...)
-> 
-> etc, if we can agree that omitting the File() part means the unnamed
-> initrd, and that L"initrd" is reserved as a file name. That way, you
-> can choose any abstract file name you want, but please note that the
-> loader still needs to provide some kind of mapping of how these
-> abstract file names relate to actual files selected by the user.
+flight 150049 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150049/
 
-This seems reasonable to me and I can't think of any good reason right
-now, if we go down this path, to not just extend the initrd media device
-path (as opposed to creating one that is Xen-specific).  It definitely
-beats having a GUID per boot module since the number of modules changes
-per Xen deployment, so there would need to be some range of GUIDs
-representing modules specifically for Xen, and some rules as to how they
-are mapped to real files.
+Failures :-/ but no regressions.
 
-It does seem simpler to ask the loader for "dom0's kernel" or "dom1's
-initrd" and to have the loader use these references to grab real files.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-> One thing to keep in mind, though, is that this protocol goes away
-> after ExitBootServices().
-> 
+version targeted for testing:
+ xen                  779efdbb502b38c66b774b124fa0ceed254875bd
+baseline version:
+ xen                  2e3d87cc734a895ef5b486926274a178836b67a9
 
-Roger that.
+Last test of basis   150037  2020-05-05 16:00:51 Z    0 days
+Testing same since   150049  2020-05-05 20:00:32 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Ashok Raj <ashok.raj@intel.com>
+  Borislav Petkov <bp@suse.de>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Thomas Gleixner <tglx@linutronix.de>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-Thanks,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--Bobby
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   2e3d87cc73..779efdbb50  779efdbb502b38c66b774b124fa0ceed254875bd -> smoke
 
