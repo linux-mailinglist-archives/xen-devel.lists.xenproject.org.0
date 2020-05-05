@@ -2,65 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 461A31C6283
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 22:58:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B12B11C638D
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 00:00:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jW4dF-0004ry-1o; Tue, 05 May 2020 20:57:37 +0000
+	id 1jW5aJ-0001Mg-Kb; Tue, 05 May 2020 21:58:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MjzU=6T=arndb.de=arnd@srs-us1.protection.inumbo.net>)
- id 1jW4dD-0004rt-DS
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 20:57:35 +0000
-X-Inumbo-ID: 0a95c2be-8f13-11ea-ae69-bc764e2007e4
-Received: from mout.kundenserver.de (unknown [212.227.17.13])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NSdO=6T=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
+ id 1jW5aH-0001Mb-Fs
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 21:58:37 +0000
+X-Inumbo-ID: 920d9908-8f1b-11ea-b9cf-bc764e2007e4
+Received: from mail-qk1-x741.google.com (unknown [2607:f8b0:4864:20::741])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0a95c2be-8f13-11ea-ae69-bc764e2007e4;
- Tue, 05 May 2020 20:57:34 +0000 (UTC)
-Received: from mail-qv1-f41.google.com ([209.85.219.41]) by
- mrelayeu.kundenserver.de (mreue107 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1N49Qd-1j5ECr2dDl-0107Nk for <xen-devel@lists.xenproject.org>; Tue, 05 May
- 2020 22:57:32 +0200
-Received: by mail-qv1-f41.google.com with SMTP id y19so1784160qvv.4
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2020 13:57:32 -0700 (PDT)
-X-Gm-Message-State: AGi0PuY8zWWwp807FEScVvJ8Zm1FJbWCnA5VF4tFUVJLKqRheNkX9n9B
- NSfByNeCpI7+T/wZr88IIHvYnlNGuLdNwhK33GQ=
-X-Google-Smtp-Source: APiQypJrgFYMvWYQxR3/H4be6yfzqH6LIElWNTCfGS8MCkKF2CDVLP6zcvtTKAL/xjFld7TVJiEQt5NIfuQ2sfTN1L0=
-X-Received: by 2002:ad4:4a8b:: with SMTP id h11mr4439312qvx.210.1588712251082; 
- Tue, 05 May 2020 13:57:31 -0700 (PDT)
+ id 920d9908-8f1b-11ea-b9cf-bc764e2007e4;
+ Tue, 05 May 2020 21:58:36 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id b188so44782qkd.9
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2020 14:58:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=UA/FDN/AZmzTyESLz4DzMK+ojUvHNwC6JyTvHuyLC6I=;
+ b=D+MigUZpu4+NbAqaht/10YOmvc1yZGsK8eQvPAMo/HPfTRFq5dpRBOtv3D6YxNSv+J
+ tH3PrbMQnc57orn0DQGERvRprLeJVXlExc172W5pvr86HLms/2bwaeoLh+bNJDyn4PWl
+ BXv/ZlNVbUfTF6cG4qY3Q+CKqtv9+Ak5S5cE03YqZjBReH/ZHny7HbJMShIwrGnZfuo8
+ fChO7iL7K59s8BQFC3o8wZTZv5hLf2GJXVvNx0gmSisFCBAPNAivpcx4ylKeQNTsDBOt
+ vc5yZBFHrAqwv0Gkq9Ikg/9ENs99S6cWZHmhPEIFfpb74nfo5k1pgUM0clxIvFPeCP7F
+ gPiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=UA/FDN/AZmzTyESLz4DzMK+ojUvHNwC6JyTvHuyLC6I=;
+ b=EX7Wqi65Rc/rpzkaq8S7IpADw718l+my/V1tz/8aGJQwVLK2GKgDp+kLRueECAOShn
+ oB6ZagDg+8ezTNysvm+20wHNZSy9cEevCWnFi72odu2bfe7VWDrkLJ42WB2qGhVh3luO
+ CHujnXRIsoyHhRploVqOK9v49zUjN1WO8gwNskJzG0lspZKoZ5yTGF6EDh0kEskCvlZd
+ 0qTNdlrZ2z4aQy7xtP8X/2GfnUfWFIkV3IceQ9rMyEl91jAYj0pSC0zIR+Z0ZtDxdR+e
+ kDksfo9H8CwyOSexkN9Uz3eUwfluREnLFLb7l/MfOcWwsKZN8/tLJKXc97/vIDxt9Nei
+ PjqA==
+X-Gm-Message-State: AGi0PuZn10ZvytqSB4v3eiUo2pqOnuDJceCoaRwPUJoQ3y/3n1DfBRYl
+ wZPxE5STtoUDdx7I61pU0Ag=
+X-Google-Smtp-Source: APiQypJahDcebQMtoyWAHu+3eWyNvl+B3/0PMtj32ASJuoh0Qnr+LHHIwIj5m0QAwzxGGdj5jUFBmg==
+X-Received: by 2002:a05:620a:7e8:: with SMTP id
+ k8mr5818499qkk.183.1588715916144; 
+ Tue, 05 May 2020 14:58:36 -0700 (PDT)
+Received: from piano ([216.186.244.35])
+ by smtp.gmail.com with ESMTPSA id d26sm145362qkk.69.2020.05.05.14.58.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 May 2020 14:58:35 -0700 (PDT)
+Date: Tue, 5 May 2020 16:58:33 -0500
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [RFC] UEFI Secure Boot on Xen Hosts
+Message-ID: <20200505215833.GB301373@piano>
+References: <20200429225108.GA54201@bobbye-pc>
+ <ebdd7b4a-767b-1b72-a344-78b190f42ceb@suse.com>
+ <20200430111501.336wte64pwsfptze@tomti.i.net-space.pl>
+ <CAMj1kXF1vRtqbGS-eptB682h1xJ8LYQi74YaTZgM1nyYcpFsYA@mail.gmail.com>
 MIME-Version: 1.0
-References: <20200505141546.824573-1-arnd@arndb.de>
- <30d49e6d-570b-f6fd-3a6f-628abcc8b127@suse.com>
- <CAK8P3a0mWH=Zcq180+cTRMpqOkGt05xDP1+kCTP6yc9grAg2VQ@mail.gmail.com>
- <48893239-dde9-4e94-040d-859f4348816d@suse.com>
-In-Reply-To: <48893239-dde9-4e94-040d-859f4348816d@suse.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 5 May 2020 22:57:15 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2_7+_a_cwDK1cwfrJX4azQJhd_Y0xB18cCUn6=p7fVsg@mail.gmail.com>
-Message-ID: <CAK8P3a2_7+_a_cwDK1cwfrJX4azQJhd_Y0xB18cCUn6=p7fVsg@mail.gmail.com>
-Subject: Re: [PATCH] xenbus: avoid stack overflow warning
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:eSPut2LR8tLz9Gzz4klRf8e6S9M70N85/jjDmGdciw76UpH+DKg
- Br6YHWXJF1V9PdpF7cCOCME8zBq3T+F4THcpTx9HGFNvgavsbUFoi/bcAEAPf84zpq8/Bqd
- a4srMQ4BndtOstdNzP4Pwo5sy4pPTUBmJ0WqflcoNn+IQvGjfWx7liVUA1wFSTAtdmSgzY+
- akwufJWkjOPvm1jBzbAnA==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:WxzfDs83W4I=:vtkzVRGM2JCTD4CZbpLuqZ
- MEYBZS4ZM8eTEeSrw2k32hXmS3rosOYTAO+AwW5XoIDEYo6pfSsdY81uVMiZStVyxBfM4YXSE
- jf6aYfCyWE2NK8S8SM/radEhX+nraQvwmTCJL901WhDWdD3JGkHbiKtWcQBEHcKuKjFLV3Ms0
- U1QTD8uZ3Uy3ohslLg4SA3Z5dt2nfy2UHFVeVLj7FKQz2txWyWwGiLiYugvXePZcuhNmVx3DN
- goej5W9nfSxtFqyrv9zQGS1Bp2dN8HIidNGf+AhwoI/W3DiiUDdJGxcWPuY/AlcvvldCG5pcW
- lzyhCMjooz9t9h4CMzSsbEyfN5XikLQPoATrItKHcVX5RQqXhYGsoDaC1qQMXsXMmun9EYkQH
- eyu3Q4aZOTZeR0KSnMqmCUQ6G1HWQz25g0lsaBPo4VFa8cluVYomC9ujsVQM+VByiOhQdkc6W
- vGcJu0/SgVrcQLPwY6m6A2UnJxza5kIZCTc39cXviKk8fi2u85ZyG47xXhOmEhzk8niF8vdXM
- g78FLyrpN5zZSpxCm899i9/KbKchHQhqV6P/QND7k4PwvwpkKHhQ4hPo72xj+fc5vgIFpBVm/
- gRq6Fasdg4CC9216JHrFC9CIewSEsvg7eAmGAxrmri1PAESDcByaI/0tWBok0Wk45HixECbVs
- xlO1y82meQcZN/PV33kgg/Ybnlvl1sGPsV/DPKhe5ddVH1QVq/RFbf08A96fjER61QmM53uTy
- OUEni7QZj8c2Z7H4SnXDVkZFbKbV+ZjsOnNQSFNdKvTWR0iGlexJgL8EpnQtxhSpVoti2fEJp
- HRfztUO0zNRtYxUe8WkxWy1WighfLMakJ1Nb1Ur5F1fZMSkhzc=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXF1vRtqbGS-eptB682h1xJ8LYQi74YaTZgM1nyYcpFsYA@mail.gmail.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,39 +74,60 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Yan Yankovskyi <yyankovskyi@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: michal.zygowski@3mdeb.com, Daniel Kiper <daniel.kiper@oracle.com>,
+ krystian.hebel@3mdeb.com, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, olivier.lambert@vates.fr, piotr.krol@3mdeb.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 5, 2020 at 6:02 PM J=C3=BCrgen Gro=C3=9F <jgross@suse.com> wrot=
-e:
-> On 05.05.20 17:01, Arnd Bergmann wrote:
-> > On Tue, May 5, 2020 at 4:34 PM J=C3=BCrgen Gro=C3=9F <jgross@suse.com> =
-wrote:
-> >> On 05.05.20 16:15, Arnd Bergmann wrote:
+On Thu, Apr 30, 2020 at 01:41:12PM +0200, Ard Biesheuvel wrote:
+> On Thu, 30 Apr 2020 at 13:15, Daniel Kiper <daniel.kiper@oracle.com> wrote:
+> > Anyway, the advantage of this new protocol is that it uses UEFI API to
+> > load and execute PE kernel and its modules. This means that it will be
+> > architecture independent. However, IIRC, if we want to add new modules
+> > types to the Xen then we have to teach all bootloaders in the wild about
+> > new GUIDs. Ard, am I correct?
 > >
-> > I considered that as well, and don't really mind either way. I think it=
- does
-> > get a bit ugly whatever we do. If you prefer the union, I can respin th=
-e
-> > patch that way.
->
-> Hmm, thinking more about it I think the real clean solution would be to
-> extend struct map_ring_valloc_hvm to cover the pv case, too, to add the
-> map and unmap arrays (possibly as a union) to it and to allocate it
-> dynamically instead of having it on the stack.
->
-> Would you be fine doing this?
+> 
+> Well, if you are passing multiple files that are not interchangeable,
+> each bootloader will need to do something, right? It could be another
+> GUID, or we could extend the initrd media device path to take
+> discriminators.
+> 
+> So today, we have
+> 
+> VendorMedia(5568e427-68fc-4f3d-ac74-ca555231cc68)
+> 
+> which identifies /the/ initrd on Linux. As long as this keeps working
+> as intended, I have no objections extending this to
+> 
+> VendorMedia(5568e427-68fc-4f3d-ac74-ca555231cc68)/File(...)
+> 
+> etc, if we can agree that omitting the File() part means the unnamed
+> initrd, and that L"initrd" is reserved as a file name. That way, you
+> can choose any abstract file name you want, but please note that the
+> loader still needs to provide some kind of mapping of how these
+> abstract file names relate to actual files selected by the user.
 
-This is a little more complex than I'd want to do without doing any testing
-(and no, I don't want to do the testing either) ;-)
+This seems reasonable to me and I can't think of any good reason right
+now, if we go down this path, to not just extend the initrd media device
+path (as opposed to creating one that is Xen-specific).  It definitely
+beats having a GUID per boot module since the number of modules changes
+per Xen deployment, so there would need to be some range of GUIDs
+representing modules specifically for Xen, and some rules as to how they
+are mapped to real files.
 
-It does sound like a better approach though.
+It does seem simpler to ask the loader for "dom0's kernel" or "dom1's
+initrd" and to have the loader use these references to grab real files.
 
-      Arnd
+> One thing to keep in mind, though, is that this protocol goes away
+> after ExitBootServices().
+> 
+
+Roger that.
+
+
+Thanks,
+
+-Bobby
 
