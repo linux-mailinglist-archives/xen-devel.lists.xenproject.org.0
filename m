@@ -2,74 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C902E1C58F4
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 16:21:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2E5A1C5987
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 16:29:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVyRE-0002zh-BD; Tue, 05 May 2020 14:20:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jVyYo-0003Q8-NG; Tue, 05 May 2020 14:28:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=56xU=6T=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jVyRD-0002zZ-2t
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 14:20:47 +0000
-X-Inumbo-ID: 9c51549e-8edb-11ea-9887-bc764e2007e4
-Received: from mail-ed1-x52a.google.com (unknown [2a00:1450:4864:20::52a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9c51549e-8edb-11ea-9887-bc764e2007e4;
- Tue, 05 May 2020 14:20:46 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id r16so1926384edw.5
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2020 07:20:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=ssmMzSYbkAlQNENJ0+sfsbcrFdtSKUKyOj/WFKOO5TU=;
- b=iY6eg7bgOWB4PUYqdbPEFGOZdZ30mqmktDJR2lX6xz13oFnTBgKzuGqTzfCkTIP7T1
- 2NYkeFEq928l9lBdT9Fe9rNQV2djGM2PYjezT8E9/RyRPq5ymXrUHpHEPxSvPzzPq4RC
- LmSfs5KRz7jCgbu913uNiZ7s8oGQW3TVkLbjbMDrwyc5//8mkbwgvvWVHZnbZiD5HyX6
- 3997SX8BkGA/upCHO/l9uwFDpxSIlEzDPP7cky4HOwZdkhlVHhLaW2TxM+6/KuPXfyHe
- wfQKVrsHpQOR2FONMw/P/MLQab6EP3jw7PVDu8qoyStjpnIQ59u468NYH9vypOItWGV6
- S70w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :thread-index:content-language;
- bh=ssmMzSYbkAlQNENJ0+sfsbcrFdtSKUKyOj/WFKOO5TU=;
- b=ZdEAjDYsd4PsOdNgI7onfGA1OiR3812SNzXQA0HVx9P6F9Tfq3XlFymXJ/3Z3gRTaV
- 6IwONfM+rMN5fPi297uNaghU94gij5C7cIWjt8r0R9tNBmzicjH15q0FPb/nsStN2BKi
- mswxqpHtkEdzhoSVo65qe6udqKzY9CipaQXIBe7pVcXrt/SBPnGFQfwiF+377Y+L4YCn
- cLPx4McBBgrnvBq1Pu3/unzHZveg1jtA0k3RipgzBlCEZDM062aO3eMriSSo/89G7Hp2
- nrY3/7wNyuUKmwbpL/nq025SdjGzqJ+Lici7K/WOhI4Wr/2BHch3mG1JusCOlJoQPlT0
- oBag==
-X-Gm-Message-State: AGi0PuZoDB8VQKrcF4TLKO6Yzbyj3HGIeGpKmT4w41+ZP0IiTz5DXgie
- ejhy3C8dOq7EgJKW4xfArTc=
-X-Google-Smtp-Source: APiQypLO9+FQU3b6jb1gtgRf+odkGpyNe+f10RvplGzuGo96OzQJLrYCnPnFyZjSvS3jnT0HPW985Q==
-X-Received: by 2002:a50:f381:: with SMTP id g1mr2857730edm.219.1588688445712; 
- Tue, 05 May 2020 07:20:45 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.186])
- by smtp.gmail.com with ESMTPSA id s9sm290038edy.33.2020.05.05.07.20.44
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 05 May 2020 07:20:45 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>,
-	<xen-devel@lists.xenproject.org>
-References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
- <1587789a-b0d6-6d18-99fc-a94bbea52d7b@suse.com>
-In-Reply-To: <1587789a-b0d6-6d18-99fc-a94bbea52d7b@suse.com>
-Subject: RE: [PATCH v8 06/12] x86/HVM: make hvmemul_blk() capable of handling
- r/o operations
-Date: Tue, 5 May 2020 15:20:43 +0100
-Message-ID: <004301d622e8$5d81c0f0$188542d0$@xen.org>
+ <SRS0=u3eM=6T=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jVyYn-0003Q3-Ro
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 14:28:37 +0000
+X-Inumbo-ID: b4902408-8edc-11ea-9dc1-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b4902408-8edc-11ea-9dc1-12813bfff9fa;
+ Tue, 05 May 2020 14:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588688916;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=GVfuPbUQsqeIhGJoG8naDKUltMlZiudeC+6lsAOKUQ8=;
+ b=aIzSUz/OVNWTRva1/0CdaO4GJzj5F/gjW9Ga55SqEfL8p2aarlnYjN1g
+ Wt846UO92B2QeHYPAZ8miUiML5NuIsfO+9wWwRabbk9vf4sbGHCvrCzRB
+ +1f4T2fqik/+6qXJ0C/zr1rrdmwlx/EetDVe0d4thuliJMOTmg7Vjlkhf o=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: sqBHqNaj+V6A6wrt75k4CeaLMaQ9pdNnijpRDxGzrH0H32oA9Y5ymumUO2IHjXxrGzzIA47z+d
+ xzMLRUBMY0WW8AAHNZPwWmWxmpOK5jyuo8XW34LU56i1obKDQcyfgTTdN9xN9OKo2FbCM/JEvK
+ zczJ8ARQqzSGchK4ui6t/R5xpDx6j07g7QYJ2Raz4FhS61lNlq2yvMKR5IVqw9ctuFg9Xp4Zkf
+ Vj0pf2KB2GWuxdw6OoyredLHA2P/F27mY4EuerEOrHOmVqEuEnqEHh+oPL02ew8EDFco0t3EDP
+ YjY=
+X-SBRS: 2.7
+X-MesageID: 17472687
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,355,1583211600"; d="scan'208";a="17472687"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/pv: Fix Clang build with !CONFIG_PV32
+Date: Tue, 5 May 2020 15:28:10 +0100
+Message-ID: <20200505142810.14827-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQF4q+H3Wm1UTucZ9GNJEhcAR5TDKQK9B+Q6qT6QcoA=
-Content-Language: en-gb
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,24 +88,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>, 'Wei Liu' <wl@xen.org>,
- 'Roger Pau Monne' <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 05 May 2020 09:15
-> To: xen-devel@lists.xenproject.org
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>; Roger Pau Monne
-> <roger.pau@citrix.com>; Paul Durrant <paul@xen.org>
-> Subject: [PATCH v8 06/12] x86/HVM: make hvmemul_blk() capable of handling r/o operations
-> 
-> In preparation for handling e.g. FLDENV or {F,FX,X}RSTOR here as well.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Clang 3.5 doesn't do enough dead-code-elimination to drop the compat_gdt
+reference, resulting in a linker failure:
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+  hidden symbol `per_cpu__compat_gdt' isn't defined
+
+Drop the local variable, and move evaluation of this_cpu(compat_gdt) to within
+the guarded region.
+
+Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/cpu/common.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+index 131ff03fcf..63f3893c7a 100644
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -711,8 +711,6 @@ void load_system_tables(void)
+ 	struct tss64 *tss = &this_cpu(tss_page).tss;
+ 	seg_desc_t *gdt =
+ 		this_cpu(gdt) - FIRST_RESERVED_GDT_ENTRY;
+-	seg_desc_t *compat_gdt =
+-		this_cpu(compat_gdt) - FIRST_RESERVED_GDT_ENTRY;
+ 
+ 	const struct desc_ptr gdtr = {
+ 		.base = (unsigned long)gdt,
+@@ -753,8 +751,9 @@ void load_system_tables(void)
+ 	_set_tssldt_desc(gdt + TSS_ENTRY, (unsigned long)tss,
+ 			 sizeof(*tss) - 1, SYS_DESC_tss_avail);
+ 	if ( IS_ENABLED(CONFIG_PV32) )
+-		_set_tssldt_desc(compat_gdt + TSS_ENTRY, (unsigned long)tss,
+-				 sizeof(*tss) - 1, SYS_DESC_tss_busy);
++		_set_tssldt_desc(
++			this_cpu(compat_gdt) - FIRST_RESERVED_GDT_ENTRY + TSS_ENTRY,
++			(unsigned long)tss, sizeof(*tss) - 1, SYS_DESC_tss_busy);
+ 
+ 	per_cpu(full_gdt_loaded, cpu) = false;
+ 	lgdt(&gdtr);
+-- 
+2.11.0
 
 
