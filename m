@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8627C1C5B10
-	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 17:27:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A01D1C5CE2
+	for <lists+xen-devel@lfdr.de>; Tue,  5 May 2020 18:03:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jVzSw-0001iW-A6; Tue, 05 May 2020 15:26:38 +0000
+	id 1jW01X-0005Tu-6N; Tue, 05 May 2020 16:02:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uapr=6T=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jVzSu-0001iR-Tv
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 15:26:36 +0000
-X-Inumbo-ID: ce535e0c-8ee4-11ea-9dca-12813bfff9fa
+ id 1jW01V-0005Tp-RO
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2020 16:02:21 +0000
+X-Inumbo-ID: cc9e4f9a-8ee9-11ea-9dcd-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ce535e0c-8ee4-11ea-9dca-12813bfff9fa;
- Tue, 05 May 2020 15:26:35 +0000 (UTC)
+ id cc9e4f9a-8ee9-11ea-9dcd-12813bfff9fa;
+ Tue, 05 May 2020 16:02:20 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 5E14AAE37;
- Tue,  5 May 2020 15:26:37 +0000 (UTC)
-Subject: Re: [PATCH v5] docs/designs: re-work the xenstore migration
- document...
-To: Edwin Torok <edvin.torok@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20200428150624.265-1-paul@xen.org>
- <2bf7dc13-65a4-317e-2c8c-bd6972dbb35a@xen.org>
- <fb319876-41eb-e785-a197-92440187a135@suse.com>
- <3fa9445d4677a9a6c24fb3aaee08913ad5c13a34.camel@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 8B845AEFD;
+ Tue,  5 May 2020 16:02:21 +0000 (UTC)
+Subject: Re: [PATCH] xenbus: avoid stack overflow warning
+To: Arnd Bergmann <arnd@arndb.de>
+References: <20200505141546.824573-1-arnd@arndb.de>
+ <30d49e6d-570b-f6fd-3a6f-628abcc8b127@suse.com>
+ <CAK8P3a0mWH=Zcq180+cTRMpqOkGt05xDP1+kCTP6yc9grAg2VQ@mail.gmail.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <25c0675d-a55a-e7fd-8026-594c3148099c@suse.com>
-Date: Tue, 5 May 2020 17:26:34 +0200
+Message-ID: <48893239-dde9-4e94-040d-859f4348816d@suse.com>
+Date: Tue, 5 May 2020 18:02:18 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <3fa9445d4677a9a6c24fb3aaee08913ad5c13a34.camel@citrix.com>
+In-Reply-To: <CAK8P3a0mWH=Zcq180+cTRMpqOkGt05xDP1+kCTP6yc9grAg2VQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -51,73 +48,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Yan Yankovskyi <yyankovskyi@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ clang-built-linux <clang-built-linux@googlegroups.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05.05.20 17:15, Edwin Torok wrote:
-> On Tue, 2020-05-05 at 14:13 +0100, Jürgen Groß wrote:
->> On 05.05.20 15:01, Julien Grall wrote:
->>> Hi Paul,
+On 05.05.20 17:01, Arnd Bergmann wrote:
+> On Tue, May 5, 2020 at 4:34 PM Jürgen Groß <jgross@suse.com> wrote:
+>> On 05.05.20 16:15, Arnd Bergmann wrote:
+>>> The __xenbus_map_ring() function has two large arrays, 'map' and
+>>> 'unmap' on its stack. When clang decides to inline it into its caller,
+>>> xenbus_map_ring_valloc_hvm(), the total stack usage exceeds the warning
+>>> limit for stack size on 32-bit architectures.
 >>>
->>> On 28/04/2020 16:06, Paul Durrant wrote:
->>>> From: Paul Durrant <pdurrant@amazon.com>
->>>>
->>>> ... to specify a separate migration stream that will also be
->>>> suitable for
->>>> live update.
->>>>
->>>> The original scope of the document was to support non-
->>>> cooperative
->>>> migration
->>>> of guests [1] but, since then, live update of xenstored has been
->>>> brought into
->>>> scope. Thus it makes more sense to define a separate image format
->>>> for
->>>> serializing xenstore state that is suitable for both purposes.
->>>>
->>>> The document has been limited to specifying a new image format.
->>>> The
->>>> mechanism
->>>> for acquiring the image for live update or migration is not
->>>> covered as
->>>> that
->>>> is more appropriately dealt with by a patch to
->>>> docs/misc/xenstore.txt.
->>>> It is
->>>> also expected that, when the first implementation of live update
->>>> or
->>>> migration
->>>> making use of this specification is committed, that the document
->>>> is
->>>> moved from
->>>> docs/designs into docs/specs.
->>>>
->>>> NOTE: It will only be necessary to save and restore state for
->>>> active
->>>> xenstore
->>>>         connections, but the documentation for 'RESUME' in
->>>> xenstore.txt
->>>> implies
->>>>         otherwise. That command is unused so this patch deletes it
->>>> from
->>>> the
->>>>         specification.
+>>> drivers/xen/xenbus/xenbus_client.c:592:12: error: stack frame size of 1104 bytes in function 'xenbus_map_ring_valloc_hvm' [-Werror,-Wframe-larger-than=]
+>>>
+>>> As far as I can tell, other compilers don't inline it here, so we get
+>>> no warning, but the stack usage is actually the same. It is possible
+>>> for both arrays to use the same location on the stack, but the compiler
+>>> cannot prove that this is safe because they get passed to external
+>>> functions that may end up using them until they go out of scope.
+>>>
+>>> Move the two arrays into separate basic blocks to limit the scope
+>>> and force them to occupy less stack in total, regardless of the
+>>> inlining decision.
 >>
->> Could someone from Citrix please verify that XAPI isn't using
->> XS_RESUME?
+>> Why don't you put both arrays into a union?
 > 
-> The implementation of XS_RESUME in oxenstored doesn't do much: it seems
-> to be just a way for Dom0 to check whether a domain exists or not, and
-> for a domain to check whether they are Dom0 or not.
-> If the domain exists, then the resume implementation just returns `()`,
-> i.e. does nothing.
-> 
-> I can't find any references to Xs.resume in xenopsd (or the other XAPI
-> repos that I got checked out), so I think it can be safely removed from
-> the spec and client libraries (I'd keep it in the actual oxenstored
-> implementation just in case some guest does call it).
+> I considered that as well, and don't really mind either way. I think it does
+> get a bit ugly whatever we do. If you prefer the union, I can respin the
+> patch that way.
 
-Thanks for the confirmation.
+Hmm, thinking more about it I think the real clean solution would be to
+extend struct map_ring_valloc_hvm to cover the pv case, too, to add the
+map and unmap arrays (possibly as a union) to it and to allocate it
+dynamically instead of having it on the stack.
+
+Would you be fine doing this?
 
 
 Juergen
