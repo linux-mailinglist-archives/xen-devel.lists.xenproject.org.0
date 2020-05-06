@@ -2,58 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78D181C723F
-	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 15:56:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F3C1C73AB
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 17:12:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWKXC-0005Iw-9e; Wed, 06 May 2020 13:56:26 +0000
+	id 1jWLhP-0003Ga-0I; Wed, 06 May 2020 15:11:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=C64T=6U=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jWKXA-0005Ir-5c
- for xen-devel@lists.xenproject.org; Wed, 06 May 2020 13:56:24 +0000
-X-Inumbo-ID: 5e5b8620-8fa1-11ea-9e59-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=cKFb=6U=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jWLhN-0003G4-GP
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2020 15:11:01 +0000
+X-Inumbo-ID: caa20962-8fab-11ea-9e81-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5e5b8620-8fa1-11ea-9e59-12813bfff9fa;
- Wed, 06 May 2020 13:56:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1lswStQ5X/DxTvWsOwHI2BqoFyBPwn8dMbSpITfxVxY=; b=E6GVERQadkYW8Vvx43BuI4jRqN
- PF30f3U8f8rRDB/lMaRMgSNaSCR2fD4Kn1rUoALY0NCQy1fgSoqR6dmdfk30OFtSimh0/y/8RC8bN
- yi3Tmb9pQOHiJYGltchs3XQQ1g3VJWjzzZ/6Tbg9MDn0Y+NMAavA6XrXXSVk70Kcbztc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jWKX5-0005l6-CF; Wed, 06 May 2020 13:56:19 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jWKX5-00013D-4m; Wed, 06 May 2020 13:56:19 +0000
-Subject: Re: Troubles running Xen on Raspberry Pi 4 with 5.6.1 DomU
-To: minyard@acm.org
-References: <CAMmSBy_A4xJmCo-PiWukv0+vkEhXXDpYwZAKAiJ=mmpuY1CbMA@mail.gmail.com>
- <20200501114201.GE9902@minyard.net>
- <CAMmSBy_h9=5cjMv3+-BKHYhBikgna731DoA+t-8FK-2tbPUH-A@mail.gmail.com>
- <20200502021647.GG9902@minyard.net>
- <4f6ef562-e213-8952-66d6-0f083bf8c593@xen.org>
- <20200506134838.GM9902@minyard.net>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b7ef47a7-4e47-d26b-d4aa-e13ecb9c8ca2@xen.org>
-Date: Wed, 6 May 2020 14:56:17 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ id caa20962-8fab-11ea-9e81-12813bfff9fa;
+ Wed, 06 May 2020 15:10:59 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 0188EAEE2;
+ Wed,  6 May 2020 15:11:00 +0000 (UTC)
+Subject: Re: [PATCH] x86/svm: Clean up vmcbcleanbits_t handling
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200505173250.5916-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <961921e3-c882-dad0-837e-71644f8bf208@suse.com>
+Date: Wed, 6 May 2020 17:10:57 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200506134838.GM9902@minyard.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <20200505173250.5916-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -65,117 +46,72 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Roman Shaposhnik <roman@zededa.com>, jeff.kubascik@dornerworks.com,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+On 05.05.2020 19:32, Andrew Cooper wrote:
+> @@ -435,17 +435,13 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+>      ASSERT(n2vmcb != NULL);
+>  
+>      /* Check if virtual VMCB cleanbits are valid */
+> -    vcleanbits_valid = 1;
+> -    if ( svm->ns_ovvmcb_pa == INVALID_PADDR )
+> -        vcleanbits_valid = 0;
+> -    if (svm->ns_ovvmcb_pa != nv->nv_vvmcxaddr)
+> -        vcleanbits_valid = 0;
+> -
+> -#define vcleanbit_set(_name)	\
+> -    (vcleanbits_valid && ns_vmcb->cleanbits.fields._name)
+> +    if ( svm->ns_ovvmcb_pa != INVALID_PADDR &&
+> +         svm->ns_ovvmcb_pa != nv->nv_vvmcxaddr )
+> +        clean = ns_vmcb->cleanbits;
 
-On 06/05/2020 14:48, Corey Minyard wrote:
-> On Sat, May 02, 2020 at 12:46:14PM +0100, Julien Grall wrote:
->> Hi,
->>
->> On 02/05/2020 03:16, Corey Minyard wrote:
->>> On Fri, May 01, 2020 at 06:06:11PM -0700, Roman Shaposhnik wrote:
->>>> On Fri, May 1, 2020 at 4:42 AM Corey Minyard <minyard@acm.org> wrote:
->>>>>
->>>>> On Thu, Apr 30, 2020 at 07:20:05PM -0700, Roman Shaposhnik wrote:
->>>>>> Hi!
->>>>>>
->>>>>> I'm trying to run Xen on Raspberry Pi 4 with 5.6.1 stock,
->>>>>> upstream kernel. The kernel itself works perfectly well
->>>>>> on the board. When I try booting it as Dom0 under Xen,
->>>>>> it goes into a stacktrace (attached).
->>>>>
->>>>> Getting Xen working on the Pi4 requires a lot of moving parts, and they
->>>>> all have to be right.
->>>>
->>>> Tell me about it! It is a pretty frustrating journey to align
->>>> everything just right.
->>>> On the other hand -- it seems worth to enable RPi as an ARM development
->>>> platform for Xen given how ubiquitous it is.
->>>>
->>>> Hence me trying to combine pristine upstream kernel (5.6.1) with
->>>> pristine upstream
->>>> Xen to enable 100% upstream developer workflow on RPi.
->>>>
->>>>>> Looking at what nice folks over at Dornerworks have previously
->>>>>> done to make RPi kernels boot as Dom0 I've come across these
->>>>>> 3 patches:
->>>>>>       https://github.com/dornerworks/xen-rpi4-builder/tree/master/patches/linux
->>>>>>
->>>>>> The first patch seems irrelevant (unless I'm missing something
->>>>>> really basic here).
->>>>>
->>>>> It might be irrelevant for your configuration, assuming that Xen gets
->>>>> the right information from EFI.  I haven't tried EFI booting.
->>>>
->>>> I'd doing a bit of belt-and-suspenders strategy really -- I'm actually
->>>> using UEFI u-boot implementation that pre-populates device trees
->>>> and then I'm also forcing an extra copy of it to be load explicitly
->>>> via the GRUB devicetree command (GRUB runs as a UEFI payload).
->>>>
->>>> I also have access to the semi-official TianoCore RPi4 port that seems
->>>> to be working pretty well: https://github.com/pftf/RPi4/releases/tag/v1.5
->>>> for booting all sort of UEFI payloads on RPi4.
->>>>
->>>>>> The 2nd patch applied with no issue (but
->>>>>> I don't think it is related) but the 3d patch failed to apply on
->>>>>> account of 5.6.1 kernel no longer having:
->>>>>>       dev->archdata.dev_dma_ops
->>>>>> E.g.
->>>>>>       https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/arch/arm64/mm/dma-mapping.c?h=v5.6.1#n55
->>>>>>
->>>>>> I've tried to emulate the effect of the patch by simply introducing
->>>>>> a static variable that would signal that we already initialized
->>>>>> dev->dma_ops -- but that didn't help at all.
->>>>>>
->>>>>> I'm CCing Jeff Kubascik to see if the original authors of that Corey Minyard
->>>>>> to see if may be they have any suggestions on how this may be dealt
->>>>>> with.
->>>>>>
->>>>>> Any advice would be greatly appreciated!
->>>>>
->>>>> What's your Pi4 config.txt file look like? The GIC is not being handled
->>>>> correctly, and I'm guessing that configuration is wrong.  You can't use
->>>>> the stock config.txt file with Xen, you have to modify the configuration a
->>>>> bit.
->>>>
->>>> Understood. I'm actually using a custom one:
->>>>       https://github.com/lf-edge/eve/blob/master/pkg/u-boot/rpi/config.txt
->>>>
->>>> I could swear that I had a GIC setting in it -- but apparently no -- so
->>>> I added the following at the top of what you could see at the URL above:
->>>>
->>>> total_mem=4096
->>>> enable_gic=1
->>>>
->>>>> I think just adding:
->>>>>
->>>>> enable_gic=1
->>>>> total_mem=1024
->>>>
->>>> Right -- but my board has 4G memory -- so I think what I did above should work.
->>>
->>> Nope.  If you say 4096M of RAM, your issue is almost certainly DMA, but
->>> it's not (just) the Linux code.  On the Raspberry Pi 4, several devices
->>> cannot DMA to above 1024M of RAM, but Xen does not handle this.  The
->>> 1024M of RAM is a limitation you will have to live with until Xen has a
->>> fix.
->>
->> IIUC, dom0 would need to have some memory below 1GB for this to work, am I
->> correct?
-> 
-> FYI, this also seems to fix the issue with HDMI not working.
+It looks to me as if the proper inversion of the original condition
+would mean == on the right side of &&, not != .
 
-Thank you for the testing! I will have a look how I can properly 
-upstream this fix (I think we want to keep 4GB limit for other platforms).
+> --- a/xen/include/asm-x86/hvm/svm/vmcb.h
+> +++ b/xen/include/asm-x86/hvm/svm/vmcb.h
+> @@ -384,34 +384,21 @@ typedef union
+>  
+>  typedef union
+>  {
+> -    uint32_t bytes;
+> -    struct
+> -    {
+> -        /* cr_intercepts, dr_intercepts, exception_intercepts,
+> -         * general{1,2}_intercepts, pause_filter_count, tsc_offset */
+> -        uint32_t intercepts: 1;
+> -        /* iopm_base_pa, msrpm_base_pa */
+> -        uint32_t iopm: 1;
+> -        /* guest_asid */
+> -        uint32_t asid: 1;
+> -        /* vintr */
+> -        uint32_t tpr: 1;
+> -        /* np_enable, h_cr3, g_pat */
+> -        uint32_t np: 1;
+> -        /* cr0, cr3, cr4, efer */
+> -        uint32_t cr: 1;
+> -        /* dr6, dr7 */
+> -        uint32_t dr: 1;
+> -        /* gdtr, idtr */
+> -        uint32_t dt: 1;
+> -        /* cs, ds, es, ss, cpl */
+> -        uint32_t seg: 1;
+> -        /* cr2 */
+> -        uint32_t cr2: 1;
+> -        /* debugctlmsr, last{branch,int}{to,from}ip */
+> -        uint32_t lbr: 1;
+> -        uint32_t resv: 21;
+> -    } fields;
+> +    struct {
+> +        bool intercepts:1; /* 0:  cr/dr/exception/general1/2_intercepts,
+> +                            *     pause_filter_count, tsc_offset */
 
-Cheers,
+Could I talk you into omitting the 1/2 part, as there's going to
+be a 3 for at least MCOMMIT? Just "general" ought to be clear
+enough, I would think.
 
--- 
-Julien Grall
+Jan
 
