@@ -2,50 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A784B1C7C10
-	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 23:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DBF01C7C11
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 23:12:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWRJu-0000AF-QM; Wed, 06 May 2020 21:11:10 +0000
+	id 1jWRKw-0000EK-5E; Wed, 06 May 2020 21:12:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=POZY=6U=zededa.com=roman@srs-us1.protection.inumbo.net>)
- id 1jWRJt-0000AA-BW
- for xen-devel@lists.xenproject.org; Wed, 06 May 2020 21:11:09 +0000
-X-Inumbo-ID: 1ade0426-8fde-11ea-b9cf-bc764e2007e4
-Received: from mail-qv1-xf43.google.com (unknown [2607:f8b0:4864:20::f43])
+ id 1jWRKv-0000EE-7C
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2020 21:12:13 +0000
+X-Inumbo-ID: 41113ca8-8fde-11ea-ae69-bc764e2007e4
+Received: from mail-qv1-xf41.google.com (unknown [2607:f8b0:4864:20::f41])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1ade0426-8fde-11ea-b9cf-bc764e2007e4;
- Wed, 06 May 2020 21:11:08 +0000 (UTC)
-Received: by mail-qv1-xf43.google.com with SMTP id v10so1592871qvr.2
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2020 14:11:08 -0700 (PDT)
+ id 41113ca8-8fde-11ea-ae69-bc764e2007e4;
+ Wed, 06 May 2020 21:12:12 +0000 (UTC)
+Received: by mail-qv1-xf41.google.com with SMTP id v18so1581991qvx.9
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2020 14:12:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YCKsd7vQTI2DrN3+bSBaktJZhRsZLMdEUxM/uGHPzSY=;
- b=dtVb/aesF3jYzY7SMImdHHXdPNLlzBUTlRJurxB1eelQ8Av5yBt9sTeBbHmIWbfANX
- U+TYQbXJ751gzf6WEGWkWlprH2iZ6BmAaC6YfmcBoYru67+8BGtqqCyX08x8Wi98zGNj
- SU3bW1ejIG2bkj01QyEMEfVwK2dpUQWIkX6u1oSyCbB153RgRqPqhUA0Cn1v9sGPR0O6
- UPROdSZ1LcRghtfBLl6XrcxDe6FsuyynAP27FnpQKRzPNgCL1b3T9Yfbujn81piaJELu
- vkXJfN9sd4jjFPFTp2/9l1vqTnYPTAllkCBBi3tm29R04BXsvVT40h+wgmJ19uz4gNZs
- V84w==
+ :cc; bh=v0M0geFf2CIFOdjuI4WtDFPTDw9uIxElYDkiHB5MMOY=;
+ b=ip7SgBctBhYte9yPUa73ivSsmvvFI9de3s3qPGbObX60tts6VHu6qwiurwpt7hm2lY
+ 7hjE6Cl7rWz67Q19xfHfw+XW/JtV9LAPutuazimZWxV9aHjSKG+/xgz1Y2OMikRw399u
+ Yk5qqrGzcAwufu1dKjr62NkGCIFmmtnZIbhZygIlLurHHzUZjPIxitwHQFIVaSKLO+mg
+ slWvdEZJa1Rnd0YgDl6/Qba0bH53/pRrLvVmjLt0DGwRiOtZ2f07SUu4VK2f2YtzLvV1
+ WvobQNEDxRvJfKtP5UGkQFa6vaWZabBFe9HuQ7RJlaLm0vFTeINQZ5dUkRjPCbYjBFFy
+ SOug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=YCKsd7vQTI2DrN3+bSBaktJZhRsZLMdEUxM/uGHPzSY=;
- b=Vd9VhGsRAb1VAUL6bOYHUXtN7MH8LwrzcPsp2NOxVuBZzfV+D3MM4j594p0n1nvzZd
- YdDkNumq9IPR29gPaOgWdGCIzd7t4g4U5iRtWVdYAN/3D7sK0Gy1KiBk57eUIoAAbqCO
- uBmVGKpJCsBGRFEN3bs/9J7sqMGz5nvS7LSBn0otj6ZnYoAIa3Gbq3+UmwUO8M9HPjNY
- jCmzaBm+8a2gi2PHl11QQYOmtEJqHlkPid/k2IUSfDC8aJkSpOPb6A3cBnluYdgV/Ha7
- KgOgPKoPTkE8Gxnsob0WAd4LKVM9HEuoPSy50oBpqQ3rk0Bwl5J2YKAivsq8ueE9KuKh
- w8Ow==
-X-Gm-Message-State: AGi0PubZ+FywEoJVp17RhM3BFZH8ym0lih2jk32oAg/S/Rtq5eT0MKYm
- Q9vJGdDXFBXZKM4ifxbJWCpK+6sj9nT2I1LoRcEPXw==
-X-Google-Smtp-Source: APiQypKoJFNQ7KZcQOonxz5ICneu5FS6xlsQzr6mQUbkGKNetEAotUCUkFyVjcp5gsDstAHZpAsjl2IBm/vQmN/0GXs=
-X-Received: by 2002:a05:6214:3e2:: with SMTP id
- cf2mr9520302qvb.193.1588799468059; 
- Wed, 06 May 2020 14:11:08 -0700 (PDT)
+ bh=v0M0geFf2CIFOdjuI4WtDFPTDw9uIxElYDkiHB5MMOY=;
+ b=cYPaTEEtZLmHeALU/QxFY+OC2TCuimefLCvRcdixInA5q3Q3vRbVm9WDsTSUsZxmi1
+ cH3M6FzmXGWN2OiJsjoyNdXEogfWju+g4u3HwbEAJbd51mPXTjRmvwcTYJbiFiPp7GYw
+ sMTfqFwJR/8jZTYMQ8KmCsuPXOym9Ej2NXmqlOkPhuT6et0FPNWch2Wil3nRid9eqsIX
+ /MF+EjsQmd0sKQr/GS+MSqaXTjO1g78bZezDI1WmSPis736ohlN2Shs5Y58Or8bf7VPB
+ hpUv7BUfepKlkEZHDiR68HADilhTEilBvX5G+LAiCFt5jZiFBkOhblvDCM8VnmBrmEa0
+ e2bA==
+X-Gm-Message-State: AGi0Puam1gD8kOvIiX/gzl9V5QhRw67Z1b3hkKhBkE4eXyDa+saP/PIX
+ Hr0Wz05Fcfd2qMZSlhFrzNJhV6Lvk8JANLGqGnHwfTU4VEM=
+X-Google-Smtp-Source: APiQypKJ4ZEXM05uFEqDd94l5YhOHtYXStiuFx2ERrJkboRvaAXx5ZL++jF6mfzFEvQZHyFYlai2j2lZEncnoFIhrCk=
+X-Received: by 2002:ad4:452d:: with SMTP id l13mr10263875qvu.19.1588799532193; 
+ Wed, 06 May 2020 14:12:12 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAMmSBy_A4xJmCo-PiWukv0+vkEhXXDpYwZAKAiJ=mmpuY1CbMA@mail.gmail.com>
  <20200501114201.GE9902@minyard.net>
@@ -64,13 +63,13 @@ References: <CAMmSBy_A4xJmCo-PiWukv0+vkEhXXDpYwZAKAiJ=mmpuY1CbMA@mail.gmail.com>
  <CADz_WD5Ln7Pe1WAFp73d2Mz9wxspzTE3WgAJusp5S8LX4=83Bw@mail.gmail.com>
  <2187cd7c-4d48-986b-77d6-4428e8178404@oracle.com>
  <CADz_WD68bYj-0CSm_zib+LRiMGd1+1eoNLgiJj=vHog685Khsw@mail.gmail.com>
- <a802a0d5-3ae3-97f5-af58-2e58123fec22@oracle.com>
-In-Reply-To: <a802a0d5-3ae3-97f5-af58-2e58123fec22@oracle.com>
+ <alpine.DEB.2.21.2005060956120.14706@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2005060956120.14706@sstabellini-ThinkPad-T480s>
 From: Roman Shaposhnik <roman@zededa.com>
-Date: Wed, 6 May 2020 14:10:56 -0700
-Message-ID: <CAMmSBy_2o6tsE1fsu_9=h8erOd9yHV-+ZkduTGqa-Gw7ra3mVQ@mail.gmail.com>
+Date: Wed, 6 May 2020 14:12:00 -0700
+Message-ID: <CAMmSBy_wcSD3BVcVFJVR1y1CtvxA9xMkobKwbsdf8dGxS5Hcbw@mail.gmail.com>
 Subject: Re: Troubles running Xen on Raspberry Pi 4 with 5.6.1 DomU
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -83,49 +82,47 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Peng Fan <peng.fan@nxp.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, "minyard@acm.org" <minyard@acm.org>,
+ Peng Fan <peng.fan@nxp.com>, Julien Grall <julien@xen.org>,
+ "minyard@acm.org" <minyard@acm.org>,
  "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>,
  Julien Grall <julien.grall@arm.com>,
  Nataliya Korovkina <malus.brandywine@gmail.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, May 6, 2020 at 10:36 AM Boris Ostrovsky
-<boris.ostrovsky@oracle.com> wrote:
+On Wed, May 6, 2020 at 10:34 AM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
 >
->
-> On 5/6/20 12:14 PM, Nataliya Korovkina wrote:
+> On Wed, 6 May 2020, Nataliya Korovkina wrote:
 > > On Wed, May 6, 2020 at 9:43 AM Boris Ostrovsky
 > > <boris.ostrovsky@oracle.com> wrote:
-> >>
-> >> On 5/6/20 9:08 AM, Nataliya Korovkina wrote:
-> >>> Hello,
-> >>>
-> >>> What I found out: rpi_firmware_property_list() allocates memory from
-> >>> dma_atomic_pool which was mapped to VMALLOC region, so virt_to_page()
-> >>> is not eligible in this case.
-> >>
-> >> So then it seems it didn't go through xen_swiotlb_alloc_coherent(). In
-> >> which case it has no business calling xen_swiotlb_free_coherent().
-> >>
-> >>
-> >> -boris
-> >>
-> >>
-> >>
-> >>
+> > >
+> > >
+> > > On 5/6/20 9:08 AM, Nataliya Korovkina wrote:
+> > > > Hello,
+> > > >
+> > > > What I found out: rpi_firmware_property_list() allocates memory from
+> > > > dma_atomic_pool which was mapped to VMALLOC region, so virt_to_page()
+> > > > is not eligible in this case.
+> > >
+> > >
+> > > So then it seems it didn't go through xen_swiotlb_alloc_coherent(). In
+> > > which case it has no business calling xen_swiotlb_free_coherent().
+> > >
+> > >
+> > > -boris
+> > >
+> > >
+> > >
+> > >
+> >
 > > It does go.
 > > dma_alloc_coherent() indirectly calls xen_swiotlb_alloc_coherent(),
 > > then  xen_alloc_coherent_pages() eventually calls arch_dma_alloc() in
 > > remap.c which successfully allocates pages from atomic pool.
->
->
-> Yes, I was looking at x86's implementation of xen_alloc_coherent_pages().
->
->
 > >
 > > The patch Julien offered for domian_build.c moved Dom0 banks in the
 > > first G of RAM.
@@ -136,67 +133,70 @@ On Wed, May 6, 2020 at 10:36 AM Boris Ostrovsky
 > > "TestPage..." is called unconditionally. virt_to_page() is not
 > > applicable to such allocations.
 >
+> Ah! So this is the crux of the issue. I saw this kind of problem before
+> on ARM32 (in fact there are several comments warning not to use
+> virt_to_phys on ARM in drivers/xen/swiotlb-xen.c).
 >
-> Perhaps we just need to make sure we are using right virt-to-page
-> method. Something like
+>
+> So, to recap we have 2 issues as far as I can tell:
+>
+> - virt_to_page not working in some cases on ARM, leading to a crash
+> - WARN_ON for range_straddles_page_boundary which is normal on ARM
+>
+> The appended patch addresses them by:
+>
+> - using pfn_to_page instead virt_to_page
+> - moving the WARN_ON under a #ifdef (Juergen might have a better
+>   suggestion on how to rework the WARN_ON)
+>
+> Please let me know if this patch works!
+>
+> Cheers,
+>
+> Stefano
 >
 >
 > diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index b6d2776..f224e69 100644
+> index b6d27762c6f8..0a40ac332a4c 100644
 > --- a/drivers/xen/swiotlb-xen.c
 > +++ b/drivers/xen/swiotlb-xen.c
-> @@ -335,6 +335,7 @@ int __ref xen_swiotlb_init(int verbose, bool early)
->         int order = get_order(size);
->         phys_addr_t phys;
->         u64 dma_mask = DMA_BIT_MASK(32);
-> +       struct page *pg;
->
->         if (hwdev && hwdev->coherent_dma_mask)
->                 dma_mask = hwdev->coherent_dma_mask;
-> @@ -346,9 +347,12 @@ int __ref xen_swiotlb_init(int verbose, bool early)
+> @@ -322,7 +322,7 @@ xen_swiotlb_alloc_coherent(struct device *hwdev, size_t size,
+>                         xen_free_coherent_pages(hwdev, size, ret, (dma_addr_t)phys, attrs);
+>                         return NULL;
+>                 }
+> -               SetPageXenRemapped(virt_to_page(ret));
+> +               SetPageXenRemapped(pfn_to_page(PFN_DOWN(phys)));
+>         }
+>         memset(ret, 0, size);
+>         return ret;
+> @@ -346,9 +346,14 @@ xen_swiotlb_free_coherent(struct device *hwdev, size_t size, void *vaddr,
 >         /* Convert the size to actually allocated. */
 >         size = 1UL << (order + XEN_PAGE_SHIFT);
 >
-> +       pg = is_vmalloc_addr(vaddr) ? vmalloc_to_page(vaddr) :
-> virt_to_page(vaddr);
-> +       BUG_ON(!pg);
-> +
->         if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
->                      range_straddles_page_boundary(phys, size)) &&
+> -       if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
+> -                    range_straddles_page_boundary(phys, size)) &&
 > -           TestClearPageXenRemapped(virt_to_page(vaddr)))
-> +           TestClearPageXenRemapped(pg))
+> +#ifdef CONFIG_X86
+> +       if (WARN_ON(dev_addr + size - 1 > dma_mask) ||
+> +                   range_straddles_page_boundary(phys, size)) {
+> +           return;
+> +       }
+> +#endif
+> +
+> +       if (TestClearPageXenRemapped(pfn_to_page(PFN_DOWN(phys))))
 >                 xen_destroy_contiguous_region(phys, order);
 >
->         xen_free_coherent_pages(hwdev, size, vaddr, (dma_addr_t)phys,
-> attrs);
->
->
-> (I have not tested this at all)
+>         xen_free_coherent_pages(hwdev, size, vaddr, (dma_addr_t)phys, attrs);
 
-That's where I come in ;-)
+Stefano, with your patch applied, I'm still getting:
 
-It appears that your patch gets us closest to a fully functional 5.6.x
-kernel under Xen on RPi4.
+[    0.590705] Unable to handle kernel paging request at virtual
+address fffffe0003700000
 
-Thank you so much for that!
-
-However, here's an interesting side-effect I'm now observing -- with
-your patch + original
-patch from Stefano (the one that only applies to
-include/xen/arm/page-coherent.h) I can
-now boot my RPi4 into a pretty functional system.
-
-However, it is only possible if I allocate 512M (or fewer) memory
-chunk to Dom0. If I try
-to go higher (820M for example) and all the way to 1G -- I start getting:
-
-[    3.195851] mmc0: unrecognised SCR structure version 7
-[    3.200454] mmc0: error -22 whilst initialising SD card
-
-and my SD card stays offline.
-
-This is pretty reliable, and I guess is still related to some kind of
-a DMA issue perhaps?
+However, Boris' patch seems to get us much closer. It would be awesome if you
+can take a look at that (plus the additional DMA issue that seems to
+be dependent
+on how much memory I allocate to Dom0).
 
 Thanks,
 Roman.
