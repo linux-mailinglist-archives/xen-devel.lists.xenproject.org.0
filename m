@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98F3C1C73AB
-	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 17:12:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB41B1C7409
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 17:17:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWLhP-0003Ga-0I; Wed, 06 May 2020 15:11:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jWLnA-0003SJ-PN; Wed, 06 May 2020 15:17:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cKFb=6U=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jWLhN-0003G4-GP
- for xen-devel@lists.xenproject.org; Wed, 06 May 2020 15:11:01 +0000
-X-Inumbo-ID: caa20962-8fab-11ea-9e81-12813bfff9fa
+ (envelope-from <SRS0=3H5S=6U=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jWLn9-0003SE-FW
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2020 15:16:59 +0000
+X-Inumbo-ID: a0b6ffda-8fac-11ea-ae69-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id caa20962-8fab-11ea-9e81-12813bfff9fa;
- Wed, 06 May 2020 15:10:59 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a0b6ffda-8fac-11ea-ae69-bc764e2007e4;
+ Wed, 06 May 2020 15:16:58 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0188EAEE2;
- Wed,  6 May 2020 15:11:00 +0000 (UTC)
-Subject: Re: [PATCH] x86/svm: Clean up vmcbcleanbits_t handling
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200505173250.5916-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <961921e3-c882-dad0-837e-71644f8bf208@suse.com>
-Date: Wed, 6 May 2020 17:10:57 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by mx2.suse.de (Postfix) with ESMTP id 57E58AE07;
+ Wed,  6 May 2020 15:17:00 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH] xen/sched: always modify vcpu pause flags atomically
+Date: Wed,  6 May 2020 17:16:55 +0200
+Message-Id: <20200506151655.26445-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-In-Reply-To: <20200505173250.5916-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,72 +40,93 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05.05.2020 19:32, Andrew Cooper wrote:
-> @@ -435,17 +435,13 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
->      ASSERT(n2vmcb != NULL);
->  
->      /* Check if virtual VMCB cleanbits are valid */
-> -    vcleanbits_valid = 1;
-> -    if ( svm->ns_ovvmcb_pa == INVALID_PADDR )
-> -        vcleanbits_valid = 0;
-> -    if (svm->ns_ovvmcb_pa != nv->nv_vvmcxaddr)
-> -        vcleanbits_valid = 0;
-> -
-> -#define vcleanbit_set(_name)	\
-> -    (vcleanbits_valid && ns_vmcb->cleanbits.fields._name)
-> +    if ( svm->ns_ovvmcb_pa != INVALID_PADDR &&
-> +         svm->ns_ovvmcb_pa != nv->nv_vvmcxaddr )
-> +        clean = ns_vmcb->cleanbits;
+credit2 is currently modifying the pause flags of vcpus non-atomically
+via sched_set_pause_flags() and sched_clear_pause_flags(). This is
+dangerous as there are cases where the paus flags are modified without
+any lock held.
 
-It looks to me as if the proper inversion of the original condition
-would mean == on the right side of &&, not != .
+So drop the non-atomic pause flag modification functions and rename the
+atomic ones dropping the _atomic suffix.
 
-> --- a/xen/include/asm-x86/hvm/svm/vmcb.h
-> +++ b/xen/include/asm-x86/hvm/svm/vmcb.h
-> @@ -384,34 +384,21 @@ typedef union
->  
->  typedef union
->  {
-> -    uint32_t bytes;
-> -    struct
-> -    {
-> -        /* cr_intercepts, dr_intercepts, exception_intercepts,
-> -         * general{1,2}_intercepts, pause_filter_count, tsc_offset */
-> -        uint32_t intercepts: 1;
-> -        /* iopm_base_pa, msrpm_base_pa */
-> -        uint32_t iopm: 1;
-> -        /* guest_asid */
-> -        uint32_t asid: 1;
-> -        /* vintr */
-> -        uint32_t tpr: 1;
-> -        /* np_enable, h_cr3, g_pat */
-> -        uint32_t np: 1;
-> -        /* cr0, cr3, cr4, efer */
-> -        uint32_t cr: 1;
-> -        /* dr6, dr7 */
-> -        uint32_t dr: 1;
-> -        /* gdtr, idtr */
-> -        uint32_t dt: 1;
-> -        /* cs, ds, es, ss, cpl */
-> -        uint32_t seg: 1;
-> -        /* cr2 */
-> -        uint32_t cr2: 1;
-> -        /* debugctlmsr, last{branch,int}{to,from}ip */
-> -        uint32_t lbr: 1;
-> -        uint32_t resv: 21;
-> -    } fields;
-> +    struct {
-> +        bool intercepts:1; /* 0:  cr/dr/exception/general1/2_intercepts,
-> +                            *     pause_filter_count, tsc_offset */
+Fixes: a76255b4266516 ("xen/sched: make credit2 scheduler vcpu agnostic.")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+It should be noted that this issue wasn't introduced by core scheduling
+as even before credit2 was using the non-atomic __set_bit() and
+__clear_bit() variants.
+---
+ xen/common/sched/credit.c  |  4 ++--
+ xen/common/sched/private.h | 22 +---------------------
+ 2 files changed, 3 insertions(+), 23 deletions(-)
 
-Could I talk you into omitting the 1/2 part, as there's going to
-be a 3 for at least MCOMMIT? Just "general" ought to be clear
-enough, I would think.
+diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
+index 93d89da278..d0aa017c64 100644
+--- a/xen/common/sched/credit.c
++++ b/xen/common/sched/credit.c
+@@ -453,7 +453,7 @@ static inline void __runq_tickle(const struct csched_unit *new)
+                     SCHED_UNIT_STAT_CRANK(cur, kicked_away);
+                     SCHED_UNIT_STAT_CRANK(cur, migrate_r);
+                     SCHED_STAT_CRANK(migrate_kicked_away);
+-                    sched_set_pause_flags_atomic(cur->unit, _VPF_migrating);
++                    sched_set_pause_flags(cur->unit, _VPF_migrating);
+                 }
+                 /* Tickle cpu anyway, to let new preempt cur. */
+                 SCHED_STAT_CRANK(tickled_busy_cpu);
+@@ -973,7 +973,7 @@ csched_unit_acct(struct csched_private *prv, unsigned int cpu)
+         {
+             SCHED_UNIT_STAT_CRANK(svc, migrate_r);
+             SCHED_STAT_CRANK(migrate_running);
+-            sched_set_pause_flags_atomic(currunit, _VPF_migrating);
++            sched_set_pause_flags(currunit, _VPF_migrating);
+             /*
+              * As we are about to tickle cpu, we should clear its bit in
+              * idlers. But, if we are here, it means there is someone running
+diff --git a/xen/common/sched/private.h b/xen/common/sched/private.h
+index 367811a12f..b9a5b4c01c 100644
+--- a/xen/common/sched/private.h
++++ b/xen/common/sched/private.h
+@@ -172,7 +172,7 @@ static inline void sched_set_pause_flags(struct sched_unit *unit,
+     struct vcpu *v;
+ 
+     for_each_sched_unit_vcpu ( unit, v )
+-        __set_bit(bit, &v->pause_flags);
++        set_bit(bit, &v->pause_flags);
+ }
+ 
+ /* Clear a bit in pause_flags of all vcpus of a unit. */
+@@ -181,26 +181,6 @@ static inline void sched_clear_pause_flags(struct sched_unit *unit,
+ {
+     struct vcpu *v;
+ 
+-    for_each_sched_unit_vcpu ( unit, v )
+-        __clear_bit(bit, &v->pause_flags);
+-}
+-
+-/* Set a bit in pause_flags of all vcpus of a unit via atomic updates. */
+-static inline void sched_set_pause_flags_atomic(struct sched_unit *unit,
+-                                                unsigned int bit)
+-{
+-    struct vcpu *v;
+-
+-    for_each_sched_unit_vcpu ( unit, v )
+-        set_bit(bit, &v->pause_flags);
+-}
+-
+-/* Clear a bit in pause_flags of all vcpus of a unit via atomic updates. */
+-static inline void sched_clear_pause_flags_atomic(struct sched_unit *unit,
+-                                                  unsigned int bit)
+-{
+-    struct vcpu *v;
+-
+     for_each_sched_unit_vcpu ( unit, v )
+         clear_bit(bit, &v->pause_flags);
+ }
+-- 
+2.26.1
 
-Jan
 
