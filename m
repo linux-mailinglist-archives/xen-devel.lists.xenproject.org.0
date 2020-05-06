@@ -2,139 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C0D1C71E6
-	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 15:43:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F611C720F
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 15:49:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWKKP-0004CI-Rw; Wed, 06 May 2020 13:43:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jWKPl-0004Rf-Fx; Wed, 06 May 2020 13:48:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U6FA=6U=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jWKKO-0004C2-E8
- for xen-devel@lists.xenproject.org; Wed, 06 May 2020 13:43:12 +0000
-X-Inumbo-ID: 86a97d32-8f9f-11ea-9e55-12813bfff9fa
-Received: from userp2130.oracle.com (unknown [156.151.31.86])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 86a97d32-8f9f-11ea-9e55-12813bfff9fa;
- Wed, 06 May 2020 13:43:11 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 046DbfHI029690;
- Wed, 6 May 2020 13:42:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=ygWhqrsLGp4i2WMgtYbGtc7BuglNFqBJ00m7Mxq4JTQ=;
- b=O9LIKXrASZEBSFVl0zZMpIKol3Xdaf7QLAd9YnbAe1tHtG6JdKHrYTxz9XEo1hPyLEjQ
- 1Ql8KNGPm/faRhczMPUTYJDhHBQ5Aqi9FqH0msDR+0R0QSPuudEr4ZkVMUP5cuOb/Wdo
- ZvbWDHpLlQN7Lq946nvbTyvyC6xcysKPHSmr+PeDz4A4WFA1PtNKBltps0cV7Pzrh2Of
- olWzxullxIMx4i/jEh2Rz0UQ9zxZ49mhHywr+CkFsn/vEH10DGn7P0MPo69T5tJniUGF
- 1pOaIEvnys2ZD6ZD0ZOo/PjODdU/51Ilx7IDRQtnCAck8MX5pmp+idciiMdNo2CC13wA dA== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2130.oracle.com with ESMTP id 30s09raefh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 06 May 2020 13:42:54 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 046DgrA1106368;
- Wed, 6 May 2020 13:42:53 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3030.oracle.com with ESMTP id 30sjdvj641-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 06 May 2020 13:42:53 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 046Dgld1024526;
- Wed, 6 May 2020 13:42:47 GMT
-Received: from [10.39.253.250] (/10.39.253.250)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 06 May 2020 06:42:46 -0700
+ <SRS0=3Be+=6U=gmail.com=tcminyard@srs-us1.protection.inumbo.net>)
+ id 1jWKPj-0004Ra-Kv
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2020 13:48:43 +0000
+X-Inumbo-ID: 4c3f3a3c-8fa0-11ea-b07b-bc764e2007e4
+Received: from mail-ot1-x342.google.com (unknown [2607:f8b0:4864:20::342])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4c3f3a3c-8fa0-11ea-b07b-bc764e2007e4;
+ Wed, 06 May 2020 13:48:42 +0000 (UTC)
+Received: by mail-ot1-x342.google.com with SMTP id z25so1256119otq.13
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2020 06:48:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:reply-to:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=B1x7s6vfJM3yJXc0YvRLPDwyJ+OwvXIVCSHF6e3S+AE=;
+ b=uOiz+EA+CEB9R6mbCd7c4XrojKB5HBlq+bve7HLf2Ok550hAYr5uXKyv463cx6hwUp
+ 9ABDGaisOrruNr9AmjGjACMm0SKpo/pINzkV5JF9MX6me/s5X3MYzVjlQlvpJ2jm8fY8
+ GMC66LkWnHofVIvI2UW30xi0TrAN3hIOLXNNtATE0HF9VjweCA1+KS7UzdZJ77wMAzlP
+ z1Tq0zexu5S6PjAn8d5zMxT6UcM9aROxRkIPX6xRAUFvH1nz5EGKqrNh4lFpL51zbjys
+ qOq8SSyflVOAwJHzHVKZPYLlVPHx4Oc2m3ABz0wtcz2evPaNxtESRQb7oyQN0gbaGM3b
+ r/zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :reply-to:references:mime-version:content-disposition:in-reply-to
+ :user-agent;
+ bh=B1x7s6vfJM3yJXc0YvRLPDwyJ+OwvXIVCSHF6e3S+AE=;
+ b=GqeRqFSHcwo0UrutDtjrkVb9Hv5bd9f9Wzrg8FydO42bk0DG3tPEHyA+Opvz2qE5IX
+ K09mapWFxgJPgVhk+8r+XzwAEB82JB+B1q3JBUdqiTXDeHDr5D6QEGhv4lbpj2xo3aIZ
+ W5Q89o0Q0TFJVhjwMhlfnfj0xlan+Y+FNiJyLvZkdGcIshIm4Q2EpCKl9g6sfrIBQkgL
+ Y2WVs1VEdYljrH0J1EJHnoP3j3nfk1ncnBliv8CRwaEP40W65FhWtyiO5oF48MMf7sCY
+ 4kiTWQHMOmxKBVHNispcJOvps0o2frX62L332aIWb/KqokJAgZ7uvrNXZuNQgxJ/D6Ku
+ /JVw==
+X-Gm-Message-State: AGi0PuZhDE5O89qhS1aW8puA/rSR/HQKY8NkSagL2Kk2J1S/8e4cdj7P
+ ela2FJzypyR8OoqMcsZaAg==
+X-Google-Smtp-Source: APiQypJQ52Ya4nI+8bXygKX/fORdQMBdvuIaz162JS9GPv8+X28KuMuDIUvk5P8kaGwzUI6PvA6UfQ==
+X-Received: by 2002:a9d:6e3:: with SMTP id 90mr6518859otx.261.1588772921899;
+ Wed, 06 May 2020 06:48:41 -0700 (PDT)
+Received: from serve.minyard.net ([47.184.149.130])
+ by smtp.gmail.com with ESMTPSA id f21sm524753oig.41.2020.05.06.06.48.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 May 2020 06:48:40 -0700 (PDT)
+Received: from minyard.net (unknown
+ [IPv6:2001:470:b8f6:1b:8b39:c3f3:f502:5c4e])
+ by serve.minyard.net (Postfix) with ESMTPSA id 9E87D180051;
+ Wed,  6 May 2020 13:48:39 +0000 (UTC)
+Date: Wed, 6 May 2020 08:48:38 -0500
+From: Corey Minyard <minyard@acm.org>
+To: Julien Grall <julien@xen.org>
 Subject: Re: Troubles running Xen on Raspberry Pi 4 with 5.6.1 DomU
-To: Nataliya Korovkina <malus.brandywine@gmail.com>,
- Peng Fan <peng.fan@nxp.com>
+Message-ID: <20200506134838.GM9902@minyard.net>
 References: <CAMmSBy_A4xJmCo-PiWukv0+vkEhXXDpYwZAKAiJ=mmpuY1CbMA@mail.gmail.com>
  <20200501114201.GE9902@minyard.net>
  <CAMmSBy_h9=5cjMv3+-BKHYhBikgna731DoA+t-8FK-2tbPUH-A@mail.gmail.com>
  <20200502021647.GG9902@minyard.net>
  <4f6ef562-e213-8952-66d6-0f083bf8c593@xen.org>
- <20200502173529.GH9902@minyard.net>
- <ed02b555-dbaa-2ebf-d09f-0474e1a7a745@xen.org>
- <20200504124453.GI9902@minyard.net>
- <CAMmSBy-w1HOyGGCjB_nJcn2xw+4sNdDrtJ8PC3foaxJOtdRmnQ@mail.gmail.com>
- <alpine.DEB.2.21.2005042004500.14706@sstabellini-ThinkPad-T480s>
- <CAMmSBy-yymEGQcuUBHZi-tL9ra7x9nDv+ms8SLiZr1H=BpHUiQ@mail.gmail.com>
- <alpine.DEB.2.21.2005051508180.14706@sstabellini-ThinkPad-T480s>
- <9ee0fb6f-98df-d993-c42e-f47270bf2eaa@suse.com>
- <DB6PR0402MB2760AF88FE7E3DF47401BE5988A40@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <CADz_WD5Ln7Pe1WAFp73d2Mz9wxspzTE3WgAJusp5S8LX4=83Bw@mail.gmail.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
- xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
- PQg8rMsSd0OzIvvjbEAvaWLlbs8wa3MtVLysHY/DfqRK9Zvr/RgrsYC6ukOB7igy2PGqZd+M
- MDnSmVzik0sPvB6xPV7QyFsykEgpnHbvdZAUy/vyys8xgT0PVYR5hyvhyf6VIfGuvqIsvJw5
- C8+P71CHI+U/IhsKrLrsiYHpAhQkw+Zvyeml6XSi5w4LXDbF+3oholKYCkPwxmGdK8MUIdkM
- d7iYdKqiP4W6FKQou/lC3jvOceGupEoDV9botSWEIIlKdtm6C4GfL45RD8V4B9iy24JHPlom
- woVWc0xBZboQguhauQqrBFooHO3roEeM1pxXjLUbDtH4t3SAI3gt4dpSyT3EvzhyNQVVIxj2
- FXnIChrYxR6S0ijSqUKO0cAduenhBrpYbz9qFcB/GyxD+ZWY7OgQKHUZMWapx5bHGQ8bUZz2
- SfjZwK+GETGhfkvNMf6zXbZkDq4kKB/ywaKvVPodS1Poa44+B9sxbUp1jMfFtlOJ3AYB0WDS
- Op3d7F2ry20CIf1Ifh0nIxkQPkTX7aX5rI92oZeu5u038dHUu/dO2EcuCjl1eDMGm5PLHDSP
- 0QUw5xzk1Y8MG1JQ56PtqReO33inBXG63yTIikJmUXFTw6lLJwARAQABzTNCb3JpcyBPc3Ry
- b3Zza3kgKFdvcmspIDxib3Jpcy5vc3Ryb3Zza3lAb3JhY2xlLmNvbT7CwXgEEwECACIFAlH8
- CgsCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEIredpCGysGyasEP/j5xApopUf4g
- 9Fl3UxZuBx+oduuw3JHqgbGZ2siA3EA4bKwtKq8eT7ekpApn4c0HA8TWTDtgZtLSV5IdH+9z
- JimBDrhLkDI3Zsx2CafL4pMJvpUavhc5mEU8myp4dWCuIylHiWG65agvUeFZYK4P33fGqoaS
- VGx3tsQIAr7MsQxilMfRiTEoYH0WWthhE0YVQzV6kx4wj4yLGYPPBtFqnrapKKC8yFTpgjaK
- jImqWhU9CSUAXdNEs/oKVR1XlkDpMCFDl88vKAuJwugnixjbPFTVPyoC7+4Bm/FnL3iwlJVE
- qIGQRspt09r+datFzPqSbp5Fo/9m4JSvgtPp2X2+gIGgLPWp2ft1NXHHVWP19sPgEsEJXSr9
- tskM8ScxEkqAUuDs6+x/ISX8wa5Pvmo65drN+JWA8EqKOHQG6LUsUdJolFM2i4Z0k40BnFU/
- kjTARjrXW94LwokVy4x+ZYgImrnKWeKac6fMfMwH2aKpCQLlVxdO4qvJkv92SzZz4538az1T
- m+3ekJAimou89cXwXHCFb5WqJcyjDfdQF857vTn1z4qu7udYCuuV/4xDEhslUq1+GcNDjAhB
- nNYPzD+SvhWEsrjuXv+fDONdJtmLUpKs4Jtak3smGGhZsqpcNv8nQzUGDQZjuCSmDqW8vn2o
- hWwveNeRTkxh+2x1Qb3GT46uzsFNBFH8CgsBEADGC/yx5ctcLQlB9hbq7KNqCDyZNoYu1HAB
- Hal3MuxPfoGKObEktawQPQaSTB5vNlDxKihezLnlT/PKjcXC2R1OjSDinlu5XNGc6mnky03q
- yymUPyiMtWhBBftezTRxWRslPaFWlg/h/Y1iDuOcklhpr7K1h1jRPCrf1yIoxbIpDbffnuyz
- kuto4AahRvBU4Js4sU7f/btU+h+e0AcLVzIhTVPIz7PM+Gk2LNzZ3/on4dnEc/qd+ZZFlOQ4
- KDN/hPqlwA/YJsKzAPX51L6Vv344pqTm6Z0f9M7YALB/11FO2nBB7zw7HAUYqJeHutCwxm7i
- BDNt0g9fhviNcJzagqJ1R7aPjtjBoYvKkbwNu5sWDpQ4idnsnck4YT6ctzN4I+6lfkU8zMzC
- gM2R4qqUXmxFIS4Bee+gnJi0Pc3KcBYBZsDK44FtM//5Cp9DrxRQOh19kNHBlxkmEb8kL/pw
- XIDcEq8MXzPBbxwHKJ3QRWRe5jPNpf8HCjnZz0XyJV0/4M1JvOua7IZftOttQ6KnM4m6WNIZ
- 2ydg7dBhDa6iv1oKdL7wdp/rCulVWn8R7+3cRK95SnWiJ0qKDlMbIN8oGMhHdin8cSRYdmHK
- kTnvSGJNlkis5a+048o0C6jI3LozQYD/W9wq7MvgChgVQw1iEOB4u/3FXDEGulRVko6xCBU4
- SQARAQABwsFfBBgBAgAJBQJR/AoLAhsMAAoJEIredpCGysGyfvMQAIywR6jTqix6/fL0Ip8G
- jpt3uk//QNxGJE3ZkUNLX6N786vnEJvc1beCu6EwqD1ezG9fJKMl7F3SEgpYaiKEcHfoKGdh
- 30B3Hsq44vOoxR6zxw2B/giADjhmWTP5tWQ9548N4VhIZMYQMQCkdqaueSL+8asp8tBNP+TJ
- PAIIANYvJaD8xA7sYUXGTzOXDh2THWSvmEWWmzok8er/u6ZKdS1YmZkUy8cfzrll/9hiGCTj
- u3qcaOM6i/m4hqtvsI1cOORMVwjJF4+IkC5ZBoeRs/xW5zIBdSUoC8L+OCyj5JETWTt40+lu
- qoqAF/AEGsNZTrwHJYu9rbHH260C0KYCNqmxDdcROUqIzJdzDKOrDmebkEVnxVeLJBIhYZUd
- t3Iq9hdjpU50TA6sQ3mZxzBdfRgg+vaj2DsJqI5Xla9QGKD+xNT6v14cZuIMZzO7w0DoojM4
- ByrabFsOQxGvE0w9Dch2BDSI2Xyk1zjPKxG1VNBQVx3flH37QDWpL2zlJikW29Ws86PHdthh
- Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
- 19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
- Jg6OxFYd01z+a+oL
-Message-ID: <2187cd7c-4d48-986b-77d6-4428e8178404@oracle.com>
-Date: Wed, 6 May 2020 09:42:44 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <CADz_WD5Ln7Pe1WAFp73d2Mz9wxspzTE3WgAJusp5S8LX4=83Bw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9612
- signatures=668687
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- suspectscore=2 mlxscore=0
- bulkscore=0 adultscore=0 phishscore=0 mlxlogscore=864 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
- definitions=main-2005060109
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9612
- signatures=668687
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- mlxscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 clxscore=1011 suspectscore=2
- priorityscore=1501 malwarescore=0 mlxlogscore=908 phishscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2005060108
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4f6ef562-e213-8952-66d6-0f083bf8c593@xen.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,32 +80,141 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- "minyard@acm.org" <minyard@acm.org>, Roman Shaposhnik <roman@zededa.com>,
- "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>,
- Julien Grall <julien.grall@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+Reply-To: minyard@acm.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Roman Shaposhnik <roman@zededa.com>, jeff.kubascik@dornerworks.com,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
  Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Sat, May 02, 2020 at 12:46:14PM +0100, Julien Grall wrote:
+> Hi,
+> 
+> On 02/05/2020 03:16, Corey Minyard wrote:
+> > On Fri, May 01, 2020 at 06:06:11PM -0700, Roman Shaposhnik wrote:
+> > > On Fri, May 1, 2020 at 4:42 AM Corey Minyard <minyard@acm.org> wrote:
+> > > > 
+> > > > On Thu, Apr 30, 2020 at 07:20:05PM -0700, Roman Shaposhnik wrote:
+> > > > > Hi!
+> > > > > 
+> > > > > I'm trying to run Xen on Raspberry Pi 4 with 5.6.1 stock,
+> > > > > upstream kernel. The kernel itself works perfectly well
+> > > > > on the board. When I try booting it as Dom0 under Xen,
+> > > > > it goes into a stacktrace (attached).
+> > > > 
+> > > > Getting Xen working on the Pi4 requires a lot of moving parts, and they
+> > > > all have to be right.
+> > > 
+> > > Tell me about it! It is a pretty frustrating journey to align
+> > > everything just right.
+> > > On the other hand -- it seems worth to enable RPi as an ARM development
+> > > platform for Xen given how ubiquitous it is.
+> > > 
+> > > Hence me trying to combine pristine upstream kernel (5.6.1) with
+> > > pristine upstream
+> > > Xen to enable 100% upstream developer workflow on RPi.
+> > > 
+> > > > > Looking at what nice folks over at Dornerworks have previously
+> > > > > done to make RPi kernels boot as Dom0 I've come across these
+> > > > > 3 patches:
+> > > > >      https://github.com/dornerworks/xen-rpi4-builder/tree/master/patches/linux
+> > > > > 
+> > > > > The first patch seems irrelevant (unless I'm missing something
+> > > > > really basic here).
+> > > > 
+> > > > It might be irrelevant for your configuration, assuming that Xen gets
+> > > > the right information from EFI.  I haven't tried EFI booting.
+> > > 
+> > > I'd doing a bit of belt-and-suspenders strategy really -- I'm actually
+> > > using UEFI u-boot implementation that pre-populates device trees
+> > > and then I'm also forcing an extra copy of it to be load explicitly
+> > > via the GRUB devicetree command (GRUB runs as a UEFI payload).
+> > > 
+> > > I also have access to the semi-official TianoCore RPi4 port that seems
+> > > to be working pretty well: https://github.com/pftf/RPi4/releases/tag/v1.5
+> > > for booting all sort of UEFI payloads on RPi4.
+> > > 
+> > > > > The 2nd patch applied with no issue (but
+> > > > > I don't think it is related) but the 3d patch failed to apply on
+> > > > > account of 5.6.1 kernel no longer having:
+> > > > >      dev->archdata.dev_dma_ops
+> > > > > E.g.
+> > > > >      https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/arch/arm64/mm/dma-mapping.c?h=v5.6.1#n55
+> > > > > 
+> > > > > I've tried to emulate the effect of the patch by simply introducing
+> > > > > a static variable that would signal that we already initialized
+> > > > > dev->dma_ops -- but that didn't help at all.
+> > > > > 
+> > > > > I'm CCing Jeff Kubascik to see if the original authors of that Corey Minyard
+> > > > > to see if may be they have any suggestions on how this may be dealt
+> > > > > with.
+> > > > > 
+> > > > > Any advice would be greatly appreciated!
+> > > > 
+> > > > What's your Pi4 config.txt file look like? The GIC is not being handled
+> > > > correctly, and I'm guessing that configuration is wrong.  You can't use
+> > > > the stock config.txt file with Xen, you have to modify the configuration a
+> > > > bit.
+> > > 
+> > > Understood. I'm actually using a custom one:
+> > >      https://github.com/lf-edge/eve/blob/master/pkg/u-boot/rpi/config.txt
+> > > 
+> > > I could swear that I had a GIC setting in it -- but apparently no -- so
+> > > I added the following at the top of what you could see at the URL above:
+> > > 
+> > > total_mem=4096
+> > > enable_gic=1
+> > > 
+> > > > I think just adding:
+> > > > 
+> > > > enable_gic=1
+> > > > total_mem=1024
+> > > 
+> > > Right -- but my board has 4G memory -- so I think what I did above should work.
+> > 
+> > Nope.  If you say 4096M of RAM, your issue is almost certainly DMA, but
+> > it's not (just) the Linux code.  On the Raspberry Pi 4, several devices
+> > cannot DMA to above 1024M of RAM, but Xen does not handle this.  The
+> > 1024M of RAM is a limitation you will have to live with until Xen has a
+> > fix.
+> 
+> IIUC, dom0 would need to have some memory below 1GB for this to work, am I
+> correct?
 
-On 5/6/20 9:08 AM, Nataliya Korovkina wrote:
-> Hello,
->
-> What I found out: rpi_firmware_property_list() allocates memory from
-> dma_atomic_pool which was mapped to VMALLOC region, so virt_to_page()
-> is not eligible in this case.
+FYI, this also seems to fix the issue with HDMI not working.
 
+-corey
 
-So then it seems it didn't go through xen_swiotlb_alloc_coherent(). In
-which case it has no business calling xen_swiotlb_free_coherent().
-
-
--boris
-
-
-
-
+> 
+> If so could you try the following patch?
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 430708753642..002f49dba74b 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -282,7 +282,7 @@ static void __init allocate_memory_11(struct domain *d,
+>       */
+>      while ( order >= min_low_order )
+>      {
+> -        for ( bits = order ; bits <= (lowmem ? 32 : PADDR_BITS); bits++ )
+> +        for ( bits = order ; bits <= (lowmem ? 30 : PADDR_BITS); bits++ )
+>          {
+>              pg = alloc_domheap_pages(d, order, MEMF_bits(bits));
+>              if ( pg != NULL )
+> @@ -313,7 +313,7 @@ static void __init allocate_memory_11(struct domain *d,
+>      order = get_allocation_size(kinfo->unassigned_mem);
+>      while ( kinfo->unassigned_mem && kinfo->mem.nr_banks < NR_MEM_BANKS )
+>      {
+> -        pg = alloc_domheap_pages(d, order, lowmem ? MEMF_bits(32) : 0);
+> +        pg = alloc_domheap_pages(d, order, lowmem ? MEMF_bits(30) : 0);
+>          if ( !pg )
+>          {
+>              order --;
+> 
+> 
+> Cheers,
+> 
+> -- 
+> Julien Grall
 
