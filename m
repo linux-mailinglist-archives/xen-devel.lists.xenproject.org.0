@@ -2,43 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE69F1C63F9
-	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 00:35:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C4061C657D
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 03:27:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jW69K-0004fh-Oy; Tue, 05 May 2020 22:34:50 +0000
+	id 1jW8pB-0007jG-An; Wed, 06 May 2020 01:26:13 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Uk1a=6T=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jW69J-0004fc-1i
- for xen-devel@lists.xenproject.org; Tue, 05 May 2020 22:34:49 +0000
-X-Inumbo-ID: a03b458f-8f20-11ea-9e02-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=U6FA=6U=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1jW8p9-0007jB-7D
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2020 01:26:11 +0000
+X-Inumbo-ID: 8fc7d0ba-8f38-11ea-9e13-12813bfff9fa
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a03b458f-8f20-11ea-9e02-12813bfff9fa;
- Tue, 05 May 2020 22:34:48 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3B453206FA;
- Tue,  5 May 2020 22:34:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588718087;
- bh=8nkRRYLCCCBSFdsSfU/gwyvFbWvN5TeiE7UTyrrQ8E8=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=2D0VFBOdF9u77613bgq1E/m7tMK1+wCKmjqkdAgVqhbCGq+jgvKuRGHiElux7oUnH
- zvRdbvN8tCbEFHiGAjZPjYVxSq2a+20tbyV37omS0aQcH6wfxRlfqxDogPiKol6MMo
- sCntOQNC6lUVNV01ambPbOjQ/1qDYJRS6Erdbsz8=
-Date: Tue, 5 May 2020 15:34:46 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Roman Shaposhnik <roman@zededa.com>, jgross@suse.com, 
- boris.ostrovsky@oracle.com
+ id 8fc7d0ba-8f38-11ea-9e13-12813bfff9fa;
+ Wed, 06 May 2020 01:26:08 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0461NDJA146859;
+ Wed, 6 May 2020 01:25:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=RBUCu1m+DN/gBGjTacwyDSSmflDLVdgn4dNMEIao+Ks=;
+ b=IkjOnp9a9drwVWnSGnYocaX1lB/CsO1H9ktPAEPRwk5/4MOfWVd1PR/Vsj5wybMO0hz2
+ q52Eqh1cfqlCSCP12fcfzxvgmEqbvJnnIh/uB/RCOMUSY/YCvdzHUF88VEaiB3plAvMG
+ SWhwrde4ZzRvV5mK6hBMSH51FiqsLZaY+ljDopzV9VfXYUt2sSs2D0lc3NJV9GC8qRWU
+ asn04frwhD7r+FOqHjb33/M8a9AS+9Of0Y2AGo2xhBjVqOK7BMA2olwOJYmB8t4qi3UB
+ M0gJbur1+VREtK0ACh4J+rZ1iosgsSx7SchfeKgFpMY23SqKh2KCVenhqvyjjLvYca+N Eg== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2120.oracle.com with ESMTP id 30s0tmfscc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 06 May 2020 01:25:56 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0461NPwt133970;
+ Wed, 6 May 2020 01:25:55 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3020.oracle.com with ESMTP id 30sjngfawy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 06 May 2020 01:25:55 +0000
+Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0461Pr0j004305;
+ Wed, 6 May 2020 01:25:53 GMT
+Received: from [10.39.218.134] (/10.39.218.134)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 05 May 2020 18:25:53 -0700
 Subject: Re: Troubles running Xen on Raspberry Pi 4 with 5.6.1 DomU
-In-Reply-To: <CAMmSBy-yymEGQcuUBHZi-tL9ra7x9nDv+ms8SLiZr1H=BpHUiQ@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2005051508180.14706@sstabellini-ThinkPad-T480s>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Roman Shaposhnik <roman@zededa.com>, jgross@suse.com
 References: <CAMmSBy_A4xJmCo-PiWukv0+vkEhXXDpYwZAKAiJ=mmpuY1CbMA@mail.gmail.com>
  <20200501114201.GE9902@minyard.net>
  <CAMmSBy_h9=5cjMv3+-BKHYhBikgna731DoA+t-8FK-2tbPUH-A@mail.gmail.com>
@@ -50,10 +63,75 @@ References: <CAMmSBy_A4xJmCo-PiWukv0+vkEhXXDpYwZAKAiJ=mmpuY1CbMA@mail.gmail.com>
  <CAMmSBy-w1HOyGGCjB_nJcn2xw+4sNdDrtJ8PC3foaxJOtdRmnQ@mail.gmail.com>
  <alpine.DEB.2.21.2005042004500.14706@sstabellini-ThinkPad-T480s>
  <CAMmSBy-yymEGQcuUBHZi-tL9ra7x9nDv+ms8SLiZr1H=BpHUiQ@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <alpine.DEB.2.21.2005051508180.14706@sstabellini-ThinkPad-T480s>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
+ 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
+ Jg6OxFYd01z+a+oL
+Message-ID: <8d3f7599-3afe-1662-da08-e4a20cfa5094@oracle.com>
+Date: Tue, 5 May 2020 21:25:51 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-256487737-1588716576=:14706"
-Content-ID: <alpine.DEB.2.21.2005051509460.14706@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2005051508180.14706@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9612
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ adultscore=0 phishscore=0
+ mlxlogscore=999 bulkscore=0 malwarescore=0 spamscore=0 suspectscore=2
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2005060006
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9612
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxscore=0
+ priorityscore=1501 lowpriorityscore=0 spamscore=0 suspectscore=2
+ phishscore=0 clxscore=1011 bulkscore=0 mlxlogscore=999 adultscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2003020000 definitions=main-2005060006
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,200 +142,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: peng.fan@nxp.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, minyard@acm.org, jeff.kubascik@dornerworks.com,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
+Cc: peng.fan@nxp.com, Julien Grall <julien@xen.org>, minyard@acm.org,
+ jeff.kubascik@dornerworks.com, Julien Grall <julien.grall@arm.com>,
+ xen-devel@lists.xenproject.org,
  Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-256487737-1588716576=:14706
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2005051509461.14706@sstabellini-ThinkPad-T480s>
-
-+ Boris, Jürgen
-
-See the crash Roman is seeing booting dom0 on the Raspberry Pi. It is
-related to the recent xen dma_ops changes. Possibly the same thing
-reported by Peng here:
-
-https://marc.info/?l=linux-kernel&m=158805976230485&w=2
-
-An in-depth analysis below.
+On 5/5/20 6:34 PM, Stefano Stabellini wrote:
+>
+> =20
+> The crash happens here:
+>
+> 	if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
+> 		     range_straddles_page_boundary(phys, size)) &&
+> 	    TestClearPageXenRemapped(virt_to_page(vaddr)))
+> 		xen_destroy_contiguous_region(phys, order);
+>
+> I don't know exactly what is causing the crash. Is it the WARN_ON someh=
+ow?
+> Is it TestClearPageXenRemapped? Neither should cause a crash in theory.=
 
 
-On Mon, 4 May 2020, Roman Shaposhnik wrote:
-> > > [    2.534292] Unable to handle kernel paging request at virtual
-> > > address 000000000026c340
-> > > [    2.542373] Mem abort info:
-> > > [    2.545257]   ESR = 0x96000004
-> > > [    2.548421]   EC = 0x25: DABT (current EL), IL = 32 bits
-> > > [    2.553877]   SET = 0, FnV = 0
-> > > [    2.557023]   EA = 0, S1PTW = 0
-> > > [    2.560297] Data abort info:
-> > > [    2.563258]   ISV = 0, ISS = 0x00000004
-> > > [    2.567208]   CM = 0, WnR = 0
-> > > [    2.570294] [000000000026c340] user address but active_mm is swapper
-> > > [    2.576783] Internal error: Oops: 96000004 [#1] SMP
-> > > [    2.581784] Modules linked in:
-> > > [    2.584950] CPU: 3 PID: 135 Comm: kworker/3:1 Not tainted 5.6.1-default #9
-> > > [    2.591970] Hardware name: Raspberry Pi 4 Model B (DT)
-> > > [    2.597256] Workqueue: events deferred_probe_work_func
-> > > [    2.602509] pstate: 60000005 (nZCv daif -PAN -UAO)
-> > > [    2.607431] pc : xen_swiotlb_free_coherent+0x198/0x1d8
-> > > [    2.612696] lr : dma_free_attrs+0x98/0xd0
-> > > [    2.616827] sp : ffff800011db3970
-> > > [    2.620242] x29: ffff800011db3970 x28: 00000000000f7b00
-> > > [    2.625695] x27: 0000000000001000 x26: ffff000037b68410
-> > > [    2.631129] x25: 0000000000000001 x24: 00000000f7b00000
-> > > [    2.636583] x23: 0000000000000000 x22: 0000000000000000
-> > > [    2.642017] x21: ffff800011b0d000 x20: ffff80001179b548
-> > > [    2.647461] x19: ffff000037b68410 x18: 0000000000000010
-> > > [    2.652905] x17: ffff000035d66a00 x16: 00000000deadbeef
-> > > [    2.658348] x15: ffffffffffffffff x14: ffff80001179b548
-> > > [    2.663792] x13: ffff800091db37b7 x12: ffff800011db37bf
-> > > [    2.669236] x11: ffff8000117c7000 x10: ffff800011db3740
-> > > [    2.674680] x9 : 00000000ffffffd0 x8 : ffff80001071e980
-> > > [    2.680124] x7 : 0000000000000132 x6 : ffff80001197a6ab
-> > > [    2.685568] x5 : 0000000000000000 x4 : 0000000000000000
-> > > [    2.691012] x3 : 00000000f7b00000 x2 : fffffdffffe00000
-> > > [    2.696465] x1 : 000000000026c340 x0 : 000002000046c340
-> > > [    2.701899] Call trace:
-> > > [    2.704452]  xen_swiotlb_free_coherent+0x198/0x1d8
-> > > [    2.709367]  dma_free_attrs+0x98/0xd0
-> > > [    2.713143]  rpi_firmware_property_list+0x1e4/0x240
-> > > [    2.718146]  rpi_firmware_property+0x6c/0xb0
-> > > [    2.722535]  rpi_firmware_probe+0xf0/0x1e0
-> > > [    2.726760]  platform_drv_probe+0x50/0xa0
-> > > [    2.730879]  really_probe+0xd8/0x438
-> > > [    2.734567]  driver_probe_device+0xdc/0x130
-> > > [    2.738870]  __device_attach_driver+0x88/0x108
-> > > [    2.743434]  bus_for_each_drv+0x78/0xc8
-> > > [    2.747386]  __device_attach+0xd4/0x158
-> > > [    2.751337]  device_initial_probe+0x10/0x18
-> > > [    2.755649]  bus_probe_device+0x90/0x98
-> > > [    2.759590]  deferred_probe_work_func+0x88/0xd8
-> > > [    2.764244]  process_one_work+0x1f0/0x3c0
-> > > [    2.768369]  worker_thread+0x138/0x570
-> > > [    2.772234]  kthread+0x118/0x120
-> > > [    2.775571]  ret_from_fork+0x10/0x18
-> > > [    2.779263] Code: d34cfc00 f2dfbfe2 d37ae400 8b020001 (f8626800)
-> > > [    2.785492] ---[ end trace 4c435212e349f45f ]---
-> > > [    2.793340] usb 1-1: New USB device found, idVendor=2109,
-> > > idProduct=3431, bcdDevice= 4.20
-> > > [    2.801038] usb 1-1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
-> > > [    2.808297] usb 1-1: Product: USB2.0 Hub
-> > > [    2.813710] hub 1-1:1.0: USB hub found
-> > > [    2.817117] hub 1-1:1.0: 4 ports detected
-> > >
-> > > This is bailing out right here:
-> > >      https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/firmware/raspberrypi.c?h=v5.6.1#n125
-> > >
-> > > FYIW (since I modified the source to actually print what was returned
-> > > right before it bails) we get:
-> > >    buf[1] == 0x800000004
-> > >    buf[2] == 0x00000001
-> > >
-> > > Status 0x800000004 is of course suspicious since it is not even listed here:
-> > >     https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/soc/bcm2835/raspberrypi-firmware.h#n14
-> > >
-> > > So it appears that this DMA request path is somehow busted and it
-> > > would be really nice to figure out why.
-> >
-> > You have actually discovered a genuine bug in the recent xen dma rework
-> > in Linux. Congrats :-)
-> 
-> Nice! ;-)
-> 
-> > I am doing some guesswork here, but from what I read in the thread and
-> > the information in this email I think this patch might fix the issue.
-> > If it doesn't fix the issue please add a few printks in
-> > drivers/xen/swiotlb-xen.c:xen_swiotlb_free_coherent and please let me
-> > know where exactly it crashes.
-> >
-> >
-> > diff --git a/include/xen/arm/page-coherent.h b/include/xen/arm/page-coherent.h
-> > index b9cc11e887ed..ff4677ed9788 100644
-> > --- a/include/xen/arm/page-coherent.h
-> > +++ b/include/xen/arm/page-coherent.h
-> > @@ -8,12 +8,17 @@
-> >  static inline void *xen_alloc_coherent_pages(struct device *hwdev, size_t size,
-> >                 dma_addr_t *dma_handle, gfp_t flags, unsigned long attrs)
-> >  {
-> > +       void *cpu_addr;
-> > +       if (dma_alloc_from_dev_coherent(hwdev, size, dma_handle, &cpu_addr))
-> > +               return cpu_addr;
-> >         return dma_direct_alloc(hwdev, size, dma_handle, flags, attrs);
-> >  }
-> >
-> >  static inline void xen_free_coherent_pages(struct device *hwdev, size_t size,
-> >                 void *cpu_addr, dma_addr_t dma_handle, unsigned long attrs)
-> >  {
-> > +       if (dma_release_from_dev_coherent(hwdev, get_order(size), cpu_addr))
-> > +               return;
-> >         dma_direct_free(hwdev, size, cpu_addr, dma_handle, attrs);
-> >  }
-> 
-> Applied the patch, but it didn't help and after printk's it turns out
-> it surprisingly crashes right inside this (rather convoluted if you
-> ask me) if statement:
->     https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/xen/swiotlb-xen.c?h=v5.6.1#n349
-> 
-> So it makes sense that the patch didn't help -- we never hit that
-> xen_free_coherent_pages.
- 
-The crash happens here:
 
-	if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
-		     range_straddles_page_boundary(phys, size)) &&
-	    TestClearPageXenRemapped(virt_to_page(vaddr)))
-		xen_destroy_contiguous_region(phys, order);
-
-I don't know exactly what is causing the crash. Is it the WARN_ON somehow?
-Is it TestClearPageXenRemapped? Neither should cause a crash in theory.
+This doesn't look like warning to me. Would it be possible to see what
+xen_swiotlb_free_coherent+0x198 corresponds to in code? I don't know if
+=2E/scripts/faddr2line works for ARM but could you try
 
 
-But I do know that there are problems with that if statement on ARM. It
-can trigger for one of the following conditions:
-
-1) dev_addr + size - 1 > dma_mask
-2) range_straddles_page_boundary(phys, size)
+=2E/scripts/faddr2line vmlinux xen_swiotlb_free_coherent+0x198
 
 
-The first condition might happen after bef4d2037d214 because
-dma_direct_alloc might not respect the device dma_mask. It is actually a
-bug and I would like to keep the WARN_ON for that. The patch I sent
-yesterday (https://marc.info/?l=xen-devel&m=158865080224504) should
-solve that issue. But Roman is telling us that the crash still persists.
-
-The second condition is completely normal and not an error on ARM
-because dom0 is 1:1 mapped. It is not an issue if the address range is
-straddling a page boundary. We certainly shouldn't WARN (or crash).
-
-So, I suggest something similar to Peng's patch, appended.
-
-Roman, does it solve your problem?
+-boris
 
 
-diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-index b6d27762c6f8..994ca3a4b653 100644
---- a/drivers/xen/swiotlb-xen.c
-+++ b/drivers/xen/swiotlb-xen.c
-@@ -346,9 +346,8 @@ xen_swiotlb_free_coherent(struct device *hwdev, size_t size, void *vaddr,
- 	/* Convert the size to actually allocated. */
- 	size = 1UL << (order + XEN_PAGE_SHIFT);
- 
--	if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
--		     range_straddles_page_boundary(phys, size)) &&
--	    TestClearPageXenRemapped(virt_to_page(vaddr)))
-+	WARN_ON(dev_addr + size - 1 > dma_mask);
-+	if (TestClearPageXenRemapped(virt_to_page(vaddr)))
- 		xen_destroy_contiguous_region(phys, order);
- 
- 	xen_free_coherent_pages(hwdev, size, vaddr, (dma_addr_t)phys, attrs);
---8323329-256487737-1588716576=:14706--
+
+
 
