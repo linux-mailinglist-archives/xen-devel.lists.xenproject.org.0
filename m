@@ -2,61 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B80DC1C7182
-	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 15:18:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 390501C71DD
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 15:42:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWJvl-0001bI-3x; Wed, 06 May 2020 13:17:45 +0000
+	id 1jWKJE-000430-3c; Wed, 06 May 2020 13:42:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TX5G=6U=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1jWJvj-0001bB-M9
- for xen-devel@lists.xenproject.org; Wed, 06 May 2020 13:17:43 +0000
-X-Inumbo-ID: f79d6246-8f9b-11ea-b9cf-bc764e2007e4
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
+ <SRS0=Srcy=6U=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jWKJB-00042H-UM
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2020 13:41:57 +0000
+X-Inumbo-ID: 5972e952-8f9f-11ea-9887-bc764e2007e4
+Received: from mga04.intel.com (unknown [192.55.52.120])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f79d6246-8f9b-11ea-b9cf-bc764e2007e4;
- Wed, 06 May 2020 13:17:43 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id h4so2554070wmb.4
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2020 06:17:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZEu/pshMue4rFNKdoEFdM6+ctXD8/pMrLXmSDPxBu6g=;
- b=N/JEN4E+HvkH+/iP5iqSrY5e9xDPIKI+1cmVeOz2Y1EplP3Bq+aRMAECEDIQSnD4t4
- Gj3v0VpIcvo5TBGvI9bbbchE0hMIkRjSKixz+pXR/JucnWsHiuafDhmL3JuyqLm5QWaQ
- hm4C/Hbsvq0q8gpjmIlokRw7KRFSgMfaFHqLs3t/GA+TAtgaaJAafUu4BKWPV9b3bhdY
- a8nwqNV8XPI7B6gTT8+XnBb4GyP4BzaXKTS34tei1kdMcxDJ91/cx5nnIcIeetkyQcrn
- G4wsihVTNwaSjS70dMwQS1m/yC4Q8cOAMzPIUCJdLA+EtZsSpAkHRCDvkIg/nM3kySRa
- 8B0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZEu/pshMue4rFNKdoEFdM6+ctXD8/pMrLXmSDPxBu6g=;
- b=H6b8wEE3I9+usDu2W42rvOUYrPrEHY9Dyp0hqre8Uf0c9hKorTxyxpSmOoxx1C0/0E
- PsTvOkVgDdhjTBfAncda1Q3RNbUPddZ9EwqoGEMnj+OfkLKmPrbMvv8E1TczAH0SAxvW
- 4kkofOmeIgbBdQProPoeinOQm5mZxJbuyjewMPvEkclE57QwKkvYtFyxjRWMZYr50fjd
- C+p8ep157VxwvoyzWtB94f0le/MaAZJuA3GYsldYoEBrKmVQ+FYpqchZdHQjGESqFB+8
- vSdftSQIc4tqxhe8UJW06LxFXqzYenGgvAbjSbC1zJhpkZP97eF3cOfhbNvgF1Ay08d/
- FSGw==
-X-Gm-Message-State: AGi0PuZ/4ddD/15nHPnzgOa0cGWyF4C5QYt1OJnkptsa4uWfSIQWIlE3
- aHEQu9NkyEBLCHBTZHR/Q+VBlWq7O07ab+Nxav8=
-X-Google-Smtp-Source: APiQypKziUFUYHjMPtxC9bIUrcMnbZwPOYTGATFUJ6tldHw86ldUZCMbQ68TyIjyDkuRbfBLf4cu3LTEWUBh4kTOqGs=
-X-Received: by 2002:a1c:2ed3:: with SMTP id u202mr1872390wmu.77.1588771061198; 
- Wed, 06 May 2020 06:17:41 -0700 (PDT)
+ id 5972e952-8f9f-11ea-9887-bc764e2007e4;
+ Wed, 06 May 2020 13:41:56 +0000 (UTC)
+IronPort-SDR: ZKOUV3xuFZC//voXop9CLqejJAZ2JauOvQakU0OCKC7aiBhWuCWGPvA7rPVJ00WTqkEMdeYVBx
+ uKnh4etw9dHQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2020 06:41:54 -0700
+IronPort-SDR: 85gj5SCOulbu6Af8PbMjNCSbyhnJNfLJ6RXQ8aPKtpmmCQ+sZxj0LXWHxMiaBvC+U0cGFZF5Er
+ 14gbVQKNJKwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,359,1583222400"; d="scan'208";a="304802044"
+Received: from srcuster-mobl11.amr.corp.intel.com (HELO localhost.localdomain)
+ ([10.209.81.167])
+ by FMSMGA003.fm.intel.com with ESMTP; 06 May 2020 06:41:53 -0700
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v18 1/2] tools/libxc: add VM forking functions
+Date: Wed,  6 May 2020 06:41:43 -0700
+Message-Id: <a59dabe3a40d4f3709d3ad6ca605523f180c2dc5.1588772376.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <70ea4889e30ed35760329331ddfeb279fcd80786.1587655725.git.tamas.lengyel@intel.com>
- <e416eac0c986fd1aba5f576d9b065a6f47660b2c.1587655725.git.tamas.lengyel@intel.com>
- <CABfawhnxoQbehu-bvT7Uhd808rsjjDsB87O=CKqHDsrBUvur-g@mail.gmail.com>
- <20200506130037.mklkimsaetmzqu6h@debian>
-In-Reply-To: <20200506130037.mklkimsaetmzqu6h@debian>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Wed, 6 May 2020 07:17:05 -0600
-Message-ID: <CABfawhniFVz05fc1TWwvjOL2nfM9JcMB3AbXeX7GsJojMLToyg@mail.gmail.com>
-Subject: Re: [PATCH v17 2/2] xen/tools: VM forking toolstack side
-To: Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,35 +50,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Tamas K Lengyel <tamas.lengyel@intel.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, May 6, 2020 at 7:00 AM Wei Liu <wl@xen.org> wrote:
->
-> On Fri, May 01, 2020 at 07:59:45AM -0600, Tamas K Lengyel wrote:
-> > On Thu, Apr 23, 2020 at 9:33 AM Tamas K Lengyel <tamas.lengyel@intel.com> wrote:
-> > >
-> > > Add necessary bits to implement "xl fork-vm" commands. The command allows the
-> > > user to specify how to launch the device model allowing for a late-launch model
-> > > in which the user can execute the fork without the device model and decide to
-> > > only later launch it.
-> > >
-> > > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> >
-> > Patch ping. If nothing else at least the libxc parts would be nice to
-> > get merged before the freeze.
->
-> Changes to libxc looks good to me.
->
-> Please split it out to a patch with proper commit message.
->
+Add functions to issue VM forking hypercalls
 
-Sounds good, will do.
+Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+---
+ tools/libxc/include/xenctrl.h | 14 ++++++++++++++
+ tools/libxc/xc_memshr.c       | 26 ++++++++++++++++++++++++++
+ 2 files changed, 40 insertions(+)
 
-Thanks,
-Tamas
+diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
+index 5f25c5a6d4..0a6ff93229 100644
+--- a/tools/libxc/include/xenctrl.h
++++ b/tools/libxc/include/xenctrl.h
+@@ -2232,6 +2232,20 @@ int xc_memshr_range_share(xc_interface *xch,
+                           uint64_t first_gfn,
+                           uint64_t last_gfn);
+ 
++int xc_memshr_fork(xc_interface *xch,
++                   uint32_t source_domain,
++                   uint32_t client_domain,
++                   bool allow_with_iommu);
++
++/*
++ * Note: this function is only intended to be used on short-lived forks that
++ * haven't yet aquired a lot of memory. In case the fork has a lot of memory
++ * it is likely more performant to create a new fork with xc_memshr_fork.
++ *
++ * With VMs that have a lot of memory this call may block for a long time.
++ */
++int xc_memshr_fork_reset(xc_interface *xch, uint32_t forked_domain);
++
+ /* Debug calls: return the number of pages referencing the shared frame backing
+  * the input argument. Should be one or greater.
+  *
+diff --git a/tools/libxc/xc_memshr.c b/tools/libxc/xc_memshr.c
+index 97e2e6a8d9..2300cc7075 100644
+--- a/tools/libxc/xc_memshr.c
++++ b/tools/libxc/xc_memshr.c
+@@ -239,6 +239,32 @@ int xc_memshr_debug_gref(xc_interface *xch,
+     return xc_memshr_memop(xch, domid, &mso);
+ }
+ 
++int xc_memshr_fork(xc_interface *xch, uint32_t pdomid, uint32_t domid,
++                   bool allow_with_iommu)
++{
++    xen_mem_sharing_op_t mso;
++
++    memset(&mso, 0, sizeof(mso));
++
++    mso.op = XENMEM_sharing_op_fork;
++    mso.u.fork.parent_domain = pdomid;
++
++    if ( allow_with_iommu )
++        mso.u.fork.flags |= XENMEM_FORK_WITH_IOMMU_ALLOWED;
++
++    return xc_memshr_memop(xch, domid, &mso);
++}
++
++int xc_memshr_fork_reset(xc_interface *xch, uint32_t domid)
++{
++    xen_mem_sharing_op_t mso;
++
++    memset(&mso, 0, sizeof(mso));
++    mso.op = XENMEM_sharing_op_fork_reset;
++
++    return xc_memshr_memop(xch, domid, &mso);
++}
++
+ int xc_memshr_audit(xc_interface *xch)
+ {
+     xen_mem_sharing_op_t mso;
+-- 
+2.25.1
+
 
