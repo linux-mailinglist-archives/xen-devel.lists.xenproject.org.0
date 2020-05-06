@@ -2,54 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C1CF1C6D60
-	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 11:42:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51FC21C6D72
+	for <lists+xen-devel@lfdr.de>; Wed,  6 May 2020 11:45:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWGYw-0008Ur-9N; Wed, 06 May 2020 09:41:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jWGcI-0000Dy-UJ; Wed, 06 May 2020 09:45:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=C64T=6U=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jWGYt-0008Uk-TA
- for xen-devel@lists.xenproject.org; Wed, 06 May 2020 09:41:55 +0000
-X-Inumbo-ID: d2818546-8f7d-11ea-b07b-bc764e2007e4
+ id 1jWGcH-0000Ds-HV
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2020 09:45:25 +0000
+X-Inumbo-ID: 4f0981a5-8f7e-11ea-9e2b-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d2818546-8f7d-11ea-b07b-bc764e2007e4;
- Wed, 06 May 2020 09:41:55 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4f0981a5-8f7e-11ea-9e2b-12813bfff9fa;
+ Wed, 06 May 2020 09:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RKQOmLoat1cFrMBPDuFyWmD8jgcx1D0Dku4nqxilMYQ=; b=yKcN10tuYBtr7991e5VV1n/fgq
- bdD7HB1BfVEzFR8YhJjwGEgoIHhnUoiz1JMhSUJUizqNaClMg9q28qT8bPhvFLMcHyNy+kybQ5uNS
- 3QmyHPmJm7ToI5/NebfX/xIsviEccEWib9JTbUKj/YVMg69onmQ5WeoTxXHzz55Si6/g=;
+ bh=YTAfR6Ikyr6Y/khl6iA0fhEplgR7Z4Y3RkEVfoPbqoc=; b=xUO5jh5Sf1YvzpbCKj3LhpcP/v
+ uL/FE1O91wnQZSLOnzvgowv11WruYb65ppD5L2WXUSH04qSg/IFE8U8ICQ/ymw3yIv7YP8dDR/Cwb
+ TKDTEIQ0q3/9HeAo3+B2YaNaKi4lPyMwNGwiIlyEuY8+ENIIrdHpWM0KvGf7LuKR/q5c=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1jWGYs-0000sH-6W; Wed, 06 May 2020 09:41:54 +0000
+ id 1jWGcG-0000wh-AV; Wed, 06 May 2020 09:45:24 +0000
 Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jWGYr-0000Bt-Vc; Wed, 06 May 2020 09:41:54 +0000
-Subject: Re: [PATCH] Arm: fix build with CONFIG_DTB_FILE set
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <f4c6b07e-c5de-ba75-c1ce-1475939f10af@suse.com>
+ id 1jWGcG-0000VQ-3g; Wed, 06 May 2020 09:45:24 +0000
+Subject: Re: [PATCH v2 4/4] x86: adjustments to guest handle treatment
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <9d4b738a-4487-6bfc-3076-597d074c7b47@suse.com>
+ <e820e1b9-7a7e-21f3-1ea0-d939de1905dd@suse.com>
+ <20200422082610.GA28601@Air-de-Roger>
+ <0b43670b-cc0b-0b0b-ef24-4734de35d4b7@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <a0e21f63-f367-d32c-8d4c-baf4f9a5b21d@xen.org>
-Date: Wed, 6 May 2020 10:41:52 +0100
+Message-ID: <6eaa1d25-7a91-d2ef-db01-20c5cb5101c4@xen.org>
+Date: Wed, 6 May 2020 10:45:22 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <f4c6b07e-c5de-ba75-c1ce-1475939f10af@suse.com>
+In-Reply-To: <0b43670b-cc0b-0b0b-ef24-4734de35d4b7@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,37 +64,55 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Hi Jan,
 
-
-On 06/05/2020 10:36, Jan Beulich wrote:
-> Recent changes no longer allow modification of AFLAGS. The needed
-> conversion was apparently missed in 2740d96efdd3 ("xen/build: have the
-> root Makefile generates the CFLAGS").
+On 05/05/2020 07:26, Jan Beulich wrote:
+> On 22.04.2020 10:26, Roger Pau Monné wrote:
+>> On Tue, Apr 21, 2020 at 11:13:23AM +0200, Jan Beulich wrote:
+>>> First of all avoid excessive conversions. copy_{from,to}_guest(), for
+>>> example, work fine with all of XEN_GUEST_HANDLE{,_64,_PARAM}().
+>>>
+>>> Further
+>>> - do_physdev_op_compat() didn't use the param form for its parameter,
+>>> - {hap,shadow}_track_dirty_vram() wrongly used the param form,
+>>> - compat processor Px logic failed to check compatibility of native and
+>>>    compat structures not further converted.
+>>>
+>>> As this eliminates all users of guest_handle_from_param() and as there's
+>>> no real need to allow for conversions in both directions, drop the
+>>> macros as well.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> [...]
+>>> --- a/xen/drivers/acpi/pmstat.c
+>>> +++ b/xen/drivers/acpi/pmstat.c
+>>> @@ -492,7 +492,7 @@ int do_pm_op(struct xen_sysctl_pm_op *op
+>>>       return ret;
+>>>   }
+>>>   
+>>> -int acpi_set_pdc_bits(u32 acpi_id, XEN_GUEST_HANDLE_PARAM(uint32) pdc)
+>>> +int acpi_set_pdc_bits(u32 acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
+>>
+>> Nit: switch to uint32_t while there?
+>>
+>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Unless I hear objections, I'm intending to commit this then in a
+> day or two with the suggested change made and the R-b given. Of
+> course a formally required ack for the Arm side dropping of
+> guest_handle_from_param() would still be nice ...
+
+I missed the small change on Arm sorry:
 
 Acked-by: Julien Grall <jgrall@amazon.com>
 
 Cheers,
-
-> 
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -68,7 +68,7 @@ extra-y += $(TARGET_SUBARCH)/head.o
->   
->   ifdef CONFIG_DTB_FILE
->   obj-y += dtb.o
-> -AFLAGS += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
-> +AFLAGS-y += -DCONFIG_DTB_FILE=\"$(CONFIG_DTB_FILE)\"
->   endif
->   
->   ALL_OBJS := $(TARGET_SUBARCH)/head.o $(ALL_OBJS)
-> 
 
 -- 
 Julien Grall
