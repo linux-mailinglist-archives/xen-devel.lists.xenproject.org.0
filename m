@@ -2,60 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A34D1C9DF9
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 23:56:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 679BE1C9EA9
+	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 00:49:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWoTw-0005J1-DC; Thu, 07 May 2020 21:55:04 +0000
+	id 1jWpJu-0000zB-Jz; Thu, 07 May 2020 22:48:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aphx=6V=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jWoTv-0005Iw-Cf
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 21:55:03 +0000
-X-Inumbo-ID: 65991c10-90ad-11ea-9f88-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=WU5u=6V=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jWpJt-0000z6-C3
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 22:48:45 +0000
+X-Inumbo-ID: e6cd8b02-90b4-11ea-9f8c-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 65991c10-90ad-11ea-9f88-12813bfff9fa;
- Thu, 07 May 2020 21:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=j3XaVXR5PgZ6P9nXFfto1emlLWymC/6ABFE57uw7ws0=; b=x1zK63iZXZdE3uk4UsBSf9XH0
- D4PuFnRBYZck+D3Ej65ZXp+w+3SP0y/Dham6g1DJ3tyqsJqt3sjzTCjnkJL+6jMZj0yDnKKfjupGQ
- 7EE7FftaJkEr2OrUXnff3ln7GP/G9Ezf/Qf6ddT6ex6oAvEAN7I6uKzbpSZUG4IiAEle8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jWoTr-0000JH-Gf; Thu, 07 May 2020 21:54:59 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jWoTr-0007Bk-4J; Thu, 07 May 2020 21:54:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jWoTr-0005Rl-3T; Thu, 07 May 2020 21:54:59 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150080-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id e6cd8b02-90b4-11ea-9f8c-12813bfff9fa;
+ Thu, 07 May 2020 22:48:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588891723;
+ h=from:to:subject:date:message-id:content-id:
+ content-transfer-encoding:mime-version;
+ bh=N86GxH6ihLvzvmdPTDb+qmvyWT8evRMPlMJt4BgFShA=;
+ b=aVrZkzyFQ2l8EsPw+fKyuLtltpz1Rn7IsEhVEX+xgNLyxps7DF56IUYM
+ YvJgKmGO1/4/24H568h/cHKleVvFGOoAzkk1K4SkkpN9fzsEDmETxX6dU
+ dWRMutgYuPZs6P6YlM7kuWShPl3dmK25c8nzpiZ/CdGmKF8cg0iB7Zqip E=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=George.Dunlap@citrix.com;
+ spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ George.Dunlap@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ George.Dunlap@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: qQYWGvmgZFLLM/3qGqt8OhYxIeMDu9Jso036cUH/DOmYv03MAaiNv6GV9WaMSqpnsYClaY2Ygc
+ il16AuV+0FSwwgVJ4JqeBUXByffOVE3FR9VE1FmVFj/hUfEOCnbm8+zcmLNW/voVLTFqapwivy
+ 7/yQMlp1tftd37HdK3c1MYiy/PdUPJ6IWBOImQSH4b1SNVVZJtJRlKjPdjzT1GXPXcLZjMrq7H
+ WnbIDUZfOaKvULPQ3i3sCUb2Ce75WHUa23d7y8RpT67jCCQL35DOlvVwU6CAhUMWmbKHaZpj1M
+ JV4=
+X-SBRS: 2.7
+X-MesageID: 17307801
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,365,1583211600"; d="scan'208";a="17307801"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: XenSummit 2020 *will* be held virtuaully in June!
+Thread-Topic: XenSummit 2020 *will* be held virtuaully in June!
+Thread-Index: AQHWJMGm0AmOdlVrOUaNRapVF0rYbw==
+Date: Thu, 7 May 2020 22:48:39 +0000
+Message-ID: <562E87BB-FAEE-42B3-BEF4-6E7A4D65269D@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.60.0.2.5)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <8DA4A1E15FEE7244B8D1E365912687E5@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150080: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=35b819c45c4603fdb1d400925d6b2e6f8689a9d5
-X-Osstest-Versions-That: xen=64b1da5a2fcf37e3542c277fde194ff3e8bba2d2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 07 May 2020 21:54:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,60 +100,11 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150080 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150080/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  35b819c45c4603fdb1d400925d6b2e6f8689a9d5
-baseline version:
- xen                  64b1da5a2fcf37e3542c277fde194ff3e8bba2d2
-
-Last test of basis   150078  2020-05-07 16:00:49 Z    0 days
-Testing same since   150080  2020-05-07 19:01:35 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Dario Faggioli <dfaggioli@suse.com>
-  Sergey Dyasli <sergey.dyasli@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   64b1da5a2f..35b819c45c  35b819c45c4603fdb1d400925d6b2e6f8689a9d5 -> smoke
+V2XigJlyZSBzdGlsbCBpcm9uaW5nIG91dCBhbGwgdGhlIGRldGFpbHMsIGJ1dCBpdOKAmXMgYWJz
+b2x1dGVseSBjb25maXJtZWQgdGhhdCBYZW5TdW1taXQgMjAyMCB3aWxsIGJlIGhlbGQgdmlydHVh
+bGx5IGluIEp1bmUuDQoNCkluIGFkZGl0aW9uLCB0aGUgbmV3IHZlcnNpb24gb2YgdGhlIERlc2ln
+biBTZXNzaW9ucyB3ZWJzaXRlIGlzIG5vdyBsaXZlOg0KDQpodHRwczovL2Rlc2lnbi1zZXNzaW9u
+cy54ZW5wcm9qZWN0Lm9yZw0KDQpNYWtlIHNwYWNlIG9uIHlvdXIgY2FsZW5kYXJzLCBhbmQgc3Vi
+bWl0IHlvdXIgZGVzaWduIHNlc3Npb25zLCBhbmQgd2F0Y2ggdGhpcyBzcGFjZSBmb3IgZnVydGhl
+ciBpbmZvcm1hdGlvbiENCg0KIC1HZW9yZ2UgRHVubGFw
 
