@@ -2,89 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 723BB1C9703
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 19:02:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A8011C97BA
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 19:28:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWjtm-0005rc-Sq; Thu, 07 May 2020 17:01:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jWkIT-0007bx-0k; Thu, 07 May 2020 17:26:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gPsh=6V=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jWjtl-0005rX-Ad
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 17:01:25 +0000
-X-Inumbo-ID: 5e5d6af9-9084-11ea-9f50-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5e5d6af9-9084-11ea-9f50-12813bfff9fa;
- Thu, 07 May 2020 17:01:20 +0000 (UTC)
+ <SRS0=53Et=6V=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jWkIR-0007bs-7a
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 17:26:55 +0000
+X-Inumbo-ID: f190c9a0-9087-11ea-b9cf-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f190c9a0-9087-11ea-b9cf-bc764e2007e4;
+ Thu, 07 May 2020 17:26:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588870880;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=ur5VtiotyWcbSJIqszELjrS4++33DvzXvBT6MW4p10Q=;
- b=RGtckSUVWwU6jM4lOM7eYdC3r1zZs9Sb+qEDH3kaU+YoqY6cTuTv/Y39
- WlTi/tVGB6552+joY0oZ53TJ2RbbZo7q9ZlfBlkhVyN3VSZfoW6j4nczs
- B13srbzMz/sVIL6wgdRzFD+yZdr2deVK9YCpjs3ntDL8vRp0Eacm8OXvo o=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1588872415;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=LR34SWfeleLjzXZQ9LoxWEPpFUaT9bSTuTKCJAVw5K4=;
+ b=VAMNH38wr5MsyyNgwlAqBCDPj12aPQH8nwP7ejahgBvZr+vhLtDWwCCN
+ HQm7247Udsf6ByLwPmqdiZklxh5D6Eto5G9hJjHxuKhU8cJzAoumPukwf
+ SF3neczHtBKz9oD0l0kjUPXKA9lFsdTNgUaNDFfkTL3dewr7w3rH35rkM U=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: MfqJggDCYZAEjZN18NUPuygfIq++wVfxO4jIuFdwtOzdGVTibxfvHx0ZuLUIdmm0hYm+BfB98y
- QTeaIhwh9InKdxl7ZzCqWoUVztu6ai/Y6vNsIRpcXMqPXjSfJ/iCgWuijJs81C4niZZLI9ClYT
- NMLmayTyoA1z1vjibx7/fFfLczVX3x37tMxKmXu3Takm710/kdpd7nmpSWeWtHZE3BjZfVHn7i
- m1kOrqifomdgMFDm64FDzldb3RLvA2UWnUttV+Haxb86/xkgDWoGSRLMiKmWQFJ0+2rvHX7tv8
- gB4=
+IronPort-SDR: eS/OeqLO/8MeKOgG/u67CxxTmP7DRjAKrh1xQb6ZUXI8aaDnEeEFanrlowPWLCEZA42aQT+BXZ
+ 8B1shmrGbf96Q7zunQPnGObyN/6ftTwoNZ7kuMBa8LVGqBxkJvxapSJHcz5B57fPjWTZK9jr/5
+ YU7FWFAvgNfwKChzBqLefOx80WBPhYLqaluU7NO2/aJNO/aN2WpS3xfh9yom9LDVxwewRhdB6k
+ k9WCwOR9WgSCUUs0XVWpLMdkPOZ/g5v7FFuZWzS4Uv9HckPRQEo9s13LTSG/KJegpUn+U1hH0S
+ 0uo=
 X-SBRS: 2.7
-X-MesageID: 17687438
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 16990167
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,364,1583211600"; d="scan'208";a="17687438"
-From: Ian Jackson <ian.jackson@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.73,364,1583211600"; d="scan'208";a="16990167"
+Subject: Re: [PATCH v2 1/4] x86/mm: no-one passes a NULL domain to
+ init_xen_l4_slots()
+To: Jan Beulich <jbeulich@suse.com>
+References: <9d4b738a-4487-6bfc-3076-597d074c7b47@suse.com>
+ <8787b72e-c71e-b75d-2ca0-0c6fe7c8259f@suse.com>
+ <20200421164055.GW28601@Air-de-Roger>
+ <4779dde6-6582-1776-ea9b-a2cd46ac3bc3@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <a40d1289-d88b-db93-1e6f-8f44c9c96bcf@citrix.com>
+Date: Thu, 7 May 2020 18:26:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
+In-Reply-To: <4779dde6-6582-1776-ea9b-a2cd46ac3bc3@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-ID: <24244.16076.627203.282982@mariner.uk.xensource.com>
-Date: Thu, 7 May 2020 18:01:00 +0100
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the
- menuconfig directly
-In-Reply-To: <1d8eb504-51e9-b8e7-f1af-862760f0f15d@xen.org>
-References: <20200430142548.23751-1-julien@xen.org>
- <20200430142548.23751-3-julien@xen.org>
- <3a4ec020-f626-031e-73a6-b2eee97ab9e8@suse.com>
- <123BE55A-AACB-4FE3-94E2-1559ED73DD09@citrix.com>
- <24240.3047.877655.345428@mariner.uk.xensource.com>
- <1d8eb504-51e9-b8e7-f1af-862760f0f15d@xen.org>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,58 +97,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Julien Grall writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
-> On 04/05/2020 13:34, Ian Jackson wrote:
-> > George Dunlap writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
-> >> On Apr 30, 2020, at 3:50 PM, Jan Beulich <JBeulich@suse.com> wrote:
-> >>> Well, if I'm not mis-remembering it was on purpose to make it more
-> >>> difficult for people to declare themselves "experts". FAOD I'm not
-> >>> meaning to imply I don't see and accept the frustration aspect you
-> >>> mention further up. The two need to be carefully weighed against
-> >>> one another.
-> > 
-> > Yes, it was on purpose.  However, I had my doubts at the time and
-> > I think experience has shown that this was a mistake.
-> > 
-> >> I don’t think we need to make it difficult for people to declare
-> >> themselves experts, particularly as “all” it means at the moment is,
-> >> “Can build something which is not security supported”.  People who
-> >> are building their own hypervisors are already pretty well advanced;
-> >> I think we can let them shoot themselves in the foot if they want
-> >> to.
-> > 
-> > Precisely.
-> 
-> Can I consider this as an Acked-by? :)
+On 05/05/2020 07:31, Jan Beulich wrote:
+> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
+>
+> Andrew,
+>
+> On 21.04.2020 18:40, Roger Pau Monné wrote:
+>> On Tue, Apr 21, 2020 at 11:11:03AM +0200, Jan Beulich wrote:
+>>> Drop the NULL checks - they've been introduced by commit 8d7b633ada
+>>> ("x86/mm: Consolidate all Xen L4 slot writing into
+>>> init_xen_l4_slots()") for no apparent reason.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> you weren't entirely happy with the change because of the
+> possible (or, as you state, necessary) need to undo this. I
+> still think in the current shape the NULL checks are
+> pointless and hence would better go away. Re-introducing them
+> (adjusted to whatever shape the function may be in by that
+> time) is not that big of a problem. May I ask that you
+> explicitly clarify whether you actively NAK the patch, accept
+> it going in with Roger's R-b, or would be willing to ack it?
 
-I am happy with the principle of the change.  I haven't reviewed the
-details of the commit message etc.
+I'm not going to nack it, because that would be petty, but I still don't
+think it is a useful use of your time to be making more work for someone
+in the future to revert.
 
-I reviewed the thread and there were two concernes raised:
+However, if you wish to take the patch with Roger's R-b, then please fix
+the stale commit message, seeing as this is v2 and I explained exactly
+why it was done like that.
 
- * The question of principle.  I disagree with this concern
-   because I approve of principle of the patch.
-
- * Some detail about the precise justificaton as written in
-   the commit message, regarding `clean' targets.  Apparently the
-   assertion may not be completely true.  I haven't seen a proposed
-   alternative wording.
-
-I don't feel I should ack a controversial patch with an unresolved
-wording issue.  Can you tell me what your proposed wording is ?
-To avoid blocking this change I would be happy to review your wording
-and see if it meets my reading of the stated objection.
-
-Alternatively, if you can get agreement from others on the wording of
-the commit message, you may put my ack on the patch.
-
-HTH,
-Ian.
+~Andrew
 
