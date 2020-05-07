@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F2EA1C9C5C
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 22:29:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 047961C9C5D
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 22:29:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWn94-00064Y-Fc; Thu, 07 May 2020 20:29:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jWn9N-00065u-Pf; Thu, 07 May 2020 20:29:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=G3Wl=6V=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jWn92-00064S-NT
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 20:29:24 +0000
-X-Inumbo-ID: 6f5e0ea6-90a1-11ea-9887-bc764e2007e4
+ id 1jWn9M-00065k-Qs
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 20:29:44 +0000
+X-Inumbo-ID: 7c3f565d-90a1-11ea-9f76-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6f5e0ea6-90a1-11ea-9887-bc764e2007e4;
- Thu, 07 May 2020 20:29:24 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7c3f565d-90a1-11ea-9f76-12813bfff9fa;
+ Thu, 07 May 2020 20:29:44 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7B66B208CA;
- Thu,  7 May 2020 20:29:21 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 47AF8208CA;
+ Thu,  7 May 2020 20:29:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588883361;
- bh=C/FjtARnN2djUbFPhCW9yNk/5S3TNogKH8l7LXGiYC4=;
+ s=default; t=1588883383;
+ bh=JHkHdgGEDMlboKH3/jlAnR93QkRSEmRfXO6kUy5ex3M=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=gwIjJPwh6mEzOkMf/Tm/IoswjhNZx/MzBVpfXnGoP0ZGaQglVkoTK7gFLlotlMN7z
- NMDKd3WpkjX47AA9FjTu0l8PTR6Z5yL/84JxDVVBOSVTToPbYAxsaasye4LTCCW+eO
- m68+qlOBr+RTl/bgnl5I3MkydVRB2E3MfeoY2ilI=
-Date: Thu, 7 May 2020 13:29:21 -0700 (PDT)
+ b=D4Gu7P9sSSztVHChckZqQu3JWKf0L2sfukj1KfUsOLN/ZtEE/4MnRtO7BtbjYdTUZ
+ ZELNhFm3ewOFa/veNRX0E8bBl1tR/rXvXoJiIi3Ggc8LTtzT/LljGVO3HWHTdJNqK3
+ LHyhLzkU4CJ67+TVGuVWgCCZ6hv3JycbFGIdNDKY=
+Date: Thu, 7 May 2020 13:29:42 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH for-4.14 1/3] xen/arm: atomic: Allow read_atomic() to be
- used in more cases
-In-Reply-To: <20200502160700.19573-2-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2005071325210.14706@sstabellini-ThinkPad-T480s>
+Subject: Re: [PATCH for-4.14 2/3] xen/arm: atomic: Rewrite write_atomic()
+In-Reply-To: <20200502160700.19573-3-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2005071329310.14706@sstabellini-ThinkPad-T480s>
 References: <20200502160700.19573-1-julien@xen.org>
- <20200502160700.19573-2-julien@xen.org>
+ <20200502160700.19573-3-julien@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -53,8 +53,8 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>,
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
@@ -62,87 +62,85 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 On Sat, 2 May 2020, Julien Grall wrote:
 > From: Julien Grall <jgrall@amazon.com>
 > 
-> The current implementation of read_atomic() on Arm will not allow to:
->     1) Read a value from a pointer to const because the temporary
->     variable will be const and therefore it is not possible to assign
->     any value. This can be solved by using a union between the type and
->     a char[0].
->     2) Read a pointer value (e.g void *) because the switch contains
->     cast from other type than the size of a pointer. This can be solved by
->     by introducing a static inline for the switch and use void * for the
->     pointer.
+> The current implementation of write_atomic has two issues:
+>     1) It cannot be used to write pointer value because the switch
+>     contains cast to other size than the size of the pointer.
+>     2) It will happily allow to write to a pointer to const.
 > 
-> Reported-by: Juergen Gross <jgross@suse.com>
+> Additionally, the Arm implementation is returning a value when the x86
+> implementation does not anymore. This was introduced in commit
+> 2934148a0773 "x86: simplify a few macros / inline functions". There are
+> no users of the return value, so it is fine to drop it.
+> 
+> The switch is now moved in a static inline helper allowing the compiler
+> to prevent use of const pointer and also allow to write pointer value.
+> 
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
->  xen/include/asm-arm/atomic.h | 37 +++++++++++++++++++++++++++---------
->  1 file changed, 28 insertions(+), 9 deletions(-)
+>  xen/include/asm-arm/atomic.h | 40 ++++++++++++++++++++++++++----------
+>  1 file changed, 29 insertions(+), 11 deletions(-)
 > 
 > diff --git a/xen/include/asm-arm/atomic.h b/xen/include/asm-arm/atomic.h
-> index e81bf80e305c..3c3d6bb04ee8 100644
+> index 3c3d6bb04ee8..ac2798d095eb 100644
 > --- a/xen/include/asm-arm/atomic.h
 > +++ b/xen/include/asm-arm/atomic.h
-> @@ -71,18 +71,37 @@ build_add_sized(add_u32_sized, "", WORD, uint32_t)
->  #undef build_atomic_write
->  #undef build_add_sized
+> @@ -98,23 +98,41 @@ static always_inline void read_atomic_size(const volatile void *p,
+>      }
+>  }
 >  
-> +void __bad_atomic_read(const volatile void *p, void *res);
->  void __bad_atomic_size(void);
->  
-> +static always_inline void read_atomic_size(const volatile void *p,
-> +                                           void *res,
-> +                                           unsigned int size)
+> +static always_inline void write_atomic_size(volatile void *p,
+> +                                            void *val,
+> +                                            unsigned int size)
 > +{
 > +    switch ( size )
 > +    {
 > +    case 1:
-> +        *(uint8_t *)res = read_u8_atomic(p);
+> +        write_u8_atomic(p, *(uint8_t *)val);
 > +        break;
 > +    case 2:
-> +        *(uint16_t *)res = read_u16_atomic(p);
+> +        write_u16_atomic(p, *(uint16_t *)val);
 > +        break;
 > +    case 4:
-> +        *(uint32_t *)res = read_u32_atomic(p);
+> +        write_u32_atomic(p, *(uint32_t *)val);
 > +        break;
 > +    case 8:
-> +        *(uint64_t *)res = read_u64_atomic(p);
+> +        write_u64_atomic(p, *(uint64_t *)val);
 > +        break;
 > +    default:
-> +        __bad_atomic_read(p, res);
+> +        __bad_atomic_size();
 > +        break;
 > +    }
 > +}
 > +
 >  #define read_atomic(p) ({                                               \
-> -    typeof(*p) __x;                                                     \
-> -    switch ( sizeof(*p) ) {                                             \
-> -    case 1: __x = (typeof(*p))read_u8_atomic((uint8_t *)p); break;      \
-> -    case 2: __x = (typeof(*p))read_u16_atomic((uint16_t *)p); break;    \
-> -    case 4: __x = (typeof(*p))read_u32_atomic((uint32_t *)p); break;    \
-> -    case 8: __x = (typeof(*p))read_u64_atomic((uint64_t *)p); break;    \
-> -    default: __x = 0; __bad_atomic_size(); break;                       \
-> -    }                                                                   \
-> -    __x;                                                                \
-> +    union { typeof(*p) val; char c[0]; } x_;                            \
-> +    read_atomic_size(p, x_.c, sizeof(*p));                              \
-
-Wouldn't it be better to pass x_ as follows:
-
-    read_atomic_size(p, &x_, sizeof(*p));
-
-?
-
-In my tests both ways works. I prefer the version with &x_ but given
-that it works either way:
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-
-> +    x_.val;                                                             \
+>      union { typeof(*p) val; char c[0]; } x_;                            \
+>      read_atomic_size(p, x_.c, sizeof(*p));                              \
+>      x_.val;                                                             \
 >  })
 >  
->  #define write_atomic(p, x) ({                                           \
+> -#define write_atomic(p, x) ({                                           \
+> -    typeof(*p) __x = (x);                                               \
+> -    switch ( sizeof(*p) ) {                                             \
+> -    case 1: write_u8_atomic((uint8_t *)p, (uint8_t)__x); break;         \
+> -    case 2: write_u16_atomic((uint16_t *)p, (uint16_t)__x); break;      \
+> -    case 4: write_u32_atomic((uint32_t *)p, (uint32_t)__x); break;      \
+> -    case 8: write_u64_atomic((uint64_t *)p, (uint64_t)__x); break;      \
+> -    default: __bad_atomic_size(); break;                                \
+> -    }                                                                   \
+> -    __x;                                                                \
+> -})
+> +#define write_atomic(p, x)                                              \
+> +    do {                                                                \
+> +        typeof(*p) x_ = (x);                                            \
+> +        write_atomic_size(p, &x_, sizeof(*p));                          \
+> +    } while ( false )
+>  
+>  #define add_sized(p, x) ({                                              \
+>      typeof(*(p)) __x = (x);                                             \
 > -- 
 > 2.17.1
 > 
