@@ -2,50 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 291861C9C7C
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 22:34:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 479211C9C7E
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 22:34:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWnDn-00072O-K0; Thu, 07 May 2020 20:34:19 +0000
+	id 1jWnEB-00075C-TF; Thu, 07 May 2020 20:34:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G3Wl=6V=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jWnDm-00072J-HI
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 20:34:18 +0000
-X-Inumbo-ID: 1fae9406-90a2-11ea-9f78-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=53Et=6V=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jWnE9-00074t-UZ
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 20:34:42 +0000
+X-Inumbo-ID: 2d204bd4-90a2-11ea-9f78-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1fae9406-90a2-11ea-9f78-12813bfff9fa;
- Thu, 07 May 2020 20:34:18 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6FEFF208CA;
- Thu,  7 May 2020 20:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588883657;
- bh=K4kKz0E9D4cZDWNdpdaH4tEnjnTvj/V3B4vBoBgTNQ8=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=K3ak1FkozC4HXibn3pcZBnK/rWHPTT7SfG65AewkbjlOhD3KQwqV4OferNh4Omfpb
- onv928ukxsrErWR4FmLRtYZ5fBfV9VDOgKTSu4uz3jawJs3c2g3OgYuSbveROKDpFz
- 4hxpJw7jcWHOJ5Rm9Iy1dUa8w4BRVgCX3MPaC4h0=
-Date: Thu, 7 May 2020 13:34:16 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH for-4.14 1/3] xen/arm: atomic: Allow read_atomic() to be
- used in more cases
-In-Reply-To: <0db53f23-197c-0dcc-b89f-274597ebc32d@xen.org>
-Message-ID: <alpine.DEB.2.21.2005071333480.14706@sstabellini-ThinkPad-T480s>
-References: <20200502160700.19573-1-julien@xen.org>
- <20200502160700.19573-2-julien@xen.org>
- <alpine.DEB.2.21.2005071325210.14706@sstabellini-ThinkPad-T480s>
- <0db53f23-197c-0dcc-b89f-274597ebc32d@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 2d204bd4-90a2-11ea-9f78-12813bfff9fa;
+ Thu, 07 May 2020 20:34:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588883681;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=f0Uw6mGiBkQ8TwNJ5g8wMfPKIHQUD5J++nwUo0Pr1FM=;
+ b=HiDLKQ/j+3wJu9zrL4ZU04MKN7+Z5GLntcvJ3qC0lK+0ZxIesde+zUGj
+ 1owgHYPWR90RRqNbT0W7jCCbnG76FUWrDxHDsj48y9x6KjAa6iZQG6CEf
+ M09Wc5BSNRp+OSSBFHo0kRyZFruRj2EtjsefV5zAQ0L/J8AT+qO/N6kGU c=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 4l840KJWxXZaKt8DTNrayIgsKYM2HkaSsrFt6xy+Fg/JIuvs6xa3b3dpCehkFlx7B8FGfwVyY0
+ BJ+b8MOAubfsGLlvTC1rLbI9LHvX6qZMbJzpsFm6+mnPK3Emc7BYurABEbvipqmqm5DJRREo9C
+ wIvZp8KvUWc2pFHWY+/KBY8BLTIkllUZ3GsyeH8XkrvvguPUPBFBVyCXYwvXkzpav7GI1g7OeC
+ Qf/FNz5eCvaAMsVUHvfxW6N51D0X0FuNRaPCnJkVTmtTKeyngFQX7krvokLDEanSdjkwfLjHgF
+ 2iY=
+X-SBRS: 2.7
+X-MesageID: 17278392
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,365,1583211600"; d="scan'208";a="17278392"
+Subject: Re: [PATCH v8 06/12] x86/HVM: make hvmemul_blk() capable of handling
+ r/o operations
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
+ <1587789a-b0d6-6d18-99fc-a94bbea52d7b@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <507d4ced-d6ff-dfd9-d6e5-0a732c334de1@citrix.com>
+Date: Thu, 7 May 2020 21:34:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <1587789a-b0d6-6d18-99fc-a94bbea52d7b@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,36 +97,40 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 7 May 2020, Julien Grall wrote:
-> Hi,
-> 
-> On 07/05/2020 21:29, Stefano Stabellini wrote:
-> > >   #define read_atomic(p) ({
-> > > \
-> > > -    typeof(*p) __x;                                                     \
-> > > -    switch ( sizeof(*p) ) {                                             \
-> > > -    case 1: __x = (typeof(*p))read_u8_atomic((uint8_t *)p); break;      \
-> > > -    case 2: __x = (typeof(*p))read_u16_atomic((uint16_t *)p); break;    \
-> > > -    case 4: __x = (typeof(*p))read_u32_atomic((uint32_t *)p); break;    \
-> > > -    case 8: __x = (typeof(*p))read_u64_atomic((uint64_t *)p); break;    \
-> > > -    default: __x = 0; __bad_atomic_size(); break;                       \
-> > > -    }                                                                   \
-> > > -    __x;                                                                \
-> > > +    union { typeof(*p) val; char c[0]; } x_;                            \
-> > > +    read_atomic_size(p, x_.c, sizeof(*p));                              \
-> > 
-> > Wouldn't it be better to pass x_ as follows:
-> > 
-> >      read_atomic_size(p, &x_, sizeof(*p));
-> 
-> I am not sure to understand this. Are you suggesting to pass a pointer to the
-> union?
+On 05/05/2020 09:15, Jan Beulich wrote:
+> In preparation for handling e.g. FLDENV or {F,FX,X}RSTOR here as well.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v8: New (could be folded into "x86emul: support MOVDIR{I,64B} insns",
+>     but would invalidate Paul's R-b there).
+>
+> --- a/xen/arch/x86/hvm/emulate.c
+> +++ b/xen/arch/x86/hvm/emulate.c
+> @@ -1453,7 +1453,7 @@ static int hvmemul_blk(
+>      struct hvm_emulate_ctxt *hvmemul_ctxt =
+>          container_of(ctxt, struct hvm_emulate_ctxt, ctxt);
+>      unsigned long addr;
+> -    uint32_t pfec = PFEC_page_present | PFEC_write_access;
+> +    uint32_t pfec = PFEC_page_present;
+>      int rc;
+>      void *mapping = NULL;
+>  
+> @@ -1462,6 +1462,9 @@ static int hvmemul_blk(
+>      if ( rc != X86EMUL_OKAY || !bytes )
+>          return rc;
+>  
+> +    if ( x86_insn_is_mem_write(state, ctxt) )
+> +        pfec |= PFEC_write_access;
+> +
 
-Yes. Would it cause a problem that I couldn't spot?
+For the instructions with two memory operands, it conflates the
+read-only side with the read-write side.
+
+~Andrew
 
