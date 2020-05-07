@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3EC11C96B2
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 18:40:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAF381C96BD
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 18:44:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWjYc-0003Jf-AO; Thu, 07 May 2020 16:39:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jWjck-00046g-S7; Thu, 07 May 2020 16:43:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=slKb=6V=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jWjYa-0003Ja-Nc
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 16:39:32 +0000
-X-Inumbo-ID: 536933c6-9081-11ea-9f4d-12813bfff9fa
+ id 1jWjck-00046a-4J
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 16:43:50 +0000
+X-Inumbo-ID: ed0577a6-9081-11ea-9887-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 536933c6-9081-11ea-9f4d-12813bfff9fa;
- Thu, 07 May 2020 16:39:31 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ed0577a6-9081-11ea-9887-bc764e2007e4;
+ Thu, 07 May 2020 16:43:49 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6D835B1AC;
- Thu,  7 May 2020 16:39:33 +0000 (UTC)
-Message-ID: <b1cde2cfb29068e98f848af41e260ad635ac5fa4.camel@suse.com>
-Subject: Re: [PATCH] xen/sched: always modify vcpu pause flags atomically
+ by mx2.suse.de (Postfix) with ESMTP id BF37FABE2;
+ Thu,  7 May 2020 16:43:50 +0000 (UTC)
+Message-ID: <17751c12cdc39acdfaba3a0416ce2b36025a03cc.camel@suse.com>
+Subject: Re: [PATCH RESEND 1/2] xen/Kconfig: define EXPERT a bool rather
+ than a string
 From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Thu, 07 May 2020 18:39:28 +0200
-In-Reply-To: <20200506151655.26445-1-jgross@suse.com>
-References: <20200506151655.26445-1-jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Date: Thu, 07 May 2020 18:43:45 +0200
+In-Reply-To: <20200430142548.23751-2-julien@xen.org>
+References: <20200430142548.23751-1-julien@xen.org>
+ <20200430142548.23751-2-julien@xen.org>
 Organization: SUSE
 Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-28z0u6N0CAUKbwJByzYD"
+ protocol="application/pgp-signature"; boundary="=-I/JwIHgu+OPLjEEgn4hQ"
 User-Agent: Evolution 3.36.2 
 MIME-Version: 1.0
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,53 +46,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <jgrall@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---=-28z0u6N0CAUKbwJByzYD
+--=-I/JwIHgu+OPLjEEgn4hQ
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2020-05-06 at 17:16 +0200, Juergen Gross wrote:
-> credit2 is currently modifying the pause flags of vcpus non-
-> atomically
-> via sched_set_pause_flags() and sched_clear_pause_flags(). This is
-> dangerous as there are cases where the paus flags are modified
-> without
-> any lock held.
+On Thu, 2020-04-30 at 15:25 +0100, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 >=20
-Right.
-
-> So drop the non-atomic pause flag modification functions and rename
-> the
-> atomic ones dropping the _atomic suffix.
+> Since commit f80fe2b34f08 "xen: Update Kconfig to Linux v5.4" EXPERT
+> can only have two values (enabled or disabled). So switch from a
+> string
+> to a bool.
 >=20
-> Fixes: a76255b4266516 ("xen/sched: make credit2 scheduler vcpu
-> agnostic.")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-
+> Take the opportunity to replace all "EXPERT =3D y" to "EXPERT".
+>=20
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > ---
-> It should be noted that this issue wasn't introduced by core
-> scheduling
-> as even before credit2 was using the non-atomic __set_bit() and
-> __clear_bit() variants.
+>  xen/Kconfig                     |  3 +--
+>  xen/Kconfig.debug               |  2 +-
+>  xen/arch/arm/Kconfig            | 10 +++++-----
+>  xen/arch/x86/Kconfig            |  6 +++---
+>  xen/common/Kconfig              | 14 +++++++-------
+>  xen/common/sched/Kconfig        |  2 +-
 >
-Yes. I can see that in 222234f2ad17185 ("xen: credit2: use non-atomic
-cpumask and bit operations"), where the svc->flags are switched to non-
-atomic updates (as, for them, it is true that they're always accessed
-while holding locks), switching of setting the _VPF_migrating
-pause->flags non atomically also slipped in, but that was clearly a
-mistake. :-(
+I think I'm being copied to this patch due to the hunk that changes
+this file above.
 
-I believe (but I haven't checked this part too thoroughly) that it was
-the only one back then. Afterwords, when another instance was added, in
-__runq_tickle(), we found the already existing one and followed suit.
+Such hunk is:
 
-Good catch, and thanks. :-)
+Acked-by: Dario Faggioli <dfaggioli@suse.com>
+
+FWIW, I agree with the basic idea of the patch series too.
 
 Regards
 --=20
@@ -103,28 +98,28 @@ SUSE Labs, SUSE https://www.suse.com/
 <<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
 
---=-28z0u6N0CAUKbwJByzYD
+--=-I/JwIHgu+OPLjEEgn4hQ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl60OcAACgkQFkJ4iaW4
-c+7zHhAArUenfxoCOwbGoMzRknFnF3qY9XIrCsSR5jH81/E+k6gx/OZ6wwA37M12
-GD3DGdv32pEhZBzvhmQg5hAq/ux+6JdXGU6OlC8PYX77u4/AYFOj+ez3SXQhgoVF
-RJE+QTN3HGC1Zivdy13s0nNg6Sd9zRJ3mBcjGk8rTERMw30fizVsHZauLTUn5aII
-grj1jPtMxXfqQWhnwtbrrdymKZinAManFAkjcPK9ex5QTrQzr7e0rc/qXeUvDjtc
-mGj/T1tGgbSp4bVvuxgdZm5GkkCJUU36K4C1bNjTvScUah3kyOldEGSvI6vN2z9B
-h6DLnD9n4LRdYtvtqDKRNcRt8tFYgTiHesETPXWvSMgUgpAVLpbLgFBJiPPYh9GA
-hAyNVrUtzOCUL11WZ90Zr+CMaypS1mupqMEXhNoXnlmC9rnoGthvptidV+UM8Mzk
-Ad53iiTX8Hxzo8cKVgShD5Esq/0jaaaFKn49XjPaTNvZ7eV4/75YfJeDi3Db/tn6
-V3Q2IuVfP8tAB8JsZW/FqEJluyo99dJNbxtEp4ZolSU+57uHUC98gsUcEZ8N8yYf
-urLjmUqhC2XYuBA3pb6sg2tvQxd6jXNToXP3AHfoGdTheGfu5wUtSSF5BSenQVmM
-hikYn77ipV7J87kT9/QYxdj1MYoOCUC9s3n/xFWHsI5Dr4hVzlM=
-=sweq
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl60OsEACgkQFkJ4iaW4
+c+4kiBAAp2nTBavhsadoZOh2zPgIW5jF8yiohBJ6dxUZi6SMnLA0BZu+t9ratJv5
+P8fvaLqIN9ZnhLqgWOUazxK3GmdUSkVJ8XJ1nrUoyCKxlt0K7qbhnUxX1H0uYLfP
+zwhJM7mHOIf0srBpLQ2EQ+Z4AM1zaZ0/LkLqGEkK/Z7zqWQ21KGWWAdvrRbTGSXy
+EmQaFFRrvVzc2StNpQ84HcEg7U96fJIwXdFHAn9mkf9Wla9LXYWa/CLy0vu//ppW
+vmnILpw8jlx5ZxEY+2JgUeb1/YzjmdrdiPcK0HktRRJhOpxrLcG9Ai7uwIBjYKKn
+SfFVKf1goOY/j39X1QG+UpCv4iRZobJQsnAd70Cb9VHETg71a5fVlCqeMWkiV27S
+Y8efJauJugIvO51mT8nc70Q3x3fXlH0AVkbyxMqK9tFWOmyBBMK2mCfSVx2RJ+Ve
+qAW4+tpReJGVuC/ZufA0V4e1vRxCG9DRoYtzC24+Dq+8tXzCMNSxSNf7nIVR83BQ
+tXcquawn+XkiUIc19GASrKV85nRs3d6giUdoWky9VB4vZ18kLzim7+ogNrvmnok4
+QKC9yXi56NXCI3RVrL+5h5wnbSJNUn6ze/q3oiDyD3WT8lwPOEkxtFcgKrCeiYRv
++lWzyAGVqpEoIucmmA92fuja9J21vbhNOj9Lf+SdMp1xFx3bvos=
+=Z+2q
 -----END PGP SIGNATURE-----
 
---=-28z0u6N0CAUKbwJByzYD--
+--=-I/JwIHgu+OPLjEEgn4hQ--
 
 
