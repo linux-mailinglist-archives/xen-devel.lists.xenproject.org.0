@@ -2,43 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B00B11C8E1A
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 16:13:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 438931C9026
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 16:39:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWhG6-0007Or-8q; Thu, 07 May 2020 14:12:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jWhG4-0007Om-NU
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 14:12:16 +0000
-X-Inumbo-ID: c001bfc4-906c-11ea-9f22-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c001bfc4-906c-11ea-9f22-12813bfff9fa;
- Thu, 07 May 2020 14:12:15 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id E0F11AA7C;
- Thu,  7 May 2020 14:12:16 +0000 (UTC)
-Subject: Re: [PATCH 15/16] x86/entry: Adjust guest paths to be shadow stack
- compatible
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-16-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2df78612-2c24-32de-186a-c402e188478c@suse.com>
-Date: Thu, 7 May 2020 16:12:09 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jWhg7-0000sk-T9; Thu, 07 May 2020 14:39:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aphx=6V=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jWhg6-0000sf-GF
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 14:39:10 +0000
+X-Inumbo-ID: 82aebdc4-9070-11ea-9887-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 82aebdc4-9070-11ea-9887-bc764e2007e4;
+ Thu, 07 May 2020 14:39:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=gSYmJ0hDIZLoDAOyHAU95Plp5/df3pghogEczXFw4PU=; b=1Yl98ZMbC9OxrqkAqlaNF7rLO
+ Zpm51PXt4YDE/ak2cnCwEbqo/uOMO8UT2/NXjkF3e+f1DTDdFskc2npV5jUXGMm9MfskMacLZIDEk
+ FBYfqLGMYeCE0p9huiRMsuv9rVNvuv8OifrS8Nve6GC649GT7xNBikH9ONjWTjvJ6bBmw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWhg5-0008St-0x; Thu, 07 May 2020 14:39:09 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWhg4-0002vY-Oe; Thu, 07 May 2020 14:39:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWhg4-0007A4-Nl; Thu, 07 May 2020 14:39:08 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150062-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200501225838.9866-16-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 150062: regressions - FAIL
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-xsm:xen-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=eea5d63a221a8f36a3ed5b1189fe619d4fa1fde2
+X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 07 May 2020 14:39:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,95 +79,156 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 02.05.2020 00:58, Andrew Cooper wrote:
-> The SYSCALL/SYSEXIT paths need to use {SET,CLR}SSBSY.
+flight 150062 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150062/
 
-I take it you mean SYSRET, not SYSEXIT. I do think though that you
-also need to deal with the SYSENTER entry point we have.
+Regressions :-(
 
-> --- a/xen/arch/x86/x86_64/compat/entry.S
-> +++ b/xen/arch/x86/x86_64/compat/entry.S
-> @@ -198,7 +198,7 @@ ENTRY(cr4_pv32_restore)
->  
->  /* See lstar_enter for entry register state. */
->  ENTRY(cstar_enter)
-> -        /* sti could live here when we don't switch page tables below. */
-> +        ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-i386-xsm                6 xen-build                fail REGR. vs. 146182
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
 
-I don't see why you delete the comment here (or elsewhere). While
-I recall you not really wanting them there, I still think they're
-useful to have, and they shouldn't be deleted as a side effect of
-an entirely unrelated change. Of course they need to live after
-your insertions then.
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
 
-> --- a/xen/arch/x86/x86_64/entry.S
-> +++ b/xen/arch/x86/x86_64/entry.S
-> @@ -194,6 +194,15 @@ restore_all_guest:
->          movq  8(%rsp),%rcx            # RIP
->          ja    iret_exit_to_guest
->  
-> +        /* Clear the supervisor shadow stack token busy bit. */
-> +.macro rag_clrssbsy
-> +        push %rax
-> +        rdsspq %rax
-> +        clrssbsy (%rax)
-> +        pop %rax
-> +.endm
-> +        ALTERNATIVE "", rag_clrssbsy, X86_FEATURE_XEN_SHSTK
+version targeted for testing:
+ libvirt              eea5d63a221a8f36a3ed5b1189fe619d4fa1fde2
+baseline version:
+ libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
 
-In principle you could get away without spilling %rax:
+Last test of basis   146182  2020-01-17 06:00:23 Z  111 days
+Failing since        146211  2020-01-18 04:18:52 Z  110 days  101 attempts
+Testing same since   150062  2020-05-07 05:18:15 Z    0 days    1 attempts
 
-        cmpl  $1,%ecx
-        ja    iret_exit_to_guest
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Arnaud Patard <apatard@hupstream.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Chen Hanxiao <chen_han_xiao@126.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniel Veillard <veillard@redhat.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Erik Skultety <eskultet@redhat.com>
+  Gaurav Agrawal <agrawalgaurav@gnome.org>
+  Han Han <hhan@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Leonid Bloch <lb.workbox@gmail.com>
+  Lin Ma <LMa@suse.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mark Asselstine <mark.asselstine@windriver.com>
+  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Pavel Mores <pmores@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Philipp Hahn <hahn@univention.de>
+  Pino Toscano <ptoscano@redhat.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Rafael Fonseca <r4f4rfs@gmail.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Rikard Falkeborn <rikard.falkeborn@gmail.com>
+  Ryan Moeller <ryan@iXsystems.com>
+  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Tobin Feldman-Fitzthum <tobin@linux.vnet.ibm.com>
+  Wu Qingliang <wuqingliang4@huawei.com>
+  Xu Yandong <xuyandong2@huawei.com>
+  Yi Li <yili@winhong.com>
+  Your Name <you@example.com>
+  Zhang Bo <oscar.zhangbo@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhimin Feng <fengzhimin1@huawei.com>
 
-        /* Clear the supervisor shadow stack token busy bit. */
-.macro rag_clrssbsy
-        rdsspq %rcx
-        clrssbsy (%rcx)
-.endm
-        ALTERNATIVE "", rag_clrssbsy, X86_FEATURE_XEN_SHSTK
-        movq  8(%rsp),%rcx            # RIP
-        cmpw  $FLAT_USER_CS32,16(%rsp)# CS
-        movq  32(%rsp),%rsp           # RSP
-        je    1f
-        sysretq
-1:      sysretl
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
-        ALIGN
-/* No special register assumptions. */
-iret_exit_to_guest:
-        movq  8(%rsp),%rcx            # RIP
-        andl  $~(X86_EFLAGS_IOPL|X86_EFLAGS_NT|X86_EFLAGS_VM),24(%rsp)
-        ...
 
-Also - what about CLRSSBSY failing? It would seem easier to diagnose
-this right here than when getting presumably #DF upon next entry into
-Xen. At the very least I think it deserves a comment if an error case
-does not get handled.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Somewhat similar for SETSSBSY, except there things get complicated by
-it raising #CP instead of setting EFLAGS.CF: Aiui it would require us
-to handle #CP on an IST stack in order to avoid #DF there.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> @@ -877,6 +886,14 @@ handle_ist_exception:
->          movl  $UREGS_kernel_sizeof/8,%ecx
->          movq  %rdi,%rsp
->          rep   movsq
-> +
-> +        /* Switch Shadow Stacks */
-> +.macro ist_switch_shstk
-> +        rdsspq %rdi
-> +        clrssbsy (%rdi)
-> +        setssbsy
-> +.endm
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Could you extend the comment to mention the caveat that you point
-out in the description?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Jan
+
+Not pushing.
+
+(No revision log; it would be 17243 lines long.)
 
