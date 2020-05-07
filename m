@@ -2,40 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22911C996B
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 20:36:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7540D1C99B2
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 20:48:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWlNR-0005DZ-Hf; Thu, 07 May 2020 18:36:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jWlYW-00067F-Mp; Thu, 07 May 2020 18:47:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=slKb=6V=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jWlNP-0005DU-PC
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 18:36:07 +0000
-X-Inumbo-ID: 9c8410d4-9091-11ea-9f60-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9c8410d4-9091-11ea-9f60-12813bfff9fa;
- Thu, 07 May 2020 18:36:06 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0C5CBADCE;
- Thu,  7 May 2020 18:36:07 +0000 (UTC)
-Message-ID: <e02432bf8ea8ca85a31176de1a1f9e429c84b243.camel@suse.com>
-Subject: Re: [PATCH 3/3] xen/cpupool: fix removing cpu from a cpupool
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Thu, 07 May 2020 20:36:04 +0200
-In-Reply-To: <20200430151559.1464-4-jgross@suse.com>
-References: <20200430151559.1464-1-jgross@suse.com>
- <20200430151559.1464-4-jgross@suse.com>
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-yHozix7pt+5nKfA5jTcL"
-User-Agent: Evolution 3.36.2 
+ <SRS0=aphx=6V=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jWlYV-00067A-Ci
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 18:47:35 +0000
+X-Inumbo-ID: 36e45ca0-9093-11ea-b07b-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 36e45ca0-9093-11ea-b07b-bc764e2007e4;
+ Thu, 07 May 2020 18:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4F9fMWGLyZGgsvttY1hQe/jufaLQbldWcx47S0nLvH8=; b=ysuQH9jIchBOlHvVhtx7cwTgZ
+ dc374bITcgJcHn2wSuhCciDTnJrBqDfXOUTvo27y9vWkcFp61MgfljlpbOlDpIWRnXQf5AGh+fyRQ
+ kbiCM8WHiig8gpX06M2csiQtxapcYNbg9D8FgMNEytJUUZa9TuBWCQ4aaOFyCH0om93Fk=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWlYU-0005EO-5r; Thu, 07 May 2020 18:47:34 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWlYT-000617-MV; Thu, 07 May 2020 18:47:33 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWlYT-00019J-Lb; Thu, 07 May 2020 18:47:33 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150078-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150078: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=64b1da5a2fcf37e3542c277fde194ff3e8bba2d2
+X-Osstest-Versions-That: xen=40675b4b874cb9fee0d4f0e12bb3e153ee1c135a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 07 May 2020 18:47:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,61 +65,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <george.dunlap@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+flight 150078 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150078/
 
---=-yHozix7pt+5nKfA5jTcL
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Failures :-/ but no regressions.
 
-On Thu, 2020-04-30 at 17:15 +0200, Juergen Gross wrote:
-> Commit cb563d7665f2 ("xen/sched: support core scheduling for moving
-> cpus to/from cpupools") introduced a regression when trying to remove
-> an offline cpu from a cpupool, as the system would crash in this
-> situation.
->=20
-> Fix that by testing the cpu to be online.
->=20
-> Fixes: cb563d7665f2 ("xen/sched: support core scheduling for moving
-> cpus to/from cpupools")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-Acked-by: Dario Faggioli <dfaggioli@suse.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+version targeted for testing:
+ xen                  64b1da5a2fcf37e3542c277fde194ff3e8bba2d2
+baseline version:
+ xen                  40675b4b874cb9fee0d4f0e12bb3e153ee1c135a
+
+Last test of basis   150069  2020-05-07 12:01:25 Z    0 days
+Testing same since   150078  2020-05-07 16:00:49 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
---=-yHozix7pt+5nKfA5jTcL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
------BEGIN PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl60VRQACgkQFkJ4iaW4
-c+4imw//blPkeUMBPocu+vJT2lP3DkM6Qs0eB2OVEgzsoLBcwcWQFYnhy3ieZND6
-QWWN0/yWXJpvvgDHOWP0Gn+PcefgAjG4iHJmAwoJb/0xa6GNA09i/us5l/9SdWg0
-oJOFmwrF9XDgufFvILD9OFpPMRVaETnqkqX8PWfn1IOWzRIbk/W9PUBqj/gII27X
-VfbfO8NgohQv+6HFNElTnGJKIcew6+sEETfc9sTvKepsjGZwoYrpIQtRVlcqq/bX
-eW8RLpA4VifUorP+kYbWnFTlJ2Fi0GWVKUbRk8ivTVRqghNoSLq54kzGz/3El4ui
-C2Vi9HrHaQd254V3MzYZsQQ+gXnWdJz9bCNtpb4Z9EpwPNPvMfBmNpJRDKAyHaHU
-3buhGtUD0+pBD2SDfnB3wqUX7gGGhTVhSiJZXWywVW0JfjySezMZPWdkVu4eZZzz
-XlRq25kywnpBW2+FByRqk6SGXqi81HMyFMOQs0lPhcvOnY+S4Rv4lckpXkTxOtul
-2peO0YjYvM3y4fgOCrLb+KR3THK6+ajBMN07Anz9PpCFR6bJQuHmodBVX1dOMIGy
-pawVdG6qMRW2NgdzMWBptanmQosRnL3i8gyukcWCOR7ITDjJJH03SJlD0qAemlJL
-5FwvXkuvtRr2vI9/l2ssfBOrihvK/vXkgWwcUfCZQ4rmKyF1oT4=
-=qjbJ
------END PGP SIGNATURE-----
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---=-yHozix7pt+5nKfA5jTcL--
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   40675b4b87..64b1da5a2f  64b1da5a2fcf37e3542c277fde194ff3e8bba2d2 -> smoke
 
