@@ -2,84 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7DFB1C8545
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 11:00:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F9AE1C85E0
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 11:32:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWcOY-00061h-CS; Thu, 07 May 2020 09:00:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Plze=6V=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jWcOW-00061Z-Nv
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 09:00:40 +0000
-X-Inumbo-ID: 394d30ea-9041-11ea-9887-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 394d30ea-9041-11ea-9887-bc764e2007e4;
- Thu, 07 May 2020 09:00:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588842040;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=HwkpoQSjNc5m7+JivnVXv/WyxYqKh3dTmzrZR2JHESk=;
- b=BFlnYleMZ1K4TJC8lCqJTcCo0TZM3lXUZ5m5e8uqA3HI1j2stYLLHVCT
- ibygWr3j4f+y2mbU6JIkWwuWfSqISBDZ5x45/QCfn0WN//21mB9OIFLw+
- an61ghDRu1N09pZ/niWDvd6jtkxFtHByCSLvJvn0jLIpmfmMY3CS7jb/i 8=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: Tz2zzIGUh7TEabyWXqnpXH4d5xOh82p4IKFWCYSnY7EzABhZQH0noXSkpxq2KrekLZ1FFFUcWN
- 3idpEbpYXLqDgX9wjlEbzncLb/cC25nnTBa5pg18iGT+hzzL9O0NF3Q1kBE4fkcjpZbMAM06SC
- OLjQKmhLzCaI+1Oz8PxclGRCNNSE4tAoHSWJbv6q7h8JUZ/0jJxxQ9xJXLdpNsB4lFNKDJewIY
- +righeNx10AJzps1Uw3HLgzHHkvig/gLcnsxVuR/IXQF6r1VAoUqZ7OqRk2+EUk0vH6Zb9aEXK
- xh0=
-X-SBRS: 2.7
-X-MesageID: 17324804
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,363,1583211600"; d="scan'208";a="17324804"
-Date: Thu, 7 May 2020 11:00:30 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] libxl: update libxlu_disk_l.[ch]
-Message-ID: <20200507090030.GG1353@Air-de-Roger>
-References: <20200506165018.32209-1-wl@xen.org>
+	id 1jWcsi-0008VV-UT; Thu, 07 May 2020 09:31:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=K0Sz=6V=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jWcsh-0008VQ-Mc
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 09:31:51 +0000
+X-Inumbo-ID: 949909fc-9045-11ea-9ef4-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 949909fc-9045-11ea-9ef4-12813bfff9fa;
+ Thu, 07 May 2020 09:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=pSi7F3KbCx6AP3mkUt8WMJcapHRbJY1wIic9DL/q9Qs=; b=1ndKInbQCSEwEjAfgPepM2/+zC
+ dGI/UTQ2vbSTCO4Ms4KH0LfkPZP9t+J4A6R09Uj8/nn8nGBq6C5c75gpyNR4YGYf+fJ9Dy4LbskP3
+ bp6Zr7g5cx37dtyqHUP7lpVdKiLyIixSNTHAl6xcThxWuNtW1+8iYQdWjztIOxM8oULA=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jWcse-0002YD-32; Thu, 07 May 2020 09:31:48 +0000
+Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jWcsd-0000Sr-Rm; Thu, 07 May 2020 09:31:47 +0000
+Subject: Re: [PATCH v2 1/5] xen/common: introduce a new framework for
+ save/restore of 'domain' context
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200407173847.1595-1-paul@xen.org>
+ <20200407173847.1595-2-paul@xen.org>
+ <d5013c9d-b1a9-6139-a120-741332d6e086@suse.com>
+ <009601d623c5$9547abc0$bfd70340$@xen.org>
+ <63772836-3b3c-753a-18e5-d9fe3a6666a2@suse.com>
+ <2a911fec-82dd-9d97-791a-02dd4b328eb6@xen.org>
+ <21494488-9dd9-c196-73fa-a82c99c8bc52@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <9eceaf8b-84b8-ba9a-8643-2f78f9852815@xen.org>
+Date: Thu, 7 May 2020 10:31:45 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <21494488-9dd9-c196-73fa-a82c99c8bc52@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200506165018.32209-1-wl@xen.org>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,24 +67,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Xen Development List <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
+ paul@xen.org, 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Paul Durrant' <pdurrant@amazon.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, May 06, 2020 at 05:50:18PM +0100, Wei Liu wrote:
-> Use flex 2.6.4 that is shipped in Debian Buster.
+Hi,
+
+On 07/05/2020 09:58, Jan Beulich wrote:
+> On 07.05.2020 10:35, Julien Grall wrote:
+>>
+>>
+>> On 07/05/2020 08:21, Jan Beulich wrote:
+>>> On 06.05.2020 18:44, Paul Durrant wrote:
+>>>>>> +#define DOMAIN_SAVE_BEGIN(_x, _c, _v, _len) \
+>>>>>> +        domain_save_begin((_c), DOMAIN_SAVE_CODE(_x), #_x, (_v), (_len))
+>>>>>
+>>>>> In new code I'd like to ask for no leading underscores on macro
+>>>>> parameters as well as no unnecessary parenthesization of macro
+>>>>> parameters (e.g. when they simply get passed on to another macro
+>>>>> or function without being part of a larger expression).
+>>>>
+>>>> Personally I think it is generally good practice to parenthesize
+>>>> but I can drop if you prefer.
+>>>
+>>> To be honest - it's more than just "prefer": Excess parentheses
+>>> hamper readability. There shouldn't be too few, and since macros
+>>> already require quite a lot of them, imo we should strive to
+>>> have exactly as many as are needed.
+>>
+>> While I understand that too many parentheses may make the code
+>> worse, in the case of the macros, adding them for each argument
+>> is a good practice. This pretty simple to follow and avoid the
+>> mistake to forget to protect an argument correctly.
+>>
+>> So I would let the contributor decides whether he wants to
+>> protect all the macro arguments or just as a need basis.
 > 
-> Signed-off-by: Wei Liu <wl@xen.org>
-> ---
-> Do this because Roger posted a patch to fix clang build, which requires
-> updating the same files. I don't want bury his changes in unrelated
-> ones.
+> This is a possible alternative position to take, accepting the
+> worse readability. But then this would please need applying in
+> full (as far as it's possible - operands to # or ## of course
+> can't be parenthesized):
+> 
+> #define DOMAIN_SAVE_BEGIN(x, c, v, len) \
+>          domain_save_begin((c), DOMAIN_SAVE_CODE((x)), #x, (v), (len))
+> 
+> which might look a little odd even to you?
 
-Hm, I'm not sure it's helpful, but all I can do is Ack this:
+One pair of parenthesis looks wasteful but it doesn't bother that much.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> As to readability - I'm sure you realize that from time to time
+> one needs to look at preprocessor output, where parentheses used
+> like this plus parentheses then also applied inside the invoked
+> macro add to one another. All in all I don't really buy the
+> "avoid the mistake to forget to protect an argument correctly"
+> argument to outweigh the downsides. We're doing this work not on
+> an occasional basis, but as a job. There should be a minimum
+> level of care everyone applies.
 
-Thanks, Roger.
+I am sure you heard about "human error" in the past. Even if you do 
+something all day along, you will make a mistake one day. By requesting 
+a contributor to limit the number of parenthesis, then you increase the 
+chance he/she will screw up one day.
+
+You might think reviewers will catch such error, but XSA-316 proved that 
+it is possible to miss it. I was the author of the patch and you were 
+one the reviewer. As you can see even an experienced contributor and 
+reviewer can make mistake... we are all human after all ;).
+
+I don't ask to be over-proctective, but we should not lay trap to other 
+contributors for them to fall into accidentally. In this case, Paul 
+thinks the parentheses will help him. So I would not impose him to 
+remove them and possibly make a mistake.
+
+Cheers,
+
+-- 
+Julien Grall
 
