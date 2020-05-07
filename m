@@ -2,41 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDF631C90DF
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 16:54:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C66A51C93AE
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 17:07:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWhup-0002cP-OJ; Thu, 07 May 2020 14:54:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0ibL=6V=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jWhuo-0002cK-Gs
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 14:54:22 +0000
-X-Inumbo-ID: a1dced18-9072-11ea-9f32-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a1dced18-9072-11ea-9f32-12813bfff9fa;
- Thu, 07 May 2020 14:54:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 5A892AD12;
- Thu,  7 May 2020 14:54:22 +0000 (UTC)
-Subject: Re: [PATCH 16/16] x86/shstk: Activate Supervisor Shadow Stacks
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-17-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <eacafb0a-a049-5bca-7a43-c9c3deb26054@suse.com>
-Date: Thu, 7 May 2020 16:54:13 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jWi7F-0003Zs-3v; Thu, 07 May 2020 15:07:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aphx=6V=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jWi7D-0003Zn-Ob
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 15:07:11 +0000
+X-Inumbo-ID: 6a1b8414-9074-11ea-b9cf-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6a1b8414-9074-11ea-b9cf-bc764e2007e4;
+ Thu, 07 May 2020 15:07:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1G07s6hFYY2+hJ1htkGRQMQF9w8Tm74ss2bdDxDkiK8=; b=w8cp4xfQwgFWGkKYP0u/ySV2B
+ ZwGVJKkec6KzWosqBnV+TIeJSy9A2TrF3EZwCxLDhbdQ/0OBVDojr4mjCKVmtmWiR8EsCYlXxWxTp
+ R4CCejxUNfsQdP7r3Gba/d8+WL5Oq1eXaTDS3VbgzzW9w1FwJqpkT234WlersBS95kUmI=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWi77-0000ah-Mq; Thu, 07 May 2020 15:07:05 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWi77-0003wT-9h; Thu, 07 May 2020 15:07:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jWi77-0007uB-6f; Thu, 07 May 2020 15:07:05 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150069-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200501225838.9866-17-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 150069: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=40675b4b874cb9fee0d4f0e12bb3e153ee1c135a
+X-Osstest-Versions-That: xen=8a6b1665d987d043c12dc723d758a7d2ca765264
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 07 May 2020 15:07:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,175 +65,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 02.05.2020 00:58, Andrew Cooper wrote:
-> --- a/xen/arch/x86/acpi/wakeup_prot.S
-> +++ b/xen/arch/x86/acpi/wakeup_prot.S
-> @@ -1,3 +1,8 @@
-> +#include <asm/config.h>
+flight 150069 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150069/
 
-Why is this needed? Afaics assembly files, just like C ones, get
-xen/config.h included from the compiler command line.
+Failures :-/ but no regressions.
 
-> @@ -48,6 +59,48 @@ ENTRY(s3_resume)
->          pushq   %rax
->          lretq
->  1:
-> +#ifdef CONFIG_XEN_SHSTK
-> +	/*
-> +         * Restoring SSP is a little convoluted, because we are intercepting
-> +         * the middle of an in-use shadow stack.  Write a temporary supervisor
-> +         * token under the stack, so SETSSBSY takes us where we want, then
-> +         * reset MSR_PL0_SSP to its usual value and pop the temporary token.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-What do you mean by "takes us where we want"? I take it "us" is really
-SSP here?
+version targeted for testing:
+ xen                  40675b4b874cb9fee0d4f0e12bb3e153ee1c135a
+baseline version:
+ xen                  8a6b1665d987d043c12dc723d758a7d2ca765264
 
-> +         */
-> +        mov     saved_rsp(%rip), %rdi
-> +        cmpq    $1, %rdi
-> +        je      .L_shstk_done
-> +
-> +        /* Write a supervisor token under SSP. */
-> +        sub     $8, %rdi
-> +        mov     %rdi, (%rdi)
-> +
-> +        /* Load it into MSR_PL0_SSP. */
-> +        mov     $MSR_PL0_SSP, %ecx
-> +        mov     %rdi, %rdx
-> +        shr     $32, %rdx
-> +        mov     %edi, %eax
-> +
-> +        /* Enable CET. */
-> +        mov     $MSR_S_CET, %ecx
-> +        xor     %edx, %edx
-> +        mov     $CET_SHSTK_EN | CET_WRSS_EN, %eax
-> +        wrmsr
-> +
-> +        /* Activate our temporary token. */
-> +        mov     $XEN_MINIMAL_CR4 | X86_CR4_CET, %ebx
-> +        mov     %rbx, %cr4
-> +        setssbsy
-> +
-> +        /* Reset MSR_PL0_SSP back to its expected value. */
-> +        and     $~(STACK_SIZE - 1), %eax
-> +        or      $0x5ff8, %eax
-> +        wrmsr
+Last test of basis   150059  2020-05-06 17:02:47 Z    0 days
+Testing same since   150069  2020-05-07 12:01:25 Z    0 days    1 attempts
 
-Ahead of this WRMSR neither %ecx nor %edx look to have their intended
-values anymore. Also there is a again a magic 0x5ff8 here (and at
-least one more further down).
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
 
-> --- a/xen/arch/x86/boot/x86_64.S
-> +++ b/xen/arch/x86/boot/x86_64.S
-> @@ -28,8 +28,36 @@ ENTRY(__high_start)
->          lretq
->  1:
->          test    %ebx,%ebx
-> -        jnz     start_secondary
-> +        jz      .L_bsp
->  
-> +        /* APs.  Set up shadow stacks before entering C. */
-> +
-> +        testl   $cpufeat_mask(X86_FEATURE_XEN_SHSTK), \
-> +                CPUINFO_FEATURE_OFFSET(X86_FEATURE_XEN_SHSTK) + boot_cpu_data(%rip)
-> +        je      .L_ap_shstk_done
-> +
-> +        mov     $MSR_S_CET, %ecx
-> +        xor     %edx, %edx
-> +        mov     $CET_SHSTK_EN | CET_WRSS_EN, %eax
-> +        wrmsr
-> +
-> +        mov     $MSR_PL0_SSP, %ecx
-> +        mov     %rsp, %rdx
-> +        shr     $32, %rdx
-> +        mov     %esp, %eax
-> +        and     $~(STACK_SIZE - 1), %eax
-> +        or      $0x5ff8, %eax
-> +        wrmsr
-> +
-> +        mov     $XEN_MINIMAL_CR4 | X86_CR4_CET, %ecx
-> +        mov     %rcx, %cr4
-> +        setssbsy
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Since the token doesn't get written here, could you make the comment
-say where this happens? I have to admit that I had to go through
-earlier patches to find it again.
 
-> +.L_ap_shstk_done:
-> +        call    start_secondary
-> +        BUG     /* start_secondary() shouldn't return. */
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This conversion from a jump to CALL is unrelated and hence would
-better be mentioned in the description imo.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> --- a/xen/arch/x86/cpu/common.c
-> +++ b/xen/arch/x86/cpu/common.c
-> @@ -323,6 +323,11 @@ void __init early_cpu_init(void)
->  	       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86, c->x86,
->  	       c->x86_model, c->x86_model, c->x86_mask, eax);
->  
-> +	if (c->cpuid_level >= 7) {
-> +		cpuid_count(7, 0, &eax, &ebx, &ecx, &edx);
-> +		c->x86_capability[cpufeat_word(X86_FEATURE_CET_SS)] = ecx;
-> +	}
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-How about moving the leaf 7 code from generic_identify() here as
-a whole?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -664,6 +664,13 @@ static void __init noreturn reinit_bsp_stack(void)
->      stack_base[0] = stack;
->      memguard_guard_stack(stack);
->  
-> +    if ( cpu_has_xen_shstk )
-> +    {
-> +        wrmsrl(MSR_PL0_SSP, (unsigned long)stack + 0x5ff8);
-> +        wrmsrl(MSR_S_CET, CET_SHSTK_EN | CET_WRSS_EN);
-> +        asm volatile ("setssbsy" ::: "memory");
-> +    }
 
-Same as for APs - a brief comment pointing at where the token was
-written would seem helpful.
+Pushing revision :
 
-Could you also have the patch description say a word on the choice
-of enabling CET_WRSS_EN uniformly and globally?
-
-> @@ -985,6 +992,21 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->      /* This must come before e820 code because it sets paddr_bits. */
->      early_cpu_init();
->  
-> +    /* Choose shadow stack early, to set infrastructure up appropriately. */
-> +    if ( opt_xen_shstk && boot_cpu_has(X86_FEATURE_CET_SS) )
-> +    {
-> +        printk("Enabling Supervisor Shadow Stacks\n");
-> +
-> +        setup_force_cpu_cap(X86_FEATURE_XEN_SHSTK);
-> +#ifdef CONFIG_PV32
-> +        if ( opt_pv32 )
-> +        {
-> +            opt_pv32 = 0;
-> +            printk("  - Disabling PV32 due to Shadow Stacks\n");
-> +        }
-> +#endif
-
-I think this deserves an explanation, either in a comment or in
-the patch description.
-
-> @@ -1721,6 +1743,10 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->  
->      alternative_branches();
->  
-> +    /* Defer CR4.CET until alternatives have finished playing with CR4.WP */
-> +    if ( cpu_has_xen_shstk )
-> +        set_in_cr4(X86_CR4_CET);
-
-Nit: CR0.WP (in the comment)
-
-Jan
+To xenbits.xen.org:/home/xen/git/xen.git
+   8a6b1665d9..40675b4b87  40675b4b874cb9fee0d4f0e12bb3e153ee1c135a -> smoke
 
