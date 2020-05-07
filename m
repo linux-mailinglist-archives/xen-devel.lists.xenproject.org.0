@@ -2,90 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B53961C9BE0
-	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 22:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F2EA1C9C5C
+	for <lists+xen-devel@lfdr.de>; Thu,  7 May 2020 22:29:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWmtZ-00055b-TB; Thu, 07 May 2020 20:13:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jWn94-00064Y-Fc; Thu, 07 May 2020 20:29:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=53Et=6V=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jWmtY-00055W-2n
- for xen-devel@lists.xenproject.org; Thu, 07 May 2020 20:13:24 +0000
-X-Inumbo-ID: 338ceaf2-909f-11ea-9f74-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 338ceaf2-909f-11ea-9f74-12813bfff9fa;
- Thu, 07 May 2020 20:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588882403;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=eAz42w4G407xqjU+5HJ38ES5QkCaO1FFdhD88UNFf44=;
- b=LbHiunsagYh4EkvvHme7eRsKrHtIjKQ4B9n+1nyVfRrardnvA/7StYkH
- ZRWFLjEp8ce8lN4bN7xVx/kuvmXv5YfmQ3vA3sewTpxPIxi51tMu4ti03
- 7AdZJIBThXtSktJe7qEHYty9/UmVaP/5BW4tKiQjIGozPa3mEe1XB3AJJ E=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: v0YBqqoymGMg5tPVAle9c9O241E8UdcsTWn4f4cKvbplTqfI9+YPsvb+mfJb+E1KYlS1kxHalJ
- SXTLrnQWBM8slV6BAx96IxeX8vrtPOBxFDU+PuOCvGrT5ukrbNNzt6Ye9reZwo/1ea2mQy/1x/
- QbRuFoTZZ1MhSOqjdApMWZrvIzyjiAhE4OYXDxmPR4z8btxd1GQazoSUlwaaEzFosRh2kR6lRP
- E/NyUZguhTFp2mQ2hjMpLEjjFtRkPJWmxVzT0ZzAmQXl6nT1UAjtuo9PI+zhV9N2+/v0i/sSqo
- df8=
-X-SBRS: 2.7
-X-MesageID: 17388994
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,365,1583211600"; d="scan'208";a="17388994"
-Subject: Re: [PATCH v8 05/12] x86emul: support X{SUS,RES}LDTRK
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
- <6e7500d2-262c-29c7-b9be-3fc9be26d198@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <feb3a6ed-b6b9-959c-8eb1-fb6ecfff034c@citrix.com>
-Date: Thu, 7 May 2020 21:13:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <SRS0=G3Wl=6V=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jWn92-00064S-NT
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2020 20:29:24 +0000
+X-Inumbo-ID: 6f5e0ea6-90a1-11ea-9887-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6f5e0ea6-90a1-11ea-9887-bc764e2007e4;
+ Thu, 07 May 2020 20:29:24 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7B66B208CA;
+ Thu,  7 May 2020 20:29:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1588883361;
+ bh=C/FjtARnN2djUbFPhCW9yNk/5S3TNogKH8l7LXGiYC4=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=gwIjJPwh6mEzOkMf/Tm/IoswjhNZx/MzBVpfXnGoP0ZGaQglVkoTK7gFLlotlMN7z
+ NMDKd3WpkjX47AA9FjTu0l8PTR6Z5yL/84JxDVVBOSVTToPbYAxsaasye4LTCCW+eO
+ m68+qlOBr+RTl/bgnl5I3MkydVRB2E3MfeoY2ilI=
+Date: Thu, 7 May 2020 13:29:21 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH for-4.14 1/3] xen/arm: atomic: Allow read_atomic() to be
+ used in more cases
+In-Reply-To: <20200502160700.19573-2-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2005071325210.14706@sstabellini-ThinkPad-T480s>
+References: <20200502160700.19573-1-julien@xen.org>
+ <20200502160700.19573-2-julien@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <6e7500d2-262c-29c7-b9be-3fc9be26d198@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,22 +53,97 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ Julien Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05/05/2020 09:14, Jan Beulich wrote:
-> --- a/xen/tools/gen-cpuid.py
-> +++ b/xen/tools/gen-cpuid.py
-> @@ -284,6 +284,9 @@ def crunch_numbers(state):
->          # as dependent features simplifies Xen's logic, and prevents the guest
->          # from seeing implausible configurations.
->          IBRSB: [STIBP, SSBD],
+On Sat, 2 May 2020, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> The current implementation of read_atomic() on Arm will not allow to:
+>     1) Read a value from a pointer to const because the temporary
+>     variable will be const and therefore it is not possible to assign
+>     any value. This can be solved by using a union between the type and
+>     a char[0].
+>     2) Read a pointer value (e.g void *) because the switch contains
+>     cast from other type than the size of a pointer. This can be solved by
+>     by introducing a static inline for the switch and use void * for the
+>     pointer.
+> 
+> Reported-by: Juergen Gross <jgross@suse.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> ---
+>  xen/include/asm-arm/atomic.h | 37 +++++++++++++++++++++++++++---------
+>  1 file changed, 28 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/include/asm-arm/atomic.h b/xen/include/asm-arm/atomic.h
+> index e81bf80e305c..3c3d6bb04ee8 100644
+> --- a/xen/include/asm-arm/atomic.h
+> +++ b/xen/include/asm-arm/atomic.h
+> @@ -71,18 +71,37 @@ build_add_sized(add_u32_sized, "", WORD, uint32_t)
+>  #undef build_atomic_write
+>  #undef build_add_sized
+>  
+> +void __bad_atomic_read(const volatile void *p, void *res);
+>  void __bad_atomic_size(void);
+>  
+> +static always_inline void read_atomic_size(const volatile void *p,
+> +                                           void *res,
+> +                                           unsigned int size)
+> +{
+> +    switch ( size )
+> +    {
+> +    case 1:
+> +        *(uint8_t *)res = read_u8_atomic(p);
+> +        break;
+> +    case 2:
+> +        *(uint16_t *)res = read_u16_atomic(p);
+> +        break;
+> +    case 4:
+> +        *(uint32_t *)res = read_u32_atomic(p);
+> +        break;
+> +    case 8:
+> +        *(uint64_t *)res = read_u64_atomic(p);
+> +        break;
+> +    default:
+> +        __bad_atomic_read(p, res);
+> +        break;
+> +    }
+> +}
 > +
-> +        # In principle the TSXLDTRK insns could also be considered independent.
-> +        RTM: [TSXLDTRK],
+>  #define read_atomic(p) ({                                               \
+> -    typeof(*p) __x;                                                     \
+> -    switch ( sizeof(*p) ) {                                             \
+> -    case 1: __x = (typeof(*p))read_u8_atomic((uint8_t *)p); break;      \
+> -    case 2: __x = (typeof(*p))read_u16_atomic((uint16_t *)p); break;    \
+> -    case 4: __x = (typeof(*p))read_u32_atomic((uint32_t *)p); break;    \
+> -    case 8: __x = (typeof(*p))read_u64_atomic((uint64_t *)p); break;    \
+> -    default: __x = 0; __bad_atomic_size(); break;                       \
+> -    }                                                                   \
+> -    __x;                                                                \
+> +    union { typeof(*p) val; char c[0]; } x_;                            \
+> +    read_atomic_size(p, x_.c, sizeof(*p));                              \
 
-Why the link?  There is no relevant interaction AFAICT.
+Wouldn't it be better to pass x_ as follows:
 
-~Andrew
+    read_atomic_size(p, &x_, sizeof(*p));
+
+?
+
+In my tests both ways works. I prefer the version with &x_ but given
+that it works either way:
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+
+> +    x_.val;                                                             \
+>  })
+>  
+>  #define write_atomic(p, x) ({                                           \
+> -- 
+> 2.17.1
+> 
 
