@@ -2,55 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE38E1CB96A
-	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 23:05:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D581CBA76
+	for <lists+xen-devel@lfdr.de>; Sat,  9 May 2020 00:10:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jXABD-0006WC-DV; Fri, 08 May 2020 21:05:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jXBBJ-0003AR-Cx; Fri, 08 May 2020 22:09:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wqRt=6W=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jXABC-0006W5-7r
- for xen-devel@lists.xenproject.org; Fri, 08 May 2020 21:05:10 +0000
-X-Inumbo-ID: 93f94b26-916f-11ea-a071-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 93f94b26-916f-11ea-a071-12813bfff9fa;
- Fri, 08 May 2020 21:04:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QNvYtdR5Uc2Ft2Ku/DDJcDjBPZj6mPOwKe96P4gCJgk=; b=riT0xJmPahodlWBrjYIwvUGgF
- 7HEJ9tBy13GEwl8yE+9QSv/4yYEerIM4gmBUc5YGjxcrRaNeiCaN5rZxUByid5nH//5r1Dfr89sfz
- GsZNH5a0iuNYRYpPEnEhetMowR+iih5BVyU1bgtanlw76OT5RXANxIA+TSMEau5G+xptA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jXAB1-0001qf-K5; Fri, 08 May 2020 21:04:59 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jXAB1-0003iV-8m; Fri, 08 May 2020 21:04:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jXAB1-0007NA-89; Fri, 08 May 2020 21:04:59 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150082-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 150082: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=3a3713e62cfad00d78bb938b0d9fb1eedaeff314
-X-Osstest-Versions-That: ovmf=8293e6766a884918a6b608c64543caab49870597
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 May 2020 21:04:59 +0000
+ <SRS0=UrFz=6W=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1jXBBI-0003AM-06
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2020 22:09:20 +0000
+X-Inumbo-ID: 902e1ea0-9178-11ea-b07b-bc764e2007e4
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 902e1ea0-9178-11ea-b07b-bc764e2007e4;
+ Fri, 08 May 2020 22:09:19 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 048M3qiu161659;
+ Fri, 8 May 2020 22:09:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id; s=corp-2020-01-29;
+ bh=kRJKGgXEcBvkOnkZ00J/8oVZj7ZZskCjtSJZuvcjbbk=;
+ b=EkLLPV6+6vDj7ywobWZNfkVpk42vo4sS6Wavr2iWASmCYK+NZexIWqJKpxtkhn63wQtc
+ wg7wFDZVVRob2exoB5k+88R3KfzYN92b2An084ssEc7X+glnExqPHU36Czrwp6ErPhnG
+ 1kBnoJxXMoujtsoNJJGWGf89MgM8QihpfoSBJGWtZ+MzxfZTjRgn2yhP9/4EpbbAGfEV
+ hGmeHbj5qaDkwFUH35qkoJD5I9IAz1FzgOrSmuK+4BnrT+y3blK7GcPryYxbQ72tTY8X
+ +Q0qMMUAM5J5B7lWZs9C3YOfWClf705gbobq0U85IyCEy8JrbkDDr0PSS9lD+Tq59lv/ 7A== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2130.oracle.com with ESMTP id 30vtewwe50-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 08 May 2020 22:09:17 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 048M5xSe011008;
+ Fri, 8 May 2020 22:07:16 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3020.oracle.com with ESMTP id 30vte193h4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 08 May 2020 22:07:16 +0000
+Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 048M76d6019813;
+ Fri, 8 May 2020 22:07:06 GMT
+Received: from ovs104.us.oracle.com (/10.149.224.204)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 08 May 2020 15:07:06 -0700
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] xen/cpuhotplug: Fix initial CPU offlining for PV(H) guests
+Date: Fri,  8 May 2020 18:28:43 -0400
+Message-Id: <1588976923-3667-1-git-send-email-boris.ostrovsky@oracle.com>
+X-Mailer: git-send-email 1.8.3.1
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9615
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ phishscore=0
+ bulkscore=0 malwarescore=0 suspectscore=0 adultscore=0 mlxscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2003020000 definitions=main-2005080187
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9615
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ mlxscore=0 mlxlogscore=999
+ malwarescore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 adultscore=0 clxscore=1015 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2005080187
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,57 +78,55 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: jgross@suse.com, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ sstabellini@kernel.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150082 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150082/
+Commit a926f81d2f6c ("xen/cpuhotplug: Replace cpu_up/down() with
+device_online/offline()") replaced cpu_down() with device_offline()
+call which requires that the CPU has been registered before. This
+registration, however, happens later from topology_init() which
+is called as subsys_initcall(). setup_vcpu_hotplug_event(), on the
+other hand, is invoked earlier, during arch_initcall().
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 3a3713e62cfad00d78bb938b0d9fb1eedaeff314
-baseline version:
- ovmf                 8293e6766a884918a6b608c64543caab49870597
+As result, booting a PV(H) guest with vcpus < maxvcpus causes a crash.
 
-Last test of basis   150063  2020-05-07 05:27:13 Z    1 days
-Testing same since   150082  2020-05-08 04:09:39 Z    0 days    1 attempts
+Move setup_vcpu_hotplug_event() (and therefore setup_cpu_watcher()) to
+late_initcall(). In addition, instead of performing all offlining steps
+in setup_cpu_watcher() simply call disable_hotplug_cpu().
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Rebecca Cran <rebecca@bsdio.com>
+Fixes: a926f81d2f6c (xen/cpuhotplug: Replace cpu_up/down() with device_online/offline()"
+Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+---
+ drivers/xen/cpu_hotplug.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+diff --git a/drivers/xen/cpu_hotplug.c b/drivers/xen/cpu_hotplug.c
+index ec975de..b96b11e 100644
+--- a/drivers/xen/cpu_hotplug.c
++++ b/drivers/xen/cpu_hotplug.c
+@@ -93,10 +93,8 @@ static int setup_cpu_watcher(struct notifier_block *notifier,
+ 	(void)register_xenbus_watch(&cpu_watch);
+ 
+ 	for_each_possible_cpu(cpu) {
+-		if (vcpu_online(cpu) == 0) {
+-			device_offline(get_cpu_device(cpu));
+-			set_cpu_present(cpu, false);
+-		}
++		if (vcpu_online(cpu) == 0)
++			disable_hotplug_cpu(cpu);
+ 	}
+ 
+ 	return NOTIFY_DONE;
+@@ -119,5 +117,5 @@ static int __init setup_vcpu_hotplug_event(void)
+ 	return 0;
+ }
+ 
+-arch_initcall(setup_vcpu_hotplug_event);
++late_initcall(setup_vcpu_hotplug_event);
+ 
+-- 
+1.8.3.1
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   8293e6766a..3a3713e62c  3a3713e62cfad00d78bb938b0d9fb1eedaeff314 -> xen-tested-master
 
