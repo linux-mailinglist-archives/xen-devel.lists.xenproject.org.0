@@ -2,46 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF3001CB21D
-	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 16:43:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D23771CB242
+	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 16:49:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jX4DG-0005QS-IR; Fri, 08 May 2020 14:42:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JXU2=6W=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jX4DE-0005QK-OU
- for xen-devel@lists.xenproject.org; Fri, 08 May 2020 14:42:52 +0000
-X-Inumbo-ID: 318be46a-913a-11ea-b07b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 318be46a-913a-11ea-b07b-bc764e2007e4;
- Fri, 08 May 2020 14:42:51 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 60276AF76;
- Fri,  8 May 2020 14:42:53 +0000 (UTC)
-Subject: Re: Xen Coding style
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-References: <ad26bbdc-5209-ce0c-7956-f8b08e6c2492@amazon.com>
- <8771c424-6340-10e5-1c1f-d72271ab8c1b@suse.com>
- <38926d4e-3429-58bc-f43c-514aed253a8e@xen.org>
- <3b55f045-c6a0-af62-c607-3a85d38cea25@suse.com>
- <63d1ceac-81bb-c916-d403-6f227b4d0ea8@xen.org>
- <CABfawhnvKgoP_EE7An8FDgJ11Ta8_gOo7tZ_J98sB_+Qir7=Yg@mail.gmail.com>
- <10ee3601-fc34-5714-30ea-abd2f2c03cfe@suse.com>
- <CABfawhkRcVavY+gkyvPfUTDdr1Xf=Xsmap11mgCi8cwcNyR=Ug@mail.gmail.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <d0be31c1-f5fe-30ba-9c1a-5d37333d2479@suse.com>
-Date: Fri, 8 May 2020 16:42:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	id 1jX4J2-0005hs-80; Fri, 08 May 2020 14:48:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5Ij8=6W=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jX4J0-0005hn-Kz
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2020 14:48:50 +0000
+X-Inumbo-ID: 065aa9b1-913b-11ea-a00d-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 065aa9b1-913b-11ea-a00d-12813bfff9fa;
+ Fri, 08 May 2020 14:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588949329;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=BX34D3fECH+PeVZ3NA/2gZzeW1JvaHPOZiM4xbvXJLs=;
+ b=UKytWx41y0tFDhLTlWhbhMXrgNMwJjLr6z7Sn5udMZWkrqL4jDfpc+XA
+ OOKxP59C2w4cAElA/+YGy+pAs2W/M70EEmtBS/rFBa13Gtu75PQJavRre
+ g3OyL1DNX43cmkpTXUDxuO4D4gMuZKtL5W+BNzatoA/LPCXIY5m1Xf7dx o=;
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com;
+ dmarc=pass (p=none dis=none) d=citrix.com
+IronPort-SDR: AsQAxb7mBQNkVZ6P+L/cIw5KMUL1iOUrtEZ5Y/K393oKqie/3UPYkSJGkLuCySREmmL5X9u82C
+ OggPhWP+59iDd8mZ8akjXLZ/NEbJB5gv1iyJFEqAITtDSahMcJN7sksckfW8Ep4zI+fJgfMqD8
+ /nFF3hWgOQjaX9fch8YcztZlBwmjMZWsoxIVv/s/oQAJpzHXmHkGbYpfcllLvaLHzANg+lz3Ca
+ hpImTUlKen+XUni3KvK1FPh7JP2DYDCSzpL/+dc2vEZVpv2h8h4hiMYzcWBDig4BnNu/cMtoCk
+ A5M=
+X-SBRS: 2.7
+X-MesageID: 17766602
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,367,1583211600"; d="scan'208";a="17766602"
+Date: Fri, 8 May 2020 16:48:20 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] x86/PVH: PHYSDEVOP_pci_mmcfg_reserved should not blindly
+ register a region
+Message-ID: <20200508144820.GI1353@Air-de-Roger>
+References: <2ee1a3cb-3b40-6e6d-5308-1cdf9f6c521e@suse.com>
+ <c8826959-8dbe-cc39-80b0-8ba03c6a6f30@citrix.com>
+ <16ed4b91-fdb3-d2c5-9a3c-4aa7ff172b98@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <CABfawhkRcVavY+gkyvPfUTDdr1Xf=Xsmap11mgCi8cwcNyR=Ug@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <16ed4b91-fdb3-d2c5-9a3c-4aa7ff172b98@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,97 +94,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, "paul@xen.org" <paul@xen.org>,
- Julien Grall <jgrall@amazon.com>,
- "committers@xenproject.org" <committers@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Woodhouse,
- David" <dwmw@amazon.co.uk>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 08.05.20 16:23, Tamas K Lengyel wrote:
-> On Fri, May 8, 2020 at 8:18 AM Jürgen Groß <jgross@suse.com> wrote:
->>
->> On 08.05.20 14:55, Tamas K Lengyel wrote:
->>> On Fri, May 8, 2020 at 6:21 AM Julien Grall <julien@xen.org> wrote:
->>>>
->>>> Hi Jan,
->>>>
->>>> On 08/05/2020 12:20, Jan Beulich wrote:
->>>>> On 08.05.2020 12:00, Julien Grall wrote:
->>>>>> You seem to be the maintainer with the most unwritten rules. Would
->>>>>> you mind to have a try at writing a coding style based on it?
->>>>>
->>>>> On the basis that even small, single aspect patches to CODING_STYLE
->>>>> have been ignored [1],
->>>>
->>>> Your thread is one of the example why I started this thread. Agreeing on
->>>> specific rule doesn't work because it either result to bikesheding or
->>>> there is not enough interest to review rule by rule.
->>>>
->>>>> I don't think this would be a good use of my
->>>>> time.
->>>>
->>>> I would have assumed that the current situation (i.e
->>>> nitpicking/bikeshedding on the ML) is not a good use of your time :).
->>>>
->>>> I would be happy to put some effort to help getting the coding style
->>>> right, however I believe focusing on an overall coding style would value
->>>> everyone's time better than a rule by rule discussion.
->>>>
->>>>> If I was promised (reasonable) feedback, I could take what I
->>>>> have and try to add at least a few more things based on what I find
->>>>> myself commenting on more frequently. But really I'd prefer it to
->>>>> be done the other way around - for people to look at the patches
->>>>> already sent, and for me to only subsequently send more. After all,
->>>>> if already those adjustments are controversial, I don't think we
->>>>> could settle on others.
->>>> While I understand this requires another investment from your part, I am
->>>> afraid it is going to be painful for someone else to go through all the
->>>> existing coding style bikeshedding and infer your unwritten rules.
->>>>
->>>> It might be more beneficial for that person to pursue the work done by
->>>> Tamas and Viktor in the past (see my previous e-mail). This may mean to
->>>> adopt an existing coding style (BSD) and then tweak it.
->>>
->>> Thanks Julien for restarting this discussion. IMHO agreeing on a set
->>> of style rules ahead and then applying universally all at once is not
->>> going to be productive since we are so all over the place. Instead, I
->>> would recommend we start piece-by-piece. We introduce a baseline style
->>> checker, then maintainers can decide when and if they want to move
->>> their code-base to be under the automated style checker. That way we
->>> have a baseline and each maintainer can decide on their own term when
->>> they want to have their files be also style checked and in what form.
->>> The upside of this route I think is pretty clear: we can have at least
->>> partial automation even while we figure out what to do with some of
->>> the more problematic files and quirks that are in our code-base. I
->>> would highly prefer this route since I would immediately bring all
->>> files I maintain over to the automated checker just so I never ever
->>> have to deal with this again manually. What style is in use to me
->>> really doesn't matter, BSD was very close with some minor tweaks, or
->>> even what we use to check the style just as long as we have
->>> _something_.
->>
->> Wouldn't it make more sense to have a patch checker instead and accept
->> only patches which change code according to the style guide? This
->> wouldn't require to change complete files at a time.
+On Fri, May 08, 2020 at 03:49:35PM +0200, Jan Beulich wrote:
+> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
 > 
-> In theory, yes. But in practice this would require that we can agree
-> on a style that applies to all patches that touch any file within Xen.
-> We can't seem to do that because there are too many exceptions and
-> corner-cases and personal-preferences of maintainers that apply only
-> to a subset of the codebase. So AFAICT what you propose doesn't seem
-> to be a viable way to start.
+> On 08.05.2020 14:54, Andrew Cooper wrote:
+> > On 08/05/2020 13:43, Jan Beulich wrote:
+> >> The op has a register/unregister flag, and hence registration shouldn't
+> >> happen unilaterally. Introduce unregister_vpci_mmcfg_handler() to handle
+> >> this case.
+> >>
+> >> Fixes: eb3dd90e4089 ("x86/physdev: enable PHYSDEVOP_pci_mmcfg_reserved for PVH Dom0")
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > I agree in principle that registration shouldn't be unilateral, but why
+> > on earth does the API behave like that to begin with?
+> > 
+> > There is no provision to move or update MMCFG regions in any spec I'm
+> > aware of, and hardware cannot in practice update memory routing like this.
+> > 
+> > Under what circumstances should we tolerate an unregister in the first
+> > place?
+> 
+> Hot unplug of an entire segment, for example.
 
-I think long ago we already agreed to have a control file which tells a
-style checker which style to apply (if any). As a start we could have a
-patch checker checking only the commit message (has it a Signed-off-by:
-etc.). The next step would be to add the control file, and the framework
-to split the patch into the changed file hunks and passing each hunk to
-the correct checking script (might be doing nothing in the beginning).
-And then we could add some logic to the single checkers.
+An OS could also rebalance the resources of a host bridge, according
+to the PCI firmware spec, in which case _CBA should be re-evaluated.
 
+I'm not sure whether rebalancing would work anyway, or if there even
+are systems that support this and OSes that would attempt to do it,
+but since we have the interface for this let's try to do something
+sensible.
 
-Juergen
+The other options is simply returning -EOPNOTSUPP. Iff the domain
+doesn't try to access devices that would reside on the segment
+hot-unplugged it shouldn't make much of a difference, rebalancing is
+the case were Xen must support add/remove in order to re-place the
+position of the ECAM areas.
+
+Thanks, Roger.
 
