@@ -2,92 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0D71CB96B
-	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 23:05:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE38E1CB96A
+	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 23:05:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jXAAS-0006TL-3a; Fri, 08 May 2020 21:04:24 +0000
+	id 1jXABD-0006WC-DV; Fri, 08 May 2020 21:05:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M6n8=6W=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jXAAR-0006TG-0T
- for xen-devel@lists.xenproject.org; Fri, 08 May 2020 21:04:23 +0000
-X-Inumbo-ID: 7d828f1a-916f-11ea-a071-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=wqRt=6W=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jXABC-0006W5-7r
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2020 21:05:10 +0000
+X-Inumbo-ID: 93f94b26-916f-11ea-a071-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7d828f1a-916f-11ea-a071-12813bfff9fa;
- Fri, 08 May 2020 21:04:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588971862;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=Xt1kL6CbUuB4s9c/xNAlc5HpI87uPFG7NIUqE70ub6Q=;
- b=QNY/MycQMKfD7WskuLaSKzC9vRCt4izP+MfB3VAaqz2dS1pqDE8B7B1W
- aTKdm/Dd6DXn73rjokEzZGW/c2tTeM+dt6ktGKm8QcXtQFWFx4chDXVGD
- gxviTblK8dAZK6YlCx/aP/WDtHP48DJPLyjUgMiwaIzCBexv1t2aD69RN k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-X-Ironport-Dmarc-Check-Result: validskip
-IronPort-SDR: gvEq1nHMnQBL3kJRzNlmeSRMD51Jsf8m9tpPAbfGsUMP2mEyH+Ygw9e7hvVjWv/RQ/bSz6Mrvu
- k5PlFOat2DCORtgZ9PyvcnjvzcZ5orhDLZgGayn7z12NQhsgGv/VLWwpOD6q10NTAxtrlxrpb6
- tu8X83AhhFjrRUHVory4/r2s0hf8TyWUe4ABZ0iYSD3MIG855BO07ZFFR3ihvGebwVlxLUUCsv
- 5fRSSpAMRVXcpk++MMxm1fTcncpobCbtJDdXfjp8anVOr5DfsTcvqDfpYz6N3Mtq7pNqLr05PG
- 0V4=
-X-SBRS: 2.7
-X-MesageID: 17795292
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,369,1583211600"; d="scan'208";a="17795292"
-Subject: Re: [PATCH v8 12/12] x86/HVM: don't needlessly intercept
- APERF/MPERF/TSC MSR reads
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
- <e92b6c1a-b2c3-13e7-116c-4772c851dd0b@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <81cc74ce-0a53-d5cd-3513-af3af6382815@citrix.com>
-Date: Fri, 8 May 2020 22:04:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <e92b6c1a-b2c3-13e7-116c-4772c851dd0b@suse.com>
-Content-Type: text/plain; charset="utf-8"
+ id 93f94b26-916f-11ea-a071-12813bfff9fa;
+ Fri, 08 May 2020 21:04:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=QNvYtdR5Uc2Ft2Ku/DDJcDjBPZj6mPOwKe96P4gCJgk=; b=riT0xJmPahodlWBrjYIwvUGgF
+ 7HEJ9tBy13GEwl8yE+9QSv/4yYEerIM4gmBUc5YGjxcrRaNeiCaN5rZxUByid5nH//5r1Dfr89sfz
+ GsZNH5a0iuNYRYpPEnEhetMowR+iih5BVyU1bgtanlw76OT5RXANxIA+TSMEau5G+xptA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jXAB1-0001qf-K5; Fri, 08 May 2020 21:04:59 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jXAB1-0003iV-8m; Fri, 08 May 2020 21:04:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jXAB1-0007NA-89; Fri, 08 May 2020 21:04:59 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150082-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+MIME-Version: 1.0
+Subject: [ovmf test] 150082: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=3a3713e62cfad00d78bb938b0d9fb1eedaeff314
+X-Osstest-Versions-That: ovmf=8293e6766a884918a6b608c64543caab49870597
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 08 May 2020 21:04:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,39 +61,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05/05/2020 09:20, Jan Beulich wrote:
-> If the hardware can handle accesses, we should allow it to do so. This
-> way we can expose EFRO to HVM guests,
+flight 150082 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150082/
 
-I'm reminded now of the conversation I'm sure we've had before, although
-I have a feeling it was on IRC.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 3a3713e62cfad00d78bb938b0d9fb1eedaeff314
+baseline version:
+ ovmf                 8293e6766a884918a6b608c64543caab49870597
 
-APERF/MPERF (including the EFRO interface on AMD) are free running
-counters but only in C0.  The raw values are not synchronised across
-threads.
+Last test of basis   150063  2020-05-07 05:27:13 Z    1 days
+Testing same since   150082  2020-05-08 04:09:39 Z    0 days    1 attempts
 
-A vCPU which gets rescheduled has a 50% chance of finding the one or
-both values going backwards, and a 100% chance of totally bogus calculation.
+------------------------------------------------------------
+People who touched revisions under test:
+  Rebecca Cran <rebecca@bsdio.com>
 
-There is no point exposing APERF/MPERF to guests.  It can only be used
-safely in hypervisor context, on AMD hardware with a CLGI/STGI region,
-or on Intel hardware in an NMI handler if you trust that a machine check
-isn't going to ruin your day.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-VMs have no way of achieving the sampling requirements, and has a fair
-chance of getting a plausible-but-wrong answer.
 
-The only possibility to do this safely is on a VM which is pinned to
-pCPU for its lifetime, but even I'm unconvinced of the correctness.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I don't think we should be exposing this functionality to guests at all,
-although I might be persuaded if someone wanting to use it in a VM can
-provide a concrete justification of why the above problems won't get in
-their way.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-~Andrew
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   8293e6766a..3a3713e62c  3a3713e62cfad00d78bb938b0d9fb1eedaeff314 -> xen-tested-master
 
