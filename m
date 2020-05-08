@@ -2,64 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DD8F1CAC26
-	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 14:51:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CB971CAC55
+	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 14:54:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jX2St-0003wr-HB; Fri, 08 May 2020 12:50:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4FLg=6W=redhat.com=armbru@srs-us1.protection.inumbo.net>)
- id 1jX2Ss-0003wh-HS
- for xen-devel@lists.xenproject.org; Fri, 08 May 2020 12:50:54 +0000
-X-Inumbo-ID: 8db9f854-912a-11ea-b07b-bc764e2007e4
-Received: from us-smtp-1.mimecast.com (unknown [205.139.110.61])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 8db9f854-912a-11ea-b07b-bc764e2007e4;
- Fri, 08 May 2020 12:50:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588942253;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zudctO3EkR+8Y0s3mx6MbBIauAULqPgX14OPAMKsxPM=;
- b=GyG3gvoZIszpvvKVWhZ0elNqWCCN4vkybmpJiEVQscR5ZIa5exV7asPCw/XFbvpL1fDRlc
- GqolCWINcY3fyXorw/H3QG00EXRb60CwdLwgNTSXcoPiDXIslBHrY+87FPaYNXu/L1JYJX
- gmy6SSah2UEjEVkb8Qg+o4KOfW6Gx4o=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-76-1-TUPxSPMNaE1-cw9UJ2Pg-1; Fri, 08 May 2020 08:50:52 -0400
-X-MC-Unique: 1-TUPxSPMNaE1-cw9UJ2Pg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DFAC2107ACCA;
- Fri,  8 May 2020 12:50:48 +0000 (UTC)
-Received: from blackfin.pond.sub.org (ovpn-113-6.ams2.redhat.com [10.36.113.6])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B92B5C1BE;
- Fri,  8 May 2020 12:50:42 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 0D88F11358BC; Fri,  8 May 2020 14:50:41 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
-Subject: Re: [PATCH v2 1/3] target: Remove unnecessary CPU() cast
-References: <20200504100735.10269-1-f4bug@amsat.org>
- <20200504100735.10269-2-f4bug@amsat.org>
-Date: Fri, 08 May 2020 14:50:41 +0200
-In-Reply-To: <20200504100735.10269-2-f4bug@amsat.org> ("Philippe
- =?utf-8?Q?Mathieu-Daud=C3=A9=22's?= message of "Mon, 4 May 2020 12:07:33
- +0200")
-Message-ID: <87imh6y4im.fsf@dusky.pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
+	id 1jX2W7-000494-3K; Fri, 08 May 2020 12:54:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=M6n8=6W=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jX2W5-00048x-Cl
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2020 12:54:13 +0000
+X-Inumbo-ID: 0311327a-912b-11ea-9fe5-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0311327a-912b-11ea-9fe5-12813bfff9fa;
+ Fri, 08 May 2020 12:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588942451;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=5aNK6xTRklf7K2GontuyiPQPstkJsRBOU6hDzb0VAQA=;
+ b=WWxF9dxtweloiGhqQpibu3Ugrb1Ruf6BhqXvka/MjIUvzG+Q0YmCdLvb
+ vfKhbhIMvMQJN6ZNwelF/4BsRgiYscu98HW71nrzKZ8pulpCGKGOt/MoZ
+ C4RWn2biSyqNtMhdE16KmDS6O7/2bYa4VEBi9dTeTRDkiR+wfoCdDPptT g=;
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com;
+ dmarc=pass (p=none dis=none) d=citrix.com
+IronPort-SDR: 4+f0sYDL0We9F1/Uxd/U+80BDXDR48WPKMcJpAmkXHZZO6y/ktO1Q1csYKu0az2Ts24IDRwmQ8
+ Zpma19IxKdIWC+eAWpK7CR/vIwLTiUQyCLsjljMd5KOZnBumiEnElg6a3jVtuaudfNLmAP42B7
+ miEEwdYXuVW8QuFTcjmrKh1EVeQ2a2E+Dx5rIHdpLPe60tr3nXpRSfZANmsZXozxeSt/vn9lGY
+ Tdz1u5akYnVoAhFP+gWgB3Gez2F09leHkXQCu7VijoTR7wtV1z8gnxQpv0oN6DbXtVdR4wJDA6
+ fkY=
+X-SBRS: 2.7
+X-MesageID: 17756052
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,367,1583211600"; d="scan'208";a="17756052"
+Subject: Re: [PATCH] x86/PVH: PHYSDEVOP_pci_mmcfg_reserved should not blindly
+ register a region
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <2ee1a3cb-3b40-6e6d-5308-1cdf9f6c521e@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <c8826959-8dbe-cc39-80b0-8ba03c6a6f30@citrix.com>
+Date: Fri, 8 May 2020 13:54:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <2ee1a3cb-3b40-6e6d-5308-1cdf9f6c521e@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,62 +97,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>, Paul Durrant <paul@xen.org>,
- Jason Wang <jasowang@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
- Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
- David Hildenbrand <david@redhat.com>, Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
- Joel Stanley <joel@jms.id.au>, Anthony Perard <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org, David Gibson <david@gibson.dropbear.id.au>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
- Eduardo Habkost <ehabkost@redhat.com>, Corey Minyard <minyard@acm.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
- qemu-arm@nongnu.org, Peter Chubb <peter.chubb@nicta.com.au>,
- =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>, John Snow <jsnow@redhat.com>,
- Richard Henderson <rth@twiddle.net>,
- "Daniel P. =?utf-8?Q?Berrang=C3=A9?=" <berrange@redhat.com>,
- Andrew Jeffery <andrew@aj.id.au>, Cornelia Huck <cohuck@redhat.com>,
- Laurent Vivier <laurent@vivier.eu>, qemu-ppc@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>, Aurelien Jarno <aurelien@aurel32.net>
+Cc: Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> writes:
+On 08/05/2020 13:43, Jan Beulich wrote:
+> The op has a register/unregister flag, and hence registration shouldn't
+> happen unilaterally. Introduce unregister_vpci_mmcfg_handler() to handle
+> this case.
+>
+> Fixes: eb3dd90e4089 ("x86/physdev: enable PHYSDEVOP_pci_mmcfg_reserved for PVH Dom0")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> The CPU() macro is defined as:
->
->   #define CPU(obj) ((CPUState *)(obj))
->
-> which expands to:
->
->   ((CPUState *)object_dynamic_cast_assert((Object *)(obj), (name),
->                                           __FILE__, __LINE__, __func__))
->
-> This assertion can only fail when @obj points to something other
-> than its stated type, i.e. when we're in undefined behavior country.
->
-> Remove the unnecessary CPU() casts when we already know the pointer
-> is of CPUState type.
->
-> Patch created mechanically using spatch with this script:
->
->   @@
->   typedef CPUState;
->   CPUState *s;
->   @@
->   -   CPU(s)
->   +   s
->
-> Acked-by: David Gibson <david@gibson.dropbear.id.au>
-> Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
-> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+I agree in principle that registration shouldn't be unilateral, but why
+on earth does the API behave like that to begin with?
 
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
+There is no provision to move or update MMCFG regions in any spec I'm
+aware of, and hardware cannot in practice update memory routing like this.
 
+Under what circumstances should we tolerate an unregister in the first
+place?
+
+~Andrew
 
