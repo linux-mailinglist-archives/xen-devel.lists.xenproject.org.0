@@ -2,73 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2677C1CB8D5
-	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 22:16:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EA581CB908
+	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 22:34:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jX9Pr-0002FO-OG; Fri, 08 May 2020 20:16:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jX9fz-0003tx-Cj; Fri, 08 May 2020 20:32:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wqRt=6W=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jX9Pp-0002FJ-QI
- for xen-devel@lists.xenproject.org; Fri, 08 May 2020 20:16:13 +0000
-X-Inumbo-ID: c0fcf4e4-9168-11ea-a067-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c0fcf4e4-9168-11ea-a067-12813bfff9fa;
- Fri, 08 May 2020 20:16:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bDzexYkLSEW4/t6p1GjlgbhA5/DrMK5QDn8oK3olGJg=; b=BKGStMT/hLRNxuRqxo1IiJIzE
- DE47w8EyhS826HGI8ouWL587CrzBej5h4m+s3FwQCTnXdOoeN4IIwcIUKw676qfeoKYU15si9AX2H
- vZgZYHBtCiAJix/Mdwr+CsRdMDvjT0FWWKX/76WmRHyLslwNMk+uGdxzKTrMP0l7gC0sA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jX9Pk-0000L6-ND; Fri, 08 May 2020 20:16:08 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jX9Pk-00011C-C4; Fri, 08 May 2020 20:16:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jX9Pk-0004HZ-64; Fri, 08 May 2020 20:16:08 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150083-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=M6n8=6W=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jX9fx-0003ts-O4
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2020 20:32:53 +0000
+X-Inumbo-ID: 16ceacda-916b-11ea-9887-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 16ceacda-916b-11ea-9887-bc764e2007e4;
+ Fri, 08 May 2020 20:32:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1588969973;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=lvcHfMrPoxy3lfH9QSTjWGiNH2/W59CeABGN2RP453Y=;
+ b=d3ct67v+yu+aVKURHK/vShqTADatG0FviMjUtPd2qkIDz9Roz2c/OBDQ
+ THjEpf5UVqZm/6c1u+RNruwHKBmjPmH8Tr40Vdq8FT9+fdVmPhJeSTJTW
+ 0uk8JVvcSU1YQsCh1d6mrG/c9QQ+UusZKGzvBCFFYlZbjYStIYMX1RASX U=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+X-Ironport-Dmarc-Check-Result: validskip
+IronPort-SDR: gLEO9oAMiGRmKnl3GtWt0sX7AQPZZ1BwmIWR7VMFy2qVlsq6amL74aGQSuJrccZJEuvSXPTsJX
+ 6blFDBlgf0HbtDdDpeEpCaVj0m0PIURi9a5lf3RI89aLJG85AqcLoBaEqsfCn2Dm04vU/Ztnxv
+ R3JftELIBv5iFSMVOm142oJT3uvqD2+GdKYH4igu9rAK9+GDHte3Z7ZyfMAov/QouF9nooY5Xl
+ Oh6xs/y3sK83m6QcWYmEWbgVjOyBpz96bi9owHQ4OcV7LtWlV0Hud3qiTdiBkGVa7J8Me1ad7t
+ O/k=
+X-SBRS: 2.7
+X-MesageID: 17123184
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,369,1583211600"; d="scan'208";a="17123184"
+Subject: Re: [PATCH v8 10/12] x86/HVM: scale MPERF values reported to guests
+ (on AMD)
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
+ <5da4ed2e-8eb8-0b18-3c1f-9d419371c08a@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <8bf8b3c9-1cec-0943-4b98-75b4a787a344@citrix.com>
+Date: Fri, 8 May 2020 21:32:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [libvirt test] 150083: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=23bf93884c6346206e87c0f14d93f905e8c81267
-X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 May 2020 20:16:08 +0000
+In-Reply-To: <5da4ed2e-8eb8-0b18-3c1f-9d419371c08a@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,156 +97,94 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150083 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150083/
+On 05/05/2020 09:18, Jan Beulich wrote:
+> AMD's PM specifies that MPERF (and its r/o counterpart) reads are
+> affected by the TSC ratio. Hence when processing such reads in software
+> we too should scale the values. While we don't currently (yet) expose
+> the underlying feature flags, besides us allowing the MSRs to be read
+> nevertheless, RDPRU is going to expose the values even to user space.
+>
+> Furthermore, due to the not exposed feature flags, this change has the
+> effect of making properly inaccessible (for reads) the two MSRs.
+>
+> Note that writes to MPERF (and APERF) continue to be unsupported.
 
-Regressions :-(
+Linux is now using MPERF/APERF for its frequency-invariant scheduling
+logic.  Irritatingly, via its read/write alias rather than its read-only
+alias.  Even more irritatingly, Intel's reference algorithm recommends
+writing to both, despite this being being far less efficient than (one
+of) AMD's (two) algorithm(s) which tells you just to subtract the values
+you last sampled.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+On the one hand, I'm tempted to suggest that we offer EFRO on Intel and
+update Linux to use it.  OTOH, that would VMExit as Intel CPUs don't
+understand the EFRO interface.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+I can't see any sane way to virtualise the write behaviour for MPERF/APERF.
 
-version targeted for testing:
- libvirt              23bf93884c6346206e87c0f14d93f905e8c81267
-baseline version:
- libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v3: New.
+> ---
+> I did consider whether to put the code in guest_rdmsr() instead, but
+> decided that it's better to have it next to TSC handling.
 
-Last test of basis   146182  2020-01-17 06:00:23 Z  112 days
-Failing since        146211  2020-01-18 04:18:52 Z  111 days  102 attempts
-Testing same since   150083  2020-05-08 04:18:46 Z    0 days    1 attempts
+Please do put it in guest_rdmsr().  This is code hygene just as much as
+bool_t or style fixes are.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Arnaud Patard <apatard@hupstream.com>
-  Artur Puzio <contact@puzio.waw.pl>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Chen Hanxiao <chen_han_xiao@126.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniel Veillard <veillard@redhat.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Erik Skultety <eskultet@redhat.com>
-  Gaurav Agrawal <agrawalgaurav@gnome.org>
-  Han Han <hhan@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Leonid Bloch <lb.workbox@gmail.com>
-  Lin Ma <LMa@suse.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mark Asselstine <mark.asselstine@windriver.com>
-  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Pavel Mores <pmores@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Philipp Hahn <hahn@univention.de>
-  Pino Toscano <ptoscano@redhat.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Rafael Fonseca <r4f4rfs@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Rikard Falkeborn <rikard.falkeborn@gmail.com>
-  Ryan Moeller <ryan@iXsystems.com>
-  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Tobin Feldman-Fitzthum <tobin@linux.vnet.ibm.com>
-  Wu Qingliang <wuqingliang4@huawei.com>
-  Xu Yandong <xuyandong2@huawei.com>
-  Yi Li <yili@winhong.com>
-  Your Name <you@example.com>
-  Zhang Bo <oscar.zhangbo@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhimin Feng <fengzhimin1@huawei.com>
+The relationship to TSC is passing-at-best.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+>
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -3478,6 +3478,22 @@ int hvm_msr_read_intercept(unsigned int
+>          *msr_content = v->arch.hvm.msr_tsc_adjust;
+>          break;
+>  
+> +    case MSR_MPERF_RD_ONLY:
+> +        if ( !d->arch.cpuid->extd.efro )
+> +        {
+> +            goto gp_fault;
+> +
+> +    case MSR_IA32_MPERF:
+> +            if ( !(d->arch.cpuid->basic.raw[6].c &
+> +                   CPUID6_ECX_APERFMPERF_CAPABILITY) )
+> +                goto gp_fault;
+> +        }
+> +        if ( rdmsr_safe(msr, *msr_content) )
+> +            goto gp_fault;
+> +        if ( d->arch.cpuid->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
 
+I suspect we want to gain amd_like() outside of the emulator.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +            *msr_content = hvm_get_guest_tsc_fixed(v, *msr_content);
+> +        break;
+> +
+>      case MSR_APIC_BASE:
+>          *msr_content = vcpu_vlapic(v)->hw.apic_base_msr;
+>          break;
+> --- a/xen/include/asm-x86/msr-index.h
+> +++ b/xen/include/asm-x86/msr-index.h
+> @@ -405,6 +405,9 @@
+>  #define MSR_IA32_MPERF			0x000000e7
+>  #define MSR_IA32_APERF			0x000000e8
+>  
+> +#define MSR_MPERF_RD_ONLY		0xc00000e7
+> +#define MSR_APERF_RD_ONLY		0xc00000e8
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+S/RD_ONLY/RO/ ?  No loss of meaning.  Also, above the legacy line please.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+~Andrew
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> +
+>  #define MSR_IA32_THERM_CONTROL		0x0000019a
+>  #define MSR_IA32_THERM_INTERRUPT	0x0000019b
+>  #define MSR_IA32_THERM_STATUS		0x0000019c
+>
 
-
-Not pushing.
-
-(No revision log; it would be 17347 lines long.)
 
