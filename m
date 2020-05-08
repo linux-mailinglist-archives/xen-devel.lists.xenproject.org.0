@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82B5C1CA4FD
-	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 09:20:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2BD71CA53B
+	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 09:32:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jWxIR-0007r6-Td; Fri, 08 May 2020 07:19:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jWxUW-0001F4-1B; Fri, 08 May 2020 07:32:16 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=t3Kb=6W=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jWxIQ-0007qy-8V
- for xen-devel@lists.xenproject.org; Fri, 08 May 2020 07:19:46 +0000
-X-Inumbo-ID: 4b07971a-90fc-11ea-b9cf-bc764e2007e4
+ id 1jWxUU-0001Ez-D1
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2020 07:32:14 +0000
+X-Inumbo-ID: 071e06cf-90fe-11ea-9fcd-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4b07971a-90fc-11ea-b9cf-bc764e2007e4;
- Fri, 08 May 2020 07:19:45 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 071e06cf-90fe-11ea-9fcd-12813bfff9fa;
+ Fri, 08 May 2020 07:32:12 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 7E6C2AFDB;
- Fri,  8 May 2020 07:19:47 +0000 (UTC)
-Subject: Re: [PATCH v8 02/12] x86emul: support MOVDIR{I,64B} insns
+ by mx2.suse.de (Postfix) with ESMTP id D2996AB5C;
+ Fri,  8 May 2020 07:32:13 +0000 (UTC)
+Subject: Re: [PATCH v8 03/12] x86emul: support ENQCMD insns
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
- <04e52d0a-fcce-eba4-0341-3b8838c0faae@suse.com>
- <37726d04-6fb8-5747-82ae-d206737905cf@citrix.com>
+ <099d03d0-2846-2a3d-93ec-2d10dab12655@suse.com>
+ <4fdaeefb-9593-789d-9f73-510e89d6df43@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <46538792-1dc8-d990-65c7-ccff88721e22@suse.com>
-Date: Fri, 8 May 2020 09:19:44 +0200
+Message-ID: <0c9b92b1-9caf-741b-eaaa-18c652e6b504@suse.com>
+Date: Fri, 8 May 2020 09:32:05 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <37726d04-6fb8-5747-82ae-d206737905cf@citrix.com>
+In-Reply-To: <4fdaeefb-9593-789d-9f73-510e89d6df43@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -52,36 +53,87 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.05.2020 20:30, Andrew Cooper wrote:
+On 07.05.2020 20:59, Andrew Cooper wrote:
 > On 05/05/2020 09:13, Jan Beulich wrote:
->> Introduce a new blk() hook, paralleling the rmw() one in a certain way,
->> but being intended for larger data sizes, and hence its HVM intermediate
->> handling function doesn't fall back to splitting the operation if the
->> requested virtual address can't be mapped.
->>
->> Note that SDM revision 071 doesn't specify exception behavior for
->> ModRM.mod == 0b11; assuming #UD here.
+>> Note that the ISA extensions document revision 038 doesn't specify
+>> exception behavior for ModRM.mod == 0b11; assuming #UD here.
 > 
-> Still stale?  It does #UD on current hardware, and will cease to #UD in
-> the future when the encoding space gets used for something else.
+> Stale.
 
-What do you mean by "still stale"? Other insns allowing for only
-memory operands have the #UD spelled out in the doc. Are you
-implying by the 2nd sentence that it should rather be
-"goto unrecognized_insn"? I'm afraid we're not very consistent
-yet with what we do in such cases; I could certainly work
-towards improving this, but the question is whether it is really
-sensible in all cases to assume such partially unused encodings
-may get used in the future.
+In which way (beyond the question of whether to use
+goto unrecognized_insn in the code instead)? The doc doesn't
+mention ModRM.mod specifics in any way.
 
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> Reviewed-by: Paul Durrant <paul@xen.org>
+>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>> @@ -11480,11 +11513,36 @@ int x86_emul_blk(
+>>  {
+>>      switch ( state->blk )
+>>      {
+>> +        bool zf;
+>> +
+>>          /*
+>>           * Throughout this switch(), memory clobbers are used to compensate
+>>           * that other operands may not properly express the (full) memory
+>>           * ranges covered.
+>>           */
+>> +    case blk_enqcmd:
+>> +        ASSERT(bytes == 64);
+>> +        if ( ((unsigned long)ptr & 0x3f) )
+>> +        {
+>> +            ASSERT_UNREACHABLE();
+>> +            return X86EMUL_UNHANDLEABLE;
+>> +        }
+>> +        *eflags &= ~EFLAGS_MASK;
+>> +#ifdef HAVE_AS_ENQCMD
+>> +        asm ( "enqcmds (%[src]), %[dst]" ASM_FLAG_OUT(, "; setz %0")
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> %[zf]
 
-Thanks, but as per my reply to your patch 6 comment the patch
-here will need to be revised, so I'll not apply this just yet
-unless you indicate up front that you're fine with me keeping it.
+Oops, indeed.
+
+>> +              : [zf] ASM_FLAG_OUT("=@ccz", "=qm") (zf)
+>> +              : [src] "r" (data), [dst] "r" (ptr) : "memory" );
+> 
+> Can't src get away with being "m" (*data)?  There is no need to force it
+> into a single register, even if it is overwhelmingly likely to end up
+> with %rsi scheduled here.
+
+Well, *data can't be used, as data is of void* type. It would
+need to have a suitable cast on it, but since that's not
+going to avoid the memory clobber I didn't think it was worth
+it (also together with the comment ahead of the switch()).
+
+>> --- a/xen/include/asm-x86/msr-index.h
+>> +++ b/xen/include/asm-x86/msr-index.h
+>> @@ -420,6 +420,10 @@
+>>  #define MSR_IA32_TSC_DEADLINE		0x000006E0
+>>  #define MSR_IA32_ENERGY_PERF_BIAS	0x000001b0
+>>  
+>> +#define MSR_IA32_PASID			0x00000d93
+>> +#define  PASID_PASID_MASK		0x000fffff
+>> +#define  PASID_VALID			0x80000000
+>> +
+> 
+> Above the legacy line please as this is using the newer style,
+
+Ah, yes, I should have remembered to re-base this over your
+change there.
+
+> and drop
+> _IA32.  Intel's ideal of architectural-ness isn't interesting or worth
+> the added code volume.
+
+We'd been there before, and you know I disagree. I think it
+is wrong for me to make the change, but I will do so just
+to retain your ack.
+
+> PASSID_PASSID_MASK isn't great, but I can't suggest anything better, and
+> MSR_PASSID_MAS doesn't work either.
+> 
+> Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Thanks.
 
 Jan
 
