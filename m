@@ -2,89 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 275531CB2D9
-	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 17:31:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 464171CB2F3
+	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 17:34:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jX4xt-0001i4-2I; Fri, 08 May 2020 15:31:05 +0000
+	id 1jX51K-0001wS-Q7; Fri, 08 May 2020 15:34:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M6n8=6W=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jX4xr-0001hy-9O
- for xen-devel@lists.xenproject.org; Fri, 08 May 2020 15:31:03 +0000
-X-Inumbo-ID: ec95f682-9140-11ea-9887-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JXU2=6W=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jX51J-0001vu-9v
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2020 15:34:37 +0000
+X-Inumbo-ID: 66464586-9141-11ea-b07b-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec95f682-9140-11ea-9887-bc764e2007e4;
- Fri, 08 May 2020 15:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588951862;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=5+MGsT7EyqtQLeICh9rFqTjuvOdRffCurchcqUClatM=;
- b=SpzoObUFHmGI9TOl2R32lkSmYSCMZo6u6qmutbiuxGD9KHDt4Siz7tHj
- Zij2csP21QlR7oRxx6lZXKbciQuu1OLgCTTYjk7jIUb8L1AKjZtGum69t
- K7Xr5fpmpz74ISfacng6wAQLVCyQKfo17i1duu9W3deiAEawCrsWY53kd g=;
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: GpVAFiZb+9fWBIHW5kac0SEi9E6bmNffs3++sIDrqvpFinArVS4ufgdGtyQ2GiHYx3WiE7/b5Y
- VwXYGXgRY3heO6s0Av0tL9GNvmnQ83Lo9LDsWIob4GJbbu9ATvcbVjvzagfa4yEQI2clN3Dm6Y
- eTidIsvPEIm8NOIemLbroYfmmhY0wie42bJMPAyQTRj6OTs69aruL+W2GkYxJQP/zRMN6I3JGP
- p7H1ralItCjcHnsspQHm42+OgIbsTdiB+6xP3hiwzTSeORW4Mcjk0Jj+zeSx9lIzXTKJJNdGR9
- oDw=
-X-SBRS: 2.7
-X-MesageID: 17453940
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,368,1583211600"; d="scan'208";a="17453940"
-Subject: Re: [PATCH] tools/libxc: Reduce feature handling complexity in
- xc_cpuid_apply_policy()
-To: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20200303182326.16739-1-andrew.cooper3@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f2d8a8cc-a949-22f0-0e26-0df2c7d5889f@citrix.com>
-Date: Fri, 8 May 2020 16:30:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 66464586-9141-11ea-b07b-bc764e2007e4;
+ Fri, 08 May 2020 15:34:26 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D9802AE71;
+ Fri,  8 May 2020 15:34:27 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v8 00/12] Add hypervisor sysfs-like support
+Date: Fri,  8 May 2020 17:34:09 +0200
+Message-Id: <20200508153421.24525-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-In-Reply-To: <20200303182326.16739-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,78 +40,161 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Tools ping?
+On the 2019 Xen developer summit there was agreement that the Xen
+hypervisor should gain support for a hierarchical name-value store
+similar to the Linux kernel's sysfs.
 
-~Andrew
+This is a first implementation of that idea adding the basic
+functionality to hypervisor and tools side. The interface to any
+user program making use of that "xen-hypfs" is a new library
+"libxenhypfs" with a stable interface.
 
-On 03/03/2020 18:23, Andrew Cooper wrote:
-> xc_cpuid_apply_policy() is gaining extra parameters to untangle CPUID
-> complexity in Xen.  While an improvement in general, it does have the
-> unfortunate side effect of duplicating some settings across muliple
-> parameters.
->
-> Rearrange the logic to only consider 'pae' if no explicit featureset is
-> provided.  This reduces the complexity for callers who have already provided a
-> pae setting in the featureset.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Ian Jackson <Ian.Jackson@citrix.com>
-> ---
->  tools/libxc/include/xenctrl.h | 6 ++++++
->  tools/libxc/xc_cpuid_x86.c    | 7 +++++--
->  2 files changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
-> index fc6e57a1a0..8d13a7e20b 100644
-> --- a/tools/libxc/include/xenctrl.h
-> +++ b/tools/libxc/include/xenctrl.h
-> @@ -1798,6 +1798,12 @@ int xc_cpuid_set(xc_interface *xch,
->                   const unsigned int *input,
->                   const char **config,
->                   char **config_transformed);
-> +/*
-> + * Make adjustments to the CPUID settings for a domain.
-> + *
-> + * Either pass a full new @featureset (and @nr_features), or adjust individual
-> + * features (@pae).
-> + */
->  int xc_cpuid_apply_policy(xc_interface *xch,
->                            uint32_t domid,
->                            const uint32_t *featureset,
-> diff --git a/tools/libxc/xc_cpuid_x86.c b/tools/libxc/xc_cpuid_x86.c
-> index 5ced6d18b9..f045b03223 100644
-> --- a/tools/libxc/xc_cpuid_x86.c
-> +++ b/tools/libxc/xc_cpuid_x86.c
-> @@ -532,6 +532,11 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid,
->  
->          cpuid_featureset_to_policy(feat, p);
->      }
-> +    else
-> +    {
-> +        if ( di.hvm )
-> +            p->basic.pae = pae;
-> +    }
->  
->      if ( !di.hvm )
->      {
-> @@ -615,8 +620,6 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid,
->              break;
->          }
->  
-> -        p->basic.pae = pae;
-> -
->          /*
->           * These settings are necessary to cause earlier HVM_PARAM_NESTEDHVM /
->           * XEN_DOMCTL_disable_migrate settings to be reflected correctly in
+The series adds read-only nodes with buildinfo data and writable
+nodes with runtime parameters. xl is switched to use the new file
+system for modifying the runtime parameters and the old sysctl
+interface for that purpose is dropped.
+
+Changes in V8:
+- addressed review comments
+- added CONFIG_HYPFS config option
+
+Changes in V7:
+- old patch 1 already applied
+- add new patch 1 (carved out and modified from patch 9)
+- addressed review comments
+- modified public interface to have a max write size instead of a
+  writable flag only
+
+Changes in V6:
+- added new patches 1, 10, 11, 12
+- addressed review comments
+- modified interface for creating nodes for runtime parameters
+
+Changes in V5:
+- switched to xsm for privilege check
+
+Changes in V4:
+- former patch 2 removed as already committed
+- addressed review comments
+
+Changes in V3:
+- major rework, especially by supporting binary contents of entries
+- added several new patches (1, 2, 7)
+- full support of all runtime parameters
+- support of writing entries (especially runtime parameters)
+
+Changes in V2:
+- all comments to V1 addressed
+- added man-page for xenhypfs tool
+- added runtime parameter read access for string parameters
+
+Changes in V1:
+- renamed xenfs ->xenhypfs
+- added writable entries support at the interface level and in the
+  xenhypfs tool
+- added runtime parameter read access (integer type only for now)
+- added docs/misc/hypfs-paths.pandoc for path descriptions
+
+Juergen Gross (12):
+  xen/vmx: let opt_ept_ad always reflect the current setting
+  xen: add a generic way to include binary files as variables
+  docs: add feature document for Xen hypervisor sysfs-like support
+  xen: add basic hypervisor filesystem support
+  libs: add libxenhypfs
+  tools: add xenfs tool
+  xen: provide version information in hypfs
+  xen: add /buildinfo/config entry to hypervisor filesystem
+  xen: add runtime parameter access support to hypfs
+  tools/libxl: use libxenhypfs for setting xen runtime parameters
+  tools/libxc: remove xc_set_parameters()
+  xen: remove XEN_SYSCTL_set_parameter support
+
+ .gitignore                          |   6 +
+ docs/features/hypervisorfs.pandoc   |  92 +++++
+ docs/man/xenhypfs.1.pod             |  61 ++++
+ docs/misc/hypfs-paths.pandoc        | 165 +++++++++
+ tools/Rules.mk                      |   8 +-
+ tools/flask/policy/modules/dom0.te  |   4 +-
+ tools/libs/Makefile                 |   1 +
+ tools/libs/hypfs/Makefile           |  16 +
+ tools/libs/hypfs/core.c             | 536 ++++++++++++++++++++++++++++
+ tools/libs/hypfs/include/xenhypfs.h |  90 +++++
+ tools/libs/hypfs/libxenhypfs.map    |  10 +
+ tools/libs/hypfs/xenhypfs.pc.in     |  10 +
+ tools/libxc/include/xenctrl.h       |   1 -
+ tools/libxc/xc_misc.c               |  21 --
+ tools/libxl/Makefile                |   3 +-
+ tools/libxl/libxl.c                 |  53 ++-
+ tools/libxl/libxl_internal.h        |   1 +
+ tools/libxl/xenlight.pc.in          |   2 +-
+ tools/misc/Makefile                 |   6 +
+ tools/misc/xenhypfs.c               | 192 ++++++++++
+ tools/xl/xl_misc.c                  |   1 -
+ xen/arch/arm/traps.c                |   3 +
+ xen/arch/arm/xen.lds.S              |  12 +-
+ xen/arch/x86/hvm/hypercall.c        |   3 +
+ xen/arch/x86/hvm/vmx/vmcs.c         |  47 ++-
+ xen/arch/x86/hvm/vmx/vmx.c          |   4 +-
+ xen/arch/x86/hypercall.c            |   3 +
+ xen/arch/x86/pv/domain.c            |  24 +-
+ xen/arch/x86/pv/hypercall.c         |   3 +
+ xen/arch/x86/xen.lds.S              |  12 +-
+ xen/common/Kconfig                  |  22 ++
+ xen/common/Makefile                 |  13 +
+ xen/common/grant_table.c            |  62 +++-
+ xen/common/hypfs.c                  | 385 ++++++++++++++++++++
+ xen/common/kernel.c                 |  82 ++++-
+ xen/common/sysctl.c                 |  36 --
+ xen/drivers/char/console.c          |  77 +++-
+ xen/include/Makefile                |   1 +
+ xen/include/asm-x86/hvm/vmx/vmcs.h  |   3 +-
+ xen/include/public/hypfs.h          | 127 +++++++
+ xen/include/public/sysctl.h         |  19 +-
+ xen/include/public/xen.h            |   1 +
+ xen/include/xen/hypercall.h         |  10 +
+ xen/include/xen/hypfs.h             | 124 +++++++
+ xen/include/xen/kernel.h            |   3 +
+ xen/include/xen/lib.h               |   1 -
+ xen/include/xen/param.h             | 123 +++++--
+ xen/include/xlat.lst                |   2 +
+ xen/include/xsm/dummy.h             |   6 +
+ xen/include/xsm/xsm.h               |   6 +
+ xen/tools/binfile                   |  41 +++
+ xen/xsm/dummy.c                     |   1 +
+ xen/xsm/flask/Makefile              |   5 +-
+ xen/xsm/flask/flask-policy.S        |  16 -
+ xen/xsm/flask/hooks.c               |   9 +-
+ xen/xsm/flask/policy/access_vectors |   4 +-
+ 56 files changed, 2379 insertions(+), 190 deletions(-)
+ create mode 100644 docs/features/hypervisorfs.pandoc
+ create mode 100644 docs/man/xenhypfs.1.pod
+ create mode 100644 docs/misc/hypfs-paths.pandoc
+ create mode 100644 tools/libs/hypfs/Makefile
+ create mode 100644 tools/libs/hypfs/core.c
+ create mode 100644 tools/libs/hypfs/include/xenhypfs.h
+ create mode 100644 tools/libs/hypfs/libxenhypfs.map
+ create mode 100644 tools/libs/hypfs/xenhypfs.pc.in
+ create mode 100644 tools/misc/xenhypfs.c
+ create mode 100644 xen/common/hypfs.c
+ create mode 100644 xen/include/public/hypfs.h
+ create mode 100644 xen/include/xen/hypfs.h
+ create mode 100755 xen/tools/binfile
+ delete mode 100644 xen/xsm/flask/flask-policy.S
+
+-- 
+2.26.1
 
 
