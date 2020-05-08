@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 727EB1CB2CA
-	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 17:28:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 275531CB2D9
+	for <lists+xen-devel@lfdr.de>; Fri,  8 May 2020 17:31:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jX4ul-0000wj-Io; Fri, 08 May 2020 15:27:51 +0000
+	id 1jX4xt-0001i4-2I; Fri, 08 May 2020 15:31:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M6n8=6W=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jX4uk-0000wd-HM
- for xen-devel@lists.xenproject.org; Fri, 08 May 2020 15:27:50 +0000
-X-Inumbo-ID: 796f4096-9140-11ea-9887-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1jX4xr-0001hy-9O
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2020 15:31:03 +0000
+X-Inumbo-ID: ec95f682-9140-11ea-9887-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 796f4096-9140-11ea-9887-bc764e2007e4;
- Fri, 08 May 2020 15:27:49 +0000 (UTC)
+ id ec95f682-9140-11ea-9887-bc764e2007e4;
+ Fri, 08 May 2020 15:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1588951670;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rWD7JG3rxsZ/VbK7A2DoYPoErxiSrz+GJ4tgtyShxYc=;
- b=G/Tq+DRooWqrCv+CfXcTjjbvxF1dbNutf4hcZn/iUI+iOod0ub3PT2Dt
- 7JBegNbFCW4RJ3TE+3D1/EhfCBm/0PTskWysJfql+UsctxnyGfgFeqcp4
- 0kBdOd8/0dmR5R9L/yYFpl394Q0X04bFI+XekO07SbyPorYVLqqjGBC9M o=;
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ d=citrix.com; s=securemail; t=1588951862;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=5+MGsT7EyqtQLeICh9rFqTjuvOdRffCurchcqUClatM=;
+ b=SpzoObUFHmGI9TOl2R32lkSmYSCMZo6u6qmutbiuxGD9KHDt4Siz7tHj
+ Zij2csP21QlR7oRxx6lZXKbciQuu1OLgCTTYjk7jIUb8L1AKjZtGum69t
+ K7Xr5fpmpz74ISfacng6wAQLVCyQKfo17i1duu9W3deiAEawCrsWY53kd g=;
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -45,40 +45,46 @@ Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com;
  dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: G0qHJbCARlPKqDc3xWvLoKCwNkkQ/OjZUm9DlvVedlJ+Xbqzlj+D9pmd0Q2EFW4U9eszAfKF/L
- LckIdMDsOWhfLYbCdoOxYrAdH4JshgQlwlTZbBpMyHN/YltCcrcd6h+E4JJqEwT70fE2iQaCwu
- ehKigCvM7t55ZRfCe95gfs+LxGh7ZGtnPhuyZbgmSEErT5nSEUEyvNBMlTTAKHi97pJ5pKwIov
- QZb/dbY3MnDG9SpjznqRrkCyPaeVp1xzKEPuRzCkSnrDDqIPKoKQWrNMHeSSr20Y9PR5Z62rtc
- uVc=
+IronPort-SDR: GpVAFiZb+9fWBIHW5kac0SEi9E6bmNffs3++sIDrqvpFinArVS4ufgdGtyQ2GiHYx3WiE7/b5Y
+ VwXYGXgRY3heO6s0Av0tL9GNvmnQ83Lo9LDsWIob4GJbbu9ATvcbVjvzagfa4yEQI2clN3Dm6Y
+ eTidIsvPEIm8NOIemLbroYfmmhY0wie42bJMPAyQTRj6OTs69aruL+W2GkYxJQP/zRMN6I3JGP
+ p7H1ralItCjcHnsspQHm42+OgIbsTdiB+6xP3hiwzTSeORW4Mcjk0Jj+zeSx9lIzXTKJJNdGR9
+ oDw=
 X-SBRS: 2.7
-X-MesageID: 17098576
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 17453940
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,368,1583211600"; d="scan'208";a="17098576"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.73,368,1583211600"; d="scan'208";a="17453940"
+Subject: Re: [PATCH] tools/libxc: Reduce feature handling complexity in
+ xc_cpuid_apply_policy()
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/gen-cpuid: Distinguish default vs max in feature
- annotations
-Date: Fri, 8 May 2020 16:27:29 +0100
-Message-ID: <20200508152729.14295-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+References: <20200303182326.16739-1-andrew.cooper3@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <f2d8a8cc-a949-22f0-0e26-0df2c7d5889f@citrix.com>
+Date: Fri, 8 May 2020 16:30:58 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20200303182326.16739-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,71 +95,78 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+Cc: Ian Jackson <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>,
  Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Allow lowercase a/s/h to be used to annotate a non-default feature.
+Tools ping?
 
-However, until the toolstack migration logic is fixed, it is not safe to
-activate yet.  Tolerate the annotations, but ignore them for now.
+~Andrew
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
-This patch has been pending the toolstack work for several months now, and we
-want to start using the max tags for x86 emul work.
----
- xen/include/public/arch-x86/cpufeatureset.h | 2 ++
- xen/tools/gen-cpuid.py                      | 5 +++++
- 2 files changed, 7 insertions(+)
-
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index e2749245f3..0ffab6c57b 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -87,6 +87,8 @@ enum {
-  *   'A' = All guests.
-  *   'S' = All HVM guests (not PV guests).
-  *   'H' = HVM HAP guests (not PV or HVM Shadow guests).
-+ *   Upper case => Available by default
-+ *   Lower case => Can be opted-in to, but not available by default.
-  */
- 
- /* Intel-defined CPU features, CPUID level 0x00000001.edx, word 0 */
-diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
-index af5610a5e6..d90a2d85c7 100755
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -23,6 +23,7 @@ def __init__(self, input, output):
-         self.raw = {
-             '!': set(),
-             'A': set(), 'S': set(), 'H': set(),
-+            'a': set(), 's': set(), 'h': set(),
-         }
- 
-         # State calculated
-@@ -133,9 +134,13 @@ def crunch_numbers(state):
-     state.hvm_shadow_def = state.pv_def | state.raw['S']
-     state.hvm_hap_def = state.hvm_shadow_def | state.raw['H']
- 
-+    # TODO: Ignore def/max split until the toolstack migration logic is fixed
-     state.pv_max = state.pv_def
-     state.hvm_shadow_max = state.hvm_shadow_def
-     state.hvm_hap_max = state.hvm_hap_def
-+    # state.pv_max = state.raw['A'] | state.raw['a']
-+    # state.hvm_shadow_max = state.pv_max | state.raw['S'] | state.raw['s']
-+    # state.hvm_hap_max = state.hvm_shadow_max | state.raw['H'] | state.raw['h']
- 
-     #
-     # Feature dependency information.
--- 
-2.11.0
+On 03/03/2020 18:23, Andrew Cooper wrote:
+> xc_cpuid_apply_policy() is gaining extra parameters to untangle CPUID
+> complexity in Xen.  While an improvement in general, it does have the
+> unfortunate side effect of duplicating some settings across muliple
+> parameters.
+>
+> Rearrange the logic to only consider 'pae' if no explicit featureset is
+> provided.  This reduces the complexity for callers who have already provided a
+> pae setting in the featureset.
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Ian Jackson <Ian.Jackson@citrix.com>
+> ---
+>  tools/libxc/include/xenctrl.h | 6 ++++++
+>  tools/libxc/xc_cpuid_x86.c    | 7 +++++--
+>  2 files changed, 11 insertions(+), 2 deletions(-)
+>
+> diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
+> index fc6e57a1a0..8d13a7e20b 100644
+> --- a/tools/libxc/include/xenctrl.h
+> +++ b/tools/libxc/include/xenctrl.h
+> @@ -1798,6 +1798,12 @@ int xc_cpuid_set(xc_interface *xch,
+>                   const unsigned int *input,
+>                   const char **config,
+>                   char **config_transformed);
+> +/*
+> + * Make adjustments to the CPUID settings for a domain.
+> + *
+> + * Either pass a full new @featureset (and @nr_features), or adjust individual
+> + * features (@pae).
+> + */
+>  int xc_cpuid_apply_policy(xc_interface *xch,
+>                            uint32_t domid,
+>                            const uint32_t *featureset,
+> diff --git a/tools/libxc/xc_cpuid_x86.c b/tools/libxc/xc_cpuid_x86.c
+> index 5ced6d18b9..f045b03223 100644
+> --- a/tools/libxc/xc_cpuid_x86.c
+> +++ b/tools/libxc/xc_cpuid_x86.c
+> @@ -532,6 +532,11 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid,
+>  
+>          cpuid_featureset_to_policy(feat, p);
+>      }
+> +    else
+> +    {
+> +        if ( di.hvm )
+> +            p->basic.pae = pae;
+> +    }
+>  
+>      if ( !di.hvm )
+>      {
+> @@ -615,8 +620,6 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid,
+>              break;
+>          }
+>  
+> -        p->basic.pae = pae;
+> -
+>          /*
+>           * These settings are necessary to cause earlier HVM_PARAM_NESTEDHVM /
+>           * XEN_DOMCTL_disable_migrate settings to be reflected correctly in
 
 
