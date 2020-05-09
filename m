@@ -2,60 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94BBC1CC039
-	for <lists+xen-devel@lfdr.de>; Sat,  9 May 2020 12:12:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D1321CC165
+	for <lists+xen-devel@lfdr.de>; Sat,  9 May 2020 14:44:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jXMSd-0003G9-9c; Sat, 09 May 2020 10:11:59 +0000
+	id 1jXOpK-00073b-2x; Sat, 09 May 2020 12:43:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LYqh=6X=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jXMSc-0003G4-38
- for xen-devel@lists.xenproject.org; Sat, 09 May 2020 10:11:58 +0000
-X-Inumbo-ID: 840e224a-91dd-11ea-a0d8-12813bfff9fa
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JqM1=6X=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jXOpI-00073W-Nn
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2020 12:43:32 +0000
+X-Inumbo-ID: b07df7fa-91f2-11ea-a0e7-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 840e224a-91dd-11ea-a0d8-12813bfff9fa;
- Sat, 09 May 2020 10:11:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ id b07df7fa-91f2-11ea-a0e7-12813bfff9fa;
+ Sat, 09 May 2020 12:43:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xuXBYx3OsRINyPoJ3zzADil0gvkKS1x7O3jX++2b3mA=; b=Rc93M1zRpGrI/2qbCX0nr9TkAA
- BOYVVTaYXKJr51QwTiROdacUGRfSzAKREN08kEEu1irIVi8PFeCS24XcXgfGqUc/R888p8/TjsWGO
- 0CYEgiO2wyhW9qpbScuCI2eZoKpUVAw/iGSRUOT11W7sUAlcSRxvdVFkgfrDf9D/XN4c=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=NoP1VZ4F1qw0Unacz3u7mox1NKM+jNr5sj3LRDCv09A=; b=gzK2+zDAVtOJrTPK7bQTIQmxG
+ yVU8n0nozpM3nrYlQjjdjp0F2eCfocjoG+gQwT+JppYtygrpXIb0BEHzu1CBkMj0CkRW34pO8oExL
+ DLb4kkJcSHgMHehCKUWtgoBA6Kh4yl7bkIKn4O1nAdRxa7GguZ1DRF9ALGxbEe1jTPXko=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jXMSb-00084G-F6; Sat, 09 May 2020 10:11:57 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jXMSb-0008Gf-8J; Sat, 09 May 2020 10:11:57 +0000
-Subject: Re: [PATCH 10/12] xen/arm: if is_domain_direct_mapped use native UART
- address for vPL011
-To: Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-10-sstabellini@kernel.org>
- <05b46414-12c3-5f79-f4b1-46cf8750d28c@xen.org>
- <alpine.DEB.2.21.2004301319380.28941@sstabellini-ThinkPad-T480s>
- <7176c924-eb16-959e-53cd-c73db88f65db@xen.org>
- <alpine.DEB.2.21.2005081601400.26167@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <8c01cb1a-0745-3eca-a45d-09c9297163ce@xen.org>
-Date: Sat, 9 May 2020 11:11:55 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jXOpH-0002Lu-JA; Sat, 09 May 2020 12:43:31 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jXOpH-0003eT-AH; Sat, 09 May 2020 12:43:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jXOpH-00033z-9c; Sat, 09 May 2020 12:43:31 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150093-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2005081601400.26167@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 150093: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=c8543b8d830d22882dab4ece47f0413f9c6eb431
+X-Osstest-Versions-That: ovmf=3a3713e62cfad00d78bb938b0d9fb1eedaeff314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 09 May 2020 12:43:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,52 +61,60 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Stefano,
+flight 150093 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150093/
 
-On 09/05/2020 01:07, Stefano Stabellini wrote:
-> On Fri, 1 May 2020, Julien Grall wrote:
->> On 01/05/2020 02:26, Stefano Stabellini wrote:
->>> On Wed, 15 Apr 2020, Julien Grall wrote:
->>>> Hi Stefano,
->>>>
->>>> On 15/04/2020 02:02, Stefano Stabellini wrote:
->>>>> We always use a fix address to map the vPL011 to domains. The address
->>>>> could be a problem for domains that are directly mapped.
->>>>>
->>>>> Instead, for domains that are directly mapped, reuse the address of the
->>>>> physical UART on the platform to avoid potential clashes.
->>>>
->>>> How do you know the physical UART MMIO region is big enough to fit the
->>>> PL011?
->>>
->>> That cannot be because the vPL011 MMIO size is 1 page, which is the
->>> minimum right?
->>
->> No, there are platforms out with multiple UARTs in the same page (see sunxi
->> for instance).
-> 
-> But if there are multiple UARTs sharing the same page, and the first one
-> is used by Xen, there is no way to assign one of the secondary UARTs to
-> a domU. So there would be no problem choosing the physical UART address
-> for the virtual PL011.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 c8543b8d830d22882dab4ece47f0413f9c6eb431
+baseline version:
+ ovmf                 3a3713e62cfad00d78bb938b0d9fb1eedaeff314
 
-AFAICT, nothing prevents a user to assign such UART to a dom0less guest 
-today. It would not be safe, but it should work.
+Last test of basis   150082  2020-05-08 04:09:39 Z    1 days
+Testing same since   150093  2020-05-08 21:10:51 Z    0 days    1 attempts
 
-If you want to make it safe, then you would need to trap the MMIO access 
-so they can be sanitized. For a UART device, I don't think the overhead 
-would be too bad.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ard.biesheuvel@arm.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Sean Brogan <sean.brogan@microsoft.com>
 
-Anyway, the only thing I request is to add sanity check in the code to 
-help the user diagnostics any potential clash.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   3a3713e62c..c8543b8d83  c8543b8d830d22882dab4ece47f0413f9c6eb431 -> xen-tested-master
 
