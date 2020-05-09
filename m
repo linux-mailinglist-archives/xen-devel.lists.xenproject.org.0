@@ -2,111 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 479361CC01E
-	for <lists+xen-devel@lfdr.de>; Sat,  9 May 2020 11:47:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E02EC1CC023
+	for <lists+xen-devel@lfdr.de>; Sat,  9 May 2020 11:57:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jXM3n-0000dC-LO; Sat, 09 May 2020 09:46:19 +0000
+	id 1jXME3-0001XL-N2; Sat, 09 May 2020 09:56:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JqM1=6X=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jXM3m-0000d7-Gc
- for xen-devel@lists.xenproject.org; Sat, 09 May 2020 09:46:18 +0000
-X-Inumbo-ID: edffb4b0-91d9-11ea-a0d2-12813bfff9fa
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LYqh=6X=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jXME2-0001XG-Hl
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2020 09:56:54 +0000
+X-Inumbo-ID: 69746630-91db-11ea-a0d4-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id edffb4b0-91d9-11ea-a0d2-12813bfff9fa;
- Sat, 09 May 2020 09:46:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ id 69746630-91db-11ea-a0d4-12813bfff9fa;
+ Sat, 09 May 2020 09:56:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UTpWxfEn0pA1FKErYTl+pgQz3QfZEgHokMxQiPtb0Vg=; b=zpgSne5aA/dmuIzQxucckpGZ4
- BA5ctLtmb2ZoBL+NAmX9NzUcLA57rpzwGjZH5Vn5Gd2E94Sl73bfYkyVAPrsS+J07HKk5VQtpWlko
- YlQ8vnoyR9TkAU2N7J0iHX0VCSh7ae+2ThvxYKQQo3PWcTqRRDn3Wm763wEcUB/+nSSTw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=U7T9L4VBA06Qbk4y86VhRGArJj2r/9HhmmdCI1mU0s0=; b=ieghrjCCB+oM2V24UGQRGs4auX
+ qlH/5zJWLkyfYjzSDqzx8YsO7kps3G7ln/ryTxrgOgKoKbYEQnJ3+UAhOxXNyWfmXyZcdrQlpYpge
+ CuxqMaAfqdKFGS8yp3M5khn/pvjhdT99NUPGQiaFu4emJiCRbeP2l8OOtzgvNBHAX+Ik=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jXM3l-0007Vw-9w; Sat, 09 May 2020 09:46:17 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jXM3l-0003PI-0h; Sat, 09 May 2020 09:46:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jXM3k-00072J-UB; Sat, 09 May 2020 09:46:16 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150086-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ (envelope-from <julien@xen.org>)
+ id 1jXME1-0007hk-0e; Sat, 09 May 2020 09:56:53 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jXME0-00074h-Ls; Sat, 09 May 2020 09:56:52 +0000
+Subject: Re: [PATCH 03/12] xen/arm: introduce 1:1 mapping for domUs
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
+ <20200415010255.10081-3-sstabellini@kernel.org>
+ <3f26f6a0-89bd-cbec-f07f-90a08fa60e26@xen.org>
+ <alpine.DEB.2.21.2004301417070.28941@sstabellini-ThinkPad-T480s>
+ <77d2858c-768c-e2a1-e2c9-32cb1612512d@xen.org>
+ <alpine.DEB.2.21.2005081351340.26167@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <df25b809-035d-aa78-664c-69855ace5f60@xen.org>
+Date: Sat, 9 May 2020 10:56:50 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.0
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 150086: regressions - FAIL
-X-Osstest-Failures: linux-5.4:test-amd64-amd64-examine:memdisk-try-append:fail:regression
- linux-5.4:test-amd64-amd64-xl-rtds:guest-saverestore:fail:heisenbug
- linux-5.4:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:heisenbug
- linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:heisenbug
- linux-5.4:test-amd64-amd64-xl-rtds:guest-localmigrate:fail:allowable
- linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-X-Osstest-Versions-This: linux=592465e6a54ba8104969f3b73b58df262c5be5f5
-X-Osstest-Versions-That: linux=9895e0ac338a8060e6947f897397c21c4d78d80d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 09 May 2020 09:46:16 +0000
+In-Reply-To: <alpine.DEB.2.21.2005081351340.26167@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,284 +65,156 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150086 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150086/
+Hi,
 
-Regressions :-(
+On 09/05/2020 01:07, Stefano Stabellini wrote:
+> On Fri, 1 May 2020, Julien Grall wrote:
+>> On 01/05/2020 02:26, Stefano Stabellini wrote:
+>>> On Wed, 15 Apr 2020, Julien Grall wrote:
+>>>> On 15/04/2020 02:02, Stefano Stabellini wrote:
+>>>>> In some cases it is desirable to map domU memory 1:1 (guest physical ==
+>>>>> physical.) For instance, because we want to assign a device to the domU
+>>>>> but the IOMMU is not present or cannot be used. In these cases, other
+>>>>> mechanisms should be used for DMA protection, e.g. a MPU.
+>>>>
+>>>> I am not against this, however the documentation should clearly explain
+>>>> that
+>>>> you are making your platform insecure unless you have other mean for DMA
+>>>> protection.
+>>>
+>>> I'll expand the docs
+>>>
+>>>
+>>>>>
+>>>>> This patch introduces a new device tree option for dom0less guests to
+>>>>> request a domain to be directly mapped. It also specifies the memory
+>>>>> ranges. This patch documents the new attribute and parses it at boot
+>>>>> time. (However, the implementation of 1:1 mapping is missing and just
+>>>>> BUG() out at the moment.)  Finally the patch sets the new direct_map
+>>>>> flag for DomU domains.
+>>>>>
+>>>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>>>> ---
+>>>>>     docs/misc/arm/device-tree/booting.txt | 13 +++++++
+>>>>>     docs/misc/arm/passthrough-noiommu.txt | 35 ++++++++++++++++++
+>>>>>     xen/arch/arm/domain_build.c           | 52
+>>>>> +++++++++++++++++++++++++--
+>>>>>     3 files changed, 98 insertions(+), 2 deletions(-)
+>>>>>     create mode 100644 docs/misc/arm/passthrough-noiommu.txt
+>>>>>
+>>>>> diff --git a/docs/misc/arm/device-tree/booting.txt
+>>>>> b/docs/misc/arm/device-tree/booting.txt
+>>>>> index 5243bc7fd3..fce5f7ed5a 100644
+>>>>> --- a/docs/misc/arm/device-tree/booting.txt
+>>>>> +++ b/docs/misc/arm/device-tree/booting.txt
+>>>>> @@ -159,6 +159,19 @@ with the following properties:
+>>>>>         used, or GUEST_VPL011_SPI+1 if vpl011 is enabled, whichever is
+>>>>>         greater.
+>>>>>     +- direct-map
+>>>>> +
+>>>>> +    Optional. An array of integer pairs specifying addresses and sizes.
+>>>>> +    direct_map requests the memory of the domain to be 1:1 mapped with
+>>>>> +    the memory ranges specified as argument. Only sizes that are a
+>>>>> +    power of two number of pages are allowed.
+>>>>> +
+>>>>> +- #direct-map-addr-cells and #direct-map-size-cells
+>>>>> +
+>>>>> +    The number of cells to use for the addresses and for the sizes in
+>>>>> +    direct-map. Default and maximum are 2 cells for both addresses and
+>>>>> +    sizes.
+>>>>> +
+>>>>
+>>>> As this is going to be mostly used for passthrough, can't we take
+>>>> advantage of
+>>>> the partial device-tree and describe the memory region using memory node?
+>>>
+>>> With the system device tree bindings that are under discussion the role
+>>> of the partial device tree might be reduce going forward, and might even
+>>> go away in the long term. For this reason, I would prefer not to add
+>>> more things to the partial device tree.
+>>
+>> Was the interface you suggested approved by the committee behind system device
+>> tree? If not, we will still have to support your proposal + whatever the
+>> committee come up with. So I am not entirely sure why using the partial
+>> device-tree will be an issue.
+> 
+> Not yet
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-examine      4 memdisk-try-append       fail REGR. vs. 149905
+This answer...
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-rtds     15 guest-saverestore          fail pass in 150070
- test-amd64-amd64-libvirt-vhd 17 guest-start/debian.repeat  fail pass in 150070
- test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat  fail pass in 150070
+> 
+> 
+>> It is actually better to keep everything in the partial device-tree as it
+>> would avoid to clash with whatever you come up with the system device tree.
+> 
+> I don't think we want to support both in the long term. The closer we
+> are to it the better for transitioning.
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds 16 guest-localmigrate fail in 150070 REGR. vs. 149905
+... raises the question how your solution is going to be closer? Do you 
+mind providing more details on the system device-tree?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
- test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
- test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
- test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+> 
+> 
+>> Also, I don't think the partial device-tree could ever go away at least in
+>> Xen. This is an external interface we provide to the user, removing it would
+>> mean users would not be able to upgrade from Xen 4.x to 4.y without any major
+>> rewrite of there DT.
+> 
+> I don't want to put the memory ranges inside the multiboot,device-tree
+> module because that is clearly for device assignment:
+> 
+> "Device Assignment (Passthrough) is supported by adding another module,
+> alongside the kernel and ramdisk, with the device tree fragment
+> corresponding to the device node to assign to the guest."
 
-version targeted for testing:
- linux                592465e6a54ba8104969f3b73b58df262c5be5f5
-baseline version:
- linux                9895e0ac338a8060e6947f897397c21c4d78d80d
+Thanks you for copying the documentation here... As you know, when the 
+partial device-tree was designed, it was only focused on device 
+assignment. However, I don't see how this prevents us to extend it to 
+more use cases.
 
-Last test of basis   149905  2020-05-02 16:38:26 Z    6 days
-Testing same since   150054  2020-05-06 06:41:12 Z    3 days    3 attempts
+Describing the RAM regions in the partial device-tree means you have a 
+single place where you can understand the memory layout of your guest.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adrian Hunter <adrian.hunter@intel.com>
-  Aharon Landau <aharonl@mellanox.com>
-  Al Viro <viro@zeniv.linux.org.uk>
-  Alaa Hleihel <alaa@mellanox.com>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alex Williamson <alex.williamson@redhat.com>
-  Andreas Gruenbacher <agruenba@redhat.com>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Arun Easi <aeasi@marvell.com>
-  Benjamin Herrenschmidt <benh@kernel.crashing.org>
-  Catalin Marinas <catalin.marinas@arm.com>
-  Christoph Hellwig <hch@lst.de>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  Daniel Vetter <daniel.vetter@intel.com>
-  David Disseldorp <ddiss@suse.de>
-  David Howells <dhowells@redhat.com>
-  David Sterba <dsterba@suse.com>
-  Dexuan Cui <decui@microsoft.com>
-  Douglas Anderson <dianders@chromium.org>
-  Filipe Manana <fdmanana@suse.com>
-  Gabriel Krisman Bertazi <krisman@collabora.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Hui Wang <hui.wang@canonical.com>
-  Iuliana Prodan <iuliana.prodan@nxp.com>
-  Jason Gunthorpe <jgg@mellanox.com>
-  Joerg Roedel <jroedel@suse.de>
-  Kai-Heng Feng <kai.heng.feng@canonical.com>
-  Leon Romanovsky <leonro@mellanox.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Marek Behún <marek.behun@nic.cz>
-  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Martin Liu <liumartin@google.com>
-  Martin Wilck <mwilck@suse.com>
-  Mike Marciniszyn <mike.marciniszyn@intel.com>
-  Mike Snitzer <snitzer@redhat.com>
-  Mikulas Patocka <mpatocka@redhat.com>
-  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-  Nicolas Ferre <nicolas.ferre@microchip.com>
-  Niklas Cassel <niklas.cassel@wdc.com>
-  Olga Kornievskaia <kolga@netapp.com>
-  Olga Kornievskaia <olga.kornievskaia@gmail.com>
-  Paul Moore <paul@paul-moore.com>
-  Qu Wenruo <wqu@suse.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Rayagonda Kokatanur <rayagonda.kokatanur@broadcom.com>
-  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-  Russell King <rmk+kernel@armlinux.org.uk>
-  ryan_chen <ryan_chen@aspeedtech.com>
-  Sean Christopherson <sean.j.christopherson@intel.com>
-  Shawn Guo <shawnguo@kernel.org>
-  Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-  Sumit Semwal <sumit.semwal@linaro.org>
-  Sunwook Eom <speed.eom@samsung.com>
-  Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-  Takashi Iwai <tiwai@suse.de>
-  Tang Bin <tangbin@cmss.chinamobile.com>
-  Trond Myklebust <trond.myklebust@hammerspace.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Vasily Averin <vvs@virtuozzo.com>
-  Vasily Khoruzhick <anarsoul@gmail.com>
-  Veerabhadrarao Badiganti <vbadigan@codeaurora.org>
-  Ville Syrjälä <ville.syrjala@linux.intel.com>
-  Vincenzo Frascino <vincenzo.frascino@arm.com>
-  Vinod Koul <vkoul@kernel.org>
-  Wei Liu <wei.liu@kernel.org>
-  Wolfram Sang <wsa@the-dreams.de>
-  Wu Bo <wubo40@huawei.com>
-  Xin Tan <tanxin.ctf@gmail.com>
-  Xiyu Yang <xiyuyang19@fudan.edu.cn>
-  Yan Zhao <yan.y.zhao@intel.com>
+You have also much more flexibility for describing your guests over the 
+/chosen node and avoid to clash with the rest of the host device-tree.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-xl-vhd                                      pass    
+> 
+> One could do 1:1 memory mapping without device assignment.
+ >
+> Genuine question: did we write down any compatibility promise on that
+> interface? If so, do you know where? I'd like to take a look.
 
+Nothing written in Xen, however a Device-Tree bindings are meant to be 
+stable.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+This would be a pretty bad user experience if you had to rewrite your 
+device-tree when upgrading Xen 4.14 to Xen 5.x. This also means 
+roll-back would be more difficult as there are more components dependency.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> In any case backward compatible interfaces can be deprecated although it
+> takes time. Alternatively it could be made optional (even for device
+> assignment). So expanding its scope beyond device assignment
+> configuration it is not a good idea.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+What would be the replacement? I still haven't seen any light of the 
+so-called system device-tree.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+At the moment, I can better picture how this can work with the partial 
+device-tree. One of the advantage is you could describe your guest 
+layout in one place and then re-use it for booting a guest from the 
+toolstack (not implemented yet) or the hypervisor.
 
+I could change my mind if it turns out to be genuinely more complicated 
+to implement in Xen and/or you provide more details on how this is going 
+to work out with the system device-tree.
 
-Not pushing.
+Cheers,
 
-(No revision log; it would be 1726 lines long.)
+-- 
+Julien Grall
 
