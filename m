@@ -2,48 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A8C71CBB8C
-	for <lists+xen-devel@lfdr.de>; Sat,  9 May 2020 02:07:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 319B81CBB8E
+	for <lists+xen-devel@lfdr.de>; Sat,  9 May 2020 02:07:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jXD1D-0005BN-FF; Sat, 09 May 2020 00:07:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jXD1P-0005Dj-0L; Sat, 09 May 2020 00:07:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7o+2=6X=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jXD1C-0005BI-IF
- for xen-devel@lists.xenproject.org; Sat, 09 May 2020 00:07:02 +0000
-X-Inumbo-ID: 01cca92c-9189-11ea-a08a-12813bfff9fa
+ id 1jXD1N-0005DK-Gu
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2020 00:07:13 +0000
+X-Inumbo-ID: 088992b6-9189-11ea-b9cf-bc764e2007e4
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 01cca92c-9189-11ea-a08a-12813bfff9fa;
- Sat, 09 May 2020 00:07:01 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 088992b6-9189-11ea-b9cf-bc764e2007e4;
+ Sat, 09 May 2020 00:07:13 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E6B47217BA;
- Sat,  9 May 2020 00:07:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 62B232184D;
+ Sat,  9 May 2020 00:07:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588982821;
- bh=SrxvNwD47o7Ig+7SER7oobjUeKIf3mAVkEkZ01FPrrA=;
+ s=default; t=1588982832;
+ bh=tjhorcnghY2eQGqm8jtdi7hkjMizB/NV5vnFe7r3qB0=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=hirxPktpfP3uPIPH1mPW9XSzXkH+0kx8m88lgYhTf8R4IsEMVBHrYQxV+z+bLE18C
- U4BSKj+FQXPj+cGtH8LaN10TGoZ28etY3NyMxGOOs0J4busH3aPLi+OM4KvjoKVkeb
- jcILSe7TerHOgSu8F6MJVAoXCGYDm/83SFLxxGmI=
-Date: Fri, 8 May 2020 17:06:54 -0700 (PDT)
+ b=tvmA8Z5PxtpE/mYTUzjg09AeAFBCebgebQ1aNTko38hVinQQsB71HQnhYh1uJOrrb
+ X54Zqb1aWavq3jCxptLrsJQnJFBl6ewkNGd11CmsblvZ55Lo3FLs3pVo37LJ7fnuME
+ bhMA7ANdxwBhqpXT+Wovr9x68qs7m0/dc5miaSLs=
+Date: Fri, 8 May 2020 17:07:11 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 08/12] xen/arm: if is_domain_direct_mapped use native
- addresses for GICv2
-In-Reply-To: <4384aed5-97cd-ef93-5512-b41c0124b072@xen.org>
-Message-ID: <alpine.DEB.2.21.2005081525270.26167@sstabellini-ThinkPad-T480s>
+Subject: Re: [PATCH 03/12] xen/arm: introduce 1:1 mapping for domUs
+In-Reply-To: <77d2858c-768c-e2a1-e2c9-32cb1612512d@xen.org>
+Message-ID: <alpine.DEB.2.21.2005081351340.26167@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-8-sstabellini@kernel.org>
- <05375484-43f2-9d4b-205a-b9dcf4ee5d8e@xen.org>
- <alpine.DEB.2.21.2004301412460.28941@sstabellini-ThinkPad-T480s>
- <4384aed5-97cd-ef93-5512-b41c0124b072@xen.org>
+ <20200415010255.10081-3-sstabellini@kernel.org>
+ <3f26f6a0-89bd-cbec-f07f-90a08fa60e26@xen.org>
+ <alpine.DEB.2.21.2004301417070.28941@sstabellini-ThinkPad-T480s>
+ <77d2858c-768c-e2a1-e2c9-32cb1612512d@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -66,75 +64,102 @@ On Fri, 1 May 2020, Julien Grall wrote:
 > On 01/05/2020 02:26, Stefano Stabellini wrote:
 > > On Wed, 15 Apr 2020, Julien Grall wrote:
 > > > On 15/04/2020 02:02, Stefano Stabellini wrote:
-> > > > Today we use native addresses to map the GICv2 for Dom0 and fixed
-> > > > addresses for DomUs.
+> > > > In some cases it is desirable to map domU memory 1:1 (guest physical ==
+> > > > physical.) For instance, because we want to assign a device to the domU
+> > > > but the IOMMU is not present or cannot be used. In these cases, other
+> > > > mechanisms should be used for DMA protection, e.g. a MPU.
+> > > 
+> > > I am not against this, however the documentation should clearly explain
+> > > that
+> > > you are making your platform insecure unless you have other mean for DMA
+> > > protection.
+> > 
+> > I'll expand the docs
+> > 
+> > 
 > > > > 
-> > > > This patch changes the behavior so that native addresses are used for
-> > > > any domain that is_domain_direct_mapped.
+> > > > This patch introduces a new device tree option for dom0less guests to
+> > > > request a domain to be directly mapped. It also specifies the memory
+> > > > ranges. This patch documents the new attribute and parses it at boot
+> > > > time. (However, the implementation of 1:1 mapping is missing and just
+> > > > BUG() out at the moment.)  Finally the patch sets the new direct_map
+> > > > flag for DomU domains.
 > > > > 
 > > > > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 > > > > ---
-> > > >    xen/arch/arm/domain_build.c | 10 +++++++---
-> > > >    xen/arch/arm/vgic-v2.c      | 12 ++++++------
-> > > >    xen/arch/arm/vgic/vgic-v2.c |  2 +-
-> > > >    xen/include/asm-arm/vgic.h  |  1 +
-> > > >    4 files changed, 15 insertions(+), 10 deletions(-)
+> > > >    docs/misc/arm/device-tree/booting.txt | 13 +++++++
+> > > >    docs/misc/arm/passthrough-noiommu.txt | 35 ++++++++++++++++++
+> > > >    xen/arch/arm/domain_build.c           | 52
+> > > > +++++++++++++++++++++++++--
+> > > >    3 files changed, 98 insertions(+), 2 deletions(-)
+> > > >    create mode 100644 docs/misc/arm/passthrough-noiommu.txt
 > > > > 
-> > > > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > > > index 627e0c5e8e..303bee60f6 100644
-> > > > --- a/xen/arch/arm/domain_build.c
-> > > > +++ b/xen/arch/arm/domain_build.c
-> > > > @@ -1643,8 +1643,12 @@ static int __init make_gicv2_domU_node(struct
-> > > > kernel_info *kinfo)
-> > > >        int res = 0;
-> > > >        __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
-> > > > 2];
-> > > >        __be32 *cells;
-> > > > +    struct domain *d = kinfo->d;
-> > > > +    char buf[38];
-> > > >    -    res = fdt_begin_node(fdt,
-> > > > "interrupt-controller@"__stringify(GUEST_GICD_BASE));
-> > > > +    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
-> > > > +             d->arch.vgic.dbase);
-> > > > +    res = fdt_begin_node(fdt, buf);
-> > > >        if ( res )
-> > > >            return res;
-> > > >    @@ -1666,9 +1670,9 @@ static int __init make_gicv2_domU_node(struct
-> > > > kernel_info *kinfo)
-> > > >          cells = &reg[0];
-> > > >        dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS,
-> > > > GUEST_ROOT_SIZE_CELLS,
-> > > > -                       GUEST_GICD_BASE, GUEST_GICD_SIZE);
-> > > > +                       d->arch.vgic.dbase, GUEST_GICD_SIZE);
-> > > >        dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS,
-> > > > GUEST_ROOT_SIZE_CELLS,
-> > > > -                       GUEST_GICC_BASE, GUEST_GICC_SIZE);
-> > > > +                       d->arch.vgic.cbase, GUEST_GICC_SIZE);
+> > > > diff --git a/docs/misc/arm/device-tree/booting.txt
+> > > > b/docs/misc/arm/device-tree/booting.txt
+> > > > index 5243bc7fd3..fce5f7ed5a 100644
+> > > > --- a/docs/misc/arm/device-tree/booting.txt
+> > > > +++ b/docs/misc/arm/device-tree/booting.txt
+> > > > @@ -159,6 +159,19 @@ with the following properties:
+> > > >        used, or GUEST_VPL011_SPI+1 if vpl011 is enabled, whichever is
+> > > >        greater.
+> > > >    +- direct-map
+> > > > +
+> > > > +    Optional. An array of integer pairs specifying addresses and sizes.
+> > > > +    direct_map requests the memory of the domain to be 1:1 mapped with
+> > > > +    the memory ranges specified as argument. Only sizes that are a
+> > > > +    power of two number of pages are allowed.
+> > > > +
+> > > > +- #direct-map-addr-cells and #direct-map-size-cells
+> > > > +
+> > > > +    The number of cells to use for the addresses and for the sizes in
+> > > > +    direct-map. Default and maximum are 2 cells for both addresses and
+> > > > +    sizes.
+> > > > +
 > > > 
-> > > You can't use the native base address and not the native size.
-> > > Particularly,
-> > > this is going to screw any GIC using 8KB alias.
+> > > As this is going to be mostly used for passthrough, can't we take
+> > > advantage of
+> > > the partial device-tree and describe the memory region using memory node?
 > > 
-> > I don't follow why it could cause problems with a GIC using the 8KB
-> > alias. Maybe an example (even a fake example) would help.
+> > With the system device tree bindings that are under discussion the role
+> > of the partial device tree might be reduce going forward, and might even
+> > go away in the long term. For this reason, I would prefer not to add
+> > more things to the partial device tree.
 > 
-> The GICC interface is composed of the two 4KB pages. In some of the
-> implementation, each pages starts at a 64KB aligned address. Each page are
-> also aliased every 4KB in the 64KB region.
-> 
-> For guest, we don't expose the full 128KB region but only part of it (8KB). So
-> the guest interface is the same regardless the underlying implementation of
-> the GIC.
-> 
-> vgic.cbase points to the beginning of the first region. So what you are
-> mapping is the first 8KB of the first region. The second region is not mapped
-> at all.
-> 
-> As the pages are aliased, the trick we use is to map from vgic.cbase + 60KB
-> (vgic_v2.hw.aliased_offset). This means the 2 pages will now be contiguous in
-> the guest physical memory.
+> Was the interface you suggested approved by the committee behind system device
+> tree? If not, we will still have to support your proposal + whatever the
+> committee come up with. So I am not entirely sure why using the partial
+> device-tree will be an issue.
 
-I understood the issue and I fixed it by applying
-vgic_v2.hw.aliased_offset to vbase and cbase. (Although only vbase is
-actually necessary as far as I can tell.)
+Not yet
+
+
+> It is actually better to keep everything in the partial device-tree as it
+> would avoid to clash with whatever you come up with the system device tree.
+
+I don't think we want to support both in the long term. The closer we
+are to it the better for transitioning.
+
+
+> Also, I don't think the partial device-tree could ever go away at least in
+> Xen. This is an external interface we provide to the user, removing it would
+> mean users would not be able to upgrade from Xen 4.x to 4.y without any major
+> rewrite of there DT.
+
+I don't want to put the memory ranges inside the multiboot,device-tree
+module because that is clearly for device assignment:
+
+"Device Assignment (Passthrough) is supported by adding another module,
+alongside the kernel and ramdisk, with the device tree fragment
+corresponding to the device node to assign to the guest."
+
+One could do 1:1 memory mapping without device assignment.
+
+
+Genuine question: did we write down any compatibility promise on that
+interface? If so, do you know where? I'd like to take a look.
+
+In any case backward compatible interfaces can be deprecated although it
+takes time. Alternatively it could be made optional (even for device
+assignment). So expanding its scope beyond device assignment
+configuration it is not a good idea.
 
