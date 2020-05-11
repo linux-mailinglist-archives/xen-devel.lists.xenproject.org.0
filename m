@@ -2,83 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 348A71CDD23
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 16:28:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E57A11CDD48
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 16:32:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jY9Pa-0001Fg-Hz; Mon, 11 May 2020 14:28:06 +0000
+	id 1jY9TM-000227-76; Mon, 11 May 2020 14:32:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2nSL=6Z=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jY9PZ-0001Fb-CR
- for xen-devel@lists.xenproject.org; Mon, 11 May 2020 14:28:05 +0000
-X-Inumbo-ID: 9f5b155a-9393-11ea-a215-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=HsYJ=6Z=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jY9TK-000222-C2
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2020 14:31:58 +0000
+X-Inumbo-ID: 2ac84c0c-9394-11ea-a218-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9f5b155a-9393-11ea-a215-12813bfff9fa;
- Mon, 11 May 2020 14:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589207284;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=CtEB7EXwJGNdwiT8BuA/fSZx76lVbT4EwRvG+OpaDlE=;
- b=CkaDeGvZqug3ryKlt/DIybn1kPEQevJ3Nxuz+BjHoLeY/ytfCZDEygjz
- 0ttVymM/lkuyoL5iMJloI7F3/t8BNy8HN1CRNb9albXl6IWS9DxeefW6C
- eW+fnChdjSsqM5F8963kYqqEGyd1dxu4I8ves0lVSMaFnHlLPGkNzMA2A M=;
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- George.Dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=George.Dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: VaDVOzUPScAxQJ3TEnvE4oivfmLEbxaFnbzU8CJXilDkteVwNeahGbcwNUNHsleKuyXUONJfH0
- JY4HHRs0CitcZm84amwXgGGr+6wdU5lF0hDULlb7D1gFLzWXkSyLmEudGlIKu4laGNf5UbZKPP
- HapQPbq7SZn+2DlURGgEaPAff5OBkmtoq4AGsfkZrO+7vxNrttUV8YxHaokJ/n/s46mjMMsfI5
- VgLKhoVnJwh+RGFzgL+JaAYORGJGqASWrhJ7pvntdzy2nHnYaaOiJW8a1g0LPZDP/VAPEC1ZmC
- oaU=
-X-SBRS: 2.7
-X-MesageID: 17240834
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,380,1583211600"; d="scan'208";a="17240834"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Julien Grall <julien@xen.org>
+ id 2ac84c0c-9394-11ea-a218-12813bfff9fa;
+ Mon, 11 May 2020 14:31:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=QvLqClO0VU5s88qCAN1HUjc1Bvco4H+r7Pt7jrgc59Q=; b=H/tKsRWlYRVZcZfRKQAnXEM+Sp
+ ebxcJKqmVHqdK/g1HvDHCBrFcI1LouAMnuEGK9VTTzar5o2My1d1jl0YDLdUYqwH3AMVkeor5yk7o
+ rEFcsYlTDoxZuZhEp533BQ/P8p1p8PRSzDc2JEgGDxBig080nRSokrZblDxDamYT8da8=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jY9TH-0008NC-MB; Mon, 11 May 2020 14:31:55 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jY9TH-0007x9-7o; Mon, 11 May 2020 14:31:55 +0000
 Subject: Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the
  menuconfig directly
-Thread-Topic: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from
- the menuconfig directly
-Thread-Index: AQHWHvtEfLlMb5EF90y7GzIGxHVxJ6iRncgAgAYL5QCAABeggIAC9dcAgAILiACABg54AIAAAuMAgAAExoCAAAK+AIAAASKAgAAEkoA=
-Date: Mon, 11 May 2020 14:27:59 +0000
-Message-ID: <498C2068-6E57-465C-80E2-A689438D2F79@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
 References: <20200430142548.23751-1-julien@xen.org>
  <20200430142548.23751-3-julien@xen.org>
  <3a4ec020-f626-031e-73a6-b2eee97ab9e8@suse.com>
@@ -91,18 +52,17 @@ References: <20200430142548.23751-1-julien@xen.org>
  <ca115637-5e84-2990-65e8-e2f04ec0ddb5@xen.org>
  <803876ce-503a-2e97-f310-0413e515970b@suse.com>
  <bbc12f81-7854-ad72-63ee-3ec94b378bf9@xen.org>
-In-Reply-To: <bbc12f81-7854-ad72-63ee-3ec94b378bf9@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <69AAD4A5D64DBB4ABD465B20C075E7A2@citrix.com>
-Content-Transfer-Encoding: base64
+ <bf6a9ed3-fd7e-c588-9f72-8084dab1f556@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <ac8f85db-8d94-b616-9cdc-3c996f3a1d43@xen.org>
+Date: Mon, 11 May 2020 15:31:52 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <bf6a9ed3-fd7e-c588-9f72-8084dab1f556@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,30 +75,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Andrew Cooper <Andrew.Cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>
+ George Dunlap <George.Dunlap@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gTWF5IDExLCAyMDIwLCBhdCAzOjExIFBNLCBKdWxpZW4gR3JhbGwgPGp1bGllbkB4
-ZW4ub3JnPiB3cm90ZToNCj4gDQo+IFtDQVVUSU9OIC0gRVhURVJOQUwgRU1BSUxdIERPIE5PVCBy
-ZXBseSwgY2xpY2sgbGlua3MsIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBoYXZlIHZl
-cmlmaWVkIHRoZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZS4NCj4gDQo+IEhp
-LA0KPiANCj4gT24gMTEvMDUvMjAyMCAxNTowNywgSmFuIEJldWxpY2ggd3JvdGU6DQo+PiBPbiAx
-MS4wNS4yMDIwIDE1OjU3LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+Pj4gDQo+Pj4gSSBoYXZlIG5l
-dmVyIGhlYXJkIG9mIC4vLmNvbmZpZyBiZWZvcmUuIFNvIHdoYXQgYXJlIHlvdSByZWZlcnJpbmcg
-dG8/DQo+PiBJJ20gcmVmZXJyaW5nIHRvIHRoaXMgbGluZSBpbiAuL0NvbmZpZy5tazoNCj4+IC1p
-bmNsdWRlICQoWEVOX1JPT1QpLy5jb25maWcNCj4gDQo+IEdyZWF0IGFub3RoZXIgdW5kb2N1bWVu
-dGVkIHdheSB0byBkbyB0aGluZ3MuLi4NCg0KT2gsIGlzIHRoYXQgbm90IGRvY3VtZW50ZWQ/ICBJ
-dOKAmXMgcXVpdGUgdmVuZXJhYmxlIGF0IHRoaXMgcG9pbnQg4oCUIGlmIGl04oCZcyBub3QgZG9j
-dW1lbnRlZCB0aGF0IHNob3VsZCBjaGFuZ2UuICAoQWx0aG91Z2ggSSBndWVzcyB0aGVyZeKAmXMg
-YW4gYXJndW1lbnQgdGhhdCBldmVyeXRoaW5nIHdoaWNoIHdvdWxkIGJlIGluY2x1ZGVkIHRoZXJl
-IHNob3VsZCBiZSBhZGRlZCB0byBlaXRoZXIgS0NvbmZpZyBvciBjb25maWd1cmUuKQ0KDQpJIGRv
-buKAmXQgdGhpbmsgSSB3b3VsZCBoYXZlIHRob3VnaHQgdG8gYWRkIFhFTl9DT05GSUdfRVhQRVJU
-PXkgdG8gLmNvbmZpZyB0byBwcmV2ZW50IHRoZSBpc3N1ZSBKdWxpZW4gaXMgc2VlaW5nLiAgVGhh
-dCBtYXliZSBwYXJ0IG9mIHRoZSByZWFzb24gd2h5IHRoaXMgZG9lc27igJl0IGJvdGhlciB5b3Ug
-YXMgbXVjaCBhcyBpdCBkb2VzIGhpbS4NCg0KRnJvbSBhIFVJIHBlcnNwZWN0aXZlLCBJIHRoaW5r
-IHRoYXTigJlzIGEgcG9vciBVSSDigJQgZW5hYmxpbmcgQ09ORklHX0VYUEVSVCBmcm9tIHRoZSBt
-ZW51Y29uZmlnIGlzIG1vcmUgZGlzY292ZXJhYmxlIGFuZCBtb3JlIGluIGxpbmUgd2l0aCB3aGF0
-IHBlb3BsZSBleHBlY3QuDQoNCiAtR2VvcmdlDQoNCg==
+
+
+On 11/05/2020 15:14, Jan Beulich wrote:
+> On 11.05.2020 16:11, Julien Grall wrote:
+>> Hi,
+>>
+>> On 11/05/2020 15:07, Jan Beulich wrote:
+>>> On 11.05.2020 15:57, Julien Grall wrote:
+>>>> Hi,
+>>>>
+>>>> On 11/05/2020 14:40, Jan Beulich wrote:
+>>>>> On 11.05.2020 15:30, Julien Grall wrote:
+>>>>>> Hi Ian,
+>>>>>>
+>>>>>> Thank you for the clarification.
+>>>>>>
+>>>>>> On 07/05/2020 18:01, Ian Jackson wrote:
+>>>>>>> Julien Grall writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
+>>>>>>>> On 04/05/2020 13:34, Ian Jackson wrote:
+>>>>>>>>> George Dunlap writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
+>>>>>>>>>> On Apr 30, 2020, at 3:50 PM, Jan Beulich <JBeulich@suse.com> wrote:
+>>>>>>>>>>> Well, if I'm not mis-remembering it was on purpose to make it more
+>>>>>>>>>>> difficult for people to declare themselves "experts". FAOD I'm not
+>>>>>>>>>>> meaning to imply I don't see and accept the frustration aspect you
+>>>>>>>>>>> mention further up. The two need to be carefully weighed against
+>>>>>>>>>>> one another.
+>>>>>>>>>
+>>>>>>>>> Yes, it was on purpose.  However, I had my doubts at the time and
+>>>>>>>>> I think experience has shown that this was a mistake.
+>>>>>>>>>
+>>>>>>>>>> I don’t think we need to make it difficult for people to declare
+>>>>>>>>>> themselves experts, particularly as “all” it means at the moment is,
+>>>>>>>>>> “Can build something which is not security supported”.  People who
+>>>>>>>>>> are building their own hypervisors are already pretty well advanced;
+>>>>>>>>>> I think we can let them shoot themselves in the foot if they want
+>>>>>>>>>> to.
+>>>>>>>>>
+>>>>>>>>> Precisely.
+>>>>>>>>
+>>>>>>>> Can I consider this as an Acked-by? :)
+>>>>>>>
+>>>>>>> I am happy with the principle of the change.  I haven't reviewed the
+>>>>>>> details of the commit message etc.
+>>>>>>>
+>>>>>>> I reviewed the thread and there were two concernes raised:
+>>>>>>>
+>>>>>>>      * The question of principle.  I disagree with this concern
+>>>>>>>        because I approve of principle of the patch.
+>>>>>>>
+>>>>>>>      * Some detail about the precise justificaton as written in
+>>>>>>>        the commit message, regarding `clean' targets.  Apparently the
+>>>>>>>        assertion may not be completely true.  I haven't seen a proposed
+>>>>>>>        alternative wording.
+>>>>>>
+>>>>>> I have checked the latest staging, the `clean` target doesn't trash
+>>>>>> .config anymore.
+>>>>>>
+>>>>>>>
+>>>>>>> I don't feel I should ack a controversial patch with an unresolved
+>>>>>>> wording issue.  Can you tell me what your proposed wording is ?
+>>>>>>> To avoid blocking this change I would be happy to review your wording
+>>>>>>> and see if it meets my reading of the stated objection.
+>>>>>>
+>>>>>> Here a suggested rewording:
+>>>>>>
+>>>>>> "EXPERT mode is currently used to gate any options that are in technical
+>>>>>> preview or not security supported At the moment, the only way to select
+>>>>>> it is to use XEN_CONFIG_EXPERT=y on the make command line.
+>>>>>>
+>>>>>> However, if the user forget to add the option when (re)building or when
+>>>>>> using menuconfig, then .config will get rewritten. This may lead to a
+>>>>>> rather frustrating experience as it is difficult to diagnostic the
+>>>>>> issue.
+>>>>>
+>>>>> To me this looks very similar to e.g. not suitably overriding the
+>>>>> default toolchain binaries, if one has a need to build with newer
+>>>>> ones than what a distro provides. According to some of my routinely
+>>>>> built configs both can be done by putting suitable entries into
+>>>>> ./.config (not xen/.config), removing the need to remember adding
+>>>>> either to the make command line.
+>>>>
+>>>> I have never heard of ./.config before. So what are you referring to?
+>>>
+>>> I'm referring to this line in ./Config.mk:
+>>>
+>>> -include $(XEN_ROOT)/.config
+>>
+>> Great another undocumented way to do things...
+>>
+>>>
+>>>> But yes, there are ways to make it permanent. But that involves hacking
+>>>> Xen source.
+>>>
+>>> Why would there be any need for a source modification? Just like
+>>> xen/.config, ./.config is not considered part of the source.
+>>>
+>>>> This is not a very great approach because if you need to
+>>>> bisect, then you have to remember to apply the change everytime. It also
+>>>> doesn't work if you have to build for multiple different target from the
+>>>> same source.
+>>>
+>>> Why wouldn't it? I'm doing exactly this, far beyond just x86 and
+>>> Arm builds, and it all works fine. (It would work even better
+>>> with out-of-tree builds, but it looks like Anthony is getting us
+>>> there.)
+>>
+>> ... let me ask it differently. Are you concerned of my wording or by the
+>> fact we make easier to a user to EXPERT mode?
+> 
+> I'm trying to make the point that your patch, to me, looks to be
+> trying to overcome a problem for which we have had a solution all
+> the time.
+
+For a first, AFAICT, your solution is not documented anywhere at all... 
+It would be possible to document it thought.
+
+However, having two .config for managing Xen options is not very great. 
+You have to remember where to add the options and that you need to 
+provide the two files if you want someone else to reproduce your setup.
+
+So I would still like to push for a single .config.
+
+As an aside, if you look at the placement of ./.config, it is meant to 
+be applied for the full tree. XEN_CONFIG_EXPERT is a config specific to 
+the hypervisor, so it is a bit counterintuitive to put it in that file.
+
+Cheers,
+
+-- 
+Julien Grall
 
