@@ -2,84 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A9B1CE228
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 20:01:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBC7C1CE2DD
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 20:33:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYCk3-0004Tn-5j; Mon, 11 May 2020 18:01:27 +0000
+	id 1jYDDs-00070n-Lq; Mon, 11 May 2020 18:32:16 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lxCE=6Z=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jYCk1-0004Ti-O1
- for xen-devel@lists.xenproject.org; Mon, 11 May 2020 18:01:25 +0000
-X-Inumbo-ID: 6d2813da-93b1-11ea-a23d-12813bfff9fa
+ id 1jYDDr-00070i-BH
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2020 18:32:15 +0000
+X-Inumbo-ID: b954dea6-93b5-11ea-a241-12813bfff9fa
 Received: from userp2130.oracle.com (unknown [156.151.31.86])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6d2813da-93b1-11ea-a23d-12813bfff9fa;
- Mon, 11 May 2020 18:01:24 +0000 (UTC)
+ id b954dea6-93b5-11ea-a241-12813bfff9fa;
+ Mon, 11 May 2020 18:32:10 +0000 (UTC)
 Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04BHtoZZ165453;
- Mon, 11 May 2020 18:01:18 GMT
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04BISS5A024294;
+ Mon, 11 May 2020 18:32:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type; s=corp-2020-01-29;
- bh=3kDmNoqAEMZCIXkcb0qOJul4sO1nAcYTG6P0n3tKFVY=;
- b=J08lgend++x1QqGWYhELUriMEny26k3fyjyCtHH4swF4nr0HlxIWmjm6gN2ExsQJmF8H
- /fyLBmkUUnyvCvbRxnSJiC80XcRPP1JK6TdepnYLyEbAMDOyn3iDl2UYnhx4+WytAj5t
- goJLQvhUFu3rVXh5yQKzSQUp2M/XfxaBHWQJFpafh66wNATudAi0/SMvS6l4AekMYfMT
- vYHpmrhFcBsMuVllX98JKAXFyrWCiMX9vWtV1AqOgtngOkLwEv4Uf90ndO9S1H+Ny+w3
- Lbvt7xEibUHNB/tGl63mq4lCiEiqzaDzHO/+Yz+WH3rDFOY7wXj2Of1xVvuflRzBe/Hy mg== 
+ bh=0Ey/kzTRW0zR9w4JP8XW1qIbWybWgGoabtUmZPgIkpo=;
+ b=zYc4mFUVMSlX3AVF0YDffObZ2Kkywl4qWE/KVYywaao9U7a+qhA/Zb9hgjQcRpuXRieY
+ 2PJ3ioU3PpCT3nZk8M50yLPG9S5F8xi/PWGaoABCZOIePiAJWLFpeZqdAOjqj9lNFR00
+ BWtow/7DZsM5tv7VYZFma4co2T9hp6j+5WrOrF6fpAWlD2lWOcC5GimNdw8ZxilDrLgV
+ Auy+tEBJPFdBLGnWpNFoBf6zVJL9VZUYO59tRVYoQGidFWgG/px8G8nErzTZ+U0FpjKZ
+ 7JplPk5CSj0JsY3bE32wcnmbyKYuPp528Ay06e10UvwsKE3VRfYAsg4GMmNvjEN3R7RL 7A== 
 Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2130.oracle.com with ESMTP id 30x3gmenme-1
+ by userp2130.oracle.com with ESMTP id 30x3gmetps-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 11 May 2020 18:01:18 +0000
+ Mon, 11 May 2020 18:32:08 +0000
 Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04BHht2K117945;
- Mon, 11 May 2020 18:01:18 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 30x6ewggc4-1
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04BIS8KM068892;
+ Mon, 11 May 2020 18:32:07 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3030.oracle.com with ESMTP id 30x6ewhy8w-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 11 May 2020 18:01:18 +0000
-Received: from abhmp0014.oracle.com (abhmp0014.oracle.com [141.146.116.20])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 04BI1Gwt006639;
- Mon, 11 May 2020 18:01:16 GMT
+ Mon, 11 May 2020 18:32:07 +0000
+Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 04BIW6NB006674;
+ Mon, 11 May 2020 18:32:06 GMT
 Received: from [10.39.250.101] (/10.39.250.101)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 11 May 2020 11:01:16 -0700
-Subject: Re: [PATCH 1/2] xen/xenbus: avoid large structs and arrays on the
- stack
+ with ESMTP ; Mon, 11 May 2020 11:32:06 -0700
+Subject: Re: [PATCH 2/2] xen/xenbus: let xenbus_map_ring_valloc() return errno
+ values only
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com
+ linux-kernel@vger.kernel.org
 References: <20200511073151.19043-1-jgross@suse.com>
- <20200511073151.19043-2-jgross@suse.com>
+ <20200511073151.19043-3-jgross@suse.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 X-Pep-Version: 2.0
-Message-ID: <965e1d65-3a0c-3a71-ca58-2b5c04f98bce@oracle.com>
-Date: Mon, 11 May 2020 14:01:00 -0400
+Message-ID: <692e23f8-1eb7-4fb2-7375-e85cb27dfab0@oracle.com>
+Date: Mon, 11 May 2020 14:32:05 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200511073151.19043-2-jgross@suse.com>
-Content-Type: multipart/mixed; boundary="------------444D946E3E378382AC37167D"
+In-Reply-To: <20200511073151.19043-3-jgross@suse.com>
+Content-Type: multipart/mixed; boundary="------------AE3EE8FF91A004904F775E68"
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9618
  signatures=668687
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
  spamscore=0 phishscore=0
- mlxlogscore=999 mlxscore=0 malwarescore=0 bulkscore=0 suspectscore=2
+ mlxlogscore=999 mlxscore=0 malwarescore=0 bulkscore=0 suspectscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
- definitions=main-2005110139
+ definitions=main-2005110141
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9618
  signatures=668687
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
  mlxlogscore=999
  clxscore=1015 spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
- malwarescore=0 priorityscore=1501 mlxscore=0 suspectscore=2
+ malwarescore=0 priorityscore=1501 mlxscore=0 suspectscore=0
  impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2005110139
+ engine=8.12.0-2003020000 definitions=main-2005110141
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,83 +90,35 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Arnd Bergmann <arnd@arndb.de>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 This is a multi-part message in MIME format.
---------------444D946E3E378382AC37167D
+--------------AE3EE8FF91A004904F775E68
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 On 5/11/20 3:31 AM, Juergen Gross wrote:
-> =20
->  static int xenbus_map_ring_valloc_hvm(struct xenbus_device *dev,
+> Today xenbus_map_ring_valloc() can return either a negative errno
+> value (-ENOMEM or -EINVAL) or a grant status value. This is a mess as
+> e.g -ENOMEM and GNTST_eagain have the same numeric value.
+>
+> Fix that by turning all grant mapping errors into -ENOENT. This is
+> no problem as all callers of xenbus_map_ring_valloc() only use the
+> return value to print an error message, and in case of mapping errors
+> the grant status value has already been printed by __xenbus_map_ring()
+> before.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
 
-I wonder whether we can drop valloc/vfree from xenbus_ring_ops' names.
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
 
-> +				      struct map_ring_valloc *info,
->  				      grant_ref_t *gnt_ref,
->  				      unsigned int nr_grefs,
->  				      void **vaddr)
->  {
-> -	struct xenbus_map_node *node;
-> +	struct xenbus_map_node *node =3D info->node;
->  	int err;
->  	void *addr;
->  	bool leaked =3D false;
-> -	struct map_ring_valloc_hvm info =3D {
-> -		.idx =3D 0,
-> -	};
->  	unsigned int nr_pages =3D XENBUS_PAGES(nr_grefs);
-> =20
-> -	if (nr_grefs > XENBUS_MAX_RING_GRANTS)
-> -		return -EINVAL;
-> -
-> -	*vaddr =3D NULL;
-> -
-> -	node =3D kzalloc(sizeof(*node), GFP_KERNEL);
-> -	if (!node)
-> -		return -ENOMEM;
-> -
->  	err =3D alloc_xenballooned_pages(nr_pages, node->hvm.pages);
->  	if (err)
->  		goto out_err;
-> =20
->  	gnttab_foreach_grant(node->hvm.pages, nr_grefs,
->  			     xenbus_map_ring_setup_grant_hvm,
-> -			     &info);
-> +			     info);
-> =20
->  	err =3D __xenbus_map_ring(dev, gnt_ref, nr_grefs, node->handles,
-> -				info.phys_addrs, GNTMAP_host_map, &leaked);
-> +				info, GNTMAP_host_map, &leaked);
->  	node->nr_handles =3D nr_grefs;
-> =20
->  	if (err)
-> @@ -641,11 +654,13 @@ static int xenbus_map_ring_valloc_hvm(struct xenb=
-us_device *dev,
->  	spin_unlock(&xenbus_valloc_lock);
-> =20
->  	*vaddr =3D addr;
-> +	info->node =3D NULL;
 
 
-Is this so that xenbus_map_ring_valloc() doesn't free it accidentally?
-
-
--boris
-
-
-> +
->  	return 0;
-> =20
-> =20
-
-
---------------444D946E3E378382AC37167D
+--------------AE3EE8FF91A004904F775E68
 Content-Type: application/pgp-keys;
  name="pEpkey.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -254,5 +206,5 @@ nkKE6QcA4zckFepUkfmBV1wMJg6OxFYd01z+a+oL
 =3D3tCZ
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------444D946E3E378382AC37167D--
+--------------AE3EE8FF91A004904F775E68--
 
