@@ -2,42 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E5591CDBB4
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 15:48:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0290D1CDC41
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 15:58:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jY8mw-0005qn-D9; Mon, 11 May 2020 13:48:10 +0000
+	id 1jY8wJ-0006jS-D1; Mon, 11 May 2020 13:57:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4Y5i=6Z=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jY8mv-0005qi-Tf
- for xen-devel@lists.xenproject.org; Mon, 11 May 2020 13:48:09 +0000
-X-Inumbo-ID: 0c23108a-938e-11ea-b9cf-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=HsYJ=6Z=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jY8wI-0006jN-Ha
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2020 13:57:50 +0000
+X-Inumbo-ID: 666823e0-938f-11ea-b9cf-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0c23108a-938e-11ea-b9cf-bc764e2007e4;
- Mon, 11 May 2020 13:48:09 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 57B83AE2D;
- Mon, 11 May 2020 13:46:42 +0000 (UTC)
-Subject: Re: [PATCH] x86/PVH: PHYSDEVOP_pci_mmcfg_reserved should not blindly
- register a region
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <2ee1a3cb-3b40-6e6d-5308-1cdf9f6c521e@suse.com>
- <20200508150312.GJ1353@Air-de-Roger>
- <70c8b4f4-b690-c031-3b90-1776d872d171@suse.com>
- <20200508160851.GK1353@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d1248c00-ae0b-e2aa-be41-e27d27dce379@suse.com>
-Date: Mon, 11 May 2020 15:46:38 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 666823e0-938f-11ea-b9cf-bc764e2007e4;
+ Mon, 11 May 2020 13:57:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=FyiP+7pmc3k8A4yk2jOn/XBu06jfl+1JFA9puXYHPgM=; b=VPqRd8hlRtLZ+QJlDk/p+hcQjN
+ g3M79f5ZujKZOd1MP1HninE7iZypGQYVu6UdWGF/bvu0q+aRd6LRJPIaJ4o9wR16n2IhKaJYvyJA5
+ xgeZGsNgtTTtbPdKxbY+PHHuyFIrZU+qXX8mEf4eWmGGuCVkVwVIOeJLloTiWHnkyBcA=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jY8wG-0007ZU-7b; Mon, 11 May 2020 13:57:48 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jY8wG-00062C-02; Mon, 11 May 2020 13:57:48 +0000
+Subject: Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the
+ menuconfig directly
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200430142548.23751-1-julien@xen.org>
+ <20200430142548.23751-3-julien@xen.org>
+ <3a4ec020-f626-031e-73a6-b2eee97ab9e8@suse.com>
+ <123BE55A-AACB-4FE3-94E2-1559ED73DD09@citrix.com>
+ <24240.3047.877655.345428@mariner.uk.xensource.com>
+ <1d8eb504-51e9-b8e7-f1af-862760f0f15d@xen.org>
+ <24244.16076.627203.282982@mariner.uk.xensource.com>
+ <09d729ad-58a7-1f4b-c779-5fd81d7009a4@xen.org>
+ <4017f7f0-744b-70ff-8fa4-b33c53a8b9e2@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <ca115637-5e84-2990-65e8-e2f04ec0ddb5@xen.org>
+Date: Mon, 11 May 2020 14:57:45 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200508160851.GK1353@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <4017f7f0-744b-70ff-8fa4-b33c53a8b9e2@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -49,117 +68,101 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 08.05.2020 18:08, Roger Pau Monné wrote:
-> On Fri, May 08, 2020 at 05:11:35PM +0200, Jan Beulich wrote:
->> On 08.05.2020 17:03, Roger Pau Monné wrote:
->>> On Fri, May 08, 2020 at 02:43:38PM +0200, Jan Beulich wrote:
->>>> --- a/xen/arch/x86/hvm/io.c
->>>> +++ b/xen/arch/x86/hvm/io.c
->>>> @@ -558,6 +558,47 @@ int register_vpci_mmcfg_handler(struct d
->>>>      return 0;
->>>>  }
->>>>  
->>>> +int unregister_vpci_mmcfg_handler(struct domain *d, paddr_t addr,
->>>> +                                  unsigned int start_bus, unsigned int end_bus,
->>>> +                                  unsigned int seg)
->>>> +{
->>>> +    struct hvm_mmcfg *mmcfg;
->>>> +    int rc = -ENOENT;
->>>> +
->>>> +    ASSERT(is_hardware_domain(d));
->>>> +
->>>> +    if ( start_bus > end_bus )
->>>> +        return -EINVAL;
->>>> +
->>>> +    write_lock(&d->arch.hvm.mmcfg_lock);
->>>> +
->>>> +    list_for_each_entry ( mmcfg, &d->arch.hvm.mmcfg_regions, next )
->>>> +        if ( mmcfg->addr == addr + (start_bus << 20) &&
->>>> +             mmcfg->segment == seg &&
->>>> +             mmcfg->start_bus == start_bus &&
->>>> +             mmcfg->size == ((end_bus - start_bus + 1) << 20) )
->>>> +        {
->>>> +            list_del(&mmcfg->next);
->>>> +            if ( !list_empty(&d->arch.hvm.mmcfg_regions) )
->>>> +                xfree(mmcfg);
->>>> +            else
->>>> +            {
->>>> +                /*
->>>> +                 * Cannot unregister the MMIO handler - leave a fake entry
->>>> +                 * on the list.
->>>> +                 */
->>>> +                memset(mmcfg, 0, sizeof(*mmcfg));
->>>> +                list_add(&mmcfg->next, &d->arch.hvm.mmcfg_regions);
->>>
->>> Instead of leaving this zombie entry around maybe we could add a
->>> static bool in register_vpci_mmcfg_handler to signal whether the MMIO
->>> intercept has been registered?
+Hi,
+
+On 11/05/2020 14:40, Jan Beulich wrote:
+> On 11.05.2020 15:30, Julien Grall wrote:
+>> Hi Ian,
 >>
->> That was my initial plan indeed, but registration is per-domain.
-> 
-> Indeed, this would work now because it's only used by the hardware
-> domain, but it's not a good move long term.
-> 
-> What about splitting the registration into a
-> register_vpci_mmio_handler and call it from hvm_domain_initialise
-> like it's done for register_vpci_portio_handler?
-
-No, the goal is to not register unneeded handlers. But see below -
-I'll likely ditch the function anyway.
-
->>>> --- a/xen/arch/x86/physdev.c
->>>> +++ b/xen/arch/x86/physdev.c
->>>> @@ -559,12 +559,18 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_H
->>>>          if ( !ret && has_vpci(currd) )
->>>>          {
->>>>              /*
->>>> -             * For HVM (PVH) domains try to add the newly found MMCFG to the
->>>> -             * domain.
->>>> +             * For HVM (PVH) domains try to add/remove the reported MMCFG
->>>> +             * to/from the domain.
->>>>               */
->>>> -            ret = register_vpci_mmcfg_handler(currd, info.address,
->>>> -                                              info.start_bus, info.end_bus,
->>>> -                                              info.segment);
->>>> +            if ( info.flags & XEN_PCI_MMCFG_RESERVED )
->>>
->>> Do you think you could also add a small note in physdev.h regarding
->>> the fact that XEN_PCI_MMCFG_RESERVED is used to register a MMCFG
->>> region, and not setting it would imply an unregister request?
->>>
->>> It's not obvious to me from the name of the flag.
+>> Thank you for the clarification.
 >>
->> The main purpose of the flag is to identify whether a region can be
->> used (because of having been found marked suitably reserved by
->> firmware). The flag not set effectively means "region is not marked
->> reserved".
+>> On 07/05/2020 18:01, Ian Jackson wrote:
+>>> Julien Grall writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
+>>>> On 04/05/2020 13:34, Ian Jackson wrote:
+>>>>> George Dunlap writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
+>>>>>> On Apr 30, 2020, at 3:50 PM, Jan Beulich <JBeulich@suse.com> wrote:
+>>>>>>> Well, if I'm not mis-remembering it was on purpose to make it more
+>>>>>>> difficult for people to declare themselves "experts". FAOD I'm not
+>>>>>>> meaning to imply I don't see and accept the frustration aspect you
+>>>>>>> mention further up. The two need to be carefully weighed against
+>>>>>>> one another.
+>>>>>
+>>>>> Yes, it was on purpose.  However, I had my doubts at the time and
+>>>>> I think experience has shown that this was a mistake.
+>>>>>
+>>>>>> I don’t think we need to make it difficult for people to declare
+>>>>>> themselves experts, particularly as “all” it means at the moment is,
+>>>>>> “Can build something which is not security supported”.  People who
+>>>>>> are building their own hypervisors are already pretty well advanced;
+>>>>>> I think we can let them shoot themselves in the foot if they want
+>>>>>> to.
+>>>>>
+>>>>> Precisely.
+>>>>
+>>>> Can I consider this as an Acked-by? :)
+>>>
+>>> I am happy with the principle of the change.  I haven't reviewed the
+>>> details of the commit message etc.
+>>>
+>>> I reviewed the thread and there were two concernes raised:
+>>>
+>>>    * The question of principle.  I disagree with this concern
+>>>      because I approve of principle of the patch.
+>>>
+>>>    * Some detail about the precise justificaton as written in
+>>>      the commit message, regarding `clean' targets.  Apparently the
+>>>      assertion may not be completely true.  I haven't seen a proposed
+>>>      alternative wording.
+>>
+>> I have checked the latest staging, the `clean` target doesn't trash
+>> .config anymore.
+>>
+>>>
+>>> I don't feel I should ack a controversial patch with an unresolved
+>>> wording issue.  Can you tell me what your proposed wording is ?
+>>> To avoid blocking this change I would be happy to review your wording
+>>> and see if it meets my reading of the stated objection.
+>>
+>> Here a suggested rewording:
+>>
+>> "EXPERT mode is currently used to gate any options that are in technical
+>> preview or not security supported At the moment, the only way to select
+>> it is to use XEN_CONFIG_EXPERT=y on the make command line.
+>>
+>> However, if the user forget to add the option when (re)building or when
+>> using menuconfig, then .config will get rewritten. This may lead to a
+>> rather frustrating experience as it is difficult to diagnostic the
+>> issue.
 > 
-> Looking at pci_mmcfg_arch_disable, should the region then also be
-> removed from mmio_ro_ranges? (kind of tangential to this patch)
+> To me this looks very similar to e.g. not suitably overriding the
+> default toolchain binaries, if one has a need to build with newer
+> ones than what a distro provides. According to some of my routinely
+> built configs both can be done by putting suitable entries into
+> ./.config (not xen/.config), removing the need to remember adding
+> either to the make command line.
 
-If it's truly unregistration - yes. But ...
+I have never heard of ./.config before. So what are you referring to?
 
->> You pointing this out makes me wonder whether instead I
->> should simply expand the if() in context, without making it behave
->> like unregistration. Then again we'd have no way to unregister a
->> region, and hence (ab)using this function for this purpose seems to
->> makes sense (and, afaict, not require any code changes elsewhere).
-> 
-> Right now the only user I know of PHYSDEVOP_pci_mmcfg_reserved is
-> Linux, and AFAICT it always sets the XEN_PCI_MMCFG_RESERVED flag (at
-> least upstream).
+But yes, there are ways to make it permanent. But that involves hacking 
+Xen source. This is not a very great approach because if you need to 
+bisect, then you have to remember to apply the change everytime. It also 
+doesn't work if you have to build for multiple different target from the 
+same source.
 
-... I've looked at our forward port, where this was first introduced.
-There we made the call in all cases, with the flag indicating what is
-wanted. Therefore I don't think we want to assign the flag being
-clear the meaning of "unregistration". I'll therefore switch to the
-simpler change of just expanding the if().
+The compiler is another option that would be worth to move in the 
+Kconfig. I have stopped counting the number of time I mixed up between 
+Arm64, Arm32 and x86 compilers when building Xen...
 
-Jan
+Cheers,
+
+-- 
+Julien Grall
 
