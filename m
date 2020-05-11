@@ -2,62 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 044371CDF08
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 17:30:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 468E31CDF55
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 17:46:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYANN-00077J-Pi; Mon, 11 May 2020 15:29:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HsYJ=6Z=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jYANM-00077E-2a
- for xen-devel@lists.xenproject.org; Mon, 11 May 2020 15:29:52 +0000
-X-Inumbo-ID: 4193bcac-939c-11ea-b07b-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4193bcac-939c-11ea-b07b-bc764e2007e4;
- Mon, 11 May 2020 15:29:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=IAa6CEQzUpKX9xK0f/kTrCmsLxzMGB9ZkNttFZ3ddU8=; b=SC66WyQbC5N5hzdTGCHEYVBI+X
- KcQDok6+QYJDVSlTAYAFxfkx7CsRJKQ78hjHZ2ikrpcQqyCEv7+s5wKPW7TtoX5Tbr1jHYx/s6mPH
- r6tobP7eyVEIZ0Pc+XVr5FN53J4CAQoMzSnJFlcpBW54JTyUqlVlAskCQOWmNs1ERYKI=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jYANJ-0001AX-Uy; Mon, 11 May 2020 15:29:49 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jYANJ-0002pd-J9; Mon, 11 May 2020 15:29:49 +0000
-Subject: Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the
- menuconfig directly
-To: George Dunlap <George.Dunlap@citrix.com>
-References: <20200430142548.23751-1-julien@xen.org>
- <20200430142548.23751-3-julien@xen.org>
- <3a4ec020-f626-031e-73a6-b2eee97ab9e8@suse.com>
- <123BE55A-AACB-4FE3-94E2-1559ED73DD09@citrix.com>
- <24240.3047.877655.345428@mariner.uk.xensource.com>
- <1d8eb504-51e9-b8e7-f1af-862760f0f15d@xen.org>
- <24244.16076.627203.282982@mariner.uk.xensource.com>
- <09d729ad-58a7-1f4b-c779-5fd81d7009a4@xen.org>
- <2716ACC1-E38D-45F9-8C07-D99FF846330E@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <7048ed1e-1ed4-c594-108b-4bb4cbb77eaf@xen.org>
-Date: Mon, 11 May 2020 16:29:47 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+	id 1jYAdA-0000Lo-CX; Mon, 11 May 2020 15:46:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MQL3=6Z=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jYAd9-0000Lj-6D
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2020 15:46:11 +0000
+X-Inumbo-ID: 887e9202-939e-11ea-a225-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 887e9202-939e-11ea-a225-12813bfff9fa;
+ Mon, 11 May 2020 15:46:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1589211970;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=ay3lVMQuKXg3xeonyfw3lTv7xk1dkOWJ+SpboOyyZys=;
+ b=RSv+e1WHjetkAh/tHcuW7KXM58WHLk14OIbXu91RCReZ5h8AboTDJDNm
+ l/+1jJjo/Gw+bIEMzeRuP/Tk31/bDRBaRS3X0hJGQQcJd3ajOqok96xDW
+ qBXAp2nynElzufZQS4v0R204h8WtGpEKJnDFFNwfNuQ6G8bVi9KSbFnQZ 8=;
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com;
+ dmarc=pass (p=none dis=none) d=citrix.com
+IronPort-SDR: BIEdjZobJADB4Mioh+CCRcH4RWWhTKmZGTIxFlb5rqto/car2qxTTdep9LV3VYbDIDuEnm3DgO
+ NTjmx4RJnW8asjg+N6Mf9xfMXUgByQ49E84QhHebI2CshQ3zK/abqfDq3yZk1600ggXnJBHtrm
+ D8MGSAv9HmCWnXu/39UKpe7CWggqqRuGBUvVfwoxWscdQqd/bA9dEv126324zNcs4o4g0glsKW
+ auEnKIRO1eWMJkWu7keEVmRmknD1Q1Fr3njQIf3nZdNyHDtGeA3pVYSPreUlzlD8EC98xKfpzw
+ Ll0=
+X-SBRS: 2.7
+X-MesageID: 17495273
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,380,1583211600"; d="scan'208";a="17495273"
+Subject: Re: [PATCH 05/16] x86/shstk: Introduce Supervisor Shadow Stack support
+To: Jan Beulich <jbeulich@suse.com>, Anthony Perard <anthony.perard@citrix.com>
+References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
+ <20200501225838.9866-6-andrew.cooper3@citrix.com>
+ <d0347fec-3ccb-daa7-5c4d-f0e74b5fb247@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <00302d53-499a-7f6e-76a5-a5eec4e11252@citrix.com>
+Date: Mon, 11 May 2020 16:46:04 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <2716ACC1-E38D-45F9-8C07-D99FF846330E@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <d0347fec-3ccb-daa7-5c4d-f0e74b5fb247@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,102 +97,117 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Jan Beulich <JBeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi George,
+On 04/05/2020 14:52, Jan Beulich wrote:
+> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
+>
+> On 02.05.2020 00:58, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/Kconfig
+>> +++ b/xen/arch/x86/Kconfig
+>> @@ -34,6 +34,9 @@ config ARCH_DEFCONFIG
+>>  config INDIRECT_THUNK
+>>  	def_bool $(cc-option,-mindirect-branch-register)
+>>  
+>> +config HAS_AS_CET
+>> +	def_bool $(as-instr,wrssq %rax$(comma)0;setssbsy;endbr64)
+> I see you add as-instr here as a side effect. Until the other
+> similar checks get converted, I think for the time being we should
+> use the old model, to have all such checks in one place. I realize
+> this means you can't have a Kconfig dependency then.
 
-On 11/05/2020 16:27, George Dunlap wrote:
-> 
-> 
->> On May 11, 2020, at 2:30 PM, Julien Grall <julien@xen.org> wrote:
->>
->> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
->>
->> Hi Ian,
->>
->> Thank you for the clarification.
->>
->> On 07/05/2020 18:01, Ian Jackson wrote:
->>> Julien Grall writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
->>>> On 04/05/2020 13:34, Ian Jackson wrote:
->>>>> George Dunlap writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
->>>>>> On Apr 30, 2020, at 3:50 PM, Jan Beulich <JBeulich@suse.com> wrote:
->>>>>>> Well, if I'm not mis-remembering it was on purpose to make it more
->>>>>>> difficult for people to declare themselves "experts". FAOD I'm not
->>>>>>> meaning to imply I don't see and accept the frustration aspect you
->>>>>>> mention further up. The two need to be carefully weighed against
->>>>>>> one another.
->>>>>
->>>>> Yes, it was on purpose.  However, I had my doubts at the time and
->>>>> I think experience has shown that this was a mistake.
->>>>>
->>>>>> I don’t think we need to make it difficult for people to declare
->>>>>> themselves experts, particularly as “all” it means at the moment is,
->>>>>> “Can build something which is not security supported”.  People who
->>>>>> are building their own hypervisors are already pretty well advanced;
->>>>>> I think we can let them shoot themselves in the foot if they want
->>>>>> to.
->>>>>
->>>>> Precisely.
->>>>
->>>> Can I consider this as an Acked-by? :)
->>> I am happy with the principle of the change.  I haven't reviewed the
->>> details of the commit message etc.
->>> I reviewed the thread and there were two concernes raised:
->>>   * The question of principle.  I disagree with this concern
->>>     because I approve of principle of the patch.
->>>   * Some detail about the precise justificaton as written in
->>>     the commit message, regarding `clean' targets.  Apparently the
->>>     assertion may not be completely true.  I haven't seen a proposed
->>>     alternative wording.
->>
->> I have checked the latest staging, the `clean` target doesn't trash .config anymore.
->>
->>> I don't feel I should ack a controversial patch with an unresolved
->>> wording issue.  Can you tell me what your proposed wording is ?
->>> To avoid blocking this change I would be happy to review your wording
->>> and see if it meets my reading of the stated objection.
->>
->> Here a suggested rewording:
->>
->> "EXPERT mode is currently used to gate any options that are in technical
->> preview or not security supported At the moment, the only way to select
->> it is to use XEN_CONFIG_EXPERT=y on the make command line.
->>
->> However, if the user forget to add the option when (re)building or when using menuconfig, then .config will get rewritten. This may lead to a rather frustrating experience as it is difficult to diagnostic the
->> issue.
->>
->> A lot of the options behind EXPERT would benefit to be more accessible so user can experiment with it and voice any concern before they are fully be supported.
->>
->> So rather than making really difficult to experiment or tweak your Xen (for instance by adding a built-in command line), this option can now be selected from the menuconfig.
->>
->> This doesn't change the fact a Xen with EXPERT mode selected will not be security supported.
->> "
-> 
-> How about this, clarifying that top-level .config is an option, but that it’s still better to put it in menuconfig?  (Also note a number of grammar tweaks.)
-> 
-> —
-> 
-> EXPERT mode is currently used to gate any options that are in technical
-> preview or not security supported. At the moment, this is selected by adding XEN_CONFIG_EXPERT=y on the make command line, or to the (currently undocumented) top-level .config file.
-> 
-> This makes the option very unintuitive to use: If the user forgets to add the option when (re)building or when using menuconfig, then xen/.config will be silently rewritten, leading to behavior which is very difficult to diagnose.  Adding XEN_CONFIG_EXPERT=y to the top-level .config is not obvious behavior, particularly as the file is undocumented.
-> 
-> A lot of the options behind EXPERT would benefit from being more accessible so users can experiment with them and voice any concerns before they are fully supported.
-> 
-> To make this option more discoverable and consistent to use, make it possible to select it from the menuconfig.
-> 
-> This doesn't change the fact a Xen with EXPERT mode selected will not be security supported.
+No.  That's like asking me to keep on using bool_t, and you are the
+first person to point out and object to that in newly submitted patches.
 
-I am happy this wording.
+> Also why do you check multiple insns, when just one (like we do
+> elsewhere) would suffice?
 
-Cheers,
+Because CET-SS and CET-IBT are orthogonal ABIs, but you wanted a single
+CET symbol, rather than a CET_SS symbol.
 
--- 
-Julien Grall
+I picked a sample of various instructions to get broad coverage of CET
+without including every instruction.
+
+> The crucial insns to check are those which got changed pretty
+> close before the release of 2.29 (in the cover letter you
+> mention 2.32): One of incssp{d,q}, setssbsy, or saveprevssp.
+> There weren't official binutils releases with the original
+> insns, but distros may still have picked up intermediate
+> snapshots.
+
+I've got zero interest in catering to distros which are still using
+obsolete pre-release toolchains.  Bleeding edge toolchains are one
+thing, but this is like asking us to support the middle changeset of the
+series introducing CET, which is absolutely a non-starter.
+
+If the instructions were missing from real binutils releases, then
+obviously we should exclude those releases, but that doesn't appear to
+be the case.
+
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -95,6 +95,36 @@ unsigned long __initdata highmem_start;
+>>  size_param("highmem-start", highmem_start);
+>>  #endif
+>>  
+>> +static bool __initdata opt_xen_shstk = true;
+>> +
+>> +static int parse_xen(const char *s)
+>> +{
+>> +    const char *ss;
+>> +    int val, rc = 0;
+>> +
+>> +    do {
+>> +        ss = strchr(s, ',');
+>> +        if ( !ss )
+>> +            ss = strchr(s, '\0');
+>> +
+>> +        if ( (val = parse_boolean("shstk", s, ss)) >= 0 )
+>> +        {
+>> +#ifdef CONFIG_XEN_SHSTK
+>> +            opt_xen_shstk = val;
+>> +#else
+>> +            no_config_param("XEN_SHSTK", "xen", s, ss);
+>> +#endif
+>> +        }
+>> +        else
+>> +            rc = -EINVAL;
+>> +
+>> +        s = ss + 1;
+>> +    } while ( *ss );
+>> +
+>> +    return rc;
+>> +}
+>> +custom_param("xen", parse_xen);
+> What's the idea here going forward, i.e. why the new top level
+> "xen" option? Almost all options are for Xen itself, after all.
+> Did you perhaps mean this to be "cet"?
+
+I forgot an RFC for this, as I couldn't think of anything better.  "cet"
+as a top level option isn't going to gain more than {no-}shstk and
+{no-}ibt as suboptions.
+
+>> --- a/xen/scripts/Kconfig.include
+>> +++ b/xen/scripts/Kconfig.include
+>> @@ -31,6 +31,10 @@ cc-option = $(success,$(CC) -Werror $(CLANG_FLAGS) $(1) -E -x c /dev/null -o /de
+>>  # Return y if the linker supports <flag>, n otherwise
+>>  ld-option = $(success,$(LD) -v $(1))
+>>  
+>> +# $(as-instr,<instr>)
+>> +# Return y if the assembler supports <instr>, n otherwise
+>> +as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) -c -x assembler -o /dev/null -)
+> CLANG_FLAGS caught my eye here, then noticing that cc-option
+> also uses it. Anthony - what's the deal with this? It doesn't
+> look to get defined anywhere, and I also don't see what clang-
+> specific about these constructs.
+
+This is as it inherits from Linux.  There is obviously a reason.
+
+However, I'm not interested in diving into that rabbit hole in an
+unrelated series.
+
+~Andrew
 
