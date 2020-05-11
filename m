@@ -2,40 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D62351CDACB
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 15:10:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA73A1CDB36
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2020 15:31:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jY8CC-0002rs-MV; Mon, 11 May 2020 13:10:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jY8Vm-0004df-Dk; Mon, 11 May 2020 13:30:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4Y5i=6Z=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jY8CB-0002rf-KC
- for xen-devel@lists.xenproject.org; Mon, 11 May 2020 13:10:11 +0000
-X-Inumbo-ID: bdb9b43a-9388-11ea-a20f-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bdb9b43a-9388-11ea-a20f-12813bfff9fa;
- Mon, 11 May 2020 13:10:10 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C8B29AFD4;
- Mon, 11 May 2020 13:10:11 +0000 (UTC)
-Subject: Re: [PATCH] changelog: add relevant changes during 4.14 development
- window
-To: Roger Pau Monne <roger.pau@citrix.com>
-References: <20200511103145.37098-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9f783539-6a36-08eb-c141-bd0f76e5acfd@suse.com>
-Date: Mon, 11 May 2020 15:10:07 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ (envelope-from <SRS0=HsYJ=6Z=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jY8Vk-0004da-LV
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2020 13:30:24 +0000
+X-Inumbo-ID: 9179fee0-938b-11ea-b9cf-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9179fee0-938b-11ea-b9cf-bc764e2007e4;
+ Mon, 11 May 2020 13:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=e35MejOoQGnah4MSylnPgLhQkJiOrK7aN4Ngfk5skUE=; b=N+BV6k2i3vStDV1zdgOFodUHDm
+ dmaqoRfmc98BCIQAkt9JAVuhDsIlOUnQ8rR+ZMDLHci4x1A+b98wHufjSfIkYeUgKwCCLtaZdCRRn
+ E5Vz9rVRorNASYv9DoZKW9723rp81LOGQ5zQJCq44rwhHvOVLyed3al2chP7a58HzdNg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jY8Vi-000700-FX; Mon, 11 May 2020 13:30:22 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jY8Vi-0004MT-8A; Mon, 11 May 2020 13:30:22 +0000
+Subject: Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the
+ menuconfig directly
+To: Ian Jackson <ian.jackson@citrix.com>
+References: <20200430142548.23751-1-julien@xen.org>
+ <20200430142548.23751-3-julien@xen.org>
+ <3a4ec020-f626-031e-73a6-b2eee97ab9e8@suse.com>
+ <123BE55A-AACB-4FE3-94E2-1559ED73DD09@citrix.com>
+ <24240.3047.877655.345428@mariner.uk.xensource.com>
+ <1d8eb504-51e9-b8e7-f1af-862760f0f15d@xen.org>
+ <24244.16076.627203.282982@mariner.uk.xensource.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <09d729ad-58a7-1f4b-c779-5fd81d7009a4@xen.org>
+Date: Mon, 11 May 2020 14:30:20 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200511103145.37098-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <24244.16076.627203.282982@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -47,37 +66,89 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Community Manager <community.manager@xenproject.org>,
- xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.05.2020 12:31, Roger Pau Monne wrote:
-> Add entries for the relevant changes I've been working on during the
-> 4.14 development time frame. Mostly performance improvements related
-> to pvshim scalability issues when running with high number of vCPUs.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  CHANGELOG.md | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index b11e9bc4e3..554eeb6a12 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->  
->  ### Added
->   - This file and MAINTAINERS entry.
-> + - Use x2APIC mode whenever available, regardless of interrupt remapping
-> +   support.
-> + - Performance improvements to guest assisted TLB flushes, either when using
-> +   the Xen hypercall interface or the viridian one.
-> + - Assorted pvshim performance and scalability improvements plus some bug
-> +   fixes.
+Hi Ian,
 
-Wouldn't most/all of these better go under a "### Changed" heading?
+Thank you for the clarification.
 
-Jan
+On 07/05/2020 18:01, Ian Jackson wrote:
+> Julien Grall writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
+>> On 04/05/2020 13:34, Ian Jackson wrote:
+>>> George Dunlap writes ("Re: [PATCH RESEND 2/2] xen: Allow EXPERT mode to be selected from the menuconfig directly"):
+>>>> On Apr 30, 2020, at 3:50 PM, Jan Beulich <JBeulich@suse.com> wrote:
+>>>>> Well, if I'm not mis-remembering it was on purpose to make it more
+>>>>> difficult for people to declare themselves "experts". FAOD I'm not
+>>>>> meaning to imply I don't see and accept the frustration aspect you
+>>>>> mention further up. The two need to be carefully weighed against
+>>>>> one another.
+>>>
+>>> Yes, it was on purpose.  However, I had my doubts at the time and
+>>> I think experience has shown that this was a mistake.
+>>>
+>>>> I don’t think we need to make it difficult for people to declare
+>>>> themselves experts, particularly as “all” it means at the moment is,
+>>>> “Can build something which is not security supported”.  People who
+>>>> are building their own hypervisors are already pretty well advanced;
+>>>> I think we can let them shoot themselves in the foot if they want
+>>>> to.
+>>>
+>>> Precisely.
+>>
+>> Can I consider this as an Acked-by? :)
+> 
+> I am happy with the principle of the change.  I haven't reviewed the
+> details of the commit message etc.
+> 
+> I reviewed the thread and there were two concernes raised:
+> 
+>   * The question of principle.  I disagree with this concern
+>     because I approve of principle of the patch.
+> 
+>   * Some detail about the precise justificaton as written in
+>     the commit message, regarding `clean' targets.  Apparently the
+>     assertion may not be completely true.  I haven't seen a proposed
+>     alternative wording.
+
+I have checked the latest staging, the `clean` target doesn't trash 
+.config anymore.
+
+> 
+> I don't feel I should ack a controversial patch with an unresolved
+> wording issue.  Can you tell me what your proposed wording is ?
+> To avoid blocking this change I would be happy to review your wording
+> and see if it meets my reading of the stated objection.
+
+Here a suggested rewording:
+
+"EXPERT mode is currently used to gate any options that are in technical
+preview or not security supported At the moment, the only way to select
+it is to use XEN_CONFIG_EXPERT=y on the make command line.
+
+However, if the user forget to add the option when (re)building or when 
+using menuconfig, then .config will get rewritten. This may lead to a 
+rather frustrating experience as it is difficult to diagnostic the
+issue.
+
+A lot of the options behind EXPERT would benefit to be more accessible 
+so user can experiment with it and voice any concern before they are 
+fully be supported.
+
+So rather than making really difficult to experiment or tweak your Xen 
+(for instance by adding a built-in command line), this option can now be 
+selected from the menuconfig.
+
+This doesn't change the fact a Xen with EXPERT mode selected will not be 
+security supported.
+"
+
+Cheers,
+
+-- 
+Julien Grall
 
