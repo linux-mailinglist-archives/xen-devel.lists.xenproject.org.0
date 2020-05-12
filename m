@@ -2,91 +2,94 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 604441CF7BD
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 16:48:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D931CF7BE
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 16:48:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYWCT-000350-7n; Tue, 12 May 2020 14:48:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jYWCg-00035o-Gm; Tue, 12 May 2020 14:48:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Sh4E=62=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jYWCS-00034v-Cu
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 14:48:04 +0000
-X-Inumbo-ID: 94d13d68-945f-11ea-a2c0-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 94d13d68-945f-11ea-a2c0-12813bfff9fa;
- Tue, 12 May 2020 14:48:03 +0000 (UTC)
+ <SRS0=XDyx=62=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jYWCf-00035e-Gy
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 14:48:17 +0000
+X-Inumbo-ID: 9ce8e4ce-945f-11ea-ae69-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9ce8e4ce-945f-11ea-ae69-bc764e2007e4;
+ Tue, 12 May 2020 14:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589294884;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=jVjRbiYFDETmm85nMp64hRUUwpS0KFOXOZJIum9tDOM=;
- b=VpRj226SmuSgbbkyc8wkJ0QCH6F0JNfiUsAv7TqionBywCl0ukMglL7t
- f6hJm4M4nT+cOUdiRpPRAUzTkXX2a5ua8YSlA6I6/fQZqerX7rHFJ9bYB
- 28Ms0+fgOLCOxyvrCRF/fGCW9w4I6wfHjCCJsRf+tPA4MZDGTVFZZz4JR Q=;
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ d=citrix.com; s=securemail; t=1589294896;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=f/9zfxNObESnNvBeKDkJZHqMMVvQvh9szwVIA2UPEwQ=;
+ b=dWIgdzf07HPpi08Ki9KHbkpnE/lhbUttAaG7JnrScyFvayvl3LLQ4s6N
+ ywc3t7HPu64EaPMOeuFhL3itzYAPBtY6sFXQFvrNccCT/lZkjSmci6zFU
+ FNhpZYe8/TpeUrZQplI7+O0SZl2l52KDAawr+kil6Sp/b9TmsDeUpdLp1 k=;
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
+ George.Dunlap@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ George.Dunlap@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.pra=George.Dunlap@citrix.com;
+ spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com;
  dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: x+LMrm/A+JJLmLQzg+ujblcMvjaQmSsyIHvKNhEa5f99tijtFf2LUNrQ51fcwND+MkO3tYrSEo
- u2ZoXs3zsAkxnbeiPO5GhagHiVEF2hlLeJliKo6seBnZghzDHvnWXEHXcDbuLvUwxpb2V73yGk
- hAb90R+ng0ORnk7K9MO1SS4PywzFXgM85++PFGd+6kf5Yltq/3vpvDwnT3z0F4dt2emYDQ4bNU
- bt0xLRQ3g55ZC/kY4TVG35DS3hNlRULCTe667GVEevdasSUhl5GHb6HPTi65wqHNYXGCCSm3As
- u94=
+IronPort-SDR: m7D3Vy4AYQh2kVocbDNCOZ5G3ChcmdBFJkBd3LZ6tF3cfOzGm5xDO9Ns1y7PlrAt/3EBGxBXjt
+ nO86xXpe0RsyjW7Toa65NWKgnfc/wN4yDQw6DyW49ghPmHQ4xiKdLJB2qiGwK1pH3u1PiushXK
+ 70A6mbpFMkRzCn4KLuPyW2sof/ol/uAVR1V/GM1Kmq8oEshkdn0HK4hOgHwo9SAaAKVOyasYcT
+ thqQiJp/mZbEuiaGR2ChSQ/JDfvH7+cwJAJh5cFw9F/ZLrTRSO2IxIdlQlUc/7oF+ibadDnpPp
+ 2E0=
 X-SBRS: 2.7
-X-MesageID: 17347226
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 18015676
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,384,1583211600"; d="scan'208";a="17347226"
-Subject: Re: use of "stat -"
-To: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
- <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
- <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <4b90b635-84bb-e827-d52e-dfe1ebdb4e4d@citrix.com>
-Date: Tue, 12 May 2020 15:47:57 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+X-IronPort-AV: E=Sophos;i="5.73,384,1583211600"; d="scan'208";a="18015676"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Nick Rosbrook <rosbrookn@gmail.com>
+Subject: Re: [PATCH 1/3] golang/xenlight: re-track generated go code
+Thread-Topic: [PATCH 1/3] golang/xenlight: re-track generated go code
+Thread-Index: AQHWHzfOsKEBjrjqSkC89EI6NA5mTKikeMEA
+Date: Tue, 12 May 2020 14:48:12 +0000
+Message-ID: <772DD16D-DA6B-4009-8B9B-B8187ED06136@citrix.com>
+References: <cover.1588282027.git.rosbrookn@ainfosec.com>
+ <2ccb1ae4ffa3f00a13ce303df0e4a44d249861c2.1588282027.git.rosbrookn@ainfosec.com>
+In-Reply-To: <2ccb1ae4ffa3f00a13ce303df0e4a44d249861c2.1588282027.git.rosbrookn@ainfosec.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2585D2C045F1D3429F476AA1F543B893@citrix.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,45 +100,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Jason
- Andryuk <jandryuk@gmail.com>, Ian Jackson <ian.jackson@eu.citrix.com>, Paul
- Durrant <paul@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>, Jan Beulich <jbeulich@suse.com>, Ian
+ Jackson <Ian.Jackson@citrix.com>, xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 12/05/2020 15:33, Jan Beulich wrote:
-> On 12.05.2020 16:19, Wei Liu wrote:
->> On Tue, May 12, 2020 at 12:58:46PM +0200, Jan Beulich wrote:
->>> now that I've been able to do a little bit of work from the office
->>> again, I've run into a regression from b72682c602b8 "scripts: Use
->>> stat to check lock claim". On one of my older machines I've noticed
->>> guests wouldn't launch anymore, which I've tracked down to the
->>> system having an old stat on it. Yes, the commit says the needed
->>> behavior has been available since 2009, but please let's not forget
->>> that we continue to support building with tool chains from about
->>> 2007.
->>>
->>> Putting in place and using newer tool chain versions without
->>> touching the base distro is pretty straightforward. Replacing the
->>> coreutils package isn't, and there's not even an override available
->>> by which one could point at an alternative one. Hence I think
->>> bumping the minimum required versions of basic tools should be
->>> done even more carefully than bumping required tool chain versions
->>> (which we've not dared to do in years). After having things
->>> successfully working again with a full revert, I'm now going to
->>> experiment with adapting behavior to stat's capabilities. Would
->>> something like that be acceptable (if it works out)?
->> Are you asking for reverting that patch?
-> Well, I assume the patch has its merits, even if I don't really
-> understand what they are from its description.
 
-What is in any away unclear about the final paragraph in the commit message?
 
-> I'm instead asking
-> whether something like the below (meanwhile tested) would be
-> acceptable.
+> On Apr 30, 2020, at 10:38 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
+>=20
+> Commit df669de074c395a3b2eeb975fddd3da4c148da13 un-tracked the generated
+> Go code, but it was decided that we actually keep the generated code
+> in-tree.
+>=20
+> Undo the changes to ignore the generated code, and re-generate it.
+>=20
+> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 
-Not really, seeing as removing perl was the whole point.
-
-~Andrew
+Reviewed-by: George Dunlap <george.dunlap@citrix.com>
 
