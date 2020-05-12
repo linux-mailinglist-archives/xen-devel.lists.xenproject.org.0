@@ -2,95 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F0961CFEBC
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 21:54:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C58CB1D017A
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 00:01:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYazD-000614-I8; Tue, 12 May 2020 19:54:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jYcwQ-0007Qk-Ty; Tue, 12 May 2020 21:59:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Sh4E=62=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jYazB-00060z-EI
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 19:54:41 +0000
-X-Inumbo-ID: 69eaf21e-948a-11ea-a2fe-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 69eaf21e-948a-11ea-a2fe-12813bfff9fa;
- Tue, 12 May 2020 19:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589313279;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=qEIXMZOTP1NgAqtNXm0llZAxH+be2t7QOrP5aZNerqA=;
- b=ZTkZUyAJeWOUVqdrgbIat5HSZ6e/l0zwLPlMcb/KhxzDqIrY7eggScKX
- m+2ZxKFnX8VGYFxrEfXdXkOLo/bLpXj/T8TiB5o9sDgKQGdAx7nURZmgT
- z7V2yw8Mjxxefy3UoafKXwXXSjCfa5+jlnZsXCe6XXNNP8qAVops8yFJP o=;
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: Pyb4WEtry9WWIvmHCzgxvLtc5ZA+8ZWIKSIR1ovn/b/BeQF+L58DXldauWP8bNMGRvQHKYJvBe
- qxAl2hUPqRuBe1zXc6/CJD9ntdOHXL3Ifh0BOiXZa0ciW4p3f6KD8PjK6ra5wiYII47rOH9UCr
- 89zzjRZYAkaV+iv3NrDhSlpiPwZVXVics8y8ueU7uij/Wt/g6Tol/rCHyGJ/fO08tNbEaKfydG
- AFriAses9eWJ3yTc+RSU+YjEuXTNYcyyJYb8ckfo0nUFmCumw5VNysn+3yCY1005im1/da0Mo2
- PZA=
-X-SBRS: 2.7
-X-MesageID: 17630810
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,384,1583211600"; d="scan'208";a="17630810"
-Subject: Re: use of "stat -"
-To: Elliott Mitchell <ehem+xen@m5p.com>, Jason Andryuk <jandryuk@gmail.com>
-References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
- <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
- <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
- <4b90b635-84bb-e827-d52e-dfe1ebdb4e4d@citrix.com>
- <814db557-4f6a-020d-9f71-4ee3724981e3@suse.com>
- <CAKf6xps0XDRTUJsbE1zHpn=h98yTN+Y1DzaNpVGzhhJGVccRRw@mail.gmail.com>
- <20200512195005.GA96154@mattapan.m5p.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <049e0022-f9c1-6dc9-3360-d25d88eeb97f@citrix.com>
-Date: Tue, 12 May 2020 20:54:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <SRS0=9uWS=62=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1jYcwP-0007Qf-Hh
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 21:59:57 +0000
+X-Inumbo-ID: ea17d0d4-949b-11ea-9887-bc764e2007e4
+Received: from mail-lj1-x242.google.com (unknown [2a00:1450:4864:20::242])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ea17d0d4-949b-11ea-9887-bc764e2007e4;
+ Tue, 12 May 2020 21:59:56 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id o14so14395722ljp.4
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2020 14:59:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=1kBnuCyLYWMDCij7B9yRQ+3dh3pWBlQAb15NdI1M4/s=;
+ b=TYf7Iw09yr6QDw2iGLTkkSQD76o+BhADrPLJoB6ZSgenzELnS/IhxwMi91nIRrsX9G
+ A+0sBVKVJo+WNu3ru64Bk4smr4zPXHWaALGSGnlQtUnqkKl+afKKqBFx1gM55r+/QnWS
+ ElrTqGDKNOVn4NDI5DAkaU4xgj+f6zFiLIFXnNe9rC1tW7YSYmK2fTgqdCkm39WYq8VK
+ hdjdQ9z5G3woW2yjibOTNU3RSH1/qBLSw5L1dbrVAGb8p+CiybBfMoH9igoUDKR0qjZ1
+ j2Gow+ndm6fPKf+iW3PxYoUDkBdHivZTe8o9DDqjqFVXsE7lm7y7XSzc/qWz04Vlgz8L
+ biPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=1kBnuCyLYWMDCij7B9yRQ+3dh3pWBlQAb15NdI1M4/s=;
+ b=Ho+pbsBtDSv0ETcQ3ehkMuPCFst/7DvmcWOptHn8JE8q8G37pzvqNRZWFQFn/EougX
+ +f8miZixNibTKIhbbiY171GO9vzgRVMR3DIT+xBlPe7k8D2SfDJJE7FVf4+0h0X7JgIT
+ SD4PW6PYd+/qU+hCl8AkV2p9h7lCDz6++ReWQQNCkx0ddwXqyOnNuUJAJkrlwGEvJCIa
+ a5FAj3mmSh/8KfFw+Zft+PlEKOOgjOqw4IKHAEHLon1awh76cuDsaRviZKjZL4thDKzM
+ OifIWBNQPM3HPiYEmyO/wM40BkEnjYHli5APaIcarR9/iT30mSVZDPH23Eu/NDUxEzbH
+ p0gg==
+X-Gm-Message-State: AOAM533ZtWZF5udrAXupn60YP6DdNCCxG0GhLxk5yXV3unDh5NcWRqKE
+ xpmG9CoY/MMX8btg/LNO7954HzRZvpbCyYXklg8=
+X-Google-Smtp-Source: ABdhPJwvt5RYwmZtpejdCCBF80XIZtKj204yF7jL3X4rqtP1DLQrLLj+xEt7Qg2SUvpyWB4cg/U/aJURcN4vkorcPi4=
+X-Received: by 2002:a05:651c:c8:: with SMTP id
+ 8mr14222697ljr.182.1589320795068; 
+ Tue, 12 May 2020 14:59:55 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200512195005.GA96154@mattapan.m5p.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+References: <cover.1588282027.git.rosbrookn@ainfosec.com>
+ <9f5000ceea14e6818e491df38eba161c800b4cf8.1588282027.git.rosbrookn@ainfosec.com>
+ <16919263-9167-4BB1-9583-F7899FE3A246@citrix.com>
+In-Reply-To: <16919263-9167-4BB1-9583-F7899FE3A246@citrix.com>
+From: Nick Rosbrook <rosbrookn@gmail.com>
+Date: Tue, 12 May 2020 17:59:43 -0400
+Message-ID: <CAEBZRSd90nhgL7K2Z2BUN=3NShpBO4Awsx3hdO5WSY8NZHzPBQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] golang/xenlight: add necessary module/package
+ documentation
+To: George Dunlap <George.Dunlap@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,33 +70,123 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 12/05/2020 20:50, Elliott Mitchell wrote:
-> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
+On Tue, May 12, 2020 at 1:20 PM George Dunlap <George.Dunlap@citrix.com> wr=
+ote:
 >
-> On Tue, May 12, 2020 at 11:52:25AM -0400, Jason Andryuk wrote:
->> I was just looking to remove perl since it's a large dependency for
->> this single use.  I'm not tied to a particular approach.
-> Have you tried to remove Perl from a system?  This is possible, but on
-> many systems there will be hundreds or thousands of other programs which
-> already cause Perl to be installed.
 >
-> Perl doesn't have the mindshare it once did, but it is far from dead.  A
-> new desktop Linux installation might have less than a hundred programs
-> depending on Perl.  A new developer Linux installation will likely have
-> hundreds of programs depending on Perl.  A decades old system like Jan
-> is testing, there will like thousands.
 >
-> Removing dependancies is good.  Perhaps this is looking a few years into
-> the future where Perl is even less common.
+> > On Apr 30, 2020, at 10:39 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote=
+:
+> >
+> > Add a README and package comment giving a brief overview of the package=
+.
+> > These also help pkg.go.dev generate better documentation.
+> >
+> > Also, add a copy of Xen's license to tools/golang/xenlight. This is
+> > required for the package to be shown on pkg.go.dev and added to the
+> > default module proxy, proxy.golang.org.
+>
+> libxl is actually under the LGPL; I guess we want the xenlight package to=
+ be the same?
 
-Not everyone has a fully fat Linux running as dom0.  There are real
-systems using Xen which have already successfully purged perl.
+Thanks, yes it should probably be the same.
 
-~Andrew
+> As discussed before, arguably distributing the *.gen.go files won=E2=80=
+=99t be sufficient to comply with the license, because they are not the =E2=
+=80=9Cpreferred form of modification=E2=80=9D: that would be libxl_types.id=
+l, along with the python generators.
+>
+> OTOH, I suppose that=E2=80=99s sort of Google=E2=80=99s problem in some w=
+ays...
+
+Yeah, I guess that's true. Besides, modules are not intended to be
+modified (they are store in a read-only cache by default), so I don't
+think we need to worry about that until a separate repo is involved.
+Anyone who looks on pkg.go.dev for now will see that xen.git is the
+source repository.
+
+> >
+> > diff --git a/tools/golang/xenlight/README.md b/tools/golang/xenlight/RE=
+ADME.md
+> > new file mode 100644
+> > index 0000000000..42240e2132
+> > --- /dev/null
+> > +++ b/tools/golang/xenlight/README.md
+> > @@ -0,0 +1,17 @@
+> > +# xenlight
+> > +
+> > +## About
+> > +
+> > +The xenlight package provides Go bindings to Xen's libxl C library via=
+ cgo. The package is currently in an unstable "preview" state.
+>
+> We should probably try to slot it into one of the official terms we use i=
+n SUPPORT.md (and also add it to SUPPORT.md!).
+>
+> ATM you can=E2=80=99t even do a full VM lifecycle with it properly (to in=
+clude harvesting destroyed domains); so I think it would come under =E2=80=
+=9Cexperimental=E2=80=9D.
+
+Thanks, I wasn't aware of these definitions in SUPPORT.md.
+
+> > This means the package is ready for initial use and evaluation, but is =
+not yet fully functional. Namely, only a subset of libxl's API is implement=
+ed, and breaking changes may occur in future package versions.
+> > +
+> > +Much of the package is generated using the libxl IDL. Changes to the g=
+enerated code can be made by modifying `tools/golang/xenlight/gengotypes.py=
+` in the xen.git tree.
+> > +
+> > +## Getting Started
+> > +
+> > +```go
+> > +import (
+> > +        "xenbits.xen.org/git-http/xen.git/tools/golang/xenlight"
+> > +)
+> > +```
+> > +
+> > +The module is not yet tagged independently of xen.git, so expect to se=
+e `v0.0.0-<date>-<git hash>` as the package version. If you want to point t=
+o a Xen release, such as 4.14.0, you can run `go get xenbits.xen.org/git-ht=
+tp/xen.git/tools/golang/xenlight@RELEASE-4.14.0`.
+>
+> I think I would say something like:
+>
+> =E2=80=94
+>
+> The module is not yet tagged independently of xen.git; if you don=E2=80=
+=99t specify the version, you=E2=80=99ll get the most recent development ve=
+rsion, which is probably not what you want.  A better option would be to sp=
+ecify a Xen release tag; for instance: `go get xenbits=E2=80=A6./xenlight@R=
+ELEASE-4.14.10`.
+
+That sounds much better. Thanks.
+
+> > diff --git a/tools/golang/xenlight/xenlight.go b/tools/golang/xenlight/=
+xenlight.go
+> > index 6b4f492550..3eaa5a3d63 100644
+> > --- a/tools/golang/xenlight/xenlight.go
+> > +++ b/tools/golang/xenlight/xenlight.go
+> > @@ -14,6 +14,8 @@
+> >  * You should have received a copy of the GNU Lesser General Public
+> >  * License along with this library; If not, see <http://www.gnu.org/lic=
+enses/>.
+> >  */
+> > +
+> > +// Package xenlight provides bindings to Xen's libxl C library.
+> > package xenlight
+>
+>
+> Will this comment replace the comment above it in the pkg.go.dev module p=
+age?
+
+Yes, this should be recognized as the "package comment" now.
+
+-NR
 
