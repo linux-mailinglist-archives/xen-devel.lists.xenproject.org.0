@@ -2,43 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33D2B1CF72F
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 16:32:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC7DA1CF732
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 16:33:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYVwV-0001tr-65; Tue, 12 May 2020 14:31:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jYVyf-000206-JC; Tue, 12 May 2020 14:33:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qSkR=62=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jYVwT-0001tm-Hz
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 14:31:33 +0000
-X-Inumbo-ID: 465d0268-945d-11ea-ae69-bc764e2007e4
+ id 1jYVye-000201-3c
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 14:33:48 +0000
+X-Inumbo-ID: 9670d7e8-945d-11ea-a2b8-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 465d0268-945d-11ea-ae69-bc764e2007e4;
- Tue, 12 May 2020 14:31:32 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9670d7e8-945d-11ea-a2b8-12813bfff9fa;
+ Tue, 12 May 2020 14:33:47 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4F718AD03;
- Tue, 12 May 2020 14:31:34 +0000 (UTC)
-Subject: Re: [PATCH 12/16] x86/extable: Adjust extable handling to be shadow
- stack compatible
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-13-andrew.cooper3@citrix.com>
- <1e80c672-9308-f7ad-67ea-69d83d69bc03@suse.com>
- <974f631e-3a82-3da4-124d-f4bf2bef89e2@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id B5247ACCE;
+ Tue, 12 May 2020 14:33:48 +0000 (UTC)
+Subject: Re: use of "stat -"
+To: Wei Liu <wl@xen.org>
+References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
+ <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <59fcdaf0-f877-7a90-9bf4-9e41b1bbcea7@suse.com>
-Date: Tue, 12 May 2020 16:31:31 +0200
+Message-ID: <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
+Date: Tue, 12 May 2020 16:33:45 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <974f631e-3a82-3da4-124d-f4bf2bef89e2@citrix.com>
+In-Reply-To: <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,119 +47,77 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.05.2020 23:09, Andrew Cooper wrote:
-> On 07/05/2020 14:35, Jan Beulich wrote:
->> On 02.05.2020 00:58, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/traps.c
->>> +++ b/xen/arch/x86/traps.c
->>> @@ -778,6 +778,28 @@ static bool exception_fixup(struct cpu_user_regs *regs, bool print)
->>>                 vec_name(regs->entry_vector), regs->error_code,
->>>                 _p(regs->rip), _p(regs->rip), _p(fixup));
->>>  
->>> +    if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
->>> +    {
->>> +        unsigned long ssp;
->>> +
->>> +        asm ("rdsspq %0" : "=r" (ssp) : "0" (1) );
->>> +        if ( ssp != 1 )
->>> +        {
->>> +            unsigned long *ptr = _p(ssp);
->>> +
->>> +            /* Search for %rip in the shadow stack, ... */
->>> +            while ( *ptr != regs->rip )
->>> +                ptr++;
->> Wouldn't it be better to bound the loop, as it shouldn't search past
->> (strictly speaking not even to) the next page boundary? Also you
->> don't care about the top of the stack (being the to be restored SSP),
->> do you? I.e. maybe
+On 12.05.2020 16:19, Wei Liu wrote:
+> On Tue, May 12, 2020 at 12:58:46PM +0200, Jan Beulich wrote:
+>> now that I've been able to do a little bit of work from the office
+>> again, I've run into a regression from b72682c602b8 "scripts: Use
+>> stat to check lock claim". On one of my older machines I've noticed
+>> guests wouldn't launch anymore, which I've tracked down to the
+>> system having an old stat on it. Yes, the commit says the needed
+>> behavior has been available since 2009, but please let's not forget
+>> that we continue to support building with tool chains from about
+>> 2007.
 >>
->>             while ( *++ptr != regs->rip )
->>                 ;
->>
->> ?
->>
->> And then - isn't searching for a specific RIP value alone prone to
->> error, in case a it matches an ordinary return address? I.e.
->> wouldn't you better search for a matching RIP accompanied by a
->> suitable pointer into the shadow stack and a matching CS value?
->> Otherwise, ...
->>
->>> +            ASSERT(ptr[1] == __HYPERVISOR_CS);
->> ... also assert that ptr[-1] points into the shadow stack?
+>> Putting in place and using newer tool chain versions without
+>> touching the base distro is pretty straightforward. Replacing the
+>> coreutils package isn't, and there's not even an override available
+>> by which one could point at an alternative one. Hence I think
+>> bumping the minimum required versions of basic tools should be
+>> done even more carefully than bumping required tool chain versions
+>> (which we've not dared to do in years). After having things
+>> successfully working again with a full revert, I'm now going to
+>> experiment with adapting behavior to stat's capabilities. Would
+>> something like that be acceptable (if it works out)?
 > 
-> So this is the problem I was talking about that the previous contexts
-> SSP isn't stored anywhere helpful.
-> 
-> What we are in practice doing is looking 2 or 3 words up the shadow
-> stack (depending on exactly how deep our call graph is), to the shadow
-> IRET frame matching the real IRET frame which regs is pointing to.
-> 
-> Both IRET frames were pushed in the process of generating the exception,
-> and we've already matched regs->rip to the exception table record.  We
-> need to fix up regs->rip and the shadow lip to the fixup address.
-> 
-> As we are always fixing up an exception generated from Xen context, we
-> know that ptr[1] == __HYPERVISOR_CS, and *ptr[-1] = &ptr[2], as we
-> haven't switched shadow stack as part of taking this exception. 
-> However, this second point is fragile to exception handlers moving onto IST.
-> 
-> We can't encounter regs->rip in the shadow stack between the current SSP
-> and the IRET frame we're looking to fix up, or we would have taken a
-> recursive fault and not reached exception_fixup() to begin with.
+> Are you asking for reverting that patch?
 
-I'm afraid I don't follow here. Consider a function (also)
-involved in exception handling having this code sequence:
-
-    call    func
-    mov     (%rax), %eax
-
-If the fault we're handling occured on the MOV and
-exception_fixup() is a descendant of func(), then the first
-instance of an address on the shadow stack pointing at this
-MOV is going to be the one which did not fault.
-
-> Therefore, the loop is reasonably bounded in all cases.
-> 
-> Sadly, there is no RDSS instruction, so we can't actually use shadow
-> stack reads to spot if we underflowed the shadow stack, and there is no
-> useful alternative to panic() if we fail to find the shadow IRET frame.
-
-But afaics you don't panic() in this case. Instead you continue
-looping until (presumably) you hit some form of fault.
-
->>> --- a/xen/arch/x86/x86_64/entry.S
->>> +++ b/xen/arch/x86/x86_64/entry.S
->>> @@ -708,7 +708,16 @@ exception_with_ints_disabled:
->>>          call  search_pre_exception_table
->>>          testq %rax,%rax                 # no fixup code for faulting EIP?
->>>          jz    1b
->>> -        movq  %rax,UREGS_rip(%rsp)
->>> +        movq  %rax,UREGS_rip(%rsp)      # fixup regular stack
->>> +
->>> +#ifdef CONFIG_XEN_SHSTK
->>> +        mov    $1, %edi
->>> +        rdsspq %rdi
->>> +        cmp    $1, %edi
->>> +        je     .L_exn_shstk_done
->>> +        wrssq  %rax, (%rdi)             # fixup shadow stack
->>> +.L_exn_shstk_done:
->>> +#endif
->> Again avoid the conditional jump by using alternatives patching?
-> 
-> Well - that depends on whether we're likely to gain any new content in
-> the pre exception table.
-> 
-> As it stands, it is only the IRET(s) to userspace so would be safe to
-> turn this into an unconditional alternative.  Even in the crash case, we
-> won't be returning to guest context after having started the crash
-> teardown path.
-
-Ah, right - perhaps indeed better keep it as is then.
+Well, I assume the patch has its merits, even if I don't really
+understand what they are from its description. I'm instead asking
+whether something like the below (meanwhile tested) would be
+acceptable.
 
 Jan
+
+--- unstable.orig/tools/hotplug/Linux/locking.sh
++++ unstable/tools/hotplug/Linux/locking.sh
+@@ -42,6 +42,12 @@ claim_lock()
+     # it being possible to safely remove the lockfile when done.
+     # See below for a correctness proof.
+     local stat
++    local use_stat
++    local rightfile
++    if stat - 2>/dev/null >/dev/null
++    then
++        use_stat=y
++    fi
+     while true; do
+         eval "exec $_lockfd<>$_lockfile"
+         flock -x $_lockfd || return $?
+@@ -56,7 +62,17 @@ claim_lock()
+         # WW.XXX
+         # YY.ZZZ
+         # which need to be separated and compared.
+-        if stat=$( stat -L -c '%D.%i' - $_lockfile 0<&$_lockfd 2>/dev/null )
++        if [ x$use_stat != xy ]
++        then
++            # Fall back to the original Perl approach.
++            rightfile=$( perl -e '
++                open STDIN, "<&'$_lockfd'" or die $!;
++                my $fd_inum = (stat STDIN)[1]; die $! unless defined $fd_inum;
++                my $file_inum = (stat $ARGV[0])[1];
++                print "y\n" if $fd_inum eq $file_inum;
++                                 ' "$_lockfile" )
++            if [ x$rightfile = xy ]; then break; fi
++        elif stat=$( stat -L -c '%D.%i' - $_lockfile 0<&$_lockfd 2>/dev/null )
+         then
+             local file_stat
+             local fd_stat
+
+
 
