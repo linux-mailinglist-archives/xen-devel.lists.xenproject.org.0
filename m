@@ -2,62 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 877EC1CFE5C
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 21:32:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F21901CFEB8
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 21:51:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYad9-0004Cl-BK; Tue, 12 May 2020 19:31:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rfNj=62=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jYad8-0004Cg-7F
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 19:31:54 +0000
-X-Inumbo-ID: 3b740962-9487-11ea-9887-bc764e2007e4
-Received: from mail-lj1-x235.google.com (unknown [2a00:1450:4864:20::235])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3b740962-9487-11ea-9887-bc764e2007e4;
- Tue, 12 May 2020 19:31:53 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id a21so15007323ljj.11
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2020 12:31:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=7EpZ3W6+R10EcvysXCT5zhaMgB5ltwhnG0M6maYRBm8=;
- b=J3/AN0Xenf3hEXhDrPeakJgk+xIJCgMd1MjC4P2YFJ8ZoYZ2HQUC6RIdn3uxXlNJe0
- JEOQk42o7EAukz/Enp8pg6ZhSzUM+IST3AKrKy6bFDHokKDsWyXQoMB2hgibM+cZIxvG
- fp3wqzrWfP/c3Q0qx4E25I+j9HeyKLOL3/z/em8pzLCJbDHh/1eiMu/4rEsNMM2z8g3y
- d2bvd8WUDnkEfa6GCMpjFSpQvawaDcwIUb7nnpyPhWcatzmIGixUl/dzkNOeeBc65ptl
- Fl+53pVt3Ph23MTduT5CLJ/Gr/ceG0c/sHbyE1c2k/j11akrKVMXlDSRBifcZ6Pw9/aY
- P7SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=7EpZ3W6+R10EcvysXCT5zhaMgB5ltwhnG0M6maYRBm8=;
- b=UTfYEZ56q8dZVaou66aW1YE9u5m3C0n4kCQRND0FNF9JNNZAeoyneYbSrIRnwT3iaz
- dmBys18FlViXfJAzomUf/JNFHY5uLlTekO5Km9Ga5Aj0/yeMVLUILH+4iEg5fZmqa2R4
- dFJZCITiiHQWg9XCsLjA2z1leS54ic2Lle2EKQD+p0VjEHk9gRYOnak32svDPyCzHQYo
- 0pDYEu2yuOKszXBaTaTaTLdky3XSdMKjuH8HBmLJ9Qeyu8W2TlSmluFxi/KYYlnjVCRH
- piQtzHMGraJxUCsjKhPYw5bS6l8+JUU8Ep4d52jnxmJ3CAQIqngtsUKyC9KxGGVseU+x
- V8Ow==
-X-Gm-Message-State: AOAM533OPLx2MhyN2RndunCtgTj7HC/wxWTR8mcTWoUFDF257Kw3FaPm
- vgHbMJPGS0dYR+WgM8dj71C4yX4CZtZO4MsuR10=
-X-Google-Smtp-Source: ABdhPJwXKliJUQcenUT1P94I9xPO+d+gfY9ydpGuiMS5jPbn4C52wkeDpwQ2SSyqMdabEVTUxJ7KgxFtJlo4hi6cqxQ=
-X-Received: by 2002:a2e:8108:: with SMTP id d8mr14083989ljg.184.1589311912162; 
- Tue, 12 May 2020 12:31:52 -0700 (PDT)
+	id 1jYauv-0005qj-W3; Tue, 12 May 2020 19:50:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=eNOS=62=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1jYauu-0005qe-FO
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 19:50:16 +0000
+X-Inumbo-ID: cc8c20cc-9489-11ea-a2fe-12813bfff9fa
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cc8c20cc-9489-11ea-a2fe-12813bfff9fa;
+ Tue, 12 May 2020 19:50:15 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 04CJo6Vi096417
+ (version=TLSv1.2 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
+ Tue, 12 May 2020 15:50:12 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 04CJo5Yu096416;
+ Tue, 12 May 2020 12:50:05 -0700 (PDT) (envelope-from ehem)
+Date: Tue, 12 May 2020 12:50:05 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Subject: Re: use of "stat -"
+Message-ID: <20200512195005.GA96154@mattapan.m5p.com>
+References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
+ <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+ <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
+ <4b90b635-84bb-e827-d52e-dfe1ebdb4e4d@citrix.com>
+ <814db557-4f6a-020d-9f71-4ee3724981e3@suse.com>
+ <CAKf6xps0XDRTUJsbE1zHpn=h98yTN+Y1DzaNpVGzhhJGVccRRw@mail.gmail.com>
 MIME-Version: 1.0
-References: <3ed7eb87-070c-28ea-4f8a-aa4421cea93a@citrix.com>
- <5ea8173d.1c69fb81.915ba.8400@mx.google.com>
- <c242b963-ae80-1ca0-9b4d-fe2c8f66b6a2@citrix.com>
- <34cc563f-9e05-b55c-54f4-55104d2d42b5@citrix.com>
-In-Reply-To: <34cc563f-9e05-b55c-54f4-55104d2d42b5@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 12 May 2020 15:31:40 -0400
-Message-ID: <CAKf6xpuf83H6PQXORX9A-S2d5Zzsvc_S6gQsQgKPZLJFoXw-9g@mail.gmail.com>
-Subject: rombios triple fault with -fcf-protection
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKf6xps0XDRTUJsbE1zHpn=h98yTN+Y1DzaNpVGzhhJGVccRRw@mail.gmail.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+ autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,64 +55,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is the output from a failed rombios boot:
+On Tue, May 12, 2020 at 11:52:25AM -0400, Jason Andryuk wrote:
+> I was just looking to remove perl since it's a large dependency for
+> this single use.  I'm not tied to a particular approach.
 
-(d11) Invoking ROMBIOS ...
-(XEN) stdvga.c:173:d11v0 entering stdvga mode
-(d11) VGABios $Id: vgabios.c,v 1.67 2008/01/27 09:44:12 vruppert Exp $
-(d11) Bochs BIOS - build: 06/23/99
-(d11) $Revision: 1.221 $ $Date: 2008/12/07 17:32:29 $
-(d11) Options: apmbios pcibios eltorito PMM
-(d11)
-(d11) ata0 master: QEMU HARDDISK ATA-7 Hard-Disk ( 112 MBytes)
-(d11)
-(XEN) MMIO emulation failed (1): d11v0 32bit @ 0008:ffffffff ->
-(XEN) d11v0 Triple fault - invoking HVM shutdown action 1
-(XEN) *** Dumping Dom11 vcpu#0 state: ***
-(XEN) ----[ Xen-4.14-unstable  x86_64  debug=y   Not tainted ]----
-(XEN) CPU:    1
-(XEN) RIP:    0008:[<00000000ffffffff>]
-(XEN) RFLAGS: 0000000000010086   CONTEXT: hvm guest (d11v0)
-(XEN) rax: 0000000043001000   rbx: 000000000009c30e   rcx: 0000000000000000
-(XEN) rdx: 0000000000000000   rsi: 000000000000031e   rdi: 0000000000000020
-(XEN) rbp: 00000000000002de   rsp: 000000000009ef48   r8:  0000000000000000
-(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
-(XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000000000
-(XEN) r15: 0000000000000000   cr0: 0000000000000011   cr4: 0000000000000000
-(XEN) cr3: 0000000000400000   cr2: 0000000000000000
-(XEN) fsb: 0000000000000000   gsb: 00000000000c9000   gss: 0000000000000002
-(XEN) ds: 0018   es: 0018   fs: 0000   gs: c900   ss: 0018   cs: 0008
+Have you tried to remove Perl from a system?  This is possible, but on
+many systems there will be hundreds or thousands of other programs which
+already cause Perl to be installed.
 
-For a traditional stubdom with sdl enabled, I also see the init_message of iPXE
-iPXE (http://ipxe.org) 00:04.0 C900 PCI2.10 PMM_
+Perl doesn't have the mindshare it once did, but it is far from dead.  A
+new desktop Linux installation might have less than a hundred programs
+depending on Perl.  A new developer Linux installation will likely have
+hundreds of programs depending on Perl.  A decades old system like Jan
+is testing, there will like thousands.
 
-The underscore might be the cursor?
+Removing dependancies is good.  Perhaps this is looking a few years into
+the future where Perl is even less common.
 
-The VM reboots.  If I set on_reboot="preserve" and use gdbsx:
 
-(gdb) target remote :1234
-Remote debugging using :1234
-0xdeadf00d in ?? ()
-(gdb) bt
-#0  0xdeadf00d in ?? ()
-(gdb) i r
-eax            0x0                 0
-ecx            0x0                 0
-edx            0xe5a08016          -442466282
-ebx            0x87                135
-esp            0x23aa              0x23aa <memset+22>
-ebp            0x0                 0x0
-esi            0x0                 0
-edi            0x0                 0
-eip            0xdeadf00d          0xdeadf00d
-eflags         0xdeadbeef          [ CF PF ZF SF IF DF OF RF AC VIF ID ]
-cs             0xdeadf00d          -559026163
-ss             0xdeadbeef          -559038737
-ds             0x5ef890            6224016
-es             0x0                 0
-fs             0x5ef868            6223976
-gs             0x0                 0
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
