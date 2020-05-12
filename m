@@ -2,43 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0260F1CF63F
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 15:55:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C85251CF641
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 15:56:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYVN9-0006NQ-6l; Tue, 12 May 2020 13:55:03 +0000
+	id 1jYVOK-0006RD-HS; Tue, 12 May 2020 13:56:16 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qSkR=62=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jYVN7-0006NL-K8
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 13:55:01 +0000
-X-Inumbo-ID: 2b3eab6d-9458-11ea-a2ad-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EIy0=62=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jYVOJ-0006R3-K6
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 13:56:15 +0000
+X-Inumbo-ID: 536abd06-9458-11ea-a2ad-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2b3eab6d-9458-11ea-a2ad-12813bfff9fa;
- Tue, 12 May 2020 13:55:00 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id EC6DDAE8C;
- Tue, 12 May 2020 13:55:01 +0000 (UTC)
-Subject: Re: [PATCH 05/16] x86/shstk: Introduce Supervisor Shadow Stack support
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-6-andrew.cooper3@citrix.com>
- <d0347fec-3ccb-daa7-5c4d-f0e74b5fb247@suse.com>
- <00302d53-499a-7f6e-76a5-a5eec4e11252@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <dc585fec-e325-70a4-94e3-32205d84b1ea@suse.com>
-Date: Tue, 12 May 2020 15:54:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <00302d53-499a-7f6e-76a5-a5eec4e11252@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+ id 536abd06-9458-11ea-a2ad-12813bfff9fa;
+ Tue, 12 May 2020 13:56:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dh3Ol96j728NZiu9e4odquBePAfQnrcH9FLFJLJO8mM=; b=Z3yLwJSivN6LakrcH91E2wiMg
+ CTa8SPmbDkJBDACYhT/xHkyNwh9bnDU3+BrUymra6pQBnEkBGMHZq6HDAN5agDt6RVvnfzGKnmw8F
+ R5WodJP/TU/qRfF4NgYrjHMIJsAKc19dav5XJPngtt3o4WzpkbGoNoMEIpS52q1/TftUs=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYVOA-0007fm-BT; Tue, 12 May 2020 13:56:06 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYVO9-0005DZ-VP; Tue, 12 May 2020 13:56:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYVO9-0004nV-Uj; Tue, 12 May 2020 13:56:05 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150146-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 150146: regressions - FAIL
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-pvops:kernel-build:fail:regression
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=f5418b427e7d2f26803880309478de9103680826
+X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 12 May 2020 13:56:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,143 +80,157 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.05.2020 17:46, Andrew Cooper wrote:
-> On 04/05/2020 14:52, Jan Beulich wrote:
->> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
->>
->> On 02.05.2020 00:58, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/Kconfig
->>> +++ b/xen/arch/x86/Kconfig
->>> @@ -34,6 +34,9 @@ config ARCH_DEFCONFIG
->>>  config INDIRECT_THUNK
->>>  	def_bool $(cc-option,-mindirect-branch-register)
->>>  
->>> +config HAS_AS_CET
->>> +	def_bool $(as-instr,wrssq %rax$(comma)0;setssbsy;endbr64)
->> I see you add as-instr here as a side effect. Until the other
->> similar checks get converted, I think for the time being we should
->> use the old model, to have all such checks in one place. I realize
->> this means you can't have a Kconfig dependency then.
-> 
-> No.  That's like asking me to keep on using bool_t, and you are the
-> first person to point out and object to that in newly submitted patches.
+flight 150146 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150146/
 
-These are entirely different things. The bool_t => bool
-conversion is agreed upon. The conversion to record tool chain
-capabilities in xen/.config isn't. I've raised my reservations
-against this elsewhere. I can be convinced, but not by trying to
-introduce such functionality as a side effect of an unrelated
-change.
+Regressions :-(
 
->> Also why do you check multiple insns, when just one (like we do
->> elsewhere) would suffice?
-> 
-> Because CET-SS and CET-IBT are orthogonal ABIs, but you wanted a single
-> CET symbol, rather than a CET_SS symbol.
-> 
-> I picked a sample of various instructions to get broad coverage of CET
-> without including every instruction.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-i386-pvops              6 kernel-build             fail REGR. vs. 146182
 
-I wanted HAS_AS_CET rather than HAS_AS_CET_SS and HAS_AS_CET_IBT
-because both got added to gas at the same time, and hence there's
-little point in having separate symbols. If there was a reason to
-assume assemblers might be out there which support one but not
-the other, then we indeed ought to have two symbols.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
->> The crucial insns to check are those which got changed pretty
->> close before the release of 2.29 (in the cover letter you
->> mention 2.32): One of incssp{d,q}, setssbsy, or saveprevssp.
->> There weren't official binutils releases with the original
->> insns, but distros may still have picked up intermediate
->> snapshots.
-> 
-> I've got zero interest in catering to distros which are still using
-> obsolete pre-release toolchains.  Bleeding edge toolchains are one
-> thing, but this is like asking us to support the middle changeset of the
-> series introducing CET, which is absolutely a non-starter.
-> 
-> If the instructions were missing from real binutils releases, then
-> obviously we should exclude those releases, but that doesn't appear to
-> be the case.
+version targeted for testing:
+ libvirt              f5418b427e7d2f26803880309478de9103680826
+baseline version:
+ libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
 
-But you realize that there's no special effort needed? We merely
-need to check for the right insns. Their operands not matching
-for binutils from the intermediate time window is enough for our
-purposes. With my remark I merely meant to guide which of the
-three insns you've picked needs to remain, and which would imo
-better be dropped.
+Last test of basis   146182  2020-01-17 06:00:23 Z  116 days
+Failing since        146211  2020-01-18 04:18:52 Z  115 days  106 attempts
+Testing same since   150146  2020-05-12 04:18:48 Z    0 days    1 attempts
 
->>> --- a/xen/arch/x86/setup.c
->>> +++ b/xen/arch/x86/setup.c
->>> @@ -95,6 +95,36 @@ unsigned long __initdata highmem_start;
->>>  size_param("highmem-start", highmem_start);
->>>  #endif
->>>  
->>> +static bool __initdata opt_xen_shstk = true;
->>> +
->>> +static int parse_xen(const char *s)
->>> +{
->>> +    const char *ss;
->>> +    int val, rc = 0;
->>> +
->>> +    do {
->>> +        ss = strchr(s, ',');
->>> +        if ( !ss )
->>> +            ss = strchr(s, '\0');
->>> +
->>> +        if ( (val = parse_boolean("shstk", s, ss)) >= 0 )
->>> +        {
->>> +#ifdef CONFIG_XEN_SHSTK
->>> +            opt_xen_shstk = val;
->>> +#else
->>> +            no_config_param("XEN_SHSTK", "xen", s, ss);
->>> +#endif
->>> +        }
->>> +        else
->>> +            rc = -EINVAL;
->>> +
->>> +        s = ss + 1;
->>> +    } while ( *ss );
->>> +
->>> +    return rc;
->>> +}
->>> +custom_param("xen", parse_xen);
->> What's the idea here going forward, i.e. why the new top level
->> "xen" option? Almost all options are for Xen itself, after all.
->> Did you perhaps mean this to be "cet"?
-> 
-> I forgot an RFC for this, as I couldn't think of anything better.  "cet"
-> as a top level option isn't going to gain more than {no-}shstk and
-> {no-}ibt as suboptions.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Arnaud Patard <apatard@hupstream.com>
+  Artur Puzio <contact@puzio.waw.pl>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Chen Hanxiao <chen_han_xiao@126.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniel Veillard <veillard@redhat.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Erik Skultety <eskultet@redhat.com>
+  Gaurav Agrawal <agrawalgaurav@gnome.org>
+  Han Han <hhan@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Leonid Bloch <lb.workbox@gmail.com>
+  Lin Ma <LMa@suse.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mark Asselstine <mark.asselstine@windriver.com>
+  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Pavel Mores <pmores@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Philipp Hahn <hahn@univention.de>
+  Pino Toscano <ptoscano@redhat.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Rafael Fonseca <r4f4rfs@gmail.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Rikard Falkeborn <rikard.falkeborn@gmail.com>
+  Ryan Moeller <ryan@iXsystems.com>
+  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Tobin Feldman-Fitzthum <tobin@linux.vnet.ibm.com>
+  Wu Qingliang <wuqingliang4@huawei.com>
+  Xu Yandong <xuyandong2@huawei.com>
+  Yi Li <yili@winhong.com>
+  Your Name <you@example.com>
+  Zhang Bo <oscar.zhangbo@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhimin Feng <fengzhimin1@huawei.com>
 
-Imo that's still better than "xen=".
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
->>> --- a/xen/scripts/Kconfig.include
->>> +++ b/xen/scripts/Kconfig.include
->>> @@ -31,6 +31,10 @@ cc-option = $(success,$(CC) -Werror $(CLANG_FLAGS) $(1) -E -x c /dev/null -o /de
->>>  # Return y if the linker supports <flag>, n otherwise
->>>  ld-option = $(success,$(LD) -v $(1))
->>>  
->>> +# $(as-instr,<instr>)
->>> +# Return y if the assembler supports <instr>, n otherwise
->>> +as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) -c -x assembler -o /dev/null -)
->> CLANG_FLAGS caught my eye here, then noticing that cc-option
->> also uses it. Anthony - what's the deal with this? It doesn't
->> look to get defined anywhere, and I also don't see what clang-
->> specific about these constructs.
-> 
-> This is as it inherits from Linux.  There is obviously a reason.
-> 
-> However, I'm not interested in diving into that rabbit hole in an
-> unrelated series.
 
-That's fine - my question was directed at Anthony after all.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Jan
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 17515 lines long.)
 
