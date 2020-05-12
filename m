@@ -2,62 +2,105 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FBB41CEFDD
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 10:59:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6140A1CF06C
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 11:01:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYQja-00069J-4A; Tue, 12 May 2020 08:57:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WwR0=62=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jYQjY-00069E-Ke
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 08:57:52 +0000
-X-Inumbo-ID: a76d6b9f-942e-11ea-a280-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a76d6b9f-942e-11ea-a280-12813bfff9fa;
- Tue, 12 May 2020 08:57:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=B4xokOh/D/iyUg0ldO5myuFkrr6clNuIMI+vqJeHaZ8=; b=nr8Fp5yjIR7Uxb46BD0QYwZMCr
- as+DGMzAF24VHViJkFW4xYh8E/Yt4WRabF1K1g7QU6kgmqzf2r8bkSnyztIhJwKlvv8EJsfAnMqIc
- ic+gkTuU6kfaMoxLO9xDzpPQgYh5wN5yTTRRviuOZXHkv+RRc3Dpwk5paMqO34UjqJGo=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jYQjS-0001Vz-7Q; Tue, 12 May 2020 08:57:46 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jYQjR-0006aX-RC; Tue, 12 May 2020 08:57:46 +0000
-Subject: Re: [PATCH 05/12] xen: introduce reserve_heap_pages
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-5-sstabellini@kernel.org>
- <3129ab49-5898-9d2e-8fbb-d1fcaf6cdec7@suse.com>
- <alpine.DEB.2.21.2004291510270.28941@sstabellini-ThinkPad-T480s>
- <a316ed70-da35-8be0-a092-d992e56563d2@xen.org>
- <alpine.DEB.2.21.2004300928240.28941@sstabellini-ThinkPad-T480s>
- <86e8fa89-c6f5-6c9e-4f3e-7f98e8e12c6a@xen.org>
- <alpine.DEB.2.21.2005111750240.26167@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <99681366-3439-8974-e699-b5550e5a0e9e@xen.org>
-Date: Tue, 12 May 2020 09:57:43 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2005111750240.26167@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+	id 1jYQn6-0006xc-MY; Tue, 12 May 2020 09:01:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ihkH=62=samsung.com=m.szyprowski@srs-us1.protection.inumbo.net>)
+ id 1jYQn3-0006xW-Hp
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 09:01:31 +0000
+X-Inumbo-ID: 280edbe8-942f-11ea-b07b-bc764e2007e4
+Received: from mailout1.w1.samsung.com (unknown [210.118.77.11])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 280edbe8-942f-11ea-b07b-bc764e2007e4;
+ Tue, 12 May 2020 09:01:25 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200512090124euoutp01e49ae4acac62bcad757dedd8c151dec2~OPFvtM29R2629726297euoutp01h
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2020 09:01:24 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200512090124euoutp01e49ae4acac62bcad757dedd8c151dec2~OPFvtM29R2629726297euoutp01h
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1589274084;
+ bh=FXPMiPZ7c5SpQvubIUWbXGofE01C1Z/1aYgGs4t5Rxs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=BP901js1GRZjmNF1SwtMzosbRHEa1o6G1icsOMfwQ9l93Oo6cjLR8VbhmXr29uccy
+ EzUKr/OsIwN4BiL5PtbIzmQlpt7pg3irpJ5bC67B1Z9FUC2y4flIg8qoLG7+nHikyy
+ 0dmXxNldyN/xM4k5urp6yaKbjBtAc9MHt8oSP+VI=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200512090123eucas1p27aea9b6c10466074bd204422df08d17e~OPFvPqjYq3098030980eucas1p2J;
+ Tue, 12 May 2020 09:01:23 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 75.7B.60698.3E56ABE5; Tue, 12
+ May 2020 10:01:23 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200512090123eucas1p268736ef6e202c23e8be77c56873f415f~OPFu8MRmS2180321803eucas1p27;
+ Tue, 12 May 2020 09:01:23 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200512090123eusmtrp120653e9289ee4b94bb938846d5e1609a~OPFu7bCGL0188101881eusmtrp1V;
+ Tue, 12 May 2020 09:01:23 +0000 (GMT)
+X-AuditID: cbfec7f5-a29ff7000001ed1a-44-5eba65e3ce95
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id F2.03.07950.3E56ABE5; Tue, 12
+ May 2020 10:01:23 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200512090122eusmtip1628d2b6fc16039b5ec284bb2840665fe~OPFuTMsTB1181011810eusmtip1r;
+ Tue, 12 May 2020 09:01:22 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 27/38] xen: gntdev: fix common struct sg_table related
+ issues
+Date: Tue, 12 May 2020 11:00:47 +0200
+Message-Id: <20200512090058.14910-27-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200512090058.14910-1-m.szyprowski@samsung.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA0WSe0hTURzHOffe7V7FyW0qHlQUFoUFaT6iG4oUJt1/DCukh2gtvejQTdt8
+ ZEWJZsic5pKlmJaF4PuRrWmKmo+5mWW+H7NQU6MM0fJRmlmbV+2/7+/z+37P93A4BMrv5NgR
+ IkksI5UIowRcc0zTufb+0DTTEHL4z6w9ldHThVDPc6s5VF9OKkb91ShRanBlgUuVlmsRqrDF
+ i8ofc6eWB6cQqnZ6mEMNNORzqcqOjzjVujjDoX6qs5HjlnTF4wpAN60WYnTd6iSHnkjXIfSL
+ ojv0+OY0SmePFgO6fXEQoxvHkrj091kDRmeqywBdrR7C6KVaxwDeJXPvMCZKFM9IXX2umEcU
+ pGXiMb221wum2tEkUGolB2YEJD3hbK8alwNzgk+WADiykc9lh2UA83/83t4sAdi6qeXsRJSG
+ coRdFAM4qsjCdiODdXrE5OKSblA+L+eatDWZCqA+w8JkQsl0FKoqy7aOsiLPwrwNA27SGLkP
+ 6r89Rk2aR/pAg3YcYeucYHnN6y1uZuQTTza22iBpwGFR8wiXNZ2Ey/cHtrUVnNOpcVY7wO5s
+ xXYgBcCpnkqcHRQADiTnAtblBT/0rBvThPF+B2B1gyuLT8C+ftUWhqQlHJ3fY8KoUT7Q5KAs
+ 5sG0e3zWvR/m6ap2a1t7+1FW07CmxLD9jloAteUKkAWc8v6XFQJQBmyZOJk4nJF5SJgEF5lQ
+ LIuThLuERotrgfF3dW/qVupB88bVNkASQGDBS3N/FcLnCONlieI2AAlUYM27KzIiXpgw8QYj
+ jb4sjYtiZG3AnsAEtjyPZ1+D+WS4MJaJZJgYRrqzRQgzuyTgj6/bOJA9KhuNdsKuacw3chLB
+ pwu7Yo76LZx/6dWo7BAOOQc2DdUnWLgGOaw8xfUd8kSVyDtQsVcZ/CvimP8R0ZxjYoBkOPmT
+ 9Vho7WlnlWfn27V3vjpR3rVHb4Jawvwu5AyMnPG/7btOz4hTnM/Jb1alx3x+eCtWeTFQnHLq
+ iwCTRQjdDqJSmfAfUBbuYVkDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrGIsWRmVeSWpSXmKPExsVy+t/xu7qPU3fFGTz/xmbRe+4kk8XGGetZ
+ LS5Ob2Wx+L9tIrPFla/v2SxWrj7KZLFgv7XFnJtGFl+uPGSy2PT4GqvF5V1z2CzWHrnLbnHw
+ wxNWi+9bJjM58HmsmbeG0WPvtwUsHtu/PWD1uN99nMlj85J6j9v/HjN7TL6xnNHj8IcrLB67
+ bzaweXx8eovFo2/LKkaP9Vuusnh83iQXwBulZ1OUX1qSqpCRX1xiqxRtaGGkZ2hpoWdkYqln
+ aGwea2VkqqRvZ5OSmpNZllqkb5eglzG3o4+94IJ4xdyHh5kbGFcKdzFyckgImEhMvLWaqYuR
+ i0NIYCmjxL3rM9kgEjISJ6c1sELYwhJ/rnWxQRR9YpQ42/yABSTBJmAo0fUWIiEi0MkoMa37
+ IzuIwywwmVni2errQHM5OIQFAiSmvuYDaWARUJU48XoeM4jNK2AncevobSaIDfISqzccAItz
+ AsXvz/8DtkBIoFDi0dW3LBMY+RYwMqxiFEktLc5Nzy020itOzC0uzUvXS87P3cQIjKNtx35u
+ 2cHY9S74EKMAB6MSD2+H0c44IdbEsuLK3EOMEhzMSiK8LZlAId6UxMqq1KL8+KLSnNTiQ4ym
+ QEdNZJYSTc4HxnheSbyhqaG5haWhubG5sZmFkjhvh8DBGCGB9MSS1OzU1ILUIpg+Jg5OqQZG
+ Ba+Ub1VHxD9sT/5RO83mwGInkclS+/W8P06vU82Qf/K1czKPkJ/95kkfdYOm8pj7fvRhke3b
+ 51ih+Ct1XVX+limzVJ5+E+hLtquTeP37shD7jeNvDHSLP2lzzxb4fSbUUNksdvM2Q86pUr1f
+ y6OetU8sKHasnPnadw87xwq7hAjhv1N1PAKUWIozEg21mIuKEwEHRpQquQIAAA==
+X-CMS-MailID: 20200512090123eucas1p268736ef6e202c23e8be77c56873f415f
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20200512090123eucas1p268736ef6e202c23e8be77c56873f415f
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200512090123eucas1p268736ef6e202c23e8be77c56873f415f
+References: <20200512085710.14688-1-m.szyprowski@samsung.com>
+ <20200512090058.14910-1-m.szyprowski@samsung.com>
+ <CGME20200512090123eucas1p268736ef6e202c23e8be77c56873f415f@eucas1p2.samsung.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,177 +111,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, andrew.cooper3@citrix.com,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com,
- "Woodhouse, David" <dwmw@amazon.co.uk>
+Cc: Juergen Gross <jgross@suse.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+The Documentation/DMA-API-HOWTO.txt states that the dma_map_sg() function
+returns the number of the created entries in the DMA address space.
+However the subsequent calls to the dma_sync_sg_for_{device,cpu}() and
+dma_unmap_sg must be called with the original number of the entries
+passed to the dma_map_sg().
 
-On 12/05/2020 02:10, Stefano Stabellini wrote:
-> On Thu, 30 Apr 2020, Julien Grall wrote:
->> On 30/04/2020 18:00, Stefano Stabellini wrote:
->>> On Thu, 30 Apr 2020, Julien Grall wrote:
->>>>>>> +    pg = maddr_to_page(start);
->>>>>>> +    node = phys_to_nid(start);
->>>>>>> +    zone = page_to_zone(pg);
->>>>>>> +    page_list_del(pg, &heap(node, zone, order));
->>>>>>> +
->>>>>>> +    __alloc_heap_pages(pg, order, memflags, d);
->>>>>>
->>>>>> I agree with Julien in not seeing how this can be safe / correct.
->>>>>
->>>>> I haven't seen any issues so far in my testing -- I imagine it is
->>>>> because there aren't many memory allocations after setup_mm() and before
->>>>> create_domUs()  (which on ARM is called just before
->>>>> domain_unpause_by_systemcontroller at the end of start_xen.)
->>>>
->>>> I am not sure why you exclude setup_mm(). Any memory allocated (boot
->>>> allocator, xenheap) can clash with your regions. The main memory
->>>> allocations
->>>> are for the frametable and dom0. I would say you were lucky to not hit
->>>> them.
->>>
->>> Maybe it is because Xen typically allocates memory top-down? So if I
->>> chose a high range then I would see a failure? But I have been mostly
->>> testing with ranges close to the begin of RAM (as opposed to
->>> ranges close to the end of RAM.)
->>
->> I haven't looked at the details of the implementation, but you can try to
->> specify dom0 addresses for your domU. You should see a failure.
-> 
-> I managed to reproduce a failure by choosing the top address range. On
-> Xilinx ZynqMP the memory is:
-> 
->    reg = <0x0 0x0 0x0 0x7ff00000 0x8 0x0 0x0 0x80000000>;
-> 
-> And I chose:
-> 
->    fdt set /chosen/domU0 direct-map <0x0 0x10000000 0x10000000 0x8 0x70000000 0x10000000>
-> 
-> Resulting in:
-> 
-> (XEN) *** LOADING DOMU cpus=1 memory=80000KB ***
-> (XEN) Loading d1 kernel from boot module @ 0000000007200000
-> (XEN) Loading ramdisk from boot module @ 0000000008200000
-> (XEN) direct_map start=0x00000010000000 size=0x00000010000000
-> (XEN) direct_map start=0x00000870000000 size=0x00000010000000
-> (XEN) Data Abort Trap. Syndrome=0x5
-> (XEN) Walking Hypervisor VA 0x2403480018 on CPU0 via TTBR 0x0000000000f05000
-> (XEN) 0TH[0x0] = 0x0000000000f08f7f
-> (XEN) 1ST[0x90] = 0x0000000000000000
-> (XEN) CPU0: Unexpected Trap: Data Abort
-> 
-> [...]
-> 
-> (XEN) Xen call trace:
-> (XEN)    [<000000000021a65c>] page_alloc.c#alloc_pages_from_buddy+0x15c/0x5d0 (PC)
-> (XEN)    [<000000000021b43c>] reserve_domheap_pages+0xc4/0x148 (LR)
+struct sg_table is a common structure used for describing a non-contiguous
+memory buffer, used commonly in the DRM and graphics subsystems. It
+consists of a scatterlist with memory pages and DMA addresses (sgl entry),
+as well as the number of scatterlist entries: CPU pages (orig_nents entry)
+and DMA mapped pages (nents entry).
 
-This isn't what I was expecting. If there is any failure, I would expect 
-an error message not a data abort. However...
+It turned out that it was a common mistake to misuse nents and orig_nents
+entries, calling DMA-mapping functions with a wrong number of entries or
+ignoring the number of mapped entries returned by the dma_map_sg()
+function.
 
-> 
-> Anything other than the very top of memory works.
+To avoid such issues, lets use a common dma-mapping wrappers operating
+directly on the struct sg_table objects and use scatterlist page
+iterators where possible. This, almost always, hides references to the
+nents and orig_nents entries, making the code robust, easier to follow
+and copy/paste safe.
 
-... I am very confused by this. Are you suggesting that with your series 
-you can allocate the same range for Dom0 and a DomU without any trouble?
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+For more information, see '[PATCH v4 00/38] DRM: fix struct sg_table nents
+vs. orig_nents misuse' thread:
+https://lore.kernel.org/dri-devel/20200512085710.14688-1-m.szyprowski@samsung.com/T/
+---
+ drivers/xen/gntdev-dmabuf.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-> 
->>>>> - in construct_domU, add the range to xenheap and reserve it with
->>>>> reserve_heap_pages
->>>>
->>>> I am afraid you can't give the regions to the allocator and then allocate
->>>> them. The allocator is free to use any page for its own purpose or exclude
->>>> them.
->>>>
->>>> AFAICT, the allocator doesn't have a list of page in use. It only keeps
->>>> track
->>>> of free pages. So we can make the content of struct page_info to look like
->>>> it
->>>> was allocated by the allocator.
->>>>
->>>> We would need to be careful when giving a page back to allocator as the
->>>> page
->>>> would need to be initialized (see [1]). This may not be a concern for
->>>> Dom0less
->>>> as the domain may never be destroyed but will be for correctness PoV.
->>>>
->>>> For LiveUpdate, the original Xen will carve out space to use by the boot
->>>> allocator in the new Xen. But I think this is not necessary in your
->>>> context.
->>>>
->>>> It should be sufficient to exclude the page from the boot allocators (as
->>>> we do
->>>> for other modules).
->>>>
->>>> One potential issue that can arise is there is no easy way today to
->>>> differentiate between pages allocated and pages not yet initialized. To
->>>> make
->>>> the code robust, we need to prevent a page to be used in two places. So
->>>> for
->>>> LiveUpdate we are marking them with a special value, this is used
->>>> afterwards
->>>> to check we are effictively using a reserved page.
->>>>
->>>> I hope this helps.
->>>
->>> Thanks for writing all of this down but I haven't understood some of it.
->>>
->>> For the sake of this discussion let's say that we managed to "reserve"
->>> the range early enough like we do for other modules, as you wrote.
->>>
->>> At the point where we want to call reserve_heap_pages() we would call
->>> init_heap_pages() just before it. We are still relatively early at boot
->>> so there aren't any concurrent memory operations. Why this doesn't work?
->>
->> Because init_heap_pages() may exclude some pages (for instance MFN 0 is carved
->> out) or use pages for its internal structure (see init_node_heap()). So you
->> can't expect to be able to allocate the exact same region by
->> reserve_heap_pages().
-> 
-> But it can't possibly use of any of pages it is trying to add to the
-> heap, right?
-Yes it can, there are already multiple examples in the buddy allocator.
-
-> 
-> We have reserved a certain range, we tell init_heap_pages to add the
-> range to the heap, init_node_heap gets called and it ends up calling
-> xmalloc. There is no way xmalloc can use any memory from that
-> particular range because it is not in the heap yet. That should be safe.
-
-If you look carefully at the code, you will notice:
-
-     else if ( *use_tail && nr >= needed &&
-               arch_mfn_in_directmap(mfn + nr) &&
-               (!xenheap_bits ||
-                !((mfn + nr - 1) >> (xenheap_bits - PAGE_SHIFT))) )
-     {
-         _heap[node] = mfn_to_virt(mfn + nr - needed);
-         avail[node] = mfn_to_virt(mfn + nr - 1) +
-                       PAGE_SIZE - sizeof(**avail) * NR_ZONES;
-     }
-
-This is one of the condition where the allocator will use a few pages 
-from the region for itself.
-
-> The init_node_heap code is a bit hard to follow but I went through it
-> and couldn't spot anything that could cause any issues (MFN 0 aside
-> which is a bit special). Am I missing something?
-Aside what I wrote above, as soon as you give a page to an allocator, 
-you waive a right to decide what the page is used for. The allocator is 
-free to use the page for bookeeping or even carve out the page because 
-it can't deal with it.
-
-So I don't really see how giving a region to the allocator and then 
-expecting the same region a call after is ever going to be safe.
-
-Cheers,
-
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 75d3bb9..ba6cad8 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -247,10 +247,9 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
+ 
+ 		if (sgt) {
+ 			if (gntdev_dmabuf_attach->dir != DMA_NONE)
+-				dma_unmap_sg_attrs(attach->dev, sgt->sgl,
+-						   sgt->nents,
+-						   gntdev_dmabuf_attach->dir,
+-						   DMA_ATTR_SKIP_CPU_SYNC);
++				dma_unmap_sgtable(attach->dev, sgt,
++						  gntdev_dmabuf_attach->dir,
++						  DMA_ATTR_SKIP_CPU_SYNC);
+ 			sg_free_table(sgt);
+ 		}
+ 
+@@ -288,8 +287,8 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
+ 	sgt = dmabuf_pages_to_sgt(gntdev_dmabuf->pages,
+ 				  gntdev_dmabuf->nr_pages);
+ 	if (!IS_ERR(sgt)) {
+-		if (!dma_map_sg_attrs(attach->dev, sgt->sgl, sgt->nents, dir,
+-				      DMA_ATTR_SKIP_CPU_SYNC)) {
++		if (dma_map_sgtable(attach->dev, sgt, dir,
++				    DMA_ATTR_SKIP_CPU_SYNC)) {
+ 			sg_free_table(sgt);
+ 			kfree(sgt);
+ 			sgt = ERR_PTR(-ENOMEM);
+@@ -625,7 +624,7 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
+ 
+ 	/* Now convert sgt to array of pages and check for page validity. */
+ 	i = 0;
+-	for_each_sg_page(sgt->sgl, &sg_iter, sgt->nents, 0) {
++	for_each_sgtable_page(sgt, &sg_iter, 0) {
+ 		struct page *page = sg_page_iter_page(&sg_iter);
+ 		/*
+ 		 * Check if page is valid: this can happen if we are given
 -- 
-Julien Grall
+1.9.1
+
 
