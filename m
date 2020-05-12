@@ -2,61 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D576E1CFA5E
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 18:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 989C61CFAA9
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 18:29:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYXb3-0003o5-HB; Tue, 12 May 2020 16:17:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jYXm6-0004iC-HS; Tue, 12 May 2020 16:28:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rfNj=62=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jYXb1-0003o0-Pw
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 16:17:31 +0000
-X-Inumbo-ID: 1416caa0-946c-11ea-ae69-bc764e2007e4
-Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1416caa0-946c-11ea-ae69-bc764e2007e4;
- Tue, 12 May 2020 16:17:30 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id z22so11097312lfd.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2020 09:17:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xq9364n6y8yNNWKyS1z9p9kRD+YN2mN7eiq5HouVxC4=;
- b=CekUhOP2v5QHDlYyMrg/XwAGCGp7UotOiRbET+h3WGCb2kEVYWiwNLSXJtXB2q4e6E
- Sq2cHhFTlE+zt604vYAH2+LuO0m2AUWi+1QpIDc74vQGVBAGVEZUot6xU//7QvFyXMDH
- w+KpMNkLySTw+CFVxA5SiNKrhlOUjPAP9oHciZ+e0T71++NL5ueoHiKtQfplpJ0a3ROs
- PcpRoNVm2qMd/AH2wYFDC0Y9xzq37RE5PTjXgiUotwE/NMJbT2ViUVs7V3+8gN2bCS7D
- rucMbTpMCBfTQCR/gAOezyDMs9aiQkV7qc9RvRfo7CCB3M9OtGNJFzk1vjJOdkGlDP29
- xxSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xq9364n6y8yNNWKyS1z9p9kRD+YN2mN7eiq5HouVxC4=;
- b=mgUzNUbykYtiT0ttMq3xcGz5iacE0InUObSj5F7pemHWekE7ZK+Sd4gSacflw0jnkn
- ZbW6wb07Xke7ad0RJ+r9d/+H1RRS1Mklq7IVjrZv0Yni/ZCtidZp1qtbzMyg+pRux88D
- UMR4Jrt4oY/rbAgBwewMbsILv/VyEBDrACyPagbIx8KebsWjjYrI6PhLTKlengwyVHfv
- M0lK6/Q+GkG7kABsOLLAQFKwhn69uACb84tEyZ0pvc1X6Z+nD6Y0ihqDro1htc3F8Ei4
- 3zcGTPd8zPjhoxK6jgR6PSQBtT2AOAvf6J6msPcfp69AM9CpTJmthnVxZpk3uOxw5lYD
- uGMg==
-X-Gm-Message-State: AOAM532N5L6j8Hmu9d0R8j3fP9AWwJkOK0al+OeI2p+g1MjshPhNSmoW
- kbLZrFUVLDEkxHCtGup+lf5gpNx+eg30yrQbK7I=
-X-Google-Smtp-Source: ABdhPJzatdahXip62o3iHBSUyTxWzUDRavSMSzMw8K+AUyHMR7cpG1ORS5pzXfrxT+Q0hxrrvqMaP5kMJH+kBUI5GLQ=
-X-Received: by 2002:a19:7004:: with SMTP id h4mr14098963lfc.148.1589300249753; 
- Tue, 12 May 2020 09:17:29 -0700 (PDT)
+ <SRS0=Sh4E=62=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jYXm6-0004i7-2T
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 16:28:58 +0000
+X-Inumbo-ID: ac4c4e5e-946d-11ea-a2d8-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ac4c4e5e-946d-11ea-a2d8-12813bfff9fa;
+ Tue, 12 May 2020 16:28:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1589300936;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9ntlV26wEcF4XSi0g3CxgD+0WFwGxy7ndEp9NSgUC9o=;
+ b=f5hvJZ26SLmrpXoi96zv1gyWv6P4jcRtUsqwV80kD18sJr45kk6n+gxq
+ D+cRwgIXFH0xvLbmPyNG8rhGyZqg18mxJ6e4X2IkXwhD7BRH6VPyWcPN7
+ 0S8mVpUAmv3ALuaXvEkk4yvPB4reB0z7Wx6seQdmlqmV57vfUXsvYjCue g=;
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com;
+ dmarc=pass (p=none dis=none) d=citrix.com
+IronPort-SDR: +u5DxnAfrkcTxy86LoqbYdWGWgD4MDiNoRN4uyQr9EyenJJIeAcXbodTFOdmmyak2oVBpDV6hg
+ RiDfOTSFS0LWue0y5Z1Fqv7GNdzmzQuHOriNg9WVWIe2BSWaK0I6uNlnH72X6I4x/1d8wJJOwE
+ PfIG72bG3sz5okjDrUuB6imabWL7kOmnjDq4lEVFVWKLyDha0gd1CVDLGRInI3ljQrNRB7jpkj
+ IAXHjxdKlR2bWaKOPvpuPk7dFzLe9kMUTuRVPC/O38BljzxfvWLg1+kOi/7/mBn10Rekb50ef3
+ o+I=
+X-SBRS: 2.7
+X-MesageID: 18028713
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,384,1583211600"; d="scan'208";a="18028713"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/guest: Fix assembler warnings with newer binutils
+Date: Tue, 12 May 2020 17:28:30 +0100
+Message-ID: <20200512162830.5912-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <20200512033948.3507-1-jandryuk@gmail.com>
- <20200512033948.3507-3-jandryuk@gmail.com>
- <69dd92f0-5b23-7a3d-3568-feab20874f97@suse.com>
- <372f83e4-6016-cc10-a8e6-970d644eb561@citrix.com>
-In-Reply-To: <372f83e4-6016-cc10-a8e6-970d644eb561@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 12 May 2020 12:17:16 -0400
-Message-ID: <CAKf6xpsmYpXSkSoVxafcRMH8dQ2DJ6rOfp+ah=RyoS6DheUj4A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] x86/boot: Drop .note.gnu.properties in build32.lds
-To: Andrew Cooper <andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,93 +89,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefan Bader <stefan.bader@canonical.com>,
- xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 12, 2020 at 11:58 AM Andrew Cooper
-<andrew.cooper3@citrix.com> wrote:
->
-> On 12/05/2020 16:32, Jan Beulich wrote:
-> > [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
-> >
-> > On 12.05.2020 05:39, Jason Andryuk wrote:
-> >> reloc.S and cmdline.S as arrays of executable bytes for inclusion in
-> >> head.S generated from compiled object files.  Object files generated by
-> >> an -fcf-protection toolchain include a .note.gnu.property section.  The
-> >> way reloc.S and cmdline.S are generated, the bytes of .note.gnu.property
-> >> become the start of the .S files.  When head.S calls reloc or
-> >> cmdline_parse_early, those note bytes are executed instead of the
-> >> intended .text section.  This results in an early crash in reloc.
-> > I may be misremembering, but I vaguely recall some similar change
-> > suggestion. What I'm missing here is some form of statement as to
-> > whether this is legitimate tool chain behavior, or a bug, and
-> > hence whether this is a fix or a workaround.
->
-> The linker is free to position unreferenced sections anywhere it wishes.
->
-> It is deeply unhelpful behaviour, but neither Binutils nor Clang
-> developers think it is something wanting fixing.
->
-> One option might be to use --orphan-handling=error so unexpected
-> toolchain behaviour breaks the build, or in this case perhaps =discard
-> might be better.
+GAS of at least version 2.34 complains:
 
-The toolchain uses .note.gnu.property to flag object files as
-supporting Intel CET (Control-flow Enforcement Technology) enabled by
--fcf-protection.  The linker/loader uses the note to know if CET
-should be enabled or disabled.  CET can only be enabled if the
-application and all libraries support it.
+  hypercall_page.S: Assembler messages:
+  hypercall_page.S:24: Warning: symbol 'HYPERCALL_set_trap_table' already has its type set
+  ...
+  hypercall_page.S:71: Warning: symbol 'HYPERCALL_arch_7' already has its type set
 
-So it's legitimate to flag compiled objects with .note.gnu.property.
-The .S files generated by build32.mk are .. interesting.  It seems
-like they should only be the runtime code & data, so we don't want the
-.note in there.  So I guess this is a workaround for how the .S files
-are generated?  My first attempt added -R .note.gnu.property, fyi.
+This is because the whole page is declared as STT_OBJECT, and then every
+hypercall within it is declared as STT_FUNC.  As these are function-like and
+in .text, retain the STT_FUNC type and drop STT_OBJECT.
 
-I'm not familiar with the linker options Andrew references, to know
-how usable they are off the top of my head.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
--fcf-protection=none could also be specified in CFLAGS in build32.mk
-to avoid generating the note.
+Alternative suggestions welcome.  I've got half a mind to strip the unused
+hypercalls, as a large chunk of them are PV only and will never be used by a
+PVH Xen.  This would also remove the existing alias between hypercall_page and
+HYPERCALL_set_trap_table.
+---
+ xen/arch/x86/guest/xen/hypercall_page.S | 1 -
+ 1 file changed, 1 deletion(-)
 
-> >> Discard the .note.gnu.property section when linking to avoid the extra
-> >> bytes.
-> > If we go this route (and if, as per above, I'm misremembering,
-> > meaning we didn't reject such a change earlier on), why would we
-> > not strip .note and .note.* in one go?
+diff --git a/xen/arch/x86/guest/xen/hypercall_page.S b/xen/arch/x86/guest/xen/hypercall_page.S
+index 6485e9150e..9673846b7d 100644
+--- a/xen/arch/x86/guest/xen/hypercall_page.S
++++ b/xen/arch/x86/guest/xen/hypercall_page.S
+@@ -8,7 +8,6 @@
+ GLOBAL(hypercall_page)
+          /* Poisoned with `ret` for safety before hypercalls are set up. */
+         .fill PAGE_SIZE, 1, 0xc3
+-        .type hypercall_page, STT_OBJECT
+         .size hypercall_page, PAGE_SIZE
+ 
+ /*
+-- 
+2.11.0
 
-Maybe?  I made the conservative change since they weren't previously discarded.
-
-> >> Stefan Bader also noticed that build32.mk requires -fcf-protection=none
-> >> or else the hypervisor will not boot.
-> >> https://bugs.launchpad.net/ubuntu/+source/gcc-9/+bug/1863260
-> > How's this related to the change here?
->
-> I think there is a bit of confusion as to exactly what is going on.
->
-> Ubuntu defaults -fcf-protection to enabled, which has a side effect of
-> turning on CET, which inserts ENDBR{32,64} instructions and generates
-> .note.gnu.properties indicating that the binary is CET-IBT compatible.
->
-> ENDBR* instructions come from the Hint Nop space so are safe on older
-> processors, but do ultimately add to binary bloat.  It also occurs to me
-> that it likely breaks livepath.
->
-> The reason Xen fails to boot is purely to do with the position of
-> .note.gnu.properties, not the ENDBR* instructions.
-
-Yes.
-
-I referenced Stefan's bug since it specifically called out build32.mk
-as problematic even after supplying -fcf-protection=none for a
-hypervisor build.  I was trying to give credit and reference a helpful
-bug entry.  I don't know how Xen handles such things, but I am fine
-dropping it.
-
-Regards,
-Jason
 
