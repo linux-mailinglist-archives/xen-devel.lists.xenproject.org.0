@@ -2,64 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1CF81CF7D8
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 16:51:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 196E31CF80E
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 16:56:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYWF9-0003wP-U3; Tue, 12 May 2020 14:50:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9uWS=62=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1jYWF8-0003wI-1g
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 14:50:50 +0000
-X-Inumbo-ID: f7c61a42-945f-11ea-b07b-bc764e2007e4
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f7c61a42-945f-11ea-b07b-bc764e2007e4;
- Tue, 12 May 2020 14:50:49 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id f18so13961915lja.13
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2020 07:50:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pUXqzPRwKc5es8JMb7JTyBoF2txoWiHqL8hOELqpXxA=;
- b=vONPMWinD+FUp5soNwqt2Bc6gVEFpFgQd0srt9kx73anU3wjOmLtC0lS82Z+JRrLL7
- VaAFU3vI48UXeZ/wFCAQHKcCFCtPd9grzB6YOnNjou8wij9khtvd23xRW9vMgAX57gAk
- ARKL/OiaDzbxTWhQwFcYSlNZmvggl/tBiI2iIJMwNlLr2iyaCPdDRoCmZmBgLPP+oYn0
- 1ymjoP+NdKThT29fLbXQZUuDgvVWT/4mIG3aqmtXZencOXi1FsRQxm1jJtlKjsBId0Ml
- Wjb132M3uUxp4Ac+3MTNDc704KYEj1d9s9d1OqXXRteyPB0ZKLQ+vvvWXsplUB+yqjvm
- O2ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=pUXqzPRwKc5es8JMb7JTyBoF2txoWiHqL8hOELqpXxA=;
- b=Hx2H/DrrPqagshM0n7QIMbRwK9B+C3VTFSbwvGTVij9kcpoWdLClYrociEqgGgAJ3w
- TkGEm8rrmbjOV3PzDCWOjhqtBfhu2FwfgXL5iH87JeqND/E+3d+p+czbXcaPsor8qPrk
- tWMdU3BVStE5TgMTif2qqneuflKLX9YbGds0gs+rhkdW/02TncHHDw3wxAr2UaVgaHZ/
- O3sCmTC3ibbvrN7pzeUut1pguDbA8s3w71SIZeMNp+HjOgolCdbtcJXyElo27FBzOVKy
- 0zx7N1IyhS4gKiA/5vxv4ELwM8tEgq2mjVyjz007mAnObGxDpNliJW/F2CvEAIE76oQ0
- LuMw==
-X-Gm-Message-State: AOAM530xV6SB19bnFtAwiXiSYjQa1eMz+awZ/C5bqyXD7Um7+YAbUrGX
- mGQ6S/XTsuseeN6FHiwIPS8rtEGqzekp014l47I=
-X-Google-Smtp-Source: ABdhPJyhuOmZ5kgyx7PEzutZc/kB1yw+GXfBfKt3GFrhmLh7QGgbNV6+m3/jHbIQr7bjMTbuL8Cx141as+znoe4z/ZY=
-X-Received: by 2002:a05:651c:c8:: with SMTP id
- 8mr13185719ljr.182.1589295048261; 
- Tue, 12 May 2020 07:50:48 -0700 (PDT)
+	id 1jYWKU-00049n-IF; Tue, 12 May 2020 14:56:22 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qSkR=62=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jYWKS-00049i-Eh
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 14:56:20 +0000
+X-Inumbo-ID: bbdf7843-9460-11ea-a2c2-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bbdf7843-9460-11ea-a2c2-12813bfff9fa;
+ Tue, 12 May 2020 14:56:18 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 02876AC58;
+ Tue, 12 May 2020 14:56:19 +0000 (UTC)
+Subject: Re: [PATCH 15/16] x86/entry: Adjust guest paths to be shadow stack
+ compatible
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
+ <20200501225838.9866-16-andrew.cooper3@citrix.com>
+ <2df78612-2c24-32de-186a-c402e188478c@suse.com>
+ <70d7b0e0-a599-6a19-5ace-af4f169545b3@citrix.com>
+ <fa78f626-18a1-bd95-b446-8ade5e9282a6@suse.com>
+ <b2afaa93-c738-dcfd-cbc7-147e48cd24ee@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <6a99236c-4f7b-7cf0-a4a8-f505ef64356d@suse.com>
+Date: Tue, 12 May 2020 16:56:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-References: <cover.1587682041.git.rosbrookn@ainfosec.com>
- <73e709cf0a87f3728de438e4a3b849462fd098ac.1587682041.git.rosbrookn@ainfosec.com>
- <59C12770-F12A-45B7-AB62-8BB3A0DC96D8@citrix.com>
- <CAEBZRSdtmyuKP4+yv8-2FjAkmBAc8L9MNr9r5cT4yUcyNM_v=g@mail.gmail.com>
- <47D89BFE-68EE-4E2F-80C0-6E6444CBDB04@citrix.com>
-In-Reply-To: <47D89BFE-68EE-4E2F-80C0-6E6444CBDB04@citrix.com>
-From: Nick Rosbrook <rosbrookn@gmail.com>
-Date: Tue, 12 May 2020 10:50:36 -0400
-Message-ID: <CAEBZRScrMTobo8a5scX4sUeh1W59T2-A9kuDkGqbxNLa4-JfQA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] golang/xenlight: add NameToDomid and DomidToName
- util functions
-To: George Dunlap <George.Dunlap@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <b2afaa93-c738-dcfd-cbc7-147e48cd24ee@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,35 +52,125 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- Ian Jackson <Ian.Jackson@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> > I just tested this way, and it does not work as expected. Since
-> > C.INVALID_DOMID is #define'd, cgo does not know it is intended to be
-> > used as uint32_t, and decides to declare C.INVALID_DOMID as int. So,
-> > C.INVALID_DOMID = ^int(0) = -1, which overflows Domid.
-> >
-> > I tried a few things in the cgo preamble without any luck.
-> > Essentially, one cannot define a const uint32_t in C space, and use
-> > that to define a const in Go space.
-> >
-> > Any ideas?
->
-> The following seems to work for me.  In the C section:
->
-> // #define INVALID_DOMID_TYPED ((uint32_t)INVALID_DOMID)
->
-> Then:
->
->     DomidInvalid Domid = C.INVALID_DOMID_TYPED
->
-> Attached is a PoC.  What do you think?
+On 11.05.2020 23:45, Andrew Cooper wrote:
+> On 07/05/2020 17:15, Jan Beulich wrote:
+>>>>> --- a/xen/arch/x86/x86_64/entry.S
+>>>>> +++ b/xen/arch/x86/x86_64/entry.S
+>>>>> @@ -194,6 +194,15 @@ restore_all_guest:
+>>>>>          movq  8(%rsp),%rcx            # RIP
+>>>>>          ja    iret_exit_to_guest
+>>>>>  
+>>>>> +        /* Clear the supervisor shadow stack token busy bit. */
+>>>>> +.macro rag_clrssbsy
+>>>>> +        push %rax
+>>>>> +        rdsspq %rax
+>>>>> +        clrssbsy (%rax)
+>>>>> +        pop %rax
+>>>>> +.endm
+>>>>> +        ALTERNATIVE "", rag_clrssbsy, X86_FEATURE_XEN_SHSTK
+>>>> In principle you could get away without spilling %rax:
+>>>>
+>>>>         cmpl  $1,%ecx
+>>>>         ja    iret_exit_to_guest
+>>>>
+>>>>         /* Clear the supervisor shadow stack token busy bit. */
+>>>> .macro rag_clrssbsy
+>>>>         rdsspq %rcx
+>>>>         clrssbsy (%rcx)
+>>>> .endm
+>>>>         ALTERNATIVE "", rag_clrssbsy, X86_FEATURE_XEN_SHSTK
+>>>>         movq  8(%rsp),%rcx            # RIP
+>>>>         cmpw  $FLAT_USER_CS32,16(%rsp)# CS
+>>>>         movq  32(%rsp),%rsp           # RSP
+>>>>         je    1f
+>>>>         sysretq
+>>>> 1:      sysretl
+>>>>
+>>>>         ALIGN
+>>>> /* No special register assumptions. */
+>>>> iret_exit_to_guest:
+>>>>         movq  8(%rsp),%rcx            # RIP
+>>>>         andl  $~(X86_EFLAGS_IOPL|X86_EFLAGS_NT|X86_EFLAGS_VM),24(%rsp)
+>>>>         ...
+>>>>
+>>>> Also - what about CLRSSBSY failing? It would seem easier to diagnose
+>>>> this right here than when getting presumably #DF upon next entry into
+>>>> Xen. At the very least I think it deserves a comment if an error case
+>>>> does not get handled.
+>>> I did consider this, but ultimately decided against it.
+>>>
+>>> You can't have an unlikely block inside a alternative block because the
+>>> jmp's displacement doesn't get fixed up.
+>> We do fix up unconditional JMP/CALL displacements; I don't
+>> see why we couldn't also do so for conditional ones.
+> 
+> Only for the first instruction in the block.
+> 
+> We do not decode the entire block of instructions and fix up each
+> displacement.
 
-Yes, that looks good.
+Right, but that's not overly difficult to overcome - simply split
+the ALTERNATIVE in two.
 
-Thanks,
--NR
+>>>   Keeping everything inline puts
+>>> an incorrect statically-predicted branch in program flow.
+>>>
+>>> Most importantly however, is that the SYSRET path is vastly less common
+>>> than the IRET path.  There is no easy way to proactively spot problems
+>>> in the IRET path, which means that conditions leading to a problem are
+>>> already far more likely to manifest as #DF, so there is very little
+>>> value in adding complexity to the SYSRET path in the first place.
+>> The SYSRET path being uncommon is a problem by itself imo, if
+>> that's indeed the case. I'm sure I've suggested before that
+>> we convert frames to TRAP_syscall ones whenever possible,
+>> such that we wouldn't go the slower IRET path.
+> 
+> It is not possible to convert any.
+> 
+> The opportunistic SYSRET logic in Linux loses you performance in
+> reality.  Its just that the extra conditionals are very highly predicted
+> and totally dominated by the ring transition cost.
+> 
+> You can create a synthetic test case where the opportunistic logic makes
+> a performance win, but the chances of encountering real world code where
+> TRAP_syscall is clear and %r11 and %rcx match flags/rip is 2 ^ 128.
+> 
+> It is very much not worth the extra code and cycles taken to implement.
+
+Oops, yes, for a moment I forgot this minor detail of %rcx/%r11.
+
+>>>> Somewhat similar for SETSSBSY, except there things get complicated by
+>>>> it raising #CP instead of setting EFLAGS.CF: Aiui it would require us
+>>>> to handle #CP on an IST stack in order to avoid #DF there.
+>>> Right, but having #CP as IST gives us far worse problems.
+>>>
+>>> Being able to spot #CP vs #DF doesn't help usefully.  Its still some
+>>> arbitrary period of time after the damage was done.
+>>>
+>>> Any nesting of #CP (including fault on IRET out) results in losing
+>>> program state and entering an infinite loop.
+>>>
+>>> The cases which end up as #DF are properly fatal to the system, and we
+>>> at least get a clean crash out it.
+>> May I suggest that all of this gets spelled out in at least
+>> the description of the patch, so that it can be properly
+>> understood (and, if need be, revisited) later on?
+> 
+> Is this really the right patch to do that?
+> 
+> I do eventually plan to put a whole load of this kinds of details into
+> the hypervisor guide.
+
+Well, as you can see having some of these considerations and
+decisions spelled out would already have helped review here.
+Whether this is exactly the right patch I'm not sure, but I'd
+find it quite helpful if such was available at least for
+cross referencing.
+
+Jan
 
