@@ -2,96 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C86971CF996
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 17:47:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861141CF9BF
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 17:53:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYX7k-0000DE-Gg; Tue, 12 May 2020 15:47:16 +0000
+	id 1jYXCy-00011Z-59; Tue, 12 May 2020 15:52:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XDyx=62=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jYX7i-0000D9-Pe
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 15:47:14 +0000
-X-Inumbo-ID: d911e056-9467-11ea-b07b-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=rfNj=62=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1jYXCw-00011U-VZ
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 15:52:39 +0000
+X-Inumbo-ID: 9a465e82-9468-11ea-b9cf-bc764e2007e4
+Received: from mail-lf1-x129.google.com (unknown [2a00:1450:4864:20::129])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d911e056-9467-11ea-b07b-bc764e2007e4;
- Tue, 12 May 2020 15:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589298434;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=1oxtECHPG/0CvmNLFoQ1Z0B2TgsYdj1TGNyduqlHtec=;
- b=OwJBGNGKawrkcW/bWPvHQ8TtMv5CZnYQFfUDmYX7vjjSZeKRTntbpXXf
- ge3rAnz8+zDvZvuFmqyZ/MEXF4+yBrJJyDs7TJmmUzQ9tshRRfLPqt8Gk
- Dkfcn7oK6zeruNg+77w+9ufRmk84NoqWu5Y1YwisCIji8I6Zka59CqD/T 8=;
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- George.Dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=George.Dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: mIzLOdDsRl7Fk+E4TpFYhzCJp1P8MgjH0zxxr7bJZMq93nUR/KqO7iJrKh92AC48mhaW+wTLtf
- BIMciGu8NI1yUjq+i5Oi1T1YFqo99GUz+w+tDHyBM1gpd9yUl3O2+nzQFoqegep0pqMAiBipen
- huqBLN9y7qGQMZfDnAvqHb90PDFaSvNwVX2UxTFbmN+BPRVwAbyHUEbNC+FJjkyXVOwBQPAs3l
- RutdmcA9vwlANYu/w91mnLiRqioAgj9KxVua2b8LwjXxqh/15lKETUmoaLYGJn9I5iX7KDQJ4S
- Qvg=
-X-SBRS: 2.7
-X-MesageID: 17355183
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,384,1583211600"; d="scan'208";a="17355183"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Subject: Re: [PATCH 2/3] golang/xenlight: init xenlight go module
-Thread-Topic: [PATCH 2/3] golang/xenlight: init xenlight go module
-Thread-Index: AQHWHzfMuMNvM1D6EUuQ5HJvPIpidKikdZCAgAAILACAAAt9gA==
-Date: Tue, 12 May 2020 15:47:09 +0000
-Message-ID: <AC8F9121-EA81-4461-A963-F195BE2C070A@citrix.com>
-References: <cover.1588282027.git.rosbrookn@ainfosec.com>
- <c38afab85d9fc005edade229896008a4ad5a1929.1588282027.git.rosbrookn@ainfosec.com>
- <3ED0B49D-123C-4925-B3A0-4FA0B44DF9F0@citrix.com>
- <CAEBZRSdWCJo9kBnNv6Jqt76E3fb8DDX6C4zndMtvrhngEzGHxg@mail.gmail.com>
-In-Reply-To: <CAEBZRSdWCJo9kBnNv6Jqt76E3fb8DDX6C4zndMtvrhngEzGHxg@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4D4FC0C147D761449A6F7E39CA16AC2A@citrix.com>
-Content-Transfer-Encoding: base64
+ id 9a465e82-9468-11ea-b9cf-bc764e2007e4;
+ Tue, 12 May 2020 15:52:38 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id a4so10979626lfh.12
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2020 08:52:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Rw2zspztliujrBSlCejt1mULr8uYRGTb7Bs3TU+w8Z4=;
+ b=DlzrmPO/lXQL8s3PQpz9yZUQ/kMmbfebLxIQtdayfZTmfrJq2ziKiDUmj3vgv0160E
+ cjthc958h06SS/n5GCmfGiFTyCAmwFQGngGmYQmLTLGsC/J6y2/2a0ocv0QLs3zfa+fh
+ KMN9FoQZYqNS63xZBya4f556kej/aDiOogIlpAJleO6+iEtNzCnrin8k0JLP0rC9xoWi
+ Eqz9gKKq/7CeVuSU6036v5ZRKwlUzj6VJQDVTrokuj5mN/2lm/t/LM9nW+lOqVtgOJ9S
+ UHvdUPfE4PeGnuxupSaM8zUKIto7u29YZnJPRgIMz+duGInRW/mUTf03yZU5KZ0o1HvO
+ /RKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Rw2zspztliujrBSlCejt1mULr8uYRGTb7Bs3TU+w8Z4=;
+ b=KzWbDL69J8vll3Zq9uyedVYCuF4GeffkMsdRc5mERH9K+a1ODQV3QzVGYNI+jNch0T
+ HuaB87voeMKT/h1kJXiCWVSM0ShqBB/H6T4cs8yMBX0qgeg04dD+u05PRQUmIr21tK/w
+ AOFB284LpJ1ec5JQlQ4c2iQpc4DKS9zo2McTkoNsvRMEklYUpWC1n4/GxzBiqO+vpPg6
+ CFlyjO0+fKRGy4WjN/aiRc1pjedhKdBP8IglTwU6QmbDirAETO/bXE9DTgLatwj7TbFB
+ lywf2ICfXOU/f1HOC118/CWspw/dX/fEoBj+A4tjhaX3917nUmJcMaltBFK9sHy3AM1M
+ fBPA==
+X-Gm-Message-State: AOAM530M4dzILmH5Hdlq3Szrnt2BOp/myB6RdpOCWMW5w3s0toIasYpC
+ 3sMoXeiFgspP/kuLRznSlOzemZKABRPzr+Zoti4=
+X-Google-Smtp-Source: ABdhPJxqQtqYiVUb1/vgFN7Zs7KiVWVWysMEQmDL+qno6j0+R718FBCMjY6VyN2yLopkBC8YxUCD5AFxrxIPXz4dVXE=
+X-Received: by 2002:a19:e041:: with SMTP id g1mr14519604lfj.70.1589298756903; 
+ Tue, 12 May 2020 08:52:36 -0700 (PDT)
 MIME-Version: 1.0
+References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
+ <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+ <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
+ <4b90b635-84bb-e827-d52e-dfe1ebdb4e4d@citrix.com>
+ <814db557-4f6a-020d-9f71-4ee3724981e3@suse.com>
+In-Reply-To: <814db557-4f6a-020d-9f71-4ee3724981e3@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 12 May 2020 11:52:25 -0400
+Message-ID: <CAKf6xps0XDRTUJsbE1zHpn=h98yTN+Y1DzaNpVGzhhJGVccRRw@mail.gmail.com>
+Subject: Re: use of "stat -"
+To: Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,27 +68,79 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Ian Jackson <Ian.Jackson@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gTWF5IDEyLCAyMDIwLCBhdCA0OjA2IFBNLCBOaWNrIFJvc2Jyb29rIDxyb3Nicm9v
-a25AZ21haWwuY29tPiB3cm90ZToNCj4gDQo+IFtDQVVUSU9OIC0gRVhURVJOQUwgRU1BSUxdIERP
-IE5PVCByZXBseSwgY2xpY2sgbGlua3MsIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBo
-YXZlIHZlcmlmaWVkIHRoZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZS4NCj4g
-DQo+IE9uIFR1ZSwgTWF5IDEyLCAyMDIwIGF0IDEwOjM2IEFNIEdlb3JnZSBEdW5sYXAgPEdlb3Jn
-ZS5EdW5sYXBAY2l0cml4LmNvbT4gd3JvdGU6DQo+PiANCj4+IA0KPj4gDQo+Pj4gT24gQXByIDMw
-LCAyMDIwLCBhdCAxMDozOSBQTSwgTmljayBSb3Nicm9vayA8cm9zYnJvb2tuQGdtYWlsLmNvbT4g
-d3JvdGU6DQo+Pj4gDQo+Pj4gK21vZHVsZSB4ZW5iaXRzLnhlbi5vcmcvZ2l0LWh0dHAveGVuLmdp
-dC90b29scy9nb2xhbmcveGVubGlnaHQNCj4+IA0KPj4gVGhpcyBzaG91bGQgcHJvYmFibHkgYmUg
-cy94ZW4veGVucHJvamVjdC87DQo+IA0KPiBBRkFJQ1QsIHRoYXQncyB0aGUgY29ycmVjdCBVUkws
-IGUuZy4gWzFdIGFuZCBbMl0uIEFtIEkgbWlzc2luZyBzb21ldGhpbmc/DQoNCkZvciB0cmFkZW1h
-cmsgcmVhc29ucywgd2hlbiB3ZSBqb2luZWQgdGhlIExpbnV4IEZvdW5kYXRpb24sIHdlIGRpZCBh
-IGJpZyByZWJyYW5kaW5nIGZyb20g4oCcWGVu4oCdIHRvIOKAnFhlblByb2plY3TigJ0uICAoU2Vl
-IFsxXSBmb3IgbW9yZSBkZXRhaWxzLikgIFRoZSB4ZW4ub3JnIGRvbWFpbnMgYXJlIGp1c3QgZm9y
-IGJhY2t3YXJkcyBjb21wYXRpYmlsaXR5LiA6LSkNCg0KLUdlb3JnZQ0KDQpbMV0gaHR0cHM6Ly94
-ZW5wcm9qZWN0Lm9yZy8yMDEzLzA0LzE3L3VwY29taW5nLWNoYW5nZXMtdG8tdGhlLXhlbi13ZWJz
-aXRlcy8NCg0K
+On Tue, May 12, 2020 at 10:59 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 12.05.2020 16:47, Andrew Cooper wrote:
+> > On 12/05/2020 15:33, Jan Beulich wrote:
+> >> On 12.05.2020 16:19, Wei Liu wrote:
+> >>> On Tue, May 12, 2020 at 12:58:46PM +0200, Jan Beulich wrote:
+> >>>> now that I've been able to do a little bit of work from the office
+> >>>> again, I've run into a regression from b72682c602b8 "scripts: Use
+> >>>> stat to check lock claim". On one of my older machines I've noticed
+> >>>> guests wouldn't launch anymore, which I've tracked down to the
+> >>>> system having an old stat on it. Yes, the commit says the needed
+> >>>> behavior has been available since 2009, but please let's not forget
+> >>>> that we continue to support building with tool chains from about
+> >>>> 2007.
+
+Sorry for regressing your old system setup.  Out of curiosity, what OS
+version are you using?
+
+> >>>> Putting in place and using newer tool chain versions without
+> >>>> touching the base distro is pretty straightforward. Replacing the
+> >>>> coreutils package isn't, and there's not even an override available
+> >>>> by which one could point at an alternative one. Hence I think
+> >>>> bumping the minimum required versions of basic tools should be
+> >>>> done even more carefully than bumping required tool chain versions
+> >>>> (which we've not dared to do in years). After having things
+> >>>> successfully working again with a full revert, I'm now going to
+> >>>> experiment with adapting behavior to stat's capabilities. Would
+> >>>> something like that be acceptable (if it works out)?
+> >>> Are you asking for reverting that patch?
+> >> Well, I assume the patch has its merits, even if I don't really
+> >> understand what they are from its description.
+> >
+> > What is in any away unclear about the final paragraph in the commit message?
+>
+> This being the last sentence instead of the first (or even the
+> subject) makes it look like this is a nice side effect, not
+> like this was the goal of the change.
+
+I see how the motivation wasn't conveyed properly in the commit
+message.  It was captured in the cover letter, but that doesn't make
+it into the repo. :(
+
+> >> I'm instead asking
+> >> whether something like the below (meanwhile tested) would be
+> >> acceptable.
+> >
+> > Not really, seeing as removing perl was the whole point.
+>
+> The suggested change doesn't re-introduce a runtime dependency on
+> Perl, _except_ on very old systems.
+
+Yes, the runtime detection looks okay.  However, Ian may not like
+testing `stat -` since he previously disliked the extra overhead of
+calling sed.
+
+v1 of the patchset created a dedicated C utility, but Ian preferred
+using stat(1).
+
+Qubes uses a different approach to remove perl to bypass stat-ing the
+FD.  "Use plain flock on open FD. This makes the locking mechanism not
+tolerate removing the lock file once created."
+https://github.com/QubesOS/qubes-vmm-xen/blob/xen-4.13/patch-tools-hotplug-drop-perl-usage-in-locking-mechanism.patch
+ So they have lockfiles persist even when no process holds the lock.
+
+I was just looking to remove perl since it's a large dependency for
+this single use.  I'm not tied to a particular approach.
+
+Regards,
+Jason
 
