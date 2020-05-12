@@ -2,64 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6699F1CEB9C
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 05:41:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A1C31CEB9D
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 05:41:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYLm2-0003vf-2S; Tue, 12 May 2020 03:40:06 +0000
+	id 1jYLm6-000417-BB; Tue, 12 May 2020 03:40:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rfNj=62=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jYLlz-0003bO-S4
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 03:40:03 +0000
-X-Inumbo-ID: 43668558-9402-11ea-b07b-bc764e2007e4
-Received: from mail-qt1-x844.google.com (unknown [2607:f8b0:4864:20::844])
+ id 1jYLm4-000410-S8
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 03:40:08 +0000
+X-Inumbo-ID: 45cf3aba-9402-11ea-b07b-bc764e2007e4
+Received: from mail-qv1-xf42.google.com (unknown [2607:f8b0:4864:20::f42])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 43668558-9402-11ea-b07b-bc764e2007e4;
- Tue, 12 May 2020 03:40:03 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id l1so6456716qtp.6
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2020 20:40:03 -0700 (PDT)
+ id 45cf3aba-9402-11ea-b07b-bc764e2007e4;
+ Tue, 12 May 2020 03:40:07 +0000 (UTC)
+Received: by mail-qv1-xf42.google.com with SMTP id r3so5788571qvm.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2020 20:40:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=TplU775Hdr/fV2y9OYZMwvrtT2WBw0Ib2Gh0FHeM5+k=;
- b=gckY5BnnwAUYllb5uQrbl+92MqXXVKscqygtsrdF00NV2+Gtb4cRGmo/Rd6rlaX7YT
- 0S7MOTrxfbGh2vqvhtKQbKlQJDXSfx/MAokwmOpFmPao7d8NilYNqDZq2zzPiPGrqN6K
- /ycPwnnndTSCr0i2SsoX1oASl5Wr0daazE2WX+UIFoTM2bqVezG24iJpayYnX7zSxao0
- 4ycn0jWatpvbwidl7s/Lv5u3KwPdfCwSKILntaz2mOqHS4p/XsqTewQMsULxwEun0Tw/
- Qyl0XWL/SQ0Em34UYswwoWqT2XKw9lIFZVcJxXYTUgJFU7YFO3v8i90CItNBwANPVyNB
- 4w3A==
+ bh=fUSe4sPjrvSj8MkkBiwu4oYkVAy7jThrwleho5JbiVw=;
+ b=c1M1X3dPW7QnQPjbFpKT7WhAdgxtg4rq9TM7hm5+PSgae+tVgAk0JBMT0ZwBeSwujK
+ uZfh4bYl2V9rpND3rgVchQd6asXnmTwXhhbOxY8XbY93n443iKWwfzsZuihjsdwA21mZ
+ s0xTpK8fDNciZg078A4XzJTMyhk+SpbAogyy/sr6+UFhHR5/GAQ6gXDsDDxUC8eorjaq
+ QPW5lIF7S6arOwtLmGa0T/l4vQJAhS6SoelNd/BBPhKg2qV4P1rP2gKaUyALEejJp0gZ
+ QnInLjfLJjP9Y6LcywP4p/bc9FCcHOxPF4HnQ63li6GccJS1FMtt6k8WDtO8BsEt7wDa
+ vtOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=TplU775Hdr/fV2y9OYZMwvrtT2WBw0Ib2Gh0FHeM5+k=;
- b=PUe/Js7Fbq4K0KGF/mF77gId+MGEIA/FkAze4zg4oQBBGrPeAYOQ/I6YdtdIhG2pp5
- XyduBwS3OoroHhsKi6yA2I5Ya59RT/abxnBrcMMdthOAJ7U17n4yRoXCJKRZ7TkxrJuD
- FddgRa2+CjZ+8j1Bk+Y72DudR4Q07yTZ/hrjiYiaIj+cd0bq6C3sqP27vlzRqiXNUPt/
- 3swIFT9NNnzrL3lCKYxWytSzB5GDmwEK98U/crdGj2A7K8da7tKNeF7Udh/InEZlQ1yL
- HBlo/BVG2WHOt+wsGJHUceXmPn0pXh+fZjh9nhI9JmL85yCP+ZbbVf9Qq+9i+ZkHR/Wv
- F3VQ==
-X-Gm-Message-State: AOAM531y3jOx/quJ5Mt+3vZk/k2QfH+USI92Jz3gVUGPMzf3Feyaf2iS
- pFBmDLTVnxOsMhJ4kWds00S6hjkz
-X-Google-Smtp-Source: ABdhPJxksLm506g3irhARDNGuFxiKZEuL2rKK24I53mzUFs+9NDpOEw1QuymX/3Ne+YML3mL95C9FQ==
-X-Received: by 2002:ac8:227d:: with SMTP id p58mr574088qtp.180.1589254802410; 
- Mon, 11 May 2020 20:40:02 -0700 (PDT)
+ bh=fUSe4sPjrvSj8MkkBiwu4oYkVAy7jThrwleho5JbiVw=;
+ b=Iy6yKbE4zJDwdR9NwlSjTJzWRhzXF+6Nj11GfGsgWEyS2ouzTv/nqWGUP4QkEScg4N
+ xTyIsMVwWUwWwEAdsb2wS5NaxmwmAPPmJBKAedQeDNlDWDrxvgYxEYAadfk7jDlg69ws
+ d/2Si5u2sKm42g0eG/vciqRiPf4UhXoDfxNpUlenEH7mxqq6fQzqyFu/SEAZvCH4To4J
+ jbHIl9BUE3hzV79lW+zvLQldh7anHbJvesRZwyfv/erKg+TGVdmPveNq+wWNR/7T4Rw9
+ E1V4Lx8UPNigDcl9B2IcsIUnFdHjfa5RYqPi/rI1QBKA3tNNLmtcDKXcSwu8bIs+YgAi
+ kihA==
+X-Gm-Message-State: AGi0PubRqJmInhCW1Fpbd3Z6S7WEKKbdUs2Ab6+hrX8GHAToEmMfnmmo
+ EDtdStNgAvzzXEmENyPIFyrFE6Np
+X-Google-Smtp-Source: APiQypLRzxmHa0L58r2SmRhhbfGpiE9hN1MiCxm5pUopE/A9Pmr4BwSf/4tYae5vzJKjB77AHsPb2w==
+X-Received: by 2002:ad4:548b:: with SMTP id q11mr18798391qvy.129.1589254806451; 
+ Mon, 11 May 2020 20:40:06 -0700 (PDT)
 Received: from shine.lan ([2001:470:8:67e:54fc:f6ff:ea10:3d73])
- by smtp.gmail.com with ESMTPSA id w35sm1107092qtk.51.2020.05.11.20.40.01
+ by smtp.gmail.com with ESMTPSA id w35sm1107092qtk.51.2020.05.11.20.40.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2020 20:40:01 -0700 (PDT)
+ Mon, 11 May 2020 20:40:05 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 1/2] xen/x86: Disable fcf-protection when necessary to build
-Date: Mon, 11 May 2020 23:39:47 -0400
-Message-Id: <20200512033948.3507-2-jandryuk@gmail.com>
+Subject: [PATCH 2/2] x86/boot: Drop .note.gnu.properties in build32.lds
+Date: Mon, 11 May 2020 23:39:48 -0400
+Message-Id: <20200512033948.3507-3-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200512033948.3507-1-jandryuk@gmail.com>
 References: <20200512033948.3507-1-jandryuk@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -78,44 +77,42 @@ Cc: Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ubuntu gcc-9 enables -fcf-protection by default, which conflicts with
--mindirect-branch=extern and prevents building the hypervisor with
-CONFIG_INDIRECT_THUNK:
-xmalloc.h:81:1: error: ‘-mindirect-branch’ and ‘-fcf-protection’ are not
-compatible
+reloc.S and cmdline.S as arrays of executable bytes for inclusion in
+head.S generated from compiled object files.  Object files generated by
+an -fcf-protection toolchain include a .note.gnu.property section.  The
+way reloc.S and cmdline.S are generated, the bytes of .note.gnu.property
+become the start of the .S files.  When head.S calls reloc or
+cmdline_parse_early, those note bytes are executed instead of the
+intended .text section.  This results in an early crash in reloc.
 
-Detect this incompatible combination, and add -fcf-protection=none to
-allow the build to succeed.  To actually generated the error, the
-compiled program must include a function.
+Discard the .note.gnu.property section when linking to avoid the extra
+bytes.
+
+Stefan Bader also noticed that build32.mk requires -fcf-protection=none
+or else the hypervisor will not boot.
+https://bugs.launchpad.net/ubuntu/+source/gcc-9/+bug/1863260
 
 CC: Stefan Bader <stefan.bader@canonical.com>
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- xen/arch/x86/arch.mk | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ xen/arch/x86/boot/build32.lds | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
-index 2a51553edb..3aa6ce521a 100644
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -63,7 +63,16 @@ CFLAGS += -mno-red-zone -fpic -fno-asynchronous-unwind-tables
- CFLAGS += -mno-sse $(call cc-option,$(CC),-mskip-rax-setup)
- 
- # Compile with thunk-extern, indirect-branch-register if avaiable.
--CFLAGS-$(CONFIG_INDIRECT_THUNK) += -mindirect-branch=thunk-extern
-+# Some versions of gcc error: "‘-mindirect-branch’ and ‘-fcf-protection’ are
-+# not compatible".  For those, we need to disable cf-protection with
-+# -fcf-protection=none
-+cc-mindirect-branch = $(shell if test -n "`echo 'void foo(void) {};' | \
-+      LANG=C $(CC) -mindirect-branch=thunk-extern -S -o /dev/null -x c - 2>&1 | \
-+      grep -- '-mindirect-branch.*-fcf-protection.*are not compatible' -`"; \
-+    then echo "-mindirect-branch=thunk-extern -fcf-protection=none"; \
-+    else echo "-mindirect-branch=thunk-extern"; fi ;)
-+
-+CFLAGS-$(CONFIG_INDIRECT_THUNK) += $(call cc-mindirect-branch)
- CFLAGS-$(CONFIG_INDIRECT_THUNK) += -mindirect-branch-register
- CFLAGS-$(CONFIG_INDIRECT_THUNK) += -fno-jump-tables
- 
+diff --git a/xen/arch/x86/boot/build32.lds b/xen/arch/x86/boot/build32.lds
+index da35aee910..0f69765579 100644
+--- a/xen/arch/x86/boot/build32.lds
++++ b/xen/arch/x86/boot/build32.lds
+@@ -48,5 +48,10 @@ SECTIONS
+          * Please check build32.mk for more details.
+          */
+         /* *(.got.plt) */
++        /*
++         * The note will end up before the .text section and be called
++         * incorrectly as instructions.
++         */
++        *(.note.gnu.property)
+   }
+ }
 -- 
 2.25.1
 
