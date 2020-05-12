@@ -2,108 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9D9E1CF707
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 16:24:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D2B1CF72F
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2020 16:32:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYVpq-00012R-E0; Tue, 12 May 2020 14:24:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EIy0=62=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jYVpp-00012M-Oz
- for xen-devel@lists.xenproject.org; Tue, 12 May 2020 14:24:41 +0000
-X-Inumbo-ID: 4d07e23c-945c-11ea-a2b3-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4d07e23c-945c-11ea-a2b3-12813bfff9fa;
- Tue, 12 May 2020 14:24:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=egfCiy+/i6Rmg0gvXEd1VNjrXot/V4F8Wr32zLfaZ6I=; b=csPFE84NEdi2R649M26UB2O06
- RYHzbgXCI2Ndjj3jZzl5+TeoxPPsAdUxRTskVv9k9u4aa9FVCGDxGJWtPaZSQUdYYkKoZuqPr7eeH
- AOW6Ygs6OddW9mWMvXPzQzMr+zhlPk6OiQJmf7wdHJugh6rtr17gaHHKp1Xj2GClz229M=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jYVpg-0008N0-UI; Tue, 12 May 2020 14:24:32 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jYVpg-0006BV-Hi; Tue, 12 May 2020 14:24:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jYVpg-0005o4-H3; Tue, 12 May 2020 14:24:32 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150143-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jYVwV-0001tr-65; Tue, 12 May 2020 14:31:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qSkR=62=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jYVwT-0001tm-Hz
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2020 14:31:33 +0000
+X-Inumbo-ID: 465d0268-945d-11ea-ae69-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 465d0268-945d-11ea-ae69-bc764e2007e4;
+ Tue, 12 May 2020 14:31:32 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 4F718AD03;
+ Tue, 12 May 2020 14:31:34 +0000 (UTC)
+Subject: Re: [PATCH 12/16] x86/extable: Adjust extable handling to be shadow
+ stack compatible
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
+ <20200501225838.9866-13-andrew.cooper3@citrix.com>
+ <1e80c672-9308-f7ad-67ea-69d83d69bc03@suse.com>
+ <974f631e-3a82-3da4-124d-f4bf2bef89e2@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <59fcdaf0-f877-7a90-9bf4-9e41b1bbcea7@suse.com>
+Date: Tue, 12 May 2020 16:31:31 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 150143: tolerable FAIL - PUSHED
-X-Osstest-Failures: linux-5.4:test-amd64-amd64-xl-rtds:guest-saverestore:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-X-Osstest-Versions-This: linux=f015b86259a520ad886523d9ec6fdb0ed80edc38
-X-Osstest-Versions-That: linux=592465e6a54ba8104969f3b73b58df262c5be5f5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 12 May 2020 14:24:32 +0000
+In-Reply-To: <974f631e-3a82-3da4-124d-f4bf2bef89e2@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,275 +49,119 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150143 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150143/
+On 11.05.2020 23:09, Andrew Cooper wrote:
+> On 07/05/2020 14:35, Jan Beulich wrote:
+>> On 02.05.2020 00:58, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/traps.c
+>>> +++ b/xen/arch/x86/traps.c
+>>> @@ -778,6 +778,28 @@ static bool exception_fixup(struct cpu_user_regs *regs, bool print)
+>>>                 vec_name(regs->entry_vector), regs->error_code,
+>>>                 _p(regs->rip), _p(regs->rip), _p(fixup));
+>>>  
+>>> +    if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
+>>> +    {
+>>> +        unsigned long ssp;
+>>> +
+>>> +        asm ("rdsspq %0" : "=r" (ssp) : "0" (1) );
+>>> +        if ( ssp != 1 )
+>>> +        {
+>>> +            unsigned long *ptr = _p(ssp);
+>>> +
+>>> +            /* Search for %rip in the shadow stack, ... */
+>>> +            while ( *ptr != regs->rip )
+>>> +                ptr++;
+>> Wouldn't it be better to bound the loop, as it shouldn't search past
+>> (strictly speaking not even to) the next page boundary? Also you
+>> don't care about the top of the stack (being the to be restored SSP),
+>> do you? I.e. maybe
+>>
+>>             while ( *++ptr != regs->rip )
+>>                 ;
+>>
+>> ?
+>>
+>> And then - isn't searching for a specific RIP value alone prone to
+>> error, in case a it matches an ordinary return address? I.e.
+>> wouldn't you better search for a matching RIP accompanied by a
+>> suitable pointer into the shadow stack and a matching CS value?
+>> Otherwise, ...
+>>
+>>> +            ASSERT(ptr[1] == __HYPERVISOR_CS);
+>> ... also assert that ptr[-1] points into the shadow stack?
+> 
+> So this is the problem I was talking about that the previous contexts
+> SSP isn't stored anywhere helpful.
+> 
+> What we are in practice doing is looking 2 or 3 words up the shadow
+> stack (depending on exactly how deep our call graph is), to the shadow
+> IRET frame matching the real IRET frame which regs is pointing to.
+> 
+> Both IRET frames were pushed in the process of generating the exception,
+> and we've already matched regs->rip to the exception table record.  We
+> need to fix up regs->rip and the shadow lip to the fixup address.
+> 
+> As we are always fixing up an exception generated from Xen context, we
+> know that ptr[1] == __HYPERVISOR_CS, and *ptr[-1] = &ptr[2], as we
+> haven't switched shadow stack as part of taking this exception. 
+> However, this second point is fragile to exception handlers moving onto IST.
+> 
+> We can't encounter regs->rip in the shadow stack between the current SSP
+> and the IRET frame we're looking to fix up, or we would have taken a
+> recursive fault and not reached exception_fixup() to begin with.
 
-Failures :-/ but no regressions.
+I'm afraid I don't follow here. Consider a function (also)
+involved in exception handling having this code sequence:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-rtds     15 guest-saverestore            fail  like 150086
- test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat    fail  like 150086
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
- test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
- test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
- test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+    call    func
+    mov     (%rax), %eax
 
-version targeted for testing:
- linux                f015b86259a520ad886523d9ec6fdb0ed80edc38
-baseline version:
- linux                592465e6a54ba8104969f3b73b58df262c5be5f5
+If the fault we're handling occured on the MOV and
+exception_fixup() is a descendant of func(), then the first
+instance of an address on the shadow stack pointing at this
+MOV is going to be the one which did not fault.
 
-Last test of basis   150104  2020-05-09 09:48:15 Z    3 days
-Testing same since   150122  2020-05-10 08:40:44 Z    2 days    4 attempts
+> Therefore, the loop is reasonably bounded in all cases.
+> 
+> Sadly, there is no RDSS instruction, so we can't actually use shadow
+> stack reads to spot if we underflowed the shadow stack, and there is no
+> useful alternative to panic() if we fail to find the shadow IRET frame.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Aaron Ma <aaron.ma@canonical.com>
-  AceLan Kao <acelan.kao@canonical.com>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alex Elder <elder@linaro.org>
-  Alexei Starovoitov <ast@kernel.org>
-  Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrii Nakryiko <andriin@fb.com>
-  Andrzej Hajda <a.hajda@samsung.com>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Andy Yan <andy.yan@rock-chips.com>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Bjorn Andersson <bjorn.andersson@linaro.org>
-  Brendan Higgins <brendanhiggins@google.com>
-  Brian Cain <bcain@codeaurora.org>
-  Catalin Marinas <catalin.marinas@arm.com>
-  Chanwoo Choi <cw00.choi@samsung.com>
-  Christoph Hellwig <hch@lst.de>
-  David S. Miller <davem@davemloft.net>
-  Doug Berger <opendmb@gmail.com>
-  Felipe Balbi <balbi@kernel.org>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Hans de Goede <hdegoede@redhat.com>
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Jere Leppänen <jere.leppanen@nokia.com>
-  Jeremie Francois (on alpha) <jeremie.francois@gmail.com>
-  Jia He <justin.he@arm.com>
-  Jiri Slaby <jslaby@suse.cz>
-  Johannes Berg <johannes.berg@intel.com>
-  Julien Beraud <julien.beraud@orolia.com>
-  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-  Lee Jones <lee.jones@linaro.org>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Luis Chamberlain <mcgrof@kernel.org>
-  Madhuparna Bhowmik <madhuparnabhowmik10@gmail.com>
-  Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
-  Marek Szyprowski <m.szyprowski@samsung.com>
-  Mark Brown <broonie@kernel.org>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Matt Roper <matthew.d.roper@intel.com>
-  Matthias Blankertz <matthias.blankertz@cetitec.com>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael S. Tsirkin <mst@redhat.com>
-  Mika Westerberg <mika.westerberg@linux.intel.com>
-  Nathan Chancellor <natechancellor@gmail.com>
-  Nick Desaulniers <ndesaulniers@google.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Paulo Alcantara (SUSE) <pc@cjr.nz>
-  Paulo Alcantara <pc@cjr.nz>
-  Pavel Machek <pavel@denx.de>
-  Qian Cai <cai@lca.pw>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Roman Gilg <subdiff@gmail.com>
-  Ronnie Sahlberg <lsahlber@redhat.com>
-  Sandeep Raghuraman <sandy.8925@gmail.com>
-  Sasha Levin <sashal@kernel.org>
-  Sebastian Reichel <sebastian.reichel@collabora.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Steve French <stfrench@microsoft.com>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
-  Takashi Iwai <tiwai@suse.de>
-  Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-  Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-  Thinh Nguyen <thinhn@synopsys.com>
-  Thomas Pedersen <thomas@adapt-ip.com>
-  Tuowen Zhao <ztuowen@gmail.com>
-  Tyler Hicks <tyhicks@linux.microsoft.com>
-  Vamshi K Sthambamkadi <vamshi.k.sthambamkadi@gmail.com>
-  Will Deacon <will@kernel.org>
-  Willem de Bruijn <willemb@google.com>
-  Xin Tan <tanxin.ctf@gmail.com>
-  Xiyu Yang <xiyuyang19@fudan.edu.cn>
-  Zhan Liu <zhan.liu@amd.com>
+But afaics you don't panic() in this case. Instead you continue
+looping until (presumably) you hit some form of fault.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+>>> --- a/xen/arch/x86/x86_64/entry.S
+>>> +++ b/xen/arch/x86/x86_64/entry.S
+>>> @@ -708,7 +708,16 @@ exception_with_ints_disabled:
+>>>          call  search_pre_exception_table
+>>>          testq %rax,%rax                 # no fixup code for faulting EIP?
+>>>          jz    1b
+>>> -        movq  %rax,UREGS_rip(%rsp)
+>>> +        movq  %rax,UREGS_rip(%rsp)      # fixup regular stack
+>>> +
+>>> +#ifdef CONFIG_XEN_SHSTK
+>>> +        mov    $1, %edi
+>>> +        rdsspq %rdi
+>>> +        cmp    $1, %edi
+>>> +        je     .L_exn_shstk_done
+>>> +        wrssq  %rax, (%rdi)             # fixup shadow stack
+>>> +.L_exn_shstk_done:
+>>> +#endif
+>> Again avoid the conditional jump by using alternatives patching?
+> 
+> Well - that depends on whether we're likely to gain any new content in
+> the pre exception table.
+> 
+> As it stands, it is only the IRET(s) to userspace so would be safe to
+> turn this into an unconditional alternative.  Even in the crash case, we
+> won't be returning to guest context after having started the crash
+> teardown path.
 
+Ah, right - perhaps indeed better keep it as is then.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   592465e6a54b..f015b86259a5  f015b86259a520ad886523d9ec6fdb0ed80edc38 -> tested/linux-5.4
+Jan
 
