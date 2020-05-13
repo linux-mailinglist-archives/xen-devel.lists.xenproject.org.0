@@ -2,60 +2,80 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3B71D1271
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 14:15:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD7921D1275
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 14:16:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYqIR-0006kS-A2; Wed, 13 May 2020 12:15:35 +0000
+	id 1jYqJ6-0006nI-JJ; Wed, 13 May 2020 12:16:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WltO=63=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jYqIQ-0006jw-0Q
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 12:15:34 +0000
-X-Inumbo-ID: 7151536e-9513-11ea-ae69-bc764e2007e4
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
+ <SRS0=cxQB=63=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jYqJ4-0006nA-PE
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 12:16:14 +0000
+X-Inumbo-ID: 899c59aa-9513-11ea-b9cf-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7151536e-9513-11ea-ae69-bc764e2007e4;
- Wed, 13 May 2020 12:15:33 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id d22so7392804lfm.11
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2020 05:15:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=L2W0uFkc6QuntFU2EHPcjPAwaJRKQKlwXVXdAgoHTP0=;
- b=fd1wzFqtuIvhYUrrKQwhIQ4+VgL0IRgAwDsUCefB8A2yZJVGSdB/gDpX0fC+Ea+uAk
- KXI+VJIyitEf6o3sxeVCTSgcx+p7ztx8Vkq7KJc4wfziu0r8tQgndRuddvR5CWfHv09k
- uJLsTxR6uR9l9YH7b9lGavpdaxr0ucccZrrNFc6QZg0JFAe2ngRbKpVuw0RkSJINQghu
- BK3LKCwJW5zb+6Xt2Ph064J5e+tXth4q7bJLgFrdlcljlV+qgdsY6HcM0BmztU9p9CRc
- dGtyfA1nSyP7yBYRBreYuD2oXLANtisiMkbd9kadEcJicXm5aLLelXDI2Kdd3rPWsc9o
- rcqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=L2W0uFkc6QuntFU2EHPcjPAwaJRKQKlwXVXdAgoHTP0=;
- b=j+a9G1nQ/FJNkakAieFfddfhHvhNZdHujoUR0cI3DLxaEG/Pn7Lz9rCjhbuEq48Bzt
- IdxebF4DHEQc7mvvGYgtBNQoDjNzp4ubdsZgSe93GefdPpKBBB0PSIn2YqhHy2436WEu
- pxLtWwU9H/ri5ilhWHWqGr3EdgQcUs3gn7f5k5Jwetx8cOUfqQBYGLre/auf+fji6ldd
- n2eJqQX2LWfMu18CGYdtlAvjYG3u/ii3N5PMqRK1H4kE3rk87nIRApi0ENfkJXr0hCaN
- OjVo2o6qn+EQqPLvmUQPVhAznlW7/QaEvowZh7cBEjD6s1dvzpg2kDOHmf87ohCF90WL
- qMZA==
-X-Gm-Message-State: AOAM532aVpBdEsiNA5K8ondSun3zewqqmL18U7W7k7g95FJtzB5HlRmq
- ED1wfT9HwTbgvSulHjyGm6kbyi+9zpOsXba+mao=
-X-Google-Smtp-Source: ABdhPJybBZnjHEZE4zXVStIICNBuWKF1Z3rZqHPHN2GJl9xNaPc9ph9fBC9UOXEcFIL/XZbvu3Mla1o/ZELtz9PdMys=
-X-Received: by 2002:a19:7004:: with SMTP id h4mr16764878lfc.148.1589372132166; 
- Wed, 13 May 2020 05:15:32 -0700 (PDT)
+ id 899c59aa-9513-11ea-b9cf-bc764e2007e4;
+ Wed, 13 May 2020 12:16:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1589372174;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=BOnEEEyVJ3vq0TiTT8o5PI3JhI1X5+lNHauBuJWe2dY=;
+ b=hAuSUAkGhBCVMas7fbhqlgWX8DfPeuIn48fWwdWaGOONLbvwiBuR42j8
+ vQxoANPH7oK4hwT1C4g0xhttB8woD7UJlUVwPm0Ce+BHeQI7HnE0LljsT
+ 5Ch2irs9/1UFMjpihrQSs5tr0BOIR9EBCf/v+mszFc/gLx59A+8G2N7wI s=;
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com;
+ dmarc=pass (p=none dis=none) d=citrix.com
+IronPort-SDR: LL8J8BvYCVxKKQi6T+UAvew6GjLoIY5biqHFTcgf8U4hHdiddOx/EWQzueNSUKDYYheqwqj3gF
+ csyiOGl/Eb4zg+87kRJ3Av6Uquj1sMgVFK/3sdZwId7nOlI1hOwhOZuDni7zUPr4EEEV+eY2w/
+ kmHzqobMBvn7fFxZV5cm5+D3QM5qgBVva/lEXEM6fuFr3c8dgEaoaV6z3Ygnes7CldLah1KRRr
+ +e5QMwJRGqB35dvim6PmQK9EBqdZKwvCREcz6UIkGrZ0gSNQGxF6UnW66AdMb+xVId4SA8YmI3
+ ZQo=
+X-SBRS: 2.7
+X-MesageID: 17677973
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,387,1583211600"; d="scan'208";a="17677973"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] stubdom: Use matching quotes in error message
+Date: Wed, 13 May 2020 13:15:54 +0100
+Message-ID: <20200513121554.15239-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <20200512191116.6851-1-andrew.cooper3@citrix.com>
- <CAKf6xpt-WLVOTaca_FncB4XX0PQ2ZbP6GFWQjinAYex=6mptRA@mail.gmail.com>
- <6b7871d8-903a-20df-4e19-9a6200094aa5@citrix.com>
-In-Reply-To: <6b7871d8-903a-20df-4e19-9a6200094aa5@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 13 May 2020 08:15:19 -0400
-Message-ID: <CAKf6xpv-5gy-eiMN49w99ZpeGzNH5R2x3YmwOR+ZZsnCzb_5Gg@mail.gmail.com>
-Subject: Re: [PATCH] x86/build: Unilaterally disable -fcf-protection
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,37 +86,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefan Bader <stefan.bader@canonical.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan
+ Beulich <JBeulich@suse.com>, Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, May 13, 2020 at 7:01 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->
-> On 13/05/2020 03:35, Jason Andryuk wrote:
-> > [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
-> >
-> > On Tue, May 12, 2020 at 3:11 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
-> >> +# Xen doesn't support CET-IBT yet.  At a minimum, logic is required to
-> >> +# enable it for supervisor use, but the Livepatch functionality needs
-> >> +# to learn not to overwrite ENDBR64 instructions.
-> > Is the problem that existing functions start with ENDBR64, but the
-> > livepatch overwrites with a "real" instruction?
->
-> We livepatch by creating a new complete copy of the function, and
-> putting `jmp new` at the head of the old one.
->
-> This means we don't need to patch every callsite and track every
-> function pointer to the old function, and we can fully revert by
-> replacing the 5 bytes which became `jmp new`.
->
-> With CET-IBT in the mix, livepatch will have to learn to spot an ENDBR64
-> instruction and leave it intact, patching instead the next 5 bytes, so
-> an old function pointer still lands on the ENDBR64 instruction.
+This prevents syntax highlighting from believing the rest of the file is a
+string.
 
-Ah, okay.  Thanks for the explanation.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+---
+ stubdom/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--Jason
+diff --git a/stubdom/Makefile b/stubdom/Makefile
+index 8cf7131c6a..12aa211ac3 100644
+--- a/stubdom/Makefile
++++ b/stubdom/Makefile
+@@ -16,7 +16,7 @@ CFLAGS += -O1 -fno-omit-frame-pointer
+ 
+ ifeq (,$(findstring clean,$(MAKECMDGOALS)))
+   ifeq ($(wildcard $(MINI_OS)/Config.mk),)
+-    $(error Please run `make mini-os-dir' in top-level directory)
++    $(error Please run 'make mini-os-dir' in top-level directory)
+   endif
+   include $(XEN_ROOT)/Config.mk
+ endif
+-- 
+2.11.0
+
 
