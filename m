@@ -2,63 +2,105 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 620411D14B8
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 15:26:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2416E1D1548
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 15:33:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYrOh-0004iU-K9; Wed, 13 May 2020 13:26:07 +0000
+	id 1jYrVj-0005aZ-DC; Wed, 13 May 2020 13:33:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FcTI=63=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1jYrOg-0004iN-Ei
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 13:26:06 +0000
-X-Inumbo-ID: 4c2e3fac-951d-11ea-b07b-bc764e2007e4
-Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
+ <SRS0=hVCK=63=samsung.com=m.szyprowski@srs-us1.protection.inumbo.net>)
+ id 1jYrVg-0005aU-RI
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 13:33:21 +0000
+X-Inumbo-ID: 4db38aca-951e-11ea-b07b-bc764e2007e4
+Received: from mailout2.w1.samsung.com (unknown [210.118.77.12])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4c2e3fac-951d-11ea-b07b-bc764e2007e4;
- Wed, 13 May 2020 13:26:05 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id g4so17791407ljl.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2020 06:26:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=RTqbyGlhscmjLzn7g/8DGPWMuvrDtNhgtAa3qV08SZ0=;
- b=ei41WyYiSus+zwyX1tO/BeILCPH5i/b5h31+gxwcQV5VHpC32sSXCoP/jlGLyrv7fb
- y1gmTQUYTs8WbUS/CTLbSVSrVnm7qQv3PIkRhoZAh+RiHJrP7H2vMtFADWYF22bQ1UPs
- Axj/4SdJTu/MFmhBZNOrW26bwyrCU/+ZCNzG+522aQKq0Ul4+kMdj/i6e32jvQ9uj4/k
- +RkW696B7aDQ8OdwiyOPpckDHElTjXikKWBdXgQ2TBLerbsdQEANHDVDGUY+CmqxmfUf
- I7Bn/sNH/WZ7xmi/KKjMl4hmLe8ugKnQmr61j6q9PjeB+OQrdUCsWTN8fHE+/HuMCPSP
- OD0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=RTqbyGlhscmjLzn7g/8DGPWMuvrDtNhgtAa3qV08SZ0=;
- b=uae+3yxvoH8CvBocJJPybtwLLFpU/83pOfzL+BwfYlTLO+XX8C165XG6YGKGne8N4f
- TEPbr2l0wDXUMBHW2St+tJzVlq9zVALkHe6TBbo/m/wNEYZJteH4uDa1Ich5D/7gmp+Y
- f1VkBtFBk4Dtx7qZCqTdJVXMrHW1y8Nvi07R+wa6WL9Ob/9crxilv5OUzd/xSLDPdFOI
- QqWifGUTiSOU+sVbRCkc2iP5p3sduB0qaiX6rKBv1ZPC5NgXu9Qkohv2o2YvJpXHUqT9
- L3uTslcBlmEm2gJLgLbMJbs6BkErDRlLKFXxVr3lguu6bo4tBXkQ4ANnb6vGX5cz8G7f
- xIMw==
-X-Gm-Message-State: AOAM533QlStim5/tBRtMajpqGwet0Nrs4kIxbt1juiIJJ5DLRmPvFYXC
- BB2LH8TQTLAWZDGuj2V0egD0SbOKu+w66OkZgWU=
-X-Google-Smtp-Source: ABdhPJzMKA10p+Fk1SqXnwruvj6HHbv2oHBEoHQtuMi9psdSo1xwNc4HJAiV3ChlwL7Bdm7d0cx07c4KqRzYdmQLoYA=
-X-Received: by 2002:a2e:8047:: with SMTP id p7mr16362857ljg.206.1589376364439; 
- Wed, 13 May 2020 06:26:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1589330383.git.rosbrookn@ainfosec.com>
- <a42395202aef85d983dd9db361c366a6d03e313f.1589330383.git.rosbrookn@ainfosec.com>
- <AC49E6E7-BB64-4672-94DE-342E3E288C96@citrix.com>
-In-Reply-To: <AC49E6E7-BB64-4672-94DE-342E3E288C96@citrix.com>
-From: Nick Rosbrook <rosbrookn@gmail.com>
-Date: Wed, 13 May 2020 09:25:52 -0400
-Message-ID: <CAEBZRSd1z4RLRzv=drZ=WnR+ZsWTA1u+n4QmbdOZwzmb-+dSrg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] golang/xenlight: add necessary module/package
- documentation
-To: George Dunlap <George.Dunlap@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ id 4db38aca-951e-11ea-b07b-bc764e2007e4;
+ Wed, 13 May 2020 13:33:17 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200513133317euoutp02bdb7dc50e4fba9744f16345f5d49b8e1~OmcaoleoP0033500335euoutp02a
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2020 13:33:17 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20200513133317euoutp02bdb7dc50e4fba9744f16345f5d49b8e1~OmcaoleoP0033500335euoutp02a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1589376797;
+ bh=MxXtwPFeqegif4HlAx0ieDJD2dsgeJX9eJCBPth0NkY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=bPJpgt8VuXkVNgjfyAPOKxkJUOGWc559Au+XESo6RfQLtqDQY8JOsgf+m2WZIWwYV
+ VyPgJJsJFEIg4wSRliVqoQLg7mM/CtatyylMuXap1010xXlGBtKQ4v5n1BptEdBWAM
+ osgilRuadHwJOzoi0xb1nRmw9wTREBJ4rksQm/p0=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200513133316eucas1p14f8338b43b0ca57538811a5d90a84071~OmcaVfN4L2633026330eucas1p1V;
+ Wed, 13 May 2020 13:33:16 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 2F.D8.60698.C17FBBE5; Wed, 13
+ May 2020 14:33:16 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200513133316eucas1p2ad01d27ea4388cb50424bcf112d710ef~OmcaFLccM0359403594eucas1p2m;
+ Wed, 13 May 2020 13:33:16 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200513133316eusmtrp1137b1bc87b13093a87f9bf46333dbe6c~OmcaEjEe81050610506eusmtrp1V;
+ Wed, 13 May 2020 13:33:16 +0000 (GMT)
+X-AuditID: cbfec7f5-a29ff7000001ed1a-ed-5ebbf71c62d2
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 75.47.07950.C17FBBE5; Wed, 13
+ May 2020 14:33:16 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200513133315eusmtip11bd7d51f6d64aee3d21ad3edfd6dd66a~OmcZYTFoT0693306933eusmtip1G;
+ Wed, 13 May 2020 13:33:15 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v5 27/38] xen: gntdev: fix common struct sg_table related
+ issues
+Date: Wed, 13 May 2020 15:32:34 +0200
+Message-Id: <20200513133245.6408-27-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200513133245.6408-1-m.szyprowski@samsung.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA0WSe0hTYRjG+3bO2Y7i7DgNP8wUFxZG3iUPWFYgcgiMKCowMlcevM0pm5eM
+ ILGM3LxUGoqI2YW8rukaGpr3a1iiOXXLiS4vmWRq3qWsHY/Wf7/3eb6H5+XlwxFBO2aHR0ri
+ aalEJBZyzdGazo1eV/u1+hCPe4bDZGbvew5Zna/CyP68NJT8U/MIIbUr81yyrKKDQxY3+ZGF
+ ei9yWWvkkOqJIYwcqCvkksr2UR7ZsjCJkWuaHM4pS6qyqBJQDavFKFW7Oo5RY4ouDvXm5R1q
+ ZGsCoXJ0JYBqW9CiVL0+hUstTn1GqSxNOaBUmkGUWlI7nOMHmx8Po8WRibTU3T/UPCJbPsWL
+ 67e92VltxFJAubUcmOGQ8IGLZYMcOTDHBUQpgJv6up1hGcDswWaMHZYA1Dc2cXcjuVm/AWuU
+ AKgwzgDG2I5U1QcyzCU8oXxOvh2wIdIA7M60YAIIoUDgE2U5xhjWxHmomPq4HUYJZ7ipM6AM
+ 84kTsONrJWDbHGFFVTPCsJlJnzU0oaw+xIOD88EsB8CC9Bc8lq3hbJdmh+1hT04GyhRD4i6A
+ xl4ljx0yABxIzd9p8IOG3k3TqrhpPReoqnNn5dNw/el3wMiQsIS6OStGRkz4uCYPYWU+fHBf
+ wL4+BAu6Xv+rben7hLBMwaKsdS57rDYA+z/UgofAseB/WTEA5cCWTpDFhNMybwmd5CYTxcgS
+ JOFuN2Jj1MD0t3q2ulbegsZf11sBgQOhBX98uD5EgIkSZckxrQDiiNCGf1ZlkvhhouRbtDT2
+ mjRBTMtawX4cFdryvZ9/uyogwkXxdDRNx9HSXZeDm9mlgINWrrj9eNrKZfWyh1E145874lIZ
+ dkFBREmIV8mwBL190X5dOb53ci4p+5JYLTz68wudmhE17Ru6bzQgejpdb/HjnT+tD3w2aiE+
+ aXBwskzUAkuOT1/fMfeyVc2ZCTS7cWzzQNB0qa57bdK5zGmroi8odCOgwderf1geskd5RYjK
+ IkSeRxCpTPQXYGbUzFcDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrOIsWRmVeSWpSXmKPExsVy+t/xu7oy33fHGZzrFLPoPXeSyWLjjPWs
+ Fhent7JY/N82kdniytf3bBYrVx9lsliw39pizk0jiy9XHjJZbHp8jdXi8q45bBZrj9xltzj4
+ 4Qmrxfctk5kc+DzWzFvD6LH32wIWj+3fHrB63O8+zuSxeUm9x+1/j5k9Jt9Yzuhx+MMVFo/d
+ NxvYPD4+vcXi0bdlFaPH+i1XWTw+b5IL4I3SsynKLy1JVcjILy6xVYo2tDDSM7S00DMysdQz
+ NDaPtTIyVdK3s0lJzcksSy3St0vQy+jvespecFG84tjGh6wNjKuEuxg5OSQETCSm9P1l7GLk
+ 4hASWMoo8e/sNCaIhIzEyWkNrBC2sMSfa11sEEWfGCXuX7sJlmATMJToeguREBHoZJSY1v2R
+ HcRhFpjMLPFs9XWwUcICARJT9p9jBrFZBFQlft24wwJi8wrYShx9voYRYoW8xOoNB8BqOIHi
+ r+7sB6sREsiX2Lt4H9sERr4FjAyrGEVSS4tz03OLjfSKE3OLS/PS9ZLzczcxAiNp27GfW3Yw
+ dr0LPsQowMGoxMNrcWt3nBBrYllxZe4hRgkOZiURXr/1QCHelMTKqtSi/Pii0pzU4kOMpkBH
+ TWSWEk3OB0Z5Xkm8oamhuYWlobmxubGZhZI4b4fAwRghgfTEktTs1NSC1CKYPiYOTqkGxivl
+ QdUBSx+8kvJblRct/6Hu3CSZ+Kn/Vvfd3HRj+o3tP47J7LvdPtm2uzhBe5HR6XiLXSWWeTdl
+ +M/PtLE/yvXAZpW0vJzPLrO5bbZ3uZamT7Pf0vMtz5Gx9dc61VeambJ6S3KT+JI+Xlt86KGh
+ 7OJ0Di+N9W7ik3LbHqz6t29169qLykWKbkosxRmJhlrMRcWJABDblfe6AgAA
+X-CMS-MailID: 20200513133316eucas1p2ad01d27ea4388cb50424bcf112d710ef
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20200513133316eucas1p2ad01d27ea4388cb50424bcf112d710ef
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200513133316eucas1p2ad01d27ea4388cb50424bcf112d710ef
+References: <20200513132114.6046-1-m.szyprowski@samsung.com>
+ <20200513133245.6408-1-m.szyprowski@samsung.com>
+ <CGME20200513133316eucas1p2ad01d27ea4388cb50424bcf112d710ef@eucas1p2.samsung.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,26 +111,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Nick Rosbrook <rosbrookn@ainfosec.com>, Jan Beulich <jbeulich@suse.com>,
- Ian Jackson <Ian.Jackson@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> OK, so didn=E2=80=99t notice this at first.  It looks like you read the c=
-omments at the top of libxl.c, noticed the comment about =E2=80=9C...the sp=
-ecial exception on linking described in file LICENSE=E2=80=9D, looked aroun=
-d for such a file, and found it in tools/ocaml, and copied that one?
->
-> I had a chat with Ian Jackson on IRC (copied below for the record), and t=
-hink that comment is simply in error.  We agreed that we should just copy h=
-ttps://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt into the directory ve=
-rbatim.
+The Documentation/DMA-API-HOWTO.txt states that the dma_map_sg() function
+returns the number of the created entries in the DMA address space.
+However the subsequent calls to the dma_sync_sg_for_{device,cpu}() and
+dma_unmap_sg must be called with the original number of the entries
+passed to the dma_map_sg().
 
-Yeah that's what I did. I'll send a corrected patch shortly.
+struct sg_table is a common structure used for describing a non-contiguous
+memory buffer, used commonly in the DRM and graphics subsystems. It
+consists of a scatterlist with memory pages and DMA addresses (sgl entry),
+as well as the number of scatterlist entries: CPU pages (orig_nents entry)
+and DMA mapped pages (nents entry).
 
-Thanks,
--NR
+It turned out that it was a common mistake to misuse nents and orig_nents
+entries, calling DMA-mapping functions with a wrong number of entries or
+ignoring the number of mapped entries returned by the dma_map_sg()
+function.
+
+To avoid such issues, lets use a common dma-mapping wrappers operating
+directly on the struct sg_table objects and use scatterlist page
+iterators where possible. This, almost always, hides references to the
+nents and orig_nents entries, making the code robust, easier to follow
+and copy/paste safe.
+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+For more information, see '[PATCH v5 00/38] DRM: fix struct sg_table nents
+vs. orig_nents misuse' thread:
+https://lore.kernel.org/linux-iommu/20200513132114.6046-1-m.szyprowski@samsung.com/T/
+---
+ drivers/xen/gntdev-dmabuf.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 75d3bb9..ba6cad8 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -247,10 +247,9 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
+ 
+ 		if (sgt) {
+ 			if (gntdev_dmabuf_attach->dir != DMA_NONE)
+-				dma_unmap_sg_attrs(attach->dev, sgt->sgl,
+-						   sgt->nents,
+-						   gntdev_dmabuf_attach->dir,
+-						   DMA_ATTR_SKIP_CPU_SYNC);
++				dma_unmap_sgtable(attach->dev, sgt,
++						  gntdev_dmabuf_attach->dir,
++						  DMA_ATTR_SKIP_CPU_SYNC);
+ 			sg_free_table(sgt);
+ 		}
+ 
+@@ -288,8 +287,8 @@ static void dmabuf_exp_ops_detach(struct dma_buf *dma_buf,
+ 	sgt = dmabuf_pages_to_sgt(gntdev_dmabuf->pages,
+ 				  gntdev_dmabuf->nr_pages);
+ 	if (!IS_ERR(sgt)) {
+-		if (!dma_map_sg_attrs(attach->dev, sgt->sgl, sgt->nents, dir,
+-				      DMA_ATTR_SKIP_CPU_SYNC)) {
++		if (dma_map_sgtable(attach->dev, sgt, dir,
++				    DMA_ATTR_SKIP_CPU_SYNC)) {
+ 			sg_free_table(sgt);
+ 			kfree(sgt);
+ 			sgt = ERR_PTR(-ENOMEM);
+@@ -625,7 +624,7 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
+ 
+ 	/* Now convert sgt to array of pages and check for page validity. */
+ 	i = 0;
+-	for_each_sg_page(sgt->sgl, &sg_iter, sgt->nents, 0) {
++	for_each_sgtable_page(sgt, &sg_iter, 0) {
+ 		struct page *page = sg_page_iter_page(&sg_iter);
+ 		/*
+ 		 * Check if page is valid: this can happen if we are given
+-- 
+1.9.1
+
 
