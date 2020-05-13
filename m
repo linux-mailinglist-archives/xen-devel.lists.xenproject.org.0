@@ -2,45 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 530941D0BED
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 11:23:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB5401D0DE9
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 11:57:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYnb6-0000NR-R7; Wed, 13 May 2020 09:22:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dqM3=63=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jYnb6-0000NM-0g
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 09:22:40 +0000
-X-Inumbo-ID: 49f142b0-94fb-11ea-ae69-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 49f142b0-94fb-11ea-ae69-bc764e2007e4;
- Wed, 13 May 2020 09:22:39 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D3C01AE35;
- Wed, 13 May 2020 09:22:40 +0000 (UTC)
-Subject: Re: [PATCH 12/16] x86/extable: Adjust extable handling to be shadow
- stack compatible
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-13-andrew.cooper3@citrix.com>
- <1e80c672-9308-f7ad-67ea-69d83d69bc03@suse.com>
- <974f631e-3a82-3da4-124d-f4bf2bef89e2@citrix.com>
- <59fcdaf0-f877-7a90-9bf4-9e41b1bbcea7@suse.com>
- <876b7c21-8354-8461-12b2-baf19b0426de@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6c59aafd-77ab-5c89-9c09-1a657e16ed0b@suse.com>
-Date: Wed, 13 May 2020 11:22:32 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <876b7c21-8354-8461-12b2-baf19b0426de@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+	id 1jYo7Y-0002ui-Hk; Wed, 13 May 2020 09:56:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7Rkd=63=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jYo7W-0002ud-Jj
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 09:56:10 +0000
+X-Inumbo-ID: f6597686-94ff-11ea-a348-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f6597686-94ff-11ea-a348-12813bfff9fa;
+ Wed, 13 May 2020 09:56:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=a62biwheoBI6ysfMBsrQn60BIx2zFc34Ox37F90oYY4=; b=YBu1Ua2EeRwE+X7mLT9+hdDOt
+ HSeoKrVjkyLpzRHq/RHAJhsPCLDmfHj5p9Z84xjnryur8zYl8Bxw2YPEEokoeKSPDJw+cgKbRU8EI
+ at6UNgAOTPSGwFduV0tnq05avk0F6pSL9jxt7BmPfEjHdLW8IBHfl65M+zCKnWzxpHj2I=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYo7R-0002pB-Ly; Wed, 13 May 2020 09:56:05 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYo7R-0000am-FA; Wed, 13 May 2020 09:56:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYo7R-0008CI-ET; Wed, 13 May 2020 09:56:05 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150157-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-coverity test] 150157: all pass - PUSHED
+X-Osstest-Versions-This: xen=a82582b1af6a4a57ca53bcfad9f71428cb5f9a54
+X-Osstest-Versions-That: xen=e0d92d9bd7997c6bcda17a19aba4f3957dd1a2e9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 13 May 2020 09:56:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,102 +61,52 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 12.05.2020 18:14, Andrew Cooper wrote:
-> On 12/05/2020 15:31, Jan Beulich wrote:
->> On 11.05.2020 23:09, Andrew Cooper wrote:
->>> On 07/05/2020 14:35, Jan Beulich wrote:
->>>> On 02.05.2020 00:58, Andrew Cooper wrote:
->>>>> --- a/xen/arch/x86/traps.c
->>>>> +++ b/xen/arch/x86/traps.c
->>>>> @@ -778,6 +778,28 @@ static bool exception_fixup(struct cpu_user_regs *regs, bool print)
->>>>>                 vec_name(regs->entry_vector), regs->error_code,
->>>>>                 _p(regs->rip), _p(regs->rip), _p(fixup));
->>>>>  
->>>>> +    if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
->>>>> +    {
->>>>> +        unsigned long ssp;
->>>>> +
->>>>> +        asm ("rdsspq %0" : "=r" (ssp) : "0" (1) );
->>>>> +        if ( ssp != 1 )
->>>>> +        {
->>>>> +            unsigned long *ptr = _p(ssp);
->>>>> +
->>>>> +            /* Search for %rip in the shadow stack, ... */
->>>>> +            while ( *ptr != regs->rip )
->>>>> +                ptr++;
->>>> Wouldn't it be better to bound the loop, as it shouldn't search past
->>>> (strictly speaking not even to) the next page boundary? Also you
->>>> don't care about the top of the stack (being the to be restored SSP),
->>>> do you? I.e. maybe
->>>>
->>>>             while ( *++ptr != regs->rip )
->>>>                 ;
->>>>
->>>> ?
->>>>
->>>> And then - isn't searching for a specific RIP value alone prone to
->>>> error, in case a it matches an ordinary return address? I.e.
->>>> wouldn't you better search for a matching RIP accompanied by a
->>>> suitable pointer into the shadow stack and a matching CS value?
->>>> Otherwise, ...
->>>>
->>>>> +            ASSERT(ptr[1] == __HYPERVISOR_CS);
->>>> ... also assert that ptr[-1] points into the shadow stack?
->>> So this is the problem I was talking about that the previous contexts
->>> SSP isn't stored anywhere helpful.
->>>
->>> What we are in practice doing is looking 2 or 3 words up the shadow
->>> stack (depending on exactly how deep our call graph is), to the shadow
->>> IRET frame matching the real IRET frame which regs is pointing to.
->>>
->>> Both IRET frames were pushed in the process of generating the exception,
->>> and we've already matched regs->rip to the exception table record.  We
->>> need to fix up regs->rip and the shadow lip to the fixup address.
->>>
->>> As we are always fixing up an exception generated from Xen context, we
->>> know that ptr[1] == __HYPERVISOR_CS, and *ptr[-1] = &ptr[2], as we
->>> haven't switched shadow stack as part of taking this exception. 
->>> However, this second point is fragile to exception handlers moving onto IST.
->>>
->>> We can't encounter regs->rip in the shadow stack between the current SSP
->>> and the IRET frame we're looking to fix up, or we would have taken a
->>> recursive fault and not reached exception_fixup() to begin with.
->> I'm afraid I don't follow here. Consider a function (also)
->> involved in exception handling having this code sequence:
->>
->>     call    func
->>     mov     (%rax), %eax
->>
->> If the fault we're handling occured on the MOV and
->> exception_fixup() is a descendant of func(), then the first
->> instance of an address on the shadow stack pointing at this
->> MOV is going to be the one which did not fault.
-> 
-> No.  The moment `call func` returns, the address you're looking to match
-> is rubble no longer on the stack.  Numerically, it will be located at
-> SSP-8 when the fault for MOV is generated.
+flight 150157 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150157/
 
-I think I still didn't explain the scenario sufficiently well:
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  a82582b1af6a4a57ca53bcfad9f71428cb5f9a54
+baseline version:
+ xen                  e0d92d9bd7997c6bcda17a19aba4f3957dd1a2e9
 
-In some function, say test(), we have above code sequence and
-the MOV faults. The exception handling then goes
-- assembly entry
-- C entry
-- test()
-- exception_fixup()
-in order of (nesting) call sequence, i.e. with _all_ respective
-return addresses still on the stack. Since your lookup starts
-from SSP, there'll be two active frames on the stack which both
-have the same return address.
+Last test of basis   150123  2020-05-10 09:19:05 Z    3 days
+Testing same since   150157  2020-05-13 09:19:04 Z    0 days    1 attempts
 
-We may not actively have such a code structure right now, but
-it would seem shortsighted to me to not account for the
-possibility.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
 
-Jan
+jobs:
+ coverity-amd64                                               pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   e0d92d9bd7..a82582b1af  a82582b1af6a4a57ca53bcfad9f71428cb5f9a54 -> coverity-tested/smoke
 
