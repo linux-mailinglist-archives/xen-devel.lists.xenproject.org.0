@@ -2,108 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AFBA1D11FE
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 13:57:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA3191D1250
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 14:08:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYq05-0004uy-7c; Wed, 13 May 2020 11:56:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Rkd=63=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jYq03-0004ut-CW
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 11:56:35 +0000
-X-Inumbo-ID: c6b76206-9510-11ea-a366-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c6b76206-9510-11ea-a366-12813bfff9fa;
- Wed, 13 May 2020 11:56:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zyCtSPiSGDUENlGUGY0MZmr5luUkY4nsTR/t/HVCTkY=; b=3+t9JQn3zDz6wTWwvspOAu9KP
- u/uRs3zft7fdUFRN+RMSAAyIpybb0Fje1Efza0gK2J6eKyRwvBL0Q7EecLis0LEOjVKalo8mb2gsE
- bxr6eQXPsqbTVj9nVLsyC6X6jGIoJHDobRxR5wNU1y4KAj7mNTaqJYTcR/eveLwPLI2fI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jYpzv-0005NZ-7s; Wed, 13 May 2020 11:56:27 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jYpzu-0005dB-QN; Wed, 13 May 2020 11:56:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jYpzu-0002YS-Pi; Wed, 13 May 2020 11:56:26 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150153-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jYqAy-0005uR-Fq; Wed, 13 May 2020 12:07:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dqM3=63=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jYqAx-0005uM-4S
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 12:07:51 +0000
+X-Inumbo-ID: 5d5c6700-9512-11ea-b07b-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5d5c6700-9512-11ea-b07b-bc764e2007e4;
+ Wed, 13 May 2020 12:07:50 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B3C55AF41;
+ Wed, 13 May 2020 12:07:51 +0000 (UTC)
+Subject: Re: [PATCH v8 07/12] x86emul: support FNSTENV and FNSAVE
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
+ <9a2afbb1-af92-2c7d-9fde-d8d8e4563a2a@suse.com>
+ <0e222090-c989-45b5-65be-efb09e7b9bb9@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <4df19637-1a39-491d-83cf-a599c764ab1d@suse.com>
+Date: Wed, 13 May 2020 14:07:39 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Subject: [linux-linus test] 150153: regressions - FAIL
-X-Osstest-Failures: linux-linus:test-amd64-amd64-examine:memdisk-try-append:fail:regression
- linux-linus:test-armhf-armhf-xl-vhd:guest-start:fail:regression
- linux-linus:test-amd64-amd64-xl-rtds:guest-localmigrate:fail:allowable
- linux-linus:test-armhf-armhf-xl-rtds:guest-start.2:fail:allowable
- linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-linus:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-linus:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This: linux=24085f70a6e1b0cb647ec92623284641d8270637
-X-Osstest-Versions-That: linux=152036d1379ffd6985262743dcf6b0f9c75f83a4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 May 2020 11:56:26 +0000
+In-Reply-To: <0e222090-c989-45b5-65be-efb09e7b9bb9@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,215 +47,158 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150153 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150153/
+On 08.05.2020 19:58, Andrew Cooper wrote:
+> On 05/05/2020 09:15, Jan Beulich wrote:
+>> To avoid introducing another boolean into emulator state, the
+>> rex_prefix field gets (ab)used to convey the real/VM86 vs protected mode
+>> info (affecting structure layout, albeit not size) to x86_emul_blk().
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> TBD: The full 16-bit padding fields in the 32-bit structures get filled
+>>      with all ones by modern CPUs (i.e. other than the comment says for
+> 
+> You really mean "unlike" here, rather than "other".  They do not have
+> the same meaning in this context.
+> 
+> (I think you're also missing a "what", which I'm guessing is just an
+> oversight.)
 
-Regressions :-(
+Well, it's really s/other than/unlike what/ then afaics.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-examine      4 memdisk-try-append       fail REGR. vs. 150148
- test-armhf-armhf-xl-vhd      11 guest-start              fail REGR. vs. 150148
+>>      FIP and FDP). We may want to mirror this as well (for the real mode
+>>      variant), even if those fields' contents are unspecified.
+> 
+> This is surprising behaviour, but I expect it dates back to external x87
+> processors and default MMIO behaviour.
+> 
+> If it is entirely consistent, it match be nice to match.  OTOH, the
+> manuals are very clear that it is reserved, which I think gives us the
+> liberty to use the easier implementation.
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     16 guest-localmigrate       fail REGR. vs. 150148
- test-armhf-armhf-xl-rtds     17 guest-start.2            fail REGR. vs. 150148
+I've checked in on an AMD system meanwhile, and it's the same
+there. The mentioned comment really refers to observations back
+on a 386/387 pair. I think really old CPUs didn't write the
+full 16-bit padding fields at all, and the 386/387 then started
+writing full 32 bits of FIP and FDP alongside their "high 16
+bits" secondary fields. I further assume that this "don't
+write parts of the struct at all" behavior was considered
+unsafe, or unhelpful when trying to write things out in bigger
+chunks (ideally in full cachelines).
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 150148
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 150148
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 150148
- test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 150148
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 150148
- test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop             fail like 150148
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 150148
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 150148
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
- test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+I'll leave this as is for now; we can still consider to store
+all ones there later on.
 
-version targeted for testing:
- linux                24085f70a6e1b0cb647ec92623284641d8270637
-baseline version:
- linux                152036d1379ffd6985262743dcf6b0f9c75f83a4
+>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>> @@ -897,6 +900,50 @@ struct x86_emulate_state {
+>>  #define PTR_POISON NULL /* 32-bit builds are for user-space, so NULL is OK. */
+>>  #endif
+>>  
+>> +#ifndef X86EMUL_NO_FPU
+>> +struct x87_env16 {
+>> +    uint16_t fcw;
+>> +    uint16_t fsw;
+>> +    uint16_t ftw;
+>> +    union {
+>> +        struct {
+>> +            uint16_t fip_lo;
+>> +            uint16_t fop:11, :1, fip_hi:4;
+>> +            uint16_t fdp_lo;
+>> +            uint16_t :12, fdp_hi:4;
+>> +        } real;
+>> +        struct {
+>> +            uint16_t fip;
+>> +            uint16_t fcs;
+>> +            uint16_t fdp;
+>> +            uint16_t fds;
+>> +        } prot;
+>> +    } mode;
+>> +};
+>> +
+>> +struct x87_env32 {
+>> +    uint32_t fcw:16, :16;
+>> +    uint32_t fsw:16, :16;
+>> +    uint32_t ftw:16, :16;
+> 
+> uint16_t fcw, :16;
+> uint16_t fsw, :16;
+> uint16_t ftw, :16;
+> 
+> which reduces the number of 16 bit bitfields.
 
-Last test of basis   150148  2020-05-12 07:51:46 Z    1 days
-Testing same since   150153  2020-05-12 23:40:04 Z    0 days    1 attempts
+I'm unconvinced of this being helpful in any way. My goal here
+was really to consistently use all uint16_t in the 16-bit
+struct, and all uint32_t in the 32-bit one, not the least
+after ...
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adam Ford <aford173@gmail.com>
-  Andreas Gruenbacher <agruenba@redhat.com>
-  Bartosz Golaszewski <bgolaszewski@baylibre.com>
-  Bob Peterson <rpeterso@redhat.com>
-  David Gow <davidgow@google.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linus Walleij <linus.walleij@linaro.org>
-  Masami Hiramatsu <mhiramat@kernel.org>
-  Stephen Warren <swarren@nvidia.com>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
+>> +    union {
+>> +        struct {
+>> +            /* some CPUs/FPUs also store the full FIP here */
+>> +            uint32_t fip_lo:16, :16;
+>> +            uint32_t fop:11, :1, fip_hi:16, :4;
+>> +            /* some CPUs/FPUs also store the full FDP here */
+>> +            uint32_t fdp_lo:16, :16;
+>> +            uint32_t :12, fdp_hi:16, :4;
+> 
+> Annoyingly, two of these lines can't use uint16_t.  I'm torn as to
+> whether to suggest converting the other two which can.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      fail    
+... observing this. (Really I had it the other way around
+initially. I'd be okay to switch back if there was a half
+way compelling argument - reducing the number of 16-bit
+bitfields doesn't sound like one to me, though, unless
+there are implications from this that I don't see.)
 
+>> @@ -11571,6 +11646,93 @@ int x86_emul_blk(
+>>              *eflags |= X86_EFLAGS_ZF;
+>>          break;
+>>  
+>> +#ifndef X86EMUL_NO_FPU
+>> +
+>> +    case blk_fst:
+>> +        ASSERT(!data);
+>> +
+>> +        if ( bytes > sizeof(fpstate.env) )
+>> +            asm ( "fnsave %0" : "=m" (fpstate) );
+>> +        else
+>> +            asm ( "fnstenv %0" : "=m" (fpstate.env) );
+> 
+> We have 4 possible sizes to deal with here - the 16 and 32bit formats of
+> prot vs real/vm86 modes, and it is not clear (code wise) why
+> sizeof(fpstate.env) is a suitable boundary.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+See the definitons of struct x87_env16 and struct x87_env32:
+They're intentionally in part using a union, to make more
+obvious that in fact there's just two different sizes to deal
+with.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> Given that these are legacy instructions and not a hotpath in the
+> slightest, it is possibly faster (by removing the branch) and definitely
+> more obvious to use fnsave unconditionally, and derive all of the
+> smaller layouts that way.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I can accept the "not a hotpath" argument, but I'm against
+using insns other than the intended one for no good reason.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> Critically however, it prevents us from needing a CVE/XSA if ... [bottom
+> comment]
 
+This is a legitimate concern, but imo not to be addressed by
+using FNSAVE uniformly: There being fields which have
+undefined contents even with FNSTENV (and which hence in
+principle could not get written at all), I'm instead going
+to memset() the entire structure upfront. I'll use 0 for
+now, but using ~0 might be an option to fill the padding
+fields (see above); the downside then would be that we'd
+also fill the less-than-16-bit padding fields this way,
+where hardware stores 0 (and where we are at risk of breaking
+consumers which don't mask as necessary).
 
-Not pushing.
-
-(No revision log; it would be 529 lines long.)
+Jan
 
