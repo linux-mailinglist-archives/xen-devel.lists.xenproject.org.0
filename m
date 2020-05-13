@@ -2,52 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39FC31D148E
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 15:23:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF2621D149A
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 15:24:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYrLD-0004Vh-Rh; Wed, 13 May 2020 13:22:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jYrMq-0004bh-7W; Wed, 13 May 2020 13:24:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=X9El=63=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jYrLC-0004Vc-Ky
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 13:22:30 +0000
-X-Inumbo-ID: cbeed798-951c-11ea-b9cf-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cbeed798-951c-11ea-b9cf-bc764e2007e4;
- Wed, 13 May 2020 13:22:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=T4x6RYWHbhsKq1zsNwHEDFVquU4sb5kWaB59Q30E8jQ=; b=uzlch76Eh+Vz6cJYK3xUGEtGnt
- AeBfJ6xUpfh5Y1qrni35T4gXkOsP403XENCLsJhEmt+YL6HnO6RFtYxsIoYJxISo2DUsBwPXpnvML
- zeKcJwIJ7Bk9TLRH4Hw8IoRa6dpHiKMz61Jo/TuSW+KAuF6Rx1KMMSNn5v3sqzGqb77Q=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <wl@xen.org>)
- id 1jYrLB-0007EQ-TT; Wed, 13 May 2020 13:22:29 +0000
-Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jYrLB-0004L8-J9; Wed, 13 May 2020 13:22:29 +0000
-Date: Wed, 13 May 2020 14:22:26 +0100
-From: Wei Liu <wl@xen.org>
+ (envelope-from <SRS0=dqM3=63=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jYrMp-0004ba-Dl
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 13:24:11 +0000
+X-Inumbo-ID: 06fc3330-951d-11ea-a375-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 06fc3330-951d-11ea-a375-12813bfff9fa;
+ Wed, 13 May 2020 13:24:09 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 66C71ACA1;
+ Wed, 13 May 2020 13:24:11 +0000 (UTC)
+Subject: Re: [PATCH v8 09/12] x86emul: support FXSAVE/FXRSTOR
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] tools/libxc: Reduce feature handling complexity in
- xc_cpuid_apply_policy()
-Message-ID: <20200513132226.mwpna334sbunbqj4@debian>
-References: <20200303182326.16739-1-andrew.cooper3@citrix.com>
+References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
+ <ea1db2c5-3dd7-f1c8-c051-e39f0dffc94e@suse.com>
+ <4f0da795-a148-e1f3-bd97-caeb84d702cb@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <017ea483-cda8-7dec-883d-b877e3965b94@suse.com>
+Date: Wed, 13 May 2020 15:24:02 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200303182326.16739-1-andrew.cooper3@citrix.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <4f0da795-a148-e1f3-bd97-caeb84d702cb@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,24 +48,164 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Mar 03, 2020 at 06:23:26PM +0000, Andrew Cooper wrote:
-> xc_cpuid_apply_policy() is gaining extra parameters to untangle CPUID
-> complexity in Xen.  While an improvement in general, it does have the
-> unfortunate side effect of duplicating some settings across muliple
-> parameters.
+On 08.05.2020 21:31, Andrew Cooper wrote:
+> On 05/05/2020 09:16, Jan Beulich wrote:
+>> @@ -8125,6 +8154,47 @@ x86_emulate(
+>>      case X86EMUL_OPC(0x0f, 0xae): case X86EMUL_OPC_66(0x0f, 0xae): /* Grp15 */
+>>          switch ( modrm_reg & 7 )
+>>          {
+>> +#if !defined(X86EMUL_NO_FPU) || !defined(X86EMUL_NO_MMX) || \
+>> +    !defined(X86EMUL_NO_SIMD)
+>> +        case 0: /* fxsave */
+>> +        case 1: /* fxrstor */
+>> +            generate_exception_if(vex.pfx, EXC_UD);
+>> +            vcpu_must_have(fxsr);
+>> +            generate_exception_if(ea.type != OP_MEM, EXC_UD);
+>> +            generate_exception_if(!is_aligned(ea.mem.seg, ea.mem.off, 16,
+>> +                                              ctxt, ops),
+>> +                                  EXC_GP, 0);
+>> +            fail_if(!ops->blk);
+>> +            op_bytes =
+>> +#ifdef __x86_64__
+>> +                !mode_64bit() ? offsetof(struct x86_fxsr, xmm[8]) :
+>> +#endif
+>> +                sizeof(struct x86_fxsr);
+>> +            if ( amd_like(ctxt) )
+>> +            {
+>> +                if ( !ops->read_cr ||
+>> +                     ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
+>> +                    cr4 = X86_CR4_OSFXSR;
 > 
-> Rearrange the logic to only consider 'pae' if no explicit featureset is
-> provided.  This reduces the complexity for callers who have already provided a
-> pae setting in the featureset.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Why do we want to assume OSFXSR in the case of a read_cr() failure,
+> rather than bailing on the entire instruction?
 
-Acked-by: Wei Liu <wl@xen.org>
+I prefer to assume "normal" operation over failing in such
+cases. We have a few similar examples elsewhere. I'll add
+a comment t this effect.
+
+>> @@ -11819,6 +11891,77 @@ int x86_emul_blk(
+>>  
+>>  #endif /* X86EMUL_NO_FPU */
+>>  
+>> +#if !defined(X86EMUL_NO_FPU) || !defined(X86EMUL_NO_MMX) || \
+>> +    !defined(X86EMUL_NO_SIMD)
+>> +
+>> +    case blk_fxrstor:
+>> +    {
+>> +        struct x86_fxsr *fxsr = FXSAVE_AREA;
+>> +
+>> +        ASSERT(!data);
+>> +        ASSERT(bytes == sizeof(*fxsr));
+>> +        ASSERT(state->op_bytes <= bytes);
+>> +
+>> +        if ( state->op_bytes < sizeof(*fxsr) )
+>> +        {
+>> +            if ( state->rex_prefix & REX_W )
+>> +            {
+>> +                /*
+>> +                 * The only way to force fxsaveq on a wide range of gas
+>> +                 * versions. On older versions the rex64 prefix works only if
+>> +                 * we force an addressing mode that doesn't require extended
+>> +                 * registers.
+>> +                 */
+>> +                asm volatile ( ".byte 0x48; fxsave (%1)"
+>> +                               : "=m" (*fxsr) : "R" (fxsr) );
+>> +            }
+>> +            else
+>> +                asm volatile ( "fxsave %0" : "=m" (*fxsr) );
+>> +        }
+>> +
+>> +        memcpy(fxsr, ptr, min(state->op_bytes,
+>> +                              (unsigned int)offsetof(struct x86_fxsr, _)));
+>> +        memset(fxsr->_, 0, sizeof(*fxsr) - offsetof(struct x86_fxsr, _));
+> 
+> I'm completely lost trying to follow what's going on here.  Why are we
+> constructing something different to what the guest gave us?
+
+This part of the structure may not get written by FXSAVE. Hence
+I'd prefer to assume it has unknown contents (which we shouldn't
+leak) over assuming this would never get written (and hence
+remain zeroed). Furthermore we mean to pass this to FXRSTOR,
+which we know can raise #GP in principle. While this is a legacy
+insns and hence unlikely to change in behavior, it seems more
+safe to have well known values in at least the reserved range.
+
+I'll add an abbreviated variant of this as a comment.
+
+>> +
+>> +        generate_exception_if(fxsr->mxcsr & ~mxcsr_mask, EXC_GP, 0);
+>> +
+>> +        if ( state->rex_prefix & REX_W )
+>> +        {
+>> +            /* See above for why operand/constraints are this way. */
+>> +            asm volatile ( ".byte 0x48; fxrstor (%0)"
+>> +                           :: "R" (fxsr), "m" (*fxsr) );
+>> +        }
+>> +        else
+>> +            asm volatile ( "fxrstor %0" :: "m" (*fxsr) );
+>> +        break;
+>> +    }
+>> +
+>> +    case blk_fxsave:
+>> +    {
+>> +        struct x86_fxsr *fxsr = FXSAVE_AREA;
+>> +
+>> +        ASSERT(!data);
+>> +        ASSERT(bytes == sizeof(*fxsr));
+>> +        ASSERT(state->op_bytes <= bytes);
+>> +
+>> +        if ( state->rex_prefix & REX_W )
+>> +        {
+>> +            /* See above for why operand/constraint are this way. */
+>> +            asm volatile ( ".byte 0x48; fxsave (%0)"
+>> +                           :: "R" (state->op_bytes < sizeof(*fxsr) ? fxsr : ptr)
+>> +                           : "memory" );
+>> +        }
+>> +        else
+>> +            asm volatile ( "fxsave (%0)"
+>> +                           :: "r" (state->op_bytes < sizeof(*fxsr) ? fxsr : ptr)
+>> +                           : "memory" );
+>> +        if ( state->op_bytes < sizeof(*fxsr) )
+>> +            memcpy(ptr, fxsr, state->op_bytes);
+> 
+> I think this logic would be clearer to follow with:
+> 
+> void *buf = state->op_bytes < sizeof(*fxsr) ? fxsr : ptr;
+> 
+> ...
+> 
+> if ( buf != ptr )
+>     memcpy(ptr, fxsr, state->op_bytes);
+> 
+> This more clearly highlights the "we either fxsave'd straight into the
+> destination pointer, or into a local buffer if we only want a subset"
+> property.
+
+Ah, yes, and by having buf (or really repurposed fxsr) have
+proper type I can then also avoid the memory clobbers, making
+the asm()s more similar to the ones used for FXRSTOR emulation.
+
+>> --- a/xen/arch/x86/x86_emulate.c
+>> +++ b/xen/arch/x86/x86_emulate.c
+>> @@ -42,6 +42,8 @@
+>>      }                                                      \
+>>  })
+>>  
+>> +#define FXSAVE_AREA current->arch.fpu_ctxt
+> 
+> How safe is this?  Don't we already use this buffer to recover the old
+> state in the case of an exception?
+
+For a memory write fault after having updated register state
+already, yes. But that can't be the case here. Nevertheless
+forcing me to look at this again turned up a bug: We need to
+set state->fpu_ctrl in order to keep {,hvmemul_}put_fpu()
+from trying to replace FIP/FOP/FDP.
+
+Jan
 
