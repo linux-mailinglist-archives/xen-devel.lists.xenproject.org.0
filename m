@@ -2,55 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB5401D0DE9
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 11:57:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C881D0F73
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 12:12:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYo7Y-0002ui-Hk; Wed, 13 May 2020 09:56:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Rkd=63=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jYo7W-0002ud-Jj
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 09:56:10 +0000
-X-Inumbo-ID: f6597686-94ff-11ea-a348-12813bfff9fa
+	id 1jYoMF-0004ba-T0; Wed, 13 May 2020 10:11:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mb4t=63=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jYoMF-0004bV-04
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 10:11:23 +0000
+X-Inumbo-ID: 187db91e-9502-11ea-b07b-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f6597686-94ff-11ea-a348-12813bfff9fa;
- Wed, 13 May 2020 09:56:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 187db91e-9502-11ea-b07b-bc764e2007e4;
+ Wed, 13 May 2020 10:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=a62biwheoBI6ysfMBsrQn60BIx2zFc34Ox37F90oYY4=; b=YBu1Ua2EeRwE+X7mLT9+hdDOt
- HSeoKrVjkyLpzRHq/RHAJhsPCLDmfHj5p9Z84xjnryur8zYl8Bxw2YPEEokoeKSPDJw+cgKbRU8EI
- at6UNgAOTPSGwFduV0tnq05avk0F6pSL9jxt7BmPfEjHdLW8IBHfl65M+zCKnWzxpHj2I=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=GgQjqsugvIMcbgU9FUSq5h0RPhgWmTgPyNTalMfquT0=; b=4fU6izyoqpcal9KFpbpxm3ThG/
+ 5wrmGD2AUgoJEmdKTiq3bHhuNaEzjTRy5iC3D21rz00ZT+x2SDUyUrwvErC66ngFZD6UvAAeAn40r
+ B4nSexltuxaa41YuDnUre4TsadFcbhjN2rFzzKDHq2dvOPNnLLy2/2i1Yjwt9fBYNuPE=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jYo7R-0002pB-Ly; Wed, 13 May 2020 09:56:05 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jYo7R-0000am-FA; Wed, 13 May 2020 09:56:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jYo7R-0008CI-ET; Wed, 13 May 2020 09:56:05 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150157-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ (envelope-from <julien@xen.org>)
+ id 1jYoMC-0003ET-Jz; Wed, 13 May 2020 10:11:20 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jYoMC-0006CB-B9; Wed, 13 May 2020 10:11:20 +0000
+Subject: Re: Troubles running Xen on Raspberry Pi 4 with 5.6.1 DomU
+To: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com,
+ jgross@suse.com
+References: <CAMmSBy_A4xJmCo-PiWukv0+vkEhXXDpYwZAKAiJ=mmpuY1CbMA@mail.gmail.com>
+ <20200502173529.GH9902@minyard.net>
+ <ed02b555-dbaa-2ebf-d09f-0474e1a7a745@xen.org>
+ <20200504124453.GI9902@minyard.net>
+ <CAMmSBy-w1HOyGGCjB_nJcn2xw+4sNdDrtJ8PC3foaxJOtdRmnQ@mail.gmail.com>
+ <alpine.DEB.2.21.2005042004500.14706@sstabellini-ThinkPad-T480s>
+ <CAMmSBy-yymEGQcuUBHZi-tL9ra7x9nDv+ms8SLiZr1H=BpHUiQ@mail.gmail.com>
+ <alpine.DEB.2.21.2005051508180.14706@sstabellini-ThinkPad-T480s>
+ <9ee0fb6f-98df-d993-c42e-f47270bf2eaa@suse.com>
+ <DB6PR0402MB2760AF88FE7E3DF47401BE5988A40@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <CADz_WD5Ln7Pe1WAFp73d2Mz9wxspzTE3WgAJusp5S8LX4=83Bw@mail.gmail.com>
+ <2187cd7c-4d48-986b-77d6-4428e8178404@oracle.com>
+ <CADz_WD68bYj-0CSm_zib+LRiMGd1+1eoNLgiJj=vHog685Khsw@mail.gmail.com>
+ <alpine.DEB.2.21.2005060956120.14706@sstabellini-ThinkPad-T480s>
+ <CAMmSBy_wcSD3BVcVFJVR1y1CtvxA9xMkobKwbsdf8dGxS5Hcbw@mail.gmail.com>
+ <alpine.DEB.2.21.2005121723240.26167@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <42253259-9663-67e8-117f-8ba631243585@xen.org>
+Date: Wed, 13 May 2020 11:11:17 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.0
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 150157: all pass - PUSHED
-X-Osstest-Versions-This: xen=a82582b1af6a4a57ca53bcfad9f71428cb5f9a54
-X-Osstest-Versions-That: xen=e0d92d9bd7997c6bcda17a19aba4f3957dd1a2e9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 May 2020 09:56:05 +0000
+In-Reply-To: <alpine.DEB.2.21.2005121723240.26167@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +76,73 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Peng Fan <peng.fan@nxp.com>, "minyard@acm.org" <minyard@acm.org>,
+ roman@zededa.com,
+ "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>,
+ Julien Grall <julien.grall@arm.com>,
+ Nataliya Korovkina <malus.brandywine@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150157 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150157/
+Hi,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  a82582b1af6a4a57ca53bcfad9f71428cb5f9a54
-baseline version:
- xen                  e0d92d9bd7997c6bcda17a19aba4f3957dd1a2e9
+On 13/05/2020 01:33, Stefano Stabellini wrote:
+> I worked with Roman to do several more tests and here is an update on
+> the situation. We don't know why my patch didn't work when Boris' patch
+> [1] worked.  Both of them should have worked the same way.
+> 
+> Anyway, we continued with Boris patch to debug the new mmc error which
+> looks like this:
+> 
+> [    3.084464] mmc0: unrecognised SCR structure version 15
+> [    3.089176] mmc0: error -22 whilst initialising SD card
+> 
+> I asked to add a lot of trancing, see attached diff.
 
-Last test of basis   150123  2020-05-10 09:19:05 Z    3 days
-Testing same since   150157  2020-05-13 09:19:04 Z    0 days    1 attempts
+Please avoid attachment on mailing list and use pastebin for diff.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
+> We discovered a bug
+> in xen_swiotlb_init: if io_tlb_start != 0 at the beginning of
+> xen_swiotlb_init, start_dma_addr is not set correctly. This oneline
+> patch fixes it:
+> 
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 0a40ac332a4c..b75c43356eba 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -191,6 +191,7 @@ int __ref xen_swiotlb_init(int verbose, bool early)
+>           * IO TLB memory already allocated. Just use it.
+>           */
+>          if (io_tlb_start != 0) {
+> +               start_dma_addr = io_tlb_start;
+>                  xen_io_tlb_start = phys_to_virt(io_tlb_start);
+>                  goto end;
+>          }
+> 
+> Unfortunately it doesn't solve the mmc0 error.
+> 
+> 
+> As you might notice from the logs, none of the other interesting printks
+> printed anything, which seems to mean that the memory allocated by
+> xen_swiotlb_alloc_coherent and mapped by xen_swiotlb_map_page should be
+> just fine.
+> 
+> I am starting to be out of ideas. Do you guys have any suggestions on
+> what could be the issue or what could be done to discover it?
 
-jobs:
- coverity-amd64                                               pass    
+Sorry if my suggestions are going to be obvious, but I can't confirm 
+whether this was already done:
+     1) Does the kernel boot on baremetal (i.e without Xen)? This should 
+help to confirm whether the bug is Xen is related.
+     2) Swiotlb should not be necessary for basic dom0 boot on Arm. Did 
+you try to disable it? This should help to confirm whether swiotlb is 
+the problem or not.
+     3) Did you track down how the MMC read the SCR structure?
 
+Cheers,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   e0d92d9bd7..a82582b1af  a82582b1af6a4a57ca53bcfad9f71428cb5f9a54 -> coverity-tested/smoke
+-- 
+Julien Grall
 
