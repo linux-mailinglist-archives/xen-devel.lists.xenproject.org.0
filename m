@@ -2,97 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 270DC1D1159
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 13:30:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA2E51D11B2
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 13:46:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYpZr-0002N1-Ma; Wed, 13 May 2020 11:29:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jYppb-00040R-42; Wed, 13 May 2020 11:45:47 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hhv+=63=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jYpZq-0002Mw-9J
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 11:29:30 +0000
-X-Inumbo-ID: 013dfa92-950d-11ea-a359-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 013dfa92-950d-11ea-a359-12813bfff9fa;
- Wed, 13 May 2020 11:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589369367;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=d0hlYLOfkzYbZiFKqnxe5ZmNxW60qKWHhm05xfKs3+c=;
- b=NQgdreTKc/7sbmBIf4CB0TFOFKy/EY1++h/kh7lvrUCFzKraSF98EnNS
- ZtKoQmEXSKEC1ApE3/4L80jsqZjeqwc0/l6oJlS3QD4vF/cpwv3GZ3qiQ
- BDOgl0gMnIo3sFEKyKpkqLVxZLo0qewy1METJUCJEa2WRov5LtV1IXtEz s=;
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- George.Dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=George.Dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: 7NmjoA4DwNwtjqs0YOc/vZt1BPpyM3OubCTyZaQe6oPDxYZ2NknD24OP5jH93lTiQ/VEjO2qtJ
- I02IApKsNbsvZBWbg4ZDH2LxqGad/+F+/6EoH9hrrVqQDwbFxkeXk+8004fWK/1Hd/vu21blOx
- T4IKiANepLXZ5x1EDOfaVc+Zf8/KwO9kFB3t10c/sBLLuDHPEKcwl8TC3K42X4YXiMQ7AEsNWQ
- w6QG1osp3cNsW16gg9r2dV6kKZR86CpbHWVHKi1+b/EMPsXJQl0UBxuL4D7FQK8Ptx6pOd37Fm
- EKw=
-X-SBRS: 2.7
-X-MesageID: 18097819
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,387,1583211600"; d="scan'208";a="18097819"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Subject: Re: [PATCH v2 3/3] golang/xenlight: add necessary module/package
- documentation
-Thread-Topic: [PATCH v2 3/3] golang/xenlight: add necessary module/package
- documentation
-Thread-Index: AQHWKMGZFErKT/Po40mgeLsLE6wA6KilwHcA
-Date: Wed, 13 May 2020 11:29:24 +0000
-Message-ID: <BAD53A57-6842-43E6-AA5B-6C42B7290D00@citrix.com>
-References: <cover.1589330383.git.rosbrookn@ainfosec.com>
- <a42395202aef85d983dd9db361c366a6d03e313f.1589330383.git.rosbrookn@ainfosec.com>
-In-Reply-To: <a42395202aef85d983dd9db361c366a6d03e313f.1589330383.git.rosbrookn@ainfosec.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <39A659E889BE4346B66423F1C5304761@citrix.com>
-Content-Transfer-Encoding: base64
+ <SRS0=7Rkd=63=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jYppZ-00040M-8o
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 11:45:45 +0000
+X-Inumbo-ID: 476c26c2-950f-11ea-9887-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 476c26c2-950f-11ea-9887-bc764e2007e4;
+ Wed, 13 May 2020 11:45:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=HVB4aG5SeqwAAVW50UExMlMg86lcC/eXjRNkFbR/aFg=; b=NiJOZyqI0GXqBJs1h3EgsfuaM
+ bQ5WDtharWZGWDLEqwoy7UqnmfrbM9IwyYu+ZG5LR0RNtoBLouQWL0D6lL8Pz2PcJtYhDNyuZ/sRV
+ vDoap6AzDUph7QjYEsRRQBEzk0SfXAx+VhqaRv96zjSnLqSLM00FhSpGyXSuSQh9rzfso=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYppY-0005Aq-5d; Wed, 13 May 2020 11:45:44 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYppX-00050P-NT; Wed, 13 May 2020 11:45:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jYppX-0007Np-Mq; Wed, 13 May 2020 11:45:43 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150156-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [ovmf test] 150156: regressions - FAIL
+X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
+X-Osstest-Versions-This: ovmf=242ab73d7f255d5d859eaf74a23b9d68c686d177
+X-Osstest-Versions-That: ovmf=88899a372cfc44f8612315f4b43a084d1814fe69
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 13 May 2020 11:45:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,26 +61,77 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Nick Rosbrook <rosbrookn@ainfosec.com>, Jan Beulich <jbeulich@suse.com>, Ian
- Jackson <Ian.Jackson@citrix.com>, xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gTWF5IDEzLCAyMDIwLCBhdCAxOjU4IEFNLCBOaWNrIFJvc2Jyb29rIDxyb3Nicm9v
-a25AZ21haWwuY29tPiB3cm90ZToNCj4gDQo+IEFkZCBhIFJFQURNRSBhbmQgcGFja2FnZSBjb21t
-ZW50IGdpdmluZyBhIGJyaWVmIG92ZXJ2aWV3IG9mIHRoZSBwYWNrYWdlLg0KPiBUaGVzZSBhbHNv
-IGhlbHAgcGtnLmdvLmRldiBnZW5lcmF0ZSBiZXR0ZXIgZG9jdW1lbnRhdGlvbi4NCg0KT25lIHRo
-aW5nIEkgZm9yZ290IHRvIG1lbnRpb24gYWJvdXQgdGhlIFJFQURNRSBpcyB0aGUgbG9uZyBsaW5l
-cyDigJQgZG8geW91IG1pbmQgaWYgSSB3cmFwIHRob3NlIGJlZm9yZSBjaGVja2luZyBpdCBpbj8N
-Cg0KPiBBbHNvLCBhZGQgYSBjb3B5IG9mIHRoZSBMR1BMICh0aGUgc2FtZSBsaWNlbnNlIHVzZWQg
-YnkgbGlieGwpIHRvDQo+IHRvb2xzL2dvbGFuZy94ZW5saWdodC4gVGhpcyBpcyByZXF1aXJlZCBm
-b3IgdGhlIHBhY2thZ2UgdG8gYmUgc2hvd24NCj4gb24gcGtnLmdvLmRldiBhbmQgYWRkZWQgdG8g
-dGhlIGRlZmF1bHQgbW9kdWxlIHByb3h5LCBwcm94eS5nb2xhbmcub3JnLg0KPiANCj4gRmluYWxs
-eSwgYWRkIGFuIGVudHJ5IGZvciB0aGUgeGVubGlnaHQgcGFja2FnZSB0byBTVVBQT1JULm1kLg0K
-PiANCj4gU2lnbmVkLW9mZi1ieTogTmljayBSb3Nicm9vayA8cm9zYnJvb2tuQGFpbmZvc2VjLmNv
-bT4NCg0KUmV2aWV3ZWQtYnk6IEdlb3JnZSBEdW5sYXAgPGdlb3JnZS5kdW5sYXBAY2l0cml4LmNv
-bT4=
+flight 150156 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150156/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build                fail REGR. vs. 150152
+
+version targeted for testing:
+ ovmf                 242ab73d7f255d5d859eaf74a23b9d68c686d177
+baseline version:
+ ovmf                 88899a372cfc44f8612315f4b43a084d1814fe69
+
+Last test of basis   150152  2020-05-12 19:39:31 Z    0 days
+Testing same since   150156  2020-05-13 06:10:56 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Michael Kubacki <michael.kubacki@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 242ab73d7f255d5d859eaf74a23b9d68c686d177
+Author: Michael Kubacki <michael.kubacki@microsoft.com>
+Date:   Sat May 9 10:22:42 2020 +0800
+
+    BaseTools/Ecc: Replace deprecated function time.clock()
+    
+    REF:https://bugzilla.tianocore.org/show_bug.cgi?id=2707
+    
+    Ecc fails with Python 3.8 because it uses the deprecated time.clock()
+    function - https://docs.python.org/3.7/library/time.html#time.clock
+    
+    This change updates EccMain.py to use time.perf_counter().
+    
+    Cc: Bob Feng <bob.c.feng@intel.com>
+    Cc: Liming Gao <liming.gao@intel.com>
+    Signed-off-by: Michael Kubacki <michael.kubacki@microsoft.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
 
