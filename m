@@ -2,70 +2,97 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46C881D0F73
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 12:12:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61E071D0F7E
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 12:15:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYoMF-0004ba-T0; Wed, 13 May 2020 10:11:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mb4t=63=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jYoMF-0004bV-04
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 10:11:23 +0000
-X-Inumbo-ID: 187db91e-9502-11ea-b07b-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 187db91e-9502-11ea-b07b-bc764e2007e4;
- Wed, 13 May 2020 10:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=GgQjqsugvIMcbgU9FUSq5h0RPhgWmTgPyNTalMfquT0=; b=4fU6izyoqpcal9KFpbpxm3ThG/
- 5wrmGD2AUgoJEmdKTiq3bHhuNaEzjTRy5iC3D21rz00ZT+x2SDUyUrwvErC66ngFZD6UvAAeAn40r
- B4nSexltuxaa41YuDnUre4TsadFcbhjN2rFzzKDHq2dvOPNnLLy2/2i1Yjwt9fBYNuPE=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jYoMC-0003ET-Jz; Wed, 13 May 2020 10:11:20 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jYoMC-0006CB-B9; Wed, 13 May 2020 10:11:20 +0000
-Subject: Re: Troubles running Xen on Raspberry Pi 4 with 5.6.1 DomU
-To: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com,
- jgross@suse.com
-References: <CAMmSBy_A4xJmCo-PiWukv0+vkEhXXDpYwZAKAiJ=mmpuY1CbMA@mail.gmail.com>
- <20200502173529.GH9902@minyard.net>
- <ed02b555-dbaa-2ebf-d09f-0474e1a7a745@xen.org>
- <20200504124453.GI9902@minyard.net>
- <CAMmSBy-w1HOyGGCjB_nJcn2xw+4sNdDrtJ8PC3foaxJOtdRmnQ@mail.gmail.com>
- <alpine.DEB.2.21.2005042004500.14706@sstabellini-ThinkPad-T480s>
- <CAMmSBy-yymEGQcuUBHZi-tL9ra7x9nDv+ms8SLiZr1H=BpHUiQ@mail.gmail.com>
- <alpine.DEB.2.21.2005051508180.14706@sstabellini-ThinkPad-T480s>
- <9ee0fb6f-98df-d993-c42e-f47270bf2eaa@suse.com>
- <DB6PR0402MB2760AF88FE7E3DF47401BE5988A40@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <CADz_WD5Ln7Pe1WAFp73d2Mz9wxspzTE3WgAJusp5S8LX4=83Bw@mail.gmail.com>
- <2187cd7c-4d48-986b-77d6-4428e8178404@oracle.com>
- <CADz_WD68bYj-0CSm_zib+LRiMGd1+1eoNLgiJj=vHog685Khsw@mail.gmail.com>
- <alpine.DEB.2.21.2005060956120.14706@sstabellini-ThinkPad-T480s>
- <CAMmSBy_wcSD3BVcVFJVR1y1CtvxA9xMkobKwbsdf8dGxS5Hcbw@mail.gmail.com>
- <alpine.DEB.2.21.2005121723240.26167@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <42253259-9663-67e8-117f-8ba631243585@xen.org>
-Date: Wed, 13 May 2020 11:11:17 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+	id 1jYoQK-0004lj-Fe; Wed, 13 May 2020 10:15:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hhv+=63=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jYoQJ-0004le-IR
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 10:15:35 +0000
+X-Inumbo-ID: ae4024fa-9502-11ea-a34b-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ae4024fa-9502-11ea-a34b-12813bfff9fa;
+ Wed, 13 May 2020 10:15:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1589364935;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=K1DDlQ+oTKpl/SufIVCEeC9exhF5mUl7ZcBdW6Fjs78=;
+ b=erQbfCSKswPWDUr5e/i5c2Hn+n80zXSl1WEfve2uM9WjdjK+8S2O1YJJ
+ dhMp6YRyBg3Yje0UkUwqnVColrznXDUshSfKwwHRxmgSdAJpECnmZqaTW
+ Wkbj26dEI8hgpL4s/HnJBWLmEqreqCOF6i/7pogU6qLbhjaq1vrK829bF M=;
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ George.Dunlap@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ George.Dunlap@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=George.Dunlap@citrix.com;
+ spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com;
+ dmarc=pass (p=none dis=none) d=citrix.com
+IronPort-SDR: UlVtyVxFqucz2Ilf4xfP3dTj0dxIY93ZPPrPZ1dM3Re46079vOuj0+g+TTnTcGwVEsxGdJprpI
+ ld6mvtfuIbkMg5lSHhPMvkDMQlh1nGqrctuOWHuKK7iStzCE1qciwGoL71StxVTZgfw9+nESiT
+ gf/IhWt9oimsdDkjbfcY8EgPlydZlHhuQr8hIfB+HM7Q3e+++nOawvb+eC7ez+zuqy5ylK0G5B
+ okOGXvJSx4hPeFPxXTbWLmbLOOuA7bii+wMe6LOMTUms8bSDZQkhUeJ7Lp86aWCOFAJrqhIsb+
+ UiI=
+X-SBRS: 2.7
+X-MesageID: 17395518
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,387,1583211600"; d="scan'208";a="17395518"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Nick Rosbrook <rosbrookn@gmail.com>
+Subject: Re: [PATCH v3 1/1] golang/xenlight: add NameToDomid and DomidToName
+ util functions
+Thread-Topic: [PATCH v3 1/1] golang/xenlight: add NameToDomid and DomidToName
+ util functions
+Thread-Index: AQHWKMFEbi6kgYqzdUWf66u+AEotDKilq9GA
+Date: Wed, 13 May 2020 10:15:29 +0000
+Message-ID: <77D6F591-FF91-43A8-8278-1F7EF3D8B9D9@citrix.com>
+References: <cover.1589321804.git.rosbrookn@ainfosec.com>
+ <a543eec1da35b619a06816f8aed29774daa38cb7.1589321804.git.rosbrookn@ainfosec.com>
+In-Reply-To: <a543eec1da35b619a06816f8aed29774daa38cb7.1589321804.git.rosbrookn@ainfosec.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <DD73ACB3B0C3894EB2FFF89A63E40602@citrix.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2005121723240.26167@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,73 +103,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peng Fan <peng.fan@nxp.com>, "minyard@acm.org" <minyard@acm.org>,
- roman@zededa.com,
- "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>,
- Julien Grall <julien.grall@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
 
-On 13/05/2020 01:33, Stefano Stabellini wrote:
-> I worked with Roman to do several more tests and here is an update on
-> the situation. We don't know why my patch didn't work when Boris' patch
-> [1] worked.  Both of them should have worked the same way.
-> 
-> Anyway, we continued with Boris patch to debug the new mmc error which
-> looks like this:
-> 
-> [    3.084464] mmc0: unrecognised SCR structure version 15
-> [    3.089176] mmc0: error -22 whilst initialising SD card
-> 
-> I asked to add a lot of trancing, see attached diff.
 
-Please avoid attachment on mailing list and use pastebin for diff.
+> On May 13, 2020, at 1:55 AM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
+>=20
+> Many exported functions in xenlight require a domid as an argument. Make
+> it easier for package users to use these functions by adding wrappers
+> for the libxl utility functions libxl_name_to_domid and
+> libxl_domid_to_name.
+>=20
+> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
 
-> We discovered a bug
-> in xen_swiotlb_init: if io_tlb_start != 0 at the beginning of
-> xen_swiotlb_init, start_dma_addr is not set correctly. This oneline
-> patch fixes it:
-> 
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index 0a40ac332a4c..b75c43356eba 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -191,6 +191,7 @@ int __ref xen_swiotlb_init(int verbose, bool early)
->           * IO TLB memory already allocated. Just use it.
->           */
->          if (io_tlb_start != 0) {
-> +               start_dma_addr = io_tlb_start;
->                  xen_io_tlb_start = phys_to_virt(io_tlb_start);
->                  goto end;
->          }
-> 
-> Unfortunately it doesn't solve the mmc0 error.
-> 
-> 
-> As you might notice from the logs, none of the other interesting printks
-> printed anything, which seems to mean that the memory allocated by
-> xen_swiotlb_alloc_coherent and mapped by xen_swiotlb_map_page should be
-> just fine.
-> 
-> I am starting to be out of ideas. Do you guys have any suggestions on
-> what could be the issue or what could be done to discover it?
+Looks good, thanks!
 
-Sorry if my suggestions are going to be obvious, but I can't confirm 
-whether this was already done:
-     1) Does the kernel boot on baremetal (i.e without Xen)? This should 
-help to confirm whether the bug is Xen is related.
-     2) Swiotlb should not be necessary for basic dom0 boot on Arm. Did 
-you try to disable it? This should help to confirm whether swiotlb is 
-the problem or not.
-     3) Did you track down how the MMC read the SCR structure?
+Reviewed-by: George Dunlap <george.dunlap@citrix.com>
 
-Cheers,
-
--- 
-Julien Grall
 
