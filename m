@@ -2,42 +2,81 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344B61D157F
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 15:35:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B2BA1D1691
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 15:56:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYrXW-0005gJ-Q6; Wed, 13 May 2020 13:35:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dqM3=63=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jYrXV-0005gE-Qp
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 13:35:13 +0000
-X-Inumbo-ID: 915b0e24-951e-11ea-a377-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 915b0e24-951e-11ea-a377-12813bfff9fa;
- Wed, 13 May 2020 13:35:11 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 126CCB004;
- Wed, 13 May 2020 13:35:13 +0000 (UTC)
-Subject: Re: [PATCH v8 12/12] x86/HVM: don't needlessly intercept
- APERF/MPERF/TSC MSR reads
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <60cc730f-2a1c-d7a6-74fe-64f3c9308831@suse.com>
- <e92b6c1a-b2c3-13e7-116c-4772c851dd0b@suse.com>
- <81cc74ce-0a53-d5cd-3513-af3af6382815@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <05203042-662c-3dc4-15e6-bc45587fbeec@suse.com>
-Date: Wed, 13 May 2020 15:35:08 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jYrrr-0007Px-IY; Wed, 13 May 2020 13:56:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cxQB=63=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jYrrq-0007Ps-CA
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 13:56:14 +0000
+X-Inumbo-ID: 819c9a90-9521-11ea-9887-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 819c9a90-9521-11ea-9887-bc764e2007e4;
+ Wed, 13 May 2020 13:56:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1589378174;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=szdENZVnK21wmpaV/YA6upz3x9DsZQ4tlOwrH96ssUA=;
+ b=hrrY+jggF7ZVaA9VlEOqzHzmCJ7tCNXtlfiBDdlqVqhJi1NJClNCyZMK
+ hCG+ilroJF9+mkyInQbQi/wr80pzB9FV05fggEEyZUsoe3XaX9usaTTdE
+ bLxFUAVg7EQsMX7FyA1w2JsC1G+7INeVb0fx/cvzjRfPK1YhuCLF900+4 4=;
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com;
+ dmarc=pass (p=none dis=none) d=citrix.com
+IronPort-SDR: oT5dIifoFXzVz1Re2i0NWmkd5ngOkzeV2gSKY/ltaaOocMbRS3u2CqDSVHRzJOI5XD08gBiQBM
+ DbrvDqPwARTGfVrhycrLH3KFFWV09cYaZhcoQgxo6SwCAy48gkJkU5yCc84vQX+C1fvejHDGBO
+ 93j9x3bVPU2U2Z3zESPG+EexmJmbktLIVZqTMkb0fi3ATyskpdUsCqjsIsAOT5FguVYV7cjfSD
+ 55iiT1trEMjJ4UJEfkM6/pqK9SQmw8kKZhFvo6DmsmQMj8M4Iib4R6mX8Jn0IdY4LmMc+3GBRQ
+ kcs=
+X-SBRS: 2.7
+X-MesageID: 17443159
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,387,1583211600"; d="scan'208";a="17443159"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] build: Fix build with Ubuntu
+Date: Wed, 13 May 2020 14:55:50 +0100
+Message-ID: <20200513135552.24329-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <81cc74ce-0a53-d5cd-3513-af3af6382815@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -49,45 +88,29 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Jason
+ Andryuk <jandryuk@gmail.com>, George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefan Bader <stefan.bader@canonical.com>, Jan Beulich <JBeulich@suse.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 08.05.2020 23:04, Andrew Cooper wrote:
-> On 05/05/2020 09:20, Jan Beulich wrote:
->> If the hardware can handle accesses, we should allow it to do so. This
->> way we can expose EFRO to HVM guests,
-> 
-> I'm reminded now of the conversation I'm sure we've had before, although
-> I have a feeling it was on IRC.
-> 
-> APERF/MPERF (including the EFRO interface on AMD) are free running
-> counters but only in C0.  The raw values are not synchronised across
-> threads.
-> 
-> A vCPU which gets rescheduled has a 50% chance of finding the one or
-> both values going backwards, and a 100% chance of totally bogus calculation.
-> 
-> There is no point exposing APERF/MPERF to guests.  It can only be used
-> safely in hypervisor context, on AMD hardware with a CLGI/STGI region,
-> or on Intel hardware in an NMI handler if you trust that a machine check
-> isn't going to ruin your day.
-> 
-> VMs have no way of achieving the sampling requirements, and has a fair
-> chance of getting a plausible-but-wrong answer.
-> 
-> The only possibility to do this safely is on a VM which is pinned to
-> pCPU for its lifetime, but even I'm unconvinced of the correctness.
-> 
-> I don't think we should be exposing this functionality to guests at all,
-> although I might be persuaded if someone wanting to use it in a VM can
-> provide a concrete justification of why the above problems won't get in
-> their way.
+This supercedes "x86/build: Unilaterally disable -fcf-protection"
 
-Am I getting it right then that here you're reverting what you've said
-on patch 10: "I'm tempted to suggest that we offer EFRO on Intel ..."?
-And hence your request is to drop both that and this patch?
+Andrew Cooper (2):
+  x86/build: move -fno-asynchronous-unwind-tables into EMBEDDED_EXTRA_CFLAGS
+  x86/build: Unilaterally disable -fcf-protection
 
-Jan
+ Config.mk                            | 3 ++-
+ tools/tests/x86_emulator/testcase.mk | 2 +-
+ xen/arch/x86/arch.mk                 | 2 +-
+ xen/arch/x86/boot/build32.mk         | 2 +-
+ 4 files changed, 5 insertions(+), 4 deletions(-)
+
+-- 
+2.11.0
+
 
