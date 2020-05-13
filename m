@@ -2,73 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C594B1D1961
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 17:28:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F8671D19B1
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 17:44:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYtIC-0007rp-Fj; Wed, 13 May 2020 15:27:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mpYu=63=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jYtIB-0007rk-3k
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 15:27:31 +0000
-X-Inumbo-ID: 423dd6b8-952e-11ea-ae69-bc764e2007e4
-Received: from mail-wr1-x42d.google.com (unknown [2a00:1450:4864:20::42d])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 423dd6b8-952e-11ea-ae69-bc764e2007e4;
- Wed, 13 May 2020 15:27:30 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id y16so14241008wrs.3
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2020 08:27:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=9atujlcgusW5HYpnti+tAVTbDLW9h5r5ESSqAQKGoYI=;
- b=El8k9x9pPnRMmeA4DcwlA88LCHObx9eQg+njZXhqgT8e7w5M57l2ve8PfzaL8RTOHN
- TS8cm0m59jmLR9gk0Tm7Jw++bPV9DeJH0WEzE2CPdf4e5X7C7eR+k5P42yFmKkA6d4eK
- 6u+4X13rWSxiZlXbe0BKT8Xh8+4Ee+zvg58MS1AeogRsgf3Y/75F7fxvdZ0tyjiRGR8j
- MezCj1ZOqurKxZjSs2f+skYNVKY35UTZhxfO3uvzwJFpcYNG2eEcAEBlPAtBnhKYrOaL
- mrXClGktVhaXxw/LUKiqufmhPNDe3L8ryu056j7Iu3cHms+pZjC1CR1Dfizxl7qUxOTU
- DJew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=9atujlcgusW5HYpnti+tAVTbDLW9h5r5ESSqAQKGoYI=;
- b=smir2kiYR2JooEi1DlioUVJFjeT49xI7/PFCk8JEkR0u8ZaToDQpwmNMI4Y732M9lM
- hbymR9Nsy0dTygdVnxqcZV/j6iDB3bOCpDXKkXwQVkFN1EyjWLwGEZ/tFRJhFshpXNTM
- BZ9l75OChGyds1ik1SG/z+u+fQFV0BJtZLP/qJiLlmA0ZYcJLwEZO4HJ91TJM9R17CKr
- psT/Bezp2HBHaD7m/64Wp3C16f/hWtWWLMR2lJjedWw2pL62u1YdAoQJ45E1+eEqtC0k
- jWlmW/DtA70PAqRxJUhGunLTbfLMfn62cYwE/p9boEcyU7N+8P6vtzXEIdOwj+8U29fT
- ARDA==
-X-Gm-Message-State: AGi0PuakN0u+4r+42p8HW4HfoowsucmP8omrCgKmLSjPWgitzgSoBOBk
- PxH8Z0Qm+O+EmRMeWvGRBUA=
-X-Google-Smtp-Source: APiQypIFooOW2UeOBm1MA4feXuxZvob1heQ0TNb+VHV4u/m0Ozp8GHgvPm6t1GG09iuSH7Onygbe4g==
-X-Received: by 2002:a5d:56c6:: with SMTP id m6mr31013234wrw.78.1589383649674; 
- Wed, 13 May 2020 08:27:29 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-226.amazon.com. [54.240.197.226])
- by smtp.gmail.com with ESMTPSA id 89sm27716332wrj.37.2020.05.13.08.27.28
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 13 May 2020 08:27:29 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-References: <20200407173847.1595-1-paul@xen.org>
- <20200407173847.1595-4-paul@xen.org>
- <76e91373-1f7c-bd68-2800-83163fb22aa2@suse.com>
-In-Reply-To: <76e91373-1f7c-bd68-2800-83163fb22aa2@suse.com>
-Subject: RE: [PATCH v2 3/5] tools/misc: add xen-domctx to present domain
- context
-Date: Wed, 13 May 2020 16:27:28 +0100
-Message-ID: <001101d6293b$0374bdc0$0a5e3940$@xen.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIOC3/NwyZzJjhdRz0oBcI7Is/lxwFxlJcKATUa0IqoISjFcA==
+	id 1jYtYE-00015c-6Z; Wed, 13 May 2020 15:44:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yQOZ=63=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jYtYC-00015T-7A
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 15:44:04 +0000
+X-Inumbo-ID: 9211a456-9530-11ea-a3ac-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9211a456-9530-11ea-a3ac-12813bfff9fa;
+ Wed, 13 May 2020 15:44:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=/7oErC2oD1FcQ4fz06/kz/o4eYcq6WUr8ULBeUXJrcs=; b=Mq0bonYakbRr3UnPTZ9WkzH/8R
+ G2Kf6Bpl0KPZK8TutwBptlA3bz5URgiBzHc7xn1BKoKmgEjwqtjGfahzxnU/AAKDJKOAqCTazFBRk
+ AOZDHlk+S0EaSFyvlYTzUvMmYBASA/J37D+Y30EdN5Mcu7XJ1CZCtcpxmQBuSvjh5xns=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1jYtYA-0001ra-Kp; Wed, 13 May 2020 15:44:02 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=u1bbd043a57dd5a.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jYtYA-000716-8Y; Wed, 13 May 2020 15:44:02 +0000
+From: Hongyan Xia <hx242@xen.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH] domain_page: handle NULL within unmap_domain_page() itself
+Date: Wed, 13 May 2020 16:43:33 +0100
+Message-Id: <a3ddf0c755227a3c742f6b93783c576135a86874.1589384602.git.hongyxia@amazon.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,41 +54,76 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org, 'Paul Durrant' <pdurrant@amazon.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>, 'Wei Liu' <wl@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 29 April 2020 16:04
-> To: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; Paul Durrant <pdurrant@amazon.com>; Ian Jackson
-> <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>
-> Subject: Re: [PATCH v2 3/5] tools/misc: add xen-domctx to present domain context
-> 
-> On 07.04.2020 19:38, Paul Durrant wrote:
-> > +int main(int argc, char **argv)
-> > +{
-> > +    uint32_t domid;
-> > +    unsigned int entry;
-> > +    xc_interface *xch;
-> > +    int rc;
-> > +
-> > +    if ( argc != 2 || !argv[1] || (rc = atoi(argv[1])) < 0 )
-> > +    {
-> > +        fprintf(stderr, "usage: %s <domid>\n", argv[0]);
-> > +        exit(1);
-> > +    }
-> 
-> Perhaps also allow dumping just a single (vCPU or other) ID?
-> 
+From: Hongyan Xia <hongyxia@amazon.com>
 
-Yes, I can add optional type and instance arguments.
+The macro version UNMAP_DOMAIN_PAGE() does both NULL checking and
+variable clearing. Move NULL checking into the function itself so that
+the semantics is consistent with other similar constructs like XFREE().
+This also eases the use unmap_domain_page() in error handling paths,
+where we only care about NULL checking but not about variable clearing.
 
-  Paul
+Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+---
+ xen/arch/arm/mm.c             | 3 +++
+ xen/arch/x86/domain_page.c    | 2 +-
+ xen/include/xen/domain_page.h | 7 ++-----
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-> Jan
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index 727107eefa..1b14f49345 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -498,6 +498,9 @@ void unmap_domain_page(const void *va)
+     lpae_t *map = this_cpu(xen_dommap);
+     int slot = ((unsigned long) va - DOMHEAP_VIRT_START) >> SECOND_SHIFT;
+ 
++    if ( !va )
++        return;
++
+     local_irq_save(flags);
+ 
+     ASSERT(slot >= 0 && slot < DOMHEAP_ENTRIES);
+diff --git a/xen/arch/x86/domain_page.c b/xen/arch/x86/domain_page.c
+index dd32712d2f..b03728e18e 100644
+--- a/xen/arch/x86/domain_page.c
++++ b/xen/arch/x86/domain_page.c
+@@ -181,7 +181,7 @@ void unmap_domain_page(const void *ptr)
+     unsigned long va = (unsigned long)ptr, mfn, flags;
+     struct vcpu_maphash_entry *hashent;
+ 
+-    if ( va >= DIRECTMAP_VIRT_START )
++    if ( !va || va >= DIRECTMAP_VIRT_START )
+         return;
+ 
+     ASSERT(va >= MAPCACHE_VIRT_START && va < MAPCACHE_VIRT_END);
+diff --git a/xen/include/xen/domain_page.h b/xen/include/xen/domain_page.h
+index ab2be7b719..a182d33b67 100644
+--- a/xen/include/xen/domain_page.h
++++ b/xen/include/xen/domain_page.h
+@@ -73,11 +73,8 @@ static inline void unmap_domain_page_global(const void *va) {};
+ #endif /* !CONFIG_DOMAIN_PAGE */
+ 
+ #define UNMAP_DOMAIN_PAGE(p) do {   \
+-    if ( p )                        \
+-    {                               \
+-        unmap_domain_page(p);       \
+-        (p) = NULL;                 \
+-    }                               \
++    unmap_domain_page(p);           \
++    (p) = NULL;                     \
+ } while ( false )
+ 
+ #endif /* __XEN_DOMAIN_PAGE_H__ */
+-- 
+2.17.1
 
 
