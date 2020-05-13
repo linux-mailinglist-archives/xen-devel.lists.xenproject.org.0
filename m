@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD8FB1D04DF
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 04:29:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA5C51D0508
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 04:36:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYh7a-0006rw-1M; Wed, 13 May 2020 02:27:46 +0000
+	id 1jYhFQ-0007ho-S6; Wed, 13 May 2020 02:35:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WltO=63=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jYh7Y-0006rr-AP
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 02:27:44 +0000
-X-Inumbo-ID: 52c1e816-94c1-11ea-9887-bc764e2007e4
-Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+ id 1jYhFO-0007hj-TV
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 02:35:50 +0000
+X-Inumbo-ID: 75035d46-94c2-11ea-ae69-bc764e2007e4
+Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 52c1e816-94c1-11ea-9887-bc764e2007e4;
- Wed, 13 May 2020 02:27:43 +0000 (UTC)
-Received: by mail-lf1-x141.google.com with SMTP id a4so12255244lfh.12
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2020 19:27:43 -0700 (PDT)
+ id 75035d46-94c2-11ea-ae69-bc764e2007e4;
+ Wed, 13 May 2020 02:35:50 +0000 (UTC)
+Received: by mail-lf1-x142.google.com with SMTP id a9so12267959lfb.8
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2020 19:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VbFr1/1CMDbdIRzckOMwfDFKihc0fhWTkKaWoFSjiV4=;
- b=PedfiEa1+y5MEmJ4mgTmTNy0cneAUsmmn4nAKzyhTNXxfRV/f7r8Mlx7k3IACyOYjr
- HVtjtwOieHlVgaIYZQ5Nnd4DG8JnMdbWv94zhO1SvDysBAv0Fe6/tbHQVKL8enuaLPkN
- vfyQdCAFAE3E5hwi27rqagYhYPkeCdOE3SXkSyXGEHhV+AqPMsEz2Vel4qMwN6GQDKgE
- YTXnFkgVQ27PGdAC6LU7z79UOZlg84N3aYAuSG2ytRFIUYfY3/yAM/9bKPQwxyQ7Nzv4
- XTonFk91qNZ1da2qhl1IWDl9CsMIO2QXH79r3rhdOtENxlzP2+02HLzyS/CvUVim1bHT
- HGhQ==
+ :cc; bh=E9N4W2DwvaFGv1eRMFSJ1p6aZv3XUhtfCnoLChztmVA=;
+ b=Ifk0J4Xmf2rqOyNut+l9VVX80YJg2wQ5sphfC0LxSYuXdTLYlJcoxKdx3Y+hlm/Qoa
+ xVrwuYwUwvG2BZGFyZpR8wSMGB/mHlsCOwBe3mNzYoPf0h/jssE9VLhKEaGhripYcdq6
+ ZGOACzEDqsNverHqjLhPIsJbhiO0+GrB2mVqB7rtIkGGH4M+F9MOYoy6pTDIpNktjHKk
+ 1457IrfBxMYUtQu+drKkQEf9dWEETSEW+rBGkZdorb8Kjihzrkf8mjKa+vTdnGqJa27X
+ k02lISbThujYMBuBHHsjn/5/aSIFePHF0cbMrCx8DODvw2hvINXs0wKv53uQtYXQUc4B
+ nRMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VbFr1/1CMDbdIRzckOMwfDFKihc0fhWTkKaWoFSjiV4=;
- b=iljccZmSlvIh/nXzEG2zJevbht50sFw8ZyjwVyZnzv1Z3vodVGkc+3s3n3ZHUY+B4b
- cgkRvphVzPbRq65iJnOaqZWVMwy7rVlKjNtv6pZpzigS0ZXqsR/HhvvMXXVD+SXJkl1H
- 5rWyLCCCFmT2KbkpAmRnXTDtSo3VqOra803uvKx9cQvt+cMMadthvQwKZCdFYmjRzmDi
- E1u/xbBaJkFAhcMhYbksuLEN+dc8Mwf0hc65ZPXHcxvK+g0KzI4TZ8J9J+yyh70Y1PFH
- PiqApm0O0rimaM2QNYqtZ318ayjDOlqQFiW38tUTX1M1atDA4fiCCGMAlfPNuDPZ/f9f
- EP4A==
-X-Gm-Message-State: AOAM531s2fFqWe9K0u7bZdqv/AIfN/RyX/wNwSIKuIlg+rcy912r2S2/
- 6yL2UewzpBKfxXh8dku1DDNe0nqYXqTZ49f+ClM=
-X-Google-Smtp-Source: ABdhPJy+lMlAjOrCt3+JbkqTi/DIl2lwNtkJtXvQ0LfhsJwEWn9RfvFqJjLRpXLho2ThXXeERZkQ+PBYVvwFSfPqVa0=
-X-Received: by 2002:ac2:4c3b:: with SMTP id u27mr16187841lfq.212.1589336861936; 
- Tue, 12 May 2020 19:27:41 -0700 (PDT)
+ bh=E9N4W2DwvaFGv1eRMFSJ1p6aZv3XUhtfCnoLChztmVA=;
+ b=B4zReaj4kSA9DJYPEyE36fx+dpsyBZuwFqB2dyDq0XLQoExm4Gesuhzr7Ffto/vgRO
+ 6ngxn8uVultBsOoOlGxz/ruK8+1Lw4KBbDYgd9E0TM9v3eKiDDPbi7KL0/pJbd2isDEO
+ tgyuelNpdMU9KXB7aiuSdwS1tT17CU4nSBDCjPVpb8yw8YzWJSk7ZgbrkE7Nh+Uuhp/B
+ NARyLB4rgoTdhJ0L8/KaTSdBBwDrluhXupk26wIjEBhlr1zMm8h6sCR63tilruRIiNZW
+ +MHWq+taFuZp+ZxEDE18ktf/qkmvU7WIHwC0BFQFivb7XBa1EWDz+mXmRT5sV+9J7kOH
+ Sppg==
+X-Gm-Message-State: AOAM532Tx5XrMftimEvgu/MQh98RKBIrAd/QTUCt01NukyXkClMBhUDa
+ Ptv+tNK3T2zVMg/mtBNahsPkQx7utNIM+JGC6o8=
+X-Google-Smtp-Source: ABdhPJxs0TdijdGhSlbSI5fXuLNpbmbV92urJRIUVRWarQ8/4SvmZiU6YxqrO2jP1zqhMquADG0OG0qPwdqw7EmtpZ0=
+X-Received: by 2002:ac2:4c3b:: with SMTP id u27mr16203886lfq.212.1589337349132; 
+ Tue, 12 May 2020 19:35:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200512191108.6461-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20200512191108.6461-1-andrew.cooper3@citrix.com>
+References: <20200512191116.6851-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20200512191116.6851-1-andrew.cooper3@citrix.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 12 May 2020 22:27:30 -0400
-Message-ID: <CAKf6xpt3hOM+y_w1s99phu8exHE+xyAsYM=6qHFqpD9mY_U5AQ@mail.gmail.com>
-Subject: Re: [PATCH] x86/build32: Discard all orphaned sections
+Date: Tue, 12 May 2020 22:35:38 -0400
+Message-ID: <CAKf6xpt-WLVOTaca_FncB4XX0PQ2ZbP6GFWQjinAYex=6mptRA@mail.gmail.com>
+Subject: Re: [PATCH] x86/build: Unilaterally disable -fcf-protection
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -73,21 +73,30 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On Tue, May 12, 2020 at 3:11 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
 >
-> Linkers may put orphaned sections ahead of .text, which breaks the calling
-> requirements.  A concrete example is Ubuntu's GCC-9 default of enabling
-> -fcf-protection which causes us to try and execute .note.gnu.properties during
-> Xen's boot.
->
-> Put .got.plt in its own section as it specifically needs preserving from the
-> linkers point of view, and discard everything else.  This will hopefully be
-> more robust to other unexpected toolchain properties.
->
-> Fixes boot from an Ubuntu build of Xen.
+> See comment for details.  Works around a GCC-9 bug which breaks the build on
+> Ubuntu.
 >
 > Reported-by: Jason Andryuk <jandryuk@gmail.com>
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Tested-by: Jason Andryuk <jandryuk@gmail.com>
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
-Thanks
+> diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+> index 2a51553edb..93e30e4bea 100644
+> --- a/xen/arch/x86/arch.mk
+> +++ b/xen/arch/x86/arch.mk
+> @@ -67,6 +67,15 @@ CFLAGS-$(CONFIG_INDIRECT_THUNK) += -mindirect-branch=thunk-extern
+>  CFLAGS-$(CONFIG_INDIRECT_THUNK) += -mindirect-branch-register
+>  CFLAGS-$(CONFIG_INDIRECT_THUNK) += -fno-jump-tables
+>
+> +# Xen doesn't support CET-IBT yet.  At a minimum, logic is required to
+> +# enable it for supervisor use, but the Livepatch functionality needs
+> +# to learn not to overwrite ENDBR64 instructions.
+
+Is the problem that existing functions start with ENDBR64, but the
+livepatch overwrites with a "real" instruction?
+
+Regards,
+Jason
 
