@@ -2,56 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39B3E1D1290
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 14:24:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 840B91D13F1
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2020 15:05:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jYqQ7-0007i2-Bc; Wed, 13 May 2020 12:23:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mb4t=63=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jYqQ5-0007hx-Fj
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 12:23:29 +0000
-X-Inumbo-ID: 8c71035a-9514-11ea-a36a-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8c71035a-9514-11ea-a36a-12813bfff9fa;
- Wed, 13 May 2020 12:23:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tIgvbCx/xo8TJd4ZUL44gU21a0xS0sY7kmnccqVppuY=; b=GQ/icHFh1qzm0mYTC+n5iRu3c7
- /SZk+HDA++wcR898zL8pWWSE7MjUWdXs8ie0hJ09svUdhH5255QW7blxPbl0vcMWKc5VPMvwnuK9v
- ND6xXqV0iI/mIA01W8Mqxp+gkbw4c9MJ9wTCxvqWRCD9uTOEXqxWwD9qezrcLOJwKYtA=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jYqQ1-0005z1-KH; Wed, 13 May 2020 12:23:25 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jYqQ1-0007pg-Cq; Wed, 13 May 2020 12:23:25 +0000
-Subject: Re: [PATCH] stubdom: Use matching quotes in error message
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20200513121554.15239-1-andrew.cooper3@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a34dea2a-75d9-5eb3-a668-b72306091c2f@xen.org>
-Date: Wed, 13 May 2020 13:23:23 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+	id 1jYr36-0002j9-Rt; Wed, 13 May 2020 13:03:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FcTI=63=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1jYr34-0002j3-Vs
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 13:03:47 +0000
+X-Inumbo-ID: 2daf0154-951a-11ea-9887-bc764e2007e4
+Received: from mail-lj1-x242.google.com (unknown [2a00:1450:4864:20::242])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2daf0154-951a-11ea-9887-bc764e2007e4;
+ Wed, 13 May 2020 13:03:46 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id f18so17671399lja.13
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2020 06:03:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=XOKqvYgS51zYyBhTlMbM5DoC7qOBC4b/bGpL7WiFAEQ=;
+ b=mGJRf4YnFkQ1mpKs205pKlnb/dHaNcuIBLvuaDiH5qkMYXqY7BaKi8ye4tiu8f4i52
+ Ff1T6L9TrECR3H+ssUt38sC92TEjbl+FG/E/LAC2bH//qkArV7Y+WOsh10VRrT7ZvnSQ
+ fQxTUfkV3ZHIGpaUyWEtMTChpCx4dORmzM+ZTc5WrnAo37BfPQLF3O6d/+UpFLShFzh8
+ jWW9qIsWIZpd7YlcLEtKuVAfWrfUwgjHoCA0muKlIWOY1gGoTnf1BSpr06oVm3UujAIh
+ ACxN4llS6C9NXr99N1MZgVIcsGhY7ZltlBYvvQicHSAB7Uc6PSH/B8HpbFSrcmqXa0eL
+ lFOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=XOKqvYgS51zYyBhTlMbM5DoC7qOBC4b/bGpL7WiFAEQ=;
+ b=Qr0PxGF9hiFACMX08Zxx7mF1iUUFRqyKs6geG6Kkipqh9C9mPg+KibhX33UX5EY5Du
+ Ei7wovcKTsrTMw9wljCTCwGp0Lz0N6NQb0c/P7lXycOQWgLutDozQXk+KqUDdgNWtMYa
+ bqXbLh4/89KBaVlKs2OzA2EI/ilsckiPVTgXzOITglHAv8iq09oyh9Jj1RDsYwEb7jar
+ 96Tyr7oEIYsA01Cs/4/sTsYCzQticmJuAD13Q72N6faDitsHdjAGLnnA8IXf8QECl9ue
+ P6bIDwGnRp6pI+Fmu8bGp7ezl4knO91yejCvHyn+a4RNfVE8/uBZU1fFcAMFNC3yg/20
+ FyXg==
+X-Gm-Message-State: AOAM532DA503lW2YkE44158QANjSadAjjiKzWyEytuptnqXsnRdqhhH7
+ 2Y06Yo+X68mKXqL7fYMf2Yei11ZptIbrkyHaDc0=
+X-Google-Smtp-Source: ABdhPJzVAvcoO6m9+UZDWniMLTWgHfb34alX1dNieiUZY0nQN7N1WpDrFpmGtkYX3RYXBL3ljAA7pzKk9kUEexJ0ZLo=
+X-Received: by 2002:a2e:958b:: with SMTP id w11mr2590090ljh.262.1589375025202; 
+ Wed, 13 May 2020 06:03:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200513121554.15239-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <cover.1589330383.git.rosbrookn@ainfosec.com>
+ <a42395202aef85d983dd9db361c366a6d03e313f.1589330383.git.rosbrookn@ainfosec.com>
+ <BAD53A57-6842-43E6-AA5B-6C42B7290D00@citrix.com>
+In-Reply-To: <BAD53A57-6842-43E6-AA5B-6C42B7290D00@citrix.com>
+From: Nick Rosbrook <rosbrookn@gmail.com>
+Date: Wed, 13 May 2020 09:03:32 -0400
+Message-ID: <CAEBZRSfxAeZdbvkOQ+fkVso_6v1qVPih6AQm62NC=oyhkgsU0Q@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] golang/xenlight: add necessary module/package
+ documentation
+To: George Dunlap <George.Dunlap@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,51 +69,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>, Jan Beulich <jbeulich@suse.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+> One thing I forgot to mention about the README is the long lines =E2=80=
+=94 do you mind if I wrap those before checking it in?
 
+I don't mind at all.
 
-On 13/05/2020 13:15, Andrew Cooper wrote:
-> This prevents syntax highlighting from believing the rest of the file is a
-> string.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Also, add a copy of the LGPL (the same license used by libxl) to
+> > tools/golang/xenlight. This is required for the package to be shown
+> > on pkg.go.dev and added to the default module proxy, proxy.golang.org.
+> >
+> > Finally, add an entry for the xenlight package to SUPPORT.md.
+> >
+> > Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
+>
+> Reviewed-by: George Dunlap <george.dunlap@citrix.com>
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Thanks!
 
-Cheers,
-
-> ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Ian Jackson <ian.jackson@citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> ---
->   stubdom/Makefile | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/stubdom/Makefile b/stubdom/Makefile
-> index 8cf7131c6a..12aa211ac3 100644
-> --- a/stubdom/Makefile
-> +++ b/stubdom/Makefile
-> @@ -16,7 +16,7 @@ CFLAGS += -O1 -fno-omit-frame-pointer
->   
->   ifeq (,$(findstring clean,$(MAKECMDGOALS)))
->     ifeq ($(wildcard $(MINI_OS)/Config.mk),)
-> -    $(error Please run `make mini-os-dir' in top-level directory)
-> +    $(error Please run 'make mini-os-dir' in top-level directory)
->     endif
->     include $(XEN_ROOT)/Config.mk
->   endif
-> 
-
--- 
-Julien Grall
+-NR
 
