@@ -2,60 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7D591D22C6
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 01:11:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7DB91D2331
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 01:40:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZ0XG-00068v-JV; Wed, 13 May 2020 23:11:34 +0000
+	id 1jZ0ya-00080m-Dz; Wed, 13 May 2020 23:39:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Rkd=63=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jZ0XF-00068q-5x
- for xen-devel@lists.xenproject.org; Wed, 13 May 2020 23:11:33 +0000
-X-Inumbo-ID: 11ce68e4-956f-11ea-a429-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=cgDE=63=oracle.com=dongli.zhang@srs-us1.protection.inumbo.net>)
+ id 1jZ0yY-00080h-Kv
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2020 23:39:46 +0000
+X-Inumbo-ID: 05f45408-9573-11ea-a42d-12813bfff9fa
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 11ce68e4-956f-11ea-a429-12813bfff9fa;
- Wed, 13 May 2020 23:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=FNCkokUQbf21KV+raI9GYxWHfLTQIban6MX3+vdhArA=; b=23eDjWM1HCYIqnCQMhdUjOh70
- E7F2dPzUbw9n0t7AEmsqpADrrtfRjN52rKGxLTfy6Mtt+OK+bbNPAfjiuq1NtNBW7JiCb8YZfDxgi
- QZnfM+DforUOoRc4M+ra5o0VKz3PcIE8RTYGMrvoFNVd7QwZ0xIqOEDOoc1KksvTdLmGE=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZ0X7-0003Dh-Uq; Wed, 13 May 2020 23:11:25 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZ0X7-0004MO-L6; Wed, 13 May 2020 23:11:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jZ0X7-0003Xq-KW; Wed, 13 May 2020 23:11:25 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150168-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150168: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=3a218961b16f1f4feb1147f56338faf1ac8f5703
-X-Osstest-Versions-That: xen=61be48dc029294275348443f78a5e600ef28274f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 May 2020 23:11:25 +0000
+ id 05f45408-9573-11ea-a42d-12813bfff9fa;
+ Wed, 13 May 2020 23:39:44 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04DNaPAg065703;
+ Wed, 13 May 2020 23:39:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id; s=corp-2020-01-29;
+ bh=WUtDE1uvxFfqtxiGlboxCs/AC9GkRjxAc7zArX6xztU=;
+ b=C5wiUZj9WYB1aqt+jnVi12+YGGDEW0nQ8LtsgPIZBkEAcyoj8ADZC37Pgb8kxnOh26fc
+ V0Wu+Tja6vN9+8fzF34W6WSFaJS3MWmSIhSwRQ+vnzrXGROUojOCUVlARX/lOQqEVVD7
+ k//V+rJYO0LxrgNN4BiAAEXcfnMofRusW62WfQTf32LIqb1LvXaCAnvddFb0CX/vEPEH
+ qie2e4zIR7bYHTGuf5jjxqg3eXk0w/iK+w9w+TgtQyM8WtJWZnLsX5s8aApmUa+ZlGgS
+ D+8jO2AAKohWG+jzWyQJEO5TVobD6JCTcyU2TMVMpq9Zi8e1UrPMM5Q7wQkbOseCgff5 qQ== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2130.oracle.com with ESMTP id 3100yfydwe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 13 May 2020 23:39:42 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04DNc3Fk100680;
+ Wed, 13 May 2020 23:39:42 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 3100yfk17f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 13 May 2020 23:39:42 +0000
+Received: from abhmp0001.oracle.com (abhmp0001.oracle.com [141.146.116.7])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 04DNde5Y017022;
+ Wed, 13 May 2020 23:39:40 GMT
+Received: from localhost.localdomain (/10.211.9.80)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 13 May 2020 16:39:40 -0700
+From: Dongli Zhang <dongli.zhang@oracle.com>
+To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] xen/manage: enable C_A_D to force reboot
+Date: Wed, 13 May 2020 16:34:10 -0700
+Message-Id: <20200513233410.18120-1-dongli.zhang@oracle.com>
+X-Mailer: git-send-email 2.17.1
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9620
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ malwarescore=0 bulkscore=0
+ phishscore=0 suspectscore=0 adultscore=0 mlxscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
+ definitions=main-2005130203
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9620
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 adultscore=0
+ cotscore=-2147483648 mlxscore=0 suspectscore=0 spamscore=0 impostorscore=0
+ mlxlogscore=999 malwarescore=0 clxscore=1011 phishscore=0 bulkscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2005130203
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,66 +79,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: jgross@suse.com, rose.wang@oracle.com, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org, joe.jin@oracle.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150168 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150168/
+The systemd may be configured to mask ctrl-alt-del via "systemctl mask
+ctrl-alt-del.target". As a result, the pv reboot would not work as signal
+is ignored.
 
-Failures :-/ but no regressions.
+This patch always enables C_A_D before the call of ctrl_alt_del() in order
+to force the reboot.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Reported-by: Rose Wang <rose.wang@oracle.com>
+Cc: Joe Jin <joe.jin@oracle.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
+---
+ drivers/xen/manage.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-version targeted for testing:
- xen                  3a218961b16f1f4feb1147f56338faf1ac8f5703
-baseline version:
- xen                  61be48dc029294275348443f78a5e600ef28274f
+diff --git a/drivers/xen/manage.c b/drivers/xen/manage.c
+index cd046684e0d1..3190d0ecb52e 100644
+--- a/drivers/xen/manage.c
++++ b/drivers/xen/manage.c
+@@ -204,6 +204,13 @@ static void do_poweroff(void)
+ static void do_reboot(void)
+ {
+ 	shutting_down = SHUTDOWN_POWEROFF; /* ? */
++	/*
++	 * The systemd may be configured to mask ctrl-alt-del via
++	 * "systemctl mask ctrl-alt-del.target". As a result, the pv reboot
++	 * would not work. To enable C_A_D would force the reboot.
++	 */
++	C_A_D = 1;
++
+ 	ctrl_alt_del();
+ }
+ 
+-- 
+2.17.1
 
-Last test of basis   150166  2020-05-13 18:00:35 Z    0 days
-Testing same since   150168  2020-05-13 21:00:43 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Julien Grall <jgrall@amazon.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   61be48dc02..3a218961b1  3a218961b16f1f4feb1147f56338faf1ac8f5703 -> smoke
 
