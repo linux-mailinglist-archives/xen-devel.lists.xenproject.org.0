@@ -2,87 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E6451D2C13
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 12:02:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB84D1D2C76
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 12:21:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZAgg-0000Rl-OL; Thu, 14 May 2020 10:01:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=otfA=64=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jZAgf-0000Rc-8V
- for xen-devel@lists.xenproject.org; Thu, 14 May 2020 10:01:57 +0000
-X-Inumbo-ID: f123cce6-95c9-11ea-a464-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f123cce6-95c9-11ea-a464-12813bfff9fa;
- Thu, 14 May 2020 10:01:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589450516;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=htGQpczr7kVz+Vy1EktgZWFDxdY3YxljwCelp6QqO0Q=;
- b=InO/hM6tapFN97H3RXJPZ03Q/G80yuD9/Pwpyx/ZHdI0hFxgxR+FydpQ
- C5kxXIDZqlFri9sDM6xftRj/p8pil59Fub9TcdK4F0Sw2ZU4ZpJjS/lhr
- RMo57gJ2MVfD6mlqxZ6ZKAtqycMOIm4N23w0dVZ3Z4IVlw0974wyVDc4u Q=;
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: qFo1ZqjK9iKSIq17MsRtARt+8wMsOg/uEGgrqSE9NvpFS6oaJMiQtxsMmPlXJM79XobrwJclDt
- Q/l06SJ/0flY+h0WWlzqPSgXadF8rnHj5LR+hCADMHmaZtAoaN+i4xwmLMJO429zx43VJqY7PO
- 2c1vl5Lov3AF+qHAI44EIG/pbaMGvjhPAfOvJKvB0VWIk+FyWR0UqIJxjvqeImOy+utUj7rBPC
- 9n6OC0a5GPsSTsOzbznHx84DB/qxqIXvHdM9CvJGRm2ZKw2IKm6jc9aXlap6iuyX/CJeTKNw4w
- dYM=
-X-SBRS: 2.7
-X-MesageID: 17529291
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,390,1583211600"; d="scan'208";a="17529291"
-Date: Thu, 14 May 2020 12:01:45 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 4/4] x86/APIC: restrict certain messages to BSP
-Message-ID: <20200514100145.GA54375@Air-de-Roger>
-References: <60130f14-3fc5-e40d-fec6-2448fefa6fc4@suse.com>
- <513e4f93-a8a0-ae72-abcc-aa28531eca97@suse.com>
+	id 1jZAyc-0002JO-8i; Thu, 14 May 2020 10:20:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ezST=64=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jZAya-0002JJ-Ou
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2020 10:20:28 +0000
+X-Inumbo-ID: 87ad0f7c-95cc-11ea-9887-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 87ad0f7c-95cc-11ea-9887-bc764e2007e4;
+ Thu, 14 May 2020 10:20:27 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id AAD52AEB9;
+ Thu, 14 May 2020 10:20:28 +0000 (UTC)
+Subject: Re: [PATCH v8 09/12] xen: add runtime parameter access support to
+ hypfs
+To: Juergen Gross <jgross@suse.com>
+References: <20200508153421.24525-1-jgross@suse.com>
+ <20200508153421.24525-10-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a6c10680-d570-dabb-61ad-627591d08b0e@suse.com>
+Date: Thu, 14 May 2020 12:20:19 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <513e4f93-a8a0-ae72-abcc-aa28531eca97@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <20200508153421.24525-10-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,93 +47,304 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Mar 13, 2020 at 10:26:47AM +0100, Jan Beulich wrote:
-> All CPUs get an equal setting of EOI broadcast suppression; no need to
-> log one message per CPU, even if it's only in verbose APIC mode.
-> 
-> Only the BSP is eligible to possibly get ExtINT enabled; no need to log
-> that it gets disabled on all APs, even if - again - it's only in verbose
-> APIC mode.
-> 
-> Take the opportunity and introduce a "bsp" parameter to the function, to
-> stop using smp_processor_id() to tell BSP from APs.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 08.05.2020 17:34, Juergen Gross wrote:
+> --- a/xen/arch/arm/xen.lds.S
+> +++ b/xen/arch/arm/xen.lds.S
+> @@ -89,6 +89,13 @@ SECTIONS
+>         __start_schedulers_array = .;
+>         *(.data.schedulers)
+>         __end_schedulers_array = .;
+> +
+> +#ifdef CONFIG_HYPFS
+> +       . = ALIGN(8);
+> +       __paramhypfs_start = .;
+> +       *(.data.paramhypfs)
+> +       __paramhypfs_end = .;
+> +#endif
+>         *(.data.rel)
+>         *(.data.rel.*)
+>         CONSTRUCTORS
 
-LGTM:
+I'm not the maintainer of this code, but I think it would be better
+if there was either no blank line inserted, or two (a 2nd one after
+your insertion).
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> --- a/xen/arch/x86/pv/domain.c
+> +++ b/xen/arch/x86/pv/domain.c
+> @@ -52,9 +52,27 @@ static __read_mostly enum {
+>      PCID_OFF,
+>      PCID_ALL,
+>      PCID_XPTI,
+> -    PCID_NOXPTI
+> +    PCID_NOXPTI,
+> +    PCID_END
+>  } opt_pcid = PCID_XPTI;
 
-AFAICT this doesn't introduce any functional change in APIC setup or
-behavior, the only functional change is the log message reduction.
-Might be good to add a note to that effect to make this clear, since
-the change from smp_processor_id() -> bsp might make this not obvious.
+Is this change really needed? The only use looks to be ...
 
-> 
-> --- a/xen/arch/x86/apic.c
-> +++ b/xen/arch/x86/apic.c
-> @@ -499,7 +499,7 @@ static void resume_x2apic(void)
->      __enable_x2apic();
+> +#ifdef CONFIG_HYPFS
+> +static const char opt_pcid_2_string[PCID_END][7] = {
+
+... here, yet the arry would end up the same when using [][7].
+
+> --- a/xen/common/grant_table.c
+> +++ b/xen/common/grant_table.c
+> @@ -85,8 +85,43 @@ struct grant_table {
+>      struct grant_table_arch arch;
+>  };
+>  
+> -static int parse_gnttab_limit(const char *param, const char *arg,
+> -                              unsigned int *valp)
+> +unsigned int __read_mostly opt_max_grant_frames = 64;
+> +static unsigned int __read_mostly opt_max_maptrack_frames = 1024;
+> +
+> +#ifdef CONFIG_HYPFS
+> +#define GRANT_CUSTOM_VAL_SZ  12
+> +static char __read_mostly opt_max_grant_frames_val[GRANT_CUSTOM_VAL_SZ];
+> +static char __read_mostly opt_max_maptrack_frames_val[GRANT_CUSTOM_VAL_SZ];
+> +
+> +static void update_gnttab_par(struct param_hypfs *par, unsigned int val,
+> +                              char *parval)
+> +{
+> +    snprintf(parval, GRANT_CUSTOM_VAL_SZ, "%u", val);
+> +    custom_runtime_set_var_sz(par, parval, GRANT_CUSTOM_VAL_SZ);
+> +}
+> +
+> +static void __init gnttab_max_frames_init(struct param_hypfs *par)
+> +{
+> +    update_gnttab_par(par, opt_max_grant_frames, opt_max_grant_frames_val);
+> +}
+> +
+> +static void __init max_maptrack_frames_init(struct param_hypfs *par)
+> +{
+> +    update_gnttab_par(par, opt_max_maptrack_frames,
+> +                      opt_max_maptrack_frames_val);
+> +}
+> +#else
+> +#define opt_max_grant_frames_val    NULL
+> +#define opt_max_maptrack_frames_val NULL
+
+This looks latently dangerous to me (in case new uses of these
+two identifiers appeared), but I guess my alternative suggestion
+will be at best controversial, too:
+
+#define update_gnttab_par(par, val, unused) update_gnttab_par(par, val)
+#define parse_gnttab_limit(par, arg, valp, unused) parse_gnttab_limit(par, arg, valp)
+
+(placed right here)
+
+> @@ -281,6 +282,36 @@ int hypfs_write_bool(struct hypfs_entry_leaf *leaf,
+>      return 0;
 >  }
 >  
-> -void setup_local_APIC(void)
-> +void setup_local_APIC(bool bsp)
->  {
->      unsigned long oldvalue, value, maxlvt;
->      int i, j;
-> @@ -598,8 +598,8 @@ void setup_local_APIC(void)
->      if ( directed_eoi_enabled )
->      {
->          value |= APIC_SPIV_DIRECTED_EOI;
-> -        apic_printk(APIC_VERBOSE, "Suppress EOI broadcast on CPU#%d\n",
-> -                    smp_processor_id());
-> +        if ( bsp )
-> +            apic_printk(APIC_VERBOSE, "Suppressing EOI broadcast\n");
->      }
+> +int hypfs_write_custom(struct hypfs_entry_leaf *leaf,
+> +                       XEN_GUEST_HANDLE_PARAM(void) uaddr, unsigned long ulen)
+> +{
+> +    struct param_hypfs *p;
+> +    char *buf;
+> +    int ret;
+> +
+> +    buf = xzalloc_array(char, ulen);
+> +    if ( !buf )
+> +        return -ENOMEM;
+> +
+> +    ret = -EFAULT;
+> +    if ( copy_from_guest(buf, uaddr, ulen) )
+
+As just indicated in an extra reply to patch 4, ulen not getting
+truncated here silently is well obscured (the max_size field type
+and the check against it elsewhere looks to guarantee this).
+
+> +        goto out;
+> +
+> +    ret = -EDOM;
+> +    if ( memchr(buf, 0, ulen) != (buf + ulen - 1) )
+> +        goto out;
+> +
+> +    p = container_of(leaf, struct param_hypfs, hypfs);
+> +    ret = p->param->par.func(buf);
+> +
+> +    if ( !ret )
+> +        leaf->e.size = ulen;
+
+Why? For "ept", "no-exec-sp" would yield "exec-sp=0", and hence
+you'd wrongly extend the size from what parse_ept_param_runtime()
+has already set through custom_runtime_set_var(). It looks to me
+as if there's no reason to update e.size here at all; it's the
+par.func() handlers which need to take care of this.
+
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -75,12 +75,35 @@ enum con_timestamp_mode
+>      TSM_DATE_MS,       /* [YYYY-MM-DD HH:MM:SS.mmm] */
+>      TSM_BOOT,          /* [SSSSSS.uuuuuu] */
+>      TSM_RAW,           /* [XXXXXXXXXXXXXXXX] */
+> +    TSM_END
+>  };
+
+Just like for the PCID enumeration I don't think a sentinel is
+needed here.
+
+>  static enum con_timestamp_mode __read_mostly opt_con_timestamp_mode = TSM_NONE;
 >  
->      apic_write(APIC_SPIV, value);
-> @@ -615,21 +615,22 @@ void setup_local_APIC(void)
->       * TODO: set up through-local-APIC from through-I/O-APIC? --macro
->       */
->      value = apic_read(APIC_LVT0) & APIC_LVT_MASKED;
-> -    if (!smp_processor_id() && (pic_mode || !value)) {
-> +    if (bsp && (pic_mode || !value)) {
->          value = APIC_DM_EXTINT;
->          apic_printk(APIC_VERBOSE, "enabled ExtINT on CPU#%d\n",
->                      smp_processor_id());
->      } else {
->          value = APIC_DM_EXTINT | APIC_LVT_MASKED;
-> -        apic_printk(APIC_VERBOSE, "masked ExtINT on CPU#%d\n",
-> -                    smp_processor_id());
-> +        if (bsp)
-> +            apic_printk(APIC_VERBOSE, "masked ExtINT on CPU#%d\n",
-> +                        smp_processor_id());
+> +#ifdef CONFIG_HYPFS
+> +static const char con_timestamp_mode_2_string[TSM_END][7] = {
+> +    [TSM_NONE] = "none",
+> +    [TSM_DATE] = "date",
+> +    [TSM_DATE_MS] = "datems",
+> +    [TSM_BOOT] = "boot",
+> +    [TSM_RAW] = "raw"
 
-You might want to also drop the CPU#%d from the above messages, since
-they would only be printed for the BSP.
+Add a trailing comma please (and as I notice only now then also
+in the similar PCID array).
 
->      }
->      apic_write(APIC_LVT0, value);
+To the subsequent code the gnttab comment applies as well.
+
+> @@ -80,7 +81,120 @@ extern const struct kernel_param __param_start[], __param_end[];
 >  
->      /*
->       * only the BP should see the LINT1 NMI signal, obviously.
->       */
-> -    if (!smp_processor_id())
-> +    if (bsp)
->          value = APIC_DM_NMI;
->      else
->          value = APIC_DM_NMI | APIC_LVT_MASKED;
+>  #define __rtparam         __param(__dataparam)
+>  
+> -#define custom_runtime_only_param(_name, _var) \
+> +#ifdef CONFIG_HYPFS
+> +
+> +struct param_hypfs {
+> +    const struct kernel_param *param;
+> +    struct hypfs_entry_leaf hypfs;
+> +    void (*init_leaf)(struct param_hypfs *par);
+> +};
+> +
+> +extern struct param_hypfs __paramhypfs_start[], __paramhypfs_end[];
+> +
+> +#define __paramhypfs      __used_section(".data.paramhypfs")
+> +
+> +#define __paramfs         static __paramhypfs \
+> +    __attribute__((__aligned__(sizeof(void *)))) struct param_hypfs
 
-This would be shorter as:
+Why the attribute?
 
-value = APIC_DM_NMI | (bsp ? 0 : APIC_LVT_MASKED);
+> +#define custom_runtime_set_var_sz(parfs, var, sz) \
+> +    { \
+> +        (parfs)->hypfs.content = var; \
+> +        (parfs)->hypfs.e.max_size = sz; \
 
-Not specially trilled anyway.
+var and sz want parentheses around them.
 
-Thanks, Roger.
+> +        (parfs)->hypfs.e.size = strlen(var) + 1; \
+> +    }
+> +#define custom_runtime_set_var(parfs, var) \
+> +    custom_runtime_set_var_sz(parfs, var, sizeof(var))
+> +
+> +#define param_2_parfs(par) &__parfs_##par
+> +
+> +/* initfunc needs to set size and content, e.g. via custom_runtime_set_var(). */
+> +#define custom_runtime_only_param(_name, _var, initfunc) \
+
+I've started noticing it here, but the issue exists further up
+(and down) as well - please can you avoid identifiers with
+leading underscores that are in violation of the C standard?
+Even more so that here you're not even consistent across
+macro parameter names.
+
+> +    __rtparam __rtpar_##_var = \
+> +      { .name = _name, \
+> +          .type = OPT_CUSTOM, \
+> +          .par.func = _var }; \
+> +    __paramfs __parfs_##_var = \
+> +        { .param = &__rtpar_##_var, \
+> +          .init_leaf = initfunc, \
+> +          .hypfs.e.type = XEN_HYPFS_TYPE_STRING, \
+> +          .hypfs.e.encoding = XEN_HYPFS_ENC_PLAIN, \
+> +          .hypfs.e.name = _name, \
+> +          .hypfs.e.read = hypfs_read_leaf, \
+> +          .hypfs.e.write = hypfs_write_custom }
+> +#define boolean_runtime_only_param(_name, _var) \
+> +    __rtparam __rtpar_##_var = \
+> +        { .name = _name, \
+> +          .type = OPT_BOOL, \
+> +          .len = sizeof(_var) + \
+> +                 BUILD_BUG_ON_ZERO(sizeof(_var) != sizeof(bool)), \
+> +          .par.var = &_var }; \
+> +    __paramfs __parfs_##_var = \
+> +        { .param = &__rtpar_##_var, \
+> +          .hypfs.e.type = XEN_HYPFS_TYPE_BOOL, \
+> +          .hypfs.e.encoding = XEN_HYPFS_ENC_PLAIN, \
+> +          .hypfs.e.name = _name, \
+> +          .hypfs.e.size = sizeof(_var), \
+> +          .hypfs.e.max_size = sizeof(_var), \
+> +          .hypfs.e.read = hypfs_read_leaf, \
+> +          .hypfs.e.write = hypfs_write_bool, \
+> +          .hypfs.content = &_var }
+> +#define integer_runtime_only_param(_name, _var) \
+> +    __rtparam __rtpar_##_var = \
+> +        { .name = _name, \
+> +          .type = OPT_UINT, \
+> +          .len = sizeof(_var), \
+> +          .par.var = &_var }; \
+> +    __paramfs __parfs_##_var = \
+> +        { .param = &__rtpar_##_var, \
+> +          .hypfs.e.type = XEN_HYPFS_TYPE_UINT, \
+> +          .hypfs.e.encoding = XEN_HYPFS_ENC_PLAIN, \
+> +          .hypfs.e.name = _name, \
+> +          .hypfs.e.size = sizeof(_var), \
+> +          .hypfs.e.max_size = sizeof(_var), \
+> +          .hypfs.e.read = hypfs_read_leaf, \
+> +          .hypfs.e.write = hypfs_write_leaf, \
+> +          .hypfs.content = &_var }
+> +#define size_runtime_only_param(_name, _var) \
+> +    __rtparam __rtpar_##_var = \
+> +        { .name = _name, \
+> +          .type = OPT_SIZE, \
+> +          .len = sizeof(_var), \
+> +          .par.var = &_var }; \
+> +    __paramfs __parfs_##_var = \
+> +        { .param = &__rtpar_##_var, \
+> +          .hypfs.e.type = XEN_HYPFS_TYPE_UINT, \
+> +          .hypfs.e.encoding = XEN_HYPFS_ENC_PLAIN, \
+> +          .hypfs.e.name = _name, \
+> +          .hypfs.e.size = sizeof(_var), \
+> +          .hypfs.e.max_size = sizeof(_var), \
+> +          .hypfs.e.read = hypfs_read_leaf, \
+> +          .hypfs.e.write = hypfs_write_leaf, \
+> +          .hypfs.content = &_var }
+> +#define string_runtime_only_param(_name, _var) \
+> +    __rtparam __rtpar_##_var = \
+> +        { .name = _name, \
+> +          .type = OPT_STR, \
+> +          .len = sizeof(_var), \
+> +          .par.var = &_var }; \
+> +    __paramfs __parfs_##_var = \
+> +        { .param = &__rtpar_##_var, \
+> +          .hypfs.e.type = XEN_HYPFS_TYPE_STRING, \
+> +          .hypfs.e.encoding = XEN_HYPFS_ENC_PLAIN, \
+> +          .hypfs.e.name = _name, \
+> +          .hypfs.e.size = sizeof(_var), \
+
+Is this really correct here?
+
+> +          .hypfs.e.max_size = sizeof(_var), \
+> +          .hypfs.e.read = hypfs_read_leaf, \
+> +          .hypfs.e.write = hypfs_write_leaf, \
+> +          .hypfs.content = &_var }
+> +
+> +#else
+> +
+> +struct param_hypfs {
+> +};
+> +
+> +#define param_2_parfs(par)  NULL
+
+Along the lines of the earlier comment, this looks latently dangerous.
+
+Jan
 
