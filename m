@@ -2,59 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5427D1D29DA
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 10:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7E931D2AAC
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 10:52:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZ95e-0004oL-2y; Thu, 14 May 2020 08:19:38 +0000
+	id 1jZ9Zi-0008EA-0A; Thu, 14 May 2020 08:50:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v3kr=64=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jZ95d-0004oG-2b
- for xen-devel@lists.xenproject.org; Thu, 14 May 2020 08:19:37 +0000
-X-Inumbo-ID: a2cb05c2-95bb-11ea-b9cf-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WGWk=64=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jZ9Zh-0008E5-E9
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2020 08:50:41 +0000
+X-Inumbo-ID: fccde8ce-95bf-11ea-b9cf-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a2cb05c2-95bb-11ea-b9cf-bc764e2007e4;
- Thu, 14 May 2020 08:19:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=nR5uX871E4gACpthw0UlCKCqf1LTQvebJ2b4Nq39xIM=; b=OM8mdduuW/bApH64igkdiYWih
- TSa4pwmYrpGUseEgpWgBucMO/BRhUmKbGYZi6a39aC26j7uQ9/EMOoA84qWkez9oaxDgPsPNdMYE1
- Y4le15Veuc0CJ0bcPemyK2vUAhIUhn97PEOs5SaFbbF0FMt9mSeDzTHlwaSdwP8Z5Wacw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZ95W-0001QN-TP; Thu, 14 May 2020 08:19:30 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZ95W-0007Hd-Jj; Thu, 14 May 2020 08:19:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jZ95W-0002ca-J6; Thu, 14 May 2020 08:19:30 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150171-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id fccde8ce-95bf-11ea-b9cf-bc764e2007e4;
+ Thu, 14 May 2020 08:50:40 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id F3CA8ACCC;
+ Thu, 14 May 2020 08:50:41 +0000 (UTC)
+Subject: Re: [PATCH v2 3/3] xen/sched: fix latent races accessing
+ vcpu->dirty_cpu
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200511112829.5500-1-jgross@suse.com>
+ <20200511112829.5500-4-jgross@suse.com>
+ <eaa891af-697d-bb30-8e34-470102a98561@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <35440630-c065-8d3f-94d2-e01c6a5df2a2@suse.com>
+Date: Thu, 14 May 2020 10:50:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150171: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=b539eeffc737d859dd1814c2e529e0ed0feba7a7
-X-Osstest-Versions-That: xen=3a218961b16f1f4feb1147f56338faf1ac8f5703
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 14 May 2020 08:19:30 +0000
+In-Reply-To: <eaa891af-697d-bb30-8e34-470102a98561@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,62 +48,84 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150171 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150171/
+On 14.05.20 09:10, Jan Beulich wrote:
+> On 11.05.2020 13:28, Juergen Gross wrote:
+>> @@ -1956,13 +1958,17 @@ void sync_local_execstate(void)
+>>   
+>>   void sync_vcpu_execstate(struct vcpu *v)
+>>   {
+>> -    if ( v->dirty_cpu == smp_processor_id() )
+>> +    unsigned int dirty_cpu = read_atomic(&v->dirty_cpu);
+>> +
+>> +    if ( dirty_cpu == smp_processor_id() )
+>>           sync_local_execstate();
+>> -    else if ( vcpu_cpu_dirty(v) )
+>> +    else if ( is_vcpu_dirty_cpu(dirty_cpu) )
+>>       {
+>>           /* Remote CPU calls __sync_local_execstate() from flush IPI handler. */
+>> -        flush_mask(cpumask_of(v->dirty_cpu), FLUSH_VCPU_STATE);
+>> +        flush_mask(cpumask_of(dirty_cpu), FLUSH_VCPU_STATE);
+>>       }
+>> +    ASSERT(!is_vcpu_dirty_cpu(dirty_cpu) ||
+>> +           read_atomic(&v->dirty_cpu) != dirty_cpu);
+> 
+> Repeating my v1.1 comments:
+> 
+> "However, having stared at it for a while now - is this race
+>   free? I can see this being fine in the (initial) case of
+>   dirty_cpu == smp_processor_id(), but if this is for a foreign
+>   CPU, can't the vCPU have gone back to that same CPU again in
+>   the meantime?"
+> 
+> and later
+> 
+> "There is a time window from late in flush_mask() to the assertion
+>   you add. All sorts of things can happen during this window on
+>   other CPUs. IOW what guarantees the vCPU not getting unpaused or
+>   its affinity getting changed yet another time?"
+> 
+> You did reply that by what is now patch 2 this race can be
+> eliminated, but I have to admit I don't see why this would be.
+> Hence at the very least I'd expect justification in either the
+> description or a code comment as to why there's no race left
+> (and also no race to be expected to be re-introduced by code
+> changes elsewhere - very unlikely races are, by their nature,
+> unlikely to be hit during code development and the associated
+> testing, hence I'd like there to be sufficiently close to a
+> guarantee here).
+> 
+> My reservations here may in part be due to not following the
+> reasoning for patch 2, which therefore I'll have to rely on the
+> scheduler maintainers to judge on.
 
-Failures :-/ but no regressions.
+sync_vcpu_execstate() isn't called for a running or runnable vcpu any
+longer. I can add an ASSERT() and a comment explaining it if you like
+that better.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+> 
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+>> @@ -158,7 +158,7 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
+>>   
+>>       v->domain = d;
+>>       v->vcpu_id = vcpu_id;
+>> -    v->dirty_cpu = VCPU_CPU_CLEAN;
+>> +    write_atomic(&v->dirty_cpu, VCPU_CPU_CLEAN);
+> 
+> This is not strictly necessary (the vCPU won't be acted upon by
+> any other entity in the system just yet), and with this I'd like
+> to suggest to drop this change again.
 
-version targeted for testing:
- xen                  b539eeffc737d859dd1814c2e529e0ed0feba7a7
-baseline version:
- xen                  3a218961b16f1f4feb1147f56338faf1ac8f5703
-
-Last test of basis   150168  2020-05-13 21:00:43 Z    0 days
-Testing same since   150171  2020-05-14 06:00:58 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Fine with me.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   3a218961b1..b539eeffc7  b539eeffc737d859dd1814c2e529e0ed0feba7a7 -> smoke
+Juergen
 
