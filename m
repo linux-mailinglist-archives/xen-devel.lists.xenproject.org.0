@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B6F91D3600
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 18:08:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F201D3602
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 18:08:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZGOI-0002mU-8x; Thu, 14 May 2020 16:07:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jZGPC-0002pn-JR; Thu, 14 May 2020 16:08:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NlH/=64=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jZGOG-0002mP-Sl
- for xen-devel@lists.xenproject.org; Thu, 14 May 2020 16:07:20 +0000
-X-Inumbo-ID: fcbb4e52-95fc-11ea-ae69-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fcbb4e52-95fc-11ea-ae69-bc764e2007e4;
- Thu, 14 May 2020 16:07:19 +0000 (UTC)
+ id 1jZGPA-0002pC-Vc
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2020 16:08:17 +0000
+X-Inumbo-ID: 1e1f15cf-95fd-11ea-a4b0-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1e1f15cf-95fd-11ea-a4b0-12813bfff9fa;
+ Thu, 14 May 2020 16:08:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589472439;
+ d=citrix.com; s=securemail; t=1589472496;
  h=from:mime-version:content-transfer-encoding:message-id:
  date:to:cc:subject:in-reply-to:references;
- bh=putPDERoXCy+RWMiO+hN6Z1MFytmR+R439LvDv8Q3WQ=;
- b=EWexutKehR2EXLkS/Qcc8u31OE7zJmBmZsVZUQ6cVSySO3E/0nERBVTY
- 08bVoU3Cxe3K958kOTtU/EduyrvgPxs99T7ZVHhJc46unxQysq6+MPX8y
- smPmOwIEX3t7nmfm6x1DhdvnlGe3Z3yZvamtbTKCHnt6QMnggAw2LSLRD k=;
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ bh=7Cz4xNGLTLSK2Hzii2YeOv1h69cqCsh47KQcOWUtZ88=;
+ b=U/TCTBBh+PdwIRbJdYid9s3V6Bc8ONIoXXeB7smFcAZR2jFoUv8eJ+LK
+ 5x5jS31HUw4ehRJUlQbvKBMmVXsoVQQh1gJr9u0caZEKWXpdS2sD0idnW
+ c+t6xqwQ3Yv6Xg+k1tRpdq3bKsWvqWhz4pL+gc5KJcalK4+EMPFPt9Q9K k=;
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Ian.Jackson@citrix.com";
  x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
  sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
+ receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Ian.Jackson@citrix.com";
  x-sender="Ian.Jackson@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -44,41 +45,41 @@ Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Ian.Jackson@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=ian.jackson@citrix.com;
  spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com;
  dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: q7IabMW/+O4bmabmf8L7K23WpB2sSO1mQil8dqaBBf02/NUm0Ludp47JZjjogP3N8alXa38uRt
- m1IqpkuN1lIMz6H06TlLjnqH3Jl/PI8KjnJ1ln3x9bxJ5jW6NH6KuCnE0a0AOaLlFEemXqt7HE
- rR8dzESgMubJXMbncuqLwINmhkKJMpsSG8nHVXMw3X/EuWAaxgKQBEmodTiur78Ua+zG2Ur0dW
- lWSCD7Ettz+Kb22K2+V+TKOVbX1CdLOInk6atuvR/cLeDTRZJ95FkoApk2dVdUfZHX37qa4Ld/
- kuw=
+IronPort-SDR: eZ6QYcvK0aZKfzBwZQy12xNHwcTC9TF7YN08SisyNTqzuX0t8fuzYJsJhenc2N/zQY8gmDAY5n
+ WTPsoFzRoPmn4M59YBy947Y9N2i7xvTlP6NHm27Ph2BKIq1fqczHL96WcZPjdRASqygYSmhV+d
+ TjN33lxc8BMewEkSz4v4ekIiFA7/SR4oSvY05KfjfaLcV+2KC5aFJQADSuoJS9T6E39L+1j/Ig
+ 58WrMUwVuteH2IsENrosgSh78vlXfufespKpssqP4qBtFvkb8pLXc/wtNBxhoMnOErQ+TAZWX1
+ mWg=
 X-SBRS: 2.7
-X-MesageID: 17907121
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 17814097
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,391,1583211600"; d="scan'208";a="17907121"
+X-IronPort-AV: E=Sophos;i="5.73,391,1583211600"; d="scan'208";a="17814097"
 From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24253.27824.82649.907746@mariner.uk.xensource.com>
-Date: Thu, 14 May 2020 17:07:12 +0100
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+Message-ID: <24253.27882.665779.471665@mariner.uk.xensource.com>
+Date: Thu, 14 May 2020 17:08:10 +0100
 To: Jason Andryuk <jandryuk@gmail.com>
-Subject: Re: [PATCH v5 00/21] Add support for qemu-xen runnning in a
- Linux-based stubdomain
-In-Reply-To: <20200428040433.23504-1-jandryuk@gmail.com>
+Subject: Re: [PATCH v5 01/21] Document ioemu MiniOS stubdomain protocol
+In-Reply-To: <20200428040433.23504-2-jandryuk@gmail.com>
 References: <20200428040433.23504-1-jandryuk@gmail.com>
+ <20200428040433.23504-2-jandryuk@gmail.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -91,80 +92,27 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew
- Cooper <Andrew.Cooper3@citrix.com>, George Dunlap <George.Dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
  Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>, Simon Gaiser <simon@invisiblethingslab.com>,
- Jan Beulich <jbeulich@suse.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Eric Shelton <eshelton@pobox.com>
+ <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Jason Andryuk writes ("[PATCH v5 00/21] Add support for qemu-xen runnning in a Linux-based stubdomain"):
-> In coordination with Marek, I'm making a submission of his patches for Linux
-> stubdomain device-model support.  I made a few of my own additions, but Marek
-> did the heavy lifting.  Thank you, Marek.
-
-Hi.  Thanks very much for this contribution.  Sorry it has taken me so
-long to get to review it.
-
-> Later patches add QMP over libvchan connection support. The actual connection
-> is made in a separate process. As discussed on Xen Summit 2019, this allows to
-> apply some basic checks and/or filtering (not part of this series), to limit
-> libxl exposure for potentially malicious stubdomain.
-
-OK.
-
-> Few comments/questions about the stubdomain code:
+Jason Andryuk writes ("[PATCH v5 01/21] Document ioemu MiniOS stubdomain protocol"):
+> From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 > 
-> 1. There are extra patches for qemu that are necessary to run it in stubdomain.
-> While it is desirable to upstream them, I think it can be done after merging
-> libxl part. Stubdomain's qemu build will in most cases be separate anyway, to
-> limit qemu's dependencies (so the stubdomain size).
+> Add documentation based on reverse-engineered toolstack-ioemu stubdomain
+> protocol.
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 
-Yes.
+Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-> 2. By default Linux hvc-xen console frontend is unreliable for data transfer
-> (qemu state save/restore) - it drops data sent faster than client is reading
-> it. To fix it, console device needs to be switched into raw mode (`stty raw
-> /dev/hvc1`). Especially for restoring qemu state it is tricky, as it would need
-> to be done before opening the device, but stty (obviously) needs to open the
-> device first. To solve this problem, for now the repository contains kernel
-> patch which changes the default for all hvc consoles. Again, this isn't
-> practical problem, as the kernel for stubdomain is built separately. But it
-> would be nice to have something working with vanilla kernel. I see those
-> options:
->   - convert it to kernel cmdline parameter (hvc_console_raw=1 ?)
->   - use channels instead of consoles (and on the kernel side change the default
->     to "raw" only for channels); while in theory better design, libxl part will
->     be more complex, as channels can be connected to sockets but not files, so
->     libxl would need to read/write to it exactly when qemu write/read the data,
->     not before/after as it is done now
+NB I have not reviewed this for correctness.  I don't think I know the
+protocol well enough ...
 
-What a mess.  Thanks for trying to tackle it!
-
-Would it be possible to add a rendenzvous to the console ?  Eg, the
-guest could write a "ready" byte after it has set the mode.
-
-I'm not sure I understand the problem with libxl and channels.  Maybe
-a helper process (perhaps existing only during migration) could help ?
-
-Or, libxl has the "datacopier" async thing in it which you can spawn
-one of and hopefully forget about.  You could teach it channels, or
-make a thing like it that uses channels, or something.
-
-> 3. Mini-OS stubdoms use dmargs xenstore key as a string.  Linux stubdoms use
-> dmargs as a directory for numbered entries.  Should they be different names?
-
-Yes, I think so.  That way if there's a version mismatch you get
-ENOENT rather than an empty argument list...
-
-
-I'll go and look at the patches now.
-
-Regards,
 Ian.
 
