@@ -2,85 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6022A1D3711
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 18:56:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 839431D3871
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 19:37:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZH9J-0000yL-9X; Thu, 14 May 2020 16:55:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jZHmf-0004YF-Gl; Thu, 14 May 2020 17:36:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NlH/=64=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jZH9H-0000yG-NA
- for xen-devel@lists.xenproject.org; Thu, 14 May 2020 16:55:55 +0000
-X-Inumbo-ID: c61d9c55-9603-11ea-a4b5-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c61d9c55-9603-11ea-a4b5-12813bfff9fa;
- Thu, 14 May 2020 16:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589475354;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=D5qXEfAW5rG98iWDbNNeq73weeSNhCXVmeNdOZN5+qE=;
- b=bmTJCn2Fkoc3VHKb2yxB1ssl1GAUQ0d31X7v5EL63COdSEX8YfIW4SSF
- POZt7p0qMiWkaHXZvoaTiUfjVnMFODFQz1Z6e6fgq7vjIK9dAKdWBmHgB
- JK74bmuAS9Pt2xcN8hDQN/z6dZoP7uKtYC5t6OggJY7miswmIqu0Exnse c=;
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: M+cvbzxc6j3YYi2jQEl7IzuB0ywxBnWxuKMIvZsU+5xEn2NOANz4J3qiq4WJ9L39M8hAW7ju07
- yW+IpIsiRdsM3jat/wYoWOcbK3nK4B7WgUtN+51f/8rI+92EdNv2jo8YL6JMn56OmzT6nF2FYD
- ArZYLTaMiDboeYJv9UA40aRN4J4HClt6BzGhCGZkUzDBMwY3A21fR9wGV9MTKo3HIHwdFKt+4L
- pWD4eURhQerGApx0IKEq/QTbr0bDrSG+v7J5/oyqgq74bJoG7QLYWwPLyh034JVt19mE2c/EgS
- P/E=
-X-SBRS: 2.7
-X-MesageID: 17817623
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,392,1583211600"; d="scan'208";a="17817623"
-From: Ian Jackson <ian.jackson@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24253.30741.77867.105081@mariner.uk.xensource.com>
-Date: Thu, 14 May 2020 17:55:49 +0100
-To: Jason Andryuk <jandryuk@gmail.com>
-Subject: Re: [PATCH v5 00/21] Add support for qemu-xen runnning in a
- Linux-based stubdomain
-In-Reply-To: <20200428040433.23504-1-jandryuk@gmail.com>
+ <SRS0=Dixi=64=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1jZHme-0004Y9-9p
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2020 17:36:36 +0000
+X-Inumbo-ID: 74ec59c8-9609-11ea-9887-bc764e2007e4
+Received: from wout5-smtp.messagingengine.com (unknown [64.147.123.21])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 74ec59c8-9609-11ea-9887-bc764e2007e4;
+ Thu, 14 May 2020 17:36:35 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 2601A9FD;
+ Thu, 14 May 2020 13:36:34 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 14 May 2020 13:36:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=h/L3cY
+ +LR9flu4KOtrM7e80JgWA33EMrYSaK3tVD9cc=; b=TSgIeyVblBjdQYva1DBg34
+ xmJOfElJ8xWF/X9syYymuqEOPDEBuZz06K2wRj4ETa31nCYB5eIDnDYdtQ5LNQ9y
+ f9DQ6csWS6apjM6D6YkaiZZ9LbcfFtL4Lf4SQkjgLVeI7plYB5nLvYPywYSaW27B
+ rK3g3NuO7I1jbgUDEKIqQC2lxYLjxcgh+c2zoxteul/8jS0IyrnpphPjDuVMSZm3
+ B8aDB5vx/kCjnLCjZRNFhtT8W4GT8X3jNQ/x7jC1p7q1nwPVGdw7/ZGcCroOazBq
+ aOFQZgXXqggEBCskjIuQzrl8C7ZL7KY7v06KfHlqNbZ44fcpOSt9VIPAt7Z5w6og
+ ==
+X-ME-Sender: <xms:oYG9Xj6BCz2O2BcgnSgWfG4UC0zJztYMDairCrVDYUSsGB1nT0hUJg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrleeigddutdejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+ iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
+ durdeihedrfeegrdeffeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
+ ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
+ gtohhm
+X-ME-Proxy: <xmx:oYG9Xo7XIYWsnh5k14JI8XfQUDikXOm23LELBHNZQO8i05ZT5EI9PQ>
+ <xmx:oYG9XqezWukGFQCSZ8fIIAY2beceMLmTi5Ybki8OYM1hHJazVxjQ9g>
+ <xmx:oYG9XkL03Y3466O7_UTnWvMv37NhTwfS2JzDt5jlnG5rk8BPdOj6uw>
+ <xmx:oYG9Xpz-tUI1UiI1Hk4Fgj6_Q7RJar6D77egH9ixvF2hi3kMQAiVvQ>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7DDD43060EE4;
+ Thu, 14 May 2020 13:36:32 -0400 (EDT)
+Date: Thu, 14 May 2020 19:36:28 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Ian Jackson <ian.jackson@citrix.com>
+Subject: Re: [PATCH v5 14/21] libxl: require qemu in dom0 even if stubdomain
+ is in use
+Message-ID: <20200514173628.GO1178@mail-itl>
 References: <20200428040433.23504-1-jandryuk@gmail.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+ <20200428040433.23504-15-jandryuk@gmail.com>
+ <24253.29948.624988.194564@mariner.uk.xensource.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="hkJ/XfKuQcNFcQvU"
+Content-Disposition: inline
+In-Reply-To: <24253.29948.624988.194564@mariner.uk.xensource.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,32 +77,89 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>, Andrew
- Cooper <Andrew.Cooper3@citrix.com>, George Dunlap <George.Dunlap@citrix.com>,
- Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>, Simon Gaiser <simon@invisiblethingslab.com>,
- Jan Beulich <jbeulich@suse.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Anthony Perard <anthony.perard@citrix.com>,
+Cc: Anthony Perard <anthony.perard@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Eric Shelton <eshelton@pobox.com>
+ Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Jason Andryuk writes ("[PATCH v5 00/21] Add support for qemu-xen runnning in a Linux-based stubdomain"):
-> In coordination with Marek, I'm making a submission of his patches for Linux
-> stubdomain device-model support.  I made a few of my own additions, but Marek
-> did the heavy lifting.  Thank you, Marek.
 
-Hi.  I finished reading these patches.  Thank you very much.  They
-were nicely structured.  I found them clear and easy to read.  As
-you'll have seen I have requested only a few changes.
+--hkJ/XfKuQcNFcQvU
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v5 14/21] libxl: require qemu in dom0 even if stubdomain
+ is in use
 
-I am very hopeful that this series will make 4.14.  Codefreeze is
-Friday the 22nd of May.  Please let us know whether you think we'll
-all be able to make that...
+On Thu, May 14, 2020 at 05:42:36PM +0100, Ian Jackson wrote:
+> Jason Andryuk writes ("[PATCH v5 14/21] libxl: require qemu in dom0 even =
+if stubdomain is in use"):
+> > From: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> >=20
+> > Until xenconsoled learns how to handle multiple consoles, this is needed
+> > for save/restore support (qemu state is transferred over secondary
+> > consoles).
+> > Additionally, Linux-based stubdomain waits for all the backends to
+> > initialize during boot. Lack of some console backends results in
+> > stubdomain startup timeout.
+> >=20
+> > This is a temporary patch until xenconsoled will be improved.
+> >=20
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> > ---
+> >  tools/libxl/libxl_dm.c | 12 ++++++++++--
+> >  1 file changed, 10 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
+> > index e420c3fc7b..5e5e7a27b3 100644
+> > --- a/tools/libxl/libxl_dm.c
+> > +++ b/tools/libxl/libxl_dm.c
+> > @@ -2484,7 +2484,11 @@ static void spawn_stub_launch_dm(libxl__egc *egc,
+> >          }
+> >      }
+> > =20
+> > -    need_qemu =3D libxl__need_xenpv_qemu(gc, dm_config);
+> > +    /*
+> > +     * Until xenconsoled learns how to handle multiple consoles, requi=
+re qemu
+> > +     * in dom0 to serve consoles for a stubdomain - it require at leas=
+t 3 of them.
+> > +     */
+> > +    need_qemu =3D 1 || libxl__need_xenpv_qemu(gc, &sdss->dm_config);
+>=20
+> But I don't think this is true for a trad non-linux stubdm ?
+> So I think this ought to be conditional.
 
-Regards,
-Ian.
+For qemu-trad is true too. Stubdomain (mini-os + qemu-trad and linux +
+qemu-xen) is always started with at least 3 consoles: log, save,
+restore. Which currently requires qemu in dom0. So, yes, technically it
+is a bug in the current libxl for qemu-trad. In practice, it works in
+most cases because there is something else that triggers qemu in dom0
+too: vfb/vkb added if vnc/sdl/spice is enabled.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--hkJ/XfKuQcNFcQvU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl69gZsACgkQ24/THMrX
+1ywCaAf+IYGXp1Q2zR1Y1HNp+uagnpMDI+i1nSEf25JeokogLCacax1GmBYSvYBd
+KXX4gCSQjxk4dW47h0LaRvBUffOlWfSFgj5bRhYGedto7Gdl98+q//SamCVarcVQ
+bOrDSB95PZGJQOvL2WRjr3HC4YTaNmZZSomSCDU8S/Si9zDDbo6do7SG5nyqQpjE
+fMMfQcP5ZTckUIJ0PoTjx6a3lMgM3X60Kwgtt4FUtV5unGnjTFQLYlhdZyDaRXBj
+68SE/AX4WbcJMgVA9qwDHToPT4slZYe951PhvWBYLFmhU7T3C9qAfzNysuJqdFP4
+G1D2NQ2/NR8L1VR6JEAuj1o+ZQWM2w==
+=/BCD
+-----END PGP SIGNATURE-----
+
+--hkJ/XfKuQcNFcQvU--
 
