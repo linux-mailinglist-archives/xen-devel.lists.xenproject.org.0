@@ -2,71 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 839431D3871
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 19:37:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4C21D3874
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 19:39:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZHmf-0004YF-Gl; Thu, 14 May 2020 17:36:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dixi=64=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1jZHme-0004Y9-9p
- for xen-devel@lists.xenproject.org; Thu, 14 May 2020 17:36:36 +0000
-X-Inumbo-ID: 74ec59c8-9609-11ea-9887-bc764e2007e4
-Received: from wout5-smtp.messagingengine.com (unknown [64.147.123.21])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 74ec59c8-9609-11ea-9887-bc764e2007e4;
- Thu, 14 May 2020 17:36:35 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 2601A9FD;
- Thu, 14 May 2020 13:36:34 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 14 May 2020 13:36:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=h/L3cY
- +LR9flu4KOtrM7e80JgWA33EMrYSaK3tVD9cc=; b=TSgIeyVblBjdQYva1DBg34
- xmJOfElJ8xWF/X9syYymuqEOPDEBuZz06K2wRj4ETa31nCYB5eIDnDYdtQ5LNQ9y
- f9DQ6csWS6apjM6D6YkaiZZ9LbcfFtL4Lf4SQkjgLVeI7plYB5nLvYPywYSaW27B
- rK3g3NuO7I1jbgUDEKIqQC2lxYLjxcgh+c2zoxteul/8jS0IyrnpphPjDuVMSZm3
- B8aDB5vx/kCjnLCjZRNFhtT8W4GT8X3jNQ/x7jC1p7q1nwPVGdw7/ZGcCroOazBq
- aOFQZgXXqggEBCskjIuQzrl8C7ZL7KY7v06KfHlqNbZ44fcpOSt9VIPAt7Z5w6og
- ==
-X-ME-Sender: <xms:oYG9Xj6BCz2O2BcgnSgWfG4UC0zJztYMDairCrVDYUSsGB1nT0hUJg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrleeigddutdejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
- iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
- durdeihedrfeegrdeffeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
- ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
- gtohhm
-X-ME-Proxy: <xmx:oYG9Xo7XIYWsnh5k14JI8XfQUDikXOm23LELBHNZQO8i05ZT5EI9PQ>
- <xmx:oYG9XqezWukGFQCSZ8fIIAY2beceMLmTi5Ybki8OYM1hHJazVxjQ9g>
- <xmx:oYG9XkL03Y3466O7_UTnWvMv37NhTwfS2JzDt5jlnG5rk8BPdOj6uw>
- <xmx:oYG9Xpz-tUI1UiI1Hk4Fgj6_Q7RJar6D77egH9ixvF2hi3kMQAiVvQ>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7DDD43060EE4;
- Thu, 14 May 2020 13:36:32 -0400 (EDT)
-Date: Thu, 14 May 2020 19:36:28 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Ian Jackson <ian.jackson@citrix.com>
-Subject: Re: [PATCH v5 14/21] libxl: require qemu in dom0 even if stubdomain
- is in use
-Message-ID: <20200514173628.GO1178@mail-itl>
-References: <20200428040433.23504-1-jandryuk@gmail.com>
- <20200428040433.23504-15-jandryuk@gmail.com>
- <24253.29948.624988.194564@mariner.uk.xensource.com>
+	id 1jZHp0-0004ia-UQ; Thu, 14 May 2020 17:39:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=k5kQ=64=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jZHoz-0004iV-Nz
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2020 17:39:01 +0000
+X-Inumbo-ID: cc18715a-9609-11ea-a4b9-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cc18715a-9609-11ea-a4b9-12813bfff9fa;
+ Thu, 14 May 2020 17:39:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=LAq8M18uQJa/MqnV6zG743UR+FEIh0XqbRkVbtwdhyU=; b=wJgdfYf8dmiuq8ASn/YVWCj9id
+ 2UcixizJ82wXexg0sBQFqGqJtznCAkis69Hr8idJ9PYcH9aLIMszs11g3yolh2jBrccIX6AonYBQb
+ r9I5Bdi1tl0dOzz5gPoJBVnRpcKImJDv4UyM+yDId0yI5TuTe+ZG5JoKsdVqUAhGCfaQ=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jZHoy-0005bX-Sn; Thu, 14 May 2020 17:39:00 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jZHoy-0001nY-M3; Thu, 14 May 2020 17:39:00 +0000
+Subject: Re: Error during update_runstate_area with KPTI activated
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <C6B0E24F-60E6-4621-8448-C8DBAE3277A9@arm.com>
+ <2c4437e9-d513-3e3c-7fec-13ffadc17df2@xen.org>
+ <2E95C767-FFE1-4A48-B56D-F858A8CEE5D7@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <ab4f3c2a-95aa-1256-f6f4-0c3057f5600c@xen.org>
+Date: Thu, 14 May 2020 18:38:59 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="hkJ/XfKuQcNFcQvU"
-Content-Disposition: inline
-In-Reply-To: <24253.29948.624988.194564@mariner.uk.xensource.com>
+In-Reply-To: <2E95C767-FFE1-4A48-B56D-F858A8CEE5D7@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,89 +63,90 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Hi,
 
---hkJ/XfKuQcNFcQvU
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 14/21] libxl: require qemu in dom0 even if stubdomain
- is in use
+On 14/05/2020 17:18, Bertrand Marquis wrote:
+> 
+> 
+>> On 14 May 2020, at 16:57, Julien Grall <julien@xen.org> wrote:
+>>
+>>
+>>
+>> On 14/05/2020 15:28, Bertrand Marquis wrote:
+>>> Hi,
+>>
+>> Hi,
+>>
+>>> When executing linux on arm64 with KPTI activated (in Dom0 or in a DomU), I have a lot of walk page table errors like this:
+>>> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va 0xffffff837ebe0cd0
+>>> After implementing a call trace, I found that the problem was coming from the update_runstate_area when linux has KPTI activated.
+>>> I have the following call trace:
+>>> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va 0xffffff837ebe0cd0
+>>> (XEN) backtrace.c:29: Stacktrace start at 0x8007638efbb0 depth 10
+>>> (XEN)    [<000000000027780c>] get_page_from_gva+0x180/0x35c
+>>> (XEN)    [<00000000002700c8>] guestcopy.c#copy_guest+0x1b0/0x2e4
+>>> (XEN)    [<0000000000270228>] raw_copy_to_guest+0x2c/0x34
+>>> (XEN)    [<0000000000268dd0>] domain.c#update_runstate_area+0x90/0xc8
+>>> (XEN)    [<000000000026909c>] domain.c#schedule_tail+0x294/0x2d8
+>>> (XEN)    [<0000000000269524>] context_switch+0x58/0x70
+>>> (XEN)    [<00000000002479c4>] core.c#sched_context_switch+0x88/0x1e4
+>>> (XEN)    [<000000000024845c>] core.c#schedule+0x224/0x2ec
+>>> (XEN)    [<0000000000224018>] softirq.c#__do_softirq+0xe4/0x128
+>>> (XEN)    [<00000000002240d4>] do_softirq+0x14/0x1c
+>>> Discussing this subject with Stefano, he pointed me to a discussion started a year ago on this subject here:
+>>> https://lists.xenproject.org/archives/html/xen-devel/2018-11/msg03053.html
+>>> And a patch was submitted:
+>>> https://lists.xenproject.org/archives/html/xen-devel/2019-05/msg02320.html
+>>> I rebased this patch on current master and it is solving the problem I have seen.
+>>> It sounds to me like a good solution to introduce a VCPUOP_register_runstate_phys_memory_area to not depend on the area actually being mapped in the guest when a context switch is being done (which is actually the problem happening when a context switch is trigger while a guest is running in EL0).
+>>> Is there any reason why this was not merged at the end ?
+>>
+>> I just skimmed through the thread to remind myself the state. AFAICT, this is blocked on the contributor to clarify the intended interaction and provide a new version.
+> 
+> What do you mean here by intended interaction ? How the new hyper call should be used by the guest OS ?
 
-On Thu, May 14, 2020 at 05:42:36PM +0100, Ian Jackson wrote:
-> Jason Andryuk writes ("[PATCH v5 14/21] libxl: require qemu in dom0 even =
-if stubdomain is in use"):
-> > From: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> >=20
-> > Until xenconsoled learns how to handle multiple consoles, this is needed
-> > for save/restore support (qemu state is transferred over secondary
-> > consoles).
-> > Additionally, Linux-based stubdomain waits for all the backends to
-> > initialize during boot. Lack of some console backends results in
-> > stubdomain startup timeout.
-> >=20
-> > This is a temporary patch until xenconsoled will be improved.
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> > ---
-> >  tools/libxl/libxl_dm.c | 12 ++++++++++--
-> >  1 file changed, 10 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
-> > index e420c3fc7b..5e5e7a27b3 100644
-> > --- a/tools/libxl/libxl_dm.c
-> > +++ b/tools/libxl/libxl_dm.c
-> > @@ -2484,7 +2484,11 @@ static void spawn_stub_launch_dm(libxl__egc *egc,
-> >          }
-> >      }
-> > =20
-> > -    need_qemu =3D libxl__need_xenpv_qemu(gc, dm_config);
-> > +    /*
-> > +     * Until xenconsoled learns how to handle multiple consoles, requi=
-re qemu
-> > +     * in dom0 to serve consoles for a stubdomain - it require at leas=
-t 3 of them.
-> > +     */
-> > +    need_qemu =3D 1 || libxl__need_xenpv_qemu(gc, &sdss->dm_config);
->=20
-> But I don't think this is true for a trad non-linux stubdm ?
-> So I think this ought to be conditional.
+ From what I remember, Jan was seeking clarification on whether the two 
+hypercalls (existing and new) can be called together by the same OS (and 
+make sense).
 
-For qemu-trad is true too. Stubdomain (mini-os + qemu-trad and linux +
-qemu-xen) is always started with at least 3 consoles: log, save,
-restore. Which currently requires qemu in dom0. So, yes, technically it
-is a bug in the current libxl for qemu-trad. In practice, it works in
-most cases because there is something else that triggers qemu in dom0
-too: vfb/vkb added if vnc/sdl/spice is enabled.
+There was also the question of the handover between two pieces of 
+sotfware. For instance, what if the firmware is using the existing 
+interface but the OS the new one? Similar question about Kexecing a 
+different kernel.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+This part is mostly documentation so we can discuss about the approach 
+and review the implementation.
 
---hkJ/XfKuQcNFcQvU
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+>>
+>> I am still in favor of the new hypercall (and still in my todo list) but I haven't yet found time to revive the series.
+>>
+>> Would you be willing to take over the series? I would be happy to bring you up to speed and provide review.
+> 
+> Sure I can take it over.
+> 
+> I ported it to master version of xen and I tested it on a board.
+> I still need to do a deep review of the code myself but I have an understanding of the problem and what is the idea.
+> 
+> Any help to get on speed would be more then welcome :-)
+I would recommend to go through the latest version (v3) and the previous 
+(v2). I am also suggesting v2 because I think the split was easier to 
+review/understand.
 
------BEGIN PGP SIGNATURE-----
+The x86 code is probably what is going to give you the most trouble as 
+there are two ABIs to support (compat and non-compat). If you don't have 
+an x86 setup, I should be able to test it/help write it.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl69gZsACgkQ24/THMrX
-1ywCaAf+IYGXp1Q2zR1Y1HNp+uagnpMDI+i1nSEf25JeokogLCacax1GmBYSvYBd
-KXX4gCSQjxk4dW47h0LaRvBUffOlWfSFgj5bRhYGedto7Gdl98+q//SamCVarcVQ
-bOrDSB95PZGJQOvL2WRjr3HC4YTaNmZZSomSCDU8S/Si9zDDbo6do7SG5nyqQpjE
-fMMfQcP5ZTckUIJ0PoTjx6a3lMgM3X60Kwgtt4FUtV5unGnjTFQLYlhdZyDaRXBj
-68SE/AX4WbcJMgVA9qwDHToPT4slZYe951PhvWBYLFmhU7T3C9qAfzNysuJqdFP4
-G1D2NQ2/NR8L1VR6JEAuj1o+ZQWM2w==
-=/BCD
------END PGP SIGNATURE-----
+Feel free to ask any questions and I will try my best to remember the 
+discussion from last year :).
 
---hkJ/XfKuQcNFcQvU--
+Cheers,
+
+-- 
+Julien Grall
 
