@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E0B71D2AF9
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 11:09:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C33821D2AFB
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 11:10:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZ9s7-0001RW-Ne; Thu, 14 May 2020 09:09:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jZ9sl-0002EF-1N; Thu, 14 May 2020 09:10:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ezST=64=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jZ9s6-0001RI-W7
- for xen-devel@lists.xenproject.org; Thu, 14 May 2020 09:09:43 +0000
-X-Inumbo-ID: a553c413-95c2-11ea-a463-12813bfff9fa
+ id 1jZ9sj-0002Dz-Rv
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2020 09:10:21 +0000
+X-Inumbo-ID: bc465a22-95c2-11ea-b07b-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a553c413-95c2-11ea-a463-12813bfff9fa;
- Thu, 14 May 2020 09:09:42 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bc465a22-95c2-11ea-b07b-bc764e2007e4;
+ Thu, 14 May 2020 09:10:20 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 2332DAF68;
- Thu, 14 May 2020 09:09:44 +0000 (UTC)
-Subject: [PATCH v9 6/9] x86emul: support X{SUS,RES}LDTRK
+ by mx2.suse.de (Postfix) with ESMTP id 81AACAF48;
+ Thu, 14 May 2020 09:10:22 +0000 (UTC)
+Subject: [PATCH v9 7/9] x86emul: support FNSTENV and FNSAVE
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <e2c2bb6c-b089-de09-6388-50ec837310d7@suse.com>
-Message-ID: <564bb51e-aeaf-48de-6326-a7c03e1fe738@suse.com>
-Date: Thu, 14 May 2020 11:09:39 +0200
+Message-ID: <29dd611f-cd5d-464b-2046-9c73160d4cea@suse.com>
+Date: Thu, 14 May 2020 11:10:17 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
@@ -51,95 +50,349 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There's nothing to be done by the emulator, as we unconditionally abort
-any XBEGIN.
+To avoid introducing another boolean into emulator state, the
+rex_prefix field gets (ab)used to convey the real/VM86 vs protected mode
+info (affecting structure layout, albeit not size) to x86_emul_blk().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-v9: A -> a in public header. Add comments.
-v6: New.
+TBD: The full 16-bit padding fields in the 32-bit structures get filled
+     with all ones by modern CPUs (i.e. unlike what the comment says for
+     FIP and FDP). We may want to mirror this as well (for the real mode
+     variant), even if those fields' contents are unspecified.
+---
+v9: Fix !HVM build. Add /*state->*/ comments. Add memset(). Add/extend
+    comments.
+v7: New.
 
---- a/tools/libxl/libxl_cpuid.c
-+++ b/tools/libxl/libxl_cpuid.c
-@@ -208,6 +208,7 @@ int libxl_cpuid_parse_config(libxl_cpuid
-         {"avx512-vnni",  0x00000007,  0, CPUID_REG_ECX, 11,  1},
-         {"avx512-bitalg",0x00000007,  0, CPUID_REG_ECX, 12,  1},
-         {"avx512-vpopcntdq",0x00000007,0,CPUID_REG_ECX, 14,  1},
-+        {"tsxldtrk",     0x00000007,  0, CPUID_REG_ECX, 16,  1},
-         {"rdpid",        0x00000007,  0, CPUID_REG_ECX, 22,  1},
-         {"cldemote",     0x00000007,  0, CPUID_REG_ECX, 25,  1},
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -123,6 +123,7 @@ static inline bool xcr0_mask(uint64_t ma
+ }
  
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -128,6 +128,7 @@ static const char *const str_7c0[32] =
-     [10] = "vpclmulqdq",       [11] = "avx512_vnni",
-     [12] = "avx512_bitalg",
-     [14] = "avx512_vpopcntdq",
-+    [16] = "tsxldtrk",
+ #define cache_line_size() (cp.basic.clflush_size * 8)
++#define cpu_has_fpu        cp.basic.fpu
+ #define cpu_has_mmx        cp.basic.mmx
+ #define cpu_has_fxsr       cp.basic.fxsr
+ #define cpu_has_sse        cp.basic.sse
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -748,6 +748,25 @@ static struct x86_emulate_ops emulops =
  
-     [22] = "rdpid",
-     /* 24 */                   [25] = "cldemote",
+ #define MMAP_ADDR 0x100000
+ 
++/*
++ * 64-bit OSes may not (be able to) properly restore the two selectors in
++ * the FPU environment. Zap them so that memcmp() on two saved images will
++ * work regardless of whether a context switch occurred in the middle.
++ */
++static void zap_fpsel(unsigned int *env, bool is_32bit)
++{
++    if ( is_32bit )
++    {
++        env[4] &= ~0xffff;
++        env[6] &= ~0xffff;
++    }
++    else
++    {
++        env[2] &= ~0xffff;
++        env[3] &= ~0xffff;
++    }
++}
++
+ #ifdef __x86_64__
+ # define STKVAL_DISP 64
+ static const struct {
+@@ -2394,6 +2413,62 @@ int main(int argc, char **argv)
+         printf("okay\n");
+     }
+     else
++        printf("skipped\n");
++
++    printf("%-40s", "Testing fnstenv 4(%ecx)...");
++    if ( stack_exec && cpu_has_fpu )
++    {
++        const uint16_t three = 3;
++
++        asm volatile ( "fninit\n\t"
++                       "fld1\n\t"
++                       "fidivs %1\n\t"
++                       "fstenv %0"
++                       : "=m" (res[9]) : "m" (three) : "memory" );
++        zap_fpsel(&res[9], true);
++        instr[0] = 0xd9; instr[1] = 0x71; instr[2] = 0x04;
++        regs.eip = (unsigned long)&instr[0];
++        regs.ecx = (unsigned long)res;
++        res[8] = 0xaa55aa55;
++        rc = x86_emulate(&ctxt, &emulops);
++        zap_fpsel(&res[1], true);
++        if ( (rc != X86EMUL_OKAY) ||
++             memcmp(res + 1, res + 9, 28) ||
++             res[8] != 0xaa55aa55 ||
++             (regs.eip != (unsigned long)&instr[3]) )
++            goto fail;
++        printf("okay\n");
++    }
++    else
++        printf("skipped\n");
++
++    printf("%-40s", "Testing 16-bit fnsave (%ecx)...");
++    if ( stack_exec && cpu_has_fpu )
++    {
++        const uint16_t five = 5;
++
++        asm volatile ( "fninit\n\t"
++                       "fld1\n\t"
++                       "fidivs %1\n\t"
++                       "fsaves %0"
++                       : "=m" (res[25]) : "m" (five) : "memory" );
++        zap_fpsel(&res[25], false);
++        asm volatile ( "frstors %0" :: "m" (res[25]) : "memory" );
++        instr[0] = 0x66; instr[1] = 0xdd; instr[2] = 0x31;
++        regs.eip = (unsigned long)&instr[0];
++        regs.ecx = (unsigned long)res;
++        res[23] = 0xaa55aa55;
++        res[24] = 0xaa55aa55;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             memcmp(res, res + 25, 94) ||
++             (res[23] >> 16) != 0xaa55 ||
++             res[24] != 0xaa55aa55 ||
++             (regs.eip != (unsigned long)&instr[3]) )
++            goto fail;
++        printf("okay\n");
++    }
++    else
+         printf("skipped\n");
+ 
+     printf("%-40s", "Testing movq %mm3,(%ecx)...");
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -1921,6 +1921,7 @@ amd_like(const struct x86_emulate_ctxt *
- #define vcpu_has_avx512_vnni() (ctxt->cpuid->feat.avx512_vnni)
- #define vcpu_has_avx512_bitalg() (ctxt->cpuid->feat.avx512_bitalg)
- #define vcpu_has_avx512_vpopcntdq() (ctxt->cpuid->feat.avx512_vpopcntdq)
-+#define vcpu_has_tsxldtrk()    (ctxt->cpuid->feat.tsxldtrk)
- #define vcpu_has_rdpid()       (ctxt->cpuid->feat.rdpid)
- #define vcpu_has_movdiri()     (ctxt->cpuid->feat.movdiri)
- #define vcpu_has_movdir64b()   (ctxt->cpuid->feat.movdir64b)
-@@ -5668,6 +5669,28 @@ x86_emulate(
-                 host_and_vcpu_must_have(serialize);
-                 asm volatile ( ".byte 0x0f, 0x01, 0xe8" );
+@@ -856,6 +856,9 @@ struct x86_emulate_state {
+     enum {
+         blk_NONE,
+         blk_enqcmd,
++#ifndef X86EMUL_NO_FPU
++        blk_fst, /* FNSTENV, FNSAVE */
++#endif
+         blk_movdir,
+     } blk;
+     uint8_t modrm, modrm_mod, modrm_reg, modrm_rm;
+@@ -897,6 +900,50 @@ struct x86_emulate_state {
+ #define PTR_POISON NULL /* 32-bit builds are for user-space, so NULL is OK. */
+ #endif
+ 
++#ifndef X86EMUL_NO_FPU
++struct x87_env16 {
++    uint16_t fcw;
++    uint16_t fsw;
++    uint16_t ftw;
++    union {
++        struct {
++            uint16_t fip_lo;
++            uint16_t fop:11, :1, fip_hi:4;
++            uint16_t fdp_lo;
++            uint16_t :12, fdp_hi:4;
++        } real;
++        struct {
++            uint16_t fip;
++            uint16_t fcs;
++            uint16_t fdp;
++            uint16_t fds;
++        } prot;
++    } mode;
++};
++
++struct x87_env32 {
++    uint32_t fcw:16, :16;
++    uint32_t fsw:16, :16;
++    uint32_t ftw:16, :16;
++    union {
++        struct {
++            /* some CPUs/FPUs also store the full FIP here */
++            uint32_t fip_lo:16, :16;
++            uint32_t fop:11, :1, fip_hi:16, :4;
++            /* some CPUs/FPUs also store the full FDP here */
++            uint32_t fdp_lo:16, :16;
++            uint32_t :12, fdp_hi:16, :4;
++        } real;
++        struct {
++            uint32_t fip;
++            uint32_t fcs:16, fop:11, :5;
++            uint32_t fdp;
++            uint32_t fds:16, :16;
++        } prot;
++    } mode;
++};
++#endif
++
+ typedef union {
+     uint64_t mmx;
+     uint64_t __attribute__ ((aligned(16))) xmm[2];
+@@ -4912,9 +4959,22 @@ x86_emulate(
+                     goto done;
+                 emulate_fpu_insn_memsrc(b, modrm_reg & 7, src.val);
                  break;
-+            case vex_f2: /* xsusldtrk */
-+                vcpu_must_have(tsxldtrk);
+-            case 6: /* fnstenv - TODO */
++            case 6: /* fnstenv */
++                fail_if(!ops->blk);
++                state->blk = blk_fst;
 +                /*
-+                 * We're never in a transactional region when coming here
-+                 * - nothing else to do.
++                 * REX is meaningless for this insn by this point - (ab)use
++                 * the field to communicate real vs protected mode to ->blk().
 +                 */
++                /*state->*/rex_prefix = in_protmode(ctxt, ops);
++                if ( (rc = ops->blk(ea.mem.seg, ea.mem.off, NULL,
++                                    op_bytes > 2 ? sizeof(struct x87_env32)
++                                                 : sizeof(struct x87_env16),
++                                    &_regs.eflags,
++                                    state, ctxt)) != X86EMUL_OKAY )
++                    goto done;
+                 state->fpu_ctrl = true;
+-                goto unimplemented_insn;
 +                break;
-+            default:
-+                goto unimplemented_insn;
+             case 7: /* fnstcw m2byte */
+                 state->fpu_ctrl = true;
+             fpu_memdst16:
+@@ -5068,9 +5128,24 @@ x86_emulate(
+                 emulate_fpu_insn_memdst(b, modrm_reg & 7, dst.val);
+                 break;
+             case 4: /* frstor - TODO */
+-            case 6: /* fnsave - TODO */
+                 state->fpu_ctrl = true;
+                 goto unimplemented_insn;
++            case 6: /* fnsave */
++                fail_if(!ops->blk);
++                state->blk = blk_fst;
++                /*
++                 * REX is meaningless for this insn by this point - (ab)use
++                 * the field to communicate real vs protected mode to ->blk().
++                 */
++                /*state->*/rex_prefix = in_protmode(ctxt, ops);
++                if ( (rc = ops->blk(ea.mem.seg, ea.mem.off, NULL,
++                                    op_bytes > 2 ? sizeof(struct x87_env32) + 80
++                                                 : sizeof(struct x87_env16) + 80,
++                                    &_regs.eflags,
++                                    state, ctxt)) != X86EMUL_OKAY )
++                    goto done;
++                state->fpu_ctrl = true;
++                break;
+             case 7: /* fnstsw m2byte */
+                 state->fpu_ctrl = true;
+                 goto fpu_memdst16;
+@@ -11550,6 +11625,14 @@ int x86_emul_blk(
+     switch ( state->blk )
+     {
+         bool zf;
++#ifndef X86EMUL_NO_FPU
++        struct {
++            struct x87_env32 env;
++            struct {
++               uint8_t bytes[10];
++            } freg[8];
++        } fpstate;
++#endif
+ 
+         /*
+          * Throughout this switch(), memory clobbers are used to compensate
+@@ -11579,6 +11662,98 @@ int x86_emul_blk(
+             *eflags |= X86_EFLAGS_ZF;
+         break;
+ 
++#ifndef X86EMUL_NO_FPU
++
++    case blk_fst:
++        ASSERT(!data);
++
++        /* Don't chance consuming uninitialized data. */
++        memset(&fpstate, 0, sizeof(fpstate));
++        if ( bytes > sizeof(fpstate.env) )
++            asm ( "fnsave %0" : "+m" (fpstate) );
++        else
++            asm ( "fnstenv %0" : "+m" (fpstate.env) );
++
++        /* state->rex_prefix carries CR0.PE && !EFLAGS.VM setting */
++        switch ( bytes )
++        {
++        case sizeof(fpstate.env): /* 32-bit FNSTENV */
++        case sizeof(fpstate):     /* 32-bit FNSAVE */
++            if ( !state->rex_prefix )
++            {
++                /* Convert 32-bit prot to 32-bit real/vm86 format. */
++                unsigned int fip = fpstate.env.mode.prot.fip +
++                                   (fpstate.env.mode.prot.fcs << 4);
++                unsigned int fdp = fpstate.env.mode.prot.fdp +
++                                   (fpstate.env.mode.prot.fds << 4);
++                unsigned int fop = fpstate.env.mode.prot.fop;
++
++                memset(&fpstate.env.mode, 0, sizeof(fpstate.env.mode));
++                fpstate.env.mode.real.fip_lo = fip;
++                fpstate.env.mode.real.fip_hi = fip >> 16;
++                fpstate.env.mode.real.fop = fop;
++                fpstate.env.mode.real.fdp_lo = fdp;
++                fpstate.env.mode.real.fdp_hi = fdp >> 16;
 +            }
++            memcpy(ptr, &fpstate.env, sizeof(fpstate.env));
++            if ( bytes == sizeof(fpstate.env) )
++                ptr = NULL;
++            else
++                ptr += sizeof(fpstate.env);
 +            break;
 +
-+        case 0xe9:
-+            switch ( vex.pfx )
++        case sizeof(struct x87_env16):                        /* 16-bit FNSTENV */
++        case sizeof(struct x87_env16) + sizeof(fpstate.freg): /* 16-bit FNSAVE */
++            if ( state->rex_prefix )
 +            {
-+            case vex_f2: /* xresldtrk */
-+                vcpu_must_have(tsxldtrk);
-+                /*
-+                 * We're never in a transactional region when coming here
-+                 * - nothing else to do.
-+                 */
-+                break;
-             default:
-                 goto unimplemented_insn;
-             }
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -238,6 +238,7 @@ XEN_CPUFEATURE(VPCLMULQDQ,    6*32+10) /
- XEN_CPUFEATURE(AVX512_VNNI,   6*32+11) /*A  Vector Neural Network Instrs */
- XEN_CPUFEATURE(AVX512_BITALG, 6*32+12) /*A  Support for VPOPCNT[B,W] and VPSHUFBITQMB */
- XEN_CPUFEATURE(AVX512_VPOPCNTDQ, 6*32+14) /*A  POPCNT for vectors of DW/QW */
-+XEN_CPUFEATURE(TSXLDTRK,      6*32+16) /*a  TSX load tracking suspend/resume insns */
- XEN_CPUFEATURE(RDPID,         6*32+22) /*A  RDPID instruction */
- XEN_CPUFEATURE(CLDEMOTE,      6*32+25) /*A  CLDEMOTE instruction */
- XEN_CPUFEATURE(MOVDIRI,       6*32+27) /*A  MOVDIRI instruction */
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -289,6 +289,9 @@ def crunch_numbers(state):
-         # as dependent features simplifies Xen's logic, and prevents the guest
-         # from seeing implausible configurations.
-         IBRSB: [STIBP, SSBD],
++                /* Convert 32-bit prot to 16-bit prot format. */
++                struct x87_env16 *env = ptr;
 +
-+        # In principle the TSXLDTRK insns could also be considered independent.
-+        RTM: [TSXLDTRK],
-     }
- 
-     deep_features = tuple(sorted(deps.keys()))
++                env->fcw = fpstate.env.fcw;
++                env->fsw = fpstate.env.fsw;
++                env->ftw = fpstate.env.ftw;
++                env->mode.prot.fip = fpstate.env.mode.prot.fip;
++                env->mode.prot.fcs = fpstate.env.mode.prot.fcs;
++                env->mode.prot.fdp = fpstate.env.mode.prot.fdp;
++                env->mode.prot.fds = fpstate.env.mode.prot.fds;
++            }
++            else
++            {
++                /* Convert 32-bit prot to 16-bit real/vm86 format. */
++                unsigned int fip = fpstate.env.mode.prot.fip +
++                                   (fpstate.env.mode.prot.fcs << 4);
++                unsigned int fdp = fpstate.env.mode.prot.fdp +
++                                   (fpstate.env.mode.prot.fds << 4);
++                struct x87_env16 env = {
++                    .fcw = fpstate.env.fcw,
++                    .fsw = fpstate.env.fsw,
++                    .ftw = fpstate.env.ftw,
++                    .mode.real.fip_lo = fip,
++                    .mode.real.fip_hi = fip >> 16,
++                    .mode.real.fop = fpstate.env.mode.prot.fop,
++                    .mode.real.fdp_lo = fdp,
++                    .mode.real.fdp_hi = fdp >> 16
++                };
++
++                memcpy(ptr, &env, sizeof(env));
++            }
++            if ( bytes == sizeof(struct x87_env16) )
++                ptr = NULL;
++            else
++                ptr += sizeof(struct x87_env16);
++            break;
++
++        default:
++            ASSERT_UNREACHABLE();
++            return X86EMUL_UNHANDLEABLE;
++        }
++
++        if ( ptr )
++            memcpy(ptr, fpstate.freg, sizeof(fpstate.freg));
++        break;
++
++#endif /* X86EMUL_NO_FPU */
++
+     case blk_movdir:
+         switch ( bytes )
+         {
 
 
