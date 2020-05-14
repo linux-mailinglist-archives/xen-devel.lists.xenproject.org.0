@@ -2,36 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 684851D353B
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 17:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AB9F1D3572
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 17:44:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZFuW-0007D3-8m; Thu, 14 May 2020 15:36:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jZG1i-0008J4-2c; Thu, 14 May 2020 15:44:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WGWk=64=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jZFuU-0007Cc-7O
- for xen-devel@lists.xenproject.org; Thu, 14 May 2020 15:36:34 +0000
-X-Inumbo-ID: a76a2437-95f8-11ea-a4ad-12813bfff9fa
+ id 1jZG1g-0008Iz-0O
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2020 15:44:00 +0000
+X-Inumbo-ID: b9ee870e-95f9-11ea-ae69-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a76a2437-95f8-11ea-a4ad-12813bfff9fa;
- Thu, 14 May 2020 15:36:19 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b9ee870e-95f9-11ea-ae69-bc764e2007e4;
+ Thu, 14 May 2020 15:43:59 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 712D4AEDE;
- Thu, 14 May 2020 15:36:20 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v3 3/3] xen/sched: fix latent races accessing vcpu->dirty_cpu
-Date: Thu, 14 May 2020 17:36:14 +0200
-Message-Id: <20200514153614.2240-4-jgross@suse.com>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20200514153614.2240-1-jgross@suse.com>
-References: <20200514153614.2240-1-jgross@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id 6C892ACC4;
+ Thu, 14 May 2020 15:44:00 +0000 (UTC)
+Subject: Re: [PATCH v8 09/12] xen: add runtime parameter access support to
+ hypfs
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200508153421.24525-1-jgross@suse.com>
+ <20200508153421.24525-10-jgross@suse.com>
+ <a6c10680-d570-dabb-61ad-627591d08b0e@suse.com>
+ <76ed2db5-6091-959a-8224-0a77e9cc4c45@suse.com>
+ <76cf4476-f8b8-dc44-9e68-bfa92a3fcd2a@suse.com>
+ <33daeea9-a038-b153-44b5-d9a8a11ae21f@suse.com>
+ <95a5644c-e208-57bc-2f47-13581a16b568@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <777b4289-6d1f-3bd4-36ad-d0925298cd5e@suse.com>
+Date: Thu, 14 May 2020 17:43:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
+In-Reply-To: <95a5644c-e208-57bc-2f47-13581a16b568@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -43,132 +52,99 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
+Cc: Kevin Tian <kevin.tian@intel.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The dirty_cpu field of struct vcpu denotes which cpu still holds data
-of a vcpu. All accesses to this field should be atomic in case the
-vcpu could just be running, as it is accessed without any lock held
-in most cases. Especially sync_local_execstate() and context_switch()
-for the same vcpu running concurrently have a risk for failing.
+On 14.05.20 17:02, Jan Beulich wrote:
+> On 14.05.2020 16:56, Jürgen Groß wrote:
+>> On 14.05.20 14:10, Jan Beulich wrote:
+>>> On 14.05.2020 13:48, Jürgen Groß wrote:
+>>>> On 14.05.20 12:20, Jan Beulich wrote:
+>>>>> On 08.05.2020 17:34, Juergen Gross wrote:
+>>>>>> --- a/xen/common/grant_table.c
+>>>>>> +++ b/xen/common/grant_table.c
+>>>>>> @@ -85,8 +85,43 @@ struct grant_table {
+>>>>>>         struct grant_table_arch arch;
+>>>>>>     };
+>>>>>>     -static int parse_gnttab_limit(const char *param, const char *arg,
+>>>>>> -                              unsigned int *valp)
+>>>>>> +unsigned int __read_mostly opt_max_grant_frames = 64;
+>>>>>> +static unsigned int __read_mostly opt_max_maptrack_frames = 1024;
+>>>>>> +
+>>>>>> +#ifdef CONFIG_HYPFS
+>>>>>> +#define GRANT_CUSTOM_VAL_SZ  12
+>>>>>> +static char __read_mostly opt_max_grant_frames_val[GRANT_CUSTOM_VAL_SZ];
+>>>>>> +static char __read_mostly opt_max_maptrack_frames_val[GRANT_CUSTOM_VAL_SZ];
+>>>>>> +
+>>>>>> +static void update_gnttab_par(struct param_hypfs *par, unsigned int val,
+>>>>>> +                              char *parval)
+>>>>>> +{
+>>>>>> +    snprintf(parval, GRANT_CUSTOM_VAL_SZ, "%u", val);
+>>>>>> +    custom_runtime_set_var_sz(par, parval, GRANT_CUSTOM_VAL_SZ);
+>>>>>> +}
+>>>>>> +
+>>>>>> +static void __init gnttab_max_frames_init(struct param_hypfs *par)
+>>>>>> +{
+>>>>>> +    update_gnttab_par(par, opt_max_grant_frames, opt_max_grant_frames_val);
+>>>>>> +}
+>>>>>> +
+>>>>>> +static void __init max_maptrack_frames_init(struct param_hypfs *par)
+>>>>>> +{
+>>>>>> +    update_gnttab_par(par, opt_max_maptrack_frames,
+>>>>>> +                      opt_max_maptrack_frames_val);
+>>>>>> +}
+>>>>>> +#else
+>>>>>> +#define opt_max_grant_frames_val    NULL
+>>>>>> +#define opt_max_maptrack_frames_val NULL
+>>>>>
+>>>>> This looks latently dangerous to me (in case new uses of these
+>>>>> two identifiers appeared), but I guess my alternative suggestion
+>>>>> will be at best controversial, too:
+>>>>>
+>>>>> #define update_gnttab_par(par, val, unused) update_gnttab_par(par, val)
+>>>>> #define parse_gnttab_limit(par, arg, valp, unused) parse_gnttab_limit(par, arg, valp)
+>>>>>
+>>>>> (placed right here)
+>>>>
+>>>> Who else would use those identifiers not related to hypfs?
+>>>
+>>> I can't see an obvious possible use, but people get creative, i.e.
+>>> you never know. Passing NULL into a function without it being
+>>> blindingly obvious that it won't ever get (de)referenced is an at
+>>> least theoretical risk imo.
+>>
+>> Hmm, what about using a special type for those content variables?
+>> Something like:
+>>
+>> #ifdef CONFIG_HYPFS
+>> #define hypfs_string_var            char *
+>> #else
+>> #define hypfs_string_var            char
+>> #define opt_max_grant_frames_val    0
+>> #define opt_max_maptrack_frames_val 0
+>> #endif
+>>
+>> And then use that as type for function parameters? This should make
+>> dereferencing pretty hard.
+>>
+>> Other than that I have no really good idea how to avoid this problem.
+> 
+> IOW (as suspected) you don't like my suggestion? Personally I think
+> yours, having more #define-s, is at least not better than mine.
 
-There are some instances where accesses are not atomically done, and
-even worse where multiple accesses are done when a single one would
-be mandated.
+Oh, maybe I misunderstood you here. I thought you weren't happy with
+your solution either and suspected others (not me) wouldn't like it.
 
-Correct that in order to avoid potential problems.
+In case others don't reject it I'd be happy to use your variant.
 
-Add some assertions to verify dirty_cpu is handled properly.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-V2:
-- convert all accesses to v->dirty_cpu to atomic ones (Jan Beulich)
-- drop cast (Julien Grall)
-
-V3:
-- drop atomic access in vcpu_create() (Jan Beulich)
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- xen/arch/x86/domain.c   | 16 +++++++++++-----
- xen/common/keyhandler.c |  2 +-
- xen/include/xen/sched.h |  2 +-
- 3 files changed, 13 insertions(+), 7 deletions(-)
-
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index a4428190d5..2e5717b983 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -183,7 +183,7 @@ void startup_cpu_idle_loop(void)
- 
-     ASSERT(is_idle_vcpu(v));
-     cpumask_set_cpu(v->processor, v->domain->dirty_cpumask);
--    v->dirty_cpu = v->processor;
-+    write_atomic(&v->dirty_cpu, v->processor);
- 
-     reset_stack_and_jump(idle_loop);
- }
-@@ -1769,6 +1769,7 @@ static void __context_switch(void)
- 
-     if ( !is_idle_domain(pd) )
-     {
-+        ASSERT(read_atomic(&p->dirty_cpu) == cpu);
-         memcpy(&p->arch.user_regs, stack_regs, CTXT_SWITCH_STACK_BYTES);
-         vcpu_save_fpu(p);
-         pd->arch.ctxt_switch->from(p);
-@@ -1832,7 +1833,7 @@ void context_switch(struct vcpu *prev, struct vcpu *next)
- {
-     unsigned int cpu = smp_processor_id();
-     const struct domain *prevd = prev->domain, *nextd = next->domain;
--    unsigned int dirty_cpu = next->dirty_cpu;
-+    unsigned int dirty_cpu = read_atomic(&next->dirty_cpu);
- 
-     ASSERT(prev != next);
-     ASSERT(local_irq_is_enabled());
-@@ -1844,6 +1845,7 @@ void context_switch(struct vcpu *prev, struct vcpu *next)
-     {
-         /* Remote CPU calls __sync_local_execstate() from flush IPI handler. */
-         flush_mask(cpumask_of(dirty_cpu), FLUSH_VCPU_STATE);
-+        ASSERT(!vcpu_cpu_dirty(next));
-     }
- 
-     _update_runstate_area(prev);
-@@ -1956,13 +1958,17 @@ void sync_local_execstate(void)
- 
- void sync_vcpu_execstate(struct vcpu *v)
- {
--    if ( v->dirty_cpu == smp_processor_id() )
-+    unsigned int dirty_cpu = read_atomic(&v->dirty_cpu);
-+
-+    if ( dirty_cpu == smp_processor_id() )
-         sync_local_execstate();
--    else if ( vcpu_cpu_dirty(v) )
-+    else if ( is_vcpu_dirty_cpu(dirty_cpu) )
-     {
-         /* Remote CPU calls __sync_local_execstate() from flush IPI handler. */
--        flush_mask(cpumask_of(v->dirty_cpu), FLUSH_VCPU_STATE);
-+        flush_mask(cpumask_of(dirty_cpu), FLUSH_VCPU_STATE);
-     }
-+    ASSERT(!is_vcpu_dirty_cpu(dirty_cpu) ||
-+           read_atomic(&v->dirty_cpu) != dirty_cpu);
- }
- 
- static int relinquish_memory(
-diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-index 87bd145374..68364e987d 100644
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -316,7 +316,7 @@ static void dump_domains(unsigned char key)
-                        vcpu_info(v, evtchn_upcall_pending),
-                        !vcpu_event_delivery_is_enabled(v));
-                 if ( vcpu_cpu_dirty(v) )
--                    printk("dirty_cpu=%u", v->dirty_cpu);
-+                    printk("dirty_cpu=%u", read_atomic(&v->dirty_cpu));
-                 printk("\n");
-                 printk("    pause_count=%d pause_flags=%lx\n",
-                        atomic_read(&v->pause_count), v->pause_flags);
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 6101761d25..ac53519d7f 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -844,7 +844,7 @@ static inline bool is_vcpu_dirty_cpu(unsigned int cpu)
- 
- static inline bool vcpu_cpu_dirty(const struct vcpu *v)
- {
--    return is_vcpu_dirty_cpu(v->dirty_cpu);
-+    return is_vcpu_dirty_cpu(read_atomic(&v->dirty_cpu));
- }
- 
- void vcpu_block(void);
--- 
-2.26.1
-
+Juergen
 
