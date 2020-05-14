@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 211891D3295
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 16:20:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13C931D329D
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2020 16:21:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZEif-0008A0-Ih; Thu, 14 May 2020 14:20:17 +0000
+	id 1jZEjQ-0008NB-T8; Thu, 14 May 2020 14:21:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f2eD=64=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jZEid-00089E-Kg
- for xen-devel@lists.xenproject.org; Thu, 14 May 2020 14:20:15 +0000
-X-Inumbo-ID: fc289710-95ed-11ea-ae69-bc764e2007e4
-Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::3])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WGWk=64=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jZEjP-0008Mw-Mr
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2020 14:21:03 +0000
+X-Inumbo-ID: 23f6d11c-95ee-11ea-b9cf-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fc289710-95ed-11ea-ae69-bc764e2007e4;
- Thu, 14 May 2020 14:19:56 +0000 (UTC)
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
- (return-path ijackson@chiark.greenend.org.uk)
- id 1jZEiJ-0004pf-Fi; Thu, 14 May 2020 15:19:55 +0100
-From: Ian Jackson <ian.jackson@eu.citrix.com>
-To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 4/4] TestSupport: honour OSSTEST_PDU_MANUAL override
- env var
-Date: Thu, 14 May 2020 15:19:51 +0100
-Message-Id: <20200514141951.29371-5-ian.jackson@eu.citrix.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200514141951.29371-1-ian.jackson@eu.citrix.com>
-References: <20200514141951.29371-1-ian.jackson@eu.citrix.com>
+ id 23f6d11c-95ee-11ea-b9cf-bc764e2007e4;
+ Thu, 14 May 2020 14:21:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id CECB3AE52;
+ Thu, 14 May 2020 14:21:04 +0000 (UTC)
+Subject: Re: [PATCH v2 2/3] xen/sched: don't call sync_vcpu_execstate() in
+ sched_unit_migrate_finish()
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200511112829.5500-1-jgross@suse.com>
+ <20200511112829.5500-3-jgross@suse.com>
+ <f01cca9f-ba49-75bd-72c6-d0c638ed5e15@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <6b6912d3-1bb1-ac3d-7fc7-a8d2a2f2db9b@suse.com>
+Date: Thu, 14 May 2020 16:21:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <f01cca9f-ba49-75bd-72c6-d0c638ed5e15@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,37 +48,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This takes effect on everything that uses selecthost().  The result is
-that PDU operations are made manual.  This can be useful for testing
-etc.
+On 14.05.20 15:57, Jan Beulich wrote:
+> On 11.05.2020 13:28, Juergen Gross wrote:
+>> With support of core scheduling sched_unit_migrate_finish() gained a
+>> call of sync_vcpu_execstate() as it was believed to be called as a
+>> result of vcpu migration in any case.
+>>
+>> In case of migrating a vcpu away from a physical cpu for a short period
+>> of time only this might not be true, so drop the call and let the lazy
+>> state syncing do its job.
+> 
+> Replying here instead of on the patch 3 thread (and I'm sorry
+> for mixing up function names there): By saying "for a short
+> period of time only", do you imply without ever getting scheduled
+> on the new (temporary) CPU? If so, I think I understand this
+> change now, but then this could do with saying here. If not, I'm
+> afraid I'm still lost.
 
-Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
----
- Osstest/TestSupport.pm | 6 ++++++
- 1 file changed, 6 insertions(+)
+I'll change the commit message to:
 
-diff --git a/Osstest/TestSupport.pm b/Osstest/TestSupport.pm
-index 3700a8fe..1e7da676 100644
---- a/Osstest/TestSupport.pm
-+++ b/Osstest/TestSupport.pm
-@@ -1059,6 +1059,12 @@ sub power_cycle_host_setup ($) {
- 	    MethObjs => power_cycle_parse_method($ho, $spec),
-         };
-     }
-+    if ($ENV{OSSTEST_PDU_MANUAL}) {
-+	@approaches = ({
-+            Name => 'manual-override',
-+            MethObjs => power_cycle_parse_method($ho, 'manual'),
-+        });
-+    }
-     $ho->{PowerApproaches} = \@approaches;
- }
- 
--- 
-2.20.1
+... for a short period of time only without ever being scheduled on the
+selected new cpu ...
 
+
+Juergen
 
