@@ -2,55 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 227761D5A84
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 22:03:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1CAF1D5AB2
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 22:30:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZgXs-0002wd-BY; Fri, 15 May 2020 20:03:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jZgxJ-0004wg-DY; Fri, 15 May 2020 20:29:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kC4v=65=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jZgXr-0002wY-5a
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 20:02:59 +0000
-X-Inumbo-ID: 12698558-96e7-11ea-a5bc-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 12698558-96e7-11ea-a5bc-12813bfff9fa;
- Fri, 15 May 2020 20:02:58 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: yGC/Kqg1r1VUA3XNT+zpL7F45PdFGy6WSsP13wEDiKhAO5cDDN/GhYcyrx5YpSQjQVct9+lba3
- vgMWQrirJWtbh9rZNt00z5CR93QNUW5OE9vRw1vThk1/hnsG3iwxEAS+0WojPbXZVdwCdXShYg
- hDYRHTacWginBiIieQwPkZS/s8Yq9dhE3UwMG87N+iSUo7zC0yxDBfFQ4rJtvrcFmYmC0ffIhI
- 1BKImwvOIW882/Bqd585tjSZcjbmfbVaRGk+sV2EtlNLOk4g3KH+gSBzOlQvcoV3++KL6kff+b
- 7Aw=
-X-SBRS: 2.7
-X-MesageID: 17934500
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,396,1583211600"; d="scan'208";a="17934500"
-Subject: Re: [PATCH v2 2/6] x86/mem-paging: correct p2m_mem_paging_prep()'s
- error handling
-To: Jan Beulich <jbeulich@suse.com>
-References: <b8437b1f-af58-70df-91d2-bd875912e57b@suse.com>
- <bf9dd27b-a7db-de0e-a804-d687e66ecf1e@suse.com>
- <2cccf9bb-3930-436d-65de-f0eb7dd0c498@citrix.com>
- <83f6463c-6a61-e79b-cf1b-77589ef287c1@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <1e390685-dbca-afee-0cda-692b1134183e@citrix.com>
-Date: Fri, 15 May 2020 21:02:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <SRS0=2khj=65=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1jZgxI-0004wb-2I
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 20:29:16 +0000
+X-Inumbo-ID: bd4474a8-96ea-11ea-b9cf-bc764e2007e4
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bd4474a8-96ea-11ea-b9cf-bc764e2007e4;
+ Fri, 15 May 2020 20:29:13 +0000 (UTC)
+Received: from rochebonne.antioche.eu.org (rochebonne
+ [IPv6:2001:41d0:fe9d:1100:221:70ff:fe0c:9885])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 04FKTCmI028947
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2020 22:29:12 +0200 (MEST)
+Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
+ id 6D2D62810; Fri, 15 May 2020 22:29:12 +0200 (CEST)
+Date: Fri, 15 May 2020 22:29:12 +0200
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: xen-devel@lists.xenproject.org
+Subject: IOCTL_PRIVCMD_MMAPBATCH on Xen 4.13.0
+Message-ID: <20200515202912.GA11714@antioche.eu.org>
 MIME-Version: 1.0
-In-Reply-To: <83f6463c-6a61-e79b-cf1b-77589ef287c1@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3
+ (chassiron.antioche.eu.org [IPv6:2001:41d0:fe9d:1101:0:0:0:1]);
+ Fri, 15 May 2020 22:29:12 +0200 (MEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,63 +46,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, George
- Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15/05/2020 16:15, Jan Beulich wrote:
->>> +            domain_crash(d);
-> This already leaves a file/line combination as a (minimal hint).
+Hello,
+NetBSD works as dom0 up to Xen 4.11. I'm trying to get it working
+on 4.13.0. I added the support for gntdev operations,  but I'm stuck with
+privcmd IOCTL_PRIVCMD_MMAPBATCH. It seems to work fine for PV and PVH domUs,
+but with HVM domUs, MMU_NORMAL_PT_UPDATE returns -22 (EINVAL) and
+qemu-dm dumps core (as expected; the page is not mapped).
+Of course this works fine in 4.11
 
-First, that is still tantamount to useless in logs from a user.
+In the Xen kernel, I tracked it down to arch/x86/mm.c near line 2229,
+in mod_l1_entry():
+        /* Translate foreign guest address. */
+        if ( cmd != MMU_PT_UPDATE_NO_TRANSLATE &&
+             paging_mode_translate(pg_dom) )
+        {
+            p2m_type_t p2mt;
+            p2m_query_t q = l1e_get_flags(nl1e) & _PAGE_RW ?
+                            P2M_ALLOC | P2M_UNSHARE : P2M_ALLOC;
 
-Second, the use of __LINE__ is why it breaks livepatching, and people
-using livepatching is still carrying an out-of-tree patch to unbreak it.
+            page = get_page_from_gfn(pg_dom, l1e_get_pfn(nl1e), &p2mt, q);
 
-> I can make a patch to add a gprintk() as you ask for, but I'm not
-> sure it's worth it for this almost dead code.
+            if ( p2m_is_paged(p2mt) )
+            {
+                if ( page )
+                    put_page(page);
+                p2m_mem_paging_populate(pg_dom, l1e_get_pfn(nl1e));
+                return -ENOENT;
+            }
 
-"page in unexpected state" would be better than nothing, but given the
-comment, it might also be better as ASSERT_UNREACHABLE(), and we now
-have a lot of cases where we declare unreachable, and kill the domain in
-release builds.
+            if ( p2mt == p2m_ram_paging_in && !page )
+                return -ENOENT;
 
->
->>> @@ -1843,13 +1852,24 @@ int p2m_mem_paging_prep(struct domain *d
->>>      ret = p2m_set_entry(p2m, gfn, mfn, PAGE_ORDER_4K,
->>>                          paging_mode_log_dirty(d) ? p2m_ram_logdirty
->>>                                                   : p2m_ram_rw, a);
->>> -    set_gpfn_from_mfn(mfn_x(mfn), gfn_l);
->>> +    if ( !ret )
->>> +    {
->>> +        set_gpfn_from_mfn(mfn_x(mfn), gfn_l);
->>>  
->>> -    if ( !page_extant )
->>> -        atomic_dec(&d->paged_pages);
->>> +        if ( !page_extant )
->>> +            atomic_dec(&d->paged_pages);
->>> +    }
->>>  
->>>   out:
->>>      gfn_unlock(p2m, gfn, 0);
->>> +
->>> +    if ( page )
->>> +    {
->>> +        if ( ret )
->>> +            put_page_alloc_ref(page);
->>> +        put_page(page);
->> This is a very long way from clear enough to follow, and buggy if anyone
->> inserts a new goto out path.
-> What alternatives do you see?
+            /* Did our attempt to unshare fail? */
+            if ( (q & P2M_UNSHARE) && p2m_is_shared(p2mt) )
+            {
+                /* We could not have obtained a page ref. */
+                ASSERT(!page);
+                /* And mem_sharing_notify has already been called. */
+                return -ENOMEM;
+            }
 
-/* Fully free the page on error.  Drop our temporary reference in all
-cases. */
+            if ( !page ) {
+                gdprintk(XENLOG_WARNING, "translate but no page\n");
+                return -EINVAL;
+            }                        
+            nl1e = l1e_from_page(page, l1e_get_flags(nl1e));
+        }
 
-would at least help someone trying to figure out what is going on here,
-especially as put_page_alloc_ref() is not the obvious freeing function
-for alloc_domheap_page().
+the gdprintk() I added in the ( !page) case fires, so this is the
+cause of the EINVAL.
+Is it expected for a HVM domU ? If so, how should the dom0 code be
+changed to get it working ? I failed to see where our code is different
+from linux ...
 
-~Andrew
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
