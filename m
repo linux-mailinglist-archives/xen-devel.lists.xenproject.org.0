@@ -2,42 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F151D453F
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 07:33:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E4BA1D457D
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 07:59:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZSy5-0002ZM-VT; Fri, 15 May 2020 05:33:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jZTMi-0004Vc-1A; Fri, 15 May 2020 05:58:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yAEg=65=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jZSy4-0002ZH-M8
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 05:33:08 +0000
-X-Inumbo-ID: 8e6dfba4-966d-11ea-9887-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8e6dfba4-966d-11ea-9887-bc764e2007e4;
- Fri, 15 May 2020 05:33:07 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 287D2AEED;
- Fri, 15 May 2020 05:33:09 +0000 (UTC)
-Subject: Re: [PATCH v8 04/12] xen: add basic hypervisor filesystem support
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200508153421.24525-1-jgross@suse.com>
- <20200508153421.24525-5-jgross@suse.com>
- <db277779-5b1e-a2aa-3948-9e6dd8e8bef0@suse.com>
- <23938228-e947-fe36-8b19-0e89886db9ac@suse.com>
-Message-ID: <28dd8109-1815-70cd-834c-53330d5c824d@suse.com>
-Date: Fri, 15 May 2020 07:33:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ (envelope-from <SRS0=wPnU=65=redhat.com=armbru@srs-us1.protection.inumbo.net>)
+ id 1jZTMh-0004VX-0D
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 05:58:35 +0000
+X-Inumbo-ID: 1ba1104e-9671-11ea-a523-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 1ba1104e-9671-11ea-a523-12813bfff9fa;
+ Fri, 15 May 2020 05:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1589522312;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pWfAQ0tUqEVcxnRaG3DXAf86VAbLFMa86O/kZ9GP1v0=;
+ b=IaAlzbR9DUN4a0fDNNHb0TFtWsNNssS71Rw7QfcbaA40fqhzMKkXU3AGrd7WbovpPtTkhI
+ ifq4WTuAm2TrdM4A++kBQedDkb+pYO0DYdP7ai+rvNg4ePp0kv7KgNPvShb+tdyCTwg7/7
+ cmQd41J9Jfonv2iNTn/o92bNNrJdaWA=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-166-PR4YSkK4P7mzfPK4-G2OSA-1; Fri, 15 May 2020 01:58:28 -0400
+X-MC-Unique: PR4YSkK4P7mzfPK4-G2OSA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 32191107ACF3;
+ Fri, 15 May 2020 05:58:25 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-113-6.ams2.redhat.com [10.36.113.6])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 96F0A5D9D7;
+ Fri, 15 May 2020 05:58:18 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 44AA411358BC; Fri, 15 May 2020 07:58:17 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
+Subject: Re: [PATCH v3 0/3] various: Remove unnecessary casts
+References: <20200512070020.22782-1-f4bug@amsat.org>
+Date: Fri, 15 May 2020 07:58:17 +0200
+In-Reply-To: <20200512070020.22782-1-f4bug@amsat.org> ("Philippe
+ =?utf-8?Q?Mathieu-Daud=C3=A9=22's?= message of "Tue, 12 May 2020 09:00:17
+ +0200")
+Message-ID: <871rnlsps6.fsf@dusky.pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
 MIME-Version: 1.0
-In-Reply-To: <23938228-e947-fe36-8b19-0e89886db9ac@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,61 +70,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Peter Maydell <peter.maydell@linaro.org>, Paul Durrant <paul@xen.org>,
+ Jason Wang <jasowang@redhat.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
+ qemu-trivial@nongnu.org, David Hildenbrand <david@redhat.com>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+ Joel Stanley <joel@jms.id.au>, Anthony Perard <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org, Richard Henderson <rth@twiddle.net>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+ Eduardo Habkost <ehabkost@redhat.com>, Corey Minyard <minyard@acm.org>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
+ qemu-arm@nongnu.org, Peter Chubb <peter.chubb@nicta.com.au>,
+ =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>, John Snow <jsnow@redhat.com>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ "Daniel P. =?utf-8?Q?Berrang=C3=A9?=" <berrange@redhat.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Cornelia Huck <cohuck@redhat.com>,
+ Laurent Vivier <laurent@vivier.eu>, qemu-ppc@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Aurelien Jarno <aurelien@aurel32.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 14.05.20 11:50, Jürgen Groß wrote:
-> On 14.05.20 09:59, Jan Beulich wrote:
->> On 08.05.2020 17:34, Juergen Gross wrote:
->>> +int hypfs_read_dir(const struct hypfs_entry *entry,
->>> +                   XEN_GUEST_HANDLE_PARAM(void) uaddr)
->>> +{
->>> +    const struct hypfs_entry_dir *d;
->>> +    const struct hypfs_entry *e;
->>> +    unsigned int size = entry->size;
->>> +
->>> +    d = container_of(entry, const struct hypfs_entry_dir, e);
->>> +
->>> +    list_for_each_entry ( e, &d->dirlist, list )
->>
->> This function, in particular because of being non-static, makes
->> me wonder how, with add_entry() taking a lock, it can be safe
->> without any locking. Initially I thought the justification might
->> be because all adding of entries is an init-time-only thing, but
->> various involved functions aren't marked __init (and it is at
->> least not implausible that down the road we might see new
->> entries getting added during certain hotplug operations).
->>
->> I do realize that do_hypfs_op() takes the necessary read lock,
->> but then you're still building on the assumption that the
->> function is reachable through only that code path, despite
->> being non-static. An ASSERT() here would be the minimum I guess,
->> but with read locks now being recursive I don't see why you
->> couldn't read-lock here again.
-> 
-> Right, will add the read-lock.
-> 
->>
->> The same goes for other non-static functions, albeit things may
->> become more interesting for functions living on the
->> XEN_HYPFS_OP_write_contents path (because write locks aren't
-> 
-> Adding an ASSERT() in this regard should be rather easy.
+Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> writes:
 
-As the type specific read- and write-functions should only be called
-through the generic read/write functions I think it is better to have
-a percpu variable holding the current locking state and ASSERT() that
-to match. This will be cheaper than nesting locks and I don't have to
-worry about either write_lock nesting or making _is_write_locked_by_me()
-an official interface.
+> Remove unnecessary casts using coccinelle scripts.
+>
+> The CPU()/OBJECT() patches don't introduce logical change,
+> The DEVICE() one removes various OBJECT_CHECK() calls.
 
+Queued, thanks!
 
-Juergen
+Managing expecations: I'm not a QOM maintainer, I don't want to become
+one, and I don't normally queue QOM patches :)
+
 
