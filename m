@@ -2,41 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80FB21D5029
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 16:15:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9F751D503F
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 16:20:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZb7B-0002XM-0Q; Fri, 15 May 2020 14:15:05 +0000
+	id 1jZbBz-00034M-KZ; Fri, 15 May 2020 14:20:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7uuJ=65=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jZb79-0002XF-KY
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 14:15:03 +0000
-X-Inumbo-ID: 777abe66-96b6-11ea-ae69-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CqcK=65=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jZbBx-0002sR-T7
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 14:20:01 +0000
+X-Inumbo-ID: 2956f118-96b7-11ea-b9cf-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 777abe66-96b6-11ea-ae69-bc764e2007e4;
- Fri, 15 May 2020 14:15:02 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 07DECAAD0;
- Fri, 15 May 2020 14:15:03 +0000 (UTC)
-Subject: Ping: [PATCH v2 3/6] x86/mem-paging: use guest handle for
- XENMEM_paging_op_prep
-From: Jan Beulich <jbeulich@suse.com>
-To: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
-References: <b8437b1f-af58-70df-91d2-bd875912e57b@suse.com>
- <43811c95-aa41-a34a-06ce-7d344cb1411d@suse.com>
-Message-ID: <25fdba8a-9dbf-50b4-d7d5-098602d40fb3@suse.com>
-Date: Fri, 15 May 2020 16:14:56 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 2956f118-96b7-11ea-b9cf-bc764e2007e4;
+ Fri, 15 May 2020 14:20:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1589552400;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=XGeb1kddEGhTLReRlY0YSXI1kO0qFDqExmEgxUFSibw=;
+ b=DD/7NzmdHkrjWxYYwRP6zQk6HlXy7n8SXm8W0ScigLeomDEtBUorlSB6
+ sLzRMMBX8Xyvwe/lTxOW2Zv4deVnHQ7idrQWH3bfUzmXSDNlZnHdkIlx/
+ cuzkz3s+dLChrVEsM1V93KAcjqynp/ZrOzYPktCAmQESlzvCkiVEs/PTh w=;
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ anthony.perard@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ anthony.perard@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=anthony.perard@citrix.com;
+ spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com;
+ dmarc=pass (p=none dis=none) d=citrix.com
+IronPort-SDR: n8VlNHnaIBotNw/RGV1qIF5f7sliBuIx+HPVkAkNfXr29C7Aew35OeT4xh56DUIV9s+EbuTGud
+ 9XtMmG6wbZxfcpfjJRu1w4RIuUxiyI9ojlWD1TNRF4n1J7W7UDVnaek9b6gUhK6kCncwFR6gtA
+ 1pf9uq61vfOs+HFiXq1ei/y1MzYclbJN42SFA0RGlV2DykQ8aKhjbV46RMQZbAFQEl4jyN2Ffb
+ uayjheupNXh60OAGl1TcMCFkvyC/Q//X3YObURaaWLt1bJ4HZSHM0CSm1BvkKom4Rh+DBdAWZB
+ 9FE=
+X-SBRS: 2.7
+X-MesageID: 18327950
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,395,1583211600"; d="scan'208";a="18327950"
+Date: Fri, 15 May 2020 15:19:57 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
+Subject: Re: [XEN PATCH 0/2] xen/build: fix kconfig errors during config merge
+Message-ID: <20200515141957.GK2116@perard.uk.xensource.com>
+References: <20200512175206.20314-1-stewart.hildebrand@dornerworks.com>
 MIME-Version: 1.0
-In-Reply-To: <43811c95-aa41-a34a-06ce-7d344cb1411d@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20200512175206.20314-1-stewart.hildebrand@dornerworks.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,172 +89,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23.04.2020 10:38, Jan Beulich wrote:
-> While it should have been this way from the beginning, not doing so will
-> become an actual problem with PVH Dom0. The interface change is binary
-> compatible, but requires tools side producers to be re-built.
+On Tue, May 12, 2020 at 01:52:04PM -0400, Stewart Hildebrand wrote:
+> This series fixes a couple of kconfig errors that I observed while
+> invoking a build with a defconfig and config fragment.
 > 
-> Drop the bogus/unnecessary page alignment restriction on the input
-> buffer at the same time.
+> I invoked the build as follows:
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> cat > xen/arch/arm/configs/custom.config <<EOF
+> CONFIG_DEBUG=y
+> CONFIG_SCHED_ARINC653=y
+> CONFIG_EARLY_PRINTK_ZYNQMP=y
+> EOF
+> make -C xen XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig custom.config
 
-May I ask for a libxc side ack or otherwise, please?
+Thanks for the patches.
 
-Thanks, Jan
+FYI, `make defconfig custom.config` doesn't work as expected with the Xen
+build system, it doesn't deal with this use case like Linux's one does.
+There is no guaranty that "defconfig" will be made before "custom.config".
+It would be better to run `make defconfig && make custom.config`, or
+maybe use -j1, until this is properly handled. That's what is done by
+kbuild.
 
-> --- a/tools/libxc/xc_mem_paging.c
-> +++ b/tools/libxc/xc_mem_paging.c
-> @@ -26,15 +26,33 @@ static int xc_mem_paging_memop(xc_interf
->                                 unsigned int op, uint64_t gfn, void *buffer)
->  {
->      xen_mem_paging_op_t mpo;
-> +    DECLARE_HYPERCALL_BOUNCE(buffer, XC_PAGE_SIZE,
-> +                             XC_HYPERCALL_BUFFER_BOUNCE_IN);
-> +    int rc;
->  
->      memset(&mpo, 0, sizeof(mpo));
->  
->      mpo.op      = op;
->      mpo.domain  = domain_id;
->      mpo.gfn     = gfn;
-> -    mpo.buffer  = (unsigned long) buffer;
->  
-> -    return do_memory_op(xch, XENMEM_paging_op, &mpo, sizeof(mpo));
-> +    if ( buffer )
-> +    {
-> +        if ( xc_hypercall_bounce_pre(xch, buffer) )
-> +        {
-> +            PERROR("Could not bounce memory for XENMEM_paging_op %u", op);
-> +            return -1;
-> +        }
-> +
-> +        set_xen_guest_handle(mpo.buffer, buffer);
-> +    }
-> +
-> +    rc = do_memory_op(xch, XENMEM_paging_op, &mpo, sizeof(mpo));
-> +
-> +    if ( buffer )
-> +        xc_hypercall_bounce_post(xch, buffer);
-> +
-> +    return rc;
->  }
->  
->  int xc_mem_paging_enable(xc_interface *xch, uint32_t domain_id,
-> @@ -92,28 +110,13 @@ int xc_mem_paging_prep(xc_interface *xch
->  int xc_mem_paging_load(xc_interface *xch, uint32_t domain_id,
->                         uint64_t gfn, void *buffer)
->  {
-> -    int rc, old_errno;
-> -
->      errno = EINVAL;
->  
->      if ( !buffer )
->          return -1;
->  
-> -    if ( ((unsigned long) buffer) & (XC_PAGE_SIZE - 1) )
-> -        return -1;
-> -
-> -    if ( mlock(buffer, XC_PAGE_SIZE) )
-> -        return -1;
-> -
-> -    rc = xc_mem_paging_memop(xch, domain_id,
-> -                             XENMEM_paging_op_prep,
-> -                             gfn, buffer);
-> -
-> -    old_errno = errno;
-> -    munlock(buffer, XC_PAGE_SIZE);
-> -    errno = old_errno;
-> -
-> -    return rc;
-> +    return xc_mem_paging_memop(xch, domain_id, XENMEM_paging_op_prep,
-> +                               gfn, buffer);
->  }
->  
->  
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -1779,7 +1779,8 @@ void p2m_mem_paging_populate(struct doma
->   * mfn if populate was called for  gfn which was nominated but not evicted. In
->   * this case only the p2mt needs to be forwarded.
->   */
-> -int p2m_mem_paging_prep(struct domain *d, unsigned long gfn_l, uint64_t buffer)
-> +int p2m_mem_paging_prep(struct domain *d, unsigned long gfn_l,
-> +                        XEN_GUEST_HANDLE_64(const_uint8) buffer)
->  {
->      struct page_info *page = NULL;
->      p2m_type_t p2mt;
-> @@ -1788,13 +1789,9 @@ int p2m_mem_paging_prep(struct domain *d
->      mfn_t mfn;
->      struct p2m_domain *p2m = p2m_get_hostp2m(d);
->      int ret, page_extant = 1;
-> -    const void *user_ptr = (const void *) buffer;
->  
-> -    if ( user_ptr )
-> -        /* Sanity check the buffer and bail out early if trouble */
-> -        if ( (buffer & (PAGE_SIZE - 1)) || 
-> -             (!access_ok(user_ptr, PAGE_SIZE)) )
-> -            return -EINVAL;
-> +    if ( !guest_handle_okay(buffer, PAGE_SIZE) )
-> +        return -EINVAL;
->  
->      gfn_lock(p2m, gfn, 0);
->  
-> @@ -1812,7 +1809,7 @@ int p2m_mem_paging_prep(struct domain *d
->  
->          /* If the user did not provide a buffer, we disallow */
->          ret = -EINVAL;
-> -        if ( unlikely(user_ptr == NULL) )
-> +        if ( unlikely(guest_handle_is_null(buffer)) )
->              goto out;
->          /* Get a free page */
->          ret = -ENOMEM;
-> @@ -1834,7 +1831,7 @@ int p2m_mem_paging_prep(struct domain *d
->  
->          ASSERT( mfn_valid(mfn) );
->          guest_map = map_domain_page(mfn);
-> -        ret = copy_from_user(guest_map, user_ptr, PAGE_SIZE);
-> +        ret = copy_from_guest(guest_map, buffer, PAGE_SIZE);
->          unmap_domain_page(guest_map);
->          if ( ret )
->          {
-> --- a/xen/include/asm-x86/p2m.h
-> +++ b/xen/include/asm-x86/p2m.h
-> @@ -741,7 +741,8 @@ void p2m_mem_paging_drop_page(struct dom
->  /* Start populating a paged out frame */
->  void p2m_mem_paging_populate(struct domain *d, unsigned long gfn);
->  /* Prepare the p2m for paging a frame in */
-> -int p2m_mem_paging_prep(struct domain *d, unsigned long gfn, uint64_t buffer);
-> +int p2m_mem_paging_prep(struct domain *d, unsigned long gfn,
-> +                        XEN_GUEST_HANDLE_64(const_uint8) buffer);
->  /* Resume normal operation (in case a domain was paused) */
->  struct vm_event_st;
->  void p2m_mem_paging_resume(struct domain *d, struct vm_event_st *rsp);
-> --- a/xen/include/public/memory.h
-> +++ b/xen/include/public/memory.h
-> @@ -396,10 +396,10 @@ struct xen_mem_paging_op {
->      uint8_t     op;         /* XENMEM_paging_op_* */
->      domid_t     domain;
->  
-> -    /* PAGING_PREP IN: buffer to immediately fill page in */
-> -    uint64_aligned_t    buffer;
-> -    /* Other OPs */
-> -    uint64_aligned_t    gfn;           /* IN:  gfn of page being operated on */
-> +    /* IN: (XENMEM_paging_op_prep) buffer to immediately fill page from */
-> +    XEN_GUEST_HANDLE_64(const_uint8) buffer;
-> +    /* IN:  gfn of page being operated on */
-> +    uint64_aligned_t    gfn;
->  };
->  typedef struct xen_mem_paging_op xen_mem_paging_op_t;
->  DEFINE_XEN_GUEST_HANDLE(xen_mem_paging_op_t);
-> 
-> 
+Cheers,
 
+-- 
+Anthony PERARD
 
