@@ -2,91 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934661D5527
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 17:52:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D0AF1D553E
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 17:56:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZcdT-0003zp-Ce; Fri, 15 May 2020 15:52:31 +0000
+	id 1jZcgr-00049Z-UB; Fri, 15 May 2020 15:56:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kC4v=65=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jZcdS-0003zk-2a
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 15:52:30 +0000
-X-Inumbo-ID: 14506526-96c4-11ea-ae69-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=eCno=65=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1jZcgq-00049U-D6
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 15:56:00 +0000
+X-Inumbo-ID: 91e325b4-96c4-11ea-9887-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 14506526-96c4-11ea-ae69-bc764e2007e4;
- Fri, 15 May 2020 15:52:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589557949;
- h=subject:from:to:cc:references:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=LqOMgwBCraexW+x7DyWMRZYdT+fJD87gTxi9XiSBgi4=;
- b=DsoVeDZTDoNNW9T9qhZpPgCdJstIVgALrYZiak0GImRfyT+dSd5DO3mX
- GB11Jv3sP/5g41SbDTNafcTCZI5RdKofYM4g13Ktz0H6412ffMCu2vgWm
- aPJFjvrIDhlx3hQJZtvI7TY+k79KxMTOiMtdKyYJPVGAZ0Gxgwple9Wx4 o=;
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: TIBIMGfxpy5XlkH/PD9FtukFDItMTCgr0iPsjmHbKlkHhK/SGR3c28LsiAT60nOYjq0vt0Mm7Y
- sHaZBoBW8M5oPzP26eZVDzneEuZz/JW2znJx6PRgZoRux2jTczclDeimrr1s5vIV6YrWFVh+21
- sTQ77LK7jiSomjUO23ebRLnH54JloAp8geGjb/1cG7pn4wziw0sYsF18toLZ0Ct1H+vb62FZfv
- +SWNdv+jqEUlHsEUSJlhjvzZ6yWj/K0Zr8pATE9bqezyham03yvIUntCHIA7Kn1/ueLtkCAJZL
- /XM=
-X-SBRS: 2.7
-X-MesageID: 17672619
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,395,1583211600"; d="scan'208";a="17672619"
-Subject: Re: [PATCH v2 6/6] x86/mem-paging: consistently use gfn_t
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <b8437b1f-af58-70df-91d2-bd875912e57b@suse.com>
- <b50f9677-3b62-b071-decc-007e6a92701d@suse.com>
- <d1a87f81-4373-8174-b54a-c98e25a12a99@citrix.com>
-Message-ID: <fe2f6c75-9cdf-a359-8be9-71066ac13ae4@citrix.com>
-Date: Fri, 15 May 2020 16:52:23 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 91e325b4-96c4-11ea-9887-bc764e2007e4;
+ Fri, 15 May 2020 15:55:59 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 61E23ABC2;
+ Fri, 15 May 2020 15:56:01 +0000 (UTC)
+Message-ID: <aa35e39df4e8b10650678f8fa385f80364208270.camel@suse.com>
+Subject: Re: [PATCH v3 2/3] xen/sched: don't call sync_vcpu_execstate() in
+ sched_unit_migrate_finish()
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Date: Fri, 15 May 2020 17:55:57 +0200
+In-Reply-To: <20200514153614.2240-3-jgross@suse.com>
+References: <20200514153614.2240-1-jgross@suse.com>
+ <20200514153614.2240-3-jgross@suse.com>
+Organization: SUSE
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-UqaGQ5PM4VTxPNQ6DIZQ"
+User-Agent: Evolution 3.36.2 
 MIME-Version: 1.0
-In-Reply-To: <d1a87f81-4373-8174-b54a-c98e25a12a99@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,29 +46,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15/05/2020 16:49, Andrew Cooper wrote:
-> On 23/04/2020 09:39, Jan Beulich wrote:
->> --- a/xen/arch/x86/mm/hap/guest_walk.c
->> +++ b/xen/arch/x86/mm/hap/guest_walk.c
->> @@ -68,7 +68,7 @@ unsigned long hap_p2m_ga_to_gfn(GUEST_PA
->>          *pfec = PFEC_page_paged;
->>          if ( top_page )
->>              put_page(top_page);
->> -        p2m_mem_paging_populate(p2m->domain, cr3 >> PAGE_SHIFT);
->> +        p2m_mem_paging_populate(p2m->domain, _gfn(PFN_DOWN(cr3)));
-> addr_to_gfn()
 
-Sorry - gaddr_to_gfn()
+--=-UqaGQ5PM4VTxPNQ6DIZQ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-~Andrew
-
+On Thu, 2020-05-14 at 17:36 +0200, Juergen Gross wrote:
+> With support of core scheduling sched_unit_migrate_finish() gained a
+> call of sync_vcpu_execstate() as it was believed to be called as a
+> result of vcpu migration in any case.
+>=20
+> In case of migrating a vcpu away from a physical cpu for a short
+> period
+> of time ionly without ever being scheduled on the selected new cpu
+> this
+> might not be true, so drop the call and let the lazy state syncing do
+> its job.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 >
-> Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
->
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-UqaGQ5PM4VTxPNQ6DIZQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl6+u40ACgkQFkJ4iaW4
+c+7BwRAA2rZs7YlhgJhoP8L0xeiN/Wsq4EkIhQJbZHRVOE/fgs4lgFCQSmOQF0EO
+aoMOPp3sM2GCchEWfaEHF7T8Rl5d51J29iJVZFhCQlqPHuAody+NviqQhaXrnKyN
+a3Fr9silEajjkqqdHyXM2acZn2Gh6MnQzIEfcEem7i6CWylzr0UmFWranvc1he7s
+TJQ8lgv04mWvHZjwKuDaFXGhcPJ5IY4xqVqQbrwvrgkYdihxAAf9rASNpps+QcA/
+7m1wNm5AuNukQ2TLir28MvmTJN/TcuudoCHJnZPVl2hX8H2FE5GumyCzdOzBN+7d
+gfDwcDNcwau2hOvPpspmlBYdimb1XwhLa2yEl0T6jr66MXxYRaSItV7Or5hcww8y
+WOXMr2CZHke3R64h9u0GExEeKe1bP3yQmQkAI1q+6oDSeSTh7KCPF86rBXSjfEqy
+aZHqoKgWrWcc7wBkwi2hc/ABHLfP4Pb9WE7L5im7ave9KyIiVzDqJp9rxTfndeQi
+fAVdFd5vVVl28MPCTQNh8eyugZugCFt+lK6D0+NYkg3uAg0paHTyUH2M0s09i1ij
+Brdt95jfuWtShZRc/Z5qznTLskcpnmXM8LcvTJFXGinn4eSdjcF1FIPOKtg4fb1o
+M+7Qwt/fpvu2fGJDVQq2uSa+9TygmXdO8Ad3iHqKEewHfHHVmcQ=
+=RjuR
+-----END PGP SIGNATURE-----
+
+--=-UqaGQ5PM4VTxPNQ6DIZQ--
 
 
