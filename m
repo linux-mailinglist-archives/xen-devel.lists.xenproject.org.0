@@ -2,46 +2,94 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A5B01D4D69
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 14:07:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54F871D4DBD
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 14:35:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZZ7Q-0006rr-4t; Fri, 15 May 2020 12:07:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7E4v=65=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jZZ7P-0006rm-5Q
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 12:07:11 +0000
-X-Inumbo-ID: 99e03b28-96a4-11ea-a556-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 99e03b28-96a4-11ea-a556-12813bfff9fa;
- Fri, 15 May 2020 12:07:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=C+ktQXzlviggagCmERPsVH4THlGkI7d1rhffwZriee0=; b=LCN4K2mYlOsPOIlJcIM/jUT5lT
- CKLaK5vHA0OwSN/aozX/YawKTZ8jE8MgBdmj7JrZ8CRC5Gws+Bl0I38l7aS+lBiEOgcyCuyK+JM5g
- v+aH2pAlJP24mfd+OehI+YMfbmYSWTfG9dxQLC+IonsqbCRB3Z5ti/VJXVg8AUG0Eoio=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jZZ7L-0006f2-Tr; Fri, 15 May 2020 12:07:07 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jZZ7L-0001H5-BS; Fri, 15 May 2020 12:07:07 +0000
+	id 1jZZXh-00019V-GN; Fri, 15 May 2020 12:34:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lh6L=65=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1jZZXg-00019Q-Eh
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 12:34:20 +0000
+X-Inumbo-ID: 651ec9d2-96a8-11ea-ae69-bc764e2007e4
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.8.74]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 651ec9d2-96a8-11ea-ae69-bc764e2007e4;
+ Fri, 15 May 2020 12:34:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wRE0ISnQtIe4ZKrBjziChSlukldnTXgGXArBy7ifr1k=;
+ b=BHPQmKyshT+Dyd9vchWEuJar3Ed33wAXYlQcJzUrQmov68ukVyd3Fy4C3J4TSZZX6yMCQc8htrKUMfAWVkNP+3+nKhbJJJw+JySnfRNCyT0TQ8O35wtSHPl18YFgz0QZiKq88hhrQ9p2TlP47xPbKX8RaqCAn8RuBhVJpY3Y6Lk=
+Received: from AM6P194CA0035.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:90::48)
+ by VI1PR08MB3917.eurprd08.prod.outlook.com (2603:10a6:803:c1::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.25; Fri, 15 May
+ 2020 12:34:16 +0000
+Received: from AM5EUR03FT031.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:90:cafe::a3) by AM6P194CA0035.outlook.office365.com
+ (2603:10a6:209:90::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20 via Frontend
+ Transport; Fri, 15 May 2020 12:34:16 +0000
+Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
+ dmarc=bestguesspass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT031.mail.protection.outlook.com (10.152.16.111) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3000.19 via Frontend Transport; Fri, 15 May 2020 12:34:16 +0000
+Received: ("Tessian outbound e88319d7ccd0:v54");
+ Fri, 15 May 2020 12:34:16 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 836bd842f052c2a9
+X-CR-MTA-TID: 64aa7808
+Received: from 8db15bc3ba0c.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ F3D98B4B-8964-4804-8FB0-2557BD324182.1; 
+ Fri, 15 May 2020 12:34:10 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 8db15bc3ba0c.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 15 May 2020 12:34:10 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FPzGqQTdHbkH4srSVVhdENJ3/yx9VB9GLfXi23GwogzH2SeFqUUVm1U2hPDKKXtIVVLpT2W24YeMQyUn7ZpcA88r20ydg6MNlTYcMZrJDgiRFTEKQRpf3LTTNl9k9DlL8+1f8HDb6DfOSko87IRPR/54CdzzMEai82KRXaO1/ph6aNXffYBXD33+ddYZYH2pCFyK+WwLbNk1KrZdiOuugOygySMV+VyPwKOojdkxd4eWb+vIwtuTIzPMAF8Eoa1NI2Lf1B1pfGMmJI61QeGYL+1vPRJLFoUapF86y3D0K2UlKFsRM1QEv0V18V6IT+hHx79HZ+LtPdIl9vViLXAuig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wRE0ISnQtIe4ZKrBjziChSlukldnTXgGXArBy7ifr1k=;
+ b=b01ke12dpTUJvVR/2XlDV6DY3xDLYc5Sm30tbZ+ooT70pakqFTLTaCB6di31+dO/xo8vvvwB18LmYMcuCBRShVHoehXyEA9VRJFHURWQyVMGg4MvE9E/o84NqaUKITM4JUG7C6zstus16tbBnsQuCnjvrGZ67h08pFP7En+Qs6nznnBCE9xGN8s7BZyOH0eFt59idwoj2wB1jTdcEpV5LqtZeOUcXzyTK4NflxDAXiqG2kZcHLp1UXGe3VLPL1DII69o5iualgErg8XekaRNyyNwojWNN2PtGQ50p0BumRpwXNpNOYivN++eLMBDavIjezA9MwPgXfOeXaLYjZVB6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wRE0ISnQtIe4ZKrBjziChSlukldnTXgGXArBy7ifr1k=;
+ b=BHPQmKyshT+Dyd9vchWEuJar3Ed33wAXYlQcJzUrQmov68ukVyd3Fy4C3J4TSZZX6yMCQc8htrKUMfAWVkNP+3+nKhbJJJw+JySnfRNCyT0TQ8O35wtSHPl18YFgz0QZiKq88hhrQ9p2TlP47xPbKX8RaqCAn8RuBhVJpY3Y6Lk=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DB7PR08MB3916.eurprd08.prod.outlook.com (2603:10a6:10:7e::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.33; Fri, 15 May
+ 2020 12:34:08 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::4001:43ad:d113:46a8]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::4001:43ad:d113:46a8%5]) with mapi id 15.20.3000.022; Fri, 15 May 2020
+ 12:34:08 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
 Subject: Re: Error during update_runstate_area with KPTI activated
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <C6B0E24F-60E6-4621-8448-C8DBAE3277A9@arm.com>
- <2c4437e9-d513-3e3c-7fec-13ffadc17df2@xen.org>
+Thread-Topic: Error during update_runstate_area with KPTI activated
+Thread-Index: AQHWKfvm5I6PbMAmoUakTwbdgqMBQqinvLCAgAAF7oCAABaDgIAACWGAgAARCgCAANBZgIAAEJgAgAAERACAAASVAIAAAySAgAAM5QCAACjqAA==
+Date: Fri, 15 May 2020 12:34:08 +0000
+Message-ID: <B0FB86DC-1D4F-438E-B78B-0D9845D13E8A@arm.com>
+References: <2c4437e9-d513-3e3c-7fec-13ffadc17df2@xen.org>
  <2E95C767-FFE1-4A48-B56D-F858A8CEE5D7@arm.com>
  <ab4f3c2a-95aa-1256-f6f4-0c3057f5600c@xen.org>
  <b6511a29-35a4-a1d0-dd29-7de4103ec98e@citrix.com>
@@ -51,18 +99,60 @@ References: <C6B0E24F-60E6-4621-8448-C8DBAE3277A9@arm.com>
  <d2033adc-3f98-2d14-ae6d-f8dcd8b90002@xen.org>
  <20200515091018.GO54375@Air-de-Roger>
  <93D7EBEF-E3E0-4DBB-A5BC-7D326B7AE0DB@arm.com>
- <355d0b59-29d4-a483-73a3-3cdd468c0b77@xen.org>
- <0E6DD742-3C79-4CD2-93A1-6D054377A919@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <19ea976d-5d62-db57-28b2-116b0c4da03f@xen.org>
-Date: Fri, 15 May 2020 13:07:04 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+ <20200515100742.GR54375@Air-de-Roger>
+In-Reply-To: <20200515100742.GR54375@Air-de-Roger>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Authentication-Results-Original: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [82.24.250.194]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: def04ec8-939a-4e7c-ea2f-08d7f8cc482a
+x-ms-traffictypediagnostic: DB7PR08MB3916:|VI1PR08MB3917:
+X-Microsoft-Antispam-PRVS: <VI1PR08MB3917FD7166BA4615C572A2F69DBD0@VI1PR08MB3917.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+x-forefront-prvs: 04041A2886
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: grjRgKf+8NhZMoyDbylsq9D+ewc/tgCvCrq2EtWjNi4cv+mmt+5qc8iZlKgiDvPeR7mB5jEEpYp2iSFfCl3VpFj3XZzx8Emce443BYcL42hai7VuJUUTXJa9xhUPo9cPx/saZa8p0ILE9X1MdXYDNVkWdz+ceRup1+k2w37DCnVV8jAu08H22gTPw8vGWj+By7N2ZxLobNDntjQjdZlectTFVIAKIWoBOohYDPMOUu5WUfKDwQxqj72rrTJ8v+WvsQAPfNnW0Zcv2L2Q5ivG2OHP7rDb/OIlntXY7aZebD95ZLg5RNme87MJ505x0oXlrJqN98DRWDuMdYopTDIvu/bv7e/6mApLQQsCnARo2zBmfE5BBZMkDbM0DQJpVIWzABQQ31fJgKmHQZe6Mgw5sZphfno0Ol+WGZsWqBUyzxLpxvxV5cHcHEKtuP0QQAr2Dkuwf6ilGrJms67tKrYeA5YX6KtrTo/OXJU4Q+voXMOALHjizBfgRkI3PzDVdXOrlRpKlKXhbbBcsyQ79IP1sg==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DB7PR08MB3689.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE; SFTY:;
+ SFS:(4636009)(376002)(366004)(346002)(136003)(396003)(39860400002)(2616005)(15650500001)(6916009)(8676002)(36756003)(26005)(76116006)(66476007)(186003)(53546011)(66946007)(66446008)(91956017)(6506007)(316002)(64756008)(8936002)(2906002)(54906003)(66556008)(6486002)(6512007)(86362001)(966005)(71200400001)(4326008)(478600001)(5660300002)(33656002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: EXQUz16AJcZl7B1OZNjRXYhdLoKZRaksqPh+4deLR2BLs7BROIh1aI+2F8eK102PGkOXLno4XaO8L2va3/u9coLj2uutqGdRxJFhU7EeChfhBjvISFqItgZ2UupodThLCNhA4eFAk/+paDZDuEsDXcWYdc7sxY+9twx81lrDpNgTwFUcSY41M8wy8wdmxUCZ8Gee33rZjKN4N2DImT1aJOYxTCCP5EX3BPXXoSZFmHj54I17jqwpVPLZFysaQV9f4p5lgvA/qpBQCtak4nSOWeYpVBatqkcl0bks5+Jd/v9jR6S7fZe/emv/oXss84kA6CMLML2U1ecFv/pkEpsCPu+0/DicpFTxpaAJYAB48mozy/mcnLzq9ln0YJhE+sy8VtMEfC9H91sOb/nj42Z4AMQwOor83XZRvxES7s4OA4HkqH29zBbNvJvRdy7201w/TeBiV3TuGGwEu8ttDUm9AXMEAAohhCIpqvVRkyljCcNhgURCX4/uJv+QCkkdw+yO
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <469F167F2EF9584BAE2E2CF143C05B59@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <0E6DD742-3C79-4CD2-93A1-6D054377A919@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3916
+Original-Authentication-Results: citrix.com; dkim=none (message not signed)
+ header.d=none;citrix.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM5EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
+ PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE; SFTY:;
+ SFS:(4636009)(396003)(376002)(136003)(346002)(39860400002)(46966005)(6506007)(4326008)(53546011)(316002)(36906005)(8676002)(6486002)(2906002)(186003)(6862004)(6512007)(47076004)(966005)(8936002)(54906003)(81166007)(36756003)(356005)(70206006)(82310400002)(336012)(478600001)(5660300002)(33656002)(26005)(86362001)(70586007)(15650500001)(2616005)(82740400003);
+ DIR:OUT; SFP:1101; 
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 6147f22f-b20d-47ca-e9e2-08d7f8cc436e
+X-Forefront-PRVS: 04041A2886
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uK0TWIsNbHF+/0Co13e9dL+Z7CXN+h5CZEwWkOoF1qeazGNgMhUWPc8u7bmCqzKc6Lh20jmOM13GNrknG2etR5STCxeVkHNZOOuMxKNIpp2oDK42yBvkjYX7SBX2uG2jRUIqGXQs3490fnsWwtIQe7kayZoCrAe/b5FPvuVVPPNraSrNqxCVR04CNuQoIycYFAqYLVLuiITa8xAGQB+Al9UK4/50w1z2kNE1w6dijyyARny5ns3W/KPfgToHx2JmEzgioL9BVbWDQoHAL5Z7Qm6Gk22QBvLDQ7xH9apy+4ZojMEk8D/DVKjCRoaAUouXyQ9qJsvkVs23n2QlkaHaJsvF6cQFYFOpRbjoD9OGTc0Be6K1Ruq4HVGlYJsEsI97OO/8FTMPmuOX0Y8lzQl2dZ5KXp6Yk7sW/E9zuf21cypUVXs2HssCpd7LxOWuyREEbBIjAQ0xQL3ipTn42KXfBoQl8j4pdY26iJyoqRLqSNKD3ttT6RnlbCQQMy9LTxTpl3+8BLSsfIG8G3iF6x36G2uBH3wz3u2DPlP3MxzahU1TpftkUL8oZD8PHCLgdkHVpVIrmlm3ixPqhSDDkMEfSCNOAwA5C6LHli3ottKHNeI=
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 12:34:16.3123 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: def04ec8-939a-4e7c-ea2f-08d7f8cc482a
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
+ Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3917
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,270 +163,186 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Hongyan Xia <hx242@xen.org>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
  Julien Grall <julien.grall.oss@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
-
-On 15/05/2020 11:10, Bertrand Marquis wrote:
-> 
-> 
->> On 15 May 2020, at 11:00, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Bertrand,
->>
->> On 15/05/2020 10:21, Bertrand Marquis wrote:
->>>> On 15 May 2020, at 10:10, Roger Pau Monné <roger.pau@citrix.com <mailto:roger.pau@citrix.com>> wrote:
->>>>
->>>> On Fri, May 15, 2020 at 09:53:54AM +0100, Julien Grall wrote:
->>>>> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
->>>>>
->>>>> Hi,
->>>>>
->>>>> On 15/05/2020 09:38, Roger Pau Monné wrote:
->>>>>> On Fri, May 15, 2020 at 07:39:16AM +0000, Bertrand Marquis wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 14 May 2020, at 20:13, Julien Grall <julien.grall.oss@gmail.com <mailto:julien.grall.oss@gmail.com><mailto:julien.grall.oss@gmail.com>> wrote:
->>>>>>>
->>>>>>> On Thu, 14 May 2020 at 19:12, Andrew Cooper <andrew.cooper3@citrix.com <mailto:andrew.cooper3@citrix.com><mailto:andrew.cooper3@citrix.com>> wrote:
->>>>>>>
->>>>>>> On 14/05/2020 18:38, Julien Grall wrote:
->>>>>>> Hi,
->>>>>>>
->>>>>>> On 14/05/2020 17:18, Bertrand Marquis wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 14 May 2020, at 16:57, Julien Grall <julien@xen.org <mailto:julien@xen.org><mailto:julien@xen.org>> wrote:
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> On 14/05/2020 15:28, Bertrand Marquis wrote:
->>>>>>> Hi,
->>>>>>>
->>>>>>> Hi,
->>>>>>>
->>>>>>> When executing linux on arm64 with KPTI activated (in Dom0 or in a
->>>>>>> DomU), I have a lot of walk page table errors like this:
->>>>>>> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va
->>>>>>> 0xffffff837ebe0cd0
->>>>>>> After implementing a call trace, I found that the problem was
->>>>>>> coming from the update_runstate_area when linux has KPTI activated.
->>>>>>> I have the following call trace:
->>>>>>> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va
->>>>>>> 0xffffff837ebe0cd0
->>>>>>> (XEN) backtrace.c:29: Stacktrace start at 0x8007638efbb0 depth 10
->>>>>>> (XEN)    [<000000000027780c>] get_page_from_gva+0x180/0x35c
->>>>>>> (XEN)    [<00000000002700c8>] guestcopy.c#copy_guest+0x1b0/0x2e4
->>>>>>> (XEN)    [<0000000000270228>] raw_copy_to_guest+0x2c/0x34
->>>>>>> (XEN)    [<0000000000268dd0>] domain.c#update_runstate_area+0x90/0xc8
->>>>>>> (XEN)    [<000000000026909c>] domain.c#schedule_tail+0x294/0x2d8
->>>>>>> (XEN)    [<0000000000269524>] context_switch+0x58/0x70
->>>>>>> (XEN)    [<00000000002479c4>] core.c#sched_context_switch+0x88/0x1e4
->>>>>>> (XEN)    [<000000000024845c>] core.c#schedule+0x224/0x2ec
->>>>>>> (XEN)    [<0000000000224018>] softirq.c#__do_softirq+0xe4/0x128
->>>>>>> (XEN)    [<00000000002240d4>] do_softirq+0x14/0x1c
->>>>>>> Discussing this subject with Stefano, he pointed me to a discussion
->>>>>>> started a year ago on this subject here:
->>>>>>> https://lists.xenproject.org/archives/html/xen-devel/2018-11/msg03053.html
->>>>>>>
->>>>>>> And a patch was submitted:
->>>>>>> https://lists.xenproject.org/archives/html/xen-devel/2019-05/msg02320.html
->>>>>>>
->>>>>>> I rebased this patch on current master and it is solving the
->>>>>>> problem I have seen.
->>>>>>> It sounds to me like a good solution to introduce a
->>>>>>> VCPUOP_register_runstate_phys_memory_area to not depend on the area
->>>>>>> actually being mapped in the guest when a context switch is being
->>>>>>> done (which is actually the problem happening when a context switch
->>>>>>> is trigger while a guest is running in EL0).
->>>>>>> Is there any reason why this was not merged at the end ?
->>>>>>>
->>>>>>> I just skimmed through the thread to remind myself the state.
->>>>>>> AFAICT, this is blocked on the contributor to clarify the intended
->>>>>>> interaction and provide a new version.
->>>>>>>
->>>>>>> What do you mean here by intended interaction ? How the new hyper
->>>>>>> call should be used by the guest OS ?
->>>>>>>
->>>>>>>  From what I remember, Jan was seeking clarification on whether the two
->>>>>>> hypercalls (existing and new) can be called together by the same OS
->>>>>>> (and make sense).
->>>>>>>
->>>>>>> There was also the question of the handover between two pieces of
->>>>>>> sotfware. For instance, what if the firmware is using the existing
->>>>>>> interface but the OS the new one? Similar question about Kexecing a
->>>>>>> different kernel.
->>>>>>>
->>>>>>> This part is mostly documentation so we can discuss about the approach
->>>>>>> and review the implementation.
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> I am still in favor of the new hypercall (and still in my todo list)
->>>>>>> but I haven't yet found time to revive the series.
->>>>>>>
->>>>>>> Would you be willing to take over the series? I would be happy to
->>>>>>> bring you up to speed and provide review.
->>>>>>>
->>>>>>> Sure I can take it over.
->>>>>>>
->>>>>>> I ported it to master version of xen and I tested it on a board.
->>>>>>> I still need to do a deep review of the code myself but I have an
->>>>>>> understanding of the problem and what is the idea.
->>>>>>>
->>>>>>> Any help to get on speed would be more then welcome :-)
->>>>>>> I would recommend to go through the latest version (v3) and the
->>>>>>> previous (v2). I am also suggesting v2 because I think the split was
->>>>>>> easier to review/understand.
->>>>>>>
->>>>>>> The x86 code is probably what is going to give you the most trouble as
->>>>>>> there are two ABIs to support (compat and non-compat). If you don't
->>>>>>> have an x86 setup, I should be able to test it/help write it.
->>>>>>>
->>>>>>> Feel free to ask any questions and I will try my best to remember the
->>>>>>> discussion from last year :).
->>>>>>>
->>>>>>> At risk of being shouted down again, a new hypercall isn't necessarily
->>>>>>> necessary, and there are probably better ways of fixing it.
->>>>>>>
->>>>>>> The underlying ABI problem is that the area is registered by virtual
->>>>>>> address.  The only correct way this should have been done is to register
->>>>>>> by guest physical address, so Xen's updating of the data doesn't
->>>>>>> interact with the guest pagetable settings/restrictions.  x86 suffers
->>>>>>> the same kind of problems as ARM, except we silently squash the fallout.
->>>>>>>
->>>>>>> The logic in Xen is horrible, and I would really rather it was deleted
->>>>>>> completely, rather than to be kept for compatibility.
->>>>>>>
->>>>>>> The runstate area is always fixed kernel memory and doesn't move.  I
->>>>>>> believe it is already restricted from crossing a page boundary, and we
->>>>>>> can calculate the va=>pa translation when the hypercall is made.
->>>>>>>
->>>>>>> Yes - this is a technically ABI change, but nothing is going to break
->>>>>>> (AFAICT) and the cleanup win is large enough to make this a *very*
->>>>>>> attractive option.
->>>>>>>
->>>>>>> I suggested this approach two years ago [1] but you were the one
->>>>>>> saying that buffer could cross page-boundary on older Linux [2]:
->>>>>>>
->>>>>>> "I'd love to do this, but we cant.  Older Linux used to have a virtual
->>>>>>> buffer spanning a page boundary.  Changing the behaviour under that will
->>>>>>> cause older setups to explode."
->>>>>>
->>>>>> Sorry this was long time ago, and details have faded. IIRC there was
->>>>>> even a proposal (or patch set) that took that into account and allowed
->>>>>> buffers to span across a page boundary by taking a reference to two
->>>>>> different pages in that case.
->>>>>
->>>>> I am not aware of a patch set. Juergen suggested a per-domain mapping but
->>>>> there was no details how this could be done (my e-mail was left unanswered
->>>>> [1]).
->>>>>
->>>>> If we were using the vmap() then we would need up 1MB per domain (assuming
->>>>> 128 vCPUs). This sounds quite a bit and I think we need to agree whether it
->>>>> would be an acceptable solution (this was also left unanswered [1]).
->>>>
->>>> Could we map/unmap the runtime area on domain switch at a per-cpu
->>>> based linear space area? There's no reason to have all the runtime
->>>> areas mapped all the time, you just care about the one from the
->>>> running vcpu.
->>>>
->>>> Maybe the overhead of that mapping and unmapping would be
->>>> too high? But seeing that we are aiming at a secret-free Xen we would
->>>> have to eventually go that route anyway.
->>> Maybe the new hypercall should be a bit different:
->>> - we have this area allocated already inside Xen and we do a copy of it on any context switch
->>> - the guest is not supposed to modify any data in this area
->>> We could introduce a new hypercall:
->>> - Xen allocate the runstate area using a page aligned address and size
->>
->> At the moment the runstate is 40 bytes. If we were going to follow this proposal, I would recommend to try to have as many runstate as possible in your page.
->>
->> Otherewise, you would waste 4056 bytes per vCPU in both Xen and the guest OS. This would even be worse for 64KB kernel.
-> 
-> Agree, so it should be one call to have an area with the runstate for all vCPUs, ensure a vCPU runstate has a size and an address which are cache line size aligned to prevent coherency stress.
-
-One 4KB region only going to cover 64 vCPUs. So you would need multiple 
-pages. This brings more question on how this would work for vCPU 
-online/offline or even hotplug.
-
-The code required in the guest to track them is going to be more complex 
-either in Xen or the guest.
-
-> 
->>
->>
->>> - the guest provide a free guest physical space to the hypercall
->>
->> This part is the most tricky part. How does the guest know what is free in its physical address space?
->>
->> I am not aware of any way to do this in Linux. So the best you could do would be to allocate a page from the RAM and tell Xen to replace it with the runstate mapping.
->>
->> However, this also means you are going to possibly shatter a superpage in the P2M. This may affect the performance in long-run.
-> 
-> Very true, Linux does not have a way to do that.
-> What about going the other way around: Xen can provide the physical address to the guest.
-
-Right now, the hypervisor doesn't have an easy to know the layout. Only 
-the toolstack has. So you would need a way to tell Xen where the region 
-has been reserved.
-
-This region would have to be allocated below 4GB to cater all the type 
-of guest. A guest may not use them at all (time accounting is not 
-mandatory).
-
-Even if this is a few pages, this is not very ideal. It would be best if 
-you let the guest allocate some RAM and then pass the address to Xen.
-
-> 
->>
->>> - Xen maps read-only its own area to the guest at the provided address
->>> - Xen shall not modify any data in the runstate area of other cores/guests (should already be the case)
->>> - We keep the current hypercall for backward compatibility and map the areal during the hypercall and keep the area mapped at all time, we keep doing the copy during context switches
->>> This would highly reduce the overhead by removing the mapping/unmapping.
->>
->> I don't think the overhead is going to be significant with domain_map_page()/domain_unmap_page().
->>
->> On Arm64, the memory is always mapped so map/unmap is a NOP. On Arm32, we have a fast map/unmap implementation.
->>
->> On x86, without SH, most of the memory is also always mapped. So this operation is mostly a NOP. For the SH case, the map/unmap will be used in any access to the guest memory (such as hypercalls access) but it is quite optimized.
->>
->> Note that the current overhead is much more important today as you need to walk the guest PT and P2M (we are talking at multiple map/unmap). So moving to one map/unmap is already going to be a major improvement.
-> 
-> Agree
-> 
->>
->>> Regarding the secret free I do not really think this is something problematic here as we already have a copy of this internally anyway
->>
->> The secret free work is still under review, so what is done in Xen today shouldn't dictate the future.
->>
->> The question to answer is whether we believe leaking the content may be a problem. If the answer is yes, then most likely we will want the internal representation to be mapped on demand or just mapped for Xen PT associated for that domain.
->>
->> My gut feeling is the runstate content is not critical. But I haven't fully thought through yet.
-> 
-> The runstate information is stored inside xen and then copied to the guest memory during context switch. So even if the guest area is not mapped, this information is still available inside the xen internal copy.
-Again, Xen is not secret free today. So the fact Xen has an internal 
-copy doesn't mean it is fine to leak the content. For instance, the 
-guests' memory regions are always mapped, does it mean the content is 
-not sensitive? Definitely not. Hence why the effort behind Secret Hiding.
-
-As I wrote in my previous e-mail, *if* we consider the leaking a 
-problem, then we would want the *internal* representation to be mapped 
-on demande or just mapped for Xen PT associated for that domain.
-
-But... the runstate area doesn't use up a full page. Today the page may 
-also contain secret from a domain. If you always map it, then there is a 
-risk to leak that content. This would have to be taken into 
-consideration if we follow Roger's approach.
-Cheers,
-
--- 
-Julien Grall
+SGkgUm9nZXINCg0KPiBPbiAxNSBNYXkgMjAyMCwgYXQgMTE6MDcsIFJvZ2VyIFBhdSBNb25uw6kg
+PHJvZ2VyLnBhdUBjaXRyaXguY29tPiB3cm90ZToNCj4gDQo+IENhbiB5b3UgcGxlYXNlIGZpeCB5
+b3VyIGVtYWlsIGNsaWVudCB0byBwcm9wZXJseSBpbmRlbnQgcmVwbGllcz8gSXQncw0KPiBpbXBv
+c3NpYmxlIHRvIGRpc3Rpbmd1aXNoIHlvdXIgYWRkZWQgdGV4dCB3aGVuIHlvdSByZXBseSBmcm9t
+IHRoZQ0KPiBvcmlnaW5hbCBlbWFpbCwgYXMgaXQncyBub3QgaW5kZW50ZWQgaW4gYW55IHdheS4N
+Cg0KU29ycnkgZm9yIHRoYXQgaXQgc2VlbXMgbXkgZW1haWwgY2xpZW50IGlzIGRldGVjdGluZyBt
+YWlsIGFzIGJlaW5nIGluIHJpY2ggdGV4dCBhbmQgd2FzIGFuc3dlcmluZyBrZWVwaW5nIHRoaXMg
+Zm9ybWF0DQpQbGVhc2UgdGVsbCBtZSBpZiB0aGlzIHdhcyBub3QgZml4ZWQgaW4gdGhpcyBlbWFp
+bC4NCg0KPiANCj4gT24gRnJpLCBNYXkgMTUsIDIwMjAgYXQgMDk6MjE6MzRBTSArMDAwMCwgQmVy
+dHJhbmQgTWFycXVpcyB3cm90ZToNCj4+IE9uIDE1IE1heSAyMDIwLCBhdCAxMDoxMCwgUm9nZXIg
+UGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb208bWFpbHRvOnJvZ2VyLnBhdUBjaXRyaXgu
+Y29tPj4gd3JvdGU6DQo+PiANCj4+IE9uIEZyaSwgTWF5IDE1LCAyMDIwIGF0IDA5OjUzOjU0QU0g
+KzAxMDAsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4+IFtDQVVUSU9OIC0gRVhURVJOQUwgRU1BSUxd
+IERPIE5PVCByZXBseSwgY2xpY2sgbGlua3MsIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNzIHlv
+dSBoYXZlIHZlcmlmaWVkIHRoZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZS4N
+Cj4+IA0KPj4gSGksDQo+PiANCj4+IE9uIDE1LzA1LzIwMjAgMDk6MzgsIFJvZ2VyIFBhdSBNb25u
+w6kgd3JvdGU6DQo+PiBPbiBGcmksIE1heSAxNSwgMjAyMCBhdCAwNzozOToxNkFNICswMDAwLCBC
+ZXJ0cmFuZCBNYXJxdWlzIHdyb3RlOg0KPj4gDQo+PiANCj4+IE9uIDE0IE1heSAyMDIwLCBhdCAy
+MDoxMywgSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGwub3NzQGdtYWlsLmNvbTxtYWlsdG86anVs
+aWVuLmdyYWxsLm9zc0BnbWFpbC5jb20+PG1haWx0bzpqdWxpZW4uZ3JhbGwub3NzQGdtYWlsLmNv
+bT4+IHdyb3RlOg0KPj4gDQo+PiBPbiBUaHUsIDE0IE1heSAyMDIwIGF0IDE5OjEyLCBBbmRyZXcg
+Q29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPG1haWx0bzphbmRyZXcuY29vcGVyM0Bj
+aXRyaXguY29tPjxtYWlsdG86YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4+IHdyb3RlOg0KPj4g
+DQo+PiBPbiAxNC8wNS8yMDIwIDE4OjM4LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+PiBIaSwNCj4+
+IA0KPj4gT24gMTQvMDUvMjAyMCAxNzoxOCwgQmVydHJhbmQgTWFycXVpcyB3cm90ZToNCj4+IA0K
+Pj4gDQo+PiBPbiAxNCBNYXkgMjAyMCwgYXQgMTY6NTcsIEp1bGllbiBHcmFsbCA8anVsaWVuQHhl
+bi5vcmc8bWFpbHRvOmp1bGllbkB4ZW4ub3JnPjxtYWlsdG86anVsaWVuQHhlbi5vcmc+PiB3cm90
+ZToNCj4+IA0KPj4gDQo+PiANCj4+IE9uIDE0LzA1LzIwMjAgMTU6MjgsIEJlcnRyYW5kIE1hcnF1
+aXMgd3JvdGU6DQo+PiBIaSwNCj4+IA0KPj4gSGksDQo+PiANCj4+IFdoZW4gZXhlY3V0aW5nIGxp
+bnV4IG9uIGFybTY0IHdpdGggS1BUSSBhY3RpdmF0ZWQgKGluIERvbTAgb3IgaW4gYQ0KPj4gRG9t
+VSksIEkgaGF2ZSBhIGxvdCBvZiB3YWxrIHBhZ2UgdGFibGUgZXJyb3JzIGxpa2UgdGhpczoNCj4+
+IChYRU4pIHAybS5jOjE4OTA6IGQxdjA6IEZhaWxlZCB0byB3YWxrIHBhZ2UtdGFibGUgdmENCj4+
+IDB4ZmZmZmZmODM3ZWJlMGNkMA0KPj4gQWZ0ZXIgaW1wbGVtZW50aW5nIGEgY2FsbCB0cmFjZSwg
+SSBmb3VuZCB0aGF0IHRoZSBwcm9ibGVtIHdhcw0KPj4gY29taW5nIGZyb20gdGhlIHVwZGF0ZV9y
+dW5zdGF0ZV9hcmVhIHdoZW4gbGludXggaGFzIEtQVEkgYWN0aXZhdGVkLg0KPj4gSSBoYXZlIHRo
+ZSBmb2xsb3dpbmcgY2FsbCB0cmFjZToNCj4+IChYRU4pIHAybS5jOjE4OTA6IGQxdjA6IEZhaWxl
+ZCB0byB3YWxrIHBhZ2UtdGFibGUgdmENCj4+IDB4ZmZmZmZmODM3ZWJlMGNkMA0KPj4gKFhFTikg
+YmFja3RyYWNlLmM6Mjk6IFN0YWNrdHJhY2Ugc3RhcnQgYXQgMHg4MDA3NjM4ZWZiYjAgZGVwdGgg
+MTANCj4+IChYRU4pICAgIFs8MDAwMDAwMDAwMDI3NzgwYz5dIGdldF9wYWdlX2Zyb21fZ3ZhKzB4
+MTgwLzB4MzVjDQo+PiAoWEVOKSAgICBbPDAwMDAwMDAwMDAyNzAwYzg+XSBndWVzdGNvcHkuYyNj
+b3B5X2d1ZXN0KzB4MWIwLzB4MmU0DQo+PiAoWEVOKSAgICBbPDAwMDAwMDAwMDAyNzAyMjg+XSBy
+YXdfY29weV90b19ndWVzdCsweDJjLzB4MzQNCj4+IChYRU4pICAgIFs8MDAwMDAwMDAwMDI2OGRk
+MD5dIGRvbWFpbi5jI3VwZGF0ZV9ydW5zdGF0ZV9hcmVhKzB4OTAvMHhjOA0KPj4gKFhFTikgICAg
+WzwwMDAwMDAwMDAwMjY5MDljPl0gZG9tYWluLmMjc2NoZWR1bGVfdGFpbCsweDI5NC8weDJkOA0K
+Pj4gKFhFTikgICAgWzwwMDAwMDAwMDAwMjY5NTI0Pl0gY29udGV4dF9zd2l0Y2grMHg1OC8weDcw
+DQo+PiAoWEVOKSAgICBbPDAwMDAwMDAwMDAyNDc5YzQ+XSBjb3JlLmMjc2NoZWRfY29udGV4dF9z
+d2l0Y2grMHg4OC8weDFlNA0KPj4gKFhFTikgICAgWzwwMDAwMDAwMDAwMjQ4NDVjPl0gY29yZS5j
+I3NjaGVkdWxlKzB4MjI0LzB4MmVjDQo+PiAoWEVOKSAgICBbPDAwMDAwMDAwMDAyMjQwMTg+XSBz
+b2Z0aXJxLmMjX19kb19zb2Z0aXJxKzB4ZTQvMHgxMjgNCj4+IChYRU4pICAgIFs8MDAwMDAwMDAw
+MDIyNDBkND5dIGRvX3NvZnRpcnErMHgxNC8weDFjDQo+PiBEaXNjdXNzaW5nIHRoaXMgc3ViamVj
+dCB3aXRoIFN0ZWZhbm8sIGhlIHBvaW50ZWQgbWUgdG8gYSBkaXNjdXNzaW9uDQo+PiBzdGFydGVk
+IGEgeWVhciBhZ28gb24gdGhpcyBzdWJqZWN0IGhlcmU6DQo+PiBodHRwczovL2xpc3RzLnhlbnBy
+b2plY3Qub3JnL2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMTgtMTEvbXNnMDMwNTMuaHRtbA0K
+Pj4gDQo+PiBBbmQgYSBwYXRjaCB3YXMgc3VibWl0dGVkOg0KPj4gaHR0cHM6Ly9saXN0cy54ZW5w
+cm9qZWN0Lm9yZy9hcmNoaXZlcy9odG1sL3hlbi1kZXZlbC8yMDE5LTA1L21zZzAyMzIwLmh0bWwN
+Cj4+IA0KPj4gSSByZWJhc2VkIHRoaXMgcGF0Y2ggb24gY3VycmVudCBtYXN0ZXIgYW5kIGl0IGlz
+IHNvbHZpbmcgdGhlDQo+PiBwcm9ibGVtIEkgaGF2ZSBzZWVuLg0KPj4gSXQgc291bmRzIHRvIG1l
+IGxpa2UgYSBnb29kIHNvbHV0aW9uIHRvIGludHJvZHVjZSBhDQo+PiBWQ1BVT1BfcmVnaXN0ZXJf
+cnVuc3RhdGVfcGh5c19tZW1vcnlfYXJlYSB0byBub3QgZGVwZW5kIG9uIHRoZSBhcmVhDQo+PiBh
+Y3R1YWxseSBiZWluZyBtYXBwZWQgaW4gdGhlIGd1ZXN0IHdoZW4gYSBjb250ZXh0IHN3aXRjaCBp
+cyBiZWluZw0KPj4gZG9uZSAod2hpY2ggaXMgYWN0dWFsbHkgdGhlIHByb2JsZW0gaGFwcGVuaW5n
+IHdoZW4gYSBjb250ZXh0IHN3aXRjaA0KPj4gaXMgdHJpZ2dlciB3aGlsZSBhIGd1ZXN0IGlzIHJ1
+bm5pbmcgaW4gRUwwKS4NCj4+IElzIHRoZXJlIGFueSByZWFzb24gd2h5IHRoaXMgd2FzIG5vdCBt
+ZXJnZWQgYXQgdGhlIGVuZCA/DQo+PiANCj4+IEkganVzdCBza2ltbWVkIHRocm91Z2ggdGhlIHRo
+cmVhZCB0byByZW1pbmQgbXlzZWxmIHRoZSBzdGF0ZS4NCj4+IEFGQUlDVCwgdGhpcyBpcyBibG9j
+a2VkIG9uIHRoZSBjb250cmlidXRvciB0byBjbGFyaWZ5IHRoZSBpbnRlbmRlZA0KPj4gaW50ZXJh
+Y3Rpb24gYW5kIHByb3ZpZGUgYSBuZXcgdmVyc2lvbi4NCj4+IA0KPj4gV2hhdCBkbyB5b3UgbWVh
+biBoZXJlIGJ5IGludGVuZGVkIGludGVyYWN0aW9uID8gSG93IHRoZSBuZXcgaHlwZXINCj4+IGNh
+bGwgc2hvdWxkIGJlIHVzZWQgYnkgdGhlIGd1ZXN0IE9TID8NCj4+IA0KPj4gRnJvbSB3aGF0IEkg
+cmVtZW1iZXIsIEphbiB3YXMgc2Vla2luZyBjbGFyaWZpY2F0aW9uIG9uIHdoZXRoZXIgdGhlIHR3
+bw0KPj4gaHlwZXJjYWxscyAoZXhpc3RpbmcgYW5kIG5ldykgY2FuIGJlIGNhbGxlZCB0b2dldGhl
+ciBieSB0aGUgc2FtZSBPUw0KPj4gKGFuZCBtYWtlIHNlbnNlKS4NCj4+IA0KPj4gVGhlcmUgd2Fz
+IGFsc28gdGhlIHF1ZXN0aW9uIG9mIHRoZSBoYW5kb3ZlciBiZXR3ZWVuIHR3byBwaWVjZXMgb2YN
+Cj4+IHNvdGZ3YXJlLiBGb3IgaW5zdGFuY2UsIHdoYXQgaWYgdGhlIGZpcm13YXJlIGlzIHVzaW5n
+IHRoZSBleGlzdGluZw0KPj4gaW50ZXJmYWNlIGJ1dCB0aGUgT1MgdGhlIG5ldyBvbmU/IFNpbWls
+YXIgcXVlc3Rpb24gYWJvdXQgS2V4ZWNpbmcgYQ0KPj4gZGlmZmVyZW50IGtlcm5lbC4NCj4+IA0K
+Pj4gVGhpcyBwYXJ0IGlzIG1vc3RseSBkb2N1bWVudGF0aW9uIHNvIHdlIGNhbiBkaXNjdXNzIGFi
+b3V0IHRoZSBhcHByb2FjaA0KPj4gYW5kIHJldmlldyB0aGUgaW1wbGVtZW50YXRpb24uDQo+PiAN
+Cj4+IA0KPj4gDQo+PiBJIGFtIHN0aWxsIGluIGZhdm9yIG9mIHRoZSBuZXcgaHlwZXJjYWxsIChh
+bmQgc3RpbGwgaW4gbXkgdG9kbyBsaXN0KQ0KPj4gYnV0IEkgaGF2ZW4ndCB5ZXQgZm91bmQgdGlt
+ZSB0byByZXZpdmUgdGhlIHNlcmllcy4NCj4+IA0KPj4gV291bGQgeW91IGJlIHdpbGxpbmcgdG8g
+dGFrZSBvdmVyIHRoZSBzZXJpZXM/IEkgd291bGQgYmUgaGFwcHkgdG8NCj4+IGJyaW5nIHlvdSB1
+cCB0byBzcGVlZCBhbmQgcHJvdmlkZSByZXZpZXcuDQo+PiANCj4+IFN1cmUgSSBjYW4gdGFrZSBp
+dCBvdmVyLg0KPj4gDQo+PiBJIHBvcnRlZCBpdCB0byBtYXN0ZXIgdmVyc2lvbiBvZiB4ZW4gYW5k
+IEkgdGVzdGVkIGl0IG9uIGEgYm9hcmQuDQo+PiBJIHN0aWxsIG5lZWQgdG8gZG8gYSBkZWVwIHJl
+dmlldyBvZiB0aGUgY29kZSBteXNlbGYgYnV0IEkgaGF2ZSBhbg0KPj4gdW5kZXJzdGFuZGluZyBv
+ZiB0aGUgcHJvYmxlbSBhbmQgd2hhdCBpcyB0aGUgaWRlYS4NCj4+IA0KPj4gQW55IGhlbHAgdG8g
+Z2V0IG9uIHNwZWVkIHdvdWxkIGJlIG1vcmUgdGhlbiB3ZWxjb21lIDotKQ0KPj4gSSB3b3VsZCBy
+ZWNvbW1lbmQgdG8gZ28gdGhyb3VnaCB0aGUgbGF0ZXN0IHZlcnNpb24gKHYzKSBhbmQgdGhlDQo+
+PiBwcmV2aW91cyAodjIpLiBJIGFtIGFsc28gc3VnZ2VzdGluZyB2MiBiZWNhdXNlIEkgdGhpbmsg
+dGhlIHNwbGl0IHdhcw0KPj4gZWFzaWVyIHRvIHJldmlldy91bmRlcnN0YW5kLg0KPj4gDQo+PiBU
+aGUgeDg2IGNvZGUgaXMgcHJvYmFibHkgd2hhdCBpcyBnb2luZyB0byBnaXZlIHlvdSB0aGUgbW9z
+dCB0cm91YmxlIGFzDQo+PiB0aGVyZSBhcmUgdHdvIEFCSXMgdG8gc3VwcG9ydCAoY29tcGF0IGFu
+ZCBub24tY29tcGF0KS4gSWYgeW91IGRvbid0DQo+PiBoYXZlIGFuIHg4NiBzZXR1cCwgSSBzaG91
+bGQgYmUgYWJsZSB0byB0ZXN0IGl0L2hlbHAgd3JpdGUgaXQuDQo+PiANCj4+IEZlZWwgZnJlZSB0
+byBhc2sgYW55IHF1ZXN0aW9ucyBhbmQgSSB3aWxsIHRyeSBteSBiZXN0IHRvIHJlbWVtYmVyIHRo
+ZQ0KPj4gZGlzY3Vzc2lvbiBmcm9tIGxhc3QgeWVhciA6KS4NCj4+IA0KPj4gQXQgcmlzayBvZiBi
+ZWluZyBzaG91dGVkIGRvd24gYWdhaW4sIGEgbmV3IGh5cGVyY2FsbCBpc24ndCBuZWNlc3Nhcmls
+eQ0KPj4gbmVjZXNzYXJ5LCBhbmQgdGhlcmUgYXJlIHByb2JhYmx5IGJldHRlciB3YXlzIG9mIGZp
+eGluZyBpdC4NCj4+IA0KPj4gVGhlIHVuZGVybHlpbmcgQUJJIHByb2JsZW0gaXMgdGhhdCB0aGUg
+YXJlYSBpcyByZWdpc3RlcmVkIGJ5IHZpcnR1YWwNCj4+IGFkZHJlc3MuICBUaGUgb25seSBjb3Jy
+ZWN0IHdheSB0aGlzIHNob3VsZCBoYXZlIGJlZW4gZG9uZSBpcyB0byByZWdpc3Rlcg0KPj4gYnkg
+Z3Vlc3QgcGh5c2ljYWwgYWRkcmVzcywgc28gWGVuJ3MgdXBkYXRpbmcgb2YgdGhlIGRhdGEgZG9l
+c24ndA0KPj4gaW50ZXJhY3Qgd2l0aCB0aGUgZ3Vlc3QgcGFnZXRhYmxlIHNldHRpbmdzL3Jlc3Ry
+aWN0aW9ucy4gIHg4NiBzdWZmZXJzDQo+PiB0aGUgc2FtZSBraW5kIG9mIHByb2JsZW1zIGFzIEFS
+TSwgZXhjZXB0IHdlIHNpbGVudGx5IHNxdWFzaCB0aGUgZmFsbG91dC4NCj4+IA0KPj4gVGhlIGxv
+Z2ljIGluIFhlbiBpcyBob3JyaWJsZSwgYW5kIEkgd291bGQgcmVhbGx5IHJhdGhlciBpdCB3YXMg
+ZGVsZXRlZA0KPj4gY29tcGxldGVseSwgcmF0aGVyIHRoYW4gdG8gYmUga2VwdCBmb3IgY29tcGF0
+aWJpbGl0eS4NCj4+IA0KPj4gVGhlIHJ1bnN0YXRlIGFyZWEgaXMgYWx3YXlzIGZpeGVkIGtlcm5l
+bCBtZW1vcnkgYW5kIGRvZXNuJ3QgbW92ZS4gIEkNCj4+IGJlbGlldmUgaXQgaXMgYWxyZWFkeSBy
+ZXN0cmljdGVkIGZyb20gY3Jvc3NpbmcgYSBwYWdlIGJvdW5kYXJ5LCBhbmQgd2UNCj4+IGNhbiBj
+YWxjdWxhdGUgdGhlIHZhPT5wYSB0cmFuc2xhdGlvbiB3aGVuIHRoZSBoeXBlcmNhbGwgaXMgbWFk
+ZS4NCj4+IA0KPj4gWWVzIC0gdGhpcyBpcyBhIHRlY2huaWNhbGx5IEFCSSBjaGFuZ2UsIGJ1dCBu
+b3RoaW5nIGlzIGdvaW5nIHRvIGJyZWFrDQo+PiAoQUZBSUNUKSBhbmQgdGhlIGNsZWFudXAgd2lu
+IGlzIGxhcmdlIGVub3VnaCB0byBtYWtlIHRoaXMgYSAqdmVyeSoNCj4+IGF0dHJhY3RpdmUgb3B0
+aW9uLg0KPj4gDQo+PiBJIHN1Z2dlc3RlZCB0aGlzIGFwcHJvYWNoIHR3byB5ZWFycyBhZ28gWzFd
+IGJ1dCB5b3Ugd2VyZSB0aGUgb25lDQo+PiBzYXlpbmcgdGhhdCBidWZmZXIgY291bGQgY3Jvc3Mg
+cGFnZS1ib3VuZGFyeSBvbiBvbGRlciBMaW51eCBbMl06DQo+PiANCj4+ICJJJ2QgbG92ZSB0byBk
+byB0aGlzLCBidXQgd2UgY2FudC4gIE9sZGVyIExpbnV4IHVzZWQgdG8gaGF2ZSBhIHZpcnR1YWwN
+Cj4+IGJ1ZmZlciBzcGFubmluZyBhIHBhZ2UgYm91bmRhcnkuICBDaGFuZ2luZyB0aGUgYmVoYXZp
+b3VyIHVuZGVyIHRoYXQgd2lsbA0KPj4gY2F1c2Ugb2xkZXIgc2V0dXBzIHRvIGV4cGxvZGUuIg0K
+Pj4gDQo+PiBTb3JyeSB0aGlzIHdhcyBsb25nIHRpbWUgYWdvLCBhbmQgZGV0YWlscyBoYXZlIGZh
+ZGVkLiBJSVJDIHRoZXJlIHdhcw0KPj4gZXZlbiBhIHByb3Bvc2FsIChvciBwYXRjaCBzZXQpIHRo
+YXQgdG9vayB0aGF0IGludG8gYWNjb3VudCBhbmQgYWxsb3dlZA0KPj4gYnVmZmVycyB0byBzcGFu
+IGFjcm9zcyBhIHBhZ2UgYm91bmRhcnkgYnkgdGFraW5nIGEgcmVmZXJlbmNlIHRvIHR3bw0KPj4g
+ZGlmZmVyZW50IHBhZ2VzIGluIHRoYXQgY2FzZS4NCj4+IA0KPj4gSSBhbSBub3QgYXdhcmUgb2Yg
+YSBwYXRjaCBzZXQuIEp1ZXJnZW4gc3VnZ2VzdGVkIGEgcGVyLWRvbWFpbiBtYXBwaW5nIGJ1dA0K
+Pj4gdGhlcmUgd2FzIG5vIGRldGFpbHMgaG93IHRoaXMgY291bGQgYmUgZG9uZSAobXkgZS1tYWls
+IHdhcyBsZWZ0IHVuYW5zd2VyZWQNCj4+IFsxXSkuDQo+PiANCj4+IElmIHdlIHdlcmUgdXNpbmcg
+dGhlIHZtYXAoKSB0aGVuIHdlIHdvdWxkIG5lZWQgdXAgMU1CIHBlciBkb21haW4gKGFzc3VtaW5n
+DQo+PiAxMjggdkNQVXMpLiBUaGlzIHNvdW5kcyBxdWl0ZSBhIGJpdCBhbmQgSSB0aGluayB3ZSBu
+ZWVkIHRvIGFncmVlIHdoZXRoZXIgaXQNCj4+IHdvdWxkIGJlIGFuIGFjY2VwdGFibGUgc29sdXRp
+b24gKHRoaXMgd2FzIGFsc28gbGVmdCB1bmFuc3dlcmVkIFsxXSkuDQo+PiANCj4+IENvdWxkIHdl
+IG1hcC91bm1hcCB0aGUgcnVudGltZSBhcmVhIG9uIGRvbWFpbiBzd2l0Y2ggYXQgYSBwZXItY3B1
+DQo+PiBiYXNlZCBsaW5lYXIgc3BhY2UgYXJlYT8gVGhlcmUncyBubyByZWFzb24gdG8gaGF2ZSBh
+bGwgdGhlIHJ1bnRpbWUNCj4+IGFyZWFzIG1hcHBlZCBhbGwgdGhlIHRpbWUsIHlvdSBqdXN0IGNh
+cmUgYWJvdXQgdGhlIG9uZSBmcm9tIHRoZQ0KPj4gcnVubmluZyB2Y3B1Lg0KPj4gDQo+PiBNYXli
+ZSB0aGUgb3ZlcmhlYWQgb2YgdGhhdCBtYXBwaW5nIGFuZCB1bm1hcHBpbmcgd291bGQgYmUNCj4+
+IHRvbyBoaWdoPyBCdXQgc2VlaW5nIHRoYXQgd2UgYXJlIGFpbWluZyBhdCBhIHNlY3JldC1mcmVl
+IFhlbiB3ZSB3b3VsZA0KPj4gaGF2ZSB0byBldmVudHVhbGx5IGdvIHRoYXQgcm91dGUgYW55d2F5
+Lg0KPj4gDQo+PiBNYXliZSB0aGUgbmV3IGh5cGVyY2FsbCBzaG91bGQgYmUgYSBiaXQgZGlmZmVy
+ZW50Og0KPj4gLSB3ZSBoYXZlIHRoaXMgYXJlYSBhbGxvY2F0ZWQgYWxyZWFkeSBpbnNpZGUgWGVu
+IGFuZCB3ZSBkbyBhIGNvcHkgb2YgaXQgb24gYW55IGNvbnRleHQgc3dpdGNoDQo+PiAtIHRoZSBn
+dWVzdCBpcyBub3Qgc3VwcG9zZWQgdG8gbW9kaWZ5IGFueSBkYXRhIGluIHRoaXMgYXJlYQ0KPj4g
+DQo+PiBXZSBjb3VsZCBpbnRyb2R1Y2UgYSBuZXcgaHlwZXJjYWxsOg0KPj4gLSBYZW4gYWxsb2Nh
+dGUgdGhlIHJ1bnN0YXRlIGFyZWEgdXNpbmcgYSBwYWdlIGFsaWduZWQgYWRkcmVzcyBhbmQgc2l6
+ZQ0KPiANCj4gSXQncyBnZW5lcmFsbHkgYmVzdCBpZiB3ZSBjYW4gdXNlIGEgZ3Vlc3QgcHJvdmlk
+ZWQgbWVtb3J5IGFyZWEgdGhhdCdzDQo+IGFscmVhZHkgcG9wdWxhdGVkLCBiZWNhdXNlLi4uDQo+
+IA0KPj4gLSB0aGUgZ3Vlc3QgcHJvdmlkZSBhIGZyZWUgZ3Vlc3QgcGh5c2ljYWwgc3BhY2UgdG8g
+dGhlIGh5cGVyY2FsbA0KPiANCj4gLi4uIGl0J3MgaGFyZCBmb3IgdGhlIGd1ZXN0IHRvIGZpZ3Vy
+ZSBvdXQgd2hpY2ggbm9uLXBvcHVsYXRlZCBhcmVhcw0KPiBhcmUgc2FmZSBmb3IgbWFwcGluZyBh
+cmJpdHJhcnkgdGhpbmdzLiBJZTogeW91IG1pZ2h0IGF0dGVtcHQgdG8gbWFwDQo+IHRoZSBydW5z
+dGF0ZSBhcmVhIG9uIHRvcCBvZiBzb21lIE1NSU8gYXJlYSB0aGUgZ3Vlc3QgaXMgbm90IGF3YXJl
+IG9mDQo+IGZvciBleGFtcGxlIGlmIGl0IGhhcyBwYXNzdGhyb3VnaCBlbmFibGVkLg0KDQpXaXRo
+IHlvdSBhbnN3ZXIgYW5kIEp1bGlhbiBvbmVzIGl0IGlzIG5vdyBjbGVhciB0aGF0IHRoZSBvbmx5
+IHNvbHV0aW9uIGlzIHRvIGhhdmUgdGhlIGFyZWEgcHJvdmlkZWQgYnkgdGhlIGd1ZXN0Lg0KDQo+
+IA0KPj4gLSBYZW4gbWFwcyByZWFkLW9ubHkgaXRzIG93biBhcmVhIHRvIHRoZSBndWVzdCBhdCB0
+aGUgcHJvdmlkZWQgYWRkcmVzcw0KPj4gLSBYZW4gc2hhbGwgbm90IG1vZGlmeSBhbnkgZGF0YSBp
+biB0aGUgcnVuc3RhdGUgYXJlYSBvZiBvdGhlciBjb3Jlcy9ndWVzdHMgKHNob3VsZCBhbHJlYWR5
+IGJlIHRoZSBjYXNlKQ0KPiANCj4gSSdtIG5vdCBzdXJlIHRob3NlIHR3byByZXN0cmljdGlvbnMg
+YXJlIHJlbGV2YW50LCBpdCdzIG5vdCByZWxldmFudCB0bw0KPiBYZW4gd2hldGhlciB0aGUgZ3Vl
+c3QgZGVjaWRlZCB0byBvdmVyd3JpdGUgdGhlIHJ1bnN0YXRlIGFyZWEuIFhlbiB3aWxsDQo+IGp1
+c3Qgd3JpdGUgdG8gaXQgd2hlbiBkb2luZyBhIGNvbnRleHQgc3dpdGNoIGluIG9yZGVyIHRvIHVw
+ZGF0ZSBpdCwNCj4gYnV0IGl0IHNob3VsZCBuZXZlciByZWFkIGZyb20gaXQuDQo+IA0KPiBPciBh
+cmUgeW91IG1lYW5pbmcgdG8gbWFwIHZjcHUtPnJ1bnN0YXRlIGRpcmVjdGx5IGludG8gdGhlIGd1
+ZXN0DQo+IHBoeXNtYXA/DQo+IA0KPiBJIHRoaW5rIHRoYXQncyBhIGJhZCBpZGVhIGFzIHdlIHdv
+dWxkIHRoZW4gaGF2ZSB0byBmb3JjZSBlYWNoIHZDUFUNCj4gcnVuc3RhdGUgdG8gdGFrZSB1cCB0
+byBhIHdob2xlIHBhZ2UsIHdhc3RpbmcgbG90cyBvZiBtZW1vcnkuDQoNCkkgd2FzIG1vcmUgdGhp
+bmtpbmcgaW4gcHV0dGluZyBhbGwgdGhlIHJ1bnN0YXRlIG9mIGFsbCB2Q1BVcyBpbiB0aGUgc2Ft
+ZSBwYWdlIChvciBpbiBzZXZlcmFsIGlmIHRoaXMgd2FzIG5vdCBlbm91Z2gpDQoNCk15IG1haW4g
+cG9pbnQgd2FzIHRvIGhhdmUgWGVuIGRpcmVjdGx5IG1vZGlmeWluZyB0aGlzIG9uZSBpbnN0ZWFk
+IG9mIGRvaW5nIGNvcGllcyBhcyBYZW4gaXMganVzdCB3cml0aW5nIHRvIGl0IGFuZCBuZXZlciBy
+ZWFkcyBmcm9tIGl0IGFuZCB0aGUgZ3Vlc3QgaXMgbm90IHN1cHBvc2UgdG8gd3JpdGUgdG8gaXQg
+KGJ1dCBpZiBpdCBkb2VzIHRoYXTigJlzIG1vcmUgb3IgbGVzcyBhbiBlcnJvciBvbiBpdHMgc2lk
+ZSkuDQoNCkJlcnRyYW5kDQoNCg0KPiANCj4gVGhhbmtzLCBSb2dlci4NCg0K
 
