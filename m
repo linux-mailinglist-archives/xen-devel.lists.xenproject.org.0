@@ -2,134 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75A541D4C9B
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 13:30:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7099E1D4D2B
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 13:59:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZYXx-0002cS-6N; Fri, 15 May 2020 11:30:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ibeu=65=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jZYXw-0002cN-4L
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 11:30:32 +0000
-X-Inumbo-ID: 78621886-969f-11ea-b07b-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 78621886-969f-11ea-b07b-bc764e2007e4;
- Fri, 15 May 2020 11:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hJH5/efeAXhzumNImE0ENbTPkCcgH+zmbbKcwaGztv0=; b=DjMXTgSCHiLAgQjrWVWeBCNr1
- mOAIMtL1uaPqxGXVA8K7MjWC2tWolhXQsGTVRDfAC2K7wkxzeE43WWoO8cftCmZEf7c89Tn++OEOP
- aRfsTLJhdjoi0j4fHlLIdzUWrDX91LdeltY7feSpX0tinC1dHQuUg/dlnOY3uzZdNiYRA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZYXn-0005nO-AE; Fri, 15 May 2020 11:30:23 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZYXm-0005Dm-U2; Fri, 15 May 2020 11:30:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jZYXm-00033r-TQ; Fri, 15 May 2020 11:30:22 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150185-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jZYzn-0004q9-N5; Fri, 15 May 2020 11:59:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yAEg=65=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jZYzm-0004p5-5F
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 11:59:18 +0000
+X-Inumbo-ID: 7714b584-96a3-11ea-a554-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7714b584-96a3-11ea-a554-12813bfff9fa;
+ Fri, 15 May 2020 11:59:01 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 71777AE70;
+ Fri, 15 May 2020 11:59:02 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v9 00/12] Add hypervisor sysfs-like support
+Date: Fri, 15 May 2020 13:58:44 +0200
+Message-Id: <20200515115856.11965-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 150185: regressions - FAIL
-X-Osstest-Failures: qemu-mainline:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
- qemu-mainline:build-arm64:xen-build:fail:regression
- qemu-mainline:build-amd64:xen-build:fail:regression
- qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
- qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-amd64-pvgrub:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
- qemu-mainline:build-arm64-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-i386-pvgrub:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:build-amd64-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: qemuu=013a18edbbc59cdad019100c7d03c0494642b74c
-X-Osstest-Versions-That: qemuu=d5c75ec500d96f1d93447f990cd5a4ef5ba27fae
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 15 May 2020 11:30:22 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,236 +41,164 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150185 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150185/
+On the 2019 Xen developer summit there was agreement that the Xen
+hypervisor should gain support for a hierarchical name-value store
+similar to the Linux kernel's sysfs.
 
-Regressions :-(
+This is a first implementation of that idea adding the basic
+functionality to hypervisor and tools side. The interface to any
+user program making use of that "xen-hypfs" is a new library
+"libxenhypfs" with a stable interface.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm       7 xen-boot                 fail REGR. vs. 150151
- build-arm64                   6 xen-build                fail REGR. vs. 150151
- build-amd64                   6 xen-build                fail REGR. vs. 150151
+The series adds read-only nodes with buildinfo data and writable
+nodes with runtime parameters. xl is switched to use the new file
+system for modifying the runtime parameters and the old sysctl
+interface for that purpose is dropped.
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds    16 guest-start/debian.repeat fail REGR. vs. 150151
+Changes in V9:
+- addressed review comments
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
- test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
- test-amd64-i386-xl            1 build-check(1)               blocked  n/a
- test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
- test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
- test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
- test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
- test-amd64-amd64-amd64-pvgrub  1 build-check(1)               blocked  n/a
- test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
- build-arm64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
- test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
- test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
- test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
- test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
- test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-raw        1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
- test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
- test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-amd64-amd64-i386-pvgrub  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
- test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
- test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
- test-amd64-i386-pair          1 build-check(1)               blocked  n/a
- test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 150151
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 150151
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+Changes in V8:
+- addressed review comments
+- added CONFIG_HYPFS config option
 
-version targeted for testing:
- qemuu                013a18edbbc59cdad019100c7d03c0494642b74c
-baseline version:
- qemuu                d5c75ec500d96f1d93447f990cd5a4ef5ba27fae
+Changes in V7:
+- old patch 1 already applied
+- add new patch 1 (carved out and modified from patch 9)
+- addressed review comments
+- modified public interface to have a max write size instead of a
+  writable flag only
 
-Last test of basis   150151  2020-05-12 19:38:05 Z    2 days
-Failing since        150174  2020-05-14 10:06:36 Z    1 days    2 attempts
-Testing same since   150185  2020-05-14 18:39:49 Z    0 days    1 attempts
+Changes in V6:
+- added new patches 1, 10, 11, 12
+- addressed review comments
+- modified interface for creating nodes for runtime parameters
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Denis Plotnikov <dplotnikov@virtuozzo.com>
-  Dongjiu Geng <gengdongjiu@huawei.com>
-  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
-  Greg Kurz <groug@kaod.org>
-  Joe Komlodi <joe.komlodi@xilinx.com>
-  Joe Komlodi <komlodi@xilinx.com>
-  Markus Armbruster <armbru@redhat.com>
-  Max Reitz <mreitz@redhat.com>
-  Michael S. Tsirkin <mst@redhat.com>
-  Omar Sandoval <osandov@fb.com>
-  Patrick Williams <patrick@stwcx.xyz>
-  Peter Maydell <peter.maydell@linaro.org>
-  Richard Henderson <richard.henderson@linaro.org>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Tong Ho <tong.ho@xilinx.com>
-  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-  Xiang Zheng <zhengxiang9@huawei.com>
+Changes in V5:
+- switched to xsm for privilege check
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  fail    
- build-arm64                                                  fail    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          blocked 
- build-arm64-libvirt                                          blocked 
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          blocked 
- test-amd64-coresched-amd64-xl                                blocked 
- test-arm64-arm64-xl                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           blocked 
- test-amd64-coresched-i386-xl                                 blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            blocked 
- test-amd64-amd64-xl-pvhv2-amd                                blocked 
- test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
- test-amd64-i386-freebsd10-amd64                              blocked 
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
- test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  blocked 
- test-arm64-arm64-xl-credit1                                  blocked 
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  blocked 
- test-arm64-arm64-xl-credit2                                  blocked 
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
- test-amd64-i386-freebsd10-i386                               blocked 
- test-amd64-amd64-qemuu-nested-intel                          blocked 
- test-amd64-amd64-xl-pvhv2-intel                              blocked 
- test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-xl-multivcpu                                blocked 
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        blocked 
- test-amd64-i386-pair                                         blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-amd64-amd64-amd64-pvgrub                                blocked 
- test-amd64-amd64-i386-pvgrub                                 blocked 
- test-amd64-amd64-xl-pvshim                                   blocked 
- test-amd64-i386-xl-pvshim                                    blocked 
- test-amd64-amd64-pygrub                                      blocked 
- test-amd64-amd64-xl-qcow2                                    blocked 
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       blocked 
- test-amd64-amd64-xl-rtds                                     blocked 
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
- test-amd64-amd64-xl-shadow                                   blocked 
- test-amd64-i386-xl-shadow                                    blocked 
- test-arm64-arm64-xl-thunderx                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
- test-armhf-armhf-xl-vhd                                      pass    
+Changes in V4:
+- former patch 2 removed as already committed
+- addressed review comments
 
+Changes in V3:
+- major rework, especially by supporting binary contents of entries
+- added several new patches (1, 2, 7)
+- full support of all runtime parameters
+- support of writing entries (especially runtime parameters)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Changes in V2:
+- all comments to V1 addressed
+- added man-page for xenhypfs tool
+- added runtime parameter read access for string parameters
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Changes in V1:
+- renamed xenfs ->xenhypfs
+- added writable entries support at the interface level and in the
+  xenhypfs tool
+- added runtime parameter read access (integer type only for now)
+- added docs/misc/hypfs-paths.pandoc for path descriptions
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Juergen Gross (12):
+  xen/vmx: let opt_ept_ad always reflect the current setting
+  xen: add a generic way to include binary files as variables
+  docs: add feature document for Xen hypervisor sysfs-like support
+  xen: add basic hypervisor filesystem support
+  libs: add libxenhypfs
+  tools: add xenfs tool
+  xen: provide version information in hypfs
+  xen: add /buildinfo/config entry to hypervisor filesystem
+  xen: add runtime parameter access support to hypfs
+  tools/libxl: use libxenhypfs for setting xen runtime parameters
+  tools/libxc: remove xc_set_parameters()
+  xen: remove XEN_SYSCTL_set_parameter support
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+ .gitignore                          |   6 +
+ docs/features/hypervisorfs.pandoc   |  92 +++++
+ docs/man/xenhypfs.1.pod             |  61 ++++
+ docs/misc/hypfs-paths.pandoc        | 165 +++++++++
+ tools/Rules.mk                      |   8 +-
+ tools/flask/policy/modules/dom0.te  |   4 +-
+ tools/libs/Makefile                 |   1 +
+ tools/libs/hypfs/Makefile           |  16 +
+ tools/libs/hypfs/core.c             | 536 ++++++++++++++++++++++++++++
+ tools/libs/hypfs/include/xenhypfs.h |  90 +++++
+ tools/libs/hypfs/libxenhypfs.map    |  10 +
+ tools/libs/hypfs/xenhypfs.pc.in     |  10 +
+ tools/libxc/include/xenctrl.h       |   1 -
+ tools/libxc/xc_misc.c               |  21 --
+ tools/libxl/Makefile                |   3 +-
+ tools/libxl/libxl.c                 |  53 ++-
+ tools/libxl/libxl_internal.h        |   1 +
+ tools/libxl/xenlight.pc.in          |   2 +-
+ tools/misc/Makefile                 |   6 +
+ tools/misc/xenhypfs.c               | 192 ++++++++++
+ tools/xl/xl_misc.c                  |   1 -
+ xen/arch/arm/traps.c                |   3 +
+ xen/arch/arm/xen.lds.S              |  13 +-
+ xen/arch/x86/hvm/hypercall.c        |   3 +
+ xen/arch/x86/hvm/vmx/vmcs.c         |  47 ++-
+ xen/arch/x86/hvm/vmx/vmx.c          |   4 +-
+ xen/arch/x86/hypercall.c            |   3 +
+ xen/arch/x86/pv/domain.c            |  21 +-
+ xen/arch/x86/pv/hypercall.c         |   3 +
+ xen/arch/x86/xen.lds.S              |  12 +-
+ xen/common/Kconfig                  |  23 ++
+ xen/common/Makefile                 |  13 +
+ xen/common/grant_table.c            |  62 +++-
+ xen/common/hypfs.c                  | 448 +++++++++++++++++++++++
+ xen/common/kernel.c                 |  84 ++++-
+ xen/common/sysctl.c                 |  36 --
+ xen/drivers/char/console.c          |  72 +++-
+ xen/include/Makefile                |   1 +
+ xen/include/asm-x86/hvm/vmx/vmcs.h  |   3 +-
+ xen/include/public/hypfs.h          | 129 +++++++
+ xen/include/public/sysctl.h         |  19 +-
+ xen/include/public/xen.h            |   1 +
+ xen/include/xen/hypercall.h         |  10 +
+ xen/include/xen/hypfs.h             | 123 +++++++
+ xen/include/xen/kernel.h            |   3 +
+ xen/include/xen/lib.h               |   1 -
+ xen/include/xen/param.h             | 126 +++++--
+ xen/include/xlat.lst                |   2 +
+ xen/include/xsm/dummy.h             |   6 +
+ xen/include/xsm/xsm.h               |   6 +
+ xen/tools/binfile                   |  41 +++
+ xen/xsm/dummy.c                     |   1 +
+ xen/xsm/flask/Makefile              |   5 +-
+ xen/xsm/flask/flask-policy.S        |  16 -
+ xen/xsm/flask/hooks.c               |   9 +-
+ xen/xsm/flask/policy/access_vectors |   4 +-
+ 56 files changed, 2439 insertions(+), 193 deletions(-)
+ create mode 100644 docs/features/hypervisorfs.pandoc
+ create mode 100644 docs/man/xenhypfs.1.pod
+ create mode 100644 docs/misc/hypfs-paths.pandoc
+ create mode 100644 tools/libs/hypfs/Makefile
+ create mode 100644 tools/libs/hypfs/core.c
+ create mode 100644 tools/libs/hypfs/include/xenhypfs.h
+ create mode 100644 tools/libs/hypfs/libxenhypfs.map
+ create mode 100644 tools/libs/hypfs/xenhypfs.pc.in
+ create mode 100644 tools/misc/xenhypfs.c
+ create mode 100644 xen/common/hypfs.c
+ create mode 100644 xen/include/public/hypfs.h
+ create mode 100644 xen/include/xen/hypfs.h
+ create mode 100755 xen/tools/binfile
+ delete mode 100644 xen/xsm/flask/flask-policy.S
 
+-- 
+2.26.1
 
-Not pushing.
-
-(No revision log; it would be 1339 lines long.)
 
