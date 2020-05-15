@@ -2,63 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8CE91D4967
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 11:23:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D71E71D4986
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 11:28:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZWYs-0007DE-Ea; Fri, 15 May 2020 09:23:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jZWdN-0007T6-1j; Fri, 15 May 2020 09:28:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7E4v=65=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jZWYr-0007D5-14
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 09:23:21 +0000
-X-Inumbo-ID: b75eb8e4-968d-11ea-a536-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b75eb8e4-968d-11ea-a536-12813bfff9fa;
- Fri, 15 May 2020 09:23:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=WHPeUnBeBhc625rc952H/9DDw4Z8mMm3okmV/UjUryk=; b=e7eLkTmgHNySNHMgbk6Juu+2Nm
- 8MiO+GjdqZAN2ibZwPGCONyZMES2ZkfSvA0VvQWHz61IY0uLvAW0AZa07YOYr4gvE6Q8jXIoJA/Cj
- 9QJqZcOUPp7K+8shcyGi6onr35jyvkzVDBqPN4yyr7X4g/Qi1mJYuKw8XvTuiucnyYgg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jZWYo-000375-Pl; Fri, 15 May 2020 09:23:18 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jZWYo-0008DW-Dv; Fri, 15 May 2020 09:23:18 +0000
-Subject: Re: Error during update_runstate_area with KPTI activated
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <C6B0E24F-60E6-4621-8448-C8DBAE3277A9@arm.com>
- <2c4437e9-d513-3e3c-7fec-13ffadc17df2@xen.org>
- <2E95C767-FFE1-4A48-B56D-F858A8CEE5D7@arm.com>
- <ab4f3c2a-95aa-1256-f6f4-0c3057f5600c@xen.org>
- <b6511a29-35a4-a1d0-dd29-7de4103ec98e@citrix.com>
- <CAJ=z9a1H2C6sWiScYw9XXLRcezBfUxYz2semj33D5GpB5=EE_w@mail.gmail.com>
- <478C4829-CCAF-495B-860E-6BA3D86AA47D@arm.com>
- <20200515083838.GN54375@Air-de-Roger>
- <d2033adc-3f98-2d14-ae6d-f8dcd8b90002@xen.org>
- <20200515091018.GO54375@Air-de-Roger>
-From: Julien Grall <julien@xen.org>
-Message-ID: <3813cfa2-c881-3fa5-bdf8-a2e874584a9f@xen.org>
-Date: Fri, 15 May 2020 10:23:16 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+ (envelope-from <SRS0=7uuJ=65=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jZWdL-0007T1-7F
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 09:27:59 +0000
+X-Inumbo-ID: 5d0c03a0-968e-11ea-b07b-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5d0c03a0-968e-11ea-b07b-bc764e2007e4;
+ Fri, 15 May 2020 09:27:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 54F69B02E;
+ Fri, 15 May 2020 09:27:59 +0000 (UTC)
+Subject: Re: [PATCH v8 04/12] xen: add basic hypervisor filesystem support
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+References: <20200508153421.24525-1-jgross@suse.com>
+ <20200508153421.24525-5-jgross@suse.com>
+ <db277779-5b1e-a2aa-3948-9e6dd8e8bef0@suse.com>
+ <23938228-e947-fe36-8b19-0e89886db9ac@suse.com>
+ <28dd8109-1815-70cd-834c-53330d5c824d@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ae9db4d5-993a-5bf6-c520-3aec428cdc5d@suse.com>
+Date: Fri, 15 May 2020 11:27:55 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200515091018.GO54375@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <28dd8109-1815-70cd-834c-53330d5c824d@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -70,205 +49,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Julien Grall <julien.grall.oss@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-
-On 15/05/2020 10:10, Roger Pau Monné wrote:
-> On Fri, May 15, 2020 at 09:53:54AM +0100, Julien Grall wrote:
->> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
->>
->> Hi,
->>
->> On 15/05/2020 09:38, Roger Pau Monné wrote:
->>> On Fri, May 15, 2020 at 07:39:16AM +0000, Bertrand Marquis wrote:
->>>>
->>>>
->>>> On 14 May 2020, at 20:13, Julien Grall <julien.grall.oss@gmail.com<mailto:julien.grall.oss@gmail.com>> wrote:
->>>>
->>>> On Thu, 14 May 2020 at 19:12, Andrew Cooper <andrew.cooper3@citrix.com<mailto:andrew.cooper3@citrix.com>> wrote:
->>>>
->>>> On 14/05/2020 18:38, Julien Grall wrote:
->>>> Hi,
->>>>
->>>> On 14/05/2020 17:18, Bertrand Marquis wrote:
->>>>
->>>>
->>>> On 14 May 2020, at 16:57, Julien Grall <julien@xen.org<mailto:julien@xen.org>> wrote:
->>>>
->>>>
->>>>
->>>> On 14/05/2020 15:28, Bertrand Marquis wrote:
->>>> Hi,
->>>>
->>>> Hi,
->>>>
->>>> When executing linux on arm64 with KPTI activated (in Dom0 or in a
->>>> DomU), I have a lot of walk page table errors like this:
->>>> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va
->>>> 0xffffff837ebe0cd0
->>>> After implementing a call trace, I found that the problem was
->>>> coming from the update_runstate_area when linux has KPTI activated.
->>>> I have the following call trace:
->>>> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va
->>>> 0xffffff837ebe0cd0
->>>> (XEN) backtrace.c:29: Stacktrace start at 0x8007638efbb0 depth 10
->>>> (XEN)    [<000000000027780c>] get_page_from_gva+0x180/0x35c
->>>> (XEN)    [<00000000002700c8>] guestcopy.c#copy_guest+0x1b0/0x2e4
->>>> (XEN)    [<0000000000270228>] raw_copy_to_guest+0x2c/0x34
->>>> (XEN)    [<0000000000268dd0>] domain.c#update_runstate_area+0x90/0xc8
->>>> (XEN)    [<000000000026909c>] domain.c#schedule_tail+0x294/0x2d8
->>>> (XEN)    [<0000000000269524>] context_switch+0x58/0x70
->>>> (XEN)    [<00000000002479c4>] core.c#sched_context_switch+0x88/0x1e4
->>>> (XEN)    [<000000000024845c>] core.c#schedule+0x224/0x2ec
->>>> (XEN)    [<0000000000224018>] softirq.c#__do_softirq+0xe4/0x128
->>>> (XEN)    [<00000000002240d4>] do_softirq+0x14/0x1c
->>>> Discussing this subject with Stefano, he pointed me to a discussion
->>>> started a year ago on this subject here:
->>>> https://lists.xenproject.org/archives/html/xen-devel/2018-11/msg03053.html
->>>>
->>>> And a patch was submitted:
->>>> https://lists.xenproject.org/archives/html/xen-devel/2019-05/msg02320.html
->>>>
->>>> I rebased this patch on current master and it is solving the
->>>> problem I have seen.
->>>> It sounds to me like a good solution to introduce a
->>>> VCPUOP_register_runstate_phys_memory_area to not depend on the area
->>>> actually being mapped in the guest when a context switch is being
->>>> done (which is actually the problem happening when a context switch
->>>> is trigger while a guest is running in EL0).
->>>> Is there any reason why this was not merged at the end ?
->>>>
->>>> I just skimmed through the thread to remind myself the state.
->>>> AFAICT, this is blocked on the contributor to clarify the intended
->>>> interaction and provide a new version.
->>>>
->>>> What do you mean here by intended interaction ? How the new hyper
->>>> call should be used by the guest OS ?
->>>>
->>>>   From what I remember, Jan was seeking clarification on whether the two
->>>> hypercalls (existing and new) can be called together by the same OS
->>>> (and make sense).
->>>>
->>>> There was also the question of the handover between two pieces of
->>>> sotfware. For instance, what if the firmware is using the existing
->>>> interface but the OS the new one? Similar question about Kexecing a
->>>> different kernel.
->>>>
->>>> This part is mostly documentation so we can discuss about the approach
->>>> and review the implementation.
->>>>
->>>>
->>>>
->>>> I am still in favor of the new hypercall (and still in my todo list)
->>>> but I haven't yet found time to revive the series.
->>>>
->>>> Would you be willing to take over the series? I would be happy to
->>>> bring you up to speed and provide review.
->>>>
->>>> Sure I can take it over.
->>>>
->>>> I ported it to master version of xen and I tested it on a board.
->>>> I still need to do a deep review of the code myself but I have an
->>>> understanding of the problem and what is the idea.
->>>>
->>>> Any help to get on speed would be more then welcome :-)
->>>> I would recommend to go through the latest version (v3) and the
->>>> previous (v2). I am also suggesting v2 because I think the split was
->>>> easier to review/understand.
->>>>
->>>> The x86 code is probably what is going to give you the most trouble as
->>>> there are two ABIs to support (compat and non-compat). If you don't
->>>> have an x86 setup, I should be able to test it/help write it.
->>>>
->>>> Feel free to ask any questions and I will try my best to remember the
->>>> discussion from last year :).
->>>>
->>>> At risk of being shouted down again, a new hypercall isn't necessarily
->>>> necessary, and there are probably better ways of fixing it.
->>>>
->>>> The underlying ABI problem is that the area is registered by virtual
->>>> address.  The only correct way this should have been done is to register
->>>> by guest physical address, so Xen's updating of the data doesn't
->>>> interact with the guest pagetable settings/restrictions.  x86 suffers
->>>> the same kind of problems as ARM, except we silently squash the fallout.
->>>>
->>>> The logic in Xen is horrible, and I would really rather it was deleted
->>>> completely, rather than to be kept for compatibility.
->>>>
->>>> The runstate area is always fixed kernel memory and doesn't move.  I
->>>> believe it is already restricted from crossing a page boundary, and we
->>>> can calculate the va=>pa translation when the hypercall is made.
->>>>
->>>> Yes - this is a technically ABI change, but nothing is going to break
->>>> (AFAICT) and the cleanup win is large enough to make this a *very*
->>>> attractive option.
->>>>
->>>> I suggested this approach two years ago [1] but you were the one
->>>> saying that buffer could cross page-boundary on older Linux [2]:
->>>>
->>>> "I'd love to do this, but we cant.  Older Linux used to have a virtual
->>>> buffer spanning a page boundary.  Changing the behaviour under that will
->>>> cause older setups to explode."
+On 15.05.2020 07:33, Jürgen Groß wrote:
+> On 14.05.20 11:50, Jürgen Groß wrote:
+>> On 14.05.20 09:59, Jan Beulich wrote:
+>>> On 08.05.2020 17:34, Juergen Gross wrote:
+>>>> +int hypfs_read_dir(const struct hypfs_entry *entry,
+>>>> +                   XEN_GUEST_HANDLE_PARAM(void) uaddr)
+>>>> +{
+>>>> +    const struct hypfs_entry_dir *d;
+>>>> +    const struct hypfs_entry *e;
+>>>> +    unsigned int size = entry->size;
+>>>> +
+>>>> +    d = container_of(entry, const struct hypfs_entry_dir, e);
+>>>> +
+>>>> +    list_for_each_entry ( e, &d->dirlist, list )
 >>>
->>> Sorry this was long time ago, and details have faded. IIRC there was
->>> even a proposal (or patch set) that took that into account and allowed
->>> buffers to span across a page boundary by taking a reference to two
->>> different pages in that case.
->>
->> I am not aware of a patch set. Juergen suggested a per-domain mapping but
->> there was no details how this could be done (my e-mail was left unanswered
->> [1]).
->>
->> If we were using the vmap() then we would need up 1MB per domain (assuming
->> 128 vCPUs). This sounds quite a bit and I think we need to agree whether it
->> would be an acceptable solution (this was also left unanswered [1]).
-> 
-> Could we map/unmap the runtime area on domain switch at a per-cpu
-> based linear space area? There's no reason to have all the runtime
-> areas mapped all the time, you just care about the one from the
-> running vcpu.
-
-AFAICT, this is only used during context switching. This is a bit 
-surprising because I would expect it to be updated when the vCPU is running.
-
-So maybe we could just use map_domain_page() and take care manually 
-about cross-page boundary.
-
-> 
-> Maybe the overhead of that mapping and unmapping would be
-> too high? But seeing that we are aiming at a secret-free Xen we would
-> have to eventually go that route anyway.
-
-The overhead is likely to be higher with the existing code as you have 
-to walk the guest page-tables and the p2m everytime in order to 
-translate the guest virtual address to a host physical address.
-
-So mapping/unmapping a physical address is not going to be too bad :).
-
+>>> This function, in particular because of being non-static, makes
+>>> me wonder how, with add_entry() taking a lock, it can be safe
+>>> without any locking. Initially I thought the justification might
+>>> be because all adding of entries is an init-time-only thing, but
+>>> various involved functions aren't marked __init (and it is at
+>>> least not implausible that down the road we might see new
+>>> entries getting added during certain hotplug operations).
 >>>
->>> Another option would be to just return -EINVAL or -EOPNOTSUPP in that
->>> case and just get on with it. runstate info shouldn't be mandatory for
->>> guests to function properly, I would say it's just extra info that's
->>> provided in good faith from the hypervisor in order to help the guest
->>> make better scheduling decisions.
+>>> I do realize that do_hypfs_op() takes the necessary read lock,
+>>> but then you're still building on the assumption that the
+>>> function is reachable through only that code path, despite
+>>> being non-static. An ASSERT() here would be the minimum I guess,
+>>> but with read locks now being recursive I don't see why you
+>>> couldn't read-lock here again.
 >>
->> Linux will panic if the VCPUOP_register_runstate_memory_area returns an
->> error (see xen_setup_runstate_info()).
+>> Right, will add the read-lock.
+>>
+>>>
+>>> The same goes for other non-static functions, albeit things may
+>>> become more interesting for functions living on the
+>>> XEN_HYPFS_OP_write_contents path (because write locks aren't
+>>
+>> Adding an ASSERT() in this regard should be rather easy.
 > 
-> Oh, that's dull. That hypercall was never noted to be optional, so it
-> failing would mean Linux has somehow screwed the call which is not
-> expected.
-> 
-> Roger.
-> 
+> As the type specific read- and write-functions should only be called
+> through the generic read/write functions I think it is better to have
+> a percpu variable holding the current locking state and ASSERT() that
+> to match. This will be cheaper than nesting locks and I don't have to
+> worry about either write_lock nesting or making _is_write_locked_by_me()
+> an official interface.
 
--- 
-Julien Grall
+Ah yes, this should do.
+
+Jan
 
