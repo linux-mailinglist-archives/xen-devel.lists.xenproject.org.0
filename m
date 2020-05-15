@@ -2,99 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809601D590C
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 20:26:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AFE41D5918
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 20:31:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZf1T-00028v-3T; Fri, 15 May 2020 18:25:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jZf6e-00032I-SC; Fri, 15 May 2020 18:30:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sXO4=65=dornerworks.com=stewart.hildebrand@srs-us1.protection.inumbo.net>)
- id 1jZf1R-00028q-Kj
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 18:25:25 +0000
-X-Inumbo-ID: 7019f6e6-96d9-11ea-a5b2-12813bfff9fa
+ id 1jZf6d-00032D-5n
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 18:30:47 +0000
+X-Inumbo-ID: 30f8e41c-96da-11ea-b9cf-bc764e2007e4
 Received: from USG02-CY1-obe.outbound.protection.office365.us (unknown
- [23.103.209.84]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7019f6e6-96d9-11ea-a5b2-12813bfff9fa;
- Fri, 15 May 2020 18:25:22 +0000 (UTC)
+ [2001:489a:2202:d::60f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 30f8e41c-96da-11ea-b9cf-bc764e2007e4;
+ Fri, 15 May 2020 18:30:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
- b=Uf1EUMhCapRRYsBH3QY98wpUSN7jJYCCkQ92Ad5mGQpkzdtwraVJih5PeZ8erfPNymdD0f3v0Yxn6OHpnY70irNBFenJwZswStPDEr53v8SXFKbmC+qJ8utuLE84MlCpGjPP6H/Dgu35GwIPpgv4g65y5o+9BVrk2PbLVHrn5JMVTRLkwTscJlCIRBuQs2grrURQGE7to6LG85Wv6693Yy1VuYAXdsgOvZhSdAZo370Ha2o7OCn7iBKUu9vWWX7Ock8lPaUv6OCwG9GpeDB1d9cwwnwWEX8kA0fl2Y4bu/Y7wWFUQL2Mg1uvQLsevd+v37akZKB+MfLRIASidoGViQ==
+ b=t4k6B29PLTME7UUNC38EtMDhFZwfS2stwxmvq1oPoww9XEf4NcqtNp+o+lD0eU5qayDkjxjJetTL6KrbVi0NM6V2iYFZe2F/ZzMkKILZyibJ2fhSXQO6QODQBfgxzGQijoW1Cs+6FCXUnWt4qdF1OrrxsLyTBCYcxH+39cskOdvF+gdavQN0f2iENZs9RbjbJ/QO9oN5IFQ4+Xm94/EShjht7Zcf7TW6z3+RpFfExmX0ph+fTi6Ko7pdolIb0PCV8SQ1co5jwez2pDpIejD+rByleWqsgoCIA+AnlvX+cNZlCtH2ws+r8csw+tXlwRjsoB+cql79oBIbkpxs2KRvHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector5401;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2bBfou/chdJqZdN6bXhQ23PEqm32owHKlLolqa3BTx0=;
- b=LxKyxbWFOargpVgbQ4+AK00k70lpG1OMFPxz9px7SEDKRJYuUpS0qbn3eCgyc6+wfl2YSL/HUm3dOTCvKyCqDyRXsG5asEZrfXLjdrzaQ9RlsfM6P66yJaB4TjCgHG0TSLIeHCnZbSWAP+qVtAn2IoENLChqtWQsty2/K4UH45AfFGTmQhcQk3w1Qs0uov4dscPQgFo9mOxpeBHoSyZbrBWRITL1S8apkMB6OiKygQLEcqhPbCU+bhJyBB1ZEXYYFPXeJ0J2Uw9YdSWg34+Uvo6yDRo9t58PevMFh0+RyaLNriTgWVM5RgVvIGI3MJit4n1mdvk7aBNdqMHLyhJJ7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 207.242.234.14) smtp.rcpttodomain=lists.xenproject.org
- smtp.mailfrom=dornerworks.com; dmarc=none action=none
- header.from=dornerworks.com; dkim=none (message not signed); arc=none
+ bh=7hYA9aoOhl84nJcESWARiJ0BxzRpOnYbkQaV/ykIkuc=;
+ b=x/BbIN9GcHbdt+SKiPUgg+27UXDE/pSo5fiEvx0KrziSXBGgHE5adduKtlne1JSxCaromLDpP6Efwz58UGICi4BkiteR+hwnjdKnf7MgTyedcmf112CkWiWz6p3WJH4Bub9rKAqhqBubD8NhZo5zS+Z6ik7IKaEuzJ3+pluQi87Y2x96uySrQG55R6lq17AkwVSUkt75Y7UtFFeLAv5WI2pAyyklb7XlMPKUHYhW4Uh89LUXC9hMR8m+m07V85mMMCWPfrLFqmsr/sm0ar+KLaJBj82sFp6RTKVlNaY3sed9MW4plLHgru4MWL4y7SocMHbUrH3VJha/I7qCle4z2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=dornerworks.com; dmarc=pass action=none
+ header.from=dornerworks.com; dkim=pass header.d=dornerworks.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=dornerworkssystem.onmicrosoft.us;
  s=selector1-dornerworkssystem-onmicrosoft-us;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2bBfou/chdJqZdN6bXhQ23PEqm32owHKlLolqa3BTx0=;
- b=3Z6txRrfHqCPM3T/pV4YKVkr78QjLUShpN5iM5B/TR/MHQw6+bfyHPfDVeIimhcjwTGTcy781wFNPiMiKIn8r+uoSHUTytPCXChZ9kzLJoJBB9mZKZj/cQB1GQpJxZ5SAkhfVBdPCSetm1EQ+/v7Be6bES6gevwBkB3NAQfn8oM=
-Received: from SN1P110CA0028.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:61::18)
- by CY1P110MB0358.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:401::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.35; Fri, 15 May
- 2020 18:25:19 +0000
-Received: from CY1USG02FT007.eop-usg02.itar.protection.office365.us
- (2001:489a:2202:d::631) by SN1P110CA0028.office365.us (2001:489a:200:61::18)
+ bh=7hYA9aoOhl84nJcESWARiJ0BxzRpOnYbkQaV/ykIkuc=;
+ b=rHILfo+wEBKRhbLwYs5wpDR4v+mJsQgHbDl6X0dzjXgqPh94VWdamH1HWTR4Cbs7JAVKbtiLsyCWxbuYyAetBrLf5KqDHaLul9RASgNw+geWQHkJkGM3OwZ0alReD9wGuVL7QerW80XTbPozx1084792hPJmeuVTf97N/s8nYsE=
+Received: from CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:404::14)
+ by CY1P110MB0549.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:404::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.35 via Frontend
- Transport; Fri, 15 May 2020 18:25:18 +0000
-Authentication-Results: spf=fail (sender IP is 207.242.234.14)
- smtp.mailfrom=dornerworks.com; lists.xenproject.org; dkim=none (message not
- signed) header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=dornerworks.com;
-Received-SPF: Fail (protection.outlook.com: domain of dornerworks.com does not
- designate 207.242.234.14 as permitted sender)
- receiver=protection.outlook.com; client-ip=207.242.234.14;
- helo=ubuntu.localdomain;
-Received: from ubuntu.localdomain (207.242.234.14) by
- CY1USG02FT007.mail.protection.office365.us (10.97.26.110) with Microsoft SMTP
- Server id 15.20.2979.30 via Frontend Transport; Fri, 15 May 2020 18:25:12
- +0000
-From: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
-To: xen-devel@lists.xenproject.org
-Subject: [XEN PATCH v2] xen/build: use the correct kconfig makefile
-Date: Fri, 15 May 2020 14:25:09 -0400
-Message-Id: <20200515182509.5476-1-stewart.hildebrand@dornerworks.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200512175206.20314-1-stewart.hildebrand@dornerworks.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.35; Fri, 15 May
+ 2020 18:30:42 +0000
+Received: from CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::8888:67a8:9eca:3edf]) by CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::8888:67a8:9eca:3edf%6]) with mapi id 15.20.2958.035; Fri, 15 May 2020
+ 18:30:42 +0000
+From: Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>
+To: Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [XEN PATCH v2] xen/build: use the correct kconfig makefile
+Thread-Topic: [XEN PATCH v2] xen/build: use the correct kconfig makefile
+Thread-Index: AQHWKuYywWMBJNbmN0GLTPve7p+kuaipd9QA
+Date: Fri, 15 May 2020 18:30:42 +0000
+Message-ID: <CY1P110MB0551ACF3B18E4969A8D15C698CBD0@CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM>
 References: <20200512175206.20314-1-stewart.hildebrand@dornerworks.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-spam-status: No, score=-2.9 required=3.5 tests=ALL_TRUSTED, BAYES_00,
- MAILSHELL_SCORE_0_4
-X-Spam-Flag: NO
-X-EOPAttributedMessage: 0
-X-Forefront-Antispam-Report: CIP:207.242.234.14; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:ubuntu.localdomain; PTR:InfoDomainNonexistent; CAT:NONE;
+ <20200515182509.5476-1-stewart.hildebrand@dornerworks.com>
+In-Reply-To: <20200515182509.5476-1-stewart.hildebrand@dornerworks.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dornerworks.com; dkim=none (message not signed)
+ header.d=none;dornerworks.com; dmarc=none action=none
+ header.from=dornerworks.com;
+x-originating-ip: [2607:fb90:a22b:677:9065:c12d:e772:d615]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: ce20010b-97bf-4d7b-998d-08d7f8fe1345
+x-ms-traffictypediagnostic: CY1P110MB0549:|CY1P110MB0549:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CY1P110MB0549566A2AACB0F7A95EF3278CBD0@CY1P110MB0549.NAMP110.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:612;
+x-forefront-prvs: 04041A2886
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY1P110MB0551.NAMP110.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
  SFTY:;
- SFS:(346002)(46966005)(508600001)(6916009)(2906002)(6666004)(186003)(956004)(70206006)(54906003)(2616005)(44832011)(336012)(70586007)(26005)(4326008)(36756003)(33310700002)(8676002)(82310400002)(5660300002)(81166007)(86362001)(8936002)(47076004)(1076003);
+ SFS:(366004)(966005)(186003)(52536014)(6506007)(54906003)(55016002)(7696005)(71200400001)(9686003)(508600001)(558084003)(76116006)(8936002)(110136005)(66476007)(5660300002)(64756008)(8676002)(2906002)(86362001)(66946007)(66556008)(66446008)(33656002)(4326008);
  DIR:OUT; SFP:1101; 
-Content-Type: text/plain
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 71c76360-2106-447a-897c-08d7f8fd5226
-X-MS-TrafficTypeDiagnostic: CY1P110MB0358:|CY1P110MB0358:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY1P110MB0358F36E9C31893D670955658CBD0@CY1P110MB0358.NAMP110.PROD.OUTLOOK.COM>
-X-MS-Oob-TLC-OOBClassifiers: OLM:466;
-X-Forefront-PRVS: 04041A2886
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: dornerworks.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:25:12.4962 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71c76360-2106-447a-897c-08d7f8fd5226
-X-MS-Exchange-CrossTenant-Id: 097cf9aa-db69-4b12-aeab-ab5f513dbff9
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=097cf9aa-db69-4b12-aeab-ab5f513dbff9; Ip=[207.242.234.14];
- Helo=[ubuntu.localdomain]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1P110MB0358
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce20010b-97bf-4d7b-998d-08d7f8fe1345
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2020 18:30:42.2765 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 097cf9aa-db69-4b12-aeab-ab5f513dbff9
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1P110MB0549
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,59 +97,14 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- Anthony PERARD <anthony.perard@citrix.com>, Doug Goldstein <cardoe@cardoe.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Doug Goldstein <cardoe@cardoe.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This resolves the following observed error during config merge:
+Friday, May 15, 2020 2:25 PM, Stewart Hildebrand wrote:
+>Signed-off-by: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
 
-/bin/sh /path/to/xen/xen/../xen/tools/kconfig/merge_config.sh -m .config /path/to/xen/xen/../xen/arch/arm/configs/custom.config
-Using .config as base
-Merging /path/to/xen/xen/../xen/arch/arm/configs/custom.config
-#
-# merged configuration written to .config (needs make)
-#
-make -f /path/to/xen/xen/../xen/Makefile olddefconfig
-make[2]: Entering directory '/path/to/xen/xen'
-make[2]: *** No rule to make target 'olddefconfig'.  Stop.
-make[2]: Leaving directory '/path/to/xen/xen'
-tools/kconfig/Makefile:95: recipe for target 'custom.config' failed
-
-The build was invoked by first doing a defconfig (which succeeded):
-
-$ make -C xen XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig
-
-Followed by the config fragment merge command (which failed before this patch)
-
-$ cat > xen/arch/arm/configs/custom.config <<EOF
-CONFIG_DEBUG=y
-CONFIG_EARLY_PRINTK_ZYNQMP=y
-EOF
-$ make -C xen XEN_TARGET_ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- custom.config
-
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
-
----
-v2: updated commit message
----
- xen/tools/kconfig/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/tools/kconfig/Makefile b/xen/tools/kconfig/Makefile
-index fd37f4386a..f39521a0ed 100644
---- a/xen/tools/kconfig/Makefile
-+++ b/xen/tools/kconfig/Makefile
-@@ -94,7 +94,7 @@ configfiles=$(wildcard $(srctree)/kernel/configs/$@ $(srctree)/arch/$(SRCARCH)/c
- %.config: $(obj)/conf
- 	$(if $(call configfiles),, $(error No configuration exists for this target on this architecture))
- 	$(Q)$(CONFIG_SHELL) $(srctree)/tools/kconfig/merge_config.sh -m .config $(configfiles)
--	$(Q)$(MAKE) -f $(srctree)/Makefile olddefconfig
-+	$(Q)$(MAKE) -f $(srctree)/tools/kconfig/Makefile.kconfig olddefconfig
- 
- PHONY += kvmconfig
- kvmconfig: kvm_guest.config
--- 
-2.26.2
-
+I forgot to include Anthony's Reviewed-by from v1 https://lists.xenproject.=
+org/archives/html/xen-devel/2020-05/msg00848.html
 
