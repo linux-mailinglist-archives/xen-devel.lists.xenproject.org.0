@@ -2,86 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B15991D55C7
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 18:22:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 353271D5651
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2020 18:40:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZd5J-0007J0-1Z; Fri, 15 May 2020 16:21:17 +0000
+	id 1jZdNn-0000hJ-Ng; Fri, 15 May 2020 16:40:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CqcK=65=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jZd5H-0007Iv-UC
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 16:21:15 +0000
-X-Inumbo-ID: 18876e7f-96c8-11ea-a594-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=iw4X=65=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1jZdNl-0000hE-MM
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2020 16:40:21 +0000
+X-Inumbo-ID: c337ac1a-96ca-11ea-a599-12813bfff9fa
+Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 18876e7f-96c8-11ea-a594-12813bfff9fa;
- Fri, 15 May 2020 16:21:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1589559674;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=gTDncA46BJ3IXjS8vTOnondOAUPsB/a2ijpHo0ua58s=;
- b=SV9H0NtLJ+XNO93eXEW2dBw6izrFRIKyZQCm7zLYf3wcrHLOwt7ZR8zb
- 7yBFwSigwZqY0WwZzA9nODe5LzAnTLelQ4w38iA1PedJnXOwAnHl+eB91
- TmU8H+rQ/sLt2tNJfTctNafI/3BwWqVjrST6ce7C+WxHcXHdWAr+e12jm M=;
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com;
- dmarc=pass (p=none dis=none) d=citrix.com
-IronPort-SDR: got8mvFOKaDV5eQwxeRoQ+nLzxGoxx5NCZZVwfEnoPBCAlnfuvf6FdnK9H6xy5x5NHCH6hstV9
- g/wlhiY/HKRQe5hYUOC+7bNSdkTKQ1PvEubs5yhnZydD2+AfuoSv0l9DQk2LIGxM5Kl8FEENBe
- azR73aRASpO8eIorwtChbREzrWv18AIqbFitbuxTGxt5m+BUNKDCZ4/kLPNaxy+9rM0WZc1rD6
- 7xucs80M64rCV7VqQ4LO4fG+PuPDr42E0AG7hSmLhWmaUStQDH+PQF1TJyCGez6qi86ZRHEEVa
- u74=
-X-SBRS: 2.7
-X-MesageID: 17915855
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,395,1583211600"; d="scan'208";a="17915855"
-Date: Fri, 15 May 2020 17:21:08 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
+ id c337ac1a-96ca-11ea-a599-12813bfff9fa;
+ Fri, 15 May 2020 16:40:19 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id w64so3344242wmg.4
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2020 09:40:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=wXiT8A/j8/brRNzY3NCxwEiCp+yIyHWy013b1kekcVE=;
+ b=UBhG1TVi52CZx79fK1f7HHujMKtqrhG5qVPWuHYU8+FjuXY5zdkAjmki1pm3x3/CqD
+ KfUw8jTczVeJc4OuiU9Y9YAptbYN81nARm25S+zm1tRl9X+3GOOFAjeR/PUmd6U35oQY
+ sqIh2fbmhAynR+TFt17139L411wNQKvLWQ5+RV8baosjFjCd40msi/MVQdNP2qctTB2q
+ haRZ7uZBJAmChSTb3ceOqQ32YCCvCdgoOohYOMwq2/z6DR/PK1n7t7JrSVb24DEb8/NJ
+ wuq6sgJNUYA95BsHkIaVdCNsYjY+F10l4zqPGpYidgs7SgB+bcWyVL2UTZES2Q7ldwAD
+ vl7Q==
+X-Gm-Message-State: AOAM533XbG1s2AciEc7fteiMdD2UGh/9oZSeGunmpwwW8q1gBlFg0kKA
+ zseU8YB1qeOfOhN2nTO6fVQ=
+X-Google-Smtp-Source: ABdhPJzMfM+xGPeotI/kLGAKRdGSeS0WJG6IdZjVyZPhMNCboy92/SIIs+jwFireDIQ+DETcaI+1cg==
+X-Received: by 2002:a1c:990d:: with SMTP id b13mr4772822wme.179.1589560818737; 
+ Fri, 15 May 2020 09:40:18 -0700 (PDT)
+Received: from
+ liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
+ ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id u127sm4440006wme.8.2020.05.15.09.40.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 May 2020 09:40:18 -0700 (PDT)
+Date: Fri, 15 May 2020 16:40:16 +0000
+From: Wei Liu <wl@xen.org>
 To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 05/16] x86/shstk: Introduce Supervisor Shadow Stack support
-Message-ID: <20200515162108.GM2116@perard.uk.xensource.com>
-References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-6-andrew.cooper3@citrix.com>
- <d0347fec-3ccb-daa7-5c4d-f0e74b5fb247@suse.com>
+Subject: Re: [PATCH v2 3/6] x86/mem-paging: use guest handle for
+ XENMEM_paging_op_prep
+Message-ID: <20200515164016.ipftrwdykjd4j2yf@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+References: <b8437b1f-af58-70df-91d2-bd875912e57b@suse.com>
+ <43811c95-aa41-a34a-06ce-7d344cb1411d@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d0347fec-3ccb-daa7-5c4d-f0e74b5fb247@suse.com>
+In-Reply-To: <43811c95-aa41-a34a-06ce-7d344cb1411d@suse.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,54 +66,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, May 04, 2020 at 03:52:58PM +0200, Jan Beulich wrote:
-> On 02.05.2020 00:58, Andrew Cooper wrote:
-> > --- a/xen/scripts/Kconfig.include
-> > +++ b/xen/scripts/Kconfig.include
-> > @@ -31,6 +31,10 @@ cc-option = $(success,$(CC) -Werror $(CLANG_FLAGS) $(1) -E -x c /dev/null -o /de
-> >  # Return y if the linker supports <flag>, n otherwise
-> >  ld-option = $(success,$(LD) -v $(1))
-> >  
-> > +# $(as-instr,<instr>)
-> > +# Return y if the assembler supports <instr>, n otherwise
-> > +as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) -c -x assembler -o /dev/null -)
+On Thu, Apr 23, 2020 at 10:38:18AM +0200, Jan Beulich wrote:
+> While it should have been this way from the beginning, not doing so will
+> become an actual problem with PVH Dom0. The interface change is binary
+> compatible, but requires tools side producers to be re-built.
 > 
-> CLANG_FLAGS caught my eye here, then noticing that cc-option
-> also uses it. Anthony - what's the deal with this? It doesn't
-> look to get defined anywhere, and I also don't see what clang-
-> specific about these constructs.
+> Drop the bogus/unnecessary page alignment restriction on the input
+> buffer at the same time.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-It's because these constructs are gcc-specific :-). Indeed CLANG_FLAGS
-probably needs to be defined as I don't think providing the full
-AFLAGS/CFLAGS is going to be a good idea and may change the result of
-the commands.
+Acked-by: Wei Liu <wl@xen.org>
 
-Linux has a few clang specific flags in CLANG_FLAGS, I have found those:
-    The ones for cross compilation: --prefix, --target, --gcc-toolchain
-    -no-integrated-as
-    -Werror=unknown-warning-option
-And that's it.
+> ---
+> v2: Use HANDLE_64() instead of HANDLE_PARAM() for function parameter.
+> ---
+> Is there really no way to avoid the buffer copying in libxc?
 
-So, I think we could keep using CLANG_FLAGS in Kconfig.include and
-define it in Makefile with a comment saying that it's only used by
-Kconfig. It would always have -Werror=unknown-warning-option and have
--no-integrated-as when needed, the -Wunknown-warning-option is present
-in clang 3.0.0, according Linux's commit 589834b3a009 ("kbuild: Add
--Werror=unknown-warning-option to CLANG_FLAGS").
+The buffer is managed by the caller. There is no good way for libxc to
+know its properties as far as I can tell.
 
-The options -Werror=unknown-warning-option is to make sure that the
-warning is enabled, even though it is by default but could be disabled
-in a particular build of clang, see e8de12fb7cde ("kbuild: Check for
-unknown options with cc-option usage in Kconfig and clang")
-
-I'll write a patch with this new CLANG_FLAGS.
-
--- 
-Anthony PERARD
+Wei.
 
