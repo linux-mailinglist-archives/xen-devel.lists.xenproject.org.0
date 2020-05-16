@@ -2,72 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF5AA1D5F46
-	for <lists+xen-devel@lfdr.de>; Sat, 16 May 2020 08:57:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D09D1D605C
+	for <lists+xen-devel@lfdr.de>; Sat, 16 May 2020 12:21:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZql1-0004zs-EW; Sat, 16 May 2020 06:57:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zWuL=66=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jZqkz-0004zn-GT
- for xen-devel@lists.xenproject.org; Sat, 16 May 2020 06:57:13 +0000
-X-Inumbo-ID: 77be4b54-9742-11ea-9887-bc764e2007e4
+	id 1jZtvF-0006ce-TW; Sat, 16 May 2020 10:20:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2yaN=66=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jZtvE-0006bA-36
+ for xen-devel@lists.xenproject.org; Sat, 16 May 2020 10:20:00 +0000
+X-Inumbo-ID: caa26082-975e-11ea-a637-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 77be4b54-9742-11ea-9887-bc764e2007e4;
- Sat, 16 May 2020 06:57:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=MSbRsMc9nMkzcS/b7u6OK61c79/lrcaAxAB/g3BYRmY=; b=OBhuaxAWMxQda+bB+36o7m0tC
- cKpOIJ7TRKVplUwf2/QbwREuCft4djcMEYrIfIPh7L1bXKulzK4OYX5/P/JRbz1R3Mw/WwSQXE2e/
- aVW1SJcVv8BiOh9QYSvqO4v7EmmQGrs7PERUrC49bcKfdIGtDDLuN6Ianm5t2GRXeNdnw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id caa26082-975e-11ea-a637-12813bfff9fa;
+ Sat, 16 May 2020 10:19:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=M7gjsTUXtdXblxF+pv6oq7jdPrbDZAREuVCENqwOAtU=; b=R//ORzhthvvPSFGwENQGztxSgx
+ 6TW6cgns925P0UiN0ojpQDXQMztPvblURL2H6r3+QStOSkdRLaf5h1wvC97gJ3gikLa45RE4c51m7
+ I1BwxhHOKDEViT08vJAltvpO9O934dmj1vEbFItzxyiEG9sBi904V510sfPkA/1Wo2Vc=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZqkx-0008AD-AQ; Sat, 16 May 2020 06:57:11 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZqkx-00009N-1n; Sat, 16 May 2020 06:57:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jZqkx-0006pF-1A; Sat, 16 May 2020 06:57:11 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150210-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [libvirt test] 150210: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=144dfe4215902b40a9d17fdb326054bbd8e07563
-X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 16 May 2020 06:57:11 +0000
+ (envelope-from <julien@xen.org>)
+ id 1jZtvA-0004Nv-NJ; Sat, 16 May 2020 10:19:56 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jZtvA-0000c2-DP; Sat, 16 May 2020 10:19:56 +0000
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH] pvcalls: Document correctly and explicitely the padding for
+ all arches
+Date: Sat, 16 May 2020 11:19:53 +0100
+Message-Id: <20200516101953.1235-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,160 +55,141 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Julien Grall <jgrall@amazon.com>, julien@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150210 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150210/
+From: Julien Grall <jgrall@amazon.com>
 
-Regressions :-(
+The documentation of pvcalls suggests there is padding for 32-bit x86
+at the end of most the structure. However, they are not described in
+in the public header.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+Because of that all the structures would be 32-bit aligned and not
+64-bit aligned for 32-bit x86.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+For all the other architectures supported (Arm and 64-bit x86), the
+structure are aligned to 64-bit because they contain uint64_t field.
+Therefore all the structures contain implicit padding.
 
-version targeted for testing:
- libvirt              144dfe4215902b40a9d17fdb326054bbd8e07563
-baseline version:
- libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+The paddings are now corrected for 32-bit x86 and written explicitly for
+all the architectures.
 
-Last test of basis   146182  2020-01-17 06:00:23 Z  120 days
-Failing since        146211  2020-01-18 04:18:52 Z  119 days  110 attempts
-Testing same since   150210  2020-05-16 04:20:17 Z    0 days    1 attempts
+While the structure size between 32-bit and 64-bit x86 is different, it
+shouldn't cause any incompatibility between a 32-bit and 64-bit
+frontend/backend because the commands are always 56 bits and the padding
+are at the end of the structure.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Arnaud Patard <apatard@hupstream.com>
-  Artur Puzio <contact@puzio.waw.pl>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Chen Hanxiao <chen_han_xiao@126.com>
-  Chris Jester-Young <cky@cky.nz>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniel Veillard <veillard@redhat.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Erik Skultety <eskultet@redhat.com>
-  Gaurav Agrawal <agrawalgaurav@gnome.org>
-  Han Han <hhan@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Leonid Bloch <lb.workbox@gmail.com>
-  Lin Ma <LMa@suse.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mark Asselstine <mark.asselstine@windriver.com>
-  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Pavel Mores <pmores@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Philipp Hahn <hahn@univention.de>
-  Pino Toscano <ptoscano@redhat.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Rafael Fonseca <r4f4rfs@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Rikard Falkeborn <rikard.falkeborn@gmail.com>
-  Ryan Moeller <ryan@iXsystems.com>
-  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Tobin Feldman-Fitzthum <tobin@linux.vnet.ibm.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wu Qingliang <wuqingliang4@huawei.com>
-  Xu Yandong <xuyandong2@huawei.com>
-  Yan Wang <wangyan122@huawei.com>
-  Yi Li <yili@winhong.com>
-  Your Name <you@example.com>
-  Zhang Bo <oscar.zhangbo@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-  Zhimin Feng <fengzhimin1@huawei.com>
+As an aside, the padding sadly cannot be mandated to be 0 as they are
+already present. So it is not going to be possible to use the padding
+for extending a command in the future.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 
+---
+    Changes in v2:
+        - It is not possible to use the same padding for 32-bit x86 and
+        all the other supported architectures.
+---
+ docs/misc/pvcalls.pandoc        | 18 ++++++++++--------
+ xen/include/public/io/pvcalls.h | 14 ++++++++++++++
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+diff --git a/docs/misc/pvcalls.pandoc b/docs/misc/pvcalls.pandoc
+index 665dad556c39..c25412868f5d 100644
+--- a/docs/misc/pvcalls.pandoc
++++ b/docs/misc/pvcalls.pandoc
+@@ -246,9 +246,9 @@ The format is defined as follows:
+     			uint32_t domain;
+     			uint32_t type;
+     			uint32_t protocol;
+-    			#ifdef CONFIG_X86_32
++			#ifndef CONFIG_X86_32
+     			uint8_t pad[4];
+-    			#endif
++			#endif
+     		} socket;
+     		struct xen_pvcalls_connect {
+     			uint64_t id;
+@@ -257,16 +257,18 @@ The format is defined as follows:
+     			uint32_t flags;
+     			grant_ref_t ref;
+     			uint32_t evtchn;
+-    			#ifdef CONFIG_X86_32
++			#ifndef CONFIG_X86_32
+     			uint8_t pad[4];
+-    			#endif
++			#endif
+     		} connect;
+     		struct xen_pvcalls_release {
+     			uint64_t id;
+     			uint8_t reuse;
+-    			#ifdef CONFIG_X86_32
++			#ifndef CONFIG_X86_32
+     			uint8_t pad[7];
+-    			#endif
++			#else
++			uint8_t pad[3];
++			#endif
+     		} release;
+     		struct xen_pvcalls_bind {
+     			uint64_t id;
+@@ -276,9 +278,9 @@ The format is defined as follows:
+     		struct xen_pvcalls_listen {
+     			uint64_t id;
+     			uint32_t backlog;
+-    			#ifdef CONFIG_X86_32
++			#ifndef CONFIG_X86_32
+     			uint8_t pad[4];
+-    			#endif
++			#endif
+     		} listen;
+     		struct xen_pvcalls_accept {
+     			uint64_t id;
+diff --git a/xen/include/public/io/pvcalls.h b/xen/include/public/io/pvcalls.h
+index cb8171275c13..590c5e9e41aa 100644
+--- a/xen/include/public/io/pvcalls.h
++++ b/xen/include/public/io/pvcalls.h
+@@ -65,6 +65,9 @@ struct xen_pvcalls_request {
+             uint32_t domain;
+             uint32_t type;
+             uint32_t protocol;
++#ifndef CONFIG_X86_32
++            uint8_t pad[4];
++#endif
+         } socket;
+         struct xen_pvcalls_connect {
+             uint64_t id;
+@@ -73,10 +76,18 @@ struct xen_pvcalls_request {
+             uint32_t flags;
+             grant_ref_t ref;
+             uint32_t evtchn;
++#ifndef CONFIG_X86_32
++            uint8_t pad[4];
++#endif
+         } connect;
+         struct xen_pvcalls_release {
+             uint64_t id;
+             uint8_t reuse;
++#ifndef CONFIG_X86_32
++            uint8_t pad[7];
++#else
++            uint8_t pad[3];
++#endif
+         } release;
+         struct xen_pvcalls_bind {
+             uint64_t id;
+@@ -86,6 +97,9 @@ struct xen_pvcalls_request {
+         struct xen_pvcalls_listen {
+             uint64_t id;
+             uint32_t backlog;
++#ifndef CONFIG_X86_32
++            uint8_t pad[4];
++#endif
+         } listen;
+         struct xen_pvcalls_accept {
+             uint64_t id;
+-- 
+2.17.1
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 18353 lines long.)
 
