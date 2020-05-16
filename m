@@ -2,53 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB071D609E
-	for <lists+xen-devel@lfdr.de>; Sat, 16 May 2020 13:56:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 005A11D60C4
+	for <lists+xen-devel@lfdr.de>; Sat, 16 May 2020 14:23:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZvOw-0007GH-5d; Sat, 16 May 2020 11:54:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jZvpz-0001a2-KR; Sat, 16 May 2020 12:22:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=puAY=66=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jZvOu-0007GC-I0
- for xen-devel@lists.xenproject.org; Sat, 16 May 2020 11:54:44 +0000
-X-Inumbo-ID: 0751fdb4-976c-11ea-a648-12813bfff9fa
-Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0751fdb4-976c-11ea-a648-12813bfff9fa;
- Sat, 16 May 2020 11:54:42 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id f13so4712350wmc.5
- for <xen-devel@lists.xenproject.org>; Sat, 16 May 2020 04:54:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=fF7M1/yKhrVf0CfvlpiRjCy6G705JL2S0jhVuRGaFL0=;
- b=ubp8aiKl2TPCWvq0Cw7r2br6q6Ah6kowzcZGy2/7BPXaXaxtkVX9cjB0NfRjsPHtwS
- c9IBPNX+HXVReJ3dNqDuI6+/jJ1urr+6CNj1uJPdA4QmLukN9xVNc28I+6HcdhWAjbKQ
- TJH6R8D3WG77+Yr/YCHZsmQRCW4NBw/EL7LP6U/U+5hjPLe/jn8bDOJxWK7VmdAAyQ3p
- yeO8sYjxa0sVKwu6xv3OKc1G4iGkiXp+RUtucREmDxIDyQLIvthi6MzVIR1zbYtoKIHX
- IL5RR5q1AbmknmgwZQ43RUsTOOMAYxIAa1P2mGZ3DtNol27MuKiKLjWEgEciT9NcZNSv
- S1jA==
-X-Gm-Message-State: AOAM532sh3Z7rlOXYztSa4YLj8iFfMmRS2BB5ElBQpuUqkMlrNSSOMpM
- PZsxyAP6cw67sIFYSgp9eG/mVBcGh7w=
-X-Google-Smtp-Source: ABdhPJzDlwTQoynpjiGk336W+qNXwlLBEAc6U/nouNw6HUvSRHwMJ9+QNwXvTMJOKejEW5c2toyeUQ==
-X-Received: by 2002:a1c:1c6:: with SMTP id 189mr8730207wmb.47.1589630081811;
- Sat, 16 May 2020 04:54:41 -0700 (PDT)
-Received: from localhost.localdomain (96.142.6.51.dyn.plus.net. [51.6.142.96])
- by smtp.gmail.com with ESMTPSA id
- c16sm7538150wrv.62.2020.05.16.04.54.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 May 2020 04:54:41 -0700 (PDT)
-From: Wei Liu <wl@xen.org>
-To: Xen Development List <xen-devel@lists.xenproject.org>
-Subject: [PATCH] CHANGELOG: add hypervisor framework and Hyper-V support
-Date: Sat, 16 May 2020 12:54:38 +0100
-Message-Id: <20200516115438.1740-1-wl@xen.org>
-X-Mailer: git-send-email 2.20.1
+ <SRS0=H74w=66=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jZvpy-0001Zx-NK
+ for xen-devel@lists.xenproject.org; Sat, 16 May 2020 12:22:42 +0000
+X-Inumbo-ID: eff7eeea-976f-11ea-b07b-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id eff7eeea-976f-11ea-b07b-bc764e2007e4;
+ Sat, 16 May 2020 12:22:41 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 7gniSrxD044gQrv0A2IdFq/CQ6dICUMU3MO34jajP54ad8PV7+kNE95XKhEWNHCc776SeKjHOh
+ PZhSj8hJvacu3IvAtcxIoAaZ0AACf7cv+c3HSNZEvApQURFV/Lc7sxQaYDwR3PAVlwlKmNFm0J
+ lDEcqygUH4v7bXvrVGDjdQL6edovO0dcoxMAsbIGEjO88wfKeRaE/N6ey9af1VoBgae++QBfnh
+ g4mZtvvCgSMM0tRsfUJYlySbIiRp1jWuFu9XyOrNZj58N44dQCx+JCf/qCFXtPOIPODLV94UIq
+ QxE=
+X-SBRS: 2.7
+X-MesageID: 17694874
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,398,1583211600"; d="scan'208";a="17694874"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/hvm: Fix memory leaks in hvm_copy_context_and_params()
+Date: Sat, 16 May 2020 13:22:21 +0100
+Message-ID: <20200516122221.5434-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -60,30 +50,60 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Community Manager <community.manager@xenproject.org>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Signed-off-by: Wei Liu <wl@xen.org>
----
- CHANGELOG.md | 2 ++
- 1 file changed, 2 insertions(+)
+Any error from hvm_save() or hvm_set_param() leaks the c.data allocation.
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 554eeb6a1216..ccb5055c87b7 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-    the Xen hypercall interface or the viridian one.
-  - Assorted pvshim performance and scalability improvements plus some bug
-    fixes.
-+ - Hypervisor framework to ease porting Xen to run on hypervisors.
-+ - Initial support to run on Hyper-V.
+Spotted by Coverity.
+
+Fixes: 353744830 "x86/hvm: introduce hvm_copy_context_and_params"
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Tamas K Lengyel <tamas@tklengyel.com>
+
+This was the XenServer internal Coverity.  The public one doesn't appear to
+have spotted the issue, so no Coverity-ID tag for the fix.
+---
+ xen/arch/x86/hvm/hvm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 814b7020d8..0a3797ef6e 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -5318,7 +5318,7 @@ int hvm_copy_context_and_params(struct domain *dst, struct domain *src)
+         return -ENOMEM;
  
- ## [4.13.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.13.0) - 2019-12-17
+     if ( (rc = hvm_save(src, &c)) )
+-        return rc;
++        goto out;
  
+     for ( i = 0; i < HVM_NR_PARAMS; i++ )
+     {
+@@ -5328,11 +5328,13 @@ int hvm_copy_context_and_params(struct domain *dst, struct domain *src)
+             continue;
+ 
+         if ( (rc = hvm_set_param(dst, i, value)) )
+-            return rc;
++            goto out;
+     }
+ 
+     c.cur = 0;
+     rc = hvm_load(dst, &c);
++
++ out:
+     vfree(c.data);
+ 
+     return rc;
 -- 
-2.20.1
+2.11.0
 
 
