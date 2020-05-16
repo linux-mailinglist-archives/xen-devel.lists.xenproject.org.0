@@ -2,60 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2DF31D5C70
-	for <lists+xen-devel@lfdr.de>; Sat, 16 May 2020 00:38:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24EA01D5D72
+	for <lists+xen-devel@lfdr.de>; Sat, 16 May 2020 02:55:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jZixU-0008Od-3k; Fri, 15 May 2020 22:37:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ibeu=65=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jZixS-0008OX-HI
- for xen-devel@lists.xenproject.org; Fri, 15 May 2020 22:37:34 +0000
-X-Inumbo-ID: a792841c-96fc-11ea-a5e2-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a792841c-96fc-11ea-a5e2-12813bfff9fa;
- Fri, 15 May 2020 22:37:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+1WLuhGmFl6RAGLQj2pEDVl/IsIoeF3d6+Io7tYPiZU=; b=VEa5hars4vhjeSCeGm4UdojKq
- LWoJB/LC/ytywFR1Z4v7l138if+eXp5+4KXkFN+qoYdeoYOoA8L3hLf0V1/Upt6SgObQtEMIXGcKO
- UuiBTjCDYiXvXhFllA3qZmOb95h+A2dxWNE6yAp2o9kpXzDOSgFknpZkGPXHR0VdBjt8I=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZixL-0003YD-CK; Fri, 15 May 2020 22:37:27 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jZixL-0006hV-5J; Fri, 15 May 2020 22:37:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jZixL-0001Px-4a; Fri, 15 May 2020 22:37:27 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150209-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jZl5h-0004Lh-67; Sat, 16 May 2020 00:54:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4r6I=66=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1jZl5f-0004Lc-PG
+ for xen-devel@lists.xenproject.org; Sat, 16 May 2020 00:54:11 +0000
+X-Inumbo-ID: c033694c-970f-11ea-9887-bc764e2007e4
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c033694c-970f-11ea-9887-bc764e2007e4;
+ Sat, 16 May 2020 00:54:10 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id E2953A22BA
+ for <xen-devel@lists.xenproject.org>; Sat, 16 May 2020 02:54:08 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id DD70FA221F
+ for <xen-devel@lists.xenproject.org>; Sat, 16 May 2020 02:54:07 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id wBJ7ySV-v-f5 for <xen-devel@lists.xenproject.org>;
+ Sat, 16 May 2020 02:54:07 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 5CDA0A1FAE
+ for <xen-devel@lists.xenproject.org>; Sat, 16 May 2020 02:54:07 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id gLT2_Iv1aunW for <xen-devel@lists.xenproject.org>;
+ Sat, 16 May 2020 02:54:07 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 3EAF3A1F9B
+ for <xen-devel@lists.xenproject.org>; Sat, 16 May 2020 02:54:07 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 25510219DD
+ for <xen-devel@lists.xenproject.org>; Sat, 16 May 2020 02:53:37 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id XEWAgGxgG1Km for <xen-devel@lists.xenproject.org>;
+ Sat, 16 May 2020 02:53:31 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 7783F21A09
+ for <xen-devel@lists.xenproject.org>; Sat, 16 May 2020 02:53:31 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Qat2-CW364Mr for <xen-devel@lists.xenproject.org>;
+ Sat, 16 May 2020 02:53:31 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 500A2219DD
+ for <xen-devel@lists.xenproject.org>; Sat, 16 May 2020 02:53:31 +0200 (CEST)
+Date: Sat, 16 May 2020 02:53:31 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: xen-devel@lists.xenproject.org
+Message-ID: <1740303418.53653891.1589590411232.JavaMail.zimbra@cert.pl>
+Subject: Re: [PATCH 0/3] vm_event: fix race-condition when disabling monitor
+ events
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150209: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=57880053dd24012e9f59c23b630fefe07e15dc49
-X-Osstest-Versions-That: xen=90b1701905dd0cbb7efe525b1bf92007fe818b60
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 15 May 2020 22:37:27 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC81 (Win)/8.6.0_GA_1194)
+Thread-Topic: vm_event: fix race-condition when disabling monitor events
+Thread-Index: GQOYuTEZ4+ZEM83zLw5zzDot3iub4A==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,62 +84,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150209 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150209/
+> For the last couple years we have received numerous reports from users of
+> monitor vm_events of spurious guest crashes when using events. In particu=
+lar,
+> it has observed that the problem occurs when vm_events are being disabled=
+. The
+> nature of the guest crash varied widely and has only occured occasionally=
+. This
+> made debugging the issue particularly hard. We had discussions about this=
+ issue
+> even here on the xen-devel mailinglist with no luck figuring it out.
+>=20
+> The bug has now been identified as a race-condition between register even=
+t
+> handling and disabling the vm_event interface.
+>=20
+> Patch 96760e2fba100d694300a81baddb5740e0f8c0ee, "vm_event: deny register =
+writes
+> if refused by  vm_event reply" is the patch that introduced the error. In=
+ this
+> patch emulation of register write events can be postponed until the
+> corresponding vm_event handler decides whether to allow such write to tak=
+e
+> place. Unfortunately this can only be implemented by performing the deny/=
+allow
+> step when the vCPU gets scheduled. Due to that postponed emulation of the=
+ event
+> if the user decides to pause the VM in the vm_event handler and then disa=
+ble
+> events, the entire emulation step is skipped the next time the vCPU is re=
+sumed.
+> Even if the user doesn't pause during the vm_event handling but exits
+> immediately and disables vm_event, the situation becomes racey as disabli=
+ng
+> vm_event may succeed before the guest's vCPUs get scheduled with the pend=
+ing
+> emulation task. This has been particularly the case with VMs that have se=
+veral
+> vCPUs as after the VM is unpaused it may actually take a long time before=
+ all
+?vCPUs get scheduled.
+>=20
+> The only solution currently is to poll each vCPU before vm_events are dis=
+abled
+> to verify they had been scheduled. The following patches resolve this iss=
+ue in
+> a much nicer way.
+>=20
+> Patch 1 adds an option to the monitor_op domctl that needs to be specifie=
+d if
+>     the user wants to actually use the postponed register-write handling
+>     mechanism. If that option is not specified then handling is performed=
+ the
+>     same way as before patch 96760e2fba100d694300a81baddb5740e0f8c0ee.
+>    =20
+> Patch 2 performs sanity checking when disabling vm_events to determine wh=
+ether
+>     its safe to free all vm_event structures. The vCPUs still get unpause=
+d to
+>     allow them to get scheduled and perform any of their pending operatio=
+ns,
+>     but otherwise an -EAGAIN error is returned signaling to the user that=
+ they
+>     need to wait and try again disabling the interface.
+>    =20
+> Patch 3 adds a vm_event specifically to signal to the user when it is saf=
+e to
+>     continue disabling the interface.
+>    =20
+> Shout out to our friends at CERT.pl for stumbling upon a crucial piece of
+> information that lead to finally squashing this nasty bug.
+>=20
+> Tamas K Lengyel (3):
+>   xen/monitor: Control register values
+>   xen/vm_event: add vm_event_check_pending_op
+>   xen/vm_event: Add safe to disable vm_event
+>=20
+>  xen/arch/x86/hvm/hvm.c            | 69 +++++++++++++++++++++++--------
+>  xen/arch/x86/hvm/monitor.c        | 14 +++++++
+>  xen/arch/x86/monitor.c            | 23 ++++++++++-
+>  xen/arch/x86/vm_event.c           | 23 +++++++++++
+>  xen/common/vm_event.c             | 17 ++++++--
+>  xen/include/asm-arm/vm_event.h    |  7 ++++
+>  xen/include/asm-x86/domain.h      |  2 +
+>  xen/include/asm-x86/hvm/monitor.h |  1 +
+>  xen/include/asm-x86/vm_event.h    |  2 +
+>  xen/include/public/domctl.h       |  3 ++
+>  xen/include/public/vm_event.h     |  8 ++++
+>  11 files changed, 147 insertions(+), 22 deletions(-)
+>=20
+> --=20
+> 2.26.1
 
-Failures :-/ but no regressions.
+Hi,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+I have reproduced the mentioned race-condition between register event handl=
+ing and disabling the vm_event interface. With Xen 4.13.0 and Windows 7 x64=
+ DomU (2 VCPUs), my test program causes random BSODs on DomU once vm_event =
+interface is disabled. I can confirm that after applying Patch 1 to Xen 4.1=
+3.0 the test program doesn't crash the DomU anymore, so it would actually r=
+esolve the mentioned bug.
 
-version targeted for testing:
- xen                  57880053dd24012e9f59c23b630fefe07e15dc49
-baseline version:
- xen                  90b1701905dd0cbb7efe525b1bf92007fe818b60
-
-Last test of basis   150205  2020-05-15 17:01:32 Z    0 days
-Testing same since   150209  2020-05-15 20:01:39 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Hongyan Xia <hongyxia@amazon.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   90b1701905..57880053dd  57880053dd24012e9f59c23b630fefe07e15dc49 -> smoke
+Best regards,
+Micha=C5=82 Leszczy=C5=84ski
+CERT Poland
 
