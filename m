@@ -2,61 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD891D6856
+	by mail.lfdr.de (Postfix) with ESMTPS id 756B51D6855
 	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2020 15:56:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaJlX-0000tg-7o; Sun, 17 May 2020 13:55:43 +0000
+	id 1jaJly-0000vX-Ho; Sun, 17 May 2020 13:56:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mSDI=67=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jaJlW-0000tb-0Z
- for xen-devel@lists.xenproject.org; Sun, 17 May 2020 13:55:42 +0000
-X-Inumbo-ID: 181dce68-9846-11ea-b07b-bc764e2007e4
-Received: from mail-lj1-x242.google.com (unknown [2a00:1450:4864:20::242])
+ id 1jaJlw-0000vP-VE
+ for xen-devel@lists.xenproject.org; Sun, 17 May 2020 13:56:08 +0000
+X-Inumbo-ID: 281b21e4-9846-11ea-b07b-bc764e2007e4
+Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 181dce68-9846-11ea-b07b-bc764e2007e4;
- Sun, 17 May 2020 13:55:41 +0000 (UTC)
-Received: by mail-lj1-x242.google.com with SMTP id f18so6985243lja.13
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2020 06:55:41 -0700 (PDT)
+ id 281b21e4-9846-11ea-b07b-bc764e2007e4;
+ Sun, 17 May 2020 13:56:08 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id o14so7024483ljp.4
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2020 06:56:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7VpQcp51ccV4kzfWXX52bu/wmIwxl6pAmFUXhjFthJo=;
- b=GBMBz+qghMJt2JE6VWFyi3RCVsISeYD7MBtyRqCOI90dMPUaRnavEpoqzY16vZO5P4
- zJlaImHF9DDe7TySdj1M+qmd/YlMp5aveG/JnQvAXcjc+cnTvXWq+pdCg2xvm7qaa/xy
- zV19oJDyxkFStsxPtBLfSRy5zHOVnm84eKqXxOhWYjJT8l17jBxYJByJfmdclTznPe7I
- FC18uVb+82aLz2xwqeK6DfHko4u7l2dfY45Yk9oebkO/f3CYKCUBy1+eDfsZ/m7qXckB
- lSgsM/qH4v1EqXM0MQya/Fb5sKefKJFsGV63ySRD1HhmVrb1suXuSUFweULL2/beCj7g
- 0iWQ==
+ :cc:content-transfer-encoding;
+ bh=RaH2NXVxSetmRQwxowvpRUDcblAi66spguzDnjTLRSo=;
+ b=G4G9Ue0ZF+jd2fEINAh1dk7pZmjYb5ZgAaWDB/ByBTqG7UIeg/LDLrW08Zj1ExUMmI
+ tI1SKjxwKbE9hbNj9UoF3hBDTuPS59sDjd1TgyQcf3dbIX7VhCA/boznEATi+Wn5JkvR
+ QcmHJ7yi71m3fRxxXUCBQiUPMI/ciZMKw2rYfB2GOW285UQQl+n/q9kGWRke+9I1Jd2t
+ HRYlIQOfeg5yAZg1APP/08VgnyEmHJODQhsiMK4A/NlvQVRUdwdvlzf6d47sDgqIC6oa
+ dVL9isWRJT3YhccSz2ehs+NFUUvIlmfOzDa78i7spzFkLSjKnhKjP5UCl9+c4CXqvX1d
+ V8hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7VpQcp51ccV4kzfWXX52bu/wmIwxl6pAmFUXhjFthJo=;
- b=NzU4UkXpySZrvZrowZLihh/ns1sIKj5c44Zmu/YdMauDyXvBoI7ysd3MIry1NRTmH/
- Lm5RL2/w/G5HoTesWuyIMpIcefMfFF2CSjZhVRPb6/A71dG5W3e/jF6LXoeudHVGT8Kb
- Z1PdTgdYYFXKOmaiW1c8rycGjl/fhNlSeG9x1IxVQYTpH+PfPlYKEaNUVbpmUgqGzYum
- Osu+IcB7BcDn65ktzNYLesMXb6KKyPqiaHK7uCBFrMAkKxque1o7BN0PWzcz524T5VAF
- pR3xH/RmqQPHBA7VYKfZSvyVW4Ojlz3M/Ya422RRHD1qidxDJuvpQ3x2VZ8frZMqGSHX
- pcsw==
-X-Gm-Message-State: AOAM533gx+U2ijfh9g6IuhLDfIMhDZ2ix4TqLetmfIkozb02MgM3wmpY
- 91JubAmlItMh/ZT9BEK25GYWCemwG/YzB4I/HME=
-X-Google-Smtp-Source: ABdhPJzjKvvwdSJ1HbC3RIbbC9P2N5OTEjSc5nafwr9n0yji50HHmF0tOEaXnmmkX8iXq/vxHS4ELgXeZgnxmpEVa+s=
-X-Received: by 2002:a2e:3519:: with SMTP id z25mr7191720ljz.253.1589723740363; 
- Sun, 17 May 2020 06:55:40 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=RaH2NXVxSetmRQwxowvpRUDcblAi66spguzDnjTLRSo=;
+ b=VfKYY403d6N4iBGJCpRC9G4VPLLz/CZGOsYMaOU49gjsBEeTnwbV5Ul/mMVMVjhUv0
+ iw7aHQ6Yk0T1DmZuSt5H/hypKrvwkuQ3W/BL+LKGfyMPCpBkMEcjdYFWhMHwd41iZMX1
+ HausA7lWQAPS8NoJ2P1cKYGNjRTzjnQ786GQWOibn9En//KIoEhlSGAnj/wUYRhB7yiZ
+ 8hvoqJ/HXvKykqCFs6aQ4aeVCA0Rb4Igkcd7nMCej610F+4dZB6QV+DZ0FW40ilSeqae
+ usfiy/xv5+QrfqamxvtGxjyaU67c/XlMVP6S3PJY89k0KJjSY4kOZ1dKdXpWJMOoGqry
+ eTGA==
+X-Gm-Message-State: AOAM532HQ+YO7VeVR5W3KJLhzgxR7ojYyTY6iWAy3syOGK9SP4BSYRTW
+ KPMjVU6aSkZduReAYCiY3iHc70UgrXwUMUhlSZE=
+X-Google-Smtp-Source: ABdhPJw5xw7Qa6MR/gRnhQHpeNQBv2rxuIRdshlWdyC1UW0AL2GO5CFYyFV3dSY8RKkBlyuDqLelW60WFtGyOZ57o34=
+X-Received: by 2002:a2e:9005:: with SMTP id h5mr1031947ljg.246.1589723767212; 
+ Sun, 17 May 2020 06:56:07 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200428040433.23504-1-jandryuk@gmail.com>
- <20200428040433.23504-6-jandryuk@gmail.com>
- <24253.28579.577001.476506@mariner.uk.xensource.com>
-In-Reply-To: <24253.28579.577001.476506@mariner.uk.xensource.com>
+ <20200428040433.23504-10-jandryuk@gmail.com>
+ <24253.29524.798802.978257@mariner.uk.xensource.com>
+In-Reply-To: <24253.29524.798802.978257@mariner.uk.xensource.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Sun, 17 May 2020 09:55:28 -0400
-Message-ID: <CAKf6xpuYXFCZ+cfEWTQ4jZKt2fb+_gw+bcBq6DSHVQwSCLF81A@mail.gmail.com>
-Subject: Re: [PATCH v5 05/21] libxl: Handle Linux stubdomain specific QEMU
- options.
+Date: Sun, 17 May 2020 09:55:55 -0400
+Message-ID: <CAKf6xpvJMovKMTWipC4gZuBD8FgmBEWbDbkm=ryRWSxNifQcJw@mail.gmail.com>
+Subject: Re: [PATCH v5 09/21] libxl: add save/restore support for qemu-xen in
+ stubdomain
 To: Ian Jackson <ian.jackson@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,31 +69,72 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Simon Gaiser <simon@invisiblethingslab.com>,
- Anthony Perard <anthony.perard@citrix.com>,
+Cc: Anthony Perard <anthony.perard@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Eric Shelton <eshelton@pobox.com>
+ =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, May 14, 2020 at 12:19 PM Ian Jackson <ian.jackson@citrix.com> wrote:
-> Jason Andryuk writes ("[PATCH v5 05/21] libxl: Handle Linux stubdomain specific QEMU options."):
-> > @@ -1974,8 +2006,10 @@ static int libxl__build_device_model_args(libxl__gc *gc,
-> >                                                    args, envs,
-> >                                                    state);
-> >      case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-> > -        assert(dm_state_fd != NULL);
-> > -        assert(*dm_state_fd < 0);
-> > +        if (!libxl_defbool_val(guest_config->b_info.device_model_stubdomain)) {
-> > +            assert(dm_state_fd != NULL);
-> > +            assert(*dm_state_fd < 0);
-> > +     }
+On Thu, May 14, 2020 at 12:35 PM Ian Jackson <ian.jackson@citrix.com> wrote=
+:
 >
-> This } seems to be misindented ?
+> Jason Andryuk writes ("[PATCH v5 09/21] libxl: add save/restore support f=
+or qemu-xen in stubdomain"):
+> > From: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> >
+> > Rely on a wrapper script in stubdomain to attach FD 3/4 of qemu to
+> > relevant consoles.
+> >
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > Address TODO in dm_state_save_to_fdset: Only remove savefile for
+> > non-stubdom.
+> ...
+> > +        if (is_stubdom) {
+> > +            /* Linux stubdomain connects specific FD to STUBDOM_CONSOL=
+E_RESTORE
+> > +             */
+> > +            flexarray_append(dm_args, "-incoming");
+> > +            flexarray_append(dm_args, "fd:3");
+>
+> Would it be possible to use a different fixed fd number ?  Low numbers
+> are particularly vulnerable to clashes with autoallocated numbers.
+>
+> I suggest randomly allocating one in the range [64,192>.  My random
+> number generator picked 119.  So 118 and 119 ?
 
-This was a stray tab.  Fixed along with the { } changes.
+This makes sense and would be the easiest change.
 
-Thanks,
+> Also, why couldn't your wrapper script add this argument ?  If you do
+> that there then there is one place that knows the fd number and a
+> slightly less tortuous linkage between libxl and the script...
+
+I like this idea, but there is a complication.  "-incoming" is only
+added when performing a restore, so it cannot just be blindly added to
+all qemu command lines in the stubdom.  Two options I see are to
+either communicate a restore some other way (so the stubdom scripts
+can add the appropriate option), or pass something though dm_args, but
+let the script convert it into something usable.
+
+There is "-incoming defer" where we can later specify
+"migrate_incoming fd:119".  Another option is to `sed
+s/defer/fd:119/`, but that is a little tricky since we need to look at
+the preceding key to know if we should sed the second.  We could pass
+only "-incoming" and require the stubdom script to modify that option.
+
+I haven't tested any of this.
+
+> It's not stated anywhere here that I can see but I think what is
+> happening here is that your wrapper script knows the qemu savefile
+> pathname and reads it directly.  Maybbe a comment would be
+> worthwhile ?
+
+The existing comment "Linux stubdomain connects specific FD to
+STUBDOM_CONSOLE_RESTORE" is trying to state that.
+STUBDOM_CONSOLE_RESTORE is defined as 2 for console 2 (/dev/hvc2), but
+it is only a libxl_internal.h define.
+
+Regards,
 Jason
 
