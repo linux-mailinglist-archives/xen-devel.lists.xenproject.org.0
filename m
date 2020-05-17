@@ -2,59 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BBEC1D683B
-	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2020 15:16:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BD891D6856
+	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2020 15:56:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaJ8g-0005Yc-09; Sun, 17 May 2020 13:15:34 +0000
+	id 1jaJlX-0000tg-7o; Sun, 17 May 2020 13:55:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VT2+=67=yahoo.com=hack3rcon@srs-us1.protection.inumbo.net>)
- id 1jaJ8e-0005X0-7y
- for xen-devel@lists.xenproject.org; Sun, 17 May 2020 13:15:32 +0000
-X-Inumbo-ID: 7bd56d2c-9840-11ea-9887-bc764e2007e4
-Received: from sonic303-2.consmr.mail.bf2.yahoo.com (unknown [74.6.131.41])
+ <SRS0=mSDI=67=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1jaJlW-0000tb-0Z
+ for xen-devel@lists.xenproject.org; Sun, 17 May 2020 13:55:42 +0000
+X-Inumbo-ID: 181dce68-9846-11ea-b07b-bc764e2007e4
+Received: from mail-lj1-x242.google.com (unknown [2a00:1450:4864:20::242])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7bd56d2c-9840-11ea-9887-bc764e2007e4;
- Sun, 17 May 2020 13:15:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1589721330; bh=Ge/gHFIJDjB0LKhj6EBAtyXhKyAm2rHwT8NJxRHHmgM=;
- h=Date:From:Reply-To:To:Subject:References:From:Subject;
- b=rmIV3wkJl5uoQjG+H/453VPRHzxcswOy1FYBOjFupsbKEe8tvL4SDJT90LucGwpxQGoD0o9x/Tw963FawkQuS1PJiPyCMyy8tbQKYfGGvCZflAzc5+DO3Kg9yPNdHmp2zWWI6oQeF66rDgCYtjTUlbbJJJ0D8lTD9ENFN1iBg2rFynOcPhSFvZJFmCtJobRqBj9aX2dw2mB2PewV6nfSovuUGNAokWCIRtPhQNtTumiLYA3GAMXylZbLtvOd67Ow5xTH5oh5l9tf4XE+rG7LnDgFqK9oFnZJB0L49e/8qojQrXTiGdqnsE7gWBNgyTGgJ9wu6ZevE11Q3V5eKhmn7g==
-X-YMail-OSG: fdu9jOoVM1l0psyy2KlVRaKFt152dRQRz2ANDSdJNBj8gsYfwLSrkcZdBkRZ1wL
- _DPo2RNArfnzGAGu1qKR8DZVxC1TWYX6YLLzSfIbEB5Yr6_9F4e.KVVUGIlvsOOTtACkdbqqbftZ
- NBOz6HvZeDL2nmkZXF0vHmAZUaoWUrMGg9k5SK61zdX8_1ny9.IWcwtec0_ntPRUgLoqA8A8d2LC
- qy1TKcURhxwUAjHeKkPJ5O2Z4mc9r0KC4VzjypELPuPDVbgdKrGG4R79XPxiUxK9VRYlSNo2ndwf
- PBQLEQTS0H5JV6Fib3kKEzA2xTchTeSr_xLbLGFfzRip3AykmxJpXUwrsZUo6h8IgqXSGOC5pddY
- 1oOyyz38pbcwxnIDdFLsfo4AjdJMKGAo5duVIbP1oKVn2kaDuHtlxmAoWwWf8w5PG9A7ICYyEOyh
- VH2ng8DQ9.0Kgl6GszTyYff6Sb.NA5ZXHguAwQOp6cIgmZ3YYjBNgQx6ScRZFyHXv_CgcXynJhtw
- wMeL2R6HCqLsc8vektjvgu0aC.wQLm9_rryaW15VLQJrNG44IfkGmLwrWWZw2aNFd5_9v0iho7F_
- 1PyMOzmq8BFKwbT8uK_xUsj.7bDPQSEZbNX.XrNfry7wH2ubgcaBemPLA0ulRnNOVaqz.tl9MVkd
- _zxntuxcd81expxhg165y_txoLJnl59icLTTFYyeCe0El94Ra_3b8t3O8.ZbaZa5FN7L_wICk.vD
- VQBvDk30tJUH7Qr4OTs9U803tiAwcUR0HjDez6.PhP4HoL9Hwv054q5deE5ULPA5zHW_pWAItgo2
- lVcq2ETftiEbLmKdK0czVNJvxll1M975rfVF2UNkGmb4B86oXTmF4q4o7wp3eI1WXc5XbXlEVZ_h
- zZ9UJEiy.ih3OG6NM9he6L96RPAqX_CPGqrZV5l.30ywxqMcCm.2wXi3wgHf7xfPTCWmI6m.dXeR
- LgHU3xO0qAUHwYJSibDaQGQWniLU4JFQJr45UAUKu1rG1al4CZ21L3tHH_zXRAgM1avgiGpfVeki
- SbwhvEuzC4DsWnSjQkgRubjZ0Ht94JLjNsMKb5ViHfdAtZWttT2s4JjM2_Th3v2yShXvOHfCiovA
- JupIXnjQRA6._mUDmBPEajMewg5_2DstiTKLRQDCKHWE0.T_gjG5kC2xOOJRI8ZxBFYqaGh7QojA
- ScA7ytf3uGRm4Cf.cLJX1c8OjHDFN4dgWCqAZNJCAFS1mgn_MWrA_W0dDsdyks1d0BNSHB_4rI15
- y9oOFO_XwOqlk1jUqgEzwjT_Y3Ze.ehvU3qiWAtZfOl4kR8RQJL4sYRQbXPg7OEp1O4t3GgQl8D2
- 7A8.Ms2DCkGJ8OfL1zavBafnGHf9ibYvortsfgC9EKA--
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic303.consmr.mail.bf2.yahoo.com with HTTP; Sun, 17 May 2020 13:15:30 +0000
-Date: Sun, 17 May 2020 13:15:29 +0000 (UTC)
-From: Jason Long <hack3rcon@yahoo.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <1478987168.271548.1589721329818@mail.yahoo.com>
-Subject: RoCE adapters and Xen.
+ id 181dce68-9846-11ea-b07b-bc764e2007e4;
+ Sun, 17 May 2020 13:55:41 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id f18so6985243lja.13
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2020 06:55:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7VpQcp51ccV4kzfWXX52bu/wmIwxl6pAmFUXhjFthJo=;
+ b=GBMBz+qghMJt2JE6VWFyi3RCVsISeYD7MBtyRqCOI90dMPUaRnavEpoqzY16vZO5P4
+ zJlaImHF9DDe7TySdj1M+qmd/YlMp5aveG/JnQvAXcjc+cnTvXWq+pdCg2xvm7qaa/xy
+ zV19oJDyxkFStsxPtBLfSRy5zHOVnm84eKqXxOhWYjJT8l17jBxYJByJfmdclTznPe7I
+ FC18uVb+82aLz2xwqeK6DfHko4u7l2dfY45Yk9oebkO/f3CYKCUBy1+eDfsZ/m7qXckB
+ lSgsM/qH4v1EqXM0MQya/Fb5sKefKJFsGV63ySRD1HhmVrb1suXuSUFweULL2/beCj7g
+ 0iWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7VpQcp51ccV4kzfWXX52bu/wmIwxl6pAmFUXhjFthJo=;
+ b=NzU4UkXpySZrvZrowZLihh/ns1sIKj5c44Zmu/YdMauDyXvBoI7ysd3MIry1NRTmH/
+ Lm5RL2/w/G5HoTesWuyIMpIcefMfFF2CSjZhVRPb6/A71dG5W3e/jF6LXoeudHVGT8Kb
+ Z1PdTgdYYFXKOmaiW1c8rycGjl/fhNlSeG9x1IxVQYTpH+PfPlYKEaNUVbpmUgqGzYum
+ Osu+IcB7BcDn65ktzNYLesMXb6KKyPqiaHK7uCBFrMAkKxque1o7BN0PWzcz524T5VAF
+ pR3xH/RmqQPHBA7VYKfZSvyVW4Ojlz3M/Ya422RRHD1qidxDJuvpQ3x2VZ8frZMqGSHX
+ pcsw==
+X-Gm-Message-State: AOAM533gx+U2ijfh9g6IuhLDfIMhDZ2ix4TqLetmfIkozb02MgM3wmpY
+ 91JubAmlItMh/ZT9BEK25GYWCemwG/YzB4I/HME=
+X-Google-Smtp-Source: ABdhPJzjKvvwdSJ1HbC3RIbbC9P2N5OTEjSc5nafwr9n0yji50HHmF0tOEaXnmmkX8iXq/vxHS4ELgXeZgnxmpEVa+s=
+X-Received: by 2002:a2e:3519:: with SMTP id z25mr7191720ljz.253.1589723740363; 
+ Sun, 17 May 2020 06:55:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
- boundary="----=_Part_271547_1740513832.1589721329817"
-References: <1478987168.271548.1589721329818.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.15960 YahooMailAndroidMobile YMobile/1.0
- (com.yahoo.mobile.client.android.mail/6.7.1; Android/7.1.1; NMF26F; bbc100;
- BlackBerry; BBC100-1; 5.16; 1184x720; )
+References: <20200428040433.23504-1-jandryuk@gmail.com>
+ <20200428040433.23504-6-jandryuk@gmail.com>
+ <24253.28579.577001.476506@mariner.uk.xensource.com>
+In-Reply-To: <24253.28579.577001.476506@mariner.uk.xensource.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Sun, 17 May 2020 09:55:28 -0400
+Message-ID: <CAKf6xpuYXFCZ+cfEWTQ4jZKt2fb+_gw+bcBq6DSHVQwSCLF81A@mail.gmail.com>
+Subject: Re: [PATCH v5 05/21] libxl: Handle Linux stubdomain specific QEMU
+ options.
+To: Ian Jackson <ian.jackson@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,20 +67,31 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: "hack3rcon@yahoo.com" <hack3rcon@yahoo.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Simon Gaiser <simon@invisiblethingslab.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Eric Shelton <eshelton@pobox.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-------=_Part_271547_1740513832.1589721329817
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+On Thu, May 14, 2020 at 12:19 PM Ian Jackson <ian.jackson@citrix.com> wrote:
+> Jason Andryuk writes ("[PATCH v5 05/21] libxl: Handle Linux stubdomain specific QEMU options."):
+> > @@ -1974,8 +2006,10 @@ static int libxl__build_device_model_args(libxl__gc *gc,
+> >                                                    args, envs,
+> >                                                    state);
+> >      case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
+> > -        assert(dm_state_fd != NULL);
+> > -        assert(*dm_state_fd < 0);
+> > +        if (!libxl_defbool_val(guest_config->b_info.device_model_stubdomain)) {
+> > +            assert(dm_state_fd != NULL);
+> > +            assert(*dm_state_fd < 0);
+> > +     }
+>
+> This } seems to be misindented ?
 
-Hello,The Xen hypervisor doesn't support the RoCE adapters? The Oracle migrates to the KVM because of it.Why not add this feature?
-Cheers.
-------=_Part_271547_1740513832.1589721329817
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+This was a stray tab.  Fixed along with the { } changes.
 
-Hello,<div id="yMail_cursorElementTracker_1589721184566">The Xen hypervisor doesn't support the RoCE adapters? The Oracle migrates to the KVM because of it.</div><div id="yMail_cursorElementTracker_1589721247290">Why not add this feature?</div><div id="yMail_cursorElementTracker_1589721258410"><br></div><div id="yMail_cursorElementTracker_1589721258680">Cheers.</div>
-------=_Part_271547_1740513832.1589721329817--
+Thanks,
+Jason
 
