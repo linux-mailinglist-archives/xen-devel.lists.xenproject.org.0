@@ -2,66 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1246D1D7979
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 15:17:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 103291D7997
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 15:20:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jafe4-0006rU-9q; Mon, 18 May 2020 13:17:28 +0000
+	id 1jafgQ-00077G-RZ; Mon, 18 May 2020 13:19:54 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pKIP=7A=redhat.com=armbru@srs-us1.protection.inumbo.net>)
- id 1jafe2-0006rF-J7
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 13:17:26 +0000
-X-Inumbo-ID: ea7ec84e-9909-11ea-a863-12813bfff9fa
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id ea7ec84e-9909-11ea-a863-12813bfff9fa;
- Mon, 18 May 2020 13:17:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1589807845;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hO5s4pwgSKIz4wc7eUJFUZw07FYxYL3A4Zvi1+EiJ8I=;
- b=hDlzNGJeUPsBv0j196s3475GFJ8RvOGfURpG9GZUWm0alYDGQeK86g+TCXqFDJ17egHjwS
- OsJzWpH/GfXOtxgA+ig5EX3WUDNehAJK7AeUqa1LOW7HoX4E7DfHMJcnf2l8tn+WvEwin1
- XEVPzSTOahkY/JEFD1a91mEOVbKmJ4U=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-485-HRl-J9wqPuicx608h3qMiw-1; Mon, 18 May 2020 09:17:23 -0400
-X-MC-Unique: HRl-J9wqPuicx608h3qMiw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F518872FE0;
- Mon, 18 May 2020 13:17:20 +0000 (UTC)
-Received: from blackfin.pond.sub.org (ovpn-112-32.ams2.redhat.com
- [10.36.112.32])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 37AA22E161;
- Mon, 18 May 2020 13:17:12 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id BC6FF11358BC; Mon, 18 May 2020 15:17:10 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH v3 0/3] various: Remove unnecessary casts
-References: <20200512070020.22782-1-f4bug@amsat.org>
- <871rnlsps6.fsf@dusky.pond.sub.org>
- <8791b385-8493-f81d-5ee3-cca5b8559c27@redhat.com>
-Date: Mon, 18 May 2020 15:17:10 +0200
-In-Reply-To: <8791b385-8493-f81d-5ee3-cca5b8559c27@redhat.com> (Paolo
- Bonzini's message of "Mon, 18 May 2020 14:40:19 +0200")
-Message-ID: <87imgt9ycp.fsf@dusky.pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
+ (envelope-from <SRS0=hVld=7A=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jafgP-00077A-Hj
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 13:19:53 +0000
+X-Inumbo-ID: 41d15d00-990a-11ea-a863-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 41d15d00-990a-11ea-a863-12813bfff9fa;
+ Mon, 18 May 2020 13:19:52 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 25FF8B209;
+ Mon, 18 May 2020 13:19:54 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v5] x86: clear RDRAND CPUID bit on AMD family 15h/16h
+Message-ID: <4f76749b-54bd-7c39-6c90-279ce25cb57c@suse.com>
+Date: Mon, 18 May 2020 15:19:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,50 +44,168 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>, Paul Durrant <paul@xen.org>,
- Jason Wang <jasowang@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
- Laurent Vivier <laurent@vivier.eu>, Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
- qemu-trivial@nongnu.org, David Hildenbrand <david@redhat.com>,
- Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
- Joel Stanley <joel@jms.id.au>, Anthony Perard <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org, David Gibson <david@gibson.dropbear.id.au>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
- Eduardo Habkost <ehabkost@redhat.com>, Corey Minyard <minyard@acm.org>,
- "Dr. David Alan
- Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org, qemu-arm@nongnu.org,
- Peter Chubb <peter.chubb@nicta.com.au>,
- =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>, John Snow <jsnow@redhat.com>,
- Richard Henderson <rth@twiddle.net>,
- "Daniel P. =?utf-8?Q?Berrang=C3=A9?=" <berrange@redhat.com>,
- Andrew Jeffery <andrew@aj.id.au>, Cornelia Huck <cohuck@redhat.com>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>, qemu-ppc@nongnu.org,
- Aurelien Jarno <aurelien@aurel32.net>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Paolo Bonzini <pbonzini@redhat.com> writes:
+Inspired by Linux commit c49a0a80137c7ca7d6ced4c812c9e07a949f6f24:
 
-> On 15/05/20 07:58, Markus Armbruster wrote:
->> Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> writes:
->>=20
->>> Remove unnecessary casts using coccinelle scripts.
->>>
->>> The CPU()/OBJECT() patches don't introduce logical change,
->>> The DEVICE() one removes various OBJECT_CHECK() calls.
->> Queued, thanks!
->>=20
->> Managing expecations: I'm not a QOM maintainer, I don't want to become
->> one, and I don't normally queue QOM patches :)
->>=20
->
-> I want to be again a QOM maintainer, but it's not the best time for me
-> to be one.  So thanks for picking up my slack.
+    There have been reports of RDRAND issues after resuming from suspend on
+    some AMD family 15h and family 16h systems. This issue stems from a BIOS
+    not performing the proper steps during resume to ensure RDRAND continues
+    to function properly.
 
-You're welcome :)
+    Update the CPU initialization to clear the RDRAND CPUID bit for any family
+    15h and 16h processor that supports RDRAND. If it is known that the family
+    15h or family 16h system does not have an RDRAND resume issue or that the
+    system will not be placed in suspend, the "cpuid=rdrand" kernel parameter
+    can be used to stop the clearing of the RDRAND CPUID bit.
 
+    Note, that clearing the RDRAND CPUID bit does not prevent a processor
+    that normally supports the RDRAND instruction from executing it. So any
+    code that determined the support based on family and model won't #UD.
+
+Warn if no explicit choice was given on affected hardware.
+
+Check RDRAND functions at boot as well as after S3 resume (the retry
+limit chosen is entirely arbitrary).
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Still slightly RFC, and still in particular because of the change to
+parse_xen_cpuid(): Alternative approach suggestions are welcome. But now
+also because with many CPUs there may now be a lot of warnings in case
+of issues.
+---
+v5: Extend a comment. Drop cpu_relax(). Mark is_forced_cpu_cap() __init.
+v4: Check always, including during boot. Slightly better sanity check,
+    inspired by Linux commit 7879fc4bdc7.
+v3: Add call to warning_add(). If force-enabled, check RDRAND still
+    functioning after S3 resume.
+v2: Re-base.
+
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -488,6 +488,10 @@ The Speculation Control hardware feature
+ be ignored, e.g. `no-ibrsb`, at which point Xen won't use them itself, and
+ won't offer them to guests.
+ 
++`rdrand` can be used to override the default disabling of the feature on certain
++AMD systems.  Its negative form can of course also be used to suppress use and
++exposure of the feature.
++
+ ### cpuid_mask_cpu
+ > `= fam_0f_rev_[cdefg] | fam_10_rev_[bc] | fam_11_rev_b`
+ 
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -4,6 +4,7 @@
+ #include <xen/param.h>
+ #include <xen/smp.h>
+ #include <xen/pci.h>
++#include <xen/warning.h>
+ #include <asm/io.h>
+ #include <asm/msr.h>
+ #include <asm/processor.h>
+@@ -747,6 +748,26 @@ static void init_amd(struct cpuinfo_x86
+ 		if (acpi_smi_cmd && (acpi_enable_value | acpi_disable_value))
+ 			amd_acpi_c1e_quirk = true;
+ 		break;
++
++	case 0x15: case 0x16:
++		/*
++		 * There are some Fam15/Fam16 systems where upon resume from S3
++		 * firmware fails to re-setup properly functioning RDRAND.
++		 * By the time we can spot the problem, it is too late to take
++		 * action, and there is nothing Xen can do to repair the problem.
++		 * Clear the feature unless force-enabled on the command line.
++		 */
++		if (c == &boot_cpu_data &&
++		    cpu_has(c, X86_FEATURE_RDRAND) &&
++		    !is_forced_cpu_cap(X86_FEATURE_RDRAND)) {
++			static const char __initconst text[] =
++				"RDRAND may cease to work on this hardware upon resume from S3.\n"
++				"Please choose an explicit cpuid={no-}rdrand setting.\n";
++
++			setup_clear_cpu_cap(X86_FEATURE_RDRAND);
++			warning_add(text);
++		}
++		break;
+ 	}
+ 
+ 	display_cacheinfo(c);
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -11,6 +11,7 @@
+ #include <asm/io.h>
+ #include <asm/mpspec.h>
+ #include <asm/apic.h>
++#include <asm/random.h>
+ #include <asm/setup.h>
+ #include <mach_apic.h>
+ #include <public/sysctl.h> /* for XEN_INVALID_{SOCKET,CORE}_ID */
+@@ -98,6 +99,11 @@ void __init setup_force_cpu_cap(unsigned
+ 	__set_bit(cap, boot_cpu_data.x86_capability);
+ }
+ 
++bool __init is_forced_cpu_cap(unsigned int cap)
++{
++	return test_bit(cap, forced_caps);
++}
++
+ static void default_init(struct cpuinfo_x86 * c)
+ {
+ 	/* Not much we can do here... */
+@@ -498,6 +504,27 @@ void identify_cpu(struct cpuinfo_x86 *c)
+ 	printk("\n");
+ #endif
+ 
++	/*
++	 * If RDRAND is available, make an attempt to check that it actually
++	 * (still) works.
++	 */
++	if (cpu_has(c, X86_FEATURE_RDRAND)) {
++		unsigned int prev = 0;
++
++		for (i = 0; i < 5; ++i)
++		{
++			unsigned int cur = arch_get_random();
++
++			if (prev && cur != prev)
++				break;
++			prev = cur;
++		}
++
++		if (i >= 5)
++			printk(XENLOG_WARNING "CPU%u: RDRAND appears to not work\n",
++			       smp_processor_id());
++	}
++
+ 	if (system_state == SYS_STATE_resume)
+ 		return;
+ 
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -72,6 +72,9 @@ static int __init parse_xen_cpuid(const
+             {
+                 if ( !val )
+                     setup_clear_cpu_cap(mid->bit);
++                else if ( mid->bit == X86_FEATURE_RDRAND &&
++                          (cpuid_ecx(1) & cpufeat_mask(X86_FEATURE_RDRAND)) )
++                    setup_force_cpu_cap(X86_FEATURE_RDRAND);
+                 mid = NULL;
+             }
+ 
+--- a/xen/include/asm-x86/processor.h
++++ b/xen/include/asm-x86/processor.h
+@@ -165,6 +165,7 @@ extern const struct x86_cpu_id *x86_matc
+ extern void identify_cpu(struct cpuinfo_x86 *);
+ extern void setup_clear_cpu_cap(unsigned int);
+ extern void setup_force_cpu_cap(unsigned int);
++extern bool is_forced_cpu_cap(unsigned int);
+ extern void print_cpu_info(unsigned int cpu);
+ extern void init_intel_cacheinfo(struct cpuinfo_x86 *c);
+ 
 
