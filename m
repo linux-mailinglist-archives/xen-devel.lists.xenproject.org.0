@@ -2,55 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9351B1D796F
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 15:15:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E193A1D7978
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 15:17:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jafcR-0006dv-EI; Mon, 18 May 2020 13:15:47 +0000
+	id 1jafda-0006nB-0M; Mon, 18 May 2020 13:16:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/+tu=7A=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jafcP-0006do-PN
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 13:15:45 +0000
-X-Inumbo-ID: aeaf1e40-9909-11ea-b07b-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=hVld=7A=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jafdY-0006my-PT
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 13:16:56 +0000
+X-Inumbo-ID: d735db2e-9909-11ea-ae69-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id aeaf1e40-9909-11ea-b07b-bc764e2007e4;
- Mon, 18 May 2020 13:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NhDnZvpcDeGZ65uLgD9pNSdYv9QgJZf6F3tFtD4GQ+w=; b=xjnq5gPi9bggAZ7cXwfE857poU
- WJT1eGlht7AwSom1wM6HCZRFyslEEtH6K1INQD9Uvc87C9iElMpsh6w7jYGjIg4+SeTJaFVap9iFM
- nMi5ltXlpJmL3d4TPg8IAXdDXEIkC605I8tQvo5yyW5vqc9ejDl3gDmgTBMdd5ArdH9E=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jafcM-00008D-NE; Mon, 18 May 2020 13:15:42 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jafcM-0006d4-FZ; Mon, 18 May 2020 13:15:42 +0000
-Subject: Re: [RESEND PATCH v2 for-4.14] pvcalls: Document correctly and
- explicitely the padding for all arches
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200516102157.1928-1-julien@xen.org>
- <31a7d5b0-4e4f-960c-d4e0-8e87bf489db2@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <8b0aa4b3-9220-ab13-aa8f-2b7907a3efdf@xen.org>
-Date: Mon, 18 May 2020 14:15:40 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+ id d735db2e-9909-11ea-ae69-bc764e2007e4;
+ Mon, 18 May 2020 13:16:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 8708DAE72;
+ Mon, 18 May 2020 13:16:55 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: determine MXCSR mask in all cases
+Message-ID: <687f8a71-5c5c-c95e-146d-8f38211e5e00@suse.com>
+Date: Mon, 18 May 2020 15:16:51 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <31a7d5b0-4e4f-960c-d4e0-8e87bf489db2@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -62,49 +43,71 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+For its use(s) by the emulator to be correct in all cases, the filling
+of the variable needs to be independent of XSAVE availability. As
+there's no suitable function in i387.c to put the logic in, keep it in
+xstate_init(), arrange for the function to be called unconditionally,
+and pull the logic ahead of all return paths there.
 
-On 18/05/2020 12:51, Jan Beulich wrote:
-> On 16.05.2020 12:21, Julien Grall wrote:
->> --- a/xen/include/public/io/pvcalls.h
->> +++ b/xen/include/public/io/pvcalls.h
->> @@ -65,6 +65,9 @@ struct xen_pvcalls_request {
->>               uint32_t domain;
->>               uint32_t type;
->>               uint32_t protocol;
->> +#ifndef CONFIG_X86_32
->> +            uint8_t pad[4];
->> +#endif
-> 
-> There's no concept of CONFIG_* in the public headers, the dependency
-> (as you'll find elsewhere) is on __i386__ / __x86_64__.
+Fixes: 9a4496a35b20 ("x86emul: support {,V}{LD,ST}MXCSR")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Doh, I forgot it. I will fix it.
-
-> Also whether
-> there's any padding really doesn't depend directly on the architecture,
-> but instead on __alignof__(uint64_t) (i.e. a future port to a 32-bit
-> arch, even if - like on x86 - just a guest bitness, may similarly
-> want / need / have no padding here).
-
-Lets imagine someone decide to introduce 32-bit and then later on 
-64-bit. Both have different padding requirements. This would result to 
-the same mess as on x86.
-
-So I think we shouldn't depend on __alignof__(uint64_t) to avoid any 
-more screw up. Obviously extra care would need to be taken if the 
-padding is higher, but it is also true in many other place of Xen headers.
-
-Cheers,
-
--- 
-Julien Grall
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -488,8 +488,7 @@ void identify_cpu(struct cpuinfo_x86 *c)
+ 
+ 	/* Now the feature flags better reflect actual CPU features! */
+ 
+-	if ( cpu_has_xsave )
+-		xstate_init(c);
++	xstate_init(c);
+ 
+ #ifdef NOISY_CAPS
+ 	printk(KERN_DEBUG "CPU: After all inits, caps:");
+--- a/xen/arch/x86/xstate.c
++++ b/xen/arch/x86/xstate.c
+@@ -588,6 +588,18 @@ void xstate_init(struct cpuinfo_x86 *c)
+     u32 eax, ebx, ecx, edx;
+     u64 feature_mask;
+ 
++    if ( bsp )
++    {
++        static typeof(current->arch.xsave_area->fpu_sse) __initdata ctxt;
++
++        asm ( "fxsave %0" : "=m" (ctxt) );
++        if ( ctxt.mxcsr_mask )
++            mxcsr_mask = ctxt.mxcsr_mask;
++    }
++
++    if ( !cpu_has_xsave )
++        return;
++
+     if ( (bsp && !use_xsave) ||
+          boot_cpu_data.cpuid_level < XSTATE_CPUID )
+     {
+@@ -611,8 +623,6 @@ void xstate_init(struct cpuinfo_x86 *c)
+ 
+     if ( bsp )
+     {
+-        static typeof(current->arch.xsave_area->fpu_sse) __initdata ctxt;
+-
+         xfeature_mask = feature_mask;
+         /*
+          * xsave_cntxt_size is the max size required by enabled features.
+@@ -621,10 +631,6 @@ void xstate_init(struct cpuinfo_x86 *c)
+         xsave_cntxt_size = _xstate_ctxt_size(feature_mask);
+         printk("xstate: size: %#x and states: %#"PRIx64"\n",
+                xsave_cntxt_size, xfeature_mask);
+-
+-        asm ( "fxsave %0" : "=m" (ctxt) );
+-        if ( ctxt.mxcsr_mask )
+-            mxcsr_mask = ctxt.mxcsr_mask;
+     }
+     else
+     {
 
