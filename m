@@ -2,59 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B47B71D6E75
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 03:15:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB93C1D6E77
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 03:15:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaUMs-0008T3-35; Mon, 18 May 2020 01:14:58 +0000
+	id 1jaUMx-0008UK-Fy; Mon, 18 May 2020 01:15:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tJLm=7A=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jaUMq-0008Sx-Rc
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 01:14:56 +0000
-X-Inumbo-ID: f7337eb4-98a4-11ea-ae69-bc764e2007e4
-Received: from mail-qk1-x744.google.com (unknown [2607:f8b0:4864:20::744])
+ id 1jaUMv-0008U5-SI
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 01:15:01 +0000
+X-Inumbo-ID: f92d3b24-98a4-11ea-b9cf-bc764e2007e4
+Received: from mail-qt1-x842.google.com (unknown [2607:f8b0:4864:20::842])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f7337eb4-98a4-11ea-ae69-bc764e2007e4;
- Mon, 18 May 2020 01:14:47 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id z80so8666542qka.0
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2020 18:14:47 -0700 (PDT)
+ id f92d3b24-98a4-11ea-b9cf-bc764e2007e4;
+ Mon, 18 May 2020 01:14:51 +0000 (UTC)
+Received: by mail-qt1-x842.google.com with SMTP id a23so1134322qto.1
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2020 18:14:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=3tvoe8SF1AjGsABKutuEKPrEzuPGqgtVPQhRYGoZ/qw=;
- b=EqaonDD1s63rJJcyTTB0dwNKRO7dRlGbjoVwcid1g/eOXpEooPxdi4HHl8eWvdpkSt
- kWpiCfceq4V8/WcdVlWw7gFIyYgS5diJXVyzA5aOXWMPsoTg9OjfC4uG85JwyKrCIAik
- CC9wzu5mNTzBxjcItSRQVmx9b+fdCxNtpI89u0OcBXQfVFTuXyMtMnl0J+xURksB/ocF
- lt/KmyD0nlof1MY8YwtMRuNGhNZZXwjrl5Gd0/cbhNJwQxl42FYbiVmKF7AaV9WhHgfh
- tfg++Qx2Q8R9b9QLq74Aj04CNVKKYrSXwE3vUiK8g4yEHRsF3dx4c6HtsK+WF3BeCO8v
- PBiw==
+ bh=BWSyY9N8FyMXoF1yPMPDtUrpbXjsGUwF5REIL/gyKE4=;
+ b=dmYzjqhn8djThiD2veq57JdGz25GPorcVaEokl2lHY+o69SGbl/uoxQ1RZCUEe4XZ+
+ CdP6adOaOBbmJcRmbZbYX3YgVEz55ewTwrPuHXvm95IyZbWqH3scoAjIhi6QDHl+sb6e
+ tL30WijZOeD8Y+jmufz+6CCWH7l0aGfp748EWFOWb9AQW4T0yRvnRlKf6KJvUy9gCFFh
+ dGrmCC9DsDnFF5YqMUDumDQxT0v1nzx9Ci4MbTaMGb/bui5n0x6X0zpJH/4h4OXIQpaw
+ XH6C6bVbmFxkvsQqofYtzg7xf3YsTjycd9iyVCsLTpeXclxxFijq9DRE5YYUzB06mIfY
+ i1sQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=3tvoe8SF1AjGsABKutuEKPrEzuPGqgtVPQhRYGoZ/qw=;
- b=l6JKWb81luA3nVGjUrG1+TTRX9Jgdr7u2JPHUYYI0sVzCX2Nd8Bud7lbJ7TN+0MNH9
- +1f226caSZ7UEAdJkgFGCIGtWRgiYhjGy3Ss7DOaBpyof/mfklvBfNAAtLvr67gHR+t3
- 2CXh3GxpUgOPL/u72ZRfsEP1Mt1F/AVRcAiwlEBhgGRByrCla4ifAlHW62S4c2XghWSv
- JOAHj4sj+zThd6ANZ0JQIaTUMRMZUDAfpTvzgbbYIQRNR1moPx94FmkzD/QYenqvrTTF
- t+OkBbYjJWdp5poerbCg5r3/8gE1vf5PSfaYnDsrDOUE/zQm9Va9la7cPrIYo8/ppV33
- Cy3A==
-X-Gm-Message-State: AOAM532j7vbtLFRxywkw33kCKgZCtcx4LmK0V2K224ZQZxivWFCYL9up
- e16PJOznUAQFV+F/mkQ3l6HRZ/FA
-X-Google-Smtp-Source: ABdhPJx+0nrOUsdpBC+yOU0jzbNkIHJpkML3dNlwR+94zjFMhrwW4iamZSUQB1230VZmiawf0rfVPw==
-X-Received: by 2002:a37:8844:: with SMTP id k65mr13969716qkd.309.1589764487202; 
- Sun, 17 May 2020 18:14:47 -0700 (PDT)
+ bh=BWSyY9N8FyMXoF1yPMPDtUrpbXjsGUwF5REIL/gyKE4=;
+ b=N0poky+kT4/hjGdYMsCjpQiAHAA9+qernI8bNm7l2Tp6IEB8b9wrsbis2pZHkmAMU6
+ C6JJAovHP488nOyY4j+q8H0UvmiDf/aZE7TRsES7HBV9oi+6MnOspAL5RTC6UvG2RvuH
+ +1E83rszwtnCaSaC+hXc4RV/GN54XdqTHSayB+cAKi+zLRjdzoJBm1bDHt3plxHhTDUh
+ OtNCc7l1wtKe1wtJWyL3eufMc91CBujlaY4B7tvOUehkpuse3Xju6GnE0eXteB2qCqpZ
+ k9MTVftTcA/OaQm4Q0lh/ftiilnvEMEMI3QC0ZnG2n8BnGNw7o2nuqor5ZSi2gtwBpel
+ +C/w==
+X-Gm-Message-State: AOAM532fdggrclJN7raGn1+VSaB8ec3VFC8P3fUrqPb7YnusBO0k7h2G
+ kZCIdLBycSp9PZUEnVREwsYfOxAk
+X-Google-Smtp-Source: ABdhPJyQ8nGpESmVdZae8TILsY1KpZ+Wbr4ArZ7xFlRRhBuWFQQSSMn+p/7NqkeImxBSOkezy/nJ/Q==
+X-Received: by 2002:aed:3b75:: with SMTP id q50mr14557795qte.23.1589764490424; 
+ Sun, 17 May 2020 18:14:50 -0700 (PDT)
 Received: from shine.lan ([2001:470:8:67e:ec68:c92e:af5a:2d3a])
- by smtp.gmail.com with ESMTPSA id l2sm7072864qkd.57.2020.05.17.18.14.45
+ by smtp.gmail.com with ESMTPSA id l2sm7072864qkd.57.2020.05.17.18.14.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2020 18:14:46 -0700 (PDT)
+ Sun, 17 May 2020 18:14:49 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v6 03/18] libxl: fix qemu-trad cmdline for no sdl/vnc case
-Date: Sun, 17 May 2020 21:13:38 -0400
-Message-Id: <20200518011353.326287-4-jandryuk@gmail.com>
+Subject: [PATCH v6 04/18] libxl: Allow running qemu-xen in stubdomain
+Date: Sun, 17 May 2020 21:13:39 -0400
+Message-Id: <20200518011353.326287-5-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200518011353.326287-1-jandryuk@gmail.com>
 References: <20200518011353.326287-1-jandryuk@gmail.com>
@@ -71,8 +71,8 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wei.liu2@citrix.com>, Wei Liu <wl@xen.org>,
- Jason Andryuk <jandryuk@gmail.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+Cc: Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
  =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, Anthony PERARD <anthony.perard@citrix.com>,
  Ian Jackson <ian.jackson@citrix.com>
@@ -81,55 +81,76 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-When qemu is running in stubdomain, any attempt to initialize vnc/sdl
-there will crash it (on failed attempt to load a keymap from a file). If
-vfb is present, all those cases are skipped. But since
-b053f0c4c9e533f3d97837cf897eb920b8355ed3 "libxl: do not start dom0 qemu
-for stubdomain when not needed" it is possible to create a stubdomain
-without vfb and contrary to the comment -vnc none do trigger VNC
-initialization code (just skips exposing it externally).
-Change the implicit SDL avoiding method to -nographics option, used when
-none of SDL or VNC is enabled.
+Do not prohibit anymore using stubdomain with qemu-xen.
+To help distingushing MiniOS and Linux stubdomain, add helper inline
+functions libxl__stubdomain_is_linux() and
+libxl__stubdomain_is_linux_running(). Those should be used where really
+the difference is about MiniOS/Linux, not qemu-xen/qemu-xen-traditional.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-Acked-by: Wei Liu <wei.liu2@citrix.com>
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
-Changes in v2:
- - typo in qemu option
-Changes in v3:
- - add missing { }
----
- tools/libxl/libxl_dm.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
-index f4007bbe50..b91e63db6f 100644
---- a/tools/libxl/libxl_dm.c
-+++ b/tools/libxl/libxl_dm.c
-@@ -734,14 +734,15 @@ static int libxl__build_device_model_args_old(libxl__gc *gc,
-         if (libxl_defbool_val(vnc->findunused)) {
-             flexarray_append(dm_args, "-vncunused");
+---
+Changes in v3:
+ - new patch, instead of "libxl: Add "stubdomain_version" to
+ domain_build_info"
+ - helper functions as suggested by Ian Jackson
+Changes in v6:
+ - Add Acked-by: Ian Jackson
+---
+ tools/libxl/libxl_create.c   |  9 ---------
+ tools/libxl/libxl_internal.h | 17 +++++++++++++++++
+ 2 files changed, 17 insertions(+), 9 deletions(-)
+
+diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
+index 5a043df15f..433947abab 100644
+--- a/tools/libxl/libxl_create.c
++++ b/tools/libxl/libxl_create.c
+@@ -171,15 +171,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
          }
--    } else
-+    } else if (!sdl) {
-         /*
-          * VNC is not enabled by default by qemu-xen-traditional,
--         * however passing -vnc none causes SDL to not be
--         * (unexpectedly) enabled by default. This is overridden by
--         * explicitly passing -sdl below as required.
-+         * however skipping -vnc causes SDL to be
-+         * (unexpectedly) enabled by default. If undesired, disable graphics at
-+         * all.
-          */
--        flexarray_append_pair(dm_args, "-vnc", "none");
-+        flexarray_append(dm_args, "-nographic");
-+    }
+     }
  
-     if (sdl) {
-         flexarray_append(dm_args, "-sdl");
+-    if (b_info->type == LIBXL_DOMAIN_TYPE_HVM &&
+-        b_info->device_model_version !=
+-            LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
+-        libxl_defbool_val(b_info->device_model_stubdomain)) {
+-        LOG(ERROR,
+-            "device model stubdomains require \"qemu-xen-traditional\"");
+-        return ERROR_INVAL;
+-    }
+-
+     if (!b_info->max_vcpus)
+         b_info->max_vcpus = 1;
+     if (!b_info->avail_vcpus.size) {
+diff --git a/tools/libxl/libxl_internal.h b/tools/libxl/libxl_internal.h
+index e5effd2ad1..d1ebdec8d2 100644
+--- a/tools/libxl/libxl_internal.h
++++ b/tools/libxl/libxl_internal.h
+@@ -2324,6 +2324,23 @@ _hidden int libxl__device_model_version_running(libxl__gc *gc, uint32_t domid);
+   /* Return the system-wide default device model */
+ _hidden libxl_device_model_version libxl__default_device_model(libxl__gc *gc);
+ 
++static inline
++bool libxl__stubdomain_is_linux_running(libxl__gc *gc, uint32_t domid)
++{
++    /* same logic as in libxl__stubdomain_is_linux */
++    return libxl__device_model_version_running(gc, domid)
++        == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
++}
++
++static inline
++bool libxl__stubdomain_is_linux(libxl_domain_build_info *b_info)
++{
++    /* right now qemu-tranditional implies MiniOS stubdomain and qemu-xen
++     * implies Linux stubdomain */
++    return libxl_defbool_val(b_info->device_model_stubdomain) &&
++        b_info->device_model_version == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
++}
++
+ #define DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, fmt, _a...)              \
+     libxl__sprintf(gc, "/local/domain/%u/device-model/%u" fmt, dm_domid,   \
+                    domid, ##_a)
 -- 
 2.25.1
 
