@@ -2,41 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A927B1D796D
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 15:14:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 507151D7971
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 15:16:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jafaD-0006Ww-1R; Mon, 18 May 2020 13:13:29 +0000
+	id 1jafd0-0006ha-NR; Mon, 18 May 2020 13:16:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hVld=7A=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jafaB-0006Wr-TV
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 13:13:27 +0000
-X-Inumbo-ID: 5bafc226-9909-11ea-a860-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fjRX=7A=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jafcz-0006hP-22
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 13:16:21 +0000
+X-Inumbo-ID: c2a0310b-9909-11ea-a863-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5bafc226-9909-11ea-a860-12813bfff9fa;
- Mon, 18 May 2020 13:13:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0491BB1F7;
- Mon, 18 May 2020 13:13:27 +0000 (UTC)
-Subject: Re: [PATCH v4] x86: clear RDRAND CPUID bit on AMD family 15h/16h
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <69382ba7-b562-2c8c-1843-b17ce6c512f1@suse.com>
- <20200515151838.GU54375@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e4c23fcb-0a09-4e8c-eabe-ff7040427376@suse.com>
-Date: Mon, 18 May 2020 15:13:23 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id c2a0310b-9909-11ea-a863-12813bfff9fa;
+ Mon, 18 May 2020 13:16:19 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 3xwQ56JtVTHqRISHqKHqFtXE+sfOHS0hEaWadxKIo2qskijMzu1B8jiI1zlBVBDIe+DSSH6stX
+ bGtqTJmO/QQlZ6aI0yOxJ++v8y7o0Pa5fup7Bo+hW00sAQfraEpCF3wVE3Ae98wJWJGOw2DEwG
+ 0WMVoW0bmDR5X4+qsUduYgy8KgevvR2xdbdQP4PhTynLRhVgwXzb3fRdmCfzvcwmqrQy1fMg3S
+ A9f+en9XHjoUrCSbpK0e5aesqmi6EfWK7uVojZg9B5041hSIolkam+3PNi9ygvi1mkrr/uuf06
+ /vo=
+X-SBRS: 2.7
+X-MesageID: 18042234
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,407,1583211600"; d="scan'208";a="18042234"
+Date: Mon, 18 May 2020 14:15:06 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH 0/2] Fix installation of python scripts
+Message-ID: <20200518131506.GA2105@perard.uk.xensource.com>
+References: <20200311175933.1362235-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <20200515151838.GU54375@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20200311175933.1362235-1-anthony.perard@citrix.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,90 +52,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
+ Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
+ <marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.05.2020 17:18, Roger Pau Monné wrote:
-> On Mon, Mar 09, 2020 at 10:08:50AM +0100, Jan Beulich wrote:
->> Inspired by Linux commit c49a0a80137c7ca7d6ced4c812c9e07a949f6f24:
->>
->>     There have been reports of RDRAND issues after resuming from suspend on
->>     some AMD family 15h and family 16h systems. This issue stems from a BIOS
->>     not performing the proper steps during resume to ensure RDRAND continues
->>     to function properly.
->>
->>     Update the CPU initialization to clear the RDRAND CPUID bit for any family
->>     15h and 16h processor that supports RDRAND. If it is known that the family
->>     15h or family 16h system does not have an RDRAND resume issue or that the
->>     system will not be placed in suspend, the "cpuid=rdrand" kernel parameter
->>     can be used to stop the clearing of the RDRAND CPUID bit.
->>
->>     Note, that clearing the RDRAND CPUID bit does not prevent a processor
->>     that normally supports the RDRAND instruction from executing it. So any
->>     code that determined the support based on family and model won't #UD.
->>
->> Warn if no explicit choice was given on affected hardware.
->>
->> Check RDRAND functions at boot as well as after S3 resume (the retry
->> limit chosen is entirely arbitrary).
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Ping?
 
-Thanks much.
+Cheers.
 
->> @@ -646,6 +647,25 @@ static void init_amd(struct cpuinfo_x86
->>  		if (acpi_smi_cmd && (acpi_enable_value | acpi_disable_value))
->>  			amd_acpi_c1e_quirk = true;
->>  		break;
->> +
->> +	case 0x15: case 0x16:
->> +		/*
->> +		 * There are too many Fam15/Fam16 systems where upon resume
->> +		 * from S3 firmware fails to re-setup properly functioning
->> +		 * RDRAND.  Clear the feature unless force-enabled on the
->> +		 * command line.
->> +		 */
->> +		if (c == &boot_cpu_data &&
->> +		    cpu_has(c, X86_FEATURE_RDRAND) &&
->> +		    !is_forced_cpu_cap(X86_FEATURE_RDRAND)) {
+On Wed, Mar 11, 2020 at 05:59:31PM +0000, Anthony PERARD wrote:
+> Patch series available in this git branch:
+> https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.fix-python-install-v1
 > 
-> Given this is the only user of is_forced_cpu_cap...
+> Hi,
 > 
->> +			static const char __initconst text[] =
->> +				"RDRAND may cease to work on this hardware upon resume from S3.\n"
->> +				"Please choose an explicit cpuid={no-}rdrand setting.\n";
->> +
->> +			setup_clear_cpu_cap(X86_FEATURE_RDRAND);
->> +			warning_add(text);
->> +		}
->> +		break;
->>  	}
->>  
->>  	display_cacheinfo(c);
->> --- a/xen/arch/x86/cpu/common.c
->> +++ b/xen/arch/x86/cpu/common.c
->> @@ -11,6 +11,7 @@
->>  #include <asm/io.h>
->>  #include <asm/mpspec.h>
->>  #include <asm/apic.h>
->> +#include <asm/random.h>
->>  #include <asm/setup.h>
->>  #include <mach_apic.h>
->>  #include <public/sysctl.h> /* for XEN_INVALID_{SOCKET,CORE}_ID */
->> @@ -98,6 +99,11 @@ void __init setup_force_cpu_cap(unsigned
->>  	__set_bit(cap, boot_cpu_data.x86_capability);
->>  }
->>  
->> +bool is_forced_cpu_cap(unsigned int cap)
+> A patch to make packaging of xen on centos8 easier. rpmbuild
+> prevents unversions python shebang from been packaged.
+> And the first patch fix a bug discovered with the second.
 > 
-> ... I think this could be made __init?
+> Cheers,
+> 
+> Anthony PERARD (2):
+>   tools/python: Fix install-wrap
+>   tools: Use INSTALL_PYTHON_PROG
+> 
+>  tools/misc/xencov_split   | 2 +-
+>  tools/python/Makefile     | 4 ++--
+>  tools/python/install-wrap | 2 +-
+>  tools/xenmon/Makefile     | 2 +-
+>  4 files changed, 5 insertions(+), 5 deletions(-)
 
-Ah, now it can be again, yes. It was an endless back and forth between
-the various versions (some not even posted).
-
-Jan
+-- 
+Anthony PERARD
 
