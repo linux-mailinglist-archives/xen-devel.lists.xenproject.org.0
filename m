@@ -2,49 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4294A1D80A4
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 19:41:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D061D1D821D
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 19:53:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jajky-0008Ux-41; Mon, 18 May 2020 17:40:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jajws-00010Z-8a; Mon, 18 May 2020 17:53:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2hxz=7A=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
- id 1jajkw-0008Us-2H
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 17:40:50 +0000
-X-Inumbo-ID: b5733872-992e-11ea-a882-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b5733872-992e-11ea-a882-12813bfff9fa;
- Mon, 18 May 2020 17:40:48 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 339EC20849;
- Mon, 18 May 2020 17:40:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589823647;
- bh=IczQH/TtXU98bDp5k7ZWYNUFzCIb147wj2CPbCzb4QQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z385pTEQQSacawaL/uSVRTzNfOc0G2+xynwZg7FsekDAvr2Sc+YZRguAfVL4hqpjr
- UUoTS0oTi+UoQBF6kYFSLIO3dkr+/f9jGwISAGrzWD4xBTInvNGwV/McbM0nG/SUZ5
- AKoizO8pHE0Ow8OcLYkPw9u0Szx/CIyF989NwhGY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 4.4 67/86] x86/paravirt: Remove the unused irq_enable_sysexit
- pv op
-Date: Mon, 18 May 2020 19:36:38 +0200
-Message-Id: <20200518173503.889676448@linuxfoundation.org>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200518173450.254571947@linuxfoundation.org>
-References: <20200518173450.254571947@linuxfoundation.org>
-User-Agent: quilt/0.66
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ <SRS0=d2DE=7A=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jajwp-00010R-V4
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 17:53:07 +0000
+X-Inumbo-ID: 6de1b496-9930-11ea-b9cf-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6de1b496-9930-11ea-b9cf-bc764e2007e4;
+ Mon, 18 May 2020 17:53:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1QAO8ofd8gj66nH43MRAEV/cO6+6RtpLXn/R1/UXWnQ=; b=sprqYnY4i6KaudNo1TKb9pco6
+ cCzCV5b3xcezb9szCDitvau8Vff4LE7h7zpfIJNKmfEEkwVFanLODJLZXHZn+rUOjSzRpEjO+s+sC
+ wVE+p0QuRalJTZ69hgoekLgzk4/gTThQKsnjYtRno0uKPzvmAeaaDcyGrNoVISYuDk01Y=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jajwo-0006hu-4G; Mon, 18 May 2020 17:53:06 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jajwn-0007Bz-OP; Mon, 18 May 2020 17:53:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jajwn-00074S-Nl; Mon, 18 May 2020 17:53:05 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150231-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150231: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=97fb0253e6c2f2221bfd0895b7ffe3a99330d847
+X-Osstest-Versions-That: xen=664e1bc12f8658da124a4eff7a8f16da073bd47f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 18 May 2020 17:53:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,238 +65,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ingo Molnar <mingo@kernel.org>, Denys Vlasenko <dvlasenk@redhat.com>,
- Thomas Gleixner <tglx@linutronix.de>, konrad.wilk@oracle.com,
- Peter Zijlstra <peterz@infradead.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux-foundation.org,
- stable@vger.kernel.org, Andy Lutomirski <luto@amacapital.net>,
- Borislav Petkov <bp@alien8.de>, david.vrabel@citrix.com,
- Andy Lutomirski <luto@kernel.org>, Brian Gerst <brgerst@gmail.com>,
- xen-devel@lists.xenproject.org, Andrew Morton <akpm@linux-foundation.org>,
- Borislav Petkov <bp@suse.de>, Linus Torvalds <torvalds@linux-foundation.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+flight 150231 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150231/
 
-commit 88c15ec90ff16880efab92b519436ee17b198477 upstream.
+Failures :-/ but no regressions.
 
-As result of commit "x86/xen: Avoid fast syscall path for Xen PV
-guests", the irq_enable_sysexit pv op is not called by Xen PV guests
-anymore and since they were the only ones who used it we can
-safely remove it.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Reviewed-by: Borislav Petkov <bp@suse.de>
-Acked-by: Andy Lutomirski <luto@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Andy Lutomirski <luto@amacapital.net>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Brian Gerst <brgerst@gmail.com>
-Cc: Denys Vlasenko <dvlasenk@redhat.com>
-Cc: H. Peter Anvin <hpa@zytor.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: david.vrabel@citrix.com
-Cc: konrad.wilk@oracle.com
-Cc: virtualization@lists.linux-foundation.org
-Cc: xen-devel@lists.xenproject.org
-Link: http://lkml.kernel.org/r/1447970147-1733-3-git-send-email-boris.ostrovsky@oracle.com
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+version targeted for testing:
+ xen                  97fb0253e6c2f2221bfd0895b7ffe3a99330d847
+baseline version:
+ xen                  664e1bc12f8658da124a4eff7a8f16da073bd47f
 
----
- arch/x86/entry/entry_32.S             |    8 ++------
- arch/x86/include/asm/paravirt.h       |    7 -------
- arch/x86/include/asm/paravirt_types.h |    9 ---------
- arch/x86/kernel/asm-offsets.c         |    3 ---
- arch/x86/kernel/paravirt.c            |    7 -------
- arch/x86/kernel/paravirt_patch_32.c   |    2 --
- arch/x86/kernel/paravirt_patch_64.c   |    1 -
- arch/x86/xen/enlighten.c              |    3 ---
- arch/x86/xen/xen-asm_32.S             |   14 --------------
- arch/x86/xen/xen-ops.h                |    3 ---
- 10 files changed, 2 insertions(+), 55 deletions(-)
+Last test of basis   150218  2020-05-16 18:01:31 Z    1 days
+Testing same since   150231  2020-05-18 15:01:39 Z    0 days    1 attempts
 
---- a/arch/x86/entry/entry_32.S
-+++ b/arch/x86/entry/entry_32.S
-@@ -331,7 +331,8 @@ sysenter_past_esp:
- 	 * Return back to the vDSO, which will pop ecx and edx.
- 	 * Don't bother with DS and ES (they already contain __USER_DS).
- 	 */
--	ENABLE_INTERRUPTS_SYSEXIT
-+	sti
-+	sysexit
- 
- .pushsection .fixup, "ax"
- 2:	movl	$0, PT_FS(%esp)
-@@ -554,11 +555,6 @@ ENTRY(native_iret)
- 	iret
- 	_ASM_EXTABLE(native_iret, iret_exc)
- END(native_iret)
--
--ENTRY(native_irq_enable_sysexit)
--	sti
--	sysexit
--END(native_irq_enable_sysexit)
- #endif
- 
- ENTRY(overflow)
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -938,13 +938,6 @@ extern void default_banner(void);
- 	push %ecx; push %edx;				\
- 	call PARA_INDIRECT(pv_cpu_ops+PV_CPU_read_cr0);	\
- 	pop %edx; pop %ecx
--
--#define ENABLE_INTERRUPTS_SYSEXIT					\
--	PARA_SITE(PARA_PATCH(pv_cpu_ops, PV_CPU_irq_enable_sysexit),	\
--		  CLBR_NONE,						\
--		  jmp PARA_INDIRECT(pv_cpu_ops+PV_CPU_irq_enable_sysexit))
--
--
- #else	/* !CONFIG_X86_32 */
- 
- /*
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -162,15 +162,6 @@ struct pv_cpu_ops {
- 
- 	u64 (*read_pmc)(int counter);
- 
--#ifdef CONFIG_X86_32
--	/*
--	 * Atomically enable interrupts and return to userspace.  This
--	 * is only used in 32-bit kernels.  64-bit kernels use
--	 * usergs_sysret32 instead.
--	 */
--	void (*irq_enable_sysexit)(void);
--#endif
--
- 	/*
- 	 * Switch to usermode gs and return to 64-bit usermode using
- 	 * sysret.  Only used in 64-bit kernels to return to 64-bit
---- a/arch/x86/kernel/asm-offsets.c
-+++ b/arch/x86/kernel/asm-offsets.c
-@@ -65,9 +65,6 @@ void common(void) {
- 	OFFSET(PV_IRQ_irq_disable, pv_irq_ops, irq_disable);
- 	OFFSET(PV_IRQ_irq_enable, pv_irq_ops, irq_enable);
- 	OFFSET(PV_CPU_iret, pv_cpu_ops, iret);
--#ifdef CONFIG_X86_32
--	OFFSET(PV_CPU_irq_enable_sysexit, pv_cpu_ops, irq_enable_sysexit);
--#endif
- 	OFFSET(PV_CPU_read_cr0, pv_cpu_ops, read_cr0);
- 	OFFSET(PV_MMU_read_cr2, pv_mmu_ops, read_cr2);
- #endif
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -168,9 +168,6 @@ unsigned paravirt_patch_default(u8 type,
- 		ret = paravirt_patch_ident_64(insnbuf, len);
- 
- 	else if (type == PARAVIRT_PATCH(pv_cpu_ops.iret) ||
--#ifdef CONFIG_X86_32
--		 type == PARAVIRT_PATCH(pv_cpu_ops.irq_enable_sysexit) ||
--#endif
- 		 type == PARAVIRT_PATCH(pv_cpu_ops.usergs_sysret32) ||
- 		 type == PARAVIRT_PATCH(pv_cpu_ops.usergs_sysret64))
- 		/* If operation requires a jmp, then jmp */
-@@ -226,7 +223,6 @@ static u64 native_steal_clock(int cpu)
- 
- /* These are in entry.S */
- extern void native_iret(void);
--extern void native_irq_enable_sysexit(void);
- extern void native_usergs_sysret32(void);
- extern void native_usergs_sysret64(void);
- 
-@@ -385,9 +381,6 @@ __visible struct pv_cpu_ops pv_cpu_ops =
- 
- 	.load_sp0 = native_load_sp0,
- 
--#if defined(CONFIG_X86_32)
--	.irq_enable_sysexit = native_irq_enable_sysexit,
--#endif
- #ifdef CONFIG_X86_64
- #ifdef CONFIG_IA32_EMULATION
- 	.usergs_sysret32 = native_usergs_sysret32,
---- a/arch/x86/kernel/paravirt_patch_32.c
-+++ b/arch/x86/kernel/paravirt_patch_32.c
-@@ -5,7 +5,6 @@ DEF_NATIVE(pv_irq_ops, irq_enable, "sti"
- DEF_NATIVE(pv_irq_ops, restore_fl, "push %eax; popf");
- DEF_NATIVE(pv_irq_ops, save_fl, "pushf; pop %eax");
- DEF_NATIVE(pv_cpu_ops, iret, "iret");
--DEF_NATIVE(pv_cpu_ops, irq_enable_sysexit, "sti; sysexit");
- DEF_NATIVE(pv_mmu_ops, read_cr2, "mov %cr2, %eax");
- DEF_NATIVE(pv_mmu_ops, write_cr3, "mov %eax, %cr3");
- DEF_NATIVE(pv_mmu_ops, read_cr3, "mov %cr3, %eax");
-@@ -46,7 +45,6 @@ unsigned native_patch(u8 type, u16 clobb
- 		PATCH_SITE(pv_irq_ops, restore_fl);
- 		PATCH_SITE(pv_irq_ops, save_fl);
- 		PATCH_SITE(pv_cpu_ops, iret);
--		PATCH_SITE(pv_cpu_ops, irq_enable_sysexit);
- 		PATCH_SITE(pv_mmu_ops, read_cr2);
- 		PATCH_SITE(pv_mmu_ops, read_cr3);
- 		PATCH_SITE(pv_mmu_ops, write_cr3);
---- a/arch/x86/kernel/paravirt_patch_64.c
-+++ b/arch/x86/kernel/paravirt_patch_64.c
-@@ -12,7 +12,6 @@ DEF_NATIVE(pv_mmu_ops, write_cr3, "movq
- DEF_NATIVE(pv_cpu_ops, clts, "clts");
- DEF_NATIVE(pv_cpu_ops, wbinvd, "wbinvd");
- 
--DEF_NATIVE(pv_cpu_ops, irq_enable_sysexit, "swapgs; sti; sysexit");
- DEF_NATIVE(pv_cpu_ops, usergs_sysret64, "swapgs; sysretq");
- DEF_NATIVE(pv_cpu_ops, usergs_sysret32, "swapgs; sysretl");
- DEF_NATIVE(pv_cpu_ops, swapgs, "swapgs");
---- a/arch/x86/xen/enlighten.c
-+++ b/arch/x86/xen/enlighten.c
-@@ -1240,10 +1240,7 @@ static const struct pv_cpu_ops xen_cpu_o
- 
- 	.iret = xen_iret,
- #ifdef CONFIG_X86_64
--	.usergs_sysret32 = xen_sysret32,
- 	.usergs_sysret64 = xen_sysret64,
--#else
--	.irq_enable_sysexit = xen_sysexit,
- #endif
- 
- 	.load_tr_desc = paravirt_nop,
---- a/arch/x86/xen/xen-asm_32.S
-+++ b/arch/x86/xen/xen-asm_32.S
-@@ -35,20 +35,6 @@ check_events:
- 	ret
- 
- /*
-- * We can't use sysexit directly, because we're not running in ring0.
-- * But we can easily fake it up using iret.  Assuming xen_sysexit is
-- * jumped to with a standard stack frame, we can just strip it back to
-- * a standard iret frame and use iret.
-- */
--ENTRY(xen_sysexit)
--	movl PT_EAX(%esp), %eax			/* Shouldn't be necessary? */
--	orl $X86_EFLAGS_IF, PT_EFLAGS(%esp)
--	lea PT_EIP(%esp), %esp
--
--	jmp xen_iret
--ENDPROC(xen_sysexit)
--
--/*
-  * This is run where a normal iret would be run, with the same stack setup:
-  *	8: eflags
-  *	4: cs
---- a/arch/x86/xen/xen-ops.h
-+++ b/arch/x86/xen/xen-ops.h
-@@ -139,9 +139,6 @@ DECL_ASM(void, xen_restore_fl_direct, un
- 
- /* These are not functions, and cannot be called normally */
- __visible void xen_iret(void);
--#ifdef CONFIG_X86_32
--__visible void xen_sysexit(void);
--#endif
- __visible void xen_sysret32(void);
- __visible void xen_sysret64(void);
- __visible void xen_adjust_exception_frame(void);
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   664e1bc12f..97fb0253e6  97fb0253e6c2f2221bfd0895b7ffe3a99330d847 -> smoke
 
