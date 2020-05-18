@@ -2,61 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F751D6E79
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 03:15:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249731D6E71
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 03:15:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaUN7-00007A-94; Mon, 18 May 2020 01:15:13 +0000
+	id 1jaUNC-0000AK-Iw; Mon, 18 May 2020 01:15:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tJLm=7A=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jaUN5-00006h-So
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 01:15:11 +0000
-X-Inumbo-ID: fc669eac-98a4-11ea-b9cf-bc764e2007e4
-Received: from mail-qk1-x741.google.com (unknown [2607:f8b0:4864:20::741])
+ id 1jaUNA-00009C-UA
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 01:15:16 +0000
+X-Inumbo-ID: fdb22538-98a4-11ea-9887-bc764e2007e4
+Received: from mail-qv1-xf42.google.com (unknown [2607:f8b0:4864:20::f42])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fc669eac-98a4-11ea-b9cf-bc764e2007e4;
- Mon, 18 May 2020 01:14:56 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id n14so8611652qke.8
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2020 18:14:56 -0700 (PDT)
+ id fdb22538-98a4-11ea-9887-bc764e2007e4;
+ Mon, 18 May 2020 01:14:58 +0000 (UTC)
+Received: by mail-qv1-xf42.google.com with SMTP id g20so3966786qvb.9
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2020 18:14:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=iuOS5lKMe+jAFhTt05o45iDFjEi/wVIZWcBxoRF26Ho=;
- b=khyu6WsPvZWt0u9iQ2IrrvLYA9TD208VQjIiV6prcTnUX9q82CDQl3Bce5fdz4ShYr
- oEHmCVvlzBQVi7x2BasBL1ZMP9ExDSot3EEMeb968Gcg/Mpr8vjvP6lT+PbKv80Ad6B9
- fEpsLP0qfq8RVFUndXU294GOfuR+/ltCB3wulhKsTvL/KU/qdaTBg6pZulMAk6XUdoF7
- jXJ+PGISMdXbLiwF3DmUn4SpMBiKrCmf6F4kpJhr4bkoyE4Lewbq4lKbeJkYP04IXvcA
- eZLFgBP2fqjUYF2tUymdk4LQL6GfJGaDyfC/EDnF3I8H2EHQSIjWVlmcYvuI0RMG2go7
- fNBg==
+ bh=ZT6l/MiPRcZkFyWjFyjLysM4bTyEFRemlpKKfgP53K8=;
+ b=ZWs4G3cvljs854So2eVVa51MJT2R9HZcmfGA0jSnGPe07lXItHSgOW1qZQSuYbNzGV
+ R4bZ4lyqcab2++5vnVaMlyJ8zhkFwgcbHHuPwue2Qb15ltHeoSEiaVrxx2xR9hm93kZ4
+ 4x2k53D0z5xPoboQ6DQL+pWcf0DLJtHHv9/7cNOJTbs/q9FzBlWwR0fy+V9diAWAuEAA
+ seKIINGSVWe0Ai3YYbayONgS4MNo8zt9pIKYiLBYyfb/R8Q66McEPB6mxYQfHbLEiFsS
+ OS/snIZXrsCpV0JwM/XyDYpswMyXecljlE+Eng6fV6Ofxd49PRJ120E24WdVDN2swUnH
+ dUqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=iuOS5lKMe+jAFhTt05o45iDFjEi/wVIZWcBxoRF26Ho=;
- b=D6fcNTW6tj/Sq0jQYh91W454vVlMaGS6JXewwWsD4upzFjpQpCl9KhzrkeYfOI5CE+
- fac65kvcnQFlgaW5pHSC/VdcCwewfllzD2a17/kNuMMetcYYz7Sp1wczOK9ug2+l3xTQ
- pByd+bhV7zULIZPB9swWcw4cxSfyBHIEDRQ6TJNrlB6HZ6znEAhcX9+ejS7U5iCSH+Ys
- DRfwfJ/03I8ZuKrdJUlNd6ALiGgfPf22HXpc5utIaTI0mzyuBMmDBr95WAfg4yiku7Tc
- ADuDCHwzLABIuQD5OViNWIbAMSmBT7JMgRs82pcu0gGRm2FM/TVv7aJbBi3Kj5BViqQo
- 6Nig==
-X-Gm-Message-State: AOAM530vGUr5j56QGEGM4KS8pDk30pgMBOqzzZz22m51OGa86Dqcyzmn
- s6Zxl4jASqbRPhP8z0jAOxBK7w1+
-X-Google-Smtp-Source: ABdhPJySweQ8Z/MdXq2k2CojCoWGTbRxcoGz07qlXfFHNKgg6QHEkJNs87rXCVxXQD+S6SIkbtBZvw==
-X-Received: by 2002:a05:620a:6bc:: with SMTP id
- i28mr13905580qkh.330.1589764495938; 
- Sun, 17 May 2020 18:14:55 -0700 (PDT)
+ bh=ZT6l/MiPRcZkFyWjFyjLysM4bTyEFRemlpKKfgP53K8=;
+ b=nDdh96OgKK0ADj3oJWRvFu6OvskDqsIKyUnRYcmxHgZmFcQM2tkE5+TBRUXwJ6ESfP
+ dK6LwvtjGNt7OuzUtOhuPaqdFGpLad63VQrqeeqUcdNRiYx5q+ZeXAzLzbNXsurY/Xze
+ gjpy2e97sn8Up7lpS+cuWs8sgEtrfHQKiK2vYDJ+jqcfjUcN0Q/70UtBeN6tFrKpLmdU
+ tSIV9F71in0Uh/n+gs1T6rvDNnFjUHFcmqsjk+opzCkMZslR361DtT2le5TkxqHP84Is
+ S86lIFaO5hcGf3lzKiFBwtVJ6Eu4+n/GD7P3PXj/CGwzFc8QAVxjUGh+W9SivbV6MwG9
+ FZIw==
+X-Gm-Message-State: AOAM530Eo1wcx/8ksmNBLB422dM9DdRbEc8hJJsgtCWVdHGE7gNv1QPS
+ ygCMB6ZIDMjIYuoYOv59e8GbMHDR
+X-Google-Smtp-Source: ABdhPJxyBw/nM/Fgze8bx5QDsvLGwWtMqUCcThi3xkJ73BfrJmBnOwb54O24QFL5KfLmoZ65kRz+gg==
+X-Received: by 2002:ad4:4b72:: with SMTP id m18mr13842435qvx.62.1589764498064; 
+ Sun, 17 May 2020 18:14:58 -0700 (PDT)
 Received: from shine.lan ([2001:470:8:67e:ec68:c92e:af5a:2d3a])
- by smtp.gmail.com with ESMTPSA id l2sm7072864qkd.57.2020.05.17.18.14.54
+ by smtp.gmail.com with ESMTPSA id l2sm7072864qkd.57.2020.05.17.18.14.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2020 18:14:55 -0700 (PDT)
+ Sun, 17 May 2020 18:14:57 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v6 06/18] libxl: write qemu arguments into separate xenstore
- keys
-Date: Sun, 17 May 2020 21:13:41 -0400
-Message-Id: <20200518011353.326287-7-jandryuk@gmail.com>
+Subject: [PATCH v6 07/18] xl: add stubdomain related options to xl config
+ parser
+Date: Sun, 17 May 2020 21:13:42 -0400
+Message-Id: <20200518011353.326287-8-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200518011353.326287-1-jandryuk@gmail.com>
 References: <20200518011353.326287-1-jandryuk@gmail.com>
@@ -83,103 +82,75 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-This allows using arguments with spaces, like -append, without
-nominating any special "separator" character.
-
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
-
-Re-work to use libxl_xs_* functions in a loop.  Also write arguments in
-dm-argv directory instead of overloading mini-os's dmargs string.
-
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
-Changes in v3:
- - previous version of this patch "libxl: use \x1b to separate qemu
-   arguments for linux stubdomain" used specific non-printable
-   separator, but it was rejected as xenstore doesn't cope well with
-   non-printable chars
-Changes in v6:
- - Re-work to use libxl__xs_ functions in a loop.
- - Drop rtc/timeoffset
----
- tools/libxl/libxl_dm.c | 56 +++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 55 insertions(+), 1 deletion(-)
+Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
-index dc1717bc12..eaed6e8ee7 100644
---- a/tools/libxl/libxl_dm.c
-+++ b/tools/libxl/libxl_dm.c
-@@ -2066,6 +2066,57 @@ static int libxl__vfb_and_vkb_from_hvm_guest_config(libxl__gc *gc,
-     return 0;
- }
+---
+Changes in v6:
+ - Add Acked-by: Ian Jackson
+---
+ docs/man/xl.cfg.5.pod.in | 27 +++++++++++++++++++++++----
+ tools/xl/xl_parse.c      |  7 +++++++
+ 2 files changed, 30 insertions(+), 4 deletions(-)
+
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index 0e9e58a41a..c9bc181a95 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -2733,10 +2733,29 @@ model which they were installed with.
  
-+static int libxl__write_stub_linux_dm_argv(libxl__gc *gc,
-+                                           int dm_domid, int guest_domid,
-+                                           char **args)
-+{
-+    const char *vm_path;
-+    char *path;
-+    struct xs_permissions roperm[2];
-+    xs_transaction_t t = XBT_NULL;
-+    int rc;
-+
-+    roperm[0].id = 0;
-+    roperm[0].perms = XS_PERM_NONE;
-+    roperm[1].id = dm_domid;
-+    roperm[1].perms = XS_PERM_READ;
-+
-+    rc = libxl__xs_read_mandatory(gc, XBT_NULL,
-+                                  GCSPRINTF("/local/domain/%d/vm", guest_domid),
-+                                  &vm_path);
-+    if (rc)
-+        return rc;
-+
-+    path = GCSPRINTF("%s/image/dm-argv", vm_path);
-+
-+    for (;;) {
-+        int i;
-+
-+        rc = libxl__xs_transaction_start(gc, &t);
-+        if (rc) goto out;
-+
-+        rc = libxl__xs_mknod(gc, t, path, roperm, ARRAY_SIZE(roperm));
-+        if (rc) goto out;
-+
-+        for (i=1; args[i] != NULL; i++) {
-+            rc = libxl__xs_write_checked(gc, t, GCSPRINTF("%s/%03d", path, i),
-+                                         args[i]);
-+            if (rc) goto out;
-+        }
-+
-+        rc = libxl__xs_transaction_commit(gc, &t);
-+        if (!rc) break;
-+        if (rc<0) goto out;
-+    }
-+
-+    return 0;
-+
-+ out:
-+    libxl__xs_transaction_abort(gc, &t);
-+
-+    return rc;
-+}
-+
- static int libxl__write_stub_dmargs(libxl__gc *gc,
-                                     int dm_domid, int guest_domid,
-                                     char **args)
-@@ -2275,7 +2326,10 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
+ =item B<device_model_override="PATH">
  
-     libxl__store_libxl_entry(gc, guest_domid, "dm-version",
-         libxl_device_model_version_to_string(dm_config->b_info.device_model_version));
--    libxl__write_stub_dmargs(gc, dm_domid, guest_domid, args);
-+    if (libxl__stubdomain_is_linux(&guest_config->b_info))
-+        libxl__write_stub_linux_dm_argv(gc, dm_domid, guest_domid, args);
-+    else
-+        libxl__write_stub_dmargs(gc, dm_domid, guest_domid, args);
-     libxl__xs_printf(gc, XBT_NULL,
-                      GCSPRINTF("%s/image/device-model-domid",
-                                libxl__xs_get_dompath(gc, guest_domid)),
+-Override the path to the binary to be used as the device-model. The
+-binary provided here MUST be consistent with the
+-B<device_model_version> which you have specified. You should not
+-normally need to specify this option.
++Override the path to the binary to be used as the device-model running in
++toolstack domain. The binary provided here MUST be consistent with the
++B<device_model_version> which you have specified. You should not normally need
++to specify this option.
++
++=item B<stubdomain_kernel="PATH">
++
++Override the path to the kernel image used as device-model stubdomain.
++The binary provided here MUST be consistent with the
++B<device_model_version> which you have specified.
++In case of B<qemu-xen-traditional> it is expected to be MiniOS-based stubdomain
++image, in case of B<qemu-xen> it is expected to be Linux-based stubdomain
++kernel.
++
++=item B<stubdomain_ramdisk="PATH">
++
++Override the path to the ramdisk image used as device-model stubdomain.
++The binary provided here is to be used by a kernel pointed by B<stubdomain_kernel>.
++It is known to be used only by Linux-based stubdomain kernel.
++
++=item B<stubdomain_memory=MBYTES>
++
++Start the stubdomain with MBYTES megabytes of RAM. Default is 128.
+ 
+ =item B<device_model_stubdomain_override=BOOLEAN>
+ 
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index 4450d59f16..61b4ef7b7e 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -2525,6 +2525,13 @@ skip_usbdev:
+     xlu_cfg_replace_string(config, "device_model_user",
+                            &b_info->device_model_user, 0);
+ 
++    xlu_cfg_replace_string (config, "stubdomain_kernel",
++                            &b_info->stubdomain_kernel, 0);
++    xlu_cfg_replace_string (config, "stubdomain_ramdisk",
++                            &b_info->stubdomain_ramdisk, 0);
++    if (!xlu_cfg_get_long (config, "stubdomain_memory", &l, 0))
++        b_info->stubdomain_memkb = l * 1024;
++
+ #define parse_extra_args(type)                                            \
+     e = xlu_cfg_get_list_as_string_list(config, "device_model_args"#type, \
+                                     &b_info->extra##type, 0);            \
 -- 
 2.25.1
 
