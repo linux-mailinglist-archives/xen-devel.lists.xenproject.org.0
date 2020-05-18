@@ -2,41 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C563B1D77DE
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 13:52:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DDDC1D7885
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 14:24:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaeIa-0007yl-Nl; Mon, 18 May 2020 11:51:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hVld=7A=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jaeIY-0007yg-Vn
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 11:51:11 +0000
-X-Inumbo-ID: dd60b4d0-98fd-11ea-a854-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dd60b4d0-98fd-11ea-a854-12813bfff9fa;
- Mon, 18 May 2020 11:51:10 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 55EF4B01C;
- Mon, 18 May 2020 11:51:11 +0000 (UTC)
-Subject: Re: [RESEND PATCH v2 for-4.14] pvcalls: Document correctly and
- explicitely the padding for all arches
-To: Julien Grall <julien@xen.org>
-References: <20200516102157.1928-1-julien@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <31a7d5b0-4e4f-960c-d4e0-8e87bf489db2@suse.com>
-Date: Mon, 18 May 2020 13:51:06 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jaeoR-0002He-RG; Mon, 18 May 2020 12:24:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d2DE=7A=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jaeoQ-0002HX-7b
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 12:24:06 +0000
+X-Inumbo-ID: 76f3034c-9902-11ea-9887-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 76f3034c-9902-11ea-9887-bc764e2007e4;
+ Mon, 18 May 2020 12:24:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=A8w16CXT+V6e40RwR+8f4pkyWuSpPo/LV7TTWzryb40=; b=fTNy0TchWrWyRa4mLISeuclJx
+ XD1/2BC+4y14YkQxm/0D+WKvs74x5zHzNnaGYqKg1EtDpt+uHlEdJlMIrNKUkSp8240WHtTxod/Mw
+ goxQUMERhWU+nDS17fpe591H1U+lQdA6htS0vNJ33hEyjNBPT7ZhdKCGdwCZ5HrWkf4AE=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jaeoP-0007X1-3l; Mon, 18 May 2020 12:24:05 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jaeoO-0002TG-OV; Mon, 18 May 2020 12:24:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jaeoO-0001t8-Np; Mon, 18 May 2020 12:24:04 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150229-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200516102157.1928-1-julien@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [seabios test] 150229: tolerable FAIL - PUSHED
+X-Osstest-Failures: seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+X-Osstest-Versions-This: seabios=b8eda131954452bb5a236100a6572fe8f27d8021
+X-Osstest-Versions-That: seabios=665dce17c04b574bb0ebcde4cac129c3dd9e681c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 18 May 2020 12:24:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,31 +67,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16.05.2020 12:21, Julien Grall wrote:
-> --- a/xen/include/public/io/pvcalls.h
-> +++ b/xen/include/public/io/pvcalls.h
-> @@ -65,6 +65,9 @@ struct xen_pvcalls_request {
->              uint32_t domain;
->              uint32_t type;
->              uint32_t protocol;
-> +#ifndef CONFIG_X86_32
-> +            uint8_t pad[4];
-> +#endif
+flight 150229 seabios real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150229/
 
-There's no concept of CONFIG_* in the public headers, the dependency
-(as you'll find elsewhere) is on __i386__ / __x86_64__. Also whether
-there's any padding really doesn't depend directly on the architecture,
-but instead on __alignof__(uint64_t) (i.e. a future port to a 32-bit
-arch, even if - like on x86 - just a guest bitness, may similarly
-want / need / have no padding here).
+Failures :-/ but no regressions.
 
-Jan
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 150201
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 150201
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 150201
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 150201
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+
+version targeted for testing:
+ seabios              b8eda131954452bb5a236100a6572fe8f27d8021
+baseline version:
+ seabios              665dce17c04b574bb0ebcde4cac129c3dd9e681c
+
+Last test of basis   150201  2020-05-15 15:10:33 Z    2 days
+Testing same since   150229  2020-05-18 08:09:37 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/seabios.git
+   665dce1..b8eda13  b8eda131954452bb5a236100a6572fe8f27d8021 -> xen-tested-master
 
