@@ -2,52 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FFD51D724D
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 09:53:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B57161D72ED
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 10:28:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaaaC-0002qh-BC; Mon, 18 May 2020 07:53:08 +0000
+	id 1jab7V-000610-7t; Mon, 18 May 2020 08:27:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a79S=7A=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1jaaaA-0002qY-Jb
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 07:53:06 +0000
-X-Inumbo-ID: 9af47f9e-98dc-11ea-ae69-bc764e2007e4
-Received: from hera.aquilenet.fr (unknown [2a0c:e300::1])
+ <SRS0=hPYZ=7A=linux-powerpc.org=kda@srs-us1.protection.inumbo.net>)
+ id 1jab5A-0005xo-Sh
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 08:25:09 +0000
+X-Inumbo-ID: 14a6caa0-98e1-11ea-ae69-bc764e2007e4
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9af47f9e-98dc-11ea-ae69-bc764e2007e4;
- Mon, 18 May 2020 07:53:05 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id 853FD76B;
- Mon, 18 May 2020 09:53:03 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id KDUjvMKp-PnR; Mon, 18 May 2020 09:53:02 +0200 (CEST)
-Received: from function (lfbn-bor-1-797-11.w86-234.abo.wanadoo.fr
- [86.234.239.11])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id E466D70A;
- Mon, 18 May 2020 09:53:01 +0200 (CEST)
-Received: from samy by function with local (Exim 4.93)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1jaaa4-0054WS-Lo; Mon, 18 May 2020 09:53:00 +0200
-Date: Mon, 18 May 2020 09:53:00 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH mini-os] console: add newline at EOF
-Message-ID: <20200518075300.t3tvfo7ucbwujmif@function>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <9d2e445b-0b0f-4e4d-08a8-0f22013f111b@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9d2e445b-0b0f-4e4d-08a8-0f22013f111b@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+ id 14a6caa0-98e1-11ea-ae69-bc764e2007e4;
+ Mon, 18 May 2020 08:25:07 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id c21so7256235lfb.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 01:25:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-powerpc-org.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id;
+ bh=62dBjwAqFx42J0m7dvvwDYjAwTZ2hCNIWZwjeYro/gg=;
+ b=f4AneL6nEMxZSczyq6KZSI1VTA5SndsiS8Iq6rYHRldr4TMOgI9EilEs/JbiTo0liB
+ O44NFkD7fInDweSj0w89baGKMusGXCN+pilefCaYustNxyjrG6HYPdKZ+CVroH9Ux2Il
+ Zd0ZCgMovIePLK2i+yLoT8e6UNFOFXp7TEPz1t6ppOo94HNFbnVwVAIWeMOu7y26wKf+
+ NyVxL9208wqBYtEQIS1KBWb3ihlss1kgA29uyrCydbKHUydlPgnMDnOKUvBxCyDZaL39
+ 5Xr36kr0PXQeCfPS8RluyeKxk+PWf492N3ADht1x63ze3hjpfpArh6IeIZ362EIeYPjA
+ vSdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=62dBjwAqFx42J0m7dvvwDYjAwTZ2hCNIWZwjeYro/gg=;
+ b=KWgviQgY/0AEBYYyKyR2FLUTIx3ZAJaKG4AGidP0KZkOaK3i7SWz+Ijq0EfpV3Fgxr
+ /Sv0rWCgQ18241RkS++CgjHeZVmZznJfilVy7DoPsV3eMRWF7uuwduSdbAJV1zZvr3dz
+ rficw7CeNmRoIfcIA5kms4kdGGGFvBSLv2OBmtBZzXUx3QjzaCDSiRffJa6fQRQYUMzF
+ rIY/zprDjS4Kka1FCAVTFrbA5D6/YUV3YkXf4igC7ihj+S/ZP9B0MaC6rT+tX+/bIlI3
+ YvbyPCj7wNLsPxncWZRTrgT4MQ1KDTm+JdCQEh+/cfYl4yCU5hVQpRYZTj2SG/Qx6pbT
+ xgnA==
+X-Gm-Message-State: AOAM5330AmrsKVMd0b2OJ8VyMhx4C7wDx2rJTWe7idNBTd2L+O6dvUy9
+ Uc7DTIujI7mUQ+3j7rNskP2QuCkvymVZ5g==
+X-Google-Smtp-Source: ABdhPJzA9c6bRJ1VHIs6AJSFgy2kPYrjodljBmKY4nDsIXV4imqGSahSJk1tj7h1h2RImhCxDQmXFQ==
+X-Received: by 2002:a19:4895:: with SMTP id v143mr6566918lfa.193.1589790306189; 
+ Mon, 18 May 2020 01:25:06 -0700 (PDT)
+Received: from centos7-pv-guest.localdomain ([5.35.46.227])
+ by smtp.gmail.com with ESMTPSA id h84sm6485290lfd.88.2020.05.18.01.25.05
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 18 May 2020 01:25:05 -0700 (PDT)
+From: Denis Kirjanov <kda@linux-powerpc.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH] public/io/netif.h: add a new extra type for XDP
+Date: Mon, 18 May 2020 11:24:45 +0300
+Message-Id: <1589790285-1250-1-git-send-email-kda@linux-powerpc.org>
+X-Mailer: git-send-email 1.8.3.1
+X-Mailman-Approved-At: Mon, 18 May 2020 08:27:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +66,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>
+Cc: jgross@suse.com, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Jan Beulich, le lun. 18 mai 2020 09:09:14 +0200, a ecrit:
-> Some gcc versions get pretty unhappy without.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+The patch adds a new extra type to be able to diffirentiate
+between RX responses on xen-netfront side with the adjusted offset
+required for XDP processing.
 
-That was an easy one :)
+For Linux the offset value is going to be passed via xenstore.
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Signed-off-by: Denis Kirjanov <denis.kirjanov@suse.com>
+---
+ xen/include/public/io/netif.h | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-> 
-> --- a/console/console.c
-> +++ b/console/console.c
-> @@ -174,4 +174,4 @@ void resume_console(void)
->  {
->      xencons_ring_resume(xen_console);
->      console_initialised = 1;
-> -}
-> \ No newline at end of file
-> +}
-> 
+diff --git a/xen/include/public/io/netif.h b/xen/include/public/io/netif.h
+index 9fcf91a..759c88a 100644
+--- a/xen/include/public/io/netif.h
++++ b/xen/include/public/io/netif.h
+@@ -985,7 +985,8 @@ typedef struct netif_tx_request netif_tx_request_t;
+ #define XEN_NETIF_EXTRA_TYPE_MCAST_ADD (2)  /* u.mcast */
+ #define XEN_NETIF_EXTRA_TYPE_MCAST_DEL (3)  /* u.mcast */
+ #define XEN_NETIF_EXTRA_TYPE_HASH      (4)  /* u.hash */
+-#define XEN_NETIF_EXTRA_TYPE_MAX       (5)
++#define XEN_NETIF_EXTRA_TYPE_XDP       (5)  /* u.xdp */
++#define XEN_NETIF_EXTRA_TYPE_MAX       (6)
+ 
+ /* netif_extra_info_t flags. */
+ #define _XEN_NETIF_EXTRA_FLAG_MORE (0)
+@@ -1018,6 +1019,10 @@ struct netif_extra_info {
+             uint8_t algorithm;
+             uint8_t value[4];
+         } hash;
++        struct {
++            uint16_t headroom;
++            uint32_t pad;
++        } xdp;
+         uint16_t pad[3];
+     } u;
+ };
+-- 
+1.8.3.1
+
 
