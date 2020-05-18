@@ -2,21 +2,22 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 887851D7710
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 13:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C9561D7711
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 13:31:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jadya-0005kQ-ED; Mon, 18 May 2020 11:30:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jadyZ-0005jw-11; Mon, 18 May 2020 11:30:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/+tu=7A=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jadyY-0005jp-Jv
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 11:30:30 +0000
-X-Inumbo-ID: f8a96db6-98fa-11ea-9887-bc764e2007e4
+ id 1jadyX-0005jk-7n
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 11:30:29 +0000
+X-Inumbo-ID: f8d52a8d-98fa-11ea-a850-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f8a96db6-98fa-11ea-9887-bc764e2007e4;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f8d52a8d-98fa-11ea-a850-12813bfff9fa;
  Mon, 18 May 2020 11:30:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
@@ -24,25 +25,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=F11MEj5YMT2oxGVhUvZNpiEihGr2ehtJLVZ6B95SzeU=; b=N06dxr5K661DEuk0r/cmdE/9Ok
- KLvxdkXY3T0U6y2bKecDnpty0rVqYwYMSsLmzQjiqXfas/+5loRAA2gmJjuToVHo5Hwge+Kbmqvmd
- kKp5VzC4xueXrkitSBvWQsn+lnJz7QPCeEeyzE6+03llrMPDdAx8/02IxPxrktZfaEQI=;
+ bh=lD1rKTHPpy3ZHsAcorCh4F2qKZRDeWwZ6XqxYnQhffE=; b=YAkxoSZtaUEfszOUP6wQmzgkw2
+ fb2xZjDNbO2cCQE9Eg/VY/xs7x7D4ZCzU/P3nNC2a2mPX18s/7O4hWryyFz69hh1nRqPRCEnFx1uo
+ Yu7yYNi33gxHa781bH5ZOOf7vc4wTyy/3wXi8jTOkvmI8brsMxOv5SBh21u5bOfeGdpQ=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1jadyT-0006PI-Je; Mon, 18 May 2020 11:30:25 +0000
+ id 1jadyV-0006PN-1F; Mon, 18 May 2020 11:30:27 +0000
 Received: from 54-240-197-227.amazon.com ([54.240.197.227]
  helo=ufe34d9ed68d054.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jadyT-0000cn-9u; Mon, 18 May 2020 11:30:25 +0000
+ id 1jadyU-0000cn-Ns; Mon, 18 May 2020 11:30:26 +0000
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH for-4.14 1/3] xen/arm: Allow a platform to override the DMA
- width
-Date: Mon, 18 May 2020 12:30:06 +0100
-Message-Id: <20200518113008.15422-2-julien@xen.org>
+Subject: [PATCH for-4.14 2/3] xen/arm: Take into account the DMA width when
+ allocating Dom0 memory banks
+Date: Mon, 18 May 2020 12:30:07 +0100
+Message-Id: <20200518113008.15422-3-julien@xen.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200518113008.15422-1-julien@xen.org>
 References: <20200518113008.15422-1-julien@xen.org>
@@ -57,108 +58,110 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- minyard@acm.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <jgrall@amazon.com>, roman@zededa.com,
- George Dunlap <george.dunlap@citrix.com>, jeff.kubascik@dornerworks.com,
- Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ minyard@acm.org, Julien Grall <jgrall@amazon.com>, roman@zededa.com,
+ jeff.kubascik@dornerworks.com, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Julien Grall <jgrall@amazon.com>
 
 At the moment, Xen is assuming that all the devices are at least 32-bit
-DMA capable. However, some SoC have devices that may be able to access
-a much restricted range. For instance, the RPI has devices that can
-only access the first 1GB of RAM.
+DMA capable. However, some SoCs have devices that may be able to access
+a much restricted range. For instance, the Raspberry PI 4 has devices
+that can only access the first GB of RAM.
 
-The structure platform_desc is now extended to allow a platform to
-override the DMA width. The new is used to implement
-arch_get_dma_bit_size().
+The function arch_get_dma_bit_size() will return the lowest DMA width on
+the platform. Use it to decide what is the limit for the low memory.
 
-The prototype is now moved in asm-arm/mm.h as the function is not NUMA
-specific. The implementation is done in platform.c so we don't have to
-include platform.h everywhere. This should be fine as the function is
-not expected to be called in hotpath.
-
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-
+Signed-off-by: Julien GralL <jgrall@amazon.com>
 ---
+ xen/arch/arm/domain_build.c | 32 +++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>
-
-I noticed that arch_get_dma_bit_size() is only called when there is more
-than one NUMA node. I am a bit unsure what is the reason behind it.
-
-The goal for Arm is to use arch_get_dma_bit_size() when deciding how low
-the first Dom0 bank should be allocated.
----
- xen/arch/arm/platform.c        | 5 +++++
- xen/include/asm-arm/mm.h       | 2 ++
- xen/include/asm-arm/numa.h     | 5 -----
- xen/include/asm-arm/platform.h | 2 ++
- 4 files changed, 9 insertions(+), 5 deletions(-)
-
-diff --git a/xen/arch/arm/platform.c b/xen/arch/arm/platform.c
-index 8eb0b6e57a5a..4db5bbb4c51d 100644
---- a/xen/arch/arm/platform.c
-+++ b/xen/arch/arm/platform.c
-@@ -155,6 +155,11 @@ bool platform_device_is_blacklisted(const struct dt_device_node *node)
-     return (dt_match_node(blacklist, node) != NULL);
- }
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 430708753642..abc4e463d27c 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -211,10 +211,13 @@ fail:
+  *    the ramdisk and DTB must be placed within a certain proximity of
+  *    the kernel within RAM.
+  * 3. For dom0 we want to place as much of the RAM as we reasonably can
+- *    below 4GB, so that it can be used by non-LPAE enabled kernels (32-bit)
++ *    below 4GB, so that it can be used by non-LPAE enabled kernels (32-bit).
+  *    or when a device assigned to dom0 can only do 32-bit DMA access.
+- * 4. For 32-bit dom0 the kernel must be located below 4GB.
+- * 5. We want to have a few largers banks rather than many smaller ones.
++ * 4. Some devices assigned to dom0 can only do 32-bit DMA access or
++ *    even be more restricted. We want to allocate as much of the RAM
++ *    as we reasonably can that can be accessed from all the devices..
++ * 5. For 32-bit dom0 the kernel must be located below 4GB.
++ * 6. We want to have a few largers banks rather than many smaller ones.
+  *
+  * For the first two requirements we need to make sure that the lowest
+  * bank is sufficiently large.
+@@ -245,9 +248,9 @@ fail:
+  * we give up.
+  *
+  * For 32-bit domain we require that the initial allocation for the
+- * first bank is under 4G. For 64-bit domain, the first bank is preferred
+- * to be allocated under 4G. Then for the subsequent allocations we
+- * initially allocate memory only from below 4GB. Once that runs out
++ * first bank is part of the low mem. For 64-bit, the first bank is preferred
++ * to be allocated in the low mem. Then for subsequent allocation, we
++ * initially allocate memory only from low mem. Once that runs out out
+  * (as described above) we allow higher allocations and continue until
+  * that runs out (or we have allocated sufficient dom0 memory).
+  */
+@@ -262,6 +265,7 @@ static void __init allocate_memory_11(struct domain *d,
+     int i;
  
-+unsigned int arch_get_dma_bitsize(void)
-+{
-+    return ( platform && platform->dma_bitsize ) ? platform->dma_bitsize : 32;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
-index 7df91280bc77..f8ba49b1188f 100644
---- a/xen/include/asm-arm/mm.h
-+++ b/xen/include/asm-arm/mm.h
-@@ -366,6 +366,8 @@ int arch_acquire_resource(struct domain *d, unsigned int type, unsigned int id,
-     return -EOPNOTSUPP;
- }
+     bool lowmem = true;
++    unsigned int lowmem_bitsize = min(32U, arch_get_dma_bitsize());
+     unsigned int bits;
  
-+unsigned int arch_get_dma_bitsize(void);
-+
- #endif /*  __ARCH_ARM_MM__ */
- /*
-  * Local variables:
-diff --git a/xen/include/asm-arm/numa.h b/xen/include/asm-arm/numa.h
-index 490d1f31aa14..31a6de4e2346 100644
---- a/xen/include/asm-arm/numa.h
-+++ b/xen/include/asm-arm/numa.h
-@@ -25,11 +25,6 @@ extern mfn_t first_valid_mfn;
- #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
- #define __node_distance(a, b) (20)
- 
--static inline unsigned int arch_get_dma_bitsize(void)
--{
--    return 32;
--}
--
- #endif /* __ARCH_ARM_NUMA_H */
- /*
-  * Local variables:
-diff --git a/xen/include/asm-arm/platform.h b/xen/include/asm-arm/platform.h
-index ed4d30a1be7c..997eb2521631 100644
---- a/xen/include/asm-arm/platform.h
-+++ b/xen/include/asm-arm/platform.h
-@@ -38,6 +38,8 @@ struct platform_desc {
-      * List of devices which must not pass-through to a guest
+     /*
+@@ -282,7 +286,7 @@ static void __init allocate_memory_11(struct domain *d,
       */
-     const struct dt_device_match *blacklist_dev;
-+    /* Override the DMA width (32-bit by default). */
-+    unsigned int dma_bitsize;
- };
+     while ( order >= min_low_order )
+     {
+-        for ( bits = order ; bits <= (lowmem ? 32 : PADDR_BITS); bits++ )
++        for ( bits = order ; bits <= lowmem_bitsize; bits++ )
+         {
+             pg = alloc_domheap_pages(d, order, MEMF_bits(bits));
+             if ( pg != NULL )
+@@ -296,24 +300,26 @@ static void __init allocate_memory_11(struct domain *d,
+         order--;
+     }
  
- /*
+-    /* Failed to allocate bank0 under 4GB */
++    /* Failed to allocate bank0 in the lowmem region. */
+     if ( is_32bit_domain(d) )
+         panic("Unable to allocate first memory bank\n");
+ 
+-    /* Try to allocate memory from above 4GB */
+-    printk(XENLOG_INFO "No bank has been allocated below 4GB.\n");
++    /* Try to allocate memory from above the lowmem region */
++    printk(XENLOG_INFO "No bank has been allocated below %u-bit.\n",
++           lowmem_bitsize);
+     lowmem = false;
+ 
+  got_bank0:
+ 
+     /*
+-     * If we failed to allocate bank0 under 4GB, continue allocating
+-     * memory from above 4GB and fill in banks.
++     * If we failed to allocate bank0 in the lowmem region,
++     * continue allocating from above the lowmem and fill in banks.
+      */
+     order = get_allocation_size(kinfo->unassigned_mem);
+     while ( kinfo->unassigned_mem && kinfo->mem.nr_banks < NR_MEM_BANKS )
+     {
+-        pg = alloc_domheap_pages(d, order, lowmem ? MEMF_bits(32) : 0);
++        pg = alloc_domheap_pages(d, order,
++                                 lowmem ? MEMF_bits(lowmem_bitsize) : 0);
+         if ( !pg )
+         {
+             order --;
 -- 
 2.17.1
 
