@@ -2,59 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 711BA1D7F93
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 19:04:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14B7F1D7FB5
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 19:09:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jajAt-0004zL-D5; Mon, 18 May 2020 17:03:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jajGM-0005Az-1n; Mon, 18 May 2020 17:09:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eFi1=7A=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jajAr-0004zG-E4
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 17:03:33 +0000
-X-Inumbo-ID: 80ab74c4-9929-11ea-a87f-12813bfff9fa
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 80ab74c4-9929-11ea-a87f-12813bfff9fa;
- Mon, 18 May 2020 17:03:32 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id n5so330889wmd.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 10:03:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=nGkI8tP239tDUEkOH0wudLcKJV8oZ9pOIkB3tDZoxrg=;
- b=YREmVS/JqP7lqzxp39gP3lgCD2262D0QlMLXv/JPajIBs2LN+4rtDnuu91iwIaDwNI
- KTjd6KKkZwmA10xogjcy3Z4ZZZctTAcCDiBApVb0j+miwwUm6zjszCNK6+AHGxu/0Bh4
- nhDrblD35j2HzLN2MU6Bt8csaf3XA5CbC15mkcqQrHrkbH4pxLi2+rGaMz765v7lwVNP
- TAJhvpmwdVAzZ1YvEcPzYriui17ntuLg0llrMjDU+0grmWL/5Im9LvcbU7KfiW//9rAs
- pTrgYd7L758afGoRMDs/1eWSI+IL1WfSRj8xFR8HwFgXfFbK7S9s2bgFP04VfUi7Cfei
- icfQ==
-X-Gm-Message-State: AOAM5321oLbbPpFq9tJS5LZeaURMeNBr6mPkblZnEe6jBqTii1ZcCU+h
- 3E5hcqblFnwy+ipJVR5BOjU=
-X-Google-Smtp-Source: ABdhPJywQb6/ikR7MO4Iw1Y4FKE6Mj4/g+sg5oH2NUQrfDPj2FUFFI/J5INqaz3stG76S71YWUUnMg==
-X-Received: by 2002:a1c:acc8:: with SMTP id v191mr350905wme.154.1589821411650; 
- Mon, 18 May 2020 10:03:31 -0700 (PDT)
-Received: from
- liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
- ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id s67sm275684wmf.3.2020.05.18.10.03.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2020 10:03:30 -0700 (PDT)
-Date: Mon, 18 May 2020 17:03:29 +0000
-From: Wei Liu <wl@xen.org>
-To: Olaf Hering <olaf@aepfle.de>
-Subject: Re: [PATCH v1] tools: use HOSTCC/CPP to compile rombios code and
- helper
-Message-ID: <20200518170329.vis2yzz5qcacqt64@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-References: <20200518144400.16708-1-olaf@aepfle.de>
+ <SRS0=dGN6=7A=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jajGK-0005Au-QZ
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 17:09:12 +0000
+X-Inumbo-ID: 4b1f4064-992a-11ea-ae69-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4b1f4064-992a-11ea-ae69-bc764e2007e4;
+ Mon, 18 May 2020 17:09:12 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: H6g83SbejvVrH02O1Q9+qv7KYhczYNrhMvY/kE0e8jTXHP6oEKbpD0Dai7myDthVZv7bNSc+Sc
+ lC+ie3J2O9ywlXqRof5Xdx1RWCvuAcwMOYvI9UQBUl7/wYfQUa3bU+mGhwiGRt81GT6iSKYUAC
+ FdScaDROyf4ZRxO22RPmqOAEUs8rfOpdrX8tCL/9B2Fx9/XY/wqqcPVVjE9BN9x4xTF7tRy0HL
+ rvxbvzCYdHYWmfnMLHJAPENgJG4LbKF7C9N9+j8DwgTAtJa1zopEOi0paFzGKPZPI5zTYOCs0k
+ Pxg=
+X-SBRS: 2.7
+X-MesageID: 18176202
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,407,1583211600"; d="scan'208";a="18176202"
+Date: Mon, 18 May 2020 19:09:04 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v3 1/5] x86: suppress XPTI-related TLB flushes when
+ possible
+Message-ID: <20200518170904.GY54375@Air-de-Roger>
+References: <3ce4ab2c-8cb6-1482-6ce9-3d5b019e10c1@suse.com>
+ <ae47cb2c-2fff-cd08-0a26-683cef1f3303@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200518144400.16708-1-olaf@aepfle.de>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <ae47cb2c-2fff-cd08-0a26-683cef1f3303@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,45 +55,84 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, May 18, 2020 at 04:44:00PM +0200, Olaf Hering wrote:
-> Use also HOSTCFLAGS for biossums while touching the code.
+On Wed, Sep 25, 2019 at 05:23:11PM +0200, Jan Beulich wrote:
+> When there's no XPTI-enabled PV domain at all, there's no need to issue
+> respective TLB flushes. Hardwire opt_xpti_* to false when !PV, and
+> record the creation of PV domains by bumping opt_xpti_* accordingly.
 > 
-> Spotted by inspecting build logfile.
+> As to the sticky opt_xpti_domu vs increment/decrement of opt_xpti_hwdom,
+> this is done this way to avoid
+> (a) widening the former variable,
+> (b) any risk of a missed flush, which would result in an XSA if a DomU
+>     was able to exercise it, and
+> (c) any races updating the variable.
+> Fundamentally the TLB flush done when context switching out the domain's
+> vCPU-s the last time before destroying the domain ought to be
+> sufficient, so in principle DomU handling could be made match hwdom's.
 > 
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
-
-Acked-by: Wei Liu <wl@xen.org>
-
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
->  tools/firmware/rombios/Makefile | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> v3: Re-base.
+> v2: Add comment to spec_ctrl.h. Explain difference in accounting of DomU
+>     and hwdom.
+> ---
+> TBD: The hardwiring to false could be extended to opt_pv_l1tf_* and (for
+>      !HVM) opt_l1d_flush as well.
 > 
-> diff --git a/tools/firmware/rombios/Makefile b/tools/firmware/rombios/Makefile
-> index 78237fd736..02abdb3038 100644
-> --- a/tools/firmware/rombios/Makefile
-> +++ b/tools/firmware/rombios/Makefile
-> @@ -19,7 +19,7 @@ clean: subdirs-clean
->  distclean: clean
+> ---
+>  xen/arch/x86/flushtlb.c         |    2 +-
+>  xen/arch/x86/pv/domain.c        |   14 +++++++++++++-
+>  xen/arch/x86/spec_ctrl.c        |    6 ++++++
+>  xen/include/asm-x86/spec_ctrl.h |   11 +++++++++++
+>  4 files changed, 31 insertions(+), 2 deletions(-)
+> 
+> --- a/xen/arch/x86/flushtlb.c
+> +++ b/xen/arch/x86/flushtlb.c
+> @@ -207,7 +207,7 @@ unsigned int flush_area_local(const void
+>                   */
+>                  invpcid_flush_one(PCID_PV_PRIV, addr);
+>                  invpcid_flush_one(PCID_PV_USER, addr);
+> -                if ( opt_xpti_hwdom || opt_xpti_domu )
+> +                if ( opt_xpti_hwdom > 1 || opt_xpti_domu > 1 )
+>                  {
+>                      invpcid_flush_one(PCID_PV_PRIV | PCID_PV_XPTI, addr);
+>                      invpcid_flush_one(PCID_PV_USER | PCID_PV_XPTI, addr);
+> --- a/xen/arch/x86/pv/domain.c
+> +++ b/xen/arch/x86/pv/domain.c
+> @@ -272,6 +272,9 @@ void pv_domain_destroy(struct domain *d)
+>      destroy_perdomain_mapping(d, GDT_LDT_VIRT_START,
+>                                GDT_LDT_MBYTES << (20 - PAGE_SHIFT));
 >  
->  BIOS-bochs-latest: rombios.c biossums 32bitgateway.c tcgbios.c
-> -	gcc -DBX_SMP_PROCESSORS=1 -E -P $< > _rombios_.c
-> +	$(CPP) -DBX_SMP_PROCESSORS=1 -P $< > _rombios_.c
->  	bcc -o rombios.s -C-c -D__i86__ -0 -S _rombios_.c
->  	sed -e 's/^\.text//' -e 's/^\.data//' rombios.s > _rombios_.s
->  	as86 _rombios_.s -b tmp.bin -u- -w- -g -0 -j -O -l rombios.txt
-> @@ -29,6 +29,6 @@ BIOS-bochs-latest: rombios.c biossums 32bitgateway.c tcgbios.c
->  	rm -f _rombios_.s
+> +    opt_xpti_hwdom -= IS_ENABLED(CONFIG_LATE_HWDOM) &&
+> +                      !d->domain_id && opt_xpti_hwdom;
+> +
+>      XFREE(d->arch.pv.cpuidmasks);
 >  
->  biossums: biossums.c
-> -	gcc -o biossums biossums.c
-> +	$(HOSTCC) $(HOSTCFLAGS) -o biossums biossums.c
+>      FREE_XENHEAP_PAGE(d->arch.pv.gdt_ldt_l1tab);
+> @@ -310,7 +313,16 @@ int pv_domain_initialise(struct domain *
+>      /* 64-bit PV guest by default. */
+>      d->arch.is_32bit_pv = d->arch.has_32bit_shinfo = 0;
 >  
->  -include $(DEPS_INCLUDE)
+> -    d->arch.pv.xpti = is_hardware_domain(d) ? opt_xpti_hwdom : opt_xpti_domu;
+> +    if ( is_hardware_domain(d) && opt_xpti_hwdom )
+> +    {
+> +        d->arch.pv.xpti = true;
+> +        ++opt_xpti_hwdom;
+> +    }
+> +    if ( !is_hardware_domain(d) && opt_xpti_domu )
+> +    {
+> +        d->arch.pv.xpti = true;
+> +        opt_xpti_domu = 2;
+
+I wonder whether a store fence is needed here in order to guarantee
+that opt_xpti_domu is visible to flush_area_local before proceeding
+any further with domain creation.
+
+Thanks, Roger.
 
