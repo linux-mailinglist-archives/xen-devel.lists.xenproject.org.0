@@ -2,60 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BFEB1D7CB1
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 17:21:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E29E71D7CD8
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 17:30:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jahZP-0003YB-CU; Mon, 18 May 2020 15:20:47 +0000
+	id 1jahii-0004WJ-L4; Mon, 18 May 2020 15:30:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tJLm=7A=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jahZO-0003Y6-MZ
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 15:20:46 +0000
-X-Inumbo-ID: 25118742-991b-11ea-ae69-bc764e2007e4
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
+ id 1jahih-0004WE-HZ
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 15:30:23 +0000
+X-Inumbo-ID: 7ce1bcfc-991c-11ea-b07b-bc764e2007e4
+Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 25118742-991b-11ea-ae69-bc764e2007e4;
- Mon, 18 May 2020 15:20:46 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id f18so10275508lja.13
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 08:20:45 -0700 (PDT)
+ id 7ce1bcfc-991c-11ea-b07b-bc764e2007e4;
+ Mon, 18 May 2020 15:30:22 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id h188so8449435lfd.7
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 08:30:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=wWiHQi0e8L74KHAj4JXZmCf/pFA8Cj68yED+D3NeSlU=;
- b=uD6ltweur65jVLAF9t2IdoxK5L9t65GlPCc3yYB+ynPcU380gq3ZeGLw6T+BW8qMy2
- erJhrOK5g5Cy25ft4Sq7Wb/J7U6ClU6bD4v2mUgEfM3TAURf9SYHQhGcTMw00CpVu+/T
- puHDcUEyoNYgRn28B8bQ5bvwOjlCea85ZuBQhw03tHhmnTNWg/v/LN1GdjsoMYRNLmHA
- 6+pNrsUxEc+iobBpvS2B7n/SB/XkVhvbWyWMF+jKKg3cId+CNp/fp5p/jQd9dsOGdE3l
- 4He3iZ8xuDBlTHUEB/UAThNRey/SNolQDrYCTVePvd5udjW6SGQocRwRcF9apojNKcii
- dH3Q==
+ bh=RNVXcfewXqmsp+ezBCQMBAjKuoMluyNqSpecwaZ3Lv4=;
+ b=Gn/vED0Gf9+nQjOCDkaMwgyUeH3+ftV7JzbGYrpkT1kGB2w5I2zG8UoF4sWKy2wJdM
+ 48MMyY76gUyjJSuCfnR+aAvp24Hfyg4uaTD6//tr5JXejea4ikNRpeWfuudpnQJBPpcL
+ izDc6aARp/Dr9D0GNYWe/sEiQwAYuwllHwiv0hVUzbIqkAlva4PGUw3gnpIkP+kqj6hI
+ I7bdy15mnpNfKJwqKF/X7BNmMKBAMucjgY5tX2arUVVwSnSS+YyQ8Kc40rYOj8dSyjdC
+ 4G1Ed7hmZpoCsG3zMU38bfcQTQpgB8DzssTawsqvFmOTpLKmaWHs1oBYdGNjErxjAezO
+ gzpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=wWiHQi0e8L74KHAj4JXZmCf/pFA8Cj68yED+D3NeSlU=;
- b=MljNvMPNzoKIs/FuNv4CC1rPoJXGoR4rh3wlEMISkjWXTvR96xniQ9ksxc0jFdzSTg
- B8jtXqCyWbPGA08QPqIfhQFM5xpe+9LId3K3KjVffuS10VEcXUsb+KNovLXRbCEmOn3T
- 3xB4P+gdu7avjPL8ThfPmkt7PAARbYhWreP8TPVrLwO37vYf2vVH12W6dXycwi7Ig/lp
- mAXfT8UPx1a5AdXBprmHZIR39/pfpoU/abD8Ll+JTXCHwB419Lf1dhwulA3NLlQcINa5
- 3YaAfzQ/giTAGTYEtQFneF/C1DuGJfH1afQPO70AIPdLB/h8/F5OHWYELbe1HGJgUVG2
- PnWA==
-X-Gm-Message-State: AOAM532dQ3JJNfrFxECh/QVLt5B2v11z02GGC/wO81ajhp030YuH4Wys
- /T3/tQ9Wq9ZawUs0oPUgXnP17FQFkRbsHwGGw9E=
-X-Google-Smtp-Source: ABdhPJzQdtnUfUFxI4mg6gUm5vDxHpfy43carulanlXtFGZd1FwsbkOhOXW6OrCq3sn7ucCZqYRWDnuxiFdxJYGTR50=
-X-Received: by 2002:a2e:9b10:: with SMTP id u16mr1805008lji.210.1589815244483; 
- Mon, 18 May 2020 08:20:44 -0700 (PDT)
+ bh=RNVXcfewXqmsp+ezBCQMBAjKuoMluyNqSpecwaZ3Lv4=;
+ b=Ia46fBZnpOVrBQvqUItDmSait06D22ZocMhljan9D55e9qEgnBAP7TeR7h77g6TnfG
+ xbplbxlmEVtNdk8AYwmND2wTD7GAho2Z1LiUBL8b1TlNtz4CMrIuy6z2JujR3f7KNDwH
+ m8pm/Q+UW/4vFA9cvAAseIfGhm/ulavUgyPMGYHoKutUlkavMm6ovFFKpHLN3J+i7TVW
+ /9whhk5XlDpkEW7E7SIdsN3OjT/BfKLYqTjkNS4A4ohlqbuxpuTdbJ28GeMqG3ZpeWjZ
+ 3ZEc/R3DVvcMshA1WF75BiN9gUMNlU3cIstCJHPjEZLgPAchkeJsYt0if8t+vkJwsARm
+ MIzw==
+X-Gm-Message-State: AOAM532o3hoLKJxQRoimpq/At/30aPlseq/3caWLuMt2qbOJxJyODfVy
+ jRfM7ZdR+2AZZmdTq2FClCXFUoZ8ZfRbRLHASgQ=
+X-Google-Smtp-Source: ABdhPJwkj6Nkoq5LPDS2Iwv0eBH8eyAMlCib8NYu+rS5P+pGBS+uGljxz+DfUjDo2qG7EBWwP5wDShzlUDvNdiA2grk=
+X-Received: by 2002:a05:6512:31d1:: with SMTP id
+ j17mr4845055lfe.148.1589815821575; 
+ Mon, 18 May 2020 08:30:21 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200518011353.326287-1-jandryuk@gmail.com>
- <20200518011353.326287-7-jandryuk@gmail.com>
- <24258.39310.574582.176081@mariner.uk.xensource.com>
-In-Reply-To: <24258.39310.574582.176081@mariner.uk.xensource.com>
+ <20200518011353.326287-10-jandryuk@gmail.com>
+ <24258.39586.245004.804616@mariner.uk.xensource.com>
+In-Reply-To: <24258.39586.245004.804616@mariner.uk.xensource.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 18 May 2020 11:20:33 -0400
-Message-ID: <CAKf6xpueM5BXd0ivDHHpq2oRo_T1Uh+zMF0TrrV5u5dVR8DiLQ@mail.gmail.com>
-Subject: Re: [PATCH v6 06/18] libxl: write qemu arguments into separate
- xenstore keys
+Date: Mon, 18 May 2020 11:30:10 -0400
+Message-ID: <CAKf6xpt-wBML1kFPOddaM8J8KbqSveN=Z0esvRN-O4UzidrTQg@mail.gmail.com>
+Subject: Re: [PATCH v6 09/18] libxl: add save/restore support for qemu-xen in
+ stubdomain
 To: Ian Jackson <ian.jackson@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -76,41 +77,53 @@ Cc: Anthony Perard <anthony.perard@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, May 18, 2020 at 10:20 AM Ian Jackson <ian.jackson@citrix.com> wrote=
+On Mon, May 18, 2020 at 10:24 AM Ian Jackson <ian.jackson@citrix.com> wrote=
 :
 >
-> Jason Andryuk writes ("[PATCH v6 06/18] libxl: write qemu arguments into =
-separate xenstore keys"):
+> Jason Andryuk writes ("[PATCH v6 09/18] libxl: add save/restore support f=
+or qemu-xen in stubdomain"):
 > > From: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 > ...
-> > +static int libxl__write_stub_linux_dm_argv(libxl__gc *gc,
-> > +                                           int dm_domid, int guest_dom=
-id,
-> > +                                           char **args)
-> > +{
+> >      if (state->saved_state) {
+> > -        /* This file descriptor is meant to be used by QEMU */
+> > -        *dm_state_fd =3D open(state->saved_state, O_RDONLY);
+> > -        flexarray_append(dm_args, "-incoming");
+> > -        flexarray_append(dm_args, GCSPRINTF("fd:%d",*dm_state_fd));
+> > +        if (is_stubdom) {
+> > +            /* Linux stubdomain must replace $STUBDOM_RESTORE_INCOMING=
+_ARG
+> > +             * with the approriate fd:$num argument for the
+> > +             * STUBDOM_CONSOLE_RESTORE console 2.
+> > +             */
+> > +            flexarray_append(dm_args, "-incoming");
+> > +            flexarray_append(dm_args, "$STUBDOM_RESTORE_INCOMING_ARG")=
+;
+> > +        } else {
+> > +            /* This file descriptor is meant to be used by QEMU */
+> > +            *dm_state_fd =3D open(state->saved_state, O_RDONLY);
+> > +            flexarray_append(dm_args, "-incoming");
+> > +            flexarray_append(dm_args, GCSPRINTF("fd:%d",*dm_state_fd))=
+;
 >
-> Thanks for the changes.
+> Hrk.  The stubdom script is expected to spot this particular value in
+> the dm_args array and seddery it.  OK.  This is, at leasst, sound.
+> I'm happy with the code and the protocol.
 >
-> > +    xs_transaction_t t =3D XBT_NULL;
-> ...
-> > +    rc =3D libxl__xs_read_mandatory(gc, XBT_NULL,
-> > +                                  GCSPRINTF("/local/domain/%d/vm", gue=
-st_domid),
-> > +                                  &vm_path);
-> > +    if (rc)
-> > +        return rc;
+> I think this needs a change to this doc:
 >
-> I think this should be "goto out".  That conforms to standard libxl
-> error handling discipline and avoids future leak bugs etc.
-> libxl__xs_transaction_abort is a no-op with t=3D=3DNULL.
+>   Subject: [PATCH v6 01/18] Document ioemu MiniOS stubdomain protocol
 >
-> Also, it is not clear to me why you chose to put this outside the
-> transaction loop.  Can you either put it inside the transaction loop,
-> or produce an explanation as to why this approach is race-free...
+>   +Toolstack to MiniOS ioemu stubdomain protocol
+>   +---------------------------------------------
+>
+> Provided that you update the docs commit and take my ack off that,
+> please add my ack to this code :-).
 
-I just matched the old code's transaction only around the write.  "vm"
-shouldn't change during runtime, but I can make the changes as you
-suggest.
+I updated "[PATCH v6 02/18] Document ioemu Linux stubdomain protocol"
+to mention $STUBDOM_RESTORE_INCOMING_ARG as well as the xenstore
+directory change to "dm-argv" in this v6, but I left your Ack on it.
+Sorry about that.  I'll remove your Ack from 02/18 when I post v7,
+but I'll add the Ack to this 09/18.
 
 -Jason
 
