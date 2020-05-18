@@ -2,52 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B071D79A8
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 15:22:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D66F1D79C4
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 15:26:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jafj3-0007rv-9Z; Mon, 18 May 2020 13:22:37 +0000
+	id 1jafmH-00082x-Q6; Mon, 18 May 2020 13:25:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZwhG=7A=kaod.org=clg@srs-us1.protection.inumbo.net>)
- id 1jafj2-0007rp-4v
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 13:22:36 +0000
-X-Inumbo-ID: a2964eca-990a-11ea-9887-bc764e2007e4
-Received: from 19.mo5.mail-out.ovh.net (unknown [46.105.35.78])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hPYZ=7A=linux-powerpc.org=kda@srs-us1.protection.inumbo.net>)
+ id 1jafmG-00082s-CL
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 13:25:56 +0000
+X-Inumbo-ID: 1a06211a-990b-11ea-b9cf-bc764e2007e4
+Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a2964eca-990a-11ea-9887-bc764e2007e4;
- Mon, 18 May 2020 13:22:34 +0000 (UTC)
-Received: from player732.ha.ovh.net (unknown [10.110.103.118])
- by mo5.mail-out.ovh.net (Postfix) with ESMTP id 21FA827C242
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 15:22:33 +0200 (CEST)
-Received: from kaod.org (82-64-250-170.subs.proxad.net [82.64.250.170])
- (Authenticated sender: clg@kaod.org)
- by player732.ha.ovh.net (Postfix) with ESMTPSA id D7420125CCEDC;
- Mon, 18 May 2020 13:21:52 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-99G003b3c596e5-fc65-4a7f-a892-87f5b49a92ea,2E2A9519E3FAC9D985F861812C9F86F7BE89492F)
- smtp.auth=clg@kaod.org
-Subject: Re: [PATCH v3 0/3] various: Remove unnecessary casts
-To: Markus Armbruster <armbru@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>
-References: <20200512070020.22782-1-f4bug@amsat.org>
- <871rnlsps6.fsf@dusky.pond.sub.org>
- <8791b385-8493-f81d-5ee3-cca5b8559c27@redhat.com>
- <87imgt9ycp.fsf@dusky.pond.sub.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <2f4607cf-90a9-ca9a-4ef6-a8358631cdf0@kaod.org>
-Date: Mon, 18 May 2020 15:21:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <87imgt9ycp.fsf@dusky.pond.sub.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 10095100040702757704
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedruddthedgieefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepuffvfhfhkffffgggjggtgfesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeffhfffudegjeeggedugeefgeeifffhueethefhfeekkedvkefggfelteefuddvteenucffohhmrghinhepohiilhgrsghsrdhorhhgnecukfhppedtrddtrddtrddtpdekvddrieegrddvhedtrddujedtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeefvddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegtlhhgsehkrghougdrohhrghdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
+ id 1a06211a-990b-11ea-b9cf-bc764e2007e4;
+ Mon, 18 May 2020 13:25:55 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id g1so9826500ljk.7
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 06:25:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-powerpc-org.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id;
+ bh=oD7uBg2txWw1buup5dqXIpdnCiWGkgpK8zE5/uRvEwE=;
+ b=ezGbIJQAfRx8928jC+cxdXYjth9HudpYFjWKUt4Z+S1tlIHOEW6b0n/X3VyKttQaxi
+ kxRt208N22OpoWYK1EPvdWvLRIRwLwIPk8A0s48nMBDMxaD+J4/d//LaNusGpggXeIs5
+ OTjw7rJ5Cvfvd06DxQDidXFKgDyoOeIEfhggbWkGv4jDDIqIh2W7vwMSk8GFhZAalv9j
+ SW/7US57rbnFNfe9ah3U1G1vosR5iqJVxbWYvanceeDFgZ5qxhFwj9b9Y0PEG+4F2bY4
+ 0LGzLRBFogXBpr/UAV/lKxREd1ghKZqWitegkILOiLDjvKj8EwAIfyVlldUgSuhXky1o
+ aFAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=oD7uBg2txWw1buup5dqXIpdnCiWGkgpK8zE5/uRvEwE=;
+ b=TQAYFwaua/WR6uZuRI+LcIDN5DGNJuOrn0bJoo+cI5/Wo00lnNg4mzP9KYcXdQUkZw
+ snxeYJs1269LTgPvP/lMnXiVRp+b+svsA0AHqqcXOBdyNC1/PeG4VEqA1ueroC8RpcSo
+ v5stxGUqtYyUFuj/DOHuTNfjcQ/i/Rdi8m7oJDWAFDBkPdZyhWD9dNo9VkZCcyo8JwhH
+ Lmw3NVkoreJ6XzjIZ/lAMRBMJTcCSJ/Uk/pUxLl9s6YUz35L6N3oR/sX7kdOkQecd5YA
+ wK/XJJkTuFCmPITdpoTeOdX7KlCazes1zqQqkG9xoGPwiRxTDNCmnFuTzEqy2goo/wJh
+ K9NA==
+X-Gm-Message-State: AOAM53299HdoyijC8RY86iqwGnD/d46hsesgkh0tVu2ZwW/UyZ8w+OeO
+ gAp/O250cTyi0JNpqLD3K/MUmK9G1Y/dpQ==
+X-Google-Smtp-Source: ABdhPJwgmPvVIaKaHrdzHdyIkysHoQ6rTNQ5uTcrxb9pduG2EXVnpyx/jV2XpvFdWzs8R4imez8c1w==
+X-Received: by 2002:a2e:b177:: with SMTP id a23mr10430252ljm.140.1589808354123; 
+ Mon, 18 May 2020 06:25:54 -0700 (PDT)
+Received: from centos7-pv-guest.localdomain ([5.35.46.227])
+ by smtp.gmail.com with ESMTPSA id u8sm7078694lff.38.2020.05.18.06.25.52
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 18 May 2020 06:25:53 -0700 (PDT)
+From: Denis Kirjanov <kda@linux-powerpc.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v3] public/io/netif.h: add a new extra type for XDP
+Date: Mon, 18 May 2020 16:25:44 +0300
+Message-Id: <1589808344-1687-1-git-send-email-kda@linux-powerpc.org>
+X-Mailer: git-send-email 1.8.3.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,56 +65,68 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>, Paul Durrant <paul@xen.org>,
- Jason Wang <jasowang@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
- Laurent Vivier <laurent@vivier.eu>, Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
- qemu-trivial@nongnu.org, David Hildenbrand <david@redhat.com>,
- Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
- Joel Stanley <joel@jms.id.au>, Anthony Perard <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org, David Gibson <david@gibson.dropbear.id.au>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
- Eduardo Habkost <ehabkost@redhat.com>, Corey Minyard <minyard@acm.org>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
- qemu-arm@nongnu.org, Peter Chubb <peter.chubb@nicta.com.au>,
- John Snow <jsnow@redhat.com>, Richard Henderson <rth@twiddle.net>,
- =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Andrew Jeffery <andrew@aj.id.au>, Cornelia Huck <cohuck@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>, qemu-ppc@nongnu.org,
- Aurelien Jarno <aurelien@aurel32.net>
+Cc: jgross@suse.com, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 5/18/20 3:17 PM, Markus Armbruster wrote:
-> Paolo Bonzini <pbonzini@redhat.com> writes:
-> 
->> On 15/05/20 07:58, Markus Armbruster wrote:
->>> Philippe Mathieu-Daudé <f4bug@amsat.org> writes:
->>>
->>>> Remove unnecessary casts using coccinelle scripts.
->>>>
->>>> The CPU()/OBJECT() patches don't introduce logical change,
->>>> The DEVICE() one removes various OBJECT_CHECK() calls.
->>> Queued, thanks!
->>>
->>> Managing expecations: I'm not a QOM maintainer, I don't want to become
->>> one, and I don't normally queue QOM patches :)
->>>
->>
->> I want to be again a QOM maintainer, but it's not the best time for me
->> to be one.  So thanks for picking up my slack.
-> 
-> You're welcome :)
+The patch adds a new extra type to be able to diffirentiate
+between RX responses on xen-netfront side with the adjusted offset
+required for XDP processing.
 
-Could you help me getting this patch merged ? :)
+The offset value from a guest is passed via xenstore.
 
-http://patchwork.ozlabs.org/project/qemu-devel/patch/20200404153340.164861-1-clg@kaod.org/
+Signed-off-by: Denis Kirjanov <denis.kirjanov@suse.com>
+---
+v3:
+- updated the commit message
 
-Thanks,
+v2:
+- added documentation
+- fixed padding for netif_extra_info
+---
+ xen/include/public/io/netif.h | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-C. 
+diff --git a/xen/include/public/io/netif.h b/xen/include/public/io/netif.h
+index 9fcf91a..ec56a15 100644
+--- a/xen/include/public/io/netif.h
++++ b/xen/include/public/io/netif.h
+@@ -161,6 +161,13 @@
+  */
+ 
+ /*
++ * "netfront-xdp-headroom" is used to add an extra space before packet data
++ * for XDP processing. The value is passed by the frontend to be consistent
++ * between both ends. If the value is greater than zero that means that
++ * an RX response is going to be passed to an XDP program for processing.
++ */
++
++/*
+  * Control ring
+  * ============
+  *
+@@ -985,7 +992,8 @@ typedef struct netif_tx_request netif_tx_request_t;
+ #define XEN_NETIF_EXTRA_TYPE_MCAST_ADD (2)  /* u.mcast */
+ #define XEN_NETIF_EXTRA_TYPE_MCAST_DEL (3)  /* u.mcast */
+ #define XEN_NETIF_EXTRA_TYPE_HASH      (4)  /* u.hash */
+-#define XEN_NETIF_EXTRA_TYPE_MAX       (5)
++#define XEN_NETIF_EXTRA_TYPE_XDP       (5)  /* u.xdp */
++#define XEN_NETIF_EXTRA_TYPE_MAX       (6)
+ 
+ /* netif_extra_info_t flags. */
+ #define _XEN_NETIF_EXTRA_FLAG_MORE (0)
+@@ -1018,6 +1026,10 @@ struct netif_extra_info {
+             uint8_t algorithm;
+             uint8_t value[4];
+         } hash;
++        struct {
++            uint16_t headroom;
++            uint16_t pad[2]
++        } xdp;
+         uint16_t pad[3];
+     } u;
+ };
+-- 
+1.8.3.1
+
 
