@@ -2,50 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB4F1D7713
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 13:31:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C563B1D77DE
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 13:52:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jadye-0005lA-NP; Mon, 18 May 2020 11:30:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jaeIa-0007yl-Nl; Mon, 18 May 2020 11:51:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/+tu=7A=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jadyd-0005l0-Je
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 11:30:35 +0000
-X-Inumbo-ID: fa06629a-98fa-11ea-9887-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fa06629a-98fa-11ea-9887-bc764e2007e4;
- Mon, 18 May 2020 11:30:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Q0wZuBDGyM9VQL31+v5+pRe+uO7y+dOvvr/QwhFBcOc=; b=4n/eyLU4N9H7b2z9cd/z9w6PIa
- oF60eXSivItYOzwZeeR6uK9uEWtnYbr7eWPpxQS2ikP12q+a6yFyJ7v7CftwXl3cQ5V6Y4D8tmZpy
- UoRUFBB7pze4byUP9c3KSkgphIty5xqauxFQZCeKhwUaB/nVXNwHLfxWPg4mXIzlvH4E=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jadyW-0006PW-FL; Mon, 18 May 2020 11:30:28 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=ufe34d9ed68d054.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jadyW-0000cn-5S; Mon, 18 May 2020 11:30:28 +0000
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH for-4.14 3/3] xen/arm: plat: Allocate as much as possible
- memory below 1GB for dom0 for RPI
-Date: Mon, 18 May 2020 12:30:08 +0100
-Message-Id: <20200518113008.15422-4-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200518113008.15422-1-julien@xen.org>
-References: <20200518113008.15422-1-julien@xen.org>
+ (envelope-from <SRS0=hVld=7A=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jaeIY-0007yg-Vn
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 11:51:11 +0000
+X-Inumbo-ID: dd60b4d0-98fd-11ea-a854-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dd60b4d0-98fd-11ea-a854-12813bfff9fa;
+ Mon, 18 May 2020 11:51:10 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 55EF4B01C;
+ Mon, 18 May 2020 11:51:11 +0000 (UTC)
+Subject: Re: [RESEND PATCH v2 for-4.14] pvcalls: Document correctly and
+ explicitely the padding for all arches
+To: Julien Grall <julien@xen.org>
+References: <20200516102157.1928-1-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <31a7d5b0-4e4f-960c-d4e0-8e87bf489db2@suse.com>
+Date: Mon, 18 May 2020 13:51:06 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+MIME-Version: 1.0
+In-Reply-To: <20200516102157.1928-1-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,40 +47,31 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- minyard@acm.org, Julien Grall <jgrall@amazon.com>, roman@zededa.com,
- jeff.kubascik@dornerworks.com, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Julien Grall <jgrall@amazon.com>
+On 16.05.2020 12:21, Julien Grall wrote:
+> --- a/xen/include/public/io/pvcalls.h
+> +++ b/xen/include/public/io/pvcalls.h
+> @@ -65,6 +65,9 @@ struct xen_pvcalls_request {
+>              uint32_t domain;
+>              uint32_t type;
+>              uint32_t protocol;
+> +#ifndef CONFIG_X86_32
+> +            uint8_t pad[4];
+> +#endif
 
-The raspberry PI 4 has devices that can only DMA into the first GB of
-the RAM. Therefore we want allocate as much as possible memory below 1GB
-for dom0.
+There's no concept of CONFIG_* in the public headers, the dependency
+(as you'll find elsewhere) is on __i386__ / __x86_64__. Also whether
+there's any padding really doesn't depend directly on the architecture,
+but instead on __alignof__(uint64_t) (i.e. a future port to a 32-bit
+arch, even if - like on x86 - just a guest bitness, may similarly
+want / need / have no padding here).
 
-Use the recently introduced dma_bitsize field to specify the DMA width
-supported.
-
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-Reported-by: Corey Minyard <minyard@acm.org>
----
- xen/arch/arm/platforms/brcm-raspberry-pi.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/xen/arch/arm/platforms/brcm-raspberry-pi.c b/xen/arch/arm/platforms/brcm-raspberry-pi.c
-index b697fa2c6c0e..ad5483437b31 100644
---- a/xen/arch/arm/platforms/brcm-raspberry-pi.c
-+++ b/xen/arch/arm/platforms/brcm-raspberry-pi.c
-@@ -43,6 +43,7 @@ static const struct dt_device_match rpi4_blacklist_dev[] __initconst =
- PLATFORM_START(rpi4, "Raspberry Pi 4")
-     .compatible     = rpi4_dt_compat,
-     .blacklist_dev  = rpi4_blacklist_dev,
-+    .dma_bitsize    = 10,
- PLATFORM_END
- 
- /*
--- 
-2.17.1
-
+Jan
 
