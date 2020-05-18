@@ -2,56 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6A481D7F44
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 18:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 711BA1D7F93
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2020 19:04:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaj1q-00042X-Bj; Mon, 18 May 2020 16:54:14 +0000
+	id 1jajAt-0004zL-D5; Mon, 18 May 2020 17:03:35 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ws3m=7A=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jaj1p-00042Q-5z
- for xen-devel@lists.xenproject.org; Mon, 18 May 2020 16:54:13 +0000
-X-Inumbo-ID: 3238e0df-9928-11ea-a87d-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=eFi1=7A=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1jajAr-0004zG-E4
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2020 17:03:33 +0000
+X-Inumbo-ID: 80ab74c4-9929-11ea-a87f-12813bfff9fa
+Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3238e0df-9928-11ea-a87d-12813bfff9fa;
- Mon, 18 May 2020 16:54:12 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: +ccds8SB45TqruE4apIM2XLthQlYshqcpezscngwotaVhd3bONz/ib38mK7DM7qyfHhYl2wJyR
- 3jGuQtqA2AflF4DVLDuUrSTQiy2hwon4UCqkBaBJAozfbXPyYqszf5DBQ47/qq/CGLj0C7NRHv
- 7PF9lxBWvwSb2R+rYEyFYThB06UV8A02MsQvkYVM0Paa897p+n9EpevAqRkapafDWGZPRs7vzL
- 2OJ3WCymLKC/Ce33j0Q71ufmNjV8vrz4BOs02uSA1z7K0dTCij58LmjK+tR0gG9UNHB8Lz3ycV
- V0Q=
-X-SBRS: 2.7
-X-MesageID: 17839065
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,407,1583211600"; d="scan'208";a="17839065"
-Subject: Re: [PATCH 02/16] x86/traps: Clean up printing in
- do_reserved_trap()/fatal_trap()
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
- <20200501225838.9866-3-andrew.cooper3@citrix.com>
- <aca22b53-895e-19bb-c54c-f1e4945c95c1@suse.com>
- <8f1d68b1-895a-d2a6-4dcb-55b688b03336@citrix.com>
- <b1ef905c-dab6-d1c3-4673-4c06c7e94a0a@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <560c3bce-211a-52ab-c919-9ca1ab9beab3@citrix.com>
-Date: Mon, 18 May 2020 17:54:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 80ab74c4-9929-11ea-a87f-12813bfff9fa;
+ Mon, 18 May 2020 17:03:32 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id n5so330889wmd.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 10:03:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=nGkI8tP239tDUEkOH0wudLcKJV8oZ9pOIkB3tDZoxrg=;
+ b=YREmVS/JqP7lqzxp39gP3lgCD2262D0QlMLXv/JPajIBs2LN+4rtDnuu91iwIaDwNI
+ KTjd6KKkZwmA10xogjcy3Z4ZZZctTAcCDiBApVb0j+miwwUm6zjszCNK6+AHGxu/0Bh4
+ nhDrblD35j2HzLN2MU6Bt8csaf3XA5CbC15mkcqQrHrkbH4pxLi2+rGaMz765v7lwVNP
+ TAJhvpmwdVAzZ1YvEcPzYriui17ntuLg0llrMjDU+0grmWL/5Im9LvcbU7KfiW//9rAs
+ pTrgYd7L758afGoRMDs/1eWSI+IL1WfSRj8xFR8HwFgXfFbK7S9s2bgFP04VfUi7Cfei
+ icfQ==
+X-Gm-Message-State: AOAM5321oLbbPpFq9tJS5LZeaURMeNBr6mPkblZnEe6jBqTii1ZcCU+h
+ 3E5hcqblFnwy+ipJVR5BOjU=
+X-Google-Smtp-Source: ABdhPJywQb6/ikR7MO4Iw1Y4FKE6Mj4/g+sg5oH2NUQrfDPj2FUFFI/J5INqaz3stG76S71YWUUnMg==
+X-Received: by 2002:a1c:acc8:: with SMTP id v191mr350905wme.154.1589821411650; 
+ Mon, 18 May 2020 10:03:31 -0700 (PDT)
+Received: from
+ liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
+ ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id s67sm275684wmf.3.2020.05.18.10.03.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2020 10:03:30 -0700 (PDT)
+Date: Mon, 18 May 2020 17:03:29 +0000
+From: Wei Liu <wl@xen.org>
+To: Olaf Hering <olaf@aepfle.de>
+Subject: Re: [PATCH v1] tools: use HOSTCC/CPP to compile rombios code and
+ helper
+Message-ID: <20200518170329.vis2yzz5qcacqt64@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+References: <20200518144400.16708-1-olaf@aepfle.de>
 MIME-Version: 1.0
-In-Reply-To: <b1ef905c-dab6-d1c3-4673-4c06c7e94a0a@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200518144400.16708-1-olaf@aepfle.de>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,57 +65,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org,
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11/05/2020 16:09, Jan Beulich wrote:
-> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
->
-> On 11.05.2020 17:01, Andrew Cooper wrote:
->> On 04/05/2020 14:08, Jan Beulich wrote:
->>> On 02.05.2020 00:58, Andrew Cooper wrote:
->>>> For one, they render the vector in a different base.
->>>>
->>>> Introduce X86_EXC_* constants and vec_name() to refer to exceptions by their
->>>> mnemonic, which starts bringing the code/diagnostics in line with the Intel
->>>> and AMD manuals.
->>> For this "bringing in line" purpose I'd like to see whether you could
->>> live with some adjustments to how you're currently doing things:
->>> - NMI is nowhere prefixed by #, hence I think we'd better not do so
->>>   either; may require embedding the #-es in the names[] table, or not
->>>   using N() for NMI
->> No-one is going to get confused at seeing #NMI in an error message.  I
->> don't mind jugging the existing names table, but anything more
->> complicated is overkill.
->>
->>> - neither Coprocessor Segment Overrun nor vector 0x0f have a mnemonic
->>>   and hence I think we shouldn't invent one; just treat them like
->>>   other reserved vectors (of which at least vector 0x09 indeed is one
->>>   on x86-64)?
->> This I disagree with.  Coprocessor Segment Overrun *is* its name in both
->> manuals, and the avoidance of vector 0xf is clearly documented as well,
->> due to it being the default PIC Spurious Interrupt Vector.
->>
->> Neither CSO or SPV are expected to be encountered in practice, but if
->> they are, highlighting them is a damn-sight more helpful than pretending
->> they don't exist.
-> How is them occurring (and getting logged with their vector numbers)
-> any different from other reserved, acronym-less vectors? I particularly
-> didn't suggest to pretend they don't exist; instead I did suggest that
-> they are as reserved as, say, vector 0x18. By inventing an acronym and
-> logging this instead of the vector number you'll make people other than
-> you have to look up what the odd acronym means iff such an exception
-> ever got raised.
+On Mon, May 18, 2020 at 04:44:00PM +0200, Olaf Hering wrote:
+> Use also HOSTCFLAGS for biossums while touching the code.
+> 
+> Spotted by inspecting build logfile.
+> 
+> Signed-off-by: Olaf Hering <olaf@aepfle.de>
 
-You snipped the bits in the patch where both the vector number and
-acronym are printed together.
+Acked-by: Wei Liu <wl@xen.org>
 
-Anyone who doesn't know the vector has to look it up anyway, at which
-point they'll find that what Xen prints out matches what both manuals
-say.  OTOH, people who know what a coprocessor segment overrun or PIC
-spurious vector is won't need to look it up.
-
-~Andrew
+> ---
+>  tools/firmware/rombios/Makefile | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/firmware/rombios/Makefile b/tools/firmware/rombios/Makefile
+> index 78237fd736..02abdb3038 100644
+> --- a/tools/firmware/rombios/Makefile
+> +++ b/tools/firmware/rombios/Makefile
+> @@ -19,7 +19,7 @@ clean: subdirs-clean
+>  distclean: clean
+>  
+>  BIOS-bochs-latest: rombios.c biossums 32bitgateway.c tcgbios.c
+> -	gcc -DBX_SMP_PROCESSORS=1 -E -P $< > _rombios_.c
+> +	$(CPP) -DBX_SMP_PROCESSORS=1 -P $< > _rombios_.c
+>  	bcc -o rombios.s -C-c -D__i86__ -0 -S _rombios_.c
+>  	sed -e 's/^\.text//' -e 's/^\.data//' rombios.s > _rombios_.s
+>  	as86 _rombios_.s -b tmp.bin -u- -w- -g -0 -j -O -l rombios.txt
+> @@ -29,6 +29,6 @@ BIOS-bochs-latest: rombios.c biossums 32bitgateway.c tcgbios.c
+>  	rm -f _rombios_.s
+>  
+>  biossums: biossums.c
+> -	gcc -o biossums biossums.c
+> +	$(HOSTCC) $(HOSTCFLAGS) -o biossums biossums.c
+>  
+>  -include $(DEPS_INCLUDE)
 
