@@ -2,75 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16CD11D9B66
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 17:36:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78AD01D9B6C
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 17:37:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb4HX-0001hv-8P; Tue, 19 May 2020 15:35:51 +0000
+	id 1jb4Ij-0001oN-JK; Tue, 19 May 2020 15:37:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FgAx=7B=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jb4HV-0001hp-Ms
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 15:35:49 +0000
-X-Inumbo-ID: 69eae8c4-99e6-11ea-9887-bc764e2007e4
-Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wtzB=7B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jb4Ih-0001oF-W9
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 15:37:04 +0000
+X-Inumbo-ID: 960c79ea-99e6-11ea-ae69-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 69eae8c4-99e6-11ea-9887-bc764e2007e4;
- Tue, 19 May 2020 15:35:49 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id w64so4117795wmg.4
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2020 08:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=iZ9GK+2pKiMpaDV0l248S1LD25qGZ49UXbb330WifgI=;
- b=WQyFWW1OHP/EgPG0Kg8ZCfISC+AuO32mkjjgpfa6dQbzBwa/bGPQ7zG/CpdM6gR7Fk
- S6HjYbG1qAVtW6PzQu/dfbF2bnEK/oRcdSVm3/aIJBZoORhsAtLETwYl9OA3AaWJDPhX
- l5WYLAC5/gp87cIXeOvv2fZd8+X2eppxERoVntdf0rQMx2A842OfPIg3SdS3eruazegP
- FSZZbePcLd4HJieb1ry5dKylNCaEiVChXkEjVERWDxe+imA0sqdfzuG4mFT7YewHnNvy
- vS1yUQZHIn8+SNel/miXa268i6t96Vs2zERfyyUL9TJqc6A3Qq6oug9W6+8i6dGd06RE
- tsFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=iZ9GK+2pKiMpaDV0l248S1LD25qGZ49UXbb330WifgI=;
- b=c+HMlQ77Zsr4mjsaGaDCbXEuFD+M3TZw1dcgvjxrPByhTLXP3SCkEKgvU+/ps7q7XD
- 1xYI69VIO6AtY2zQvnaNjNIj5LTnqi0vvu1tzaQckpamGPoCX9Al5E+anK/XfkqRhYTt
- 8qN4cHpiEZsfvHwNumsvSMqi6S/JkfPcJw+tdlYDvMV8SC5gmGS8OF/pPP/PQXojsiVm
- Lk3bOlllTco49A8hGXAJ2YtsMfwtrG6RvuR9Ly5Xi+RVXMTBosTxxVleMcgt/As3rULj
- L4Y+ADV8UA01WJqkYSPgUY+NVJcxHUTIRA1ZWa6OuKEvEuaPGnGLM7UO5CKUOWRjNXaD
- zFkg==
-X-Gm-Message-State: AOAM531fUC2B2JUV4GtdK2qGj6W9X0Ys1HOnfwE/hw5uZA96vOQ72dQG
- JLlagBHEzt95NJNz7ToXtIw=
-X-Google-Smtp-Source: ABdhPJyk1ExcUlWNRggZ0HhHqmKdA1p4JSHGtP2Co9otprbafUdV+vN570LmIsEZk2IYGwz4E1jEig==
-X-Received: by 2002:a1c:bb0a:: with SMTP id l10mr6097942wmf.186.1589902548360; 
- Tue, 19 May 2020 08:35:48 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.187])
- by smtp.gmail.com with ESMTPSA id l13sm20983585wrm.55.2020.05.19.08.35.46
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 19 May 2020 08:35:47 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
+ id 960c79ea-99e6-11ea-ae69-bc764e2007e4;
+ Tue, 19 May 2020 15:37:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 89A04AC20;
+ Tue, 19 May 2020 15:37:04 +0000 (UTC)
+Subject: Re: [PATCH v3 1/5] xen/common: introduce a new framework for
+ save/restore of 'domain' context
+To: paul@xen.org
 References: <20200514104416.16657-1-paul@xen.org>
- <20200514104416.16657-5-paul@xen.org>
- <bbebc62f-8066-a60e-5717-58e46cd2d172@suse.com>
- <000a01d62df1$28e876e0$7ab964a0$@xen.org>
- <035bded3-9542-31e1-aacf-515be43b8536@suse.com>
-In-Reply-To: <035bded3-9542-31e1-aacf-515be43b8536@suse.com>
-Subject: RE: [PATCH v3 4/5] common/domain: add a domain context record for
- shared_info...
-Date: Tue, 19 May 2020 16:35:46 +0100
-Message-ID: <000e01d62df3$2b222850$816678f0$@xen.org>
+ <20200514104416.16657-2-paul@xen.org>
+ <c1da7ff1-2c3a-02d1-cfa1-18840db37566@suse.com>
+ <000401d62de6$7cb6efa0$7624cee0$@xen.org>
+ <080a1fa3-eb1e-e3b2-c52e-5c7ffdabc6eb@suse.com>
+ <000601d62def$b4f64380$1ee2ca80$@xen.org>
+ <0ee39765-bc1a-e795-5b20-52ba7026e8d4@suse.com>
+ <000d01d62df2$b82534f0$286f9ed0$@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <00609ed0-14f1-e957-52e8-8832f2708b91@suse.com>
+Date: Tue, 19 May 2020 17:37:00 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQH3ss8UVmWNzdPcdrMljFFlRuFHxQHAdhdAAmVNhmkClMN59gEjf36DqC2QVyA=
+In-Reply-To: <000d01d62df2$b82534f0$286f9ed0$@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,60 +53,99 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
 Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
  'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
  'Andrew Cooper' <andrew.cooper3@citrix.com>,
  'Paul Durrant' <pdurrant@amazon.com>,
  'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+ 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 19 May 2020 16:34
-> To: paul@xen.org
-> Cc: xen-devel@lists.xenproject.org; 'Paul Durrant' <pdurrant@amazon.com>; 'Ian Jackson'
-> <ian.jackson@eu.citrix.com>; 'Wei Liu' <wl@xen.org>; 'Andrew Cooper' <andrew.cooper3@citrix.com>;
-> 'George Dunlap' <george.dunlap@citrix.com>; 'Julien Grall' <julien@xen.org>; 'Stefano Stabellini'
-> <sstabellini@kernel.org>
-> Subject: Re: [PATCH v3 4/5] common/domain: add a domain context record for shared_info...
+On 19.05.2020 17:32, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 19 May 2020 16:18
+>> To: paul@xen.org
+>> Cc: xen-devel@lists.xenproject.org; 'Paul Durrant' <pdurrant@amazon.com>; 'Andrew Cooper'
+>> <andrew.cooper3@citrix.com>; 'George Dunlap' <george.dunlap@citrix.com>; 'Ian Jackson'
+>> <ian.jackson@eu.citrix.com>; 'Julien Grall' <julien@xen.org>; 'Stefano Stabellini'
+>> <sstabellini@kernel.org>; 'Wei Liu' <wl@xen.org>; 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>;
+>> 'Roger Pau Monné' <roger.pau@citrix.com>
+>> Subject: Re: [PATCH v3 1/5] xen/common: introduce a new framework for save/restore of 'domain' context
+>>
+>> On 19.05.2020 17:10, Paul Durrant wrote:
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: 19 May 2020 15:24
+>>>>
+>>>> On 19.05.2020 16:04, Paul Durrant wrote:
+>>>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>>>> Sent: 19 May 2020 14:04
+>>>>>>
+>>>>>> On 14.05.2020 12:44, Paul Durrant wrote:
+>>>>>>> +/*
+>>>>>>> + * Register save and restore handlers. Save handlers will be invoked
+>>>>>>> + * in order of DOMAIN_SAVE_CODE().
+>>>>>>> + */
+>>>>>>> +#define DOMAIN_REGISTER_SAVE_RESTORE(_x, _save, _load)            \
+>>>>>>> +    static int __init __domain_register_##_x##_save_restore(void) \
+>>>>>>> +    {                                                             \
+>>>>>>> +        domain_register_save_type(                                \
+>>>>>>> +            DOMAIN_SAVE_CODE(_x),                                 \
+>>>>>>> +            #_x,                                                  \
+>>>>>>> +            &(_save),                                             \
+>>>>>>> +            &(_load));                                            \
+>>>>>>> +                                                                  \
+>>>>>>> +        return 0;                                                 \
+>>>>>>> +    }                                                             \
+>>>>>>> +    __initcall(__domain_register_##_x##_save_restore);
+>>>>>>
+>>>>>> I'm puzzled by part of the comment: Invoking by save code looks
+>>>>>> reasonable for the saving side (albeit END doesn't match this rule
+>>>>>> afaics), but is this going to be good enough for the consuming side?
+>>>>>
+>>>>> No, this only relates to the save side which is why the comment
+>>>>> says 'Save handlers'. I do note that it would be more consistent
+>>>>> to use 'load' rather than 'restore' here though.
+>>>>>
+>>>>>> There may be dependencies between types, and with fixed ordering
+>>>>>> there may be no way to insert a depended upon type ahead of an
+>>>>>> already defined one (at least as long as the codes are meant to be
+>>>>>> stable).
+>>>>>>
+>>>>>
+>>>>> The ordering of load handlers is determined by the stream. I'll
+>>>>> add a sentence saying that.
+>>>>
+>>>> I.e. the consumer of the "get" interface (and producer of the stream)
+>>>> is supposed to take apart the output it gets, bring records into
+>>>> suitable order (which implies it knows of all the records, and which
+>>>> hence means this code may need updating in cases where I'd expect
+>>>> only the hypervisor needs), and only then issue to the stream?
+>>>
+>>> The intention is that the stream is always in a suitable order so the
+>>> load side does not have to do any re-ordering.
+>>
+>> I understood this to be the intention, but what I continue to not
+>> understand is where / how the save side orders it suitably. "Save
+>> handlers will be invoked in order of DOMAIN_SAVE_CODE()" does not
+>> allow for any ordering, unless at the time of the introduction of
+>> a particular code you already know what others it may depend on
+>> in the future, reserving appropriate codes.
+>>
 > 
-> On 19.05.2020 17:21, Paul Durrant wrote:
-> >> From: Jan Beulich <jbeulich@suse.com>
-> >> Sent: 19 May 2020 15:08
-> >>
-> >> On 14.05.2020 12:44, Paul Durrant wrote:
-> >>> --- a/xen/include/public/save.h
-> >>> +++ b/xen/include/public/save.h
-> >>> @@ -73,7 +73,16 @@ struct domain_save_header {
-> >>>  };
-> >>>  DECLARE_DOMAIN_SAVE_TYPE(HEADER, 1, struct domain_save_header);
-> >>>
-> >>> -#define DOMAIN_SAVE_CODE_MAX 1
-> >>> +struct domain_shared_info_context {
-> >>> +    uint8_t has_32bit_shinfo;
-> >>> +    uint8_t pad[3];
-> >>
-> >> 32-(or 16-)bit flags, with just a single bit used for the purpose?
-> >>
-> >
-> > I debated that. Given this is xen/tools-only would a bit-field be acceptable?
-> 
-> Looking at domctl.h and sysctl.h, the only instance I can find is a
-> live-patching struct, and I'd suppose the addition of bitfields there
-> was missed in the hasty review back then. While it might be
-> acceptable, I'd recommend against it. It'll bite us the latest with
-> a port to an arch where endianness is not fixed, and hence may vary
-> between hypercall caller and callee. The standard way of using
-> #define-s looks more future proof.
-> 
+> That's just how it is *now*. If a new code is defined that needs to
+> be in the stream before one of the existing ones then we'll have to
+> introduce a more elaborate scheme to deal with that at the time.
+> Using the save code as the array index and iterating in that order
+> is purely a convenience, and the load side does not depend on
+> entries being in save code order.
 
-Ok, I'll go with a flag. Probably is better in the long run.
+Could then you make the comment indicate so? This will allow people
+wanting to modify this do so more easily, without much digging in
+code or mail history.
 
-  Paul
-
-> Jan
-
+Jan
 
