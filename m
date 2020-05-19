@@ -2,49 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3879B1D92D8
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 11:02:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84CA51D9302
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 11:13:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jay8s-00089y-Kg; Tue, 19 May 2020 09:02:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PPOd=7B=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jay8r-00089t-4h
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 09:02:29 +0000
-X-Inumbo-ID: 76e13772-99af-11ea-b9cf-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 76e13772-99af-11ea-b9cf-bc764e2007e4;
- Tue, 19 May 2020 09:02:28 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: IUQcCtOhP4PrdXx2PlZTuKCKevbwnBlfPV5ArJdEVGrZJd/vFqqiZkL2JhnSLazzG3KyPo0VTr
- hxud0AzWeWjxBLJe8LtTSVvFrZyKku2ARMPU+U4I0C7/M4wvFFrlgW+qWZlkaXES3s9ljOUzX2
- 8bWtYFBSDoqmPotu6/rU91AtsEs6qy4IcfvUxuwfBr2ab+csVCCUaV1N9ZDZwJyoojRRaxAa/9
- D5aDYuVmteaKaiZXLZSyH5PU2/x7ik/Gb7eZRG79d4njnsBN+ABzsR9qdvcw9Nl/P9USUO+E1W
- Ua4=
-X-SBRS: 2.7
-X-MesageID: 18568271
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,409,1583211600"; d="scan'208";a="18568271"
-Date: Tue, 19 May 2020 11:02:20 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
+	id 1jayIv-0000d6-Ko; Tue, 19 May 2020 09:12:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wtzB=7B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jayIu-0000d1-Vu
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 09:12:53 +0000
+X-Inumbo-ID: e9989b42-99b0-11ea-a8e9-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e9989b42-99b0-11ea-a8e9-12813bfff9fa;
+ Tue, 19 May 2020 09:12:50 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 47018AFA1;
+ Tue, 19 May 2020 09:12:52 +0000 (UTC)
 Subject: Re: [PATCH v2 2/3] x86: relax LDT check in arch_set_info_guest()
-Message-ID: <20200519090220.GA54375@Air-de-Roger>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <b7a1a7fe-0bc5-1654-ff1c-e5eb787c579e@suse.com>
  <c36cac91-49ae-6bb2-b057-195031979d21@suse.com>
+ <20200519090220.GA54375@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <50050054-b081-5d6e-13e8-c50e52afe42b@suse.com>
+Date: Tue, 19 May 2020 11:12:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <20200519090220.GA54375@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c36cac91-49ae-6bb2-b057-195031979d21@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,18 +53,31 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Dec 20, 2019 at 02:50:06PM +0100, Jan Beulich wrote:
-> It is wrong for us to check the base address when there's no LDT in the
-> first place. Once we don't do this check anymore we can also set the
-> base address to a non-canonical value when the LDT is empty.
+On 19.05.2020 11:02, Roger Pau Monné wrote:
+> On Fri, Dec 20, 2019 at 02:50:06PM +0100, Jan Beulich wrote:
+>> It is wrong for us to check the base address when there's no LDT in the
+>> first place. Once we don't do this check anymore we can also set the
+>> base address to a non-canonical value when the LDT is empty.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Thanks.
 
-I wonder if a ldt_ents check should also be added to
-pv_map_ldt_shadow_page in order to avoid trying to get the mapping of
-the LDT.
+> I wonder if a ldt_ents check should also be added to
+> pv_map_ldt_shadow_page in order to avoid trying to get the mapping of
+> the LDT.
 
-Thanks, Roger.
+We already have
+
+    if ( unlikely((offset >> 3) >= curr->arch.pv.ldt_ents) )
+    {
+        ASSERT_UNREACHABLE();
+        return false;
+    }
+
+What else do you mean?
+
+Jan
 
