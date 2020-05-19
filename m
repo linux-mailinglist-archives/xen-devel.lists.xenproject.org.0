@@ -2,45 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D714B1D9AFC
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 17:18:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9EC21D9B04
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 17:21:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb40S-0007lV-HH; Tue, 19 May 2020 15:18:12 +0000
+	id 1jb43e-00006t-1w; Tue, 19 May 2020 15:21:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wtzB=7B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jb40R-0007lQ-HR
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 15:18:11 +0000
-X-Inumbo-ID: f2eb2f24-99e3-11ea-b07b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FgAx=7B=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jb43c-00006o-Iv
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 15:21:28 +0000
+X-Inumbo-ID: 67bfc652-99e4-11ea-9887-bc764e2007e4
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f2eb2f24-99e3-11ea-b07b-bc764e2007e4;
- Tue, 19 May 2020 15:18:10 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D6670B227;
- Tue, 19 May 2020 15:18:11 +0000 (UTC)
-Subject: Re: [PATCH v3 1/5] xen/common: introduce a new framework for
- save/restore of 'domain' context
-To: paul@xen.org
+ id 67bfc652-99e4-11ea-9887-bc764e2007e4;
+ Tue, 19 May 2020 15:21:26 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id 50so16322704wrc.11
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2020 08:21:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=wXgEDGvb5Fzh9IMx3Yk8Hp4pGlB6t9IjXAeNzQkMs4A=;
+ b=Jcxdx13QVLKlLzqUmgv6xivc37j7zmyJfGh03mp75uBauVHX16k198wUwg2/7C1hr0
+ V2LNNid+TmoN7T6bD3xL6qF+IZIThgwIASu1+PZX3RE6WjcRYGpFgr32wXl0KitqABS/
+ SZZJ8KxaoE2p0ub5auPIrP8dg4gS9ohskuD7w2lw/QrR2r1LfKNQSG3ulGJgMLx8USWB
+ 7lCPJ8a1bQuZeNsyipdxqU3bg8yGerkbl5heSGiiQrtQHCkHip+p61Cr67KJphAE+5Wt
+ 41Erzohbf9qmUEz7CNgmYJNFu/s7CST+XNuMOgopyprCRWPhX8sxwjASGm3aXFiGmorN
+ CziA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=wXgEDGvb5Fzh9IMx3Yk8Hp4pGlB6t9IjXAeNzQkMs4A=;
+ b=dMi2H3EUEDzUVzpR3EcZPFSz183/cJxC5M113RcldptS2PYMgtwlGogPW9f+NKGDf7
+ ILurbwxa5TdCyhcQAxXS8FGJfP0UnUNFZivSGWgP7XY8426HQWth4iAl7Rgonw6XrdE8
+ SsTCNNf7m7KwG59knbEWr47gNd6kYEf45TpFTDh2LnRvvvWxqlTTg61LXuYAxVAveu5g
+ wP9hGkgxBfgnafM1FaewbqsQj6SidwMbCMHRCw7Po3yrWRiSHJ7Mr6IEI4edXzotJ3nl
+ +Am0TlUukme2uhMa4lFz2O1OKm07mmdNwcxud0rEcVCydabdAXwGA+GS1zuPzaMa/YEI
+ NUdw==
+X-Gm-Message-State: AOAM531nwoLUL7yx7tTItvBzL2nSWvsm5Rtnwyd6awj9xiIjDbV8gKD4
+ APx8M7DgM3tx3syXwmwmSgA=
+X-Google-Smtp-Source: ABdhPJyOxuPj2dcs9nOMzT61S9PLj6jv3HlSQEwI/k2KJQo/C7I4DY/P2+2RJ/4/PE35b+hwnu/zXA==
+X-Received: by 2002:a5d:4d89:: with SMTP id b9mr26965878wru.210.1589901685656; 
+ Tue, 19 May 2020 08:21:25 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id w20sm18980wmk.25.2020.05.19.08.21.24
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 19 May 2020 08:21:25 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>
 References: <20200514104416.16657-1-paul@xen.org>
- <20200514104416.16657-2-paul@xen.org>
- <c1da7ff1-2c3a-02d1-cfa1-18840db37566@suse.com>
- <000401d62de6$7cb6efa0$7624cee0$@xen.org>
- <080a1fa3-eb1e-e3b2-c52e-5c7ffdabc6eb@suse.com>
- <000601d62def$b4f64380$1ee2ca80$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0ee39765-bc1a-e795-5b20-52ba7026e8d4@suse.com>
-Date: Tue, 19 May 2020 17:18:07 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <20200514104416.16657-5-paul@xen.org>
+ <bbebc62f-8066-a60e-5717-58e46cd2d172@suse.com>
+In-Reply-To: <bbebc62f-8066-a60e-5717-58e46cd2d172@suse.com>
+Subject: RE: [PATCH v3 4/5] common/domain: add a domain context record for
+ shared_info...
+Date: Tue, 19 May 2020 16:21:23 +0100
+Message-ID: <000a01d62df1$28e876e0$7ab964a0$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <000601d62def$b4f64380$1ee2ca80$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain;
+	charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQH3ss8UVmWNzdPcdrMljFFlRuFHxQHAdhdAAmVNhmmoS0wfcA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,77 +79,206 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
 Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
  'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
  'Andrew Cooper' <andrew.cooper3@citrix.com>,
  'Paul Durrant' <pdurrant@amazon.com>,
  'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
+ 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 19.05.2020 17:10, Paul Durrant wrote:
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 19 May 2020 15:24
->>
->> On 19.05.2020 16:04, Paul Durrant wrote:
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: 19 May 2020 14:04
->>>>
->>>> On 14.05.2020 12:44, Paul Durrant wrote:
->>>>> +/*
->>>>> + * Register save and restore handlers. Save handlers will be invoked
->>>>> + * in order of DOMAIN_SAVE_CODE().
->>>>> + */
->>>>> +#define DOMAIN_REGISTER_SAVE_RESTORE(_x, _save, _load)            \
->>>>> +    static int __init __domain_register_##_x##_save_restore(void) \
->>>>> +    {                                                             \
->>>>> +        domain_register_save_type(                                \
->>>>> +            DOMAIN_SAVE_CODE(_x),                                 \
->>>>> +            #_x,                                                  \
->>>>> +            &(_save),                                             \
->>>>> +            &(_load));                                            \
->>>>> +                                                                  \
->>>>> +        return 0;                                                 \
->>>>> +    }                                                             \
->>>>> +    __initcall(__domain_register_##_x##_save_restore);
->>>>
->>>> I'm puzzled by part of the comment: Invoking by save code looks
->>>> reasonable for the saving side (albeit END doesn't match this rule
->>>> afaics), but is this going to be good enough for the consuming side?
->>>
->>> No, this only relates to the save side which is why the comment
->>> says 'Save handlers'. I do note that it would be more consistent
->>> to use 'load' rather than 'restore' here though.
->>>
->>>> There may be dependencies between types, and with fixed ordering
->>>> there may be no way to insert a depended upon type ahead of an
->>>> already defined one (at least as long as the codes are meant to be
->>>> stable).
->>>>
->>>
->>> The ordering of load handlers is determined by the stream. I'll
->>> add a sentence saying that.
->>
->> I.e. the consumer of the "get" interface (and producer of the stream)
->> is supposed to take apart the output it gets, bring records into
->> suitable order (which implies it knows of all the records, and which
->> hence means this code may need updating in cases where I'd expect
->> only the hypervisor needs), and only then issue to the stream?
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 19 May 2020 15:08
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Paul Durrant <pdurrant@amazon.com>; Ian Jackson
+> <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>; Andrew Cooper <andrew.cooper3@citrix.com>; George
+> Dunlap <george.dunlap@citrix.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
+> <sstabellini@kernel.org>
+> Subject: Re: [PATCH v3 4/5] common/domain: add a domain context record for shared_info...
 > 
-> The intention is that the stream is always in a suitable order so the
-> load side does not have to do any re-ordering.
+> On 14.05.2020 12:44, Paul Durrant wrote:
+> > @@ -61,6 +62,76 @@ static void dump_header(void)
+> >
+> >  }
+> >
+> > +static void print_binary(const char *prefix, void *val, size_t size,
+> 
+> const also for val?
 
-I understood this to be the intention, but what I continue to not
-understand is where / how the save side orders it suitably. "Save
-handlers will be invoked in order of DOMAIN_SAVE_CODE()" does not
-allow for any ordering, unless at the time of the introduction of
-a particular code you already know what others it may depend on
-in the future, reserving appropriate codes.
+Yes, it can be.
 
-And as said - END also doesn't look to fit this comment.
+> 
+> > +                         const char *suffix)
+> > +{
+> > +    printf("%s", prefix);
+> > +
+> > +    while (size--)
+> 
+> Judging from style elsewhere you look to be missing two blanks
+> here.
+> 
 
-Jan
+Yes.
+
+> > +    {
+> > +        uint8_t octet = *(uint8_t *)val++;
+> 
+> Following the above then also better don't cast const away here.
+> 
+> > +        unsigned int i;
+> > +
+> > +        for ( i = 0; i < 8; i++ )
+> > +        {
+> > +            printf("%u", octet & 1);
+> > +            octet >>= 1;
+> > +        }
+> > +    }
+> > +
+> > +    printf("%s", suffix);
+> > +}
+> > +
+> > +static void dump_shared_info(void)
+> > +{
+> > +    DOMAIN_SAVE_TYPE(SHARED_INFO) *s;
+> > +    shared_info_any_t *info;
+> > +    unsigned int i;
+> > +
+> > +    GET_PTR(s);
+> > +
+> > +    printf("    SHARED_INFO: has_32bit_shinfo: %s buffer_size: %u\n",
+> > +           s->has_32bit_shinfo ? "true" : "false", s->buffer_size);
+> > +
+> > +    info = (shared_info_any_t *)s->buffer;
+> > +
+> > +#define GET_FIELD_PTR(_f) \
+> > +    (s->has_32bit_shinfo ? (void *)&(info->x32._f) : (void *)&(info->x64._f))
+> 
+> Better cast to const void * ?
+> 
+
+Ok.
+
+> > +#define GET_FIELD_SIZE(_f) \
+> > +    (s->has_32bit_shinfo ? sizeof(info->x32._f) : sizeof(info->x64._f))
+> > +#define GET_FIELD(_f) \
+> > +    (s->has_32bit_shinfo ? info->x32._f : info->x64._f)
+> > +
+> > +    /* Array lengths are the same for 32-bit and 64-bit shared info */
+> 
+> Not really, no:
+> 
+>     xen_ulong_t evtchn_pending[sizeof(xen_ulong_t) * 8];
+>     xen_ulong_t evtchn_mask[sizeof(xen_ulong_t) * 8];
+> 
+
+Oh, I must have misread.
+
+> > @@ -167,12 +238,14 @@ int main(int argc, char **argv)
+> >          if ( (typecode < 0 || typecode == desc->typecode) &&
+> >               (instance < 0 || instance == desc->instance) )
+> >          {
+> > +
+> >              printf("[%u] type: %u instance: %u length: %u\n", entry++,
+> >                     desc->typecode, desc->instance, desc->length);
+> 
+> Stray insertion of a blank line?
+> 
+
+Yes.
+
+> > @@ -1649,6 +1650,65 @@ int continue_hypercall_on_cpu(
+> >      return 0;
+> >  }
+> >
+> > +static int save_shared_info(const struct domain *d, struct domain_context *c,
+> > +                            bool dry_run)
+> > +{
+> > +    struct domain_shared_info_context ctxt = { .buffer_size = PAGE_SIZE };
+> 
+> Why not sizeof(shared_info), utilizing the zero padding on the
+> receiving side?
+> 
+
+Ok, yes, I guess that would work.
+
+> > +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> > +    int rc;
+> > +
+> > +    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, 0);
+> > +    if ( rc )
+> > +        return rc;
+> > +
+> > +#ifdef CONFIG_COMPAT
+> > +    if ( !dry_run )
+> > +        ctxt.has_32bit_shinfo = has_32bit_shinfo(d);
+> > +#endif
+> 
+> Nothing will go wrong without the if(), I suppose? Better drop it
+> then? It could then also easily be part of the initializer of ctxt.
+> 
+
+Ok. I said last time I wanted to keep it as it was illustrative but I'll drop it since it has now come up twice.
+
+> > +    rc = domain_save_data(c, &ctxt, hdr_size);
+> > +    if ( rc )
+> > +        return rc;
+> > +
+> > +    rc = domain_save_data(c, d->shared_info, ctxt.buffer_size);
+> > +    if ( rc )
+> > +        return rc;
+> > +
+> > +    return domain_save_end(c);
+> > +}
+> > +
+> > +static int load_shared_info(struct domain *d, struct domain_context *c)
+> > +{
+> > +    struct domain_shared_info_context ctxt;
+> > +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> > +    unsigned int i;
+> > +    int rc;
+> > +
+> > +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
+> > +    if ( rc || i ) /* expect only a single instance */
+> > +        return rc;
+> > +
+> > +    rc = domain_load_data(c, &ctxt, hdr_size);
+> > +    if ( rc )
+> > +        return rc;
+> > +
+> > +    if ( ctxt.pad[0] || ctxt.pad[1] || ctxt.pad[2] ||
+> > +         ctxt.buffer_size != PAGE_SIZE )
+> > +        return -EINVAL;
+> > +
+> > +#ifdef CONFIG_COMPAT
+> > +    d->arch.has_32bit_shinfo = ctxt.has_32bit_shinfo;
+> > +#endif
+> 
+> There's nothing wrong with using has_32bit_shinfo(d) here as well.
+> 
+
+I just thought it looked odd.
+
+> > --- a/xen/include/public/save.h
+> > +++ b/xen/include/public/save.h
+> > @@ -73,7 +73,16 @@ struct domain_save_header {
+> >  };
+> >  DECLARE_DOMAIN_SAVE_TYPE(HEADER, 1, struct domain_save_header);
+> >
+> > -#define DOMAIN_SAVE_CODE_MAX 1
+> > +struct domain_shared_info_context {
+> > +    uint8_t has_32bit_shinfo;
+> > +    uint8_t pad[3];
+> 
+> 32-(or 16-)bit flags, with just a single bit used for the purpose?
+> 
+
+I debated that. Given this is xen/tools-only would a bit-field be acceptable?
+
+  Paul
+
+> Jan
+
 
