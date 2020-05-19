@@ -2,73 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B7001D90A0
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 09:02:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 766A71D90E6
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 09:21:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jawFq-00035C-TI; Tue, 19 May 2020 07:01:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wYyw=7B=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jawFp-000357-Mm
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 07:01:33 +0000
-X-Inumbo-ID: 8e46c9a6-999e-11ea-a8df-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8e46c9a6-999e-11ea-a8df-12813bfff9fa;
- Tue, 19 May 2020 07:01:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=r3LviPeUvYOhXQbOefjH9ItfI+/lmsl/dmB5pN5tsEE=; b=F/XSkXpLT0FKJnnj/ocammxG9
- BjryR8UBRiwaXgdns2M6CVPX8XmAyBb8DZjS+/BuMnAOY5IJuSsWjEk6PRQHK0710FZNkfx4QmFOG
- pMYK+vtHKuBdNX1FfF2GGR0ekbdthjGR+BUR/+JunoUMhNcPJe64NV0VLsI9Zby8dhlR8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jawFh-0000lF-Gd; Tue, 19 May 2020 07:01:25 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jawFh-0002tI-4g; Tue, 19 May 2020 07:01:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jawFh-0007in-41; Tue, 19 May 2020 07:01:25 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150237-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jawYv-0004ma-43; Tue, 19 May 2020 07:21:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aMO8=7B=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jawYu-0004mV-Dx
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 07:21:16 +0000
+X-Inumbo-ID: 502dd274-99a1-11ea-ae69-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 502dd274-99a1-11ea-ae69-bc764e2007e4;
+ Tue, 19 May 2020 07:21:10 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D8BA0B207;
+ Tue, 19 May 2020 07:21:11 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v10 00/12] Add hypervisor sysfs-like support
+Date: Tue, 19 May 2020 09:20:54 +0200
+Message-Id: <20200519072106.26894-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Subject: [libvirt test] 150237: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=c0e04c2e62957fe872b5bc3d89d5b1d95f10450c
-X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 19 May 2020 07:01:25 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,160 +40,167 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150237 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150237/
+On the 2019 Xen developer summit there was agreement that the Xen
+hypervisor should gain support for a hierarchical name-value store
+similar to the Linux kernel's sysfs.
 
-Regressions :-(
+This is a first implementation of that idea adding the basic
+functionality to hypervisor and tools side. The interface to any
+user program making use of that "xen-hypfs" is a new library
+"libxenhypfs" with a stable interface.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+The series adds read-only nodes with buildinfo data and writable
+nodes with runtime parameters. xl is switched to use the new file
+system for modifying the runtime parameters and the old sysctl
+interface for that purpose is dropped.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+Changes in V10:
+- adressed review comments
 
-version targeted for testing:
- libvirt              c0e04c2e62957fe872b5bc3d89d5b1d95f10450c
-baseline version:
- libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+Changes in V9:
+- addressed review comments
 
-Last test of basis   146182  2020-01-17 06:00:23 Z  123 days
-Failing since        146211  2020-01-18 04:18:52 Z  122 days  113 attempts
-Testing same since   150237  2020-05-19 04:20:31 Z    0 days    1 attempts
+Changes in V8:
+- addressed review comments
+- added CONFIG_HYPFS config option
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Arnaud Patard <apatard@hupstream.com>
-  Artur Puzio <contact@puzio.waw.pl>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Chen Hanxiao <chen_han_xiao@126.com>
-  Chris Jester-Young <cky@cky.nz>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniel Veillard <veillard@redhat.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Erik Skultety <eskultet@redhat.com>
-  Gaurav Agrawal <agrawalgaurav@gnome.org>
-  Han Han <hhan@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Leonid Bloch <lb.workbox@gmail.com>
-  Lin Ma <LMa@suse.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mark Asselstine <mark.asselstine@windriver.com>
-  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Pavel Mores <pmores@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Philipp Hahn <hahn@univention.de>
-  Pino Toscano <ptoscano@redhat.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Rafael Fonseca <r4f4rfs@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Rikard Falkeborn <rikard.falkeborn@gmail.com>
-  Ryan Moeller <ryan@iXsystems.com>
-  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Tobin Feldman-Fitzthum <tobin@linux.vnet.ibm.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wu Qingliang <wuqingliang4@huawei.com>
-  Xu Yandong <xuyandong2@huawei.com>
-  Yan Wang <wangyan122@huawei.com>
-  Yi Li <yili@winhong.com>
-  Your Name <you@example.com>
-  Zhang Bo <oscar.zhangbo@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-  Zhimin Feng <fengzhimin1@huawei.com>
+Changes in V7:
+- old patch 1 already applied
+- add new patch 1 (carved out and modified from patch 9)
+- addressed review comments
+- modified public interface to have a max write size instead of a
+  writable flag only
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+Changes in V6:
+- added new patches 1, 10, 11, 12
+- addressed review comments
+- modified interface for creating nodes for runtime parameters
 
+Changes in V5:
+- switched to xsm for privilege check
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Changes in V4:
+- former patch 2 removed as already committed
+- addressed review comments
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Changes in V3:
+- major rework, especially by supporting binary contents of entries
+- added several new patches (1, 2, 7)
+- full support of all runtime parameters
+- support of writing entries (especially runtime parameters)
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Changes in V2:
+- all comments to V1 addressed
+- added man-page for xenhypfs tool
+- added runtime parameter read access for string parameters
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Changes in V1:
+- renamed xenfs ->xenhypfs
+- added writable entries support at the interface level and in the
+  xenhypfs tool
+- added runtime parameter read access (integer type only for now)
+- added docs/misc/hypfs-paths.pandoc for path descriptions
 
+Juergen Gross (12):
+  xen/vmx: let opt_ept_ad always reflect the current setting
+  xen: add a generic way to include binary files as variables
+  docs: add feature document for Xen hypervisor sysfs-like support
+  xen: add basic hypervisor filesystem support
+  libs: add libxenhypfs
+  tools: add xenfs tool
+  xen: provide version information in hypfs
+  xen: add /buildinfo/config entry to hypervisor filesystem
+  xen: add runtime parameter access support to hypfs
+  tools/libxl: use libxenhypfs for setting xen runtime parameters
+  tools/libxc: remove xc_set_parameters()
+  xen: remove XEN_SYSCTL_set_parameter support
 
-Not pushing.
+ .gitignore                          |   6 +
+ docs/features/hypervisorfs.pandoc   |  92 +++++
+ docs/man/xenhypfs.1.pod             |  61 ++++
+ docs/misc/hypfs-paths.pandoc        | 165 +++++++++
+ tools/Rules.mk                      |   8 +-
+ tools/flask/policy/modules/dom0.te  |   4 +-
+ tools/libs/Makefile                 |   1 +
+ tools/libs/hypfs/Makefile           |  16 +
+ tools/libs/hypfs/core.c             | 536 ++++++++++++++++++++++++++++
+ tools/libs/hypfs/include/xenhypfs.h |  90 +++++
+ tools/libs/hypfs/libxenhypfs.map    |  10 +
+ tools/libs/hypfs/xenhypfs.pc.in     |  10 +
+ tools/libxc/include/xenctrl.h       |   1 -
+ tools/libxc/xc_misc.c               |  21 --
+ tools/libxl/Makefile                |   3 +-
+ tools/libxl/libxl.c                 |  53 ++-
+ tools/libxl/libxl_internal.h        |   1 +
+ tools/libxl/xenlight.pc.in          |   2 +-
+ tools/misc/Makefile                 |   6 +
+ tools/misc/xenhypfs.c               | 192 ++++++++++
+ tools/xl/xl_misc.c                  |   1 -
+ xen/arch/arm/traps.c                |   3 +
+ xen/arch/arm/xen.lds.S              |  13 +-
+ xen/arch/x86/hvm/hypercall.c        |   3 +
+ xen/arch/x86/hvm/vmx/vmcs.c         |  47 ++-
+ xen/arch/x86/hvm/vmx/vmx.c          |   4 +-
+ xen/arch/x86/hypercall.c            |   3 +
+ xen/arch/x86/pv/domain.c            |  21 +-
+ xen/arch/x86/pv/hypercall.c         |   3 +
+ xen/arch/x86/xen.lds.S              |  12 +-
+ xen/common/Kconfig                  |  23 ++
+ xen/common/Makefile                 |  13 +
+ xen/common/grant_table.c            |  62 +++-
+ xen/common/hypfs.c                  | 452 +++++++++++++++++++++++
+ xen/common/kernel.c                 |  84 ++++-
+ xen/common/sysctl.c                 |  36 --
+ xen/drivers/char/console.c          |  72 +++-
+ xen/include/Makefile                |   1 +
+ xen/include/asm-x86/hvm/vmx/vmcs.h  |   3 +-
+ xen/include/public/hypfs.h          | 129 +++++++
+ xen/include/public/sysctl.h         |  19 +-
+ xen/include/public/xen.h            |   1 +
+ xen/include/xen/hypercall.h         |  10 +
+ xen/include/xen/hypfs.h             | 123 +++++++
+ xen/include/xen/kernel.h            |   3 +
+ xen/include/xen/lib.h               |   1 -
+ xen/include/xen/param.h             | 126 +++++--
+ xen/include/xlat.lst                |   2 +
+ xen/include/xsm/dummy.h             |   6 +
+ xen/include/xsm/xsm.h               |   6 +
+ xen/tools/binfile                   |  43 +++
+ xen/xsm/dummy.c                     |   1 +
+ xen/xsm/flask/Makefile              |   5 +-
+ xen/xsm/flask/flask-policy.S        |  16 -
+ xen/xsm/flask/hooks.c               |   9 +-
+ xen/xsm/flask/policy/access_vectors |   4 +-
+ 56 files changed, 2445 insertions(+), 193 deletions(-)
+ create mode 100644 docs/features/hypervisorfs.pandoc
+ create mode 100644 docs/man/xenhypfs.1.pod
+ create mode 100644 docs/misc/hypfs-paths.pandoc
+ create mode 100644 tools/libs/hypfs/Makefile
+ create mode 100644 tools/libs/hypfs/core.c
+ create mode 100644 tools/libs/hypfs/include/xenhypfs.h
+ create mode 100644 tools/libs/hypfs/libxenhypfs.map
+ create mode 100644 tools/libs/hypfs/xenhypfs.pc.in
+ create mode 100644 tools/misc/xenhypfs.c
+ create mode 100644 xen/common/hypfs.c
+ create mode 100644 xen/include/public/hypfs.h
+ create mode 100644 xen/include/xen/hypfs.h
+ create mode 100755 xen/tools/binfile
+ delete mode 100644 xen/xsm/flask/flask-policy.S
 
-(No revision log; it would be 18502 lines long.)
+-- 
+2.26.1
+
 
