@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A2B61DA09A
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:09:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C13A1DA09D
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:10:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb7cX-0005ni-GC; Tue, 19 May 2020 19:09:45 +0000
+	id 1jb7cm-0005yq-CQ; Tue, 19 May 2020 19:10:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+xc8=7B=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jb7cV-0005mc-I7
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:09:43 +0000
-X-Inumbo-ID: 4106a6a0-9a04-11ea-ae69-bc764e2007e4
+ id 1jb7ck-0005xW-IA
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:09:58 +0000
+X-Inumbo-ID: 45943be2-9a04-11ea-ae69-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::3])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4106a6a0-9a04-11ea-ae69-bc764e2007e4;
- Tue, 19 May 2020 19:09:25 +0000 (UTC)
+ id 45943be2-9a04-11ea-ae69-bc764e2007e4;
+ Tue, 19 May 2020 19:09:33 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jb7Vf-0001da-IG; Tue, 19 May 2020 20:02:40 +0100
+ id 1jb7Vg-0001da-DV; Tue, 19 May 2020 20:02:40 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 17/38] buster: ts-host-install: Extend net.ifnames
- workaround
-Date: Tue, 19 May 2020 20:02:09 +0100
-Message-Id: <20200519190230.29519-18-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 18/38] buster: Deinstall the "systemd" package
+Date: Tue, 19 May 2020 20:02:10 +0100
+Message-Id: <20200519190230.29519-19-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
 References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
@@ -47,27 +46,29 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Really we should fix this by making a .deb in Debian that we could
-install.  But this is a longer-term project.
+This installs a pam rule which causes logins to hang.  It also seems
+to cause some kind of udev wedge.
+
+We are using sysvinit so this package is not desirable.  Empirically,
+removing it makes the system work.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- ts-host-install | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Osstest/Debian.pm | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/ts-host-install b/ts-host-install
-index 7a72a867..fe26f70f 100755
---- a/ts-host-install
-+++ b/ts-host-install
-@@ -282,7 +282,7 @@ END
+diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
+index 0958d080..cd8b2de0 100644
+--- a/Osstest/Debian.pm
++++ b/Osstest/Debian.pm
+@@ -842,6 +842,7 @@ sub preseed_base ($$$;@) {
+     if ( $suite !~ /squeeze|wheezy/ ) {
+        preseed_hook_command($ho, 'late_command', $sfx, <<END)
+ in-target apt-get install -y sysvinit-core
++in-target apt-get remove -y systemd
+ END
+     }
  
-     # Don't use "Predictable Network Interface Names"
-     # https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/
--    push @hocmdline, "net.ifnames=0" if $ho->{Suite} =~ m/stretch/;
-+    push @hocmdline, "net.ifnames=0" if $ho->{Suite} =~ m/stretch|buster/;
- 
-     push @hocmdline,
-         get_host_property($ho, "linux-boot-append $ho->{Suite}", ''),
 -- 
 2.20.1
 
