@@ -2,50 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 795A11D925D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 10:46:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A301D927D
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 10:50:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaxtK-00067K-79; Tue, 19 May 2020 08:46:26 +0000
+	id 1jaxx3-0006vF-O8; Tue, 19 May 2020 08:50:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o3Eh=7B=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1jaxtI-00067E-NM
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 08:46:24 +0000
-X-Inumbo-ID: 37532dd8-99ad-11ea-b9cf-bc764e2007e4
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wtzB=7B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jaxx3-0006vA-5d
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 08:50:17 +0000
+X-Inumbo-ID: c26391a6-99ad-11ea-b9cf-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 37532dd8-99ad-11ea-b9cf-bc764e2007e4;
- Tue, 19 May 2020 08:46:23 +0000 (UTC)
-Received: from rochebonne.antioche.eu.org (rochebonne [10.0.0.1])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 04J8kFgN015594;
- Tue, 19 May 2020 10:46:15 +0200 (MEST)
-Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
- id 2B1F62810; Tue, 19 May 2020 10:46:15 +0200 (CEST)
-Date: Tue, 19 May 2020 10:46:15 +0200
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: IOCTL_PRIVCMD_MMAPBATCH on Xen 4.13.0
-Message-ID: <20200519084615.GB1782@antioche.eu.org>
-References: <d623cd12-4024-82ba-7388-21f606e1a0bd@citrix.com>
- <20200515210629.GA10976@antioche.eu.org>
- <b1dfc07d-bf0f-da26-79f0-8cf93952689e@citrix.com>
- <20200515215335.GA9991@antioche.eu.org>
- <d22b6b7c-9d1c-4cfb-427a-ca6f440a9b08@citrix.com>
- <20200517173259.GA7285@antioche.eu.org>
- <20200517175607.GA8793@antioche.eu.org>
- <000a01d62ce7$093b7f50$1bb27df0$@xen.org>
- <20200518173111.GA13512@antioche.eu.org>
- <cd60e91a-a4a4-d14e-eead-c93f7682413d@suse.com>
+ id c26391a6-99ad-11ea-b9cf-bc764e2007e4;
+ Tue, 19 May 2020 08:50:16 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 05AF4AC22;
+ Tue, 19 May 2020 08:50:17 +0000 (UTC)
+Subject: Re: [PATCH 02/16] x86/traps: Clean up printing in
+ do_reserved_trap()/fatal_trap()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
+ <20200501225838.9866-3-andrew.cooper3@citrix.com>
+ <aca22b53-895e-19bb-c54c-f1e4945c95c1@suse.com>
+ <8f1d68b1-895a-d2a6-4dcb-55b688b03336@citrix.com>
+ <b1ef905c-dab6-d1c3-4673-4c06c7e94a0a@suse.com>
+ <560c3bce-211a-52ab-c919-9ca1ab9beab3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <45545b0c-2f0d-1de8-88ec-472d0a110eaa@suse.com>
+Date: Tue, 19 May 2020 10:50:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cd60e91a-a4a4-d14e-eead-c93f7682413d@suse.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3
- (chassiron.antioche.eu.org [151.127.5.145]);
- Tue, 19 May 2020 10:46:15 +0200 (MEST)
+In-Reply-To: <560c3bce-211a-52ab-c919-9ca1ab9beab3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,35 +51,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
- paul@xen.org
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 19, 2020 at 09:34:30AM +0200, Jan Beulich wrote:
-> On 18.05.2020 19:31, Manuel Bouyer wrote:
-> > From what I found it seems that all unallocated memory is tagged p2m_mmio_dm,
-> > is it right ?
+On 18.05.2020 18:54, Andrew Cooper wrote:
+> On 11/05/2020 16:09, Jan Beulich wrote:
+>> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
+>>
+>> On 11.05.2020 17:01, Andrew Cooper wrote:
+>>> On 04/05/2020 14:08, Jan Beulich wrote:
+>>>> On 02.05.2020 00:58, Andrew Cooper wrote:
+>>>>> For one, they render the vector in a different base.
+>>>>>
+>>>>> Introduce X86_EXC_* constants and vec_name() to refer to exceptions by their
+>>>>> mnemonic, which starts bringing the code/diagnostics in line with the Intel
+>>>>> and AMD manuals.
+>>>> For this "bringing in line" purpose I'd like to see whether you could
+>>>> live with some adjustments to how you're currently doing things:
+>>>> - NMI is nowhere prefixed by #, hence I think we'd better not do so
+>>>>   either; may require embedding the #-es in the names[] table, or not
+>>>>   using N() for NMI
+>>> No-one is going to get confused at seeing #NMI in an error message.  I
+>>> don't mind jugging the existing names table, but anything more
+>>> complicated is overkill.
+>>>
+>>>> - neither Coprocessor Segment Overrun nor vector 0x0f have a mnemonic
+>>>>   and hence I think we shouldn't invent one; just treat them like
+>>>>   other reserved vectors (of which at least vector 0x09 indeed is one
+>>>>   on x86-64)?
+>>> This I disagree with.  Coprocessor Segment Overrun *is* its name in both
+>>> manuals, and the avoidance of vector 0xf is clearly documented as well,
+>>> due to it being the default PIC Spurious Interrupt Vector.
+>>>
+>>> Neither CSO or SPV are expected to be encountered in practice, but if
+>>> they are, highlighting them is a damn-sight more helpful than pretending
+>>> they don't exist.
+>> How is them occurring (and getting logged with their vector numbers)
+>> any different from other reserved, acronym-less vectors? I particularly
+>> didn't suggest to pretend they don't exist; instead I did suggest that
+>> they are as reserved as, say, vector 0x18. By inventing an acronym and
+>> logging this instead of the vector number you'll make people other than
+>> you have to look up what the odd acronym means iff such an exception
+>> ever got raised.
 > 
-> Yes. For many years there has been a plan to better separate this from
-> p2m_invalid ...
+> You snipped the bits in the patch where both the vector number and
+> acronym are printed together.
+> 
+> Anyone who doesn't know the vector has to look it up anyway, at which
+> point they'll find that what Xen prints out matches what both manuals
+> say.  OTOH, people who know what a coprocessor segment overrun or PIC
+> spurious vector is won't need to look it up.
 
-thanks.
+And who know to decipher the non-standard CPO and SPV (which are what
+triggered my comments in the first place). What I continue to fail to
+see is why these reserved vectors need treatment different from all
+others. In addition I'm having trouble seeing how the default spurious
+PIC vector matters for us - we program the PIC to vectors 0x20-0x2f,
+i.e. a spurious PIC0 IRQ would show up at vector 0x27. (I notice we
+still blindly assume there's a pair of PICs in the first place.)
 
-So for some reason, MMU_NORMAL_PT_UPDATE thinks that the memory is not
-allocated for this domain. This is true for both the ioreq page, and
-when trying to load the BIOS rom in the guest memory.
-I traced the hypercall in the tools and the memory is allocated with
-XENMEM_populate_physmap (and the gfn returned by XENMEM_populate_physmap
-and passed to MMU_NORMAL_PT_UPDATE do match).
-
-Still looking ...
-
-Note that I'm using the 4.13.0 release sources, not the top of branch.
-Is it something that could have been fixed after the release ?
-
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Jan
 
