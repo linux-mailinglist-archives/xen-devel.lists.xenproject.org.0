@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6282E1DA0B7
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:10:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3413C1DA0A4
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:10:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb7de-0007Za-Au; Tue, 19 May 2020 19:10:54 +0000
+	id 1jb7d6-0006vZ-PF; Tue, 19 May 2020 19:10:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+xc8=7B=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jb7dd-0007Yv-Ka
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:10:53 +0000
-X-Inumbo-ID: 5bef4652-9a04-11ea-b07b-bc764e2007e4
+ id 1jb7d4-0006ts-J7
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:10:18 +0000
+X-Inumbo-ID: 4b4a7d26-9a04-11ea-b9cf-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::3])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5bef4652-9a04-11ea-b07b-bc764e2007e4;
- Tue, 19 May 2020 19:10:10 +0000 (UTC)
+ id 4b4a7d26-9a04-11ea-b9cf-bc764e2007e4;
+ Tue, 19 May 2020 19:09:42 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jb7Vd-0001da-MC; Tue, 19 May 2020 20:02:37 +0100
+ id 1jb7Vd-0001da-W2; Tue, 19 May 2020 20:02:38 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 13/38] Debian: Specify `priority=critical' rather than
- locale
-Date: Tue, 19 May 2020 20:02:05 +0100
-Message-Id: <20200519190230.29519-14-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 14/38] Honour 'LinuxSerialConsole <suite>' host
+ property
+Date: Tue, 19 May 2020 20:02:06 +0100
+Message-Id: <20200519190230.29519-15-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
 References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
@@ -47,37 +47,40 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In buster, it appears that specifying locale on the command line is
-not sufficient.  Rather than adding more things to the command line,
-instead, just say `priority=critical', by defaulting $debconf_priority
-to 'critical'.
+This works like LinuxSerialConsole.
 
-I think this change should be fine for earlier suites too.
+I originally wrote this to try to work around #940028, where multiple
+d-i autoinstalls run in parallel leading to hard-to-debug lossage!
+Explicitly specing the console causes it to run only on that one.
+
+However, it turns out that explicitly specifying the console does not
+always work and a better fix is needed.  Nevertheless, having added
+this feature it seems foolish to throw it away.
+
+Currently there are no hosts with this property so no functiaonal
+change.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- Osstest/Debian.pm | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ Osstest/TestSupport.pm | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
-index c3fbc32c..8380c428 100644
---- a/Osstest/Debian.pm
-+++ b/Osstest/Debian.pm
-@@ -698,12 +698,10 @@ sub di_installcmdline_core ($$;@) {
-                "$xopts{PreseedScheme}=$ps_url",
-                "netcfg/dhcp_timeout=150",
-                "netcfg/choose_interface=$netcfg_interface",
--               "debian-installer/locale=en_GB",
-                );
+diff --git a/Osstest/TestSupport.pm b/Osstest/TestSupport.pm
+index ff8103f2..7eeac49f 100644
+--- a/Osstest/TestSupport.pm
++++ b/Osstest/TestSupport.pm
+@@ -1447,7 +1447,10 @@ sub get_target_property ($$;$) {
+ sub get_host_native_linux_console ($) {
+     my ($ho) = @_;
  
--    my $debconf_priority= $xopts{DebconfPriority};
--    push @cl, "priority=$debconf_priority"
--        if defined $debconf_priority;
-+    my $debconf_priority= $xopts{DebconfPriority} // 'critical';
-+    push @cl, "priority=$debconf_priority";
-     push @cl, "rescue/enable=true" if $xopts{RescueMode};
+-    my $console = get_host_property($ho, "LinuxSerialConsole", "ttyS0");
++    my $console;
++    $console //= get_host_property($ho, "LinuxSerialConsole $ho->{Suite}")
++	if $ho->{Suite};
++    $console //= get_host_property($ho, "LinuxSerialConsole", "ttyS0");
+     return $console if $console eq 'NONE';
  
-     if ($r{syslog_server}) {
+     return "$console,$c{Baud}n8";
 -- 
 2.20.1
 
