@@ -2,41 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06051D9375
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 11:37:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07F7D1D93A1
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 11:42:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jayg2-0002bE-6d; Tue, 19 May 2020 09:36:46 +0000
+	id 1jayla-0003Qc-ST; Tue, 19 May 2020 09:42:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wtzB=7B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jayfz-0002b9-TH
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 09:36:43 +0000
-X-Inumbo-ID: 3f940236-99b4-11ea-b07b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fY7P=7B=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jaylZ-0003QW-9q
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 09:42:29 +0000
+X-Inumbo-ID: 0d1ebd40-99b5-11ea-ae69-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3f940236-99b4-11ea-b07b-bc764e2007e4;
- Tue, 19 May 2020 09:36:43 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DFC8EAC5F;
- Tue, 19 May 2020 09:36:44 +0000 (UTC)
-Subject: Re: [PATCH v2 1/3] x86: relax GDT check in arch_set_info_guest()
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <b7a1a7fe-0bc5-1654-ff1c-e5eb787c579e@suse.com>
- <3f78d1dc-720d-6bf3-0911-c19da1a2ddbb@suse.com>
- <20200519084242.GZ54375@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3347c044-b4d2-cfeb-2bc7-1eccb956b47f@suse.com>
-Date: Tue, 19 May 2020 11:36:41 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 0d1ebd40-99b5-11ea-ae69-bc764e2007e4;
+ Tue, 19 May 2020 09:42:28 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: +/BYSCIfvq6nw29ir08rVcq6LLiA3pX7CRye5gBnQTvShJ6RsbCE7b+w4fliC8pmGKv1y5T3F7
+ fmDRt4ITy2qzx8VaQQ8t3WXmrfN5nNsO91aTsiwkBgvXhGS8b34h/fpU3eafCnOoiMXZuUSvm+
+ DS/TbzfH1WgSHjzUNn4BEr/n/gs+HIToPLN0WuOZ1egtlevIQztconL5IcncaDzDk91UGcnDNi
+ 2y8XkDxEqVXzi0QvMdDwuE8VWTpkV2xYQYhP2N55sFpZflbqnj9fx/B4ACO+5BowON9Njka2Us
+ WC8=
+X-SBRS: 2.7
+X-MesageID: 18228401
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,409,1583211600"; d="scan'208";a="18228401"
+Date: Tue, 19 May 2020 10:42:22 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 1/2] tools/python: Fix install-wrap
+Message-ID: <20200519094222.GB2105@perard.uk.xensource.com>
+References: <20200311175933.1362235-1-anthony.perard@citrix.com>
+ <20200311175933.1362235-2-anthony.perard@citrix.com>
+ <20200519085815.nswits7owiutn3nc@debian>
 MIME-Version: 1.0
-In-Reply-To: <20200519084242.GZ54375@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20200519085815.nswits7owiutn3nc@debian>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,56 +53,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
+ <marmarek@invisiblethingslab.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 19.05.2020 10:42, Roger Pau Monné wrote:
-> On Fri, Dec 20, 2019 at 02:49:48PM +0100, Jan Beulich wrote:
->> It is wrong for us to check frames beyond the guest specified limit
->> (in the native case, other than in the compat one).
+On Tue, May 19, 2020 at 09:58:15AM +0100, Wei Liu wrote:
+> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
 > 
-> Wouldn't this result in arch_set_info_guest failing if gdt_ents was
-> smaller than the maximum? Or all callers always pass gdt_ents set to
-> the maximum?
-
-Since the array is embedded in the struct, I suppose callers simply
-start out from a zero-initialized array, in which case the actual
-count given doesn't matter. Additionally I think it is uncommon for
-the function to get called on a vCPU with v->is_initialised already
-set.
-
->> @@ -982,9 +985,9 @@ int arch_set_info_guest(
->>              fail = compat_pfn_to_cr3(pfn) != c.cmp->ctrlreg[3];
->>          }
->>  
->> -        for ( i = 0; i < ARRAY_SIZE(v->arch.pv.gdt_frames); ++i )
->> -            fail |= v->arch.pv.gdt_frames[i] != c(gdt_frames[i]);
->>          fail |= v->arch.pv.gdt_ents != c(gdt_ents);
->> +        for ( i = 0; !fail && i < nr_gdt_frames; ++i )
->> +            fail |= v->arch.pv.gdt_frames[i] != c(gdt_frames[i]);
+> On Wed, Mar 11, 2020 at 05:59:32PM +0000, Anthony PERARD wrote:
+> > This allows to use install-wrap when the source scripts is in a
+> > subdirectory.
+> > 
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> > ---
+> >  tools/python/install-wrap | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/tools/python/install-wrap b/tools/python/install-wrap
+> > index 00e2014016f9..fef24e01708d 100755
+> > --- a/tools/python/install-wrap
+> > +++ b/tools/python/install-wrap
+> > @@ -44,7 +44,7 @@ shift
+> >  destf="$dest"
+> >  for srcf in ${srcs}; do
+> >  	if test -d "$dest"; then
+> > -		destf="$dest/${srcf%%*/}"
+> > +		destf="$dest/${srcf##*/}"
 > 
-> fail doesn't need to be OR'ed anymore here, since you check for it in
-> the loop condition.
-
-Ah yes, changed.
-
->> @@ -1089,12 +1092,11 @@ int arch_set_info_guest(
->>      else
->>      {
->>          unsigned long gdt_frames[ARRAY_SIZE(v->arch.pv.gdt_frames)];
->> -        unsigned int nr_frames = DIV_ROUND_UP(c.cmp->gdt_ents, 512);
->>  
->> -        if ( nr_frames > ARRAY_SIZE(v->arch.pv.gdt_frames) )
->> +        if ( nr_gdt_frames > ARRAY_SIZE(v->arch.pv.gdt_frames) )
->>              return -EINVAL;
+> This seems to have changed the pattern from "Remove Largest Suffix" to
+> "Remove Largest Prefix".
 > 
-> Shouldn't this check be performed when nr_gdt_frames is initialized
-> instead of here? (as nr_gdt_frames is already used as a limit to
-> iterate over gdt_frames).
+> What does it do in practice?
+> 
+> For POSIX sh
+> 
+> x=posix/src/std
+> echo ${x%%*/} -> posix/src/std
+> echo ${x##*/} -> std
+> 
+> I would think the former is what you want. But I could be missing
+> something obvious.
 
-Oh, yes, of course. Thanks for spotting.
+The former is a noop. It's the same as not doing anything.
 
-Jan
+Unless x="dir/dir/" and in that case, the %% would remove everything,
+resulting in an empty string.
+
+$srcf contains the path to where the script which we want to install is,
+which is a relative path from where the ./install-wrap is executed from.
+$destf is the final destination of the script, but if $dest is a
+directory, then ./install-wrap wants to install the script in $dest, not
+in some sub-directory of it. ./install-wrap doesn't handle this
+sub-directory it fails to execute when there is one. (It's probably the
+$install that failed to copy $srcf in a non-existing directory.)
+
+This from the next patch is probably where things fails
+    $(INSTALL_PYTHON_PROG) scripts/convert-legacy-stream $(DESTDIR)$(LIBEXEC_BIN)
+
+-- 
+Anthony PERARD
 
