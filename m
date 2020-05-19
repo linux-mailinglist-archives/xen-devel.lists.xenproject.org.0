@@ -2,51 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF7AD1D9326
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 11:18:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C06051D9375
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 11:37:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jayOC-0000uS-Kp; Tue, 19 May 2020 09:18:20 +0000
+	id 1jayg2-0002bE-6d; Tue, 19 May 2020 09:36:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PPOd=7B=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jayOA-0000uM-UE
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 09:18:18 +0000
-X-Inumbo-ID: ace82950-99b1-11ea-ae69-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wtzB=7B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jayfz-0002b9-TH
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 09:36:43 +0000
+X-Inumbo-ID: 3f940236-99b4-11ea-b07b-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ace82950-99b1-11ea-ae69-bc764e2007e4;
- Tue, 19 May 2020 09:18:18 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: XYMfoYkHSsyFUFz//mHjRBhbbNozQp3u4Beu/gYByizNcYler69FW1HgM44fTVpAnsWN/jCHJ0
- akr1A4oQVAl8PCuuLtwm1iKnc1ATt3IwlYdo5yD3xILdSmcN6QT9St7VKHqKbq67T+2hoJV3sA
- DoDwvh+mADCX/h9ISHSjHqHYbogB/42nTQFSa1y3pSK+bJMnd+DMtM3PiGB2B/HeScwYSirhLc
- LyqxBRiXi3QsFvfQH76PQIomyGndYX/JeZELDuTN8GEHBBLwPy0urEDOKTV1Cnnm37gUOHWsE0
- eX8=
-X-SBRS: 2.7
-X-MesageID: 18126586
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,409,1583211600"; d="scan'208";a="18126586"
-Date: Tue, 19 May 2020 11:18:10 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2 2/3] x86: relax LDT check in arch_set_info_guest()
-Message-ID: <20200519091810.GC54375@Air-de-Roger>
+ id 3f940236-99b4-11ea-b07b-bc764e2007e4;
+ Tue, 19 May 2020 09:36:43 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DFC8EAC5F;
+ Tue, 19 May 2020 09:36:44 +0000 (UTC)
+Subject: Re: [PATCH v2 1/3] x86: relax GDT check in arch_set_info_guest()
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <b7a1a7fe-0bc5-1654-ff1c-e5eb787c579e@suse.com>
- <c36cac91-49ae-6bb2-b057-195031979d21@suse.com>
- <20200519090220.GA54375@Air-de-Roger>
- <50050054-b081-5d6e-13e8-c50e52afe42b@suse.com>
+ <3f78d1dc-720d-6bf3-0911-c19da1a2ddbb@suse.com>
+ <20200519084242.GZ54375@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3347c044-b4d2-cfeb-2bc7-1eccb956b47f@suse.com>
+Date: Tue, 19 May 2020 11:36:41 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <20200519084242.GZ54375@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <50050054-b081-5d6e-13e8-c50e52afe42b@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,35 +52,51 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 19, 2020 at 11:12:49AM +0200, Jan Beulich wrote:
-> On 19.05.2020 11:02, Roger Pau Monné wrote:
-> > On Fri, Dec 20, 2019 at 02:50:06PM +0100, Jan Beulich wrote:
-> >> It is wrong for us to check the base address when there's no LDT in the
-> >> first place. Once we don't do this check anymore we can also set the
-> >> base address to a non-canonical value when the LDT is empty.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+On 19.05.2020 10:42, Roger Pau Monné wrote:
+> On Fri, Dec 20, 2019 at 02:49:48PM +0100, Jan Beulich wrote:
+>> It is wrong for us to check frames beyond the guest specified limit
+>> (in the native case, other than in the compat one).
 > 
-> Thanks.
-> 
-> > I wonder if a ldt_ents check should also be added to
-> > pv_map_ldt_shadow_page in order to avoid trying to get the mapping of
-> > the LDT.
-> 
-> We already have
-> 
->     if ( unlikely((offset >> 3) >= curr->arch.pv.ldt_ents) )
->     {
->         ASSERT_UNREACHABLE();
->         return false;
->     }
-> 
-> What else do you mean?
+> Wouldn't this result in arch_set_info_guest failing if gdt_ents was
+> smaller than the maximum? Or all callers always pass gdt_ents set to
+> the maximum?
 
-Oh, I've missed that. I was searching for a check before accessing
-ldt_base, which is done at initialization time. That's indeed fine.
+Since the array is embedded in the struct, I suppose callers simply
+start out from a zero-initialized array, in which case the actual
+count given doesn't matter. Additionally I think it is uncommon for
+the function to get called on a vCPU with v->is_initialised already
+set.
 
-Roger.
+>> @@ -982,9 +985,9 @@ int arch_set_info_guest(
+>>              fail = compat_pfn_to_cr3(pfn) != c.cmp->ctrlreg[3];
+>>          }
+>>  
+>> -        for ( i = 0; i < ARRAY_SIZE(v->arch.pv.gdt_frames); ++i )
+>> -            fail |= v->arch.pv.gdt_frames[i] != c(gdt_frames[i]);
+>>          fail |= v->arch.pv.gdt_ents != c(gdt_ents);
+>> +        for ( i = 0; !fail && i < nr_gdt_frames; ++i )
+>> +            fail |= v->arch.pv.gdt_frames[i] != c(gdt_frames[i]);
+> 
+> fail doesn't need to be OR'ed anymore here, since you check for it in
+> the loop condition.
+
+Ah yes, changed.
+
+>> @@ -1089,12 +1092,11 @@ int arch_set_info_guest(
+>>      else
+>>      {
+>>          unsigned long gdt_frames[ARRAY_SIZE(v->arch.pv.gdt_frames)];
+>> -        unsigned int nr_frames = DIV_ROUND_UP(c.cmp->gdt_ents, 512);
+>>  
+>> -        if ( nr_frames > ARRAY_SIZE(v->arch.pv.gdt_frames) )
+>> +        if ( nr_gdt_frames > ARRAY_SIZE(v->arch.pv.gdt_frames) )
+>>              return -EINVAL;
+> 
+> Shouldn't this check be performed when nr_gdt_frames is initialized
+> instead of here? (as nr_gdt_frames is already used as a limit to
+> iterate over gdt_frames).
+
+Oh, yes, of course. Thanks for spotting.
+
+Jan
 
