@@ -2,47 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 659AD1DA36E
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 23:23:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EAE21DA55F
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 01:26:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb9gL-0003Jo-3M; Tue, 19 May 2020 21:21:49 +0000
+	id 1jbBbY-0005IF-HK; Tue, 19 May 2020 23:25:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2w/r=7B=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jb9gJ-0003Jj-0T
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 21:21:47 +0000
-X-Inumbo-ID: bde4ef30-9a16-11ea-a991-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=1yeG=7B=amazon.com=prvs=4015a1a96=anchalag@srs-us1.protection.inumbo.net>)
+ id 1jbBbX-0005IA-58
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 23:24:59 +0000
+X-Inumbo-ID: f4332c30-9a27-11ea-a9a0-12813bfff9fa
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bde4ef30-9a16-11ea-a991-12813bfff9fa;
- Tue, 19 May 2020 21:21:45 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BD7652072C;
- Tue, 19 May 2020 21:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589923305;
- bh=lFItuiU0pJUpD20mjrwscQrNyRXkmctTL7PaHATfXeU=;
- h=Date:From:To:cc:Subject:From;
- b=Rm/b/c1sL3T9ygTYuV73v9qIV4bPgCH6i5qp/gs5MPwBsRTDEGfDBm2+5h8TirQXN
- 3O6ARRszLJaT/tle/+W516Rec3S2vjK/9HjBYPJ8SoFHxOVOqonn4agAXXpo9N94WR
- IviIFT0hMX5XKRfEqUj+N8ijFUfBnDB1JQTsgkh4=
-Date: Tue, 19 May 2020 14:21:37 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: jgross@suse.com, boris.ostrovsky@oracle.com
-Subject: grant table issues mapping a ring order 10
-Message-ID: <alpine.DEB.2.21.2005191252040.27502@sstabellini-ThinkPad-T480s>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id f4332c30-9a27-11ea-a9a0-12813bfff9fa;
+ Tue, 19 May 2020 23:24:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1589930698; x=1621466698;
+ h=date:from:to:subject:message-id:mime-version;
+ bh=sOfgRrPRmYHAfVrUOSXb1jwG6rejPn1YQXzhPKMaw1U=;
+ b=Zno3tRzqCySeyGzd4HCkBCeo0lJfVOCMjEo6aqGqydve6c7cPBt+cjcg
+ vXzVsV7ffCpDb1JSfJaPuE8ldfW/W8xSr5vz6tw4vCBMbhW5gDekZkQKh
+ 88xxFlbk/8e4MXOajtiCZnXc0xyhU6NPxE0E+VsM6uZFIFDb/M1FzYYOZ 8=;
+IronPort-SDR: TapJ5+eP/s1RHA3K19MF7wVhCWSkQk3+kRa1I2OBkLAKB8EewWlyo02ycYQtyZZFMpV1Mo7QXf
+ a/UcclI1rQNQ==
+X-IronPort-AV: E=Sophos;i="5.73,411,1583193600"; d="scan'208";a="31066594"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2b-c7131dcf.us-west-2.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
+ 19 May 2020 23:24:43 +0000
+Received: from EX13MTAUEE002.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2b-c7131dcf.us-west-2.amazon.com (Postfix) with ESMTPS
+ id A24D9A24BC; Tue, 19 May 2020 23:24:41 +0000 (UTC)
+Received: from EX13D08UEE003.ant.amazon.com (10.43.62.118) by
+ EX13MTAUEE002.ant.amazon.com (10.43.62.24) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 19 May 2020 23:24:29 +0000
+Received: from EX13MTAUEE002.ant.amazon.com (10.43.62.24) by
+ EX13D08UEE003.ant.amazon.com (10.43.62.118) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 19 May 2020 23:24:29 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.62.224) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Tue, 19 May 2020 23:24:29 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id DD57040712; Tue, 19 May 2020 23:24:28 +0000 (UTC)
+Date: Tue, 19 May 2020 23:24:28 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <hpa@zytor.com>, 
+ <x86@kernel.org>, <boris.ostrovsky@oracle.com>, <jgross@suse.com>,
+ <linux-pm@vger.kernel.org>, <linux-mm@kvack.org>, <kamatam@amazon.com>,
+ <sstabellini@kernel.org>, <konrad.wilk@oracle.com>, <roger.pau@citrix.com>,
+ <axboe@kernel.dk>, <davem@davemloft.net>, <rjw@rjwysocki.net>,
+ <len.brown@intel.com>, <pavel@ucw.cz>, <peterz@infradead.org>,
+ <eduval@amazon.com>, <sblbir@amazon.com>, <anchalag@amazon.com>,
+ <xen-devel@lists.xenproject.org>, <vkuznets@redhat.com>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <dwmw@amazon.co.uk>, <benh@kernel.crashing.org>
+Subject: [PATCH 00/12] Fix PM hibernation in Xen guests
+Message-ID: <cover.1589926004.git.anchalag@amazon.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -50,122 +78,121 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: andrew.cooper3@citrix.com, sstabellini@kernel.org, jbeulich@suse.com,
- xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Juergen, Boris,
+Hello,
+This series fixes PM hibernation for hvm guests running on xen hypervisor.
+The running guest could now be hibernated and resumed successfully at a
+later time. The fixes for PM hibernation are added to block and
+network device drivers i.e xen-blkfront and xen-netfront. Any other driver
+that needs to add S4 support if not already, can follow same method of
+introducing freeze/thaw/restore callbacks.
+The patches had been tested against upstream kernel and xen4.11. Large
+scale testing is also done on Xen based Amazon EC2 instances. All this testing
+involved running memory exhausting workload in the background.
 
-I am trying to increase the size of the rings used for Xen 9pfs
-connections for performance reasons and also to reduce the likehood of
-the backend having to wait on the frontend to free up space from the
-ring.
+Doing guest hibernation does not involve any support from hypervisor and
+this way guest has complete control over its state. Infrastructure
+restrictions for saving up guest state can be overcome by guest initiated
+hibernation.
 
-FYI I realized that we cannot choose order 11 or greater in Linux
-because then we incur into the hard limit CONFIG_FORCE_MAX_ZONEORDER=11.
-But that is not the reason why I am writing to you :-)
+These patches were send out as RFC before and all the feedback had been
+incorporated in the patches. The last RFCV3 could be found here:
+https://lkml.org/lkml/2020/2/14/2789
 
+Known issues:
+1.KASLR causes intermittent hibernation failures. VM fails to resumes and
+has to be restarted. I will investigate this issue separately and shouldn't
+be a blocker for this patch series.
+2. During hibernation, I observed sometimes that freezing of tasks fails due
+to busy XFS workqueuei[xfs-cil/xfs-sync]. This is also intermittent may be 1
+out of 200 runs and hibernation is aborted in this case. Re-trying hibernation
+may work. Also, this is a known issue with hibernation and some
+filesystems like XFS has been discussed by the community for years with not an
+effectve resolution at this point.
 
-The reason why I am writing is that even order 10 fails for some
-grant-table related reason I cannot explain. There are two rings, each
-of them order 10. Mapping the first ring results into an error. (Order 9
-works fine, resulting in both rings being mapped correctly.)
+Testing How to:
+---------------
+1. Setup xen hypervisor on a physical machine[ I used Ubuntu 16.04 +upstream
+xen-4.11]
+2. Bring up a HVM guest w/t kernel compiled with hibernation patches
+[I used ubuntu18.04 netboot bionic images and also Amazon Linux on-prem images].
+3. Create a swap file size=RAM size
+4. Update grub parameters and reboot
+5. Trigger pm-hibernation from within the VM
 
-QEMU tries to map the refs but gets an error:
+Example:
+Set up a file-backed swap space. Swap file size>=Total memory on the system
+sudo dd if=/dev/zero of=/swap bs=$(( 1024 * 1024 )) count=4096 # 4096MiB
+sudo chmod 600 /swap
+sudo mkswap /swap
+sudo swapon /swap
 
-  gnttab: error: mmap failed: Invalid argument
-  xen be: 9pfs-0: xen be: 9pfs-0: xengnttab_map_domain_grant_refs failed: Invalid argument
-  xengnttab_map_domain_grant_refs failed: Invalid argument
+Update resume device/resume offset in grub if using swap file:
+resume=/dev/xvda1 resume_offset=200704 no_console_suspend=1
 
-The error comes from Xen. The hypervisor returns GNTST_bad_gntref to
-Linux (drivers/xen/grant-table.c:gnttab_map_refs). Then:
+Execute:
+--------
+sudo pm-hibernate
+OR
+echo disk > /sys/power/state && echo reboot > /sys/power/disk
 
-    	if (map->map_ops[i].status) {
-			err = -EINVAL;
-			continue;
-		}
+Compute resume offset code:
+"
+#!/usr/bin/env python
+import sys
+import array
+import fcntl
 
-So Linux returns -EINVAL to QEMU. The ref seem to be garbage. The
-following printks are in Xen in the implemenation of map_grant_ref:
+#swap file
+f = open(sys.argv[1], 'r')
+buf = array.array('L', [0])
 
-(XEN) DEBUG map_grant_ref 1017 ref=998 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=999 nr=2560
-(XEN) DEBUG map_grant_ref 1013 ref=2050669706 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x7a3abc8a for d1
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=19 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1013 ref=56423797 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x35cf575 for d1
-(XEN) DEBUG map_grant_ref 1013 ref=348793 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x55279 for d1
-(XEN) DEBUG map_grant_ref 1013 ref=1589921828 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x5ec44824 for d1
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1013 ref=2070386184 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x7b679608 for d1
-(XEN) DEBUG map_grant_ref 1013 ref=3421871 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x3436af for d1
-(XEN) DEBUG map_grant_ref 1013 ref=1589921828 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x5ec44824 for d1
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1013 ref=875999099 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x3436af7b for d1
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1013 ref=2705045486 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0xa13bb7ee for d1
-(XEN) DEBUG map_grant_ref 1013 ref=4294967295 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0xffffffff for d1
-(XEN) DEBUG map_grant_ref 1013 ref=213291910 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0xcb69386 for d1
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1013 ref=4912 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0x1330 for d1
-(XEN) DEBUG map_grant_ref 1013 ref=167788925 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0xa00417d for d1
-(XEN) DEBUG map_grant_ref 1017 ref=24 nr=2560
-(XEN) DEBUG map_grant_ref 1013 ref=167788925 nr=2560
-(XEN) grant_table.c:1015:d0v0 Bad ref 0xa00417d for d1
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
-(XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
+#FIBMAP
+ret = fcntl.ioctl(f.fileno(), 0x01, buf)
+print buf[0]
+"
 
 
-Full logs https://pastebin.com/QLTUaUGJ
-It is worth mentioning that no limits are being reached: we are below
-2500 entries per domain and below the 64 pages of grant refs per domain.
+Anchal Agarwal (5):
+  x86/xen: Introduce new function to map HYPERVISOR_shared_info on
+    Resume
+  genirq: Shutdown irq chips in suspend/resume during hibernation
+  xen: Introduce wrapper for save/restore sched clock offset
+  xen: Update sched clock offset to avoid system instability in
+    hibernation
+  PM / hibernate: update the resume offset on SNAPSHOT_SET_SWAP_AREA
 
-What it seems to happen is that after ref 999, the next refs are garbage.
-Do you have any ideas why?
+Munehisa Kamata (7):
+  xen/manage: keep track of the on-going suspend mode
+  xenbus: add freeze/thaw/restore callbacks support
+  x86/xen: add system core suspend and resume callbacks
+  xen-blkfront: add callbacks for PM suspend and hibernation
+  xen-netfront: add callbacks for PM suspend and hibernation
+  xen/time: introduce xen_{save,restore}_steal_clock
+  x86/xen: save and restore steal clock
 
+ arch/x86/xen/enlighten_hvm.c      |   8 ++
+ arch/x86/xen/suspend.c            |  72 ++++++++++++++++++
+ arch/x86/xen/time.c               |  18 ++++-
+ arch/x86/xen/xen-ops.h            |   3 +
+ drivers/block/xen-blkfront.c      | 122 ++++++++++++++++++++++++++++--
+ drivers/net/xen-netfront.c        |  98 +++++++++++++++++++++++-
+ drivers/xen/events/events_base.c  |   1 +
+ drivers/xen/manage.c              |  73 ++++++++++++++++++
+ drivers/xen/time.c                |  29 ++++++-
+ drivers/xen/xenbus/xenbus_probe.c |  99 +++++++++++++++++++-----
+ include/linux/irq.h               |   2 +
+ include/xen/xen-ops.h             |   8 ++
+ include/xen/xenbus.h              |   3 +
+ kernel/irq/chip.c                 |   2 +-
+ kernel/irq/internals.h            |   1 +
+ kernel/irq/pm.c                   |  31 +++++---
+ kernel/power/user.c               |   6 +-
+ 17 files changed, 536 insertions(+), 40 deletions(-)
 
-I tracked the gnttab_expand calls in Dom0 and they seemed to be done
-correctly. We need 5 grant table pages:
+-- 
+2.24.1.AMZN
 
-- order 10 -> 1024 refs
-- 2 rings -> 2048 refs
-- 512 refs per grant table page -> 4 pages
-- plus few others refs by default -> 5 pages
-
-[    3.896558] DEBUG gnttab_expand 1287 cur=1 extra=1 max=64 rc=0
-[    5.115189] DEBUG gnttab_expand 1287 cur=2 extra=1 max=64 rc=0
-[    6.334027] DEBUG gnttab_expand 1287 cur=3 extra=1 max=64 rc=0
-[    7.350523] DEBUG gnttab_expand 1287 cur=4 extra=1 max=64 rc=0
-
-As expected gnttab_expand gets called 4 times to add 4 more pages to the
-initial page.
-
-
-Thanks,
-
-Stefano
 
