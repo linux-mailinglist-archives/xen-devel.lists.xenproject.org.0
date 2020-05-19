@@ -2,46 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F6CD1D9BBF
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 17:53:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FA681D9BD0
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 17:59:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb4YF-0003eh-M2; Tue, 19 May 2020 15:53:07 +0000
+	id 1jb4e3-00045f-1B; Tue, 19 May 2020 15:59:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fY7P=7B=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jb4YE-0003ec-9D
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 15:53:06 +0000
-X-Inumbo-ID: d399d59e-99e8-11ea-9887-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=0pGb=7B=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jb4e1-00045Y-Lg
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 15:59:05 +0000
+X-Inumbo-ID: a9cda2da-99e9-11ea-ae69-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d399d59e-99e8-11ea-9887-bc764e2007e4;
- Tue, 19 May 2020 15:53:05 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ id a9cda2da-99e9-11ea-ae69-bc764e2007e4;
+ Tue, 19 May 2020 15:59:04 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: El7oOCcy1szBJ5zYjhYjThPqPzQODLg8uLNYfOHWUvO6Kb3R3YqEhEkxJkWmWZu7/B9Dmmdh9q
- GrymMtBPqIErwSlD4nIxYx7YidRjO4QcnRPw+jwHHBlMBV0c+roR0b/1UvaHr+pCE2Vl0Wml8t
- ASWDpvsj54Cb16cDC1gjtudozZkVsB31t9vWpeHYDfUcS6T2bsA00AnUwqRi/gHMORBFBkGgOy
- lsq6UaA/bSMbr7DqErUgz4vU/5Otv2jm06g8UtW9KNyXaHE7rr5cPxUJAsUC9F00uU07R2xbeA
- KJs=
+IronPort-SDR: t+VMYjCUDVBb8Qz48o/FakOmXoKdr+6rgoF9hwzgU2wY4/XZkYPIyn87gDMTNEI/N7HR+gmNOQ
+ AnsAorALKTled5xWBKXc0Ed352SvY7/RGYDgCUQxLhMcKNWPBq6nu/oT9Es1oJsZtrfsM0zhuN
+ YK1x8FgwHknb4wnmNMmCUq9bDO3EMDWUHYvusSzeTOOXnnkyw8dEsHxItZgb59tRZywyMjJyAz
+ idolsfTvEmuf+6oY6ug7AvzJC/FXPya4KTyVdNzDNaWPH2UUZVVjc1yu3MXTEcgdx+ah9/t2mB
+ bw8=
 X-SBRS: 2.7
-X-MesageID: 18178493
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 17893715
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,410,1583211600"; d="scan'208";a="18178493"
-Date: Tue, 19 May 2020 16:52:58 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Subject: Re: [PATCH v2] xen: fix build without pci passthrough
-Message-ID: <20200519155258.GC2105@perard.uk.xensource.com>
-References: <20200519143101.75330-1-roger.pau@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.73,410,1583211600"; d="scan'208";a="17893715"
+Subject: Re: [PATCH] x86/traps: Rework #PF[Rsvd] bit handling
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200518153820.18170-1-andrew.cooper3@citrix.com>
+ <bf0d9e00-cb42-34b1-26ee-93628eea094c@suse.com>
+ <d925943b-cad8-07c3-c21c-322ffc4a75da@citrix.com>
+ <f06370cb-5cff-2e4a-571c-0b61656e4829@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <8004a377-dd66-0248-8ed9-2145080ec570@citrix.com>
+Date: Tue, 19 May 2020 16:59:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
+In-Reply-To: <f06370cb-5cff-2e4a-571c-0b61656e4829@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200519143101.75330-1-roger.pau@citrix.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,59 +59,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 19, 2020 at 04:31:01PM +0200, Roger Pau Monne wrote:
-> has_igd_gfx_passthru is only available when QEMU is built with
-> CONFIG_XEN_PCI_PASSTHROUGH, and hence shouldn't be used in common
-> code without checking if it's available.
-> 
-> Fixes: 46472d82322d0 ('xen: convert "-machine igd-passthru" to an accelerator property')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Anthony Perard <anthony.perard@citrix.com>
-> Cc: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org
-> ---
-> Changes since v1:
->  - Do not include osdep in header file.
->  - Always add the setters/getters of igd-passthru, report an error
->    when attempting to set igd-passthru without built in
->    pci-passthrough support.
-> ---
->  hw/xen/xen-common.c | 4 ++++
->  hw/xen/xen_pt.h     | 6 ++++++
->  2 files changed, 10 insertions(+)
-> 
-> diff --git a/hw/xen/xen-common.c b/hw/xen/xen-common.c
-> index 70564cc952..d758770da0 100644
-> --- a/hw/xen/xen-common.c
-> +++ b/hw/xen/xen-common.c
-> @@ -134,7 +134,11 @@ static bool xen_get_igd_gfx_passthru(Object *obj, Error **errp)
->  
->  static void xen_set_igd_gfx_passthru(Object *obj, bool value, Error **errp)
->  {
-> +#ifdef CONFIG_XEN_PCI_PASSTHROUGH
->      has_igd_gfx_passthru = value;
-> +#else
-> +    error_setg(errp, "Xen PCI passthrough support not built in");
-> +#endif
->  }
->  
+On 19/05/2020 15:55, Jan Beulich wrote:
+> On 19.05.2020 16:29, Andrew Cooper wrote:
+>> On 19/05/2020 09:14, Jan Beulich wrote:
+>>> On 18.05.2020 17:38, Andrew Cooper wrote:
+>>>> The reserved_bit_page_fault() paths effectively turn reserved bit faults into
+>>>> a warning, but in the light of L1TF, the real impact is far more serious.
+>>>>
+>>>> Xen does not have any reserved bits set in its pagetables, nor do we permit PV
+>>>> guests to write any.  An HVM shadow guest may have reserved bits via the MMIO
+>>>> fastpath, but those faults are handled in the VMExit #PF intercept, rather
+>>>> than Xen's #PF handler.
+>>>>
+>>>> There is no need to disable interrupts (in spurious_page_fault()) for
+>>>> __page_fault_type() to look at the rsvd bit, nor should extable fixup be
+>>>> tolerated.
+>>> I'm afraid I don't understand the connection of the first half of this
+>>> to the patch - you don't alter spurious_page_fault() in this regard (at
+>>> all, actually).
+>> The disabling interrupts is in spurious_page_fault().Â  But the point is
+>> that there is no need to enter this logic at all for a reserved page fault.
+>>
+>>> As to extable fixup, I'm not sure: If a reserved bit ends up slipping
+>>> into the non-Xen parts of the page tables, and if guest accessors then
+>>> become able to trip a corresponding #PF, the bug will need an XSA with
+>>> the proposed change, while - afaict - it won't if the exception gets
+>>> recovered from. (There may then still be log spam issue, I admit.)
+>> We need to issue an XSA anyway because such a construct would be an L1TF
+>> gadget.
+>>
+>> What this change does is make it substantially more obvious, and turns
+>> an information leak into a DoS.
+> For L1TF-affected hardware. For unaffected hardware it turns a possible
+> (but not guaranteed) log spam DoS into a reliable crash.
 
-There's an issue that I haven't thought about before.
-CONFIG_XEN_PCI_PASSTHROUGH is never defined in xen-common.c. So
-xen_set_igd_gfx_passthru will always return an error.
+It represents unexpected corruption of our most critical security
+resource in the processor.
 
-I'm not sure what to do about that yet, maybe change the way that
-CONFIG_ is defined, or maybe have have the setter/getter in xen_pt.c
-with a stub in stubs/ which would return an error. or maybe some other
-way.
+Obviously we need to account for any legitimate uses Xen has of reserved
+bits (so far maybe GNP for PV guests), but BUG()-like behaviour *is* the
+response appropriate to the severity of finding corrupt PTEs.
 
--- 
-Anthony PERARD
+~Andrew
 
