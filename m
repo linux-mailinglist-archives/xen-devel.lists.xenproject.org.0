@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F20D1D90E7
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 09:21:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B43921D90DC
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 09:21:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jawZ6-0004pb-Ls; Tue, 19 May 2020 07:21:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jawZ6-0004pB-8l; Tue, 19 May 2020 07:21:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aMO8=7B=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jawZ5-0004p2-Nm
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 07:21:27 +0000
-X-Inumbo-ID: 501f5d5d-99a1-11ea-a8e2-12813bfff9fa
+ id 1jawZ4-0004od-Dw
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 07:21:26 +0000
+X-Inumbo-ID: 5101dcd6-99a1-11ea-b9cf-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 501f5d5d-99a1-11ea-a8e2-12813bfff9fa;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5101dcd6-99a1-11ea-b9cf-bc764e2007e4;
  Tue, 19 May 2020 07:21:12 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DA765B21A;
- Tue, 19 May 2020 07:21:12 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4061DB211;
+ Tue, 19 May 2020 07:21:13 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v10 05/12] libs: add libxenhypfs
-Date: Tue, 19 May 2020 09:20:59 +0200
-Message-Id: <20200519072106.26894-6-jgross@suse.com>
+Subject: [PATCH v10 06/12] tools: add xenfs tool
+Date: Tue, 19 May 2020 09:21:00 +0200
+Message-Id: <20200519072106.26894-7-jgross@suse.com>
 X-Mailer: git-send-email 2.26.1
 In-Reply-To: <20200519072106.26894-1-jgross@suse.com>
 References: <20200519072106.26894-1-jgross@suse.com>
@@ -51,787 +50,346 @@ Cc: Juergen Gross <jgross@suse.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Add the new library libxenhypfs for access to the hypervisor filesystem.
+Add the xenfs tool for accessing the hypervisor filesystem.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Acked-by: Wei Liu <wl@xen.org>
 ---
 V1:
-- rename to libxenhypfs
-- add xenhypfs_write()
+- rename to xenhypfs
+- don't use "--" for subcommands
+- add write support
+
+V2:
+- escape non-printable characters per default with cat subcommand
+  (Ian Jackson)
+- add -b option to cat subcommand (Ian Jackson)
+- add man page
 
 V3:
-- major rework due to new hypervisor interface
-- add decompression capability
-
-V4:
-- add dependency to libz in pkgconfig file (Wei Liu)
+- adapt to new hypfs interface
 
 V7:
-- don't assume hypervisor's sizeof(bool) is same as in user land
-
-V8:
-- add some comments regarding the semantics of the lib functions
-  (George Dunlap)
+- added missing bool for ls output
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- .gitignore                          |   2 +
- tools/Rules.mk                      |   6 +
- tools/libs/Makefile                 |   1 +
- tools/libs/hypfs/Makefile           |  16 +
- tools/libs/hypfs/core.c             | 536 ++++++++++++++++++++++++++++
- tools/libs/hypfs/include/xenhypfs.h |  90 +++++
- tools/libs/hypfs/libxenhypfs.map    |  10 +
- tools/libs/hypfs/xenhypfs.pc.in     |  10 +
- 8 files changed, 671 insertions(+)
- create mode 100644 tools/libs/hypfs/Makefile
- create mode 100644 tools/libs/hypfs/core.c
- create mode 100644 tools/libs/hypfs/include/xenhypfs.h
- create mode 100644 tools/libs/hypfs/libxenhypfs.map
- create mode 100644 tools/libs/hypfs/xenhypfs.pc.in
+ .gitignore              |   1 +
+ docs/man/xenhypfs.1.pod |  61 +++++++++++++
+ tools/misc/Makefile     |   6 ++
+ tools/misc/xenhypfs.c   | 192 ++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 260 insertions(+)
+ create mode 100644 docs/man/xenhypfs.1.pod
+ create mode 100644 tools/misc/xenhypfs.c
 
 diff --git a/.gitignore b/.gitignore
-index 034f44b21b..7bd292f64d 100644
+index 7bd292f64d..6171b3b43f 100644
 --- a/.gitignore
 +++ b/.gitignore
-@@ -110,6 +110,8 @@ tools/libs/evtchn/headers.chk
- tools/libs/evtchn/xenevtchn.pc
- tools/libs/gnttab/headers.chk
- tools/libs/gnttab/xengnttab.pc
-+tools/libs/hypfs/headers.chk
-+tools/libs/hypfs/xenhypfs.pc
- tools/libs/call/headers.chk
- tools/libs/call/xencall.pc
- tools/libs/foreignmemory/headers.chk
-diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 5b8cf748ad..ad6073fcad 100644
---- a/tools/Rules.mk
-+++ b/tools/Rules.mk
-@@ -19,6 +19,7 @@ XEN_LIBXENGNTTAB   = $(XEN_ROOT)/tools/libs/gnttab
- XEN_LIBXENCALL     = $(XEN_ROOT)/tools/libs/call
- XEN_LIBXENFOREIGNMEMORY = $(XEN_ROOT)/tools/libs/foreignmemory
- XEN_LIBXENDEVICEMODEL = $(XEN_ROOT)/tools/libs/devicemodel
-+XEN_LIBXENHYPFS    = $(XEN_ROOT)/tools/libs/hypfs
- XEN_LIBXC          = $(XEN_ROOT)/tools/libxc
- XEN_XENLIGHT       = $(XEN_ROOT)/tools/libxl
- # Currently libxlutil lives in the same directory as libxenlight
-@@ -132,6 +133,11 @@ SHDEPS_libxendevicemodel = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLI
- LDLIBS_libxendevicemodel = $(SHDEPS_libxendevicemodel) $(XEN_LIBXENDEVICEMODEL)/libxendevicemodel$(libextension)
- SHLIB_libxendevicemodel  = $(SHDEPS_libxendevicemodel) -Wl,-rpath-link=$(XEN_LIBXENDEVICEMODEL)
- 
-+CFLAGS_libxenhypfs = -I$(XEN_LIBXENHYPFS)/include $(CFLAGS_xeninclude)
-+SHDEPS_libxenhypfs = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_xencall)
-+LDLIBS_libxenhypfs = $(SHDEPS_libxenhypfs) $(XEN_LIBXENHYPFS)/libxenhypfs$(libextension)
-+SHLIB_libxenhypfs  = $(SHDEPS_libxenhypfs) -Wl,-rpath-link=$(XEN_LIBXENHYPFS)
-+
- # code which compiles against libxenctrl get __XEN_TOOLS__ and
- # therefore sees the unstable hypercall interfaces.
- CFLAGS_libxenctrl = -I$(XEN_LIBXC)/include $(CFLAGS_libxentoollog) $(CFLAGS_libxenforeignmemory) $(CFLAGS_libxendevicemodel) $(CFLAGS_xeninclude) -D__XEN_TOOLS__
-diff --git a/tools/libs/Makefile b/tools/libs/Makefile
-index 88901e7341..69cdfb5975 100644
---- a/tools/libs/Makefile
-+++ b/tools/libs/Makefile
-@@ -9,6 +9,7 @@ SUBDIRS-y += gnttab
- SUBDIRS-y += call
- SUBDIRS-y += foreignmemory
- SUBDIRS-y += devicemodel
-+SUBDIRS-y += hypfs
- 
- ifeq ($(CONFIG_RUMP),y)
- SUBDIRS-y := toolcore
-diff --git a/tools/libs/hypfs/Makefile b/tools/libs/hypfs/Makefile
+@@ -368,6 +368,7 @@ tools/libxl/test_timedereg
+ tools/libxl/test_fdderegrace
+ tools/firmware/etherboot/eb-roms.h
+ tools/firmware/etherboot/gpxe-git-snapshot.tar.gz
++tools/misc/xenhypfs
+ tools/misc/xenwatchdogd
+ tools/misc/xen-hvmcrash
+ tools/misc/xen-lowmemd
+diff --git a/docs/man/xenhypfs.1.pod b/docs/man/xenhypfs.1.pod
 new file mode 100644
-index 0000000000..06dd449929
+index 0000000000..37aa488fcc
 --- /dev/null
-+++ b/tools/libs/hypfs/Makefile
-@@ -0,0 +1,16 @@
-+XEN_ROOT = $(CURDIR)/../../..
-+include $(XEN_ROOT)/tools/Rules.mk
++++ b/docs/man/xenhypfs.1.pod
+@@ -0,0 +1,61 @@
++=head1 NAME
 +
-+MAJOR    = 1
-+MINOR    = 0
-+LIBNAME  := hypfs
-+USELIBS  := toollog toolcore call
++xenhypfs - Xen tool to access Xen hypervisor file system
 +
-+APPEND_LDFLAGS += -lz
++=head1 SYNOPSIS
 +
-+SRCS-y                 += core.c
++B<xenhypfs> I<subcommand> [I<options>] [I<args>]
 +
-+include ../libs.mk
++=head1 DESCRIPTION
 +
-+$(PKG_CONFIG_LOCAL): PKG_CONFIG_INCDIR = $(XEN_LIBXENHYPFS)/include
-+$(PKG_CONFIG_LOCAL): PKG_CONFIG_CFLAGS_LOCAL = $(CFLAGS_xeninclude)
-diff --git a/tools/libs/hypfs/core.c b/tools/libs/hypfs/core.c
++The B<xenhypfs> program is used to access the Xen hypervisor file system.
++It can be used to show the available entries, to show their contents and
++(if allowed) to modify their contents.
++
++=head1 SUBCOMMANDS
++
++=over 4
++
++=item B<ls> I<path>
++
++List the available entries below I<path>.
++
++=item B<cat> [I<-b>] I<path>
++
++Show the contents of the entry specified by I<path>. Non-printable characters
++other than white space characters (like tab, new line) will be shown as
++B<\xnn> (B<nn> being a two digit hex number) unless the option B<-b> is
++specified.
++
++=item B<write> I<path> I<value>
++
++Set the contents of the entry specified by I<path> to I<value>.
++
++=item B<tree>
++
++Show all the entries of the file system as a tree.
++
++=back
++
++=head1 RETURN CODES
++
++=over 4
++
++=item B<0>
++
++Success
++
++=item B<1>
++
++Invalid usage (e.g. unknown subcommand, unknown option, missing parameter).
++
++=item B<2>
++
++Entry not found while traversing the tree.
++
++=item B<3>
++
++Access right violation.
++
++=back
++
+diff --git a/tools/misc/Makefile b/tools/misc/Makefile
+index 63947bfadc..9fdb13597f 100644
+--- a/tools/misc/Makefile
++++ b/tools/misc/Makefile
+@@ -24,6 +24,7 @@ INSTALL_SBIN-$(CONFIG_X86)     += xen-lowmemd
+ INSTALL_SBIN-$(CONFIG_X86)     += xen-mfndump
+ INSTALL_SBIN-$(CONFIG_X86)     += xen-ucode
+ INSTALL_SBIN                   += xencov
++INSTALL_SBIN                   += xenhypfs
+ INSTALL_SBIN                   += xenlockprof
+ INSTALL_SBIN                   += xenperf
+ INSTALL_SBIN                   += xenpm
+@@ -86,6 +87,9 @@ xenperf: xenperf.o
+ xenpm: xenpm.o
+ 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
+ 
++xenhypfs: xenhypfs.o
++	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenhypfs) $(APPEND_LDFLAGS)
++
+ xenlockprof: xenlockprof.o
+ 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
+ 
+@@ -94,6 +98,8 @@ xen-hptool.o: CFLAGS += -I$(XEN_ROOT)/tools/libxc $(CFLAGS_libxencall)
+ xen-hptool: xen-hptool.o
+ 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenevtchn) $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest) $(LDLIBS_libxenstore) $(APPEND_LDFLAGS)
+ 
++xenhypfs.o: CFLAGS += $(CFLAGS_libxenhypfs)
++
+ # xen-mfndump incorrectly uses libxc internals
+ xen-mfndump.o: CFLAGS += -I$(XEN_ROOT)/tools/libxc $(CFLAGS_libxencall)
+ xen-mfndump: xen-mfndump.o
+diff --git a/tools/misc/xenhypfs.c b/tools/misc/xenhypfs.c
 new file mode 100644
-index 0000000000..d4309b5ae2
+index 0000000000..158b901f42
 --- /dev/null
-+++ b/tools/libs/hypfs/core.c
-@@ -0,0 +1,536 @@
-+/*
-+ * Copyright (c) 2019 SUSE Software Solutions Germany GmbH
-+ *
-+ * This library is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU Lesser General Public
-+ * License as published by the Free Software Foundation;
-+ * version 2.1 of the License.
-+ *
-+ * This library is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * Lesser General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Lesser General Public
-+ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
-+ */
-+
-+#define __XEN_TOOLS__ 1
-+
++++ b/tools/misc/xenhypfs.c
+@@ -0,0 +1,192 @@
 +#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <inttypes.h>
-+#include <stdbool.h>
++#include <ctype.h>
++#include <stdio.h>
 +#include <stdlib.h>
 +#include <string.h>
-+#include <zlib.h>
-+
-+#include <xentoollog.h>
 +#include <xenhypfs.h>
-+#include <xencall.h>
-+#include <xentoolcore_internal.h>
 +
-+#include <xen/xen.h>
-+#include <xen/hypfs.h>
++static struct xenhypfs_handle *hdl;
 +
-+#define BUF_SIZE 4096
-+
-+struct xenhypfs_handle {
-+    xentoollog_logger *logger, *logger_tofree;
-+    unsigned int flags;
-+    xencall_handle *xcall;
-+};
-+
-+xenhypfs_handle *xenhypfs_open(xentoollog_logger *logger,
-+                               unsigned open_flags)
++static int usage(void)
 +{
-+    xenhypfs_handle *fshdl = calloc(1, sizeof(*fshdl));
++    fprintf(stderr, "usage: xenhypfs ls <path>\n");
++    fprintf(stderr, "       xenhypfs cat [-b] <path>\n");
++    fprintf(stderr, "       xenhypfs write <path> <val>\n");
++    fprintf(stderr, "       xenhypfs tree\n");
 +
-+    if (!fshdl)
-+        return NULL;
-+
-+    fshdl->flags = open_flags;
-+    fshdl->logger = logger;
-+    fshdl->logger_tofree = NULL;
-+
-+    if (!fshdl->logger) {
-+        fshdl->logger = fshdl->logger_tofree =
-+            (xentoollog_logger*)
-+            xtl_createlogger_stdiostream(stderr, XTL_PROGRESS, 0);
-+        if (!fshdl->logger)
-+            goto err;
-+    }
-+
-+    fshdl->xcall = xencall_open(fshdl->logger, 0);
-+    if (!fshdl->xcall)
-+        goto err;
-+
-+    /* No need to remember supported version, we only support V1. */
-+    if (xencall5(fshdl->xcall, __HYPERVISOR_hypfs_op,
-+                 XEN_HYPFS_OP_get_version, 0, 0, 0, 0) < 0)
-+        goto err;
-+
-+    return fshdl;
-+
-+err:
-+    xtl_logger_destroy(fshdl->logger_tofree);
-+    xencall_close(fshdl->xcall);
-+    free(fshdl);
-+    return NULL;
++    return 1;
 +}
 +
-+int xenhypfs_close(xenhypfs_handle *fshdl)
++static void xenhypfs_print_escaped(char *string)
 +{
-+    if (!fshdl)
-+        return 0;
++    char *c;
 +
-+    xencall_close(fshdl->xcall);
-+    xtl_logger_destroy(fshdl->logger_tofree);
-+    free(fshdl);
-+    return 0;
++    for (c = string; *c; c++) {
++        if (isgraph(*c) || isspace(*c))
++            printf("%c", *c);
++        else
++            printf("\\x%02x", *c);
++    }
++    printf("\n");
 +}
 +
-+static int xenhypfs_get_pathbuf(xenhypfs_handle *fshdl, const char *path,
-+                                char **path_buf)
++static int xenhypfs_cat(int argc, char *argv[])
 +{
-+    int ret = -1;
-+    int path_sz;
++    int ret = 0;
++    char *result;
++    char *path;
++    bool bin = false;
 +
-+    if (!fshdl) {
-+        errno = EBADF;
-+        goto out;
++    switch (argc) {
++    case 1:
++        path = argv[0];
++        break;
++
++    case 2:
++        if (strcmp(argv[0], "-b"))
++            return usage();
++        bin = true;
++        path = argv[1];
++        break;
++
++    default:
++        return usage();
 +    }
 +
-+    path_sz = strlen(path) + 1;
-+    if (path_sz > XEN_HYPFS_MAX_PATHLEN)
-+    {
-+        errno = ENAMETOOLONG;
-+        goto out;
++    result = xenhypfs_read(hdl, path);
++    if (!result) {
++        perror("could not read");
++        ret = 3;
++    } else {
++        if (!bin)
++            printf("%s\n", result);
++        else
++            xenhypfs_print_escaped(result);
++        free(result);
 +    }
 +
-+    *path_buf = xencall_alloc_buffer(fshdl->xcall, path_sz);
-+    if (!*path_buf) {
-+        errno = ENOMEM;
-+        goto out;
-+    }
-+    strcpy(*path_buf, path);
-+
-+    ret = path_sz;
-+
-+ out:
 +    return ret;
 +}
 +
-+static void *xenhypfs_inflate(void *in_data, size_t *sz)
++static int xenhypfs_wr(char *path, char *val)
 +{
-+    unsigned char *workbuf;
-+    void *content = NULL;
-+    unsigned int out_sz;
-+    z_stream z = { .opaque = NULL };
 +    int ret;
 +
-+    workbuf = malloc(BUF_SIZE);
-+    if (!workbuf)
-+        return NULL;
-+
-+    z.next_in = in_data;
-+    z.avail_in = *sz;
-+    ret = inflateInit2(&z, MAX_WBITS + 32); /* 32 == gzip */
-+
-+    for (*sz = 0; ret == Z_OK; *sz += out_sz) {
-+        z.next_out = workbuf;
-+        z.avail_out = BUF_SIZE;
-+        ret = inflate(&z, Z_SYNC_FLUSH);
-+        if (ret != Z_OK && ret != Z_STREAM_END)
-+            break;
-+
-+        out_sz = z.next_out - workbuf;
-+        content = realloc(content, *sz + out_sz);
-+        if (!content) {
-+            ret = Z_MEM_ERROR;
-+            break;
-+        }
-+        memcpy(content + *sz, workbuf, out_sz);
++    ret = xenhypfs_write(hdl, path, val);
++    if (ret) {
++        perror("could not write");
++        ret = 3;
 +    }
 +
-+    inflateEnd(&z);
-+    if (ret != Z_STREAM_END) {
-+        free(content);
-+        content = NULL;
-+        errno = EIO;
-+    }
-+    free(workbuf);
-+    return content;
++    return ret;
 +}
 +
-+static void xenhypfs_set_attrs(struct xen_hypfs_direntry *entry,
-+                               struct xenhypfs_dirent *dirent)
++static char *xenhypfs_type(struct xenhypfs_dirent *ent)
 +{
-+    dirent->size = entry->content_len;
++    char *res;
 +
-+    switch(entry->type) {
-+    case XEN_HYPFS_TYPE_DIR:
-+        dirent->type = xenhypfs_type_dir;
-+        break;
-+    case XEN_HYPFS_TYPE_BLOB:
-+        dirent->type = xenhypfs_type_blob;
-+        break;
-+    case XEN_HYPFS_TYPE_STRING:
-+        dirent->type = xenhypfs_type_string;
-+        break;
-+    case XEN_HYPFS_TYPE_UINT:
-+        dirent->type = xenhypfs_type_uint;
-+        break;
-+    case XEN_HYPFS_TYPE_INT:
-+        dirent->type = xenhypfs_type_int;
-+        break;
-+    case XEN_HYPFS_TYPE_BOOL:
-+        dirent->type = xenhypfs_type_bool;
-+        break;
-+    default:
-+        dirent->type = xenhypfs_type_blob;
-+    }
-+
-+    switch (entry->encoding) {
-+    case XEN_HYPFS_ENC_PLAIN:
-+        dirent->encoding = xenhypfs_enc_plain;
-+        break;
-+    case XEN_HYPFS_ENC_GZIP:
-+        dirent->encoding = xenhypfs_enc_gzip;
-+        break;
-+    default:
-+        dirent->encoding = xenhypfs_enc_plain;
-+        dirent->type = xenhypfs_type_blob;
-+    }
-+
-+    dirent->is_writable = entry->max_write_len;
-+}
-+
-+void *xenhypfs_read_raw(xenhypfs_handle *fshdl, const char *path,
-+                        struct xenhypfs_dirent **dirent)
-+{
-+    void *retbuf = NULL, *content = NULL;
-+    char *path_buf = NULL;
-+    const char *name;
-+    struct xen_hypfs_direntry *entry;
-+    int ret;
-+    int sz, path_sz;
-+
-+    *dirent = NULL;
-+    ret = xenhypfs_get_pathbuf(fshdl, path, &path_buf);
-+    if (ret < 0)
-+        goto out;
-+
-+    path_sz = ret;
-+
-+    for (sz = BUF_SIZE;; sz = sizeof(*entry) + entry->content_len) {
-+        if (retbuf)
-+            xencall_free_buffer(fshdl->xcall, retbuf);
-+
-+        retbuf = xencall_alloc_buffer(fshdl->xcall, sz);
-+        if (!retbuf) {
-+            errno = ENOMEM;
-+            goto out;
-+        }
-+        entry = retbuf;
-+
-+        ret = xencall5(fshdl->xcall, __HYPERVISOR_hypfs_op, XEN_HYPFS_OP_read,
-+                       (unsigned long)path_buf, path_sz,
-+                       (unsigned long)retbuf, sz);
-+        if (!ret)
-+            break;
-+
-+        if (ret != ENOBUFS) {
-+            errno = -ret;
-+            goto out;
-+        }
-+    }
-+
-+    content = malloc(entry->content_len);
-+    if (!content)
-+        goto out;
-+    memcpy(content, entry + 1, entry->content_len);
-+
-+    name = strrchr(path, '/');
-+    if (!name)
-+        name = path;
-+    else {
-+        name++;
-+        if (!*name)
-+            name--;
-+    }
-+    *dirent = calloc(1, sizeof(struct xenhypfs_dirent) + strlen(name) + 1);
-+    if (!*dirent) {
-+        free(content);
-+        content = NULL;
-+        errno = ENOMEM;
-+        goto out;
-+    }
-+    (*dirent)->name = (char *)(*dirent + 1);
-+    strcpy((*dirent)->name, name);
-+    xenhypfs_set_attrs(entry, *dirent);
-+
-+ out:
-+    ret = errno;
-+    xencall_free_buffer(fshdl->xcall, path_buf);
-+    xencall_free_buffer(fshdl->xcall, retbuf);
-+    errno = ret;
-+
-+    return content;
-+}
-+
-+char *xenhypfs_read(xenhypfs_handle *fshdl, const char *path)
-+{
-+    char *buf, *ret_buf = NULL;
-+    struct xenhypfs_dirent *dirent;
-+    int ret;
-+
-+    buf = xenhypfs_read_raw(fshdl, path, &dirent);
-+    if (!buf)
-+        goto out;
-+
-+    switch (dirent->encoding) {
-+    case xenhypfs_enc_plain:
-+        break;
-+    case xenhypfs_enc_gzip:
-+        ret_buf = xenhypfs_inflate(buf, &dirent->size);
-+        if (!ret_buf)
-+            goto out;
-+        free(buf);
-+        buf = ret_buf;
-+        ret_buf = NULL;
-+        break;
-+    }
-+
-+    switch (dirent->type) {
++    switch (ent->type) {
 +    case xenhypfs_type_dir:
-+        errno = EISDIR;
++        res = "<dir>   ";
 +        break;
 +    case xenhypfs_type_blob:
-+        errno = EDOM;
++        res = "<blob>  ";
 +        break;
 +    case xenhypfs_type_string:
-+        ret_buf = buf;
-+        buf = NULL;
++        res = "<string>";
 +        break;
 +    case xenhypfs_type_uint:
-+    case xenhypfs_type_bool:
-+        switch (dirent->size) {
-+        case 1:
-+            ret = asprintf(&ret_buf, "%"PRIu8, *(uint8_t *)buf);
-+            break;
-+        case 2:
-+            ret = asprintf(&ret_buf, "%"PRIu16, *(uint16_t *)buf);
-+            break;
-+        case 4:
-+            ret = asprintf(&ret_buf, "%"PRIu32, *(uint32_t *)buf);
-+            break;
-+        case 8:
-+            ret = asprintf(&ret_buf, "%"PRIu64, *(uint64_t *)buf);
-+            break;
-+        default:
-+            ret = -1;
-+            errno = EDOM;
-+        }
-+        if (ret < 0)
-+            ret_buf = NULL;
++        res = "<uint>  ";
 +        break;
 +    case xenhypfs_type_int:
-+        switch (dirent->size) {
-+        case 1:
-+            ret = asprintf(&ret_buf, "%"PRId8, *(int8_t *)buf);
-+            break;
-+        case 2:
-+            ret = asprintf(&ret_buf, "%"PRId16, *(int16_t *)buf);
-+            break;
-+        case 4:
-+            ret = asprintf(&ret_buf, "%"PRId32, *(int32_t *)buf);
-+            break;
-+        case 8:
-+            ret = asprintf(&ret_buf, "%"PRId64, *(int64_t *)buf);
-+            break;
-+        default:
-+            ret = -1;
-+            errno = EDOM;
-+        }
-+        if (ret < 0)
-+            ret_buf = NULL;
++        res = "<int>   ";
 +        break;
-+    }
-+
-+ out:
-+    ret = errno;
-+    free(buf);
-+    free(dirent);
-+    errno = ret;
-+
-+    return ret_buf;
-+}
-+
-+struct xenhypfs_dirent *xenhypfs_readdir(xenhypfs_handle *fshdl,
-+                                         const char *path,
-+                                         unsigned int *num_entries)
-+{
-+    void *buf, *curr;
-+    int ret;
-+    char *names;
-+    struct xenhypfs_dirent *ret_buf = NULL, *dirent;
-+    unsigned int n = 0, name_sz = 0;
-+    struct xen_hypfs_dirlistentry *entry;
-+
-+    buf = xenhypfs_read_raw(fshdl, path, &dirent);
-+    if (!buf)
-+        goto out;
-+
-+    if (dirent->type != xenhypfs_type_dir ||
-+        dirent->encoding != xenhypfs_enc_plain) {
-+        errno = ENOTDIR;
-+        goto out;
-+    }
-+
-+    if (dirent->size) {
-+        curr = buf;
-+        for (n = 1;; n++) {
-+            entry = curr;
-+            name_sz += strlen(entry->name) + 1;
-+            if (!entry->off_next)
-+                break;
-+
-+            curr += entry->off_next;
-+        }
-+    }
-+
-+    ret_buf = malloc(n * sizeof(*ret_buf) + name_sz);
-+    if (!ret_buf)
-+        goto out;
-+
-+    *num_entries = n;
-+    names = (char *)(ret_buf + n);
-+    curr = buf;
-+    for (n = 0; n < *num_entries; n++) {
-+        entry = curr;
-+        xenhypfs_set_attrs(&entry->e, ret_buf + n);
-+        ret_buf[n].name = names;
-+        strcpy(names, entry->name);
-+        names += strlen(entry->name) + 1;
-+        curr += entry->off_next;
-+    }
-+
-+ out:
-+    ret = errno;
-+    free(buf);
-+    free(dirent);
-+    errno = ret;
-+
-+    return ret_buf;
-+}
-+
-+int xenhypfs_write(xenhypfs_handle *fshdl, const char *path, const char *val)
-+{
-+    void *buf = NULL;
-+    char *path_buf = NULL, *val_end;
-+    int ret, saved_errno;
-+    int sz, path_sz;
-+    struct xen_hypfs_direntry *entry;
-+    uint64_t mask;
-+
-+    ret = xenhypfs_get_pathbuf(fshdl, path, &path_buf);
-+    if (ret < 0)
-+        goto out;
-+
-+    path_sz = ret;
-+    ret = -1;
-+
-+    sz = BUF_SIZE;
-+    buf = xencall_alloc_buffer(fshdl->xcall, sz);
-+    if (!buf) {
-+        errno = ENOMEM;
-+        goto out;
-+    }
-+
-+    ret = xencall5(fshdl->xcall, __HYPERVISOR_hypfs_op, XEN_HYPFS_OP_read,
-+                   (unsigned long)path_buf, path_sz,
-+                   (unsigned long)buf, sizeof(*entry));
-+    if (ret && errno != ENOBUFS)
-+        goto out;
-+    ret = -1;
-+    entry = buf;
-+    if (!entry->max_write_len) {
-+        errno = EACCES;
-+        goto out;
-+    }
-+    if (entry->encoding != XEN_HYPFS_ENC_PLAIN) {
-+        /* Writing compressed data currently not supported. */
-+        errno = EDOM;
-+        goto out;
-+    }
-+
-+    switch (entry->type) {
-+    case XEN_HYPFS_TYPE_STRING:
-+        if (sz < strlen(val) + 1) {
-+            sz = strlen(val) + 1;
-+            xencall_free_buffer(fshdl->xcall, buf);
-+            buf = xencall_alloc_buffer(fshdl->xcall, sz);
-+            if (!buf) {
-+                errno = ENOMEM;
-+                goto out;
-+            }
-+        }
-+        sz = strlen(val) + 1;
-+        strcpy(buf, val);
-+        break;
-+    case XEN_HYPFS_TYPE_UINT:
-+        sz = entry->content_len;
-+        errno = 0;
-+        *(unsigned long long *)buf = strtoull(val, &val_end, 0);
-+        if (errno || !*val || *val_end)
-+            goto out;
-+        mask = ~0ULL << (8 * sz);
-+        if ((*(uint64_t *)buf & mask) && ((*(uint64_t *)buf & mask) != mask)) {
-+            errno = ERANGE;
-+            goto out;
-+        }
-+        break;
-+    case XEN_HYPFS_TYPE_INT:
-+        sz = entry->content_len;
-+        errno = 0;
-+        *(unsigned long long *)buf = strtoll(val, &val_end, 0);
-+        if (errno || !*val || *val_end)
-+            goto out;
-+        mask = (sz == 8) ? 0 : ~0ULL << (8 * sz);
-+        if ((*(uint64_t *)buf & mask) && ((*(uint64_t *)buf & mask) != mask)) {
-+            errno = ERANGE;
-+            goto out;
-+        }
-+        break;
-+    case XEN_HYPFS_TYPE_BOOL:
-+        sz = entry->content_len;
-+        *(unsigned long long *)buf = 0;
-+        if (!strcmp(val, "1") || !strcmp(val, "on") || !strcmp(val, "yes") ||
-+            !strcmp(val, "true") || !strcmp(val, "enable"))
-+            *(unsigned long long *)buf = 1;
-+        else if (strcmp(val, "0") && strcmp(val, "no") && strcmp(val, "off") &&
-+                 strcmp(val, "false") && strcmp(val, "disable")) {
-+            errno = EDOM;
-+            goto out;
-+        }
++    case xenhypfs_type_bool:
++        res = "<bool>  ";
 +        break;
 +    default:
-+        /* No support for other types (yet). */
-+        errno = EDOM;
-+        goto out;
++        res = "<\?\?\?>   ";
++        break;
 +    }
 +
-+    ret = xencall5(fshdl->xcall, __HYPERVISOR_hypfs_op,
-+                   XEN_HYPFS_OP_write_contents,
-+                   (unsigned long)path_buf, path_sz,
-+                   (unsigned long)buf, sz);
++    return res;
++}
 +
-+ out:
-+    saved_errno = errno;
-+    xencall_free_buffer(fshdl->xcall, path_buf);
-+    xencall_free_buffer(fshdl->xcall, buf);
-+    errno = saved_errno;
++static int xenhypfs_ls(char *path)
++{
++    struct xenhypfs_dirent *ent;
++    unsigned int n, i;
++    int ret = 0;
++
++    ent = xenhypfs_readdir(hdl, path, &n);
++    if (!ent) {
++        perror("could not read dir");
++        ret = 3;
++    } else {
++        for (i = 0; i < n; i++)
++            printf("%s r%c %s\n", xenhypfs_type(ent + i),
++                   ent[i].is_writable ? 'w' : '-', ent[i].name);
++
++        free(ent);
++    }
++
 +    return ret;
 +}
-diff --git a/tools/libs/hypfs/include/xenhypfs.h b/tools/libs/hypfs/include/xenhypfs.h
-new file mode 100644
-index 0000000000..ab157edceb
---- /dev/null
-+++ b/tools/libs/hypfs/include/xenhypfs.h
-@@ -0,0 +1,90 @@
-+/*
-+ * Copyright (c) 2019 SUSE Software Solutions Germany GmbH
-+ *
-+ * This library is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU Lesser General Public
-+ * License as published by the Free Software Foundation;
-+ * version 2.1 of the License.
-+ *
-+ * This library is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * Lesser General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Lesser General Public
-+ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
-+ */
-+#ifndef XENHYPFS_H
-+#define XENHYPFS_H
 +
-+#include <stdbool.h>
-+#include <stdint.h>
-+#include <sys/types.h>
++static int xenhypfs_tree_sub(char *path, unsigned int depth)
++{
++    struct xenhypfs_dirent *ent;
++    unsigned int n, i;
++    int ret = 0;
++    char *p;
 +
-+/* Callers who don't care don't need to #include <xentoollog.h> */
-+struct xentoollog_logger;
++    ent = xenhypfs_readdir(hdl, path, &n);
++    if (!ent)
++        return 2;
 +
-+typedef struct xenhypfs_handle xenhypfs_handle;
++    for (i = 0; i < n; i++) {
++        printf("%*s%s%s\n", depth * 2, "", ent[i].name,
++               ent[i].type == xenhypfs_type_dir ? "/" : "");
++        if (ent[i].type == xenhypfs_type_dir) {
++            asprintf(&p, "%s%s%s", path, (depth == 1) ? "" : "/", ent[i].name);
++            if (xenhypfs_tree_sub(p, depth + 1))
++                ret = 2;
++        }
++    }
 +
-+struct xenhypfs_dirent {
-+    char *name;
-+    size_t size;
-+    enum {
-+        xenhypfs_type_dir,
-+        xenhypfs_type_blob,
-+        xenhypfs_type_string,
-+        xenhypfs_type_uint,
-+        xenhypfs_type_int,
-+        xenhypfs_type_bool
-+    } type;
-+    enum {
-+        xenhypfs_enc_plain,
-+        xenhypfs_enc_gzip
-+    } encoding;
-+    bool is_writable;
-+};
++    free(ent);
 +
-+xenhypfs_handle *xenhypfs_open(struct xentoollog_logger *logger,
-+                               unsigned int open_flags);
-+int xenhypfs_close(xenhypfs_handle *fshdl);
++    return ret;
++}
 +
-+/*
-+ * Return the raw contents of a Xen hypfs entry and its dirent containing
-+ * the size, type and encoding.
-+ * Returned buffer and dirent should be freed via free().
-+ */
-+void *xenhypfs_read_raw(xenhypfs_handle *fshdl, const char *path,
-+                        struct xenhypfs_dirent **dirent);
++static int xenhypfs_tree(void)
++{
++    printf("/\n");
 +
-+/*
-+ * Return the contents of a Xen hypfs entry as a string.
-+ * Returned buffer should be freed via free().
-+ */
-+char *xenhypfs_read(xenhypfs_handle *fshdl, const char *path);
++    return xenhypfs_tree_sub("/", 1);
++}
 +
-+/*
-+ * Return the contents of a Xen hypfs directory in form of an array of
-+ * dirents.
-+ * Returned buffer should be freed via free().
-+ */
-+struct xenhypfs_dirent *xenhypfs_readdir(xenhypfs_handle *fshdl,
-+                                         const char *path,
-+                                         unsigned int *num_entries);
++int main(int argc, char *argv[])
++{
++    int ret;
 +
-+/*
-+ * Write a Xen hypfs entry with a value. The value is converted from a string
-+ * to the appropriate type.
-+ */
-+int xenhypfs_write(xenhypfs_handle *fshdl, const char *path, const char *val);
++    hdl = xenhypfs_open(NULL, 0);
 +
-+#endif /* XENHYPFS_H */
++    if (!hdl) {
++        fprintf(stderr, "Could not open libxenhypfs\n");
++        ret = 2;
++    } else if (argc >= 3 && !strcmp(argv[1], "cat"))
++        ret = xenhypfs_cat(argc - 2, argv + 2);
++    else if (argc == 3 && !strcmp(argv[1], "ls"))
++        ret = xenhypfs_ls(argv[2]);
++    else if (argc == 4 && !strcmp(argv[1], "write"))
++        ret = xenhypfs_wr(argv[2], argv[3]);
++    else if (argc == 2 && !strcmp(argv[1], "tree"))
++        ret = xenhypfs_tree();
++    else
++        ret = usage();
 +
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/tools/libs/hypfs/libxenhypfs.map b/tools/libs/hypfs/libxenhypfs.map
-new file mode 100644
-index 0000000000..47f1edda3e
---- /dev/null
-+++ b/tools/libs/hypfs/libxenhypfs.map
-@@ -0,0 +1,10 @@
-+VERS_1.0 {
-+	global:
-+		xenhypfs_open;
-+		xenhypfs_close;
-+		xenhypfs_read_raw;
-+		xenhypfs_read;
-+		xenhypfs_readdir;
-+		xenhypfs_write;
-+	local: *; /* Do not expose anything by default */
-+};
-diff --git a/tools/libs/hypfs/xenhypfs.pc.in b/tools/libs/hypfs/xenhypfs.pc.in
-new file mode 100644
-index 0000000000..92a262c7a2
---- /dev/null
-+++ b/tools/libs/hypfs/xenhypfs.pc.in
-@@ -0,0 +1,10 @@
-+prefix=@@prefix@@
-+includedir=@@incdir@@
-+libdir=@@libdir@@
++    xenhypfs_close(hdl);
 +
-+Name: Xenhypfs
-+Description: The Xenhypfs library for Xen hypervisor
-+Version: @@version@@
-+Cflags: -I${includedir} @@cflagslocal@@
-+Libs: @@libsflag@@${libdir} -lxenhypfs
-+Requires.private: xentoolcore,xentoollog,xencall,z
++    return ret;
++}
 -- 
 2.26.1
 
