@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23BBC1DA0B6
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A2B61DA09A
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:09:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb7da-0007Ud-03; Tue, 19 May 2020 19:10:50 +0000
+	id 1jb7cX-0005ni-GC; Tue, 19 May 2020 19:09:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+xc8=7B=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jb7dY-0007TI-KL
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:10:48 +0000
-X-Inumbo-ID: 5a236182-9a04-11ea-9887-bc764e2007e4
+ id 1jb7cV-0005mc-I7
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:09:43 +0000
+X-Inumbo-ID: 4106a6a0-9a04-11ea-ae69-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::3])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5a236182-9a04-11ea-9887-bc764e2007e4;
- Tue, 19 May 2020 19:10:07 +0000 (UTC)
+ id 4106a6a0-9a04-11ea-ae69-bc764e2007e4;
+ Tue, 19 May 2020 19:09:25 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jb7Ve-0001da-Ef; Tue, 19 May 2020 20:02:38 +0100
+ id 1jb7Vf-0001da-IG; Tue, 19 May 2020 20:02:40 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 16/38] buster: Extend grub2 uefi no install workaround
-Date: Tue, 19 May 2020 20:02:08 +0100
-Message-Id: <20200519190230.29519-17-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 17/38] buster: ts-host-install: Extend net.ifnames
+ workaround
+Date: Tue, 19 May 2020 20:02:09 +0100
+Message-Id: <20200519190230.29519-18-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
 References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
@@ -46,27 +47,27 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-src:grub2 is RFH in Debian, which is a contributory factor to these
-patches in #789798 and #792547 languishing.
+Really we should fix this by making a .deb in Debian that we could
+install.  But this is a longer-term project.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- Osstest/Debian.pm | 2 +-
+ ts-host-install | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
-index 8380c428..0958d080 100644
---- a/Osstest/Debian.pm
-+++ b/Osstest/Debian.pm
-@@ -1459,7 +1459,7 @@ d-i partman-auto/expert_recipe string					\\
- END
+diff --git a/ts-host-install b/ts-host-install
+index 7a72a867..fe26f70f 100755
+--- a/ts-host-install
++++ b/ts-host-install
+@@ -282,7 +282,7 @@ END
  
-     if (get_host_property($ho, "firmware") eq "uefi") {
--	die unless $ho->{Suite} =~ m/jessie|stretch/;
-+	die unless $ho->{Suite} =~ m/jessie|stretch|buster/;
- 	# Prevent grub-install from making a new Debian boot entry, so
- 	# we always reboot from the network. Debian bug #789798 proposes a
- 	# properly preseedable solution to this.
+     # Don't use "Predictable Network Interface Names"
+     # https://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/
+-    push @hocmdline, "net.ifnames=0" if $ho->{Suite} =~ m/stretch/;
++    push @hocmdline, "net.ifnames=0" if $ho->{Suite} =~ m/stretch|buster/;
+ 
+     push @hocmdline,
+         get_host_property($ho, "linux-boot-append $ho->{Suite}", ''),
 -- 
 2.20.1
 
