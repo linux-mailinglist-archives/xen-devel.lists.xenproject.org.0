@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B9251DA0BD
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:11:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F03691DA0A5
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:10:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb7e8-00087K-MM; Tue, 19 May 2020 19:11:24 +0000
+	id 1jb7dB-00071G-3z; Tue, 19 May 2020 19:10:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+xc8=7B=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jb7e7-00086U-Lp
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:11:23 +0000
-X-Inumbo-ID: 64302fb6-9a04-11ea-b9cf-bc764e2007e4
+ id 1jb7d9-000707-Iv
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:10:23 +0000
+X-Inumbo-ID: 4c80120a-9a04-11ea-b9cf-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::3])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 64302fb6-9a04-11ea-b9cf-bc764e2007e4;
- Tue, 19 May 2020 19:10:24 +0000 (UTC)
+ id 4c80120a-9a04-11ea-b9cf-bc764e2007e4;
+ Tue, 19 May 2020 19:09:44 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jb7Vi-0001da-1j; Tue, 19 May 2020 20:02:42 +0100
+ id 1jb7Vi-0001da-95; Tue, 19 May 2020 20:02:42 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 23/38] Honour DebianImageFile_SUITE_ARCH
-Date: Tue, 19 May 2020 20:02:15 +0100
-Message-Id: <20200519190230.29519-24-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 24/38] buster: Specify DebianImageFile_SUITE_ARCH
+Date: Tue, 19 May 2020 20:02:16 +0100
+Message-Id: <20200519190230.29519-25-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
 References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
@@ -46,35 +46,25 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This lets us specify the whole filename, not just a version.
-This is needed because for buster we are going to use
-   debian-10.2.0-ARCH-xfce-CD-1.iso
-
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- mfi-common | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ production-config | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mfi-common b/mfi-common
-index b40f057e..640cf328 100644
---- a/mfi-common
-+++ b/mfi-common
-@@ -522,6 +522,15 @@ job_create_test () {
+diff --git a/production-config b/production-config
+index 103b8915..f0ddc132 100644
+--- a/production-config
++++ b/production-config
+@@ -98,6 +98,9 @@ DebianSnapshotBackports_jessie http://snapshot.debian.org/archive/debian/2019020
+ DebianImageVersion_wheezy 7.2.0
+ DebianImageVersion_jessie 8.2.0
+ DebianImageVersion_stretch 9.4.0
++DebianImageFile_buster_amd64 debian-10.2.0-amd64-xfce-CD-1.iso
++DebianImageFile_buster_i386 debian-10.2.0-i386-xfce-CD-1.iso
++
  
- usual_debianhvm_image () {
-   local arch=$1; shift
-+  if [ -n "$DEBIAN_IMAGE_FILE" ]; then
-+      echo $DEBIAN_IMAGE_FILE
-+      return
-+  fi
-+  local file=`getconfig DebianImageFile_${guestsuite}_${arch}`
-+  if [ -n "$file " ]; then
-+      echo $file
-+      return
-+  fi
-   local ver=$DEBIAN_IMAGE_VERSION
-   if [ -z "$ver" ] ; then
-       ver=`getconfig DebianImageVersion_$guestsuite`
+ # Update with ./mg-netgrub-loader-update
+ TftpGrubVersion XXXX-XX-XX
 -- 
 2.20.1
 
