@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0C71DA058
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:02:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59A5D1DA056
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:02:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb7Vn-0004af-Od; Tue, 19 May 2020 19:02:47 +0000
+	id 1jb7Ve-0004Yk-7c; Tue, 19 May 2020 19:02:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+xc8=7B=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jb7Vm-0004aK-6t
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:02:46 +0000
-X-Inumbo-ID: 4cb0cda6-9a03-11ea-9887-bc764e2007e4
+ id 1jb7Vc-0004Yf-6a
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:02:36 +0000
+X-Inumbo-ID: 4ccb2c46-9a03-11ea-b07b-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::3])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4cb0cda6-9a03-11ea-9887-bc764e2007e4;
+ id 4ccb2c46-9a03-11ea-b07b-bc764e2007e4;
  Tue, 19 May 2020 19:02:35 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jb7Va-0001da-JW; Tue, 19 May 2020 20:02:34 +0100
+ id 1jb7Va-0001da-Qf; Tue, 19 May 2020 20:02:34 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 00/38] Upgrade most hosts/guests to buster
-Date: Tue, 19 May 2020 20:01:52 +0100
-Message-Id: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 01/38] ts-logs-capture: Cope if xl shutdown leaves
+ domain running for a bit
+Date: Tue, 19 May 2020 20:01:53 +0100
+Message-Id: <20200519190230.29519-2-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
+References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -40,85 +43,35 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>, Paul Durrant <xadimgnik@gmail.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-buster is Debian stable right now.  We don't want to be using
-oldstable because Debian have a history of breaking it.
+This seems mostly to affect buster but it could in principle affect
+earlier releases too I think.
 
-Paul: we should have a conversation about whether this should be
-pushed soon, or deferred until after the Xen 4.14 release.
+In principle it would be nice to fix this bug, and to have a proper
+test for it, but a reliable test is hard and an unreliable one is not
+useful.  So I guess we are going to have this workaround
+indefinitely...
 
-I have yet to do a final full formal retest of this series so it may
-not be final.
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+---
+ ts-logs-capture | 1 +
+ 1 file changed, 1 insertion(+)
 
-Ian Jackson (38):
-  ts-logs-capture: Cope if xl shutdown leaves domain running for a bit
-  ts-xen-build-prep: Install rsync
-  lvcreate argments: pass --yes -Z y -W y
-  TestSupport: allow more time for apt
-  Booting: Use `--' rather than `---' to introduce host cmdline
-  di_installcmdline_core: Pass locale on d-i command line
-  setupboot_grub2: Drop $submenu variable
-  ts-leak-check: Ignore buster's udevd too
-  Bodge systemd random seed arrangements
-  Debian guests: Write systemd random seed file
-  ts-debian-di-install: Provide guest with more RAM
-  Debian: preseed: use priority= alias
-  Debian: Specify `priority=critical' rather than locale
-  Honour 'LinuxSerialConsole <suite>' host property
-  buster: make-hosts-flight: Add to possible suites for hosts flight
-  buster: Extend grub2 uefi no install workaround
-  buster: ts-host-install: Extend net.ifnames workaround
-  buster: Deinstall the "systemd" package
-  buster: preseed partman-auto-lvm/guided_size
-  buster: ts-host-install: NTP not honoured bug remains
-  buster: Extend ARM clock workaround
-  buster: Extend guest bootloaer workaround
-  Honour DebianImageFile_SUITE_ARCH
-  buster: Specify DebianImageFile_SUITE_ARCH
-  20_linux_xen: Copy Debian buster version into our initramfs area
-  20_linux_xen: Adhoc template substitution
-  20_linux_xen: Ignore xenpolicy and config files too
-  20_linux_xen: Support Xen Security Modules (XSM/FLASK)
-  mg-debian-installer-update: support overlay-intramfs-SUITE
-  overlay-initrd-buster/sbin/reopen-console: Copy from Debian
-  overlay-initrd-buster/sbin/reopen-console: Fix #932416
-  buster: chiark-scripts: Install a new version on buster too
-  buster: Provide TftpDiVersion
-  buster: grub, arm64: extend chainloading workaround
-  buster: setupboot_grub2: Note what files exist in /boot
-  buster: setupboot_grub2: Handle missing policy file bug
-  buster: Extend workaround for dhcpd EROFS bug
-  buster: Switch to Debian buster as the default suite
-
- Osstest.pm                                    |   2 +-
- Osstest/Debian.pm                             |  60 +++-
- Osstest/TestSupport.pm                        |  15 +-
- make-hosts-flight                             |   2 +-
- mfi-common                                    |   9 +
- mg-debian-installer-update                    |  20 ++
- overlay-buster/etc/grub.d/20_linux_xen        | 327 ++++++++++++++++++
- overlay-initrd-buster/sbin/reopen-console     | 126 +++++++
- .../override.conf                             |   3 +
- overlay/usr/local/bin/random-seed-add         |  33 ++
- production-config                             |   5 +
- sg-run-job                                    |   1 +
- ts-debian-di-fixup                            |  29 ++
- ts-debian-di-install                          |   2 +-
- ts-debian-fixup                               |   1 +
- ts-host-install                               |   4 +-
- ts-leak-check                                 |   1 +
- ts-logs-capture                               |   1 +
- ts-xen-build-prep                             |   6 +-
- 19 files changed, 617 insertions(+), 30 deletions(-)
- create mode 100755 overlay-buster/etc/grub.d/20_linux_xen
- create mode 100755 overlay-initrd-buster/sbin/reopen-console
- create mode 100644 overlay/etc/systemd/system/systemd-random-seed.service.d/override.conf
- create mode 100755 overlay/usr/local/bin/random-seed-add
- create mode 100755 ts-debian-di-fixup
-
+diff --git a/ts-logs-capture b/ts-logs-capture
+index 0320a5a5..d75a2fda 100755
+--- a/ts-logs-capture
++++ b/ts-logs-capture
+@@ -272,6 +272,7 @@ sub shutdown_guests () {
+ 		( xl shutdown -a -F -w ; echo y ) &
+ 	    ) | (
+ 		read x
++		sleep 10 # xl shutdown is a bit racy :-/
+ 		xl list | awk '!/^Domain-0 |^Name / {print $2}' \
+ 		| xargs -t -r -n1 xl destroy ||:
+ 	    )
 -- 
 2.20.1
 
