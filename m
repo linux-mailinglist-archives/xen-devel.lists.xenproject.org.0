@@ -2,95 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5083E1DA5AD
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 01:36:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F8BE1DA5B5
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 01:39:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbBmc-0007Yx-Rp; Tue, 19 May 2020 23:36:26 +0000
+	id 1jbBpM-0007hU-9y; Tue, 19 May 2020 23:39:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1yeG=7B=amazon.com=prvs=4015a1a96=anchalag@srs-us1.protection.inumbo.net>)
- id 1jbBmb-0007Yr-UW
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 23:36:25 +0000
-X-Inumbo-ID: 8d9a399e-9a29-11ea-b9cf-bc764e2007e4
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
+ <SRS0=NLmZ=7B=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
+ id 1jbBpK-0007hP-Tt
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 23:39:15 +0000
+X-Inumbo-ID: f2b35126-9a29-11ea-b9cf-bc764e2007e4
+Received: from mail-qt1-x834.google.com (unknown [2607:f8b0:4864:20::834])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8d9a399e-9a29-11ea-b9cf-bc764e2007e4;
- Tue, 19 May 2020 23:36:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1589931385; x=1621467385;
- h=from:to:subject:date:message-id:references:in-reply-to:
- content-id:content-transfer-encoding:mime-version;
- bh=0h+Ql3kIm4ll7H2x0wPz8bL2x8DkfsmOA0XR/gfEPpY=;
- b=PA0WHi9a1pXITQUUnk2ahZnIEkbGdTpTqmQBDre65zpPSqrs8cj4Z5tQ
- bm0WWZqR3dWuG1pjDNKH5oeQD5IOFqhh/hTIS76GFoZWM5G59RAo9WqwY
- 8iDf5CjsFJAw6peHKPOa/ajgiRgVntKw083xi5Kw7U2fT0rxTlBkOGaL9 g=;
-IronPort-SDR: Sh8oCgbi6ol5SpCMMV88N8TUDQi1X1SmJ82frou2UB9gXc2YCfQwJsx4ulZpnJZdnAgU8Z+Lwj
- +kWTUjNdOG8g==
-X-IronPort-AV: E=Sophos;i="5.73,411,1583193600"; d="scan'208";a="45951027"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1d-9ec21598.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 19 May 2020 23:36:23 +0000
-Received: from EX13MTAUWB001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1d-9ec21598.us-east-1.amazon.com (Postfix) with ESMTPS
- id 14090A20B8; Tue, 19 May 2020 23:36:15 +0000 (UTC)
-Received: from EX13D01UWB002.ant.amazon.com (10.43.161.136) by
- EX13MTAUWB001.ant.amazon.com (10.43.161.249) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 19 May 2020 23:36:15 +0000
-Received: from EX13D07UWB001.ant.amazon.com (10.43.161.238) by
- EX13d01UWB002.ant.amazon.com (10.43.161.136) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 19 May 2020 23:36:15 +0000
-Received: from EX13D07UWB001.ant.amazon.com ([10.43.161.238]) by
- EX13D07UWB001.ant.amazon.com ([10.43.161.238]) with mapi id 15.00.1497.006;
- Tue, 19 May 2020 23:36:15 +0000
-From: "Agarwal, Anchal" <anchalag@amazon.com>
-To: "Singh, Balbir" <sblbir@amazon.com>, "boris.ostrovsky@oracle.com"
- <boris.ostrovsky@oracle.com>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "peterz@infradead.org"
- <peterz@infradead.org>, "Woodhouse, David" <dwmw@amazon.co.uk>,
- "vkuznets@redhat.com" <vkuznets@redhat.com>, "sstabellini@kernel.org"
- <sstabellini@kernel.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "Valentin, Eduardo"
- <eduval@amazon.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "jgross@suse.com" <jgross@suse.com>, "konrad.wilk@oracle.com"
- <konrad.wilk@oracle.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
- "x86@kernel.org" <x86@kernel.org>, "roger.pau@citrix.com"
- <roger.pau@citrix.com>, "hpa@zytor.com" <hpa@zytor.com>, "rjw@rjwysocki.net"
- <rjw@rjwysocki.net>, "mingo@redhat.com" <mingo@redhat.com>, "Kamata,
- Munehisa" <kamatam@amazon.com>, "pavel@ucw.cz" <pavel@ucw.cz>, "bp@alien8.de"
- <bp@alien8.de>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "len.brown@intel.com" <len.brown@intel.com>, "davem@davemloft.net"
- <davem@davemloft.net>, "benh@kernel.crashing.org" <benh@kernel.crashing.org>, 
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 05/12] genirq: Shutdown irq chips in suspend/resume during
- hibernation
-Thread-Topic: [PATCH 05/12] genirq: Shutdown irq chips in suspend/resume
- during hibernation
-Thread-Index: AQHWLjMagtxHeVJBCkiD+MEoaDFA5aiwDkSA//+Mf4A=
-Date: Tue, 19 May 2020 23:36:14 +0000
-Message-ID: <18B5CBBA-FF9E-4DBF-8631-EE9AF4925861@amazon.com>
-References: <cover.1589926004.git.anchalag@amazon.com>
- <fce013fc1348f02b8e4ec61e7a631093c72f993c.1589926004.git.anchalag@amazon.com>
- <d489ede4d70ae22a601ee0afc92bda936baa8b11.camel@amazon.com>
-In-Reply-To: <d489ede4d70ae22a601ee0afc92bda936baa8b11.camel@amazon.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.161.193]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <997D8B2104EB634CAA6BF7D36DEE734D@amazon.com>
-Content-Transfer-Encoding: base64
+ id f2b35126-9a29-11ea-b9cf-bc764e2007e4;
+ Tue, 19 May 2020 23:39:14 +0000 (UTC)
+Received: by mail-qt1-x834.google.com with SMTP id z18so1198822qto.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2020 16:39:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=XEZQ7OYpVxyRqBV7t8uMteTmkrGbMYoCI/OeTqmbrJY=;
+ b=aCcBTwGLdVSB7IFPcFD1/e9gg6W8dVc7fHHGFL2a2XokliWa356TaKDBzKgLXdpctH
+ Mo6nEocpgYEZKTm9EgWpy2pt6fwOzBKTRIbxaRMmCTi63xWkM7ZmWDpwFdRhhX7ZPVnk
+ EI9g66doi777brPkxhyx3k8mqoLyk8rJTfkdTG/9W18Z9yTWvROYvwlvcqCXtTg/nmL1
+ /E20Q8y3eLcH4tpzMf6lmSc3gWMh33m1xlot6pUvDYRj212p2166fhprmD36aXZDKfQi
+ AnQg9JJ+rAERGKEcTQHuEYuCFHBUDeaECQfXmc2ZsRVp+BKOIKww1uTGsgo7sCxeR+yO
+ IQHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=XEZQ7OYpVxyRqBV7t8uMteTmkrGbMYoCI/OeTqmbrJY=;
+ b=JtFFD3KcXisaGNnbl7PRsMkmIbFf5gsPb54a2/fl/BnQDzBfsOxKKvQmNLh/3Cn3M7
+ sGbdED8xYUcvxx5GyCHlm/b/37oLzL+h1WyEAlEt5rCEs/vfMHgkVB/4WbrWx9IHHdsr
+ XlD0xbvTtINh6F+a0tFE5gl2T639OeWL63kx2gTOiZPfvx2ETAinAVv8GNjG8krHE+nV
+ zzl0DUQb/vPCah5LpQxj+ozouN6PluVawbZ/qOenMpI7kF1LJlr0GYXXY2+QUrJA/TOJ
+ cN6gRPzFgap1D+y2yeeHTi+xCPz7mUlAsV07CGo7EpVeHgyaUngy0feiP5Mo3jyyuCxO
+ Lixw==
+X-Gm-Message-State: AOAM53016ANP+lZPI3ghUTQGRlYOW2kBPK8D5A2u0MrxrlgDKk7jCoE8
+ iaoa7kuVQiHHPItnXWZ1ZFioc1CeqiJJXQ==
+X-Google-Smtp-Source: ABdhPJz89Y7T87BKBrdCINIRM04ldnJTQowwJdg2ufyv3kaSOZ92HHS9vyScACkx9xrhBfuzaiFR3A==
+X-Received: by 2002:ac8:3609:: with SMTP id m9mr2594942qtb.107.1589931553709; 
+ Tue, 19 May 2020 16:39:13 -0700 (PDT)
+Received: from piano ([216.186.244.35])
+ by smtp.gmail.com with ESMTPSA id l184sm858490qke.115.2020.05.19.16.39.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 May 2020 16:39:13 -0700 (PDT)
+Date: Tue, 19 May 2020 18:39:11 -0500
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: xen-devel@lists.xenproject.org
+Subject: Re: [RFC] UEFI Secure Boot on Xen Hosts
+Message-ID: <20200519233911.GA22451@piano>
+References: <20200429225108.GA54201@bobbye-pc>
 MIME-Version: 1.0
-Precedence: Bulk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200429225108.GA54201@bobbye-pc>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -98,13 +71,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: michal.zygowski@3mdeb.com, daniel.kiper@oracle.com, ardb@kernel.org,
+ krystian.hebel@3mdeb.com, olivier.lambert@vates.fr, piotr.krol@3mdeb.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-VGhhbmtzLiBMb29rcyBsaWtlIHNlbmQgYW4gb2xkIG9uZSB3aXRob3V0IGZpeC4gRGlkIHJlc2Vu
-ZCB0aGUgcGF0Y2ggYWdhaW4uDQoNCu+7vyAgICBPbiBUdWUsIDIwMjAtMDUtMTkgYXQgMjM6MjYg
-KzAwMDAsIEFuY2hhbCBBZ2Fyd2FsIHdyb3RlOg0KICAgID4gU2lnbmVkLW9mZi0tYnk6IFRob21h
-cyBHbGVpeG5lciA8dGdseEBsaW51dHJvbml4LmRlPg0KDQogICAgVGhlIFNpZ25lZC1vZmYtYnkg
-bGluZSBuZWVkcyB0byBiZSBmaXhlZCAoaGludDogeW91IGhhdmUgLS0pDQoNCiAgICBCYWxiaXIg
-U2luZ2gNCg0KDQo=
+On Wed, Apr 29, 2020 at 05:51:08PM -0500, Bobby Eshleman wrote:
+> 
+> # Option #1: PE/COFF and Shim
+> 
+
+... snip ...
+
+> 
+> # Option #3: Lean on Grub2's LoadFile2() Verification
+> 
+
+... snip ...
+
+It's safe to say that the options boiled down to #1 and #3.  Seeing as how we
+may not be able to start playing with the new Grub functionality for some time,
+and also seeing as how the security properties of each approach are very
+similar, I think that option #1 is probably the best path for what we are
+looking to achieve in supporting UEFI SB.  With out any strong objections
+against this, that'll be the path we start heading down (starting with Daniel's
+patch set) and will be hoping to get upstream.
+
+If possible, the implementation would support both SHIM_LOCK and LoadFile2(),
+potentially by one falling back to other upon reporting a security violation,
+or detecting the functionality provided by Grub in some manner...  but this
+will be easier to evaluate after seeing how the LoadFile2() mechanism will
+work.
+
+If LoadFile2() proves itself a better approach, we would not be opposed to
+moving in that direction when it is available.
+
+I started joining community calls shortly after the intent of 'docs/design'
+was discussed there.  Is this a change that merits a 'docs/design' RFC?
+
+Best regards,
+Bobby
 
