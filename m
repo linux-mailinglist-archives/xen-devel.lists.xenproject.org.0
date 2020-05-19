@@ -2,65 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F8BE1DA5B5
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 01:39:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF6991DA5C0
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 01:44:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbBpM-0007hU-9y; Tue, 19 May 2020 23:39:16 +0000
+	id 1jbBuC-000095-TK; Tue, 19 May 2020 23:44:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NLmZ=7B=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
- id 1jbBpK-0007hP-Tt
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 23:39:15 +0000
-X-Inumbo-ID: f2b35126-9a29-11ea-b9cf-bc764e2007e4
-Received: from mail-qt1-x834.google.com (unknown [2607:f8b0:4864:20::834])
+ <SRS0=TpIb=7B=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jbBuB-000090-No
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 23:44:15 +0000
+X-Inumbo-ID: a581e150-9a2a-11ea-b9cf-bc764e2007e4
+Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f2b35126-9a29-11ea-b9cf-bc764e2007e4;
- Tue, 19 May 2020 23:39:14 +0000 (UTC)
-Received: by mail-qt1-x834.google.com with SMTP id z18so1198822qto.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2020 16:39:14 -0700 (PDT)
+ id a581e150-9a2a-11ea-b9cf-bc764e2007e4;
+ Tue, 19 May 2020 23:44:14 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id e16so1244439wra.7
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2020 16:44:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=XEZQ7OYpVxyRqBV7t8uMteTmkrGbMYoCI/OeTqmbrJY=;
- b=aCcBTwGLdVSB7IFPcFD1/e9gg6W8dVc7fHHGFL2a2XokliWa356TaKDBzKgLXdpctH
- Mo6nEocpgYEZKTm9EgWpy2pt6fwOzBKTRIbxaRMmCTi63xWkM7ZmWDpwFdRhhX7ZPVnk
- EI9g66doi777brPkxhyx3k8mqoLyk8rJTfkdTG/9W18Z9yTWvROYvwlvcqCXtTg/nmL1
- /E20Q8y3eLcH4tpzMf6lmSc3gWMh33m1xlot6pUvDYRj212p2166fhprmD36aXZDKfQi
- AnQg9JJ+rAERGKEcTQHuEYuCFHBUDeaECQfXmc2ZsRVp+BKOIKww1uTGsgo7sCxeR+yO
- IQHQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=9o2XJvwUYUJOqQdC3ryt4U9cktrO55WZ4SLWOL1Z3nc=;
+ b=hbyd/+95r8CtUveK8j7x3zpT3qrPbaCISfL6gphoitrGFMNvZ6kThS/rC0cQNt2vHS
+ PwbpLCe/xvnWms5evzaBg95biY5ASAX1oj1u0/4Lce7WRAynHXTb0MZVygk8/EsMumxa
+ p+7jArN8O3vpBt/FKe1INHgyFx5h3AElRuGBNt/zlxpaA5VwwgX8Fz9bsxAbzTHZ9YRH
+ HoO+DpTWRAOfURwurhDLugz7Y7J3INqCkplygtc3S5RHdzdWutdUrPLUUCoVrpdppght
+ vKmnunJiqWHuOWJ8IYpleTvFVmOjBT/CbVM+ZawKx+cx22pkr548uOzA+JlDsGCd0zH0
+ ECdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=XEZQ7OYpVxyRqBV7t8uMteTmkrGbMYoCI/OeTqmbrJY=;
- b=JtFFD3KcXisaGNnbl7PRsMkmIbFf5gsPb54a2/fl/BnQDzBfsOxKKvQmNLh/3Cn3M7
- sGbdED8xYUcvxx5GyCHlm/b/37oLzL+h1WyEAlEt5rCEs/vfMHgkVB/4WbrWx9IHHdsr
- XlD0xbvTtINh6F+a0tFE5gl2T639OeWL63kx2gTOiZPfvx2ETAinAVv8GNjG8krHE+nV
- zzl0DUQb/vPCah5LpQxj+ozouN6PluVawbZ/qOenMpI7kF1LJlr0GYXXY2+QUrJA/TOJ
- cN6gRPzFgap1D+y2yeeHTi+xCPz7mUlAsV07CGo7EpVeHgyaUngy0feiP5Mo3jyyuCxO
- Lixw==
-X-Gm-Message-State: AOAM53016ANP+lZPI3ghUTQGRlYOW2kBPK8D5A2u0MrxrlgDKk7jCoE8
- iaoa7kuVQiHHPItnXWZ1ZFioc1CeqiJJXQ==
-X-Google-Smtp-Source: ABdhPJz89Y7T87BKBrdCINIRM04ldnJTQowwJdg2ufyv3kaSOZ92HHS9vyScACkx9xrhBfuzaiFR3A==
-X-Received: by 2002:ac8:3609:: with SMTP id m9mr2594942qtb.107.1589931553709; 
- Tue, 19 May 2020 16:39:13 -0700 (PDT)
-Received: from piano ([216.186.244.35])
- by smtp.gmail.com with ESMTPSA id l184sm858490qke.115.2020.05.19.16.39.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2020 16:39:13 -0700 (PDT)
-Date: Tue, 19 May 2020 18:39:11 -0500
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: xen-devel@lists.xenproject.org
-Subject: Re: [RFC] UEFI Secure Boot on Xen Hosts
-Message-ID: <20200519233911.GA22451@piano>
-References: <20200429225108.GA54201@bobbye-pc>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9o2XJvwUYUJOqQdC3ryt4U9cktrO55WZ4SLWOL1Z3nc=;
+ b=EGjCbPzEszDsIafw2asaju+lf16//BpJ0iFKgSRGa3JEQQGURsFTH4vzgYU/QtLl+g
+ gE9Zcd18ag7HaKrWtE+9XyHeCIuxEo0hKz5avBZoYoWX2VDgwjPOrJcy7UMsxB9sBFGC
+ AyQPUExIyD1Gbci6Arg9Z6YNgPH+dSWkntD8jHrKfA2nBk/+kxjWCpusG4sUYsZDh3MU
+ 8OLO6xh6bmAs6bz6dGNwmbZaC+aPR1MdrhHrVzBGq+sn1rElSGN9Rbwz11BFCQ5qXInw
+ WX3M+mDfpWSBkUfG9xHGuU1dobgAH1BLbeE66V4djX9WEwNX1P59IGvCxnzclLdlV707
+ MKsQ==
+X-Gm-Message-State: AOAM533rECezEdBLVX9XhmJ/9xwZtYQLFEC9JPdozzeJogCZrUTWF7NC
+ 1uQwtWqRn2CChIhTFXZ3oCTuklzKTnoUtZz/JBM=
+X-Google-Smtp-Source: ABdhPJz3nXqPjVWdJbf38GAVHIB1bg4qnN3gaLv55SJkMvYDTO4F4UJV0ecKgf/Dt1N4f7bhQvBCwbAuf/KAYwloXRM=
+X-Received: by 2002:adf:fccd:: with SMTP id f13mr1375325wrs.386.1589931853949; 
+ Tue, 19 May 2020 16:44:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200429225108.GA54201@bobbye-pc>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+References: <20200518113008.15422-1-julien@xen.org>
+ <CABfawh=-XVaRxQ+WyM9ZV7jO5hEO=jAWa4m=b_1bQ41NgEB-2A@mail.gmail.com>
+ <297448b7-7837-cbe5-dee4-da80ca03cd29@xen.org>
+In-Reply-To: <297448b7-7837-cbe5-dee4-da80ca03cd29@xen.org>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Tue, 19 May 2020 17:43:37 -0600
+Message-ID: <CABfawhkMEu0kMH7dac6OrUxpif8v+m7MeWePRg8UYL7MstJNFA@mail.gmail.com>
+Subject: Re: [PATCH for-4.14 0/3] Remove the 1GB limitation on Rasberry Pi 4
+To: Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +66,80 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: michal.zygowski@3mdeb.com, daniel.kiper@oracle.com, ardb@kernel.org,
- krystian.hebel@3mdeb.com, olivier.lambert@vates.fr, piotr.krol@3mdeb.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, minyard@acm.org,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <jgrall@amazon.com>, roman@zededa.com,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jeff Kubascik <jeff.kubascik@dornerworks.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Apr 29, 2020 at 05:51:08PM -0500, Bobby Eshleman wrote:
-> 
-> # Option #1: PE/COFF and Shim
-> 
+On Tue, May 19, 2020 at 11:23 AM Julien Grall <julien@xen.org> wrote:
+>
+>
+>
+> On 19/05/2020 04:08, Tamas K Lengyel wrote:
+> > On Mon, May 18, 2020 at 5:32 AM Julien Grall <julien@xen.org> wrote:
+> >>
+> >> From: Julien Grall <jgrall@amazon.com>
+> >>
+> >> Hi all,
+> >>
+> >> At the moment, a user who wants to boot Xen on the Raspberry Pi 4 can
+> >> only use the first GB of memory.
+> >>
+> >> This is because several devices cannot DMA above 1GB but Xen doesn't
+> >> necessarily allocate memory for Dom0 below 1GB.
+> >>
+> >> This small series is trying to address the problem by allowing a
+> >> platform to restrict where Dom0 banks are allocated.
+> >>
+> >> This is also a candidate for Xen 4.14. Without it, a user will not be
+> >> able to use all the RAM on the Raspberry Pi 4.
+> >>
+> >> This series has only be slighlty tested. I would appreciate more test on
+> >> the Rasbperry Pi 4 to confirm this removing the restriction.
+> >
+> > Hi Julien,
+>
+> Hi,
+>
+> > could you post a git branch somewhere? I can try this on my rpi4 that
+> > already runs 4.13.
+>
+> I have pushed a branch based on unstable and the v2 of the series:
+>
+> git://xenbits.xen.org/people/julieng/xen-unstable.git
+>
+> branch arm-dma/v2
+>
 
-... snip ...
+I've updated my image I built with
+https://github.com/tklengyel/xen-rpi4-builder a while ago and I've
+defined 2048m as total_mem and Xen seems to be booting fine and passes
+execution to dom0. With 512m being set as the Xen cmdline for dom0_mem
+it was working. When I increased the mem for dom0 the boot is now
+stuck at:
 
-> 
-> # Option #3: Lean on Grub2's LoadFile2() Verification
-> 
+[    1.427788] of_cfs_init
+[    1.429667] of_cfs_init: OK
+[    1.432561] clk: Not disabling unused clocks
+[    1.437239] Waiting for root device /dev/mmcblk0p2...
+[    1.451599] mmc1: queuing unknown CIS tuple 0x80 (2 bytes)
+[    1.458156] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+[    1.464729] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+[    1.472804] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
+[    1.479370] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+[    1.546902] random: fast init done
+[    1.564590] mmc1: new high speed SDIO card at address 0001
 
-... snip ...
+Could this be because the DTB I compiled from a fresh checkout of
+https://github.com/raspberrypi/linux.git branch rpi-4.19.y whereas the
+kernel itself is from a checkout ~5 months ago? I guess that must be
+the cause because even if I decrease the dom0_mem to 512m it still
+gets stuck at the same spot whereas it was booting fine before.
 
-It's safe to say that the options boiled down to #1 and #3.  Seeing as how we
-may not be able to start playing with the new Grub functionality for some time,
-and also seeing as how the security properties of each approach are very
-similar, I think that option #1 is probably the best path for what we are
-looking to achieve in supporting UEFI SB.  With out any strong objections
-against this, that'll be the path we start heading down (starting with Daniel's
-patch set) and will be hoping to get upstream.
-
-If possible, the implementation would support both SHIM_LOCK and LoadFile2(),
-potentially by one falling back to other upon reporting a security violation,
-or detecting the functionality provided by Grub in some manner...  but this
-will be easier to evaluate after seeing how the LoadFile2() mechanism will
-work.
-
-If LoadFile2() proves itself a better approach, we would not be opposed to
-moving in that direction when it is available.
-
-I started joining community calls shortly after the intent of 'docs/design'
-was discussed there.  Is this a change that merits a 'docs/design' RFC?
-
-Best regards,
-Bobby
+Tamas
 
