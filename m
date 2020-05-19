@@ -2,45 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C6D31D91DA
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 10:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40FD11D91E9
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 10:17:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaxOI-00037c-KT; Tue, 19 May 2020 08:14:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aMO8=7B=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jaxOG-00036j-Vy
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 08:14:21 +0000
-X-Inumbo-ID: bd615ed6-99a8-11ea-a8e4-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bd615ed6-99a8-11ea-a8e4-12813bfff9fa;
- Tue, 19 May 2020 08:14:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id E41A4AB76;
- Tue, 19 May 2020 08:14:21 +0000 (UTC)
-Subject: Re: [PATCH v10 02/12] xen: add a generic way to include binary files
- as variables
-To: Jan Beulich <jbeulich@suse.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+	id 1jaxRE-0003Jm-1n; Tue, 19 May 2020 08:17:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IbQz=7B=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1jaxRB-0003Je-Rv
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 08:17:21 +0000
+X-Inumbo-ID: 2924948a-99a9-11ea-b07b-bc764e2007e4
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2924948a-99a9-11ea-b07b-bc764e2007e4;
+ Tue, 19 May 2020 08:17:21 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id i15so14746800wrx.10
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2020 01:17:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=rPvsYD8u9NYxPAtjlCpCo+A9TeCrz0m4y0nIF0xzGoY=;
+ b=f90jlETaMAK37uZJSvfVQh5BjieUZ2saCm7ExFdhoiZrUj104p4V8QLlW/2l0fcd53
+ +li26pWKTB0RCTFjTfKOG0NZOKkkMdwupigYcgmyN/sWdvn4QfrjUmtq4ZCp1Gu2X2eK
+ D4AJcvV7u/CSGxVozA+zo20dpDvGWzXmbHwnIJQ+YegIJNj6vymyfKiwSkhCZBwjmH4J
+ OmHEWIZQo19YhgxwBw1v3nZ/uCrCOfSVOyMDRM7O1XGSBOGnAqbq2NxXHk+reXlHNvhn
+ YyNKDBnjZdsxwiNz+w8coz9Zzb4JY83v7YAgPvWd45YhiUUFKetKFdrBwhSf6R4NgHDd
+ 6ThA==
+X-Gm-Message-State: AOAM532eNXdKnqR076bFiDD35DYaBzttQ00K3A3iDPP2iX1mQTNuJGDk
+ C/fMT32obM0jfbrvXv9kwmY=
+X-Google-Smtp-Source: ABdhPJxzNTIywS28ZPLHd20SnUo68SfhSE+H31hG8Z1rBke1hX1NpKT0ILUz8d4ye6S1VjnedsbKCQ==
+X-Received: by 2002:adf:e783:: with SMTP id n3mr23864842wrm.157.1589876240380; 
+ Tue, 19 May 2020 01:17:20 -0700 (PDT)
+Received: from
+ liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
+ ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id b7sm2784796wmj.29.2020.05.19.01.17.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 May 2020 01:17:19 -0700 (PDT)
+Date: Tue, 19 May 2020 08:17:18 +0000
+From: Wei Liu <wl@xen.org>
+To: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v10 10/12] tools/libxl: use libxenhypfs for setting xen
+ runtime parameters
+Message-ID: <20200519081718.tkp7rsd3fseqmyzv@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
 References: <20200519072106.26894-1-jgross@suse.com>
- <20200519072106.26894-3-jgross@suse.com>
- <24d44577-2e59-1428-2b63-08c89a0046d8@suse.com>
- <0a46fa63-5914-8ced-cd38-fa2c938d167b@suse.com>
- <b6b3721c-4317-a3af-3a77-a3a882cc9530@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <0c87b35b-801d-1ccc-696c-5d417e564868@suse.com>
-Date: Tue, 19 May 2020 10:14:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <20200519072106.26894-11-jgross@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <b6b3721c-4317-a3af-3a77-a3a882cc9530@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200519072106.26894-11-jgross@suse.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,42 +65,113 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 19.05.20 09:58, Jan Beulich wrote:
-> On 19.05.2020 09:52, Jürgen Groß wrote:
->> On 19.05.20 09:47, Jan Beulich wrote:
->>> On 19.05.2020 09:20, Juergen Gross wrote:
->>>> --- a/xen/xsm/flask/Makefile
->>>> +++ b/xen/xsm/flask/Makefile
->>>> @@ -39,6 +39,9 @@ $(subst include/,%/,$(AV_H_FILES)): $(AV_H_DEPEND) $(mkaccess) FORCE
->>>>    obj-bin-$(CONFIG_XSM_FLASK_POLICY) += flask-policy.o
->>>>    flask-policy.o: policy.bin
->>>>    
->>>> +flask-policy.S: $(XEN_ROOT)/xen/tools/binfile
->>>> +	$(XEN_ROOT)/xen/tools/binfile -i $@ policy.bin xsm_flask_init_policy
->>>
->>> I realize the script gets installed as executable, but such
->>> permissions can get lost. Typically I think we invoke the shell
->>> instead, with the script as first argument. Thoughts? Would
->>> affect patch 8 then as well. Sorry for noticing this only now.
->>
->> Shall I resend or would you do that while committing?
+On Tue, May 19, 2020 at 09:21:04AM +0200, Juergen Gross wrote:
+> Instead of xc_set_parameters() use xenhypfs_write() for setting
+> parameters of the hypervisor.
 > 
-> In patch 8 I'd be fine adding $(SHELL). Here, though, the question is
-> whether it should be $(SHELL) or $(CONFIG_SHELL) - I don't have any
-> idea why the latter exists in the first place. Daniel?
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V6:
+> - new patch
+> ---
+>  tools/Rules.mk               |  2 +-
+>  tools/libxl/Makefile         |  3 +-
+>  tools/libxl/libxl.c          | 53 ++++++++++++++++++++++++++++++++----
+>  tools/libxl/libxl_internal.h |  1 +
+>  tools/libxl/xenlight.pc.in   |  2 +-
+>  tools/xl/xl_misc.c           |  1 -
+>  6 files changed, 52 insertions(+), 10 deletions(-)
+> 
+> diff --git a/tools/Rules.mk b/tools/Rules.mk
+> index ad6073fcad..883a193f9e 100644
+> --- a/tools/Rules.mk
+> +++ b/tools/Rules.mk
+> @@ -178,7 +178,7 @@ CFLAGS += -O2 -fomit-frame-pointer
+>  endif
+>  
+>  CFLAGS_libxenlight = -I$(XEN_XENLIGHT) $(CFLAGS_libxenctrl) $(CFLAGS_xeninclude)
+> -SHDEPS_libxenlight = $(SHLIB_libxenctrl) $(SHLIB_libxenstore)
+> +SHDEPS_libxenlight = $(SHLIB_libxenctrl) $(SHLIB_libxenstore) $(SHLIB_libxenhypfs)
+>  LDLIBS_libxenlight = $(SHDEPS_libxenlight) $(XEN_XENLIGHT)/libxenlight$(libextension)
+>  SHLIB_libxenlight  = $(SHDEPS_libxenlight) -Wl,-rpath-link=$(XEN_XENLIGHT)
+>  
+> diff --git a/tools/libxl/Makefile b/tools/libxl/Makefile
+> index 69fcf21577..a89ebab0b4 100644
+> --- a/tools/libxl/Makefile
+> +++ b/tools/libxl/Makefile
+> @@ -20,7 +20,7 @@ LIBUUID_LIBS += -luuid
+>  endif
+>  
+>  LIBXL_LIBS =
+> -LIBXL_LIBS = $(LDLIBS_libxentoollog) $(LDLIBS_libxenevtchn) $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest) $(LDLIBS_libxenstore) $(LDLIBS_libxentoolcore) $(PTYFUNCS_LIBS) $(LIBUUID_LIBS)
+> +LIBXL_LIBS = $(LDLIBS_libxentoollog) $(LDLIBS_libxenevtchn) $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest) $(LDLIBS_libxenhypfs) $(LDLIBS_libxenstore) $(LDLIBS_libxentoolcore) $(PTYFUNCS_LIBS) $(LIBUUID_LIBS)
+>  ifeq ($(CONFIG_LIBNL),y)
+>  LIBXL_LIBS += $(LIBNL3_LIBS)
+>  endif
+> @@ -33,6 +33,7 @@ CFLAGS_LIBXL += $(CFLAGS_libxentoolcore)
+>  CFLAGS_LIBXL += $(CFLAGS_libxenevtchn)
+>  CFLAGS_LIBXL += $(CFLAGS_libxenctrl)
+>  CFLAGS_LIBXL += $(CFLAGS_libxenguest)
+> +CFLAGS_LIBXL += $(CFLAGS_libxenhypfs)
+>  CFLAGS_LIBXL += $(CFLAGS_libxenstore)
+>  ifeq ($(CONFIG_LIBNL),y)
+>  CFLAGS_LIBXL += $(LIBNL3_CFLAGS)
+> diff --git a/tools/libxl/libxl.c b/tools/libxl/libxl.c
+> index f60fd3e4fd..621acc88f3 100644
+> --- a/tools/libxl/libxl.c
+> +++ b/tools/libxl/libxl.c
+> @@ -663,15 +663,56 @@ int libxl_set_parameters(libxl_ctx *ctx, char *params)
+>  {
+>      int ret;
+>      GC_INIT(ctx);
+> +    char *par, *val, *end, *path;
+> +    xenhypfs_handle *hypfs;
+>  
+> -    ret = xc_set_parameters(ctx->xch, params);
+> -    if (ret < 0) {
+> -        LOGEV(ERROR, ret, "setting parameters");
+> -        GC_FREE;
+> -        return ERROR_FAIL;
+> +    hypfs = xenhypfs_open(ctx->lg, 0);
+> +    if (!hypfs) {
+> +        LOGE(ERROR, "opening Xen hypfs");
+> +        ret = ERROR_FAIL;
+> +        goto out;
+>      }
+> +
+> +    while (isblank(*params))
+> +        params++;
+> +
+> +    for (par = params; *par; par = end) {
+> +        end = strchr(par, ' ');
+> +        if (!end)
+> +            end = par + strlen(par);
+> +
+> +        val = strchr(par, '=');
+> +        if (val > end)
+> +            val = NULL;
+> +        if (!val && !strncmp(par, "no", 2)) {
+> +            path = libxl__sprintf(gc, "/params/%s", par + 2);
+> +            path[end - par - 2 + 8] = 0;
+> +            val = "no";
+> +            par += 2;
+> +        } else {
+> +            path = libxl__sprintf(gc, "/params/%s", par);
+> +            path[val - par + 8] = 0;
+> +            val = libxl__strndup(gc, val + 1, end - val - 1);
+> +        }
+> +
+> +	LOG(DEBUG, "setting node \"%s\" to value \"%s\"", path, val);
 
-Why would different shells be needed in the two patches?
+Indentation is wrong, but this can be fixed upon committing.
 
-The binfile script is rather simple without any bash-isms in it (AFAICT
-CONFIG_SHELL seems to prefer bash). So $(SHELL) should be fine IMO.
+I would very much like the parsing be moved to libxlu. That can wait
+till another day.
 
-
-Juergen
+Acked-by: Wei Liu <wl@xen.org>
 
