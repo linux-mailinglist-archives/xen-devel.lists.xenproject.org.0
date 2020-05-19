@@ -2,50 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF5C1D945B
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 12:29:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF4D71D954A
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 13:29:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jazTo-0007Th-4K; Tue, 19 May 2020 10:28:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jb0Pv-00042B-PL; Tue, 19 May 2020 11:28:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o3Eh=7B=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1jazTm-0007Tc-3n
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 10:28:10 +0000
-X-Inumbo-ID: 6e4ee620-99bb-11ea-9887-bc764e2007e4
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6e4ee620-99bb-11ea-9887-bc764e2007e4;
- Tue, 19 May 2020 10:28:08 +0000 (UTC)
-Received: from rochebonne.antioche.eu.org (rochebonne [10.0.0.1])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 04JAS2pb024884;
- Tue, 19 May 2020 12:28:02 +0200 (MEST)
-Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
- id 0210D2810; Tue, 19 May 2020 12:28:01 +0200 (CEST)
-Date: Tue, 19 May 2020 12:28:01 +0200
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: IOCTL_PRIVCMD_MMAPBATCH on Xen 4.13.0
-Message-ID: <20200519102801.GE2459@antioche.eu.org>
-References: <20200515202912.GA11714@antioche.eu.org>
- <d623cd12-4024-82ba-7388-21f606e1a0bd@citrix.com>
- <20200515210629.GA10976@antioche.eu.org>
- <b1dfc07d-bf0f-da26-79f0-8cf93952689e@citrix.com>
- <20200515215335.GA9991@antioche.eu.org>
- <d22b6b7c-9d1c-4cfb-427a-ca6f440a9b08@citrix.com>
- <20200517173259.GA7285@antioche.eu.org>
- <20200517175607.GA8793@antioche.eu.org>
- <20200519095407.GE54375@Air-de-Roger>
+ <SRS0=PPOd=7B=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jb0Pu-000426-Ng
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 11:28:14 +0000
+X-Inumbo-ID: d33523f9-99c3-11ea-a8f6-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d33523f9-99c3-11ea-a8f6-12813bfff9fa;
+ Tue, 19 May 2020 11:28:13 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: k6mOXDwddi60MIyYZcBbG8tvY6FOBiR4VhvoqthRBXYw89Fhix1g0DEwfOdhPT7wYNOYJOvhtN
+ Ykg5I65aTj3h8ZPg7nQ7mVVIKUxXyyNElYI39ObkSEtXvRx3/GC6+KwhA+oqilF96belJVDR73
+ kA3irFZVw5jVu5VQC2ZwouRLrEEAz+VZuSb6WkrHMT42YDPaapJNVSurGxKiBeE/cR6SOwL7RT
+ dEPOmnIvl+MnKjyre7BRycvqDawR+ImknLHOOqOJY3iX1WN8uEaQzJEkYMD/miAHBgV1HWYVju
+ 8rA=
+X-SBRS: 2.7
+X-MesageID: 17899145
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,410,1583211600"; d="scan'208";a="17899145"
+Date: Tue, 19 May 2020 13:28:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] xen: fix build without pci passthrough
+Message-ID: <20200519112806.GF54375@Air-de-Roger>
+References: <20200504101443.3165-1-roger.pau@citrix.com>
+ <20200511134043.GH2116@perard.uk.xensource.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200519095407.GE54375@Air-de-Roger>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3
- (chassiron.antioche.eu.org [151.127.5.145]);
- Tue, 19 May 2020 12:28:03 +0200 (MEST)
+In-Reply-To: <20200511134043.GH2116@perard.uk.xensource.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,21 +55,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 19, 2020 at 11:54:07AM +0200, Roger Pau Monné wrote:
-> FWIW, FreeBSD doesn't have osdep_xenforeignmemory_map_resource
-> implemented and still works fine with 4.13.0 (is able to create HVM
-> guests), but that's a PVH dom0, not a PV one.
+On Mon, May 11, 2020 at 02:40:43PM +0100, Anthony PERARD wrote:
+> On Mon, May 04, 2020 at 12:14:43PM +0200, Roger Pau Monne wrote:
+> > diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
+> > index 179775db7b..660dd8a008 100644
+> > --- a/hw/xen/xen_pt.h
+> > +++ b/hw/xen/xen_pt.h
+> > @@ -1,6 +1,7 @@
+> >  #ifndef XEN_PT_H
+> >  #define XEN_PT_H
+> >  
+> > +#include "qemu/osdep.h"
+> 
+> Why do you need osdep?
 
-Yes, FreeBSD is PVH-nnly. This implies different code paths (the dom0
-kernel has to map the foreing pages in its physical space, which PV
-doesn't have to do (and can't do))
+For CONFIG_XEN_PCI_PASSTHROUGH IIRC.
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+> 
+> >  #include "hw/xen/xen_common.h"
+> >  #include "hw/pci/pci.h"
+> >  #include "xen-host-pci-device.h"
+> > @@ -322,7 +323,13 @@ extern void *pci_assign_dev_load_option_rom(PCIDevice *dev,
+> >                                              unsigned int domain,
+> >                                              unsigned int bus, unsigned int slot,
+> >                                              unsigned int function);
+> > +
+> > +#ifdef CONFIG_XEN_PCI_PASSTHROUGH
+> >  extern bool has_igd_gfx_passthru;
+> > +#else
+> > +# define has_igd_gfx_passthru false
+> > +#endif
+> 
+> I don't quite like the use of define here. Could you introduce a
+> function that return a bool instead? And defining that function in
+> hw/xen/xen.h like xen_enabled() would be fine I think.
+
+But has_igd_gfx_passthru is defined in xen_pt.c which is only compiled
+if CONFIG_XEN_PCI_PASSTHROUGH is defined, yet the variable is set from
+xen-common.c. I think the former is fine, an any attempt to set
+has_igd_gfx_passthru without CONFIG_XEN_PCI_PASSTHROUGH will result in
+a compile error which is easier to catch?
+
+Thanks, Roger.
 
