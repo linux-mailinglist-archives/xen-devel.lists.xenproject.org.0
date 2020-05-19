@@ -2,53 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DA3D1D91FB
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 10:23:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C19AA1D8BFB
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 02:04:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaxW9-00048n-Lp; Tue, 19 May 2020 08:22:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mazm=7B=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jaxW8-00048i-Lh
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 08:22:28 +0000
-X-Inumbo-ID: e0320fe0-99a9-11ea-a8e4-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e0320fe0-99a9-11ea-a8e4-12813bfff9fa;
- Tue, 19 May 2020 08:22:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=Rc+qzUpe0T069lskf8TXNNcQCBC0VCFC0iUiW3PNpCA=; b=utrlcu0AgRkjLf/Rsyhse2WhB7
- kT1FLIx13BMfa4ikBcMl8hbyAQsf+qc8Oh1UqY51YSLy+8W6k8LPeBnWmXV8O+MsmslsO59RW8ZQv
- cJURxTrQWgTQEvKqlZ/IP9SmN/3VQDZ7QdooKQMZcggIKy8KZgdobJS1sE5m9PW1AJDM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <wl@xen.org>)
- id 1jaxW5-000370-QD; Tue, 19 May 2020 08:22:25 +0000
-Received: from 96.142.6.51.dyn.plus.net ([51.6.142.96] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jaxW5-00037u-G6; Tue, 19 May 2020 08:22:25 +0000
-Date: Mon, 18 May 2020 23:24:38 +0100
-From: Wei Liu <wl@xen.org>
-To: Jason Andryuk <jandryuk@gmail.com>
-Subject: Re: [PATCH v7 00/19] Add support for qemu-xen runnning in a
- Linux-based stubdomain
-Message-ID: <20200518222438.ar6e7fzkrjr5voau@debian>
-References: <20200519015503.115236-1-jandryuk@gmail.com>
+	id 1japib-0006v3-8w; Tue, 19 May 2020 00:02:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Je38=7B=gmail.com=tcminyard@srs-us1.protection.inumbo.net>)
+ id 1japiZ-0006uy-4K
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 00:02:47 +0000
+X-Inumbo-ID: 11daf2d2-9964-11ea-b9cf-bc764e2007e4
+Received: from mail-ot1-x342.google.com (unknown [2607:f8b0:4864:20::342])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 11daf2d2-9964-11ea-b9cf-bc764e2007e4;
+ Tue, 19 May 2020 00:02:46 +0000 (UTC)
+Received: by mail-ot1-x342.google.com with SMTP id c3so9700423otr.12
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 17:02:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:reply-to:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=iYjOqrFGOmpbtD9yt96lQwWe0nWJADjGyH8dgI2UBJs=;
+ b=vXG4Ea4qYNxaFsDjBV0PwUYxg/DGm6x2IWVvNPEMF9gSc9b36/aRdgohW8Pe1eq/M4
+ N645SKh7DUAwIragn3CGxNF7txZZ8D3Mam4XhwDYkZ0NkqicUgpA7TzIRB7Cm65e3/G8
+ xvEST1V/i/9C1Y2UOoPfveaguN1K6nL5C61iQlxJq/Bmz95VPphOWqnuqb4VmT2sRn/k
+ bFBE0eRq9VGPjorXtiRHErquV5Zn874cLSkzDN+xICXLewjfKbe68/8W8JCZzvlTbNdG
+ T5tC/lvGfkRb4HCBGtNDJpwL06Sba+qneRNPy4oWq39j7BBMMndd3hsahurPEBbuBg/6
+ Nlpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :reply-to:references:mime-version:content-disposition:in-reply-to
+ :user-agent;
+ bh=iYjOqrFGOmpbtD9yt96lQwWe0nWJADjGyH8dgI2UBJs=;
+ b=npi8czN11/EClf+08/G2KFCEDkEbyfkrC49sSBT9/AdF9FuU85tD0GK3qfbD48kcla
+ rK4K9ZKMydGcxO6jvS4wWbpQtuMDvGgrlrjbI+0L1OdOYEtvTKrklQO40Y9PozLtGOWm
+ I8MokzKE1uuImRfooMfPKcvty66eoMc9Evmb4FdybLIHP1hROA4GydG4ZKbpzpo40A9b
+ R6vQVDxMOQM26Nl6vSW8f4ETb/rqKnsT7qrE3hQuG4ZIQDj0ouJHczzSzv1NkZaovY3G
+ AVYbkQ74V7WQPExSv2ZH1rsfdOAf0tVoh2wqA8TMn+2TXrY+kXumzC+5/pnC7NqBra2l
+ UF9A==
+X-Gm-Message-State: AOAM530t+8tEZYmvRG+TihMXKTvCfyiuOmqb+bhirBAD9aDWqvuuHWJ+
+ ZCo5pYN5WEWsggrHENezvA==
+X-Google-Smtp-Source: ABdhPJxj1gl61nfGlDjfEwABJRLHTww6pg7TG615C4W2TfrFeaxVYUBIwfoo+vmi4hqoBWECYKUp+Q==
+X-Received: by 2002:a9d:1a7:: with SMTP id e36mr13383074ote.215.1589846565860; 
+ Mon, 18 May 2020 17:02:45 -0700 (PDT)
+Received: from serve.minyard.net ([47.184.146.204])
+ by smtp.gmail.com with ESMTPSA id y89sm712062ota.16.2020.05.18.17.02.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2020 17:02:44 -0700 (PDT)
+Received: from minyard.net (unknown [192.168.27.193])
+ by serve.minyard.net (Postfix) with ESMTPSA id B2B83180042;
+ Tue, 19 May 2020 00:02:43 +0000 (UTC)
+Date: Mon, 18 May 2020 19:02:42 -0500
+From: Corey Minyard <minyard@acm.org>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH for-4.14 3/3] xen/arm: plat: Allocate as much as possible
+ memory below 1GB for dom0 for RPI
+Message-ID: <20200519000242.GA3948@minyard.net>
+References: <20200518113008.15422-1-julien@xen.org>
+ <20200518113008.15422-4-julien@xen.org>
+ <bc9a1121a7484ef484c30869793698f912987d23.camel@epam.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200519015503.115236-1-jandryuk@gmail.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <bc9a1121a7484ef484c30869793698f912987d23.camel@epam.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,17 +78,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Ian Jackson <ian.jackson@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Reply-To: minyard@acm.org
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "julien@xen.org" <julien@xen.org>, "jgrall@amazon.com" <jgrall@amazon.com>,
+ "roman@zededa.com" <roman@zededa.com>,
+ "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-I have queued up the first 5 patches for committing today.
+On Mon, May 18, 2020 at 08:36:08PM +0000, Volodymyr Babchuk wrote:
+> Hi Julien,
+> 
+> On Mon, 2020-05-18 at 12:30 +0100, Julien Grall wrote:
+> > From: Julien Grall <jgrall@amazon.com>
+> > 
+> > The raspberry PI 4 has devices that can only DMA into the first GB of
+> > the RAM. Therefore we want allocate as much as possible memory below 1GB
+> > for dom0.
+> > 
+> > Use the recently introduced dma_bitsize field to specify the DMA width
+> > supported.
+> > 
+> > Signed-off-by: Julien Grall <jgrall@amazon.com>
+> > Reported-by: Corey Minyard <minyard@acm.org>
+> > ---
+> >  xen/arch/arm/platforms/brcm-raspberry-pi.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/xen/arch/arm/platforms/brcm-raspberry-pi.c b/xen/arch/arm/platforms/brcm-raspberry-pi.c
+> > index b697fa2c6c0e..ad5483437b31 100644
+> > --- a/xen/arch/arm/platforms/brcm-raspberry-pi.c
+> > +++ b/xen/arch/arm/platforms/brcm-raspberry-pi.c
+> > @@ -43,6 +43,7 @@ static const struct dt_device_match rpi4_blacklist_dev[] __initconst =
+> >  PLATFORM_START(rpi4, "Raspberry Pi 4")
+> >      .compatible     = rpi4_dt_compat,
+> >      .blacklist_dev  = rpi4_blacklist_dev,
+> > +    .dma_bitsize    = 10,
+> 
+> I'm confused. Should it be 30?
 
-Wei.
+Indeed it should.  I just tested this series, and Linux fails to boot
+with this set to 10.  With it set to 30 it works.
+
+With this set to 30, you can have a:
+
+Tested-by: Corey Minyard <cminyard@mvista.com>
+
+for all three patches.
+
+-corey
+
+> 
+> >  PLATFORM_END
+> >  
+> >  /*
 
