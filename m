@@ -2,39 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 914E11D9216
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 10:34:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 369481D924A
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 10:43:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jaxhd-000555-SO; Tue, 19 May 2020 08:34:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wtzB=7B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jaxhc-000550-Q9
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 08:34:20 +0000
-X-Inumbo-ID: 8868d7c4-99ab-11ea-b07b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8868d7c4-99ab-11ea-b07b-bc764e2007e4;
- Tue, 19 May 2020 08:34:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A4F1EABE6;
- Tue, 19 May 2020 08:34:21 +0000 (UTC)
-Subject: Re: [PATCH] x86/traps: Rework #PF[Rsvd] bit handling
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200518153820.18170-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2783ddc5-9919-3c97-ba52-2f734e7d72d5@suse.com>
-Date: Tue, 19 May 2020 10:34:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jaxpu-0005xC-NJ; Tue, 19 May 2020 08:42:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PPOd=7B=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jaxpt-0005x7-HG
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 08:42:53 +0000
+X-Inumbo-ID: b9fe6226-99ac-11ea-a8e6-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b9fe6226-99ac-11ea-a8e6-12813bfff9fa;
+ Tue, 19 May 2020 08:42:52 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 3mLq1r6D77oju2SHbs9YkPn3FbFuz7bJ9mfmUKCQ0Vu8auB+BGUkl32gGXyIzkLsyorpKDqWNa
+ b2e6xAoD8pW49shMm32KbXJwWLAjjkEM+qWkEGNfsA1t/Mw2X3gujQvFcVf2UViwSvXk4b6lal
+ qx98L5uUI50CxUq/yxAqfwdrp1om5M6iYLR8jKOqxd3ZpMEXlbcoGv+elPaPUKrcLD9M9DrDhs
+ KRr0xZ5jXim1c7BDJETH9I7Qm8+yv1dUMzDCZ/IHV1Gs2UxQ++etZ0aYxoTijlwncSQ83yLz9B
+ JVE=
+X-SBRS: 2.7
+X-MesageID: 17890476
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,409,1583211600"; d="scan'208";a="17890476"
+Date: Tue, 19 May 2020 10:42:42 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2 1/3] x86: relax GDT check in arch_set_info_guest()
+Message-ID: <20200519084242.GZ54375@Air-de-Roger>
+References: <b7a1a7fe-0bc5-1654-ff1c-e5eb787c579e@suse.com>
+ <3f78d1dc-720d-6bf3-0911-c19da1a2ddbb@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20200518153820.18170-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <3f78d1dc-720d-6bf3-0911-c19da1a2ddbb@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,33 +55,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.05.2020 17:38, Andrew Cooper wrote:
-> @@ -1439,6 +1418,18 @@ void do_page_fault(struct cpu_user_regs *regs)
->      if ( unlikely(fixup_page_fault(addr, regs) != 0) )
->          return;
+On Fri, Dec 20, 2019 at 02:49:48PM +0100, Jan Beulich wrote:
+> It is wrong for us to check frames beyond the guest specified limit
+> (in the native case, other than in the compat one).
+
+Wouldn't this result in arch_set_info_guest failing if gdt_ents was
+smaller than the maximum? Or all callers always pass gdt_ents set to
+the maximum?
+
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -840,6 +840,7 @@ int arch_set_info_guest(
+>  #ifdef CONFIG_PV
+>      mfn_t cr3_mfn;
+>      struct page_info *cr3_page = NULL;
+> +    unsigned int nr_gdt_frames;
+>      int rc = 0;
+>  #endif
 >  
-> +    /*
-> +     * Xen have reserved bits in its pagetables, nor do we permit PV guests to
-> +     * write any.  Such entries would be vulnerable to the L1TF sidechannel.
-> +     *
-> +     * The only logic which intentionally sets reserved bits is the shadow
-> +     * MMIO fastpath (SH_L1E_MMIO_*), which is careful not to be
-> +     * L1TF-vulnerable, and handled via the VMExit #PF intercept path, rather
-> +     * than here.
+> @@ -951,6 +952,8 @@ int arch_set_info_guest(
+>      /* Ensure real hardware interrupts are enabled. */
+>      v->arch.user_regs.eflags |= X86_EFLAGS_IF;
+>  
+> +    nr_gdt_frames = DIV_ROUND_UP(c(gdt_ents), 512);
+> +
+>      if ( !v->is_initialised )
+>      {
+>          if ( !compat && !(flags & VGCF_in_kernel) && !c.nat->ctrlreg[1] )
+> @@ -982,9 +985,9 @@ int arch_set_info_guest(
+>              fail = compat_pfn_to_cr3(pfn) != c.cmp->ctrlreg[3];
+>          }
+>  
+> -        for ( i = 0; i < ARRAY_SIZE(v->arch.pv.gdt_frames); ++i )
+> -            fail |= v->arch.pv.gdt_frames[i] != c(gdt_frames[i]);
+>          fail |= v->arch.pv.gdt_ents != c(gdt_ents);
+> +        for ( i = 0; !fail && i < nr_gdt_frames; ++i )
+> +            fail |= v->arch.pv.gdt_frames[i] != c(gdt_frames[i]);
 
-What about SH_L1E_MAGIC and sh_l1e_gnp()? The latter gets used by
-_sh_propagate() without visible restriction to HVM.
+fail doesn't need to be OR'ed anymore here, since you check for it in
+the loop condition.
 
-And of course every time I look at this code I wonder how we can
-get away with (quoting a comment) "We store 28 bits of GFN in
-bits 4:32 of the entry." Do we have a hidden restriction
-somewhere guaranteeing that guests won't have (emulated MMIO)
-GFNs above 1Tb when run in shadow mode?
+>  
+>          fail |= v->arch.pv.ldt_base != c(ldt_base);
+>          fail |= v->arch.pv.ldt_ents != c(ldt_ents);
+> @@ -1089,12 +1092,11 @@ int arch_set_info_guest(
+>      else
+>      {
+>          unsigned long gdt_frames[ARRAY_SIZE(v->arch.pv.gdt_frames)];
+> -        unsigned int nr_frames = DIV_ROUND_UP(c.cmp->gdt_ents, 512);
+>  
+> -        if ( nr_frames > ARRAY_SIZE(v->arch.pv.gdt_frames) )
+> +        if ( nr_gdt_frames > ARRAY_SIZE(v->arch.pv.gdt_frames) )
+>              return -EINVAL;
 
-Jan
+Shouldn't this check be performed when nr_gdt_frames is initialized
+instead of here? (as nr_gdt_frames is already used as a limit to
+iterate over gdt_frames).
+
+Thanks, Roger.
 
