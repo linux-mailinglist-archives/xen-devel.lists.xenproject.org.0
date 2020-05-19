@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24EB01DA0B9
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:11:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ECEA1DA0AE
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 21:10:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb7dp-0007lJ-2F; Tue, 19 May 2020 19:11:05 +0000
+	id 1jb7dM-0007E3-0F; Tue, 19 May 2020 19:10:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+xc8=7B=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jb7dn-0007k3-KF
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:11:03 +0000
-X-Inumbo-ID: 5e641cfa-9a04-11ea-b9cf-bc764e2007e4
+ id 1jb7dJ-0007By-Jy
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 19:10:33 +0000
+X-Inumbo-ID: 4f048c04-9a04-11ea-9887-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::3])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5e641cfa-9a04-11ea-b9cf-bc764e2007e4;
- Tue, 19 May 2020 19:10:14 +0000 (UTC)
+ id 4f048c04-9a04-11ea-9887-bc764e2007e4;
+ Tue, 19 May 2020 19:09:48 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jb7Vi-0001da-UW; Tue, 19 May 2020 20:02:42 +0100
+ id 1jb7Vj-0001da-43; Tue, 19 May 2020 20:02:43 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 27/38] 20_linux_xen: Ignore xenpolicy and config files
- too
-Date: Tue, 19 May 2020 20:02:19 +0100
-Message-Id: <20200519190230.29519-28-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 28/38] 20_linux_xen: Support Xen Security Modules
+ (XSM/FLASK)
+Date: Tue, 19 May 2020 20:02:20 +0100
+Message-Id: <20200519190230.29519-29-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
 References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
@@ -47,47 +47,67 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-"file_is_not_sym" currently only checks for xen-syms.  Extend it to
-disregard xenpolicy (XSM policy files) and files ending .config (which
-are built by the Xen upstream build system in some configurations and
-can therefore end up in /boot).
+XSM is enabled by adding "flask=enforcing" as a Xen command line
+argument, and providing the policy file as a grub module.
 
-Rename the function accordingly, to "file_is_not_xen_garbage".
+We make entries for both with and without XSM.  If XSM is not compiled
+into Xen, then there are no policy files, so no change to the boot
+options.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- overlay-buster/etc/grub.d/20_linux_xen | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ overlay-buster/etc/grub.d/20_linux_xen | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/overlay-buster/etc/grub.d/20_linux_xen b/overlay-buster/etc/grub.d/20_linux_xen
-index fb3ed82f..01dfcb57 100755
+index 01dfcb57..4d3294a2 100755
 --- a/overlay-buster/etc/grub.d/20_linux_xen
 +++ b/overlay-buster/etc/grub.d/20_linux_xen
-@@ -167,10 +167,14 @@ if [ "x${linux_list}" = "x" ] ; then
-     exit 0
- fi
+@@ -84,6 +84,11 @@ esac
+ title_correction_code=
  
--file_is_not_sym () {
-+file_is_not_xen_garbage () {
-     case "$1" in
- 	*/xen-syms-*)
- 	    return 1;;
-+	*/xenpolicy-*)
-+	    return 1;;
-+	*/*.config)
-+	    return 1;;
- 	*)
- 	    return 0;;
-     esac
-@@ -178,7 +182,7 @@ file_is_not_sym () {
- 
- xen_list=
- for i in /boot/xen*; do
--    if grub_file_is_not_garbage "$i" && file_is_not_sym "$i" ; then xen_list="$xen_list $i" ; fi
-+    if grub_file_is_not_garbage "$i" && file_is_not_xen_garbage "$i" ; then xen_list="$xen_list $i" ; fi
- done
- prepare_boot_cache=
- boot_device_id=
+ linux_entry ()
++{
++  linux_entry_xsm "$@" false
++  linux_entry_xsm "$@" true
++}
++linux_entry_xsm ()
+ {
+   os="$1"
+   version="$2"
+@@ -91,6 +96,18 @@ linux_entry ()
+   type="$4"
+   args="$5"
+   xen_args="$6"
++  xsm="$7"
++  # If user wants to enable XSM support, make sure there's
++  # corresponding policy file.
++  if ${xsm} ; then
++      xenpolicy="xenpolicy-$xen_version"
++      if test ! -e "${xen_dirname}/${xenpolicy}" ; then
++	  return
++      fi
++      xen_args="$xen_args flask=enforcing"
++      xen_version="$(gettext_printf "%s (XSM enabled)" "$xen_version")"
++      # xen_version is used for messages only; actual file is xen_basename
++  fi
+   if [ -z "$boot_device_id" ]; then
+       boot_device_id="$(grub_get_device_id "${GRUB_DEVICE}")"
+   fi
+@@ -140,6 +157,13 @@ EOF
+     sed "s/^/$submenu_indentation/" << EOF
+ 	echo	'$(echo "$message" | grub_quote)'
+ 	${module_loader}	--nounzip   ${rel_dirname}/${initrd}
++EOF
++  fi
++  if test -n "${xenpolicy}" ; then
++    message="$(gettext_printf "Loading XSM policy ...")"
++    sed "s/^/$submenu_indentation/" << EOF
++	echo	'$(echo "$message" | grub_quote)'
++	${module_loader}     ${rel_dirname}/${xenpolicy}
+ EOF
+   fi
+   sed "s/^/$submenu_indentation/" << EOF
 -- 
 2.20.1
 
