@@ -2,60 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72D7E1D9C23
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 18:13:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E16FA1D9D4B
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 18:56:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb4rr-0006Kj-JN; Tue, 19 May 2020 16:13:23 +0000
+	id 1jb5WN-0001Gl-02; Tue, 19 May 2020 16:55:15 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wYyw=7B=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jb4rq-0006Ke-Ky
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 16:13:22 +0000
-X-Inumbo-ID: a85e03f2-99eb-11ea-a945-12813bfff9fa
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=B//R=7B=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jb5WL-0001Gg-LM
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 16:55:13 +0000
+X-Inumbo-ID: 818b6d5e-99f1-11ea-a952-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a85e03f2-99eb-11ea-a945-12813bfff9fa;
- Tue, 19 May 2020 16:13:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ id 818b6d5e-99f1-11ea-a952-12813bfff9fa;
+ Tue, 19 May 2020 16:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=J2emaG9PbUmb1ROZKRHOWXcAQ/FCHmYp6Uteem4b0UM=; b=W0Wq1PyNeIwAplrzbkdU+zahY
- rKOk9yqEqCSRWOqehI/LJKbzlREEgDhLvQ/7+24CKORwi7shsEliUAzPwNzaiX/6HqNBO8I3VakdP
- /k2JRIGtByRomlSAuSpLMO14O7nAy85ZKXWkkbCdFgAgPG+MfirGgwoEnMQtp95ot4eGQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=gto+boTdw2omfbvehY12Pb4RamepkHtOCM4G5Kfb5+k=; b=dD57fle5yNNRL4AmhWyQZvSUaS
+ /GTI8o8LC1/9MPfaTPWqFcFAyI54oIoxYpmErIQ//5jdfGPG5Pst3The0nhHSLIYOF1GG8RgfmwMN
+ TPcfz5QgduPz51XlvyKwgePJL0/NVkv7elv+3Xo5pzSuMrzq6EWn3UY6zw+wBPxGy5LU=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jb4ro-0005Jo-Qd; Tue, 19 May 2020 16:13:20 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jb4ro-0005xZ-8l; Tue, 19 May 2020 16:13:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jb4ro-0008L9-8A; Tue, 19 May 2020 16:13:20 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150245-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ (envelope-from <julien@xen.org>)
+ id 1jb5WH-00068L-HT; Tue, 19 May 2020 16:55:09 +0000
+Received: from 54-240-197-225.amazon.com ([54.240.197.225]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jb5WH-00026d-AD; Tue, 19 May 2020 16:55:09 +0000
+Subject: Re: [PATCH for-4.14 2/3] xen/arm: Take into account the DMA width
+ when allocating Dom0 memory banks
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20200518113008.15422-1-julien@xen.org>
+ <20200518113008.15422-3-julien@xen.org>
+ <aa95369bf22df89404243dd4e7374f8015ccc9ad.camel@epam.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a88cb65b-469f-464e-cbfa-20d56ff5c839@xen.org>
+Date: Tue, 19 May 2020 17:55:07 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150245: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=271ade5a621005f86ec928280dc6ac85f2c4c95a
-X-Osstest-Versions-That: xen=7efd9f3d45480c12328e4419547a98022f7af43a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 19 May 2020 16:13:20 +0000
+In-Reply-To: <aa95369bf22df89404243dd4e7374f8015ccc9ad.camel@epam.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,63 +65,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>,
+ "jgrall@amazon.com" <jgrall@amazon.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "roman@zededa.com" <roman@zededa.com>, "minyard@acm.org" <minyard@acm.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150245 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150245/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  271ade5a621005f86ec928280dc6ac85f2c4c95a
-baseline version:
- xen                  7efd9f3d45480c12328e4419547a98022f7af43a
-
-Last test of basis   150242  2020-05-19 10:01:19 Z    0 days
-Testing same since   150245  2020-05-19 13:01:12 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+On 18/05/2020 21:34, Volodymyr Babchuk wrote:
+> Hi Julien,
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Hi Volodymyr,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Thank you for the review.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> 
+> On Mon, 2020-05-18 at 12:30 +0100, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> At the moment, Xen is assuming that all the devices are at least 32-bit
+>> DMA capable. However, some SoCs have devices that may be able to access
+>> a much restricted range. For instance, the Raspberry PI 4 has devices
+>> that can only access the first GB of RAM.
+>>
+>> The function arch_get_dma_bit_size() will return the lowest DMA width on
+>> the platform. Use it to decide what is the limit for the low memory.
+>>
+>> Signed-off-by: Julien GralL <jgrall@amazon.com>
+>> ---
+>>   xen/arch/arm/domain_build.c | 32 +++++++++++++++++++-------------
+>>   1 file changed, 19 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>> index 430708753642..abc4e463d27c 100644
+>> --- a/xen/arch/arm/domain_build.c
+>> +++ b/xen/arch/arm/domain_build.c
+>> @@ -211,10 +211,13 @@ fail:
+>>    *    the ramdisk and DTB must be placed within a certain proximity of
+>>    *    the kernel within RAM.
+>>    * 3. For dom0 we want to place as much of the RAM as we reasonably can
+>> - *    below 4GB, so that it can be used by non-LPAE enabled kernels (32-bit)
+>> + *    below 4GB, so that it can be used by non-LPAE enabled kernels (32-bit).
+> Is full stop really needed there?
 
+I was meant to remove the line below as it is now part of 4). I will 
+remove it in the next version.
 
-Pushing revision :
+Best regards,
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   7efd9f3d45..271ade5a62  271ade5a621005f86ec928280dc6ac85f2c4c95a -> smoke
+-- 
+Julien Grall
 
