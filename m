@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E8F1D90DE
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 09:21:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B78E1D90E2
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 09:21:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jawYq-0004mA-Kc; Tue, 19 May 2020 07:21:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jawYs-0004mL-SA; Tue, 19 May 2020 07:21:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aMO8=7B=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jawYp-0004m5-Hj
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 07:21:11 +0000
-X-Inumbo-ID: 50122fc4-99a1-11ea-b9cf-bc764e2007e4
+ id 1jawYq-0004mF-NG
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 07:21:12 +0000
+X-Inumbo-ID: 501f5d5c-99a1-11ea-a8e2-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 50122fc4-99a1-11ea-b9cf-bc764e2007e4;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 501f5d5c-99a1-11ea-a8e2-12813bfff9fa;
  Tue, 19 May 2020 07:21:10 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D84F5B1FC;
+ by mx2.suse.de (Postfix) with ESMTP id 09CCBB209;
  Tue, 19 May 2020 07:21:11 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v10 01/12] xen/vmx: let opt_ept_ad always reflect the current
- setting
-Date: Tue, 19 May 2020 09:20:55 +0200
-Message-Id: <20200519072106.26894-2-jgross@suse.com>
+Subject: [PATCH v10 02/12] xen: add a generic way to include binary files as
+ variables
+Date: Tue, 19 May 2020 09:20:56 +0200
+Message-Id: <20200519072106.26894-3-jgross@suse.com>
 X-Mailer: git-send-email 2.26.1
 In-Reply-To: <20200519072106.26894-1-jgross@suse.com>
 References: <20200519072106.26894-1-jgross@suse.com>
@@ -43,117 +44,144 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In case opt_ept_ad has not been set explicitly by the user via command
-line or runtime parameter, it is treated as "no" on Avoton cpus.
+Add a new script xen/tools/binfile for including a binary file at build
+time being usable via a pointer and a size variable in the hypervisor.
 
-Change that handling by setting opt_ept_ad to 0 for this cpu type
-explicitly if no user value has been set.
-
-By putting this into the (renamed) boot time initialization of vmcs.c
-_vmx_cpu_up() can be made static.
+Make use of that generic tool in xsm.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/hvm/vmx/vmcs.c        | 22 +++++++++++++++-------
- xen/arch/x86/hvm/vmx/vmx.c         |  4 +---
- xen/include/asm-x86/hvm/vmx/vmcs.h |  3 +--
- 3 files changed, 17 insertions(+), 12 deletions(-)
+V3:
+- new patch
 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 4c23645454..221af9737a 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -315,10 +315,6 @@ static int vmx_init_vmcs_config(void)
- 
-         if ( !opt_ept_ad )
-             _vmx_ept_vpid_cap &= ~VMX_EPT_AD_BIT;
--        else if ( /* Work around Erratum AVR41 on Avoton processors. */
--                  boot_cpu_data.x86 == 6 && boot_cpu_data.x86_model == 0x4d &&
--                  opt_ept_ad < 0 )
--            _vmx_ept_vpid_cap &= ~VMX_EPT_AD_BIT;
- 
-         /*
-          * Additional sanity checking before using EPT:
-@@ -652,7 +648,7 @@ void vmx_cpu_dead(unsigned int cpu)
-     vmx_pi_desc_fixup(cpu);
- }
- 
--int _vmx_cpu_up(bool bsp)
-+static int _vmx_cpu_up(bool bsp)
- {
-     u32 eax, edx;
-     int rc, bios_locked, cpu = smp_processor_id();
-@@ -2108,9 +2104,21 @@ static void vmcs_dump(unsigned char ch)
-     printk("**************************************\n");
- }
- 
--void __init setup_vmcs_dump(void)
-+int __init vmx_vmcs_init(void)
- {
--    register_keyhandler('v', vmcs_dump, "dump VT-x VMCSs", 1);
-+    int ret;
+V4:
+- add alignment parameter (Jan Beulich)
+- use .Lend instead of . (Jan Beulich)
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ .gitignore                   |  1 +
+ xen/tools/binfile            | 43 ++++++++++++++++++++++++++++++++++++
+ xen/xsm/flask/Makefile       |  5 ++++-
+ xen/xsm/flask/flask-policy.S | 16 --------------
+ 4 files changed, 48 insertions(+), 17 deletions(-)
+ create mode 100755 xen/tools/binfile
+ delete mode 100644 xen/xsm/flask/flask-policy.S
+
+diff --git a/.gitignore b/.gitignore
+index bfa53723b3..034f44b21b 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -314,6 +314,7 @@ xen/test/livepatch/*.livepatch
+ xen/tools/kconfig/.tmp_gtkcheck
+ xen/tools/kconfig/.tmp_qtcheck
+ xen/tools/symbols
++xen/xsm/flask/flask-policy.S
+ xen/xsm/flask/include/av_perm_to_string.h
+ xen/xsm/flask/include/av_permissions.h
+ xen/xsm/flask/include/class_to_string.h
+diff --git a/xen/tools/binfile b/xen/tools/binfile
+new file mode 100755
+index 0000000000..df0301183f
+--- /dev/null
++++ b/xen/tools/binfile
+@@ -0,0 +1,43 @@
++#!/bin/sh
++# usage: binfile [-i] [-a <align>] <target-src.S> <binary-file> <varname>
++# -a <align>  align data at 2^<align> boundary (default: byte alignment)
++# -i          add to .init.rodata (default: .rodata) section
 +
-+    if ( opt_ept_ad < 0 )
-+        /* Work around Erratum AVR41 on Avoton processors. */
-+        opt_ept_ad = !(boot_cpu_data.x86 == 6 &&
-+                       boot_cpu_data.x86_model == 0x4d);
++section=""
++align=0
 +
-+    ret = _vmx_cpu_up(true);
++OPTIND=1
++while getopts "ia:" opt; do
++    case "$opt" in
++    i)
++        section=".init"
++        ;;
++    a)
++        align=$OPTARG
++        ;;
++    esac
++done
++let "SHIFT=$OPTIND-1"
++shift $SHIFT
 +
-+    if ( !ret )
-+        register_keyhandler('v', vmcs_dump, "dump VT-x VMCSs", 1);
++target=$1
++binsource=$2
++varname=$3
 +
-+    return ret;
- }
++cat <<EOF >$target
++#include <asm/asm_defns.h>
++
++        .section $section.rodata, "a", %progbits
++
++        .p2align $align
++        .global $varname
++$varname:
++        .incbin "$binsource"
++.Lend:
++
++        .type $varname, %object
++        .size $varname, .Lend - $varname
++
++        .global ${varname}_size
++        ASM_INT(${varname}_size, .Lend - $varname)
++EOF
+diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
+index eebfceecc5..d8486fc7e4 100644
+--- a/xen/xsm/flask/Makefile
++++ b/xen/xsm/flask/Makefile
+@@ -39,6 +39,9 @@ $(subst include/,%/,$(AV_H_FILES)): $(AV_H_DEPEND) $(mkaccess) FORCE
+ obj-bin-$(CONFIG_XSM_FLASK_POLICY) += flask-policy.o
+ flask-policy.o: policy.bin
  
- static void __init __maybe_unused build_assertions(void)
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 6efa80e422..11a4dd94cf 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2482,7 +2482,7 @@ const struct hvm_function_table * __init start_vmx(void)
- {
-     set_in_cr4(X86_CR4_VMXE);
++flask-policy.S: $(XEN_ROOT)/xen/tools/binfile
++	$(XEN_ROOT)/xen/tools/binfile -i $@ policy.bin xsm_flask_init_policy
++
+ FLASK_BUILD_DIR := $(CURDIR)
+ POLICY_SRC := $(FLASK_BUILD_DIR)/xenpolicy-$(XEN_FULLVERSION)
  
--    if ( _vmx_cpu_up(true) )
-+    if ( vmx_vmcs_init() )
-     {
-         printk("VMX: failed to initialise.\n");
-         return NULL;
-@@ -2553,8 +2553,6 @@ const struct hvm_function_table * __init start_vmx(void)
-         vmx_function_table.get_guest_bndcfgs = vmx_get_guest_bndcfgs;
-     }
+@@ -48,4 +51,4 @@ policy.bin: FORCE
  
--    setup_vmcs_dump();
+ .PHONY: clean
+ clean::
+-	rm -f $(ALL_H_FILES) *.o $(DEPS_RM) policy.* $(POLICY_SRC)
++	rm -f $(ALL_H_FILES) *.o $(DEPS_RM) policy.* $(POLICY_SRC) flask-policy.S
+diff --git a/xen/xsm/flask/flask-policy.S b/xen/xsm/flask/flask-policy.S
+deleted file mode 100644
+index d38aa39964..0000000000
+--- a/xen/xsm/flask/flask-policy.S
++++ /dev/null
+@@ -1,16 +0,0 @@
+-#include <asm/asm_defns.h>
 -
-     lbr_tsx_fixup_check();
-     bdf93_fixup_check();
- 
-diff --git a/xen/include/asm-x86/hvm/vmx/vmcs.h b/xen/include/asm-x86/hvm/vmx/vmcs.h
-index 95c1dea7b8..906810592f 100644
---- a/xen/include/asm-x86/hvm/vmx/vmcs.h
-+++ b/xen/include/asm-x86/hvm/vmx/vmcs.h
-@@ -21,11 +21,10 @@
- #include <xen/mm.h>
- 
- extern void vmcs_dump_vcpu(struct vcpu *v);
--extern void setup_vmcs_dump(void);
-+extern int vmx_vmcs_init(void);
- extern int  vmx_cpu_up_prepare(unsigned int cpu);
- extern void vmx_cpu_dead(unsigned int cpu);
- extern int  vmx_cpu_up(void);
--extern int  _vmx_cpu_up(bool bsp);
- extern void vmx_cpu_down(void);
- 
- struct vmcs_struct {
+-        .section .init.rodata, "a", %progbits
+-
+-/* const unsigned char xsm_flask_init_policy[] __initconst */
+-        .global xsm_flask_init_policy
+-xsm_flask_init_policy:
+-        .incbin "policy.bin"
+-.Lend:
+-
+-        .type xsm_flask_init_policy, %object
+-        .size xsm_flask_init_policy, . - xsm_flask_init_policy
+-
+-/* const unsigned int __initconst xsm_flask_init_policy_size */
+-        .global xsm_flask_init_policy_size
+-        ASM_INT(xsm_flask_init_policy_size, .Lend - xsm_flask_init_policy)
 -- 
 2.26.1
 
