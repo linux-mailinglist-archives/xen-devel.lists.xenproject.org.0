@@ -2,59 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48B11D8D5D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 03:56:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE47F1D8D58
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 03:56:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jarU7-00009H-F9; Tue, 19 May 2020 01:55:59 +0000
+	id 1jarUC-0000AL-Ne; Tue, 19 May 2020 01:56:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6Ytr=7B=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jarU5-00009A-LC
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 01:55:57 +0000
-X-Inumbo-ID: deb56f9e-9973-11ea-ae69-bc764e2007e4
-Received: from mail-qt1-x842.google.com (unknown [2607:f8b0:4864:20::842])
+ id 1jarUA-0000A7-Lo
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 01:56:02 +0000
+X-Inumbo-ID: dfcb737e-9973-11ea-b07b-bc764e2007e4
+Received: from mail-qk1-x743.google.com (unknown [2607:f8b0:4864:20::743])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id deb56f9e-9973-11ea-ae69-bc764e2007e4;
- Tue, 19 May 2020 01:55:52 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id x12so9905710qts.9
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 18:55:52 -0700 (PDT)
+ id dfcb737e-9973-11ea-b07b-bc764e2007e4;
+ Tue, 19 May 2020 01:55:54 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id n14so12854525qke.8
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2020 18:55:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=RY6wcLegoM0K/cf+d7rR6BE972Bl6q9Nr9kajAEhtQU=;
- b=SsM8Xfz9X8ftXAmMO3K2D+HZByZc98cziQKaRFGUs1Gu/T9Yph4QEuD9FtYMPzP6IW
- CVpPOBI3oVZpocFP4HSHXUjDV+lJQNVOVneFVYzhpEE0gGdm6ihTFxmLOoe7ObFKvwVU
- 2ovyorxvRYxOICjJOgIm+11kP77OwYHLvOt9JIrWs08Er1/yQgBYXvzttP+bCv41R+UB
- 5p7RibXTXL24ezP1VRbODzk7dKy0g9HjkbFuvNh1iG7/2SAOFOlOjOWIxsp1LZRDWkz3
- mLXAUzAWAn+HYbPe3muVnK+/MR7Xp+yhG106aU5cCkumMRVGlGOnXXpcmwyRhSDqDgkT
- 34dg==
+ bh=3tvoe8SF1AjGsABKutuEKPrEzuPGqgtVPQhRYGoZ/qw=;
+ b=mtmHxT/nE6SREvNjSTa70xknAuOQYCx3mhJxYqKW85A3On172I5aHclVH4KtBHHOoT
+ wOnMHUayFj8Z4zzIVlul9ezbk7gVx1yjmoE5CGuHqgw88MMd1JxZDtMb45Zu97BX/Yo9
+ LF1NF7C2VLdrRkFAhqNfujQ+aL/Ynn7HMS4FRNmnvzlxvlBWBX++kmklq6lZ9Ll5EVvI
+ bAuqUU8QCnaBqJqH5U0ZynbreaZF+NOG4Z4hg1RNhCBTxau6UubxlS7t7vmv7EIKPXln
+ /qOyDtZZ3vt9eCQBnhsrqcDM1bXgGmedKH7dPeplz2jXSevSfL8gwLjGo/ykyUReeYjY
+ nW2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=RY6wcLegoM0K/cf+d7rR6BE972Bl6q9Nr9kajAEhtQU=;
- b=HhbKefTGFbselbj6QdKWhO9YrWpEdTpv0puqErlV39ABv+Dh26fWI4Srm7jrv70wz3
- AD6oQ9fHmoGGNHIsN701v7sZm0sXTRF0xsHBSSARAvgWVGBNUjai5/VkCa1DJIAQe0f2
- VuZKA9XJ54UB9LzJsdSwpuV85qrCmEKgMKGF8EKY98BBCo2lpyRIZiIIt0tO/NeWEDa5
- cWCmShimiz234IOPUqBMWXnj765IgV+jemdKDwwyoSIam2qjjXmgJmlXwrOYkJ63PmWh
- didNQ44w/MLXlZK1vyfBSTGVmi+Hlehytkk4a5xLXNHhRQKbJrGrfQ/6yaTprDIcDQ8u
- 83Tg==
-X-Gm-Message-State: AOAM533sV5JUX+mHwPUGUp4Wcw3XHgvWX0wsoFfqBCJeFCh5ka9DvHUh
- m70Jf/3koun7BqcTO5sHXqDxHeRX
-X-Google-Smtp-Source: ABdhPJz9SwvFInDwhZCq7+sLwCbi3noQSsm8AYUsROaamQ7COBgQpKKaYKmnKgTpCzzQWAnO08ED/w==
-X-Received: by 2002:ac8:554c:: with SMTP id o12mr18747723qtr.89.1589853351842; 
- Mon, 18 May 2020 18:55:51 -0700 (PDT)
+ bh=3tvoe8SF1AjGsABKutuEKPrEzuPGqgtVPQhRYGoZ/qw=;
+ b=MbYjBBQlcM6H6vdxpRtth6Aa/+5uy8FxaJCgNiACT2Du6pnuL+HGB7JpDBh5NyWFl/
+ RqpYC6pVX9mLTFCqLkfAz+cuXduku+QyycA4PCg4ujI7YYT9vFCj69wN2E6q5g3UsC2H
+ y2GklUngD0eh0d1sVoqsHnu2PPy9wHidr+OAT+ezVK6RiR328cC8+wxlSXTnDZJjKwrd
+ DG7lOdMQsD+yK/trGDIblhYOuyttUaYUYnHc/QhhQ/lPJ1hPED3W4jm7Dm9Li9wLbrne
+ ANrE8Bff8DDBSPhRVQpHkGYKGQIv5bCoZEbKkqB9muBd5O4aEq8cM1FPrPwbpfD3gevv
+ YHLw==
+X-Gm-Message-State: AOAM530HiauYalJPlcROLdqw7tnE8/nU1farCmo8TZPO1LaXx7AnLJNq
+ mGC1pVTpf8XKOMUqIiYzVq9Hdf26
+X-Google-Smtp-Source: ABdhPJyYIiU6vwj09ZG7ffxrFoNLNx6KlximjmsF7KaLQBQ/lZA6U6mHSo6feSFCergEFepY74bWYg==
+X-Received: by 2002:a37:5146:: with SMTP id f67mr4070554qkb.308.1589853353718; 
+ Mon, 18 May 2020 18:55:53 -0700 (PDT)
 Received: from shine.lan ([2001:470:8:67e:e463:db9c:c6eb:4544])
- by smtp.gmail.com with ESMTPSA id q2sm9731898qkn.116.2020.05.18.18.55.50
+ by smtp.gmail.com with ESMTPSA id q2sm9731898qkn.116.2020.05.18.18.55.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2020 18:55:51 -0700 (PDT)
+ Mon, 18 May 2020 18:55:53 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v7 02/19] Document ioemu Linux stubdomain protocol
-Date: Mon, 18 May 2020 21:54:46 -0400
-Message-Id: <20200519015503.115236-3-jandryuk@gmail.com>
+Subject: [PATCH v7 03/19] libxl: fix qemu-trad cmdline for no sdl/vnc case
+Date: Mon, 18 May 2020 21:54:47 -0400
+Message-Id: <20200519015503.115236-4-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200519015503.115236-1-jandryuk@gmail.com>
 References: <20200519015503.115236-1-jandryuk@gmail.com>
@@ -71,96 +71,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
+Cc: Wei Liu <wei.liu2@citrix.com>, Wei Liu <wl@xen.org>,
+ Jason Andryuk <jandryuk@gmail.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
  =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Ian Jackson <ian.jackson@citrix.com>
+ <marmarek@invisiblethingslab.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Add documentation for upcoming Linux stubdomain for qemu-upstream.
+When qemu is running in stubdomain, any attempt to initialize vnc/sdl
+there will crash it (on failed attempt to load a keymap from a file). If
+vfb is present, all those cases are skipped. But since
+b053f0c4c9e533f3d97837cf897eb920b8355ed3 "libxl: do not start dom0 qemu
+for stubdomain when not needed" it is possible to create a stubdomain
+without vfb and contrary to the comment -vnc none do trigger VNC
+initialization code (just skips exposing it externally).
+Change the implicit SDL avoiding method to -nographics option, used when
+none of SDL or VNC is enabled.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
+Acked-by: Wei Liu <wei.liu2@citrix.com>
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
-Changes in v6:
- - Add Acked-by: Ian Jackson
- - Replace dmargs with dm-argv for xenstore directory
- - Explain $STUBDOM_RESTORE_INCOMING_ARG for -incoming restore argument
+Changes in v2:
+ - typo in qemu option
+Changes in v3:
+ - add missing { }
 ---
- docs/misc/stubdom.txt | 52 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+ tools/libxl/libxl_dm.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/docs/misc/stubdom.txt b/docs/misc/stubdom.txt
-index 64c77d9b64..c717a95d17 100644
---- a/docs/misc/stubdom.txt
-+++ b/docs/misc/stubdom.txt
-@@ -75,6 +75,58 @@ Defined commands:
-    - "running" - success
+diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
+index f4007bbe50..b91e63db6f 100644
+--- a/tools/libxl/libxl_dm.c
++++ b/tools/libxl/libxl_dm.c
+@@ -734,14 +734,15 @@ static int libxl__build_device_model_args_old(libxl__gc *gc,
+         if (libxl_defbool_val(vnc->findunused)) {
+             flexarray_append(dm_args, "-vncunused");
+         }
+-    } else
++    } else if (!sdl) {
+         /*
+          * VNC is not enabled by default by qemu-xen-traditional,
+-         * however passing -vnc none causes SDL to not be
+-         * (unexpectedly) enabled by default. This is overridden by
+-         * explicitly passing -sdl below as required.
++         * however skipping -vnc causes SDL to be
++         * (unexpectedly) enabled by default. If undesired, disable graphics at
++         * all.
+          */
+-        flexarray_append_pair(dm_args, "-vnc", "none");
++        flexarray_append(dm_args, "-nographic");
++    }
  
- 
-+Toolstack to Linux ioemu stubdomain protocol
-+--------------------------------------------
-+
-+This section describe communication protocol between toolstack and
-+qemu-upstream running in Linux stubdomain. The protocol include
-+expectations of both stubdomain, and qemu.
-+
-+Setup (done by toolstack, expected by stubdomain):
-+ - Block devices for target domain are connected as PV disks to stubdomain,
-+   according to configuration order, starting with xvda
-+ - Network devices for target domain are connected as PV nics to stubdomain,
-+   according to configuration order, starting with 0
-+ - [not implemented] if graphics output is expected, VFB and VKB devices are set for stubdomain
-+   (its backend is responsible for exposing them using appropriate protocol
-+   like VNC or Spice)
-+ - other target domain's devices are not connected at this point to stubdomain
-+   (may be hot-plugged later)
-+ - QEMU command line is stored in
-+   /vm/<target-uuid>/image/dm-argv xenstore dir, each argument as separate key
-+   in form /vm/<target-uuid>/image/dm-argv/NNN, where NNN is 0-padded argument
-+   number
-+ - target domain id is stored in /local/domain/<stubdom-id>/target xenstore path
-+?? - bios type is stored in /local/domain/<target-id>/hvmloader/bios
-+ - stubdomain's console 0 is connected to qemu log file
-+ - stubdomain's console 1 is connected to qemu save file (for saving state)
-+ - stubdomain's console 2 is connected to qemu save file (for restoring state)
-+ - next consoles are connected according to target guest's serial console configuration
-+
-+Environment exposed by stubdomain to qemu (needed to construct appropriate qemu command line and later interact with qmp):
-+ - target domain's disks are available as /dev/xvd[a-z]
-+ - console 2 (incoming domain state) must be connected to an FD and the command
-+   line argument $STUBDOM_RESTORE_INCOMING_ARG must be replaced with fd:$FD to
-+   form "-incoming fd:$FD"
-+ - console 1 (saving domain state) is added over QMP to qemu as "fdset-id 1" (done by stubdomain, toolstack doesn't need to care about it)
-+ - nics are connected to relevant stubdomain PV vifs when available (qemu -netdev should specify ifname= explicitly)
-+
-+Startup:
-+1. toolstack starts PV stubdomain with stubdom-linux-kernel kernel and stubdom-linux-initrd initrd
-+2. stubdomain initialize relevant devices
-+3. stubdomain starts qemu with requested command line, plus few stubdomain specific ones - including local qmp access options
-+4. stubdomain starts vchan server on /local/domain/<stubdom-id>/device-model/<target-id>/qmp-vchan, exposing qmp socket to the toolstack
-+5. qemu signal readiness by writing "running" to /local/domain/<stubdom-id>/device-model/<target-id>/state xenstore path
-+6. now device model is considered running
-+
-+QEMU can be controlled using QMP over vchan at /local/domain/<stubdom-id>/device-model/<target-id>/qmp-vchan. Only one simultaneous connection is supported and toolstack needs to ensure that.
-+
-+Limitations:
-+ - PCI passthrough require permissive mode
-+ - only one nic is supported
-+ - at most 26 emulated disks are supported (more are still available as PV disks)
-+ - graphics output (VNC/SDL/Spice) not supported
-+
- 
-                                    PV-GRUB
-                                    =======
+     if (sdl) {
+         flexarray_append(dm_args, "-sdl");
 -- 
 2.25.1
 
