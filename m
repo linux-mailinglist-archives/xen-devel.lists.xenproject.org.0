@@ -2,43 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28BDF1D99C0
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 16:31:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 609DD1D9A5C
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2020 16:49:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jb3H1-0003fB-Hp; Tue, 19 May 2020 14:31:15 +0000
+	id 1jb3YB-0004hI-7r; Tue, 19 May 2020 14:48:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PPOd=7B=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jb3H0-0003f4-68
- for xen-devel@lists.xenproject.org; Tue, 19 May 2020 14:31:14 +0000
-X-Inumbo-ID: 63b1812e-99dd-11ea-b9cf-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wtzB=7B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jb3YA-0004hD-C3
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2020 14:48:58 +0000
+X-Inumbo-ID: de2745cc-99df-11ea-b07b-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 63b1812e-99dd-11ea-b9cf-bc764e2007e4;
- Tue, 19 May 2020 14:31:13 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: CmRLdw6LI7GbmUBiN8Dk3dr+z8cZBmJRvieC/1Iylk3BPxEU3SgNwAHcpTcJzXLbGOqrbm8TWC
- 15mQPDS2nlav+b5ExdiiPjOUHjTYKE6G5niJ6uI4t7/lkFVAkXlT0X8WmqV3r/Rvh5hPxAeNm4
- p2w0rKmhWkL3zVhDxRswNWqGNkFWJEuau6eW2pTMLI5x84vE1Djo/0R+GKhihf5tMptLEzmbht
- MpO5QkZjry+eDaJZY7wOqTTinQkNdM0rozNXzYhreS0zJFOHUBqdP5cARl2l1PO996SOrG8FPj
- Af4=
-X-SBRS: 2.7
-X-MesageID: 18167038
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,410,1583211600"; d="scan'208";a="18167038"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <qemu-devel@nongnu.org>
-Subject: [PATCH v2] xen: fix build without pci passthrough
-Date: Tue, 19 May 2020 16:31:01 +0200
-Message-ID: <20200519143101.75330-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.2
+ id de2745cc-99df-11ea-b07b-bc764e2007e4;
+ Tue, 19 May 2020 14:48:57 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 300FDADF7;
+ Tue, 19 May 2020 14:48:59 +0000 (UTC)
+Subject: Re: [PATCH] x86/traps: Rework #PF[Rsvd] bit handling
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200518153820.18170-1-andrew.cooper3@citrix.com>
+ <2783ddc5-9919-3c97-ba52-2f734e7d72d5@suse.com>
+ <62d4999b-7db3-bac6-28ed-bb636347df38@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3088e420-a72a-1b2d-144f-115610488418@suse.com>
+Date: Tue, 19 May 2020 16:48:55 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <62d4999b-7db3-bac6-28ed-bb636347df38@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -50,69 +47,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Paul
- Durrant <paul@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-has_igd_gfx_passthru is only available when QEMU is built with
-CONFIG_XEN_PCI_PASSTHROUGH, and hence shouldn't be used in common
-code without checking if it's available.
+On 19.05.2020 16:11, Andrew Cooper wrote:
+> On 19/05/2020 09:34, Jan Beulich wrote:
+>> On 18.05.2020 17:38, Andrew Cooper wrote:
+>>> @@ -1439,6 +1418,18 @@ void do_page_fault(struct cpu_user_regs *regs)
+>>>      if ( unlikely(fixup_page_fault(addr, regs) != 0) )
+>>>          return;
+>>>  
+>>> +    /*
+>>> +     * Xen have reserved bits in its pagetables, nor do we permit PV guests to
+>>> +     * write any.  Such entries would be vulnerable to the L1TF sidechannel.
+>>> +     *
+>>> +     * The only logic which intentionally sets reserved bits is the shadow
+>>> +     * MMIO fastpath (SH_L1E_MMIO_*), which is careful not to be
+>>> +     * L1TF-vulnerable, and handled via the VMExit #PF intercept path, rather
+>>> +     * than here.
+>> What about SH_L1E_MAGIC and sh_l1e_gnp()? The latter gets used by
+>> _sh_propagate() without visible restriction to HVM.
+> 
+> SH_L1E_MAGIC looks to be redundant with SH_L1E_MMIO_MAGIC. 
+> sh_l1e_mmio() is the only path which ever creates an entry like that.
+> 
+> sh_l1e_gnp() is a very well hidden use of reserved bits, but surely
+> can't be used for PV guests, as there doesn't appear to be anything to
+> turn the resulting fault back into a plain not-present.
 
-Fixes: 46472d82322d0 ('xen: convert "-machine igd-passthru" to an accelerator property')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>
-Cc: Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org
----
-Changes since v1:
- - Do not include osdep in header file.
- - Always add the setters/getters of igd-passthru, report an error
-   when attempting to set igd-passthru without built in
-   pci-passthrough support.
----
- hw/xen/xen-common.c | 4 ++++
- hw/xen/xen_pt.h     | 6 ++++++
- 2 files changed, 10 insertions(+)
+Well, in this case the implied question remains: How does this fit
+with what _sh_propagate() does?
 
-diff --git a/hw/xen/xen-common.c b/hw/xen/xen-common.c
-index 70564cc952..d758770da0 100644
---- a/hw/xen/xen-common.c
-+++ b/hw/xen/xen-common.c
-@@ -134,7 +134,11 @@ static bool xen_get_igd_gfx_passthru(Object *obj, Error **errp)
- 
- static void xen_set_igd_gfx_passthru(Object *obj, bool value, Error **errp)
- {
-+#ifdef CONFIG_XEN_PCI_PASSTHROUGH
-     has_igd_gfx_passthru = value;
-+#else
-+    error_setg(errp, "Xen PCI passthrough support not built in");
-+#endif
- }
- 
- static void xen_setup_post(MachineState *ms, AccelState *accel)
-diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
-index 179775db7b..7430235a27 100644
---- a/hw/xen/xen_pt.h
-+++ b/hw/xen/xen_pt.h
-@@ -322,7 +322,13 @@ extern void *pci_assign_dev_load_option_rom(PCIDevice *dev,
-                                             unsigned int domain,
-                                             unsigned int bus, unsigned int slot,
-                                             unsigned int function);
-+
-+#ifdef CONFIG_XEN_PCI_PASSTHROUGH
- extern bool has_igd_gfx_passthru;
-+#else
-+# define has_igd_gfx_passthru false
-+#endif
-+
- static inline bool is_igd_vga_passthrough(XenHostPCIDevice *dev)
- {
-     return (has_igd_gfx_passthru
--- 
-2.26.2
+>> And of course every time I look at this code I wonder how we can
+>> get away with (quoting a comment) "We store 28 bits of GFN in
+>> bits 4:32 of the entry." Do we have a hidden restriction
+>> somewhere guaranteeing that guests won't have (emulated MMIO)
+>> GFNs above 1Tb when run in shadow mode?
+> 
+> I've raised that several times before.  Its broken.
+> 
+> Given that shadow frames are limited to 44 bits anyway (and not yet
+> levelled safely in the migration stream), my suggestion for fixing this
+> was just to use one extra nibble for the extra 4 bits and call it done.
 
+Would you remind(?) me of where this 44-bit restriction is coming
+from?
+
+Jan
 
