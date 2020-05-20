@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71E91DAF72
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 11:54:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F6651DAF7E
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 11:56:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbLQe-0007ry-JG; Wed, 20 May 2020 09:54:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jbLSZ-0007z8-18; Wed, 20 May 2020 09:56:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=txLX=7C=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jbLQd-0007rt-HR
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 09:54:23 +0000
-X-Inumbo-ID: e18e8e64-9a7f-11ea-9887-bc764e2007e4
+ id 1jbLSX-0007z0-Ht
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 09:56:21 +0000
+X-Inumbo-ID: 27ae8661-9a80-11ea-a9dd-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e18e8e64-9a7f-11ea-9887-bc764e2007e4;
- Wed, 20 May 2020 09:54:22 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 27ae8661-9a80-11ea-a9dd-12813bfff9fa;
+ Wed, 20 May 2020 09:56:20 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 7F383AC49;
- Wed, 20 May 2020 09:54:24 +0000 (UTC)
-Subject: Re: [PATCH v6 08/15] x86_64/mm: switch to new APIs in setup_m2p_table
+ by mx2.suse.de (Postfix) with ESMTP id 0EFEAAC49;
+ Wed, 20 May 2020 09:56:22 +0000 (UTC)
+Subject: Re: [PATCH v6 15/15] x86/mm: drop _new suffix for page table APIs
 To: Hongyan Xia <hx242@xen.org>
 References: <cover.1587735799.git.hongyxia@amazon.com>
- <a5e7c92fdc538c23f0173bec8e3b026dcf665c11.1587735799.git.hongyxia@amazon.com>
+ <9ff8ad5d4ba7602f3d7137a650aba5de52dacd80.1587735799.git.hongyxia@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <ac76fddd-06f8-9e60-24b7-bd942265b3c6@suse.com>
-Date: Wed, 20 May 2020 11:54:21 +0200
+Message-ID: <49a8bbc1-339e-b7aa-1959-1e68a15777f7@suse.com>
+Date: Wed, 20 May 2020 11:56:19 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <a5e7c92fdc538c23f0173bec8e3b026dcf665c11.1587735799.git.hongyxia@amazon.com>
+In-Reply-To: <9ff8ad5d4ba7602f3d7137a650aba5de52dacd80.1587735799.git.hongyxia@amazon.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -52,74 +53,14 @@ Cc: xen-devel@lists.xenproject.org,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.04.2020 16:08, Hongyan Xia wrote:
-> --- a/xen/arch/x86/x86_64/mm.c
-> +++ b/xen/arch/x86/x86_64/mm.c
-> @@ -379,13 +379,13 @@ static int setup_m2p_table(struct mem_hotadd_info *info)
->  {
->      unsigned long i, va, smap, emap;
->      unsigned int n;
-> -    l2_pgentry_t *l2_ro_mpt = NULL;
->      l3_pgentry_t *l3_ro_mpt = NULL;
->      int ret = 0;
->  
->      ASSERT(l4e_get_flags(idle_pg_table[l4_table_offset(RO_MPT_VIRT_START)])
->              & _PAGE_PRESENT);
-> -    l3_ro_mpt = l4e_to_l3e(idle_pg_table[l4_table_offset(RO_MPT_VIRT_START)]);
-> +    l3_ro_mpt = map_l3t_from_l4e(
-> +                    idle_pg_table[l4_table_offset(RO_MPT_VIRT_START)]);
->  
->      smap = (info->spfn & (~((1UL << (L2_PAGETABLE_SHIFT - 3)) -1)));
->      emap = ((info->epfn + ((1UL << (L2_PAGETABLE_SHIFT - 3)) - 1 )) &
-> @@ -424,6 +424,7 @@ static int setup_m2p_table(struct mem_hotadd_info *info)
->                  break;
->          if ( n < CNT )
->          {
-> +            l2_pgentry_t *l2_ro_mpt;
->              mfn_t mfn = alloc_hotadd_mfn(info);
->  
->              ret = map_pages_to_xen(
-> @@ -440,30 +441,30 @@ static int setup_m2p_table(struct mem_hotadd_info *info)
->                    _PAGE_PSE));
->              if ( l3e_get_flags(l3_ro_mpt[l3_table_offset(va)]) &
->                _PAGE_PRESENT )
-> -                l2_ro_mpt = l3e_to_l2e(l3_ro_mpt[l3_table_offset(va)]) +
-> -                  l2_table_offset(va);
-> +                l2_ro_mpt = map_l2t_from_l3e(l3_ro_mpt[l3_table_offset(va)]);
->              else
->              {
-> -                l2_ro_mpt = alloc_xen_pagetable();
-> -                if ( !l2_ro_mpt )
-> +                mfn_t l2_ro_mpt_mfn = alloc_xen_pagetable_new();
-> +
-> +                if ( mfn_eq(l2_ro_mpt_mfn, INVALID_MFN) )
->                  {
->                      ret = -ENOMEM;
->                      goto error;
->                  }
->  
-> +                l2_ro_mpt = map_domain_page(l2_ro_mpt_mfn);
->                  clear_page(l2_ro_mpt);
->                  l3e_write(&l3_ro_mpt[l3_table_offset(va)],
-> -                          l3e_from_paddr(__pa(l2_ro_mpt),
-> -                                         __PAGE_HYPERVISOR_RO | _PAGE_USER));
-> -                l2_ro_mpt += l2_table_offset(va);
-> +                          l3e_from_mfn(l2_ro_mpt_mfn,
-> +                                       __PAGE_HYPERVISOR_RO | _PAGE_USER));
->              }
-> +            l2_ro_mpt += l2_table_offset(va);
->  
->              /* NB. Cannot be GLOBAL: guest user mode should not see it. */
->              l2e_write(l2_ro_mpt, l2e_from_mfn(mfn,
->                     /*_PAGE_GLOBAL|*/_PAGE_PSE|_PAGE_USER|_PAGE_PRESENT));
-> +            unmap_domain_page(l2_ro_mpt);
->          }
-> -        if ( !((unsigned long)l2_ro_mpt & ~PAGE_MASK) )
-> -            l2_ro_mpt = NULL;
+On 24.04.2020 16:09, Hongyan Xia wrote:
+> From: Wei Liu <wei.liu2@citrix.com>
+> 
+> No functional change.
+> 
+> Signed-off-by: Wei Liu <wei.liu2@citrix.com>
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 
-I think you want to consider retaining these two lines and the wider
-scope of l2_ro_mpt, to leverage it to avoid mapping and unmapping
-the same L2 page over and over on each loop iteration.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
