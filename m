@@ -2,51 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2E421DB5F0
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 16:08:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 865561DB61D
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 16:20:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbPNu-0006ZY-Kd; Wed, 20 May 2020 14:07:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jbPZZ-0007aY-1G; Wed, 20 May 2020 14:19:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4N77=7C=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jbPNt-0006ZT-A4
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 14:07:49 +0000
-X-Inumbo-ID: 48ed572a-9aa3-11ea-b07b-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 48ed572a-9aa3-11ea-b07b-bc764e2007e4;
- Wed, 20 May 2020 14:07:48 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 98xVz1GJeLLKXYKeJAcgFHQZ3aHnKNcAeNxvoVIdbuwkn4VN4E+uzokvaB9ItCm15E37jppm5M
- lAWeVl/Sg0ECkRwiTw0PaCyKuLxGYj4kv6ioZoCVYj/aFFwh4RQLY6rLMhP+NiK9hcrEERZf9r
- l/treWeTpf9NBh4I9o2u0Udg5U3WiirQl4etGHaX9OuK0qYKe/u0yugaSyaCSFH28cFIccpXVH
- IF6ge19dVw5nUKwiV0tKDrOZYjMRMBeBKe2Ivb2LaaEjnFK+B1X/wqj+B4DX4eS7LBtisnJLCO
- 84U=
-X-SBRS: 2.7
-X-MesageID: 18249144
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,414,1583211600"; d="scan'208";a="18249144"
-Subject: Re: [PATCH] VT-x: extend LBR Broadwell errata coverage
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <df6e8dad-b4c0-0821-46eb-e4aa86f8ccfa@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <e107f97b-4bb7-31ee-20d1-ddf8f7e00c21@citrix.com>
-Date: Wed, 20 May 2020 15:07:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <df6e8dad-b4c0-0821-46eb-e4aa86f8ccfa@suse.com>
-Content-Type: text/plain; charset="utf-8"
+ <SRS0=AfT1=7C=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jbPZX-0007aT-Ia
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 14:19:51 +0000
+X-Inumbo-ID: f3e49ad4-9aa4-11ea-aa29-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f3e49ad4-9aa4-11ea-aa29-12813bfff9fa;
+ Wed, 20 May 2020 14:19:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=aGpjqc8V1/9YRpCaYv7Q9mn2bt7z70BApPMl6nYQWu8=; b=cFL44RwLCxOqhjf2esCeYki3m
+ 4UVCPYmjH9FkCDTW8gJlyy/ltTKUuQP5FssvK5rH3eBeHiQc1svLLmvVnUTbhzAI35Sv4G3Z9zP5q
+ s86UygQVliI7+7n2w72GtseqnbtqwMRdCgzKrZWFoAZcO++a/ST/DzAW5vW5Y76NITIVI=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jbPZQ-0003LF-44; Wed, 20 May 2020 14:19:44 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jbPZP-0001jD-RT; Wed, 20 May 2020 14:19:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jbPZP-0002W2-Qz; Wed, 20 May 2020 14:19:43 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150276-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150276: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=cdea123f1976549ecc72644588cc5ce1491606c4
+X-Osstest-Versions-That: xen=e235fa2794c95365519eac714d6ea82f8e64752e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 20 May 2020 14:19:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,99 +66,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20/05/2020 13:52, Jan Beulich wrote:
-> For lbr_tsx_fixup_check() simply name a few more specific errata numbers.
->
-> For bdf93_fixup_check(), however, more models are affected. Oddly enough
-> despite being the same model and stepping, the erratum is listed for Xeon
-> E3 but not its Core counterpart.
+flight 150276 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150276/
 
-That is probably a documentation error.  These processors are made from
-the same die, and are not going to deviate in this regard.
+Failures :-/ but no regressions.
 
-> With this it's of course also uncertain
-> whether the absence of the erratum for Xeon D is actually meaningful.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Given BDE105, it is exceedingly unlikely that this erratum alone was
-fixed, leaving the other related ones present.
+version targeted for testing:
+ xen                  cdea123f1976549ecc72644588cc5ce1491606c4
+baseline version:
+ xen                  e235fa2794c95365519eac714d6ea82f8e64752e
 
-The complicating factor is that the TSX errata were addressed in some
-later Broadwell parts.  Both these errata groups are to do with a
-mismatch of TSX metadata in LBR/LER records.
+Last test of basis   150265  2020-05-19 21:01:18 Z    0 days
+Testing same since   150276  2020-05-20 11:01:29 Z    0 days    1 attempts
 
-The former group affects Haswell and Broadwell, but only when microcode
-has disabled TSX, and manifests in the processor rejecting
-architecturally-correct last-branch-to records.  Any mode in the list
-which still has TSX enabled in up-to-date microcode doesn't get the
-workaround.
+------------------------------------------------------------
+People who touched revisions under test:
+  David Woodhouse <dwmw@amazon.co.uk>
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-The latter group affects Broadwell only, and manifests as an
-architecturally incorrect ler-from record, which shouldn't have any TSX
-metadata to begin with.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -2870,8 +2870,10 @@ static void __init lbr_tsx_fixup_check(v
 
-There is a comment out of context here which is now stale.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-If simply adding adding to the list is something you'd prefer to avoid,
-what about /* Haswell/Broadwell LBR TSX metadata errata */ or similar?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->      case 0x45: /* HSM182 - 4th gen Core */
->      case 0x46: /* HSM182, HSD172 - 4th gen Core (GT3) */
->      case 0x3d: /* BDM127 - 5th gen Core */
-> -    case 0x47: /* BDD117 - 5th gen Core (GT3) */
-> -    case 0x4f: /* BDF85  - Xeon E5-2600 v4 */
-> +    case 0x47: /* BDD117 - 5th gen Core (GT3)
-> +                  BDW117 - Xeon E3-1200 v4 */
-> +    case 0x4f: /* BDF85  - Xeon E5-2600 v4
-> +                  BDX88  - Xeon E7-x800 v4 */
->      case 0x56: /* BDE105 - Xeon D-1500 */
->          break;
->      default:
-> @@ -2895,15 +2897,26 @@ static void __init lbr_tsx_fixup_check(v
->  static void __init bdf93_fixup_check(void)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Seeing as this is no longer just BDF93, how about ler_tsx_fixup_check() ?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-~Andrew
 
->  {
->      /*
-> -     * Broadwell erratum BDF93:
-> +     * Broadwell erratum BDF93 et al:
->       *
->       * Reads from MSR_LER_TO_LIP (MSR 1DEH) may return values for bits[63:61]
->       * that are not equal to bit[47].  Attempting to context switch this value
->       * may cause a #GP.  Software should sign extend the MSR.
->       */
-> -    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
-> -         boot_cpu_data.x86 == 6 && boot_cpu_data.x86_model == 0x4f )
-> +    if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
-> +         boot_cpu_data.x86 != 6 )
-> +        return;
-> +
-> +    switch ( boot_cpu_data.x86_model )
-> +    {
-> +    case 0x3d: /* BDM131 - 5th gen Core */
-> +    case 0x47: /* BDD??? - 5th gen Core (H-Processor line)
-> +                  BDW120 - Xeon E3-1200 v4 */
-> +    case 0x4f: /* BDF93  - Xeon E5-2600 v4
-> +                  BDX93  - Xeon E7-x800 v4 */
->          bdf93_fixup_needed = true;
-> +        break;
-> +    }
->  }
->  
->  static int is_last_branch_msr(u32 ecx)
+Pushing revision :
 
+To xenbits.xen.org:/home/xen/git/xen.git
+   e235fa2794..cdea123f19  cdea123f1976549ecc72644588cc5ce1491606c4 -> smoke
 
