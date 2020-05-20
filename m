@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20A2C1DAC9D
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 09:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF09A1DAC9E
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 09:54:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbJYO-0004Go-Ju; Wed, 20 May 2020 07:54:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jbJYo-0004Ke-Sx; Wed, 20 May 2020 07:54:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=txLX=7C=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jbJYN-0004Gf-CS
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 07:54:15 +0000
-X-Inumbo-ID: 193cb860-9a6f-11ea-b07b-bc764e2007e4
+ id 1jbJYm-0004KP-S6
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 07:54:40 +0000
+X-Inumbo-ID: 2822b28a-9a6f-11ea-a9cc-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 193cb860-9a6f-11ea-b07b-bc764e2007e4;
- Wed, 20 May 2020 07:54:14 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2822b28a-9a6f-11ea-a9cc-12813bfff9fa;
+ Wed, 20 May 2020 07:54:39 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A9D38AC37;
- Wed, 20 May 2020 07:54:16 +0000 (UTC)
-Subject: [PATCH v3 2/3] x86: relax LDT check in arch_set_info_guest()
+ by mx2.suse.de (Postfix) with ESMTP id 7345DAC37;
+ Wed, 20 May 2020 07:54:41 +0000 (UTC)
+Subject: [PATCH v3 3/3] x86/PV: polish pv_set_gdt()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cbed3c45-3685-4bce-9719-93b1e8a2599a@suse.com>
-Message-ID: <802123c8-026d-ba84-5f0d-0faecd5a46a9@suse.com>
-Date: Wed, 20 May 2020 09:54:14 +0200
+Message-ID: <ceae9c78-d0be-c1eb-88fc-c036b050f668@suse.com>
+Date: Wed, 20 May 2020 09:54:39 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
 In-Reply-To: <cbed3c45-3685-4bce-9719-93b1e8a2599a@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,73 +51,103 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-It is wrong for us to check the base address when there's no LDT in the
-first place. Once we don't do this check anymore we can also set the
-base address to a non-canonical value when the LDT is empty.
+There's no need to invoke get_page_from_gfn(), and there's also no need
+to update the passed in frames[]. Invoke get_page_and_type() directly.
+
+Also make the function's frames[] parameter const, change its return
+type to int, and drop the bogus casts from two of its invocations.
+
+Finally a little bit of cosmetics.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
----
-v3: Re-base over changes to earlier patch.
-v2: Set v->arch.pv.ldt_base to non-canonical for an empty LDT, plus
-    related necessary adjustments.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 --- a/xen/arch/x86/domain.c
 +++ b/xen/arch/x86/domain.c
-@@ -967,8 +967,10 @@ int arch_set_info_guest(
-         if ( !compat && !(flags & VGCF_in_kernel) && !c.nat->ctrlreg[1] )
-             return -EINVAL;
+@@ -1099,7 +1099,7 @@ int arch_set_info_guest(
+         return rc;
  
--        v->arch.pv.ldt_base = c(ldt_base);
-         v->arch.pv.ldt_ents = c(ldt_ents);
-+        v->arch.pv.ldt_base = v->arch.pv.ldt_ents
-+                              ? c(ldt_base)
-+                              : (unsigned long)ZERO_BLOCK_PTR;
-     }
+     if ( !compat )
+-        rc = (int)pv_set_gdt(v, c.nat->gdt_frames, c.nat->gdt_ents);
++        rc = pv_set_gdt(v, c.nat->gdt_frames, c.nat->gdt_ents);
      else
      {
-@@ -997,8 +999,9 @@ int arch_set_info_guest(
-         for ( i = 0; !fail && i < nr_gdt_frames; ++i )
-             fail = v->arch.pv.gdt_frames[i] != c(gdt_frames[i]);
+         unsigned long gdt_frames[ARRAY_SIZE(v->arch.pv.gdt_frames)];
+@@ -1107,7 +1107,7 @@ int arch_set_info_guest(
+         for ( i = 0; i < nr_gdt_frames; ++i )
+             gdt_frames[i] = c.cmp->gdt_frames[i];
  
--        fail |= v->arch.pv.ldt_base != c(ldt_base);
-         fail |= v->arch.pv.ldt_ents != c(ldt_ents);
-+        if ( v->arch.pv.ldt_ents )
-+            fail |= v->arch.pv.ldt_base != c(ldt_base);
- 
-         if ( fail )
-            return -EOPNOTSUPP;
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -1583,7 +1583,7 @@ void arch_get_info_guest(struct vcpu *v,
+-        rc = (int)pv_set_gdt(v, gdt_frames, c.cmp->gdt_ents);
++        rc = pv_set_gdt(v, gdt_frames, c.cmp->gdt_ents);
      }
-     else
-     {
--        c(ldt_base = v->arch.pv.ldt_base);
-+        c(ldt_base = v->arch.pv.ldt_ents ? v->arch.pv.ldt_base : 0);
-         c(ldt_ents = v->arch.pv.ldt_ents);
-         for ( i = 0; i < ARRAY_SIZE(v->arch.pv.gdt_frames); ++i )
-             c(gdt_frames[i] = v->arch.pv.gdt_frames[i]);
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -3669,14 +3669,15 @@ long do_mmuext_op(
-         case MMUEXT_SET_LDT:
-         {
-             unsigned int ents = op.arg2.nr_ents;
--            unsigned long ptr = ents ? op.arg1.linear_addr : 0;
-+            unsigned long ptr = ents ? op.arg1.linear_addr
-+                                     : (unsigned long)ZERO_BLOCK_PTR;
+     if ( rc != 0 )
+         return rc;
+--- a/xen/arch/x86/pv/descriptor-tables.c
++++ b/xen/arch/x86/pv/descriptor-tables.c
+@@ -81,7 +81,8 @@ void pv_destroy_gdt(struct vcpu *v)
+     }
+ }
  
-             if ( unlikely(currd != pg_owner) )
-                 rc = -EPERM;
-             else if ( paging_mode_external(currd) )
-                 rc = -EINVAL;
--            else if ( ((ptr & (PAGE_SIZE - 1)) != 0) || !__addr_ok(ptr) ||
--                      (ents > 8192) )
-+            else if ( (ents > 8192) ||
-+                      (ents && ((ptr & (PAGE_SIZE - 1)) || !__addr_ok(ptr))) )
-             {
-                 gdprintk(XENLOG_WARNING,
-                          "Bad args to SET_LDT: ptr=%lx, ents=%x\n", ptr, ents);
+-long pv_set_gdt(struct vcpu *v, unsigned long *frames, unsigned int entries)
++int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
++               unsigned int entries)
+ {
+     struct domain *d = v->domain;
+     l1_pgentry_t *pl1e;
+@@ -95,17 +96,11 @@ long pv_set_gdt(struct vcpu *v, unsigned
+     /* Check the pages in the new GDT. */
+     for ( i = 0; i < nr_frames; i++ )
+     {
+-        struct page_info *page;
++        mfn_t mfn = _mfn(frames[i]);
+ 
+-        page = get_page_from_gfn(d, frames[i], NULL, P2M_ALLOC);
+-        if ( !page )
++        if ( !mfn_valid(mfn) ||
++             !get_page_and_type(mfn_to_page(mfn), d, PGT_seg_desc_page) )
+             goto fail;
+-        if ( !get_page_type(page, PGT_seg_desc_page) )
+-        {
+-            put_page(page);
+-            goto fail;
+-        }
+-        frames[i] = mfn_x(page_to_mfn(page));
+     }
+ 
+     /* Tear down the old GDT. */
+@@ -124,9 +119,8 @@ long pv_set_gdt(struct vcpu *v, unsigned
+ 
+  fail:
+     while ( i-- > 0 )
+-    {
+         put_page_and_type(mfn_to_page(_mfn(frames[i])));
+-    }
++
+     return -EINVAL;
+ }
+ 
+--- a/xen/include/asm-x86/pv/mm.h
++++ b/xen/include/asm-x86/pv/mm.h
+@@ -25,7 +25,8 @@
+ 
+ int pv_ro_page_fault(unsigned long addr, struct cpu_user_regs *regs);
+ 
+-long pv_set_gdt(struct vcpu *v, unsigned long *frames, unsigned int entries);
++int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
++               unsigned int entries);
+ void pv_destroy_gdt(struct vcpu *v);
+ 
+ bool pv_map_ldt_shadow_page(unsigned int off);
+@@ -43,8 +44,8 @@ static inline int pv_ro_page_fault(unsig
+     return 0;
+ }
+ 
+-static inline long pv_set_gdt(struct vcpu *v, unsigned long *frames,
+-                              unsigned int entries)
++static inline int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
++                             unsigned int entries)
+ { ASSERT_UNREACHABLE(); return -EINVAL; }
+ static inline void pv_destroy_gdt(struct vcpu *v) { ASSERT_UNREACHABLE(); }
+ 
 
 
