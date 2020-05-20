@@ -2,40 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5F981DAEAF
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 11:27:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A39461DAED6
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 11:31:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbL0B-0004zG-Fo; Wed, 20 May 2020 09:27:03 +0000
+	id 1jbL4P-0005oL-2x; Wed, 20 May 2020 09:31:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=txLX=7C=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jbL0A-0004zA-MK
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 09:27:02 +0000
-X-Inumbo-ID: 0f5fcd2a-9a7c-11ea-b9cf-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AW6E=7C=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jbL4N-0005oF-8Y
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 09:31:23 +0000
+X-Inumbo-ID: aab2176a-9a7c-11ea-ae69-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0f5fcd2a-9a7c-11ea-b9cf-bc764e2007e4;
- Wed, 20 May 2020 09:27:01 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 380DFACC3;
- Wed, 20 May 2020 09:27:03 +0000 (UTC)
-Subject: Re: [PATCH v6 03/15] x86/mm: rewrite virt_to_xen_l*e
-To: Hongyan Xia <hx242@xen.org>
-References: <cover.1587735799.git.hongyxia@amazon.com>
- <949d2dc54fd7d3230db6a0934d73668a9999eb1a.1587735799.git.hongyxia@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5128cd55-99af-65eb-af82-1e84dcf108d0@suse.com>
-Date: Wed, 20 May 2020 11:27:00 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id aab2176a-9a7c-11ea-ae69-bc764e2007e4;
+ Wed, 20 May 2020 09:31:22 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: F8eck1O+vaUAbn1FkBOm3lKkkBTvFU7rWh4Yk06Q7uS9V9Vtn2ldauRwocpU6NcuypdrHN+J0N
+ +C5OMgi2zK1T/xToqcqX2mDymXHTBKvX76xuKkyFFq7IGvmS+ydhN5zs3Lcru2Tno9hMyUtY+F
+ PpdZnMuIDHKKqGgH504Jr/EwujyXz7LOfoIe5sUDpsYgdZQhd0AGHdMnHC28ceH1uiLTEra0/q
+ YhZXxQ/KBFAuGdhuLS1AwliKZuHz9x9ykMxwAuElgmWruDwewZRu9+18MZ8T++ztTHeS9WrPNM
+ v2c=
+X-SBRS: 2.7
+X-MesageID: 18246321
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,413,1583211600"; d="scan'208";a="18246321"
+Date: Wed, 20 May 2020 11:31:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2] x86: use POPCNT for hweight<N>() when available
+Message-ID: <20200520093106.GI54375@Air-de-Roger>
+References: <55a4a24d-7fac-527c-6bcf-8d689136bac2@suse.com>
+ <20200514140522.GD54375@Air-de-Roger>
+ <83534bf1-fa57-1d4a-c615-f656338a8457@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <949d2dc54fd7d3230db6a0934d73668a9999eb1a.1587735799.git.hongyxia@amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <83534bf1-fa57-1d4a-c615-f656338a8457@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,98 +56,103 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.04.2020 16:08, Hongyan Xia wrote:
-> @@ -4998,31 +5005,40 @@ static l2_pgentry_t *virt_to_xen_l2e(unsigned long v)
->      if ( !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) )
->      {
->          bool locking = system_state > SYS_STATE_boot;
-> -        l2_pgentry_t *l2t = alloc_xen_pagetable();
-> +        l2_pgentry_t *l2t;
-> +        mfn_t l2mfn = alloc_xen_pagetable_new();
->  
-> -        if ( !l2t )
-> +        if ( mfn_eq(l2mfn, INVALID_MFN) )
-> +        {
-> +            UNMAP_DOMAIN_PAGE(pl3e);
->              return NULL;
-> +        }
-> +        l2t = map_domain_page(l2mfn);
->          clear_page(l2t);
-> +        UNMAP_DOMAIN_PAGE(l2t);
->          if ( locking )
->              spin_lock(&map_pgdir_lock);
->          if ( !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) )
->          {
-> -            l3e_write(pl3e, l3e_from_paddr(__pa(l2t), __PAGE_HYPERVISOR));
-> -            l2t = NULL;
-> +            l3e_write(pl3e, l3e_from_mfn(l2mfn, __PAGE_HYPERVISOR));
-> +            l2mfn = INVALID_MFN;
->          }
->          if ( locking )
->              spin_unlock(&map_pgdir_lock);
-> -        if ( l2t )
-> -            free_xen_pagetable(l2t);
-> +        free_xen_pagetable_new(l2mfn);
->      }
->  
->      BUG_ON(l3e_get_flags(*pl3e) & _PAGE_PSE);
-> -    return l3e_to_l2e(*pl3e) + l2_table_offset(v);
-> +    pl2e = map_l2t_from_l3e(*pl3e) + l2_table_offset(v);
-> +    unmap_domain_page(pl3e);
+On Wed, May 20, 2020 at 10:31:38AM +0200, Jan Beulich wrote:
+> On 14.05.2020 16:05, Roger Pau Monné wrote:
+> > On Mon, Jul 15, 2019 at 02:39:04PM +0000, Jan Beulich wrote:
+> >> @@ -251,6 +255,10 @@ boot/mkelf32: boot/mkelf32.c
+> >>   efi/mkreloc: efi/mkreloc.c
+> >>   	$(HOSTCC) $(HOSTCFLAGS) -g -o $@ $<
+> >>   
+> >> +nocov-y += hweight.o
+> >> +noubsan-y += hweight.o
+> >> +hweight.o: CFLAGS += $(foreach reg,cx dx si 8 9 10 11,-ffixed-r$(reg))
+> > 
+> > Why not use clobbers in the asm to list the scratch registers? Is it
+> > that much expensive?
+> 
+> The goal is to disturb the call sites as little as possible. There's
+> no point avoiding the scratch registers when no call is made (i.e.
+> when the POPCNT insn can be used). Taking away from the compiler 7
+> out of 15 registers (that it can hold live data in) seems quite a
+> lot to me.
 
-To avoid undue pressure on the number of active mappings I'd like
-to ask that you unmap first, then establish the new mapping.
+IMO using -ffixed-reg for all those registers is even worse, as that
+prevents the generated code in hweight from using any of those, thus
+greatly limiting the amount of registers and likely making the
+generated code rely heavily on pushing an popping from the stack?
 
-> @@ -5095,6 +5119,10 @@ int map_pages_to_xen(
->  
->      while ( nr_mfns != 0 )
->      {
-> +        /* Clean up mappings mapped in the previous iteration. */
-> +        UNMAP_DOMAIN_PAGE(pl3e);
-> +        UNMAP_DOMAIN_PAGE(pl2e);
-> +
->          pl3e = virt_to_xen_l3e(virt);
+This also has the side effect to limiting the usage of popcnt to gcc,
+which IMO is also not ideal.
 
-As you don't add a comment here (and at other call sites of
-virt_to_xen_l<N>e()), ...
+I also wondered, since the in-place asm before patching is a call
+instruction, wouldn't inline asm at build time already assume that the
+scratch registers are clobbered?
 
-> @@ -5260,9 +5288,12 @@ int map_pages_to_xen(
->              /* Normal page mapping. */
->              if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) )
->              {
-> +                /* This forces the mapping to be populated. */
->                  pl1e = virt_to_xen_l1e(virt);
+> >> --- a/xen/include/asm-x86/bitops.h
+> >> +++ b/xen/include/asm-x86/bitops.h
+> >> @@ -475,9 +475,36 @@ static inline int fls(unsigned int x)
+> >>    *
+> >>    * The Hamming Weight of a number is the total number of bits set in it.
+> >>    */
+> >> +#ifndef __clang__
+> >> +/* POPCNT encodings with %{r,e}di input and %{r,e}ax output: */
+> >> +#define POPCNT_64 ".byte 0xF3, 0x48, 0x0F, 0xB8, 0xC7"
+> >> +#define POPCNT_32 ".byte 0xF3, 0x0F, 0xB8, 0xC7"
+> >> +
+> >> +#define hweight_(n, x, insn, setup, cout, cin) ({                         \
+> >> +    unsigned int res_;                                                    \
+> >> +    /*                                                                    \
+> >> +     * For the function call the POPCNT input register needs to be marked \
+> >> +     * modified as well. Set up a local variable of appropriate type      \
+> >> +     * for this purpose.                                                  \
+> >> +     */                                                                   \
+> >> +    typeof((uint##n##_t)(x) + 0U) val_ = (x);                             \
+> >> +    alternative_io(setup "; call generic_hweight" #n,                     \
+> >> +                   insn, X86_FEATURE_POPCNT,                              \
+> >> +                   ASM_OUTPUT2([res] "=a" (res_), [val] cout (val_)),     \
+> >> +                   [src] cin (val_));                                     \
+> >> +    res_;                                                                 \
+> >> +})
+> >> +#define hweight64(x) hweight_(64, x, POPCNT_64, "", "+D", "g")
+> >> +#define hweight32(x) hweight_(32, x, POPCNT_32, "", "+D", "g")
+> >> +#define hweight16(x) hweight_(16, x, "movzwl %w[src], %[val]; " POPCNT_32, \
+> >> +                              "mov %[src], %[val]", "=&D", "rm")
+> >> +#define hweight8(x)  hweight_( 8, x, "movzbl %b[src], %[val]; " POPCNT_32, \
+> >> +                              "mov %[src], %[val]", "=&D", "rm")
+> > 
+> > Why not just convert types < 32bits into uint32_t and avoid the asm
+> > prefix? You are already converting them in hweight_ to an uintX_t.
+> 
+> I don't think I do - there's a conversion to the promoted type
+> when adding in an unsigned int value (which is there to retain
+> uint64_t for the 64-bit case, while using unsigned int for all
+> smaller sizes, as per the parameter types of generic_hweight*()).
+> 
+> > That would made the asm simpler as you would then only need to make
+> > sure the input is in %rdi and the output is fetched from %rax?
+> 
+> That's an option, yes, but I again wanted to limit the impact to
+> generated code (including code size) as much as possible.
+> generic_hweight{8,16}() take unsigned int arguments, not
+> uint{8,16}_t ones. Hence at the call site (when a function call
+> is needed) no zero extension is necessary. Therefore the MOVZ
+> above is to (mainly) overlay the MOV during patching, while the
+> POPCNT is to (mainly) overlay the CALL.
+> 
+> If the simpler asm()-s were considered more important than the
+> quality of the generated code, I think we could simply have
+> 
+> #define hweight16(x) hweight32((uint16_t)(x))
+> #define hweight8(x)  hweight32(( uint8_t)(x))
 
-... I don't see why one needs adding here.
+I would definitely prefer simpler asm for sure, so getting rid of the
+prefix would be a clear +1 from me. Unless the prefixed version has a
+measurable performance impact during normal operation.
 
-> --- a/xen/include/asm-x86/page.h
-> +++ b/xen/include/asm-x86/page.h
-> @@ -291,7 +291,13 @@ void copy_page_sse2(void *, const void *);
->  #define pfn_to_paddr(pfn)   __pfn_to_paddr(pfn)
->  #define paddr_to_pfn(pa)    __paddr_to_pfn(pa)
->  #define paddr_to_pdx(pa)    pfn_to_pdx(paddr_to_pfn(pa))
-> -#define vmap_to_mfn(va)     _mfn(l1e_get_pfn(*virt_to_xen_l1e((unsigned long)(va))))
-> +
-> +#define vmap_to_mfn(va) ({                                                  \
-> +        const l1_pgentry_t *pl1e_ = virt_to_xen_l1e((unsigned long)(va));   \
-> +        unsigned long pfn_ = l1e_get_pfn(*pl1e_);                           \
-
-l1e_get_mfn()?
-
-> +        unmap_domain_page(pl1e_);                                           \
-> +        _mfn(pfn_); })
-> +
->  #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
->  
->  #endif /* !defined(__ASSEMBLY__) */
-
-Jan
+Thanks, Roger.
 
