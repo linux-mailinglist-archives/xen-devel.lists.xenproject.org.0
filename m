@@ -2,39 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5E8D1DB10F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 13:11:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 129D31DB163
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 13:20:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbMcZ-0007U3-Nh; Wed, 20 May 2020 11:10:47 +0000
+	id 1jbMlb-0008UR-SE; Wed, 20 May 2020 11:20:07 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=txLX=7C=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jbMcY-0007Ty-7I
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 11:10:46 +0000
-X-Inumbo-ID: 8c7dbc15-9a8a-11ea-a9e9-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=rB2F=7C=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jbMla-0008Qo-79
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 11:20:06 +0000
+X-Inumbo-ID: d9cc5314-9a8b-11ea-a9ed-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8c7dbc15-9a8a-11ea-a9e9-12813bfff9fa;
- Wed, 20 May 2020 11:10:44 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A945AADC9;
- Wed, 20 May 2020 11:10:46 +0000 (UTC)
-Subject: Re: iommu=no-igfx
-To: buy computer <buycomputer40@gmail.com>
-References: <CANSXg2FGtiDT05sQUpSAshAsdP4wSjPgQbfw_+aKJuAzSwvJuQ@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <da7e41b5-88a1-13ab-d52b-0652c16608af@suse.com>
-Date: Wed, 20 May 2020 13:10:44 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id d9cc5314-9a8b-11ea-a9ed-12813bfff9fa;
+ Wed, 20 May 2020 11:20:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Bk+vYCiNsG8hJBYO3OBXFvWsQJMd7ctxt+h9CazVwRc=; b=ns/LMFQM6EARgfsJTCIVj/MxOw
+ pkCIkTk0mrQrvcD2vWPU7v2E+GWY2fx7pCIuRjhB8aLX543HAOtvFVwep05jpviQh+GKMCn8Hws+y
+ n/XxGQpYTOhsd8tyj8fJF4ItbYNAl6F7EPSgzBgY8PjAnUI2NlTMyvbP0+DyO3gBUldM=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jbMlW-0007tI-5j; Wed, 20 May 2020 11:20:02 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jbMlV-0000xH-QA; Wed, 20 May 2020 11:20:02 +0000
+Subject: Re: [PATCH] docs: update xenstore-migration.md
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20200520101605.4263-1-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <2f5da70b-09ec-ade0-0953-2853c93c353b@xen.org>
+Date: Wed, 20 May 2020 12:19:59 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <CANSXg2FGtiDT05sQUpSAshAsdP4wSjPgQbfw_+aKJuAzSwvJuQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <20200520101605.4263-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -46,38 +61,142 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Kevin Tian <kevin.tian@intel.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.05.2020 19:43, buy computer wrote:
-> I've been working on a Windows 10 HVM on a Debian 10 dom0. When I was first
-> trying to make the VM, I was getting IOMMU errors. I had a hard time
-> figuring out what to do about this, and finally discovered that putting
-> iommu=no-igfx in the grub stopped the errors.
+
+
+On 20/05/2020 11:16, Juergen Gross wrote:
+> Update connection record details: make flags common for sockets and
+> domains, and add pending incoming data.
 > 
-> Unfortunately, without the graphics support the VM is understandably slow,
-> and can crash. I was also only now pointed to the page
-> <https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html#iommu>
-> which says to report any errors that get fixed by using iommu=no-igfx.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Thanks for the report. For context I'll quote the commit message of
-the commit introducing the option as well as the request to report
-issues fixed with it:
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-"As we still cannot find a proper fix for this problem, this patch adds
- iommu=igfx option to control whether Intel graphics IOMMU is enabled.
- Running Xen with iommu=no-igfx is similar to running Linux with
- intel_iommu=igfx_off, which disables IOMMU for Intel GPU. This can be
- used by users to manually workaround the problem before a fix is
- available for i915 driver."
+> ---
+>   docs/designs/xenstore-migration.md | 63 ++++++++++++++++--------------
+>   1 file changed, 34 insertions(+), 29 deletions(-)
+> 
+> diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
+> index 34a2afd17e..e361d6b5e7 100644
+> --- a/docs/designs/xenstore-migration.md
+> +++ b/docs/designs/xenstore-migration.md
+> @@ -147,31 +147,45 @@ the domain being migrated.
+>   ```
+>       0       1       2       3       4       5       6       7    octet
+>   +-------+-------+-------+-------+-------+-------+-------+-------+
+> -| conn-id                       | conn-type     | conn-spec
+> +| conn-id                       | conn-type     | flags         |
+> ++-------------------------------+---------------+---------------+
+> +| conn-spec
+>   ...
+>   +-------------------------------+-------------------------------+
+> -| data-len                      | data
+> -+-------------------------------+
+> +| in-data-len                   | out-data-len                  |
+> ++-------------------------------+-------------------------------+
+> +| data
+>   ...
+>   ```
+>   
+>   
+> -| Field       | Description                                     |
+> -|-------------|-------------------------------------------------|
+> -| `conn-id`   | A non-zero number used to identify this         |
+> -|             | connection in subsequent connection-specific    |
+> -|             | records                                         |
+> -|             |                                                 |
+> -| `conn-type` | 0x0000: shared ring                             |
+> -|             | 0x0001: socket                                  |
+> -|             | 0x0002 - 0xFFFF: reserved for future use        |
+> -|             |                                                 |
+> -| `conn-spec` | See below                                       |
+> -|             |                                                 |
+> -| `data-len`  | The length (in octets) of any pending data not  |
+> -|             | yet written to the connection                   |
+> -|             |                                                 |
+> -| `data`      | Pending data (may be empty)                     |
+> +| Field          | Description                                  |
+> +|----------------|----------------------------------------------|
+> +| `conn-id`      | A non-zero number used to identify this      |
+> +|                | connection in subsequent connection-specific |
+> +|                | records                                      |
+> +|                |                                              |
+> +| `flags`        | A bit-wise OR of:                            |
+> +|                | 0001: read-only                              |
+> +|                |                                              |
+> +| `conn-type`    | 0x0000: shared ring                          |
+> +|                | 0x0001: socket                               |
+> +|                | 0x0002 - 0xFFFF: reserved for future use     |
+> +|                |                                              |
+> +| `conn-spec`    | See below                                    |
+> +|                |                                              |
+> +| `in-data-len`  | The length (in octets) of any data read      |
+> +|                | from the connection not yet processed        |
+> +|                |                                              |
+> +| `out-data-len` | The length (in octets) of any pending data   |
+> +|                | not yet written to the connection            |
+> +|                |                                              |
+> +| `data`         | Pending data, first read data, then written  |
+> +|                | data (any of both may be empty)              |
+> +
+> +In case of live update the connection record for the connection via which
+> +the live update command was issued will contain the response for the live
+> +update command in the pending write data.
+>   
+>   The format of `conn-spec` is dependent upon `conn-type`.
+>   
+> @@ -182,8 +196,6 @@ For `shared ring` connections it is as follows:
+>   
+>   ```
+>       0       1       2       3       4       5       6       7    octet
+> -                                                +-------+-------+
+> -                                                | flags         |
+>   +---------------+---------------+---------------+---------------+
+>   | domid         | tdomid        | evtchn                        |
+>   +-------------------------------+-------------------------------+
+> @@ -198,8 +210,6 @@ For `shared ring` connections it is as follows:
+>   |           | it has been subject to an SET_TARGET              |
+>   |           | operation [2] or DOMID_INVALID [3] otherwise      |
+>   |           |                                                   |
+> -| `flags`   | Must be zero                                      |
+> -|           |                                                   |
+>   | `evtchn`  | The port number of the interdomain channel used   |
+>   |           | by `domid` to communicate with xenstored          |
+>   |           |                                                   |
+> @@ -211,8 +221,6 @@ For `socket` connections it is as follows:
+>   
+>   
+>   ```
+> -                                                +-------+-------+
+> -                                                | flags         |
+>   +---------------+---------------+---------------+---------------+
+>   | socket-fd                     | pad                           |
+>   +-------------------------------+-------------------------------+
+> @@ -221,9 +229,6 @@ For `socket` connections it is as follows:
+>   
+>   | Field       | Description                                     |
+>   |-------------|-------------------------------------------------|
+> -| `flags`     | A bit-wise OR of:                               |
+> -|             | 0001: read-only                                 |
+> -|             |                                                 |
+>   | `socket-fd` | The file descriptor of the connected socket     |
+>   
+>   This type of connection is only relevant for live update, where the xenstored
+> @@ -398,4 +403,4 @@ explanation of node permissions.
+>   
+>   [3] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/include/public/xen.h;hb=HEAD#l612
+>   
+> -[4] https://wiki.xen.org/wiki/XenBus
+> \ No newline at end of file
+> +[4] https://wiki.xen.org/wiki/XenBus
+> 
 
-This was in 2015, referencing Linux >= 3.19. I have no idea whether
-the underlying driver issue(s) has/have been fixed. The addresses
-referenced are variable enough and all within RAM, so I'd conclude
-this is not a "missing RMRR" issue.
-
-Cc-ing the VT-d maintainer for possible insights or thoughts.
-
-Jan
+-- 
+Julien Grall
 
