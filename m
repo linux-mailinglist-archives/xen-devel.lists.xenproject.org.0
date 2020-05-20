@@ -2,72 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FDCD1DB824
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 17:28:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85A091DB8AA
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 17:50:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbQdE-0005b5-8e; Wed, 20 May 2020 15:27:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jbQxh-0007Kq-40; Wed, 20 May 2020 15:48:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PdaM=7C=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jbQdC-0005b0-ME
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 15:27:42 +0000
-X-Inumbo-ID: 720c3044-9aae-11ea-b9cf-bc764e2007e4
-Received: from mail-ed1-x542.google.com (unknown [2a00:1450:4864:20::542])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 720c3044-9aae-11ea-b9cf-bc764e2007e4;
- Wed, 20 May 2020 15:27:42 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id s19so3453106edt.12
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2020 08:27:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1IQTSrcX8iPeYBi+ixiL6DxQngvP7b5n2Cxfe27WGoo=;
- b=lifyw1BM2ARewwsMdMMhdLz9ReEGuBTtb0NAcRNPUim6TBx+hUFUOSV5Iwm0u0vL0J
- k5EfwFq8+ED8Ru3zMjwcSM+POferALpD6JRYYXrRRz2DW94KZzsmlDjhBql2OCaKWsUp
- XOS5C+1NcBT24Wce5I9jynpHY9aCq8maP0nG2ayQVHNv7H5zotmUSfaVHNnlRY+/QQIj
- 1hDfnoNpgJgFekZQneqwFSPZaPBmGGFPqkBBvYZxF7vlHeia2a3sWZmd2/cZwmHoDSAK
- lBayiJHE4cwTjhEFBkVMT5ux6WsWXlUhMvTQolMuo2doRf6KX+yyIK/G4PvHGRGsMIEP
- yYwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1IQTSrcX8iPeYBi+ixiL6DxQngvP7b5n2Cxfe27WGoo=;
- b=R7v/3LroEKrY0urOk9sVdZyZZm/Eq+dcgCRl2kueT8jPD8SbolZVI/dq5se8xou5s7
- CSFAK8shFHcG7tA7+LISMVCFFCJepmRu94wjqEiAjjxvibEbeKf3kg8mOc+3CnHefAjc
- +6UkKGVR4G6E0CFGrK2K7eqxRYU+jvc76Gzx1b+Sn37gU6MXNpOpuI8C4wzjNpG/TSgS
- zKk0C1c/742QZLub6z7HZU9Uo0FeDr2OKGfJRpFFivB64S87V/f8yEJbgOfN52z1YFOs
- VZsGMxvFrH8xa26TYlZd+696MlN0bsKLb8XaEVCKMiKUV9vY3hSqbxDrZXAFkIwOQDbD
- YjQQ==
-X-Gm-Message-State: AOAM53173Jy4wWlZQSParfZ1zJ2Y6h/EwEtXDjWGv5fJtNJRQOHWeU1Q
- +GiSyKSj41PgZa0b/vYssT9rlk08OCk=
-X-Google-Smtp-Source: ABdhPJxGzGyQ0AbBoyFbmjOkA2WpCIcHHmBTM6D1FGvrLSYRg2v7E38jZGg9fBm+ZU2RtWf5su+Ydw==
-X-Received: by 2002:a50:a7e3:: with SMTP id i90mr4059419edc.6.1589988460676;
- Wed, 20 May 2020 08:27:40 -0700 (PDT)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com.
- [209.85.221.44])
- by smtp.gmail.com with ESMTPSA id a15sm2131427ejr.90.2020.05.20.08.27.39
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2020 08:27:39 -0700 (PDT)
-Received: by mail-wr1-f44.google.com with SMTP id k13so3609387wrx.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2020 08:27:39 -0700 (PDT)
-X-Received: by 2002:adf:ecc3:: with SMTP id s3mr4991755wro.301.1589988459356; 
- Wed, 20 May 2020 08:27:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1589561218.git.tamas@tklengyel.com>
- <1168bacc61f655f559c236cdf63a6b2beccd4d6b.1589561218.git.tamas@tklengyel.com>
- <28e50e15-410e-096d-51f1-e304c9ef8cdb@suse.com>
-In-Reply-To: <28e50e15-410e-096d-51f1-e304c9ef8cdb@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Wed, 20 May 2020 09:27:02 -0600
-X-Gmail-Original-Message-ID: <CABfawhmsbJJ4-TwCgeVhA7yw+v_YstR3RyyjYJfV17KwYm4=Bg@mail.gmail.com>
-Message-ID: <CABfawhmsbJJ4-TwCgeVhA7yw+v_YstR3RyyjYJfV17KwYm4=Bg@mail.gmail.com>
-Subject: Re: [PATCH 3/3] xen/vm_event: Add safe to disable vm_event
+ <SRS0=4N77=7C=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jbQxf-0007Kl-Al
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 15:48:51 +0000
+X-Inumbo-ID: 65c509e0-9ab1-11ea-aa41-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 65c509e0-9ab1-11ea-aa41-12813bfff9fa;
+ Wed, 20 May 2020 15:48:50 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: kFHHhQQZkZ/WRdHAoJXow45TVVp3YTvzq7jcBvb/6nLmL25Ef1TF4Om6GeXaBj1qJC+BsaDJHW
+ Kz6fhN2kv+1TUEv2HMTeATeWexUVveTeRURJ50RlbjhE390YwLrXcfz8YouDvrzI7cg9ShBYPS
+ dxhzqEzhzufNFWFvLOwVdZBmEk5uHfa3T8c28/wWDEHun29/wefreFOS6/KuFlJmjdQkh6xRex
+ SCqYZ9eBW5umhyv7kP5y0VdhOUvWtl/0nJGlf5xhYmmBOc0qM0lL4Qr0qLcCaIlmkmPOoG6u7n
+ pbw=
+X-SBRS: 2.7
+X-MesageID: 18367733
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,414,1583211600"; d="scan'208";a="18367733"
+Subject: Re: [PATCH] x86/traps: Rework #PF[Rsvd] bit handling
 To: Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+References: <20200518153820.18170-1-andrew.cooper3@citrix.com>
+ <2783ddc5-9919-3c97-ba52-2f734e7d72d5@suse.com>
+ <62d4999b-7db3-bac6-28ed-bb636347df38@citrix.com>
+ <3088e420-a72a-1b2d-144f-115610488418@suse.com>
+ <1750cbe5-ef48-6dc7-e372-cbc0a8cbc9cc@citrix.com>
+ <4a5c33c0-9245-126b-123e-3980a9135190@suse.com>
+ <1808df24-ecde-97c6-c296-ecf385260395@citrix.com>
+ <90bf918e-3b87-b1be-344f-80a1bd6803a8@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <43539b81-7824-9c29-acbe-a1edaf562523@citrix.com>
+Date: Wed, 20 May 2020 16:48:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <90bf918e-3b87-b1be-344f-80a1bd6803a8@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,76 +64,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Tim Deegan <tim@xen.org>, Wei
+ Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, May 20, 2020 at 7:45 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 15.05.2020 18:53, Tamas K Lengyel wrote:
-> > --- a/xen/arch/x86/hvm/hvm.c
-> > +++ b/xen/arch/x86/hvm/hvm.c
-> > @@ -563,15 +563,41 @@ void hvm_do_resume(struct vcpu *v)
-> >          v->arch.hvm.inject_event.vector = HVM_EVENT_VECTOR_UNSET;
-> >      }
-> >
-> > -    if ( unlikely(v->arch.vm_event) && v->arch.monitor.next_interrupt_enabled )
-> > +    if ( unlikely(v->arch.vm_event) )
-> >      {
-> > -        struct x86_event info;
-> > +        struct domain *d = v->domain;
->
-> const
->
-> > +        if ( v->arch.monitor.next_interrupt_enabled )
-> > +        {
-> > +            struct x86_event info;
-> > +
-> > +            if ( hvm_get_pending_event(v, &info) )
-> > +            {
-> > +                hvm_monitor_interrupt(info.vector, info.type, info.error_code,
-> > +                                      info.cr2);
-> > +                v->arch.monitor.next_interrupt_enabled = false;
-> > +            }
-> > +        }
-> >
-> > -        if ( hvm_get_pending_event(v, &info) )
-> > +        if ( d->arch.monitor.safe_to_disable )
-> >          {
-> > -            hvm_monitor_interrupt(info.vector, info.type, info.error_code,
-> > -                                  info.cr2);
-> > -            v->arch.monitor.next_interrupt_enabled = false;
-> > +            struct vcpu *check_vcpu;
->
-> const again, requiring a respective adjustment to patch 2.
->
-> > +            bool pending_op = false;
-> > +
-> > +            for_each_vcpu ( d, check_vcpu )
-> > +            {
-> > +                if ( vm_event_check_pending_op(check_vcpu) )
-> > +                {
-> > +                    pending_op = true;
-> > +                    break;
-> > +                }
-> > +            }
-> > +
-> > +            if ( !pending_op )
-> > +            {
-> > +                hvm_monitor_safe_to_disable();
->
-> This new function returns bool without the caller caring about the
-> return value.
+On 20/05/2020 08:48, Jan Beulich wrote:
+> On 19.05.2020 20:00, Andrew Cooper wrote:
+>> On 19/05/2020 17:09, Jan Beulich wrote:
+>>> In any event there would be 12 bits to reclaim from the up
+>>> pointer - it being a physical address, there'll not be more
+>>> than 52 significant bits.
+>> Right, but for L1TF safety, the address bits in the PTE must not be
+>> cacheable.
+> So if I understand this right, your response was only indirectly
+> related to what I said: You mean that no matter whether we find
+> a way to store full-width GFNs, SH_L1E_MMIO_MAGIC can't have
+> arbitrarily many set bits dropped.
 
-Yea, there is actually nothing to be done if the event can't be sent
-for whatever reason, I guess I'll just turn it to void.
+Yes
 
-Tamas
+> On L1TF vulnerable hardware,
+> that is (i.e. in principle the constant could become a variable
+> to be determined at boot).
+
+The only thing which can usefully be done at runtime disable the fastpath.
+
+If cacheable memory overlaps with the used address bits, there are no
+safe values to use.
+
+>
+>> Currently, on fully populated multi-socket servers, the MMIO fastpath
+>> relies on the top 4G of address space not being cacheable, which is the
+>> safest we can reasonably manage.  Extending this by a nibble takes us to
+>> 16G which is not meaningfully less safe.
+> That's 64G (36 address bits), isn't it?
+
+Yes it is.  I can't count.
+
+> Looking at
+> l1tf_calculations(), I'd be worried in particular Penryn /
+> Dunnington might not support more than 36 address bits (I don't
+> think I have anywhere to check). Even if it was 38, 39, or 40
+> bits, 64G becomes a not insignificant part of the overall 256G /
+> 512G / 1T address space. Then again the top quarter assumption
+> in l1tf_calculations() would still be met in this latter case.
+
+I'm honestly not too worried.  Intel has ceased supporting anything
+older than SandyBridge, and there are other unfixed speculative security
+issues.
+
+Anyone using these processors has bigger problems.
+
+~Andrew
 
