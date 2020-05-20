@@ -2,72 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CE3B1DB09D
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 12:51:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 556831DB0C8
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 12:57:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbMIx-0005Lj-4N; Wed, 20 May 2020 10:50:31 +0000
+	id 1jbMPj-0005ia-4i; Wed, 20 May 2020 10:57:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EGgk=7C=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jbMIv-0005Le-Hu
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 10:50:29 +0000
-X-Inumbo-ID: b7b326f6-9a87-11ea-ae69-bc764e2007e4
-Received: from mail-ej1-x62b.google.com (unknown [2a00:1450:4864:20::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=txLX=7C=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jbMPh-0005iV-U4
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 10:57:29 +0000
+X-Inumbo-ID: b248cd5a-9a88-11ea-9887-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b7b326f6-9a87-11ea-ae69-bc764e2007e4;
- Wed, 20 May 2020 10:50:28 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id d7so3196868eja.7
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2020 03:50:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=kXc3YsXD6WdzJLKK/MADRHqsmnNYXZb1UrKhbte5gqU=;
- b=diYlybjPAwMFN/TSud4BonXo4C/RCNMpGBar/EgLWY9VzP3qUu3qPtGo7DdldZ5U/I
- CJPFwu5pNuzzUNEhUmiS3gXBQJ47b6Fz05CCtEdQkYBWmaSusB11x4beyc47Pe7fCgPL
- zQC3vD7fy3XJ0WckAsEzLcKjcC1r/Ia+/wDWIK7OlLPw1h17RU2BbjPGhkU5savowTQ6
- A2+NWoxKwpJQSPFO1i0ueJHRaI4EE4XGLXeYy93bYmGr6uX86vVf+2Dy3eF1NkAznHXU
- NvANnPtOcad9mfzJgxSvZppGGDGJZyxOkQIrfldNNC+TtGd9CBUYUtAaQxeZeEnuBUZv
- qFtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=kXc3YsXD6WdzJLKK/MADRHqsmnNYXZb1UrKhbte5gqU=;
- b=pQ6Y1Y2+3F9m7cVCpjHvpPimwVyUG8D4jiXybgzWplqr8+KL9e7ltM/9WYy5G37BG6
- RM/79EdgbLaPPSrbpyjjEvLVzmcmYSBe7kESU9kA2g62IKSeARBarhpjd/u85bv/My0W
- q99X+1HSwL4QpAZqqsQJnSznTHmJtFkbVN85G6MJcHUOUxaWoPiVTxh3aFWdsLeTvbGW
- eJDUI5S9xRnfEZ5izXnEgAsjsrdWDmlBsI6R8U9nflHPZQlV2CXTiYlwyb9Go30xSJJA
- OLHYqvql6NmPRhBukvWAAaYYCAOFj4Snd3E3ckLyj82ZCdZfSAm/q+StBy18leFSt9Go
- Fi7w==
-X-Gm-Message-State: AOAM532euLZ0ol9BwXQSBN3EX6Y42cKjdLRAKFfj/iOvJDmT9APrcms+
- 3eGjkBLtUAokPI0b85zAAT8=
-X-Google-Smtp-Source: ABdhPJzwoKWYQshUjlG53R7HghVrVszBOYZcRQ6iXW1dZpJqVY12+qoQYbfCLiAyYk57d5t46mxxfA==
-X-Received: by 2002:a17:906:4815:: with SMTP id
- w21mr3340872ejq.533.1589971827772; 
- Wed, 20 May 2020 03:50:27 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.187])
- by smtp.gmail.com with ESMTPSA id oq4sm1606166ejb.0.2020.05.20.03.50.26
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 20 May 2020 03:50:27 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Juergen Gross'" <jgross@suse.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20200520101605.4263-1-jgross@suse.com>
-In-Reply-To: <20200520101605.4263-1-jgross@suse.com>
-Subject: RE: [PATCH] docs: update xenstore-migration.md
-Date: Wed, 20 May 2020 11:50:25 +0100
-Message-ID: <002a01d62e94$78de4b40$6a9ae1c0$@xen.org>
+ id b248cd5a-9a88-11ea-9887-bc764e2007e4;
+ Wed, 20 May 2020 10:57:29 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id BD81FACAE;
+ Wed, 20 May 2020 10:57:30 +0000 (UTC)
+Subject: Re: [PATCH v2] x86: use POPCNT for hweight<N>() when available
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <55a4a24d-7fac-527c-6bcf-8d689136bac2@suse.com>
+ <20200514140522.GD54375@Air-de-Roger>
+ <83534bf1-fa57-1d4a-c615-f656338a8457@suse.com>
+ <20200520093106.GI54375@Air-de-Roger>
+ <53fdfbe2-615a-72f9-7f2d-26402a0a64d0@suse.com>
+ <20200520102805.GK54375@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0e97e3af-b66e-4924-a76c-9e33cdd1a726@suse.com>
+Date: Wed, 20 May 2020 12:57:27 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQJtc1rpVxCWDPAud8mNEtXyIsLDq6eCQa8g
+In-Reply-To: <20200520102805.GK54375@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,153 +50,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Juergen Gross
-> Sent: 20 May 2020 11:16
-> To: xen-devel@lists.xenproject.org
-> Cc: Juergen Gross <jgross@suse.com>; Stefano Stabellini <sstabellini@kernel.org>; Julien Grall
-> <julien@xen.org>; Wei Liu <wl@xen.org>; Andrew Cooper <andrew.cooper3@citrix.com>; Ian Jackson
-> <ian.jackson@eu.citrix.com>; George Dunlap <george.dunlap@citrix.com>; Jan Beulich <jbeulich@suse.com>
-> Subject: [PATCH] docs: update xenstore-migration.md
+On 20.05.2020 12:28, Roger Pau Monné wrote:
+> On Wed, May 20, 2020 at 12:17:15PM +0200, Jan Beulich wrote:
+>> On 20.05.2020 11:31, Roger Pau Monné wrote:
+>>> On Wed, May 20, 2020 at 10:31:38AM +0200, Jan Beulich wrote:
+>>>> On 14.05.2020 16:05, Roger Pau Monné wrote:
+>>>>> On Mon, Jul 15, 2019 at 02:39:04PM +0000, Jan Beulich wrote:
+>>>>>> @@ -251,6 +255,10 @@ boot/mkelf32: boot/mkelf32.c
+>>>>>>   efi/mkreloc: efi/mkreloc.c
+>>>>>>   	$(HOSTCC) $(HOSTCFLAGS) -g -o $@ $<
+>>>>>>   
+>>>>>> +nocov-y += hweight.o
+>>>>>> +noubsan-y += hweight.o
+>>>>>> +hweight.o: CFLAGS += $(foreach reg,cx dx si 8 9 10 11,-ffixed-r$(reg))
+>>>>>
+>>>>> Why not use clobbers in the asm to list the scratch registers? Is it
+>>>>> that much expensive?
+>>>>
+>>>> The goal is to disturb the call sites as little as possible. There's
+>>>> no point avoiding the scratch registers when no call is made (i.e.
+>>>> when the POPCNT insn can be used). Taking away from the compiler 7
+>>>> out of 15 registers (that it can hold live data in) seems quite a
+>>>> lot to me.
+>>>
+>>> IMO using -ffixed-reg for all those registers is even worse, as that
+>>> prevents the generated code in hweight from using any of those, thus
+>>> greatly limiting the amount of registers and likely making the
+>>> generated code rely heavily on pushing an popping from the stack?
+>>
+>> Okay, that's the other side of the idea behind all this: Virtually no
+>> hardware we run on will lack POPCNT support, hence the quality of
+>> these fallback routines matters only the very old hardware, where we
+>> likely don't perform optimally already anyway.
+>>
+>>> This also has the side effect to limiting the usage of popcnt to gcc,
+>>> which IMO is also not ideal.
+>>
+>> Agreed. I don't know enough about clang to be able to think of
+>> possible alternatives. In any event there's no change to current
+>> behavior for hypervisors built with clang.
+>>
+>>> I also wondered, since the in-place asm before patching is a call
+>>> instruction, wouldn't inline asm at build time already assume that the
+>>> scratch registers are clobbered?
+>>
+>> That would imply the compiler peeks into the string literal of the
+>> asm(). At least gcc doesn't, and even if it did it couldn't infer an
+>> ABI from seeing a CALL insn.
 > 
-> Update connection record details: make flags common for sockets and
-> domains, and add pending incoming data.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Please bear with me, but then I don't understand what Linux is doing
+> in arch/x86/include/asm/arch_hweight.h. I see no clobbers there,
+> neither it seems like the __sw_hweight{32/64} functions are built
+> without the usage of the scratch registers.
 
-LGTM
+__sw_hweight{32,64} are implemented in assembly, avoiding most
+scratch registers while pushing/popping the ones which do get
+altered.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
-
-> ---
->  docs/designs/xenstore-migration.md | 63 ++++++++++++++++--------------
->  1 file changed, 34 insertions(+), 29 deletions(-)
-> 
-> diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
-> index 34a2afd17e..e361d6b5e7 100644
-> --- a/docs/designs/xenstore-migration.md
-> +++ b/docs/designs/xenstore-migration.md
-> @@ -147,31 +147,45 @@ the domain being migrated.
->  ```
->      0       1       2       3       4       5       6       7    octet
->  +-------+-------+-------+-------+-------+-------+-------+-------+
-> -| conn-id                       | conn-type     | conn-spec
-> +| conn-id                       | conn-type     | flags         |
-> ++-------------------------------+---------------+---------------+
-> +| conn-spec
->  ...
->  +-------------------------------+-------------------------------+
-> -| data-len                      | data
-> -+-------------------------------+
-> +| in-data-len                   | out-data-len                  |
-> ++-------------------------------+-------------------------------+
-> +| data
->  ...
->  ```
-> 
-> 
-> -| Field       | Description                                     |
-> -|-------------|-------------------------------------------------|
-> -| `conn-id`   | A non-zero number used to identify this         |
-> -|             | connection in subsequent connection-specific    |
-> -|             | records                                         |
-> -|             |                                                 |
-> -| `conn-type` | 0x0000: shared ring                             |
-> -|             | 0x0001: socket                                  |
-> -|             | 0x0002 - 0xFFFF: reserved for future use        |
-> -|             |                                                 |
-> -| `conn-spec` | See below                                       |
-> -|             |                                                 |
-> -| `data-len`  | The length (in octets) of any pending data not  |
-> -|             | yet written to the connection                   |
-> -|             |                                                 |
-> -| `data`      | Pending data (may be empty)                     |
-> +| Field          | Description                                  |
-> +|----------------|----------------------------------------------|
-> +| `conn-id`      | A non-zero number used to identify this      |
-> +|                | connection in subsequent connection-specific |
-> +|                | records                                      |
-> +|                |                                              |
-> +| `flags`        | A bit-wise OR of:                            |
-> +|                | 0001: read-only                              |
-> +|                |                                              |
-> +| `conn-type`    | 0x0000: shared ring                          |
-> +|                | 0x0001: socket                               |
-> +|                | 0x0002 - 0xFFFF: reserved for future use     |
-> +|                |                                              |
-> +| `conn-spec`    | See below                                    |
-> +|                |                                              |
-> +| `in-data-len`  | The length (in octets) of any data read      |
-> +|                | from the connection not yet processed        |
-> +|                |                                              |
-> +| `out-data-len` | The length (in octets) of any pending data   |
-> +|                | not yet written to the connection            |
-> +|                |                                              |
-> +| `data`         | Pending data, first read data, then written  |
-> +|                | data (any of both may be empty)              |
-> +
-> +In case of live update the connection record for the connection via which
-> +the live update command was issued will contain the response for the live
-> +update command in the pending write data.
-> 
->  The format of `conn-spec` is dependent upon `conn-type`.
-> 
-> @@ -182,8 +196,6 @@ For `shared ring` connections it is as follows:
-> 
->  ```
->      0       1       2       3       4       5       6       7    octet
-> -                                                +-------+-------+
-> -                                                | flags         |
->  +---------------+---------------+---------------+---------------+
->  | domid         | tdomid        | evtchn                        |
->  +-------------------------------+-------------------------------+
-> @@ -198,8 +210,6 @@ For `shared ring` connections it is as follows:
->  |           | it has been subject to an SET_TARGET              |
->  |           | operation [2] or DOMID_INVALID [3] otherwise      |
->  |           |                                                   |
-> -| `flags`   | Must be zero                                      |
-> -|           |                                                   |
->  | `evtchn`  | The port number of the interdomain channel used   |
->  |           | by `domid` to communicate with xenstored          |
->  |           |                                                   |
-> @@ -211,8 +221,6 @@ For `socket` connections it is as follows:
-> 
-> 
->  ```
-> -                                                +-------+-------+
-> -                                                | flags         |
->  +---------------+---------------+---------------+---------------+
->  | socket-fd                     | pad                           |
->  +-------------------------------+-------------------------------+
-> @@ -221,9 +229,6 @@ For `socket` connections it is as follows:
-> 
->  | Field       | Description                                     |
->  |-------------|-------------------------------------------------|
-> -| `flags`     | A bit-wise OR of:                               |
-> -|             | 0001: read-only                                 |
-> -|             |                                                 |
->  | `socket-fd` | The file descriptor of the connected socket     |
-> 
->  This type of connection is only relevant for live update, where the xenstored
-> @@ -398,4 +403,4 @@ explanation of node permissions.
-> 
->  [3] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/include/public/xen.h;hb=HEAD#l612
-> 
-> -[4] https://wiki.xen.org/wiki/XenBus
-> \ No newline at end of file
-> +[4] https://wiki.xen.org/wiki/XenBus
-> --
-> 2.26.1
-> 
-
-
+Jan
 
