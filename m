@@ -2,52 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77E341DB10E
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 13:11:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5E8D1DB10F
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 13:11:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbMcc-0007UH-Vl; Wed, 20 May 2020 11:10:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4N77=7C=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jbMcb-0007U9-DA
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 11:10:49 +0000
-X-Inumbo-ID: 8ea4719a-9a8a-11ea-b07b-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8ea4719a-9a8a-11ea-b07b-bc764e2007e4;
- Wed, 20 May 2020 11:10:48 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: eLO6tUA21tGf+7O4ReGpA9+cZahwiIW4E3ec2XRHNrbQv0yQ+RTToqplQ/0GyjN4tF3fCMbH4e
- bjt9fHJB8l6AJIaxN+UCNTBZ+OeeBzcwJAFlpkj+OX26jt3bOLQq+SrnPU4xZlVpLyAOJsMJ+J
- 0ip7QbWnkLkiEvgCKrkIqipX0BA3osEBdHqaEcdtZAUBw27hL2XQeEjbqRhnnYDESygJ1MlR+D
- J3HoILODW7ctGCPBo3rIFW3P3djXteYvmPrVUcgF4YauViL/+3h/XLCTlUEUo6RtDAdKgCzuGe
- PzY=
-X-SBRS: 2.7
-X-MesageID: 18334345
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,413,1583211600"; d="scan'208";a="18334345"
-Subject: Re: [BUG] Consistent LBR/TSX vmentry failure (0x80000022) calling
- domain_crash() in vmx.c:3324
-To: Elliot Killick <elliotkillick@zohomail.eu>,
- <xen-devel@lists.xenproject.org>
-References: <36815795-223f-2b96-5401-c262294cbaa8@zohomail.eu>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <c715f89a-b2ba-490c-c027-b4c7d7069f42@citrix.com>
-Date: Wed, 20 May 2020 12:10:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	id 1jbMcZ-0007U3-Nh; Wed, 20 May 2020 11:10:47 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=txLX=7C=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jbMcY-0007Ty-7I
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 11:10:46 +0000
+X-Inumbo-ID: 8c7dbc15-9a8a-11ea-a9e9-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8c7dbc15-9a8a-11ea-a9e9-12813bfff9fa;
+ Wed, 20 May 2020 11:10:44 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A945AADC9;
+ Wed, 20 May 2020 11:10:46 +0000 (UTC)
+Subject: Re: iommu=no-igfx
+To: buy computer <buycomputer40@gmail.com>
+References: <CANSXg2FGtiDT05sQUpSAshAsdP4wSjPgQbfw_+aKJuAzSwvJuQ@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <da7e41b5-88a1-13ab-d52b-0652c16608af@suse.com>
+Date: Wed, 20 May 2020 13:10:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <36815795-223f-2b96-5401-c262294cbaa8@zohomail.eu>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <CANSXg2FGtiDT05sQUpSAshAsdP4wSjPgQbfw_+aKJuAzSwvJuQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,31 +46,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, Kevin Tian <kevin.tian@intel.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20/05/2020 11:33, Elliot Killick wrote:
-> Hello,
->
-> Xen is crashing Windows 10 (64-bit) VMs consistently whenever IDA
-> Debugger
-> (https://www.hex-rays.com/products/ida/support/download_freeware/)
-> launches the Local Windows Debugger. The crash occurs when trying to
-> launch the debugger against any executable (e.g. calc.exe) right at the
-> time IDA says it is "Moving segment from <X address> to <Y address>".
->
-> Tested on Windows 7, 8 and Linux as well but the bug is only triggered
-> on Windows 10. Happens whether or not IDA is running with administrator
-> privileges. No drivers/VM tools installed. Windows has a bug check code
-> of zero, leaves no memory dump, nothing in the logs from QEMU in Dom0,
-> the domain just powers off immediately leaving a record of the incident
-> in the hypervisor.log. So, it does appear to be a Xen issue. Modern
-> Intel CPU.
->
-> Does anyone have some ideas on what may be causing this?
+On 11.05.2020 19:43, buy computer wrote:
+> I've been working on a Windows 10 HVM on a Debian 10 dom0. When I was first
+> trying to make the VM, I was getting IOMMU errors. I had a hard time
+> figuring out what to do about this, and finally discovered that putting
+> iommu=no-igfx in the grub stopped the errors.
+> 
+> Unfortunately, without the graphics support the VM is understandably slow,
+> and can crash. I was also only now pointed to the page
+> <https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html#iommu>
+> which says to report any errors that get fixed by using iommu=no-igfx.
 
-What exact CPU do you have?  This looks exactly like the
-Haswell/Broadwell TSX errata.
+Thanks for the report. For context I'll quote the commit message of
+the commit introducing the option as well as the request to report
+issues fixed with it:
 
-~Andrew
+"As we still cannot find a proper fix for this problem, this patch adds
+ iommu=igfx option to control whether Intel graphics IOMMU is enabled.
+ Running Xen with iommu=no-igfx is similar to running Linux with
+ intel_iommu=igfx_off, which disables IOMMU for Intel GPU. This can be
+ used by users to manually workaround the problem before a fix is
+ available for i915 driver."
+
+This was in 2015, referencing Linux >= 3.19. I have no idea whether
+the underlying driver issue(s) has/have been fixed. The addresses
+referenced are variable enough and all within RAM, so I'd conclude
+this is not a "missing RMRR" issue.
+
+Cc-ing the VT-d maintainer for possible insights or thoughts.
+
+Jan
 
