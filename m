@@ -2,38 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 965171DAE0D
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 10:54:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06C931DAE1A
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 10:56:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbKTp-0001qo-B2; Wed, 20 May 2020 08:53:37 +0000
+	id 1jbKWa-0001zO-UT; Wed, 20 May 2020 08:56:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jY/2=7C=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jbKTn-0001qj-OY
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 08:53:35 +0000
-X-Inumbo-ID: 63305f32-9a77-11ea-b9cf-bc764e2007e4
+ (envelope-from <SRS0=txLX=7C=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jbKWZ-0001zJ-UH
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 08:56:27 +0000
+X-Inumbo-ID: c9db357c-9a77-11ea-9887-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 63305f32-9a77-11ea-b9cf-bc764e2007e4;
- Wed, 20 May 2020 08:53:34 +0000 (UTC)
+ id c9db357c-9a77-11ea-9887-bc764e2007e4;
+ Wed, 20 May 2020 08:56:27 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8B86EAB76;
- Wed, 20 May 2020 08:53:36 +0000 (UTC)
-Subject: Re: grant table issues mapping a ring order 10
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com
-References: <alpine.DEB.2.21.2005191252040.27502@sstabellini-ThinkPad-T480s>
- <03bad8fd-9826-7652-1c08-549e22634f8d@suse.com>
-Message-ID: <ecd0bdf8-6e65-24a7-8383-c244853f7ae6@suse.com>
-Date: Wed, 20 May 2020 10:53:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id EDCF1AF2D;
+ Wed, 20 May 2020 08:56:28 +0000 (UTC)
+Subject: Re: [PATCH] x86: refine guest_mode()
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <7b62d06c-1369-2857-81c0-45e2434357f4@suse.com>
+ <1704f4f6-7e77-971c-2c94-4f6a6719c34a@citrix.com>
+ <5bbe6425-396c-d934-b5af-53b594a4afbc@suse.com>
+ <16939982-3ccc-f848-0694-61b154dca89a@citrix.com>
+ <5ce12c86-c894-4a2c-9fa6-1c2a6007ca28@suse.com>
+ <20200518145101.GV54375@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d58ec87e-a871-2e65-4a69-b73a168a6afa@suse.com>
+Date: Wed, 20 May 2020 10:56:26 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <03bad8fd-9826-7652-1c08-549e22634f8d@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20200518145101.GV54375@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -46,116 +50,105 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: andrew.cooper3@citrix.com, jbeulich@suse.com,
- xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.05.20 08:00, Jürgen Groß wrote:
-> On 19.05.20 23:21, Stefano Stabellini wrote:
->> Hi Juergen, Boris,
+On 18.05.2020 16:51, Roger Pau Monné wrote:
+> On Tue, Apr 28, 2020 at 08:30:12AM +0200, Jan Beulich wrote:
+>> On 27.04.2020 22:11, Andrew Cooper wrote:
+>>> On 27/04/2020 16:15, Jan Beulich wrote:
+>>>> On 27.04.2020 16:35, Andrew Cooper wrote:
+>>>>> On 27/04/2020 09:03, Jan Beulich wrote:
+>>>>>> --- a/xen/include/asm-x86/regs.h
+>>>>>> +++ b/xen/include/asm-x86/regs.h
+>>>>>> @@ -10,9 +10,10 @@
+>>>>>>      /* Frame pointer must point into current CPU stack. */                    \
+>>>>>>      ASSERT(diff < STACK_SIZE);                                                \
+>>>>>>      /* If not a guest frame, it must be a hypervisor frame. */                \
+>>>>>> -    ASSERT((diff == 0) || (r->cs == __HYPERVISOR_CS));                        \
+>>>>>> +    if ( diff < PRIMARY_STACK_SIZE )                                          \
+>>>>>> +        ASSERT(!diff || ((r)->cs == __HYPERVISOR_CS));                        \
+>>>>>>      /* Return TRUE if it's a guest frame. */                                  \
+>>>>>> -    (diff == 0);                                                              \
+>>>>>> +    !diff || ((r)->cs != __HYPERVISOR_CS);                                    \
+>>>>> The (diff == 0) already worried me before because it doesn't fail safe,
+>>>>> but this makes things more problematic.  Consider the case back when we
+>>>>> had __HYPERVISOR_CS32.
+>>>> Yes - if __HYPERVISOR_CS32 would ever have been to be used for
+>>>> anything, it would have needed checking for here.
+>>>>
+>>>>> Guest mode is strictly "(r)->cs & 3".
+>>>> As long as CS (a) gets properly saved (it's a "manual" step for
+>>>> SYSCALL/SYSRET as well as #VMEXIT) and (b) didn't get clobbered. I
+>>>> didn't write this code, I don't think, so I can only guess that
+>>>> there were intentions behind this along these lines.
+>>>
+>>> Hmm - the VMExit case might be problematic here, due to the variability
+>>> in the poison used.
 >>
->> I am trying to increase the size of the rings used for Xen 9pfs
->> connections for performance reasons and also to reduce the likehood of
->> the backend having to wait on the frontend to free up space from the
->> ring.
+>> "Variability" is an understatement - there's no poisoning at all
+>> in release builds afaics (and to be honest it seems a somewhat
+>> pointless to write the same values over and over again in debug
+>> mode). With this, ...
 >>
->> FYI I realized that we cannot choose order 11 or greater in Linux
->> because then we incur into the hard limit CONFIG_FORCE_MAX_ZONEORDER=11.
->> But that is not the reason why I am writing to you :-)
+>>>>> Everything else is expectations about how things ought to be laid out,
+>>>>> but for safety in release builds, the final judgement should not depend
+>>>>> on the expectations evaluating true.
+>>>> Well, I can switch to a purely CS.RPL based approach, as long as
+>>>> we're happy to live with the possible downside mentioned above.
+>>>> Of course this would then end up being a more intrusive change
+>>>> than originally intended ...
+>>>
+>>> I'd certainly prefer to go for something which is more robust, even if
+>>> it is a larger change.
 >>
->>
->> The reason why I am writing is that even order 10 fails for some
->> grant-table related reason I cannot explain. There are two rings, each
->> of them order 10. Mapping the first ring results into an error. (Order 9
->> works fine, resulting in both rings being mapped correctly.)
->>
->> QEMU tries to map the refs but gets an error:
->>
->>    gnttab: error: mmap failed: Invalid argument
->>    xen be: 9pfs-0: xen be: 9pfs-0: xengnttab_map_domain_grant_refs 
->> failed: Invalid argument
->>    xengnttab_map_domain_grant_refs failed: Invalid argument
->>
->> The error comes from Xen. The hypervisor returns GNTST_bad_gntref to
->> Linux (drivers/xen/grant-table.c:gnttab_map_refs). Then:
->>
->>          if (map->map_ops[i].status) {
->>             err = -EINVAL;
->>             continue;
->>         }
->>
->> So Linux returns -EINVAL to QEMU. The ref seem to be garbage. The
->> following printks are in Xen in the implemenation of map_grant_ref:
->>
->> (XEN) DEBUG map_grant_ref 1017 ref=998 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=999 nr=2560
->> (XEN) DEBUG map_grant_ref 1013 ref=2050669706 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x7a3abc8a for d1
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=19 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1013 ref=56423797 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x35cf575 for d1
->> (XEN) DEBUG map_grant_ref 1013 ref=348793 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x55279 for d1
->> (XEN) DEBUG map_grant_ref 1013 ref=1589921828 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x5ec44824 for d1
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1013 ref=2070386184 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x7b679608 for d1
->> (XEN) DEBUG map_grant_ref 1013 ref=3421871 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x3436af for d1
->> (XEN) DEBUG map_grant_ref 1013 ref=1589921828 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x5ec44824 for d1
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1013 ref=875999099 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x3436af7b for d1
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1013 ref=2705045486 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0xa13bb7ee for d1
->> (XEN) DEBUG map_grant_ref 1013 ref=4294967295 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0xffffffff for d1
->> (XEN) DEBUG map_grant_ref 1013 ref=213291910 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0xcb69386 for d1
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1013 ref=4912 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0x1330 for d1
->> (XEN) DEBUG map_grant_ref 1013 ref=167788925 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0xa00417d for d1
->> (XEN) DEBUG map_grant_ref 1017 ref=24 nr=2560
->> (XEN) DEBUG map_grant_ref 1013 ref=167788925 nr=2560
->> (XEN) grant_table.c:1015:d0v0 Bad ref 0xa00417d for d1
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->> (XEN) DEBUG map_grant_ref 1017 ref=0 nr=2560
->>
->>
->> Full logs https://pastebin.com/QLTUaUGJ
->> It is worth mentioning that no limits are being reached: we are below
->> 2500 entries per domain and below the 64 pages of grant refs per domain.
->>
->> What it seems to happen is that after ref 999, the next refs are garbage.
->> Do you have any ideas why?
+>> ... what's your suggestion? Basing on _just_ CS.RPL obviously won't
+>> work. Not even if we put in place the guest's CS (albeit that
+>> somewhat depends on the meaning we assign to the macro's returned
+>> value).
 > 
-> I don't think there is enough space for all the needed grant refs in the
-> initial interface page passed via Xenstore. So how do you pass the refs
-> to the backend?
+> Just to check I'm following this correctly, using CS.RPL won't work
+> for HVM guests, as HVM can legitimately use a RPL of 0 (which is not
+> the case for PV guests). Doesn't the same apply to the usage of
+> __HYPERVISOR_CS? (A HVM guest could also use the same code segment
+> value as Xen?)
 
-Looking into the full log this seems to be the problem: The processing
-is starting with ref=9 and the last successful ref is 999, so 991 refs
-have been processed. Each ref needs 4 bytes, so a page could hold 1024
-refs, but the first 132 bytes of the page are used for other information
-resulting in 1024-33 == 991 refs possible.
+Of course (and in particular Xen as a guest would). My "Basing on
+_just_ CS.RPL" wasn't meant to exclude the rest of the selector,
+but to contrast this to the case where "diff" also is involved in
+the calculation (which looks to be what Andrew would prefer to see
+go away).
 
+>> Using current inside the macro to determine whether the
+>> guest is HVM would also seem fragile to me - there are quite a few
+>> uses of guest_mode(). Which would leave passing in a const struct
+>> vcpu * (or domain *), requiring to touch all call sites, including
+>> Arm's.
+> 
+> Fragile or slow? Are there corner cases where guest_mode is used where
+> current is not reliable?
 
-Juergen
+This question is why I said "there are quite a few uses of
+guest_mode()" - auditing them all is just one side of the medal.
+The other is to prevent a new use appearing in the future that
+can be reached by a call path in the time window where a lazy
+context switch is pending (i.e. when current has already been
+updated, but register state hasn't been yet).
+
+>> Compared to this it would seem to me that the change as presented
+>> is a clear improvement without becoming overly large of a change.
+> 
+> Using the cs register is already part of the guest_mode code, even if
+> just in debug mode, hence I don't see it as a regression from existing
+> code. It however feels weird to me that the reporter of the issue
+> doesn't agree with the fix, and hence would like to know if there's a
+> way we could achieve consensus on this.
+
+Indeed. I'd be happy to make further adjustments, if only I had a
+clear understanding of what is wanted (or why leaving things as
+they are is better than a little bit of an improvement).
+
+Jan
 
