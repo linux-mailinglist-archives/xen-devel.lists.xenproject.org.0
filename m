@@ -2,47 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CEC51DC083
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 22:49:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BA681DC0B0
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 22:57:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbVd0-00014U-SM; Wed, 20 May 2020 20:47:50 +0000
+	id 1jbVm4-0001xK-Pi; Wed, 20 May 2020 20:57:12 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P2h4=7C=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jbVcz-00014P-0j
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 20:47:49 +0000
-X-Inumbo-ID: 29a4b20e-9adb-11ea-aa8a-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=AfT1=7C=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jbVm2-0001xF-UY
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 20:57:10 +0000
+X-Inumbo-ID: 789d868c-9adc-11ea-aa8c-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 29a4b20e-9adb-11ea-aa8a-12813bfff9fa;
- Wed, 20 May 2020 20:47:48 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D4752207D8;
- Wed, 20 May 2020 20:47:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590007667;
- bh=pFgqAYPdTivuUZr14bc7fno90C0BiU2RfDO4wiHaAio=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=tLct13YcQQztlMgsWhfmqelxdPnoUXZr/8o7FXEJqbxcId6ab55//VCBCeRv3xOsE
- IEHdIuSxaCxcYqNmrqzhljKujCvKPuf5zACGA996C9MtZjcsZi/CuYgbC3hhdkW2xv
- wOQc/tokPdONm0NXR+9SOL0nuB9ZnWw3R+azUk4Y=
-Date: Wed, 20 May 2020 13:47:46 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Dominique Martinet <asmadeus@codewreck.org>
-Subject: Re: [V9fs-developer] [PATCH] 9p/xen: increase XEN_9PFS_RING_ORDER
-In-Reply-To: <20200520193647.GA17565@nautica>
-Message-ID: <alpine.DEB.2.21.2005201340310.27502@sstabellini-ThinkPad-T480s>
-References: <20200520184113.24727-1-sstabellini@kernel.org>
- <20200520193647.GA17565@nautica>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 789d868c-9adc-11ea-aa8c-12813bfff9fa;
+ Wed, 20 May 2020 20:57:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ifjRi86x/xmXwRucq2mjbL6VOWmvQ3tgL5JGxhzIQNc=; b=YJyf5BYEEcd8PgM8caPdykdnW
+ f8dkk2G5lowxruS2g+BeQmPNon1Xb3z1dPCAuFwJlq2wmeULkK4Mylie/j6lRCwUOuOVAM2eN1VKr
+ xKVxUZXq53MRJO/Hffgz9mLD1AoNBJxQFWIIdD6y6FsknGc/sahNV5wwJ91MEZHzyn+Oc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jbVm1-0003xL-1X; Wed, 20 May 2020 20:57:09 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jbVm0-0003RS-MX; Wed, 20 May 2020 20:57:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jbVm0-0007iv-Lt; Wed, 20 May 2020 20:57:08 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150280-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 150280: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=dacdbf7088d6a3705a9831e73991c2b14c519a65
+X-Osstest-Versions-That: xen=cdea123f1976549ecc72644588cc5ce1491606c4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 20 May 2020 20:57:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,94 +66,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, lucho@ionkov.net,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- ericvh@gmail.com, linux-kernel@vger.kernel.org,
- v9fs-developer@lists.sourceforge.net, rminnich@sandia.gov,
- boris.ostrovsky@oracle.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 20 May 2020, Dominique Martinet wrote:
-> Stefano Stabellini wrote on Wed, May 20, 2020:
-> > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > 
-> > Increase XEN_9PFS_RING_ORDER to 9 for performance reason. Order 9 is the
-> > max allowed by the protocol.
-> > 
-> > We can't assume that all backends will support order 9. The xenstore
-> > property max-ring-page-order specifies the max order supported by the
-> > backend. We'll use max-ring-page-order for the size of the ring.
-> > 
-> > This means that the size of the ring is not static
-> > (XEN_FLEX_RING_SIZE(9)) anymore. Change XEN_9PFS_RING_SIZE to take an
-> > argument and base the calculation on the order chosen at setup time.
-> > 
-> > 
-> > Finally, modify p9_xen_trans.maxsize to be divided by 4 compared to the
-> > original value. We need to divide it by 2 because we have two rings
-> > coming off the same order allocation: the in and out rings. This was a
-> > mistake in the original code. Also divide it further by 2 because we
-> > don't want a single request/reply to fill up the entire ring. There can
-> > be multiple requests/replies outstanding at any given time and if we use
-> > the full ring with one, we risk forcing the backend to wait for the
-> > client to read back more replies before continuing, which is not
-> > performant.
-> 
-> Sounds good to me overall. A couple of comments inline.
-> Also worth noting I need to rebuild myself a test setup so might take a
-> bit of time to actually run tests, but I might just trust you on this
-> one for now if it builds with no new warning... Looks like it would
-> probably work :p
-> 
-> > [...]
-> > @@ -264,7 +265,7 @@ static irqreturn_t xen_9pfs_front_event_handler(int irq, void *r)
-> >  
-> >  static struct p9_trans_module p9_xen_trans = {
-> >  	.name = "xen",
-> > -	.maxsize = 1 << (XEN_9PFS_RING_ORDER + XEN_PAGE_SHIFT),
-> > +	.maxsize = 1 << (XEN_9PFS_RING_ORDER + XEN_PAGE_SHIFT - 2),
-> >  	.def = 1,
-> >  	.create = p9_xen_create,
-> >  	.close = p9_xen_close,
-> > [...]
-> > @@ -401,8 +405,10 @@ static int xen_9pfs_front_probe(struct xenbus_device *dev,
-> >  		return -EINVAL;
-> >  	max_ring_order = xenbus_read_unsigned(dev->otherend,
-> >  					      "max-ring-page-order", 0);
-> > -	if (max_ring_order < XEN_9PFS_RING_ORDER)
-> > -		return -EINVAL;
-> > +	if (max_ring_order > XEN_9PFS_RING_ORDER)
-> > +		max_ring_order = XEN_9PFS_RING_ORDER;
-> 
-> (If there are backends with very small max_ring_orders, we no longer
-> error out when we encounter one, it might make sense to add a min
-> define? Although to be honest 9p works with pretty small maxsizes so I
-> don't see much reason to error out, and even order 0 will be one page
-> worth.. I hope there is no xenbus that small though :))
+flight 150280 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150280/
 
-Your point is valid but the size calculation (XEN_FLEX_RING_SIZE) should
-work correctly even with order 0:
+Failures :-/ but no regressions.
 
-    (1UL << ((0) + XEN_PAGE_SHIFT - 1)) = 1 << (12 - 1) = 2048
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-So I am thinking that the protocol should still work correctly, although
-the performance might be undesirable.
+version targeted for testing:
+ xen                  dacdbf7088d6a3705a9831e73991c2b14c519a65
+baseline version:
+ xen                  cdea123f1976549ecc72644588cc5ce1491606c4
 
-FYI The smallest backend I know of has order 6.
+Last test of basis   150276  2020-05-20 11:01:29 Z    0 days
+Testing same since   150280  2020-05-20 18:01:10 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-> > +	if (p9_xen_trans.maxsize > XEN_FLEX_RING_SIZE(max_ring_order))
-> > +		p9_xen_trans.maxsize = XEN_FLEX_RING_SIZE(max_ring_order);
-> 
-> So base maxsize initial value is 1 << (order + page_shift - 2) ; but
-> this is 1 << (order + page_shift - 1) -- I agree with the logic you gave
-> in commit message so would think this needs to be shifted down one more
-> like the base value as well.
-> What do you think?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Yes, you are right, thanks for noticing this! I meant to do that here
-too but somehow forgot. This should be:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-   p9_xen_trans.maxsize = XEN_FLEX_RING_SIZE(max_ring_order) / 2;
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   cdea123f19..dacdbf7088  dacdbf7088d6a3705a9831e73991c2b14c519a65 -> smoke
 
