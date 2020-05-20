@@ -2,46 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0A921DC329
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 01:46:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 649171DC338
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 01:51:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbYP8-00085v-1F; Wed, 20 May 2020 23:45:42 +0000
+	id 1jbYUq-0001GY-VK; Wed, 20 May 2020 23:51:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P2h4=7C=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jbYP6-00084m-Av
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 23:45:40 +0000
-X-Inumbo-ID: fac52810-9af3-11ea-9887-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Eu2h=7C=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1jbYUp-0001GT-Me
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 23:51:35 +0000
+X-Inumbo-ID: d6a41972-9af4-11ea-ae69-bc764e2007e4
+Received: from mail-qt1-x842.google.com (unknown [2607:f8b0:4864:20::842])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fac52810-9af3-11ea-9887-bc764e2007e4;
- Wed, 20 May 2020 23:45:26 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
- (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D156F208C7;
- Wed, 20 May 2020 23:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590018326;
- bh=K/T4h2BFa+NcoPT654ciuMnQsexCfqtyhB6cVtjK0L4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iO1sa0jxbGms6doP+1SAsu8gCvwCCG2FLgnZDuwrFexC103KNiw38nDll+VHU43s2
- Nh2TpH2F36+9fsLjiS6cJyqFf9ZymsSVC2VoFK1SHz/99E0SURKQRXWu+SOnutOCzF
- s0HqcEICwCpORe7VX79MIUVoZtX9bZ86p6lqngIo=
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: jgross@suse.com,
-	boris.ostrovsky@oracle.com,
-	konrad.wilk@oracle.com
-Subject: [PATCH 10/10] xen/arm: call dma_to_phys on the dma_addr_t parameter
- of dma_cache_maint
-Date: Wed, 20 May 2020 16:45:20 -0700
-Message-Id: <20200520234520.22563-10-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <alpine.DEB.2.21.2005201628330.27502@sstabellini-ThinkPad-T480s>
+ id d6a41972-9af4-11ea-ae69-bc764e2007e4;
+ Wed, 20 May 2020 23:51:35 +0000 (UTC)
+Received: by mail-qt1-x842.google.com with SMTP id i68so4139729qtb.5
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2020 16:51:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=DOijWyKqJLxNwQeBpPWMP+0S3cV6uReedydSlpIjzL4=;
+ b=VKLJf4RMzZ8GKwYeh9OqRDk2QVWEm43naydQATItag3YW/jJ5eONuUaMTKh0s95LEh
+ 8rgDtmyH+0qrLmnklWxl1XWFSu7uIlM30DG0fONhO/30xcMrA6IMw8Zp6a7iaB3GIqn2
+ S7IELd0Jg+esKrNB0DzDvAW/KK7ppEp87NWuSKApP6O63Xls3m8QUJAMgaygYnYm93JH
+ sKzRJByGxKC1qNzWU2XCfC5b2NoVQARZfqn0YAbJsqUIM8KzV+mGq5Cgw0NRP8JV1Gnv
+ Pe07AyDl+Q9k1ZW888U5f6HrlwhBFRIzybMwFGkFQVHj4NGMi0CcWVFYiQP29KvhkdNb
+ S3NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DOijWyKqJLxNwQeBpPWMP+0S3cV6uReedydSlpIjzL4=;
+ b=LzKbqUPAs55ygMoNAnnQ5ap6VUDZH2MZ6M08K3ZRNlGtVViJLdfygrTJyHl2lXvKlw
+ 3OWt1PMDW+0j1molGsaE3Y7J1xVDzDBX2Ny+rNHn/atoX1UNuqv2EVS1u0QIbLTyTFCc
+ 7Kmg1Vy+mom0eWBFZyWXFtcCQ4+WaMsgBzwWDunzxsi3F89AwoOzC/fWS5m2cg2b5Slr
+ kWjcZO8xe6wEx8XXL2ym6Ugr7OyGwJc4e5p5s+7TKsiQeeCMEactLafPj0eKJFW9TxM0
+ HwWbaHptAU2sLg3bls5N+mXpVHxXBjwPRufIyZshiG71+39B0paasyRLTMEMs8lJ3ZDx
+ IUVA==
+X-Gm-Message-State: AOAM533tXHCVDSZfFeOj/rHTnOiu7rQnP7vVfbtsJK6fc9RhZicjiI+O
+ IaW89c51vYrjJj5Ggv2zEcM3SBj0/U5Sgnw3s7SMuQ==
+X-Google-Smtp-Source: ABdhPJxt2EESLU8nhk5tsHgnFk3RvF6RDw6Vldmiq55JHPOjOD9uPQTlMBvIBmWRF0NacS8L88rfoIbWTF1pRYQwj0s=
+X-Received: by 2002:ac8:670b:: with SMTP id e11mr8166734qtp.365.1590018694922; 
+ Wed, 20 May 2020 16:51:34 -0700 (PDT)
+MIME-Version: 1.0
 References: <alpine.DEB.2.21.2005201628330.27502@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2005201628330.27502@sstabellini-ThinkPad-T480s>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Wed, 20 May 2020 16:51:23 -0700
+Message-ID: <CAMmSBy9VBxjSCRcfyiZ-RY8eyYOooeNfCqrvirhWzfpSbAQyuw@mail.gmail.com>
+Subject: Re: [PATCH 00/10] fix swiotlb-xen for RPi4
+To: Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,81 +64,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- linux-kernel@vger.kernel.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Juergen Gross <jgross@suse.com>, tamas@tklengyel.com,
+ Konrad Wilk <konrad.wilk@oracle.com>, linux-kernel@vger.kernel.org,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+On Wed, May 20, 2020 at 4:45 PM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> Hi all,
+>
+> This series is a collection of fixes to get Linux running on the RPi4 as
+> dom0.
+>
+> Conceptually there are only two significant changes:
+>
+> - make sure not to call virt_to_page on vmalloc virt addresses (patch
+>   #1)
+> - use phys_to_dma and dma_to_phys to translate phys to/from dma
+>   addresses (all other patches)
+>
+> In particular in regards to the second part, the RPi4 is the first
+> board where Xen can run that has the property that dma addresses are
+> different from physical addresses, and swiotlb-xen was written with the
+> assumption that phys addr == dma addr.
+>
+> This series adds the phys_to_dma and dma_to_phys calls to make it work.
 
-Add a struct device* parameter to dma_cache_maint.
+Great to see this! Stefano, any chance you can put it in a branch some place
+so I can test the final version?
 
-Translate the dma_addr_t parameter of dma_cache_maint by calling
-dma_to_phys. Do it for the first page and all the following pages, in
-case of multipage handling.
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
----
- arch/arm/xen/mm.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
-index 7639251bcc79..6ddf3b3c1ab5 100644
---- a/arch/arm/xen/mm.c
-+++ b/arch/arm/xen/mm.c
-@@ -43,15 +43,18 @@ unsigned long xen_get_swiotlb_free_pages(unsigned int order)
- static bool hypercall_cflush = false;
- 
- /* buffers in highmem or foreign pages cannot cross page boundaries */
--static void dma_cache_maint(dma_addr_t handle, size_t size, u32 op)
-+static void dma_cache_maint(struct device *dev, dma_addr_t handle,
-+			    size_t size, u32 op)
- {
- 	struct gnttab_cache_flush cflush;
- 
--	cflush.a.dev_bus_addr = handle & XEN_PAGE_MASK;
- 	cflush.offset = xen_offset_in_page(handle);
- 	cflush.op = op;
-+	handle &= XEN_PAGE_MASK;
- 
- 	do {
-+		cflush.a.dev_bus_addr = dma_to_phys(dev, handle);
-+
- 		if (size + cflush.offset > XEN_PAGE_SIZE)
- 			cflush.length = XEN_PAGE_SIZE - cflush.offset;
- 		else
-@@ -60,7 +63,7 @@ static void dma_cache_maint(dma_addr_t handle, size_t size, u32 op)
- 		HYPERVISOR_grant_table_op(GNTTABOP_cache_flush, &cflush, 1);
- 
- 		cflush.offset = 0;
--		cflush.a.dev_bus_addr += cflush.length;
-+		handle += cflush.length;
- 		size -= cflush.length;
- 	} while (size);
- }
-@@ -79,7 +82,7 @@ void xen_dma_sync_for_cpu(struct device *dev, dma_addr_t handle,
- 	if (pfn_valid(PFN_DOWN(dma_to_phys(dev, handle))))
- 		arch_sync_dma_for_cpu(paddr, size, dir);
- 	else if (dir != DMA_TO_DEVICE)
--		dma_cache_maint(handle, size, GNTTAB_CACHE_INVAL);
-+		dma_cache_maint(dev, handle, size, GNTTAB_CACHE_INVAL);
- }
- 
- void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
-@@ -89,9 +92,9 @@ void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
- 	if (pfn_valid(PFN_DOWN(dma_to_phys(dev, handle))))
- 		arch_sync_dma_for_device(paddr, size, dir);
- 	else if (dir == DMA_FROM_DEVICE)
--		dma_cache_maint(handle, size, GNTTAB_CACHE_INVAL);
-+		dma_cache_maint(dev, handle, size, GNTTAB_CACHE_INVAL);
- 	else
--		dma_cache_maint(handle, size, GNTTAB_CACHE_CLEAN);
-+		dma_cache_maint(dev, handle, size, GNTTAB_CACHE_CLEAN);
- }
- 
- bool xen_arch_need_swiotlb(struct device *dev,
--- 
-2.17.1
-
+Thanks,
+Roman.
 
