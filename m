@@ -2,50 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA7831DB78F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 16:58:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 424E41DB797
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 16:59:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbQAR-0002n8-Aq; Wed, 20 May 2020 14:57:59 +0000
+	id 1jbQC8-0002wI-ML; Wed, 20 May 2020 14:59:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NWk/=7C=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jbQAP-0002mz-ER
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 14:57:57 +0000
-X-Inumbo-ID: 497b7bc0-9aaa-11ea-aa32-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=/hkT=7C=zohomail.eu=elliotkillick@srs-us1.protection.inumbo.net>)
+ id 1jbQC6-0002wB-Hy
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 14:59:42 +0000
+X-Inumbo-ID: 882a9248-9aaa-11ea-aa32-12813bfff9fa
+Received: from sender11-pp-o93.zoho.eu (unknown [31.186.226.251])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 497b7bc0-9aaa-11ea-aa32-12813bfff9fa;
- Wed, 20 May 2020 14:57:56 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: nY5r0Gry+ldeq6TLb+N+71DylejcoRpA2XCOx0otUhMnDRhGdGYDFyMzpAGDBhkztINLB+SSrF
- +x3ZdZVxxTPct+8PD/yX3CHBSQq5NBTksy0zRMTohyc63m6g6LnWKgkLkXv6ZLhITzYiCHHF4v
- x3pngUcfoQSz3W0Ow9Bs94Ep6hrBRXKJz/jHuBUw5Xx6Fwg9OybTdbdNLjltk+Sgku0nSfqb/G
- IsdKAtKW3Ty2HPCrxKiW538KBPki5mZ15pCfpVKsRYV+NLm2BQ373wE2NR/B418ZIRVRTASCKq
- MB4=
-X-SBRS: 2.7
-X-MesageID: 18023814
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,414,1583211600"; d="scan'208";a="18023814"
-From: Ian Jackson <ian.jackson@citrix.com>
+ id 882a9248-9aaa-11ea-aa32-12813bfff9fa;
+ Wed, 20 May 2020 14:59:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1589986779; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=hsuZSaxiZNrWx4SZfuji5fG9mpoim99fDkem1jGRnxduetF9Oo5F6GhhBb1Cjc5di167pKl7LbQMu5B3zK33BRMnCYR49Q3Lgq/Od8r3B8TI/reJ+e4XupDTfRNP4FckxPsBbGvuoK6x5D07n5dVHEfIvBB0FcX+NfRB+Rj9h+Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc; t=1589986779;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
+ bh=cw3sbluNfCHHl1K+t3LIMvsgkm5XgmIsw435d5vASq0=; 
+ b=lnbO5MAseOwSBJE3NflNvVACPew4nNZEBgDSzr2Qm7de37Mo/R3HxLbUZQplPKU8Y6NEU5igABE+gToalTuelEgQtfM5GTP412GVJWoLALlYmys622NYORGnyLadyOknFeCYfRuLTblenuFm3SCiqpJW9WnLNfKFu6WtSdPNhKs=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+ dkim=pass  header.i=zohomail.eu;
+ spf=pass  smtp.mailfrom=elliotkillick@zohomail.eu;
+ dmarc=pass header.from=<elliotkillick@zohomail.eu>
+ header.from=<elliotkillick@zohomail.eu>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1589986779; 
+ s=zoho; d=zohomail.eu; i=elliotkillick@zohomail.eu;
+ h=Subject:To:References:From:Cc:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+ bh=cw3sbluNfCHHl1K+t3LIMvsgkm5XgmIsw435d5vASq0=;
+ b=BZlg6TKEz5zMnEsvvJ5z6Mo6vz+Pr76P4XfYK/Uzr0kiaXRNowZXhlYbOKY1qRAp
+ 1VJuNv3p0bL9l4gNa2foG5UjVzS+Jvm5CAI9kf5AAj5a8kK4Ehu3heOiq9VtPf67UcP
+ PD/iGmEGCS2/G4PcokQHrtNsTXAacAECoYwlI9Y0=
+Received: from [10.137.0.35]
+ (CPEac202e7c9cc3-CMac202e7c9cc0.cpe.net.cable.rogers.com [99.231.147.74]) by
+ mx.zoho.eu with SMTPS id 1589986777008891.008836865654;
+ Wed, 20 May 2020 16:59:37 +0200 (CEST)
+Subject: Re: [BUG] Consistent LBR/TSX vmentry failure (0x80000022) calling
+ domain_crash() in vmx.c:3324
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <36815795-223f-2b96-5401-c262294cbaa8@zohomail.eu>
+ <c715f89a-b2ba-490c-c027-b4c7d7069f42@citrix.com>
+ <2bcd2ccc-b58e-1268-68ce-3ef534534245@zohomail.eu>
+ <1b76cd6a-c6a2-c9c9-1d8b-32a9a1dbc557@citrix.com>
+ <657e7522-bd0f-bea3-7ce8-2f6c4ec72407@zohomail.eu>
+ <dc1ef4b6-9406-b625-c157-6ebec2a6afda@citrix.com>
+From: Elliot Killick <elliotkillick@zohomail.eu>
+Message-ID: <325c716c-df62-d24c-2e48-3a100e84f48d@zohomail.eu>
+Date: Wed, 20 May 2020 14:59:33 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24261.17765.769078.328560@mariner.uk.xensource.com>
-Date: Wed, 20 May 2020 15:57:41 +0100
-To: Julien Grall <julien@xen.org>
-Subject: Re: [OSSTEST PATCH 34/38] buster: grub, arm64: extend chainloading
- workaround
-In-Reply-To: <f3becdd7-a7e1-3e99-ca90-4ce0f74aa467@xen.org>
-References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
- <20200519190230.29519-35-ian.jackson@eu.citrix.com>
- <f3becdd7-a7e1-3e99-ca90-4ce0f74aa467@xen.org>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+In-Reply-To: <dc1ef4b6-9406-b625-c157-6ebec2a6afda@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,46 +69,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Julien Grall writes ("Re: [OSSTEST PATCH 34/38] buster: grub, arm64: extend chainloading workaround"):
-> On 19/05/2020 20:02, Ian Jackson wrote:
-> > multiboot[2] isn't supported.
-> > 
-> > Also link to the bug report.
-> > 
-> > CC: Julien Grall <julien@xen.org>
-> > CC: Stefano Stabellini <sstabellini@kernel.org>
-> > Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-> 
-> Acked-by: Julien Grall <jgrall@amazon.com>
-> 
-> > ---
-> >   Osstest/Debian.pm | 3 ++-
-> >   1 file changed, 2 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
-> > index 77508d19..151677ed 100644
-> > --- a/Osstest/Debian.pm
-> > +++ b/Osstest/Debian.pm
-> > @@ -443,9 +443,10 @@ sub setupboot_grub2 ($$$$) {
-> >       my $kernkey= (defined $xenhopt ? 'KernDom0' : 'KernOnly');
-> >   
-> >       # Grub2 on jessie/stretch ARM* doesn't do multiboot, so we must chainload.
-> > +    # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=884770
-> >       my $need_uefi_chainload =
-> >           get_host_property($ho, "firmware") eq "uefi" &&
-> > -        $ho->{Suite} =~ m/jessie|stretch/ && $ho->{Arch} =~ m/^arm/;
-> > +        $ho->{Suite} =~ m/jessie|stretch|buster/ && $ho->{Arch} =~ m/^arm/;
-> 
-> FWIW, the next version of Debian seems to have a newer GRUB version with 
-> Xen on Arm support.
+On 2020-05-20 12:31, Andrew Cooper wrote:
+> On 20/05/2020 12:46, Elliot Killick wrote:
+>> On 2020-05-20 11:27, Andrew Cooper wrote:
+>>> On 20/05/2020 12:20, Elliot Killick wrote:
+>>>> On 2020-05-20 11:10, Andrew Cooper wrote:
+>>>>> On 20/05/2020 11:33, Elliot Killick wrote:
+>>>>>> Hello,
+>>>>>>
+>>>>>> Xen is crashing Windows 10 (64-bit) VMs consistently whenever IDA
+>>>>>> Debugger
+>>>>>> (https://www.hex-rays.com/products/ida/support/download_freeware/)
+>>>>>> launches the Local Windows Debugger. The crash occurs when trying to
+>>>>>> launch the debugger against any executable (e.g. calc.exe) right at =
+the
+>>>>>> time IDA says it is "Moving segment from <X address> to <Y address>"=
+.
+>>>>>>
+>>>>>> Tested on Windows 7, 8 and Linux as well but the bug is only trigger=
+ed
+>>>>>> on Windows 10. Happens whether or not IDA is running with administra=
+tor
+>>>>>> privileges. No drivers/VM tools installed. Windows has a bug check c=
+ode
+>>>>>> of zero, leaves no memory dump, nothing in the logs from QEMU in Dom=
+0,
+>>>>>> the domain just powers off immediately leaving a record of the incid=
+ent
+>>>>>> in the hypervisor.log. So, it does appear to be a Xen issue. Modern
+>>>>>> Intel CPU.
+>>>>>>
+>>>>>> Does anyone have some ideas on what may be causing this?
+>>>>> What exact CPU do you have?=C2=A0 This looks exactly like the
+>>>>> Haswell/Broadwell TSX errata.
+>>>>>
+>>>>> ~Andrew
+>>>>>
+>>>> i5-4590
+>>> How about the output of `head /proc/cpuinfo` in dom0?
+>>>
+>>> ~Andrew
+>>>
+>> processor=09: 0
+>> vendor_id=09: GenuineIntel
+>> cpu family=09: 6
+>> model=09=09: 60
+>> model name=09: Intel(R) Core(TM) i5-4590 CPU @ 3.30GHz
+>> stepping=09: 3
+>> microcode=09: 0x27
+>> cpu MHz=09=09: 3299.926
+>> cache size=09: 6144 KB
+>> physical id=09: 0
+>=20
+> Ok, so the errata is one of HSM182/HSD172.
+>=20
+> Xen has workaround for all of these.=C2=A0 However, I also see:
+>=20
+>> (XEN) ----[ Xen-4.8.5-15.fc25=C2=A0 x86_64=C2=A0 debug=3Dn=C2=A0=C2=A0 N=
+ot tainted ]----
+>=20
+> which is an obsolete version of Xen these days.=C2=A0 It looks like these
+> issues were first fixed in Xen 4.9, but you should upgrade to something
+> rather newer.
+>=20
+> ~Andrew
+>=20
 
-Cool, we can drop this eventually then :-).
+Ah, so this is originally a CPU bug which Xen has had to patch over.
 
-Thanks,
-Ian.
+As for the Xen version, that's controlled by the "distribution" of Xen I
+run which is Qubes. To remedy this I could run the testing stream of
+Qubes which currently provides the latest version of Xen (4.13) but that
+could bring its own set of problems.
+
+Thank you for the help, Andrew!
+
 
