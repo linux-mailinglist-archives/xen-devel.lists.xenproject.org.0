@@ -2,55 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 129D31DB163
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 13:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8B171DB167
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 13:21:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbMlb-0008UR-SE; Wed, 20 May 2020 11:20:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rB2F=7C=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jbMla-0008Qo-79
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 11:20:06 +0000
-X-Inumbo-ID: d9cc5314-9a8b-11ea-a9ed-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d9cc5314-9a8b-11ea-a9ed-12813bfff9fa;
- Wed, 20 May 2020 11:20:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Bk+vYCiNsG8hJBYO3OBXFvWsQJMd7ctxt+h9CazVwRc=; b=ns/LMFQM6EARgfsJTCIVj/MxOw
- pkCIkTk0mrQrvcD2vWPU7v2E+GWY2fx7pCIuRjhB8aLX543HAOtvFVwep05jpviQh+GKMCn8Hws+y
- n/XxGQpYTOhsd8tyj8fJF4ItbYNAl6F7EPSgzBgY8PjAnUI2NlTMyvbP0+DyO3gBUldM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jbMlW-0007tI-5j; Wed, 20 May 2020 11:20:02 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jbMlV-0000xH-QA; Wed, 20 May 2020 11:20:02 +0000
-Subject: Re: [PATCH] docs: update xenstore-migration.md
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <20200520101605.4263-1-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <2f5da70b-09ec-ade0-0953-2853c93c353b@xen.org>
-Date: Wed, 20 May 2020 12:19:59 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+	id 1jbMmN-00007C-5j; Wed, 20 May 2020 11:20:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/hkT=7C=zohomail.eu=elliotkillick@srs-us1.protection.inumbo.net>)
+ id 1jbMmM-00006L-FV
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 11:20:54 +0000
+X-Inumbo-ID: f71a8b64-9a8b-11ea-b9cf-bc764e2007e4
+Received: from sender11-pp-o92.zoho.eu (unknown [31.186.226.250])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f71a8b64-9a8b-11ea-b9cf-bc764e2007e4;
+ Wed, 20 May 2020 11:20:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1589973650; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=Te8D8MxAZn8lO8f1D6jw2Vod41cgY0fLXmT63HCkreH322mL0tWy8z98PrIel+odBF2bwwjDLhgGmqJsIqsynyTIgfa4Hz1UhM4g6ZkzoORrOtuAXcyYXlaobKZCjZQfBRC0LYWSvCjui3U3TuWAOUH9OdA1I0bmklwBvm7SvOc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc; t=1589973650;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
+ bh=aR7gBnILmO1RKcA2jKLkKUAJB/f8NlfON0JDkwcQY3Y=; 
+ b=cAljNXntotx474riSRV1ig4S+u1y22eLAIB/VXrST4OYS5TywPh9RJbt+4T2NK1m7IHs9/FwPITzQq+wrrL3YVsIec9Up/gD5SIn7WBBVftDHbwC46LP34mrjbBetkcnqFk9Bw4i6SHJiP/2xyqDbTmFxTJaR4HTVK0aoz82UEA=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+ dkim=pass  header.i=zohomail.eu;
+ spf=pass  smtp.mailfrom=elliotkillick@zohomail.eu;
+ dmarc=pass header.from=<elliotkillick@zohomail.eu>
+ header.from=<elliotkillick@zohomail.eu>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1589973650; 
+ s=zoho; d=zohomail.eu; i=elliotkillick@zohomail.eu;
+ h=Subject:To:References:From:Cc:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+ bh=aR7gBnILmO1RKcA2jKLkKUAJB/f8NlfON0JDkwcQY3Y=;
+ b=UbtnNdKz71aaL+0922UNn6KNjoveyZ/ueU1h2r3oQxO7itQVjPhfxWea15WycpWb
+ xQjiECQiM2T/8JaVh0rSDJxGxTifO01dCOKLf9dV/0xvDgVobzP4fhOcgLYYSIb1ML4
+ xjAA88HeK54z11SaclJwRtqPzlHpZDPlMqTT9+uE=
+Received: from [10.137.0.35]
+ (CPEac202e7c9cc3-CMac202e7c9cc0.cpe.net.cable.rogers.com [99.231.147.74]) by
+ mx.zoho.eu with SMTPS id 1589973648928178.0051062278701;
+ Wed, 20 May 2020 13:20:48 +0200 (CEST)
+Subject: Re: [BUG] Consistent LBR/TSX vmentry failure (0x80000022) calling
+ domain_crash() in vmx.c:3324
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <36815795-223f-2b96-5401-c262294cbaa8@zohomail.eu>
+ <c715f89a-b2ba-490c-c027-b4c7d7069f42@citrix.com>
+From: Elliot Killick <elliotkillick@zohomail.eu>
+Message-ID: <2bcd2ccc-b58e-1268-68ce-3ef534534245@zohomail.eu>
+Date: Wed, 20 May 2020 11:20:44 +0000
 MIME-Version: 1.0
-In-Reply-To: <20200520101605.4263-1-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <c715f89a-b2ba-490c-c027-b4c7d7069f42@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,142 +64,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 2020-05-20 11:10, Andrew Cooper wrote:
+> On 20/05/2020 11:33, Elliot Killick wrote:
+>> Hello,
+>>
+>> Xen is crashing Windows 10 (64-bit) VMs consistently whenever IDA
+>> Debugger
+>> (https://www.hex-rays.com/products/ida/support/download_freeware/)
+>> launches the Local Windows Debugger. The crash occurs when trying to
+>> launch the debugger against any executable (e.g. calc.exe) right at the
+>> time IDA says it is "Moving segment from <X address> to <Y address>".
+>>
+>> Tested on Windows 7, 8 and Linux as well but the bug is only triggered
+>> on Windows 10. Happens whether or not IDA is running with administrator
+>> privileges. No drivers/VM tools installed. Windows has a bug check code
+>> of zero, leaves no memory dump, nothing in the logs from QEMU in Dom0,
+>> the domain just powers off immediately leaving a record of the incident
+>> in the hypervisor.log. So, it does appear to be a Xen issue. Modern
+>> Intel CPU.
+>>
+>> Does anyone have some ideas on what may be causing this?
+>=20
+> What exact CPU do you have?=C2=A0 This looks exactly like the
+> Haswell/Broadwell TSX errata.
+>=20
+> ~Andrew
+>=20
 
+i5-4590
 
-On 20/05/2020 11:16, Juergen Gross wrote:
-> Update connection record details: make flags common for sockets and
-> domains, and add pending incoming data.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-> ---
->   docs/designs/xenstore-migration.md | 63 ++++++++++++++++--------------
->   1 file changed, 34 insertions(+), 29 deletions(-)
-> 
-> diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
-> index 34a2afd17e..e361d6b5e7 100644
-> --- a/docs/designs/xenstore-migration.md
-> +++ b/docs/designs/xenstore-migration.md
-> @@ -147,31 +147,45 @@ the domain being migrated.
->   ```
->       0       1       2       3       4       5       6       7    octet
->   +-------+-------+-------+-------+-------+-------+-------+-------+
-> -| conn-id                       | conn-type     | conn-spec
-> +| conn-id                       | conn-type     | flags         |
-> ++-------------------------------+---------------+---------------+
-> +| conn-spec
->   ...
->   +-------------------------------+-------------------------------+
-> -| data-len                      | data
-> -+-------------------------------+
-> +| in-data-len                   | out-data-len                  |
-> ++-------------------------------+-------------------------------+
-> +| data
->   ...
->   ```
->   
->   
-> -| Field       | Description                                     |
-> -|-------------|-------------------------------------------------|
-> -| `conn-id`   | A non-zero number used to identify this         |
-> -|             | connection in subsequent connection-specific    |
-> -|             | records                                         |
-> -|             |                                                 |
-> -| `conn-type` | 0x0000: shared ring                             |
-> -|             | 0x0001: socket                                  |
-> -|             | 0x0002 - 0xFFFF: reserved for future use        |
-> -|             |                                                 |
-> -| `conn-spec` | See below                                       |
-> -|             |                                                 |
-> -| `data-len`  | The length (in octets) of any pending data not  |
-> -|             | yet written to the connection                   |
-> -|             |                                                 |
-> -| `data`      | Pending data (may be empty)                     |
-> +| Field          | Description                                  |
-> +|----------------|----------------------------------------------|
-> +| `conn-id`      | A non-zero number used to identify this      |
-> +|                | connection in subsequent connection-specific |
-> +|                | records                                      |
-> +|                |                                              |
-> +| `flags`        | A bit-wise OR of:                            |
-> +|                | 0001: read-only                              |
-> +|                |                                              |
-> +| `conn-type`    | 0x0000: shared ring                          |
-> +|                | 0x0001: socket                               |
-> +|                | 0x0002 - 0xFFFF: reserved for future use     |
-> +|                |                                              |
-> +| `conn-spec`    | See below                                    |
-> +|                |                                              |
-> +| `in-data-len`  | The length (in octets) of any data read      |
-> +|                | from the connection not yet processed        |
-> +|                |                                              |
-> +| `out-data-len` | The length (in octets) of any pending data   |
-> +|                | not yet written to the connection            |
-> +|                |                                              |
-> +| `data`         | Pending data, first read data, then written  |
-> +|                | data (any of both may be empty)              |
-> +
-> +In case of live update the connection record for the connection via which
-> +the live update command was issued will contain the response for the live
-> +update command in the pending write data.
->   
->   The format of `conn-spec` is dependent upon `conn-type`.
->   
-> @@ -182,8 +196,6 @@ For `shared ring` connections it is as follows:
->   
->   ```
->       0       1       2       3       4       5       6       7    octet
-> -                                                +-------+-------+
-> -                                                | flags         |
->   +---------------+---------------+---------------+---------------+
->   | domid         | tdomid        | evtchn                        |
->   +-------------------------------+-------------------------------+
-> @@ -198,8 +210,6 @@ For `shared ring` connections it is as follows:
->   |           | it has been subject to an SET_TARGET              |
->   |           | operation [2] or DOMID_INVALID [3] otherwise      |
->   |           |                                                   |
-> -| `flags`   | Must be zero                                      |
-> -|           |                                                   |
->   | `evtchn`  | The port number of the interdomain channel used   |
->   |           | by `domid` to communicate with xenstored          |
->   |           |                                                   |
-> @@ -211,8 +221,6 @@ For `socket` connections it is as follows:
->   
->   
->   ```
-> -                                                +-------+-------+
-> -                                                | flags         |
->   +---------------+---------------+---------------+---------------+
->   | socket-fd                     | pad                           |
->   +-------------------------------+-------------------------------+
-> @@ -221,9 +229,6 @@ For `socket` connections it is as follows:
->   
->   | Field       | Description                                     |
->   |-------------|-------------------------------------------------|
-> -| `flags`     | A bit-wise OR of:                               |
-> -|             | 0001: read-only                                 |
-> -|             |                                                 |
->   | `socket-fd` | The file descriptor of the connected socket     |
->   
->   This type of connection is only relevant for live update, where the xenstored
-> @@ -398,4 +403,4 @@ explanation of node permissions.
->   
->   [3] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/include/public/xen.h;hb=HEAD#l612
->   
-> -[4] https://wiki.xen.org/wiki/XenBus
-> \ No newline at end of file
-> +[4] https://wiki.xen.org/wiki/XenBus
-> 
-
--- 
-Julien Grall
 
