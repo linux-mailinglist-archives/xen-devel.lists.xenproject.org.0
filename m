@@ -2,55 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BEB61DB204
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 13:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 107741DB235
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2020 13:47:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbN8L-0002O3-FY; Wed, 20 May 2020 11:43:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jbNBh-0002Ye-2L; Wed, 20 May 2020 11:47:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AW6E=7C=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jbN8K-0002Ny-8x
- for xen-devel@lists.xenproject.org; Wed, 20 May 2020 11:43:36 +0000
-X-Inumbo-ID: 23254fe8-9a8f-11ea-a9f3-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 23254fe8-9a8f-11ea-a9f3-12813bfff9fa;
- Wed, 20 May 2020 11:43:35 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: lRKbqWturC4hsG5QIz48e3pbeVgDPAqfaFvxF3Xc+AfoVXNnyc6EoQQhvbG40da9FiKoCSC6ou
- gyQdlm+sS9L5M3zFXz1OIlKN6iw/72P2XWFpLup74WDTMeIoRLi3pj/6SGkpwTgEVp/D9VGsKj
- mE7osdQMX0Sn+QyaYkWq9YiaiVIL5esfWZrexNkAOlowev4U33o/cjtXyHVAl1Z45iK4ZG0y2H
- j554uMjk4xZI3BP52FuTtLy6sVIJfN9Td95kWRsdhA78WYuwg+zNkOPFIDTryFRjt/Vwnf62nA
- vLQ=
-X-SBRS: 2.7
-X-MesageID: 18336284
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,413,1583211600"; d="scan'208";a="18336284"
-Date: Wed, 20 May 2020 13:43:27 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2] x86: use POPCNT for hweight<N>() when available
-Message-ID: <20200520114327.GL54375@Air-de-Roger>
-References: <55a4a24d-7fac-527c-6bcf-8d689136bac2@suse.com>
- <20200514140522.GD54375@Air-de-Roger>
- <83534bf1-fa57-1d4a-c615-f656338a8457@suse.com>
- <20200520093106.GI54375@Air-de-Roger>
- <53fdfbe2-615a-72f9-7f2d-26402a0a64d0@suse.com>
- <20200520102805.GK54375@Air-de-Roger>
- <0e97e3af-b66e-4924-a76c-9e33cdd1a726@suse.com>
+ <SRS0=/hkT=7C=zohomail.eu=elliotkillick@srs-us1.protection.inumbo.net>)
+ id 1jbNBf-0002YX-AC
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2020 11:47:03 +0000
+X-Inumbo-ID: 9e26030e-9a8f-11ea-b07b-bc764e2007e4
+Received: from sender11-pp-o93.zoho.eu (unknown [31.186.226.251])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9e26030e-9a8f-11ea-b07b-bc764e2007e4;
+ Wed, 20 May 2020 11:47:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1589975219; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=chTRUJ3vgHGLesrZHWnOhV+zdtjfA7ARzIkqQ1FdXoFTwGQ9KyxOZ0l14jY1++IyIQ/0v0lo02TFGZCkr4j+5dqYnxooUh8/HEu8GIv/Ixzr9M3kIWsUf+fjKKFq08u6Bgp3IrYPoVeEdFg+33j5SsiAsGAaklD+vrkgeiLbPSc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc; t=1589975219;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
+ bh=3KZK3LTh1DP6fs9SUzKRT3SHJyw42JnzKR0mhAkLv+s=; 
+ b=KCLDNP1DhQGzHxkOOAt5cNP0DlziRjVr1jbvEOUaWvEqzZIoC88SoByesT17jEXohPHOOmAEkt8qEeGyrsZRVcJF9+6Te5GtXTygXjqkNuiVFDhI0coul1wDjm0lJEpWW6yG6CDU9WP6vrDEwFSkpyWDFoKea6mLgX+D/mlSpio=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+ dkim=pass  header.i=zohomail.eu;
+ spf=pass  smtp.mailfrom=elliotkillick@zohomail.eu;
+ dmarc=pass header.from=<elliotkillick@zohomail.eu>
+ header.from=<elliotkillick@zohomail.eu>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1589975219; 
+ s=zoho; d=zohomail.eu; i=elliotkillick@zohomail.eu;
+ h=Subject:To:References:Cc:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+ bh=3KZK3LTh1DP6fs9SUzKRT3SHJyw42JnzKR0mhAkLv+s=;
+ b=ca48+O65GZtTCFHs7oiN+9hFc5f4addQ9wwe9kksx9Z7ha46rY9jpMeOPzznWd9n
+ FZFwGD/0yJeVv1tq5nWgAKbR/XeP91cAJq66bCp5YeiLzSt/qQBc6bwk9euLXO4/Z2V
+ gp+IFWrVG6hBQ9gWtmHx44dn2OG5NXSd0YekcK9c=
+Received: from [10.137.0.35]
+ (CPEac202e7c9cc3-CMac202e7c9cc0.cpe.net.cable.rogers.com [99.231.147.74]) by
+ mx.zoho.eu with SMTPS id 1589975218562995.3045505491439;
+ Wed, 20 May 2020 13:46:58 +0200 (CEST)
+Subject: Re: [BUG] Consistent LBR/TSX vmentry failure (0x80000022) calling
+ domain_crash() in vmx.c:3324
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <36815795-223f-2b96-5401-c262294cbaa8@zohomail.eu>
+ <c715f89a-b2ba-490c-c027-b4c7d7069f42@citrix.com>
+ <2bcd2ccc-b58e-1268-68ce-3ef534534245@zohomail.eu>
+ <1b76cd6a-c6a2-c9c9-1d8b-32a9a1dbc557@citrix.com>
+From: Elliot Killick <elliotkillick@zohomail.eu>
+Message-ID: <657e7522-bd0f-bea3-7ce8-2f6c4ec72407@zohomail.eu>
+Date: Wed, 20 May 2020 11:46:54 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0e97e3af-b66e-4924-a76c-9e33cdd1a726@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <1b76cd6a-c6a2-c9c9-1d8b-32a9a1dbc557@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,77 +66,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, May 20, 2020 at 12:57:27PM +0200, Jan Beulich wrote:
-> On 20.05.2020 12:28, Roger Pau Monné wrote:
-> > On Wed, May 20, 2020 at 12:17:15PM +0200, Jan Beulich wrote:
-> >> On 20.05.2020 11:31, Roger Pau Monné wrote:
-> >>> On Wed, May 20, 2020 at 10:31:38AM +0200, Jan Beulich wrote:
-> >>>> On 14.05.2020 16:05, Roger Pau Monné wrote:
-> >>>>> On Mon, Jul 15, 2019 at 02:39:04PM +0000, Jan Beulich wrote:
-> >>>>>> @@ -251,6 +255,10 @@ boot/mkelf32: boot/mkelf32.c
-> >>>>>>   efi/mkreloc: efi/mkreloc.c
-> >>>>>>   	$(HOSTCC) $(HOSTCFLAGS) -g -o $@ $<
-> >>>>>>   
-> >>>>>> +nocov-y += hweight.o
-> >>>>>> +noubsan-y += hweight.o
-> >>>>>> +hweight.o: CFLAGS += $(foreach reg,cx dx si 8 9 10 11,-ffixed-r$(reg))
-> >>>>>
-> >>>>> Why not use clobbers in the asm to list the scratch registers? Is it
-> >>>>> that much expensive?
-> >>>>
-> >>>> The goal is to disturb the call sites as little as possible. There's
-> >>>> no point avoiding the scratch registers when no call is made (i.e.
-> >>>> when the POPCNT insn can be used). Taking away from the compiler 7
-> >>>> out of 15 registers (that it can hold live data in) seems quite a
-> >>>> lot to me.
-> >>>
-> >>> IMO using -ffixed-reg for all those registers is even worse, as that
-> >>> prevents the generated code in hweight from using any of those, thus
-> >>> greatly limiting the amount of registers and likely making the
-> >>> generated code rely heavily on pushing an popping from the stack?
-> >>
-> >> Okay, that's the other side of the idea behind all this: Virtually no
-> >> hardware we run on will lack POPCNT support, hence the quality of
-> >> these fallback routines matters only the very old hardware, where we
-> >> likely don't perform optimally already anyway.
-> >>
-> >>> This also has the side effect to limiting the usage of popcnt to gcc,
-> >>> which IMO is also not ideal.
-> >>
-> >> Agreed. I don't know enough about clang to be able to think of
-> >> possible alternatives. In any event there's no change to current
-> >> behavior for hypervisors built with clang.
-> >>
-> >>> I also wondered, since the in-place asm before patching is a call
-> >>> instruction, wouldn't inline asm at build time already assume that the
-> >>> scratch registers are clobbered?
-> >>
-> >> That would imply the compiler peeks into the string literal of the
-> >> asm(). At least gcc doesn't, and even if it did it couldn't infer an
-> >> ABI from seeing a CALL insn.
-> > 
-> > Please bear with me, but then I don't understand what Linux is doing
-> > in arch/x86/include/asm/arch_hweight.h. I see no clobbers there,
-> > neither it seems like the __sw_hweight{32/64} functions are built
-> > without the usage of the scratch registers.
-> 
-> __sw_hweight{32,64} are implemented in assembly, avoiding most
-> scratch registers while pushing/popping the ones which do get
-> altered.
+On 2020-05-20 11:27, Andrew Cooper wrote:
+> On 20/05/2020 12:20, Elliot Killick wrote:
+>> On 2020-05-20 11:10, Andrew Cooper wrote:
+>>> On 20/05/2020 11:33, Elliot Killick wrote:
+>>>> Hello,
+>>>>
+>>>> Xen is crashing Windows 10 (64-bit) VMs consistently whenever IDA
+>>>> Debugger
+>>>> (https://www.hex-rays.com/products/ida/support/download_freeware/)
+>>>> launches the Local Windows Debugger. The crash occurs when trying to
+>>>> launch the debugger against any executable (e.g. calc.exe) right at th=
+e
+>>>> time IDA says it is "Moving segment from <X address> to <Y address>".
+>>>>
+>>>> Tested on Windows 7, 8 and Linux as well but the bug is only triggered
+>>>> on Windows 10. Happens whether or not IDA is running with administrato=
+r
+>>>> privileges. No drivers/VM tools installed. Windows has a bug check cod=
+e
+>>>> of zero, leaves no memory dump, nothing in the logs from QEMU in Dom0,
+>>>> the domain just powers off immediately leaving a record of the inciden=
+t
+>>>> in the hypervisor.log. So, it does appear to be a Xen issue. Modern
+>>>> Intel CPU.
+>>>>
+>>>> Does anyone have some ideas on what may be causing this?
+>>> What exact CPU do you have?=C2=A0 This looks exactly like the
+>>> Haswell/Broadwell TSX errata.
+>>>
+>>> ~Andrew
+>>>
+>> i5-4590
+>=20
+> How about the output of `head /proc/cpuinfo` in dom0?
+>=20
+> ~Andrew
+>=20
 
-Oh right, I was looking at lib/hweight.c instead of the arch one.
+processor=09: 0
+vendor_id=09: GenuineIntel
+cpu family=09: 6
+model=09=09: 60
+model name=09: Intel(R) Core(TM) i5-4590 CPU @ 3.30GHz
+stepping=09: 3
+microcode=09: 0x27
+cpu MHz=09=09: 3299.926
+cache size=09: 6144 KB
+physical id=09: 0
 
-Would you agree to use the no_caller_saved_registers attribute (which
-is available AFAICT for both gcc and clang) for generic_hweightXX and
-then remove the asm prefix code in favour of the defines for
-hweight{8/16}?
-
-I think that would make it easier to read.
-
-Thanks, Roger.
 
