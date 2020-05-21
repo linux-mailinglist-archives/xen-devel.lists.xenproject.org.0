@@ -2,74 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1F6A1DD14A
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 17:27:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4F131DD232
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 17:44:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbn53-0003zn-I3; Thu, 21 May 2020 15:25:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jbnM1-0005iR-2o; Thu, 21 May 2020 15:43:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nFaT=7D=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jbn51-0003zi-Ff
- for xen-devel@lists.xenproject.org; Thu, 21 May 2020 15:25:55 +0000
-X-Inumbo-ID: 5c688f98-9b77-11ea-ae69-bc764e2007e4
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5c688f98-9b77-11ea-ae69-bc764e2007e4;
- Thu, 21 May 2020 15:25:54 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id f13so5885042wmc.5
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2020 08:25:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=ayWuTYNvwTVM7qJ3U+nBeIGZYdKlMjTykYnWta1uC/w=;
- b=ZrpxpW6gi11IWChJSTz0COaM5DOn3+ubIPx4haK4otZ/OPkGKw2+1eV6VX3JbBJYuI
- +hzIbVpWa5fFMOu/f0nrKc7ZQF1QKuajjSUb0/aIi5rO10gPZVNXhthwHH0SKMnyCBrx
- 6Y2fCfXmZ3u8nCbNQ8D+PnhZe+h61aEFU0zjgVOms5YI4MMWSkwWPUElMMKPiRYyUIzx
- OHRiYCqcenm7S6wvfByHhU+hc5C3mX+BaHk9nAIyPYIRKNgi+I7Olh9CU8UaJ+lfTKwd
- Uk95QA72y2Z/Mjgxq35rbsSznbPjjfj/SVwdXMOGkKWpU1iUTWCX2nRz2O2G7YMsxaFF
- e0ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=ayWuTYNvwTVM7qJ3U+nBeIGZYdKlMjTykYnWta1uC/w=;
- b=J0e+oumzBUglG3D8jAFSBxPEzJKfiwFaQVDvWpn3vY3xqSJ/GjIo4rcITrAWqGOF5X
- lgFdUH17IqDMkh+cDkDLBojE5iwPDp++2preScx+2MjYMb34iOCQKPkQAU9c+rGdu3YC
- GVVcCcltqONWfsXwfNXHEE+CFbbOda1ksA+CdlEwAfH8Hg+aRZNdFP8oQajIWfRTW0B9
- OyKLFo5YeJF55vCxSppG9U4MYbr+GxWAW3q3vzvD6GX7Zb0j8aoyRlmmKRsO2QAok7Sj
- PCFgeQkOfKxpAVa8Jk2Tn2ZM4hF/xgDYvwxHVJilrLq3NotpUuAWbcjXaeSfNi8duz5A
- MjKg==
-X-Gm-Message-State: AOAM530xc1cOBd0WE9vysSQdo76/TVSlVjty72hfqOa6z3FGu3iw65M8
- lXP8SRxth6FxuZS5I3NSp18=
-X-Google-Smtp-Source: ABdhPJy/sfbLMmNvTRd1rS6HEGErF5MHa13sbgk0PD9n4wADuFHqjQhrzEYIDTrDYvRcIKw0Sb2zJA==
-X-Received: by 2002:a7b:cc06:: with SMTP id f6mr9306190wmh.119.1590074753809; 
- Thu, 21 May 2020 08:25:53 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id h74sm6988292wrh.76.2020.05.21.08.25.51
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 May 2020 08:25:53 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Julien Grall'" <julien@xen.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20200521085932.10508-1-paul@xen.org>
- <20200521085932.10508-5-paul@xen.org>
- <dd544d5d-aa25-f035-d96b-747f07c23513@xen.org>
-In-Reply-To: <dd544d5d-aa25-f035-d96b-747f07c23513@xen.org>
-Subject: RE: [PATCH v4 4/5] common/domain: add a domain context record for
- shared_info...
-Date: Thu, 21 May 2020 16:25:51 +0100
-Message-ID: <004401d62f84$1d9a2c40$58ce84c0$@xen.org>
+ <SRS0=V6/I=7D=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jbnLz-0005iM-UQ
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2020 15:43:27 +0000
+X-Inumbo-ID: cf5a1a74-9b79-11ea-ab28-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cf5a1a74-9b79-11ea-ab28-12813bfff9fa;
+ Thu, 21 May 2020 15:43:26 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: cEQAIyRN+tdQi+VpIaRV7Q1pQgxcZYrRRMia970thXQEK5dywKJkHh48aAL7Ff3uPsuI61o82a
+ QaAonCbikwrrQ83ipUmYxEzHZmZ7EvZsKT1tJmVFyTLkfvUu57hbkFQiHpc4lD9O3hzaQtCJgF
+ mvQuN0VxuPANzHU61Cbpm1PfgjNin52WjHzqApjU4r+ty6xv0ouy1Wr51SpvEh71cKSw7aPkcq
+ nZEhUX+PIYl1pVuXig2c26Eh7+Xe8SpvchQMpv4wWmuw5wg6Dv1qP3k6vMBiozxPA6VkbdZkD2
+ qdk=
+X-SBRS: 2.7
+X-MesageID: 18128437
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,418,1583211600"; d="scan'208";a="18128437"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH v2] x86/traps: Rework #PF[Rsvd] bit handling
+Date: Thu, 21 May 2020 16:43:06 +0100
+Message-ID: <20200521154306.29019-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20200518153820.18170-1-andrew.cooper3@citrix.com>
+References: <20200518153820.18170-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIT1cQvb66Smwxss7bTr3fjVXX5DAJ/pCGkAnVDoB+oD7LJEA==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,95 +53,132 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Paul Durrant' <pdurrant@amazon.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-[snip]
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index 7cc9526139..14e96c3bc2 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -33,6 +33,7 @@
-> >   #include <xen/xenoprof.h>
-> >   #include <xen/irq.h>
-> >   #include <xen/argo.h>
-> > +#include <xen/save.h>
-> >   #include <asm/debugger.h>
-> >   #include <asm/p2m.h>
-> >   #include <asm/processor.h>
-> > @@ -1649,6 +1650,64 @@ int continue_hypercall_on_cpu(
-> >       return 0;
-> >   }
-> >
-> > +static int save_shared_info(const struct domain *d, struct domain_context *c,
-> > +                            bool dry_run)
-> > +{
-> > +    struct domain_shared_info_context ctxt = {
-> > +#ifdef CONFIG_COMPAT
-> > +        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
-> > +#endif
-> > +        .buffer_size = sizeof(shared_info_t),
-> > +    };
-> > +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
-> > +    int rc;
-> > +
-> > +    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, 0);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    rc = domain_save_data(c, &ctxt, hdr_size);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    rc = domain_save_data(c, d->shared_info, ctxt.buffer_size);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    return domain_save_end(c);
-> > +}
-> > +
-> > +static int load_shared_info(struct domain *d, struct domain_context *c)
-> > +{
-> > +    struct domain_shared_info_context ctxt;
-> > +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
-> > +    unsigned int i;
-> > +    int rc;
-> > +
-> > +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
-> > +    if ( rc || i ) /* expect only a single instance */
-> > +        return rc;
-> 
-> This will return 0 if there is multiple instance. Is it intended?
-> 
+The reserved_bit_page_fault() paths effectively turn reserved bit faults into
+a warning, but in the light of L1TF, the real impact is far more serious.
 
-No, it ought to be an error... probably ENOENT.
+Make #PF[Rsvd] a hard error, irrespective of mode.  Any new panic() caused by
+this constitutes pagetable corruption, and probably an L1TF gadget needing
+fixing.
 
-> > +
-> > +    rc = domain_load_data(c, &ctxt, hdr_size);
-> > +    if ( rc )
-> > +        return rc;
-> > +
-> > +    if ( ctxt.buffer_size != sizeof(shared_info_t) )
-> > +        return -EINVAL;
-> > +
-> > +#ifdef CONFIG_COMPAT
-> > +    has_32bit_shinfo(d) = ctxt.flags & DOMAIN_SAVE_32BIT_SHINFO;
-> > +#endif
-> Should we check the flag is not set when compat is not supported?
-> 
-> This would prevent someone to try restoring a compat shared info on a
-> platform not support it.
-> 
+Drop the PFEC_reserved_bit check in __page_fault_type() which has been made
+dead by the rearrangement in do_page_fault().
 
-That would be prudent, yes. Probably a straight EINVAL for this one.
+Additionally, drop the comment for do_page_fault().  It is inaccurate (bit 0
+being set isn't always a protection violation) and stale (missing bits
+5,6,15,31).
 
-  Paul
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+
+v2:
+ * Reword commit message and comment in do_page_fault().
+---
+ xen/arch/x86/traps.c | 42 ++++++++++++++++--------------------------
+ 1 file changed, 16 insertions(+), 26 deletions(-)
+
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index 1f6f1dde76..e8a0877344 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1137,15 +1137,6 @@ void do_int3(struct cpu_user_regs *regs)
+     pv_inject_hw_exception(TRAP_int3, X86_EVENT_NO_EC);
+ }
+ 
+-static void reserved_bit_page_fault(unsigned long addr,
+-                                    struct cpu_user_regs *regs)
+-{
+-    printk("%pv: reserved bit in page table (ec=%04X)\n",
+-           current, regs->error_code);
+-    show_page_walk(addr);
+-    show_execution_state(regs);
+-}
+-
+ #ifdef CONFIG_PV
+ static int handle_ldt_mapping_fault(unsigned int offset,
+                                     struct cpu_user_regs *regs)
+@@ -1248,10 +1239,6 @@ static enum pf_type __page_fault_type(unsigned long addr,
+     if ( in_irq() )
+         return real_fault;
+ 
+-    /* Reserved bit violations are never spurious faults. */
+-    if ( error_code & PFEC_reserved_bit )
+-        return real_fault;
+-
+     required_flags  = _PAGE_PRESENT;
+     if ( error_code & PFEC_write_access )
+         required_flags |= _PAGE_RW;
+@@ -1413,14 +1400,6 @@ static int fixup_page_fault(unsigned long addr, struct cpu_user_regs *regs)
+     return 0;
+ }
+ 
+-/*
+- * #PF error code:
+- *  Bit 0: Protection violation (=1) ; Page not present (=0)
+- *  Bit 1: Write access
+- *  Bit 2: User mode (=1) ; Supervisor mode (=0)
+- *  Bit 3: Reserved bit violation
+- *  Bit 4: Instruction fetch
+- */
+ void do_page_fault(struct cpu_user_regs *regs)
+ {
+     unsigned long addr, fixup;
+@@ -1439,6 +1418,21 @@ void do_page_fault(struct cpu_user_regs *regs)
+     if ( unlikely(fixup_page_fault(addr, regs) != 0) )
+         return;
+ 
++    /*
++     * Xen doesn't have reserved bits set in its pagetables, nor do we permit
++     * PV guests to write any.  Such entries would generally be vulnerable to
++     * the L1TF sidechannel.
++     *
++     * The shadow pagetable logic may use reserved bits as part of
++     * SHOPT_FAST_FAULT_PATH.  Pagefaults arising from these will be resolved
++     * via the fixup_page_fault() path.
++     *
++     * Anything remaining is an error, constituting corruption of the
++     * pagetables and probably an L1TF vulnerable gadget.
++     */
++    if ( error_code & PFEC_reserved_bit )
++        goto fatal;
++
+     if ( unlikely(!guest_mode(regs)) )
+     {
+         enum pf_type pf_type = spurious_page_fault(addr, regs);
+@@ -1457,13 +1451,12 @@ void do_page_fault(struct cpu_user_regs *regs)
+         if ( likely((fixup = search_exception_table(regs)) != 0) )
+         {
+             perfc_incr(copy_user_faults);
+-            if ( unlikely(regs->error_code & PFEC_reserved_bit) )
+-                reserved_bit_page_fault(addr, regs);
+             this_cpu(last_extable_addr) = regs->rip;
+             regs->rip = fixup;
+             return;
+         }
+ 
++    fatal:
+         if ( debugger_trap_fatal(TRAP_page_fault, regs) )
+             return;
+ 
+@@ -1475,9 +1468,6 @@ void do_page_fault(struct cpu_user_regs *regs)
+               error_code, _p(addr));
+     }
+ 
+-    if ( unlikely(regs->error_code & PFEC_reserved_bit) )
+-        reserved_bit_page_fault(addr, regs);
+-
+     pv_inject_page_fault(regs->error_code, addr);
+ }
+ 
+-- 
+2.11.0
 
 
