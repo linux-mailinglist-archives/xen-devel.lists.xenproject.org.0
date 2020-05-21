@@ -2,57 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B5F1DD435
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 19:23:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB17D1DD445
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 19:26:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbota-0007cg-5C; Thu, 21 May 2020 17:22:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jboxy-0007mz-M7; Thu, 21 May 2020 17:26:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3PC2=7D=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jbotY-0007cb-7C
- for xen-devel@lists.xenproject.org; Thu, 21 May 2020 17:22:12 +0000
-X-Inumbo-ID: 9b218cc0-9b87-11ea-b07b-bc764e2007e4
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b218cc0-9b87-11ea-b07b-bc764e2007e4;
- Thu, 21 May 2020 17:22:11 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04LHLv7O166772;
- Thu, 21 May 2020 17:22:07 GMT
+ id 1jboxw-0007mu-Gs
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2020 17:26:44 +0000
+X-Inumbo-ID: 3cd69e3f-9b88-11ea-ab44-12813bfff9fa
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3cd69e3f-9b88-11ea-ab44-12813bfff9fa;
+ Thu, 21 May 2020 17:26:43 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04LHLLgG190443;
+ Thu, 21 May 2020 17:26:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=hpmMnei2rM/L7Pi5nGnRDXvCuZpucliPxYWYs7TRDM8=;
- b=tZKSSkDuYeu27zDjK1lcJ6IfjCMQ8V1HkApiYMG296CARX++Sl+qibbMpSUIF4hXyH2v
- nkgUwhxPEykrb0QUzGtuNBxuAyJpZdM2Y4gxUgPklDOwMgxVcO/EMECmPJVI0AplgSs/
- CC3X6HcHtohvzo3gSm43fKbipOquGqfVYIVjn4kMBIkPX5SQMXGkRq7qWOLE1PuKuC8H
- 3kmyYemwoQpPmnouUrrZOXDOFvL8dD66i3eWlHn1CRhnOHdyEFS5D53zAOZj7QIkOd0k
- Hh3mmeDMJEndG3IOq6/q4MIEC4i3i6fJisYyJiEEVQPLXXwGumQVv0M6TedzSrXsF/RL lA== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 31284m9rtm-1
+ bh=MgkxCsFV38a7Wm3TQBmGlrqbzqH0CEUY75tnU5xc+/M=;
+ b=MNxGwd76rYyZ+9bUtdxxDy60kYW46J5sFIXcHI3P89/FiOPL8AUZxFegfI0WwgFXrNhe
+ 2/5zWH3xJ/jJNzS+h0vI6qqorCRDDNkfEQoUNJjPFAjkSAfrCCEREEakGfihvomis+wR
+ Eq9flqUgfZ/ZbBeuXeiKTh0XeaI6VhoLSINcg2pwKwZJnXZGFANJ6OFZreVtIRxQ4wO+
+ +ZkOyHdQrkchVveUx0XHyefWxb9JFdqvRHYF6MNjNyTM5JT5p9nVWzh3A7vvydtF+Q6l
+ avUh/xIwjR9AhWdP3Fg6LHS9qZ53L7881euFpq0BxXfSebThtRwxWKOZFj7+It9KD6Sx Aw== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2130.oracle.com with ESMTP id 3127krhtax-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 21 May 2020 17:22:07 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04LHJD2D116734;
- Thu, 21 May 2020 17:22:07 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3020.oracle.com with ESMTP id 312t3bthpd-1
+ Thu, 21 May 2020 17:26:42 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04LHOWQB067775;
+ Thu, 21 May 2020 17:26:41 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 314gm9met1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 21 May 2020 17:22:07 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 04LHM5nV003894;
- Thu, 21 May 2020 17:22:06 GMT
+ Thu, 21 May 2020 17:26:41 +0000
+Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 04LHQeuK023027;
+ Thu, 21 May 2020 17:26:40 GMT
 Received: from [10.39.200.114] (/10.39.200.114)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 21 May 2020 10:22:05 -0700
-Subject: Re: [PATCH] xen/events: avoid NULL pointer dereference in
- evtchn_from_irq()
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20200319071428.12115-1-jgross@suse.com>
+ with ESMTP ; Thu, 21 May 2020 10:26:40 -0700
+Subject: Re: [PATCH] x86/xen: drop an unused parameter gsi_override
+To: Wei Liu <wei.liu@kernel.org>, linux-pci@vger.kernel.org,
+ Xen Development List <xen-devel@lists.xenproject.org>
+References: <20200428153640.76476-1-wei.liu@kernel.org>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
@@ -97,30 +97,30 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <30719c35-6de7-d400-7bb8-cff4570f8971@oracle.com>
-Date: Thu, 21 May 2020 13:22:03 -0400
+Message-ID: <c60b771d-b61a-d63d-f593-52e8d07c0dc8@oracle.com>
+Date: Thu, 21 May 2020 13:26:37 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200319071428.12115-1-jgross@suse.com>
+In-Reply-To: <20200428153640.76476-1-wei.liu@kernel.org>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9628
  signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- spamscore=0 mlxlogscore=999
- phishscore=0 mlxscore=0 malwarescore=0 suspectscore=2 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2005210124
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxlogscore=999
+ adultscore=0 phishscore=0 mlxscore=0 spamscore=0 suspectscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2005210126
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9628
  signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=2
- mlxscore=0
- cotscore=-2147483648 impostorscore=0 malwarescore=0 mlxlogscore=999
- lowpriorityscore=0 phishscore=0 spamscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 clxscore=1011 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2004280000 definitions=main-2005210125
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ phishscore=0 spamscore=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 mlxscore=0 impostorscore=0
+ suspectscore=0 mlxlogscore=999 malwarescore=0 cotscore=-2147483648
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2005210125
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,99 +131,19 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, stable@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>, sstabellini@kernel.org,
+ konrad.wilk@oracle.com, x86@kernel.org, linux-kernel@vger.kernel.org,
+ Michael Kelley <mikelley@microsoft.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 3/19/20 3:14 AM, Juergen Gross wrote:
-> There have been reports of races in evtchn_from_irq() where the info
-> pointer has been NULL.
+On 4/28/20 11:36 AM, Wei Liu wrote:
+> All callers within the same file pass in -1 (no override).
 >
-> Avoid that case by testing info before dereferencing it.
->
-> In order to avoid accessing a just freed info structure do the kfree()
-> via kfree_rcu().
+> Signed-off-by: Wei Liu <wei.liu@kernel.org>
 
 
-Looks like noone ever responded to this.
 
-
-This change looks fine but is there a background on the problem? I
-looked in the archives and didn't find the relevant discussion.
-
-
--boris
-
-
->
-> Cc: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> Cc: stable@vger.kernel.org
-> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
-ab.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  drivers/xen/events/events_base.c     | 10 ++++++++--
->  drivers/xen/events/events_internal.h |  3 +++
->  2 files changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/even=
-ts_base.c
-> index 499eff7d3f65..838762fe3d6e 100644
-> --- a/drivers/xen/events/events_base.c
-> +++ b/drivers/xen/events/events_base.c
-> @@ -247,10 +247,16 @@ static void xen_irq_info_cleanup(struct irq_info =
-*info)
->   */
->  unsigned int evtchn_from_irq(unsigned irq)
->  {
-> +	struct irq_info *info;
-> +
->  	if (WARN(irq >=3D nr_irqs, "Invalid irq %d!\n", irq))
->  		return 0;
-> =20
-> -	return info_for_irq(irq)->evtchn;
-> +	info =3D info_for_irq(irq);
-> +	if (info =3D=3D NULL)
-> +		return 0;
-> +
-> +	return info->evtchn;
->  }
-> =20
->  unsigned irq_from_evtchn(unsigned int evtchn)
-> @@ -436,7 +442,7 @@ static void xen_free_irq(unsigned irq)
-> =20
->  	WARN_ON(info->refcnt > 0);
-> =20
-> -	kfree(info);
-> +	kfree_rcu(info, rcu);
-> =20
->  	/* Legacy IRQ descriptors are managed by the arch. */
->  	if (irq < nr_legacy_irqs())
-> diff --git a/drivers/xen/events/events_internal.h b/drivers/xen/events/=
-events_internal.h
-> index 82938cff6c7a..c421055843c8 100644
-> --- a/drivers/xen/events/events_internal.h
-> +++ b/drivers/xen/events/events_internal.h
-> @@ -7,6 +7,8 @@
->  #ifndef __EVENTS_INTERNAL_H__
->  #define __EVENTS_INTERNAL_H__
-> =20
-> +#include <linux/rcupdate.h>
-> +
->  /* Interrupt types. */
->  enum xen_irq_type {
->  	IRQT_UNBOUND =3D 0,
-> @@ -30,6 +32,7 @@ enum xen_irq_type {
->   */
->  struct irq_info {
->  	struct list_head list;
-> +	struct rcu_head rcu;
->  	int refcnt;
->  	enum xen_irq_type type;	/* type */
->  	unsigned irq;
-
-
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
 
