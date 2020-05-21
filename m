@@ -2,41 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 076161DC93A
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 11:05:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22BC41DC9F3
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 11:24:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbh8O-0002J7-S3; Thu, 21 May 2020 09:05:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jbhQK-000425-DZ; Thu, 21 May 2020 09:23:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V6/I=7D=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jbh8N-0002J2-Uq
- for xen-devel@lists.xenproject.org; Thu, 21 May 2020 09:04:59 +0000
-X-Inumbo-ID: 25005354-9b42-11ea-9887-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 25005354-9b42-11ea-9887-bc764e2007e4;
- Thu, 21 May 2020 09:04:58 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ <SRS0=S6UB=7D=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jbhQI-000420-NU
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2020 09:23:30 +0000
+X-Inumbo-ID: baa57a7c-9b44-11ea-aaeb-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id baa57a7c-9b44-11ea-aaeb-12813bfff9fa;
+ Thu, 21 May 2020 09:23:28 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: ZxisDAJGiEEQi+wn7XLXo4t7iJDISE4CYylorTX8S37foyF5JiulHCVRVgMB4ZmwIqM+w2vYsl
- 0jM6loOkmIbvYZFK/CpsQzUhCCAElw9TojHcuBLAcGhAUi50y08+zvCPzu4eF2WFlagt2DaUdv
- fjuTgBXnAUN+romk8ZsHS8vf/7sP7a5q9KHeWvN0Przo+0Cfe6yEc3hDo4+DFlKR33WkalJ7mL
- thw31QDtDcQuorTBVUHycblNk3FIxsB3WlpzlsZTWiVQc7UGtHA3JToHuL/VZTViGGbfSrx3Oa
- TBA=
+IronPort-SDR: kyRAjqcOd+fWqAf3a2AmUTJbOE4pK11IFSZLY/WDgzlKb/gif3ZyZhxKLrnWfMbdk6B7sZBw4v
+ kzpgDXp4skGPCoN9LmL2JJfWCupc55sylwoKNqM5V/2jb8+GKgfhiEhgguBJI1YAXA3BCOjqht
+ dMnTLoRt/IZbfXbGgs+jSBUMFMdzPxX1Hnf+aKiBJ7VtjPyKr9bfwSrf81ywj6ghMbvrlITC3v
+ 4aBQ4GDAJ0pOHc0eWGNmCB6nkeaNswSCT3hmArQpRN8vbYk2Wby9WCR0IcIyNRY73nA9riwQQS
+ qMM=
 X-SBRS: 2.7
-X-MesageID: 18780728
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 18329862
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,417,1583211600"; d="scan'208";a="18780728"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/shadow: Reposition sh_remove_write_access_from_sl1p()
-Date: Thu, 21 May 2020 10:04:28 +0100
-Message-ID: <20200521090428.11425-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-IronPort-AV: E=Sophos;i="5.73,417,1583211600"; d="scan'208";a="18329862"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH v4] x86/idle: prevent entering C6 with in service interrupts
+ on Intel
+Date: Thu, 21 May 2020 11:22:58 +0200
+Message-ID: <20200521092258.82503-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -50,118 +52,131 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
- Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-When compiling with SHOPT_OUT_OF_SYNC disabled, the build fails with:
+Apply a workaround for Intel errata BDX99, CLX30, SKX100, CFW125,
+BDF104, BDH85, BDM135, KWB131: "A Pending Fixed Interrupt May Be
+Dispatched Before an Interrupt of The Same Priority Completes".
 
-  common.c:41:12: error: ‘sh_remove_write_access_from_sl1p’ declared ‘static’ but never defined [-Werror=unused-function]
-   static int sh_remove_write_access_from_sl1p(struct domain *d, mfn_t gmfn,
-              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Apply the errata to all server and client models (big cores) from
+Broadwell to Cascade Lake. The workaround is grouped together with the
+existing fix for errata AAJ72, and the eoi from the function name is
+removed.
 
-due to an unguarded forward declaration.
-
-It turns out there is no need to forward declare
-sh_remove_write_access_from_sl1p() to begin with, so move it to just ahead of
-its first users, which is within a larger #ifdef'd SHOPT_OUT_OF_SYNC block.
-
-Fix up for style while moving it.  No functional change.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Tim Deegan <tim@xen.org>
----
- xen/arch/x86/mm/shadow/common.c | 56 ++++++++++++++++++-----------------------
- 1 file changed, 25 insertions(+), 31 deletions(-)
+Changes since v3:
+ - Remove command line option.
+ - Switch order of static vs const.
 
-diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
-index 0ac3f880e1..6dff240e97 100644
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -38,9 +38,6 @@
- #include <xen/numa.h>
- #include "private.h"
- 
--static int sh_remove_write_access_from_sl1p(struct domain *d, mfn_t gmfn,
--                                            mfn_t smfn, unsigned long offset);
--
- DEFINE_PER_CPU(uint32_t,trace_shadow_path_flags);
- 
- static int sh_enable_log_dirty(struct domain *, bool log_global);
-@@ -252,6 +249,31 @@ static inline void _sh_resync_l1(struct vcpu *v, mfn_t gmfn, mfn_t snpmfn)
-         SHADOW_INTERNAL_NAME(sh_resync_l1, 4)(v, gmfn, snpmfn);
+Changes since v2:
+ - Use x86_match_cpu and apply the workaround to all models from
+   Broadwell to Cascade Lake.
+ - Rename command line option to disable-c6-errata.
+
+Changes since v1:
+ - Unify workaround with errata_c6_eoi_workaround.
+ - Properly check state in both acpi and mwait drivers.
+---
+ xen/arch/x86/acpi/cpu_idle.c  | 38 +++++++++++++++++++++++++++++++----
+ xen/arch/x86/cpu/mwait-idle.c |  2 +-
+ xen/include/asm-x86/cpuidle.h |  2 +-
+ 3 files changed, 36 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
+index 82f108d301..178cb607c2 100644
+--- a/xen/arch/x86/acpi/cpu_idle.c
++++ b/xen/arch/x86/acpi/cpu_idle.c
+@@ -548,7 +548,7 @@ void trace_exit_reason(u32 *irq_traced)
+     }
  }
  
-+static int sh_remove_write_access_from_sl1p(struct domain *d, mfn_t gmfn,
-+                                            mfn_t smfn, unsigned long off)
-+{
-+    struct page_info *sp = mfn_to_page(smfn);
-+
-+    ASSERT(mfn_valid(smfn));
-+    ASSERT(mfn_valid(gmfn));
-+
-+    if ( sp->u.sh.type == SH_type_l1_32_shadow ||
-+         sp->u.sh.type == SH_type_fl1_32_shadow )
-+        return SHADOW_INTERNAL_NAME(sh_rm_write_access_from_sl1p, 2)
-+            (d, gmfn, smfn, off);
-+
-+    if ( sp->u.sh.type == SH_type_l1_pae_shadow ||
-+         sp->u.sh.type == SH_type_fl1_pae_shadow )
-+        return SHADOW_INTERNAL_NAME(sh_rm_write_access_from_sl1p, 3)
-+            (d, gmfn, smfn, off);
-+
-+    if ( sp->u.sh.type == SH_type_l1_64_shadow ||
-+         sp->u.sh.type == SH_type_fl1_64_shadow )
-+        return SHADOW_INTERNAL_NAME(sh_rm_write_access_from_sl1p, 4)
-+            (d, gmfn, smfn, off);
-+
-+    return 0;
-+}
+-bool errata_c6_eoi_workaround(void)
++bool errata_c6_workaround(void)
+ {
+     static int8_t __read_mostly fix_needed = -1;
  
- /*
-  * Fixup arrays: We limit the maximum number of writable mappings to
-@@ -2001,34 +2023,6 @@ int sh_remove_write_access(struct domain *d, mfn_t gmfn,
- }
- #endif /* CONFIG_HVM */
+@@ -573,10 +573,40 @@ bool errata_c6_eoi_workaround(void)
+             INTEL_FAM6_MODEL(0x2f),
+             { }
+         };
++        /*
++         * Errata BDX99, CLX30, SKX100, CFW125, BDF104, BDH85, BDM135, KWB131:
++         * A Pending Fixed Interrupt May Be Dispatched Before an Interrupt of
++         * The Same Priority Completes.
++         *
++         * Resuming from C6 Sleep-State, with Fixed Interrupts of the same
++         * priority queued (in the corresponding bits of the IRR and ISR APIC
++         * registers), the processor may dispatch the second interrupt (from
++         * the IRR bit) before the first interrupt has completed and written to
++         * the EOI register, causing the first interrupt to never complete.
++         */
++        static const struct x86_cpu_id isr_errata[] = {
++            /* Broadwell */
++            INTEL_FAM6_MODEL(0x47),
++            INTEL_FAM6_MODEL(0x3d),
++            INTEL_FAM6_MODEL(0x4f),
++            INTEL_FAM6_MODEL(0x56),
++            /* Skylake (client) */
++            INTEL_FAM6_MODEL(0x5e),
++            INTEL_FAM6_MODEL(0x4e),
++            /* {Sky/Cascade}lake (server) */
++            INTEL_FAM6_MODEL(0x55),
++            /* {Kaby/Coffee/Whiskey/Amber} Lake */
++            INTEL_FAM6_MODEL(0x9e),
++            INTEL_FAM6_MODEL(0x8e),
++            /* Cannon Lake */
++            INTEL_FAM6_MODEL(0x66),
++            { }
++        };
+ #undef INTEL_FAM6_MODEL
  
--#if (SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC)
--static int sh_remove_write_access_from_sl1p(struct domain *d, mfn_t gmfn,
--                                            mfn_t smfn, unsigned long off)
--{
--    struct page_info *sp = mfn_to_page(smfn);
--
--    ASSERT(mfn_valid(smfn));
--    ASSERT(mfn_valid(gmfn));
--
--    if ( sp->u.sh.type == SH_type_l1_32_shadow
--         || sp->u.sh.type == SH_type_fl1_32_shadow )
--    {
--        return SHADOW_INTERNAL_NAME(sh_rm_write_access_from_sl1p,2)
--            (d, gmfn, smfn, off);
--    }
--    else if ( sp->u.sh.type == SH_type_l1_pae_shadow
--              || sp->u.sh.type == SH_type_fl1_pae_shadow )
--        return SHADOW_INTERNAL_NAME(sh_rm_write_access_from_sl1p,3)
--            (d, gmfn, smfn, off);
--    else if ( sp->u.sh.type == SH_type_l1_64_shadow
--              || sp->u.sh.type == SH_type_fl1_64_shadow )
--        return SHADOW_INTERNAL_NAME(sh_rm_write_access_from_sl1p,4)
--            (d, gmfn, smfn, off);
--
--    return 0;
--}
--#endif
--
- /**************************************************************************/
- /* Remove all mappings of a guest frame from the shadow tables.
-  * Returns non-zero if we need to flush TLBs. */
+-        fix_needed = cpu_has_apic && !directed_eoi_enabled &&
+-                     x86_match_cpu(eoi_errata);
++        fix_needed = cpu_has_apic &&
++                     ((!directed_eoi_enabled && x86_match_cpu(eoi_errata)) ||
++                      x86_match_cpu(isr_errata));
+     }
+ 
+     return (fix_needed && cpu_has_pending_apic_eoi());
+@@ -685,7 +715,7 @@ static void acpi_processor_idle(void)
+         return;
+     }
+ 
+-    if ( (cx->type >= ACPI_STATE_C3) && errata_c6_eoi_workaround() )
++    if ( (cx->type >= ACPI_STATE_C3) && errata_c6_workaround() )
+         cx = power->safe_state;
+ 
+ 
+diff --git a/xen/arch/x86/cpu/mwait-idle.c b/xen/arch/x86/cpu/mwait-idle.c
+index 88a3e160c5..52eab81bf8 100644
+--- a/xen/arch/x86/cpu/mwait-idle.c
++++ b/xen/arch/x86/cpu/mwait-idle.c
+@@ -770,7 +770,7 @@ static void mwait_idle(void)
+ 		return;
+ 	}
+ 
+-	if ((cx->type >= 3) && errata_c6_eoi_workaround())
++	if ((cx->type >= 3) && errata_c6_workaround())
+ 		cx = power->safe_state;
+ 
+ 	eax = cx->address;
+diff --git a/xen/include/asm-x86/cpuidle.h b/xen/include/asm-x86/cpuidle.h
+index 51368694dc..0981a8fd64 100644
+--- a/xen/include/asm-x86/cpuidle.h
++++ b/xen/include/asm-x86/cpuidle.h
+@@ -26,6 +26,6 @@ void update_idle_stats(struct acpi_processor_power *,
+ void update_last_cx_stat(struct acpi_processor_power *,
+                          struct acpi_processor_cx *, uint64_t);
+ 
+-bool errata_c6_eoi_workaround(void);
++bool errata_c6_workaround(void);
+ 
+ #endif /* __X86_ASM_CPUIDLE_H__ */
 -- 
-2.11.0
+2.26.2
 
 
