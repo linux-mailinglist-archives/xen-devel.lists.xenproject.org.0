@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45A941DC53A
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 04:32:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078101DC538
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 04:32:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbb0A-0000G5-GN; Thu, 21 May 2020 02:32:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jbb09-0000Fl-8n; Thu, 21 May 2020 02:32:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BsrW=7D=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1jbb09-0000Fu-Ji
- for xen-devel@lists.xenproject.org; Thu, 21 May 2020 02:32:05 +0000
-X-Inumbo-ID: 40174f9e-9b0b-11ea-aac4-12813bfff9fa
-Received: from mail-ot1-f68.google.com (unknown [209.85.210.68])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 40174f9e-9b0b-11ea-aac4-12813bfff9fa;
- Thu, 21 May 2020 02:32:01 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id x22so4382150otq.4
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2020 19:32:01 -0700 (PDT)
+ id 1jbb08-0000Ff-05
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2020 02:32:04 +0000
+X-Inumbo-ID: 41046766-9b0b-11ea-b9cf-bc764e2007e4
+Received: from mail-ot1-f49.google.com (unknown [209.85.210.49])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 41046766-9b0b-11ea-b9cf-bc764e2007e4;
+ Thu, 21 May 2020 02:32:02 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id c3so4341408otr.12
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2020 19:32:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=pAJ2F4WcFZUpTGHDJjHpvcdiKzqA1QwBYP6YeTTN2xA=;
- b=trw9u8caOYW5eF3wYbyTdCbUE5+W6Xzwh84I3eQzZEuF7l/BuuW+YA/GILGJdeYijr
- 914WBBt8SzLt1nDxJOCsCLpLs8o3gUpSdTzkktvvazr9LqW3jGNLMesFeYnU7bFFkf/R
- 07mPaFvYWLkEgnBQwxtcCFNuwCk9yp+SvzOlH2qNGypXu+3IN1Wq4794/ZAx+zZWNzaD
- lXufyR8femby7rg+WymPv3Uiqgy3iCaFfdWAG3CfVvND7LQRxV5FVBL0yftVwOFnkU96
- ePRZHA/TG2vbN+HXLCHa6c+QkvFlS+pgKldmEoRwmU7Bduf0U7YDxS+WGU6Hn1sKVZay
- 5Y9Q==
-X-Gm-Message-State: AOAM531fgnWXr/n7rMzKlRwICOVQAP93fcExn/HJIoM5ARktRYJbhJcj
- P1ABzbUFeYrhEycGqbE8P/+z0xSc8pk=
-X-Google-Smtp-Source: ABdhPJyQJj0ZOz8w1ZTZHCbS7aBVzXmfSTHCOdfzxNPmjTi6gGNMTmXlrLX26xIuNU7kfnzl5fPkfg==
-X-Received: by 2002:a05:6830:10c5:: with SMTP id
- z5mr5574207oto.325.1590028320358; 
- Wed, 20 May 2020 19:32:00 -0700 (PDT)
+ bh=ivGMi/gUy4Fl/JUt0Ag3q+pDqnqpG1RucRU6tciEaHo=;
+ b=rPOmcE/IfRmDjyKkPhDsSgcycA3HomMbHx8ZRysVJQQ8F0J3hTJQruK0O2dm1qqdeb
+ fZonUdNct1xrsVMqWX6/1Ls5iwFNrYAE65l2W2GUKmBe6hH+LWBtigWZGxoM9I5oHyYB
+ j9dwO86SOQ5CGk56PG6idRXe+V9ie9K543pdfRTFuOtkwhUNaWmWfbSUSJlD4agD5yMT
+ +5HdHRQ8KrOC2xQA3diPtYGcg8O0obolw/PXO4MspNO/Z3em3MPiOiVbrC8CJEdAr0To
+ AacrqpvnJQK5txTe//3xLmnxjqJjW1F2D6jIFObP52SQe9orMOfK3GD42MmwZa+BCIFT
+ tglA==
+X-Gm-Message-State: AOAM532zDz8ysJsE/EwZN18MtLKEEAYosynP/CQzSC67G0/gBxU8YmdY
+ DuK88X65Fv0/NLCO23oRVtC3dHBHsj0=
+X-Google-Smtp-Source: ABdhPJxUduLr0BaPkbikFoD30T7EOE8KTQA1pOoCB/sAKmae1i5hjytRziYvUc3qzyOGZQnpsRZe+A==
+X-Received: by 2002:a9d:6e3:: with SMTP id 90mr5703777otx.261.1590028321780;
+ Wed, 20 May 2020 19:32:01 -0700 (PDT)
 Received: from t0.lan (c-71-205-12-124.hsd1.co.comcast.net. [71.205.12.124])
- by smtp.googlemail.com with ESMTPSA id r17sm1312480ooq.2.2020.05.20.19.31.58
+ by smtp.googlemail.com with ESMTPSA id r17sm1312480ooq.2.2020.05.20.19.32.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2020 19:31:59 -0700 (PDT)
+ Wed, 20 May 2020 19:32:01 -0700 (PDT)
 From: Tamas K Lengyel <tamas@tklengyel.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2 for-4.14 2/3] xen/vm_event: add vm_event_check_pending_op
-Date: Wed, 20 May 2020 20:31:53 -0600
-Message-Id: <52492e7b44f311b09e9a433f2e5a2ba607a85c78.1590028160.git.tamas@tklengyel.com>
+Subject: [PATCH v2 for-4.14 3/3] xen/vm_event: Add safe to disable vm_event
+Date: Wed, 20 May 2020 20:31:54 -0600
+Message-Id: <682dde916f982e2889b2be2263418e9506a82c1e.1590028160.git.tamas@tklengyel.com>
 X-Mailer: git-send-email 2.26.1
 In-Reply-To: <cover.1590028160.git.tamas@tklengyel.com>
 References: <cover.1590028160.git.tamas@tklengyel.com>
@@ -65,130 +63,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
  Tamas K Lengyel <tamas@tklengyel.com>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>,
  Alexandru Isaila <aisaila@bitdefender.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Perform sanity checking when shutting vm_event down to determine whether
-it is safe to do so. Error out with -EAGAIN in case pending operations
-have been found for the domain.
+Instead of having to repeatedly try to disable vm_events, request a specific
+vm_event to be sent when the domain is safe to continue with shutting down
+the vm_event interface.
 
 Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
 ---
- xen/arch/x86/vm_event.c        | 23 +++++++++++++++++++++++
- xen/common/vm_event.c          | 17 ++++++++++++++---
- xen/include/asm-arm/vm_event.h |  7 +++++++
- xen/include/asm-x86/vm_event.h |  2 ++
- 4 files changed, 46 insertions(+), 3 deletions(-)
+ xen/arch/x86/hvm/hvm.c            | 38 ++++++++++++++++++++++++++-----
+ xen/arch/x86/hvm/monitor.c        | 14 ++++++++++++
+ xen/arch/x86/monitor.c            | 13 +++++++++++
+ xen/include/asm-x86/domain.h      |  1 +
+ xen/include/asm-x86/hvm/monitor.h |  1 +
+ xen/include/public/domctl.h       |  2 ++
+ xen/include/public/vm_event.h     |  8 +++++++
+ 7 files changed, 71 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/x86/vm_event.c b/xen/arch/x86/vm_event.c
-index 848d69c1b0..a23aadc112 100644
---- a/xen/arch/x86/vm_event.c
-+++ b/xen/arch/x86/vm_event.c
-@@ -297,6 +297,29 @@ void vm_event_emulate_check(struct vcpu *v, vm_event_response_t *rsp)
-     };
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index e6780c685b..fc7e1e2b22 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -563,15 +563,41 @@ void hvm_do_resume(struct vcpu *v)
+         v->arch.hvm.inject_event.vector = HVM_EVENT_VECTOR_UNSET;
+     }
+ 
+-    if ( unlikely(v->arch.vm_event) && v->arch.monitor.next_interrupt_enabled )
++    if ( unlikely(v->arch.vm_event) )
+     {
+-        struct x86_event info;
++        struct domain *d = v->domain;
++
++        if ( v->arch.monitor.next_interrupt_enabled )
++        {
++            struct x86_event info;
++
++            if ( hvm_get_pending_event(v, &info) )
++            {
++                hvm_monitor_interrupt(info.vector, info.type, info.error_code,
++                                      info.cr2);
++                v->arch.monitor.next_interrupt_enabled = false;
++            }
++        }
+ 
+-        if ( hvm_get_pending_event(v, &info) )
++        if ( d->arch.monitor.safe_to_disable )
+         {
+-            hvm_monitor_interrupt(info.vector, info.type, info.error_code,
+-                                  info.cr2);
+-            v->arch.monitor.next_interrupt_enabled = false;
++            const struct vcpu *check_vcpu;
++            bool pending_op = false;
++
++            for_each_vcpu ( d, check_vcpu )
++            {
++                if ( vm_event_check_pending_op(check_vcpu) )
++                {
++                    pending_op = true;
++                    break;
++                }
++            }
++
++            if ( !pending_op )
++            {
++                hvm_monitor_safe_to_disable();
++                d->arch.monitor.safe_to_disable = false;
++            }
+         }
+     }
+ }
+diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+index f5d89e71d1..75fd1a4b68 100644
+--- a/xen/arch/x86/hvm/monitor.c
++++ b/xen/arch/x86/hvm/monitor.c
+@@ -300,6 +300,20 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
+     return monitor_traps(curr, true, &req) >= 0;
  }
  
-+bool vm_event_check_pending_op(const struct vcpu *v)
++void hvm_monitor_safe_to_disable(void)
 +{
-+    struct monitor_write_data *w = &v->arch.vm_event->write_data;
++    struct vcpu *curr = current;
++    struct arch_domain *ad = &curr->domain->arch;
++    vm_event_request_t req = {};
 +
-+    if ( !v->arch.vm_event->sync_event )
-+        return false;
++    if ( !ad->monitor.safe_to_disable )
++        return;
 +
-+    if ( w->do_write.cr0 )
-+        return true;
-+    if ( w->do_write.cr3 )
-+        return true;
-+    if ( w->do_write.cr4 )
-+        return true;
-+    if ( w->do_write.msr )
-+        return true;
-+    if ( v->arch.vm_event->set_gprs )
-+        return true;
-+    if ( v->arch.vm_event->emulate_flags )
-+        return true;
++    req.reason = VM_EVENT_REASON_SAFE_TO_DISABLE;
 +
-+    return false;
++    monitor_traps(curr, 0, &req);
 +}
 +
  /*
   * Local variables:
   * mode: C
-diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
-index 127f2d58f1..2df327a42c 100644
---- a/xen/common/vm_event.c
-+++ b/xen/common/vm_event.c
-@@ -183,6 +183,7 @@ static int vm_event_disable(struct domain *d, struct vm_event_domain **p_ved)
-     if ( vm_event_check_ring(ved) )
-     {
-         struct vcpu *v;
-+        bool pending_op = false;
+diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
+index 1517a97f50..86e0ba2fbc 100644
+--- a/xen/arch/x86/monitor.c
++++ b/xen/arch/x86/monitor.c
+@@ -339,6 +339,19 @@ int arch_monitor_domctl_event(struct domain *d,
+         break;
+     }
  
-         spin_lock(&ved->lock);
- 
-@@ -192,9 +193,6 @@ static int vm_event_disable(struct domain *d, struct vm_event_domain **p_ved)
-             return -EBUSY;
-         }
- 
--        /* Free domU's event channel and leave the other one unbound */
--        free_xen_event_channel(d, ved->xen_port);
--
-         /* Unblock all vCPUs */
-         for_each_vcpu ( d, v )
-         {
-@@ -203,8 +201,21 @@ static int vm_event_disable(struct domain *d, struct vm_event_domain **p_ved)
-                 vcpu_unpause(v);
-                 ved->blocked--;
-             }
++    case XEN_DOMCTL_MONITOR_EVENT_SAFE_TO_DISABLE:
++    {
++        bool old_status = ad->monitor.safe_to_disable;
 +
-+            if ( vm_event_check_pending_op(v) )
-+                pending_op = true;
-         }
- 
-+        /* vm_event ops are still pending until vCPUs get scheduled */
-+        if ( pending_op )
-+        {
-+            spin_unlock(&ved->lock);
-+            return -EAGAIN;
-+        }
++        if ( unlikely(old_status == requested_status) )
++            return -EEXIST;
 +
-+        /* Free domU's event channel and leave the other one unbound */
-+        free_xen_event_channel(d, ved->xen_port);
++        domain_pause(d);
++        ad->monitor.safe_to_disable = requested_status;
++        domain_unpause(d);
++        break;
++    }
 +
-         destroy_ring_for_helper(&ved->ring_page, ved->ring_pg_struct);
+     default:
+         /*
+          * Should not be reached unless arch_monitor_get_capabilities() is
+diff --git a/xen/include/asm-x86/domain.h b/xen/include/asm-x86/domain.h
+index d890ab7a22..948b750c71 100644
+--- a/xen/include/asm-x86/domain.h
++++ b/xen/include/asm-x86/domain.h
+@@ -417,6 +417,7 @@ struct arch_domain
+          */
+         unsigned int inguest_pagefault_disabled                            : 1;
+         unsigned int control_register_values                               : 1;
++        unsigned int safe_to_disable                                       : 1;
+         struct monitor_msr_bitmap *msr_bitmap;
+         uint64_t write_ctrlreg_mask[4];
+     } monitor;
+diff --git a/xen/include/asm-x86/hvm/monitor.h b/xen/include/asm-x86/hvm/monitor.h
+index 66de24cb75..dbc113a635 100644
+--- a/xen/include/asm-x86/hvm/monitor.h
++++ b/xen/include/asm-x86/hvm/monitor.h
+@@ -52,6 +52,7 @@ bool hvm_monitor_emul_unimplemented(void);
  
-         vm_event_cleanup_domain(d);
-diff --git a/xen/include/asm-arm/vm_event.h b/xen/include/asm-arm/vm_event.h
-index 14d1d341cc..978b224dc3 100644
---- a/xen/include/asm-arm/vm_event.h
-+++ b/xen/include/asm-arm/vm_event.h
-@@ -58,4 +58,11 @@ void vm_event_sync_event(struct vcpu *v, bool value)
-     /* Not supported on ARM. */
- }
+ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
+                            uint16_t kind);
++void hvm_monitor_safe_to_disable(void);
  
-+static inline
-+bool vm_event_check_pending_op(const struct vcpu *v)
-+{
-+    /* Not supported on ARM. */
-+    return false;
-+}
-+
- #endif /* __ASM_ARM_VM_EVENT_H__ */
-diff --git a/xen/include/asm-x86/vm_event.h b/xen/include/asm-x86/vm_event.h
-index 785e741fba..97860d0d99 100644
---- a/xen/include/asm-x86/vm_event.h
-+++ b/xen/include/asm-x86/vm_event.h
-@@ -54,4 +54,6 @@ void vm_event_emulate_check(struct vcpu *v, vm_event_response_t *rsp);
+ #endif /* __ASM_X86_HVM_MONITOR_H__ */
  
- void vm_event_sync_event(struct vcpu *v, bool value);
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index cbcd25f12c..247e809a6c 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -1040,6 +1040,8 @@ struct xen_domctl_psr_cmt_op {
+ #define XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED    10
+ /* Enabled by default */
+ #define XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT     11
++/* Always async, disables automaticaly on first event */
++#define XEN_DOMCTL_MONITOR_EVENT_SAFE_TO_DISABLE       12
  
-+bool vm_event_check_pending_op(const struct vcpu *v);
-+
- #endif /* __ASM_X86_VM_EVENT_H__ */
+ struct xen_domctl_monitor_op {
+     uint32_t op; /* XEN_DOMCTL_MONITOR_OP_* */
+diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
+index fdd3ad8a30..b66d2a8634 100644
+--- a/xen/include/public/vm_event.h
++++ b/xen/include/public/vm_event.h
+@@ -159,6 +159,14 @@
+ #define VM_EVENT_REASON_DESCRIPTOR_ACCESS       13
+ /* Current instruction is not implemented by the emulator */
+ #define VM_EVENT_REASON_EMUL_UNIMPLEMENTED      14
++/*
++ * When shutting down vm_event it may not be immediately safe to complete the
++ * process as some vCPUs may be pending synchronization. This async event
++ * type can be used to receive a notification when its safe to finish disabling
++ * the vm_event interface. All other event types need to be disabled before
++ * registering to this one.
++ */
++#define VM_EVENT_REASON_SAFE_TO_DISABLE         15
+ 
+ /* Supported values for the vm_event_write_ctrlreg index. */
+ #define VM_EVENT_X86_CR0    0
 -- 
 2.26.1
 
