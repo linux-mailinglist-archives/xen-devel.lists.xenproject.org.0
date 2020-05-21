@@ -2,46 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 885271DD2FE
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 18:20:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A477A1DD300
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 18:20:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbnvG-0000wH-8v; Thu, 21 May 2020 16:19:54 +0000
+	id 1jbnvQ-0001Qf-Rm; Thu, 21 May 2020 16:20:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/yRJ=7D=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1jbnvF-0000vc-2l
- for xen-devel@lists.xenproject.org; Thu, 21 May 2020 16:19:53 +0000
-X-Inumbo-ID: e39de952-9b7e-11ea-b9cf-bc764e2007e4
+ id 1jbnvP-0001DP-3j
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2020 16:20:03 +0000
+X-Inumbo-ID: e4ea68a8-9b7e-11ea-b9cf-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e39de952-9b7e-11ea-b9cf-bc764e2007e4;
- Thu, 21 May 2020 16:19:47 +0000 (UTC)
+ id e4ea68a8-9b7e-11ea-b9cf-bc764e2007e4;
+ Thu, 21 May 2020 16:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
  In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gk5Uuo1wIab8QnJ+XZOG7n7mFLhPsfwOIEwveUEZ4oE=; b=UYXK/EzL0sRrOHyvc95H5YGi0v
- vcb9hjMzg38FDiq8G2dwW7rtDLsVRsdC7otPj3M1pRl8BQwk0rbP8wADa8KXg+OHABTu6mq/HZJPk
- s53wYp8jtYXUK7vprDdYGP4DjPwu9WcqpxxIohpJhEqK66JHkcR+elDKOV+M5jLSkqos=;
+ bh=/LS/E6IoF0MQgW42gOcJtVpnONoGSVfqwfRwEvxiDwc=; b=5Go9HNihDCxMPDKISozp/bPwXd
+ bOYSDD1UcGPjly5CJX0D1Q10KHKtuXh6YDNajBkVYMGsZQvM7ZdrgpnHzywOc8+MdD2SnrJLxOqLm
+ 8Jz41l/9biOMYzHObvpmDqLLwLsuzce145G/81elqBWI6MrQygYmUjL/UT3gcLNEibBk=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1jbnv9-0006nh-7J; Thu, 21 May 2020 16:19:47 +0000
+ id 1jbnvA-0006nw-PB; Thu, 21 May 2020 16:19:48 +0000
 Received: from 54-240-197-224.amazon.com ([54.240.197.224]
  helo=u2f063a87eabd5f.cbg10.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <paul@xen.org>)
- id 1jbnv8-00088L-UP; Thu, 21 May 2020 16:19:47 +0000
+ id 1jbnvA-00088L-Fg; Thu, 21 May 2020 16:19:48 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v5 3/5] tools/misc: add xen-domctx to present domain context
-Date: Thu, 21 May 2020 17:19:37 +0100
-Message-Id: <20200521161939.4508-4-paul@xen.org>
+Subject: [PATCH v5 4/5] common/domain: add a domain context record for
+ shared_info...
+Date: Thu, 21 May 2020 17:19:38 +0100
+Message-Id: <20200521161939.4508-5-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200521161939.4508-1-paul@xen.org>
 References: <20200521161939.4508-1-paul@xen.org>
@@ -57,277 +58,260 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This tool is analogous to 'xen-hvmctx' which presents HVM context.
-Subsequent patches will add 'dump' functions when new records are
-introduced.
+From: Paul Durrant <pdurrant@amazon.com>
+
+... and update xen-domctx to dump some information describing the record.
+
+NOTE: The domain may or may not be using the embedded vcpu_info array so
+      ultimately separate context records will be added for vcpu_info when
+      this becomes necessary.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Cc: Wei Liu <wl@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
 
-NOTE: Ian requested ack from Andrew
+v5:
+ - Addressed comments from Julien
+
+v4:
+ - Addressed comments from Jan
 
 v3:
- - Re-worked to avoid copying onto stack
- - Added optional typecode and instance arguments
+ - Actually dump some of the content of shared_info
 
 v2:
- - Change name from 'xen-ctx' to 'xen-domctx'
+ - Drop the header change to define a 'Xen' page size and instead use a
+   variable length struct now that the framework makes this is feasible
+ - Guard use of 'has_32bit_shinfo' in common code with CONFIG_COMPAT
 ---
- .gitignore              |   1 +
- tools/misc/Makefile     |   4 +
- tools/misc/xen-domctx.c | 200 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 205 insertions(+)
- create mode 100644 tools/misc/xen-domctx.c
+ tools/misc/xen-domctx.c   | 78 +++++++++++++++++++++++++++++++++++++++
+ xen/common/domain.c       | 65 ++++++++++++++++++++++++++++++++
+ xen/include/public/save.h | 13 ++++++-
+ 3 files changed, 155 insertions(+), 1 deletion(-)
 
-diff --git a/.gitignore b/.gitignore
-index 7418ce9829..6da3030f0d 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -209,6 +209,7 @@ tools/misc/xen_cpuperf
- tools/misc/xen-cpuid
- tools/misc/xen-detect
- tools/misc/xen-diag
-+tools/misc/xen-domctx
- tools/misc/xen-tmem-list-parse
- tools/misc/xen-livepatch
- tools/misc/xenperf
-diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-index 63947bfadc..ef25524354 100644
---- a/tools/misc/Makefile
-+++ b/tools/misc/Makefile
-@@ -30,6 +30,7 @@ INSTALL_SBIN                   += xenpm
- INSTALL_SBIN                   += xenwatchdogd
- INSTALL_SBIN                   += xen-livepatch
- INSTALL_SBIN                   += xen-diag
-+INSTALL_SBIN                   += xen-domctx
- INSTALL_SBIN += $(INSTALL_SBIN-y)
- 
- # Everything to be installed in a private bin/
-@@ -108,6 +109,9 @@ xen-livepatch: xen-livepatch.o
- xen-diag: xen-diag.o
- 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
- 
-+xen-domctx: xen-domctx.o
-+	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
-+
- xen-lowmemd: xen-lowmemd.o
- 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenevtchn) $(LDLIBS_libxenctrl) $(LDLIBS_libxenstore) $(APPEND_LDFLAGS)
- 
 diff --git a/tools/misc/xen-domctx.c b/tools/misc/xen-domctx.c
-new file mode 100644
-index 0000000000..243325dfce
---- /dev/null
+index 243325dfce..6ead7ea89d 100644
+--- a/tools/misc/xen-domctx.c
 +++ b/tools/misc/xen-domctx.c
-@@ -0,0 +1,200 @@
-+/*
-+ * xen-domctx.c
-+ *
-+ * Print out domain save records in a human-readable way.
-+ *
-+ * Copyright Amazon.com Inc. or its affiliates.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-+ * DEALINGS IN THE SOFTWARE.
-+ */
+@@ -31,6 +31,7 @@
+ #include <errno.h>
+ 
+ #include <xenctrl.h>
++#include <xen-tools/libs.h>
+ #include <xen/xen.h>
+ #include <xen/domctl.h>
+ #include <xen/save.h>
+@@ -61,6 +62,82 @@ static void dump_header(void)
+ 
+ }
+ 
++static void print_binary(const char *prefix, const void *val, size_t size,
++                         const char *suffix)
++{
++    printf("%s", prefix);
 +
-+#include <inttypes.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <errno.h>
++    while ( size-- )
++    {
++        uint8_t octet = *(const uint8_t *)val++;
++        unsigned int i;
 +
-+#include <xenctrl.h>
-+#include <xen/xen.h>
-+#include <xen/domctl.h>
++        for ( i = 0; i < 8; i++ )
++        {
++            printf("%u", octet & 1);
++            octet >>= 1;
++        }
++    }
++
++    printf("%s", suffix);
++}
++
++static void dump_shared_info(void)
++{
++    DOMAIN_SAVE_TYPE(SHARED_INFO) *s;
++    bool has_32bit_shinfo;
++    shared_info_any_t *info;
++    unsigned int i, n;
++
++    GET_PTR(s);
++    has_32bit_shinfo = s->flags & DOMAIN_SAVE_32BIT_SHINFO;
++
++    printf("    SHARED_INFO: has_32bit_shinfo: %s buffer_size: %u\n",
++           has_32bit_shinfo ? "true" : "false", s->buffer_size);
++
++    info = (shared_info_any_t *)s->buffer;
++
++#define GET_FIELD_PTR(_f)            \
++    (has_32bit_shinfo ?              \
++     (const void *)&(info->x32._f) : \
++     (const void *)&(info->x64._f))
++#define GET_FIELD_SIZE(_f) \
++    (has_32bit_shinfo ? sizeof(info->x32._f) : sizeof(info->x64._f))
++#define GET_FIELD(_f) \
++    (has_32bit_shinfo ? info->x32._f : info->x64._f)
++
++    n = has_32bit_shinfo ?
++        ARRAY_SIZE(info->x32.evtchn_pending) :
++        ARRAY_SIZE(info->x64.evtchn_pending);
++
++    for ( i = 0; i < n; i++ )
++    {
++        const char *prefix = !i ?
++            "                 evtchn_pending: " :
++            "                                 ";
++
++        print_binary(prefix, GET_FIELD_PTR(evtchn_pending[0]),
++                 GET_FIELD_SIZE(evtchn_pending[0]), "\n");
++    }
++
++    for ( i = 0; i < n; i++ )
++    {
++        const char *prefix = !i ?
++            "                    evtchn_mask: " :
++            "                                 ";
++
++        print_binary(prefix, GET_FIELD_PTR(evtchn_mask[0]),
++                 GET_FIELD_SIZE(evtchn_mask[0]), "\n");
++    }
++
++    printf("                 wc: version: %u sec: %u nsec: %u\n",
++           GET_FIELD(wc_version), GET_FIELD(wc_sec), GET_FIELD(wc_nsec));
++
++#undef GET_FIELD
++#undef GET_FIELD_SIZE
++#undef GET_FIELD_PTR
++}
++
+ static void dump_end(void)
+ {
+     DOMAIN_SAVE_TYPE(END) *e;
+@@ -173,6 +250,7 @@ int main(int argc, char **argv)
+             switch (desc->typecode)
+             {
+             case DOMAIN_SAVE_CODE(HEADER): dump_header(); break;
++            case DOMAIN_SAVE_CODE(SHARED_INFO): dump_shared_info(); break;
+             case DOMAIN_SAVE_CODE(END): dump_end(); break;
+             default:
+                 printf("Unknown type %u: skipping\n", desc->typecode);
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 7cc9526139..9d156da84d 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -33,6 +33,7 @@
+ #include <xen/xenoprof.h>
+ #include <xen/irq.h>
+ #include <xen/argo.h>
 +#include <xen/save.h>
-+
-+static void *buf = NULL;
-+static size_t len, off;
-+
-+#define GET_PTR(_x)                                                        \
-+    do {                                                                   \
-+        if ( len - off < sizeof(*(_x)) )                                   \
-+        {                                                                  \
-+            fprintf(stderr,                                                \
-+                    "error: need another %lu bytes, only %lu available\n", \
-+                    sizeof(*(_x)), len - off);                             \
-+            exit(1);                                                       \
-+        }                                                                  \
-+        (_x) = buf + off;                                                  \
-+    } while (false);
-+
-+static void dump_header(void)
+ #include <asm/debugger.h>
+ #include <asm/p2m.h>
+ #include <asm/processor.h>
+@@ -1649,6 +1650,70 @@ int continue_hypercall_on_cpu(
+     return 0;
+ }
+ 
++static int save_shared_info(const struct domain *d, struct domain_context *c,
++                            bool dry_run)
 +{
-+    DOMAIN_SAVE_TYPE(HEADER) *h;
-+
-+    GET_PTR(h);
-+
-+    printf("    HEADER: magic %#x, version %u\n",
-+           h->magic, h->version);
-+
-+}
-+
-+static void dump_end(void)
-+{
-+    DOMAIN_SAVE_TYPE(END) *e;
-+
-+    GET_PTR(e);
-+
-+    printf("    END\n");
-+}
-+
-+static void usage(const char *prog)
-+{
-+    fprintf(stderr, "usage: %s <domid> [ <typecode> [ <instance> ]]\n",
-+            prog);
-+    exit(1);
-+}
-+
-+int main(int argc, char **argv)
-+{
-+    char *s, *e;
-+    long domid;
-+    long typecode = -1;
-+    long instance = -1;
-+    unsigned int entry;
-+    xc_interface *xch;
++    struct domain_shared_info_context ctxt = {
++#ifdef CONFIG_COMPAT
++        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
++#endif
++        .buffer_size = sizeof(shared_info_t),
++    };
++    size_t hdr_size = offsetof(typeof(ctxt), buffer);
 +    int rc;
 +
-+    if ( argc < 2 || argc > 4 )
-+        usage(argv[0]);
++    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, 0);
++    if ( rc )
++        return rc;
 +
-+    s = e = argv[1];
-+    domid = strtol(s, &e, 0);
++    rc = domain_save_data(c, &ctxt, hdr_size);
++    if ( rc )
++        return rc;
 +
-+    if ( *s == '\0' || *e != '\0' ||
-+         domid < 0 || domid >= DOMID_FIRST_RESERVED )
-+    {
-+        fprintf(stderr, "invalid domid '%s'\n", s);
-+        exit(1);
-+    }
++    rc = domain_save_data(c, d->shared_info, ctxt.buffer_size);
++    if ( rc )
++        return rc;
 +
-+    if ( argc >= 3 )
-+    {
-+        s = e = argv[2];
-+        typecode = strtol(s, &e, 0);
-+
-+        if ( *s == '\0' || *e != '\0' )
-+        {
-+            fprintf(stderr, "invalid typecode '%s'\n", s);
-+            exit(1);
-+        }
-+    }
-+
-+    if ( argc == 4 )
-+    {
-+        s = e = argv[3];
-+        instance = strtol(s, &e, 0);
-+
-+        if ( *s == '\0' || *e != '\0' )
-+        {
-+            fprintf(stderr, "invalid instance '%s'\n", s);
-+            exit(1);
-+        }
-+    }
-+
-+    xch = xc_interface_open(0, 0, 0);
-+    if ( !xch )
-+    {
-+        fprintf(stderr, "error: can't open libxc handle\n");
-+        exit(1);
-+    }
-+
-+    rc = xc_domain_getcontext(xch, domid, NULL, &len);
-+    if ( rc < 0 )
-+    {
-+        fprintf(stderr, "error: can't get record length for dom %lu: %s\n",
-+                domid, strerror(errno));
-+        exit(1);
-+    }
-+
-+    buf = malloc(len);
-+    if ( !buf )
-+    {
-+        fprintf(stderr, "error: can't allocate %lu bytes\n", len);
-+        exit(1);
-+    }
-+
-+    rc = xc_domain_getcontext(xch, domid, buf, &len);
-+    if ( rc < 0 )
-+    {
-+        fprintf(stderr, "error: can't get domain record for dom %lu: %s\n",
-+                domid, strerror(errno));
-+        exit(1);
-+    }
-+    off = 0;
-+
-+    entry = 0;
-+    for ( ; ; )
-+    {
-+        struct domain_save_descriptor *desc;
-+
-+        GET_PTR(desc);
-+
-+        off += sizeof(*desc);
-+
-+        if ( (typecode < 0 || typecode == desc->typecode) &&
-+             (instance < 0 || instance == desc->instance) )
-+        {
-+            printf("[%u] type: %u instance: %u length: %u\n", entry++,
-+                   desc->typecode, desc->instance, desc->length);
-+
-+            switch (desc->typecode)
-+            {
-+            case DOMAIN_SAVE_CODE(HEADER): dump_header(); break;
-+            case DOMAIN_SAVE_CODE(END): dump_end(); break;
-+            default:
-+                printf("Unknown type %u: skipping\n", desc->typecode);
-+                break;
-+            }
-+        }
-+
-+        if ( desc->typecode == DOMAIN_SAVE_CODE(END) )
-+            break;
-+
-+        off += desc->length;
-+    }
-+
-+    return 0;
++    return domain_save_end(c);
 +}
 +
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
++static int load_shared_info(struct domain *d, struct domain_context *c)
++{
++    struct domain_shared_info_context ctxt;
++    size_t hdr_size = offsetof(typeof(ctxt), buffer);
++    unsigned int i;
++    int rc;
++
++    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
++    if ( rc )
++        return rc;
++
++    if ( i ) /* expect only a single instance */
++        return -ENXIO;
++
++    rc = domain_load_data(c, &ctxt, hdr_size);
++    if ( rc )
++        return rc;
++
++    if ( ctxt.buffer_size != sizeof(shared_info_t) )
++        return -EINVAL;
++
++    if ( ctxt.flags & DOMAIN_SAVE_32BIT_SHINFO )
++#ifdef CONFIG_COMPAT
++        has_32bit_shinfo(d) = true;
++#else
++        return -EINVAL;
++#endif
++
++    rc = domain_load_data(c, d->shared_info, sizeof(shared_info_t));
++    if ( rc )
++        return rc;
++
++    return domain_load_end(c);
++}
++
++DOMAIN_REGISTER_SAVE_LOAD(SHARED_INFO, save_shared_info, load_shared_info);
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/public/save.h b/xen/include/public/save.h
+index 551dbbddb8..0e855a4b97 100644
+--- a/xen/include/public/save.h
++++ b/xen/include/public/save.h
+@@ -82,7 +82,18 @@ struct domain_save_header {
+ };
+ DECLARE_DOMAIN_SAVE_TYPE(HEADER, 1, struct domain_save_header);
+ 
+-#define DOMAIN_SAVE_CODE_MAX 1
++struct domain_shared_info_context {
++    uint32_t flags;
++
++#define DOMAIN_SAVE_32BIT_SHINFO 0x00000001
++
++    uint32_t buffer_size;
++    uint8_t buffer[XEN_FLEX_ARRAY_DIM]; /* Implementation specific size */
++};
++
++DECLARE_DOMAIN_SAVE_TYPE(SHARED_INFO, 2, struct domain_shared_info_context);
++
++#define DOMAIN_SAVE_CODE_MAX 2
+ 
+ #endif /* defined(__XEN__) || defined(__XEN_TOOLS__) */
+ 
 -- 
 2.20.1
 
