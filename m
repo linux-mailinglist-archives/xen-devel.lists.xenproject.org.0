@@ -2,71 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41ADC1DD63E
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 20:46:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 726D51DD74F
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 21:34:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbqCn-0006cg-Gq; Thu, 21 May 2020 18:46:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jbqvz-0002ZJ-Ez; Thu, 21 May 2020 19:32:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/ZHf=7D=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1jbqCm-0006ca-C7
- for xen-devel@lists.xenproject.org; Thu, 21 May 2020 18:46:08 +0000
-X-Inumbo-ID: 543340c2-9b93-11ea-ab51-12813bfff9fa
-Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 543340c2-9b93-11ea-ab51-12813bfff9fa;
- Thu, 21 May 2020 18:46:06 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 281AC5C00B3;
- Thu, 21 May 2020 14:46:06 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 21 May 2020 14:46:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=5vLYKu
- Xa+UUaGWnNM1CRpSE460GjOXDkyZjKCdT783g=; b=0KHI1XI5mrzKJUKfroMclt
- caUTTAnia0Qon+dGzPX/wRI2SOknY4bkod/GdNT2f0RxPuXNVd0BEtZgt55udaDf
- psD22x2ec17tAnU0Yj+HH7vbun1DKimUWva0SX98SBrnfc+r2A9QH3ZzG+BrXP3U
- wSI5kv86DwsKayk9LwQhW9Z83wimA2a0MyznQzwiCWiJmKaG+c+HaIoNpRDmcMWv
- 5wC2CUwc1BUCrhGDOa1TjfPFI9i8lGEZZPI4D6IJhW3VxSgztcJ1E5h1UtxHNErt
- Z9PmKeo7z5/0/H28EerMW6KqkFT/1mvAlxwpsDO2UJH+ChYN2FkLCIIcZ7J/Ra0g
- ==
-X-ME-Sender: <xms:bczGXqTWopXQpDgSc8qtXCEPUf9U7SAbPbN2Rnzhd_p09YKK_Zb8SQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudduuddguddvtdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
- khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
- hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepieek
- geeivdelkeejgeetkeelgeevgefhfeeghfffieehudeuteekueetgeetiefgnecuffhomh
- grihhnpehmrghrkhhmrghilhdrohhrghenucfkphepledurdeihedrfeegrdeffeenucev
- lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrh
- gvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:bczGXvzXUmL1HdDyECiX4Iav9VuYdxbb-p2Fq4JFeYjxLWIutkeGuQ>
- <xmx:bczGXn22Aufr2TGoqgHvvxB3f9Gf3f-jIO-8ISISerhrQgrSjhnrng>
- <xmx:bczGXmBtO7Jubmnk77hQyhgnyL6w0DxBlY7Uo1JBa5YjPDWzUs8HFg>
- <xmx:bszGXrbEzmw5gVwWBC4Tj0CHrR8SuUZbxOxzKVR3STZbQshtbYgJkQ>
-Received: from mail-itl (unknown [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id C1469306645C;
- Thu, 21 May 2020 14:46:04 -0400 (EDT)
-Date: Thu, 21 May 2020 20:46:02 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Subject: Re: [PATCH] xen/events: avoid NULL pointer dereference in
- evtchn_from_irq()
-Message-ID: <20200521184602.GP98582@mail-itl>
-References: <20200319071428.12115-1-jgross@suse.com>
- <30719c35-6de7-d400-7bb8-cff4570f8971@oracle.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="KR/qxknboQ7+Tpez"
-Content-Disposition: inline
-In-Reply-To: <30719c35-6de7-d400-7bb8-cff4570f8971@oracle.com>
+ <SRS0=RqGm=7D=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jbqvx-0002ZE-IX
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2020 19:32:49 +0000
+X-Inumbo-ID: da7143a4-9b99-11ea-ae69-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id da7143a4-9b99-11ea-ae69-bc764e2007e4;
+ Thu, 21 May 2020 19:32:49 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
+ (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id CB978207D3;
+ Thu, 21 May 2020 19:32:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590089568;
+ bh=wVdNaS0ZwKTecNDaqDlBLOhKCIthZf+jeeG5uNktzc8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=NBLDLTkRTKeIfjBmoz7sgk+dNW0U0DUEyoIHVSfRSPNr/V73wzHCQ6PLDfpIjPC00
+ NWqxvApQHe0eDRSi55HDN7vJ/etlgvlt2G6xFFl4T/TT9lduHQUV9q+Y2q47g6B44w
+ DbbdfkFw0COPKQyEsJhdKUOm6DYqiU6XGxLzsfLs=
+From: Stefano Stabellini <sstabellini@kernel.org>
+To: jgross@suse.com
+Subject: [PATCH v2] 9p/xen: increase XEN_9PFS_RING_ORDER
+Date: Thu, 21 May 2020 12:32:42 -0700
+Message-Id: <20200521193242.15953-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,61 +47,231 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
+Cc: lucho@ionkov.net, sstabellini@kernel.org, ericvh@gmail.com,
+ asmadeus@codewreck.org, linux-kernel@vger.kernel.org,
+ v9fs-developer@lists.sourceforge.net, xen-devel@lists.xenproject.org,
+ boris.ostrovsky@oracle.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
---KR/qxknboQ7+Tpez
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] xen/events: avoid NULL pointer dereference in
- evtchn_from_irq()
+Increase XEN_9PFS_RING_ORDER to 9 for performance reason. Order 9 is the
+max allowed by the protocol.
 
-On Thu, May 21, 2020 at 01:22:03PM -0400, Boris Ostrovsky wrote:
-> On 3/19/20 3:14 AM, Juergen Gross wrote:
-> > There have been reports of races in evtchn_from_irq() where the info
-> > pointer has been NULL.
-> >
-> > Avoid that case by testing info before dereferencing it.
-> >
-> > In order to avoid accessing a just freed info structure do the kfree()
-> > via kfree_rcu().
->=20
->=20
-> Looks like noone ever responded to this.
->=20
->=20
-> This change looks fine but is there a background on the problem? I
-> looked in the archives and didn't find the relevant discussion.
+We can't assume that all backends will support order 9. The xenstore
+property max-ring-page-order specifies the max order supported by the
+backend. We'll use max-ring-page-order for the size of the ring.
 
-Here is the original bug report:
-https://xen.markmail.org/thread/44apwkwzeme4uavo
+This means that the size of the ring is not static
+(XEN_FLEX_RING_SIZE(9)) anymore. Change XEN_9PFS_RING_SIZE to take an
+argument and base the calculation on the order chosen at setup time.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+Finally, modify p9_xen_trans.maxsize to be divided by 4 compared to the
+original value. We need to divide it by 2 because we have two rings
+coming off the same order allocation: the in and out rings. This was a
+mistake in the original code. Also divide it further by 2 because we
+don't want a single request/reply to fill up the entire ring. There can
+be multiple requests/replies outstanding at any given time and if we use
+the full ring with one, we risk forcing the backend to wait for the
+client to read back more replies before continuing, which is not
+performant.
 
---KR/qxknboQ7+Tpez
-Content-Type: application/pgp-signature; name="signature.asc"
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
+Changes in v2:
+- Fix setting of p9_xen_trans.maxsize in xen_9pfs_front_probe to match
+  the initial setting for the reasons explained in the commit message
 
------BEGIN PGP SIGNATURE-----
+---
+ net/9p/trans_xen.c | 61 ++++++++++++++++++++++++++--------------------
+ 1 file changed, 34 insertions(+), 27 deletions(-)
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl7GzGkACgkQ24/THMrX
-1yygDAf/RzUmiuF2TM7HvZsoGQmZxnc+ZrcCx9F+FXoYyHUYYjyoj5hnMWPJit1g
-GPLie+6PbPhjOyC+6tYK9TGgEv2HxyO8PNLTWDRDRnxrf8rBTqMKRvcbm8FYZV+J
-9baXNldjf6TvgddPwik9bqetHX+e/QpyeovpcSOzbP1dXKWnxUbypEinsiNxtT97
-vkiW/LfYtzb8arPdFVmVl/9YPmvk+080mm2eTQYARy7qVlM70zqsvtWBYQYFcxd2
-N7OH7AoSARVyncbIT1B5bTrte9HTFB4ewJ1CvTvc3wOGDbUCiyVz7nDxNRQo6/S/
-3x7RfR3nRBE3RwMeEj2cAdsgzOkI9g==
-=oact
------END PGP SIGNATURE-----
+diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+index 3963eb11c3fb..3debad93be1a 100644
+--- a/net/9p/trans_xen.c
++++ b/net/9p/trans_xen.c
+@@ -43,8 +43,8 @@
+ #include <net/9p/transport.h>
+ 
+ #define XEN_9PFS_NUM_RINGS 2
+-#define XEN_9PFS_RING_ORDER 6
+-#define XEN_9PFS_RING_SIZE  XEN_FLEX_RING_SIZE(XEN_9PFS_RING_ORDER)
++#define XEN_9PFS_RING_ORDER 9
++#define XEN_9PFS_RING_SIZE(ring)  XEN_FLEX_RING_SIZE(ring->intf->ring_order)
+ 
+ struct xen_9pfs_header {
+ 	uint32_t size;
+@@ -132,8 +132,8 @@ static bool p9_xen_write_todo(struct xen_9pfs_dataring *ring, RING_IDX size)
+ 	prod = ring->intf->out_prod;
+ 	virt_mb();
+ 
+-	return XEN_9PFS_RING_SIZE -
+-		xen_9pfs_queued(prod, cons, XEN_9PFS_RING_SIZE) >= size;
++	return XEN_9PFS_RING_SIZE(ring) -
++		xen_9pfs_queued(prod, cons, XEN_9PFS_RING_SIZE(ring)) >= size;
+ }
+ 
+ static int p9_xen_request(struct p9_client *client, struct p9_req_t *p9_req)
+@@ -167,17 +167,18 @@ static int p9_xen_request(struct p9_client *client, struct p9_req_t *p9_req)
+ 	prod = ring->intf->out_prod;
+ 	virt_mb();
+ 
+-	if (XEN_9PFS_RING_SIZE - xen_9pfs_queued(prod, cons,
+-						 XEN_9PFS_RING_SIZE) < size) {
++	if (XEN_9PFS_RING_SIZE(ring) -
++	    xen_9pfs_queued(prod, cons, XEN_9PFS_RING_SIZE(ring)) < size) {
+ 		spin_unlock_irqrestore(&ring->lock, flags);
+ 		goto again;
+ 	}
+ 
+-	masked_prod = xen_9pfs_mask(prod, XEN_9PFS_RING_SIZE);
+-	masked_cons = xen_9pfs_mask(cons, XEN_9PFS_RING_SIZE);
++	masked_prod = xen_9pfs_mask(prod, XEN_9PFS_RING_SIZE(ring));
++	masked_cons = xen_9pfs_mask(cons, XEN_9PFS_RING_SIZE(ring));
+ 
+ 	xen_9pfs_write_packet(ring->data.out, p9_req->tc.sdata, size,
+-			      &masked_prod, masked_cons, XEN_9PFS_RING_SIZE);
++			      &masked_prod, masked_cons,
++			      XEN_9PFS_RING_SIZE(ring));
+ 
+ 	p9_req->status = REQ_STATUS_SENT;
+ 	virt_wmb();			/* write ring before updating pointer */
+@@ -207,19 +208,19 @@ static void p9_xen_response(struct work_struct *work)
+ 		prod = ring->intf->in_prod;
+ 		virt_rmb();
+ 
+-		if (xen_9pfs_queued(prod, cons, XEN_9PFS_RING_SIZE) <
++		if (xen_9pfs_queued(prod, cons, XEN_9PFS_RING_SIZE(ring)) <
+ 		    sizeof(h)) {
+ 			notify_remote_via_irq(ring->irq);
+ 			return;
+ 		}
+ 
+-		masked_prod = xen_9pfs_mask(prod, XEN_9PFS_RING_SIZE);
+-		masked_cons = xen_9pfs_mask(cons, XEN_9PFS_RING_SIZE);
++		masked_prod = xen_9pfs_mask(prod, XEN_9PFS_RING_SIZE(ring));
++		masked_cons = xen_9pfs_mask(cons, XEN_9PFS_RING_SIZE(ring));
+ 
+ 		/* First, read just the header */
+ 		xen_9pfs_read_packet(&h, ring->data.in, sizeof(h),
+ 				     masked_prod, &masked_cons,
+-				     XEN_9PFS_RING_SIZE);
++				     XEN_9PFS_RING_SIZE(ring));
+ 
+ 		req = p9_tag_lookup(priv->client, h.tag);
+ 		if (!req || req->status != REQ_STATUS_SENT) {
+@@ -233,11 +234,11 @@ static void p9_xen_response(struct work_struct *work)
+ 		memcpy(&req->rc, &h, sizeof(h));
+ 		req->rc.offset = 0;
+ 
+-		masked_cons = xen_9pfs_mask(cons, XEN_9PFS_RING_SIZE);
++		masked_cons = xen_9pfs_mask(cons, XEN_9PFS_RING_SIZE(ring));
+ 		/* Then, read the whole packet (including the header) */
+ 		xen_9pfs_read_packet(req->rc.sdata, ring->data.in, h.size,
+ 				     masked_prod, &masked_cons,
+-				     XEN_9PFS_RING_SIZE);
++				     XEN_9PFS_RING_SIZE(ring));
+ 
+ 		virt_mb();
+ 		cons += h.size;
+@@ -267,7 +268,7 @@ static irqreturn_t xen_9pfs_front_event_handler(int irq, void *r)
+ 
+ static struct p9_trans_module p9_xen_trans = {
+ 	.name = "xen",
+-	.maxsize = 1 << (XEN_9PFS_RING_ORDER + XEN_PAGE_SHIFT),
++	.maxsize = 1 << (XEN_9PFS_RING_ORDER + XEN_PAGE_SHIFT - 2),
+ 	.def = 1,
+ 	.create = p9_xen_create,
+ 	.close = p9_xen_close,
+@@ -295,14 +296,16 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ 		if (priv->rings[i].irq > 0)
+ 			unbind_from_irqhandler(priv->rings[i].irq, priv->dev);
+ 		if (priv->rings[i].data.in) {
+-			for (j = 0; j < (1 << XEN_9PFS_RING_ORDER); j++) {
++			for (j = 0;
++			     j < (1 << priv->rings[i].intf->ring_order);
++			     j++) {
+ 				grant_ref_t ref;
+ 
+ 				ref = priv->rings[i].intf->ref[j];
+ 				gnttab_end_foreign_access(ref, 0, 0);
+ 			}
+ 			free_pages((unsigned long)priv->rings[i].data.in,
+-				   XEN_9PFS_RING_ORDER -
++				   priv->rings[i].intf->ring_order -
+ 				   (PAGE_SHIFT - XEN_PAGE_SHIFT));
+ 		}
+ 		gnttab_end_foreign_access(priv->rings[i].ref, 0, 0);
+@@ -323,7 +326,8 @@ static int xen_9pfs_front_remove(struct xenbus_device *dev)
+ }
+ 
+ static int xen_9pfs_front_alloc_dataring(struct xenbus_device *dev,
+-					 struct xen_9pfs_dataring *ring)
++					 struct xen_9pfs_dataring *ring,
++					 unsigned int order)
+ {
+ 	int i = 0;
+ 	int ret = -ENOMEM;
+@@ -342,21 +346,21 @@ static int xen_9pfs_front_alloc_dataring(struct xenbus_device *dev,
+ 		goto out;
+ 	ring->ref = ret;
+ 	bytes = (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO,
+-			XEN_9PFS_RING_ORDER - (PAGE_SHIFT - XEN_PAGE_SHIFT));
++			order - (PAGE_SHIFT - XEN_PAGE_SHIFT));
+ 	if (!bytes) {
+ 		ret = -ENOMEM;
+ 		goto out;
+ 	}
+-	for (; i < (1 << XEN_9PFS_RING_ORDER); i++) {
++	for (; i < (1 << order); i++) {
+ 		ret = gnttab_grant_foreign_access(
+ 				dev->otherend_id, virt_to_gfn(bytes) + i, 0);
+ 		if (ret < 0)
+ 			goto out;
+ 		ring->intf->ref[i] = ret;
+ 	}
+-	ring->intf->ring_order = XEN_9PFS_RING_ORDER;
++	ring->intf->ring_order = order;
+ 	ring->data.in = bytes;
+-	ring->data.out = bytes + XEN_9PFS_RING_SIZE;
++	ring->data.out = bytes + XEN_FLEX_RING_SIZE(order);
+ 
+ 	ret = xenbus_alloc_evtchn(dev, &ring->evtchn);
+ 	if (ret)
+@@ -374,7 +378,7 @@ static int xen_9pfs_front_alloc_dataring(struct xenbus_device *dev,
+ 		for (i--; i >= 0; i--)
+ 			gnttab_end_foreign_access(ring->intf->ref[i], 0, 0);
+ 		free_pages((unsigned long)bytes,
+-			   XEN_9PFS_RING_ORDER -
++			   ring->intf->ring_order -
+ 			   (PAGE_SHIFT - XEN_PAGE_SHIFT));
+ 	}
+ 	gnttab_end_foreign_access(ring->ref, 0, 0);
+@@ -404,8 +408,10 @@ static int xen_9pfs_front_probe(struct xenbus_device *dev,
+ 		return -EINVAL;
+ 	max_ring_order = xenbus_read_unsigned(dev->otherend,
+ 					      "max-ring-page-order", 0);
+-	if (max_ring_order < XEN_9PFS_RING_ORDER)
+-		return -EINVAL;
++	if (max_ring_order > XEN_9PFS_RING_ORDER)
++		max_ring_order = XEN_9PFS_RING_ORDER;
++	if (p9_xen_trans.maxsize > XEN_FLEX_RING_SIZE(max_ring_order))
++		p9_xen_trans.maxsize = XEN_FLEX_RING_SIZE(max_ring_order) / 2;
+ 
+ 	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+@@ -422,7 +428,8 @@ static int xen_9pfs_front_probe(struct xenbus_device *dev,
+ 
+ 	for (i = 0; i < priv->num_rings; i++) {
+ 		priv->rings[i].priv = priv;
+-		ret = xen_9pfs_front_alloc_dataring(dev, &priv->rings[i]);
++		ret = xen_9pfs_front_alloc_dataring(dev, &priv->rings[i],
++						    max_ring_order);
+ 		if (ret < 0)
+ 			goto error;
+ 	}
+-- 
+2.17.1
 
---KR/qxknboQ7+Tpez--
 
