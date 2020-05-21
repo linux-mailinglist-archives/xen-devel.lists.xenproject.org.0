@@ -2,60 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE141DD23E
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 17:45:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 220371DD2A0
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 18:01:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbnNq-0005pv-Eu; Thu, 21 May 2020 15:45:22 +0000
+	id 1jbncX-00085O-Uu; Thu, 21 May 2020 16:00:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OubW=7D=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1jbnNo-0005pq-SZ
- for xen-devel@lists.xenproject.org; Thu, 21 May 2020 15:45:20 +0000
-X-Inumbo-ID: 12d4b426-9b7a-11ea-ae69-bc764e2007e4
-Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+ <SRS0=nFaT=7D=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jbncW-00083X-1m
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2020 16:00:32 +0000
+X-Inumbo-ID: 321e1096-9b7c-11ea-ae69-bc764e2007e4
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 12d4b426-9b7a-11ea-ae69-bc764e2007e4;
- Thu, 21 May 2020 15:45:20 +0000 (UTC)
-Received: by mail-lf1-x141.google.com with SMTP id x22so4730542lfd.4
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2020 08:45:19 -0700 (PDT)
+ id 321e1096-9b7c-11ea-ae69-bc764e2007e4;
+ Thu, 21 May 2020 16:00:31 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id g12so5958089wrw.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2020 09:00:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jm9exCPCFIMayaAFj2BX5Zlqia8v+/NT3eINPO+SFOQ=;
- b=rYKeo4FGTnkxQbo7HLwBIMoMx3jhFFPUHUtSEYn3fOKVqcc5D3OTmWwCtetulFNYrc
- 8v2zODchHyIcebDd2yqWMb3vczuoysL5SiMUeoTxyOHi1O/3PinKyJmzjsOQPyTfHmmU
- ew61u49oTrWDL9B/HpgneRNH07CaZZjMXODSfm0Ak/+cK/yBgxPChR+tsZ5ua5icvCvN
- KlYMCiSm5mufOEl/flfcR0o2FI4nPmkowtVLp2dX0ptOhV+aXJBIIIqvoaGIxhOUI3zp
- 7wbMFjU2nKlxqGL/sGrYfKDtfTSLopyM+8aTU9KZ6Zen0jcvs84T79MfJOJuryRRcgZF
- qAkw==
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=spyphAFyJlXm/hizdcLp1TmVYviGGpi8QG1vV3BS/z0=;
+ b=hJCs6nLwDU8DrnP44yaAEWgxNEiVHYXDQapS29DcWm96j/Y1AkcozbCeVZWzcYbsWy
+ tgcDZ9VDpvkuaCIUdwuH3SO2KPOZE/X3XToGZrKg1nuAfNusCnRPaujTP1O1HWmyAF+B
+ iSFqnug5gmutgHCSkaTryOBS0yZVx362gqZcC4IBqo/9gaFG6DL+0mHplM2irWFnyLqz
+ G/wlI7qVxAL0MH1bcu5fZUCtDBlLmuwv6DAhUA/0kmhAgS8t7UFNJDhIUqMl26PCI/Ui
+ bzkWR1aFGtUNo3O+ylqBSdPjlnakw+K2idl95yBssvtzMNvebqA8goCN7qLvcEqTG3QO
+ /+5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jm9exCPCFIMayaAFj2BX5Zlqia8v+/NT3eINPO+SFOQ=;
- b=lm3npGRlcUT2G7YC2MdSkPAq50ypMjSdfBJnTtylpQASFy+tlKwkJi08pe8vf0PBAx
- w2AtCrvZNdFMZs9XOP1bVbpwGCcab0w7VOVDmfkfzg9+y0GD1/OgFNXylSzRT5KdSjwb
- 5ayOACQBLjvcql/ZtRe7y1t5Yp/ovRMCKEkSHpZLEfu44DFji7St58SZHECt4rUJuDZX
- ZvHzkM9tO0HQfMP0f9lfhROr47unpsQe4Af6TonbanIyEZ1wyYbq9YmvgkO6+VincQBX
- 03EWniJctmiyL2CHCrgsukV04az/gbkkK+6Nm5KKxkQvmYrqR8mSb+ST38xN2UH9mRtw
- 5EAw==
-X-Gm-Message-State: AOAM530Zs9iCCEBnJnDPQcCkg5cRJjP0m7AZ01/xkB+C730ePrl/IUIQ
- 0ECq+iu/3r6C4IUBghzzaDXdbehRiky6odXE98qdO/Ka
-X-Google-Smtp-Source: ABdhPJwP23FzXsaGMw8VXzt1+MZB3xI15t1l+4RKjcWda0IH/M/ldDMzeH3KrR9vn/rHCDsXf7IGZQlDTY3Aqt6/akQ=
-X-Received: by 2002:a05:6512:3139:: with SMTP id
- p25mr5317196lfd.214.1590075918288; 
- Thu, 21 May 2020 08:45:18 -0700 (PDT)
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=spyphAFyJlXm/hizdcLp1TmVYviGGpi8QG1vV3BS/z0=;
+ b=MNVBzCY/n5xqGmtgxWl0gljgn+5C4FmsIHDjx5sa4U0flJKhXVQ7ZZggw3Dzj13d4J
+ bLhnFF8pGdFsVdKTboHpD8wBjHMKpgozleLOCkj6/DcQo4GMQWiNq8B9jQnYrDEy2Mqr
+ DnNjuBBrLFtdeCEHBIuqDl0nlcRIptj3jbc95a/ONG01vD37TCz2DtxhcxBHfcnb6myi
+ kfwfeVlzBSi+0k5djodDjmBzT592UpWlT17nzv1jJ083UfABYiCnxerwMMJkCBZRskeA
+ BuAN/3no0Kb40GWBZq7oH4teLi0PSijYXfHflxGf+HEif5VkryAWdJ8b3Dy4DYs1tEHX
+ RpCw==
+X-Gm-Message-State: AOAM532Ry3rRtZUtAe9KhWnjG+ZLfhl8wEPP2g/3/0YMwlpMgm+gMRQm
+ Zn1TtYoXvcpp5tcBNFKy4jI=
+X-Google-Smtp-Source: ABdhPJwa9bmXHpKIjt0/NV+HqpHW183nSJ8PtUAeGScEV8q8uO20duP+mYu+rh187XltJN4Bs821+A==
+X-Received: by 2002:a5d:6884:: with SMTP id h4mr557173wru.198.1590076830419;
+ Thu, 21 May 2020 09:00:30 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id 88sm4117361wre.45.2020.05.21.09.00.28
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 21 May 2020 09:00:29 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: <paul@xen.org>, "'Julien Grall'" <julien@xen.org>,
+ <xen-devel@lists.xenproject.org>
+References: <20200521085932.10508-1-paul@xen.org>
+ <20200521085932.10508-5-paul@xen.org>
+ <dd544d5d-aa25-f035-d96b-747f07c23513@xen.org>
+ <004401d62f84$1d9a2c40$58ce84c0$@xen.org>
+In-Reply-To: <004401d62f84$1d9a2c40$58ce84c0$@xen.org>
+Subject: RE: [PATCH v4 4/5] common/domain: add a domain context record for
+ shared_info...
+Date: Thu, 21 May 2020 17:00:28 +0100
+Message-ID: <000001d62f88$f354b180$d9fe1480$@xen.org>
 MIME-Version: 1.0
-References: <49cc21c24b65ef5e1ce9810397c0fcd9d43f77f4.1590072675.git.rosbrookn@ainfosec.com>
-In-Reply-To: <49cc21c24b65ef5e1ce9810397c0fcd9d43f77f4.1590072675.git.rosbrookn@ainfosec.com>
-From: Nick Rosbrook <rosbrookn@gmail.com>
-Date: Thu, 21 May 2020 11:45:07 -0400
-Message-ID: <CAEBZRSczH+baW+hV9MVnup4qPauu=uEZGK7EhrkFPy+pfS0Fmg@mail.gmail.com>
-Subject: Re: [PATCH] golang/xenlight: add an empty line after DO NOT EDIT
- comment
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQIT1cQvb66Smwxss7bTr3fjVXX5DAJ/pCGkAnVDoB8CdO2uVqf8F1Ig
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,25 +81,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Reply-To: paul@xen.org
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Paul Durrant' <pdurrant@amazon.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> When generating documentation, pkg.go.dev and godoc.org assume a comment
-> that immediately precedes the package declaration is a "package
-> comment", and should be shown in the documentation. Add an empty line
-> after the DO NOT EDIT comment in generated files to prevent these
-> comments from appearing as "package comments."
+> -----Original Message-----
+> From: Paul Durrant <xadimgnik@gmail.com>
+> Sent: 21 May 2020 16:26
+> To: 'Julien Grall' <julien@xen.org>; xen-devel@lists.xenproject.org
+> Cc: 'Paul Durrant' <pdurrant@amazon.com>; 'Ian Jackson' <ian.jackson@eu.citrix.com>; 'Wei Liu'
+> <wl@xen.org>; 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'George Dunlap' <george.dunlap@citrix.com>;
+> 'Jan Beulich' <jbeulich@suse.com>; 'Stefano Stabellini' <sstabellini@kernel.org>
+> Subject: RE: [PATCH v4 4/5] common/domain: add a domain context record for shared_info...
+> 
+> > -----Original Message-----
+> [snip]
+> > > diff --git a/xen/common/domain.c b/xen/common/domain.c
+> > > index 7cc9526139..14e96c3bc2 100644
+> > > --- a/xen/common/domain.c
+> > > +++ b/xen/common/domain.c
+> > > @@ -33,6 +33,7 @@
+> > >   #include <xen/xenoprof.h>
+> > >   #include <xen/irq.h>
+> > >   #include <xen/argo.h>
+> > > +#include <xen/save.h>
+> > >   #include <asm/debugger.h>
+> > >   #include <asm/p2m.h>
+> > >   #include <asm/processor.h>
+> > > @@ -1649,6 +1650,64 @@ int continue_hypercall_on_cpu(
+> > >       return 0;
+> > >   }
+> > >
+> > > +static int save_shared_info(const struct domain *d, struct domain_context *c,
+> > > +                            bool dry_run)
+> > > +{
+> > > +    struct domain_shared_info_context ctxt = {
+> > > +#ifdef CONFIG_COMPAT
+> > > +        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
+> > > +#endif
+> > > +        .buffer_size = sizeof(shared_info_t),
+> > > +    };
+> > > +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> > > +    int rc;
+> > > +
+> > > +    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, 0);
+> > > +    if ( rc )
+> > > +        return rc;
+> > > +
+> > > +    rc = domain_save_data(c, &ctxt, hdr_size);
+> > > +    if ( rc )
+> > > +        return rc;
+> > > +
+> > > +    rc = domain_save_data(c, d->shared_info, ctxt.buffer_size);
+> > > +    if ( rc )
+> > > +        return rc;
+> > > +
+> > > +    return domain_save_end(c);
+> > > +}
+> > > +
+> > > +static int load_shared_info(struct domain *d, struct domain_context *c)
+> > > +{
+> > > +    struct domain_shared_info_context ctxt;
+> > > +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> > > +    unsigned int i;
+> > > +    int rc;
+> > > +
+> > > +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
+> > > +    if ( rc || i ) /* expect only a single instance */
+> > > +        return rc;
+> >
+> > This will return 0 if there is multiple instance. Is it intended?
+> >
+> 
+> No, it ought to be an error... probably ENOENT.
 
-George,
+Actually I think ENXIO might be better... ENOENT tends to imply something is missing rather than unexpected.
 
-When I re-generated the code, there were also changes to
-types/helpers.gen.go corresponding to recent changes from the linux
-stubdom series. How should we make sure the xenlight package is
-up-to-date for the 4.14 release?
+  Paul
 
-Thanks,
-NR
 
