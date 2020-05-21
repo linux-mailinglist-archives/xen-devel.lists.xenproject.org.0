@@ -2,57 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 474FD1DCD52
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 14:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E6F81DCDC6
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2020 15:13:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jbkgt-000648-S6; Thu, 21 May 2020 12:52:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VGGW=7D=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jbkgr-000640-Se
- for xen-devel@lists.xenproject.org; Thu, 21 May 2020 12:52:49 +0000
-X-Inumbo-ID: f9471c50-9b61-11ea-aafe-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f9471c50-9b61-11ea-aafe-12813bfff9fa;
- Thu, 21 May 2020 12:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=GHqK/6rEcspyvA2fOvyIWaP4KczkSAzGrqmCF/pcafQ=; b=bt1gMVivDPWmAtfFYTolRw6U1L
- JHXlTrI0Qj/CkK6gi5dS1unxEWyXPFj9opMF1QO32U26IgrFz6VuyYm6PEhpOmjiHTgW6RFsQVMJ4
- sc8IWsfWWeq9w1QEaQXUH7Am3Z4VG2mvR04jt7/x0TiR3bsV0XmFfyBSq4PdX/Hfrfdg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jbkgk-0001to-HH; Thu, 21 May 2020 12:52:42 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jbkgk-0004wa-AJ; Thu, 21 May 2020 12:52:42 +0000
-Subject: Re: [PATCH v10 09/12] xen: add runtime parameter access support to
- hypfs
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <20200519072106.26894-1-jgross@suse.com>
- <20200519072106.26894-10-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <fcc51570-cbfe-4fca-42d9-2b684f52e651@xen.org>
-Date: Thu, 21 May 2020 13:52:39 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.0
+	id 1jbkzs-0007uT-HJ; Thu, 21 May 2020 13:12:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UciX=7D=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1jbkzq-0007uO-Ct
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2020 13:12:26 +0000
+X-Inumbo-ID: b69f7e4e-9b64-11ea-b9cf-bc764e2007e4
+Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b69f7e4e-9b64-11ea-b9cf-bc764e2007e4;
+ Thu, 21 May 2020 13:12:25 +0000 (UTC)
+Received: by mail-lf1-x144.google.com with SMTP id w15so4389819lfe.11
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2020 06:12:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=P3mZBUQpW9ml01kQtWZRohcsMSbianysuRNW4ZgL8rw=;
+ b=r1J0vSCtjvnOSsObiMR4yhXTzW8YAdp/9N/rg20vyD/2Qt2TK06AvhDdR6C/coiqbg
+ pCWO3syb3xWCOWhPQrlTbpQd4+b+216IwCRWkPOLFjCSbItOL5OpsYGj+MPLvCjqnWyh
+ W2zODg42CAaDUHWlEViBpxsRiGi13ZjMCpKrjx1BqkEP3RPrbxpBDBgu9tbfAxCp/mUz
+ nxwdWiVuXe9DnFJNbsdMqTdM3q9ygNoY89WujkvXPwKunDY1ypN+fdGAIu5NgClMAuZi
+ C9o/WHyORkhWAw+hAz60/xgkO1eJIaG9VdRT2oulFA3UPv3KaRO00FML2bBH5Y4ZWNbK
+ XB2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=P3mZBUQpW9ml01kQtWZRohcsMSbianysuRNW4ZgL8rw=;
+ b=tSp21UDWZKfu+cBDexH1FJAj1Q8CNA73vhXDd25rvjkWcq64UYkieUwZVyGqXA0k5m
+ RmEoefgSXT3HuP1KjiLIPvRb9sMUN2SbwKeB8ATYFEHVfVTNFvsFSERVigEBR1pUN1Md
+ sDXTAf2kBKsYkPr23q8qvQ1FCUZrNzJyoq8I5Iaanb/GZ5eDFsHeaHNJgHi6wBTekln1
+ WiROhXVQEicDitinMgz7ocmyQOovM9XodbZIiC6EEquWCXmvewsDRODSDVi/wKqzromW
+ cNhqUeiAxUaah7xKjxLmB3dx6O7rGPxS21bETk+8in8vEmhCuN0WmwsdDPCCDNOIRKQ6
+ wORw==
+X-Gm-Message-State: AOAM533ByXq4V8ahKtJH9gA8r/g1N9FzL75qI2/ZjfrhqyFiO81poZaP
+ jpI3wlQWBWLYkq1EDdFjJsZtv9H3lLgutRO2Otk=
+X-Google-Smtp-Source: ABdhPJw6wLCaDryHW0BocoBND2AJYJTh3uguwGqAXBhrdsfM0koGcl0bqAShD3GDp3zVKKotmjC++qQKw4iRRYbRr8s=
+X-Received: by 2002:a19:f813:: with SMTP id a19mr4955560lff.212.1590066744538; 
+ Thu, 21 May 2020 06:12:24 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200519072106.26894-10-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <20200519015503.115236-1-jandryuk@gmail.com>
+ <20200519015503.115236-13-jandryuk@gmail.com>
+ <edb28eba-622e-e9e6-5d22-0d5e86b503bd@citrix.com>
+In-Reply-To: <edb28eba-622e-e9e6-5d22-0d5e86b503bd@citrix.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 21 May 2020 09:12:13 -0400
+Message-ID: <CAKf6xpuGDHrWFrj_f+bZU9xVK878YKPR=u86MpzDw-0xbFvZVg@mail.gmail.com>
+Subject: Re: [PATCH v7 12/19] tools: add simple vchan-socket-proxy
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,37 +66,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Juergen,
+On Thu, May 21, 2020 at 7:09 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>
+> On 19/05/2020 02:54, Jason Andryuk wrote:
+> > +static int connect_socket(const char *path_or_fd) {
+> > +    int fd;
+> > +    char *endptr;
+> > +    struct sockaddr_un addr;
+> > +
+> > +    fd = strtoll(path_or_fd, &endptr, 0);
+> > +    if (*endptr == '\0') {
+> > +        set_nonblocking(fd, 1);
+> > +        return fd;
+> > +    }
+> > +
+> > +    fd = socket(AF_UNIX, SOCK_STREAM, 0);
+> > +    if (fd == -1)
+> > +        return -1;
+> > +
+> > +    addr.sun_family = AF_UNIX;
+> > +    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path));
+>
+> Coverity has identified issues, some perhaps more concerning than others.
 
-On 19/05/2020 08:21, Juergen Gross wrote:
-> Add support to read and modify values of hypervisor runtime parameters
-> via the hypervisor file system.
-> 
-> As runtime parameters can be modified via a sysctl, too, this path has
-> to take the hypfs rw_lock as writer.
-> 
-> For custom runtime parameters the connection between the parameter
-> value and the file system is done via an init function which will set
-> the initial value (if needed) and the leaf properties.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Thanks.  I'll take a look.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
--- 
-Julien Grall
+-Jason
 
