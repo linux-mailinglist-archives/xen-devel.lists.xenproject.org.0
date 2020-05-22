@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E0D11DE8BE
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 16:25:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D23D1DE916
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 16:35:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc8bI-0003Z8-EA; Fri, 22 May 2020 14:24:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jc8ku-0004ae-Bo; Fri, 22 May 2020 14:34:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=knsM=7E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jc8bG-0003Z0-Qu
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 14:24:38 +0000
-X-Inumbo-ID: f68cded9-9c37-11ea-abe7-12813bfff9fa
+ id 1jc8ks-0004aZ-A0
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 14:34:34 +0000
+X-Inumbo-ID: 5a491de6-9c39-11ea-b9cf-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f68cded9-9c37-11ea-abe7-12813bfff9fa;
- Fri, 22 May 2020 14:24:36 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5a491de6-9c39-11ea-b9cf-bc764e2007e4;
+ Fri, 22 May 2020 14:34:33 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D5970B142;
- Fri, 22 May 2020 14:24:37 +0000 (UTC)
-Subject: Re: [PATCH v5 1/5] xen/common: introduce a new framework for
- save/restore of 'domain' context
+ by mx2.suse.de (Postfix) with ESMTP id D72DBABB2;
+ Fri, 22 May 2020 14:34:34 +0000 (UTC)
+Subject: Re: [PATCH v5 4/5] common/domain: add a domain context record for
+ shared_info...
 To: Paul Durrant <paul@xen.org>
 References: <20200521161939.4508-1-paul@xen.org>
- <20200521161939.4508-2-paul@xen.org>
+ <20200521161939.4508-5-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <62f13c6d-8d5f-7d06-d7e9-d17b960c8264@suse.com>
-Date: Fri, 22 May 2020 16:24:32 +0200
+Message-ID: <6090d080-e771-81fe-0b64-e25c7a8c52eb@suse.com>
+Date: Fri, 22 May 2020 16:34:25 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200521161939.4508-2-paul@xen.org>
+In-Reply-To: <20200521161939.4508-5-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -51,61 +50,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 21.05.2020 18:19, Paul Durrant wrote:
-> To allow enlightened HVM guests (i.e. those that have PV drivers) to be
-> migrated without their co-operation it will be necessary to transfer 'PV'
-> state such as event channel state, grant entry state, etc.
-> 
-> Currently there is a framework (entered via the hvm_save/load() functions)
-> that allows a domain's 'HVM' (architectural) state to be transferred but
-> 'PV' state is also common with pure PV guests and so this framework is not
-> really suitable.
-> 
-> This patch adds the new public header and low level implementation of a new
-> common framework, entered via the domain_save/load() functions. Subsequent
-> patches will introduce other parts of the framework, and code that will
-> make use of it within the current version of the libxc migration stream.
-> 
-> This patch also marks the HVM-only framework as deprecated in favour of the
-> new framework.
-> 
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-> Acked-by: Julien Grall <julien@xen.org>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one remark:
-
-> +int domain_load_end(struct domain_context *c)
+> @@ -1649,6 +1650,70 @@ int continue_hypercall_on_cpu(
+>      return 0;
+>  }
+>  
+> +static int save_shared_info(const struct domain *d, struct domain_context *c,
+> +                            bool dry_run)
 > +{
-> +    struct domain *d = c->domain;
-> +    size_t len = c->desc.length - c->len;
-> +
-> +    while ( c->len != c->desc.length ) /* unconsumed data or pad */
-> +    {
-> +        uint8_t pad;
-> +        int rc = domain_load_data(c, &pad, sizeof(pad));
-> +
-> +        if ( rc )
-> +            return rc;
-> +
-> +        if ( pad )
-> +            return -EINVAL;
-> +    }
-> +
-> +    gdprintk(XENLOG_INFO, "%pd load: %s[%u] +%zu (-%zu)\n", d, c->name,
-> +             c->desc.instance, c->len, len);
+> +    struct domain_shared_info_context ctxt = {
+> +#ifdef CONFIG_COMPAT
+> +        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
+> +#endif
+> +        .buffer_size = sizeof(shared_info_t),
 
-Unlike on the save side you assume c->name to be non-NULL here.
-We're not going to crash because of this, but it feels a little
-odd anyway, specifically with the function being non-static
-(albeit on the positive side we have the type being private to
-this file).
+But this size varies between native and compat.
+
+> +static int load_shared_info(struct domain *d, struct domain_context *c)
+> +{
+> +    struct domain_shared_info_context ctxt;
+> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> +    unsigned int i;
+> +    int rc;
+> +
+> +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( i ) /* expect only a single instance */
+> +        return -ENXIO;
+> +
+> +    rc = domain_load_data(c, &ctxt, hdr_size);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( ctxt.buffer_size != sizeof(shared_info_t) )
+> +        return -EINVAL;
+
+While on the save side things could be left as they are (yet
+I'd prefer a change), this should be flexible enough to allow
+at least the smaller compat size as well in the compat case.
+I wonder whether any smaller sizes might be acceptable, once
+again with the rest getting zero-padded.
+
+> +    if ( ctxt.flags & DOMAIN_SAVE_32BIT_SHINFO )
+> +#ifdef CONFIG_COMPAT
+> +        has_32bit_shinfo(d) = true;
+> +#else
+> +        return -EINVAL;
+> +#endif
+
+Am I mis-remembering or was a check lost of the remaining
+flags being zero? If I am, one needs adding in any case, imo.
 
 Jan
 
