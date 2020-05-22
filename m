@@ -2,46 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070181DE381
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 11:52:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C98A1DE390
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 11:55:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc4MC-0007xw-7n; Fri, 22 May 2020 09:52:48 +0000
+	id 1jc4OI-00085C-Ks; Fri, 22 May 2020 09:54:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=knsM=7E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jc4MA-0007xo-5Q
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 09:52:46 +0000
-X-Inumbo-ID: fbfd67a0-9c11-11ea-b07b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RPHd=7E=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jc4OG-000855-N1
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 09:54:56 +0000
+X-Inumbo-ID: 4a41949a-9c12-11ea-b07b-bc764e2007e4
+Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fbfd67a0-9c11-11ea-b07b-bc764e2007e4;
- Fri, 22 May 2020 09:52:44 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9CDC0AB7D;
- Fri, 22 May 2020 09:52:46 +0000 (UTC)
-Subject: Re: [PATCH] x86: refine guest_mode()
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <7b62d06c-1369-2857-81c0-45e2434357f4@suse.com>
- <1704f4f6-7e77-971c-2c94-4f6a6719c34a@citrix.com>
- <5bbe6425-396c-d934-b5af-53b594a4afbc@suse.com>
- <16939982-3ccc-f848-0694-61b154dca89a@citrix.com>
- <5ce12c86-c894-4a2c-9fa6-1c2a6007ca28@suse.com>
- <20200518145101.GV54375@Air-de-Roger>
- <d58ec87e-a871-2e65-4a69-b73a168a6afa@suse.com>
- <20200520151326.GM54375@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <38d546f9-8043-8d94-8298-8fd035078a8a@suse.com>
-Date: Fri, 22 May 2020 11:52:42 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 4a41949a-9c12-11ea-b07b-bc764e2007e4;
+ Fri, 22 May 2020 09:54:56 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id f5so980449wmh.2
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2020 02:54:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=iaKsEP9YxVg/i27p2cuZ3z6rXXbvQ5bbumLMMOklFro=;
+ b=b7p5QMd8vlzhHPIwg7bzdDLzc6HJSaOj7CiEhyPr8m4/fsogObBAdjkagqAFrKR332
+ AU/mzPUBarTktfZPiybu/DKRxZk5DH4FuuRZWFAmmlJ85++xyxCH6/8PGuleZp49a62B
+ jaBfdiy9uWGVMSUvXPOj+8aOn+8qIvCC+MZQ9COn79xsdWd0VA1YHgpkVs7wQzSoE9Jg
+ kWqFKA4Wp+UyJWUuB4RX+v6ArEF0wa9sxR2sie9O+mtPfW9UZGVbWlmbybQUZsQGRd+Q
+ OJR5In2fzlPAirlFKRoljO4r+Cnufj9jM1ASGI3iW1a32h1XaBxZExZJkwmDcd7GgSvw
+ U4OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=iaKsEP9YxVg/i27p2cuZ3z6rXXbvQ5bbumLMMOklFro=;
+ b=iwJUGnUHoQcTE/hLliks0D9uoPAesudZgglHbHeIsbNgTYZ64+DiwXW2ZvgJSQFyUN
+ Gn7Ubg/M2SeAzr5sSatP9qPOA3LU2ZvfZxscROfZO5PiaEOTiC7RhLa0nROcrQsB8dTk
+ OYlSThAqAeQ59VM3IyxVEnEWuLaEl19MDnSMCY2t3ryaLEhnJS7Emh9oGoJLPWxcWuhh
+ HV+f84eHzfJHQR2bL/xw1Yk3tfQqvLn8aPr1OR4PanWvHUgnHK2ylV2YxWCW6yV13mmV
+ b7e+P0qKNDgwMpX2z0T3TpDXqCygt6pXGR06ahRYN5FhiDSV/LkdLKchSZd1vIchgrjN
+ Y7+w==
+X-Gm-Message-State: AOAM5332qd4FbVhXHHJB+e9Hcd4XQSIUvNFXm3bVYv6kzptQm/8f8y6M
+ yX3OEhdiVu8mtzCbhiUDQ6o=
+X-Google-Smtp-Source: ABdhPJyfNbwbyaOn7KKmyTfGxtoqbs9RWSOJEJW4kFlt7983av6rC9Xp8EuyhFqXBNVFaIGoZdEfqQ==
+X-Received: by 2002:a1c:98cc:: with SMTP id a195mr5020506wme.32.1590141295432; 
+ Fri, 22 May 2020 02:54:55 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id m7sm9206225wmc.40.2020.05.22.02.54.53
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 22 May 2020 02:54:54 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'George Dunlap'" <George.Dunlap@citrix.com>,
+ "'Jason Andryuk'" <jandryuk@gmail.com>
+References: <20200519015503.115236-1-jandryuk@gmail.com>
+ <4510049C-2AD1-4AE4-B0E5-F4231450EDB6@citrix.com>
+In-Reply-To: <4510049C-2AD1-4AE4-B0E5-F4231450EDB6@citrix.com>
+Subject: RE: [PATCH v7 00/19] Add support for qemu-xen runnning in a
+ Linux-based stubdomain
+Date: Fri, 22 May 2020 10:54:52 +0100
+Message-ID: <001301d6301f$0b546cd0$21fd4670$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20200520151326.GM54375@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGuWQTXNTg7A7WCU27izkdscEVquQGwNvazqPYKEdA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,124 +79,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Reply-To: paul@xen.org
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>, 'xen-devel' <xen-devel@lists.xenproject.org>,
+ 'Wei Liu' <wl@xen.org>, 'Andrew Cooper' <Andrew.Cooper3@citrix.com>,
+ 'Jan Beulich' <jbeulich@suse.com>, 'Ian Jackson' <Ian.Jackson@citrix.com>,
+ 'Anthony Perard' <anthony.perard@citrix.com>,
+ 'Samuel Thibault' <samuel.thibault@ens-lyon.org>,
+ 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.05.2020 17:13, Roger Pau Monné wrote:
-> On Wed, May 20, 2020 at 10:56:26AM +0200, Jan Beulich wrote:
->> On 18.05.2020 16:51, Roger Pau Monné wrote:
->>> On Tue, Apr 28, 2020 at 08:30:12AM +0200, Jan Beulich wrote:
->>>> On 27.04.2020 22:11, Andrew Cooper wrote:
->>>>> On 27/04/2020 16:15, Jan Beulich wrote:
->>>>>> On 27.04.2020 16:35, Andrew Cooper wrote:
->>>>>>> On 27/04/2020 09:03, Jan Beulich wrote:
->>>>>>>> --- a/xen/include/asm-x86/regs.h
->>>>>>>> +++ b/xen/include/asm-x86/regs.h
->>>>>>>> @@ -10,9 +10,10 @@
->>>>>>>>      /* Frame pointer must point into current CPU stack. */                    \
->>>>>>>>      ASSERT(diff < STACK_SIZE);                                                \
->>>>>>>>      /* If not a guest frame, it must be a hypervisor frame. */                \
->>>>>>>> -    ASSERT((diff == 0) || (r->cs == __HYPERVISOR_CS));                        \
->>>>>>>> +    if ( diff < PRIMARY_STACK_SIZE )                                          \
->>>>>>>> +        ASSERT(!diff || ((r)->cs == __HYPERVISOR_CS));                        \
->>>>>>>>      /* Return TRUE if it's a guest frame. */                                  \
->>>>>>>> -    (diff == 0);                                                              \
->>>>>>>> +    !diff || ((r)->cs != __HYPERVISOR_CS);                                    \
->>>>>>> The (diff == 0) already worried me before because it doesn't fail safe,
->>>>>>> but this makes things more problematic.  Consider the case back when we
->>>>>>> had __HYPERVISOR_CS32.
->>>>>> Yes - if __HYPERVISOR_CS32 would ever have been to be used for
->>>>>> anything, it would have needed checking for here.
->>>>>>
->>>>>>> Guest mode is strictly "(r)->cs & 3".
->>>>>> As long as CS (a) gets properly saved (it's a "manual" step for
->>>>>> SYSCALL/SYSRET as well as #VMEXIT) and (b) didn't get clobbered. I
->>>>>> didn't write this code, I don't think, so I can only guess that
->>>>>> there were intentions behind this along these lines.
->>>>>
->>>>> Hmm - the VMExit case might be problematic here, due to the variability
->>>>> in the poison used.
->>>>
->>>> "Variability" is an understatement - there's no poisoning at all
->>>> in release builds afaics (and to be honest it seems a somewhat
->>>> pointless to write the same values over and over again in debug
->>>> mode). With this, ...
->>>>
->>>>>>> Everything else is expectations about how things ought to be laid out,
->>>>>>> but for safety in release builds, the final judgement should not depend
->>>>>>> on the expectations evaluating true.
->>>>>> Well, I can switch to a purely CS.RPL based approach, as long as
->>>>>> we're happy to live with the possible downside mentioned above.
->>>>>> Of course this would then end up being a more intrusive change
->>>>>> than originally intended ...
->>>>>
->>>>> I'd certainly prefer to go for something which is more robust, even if
->>>>> it is a larger change.
->>>>
->>>> ... what's your suggestion? Basing on _just_ CS.RPL obviously won't
->>>> work. Not even if we put in place the guest's CS (albeit that
->>>> somewhat depends on the meaning we assign to the macro's returned
->>>> value).
->>>
->>> Just to check I'm following this correctly, using CS.RPL won't work
->>> for HVM guests, as HVM can legitimately use a RPL of 0 (which is not
->>> the case for PV guests). Doesn't the same apply to the usage of
->>> __HYPERVISOR_CS? (A HVM guest could also use the same code segment
->>> value as Xen?)
->>
->> Of course (and in particular Xen as a guest would). My "Basing on
->> _just_ CS.RPL" wasn't meant to exclude the rest of the selector,
->> but to contrast this to the case where "diff" also is involved in
->> the calculation (which looks to be what Andrew would prefer to see
->> go away).
->>
->>>> Using current inside the macro to determine whether the
->>>> guest is HVM would also seem fragile to me - there are quite a few
->>>> uses of guest_mode(). Which would leave passing in a const struct
->>>> vcpu * (or domain *), requiring to touch all call sites, including
->>>> Arm's.
->>>
->>> Fragile or slow? Are there corner cases where guest_mode is used where
->>> current is not reliable?
->>
->> This question is why I said "there are quite a few uses of
->> guest_mode()" - auditing them all is just one side of the medal.
->> The other is to prevent a new use appearing in the future that
->> can be reached by a call path in the time window where a lazy
->> context switch is pending (i.e. when current has already been
->> updated, but register state hasn't been yet).
->>
->>>> Compared to this it would seem to me that the change as presented
->>>> is a clear improvement without becoming overly large of a change.
->>>
->>> Using the cs register is already part of the guest_mode code, even if
->>> just in debug mode, hence I don't see it as a regression from existing
->>> code. It however feels weird to me that the reporter of the issue
->>> doesn't agree with the fix, and hence would like to know if there's a
->>> way we could achieve consensus on this.
->>
->> Indeed. I'd be happy to make further adjustments, if only I had a
->> clear understanding of what is wanted (or why leaving things as
->> they are is better than a little bit of an improvement).
-> 
-> OK, so I think I'm starting to understand this all. Sorry it's taken
-> me so long. So it's my understanding that diff != 0 can only happen in
-> Xen context, or when in an IST that has a different stack (ie: MCE, NMI
-> or DF according to current.h) and running in PV mode?
-> 
-> Wouldn't in then be fine to use (r)->cs & 3 to check we are in guest
-> mode if diff != 0? I see a lot of other places where cs & 3 is already
-> used to that effect AFAICT (like entry.S).
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+George Dunlap
+> Sent: 22 May 2020 10:11
+> To: Jason Andryuk <jandryuk@gmail.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>; Julien Grall =
+<julien@xen.org>; Samuel Thibault
+> <samuel.thibault@ens-lyon.org>; Wei Liu <wl@xen.org>; Andrew Cooper =
+<Andrew.Cooper3@citrix.com>; Jan
+> Beulich <jbeulich@suse.com>; Ian Jackson <Ian.Jackson@citrix.com>; =
+Anthony Perard
+> <anthony.perard@citrix.com>; xen-devel =
+<xen-devel@lists.xenproject.org>; Daniel De Graaf
+> <dgdegra@tycho.nsa.gov>
+> Subject: Re: [PATCH v7 00/19] Add support for qemu-xen runnning in a =
+Linux-based stubdomain
+>=20
+>=20
+> > On May 19, 2020, at 2:54 AM, Jason Andryuk <jandryuk@gmail.com> =
+wrote:
+> >
+> > General idea is to allow freely set device_model_version and
+> > device_model_stubdomain_override and choose the right options based =
+on this
+> > choice.  Also, allow to specific path to stubdomain kernel/ramdisk, =
+for greater
+> > flexibility.
+>=20
+> Excited to see this patch series get in.  But I didn=E2=80=99t really =
+notice any documents explaining how to
+> actually use it =E2=80=94 is there a blog post anywhere describing how =
+to get the kernel / initrd image and so
+> on?
+>=20
+> Also, would it be possible to add a follow-up series which modifies =
+SUPPORT.md and CHANGELOG.md?
 
-Technically this would be correct afaics, but the idea with all this
-is (or should I say "looks to be"?) to have the checks be as tight as
-possible, to make sure we don't mistakenly consider something "guest
-mode" which really isn't. IOW your suggestion would be fine with me
-if we could exclude bugs anywhere in the code. But since this isn't
-realistic, I consider your suggestion to be relaxing things by too
-much.
+Yes please. In future I think we should encourage the patch to =
+CHANGELOG.md to be the last patch of a series such as this.
 
-Jan
+  Paul
+
+>=20
+> Thanks,
+>  -George
+
 
