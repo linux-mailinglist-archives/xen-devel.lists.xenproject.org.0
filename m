@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 231021DE374
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 11:46:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F8C21DE37E
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 11:50:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc4FT-0006zH-8M; Fri, 22 May 2020 09:45:51 +0000
+	id 1jc4Jm-0007ml-QW; Fri, 22 May 2020 09:50:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hXvX=7E=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1jc4FS-0006yb-8v
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 09:45:50 +0000
-X-Inumbo-ID: 04915530-9c11-11ea-aba8-12813bfff9fa
-Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
+ <SRS0=2cgu=7E=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jc4Jl-0007mg-PF
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 09:50:17 +0000
+X-Inumbo-ID: a3a0895c-9c11-11ea-aba8-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 04915530-9c11-11ea-aba8-12813bfff9fa;
- Fri, 22 May 2020 09:45:49 +0000 (UTC)
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:37674
- helo=[192.168.1.219])
- by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
- with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1jc4FO-000NKL-M2 (Exim 4.92.3)
- (return-path <amc96@hermes.cam.ac.uk>); Fri, 22 May 2020 10:45:46 +0100
-Subject: Re: [PATCH] x86/svm: retry after unhandled NPT fault if gfn was
- marked for recalculation
-To: Igor Druzhinin <igor.druzhinin@citrix.com>, xen-devel@lists.xenproject.org
-References: <1590097438-28829-1-git-send-email-igor.druzhinin@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <dae35bcf-5b85-a760-9d15-139973215334@citrix.com>
-Date: Fri, 22 May 2020 10:45:46 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id a3a0895c-9c11-11ea-aba8-12813bfff9fa;
+ Fri, 22 May 2020 09:50:16 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 2EOl9xU0oWRpS/14ijNqMJw2MTZ/WKZsksGprQsRZUnBHIul/sC2q2piRMqB5USAJTglWXyzzA
+ wAVe9PBVuU9qW+7VQdQFgqCsPOqN9W1Qq3WmTAYLUNRb3Apy1aGU4oHHXgkUF1BH+21w/saO1I
+ UCWyHVj+em1s25fqVx2dBa7sKFYlhtnBbIhb33cgw4uARbX2WCs94DTHnBiChEiVwC9UwJ2OZt
+ /AYPVCMa4tIWOLaOMaIVhUzbTcoSfWb0ef1aWMTtkrGzDhBrXleNXRyrlumxwQa7UcceL8cIhV
+ Yrg=
+X-SBRS: 2.7
+X-MesageID: 18159426
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18159426"
+From: George Dunlap <george.dunlap@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH] golang: Update generated files after libxl_types.idl change
+Date: Fri, 22 May 2020 10:49:56 +0100
+Message-ID: <20200522094956.3611661-1-george.dunlap@citrix.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <1590097438-28829-1-git-send-email-igor.druzhinin@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,51 +51,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: wl@xen.org, jbeulich@suse.com, roger.pau@citrix.com
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Ian Jackson <ian.jackson@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21/05/2020 22:43, Igor Druzhinin wrote:
-> If a recalculation NPT fault hasn't been handled explicitly in
-> hvm_hap_nested_page_fault() then it's potentially safe to retry -
-> US bit has been re-instated in PTE and any real fault would be correctly
-> re-raised next time.
->
-> This covers a specific case of migration with vGPU assigned on AMD:
-> global log-dirty is enabled and causes immediate recalculation NPT
-> fault in MMIO area upon access. This type of fault isn't described
-> explicitly in hvm_hap_nested_page_fault (this isn't called on
-> EPT misconfig exit on Intel) which results in domain crash.
->
-> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-> ---
->  xen/arch/x86/hvm/svm/svm.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-> index 46a1aac..f0d0bd3 100644
-> --- a/xen/arch/x86/hvm/svm/svm.c
-> +++ b/xen/arch/x86/hvm/svm/svm.c
-> @@ -1726,6 +1726,10 @@ static void svm_do_nested_pgfault(struct vcpu *v,
->          /* inject #VMEXIT(NPF) into guest. */
->          nestedsvm_vmexit_defer(v, VMEXIT_NPF, pfec, gpa);
->          return;
-> +    case 0:
-> +        /* If a recalculation page fault hasn't been handled - just retry. */
-> +        if ( pfec & PFEC_user_mode )
-> +            return;
+c/s 7efd9f3d45 ("libxl: Handle Linux stubdomain specific QEMU
+options.") modified libl_types.idl.  Run gengotypes.py again to update
+the geneated golang bindings.
 
-This smells like it is a recipe for livelocks.
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+---
+CC: Nick Rosbrook <rosbrookn@ainfosec.com>
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ tools/golang/xenlight/helpers.gen.go | 10 ++++++++++
+ tools/golang/xenlight/types.gen.go   |  3 +++
+ 2 files changed, 13 insertions(+)
 
-Everything should have been handled properly by the call to
-p2m_pt_handle_deferred_changes() which precedes svm_do_nested_pgfault().
+diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
+index 109e9515a2..b5bd0de830 100644
+--- a/tools/golang/xenlight/helpers.gen.go
++++ b/tools/golang/xenlight/helpers.gen.go
+@@ -1163,6 +1163,9 @@ func (x *DomainBuildInfo) fromC(xc *C.libxl_domain_build_info) error {
+ 	if err := x.DeviceModelStubdomain.fromC(&xc.device_model_stubdomain); err != nil {
+ 		return fmt.Errorf("converting field DeviceModelStubdomain: %v", err)
+ 	}
++	x.StubdomainMemkb = uint64(xc.stubdomain_memkb)
++	x.StubdomainKernel = C.GoString(xc.stubdomain_kernel)
++	x.StubdomainRamdisk = C.GoString(xc.stubdomain_ramdisk)
+ 	x.DeviceModel = C.GoString(xc.device_model)
+ 	x.DeviceModelSsidref = uint32(xc.device_model_ssidref)
+ 	x.DeviceModelSsidLabel = C.GoString(xc.device_model_ssid_label)
+@@ -1489,6 +1492,13 @@ func (x *DomainBuildInfo) toC(xc *C.libxl_domain_build_info) (err error) {
+ 	if err := x.DeviceModelStubdomain.toC(&xc.device_model_stubdomain); err != nil {
+ 		return fmt.Errorf("converting field DeviceModelStubdomain: %v", err)
+ 	}
++	xc.stubdomain_memkb = C.uint64_t(x.StubdomainMemkb)
++	if x.StubdomainKernel != "" {
++		xc.stubdomain_kernel = C.CString(x.StubdomainKernel)
++	}
++	if x.StubdomainRamdisk != "" {
++		xc.stubdomain_ramdisk = C.CString(x.StubdomainRamdisk)
++	}
+ 	if x.DeviceModel != "" {
+ 		xc.device_model = C.CString(x.DeviceModel)
+ 	}
+diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
+index df68fd0e88..15516ae552 100644
+--- a/tools/golang/xenlight/types.gen.go
++++ b/tools/golang/xenlight/types.gen.go
+@@ -509,6 +509,9 @@ type DomainBuildInfo struct {
+ 	MaxMaptrackFrames     uint32
+ 	DeviceModelVersion    DeviceModelVersion
+ 	DeviceModelStubdomain Defbool
++	StubdomainMemkb       uint64
++	StubdomainKernel      string
++	StubdomainRamdisk     string
+ 	DeviceModel           string
+ 	DeviceModelSsidref    uint32
+ 	DeviceModelSsidLabel  string
+-- 
+2.25.1
 
-It is legitimate for the MMIO mapping to end up being transiently
-recalculated, but the fact that p2m_pt_handle_deferred_changes() doesn't
-fix it up suggests that the bug is there.
-
-Do you have the complete NPT walk to the bad mapping? Do we have
-_PAGE_USER in the leaf mapping, or is this perhaps a spurious fault?
-
-~Andrew
 
