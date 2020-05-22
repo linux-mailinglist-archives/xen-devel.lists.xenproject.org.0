@@ -2,46 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF5041DE7A2
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 15:07:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC1E31DE7BF
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 15:11:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc7O1-0002qi-BI; Fri, 22 May 2020 13:06:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jc7SJ-0003jH-Vh; Fri, 22 May 2020 13:11:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1fqI=7E=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jc7Nz-0002qd-Q6
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 13:06:51 +0000
-X-Inumbo-ID: 194ada16-9c2d-11ea-9887-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 194ada16-9c2d-11ea-9887-bc764e2007e4;
- Fri, 22 May 2020 13:06:50 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: qZk4mYrVsw+c4Gdzpq6OaABIxRPgsXvG+P+jAtdV+8GmocgIrcBu6PXoETdAGjv6yKRWX3R5kL
- QI3sz9mOtBxwg3YwonKtFdFT1qRKJMfsYlBb9uEStjSVhOaq4cuMI+up5Vxs2Dp1FhEFgdH8p/
- r+HM+kcaBAOp2+8zxUjtsCCfOg1Bl6qaMlHnzN7R8e4JpuhT2jAAOKqNtRigqdaiNk521BKtHW
- 8gJ0/CVbtCCE4uRl2CIkr+32hMkqipmchih8csZ7ByJsC+nCbUXqWYUh0ynIjenZRKkkOFe6cu
- CXg=
-X-SBRS: 2.7
-X-MesageID: 18205861
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18205861"
-From: Ian Jackson <ian.jackson@citrix.com>
+ <SRS0=hXvX=7E=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1jc7SI-0003jC-3b
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 13:11:18 +0000
+X-Inumbo-ID: b83ea616-9c2d-11ea-abca-12813bfff9fa
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b83ea616-9c2d-11ea-abca-12813bfff9fa;
+ Fri, 22 May 2020 13:11:17 +0000 (UTC)
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:43492
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1jc7SG-000fyW-JW (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Fri, 22 May 2020 14:11:16 +0100
+Subject: Re: [PATCH] x86/svm: retry after unhandled NPT fault if gfn was
+ marked for recalculation
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <1590097438-28829-1-git-send-email-igor.druzhinin@citrix.com>
+ <20200522100846.GV54375@Air-de-Roger>
+ <04ec4ab4-a121-c5be-0a65-316e237dd793@citrix.com>
+ <20200522102339.GX54375@Air-de-Roger>
+ <fe6e5c7f-df0f-5436-a7cd-2949464ab9a7@citrix.com>
+ <20200522111146.GZ54375@Air-de-Roger>
+ <4831dc51-cea1-2870-422b-2af7d6d1f2d6@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <ef3411ac-9e7c-0ef7-ad9f-c24f8ebf32a6@citrix.com>
+Date: Fri, 22 May 2020 14:11:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24263.52837.360685.406105@mariner.uk.xensource.com>
-Date: Fri, 22 May 2020 14:06:45 +0100
-To: Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] m4: use test instead of []
-In-Reply-To: <20200522112457.6640-1-wl@xen.org>
-References: <20200522112457.6640-1-wl@xen.org>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+In-Reply-To: <4831dc51-cea1-2870-422b-2af7d6d1f2d6@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,35 +58,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen Development List <xen-devel@lists.xenproject.org>, Ian
- Jackson <Ian.Jackson@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Igor Druzhinin <igor.druzhinin@citrix.com>, wl@xen.org,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Wei Liu writes ("[PATCH] m4: use test instead of []"):
-> It is reported that [] was removed by autoconf, which caused the
-> following error:
-> 
->   ./configure: line 4681: -z: command not found
-> 
-> Switch to test. That's what is used throughout our configure scripts.
+On 22/05/2020 14:04, Jan Beulich wrote:
+> On 22.05.2020 13:11, Roger Pau Monné wrote:
+>> That being said, I also don't like the fact that logdity is handled
+>> differently between EPT and NPT, as on EPT it's handled as a
+>> misconfig while on NPT it's handled as a violation.
+> Because, well, there is no concept of misconfig in NPT.
 
-The reason for [ ] being removed is that configure.ac et al are
-processed by m4 with quote characters set to [ ].
+Indeed.  Intel chose to split EPT errors into two - MISCONFIG for
+structural errors (not present, or reserved bits set) and VIOLATION for
+permissions errors.
 
->      APPEND_LDFLAGS="$APPEND_LDFLAGS -L$ldflag"
->  done
-> -if [ ! -z $EXTRA_PREFIX ]; then
-> +if test ! -z $EXTRA_PREFIX ; then
->      CPPFLAGS="$CPPFLAGS -I$EXTRA_PREFIX/include"
+AMD reused the same silicon pagewalker design, so have a single
+NPT_FAULT vmexit which behaves much more like a regular pagefault,
+encoding structural vs permission errors in the error code.
 
-If $EXTRA_PREFIX contains nothing (or just whitespace) this expands to
-  test ! -z
-which only works by accident.  It is parsed ax
-  if not (string_is_nonempty("-z"))
-
-Variable expansions in test expressions should generally be in " ".
-
-Ian.
+~Andrew
 
