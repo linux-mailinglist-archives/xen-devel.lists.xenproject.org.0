@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 481D31DE192
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 10:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0994F1DE1A6
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 10:18:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc2kS-0005NJ-MO; Fri, 22 May 2020 08:09:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L400=7E=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jc2kR-0005NE-6d
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 08:09:43 +0000
-X-Inumbo-ID: 96ddfa96-9c03-11ea-b07b-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 96ddfa96-9c03-11ea-b07b-bc764e2007e4;
- Fri, 22 May 2020 08:09:42 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: YOZoPeQ1Ubz6UHRo9X+yoS1foh4kVrSzE2tRnSH2NkMy/QxYRi99DRgFD3cuznlITZAZZMFKKN
- hMKbaRTSh0QC5Alis3eT/kBxQ+UrxlPaUOHP7OvLSkR/k73GabypOt6hpgWVBzim3K6E03vosK
- zcke2Aumn3k7unHOy9PFAZVULP226y/TB1nd5zmSTMlK+LQcL7XJF4QLykmkpSlyku2euXLiCj
- apRbl7VYbJCHScub3YAZSfU8qKGrZ6XETV2Q1WCjtEtpVprpdHISL8TM2pF50MLFkAXZngHv7l
- IUg=
-X-SBRS: 2.7
-X-MesageID: 18521085
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,420,1583211600"; d="scan'208";a="18521085"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/idle: prevent entering C3/C6 on some Intel CPUs due to
- errata
-Date: Fri, 22 May 2020 10:09:28 +0200
-Message-ID: <20200522080928.87786-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.2
+	id 1jc2sv-0006It-LL; Fri, 22 May 2020 08:18:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=h8Ze=7E=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jc2st-0006In-HQ
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 08:18:27 +0000
+X-Inumbo-ID: cf567320-9c04-11ea-ab9a-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cf567320-9c04-11ea-ab9a-12813bfff9fa;
+ Fri, 22 May 2020 08:18:26 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id BF3A7BE73;
+ Fri, 22 May 2020 08:18:27 +0000 (UTC)
+Subject: Re: [PATCH] xen/events: avoid NULL pointer dereference in
+ evtchn_from_irq()
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+References: <20200319071428.12115-1-jgross@suse.com>
+ <30719c35-6de7-d400-7bb8-cff4570f8971@oracle.com>
+ <20200521184602.GP98582@mail-itl>
+ <c36de3eb-c0ad-45e1-e08b-cb7d86d197f6@oracle.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <5839ff92-92e4-667a-8ed1-f5f9f3453299@suse.com>
+Date: Fri, 22 May 2020 10:18:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <c36de3eb-c0ad-45e1-e08b-cb7d86d197f6@oracle.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -51,78 +51,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Apply a workaround for errata BA80, AAK120, AAM108, AAO67, BD59,
-AAY54: Rapid Core C3/C6 Transition May Cause Unpredictable System
-Behavior.
+On 21.05.20 23:57, Boris Ostrovsky wrote:
+> On 5/21/20 2:46 PM, Marek Marczykowski-Górecki wrote:
+>> On Thu, May 21, 2020 at 01:22:03PM -0400, Boris Ostrovsky wrote:
+>>> On 3/19/20 3:14 AM, Juergen Gross wrote:
+>>>> There have been reports of races in evtchn_from_irq() where the info
+>>>> pointer has been NULL.
+>>>>
+>>>> Avoid that case by testing info before dereferencing it.
+>>>>
+>>>> In order to avoid accessing a just freed info structure do the kfree()
+>>>> via kfree_rcu().
+>>>
+>>> Looks like noone ever responded to this.
+>>>
+>>>
+>>> This change looks fine but is there a background on the problem? I
+>>> looked in the archives and didn't find the relevant discussion.
+>> Here is the original bug report:
+>> https://xen.markmail.org/thread/44apwkwzeme4uavo
+>>
+> 
+> 
+> Thanks. Do we know what the race is? Is it because an event is being
+> delivered from a dying guest who is in the process of tearing down event
+> channels?
 
-Limit maximum C state to C2 when SMT is enabled on the affected CPUs.
+Missing synchronization between event channel (de-)allocation and
+handling.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/cpu/intel.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+I have a patch sitting here, just didn't have the time to do some proper
+testing and sending it out.
 
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index b77c1a78ed..69e99bb358 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -296,6 +296,41 @@ static void early_init_intel(struct cpuinfo_x86 *c)
- 	ctxt_switch_levelling(NULL);
- }
- 
-+/*
-+ * Errata BA80, AAK120, AAM108, AAO67, BD59, AAY54: Rapid Core C3/C6 Transition
-+ * May Cause Unpredictable System Behavior
-+ *
-+ * Under a complex set of internal conditions, cores rapidly performing C3/C6
-+ * transitions in a system with Intel Hyper-Threading Technology enabled may
-+ * cause a machine check error (IA32_MCi_STATUS.MCACOD = 0x0106), system hang
-+ * or unpredictable system behavior.
-+ */
-+static void probe_c3_errata(const struct cpuinfo_x86 *c)
-+{
-+#define INTEL_FAM6_MODEL(m) { X86_VENDOR_INTEL, 6, m, X86_FEATURE_ALWAYS }
-+    static const struct x86_cpu_id models[] = {
-+        /* Nehalem */
-+        INTEL_FAM6_MODEL(0x1a),
-+        INTEL_FAM6_MODEL(0x1e),
-+        INTEL_FAM6_MODEL(0x1f),
-+        INTEL_FAM6_MODEL(0x2e),
-+        /* Westmere (note Westmere-EX is not affected) */
-+        INTEL_FAM6_MODEL(0x2c),
-+        INTEL_FAM6_MODEL(0x25),
-+        { }
-+    };
-+#undef INTEL_FAM6_MODEL
-+
-+    /* Serialized by the AP bringup code. */
-+    if ( max_cstate > 1 && (c->apicid & (c->x86_num_siblings - 1)) &&
-+         x86_match_cpu(models) )
-+    {
-+        printk(XENLOG_WARNING
-+	       "Disabling C-states C3 and C6 due to CPU errata\n");
-+        max_cstate = 1;
-+    }
-+}
-+
- /*
-  * P4 Xeon errata 037 workaround.
-  * Hardware prefetcher may cause stale data to be loaded into the cache.
-@@ -323,6 +358,8 @@ static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
- 
- 	if (cpu_has_tsx_force_abort && opt_rtm_abort)
- 		wrmsrl(MSR_TSX_FORCE_ABORT, TSX_FORCE_ABORT_RTM);
-+
-+	probe_c3_errata(c);
- }
- 
- 
--- 
-2.26.2
 
+Juergen
 
