@@ -2,55 +2,90 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3FC71DE291
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 11:06:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 445381DE29E
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 11:09:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc3cw-0002X4-B2; Fri, 22 May 2020 09:06:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ov9E=7E=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jc3cu-0002Wz-FH
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 09:06:00 +0000
-X-Inumbo-ID: 7328e0c2-9c0b-11ea-ab9c-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7328e0c2-9c0b-11ea-ab9c-12813bfff9fa;
- Fri, 22 May 2020 09:05:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NptQTuAO8IEJYISt6o+AcAVPdDuMKGkci5lUD57jJ18=; b=7H4VvtjQLmfL8lgKqr75GBfG/f
- nNVfxly/JDWO31KKsgC5bBmRd0U1USt5m+ZddlWdWe2oL6VbqZ0tstO0/XxslYzKO0NZHX0oAeMev
- 0EM9xAgyzNYX9zXCFJSnoinjuNisS5FH2doG43bNsSGmS36y75q//A/meeE19vrGVSws=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <wl@xen.org>)
- id 1jc3cq-0005m6-6W; Fri, 22 May 2020 09:05:56 +0000
-Received: from 82.149.115.87.dyn.plus.net ([87.115.149.82] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jc3cp-0006E0-Ry; Fri, 22 May 2020 09:05:56 +0000
-Date: Fri, 22 May 2020 10:05:53 +0100
-From: Wei Liu <wl@xen.org>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: [PATCH 2/3] configure: also add EXTRA_PREFIX to {CPP/LD}FLAGS
-Message-ID: <20200522090553.eegs4fcltfqjuhzo@debian>
-References: <20200505092454.9161-1-roger.pau@citrix.com>
- <20200505092454.9161-3-roger.pau@citrix.com>
- <C053A44F-FFDE-4C07-B1FD-76FA8456ADCD@arm.com>
+	id 1jc3g8-0002gK-TR; Fri, 22 May 2020 09:09:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=de5w=7E=epam.com=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1jc3g7-0002gF-93
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 09:09:19 +0000
+X-Inumbo-ID: ea548afc-9c0b-11ea-ae69-bc764e2007e4
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.5.57]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ea548afc-9c0b-11ea-ae69-bc764e2007e4;
+ Fri, 22 May 2020 09:09:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XcZi4PqRHOmUL0cH9zEctVXORqZyRB3eQTjh0+9upJhspmodIyPuPvuEecNUyRO7jM5cKGNQnVcd7vMzUqTwA/pK/48bAWyU9C6b/cmJuPu04qUKTe8REf5n1qeQojrwe06RDtst4KyxtF4IgLx5FColn48CQqi+8wwXyHCWwFyMSiOq2p+wY8Q2N7zDpW3zc81gpb6DVL3NojykdiKermokTwluZMnVjV6lms9c6pD1BiFR2vUPRy3WWj2RRsBw1fZNoZQ0u3d5GnxcmUC3PuIRhFx9OVKDlrMpTylBfg90ZrUS5PQ/S8PtdUs7CC+VtxKweneZ/dSsVuzuwsgocg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gUkDOpjBQ1w1/LQCwIUaJ8oAJ006qfQg6XBe7g8l6ws=;
+ b=OMM7Dr6KDYUCQdWLgVmmwdjsNQTWWi1/q6tgZbPGKC1L4X9DRdCDwyEAaiezPHUAmoTEz1JavDnBVVKgDcM7gOrWTyifnCWebwJhH6CLAgpMVAdQfCAEfVl3wPRTepfQ8+V5d6o9hMOLJc9WArAHtJFupFr8IvrjKzENWmQC+PtXPZJEkB/CR+ndYM59rGJ84JW5YOe9EqaO15NJQeZrbL0oWauP2SU9ozdJO6Pb9eMbxaiOGzK9IEm5LWbzGiIeWXApUCNay5pf3GN2WO08CXzIgfgIp6DAV5i1QriCA6LH/uzaax3I7osS6qrG1LlPzOPMuxeYJ233nllgvFVx1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gUkDOpjBQ1w1/LQCwIUaJ8oAJ006qfQg6XBe7g8l6ws=;
+ b=B6PXOm2XuAbicPUJJcCGqv9H06TVUn9l0AJ1CSIkb8NM8NL8g3Uzx8/6LFuv4PkFe6GQ40ty3UDx3U5s77oI8DxuHGFmbxIOl67YIQiLUnLjMWNOYc8q4AYgdpap32J5GBWNnXAk4e9lU3plJfIhr59ORX9KcyMrG4zWm9CJMpU=
+Received: from VI1PR03MB3998.eurprd03.prod.outlook.com (2603:10a6:803:72::14)
+ by VI1PR03MB3134.eurprd03.prod.outlook.com (2603:10a6:802:31::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.27; Fri, 22 May
+ 2020 09:09:16 +0000
+Received: from VI1PR03MB3998.eurprd03.prod.outlook.com
+ ([fe80::28ec:3584:94d:27a4]) by VI1PR03MB3998.eurprd03.prod.outlook.com
+ ([fe80::28ec:3584:94d:27a4%7]) with mapi id 15.20.3021.027; Fri, 22 May 2020
+ 09:09:15 +0000
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Denis Kirjanov <kda@linux-powerpc.org>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4] public/io/netif.h: add a new extra type for XDP
+Thread-Topic: [PATCH v4] public/io/netif.h: add a new extra type for XDP
+Thread-Index: AQHWMBiqME7497+04E6+8Omw+GVY7Q==
+Date: Fri, 22 May 2020 09:09:15 +0000
+Message-ID: <696ee8f6-f44b-35c3-2c9f-676cb9e5ad95@epam.com>
+References: <1589814292-1789-1-git-send-email-kda@linux-powerpc.org>
+In-Reply-To: <1589814292-1789-1-git-send-email-kda@linux-powerpc.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: linux-powerpc.org; dkim=none (message not signed)
+ header.d=none; linux-powerpc.org; dmarc=none action=none header.from=epam.com; 
+x-originating-ip: [185.199.97.5]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: bbd70c54-893e-4cb8-86a7-08d7fe2fcd0c
+x-ms-traffictypediagnostic: VI1PR03MB3134:
+x-microsoft-antispam-prvs: <VI1PR03MB31343D6A3A126505ED4733B7E7B40@VI1PR03MB3134.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:660;
+x-forefront-prvs: 04111BAC64
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Z1xySATVrV0r0Rb/vNDmfLmRZ0S8gYupzYyIb6Ff5pFTNxjBfUJmCOpK7N9AomQWPyRFRZ5fb4VBW/QgLcr7mKtcQiGIv5S2wMFjmxjxyXjR2uPCtz3yKG1VvaJ4+WmAHZnkisUD1TANGbLiOy5X5/OtuG+gRxaKukhWQPYKOccGFhYvF9CTXQg+LLa+Obj2IJud5vvKlVs3WyvJW6uG95FYb0XTR1xWpG/NKJ6f9QgKNFteaH0P4dSMwz+lEbqkULkHnzbvpcYADh9cztdSfW2C3vNupRokzXTI5M7d5i16j/qY4OUz57gdAH1h8U9a3NFnayrhhCxq9vdUPgn6W9IAddWRUwi4zMY/lq5i74ARkDDzX5LzKhWlT8JaBb+ThB/DvoTFxmAON7D+OnKazBQM0ZgvDdqla1BgxV0RRTlldnmEJsEXJeo0d+jtSP7o
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR03MB3998.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(39860400002)(366004)(396003)(376002)(346002)(6512007)(86362001)(31686004)(36756003)(66476007)(2616005)(26005)(316002)(53546011)(66556008)(186003)(66946007)(66446008)(6506007)(110136005)(64756008)(71200400001)(76116006)(31696002)(4326008)(478600001)(54906003)(8676002)(8936002)(5660300002)(6486002)(2906002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: G4M3FxUBUQvEUvMu3v9Iqc2sQ16ojLu8uflHNlOP/1SdrhcA76AVMfGK+cA3hvnYSu130dOeV7FX5cWwRGGdnkUwZaAKmDE7iMbTILhh0wLYk56MnFnuPK04DH2ICdX19slustGCG2j1WYRbq9zXWnv3l9bBYLFQMvi6okJybZmB6hClT3Z/c4/AVxzJbMQvWE+kFsd3+2FS3R8RSw5pZYdntTk87+N2bCywdCU7FykghgQXKda/evNywScaFZuwujnMgy2/j4Qsc7RrrY4eLRVuxK4Mbv43P7f6eUYzsCh5dqa6hShu0k3t2jTMnxq0hVQRIeYh17tf7PjUx/9ExjX8QZj0FC8ongwG4kXpmFjqxSJrpQwE2oXbDOUtNnibjTij3GigrnwBGLF3sqykHKG+Y5Xgjsqvi4zmCQmmiNiMnQsELoaAN3RqPWEI/ji2nabrbJ4yi3xuiMykCE5BsRST+eORCWgKY88MA65oPMo=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FF5905AD4337CB478C258972088D1AF0@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <C053A44F-FFDE-4C07-B1FD-76FA8456ADCD@arm.com>
-User-Agent: NeoMutt/20180716
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbd70c54-893e-4cb8-86a7-08d7fe2fcd0c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2020 09:09:15.1983 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PgYs5YBp8ASFcWtgKv14YJ/x6LO6GBZKnq29RDjs5eJJGyWvEA78GtHVW7J7HVi/kVa8TWrHWx005qGAIWwJmqgwrTmr7hyFauZEgw7DUGZIsaVGysaqhlbEQAK2gNIY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB3134
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,99 +96,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
+Cc: "jgross@suse.com" <jgross@suse.com>, "paul@xen.org" <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 22, 2020 at 08:41:17AM +0000, Bertrand Marquis wrote:
-> Hi,
-> 
-> As a consequence of this fix, the following has been committed (I guess as a consequence of regenerating the configure scripts):
-> diff --git a/tools/configure b/tools/configure
-> index 375430df3f..36596389b8 100755
-> --- a/tools/configure
-> +++ b/tools/configure
-> @@ -4678,6 +4678,10 @@ for ldflag in $APPEND_LIB
->  do
->      APPEND_LDFLAGS="$APPEND_LDFLAGS -L$ldflag"
->  done
-> +if  ! -z $EXTRA_PREFIX ; then
-> +    CPPFLAGS="$CPPFLAGS -I$EXTRA_PREFIX/include"
-> +    LDFLAGS="$LDFLAGS -L$EXTRA_PREFIX/lib"
-> +fi
->  CPPFLAGS="$PREPEND_CPPFLAGS $CPPFLAGS $APPEND_CPPFLAGS"
->  LDFLAGS="$PREPEND_LDFLAGS $LDFLAGS $APPEND_LDFLAGS”
-> 
-> This should be:
-> if  [ ! -z $EXTRA_PREFIX ]; then
-> 
-> As on other configure scripts.
-> 
-> During configure I have not the following error:
-> ./configure: line 4681: -z: command not found
-> 
-> Which is ignored but is adding -L/lib and -I/include to the CPPFLAGS and LDFLAGS
-> 
-> What should be the procedure to actually fix that (as the problem is coming from the configure script regeneration I guess) ? 
-
-Does the following patch work for you?
-
-diff --git a/m4/set_cflags_ldflags.m4 b/m4/set_cflags_ldflags.m4
-index 08f5c983cc63..cd34c139bc94 100644
---- a/m4/set_cflags_ldflags.m4
-+++ b/m4/set_cflags_ldflags.m4
-@@ -15,7 +15,7 @@ for ldflag in $APPEND_LIB
- do
-     APPEND_LDFLAGS="$APPEND_LDFLAGS -L$ldflag"
- done
--if [ ! -z $EXTRA_PREFIX ]; then
-+if test ! -z $EXTRA_PREFIX ; then
-     CPPFLAGS="$CPPFLAGS -I$EXTRA_PREFIX/include"
-     LDFLAGS="$LDFLAGS -L$EXTRA_PREFIX/lib"
- fi
-
-
-You will need to run autogen.sh to regenerate tools/configure.
-
-Wei.
-
-> 
-> Bertrand
-> 
-> > On 5 May 2020, at 10:24, Roger Pau Monne <roger.pau@citrix.com> wrote:
-> > 
-> > The path provided by EXTRA_PREFIX should be added to the search path
-> > of the configure script, like it's done in Config.mk. Not doing so
-> > makes the search path for configure differ from the search path used
-> > by the build.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > Please re-run autoconf.sh after applying.
-> > ---
-> > m4/set_cflags_ldflags.m4 | 4 ++++
-> > 1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/m4/set_cflags_ldflags.m4 b/m4/set_cflags_ldflags.m4
-> > index cbad3c10b0..08f5c983cc 100644
-> > --- a/m4/set_cflags_ldflags.m4
-> > +++ b/m4/set_cflags_ldflags.m4
-> > @@ -15,6 +15,10 @@ for ldflag in $APPEND_LIB
-> > do
-> >     APPEND_LDFLAGS="$APPEND_LDFLAGS -L$ldflag"
-> > done
-> > +if [ ! -z $EXTRA_PREFIX ]; then
-> > +    CPPFLAGS="$CPPFLAGS -I$EXTRA_PREFIX/include"
-> > +    LDFLAGS="$LDFLAGS -L$EXTRA_PREFIX/lib"
-> > +fi
-> > CPPFLAGS="$PREPEND_CPPFLAGS $CPPFLAGS $APPEND_CPPFLAGS"
-> > LDFLAGS="$PREPEND_LDFLAGS $LDFLAGS $APPEND_LDFLAGS"])
-> > 
-> > -- 
-> > 2.26.2
-> > 
-> > 
-> 
+T24gNS8xOC8yMCA2OjA0IFBNLCBEZW5pcyBLaXJqYW5vdiB3cm90ZToNCj4gVGhlIHBhdGNoIGFk
+ZHMgYSBuZXcgZXh0cmEgdHlwZSB0byBiZSBhYmxlIHRvIGRpZmZpcmVudGlhdGUNCj4gYmV0d2Vl
+biBSWCByZXNwb25zZXMgb24geGVuLW5ldGZyb250IHNpZGUgd2l0aCB0aGUgYWRqdXN0ZWQgb2Zm
+c2V0DQo+IHJlcXVpcmVkIGZvciBYRFAgcHJvY2Vzc2luZy4NCj4NCj4gVGhlIG9mZnNldCB2YWx1
+ZSBmcm9tIGEgZ3Vlc3QgaXMgcGFzc2VkIHZpYSB4ZW5zdG9yZS4NCj4NCj4gU2lnbmVkLW9mZi1i
+eTogRGVuaXMgS2lyamFub3YgPGRlbmlzLmtpcmphbm92QHN1c2UuY29tPg0KPiAtLS0NCj4gdjQ6
+DQo+IC0gdXBkYXRlZCB0aGUgY29tbWl0IGFuZCBkb2N1bWVuYXRpb24NCj4NCj4gdjM6DQo+IC0g
+dXBkYXRlZCB0aGUgY29tbWl0IG1lc3NhZ2UNCj4NCj4gdjI6DQo+IC0gYWRkZWQgZG9jdW1lbnRh
+dGlvbg0KPiAtIGZpeGVkIHBhZGRpbmcgZm9yIG5ldGlmX2V4dHJhX2luZm8NCj4gLS0tDQo+IC0t
+LQ0KPiAgIHhlbi9pbmNsdWRlL3B1YmxpYy9pby9uZXRpZi5oIHwgMTggKysrKysrKysrKysrKysr
+KystDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkN
+Cj4NCj4gZGlmZiAtLWdpdCBhL3hlbi9pbmNsdWRlL3B1YmxpYy9pby9uZXRpZi5oIGIveGVuL2lu
+Y2x1ZGUvcHVibGljL2lvL25ldGlmLmgNCj4gaW5kZXggOWZjZjkxYS4uYTkyYmYwNCAxMDA2NDQN
+Cj4gLS0tIGEveGVuL2luY2x1ZGUvcHVibGljL2lvL25ldGlmLmgNCj4gKysrIGIveGVuL2luY2x1
+ZGUvcHVibGljL2lvL25ldGlmLmgNCj4gQEAgLTE2MSw2ICsxNjEsMTcgQEANCj4gICAgKi8NCj4g
+ICANCj4gICAvKg0KPiArICogInhkcC1oZWFkcm9vbSIgaXMgdXNlZCB0byByZXF1ZXN0IHRoYXQg
+ZXh0cmEgc3BhY2UgaXMgYWRkZWQNCj4gKyAqIGZvciBYRFAgcHJvY2Vzc2luZy4gIFRoZSB2YWx1
+ZSBpcyBtZWFzdXJlZCBpbiBieXRlcyBhbmQgcGFzc2VkIGJ5DQoNCm5vdCBzdXJlIHRoYXQgd2Ug
+c2hvdWxkIHVzZSB3b3JkICJieXRlcyIgaGVyZSBhcyB0aGUgcmVzdCBvZiB0aGUgDQpwcm90b2Nv
+bCAobW9zdGx5KQ0KDQp0YWxrcyBhYm91dCBvY3RldHMuIEl0IGlzIHNvbWV3aGF0IG1peGVkIGhl
+cmUsIG5vIHN0cm9uZyBvcGluaW9uDQoNCj4gKyAqIHRoZSBmcm9udGVuZCB0byBiZSBjb25zaXN0
+ZW50IGJldHdlZW4gYm90aCBlbmRzLg0KPiArICogSWYgdGhlIHZhbHVlIGlzIGdyZWF0ZXIgdGhh
+biB6ZXJvIHRoYXQgbWVhbnMgdGhhdA0KPiArICogYW4gUlggcmVzcG9uc2UgaXMgZ29pbmcgdG8g
+YmUgcGFzc2VkIHRvIGFuIFhEUCBwcm9ncmFtIGZvciBwcm9jZXNzaW5nLg0KPiArICoNCj4gKyAq
+ICJmZWF0dXJlLXhkcC1oZWFkcm9vbSIgaXMgc2V0IHRvICIxIiBieSB0aGUgbmV0YmFjayBzaWRl
+IGxpa2Ugb3RoZXIgZmVhdHVyZXMNCj4gKyAqIHNvIGEgZ3Vlc3QgY2FuIGNoZWNrIGlmIGFuIFhE
+UCBwcm9ncmFtIGNhbiBiZSBwcm9jZXNzZWQuDQo+ICsgKi8NCj4gKw0KPiArLyoNCj4gICAgKiBD
+b250cm9sIHJpbmcNCj4gICAgKiA9PT09PT09PT09PT0NCj4gICAgKg0KPiBAQCAtOTg1LDcgKzk5
+Niw4IEBAIHR5cGVkZWYgc3RydWN0IG5ldGlmX3R4X3JlcXVlc3QgbmV0aWZfdHhfcmVxdWVzdF90
+Ow0KPiAgICNkZWZpbmUgWEVOX05FVElGX0VYVFJBX1RZUEVfTUNBU1RfQUREICgyKSAgLyogdS5t
+Y2FzdCAqLw0KPiAgICNkZWZpbmUgWEVOX05FVElGX0VYVFJBX1RZUEVfTUNBU1RfREVMICgzKSAg
+LyogdS5tY2FzdCAqLw0KPiAgICNkZWZpbmUgWEVOX05FVElGX0VYVFJBX1RZUEVfSEFTSCAgICAg
+ICg0KSAgLyogdS5oYXNoICovDQo+IC0jZGVmaW5lIFhFTl9ORVRJRl9FWFRSQV9UWVBFX01BWCAg
+ICAgICAoNSkNCj4gKyNkZWZpbmUgWEVOX05FVElGX0VYVFJBX1RZUEVfWERQICAgICAgICg1KSAg
+LyogdS54ZHAgKi8NCj4gKyNkZWZpbmUgWEVOX05FVElGX0VYVFJBX1RZUEVfTUFYICAgICAgICg2
+KQ0KPiAgIA0KPiAgIC8qIG5ldGlmX2V4dHJhX2luZm9fdCBmbGFncy4gKi8NCj4gICAjZGVmaW5l
+IF9YRU5fTkVUSUZfRVhUUkFfRkxBR19NT1JFICgwKQ0KPiBAQCAtMTAxOCw2ICsxMDMwLDEwIEBA
+IHN0cnVjdCBuZXRpZl9leHRyYV9pbmZvIHsNCj4gICAgICAgICAgICAgICB1aW50OF90IGFsZ29y
+aXRobTsNCj4gICAgICAgICAgICAgICB1aW50OF90IHZhbHVlWzRdOw0KPiAgICAgICAgICAgfSBo
+YXNoOw0KPiArICAgICAgICBzdHJ1Y3Qgew0KPiArICAgICAgICAgICAgdWludDE2X3QgaGVhZHJv
+b207DQp3aHkgZG8geW91IG5lZWQgInBhZCIgZmllbGQgaGVyZT8NCj4gKyAgICAgICAgICAgIHVp
+bnQxNl90IHBhZFsyXQ0KPiArICAgICAgICB9IHhkcDsNCj4gICAgICAgICAgIHVpbnQxNl90IHBh
+ZFszXTsNCj4gICAgICAgfSB1Ow0KPiAgIH07
 
