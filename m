@@ -2,56 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBBB31DE81B
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 15:33:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3362C1DE81F
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 15:35:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc7nQ-0005so-V3; Fri, 22 May 2020 13:33:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L400=7E=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jc7nP-0005sa-Kw
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 13:33:07 +0000
-X-Inumbo-ID: c48df004-9c30-11ea-b9cf-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c48df004-9c30-11ea-b9cf-bc764e2007e4;
- Fri, 22 May 2020 13:33:06 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: LsteYU31AyrEhPUfZTgRE8v7ddfrDt4R/9S1KCMro4qUdmaGpBJvP56a92ktwAOszUbuQMAzNk
- ODj/MLM+IL9J7MJtz4JfurNRZLx36sMbWxxu7RxELg2rsYIaDHHCiu2gcPAI75A+TzuN1CwcwN
- /IPGi1c5RYopwxMnnr3xqeLYeKHUVgf0v0v77NGuEn1/AIyp6avHODLYqgBoFTs5ygnTlW41Wg
- ozwwL/d35BDvX+m6FIwAV7bis0IqPmd4mpwPAkzUDE7K5N7lWL12to+iPKVwWbzpJUdK1tj0R7
- p9M=
-X-SBRS: 2.7
-X-MesageID: 18174891
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18174891"
-Date: Fri, 22 May 2020 15:32:59 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+	id 1jc7p8-00062u-AH; Fri, 22 May 2020 13:34:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=knsM=7E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jc7p7-00062o-I3
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 13:34:53 +0000
+X-Inumbo-ID: 036762a6-9c31-11ea-abd3-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 036762a6-9c31-11ea-abd3-12813bfff9fa;
+ Fri, 22 May 2020 13:34:51 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 58067AFEC;
+ Fri, 22 May 2020 13:34:53 +0000 (UTC)
 Subject: Re: [PATCH] x86/svm: retry after unhandled NPT fault if gfn was
  marked for recalculation
-Message-ID: <20200522133259.GC54375@Air-de-Roger>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <1590097438-28829-1-git-send-email-igor.druzhinin@citrix.com>
- <20200522100846.GV54375@Air-de-Roger>
- <04ec4ab4-a121-c5be-0a65-316e237dd793@citrix.com>
- <20200522102339.GX54375@Air-de-Roger>
- <fe6e5c7f-df0f-5436-a7cd-2949464ab9a7@citrix.com>
- <20200522111146.GZ54375@Air-de-Roger>
- <4831dc51-cea1-2870-422b-2af7d6d1f2d6@suse.com>
- <ef3411ac-9e7c-0ef7-ad9f-c24f8ebf32a6@citrix.com>
+ <dae35bcf-5b85-a760-9d15-139973215334@citrix.com>
+ <506f21d4-ed81-2cd5-46af-162407553c91@citrix.com>
+ <15df5f0a-43f7-ca0c-613f-25a1a1a19640@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f5fb6ae3-37b8-1cf9-00dc-e70775792e8c@suse.com>
+Date: Fri, 22 May 2020 15:34:48 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <15df5f0a-43f7-ca0c-613f-25a1a1a19640@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ef3411ac-9e7c-0ef7-ad9f-c24f8ebf32a6@citrix.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,38 +50,71 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Igor Druzhinin <igor.druzhinin@citrix.com>, wl@xen.org,
- Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Cc: Igor Druzhinin <igor.druzhinin@citrix.com>, roger.pau@citrix.com,
+ wl@xen.org, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 22, 2020 at 02:11:15PM +0100, Andrew Cooper wrote:
-> On 22/05/2020 14:04, Jan Beulich wrote:
-> > On 22.05.2020 13:11, Roger Pau Monné wrote:
-> >> That being said, I also don't like the fact that logdity is handled
-> >> differently between EPT and NPT, as on EPT it's handled as a
-> >> misconfig while on NPT it's handled as a violation.
-> > Because, well, there is no concept of misconfig in NPT.
+On 22.05.2020 12:19, Andrew Cooper wrote:
+> On 22/05/2020 11:05, Igor Druzhinin wrote:
+>> On 22/05/2020 10:45, Andrew Cooper wrote:
+>>> On 21/05/2020 22:43, Igor Druzhinin wrote:
+>>>> If a recalculation NPT fault hasn't been handled explicitly in
+>>>> hvm_hap_nested_page_fault() then it's potentially safe to retry -
+>>>> US bit has been re-instated in PTE and any real fault would be correctly
+>>>> re-raised next time.
+>>>>
+>>>> This covers a specific case of migration with vGPU assigned on AMD:
+>>>> global log-dirty is enabled and causes immediate recalculation NPT
+>>>> fault in MMIO area upon access. This type of fault isn't described
+>>>> explicitly in hvm_hap_nested_page_fault (this isn't called on
+>>>> EPT misconfig exit on Intel) which results in domain crash.
+>>>>
+>>>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+>>>> ---
+>>>>  xen/arch/x86/hvm/svm/svm.c | 4 ++++
+>>>>  1 file changed, 4 insertions(+)
+>>>>
+>>>> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+>>>> index 46a1aac..f0d0bd3 100644
+>>>> --- a/xen/arch/x86/hvm/svm/svm.c
+>>>> +++ b/xen/arch/x86/hvm/svm/svm.c
+>>>> @@ -1726,6 +1726,10 @@ static void svm_do_nested_pgfault(struct vcpu *v,
+>>>>          /* inject #VMEXIT(NPF) into guest. */
+>>>>          nestedsvm_vmexit_defer(v, VMEXIT_NPF, pfec, gpa);
+>>>>          return;
+>>>> +    case 0:
+>>>> +        /* If a recalculation page fault hasn't been handled - just retry. */
+>>>> +        if ( pfec & PFEC_user_mode )
+>>>> +            return;
+>>> This smells like it is a recipe for livelocks.
+>>>
+>>> Everything should have been handled properly by the call to
+>>> p2m_pt_handle_deferred_changes() which precedes svm_do_nested_pgfault().
+>>>
+>>> It is legitimate for the MMIO mapping to end up being transiently
+>>> recalculated, but the fact that p2m_pt_handle_deferred_changes() doesn't
+>>> fix it up suggests that the bug is there.
+>>>
+>>> Do you have the complete NPT walk to the bad mapping? Do we have
+>>> _PAGE_USER in the leaf mapping, or is this perhaps a spurious fault?
+>> It does fix it up. The problem is that currently in SVM we enter
+>> svm_do_nested_pgfault immediately after p2m_pt_handle_deferred_changes
+>> is finished finished.
 > 
-> Indeed.  Intel chose to split EPT errors into two - MISCONFIG for
-> structural errors (not present, or reserved bits set) and VIOLATION for
-> permissions errors.
+> Oh - so we do.  I'd read the entry condition for svm_do_nested_pgfault()
+> incorrectly.
 > 
-> AMD reused the same silicon pagewalker design, so have a single
-> NPT_FAULT vmexit which behaves much more like a regular pagefault,
-> encoding structural vs permission errors in the error code.
+> Jan - why did you chose to do it this way?  If
+> p2m_pt_handle_deferred_changes() has made a modification, there is
+> surely nothing relevant to do in svm_do_nested_pgfault().
 
-Maybe I should clarify, I understand that NPT doesn't have such
-differentiation regarding nested page table faults vs EPT, but I feel
-like it would be clearer if part of the code could be shared, ie:
-unify EPT resolve_misconfig and NPT do_recalc into a single function
-for example that uses the necessary p2m-> helpers for the differing
-implementations. I think we should be able to tell apart when a NPT
-page fault is a recalc one by looking at the bits in the EXITINFO1
-error field?
+Why? There can very well be multiple reasons for a single exit
+to occur, and hence it did seem to make sense to allow processing
+of such possible further reasons right away, instead of re-
+entering the guest just to deal with another VM exit. What I can
+accept is that the error code may not correctly represent the
+"remaining" fault reason anymore at this point.
 
-Anyway, this was just a rant, and it's tangential to the issue at
-hand, sorry for distracting.
-
-Roger.
+Jan
 
