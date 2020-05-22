@@ -2,49 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A10581DE522
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 13:13:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5CCF1DE53F
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 13:20:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc5ca-0008PL-4x; Fri, 22 May 2020 11:13:48 +0000
+	id 1jc5iP-0000Bb-V5; Fri, 22 May 2020 11:19:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=L400=7E=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jc5cZ-0008PG-Dp
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 11:13:47 +0000
-X-Inumbo-ID: 4d358fea-9c1d-11ea-abb2-12813bfff9fa
+ id 1jc5iO-0000BW-Bl
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 11:19:48 +0000
+X-Inumbo-ID: 24f6bd45-9c1e-11ea-abb2-12813bfff9fa
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4d358fea-9c1d-11ea-abb2-12813bfff9fa;
- Fri, 22 May 2020 11:13:46 +0000 (UTC)
+ id 24f6bd45-9c1e-11ea-abb2-12813bfff9fa;
+ Fri, 22 May 2020 11:19:47 +0000 (UTC)
 Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 8fL352PuG9f5QMJ2FfSj/JcrUwDdpE7MsH8LrDH5TDs81SkadWchJ77puOkGmVTm5AlzKe0gVG
- lR/V/WctzZB4URk7L5fpcdsL3XOIMUNYEZh05Mb8P7BoYjVaIgXbY+j25hpLu790fMASjX5I9s
- 1alP4Rr19rQbPWckGPCGXFzekOQFksHRFgRgkhws5yFb55sefpeBO/EvlNFI3d+ZjknaYj38XI
- yw5e9tUqqJRWXMEqWyd+kvXQ5Ohb04k6aRDNbw2vwQ4s279Z1LWglgo8nH1OaNvDY8BNvnCq4L
- O9I=
+IronPort-SDR: 827xNiK5/8ob4m5UXYy49GyQHOI+OOajdsyGOfrpNNOw+xD7Da6ppFGieENMyiTEC5vQevqbtq
+ F6OlV5OqrVzO9bUf1a7DEhyF3MxhNH0LDJqU0voMxjQxVoBu+oA1/8m2iOVXZ24KU2AWH1q6Dc
+ ZRW1v9MXlsQ3IO+bxOgM2yRTF56PiFfH/YBa+yIGIukFNZiMgpjM1G7JCEYECaVvpDNw605dlV
+ nmlvcvK50NjsrLjlOTaWRkMzQnoMJhnS/mVzeHIzezt9ZJ1kTo8U4GyswtLIspg47fdjJ9sgHi
+ gkc=
 X-SBRS: 2.7
-X-MesageID: 18451695
+X-MesageID: 18452004
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18451695"
-Date: Fri, 22 May 2020 13:13:37 +0200
+X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18452004"
+Date: Fri, 22 May 2020 13:19:40 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v3 1/5] x86: suppress XPTI-related TLB flushes when
- possible
-Message-ID: <20200522111337.GA54375@Air-de-Roger>
-References: <3ce4ab2c-8cb6-1482-6ce9-3d5b019e10c1@suse.com>
- <ae47cb2c-2fff-cd08-0a26-683cef1f3303@suse.com>
- <17f1b674-92f9-6ee9-8e10-0fc30f055fe8@citrix.com>
+To: Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 2/3] configure: also add EXTRA_PREFIX to {CPP/LD}FLAGS
+Message-ID: <20200522111940.GB54375@Air-de-Roger>
+References: <20200505092454.9161-1-roger.pau@citrix.com>
+ <20200505092454.9161-3-roger.pau@citrix.com>
+ <C053A44F-FFDE-4C07-B1FD-76FA8456ADCD@arm.com>
+ <20200522090553.eegs4fcltfqjuhzo@debian>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <17f1b674-92f9-6ee9-8e10-0fc30f055fe8@citrix.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200522090553.eegs4fcltfqjuhzo@debian>
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -57,37 +58,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 22, 2020 at 12:00:14PM +0100, Andrew Cooper wrote:
-> On 25/09/2019 16:23, Jan Beulich wrote:
-> > When there's no XPTI-enabled PV domain at all, there's no need to issue
-> > respective TLB flushes. Hardwire opt_xpti_* to false when !PV, and
-> > record the creation of PV domains by bumping opt_xpti_* accordingly.
-> >
-> > As to the sticky opt_xpti_domu vs increment/decrement of opt_xpti_hwdom,
-> > this is done this way to avoid
-> > (a) widening the former variable,
-> > (b) any risk of a missed flush, which would result in an XSA if a DomU
-> >     was able to exercise it, and
-> > (c) any races updating the variable.
-> > Fundamentally the TLB flush done when context switching out the domain's
-> > vCPU-s the last time before destroying the domain ought to be
-> > sufficient, so in principle DomU handling could be made match hwdom's.
-> >
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Fri, May 22, 2020 at 10:05:53AM +0100, Wei Liu wrote:
+> On Fri, May 22, 2020 at 08:41:17AM +0000, Bertrand Marquis wrote:
+> > Hi,
+> > 
+> > As a consequence of this fix, the following has been committed (I guess as a consequence of regenerating the configure scripts):
+> > diff --git a/tools/configure b/tools/configure
+> > index 375430df3f..36596389b8 100755
+> > --- a/tools/configure
+> > +++ b/tools/configure
+> > @@ -4678,6 +4678,10 @@ for ldflag in $APPEND_LIB
+> >  do
+> >      APPEND_LDFLAGS="$APPEND_LDFLAGS -L$ldflag"
+> >  done
+> > +if  ! -z $EXTRA_PREFIX ; then
+> > +    CPPFLAGS="$CPPFLAGS -I$EXTRA_PREFIX/include"
+> > +    LDFLAGS="$LDFLAGS -L$EXTRA_PREFIX/lib"
+> > +fi
+> >  CPPFLAGS="$PREPEND_CPPFLAGS $CPPFLAGS $APPEND_CPPFLAGS"
+> >  LDFLAGS="$PREPEND_LDFLAGS $LDFLAGS $APPEND_LDFLAGS”
+> > 
+> > This should be:
+> > if  [ ! -z $EXTRA_PREFIX ]; then
+> > 
+> > As on other configure scripts.
+> > 
+> > During configure I have not the following error:
+> > ./configure: line 4681: -z: command not found
+> > 
+> > Which is ignored but is adding -L/lib and -I/include to the CPPFLAGS and LDFLAGS
+> > 
+> > What should be the procedure to actually fix that (as the problem is coming from the configure script regeneration I guess) ? 
 > 
-> I am still concerned about the added complexity for no obvious use case.
+> Does the following patch work for you?
 > 
-> Under what circumstances do we expect to XPTI-ness come and go on a
-> system, outside of custom dev-testing scenarios?
+> diff --git a/m4/set_cflags_ldflags.m4 b/m4/set_cflags_ldflags.m4
+> index 08f5c983cc63..cd34c139bc94 100644
+> --- a/m4/set_cflags_ldflags.m4
+> +++ b/m4/set_cflags_ldflags.m4
+> @@ -15,7 +15,7 @@ for ldflag in $APPEND_LIB
+>  do
+>      APPEND_LDFLAGS="$APPEND_LDFLAGS -L$ldflag"
+>  done
+> -if [ ! -z $EXTRA_PREFIX ]; then
+> +if test ! -z $EXTRA_PREFIX ; then
+>      CPPFLAGS="$CPPFLAGS -I$EXTRA_PREFIX/include"
+>      LDFLAGS="$LDFLAGS -L$EXTRA_PREFIX/lib"
+>  fi
 
-XPTI-ness will be sticky, in the sense that once enabled cannot be
-disabled anymore.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Roger.
+My bad, I assume [] is expanded by m4, as that seems to be part of the
+language?
+
+Thanks, Roger.
 
