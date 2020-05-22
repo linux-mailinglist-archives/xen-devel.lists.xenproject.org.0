@@ -2,45 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0994F1DE1A6
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 10:18:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D1611DE1C7
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 10:28:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc2sv-0006It-LL; Fri, 22 May 2020 08:18:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h8Ze=7E=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jc2st-0006In-HQ
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 08:18:27 +0000
-X-Inumbo-ID: cf567320-9c04-11ea-ab9a-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cf567320-9c04-11ea-ab9a-12813bfff9fa;
- Fri, 22 May 2020 08:18:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BF3A7BE73;
- Fri, 22 May 2020 08:18:27 +0000 (UTC)
-Subject: Re: [PATCH] xen/events: avoid NULL pointer dereference in
- evtchn_from_irq()
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <20200319071428.12115-1-jgross@suse.com>
- <30719c35-6de7-d400-7bb8-cff4570f8971@oracle.com>
- <20200521184602.GP98582@mail-itl>
- <c36de3eb-c0ad-45e1-e08b-cb7d86d197f6@oracle.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <5839ff92-92e4-667a-8ed1-f5f9f3453299@suse.com>
-Date: Fri, 22 May 2020 10:18:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jc31p-0007EF-JN; Fri, 22 May 2020 08:27:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=L400=7E=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jc31n-0007EA-IG
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 08:27:39 +0000
+X-Inumbo-ID: 18489e90-9c06-11ea-b9cf-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 18489e90-9c06-11ea-b9cf-bc764e2007e4;
+ Fri, 22 May 2020 08:27:38 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: kfeIehtZkrHh3ta2CPMWx7GsDMwDQeFOdAfi2v6OfaLvj7307kdp+22g3VDGdm9FRRO/16oS+P
+ UeCkPNuS1wiHfdaEnVDLS4rdYDBPmRmwUEV5xhCMSWwdFG1aYi1lFOAKv9jcnUX7SDmYrIhKXP
+ 6LvHqUYvakrkK06WERmSWMlQYjbfpwxBNyQHnz9oQ8XMHvPL7Nzg08J6mmWWWCsYRJNwvCjWds
+ fQOLrtKwTiU5mvmsN9Jsnfn6g+qEzZjov34Sw7An+/TQwKHJy7IcDQKGewZkt/H4H9xK4Tq03/
+ cig=
+X-SBRS: 2.7
+X-MesageID: 18154315
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18154315"
+Date: Fri, 22 May 2020 10:27:28 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas.lengyel@intel.com>
+Subject: Re: [PATCH for-4.14 1/2] x86/mem_sharing: Prohibit interrupt
+ injection for forks
+Message-ID: <20200522082728.GT54375@Air-de-Roger>
+References: <7666b5bba73a1410446789a0c4ea908376da3487.1590101479.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <c36de3eb-c0ad-45e1-e08b-cb7d86d197f6@oracle.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <7666b5bba73a1410446789a0c4ea908376da3487.1590101479.git.tamas.lengyel@intel.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,43 +54,119 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Wei Liu <wl@xen.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Tamas
+ K Lengyel <tamas@tklengyel.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.05.20 23:57, Boris Ostrovsky wrote:
-> On 5/21/20 2:46 PM, Marek Marczykowski-Górecki wrote:
->> On Thu, May 21, 2020 at 01:22:03PM -0400, Boris Ostrovsky wrote:
->>> On 3/19/20 3:14 AM, Juergen Gross wrote:
->>>> There have been reports of races in evtchn_from_irq() where the info
->>>> pointer has been NULL.
->>>>
->>>> Avoid that case by testing info before dereferencing it.
->>>>
->>>> In order to avoid accessing a just freed info structure do the kfree()
->>>> via kfree_rcu().
->>>
->>> Looks like noone ever responded to this.
->>>
->>>
->>> This change looks fine but is there a background on the problem? I
->>> looked in the archives and didn't find the relevant discussion.
->> Here is the original bug report:
->> https://xen.markmail.org/thread/44apwkwzeme4uavo
->>
+On Thu, May 21, 2020 at 03:53:22PM -0700, Tamas K Lengyel wrote:
+> When running shallow forks without device models it may be undesirable for Xen
+> to inject interrupts. With Windows forks we have observed the kernel going into
+> infinite loops when trying to process such interrupts. By disabling interrupt
+> injection the fuzzer can exercise the target code without interference.
+
+Could you add some more information about why windows goes into
+infinite loops? Is it trying to access MMIO regions of emulated
+devices and getting ~0 out of them instead of the expected data and
+that causes it to loop indefinitely?
+
+> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> ---
+>  xen/arch/x86/hvm/vmx/intr.c      | 4 ++++
+>  xen/arch/x86/mm/mem_sharing.c    | 6 +++++-
+>  xen/include/asm-x86/hvm/domain.h | 2 ++
+>  xen/include/public/memory.h      | 1 +
+>  4 files changed, 12 insertions(+), 1 deletion(-)
 > 
-> 
-> Thanks. Do we know what the race is? Is it because an event is being
-> delivered from a dying guest who is in the process of tearing down event
-> channels?
+> diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
+> index 000e14af49..3814795e3f 100644
+> --- a/xen/arch/x86/hvm/vmx/intr.c
+> +++ b/xen/arch/x86/hvm/vmx/intr.c
 
-Missing synchronization between event channel (de-)allocation and
-handling.
+I think you are missing the AMD side of this change? A similar
+adjustment should be done to svm_intr_assist, or else it should be
+noted in the commit message the reason this is Intel only.
 
-I have a patch sitting here, just didn't have the time to do some proper
-testing and sending it out.
+> @@ -256,6 +256,10 @@ void vmx_intr_assist(void)
+>      if ( unlikely(v->arch.vm_event) && v->arch.vm_event->sync_event )
+>          return;
+>  
+> +    /* Block event injection for VM fork if requested */
+> +    if ( unlikely(v->domain->arch.hvm.mem_sharing.prohibit_interrupts) )
+> +        return;
+> +
+>      /* Crank the handle on interrupt state. */
+>      pt_vector = pt_update_irq(v);
+>  
+> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
+> index 7271e5c90b..7352fce866 100644
+> --- a/xen/arch/x86/mm/mem_sharing.c
+> +++ b/xen/arch/x86/mm/mem_sharing.c
+> @@ -2106,7 +2106,8 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
+>          rc = -EINVAL;
+>          if ( mso.u.fork.pad )
+>              goto out;
+> -        if ( mso.u.fork.flags & ~XENMEM_FORK_WITH_IOMMU_ALLOWED )
+> +        if ( mso.u.fork.flags & ~(XENMEM_FORK_WITH_IOMMU_ALLOWED |
+> +                                  XENMEM_FORK_PROHIBIT_INTERRUPTS) )
 
 
-Juergen
+Nit: I would move the XENMEM_FORK_ option ORing to a newline, so that
+you don't have to use a whole line every time a new option is used.
+Ie:
+
+        if ( mso.u.fork.flags &
+             ~(XENMEM_FORK_WITH_IOMMU_ALLOWED | XENMEM_FORK_BLOCK_INTERRUPTS) )
+
+
+>              goto out;
+>  
+>          rc = rcu_lock_live_remote_domain_by_id(mso.u.fork.parent_domain,
+> @@ -2134,6 +2135,9 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
+>              rc = hypercall_create_continuation(__HYPERVISOR_memory_op,
+>                                                 "lh", XENMEM_sharing_op,
+>                                                 arg);
+> +        else if ( !rc && (mso.u.fork.flags & XENMEM_FORK_PROHIBIT_INTERRUPTS) )
+> +            d->arch.hvm.mem_sharing.prohibit_interrupts = true;
+> +
+>          rcu_unlock_domain(pd);
+>          break;
+>      }
+> diff --git a/xen/include/asm-x86/hvm/domain.h b/xen/include/asm-x86/hvm/domain.h
+> index 95fe18cddc..e114f818d3 100644
+> --- a/xen/include/asm-x86/hvm/domain.h
+> +++ b/xen/include/asm-x86/hvm/domain.h
+> @@ -74,6 +74,8 @@ struct mem_sharing_domain
+>       * to resume the search.
+>       */
+>      unsigned long next_shared_gfn_to_relinquish;
+> +
+> +    bool prohibit_interrupts;
+
+Nit: I would prefer block_interrupts, prohibit seems very formal to
+me, but I'm not a native speaker, so feel free to ignore this
+suggestion.
+
+>  };
+>  #endif
+>  
+> diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
+> index dbd35305df..fe2e6caa68 100644
+> --- a/xen/include/public/memory.h
+> +++ b/xen/include/public/memory.h
+> @@ -537,6 +537,7 @@ struct xen_mem_sharing_op {
+>          struct mem_sharing_op_fork {      /* OP_FORK */
+>              domid_t parent_domain;        /* IN: parent's domain id */
+>  #define XENMEM_FORK_WITH_IOMMU_ALLOWED (1u << 0)
+> +#define XENMEM_FORK_PROHIBIT_INTERRUPTS (1u << 1)
+
+FWIW, I would also use BLOCK here instead of PROHIBIT.
+
+Thanks, Roger.
 
