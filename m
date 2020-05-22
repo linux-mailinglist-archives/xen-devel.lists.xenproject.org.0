@@ -2,58 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 718EC1DE484
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 12:33:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE0941DE4AB
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 12:41:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc4z4-0004X2-Hv; Fri, 22 May 2020 10:32:58 +0000
+	id 1jc56l-0005O6-AA; Fri, 22 May 2020 10:40:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2cgu=7E=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jc4z2-0004Wx-Hu
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 10:32:56 +0000
-X-Inumbo-ID: 98cabdf8-9c17-11ea-b9cf-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=hXvX=7E=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1jc56j-0005NG-Dz
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 10:40:53 +0000
+X-Inumbo-ID: b558f56a-9c18-11ea-b07b-bc764e2007e4
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 98cabdf8-9c17-11ea-b9cf-bc764e2007e4;
- Fri, 22 May 2020 10:32:55 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: HrmzpA6NjPjOkeGyoU3BOKkESjZ0TNVahvFc58wj+wYdNDwMYiACcby+7Y/9nRpCdhwBE5H/xr
- 2hrb4V6yB9eV3KNvkor47TQ1PWnErVMguvEbPdKhGVxC4zJaHinZ0OPJQs6xCRxgBjYS9tBSNd
- 863NXC0BGqJyBESYDtLquq+4U6wpG3shhzxTuvO3xucCdIZCOWwn3XcfHJi+uTPnhQfrHSdCIm
- jwCyiXpoxgIymt1Qg4Oe3wG4JmujaGr/96XTmLaOhOs/vDfvjK6nJe0qwWoSUOIP3Gb4hrwNU0
- nT0=
-X-SBRS: 2.7
-X-MesageID: 18161851
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18161851"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] golang: Update generated files after libxl_types.idl
- change
-Thread-Topic: [PATCH] golang: Update generated files after libxl_types.idl
- change
-Thread-Index: AQHWMB5jZYuungko1U2ePr9Wy7HjSqizvjyAgAAIsIA=
-Date: Fri, 22 May 2020 10:32:51 +0000
-Message-ID: <3FE58AF4-3C20-4615-A28C-31273C4BF301@citrix.com>
-References: <20200522094956.3611661-1-george.dunlap@citrix.com>
- <20200522100145.w6xd5v7ioubzkni5@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-In-Reply-To: <20200522100145.w6xd5v7ioubzkni5@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F0E7A2754202414C8E5DAB1A16B7DE86@citrix.com>
-Content-Transfer-Encoding: base64
+ id b558f56a-9c18-11ea-b07b-bc764e2007e4;
+ Fri, 22 May 2020 10:40:52 +0000 (UTC)
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:39184
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1jc56T-00116l-KE (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Fri, 22 May 2020 11:40:37 +0100
+Subject: Re: [PATCH v3 3/5] x86/HVM: move NOFLUSH handling out of hvm_set_cr3()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <3ce4ab2c-8cb6-1482-6ce9-3d5b019e10c1@suse.com>
+ <b461a8a6-8a36-4cec-341a-7730f249b3c4@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <573a92f9-32e3-3f08-d1fc-e8a8e6c177b0@citrix.com>
+Date: Fri, 22 May 2020 11:40:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
+In-Reply-To: <b461a8a6-8a36-4cec-341a-7730f249b3c4@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,20 +51,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>
+Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Kevin Tian <kevin.tian@intel.com>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Wei Liu <wl@xen.org>, Razvan Cojocaru <rcojocaru@bitdefender.com>,
+ Paul Durrant <paul@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Jun Nakajima <jun.nakajima@intel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gTWF5IDIyLCAyMDIwLCBhdCAxMTowMSBBTSwgV2VpIExpdSA8d2xAeGVuLm9yZz4g
-d3JvdGU6DQo+IA0KPiBPbiBGcmksIE1heSAyMiwgMjAyMCBhdCAxMDo0OTo1NkFNICswMTAwLCBH
-ZW9yZ2UgRHVubGFwIHdyb3RlOg0KPj4gYy9zIDdlZmQ5ZjNkNDUgKCJsaWJ4bDogSGFuZGxlIExp
-bnV4IHN0dWJkb21haW4gc3BlY2lmaWMgUUVNVQ0KPj4gb3B0aW9ucy4iKSBtb2RpZmllZCBsaWJs
-X3R5cGVzLmlkbC4gIFJ1biBnZW5nb3R5cGVzLnB5IGFnYWluIHRvIHVwZGF0ZQ0KPiANCj4gbGli
-eGxfdHlwZXMuaWRsLg0KPiANCj4+IHRoZSBnZW5lYXRlZCBnb2xhbmcgYmluZGluZ3MuDQo+PiAN
-Cj4gDQo+IENhbiB3ZSBwZXJoYXBzIGFkZCBhIGRlcGVuZGVuY3kgb24gZ29sYW5nJ3Mgc2lkZSBz
-dWNoIHRoYXQgaXQgY2FuIGJlDQo+IGF1dG8tZ2VuZXJhdGVkIGluIHRoZSBmdXR1cmU/DQoNCklu
-ZGVlZCwgSeKAmW0gdHJ5aW5nIHRvIHRoaW5rIG9mIGEgZ29vZCBzb2x1dGlvbiB0byB0aGlzLg0K
-DQogLUdlb3JnZQ0KDQo=
+On 25/09/2019 16:25, Jan Beulich wrote:
+> The bit is meaningful only for MOV-to-CR3 insns, not anywhere else, in
+> particular not when loading nested guest state.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Paul Durrant <paul@xen.org>
+
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
