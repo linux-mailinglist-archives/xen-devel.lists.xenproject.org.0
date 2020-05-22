@@ -2,60 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 918F11DE3A5
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 12:02:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2242C1DE3B1
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 12:06:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc4Uw-0000pT-W7; Fri, 22 May 2020 10:01:50 +0000
+	id 1jc4Yl-0000y2-Hb; Fri, 22 May 2020 10:05:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nXpb=7E=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jc4Uv-0000pO-O7
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 10:01:49 +0000
-X-Inumbo-ID: 3fe9636f-9c13-11ea-aba9-12813bfff9fa
-Received: from mail-wm1-f65.google.com (unknown [209.85.128.65])
+ <SRS0=Somd=7E=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jc4Yj-0000xx-AW
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 10:05:45 +0000
+X-Inumbo-ID: cc84cdcc-9c13-11ea-aba9-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3fe9636f-9c13-11ea-aba9-12813bfff9fa;
- Fri, 22 May 2020 10:01:48 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id f134so8131267wmf.1
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2020 03:01:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=HK4/FwLeGgXI+j5s40BKVWhGHh1cP+TEI9vZo9YfCEc=;
- b=m23ZgspuHqlmrM5OqG0mxoWCmZvgmaR2MJp6nvMqRDKIWISKyKzgQhk/eA0cBuNrTE
- f8CTPIVgdzkWxkre5ywnvanahdAjcJLi4cOvObLDoX6preMQF7hHxFk7k1fmJJbdzctA
- zJ52lazrQqaPjm0FQhLQrp+5q40uORczLUazmzoFZCkD62AzR2kpBh6oIQ7zIyRx3stI
- cTiIUMwxd36R5sni4vYHVN5w82ba3s1OSIRokeuHsY3KGJIIolWphAgX4fXu+VJViGuF
- G6eYXCPiNhrn4Sq4H6+7Bsylw1cvhk7H+mye7GZeL0Li2Oc5Lg8TUAMhtOqwNV+1OBCI
- Anuw==
-X-Gm-Message-State: AOAM5311hRWUEq++hf5l4sGm9pRMffgSJoXNrBPmII0AmNCHjV1vguIO
- MANfCNC3EPY5Yzo2cPqWvPQ=
-X-Google-Smtp-Source: ABdhPJx3SXpHFJNnubGIQMpwKvWOyu1PaejIWtIouPs1OeOQ9KHrpFQz6lKp634UEYhGLkojrljdwQ==
-X-Received: by 2002:a1c:64c1:: with SMTP id
- y184mr11312321wmb.175.1590141707578; 
- Fri, 22 May 2020 03:01:47 -0700 (PDT)
-Received: from
- liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
- ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id h196sm1202838wme.22.2020.05.22.03.01.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2020 03:01:46 -0700 (PDT)
-Date: Fri, 22 May 2020 10:01:45 +0000
-From: Wei Liu <wl@xen.org>
-To: George Dunlap <george.dunlap@citrix.com>
-Subject: Re: [PATCH] golang: Update generated files after libxl_types.idl
- change
-Message-ID: <20200522100145.w6xd5v7ioubzkni5@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-References: <20200522094956.3611661-1-george.dunlap@citrix.com>
+ id cc84cdcc-9c13-11ea-aba9-12813bfff9fa;
+ Fri, 22 May 2020 10:05:44 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: y7eq3Hxw3uie9y4rdx1w4vE06kp/+C79LbQUjxLbRHkoTo0/t5VK6MXIXnjXf3u6zfsBlOxTkW
+ Vgnpt/VHI+Oec7D5ijLXVqYz+OKOqq/XGamFsaTdxIvVmLMrKjfIIAuIYU60eEVQB8PKzz52pW
+ zgYz2qr5JQpaC5wtueWTyJCQUFPJyk2wlfO7w76UOD+Z6no7nNtOgpUQ++SlcO1TRv+eXYFkyx
+ pfmTpNEjkZJs6apbiFi7ytQKbeT4KAKG9kySmdIfkD6BH8ocCw0pTsmRlL4a1gBcI2hMPltAbe
+ ujg=
+X-SBRS: 2.7
+X-MesageID: 18193849
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18193849"
+Subject: Re: [PATCH] x86/svm: retry after unhandled NPT fault if gfn was
+ marked for recalculation
+To: Andrew Cooper <andrew.cooper3@citrix.com>, <xen-devel@lists.xenproject.org>
+References: <1590097438-28829-1-git-send-email-igor.druzhinin@citrix.com>
+ <dae35bcf-5b85-a760-9d15-139973215334@citrix.com>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <506f21d4-ed81-2cd5-46af-162407553c91@citrix.com>
+Date: Fri, 22 May 2020 11:05:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200522094956.3611661-1-george.dunlap@citrix.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <dae35bcf-5b85-a760-9d15-139973215334@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,26 +57,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>, xen-devel@lists.xenproject.org,
- Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@citrix.com>
+Cc: wl@xen.org, jbeulich@suse.com, roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 22, 2020 at 10:49:56AM +0100, George Dunlap wrote:
-> c/s 7efd9f3d45 ("libxl: Handle Linux stubdomain specific QEMU
-> options.") modified libl_types.idl.  Run gengotypes.py again to update
-
-libxl_types.idl.
-
-> the geneated golang bindings.
+On 22/05/2020 10:45, Andrew Cooper wrote:
+> On 21/05/2020 22:43, Igor Druzhinin wrote:
+>> If a recalculation NPT fault hasn't been handled explicitly in
+>> hvm_hap_nested_page_fault() then it's potentially safe to retry -
+>> US bit has been re-instated in PTE and any real fault would be correctly
+>> re-raised next time.
+>>
+>> This covers a specific case of migration with vGPU assigned on AMD:
+>> global log-dirty is enabled and causes immediate recalculation NPT
+>> fault in MMIO area upon access. This type of fault isn't described
+>> explicitly in hvm_hap_nested_page_fault (this isn't called on
+>> EPT misconfig exit on Intel) which results in domain crash.
+>>
+>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+>> ---
+>>  xen/arch/x86/hvm/svm/svm.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>
+>> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+>> index 46a1aac..f0d0bd3 100644
+>> --- a/xen/arch/x86/hvm/svm/svm.c
+>> +++ b/xen/arch/x86/hvm/svm/svm.c
+>> @@ -1726,6 +1726,10 @@ static void svm_do_nested_pgfault(struct vcpu *v,
+>>          /* inject #VMEXIT(NPF) into guest. */
+>>          nestedsvm_vmexit_defer(v, VMEXIT_NPF, pfec, gpa);
+>>          return;
+>> +    case 0:
+>> +        /* If a recalculation page fault hasn't been handled - just retry. */
+>> +        if ( pfec & PFEC_user_mode )
+>> +            return;
 > 
+> This smells like it is a recipe for livelocks.
+> 
+> Everything should have been handled properly by the call to
+> p2m_pt_handle_deferred_changes() which precedes svm_do_nested_pgfault().
+> 
+> It is legitimate for the MMIO mapping to end up being transiently
+> recalculated, but the fact that p2m_pt_handle_deferred_changes() doesn't
+> fix it up suggests that the bug is there.
+> 
+> Do you have the complete NPT walk to the bad mapping? Do we have
+> _PAGE_USER in the leaf mapping, or is this perhaps a spurious fault?
 
-Can we perhaps add a dependency on golang's side such that it can be
-auto-generated in the future?
+It does fix it up. The problem is that currently in SVM we enter
+svm_do_nested_pgfault immediately after p2m_pt_handle_deferred_changes
+is finished finished. 
 
-In any case
+Yes, we don't have _PAGE_USER initially and, yes, it's fixed up
+correctly in p2m_pt_handle_deferred_changes but svm_do_nested_pgfault
+doesn't know about it.
 
-Acked-by: Wei Liu <wl@xen.org>
+Please read my second email about alternatives that suggest to resolve
+the issue you're worrying about.
 
-(I haven't looked at the generated code)
+Igor
 
