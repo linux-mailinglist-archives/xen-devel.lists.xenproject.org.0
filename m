@@ -2,42 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54AF21DE3B3
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 12:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A0221DE3B8
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 12:09:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc4aQ-00015m-UM; Fri, 22 May 2020 10:07:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=knsM=7E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jc4aQ-00015h-9p
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 10:07:30 +0000
-X-Inumbo-ID: 0b65bbd2-9c14-11ea-aba9-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0b65bbd2-9c14-11ea-aba9-12813bfff9fa;
- Fri, 22 May 2020 10:07:29 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 7E252AC63;
- Fri, 22 May 2020 10:07:31 +0000 (UTC)
-Subject: Re: [PATCH v3] x86/PV: remove unnecessary toggle_guest_pt() overhead
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <24d8b606-f74b-9367-d67e-e952838c7048@suse.com>
- <d7840278-b999-65fa-40bf-2b78e5266837@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a6084473-2fb7-4106-66a4-d180ef483314@suse.com>
-Date: Fri, 22 May 2020 12:07:27 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jc4bp-0001C5-9Y; Fri, 22 May 2020 10:08:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=L400=7E=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jc4bo-0001C0-GL
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 10:08:56 +0000
+X-Inumbo-ID: 3ea04792-9c14-11ea-ae69-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3ea04792-9c14-11ea-ae69-bc764e2007e4;
+ Fri, 22 May 2020 10:08:55 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: YQiBpXNXpK/yGTBHwopQ1csvroi95vSn+S2R+jofk447T3THtGYNymmuv32J7SvQ7qPcGu4/xu
+ /VYE9/Sn6YmO1RYL8/Y5fQt69Cgr9/tN/yP2LopZ1VezGELgP7woopXbC7dZw+P8/IoiEIOwjN
+ QJ+ZapphVIZZah0NFlT2tzv13TJkoKLA19ZJ5e3UvWmRmADIb3p1SpZOk5bUnP2QUaNwAPosSg
+ 0co6/a7u2KtmfnzhtZLxMu/VW0GKPwMVzro4OOIs8LcO4VnBqZgL7C3q9sMMjziEhiZ1CUc2nZ
+ gns=
+X-SBRS: 2.7
+X-MesageID: 18447877
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18447877"
+Date: Fri, 22 May 2020 12:08:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Igor Druzhinin <igor.druzhinin@citrix.com>
+Subject: Re: [PATCH] x86/svm: retry after unhandled NPT fault if gfn was
+ marked for recalculation
+Message-ID: <20200522100846.GV54375@Air-de-Roger>
+References: <1590097438-28829-1-git-send-email-igor.druzhinin@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <d7840278-b999-65fa-40bf-2b78e5266837@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <1590097438-28829-1-git-send-email-igor.druzhinin@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,45 +54,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, wl@xen.org, jbeulich@suse.com,
+ andrew.cooper3@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.05.2020 18:46, Andrew Cooper wrote:
-> On 05/05/2020 07:16, Jan Beulich wrote:
->> While the mere updating of ->pv_cr3 and ->root_pgt_changed aren't overly
->> expensive (but still needed only for the toggle_guest_mode() path), the
->> effect of the latter on the exit-to-guest path is not insignificant.
->> Move the logic into toggle_guest_mode(), on the basis that
->> toggle_guest_pt() will always be invoked in pairs, yet we can't safely
->> undo the setting of root_pgt_changed during the second of these
->> invocations.
->>
->> While at it, add a comment ahead of toggle_guest_pt() to clarify its
->> intended usage.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Thu, May 21, 2020 at 10:43:58PM +0100, Igor Druzhinin wrote:
+> If a recalculation NPT fault hasn't been handled explicitly in
+> hvm_hap_nested_page_fault() then it's potentially safe to retry -
+> US bit has been re-instated in PTE and any real fault would be correctly
+> re-raised next time.
 > 
-> I'm still of the opinion that the commit message wants rewriting to get
-> the important points across clearly.
+> This covers a specific case of migration with vGPU assigned on AMD:
+> global log-dirty is enabled and causes immediate recalculation NPT
+> fault in MMIO area upon access. This type of fault isn't described
+> explicitly in hvm_hap_nested_page_fault (this isn't called on
+> EPT misconfig exit on Intel) which results in domain crash.
+
+Couldn't direct MMIO regions be handled like other types of memory for
+the purposes of logdiry mode?
+
+I assume there's already a path here used for other memory types when
+logdirty is turned on, and hence would seem better to just make direct
+MMIO regions also use that path?
+
+> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+> ---
+>  xen/arch/x86/hvm/svm/svm.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> And those are that toggle_guest_pt() is called in pairs specifically to
-> read kernel data structures when emulating a userspace action, and that
-> this doesn't modify cr3 from the guests point of view, and therefore
-> doesn't need the resync on exit-to-guest path.
+> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+> index 46a1aac..f0d0bd3 100644
+> --- a/xen/arch/x86/hvm/svm/svm.c
+> +++ b/xen/arch/x86/hvm/svm/svm.c
+> @@ -1726,6 +1726,10 @@ static void svm_do_nested_pgfault(struct vcpu *v,
+>          /* inject #VMEXIT(NPF) into guest. */
+>          nestedsvm_vmexit_defer(v, VMEXIT_NPF, pfec, gpa);
+>          return;
+> +    case 0:
+> +        /* If a recalculation page fault hasn't been handled - just retry. */
+> +        if ( pfec & PFEC_user_mode )
+> +            return;
 
-Is this
+I'm slightly worried that this diverges from the EPT implementation
+now, in the sense that returning 0 from hvm_hap_nested_page_fault will
+no longer trigger a guest crash.
 
-"toggle_guest_pt() is called in pairs, to read guest kernel data
- structures when emulating a guest userspace action. Hence this doesn't
- modify cr3 from the guest's point of view, and therefore doesn't need
- any resync on the exit-to-guest path. Therefore move the updating of
- ->pv_cr3 and ->root_pgt_changed into toggle_guest_mode(), since undoing
- the changes during the second of these invocations wouldn't be a safe
- thing to do."
-
-any better?
-
-Jan
+Thanks, Roger.
 
