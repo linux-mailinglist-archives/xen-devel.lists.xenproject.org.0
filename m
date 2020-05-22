@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D98E1DE895
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 16:15:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E0D11DE8BE
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 16:25:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc8Rz-0002LN-NZ; Fri, 22 May 2020 14:15:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jc8bI-0003Z8-EA; Fri, 22 May 2020 14:24:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=knsM=7E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jc8Ry-0002LI-6c
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 14:15:02 +0000
-X-Inumbo-ID: 9fb9c428-9c36-11ea-ae69-bc764e2007e4
+ id 1jc8bG-0003Z0-Qu
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 14:24:38 +0000
+X-Inumbo-ID: f68cded9-9c37-11ea-abe7-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9fb9c428-9c36-11ea-ae69-bc764e2007e4;
- Fri, 22 May 2020 14:15:01 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f68cded9-9c37-11ea-abe7-12813bfff9fa;
+ Fri, 22 May 2020 14:24:36 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 365D1AD12;
- Fri, 22 May 2020 14:15:03 +0000 (UTC)
-Subject: Re: [PATCH v3 1/3] x86: relax GDT check in arch_set_info_guest()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cbed3c45-3685-4bce-9719-93b1e8a2599a@suse.com>
- <acbaead9-0f6c-3606-e809-57dafe9b3f01@suse.com>
- <58510f15-68d6-c773-5166-a38c72573442@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id D5970B142;
+ Fri, 22 May 2020 14:24:37 +0000 (UTC)
+Subject: Re: [PATCH v5 1/5] xen/common: introduce a new framework for
+ save/restore of 'domain' context
+To: Paul Durrant <paul@xen.org>
+References: <20200521161939.4508-1-paul@xen.org>
+ <20200521161939.4508-2-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <ee21b6eb-cf34-74ee-ac73-33ff76fb07db@suse.com>
-Date: Fri, 22 May 2020 16:14:54 +0200
+Message-ID: <62f13c6d-8d5f-7d06-d7e9-d17b960c8264@suse.com>
+Date: Fri, 22 May 2020 16:24:32 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <58510f15-68d6-c773-5166-a38c72573442@citrix.com>
+In-Reply-To: <20200521161939.4508-2-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -47,29 +48,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22.05.2020 15:27, Andrew Cooper wrote:
-> On 20/05/2020 08:53, Jan Beulich wrote:
->> It is wrong for us to check frames beyond the guest specified limit
->> (in the compat case another loop bound is already correct).
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 21.05.2020 18:19, Paul Durrant wrote:
+> To allow enlightened HVM guests (i.e. those that have PV drivers) to be
+> migrated without their co-operation it will be necessary to transfer 'PV'
+> state such as event channel state, grant entry state, etc.
 > 
-> I'm still not overly convinced this is a good idea, because all it will
-> allow people to do is write lazy code which breaks on older Xen.
+> Currently there is a framework (entered via the hvm_save/load() functions)
+> that allows a domain's 'HVM' (architectural) state to be transferred but
+> 'PV' state is also common with pure PV guests and so this framework is not
+> really suitable.
+> 
+> This patch adds the new public header and low level implementation of a new
+> common framework, entered via the domain_save/load() functions. Subsequent
+> patches will introduce other parts of the framework, and code that will
+> make use of it within the current version of the libxc migration stream.
+> 
+> This patch also marks the HVM-only framework as deprecated in favour of the
+> new framework.
+> 
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> Acked-by: Julien Grall <julien@xen.org>
 
-Sounds a little like keeping bugs for the sake of keeping things
-broken. The range of misbehaving versions could be shrunk by
-backporting this change; I didn't intend to though, so far.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one remark:
 
-> However, if you still insist, Acked-by: Andrew Cooper
-> <andrew.cooper3@citrix.com>
+> +int domain_load_end(struct domain_context *c)
+> +{
+> +    struct domain *d = c->domain;
+> +    size_t len = c->desc.length - c->len;
+> +
+> +    while ( c->len != c->desc.length ) /* unconsumed data or pad */
+> +    {
+> +        uint8_t pad;
+> +        int rc = domain_load_data(c, &pad, sizeof(pad));
+> +
+> +        if ( rc )
+> +            return rc;
+> +
+> +        if ( pad )
+> +            return -EINVAL;
+> +    }
+> +
+> +    gdprintk(XENLOG_INFO, "%pd load: %s[%u] +%zu (-%zu)\n", d, c->name,
+> +             c->desc.instance, c->len, len);
 
-Thanks!
+Unlike on the save side you assume c->name to be non-NULL here.
+We're not going to crash because of this, but it feels a little
+odd anyway, specifically with the function being non-static
+(albeit on the positive side we have the type being private to
+this file).
 
 Jan
 
