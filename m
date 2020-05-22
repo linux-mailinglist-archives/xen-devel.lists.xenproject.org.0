@@ -2,48 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6F531DED57
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 18:34:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 893851DEDBF
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 18:56:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jcAcY-0008ON-2N; Fri, 22 May 2020 16:34:06 +0000
+	id 1jcAxV-0001vA-TR; Fri, 22 May 2020 16:55:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UE2V=7E=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
- id 1jcAcX-0008OG-9W
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 16:34:05 +0000
-X-Inumbo-ID: 0a47d7e0-9c4a-11ea-b07b-bc764e2007e4
-Received: from mga17.intel.com (unknown [192.55.52.151])
+ <SRS0=obdr=7E=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jcAxU-0001v5-83
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 16:55:44 +0000
+X-Inumbo-ID: 0fe1e094-9c4d-11ea-b9cf-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0a47d7e0-9c4a-11ea-b07b-bc764e2007e4;
- Fri, 22 May 2020 16:34:00 +0000 (UTC)
-IronPort-SDR: GAK5B0aPxgcDVjfYmww21crZRwn4iCU7cYH2NlSS0orDwucsU7hVgiHYvycYpmGImkAyovvUSX
- c4xNnwyYH6aQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2020 09:33:57 -0700
-IronPort-SDR: iZyueIouIt1QOBCDMYx+urq1Nqe60j6GkJlwLC/tYvEctZCC1KG7/uhyQAzfRKkM2XIumvoZ13
- lDdnoyMd4Fcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,422,1583222400"; d="scan'208";a="301157059"
-Received: from rpenaran-mobl.amr.corp.intel.com (HELO ubuntu.localdomain)
- ([10.212.41.203])
- by orsmga008.jf.intel.com with ESMTP; 22 May 2020 09:33:56 -0700
-From: Tamas K Lengyel <tamas.lengyel@intel.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2 for-4.14 2/2] tools/libxc: xc_memshr_fork with interrupts
- blocked
-Date: Fri, 22 May 2020 09:33:53 -0700
-Message-Id: <a903f59b9dc202114e06b7e4c7e0bb6e3fb588e9.1590165055.git.tamas.lengyel@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <adfececa3e29a46f5347459a629aa534d61625aa.1590165055.git.tamas.lengyel@intel.com>
-References: <adfececa3e29a46f5347459a629aa534d61625aa.1590165055.git.tamas.lengyel@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ id 0fe1e094-9c4d-11ea-b9cf-bc764e2007e4;
+ Fri, 22 May 2020 16:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=G3IK/R5QLfnttLjbos8/D0jySFKnIDjwZxEqYD/DGys=; b=yEC4qSJ3Nmje3+l8zLOmY4Vg3
+ 9lDn2FcdHrvFl5S+Wes3/C12jdEhWxXPkPprZa6k4oS41IenWenVKdwLjGTXOOp1wLY+EyuS1EXIW
+ f+JJOEGZzyY+ALYGMu5ngm9+ROWeqH2jf2DPIO106eYB3uxBEBWOQRytdGmgkhyFVPsqw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jcAxN-0007yn-OR; Fri, 22 May 2020 16:55:37 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jcAxN-0007qU-Er; Fri, 22 May 2020 16:55:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jcAxN-00073l-EF; Fri, 22 May 2020 16:55:37 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150324-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150324: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=1658a39b0031baf9ec44c8d51d1d1369a964a4f9
+X-Osstest-Versions-That: xen=f6d102046817bb5c08876ff78a6a00f4d29ee269
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 22 May 2020 16:55:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,59 +65,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Toolstack side for creating forks with interrupt injection blocked.
+flight 150324 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150324/
 
-Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
----
- tools/libxc/include/xenctrl.h | 3 ++-
- tools/libxc/xc_memshr.c       | 4 +++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+Failures :-/ but no regressions.
 
-diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
-index 45ff7db1e8..804ff001d7 100644
---- a/tools/libxc/include/xenctrl.h
-+++ b/tools/libxc/include/xenctrl.h
-@@ -2242,7 +2242,8 @@ int xc_memshr_range_share(xc_interface *xch,
- int xc_memshr_fork(xc_interface *xch,
-                    uint32_t source_domain,
-                    uint32_t client_domain,
--                   bool allow_with_iommu);
-+                   bool allow_with_iommu,
-+                   bool block_interrupts);
- 
- /*
-  * Note: this function is only intended to be used on short-lived forks that
-diff --git a/tools/libxc/xc_memshr.c b/tools/libxc/xc_memshr.c
-index 2300cc7075..a6cfd7dccf 100644
---- a/tools/libxc/xc_memshr.c
-+++ b/tools/libxc/xc_memshr.c
-@@ -240,7 +240,7 @@ int xc_memshr_debug_gref(xc_interface *xch,
- }
- 
- int xc_memshr_fork(xc_interface *xch, uint32_t pdomid, uint32_t domid,
--                   bool allow_with_iommu)
-+                   bool allow_with_iommu, bool block_interrupts)
- {
-     xen_mem_sharing_op_t mso;
- 
-@@ -251,6 +251,8 @@ int xc_memshr_fork(xc_interface *xch, uint32_t pdomid, uint32_t domid,
- 
-     if ( allow_with_iommu )
-         mso.u.fork.flags |= XENMEM_FORK_WITH_IOMMU_ALLOWED;
-+    if ( block_interrupts )
-+        mso.u.fork.flags |= XENMEM_FORK_BLOCK_INTERRUPTS;
- 
-     return xc_memshr_memop(xch, domid, &mso);
- }
--- 
-2.25.1
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
+version targeted for testing:
+ xen                  1658a39b0031baf9ec44c8d51d1d1369a964a4f9
+baseline version:
+ xen                  f6d102046817bb5c08876ff78a6a00f4d29ee269
+
+Last test of basis   150319  2020-05-22 11:02:07 Z    0 days
+Testing same since   150324  2020-05-22 14:01:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   f6d1020468..1658a39b00  1658a39b0031baf9ec44c8d51d1d1369a964a4f9 -> smoke
 
