@@ -2,40 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E2F1DE76F
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 14:58:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA651DE791
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 15:03:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jc7G6-0001f0-16; Fri, 22 May 2020 12:58:42 +0000
+	id 1jc7Js-0002aR-Ia; Fri, 22 May 2020 13:02:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=knsM=7E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jc7G4-0001es-7v
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 12:58:40 +0000
-X-Inumbo-ID: f4c1c5fc-9c2b-11ea-ae69-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1fqI=7E=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jc7Jr-0002aM-7K
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 13:02:35 +0000
+X-Inumbo-ID: 80b1fa96-9c2c-11ea-b9cf-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f4c1c5fc-9c2b-11ea-ae69-bc764e2007e4;
- Fri, 22 May 2020 12:58:39 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4EF1EAE56;
- Fri, 22 May 2020 12:58:41 +0000 (UTC)
-Subject: Re: [PATCH] xen/trace: Don't dump offline CPUs in
- debugtrace_dump_worker()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200521084422.24073-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <dd29969b-d261-59b4-824d-5748a2f831d8@suse.com>
-Date: Fri, 22 May 2020 14:58:36 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 80b1fa96-9c2c-11ea-b9cf-bc764e2007e4;
+ Fri, 22 May 2020 13:02:34 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: TnwUKv5bTqmcFXwtCe5H4Hduz2A7z2zRYLoIyXYyW++u2WsKMGr74h/+DhQrzZCmNTwUl3zL5v
+ dDUFFTfeuGcGqxV3vounC0T2UFnL3p8/1GbxZiFGFrhY6tciuYSt2EwHdx+aCA0dzhmskAFfbT
+ ML3izgfaSOIijc3nd6PwrCRY8ChhxmcrII3QPcjMgAC6x5BS0H+zFO3VeNHwOcRd3AFcvRGLH4
+ WotyL7thTPXcz2RxanM8FD6eHkwttM7nm9eabgsAfY+yjTZ/208JPyCv/z6ptJHPPh7QA55I6F
+ +s0=
+X-SBRS: 2.7
+X-MesageID: 18171851
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,421,1583211600"; d="scan'208";a="18171851"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <20200521084422.24073-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Message-ID: <24263.52582.870176.527318@mariner.uk.xensource.com>
+Date: Fri, 22 May 2020 14:02:30 +0100
+To: Tamas K Lengyel <tamas.lengyel@intel.com>
+Subject: Re: [PATCH for-4.14 2/2] tools/libxc: xc_memshr_fork with interrupts
+ disabled
+In-Reply-To: <c2830cae9affe327170c900731a7ca050ddb91ea.1590101479.git.tamas.lengyel@intel.com>
+References: <7666b5bba73a1410446789a0c4ea908376da3487.1590101479.git.tamas.lengyel@intel.com>
+ <c2830cae9affe327170c900731a7ca050ddb91ea.1590101479.git.tamas.lengyel@intel.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,20 +54,18 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.05.2020 10:44, Andrew Cooper wrote:
-> The 'T' debugkey reliably wedges on one of my systems, which has a sparse
-> APIC_ID layout due to a non power-of-2 number of cores per socket.  The
-> per_cpu(dt_cpu_data, cpu) calcution falls over the deliberately non-canonical
-> poison value.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Tamas K Lengyel writes ("[PATCH for-4.14 2/2] tools/libxc: xc_memshr_fork with interrupts disabled"):
+> Toolstack side for creating forks with interrupt injection disabled.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
+Subject to the hypervisor folks being happy with the underlying
+feature.
+
+Ian.
 
