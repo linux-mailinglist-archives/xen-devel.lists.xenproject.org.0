@@ -2,60 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DAA01DF064
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 22:12:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB7BC1DF0AE
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 22:37:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jcE10-00049T-Hx; Fri, 22 May 2020 20:11:34 +0000
+	id 1jcEP2-000676-JH; Fri, 22 May 2020 20:36:24 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=obdr=7E=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jcE0y-00049O-P1
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 20:11:32 +0000
-X-Inumbo-ID: 6ae5f686-9c68-11ea-ac1c-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=h2Re=7E=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jcEP0-00066N-UM
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2020 20:36:22 +0000
+X-Inumbo-ID: e590fa9a-9c6b-11ea-ac22-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6ae5f686-9c68-11ea-ac1c-12813bfff9fa;
- Fri, 22 May 2020 20:11:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=fye7boAr+hM7Zxox/wr14KaRlgtb4dvpXwf/sG1HE58=; b=r0magAaEND3ms0I9OdcjE1HqV
- 9CD1d/s1Qzfqg3x78cstQaPQ2uAvgkdm4wJQjemOSez0c9wXP+CHCD5c4jHI8S5gIklN6OPwftzHL
- PfITnKkY6SZ/jiNpYh6KQ6ZofUN0IdAJ25PJPPrHg1ghB4rq9ZXT9FC8Di00mKePV46RQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jcE0s-0003hM-OU; Fri, 22 May 2020 20:11:26 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jcE0s-0001ky-Cq; Fri, 22 May 2020 20:11:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jcE0s-00005u-C5; Fri, 22 May 2020 20:11:26 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150330-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id e590fa9a-9c6b-11ea-ac22-12813bfff9fa;
+ Fri, 22 May 2020 20:36:21 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DAB8C20723;
+ Fri, 22 May 2020 20:36:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590179781;
+ bh=IK1thAcWlCaqCoeU+81mOVb4TLhtZ5VdD8ydtfEDSgs=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=RmpDsrr5nt9VA49OfsdkCWmcG0mYVN1lGMYIb4+IQoZLGBtI/9xzwXOBng+nnnv/q
+ s+CeSUi8X84jzr1XX2my8nGSl5T199PQ2Se5rhGEzgd8/K3xyp86L02PEim92xLt+R
+ WdnSgson2U54CaVck5NBfmV5zlQWQ3kK7kcOlk7U=
+Date: Fri, 22 May 2020 13:36:20 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH 01/10] swiotlb-xen: use vmalloc_to_page on vmalloc virt
+ addresses
+In-Reply-To: <a7f1d5c1-1ee1-61e3-22be-1db4dced08eb@xen.org>
+Message-ID: <alpine.DEB.2.21.2005221329590.27502@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2005201628330.27502@sstabellini-ThinkPad-T480s>
+ <20200520234520.22563-1-sstabellini@kernel.org>
+ <23e5b6d8-c5d9-b43f-41cd-9d02d8ec0a7f@xen.org>
+ <alpine.DEB.2.21.2005211235590.27502@sstabellini-ThinkPad-T480s>
+ <a7f1d5c1-1ee1-61e3-22be-1db4dced08eb@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150330: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=87827167bb1737e826b0a8fe0abe07c0ace36ac5
-X-Osstest-Versions-That: xen=1658a39b0031baf9ec44c8d51d1d1369a964a4f9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 May 2020 20:11:26 +0000
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,64 +57,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: jgross@suse.com, Stefano Stabellini <sstabellini@kernel.org>,
+ konrad.wilk@oracle.com, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150330 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150330/
+On Fri, 22 May 2020, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 22/05/2020 04:54, Stefano Stabellini wrote:
+> > On Thu, 21 May 2020, Julien Grall wrote:
+> > > Hi,
+> > > 
+> > > On 21/05/2020 00:45, Stefano Stabellini wrote:
+> > > > From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> > > > 
+> > > > Don't just assume that virt_to_page works on all virtual addresses.
+> > > > Instead add a is_vmalloc_addr check and use vmalloc_to_page on vmalloc
+> > > > virt addresses.
+> > > 
+> > > Can you provide an example where swiotlb is used with vmalloc()?
+> > 
+> > The issue was reported here happening on the Rasperry Pi 4:
+> > https://marc.info/?l=xen-devel&m=158862573216800
+> 
+> Thanks, it would be good if the commit message contains a bit more details.
+> 
+> > 
+> > If you are asking where in the Linux codebase the vmalloc is happening
+> > specifically, I don't know for sure, my information is limited to the
+> > stack trace that you see in the link (I don't have a Rasperry Pi 4 yet
+> > but I shall have one soon.)
+> 
+> Looking at the code there is a comment in xen_swiotlb_alloc_coherent()
+> suggesting that xen_alloc_coherent_pages() may return an ioremap'ped region on
+> Arm. So it feels to me that commit b877ac9815a8fe7e5f6d7fdde3dc34652408840a
+> "xen/swiotlb: remember having called xen_create_contiguous_region()" has
+> always been broken on Arm.
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  87827167bb1737e826b0a8fe0abe07c0ace36ac5
-baseline version:
- xen                  1658a39b0031baf9ec44c8d51d1d1369a964a4f9
-
-Last test of basis   150324  2020-05-22 14:01:40 Z    0 days
-Testing same since   150330  2020-05-22 17:02:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Yes, I think you are right
 
 
-Pushing revision :
+> As an aside, your commit message also suggests this is an issue for every
+> virtual address used in swiotlb. But only the virt_to_page() call in
+> xen_swiotlb_free_coherent() is modified. Is it intended? If yes, I think you
+> want to update your commit message.
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   1658a39b00..87827167bb  87827167bb1737e826b0a8fe0abe07c0ace36ac5 -> smoke
+I see, yes I can explain better
+
 
