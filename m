@@ -2,49 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43C061DF0C4
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2020 22:48:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F0BB1DF366
+	for <lists+xen-devel@lfdr.de>; Sat, 23 May 2020 02:11:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jcEa6-00076m-LK; Fri, 22 May 2020 20:47:50 +0000
+	id 1jcHjV-0000Nj-Vc; Sat, 23 May 2020 00:09:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h2Re=7E=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jcEa5-00076h-S3
- for xen-devel@lists.xenproject.org; Fri, 22 May 2020 20:47:49 +0000
-X-Inumbo-ID: 7f43f146-9c6d-11ea-9887-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=BlJ7=7F=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jcHjV-0000Ne-1X
+ for xen-devel@lists.xenproject.org; Sat, 23 May 2020 00:09:45 +0000
+X-Inumbo-ID: b4894556-9c89-11ea-ae69-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7f43f146-9c6d-11ea-9887-bc764e2007e4;
- Fri, 22 May 2020 20:47:49 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 44A1C20723;
- Fri, 22 May 2020 20:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590180468;
- bh=ABXEd3vc08BMg4ogCVIQEmBIL34CZ7hlNe8SZ9PbUAg=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=QBQVmp1VQZ2dAmCNmxEI92dXe8V0WuRDH3d/aYG8pRWxtwKEeupy1RLtLeK0fqVGJ
- yH0YKWXQ2E1JqwtNUKz1bfqrKnayppYXP5JBYeNJZVX+JM4GetGxI8H2+TPmrB1hHL
- Dext8r1i2WPfHkst+1gu6kSoUmo/96C3RHGFAxus=
-Date: Fri, 22 May 2020 13:47:47 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 02/10] swiotlb-xen: remove start_dma_addr
-In-Reply-To: <ab89bf08-a02f-85af-8f83-6a851d72ccf2@xen.org>
-Message-ID: <alpine.DEB.2.21.2005221336530.27502@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2005201628330.27502@sstabellini-ThinkPad-T480s>
- <20200520234520.22563-2-sstabellini@kernel.org>
- <6241b8f6-5c51-0486-55ae-d571b117a184@xen.org>
- <alpine.DEB.2.21.2005211243060.27502@sstabellini-ThinkPad-T480s>
- <ab89bf08-a02f-85af-8f83-6a851d72ccf2@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id b4894556-9c89-11ea-ae69-bc764e2007e4;
+ Sat, 23 May 2020 00:09:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=AEycuEuvksZ/QCn8WRxCpKjaBxPCwUEje/L5LmuV4tQ=; b=0xMd0n/nlqznsjQqTe/h+z9oK
+ HdD4qBBq4uuogi1DzKmSXkNYSRHyPl2x+U49biqTrtdvvv1XXv6gz2YKP5QWnf+BuNLFmW2D5BoO9
+ s4rQRYgjWoTKYmAkiQLE80HRVZNcF8QwQOmS3i4NN/t0N2hdzj45280+LE6w0JT1a937I=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jcHjT-0000jE-UU; Sat, 23 May 2020 00:09:43 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jcHjT-0006e0-H5; Sat, 23 May 2020 00:09:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jcHjT-0006kf-GQ; Sat, 23 May 2020 00:09:43 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150333-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 150333: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=abf378e6483195b98a3f32e2c9d017e0eeeb275f
+X-Osstest-Versions-That: xen=87827167bb1737e826b0a8fe0abe07c0ace36ac5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 23 May 2020 00:09:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,99 +65,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Stefano Stabellini <sstabellini@kernel.org>,
- konrad.wilk@oracle.com, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, 22 May 2020, Julien Grall wrote:
-> On 22/05/2020 04:55, Stefano Stabellini wrote:
-> > On Thu, 21 May 2020, Julien Grall wrote:
-> > > Hi,
-> > > 
-> > > On 21/05/2020 00:45, Stefano Stabellini wrote:
-> > > > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > > > 
-> > > > It is not strictly needed. Call virt_to_phys on xen_io_tlb_start
-> > > > instead. It will be useful not to have a start_dma_addr around with the
-> > > > next patches.
-> > > > 
-> > > > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > > > ---
-> > > >    drivers/xen/swiotlb-xen.c | 5 +----
-> > > >    1 file changed, 1 insertion(+), 4 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> > > > index a42129cba36e..b5e0492b07b9 100644
-> > > > --- a/drivers/xen/swiotlb-xen.c
-> > > > +++ b/drivers/xen/swiotlb-xen.c
-> > > > @@ -52,8 +52,6 @@ static unsigned long xen_io_tlb_nslabs;
-> > > >     * Quick lookup value of the bus address of the IOTLB.
-> > > >     */
-> > > >    -static u64 start_dma_addr;
-> > > > -
-> > > >    /*
-> > > >     * Both of these functions should avoid XEN_PFN_PHYS because
-> > > > phys_addr_t
-> > > >     * can be 32bit when dma_addr_t is 64bit leading to a loss in
-> > > > @@ -241,7 +239,6 @@ int __ref xen_swiotlb_init(int verbose, bool early)
-> > > >    		m_ret = XEN_SWIOTLB_EFIXUP;
-> > > >    		goto error;
-> > > >    	}
-> > > > -	start_dma_addr = xen_virt_to_bus(xen_io_tlb_start);
-> > > >    	if (early) {
-> > > >    		if (swiotlb_init_with_tbl(xen_io_tlb_start,
-> > > > xen_io_tlb_nslabs,
-> > > >    			 verbose))
-> > > > @@ -389,7 +386,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device
-> > > > *dev, struct page *page,
-> > > >    	 */
-> > > >    	trace_swiotlb_bounced(dev, dev_addr, size, swiotlb_force);
-> > > >    -	map = swiotlb_tbl_map_single(dev, start_dma_addr, phys,
-> > > > +	map = swiotlb_tbl_map_single(dev, virt_to_phys(xen_io_tlb_start),
-> > > > phys,
-> > > 
-> > > xen_virt_to_bus() is implemented as xen_phys_to_bus(virt_to_phys()). Can
-> > > you
-> > > explain how the two are equivalent?
-> > 
-> > They are not equivalent. Looking at what swiotlb_tbl_map_single expects,
-> > and also the implementation of swiotlb_init_with_tbl, I think
-> > virt_to_phys is actually the one we want.
-> > 
-> > swiotlb_tbl_map_single compares the argument with __pa(tlb) which is
-> > __pa(xen_io_tlb_start) which is virt_to_phys(xen_io_tlb_start).
-> 
-> I can't find such check in master. What is your baseline? Could you point to
-> the exact line of code?
+flight 150333 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150333/
 
-My base is b85051e755b0e9d6dd8f17ef1da083851b83287d, which is master
-from a couple of days back.
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  abf378e6483195b98a3f32e2c9d017e0eeeb275f
+baseline version:
+ xen                  87827167bb1737e826b0a8fe0abe07c0ace36ac5
+
+Last test of basis   150330  2020-05-22 17:02:53 Z    0 days
+Testing same since   150333  2020-05-22 21:00:46 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-xen_swiotlb_init calls swiotlb_init_with_tbl which takes a virt address
-as a parameter (xen_io_tlb_start), it gets converted to phys and stored
-in io_tlb_start as a physical address.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Later, xen_swiotlb_map_page calls swiotlb_tbl_map_single passing a
-dma addr as parameter (tbl_dma_addr). tbl_dma_addr is used to calculate
-the right slot in the swiotlb buffer to use. (Strangely tbl_dma_addr is
-a dma_addr_t and it is not converted to phys_addr_t before doing
-operations... I think tbl_dma_addr should be a phys addr.)
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-The comparison with io_tlb_start is done here:
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-	do {
-		while (iommu_is_span_boundary(index, nslots, offset_slots,
-					      max_slots)) {
-			index += stride;
-			if (index >= io_tlb_nslabs)
-				index = 0;
-			if (index == wrap)
-				goto not_found;
-		}
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-index is io_tlb_start and offset_slots is derived by tbl_dma_addr.
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   87827167bb..abf378e648  abf378e6483195b98a3f32e2c9d017e0eeeb275f -> smoke
 
