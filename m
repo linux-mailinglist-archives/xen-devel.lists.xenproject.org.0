@@ -2,57 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F0791DF83D
-	for <lists+xen-devel@lfdr.de>; Sat, 23 May 2020 18:31:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42AA21DF83F
+	for <lists+xen-devel@lfdr.de>; Sat, 23 May 2020 18:33:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jcX1t-0007Sw-9i; Sat, 23 May 2020 16:29:45 +0000
+	id 1jcX54-0008MN-P7; Sat, 23 May 2020 16:33:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o9iM=7F=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1jcX1s-0007Sp-1I
- for xen-devel@lists.xenproject.org; Sat, 23 May 2020 16:29:44 +0000
-X-Inumbo-ID: 9b341980-9d12-11ea-ae69-bc764e2007e4
-Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ id 1jcX53-0008MH-5y
+ for xen-devel@lists.xenproject.org; Sat, 23 May 2020 16:33:01 +0000
+X-Inumbo-ID: 10d4e714-9d13-11ea-b9cf-bc764e2007e4
+Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b341980-9d12-11ea-ae69-bc764e2007e4;
- Sat, 23 May 2020 16:29:43 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id w15so8231878lfe.11
- for <xen-devel@lists.xenproject.org>; Sat, 23 May 2020 09:29:43 -0700 (PDT)
+ id 10d4e714-9d13-11ea-b9cf-bc764e2007e4;
+ Sat, 23 May 2020 16:33:00 +0000 (UTC)
+Received: by mail-lj1-x244.google.com with SMTP id b6so16339140ljj.1
+ for <xen-devel@lists.xenproject.org>; Sat, 23 May 2020 09:33:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=G4UfA6yGjbjJo0RoiZsoNurp5VKfjqBLnL5LS80IK8w=;
- b=B84jTBIXtn1mi6hYEl67fMjv7637uBLxPb2bLpJMR76guWz0ZbRyZiJOakEUKPfaSi
- 5Jj6gVJ8UIGPdMeJ5kwrBDPZ9jat/efaDkjEzZlNp9l8pMYhAbN7lQab7Aeqk0rFVSZt
- Cm6guUIUKseEVzqF7LX8OH5KdV18AOkSArMJJiS1PJqBG6CMG8zFQ7uyeB8ZBVbZ21Pz
- 2K3yXhGk+xVH68pg4RsFSmm3Gj5q5nO9jxZjYTIg22Q4vSbVsyNTLL1Lz8OAHLZviSme
- KepSsqZnNkIkVGQvrOPEw0DHIAIU8WPfuU7yAv+eyaI0ecFBhm/iCeMnDmdy/IZkQpgu
- Qidw==
+ :cc; bh=NqhY+ZxbtADDYEqvt/Yw7Q+gVgjIuXnGiqU33hyjXJY=;
+ b=AEmCgZxwQiOVVppAGQVY05jnejhSrey8pQ30yEfoVNh1fKU2bmjfr+Ql5d4doDEzB3
+ sMpnKhiBMfWEV4EFdeT7dVqA2jlptqoibj3I7sbHF+0HqaYWOa1FCdLHrk2BGIkX+/pI
+ Lv4EvxwvAA0/1GGCoK9Srmg3D17GKIPwsLdv5AZLZPmIhjdxRh2qPZfyCEBb4mdSiwIe
+ 1EmxJ3UHybEln9bwHKDIDaQYdR9ZZrGmuEo4QcuAcqyLQLjrvIbKyGCxToo2ndEL67P6
+ dKcYeufTjNZgqeJICmCJ73OJOpKxb5lcJ6hfy0j0uCMB1ikQoDBCaMJN+tP0bc1iOhIK
+ RFeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=G4UfA6yGjbjJo0RoiZsoNurp5VKfjqBLnL5LS80IK8w=;
- b=pFva1vpBkO0xLy2kFSNBqvRq9Uveknc10kD2ykNQHUEBaq665/hgl0e0CvBJJVNiWd
- g6GxP2PH8vqf3s8rerSLpJx4D46DUwpSCE7gad80qnqGF7S/h4iL72vKs0GcEezyNlaN
- 63Zg6NcJHMmQJwK1i5PobcJMbe91uAE/mu5kOAIMCbmiSHsA/feoqtBdBvox0oGubndk
- DAlCc4Srrt/u9Tbo0RA4ogUTejsV2tsDmzShcIPSp+sM5l50Kw95pf2+mWtjeB3KsfKa
- vK1B6xgVq6jNJyni0gm3xlgLcoeE5ydZ2M6O5enwCaFCQtLIztuWuYURz5qf9OePPvCh
- Touw==
-X-Gm-Message-State: AOAM5329tIyRMK9LUCsHl0fB1qCTaFlGeZnoCvoK2qk51Fc9bJ8268BF
- UYHyJHYGifcmcpwnvWukvOYcOcTZURTU3Soh8/A=
-X-Google-Smtp-Source: ABdhPJz5yJkwNNWXIkmUF+JCqXHgnr3WEv3U6EEQz95DGysLbWk7fJXgR8X2OAiPfoMporz/0y78ClIoxlhn3f4TfcY=
-X-Received: by 2002:a19:150:: with SMTP id 77mr10245454lfb.71.1590251382248;
- Sat, 23 May 2020 09:29:42 -0700 (PDT)
+ bh=NqhY+ZxbtADDYEqvt/Yw7Q+gVgjIuXnGiqU33hyjXJY=;
+ b=Jnm+7O8I76aH1hEcPueEBso8T9duA4hjJfRPYmXju6d23Z4dEUE853dM+kXBszg9Ai
+ DYRqO6LVcUuwPBo9QEPddg8nqLYjxVJoLA14i3ednvod5bYLAujfUKgP2rVYDx/2I4ov
+ cX9EvgmtAmvAaGP8Ur3j+WimgysDjxq4vbip9w97NJl91O5FwlObYu7gXpZjBHePuMye
+ BQisZ0Tz2gAmeDVcJobRc8ktsynO8HXa61G33t08jDvfPXGaoHRi4WoRVJJY8hqHuzgK
+ DSEphut9/7vty8eNs78Qj0cGubDujiz0SnNqNb8pD47E/rkz+UsUTMOtltX6xSh6PnTn
+ gkEg==
+X-Gm-Message-State: AOAM533JfoMSxrwU9+MCutyLVYo42XVHXMW2S7IXduXX1fc/yMG56jKc
+ 7NuraICu+VApj5aCPlNDRrk9ZBV1WxKocxeBukw=
+X-Google-Smtp-Source: ABdhPJwDRIon/jS0FLkKJumGGLKDVPgCdISoAaXFR+SvrXX7dy77CM6RHvi78rMdsOoNCMYpqZVq3S7JD5oPJ0y5bFA=
+X-Received: by 2002:a2e:96cd:: with SMTP id d13mr9390790ljj.219.1590251579687; 
+ Sat, 23 May 2020 09:32:59 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200522161240.3748320-1-george.dunlap@citrix.com>
- <20200522161240.3748320-2-george.dunlap@citrix.com>
-In-Reply-To: <20200522161240.3748320-2-george.dunlap@citrix.com>
+ <20200522161240.3748320-3-george.dunlap@citrix.com>
+In-Reply-To: <20200522161240.3748320-3-george.dunlap@citrix.com>
 From: Nick Rosbrook <rosbrookn@gmail.com>
-Date: Sat, 23 May 2020 12:29:31 -0400
-Message-ID: <CAEBZRSe6qoZB1om8wMEeOy_4TA0W=MQ3cr8QMAr2HqLDmXAQig@mail.gmail.com>
-Subject: Re: [PATCH 1/5] golang: Add a minimum go version to go.mod
+Date: Sat, 23 May 2020 12:32:48 -0400
+Message-ID: <CAEBZRSdiCBWf-axqqYy156b8=2191kRgFuFKWTXRm_YBzZH+WA@mail.gmail.com>
+Subject: Re: [PATCH 2/5] golang: Add a variable for the libxl source directory
 To: George Dunlap <george.dunlap@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -66,13 +66,12 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> `go build` wants to add the current go version to go.mod as the
-> minimum every time we run `make` in the directory.  Add 1.11 (the
-> earliest Go version that supports modules) there to make it happy.
+> ...rather than duplicating the path in several places.
 >
 > Signed-off-by: George Dunlap <george.dunlap@citrix.com>
 Reviewed-by: Nick Rosbrook <rosbrookn@ainfosec.com>
