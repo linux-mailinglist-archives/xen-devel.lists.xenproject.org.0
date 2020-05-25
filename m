@@ -2,62 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D791E172F
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 23:35:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F1A81E17E8
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 00:38:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdKjU-0005I6-8r; Mon, 25 May 2020 21:34:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jdLiS-00023D-5X; Mon, 25 May 2020 22:37:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KePG=7H=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jdKjT-0005I1-9m
- for xen-devel@lists.xenproject.org; Mon, 25 May 2020 21:34:03 +0000
-X-Inumbo-ID: 70aa1ce6-9ecf-11ea-af32-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 70aa1ce6-9ecf-11ea-af32-12813bfff9fa;
- Mon, 25 May 2020 21:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5RW+nFGFTGk3pJsdIX95yiVzoB//NwDuo0grZn4JJ4c=; b=mH2j6lrUKeFk/MLDRdHHiL4HX
- LQi+dyIMG8POZV1cWnY4+0bKIiFX286BUzuAYxzJi4jxPZEPCXKaqHdhWv5eth3J2+SL9VvSlU2tB
- mWNP0l5Du9U958GXZ1exsgOO/ZAa1Jc7ZGfTnIFdnysVsgqhCBIUcaDBVzCO/DtyPm8ic=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jdKjM-0005cz-Q2; Mon, 25 May 2020 21:33:56 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jdKjM-0003L9-Gm; Mon, 25 May 2020 21:33:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jdKjM-0000b1-Dd; Mon, 25 May 2020 21:33:56 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150360-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=Vb8S=7H=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1jdLiQ-000238-QF
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2020 22:37:02 +0000
+X-Inumbo-ID: 4017a1b2-9ed8-11ea-b9cf-bc764e2007e4
+Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4017a1b2-9ed8-11ea-b9cf-bc764e2007e4;
+ Mon, 25 May 2020 22:37:02 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id u16so9458197lfl.8
+ for <xen-devel@lists.xenproject.org>; Mon, 25 May 2020 15:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RDKATGfCW4kdMXKLacGTn8XQ0RHZLkt01AwNltWZnUQ=;
+ b=a92km76raeAi29Jrv/MCVUOEM8mNwjqL50IsdS/pfbL22ofJyi084JmfmrTtZaER6q
+ 3BbwFRqOusSkfBnlPwfc5a2zdnl78IjRFU0xbSBgBPeVC5jJW9i2VL4wL2/l79dypfN7
+ 5pgKlYziVmVB1v1KTe89h59lwy8f5uq0vEXEd60LeOKQZQDdF9ntqi3iylv9VkWzaa7g
+ NzUucryuJompGG1yf+OpjA7HXPg4tzLSJI1K5yy8Yeng58N8rTdbpxh0qiyq3RZHET8E
+ 2i13BrJIYOtiAnJFKYiW73wCZO1x99lXZVFAt/7vyeWSjESA/82pSyOq0UZK7zOj9+2U
+ O6vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RDKATGfCW4kdMXKLacGTn8XQ0RHZLkt01AwNltWZnUQ=;
+ b=XQC1pbzwvcaGURHwjSJ99AUQxcmElVOXjWgKRa/aOfsbVVR3MgwhZYa0B2ykNLL5IU
+ JR8nctDDnxW0ck0qcvAHbQbtffEfPlcX/k6NJt/S4nKcenNz4kEo7GQAt83Zb2oq6dPR
+ Xhdjg7kfmjqg0z9YOTI1uuUurs+VJ7yA0DlS8OJ2r6QFwwJwU2yjM5Vy6XmRZBK+jWMZ
+ Fd0RmQVJndOp0V7XaR6yQwV/cGHh8Sjd5J3Vrr6EHWH0yUH/4sNVKu6MIoTEQHVkISp4
+ SF+Vy21kRIZt/xmceVmqlEM65o5figXgxM6/wOUgMAOZntmiuyshe6y5ByU5PmmWNVn4
+ vaLg==
+X-Gm-Message-State: AOAM531zmOzm/qcr4OSXysOOVQL04znVP+uGCJtL35mUczFWfxf31NVZ
+ F8EOdk/5RfFUJvaP7dhDD0ZS0QGobjNwq5oIQi0oEA==
+X-Google-Smtp-Source: ABdhPJxcUsE0FpOrWOB7h+yv1PB1IkG1pqbKocKHpWKHSrF5niI7NoiU61R6etGR6pUMRZBpsMWw0a3TzcTmpGfmzd0=
+X-Received: by 2002:a05:6512:3049:: with SMTP id
+ b9mr15213389lfb.44.1590446220666; 
+ Mon, 25 May 2020 15:37:00 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [seabios test] 150360: tolerable FAIL - PUSHED
-X-Osstest-Failures: seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-X-Osstest-Versions-This: seabios=d9aea4a7cd59e00f5ed96b6442806dde0959e1ca
-X-Osstest-Versions-That: seabios=7e9db04923854b7f4edca33948f55abee22907b9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 25 May 2020 21:33:56 +0000
+References: <20200525024955.225415-1-jandryuk@gmail.com>
+In-Reply-To: <20200525024955.225415-1-jandryuk@gmail.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Mon, 25 May 2020 18:36:49 -0400
+Message-ID: <CAKf6xpvRxeUdOOogacDvncC3yogcTN4gALVWO+V8ZJ8x__RafA@mail.gmail.com>
+Subject: Re: [PATCH 0/8] Coverity fixes for vchan-socket-proxy
+To: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,83 +65,22 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150360 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150360/
+On Sun, May 24, 2020 at 10:50 PM Jason Andryuk <jandryuk@gmail.com> wrote:
+>
+> This series addresses some Coverity reports.  To handle closing FDs, a
+> state struct is introduced to track FDs closed in both main() and
+> data_loop().
 
-Failures :-/ but no regressions.
+I've realized the changes here are insufficient to handle the FD
+leaks.  That is, the accept()-ed FDs need to be closed inside the for
+loop so they aren't leaked with each iteration.  I'll re-work for a
+v2.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 150308
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 150308
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 150308
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 150308
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
-
-version targeted for testing:
- seabios              d9aea4a7cd59e00f5ed96b6442806dde0959e1ca
-baseline version:
- seabios              7e9db04923854b7f4edca33948f55abee22907b9
-
-Last test of basis   150308  2020-05-21 18:10:18 Z    4 days
-Testing same since   150357  2020-05-25 02:10:36 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Kevin O'Connor <kevin@koconnor.net>
-  Matt DeVillier <matt.devillier@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/seabios.git
-   7e9db04..d9aea4a  d9aea4a7cd59e00f5ed96b6442806dde0959e1ca -> xen-tested-master
+-Jason
 
