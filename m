@@ -2,63 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30B011E04EE
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 04:51:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3979D1E04FA
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 04:54:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jd3D5-0004c9-Vv; Mon, 25 May 2020 02:51:27 +0000
+	id 1jd3Fl-0005Fh-Hh; Mon, 25 May 2020 02:54:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Vb8S=7H=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jd3D4-0004b4-FE
- for xen-devel@lists.xenproject.org; Mon, 25 May 2020 02:51:26 +0000
-X-Inumbo-ID: 95a74246-9e32-11ea-b9cf-bc764e2007e4
-Received: from mail-qk1-x744.google.com (unknown [2607:f8b0:4864:20::744])
+ id 1jd3Fj-0005Fc-Pu
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2020 02:54:11 +0000
+X-Inumbo-ID: 02b26712-9e33-11ea-ae69-bc764e2007e4
+Received: from mail-qk1-x741.google.com (unknown [2607:f8b0:4864:20::741])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 95a74246-9e32-11ea-b9cf-bc764e2007e4;
- Mon, 25 May 2020 02:51:08 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id n11so10967497qkn.8
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2020 19:51:08 -0700 (PDT)
+ id 02b26712-9e33-11ea-ae69-bc764e2007e4;
+ Mon, 25 May 2020 02:54:11 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id b6so16400916qkh.11
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2020 19:54:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Vlm0vRlSx5YbGIPqCOuB7/AqLs+Hl6v+Oi0EjKoqVGw=;
- b=FE8JO6G2FC2LN9LRfxO8JC1zcOYD8p79JwblsTCdvw+HETKRl1qYtuFao3GJ1cn9k0
- Yu7pzPYZpk6OHjjdjoh1WBJZHt6s5cuE954MfHPoztKvITO1t8CBHOXMpHYMJfbDIHeH
- TJTAmrPKs0pL4avp+EMaOuclniWL0MjJ5URGDkD+KuHBlETcXHb9w9WniHEtvVIyiFhr
- qtoFhDkbx15ycWXpLAKr32KsrEn/QDEIidSpr4ZdWIELD6QcsirudHXGNknzdn7lx6Gp
- SAgbbd+HYRF4jJTsuEZ4jn7zdW2xJdDBPB0GFmO0PRE93q7iv0jcAMuCfsOU+hYrG31l
- 0iTQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Gd2QZnhqRG2wfOUzgNesrJhEW8WJZJ6w2ov6jlm8W5o=;
+ b=OsB9g1UAriBq4kboxMcUwtzv278fUPt2vOcCEXJJ1O6mM2vFpeOZ5zGTjpjngJfYHZ
+ S4c+F6BU5o818jJa5XdtW7uNLyyR7VtRvoSHzJW5oLphUcxqd3VafQ9d9v8gqj5N1K+q
+ 8I4TTcv6xofD/yhm99g6PUSnAaoTRaraFKLClVYoWk2rrqlSXYh61E328dGDZClSLV18
+ rE7VcnnWyvE3ATHmoP8QeVFhUHpm8QH/EVqzTo3vl1MnC/dDsrPmezIGHMjS5CeL6NUY
+ qZAKIf1zcgkT2AtaLrjd+AkLfgnPYf9Lhj8iSbrhpZ7ShjN6Gj7nBDCeu0ser/kTLpOr
+ BsTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Vlm0vRlSx5YbGIPqCOuB7/AqLs+Hl6v+Oi0EjKoqVGw=;
- b=Pld02SXTaGSR/kUZjD92aLWBP0wKdLAb0BQ87CZuM8WxIqHgR0LEo20uJqbFfcTn2r
- NMxNyJcEcm4zd7z7/z1b8DigesSukAhXI6qp86lvnihHxrWyZdnvJd6aDKWZt9SZ/sYz
- SAikjkixswIbGZGa6Py8avxEfgYtTYgjrwOM2jgLi6qYd21nZh8q3Ws9KMs5Irabyloh
- 0QtHwtS2yX3bvCtyPD6xwACvQSLZ3W7xj3WeKvjx0Fmw2cHxoADZxNd8rfMNfUco6DTc
- 6J/5S3EEmb2PBEqKI0NRfKu1H50aqaXlAvH1rz0+QY0kKLDiv/gIZ1mBHywMmn2ajTHv
- Lrow==
-X-Gm-Message-State: AOAM5313bk61MvTgXuDS0g8XeIAw8TwgpMuSqZC9FETQQG/boZRP0GwX
- YfJcVlkkhZb9yZectfsjRrPU/iEw
-X-Google-Smtp-Source: ABdhPJy3ohNXkaaZhuxn/Fk6T6gmp+Y4SLoqqiX7Y6XxduJszM+OOBBfOp6+MpVwoI2b1eYyXz9pDA==
-X-Received: by 2002:a37:b3c7:: with SMTP id
- c190mr24190289qkf.466.1590375067957; 
- Sun, 24 May 2020 19:51:07 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Gd2QZnhqRG2wfOUzgNesrJhEW8WJZJ6w2ov6jlm8W5o=;
+ b=NlaOZI10Esu5cndpTWmmB4M2gF+f4c1JoaK4IgESWXCZA9+X4UX3MwmnfG6qYHErhl
+ TIFDXrqzAotPVYX22Aa9SJ1EuBKKgHhazkPRcMc9bx+nd0dX2F+kAOwXZDcblxc1RFVl
+ 5usu5/TsFEpo/zGK0K4B27qUeffXqZMAMzIO6vr/vS9oi1+V9EEf6fAyKI8xmCCky/oN
+ PFOvo7EkI6qOThRrDOmZ5ehn05Ws3+emX2ZoVlotAMeA+c/BJ8+N4srRIPF1rdQaOSfr
+ 0DtK+kCRtSfUreADZsPPc1OSXfAj3SURkBCSxgbzKS4p51nT9wi7hRJQ+012H+bKn1Xy
+ qZWg==
+X-Gm-Message-State: AOAM530qFHoYU31ml9khW8rijGuDDUXI5bjUpXOqDhBNXITAxpAFuU9A
+ iogLhQb9/0CWu8L+54cbo5ikT5Bh
+X-Google-Smtp-Source: ABdhPJwfuCYfsVOLTBWJmgJF0ndj8awyy8F6sa6kpfnh8VSsdrOS7osVB7vGROUh4v0+2Wz1K0E10A==
+X-Received: by 2002:a37:6e42:: with SMTP id j63mr8169954qkc.329.1590375250901; 
+ Sun, 24 May 2020 19:54:10 -0700 (PDT)
 Received: from shine.lan ([2001:470:8:67e:344b:9349:9475:b6a2])
- by smtp.gmail.com with ESMTPSA id h134sm13539512qke.6.2020.05.24.19.51.06
+ by smtp.gmail.com with ESMTPSA id o14sm12962296qkj.27.2020.05.24.19.54.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 May 2020 19:51:07 -0700 (PDT)
+ Sun, 24 May 2020 19:54:10 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 8/8] vchan-socket-proxy: Handle closing shared input/output_fd
-Date: Sun, 24 May 2020 22:49:55 -0400
-Message-Id: <20200525024955.225415-9-jandryuk@gmail.com>
+Subject: [PATCH] CHANGELOG: Add qemu-xen linux device model stubdomains
+Date: Sun, 24 May 2020 22:54:02 -0400
+Message-Id: <20200525025402.225884-1-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200525024955.225415-1-jandryuk@gmail.com>
-References: <20200525024955.225415-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -71,32 +68,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>, marmarek@invisiblethingslab.com,
- Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>
+Cc: Community Manager <community.manager@xenproject.org>,
+ Paul Durrant <paul@xen.org>, Jason Andryuk <jandryuk@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-input_fd & output_fd may be the same FD.  In that case, mark both as -1
-when closing one.  That avoids a dangling FD reference.
+Add qemu-xen linux device model stubdomain.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- tools/libvchan/vchan-socket-proxy.c | 2 ++
- 1 file changed, 2 insertions(+)
+ CHANGELOG.md | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/tools/libvchan/vchan-socket-proxy.c b/tools/libvchan/vchan-socket-proxy.c
-index a04b46ee04..07ead251a2 100644
---- a/tools/libvchan/vchan-socket-proxy.c
-+++ b/tools/libvchan/vchan-socket-proxy.c
-@@ -342,6 +342,8 @@ int data_loop(struct vchan_proxy_state *state)
-                     libxenvchan_wait(state->ctrl);
-                 }
-                 close(state->input_fd);
-+                if (state->input_fd == state->output_fd)
-+                    state->output_fd = -1;
-                 state->input_fd = -1;
-                 /* TODO: maybe signal the vchan client somehow? */
-                 break;
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index ccb5055c87..52ed470903 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+    fixes.
+  - Hypervisor framework to ease porting Xen to run on hypervisors.
+  - Initial support to run on Hyper-V.
++ - libxl support for running qemu-xen device model in a linux stubdomain.
+ 
+ ## [4.13.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.13.0) - 2019-12-17
+ 
 -- 
 2.25.1
 
