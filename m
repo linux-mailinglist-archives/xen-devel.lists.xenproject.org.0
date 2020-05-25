@@ -2,52 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCEA21E1D95
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 10:46:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 163681E1498
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 21:04:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdVDz-0007w4-7Q; Tue, 26 May 2020 08:46:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0p4g=7I=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jdVDx-0007vv-6V
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 08:46:13 +0000
-X-Inumbo-ID: 57d725a2-9f2d-11ea-a5e9-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 57d725a2-9f2d-11ea-a5e9-12813bfff9fa;
- Tue, 26 May 2020 08:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=/70pCIqdBc1+IaihE3qtCdVQmzI0BmRdQTEKFEaq7uw=; b=63MHqGT5n6awT6PUH4TIaQNUto
- FRsxPE2ZqlvxFbUZ/g8CEZCBAhVGBU3PCIT6sL7+1w8UngFhX8MBQknykjtVJsoyoJDhMsAA4jXSL
- IRBHrCduN40NTmaNskc3L6E71vNpe93TdEBvocw5mGv0NdDXzAXzwb9/q459HoX/OYgw=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <wl@xen.org>)
- id 1jdVDr-0005zz-9I; Tue, 26 May 2020 08:46:07 +0000
-Received: from 82.149.115.87.dyn.plus.net ([87.115.149.82] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <wl@xen.org>)
- id 1jdVDr-0008Lh-18; Tue, 26 May 2020 08:46:07 +0000
-Date: Mon, 25 May 2020 19:47:01 +0100
-From: Wei Liu <wl@xen.org>
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Subject: Re: [PATCH] x86/mem_sharing: gate enabling on cpu_has_vmx
-Message-ID: <20200525184701.hogeyzd7q7qntiwn@debian>
-References: <20200525144606.126767-1-tamas.lengyel@intel.com>
+	id 1jdIMq-0000jk-Jp; Mon, 25 May 2020 19:02:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=775J=7H=zohomail.eu=elliotkillick@srs-us1.protection.inumbo.net>)
+ id 1jdIMo-0000jf-Uc
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2020 19:02:31 +0000
+X-Inumbo-ID: 4769079e-9eba-11ea-9887-bc764e2007e4
+Received: from sender11-pp-o93.zoho.eu (unknown [31.186.226.251])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4769079e-9eba-11ea-9887-bc764e2007e4;
+ Mon, 25 May 2020 19:02:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1590433346; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=d2kW6MvdHWurCUa2wY2E1e9zGwAc9wlYX8l+/XpzWYA45rGZZdnB3w4ZZbKdlYQHrz6NMKjsSQ6St3mRf4u4P/TxTdwM6m3ip1sj3U4TRELnkHoYJpoRvgItAjOO9/JkAaPHCJ593Xzm483O0e2aeuAE8LyJntpsrcW9ICx862o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc; t=1590433346;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
+ bh=zstc/sqbQ9WVCJVASP9+rIVmqfSTJUm3XzhTxVIi8+Q=; 
+ b=SM/gweNYX2J0P3gC3Hi1x/rsQ6zC+J0MdMhX32vPLP5QJCchksx2AwaYTd/2P63h57h8yyDYxmxcuuaT6cSfBYGAFqKkKYbhdJlba/1DkOuuRLfF5CTLCcmyn+pJzn5EyurAFpNZn0AxDVVK9WFeggWS5cAvzu7Ku4X2BtMqlNc=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+ dkim=pass  header.i=zohomail.eu;
+ spf=pass  smtp.mailfrom=elliotkillick@zohomail.eu;
+ dmarc=pass header.from=<elliotkillick@zohomail.eu>
+ header.from=<elliotkillick@zohomail.eu>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1590433346; 
+ s=zoho; d=zohomail.eu; i=elliotkillick@zohomail.eu;
+ h=From:Subject:To:Cc:Message-ID:References:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+ bh=zstc/sqbQ9WVCJVASP9+rIVmqfSTJUm3XzhTxVIi8+Q=;
+ b=JF22u+9rO5ikwC3gRFLNhx3N8g197yvdBWlIAA4BTfl3dsifuZTS/izLf7gdh9v5
+ DVr/QHRR6sfnn241K1xOPXFBfQubj1IFegdLlstq3zDCiR/fnxHbjIRMWaowvrXNMNQ
+ 7uDumIkcQL91C4HGEzXPJ6n40b1tuhNptnm3UM9Q=
+Received: from [10.137.0.35]
+ (CPEac202e7c9cc3-CMac202e7c9cc0.cpe.net.cable.rogers.com [99.231.147.74]) by
+ mx.zoho.eu with SMTPS id 1590433345040946.9235816899597;
+ Mon, 25 May 2020 21:02:25 +0200 (CEST)
+From: Elliot Killick <elliotkillick@zohomail.eu>
+Subject: Re: [BUG] Consistent LBR/TSX vmentry failure (0x80000022) calling
+ domain_crash() in vmx.c:3324
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <767a6155-63f1-ab0c-377a-d2a1638babf4@zohomail.eu>
+References: <36815795-223f-2b96-5401-c262294cbaa8@zohomail.eu>
+ <c715f89a-b2ba-490c-c027-b4c7d7069f42@citrix.com>
+ <2bcd2ccc-b58e-1268-68ce-3ef534534245@zohomail.eu>
+ <1b76cd6a-c6a2-c9c9-1d8b-32a9a1dbc557@citrix.com>
+ <657e7522-bd0f-bea3-7ce8-2f6c4ec72407@zohomail.eu>
+ <dc1ef4b6-9406-b625-c157-6ebec2a6afda@citrix.com>
+ <325c716c-df62-d24c-2e48-3a100e84f48d@zohomail.eu>
+ <c09d62a4-6362-8eb9-a3b0-79c429850db6@citrix.com>
+Date: Mon, 25 May 2020 19:01:31 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200525144606.126767-1-tamas.lengyel@intel.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <c09d62a4-6362-8eb9-a3b0-79c429850db6@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,23 +70,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, May 25, 2020 at 08:46:06AM -0600, Tamas K Lengyel wrote:
-> From: Tamas K Lengyel <tamas@tklengyel.com>
-> 
-> It is unclear whether mem_sharing was ever made to work on other architectures
-> but at this time the only verified platform for it is vmx. No plans to support
-> or maintain it on other architectures. Make this explicit by checking during
-> initialization.
-> 
-> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+On 2020-05-20 16:53, Andrew Cooper wrote:
+> On 20/05/2020 15:59, Elliot Killick wrote:
+>> On 2020-05-20 12:31, Andrew Cooper wrote:
+>>> On 20/05/2020 12:46, Elliot Killick wrote:
+>>>> processor=09: 0
+>>>> vendor_id=09: GenuineIntel
+>>>> cpu family=09: 6
+>>>> model=09=09: 60
+>>>> model name=09: Intel(R) Core(TM) i5-4590 CPU @ 3.30GHz
+>>>> stepping=09: 3
+>>>> microcode=09: 0x27
+>>>> cpu MHz=09=09: 3299.926
+>>>> cache size=09: 6144 KB
+>>>> physical id=09: 0
+>>> Ok, so the errata is one of HSM182/HSD172.
+>>>
+>>> Xen has workaround for all of these.=C2=A0 However, I also see:
+>>>
+>>>> (XEN) ----[ Xen-4.8.5-15.fc25=C2=A0 x86_64=C2=A0 debug=3Dn=C2=A0=C2=A0=
+ Not tainted ]----
+>>> which is an obsolete version of Xen these days.=C2=A0 It looks like the=
+se
+>>> issues were first fixed in Xen 4.9, but you should upgrade to something
+>>> rather newer.
+>>>
+>>> ~Andrew
+>>>
+>> Ah, so this is originally a CPU bug which Xen has had to patch over.
+>=20
+> Yes.=C2=A0 It was an unintended consequence of Intel being forced to disa=
+ble
+> TSX in most of their Haswell/Broadwell CPUs.
+>=20
+>> As for the Xen version, that's controlled by the "distribution" of Xen I
+>> run which is Qubes. To remedy this I could run the testing stream of
+>> Qubes which currently provides the latest version of Xen (4.13) but that
+>> could bring its own set of problems.
+>=20
+> Ah, in which case Qubes will probably consider backporting the fixes.=C2=
+=A0
+> Open a bug with them, and I can probably point out a minimum set of
+> backports to make it work.
+>=20
+> ~Andrew
+>=20
 
-Reviewed-by: Wei Liu <wl@xen.org>
+Hi, Andrew
+
+I've opened up a bug with Qubes here:
+https://github.com/QubesOS/qubes-issues/issues/5848
+
+Please highlight the required backports at your earliest convenience,
+thank you.
+
 
