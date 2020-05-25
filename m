@@ -2,63 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9101B1E10EF
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 16:47:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1AEC1E113E
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 17:05:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdEMt-00022P-JJ; Mon, 25 May 2020 14:46:19 +0000
+	id 1jdEeT-0003nv-5C; Mon, 25 May 2020 15:04:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AvLo=7H=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1jdEMs-00022K-Gn
- for xen-devel@lists.xenproject.org; Mon, 25 May 2020 14:46:18 +0000
-X-Inumbo-ID: 7da9c308-9e96-11ea-9887-bc764e2007e4
-Received: from mail-oi1-x242.google.com (unknown [2607:f8b0:4864:20::242])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MLe6=7H=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jdEeR-0003nq-8E
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2020 15:04:27 +0000
+X-Inumbo-ID: 061da4b4-9e99-11ea-9887-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7da9c308-9e96-11ea-9887-bc764e2007e4;
- Mon, 25 May 2020 14:46:18 +0000 (UTC)
-Received: by mail-oi1-x242.google.com with SMTP id s198so16193373oie.6
- for <xen-devel@lists.xenproject.org>; Mon, 25 May 2020 07:46:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2HoAMOZQ3HefgrNkWv0E4FEusKuZTEg4JrxhK22N/y8=;
- b=ReMeZAzm0OhxA9ZFrXFaIJr4A7AitXK67M1nc1DIMnZVm4rsNnGd6GLwpZssIvlK4S
- RIPBPFac6YVzcojeIYwVYfj7eX8C7Uupl5wQaCticSg8T635U3MmG0VMYUNrNvDuFx8b
- 1is+wqVRsnUSMPL9ZeXcz2OZMxBMVVDJ8/75uiVZbbaP20EasdKrKI7lwjuOTOJuyudb
- eOL0ob+v74UyXOV8Qb0UNpIPKIKJiEfmZnQi72RfoIAg0tRdGQiofKhuVneht52NP78W
- t5bFmFUD6EbsF8WKc4xOPzF3+iZCSMf2OWH0BDbHN/na+vHsKZyIdCsmvw58H8hXe/uZ
- dr+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2HoAMOZQ3HefgrNkWv0E4FEusKuZTEg4JrxhK22N/y8=;
- b=Q3KgA1XVWFu6exGJWM6ASu1DzQwmLRqDRNB537ZntNglBf/eK7spb6oaMhoIvIW7an
- GwN+rD9FoPB7VMqsCPkuw94fMlfvgCAmSEFYu5CgOV/GuCeRQQ1eD3Uof8queLWkfd90
- n5jvNuXJoR5nBePBvmYRrVT9iYqAyHWDE+2YnEEjY61ExD9ECrRNT6a/73deNslv0Tes
- 3p09OqIhoRd+tCiLhOhvmlerWhXShoxUXfCV/XpaeCqLY3lyEgMUgGZcmkewGRJgQnKs
- kCXSGFQtV7ZLZlA94hs04cB6QLhk3fskIu56DxzRc3RiPtxEI7zX1p3EtNSyWbEh839S
- 2Fuw==
-X-Gm-Message-State: AOAM531GNH3DvdcUvWp+Vujw5HLzyYIy/3D4aaxMDzOQs4/zQ5P6I9XR
- HXp3H/SYwfhy50sOQzakqxxRW6gg
-X-Google-Smtp-Source: ABdhPJzwhYnhhOJL1Gojw7XS0y1IEPkHFTcDYYY1DCzZz6LbJNmwj/AxkU0NJSTJ2j2tzilQmSQ9ZQ==
-X-Received: by 2002:aca:c594:: with SMTP id v142mr11228598oif.66.1590417977063; 
- Mon, 25 May 2020 07:46:17 -0700 (PDT)
-Received: from t0.lan (c-71-205-12-124.hsd1.co.comcast.net. [71.205.12.124])
- by smtp.googlemail.com with ESMTPSA id s124sm5327251oig.19.2020.05.25.07.46.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 May 2020 07:46:16 -0700 (PDT)
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-X-Google-Original-From: Tamas K Lengyel <tamas.lengyel@intel.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH] x86/mem_sharing: gate enabling on cpu_has_vmx
-Date: Mon, 25 May 2020 08:46:06 -0600
-Message-Id: <20200525144606.126767-1-tamas.lengyel@intel.com>
-X-Mailer: git-send-email 2.26.1
+ id 061da4b4-9e99-11ea-9887-bc764e2007e4;
+ Mon, 25 May 2020 15:04:26 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id C225CAC52;
+ Mon, 25 May 2020 15:04:27 +0000 (UTC)
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] VT-x: extend LBR Broadwell errata coverage
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <c43b9d43-2e37-d2a8-ba32-dd06062a05e2@suse.com>
+Date: Mon, 25 May 2020 17:04:20 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,39 +43,153 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Tamas K Lengyel <tamas@tklengyel.com>
+For lbr_tsx_fixup_check() simply name a few more specific erratum
+numbers.
 
-It is unclear whether mem_sharing was ever made to work on other architectures
-but at this time the only verified platform for it is vmx. No plans to support
-or maintain it on other architectures. Make this explicit by checking during
-initialization.
+For bdf93_fixup_check(), however, more models are affected. Oddly enough
+despite being the same model and stepping, the erratum is listed for
+Xeon E3 but not its Core counterpart. Apply the workaround uniformly,
+and also for Xeon D, which only has the LBR-from one listed in its spec
+update.
 
-Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+Seeing this broader applicability, rename anything BDF93-related to more
+generic names.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/x86/mm/mem_sharing.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2: Name yet another pair of errata. Speculatively cover Xeon D also
+    in the 2nd case. Identifier renaming.
 
-diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index 7271e5c90b..19922ab5d1 100644
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -1444,7 +1444,7 @@ static inline int mem_sharing_control(struct domain *d, bool enable,
- {
-     if ( enable )
-     {
--        if ( unlikely(!is_hvm_domain(d)) )
-+        if ( unlikely(!is_hvm_domain(d) || !cpu_has_vmx) )
-             return -EOPNOTSUPP;
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2380,7 +2380,7 @@ static void pi_notification_interrupt(st
+ }
  
-         if ( unlikely(!hap_enabled(d)) )
--- 
-2.26.1
-
+ static void __init lbr_tsx_fixup_check(void);
+-static void __init bdf93_fixup_check(void);
++static void __init ler_to_fixup_check(void);
+ 
+ /*
+  * Calculate whether the CPU is vulnerable to Instruction Fetch page
+@@ -2554,7 +2554,7 @@ const struct hvm_function_table * __init
+     }
+ 
+     lbr_tsx_fixup_check();
+-    bdf93_fixup_check();
++    ler_to_fixup_check();
+ 
+     return &vmx_function_table;
+ }
+@@ -2832,11 +2832,11 @@ enum
+ 
+ #define LBR_MSRS_INSERTED      (1u << 0)
+ #define LBR_FIXUP_TSX          (1u << 1)
+-#define LBR_FIXUP_BDF93        (1u << 2)
+-#define LBR_FIXUP_MASK         (LBR_FIXUP_TSX | LBR_FIXUP_BDF93)
++#define LBR_FIXUP_LER_TO       (1u << 2)
++#define LBR_FIXUP_MASK         (LBR_FIXUP_TSX | LBR_FIXUP_LER_TO)
+ 
+ static bool __read_mostly lbr_tsx_fixup_needed;
+-static bool __read_mostly bdf93_fixup_needed;
++static bool __read_mostly ler_to_fixup_needed;
+ 
+ static void __init lbr_tsx_fixup_check(void)
+ {
+@@ -2844,7 +2844,7 @@ static void __init lbr_tsx_fixup_check(v
+     uint32_t lbr_format;
+ 
+     /*
+-     * HSM182, HSD172, HSE117, BDM127, BDD117, BDF85, BDE105:
++     * Haswell erratum HSM182 et al, Broadwell erratum BDM127 et al:
+      *
+      * On processors that do not support Intel Transactional Synchronization
+      * Extensions (Intel TSX) (CPUID.07H.EBX bits 4 and 11 are both zero),
+@@ -2868,8 +2868,11 @@ static void __init lbr_tsx_fixup_check(v
+     case 0x45: /* HSM182 - 4th gen Core */
+     case 0x46: /* HSM182, HSD172 - 4th gen Core (GT3) */
+     case 0x3d: /* BDM127 - 5th gen Core */
+-    case 0x47: /* BDD117 - 5th gen Core (GT3) */
+-    case 0x4f: /* BDF85  - Xeon E5-2600 v4 */
++    case 0x47: /* BDD117 - 5th gen Core (GT3)
++                  BDW117 - Xeon E3-1200 v4 */
++    case 0x4f: /* BDF85  - Xeon E5-2600 v4
++                  BDH75  - Core-i7 for LGA2011-v3 Socket
++                  BDX88  - Xeon E7-x800 v4 */
+     case 0x56: /* BDE105 - Xeon D-1500 */
+         break;
+     default:
+@@ -2890,18 +2893,31 @@ static void __init lbr_tsx_fixup_check(v
+         lbr_tsx_fixup_needed = true;
+ }
+ 
+-static void __init bdf93_fixup_check(void)
++static void __init ler_to_fixup_check(void)
+ {
+     /*
+-     * Broadwell erratum BDF93:
++     * Broadwell erratum BDF93 et al:
+      *
+      * Reads from MSR_LER_TO_LIP (MSR 1DEH) may return values for bits[63:61]
+      * that are not equal to bit[47].  Attempting to context switch this value
+      * may cause a #GP.  Software should sign extend the MSR.
+      */
+-    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
+-         boot_cpu_data.x86 == 6 && boot_cpu_data.x86_model == 0x4f )
+-        bdf93_fixup_needed = true;
++    if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
++         boot_cpu_data.x86 != 6 )
++        return;
++
++    switch ( boot_cpu_data.x86_model )
++    {
++    case 0x3d: /* BDM131 - 5th gen Core */
++    case 0x47: /* BDD??? - 5th gen Core (H-Processor line)
++                  BDW120 - Xeon E3-1200 v4 */
++    case 0x4f: /* BDF93  - Xeon E5-2600 v4
++                  BDH80  - Core-i7 for LGA2011-v3 Socket
++                  BDX93  - Xeon E7-x800 v4 */
++    case 0x56: /* BDE??? - Xeon D-1500 */
++        ler_to_fixup_needed = true;
++        break;
++    }
+ }
+ 
+ static int is_last_branch_msr(u32 ecx)
+@@ -3276,8 +3292,8 @@ static int vmx_msr_write_intercept(unsig
+             v->arch.hvm.vmx.lbr_flags |= LBR_MSRS_INSERTED;
+             if ( lbr_tsx_fixup_needed )
+                 v->arch.hvm.vmx.lbr_flags |= LBR_FIXUP_TSX;
+-            if ( bdf93_fixup_needed )
+-                v->arch.hvm.vmx.lbr_flags |= LBR_FIXUP_BDF93;
++            if ( ler_to_fixup_needed )
++                v->arch.hvm.vmx.lbr_flags |= LBR_FIXUP_LER_TO;
+         }
+ 
+         __vmwrite(GUEST_IA32_DEBUGCTL, msr_content);
+@@ -4338,7 +4354,7 @@ static void sign_extend_msr(struct vcpu
+         entry->data = canonicalise_addr(entry->data);
+ }
+ 
+-static void bdf93_fixup(void)
++static void ler_to_fixup(void)
+ {
+     struct vcpu *curr = current;
+ 
+@@ -4351,8 +4367,8 @@ static void lbr_fixup(void)
+ 
+     if ( curr->arch.hvm.vmx.lbr_flags & LBR_FIXUP_TSX )
+         lbr_tsx_fixup();
+-    if ( curr->arch.hvm.vmx.lbr_flags & LBR_FIXUP_BDF93 )
+-        bdf93_fixup();
++    if ( curr->arch.hvm.vmx.lbr_flags & LBR_FIXUP_LER_TO )
++        ler_to_fixup();
+ }
+ 
+ /* Returns false if the vmentry has to be restarted */
 
