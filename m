@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECAB21E131D
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 19:00:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 552121E1369
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 19:31:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdGS2-0006Jn-Vt; Mon, 25 May 2020 16:59:46 +0000
+	id 1jdGvw-0001GG-Gt; Mon, 25 May 2020 17:30:40 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pvIA=7H=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1jdGS1-0006JW-V8
- for xen-devel@lists.xenproject.org; Mon, 25 May 2020 16:59:45 +0000
-X-Inumbo-ID: 1f3be284-9ea9-11ea-aef9-12813bfff9fa
+ id 1jdGvv-0001GB-JN
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2020 17:30:39 +0000
+X-Inumbo-ID: 7327a302-9ead-11ea-af01-12813bfff9fa
 Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1f3be284-9ea9-11ea-aef9-12813bfff9fa;
- Mon, 25 May 2020 16:59:40 +0000 (UTC)
+ id 7327a302-9ead-11ea-af01-12813bfff9fa;
+ Mon, 25 May 2020 17:30:39 +0000 (UTC)
 X-Cam-AntiVirus: no malware found
 X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:42506
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:43380
  helo=[192.168.1.219])
  by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
  with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1jdGRu-0000n7-M1 (Exim 4.92.3)
- (return-path <amc96@hermes.cam.ac.uk>); Mon, 25 May 2020 17:59:38 +0100
-Subject: Re: Xen PVH domU start-of-day VCPU state
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org, mirageos-devel@lists.xenproject.org,
- anil@recoil.org, dave@recoil.org
-References: <20200525160401.GA3091@nodbug.lucina.net>
- <a17fef73-382c-50b3-1e6b-5904fc3bf60f@suse.com>
+ id 1jdGvs-000HbU-M1 (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Mon, 25 May 2020 18:30:36 +0100
+Subject: Re: [PATCH] x86: avoid HPET use also on certain Coffee Lake H
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <26a90632-bb76-a24b-aef1-4c068b610c6a@suse.com>
+ <de2ca5b7-5fe1-27e5-b6e6-08e695258f1f@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <6a22e477-c9e7-f0d7-6cb1-615137a778be@citrix.com>
-Date: Mon, 25 May 2020 17:59:38 +0100
+Message-ID: <5f5483cc-a8e8-51a3-6c47-5b061ff97108@citrix.com>
+Date: Mon, 25 May 2020 18:30:36 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <a17fef73-382c-50b3-1e6b-5904fc3bf60f@suse.com>
+In-Reply-To: <de2ca5b7-5fe1-27e5-b6e6-08e695258f1f@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
@@ -53,53 +52,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25/05/2020 17:42, Jürgen Groß wrote:
-> On 25.05.20 18:04, Martin Lucina wrote:
->> Hi,
+On 25/05/2020 16:23, Jan Beulich wrote:
+> On 25.05.2020 17:18, Jan Beulich wrote:
+>> Linux commit f8edbde885bbcab6a2b4a1b5ca614e6ccb807577 says
 >>
->> I'm trying to bootstrap a new PVH-only Xen domU OS "from scratch", to
->> replace our existing use of Mini-OS for the early boot/low-level support
->> layer in MirageOS. I've done this by creating new Xen bindings for Solo5
->> [1], basing them on our existing virtio code [2].
+>> "Coffee Lake H SoC has similar behavior as Coffee Lake, skewed HPET
+>>  timer once the SoCs entered PC10."
 >>
->> Unfortunately, I can't seem to get past the first few instructions on
->> VCPU
->> boot. Here's what I have at the moment (abridged):
->>
->>      .section .note.solo5.xen
->>
->>              .align  4
->>              .long   4
->>              .long   4
->>              .long   XEN_ELFNOTE_PHYS32_ENTRY
->>              .ascii "Xen\0"
->>              .long   _start32
->>
->>      /* ... */
->>
->>      .code32
->>
->>      ENTRY(_start32)
->>              cld
->>
->>              lgdt (gdt64_ptr)
->>              ljmp $0x10, $1f
->
-> You need to setup virtual addressing and enable 64 bit mode before using
-> 64-bit GDT.
->
-> See Mini-OS source arch/x86/x86_hvm.S
+>> Again follow this for Xen as well, noting though that even the
+>> pre-existing PCI ID refers to a H-processor line variant (the 6-core
+>> one). It is also suspicious that the datasheet names 0x3e10 for the
+>> 4-core variant, while the Linux commit specifies 0x3e20, which I haven't
+>> been able to locate in any datasheet yet.
 
-Or
-https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen-test-framework.git;a=blob;f=arch/x86/hvm/head.S;h=f7dc72b58ab9ec68538f0087969ab6f72d181d80;hb=HEAD
+3e20 is the host bridge ID for CFL-R (Gen 9) Core i9 (8c/16t) as found
+in the Dell XPS 15 7590 amongst other things.
 
-But yes - Juergen is correct.  Until you have enabled long mode, lgdt
-will only load the bottom 32 bits of GDTR.base.
+As such, it is a generation later than CFL.
 
-Is there a less abridged version to look at?
+>>  To be on the safe side, add
+>> both until clarification can be provided by Intel.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+Given the nature of issue (a power efficiently "feature" rather than a
+bug), it will likely affect everything in a couple of generations worth
+of CPUs.
+
+The issue may not actually affect Xen yet, because I don't expect we've
+got S0ix working yet.  It is only a problem on entry to S0i2/3 where the
+HPET is halted.
+
+> I'd like to note that I've been sitting on this for several months,
+> hoping to be able to submit with less uncertainty. I shall further
+> note that I'm sitting on a similar Ice Lake patch, triggered by
+> seeing Linux'es e0748539e3d594dd26f0d27a270f14720b22a406. The
+> situation seems even worse there - I can't make datasheet and
+> Linux commit match even remotely, PCI-ID-wise. I didn't think it
+> makes sense to submit a patch in such a case.
+
+0x8a12 is an ID in the middle of a load of Ice Lake IDs, according to
+the PCI-ID database, but there isn't entry specifically for it.
+
+I can't find a datasheet either for it.
 
 ~Andrew
 
