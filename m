@@ -2,60 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390651E1316
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 18:58:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECAB21E131D
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2020 19:00:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdGQI-0006DJ-H0; Mon, 25 May 2020 16:57:58 +0000
+	id 1jdGS2-0006Jn-Vt; Mon, 25 May 2020 16:59:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KePG=7H=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jdGQG-0006DE-TI
- for xen-devel@lists.xenproject.org; Mon, 25 May 2020 16:57:56 +0000
-X-Inumbo-ID: de716ec2-9ea8-11ea-aef9-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=pvIA=7H=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1jdGS1-0006JW-V8
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2020 16:59:45 +0000
+X-Inumbo-ID: 1f3be284-9ea9-11ea-aef9-12813bfff9fa
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id de716ec2-9ea8-11ea-aef9-12813bfff9fa;
- Mon, 25 May 2020 16:57:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=c2/IQ9ZG/AWZehEem14ySvlZN+UCiKjw8uDxulxmCL0=; b=OaeIKEDaubRQHfhGhqz69btN+
- DqN3UCoLMRDG1/+hQh+hlcRWxnXjC77oF7nBozJCAvwMlz16RurlTnPldkuY1G/B/hKtBiL7ZnP0r
- my7pVZDwfMze0A4TLlQY8WZwd2kWHgg3+wvsLzpXIVaKhWWNmiL8zeOn4mDspZjoZ+FWg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jdGQB-0008D9-1R; Mon, 25 May 2020 16:57:51 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jdGQA-0002hr-PB; Mon, 25 May 2020 16:57:50 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jdGQA-0007wx-OG; Mon, 25 May 2020 16:57:50 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150363-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 1f3be284-9ea9-11ea-aef9-12813bfff9fa;
+ Mon, 25 May 2020 16:59:40 +0000 (UTC)
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:42506
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1jdGRu-0000n7-M1 (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Mon, 25 May 2020 17:59:38 +0100
+Subject: Re: Xen PVH domU start-of-day VCPU state
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org, mirageos-devel@lists.xenproject.org,
+ anil@recoil.org, dave@recoil.org
+References: <20200525160401.GA3091@nodbug.lucina.net>
+ <a17fef73-382c-50b3-1e6b-5904fc3bf60f@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <6a22e477-c9e7-f0d7-6cb1-615137a778be@citrix.com>
+Date: Mon, 25 May 2020 17:59:38 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150363: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=b4d01ede23847bed9471ca0b7071394aef693a1a
-X-Osstest-Versions-That: xen=437b0aa06a014ce174e24c0d3530b3e9ab19b18b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 25 May 2020 16:57:50 +0000
+In-Reply-To: <a17fef73-382c-50b3-1e6b-5904fc3bf60f@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,59 +56,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150363 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150363/
+On 25/05/2020 17:42, Jürgen Groß wrote:
+> On 25.05.20 18:04, Martin Lucina wrote:
+>> Hi,
+>>
+>> I'm trying to bootstrap a new PVH-only Xen domU OS "from scratch", to
+>> replace our existing use of Mini-OS for the early boot/low-level support
+>> layer in MirageOS. I've done this by creating new Xen bindings for Solo5
+>> [1], basing them on our existing virtio code [2].
+>>
+>> Unfortunately, I can't seem to get past the first few instructions on
+>> VCPU
+>> boot. Here's what I have at the moment (abridged):
+>>
+>>      .section .note.solo5.xen
+>>
+>>              .align  4
+>>              .long   4
+>>              .long   4
+>>              .long   XEN_ELFNOTE_PHYS32_ENTRY
+>>              .ascii "Xen\0"
+>>              .long   _start32
+>>
+>>      /* ... */
+>>
+>>      .code32
+>>
+>>      ENTRY(_start32)
+>>              cld
+>>
+>>              lgdt (gdt64_ptr)
+>>              ljmp $0x10, $1f
+>
+> You need to setup virtual addressing and enable 64 bit mode before using
+> 64-bit GDT.
+>
+> See Mini-OS source arch/x86/x86_hvm.S
 
-Failures :-/ but no regressions.
+Or
+https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen-test-framework.git;a=blob;f=arch/x86/hvm/head.S;h=f7dc72b58ab9ec68538f0087969ab6f72d181d80;hb=HEAD
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+But yes - Juergen is correct.  Until you have enabled long mode, lgdt
+will only load the bottom 32 bits of GDTR.base.
 
-version targeted for testing:
- xen                  b4d01ede23847bed9471ca0b7071394aef693a1a
-baseline version:
- xen                  437b0aa06a014ce174e24c0d3530b3e9ab19b18b
+Is there a less abridged version to look at?
 
-Last test of basis   150354  2020-05-24 15:01:15 Z    1 days
-Testing same since   150363  2020-05-25 07:00:41 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Juergen Gross <jgross@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   437b0aa06a..b4d01ede23  b4d01ede23847bed9471ca0b7071394aef693a1a -> smoke
+~Andrew
 
