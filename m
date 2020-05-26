@@ -2,59 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7261E27ED
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 19:07:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04301E281D
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 19:14:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdd2r-00075Q-K0; Tue, 26 May 2020 17:07:17 +0000
+	id 1jdd8t-0007uU-AD; Tue, 26 May 2020 17:13:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=52a6=7I=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jdd2q-00075L-BR
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 17:07:16 +0000
-X-Inumbo-ID: 58ecf8f4-9f73-11ea-9dbe-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=Mv6+=7I=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1jdd8r-0007uP-Ol
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 17:13:29 +0000
+X-Inumbo-ID: 36e8ca98-9f74-11ea-81bc-bc764e2007e4
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 58ecf8f4-9f73-11ea-9dbe-bc764e2007e4;
- Tue, 26 May 2020 17:07:15 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 8xyA8cgVOqztaCYCv9smMqkcUv3MbBxmnB58bnscb5p+c2b1evReH5p3Z7dZlOiT09IDIP6iV3
- 1jJvzDO0W5ZvGxXIvn07fSMzKW/eVVVJC9E8q4XXFpcgQUCwxNu71fMYDINKy9R8zvPGkxguEW
- yzZaBNnPzfp5ftsFRxQm+BY7DaVaWKHFS1aSWHTOhqPsTwX7ZNQflPxy+jXbDz6oBeswYke3tp
- 8pGWL6e7Ta2uzyCbRoaX2v+rT4gb+YDdHYfji/0d9b+0vYEfAPsMofS4RT6pgJQPt3mh97WvoC
- mV4=
-X-SBRS: 2.7
-X-MesageID: 18770012
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,437,1583211600"; d="scan'208";a="18770012"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Ian Jackson <Ian.Jackson@citrix.com>
-Subject: Re: [PATCH 5/5] gitignore: Ignore golang package directory
-Thread-Topic: [PATCH 5/5] gitignore: Ignore golang package directory
-Thread-Index: AQHWMFPdiIMBJ2MNy0CkFZ0ooWSGmqi6SAuAgAAbAoCAABjdAIAAAheA
-Date: Tue, 26 May 2020 17:07:11 +0000
-Message-ID: <1D4C50D9-BFA4-42B9-AE76-8E836CAD6430@citrix.com>
-References: <20200522161240.3748320-1-george.dunlap@citrix.com>
- <20200522161240.3748320-6-george.dunlap@citrix.com>
- <24269.8059.28506.353748@mariner.uk.xensource.com>
- <A525D330-BCF9-4998-BEC5-425BA6C26CCF@citrix.com>
- <24269.19198.604986.160896@mariner.uk.xensource.com>
-In-Reply-To: <24269.19198.604986.160896@mariner.uk.xensource.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <9E913A99B232AC45B1F42429E7115FBD@citrix.com>
-Content-Transfer-Encoding: base64
+ id 36e8ca98-9f74-11ea-81bc-bc764e2007e4;
+ Tue, 26 May 2020 17:13:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1590513205; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ccXqLQcH5jzsedUplzrBXFOK4mUKY54J4IyDkw1wKYOr40qP1AntXrIOit/sv3J92No1B07P9TX9b+f4k6Ar8Cx2rkuum3PBAmSoq4DmNX5vq4ZEZC3nukGtHJUd3RumnZeFCBx+nomW85TfegXYMoZlEjqvORRzZFnVyVC1vtc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; 
+ t=1590513205; h=Content-Type:Date:From:MIME-Version:Message-ID:Subject:To; 
+ bh=FVTrQ7tdhD4ExqOEnrw+beAro04cuJgyxbyvs+1v9Tw=; 
+ b=bh6vbVXbaFSGjqt3Z+vuj7xjsU4n3zVGSCTfX8MD7FplpwHAAWnrX+04BVUK8D8/Mvvz5o/X/l/Ow73gdUspCgUWxjVjDRKQvhDeplUUpvvIrDxnLVaIXjhZ+76WLVQP5LcS6tZY7SqB6P0gFFxUZnhyDR68EoArhdRb4EFX06g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=apertussolutions.com;
+ spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+ dmarc=pass header.from=<dpsmith@apertussolutions.com>
+ header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1590513205; 
+ s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+ h=Date:From:To:Message-Id:In-Reply-To:Subject:MIME-Version:Content-Type;
+ bh=FVTrQ7tdhD4ExqOEnrw+beAro04cuJgyxbyvs+1v9Tw=;
+ b=r/Y1yyZlEwXm38ScnyWe0tg6j9s2mLTbzFRk3KCQElpbG4KldnjjrGxIZ2RCVhGP
+ shg1Db4ZlAcpNdiOL9Qn31QYske67cqrM+nADOW9nNA0unKAwSx04Zb6PAIjt8vB+Bx
+ wJQFoU7+/qs3TOYrxnIOo50JDQbCvLskjfogjih4=
+Received: from mail.zoho.com by mx.zohomail.com
+ with SMTP id 1590513199327898.1113379833491;
+ Tue, 26 May 2020 10:13:19 -0700 (PDT)
+Date: Tue, 26 May 2020 13:13:19 -0400
+From: Daniel Smith <dpsmith@apertussolutions.com>
+To: "xen-devel" <xen-devel@lists.xenproject.org>
+Message-Id: <17251f968dd.b28c8ebe731955.2247348003729398828@apertussolutions.com>
+In-Reply-To: 
+Subject: [BUG] PVH ACPI XSDT table construction
 MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_2340908_1359952992.1590513199325"
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,45 +63,121 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Nick Rosbrook <rosbrookn@ainfosec.com>, Julien Grall <julien.grall@arm.com>,
- Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gTWF5IDI2LCAyMDIwLCBhdCA1OjU5IFBNLCBJYW4gSmFja3NvbiA8aWFuLmphY2tz
-b25AY2l0cml4LmNvbT4gd3JvdGU6DQo+IA0KPiBHZW9yZ2UgRHVubGFwIHdyaXRlcyAoIlJlOiBb
-UEFUQ0ggNS81XSBnaXRpZ25vcmU6IElnbm9yZSBnb2xhbmcgcGFja2FnZSBkaXJlY3RvcnkiKToN
-Cj4+IFtleHBsYW5hdGlvbl0NCj4gDQo+IFNvdW5kcyBxdWl0ZSB0YW5nbGVkLi4uDQo+IA0KPj4g
-TmljaywgYW55IG9waW5pb25zPw0KPiAuLi4NCj4+PiBJcyB0aGVyZSBub3QgYSByaXNrIHRoYXQg
-aHVtYW5zIHdpbGwgdHJ5IHRvIGVkaXQgaXQgPw0KPiANCj4gQW55d2F5IElTVE0gdGhhdCB5b3Ug
-aGF2ZSBkZWZpbml0ZWx5IGNvbnNpZGVyZWQgdGhpcyBzbw0KPiANCj4gQWNrZWQtYnk6IElhbiBK
-YWNrc29uIDxpYW4uamFja3NvbkBldS5jaXRyaXguY29tPg0KPiANCj4gYXNzdW1pbmcgdGhhdCBh
-bmQgTmljayBjb252aW5jZSB5b3Vyc2VsdmVzIHlvdSd2ZSBhZGRyZXNzZWQgdGhpcw0KPiBwb3Nz
-aWJsZSBpc3N1ZS4NCj4gDQo+PiBJIHN1cHBvc2Ugc29tZW9uZSBtaWdodC4gIElmIHdlIGRlY2lk
-ZSB3ZSB3YW50IHRvIHN1cHBvcnQgb2xkZXIgdmVyc2lvbnMgb2YgZ28sIHdlIHByb2JhYmx5IHdh
-bnQgdG8gZmlndXJlIHNvbWV0aGluZyBvdXQgdGhlcmUuICBPcHRpb25zOg0KPj4gDQo+PiAxLiBD
-b3B5IHRoZSBmaWxlcyB0byBhIHRlbXAgZGlyZWN0b3J5IGluc3RlYWQuICBUaGlzIGlzIGNvbXBs
-aWNhdGVkIGJlY2F1c2Ugd2UgaGF2ZSB0byBmaW5kIGEgZ29vZCB0ZW1wIGRpcmVjdG9yeSwgYW5k
-IHdl4oCZZCBoYXZlIHRvIGNvcHkgdGhlbSBldmVyeSB0aW1lLCBzbG93aW5nIGRvd24gdGhlIGlu
-Y3JlbWVudGFsIGJ1aWxkICh0aG91Z2ggbm90IHRoYXQgbXVjaCkuDQo+IA0KPiBJIGRvbid0IHRo
-aW5rIHRoYXQgaGVscHMgbXVjaC4NCj4gDQo+PiAyLiBQdXQgYSBmaWxlIGluIHRoZSBnZW5lcmF0
-ZWQgZGlyZWN0b3J5IGxpa2Ug4oCcR0VORVJBVEVEX0RPX05PVF9FRElU4oCdLg0KPj4gDQo+PiAz
-LiBQdXQgdGhlbSBpbiB0b29scy9nb2xhbmcvR0VORVJBVEVEX0RPX05PVF9FRElUL3NyYyBpbnN0
-ZWFkLg0KPiANCj4gRG8gdGhleSBub3QgaGF2ZSBhIGhlYWRlciBjb21tZW50IHNheWluZyBETyBO
-T1QgRURJVCA/DQoNClRoZSBnZW5lcmF0ZWQgZmlsZXMgZG8sIGJ1dCB0aGlzIGNvcGllcyBhbGwg
-dGhlIGZpbGVzLCBpbmNsdWRpbmcgdGhlIG5vbi1nZW5lcmF0ZWQgb25lcy4NCg0KQW55d2F5LCBp
-dCB0dXJucyBvdXQgaXMgaGFzIG5vdGhpbmcgdG8gZG8gd2l0aCBnbyBtb2R1bGVzIHBlciBzZSwg
-YnV0IG1vcmUgdG8gZG8gd2l0aCBteSBxdWl4b3RpYyBhdHRlbXB0IHRvIG1ha2UgaXQgcG9zc2li
-bGUgdG8gYnVpbGQgZnJvbSBzdHVmZiBpbnN0YWxsZWQgbG9jYWxseSBpbiAkUFJFRklYLCByYXRo
-ZXIgdGhhbiBoYXZpbmcgdG8gY2xvbmUgc29tZXRoaW5nIG92ZXIgdGhlIGludGVybmV0LiAgVGhl
-IGN1cnJlbnQgdmVyc2lvbiBvZiB0aGUg4oCcYnVpbGQgdGVzdOKAnSBkb2VzbuKAmXQgYWN0dWFs
-bHkgdXNlIHRoaXMgR09QQVRIIHN0dWZmLCBhbmQgd29ya3MgZXZlbiBvbiB2ZXJzaW9ucyBvZiBn
-b2xhbmcgdGhhdCBkb27igJl0IGhhdmUgbW9kdWxlIHN1cHBvcnQuDQoNCknigJl2ZSBnb3QgYSBw
-YXRjaCB0aGF0IHJlbW92ZXMgdGhpcyB3aG9sZSBmYWtlLUdPUEFUSCB0aGluZzsgSeKAmWxsIHNl
-bmQgdGhhdCBhbG9uZyBpbiBsaWV1IG9mIHBhdGNoZXMgNCBhbmQgNS4NCg0KVGhhbmtzLA0KIC1H
-ZW9yZ2U=
+------=_Part_2340908_1359952992.1590513199325
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Greetings,
+
+
+
+I was reviewing the ACPI construction for PVH and discovered what I believe=
+ is a flaw in the logic for selecting the XSDT tables. The current logic is=
+,
+
+
+
+static bool __init pvh_acpi_xsdt_table_allowed(const char *sig,
+
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long address,
+
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long size)
+
+{
+
+=C2=A0=C2=A0=C2=A0 /*
+
+=C2=A0=C2=A0=C2=A0=C2=A0 * DSDT and FACS are pointed to from FADT and thus =
+don't belong
+
+=C2=A0=C2=A0=C2=A0=C2=A0 * in XSDT.
+
+=C2=A0=C2=A0=C2=A0=C2=A0 */
+
+=C2=A0=C2=A0=C2=A0 return (pvh_acpi_table_allowed(sig, address, size) &&
+
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 strncmp(=
+sig, ACPI_SIG_DSDT, ACPI_NAME_SIZE) &&
+
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 strncmp(=
+sig, ACPI_SIG_FACS, ACPI_NAME_SIZE));
+
+}
+
+
+
+Unless I am mistaken, the boolean logic in the return statement will always=
+ return false resulting in an empty XSDT table. I believe based on the comm=
+ent what was intended here was,
+
+
+
+=C2=A0=C2=A0=C2=A0 return (pvh_acpi_table_allowed(sig, address, size) &&
+
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 !(strncmp(sig, ACPI_SIG_DSDT, ACP=
+I_NAME_SIZE) ||
+
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 strncmp(sig, ACPI_SIG_FACS=
+, ACPI_NAME_SIZE)));
+
+
+
+Thanks!
+
+
+V/r,
+
+Daniel P. Smith
+
+Apertus Solutions, LLC
+------=_Part_2340908_1359952992.1590513199325
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>=
+<meta content=3D"text/html;charset=3DUTF-8" http-equiv=3D"Content-Type"></h=
+ead><body ><div style=3D"font-family: Verdana, Arial, Helvetica, sans-serif=
+; font-size: 10pt;"><div>Greetings,<br></div><div><br></div><div>I was revi=
+ewing the ACPI construction for PVH and discovered what I believe is a flaw=
+ in the logic for selecting the XSDT tables. The current logic is,<br></div=
+><div><br></div><div>static bool __init pvh_acpi_xsdt_table_allowed(const c=
+har *sig,<br></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ unsigned long address,<br></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; unsigned long size)<br></div><div>{<br></div><div>&nbsp;&nbs=
+p;&nbsp; /*<br></div><div>&nbsp;&nbsp;&nbsp;&nbsp; * DSDT and FACS are poin=
+ted to from FADT and thus don't belong<br></div><div>&nbsp;&nbsp;&nbsp;&nbs=
+p; * in XSDT.<br></div><div>&nbsp;&nbsp;&nbsp;&nbsp; */<br></div><div>&nbsp=
+;&nbsp;&nbsp; return (pvh_acpi_table_allowed(sig, address, size) &amp;&amp;=
+<br></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; strncmp(sig, ACPI_SIG_DSDT, ACPI_NAME_SIZE) &amp;&amp;<br></div><div=
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strncmp=
+(sig, ACPI_SIG_FACS, ACPI_NAME_SIZE));<br></div><div>}<br></div><div><br></=
+div><div>Unless I am mistaken, the boolean logic in the return statement wi=
+ll always return false resulting in an empty XSDT table. I believe based on=
+ the comment what was intended here was,<br></div><div><br></div><div>&nbsp=
+;&nbsp;&nbsp; return (pvh_acpi_table_allowed(sig, address, size) &amp;&amp;=
+<br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; !(strncmp(sig, ACP=
+I_SIG_DSDT, ACPI_NAME_SIZE) ||<br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; strncmp(sig, ACPI_SIG_FACS, ACPI_NAME_SIZE)));<br></div>=
+<div><br></div><div>Thanks!</div><div><br></div><div id=3D"" data-zbluepenc=
+il-ignore=3D"true"><div>V/r,<br></div><div>Daniel P. Smith<br></div><div>Ap=
+ertus Solutions, LLC<br></div></div><div><br></div><div><br></div></div><br=
+></body></html>
+------=_Part_2340908_1359952992.1590513199325--
+
 
