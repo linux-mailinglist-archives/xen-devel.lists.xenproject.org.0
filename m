@@ -2,61 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F6A1E22B9
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 15:08:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA2F1E22FD
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 15:36:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdZIK-0008Ve-0h; Tue, 26 May 2020 13:07:00 +0000
+	id 1jdZje-0002iB-8c; Tue, 26 May 2020 13:35:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zc16=7I=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jdZII-0008VZ-3n
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 13:06:58 +0000
-X-Inumbo-ID: c6fdb274-9f51-11ea-9947-bc764e2007e4
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ta6a=7I=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jdZjc-0002i6-P5
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 13:35:12 +0000
+X-Inumbo-ID: b9344fdc-9f55-11ea-8993-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c6fdb274-9f51-11ea-9947-bc764e2007e4;
- Tue, 26 May 2020 13:06:57 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id w10so24441602ljo.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 May 2020 06:06:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=pA/KPitDzDn71tBmji2Hne4OFzrRzYGwCFdjGoKaubU=;
- b=lXlW3S6YNmMsBKt2gkfn1fxYmPIKLfa2dWjgFxBj99n+gkASpyg4LSbqawo7YOqaHr
- Y+K40fSRLEsun0zcn0cXe91KXZhJnt9o4yeYGaCPuxJ64Dp2qWFhxnkSKIaG3BF5vLxu
- gapn2/Tl0lleWds09KWb+r4w2DROx3Hna0iqRurUV4BZn/i5TfZ02WK9nnWkTOAWCmxj
- zqUUL9owN/3ilx4aAFReeJIxv3TDWUhuPZVSjPctcxYBBGUit0bXZ4RJrTB5g183UQYL
- +alWOM7Cfj2MG/UacJGUGdN5oVoyW3RLheR5Kt8nO+so+OwWXHQki4KSlaDZVkPfiQhv
- 6ARg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=pA/KPitDzDn71tBmji2Hne4OFzrRzYGwCFdjGoKaubU=;
- b=LHkLM2XKPsjEJRwXGJ65PSL+FITpCFk+xexxtTJ2o4mJLCeSy3MbiNmt5p3jOzzEkY
- OWf9/U6t3eXOezsiFK7nopJxAOMjNAskK99b9WsnyG7jQojROz3DKP20YASjjbHor7WI
- VkdZsBD29kGRWh42ay/AWtJ6oh9wnpypYiRrEX601hAhwC3iKX7g/h35R6YWp6vUL7JO
- UNvjscx3CCxcHsgMqMTnB/fwDUuGYIKNdvL/jqDXvs4tL1oV9LGFrmOzVIx3EkOonH9p
- /5pRBTHwfocDVTZNlvONB4XLHDTN/oXUH/pCrykfUcLf8m/6aCboi8DQgd3kQJ3cKaGq
- SpHA==
-X-Gm-Message-State: AOAM530rfNi6sOqyhwzm1Hb+s4nD5szTnz/Oz5zlVJCFraZhJ9UYFpoB
- yY1hgOrO81R6rCaGyjZsvnPhi8y7SRdUjYKH3e4=
-X-Google-Smtp-Source: ABdhPJzWbI2umDYcfXTOHNuNk+H1mlfS3jOJaXvIHLpyqOfekDoUUjVpxKuGIxWaL0/uBWM/DlG0pKu3mn/nn/fsg4E=
-X-Received: by 2002:a2e:8053:: with SMTP id p19mr592714ljg.199.1590498416322; 
- Tue, 26 May 2020 06:06:56 -0700 (PDT)
+ id b9344fdc-9f55-11ea-8993-bc764e2007e4;
+ Tue, 26 May 2020 13:35:12 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id AF507ADD7;
+ Tue, 26 May 2020 13:35:13 +0000 (UTC)
+Subject: Re: [PATCH] x86: extend coverage of HLE "bad page" workaround
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <b238f66d-37a9-3080-4f2b-90225ea17102@suse.com>
+ <424d1b72-5eb6-f2bc-20fe-e59bacda8dd9@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c27d838e-0331-3cab-25bf-dd16b4645152@suse.com>
+Date: Tue, 26 May 2020 15:35:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-References: <20200525025506.225959-1-jandryuk@gmail.com>
- <3986B3CE-1730-443C-BD10-D2161C2A75F4@citrix.com>
-In-Reply-To: <3986B3CE-1730-443C-BD10-D2161C2A75F4@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 26 May 2020 09:06:45 -0400
-Message-ID: <CAKf6xpt3ALKd2F8bP5ui+VhvhSWrTG+Hj_5TQSezOtUm_2A99w@mail.gmail.com>
-Subject: Re: [PATCH] SUPPORT: Add linux device model stubdom to Toolstack
-To: George Dunlap <George.Dunlap@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <424d1b72-5eb6-f2bc-20fe-e59bacda8dd9@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,63 +46,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Ian Jackson <Ian.Jackson@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 26, 2020 at 6:50 AM George Dunlap <George.Dunlap@citrix.com> wr=
-ote:
->
->
->
-> > On May 25, 2020, at 3:55 AM, Jason Andryuk <jandryuk@gmail.com> wrote:
-> >
-> > Add qemu-xen linux device model stubdomain to the Toolstack section as =
-a
-> > Tech Preview.
-> >
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> > ---
-> > SUPPORT.md | 6 ++++++
-> > 1 file changed, 6 insertions(+)
-> >
-> > diff --git a/SUPPORT.md b/SUPPORT.md
-> > index e3a366fd56..25becc9192 100644
-> > --- a/SUPPORT.md
-> > +++ b/SUPPORT.md
-> > @@ -153,6 +153,12 @@ Go (golang) bindings for libxl
-> >
-> >     Status: Experimental
-> >
-> > +### Linux device model stubdomains
-> > +
-> > +Support for running qemu-xen device model in a linux stubdomain.
-> > +
-> > +    Status: Tech Preview
->
-> Acked-by: George Dunlap <george.dunlap@citrix.com>
->
-> Out of curiosity, what do you think is missing to be able to declare this=
- =E2=80=98Supported=E2=80=99?  Are there any features missing, or do we jus=
-t  need to add a test to osstest?
+On 26.05.2020 13:17, Andrew Cooper wrote:
+> On 26/05/2020 07:49, Jan Beulich wrote:
+>> Respective Core Gen10 processor lines are affected, too.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/arch/x86/mm.c
+>> +++ b/xen/arch/x86/mm.c
+>> @@ -6045,6 +6045,8 @@ const struct platform_bad_page *__init g
+>>      case 0x000506e0: /* errata SKL167 / SKW159 */
+>>      case 0x000806e0: /* erratum KBL??? */
+>>      case 0x000906e0: /* errata KBL??? / KBW114 / CFW103 */
+>> +    case 0x000a0650: /* erratum Core Gen10 U/H/S 101 */
+>> +    case 0x000a0660: /* erratum Core Gen10 U/H/S 101 */
+> 
+> This is marred in complexity.
+> 
+> The enumeration of MSR_TSX_CTRL (from the TAA fix, but architectural
+> moving forwards on any TSX-enabled CPU) includes a confirmation that HLE
+> no longer exists/works.  This applies to IceLake systems, but possibly
+> not their initial release configuration (hence, via a later microcode
+> update).
+> 
+> HLE is also disabled in microcode on all older parts for errata reasons,
+> so in practice it doesn't exist anywhere now.
+> 
+> I think it is safe to drop this workaround, and this does seem a more
+> simple option than encoding which microcode turned HLE off (which sadly
+> isn't covered by the spec updates, as even when turned off, HLE is still
+> functioning according to its spec of "may speed things up, may do
+> nothing"), or the interactions with the CPUID hiding capabilities of
+> MSR_TSX_CTRL.
 
-Yeah, adding testing would be good.  From this list of limitations:
- - PCI passthrough require permissive mode
- - at most 26 emulated disks are supported (more are still available
-as PV disks)
- - only one nic is supported
- - graphics output (VNC/SDL/Spice) not supported
+I'm afraid I don't fully follow: For one, does what you say imply HLE is
+no longer enumerated in CPUID? If so, and if we assume all CPU models
+listed have had suitable ucode updates issued, we could indeed drop the
+workaround (as taking effect only when HLE is enumerated). But then this
+erratum does not have the usual text effectively meaning that an ucode
+update is or will be available to address the issue; instead it says
+that BIOS or VMM can reserve the respective address range. This -
+assuming the alternative you describe is indeed viable - then is surely
+a much more intrusive workaround than needed. Which I wouldn't assume
+they would suggest in such a case.
 
-PCI passthrough requiring permissive mode is fine for now.  26
-emulated disks is probably fine forever.  We should have support for
-multiple nics, and I have a idea for that.
-
-The lack of graphics output is probably the biggest limitation at this time=
-.
-
-Regards,
-Jason
+Jan
 
