@@ -2,47 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E0671E23BE
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 16:12:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B58AA1E243E
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 16:40:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdaIx-0006dk-2n; Tue, 26 May 2020 14:11:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jdajc-0000Lf-Pa; Tue, 26 May 2020 14:39:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gj5j=7I=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jdaIw-0006da-7F
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 14:11:42 +0000
-X-Inumbo-ID: d24348ac-9f5a-11ea-a64b-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d24348ac-9f5a-11ea-a64b-12813bfff9fa;
- Tue, 26 May 2020 14:11:41 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: GtppemxZpmjLTC13PCoZMb124ksaalluAF2xf4LMMrwSYkCMYCAnOezRvX7Qv5TsKuaTPt/JAX
- k8+zb8EfEld55eZ6AeGfbcChX5BiwK+CB4RlqX9UCurbjVEGgl2UbfnH4Nf8sN/+BFiLXSLaZS
- facOY+TzKviwzDN0aPtR0bTndHH15E0ZjZc10JU+c9GJWmEeNgM27dlr0OitnNy6gK3h3t6v2m
- v/744H8j2Pw87W/V3h10OP/AzUW6j3Bw/1kGWEWus4j2GSETTyJ8/9y4BE/v2xF4rgplvgyDVE
- nZQ=
-X-SBRS: None
-X-MesageID: 18801744
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-From: Ian Jackson <ian.jackson@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+ <SRS0=KTO2=7I=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jdajb-0000La-Qt
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 14:39:15 +0000
+X-Inumbo-ID: abf75f04-9f5e-11ea-8993-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id abf75f04-9f5e-11ea-8993-bc764e2007e4;
+ Tue, 26 May 2020 14:39:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=L9XIyFu6C/hpOZ/sHwuBnYy3C9RV5TetydhMcbBYHTk=; b=BdyjSwVDehE1yVQfshRSHBayj
+ hBXkzU9oJr0h7Oj4c3xdniQD99ZNmsVgG1RkVG1VHj5LuZH6aS7X0udsjEKtYiBTvHjNgwMYje/em
+ VCwTs3aoVR5ydHT/gGOXkxAYg0QysabqOUfVAxPgQae+bpo9Uioq3OQvQDumHKKRiqNIA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdaja-000573-PM; Tue, 26 May 2020 14:39:14 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdaja-0008PV-Gt; Tue, 26 May 2020 14:39:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdaja-0004Me-Fm; Tue, 26 May 2020 14:39:14 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150384-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Message-ID: <24269.8453.965170.734723@mariner.uk.xensource.com>
-Date: Tue, 26 May 2020 15:00:37 +0100
-To: George Dunlap <George.Dunlap@citrix.com>
-Subject: Re: [PATCH] SUPPORT: Add linux device model stubdom to Toolstack
-In-Reply-To: <3986B3CE-1730-443C-BD10-D2161C2A75F4@citrix.com>
-References: <20200525025506.225959-1-jandryuk@gmail.com>
- <3986B3CE-1730-443C-BD10-D2161C2A75F4@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150384: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=d9b29088603f8438160eb4852cedd85cb7c61a19
+X-Osstest-Versions-That: xen=354e8318d5a9b6f32fbd3c01d1a9f1970007010b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 26 May 2020 14:39:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,20 +65,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-George Dunlap writes ("Re: [PATCH] SUPPORT: Add linux device model stubdom to Toolstack"):
-> Acked-by: George Dunlap <george.dunlap@citrix.com>
-> 
-> Out of curiosity, what do you think is missing to be able to declare this ‘Supported’?  Are there any features missing, or do we just  need to add a test to osstest?
+flight 150384 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150384/
 
-I think from my point of view that is all that would be sufficient but
-others may have other concerns.
+Failures :-/ but no regressions.
 
-Ian.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  d9b29088603f8438160eb4852cedd85cb7c61a19
+baseline version:
+ xen                  354e8318d5a9b6f32fbd3c01d1a9f1970007010b
+
+Last test of basis   150367  2020-05-25 17:02:04 Z    0 days
+Testing same since   150384  2020-05-26 12:01:19 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  George Dunlap <george.dunlap@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   354e8318d5..d9b2908860  d9b29088603f8438160eb4852cedd85cb7c61a19 -> smoke
 
