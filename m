@@ -2,71 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A9C1E29AF
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 20:09:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CDFE1E310E
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 23:20:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jde0N-000482-ER; Tue, 26 May 2020 18:08:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jdgy3-0002mo-FJ; Tue, 26 May 2020 21:18:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xfaz=7I=gmail.com=dpsmith.dev@srs-us1.protection.inumbo.net>)
- id 1jde0L-00047J-Ev
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 18:08:45 +0000
-X-Inumbo-ID: f05be670-9f7b-11ea-9dbe-bc764e2007e4
-Received: from mail-qt1-x836.google.com (unknown [2607:f8b0:4864:20::836])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f05be670-9f7b-11ea-9dbe-bc764e2007e4;
- Tue, 26 May 2020 18:08:45 +0000 (UTC)
-Received: by mail-qt1-x836.google.com with SMTP id i68so16927990qtb.5
- for <xen-devel@lists.xenproject.org>; Tue, 26 May 2020 11:08:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=3vq5tAtSjUZ1REBUmxkczwtyXpGOgL9IzAxGNeyIljk=;
- b=O2aM6u6G0kNZGSJoihN+2/JpvbD5Da6615BD8Z11Ng9m/iFuJWVeY6qy5dXN6Xd/1i
- xiGC9Eb24Z1SVjPBT2pzOoa809pn418e4UXxlHCtbbz2S2RRq26j8iK9YEXWMb9Pftw9
- OQ8JOXmGS/rVVZcIhP0QHqARRd3YM+Vtg09DarQ2fAqIdwxdILZVCa5n2XBrZkRvv8FP
- dhlXqe78jA9N/BdciNoqrzRclFK/dRc8JyWQBsgPVs1gJyw2BsjY5WXb0D8oGflKZLxM
- gCaVMMROiKx9qbIhnz5epmcOct8fs1R9puUKId8V45HqBcfS3Y8grXhH2R2+XCDDbvpw
- fzpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=3vq5tAtSjUZ1REBUmxkczwtyXpGOgL9IzAxGNeyIljk=;
- b=spOkzLY/+Tkkog/h6ianFJfuL4Xrmzc2Ql6F84yIiqQYiIOQ2isaYsTQv9T+edkwJe
- l3M29sZt9Mls2NWYP1dlJ0UfP0fzkpH5nKbH2f1I3Y+zullfp28nu0hMrybN3uZY3DPX
- LGhG8qcMMJ44/4frqUeWi1LDcNWTqHANZJKIzTVvdTEA9cFh9SCM+rpUY3PAvaMlShgZ
- 65ahBx/ig+k1Rb1daAl1n7SWkpXx0WhzuIsniDVt2tdn7VBFlxeTKyDldnE8FcBQ0GjW
- 8EK0X5qpCEg0/SECKWxzgaKGFrdSGzBMNSYMf9HVf2u9uIHGWbw8MLBPH63bk890lyaa
- 1hfw==
-X-Gm-Message-State: AOAM532ewctivj1FCiveE74whqgpSaivpyyGQa7uvhd4w9Y2PijuOFfH
- IuymJPORpZ2CEt0DYuGGWnR758lH
-X-Google-Smtp-Source: ABdhPJzHVeE7cfrEFHlQyR35IioXLAFWVpeEjmLdCAEuPhUI3MRHXPCBVGnnfGiDJ4LDsR8KvRliKA==
-X-Received: by 2002:ac8:1601:: with SMTP id p1mr2600001qtj.311.1590516524381; 
- Tue, 26 May 2020 11:08:44 -0700 (PDT)
-Received: from [10.10.1.24] (c-73-129-47-101.hsd1.md.comcast.net.
- [73.129.47.101])
- by smtp.gmail.com with ESMTPSA id h77sm328386qke.37.2020.05.26.11.08.43
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 May 2020 11:08:43 -0700 (PDT)
-Subject: Re: [BUG] PVH ACPI XSDT table construction
-To: xen-devel@lists.xenproject.org
-References: <17251f968dd.b28c8ebe731955.2247348003729398828@apertussolutions.com>
- <20200526175734.GF38408@Air-de-Roger>
-From: "Daniel P. Smith" <dpsmith.dev@gmail.com>
-Message-ID: <8c9c4a9a-653e-8a75-bfb3-10d6581831f1@gmail.com>
-Date: Tue, 26 May 2020 14:08:43 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <SRS0=KCAZ=7I=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1jdgy1-0002mj-TR
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 21:18:33 +0000
+X-Inumbo-ID: 728b1426-9f96-11ea-a6bd-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 728b1426-9f96-11ea-a6bd-12813bfff9fa;
+ Tue, 26 May 2020 21:18:31 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 784E4AD4F;
+ Tue, 26 May 2020 21:18:32 +0000 (UTC)
+Message-ID: <8bf86f0c2bcce449cf7643aa9b98aa26ea558c2c.camel@suse.com>
+Subject: Re: [PATCH 2/2] xen: credit2: limit the max number of CPUs in a
+ runqueue
+From: Dario Faggioli <dfaggioli@suse.com>
+To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, 
+ xen-devel@lists.xenproject.org
+Date: Tue, 26 May 2020 23:18:27 +0200
+In-Reply-To: <7e039c65-4532-c3ea-8707-72a86cf48e0e@suse.com>
+References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
+ <158818179558.24327.11334680191217289878.stgit@Palanthas>
+ <b368ccef-d3b1-1338-6325-8f81a963876d@suse.com>
+ <d60d5b917d517b1dfa8292cfb456639c736ec173.camel@suse.com>
+ <7e039c65-4532-c3ea-8707-72a86cf48e0e@suse.com>
+Organization: SUSE
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-UKAJFAljL5IxqXECkPZ6"
+User-Agent: Evolution 3.36.2 
 MIME-Version: 1.0
-In-Reply-To: <20200526175734.GF38408@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,24 +51,114 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 5/26/20 1:57 PM, Roger Pau Monné wrote:
-> 
-> Keep in mind that strncmp will return 0 if the signature matches, and
-> hence doing this won't allow any table, as it would require a
-> signature to match both the DSDT and the FACS one (you would require
-> strncmp to return 0 in both cases).
-> 
-> The code is correct AFAICT, as it won't add DSDT or FACS to the XSDT
-> (because strncmp will return 0 in that case).
-> 
-> Roger.
-> 
 
-Ugh, your are right. Apologies for the noise.
+--=-UKAJFAljL5IxqXECkPZ6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-V/r,
-DPS
+On Thu, 2020-04-30 at 14:52 +0200, J=C3=BCrgen Gro=C3=9F wrote:
+> On 30.04.20 14:28, Dario Faggioli wrote:
+> > That being said, I can try to make things a bit more fair, when
+> > CPUs
+> > come up and are added to the pool. Something around the line of
+> > adding
+> > them to the runqueue with the least number of CPUs in it (among the
+> > suitable ones, of course).
+> >=20
+> > With that, when the user removes 4 CPUs, we will have the 6 vs 10
+> > situation. But we would make sure that, when she adds them back, we
+> > will go back to 10 vs. 10, instead than, say, 6 vs 14 or something
+> > like
+> > that.
+> >=20
+> > Was something like this that you had in mind? And in any case, what
+> > do
+> > you think about it?
+>=20
+> Yes, this would be better already.
+>=20
+So, a couple of thoughts. Doing something like what I tried to describe
+above is not too bad, and I have it pretty much ready.
+
+With that, on an Intel system with 96 CPUs on two sockets, and
+max_cpus_per_runqueue set to 16, I got, after boot, instead of just 2
+giant runqueues with 48 CPUs in each:
+
+ - 96 CPUs online, split in 6 runqueues (3 for each socket) with 16=20
+   runqueues in each of them
+
+I can also "tweak" it in such a way that, if one for instance boots
+with "smt=3Dno", we get to a point where we have:
+
+ - 48 CPUs online, split in 6 runqueues, with 8 CPUs in each
+
+Now, I think this is good, and actually better than the current
+situation where on such a system, we only have two very big runqueues
+(and let me repeat that introducing a per-LLC runqueue arrangement, on
+which I'm also working, won't help in this case, as NUMA node =3D=3D LLC).
+
+So, problem is that if one starts to fiddle with cpupools and cpu on
+and offlining, things can get pretty unbalanced. E.g., I can end up
+with 2 runqueues on a socket, one with 16 CPUs and the other with just
+a couple of them.
+
+Now, this is all possible as of now (I mean, without this patch)
+already, although at a different level. In fact, I can very well remove
+all-but-1 CPUs of node 1 from Pool-0, and end up again with a runqueue
+with a lot of CPUs and another with just one.
+
+It looks like we need a way to rebalance the runqueues, which should be
+doable... But despite having spent a couple of days trying to come up
+with something decent, that I could include in v2 of this series, I
+couldn't get it to work sensibly.
+
+So, this looks to me like an improvement, that would need being
+improved further, but I'm not sure we have the time for it right now
+(Cc-ing Paul). Should we still go for what's ready? I think yes, but
+I'd be interested in opinions...
+
+Also, if anyone has any clever ideas on how to implement a mechanism
+that rebalance the CPUs within the runqueue, I'm all ears and am up for
+trying implementing. :-)
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-UKAJFAljL5IxqXECkPZ6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl7Nh6QACgkQFkJ4iaW4
+c+4WCQ//Rlw01mXUpz2TGQ3s+MTXAn76wT6CVBJG1ChBEqxyZsLpgl71KByVwozB
+gIZFm9a7mEslNch0BmfYswsrr+SIl12YhzRdclXwdGlud8pKkkSYNq2GnKrFjjlf
+sttMkU2dXla+ZNPa/T9zpilF1Eu+V1baWEwCYZXg+dJ9hZBZLymxTpc1MoHlR4pM
+lUogKuPpznQWYaA9t5Dpp606BSTbgAmwPLjHUJfgA/46d4W1OsY+nXHK59VuZDNb
+ObT9qmYZNFgdPfXf0Rc8ofi7+TJZ0addKIGQZ9AxgpCgTYV+owsJRl8zR2z68s6d
+kvZOWKb3aZRzVxvO+OedjkSphottwqYmqznuUIft2d30YzIUkH8MWJ3PUNaerMoU
+vs4FxVlUYDgFJ1y2Z4+fis3rcZbTGtsoXfBH3u+l72XbFDNjGU3gwwnqC3bUy1SC
+nloFJviZhg+7c++Rlbtg3HvCAdWoS4b4XTyNklHEZ8+eU7MT8q1WzQd5ZOLmay3P
+BuoceEDi4Yd87M6NdjQGGM/CKOLCV6Sj7gIPjx/BdEp2k1nRnbc4RcY4b4ZDeg3i
+IS3XIJlST/s6bHolT5lraJ6bUG4V7t4y2QX8ElbTNHrtpr9D+XxpBCdVnpc6JTVo
+kiLJ75gAY6YDpVP1E3hLDE4vcL1Jrtm/YQW3D+LreYxGla1iDBw=
+=uLmS
+-----END PGP SIGNATURE-----
+
+--=-UKAJFAljL5IxqXECkPZ6--
+
 
