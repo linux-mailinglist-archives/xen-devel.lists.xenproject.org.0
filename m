@@ -2,53 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98F821E1F46
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 12:04:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAC571E1F45
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 12:04:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdWRS-0007yg-Is; Tue, 26 May 2020 10:04:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jdWR1-0007tz-13; Tue, 26 May 2020 10:03:47 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vX9/=7I=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jdWRR-0007yX-Aa
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 10:04:13 +0000
-X-Inumbo-ID: 3c1add44-9f38-11ea-a5fb-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3c1add44-9f38-11ea-a5fb-12813bfff9fa;
- Tue, 26 May 2020 10:04:07 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: sEdFN5Lh6elRsteVMPSO85RlLCzyksheTxVv0xvTAvzuSXt7L8hhnqt72/SDbi20OfRac0z5Tr
- GwE/4Do88nreLCpzqNT3Y0IxHINxhOYoRlhh/tZlHU+MjMvzfMZSebve4g06MR/JhJ9L9x0My4
- WTUxLdh7JUkDzhwDScjKRyw6S5t+pDXytc8Y13XJfkTGoLlKCC5VSQEX1TffzaT5GnPhxRDtnW
- dAboLqFhhaBzW2eOs76qQ3FCh//kdAwewGfoSeTsuLYNv2qm20H+8H2fjOBDIbcJIuq5HvxPfn
- EGg=
-X-SBRS: None
-X-MesageID: 18394027
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-URL-LookUp-ScanningError: 1
-Date: Tue, 26 May 2020 12:03:37 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Martin Lucina <martin@lucina.net>
-Subject: Re: Xen PVH domU start-of-day VCPU state
-Message-ID: <20200526100337.GB38408@Air-de-Roger>
-References: <20200525160401.GA3091@nodbug.lucina.net>
- <a17fef73-382c-50b3-1e6b-5904fc3bf60f@suse.com>
- <6a22e477-c9e7-f0d7-6cb1-615137a778be@citrix.com>
- <20200526085221.GB5942@nodbug.lucina.net>
- <20200526093421.GA38408@Air-de-Roger>
+ <SRS0=/3u5=7I=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jdWQz-0007tu-7V
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 10:03:45 +0000
+X-Inumbo-ID: 2ee37cda-9f38-11ea-9947-bc764e2007e4
+Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2ee37cda-9f38-11ea-9947-bc764e2007e4;
+ Tue, 26 May 2020 10:03:44 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id t18so5729577wru.6
+ for <xen-devel@lists.xenproject.org>; Tue, 26 May 2020 03:03:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=QrOVKMNdUBLLHH/nbmg3vYiipoecOqTtO9FF9ATZl9E=;
+ b=sgtCM8vE6hmf54xd5rSL746e0q9+uIhGHaGUmToYZ9lHGw3Ad6UQeWbAE3oZ3+yils
+ 3+yJzSNBGihiU34HDtszOrHPTLVFdMaUq8lw4tueyEnsAgllQDMgz57vC3AP7bMGSJ67
+ IVPWt2R4c3g7JSzmqnjd3/qsWm6HvDF16ZBdTzec/trqmbj0n76T6c9CHwuScjHeAlnM
+ hYjbZoFd0U4EtgY2Cd5sq1ONpUMXhuw3KYg/Zg7eRT5ay7S9vM5LF00GQmrT8qaZIPAO
+ eu30WPWvDMjWC8R2WcxtzRlNZyr8Zv7G2+i9cRUFpqwJwJqMWdHMg1ErAAEDJqwMgwPJ
+ vXiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=QrOVKMNdUBLLHH/nbmg3vYiipoecOqTtO9FF9ATZl9E=;
+ b=iYHTwUv/8icUtLLpd5btbPRqEdXoUyrQ81iJWdricPlqQfP7BU6QBFis7oL9R4C8A/
+ YHs9ZtKJia8L88ccqMLAZv1H8Zmu54Sz+hrqAMflzNZBjvdmp7dZj8cuX96S9R8aZ3oT
+ O0UzFV5EeeypLlWbiFL51/l3wm0hEm3gpGldA7o4GwTUbKApaSW8tFSgze0plugWRclr
+ Ck6DmLZ0723fi1y026z0C0iAnwQo4MemNOe00+VW3r8bM6cK79nAdOBdMtSFx5/IQULG
+ qhT1F8VIAma7jnLHbPZisCIzc8/G4FpCETdwbeNwV+DRoUWAxLD+ePZ+Ewsp0R60Hl80
+ qEFw==
+X-Gm-Message-State: AOAM530E3Pl2vTdLKQT5sj+syDmtjGhyExPBEnQXr4qrU3aPNS0z7lnT
+ 8FSBswC8NGTb/3G9t1Qc4PI=
+X-Google-Smtp-Source: ABdhPJxRV7tECLej5J7sXTjPqP+Jwph+Yk3wdqueS3QNCNiPvrwOTrnDIm9VxPf5hHesntP0uQ9lWw==
+X-Received: by 2002:adf:f990:: with SMTP id f16mr13493344wrr.311.1590487423892; 
+ Tue, 26 May 2020 03:03:43 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.187])
+ by smtp.gmail.com with ESMTPSA id j4sm19202837wrx.24.2020.05.26.03.03.42
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 26 May 2020 03:03:43 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Juergen Gross'" <jgross@suse.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20200526095038.27378-1-jgross@suse.com>
+ <20200526095038.27378-2-jgross@suse.com>
+In-Reply-To: <20200526095038.27378-2-jgross@suse.com>
+Subject: RE: [PATCH 1/2] CHANGELOG: add hypervisor file system support
+Date: Tue, 26 May 2020 11:03:42 +0100
+Message-ID: <004501d63344$f025a540$d070efc0$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200526093421.GA38408@Air-de-Roger>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQKQq46lmxkKpOsd5tjB0m87I8ZJ0wFonwPmpzntqMA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,48 +78,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, anil@recoil.org,
- Andrew Cooper <andrew.cooper3@citrix.com>, mirageos-devel@lists.xenproject.org,
- dave@recoil.org, xen-devel@lists.xenproject.org
+Reply-To: paul@xen.org
+Cc: 'Community Manager' <community.manager@xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 26, 2020 at 11:34:21AM +0200, Roger Pau Monné wrote:
-> On Tue, May 26, 2020 at 10:52:21AM +0200, Martin Lucina wrote:
-> > On Monday, 25.05.2020 at 17:59, Andrew Cooper wrote:
-> > > On 25/05/2020 17:42, Jürgen Groß wrote:
-> > > > You need to setup virtual addressing and enable 64 bit mode before using
-> > > > 64-bit GDT.
-> > > >
-> > > > See Mini-OS source arch/x86/x86_hvm.S
-> > > 
-> > > Or
-> > > https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen-test-framework.git;a=blob;f=arch/x86/hvm/head.S;h=f7dc72b58ab9ec68538f0087969ab6f72d181d80;hb=HEAD
-> > > 
-> > > But yes - Juergen is correct.  Until you have enabled long mode, lgdt
-> > > will only load the bottom 32 bits of GDTR.base.
-> > 
-> > Ah, I missed Jurgen's and your reply here.
-> > 
-> > LGDT loading only the bottom 32 bits of GDTR.base shouldn't matter.
-> > Examining gdt_ptr some more:
-> > 
-> >     (gdb) set architecture i386
-> >     The target architecture is assumed to be i386
-> >     (gdb) x /xh 0x108040
-> >     0x108040:	0x002f
-> >     (gdb) x /xw 0x108042
-> >     0x108042:	0x00108000
-> >     (gdb) x /6xb 0x108040
-> >     0x108040:	0x2f	0x00	0x00	0x80	0x10	0x00
-> >     (gdb) x /8xb 0x108040
-> >     0x108040:	0x2f	0x00	0x00	0x80	0x10	0x00	0x00	0x00
+> -----Original Message-----
+> From: Juergen Gross <jgross@suse.com>
+> Sent: 26 May 2020 10:51
+> To: xen-devel@lists.xenproject.org
+> Cc: Juergen Gross <jgross@suse.com>; Paul Durrant <paul@xen.org>; Community Manager
+> <community.manager@xenproject.org>
+> Subject: [PATCH 1/2] CHANGELOG: add hypervisor file system support
 > 
-> Could you also print the GDT entry at 0x10 (ie: 0x108000 + 0x10), just
-> to make sure it contains the right descriptor?
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Forgot to ask, but can you also add the output of readelf -lW
-<kernel>?
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-Roger.
+> ---
+>  CHANGELOG.md | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index ccb5055c87..75b7582447 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>     fixes.
+>   - Hypervisor framework to ease porting Xen to run on hypervisors.
+>   - Initial support to run on Hyper-V.
+> + - Initial hypervisor file system (hypfs) support.
+> 
+>  ## [4.13.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.13.0) - 2019-12-17
+> 
+> --
+> 2.26.2
+
+
 
