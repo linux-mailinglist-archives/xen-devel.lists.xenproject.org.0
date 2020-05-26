@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 174141E297B
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 19:58:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6791B1E29A4
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 20:07:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jddph-00033C-4t; Tue, 26 May 2020 17:57:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jddy6-00040d-11; Tue, 26 May 2020 18:06:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vX9/=7I=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jddpf-000337-Qh
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 17:57:43 +0000
-X-Inumbo-ID: 650e7ce6-9f7a-11ea-81bc-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 650e7ce6-9f7a-11ea-81bc-bc764e2007e4;
- Tue, 26 May 2020 17:57:42 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: NjSlT6lCFbs4DsndjP2AVVVWYUbhekmkov3gNnsNRRqog9kA6FV7rTCzkPNduU+D82ECQIYEbm
- thbB9Yka+1OvqcN/hjPVEcs4I2pMp4/IG6Gfo+IlLahN2WX5GdPpoUt+7BdoXxkYm97zu0coLe
- PoCz2tekGqFt2GZkqP9f3jLOdugN4+0QOGIxLPI143bgDGiLDfBToeo6++nEiZPtHEpNMZZUju
- Ce/ueXEwn3Z90mkMzGwKA8erJIClHfBPOZYiRuwJ1IF2f19nEOyuXDwP3O1R2kGhkT7aq48Rfj
- Aj4=
-X-SBRS: 2.7
-X-MesageID: 18775426
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,437,1583211600"; d="scan'208";a="18775426"
-Date: Tue, 26 May 2020 19:57:34 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Daniel Smith <dpsmith@apertussolutions.com>
-Subject: Re: [BUG] PVH ACPI XSDT table construction
-Message-ID: <20200526175734.GF38408@Air-de-Roger>
-References: <17251f968dd.b28c8ebe731955.2247348003729398828@apertussolutions.com>
+ <SRS0=vgeY=7I=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1jddy4-00040Y-7K
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 18:06:24 +0000
+X-Inumbo-ID: 9bae6968-9f7b-11ea-a690-12813bfff9fa
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9bae6968-9f7b-11ea-a690-12813bfff9fa;
+ Tue, 26 May 2020 18:06:23 +0000 (UTC)
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:57706
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1jddy0-000RQN-MI (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Tue, 26 May 2020 19:06:21 +0100
+Subject: Re: [PATCH 03/16] x86/traps: Factor out exception_fixup() and make
+ printing consistent
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200501225838.9866-1-andrew.cooper3@citrix.com>
+ <20200501225838.9866-4-andrew.cooper3@citrix.com>
+ <f7cb696a-5c2c-4aa6-d379-ed77772b7c35@suse.com>
+ <a397dd69-2384-a4af-d127-9189a730a554@citrix.com>
+ <afd75bde-9adf-d8cf-f8cf-24cb1b753253@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <9c939815-a4f9-75d7-3b6b-b8921de6cdb9@citrix.com>
+Date: Tue, 26 May 2020 19:06:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <17251f968dd.b28c8ebe731955.2247348003729398828@apertussolutions.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <afd75bde-9adf-d8cf-f8cf-24cb1b753253@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,62 +55,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 26, 2020 at 01:13:19PM -0400, Daniel Smith wrote:
-> Greetings,
-> 
-> 
-> 
-> I was reviewing the ACPI construction for PVH and discovered what I believe is a flaw in the logic for selecting the XSDT tables. The current logic is,
-> 
-> 
-> 
-> static bool __init pvh_acpi_xsdt_table_allowed(const char *sig,
-> 
->                                                unsigned long address,
-> 
->                                                unsigned long size)
-> 
-> {
-> 
->     /*
-> 
->      * DSDT and FACS are pointed to from FADT and thus don't belong
-> 
->      * in XSDT.
-> 
->      */
-> 
->     return (pvh_acpi_table_allowed(sig, address, size) &&
-> 
->             strncmp(sig, ACPI_SIG_DSDT, ACPI_NAME_SIZE) &&
-> 
->             strncmp(sig, ACPI_SIG_FACS, ACPI_NAME_SIZE));
-> 
-> }
-> 
-> 
-> 
-> Unless I am mistaken, the boolean logic in the return statement will always return false resulting in an empty XSDT table. I believe based on the comment what was intended here was,
-> 
-> 
-> 
->     return (pvh_acpi_table_allowed(sig, address, size) &&
-> 
->             !(strncmp(sig, ACPI_SIG_DSDT, ACPI_NAME_SIZE) ||
-> 
->               strncmp(sig, ACPI_SIG_FACS, ACPI_NAME_SIZE)));
+On 12/05/2020 14:05, Jan Beulich wrote:
+> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
+>
+> On 11.05.2020 17:14, Andrew Cooper wrote:
+>> On 04/05/2020 14:20, Jan Beulich wrote:
+>>> On 02.05.2020 00:58, Andrew Cooper wrote:
+>>>> --- a/xen/arch/x86/traps.c
+>>>> +++ b/xen/arch/x86/traps.c
+>>>> @@ -774,10 +774,27 @@ static void do_reserved_trap(struct cpu_user_regs *regs)
+>>>>            trapnr, vec_name(trapnr), regs->error_code);
+>>>>  }
+>>>>  
+>>>> +static bool exception_fixup(struct cpu_user_regs *regs, bool print)
+>>>> +{
+>>>> +    unsigned long fixup = search_exception_table(regs);
+>>>> +
+>>>> +    if ( unlikely(fixup == 0) )
+>>>> +        return false;
+>>>> +
+>>>> +    /* Can currently be triggered by guests.  Make sure we ratelimit. */
+>>>> +    if ( IS_ENABLED(CONFIG_DEBUG) && print )
+>>> I didn't think we consider dprintk()-s a possible security issue.
+>>> Why would we consider so a printk() hidden behind
+>>> IS_ENABLED(CONFIG_DEBUG)? IOW I think one of XENLOG_GUEST and
+>>> IS_ENABLED(CONFIG_DEBUG) wants dropping.
+>> Who said anything about a security issue?
+> The need to rate limit is (among other aspects) to prevent a
+> (logspam) security issue, isn't it?
 
-Keep in mind that strncmp will return 0 if the signature matches, and
-hence doing this won't allow any table, as it would require a
-signature to match both the DSDT and the FACS one (you would require
-strncmp to return 0 in both cases).
+Rate limiting (from a security aspect) is a stopgap solution to relieve
+incidental pressure on the various global spinlocks involved.
 
-The code is correct AFAICT, as it won't add DSDT or FACS to the XSDT
-(because strncmp will return 0 in that case).
+It specifically does not prevent a guest from trivially filling the
+console ring with junk, or for that junk to be written to
+/var/log/xen/hypervisor.log at an alarming rate, both of which are
+issues in production setups, but not security issues.
 
-Roger.
+Technical solutions to these problems do exist, such as deleting the
+offending printk(), or maintaining per-guest console rings, but both
+come with downsides in terms of usability, which similarly impacts
+production setups.
+
+
+What ratelimiting even in debug builds gets you is a quick spate of
+printks() (e.g. any new sshd connection on an AMD system where the
+MSR_VIRT_SPEC_CTRL patch is still uncommitted, and the default WRMSR
+behaviour breaking wrmsr_safe() logic in Linux) not wasting an
+unreasonable quantity of space in the console ring.
+
+~Andrew
 
