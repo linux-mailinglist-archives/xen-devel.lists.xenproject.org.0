@@ -2,59 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A301E2718
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 18:33:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4EA11E2745
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 18:41:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdcVq-0003kE-Ub; Tue, 26 May 2020 16:33:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=52a6=7I=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jdcVp-0003k8-NT
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 16:33:09 +0000
-X-Inumbo-ID: 950d4848-9f6e-11ea-81bc-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 950d4848-9f6e-11ea-81bc-bc764e2007e4;
- Tue, 26 May 2020 16:33:09 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: oS50+zsSVqefo8RHIfeozCbKo1gS6/8O/T+M9H5Qc9wCUsv6qju7t2Tu7Ss+g3r0wIwQIwHTc5
- 8Z05fv48sXfoYqvVFEh1rWGIs//eSGhcc/64pIJ0BA7Drve/i3Uo3T3wJ5Pp78drBscpMeiHQt
- M9BS+F6XUbAIAbwHSIfPzr211pr1aUGfj8Cuuu8HSzKXyt40Hx9f2zgyPU74JbDHqj96F21Uj2
- WEYEa54d9mGQbGc8HjvITSH1NHL753i+iZzp/0d6yzes3dxYaNkoHx2CAChfs0EOaWIO/khyvr
- So0=
-X-SBRS: 2.7
-X-MesageID: 18494331
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,437,1583211600"; d="scan'208";a="18494331"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Subject: Re: [PATCH 5/5] gitignore: Ignore golang package directory
-Thread-Topic: [PATCH 5/5] gitignore: Ignore golang package directory
-Thread-Index: AQHWMFPdiIMBJ2MNy0CkFZ0ooWSGmqi6SAuAgAAbAoCAAA4+gIAAAy4A
-Date: Tue, 26 May 2020 16:33:04 +0000
-Message-ID: <73E47FDE-098C-4174-8295-5829B9EDA10C@citrix.com>
-References: <20200522161240.3748320-1-george.dunlap@citrix.com>
- <20200522161240.3748320-6-george.dunlap@citrix.com>
- <24269.8059.28506.353748@mariner.uk.xensource.com>
- <A525D330-BCF9-4998-BEC5-425BA6C26CCF@citrix.com>
- <20200526162141.GA28056@six>
-In-Reply-To: <20200526162141.GA28056@six>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <3D406E16ABB8874AA0B5F826109F8ADA@citrix.com>
-Content-Transfer-Encoding: base64
+	id 1jdccs-0004bL-Me; Tue, 26 May 2020 16:40:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ta6a=7I=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jdccr-0004bG-13
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 16:40:25 +0000
+X-Inumbo-ID: 97d1aeb0-9f6f-11ea-a67a-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 97d1aeb0-9f6f-11ea-a67a-12813bfff9fa;
+ Tue, 26 May 2020 16:40:23 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 9A806AD12;
+ Tue, 26 May 2020 16:40:24 +0000 (UTC)
+Subject: Re: [PATCH] x86: extend coverage of HLE "bad page" workaround
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <b238f66d-37a9-3080-4f2b-90225ea17102@suse.com>
+ <424d1b72-5eb6-f2bc-20fe-e59bacda8dd9@citrix.com>
+ <c27d838e-0331-3cab-25bf-dd16b4645152@suse.com>
+ <2c0ff1f3-ee0c-6d14-a51c-d82b65338005@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0df22405-bda8-8f4d-63b4-e9c4d57843b1@suse.com>
+Date: Tue, 26 May 2020 18:40:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <2c0ff1f3-ee0c-6d14-a51c-d82b65338005@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +49,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Nick
- Rosbrook <rosbrookn@ainfosec.com>, Julien Grall <julien.grall@arm.com>, Jan
- Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gTWF5IDI2LCAyMDIwLCBhdCA1OjIxIFBNLCBOaWNrIFJvc2Jyb29rIDxyb3Nicm9v
-a25AZ21haWwuY29tPiB3cm90ZToNCj4gDQo+PiBXaXRoIGdvbGFuZywgeW91IGRvbuKAmXQgcmVh
-bGx5IGRpc3RyaWJ1dGUgcGFja2FnZSBiaW5hcmllczsgeW91IG9ubHkgZGlzdHJpYnV0ZSBzb3Vy
-Y2UgZmlsZXMuDQo+PiANCj4+IEhvd2V2ZXIsIHdlIGRvbuKAmXQgd2FudCB0byB3YWl0IHVudGls
-IHNvbWVvbmUgdHJpZXMgdG8gY2xvbmUgdGhlIHBhY2thZ2UgdG8gc2VlIGlmIHdl4oCZdmUgYnJv
-a2VuIHRoZSBidWlsZDsgc28gdGhlIGN1cnJlbnQgbWFrZWZpbGUgZG9lcyBhIOKAnGJ1aWxkIHRl
-c3TigJ0gb2YgdGhlIHBhY2thZ2UgZmlsZXMuDQo+PiANCj4+IEJlZm9yZSBnb2xhbmfigJlzIOKA
-nG1vZHVsZXPigJ0gZmVhdHVyZSwgdGhlIG9ubHkgd2F5IHRvIGRvIHRoaXMgd2FzIHRvIGhhdmUg
-dGhlIGNvZGUgdG8gYnVpbGQgaW5zaWRlICRHT1BBVEgvc3JjLyRQQUNLQUdFTkFNRS4gIFdlIGNh
-biBzZXQgR09QQVRIIGJ1dCB3ZSBjYW7igJl0IGNoYW5nZSB0aGUg4oCcc3Jj4oCdIGNvbXBvbmVu
-dCBvZiB0aGF0LiAgU28gd2UgdXNlZCB0byBzZXQgR09QQVRIIHRvICRYRU5ST09UL3Rvb2xzL2dv
-bGFuZywgcHV0IHRoZSBmaWxlcyBpbiAkWEVOUk9PVC90b29scy9nb2xhbmcvc3JjLyRQQUNLQUdF
-TkFNRSwgYW5kIA0KPj4gDQo+PiBXaXRoIHRoZSDigJxtb2R1bGVz4oCdIGZlYXR1cmUsIGNvZGUg
-Y2FuIGJlIGJ1aWx0IGFueXdoZXJlOyB0aGUgYnVpbGQgYXQgdGhlIG1vbWVudCBkb2VzbuKAmXQg
-cmVxdWlyZSBHT1BBVEguDQo+PiANCj4+IElmIHdl4oCZcmUgd2lsbGluZyB0byBsaW1pdCBvdXJz
-ZWx2ZXMgdG8gdXNpbmcgdmVyc2lvbnMgb2YgZ29sYW5nIHdoaWNoIHN1cHBvcnQgbW9kdWxlcyBi
-eSBkZWZhdWx0ICgxLjEyKyksIHRoZW4gd2UgY2FuIHByb2JhYmx5IGdldCByaWQgb2YgdGhpcyBi
-aXQgaW5zdGVhZC4gIChBbmQgaWYgd2UgZG8gd2FudCB0byBzdXBwb3J0IG9sZGVyIHZlcnNpb25z
-LCB3ZSBzaG91bGQgcmVhbGx5IGFkZCBzb21lIGNvZGUgaW4gdGhlIGNvbmZpZ3VyZSBzY3JpcHQg
-dG8gZGV0ZXJtaW5lIHdoZXRoZXIgdG8gYnVpbGQgd2l0aCBtb2R1bGVzIG9yIEdPUEFUSC4pDQo+
-PiANCj4+IE5pY2ssIGFueSBvcGluaW9ucz8NCj4gDQo+IEkgY2FuJ3QgdGhpbmsgb2YgYSByZWFz
-b24gd2UgbmVlZCB0byBzdXBwb3J0IGFueXRoaW5nIG9sZGVyIHRoYW4gZ28NCj4gMS4xMSwgc28g
-SSB0aGluayBpdCB3b3VsZCBiZSBmaW5lIHRvIGdldCByaWQgb2YgcmVtbmFudHMgb2YgdGhlIEdP
-UEFUSA0KPiBidWlsZC4NCg0KT0ssIEnigJlsbCBzZW5kIGEgcGF0Y2ggdG8gcmVtb3ZlIHRoZSDi
-gJxmYWtlIEdPUEFUSCBidWlsZOKAnSBzdXBwb3J0Lg0KDQogLUdlb3JnZQ==
+On 26.05.2020 17:01, Andrew Cooper wrote:
+> On 26/05/2020 14:35, Jan Beulich wrote:
+>> On 26.05.2020 13:17, Andrew Cooper wrote:
+>>> On 26/05/2020 07:49, Jan Beulich wrote:
+>>>> Respective Core Gen10 processor lines are affected, too.
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>
+>>>> --- a/xen/arch/x86/mm.c
+>>>> +++ b/xen/arch/x86/mm.c
+>>>> @@ -6045,6 +6045,8 @@ const struct platform_bad_page *__init g
+>>>>      case 0x000506e0: /* errata SKL167 / SKW159 */
+>>>>      case 0x000806e0: /* erratum KBL??? */
+>>>>      case 0x000906e0: /* errata KBL??? / KBW114 / CFW103 */
+>>>> +    case 0x000a0650: /* erratum Core Gen10 U/H/S 101 */
+>>>> +    case 0x000a0660: /* erratum Core Gen10 U/H/S 101 */
+>>> This is marred in complexity.
+>>>
+>>> The enumeration of MSR_TSX_CTRL (from the TAA fix, but architectural
+>>> moving forwards on any TSX-enabled CPU) includes a confirmation that HLE
+>>> no longer exists/works.  This applies to IceLake systems, but possibly
+>>> not their initial release configuration (hence, via a later microcode
+>>> update).
+>>>
+>>> HLE is also disabled in microcode on all older parts for errata reasons,
+>>> so in practice it doesn't exist anywhere now.
+>>>
+>>> I think it is safe to drop this workaround, and this does seem a more
+>>> simple option than encoding which microcode turned HLE off (which sadly
+>>> isn't covered by the spec updates, as even when turned off, HLE is still
+>>> functioning according to its spec of "may speed things up, may do
+>>> nothing"), or the interactions with the CPUID hiding capabilities of
+>>> MSR_TSX_CTRL.
+>> I'm afraid I don't fully follow: For one, does what you say imply HLE is
+>> no longer enumerated in CPUID?
+> 
+> No - sadly not.  For reasons of "not repeating the Haswell/Broadwell
+> microcode fiasco", the HLE bit will continue to exist and be set. 
+> (Although on CascadeLake and later, you can turn it off with MSR_TSX_CTRL.)
+> 
+> It was always a weird CPUID bit.  You were supposed to put
+> XACQUIRE/XRELEASE prefixes on your legacy locking, and it would be a nop
+> on old hardware and go faster on newer hardware.
+> 
+> There is nothing runtime code needs to look at the HLE bit for, except
+> perhaps for UI reporting purposes.
+
+Do you know of some public Intel doc I could reference for all of this,
+which I would kind of need in the description of a patch ...
+
+>> But then this
+>> erratum does not have the usual text effectively meaning that an ucode
+>> update is or will be available to address the issue; instead it says
+>> that BIOS or VMM can reserve the respective address range.
+> 
+> This is not surprising at all.  Turning off HLE was an unrelated
+> activity, and I bet the link went unnoticed.
+> 
+>> This - assuming the alternative you describe is indeed viable - then is surely
+>> a much more intrusive workaround than needed. Which I wouldn't assume
+>> they would suggest in such a case.
+> 
+> My suggestion was to drop the workaround, not to complicated it with a
+> microcode revision matrix.
+
+... doing this? I don't think I've seen any of this in writing so far,
+except by you. (I don't understand how this reply of yours relates to
+what I was saying about the spec update. I understand what you are
+suggesting. I merely tried to express that I'd have expected Intel to
+point out the much easier workaround, rather than just a pretty involved
+one.) Otherwise, may I suggest you make such a patch, to make sure it
+has an adequate description?
+
+Jan
 
