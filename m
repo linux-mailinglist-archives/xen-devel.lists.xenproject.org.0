@@ -2,50 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C09641E2372
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 15:56:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31B021E23AE
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 16:07:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jda3Y-0004fx-3z; Tue, 26 May 2020 13:55:48 +0000
+	id 1jdaDg-0005jB-77; Tue, 26 May 2020 14:06:16 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ta6a=7I=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jda3W-0004fs-Kn
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 13:55:46 +0000
-X-Inumbo-ID: 98926c52-9f58-11ea-a64a-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gj5j=7I=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jdaDe-0005j6-Ly
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 14:06:14 +0000
+X-Inumbo-ID: 0e31e4a1-9f5a-11ea-a64b-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 98926c52-9f58-11ea-a64a-12813bfff9fa;
- Tue, 26 May 2020 13:55:45 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 99161ADBB;
- Tue, 26 May 2020 13:55:47 +0000 (UTC)
-Subject: Re: [PATCH] x86: refine guest_mode()
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <1704f4f6-7e77-971c-2c94-4f6a6719c34a@citrix.com>
- <5bbe6425-396c-d934-b5af-53b594a4afbc@suse.com>
- <16939982-3ccc-f848-0694-61b154dca89a@citrix.com>
- <5ce12c86-c894-4a2c-9fa6-1c2a6007ca28@suse.com>
- <20200518145101.GV54375@Air-de-Roger>
- <d58ec87e-a871-2e65-4a69-b73a168a6afa@suse.com>
- <20200520151326.GM54375@Air-de-Roger>
- <38d546f9-8043-8d94-8298-8fd035078a8a@suse.com>
- <20200522104844.GY54375@Air-de-Roger>
- <a31bd761-54eb-56b8-7c60-93202d26e7d0@suse.com>
- <20200526105652.GD38408@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <dfa3604a-d53e-ae0c-fe24-099b135b308e@suse.com>
-Date: Tue, 26 May 2020 15:55:39 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 0e31e4a1-9f5a-11ea-a64b-12813bfff9fa;
+ Tue, 26 May 2020 14:06:13 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: NzXzWeVY9LrJHh/AvpJpANxVDPhB3QGgrhdeI9O0SjnVKY/CguAusOHcWxuWJFZY7vxNN1EAs+
+ WoG51D0zCnljLEJAy3ZkugXWbMc3dfbmnlWauCxgDuUkTa8dYDJtPkNisPHd5EQ+I8lShm/qEq
+ RdJg+kyN5X+lVPTlA65in2U5DzsiIuIS3Rk9tNbDAwVjFdji+GXQ3UNY4y130TiSZtvMexcFJR
+ O2o3ROfsmNl0XnhN5srRF383xhk11p4BDOYdXfUh1xkL/hfYm2AXxL/eJMCdEdmDiKiPNSGltS
+ Csk=
+X-SBRS: None
+X-MesageID: 18800847
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-URL-LookUp-ScanningError: 1
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <20200526105652.GD38408@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24269.8019.97048.52370@mariner.uk.xensource.com>
+Date: Tue, 26 May 2020 14:53:23 +0100
+To: George Dunlap <george.dunlap@citrix.com>
+Subject: Re: [PATCH 3/5] libxl: Generate golang bindings in libxl Makefile
+In-Reply-To: <20200522161240.3748320-4-george.dunlap@citrix.com>
+References: <20200522161240.3748320-1-george.dunlap@citrix.com>
+ <20200522161240.3748320-4-george.dunlap@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +54,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26.05.2020 12:56, Roger Pau Monné wrote:
-> On Fri, May 22, 2020 at 02:00:22PM +0200, Jan Beulich wrote:
->> On 22.05.2020 12:48, Roger Pau Monné wrote:
->>> On Fri, May 22, 2020 at 11:52:42AM +0200, Jan Beulich wrote:
->>>> On 20.05.2020 17:13, Roger Pau Monné wrote:
->>>>> OK, so I think I'm starting to understand this all. Sorry it's taken
->>>>> me so long. So it's my understanding that diff != 0 can only happen in
->>>>> Xen context, or when in an IST that has a different stack (ie: MCE, NMI
->>>>> or DF according to current.h) and running in PV mode?
->>>>>
->>>>> Wouldn't in then be fine to use (r)->cs & 3 to check we are in guest
->>>>> mode if diff != 0? I see a lot of other places where cs & 3 is already
->>>>> used to that effect AFAICT (like entry.S).
->>>>
->>>> Technically this would be correct afaics, but the idea with all this
->>>> is (or should I say "looks to be"?) to have the checks be as tight as
->>>> possible, to make sure we don't mistakenly consider something "guest
->>>> mode" which really isn't. IOW your suggestion would be fine with me
->>>> if we could exclude bugs anywhere in the code. But since this isn't
->>>> realistic, I consider your suggestion to be relaxing things by too
->>>> much.
->>>
->>> OK, so I take that (long time) we might also want to change the cs & 3
->>> checks from entry.S to check against __HYPERVISOR_CS explicitly?
->>
->> I didn't think so, no (not the least because of there not being any
->> guarantee afaik that EFI runtime calls couldn't play with segment
->> registers; they shouldn't, yes, but there's a lot of other "should"
->> many don't obey to). Those are guaranteed PV-only code paths. The
->> main issue here is that ->cs cannot be relied upon when a frame
->> points at HVM state.
-> 
-> Well, if it points at HVM state it could equally have __HYPERVISOR_CS
-> set by the guest.
+George Dunlap writes ("[PATCH 3/5] libxl: Generate golang bindings in libxl Makefile"):
+> +.PHONY: idl-external
+> +idl-external:
+> +	$(MAKE) -C $(XEN_ROOT)/tools/golang/xenlight idl-gen
 
-No, that's not the point. ->cs will never be __HYPERVISOR_CS in that
-case, as we never store the guest's CS selector there. Instead
-hvm_invalidate_regs_fields() clobbers the field in debug builds (with
-a value resulting in RPL 3), but zero (i.e. a value implying RPL 0)
-remains in place in release builds.
+Unfortunately this kind of thing is forbidden.  At least, without a
+rigorous proof that this isn't a concurrency hazard.
 
-Instead of doing this clobbering in debug mode only, we could - as I
-think I did suggest before - clobber always, but just once during vCPU
-init rather than on every VM exit. In debug mode we could then instead
-check that the dummy values didn't themselves get clobbered.
+The problem is that with parallel make, the concurrency correctness
+principles are as follows:
+(1) different targets use nonoverlapping temporary and output files
+    (makefile authors' responsibiliy)
+(2) one invocation of make won't make the same target twice at the
+    same time (fundamental principle of operation for make)
+(3) the same makefile (or different makefiles with overlapping
+    targets) may not be entered multiple times in parallel
+    (build system authors' responsibility; preclucdes most use of
+    make -C to sibling directories rather than to children)
 
-> Will things work anyway if you get here from an exception generated by
-> EFI code that has changed the code segment? You are going to hit the
-> assert at least, since diff will be != 0 and cs != __HYPERVISOR_CS?
+A correctness proof to make an exception would involve demonstrating
+that the tools/golang directories never touch this file when invoked
+as part of a recursive build.  NB, consider the clean targets too.
 
-What would guarantee the latter? Additionally they could in principle
-also have switched stacks then, i.e. diff may then also be larger than
-PRIMARY_STACK_SIZE, in which case - with the patch in place - the
-assertion is bypassed altogether.
+Alternatively, move the generated golang files to tools/libxl maybe,
+and perhaps leave symlinks behind.
 
-> I would prefer to keep things coherent by either using cs & 3 or
-> cs == __HYPERVISOR_CS everywhere if possible, as I'm still unsure of
-> the benefit of using __HYPERVISOR_CS.
+Or convert the whole (of tools/, maybe) to nonrecursive make using eg
+subdirmk :-).  https://diziet.dreamwidth.org/5763.html
 
-See above.
-
-Jan
+Sorry,
+Ian.
 
