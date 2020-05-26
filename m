@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9FDE1E3234
-	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 00:17:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48BAE1E322F
+	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 00:16:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdhsd-00084P-7t; Tue, 26 May 2020 22:17:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jdhsK-0007wl-VY; Tue, 26 May 2020 22:16:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=52a6=7I=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jdhsb-00083n-J8
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 22:17:01 +0000
-X-Inumbo-ID: 94daf39a-9f9e-11ea-a6c3-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 94daf39a-9f9e-11ea-a6c3-12813bfff9fa;
- Tue, 26 May 2020 22:16:44 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ id 1jdhsJ-0007we-Pr
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 22:16:43 +0000
+X-Inumbo-ID: 940e59e8-9f9e-11ea-8993-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 940e59e8-9f9e-11ea-8993-bc764e2007e4;
+ Tue, 26 May 2020 22:16:43 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: cu8UWhvEil7kDZD8zHi5/jSJQD0btiknIDvUtyRoaZOu5JTNQNJuhxwRU8GYWVJ9i698NuCL1I
- Mgu4pRtHmAIP88qZMM0ZJK63RxGG+g1CyXeVQHDQm9rEtnoXG5GKUIp40KJo0oXLZoehC86n6J
- h7gEWVSr34fKFia57eCXrCS4DF5r2PaqtwfikLD59jz9b6j3m4FcBMmfvRh+4OYuJOkip8HMNW
- KAwL/l2LPuXJ+G8kGyah9iXkbYsKo4Ce2h8M5TUg11rYR0O+jvIfzZa2TL1SETYvXyYjc0IAIa
- 2W4=
+IronPort-SDR: eTEhCJ/mCCQHeXvQIyLpMeRUv7+peNP5dOgSSyYqLeB8zC+ed1/0TLuZK6vlVfNIGko+tqoG6n
+ T7tMQUngaCKt/CXqMWtz78gIUTSeILGE7F3iFtIVjw/A07LtYHI2dIOIvbWsaIIfu0zpY8wJdD
+ E+JfePvQ5/J4argGdB4m3kuEaLcVRz2a2AHMkqGWHej1vCte7MTRA3UpthGlsjaOQYG52nOozm
+ xYVIFntpnV9nFNthvSZuv8kjS7hXLlBLzTWqCj9lFSpl6qPgJjBYLv8bZ+t+iD4XzGpSYbigZ3
+ Ol0=
 X-SBRS: 2.7
-X-MesageID: 18520581
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 18759804
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,439,1583211600"; d="scan'208";a="18520581"
+X-IronPort-AV: E=Sophos;i="5.73,439,1583211600"; d="scan'208";a="18759804"
 From: George Dunlap <george.dunlap@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH v2 4/5] automation: Add golang packages to various dockerfiles
-Date: Tue, 26 May 2020 23:16:11 +0100
-Message-ID: <20200526221612.900922-5-george.dunlap@citrix.com>
+Subject: [PATCH v2 5/5] automation/containerize: Add a shortcut for Debian
+ unstable
+Date: Tue, 26 May 2020 23:16:12 +0100
+Message-ID: <20200526221612.900922-6-george.dunlap@citrix.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200526221612.900922-1-george.dunlap@citrix.com>
 References: <20200526221612.900922-1-george.dunlap@citrix.com>
@@ -53,66 +53,39 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Doug
- Goldstein <cardoe@cardoe.com>, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-
-Specifically, Fedora 29, Archlinux, and Debian unstable.  This will
-cause the CI loop to detect golang build failures.
-
-CentOS 6 and 7 don't have golang packages, and the packages in
-stretch, jessie, xenial, and trusty are too old.
 
 Signed-off-by: George Dunlap <george.dunlap@citrix.com>
 ---
 v2:
 - New
 
-CC: Wei Liu <wl@xen.org>
 CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Wei Liu <wl@xen.org>
 ---
- automation/build/archlinux/current.dockerfile | 1 +
- automation/build/debian/unstable.dockerfile   | 1 +
- automation/build/fedora/29.dockerfile         | 1 +
- 3 files changed, 3 insertions(+)
+ automation/scripts/containerize | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
-index 5095de65b8..d8fbebaf79 100644
---- a/automation/build/archlinux/current.dockerfile
-+++ b/automation/build/archlinux/current.dockerfile
-@@ -16,6 +16,7 @@ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
-         ghostscript \
-         git \
-         gnutls \
-+        go \
-         iasl \
-         inetutils \
-         iproute \
-diff --git a/automation/build/debian/unstable.dockerfile b/automation/build/debian/unstable.dockerfile
-index d0aa5ad2bb..aeb4f3448b 100644
---- a/automation/build/debian/unstable.dockerfile
-+++ b/automation/build/debian/unstable.dockerfile
-@@ -45,6 +45,7 @@ RUN apt-get update && \
-         nasm \
-         gnupg \
-         apt-transport-https \
-+        golang \
-         && \
-         apt-get autoremove -y && \
-         apt-get clean && \
-diff --git a/automation/build/fedora/29.dockerfile b/automation/build/fedora/29.dockerfile
-index 5be4a9e229..6a4e5b0413 100644
---- a/automation/build/fedora/29.dockerfile
-+++ b/automation/build/fedora/29.dockerfile
-@@ -40,5 +40,6 @@ RUN dnf -y install \
-         nasm \
-         ocaml \
-         ocaml-findlib \
-+        golang \
-     && dnf clean all && \
-     rm -rf /var/cache/dnf
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index fbc4bc22d6..b71edd736c 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -22,6 +22,7 @@ case "_${CONTAINER}" in
+     _fedora) CONTAINER="${BASE}/fedora:29";;
+     _jessie) CONTAINER="${BASE}/debian:jessie" ;;
+     _stretch|_) CONTAINER="${BASE}/debian:stretch" ;;
++    _unstable|_) CONTAINER="${BASE}/debian:unstable" ;;
+     _trusty) CONTAINER="${BASE}/ubuntu:trusty" ;;
+     _xenial) CONTAINER="${BASE}/ubuntu:xenial" ;;
+ esac
+@@ -91,4 +92,3 @@ exec docker run \
+     -${termint}i --rm -- \
+     ${CONTAINER} \
+     ${cmd}
+-
 -- 
 2.25.1
 
