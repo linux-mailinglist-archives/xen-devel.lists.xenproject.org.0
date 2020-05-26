@@ -2,38 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84A9E1E1B8E
+	by mail.lfdr.de (Postfix) with ESMTPS id B6A311E1B8F
 	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 08:51:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdTPW-0004j3-CB; Tue, 26 May 2020 06:50:02 +0000
+	id 1jdTQN-0005IT-Lx; Tue, 26 May 2020 06:50:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ta6a=7I=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jdTPU-0004bY-TJ
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 06:50:00 +0000
-X-Inumbo-ID: 1dc7f20c-9f1d-11ea-af76-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KTO2=7I=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jdTQL-0005IJ-Ae
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 06:50:53 +0000
+X-Inumbo-ID: 3d7dd5ee-9f1d-11ea-af76-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1dc7f20c-9f1d-11ea-af76-12813bfff9fa;
- Tue, 26 May 2020 06:49:59 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 27FA1AD4D;
- Tue, 26 May 2020 06:50:01 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: extend coverage of HLE "bad page" workaround
-Message-ID: <b238f66d-37a9-3080-4f2b-90225ea17102@suse.com>
-Date: Tue, 26 May 2020 08:49:52 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 3d7dd5ee-9f1d-11ea-af76-12813bfff9fa;
+ Tue, 26 May 2020 06:50:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hDVhusL0g6O8WwIm66OmKpJNwGxcl6En/IbTLoAzhoQ=; b=Bg9gC4xrPSADmmzBHQ4ZnWloD
+ uQ6prsEfNjd0Gj4kwU/To9SgElBks2IUl4g463m230hNJYioKF4jwbFlyTrTKxwO54vymGcA9cR7Y
+ HbBea2yLSXt68X2eThb8KA+vO48T25ujzc2b0By9eap54oEP1IUp9yxoe97x3pqOxQ3IM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdTQJ-00032Y-Ck; Tue, 26 May 2020 06:50:51 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdTQJ-0005jG-5B; Tue, 26 May 2020 06:50:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdTQJ-00026j-4c; Tue, 26 May 2020 06:50:51 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150372-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [seabios test] 150372: regressions - FAIL
+X-Osstest-Failures: seabios:build-i386:xen-build:fail:regression
+ seabios:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+ seabios:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+ seabios:build-i386-libvirt:build-check(1):blocked:nonblocking
+ seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+X-Osstest-Versions-This: seabios=2e3de6253422112ae43e608661ba94ea6b345694
+X-Osstest-Versions-That: seabios=d9aea4a7cd59e00f5ed96b6442806dde0959e1ca
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 26 May 2020 06:50:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,24 +75,108 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Respective Core Gen10 processor lines are affected, too.
+flight 150372 seabios real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150372/
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Regressions :-(
 
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -6045,6 +6045,8 @@ const struct platform_bad_page *__init g
-     case 0x000506e0: /* errata SKL167 / SKW159 */
-     case 0x000806e0: /* erratum KBL??? */
-     case 0x000906e0: /* errata KBL??? / KBW114 / CFW103 */
-+    case 0x000a0650: /* erratum Core Gen10 U/H/S 101 */
-+    case 0x000a0660: /* erratum Core Gen10 U/H/S 101 */
-         *array_size = (cpuid_eax(0) >= 7 && !cpu_has_hypervisor &&
-                        (cpuid_count_ebx(7, 0) & cpufeat_mask(X86_FEATURE_HLE)));
-         return &hle_bad_page;
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386                    6 xen-build                fail REGR. vs. 150360
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 150360
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 150360
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+
+version targeted for testing:
+ seabios              2e3de6253422112ae43e608661ba94ea6b345694
+baseline version:
+ seabios              d9aea4a7cd59e00f5ed96b6442806dde0959e1ca
+
+Last test of basis   150360  2020-05-25 05:11:48 Z    1 days
+Testing same since   150369  2020-05-25 21:40:16 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 2e3de6253422112ae43e608661ba94ea6b345694
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Mon May 25 11:06:27 2020 +0200
+
+    pci: fix mmconfig support
+    
+    The MODESEGMENT condition is backwards, with the effect that
+    mmconfig mode is not used to configure pci bars during POST.
+    
+    Oops.  Fix it.
+    
+    The only real mode pci config space access seems to come from the
+    ipxe option rom initialiation.  Which happens to work via mmconfig
+    because it runs in big real mode so this went unnoticed ...
+    
+    Fixes: 6a3b59ab9c7d ("pci: add mmconfig support")
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
 
