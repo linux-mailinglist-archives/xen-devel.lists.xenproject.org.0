@@ -2,51 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18AE61E2769
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 18:46:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 875891E27CA
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 18:58:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdciR-0004q6-8e; Tue, 26 May 2020 16:46:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jdct8-00063G-7V; Tue, 26 May 2020 16:57:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oCnM=7I=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jdciQ-0004q1-5B
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 16:46:10 +0000
-X-Inumbo-ID: 664aa6a2-9f70-11ea-81bc-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 664aa6a2-9f70-11ea-81bc-bc764e2007e4;
- Tue, 26 May 2020 16:46:09 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6A0CD20787;
- Tue, 26 May 2020 16:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590511568;
- bh=98RcdAfJdXvYGhomBt3uJoTyCPPiyKT2lI4hSkGoc6U=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=ple5w+MpbkZnIDgB7dx2qegDYxlz5l3fOQML0rEwpo5BGTCKuDL4LswMWVG/He8XU
- vO2ref1LVhL+x7z0wBa1Pk9C/JGfldmajj2TuLQo9yldp1JlFhRNJ49yxznh4BJUEC
- 1TlvX3/+Mnq+TuTqLewVASgnR+8fulQpzdo/CF3k=
-Date: Tue, 26 May 2020 09:46:07 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 12/12] xen/arm: call iomem_permit_access for passthrough
- devices
-In-Reply-To: <453b58f8-d9ee-bbe7-ac05-b5268620e79f@xen.org>
-Message-ID: <alpine.DEB.2.21.2005260941250.27502@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-12-sstabellini@kernel.org>
- <521c8e55-73e8-950f-2d94-70b0c664bd3d@xen.org>
- <alpine.DEB.2.21.2004291318270.28941@sstabellini-ThinkPad-T480s>
- <f7f01eca-2415-e102-318f-0c58606fda96@xen.org>
- <453b58f8-d9ee-bbe7-ac05-b5268620e79f@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=gj5j=7I=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jdct7-00063B-Gt
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 16:57:13 +0000
+X-Inumbo-ID: f1465156-9f71-11ea-a67a-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f1465156-9f71-11ea-a67a-12813bfff9fa;
+ Tue, 26 May 2020 16:57:12 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Ed4zbgttKkGzIfaAMvpWOXhlhTutbzcPEmuDnZM8pbCvXqxKC4m9CSxobFnlIikgvFyroi9lQO
+ cIgQ2WhxACHkxlhldfZXtDV0TRsJkHQT3Mnre6bKvtu4ABZzaL9M4ueaxcK55zf9cNCmhjG7dZ
+ cpmm+vyxv3TdptcpeZTgzOIPgnV8avyYTQF23ztnakf7YA8myDfIHWDcNqBdtUkqfIYGPtGUsj
+ YjnBWodCwkiP7xVXXMpxfjFn9VWFWpHy00YQ7z8W7fRmJL97Kd6HwRHesM5BWqtfdFLxB/wYj+
+ yCo=
+X-SBRS: 2.7
+X-MesageID: 18829419
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,437,1583211600"; d="scan'208";a="18829419"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID: <24269.19042.534647.23671@mariner.uk.xensource.com>
+Date: Tue, 26 May 2020 17:57:06 +0100
+To: George Dunlap <George.Dunlap@citrix.com>
+Subject: Re: [PATCH 3/5] libxl: Generate golang bindings in libxl Makefile
+In-Reply-To: <B1814837-4E4B-4795-887E-769E3D25608A@citrix.com>
+References: <20200522161240.3748320-1-george.dunlap@citrix.com>
+ <20200522161240.3748320-4-george.dunlap@citrix.com>
+ <24269.8019.97048.52370@mariner.uk.xensource.com>
+ <B1814837-4E4B-4795-887E-769E3D25608A@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,51 +56,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr_Babchuk@epam.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sun, 24 May 2020, Julien Grall wrote:
-> On 30/04/2020 14:01, Julien Grall wrote:
-> > On 29/04/2020 21:47, Stefano Stabellini wrote:
-> > > On Wed, 15 Apr 2020, Julien Grall wrote: But doesn't it make sense to give
-> > > domU permission if it is going to get
-> > > the memory mapped? But admittedly I can't think of something that would
-> > > break because of the lack of the iomem_permit_access call in this code
-> > > path.
-> > 
-> > On Arm, the permissions are only useful if you plan you DomU to delegate the
-> > regions to another domain. As your domain is not even aware it is running on
-> > Xen (we don't expose 'xen' node in the DT), it makes little sense to add the
-> > permission.
+George Dunlap writes ("Re: [PATCH 3/5] libxl: Generate golang bindings in libxl Makefile"):
+> tools/Makefile:subdirs-all is implemented as a non-parallel for loop executing over SUBDIRS-y; tools/golang comes after tools/libxl in that list, and so tools/golang:all will never be called until after tools/libxl:all has completed.  This invariant — that tools/golang/Makefile:all must not be called until tools/libxl/Makefile:all has completed must be kept regardless of this patch, since xenlight/Makefile:build depends on other output from tools/libxl/Makefile:all.
+
+I had not spotted this aspect of the situation.  But the toplevel
+Makefile is parallel.  I think this means that make -C works between
+different directories in tools/.
+
+Provided no-one says `make all install' (which is a thing that people
+expect to work but which is already badly broken).
+
+> So as long as nothing else calls tools/libxl:all or tools/libxl:idl-external, this should be safe.  We could add a comments near xenlight/Makefile:idl-gen saying it must only be called from libxl/Makefile:idl-external; and to libxl/Makefile:idl-external saying it must not be called recursively from another Makefile.
+
+So, err, I'm sold on the original patch, I think.
+
+Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+
+I'll answer your other comments anyway:
+
+> > Alternatively, move the generated golang files to tools/libxl maybe,
+> > and perhaps leave symlinks behind.
 > 
-> I actually found one use when helping a user last week. You can dump the list
-> of MMIO regions assigned to a guest from Xen Console.
+> Would that result in the files being accessible to the golang build tools at https://xenbits.xenproject.org/git-http/xen.git/tools/golang/xenlight ?  If not, it defeats the purpose of having the files checked into the tree.
+
+Yes.  git can convey symlinks.  (I'm assuming that the golang build
+tools fetch the git objects and do git checkout, rather than
+trying to download individual raw files from gitweb...)
+
+> > Or convert the whole (of tools/, maybe) to nonrecursive make using eg
+> > subdirmk :-).  https://diziet.dreamwidth.org/5763.html
 > 
-> This will use d->iomem_caps that is modified via iomem_permit_access().
-> Without it, there is no easy way to confirm the list of MMIO regions assigned
-> to a guest. Although...
-> 
-> > Even today, you can map IOMEM to a DomU and then revert the permission right
-> > after. They IOMEM will still be mapped in the guest and it will act normaly.
-> 
-> ... this would not help the case where permissions are reverted. But I am
-> assuming this shouldn't happen for Dom0less.
+> This isn’t really a practical suggestion: I don’t have time to refactor the entire libxl Makefile tree, and certainly don’t have time by Friday.
 
-Thank you for looking into this
+Yes, it wasn't a serious suggestion.  Sorry that that apparently
+wasn't clear.
 
-
-> Stefano, I am not sure what's your plan for the series itself for Xen 4.14. I
-> think this patch could go in now. Any thoughts?
-
-For the series: I have addresses all comments in my working tree except
-for the ones on memory allocation (the thread "xen: introduce
-reserve_heap_pages"). It looks like that part requires a complete
-rewrite, and it seems that the new code is not trivial to write. So I am
-thinking of not targeting 4.14. What do you think? Do you think the new
-code should be "easy" enough that I could target 4.14?
-
-For this patch: it is fine to go in now, doesn't have to wait for the
-series.
+Regards,
+Ian.
 
