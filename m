@@ -2,48 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 925071E1D18
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 10:19:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 304D81E1D49
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 10:27:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdUmp-0005Af-8c; Tue, 26 May 2020 08:18:11 +0000
+	id 1jdUvY-000676-AX; Tue, 26 May 2020 08:27:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3e+z=7I=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jdUmn-0005Aa-5i
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 08:18:09 +0000
-X-Inumbo-ID: 6e09b302-9f29-11ea-9947-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=N6lx=7I=lucina.net=martin@srs-us1.protection.inumbo.net>)
+ id 1jdUvX-000671-EM
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 08:27:11 +0000
+X-Inumbo-ID: adfd328a-9f2a-11ea-9947-bc764e2007e4
+Received: from smtp.lucina.net (unknown [62.176.169.44])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6e09b302-9f29-11ea-9947-bc764e2007e4;
- Tue, 26 May 2020 08:18:08 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 42F57AEED;
- Tue, 26 May 2020 08:18:09 +0000 (UTC)
-Subject: Re: [PATCH v10 00/12] Add hypervisor sysfs-like support
-To: paul@xen.org, 'Jan Beulich' <jbeulich@suse.com>,
- 'Kevin Tian' <kevin.tian@intel.com>, 'Julien Grall' <julien@xen.org>,
- 'Jun Nakajima' <jun.nakajima@intel.com>, 'Wei Liu' <wl@xen.org>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>
-References: <20200519072106.26894-1-jgross@suse.com>
- <24935c43-2f2d-83cf-9039-ec0f97498103@suse.com>
- <305d829f-24a9-1a6d-2131-fed92c22c305@suse.com>
- <000f01d62db4$57181e90$05485bb0$@xen.org>
- <fc55f4dc-c802-2153-cd6a-736a29e8a396@suse.com>
- <003f01d63333$aa399f20$feacdd60$@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <2dcec236-038d-2279-6415-cb7a68100829@suse.com>
-Date: Tue, 26 May 2020 10:18:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id adfd328a-9f2a-11ea-9947-bc764e2007e4;
+ Tue, 26 May 2020 08:27:05 +0000 (UTC)
+Received: from nodbug.lucina.net (78-141-76-187.dynamic.orange.sk
+ [78.141.76.187])
+ by smtp.lucina.net (Postfix) with ESMTPSA id 2B303122804;
+ Tue, 26 May 2020 10:27:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lucina.net;
+ s=dkim-201811; t=1590481624;
+ bh=nMbw4GKCmitbAyTsPCbgeJZDMgcv0pZGQeT3lxD0qLU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=O58q11Z6PMCr4KpKLZFxlfh72IAdiaHSUro7vrskbvfQB/G5jvVkuiXFfcvnHRbGe
+ usat0Jdc6C2ZbqD+CQD7P3xTrQDmcHCcjupohbNSQaRK3lJ7nEHfD90zKK9xIFf7Yz
+ OCT+Y1VsUkrf01ysO9rkAi2gt2KCBZIiVFClD1SLNt0PNXu/pyYfF+z+YtjyIk1i6O
+ 8FwTb23AFsnPBoP6FZYURvZksDbDrTLJkYRK4IMImQbyKlUsqCC7otXFPKC3uaC3a9
+ NsE4Fmw5F6yWGtiJdB5e9xCA81Oo8H+TcTH9KGld8bg+pw+lIi0Lx0NmIZTvQsTY+s
+ y2Qh/go8Nwzcw==
+Received: by nodbug.lucina.net (Postfix, from userid 1000)
+ id EB756268436E; Tue, 26 May 2020 10:27:03 +0200 (CEST)
+Date: Tue, 26 May 2020 10:27:03 +0200
+From: Martin Lucina <martin@lucina.net>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Xen PVH domU start-of-day VCPU state
+Message-ID: <20200526082703.GA5942@nodbug.lucina.net>
+Mail-Followup-To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, mirageos-devel@lists.xenproject.org,
+ anil@recoil.org, dave@recoil.org
+References: <20200525160401.GA3091@nodbug.lucina.net>
+ <6fadfd84-0fc4-d462-a917-1c88ec0822b8@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <003f01d63333$aa399f20$feacdd60$@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <6fadfd84-0fc4-d462-a917-1c88ec0822b8@citrix.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,178 +60,150 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>,
- 'Anthony PERARD' <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, dave@recoil.org,
+ mirageos-devel@lists.xenproject.org, anil@recoil.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26.05.20 10:00, Paul Durrant wrote:
->> -----Original Message-----
->> From: J√ºrgen Gro√ü <jgross@suse.com>
->> Sent: 25 May 2020 08:02
->> To: paul@xen.org; 'Jan Beulich' <jbeulich@suse.com>; 'Kevin Tian' <kevin.tian@intel.com>; 'Julien
->> Grall' <julien@xen.org>; 'Jun Nakajima' <jun.nakajima@intel.com>; 'Wei Liu' <wl@xen.org>; 'Ian
->> Jackson' <ian.jackson@eu.citrix.com>; 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>
->> Cc: 'Stefano Stabellini' <sstabellini@kernel.org>; 'Andrew Cooper' <andrew.cooper3@citrix.com>;
->> 'George Dunlap' <george.dunlap@citrix.com>; 'Anthony PERARD' <anthony.perard@citrix.com>; xen-
->> devel@lists.xenproject.org; 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>; 'Roger Pau Monn√©'
->> <roger.pau@citrix.com>
->> Subject: Re: [PATCH v10 00/12] Add hypervisor sysfs-like support
->>
->> On 19.05.20 10:06, Paul Durrant wrote:
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: 19 May 2020 08:45
->>>> To: J√ºrgen Gro√ü <jgross@suse.com>; Kevin Tian <kevin.tian@intel.com>; Julien Grall
->> <julien@xen.org>;
->>>> Jun Nakajima <jun.nakajima@intel.com>; Wei Liu <wl@xen.org>; Ian Jackson
->> <ian.jackson@eu.citrix.com>;
->>>> Daniel De Graaf <dgdegra@tycho.nsa.gov>; Paul Durrant <paul@xen.org>
->>>> Cc: xen-devel@lists.xenproject.org; Stefano Stabellini <sstabellini@kernel.org>; Andrew Cooper
->>>> <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Anthony PERARD
->>>> <anthony.perard@citrix.com>; Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Roger Pau Monn√©
->>>> <roger.pau@citrix.com>
->>>> Subject: Re: [PATCH v10 00/12] Add hypervisor sysfs-like support
->>>>
->>>> On 19.05.2020 09:30, J√ºrgen Gro√ü wrote:
->>>>> On 19.05.20 09:20, Juergen Gross wrote:
->>>>>>
->>>>>> Juergen Gross (12):
->>>>>>      xen/vmx: let opt_ept_ad always reflect the current setting
->>>>>>      xen: add a generic way to include binary files as variables
->>>>>>      docs: add feature document for Xen hypervisor sysfs-like support
->>>>>>      xen: add basic hypervisor filesystem support
->>>>>>      libs: add libxenhypfs
->>>>>>      tools: add xenfs tool
->>>>>>      xen: provide version information in hypfs
->>>>>>      xen: add /buildinfo/config entry to hypervisor filesystem
->>>>>>      xen: add runtime parameter access support to hypfs
->>>>>>      tools/libxl: use libxenhypfs for setting xen runtime parameters
->>>>>>      tools/libxc: remove xc_set_parameters()
->>>>>>      xen: remove XEN_SYSCTL_set_parameter support
->>>>>>
->>>>>>     .gitignore                          |   6 +
->>>>>>     docs/features/hypervisorfs.pandoc   |  92 +++++
->>>>>>     docs/man/xenhypfs.1.pod             |  61 ++++
->>>>>>     docs/misc/hypfs-paths.pandoc        | 165 +++++++++
->>>>>>     tools/Rules.mk                      |   8 +-
->>>>>>     tools/flask/policy/modules/dom0.te  |   4 +-
->>>>>>     tools/libs/Makefile                 |   1 +
->>>>>>     tools/libs/hypfs/Makefile           |  16 +
->>>>>>     tools/libs/hypfs/core.c             | 536 ++++++++++++++++++++++++++++
->>>>>>     tools/libs/hypfs/include/xenhypfs.h |  90 +++++
->>>>>>     tools/libs/hypfs/libxenhypfs.map    |  10 +
->>>>>>     tools/libs/hypfs/xenhypfs.pc.in     |  10 +
->>>>>>     tools/libxc/include/xenctrl.h       |   1 -
->>>>>>     tools/libxc/xc_misc.c               |  21 --
->>>>>>     tools/libxl/Makefile                |   3 +-
->>>>>>     tools/libxl/libxl.c                 |  53 ++-
->>>>>>     tools/libxl/libxl_internal.h        |   1 +
->>>>>>     tools/libxl/xenlight.pc.in          |   2 +-
->>>>>>     tools/misc/Makefile                 |   6 +
->>>>>>     tools/misc/xenhypfs.c               | 192 ++++++++++
->>>>>>     tools/xl/xl_misc.c                  |   1 -
->>>>>>     xen/arch/arm/traps.c                |   3 +
->>>>>>     xen/arch/arm/xen.lds.S              |  13 +-
->>>>>>     xen/arch/x86/hvm/hypercall.c        |   3 +
->>>>>>     xen/arch/x86/hvm/vmx/vmcs.c         |  47 ++-
->>>>>>     xen/arch/x86/hvm/vmx/vmx.c          |   4 +-
->>>>>>     xen/arch/x86/hypercall.c            |   3 +
->>>>>>     xen/arch/x86/pv/domain.c            |  21 +-
->>>>>>     xen/arch/x86/pv/hypercall.c         |   3 +
->>>>>>     xen/arch/x86/xen.lds.S              |  12 +-
->>>>>>     xen/common/Kconfig                  |  23 ++
->>>>>>     xen/common/Makefile                 |  13 +
->>>>>>     xen/common/grant_table.c            |  62 +++-
->>>>>>     xen/common/hypfs.c                  | 452 +++++++++++++++++++++++
->>>>>>     xen/common/kernel.c                 |  84 ++++-
->>>>>>     xen/common/sysctl.c                 |  36 --
->>>>>>     xen/drivers/char/console.c          |  72 +++-
->>>>>>     xen/include/Makefile                |   1 +
->>>>>>     xen/include/asm-x86/hvm/vmx/vmcs.h  |   3 +-
->>>>>>     xen/include/public/hypfs.h          | 129 +++++++
->>>>>>     xen/include/public/sysctl.h         |  19 +-
->>>>>>     xen/include/public/xen.h            |   1 +
->>>>>>     xen/include/xen/hypercall.h         |  10 +
->>>>>>     xen/include/xen/hypfs.h             | 123 +++++++
->>>>>>     xen/include/xen/kernel.h            |   3 +
->>>>>>     xen/include/xen/lib.h               |   1 -
->>>>>>     xen/include/xen/param.h             | 126 +++++--
->>>>>>     xen/include/xlat.lst                |   2 +
->>>>>>     xen/include/xsm/dummy.h             |   6 +
->>>>>>     xen/include/xsm/xsm.h               |   6 +
->>>>>>     xen/tools/binfile                   |  43 +++
->>>>>>     xen/xsm/dummy.c                     |   1 +
->>>>>>     xen/xsm/flask/Makefile              |   5 +-
->>>>>>     xen/xsm/flask/flask-policy.S        |  16 -
->>>>>>     xen/xsm/flask/hooks.c               |   9 +-
->>>>>>     xen/xsm/flask/policy/access_vectors |   4 +-
->>>>>>     56 files changed, 2445 insertions(+), 193 deletions(-)
->>>>>>     create mode 100644 docs/features/hypervisorfs.pandoc
->>>>>>     create mode 100644 docs/man/xenhypfs.1.pod
->>>>>>     create mode 100644 docs/misc/hypfs-paths.pandoc
->>>>>>     create mode 100644 tools/libs/hypfs/Makefile
->>>>>>     create mode 100644 tools/libs/hypfs/core.c
->>>>>>     create mode 100644 tools/libs/hypfs/include/xenhypfs.h
->>>>>>     create mode 100644 tools/libs/hypfs/libxenhypfs.map
->>>>>>     create mode 100644 tools/libs/hypfs/xenhypfs.pc.in
->>>>>>     create mode 100644 tools/misc/xenhypfs.c
->>>>>>     create mode 100644 xen/common/hypfs.c
->>>>>>     create mode 100644 xen/include/public/hypfs.h
->>>>>>     create mode 100644 xen/include/xen/hypfs.h
->>>>>>     create mode 100755 xen/tools/binfile
->>>>>>     delete mode 100644 xen/xsm/flask/flask-policy.S
->>>>>>
->>>>>
->>>>> There are some Acks missing on this series, so please have a look at the
->>>>> patches!
->>>>>
->>>>> There are missing especially:
->>>>>
->>>>> - Patch 1: VMX maintainers
->>>>> - Patch 2 + 4: XSM maintainer
->>>>> - Patch 4 + 9: Arm maintainer
->>>>> - Patch 10 + 11: tools maintainers
->>>>>
->>>>> I'd really like the series to go into 4.14 (deadline this Friday).
->>>>
->>>
->>> I would also like to see this in 4.14.
->>>
->>>> FTR I'm intending to waive the need for the first three of the named
->>>> sets if they don't arrive by Friday (and there I don't mean last
->>>> minute on Friday) - they're not overly intrusive (maybe with the
->>>> exception of the XSM parts in #4) and the series has been pending
->>>> for long enough. I don't feel comfortable to do so for patch 10,
->>>> though; patch 11 looks to be simple enough again.
->>>>
->>>> Paul, as the release manager, please let me know if you disagree.
->>>>
->>>
->>> Looking at patch #4, I'm not confident that the XSM parts are complete (e.g. does xen.if need
->> updating?). Also I'd put the new access vector in xen2, since that's where set_parameter currently is
->> (and will be removed from in a later patch), but the xen class does appear to have space so that's
->> really just my taste.
->>
->> I don't think xen.if needs updating, as it contains only macros for
->> groups of operations.
->>
+On Monday, 25.05.2020 at†18:41, Andrew Cooper wrote:
+> On 25/05/2020 17:04, Martin Lucina wrote:
+> > Hi,
+> >
+> > I'm trying to bootstrap a new PVH-only Xen domU OS "from scratch", to
+> > replace our existing use of Mini-OS for the early boot/low-level support
+> > layer in MirageOS. I've done this by creating new Xen bindings for Solo5
+> > [1], basing them on our existing virtio code [2].
+> >
+> > Unfortunately, I can't seem to get past the first few instructions on VCPU
+> > boot. Here's what I have at the moment (abridged):
+> >
+> >     .section .note.solo5.xen
+> >
+> >             .align  4
+> >             .long   4
+> >             .long   4
+> >             .long   XEN_ELFNOTE_PHYS32_ENTRY
+> >             .ascii "Xen\0"
+> >             .long   _start32
+> >
+> >     /* ... */
+> >
+> >     .code32
+> >
+> >     ENTRY(_start32)
+> >             cld
+> >
+> >             lgdt (gdt64_ptr)
+> >             ljmp $0x10, $1f
+> >
+> >     1:      movl $0x18, %eax
+> >             movl %eax, %ds
+> >             movl %eax, %es
+> >             movl %eax, %ss
+> >
+> >             xorl %eax, %eax
+> >             movl %eax, %fs
+> >             movl %eax, %gs
+> >
+> > I have verified, via xl -v create -c ..., that the domain builder appears
+> > to be doing the right thing, and is interpreting the ELF NOTE correctly.
+> > However, for some reason I cannot fathom, I get a triple fault on the ljmp
+> > following the lgdt instruction above:
+> >
+> >     (XEN) d31v0 Triple fault - invoking HVM shutdown action 1
+> >     (XEN) *** Dumping Dom31 vcpu#0 state: ***
+> >     (XEN) ----[ Xen-4.11.4-pre  x86_64  debug=n   Not tainted ]----
+> >     (XEN) CPU:    0
+> >     (XEN) RIP:    0000:[<0000000000100028>]
+> >     (XEN) RFLAGS: 0000000000010002   CONTEXT: hvm guest (d31v0)
+> >     (XEN) rax: 0000000000000000   rbx: 0000000000116000   rcx: 0000000000000000
+> >     (XEN) rdx: 0000000000000000   rsi: 0000000000000000   rdi: 0000000000000000
+> >     (XEN) rbp: 0000000000000000   rsp: 0000000000000000   r8:  0000000000000000
+> >     (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
+> >     (XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000000000
+> >     (XEN) r15: 0000000000000000   cr0: 0000000000000011   cr4: 0000000000000000
+> >     (XEN) cr3: 0000000000000000   cr2: 0000000000000000
+> >     (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+> >     (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: 0000
 > 
-> Ok.
+> For extra help debugging this, you can dump the vmcs here:
 > 
->> As the new hypercall isn't only replacing set_parameter, but has much
->> wider semantics, I don't think it should go to xen2. There will be
->> probably more interfaces being replaced and/or added after all.
->>
+> andrewcoop@andrewcoop:/local/xen.git/xen$ git d
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 74c9f84462..8ae23545ae 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -1687,6 +1687,7 @@ void hvm_triple_fault(void)
+> †††††††††††† "Triple fault - invoking HVM shutdown action %d\n",
+> †††††††††††† reason);
+> †††† vcpu_show_execution_state(v);
+> +††† vmcs_dump_vcpu(v);
+> †††† domain_shutdown(d, reason);
+> †}
+> †
 > 
-> If you're happy with it then, in the absence of a response from Daniel, then I think patch #4 can go in. Patch #10 and #11 have acks now, so it looks like the series is good to go. Could you send a patch for CHANGELOG.md as I think we'd consider this a significant feature :-)
+> which will include the segment cache, including the just loaded GDT details.
 
-Will send a patch for CHANGELOG.md and one for SUPPORT.md.
+Thanks, I'll try that and report back.
 
+> 
+> > Cross-checking 0x100028 via gdb:
+> >
+> >     Dump of assembler code for function _start32:
+> >        0x00100020 <+0>:	cld
+> >        0x00100021 <+1>:	lgdtl  0x108040
+> >        0x00100028 <+8>:	ljmp   $0x10,$0x10002f
+> >        0x0010002f <+15>:	mov    $0x18,%eax
+> >
+> > I've spent a couple of days trying various things and cross-checking both
+> > with the Mini-OS PVH/HVM startup [3] and the Intel SDM, but no joy. I've
+> > also re-checked the GDT selector values used by the original virtio code
+> > which this is based on, and they appear to be fine.
+> >
+> > This is not helped by the fact that the Xen domU PVH start-of-day VCPU
+> > state does not seem to be documented anywhere, with the exception of
+> > "struct hvm_start_info is passed in %ebx" as stated in
+> > arch-x86/hvm/start_info.h.
+> 
+> https://xenbits.xen.org/docs/unstable/misc/pvh.html
+> 
+> The starting state is described there.† It is 32bit flat mode, very
+> similar to multiboot's entry.
+> 
+> > In case it's relevant, I'm testing with Xen 4.11.4 as shipped with Debian
+> > 10, on an Intel Broadwell CPU.
+> >
+> > Any ideas?
+> 
+> Sadly no.
+> 
+> From
+> https://github.com/mato/solo5/commit/f2539d588883a2e8854998c75bdea9b10f113ed6
+> 
+> all data looks to be linked below the 4G boundary, so the 32/64bitness
+> of lgdt shouldn't matter in this case.
 
-Juergen
+That's correct, the virtio code this is based on doesn't use anything above
+1GB.
+
+> Reordering the logic as per MiniOS/XTF will avoid the need for a 32bit
+> CS selector - it is safe to run on the ABI-provided %cs until you switch
+> into 64bit mode.
+
+I can try poking at the order some more, but was aiming for a minimal diff
+against virtio to start with.
+
+> It might also be interesting to see exactly what value is in gdt64_ptr,
+> just to check that the base an limit are set sensibly.
+
+Seems fine:
+
+    (gdb) info address gdt64_ptr
+    Symbol "gdt64_ptr" is at 0x108040 in a file compiled without debugging.
+    (gdb) x /1xg 0x108040
+    0x108040:	0x000000108000002f
+    (gdb) p/x (struct gdtptr)gdt64_ptr
+    $3 = {limit = 0x2f, base = 0x108000}
+
+-mato
 
