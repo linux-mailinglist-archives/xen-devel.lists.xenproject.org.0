@@ -2,72 +2,99 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C75F1E1892
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 02:52:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CCCB1E195C
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 04:29:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdNoS-00066u-2N; Tue, 26 May 2020 00:51:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jdPJW-0006qa-68; Tue, 26 May 2020 02:27:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KTO2=7I=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jdNoQ-00066p-3v
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 00:51:22 +0000
-X-Inumbo-ID: 03e2c86c-9eeb-11ea-b07b-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 03e2c86c-9eeb-11ea-b07b-bc764e2007e4;
- Tue, 26 May 2020 00:51:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=AqCTqioUBy9ngGcgRgUuCI+7Vo/69ArYQfbveto80Mg=; b=GxILNe7bj/Ov7jA/8MnvEZnB+
- QCzYAGCyim4Y4OnGMZ0CN/bxtlSh4VA1geR3GxB3f+Gyadqair3pKungSPTk6ShgA5TvzGs2oKHoJ
- lEPN2X8hlB5Upmf3vNuEJ+111e+smFXeKbL5uZjmiMr91MpwAuDdHIh+cqruLuf4aDtJ8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jdNoO-0001nv-3G; Tue, 26 May 2020 00:51:20 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jdNoN-0002rP-QX; Tue, 26 May 2020 00:51:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jdNoN-0004kz-Q3; Tue, 26 May 2020 00:51:19 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150369-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=fnDi=7I=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
+ id 1jdPJU-0006qV-Se
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 02:27:33 +0000
+X-Inumbo-ID: 7370769a-9ef8-11ea-af56-12813bfff9fa
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown
+ [40.107.22.83]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7370769a-9ef8-11ea-af56-12813bfff9fa;
+ Tue, 26 May 2020 02:27:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DbdDL8yGHAb62K6iQNkLhdVALxPDNw57R/YPF2cxA2M6XOmKaC5shPRib2ZSnT+9WhEeDcVg7Q3c02EswarOg+EEo17mt9Qhk/iPFJGHLg6JRydDmOZ7AiWigfYVI075ckB+hzZyd2/KmMRE3xe714iS+Z8tWBjOGEtpCahy4TlpXEsuL+dXVjp6JS34/mquErfTRpFEObv94iwQWZ8UrWBB65Q2wolQWyaW7NAHzE3t04XVS0ba0Hp4vTrnaQBiht8sBIdDP2SPEMAWyQFudT0CzMizbOzF04fRrc3qRC9qM1Iqx+MrAXBZeqPoxTWwy1vwBP4wh37xN0V94NsKhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eb6VUL5NMaVrqiQCWQbi5xVS92eUxRsLmpNuZWPjoUw=;
+ b=NKQA6znZk+L0QE9KZ7WBy5KBalajTp2v8yHvIQNYGhUC6d9XhMRSYMJ4MdlEszRFLslyKUiIMM90WWuivK4IUBzUoZlBeDBVzIZfivI6RZg9pqd/a/TM1//4h06ff3vLAhVSv5YOu8vSHwc4XuMtE5sP2ILyLgXmaJcYvqz2S1j4pTNT3luo+ukCOlDf/SBdHaw7mDdYeWEeptreXwU9p0Lj96HJ3FF1vjxuEHXsjF+KBRA6na7JqJgtihoOfcU88u0u6LO57j+DcNAI8qINx0KsOZkAVZgnuIl+5P6PV0ngF8DZZ+HQdGTn2P4lVCKy5160mxJYO5oitrJ/tdm6iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eb6VUL5NMaVrqiQCWQbi5xVS92eUxRsLmpNuZWPjoUw=;
+ b=mPzqz7O9onvi9SJ4vTIZuBsaZ9cxpcddhJNPFowB6bvE+wBHGUCEnbSiJ6EDBmUZXNGl7dXYfCl8rynf8UbA155nxD1q7NbnxngDyRiQPZwIdmT4De1vFmM19uZhNQZE3eZK/WNlflGQeuWUsZ/l+mACWiu3dBJM6zl9s63IkTw=
+Received: from VI1PR0302MB3407.eurprd03.prod.outlook.com
+ (2603:10a6:803:23::18) by VI1PR0302MB3230.eurprd03.prod.outlook.com
+ (2603:10a6:803:18::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.29; Tue, 26 May
+ 2020 02:27:29 +0000
+Received: from VI1PR0302MB3407.eurprd03.prod.outlook.com
+ ([fe80::a01e:c0b1:7174:4c75]) by VI1PR0302MB3407.eurprd03.prod.outlook.com
+ ([fe80::a01e:c0b1:7174:4c75%5]) with mapi id 15.20.3021.029; Tue, 26 May 2020
+ 02:27:29 +0000
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: "andrii.anisov@gmail.com" <andrii.anisov@gmail.com>,
+ "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
+ "dfaggioli@suse.com" <dfaggioli@suse.com>, "julien.grall@arm.com"
+ <julien.grall@arm.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [Xen-devel] [RFC 1/9] schedule: Introduce per-pcpu time accounting
+Thread-Topic: [Xen-devel] [RFC 1/9] schedule: Introduce per-pcpu time
+ accounting
+Thread-Index: AQHVaIxKZPZB1+b+UEeHqKVXpxsigKdwZuYAgA3xnYCBPODKAA==
+Date: Tue, 26 May 2020 02:27:29 +0000
+Message-ID: <0e46fc4b29b7c3b3e6b4ca4704b9e7dac5738868.camel@epam.com>
+References: <1568197942-15374-1-git-send-email-andrii.anisov@gmail.com>
+ <1568197942-15374-2-git-send-email-andrii.anisov@gmail.com>
+ <8c74cacb-ff73-eddc-626c-f6fa862cf5a6@arm.com>
+ <f3767489-e46a-3830-8b3c-0b637b71e0b8@gmail.com>
+In-Reply-To: <f3767489-e46a-3830-8b3c-0b637b71e0b8@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.36.2 
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [176.36.48.175]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 88b995d8-7686-4006-c8c5-08d8011c56ab
+x-ms-traffictypediagnostic: VI1PR0302MB3230:
+x-microsoft-antispam-prvs: <VI1PR0302MB3230E6EAE90BDD413E50178EE6B00@VI1PR0302MB3230.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3173;
+x-forefront-prvs: 041517DFAB
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: zcM9pqPYKCpuku+8LApW06X7eeXVBpJg4yAuqRBZMwO4a7V3jQ3WZh8SFhFoFIdctG4DcnyznfzCJ/zoRTlF9puaG1xqcTGLo52ornvvx5/QWTp90E2D1O9Fey/ro9vRuGWROgpvp9h2nhxHY4f4UaNwJMbeV0PYU/3o3Aco7G+Tj/BQxq/6tWoxDBfT815RNRdI7qnG8sc0CmzvRKQhpWXbjrw3aIRmV1ng+UiPDIJgYINOby3Lwxg0RztMUZBgBPvBxrt5U/XaE4mIuJv2K+YRJZkH9TtbQWfCiqC5h2V/jqw1egZ2NOxC9aauUQmDEoYVEqLOFXVOCgvnQ3gTMQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR0302MB3407.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(366004)(346002)(396003)(376002)(39860400002)(186003)(26005)(71200400001)(6506007)(36756003)(53546011)(55236004)(2906002)(15650500001)(2616005)(8676002)(4326008)(7416002)(86362001)(8936002)(6512007)(6486002)(110136005)(66556008)(64756008)(5660300002)(91956017)(316002)(478600001)(66946007)(66446008)(76116006)(54906003)(66476007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: lZF1RoH+ReQOnLS5ZFQ5TpDRIqf5rbfVrP2OULI12vXzftXVnFojKmOV5Qs9E/q8nVYGByLM2QygY18MJAq0wRT3Zn2aYeGpdqTEkKbpj0dgdSfp2Nwfh+NVdgG2mKrsoqGrvm+5Fu8jua9kW3V9zMtoKnxR0VucRJtvrS2ELrXtSyx0XKvEMTdzVGRqgCE9mh/43xNoqKgnJZ+7rBjtGVPSjLrsY/5rEL8GjhHBmBoyHTLEpWxs/lVPwifS+Y98Rh9+iQlsV67DICyzX6ZsS5epyJt+s8C+NTA2hWkUPVcLzd/jHfOEdFK1I3IYfLHJfWevQyDOsrETaeky2S9qZa+tVXi12smXGRI8ppRhzIgLTq0shL0qe1V/tPatrxe09myOEBCjq2kWQm7DjNde5b9WHcYTD7/T5U9jSBinH15Q4+PJlDcZz3eNbwYvOpVHLQTlFUBQ9N8tX/569G4tAS057PXSg6dmoxowqlNl+XA=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <210CAF0FA772BE4D952454B1AD1F2764@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: [seabios test] 150369: regressions - FAIL
-X-Osstest-Failures: seabios:build-amd64:xen-build:fail:regression
- seabios:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- seabios:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
- seabios:build-amd64-libvirt:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- seabios:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
- seabios:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- seabios:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
- seabios:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This: seabios=2e3de6253422112ae43e608661ba94ea6b345694
-X-Osstest-Versions-That: seabios=d9aea4a7cd59e00f5ed96b6442806dde0959e1ca
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 26 May 2020 00:51:19 +0000
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88b995d8-7686-4006-c8c5-08d8011c56ab
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 May 2020 02:27:29.5337 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1Zvwx7qJ2XCYKmZYYST0jKwHauN37Be1Qrol7+9iSVld6Bx4qXVaE59oI7w04b1pr1JlehKJ1ma2Rv+U146uFLVm8PlQxHskUa0S5CunslI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0302MB3230
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,112 +105,179 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "wl@xen.org" <wl@xen.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
+ "tim@xen.org" <tim@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150369 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150369/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 150360
-
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
- test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
- test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
-
-version targeted for testing:
- seabios              2e3de6253422112ae43e608661ba94ea6b345694
-baseline version:
- seabios              d9aea4a7cd59e00f5ed96b6442806dde0959e1ca
-
-Last test of basis   150360  2020-05-25 05:11:48 Z    0 days
-Testing same since   150369  2020-05-25 21:40:16 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  fail    
- build-i386                                                   pass    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            blocked 
- test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
- test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
- test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
- test-amd64-amd64-qemuu-nested-intel                          blocked 
- test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 2e3de6253422112ae43e608661ba94ea6b345694
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Mon May 25 11:06:27 2020 +0200
-
-    pci: fix mmconfig support
-    
-    The MODESEGMENT condition is backwards, with the effect that
-    mmconfig mode is not used to configure pci bars during POST.
-    
-    Oops.  Fix it.
-    
-    The only real mode pci config space access seems to come from the
-    ipxe option rom initialiation.  Which happens to work via mmconfig
-    because it runs in big real mode so this went unnoticed ...
-    
-    Fixes: 6a3b59ab9c7d ("pci: add mmconfig support")
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+SGVsbG8gQWxsLA0KDQpUaGlzIGlzIGdlbnRsZSByZW1pbmRlciBhYm91dCB0aGlzIFJGQy4gDQoN
+ClNhZGx5LCBBbmRyaWkgQW5pc292IGhhcyBsZWZ0IG91ciB0ZWFtLiBCdXQgSSdtIGNvbW1pdGVk
+IHRvIGNvbnRpbnVlDQpoaXMgd29yayBvbiB0aW1lIGFjY291bnRpbmcgYW5kIHJlYWwgdGltZSBz
+Y2hlZHVsaW5nLg0KDQpJIGRvIHJlYWxpemUsIHRoYXQgcHJvcG9zZWQgcGF0Y2hlcyBoYXZlIGJl
+Y29tZSBtb2xkeS4gSSBjYW4gcmViYXNlDQp0aGVtIG9udG8gY3VycmVudCBtYXN0ZXIsIGlmIGl0
+IHdvdWxkIGhlbHAuIA0KDQpPbiBXZWQsIDIwMTktMTEtMDYgYXQgMTM6MjQgKzAyMDAsIEFuZHJp
+aSBBbmlzb3Ygd3JvdGU6DQo+IEhlbGxvIEp1bGllbiwNCj4gDQo+IE9uIDI4LjEwLjE5IDE2OjI4
+LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+ID4gSXQgd291bGQgYmUgZ29vZCB0byBnZXQgYSByZXZp
+ZXcgZnJvbSB0aGUgc2NoZWR1bGVyIG1haW50YWluZXJzIChEYXJpbywgR2VvcmdlKSB0byBtYWtl
+IHN1cmUgdGhleSBhcmUgaGFwcHkgd2l0aCB0aGUgc3VnZ2VzdGVkIHN0YXRlcyBoZXJlLg0KPiAN
+Cj4gSSB3b3VsZCBub3Qgc2F5IEknbSBjb21wbGV0ZWx5IGhhcHB5IHdpdGggdGhpcyBzZXQgb2Yg
+c3RhdGVzLiBJJ2QgbGlrZSB0byBoYXZlIGEgZGlzY3Vzc2lvbiBvbiB0aGlzIHRvcGljIHdpdGgg
+c2NoZWR1bGVyIG1haW50YWluZXJzLiBBbHNvIGJlY2F1c2UgdGhleSBjb3VsZCBoYXZlIGEgZGlm
+ZmVyZW50IHZpZXcgZnJvbSB4ODYgd29ybGQuDQoNCkkgd291bGQgbG92ZSB0byBoZWFyIGFueSBp
+bnB1dHMgb24gdGhpcyB0b3BjIGZyb20gZ2VuZXJhbCBzY2hlZHVsaW5nDQphcHByb2FjaCBzdGFu
+ZHBvaW50IGFuZCBmcm9tIHg4NiB2aWV3LiAgDQoNCj4gPiA+IEludHJvZHVjZSBwZXItcGNwdSB0
+aW1lIGFjY291bnRpbmcgd2hhdCBpbmNsdWRlcyB0aGUgZm9sbG93aW5nIHN0YXRlczoNCj4gPiAN
+Cj4gPiBJIHRoaW5rIHdlIG5lZWQgYSB2ZXJ5IGRldGFpbGVkIGRlc2NyaXB0aW9uIG9mIGVhY2gg
+c3RhdGVzLiBPdGhlcndpc2UgaXQgd2lsbCBiZSBoYXJkIHRvIGtub3cgaG93IHRvIGNhdGVnb3Jp
+emUgaXQuDQo+IA0KPiBJIGFncmVlIHRoYXQgd2UgbmVlZCBhIHZlcnkgZGV0YWlsZWQgZGVzY3Jp
+cHRpb24gb2YgZWFjaCBzdGF0ZXMuIEFzayBxdWVzdGlvbnMgaWYgc29tZXRoaW5nIGlzIG5vdCBj
+bGVhciBvciBkb3VidGZ1bC4gSSBndWVzcyB3ZSBjb3VsZCBoYXZlIHNvbWV0aGluZyBiZXR0ZXIg
+YWZ0ZXIgUSZBIHByb2Nlc3MuDQo+IA0KPiA+ID4gVEFDQ19IWVAgLSB0aGUgcGNwdSBleGVjdXRl
+cyBoeXBlcnZpc29yIGNvZGUgbGlrZSBzb2Z0aXJxIHByb2Nlc3NpbmcNCj4gPiA+ICAgICAgICAg
+ICAgIChpbmNsdWRpbmcgc2NoZWR1bGluZyksIHRhc2tsZXRzIGFuZCBjb250ZXh0IHN3aXRjaGVz
+DQo+ID4gDQo+ID4gSUhNTywgImxpa2UiIGlzIHRvbyB3ZWFrIGhlcmUuIFdoYXQgZG8geW91IGV4
+YWN0bHkgcGxhbiB0byBpbnRyb2R1Y2U/DQo+IA0KPiBJIHRoaW5rIHRoaXMgc2hvdWxkIGJlIHdo
+YXQgaHlwZXJ2aXNvciBkb2VzIGV4Y2VwdCBoeXBlcmNhbGwgYW5kIElPIGVtdWxhdGlvbiAod2hh
+dCBpcyBUQUNDX0dTWU5DKS4NCj4gDQo+ID4gRm9yIGluc3RhbmNlLCBvbiBBcm0sIHlvdSBjb25z
+aWRlciB0aGF0IGxlYXZlX2h5cGVydmlzb3JfdGFpbCgpIGlzIHBhcnQgb2YgVEFDQ19IWVAuIFRo
+aXMgZnVuY3Rpb24gd2lsbCBpbmNsdWRlIHNvbWUgaGFuZGxpbmcgZm9yIHN5bmNocm9ub3VzIHRy
+YXAuDQo+IA0KPiBJIGd1ZXNzIHlvdSBhcmUgc2F5aW5nIGFib3V0IGBwMm1fZmx1c2hfdm1gLiBJ
+IGRvdWJ0IGhlcmUsIGFuZCBvcGVuIGZvciBzdWdnZXN0aW9ucy4NCj4gDQo+IA0KPiA+ID4gVEFD
+Q19HVUVTVCAtIHRoZSBwY3B1IGV4ZWN1dGVzIGd1ZXN0cyBjb2RlDQo+ID4gDQo+ID4gTG9va2lu
+ZyBhdCB0aGUgYXJtNjQgY29kZSwgeW91IGFyZSBleGVjdXRpbmcgc29tZSBoeXBlcnZpc29yIGNv
+ZGUgaGVyZS4gSSBhZ3JlZSB0aGlzIGlzIGltcG9zc2libGUgdG8gbm90IHJ1biBhbnkgaHlwZXJ2
+aXNvciBjb2RlIHdpdGggVEFDQ19HVUVTVCwgYnV0IEkgdGhpbmsgdGhpcyBzaG91bGQgYmUgY2xh
+cmlmaWVkIGluIHRoZSBkb2N1bWVudGF0aW9uLg0KPiANCj4gRG8geW91IG1lYW4gYWRkaW5nIGZl
+dyB3b3JkcyBhYm91dCBzdGlsbCBoYXZpbmcgc29tZSBoeXBlcnZpc29yIGNvZGUgbmVhciB0aGUg
+YWN0dWFsIGNvbnRleHQgc3dpdGNoIGZyb20vdG8gZ3Vlc3QgKGVudHJ5L3JldHVybl9mcm9tX3Ry
+YXApPw0KPiANCj4gPiA+IFRBQ0NfSURMRSAtIHRoZSBsb3ctcG93ZXIgc3RhdGUgb2YgdGhlIHBj
+cHUNCj4gPiANCj4gPiBEaWQgeW91IGludGVuZCB0byBtZWFuICJpZGxlIHZDUFUiIGlzIGluIHVz
+ZT8NCj4gDQo+IE5vLiBJIGRpZCBtZWFuIHdoYXQgaXMgd3JpdHRlbi4NCj4gQ3VycmVudGx5LCB0
+aGUgaWRsZSB2Y3B1IGRvZXMgaHlwZXJ2aXNvciB3b3JrIChlLmcuIHRhc2tsZXRzKSBhbG9uZyB3
+aXRoIHRoZSBsb3ctcG93ZXIgbW9kZS4gSU1PIHdlIGhhdmUgdG8gc2VwYXJhdGUgdGhlbS4NCj4g
+DQo+ID4gPiBUQUNDX0lSUSAtIHRoZSBwY3B1IHBlcmZvcm1zIGludGVycnVwdHMgcHJvY2Vzc2lu
+Zywgd2l0aG91dCBzZXBhcmF0aW9uIHRvDQo+ID4gPiAgICAgICAgICAgICBndWVzdCBvciBoeXBl
+cnZpc29yIGludGVycnVwdHMNCj4gPiA+IFRBQ0NfR1NZTkMgLSB0aGUgcGNwdSBleGVjdXRlcyBo
+eXBlcnZpc29yIGNvZGUgdG8gcHJvY2VzcyBzeW5jaHJvbm91cyB0cmFwDQo+ID4gPiAgICAgICAg
+ICAgICAgIGZyb20gdGhlIGd1ZXN0LiBFLmcuIGh5cGVyY2FsbCBwcm9jZXNzaW5nIG9yIGlvIGVt
+dWxhdGlvbi4NCj4gPiA+IA0KPiA+ID4gQ3VycmVudGx5LCB0aGUgb25seSByZWVudGVyYW50IHN0
+YXRlIGlzIFRBQ0NfSVJRLiBJdCBpcyBhc3N1bWVkLCBubyBjaGFuZ2VzDQo+ID4gPiB0byBzdGF0
+ZSBvdGhlciB0aGFuIFRBQ0NfSVJRIGNvdWxkIGhhcHBlbiB1bnRpbCB3ZSByZXR1cm4gZnJvbSBu
+ZXN0ZWQNCj4gPiA+IGludGVycnVwdHMuIElSUSB0aW1lIGlzIGFjY291bnRlZCBpbiBhIGRpc3Rp
+bmN0IHdheSBjb21wYXJpbmcgdG8gb3RoZXIgc3RhdGVzLg0KPiA+IA0KPiA+IHMvY29tcGFyaW5n
+L2NvbXBhcmUvDQo+IA0KPiBPSy4NCj4gDQo+ID4gPiBJdCBpcyBhY3VtdWxhdGVkIGJldHdlZW4g
+b3RoZXIgc3RhdGVzIHRyYW5zaXRpb24gbW9tZW50cywgYW5kIGlzIHN1YnN0cmFjdGVkDQo+ID4g
+DQo+ID4gcy9hY3VtdWxhdGVkL2FjY3VtdWxhdGVkLyBzL3N1YnN0cmFjdGVkL3N1YnRyYWN0ZWQv
+DQo+IA0KPiBPSy4NCj4gDQo+ID4gPiBmcm9tIHRoZSBvbGQgc3RhdGUgb24gc3RhdGVzIHRyYW5z
+aW9uIGNhbGN1bGF0aW9uLg0KPiBbMV0NCj4gPiBzL3RyYW5zaW9uL3RyYW5zaXRpb24vDQo+IA0K
+PiBPSy4NCj4gDQo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBBbmRyaWkgQW5pc292IDxhbmRyaWlfYW5p
+c292QGVwYW0uY29tPg0KPiA+ID4gLS0tDQo+ID4gPiAgIHhlbi9jb21tb24vc2NoZWR1bGUuYyAg
+IHwgODEgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKw0K
+PiA+ID4gICB4ZW4vaW5jbHVkZS94ZW4vc2NoZWQuaCB8IDI3ICsrKysrKysrKysrKysrKysrDQo+
+ID4gPiAgIDIgZmlsZXMgY2hhbmdlZCwgMTA4IGluc2VydGlvbnMoKykNCj4gPiA+IA0KPiA+ID4g
+ZGlmZiAtLWdpdCBhL3hlbi9jb21tb24vc2NoZWR1bGUuYyBiL3hlbi9jb21tb24vc2NoZWR1bGUu
+Yw0KPiA+ID4gaW5kZXggN2I3MTU4MS4uNmRkNjYwMyAxMDA2NDQNCj4gPiA+IC0tLSBhL3hlbi9j
+b21tb24vc2NoZWR1bGUuYw0KPiA+ID4gKysrIGIveGVuL2NvbW1vbi9zY2hlZHVsZS5jDQo+ID4g
+PiBAQCAtMTUzOSw2ICsxNTM5LDg3IEBAIHN0YXRpYyB2b2lkIHNjaGVkdWxlKHZvaWQpDQo+ID4g
+PiAgICAgICBjb250ZXh0X3N3aXRjaChwcmV2LCBuZXh0KTsNCj4gPiA+ICAgfQ0KPiA+ID4gK0RF
+RklORV9QRVJfQ1BVKHN0cnVjdCB0YWNjLCB0YWNjKTsNCj4gPiA+ICsNCj4gPiA+ICtzdGF0aWMg
+dm9pZCB0YWNjX3N0YXRlX2NoYW5nZShlbnVtIFRBQ0NfU1RBVEVTIG5ld19zdGF0ZSkNCj4gPiAN
+Cj4gPiBUaGlzIHNob3VsZCBuZXZlciBiZSBjYWxsZWQgd2l0aCB0aGUgVEFDQ19JUlEsIHJpZ2h0
+Pw0KPiANCj4gWWVzLiBBY3R1YWxseSwgdGFjYy0+c3RhdGUgc2hvdWxkIG5ldmVyIGJlIFRBQ0Nf
+SVJRLg0KPiBCZWNhdXNlIG9mIFRBQ0NfSVJRIHJlZW50ZXJhYmlsaXR5IGl0IGlzIGhhbmRsZWQg
+dGhyb3VnaCB0aGUgdGFjYy0+aXJxX2NudCBhbmQgdGFjYy0+aXJxX2VudGVyX3RpbWUuDQo+IA0K
+PiA+ID4gK3sNCj4gPiA+ICsgICAgc190aW1lX3Qgbm93LCBkZWx0YTsNCj4gPiA+ICsgICAgc3Ry
+dWN0IHRhY2MqIHRhY2MgPSAmdGhpc19jcHUodGFjYyk7DQo+ID4gPiArICAgIHVuc2lnbmVkIGxv
+bmcgZmxhZ3M7DQo+ID4gPiArDQo+ID4gPiArICAgIGxvY2FsX2lycV9zYXZlKGZsYWdzKTsNCj4g
+PiA+ICsNCj4gPiA+ICsgICAgbm93ID0gTk9XKCk7DQo+ID4gPiArICAgIGRlbHRhID0gbm93IC0g
+dGFjYy0+c3RhdGVfZW50cnlfdGltZTsNCj4gPiA+ICsNCj4gPiA+ICsgICAgLyogV2UgZG8gbm90
+IGV4cGVjdCBzdGF0ZXMgcmVlbnRlcmFiaWxpdHkgKGF0IGxlYXN0IHRocm91Z2ggdGhpcyBmdW5j
+dGlvbikqLw0KPiA+ID4gKyAgICBBU1NFUlQobmV3X3N0YXRlICE9IHRhY2MtPnN0YXRlKTsNCj4g
+PiA+ICsNCj4gPiA+ICsgICAgdGFjYy0+c3RhdGVfdGltZVt0YWNjLT5zdGF0ZV0gKz0gZGVsdGEg
+LSB0YWNjLT5pcnFfdGltZTsNCj4gPiA+ICsgICAgdGFjYy0+c3RhdGVfdGltZVtUQUNDX0lSUV0g
+Kz0gdGFjYy0+aXJxX3RpbWU7DQo+ID4gPiArICAgIHRhY2MtPmlycV90aW1lID0gMDsNCj4gPiA+
+ICsgICAgdGFjYy0+c3RhdGUgPSBuZXdfc3RhdGU7DQo+ID4gPiArICAgIHRhY2MtPnN0YXRlX2Vu
+dHJ5X3RpbWUgPSBub3c7DQo+ID4gPiArDQo+ID4gPiArICAgIGxvY2FsX2lycV9yZXN0b3JlKGZs
+YWdzKTsNCj4gPiA+ICt9DQo+ID4gPiArDQo+ID4gPiArdm9pZCB0YWNjX2h5cChpbnQgcGxhY2Up
+DQo+ID4gDQo+ID4gUGxhY2UgaXMgbmV2ZXIgdXNlZCBleGNlcHQgZm9yIHlvdXIgY29tbWVudGVk
+IHByaW50ay4gU28gd2hhdCdzIHRoZSBnb2FsIGZvciBpdD8NCj4gDQo+IFBsYWNlIGlzIGp1c3Qg
+YSBwaWVjZSBvZiBjb2RlIHVzZWQgZm9yIGRlYnVnZ2luZywgYXMgd2VsbCBhcyBwcmludGsuIEkg
+a2VlcHQgaXQgaGVyZSBiZWNhdXNlIHRoaXMgc2VyaWVzIGlzIHZlcnkgUkZDLCB5ZXQgaXQgY291
+bGQgYmUgcmVtb3ZlZC4NCj4gDQo+ID4gQWxzbywgaXMgaXQgcmVhbGx5IG5lY2Vzc2FyeSB0byBw
+cm92aWRlIGhlbHBlciBmb3IgZWFjaCBzdGF0ZT8gQ291bGRuJ3Qgd2UganVzdCBpbnRyb2R1Y2Ug
+b25lIGZ1bmN0aW9ucyBkb2luZyBhbGwgdGhlIHN0YXRlPw0KPiANCj4gSSdkIGxpa2UgY2FsbGlu
+ZyB0aGF0IHN0dWZmIGZyb20gYXNzZW1ibGVyIHdpdGhvdXQgcGFyYW1ldGVycy4gQnV0IGhhdmUg
+bm8gc3Ryb25nIG9waW5pb24gaGVyZS4NCj4gICANCj4gPiA+ICt7DQo+ID4gPiArLy8gICAgcHJp
+bnRrKCJcdHRhY2NfaHlwICV1LCBwbGFjZSAlZFxuIiwgc21wX3Byb2Nlc3Nvcl9pZCgpLCBwbGFj
+ZSk7DQo+ID4gPiArICAgIHRhY2Nfc3RhdGVfY2hhbmdlKFRBQ0NfSFlQKTsNCj4gPiA+ICt9DQo+
+ID4gPiArDQo+ID4gPiArdm9pZCB0YWNjX2d1ZXN0KGludCBwbGFjZSkNCj4gPiA+ICt7DQo+ID4g
+PiArLy8gICAgcHJpbnRrKCJcdHRhY2NfZ3Vlc3QgJXUsIHBsYWNlICVkXG4iLCBzbXBfcHJvY2Vz
+c29yX2lkKCksIHBsYWNlKTsNCj4gPiA+ICsgICAgdGFjY19zdGF0ZV9jaGFuZ2UoVEFDQ19HVUVT
+VCk7DQo+ID4gPiArfQ0KPiA+ID4gKw0KPiA+ID4gK3ZvaWQgdGFjY19pZGxlKGludCBwbGFjZSkN
+Cj4gPiA+ICt7DQo+ID4gPiArLy8gICAgcHJpbnRrKCJcdGlkbGUgY3B1ICV1LCBwbGFjZSAlZFxu
+Iiwgc21wX3Byb2Nlc3Nvcl9pZCgpLCBwbGFjZSk7DQo+ID4gPiArICAgIHRhY2Nfc3RhdGVfY2hh
+bmdlKFRBQ0NfSURMRSk7DQo+ID4gPiArfQ0KPiA+ID4gKw0KPiA+ID4gK3ZvaWQgdGFjY19nc3lu
+YyhpbnQgcGxhY2UpDQo+ID4gPiArew0KPiA+ID4gKy8vICAgIHByaW50aygiXHR0YWNjX2dzeW5j
+ICV1LCBwbGFjZSAlZFxuIiwgc21wX3Byb2Nlc3Nvcl9pZCgpLCBwbGFjZSk7DQo+ID4gPiArICAg
+IHRhY2Nfc3RhdGVfY2hhbmdlKFRBQ0NfR1NZTkMpOw0KPiA+ID4gK30NCj4gPiA+ICsNCj4gPiA+
+ICt2b2lkIHRhY2NfaXJxX2VudGVyKGludCBwbGFjZSkNCj4gPiA+ICt7DQo+ID4gPiArICAgIHN0
+cnVjdCB0YWNjKiB0YWNjID0gJnRoaXNfY3B1KHRhY2MpOw0KPiA+ID4gKw0KPiA+ID4gKy8vICAg
+IHByaW50aygiXHR0YWNjX2lycV9lbnRlciAldSwgcGxhY2UgJWQsIGNudCAlZFxuIiwgc21wX3By
+b2Nlc3Nvcl9pZCgpLCBwbGFjZSwgdGhpc19jcHUodGFjYykuaXJxX2NudCk7DQo+ID4gPiArICAg
+IEFTU0VSVCghbG9jYWxfaXJxX2lzX2VuYWJsZWQoKSk7DQo+ID4gPiArICAgIEFTU0VSVCh0YWNj
+LT5pcnFfY250ID49IDApOw0KPiA+ID4gKw0KPiA+ID4gKyAgICBpZiAoIHRhY2MtPmlycV9jbnQg
+PT0gMCApDQo+ID4gPiArICAgIHsNCj4gPiA+ICsgICAgICAgIHRhY2MtPmlycV9lbnRlcl90aW1l
+ID0gTk9XKCk7DQo+ID4gPiArICAgIH0NCj4gPiA+ICsNCj4gPiA+ICsgICAgdGFjYy0+aXJxX2Nu
+dCsrOw0KPiA+ID4gK30NCj4gPiA+ICsNCj4gPiA+ICt2b2lkIHRhY2NfaXJxX2V4aXQoaW50IHBs
+YWNlKQ0KPiA+ID4gK3sNCj4gPiA+ICsgICAgc3RydWN0IHRhY2MqIHRhY2MgPSAmdGhpc19jcHUo
+dGFjYyk7DQo+ID4gPiArDQo+ID4gPiArLy8gICAgcHJpbnRrKCJcdHRhY2NfaXJxX2V4aXQgJXUs
+IHBsYWNlICVkLCBjbnQgJWRcbiIsIHNtcF9wcm9jZXNzb3JfaWQoKSwgcGxhY2UsIHRhY2MtPmly
+cV9jbnQpOw0KPiA+ID4gKyAgICBBU1NFUlQoIWxvY2FsX2lycV9pc19lbmFibGVkKCkpOw0KPiA+
+ID4gKyAgICBBU1NFUlQodGFjYy0+aXJxX2NudCA+IDApOw0KPiA+ID4gKyAgICBpZiAoIHRhY2Mt
+PmlycV9jbnQgPT0gMSApDQo+ID4gPiArICAgIHsNCj4gPiA+ICsgICAgICAgIHRhY2MtPmlycV90
+aW1lID0gTk9XKCkgLSB0YWNjLT5pcnFfZW50ZXJfdGltZTsNCj4gPiANCj4gPiBJZiBJIHVuZGVy
+c3RhbmQgY29ycmVjdGx5LCB5b3Ugd2lsbCB1c2UgaXJxX3RpbWUgdG8gdXBkYXRlIFRBQ0NfSVJR
+IGluIHRhY2Nfc3RhdGVfY2hhbmdlKCkuIEl0IG1heSBiZSBwb3NzaWJsZSB0byByZWNlaXZlIGFu
+b3RoZXIgaW50ZXJydXB0IGJlZm9yZSB0aGUgc3RhdGUgaXMgY2hhbmdlZCAoZS5nLiBIWVAgLT4g
+R1VFU1QpLiBUaGlzIG1lYW5zIG9ubHkgdGhlIHRpbWUgZm9yIHRoZSBsYXN0IElSUSByZWNlaXZl
+ZCB3b3VsZCBiZSBhY2NvdW50ZWQuDQo+IA0KPiBJIGRvIGxvY2sgSVJRcyBmb3Igc3RhdGUgY2hh
+bmdlLiBTaG91bGRuJ3QgdGhhdCBwcm90ZWN0IGl0Pw0KPiANCj4gPiA+ICsgICAgICAgIHRhY2Mt
+PmlycV9lbnRlcl90aW1lID0gMDsNCj4gPiA+ICsgICAgfQ0KPiA+ID4gKw0KPiA+ID4gKyAgICB0
+YWNjLT5pcnFfY250LS07DQo+ID4gPiArfQ0KPiA+ID4gKw0KPiA+ID4gICB2b2lkIGNvbnRleHRf
+c2F2ZWQoc3RydWN0IHZjcHUgKnByZXYpDQo+ID4gPiAgIHsNCj4gPiA+ICAgICAgIC8qIENsZWFy
+IHJ1bm5pbmcgZmxhZyAvYWZ0ZXIvIHdyaXRpbmcgY29udGV4dCB0byBtZW1vcnkuICovDQo+ID4g
+PiBkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUveGVuL3NjaGVkLmggYi94ZW4vaW5jbHVkZS94ZW4v
+c2NoZWQuaA0KPiA+ID4gaW5kZXggZTM2MDFjMS4uMDRhODcyNCAxMDA2NDQNCj4gPiA+IC0tLSBh
+L3hlbi9pbmNsdWRlL3hlbi9zY2hlZC5oDQo+ID4gPiArKysgYi94ZW4vaW5jbHVkZS94ZW4vc2No
+ZWQuaA0KPiA+ID4gQEAgLTEwMDIsNiArMTAwMiwzMyBAQCBleHRlcm4gdm9pZCBkdW1wX3J1bnEo
+dW5zaWduZWQgY2hhciBrZXkpOw0KPiA+ID4gICB2b2lkIGFyY2hfZG9fcGh5c2luZm8oc3RydWN0
+IHhlbl9zeXNjdGxfcGh5c2luZm8gKnBpKTsNCj4gPiA+ICtlbnVtIFRBQ0NfU1RBVEVTIHsNCj4g
+PiANCj4gPiBXZSBkb24ndCB0ZW5kIHRvIHVzZSBhbGwgdXBwZXJjYXNlcyBmb3IgZW51bSBuYW1l
+Lg0KPiANCj4gT0suDQo+IA0KPiA+ID4gKyAgICBUQUNDX0hZUCA9IDAsDQo+ID4gDQo+ID4gZW51
+bSBiZWdpbnMgYXQgMCBhbmQgaW5jcmVtZW50IGJ5IG9uZSBldmVyeSB0aW1lLiBTbyB0aGVyZSBp
+cyBubyBuZWVkIHRvIGhhcmRjb2RlIGEgbnVtYmVyLg0KPiA+IA0KPiA+IEFsc28sIGxvb2tpbmcg
+YXQgdGhlIGNvZGUsIEkgdGhpbmsgeW91IHJlbHkgb24gdGhlIGZpcnN0IHN0YXRlIHRvIGJlIFRB
+Q0NfSFlQLiBBbSBJIGNvcnJlY3Q/DQo+IA0KPiBUQUNDX0hZUCBpcyBleHBlY3RlZCB0byBiZSB0
+aGUgaW5pdGlhbCBzdGF0ZSBvZiB0aGUgUENQVS4NCj4gDQo+ID4gPiArICAgIFRBQ0NfR1VFU1Qg
+PSAxLA0KPiA+ID4gKyAgICBUQUNDX0lETEUgPSAyLA0KPiA+ID4gKyAgICBUQUNDX0lSUSA9IDMs
+DQo+ID4gPiArICAgIFRBQ0NfR1NZTkMgPSA0LA0KPiA+ID4gKyAgICBUQUNDX1NUQVRFU19NQVgN
+Cj4gPiA+ICt9Ow0KPiA+ID4gSXQgd291bGQgYmUgZ29vZCB0byBkb2N1bWVudCBhbGwgdGhlIHN0
+YXRlcyBpbiB0aGUgaGVhZGVyIGFzIHdlbGwuDQo+IA0KPiBPSy4NCj4gDQo+ID4gPiArDQo+ID4g
+PiArc3RydWN0IHRhY2MNCj4gPiANCj4gPiBQbGVhc2UgZG9jdW1lbnQgdGhlIHN0cnVjdHVyZS4N
+Cj4gDQo+IE9LLg0KPiANCj4gPiA+ICt7DQo+ID4gPiArICAgIHNfdGltZV90IHN0YXRlX3RpbWVb
+VEFDQ19TVEFURVNfTUFYXTsNCj4gPiA+ICsgICAgc190aW1lX3Qgc3RhdGVfZW50cnlfdGltZTsN
+Cj4gPiA+ICsgICAgaW50IHN0YXRlOw0KPiA+IA0KPiA+IFRoaXMgc2hvdWxkIGJlIHRoZSBlbnVt
+IHlvdSB1c2VkIGFib3ZlIGhlcmUuDQo+IA0KPiBZZXAuDQo+IA0KPiA+ID4gKw0KPiA+ID4gKyAg
+ICBzX3RpbWVfdCBndWVzdF90aW1lOw0KPiA+IA0KPiA+IFRoaXMgaXMgbm90IHVzZWQuDQo+IA0K
+PiBZZXAsIHdpbGwgZHJvcCBpdC4NCj4gDQo+ID4gPiArDQo+ID4gPiArICAgIHNfdGltZV90IGly
+cV9lbnRlcl90aW1lOw0KPiA+ID4gKyAgICBzX3RpbWVfdCBpcnFfdGltZTsNCj4gPiA+ICsgICAg
+aW50IGlycV9jbnQ7DQo+ID4gV2h5IGRvIHlvdSBuZWVkIHRoaXMgdG8gYmUgc2lnbmVkPw0KPiAN
+Cj4gRm9yIGFzc2VydGlvbi4NCj4gICANCj4gPiA+ICt9Ow0KPiA+ID4gKw0KPiA+ID4gK0RFQ0xB
+UkVfUEVSX0NQVShzdHJ1Y3QgdGFjYywgdGFjYyk7DQo+ID4gPiArDQo+ID4gPiArdm9pZCB0YWNj
+X2h5cChpbnQgcGxhY2UpOw0KPiA+ID4gK3ZvaWQgdGFjY19pZGxlKGludCBwbGFjZSk7DQo+ID4g
+PiArDQo+ID4gPiAgICNlbmRpZiAvKiBfX1NDSEVEX0hfXyAqLw0KPiA+ID4gICAvKg0KPiA+ID4g
+DQo+ID4gDQo+ID4gQ2hlZXJzLA0KPiA+IA0K
 
