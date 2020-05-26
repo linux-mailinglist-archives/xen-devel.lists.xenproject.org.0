@@ -2,56 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D28551E1DAA
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 10:52:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E6811E1E9A
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2020 11:32:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdVJx-0000QC-SB; Tue, 26 May 2020 08:52:25 +0000
+	id 1jdVvS-0004E6-HO; Tue, 26 May 2020 09:31:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=N6lx=7I=lucina.net=martin@srs-us1.protection.inumbo.net>)
- id 1jdVJw-0000Q7-W6
- for xen-devel@lists.xenproject.org; Tue, 26 May 2020 08:52:25 +0000
-X-Inumbo-ID: 3760aee6-9f2e-11ea-9947-bc764e2007e4
-Received: from smtp.lucina.net (unknown [62.176.169.44])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=52a6=7I=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jdVvQ-0004E0-Hk
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2020 09:31:08 +0000
+X-Inumbo-ID: a0a23186-9f33-11ea-9947-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3760aee6-9f2e-11ea-9947-bc764e2007e4;
- Tue, 26 May 2020 08:52:24 +0000 (UTC)
-Received: from nodbug.lucina.net (78-141-76-187.dynamic.orange.sk
- [78.141.76.187])
- by smtp.lucina.net (Postfix) with ESMTPSA id 182F3122804;
- Tue, 26 May 2020 10:52:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lucina.net;
- s=dkim-201811; t=1590483142;
- bh=XwDVAhYIHN59igx5z/ZwfLAUYZdwFiO8r9vROke/t0s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gcGJMuBsYGMtvtKYzIbnugjaX8mt0TgWIGKfN0MYQYf6YfB0rnbpeBn8oxJ+mVlW1
- BHkwh9+oXWVjWW5caGEBIcWaExTGk9g+xxUR4vQXfl+WmTHmTWRqd7WTv+0Ven7LmH
- yVfVx45jtlVfna12QO7Tb+EfsjbQNGhIGU38rdqz+m2lJ9rzZQUpmiUT1KXH7dc9X6
- jpPccijphOyl/4WDZhD51i/VXvfYzO44H99+UdxZcCdbCbnFBMcYYLlRNxpmOCK//s
- Q4dEdfQEib+QJWvJCkEyH7B8FJAapNh0KCBlVn0ZLvHDnqywCzOeFzDUn7To6Su0zz
- iZajJDdb/9pjg==
-Received: by nodbug.lucina.net (Postfix, from userid 1000)
- id EB3AB268436E; Tue, 26 May 2020 10:52:21 +0200 (CEST)
-Date: Tue, 26 May 2020 10:52:21 +0200
-From: Martin Lucina <martin@lucina.net>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Xen PVH domU start-of-day VCPU state
-Message-ID: <20200526085221.GB5942@nodbug.lucina.net>
-Mail-Followup-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org, mirageos-devel@lists.xenproject.org,
- anil@recoil.org, dave@recoil.org
-References: <20200525160401.GA3091@nodbug.lucina.net>
- <a17fef73-382c-50b3-1e6b-5904fc3bf60f@suse.com>
- <6a22e477-c9e7-f0d7-6cb1-615137a778be@citrix.com>
+ id a0a23186-9f33-11ea-9947-bc764e2007e4;
+ Tue, 26 May 2020 09:31:08 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: rgihcP8gIIQagQhwJFYJQIdELqxwqe1yKw2omxAEys5e239J57ICUBGKrUdg4+3CP9J3DCyblH
+ GOWZWIF624KDvUvbWtiWOLTEer8VcOKIoebvRYcXxsWLLxDw1g62ZQOWTgqfrdDjlE6SMkG/5n
+ OU3fXZC8Q2xymg1HxAqE9kXRzOW4kaDA9Ide46DAvMq6VEtiK95HM4d8sxtjO2aT6ow6NlJ6op
+ SXF4rne7oBaKIWROrDutBKy2gqQX+kuu3z9pVgV6bdiaKRvkOHjyPZr4VHE0hj+3hDnC7iz3ex
+ wMQ=
+X-SBRS: None
+X-MesageID: 18650797
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Nick Rosbrook <rosbrookn@gmail.com>
+Subject: Re: [PATCH 4/5] golang/xenlight: Use XEN_PKG_DIR variable rather than
+ open-coding
+Thread-Topic: [PATCH 4/5] golang/xenlight: Use XEN_PKG_DIR variable rather
+ than open-coding
+Thread-Index: AQHWMFPdgo/hf5/zFkClp7r2x+3aSai1v3IAgAACUICABDzNAA==
+Date: Tue, 26 May 2020 09:31:03 +0000
+Message-ID: <8040BE07-B452-4036-ADE8-6E5CA0ED41A9@citrix.com>
+References: <20200522161240.3748320-1-george.dunlap@citrix.com>
+ <20200522161240.3748320-5-george.dunlap@citrix.com>
+ <CAEBZRSfF8KAnzz5LW8GhcuJu=2rex3d6bvgz=a7-kLMp-itjqQ@mail.gmail.com>
+ <CAEBZRScpycd2_A8moi68AA3asbsUSRjkW1kUVdpsdwgx-SZKpQ@mail.gmail.com>
+In-Reply-To: <CAEBZRScpycd2_A8moi68AA3asbsUSRjkW1kUVdpsdwgx-SZKpQ@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <D3D4CE974867CA4CAE73CCAE56AD2B14@citrix.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6a22e477-c9e7-f0d7-6cb1-615137a778be@citrix.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +65,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org, dave@recoil.org,
- mirageos-devel@lists.xenproject.org, anil@recoil.org
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Monday, 25.05.2020 at 17:59, Andrew Cooper wrote:
-> On 25/05/2020 17:42, Jürgen Groß wrote:
-> > You need to setup virtual addressing and enable 64 bit mode before using
-> > 64-bit GDT.
-> >
-> > See Mini-OS source arch/x86/x86_hvm.S
-> 
-> Or
-> https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen-test-framework.git;a=blob;f=arch/x86/hvm/head.S;h=f7dc72b58ab9ec68538f0087969ab6f72d181d80;hb=HEAD
-> 
-> But yes - Juergen is correct.  Until you have enabled long mode, lgdt
-> will only load the bottom 32 bits of GDTR.base.
 
-Ah, I missed Jurgen's and your reply here.
 
-LGDT loading only the bottom 32 bits of GDTR.base shouldn't matter.
-Examining gdt_ptr some more:
+> On May 23, 2020, at 5:48 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
+>=20
+>>> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+>> Reviewed-by: Nick Rosbrook <rosbrookn@ainfosec.com>
+>=20
+> Oh, I just noticed your commit message calls the variable
+> "XEN_PKG_DIR", but it's actually named "GOXL_PKG_DIR."
 
-    (gdb) set architecture i386
-    The target architecture is assumed to be i386
-    (gdb) x /xh 0x108040
-    0x108040:	0x002f
-    (gdb) x /xw 0x108042
-    0x108042:	0x00108000
-    (gdb) x /6xb 0x108040
-    0x108040:	0x2f	0x00	0x00	0x80	0x10	0x00
-    (gdb) x /8xb 0x108040
-    0x108040:	0x2f	0x00	0x00	0x80	0x10	0x00	0x00	0x00
+Oh, weird.  I presume the R-b stands if I fix the title?
 
-> Is there a less abridged version to look at?
+ -George
 
-https://github.com/mato/solo5/blob/xen/bindings/xen/boot.S
-
-As I wrote in another reply, this boot.S is based off the virtio
-(multiboot) boot.S, which has worked fine for years and should have the
-same environment (32-bit flat protected mode).
-
--mato
 
