@@ -2,61 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F1531E38B6
-	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 08:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BD741E38EB
+	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 08:18:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdp6e-0006WZ-AI; Wed, 27 May 2020 06:00:00 +0000
+	id 1jdpNv-0008RX-VI; Wed, 27 May 2020 06:17:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KwrG=7J=redhat.com=armbru@srs-us1.protection.inumbo.net>)
- id 1jdp6c-0006WU-OQ
- for xen-devel@lists.xenproject.org; Wed, 27 May 2020 05:59:59 +0000
-X-Inumbo-ID: 4959291e-9fdf-11ea-9947-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 4959291e-9fdf-11ea-9947-bc764e2007e4;
- Wed, 27 May 2020 05:59:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1590559194;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=j6YgtXDpCWCf9KnSRhU+LICwWG5pFJTKsR57WPE8YO4=;
- b=BNJC+gRWTNmjWtGnU6/e04Eqznkr18U6q9vpb14NE3Omf+Fyr1qGwGik0VMgJdOwEezLaw
- ln86CzZjjd2KZ0ktGDtDlIhpzxJgrlKUeFl4Pab/NVDDbX3eZ8Q7gujQBAUDsJs3+jgvKe
- IZmlRakMv/skATULzEpDsOkVzeh8AG8=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-387-eEH0X-D4OE60pRaysMOMXQ-1; Wed, 27 May 2020 01:59:51 -0400
-X-MC-Unique: eEH0X-D4OE60pRaysMOMXQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 710038014D4;
- Wed, 27 May 2020 05:59:50 +0000 (UTC)
-Received: from blackfin.pond.sub.org (ovpn-112-32.ams2.redhat.com
- [10.36.112.32])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C56279C5C;
- Wed, 27 May 2020 05:59:47 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id E4B9E11386A3; Wed, 27 May 2020 07:59:45 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: qemu-devel@nongnu.org
-Subject: [PULL 02/10] xen: Fix and improve handling of device_add usb-host
- errors
-Date: Wed, 27 May 2020 07:59:37 +0200
-Message-Id: <20200527055945.6774-3-armbru@redhat.com>
-In-Reply-To: <20200527055945.6774-1-armbru@redhat.com>
-References: <20200527055945.6774-1-armbru@redhat.com>
+ (envelope-from <SRS0=+pkZ=7J=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jdpNu-0008RS-4r
+ for xen-devel@lists.xenproject.org; Wed, 27 May 2020 06:17:50 +0000
+X-Inumbo-ID: c95b937a-9fe1-11ea-8993-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c95b937a-9fe1-11ea-8993-bc764e2007e4;
+ Wed, 27 May 2020 06:17:48 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 6FDBAACFE;
+ Wed, 27 May 2020 06:17:50 +0000 (UTC)
+Subject: Re: [PATCH 2/2] xen: credit2: limit the max number of CPUs in a
+ runqueue
+To: Dario Faggioli <dfaggioli@suse.com>
+References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
+ <158818179558.24327.11334680191217289878.stgit@Palanthas>
+ <3db33b8a-ba97-f302-a325-e989ff0e7084@suse.com>
+ <7b34b1b2c4b36399ad16f6e72a872e15d949f4bf.camel@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <cd566bb2-753f-b0eb-3c6a-bc2dc01cf37c@suse.com>
+Date: Wed, 27 May 2020 08:17:46 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <7b34b1b2c4b36399ad16f6e72a872e15d949f4bf.camel@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -68,78 +49,143 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Paul Durrant <paul@xen.org>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ George Dunlap <george.dunlap@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-usbback_portid_add() leaks the error when qdev_device_add() fails.
-Fix that.  While there, use the error to improve the error message.
+On 27.05.2020 00:00, Dario Faggioli wrote:
+> On Thu, 2020-04-30 at 08:45 +0200, Jan Beulich wrote:
+>> On 29.04.2020 19:36, Dario Faggioli wrote:
+>>> @@ -852,14 +862,61 @@ cpu_runqueue_match(const struct 
+>>> [...]
+>>> +        ASSERT(rcpu != cpu);
+>>> +        if ( !cpumask_test_cpu(rcpu, cpumask_scratch_cpu(cpu)) )
+>>> +        {
+>>> +            /*
+>>> +             * For each CPU already in the runqueue, account for
+>>> it and for
+>>> +             * its sibling(s), independently from whether such
+>>> sibling(s) are
+>>> +             * in the runqueue already or not.
+>>> +             *
+>>> +             * Of course, if there are sibling CPUs in the
+>>> runqueue already,
+>>> +             * only count them once.
+>>> +             */
+>>> +            cpumask_or(cpumask_scratch_cpu(cpu),
+>>> cpumask_scratch_cpu(cpu),
+>>> +                       per_cpu(cpu_sibling_mask, rcpu));
+>>> +            nr_smts += nr_sibl;
+>>
+>> This being common code, is it appropriate to assume all CPUs having
+>> the same number of siblings? 
+>>
+> You mention common code because you are thinking of differences between
+> x86 and ARM? In ARM --althought there might be (I'm not sure)-- chips
+> that have SMT, or that we may want to identify and treat like if it was
+> SMT, we currently have no support for that, so I don't think it is a
+> problem.
+> 
+> On x86, I'm not sure I am aware of cases where the number of threads is
+> different among cores or sockets... are there any?
 
-The qemu_opts_from_qdict() similarly leaks on failure.  But any
-failure there is a programming error.  Pass &error_abort.
+I'm not aware of any either, but in common code it should also
+matter what might be, not just what there is. Unless you wrap
+things in e.g. CONFIG_X86.
 
-Fixes: 816ac92ef769f9ffc534e49a1bb6177bddce7aa2
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>
-Cc: Paul Durrant <paul@xen.org>
-Cc: Gerd Hoffmann <kraxel@redhat.com>
-Cc: xen-devel@lists.xenproject.org
-Signed-off-by: Markus Armbruster <armbru@redhat.com>
-Message-Id: <20200505101908.6207-3-armbru@redhat.com>
-Acked-by: Paul Durrant <paul@xen.org>
----
- hw/usb/xen-usb.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+>> Even beyond that, iirc the sibling mask
+>> represents the online or parked siblings, but not offline ones. For
+>> the purpose here, don't you rather care about the full set?
+>>
+> This is actually a good point. I indeed care about the number of
+> siblings a thread has, in general, not only about the ones that are
+> currently online.
+> 
+> In v2, I'll be using boot_cpu_data.x86_num_siblings, of course wrapped
+> in an helper that just returns 1 for ARM. What do you think, is this
+> better?
 
-diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
-index 961190d0f7..4d266d7bb4 100644
---- a/hw/usb/xen-usb.c
-+++ b/hw/usb/xen-usb.c
-@@ -30,6 +30,7 @@
- #include "hw/usb.h"
- #include "hw/xen/xen-legacy-backend.h"
- #include "monitor/qdev.h"
-+#include "qapi/error.h"
- #include "qapi/qmp/qdict.h"
- #include "qapi/qmp/qstring.h"
- 
-@@ -755,13 +756,16 @@ static void usbback_portid_add(struct usbback_info *usbif, unsigned port,
-     qdict_put_int(qdict, "port", port);
-     qdict_put_int(qdict, "hostbus", atoi(busid));
-     qdict_put_str(qdict, "hostport", portname);
--    opts = qemu_opts_from_qdict(qemu_find_opts("device"), qdict, &local_err);
--    if (local_err) {
--        goto err;
--    }
-+    opts = qemu_opts_from_qdict(qemu_find_opts("device"), qdict,
-+                                &error_abort);
-     usbif->ports[port - 1].dev = USB_DEVICE(qdev_device_add(opts, &local_err));
-     if (!usbif->ports[port - 1].dev) {
--        goto err;
-+        qobject_unref(qdict);
-+        xen_pv_printf(&usbif->xendev, 0,
-+                      "device %s could not be opened: %s\n",
-+                      busid, error_get_pretty(local_err));
-+        error_free(local_err);
-+        return;
-     }
-     qobject_unref(qdict);
-     speed = usbif->ports[port - 1].dev->speed;
-@@ -793,11 +797,6 @@ static void usbback_portid_add(struct usbback_info *usbif, unsigned port,
-     usbback_hotplug_enq(usbif, port);
- 
-     TR_BUS(&usbif->xendev, "port %d attached\n", port);
--    return;
--
--err:
--    qobject_unref(qdict);
--    xen_pv_printf(&usbif->xendev, 0, "device %s could not be opened\n", busid);
- }
- 
- static void usbback_process_port(struct usbback_info *usbif, unsigned port)
--- 
-2.21.3
+As per above, cpu_data[rcpu] then please.
 
+>> What about HT vs AMD Fam15's CUs? Do you want both to be treated
+>> the same here?
+>>
+> Are you referring to the cores that, AFAIUI, share the L1i cache? If
+> yes, I thought about it, and ended up _not_ dealing with them here, but
+> I'm still a bit unsure.
+> 
+> Cache oriented runqueue organization will be the subject of another
+> patch series, and that's why I kept them out. However, that's a rather
+> special case with a lot in common to SMT...
+
+I didn't think of cache sharing in particular, but about the
+concept of compute units vs hyperthreads in general.
+
+> Just in case, is there a
+> way to identify them easily, like with a mask or something, in the code
+> already?
+
+cpu_sibling_mask still gets used for both, so there's no mask
+to use. As per set_cpu_sibling_map() you can look at
+cpu_data[].compute_unit_id to tell, but that's of course x86-
+specific (as is the entire compute unit concept).
+
+>>> @@ -900,6 +990,12 @@ cpu_add_to_runqueue(struct csched2_private
+>>> *prv, unsigned int cpu)
+>>>          rqd->pick_bias = cpu;
+>>>          rqd->id = rqi;
+>>>      }
+>>> +    else
+>>> +        rqd = rqd_valid;
+>>> +
+>>> +    printk(XENLOG_INFO "CPU %d (sibling={%*pbl}) will go to
+>>> runqueue %d with {%*pbl}\n",
+>>> +           cpu, CPUMASK_PR(per_cpu(cpu_sibling_mask, cpu)), rqd-
+>>>> id,
+>>> +           CPUMASK_PR(&rqd->active));
+>>
+>> Iirc there's one per-CPU printk() already. On large systems this
+>> isn't
+>> very nice, so I'd like to ask that their total number at least not
+>> get
+>> further grown. Ideally there would be a less verbose summary after
+>> all
+>> CPUs have been brought up at boot, with per-CPU info be logged only
+>> during CPU hot online.
+>>
+> Understood. Problem is that, here in the scheduling code, I don't see
+> an easy way to tell when we have finished bringing up CPUs... And it's
+> probably not worth looking too hard (even less adding logic) only for
+> the sake of printing this message.
+> 
+> So I think I will demote this printk as a XENLOG_DEBUG one (and will
+> also get rid of others that were already DEBUG, but not super useful,
+> after some more thinking).
+
+Having seen Jürgen's reply as well as what you further wrote below,
+I'd still like to point out that even XENLOG_DEBUG isn't quiet
+enough: There may be some value to such a debugging message to you,
+but it may be mainly spam to e.g. me, who I still have a need to
+run with loglvl=all in the common case. Let's not forget, the
+context in which the underlying topic came up in was pretty-many-
+core AMD CPUs.
+
+We had this issue elsewhere as well, and as CPU counts grew we
+started hiding such messages behind a command line option, besides
+a log level qualification. Similarly we hide e.g. details of the
+IOMMU arrangements behind a command line option.
+
+> The idea is that, after all, exactly on which runqueue a CPU ends up is
+> not an information that should matter much from an user/administrator.
+> For now, it will be possible to know where they ended up via debug
+> keys. And even if we feel like making it more visible, that is better
+> achieved via some toolstack command that queries and prints the
+> configuration of the scheduler, rather than a line like this in the
+> boot log.
+
+Good.
+
+Jan
 
