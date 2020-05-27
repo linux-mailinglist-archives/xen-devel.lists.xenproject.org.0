@@ -2,47 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C6E1E3F4F
-	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 12:43:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29E201E3F93
+	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 13:08:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdtWv-0007Aq-17; Wed, 27 May 2020 10:43:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jdttm-0000kI-0Y; Wed, 27 May 2020 11:07:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eMJP=7J=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jdtWt-0007Ai-Vt
- for xen-devel@lists.xenproject.org; Wed, 27 May 2020 10:43:24 +0000
-X-Inumbo-ID: e22b481c-a006-11ea-a717-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e22b481c-a006-11ea-a717-12813bfff9fa;
- Wed, 27 May 2020 10:43:21 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: tlUAiLy9f0+D4MUI4Y6F83hCylkZvlGEvyD0/lHW1DkMPMptHTE09oxOySCdo0I7J4I5i2tI1j
- Ogb+8HGZlLfbGhTo0HAeKbbmFvkWKd7eHLx1qXSRovYu7B7Q+A6yUF4Pz0uWPhAFmE7Mfn+8b/
- p1wUe8oNHvSg5OP+KHkQzjSMJWwspk351ZfZqS+s5XoHlaW7YywFIkYn+VdWJsIqLAZUQDAOuZ
- gxidGy8iwlLvdPsFyNb/kKzxePHk/S//GDA0zK+r0Sw6T7IG4frW8+4HyMdnMgGSvpsMCLA+u0
- bIs=
-X-SBRS: 2.7
-X-MesageID: 18558352
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,441,1583211600"; d="scan'208";a="18558352"
-Date: Wed, 27 May 2020 11:43:16 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: George Dunlap <george.dunlap@citrix.com>
-Subject: Re: [PATCH v2 3/5] automation/archlinux: Add 32-bit glibc headers
-Message-ID: <20200527104316.GH2105@perard.uk.xensource.com>
-References: <20200526221612.900922-1-george.dunlap@citrix.com>
- <20200526221612.900922-4-george.dunlap@citrix.com>
+ <SRS0=UeBB=7J=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jdttj-0000kD-UH
+ for xen-devel@lists.xenproject.org; Wed, 27 May 2020 11:06:59 +0000
+X-Inumbo-ID: 2c0a21da-a00a-11ea-81bc-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2c0a21da-a00a-11ea-81bc-bc764e2007e4;
+ Wed, 27 May 2020 11:06:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=w5YTqwbuTeUyDqN4W0Oms4W3xENRDRpj2kuxnBJHrkg=; b=ccpBh2oPOg8YYvQrkOgSx1BlF
+ AS+AKj73Vk+RzFfiuR9eaMFRE4KHZfDmzbn/WAELWdK3OvodLXiAiodmUUyuJ4nOEw097ZPjOPjKT
+ bp/vgmsFcW+qWcaGwjm7ZiwqWcVFISOw5mcjWDr/BYqAIExoBsEfEs3OFUL8FINTsGQSA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdttd-0000so-Aq; Wed, 27 May 2020 11:06:53 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdttc-0004Ja-Sa; Wed, 27 May 2020 11:06:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jdttc-0004NG-Rz; Wed, 27 May 2020 11:06:52 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150396-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20200526221612.900922-4-george.dunlap@citrix.com>
+Subject: [xen-unstable-smoke test] 150396: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=b66e28226dd9df8a28101438f44c0a26d63b76fa
+X-Osstest-Versions-That: xen=d89e5e65f305740b2f7bd56e6f3b6c9c52ee0707
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 27 May 2020 11:06:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,36 +65,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, Wei
- Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 26, 2020 at 11:16:10PM +0100, George Dunlap wrote:
-> This fixes the following build error in hvmloader:
-> 
-> usr/include/gnu/stubs.h:7:11: fatal error: gnu/stubs-32.h: No such file or directory
-> 
-> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-> ---
->  automation/build/archlinux/current.dockerfile | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/automation/build/archlinux/current.dockerfile b/automation/build/archlinux/current.dockerfile
-> index 9af5d66afc..5095de65b8 100644
-> --- a/automation/build/archlinux/current.dockerfile
-> +++ b/automation/build/archlinux/current.dockerfile
-> @@ -19,6 +19,7 @@ RUN pacman -S --refresh --sysupgrade --noconfirm --noprogressbar --needed \
->          iasl \
->          inetutils \
->          iproute \
-> +        lib32-glibc \
->          libaio \
->          libcacard \
->          libgl \
+flight 150396 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150396/
 
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+Failures :-/ but no regressions.
 
--- 
-Anthony PERARD
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  b66e28226dd9df8a28101438f44c0a26d63b76fa
+baseline version:
+ xen                  d89e5e65f305740b2f7bd56e6f3b6c9c52ee0707
+
+Last test of basis   150388  2020-05-26 15:01:19 Z    0 days
+Testing same since   150396  2020-05-27 08:09:48 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   d89e5e65f3..b66e28226d  b66e28226dd9df8a28101438f44c0a26d63b76fa -> smoke
 
