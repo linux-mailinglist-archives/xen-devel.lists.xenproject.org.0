@@ -2,55 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 522491E4421
-	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 15:45:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AED01E4512
+	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 16:02:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdwMR-0006Ua-R9; Wed, 27 May 2020 13:44:47 +0000
+	id 1jdwbl-0008CA-6I; Wed, 27 May 2020 14:00:37 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9XM8=7J=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1jdwMQ-0006UV-7D
- for xen-devel@lists.xenproject.org; Wed, 27 May 2020 13:44:46 +0000
-X-Inumbo-ID: 383e66f9-a020-11ea-a74b-12813bfff9fa
-Received: from hera.aquilenet.fr (unknown [185.233.100.1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+pkZ=7J=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jdwbj-0008C5-Qo
+ for xen-devel@lists.xenproject.org; Wed, 27 May 2020 14:00:35 +0000
+X-Inumbo-ID: 6ed322ce-a022-11ea-a752-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 383e66f9-a020-11ea-a74b-12813bfff9fa;
- Wed, 27 May 2020 13:44:44 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id E64B6D737;
- Wed, 27 May 2020 15:44:43 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Pgx7Mf1c6z9U; Wed, 27 May 2020 15:44:42 +0200 (CEST)
-Received: from function.home (unknown
- [IPv6:2a01:cb19:956:1b00:9eb6:d0ff:fe88:c3c7])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id C1D68D242;
- Wed, 27 May 2020 15:44:42 +0200 (CEST)
-Received: from samy by function.home with local (Exim 4.93)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1jdwML-001IBK-JO; Wed, 27 May 2020 15:44:41 +0200
-Date: Wed, 27 May 2020 15:44:41 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+ id 6ed322ce-a022-11ea-a752-12813bfff9fa;
+ Wed, 27 May 2020 14:00:34 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DE1A9AFC0;
+ Wed, 27 May 2020 14:00:35 +0000 (UTC)
 Subject: Re: -mno-tls-direct-seg-refs support in glibc for i386 PV Xen
-Message-ID: <20200527134441.y5dta4n2dm3ftlmw@function>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Florian Weimer <fweimer@redhat.com>, xen-devel@lists.xenproject.org,
- libc-alpha@sourceware.org
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <87mu5til8a.fsf@oldenburg2.str.redhat.com>
  <551ceac2-9cf6-00fd-95a6-a5b9fea6a383@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <69bdaedf-c403-a77d-8ab1-12feffa15494@suse.com>
+Date: Wed, 27 May 2020 16:00:31 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 In-Reply-To: <551ceac2-9cf6-00fd-95a6-a5b9fea6a383@citrix.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,9 +52,36 @@ Cc: Florian Weimer <fweimer@redhat.com>, xen-devel@lists.xenproject.org,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hello,
-
-Andrew Cooper via Libc-alpha, le mer. 27 mai 2020 14:39:00 +0100, a ecrit:
+On 27.05.2020 15:39, Andrew Cooper wrote:
+> On 27/05/2020 14:03, Florian Weimer wrote:
+>> I'm about to remove nosegneg support from upstream glibc, special builds
+>> that use -mno-tls-direct-seg-refs, and the ability load different
+>> libraries built in this mode automatically, when the Linux kernel tells
+>> us to do that.  I think the intended effect is that these special builds
+>> do not use operands of the form %gs:(%eax) when %eax has the MSB set
+>> because that had a performance hit with paravirtualization on 32-bit
+>> x86.  Instead, the thread pointer is first loaded from %gs:0, and the
+>> actual access does not use a segment prefix.
+>>
+>> Before doing that, I'd like to ask if anybody is still using this
+>> feature?
+>>
+>> I know that we've been carrying nosegneg libraries for many years, in
+>> some cases even after we stopped shipping 32-bit kernels. 8-/ The
+>> feature has always been rather poorly documented, and the way the
+>> dynamic loader selects those nosegneg library variants is still very
+>> bizarre.
+> 
+> I wasn't even aware of this feature, or that there was a problem wanting
+> fixing.
+> 
+> That said, I have found:
+> 
+> # 32-bit x86 does not perform well with -ve segment accesses on Xen.
+> CFLAGS-$(CONFIG_X86_32) += $(call cc-option,$(CC),-mno-tls-direct-seg-refs)
+> 
+> in one of our makefiles.
+> 
 > Why does the MSB make any difference?  %gs still needs to remain intact
 > so the thread pointer can be pulled out, so there is nothing that Xen or
 > Linux can do in the way of lazy loading.
@@ -81,12 +94,15 @@ Andrew Cooper via Libc-alpha, le mer. 27 mai 2020 14:39:00 +0100, a ecrit:
 > Are there any further details on the perf problem claim?  I find it
 > suspicious.
 
-The concern is not about the indirection.
+To guard the hypervisor area, 32-bit Xen reduced the limits of guest
+usable segment descriptors. While this works fine for flat ones (you
+just chop off some space at the top), there's no way to represent a
+full segment with a non-zero base. You can have the descriptor map
+only the [base,XenBase] part or the [0,base) one. Hence Xen, from its
+#GP handler, flipped the descriptor between the two options depending
+on whether the current access was to the positive of negative part of
+the TLS seg. (An in-practice use of expand down segments, as you'll
+surely notice.)
 
-The concern is that to keep safe from the guest, the hypervisor has to
-restrict the size of the segment, and thus negative offsets, used in the
-i386 TLS model, are rejected by the processor, and the hypervisor has to
-emulate these access, thus a high cost.
-
-Samuel
+Jan
 
