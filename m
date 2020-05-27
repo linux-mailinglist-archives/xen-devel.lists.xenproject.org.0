@@ -2,61 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A17F1E46D4
-	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 17:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF06B1E46C0
+	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 17:02:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jdxb0-0005uq-Kg; Wed, 27 May 2020 15:03:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jdxZ7-0005oP-7y; Wed, 27 May 2020 15:01:57 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ARaW=7J=xen.org=roger@srs-us1.protection.inumbo.net>)
- id 1jdxFQ-0003lF-G0
- for xen-devel@lists.xenproject.org; Wed, 27 May 2020 14:41:36 +0000
-X-Inumbo-ID: 26d14dce-a028-11ea-9947-bc764e2007e4
+ (envelope-from <SRS0=NSSa=7J=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jdxZ5-0005oJ-D1
+ for xen-devel@lists.xenproject.org; Wed, 27 May 2020 15:01:55 +0000
+X-Inumbo-ID: 00ae6ba6-a02b-11ea-a75c-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 26d14dce-a028-11ea-9947-bc764e2007e4;
- Wed, 27 May 2020 14:41:30 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 00ae6ba6-a02b-11ea-a75c-12813bfff9fa;
+ Wed, 27 May 2020 15:01:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=62mMkHYb9wXQ+M+kXG8GvEUvOczD2Ydx/xkpqyMXgIE=; b=t9bDoPdJpvG7EfgeWOOjc4YDuD
- TBgIUh1I5IbS15gaDzI2RXn0xmXxhozo9ym2ZA6IkwT0GQBjsBGAm1uN6Xqvf71x4iNzeepQ4JYJy
- OQGbZZ0SByjGlTKnGtBCpH+gm++7SYvHkIKMBinx3+NvPjanqVHOw5RGVOPGA92abX4s=;
+ bh=Rjr/fnn1r9nNNDmy/mckjFtMS52K4ZK3kk14ndKqHwA=; b=s6qPhnaoWtIroM/W19Qp3qPcgm
+ ucfHgmuL+AECd+KMScnPkZZgsLEWmQK8uEwjFAYl3uYBFG91v9U6unIRkxBOunSqFuwxaYEOEMiZZ
+ UhWxDs86uZjvPo3p5GtE3xe5nxqExzkOfY55VdKPA3BUa9RW3UoXnKiSURCYrCtl52zs=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jdxFE-0005N6-Qq; Wed, 27 May 2020 14:41:24 +0000
-Received: from [93.176.191.173] (helo=localhost)
+ (envelope-from <hx242@xen.org>)
+ id 1jdxZ2-0005rk-Sp; Wed, 27 May 2020 15:01:52 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=u1bbd043a57dd5a.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jdxFE-00010X-G7; Wed, 27 May 2020 14:41:24 +0000
-Date: Wed, 27 May 2020 16:41:10 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
-To: Martin Lucina <martin@lucina.net>
-Subject: Re: Xen PVH domU start-of-day VCPU state
-Message-ID: <20200527143644.GA1195@Air-de-Roger>
-References: <20200525160401.GA3091@nodbug.lucina.net>
- <a17fef73-382c-50b3-1e6b-5904fc3bf60f@suse.com>
- <6a22e477-c9e7-f0d7-6cb1-615137a778be@citrix.com>
- <20200526085221.GB5942@nodbug.lucina.net>
- <20200526093421.GA38408@Air-de-Roger>
- <20200526100337.GB38408@Air-de-Roger>
- <20200526101203.GE5942@nodbug.lucina.net>
- <20200526154224.GC25283@nodbug.lucina.net>
- <20200526163021.GE38408@Air-de-Roger>
- <20200527080008.GC4788@nodbug.lucina.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200527080008.GC4788@nodbug.lucina.net>
-X-Mailman-Approved-At: Wed, 27 May 2020 15:03:53 +0000
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1jdxZ2-0002DH-Ie; Wed, 27 May 2020 15:01:52 +0000
+Message-ID: <27611cd2c6f04431d3e0fe99824cc844fed96e40.camel@xen.org>
+Subject: Re: [PATCH v6 07/15] x86_64/mm: switch to new APIs in paging_init
+From: Hongyan Xia <hx242@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Date: Wed, 27 May 2020 16:01:50 +0100
+In-Reply-To: <80d185d4-c7c3-53b9-d851-ab56ea4bc755@suse.com>
+References: <cover.1587735799.git.hongyxia@amazon.com>
+ <0655cc2d3dc27141ef102076c4ad390a37191b37.1587735799.git.hongyxia@amazon.com>
+ <80d185d4-c7c3-53b9-d851-ab56ea4bc755@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,161 +61,72 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, anil@recoil.org,
- Andrew Cooper <andrew.cooper3@citrix.com>, mirageos-devel@lists.xenproject.org,
- dave@recoil.org, xen-devel@lists.xenproject.org
+Cc: xen-devel@lists.xenproject.org,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, May 27, 2020 at 10:00:08AM +0200, Martin Lucina wrote:
-> On Tuesday, 26.05.2020 at 18:30, Roger Pau Monné wrote:
-> > > Turns out that the .note.solo5.xen section as defined in boot.S was not
-> > > marked allocatable, and that was doing <something> that was confusing our
-> > > linker script[1] (?).
-> > 
-> > Hm, I would have said there was no need to load notes into memory, and
-> > hence using a MemSize of 0 would be fine.
-> > 
-> > Maybe libelf loader was somehow getting confused and not loading the
-> > image properly?
-> > 
-> > Can you paste the output of `xl -vvv create ...` when using the broken
-> > image?
+On Wed, 2020-05-20 at 11:46 +0200, Jan Beulich wrote:
+> On 24.04.2020 16:08, Hongyan Xia wrote:
+> > @@ -493,22 +494,28 @@ void __init paging_init(void)
+> >          if ( !(l4e_get_flags(idle_pg_table[l4_table_offset(va)]) &
+> >                _PAGE_PRESENT) )
+> >          {
+> > -            l3_pgentry_t *pl3t = alloc_xen_pagetable();
+> > +            l3_pgentry_t *pl3t;
+> > +            mfn_t l3mfn = alloc_xen_pagetable_new();
+> >  
+> > -            if ( !pl3t )
+> > +            if ( mfn_eq(l3mfn, INVALID_MFN) )
+> >                  goto nomem;
+> > +
+> > +            pl3t = map_domain_page(l3mfn);
+> >              clear_page(pl3t);
+> >              l4e_write(&idle_pg_table[l4_table_offset(va)],
+> > -                      l4e_from_paddr(__pa(pl3t),
+> > __PAGE_HYPERVISOR_RW));
+> > +                      l4e_from_mfn(l3mfn, __PAGE_HYPERVISOR_RW));
+> > +            unmap_domain_page(pl3t);
 > 
-> Here you go:
+> This can be moved up, and once it is you'll notice that you're
+> open-coding clear_domain_page(). I wonder whether I didn't spot
+> the same in other patches of this series.
 > 
-> Parsing config from ./test_hello.xl
-> libxl: debug: libxl_create.c:1671:do_domain_create: Domain 0:ao 0x5593c42e7e30: create: how=(nil) callback=(nil) poller=0x5593c42e7670
-> libxl: debug: libxl_create.c:1007:initiate_domain_create: Domain 2:running bootloader
-> libxl: debug: libxl_bootloader.c:335:libxl__bootloader_run: Domain 2:no bootloader configured, using user supplied kernel
-> libxl: debug: libxl_event.c:686:libxl__ev_xswatch_deregister: watch w=0x5593c42e9590: deregister unregistered
-> libxl: debug: libxl_sched.c:82:libxl__set_vcpuaffinity: Domain 2:New soft affinity for vcpu 0 has unreachable cpus
-> domainbuilder: detail: xc_dom_allocate: cmdline="", features=""
-> domainbuilder: detail: xc_dom_kernel_file: filename="test_hello.xen"
-> domainbuilder: detail: xc_dom_malloc_filemap    : 191 kB
-> domainbuilder: detail: xc_dom_boot_xen_init: ver 4.11, caps xen-3.0-x86_64 xen-3.0-x86_32p hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_64
-> domainbuilder: detail: xc_dom_parse_image: called
-> domainbuilder: detail: xc_dom_find_loader: trying multiboot-binary loader ...
-> domainbuilder: detail: loader probe failed
-> domainbuilder: detail: xc_dom_find_loader: trying HVM-generic loader ...
-> domainbuilder: detail: loader probe failed
-> domainbuilder: detail: xc_dom_find_loader: trying Linux bzImage loader ...
-> domainbuilder: detail: xc_dom_probe_bzimage_kernel: kernel is not a bzImage
-> domainbuilder: detail: loader probe failed
-> domainbuilder: detail: xc_dom_find_loader: trying ELF-generic loader ...
-> domainbuilder: detail: loader probe OK
-> xc: detail: ELF: phdr: paddr=0x100000 memsz=0x6264
-> xc: detail: ELF: phdr: paddr=0x107000 memsz=0xed48
-> xc: detail: ELF: memory: 0x100000 -> 0x115d48
-> xc: detail: ELF: note: PHYS32_ENTRY = 0x100020
-> xc: detail: ELF: Found PVH image
-> xc: detail: ELF: VIRT_BASE unset, using 0
-> xc: detail: ELF_PADDR_OFFSET unset, using 0
-> xc: detail: ELF: addresses:
-> xc: detail:     virt_base        = 0x0
-> xc: detail:     elf_paddr_offset = 0x0
-> xc: detail:     virt_offset      = 0x0
-> xc: detail:     virt_kstart      = 0x100000
-> xc: detail:     virt_kend        = 0x115d48
-> xc: detail:     virt_entry       = 0x1001e0
-> xc: detail:     p2m_base         = 0xffffffffffffffff
-> domainbuilder: detail: xc_dom_parse_elf_kernel: hvm-3.0-x86_32: 0x100000 -> 0x115d48
-> domainbuilder: detail: xc_dom_mem_init: mem 256 MB, pages 0x10000 pages, 4k each
-> domainbuilder: detail: xc_dom_mem_init: 0x10000 pages
-> domainbuilder: detail: xc_dom_boot_mem_init: called
-> domainbuilder: detail: range: start=0x0 end=0x10000400
-> domainbuilder: detail: xc_dom_malloc            : 512 kB
-> xc: detail: PHYSICAL MEMORY ALLOCATION:
-> xc: detail:   4KB PAGES: 0x0000000000000c00
-> xc: detail:   2MB PAGES: 0x000000000000007a
-> xc: detail:   1GB PAGES: 0x0000000000000000
-> domainbuilder: detail: xc_dom_build_image: called
-> domainbuilder: detail: xc_dom_pfn_to_ptr_retcount: domU mapping: pfn 0x100+0x16 at 0x7f5609445000
-> domainbuilder: detail: xc_dom_alloc_segment:   kernel       : 0x100000 -> 0x116000  (pfn 0x100 + 0x16 pages)
-> xc: detail: ELF: phdr 1 at 0x7f5609445000 -> 0x7f560944b264
-> xc: detail: ELF: phdr 2 at 0x7f560944c000 -> 0x7f5609453120
-> domainbuilder: detail: xc_dom_load_acpi: 64 bytes at address fc008000
-> domainbuilder: detail: xc_dom_load_acpi: 4096 bytes at address fc000000
-> domainbuilder: detail: xc_dom_load_acpi: 28672 bytes at address fc001000
-> domainbuilder: detail: xc_dom_pfn_to_ptr_retcount: domU mapping: pfn 0x116+0x1 at 0x7f5609ace000
-> domainbuilder: detail: xc_dom_alloc_segment:   HVM start info : 0x116000 -> 0x117000  (pfn 0x116 + 0x1 pages)
-> domainbuilder: detail: alloc_pgtables_hvm: doing nothing
-> domainbuilder: detail: xc_dom_build_image  : virt_alloc_end : 0x117000
-> domainbuilder: detail: xc_dom_build_image  : virt_pgtab_end : 0x0
-> domainbuilder: detail: xc_dom_boot_image: called
-> domainbuilder: detail: xc_dom_compat_check: supported guest type: xen-3.0-x86_64
-> domainbuilder: detail: xc_dom_compat_check: supported guest type: xen-3.0-x86_32p
-> domainbuilder: detail: xc_dom_compat_check: supported guest type: hvm-3.0-x86_32 <= matches
-> domainbuilder: detail: xc_dom_compat_check: supported guest type: hvm-3.0-x86_32p
-> domainbuilder: detail: xc_dom_compat_check: supported guest type: hvm-3.0-x86_64
-> domainbuilder: detail: domain builder memory footprint
-> domainbuilder: detail:    allocated
-> domainbuilder: detail:       malloc             : 515 kB
-> domainbuilder: detail:       anon mmap          : 0 bytes
-> domainbuilder: detail:    mapped
-> domainbuilder: detail:       file mmap          : 191 kB
-> domainbuilder: detail:       domU mmap          : 92 kB
-> domainbuilder: detail: vcpu_hvm: called
-> domainbuilder: detail: xc_dom_gnttab_hvm_seed: called, pfn=0xff000
-> domainbuilder: detail: xc_dom_gnttab_hvm_seed: called, pfn=0xff001
-> domainbuilder: detail: xc_dom_release: called
-> libxl: debug: libxl_event.c:2194:libxl__ao_progress_report: ao 0x5593c42e7e30: progress report: callback queued aop=0x5593c42fea10
-> libxl: debug: libxl_event.c:1869:libxl__ao_complete: ao 0x5593c42e7e30: complete, rc=0
-> libxl: debug: libxl_event.c:1404:egc_run_callbacks: ao 0x5593c42e7e30: progress report: callback aop=0x5593c42fea10
-> libxl: debug: libxl_create.c:1708:do_domain_create: Domain 0:ao 0x5593c42e7e30: inprogress: poller=0x5593c42e7670, flags=ic
-> libxl: debug: libxl_event.c:1838:libxl__ao__destroy: ao 0x5593c42e7e30: destroy
-> xencall:buffer: debug: total allocations:233 total releases:233
-> xencall:buffer: debug: current allocations:0 maximum allocations:3
-> xencall:buffer: debug: cache current size:3
-> xencall:buffer: debug: cache hits:215 misses:3 toobig:15
-> xencall:buffer: debug: total allocations:0 total releases:0
-> xencall:buffer: debug: current allocations:0 maximum allocations:0
-> xencall:buffer: debug: cache current size:0
-> xencall:buffer: debug: cache hits:0 misses:0 toobig:0
+> Besides the previously raised point of possibly having an
+> allocation function that returns a mapping of the page right
+> away (not needed here) - are there many cases where allocation
+> of a new page table isn't accompanied by clearing the page? If
+> not, should the function perhaps do so (and then, once it has
+> a mapping anyway, it would be even more so natural to return
+> it for users wanting a mapping anyway)?
 
-That looks fine AFAICT. The program headers seems to be correctly
-identified and sized.
+I grepped through all alloc_xen_pagetable(). Except the page shattering
+logic in x86/mm.c where the whole page table page is written
+immediately, all other call sites clear the page right away, so it is
+useful to have a helper that clears it for you. I also looked at the
+use of VA and MFN from the call. MFN is almost always needed while VA
+is not, and if we bundle clearing into the alloc() itself, a lot of
+call sites don't even need the VA.
 
-> > 
-> > > 
-> > > If I make this simple change:
-> > > 
-> > > --- a/bindings/xen/boot.S
-> > > +++ b/bindings/xen/boot.S
-> > > @@ -32,7 +32,7 @@
-> > >  #define ENTRY(x) .text; .globl x; .type x,%function; x:
-> > >  #define END(x)   .size x, . - x
-> > > 
-> > > -.section .note.solo5.xen
-> > > +.section .note.solo5.xen, "a", @note
-> > > 
-> > >         .align  4
-> > >         .long   4
-> > > 
-> > > then I get the expected output from readelf -lW, and I can get as far as
-> > > the C _start() with no issues!
-> > > 
-> > > FWIW, here's the diff of readelf -lW before/after:
-> > > 
-> > > --- before	2020-05-26 17:36:46.117885855 +0200
-> > > +++ after	2020-05-26 17:38:07.090508322 +0200
-> > > @@ -8,9 +8,9 @@
-> > >    INTERP         0x001000 0x0000000000100000 0x0000000000100000 0x000018 0x000018 R   0x8
-> > >        [Requesting program interpreter: /nonexistent/solo5/]
-> > >    LOAD           0x001000 0x0000000000100000 0x0000000000100000 0x00615c 0x00615c R E 0x1000
-> > > -  LOAD           0x008000 0x0000000000107000 0x0000000000107000 0x007120 0x00ed28 RW  0x1000
-> > > +  LOAD           0x008000 0x0000000000107000 0x0000000000107000 0x006120 0x00dd28 RW  0x1000
-> > 
-> > This seems suspicious, there's a change of the size of the LOAD
-> > section, but your change to the note type should not affect the LOAD
-> > section?
+Similar to what you suggested before, we can do:
+void* alloc_map_clear_xen_pagetable(mfn_t* mfn)
+which needs to be paired with an unmap call, of course.
+
+> > @@ -662,6 +677,8 @@ void __init paging_init(void)
+> >      return;
+> >  
+> >   nomem:
+> > +    UNMAP_DOMAIN_PAGE(l2_ro_mpt);
+> > +    UNMAP_DOMAIN_PAGE(l3_ro_mpt);
+> >      panic("Not enough memory for m2p table\n");
+> >  }
 > 
-> Indeed.
+> I don't think this is a very useful addition.
 
-You could try to disassemble the text sections with objdump -d (or -D
-for all sections) and see if there's a difference between both
-versions, but having solved the issue maybe you just want to move
-on.
+I was trying to avoid further mapping leaks in the panic path, but it
+does not look like panic() does mappings, so these can be removed.
 
-Roger.
+Hongyan
+
 
