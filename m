@@ -2,41 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93F221E4E05
+	by mail.lfdr.de (Postfix) with ESMTPS id DE28F1E4E08
 	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 21:19:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1je1a7-0003zk-Dr; Wed, 27 May 2020 19:19:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1je1aH-00042T-V6; Wed, 27 May 2020 19:19:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/dLv=7J=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1je1a5-0003za-UD
- for xen-devel@lists.xenproject.org; Wed, 27 May 2020 19:19:13 +0000
-X-Inumbo-ID: f25930ee-a04e-11ea-81bc-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f25930ee-a04e-11ea-81bc-bc764e2007e4;
- Wed, 27 May 2020 19:19:12 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ id 1je1aG-00041w-2S
+ for xen-devel@lists.xenproject.org; Wed, 27 May 2020 19:19:24 +0000
+X-Inumbo-ID: f518fc1a-a04e-11ea-a777-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f518fc1a-a04e-11ea-a777-12813bfff9fa;
+ Wed, 27 May 2020 19:19:17 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: mbKeQ7QpZv3IAsquSsZ+NyeeuXXDsp5Ov4NaEfAcMJJ0LNNrOgQw0Ti7QwRh7vNC2an6Gox6Hs
- eZCEKK9hD4wSVxN90TtlQHL7WVq9ol/YPFFm6tWBpni7cPHg/oUYxNKCPBKRGjUCh2Ly6s3kvd
- JkNKKmQy5NMUDurQa7eM8aLs9WzGh9bZpl2MGsu0TCHcHBgh0ZFO9TZbxqmbVvDvPmMO3IqMK3
- TmThn2U46kTojFfzBjApdDj6z4gcqzab3mVmIyHk0Nr5PHI8VhwC6cUGNhMq9Yk3lWBhiiMqqq
- RkQ=
+IronPort-SDR: AqhgHtvucTXh9gKrfysPQjfVwMB0aAHR29VpIB06eomiAmpiSuq6TuZPrORn6qj4+x6hCO6gd+
+ SVfFlrKExbY8F3Atho7vCyhxi4fAZnu21BA2HyMi3ltCqkKkS4O8jkHQ0LfIaBT+ViAzXYjlRf
+ Xck5nRfYrDK76ervV5In3SK6anRX5eygGGYsEbTEJFpVcojs6VfxwOnIpP2Znpfl3pX2t9h21I
+ tR35FF9r5Bug6GxwSAg4sHJIuukG+UQV578hX0usflysaIbNriaUFgS9dDOVaDrsVJHsfWh3+3
+ 0vA=
 X-SBRS: 2.7
-X-MesageID: 18850555
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 19333922
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,442,1583211600"; d="scan'208";a="18850555"
+X-IronPort-AV: E=Sophos;i="5.73,442,1583211600"; d="scan'208";a="19333922"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH v2 08/14] x86/cpu: Adjust reset_stack_and_jump() to be shadow
+Subject: [PATCH v2 09/14] x86/spec-ctrl: Adjust DO_OVERWRITE_RSB to be shadow
  stack compatible
-Date: Wed, 27 May 2020 20:18:41 +0100
-Message-ID: <20200527191847.17207-9-andrew.cooper3@citrix.com>
+Date: Wed, 27 May 2020 20:18:42 +0100
+Message-ID: <20200527191847.17207-10-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200527191847.17207-1-andrew.cooper3@citrix.com>
 References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
@@ -59,113 +60,54 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-We need to unwind up to the supervisor token.  See the comment for details.
-
-The use of UNLIKELY_END_SECTION in this case highlights that it isn't safe
-when it isn't the final statement of an asm().  Adjust all declarations with a
-newline.
+The 32 calls need dropping from the shadow stack as well as the regular stack.
+To shorten the code, we can use the 32bit forms of RDSSP/INCSSP, but need to
+double up the input to INCSSP to counter the operand size based multiplier.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v2:
- * Drop 'cmc' which was stray debugging.
- * Replace raw numbers with defines.
- * Use a real BUG frame in .fixup, to get static branch preduction working the
-   right way around.
 ---
- xen/include/asm-x86/asm_defns.h |  8 +++----
- xen/include/asm-x86/current.h   | 48 ++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 49 insertions(+), 7 deletions(-)
+ xen/include/asm-x86/spec_ctrl_asm.h | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/xen/include/asm-x86/asm_defns.h b/xen/include/asm-x86/asm_defns.h
-index b42a19b654..035708adac 100644
---- a/xen/include/asm-x86/asm_defns.h
-+++ b/xen/include/asm-x86/asm_defns.h
-@@ -177,13 +177,13 @@ register unsigned long current_stack_pointer asm("rsp");
- 
- #ifdef __clang__ /* clang's builtin assember can't do .subsection */
- 
--#define UNLIKELY_START_SECTION ".pushsection .text.unlikely,\"ax\""
--#define UNLIKELY_END_SECTION   ".popsection"
-+#define UNLIKELY_START_SECTION ".pushsection .text.unlikely,\"ax\"\n\t"
-+#define UNLIKELY_END_SECTION   ".popsection\n\t"
- 
- #else
- 
--#define UNLIKELY_START_SECTION ".subsection 1"
--#define UNLIKELY_END_SECTION   ".subsection 0"
-+#define UNLIKELY_START_SECTION ".subsection 1\n\t"
-+#define UNLIKELY_END_SECTION   ".subsection 0\n\t"
- 
- #endif
- 
-diff --git a/xen/include/asm-x86/current.h b/xen/include/asm-x86/current.h
-index 99b66a0087..086326b81a 100644
---- a/xen/include/asm-x86/current.h
-+++ b/xen/include/asm-x86/current.h
-@@ -124,13 +124,55 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
- # define CHECK_FOR_LIVEPATCH_WORK ""
- #endif
- 
-+#ifdef CONFIG_XEN_SHSTK
-+/*
-+ * We need to unwind the primary shadow stack to its supervisor token, located
-+ * at 0x5ff8 from the base of the stack blocks.
-+ *
-+ * Read the shadow stack pointer, subtract it from 0x5ff8, divide by 8 to get
-+ * the number of slots needing popping.
-+ *
-+ * INCSSPQ can't pop more than 255 entries.  We shouldn't ever need to pop
-+ * that many entries, and getting this wrong will cause us to #DF later.  Turn
-+ * it into a BUG() now for fractionally easier debugging.
-+ */
-+# define SHADOW_STACK_WORK                                      \
-+    "mov $1, %[ssp];"                                           \
-+    "rdsspd %[ssp];"                                            \
-+    "cmp $1, %[ssp];"                                           \
-+    "je .L_shstk_done.%=;" /* CET not active?  Skip. */         \
-+    "mov $%c[skstk_base], %[val];"                              \
-+    "and $%c[stack_mask], %[ssp];"                              \
-+    "sub %[ssp], %[val];"                                       \
-+    "shr $3, %[val];"                                           \
-+    "cmp $255, %[val];" /* More than 255 entries?  Crash. */    \
-+    UNLIKELY_START(a, shstk_adjust)                             \
-+    _ASM_BUGFRAME_TEXT(0)                                       \
-+    UNLIKELY_END_SECTION                                        \
-+    "incsspq %q[val];"                                          \
-+    ".L_shstk_done.%=:"
-+#else
-+# define SHADOW_STACK_WORK ""
-+#endif
+diff --git a/xen/include/asm-x86/spec_ctrl_asm.h b/xen/include/asm-x86/spec_ctrl_asm.h
+index c60093b090..cb34299a86 100644
+--- a/xen/include/asm-x86/spec_ctrl_asm.h
++++ b/xen/include/asm-x86/spec_ctrl_asm.h
+@@ -83,9 +83,9 @@
+  * Requires nothing
+  * Clobbers \tmp (%rax by default), %rcx
+  *
+- * Requires 256 bytes of stack space, but %rsp has no net change. Based on
+- * Google's performance numbers, the loop is unrolled to 16 iterations and two
+- * calls per iteration.
++ * Requires 256 bytes of {,shadow}stack space, but %rsp/SSP has no net
++ * change. Based on Google's performance numbers, the loop is unrolled to 16
++ * iterations and two calls per iteration.
+  *
+  * The call filling the RSB needs a nonzero displacement.  A nop would do, but
+  * we use "1: pause; lfence; jmp 1b" to safely contains any ret-based
+@@ -114,6 +114,16 @@
+     sub $1, %ecx
+     jnz .L\@_fill_rsb_loop
+     mov %\tmp, %rsp                 /* Restore old %rsp */
 +
- #define switch_stack_and_jump(fn, instr)                                \
-     ({                                                                  \
-+        unsigned int tmp;                                               \
-         __asm__ __volatile__ (                                          \
--            "mov %0,%%"__OP"sp;"                                        \
-+            SHADOW_STACK_WORK                                           \
-+            "mov %[stk], %%rsp;"                                        \
-             instr                                                       \
--             "jmp %c1"                                                  \
--            : : "r" (guest_cpu_user_regs()), "i" (fn) : "memory" );     \
-+            "jmp %c[fun];"                                              \
-+            : [val] "=&r" (tmp),                                        \
-+              [ssp] "=&r" (tmp)                                         \
-+            : [stk] "r" (guest_cpu_user_regs()),                        \
-+              [fun] "i" (fn),                                           \
-+              [skstk_base] "i"                                          \
-+              ((PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8),               \
-+              [stack_mask] "i" (STACK_SIZE - 1),                        \
-+              _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__,                \
-+                                 __FILE__, NULL)                        \
-+            : "memory" );                                               \
-         unreachable();                                                  \
-     })
++#ifdef CONFIG_XEN_SHSTK
++    mov $1, %ecx
++    rdsspd %ecx
++    cmp $1, %ecx
++    je .L\@_shstk_done
++    mov $64, %ecx                   /* 64 * 4 bytes, given incsspd */
++    incsspd %ecx                    /* Restore old SSP */
++.L\@_shstk_done:
++#endif
+ .endm
  
+ .macro DO_SPEC_CTRL_ENTRY_FROM_HVM
 -- 
 2.11.0
 
