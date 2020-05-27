@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54FCA1E4E03
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F221E4E05
 	for <lists+xen-devel@lfdr.de>; Wed, 27 May 2020 21:19:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1je1aH-00042G-Kh; Wed, 27 May 2020 19:19:25 +0000
+	id 1je1a7-0003zk-Dr; Wed, 27 May 2020 19:19:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/dLv=7J=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1je1aF-00041n-QK
- for xen-devel@lists.xenproject.org; Wed, 27 May 2020 19:19:23 +0000
-X-Inumbo-ID: f33f80e4-a04e-11ea-81bc-bc764e2007e4
+ id 1je1a5-0003za-UD
+ for xen-devel@lists.xenproject.org; Wed, 27 May 2020 19:19:13 +0000
+X-Inumbo-ID: f25930ee-a04e-11ea-81bc-bc764e2007e4
 Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f33f80e4-a04e-11ea-81bc-bc764e2007e4;
- Wed, 27 May 2020 19:19:13 +0000 (UTC)
+ id f25930ee-a04e-11ea-81bc-bc764e2007e4;
+ Wed, 27 May 2020 19:19:12 +0000 (UTC)
 Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: Tq6+s3Zh7QaRK595E15ZFckIpIk5gndEZuDz8ttfd0qmFsoM1hkOEjbDpJmnafihXdS2HWfRcK
- QVkAVn3Rogew9UeKYWAH/IlD37FBiRZJR2anYYwrexQOk8+W6IdikgmgQ91IBXK3pEfLaP1DAM
- N6gd/Mt3pHXf98aiI/OYkIiMcPVmOwN4qrs210s1yoSsDlLfidrAwIRjL7qHSPnlzZBL0xbvuQ
- 67mO7Yp3pPLaQirrO8TluPLa7vsdyPssxO/H6VF+3sCQfFEywaUHox0NAOzp6g/8KgpVgvw+RP
- Q7A=
+IronPort-SDR: mbKeQ7QpZv3IAsquSsZ+NyeeuXXDsp5Ov4NaEfAcMJJ0LNNrOgQw0Ti7QwRh7vNC2an6Gox6Hs
+ eZCEKK9hD4wSVxN90TtlQHL7WVq9ol/YPFFm6tWBpni7cPHg/oUYxNKCPBKRGjUCh2Ly6s3kvd
+ JkNKKmQy5NMUDurQa7eM8aLs9WzGh9bZpl2MGsu0TCHcHBgh0ZFO9TZbxqmbVvDvPmMO3IqMK3
+ TmThn2U46kTojFfzBjApdDj6z4gcqzab3mVmIyHk0Nr5PHI8VhwC6cUGNhMq9Yk3lWBhiiMqqq
+ RkQ=
 X-SBRS: 2.7
-X-MesageID: 18850558
+X-MesageID: 18850555
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,442,1583211600"; d="scan'208";a="18850558"
+X-IronPort-AV: E=Sophos;i="5.73,442,1583211600"; d="scan'208";a="18850555"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH v2 07/14] x86/cpu: Adjust enable_nmis() to be shadow stack
- compatible
-Date: Wed, 27 May 2020 20:18:40 +0100
-Message-ID: <20200527191847.17207-8-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 08/14] x86/cpu: Adjust reset_stack_and_jump() to be shadow
+ stack compatible
+Date: Wed, 27 May 2020 20:18:41 +0100
+Message-ID: <20200527191847.17207-9-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200527191847.17207-1-andrew.cooper3@citrix.com>
 References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
@@ -59,80 +59,113 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-When executing an IRET-to-self, the shadow stack must agree with the regular
-stack.  We can't manipulate SSP directly, so have to fake a shadow IRET frame
-by executing 3 CALLs, then editing the result to look correct.
+We need to unwind up to the supervisor token.  See the comment for details.
 
-This is not a fastpath, is called on the BSP long before CET can be set up,
-and may be called on the crash path after CET is disabled.  Use the fact that
-INCSSP is allocated from the hint nop space to construct a test for CET being
-active which is safe on all processors.
+The use of UNLIKELY_END_SECTION in this case highlights that it isn't safe
+when it isn't the final statement of an asm().  Adjust all declarations with a
+newline.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/include/asm-x86/processor.h | 43 +++++++++++++++++++++++++++++++----------
- 1 file changed, 33 insertions(+), 10 deletions(-)
 
-diff --git a/xen/include/asm-x86/processor.h b/xen/include/asm-x86/processor.h
-index 859bd9e2ec..badd7e60e5 100644
---- a/xen/include/asm-x86/processor.h
-+++ b/xen/include/asm-x86/processor.h
-@@ -545,17 +545,40 @@ static inline void enable_nmis(void)
- {
-     unsigned long tmp;
+v2:
+ * Drop 'cmc' which was stray debugging.
+ * Replace raw numbers with defines.
+ * Use a real BUG frame in .fixup, to get static branch preduction working the
+   right way around.
+---
+ xen/include/asm-x86/asm_defns.h |  8 +++----
+ xen/include/asm-x86/current.h   | 48 ++++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 49 insertions(+), 7 deletions(-)
+
+diff --git a/xen/include/asm-x86/asm_defns.h b/xen/include/asm-x86/asm_defns.h
+index b42a19b654..035708adac 100644
+--- a/xen/include/asm-x86/asm_defns.h
++++ b/xen/include/asm-x86/asm_defns.h
+@@ -177,13 +177,13 @@ register unsigned long current_stack_pointer asm("rsp");
  
--    asm volatile ( "mov %%rsp, %[tmp]     \n\t"
--                   "push %[ss]            \n\t"
--                   "push %[tmp]           \n\t"
--                   "pushf                 \n\t"
--                   "push %[cs]            \n\t"
--                   "lea 1f(%%rip), %[tmp] \n\t"
--                   "push %[tmp]           \n\t"
--                   "iretq; 1:             \n\t"
--                   : [tmp] "=&r" (tmp)
-+    asm volatile ( "mov     %%rsp, %[rsp]        \n\t"
-+                   "lea    .Ldone(%%rip), %[rip] \n\t"
+ #ifdef __clang__ /* clang's builtin assember can't do .subsection */
+ 
+-#define UNLIKELY_START_SECTION ".pushsection .text.unlikely,\"ax\""
+-#define UNLIKELY_END_SECTION   ".popsection"
++#define UNLIKELY_START_SECTION ".pushsection .text.unlikely,\"ax\"\n\t"
++#define UNLIKELY_END_SECTION   ".popsection\n\t"
+ 
+ #else
+ 
+-#define UNLIKELY_START_SECTION ".subsection 1"
+-#define UNLIKELY_END_SECTION   ".subsection 0"
++#define UNLIKELY_START_SECTION ".subsection 1\n\t"
++#define UNLIKELY_END_SECTION   ".subsection 0\n\t"
+ 
+ #endif
+ 
+diff --git a/xen/include/asm-x86/current.h b/xen/include/asm-x86/current.h
+index 99b66a0087..086326b81a 100644
+--- a/xen/include/asm-x86/current.h
++++ b/xen/include/asm-x86/current.h
+@@ -124,13 +124,55 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+ # define CHECK_FOR_LIVEPATCH_WORK ""
+ #endif
+ 
 +#ifdef CONFIG_XEN_SHSTK
-+                   /* Check for CET-SS being active. */
-+                   "mov    $1, %k[ssp]           \n\t"
-+                   "rdsspq %[ssp]                \n\t"
-+                   "cmp    $1, %k[ssp]           \n\t"
-+                   "je     .Lshstk_done          \n\t"
-+
-+                   /* Push 3 words on the shadow stack */
-+                   ".rept 3                      \n\t"
-+                   "call 1f; nop; 1:             \n\t"
-+                   ".endr                        \n\t"
-+
-+                   /* Fixup to be an IRET shadow stack frame */
-+                   "wrssq  %q[cs], -1*8(%[ssp])  \n\t"
-+                   "wrssq  %[rip], -2*8(%[ssp])  \n\t"
-+                   "wrssq  %[ssp], -3*8(%[ssp])  \n\t"
-+
-+                   ".Lshstk_done:"
++/*
++ * We need to unwind the primary shadow stack to its supervisor token, located
++ * at 0x5ff8 from the base of the stack blocks.
++ *
++ * Read the shadow stack pointer, subtract it from 0x5ff8, divide by 8 to get
++ * the number of slots needing popping.
++ *
++ * INCSSPQ can't pop more than 255 entries.  We shouldn't ever need to pop
++ * that many entries, and getting this wrong will cause us to #DF later.  Turn
++ * it into a BUG() now for fractionally easier debugging.
++ */
++# define SHADOW_STACK_WORK                                      \
++    "mov $1, %[ssp];"                                           \
++    "rdsspd %[ssp];"                                            \
++    "cmp $1, %[ssp];"                                           \
++    "je .L_shstk_done.%=;" /* CET not active?  Skip. */         \
++    "mov $%c[skstk_base], %[val];"                              \
++    "and $%c[stack_mask], %[ssp];"                              \
++    "sub %[ssp], %[val];"                                       \
++    "shr $3, %[val];"                                           \
++    "cmp $255, %[val];" /* More than 255 entries?  Crash. */    \
++    UNLIKELY_START(a, shstk_adjust)                             \
++    _ASM_BUGFRAME_TEXT(0)                                       \
++    UNLIKELY_END_SECTION                                        \
++    "incsspq %q[val];"                                          \
++    ".L_shstk_done.%=:"
++#else
++# define SHADOW_STACK_WORK ""
 +#endif
-+                   /* Write an IRET regular frame */
-+                   "push   %[ss]                 \n\t"
-+                   "push   %[rsp]                \n\t"
-+                   "pushf                        \n\t"
-+                   "push   %q[cs]                \n\t"
-+                   "push   %[rip]                \n\t"
-+                   "iretq                        \n\t"
-+                   ".Ldone:                      \n\t"
-+                   : [rip] "=&r" (tmp),
-+                     [rsp] "=&r" (tmp),
-+                     [ssp] "=&r" (tmp)
-                    : [ss] "i" (__HYPERVISOR_DS),
--                     [cs] "i" (__HYPERVISOR_CS) );
-+                     [cs] "r" (__HYPERVISOR_CS) );
- }
++
+ #define switch_stack_and_jump(fn, instr)                                \
+     ({                                                                  \
++        unsigned int tmp;                                               \
+         __asm__ __volatile__ (                                          \
+-            "mov %0,%%"__OP"sp;"                                        \
++            SHADOW_STACK_WORK                                           \
++            "mov %[stk], %%rsp;"                                        \
+             instr                                                       \
+-             "jmp %c1"                                                  \
+-            : : "r" (guest_cpu_user_regs()), "i" (fn) : "memory" );     \
++            "jmp %c[fun];"                                              \
++            : [val] "=&r" (tmp),                                        \
++              [ssp] "=&r" (tmp)                                         \
++            : [stk] "r" (guest_cpu_user_regs()),                        \
++              [fun] "i" (fn),                                           \
++              [skstk_base] "i"                                          \
++              ((PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8),               \
++              [stack_mask] "i" (STACK_SIZE - 1),                        \
++              _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__,                \
++                                 __FILE__, NULL)                        \
++            : "memory" );                                               \
+         unreachable();                                                  \
+     })
  
- void sysenter_entry(void);
 -- 
 2.11.0
 
