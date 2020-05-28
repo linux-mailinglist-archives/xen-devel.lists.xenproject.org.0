@@ -2,44 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCDCE1E61C9
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 15:09:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 048E41E61EE
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 15:14:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeIGN-0006cY-Uw; Thu, 28 May 2020 13:07:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GBWX=7K=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jeIGN-0006cT-78
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 13:07:59 +0000
-X-Inumbo-ID: 3ff13104-a0e4-11ea-8993-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3ff13104-a0e4-11ea-8993-bc764e2007e4;
- Thu, 28 May 2020 13:07:57 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 78UCGICbqnbVdGeCbbPd0B2eskBfpEuIjG+gYkPNFGwgfALk1/OeB7ClUBDCN4K5asDzjA3W/v
- sRuQ6M4Ta9gEkchlqHe93Qf4+Aq/VZVu4Ylwkzrspwj2r7tTa8N1OJ+Ug24Cq8Q/+LXO5zyQff
- Vpw1Ba8IcnjdM4ZK/wUgAx3LGNvTbEJ9Sh7mC6tQ5GYzyDMqqv9YTLb3JWfA8nA/WEcyRudQRD
- GdWd2xnaLI8LYG7qlLAUTw53OaAHXrPc2kKzOtfGFt+v5G15I2v52WJPm/E8iVi4q2Rfm6dQyf
- DzY=
-X-SBRS: 2.7
-X-MesageID: 19392726
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,444,1583211600"; d="scan'208";a="19392726"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/hvm: Improve error information in handle_pio()
-Date: Thu, 28 May 2020 14:07:38 +0100
-Message-ID: <20200528130738.12816-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+	id 1jeIMJ-0007Tr-Nd; Thu, 28 May 2020 13:14:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lRPh=7K=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jeIMH-0007Tk-VC
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 13:14:06 +0000
+X-Inumbo-ID: 1b001120-a0e5-11ea-a7c8-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1b001120-a0e5-11ea-a7c8-12813bfff9fa;
+ Thu, 28 May 2020 13:14:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=/TGQqVJMo46RFi783ukTwjZkqvAI+atG7guE7LsOJRw=; b=tayfq+iWBTaRYEL1JG22O0euSw
+ FVLlHeZ4IngAjmhhoBxx9Y76GSGzRcL7mF/n+61HDsQxFkYQT5lEW0J61XVIUg/g0c0vozu5ldToy
+ Hc60CmtyeifMnTYrIGsKSazGMKHTsCnVMdTv14KyJEhUnZNPAjAgny1ZW0GFNaSXb5kM=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jeIMG-0003w5-HA; Thu, 28 May 2020 13:14:04 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jeIMG-0005jw-Ar; Thu, 28 May 2020 13:14:04 +0000
+Subject: Re: [OSSTEST PATCH 22/38] buster: Extend guest bootloader workaround
+To: Ian Jackson <ian.jackson@citrix.com>
+References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
+ <20200519190230.29519-23-ian.jackson@eu.citrix.com>
+ <7747c676-f9da-cb97-bd93-78dc13138d03@xen.org>
+ <24261.17724.382954.918761@mariner.uk.xensource.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e4e7e515-587a-ad81-c9b7-b7cfa69108be@xen.org>
+Date: Thu, 28 May 2020 14:14:02 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <24261.17724.382954.918761@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,53 +64,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Paul Durrant <paul.durrant@citrix.com>,
- Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-domain_crash() should always have a message which emitted even in release
-builds, so something more useful than this is presented.
+Hi Ian,
 
-  (XEN) domain_crash called from io.c:171
-  (XEN) domain_crash called from io.c:171
-  (XEN) domain_crash called from io.c:171
-  ...
+On 20/05/2020 15:57, Ian Jackson wrote:
+> Julien Grall writes ("Re: [OSSTEST PATCH 22/38] buster: Extend guest bootloader workaround"):
+>> On 19/05/2020 20:02, Ian Jackson wrote:
+>>> CC: Julien Grall <julien@xen.org>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+>>
+>> Acked-by: Julien Grall <jgrall@amazon.com>
+> 
+> Thanks.
+> 
+>>>    	# Debian doesn't currently know what bootloader to install in
+>>>    	# a Xen guest on ARM. We install pv-grub-menu above which
+>>
+>> OOI, what does Debian install for x86 HVM guest? Is there any ticket
+>> tracking this issue?
+> 
+> On x86, it installes grub.  (grub2, x86, PC, to be precise.)
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Paul Durrant <paul.durrant@citrix.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+I have just realized that on x86 you will always have a firmware in the 
+guest. On Arm we commonly boot the kernel directly.
 
-Part of a bug reported by Marek.  Something else is wonky in the IO emulation
-state, and preventing us from yielding to the scheduler so the domain can
-progress with being shut down.
----
- xen/arch/x86/hvm/io.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+So maybe we are closer to PV here. Do you also install GRUB in that case?
 
-diff --git a/xen/arch/x86/hvm/io.c b/xen/arch/x86/hvm/io.c
-index a5b0a23f06..4e468bfb6b 100644
---- a/xen/arch/x86/hvm/io.c
-+++ b/xen/arch/x86/hvm/io.c
-@@ -167,7 +167,9 @@ bool handle_pio(uint16_t port, unsigned int size, int dir)
-         break;
- 
-     default:
--        gdprintk(XENLOG_ERR, "Weird HVM ioemulation status %d.\n", rc);
-+        gprintk(XENLOG_ERR, "Unexpected PIO status %d, port %#x %s 0x%0*lx\n",
-+                rc, port, dir == IOREQ_WRITE ? "write" : "read",
-+                size * 2, data & ((1ul << (size * 8)) - 1));
-         domain_crash(curr->domain);
-         return false;
-     }
+Note that we do support EDK2 at least on Arm64. It would be nice to get 
+some tests for it in Osstest in the future.
+
+> I'm not aware of any ticket or bug about this.
+
+It might be worth creating one then.
+
 -- 
-2.11.0
-
+Julien Grall
 
