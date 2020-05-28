@@ -2,50 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 563291E68A4
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 19:26:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 063101E68F8
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 20:01:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeMIZ-0005TN-8g; Thu, 28 May 2020 17:26:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jeMp6-0000ML-5r; Thu, 28 May 2020 18:00:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gT1p=7K=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1jeMIX-0005TI-Rb
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 17:26:29 +0000
-X-Inumbo-ID: 5d526a28-a108-11ea-a814-12813bfff9fa
-Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5d526a28-a108-11ea-a814-12813bfff9fa;
- Thu, 28 May 2020 17:26:29 +0000 (UTC)
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:54226
- helo=[192.168.1.219])
- by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
- with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1jeMIT-000rLv-MP (Exim 4.92.3)
- (return-path <amc96@hermes.cam.ac.uk>); Thu, 28 May 2020 18:26:26 +0100
-Subject: Re: [PATCH v2 02/14] x86/traps: Factor out extable_fixup() and make
- printing consistent
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
- <20200527191847.17207-3-andrew.cooper3@citrix.com>
- <9cb12ae3-ef09-3b81-caef-0b1d61426a42@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <2d550f5d-6330-6adc-2865-f8421845957f@citrix.com>
-Date: Thu, 28 May 2020 18:26:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <SRS0=19By=7K=amazon.com=prvs=410ac67ab=anchalag@srs-us1.protection.inumbo.net>)
+ id 1jeMp5-0000LG-1B
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 18:00:07 +0000
+X-Inumbo-ID: 0f83b1c6-a10d-11ea-81bc-bc764e2007e4
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0f83b1c6-a10d-11ea-81bc-bc764e2007e4;
+ Thu, 28 May 2020 18:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1590688807; x=1622224807;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-id:content-transfer-encoding:mime-version;
+ bh=oNLZyUl66SSao9Xw7N5boBOPLPGR9xPVVpFRzGyK3NE=;
+ b=HCu4nuKQHOsy4bbZOw2OUbdlIjpKkGJBhKmVcZ6TRWVyaR/o4R0KGEqb
+ sixFu5YRC4jV3RHUSdmaFd38BI9bJc9qQVdGtOzSu7cTy+BD8wt2aeBto
+ POwbwxfSWgyHn7zGb1TYv0n4sMXog4pNHZ8CfB9VxaPlpG288c5vtQ3Wg w=;
+IronPort-SDR: DwLXL+vYnHFAOhYL+bAJq2wvFGMWzlfLyvOlliswhA0S5m+T3cKSKThAFDRaimJS+sGp4RwSS/
+ uPgnrdWwGcFA==
+X-IronPort-AV: E=Sophos;i="5.73,445,1583193600"; d="scan'208";a="46991822"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-1d-37fd6b3d.us-east-1.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
+ 28 May 2020 18:00:01 +0000
+Received: from EX13MTAUWB001.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
+ by email-inbound-relay-1d-37fd6b3d.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 772142849E5; Thu, 28 May 2020 17:59:53 +0000 (UTC)
+Received: from EX13D10UWB002.ant.amazon.com (10.43.161.130) by
+ EX13MTAUWB001.ant.amazon.com (10.43.161.207) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 28 May 2020 17:59:52 +0000
+Received: from EX13D07UWB002.ant.amazon.com (10.43.161.131) by
+ EX13D10UWB002.ant.amazon.com (10.43.161.130) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 28 May 2020 17:59:52 +0000
+Received: from EX13D07UWB002.ant.amazon.com ([10.43.161.131]) by
+ EX13D07UWB002.ant.amazon.com ([10.43.161.131]) with mapi id 15.00.1497.006;
+ Thu, 28 May 2020 17:59:52 +0000
+From: "Agarwal, Anchal" <anchalag@amazon.com>
+To: "tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
+ <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com"
+ <hpa@zytor.com>, "x86@kernel.org" <x86@kernel.org>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, "jgross@suse.com"
+ <jgross@suse.com>, "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, "Kamata, Munehisa"
+ <kamatam@amazon.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>, "roger.pau@citrix.com"
+ <roger.pau@citrix.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
+ "davem@davemloft.net" <davem@davemloft.net>, "rjw@rjwysocki.net"
+ <rjw@rjwysocki.net>, "len.brown@intel.com" <len.brown@intel.com>,
+ "pavel@ucw.cz" <pavel@ucw.cz>, "peterz@infradead.org" <peterz@infradead.org>, 
+ "Valentin, Eduardo" <eduval@amazon.com>, "Singh, Balbir" <sblbir@amazon.com>, 
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "vkuznets@redhat.com" <vkuznets@redhat.com>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "Woodhouse, David" <dwmw@amazon.co.uk>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>
+Subject: Re: [PATCH 00/12] Fix PM hibernation in Xen guests
+Thread-Topic: [PATCH 00/12] Fix PM hibernation in Xen guests
+Thread-Index: AQHWLiw8BReG6kpgjke8dS/vAeapjqi9Yd+A
+Date: Thu, 28 May 2020 17:59:52 +0000
+Message-ID: <0C3CEAD6-E79C-490E-8FEA-2276E87BD7B4@amazon.com>
+References: <cover.1589926004.git.anchalag@amazon.com>
+In-Reply-To: <cover.1589926004.git.anchalag@amazon.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.162.50]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <20D843639614D14FA2EFCF8BE29971CC@amazon.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <9cb12ae3-ef09-3b81-caef-0b1d61426a42@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -53,58 +94,95 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28/05/2020 10:50, Jan Beulich wrote:
-> On 27.05.2020 21:18, Andrew Cooper wrote:
->> UD faults never had any diagnostics printed, and the others were inconsistent.
->>
->> Don't use dprintk() because identifying traps.c is actively unhelpful in the
->> message, as it is the location of the fixup, not the fault.  Use the new
->> vec_name() infrastructure, rather than leaving raw numbers for the log.
->>
->>   (XEN) Running stub recovery selftests...
->>   (XEN) Fixup #UD[0000]: ffff82d07fffd040 [ffff82d07fffd040] -> ffff82d0403ac9d6
->>   (XEN) Fixup #GP[0000]: ffff82d07fffd041 [ffff82d07fffd041] -> ffff82d0403ac9d6
->>   (XEN) Fixup #SS[0000]: ffff82d07fffd040 [ffff82d07fffd040] -> ffff82d0403ac9d6
->>   (XEN) Fixup #BP[0000]: ffff82d07fffd041 [ffff82d07fffd041] -> ffff82d0403ac9d6
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> As before
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
-
-> albeit I realize I have one more suggestion:
->
->> --- a/xen/arch/x86/traps.c
->> +++ b/xen/arch/x86/traps.c
->> @@ -772,10 +772,31 @@ static void do_reserved_trap(struct cpu_user_regs *regs)
->>            trapnr, vec_name(trapnr), regs->error_code);
->>  }
->>  
->> +static bool extable_fixup(struct cpu_user_regs *regs, bool print)
->> +{
->> +    unsigned long fixup = search_exception_table(regs);
->> +
->> +    if ( unlikely(fixup == 0) )
->> +        return false;
->> +
->> +    /*
->> +     * Don't use dprintk() because the __FILE__ reference is unhelpful.
->> +     * Can currently be triggered by guests.  Make sure we ratelimit.
->> +     */
->> +    if ( IS_ENABLED(CONFIG_DEBUG) && print )
-> How about pulling the IS_ENABLED(CONFIG_DEBUG) into the call sites
-> currently passing "true"?
-
-That is an obfuscation, not an improvement, in code legibility.
-
-It is however a transformation that the compiler does (as part of
-dropping the print parameter entirely).
-
-~Andrew
+QSBnZW50bGUgcGluZyBvbiB0aGlzIHdob2xlIHBhdGNoIHNlcmllcy4NCg0KVGhhbmtzLA0KQW5j
+aGFsDQoNCu+7vyAgICBIZWxsbywNCiAgICBUaGlzIHNlcmllcyBmaXhlcyBQTSBoaWJlcm5hdGlv
+biBmb3IgaHZtIGd1ZXN0cyBydW5uaW5nIG9uIHhlbiBoeXBlcnZpc29yLg0KICAgIFRoZSBydW5u
+aW5nIGd1ZXN0IGNvdWxkIG5vdyBiZSBoaWJlcm5hdGVkIGFuZCByZXN1bWVkIHN1Y2Nlc3NmdWxs
+eSBhdCBhDQogICAgbGF0ZXIgdGltZS4gVGhlIGZpeGVzIGZvciBQTSBoaWJlcm5hdGlvbiBhcmUg
+YWRkZWQgdG8gYmxvY2sgYW5kDQogICAgbmV0d29yayBkZXZpY2UgZHJpdmVycyBpLmUgeGVuLWJs
+a2Zyb250IGFuZCB4ZW4tbmV0ZnJvbnQuIEFueSBvdGhlciBkcml2ZXINCiAgICB0aGF0IG5lZWRz
+IHRvIGFkZCBTNCBzdXBwb3J0IGlmIG5vdCBhbHJlYWR5LCBjYW4gZm9sbG93IHNhbWUgbWV0aG9k
+IG9mDQogICAgaW50cm9kdWNpbmcgZnJlZXplL3RoYXcvcmVzdG9yZSBjYWxsYmFja3MuDQogICAg
+VGhlIHBhdGNoZXMgaGFkIGJlZW4gdGVzdGVkIGFnYWluc3QgdXBzdHJlYW0ga2VybmVsIGFuZCB4
+ZW40LjExLiBMYXJnZQ0KICAgIHNjYWxlIHRlc3RpbmcgaXMgYWxzbyBkb25lIG9uIFhlbiBiYXNl
+ZCBBbWF6b24gRUMyIGluc3RhbmNlcy4gQWxsIHRoaXMgdGVzdGluZw0KICAgIGludm9sdmVkIHJ1
+bm5pbmcgbWVtb3J5IGV4aGF1c3Rpbmcgd29ya2xvYWQgaW4gdGhlIGJhY2tncm91bmQuDQoNCiAg
+ICBEb2luZyBndWVzdCBoaWJlcm5hdGlvbiBkb2VzIG5vdCBpbnZvbHZlIGFueSBzdXBwb3J0IGZy
+b20gaHlwZXJ2aXNvciBhbmQNCiAgICB0aGlzIHdheSBndWVzdCBoYXMgY29tcGxldGUgY29udHJv
+bCBvdmVyIGl0cyBzdGF0ZS4gSW5mcmFzdHJ1Y3R1cmUNCiAgICByZXN0cmljdGlvbnMgZm9yIHNh
+dmluZyB1cCBndWVzdCBzdGF0ZSBjYW4gYmUgb3ZlcmNvbWUgYnkgZ3Vlc3QgaW5pdGlhdGVkDQog
+ICAgaGliZXJuYXRpb24uDQoNCiAgICBUaGVzZSBwYXRjaGVzIHdlcmUgc2VuZCBvdXQgYXMgUkZD
+IGJlZm9yZSBhbmQgYWxsIHRoZSBmZWVkYmFjayBoYWQgYmVlbg0KICAgIGluY29ycG9yYXRlZCBp
+biB0aGUgcGF0Y2hlcy4gVGhlIGxhc3QgUkZDVjMgY291bGQgYmUgZm91bmQgaGVyZToNCiAgICBo
+dHRwczovL2xrbWwub3JnL2xrbWwvMjAyMC8yLzE0LzI3ODkNCg0KICAgIEtub3duIGlzc3VlczoN
+CiAgICAxLktBU0xSIGNhdXNlcyBpbnRlcm1pdHRlbnQgaGliZXJuYXRpb24gZmFpbHVyZXMuIFZN
+IGZhaWxzIHRvIHJlc3VtZXMgYW5kDQogICAgaGFzIHRvIGJlIHJlc3RhcnRlZC4gSSB3aWxsIGlu
+dmVzdGlnYXRlIHRoaXMgaXNzdWUgc2VwYXJhdGVseSBhbmQgc2hvdWxkbid0DQogICAgYmUgYSBi
+bG9ja2VyIGZvciB0aGlzIHBhdGNoIHNlcmllcy4NCiAgICAyLiBEdXJpbmcgaGliZXJuYXRpb24s
+IEkgb2JzZXJ2ZWQgc29tZXRpbWVzIHRoYXQgZnJlZXppbmcgb2YgdGFza3MgZmFpbHMgZHVlDQog
+ICAgdG8gYnVzeSBYRlMgd29ya3F1ZXVlaVt4ZnMtY2lsL3hmcy1zeW5jXS4gVGhpcyBpcyBhbHNv
+IGludGVybWl0dGVudCBtYXkgYmUgMQ0KICAgIG91dCBvZiAyMDAgcnVucyBhbmQgaGliZXJuYXRp
+b24gaXMgYWJvcnRlZCBpbiB0aGlzIGNhc2UuIFJlLXRyeWluZyBoaWJlcm5hdGlvbg0KICAgIG1h
+eSB3b3JrLiBBbHNvLCB0aGlzIGlzIGEga25vd24gaXNzdWUgd2l0aCBoaWJlcm5hdGlvbiBhbmQg
+c29tZQ0KICAgIGZpbGVzeXN0ZW1zIGxpa2UgWEZTIGhhcyBiZWVuIGRpc2N1c3NlZCBieSB0aGUg
+Y29tbXVuaXR5IGZvciB5ZWFycyB3aXRoIG5vdCBhbg0KICAgIGVmZmVjdHZlIHJlc29sdXRpb24g
+YXQgdGhpcyBwb2ludC4NCg0KICAgIFRlc3RpbmcgSG93IHRvOg0KICAgIC0tLS0tLS0tLS0tLS0t
+LQ0KICAgIDEuIFNldHVwIHhlbiBoeXBlcnZpc29yIG9uIGEgcGh5c2ljYWwgbWFjaGluZVsgSSB1
+c2VkIFVidW50dSAxNi4wNCArdXBzdHJlYW0NCiAgICB4ZW4tNC4xMV0NCiAgICAyLiBCcmluZyB1
+cCBhIEhWTSBndWVzdCB3L3Qga2VybmVsIGNvbXBpbGVkIHdpdGggaGliZXJuYXRpb24gcGF0Y2hl
+cw0KICAgIFtJIHVzZWQgdWJ1bnR1MTguMDQgbmV0Ym9vdCBiaW9uaWMgaW1hZ2VzIGFuZCBhbHNv
+IEFtYXpvbiBMaW51eCBvbi1wcmVtIGltYWdlc10uDQogICAgMy4gQ3JlYXRlIGEgc3dhcCBmaWxl
+IHNpemU9UkFNIHNpemUNCiAgICA0LiBVcGRhdGUgZ3J1YiBwYXJhbWV0ZXJzIGFuZCByZWJvb3QN
+CiAgICA1LiBUcmlnZ2VyIHBtLWhpYmVybmF0aW9uIGZyb20gd2l0aGluIHRoZSBWTQ0KDQogICAg
+RXhhbXBsZToNCiAgICBTZXQgdXAgYSBmaWxlLWJhY2tlZCBzd2FwIHNwYWNlLiBTd2FwIGZpbGUg
+c2l6ZT49VG90YWwgbWVtb3J5IG9uIHRoZSBzeXN0ZW0NCiAgICBzdWRvIGRkIGlmPS9kZXYvemVy
+byBvZj0vc3dhcCBicz0kKCggMTAyNCAqIDEwMjQgKSkgY291bnQ9NDA5NiAjIDQwOTZNaUINCiAg
+ICBzdWRvIGNobW9kIDYwMCAvc3dhcA0KICAgIHN1ZG8gbWtzd2FwIC9zd2FwDQogICAgc3VkbyBz
+d2Fwb24gL3N3YXANCg0KICAgIFVwZGF0ZSByZXN1bWUgZGV2aWNlL3Jlc3VtZSBvZmZzZXQgaW4g
+Z3J1YiBpZiB1c2luZyBzd2FwIGZpbGU6DQogICAgcmVzdW1lPS9kZXYveHZkYTEgcmVzdW1lX29m
+ZnNldD0yMDA3MDQgbm9fY29uc29sZV9zdXNwZW5kPTENCg0KICAgIEV4ZWN1dGU6DQogICAgLS0t
+LS0tLS0NCiAgICBzdWRvIHBtLWhpYmVybmF0ZQ0KICAgIE9SDQogICAgZWNobyBkaXNrID4gL3N5
+cy9wb3dlci9zdGF0ZSAmJiBlY2hvIHJlYm9vdCA+IC9zeXMvcG93ZXIvZGlzaw0KDQogICAgQ29t
+cHV0ZSByZXN1bWUgb2Zmc2V0IGNvZGU6DQogICAgIg0KICAgICMhL3Vzci9iaW4vZW52IHB5dGhv
+bg0KICAgIGltcG9ydCBzeXMNCiAgICBpbXBvcnQgYXJyYXkNCiAgICBpbXBvcnQgZmNudGwNCg0K
+ICAgICNzd2FwIGZpbGUNCiAgICBmID0gb3BlbihzeXMuYXJndlsxXSwgJ3InKQ0KICAgIGJ1ZiA9
+IGFycmF5LmFycmF5KCdMJywgWzBdKQ0KDQogICAgI0ZJQk1BUA0KICAgIHJldCA9IGZjbnRsLmlv
+Y3RsKGYuZmlsZW5vKCksIDB4MDEsIGJ1ZikNCiAgICBwcmludCBidWZbMF0NCiAgICAiDQoNCg0K
+ICAgIEFuY2hhbCBBZ2Fyd2FsICg1KToNCiAgICAgIHg4Ni94ZW46IEludHJvZHVjZSBuZXcgZnVu
+Y3Rpb24gdG8gbWFwIEhZUEVSVklTT1Jfc2hhcmVkX2luZm8gb24NCiAgICAgICAgUmVzdW1lDQog
+ICAgICBnZW5pcnE6IFNodXRkb3duIGlycSBjaGlwcyBpbiBzdXNwZW5kL3Jlc3VtZSBkdXJpbmcg
+aGliZXJuYXRpb24NCiAgICAgIHhlbjogSW50cm9kdWNlIHdyYXBwZXIgZm9yIHNhdmUvcmVzdG9y
+ZSBzY2hlZCBjbG9jayBvZmZzZXQNCiAgICAgIHhlbjogVXBkYXRlIHNjaGVkIGNsb2NrIG9mZnNl
+dCB0byBhdm9pZCBzeXN0ZW0gaW5zdGFiaWxpdHkgaW4NCiAgICAgICAgaGliZXJuYXRpb24NCiAg
+ICAgIFBNIC8gaGliZXJuYXRlOiB1cGRhdGUgdGhlIHJlc3VtZSBvZmZzZXQgb24gU05BUFNIT1Rf
+U0VUX1NXQVBfQVJFQQ0KDQogICAgTXVuZWhpc2EgS2FtYXRhICg3KToNCiAgICAgIHhlbi9tYW5h
+Z2U6IGtlZXAgdHJhY2sgb2YgdGhlIG9uLWdvaW5nIHN1c3BlbmQgbW9kZQ0KICAgICAgeGVuYnVz
+OiBhZGQgZnJlZXplL3RoYXcvcmVzdG9yZSBjYWxsYmFja3Mgc3VwcG9ydA0KICAgICAgeDg2L3hl
+bjogYWRkIHN5c3RlbSBjb3JlIHN1c3BlbmQgYW5kIHJlc3VtZSBjYWxsYmFja3MNCiAgICAgIHhl
+bi1ibGtmcm9udDogYWRkIGNhbGxiYWNrcyBmb3IgUE0gc3VzcGVuZCBhbmQgaGliZXJuYXRpb24N
+CiAgICAgIHhlbi1uZXRmcm9udDogYWRkIGNhbGxiYWNrcyBmb3IgUE0gc3VzcGVuZCBhbmQgaGli
+ZXJuYXRpb24NCiAgICAgIHhlbi90aW1lOiBpbnRyb2R1Y2UgeGVuX3tzYXZlLHJlc3RvcmV9X3N0
+ZWFsX2Nsb2NrDQogICAgICB4ODYveGVuOiBzYXZlIGFuZCByZXN0b3JlIHN0ZWFsIGNsb2NrDQoN
+CiAgICAgYXJjaC94ODYveGVuL2VubGlnaHRlbl9odm0uYyAgICAgIHwgICA4ICsrDQogICAgIGFy
+Y2gveDg2L3hlbi9zdXNwZW5kLmMgICAgICAgICAgICB8ICA3MiArKysrKysrKysrKysrKysrKysN
+CiAgICAgYXJjaC94ODYveGVuL3RpbWUuYyAgICAgICAgICAgICAgIHwgIDE4ICsrKystDQogICAg
+IGFyY2gveDg2L3hlbi94ZW4tb3BzLmggICAgICAgICAgICB8ICAgMyArDQogICAgIGRyaXZlcnMv
+YmxvY2sveGVuLWJsa2Zyb250LmMgICAgICB8IDEyMiArKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLS0NCiAgICAgZHJpdmVycy9uZXQveGVuLW5ldGZyb250LmMgICAgICAgIHwgIDk4ICsrKysr
+KysrKysrKysrKysrKysrKysrLQ0KICAgICBkcml2ZXJzL3hlbi9ldmVudHMvZXZlbnRzX2Jhc2Uu
+YyAgfCAgIDEgKw0KICAgICBkcml2ZXJzL3hlbi9tYW5hZ2UuYyAgICAgICAgICAgICAgfCAgNzMg
+KysrKysrKysrKysrKysrKysrDQogICAgIGRyaXZlcnMveGVuL3RpbWUuYyAgICAgICAgICAgICAg
+ICB8ICAyOSArKysrKystDQogICAgIGRyaXZlcnMveGVuL3hlbmJ1cy94ZW5idXNfcHJvYmUuYyB8
+ICA5OSArKysrKysrKysrKysrKysrKysrLS0tLS0NCiAgICAgaW5jbHVkZS9saW51eC9pcnEuaCAg
+ICAgICAgICAgICAgIHwgICAyICsNCiAgICAgaW5jbHVkZS94ZW4veGVuLW9wcy5oICAgICAgICAg
+ICAgIHwgICA4ICsrDQogICAgIGluY2x1ZGUveGVuL3hlbmJ1cy5oICAgICAgICAgICAgICB8ICAg
+MyArDQogICAgIGtlcm5lbC9pcnEvY2hpcC5jICAgICAgICAgICAgICAgICB8ICAgMiArLQ0KICAg
+ICBrZXJuZWwvaXJxL2ludGVybmFscy5oICAgICAgICAgICAgfCAgIDEgKw0KICAgICBrZXJuZWwv
+aXJxL3BtLmMgICAgICAgICAgICAgICAgICAgfCAgMzEgKysrKystLS0NCiAgICAga2VybmVsL3Bv
+d2VyL3VzZXIuYyAgICAgICAgICAgICAgIHwgICA2ICstDQogICAgIDE3IGZpbGVzIGNoYW5nZWQs
+IDUzNiBpbnNlcnRpb25zKCspLCA0MCBkZWxldGlvbnMoLSkNCg0KICAgIC0tIA0KICAgIDIuMjQu
+MS5BTVpODQoNCg0K
 
