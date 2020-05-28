@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EA6C1E5C40
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:42:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A93671E5C51
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:45:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeF3U-0005WO-CK; Thu, 28 May 2020 09:42:28 +0000
+	id 1jeF6E-0005g5-R1; Thu, 28 May 2020 09:45:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jeF3T-0005WJ-77
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:42:27 +0000
-X-Inumbo-ID: 89fce90e-a0c7-11ea-a7aa-12813bfff9fa
+ id 1jeF6D-0005g0-T6
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:45:17 +0000
+X-Inumbo-ID: efb24df2-a0c7-11ea-a7ac-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 89fce90e-a0c7-11ea-a7aa-12813bfff9fa;
- Thu, 28 May 2020 09:42:26 +0000 (UTC)
+ id efb24df2-a0c7-11ea-a7ac-12813bfff9fa;
+ Thu, 28 May 2020 09:45:17 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DEEE1AD63;
- Thu, 28 May 2020 09:42:24 +0000 (UTC)
-Subject: Re: [PATCH v6 4/5] common/domain: add a domain context record for
- shared_info...
-To: Paul Durrant <paul@xen.org>
-References: <20200527173407.1398-1-paul@xen.org>
- <20200527173407.1398-5-paul@xen.org>
+ by mx2.suse.de (Postfix) with ESMTP id E912EAD63;
+ Thu, 28 May 2020 09:45:15 +0000 (UTC)
+Subject: Re: [PATCH v2 01/14] x86/traps: Clean up printing in
+ {do_reserved,fatal}_trap()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
+ <20200527191847.17207-2-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5589a800-a40a-5534-d2e8-09df78072b02@suse.com>
-Date: Thu, 28 May 2020 11:42:24 +0200
+Message-ID: <3b9156db-58e2-a9f9-088a-51131ce3c7b6@suse.com>
+Date: Thu, 28 May 2020 11:45:15 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200527173407.1398-5-paul@xen.org>
+In-Reply-To: <20200527191847.17207-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -48,85 +48,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.05.2020 19:34, Paul Durrant wrote:
-> @@ -1649,6 +1650,75 @@ int continue_hypercall_on_cpu(
->      return 0;
->  }
->  
-> +static int save_shared_info(const struct domain *d, struct domain_context *c,
-> +                            bool dry_run)
-> +{
-> +    struct domain_shared_info_context ctxt = {
-> +#ifdef CONFIG_COMPAT
-> +        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
-> +        .buffer_size = has_32bit_shinfo(d) ?
-> +                       sizeof(struct compat_shared_info) :
-> +                       sizeof(struct shared_info),
-> +#else
-> +        .buffer_size = sizeof(struct shared_info),
-> +#endif
+On 27.05.2020 21:18, Andrew Cooper wrote:
+> For one, they render the vector in a different base.
+> 
+> Introduce X86_EXC_* constants and vec_name() to refer to exceptions by their
+> mnemonic, which starts bringing the code/diagnostics in line with the Intel
+> and AMD manuals.
+> 
+> Provide constants for every archtiecturally defined exception, even those not
+> implemented by Xen yet, as do_reserved_trap() is a catch-all handler.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-To prevent disconnect between the types used here and the actual
-pointer copied from, I'd have preferred
-
-#ifdef CONFIG_COMPAT
-        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
-        .buffer_size = has_32bit_shinfo(d) ?
-                       sizeof(d->shared_info->compat) :
-                       sizeof(d->shared_info->native),
-#else
-        .buffer_size = sizeof(*d->shared_info),
-#endif
-
-But this is secondary, as the types indeed are very unlikely to go
-out of sync. What's more important is ...
-
-> +static int load_shared_info(struct domain *d, struct domain_context *c)
-> +{
-> +    struct domain_shared_info_context ctxt;
-> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
-> +    unsigned int i;
-> +    int rc;
-> +
-> +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( i ) /* expect only a single instance */
-> +        return -ENXIO;
-> +
-> +    rc = domain_load_data(c, &ctxt, hdr_size);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( ctxt.buffer_size > sizeof(shared_info_t) ||
-> +         (ctxt.flags & ~DOMAIN_SAVE_32BIT_SHINFO) )
-> +        return -EINVAL;
-> +
-> +    if ( ctxt.flags & DOMAIN_SAVE_32BIT_SHINFO )
-> +#ifdef CONFIG_COMPAT
-> +        has_32bit_shinfo(d) = true;
-> +#else
-> +        return -EINVAL;
-> +#endif
-> +
-> +    rc = domain_load_data(c, d->shared_info, sizeof(shared_info_t));
-> +    if ( rc )
-> +        return rc;
-
-... the still insufficient checking here. You shouldn't accept more
-than sizeof(d->shared_info->compat) worth of data in the compat case
-if you also don't accept more than sizeof(shared_info_t) in the
-native case. To save another round trip I'll offer to make the
-adjustments while committing, but patches 3 and 5 want Andrew's ack
-first anyway.
+As before somewhat hesitantly
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
