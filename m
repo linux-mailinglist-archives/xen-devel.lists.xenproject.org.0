@@ -2,52 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D13D1E60E6
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 14:32:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 505601E60ED
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 14:33:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeHgk-0003nX-GE; Thu, 28 May 2020 12:31:10 +0000
+	id 1jeHid-0003ta-SI; Thu, 28 May 2020 12:33:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eoT6=7K=xen.org=roger@srs-us1.protection.inumbo.net>)
- id 1jeHgi-0003nS-UK
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 12:31:09 +0000
-X-Inumbo-ID: 1ad5392e-a0df-11ea-8993-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jeHic-0003tU-4u
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 12:33:06 +0000
+X-Inumbo-ID: 6083ff82-a0df-11ea-8993-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1ad5392e-a0df-11ea-8993-bc764e2007e4;
- Thu, 28 May 2020 12:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=yT0YCeVmS31oUgr3kcKp2rb0acVnrFO8fotP62VttFc=; b=AYKcpbquSFiA+Fd7AjYabIdcNc
- 4c2MIIx960LxN3oKeum4woXDrPd63sTz6u9RAt3c7TQ/aIhITEKF4IXMi/5azqQSLBSyOIsbayblx
- Rr4HoSXPO1rM1AF1bil9f9PjFl8RKeIwRbeNJz/k/np4qPa4pVnpN0eeWuRSLh7XOXmI=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jeHfy-000317-0c; Thu, 28 May 2020 12:30:22 +0000
-Received: from [93.176.191.173] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jeHfx-0002M2-9k; Thu, 28 May 2020 12:30:21 +0000
-Date: Thu, 28 May 2020 14:30:12 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
-To: Anchal Agarwal <anchalag@amazon.com>
-Subject: Re: [PATCH 06/12] xen-blkfront: add callbacks for PM suspend and
- hibernation
-Message-ID: <20200528122956.GF1195@Air-de-Roger>
-References: <cover.1589926004.git.anchalag@amazon.com>
- <ad580b4d5b76c18fe2fe409704f25622e01af361.1589926004.git.anchalag@amazon.com>
+ id 6083ff82-a0df-11ea-8993-bc764e2007e4;
+ Thu, 28 May 2020 12:33:05 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 811B2AF0D;
+ Thu, 28 May 2020 12:33:03 +0000 (UTC)
+Subject: Re: [PATCH v2 05/14] x86/shstk: Re-layout the stack block for shadow
+ stacks
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
+ <20200527191847.17207-6-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <03cc30f8-4849-f77d-857d-b63248c70a25@suse.com>
+Date: Thu, 28 May 2020 14:33:02 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <20200527191847.17207-6-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ad580b4d5b76c18fe2fe409704f25622e01af361.1589926004.git.anchalag@amazon.com>
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,335 +47,138 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: eduval@amazon.com, len.brown@intel.com, peterz@infradead.org,
- benh@kernel.crashing.org, x86@kernel.org, linux-mm@kvack.org, pavel@ucw.cz,
- hpa@zytor.com, tglx@linutronix.de, sstabellini@kernel.org, kamatam@amazon.com,
- mingo@redhat.com, xen-devel@lists.xenproject.org, sblbir@amazon.com,
- axboe@kernel.dk, konrad.wilk@oracle.com, bp@alien8.de,
- boris.ostrovsky@oracle.com, jgross@suse.com, netdev@vger.kernel.org,
- linux-pm@vger.kernel.org, rjw@rjwysocki.net, linux-kernel@vger.kernel.org,
- vkuznets@redhat.com, davem@davemloft.net, dwmw@amazon.co.uk
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, May 19, 2020 at 11:27:50PM +0000, Anchal Agarwal wrote:
-> From: Munehisa Kamata <kamatam@amazon.com>
-> 
-> S4 power transition states are much different than xen
-> suspend/resume. Former is visible to the guest and frontend drivers should
-> be aware of the state transitions and should be able to take appropriate
-> actions when needed. In transition to S4 we need to make sure that at least
-> all the in-flight blkif requests get completed, since they probably contain
-> bits of the guest's memory image and that's not going to get saved any
-> other way. Hence, re-issuing of in-flight requests as in case of xen resume
-> will not work here. This is in contrast to xen-suspend where we need to
-> freeze with as little processing as possible to avoid dirtying RAM late in
-> the migration cycle and we know that in-flight data can wait.
-> 
-> Add freeze, thaw and restore callbacks for PM suspend and hibernation
-> support. All frontend drivers that needs to use PM_HIBERNATION/PM_SUSPEND
-> events, need to implement these xenbus_driver callbacks. The freeze handler
-> stops block-layer queue and disconnect the frontend from the backend while
-> freeing ring_info and associated resources. Before disconnecting from the
-> backend, we need to prevent any new IO from being queued and wait for existing
-> IO to complete. Freeze/unfreeze of the queues will guarantee that there are no
-> requests in use on the shared ring. However, for sanity we should check
-> state of the ring before disconnecting to make sure that there are no
-> outstanding requests to be processed on the ring. The restore handler
-> re-allocates ring_info, unquiesces and unfreezes the queue and re-connect to
-> the backend, so that rest of the kernel can continue to use the block device
-> transparently.
-> 
-> Note:For older backends,if a backend doesn't have commit'12ea729645ace'
-> xen/blkback: unmap all persistent grants when frontend gets disconnected,
-> the frontend may see massive amount of grant table warning when freeing
-> resources.
-> [   36.852659] deferring g.e. 0xf9 (pfn 0xffffffffffffffff)
-> [   36.855089] xen:grant_table: WARNING:e.g. 0x112 still in use!
-> 
-> In this case, persistent grants would need to be disabled.
-> 
-> [Anchal Changelog: Removed timeout/request during blkfront freeze.
-> Reworked the whole patch to work with blk-mq and incorporate upstream's
-> comments]
+On 27.05.2020 21:18, Andrew Cooper wrote:
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -365,20 +365,15 @@ static void show_guest_stack(struct vcpu *v, const struct cpu_user_regs *regs)
+>  /*
+>   * Notes for get_stack_trace_bottom() and get_stack_dump_bottom()
+>   *
+> - * Stack pages 0 - 3:
+> + * Stack pages 1 - 4:
+>   *   These are all 1-page IST stacks.  Each of these stacks have an exception
+>   *   frame and saved register state at the top.  The interesting bound for a
+>   *   trace is the word adjacent to this, while the bound for a dump is the
+>   *   very top, including the exception frame.
+>   *
+> - * Stack pages 4 and 5:
+> - *   None of these are particularly interesting.  With MEMORY_GUARD, page 5 is
+> - *   explicitly not present, so attempting to dump or trace it is
+> - *   counterproductive.  Without MEMORY_GUARD, it is possible for a call chain
+> - *   to use the entire primary stack and wander into page 5.  In this case,
+> - *   consider these pages an extension of the primary stack to aid debugging
+> - *   hopefully rare situations where the primary stack has effective been
+> - *   overflown.
+> + * Stack pages 0 and 5:
+> + *   Shadow stacks.  These are mapped read-only, and used by CET-SS capable
+> + *   processors.  They will never contain regular stack data.
 
-Please tag versions using vX and it would be helpful if you could list
-the specific changes that you performed between versions. There where
-3 RFC versions IIRC, and there's no log of the changes between them.
+I don't mind the comment getting put in place already here, but will it
+reflect reality even when CET-SS is not in use, in that the pages then
+still are mapped r/o rather than being left unmapped to act as guard
+pages not only for stack pushes but also for stack pops? At which point
+the "dump or trace it is counterproductive" remark would still apply in
+this case, and hence may better be retained.
 
-> 
-> Signed-off-by: Anchal Agarwal <anchalag@amazon.com>
-> Signed-off-by: Munehisa Kamata <kamatam@amazon.com>
-> ---
->  drivers/block/xen-blkfront.c | 122 +++++++++++++++++++++++++++++++++--
->  1 file changed, 115 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-> index 3b889ea950c2..464863ed7093 100644
-> --- a/drivers/block/xen-blkfront.c
-> +++ b/drivers/block/xen-blkfront.c
-> @@ -48,6 +48,8 @@
->  #include <linux/list.h>
->  #include <linux/workqueue.h>
->  #include <linux/sched/mm.h>
-> +#include <linux/completion.h>
-> +#include <linux/delay.h>
+> @@ -392,13 +387,10 @@ unsigned long get_stack_trace_bottom(unsigned long sp)
+>  {
+>      switch ( get_stack_page(sp) )
+>      {
+> -    case 0 ... 3:
+> +    case 1 ... 4:
+>          return ROUNDUP(sp, PAGE_SIZE) -
+>              offsetof(struct cpu_user_regs, es) - sizeof(unsigned long);
 >  
->  #include <xen/xen.h>
->  #include <xen/xenbus.h>
-> @@ -80,6 +82,8 @@ enum blkif_state {
->  	BLKIF_STATE_DISCONNECTED,
->  	BLKIF_STATE_CONNECTED,
->  	BLKIF_STATE_SUSPENDED,
-> +	BLKIF_STATE_FREEZING,
-> +	BLKIF_STATE_FROZEN
-
-Nit: adding a terminating ',' would prevent further additions from
-having to modify this line.
-
->  };
+> -#ifndef MEMORY_GUARD
+> -    case 4 ... 5:
+> -#endif
+>      case 6 ... 7:
+>          return ROUNDUP(sp, STACK_SIZE) -
+>              sizeof(struct cpu_info) - sizeof(unsigned long);
+> @@ -412,12 +404,9 @@ unsigned long get_stack_dump_bottom(unsigned long sp)
+>  {
+>      switch ( get_stack_page(sp) )
+>      {
+> -    case 0 ... 3:
+> +    case 1 ... 4:
+>          return ROUNDUP(sp, PAGE_SIZE) - sizeof(unsigned long);
 >  
->  struct grant {
-> @@ -219,6 +223,7 @@ struct blkfront_info
->  	struct list_head requests;
->  	struct bio_list bio_list;
->  	struct list_head info_list;
-> +	struct completion wait_backend_disconnected;
->  };
+> -#ifndef MEMORY_GUARD
+> -    case 4 ... 5:
+> -#endif
+>      case 6 ... 7:
+>          return ROUNDUP(sp, STACK_SIZE) - sizeof(unsigned long);
+
+The need to adjust these literal numbers demonstrates how fragile
+this is. I admit I can't see a good way to get rid of the literal
+numbers altogether, but could I talk you into switching to (for
+the latter, as example)
+
+    switch ( get_stack_page(sp) )
+    {
+    case 0: case PRIMARY_SHSTK_SLOT:
+        return 0;
+
+    case 1 ... 4:
+        return ROUNDUP(sp, PAGE_SIZE) - sizeof(unsigned long);
+
+    case 6 ... 7:
+        return ROUNDUP(sp, STACK_SIZE) - sizeof(unsigned long);
+
+    default:
+        return sp - sizeof(unsigned long);
+    }
+
+? Of course this will need the callers to be aware they may get
+back zero, but there are only very few (which made me notice the
+functions would better be static). And the returning of zero may
+then want changing (conditionally upon us using CET-SS) in a
+later patch, where iirc you use the shadow stack for call trace
+generation.
+
+As a positive side effect this will yield a compile error if
+PRIMARY_SHSTK_SLOT gets changed without adjusting these
+functions.
+
+> --- a/xen/include/asm-x86/config.h
+> +++ b/xen/include/asm-x86/config.h
+> @@ -75,6 +75,9 @@
+>  /* Primary stack is restricted to 8kB by guard pages. */
+>  #define PRIMARY_STACK_SIZE 8192
 >  
->  static unsigned int nr_minors;
-> @@ -1005,6 +1010,7 @@ static int xlvbd_init_blk_queue(struct gendisk *gd, u16 sector_size,
->  	info->sector_size = sector_size;
->  	info->physical_sector_size = physical_sector_size;
->  	blkif_set_queue_limits(info);
-> +	init_completion(&info->wait_backend_disconnected);
->  
->  	return 0;
->  }
-> @@ -1057,7 +1063,7 @@ static int xen_translate_vdev(int vdevice, int *minor, unsigned int *offset)
->  		case XEN_SCSI_DISK5_MAJOR:
->  		case XEN_SCSI_DISK6_MAJOR:
->  		case XEN_SCSI_DISK7_MAJOR:
-> -			*offset = (*minor / PARTS_PER_DISK) + 
-> +			*offset = (*minor / PARTS_PER_DISK) +
->  				((major - XEN_SCSI_DISK1_MAJOR + 1) * 16) +
->  				EMULATED_SD_DISK_NAME_OFFSET;
->  			*minor = *minor +
-> @@ -1072,7 +1078,7 @@ static int xen_translate_vdev(int vdevice, int *minor, unsigned int *offset)
->  		case XEN_SCSI_DISK13_MAJOR:
->  		case XEN_SCSI_DISK14_MAJOR:
->  		case XEN_SCSI_DISK15_MAJOR:
-> -			*offset = (*minor / PARTS_PER_DISK) + 
-> +			*offset = (*minor / PARTS_PER_DISK) +
+> +/* Primary shadow stack is slot 5 of 8, immediately under the primary stack. */
+> +#define PRIMARY_SHSTK_SLOT 5
 
-Unrelated changes, please split to a pre-patch.
+Any reason to put it here rather than ...
 
->  				((major - XEN_SCSI_DISK8_MAJOR + 8) * 16) +
->  				EMULATED_SD_DISK_NAME_OFFSET;
->  			*minor = *minor +
-> @@ -1353,6 +1359,8 @@ static void blkif_free(struct blkfront_info *info, int suspend)
->  	unsigned int i;
->  	struct blkfront_ring_info *rinfo;
->  
-> +	if (info->connected == BLKIF_STATE_FREEZING)
-> +		goto free_rings;
->  	/* Prevent new requests being issued until we fix things up. */
->  	info->connected = suspend ?
->  		BLKIF_STATE_SUSPENDED : BLKIF_STATE_DISCONNECTED;
-> @@ -1360,6 +1368,7 @@ static void blkif_free(struct blkfront_info *info, int suspend)
->  	if (info->rq)
->  		blk_mq_stop_hw_queues(info->rq);
->  
-> +free_rings:
->  	for_each_rinfo(info, rinfo, i)
->  		blkif_free_ring(rinfo);
->  
-> @@ -1563,8 +1572,10 @@ static irqreturn_t blkif_interrupt(int irq, void *dev_id)
->  	struct blkfront_ring_info *rinfo = (struct blkfront_ring_info *)dev_id;
->  	struct blkfront_info *info = rinfo->dev_info;
->  
-> -	if (unlikely(info->connected != BLKIF_STATE_CONNECTED))
-> -		return IRQ_HANDLED;
-> +	if (unlikely(info->connected != BLKIF_STATE_CONNECTED
-> +		    && info->connected != BLKIF_STATE_FREEZING)){
+> --- a/xen/include/asm-x86/current.h
+> +++ b/xen/include/asm-x86/current.h
+> @@ -16,12 +16,12 @@
+>   *
+>   * 7 - Primary stack (with a struct cpu_info at the top)
+>   * 6 - Primary stack
+> - * 5 - Optionally not present (MEMORY_GUARD)
+> - * 4 - Unused; optionally not present (MEMORY_GUARD)
+> - * 3 - Unused; optionally not present (MEMORY_GUARD)
+> - * 2 - MCE IST stack
+> - * 1 - NMI IST stack
+> - * 0 - Double Fault IST stack
+> + * 5 - Primay Shadow Stack (read-only)
+> + * 4 - #DF IST stack
+> + * 3 - #DB IST stack
+> + * 2 - NMI IST stack
+> + * 1 - #MC IST stack
+> + * 0 - IST Shadow Stacks (4x 1k, read-only)
+>   */
 
-Extra tab and missing space between '){'. Also my preference would be
-for the && to go at the end of the previous line, like it's done
-elsewhere in the file.
+... right below this comment?
 
-> +	    return IRQ_HANDLED;
-> +	}
->  
->  	spin_lock_irqsave(&rinfo->ring_lock, flags);
->   again:
-> @@ -2027,6 +2038,7 @@ static int blkif_recover(struct blkfront_info *info)
->  	unsigned int segs;
->  	struct blkfront_ring_info *rinfo;
->  
-> +	bool frozen = info->connected == BLKIF_STATE_FROZEN;
+Same question as above regarding the "read-only" here.
 
-Please put this together with the rest of the variable definitions,
-and leave the empty line as a split between variable definitions and
-code. I've already requested this on RFC v3 but you seem to have
-dropped some of the requests I've made there.
-
->  	blkfront_gather_backend_features(info);
->  	/* Reset limits changed by blk_mq_update_nr_hw_queues(). */
->  	blkif_set_queue_limits(info);
-> @@ -2048,6 +2060,9 @@ static int blkif_recover(struct blkfront_info *info)
->  		kick_pending_request_queues(rinfo);
->  	}
->  
-> +	if (frozen)
-> +		return 0;
-> +
->  	list_for_each_entry_safe(req, n, &info->requests, queuelist) {
->  		/* Requeue pending requests (flush or discard) */
->  		list_del_init(&req->queuelist);
-> @@ -2364,6 +2379,7 @@ static void blkfront_connect(struct blkfront_info *info)
->  
->  		return;
->  	case BLKIF_STATE_SUSPENDED:
-> +	case BLKIF_STATE_FROZEN:
->  		/*
->  		 * If we are recovering from suspension, we need to wait
->  		 * for the backend to announce it's features before
-> @@ -2481,12 +2497,36 @@ static void blkback_changed(struct xenbus_device *dev,
->  		break;
->  
->  	case XenbusStateClosed:
-> -		if (dev->state == XenbusStateClosed)
-> +		if (dev->state == XenbusStateClosed) {
-> +			if (info->connected == BLKIF_STATE_FREEZING) {
-> +				blkif_free(info, 0);
-> +				info->connected = BLKIF_STATE_FROZEN;
-> +				complete(&info->wait_backend_disconnected);
-> +				break;
-
-There's no need for the break here, you can rely on the break below.
-
-> +			}
-> +
->  			break;
-> +		}
-> +
-> +		/*
-> +		 * We may somehow receive backend's Closed again while thawing
-> +		 * or restoring and it causes thawing or restoring to fail.
-> +		 * Ignore such unexpected state regardless of the backend state.
-> +		 */
-> +		if (info->connected == BLKIF_STATE_FROZEN) {
-
-I think you can join this with the previous dev->state == XenbusStateClosed?
-
-Also, won't the device be in the Closed state already if it's in state
-frozen?
-
-> +			dev_dbg(&dev->dev,
-> +					"ignore the backend's Closed state: %s",
-> +					dev->nodename);
-> +			break;
-> +		}
->  		/* fall through */
->  	case XenbusStateClosing:
-> -		if (info)
-> -			blkfront_closing(info);
-> +		if (info) {
-> +			if (info->connected == BLKIF_STATE_FREEZING)
-> +				xenbus_frontend_closed(dev);
-> +			else
-> +				blkfront_closing(info);
-> +		}
->  		break;
->  	}
->  }
-> @@ -2630,6 +2670,71 @@ static void blkif_release(struct gendisk *disk, fmode_t mode)
->  	mutex_unlock(&blkfront_mutex);
->  }
->  
-> +static int blkfront_freeze(struct xenbus_device *dev)
-> +{
-> +	unsigned int i;
-> +	struct blkfront_info *info = dev_get_drvdata(&dev->dev);
-> +	struct blkfront_ring_info *rinfo;
-> +	/* This would be reasonable timeout as used in xenbus_dev_shutdown() */
-> +	unsigned int timeout = 5 * HZ;
-> +	unsigned long flags;
-> +	int err = 0;
-> +
-> +	info->connected = BLKIF_STATE_FREEZING;
-> +
-> +	blk_mq_freeze_queue(info->rq);
-> +	blk_mq_quiesce_queue(info->rq);
-> +
-> +	for_each_rinfo(info, rinfo, i) {
-> +	    /* No more gnttab callback work. */
-> +	    gnttab_cancel_free_callback(&rinfo->callback);
-> +	    /* Flush gnttab callback work. Must be done with no locks held. */
-> +	    flush_work(&rinfo->work);
-> +	}
-> +
-> +	for_each_rinfo(info, rinfo, i) {
-> +	    spin_lock_irqsave(&rinfo->ring_lock, flags);
-> +	    if (RING_FULL(&rinfo->ring)
-> +		    || RING_HAS_UNCONSUMED_RESPONSES(&rinfo->ring)) {
-
-'||' should go at the end of the previous line.
-
-> +		xenbus_dev_error(dev, err, "Hibernation Failed.
-> +			The ring is still busy");
-> +		info->connected = BLKIF_STATE_CONNECTED;
-> +		spin_unlock_irqrestore(&rinfo->ring_lock, flags);
-
-You need to unfreeze the queues here, or else the device will be in a
-blocked state AFAICT.
-
-> +		return -EBUSY;
-> +	}
-> +	    spin_unlock_irqrestore(&rinfo->ring_lock, flags);
-> +	}
-
-This block has indentation all messed up.
-
-> +	/* Kick the backend to disconnect */
-> +	xenbus_switch_state(dev, XenbusStateClosing);
-> +
-> +	/*
-> +	 * We don't want to move forward before the frontend is diconnected
-> +	 * from the backend cleanly.
-> +	 */
-> +	timeout = wait_for_completion_timeout(&info->wait_backend_disconnected,
-> +					      timeout);
-> +	if (!timeout) {
-> +		err = -EBUSY;
-
-Note err is only used here, and I think could just be dropped.
-
-> +		xenbus_dev_error(dev, err, "Freezing timed out;"
-> +				 "the device may become inconsistent state");
-
-Leaving the device in this state is quite bad, as it's in a closed
-state and with the queues frozen. You should make an attempt to
-restore things to a working state.
-
-> +	}
-> +
-> +	return err;
-> +}
-> +
-> +static int blkfront_restore(struct xenbus_device *dev)
-> +{
-> +	struct blkfront_info *info = dev_get_drvdata(&dev->dev);
-> +	int err = 0;
-> +
-> +	err = talk_to_blkback(dev, info);
-> +	blk_mq_unquiesce_queue(info->rq);
-> +	blk_mq_unfreeze_queue(info->rq);
-> +	if (!err)
-> +	    blk_mq_update_nr_hw_queues(&info->tag_set, info->nr_rings);
-
-Bad indentation. Also shouldn't you first update the queues and then
-unfreeze them?
-
-Thanks, Roger.
+Jan
 
