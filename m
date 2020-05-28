@@ -2,73 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB7BD1E5B57
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:01:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39B121E5B64
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:04:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeEP1-0001mH-26; Thu, 28 May 2020 09:00:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=blJD=7K=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jeEOz-0001m8-Om
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:00:37 +0000
-X-Inumbo-ID: b1f6809c-a0c1-11ea-8993-bc764e2007e4
-Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b1f6809c-a0c1-11ea-8993-bc764e2007e4;
- Thu, 28 May 2020 09:00:36 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id j16so14592758wrb.7
- for <xen-devel@lists.xenproject.org>; Thu, 28 May 2020 02:00:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=Ann0i1ys87ZqTaBslW/JT2uNUb3D+tfWBJuPQxro4MM=;
- b=HfMmTVmuFyk/U+MKSxjeypCVY+NHqduA5LikENxzOxgTOKtEEpunayQLjtLeF2WlFs
- xjMAR+nS2oAxR2O+jSO+/F4DSUnL/uwAxi0YEIJCfYdyhBV4Mi3v24KmZdf6g/ORnECV
- azs5k6VHxiu9ZjJyMXqxIeBDq4lEpI1/qocYj765NeuEwLCRoJpQxzlv3wzPH9FeH+G2
- BVxfJRiPGDe0gGlWfSaZp60gcZbmcVjWjlCAbyiWwdsnXEscBepgpXr+c0rYa+jUgjzK
- BJB9IbrQfX8EgnCotonY/ImYe9QZHZbTydPsgFPdW7zc+dJZ4vWJpfcew8grlTRJPfnd
- rH3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=Ann0i1ys87ZqTaBslW/JT2uNUb3D+tfWBJuPQxro4MM=;
- b=Lv70JbgWn4Kco8toDjtAVuRSzzFdFlOMzlsXDdQjldp722pGy+onNzxomGbmvxOG8W
- EnGfv/xakgIuIRGSZlirGN6BWheNk+Nc5Ik10/RNQv/E8pPiE2aJCqVtB/MxJ9gV4Cec
- Vg2xNKWEua0BqDoaMut17Kiuxg/jJT62aCuAnK57ylCwLCaEii9VjCLb9tbEa/ouawZJ
- mYrzrYd2Y/9pjSjNlmQ9Zga57tbVOWwZWgmoFk42B42hB7M0rRKbmr65PA3xyWqRXgkt
- GjRldGvkRiBuAg3Zl3PGGBi2uoa0tbSKe/2USsy0DJRJaaJgIGp4jhMk6T/XYPH/Es5e
- 0VhA==
-X-Gm-Message-State: AOAM532mcPgNYSEJtI/8lOX3hs0ET03dWfJM0ADCKIbq+ZLaGE52Z1oB
- pfQEtQyK05knoL75aUzHOxY=
-X-Google-Smtp-Source: ABdhPJwSb2CiShWybYjkqToTC/yBGfAdj3vNS+H0VuDM4cY0yt/U36EA8jqXZl7N4+7n5n5aS6ChXg==
-X-Received: by 2002:a5d:4745:: with SMTP id o5mr2401872wrs.87.1590656435864;
- Thu, 28 May 2020 02:00:35 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.186])
- by smtp.gmail.com with ESMTPSA id q4sm5850317wma.47.2020.05.28.02.00.34
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 28 May 2020 02:00:35 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: =?utf-8?Q?'J=C3=BCrgen_Gro=C3=9F'?= <jgross@suse.com>,
- <xen-devel@lists.xenproject.org>
-References: <20200528082217.26057-1-jgross@suse.com>
- <00a001d634cd$7c9afb40$75d0f1c0$@xen.org>
- <ad448884-6705-9473-597c-10388b398972@suse.com>
-In-Reply-To: <ad448884-6705-9473-597c-10388b398972@suse.com>
-Subject: RE: [PATCH v2] docs: update xenstore-migration.md
-Date: Thu, 28 May 2020 10:00:33 +0100
-Message-ID: <00a501d634ce$7328cf50$597a6df0$@xen.org>
+	id 1jeESN-0001x4-Ik; Thu, 28 May 2020 09:04:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=eoT6=7K=xen.org=roger@srs-us1.protection.inumbo.net>)
+ id 1jeESM-0001wx-In
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:04:06 +0000
+X-Inumbo-ID: 2e847100-a0c2-11ea-a7a8-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2e847100-a0c2-11ea-a7a8-12813bfff9fa;
+ Thu, 28 May 2020 09:04:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=lf1gkKuFmc3/ZRlD1zPwK//yWBW5s9SvQhBMNyi+z2Y=; b=kw3gs5YfL6l5m+3GRVfv1PlJQr
+ tgzMy91Bn7IYvZWsEeAggrL6BO008ctsyBPJp7jMfDi6NU0m29IR+zm9tvdRCvzj3+cHISoBfOptY
+ e9C21LLjiCORPZIWUKPZUDCtU2H7Woi47MM/fnIaXDjJdCSAEj7/sgwmIAul0C4fPooU=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <roger@xen.org>)
+ id 1jeESI-00075U-R9; Thu, 28 May 2020 09:04:02 +0000
+Received: from [93.176.191.173] (helo=localhost)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <roger@xen.org>)
+ id 1jeESI-0005E2-BU; Thu, 28 May 2020 09:04:02 +0000
+Date: Thu, 28 May 2020 11:03:51 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
+To: Tamas K Lengyel <tamas.lengyel@intel.com>
+Subject: Re: [PATCH v3 for-4.14 1/2] x86/mem_sharing: block interrupt
+ injection for forks
+Message-ID: <20200528090338.GE1195@Air-de-Roger>
+References: <a3b3410c707636aa201641e14b1ab43d4b8821e1.1590411162.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQFP4uuOoU5NbpLVMW9x/VcR2g3NawL+UMOZAfDcPc+pol2EIA==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a3b3410c707636aa201641e14b1ab43d4b8821e1.1590411162.git.tamas.lengyel@intel.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,164 +59,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: J=C3=BCrgen Gro=C3=9F <jgross@suse.com>
-> Sent: 28 May 2020 09:59
-> To: paul@xen.org; xen-devel@lists.xenproject.org
-> Cc: 'Stefano Stabellini' <sstabellini@kernel.org>; 'Julien Grall' =
-<julien@xen.org>; 'Wei Liu'
-> <wl@xen.org>; 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'Ian =
-Jackson' <ian.jackson@eu.citrix.com>;
-> 'George Dunlap' <george.dunlap@citrix.com>; 'Jan Beulich' =
-<jbeulich@suse.com>
-> Subject: Re: [PATCH v2] docs: update xenstore-migration.md
->=20
-> On 28.05.20 10:53, Paul Durrant wrote:
-> >> -----Original Message-----
-> >> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf =
-Of Juergen Gross
-> >> Sent: 28 May 2020 09:22
-> >> To: xen-devel@lists.xenproject.org
-> >> Cc: Juergen Gross <jgross@suse.com>; Stefano Stabellini =
-<sstabellini@kernel.org>; Julien Grall
-> >> <julien@xen.org>; Wei Liu <wl@xen.org>; Andrew Cooper =
-<andrew.cooper3@citrix.com>; Ian Jackson
-> >> <ian.jackson@eu.citrix.com>; George Dunlap =
-<george.dunlap@citrix.com>; Jan Beulich
-> <jbeulich@suse.com>
-> >> Subject: [PATCH v2] docs: update xenstore-migration.md
-> >>
-> >> Update connection record details: make flags common for sockets and
-> >> domains, and add pending incoming data.
-> >>
-> >> Signed-off-by: Juergen Gross <jgross@suse.com>
-> >> ---
-> >> V2:
-> >> - added out-resp-len to connection record
-> >> ---
-> >>   docs/designs/xenstore-migration.md | 71 =
-+++++++++++++++++-------------
-> >>   1 file changed, 40 insertions(+), 31 deletions(-)
-> >>
-> >> diff --git a/docs/designs/xenstore-migration.md =
-b/docs/designs/xenstore-migration.md
-> >> index 34a2afd17e..5736bbad94 100644
-> >> --- a/docs/designs/xenstore-migration.md
-> >> +++ b/docs/designs/xenstore-migration.md
-> >> @@ -147,43 +147,59 @@ the domain being migrated.
-> >>   ```
-> >>       0       1       2       3       4       5       6       7    =
-octet
-> >>   +-------+-------+-------+-------+-------+-------+-------+-------+
-> >> -| conn-id                       | conn-type     | conn-spec
-> >> +| conn-id                       | conn-type     | flags         |
-> >> ++-------------------------------+---------------+---------------+
-> >> +| conn-spec
-> >>   ...
-> >> -+-------------------------------+-------------------------------+
-> >> -| data-len                      | data
-> >> -+-------------------------------+
-> >> ++---------------+---------------+-------------------------------+
-> >> +| in-data-len   | out-resp-len  | out-data-len                  |
-> >> ++---------------+---------------+-------------------------------+
-> >> +| data
-> >>   ...
-> >>   ```
-> >>
-> >>
-> >> -| Field       | Description                                     |
-> >> -|-------------|-------------------------------------------------|
-> >> -| `conn-id`   | A non-zero number used to identify this         |
-> >> -|             | connection in subsequent connection-specific    |
-> >> -|             | records                                         |
-> >> -|             |                                                 |
-> >> -| `conn-type` | 0x0000: shared ring                             |
-> >> -|             | 0x0001: socket                                  |
-> >> -|             | 0x0002 - 0xFFFF: reserved for future use        |
-> >> -|             |                                                 |
-> >> -| `conn-spec` | See below                                       |
-> >> -|             |                                                 |
-> >> -| `data-len`  | The length (in octets) of any pending data not  |
-> >> -|             | yet written to the connection                   |
-> >> -|             |                                                 |
-> >> -| `data`      | Pending data (may be empty)                     |
-> >> +| Field          | Description                                  |
-> >> +|----------------|----------------------------------------------|
-> >> +| `conn-id`      | A non-zero number used to identify this      |
-> >> +|                | connection in subsequent connection-specific |
-> >> +|                | records                                      |
-> >> +|                |                                              |
-> >> +| `flags`        | A bit-wise OR of:                            |
-> >> +|                | 0001: read-only                              |
-> >> +|                |                                              |
-> >> +| `conn-type`    | 0x0000: shared ring                          |
-> >> +|                | 0x0001: socket                               |
-> >> +|                | 0x0002 - 0xFFFF: reserved for future use     |
-> >> +|                |                                              |
-> >
-> > Agreed with Julien... the above two would be better swapped to match =
-the order of the fields in the
-> record.
->=20
-> Yes.
->=20
-> >
-> >> +| `conn-spec`    | See below                                    |
-> >> +|                |                                              |
-> >> +| `in-data-len`  | The length (in octets) of any data read      |
-> >> +|                | from the connection not yet processed        |
-> >> +|                |                                              |
-> >> +| `out-resp-len` | The length (in octets) of a partial response |
-> >> +|                | not yet written to the connection (included  |
-> >> +|                | in the following `out-data-len`)             |
-> >> +|                |                                              |
-> >> +| `out-data-len` | The length (in octets) of any pending data   |
-> >> +|                | not yet written to the connection            |
-> >
-> > So, IIUC out-data-len is inclusive of out-resp-len?
->=20
-> Yes.
->=20
-> >
-> >> +|                |                                              |
-> >> +| `data`         | Pending data, first read data, then written  |
-> >> +|                | data (any of both may be empty)              |
-> >
-> > Perhaps be more explicit here:
-> >
-> > "Pending data: first in-data-len octets of read data, then =
-out-data-len octets of written data"
->=20
-> Okay.
->=20
-> >
-> >>
-> >> -The format of `conn-spec` is dependent upon `conn-type`.
-> >> +In case of live update the connection record for the connection =
-via which
-> >> +the live update command was issued will contain the response for =
-the live
-> >> +update command in the pending write data.
-> >
-> > s/write/written for consistency I think.
->=20
-> I'll use "... in the pending not yet written data".
->=20
+On Mon, May 25, 2020 at 06:00:08AM -0700, Tamas K Lengyel wrote:
+> When running shallow forks, ie. VM forks without device models (QEMU), it may
+> be undesirable for Xen to inject interrupts. When creating such forks from
+> Windows VMs we have observed the kernel trying to process interrupts
+> immediately after the fork is executed. However without QEMU running such
+> interrupt handling may not be possible because it may attempt to interact with
+> devices that are not emulated by a backend. In the best case scenario such
+> interrupt handling would only present a detour in the VM forks' execution
+> flow, but in the worst case as we actually observed can completely stall it.
+> By disabling interrupt injection a fuzzer can exercise the target code without
+> interference. For other use-cases this option probably doesn't make sense,
+> that's why this is not enabled by default.
+> 
+> Forks & memory sharing are only available on Intel CPUs so this only applies
+> to vmx. Note that this is part of the experimental VM forking feature that's
+> completely disabled by default and can only be enabled by using
+> XEN_CONFIG_EXPERT during compile time.
+> 
+> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
 
-Ok.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-  Paul
-
->=20
-> Juergen
-
+Thanks, Roger.
 
