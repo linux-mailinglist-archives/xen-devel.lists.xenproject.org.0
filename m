@@ -2,53 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39B121E5B64
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8454E1E5BAC
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:18:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeESN-0001x4-Ik; Thu, 28 May 2020 09:04:07 +0000
+	id 1jeEf8-0002sr-Or; Thu, 28 May 2020 09:17:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eoT6=7K=xen.org=roger@srs-us1.protection.inumbo.net>)
- id 1jeESM-0001wx-In
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:04:06 +0000
-X-Inumbo-ID: 2e847100-a0c2-11ea-a7a8-12813bfff9fa
+ (envelope-from <SRS0=lRPh=7K=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jeEf6-0002sm-Um
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:17:17 +0000
+X-Inumbo-ID: 05e4e08e-a0c4-11ea-a7a8-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2e847100-a0c2-11ea-a7a8-12813bfff9fa;
- Thu, 28 May 2020 09:04:05 +0000 (UTC)
+ id 05e4e08e-a0c4-11ea-a7a8-12813bfff9fa;
+ Thu, 28 May 2020 09:17:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lf1gkKuFmc3/ZRlD1zPwK//yWBW5s9SvQhBMNyi+z2Y=; b=kw3gs5YfL6l5m+3GRVfv1PlJQr
- tgzMy91Bn7IYvZWsEeAggrL6BO008ctsyBPJp7jMfDi6NU0m29IR+zm9tvdRCvzj3+cHISoBfOptY
- e9C21LLjiCORPZIWUKPZUDCtU2H7Woi47MM/fnIaXDjJdCSAEj7/sgwmIAul0C4fPooU=;
+ bh=+Z0tasWUn/B4MzE6fZiFjnf1JiK67V7eieVP2LkyCkM=; b=zS07+VJJSmLYUNobIG8kv8V6x0
+ maBN6XPUEf1ZUcbZzf4MWCWL4+FkhCXU0OItYlubgAOZnTgPcFhlPPdCiUPW2Tqo96A95Jw+FJjQR
+ OMwrQwIcQXnUnhrthf4Mb+HK/wFs0+3d9EplDBGEUTZms00qcibzieYYpleUc/FEi+Yk=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jeESI-00075U-R9; Thu, 28 May 2020 09:04:02 +0000
-Received: from [93.176.191.173] (helo=localhost)
+ (envelope-from <julien@xen.org>)
+ id 1jeEf2-0007Mf-9X; Thu, 28 May 2020 09:17:12 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jeESI-0005E2-BU; Thu, 28 May 2020 09:04:02 +0000
-Date: Thu, 28 May 2020 11:03:51 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
-To: Tamas K Lengyel <tamas.lengyel@intel.com>
-Subject: Re: [PATCH v3 for-4.14 1/2] x86/mem_sharing: block interrupt
- injection for forks
-Message-ID: <20200528090338.GE1195@Air-de-Roger>
-References: <a3b3410c707636aa201641e14b1ab43d4b8821e1.1590411162.git.tamas.lengyel@intel.com>
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jeEf2-00065Q-2S; Thu, 28 May 2020 09:17:12 +0000
+Subject: Re: [PATCH v6 4/5] common/domain: add a domain context record for
+ shared_info...
+To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20200527173407.1398-1-paul@xen.org>
+ <20200527173407.1398-5-paul@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <27717a17-560d-a804-39c2-93bbc3c85009@xen.org>
+Date: Thu, 28 May 2020 10:17:07 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a3b3410c707636aa201641e14b1ab43d4b8821e1.1590411162.git.tamas.lengyel@intel.com>
+In-Reply-To: <20200527173407.1398-5-paul@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,38 +63,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, May 25, 2020 at 06:00:08AM -0700, Tamas K Lengyel wrote:
-> When running shallow forks, ie. VM forks without device models (QEMU), it may
-> be undesirable for Xen to inject interrupts. When creating such forks from
-> Windows VMs we have observed the kernel trying to process interrupts
-> immediately after the fork is executed. However without QEMU running such
-> interrupt handling may not be possible because it may attempt to interact with
-> devices that are not emulated by a backend. In the best case scenario such
-> interrupt handling would only present a detour in the VM forks' execution
-> flow, but in the worst case as we actually observed can completely stall it.
-> By disabling interrupt injection a fuzzer can exercise the target code without
-> interference. For other use-cases this option probably doesn't make sense,
-> that's why this is not enabled by default.
-> 
-> Forks & memory sharing are only available on Intel CPUs so this only applies
-> to vmx. Note that this is part of the experimental VM forking feature that's
-> completely disabled by default and can only be enabled by using
-> XEN_CONFIG_EXPERT during compile time.
-> 
-> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+Hi Paul,
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+On 27/05/2020 18:34, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
+> 
+> ... and update xen-domctx to dump some information describing the record.
+> 
+> NOTE: The domain may or may not be using the embedded vcpu_info array so
+>        ultimately separate context records will be added for vcpu_info when
+>        this becomes necessary.
+> 
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 
-Thanks, Roger.
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+-- 
+Julien Grall
 
