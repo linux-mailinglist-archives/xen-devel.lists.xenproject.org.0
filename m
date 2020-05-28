@@ -2,58 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 048E41E61EE
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 15:14:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 540F81E6201
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 15:20:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeIMJ-0007Tr-Nd; Thu, 28 May 2020 13:14:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lRPh=7K=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jeIMH-0007Tk-VC
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 13:14:06 +0000
-X-Inumbo-ID: 1b001120-a0e5-11ea-a7c8-12813bfff9fa
+	id 1jeISL-0008Is-EK; Thu, 28 May 2020 13:20:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=P1kI=7K=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jeISK-0008In-4b
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 13:20:20 +0000
+X-Inumbo-ID: f6cbcf00-a0e5-11ea-8993-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1b001120-a0e5-11ea-a7c8-12813bfff9fa;
- Thu, 28 May 2020 13:14:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f6cbcf00-a0e5-11ea-8993-bc764e2007e4;
+ Thu, 28 May 2020 13:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=/TGQqVJMo46RFi783ukTwjZkqvAI+atG7guE7LsOJRw=; b=tayfq+iWBTaRYEL1JG22O0euSw
- FVLlHeZ4IngAjmhhoBxx9Y76GSGzRcL7mF/n+61HDsQxFkYQT5lEW0J61XVIUg/g0c0vozu5ldToy
- Hc60CmtyeifMnTYrIGsKSazGMKHTsCnVMdTv14KyJEhUnZNPAjAgny1ZW0GFNaSXb5kM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=BOr1h+ZpHYJcwkKp51Vi+J4mya56ZTRjORlC7mrz1YQ=; b=NJrAF++aCCjrnQrJyIKQ7Th0r
+ cHk7rXe6gUd4S8v5IdDux329lhaAsdS2o8QrHVk1oOroW/fte843LIloo8ObsTPk/W0RDSkeKDB/b
+ BQHkhWJAFeoogRZc5SNOGEj8N/qWolUU4jAOnzd/uAG5f569UsIAe4uGAUZQdCpBMyT38=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jeIMG-0003w5-HA; Thu, 28 May 2020 13:14:04 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jeIMG-0005jw-Ar; Thu, 28 May 2020 13:14:04 +0000
-Subject: Re: [OSSTEST PATCH 22/38] buster: Extend guest bootloader workaround
-To: Ian Jackson <ian.jackson@citrix.com>
-References: <20200519190230.29519-1-ian.jackson@eu.citrix.com>
- <20200519190230.29519-23-ian.jackson@eu.citrix.com>
- <7747c676-f9da-cb97-bd93-78dc13138d03@xen.org>
- <24261.17724.382954.918761@mariner.uk.xensource.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <e4e7e515-587a-ad81-c9b7-b7cfa69108be@xen.org>
-Date: Thu, 28 May 2020 14:14:02 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.1
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jeISD-00043X-5d; Thu, 28 May 2020 13:20:13 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jeISC-0003nf-UL; Thu, 28 May 2020 13:20:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jeISC-0000OF-Td; Thu, 28 May 2020 13:20:12 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150433-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <24261.17724.382954.918761@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 150433: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=724913de8ac8426d313a4645741d86c1169ae406
+X-Osstest-Versions-That: xen=6b75c7a95420acbb9c118624ff0a5e973287c1e4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 28 May 2020 13:20:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,44 +65,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Ian,
+flight 150433 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150433/
 
-On 20/05/2020 15:57, Ian Jackson wrote:
-> Julien Grall writes ("Re: [OSSTEST PATCH 22/38] buster: Extend guest bootloader workaround"):
->> On 19/05/2020 20:02, Ian Jackson wrote:
->>> CC: Julien Grall <julien@xen.org>
->>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
->>
->> Acked-by: Julien Grall <jgrall@amazon.com>
-> 
-> Thanks.
-> 
->>>    	# Debian doesn't currently know what bootloader to install in
->>>    	# a Xen guest on ARM. We install pv-grub-menu above which
->>
->> OOI, what does Debian install for x86 HVM guest? Is there any ticket
->> tracking this issue?
-> 
-> On x86, it installes grub.  (grub2, x86, PC, to be precise.)
+Failures :-/ but no regressions.
 
-I have just realized that on x86 you will always have a firmware in the 
-guest. On Arm we commonly boot the kernel directly.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-So maybe we are closer to PV here. Do you also install GRUB in that case?
+version targeted for testing:
+ xen                  724913de8ac8426d313a4645741d86c1169ae406
+baseline version:
+ xen                  6b75c7a95420acbb9c118624ff0a5e973287c1e4
 
-Note that we do support EDK2 at least on Arm64. It would be nice to get 
-some tests for it in Osstest in the future.
+Last test of basis   150416  2020-05-27 21:01:18 Z    0 days
+Testing same since   150433  2020-05-28 11:01:11 Z    0 days    1 attempts
 
-> I'm not aware of any ticket or bug about this.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
 
-It might be worth creating one then.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   6b75c7a954..724913de8a  724913de8ac8426d313a4645741d86c1169ae406 -> smoke
 
