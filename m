@@ -2,51 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2B911E6DDC
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 23:40:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 967A51E6DDD
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 23:40:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeQGO-0002up-3W; Thu, 28 May 2020 21:40:32 +0000
+	id 1jeQGS-0002xQ-CV; Thu, 28 May 2020 21:40:36 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=leMz=7K=yandex-team.ru=rvkagan@srs-us1.protection.inumbo.net>)
- id 1jeQGN-0002uN-1x
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 21:40:31 +0000
-X-Inumbo-ID: d91c0f24-a12b-11ea-a842-12813bfff9fa
-Received: from forwardcorp1j.mail.yandex.net (unknown [5.45.199.163])
+ id 1jeQGR-0002x4-H0
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 21:40:35 +0000
+X-Inumbo-ID: dbf67356-a12b-11ea-a842-12813bfff9fa
+Received: from forwardcorp1p.mail.yandex.net (unknown [77.88.29.217])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d91c0f24-a12b-11ea-a842-12813bfff9fa;
- Thu, 28 May 2020 21:40:29 +0000 (UTC)
-Received: from mxbackcorp1g.mail.yandex.net (mxbackcorp1g.mail.yandex.net
- [IPv6:2a02:6b8:0:1402::301])
- by forwardcorp1j.mail.yandex.net (Yandex) with ESMTP id 679A02E0E4D;
- Fri, 29 May 2020 00:40:28 +0300 (MSK)
+ id dbf67356-a12b-11ea-a842-12813bfff9fa;
+ Thu, 28 May 2020 21:40:34 +0000 (UTC)
+Received: from mxbackcorp2j.mail.yandex.net (mxbackcorp2j.mail.yandex.net
+ [IPv6:2a02:6b8:0:1619::119])
+ by forwardcorp1p.mail.yandex.net (Yandex) with ESMTP id 368372E094D;
+ Fri, 29 May 2020 00:40:33 +0300 (MSK)
 Received: from vla5-58875c36c028.qloud-c.yandex.net
  (vla5-58875c36c028.qloud-c.yandex.net [2a02:6b8:c18:340b:0:640:5887:5c36])
- by mxbackcorp1g.mail.yandex.net (mxbackcorp/Yandex) with ESMTP id
- PNbNuCHaNu-eMICwYct; Fri, 29 May 2020 00:40:28 +0300
+ by mxbackcorp2j.mail.yandex.net (mxbackcorp/Yandex) with ESMTP id
+ 6B27twZHb8-eSfuTBtm; Fri, 29 May 2020 00:40:33 +0300
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
  s=default; 
- t=1590702028; bh=5RSCVs6L6zfegAd6aySYoeQzRtcXoc5ATSUz8Gh7fPk=;
+ t=1590702033; bh=RswyRtwtBWdULttAfpPdwBoW/nGa0Ey4G3dbrsYzIC8=;
  h=In-Reply-To:Message-Id:References:Date:Subject:To:From:Cc;
- b=kVYWGWsNParhYuG6ULSCFMbhl+gxJT6H8x1ZAyazb5XsNyFSE+XPP7uOEihSqQzUh
- s/6GsoCcf7GOlwuidJS7mwQ7ckF7WyaHiWOwi6qsOFo8xEhwJQkl9yA/L1hOmAQljZ
- 76CeB5+6F8X6R6RrQssMuyLtdgMHC9f2LhsTUVXo=
-Authentication-Results: mxbackcorp1g.mail.yandex.net;
+ b=KwxoPh7NG4LGf33hEYMh1vMRub1HxR6OQDRFY9c+JmZ0VHWsfr4zRoFButnR8ThP9
+ 97rZD1y420S4Hmiz9L6aecEAxN435n5FqK13YyO/7OC9QYB7BtiIKh2QHsCg9iYC8c
+ A+vHMFWr1pNY1n36DJxND1Jqv1VrEwJ7Ax1j75y0=
+Authentication-Results: mxbackcorp2j.mail.yandex.net;
  dkim=pass header.i=@yandex-team.ru
 Received: from dynamic-vpn.dhcp.yndx.net (dynamic-vpn.dhcp.yndx.net
  [2a02:6b8:b081:1318::1:10])
  by vla5-58875c36c028.qloud-c.yandex.net (smtpcorp/Yandex) with ESMTPSA id
- KqoauPPys3-eLXqFHpn; Fri, 29 May 2020 00:40:22 +0300
+ KqoauPPys3-eSXqFT6u; Fri, 29 May 2020 00:40:28 +0300
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (Client certificate not present)
 From: Roman Kagan <rvkagan@yandex-team.ru>
 To: qemu-devel@nongnu.org
-Subject: [PATCH v7 5/8] qdev-properties: make blocksize accept size suffixes
-Date: Fri, 29 May 2020 00:39:43 +0300
-Message-Id: <20200528213946.1636444-6-rvkagan@yandex-team.ru>
+Subject: [PATCH v7 6/8] block: make BlockConf size props 32bit and accept size
+ suffixes
+Date: Fri, 29 May 2020 00:39:44 +0300
+Message-Id: <20200528213946.1636444-7-rvkagan@yandex-team.ru>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200528213946.1636444-1-rvkagan@yandex-team.ru>
 References: <20200528213946.1636444-1-rvkagan@yandex-team.ru>
@@ -77,82 +78,114 @@ Cc: Kevin Wolf <kwolf@redhat.com>, Fam Zheng <fam@euphon.net>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-It appears convenient to be able to specify physical_block_size and
-logical_block_size using common size suffixes.
+Convert all size-related properties in BlockConf to 32bit.  This will
+allow to accomodate bigger block sizes (in a followup patch).
+This also allows to make them all accept size suffixes, either via
+DEFINE_PROP_BLOCKSIZE or via DEFINE_PROP_SIZE32.
 
-Teach the blocksize property setter to interpret them.  Also express the
-upper and lower limits in the respective units.
+Also, since min_io_size is exposed to the guest by scsi and virtio-blk
+devices as an uint16_t in units of logical blocks, introduce an
+additional check in blkconf_blocksizes to prevent its silent truncation.
 
 Signed-off-by: Roman Kagan <rvkagan@yandex-team.ru>
 ---
 v6 -> v7:
 - split out into separate patch [Eric]
+- avoid overflow in min_io_size check [Eric]
 
- hw/core/qdev-properties.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ include/hw/block/block.h     | 12 ++++++------
+ include/hw/qdev-properties.h |  2 +-
+ hw/block/block.c             | 11 +++++++++++
+ hw/core/qdev-properties.c    |  4 ++--
+ 4 files changed, 20 insertions(+), 9 deletions(-)
 
+diff --git a/include/hw/block/block.h b/include/hw/block/block.h
+index 784953a237..1e8b6253dd 100644
+--- a/include/hw/block/block.h
++++ b/include/hw/block/block.h
+@@ -18,9 +18,9 @@
+ 
+ typedef struct BlockConf {
+     BlockBackend *blk;
+-    uint16_t physical_block_size;
+-    uint16_t logical_block_size;
+-    uint16_t min_io_size;
++    uint32_t physical_block_size;
++    uint32_t logical_block_size;
++    uint32_t min_io_size;
+     uint32_t opt_io_size;
+     int32_t bootindex;
+     uint32_t discard_granularity;
+@@ -51,9 +51,9 @@ static inline unsigned int get_physical_block_exp(BlockConf *conf)
+                           _conf.logical_block_size),                    \
+     DEFINE_PROP_BLOCKSIZE("physical_block_size", _state,                \
+                           _conf.physical_block_size),                   \
+-    DEFINE_PROP_UINT16("min_io_size", _state, _conf.min_io_size, 0),    \
+-    DEFINE_PROP_UINT32("opt_io_size", _state, _conf.opt_io_size, 0),    \
+-    DEFINE_PROP_UINT32("discard_granularity", _state,                   \
++    DEFINE_PROP_SIZE32("min_io_size", _state, _conf.min_io_size, 0),    \
++    DEFINE_PROP_SIZE32("opt_io_size", _state, _conf.opt_io_size, 0),    \
++    DEFINE_PROP_SIZE32("discard_granularity", _state,                   \
+                        _conf.discard_granularity, -1),                  \
+     DEFINE_PROP_ON_OFF_AUTO("write-cache", _state, _conf.wce,           \
+                             ON_OFF_AUTO_AUTO),                          \
+diff --git a/include/hw/qdev-properties.h b/include/hw/qdev-properties.h
+index c03eadfad6..5252bb6b1a 100644
+--- a/include/hw/qdev-properties.h
++++ b/include/hw/qdev-properties.h
+@@ -200,7 +200,7 @@ extern const PropertyInfo qdev_prop_pcie_link_width;
+ #define DEFINE_PROP_SIZE32(_n, _s, _f, _d)                       \
+     DEFINE_PROP_UNSIGNED(_n, _s, _f, _d, qdev_prop_size32, uint32_t)
+ #define DEFINE_PROP_BLOCKSIZE(_n, _s, _f) \
+-    DEFINE_PROP_UNSIGNED(_n, _s, _f, 0, qdev_prop_blocksize, uint16_t)
++    DEFINE_PROP_UNSIGNED(_n, _s, _f, 0, qdev_prop_blocksize, uint32_t)
+ #define DEFINE_PROP_PCI_HOST_DEVADDR(_n, _s, _f) \
+     DEFINE_PROP(_n, _s, _f, qdev_prop_pci_host_devaddr, PCIHostDeviceAddress)
+ #define DEFINE_PROP_OFF_AUTO_PCIBAR(_n, _s, _f, _d) \
+diff --git a/hw/block/block.c b/hw/block/block.c
+index b22207c921..7410b24dee 100644
+--- a/hw/block/block.c
++++ b/hw/block/block.c
+@@ -96,6 +96,17 @@ bool blkconf_blocksizes(BlockConf *conf, Error **errp)
+         return false;
+     }
+ 
++    /*
++     * all devices which support min_io_size (scsi and virtio-blk) expose it to
++     * the guest as a uint16_t in units of logical blocks
++     */
++    if (conf->min_io_size / conf->logical_block_size > UINT16_MAX) {
++        error_setg(errp,
++                   "min_io_size must not exceed " stringify(UINT16_MAX)
++                   " logical blocks");
++        return false;
++    }
++
+     if (!QEMU_IS_ALIGNED(conf->opt_io_size, conf->logical_block_size)) {
+         error_setg(errp,
+                    "opt_io_size must be a multiple of logical_block_size");
 diff --git a/hw/core/qdev-properties.c b/hw/core/qdev-properties.c
-index d943755832..a79062b428 100644
+index a79062b428..3cbe3f56a8 100644
 --- a/hw/core/qdev-properties.c
 +++ b/hw/core/qdev-properties.c
-@@ -14,6 +14,7 @@
- #include "qapi/visitor.h"
- #include "chardev/char.h"
- #include "qemu/uuid.h"
-+#include "qemu/units.h"
- 
- void qdev_prop_set_after_realize(DeviceState *dev, const char *name,
-                                   Error **errp)
-@@ -771,17 +772,18 @@ const PropertyInfo qdev_prop_size32 = {
- 
- /* lower limit is sector size */
- #define MIN_BLOCK_SIZE          512
--#define MIN_BLOCK_SIZE_STR      stringify(MIN_BLOCK_SIZE)
-+#define MIN_BLOCK_SIZE_STR      "512 B"
- /* upper limit is the max power of 2 that fits in uint16_t */
--#define MAX_BLOCK_SIZE          32768
--#define MAX_BLOCK_SIZE_STR      stringify(MAX_BLOCK_SIZE)
-+#define MAX_BLOCK_SIZE          (32 * KiB)
-+#define MAX_BLOCK_SIZE_STR      "32 KiB"
- 
- static void set_blocksize(Object *obj, Visitor *v, const char *name,
-                           void *opaque, Error **errp)
+@@ -782,7 +782,7 @@ static void set_blocksize(Object *obj, Visitor *v, const char *name,
  {
      DeviceState *dev = DEVICE(obj);
      Property *prop = opaque;
--    uint16_t value, *ptr = qdev_get_prop_ptr(dev, prop);
-+    uint16_t *ptr = qdev_get_prop_ptr(dev, prop);
-+    uint64_t value;
+-    uint16_t *ptr = qdev_get_prop_ptr(dev, prop);
++    uint32_t *ptr = qdev_get_prop_ptr(dev, prop);
+     uint64_t value;
      Error *local_err = NULL;
  
-     if (dev->realized) {
-@@ -789,7 +791,7 @@ static void set_blocksize(Object *obj, Visitor *v, const char *name,
-         return;
-     }
- 
--    visit_type_uint16(v, name, &value, &local_err);
-+    visit_type_size(v, name, &value, &local_err);
-     if (local_err) {
-         error_propagate(errp, local_err);
-         return;
-@@ -797,7 +799,7 @@ static void set_blocksize(Object *obj, Visitor *v, const char *name,
-     /* value of 0 means "unset" */
-     if (value && (value < MIN_BLOCK_SIZE || value > MAX_BLOCK_SIZE)) {
-         error_setg(errp,
--                   "Property %s.%s doesn't take value %" PRIu16
-+                   "Property %s.%s doesn't take value %" PRIu64
-                    " (minimum: " MIN_BLOCK_SIZE_STR
-                    ", maximum: " MAX_BLOCK_SIZE_STR ")",
-                    dev->id ? : "", name, value);
-@@ -816,7 +818,7 @@ static void set_blocksize(Object *obj, Visitor *v, const char *name,
- }
- 
- const PropertyInfo qdev_prop_blocksize = {
--    .name  = "uint16",
-+    .name  = "size",
+@@ -821,7 +821,7 @@ const PropertyInfo qdev_prop_blocksize = {
+     .name  = "size",
      .description = "A power of two between " MIN_BLOCK_SIZE_STR
                     " and " MAX_BLOCK_SIZE_STR,
-     .get   = get_uint16,
+-    .get   = get_uint16,
++    .get   = get_uint32,
+     .set   = set_blocksize,
+     .set_default_value = set_default_value_uint,
+ };
 -- 
 2.26.2
 
