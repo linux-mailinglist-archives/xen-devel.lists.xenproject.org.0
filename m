@@ -2,55 +2,119 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 996A41E5AE7
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 10:35:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FC851E5AEA
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 10:35:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeDzq-0007GC-H2; Thu, 28 May 2020 08:34:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lRPh=7K=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jeDzo-0007G7-Uk
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 08:34:37 +0000
-X-Inumbo-ID: 0f471aee-a0be-11ea-a7a8-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0f471aee-a0be-11ea-a7a8-12813bfff9fa;
- Thu, 28 May 2020 08:34:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yKMi1nya+OTYYAGIWXH70UxGsSw5kc/9JlSI1JLKCwI=; b=WHm4AQ65EWnI4bLqMSRm8Tc6GC
- H/IZ2ssjHyH2fvZMEEfJU4lofCREC/FEa0udWRRtbCsxTLydy/jxV4E/Oz6CvrQluovs7B586Xufk
- HRxNertnCsNLXJQDyUyEQaGVIfl+ZcBMh9NG33Js2m+loSd2CHKMJQr342FfH2jsprc8=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jeDzl-0006NI-4H; Thu, 28 May 2020 08:34:33 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jeDzk-0003ZK-Tu; Thu, 28 May 2020 08:34:33 +0000
-Subject: Re: [PATCH v2] docs: update xenstore-migration.md
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <20200528082217.26057-1-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <57f59299-0723-bfcc-33b3-a97562c87150@xen.org>
-Date: Thu, 28 May 2020 09:34:30 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.1
+	id 1jeE0D-0007Hd-Q8; Thu, 28 May 2020 08:35:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bSPA=7K=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
+ id 1jeE0B-0007HV-US
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 08:35:00 +0000
+X-Inumbo-ID: 1b8dcda2-a0be-11ea-81bc-bc764e2007e4
+Received: from mga06.intel.com (unknown [134.134.136.31])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1b8dcda2-a0be-11ea-81bc-bc764e2007e4;
+ Thu, 28 May 2020 08:34:56 +0000 (UTC)
+IronPort-SDR: aWw8Q8aKnw6bDmizL1lBqKGk19FYiZFcsaILNIUU6lsXQK0Skj2eJI8omewGcThGGbQjvCnAH+
+ zJq7acgRCYvw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 May 2020 01:34:54 -0700
+IronPort-SDR: frqcvrNYiWR8HD8L7VqU1Cdw6avucpDlkyv4XC5OUp4ozmAY97b9ybw6ywPWkYV4dHyNecIz8h
+ DKKK+svZehJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,444,1583222400"; 
+ d="scan'208,217";a="270780435"
+Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
+ by orsmga006.jf.intel.com with ESMTP; 28 May 2020 01:34:54 -0700
+Received: from fmsmsx118.amr.corp.intel.com (10.18.116.18) by
+ FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 28 May 2020 01:34:54 -0700
+Received: from FMSEDG001.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx118.amr.corp.intel.com (10.18.116.18) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 28 May 2020 01:34:53 -0700
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.108)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server (TLS) id
+ 14.3.439.0; Thu, 28 May 2020 01:34:53 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Xxv/bHVgKyBJ1XrILGg4sTL8cnflXalwzL8oQ0yAdSdYoFqchmgJSmatF3S7N16J+thQnaVyoI0MsL/GcnCkIDjAGaWLALvBAaDaoxby+DmVyKJsVOKRV/IAEXDk+/jbA0u0GsMh2xnsNSowQnCL2+0d7Bp6CQioyVkI9XVSIAGRiaihbCGLYuD1ksI/4MgdDLN/JA2i0UY7tz0FWFOGqCxk6HuBE8Ody4rSMhi6l1VGrV6hjqJqXzDs4bxQt9s+u1y3r6xcTHu/E8VRQH312LKKrlYEmPeIwxPqMeYNU7iCS0bk70EE5pmUgmzXloDj4zrKnhhlZ//yWSItecS2ZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vlvMZe4cNznB6HUqYl7YDrsHHVQpXtUCAz2HVkgR65M=;
+ b=JPfStJmg/EGSeheHhOwKgKomaxp2suUSUVsRJRgiW+6oiWlxnoOiD0kdZSJhHnokQRcve5w+R+u1RKb5KgPGsdGk+7vfy+iAzIFug4b9MJalIzcX77KlaikQ/Ls6zVe5Oc3H4LflvCxLDSDXwRWcvBHgOFiqkBU3onX+9gSO/eg5C99/p1TOYj4QmeeJH2sQbHPZg6EXjZ91Qq3smXrBPoPZNmL5Agf77832NvFpw+O1E2N6cqFj+UfGwCEND0DyCvjhBTaotfX6+kFHvaJMcHGWtw2AJ4VcznxpWbgG28m0iMNfXipEtCDFI/03rquZVM/KvuklrQuBaY2vOQ+Uag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vlvMZe4cNznB6HUqYl7YDrsHHVQpXtUCAz2HVkgR65M=;
+ b=yY4w1jMB+jt+95KrYLsQC+xVyWQUGbMb5F6j7RMfmmg1xBBnGoo0/PNxKH8DaMpYq8rfv3fyzYG/qv8UivGsXESeweO6Mm7sOyR+ZDlmnCw7QuaU1Pl6C6xBz/Xg3h408Djr/70nGSPzjxBsgKjQWCm4YFQfuR4CzAG8DLPafek=
+Received: from MWHPR11MB1645.namprd11.prod.outlook.com (2603:10b6:301:b::12)
+ by MWHPR11MB1550.namprd11.prod.outlook.com (2603:10b6:301:b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23; Thu, 28 May
+ 2020 08:34:52 +0000
+Received: from MWHPR11MB1645.namprd11.prod.outlook.com
+ ([fe80::b441:f6bd:703b:ba41]) by MWHPR11MB1645.namprd11.prod.outlook.com
+ ([fe80::b441:f6bd:703b:ba41%2]) with mapi id 15.20.3021.030; Thu, 28 May 2020
+ 08:34:52 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: buy computer <buycomputer40@gmail.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+Subject: RE: iommu=no-igfx
+Thread-Topic: iommu=no-igfx
+Thread-Index: AQHWKBPp26X0x5YGAUu393CB+jzHkKiw3nQAgAdCTsCAADbFAIAE7K9Q
+Date: Thu, 28 May 2020 08:34:52 +0000
+Message-ID: <MWHPR11MB1645086209CC9A97D5805DA68C8E0@MWHPR11MB1645.namprd11.prod.outlook.com>
+References: <CANSXg2FGtiDT05sQUpSAshAsdP4wSjPgQbfw_+aKJuAzSwvJuQ@mail.gmail.com>
+ <da7e41b5-88a1-13ab-d52b-0652c16608af@suse.com>
+ <MWHPR11MB1645DC1C5782DDA28C9BB1CB8CB30@MWHPR11MB1645.namprd11.prod.outlook.com>
+ <CANSXg2EiauZfTMsmqzcB2ShUCr67rB+mHBm4EVtWhMaUL8NL-w@mail.gmail.com>
+In-Reply-To: <CANSXg2EiauZfTMsmqzcB2ShUCr67rB+mHBm4EVtWhMaUL8NL-w@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.2.0.6
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [192.55.52.219]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1a8dd0a7-77d9-407f-1dcb-08d802e1fe0b
+x-ms-traffictypediagnostic: MWHPR11MB1550:
+x-microsoft-antispam-prvs: <MWHPR11MB1550887A08DB3E32C04E7D688C8E0@MWHPR11MB1550.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-forefront-prvs: 0417A3FFD2
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Nr8Up8iPTizKTkAVNNsNPtM+b1Qd7dYG2OntrCXmGTpKj8eHOly5V6GLpEJibkIkG9Fw5xvcGBAMjpFe4HBJnaltr7UHpuQ3ZGwgdyTbWLvt5WSAIbVuEobl7uOg28Qx9+lmrClWLfS8yjIyPJ+irDRnuc81i7jYKq5C5Vy6/GcN6ienXclkiv4sFM0iEzrwOU8M3Vm4ktVVyVril7Og82R7cglbxxGl+Ycq1vhQMZkPFIBXTnUplKNSag8VX9Yudae2hh4QBvYeJgzvnBh01zQn2FGoOaX8gIm2CdRjQnODe1VYfQZG2vPRxaDQO15YmxbVXkJut/EhSyJeG1/8M0+lZgrqgXovSmsSrjzsb/msr440eiw4Mxr5oMtsR8Wax1vK2NzDBkRSxZo7oywk2Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR11MB1645.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(376002)(39860400002)(366004)(396003)(346002)(136003)(55016002)(110136005)(53546011)(5660300002)(478600001)(8676002)(8936002)(166002)(52536014)(26005)(71200400001)(66556008)(7696005)(66476007)(2906002)(66446008)(66946007)(6506007)(316002)(76116006)(64756008)(83380400001)(186003)(86362001)(3480700007)(33656002)(9686003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: GETKrmNLr/KoAt+jZMrxgp5ByORmzpKiJB9Yk0lxP6r7SqrKF2QsnoxLfj1Iaz3GOVWc08Kh8mbNmvIjAecW8b9z0f8/l4ptMMMV0ktfqBhaWeD2ZwVqEy9ZseaxoCiPJzfBPLHpTa0bPEY66pzEt87wGZa08L19x4YjUfECWZ9uxlbPJudkWiPA5rnE35/k1d6rW3m+g441bkezgiD6oK3KGQe6bAfD1zT2SfYpoOcWsJFXWtxu6iCWdnYAHE+KPg+KmqQ2q992tLHemD8VfS2ZAtMt2+6bD6Eg5TxtOoJdD7wcbeAgl7Zy7/nQEYDEQAy0kWaTXUwNXn7rmIZx5Li/OJkjy8ZcS+2M4/H/MTpq5T5s9aDUNMBFUjl5GjMxHExB+DN1JhKVOLxH+goYvMlfiwqZ4W3B1KLP2tBdKiqVoKvyXMQLubTEcrY8j+tHei5Iz/6rqEYJ9V3QeUnlF52iMUEnPfSg4KXs4L0phZx1Mh3djES1FLZvAdQDQYB5
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/alternative;
+ boundary="_000_MWHPR11MB1645086209CC9A97D5805DA68C8E0MWHPR11MB1645namp_"
 MIME-Version: 1.0
-In-Reply-To: <20200528082217.26057-1-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a8dd0a7-77d9-407f-1dcb-08d802e1fe0b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2020 08:34:52.3784 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pA4iE4ueqPm1c/XubGDY5Xpjk6SJ7CicrWzgRjxw4Q7RRBBoPxQU/cdtPq7TMLcWJhVQvQfLgFXGq7LDHqwQ/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1550
+X-OriginatorOrg: intel.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,67 +125,204 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Juergen,
+--_000_MWHPR11MB1645086209CC9A97D5805DA68C8E0MWHPR11MB1645namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 28/05/2020 09:22, Juergen Gross wrote:
-> -| Field       | Description                                     |
-> -|-------------|-------------------------------------------------|
-> -| `conn-id`   | A non-zero number used to identify this         |
-> -|             | connection in subsequent connection-specific    |
-> -|             | records                                         |
-> -|             |                                                 |
-> -| `conn-type` | 0x0000: shared ring                             |
-> -|             | 0x0001: socket                                  |
-> -|             | 0x0002 - 0xFFFF: reserved for future use        |
-> -|             |                                                 |
-> -| `conn-spec` | See below                                       |
-> -|             |                                                 |
-> -| `data-len`  | The length (in octets) of any pending data not  |
-> -|             | yet written to the connection                   |
-> -|             |                                                 |
-> -| `data`      | Pending data (may be empty)                     |
-> +| Field          | Description                                  |
-> +|----------------|----------------------------------------------|
-> +| `conn-id`      | A non-zero number used to identify this      |
-> +|                | connection in subsequent connection-specific |
-> +|                | records                                      |
-> +|                |                                              |
-> +| `flags`        | A bit-wise OR of:                            |
-> +|                | 0001: read-only                              |
+WW91IG1heSBzZWFyY2ggZG1hX21hcCogaW4gZHJpdmVycy9ncHUvZHJtL2k5MTUsIGFuZCB0aGVu
+IHByaW50IG1hcHBlZCBhZGRyZXNzZXMgdG8gc2VlIGFueSBtYXRjaCBpbiBWVC1kIHJlcG9ydGVk
+IGZhdWx0aW5nIGFkZHJlc3Nlcy4gRm9yIGV4YW1wbGUsIF9fc2V0dXBfcGFnZV9kbWEgbWlnaHQg
+YmUgb25lIGV4YW1wbGUgdGhhdCB5b3Ugd2FudCB0byBjaGVjay4NCg0KRnJvbTogYnV5IGNvbXB1
+dGVyIDxidXljb21wdXRlcjQwQGdtYWlsLmNvbT4NClNlbnQ6IE1vbmRheSwgTWF5IDI1LCAyMDIw
+IDE6MTggUE0NClRvOiBUaWFuLCBLZXZpbiA8a2V2aW4udGlhbkBpbnRlbC5jb20+OyB4ZW4tZGV2
+ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNClN1YmplY3Q6IFJlOiBpb21tdT1uby1pZ2Z4DQoNCg0K
+DQpPbiBNb24sIE1heSAyNSwgMjAyMCBhdCA1OjE2IEFNIFRpYW4sIEtldmluIDxrZXZpbi50aWFu
+QGludGVsLmNvbTxtYWlsdG86a2V2aW4udGlhbkBpbnRlbC5jb20+PiB3cm90ZToNCj4gRnJvbTog
+SmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPG1haWx0bzpqYmV1bGljaEBzdXNlLmNvbT4+
+DQo+IFNlbnQ6IFdlZG5lc2RheSwgTWF5IDIwLCAyMDIwIDc6MTEgUE0NCj4NCj4gT24gMTEuMDUu
+MjAyMCAxOTo0MywgYnV5IGNvbXB1dGVyIHdyb3RlOg0KPiA+IEkndmUgYmVlbiB3b3JraW5nIG9u
+IGEgV2luZG93cyAxMCBIVk0gb24gYSBEZWJpYW4gMTAgZG9tMC4gV2hlbiBJDQo+IHdhcyBmaXJz
+dA0KPiA+IHRyeWluZyB0byBtYWtlIHRoZSBWTSwgSSB3YXMgZ2V0dGluZyBJT01NVSBlcnJvcnMu
+IEkgaGFkIGEgaGFyZCB0aW1lDQo+ID4gZmlndXJpbmcgb3V0IHdoYXQgdG8gZG8gYWJvdXQgdGhp
+cywgYW5kIGZpbmFsbHkgZGlzY292ZXJlZCB0aGF0IHB1dHRpbmcNCj4gPiBpb21tdT1uby1pZ2Z4
+IGluIHRoZSBncnViIHN0b3BwZWQgdGhlIGVycm9ycy4NCj4gPg0KPiA+IFVuZm9ydHVuYXRlbHks
+IHdpdGhvdXQgdGhlIGdyYXBoaWNzIHN1cHBvcnQgdGhlIFZNIGlzIHVuZGVyc3RhbmRhYmx5DQo+
+IHNsb3csDQo+ID4gYW5kIGNhbiBjcmFzaC4gSSB3YXMgYWxzbyBvbmx5IG5vdyBwb2ludGVkIHRv
+IHRoZSBwYWdlDQo+ID4gPGh0dHBzOi8veGVuYml0cy54ZW4ub3JnL2RvY3MvdW5zdGFibGUvbWlz
+Yy94ZW4tY29tbWFuZC0NCj4gbGluZS5odG1sI2lvbW11Pg0KPiA+IHdoaWNoIHNheXMgdG8gcmVw
+b3J0IGFueSBlcnJvcnMgdGhhdCBnZXQgZml4ZWQgYnkgdXNpbmcgaW9tbXU9bm8taWdmeC4NCg0K
+d2hhdCBpcyB0aGUgcGxhdGZvcm0gYW5kIGxpbnV4IGtlcm5lbCB2ZXJzaW9uIGluIHRoaXMgY29u
+dGV4dD8NCg0KSSdtIG5vdCBzdXJlIHdoYXQgeW91IG1lYW50IGJ5ICdwbGF0Zm9ybScsIHNvIEkn
+bGwgdHJ5IHRvIGNvdmVyIGFsbCB0aGUgYmFzZXMuDQpLZXJuZWw6IDQuMTkuMC05LWFtZDY0IEdO
+VS9MaW51eA0KRGViaWFuIDEwLjQNCkxlbm92byBFNDkwIFRoaW5rUGFkDQpJbnRlbCBJbnRlZ3Jh
+dGVkIEdyYXBoaWNzIDYyMA0KDQo+DQo+IFRoYW5rcyBmb3IgdGhlIHJlcG9ydC4gRm9yIGNvbnRl
+eHQgSSdsbCBxdW90ZSB0aGUgY29tbWl0IG1lc3NhZ2Ugb2YNCj4gdGhlIGNvbW1pdCBpbnRyb2R1
+Y2luZyB0aGUgb3B0aW9uIGFzIHdlbGwgYXMgdGhlIHJlcXVlc3QgdG8gcmVwb3J0DQo+IGlzc3Vl
+cyBmaXhlZCB3aXRoIGl0Og0KPg0KPiAiQXMgd2Ugc3RpbGwgY2Fubm90IGZpbmQgYSBwcm9wZXIg
+Zml4IGZvciB0aGlzIHByb2JsZW0sIHRoaXMgcGF0Y2ggYWRkcw0KPiAgaW9tbXU9aWdmeCBvcHRp
+b24gdG8gY29udHJvbCB3aGV0aGVyIEludGVsIGdyYXBoaWNzIElPTU1VIGlzIGVuYWJsZWQuDQo+
+ICBSdW5uaW5nIFhlbiB3aXRoIGlvbW11PW5vLWlnZnggaXMgc2ltaWxhciB0byBydW5uaW5nIExp
+bnV4IHdpdGgNCj4gIGludGVsX2lvbW11PWlnZnhfb2ZmLCB3aGljaCBkaXNhYmxlcyBJT01NVSBm
+b3IgSW50ZWwgR1BVLiBUaGlzIGNhbiBiZQ0KPiAgdXNlZCBieSB1c2VycyB0byBtYW51YWxseSB3
+b3JrYXJvdW5kIHRoZSBwcm9ibGVtIGJlZm9yZSBhIGZpeCBpcw0KPiAgYXZhaWxhYmxlIGZvciBp
+OTE1IGRyaXZlci4iDQo+DQo+IFRoaXMgd2FzIGluIDIwMTUsIHJlZmVyZW5jaW5nIExpbnV4ID49
+IDMuMTkuIEkgaGF2ZSBubyBpZGVhIHdoZXRoZXINCj4gdGhlIHVuZGVybHlpbmcgZHJpdmVyIGlz
+c3VlKHMpIGhhcy9oYXZlIGJlZW4gZml4ZWQuIFRoZSBhZGRyZXNzZXMNCj4gcmVmZXJlbmNlZCBh
+cmUgdmFyaWFibGUgZW5vdWdoIGFuZCBhbGwgd2l0aGluIFJBTSwgc28gSSdkIGNvbmNsdWRlDQo+
+IHRoaXMgaXMgbm90IGEgIm1pc3NpbmcgUk1SUiIgaXNzdWUuDQoNClZhcmlhYmxlIGVub3VnaCBi
+dXQgbm90IHdpdGhpbiBSQU0uIEZyb20gRTgyMDoNCg0KKFhFTikgIDAwMDAwMDAxMDAwMDAwMDAg
+LSAwMDAwMDAwODcxODAwMDAwICh1c2FibGUpDQoNCkJ1dCB0aGUgcmVmZXJlbmNlZCBhZGRyZXNz
+ZXMgYXJlIHdheSBoaWdoZXI6DQoNCihYRU4pIFtWVC1EXURNQVI6W0RNQSBSZWFkXSBSZXF1ZXN0
+IGRldmljZSBbMDAwMDowMDowMi4wXSBmYXVsdA0KYWRkciA3NmM2MTVkMDAwLCBpb21tdSByZWcg
+PSBmZmZmODJjMDAwYTBjMDAwDQooWEVOKSBbVlQtRF1ETUFSOiByZWFzb24gMDYgLSBQVEUgUmVh
+ZCBhY2Nlc3MgaXMgbm90IHNldA0KDQo+DQo+IENjLWluZyB0aGUgVlQtZCBtYWludGFpbmVyIGZv
+ciBwb3NzaWJsZSBpbnNpZ2h0cyBvciB0aG91Z2h0cy4NCj4NCj4gSmFuDQoNCkkgZG9uJ3QgaGF2
+ZSBvdGhlciB0aG91Z2h0cyBleGNlcHQgdGhlIHdlaXJkIGFkZHJlc3Nlcy4gSXQgbWlnaHQgYmUN
+Cmdvb2QgdG8gYWRkIHNvbWUgdHJhY2UgaW4gZG9tMCdzIGk5MTUgZHJpdmVyIHRvIHNlZSB3aGV0
+aGVyIHRob3NlDQphZGRyZXNzZXMgYXJlIGludGVuZGVkIG9yIG5vdC4NCg0KVGhhbmtzIGZvciB0
+aGUgaW5zaWdodCEgSSdkIGxvdmUgdG8gaGVscCB3aXRoIHRoZSB0cmFjZSwgYnV0IEkgZG9uJ3Qg
+a25vdyBob3cgdG8gZG8gdGhhdC4gSWYgeW91IGNvdWxkIHBvaW50IG1lIGluIHRoZSByaWdodCBk
+aXJlY3Rpb24sIEknZCB0cnkgdG8gZ2l2ZSBpdCBhIHNob3QuDQoNClRoYW5rcw0KS2V2aW4NCg0K
+VGhhbmtzIGZvciB0aGUgaW5zaWdodCENCg==
 
-NIT: It is a bit odd the flags is in the header after `conn-type` and 
-described before.
+--_000_MWHPR11MB1645086209CC9A97D5805DA68C8E0MWHPR11MB1645namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-> +|                |                                              |
-> +| `conn-type`    | 0x0000: shared ring                          |
-> +|                | 0x0001: socket                               |
-> +|                | 0x0002 - 0xFFFF: reserved for future use     |
-> +|                |                                              |
-> +| `conn-spec`    | See below                                    |
-> +|                |                                              |
-> +| `in-data-len`  | The length (in octets) of any data read      |
-> +|                | from the connection not yet processed        |
-> +|                |                                              |
-> +| `out-resp-len` | The length (in octets) of a partial response |
-> +|                | not yet written to the connection (included  |
-> +|                | in the following `out-data-len`)             |
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkRlbmdYaWFuOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAx
+IDE7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIgMTUg
+NSAyIDIgMiA0IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6IlxA562J57q/IjsN
+CglwYW5vc2UtMToyIDEgNiAwIDMgMSAxIDEgMSAxO30NCi8qIFN0eWxlIERlZmluaXRpb25zICov
+DQpwLk1zb05vcm1hbCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47
+DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1p
+bHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXtt
+c28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5k
+ZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5
+bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxp
+bmU7fQ0KcC5tc29ub3JtYWwwLCBsaS5tc29ub3JtYWwwLCBkaXYubXNvbm9ybWFsMA0KCXttc28t
+c3R5bGUtbmFtZTptc29ub3JtYWw7DQoJbXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJbWFyZ2lu
+LXJpZ2h0OjBpbjsNCgltc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzsNCgltYXJnaW4tbGVmdDow
+aW47DQoJZm9udC1zaXplOjExLjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJp
+Zjt9DQpzcGFuLkVtYWlsU3R5bGUxOA0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsN
+Cglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30N
+Ci5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtZmFt
+aWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjgu
+NWluIDExLjBpbjsNCgltYXJnaW46MS4waW4gMS4yNWluIDEuMGluIDEuMjVpbjt9DQpkaXYuV29y
+ZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUg
+bXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2
+IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFw
+ZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4N
+CjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9
+IkVOLVVTIiBsaW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0
+aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5Zb3UgbWF5IHNlYXJjaCBkbWFfbWFwKiBpbiBk
+cml2ZXJzL2dwdS9kcm0vaTkxNSwgYW5kIHRoZW4gcHJpbnQgbWFwcGVkIGFkZHJlc3NlcyB0byBz
+ZWUgYW55IG1hdGNoIGluIFZULWQgcmVwb3J0ZWQgZmF1bHRpbmcgYWRkcmVzc2VzLiBGb3IgZXhh
+bXBsZSwgX19zZXR1cF9wYWdlX2RtYSBtaWdodCBiZSBvbmUgZXhhbXBsZSB0aGF0IHlvdSB3YW50
+IHRvIGNoZWNrLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJz
+cDs8L286cD48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCBi
+bHVlIDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4wcHQiPg0KPGRpdj4NCjxkaXYgc3R5bGU9
+ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0UxRTFFMSAxLjBwdDtwYWRkaW5nOjMuMHB0
+IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPkZyb206PC9iPiBidXkgY29t
+cHV0ZXIgJmx0O2J1eWNvbXB1dGVyNDBAZ21haWwuY29tJmd0OyA8YnI+DQo8Yj5TZW50OjwvYj4g
+TW9uZGF5LCBNYXkgMjUsIDIwMjAgMToxOCBQTTxicj4NCjxiPlRvOjwvYj4gVGlhbiwgS2V2aW4g
+Jmx0O2tldmluLnRpYW5AaW50ZWwuY29tJmd0OzsgeGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qu
+b3JnPGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiBpb21tdT1uby1pZ2Z4PG86cD48L286cD48L3A+
+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48
+L3A+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9wPg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4N
+CjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+T24gTW9uLCBNYXkgMjUsIDIwMjAg
+YXQgNToxNiBBTSBUaWFuLCBLZXZpbiAmbHQ7PGEgaHJlZj0ibWFpbHRvOmtldmluLnRpYW5AaW50
+ZWwuY29tIiB0YXJnZXQ9Il9ibGFuayI+a2V2aW4udGlhbkBpbnRlbC5jb208L2E+Jmd0OyB3cm90
+ZTo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25l
+O2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBw
+dDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiIHN0eWxlPSJtYXJnaW4tYm90dG9tOjEyLjBwdCI+Jmd0OyBGcm9tOiBKYW4gQmV1bGljaCAm
+bHQ7PGEgaHJlZj0ibWFpbHRvOmpiZXVsaWNoQHN1c2UuY29tIiB0YXJnZXQ9Il9ibGFuayI+amJl
+dWxpY2hAc3VzZS5jb208L2E+Jmd0Ozxicj4NCiZndDsgU2VudDogV2VkbmVzZGF5LCBNYXkgMjAs
+IDIwMjAgNzoxMSBQTTxicj4NCiZndDsgPGJyPg0KJmd0OyBPbiAxMS4wNS4yMDIwIDE5OjQzLCBi
+dXkgY29tcHV0ZXIgd3JvdGU6PGJyPg0KJmd0OyAmZ3Q7IEkndmUgYmVlbiB3b3JraW5nIG9uIGEg
+V2luZG93cyAxMCBIVk0gb24gYSBEZWJpYW4gMTAgZG9tMC4gV2hlbiBJPGJyPg0KJmd0OyB3YXMg
+Zmlyc3Q8YnI+DQomZ3Q7ICZndDsgdHJ5aW5nIHRvIG1ha2UgdGhlIFZNLCBJIHdhcyBnZXR0aW5n
+IElPTU1VIGVycm9ycy4gSSBoYWQgYSBoYXJkIHRpbWU8YnI+DQomZ3Q7ICZndDsgZmlndXJpbmcg
+b3V0IHdoYXQgdG8gZG8gYWJvdXQgdGhpcywgYW5kIGZpbmFsbHkgZGlzY292ZXJlZCB0aGF0IHB1
+dHRpbmc8YnI+DQomZ3Q7ICZndDsgaW9tbXU9bm8taWdmeCBpbiB0aGUgZ3J1YiBzdG9wcGVkIHRo
+ZSBlcnJvcnMuPGJyPg0KJmd0OyAmZ3Q7PGJyPg0KJmd0OyAmZ3Q7IFVuZm9ydHVuYXRlbHksIHdp
+dGhvdXQgdGhlIGdyYXBoaWNzIHN1cHBvcnQgdGhlIFZNIGlzIHVuZGVyc3RhbmRhYmx5PGJyPg0K
+Jmd0OyBzbG93LDxicj4NCiZndDsgJmd0OyBhbmQgY2FuIGNyYXNoLiBJIHdhcyBhbHNvIG9ubHkg
+bm93IHBvaW50ZWQgdG8gdGhlIHBhZ2U8YnI+DQomZ3Q7ICZndDsgJmx0OzxhIGhyZWY9Imh0dHBz
+Oi8veGVuYml0cy54ZW4ub3JnL2RvY3MvdW5zdGFibGUvbWlzYy94ZW4tY29tbWFuZC0iIHRhcmdl
+dD0iX2JsYW5rIj5odHRwczovL3hlbmJpdHMueGVuLm9yZy9kb2NzL3Vuc3RhYmxlL21pc2MveGVu
+LWNvbW1hbmQtPC9hPjxicj4NCiZndDsgbGluZS5odG1sI2lvbW11Jmd0Ozxicj4NCiZndDsgJmd0
+OyB3aGljaCBzYXlzIHRvIHJlcG9ydCBhbnkgZXJyb3JzIHRoYXQgZ2V0IGZpeGVkIGJ5IHVzaW5n
+IGlvbW11PW5vLWlnZnguPGJyPg0KPGJyPg0Kd2hhdCBpcyB0aGUgcGxhdGZvcm0gYW5kIGxpbnV4
+IGtlcm5lbCB2ZXJzaW9uIGluIHRoaXMgY29udGV4dD88bzpwPjwvbzpwPjwvcD4NCjwvYmxvY2tx
+dW90ZT4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4N
+CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkknbSBub3Qgc3VyZSB3aGF0IHlv
+dSBtZWFudCBieSAncGxhdGZvcm0nLCBzbyBJJ2xsIHRyeSB0byBjb3ZlciBhbGwgdGhlIGJhc2Vz
+LjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+S2Vy
+bmVsOiA0LjE5LjAtOS1hbWQ2NCBHTlUvTGludXg8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRp
+dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkRlYmlhbiAxMC40PG86cD48L286cD48L3A+DQo8L2Rp
+dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5MZW5vdm8gRTQ5MCBUaGlua1BhZDxvOnA+
+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+SW50ZWwgSW50
+ZWdyYXRlZCBHcmFwaGljcyA2MjA8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8YmxvY2txdW90
+ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRk
+aW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21hcmdpbi1yaWdodDowaW4i
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1ib3R0b206MTIuMHB0Ij4mZ3Q7
+IDxicj4NCiZndDsgVGhhbmtzIGZvciB0aGUgcmVwb3J0LiBGb3IgY29udGV4dCBJJ2xsIHF1b3Rl
+IHRoZSBjb21taXQgbWVzc2FnZSBvZjxicj4NCiZndDsgdGhlIGNvbW1pdCBpbnRyb2R1Y2luZyB0
+aGUgb3B0aW9uIGFzIHdlbGwgYXMgdGhlIHJlcXVlc3QgdG8gcmVwb3J0PGJyPg0KJmd0OyBpc3N1
+ZXMgZml4ZWQgd2l0aCBpdDo8YnI+DQomZ3Q7IDxicj4NCiZndDsgJnF1b3Q7QXMgd2Ugc3RpbGwg
+Y2Fubm90IGZpbmQgYSBwcm9wZXIgZml4IGZvciB0aGlzIHByb2JsZW0sIHRoaXMgcGF0Y2ggYWRk
+czxicj4NCiZndDsmbmJzcDsgaW9tbXU9aWdmeCBvcHRpb24gdG8gY29udHJvbCB3aGV0aGVyIElu
+dGVsIGdyYXBoaWNzIElPTU1VIGlzIGVuYWJsZWQuPGJyPg0KJmd0OyZuYnNwOyBSdW5uaW5nIFhl
+biB3aXRoIGlvbW11PW5vLWlnZnggaXMgc2ltaWxhciB0byBydW5uaW5nIExpbnV4IHdpdGg8YnI+
+DQomZ3Q7Jm5ic3A7IGludGVsX2lvbW11PWlnZnhfb2ZmLCB3aGljaCBkaXNhYmxlcyBJT01NVSBm
+b3IgSW50ZWwgR1BVLiBUaGlzIGNhbiBiZTxicj4NCiZndDsmbmJzcDsgdXNlZCBieSB1c2VycyB0
+byBtYW51YWxseSB3b3JrYXJvdW5kIHRoZSBwcm9ibGVtIGJlZm9yZSBhIGZpeCBpczxicj4NCiZn
+dDsmbmJzcDsgYXZhaWxhYmxlIGZvciBpOTE1IGRyaXZlci4mcXVvdDs8YnI+DQomZ3Q7IDxicj4N
+CiZndDsgVGhpcyB3YXMgaW4gMjAxNSwgcmVmZXJlbmNpbmcgTGludXggJmd0Oz0gMy4xOS4gSSBo
+YXZlIG5vIGlkZWEgd2hldGhlcjxicj4NCiZndDsgdGhlIHVuZGVybHlpbmcgZHJpdmVyIGlzc3Vl
+KHMpIGhhcy9oYXZlIGJlZW4gZml4ZWQuIFRoZSBhZGRyZXNzZXM8YnI+DQomZ3Q7IHJlZmVyZW5j
+ZWQgYXJlIHZhcmlhYmxlIGVub3VnaCBhbmQgYWxsIHdpdGhpbiBSQU0sIHNvIEknZCBjb25jbHVk
+ZTxicj4NCiZndDsgdGhpcyBpcyBub3QgYSAmcXVvdDttaXNzaW5nIFJNUlImcXVvdDsgaXNzdWUu
+PGJyPg0KPGJyPg0KVmFyaWFibGUgZW5vdWdoIGJ1dCBub3Qgd2l0aGluIFJBTS4gRnJvbSBFODIw
+Ojxicj4NCjxicj4NCihYRU4pJm5ic3A7IDAwMDAwMDAxMDAwMDAwMDAgLSAwMDAwMDAwODcxODAw
+MDAwICh1c2FibGUpPGJyPg0KPGJyPg0KQnV0IHRoZSByZWZlcmVuY2VkIGFkZHJlc3NlcyBhcmUg
+d2F5IGhpZ2hlcjo8YnI+DQo8YnI+DQooWEVOKSBbVlQtRF1ETUFSOltETUEgUmVhZF0gUmVxdWVz
+dCBkZXZpY2UgWzAwMDA6MDA6MDIuMF0gZmF1bHQgPGJyPg0KYWRkciA3NmM2MTVkMDAwLCBpb21t
+dSByZWcgPSBmZmZmODJjMDAwYTBjMDAwPGJyPg0KKFhFTikgW1ZULURdRE1BUjogcmVhc29uIDA2
+IC0gUFRFIFJlYWQgYWNjZXNzIGlzIG5vdCBzZXQ8YnI+DQo8YnI+DQomZ3Q7IDxicj4NCiZndDsg
+Q2MtaW5nIHRoZSBWVC1kIG1haW50YWluZXIgZm9yIHBvc3NpYmxlIGluc2lnaHRzIG9yIHRob3Vn
+aHRzLjxicj4NCiZndDsgPGJyPg0KJmd0OyBKYW48YnI+DQo8YnI+DQpJIGRvbid0IGhhdmUgb3Ro
+ZXIgdGhvdWdodHMgZXhjZXB0IHRoZSB3ZWlyZCBhZGRyZXNzZXMuIEl0IG1pZ2h0IGJlPGJyPg0K
+Z29vZCB0byBhZGQgc29tZSB0cmFjZSBpbiBkb20wJ3MgaTkxNSBkcml2ZXIgdG8gc2VlIHdoZXRo
+ZXIgdGhvc2U8YnI+DQphZGRyZXNzZXMgYXJlIGludGVuZGVkIG9yIG5vdC48bzpwPjwvbzpwPjwv
+cD4NCjwvYmxvY2txdW90ZT4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNw
+OzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlRoYW5rcyBm
+b3IgdGhlIGluc2lnaHQhIEknZCBsb3ZlIHRvIGhlbHAgd2l0aCB0aGUgdHJhY2UsIGJ1dCBJIGRv
+bid0IGtub3cgaG93IHRvIGRvIHRoYXQuIElmIHlvdSBjb3VsZCBwb2ludCBtZSBpbiB0aGUgcmln
+aHQgZGlyZWN0aW9uLCBJJ2QgdHJ5IHRvIGdpdmUgaXQgYSBzaG90Lg0KPG86cD48L286cD48L3A+
+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwv
+cD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNv
+bGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0
+LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlRoYW5rczxicj4N
+CktldmluPG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj5UaGFua3MgZm9yIHRoZSBpbnNpZ2h0ISA8bzpwPjwvbzpwPjwvcD4NCjwvZGl2
+Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-This seems to come from nowhere. It would be good to explain in the 
-commit message why this is necessary.
-
-> +|                |                                              |
-> +| `out-data-len` | The length (in octets) of any pending data   |
-> +|                | not yet written to the connection            |
-
-Cheers,
-
--- 
-Julien Grall
+--_000_MWHPR11MB1645086209CC9A97D5805DA68C8E0MWHPR11MB1645namp_--
 
