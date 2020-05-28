@@ -2,48 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0AB71E64EF
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 16:57:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68D621E650B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 16:59:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeJxu-0008AN-ON; Thu, 28 May 2020 14:57:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jeJzh-0008Ho-52; Thu, 28 May 2020 14:58:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WTQv=7K=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jeJxt-0008AH-FY
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 14:57:01 +0000
-X-Inumbo-ID: 7b729da8-a0f3-11ea-a7e7-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7b729da8-a0f3-11ea-a7e7-12813bfff9fa;
- Thu, 28 May 2020 14:57:00 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: XPQ4X+dE/6hyPkWA4jyUYtycJBETPYjzKjQDpDV2jMZLl6for62rN6bu0GdRjIapB3p6HWMozN
- 3mPz86sCuVkMDn4JNpauqJ5lAmCBPrY7PdaET+A+qs3ZHfaim6TEbz2BC7JDeP9T4fvI2q67ss
- PRDcqCMSI5iCYBxbjoW/KdxpuDaY3e3MAtWZyZW8uT+VDR6rZXNxH0dOIFQ3XWhdbnyZP4LIcZ
- qvliMunFzHgvdI1nI1EizD5vwDLQAuvlUA9MIJQEbberqp91cSAWehT1OpsGDG0k4Q5X+VAKUG
- 9wk=
-X-SBRS: 2.7
-X-MesageID: 18964615
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,445,1583211600"; d="scan'208";a="18964615"
-From: Ian Jackson <ian.jackson@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24271.53557.114994.926329@mariner.uk.xensource.com>
-Date: Thu, 28 May 2020 15:56:53 +0100
-To: Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH] libxl: stop libxl_domain_info() consuming massive amounts
- of stack
-In-Reply-To: <20200528114801.20241-1-paul@xen.org>
+ <SRS0=blJD=7K=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jeJzg-0008Hj-4h
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 14:58:52 +0000
+X-Inumbo-ID: bddea902-a0f3-11ea-9947-bc764e2007e4
+Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bddea902-a0f3-11ea-9947-bc764e2007e4;
+ Thu, 28 May 2020 14:58:51 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id r7so11573364wro.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 May 2020 07:58:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=ot4+TOvce5OZy3rZ+p1nFFmdFUBtszR7HMAwtsAEHc4=;
+ b=HqzQ40hXeB1+zgEndPFF0LxgV+BLJHlD4IapBKd9+e6MiCoRaNf4yN4aPnCJaThQHH
+ 4v9xiKjFfziycw9pJ+QPfZPtXnjQLuj+SarfsNnXLqEnIOO1MX4icCS68ULc0MWSDDOX
+ aJaO0OrdvVkVk8ihiRAkLCpSU69+DtMjUzjdh6l0DgWP99xx+FYaXNjqHGLq2pUWDVa8
+ VQWfGi5sUkuhp9ulzQaBmp78J41AMvCa7bOIQ3vI1xaa0qLB2PSDMIPPSd6cn0707CKZ
+ O6rvHQKy2x3FcKgOCC8/qKfQ9cbMKb+jMYIBYjyty3FEaw+oNaHGrPe2IRXIH4FAJnZ1
+ V8XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=ot4+TOvce5OZy3rZ+p1nFFmdFUBtszR7HMAwtsAEHc4=;
+ b=dbZ39TJM6/YuqE5RntkTipmqHzSS3pPWhM59v9KsBZU4Khh9HPtkYgvOZD1pYjPiTV
+ LKbwpxAxDzsnxjWkcocXcmmLZSzUCyWQ9MzaiXw4Ki+SwoZc+C/G7f0i+ESWDkJTBdIX
+ jBA4/dqw/KtC099oh8fiH0ynYQh+7Z6znU9rFHl1NoUdXb6DTABmbdN95zqebzLTsQRK
+ wr8vsC3HK6V/w+HgctSTxbMvIAibCZleO7JQtthDb1tMA/KiVqm9pZpA15rat18A5Q2N
+ xUn8w8EFnFFr3Qqxak8+vI6OngXqJ+yvkD+HfOvf16mErd4WHt20megrrGvhu1FGheam
+ 2BzA==
+X-Gm-Message-State: AOAM530tudGqxIwTS+xlmZqi+/0Hed4uT5qYWfwibkJNhdp44OtGAfS/
+ QeGyAzSfIAJxGZzsRa8hd/g=
+X-Google-Smtp-Source: ABdhPJyy4QQdwtkPx7fHszy3MGesk7pnTV+0GaWTtp7sVaHuXD4k/JlOyXEECSe9hN/T/OkpZ47yVQ==
+X-Received: by 2002:adf:fb0f:: with SMTP id c15mr4165801wrr.410.1590677930778; 
+ Thu, 28 May 2020 07:58:50 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id z11sm6017536wrw.67.2020.05.28.07.58.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 28 May 2020 07:58:50 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Ian Jackson'" <ian.jackson@citrix.com>
 References: <20200528114801.20241-1-paul@xen.org>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+ <24271.53557.114994.926329@mariner.uk.xensource.com>
+In-Reply-To: <24271.53557.114994.926329@mariner.uk.xensource.com>
+Subject: RE: [PATCH] libxl: stop libxl_domain_info() consuming massive amounts
+ of stack
+Date: Thu, 28 May 2020 15:58:48 +0100
+Message-ID: <000c01d63500$7f00f690$7d02e3b0$@xen.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQHpe7CJHLMN88U00yeijiyjwE50VgJzn8buqINsV6A=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,32 +78,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Paul
- Durrant <pdurrant@amazon.com>, Wei Liu <wl@xen.org>
+Reply-To: paul@xen.org
+Cc: 'Anthony Perard' <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org, 'Paul Durrant' <pdurrant@amazon.com>,
+ 'Wei Liu' <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Paul Durrant writes ("[PATCH] libxl: stop libxl_domain_info() consuming massive amounts of stack"):
-> From: Paul Durrant <pdurrant@amazon.com>
+> -----Original Message-----
+> From: Ian Jackson <ian.jackson@citrix.com>
+> Sent: 28 May 2020 15:57
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Paul Durrant <pdurrant@amazon.com>; Wei Liu <wl@xen.org>; Anthony
+> Perard <anthony.perard@citrix.com>
+> Subject: Re: [PATCH] libxl: stop libxl_domain_info() consuming massive amounts of stack
 > 
-> Currently an array of 1024 xc_domaininfo_t is declared on stack. That alone
-> consumes ~112k.
+> Paul Durrant writes ("[PATCH] libxl: stop libxl_domain_info() consuming massive amounts of stack"):
+> > From: Paul Durrant <pdurrant@amazon.com>
+> >
+> > Currently an array of 1024 xc_domaininfo_t is declared on stack. That alone
+> > consumes ~112k.
+> 
+> Wow.
+> 
+> > Since libxl_domain_info() creates a new gc this patch simply
+> > uses it to allocate the array instead.
+> 
+> Thanks.
+> 
+> > +    info = libxl__calloc(gc, 1024, sizeof(*info));
+> 
+> Wy not GCNEW_ARRAY ?
 
-Wow.
+'Cos I didn't know about that one :-)
 
-> Since libxl_domain_info() creates a new gc this patch simply
-> uses it to allocate the array instead.
+> 
+> That avoids a possible bug with wrong number of * to sizeof (although
+> in this case you seem to have it right...)
+> 
 
-Thanks.
+Cool. I'll send a v2 in mo'.
 
-> +    info = libxl__calloc(gc, 1024, sizeof(*info));
+  Paul
 
-Wy not GCNEW_ARRAY ?
+> Thanks,
+> Ian.
 
-That avoids a possible bug with wrong number of * to sizeof (although
-in this case you seem to have it right...)
-
-Thanks,
-Ian.
 
