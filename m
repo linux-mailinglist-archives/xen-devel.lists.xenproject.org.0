@@ -2,60 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E63F1E6E14
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 23:47:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 162361E6E26
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 23:54:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeQMc-0003nO-6c; Thu, 28 May 2020 21:46:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jeQSx-0004fj-Sy; Thu, 28 May 2020 21:53:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HyPx=7K=redhat.com=eblake@srs-us1.protection.inumbo.net>)
- id 1jeQMa-0003nI-Je
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 21:46:56 +0000
-X-Inumbo-ID: c00db8f6-a12c-11ea-9947-bc764e2007e4
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id c00db8f6-a12c-11ea-9947-bc764e2007e4;
- Thu, 28 May 2020 21:46:56 +0000 (UTC)
+ id 1jeQSw-0004fe-EY
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 21:53:30 +0000
+X-Inumbo-ID: aaaedade-a12d-11ea-a843-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id aaaedade-a12d-11ea-a843-12813bfff9fa;
+ Thu, 28 May 2020 21:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1590702415;
+ s=mimecast20190719; t=1590702809;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=V0pRPNGUX2oCMzddlIiBI2W3R+cSD6MK8vxPHoVUMtw=;
- b=A/rr5iwV7cw3J4HqCwU6nJwSsEatKlgqL4gVzOpGTOPZWlhGm/3JS9dzETo9uakX7drCsj
- F0CmjZP8YBvi1IbVn+pCsc3x10a6k49vOb+rjJLjFUkmyFlk+7eW2yjNfOEzeOIE8GQedC
- 9ObHQcsCmtUsg15myOSrZcJg4PPGDCs=
+ bh=GiVumsXOj6XnWRoyp7j8nZNDqWEQBH1FAMwCBk4UFKE=;
+ b=BMY/AZcSltVKW5G3e7xjaLxRjPeODSZMEhl+0v2CR06asAF3ckI0cOPC6eQcVt8uoB4vFd
+ 4VKMGFSiw+gBRx7+dN6HNnmKJmp7khST9UvJRZkWPu5k3D3XJ7dTLWgEv99x0Q6cGm09vK
+ A/gUVW1RrGtzZZhFpFF3UJk4LaZqNSY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-93-wkXx4XWbP_GhfeGr0WPl_g-1; Thu, 28 May 2020 17:46:54 -0400
-X-MC-Unique: wkXx4XWbP_GhfeGr0WPl_g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
+ us-mta-234-e215EmtEMfO9UYzBHDxWlg-1; Thu, 28 May 2020 17:53:25 -0400
+X-MC-Unique: e215EmtEMfO9UYzBHDxWlg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B5536835B40;
- Thu, 28 May 2020 21:46:52 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D9E8518FF661;
+ Thu, 28 May 2020 21:53:23 +0000 (UTC)
 Received: from [10.3.112.88] (ovpn-112-88.phx2.redhat.com [10.3.112.88])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1952D7E467;
- Thu, 28 May 2020 21:46:43 +0000 (UTC)
-Subject: Re: [PATCH v7 5/8] qdev-properties: make blocksize accept size
- suffixes
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C1ED5D9CD;
+ Thu, 28 May 2020 21:53:14 +0000 (UTC)
+Subject: Re: [PATCH v7 6/8] block: make BlockConf size props 32bit and accept
+ size suffixes
 To: Roman Kagan <rvkagan@yandex-team.ru>, qemu-devel@nongnu.org
 References: <20200528213946.1636444-1-rvkagan@yandex-team.ru>
- <20200528213946.1636444-6-rvkagan@yandex-team.ru>
+ <20200528213946.1636444-7-rvkagan@yandex-team.ru>
 From: Eric Blake <eblake@redhat.com>
 Organization: Red Hat, Inc.
-Message-ID: <a4e3fa72-7ad2-8be0-d714-14505be1373b@redhat.com>
-Date: Thu, 28 May 2020 16:46:42 -0500
+Message-ID: <0439aa5e-413c-cf7e-83b7-1e942a882f5a@redhat.com>
+Date: Thu, 28 May 2020 16:53:14 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200528213946.1636444-6-rvkagan@yandex-team.ru>
+In-Reply-To: <20200528213946.1636444-7-rvkagan@yandex-team.ru>
 Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8; format=flowed
@@ -85,16 +86,33 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 5/28/20 4:39 PM, Roman Kagan wrote:
-> It appears convenient to be able to specify physical_block_size and
-> logical_block_size using common size suffixes.
+> Convert all size-related properties in BlockConf to 32bit.  This will
+> allow to accomodate bigger block sizes (in a followup patch).
+
+s/allow to accomodate/accommodate/
+
+> This also allows to make them all accept size suffixes, either via
+> DEFINE_PROP_BLOCKSIZE or via DEFINE_PROP_SIZE32.
 > 
-> Teach the blocksize property setter to interpret them.  Also express the
-> upper and lower limits in the respective units.
+> Also, since min_io_size is exposed to the guest by scsi and virtio-blk
+> devices as an uint16_t in units of logical blocks, introduce an
+> additional check in blkconf_blocksizes to prevent its silent truncation.
 > 
 > Signed-off-by: Roman Kagan <rvkagan@yandex-team.ru>
 > ---
 
-Reviewed-by: Eric Blake <eblake@redhat.com>
+> +    if (conf->min_io_size / conf->logical_block_size > UINT16_MAX) {
+> +        error_setg(errp,
+> +                   "min_io_size must not exceed " stringify(UINT16_MAX)
+> +                   " logical blocks");
+
+On my libc, this results in "must not exceed (65535) logical blocks".
+
+Worse, I could envision a platform where it prints something funky like:
+
+"exceed (2 * (32768) + 1) logical", based on however complex the 
+definition of UINT16_MAX is.  You're better off printing this one with 
+%d than with stringify().
 
 -- 
 Eric Blake, Principal Software Engineer
