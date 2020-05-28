@@ -2,48 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2FC31E5EA9
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 13:48:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B415C1E5F8B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 14:04:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeH14-00085V-Ss; Thu, 28 May 2020 11:48:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jeHG7-0001Ls-F4; Thu, 28 May 2020 12:03:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jtjf=7K=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1jeH13-00085P-Vx
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 11:48:06 +0000
-X-Inumbo-ID: 177a73d1-a0d9-11ea-a7b3-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 177a73d1-a0d9-11ea-a7b3-12813bfff9fa;
- Thu, 28 May 2020 11:48:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jYFHpVCBp2KPyT07SJt1PsTQ64YTGLrO0WCrYprMmDI=; b=6JuK3sKqeektckDMmR+apcdh9L
- QmAQZ6+XfRSWIERqkfJwMPqbDVdaVAAx+eF7BvizAW3uslTcSD9zivivQuZj7NaH3zh/ngYfH4RLZ
- ASry70kAj6fGqxMfapm8bqIIb3gN+woKh1dAtg+7p2HNMSZTvyfjchl6D5uFBk7zLM8A=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1jeH12-000298-Kk; Thu, 28 May 2020 11:48:04 +0000
-Received: from [54.239.6.188] (helo=CBG-R90WXYV0.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1jeH12-0007xu-Aa; Thu, 28 May 2020 11:48:04 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH] libxl: stop libxl_domain_info() consuming massive amounts of
- stack
-Date: Thu, 28 May 2020 12:48:01 +0100
-Message-Id: <20200528114801.20241-1-paul@xen.org>
-X-Mailer: git-send-email 2.17.1
+ (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jeHG6-0001Lh-58
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 12:03:38 +0000
+X-Inumbo-ID: 43070c50-a0db-11ea-8993-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 43070c50-a0db-11ea-8993-bc764e2007e4;
+ Thu, 28 May 2020 12:03:37 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 12E23ADCF;
+ Thu, 28 May 2020 12:03:35 +0000 (UTC)
+Subject: Re: [PATCH v2 04/14] x86/traps: Implement #CP handler and extend #PF
+ for shadow stacks
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
+ <20200527191847.17207-5-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <424dc7f2-d999-19e1-42ad-226cf22783eb@suse.com>
+Date: Thu, 28 May 2020 14:03:35 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+MIME-Version: 1.0
+In-Reply-To: <20200527191847.17207-5-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,50 +47,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Paul Durrant <pdurrant@amazon.com>
+On 27.05.2020 21:18, Andrew Cooper wrote:
+> For now, any #CP exception or shadow stack #PF indicate a bug in Xen, but
+> attempt to recover from #CP if taken in guest context.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Currently an array of 1024 xc_domaininfo_t is declared on stack. That alone
-consumes ~112k. Since libxl_domain_info() creates a new gc this patch simply
-uses it to allocate the array instead.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one more question and a suggestion:
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
----
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Cc: Wei Liu <wl@xen.org>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
+> @@ -1445,8 +1447,10 @@ void do_page_fault(struct cpu_user_regs *regs)
+>       *
+>       * Anything remaining is an error, constituting corruption of the
+>       * pagetables and probably an L1TF vulnerable gadget.
+> +     *
+> +     * Any shadow stack access fault is a bug in Xen.
+>       */
+> -    if ( error_code & PFEC_reserved_bit )
+> +    if ( error_code & (PFEC_reserved_bit | PFEC_shstk) )
+>          goto fatal;
 
-This is small and IMO it would be nice to have this in 4.14 but I'd like an
-opinion from a maintainer too.
----
- tools/libxl/libxl_domain.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Wouldn't you saying "any" imply putting this new check higher up, in
+particular ahead of the call to fixup_page_fault()?
 
-diff --git a/tools/libxl/libxl_domain.c b/tools/libxl/libxl_domain.c
-index fef2cd4e13..c07ec8fd3a 100644
---- a/tools/libxl/libxl_domain.c
-+++ b/tools/libxl/libxl_domain.c
-@@ -314,11 +314,13 @@ libxl_dominfo * libxl_list_domain(libxl_ctx *ctx, int *nb_domain_out)
- {
-     libxl_dominfo *ptr = NULL;
-     int i, ret;
--    xc_domaininfo_t info[1024];
-+    xc_domaininfo_t *info;
-     int size = 0;
-     uint32_t domid = 0;
-     GC_INIT(ctx);
- 
-+    info = libxl__calloc(gc, 1024, sizeof(*info));
-+
-     while ((ret = xc_domain_getinfolist(ctx->xch, domid, 1024, info)) > 0) {
-         ptr = libxl__realloc(NOGC, ptr, (size + ret) * sizeof(libxl_dominfo));
-         for (i = 0; i < ret; i++) {
--- 
-2.17.1
+> @@ -940,7 +944,8 @@ autogen_stubs: /* Automatically generated stubs. */
+>          entrypoint 1b
+>  
+>          /* Reserved exceptions, heading towards do_reserved_trap(). */
+> -        .elseif vec == TRAP_copro_seg || vec == TRAP_spurious_int || (vec > TRAP_simd_error && vec < TRAP_nr)
+> +        .elseif vec == X86_EXC_CSO || vec == X86_EXC_SPV || \
+> +                vec == X86_EXC_VE  || (vec > X86_EXC_CP && vec < TRAP_nr)
 
+Adding yet another || here adds to the fragility of the entire
+construct. Wouldn't it be better to implement do_entry_VE at
+this occasion, even its handling continues to end up in
+do_reserved_trap()? This would have the benefit of avoiding the
+pointless checking of %spl first thing in its handling. Feel
+free to keep the R-b if you decide to go this route.
+
+Jan
 
