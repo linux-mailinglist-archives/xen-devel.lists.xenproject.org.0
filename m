@@ -2,52 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B9D51E6DDA
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 23:40:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8D821E6DDB
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 23:40:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeQGE-0002q3-CD; Thu, 28 May 2020 21:40:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jeQGI-0002rb-LD; Thu, 28 May 2020 21:40:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=leMz=7K=yandex-team.ru=rvkagan@srs-us1.protection.inumbo.net>)
- id 1jeQGD-0002pi-8R
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 21:40:21 +0000
-X-Inumbo-ID: d2d25b1e-a12b-11ea-9947-bc764e2007e4
-Received: from forwardcorp1p.mail.yandex.net (unknown
- [2a02:6b8:0:1472:2741:0:8b6:217])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d2d25b1e-a12b-11ea-9947-bc764e2007e4;
- Thu, 28 May 2020 21:40:18 +0000 (UTC)
-Received: from mxbackcorp1g.mail.yandex.net (mxbackcorp1g.mail.yandex.net
- [IPv6:2a02:6b8:0:1402::301])
- by forwardcorp1p.mail.yandex.net (Yandex) with ESMTP id A2AEC2E094D;
- Fri, 29 May 2020 00:40:17 +0300 (MSK)
+ id 1jeQGG-0002r3-Mk
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 21:40:24 +0000
+X-Inumbo-ID: d520d756-a12b-11ea-a842-12813bfff9fa
+Received: from forwardcorp1j.mail.yandex.net (unknown [5.45.199.163])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d520d756-a12b-11ea-a842-12813bfff9fa;
+ Thu, 28 May 2020 21:40:22 +0000 (UTC)
+Received: from mxbackcorp1j.mail.yandex.net (mxbackcorp1j.mail.yandex.net
+ [IPv6:2a02:6b8:0:1619::162])
+ by forwardcorp1j.mail.yandex.net (Yandex) with ESMTP id BA59E2E0E4D;
+ Fri, 29 May 2020 00:40:21 +0300 (MSK)
 Received: from vla5-58875c36c028.qloud-c.yandex.net
  (vla5-58875c36c028.qloud-c.yandex.net [2a02:6b8:c18:340b:0:640:5887:5c36])
- by mxbackcorp1g.mail.yandex.net (mxbackcorp/Yandex) with ESMTP id
- XyXqfhV9ak-eBImwSEL; Fri, 29 May 2020 00:40:17 +0300
+ by mxbackcorp1j.mail.yandex.net (mxbackcorp/Yandex) with ESMTP id
+ cApy1ma1ft-eIeujrcV; Fri, 29 May 2020 00:40:21 +0300
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
  s=default; 
- t=1590702017; bh=e/snD3eRLt3OD/77mBucMy84xJYC36ARRHwF7w0zqIc=;
+ t=1590702021; bh=7tQKIjaOXt/4Y7vYYUMOTnckyEJyyiKNNu3wuyOniCw=;
  h=In-Reply-To:Message-Id:References:Date:Subject:To:From:Cc;
- b=a61iP8p1OPQXlCsL4kqDkdM1sPBrQA9F1w+ycRSumQdjV4xDstR5Ny80gfxO/6esp
- /FcUhqt6Jujttn9Mm77h/cHfZ5Mv6IY0LDDhTjwmgpFyFO7ZrjYnwed7WcpG6NBBba
- HAkjADgLWt15cvwTlBp0FcTWXNGN8BqNNOC1Cx5g=
-Authentication-Results: mxbackcorp1g.mail.yandex.net;
+ b=IyJ61abDZvYdolV88vhvsRf/qW/U9Jap3J3kd6DM7xB7m+T+ajR/cSZy9vxxpNxa2
+ ZxymbfVphokM0ohXrOdASuTtNlN1PdAbADJyPpV2CZkMzy2juLJPZeOcM5N3AgbSSK
+ PYCYZwm6nmz+tuIaEtq3V6JA4jSnR+uDVG77Scik=
+Authentication-Results: mxbackcorp1j.mail.yandex.net;
  dkim=pass header.i=@yandex-team.ru
 Received: from dynamic-vpn.dhcp.yndx.net (dynamic-vpn.dhcp.yndx.net
  [2a02:6b8:b081:1318::1:10])
  by vla5-58875c36c028.qloud-c.yandex.net (smtpcorp/Yandex) with ESMTPSA id
- KqoauPPys3-eBXqvQYw; Fri, 29 May 2020 00:40:11 +0300
+ KqoauPPys3-eHXqcO0n; Fri, 29 May 2020 00:40:18 +0300
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (Client certificate not present)
 From: Roman Kagan <rvkagan@yandex-team.ru>
 To: qemu-devel@nongnu.org
-Subject: [PATCH v7 3/8] qdev-properties: blocksize: use same limits in code
- and description
-Date: Fri, 29 May 2020 00:39:41 +0300
-Message-Id: <20200528213946.1636444-4-rvkagan@yandex-team.ru>
+Subject: [PATCH v7 4/8] qdev-properties: add size32 property type
+Date: Fri, 29 May 2020 00:39:42 +0300
+Message-Id: <20200528213946.1636444-5-rvkagan@yandex-team.ru>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200528213946.1636444-1-rvkagan@yandex-team.ru>
 References: <20200528213946.1636444-1-rvkagan@yandex-team.ru>
@@ -78,72 +77,97 @@ Cc: Kevin Wolf <kwolf@redhat.com>, Fam Zheng <fam@euphon.net>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Make it easier (more visible) to maintain the limits on the blocksize
-properties in sync with the respective description, by using macros both
-in the code and in the description.
+Introduce size32 property type which handles size suffixes (k, m) just
+like size property, but is uint32_t rather than uint64_t.  It's going to
+be useful for properties that are byte sizes but are inherently 32bit,
+like BlkConf.opt_io_size or .discard_granularity (they are switched to
+this new property type in a followup commit).
+
+The getter for size32 is left out for a separate patch as its benefit is
+less obvious, and it affects test output; for now the regular uint32
+getter is used.
 
 Signed-off-by: Roman Kagan <rvkagan@yandex-team.ru>
-Reviewed-by: Eric Blake <eblake@redhat.com>
 ---
-v4 -> v5:
-- split out into separate patch [Philippe]
+v6 -> v7:
+- split out into separate patch [Eric]
 
- hw/core/qdev-properties.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ include/hw/qdev-properties.h |  3 +++
+ hw/core/qdev-properties.c    | 40 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 43 insertions(+)
 
+diff --git a/include/hw/qdev-properties.h b/include/hw/qdev-properties.h
+index f161604fb6..c03eadfad6 100644
+--- a/include/hw/qdev-properties.h
++++ b/include/hw/qdev-properties.h
+@@ -29,6 +29,7 @@ extern const PropertyInfo qdev_prop_drive;
+ extern const PropertyInfo qdev_prop_drive_iothread;
+ extern const PropertyInfo qdev_prop_netdev;
+ extern const PropertyInfo qdev_prop_pci_devfn;
++extern const PropertyInfo qdev_prop_size32;
+ extern const PropertyInfo qdev_prop_blocksize;
+ extern const PropertyInfo qdev_prop_pci_host_devaddr;
+ extern const PropertyInfo qdev_prop_uuid;
+@@ -196,6 +197,8 @@ extern const PropertyInfo qdev_prop_pcie_link_width;
+                         BlockdevOnError)
+ #define DEFINE_PROP_BIOS_CHS_TRANS(_n, _s, _f, _d) \
+     DEFINE_PROP_SIGNED(_n, _s, _f, _d, qdev_prop_bios_chs_trans, int)
++#define DEFINE_PROP_SIZE32(_n, _s, _f, _d)                       \
++    DEFINE_PROP_UNSIGNED(_n, _s, _f, _d, qdev_prop_size32, uint32_t)
+ #define DEFINE_PROP_BLOCKSIZE(_n, _s, _f) \
+     DEFINE_PROP_UNSIGNED(_n, _s, _f, 0, qdev_prop_blocksize, uint16_t)
+ #define DEFINE_PROP_PCI_HOST_DEVADDR(_n, _s, _f) \
 diff --git a/hw/core/qdev-properties.c b/hw/core/qdev-properties.c
-index cc924815da..249dc69bd8 100644
+index 249dc69bd8..d943755832 100644
 --- a/hw/core/qdev-properties.c
 +++ b/hw/core/qdev-properties.c
-@@ -729,6 +729,13 @@ const PropertyInfo qdev_prop_pci_devfn = {
+@@ -727,6 +727,46 @@ const PropertyInfo qdev_prop_pci_devfn = {
+     .set_default_value = set_default_value_int,
+ };
  
++/* --- 32bit unsigned int 'size' type --- */
++
++static void set_size32(Object *obj, Visitor *v, const char *name, void *opaque,
++                       Error **errp)
++{
++    DeviceState *dev = DEVICE(obj);
++    Property *prop = opaque;
++    uint32_t *ptr = qdev_get_prop_ptr(dev, prop);
++    uint64_t value;
++    Error *local_err = NULL;
++
++    if (dev->realized) {
++        qdev_prop_set_after_realize(dev, name, errp);
++        return;
++    }
++
++    visit_type_size(v, name, &value, &local_err);
++    if (local_err) {
++        error_propagate(errp, local_err);
++        return;
++    }
++
++    if (value > UINT32_MAX) {
++        error_setg(errp,
++                   "Property %s.%s doesn't take value %" PRIu64
++                   " (maximum: " stringify(UINT32_MAX) ")",
++                   dev->id ? : "", name, value);
++        return;
++    }
++
++    *ptr = value;
++}
++
++const PropertyInfo qdev_prop_size32 = {
++    .name  = "size",
++    .get = get_uint32,
++    .set = set_size32,
++    .set_default_value = set_default_value_uint,
++};
++
  /* --- blocksize --- */
  
-+/* lower limit is sector size */
-+#define MIN_BLOCK_SIZE          512
-+#define MIN_BLOCK_SIZE_STR      stringify(MIN_BLOCK_SIZE)
-+/* upper limit is the max power of 2 that fits in uint16_t */
-+#define MAX_BLOCK_SIZE          32768
-+#define MAX_BLOCK_SIZE_STR      stringify(MAX_BLOCK_SIZE)
-+
- static void set_blocksize(Object *obj, Visitor *v, const char *name,
-                           void *opaque, Error **errp)
- {
-@@ -736,8 +743,6 @@ static void set_blocksize(Object *obj, Visitor *v, const char *name,
-     Property *prop = opaque;
-     uint16_t value, *ptr = qdev_get_prop_ptr(dev, prop);
-     Error *local_err = NULL;
--    const int64_t min = 512;
--    const int64_t max = 32768;
- 
-     if (dev->realized) {
-         qdev_prop_set_after_realize(dev, name, errp);
-@@ -750,9 +755,12 @@ static void set_blocksize(Object *obj, Visitor *v, const char *name,
-         return;
-     }
-     /* value of 0 means "unset" */
--    if (value && (value < min || value > max)) {
--        error_setg(errp, QERR_PROPERTY_VALUE_OUT_OF_RANGE,
--                   dev->id ? : "", name, (int64_t)value, min, max);
-+    if (value && (value < MIN_BLOCK_SIZE || value > MAX_BLOCK_SIZE)) {
-+        error_setg(errp,
-+                   "Property %s.%s doesn't take value %" PRIu16
-+                   " (minimum: " MIN_BLOCK_SIZE_STR
-+                   ", maximum: " MAX_BLOCK_SIZE_STR ")",
-+                   dev->id ? : "", name, value);
-         return;
-     }
- 
-@@ -769,7 +777,8 @@ static void set_blocksize(Object *obj, Visitor *v, const char *name,
- 
- const PropertyInfo qdev_prop_blocksize = {
-     .name  = "uint16",
--    .description = "A power of two between 512 and 32768",
-+    .description = "A power of two between " MIN_BLOCK_SIZE_STR
-+                   " and " MAX_BLOCK_SIZE_STR,
-     .get   = get_uint16,
-     .set   = set_blocksize,
-     .set_default_value = set_default_value_uint,
+ /* lower limit is sector size */
 -- 
 2.26.2
 
