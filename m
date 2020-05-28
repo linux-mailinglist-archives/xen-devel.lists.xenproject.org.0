@@ -2,59 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F3291E6E0B
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 23:46:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E63F1E6E14
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 23:47:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeQLJ-0003iP-RZ; Thu, 28 May 2020 21:45:37 +0000
+	id 1jeQMc-0003nO-6c; Thu, 28 May 2020 21:46:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HyPx=7K=redhat.com=eblake@srs-us1.protection.inumbo.net>)
- id 1jeQLI-0003iK-Kt
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 21:45:36 +0000
-X-Inumbo-ID: 90269c8e-a12c-11ea-9dbe-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.120])
+ id 1jeQMa-0003nI-Je
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 21:46:56 +0000
+X-Inumbo-ID: c00db8f6-a12c-11ea-9947-bc764e2007e4
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 90269c8e-a12c-11ea-9dbe-bc764e2007e4;
- Thu, 28 May 2020 21:45:35 +0000 (UTC)
+ id c00db8f6-a12c-11ea-9947-bc764e2007e4;
+ Thu, 28 May 2020 21:46:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1590702335;
+ s=mimecast20190719; t=1590702415;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4kww8Kn7lt15WNtiBiHu7yq5dFmH5ZOSHRj6DUAGi/8=;
- b=DxGuYlkAf7Kwf31oRSntoY9i9vQTUBKuim33NSbUjvKjBninOUujUSS2kNGYXA35H7OGfZ
- s5qz+OTdOe0yMSkQo6QB61uI0dzemdzpV2ObkcA63ldoDyW2txEWaEJ8tD4qeg7KIF3AZD
- ItZ7BfRRTP+BUJXj+a8U2t/nvSgY0Fk=
+ bh=V0pRPNGUX2oCMzddlIiBI2W3R+cSD6MK8vxPHoVUMtw=;
+ b=A/rr5iwV7cw3J4HqCwU6nJwSsEatKlgqL4gVzOpGTOPZWlhGm/3JS9dzETo9uakX7drCsj
+ F0CmjZP8YBvi1IbVn+pCsc3x10a6k49vOb+rjJLjFUkmyFlk+7eW2yjNfOEzeOIE8GQedC
+ 9ObHQcsCmtUsg15myOSrZcJg4PPGDCs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-97-eawdfFkvNqet1I0c3Ybv0Q-1; Thu, 28 May 2020 17:45:31 -0400
-X-MC-Unique: eawdfFkvNqet1I0c3Ybv0Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
+ us-mta-93-wkXx4XWbP_GhfeGr0WPl_g-1; Thu, 28 May 2020 17:46:54 -0400
+X-MC-Unique: wkXx4XWbP_GhfeGr0WPl_g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC4E118FF662;
- Thu, 28 May 2020 21:45:29 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B5536835B40;
+ Thu, 28 May 2020 21:46:52 +0000 (UTC)
 Received: from [10.3.112.88] (ovpn-112-88.phx2.redhat.com [10.3.112.88])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9680D60C87;
- Thu, 28 May 2020 21:45:19 +0000 (UTC)
-Subject: Re: [PATCH v7 4/8] qdev-properties: add size32 property type
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1952D7E467;
+ Thu, 28 May 2020 21:46:43 +0000 (UTC)
+Subject: Re: [PATCH v7 5/8] qdev-properties: make blocksize accept size
+ suffixes
 To: Roman Kagan <rvkagan@yandex-team.ru>, qemu-devel@nongnu.org
 References: <20200528213946.1636444-1-rvkagan@yandex-team.ru>
- <20200528213946.1636444-5-rvkagan@yandex-team.ru>
+ <20200528213946.1636444-6-rvkagan@yandex-team.ru>
 From: Eric Blake <eblake@redhat.com>
 Organization: Red Hat, Inc.
-Message-ID: <78e3587a-efea-970a-b47e-8d187464d955@redhat.com>
-Date: Thu, 28 May 2020 16:45:19 -0500
+Message-ID: <a4e3fa72-7ad2-8be0-d714-14505be1373b@redhat.com>
+Date: Thu, 28 May 2020 16:46:42 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200528213946.1636444-5-rvkagan@yandex-team.ru>
+In-Reply-To: <20200528213946.1636444-6-rvkagan@yandex-team.ru>
 Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8; format=flowed
@@ -84,44 +85,15 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 5/28/20 4:39 PM, Roman Kagan wrote:
-> Introduce size32 property type which handles size suffixes (k, m) just
-> like size property, but is uint32_t rather than uint64_t.
-
-Does it handle 'g' as well? (even though the set of valid 32-bit sizes 
-with a g suffix is rather small ;)
-
->  It's going to
-> be useful for properties that are byte sizes but are inherently 32bit,
-> like BlkConf.opt_io_size or .discard_granularity (they are switched to
-> this new property type in a followup commit).
+> It appears convenient to be able to specify physical_block_size and
+> logical_block_size using common size suffixes.
 > 
-> The getter for size32 is left out for a separate patch as its benefit is
-> less obvious, and it affects test output; for now the regular uint32
-> getter is used.
+> Teach the blocksize property setter to interpret them.  Also express the
+> upper and lower limits in the respective units.
 > 
 > Signed-off-by: Roman Kagan <rvkagan@yandex-team.ru>
 > ---
->
 
-> +static void set_size32(Object *obj, Visitor *v, const char *name, void *opaque,
-> +                       Error **errp)
-> +{
-> +    DeviceState *dev = DEVICE(obj);
-> +    Property *prop = opaque;
-> +    uint32_t *ptr = qdev_get_prop_ptr(dev, prop);
-> +    uint64_t value;
-> +    Error *local_err = NULL;
-> +
-> +    if (dev->realized) {
-> +        qdev_prop_set_after_realize(dev, name, errp);
-> +        return;
-> +    }
-> +
-> +    visit_type_size(v, name, &value, &local_err);
-
-Yes, it does.
-
-Whether or not the commit message is tweaked,
 Reviewed-by: Eric Blake <eblake@redhat.com>
 
 -- 
