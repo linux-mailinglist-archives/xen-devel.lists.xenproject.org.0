@@ -2,41 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6A861E5D1C
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 12:26:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F3D21E5D22
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 12:27:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeFjG-0000s5-Kb; Thu, 28 May 2020 10:25:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jeFjF-0000s0-Eh
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 10:25:37 +0000
-X-Inumbo-ID: 91953bfd-a0cd-11ea-a7ae-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 91953bfd-a0cd-11ea-a7ae-12813bfff9fa;
- Thu, 28 May 2020 10:25:36 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 05692AC20;
- Thu, 28 May 2020 10:25:34 +0000 (UTC)
-Subject: Re: [PATCH v2 03/14] x86/shstk: Introduce Supervisor Shadow Stack
- support
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
- <20200527191847.17207-4-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4f535d4c-b3b3-fe5b-8b57-af736dc0a360@suse.com>
-Date: Thu, 28 May 2020 12:25:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jeFkd-0000xN-0S; Thu, 28 May 2020 10:27:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eNTM=7K=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jeFkb-0000xG-6G
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 10:27:01 +0000
+X-Inumbo-ID: c3881828-a0cd-11ea-9dbe-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c3881828-a0cd-11ea-9dbe-bc764e2007e4;
+ Thu, 28 May 2020 10:27:00 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: cSKd4Y6+AIAY/kxhWWVdLKq2BbQ5R7Q1hnlWUyvcGTtuOFAM6q8s0pfJjUh/tV2wSk4hhZPwh9
+ E1SEWsEtJF5kyYl1YdBu+QUW/3Khrvs3Qa9QsW08cxj41FbGVYZut6t+rEGqM7TClJ6phuBE9s
+ 0qjbg5BvcSsU7NCS7azKx7jUDlXZte5zXc91GTHAixTQ5pa2QuD15EP/JY17DLw6RpztWOaVHW
+ cZtUKT18dsGi0HqiOabVZi3k6m6gXfMwYvz8bgwJV8UR48zMfxWcIXfCKoNxZlrIbtqTheBVT6
+ RXU=
+X-SBRS: 2.7
+X-MesageID: 18992937
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,444,1583211600"; d="scan'208";a="18992937"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH 0/2] osstest: update FreeBSD guest tests
+Date: Thu, 28 May 2020 12:26:46 +0200
+Message-ID: <20200528102648.8724-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200527191847.17207-4-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -48,88 +50,35 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: ian.jackson@eu.citrix.com, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.05.2020 21:18, Andrew Cooper wrote:
-> Introduce CONFIG_HAS_AS_CET to determine whether CET instructions are
-> supported in the assembler, and CONFIG_XEN_SHSTK as the main build option.
-> 
-> Introduce cet={no-,}shstk to for a user to select whether or not to use shadow
-> stacks at runtime, and X86_FEATURE_XEN_SHSTK to determine Xen's overall
-> enablement of shadow stacks.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> LLVM 6 supports CET-SS instructions while only LLVM 7 supports CET-IBT
-> instructions.  We'd need to split HAS_AS_CET into two if we want to support
-> supervisor shadow stacks with LLVM 6.  (This demonstrates exactly why picking
-> a handful of instructions to test is the right approach.)
+Hello,
 
-In this case I agree with splitting; I wasn't aware clang implemented
-the respective insns piecemeal.
+The following series adds FreeBSD 11 and 12 guests tests to osstest.
+ATM this is only tested on amd64, since the i386 versions had a bug.
 
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -270,6 +270,23 @@ and not running softirqs. Reduce this if softirqs are not being run frequently
->  enough. Setting this to a high value may cause boot failure, particularly if
->  the NMI watchdog is also enabled.
->  
-> +### cet
-> +    = List of [ shstk=<bool> ]
-> +
-> +    Applicability: x86
-> +
-> +Controls for the use of Control-flow Enforcement Technology.  CET is group of
+The result can be seen at:
 
-Nit: "... is a group of ..."
+http://logs.test-lab.xenproject.org/osstest/logs/150428/
 
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -34,6 +34,10 @@ config ARCH_DEFCONFIG
->  config INDIRECT_THUNK
->  	def_bool $(cc-option,-mindirect-branch-register)
->  
-> +config HAS_AS_CET
-> +	# binutils >= 2.29 and LLVM >= 7
-> +	def_bool $(as-instr,wrssq %rax$(comma)0;setssbsy;endbr64)
+Note this flight has been generated without using the freebsd-{11,12}
+hostflags and with the following env variable set:
 
-So you put me in a really awkward position: I'd really like to see
-this series go in for 4.14, yet I've previously indicated I want the
-underlying concept to first be agreed upon, before any uses get
-introduced.
+OSSTEST_JOBS_ONLY=^(.*)freebsd(.*)$,build-(amd64|i386),build-(amd64|i386)-pvops
 
-A fundamental problem with this, at least as long as (a) more of
-Anthony's series hasn't been committed and (b) we re-build Xen upon
-installing (as root), even if it was fully built (as non-root) and
-is ready without any re-building. Each of these aspects means that
-what you've configured and built may not be what gets installed, by
-virtue of the tool chains differing. (a) in addition may lead to
-the install-time rebuild to actually go wrong, due to there being
-dependency tracking issues on at least {xen,efi}.lds (which I've
-noticed in a different context yesterday).
+In order to limit the number of tests run. The runvar difference can be
+see in patch #2.
 
-> --- a/xen/scripts/Kconfig.include
-> +++ b/xen/scripts/Kconfig.include
-> @@ -31,6 +31,10 @@ cc-option = $(success,$(CC) -Werror $(CLANG_FLAGS) $(1) -E -x c /dev/null -o /de
->  # Return y if the linker supports <flag>, n otherwise
->  ld-option = $(success,$(LD) -v $(1))
->  
-> +# $(as-instr,<instr>)
-> +# Return y if the assembler supports <instr>, n otherwise
-> +as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) -c -x assembler -o /dev/null -)
+Roger Pau Monne (2):
+  freebsd10: refactor code to generate jobs
+  freebsd: add FreeBSD 11 and 12 guest jobs
 
-Is this actually checking the right thing in the clang case? I.e.
-doesn't "-x assembler" make clang invoke the system assembler rather
-than use its integrated one, whereas you need the insns to be
-recognized by the integrated assembler unless we find a need to pass
--no-integrated-as?
+ make-flight | 26 +++++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
 
-Jan
+-- 
+2.26.2
+
 
