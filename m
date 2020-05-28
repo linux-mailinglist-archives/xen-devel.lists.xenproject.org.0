@@ -2,45 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5F91E5C32
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:37:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EA6C1E5C40
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:42:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeExo-0004g7-OH; Thu, 28 May 2020 09:36:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FdVz=7K=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jeExn-0004g2-AS
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:36:35 +0000
-X-Inumbo-ID: b84028c2-a0c6-11ea-8993-bc764e2007e4
+	id 1jeF3U-0005WO-CK; Thu, 28 May 2020 09:42:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VkFg=7K=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jeF3T-0005WJ-77
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:42:27 +0000
+X-Inumbo-ID: 89fce90e-a0c7-11ea-a7aa-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b84028c2-a0c6-11ea-8993-bc764e2007e4;
- Thu, 28 May 2020 09:36:34 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 89fce90e-a0c7-11ea-a7aa-12813bfff9fa;
+ Thu, 28 May 2020 09:42:26 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4BEEFAD3A;
- Thu, 28 May 2020 09:36:33 +0000 (UTC)
-Message-ID: <db0c02328a1fe60ed186638a6acd5c3df21686d5.camel@suse.com>
-Subject: Re: [PATCH 2/2] xen: credit2: limit the max number of CPUs in a
- runqueue
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Date: Thu, 28 May 2020 11:36:32 +0200
-In-Reply-To: <9948ac59-af64-d77d-57df-38a771a472b4@suse.com>
-References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
- <158818179558.24327.11334680191217289878.stgit@Palanthas>
- <b368ccef-d3b1-1338-6325-8f81a963876d@suse.com>
- <d60d5b917d517b1dfa8292cfb456639c736ec173.camel@suse.com>
- <7e039c65-4532-c3ea-8707-72a86cf48e0e@suse.com>
- <8bf86f0c2bcce449cf7643aa9b98aa26ea558c2c.camel@suse.com>
- <9948ac59-af64-d77d-57df-38a771a472b4@suse.com>
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-2OnZpGu9g/zF6PmSkDRF"
-User-Agent: Evolution 3.36.2 
+ by mx2.suse.de (Postfix) with ESMTP id DEEE1AD63;
+ Thu, 28 May 2020 09:42:24 +0000 (UTC)
+Subject: Re: [PATCH v6 4/5] common/domain: add a domain context record for
+ shared_info...
+To: Paul Durrant <paul@xen.org>
+References: <20200527173407.1398-1-paul@xen.org>
+ <20200527173407.1398-5-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5589a800-a40a-5534-d2e8-09df78072b02@suse.com>
+Date: Thu, 28 May 2020 11:42:24 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <20200527173407.1398-5-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,78 +48,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org, paul@xen.org,
- George Dunlap <george.dunlap@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 27.05.2020 19:34, Paul Durrant wrote:
+> @@ -1649,6 +1650,75 @@ int continue_hypercall_on_cpu(
+>      return 0;
+>  }
+>  
+> +static int save_shared_info(const struct domain *d, struct domain_context *c,
+> +                            bool dry_run)
+> +{
+> +    struct domain_shared_info_context ctxt = {
+> +#ifdef CONFIG_COMPAT
+> +        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
+> +        .buffer_size = has_32bit_shinfo(d) ?
+> +                       sizeof(struct compat_shared_info) :
+> +                       sizeof(struct shared_info),
+> +#else
+> +        .buffer_size = sizeof(struct shared_info),
+> +#endif
 
---=-2OnZpGu9g/zF6PmSkDRF
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To prevent disconnect between the types used here and the actual
+pointer copied from, I'd have preferred
 
-On Wed, 2020-05-27 at 08:22 +0200, Jan Beulich wrote:
-> On 26.05.2020 23:18, Dario Faggioli wrote:
-> >=20
-> > It looks like we need a way to rebalance the runqueues, which
-> > should be
-> > doable... But despite having spent a couple of days trying to come
-> > up
-> > with something decent, that I could include in v2 of this series, I
-> > couldn't get it to work sensibly.
->=20
-> CPU on-/offlining may not need considering here at all imo. I think
-> it
-> would be quite reasonable as a first step to have a static model
-> where
-> from system topology (and perhaps a command line option) one can
-> predict which runqueue a particular CPU will end up in, no matter
-> when
-> it gets brought online.
->=20
-Right.
+#ifdef CONFIG_COMPAT
+        .flags = has_32bit_shinfo(d) ? DOMAIN_SAVE_32BIT_SHINFO : 0,
+        .buffer_size = has_32bit_shinfo(d) ?
+                       sizeof(d->shared_info->compat) :
+                       sizeof(d->shared_info->native),
+#else
+        .buffer_size = sizeof(*d->shared_info),
+#endif
 
-IAC, just FYI, after talking to Juergen --who suggested a nice solution
-to overcome the problem where I was stuck-- I have now a patch that
-successfully implement dynamic online rebalancing of runqueues.
+But this is secondary, as the types indeed are very unlikely to go
+out of sync. What's more important is ...
 
-I'm polishing up the comments and changelog and will send it ASAP, as
-I'd really like for this series to go in... :-)
+> +static int load_shared_info(struct domain *d, struct domain_context *c)
+> +{
+> +    struct domain_shared_info_context ctxt;
+> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> +    unsigned int i;
+> +    int rc;
+> +
+> +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, &i);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( i ) /* expect only a single instance */
+> +        return -ENXIO;
+> +
+> +    rc = domain_load_data(c, &ctxt, hdr_size);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( ctxt.buffer_size > sizeof(shared_info_t) ||
+> +         (ctxt.flags & ~DOMAIN_SAVE_32BIT_SHINFO) )
+> +        return -EINVAL;
+> +
+> +    if ( ctxt.flags & DOMAIN_SAVE_32BIT_SHINFO )
+> +#ifdef CONFIG_COMPAT
+> +        has_32bit_shinfo(d) = true;
+> +#else
+> +        return -EINVAL;
+> +#endif
+> +
+> +    rc = domain_load_data(c, d->shared_info, sizeof(shared_info_t));
+> +    if ( rc )
+> +        return rc;
 
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+... the still insufficient checking here. You shouldn't accept more
+than sizeof(d->shared_info->compat) worth of data in the compat case
+if you also don't accept more than sizeof(shared_info_t) in the
+native case. To save another round trip I'll offer to make the
+adjustments while committing, but patches 3 and 5 want Andrew's ack
+first anyway.
 
-
---=-2OnZpGu9g/zF6PmSkDRF
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl7PhiAACgkQFkJ4iaW4
-c+6IQg//Y5NRewHwSqke21nEdLFFGtz/mgKw+CeJIVi+jkKKznpQSfllqbEKnovG
-piyjrgxtu1mT3gGmwM+bISd3gagFKadN6k50OaVbFFUE/R4IwveEtnmrQBfBDI7A
-XdHfn7AsRKESfjpkUxjTn+BKAhFitmgWK6QMFgaZyhhqGN8jaqJoiQhsMaX6kTAX
-B5eGiPguQ0Jaqz3diVrgYcBZqdjYDmi1hx47CpY/YYekbhAh+t31h4yZ23Kdi1N9
-YRTmznforS5DIRwZHAcp/gaFjZULX5jEUgMdU21PYHgLjx2BUTzYGyGNJXSlQ+3f
-kW6eIZ1OomHSDoz09LJ6f76Hq3fuWnZqeC/V1UHGQa1TDJkqqqF6CY//fltLk5/d
-uQ/N2zZ+ZmFDXvq8vSFX5bxK/7bYKek+qyqNGixc7XKgepiV3o7k1sfNZZwP6sNY
-dF74zR/mzIE5ouAnPY4k07zI7x6oWz6N9NErrOndYISRlFLeY1opuZnzl0zvGp0T
-nDrvoWD8RlqZzlHF4mu9Ks5GbsXkbWvK+sNnjinzR/2v4zdH7dhH073rD8Vm22c5
-pA+QaRuhTqgamKsapBoHupSWDm8hIMVdqv8rVa2dwSkGd/CJpoimsDyJ15O7tFF0
-IsClCNsXWcOoHY6eMo6pK3KCnzw88NZ3sDbRUKlmYxseSfACYrw=
-=kj2r
------END PGP SIGNATURE-----
-
---=-2OnZpGu9g/zF6PmSkDRF--
-
+Jan
 
