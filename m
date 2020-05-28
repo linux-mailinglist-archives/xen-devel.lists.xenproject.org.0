@@ -2,59 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 540F81E6201
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 15:20:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE8B11E6216
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 15:23:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeISL-0008Is-EK; Thu, 28 May 2020 13:20:21 +0000
+	id 1jeIUx-0008Px-Sz; Thu, 28 May 2020 13:23:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P1kI=7K=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jeISK-0008In-4b
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 13:20:20 +0000
-X-Inumbo-ID: f6cbcf00-a0e5-11ea-8993-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=gT1p=7K=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1jeIUv-0008Pr-Sr
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 13:23:01 +0000
+X-Inumbo-ID: 5a1a40fa-a0e6-11ea-8993-bc764e2007e4
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f6cbcf00-a0e5-11ea-8993-bc764e2007e4;
- Thu, 28 May 2020 13:20:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=BOr1h+ZpHYJcwkKp51Vi+J4mya56ZTRjORlC7mrz1YQ=; b=NJrAF++aCCjrnQrJyIKQ7Th0r
- cHk7rXe6gUd4S8v5IdDux329lhaAsdS2o8QrHVk1oOroW/fte843LIloo8ObsTPk/W0RDSkeKDB/b
- BQHkhWJAFeoogRZc5SNOGEj8N/qWolUU4jAOnzd/uAG5f569UsIAe4uGAUZQdCpBMyT38=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jeISD-00043X-5d; Thu, 28 May 2020 13:20:13 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jeISC-0003nf-UL; Thu, 28 May 2020 13:20:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jeISC-0000OF-Td; Thu, 28 May 2020 13:20:12 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150433-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 5a1a40fa-a0e6-11ea-8993-bc764e2007e4;
+ Thu, 28 May 2020 13:23:00 +0000 (UTC)
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:46080
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1jeIUr-000IXV-L0 (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Thu, 28 May 2020 14:22:57 +0100
+Subject: Re: [PATCH v2 04/14] x86/traps: Implement #CP handler and extend #PF
+ for shadow stacks
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
+ <20200527191847.17207-5-andrew.cooper3@citrix.com>
+ <424dc7f2-d999-19e1-42ad-226cf22783eb@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <a5fa915b-b0ce-8247-09bb-dac3d149c6b5@citrix.com>
+Date: Thu, 28 May 2020 14:22:56 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150433: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=724913de8ac8426d313a4645741d86c1169ae406
-X-Osstest-Versions-That: xen=6b75c7a95420acbb9c118624ff0a5e973287c1e4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 28 May 2020 13:20:12 +0000
+In-Reply-To: <424dc7f2-d999-19e1-42ad-226cf22783eb@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +52,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150433 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150433/
+On 28/05/2020 13:03, Jan Beulich wrote:
+> On 27.05.2020 21:18, Andrew Cooper wrote:
+>> For now, any #CP exception or shadow stack #PF indicate a bug in Xen, but
+>> attempt to recover from #CP if taken in guest context.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with one more question and a suggestion:
+>
+>> @@ -1445,8 +1447,10 @@ void do_page_fault(struct cpu_user_regs *regs)
+>>       *
+>>       * Anything remaining is an error, constituting corruption of the
+>>       * pagetables and probably an L1TF vulnerable gadget.
+>> +     *
+>> +     * Any shadow stack access fault is a bug in Xen.
+>>       */
+>> -    if ( error_code & PFEC_reserved_bit )
+>> +    if ( error_code & (PFEC_reserved_bit | PFEC_shstk) )
+>>          goto fatal;
+> Wouldn't you saying "any" imply putting this new check higher up, in
+> particular ahead of the call to fixup_page_fault()?
 
-Failures :-/ but no regressions.
+Can do.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+>
+>> @@ -940,7 +944,8 @@ autogen_stubs: /* Automatically generated stubs. */
+>>          entrypoint 1b
+>>  
+>>          /* Reserved exceptions, heading towards do_reserved_trap(). */
+>> -        .elseif vec == TRAP_copro_seg || vec == TRAP_spurious_int || (vec > TRAP_simd_error && vec < TRAP_nr)
+>> +        .elseif vec == X86_EXC_CSO || vec == X86_EXC_SPV || \
+>> +                vec == X86_EXC_VE  || (vec > X86_EXC_CP && vec < TRAP_nr)
+> Adding yet another || here adds to the fragility of the entire
+> construct. Wouldn't it be better to implement do_entry_VE at
+> this occasion, even its handling continues to end up in
+> do_reserved_trap()? This would have the benefit of avoiding the
+> pointless checking of %spl first thing in its handling. Feel
+> free to keep the R-b if you decide to go this route.
 
-version targeted for testing:
- xen                  724913de8ac8426d313a4645741d86c1169ae406
-baseline version:
- xen                  6b75c7a95420acbb9c118624ff0a5e973287c1e4
+I actually have a different plan, which deletes this entire clause, and
+simplifies our autogen sanity checking somewhat.
 
-Last test of basis   150416  2020-05-27 21:01:18 Z    0 days
-Testing same since   150433  2020-05-28 11:01:11 Z    0 days    1 attempts
+For vectors which Xen has no implementation of (for whatever reason),
+use DPL0, non-present descriptors, and redirect #NP[IDT] into
+do_reserved_trap().
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
+No need for any entry logic for the trivially fatal paths, or safety
+against being uncertain about error codes.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+However, its a little too close to 4.14 to clean this up now.
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6b75c7a954..724913de8a  724913de8ac8426d313a4645741d86c1169ae406 -> smoke
+~Andrew
 
