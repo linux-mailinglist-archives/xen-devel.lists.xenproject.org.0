@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64DFE1E5BF4
-	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:33:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC5F91E5C32
+	for <lists+xen-devel@lfdr.de>; Thu, 28 May 2020 11:37:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeEu3-0004VE-3y; Thu, 28 May 2020 09:32:43 +0000
+	id 1jeExo-0004g7-OH; Thu, 28 May 2020 09:36:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FdVz=7K=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jeEu1-0004V9-6g
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:32:41 +0000
-X-Inumbo-ID: 2c568de2-a0c6-11ea-8993-bc764e2007e4
+ id 1jeExn-0004g2-AS
+ for xen-devel@lists.xenproject.org; Thu, 28 May 2020 09:36:35 +0000
+X-Inumbo-ID: b84028c2-a0c6-11ea-8993-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c568de2-a0c6-11ea-8993-bc764e2007e4;
- Thu, 28 May 2020 09:32:40 +0000 (UTC)
+ id b84028c2-a0c6-11ea-8993-bc764e2007e4;
+ Thu, 28 May 2020 09:36:34 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 96255AD3A;
- Thu, 28 May 2020 09:32:38 +0000 (UTC)
-Message-ID: <9f807e10a188ad0877b6d9e769a37575db12c570.camel@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id 4BEEFAD3A;
+ Thu, 28 May 2020 09:36:33 +0000 (UTC)
+Message-ID: <db0c02328a1fe60ed186638a6acd5c3df21686d5.camel@suse.com>
 Subject: Re: [PATCH 2/2] xen: credit2: limit the max number of CPUs in a
  runqueue
 From: Dario Faggioli <dfaggioli@suse.com>
-To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Jan Beulich
- <jbeulich@suse.com>
-Date: Thu, 28 May 2020 11:32:37 +0200
-In-Reply-To: <5939e797-09be-53d1-b87f-d6c6c97ea3a3@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Date: Thu, 28 May 2020 11:36:32 +0200
+In-Reply-To: <9948ac59-af64-d77d-57df-38a771a472b4@suse.com>
 References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
  <158818179558.24327.11334680191217289878.stgit@Palanthas>
- <3db33b8a-ba97-f302-a325-e989ff0e7084@suse.com>
- <7b34b1b2c4b36399ad16f6e72a872e15d949f4bf.camel@suse.com>
- <5939e797-09be-53d1-b87f-d6c6c97ea3a3@suse.com>
+ <b368ccef-d3b1-1338-6325-8f81a963876d@suse.com>
+ <d60d5b917d517b1dfa8292cfb456639c736ec173.camel@suse.com>
+ <7e039c65-4532-c3ea-8707-72a86cf48e0e@suse.com>
+ <8bf86f0c2bcce449cf7643aa9b98aa26ea558c2c.camel@suse.com>
+ <9948ac59-af64-d77d-57df-38a771a472b4@suse.com>
 Organization: SUSE
 Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-RT0obdPu5SaH1+O+jnCD"
+ protocol="application/pgp-signature"; boundary="=-2OnZpGu9g/zF6PmSkDRF"
 User-Agent: Evolution 3.36.2 
 MIME-Version: 1.0
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -50,37 +51,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
+Cc: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org, paul@xen.org,
+ George Dunlap <george.dunlap@citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---=-RT0obdPu5SaH1+O+jnCD
+--=-2OnZpGu9g/zF6PmSkDRF
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2020-05-27 at 06:26 +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> On 27.05.20 00:00, Dario Faggioli wrote:
+On Wed, 2020-05-27 at 08:22 +0200, Jan Beulich wrote:
+> On 26.05.2020 23:18, Dario Faggioli wrote:
 > >=20
-> > Understood. Problem is that, here in the scheduling code, I don't
-> > see
-> > an easy way to tell when we have finished bringing up CPUs... And
-> > it's
-> > probably not worth looking too hard (even less adding logic) only
-> > for
-> > the sake of printing this message.
+> > It looks like we need a way to rebalance the runqueues, which
+> > should be
+> > doable... But despite having spent a couple of days trying to come
+> > up
+> > with something decent, that I could include in v2 of this series, I
+> > couldn't get it to work sensibly.
 >=20
-> cpupool_init() is the perfect place for that.
+> CPU on-/offlining may not need considering here at all imo. I think
+> it
+> would be quite reasonable as a first step to have a static model
+> where
+> from system topology (and perhaps a command line option) one can
+> predict which runqueue a particular CPU will end up in, no matter
+> when
+> it gets brought online.
 >=20
-Yes, at least for boot time, it is indeed, so I'll go for it.
+Right.
 
-OTOH, when for instance one creates a new cpupool (or adding a bunch of
-CPUs to one, with `xl cpupool-add Pool-X 7,3-14-22,18`), CPUs are added
-one by one, and we don't really know in Xen which one would be the last
-one, and print a summary.
+IAC, just FYI, after talking to Juergen --who suggested a nice solution
+to overcome the problem where I was stuck-- I have now a patch that
+successfully implement dynamic online rebalancing of runqueues.
 
-But yeah, I'll go for cpupool_init() and get rid of the rest, for now.
+I'm polishing up the comments and changelog and will send it ASAP, as
+I'd really like for this series to go in... :-)
 
 Thanks and Regards
 --=20
@@ -92,28 +101,28 @@ SUSE Labs, SUSE https://www.suse.com/
 <<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
 
---=-RT0obdPu5SaH1+O+jnCD
+--=-2OnZpGu9g/zF6PmSkDRF
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl7PhTUACgkQFkJ4iaW4
-c+7kThAAxnCZvME7HLmR8t9EeOSTfvm00OcIzK6Izeq/qXf1zwZf7nPaSqSAmFPy
-9OyKgZYQna/kDLcOwn1LxUnJkX0W3zY5tPbSr0Jrue67NYgafgYhKA0OqC4oVbem
-esf4M+q1idXbizNAo0HpJC2WcNCACfLXP8VOjFGibxz79IVriqOLkwP8AZ4Gkw6i
-ek+6RQM/lFv5/K5ahyokKBGElXthKIsV5KLk8pRfWR1Xn+2I+j/tPWiXaKarVnuS
-+2Kj1yAQsz3sPXGLFKRuu76YzLRsc5QqDz2FJVm+GJPZOALNeW8A5l6klkVwx9OQ
-zMUiTVoopL2YliIcf5eReBpoR6W7bAD/1xy6InrAKO3ANKHBLHvyuG5v+S2PbdFQ
-LajYRc3z75iH1nAakBu/kHr/OXXBTflEXpqniunB0YwIybcaz37wuh9O7bGxpHfJ
-SgviQQOCJ9SuAk8fdUxp4zJRsq+cn+ZL8JdekKjIoJnKAOqqAKs2bxPQhARj+SNq
-JFG4GLlfM82ubYeUHKM6n4KX6hvAi5/JrWoQJyMdeyNz1LlvwGJbTsTwvaczDtjO
-2N+FKdwGP5ZB+SpSkqcTVwTfp8fbq6MzlRGC535ULy/AlEYK9UlcddRAN60nBGtJ
-oQaxzWzmYNjszQf+sknFec69y9NT0PbngNpKuvBnvlAzonOZDuM=
-=duRl
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl7PhiAACgkQFkJ4iaW4
+c+6IQg//Y5NRewHwSqke21nEdLFFGtz/mgKw+CeJIVi+jkKKznpQSfllqbEKnovG
+piyjrgxtu1mT3gGmwM+bISd3gagFKadN6k50OaVbFFUE/R4IwveEtnmrQBfBDI7A
+XdHfn7AsRKESfjpkUxjTn+BKAhFitmgWK6QMFgaZyhhqGN8jaqJoiQhsMaX6kTAX
+B5eGiPguQ0Jaqz3diVrgYcBZqdjYDmi1hx47CpY/YYekbhAh+t31h4yZ23Kdi1N9
+YRTmznforS5DIRwZHAcp/gaFjZULX5jEUgMdU21PYHgLjx2BUTzYGyGNJXSlQ+3f
+kW6eIZ1OomHSDoz09LJ6f76Hq3fuWnZqeC/V1UHGQa1TDJkqqqF6CY//fltLk5/d
+uQ/N2zZ+ZmFDXvq8vSFX5bxK/7bYKek+qyqNGixc7XKgepiV3o7k1sfNZZwP6sNY
+dF74zR/mzIE5ouAnPY4k07zI7x6oWz6N9NErrOndYISRlFLeY1opuZnzl0zvGp0T
+nDrvoWD8RlqZzlHF4mu9Ks5GbsXkbWvK+sNnjinzR/2v4zdH7dhH073rD8Vm22c5
+pA+QaRuhTqgamKsapBoHupSWDm8hIMVdqv8rVa2dwSkGd/CJpoimsDyJ15O7tFF0
+IsClCNsXWcOoHY6eMo6pK3KCnzw88NZ3sDbRUKlmYxseSfACYrw=
+=kj2r
 -----END PGP SIGNATURE-----
 
---=-RT0obdPu5SaH1+O+jnCD--
+--=-2OnZpGu9g/zF6PmSkDRF--
 
 
