@@ -2,46 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7895D1E7D04
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 14:19:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F771E7D16
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 14:24:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jedyP-0000he-Bc; Fri, 29 May 2020 12:18:53 +0000
+	id 1jee30-0001dI-UJ; Fri, 29 May 2020 12:23:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mY44=7L=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1jedyO-0000hZ-8X
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 12:18:52 +0000
-X-Inumbo-ID: 8df82a8e-a1a6-11ea-81bc-bc764e2007e4
-Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jee2z-0001dD-Ar
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 12:23:37 +0000
+X-Inumbo-ID: 38337a12-a1a7-11ea-8993-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8df82a8e-a1a6-11ea-81bc-bc764e2007e4;
- Fri, 29 May 2020 12:18:51 +0000 (UTC)
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:56132
- helo=[192.168.1.219])
- by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
- with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1jedyK-000Cj0-Jc (Exim 4.92.3)
- (return-path <amc96@hermes.cam.ac.uk>); Fri, 29 May 2020 13:18:48 +0100
-Subject: Re: [PATCH v10 1/9] x86emul: address x86_insn_is_mem_{access, write}()
- omissions
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <d2375ecb-f662-99d8-84c2-e9f9c5cf7b9e@suse.com>
- <f41a4f27-bbe2-6450-38c1-6c4e23f2b07b@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <8e976b4b-60f2-bf94-843d-0fe0ba57087c@citrix.com>
-Date: Fri, 29 May 2020 13:18:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 38337a12-a1a7-11ea-8993-bc764e2007e4;
+ Fri, 29 May 2020 12:23:36 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 8CA4BAE96;
+ Fri, 29 May 2020 12:23:35 +0000 (UTC)
+Subject: Re: [PATCH v2 11/14] x86/alt: Adjust _alternative_instructions() to
+ not create shadow stacks
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
+ <20200527191847.17207-12-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1e6d1503-40a8-55b9-9bd3-750cf301220d@suse.com>
+Date: Fri, 29 May 2020 14:23:35 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <f41a4f27-bbe2-6450-38c1-6c4e23f2b07b@suse.com>
+In-Reply-To: <20200527191847.17207-12-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,51 +47,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25/05/2020 15:26, Jan Beulich wrote:
-> First of all explain in comments what the functions' purposes are. Then
-> make them actually match their comments.
->
-> Note that fc6fa977be54 ("x86emul: extend x86_insn_is_mem_write()
-> coverage") didn't actually fix the function's behavior for {,V}STMXCSR:
-> Both are covered by generic code higher up in the function, due to
-> x86_decode_twobyte() already doing suitable adjustments. And VSTMXCSR
-> wouldn't have been covered anyway without a further X86EMUL_OPC_VEX()
-> case label. Keep the inner case label in a comment for reference.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v10: Move ARPL case to earlier switch() x86_insn_is_mem_write(). Make
->      group 5 handling actually work there. Drop VMPTRST case. Also
->      handle CLFLUSH*, CLWB, UDn, and remaining PREFETCH* in
->      x86_insn_is_mem_access().
-> v9: New.
->
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> @@ -11474,25 +11474,87 @@ x86_insn_operand_ea(const struct x86_emu
->      return state->ea.mem.off;
->  }
+On 27.05.2020 21:18, Andrew Cooper wrote:
+> @@ -398,6 +399,19 @@ static void __init _alternative_instructions(bool force)
+>          panic("Timed out waiting for alternatives self-NMI to hit\n");
 >  
-> +/*
-> + * This function means to return 'true' for all supported insns with explicit
-> + * accesses to memory.  This means also insns which don't have an explicit
-> + * memory operand (like POP), but it does not mean e.g. segment selector
-> + * loads, where the descriptor table access is considered an implicit one.
-> + */
->  bool
->  x86_insn_is_mem_access(const struct x86_emulate_state *state,
->                         const struct x86_emulate_ctxt *ctxt)
->  {
-> +    if ( mode_64bit() && state->not_64bit )
-> +        return false;
+>      set_nmi_callback(saved_nmi_callback);
+> +
+> +    /*
+> +     * When Xen is using shadow stacks, the alternatives clearing CR0.WP and
+> +     * writing into the mappings set dirty bits, turning the mappings into
+> +     * shadow stack mappings.
+> +     *
+> +     * While we can execute from them, this would also permit them to be the
+> +     * target of WRSS instructions, so reset the dirty after patching.
+> +     */
+> +    if ( cpu_has_xen_shstk )
+> +        modify_xen_mappings(XEN_VIRT_START + MB(2),
+> +                            (unsigned long)&__2M_text_end,
+> +                            PAGE_HYPERVISOR_RX);
 
-Is this path actually used?  state->not_64bit ought to fail instruction
-decode, at which point we wouldn't have a valid state to be used here.
+Am I misremembering, or did you post a patch before that should
+be part of this series, as being a prereq to this change,
+making modify_xen_mappings() also respect _PAGE_DIRTY as
+requested by the caller?
 
-Everything else looks ok, so Acked-by: Andrew Cooper
-<andrew.cooper3@citrix.com>
+Additionally I notice this
+
+        if ( desc->Attribute & (efi_bs_revision < EFI_REVISION(2, 5)
+                                ? EFI_MEMORY_WP : EFI_MEMORY_RO) )
+            prot &= ~_PAGE_RW;
+
+in efi_init_memory(). Afaict we will need to clear _PAGE_DIRTY
+there as well, with prot starting out as PAGE_HYPERVISOR_RWX.
+
+Jan
 
