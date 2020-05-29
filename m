@@ -2,41 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5BD1E8049
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 16:34:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9ACE1E805E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 16:36:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeg5X-0008In-6v; Fri, 29 May 2020 14:34:23 +0000
+	id 1jeg7W-0008Tp-JI; Fri, 29 May 2020 14:36:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jeg5V-0008Ie-TA
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 14:34:21 +0000
-X-Inumbo-ID: 7bad2dbc-a1b9-11ea-a8c9-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=tJvr=7L=xen.org=roger@srs-us1.protection.inumbo.net>)
+ id 1jeg7U-0008Tk-Ui
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 14:36:24 +0000
+X-Inumbo-ID: c5987e72-a1b9-11ea-a8ca-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7bad2dbc-a1b9-11ea-a8c9-12813bfff9fa;
- Fri, 29 May 2020 14:34:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id AAE7DB001;
- Fri, 29 May 2020 14:34:19 +0000 (UTC)
-Subject: Re: [PATCH] x86/svm: do not try to handle recalc NPT faults
- immediately
-To: Igor Druzhinin <igor.druzhinin@citrix.com>
-References: <1590712553-7298-1-git-send-email-igor.druzhinin@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <bb934c0c-3f0d-df7e-1720-8dbbdbf7691d@suse.com>
-Date: Fri, 29 May 2020 16:34:19 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id c5987e72-a1b9-11ea-a8ca-12813bfff9fa;
+ Fri, 29 May 2020 14:36:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ASbQW/l111czFXENkL/tSDDP7R2aHdoRCkb4iDylmps=; b=1l5yRhLyWTpqwFK+pRrC2rJk3s
+ 0fYCYLxNGY6Jx1eeXDx1jS4l5HVMsVk1VVxB2lfC1yvGpQubGVLYvu4GEjrxVbgDdhv8cESbGMZaM
+ XXB6Gg/ZBTE3hNlcwFfWeQSD3oBvKqgdLv4cN5h3Q6clbx791g6G9LLKAoOeYoqcQm5E=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <roger@xen.org>)
+ id 1jeg7S-0006p9-Vi; Fri, 29 May 2020 14:36:22 +0000
+Received: from [212.230.157.105] (helo=localhost)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <roger@xen.org>)
+ id 1jeg7S-0003l0-GD; Fri, 29 May 2020 14:36:22 +0000
+Date: Fri, 29 May 2020 16:36:13 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
+To: Julien Grall <julien@xen.org>
+Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
+Message-ID: <20200529143613.GP1195@Air-de-Roger>
+References: <cover.1590675919.git.bertrand.marquis@arm.com>
+ <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
+ <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
+ <dcfbca54-4773-9f43-1826-f5137a41bd9f@suse.com>
+ <B5889544-3EB5-41ED-8428-8BCA05269371@arm.com>
+ <20200529132020.GN1195@Air-de-Roger>
+ <e7a757b4-b285-7089-91ea-d4248443aaf1@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <1590712553-7298-1-git-send-email-igor.druzhinin@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e7a757b4-b285-7089-91ea-d4248443aaf1@xen.org>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,99 +64,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com,
- george.dunlap@citrix.com, wl@xen.org, andrew.cooper3@citrix.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "paul@xen.org" <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "Xia,
+ Hongyan" <hongyxia@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29.05.2020 02:35, Igor Druzhinin wrote:
-> A recalculation NPT fault doesn't always require additional handling
-> in hvm_hap_nested_page_fault(), moreover in general case if there is no
-> explicit handling done there - the fault is wrongly considered fatal.
+On Fri, May 29, 2020 at 02:37:24PM +0100, Julien Grall wrote:
+> Hi,
 > 
-> Instead of trying to be opportunistic - use safer approach and handle
-> P2M recalculation in a separate NPT fault by attempting to retry after
-> making the necessary adjustments. This is aligned with Intel behavior
-> where there are separate VMEXITs for recalculation and EPT violations
-> (faults) and only faults are handled in hvm_hap_nested_page_fault().
-> Do it by also unifying do_recalc return code with Intel implementation
-> where returning 1 means P2M was actually changed.
+> On 29/05/2020 14:26, Roger Pau Monné wrote:
+> > TBH I would just remove the error message on Arm from the current
+> > hypercall, I don't think it's useful.
+> The message is part of the helpers get_page_from_gva() which is also used by
+> copy_{to, from}_guest. While it may not be useful in the context of the
+> runstate, it was introduced because there was some other weird bug happening
+> before KPTI even existed (see [1]). I haven't yet managed to find the bottom
+> line of the issue.
 > 
-> This covers a specific case of migration with vGPU assigned on AMD:
-> global log-dirty is enabled and causes immediate recalculation NPT
-> fault in MMIO area upon access.
+> So I would still very much like to keep the message in place. Although we
+> could reduce the number of cases where this is hapenning based on the fault.
 
-To be honest, from this last paragraph I still can't really derive
-what goes wrong exactly why, before this change.
+Ack, I someone hove wrongly assumed the message was explicitly about
+the runstate area, not a generic one in the helpers.
 
-> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-> ---
-> This is a safer alternative to:
-> https://lists.xenproject.org/archives/html/xen-devel/2020-05/msg01662.html
-> and more correct approach from my PoV.
-
-Indeed - I was about to reply there, but then I thought I'd first
-look at this patch, in case it was a replacement.
-
-> --- a/xen/arch/x86/hvm/svm/svm.c
-> +++ b/xen/arch/x86/hvm/svm/svm.c
-> @@ -2923,9 +2923,10 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
->              v->arch.hvm.svm.cached_insn_len = vmcb->guest_ins_len & 0xf;
->          rc = vmcb->exitinfo1 & PFEC_page_present
->               ? p2m_pt_handle_deferred_changes(vmcb->exitinfo2) : 0;
-> -        if ( rc >= 0 )
-> +        if ( rc == 0 )
-> +            /* If no recal adjustments were being made - handle this fault */
->              svm_do_nested_pgfault(v, regs, vmcb->exitinfo1, vmcb->exitinfo2);
-> -        else
-> +        else if ( rc < 0 )
-
-So from going through the code and judging by the comment in
-finish_type_change() (which btw you will need to update, to avoid
-it becoming stale) the >= here was there just in case, without
-there actually being any case where a positive value would be
-returned. It that's also the conclusion you've drawn, then I
-think it would help mentioning this in the description.
-
-It is also desirable to mention finish_type_change() not being
-affected, as already dealing with the > 0 case.
-
-> --- a/xen/arch/x86/mm/p2m-pt.c
-> +++ b/xen/arch/x86/mm/p2m-pt.c
-> @@ -340,7 +340,7 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
->      unsigned long gfn_remainder = gfn;
->      unsigned int level = 4;
->      l1_pgentry_t *pent;
-> -    int err = 0;
-> +    int err = 0, rc = 0;
->  
->      table = map_domain_page(pagetable_get_mfn(p2m_get_pagetable(p2m)));
->      while ( --level )
-> @@ -402,6 +402,8 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
->                  clear_recalc(l1, e);
->                  err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
->                  ASSERT(!err);
-> +
-> +                rc = 1;
->              }
->          }
->          unmap_domain_page((void *)((unsigned long)pent & PAGE_MASK));
-> @@ -448,12 +450,14 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
->              clear_recalc(l1, e);
->          err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
->          ASSERT(!err);
-> +
-> +        rc = 1;
->      }
->  
->   out:
->      unmap_domain_page(table);
->  
-> -    return err;
-> +    return err ? err : rc;
-
-Typically we write this as "err ?: rc". I'd like to ask that "rc" also
-be renamed, to something like "recalc_done", and then to become bool.
-
-Jan
+Roger.
 
