@@ -2,62 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CB781E7EE8
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 15:38:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 034DF1E7EEF
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 15:41:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jefD2-0001Rt-JN; Fri, 29 May 2020 13:38:04 +0000
+	id 1jefG7-0002Pa-3i; Fri, 29 May 2020 13:41:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T8V9=7L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jefD1-0001Rk-H2
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 13:38:03 +0000
-X-Inumbo-ID: 9aea02b6-a1b1-11ea-9947-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jefG6-0002PV-16
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 13:41:14 +0000
+X-Inumbo-ID: 0fdc211c-a1b2-11ea-81bc-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9aea02b6-a1b1-11ea-9947-bc764e2007e4;
- Fri, 29 May 2020 13:37:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Wh8FwrB/KXKniOGfeFCqFk1wCrtbix80E+6SD017LNY=; b=pf/xPN1APk+jvzr6txTUUCaOK
- qQwCj0qiSxVuk1hSCJTYAA7r1ne8ad2tgCgGXdfWRN9NTrJmkVlqDET71Qk+U4ciB+K4WP9n6INbK
- rRDa3Z5QuC6Kkt86fmYdjTXUFw9JN1OYyPYbISa7pIfi40bb/1Rx/2fT01qngjiK4p4v0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jefCu-0005U9-Eu; Fri, 29 May 2020 13:37:56 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jefCt-0001sl-Ui; Fri, 29 May 2020 13:37:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jefCt-00087T-U0; Fri, 29 May 2020 13:37:55 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150479-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 0fdc211c-a1b2-11ea-81bc-bc764e2007e4;
+ Fri, 29 May 2020 13:41:13 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 68494AF5A;
+ Fri, 29 May 2020 13:41:12 +0000 (UTC)
+Subject: Re: [PATCH v10 2/9] x86emul: rework CMP and TEST emulation
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <d2375ecb-f662-99d8-84c2-e9f9c5cf7b9e@suse.com>
+ <5843dca9-1a1a-a32e-3cb0-95cd93533723@suse.com>
+ <c215f77f-f645-eb08-3ac1-7d9f211e1abf@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <629b042b-1226-6d2d-6509-569bb3c64abe@suse.com>
+Date: Fri, 29 May 2020 15:41:13 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150479: regressions - trouble: blocked/fail
-X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
- xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-armhf:xen-build:fail:regression
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: xen=9b9a83e43598b231111487378d6037fa8fa473d5
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 May 2020 13:37:55 +0000
+In-Reply-To: <c215f77f-f645-eb08-3ac1-7d9f211e1abf@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,263 +47,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150479 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150479/
+On 29.05.2020 14:24, Andrew Cooper wrote:
+> On 25/05/2020 15:26, Jan Beulich wrote:
+>> Unlike similarly encoded insns these don't write their memory operands,
+> 
+> "write to their".
+> 
+>> and hence x86_is_mem_write() should return false for them. However,
+>> rather than adding special logic there, rework how their emulation gets
+>> done, by making decoding attributes properly describe the r/o nature of
+>> their memory operands.
+> 
+> Describe how?  I see you've change the order of operands encoding, but
+> then override it back?
 
-Regressions :-(
+There's no overriding back, I don't think: I change the table entries
+for opcodes 0x38 and 0x39, with no other adjustments the the attributes
+later on. For the other opcodes I leave the table entries as they are,
+and override the attributes for the specific sub-cases (identified by
+ModRM.reg).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-xsm               6 xen-build                fail REGR. vs. 150438
- build-amd64                   6 xen-build                fail REGR. vs. 150438
- build-armhf                   6 xen-build                fail REGR. vs. 150438
+For opcodes 0x38 and 0x39 the change of the table entries implies
+changing the order of operands as passed to emulate_2op_SrcV(), hence
+the splitting of the cases in the main switch().
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+I didn't think this was necessary to spell out in the commit message,
+but of course I can re-use most of the text above and add it into
+there, if you think that would help.
 
-version targeted for testing:
- xen                  9b9a83e43598b231111487378d6037fa8fa473d5
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
-
-Last test of basis   150438  2020-05-28 14:01:19 Z    0 days
-Failing since        150465  2020-05-29 09:02:14 Z    0 days    4 attempts
-Testing same since   150472  2020-05-29 11:01:58 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 9b9a83e43598b231111487378d6037fa8fa473d5
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:22:50 2020 +0200
-
-    SUPPORT.md: add hypervisor file system
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 7f8d2dc29ea5a51f88ec253be93970768ec9fac2
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:22:42 2020 +0200
-
-    CHANGELOG: add hypervisor file system support
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-
-commit 02e9a9cf20950e78c816987415ed920d72444f94
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:20:31 2020 +0200
-
-    xen: remove XEN_SYSCTL_set_parameter support
-    
-    The functionality of XEN_SYSCTL_set_parameter is available via hypfs
-    now, so it can be removed.
-    
-    This allows to remove the kernel_param structure for runtime parameters
-    by putting the now only used structure element into the hypfs node
-    structure of the runtime parameters.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit a2486890689713116351e5bbfb8f104c797479cc
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:20:16 2020 +0200
-
-    tools/libxc: remove xc_set_parameters()
-    
-    There is no user of xc_set_parameters() left, so remove it.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 2ea4b9829cf95b59f75f0c70543f2368d702305e
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:20:08 2020 +0200
-
-    tools/libxl: use libxenhypfs for setting xen runtime parameters
-    
-    Instead of xc_set_parameters() use xenhypfs_write() for setting
-    parameters of the hypervisor.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit a659d7cab9afcba337cb60225738fd85ff7aa3da
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:18:36 2020 +0200
-
-    xen: add runtime parameter access support to hypfs
-    
-    Add support to read and modify values of hypervisor runtime parameters
-    via the hypervisor file system.
-    
-    As runtime parameters can be modified via a sysctl, too, this path has
-    to take the hypfs rw_lock as writer.
-    
-    For custom runtime parameters the connection between the parameter
-    value and the file system is done via an init function which will set
-    the initial value (if needed) and the leaf properties.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 58263ed7713e8132c2bc00bc870399ea31bf2231
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:15:54 2020 +0200
-
-    xen: add /buildinfo/config entry to hypervisor filesystem
-    
-    Add the /buildinfo/config entry to the hypervisor filesystem. This
-    entry contains the .config file used to build the hypervisor.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit b5d4711d2b17753498a3f587585f11bf9ca5af85
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:14:51 2020 +0200
-
-    xen: provide version information in hypfs
-    
-    Provide version and compile information in /buildinfo/ node of the
-    Xen hypervisor file system. As this information is accessible by dom0
-    only no additional security problem arises.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 048f82ccd1b3dda511af25a7a8524c8ba5ca2786
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 12:14:24 2020 +0200
-
-    xen/hypfs: make struct hypfs_entry_leaf initializers work with gcc 4.1
-    
-    gcc 4.1 has problems with static initializers for anonymous unions.
-    Fix this by naming the union in struct hypfs_entry_leaf.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Tested-by: Jan Beulich <jbeulich@suse.com>
-
-commit ef716e1dc6206adc5e2a181fe0e20dfd6072bf4c
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:20:32 2020 +0200
-
-    tools: add xenfs tool
-    
-    Add the xenfs tool for accessing the hypervisor filesystem.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 86234eafb95295621aef6c618e4c22c10d8e4138
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:20:21 2020 +0200
-
-    libs: add libxenhypfs
-    
-    Add the new library libxenhypfs for access to the hypervisor filesystem.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 5b5ccafb0c425b85a60fd4f241d5f6951d0e4928
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:15:50 2020 +0200
-
-    xen: add basic hypervisor filesystem support
-    
-    Add the infrastructure for the hypervisor filesystem.
-    
-    This includes the hypercall interface and the base functions for
-    entry creation, deletion and modification.
-    
-    In order not to have to repeat the same pattern multiple times in case
-    adding a new node should BUG_ON() failure, the helpers for adding a
-    node (hypfs_add_dir() and hypfs_add_leaf()) get a nofault parameter
-    causing the BUG() in case of a failure.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 0e9dcd0159c671608e154da5b8b7e0edd2905067
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:15:35 2020 +0200
-
-    docs: add feature document for Xen hypervisor sysfs-like support
-    
-    On the 2019 Xen developer summit there was agreement that the Xen
-    hypervisor should gain support for a hierarchical name-value store
-    similar to the Linux kernel's sysfs.
-    
-    In the beginning there should only be basic support: entries can be
-    added from the hypervisor itself only, there is a simple hypercall
-    interface to read the data.
-    
-    Add a feature document for setting the base of a discussion regarding
-    the desired functionality and the entries to add.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit c48a9956e334a5dd99e846d04ad56185b07aab64
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:15:08 2020 +0200
-
-    xen: add a generic way to include binary files as variables
-    
-    Add a new script xen/tools/binfile for including a binary file at build
-    time being usable via a pointer and a size variable in the hypervisor.
-    
-    Make use of that generic tool in xsm.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Wei Liu <wl@xen.org>
-(qemu changes not included)
+Jan
 
