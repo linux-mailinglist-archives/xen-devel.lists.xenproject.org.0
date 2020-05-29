@@ -2,63 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D6AF1E797E
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:35:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8471E797D
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:35:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jebPP-0002OY-Tj; Fri, 29 May 2020 09:34:35 +0000
+	id 1jebPX-0002P1-5w; Fri, 29 May 2020 09:34:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T8V9=7L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jebPP-0002OT-9r
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:34:35 +0000
-X-Inumbo-ID: 979c22fc-a18f-11ea-a882-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jebPV-0002Os-Hm
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:34:41 +0000
+X-Inumbo-ID: 9ec03c6a-a18f-11ea-a882-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 979c22fc-a18f-11ea-a882-12813bfff9fa;
- Fri, 29 May 2020 09:34:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=AvtBuYeb1l7+x/pZ/Cb3JtDXpEP14QvoM6lE/EoWFr8=; b=yVihxydJbFxwHiH0Oz6dC71PJ
- 9R5+2hIGTnnBNhuZ844dhon4sr2GRdSUkymRl0rsYlEVZxorRJVZbXvDWrlCgP1Y5WqmPPV+mxneF
- 7TEGqlqtYRTXpwgaqKJf6kMqwFR1liwDC0nzogDsQQvTTOgyW06TawJ7ZH2qoUKKJ6cFc=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jebPI-0008Cy-M0; Fri, 29 May 2020 09:34:28 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jebPI-00089q-9D; Fri, 29 May 2020 09:34:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jebPI-00023V-8X; Fri, 29 May 2020 09:34:28 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150465-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 9ec03c6a-a18f-11ea-a882-12813bfff9fa;
+ Fri, 29 May 2020 09:34:40 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 77525AC85;
+ Fri, 29 May 2020 09:34:39 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] xsm: also panic upon "flask=enforcing" when XSM_FLASK=n
+Message-ID: <8a4c4486-cf27-66a0-5ff9-5329277deccf@suse.com>
+Date: Fri, 29 May 2020 11:34:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150465: regressions - trouble: blocked/fail
-X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
- xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-armhf:xen-build:fail:regression
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: xen=ef716e1dc6206adc5e2a181fe0e20dfd6072bf4c
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 May 2020 09:34:28 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,146 +44,73 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Daniel de Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150465 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150465/
+While the behavior to ignore this option without FLASK support was
+properly documented, it is still somewhat surprising to someone using
+this option and then still _not_ getting the assumed security. Add a
+2nd handler for the command line option for the XSM_FLASK=n case, and
+invoke panic() when the option is specified (and not subsequently
+overridden by "flask=disabled").
 
-Regressions :-(
+Suggested-by: Ian Jackson <ian.jackson@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-xsm               6 xen-build                fail REGR. vs. 150438
- build-amd64                   6 xen-build                fail REGR. vs. 150438
- build-armhf                   6 xen-build                fail REGR. vs. 150438
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
-
-version targeted for testing:
- xen                  ef716e1dc6206adc5e2a181fe0e20dfd6072bf4c
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
-
-Last test of basis   150438  2020-05-28 14:01:19 Z    0 days
-Testing same since   150465  2020-05-29 09:02:14 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit ef716e1dc6206adc5e2a181fe0e20dfd6072bf4c
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:20:32 2020 +0200
-
-    tools: add xenfs tool
-    
-    Add the xenfs tool for accessing the hypervisor filesystem.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 86234eafb95295621aef6c618e4c22c10d8e4138
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:20:21 2020 +0200
-
-    libs: add libxenhypfs
-    
-    Add the new library libxenhypfs for access to the hypervisor filesystem.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 5b5ccafb0c425b85a60fd4f241d5f6951d0e4928
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:15:50 2020 +0200
-
-    xen: add basic hypervisor filesystem support
-    
-    Add the infrastructure for the hypervisor filesystem.
-    
-    This includes the hypercall interface and the base functions for
-    entry creation, deletion and modification.
-    
-    In order not to have to repeat the same pattern multiple times in case
-    adding a new node should BUG_ON() failure, the helpers for adding a
-    node (hypfs_add_dir() and hypfs_add_leaf()) get a nofault parameter
-    causing the BUG() in case of a failure.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 0e9dcd0159c671608e154da5b8b7e0edd2905067
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:15:35 2020 +0200
-
-    docs: add feature document for Xen hypervisor sysfs-like support
-    
-    On the 2019 Xen developer summit there was agreement that the Xen
-    hypervisor should gain support for a hierarchical name-value store
-    similar to the Linux kernel's sysfs.
-    
-    In the beginning there should only be basic support: entries can be
-    added from the hypervisor itself only, there is a simple hypercall
-    interface to read the data.
-    
-    Add a feature document for setting the base of a discussion regarding
-    the desired functionality and the entries to add.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit c48a9956e334a5dd99e846d04ad56185b07aab64
-Author: Juergen Gross <jgross@suse.com>
-Date:   Fri May 29 10:15:08 2020 +0200
-
-    xen: add a generic way to include binary files as variables
-    
-    Add a new script xen/tools/binfile for including a binary file at build
-    time being usable via a pointer and a size variable in the hypervisor.
-    
-    Make use of that generic tool in xsm.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Wei Liu <wl@xen.org>
-(qemu changes not included)
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -998,8 +998,9 @@ to use the default.
+ > Default: `enforcing`
+ 
+ Specify how the FLASK security server should be configured.  This option is only
+-available if the hypervisor was compiled with FLASK support.  This can be
+-enabled by running either:
++available if the hypervisor was compiled with FLASK support, except that
++`flask=enforcing` will still keep the hypervisor from successfully booting even
++without FLASK support.  FLASK support can be enabled by running either:
+ - make -C xen config and enabling XSM and FLASK.
+ - make -C xen menuconfig and enabling 'FLux Advanced Security Kernel support' and 'Xen Security Modules support'
+ 
+--- a/xen/xsm/xsm_core.c
++++ b/xen/xsm/xsm_core.c
+@@ -211,7 +211,33 @@ int __init register_xsm(struct xsm_opera
+     return 0;
+ }
+ 
+-#endif
++#endif /* CONFIG_XSM */
++
++#ifndef CONFIG_XSM_FLASK
++static bool __initdata _flask_enforcing;
++
++static int __init parse_flask_param(const char *s)
++{
++    if ( !strcmp(s, "enforcing") )
++        _flask_enforcing = true;
++    else if ( !strcmp(s, "disabled") )
++        _flask_enforcing = false;
++    else
++        return -EINVAL;
++
++    return 0;
++}
++custom_param("flask", parse_flask_param);
++
++static int __init check_flask_enforcing(void)
++{
++    if ( _flask_enforcing )
++        panic("\"flask=enforcing\" specified without FLASK support\n");
++
++    return 0;
++}
++__initcall(check_flask_enforcing);
++#endif /* !CONFIG_XSM_FLASK */
+ 
+ long do_xsm_op (XEN_GUEST_HANDLE_PARAM(xsm_op_t) op)
+ {
 
