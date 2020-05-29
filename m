@@ -2,47 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C4A11E86D8
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 20:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7460B1E86F7
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 20:51:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jejuW-0002pk-Px; Fri, 29 May 2020 18:39:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jek5o-0004cl-Qu; Fri, 29 May 2020 18:50:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mY44=7L=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1jejuV-0002pf-MW
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 18:39:15 +0000
-X-Inumbo-ID: b2188af0-a1db-11ea-a904-12813bfff9fa
+ id 1jek5o-0004cg-68
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 18:50:56 +0000
+X-Inumbo-ID: 5395c93c-a1dd-11ea-9dbe-bc764e2007e4
 Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b2188af0-a1db-11ea-a904-12813bfff9fa;
- Fri, 29 May 2020 18:39:15 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5395c93c-a1dd-11ea-9dbe-bc764e2007e4;
+ Fri, 29 May 2020 18:50:55 +0000 (UTC)
 X-Cam-AntiVirus: no malware found
 X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:40100
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:40568
  helo=[192.168.1.219])
  by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
  with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1jejuS-0001W5-MV (Exim 4.92.3)
- (return-path <amc96@hermes.cam.ac.uk>); Fri, 29 May 2020 19:39:14 +0100
-Subject: Re: [PATCH v2 03/14] x86/shstk: Introduce Supervisor Shadow Stack
- support
-To: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>
+ id 1jek5l-0008Uz-Kn (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Fri, 29 May 2020 19:50:53 +0100
+Subject: Re: [PATCH v2 04/14] x86/traps: Implement #CP handler and extend #PF
+ for shadow stacks
+To: Jan Beulich <jbeulich@suse.com>
 References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
- <20200527191847.17207-4-andrew.cooper3@citrix.com>
- <4f535d4c-b3b3-fe5b-8b57-af736dc0a360@suse.com>
- <ad95944a-bd21-2ba8-6214-49d86050e816@citrix.com>
- <c3c3aea0-806f-4058-c1aa-cdc0f75007e2@suse.com>
- <20200529155118.GL2105@perard.uk.xensource.com>
+ <20200527191847.17207-5-andrew.cooper3@citrix.com>
+ <424dc7f2-d999-19e1-42ad-226cf22783eb@suse.com>
+ <a5fa915b-b0ce-8247-09bb-dac3d149c6b5@citrix.com>
+ <21cfcf09-930d-c0cd-6860-92523732a594@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <4c759ccc-b256-c074-0bd8-fe2d5c728715@citrix.com>
-Date: Fri, 29 May 2020 19:39:08 +0100
+Message-ID: <5282b2f4-35b7-4942-5240-e9305a64d938@citrix.com>
+Date: Fri, 29 May 2020 19:50:44 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200529155118.GL2105@perard.uk.xensource.com>
+In-Reply-To: <21cfcf09-930d-c0cd-6860-92523732a594@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
@@ -61,47 +59,37 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29/05/2020 16:51, Anthony PERARD wrote:
-> On Fri, May 29, 2020 at 01:59:55PM +0200, Jan Beulich wrote:
->> On 28.05.2020 20:10, Andrew Cooper wrote:
->>> On 28/05/2020 11:25, Jan Beulich wrote:
->>>> On 27.05.2020 21:18, Andrew Cooper wrote:
->>>>> --- a/xen/scripts/Kconfig.include
->>>>> +++ b/xen/scripts/Kconfig.include
->>>>> @@ -31,6 +31,10 @@ cc-option = $(success,$(CC) -Werror $(CLANG_FLAGS) $(1) -E -x c /dev/null -o /de
->>>>>  # Return y if the linker supports <flag>, n otherwise
->>>>>  ld-option = $(success,$(LD) -v $(1))
->>>>>  
->>>>> +# $(as-instr,<instr>)
->>>>> +# Return y if the assembler supports <instr>, n otherwise
->>>>> +as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) -c -x assembler -o /dev/null -)
->>>> Is this actually checking the right thing in the clang case?
->>> Appears to work correctly for me.  (Again, its either fine, or need
->>> bugfixing anyway for 4.14, and raising with Linux as this is unmodified
->>> upstream code like the rest of Kconfig.include).
->> This answer made me try it out: On a system with clang 5 and
->> binutils 2.32 "incsspd	%eax" translates fine with
->> -no-integrated-as but doesn't without. The previously mentioned
->> odd use of CLANG_FLAGS, perhaps together with the disconnect
->> from where we establish whether to use -no-integrated-as in the
->> first place (arch.mk; I have no idea whether the CFLAGS
->> determined would be usable by the kconfig invocation, nor how
->> to solve the chicken-and-egg problem there if this is meant to
->> work that way), may be the reason for this. Cc-ing Anthony once
->> again ...
-> I've just prepare/sent a patch which should fix this CLANG_FLAGS issue
-> and allows to tests the assembler in Kconfig.
->
-> See: [XEN PATCH] xen/build: introduce CLANG_FLAGS for testing other CFLAGS
+On 28/05/2020 14:31, Jan Beulich wrote:
+> On 28.05.2020 15:22, Andrew Cooper wrote:
+>> On 28/05/2020 13:03, Jan Beulich wrote:
+>>> On 27.05.2020 21:18, Andrew Cooper wrote:
+>>>> @@ -940,7 +944,8 @@ autogen_stubs: /* Automatically generated stubs. */
+>>>>          entrypoint 1b
+>>>>  
+>>>>          /* Reserved exceptions, heading towards do_reserved_trap(). */
+>>>> -        .elseif vec == TRAP_copro_seg || vec == TRAP_spurious_int || (vec > TRAP_simd_error && vec < TRAP_nr)
+>>>> +        .elseif vec == X86_EXC_CSO || vec == X86_EXC_SPV || \
+>>>> +                vec == X86_EXC_VE  || (vec > X86_EXC_CP && vec < TRAP_nr)
+>>> Adding yet another || here adds to the fragility of the entire
+>>> construct. Wouldn't it be better to implement do_entry_VE at
+>>> this occasion, even its handling continues to end up in
+>>> do_reserved_trap()? This would have the benefit of avoiding the
+>>> pointless checking of %spl first thing in its handling. Feel
+>>> free to keep the R-b if you decide to go this route.
+>> I actually have a different plan, which deletes this entire clause, and
+>> simplifies our autogen sanity checking somewhat.
+>>
+>> For vectors which Xen has no implementation of (for whatever reason),
+>> use DPL0, non-present descriptors, and redirect #NP[IDT] into
+>> do_reserved_trap().
+> Except that #NP itself being a contributory exception, if the such
+> covered exception is also contributory (e.g. #CP) or of page fault
+> class (e.g. #VE), we'd get #DF instead of #NP afaict.
 
-Thanks.  I've checked carefully, and this is an improvement from before.
+Hmm.  Good point.
 
-Therefore I have acked and included the patch.
-
-However, I think there is a further problem.  When -no-integrated-as
-does get passed down, I don't see Clang falling back to using the Gnu
-assember, so I suspect we have a further plumbing problem.  (It only
-affects Clang 5.0 and earlier, so obsolete toolchains these days).
+I also had some other cleanup plans.  (In due course,) I'll see what I
+can do to make the status quo better.
 
 ~Andrew
 
