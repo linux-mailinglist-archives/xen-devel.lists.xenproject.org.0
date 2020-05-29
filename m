@@ -2,59 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A97781E770F
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 09:40:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A93571E770D
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 09:40:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeZcy-0007Pn-Bx; Fri, 29 May 2020 07:40:28 +0000
+	id 1jeZcn-0007Ke-Mp; Fri, 29 May 2020 07:40:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3I2r=7L=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
- id 1jeZcx-0007PN-8p
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 07:40:27 +0000
-X-Inumbo-ID: a2e19467-a17f-11ea-a877-12813bfff9fa
-Received: from us-smtp-1.mimecast.com (unknown [205.139.110.61])
+ id 1jeZcn-0007KY-5T
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 07:40:17 +0000
+X-Inumbo-ID: a184ad9e-a17f-11ea-a877-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id a2e19467-a17f-11ea-a877-12813bfff9fa;
- Fri, 29 May 2020 07:40:16 +0000 (UTC)
+ id a184ad9e-a17f-11ea-a877-12813bfff9fa;
+ Fri, 29 May 2020 07:40:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1590738015;
+ s=mimecast20190719; t=1590738013;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=pQn0bGDZvr2S3O3jxeuAg3AzJn+Iii0I+O8+ViqeBjo=;
- b=SqRBi73QcIL5NcVeB4u3EvriEeKDSGPFd/PAvU61uYSDUvRqwqcPSXQlDSzSHn5yzsBHkN
- GRcEEBWCWjIjeDYR19ZQm8H3uuoNotltZ9mCNCHBv0yxYxNtpnmeszq3tNnlPDyCGBmMSV
- l7saN9urTortR/fOYqlbU2sggbuGZJE=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FEpeW4hSXWUgbGj7HHo1jY8yfFQRooPvNkXyo34CA7s=;
+ b=AClKcPqWlP5ohZSc4nTz35uVT1gx7Xd9QRO3Th2ZxfP9Xbm5ouirnqcBBJ2Mx5eFKkt+ER
+ Ti/lT8e/FcXBCbZ9Z8ZuTW/y9VojnR1Bo+iJA3ATK/0w+Gs+k9DZEfsMDafKeVdf50LbmV
+ sZliqI0mRVn3aVnZzsbILje1f8Ddc8Q=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-258-j2IMzAvKPCG-RW4t-W3vUw-1; Fri, 29 May 2020 03:40:14 -0400
-X-MC-Unique: j2IMzAvKPCG-RW4t-W3vUw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
+ us-mta-116-Q409k48zNK-msMJjsPcrfg-1; Fri, 29 May 2020 03:40:11 -0400
+X-MC-Unique: Q409k48zNK-msMJjsPcrfg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DF73D800D24;
- Fri, 29 May 2020 07:40:12 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 30E79107ACCA;
+ Fri, 29 May 2020 07:40:10 +0000 (UTC)
 Received: from sirius.home.kraxel.org (ovpn-113-50.ams2.redhat.com
  [10.36.113.50])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6EB1FA1035;
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6935A6298C;
  Fri, 29 May 2020 07:39:58 +0000 (UTC)
 Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
- id 3314616E2C; Fri, 29 May 2020 09:39:57 +0200 (CEST)
+ id 3BB719DAD; Fri, 29 May 2020 09:39:57 +0200 (CEST)
 From: Gerd Hoffmann <kraxel@redhat.com>
 To: qemu-devel@nongnu.org
-Subject: [PATCH v3 0/4] microvm: memory config tweaks
-Date: Fri, 29 May 2020 09:39:53 +0200
-Message-Id: <20200529073957.8018-1-kraxel@redhat.com>
+Subject: [PATCH v3 1/4] microvm: use 3G split unconditionally
+Date: Fri, 29 May 2020 09:39:54 +0200
+Message-Id: <20200529073957.8018-2-kraxel@redhat.com>
+In-Reply-To: <20200529073957.8018-1-kraxel@redhat.com>
+References: <20200529073957.8018-1-kraxel@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,37 +79,50 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-With more microvm memory config tweaks split this into its owns series,
-the microvm acpi patch series is already big enough ...
+Looks like the logic was copied over from q35.
 
-v2:
- - use 3G split.
- - add patch to move virtio-mmio region.
- - pick up acks & reviews.
-v3:
- - fix xen build.
- - pick up acks & reviews.
+q35 does this for backward compatibility, there is no reason to do this
+on microvm though.  Also microvm doesn't need much mmio space, 1G is
+more than enough.  Using an mmio window smaller than 1G is bad for
+gigabyte alignment and hugepages though.  So split @ 3G unconditionally.
 
-take care,
-  Gerd
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+Reviewed-by: Igor Mammedov <imammedo@redhat.com>
+Acked-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ hw/i386/microvm.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
 
-Gerd Hoffmann (4):
-  microvm: use 3G split unconditionally
-  microvm: drop max-ram-below-4g support
-  x86: move max-ram-below-4g to pc
-  microvm: move virtio base to 0xfeb00000
-
- include/hw/i386/microvm.h |  2 +-
- include/hw/i386/pc.h      |  2 ++
- include/hw/i386/x86.h     |  4 ----
- hw/i386/microvm.c         | 35 +----------------------------
- hw/i386/pc.c              | 46 +++++++++++++++++++++++++++++++++++++++
- hw/i386/pc_piix.c         | 10 ++++-----
- hw/i386/pc_q35.c          | 10 ++++-----
- hw/i386/x86.c             | 46 ---------------------------------------
- hw/i386/xen/xen-hvm.c     |  2 +-
- 9 files changed, 61 insertions(+), 96 deletions(-)
-
+diff --git a/hw/i386/microvm.c b/hw/i386/microvm.c
+index 937db10ae6a5..44f940813b07 100644
+--- a/hw/i386/microvm.c
++++ b/hw/i386/microvm.c
+@@ -170,23 +170,9 @@ static void microvm_memory_init(MicrovmMachineState *mms)
+     MemoryRegion *ram_below_4g, *ram_above_4g;
+     MemoryRegion *system_memory = get_system_memory();
+     FWCfgState *fw_cfg;
+-    ram_addr_t lowmem;
++    ram_addr_t lowmem = 0xc0000000; /* 3G */
+     int i;
+ 
+-    /*
+-     * Check whether RAM fits below 4G (leaving 1/2 GByte for IO memory
+-     * and 256 Mbytes for PCI Express Enhanced Configuration Access Mapping
+-     * also known as MMCFG).
+-     * If it doesn't, we need to split it in chunks below and above 4G.
+-     * In any case, try to make sure that guest addresses aligned at
+-     * 1G boundaries get mapped to host addresses aligned at 1G boundaries.
+-     */
+-    if (machine->ram_size >= 0xb0000000) {
+-        lowmem = 0x80000000;
+-    } else {
+-        lowmem = 0xb0000000;
+-    }
+-
+     /*
+      * Handle the machine opt max-ram-below-4g.  It is basically doing
+      * min(qemu limit, user limit).
 -- 
 2.18.4
 
