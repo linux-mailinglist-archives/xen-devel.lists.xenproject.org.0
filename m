@@ -2,46 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 332571E79F8
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:59:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 831C81E7A0C
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 12:07:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jebmw-0004qr-Tn; Fri, 29 May 2020 09:58:54 +0000
+	id 1jebuk-0005pN-RP; Fri, 29 May 2020 10:06:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jebmv-0004qm-Qm
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:58:53 +0000
-X-Inumbo-ID: 0036150c-a193-11ea-a884-12813bfff9fa
+ id 1jebuj-0005pI-Jh
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 10:06:57 +0000
+X-Inumbo-ID: 2022cf76-a194-11ea-a885-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0036150c-a193-11ea-a884-12813bfff9fa;
- Fri, 29 May 2020 09:58:52 +0000 (UTC)
+ id 2022cf76-a194-11ea-a885-12813bfff9fa;
+ Fri, 29 May 2020 10:06:56 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9AAE7AEE5;
- Fri, 29 May 2020 09:58:51 +0000 (UTC)
-Subject: Re: [PATCH 2/2] xen: credit2: limit the max number of CPUs in a
- runqueue
-To: Dario Faggioli <dfaggioli@suse.com>
-References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
- <158818179558.24327.11334680191217289878.stgit@Palanthas>
- <3db33b8a-ba97-f302-a325-e989ff0e7084@suse.com>
- <7b34b1b2c4b36399ad16f6e72a872e15d949f4bf.camel@suse.com>
- <cd566bb2-753f-b0eb-3c6a-bc2dc01cf37c@suse.com>
- <a959e9e807dc1f832d151ab72f324f2c084c2461.camel@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id 665E5ABE2;
+ Fri, 29 May 2020 10:06:54 +0000 (UTC)
+Subject: Re: Xen XSM/FLASK policy, grub defaults, etc.
+To: George Dunlap <George.Dunlap@citrix.com>
+References: <24270.35349.838484.116865@mariner.uk.xensource.com>
+ <0D83AAA6-A205-4256-8A38-CC8122AC063D@citrix.com>
+ <757d53a0-ec8f-62f1-ca20-72eaf9e1c84d@suse.com>
+ <9A98D1CA-83E5-4E03-8ED6-E353653338CB@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <bc005ca2-7bf2-3bb0-b9cd-0be05c914f3f@suse.com>
-Date: Fri, 29 May 2020 11:58:51 +0200
+Message-ID: <92986869-678c-572f-89f4-ccf84039022a@suse.com>
+Date: Fri, 29 May 2020 12:06:54 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <a959e9e807dc1f832d151ab72f324f2c084c2461.camel@suse.com>
+In-Reply-To: <9A98D1CA-83E5-4E03-8ED6-E353653338CB@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,41 +49,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- George Dunlap <george.dunlap@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ "cjwatson@debian.org" <cjwatson@debian.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.05.2020 16:55, Dario Faggioli wrote:
-> On Wed, 2020-05-27 at 08:17 +0200, Jan Beulich wrote:
->> On 27.05.2020 00:00, Dario Faggioli wrote:
->>> Just in case, is there a
->>> way to identify them easily, like with a mask or something, in the
->>> code
->>> already?
+On 29.05.2020 11:55, George Dunlap wrote:
+> 
+> 
+>> On May 29, 2020, at 9:52 AM, Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> cpu_sibling_mask still gets used for both, so there's no mask
->> to use. As per set_cpu_sibling_map() you can look at
->> cpu_data[].compute_unit_id to tell, but that's of course x86-
->> specific (as is the entire compute unit concept).
+>> On 27.05.2020 18:08, George Dunlap wrote:
+>>>> On May 27, 2020, at 4:41 PM, Ian Jackson <ian.jackson@citrix.com> wrote:
+>>>> 2. Xen should disable the XSM policy build when FLASK is disabled.
+>>>> This is unfortunately not so simple because the XSM policy build is a
+>>>> tools option and FLASK is a Xen option and the configuration systems
+>>>> are disjoint.  But at the very least a default build, which has no XSM
+>>>> support, should not build an XSM policy file either.
+>>>
+>>> A simple thing to do here would be to have the flask policy controlled by a configure --flask option.  If neither --flask nor --no-flask is specified, we could maybe have configure also check the contents of xen/.config to see if CONFIG_XSM_FLASK is enabled?
 >>
-> Right. And thanks for the pointers.
+>> But that's creating a chicken-and-egg problem: There's no ordering
+>> between the tools/ and xen/ builds. xen/ may not be built at all,
+>> and this is going to become increasingly likely once the xen/ part
+>> of the tree supports out-of-tree builds (at least I'll switch most
+>> of my build trees to that model as soon as it's available).
 > 
-> But then, what I am understanding by having a look there is that I
-> indeed can use (again, appropriately wrapped) x86_num_siblings, for
-> telling, in this function, whether a CPU has any, and if yes how many,
-> HT (Intel) or CU (AMD) siblings in total, although some of them may
-> currently be offline.
-> 
-> Which means I will be treating HTs and CUs the same which, thinking
-> more about it (and thinking actually to CUs, rather than to any cache
-> sharing relationship), does make sense for this feature.
-> 
-> Does this make sense, or am I missing or misinterpreting anything?
+> Do out-of-tree builds put the .config out of tree as well?  If so, yes, that would definitely limit the usefulness of this idea.
 
-Well, it effectively answers the question I had raised: "What about HT
-vs AMD Fam15's CUs? Do you want both to be treated the same here?"
+Yes, all output files go into the build tree, to keep the source tree
+clean. And .config is effectively an output file, despite it possibly
+getting pre-populated into the build tree.
+
+> My suggestion was based on the idea that a “typical” build *which might enable XSM* would look like this:
+> 
+> 1. Run ‘make menuconfig’ (or something like it) in xen/
+> 
+> 2. Run ./configure at the toplevel
+> 
+> 3. Do the full build.
+> 
+> But looking back at it, there’s no particular reason that someone coming to build Xen might expect to do things in that order rather than #1.
+> 
+> It might make sense to simply declare that the tools depend on the xen config, and modifying ./configure to represent that:
+> 
+> 1. Add a `—xen-config=` option to configure telling it where to look for the xen config; if that’s not specified, look for a specific shell variable saying where the Xen tree is; if that’s not available, looking in the current tree.
+> 
+> 2. Have ./configure fail by default if it can’t find a .config, unless —no-xen-config is specified.
+
+Hmm, yes, that's certainly an option. The intended behavior with
+--no-xen-config would be of interest though: Just what it is
+now, i.e. controlled by yet another configure option?
+
+>> Do we perhaps need to resort to a make command line option, usable
+>> at the top level as well as for major subtree builds, and being
+>> honored (as long as set either way, falling back to current
+>> behavior if unset) by both ./configure and the hypervisor's
+>> Kconfig?
+> 
+> What kind of command-line option did you have in mind?
+
+Something like "XSM_FLASK=y".
 
 Jan
 
