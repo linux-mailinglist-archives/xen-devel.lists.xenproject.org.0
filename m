@@ -2,39 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 307DD1E7C32
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 13:46:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9351C1E7C3C
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 13:48:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jedT1-0005ZJ-SA; Fri, 29 May 2020 11:46:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jedUq-0005ia-7l; Fri, 29 May 2020 11:48:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BsAk=7L=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jedT0-0005Z9-FS
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:46:26 +0000
-X-Inumbo-ID: 05b69920-a1a2-11ea-a89d-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 05b69920-a1a2-11ea-a89d-12813bfff9fa;
- Fri, 29 May 2020 11:46:24 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 36F00AD93;
- Fri, 29 May 2020 11:46:23 +0000 (UTC)
-Message-ID: <ab810b293ca8324ca3fba22476401a58435243fa.camel@suse.com>
-Subject: Re: [PATCH 0/2] xen: credit2: limit the number of CPUs per runqueue
-From: Dario Faggioli <dfaggioli@suse.com>
-To: xen-devel@lists.xenproject.org
-Date: Fri, 29 May 2020 13:46:21 +0200
-In-Reply-To: <158818022727.24327.14309662489731832234.stgit@Palanthas>
-References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-+qL9EtQohQ8xfVPoO4tS"
-User-Agent: Evolution 3.36.2 
+ <SRS0=vz0h=7L=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jedUo-0005iV-DO
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:48:18 +0000
+X-Inumbo-ID: 491610ec-a1a2-11ea-9dbe-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 491610ec-a1a2-11ea-9dbe-bc764e2007e4;
+ Fri, 29 May 2020 11:48:17 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id r15so3081098wmh.5
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2020 04:48:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=1sm3Jxhiv2igCNdvdTHQazyw8QwNeenyNt7cresh5E8=;
+ b=nBialjnqQwye9qAXLp62DpsWOL/ADOnfx3mNdgTlEWD4Fk4Dj6meIGkvVnVSqmOtmp
+ EzgRaQs7s6nCzWIDk6XjGz/6TzOJNXXzYzGEXvp6mgr1Mbcau0VFdlxh74aKpnpMam8R
+ EPYTRWMkMYmsdhILbtDntCp9uO6twOKZZq5vHNRauJULFHZOzuokwXpVVcDFa6LzD+/I
+ KnnJiIAE5IIEUWKd1y+H17fQV8A0RvyRf2TdTQFt8g6h18qE799Gl5CXC4SkYYH7mDiC
+ Mp5Z8RtkzyxIEYSCxr8vmi7qy0V0EBkvyWBuefQw6vl60j0TL8Br5T1CLyRekWENNpzw
+ grKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=1sm3Jxhiv2igCNdvdTHQazyw8QwNeenyNt7cresh5E8=;
+ b=B+u7UI9FkBV1n2P51tW0844Lpn99mxfGLIECtkiHlxtCB4saSa0idz2IBR5nOcGBAw
+ W5ExPo5sAmENctQce2m0wfChRevWkYUZXIVMuuAYeSSYsD0istmpdhUZ9Ddz/9L5Qjn5
+ uMyOrjh49pBxx8gR6EA2Mgh6hdinC5HI3EunoZK+M68vdIQrUC3onwlvKc0av/taFoIO
+ LpsDiExJ3wJuH1hJ9Tj5kjTChEwTKzTsTBafayMhHweeayjrS8LHWhrHwysJ0pfwQGFC
+ lhr3ZuauX38Te1jwR3KEKKzIIOyhAU+AerwZYOn/69XUpM2Npr0qOuvkvgLmlGKHpl4T
+ OYag==
+X-Gm-Message-State: AOAM533PNSf98XUAScer/9pfu8dDw4S4RloXquusEzR6CbFjGpm6864L
+ awGn8NFc29O7zeGvKeT5r4E=
+X-Google-Smtp-Source: ABdhPJzasT8DrPILN066I7RUAYYGG3H3DA4jPj+4r2Z8RnaFXU3OalGtQ8JUn2TJzzSNazRlPAzvgg==
+X-Received: by 2002:a1c:bc0a:: with SMTP id m10mr7993488wmf.173.1590752896647; 
+ Fri, 29 May 2020 04:48:16 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id z12sm10460730wrg.9.2020.05.29.04.48.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 29 May 2020 04:48:16 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Juergen Gross'" <jgross@suse.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20200529113709.17489-1-jgross@suse.com>
+In-Reply-To: <20200529113709.17489-1-jgross@suse.com>
+Subject: RE: [PATCH v3] docs: update xenstore-migration.md
+Date: Fri, 29 May 2020 12:48:14 +0100
+Message-ID: <005d01d635af$0a3e6ae0$1ebb40a0$@xen.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQH0JalnYx5eU26y8WXqv8eSeBzaDKiDEdGw
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,114 +77,179 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Paul Durrant <paul@xen.org>
+Reply-To: paul@xen.org
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Juergen Gross
+> Sent: 29 May 2020 12:37
+> To: xen-devel@lists.xenproject.org
+> Cc: Juergen Gross <jgross@suse.com>; Stefano Stabellini <sstabellini@kernel.org>; Julien Grall
+> <julien@xen.org>; Wei Liu <wl@xen.org>; Andrew Cooper <andrew.cooper3@citrix.com>; Ian Jackson
+> <ian.jackson@eu.citrix.com>; George Dunlap <george.dunlap@citrix.com>; Jan Beulich <jbeulich@suse.com>
+> Subject: [PATCH v3] docs: update xenstore-migration.md
+> 
+> Update connection record details:
+> 
+> - make flags common for sockets and domains (makes it easier to have a
+>   C union for conn-spec)
+> - add pending incoming data (needed for handling partially read
+>   requests when doing live update)
+> - add partial response length (needed for proper split to individual
+>   responses after live update)
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
---=-+qL9EtQohQ8xfVPoO4tS
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+LGTM
 
-So,
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-I felt like providing some additional thoughts about this series, from
-a release point of view (adding Paul).
+> ---
+> V2:
+> - added out-resp-len to connection record
+> 
+> V3:
+> - better commit message (Julien Grall)
+> - same sequence for fields and detailed descriptions (Julien Grall)
+> - some wording corrected (Paul Durrant)
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  docs/designs/xenstore-migration.md | 72 +++++++++++++++++-------------
+>  1 file changed, 41 insertions(+), 31 deletions(-)
+> 
+> diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
+> index 34a2afd17e..2ce2c836f5 100644
+> --- a/docs/designs/xenstore-migration.md
+> +++ b/docs/designs/xenstore-migration.md
+> @@ -147,43 +147,60 @@ the domain being migrated.
+>  ```
+>      0       1       2       3       4       5       6       7    octet
+>  +-------+-------+-------+-------+-------+-------+-------+-------+
+> -| conn-id                       | conn-type     | conn-spec
+> +| conn-id                       | conn-type     | flags         |
+> ++-------------------------------+---------------+---------------+
+> +| conn-spec
+>  ...
+> -+-------------------------------+-------------------------------+
+> -| data-len                      | data
+> -+-------------------------------+
+> ++---------------+---------------+-------------------------------+
+> +| in-data-len   | out-resp-len  | out-data-len                  |
+> ++---------------+---------------+-------------------------------+
+> +| data
+>  ...
+>  ```
+> 
+> 
+> -| Field       | Description                                     |
+> -|-------------|-------------------------------------------------|
+> -| `conn-id`   | A non-zero number used to identify this         |
+> -|             | connection in subsequent connection-specific    |
+> -|             | records                                         |
+> -|             |                                                 |
+> -| `conn-type` | 0x0000: shared ring                             |
+> -|             | 0x0001: socket                                  |
+> -|             | 0x0002 - 0xFFFF: reserved for future use        |
+> -|             |                                                 |
+> -| `conn-spec` | See below                                       |
+> -|             |                                                 |
+> -| `data-len`  | The length (in octets) of any pending data not  |
+> -|             | yet written to the connection                   |
+> -|             |                                                 |
+> -| `data`      | Pending data (may be empty)                     |
+> +| Field          | Description                                  |
+> +|----------------|----------------------------------------------|
+> +| `conn-id`      | A non-zero number used to identify this      |
+> +|                | connection in subsequent connection-specific |
+> +|                | records                                      |
+> +|                |                                              |
+> +| `conn-type`    | 0x0000: shared ring                          |
+> +|                | 0x0001: socket                               |
+> +|                | 0x0002 - 0xFFFF: reserved for future use     |
+> +|                |                                              |
+> +| `flags`        | A bit-wise OR of:                            |
+> +|                | 0001: read-only                              |
+> +|                |                                              |
+> +| `conn-spec`    | See below                                    |
+> +|                |                                              |
+> +| `in-data-len`  | The length (in octets) of any data read      |
+> +|                | from the connection not yet processed        |
+> +|                |                                              |
+> +| `out-resp-len` | The length (in octets) of a partial response |
+> +|                | not yet written to the connection            |
+> +|                |                                              |
+> +| `out-data-len` | The length (in octets) of any pending data   |
+> +|                | not yet written to the connection, including |
+> +|                | a partial response (see `out-resp-len`)      |
+> +|                |                                              |
+> +| `data`         | Pending data: first in-data-len octets of    |
+> +|                | read data, then out-data-len octets of       |
+> +|                | written data (any of both may be empty)      |
+> 
+> -The format of `conn-spec` is dependent upon `conn-type`.
+> +In case of live update the connection record for the connection via which
+> +the live update command was issued will contain the response for the live
+> +update command in the pending not yet written data.
+> 
+>  \pagebreak
+> 
+> +The format of `conn-spec` is dependent upon `conn-type`.
+> +
+>  For `shared ring` connections it is as follows:
+> 
+> 
+>  ```
+>      0       1       2       3       4       5       6       7    octet
+> -                                                +-------+-------+
+> -                                                | flags         |
+>  +---------------+---------------+---------------+---------------+
+>  | domid         | tdomid        | evtchn                        |
+>  +-------------------------------+-------------------------------+
+> @@ -198,8 +215,6 @@ For `shared ring` connections it is as follows:
+>  |           | it has been subject to an SET_TARGET              |
+>  |           | operation [2] or DOMID_INVALID [3] otherwise      |
+>  |           |                                                   |
+> -| `flags`   | Must be zero                                      |
+> -|           |                                                   |
+>  | `evtchn`  | The port number of the interdomain channel used   |
+>  |           | by `domid` to communicate with xenstored          |
+>  |           |                                                   |
+> @@ -211,8 +226,6 @@ For `socket` connections it is as follows:
+> 
+> 
+>  ```
+> -                                                +-------+-------+
+> -                                                | flags         |
+>  +---------------+---------------+---------------+---------------+
+>  | socket-fd                     | pad                           |
+>  +-------------------------------+-------------------------------+
+> @@ -221,9 +234,6 @@ For `socket` connections it is as follows:
+> 
+>  | Field       | Description                                     |
+>  |-------------|-------------------------------------------------|
+> -| `flags`     | A bit-wise OR of:                               |
+> -|             | 0001: read-only                                 |
+> -|             |                                                 |
+>  | `socket-fd` | The file descriptor of the connected socket     |
+> 
+>  This type of connection is only relevant for live update, where the xenstored
+> @@ -398,4 +408,4 @@ explanation of node permissions.
+> 
+>  [3] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/include/public/xen.h;hb=HEAD#l612
+> 
+> -[4] https://wiki.xen.org/wiki/XenBus
+> \ No newline at end of file
+> +[4] https://wiki.xen.org/wiki/XenBus
+> --
+> 2.26.2
+> 
 
-Timing is *beyond tight* so if this series, entirely or partly, has any
-chance to go in, it would be through some form of exception, which of
-course comes with some risks, etc.
-
-I did work hard to submit the full series, because I wanted people to
-be able to see the complete solution. However, I think the series
-itself can be logically split in two parts.
-
-Basically, if we just consider patches 1 and 4 we will end up, right
-after boot, with a system that has smaller runqueues. They will most
-likely be balanced in terms of how many CPUs each one has, so a good
-setup. This will likely (actual differences seems to depend *quite a
-bit* on the actual workload) be an improvement for very large systems.
-
-This is a path will get a decent amount of testing in OSSTests, from
-now until the day of the release, I think, because booting with the
-default CPU configuration and setup is what most (all?) OSSTests' jobs
-do.
-
-If the user starts to create pools, we can get to a point where the
-different runqueues are unbalanced, i.e., each one has a different
-number of CPUs in them, wrt the others. This, however:
-* can happen already, as of today, without this patches. Whether these
-  patches may make things "better" or "worse", from this point of view,
-  it's impossible to tell, because it actually depends on what CPUs=20
-  the user moves among pools or put offline, etc.
-* this means that the scheduler has to deal with unbalanced runqueues=20
-  anyway, and if it doesn't, it's a bug and, again, it seems to me=20
-  that these patches don't make things particularly better or worse.
-
-So, again, for patches 1 and 4 alone, it looks to me that we'd get
-improvements, at least in some cases, the codepath will get some
-testing and they do not introduce additional or different issues than
-what we have already right now.
-
-They also are at their second iteration, as the original patch series
-was comprised of exactly those two patches.
-
-So, I think it would be interesting if these two patches would be given
-a chance, even just of getting some reviews... And I would be fine
-going through the formal process necessary for making that to happen
-myself.
-
-Then, there's the rest, the runqueue rebalancing thing. As said above,
-I personally would love if we'd release with it, but I see one rather
-big issue. In fact, such mechanism is triggered and stressed is
-stressed by the dynamic creation and manipulation of cpupools (and CPU
-on/off-lining), and we don't have an OSSTests test for that. Therefore,
-we are not in the best position for catching issues it may have
-introduced.
-
-I can commit to do some testing myself, but it's not the same thing has
-having them in our CI, I know that very well. So, I'd be interested in
-hearing what others think about these other patches as well, and I am
-happy to do my best to make sure that they are working fine, if we
-decide to try to include them too, but I do see this as much more of a
-risk myself.
-
-So, any thoughts? :-)
-
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-+qL9EtQohQ8xfVPoO4tS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl7Q9g0ACgkQFkJ4iaW4
-c+7EnhAAwTimyy3I+yI3AWOYUv40ynQ4r7V9hyj4vYIu8Z5pUi2NnuIaL4InpmLc
-Pfg56ITTRxAHtxMtBO3mnthd1hRKmMlNja9QEoqlELvlFWVLZiXc2p5q9dyKN7UE
-g46asOTFsAaD9T0Dqj4KnZvPf7BE4RjigxD85XpmVZdlHZ0itV5CvCGmFWood43W
-cCVptXztg6T+P9JZnZ6s61qTQb/aRCtFKDoI8nVdP8LCQ94NqLQ1XCghbfJdXwyv
-XwMpWEjJyQbpHvMx3BrOsr1VWxd+ZmzEBxaEZnOu3KniuViPlGhcBnBADiENaBeM
-bSLSsFt+TFdfwteV/PTQ2yW5MCyGV+6Z57V1GXHvCiamZ4gmKlxTxdDa3KQPWJ7D
-c81RtfEm1wQQUg2Q2bcBxOxn4hqaDRTc+/tBFDTw3OO12afscsRIBmHMshZL24yD
-+bvN4eEeQuApUTNv5Oen5xJyoBHgGGTBmAPnUnOPS/C43kdMO2jy0zeKDq0k0+hH
-RT8BsNeY0P2vgsA/q3a8I36+kSKDzNvYZb66WDEyxWemJCDva14J7AYE51H6W1u3
-wJfIuxsgQMH3rnJPcekfgU6sJZb2UsH9SP2WlJf/rCBRskzbPZsx10cUEFsDT00l
-146zGalxSIFb9RZPh/83nM078MPUoLxfp0fMyW5HOliNqrGQgkQ=
-=UvJw
------END PGP SIGNATURE-----
-
---=-+qL9EtQohQ8xfVPoO4tS--
 
 
