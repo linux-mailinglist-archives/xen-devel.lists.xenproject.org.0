@@ -2,56 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB6FF1E8362
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 18:15:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19B5E1E8375
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 18:18:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jehfZ-00050I-SF; Fri, 29 May 2020 16:15:41 +0000
+	id 1jehiC-0005Br-A0; Fri, 29 May 2020 16:18:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K2ub=7L=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jehfY-000509-DN
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 16:15:40 +0000
-X-Inumbo-ID: a2fb0bce-a1c7-11ea-81bc-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=U2UY=7L=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jehiB-0005Bm-3w
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 16:18:23 +0000
+X-Inumbo-ID: 03f6fc76-a1c8-11ea-9dbe-bc764e2007e4
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a2fb0bce-a1c7-11ea-81bc-bc764e2007e4;
- Fri, 29 May 2020 16:15:39 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 38FOTJdBGyyLsqaMNQ7d+0f9HtyrVHXBruRG7Y9k/p1Z1xYWXr4ewkwKMatofCTKthXgRGUIE6
- WDFmhXM3bs5sOn3KvXlP7c3wh4EAZR4IZf3IvOdtVEWos7Ox4/CdIe+v1YYBGyVtl2n890C6TP
- nV50LZzuPzbiKq7iQyJg2vlPQdETGpJtbdTnHbba77LRgQzyE7j1oCGg7sS/OUObr+OqhT1gnL
- HL4gjFhXQy/rvuUZpcGbolWvSyiCS8m92oGCt4k/NMe5Ike52y8lSnwvwKhNSSqWDrDGeVS29R
- MVY=
-X-SBRS: 2.7
-X-MesageID: 18777715
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,449,1583211600"; d="scan'208";a="18777715"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Dario Faggioli <dfaggioli@suse.com>
-Subject: Re: [PATCH 0/2] xen: credit2: limit the number of CPUs per runqueue
-Thread-Topic: [PATCH 0/2] xen: credit2: limit the number of CPUs per runqueue
-Thread-Index: AQHWHky4XA5G+M3bUEaQnq/cZhz5cKi+/2qAgABLOYA=
-Date: Fri, 29 May 2020 16:15:35 +0000
-Message-ID: <430647E9-7EC9-4041-9809-CACD4BC451BC@citrix.com>
-References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
- <ab810b293ca8324ca3fba22476401a58435243fa.camel@suse.com>
-In-Reply-To: <ab810b293ca8324ca3fba22476401a58435243fa.camel@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0D0FEF10C005914883F53CF3818974A6@citrix.com>
-Content-Transfer-Encoding: base64
+ id 03f6fc76-a1c8-11ea-9dbe-bc764e2007e4;
+ Fri, 29 May 2020 16:18:22 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id m21so2128233eds.13
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2020 09:18:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=mbMuxJHVPAc7Wx25YihDuP2TpUDE5CiHWoqylZyuUYQ=;
+ b=j6uuToaoEO44uxSdHBmKJZUIdlCUIM7YnjCwnm+5yfMyNqC+LHKN2V7aUk5NRN4pMt
+ lrzaVozgncjjNnwd3HLbbaz5R/7lACk7mBF3DgA7lq2LDWjXOx+oMpDmYAHYwOJj6F5k
+ JmyHZv0DzWX84QN7eYxzWHmIhytTJbSKb0ix6DJysst2toyJiL/VhBGupI7S30vdA9BY
+ I35bWsasMG8kEffFPmvFl1MkZ457/hIJOP7iuvfb8d2pwjPM+jHQPWMi5YuOB/Qyl8F/
+ G/796pMgd0tO8QXRa3twQL1il6qkkLsZZ+M5KjfDXC8bDjP6WF4hHiEla7s23vR7wE61
+ VTVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mbMuxJHVPAc7Wx25YihDuP2TpUDE5CiHWoqylZyuUYQ=;
+ b=I4ICNI6jSeGtQ9mcxZiepLcMerbB4JzInryxt38GHJ5Ur7NP7pAExwy1TJen8Ou638
+ ck+3oEaHOfUenuz6FTWYtkbSmnJVTb6EfzBndSJG4XPgLhzttxGkZHpXQD5yJXCR3sD9
+ +cUNT7oCRhwHjo12ccWEUtn9yd8Us0IcaN+rDo3+A0di8QR8IYLdYJoO6dMbeOXj9MGI
+ qDWFoiJTGQd1pKMsVr9ahRcPFK07XtiOw3Dq3/4pEfXBZUGO2BDN7MJP2ccSy5b/85ac
+ 3MYoYuuf9j5/yB3f9reURxbDZTmsDbEjFllvPmz5idAGM1dSm/B1uwBduJHTNbQQO5Yc
+ henQ==
+X-Gm-Message-State: AOAM531nC7qcuZ5bmxJZoUXnF8iRt/c4thfOhoEBYAfeWGPgm5UKEUFH
+ khzDzp5lrMicSYg9ZeXwAVF5S9iAM/I=
+X-Google-Smtp-Source: ABdhPJwQz42PMmtDccUntyHIAsoraoBhP75XfY12Sgkd4yJ94+Jjs2/881q4KhZf+UPOOFn8kk6mCw==
+X-Received: by 2002:a05:6402:1770:: with SMTP id
+ da16mr8774636edb.122.1590769101539; 
+ Fri, 29 May 2020 09:18:21 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com.
+ [209.85.221.46])
+ by smtp.gmail.com with ESMTPSA id r18sm6009683eds.29.2020.05.29.09.18.21
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 May 2020 09:18:21 -0700 (PDT)
+Received: by mail-wr1-f46.google.com with SMTP id j10so4300149wrw.8
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2020 09:18:21 -0700 (PDT)
+X-Received: by 2002:adf:e648:: with SMTP id b8mr9718468wrn.386.1590769100791; 
+ Fri, 29 May 2020 09:18:20 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200529160621.3123-1-tamas@tklengyel.com>
+ <69225f69-3ca0-c759-03a5-60d6464a7eb4@citrix.com>
+In-Reply-To: <69225f69-3ca0-c759-03a5-60d6464a7eb4@citrix.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 29 May 2020 10:17:45 -0600
+X-Gmail-Original-Message-ID: <CABfawhkeo+5t+ofGs25pzVhR0RO6QYaYQbQv0f-baB+i9uAOxg@mail.gmail.com>
+Message-ID: <CABfawhkeo+5t+ofGs25pzVhR0RO6QYaYQbQv0f-baB+i9uAOxg@mail.gmail.com>
+Subject: Re: [PATCH for-4.14] tools/libxl: fix setting altp2m param broken by
+ 1e9bc407cf0
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,36 +79,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gTWF5IDI5LCAyMDIwLCBhdCAxMjo0NiBQTSwgRGFyaW8gRmFnZ2lvbGkgPGRmYWdn
-aW9saUBzdXNlLmNvbT4gd3JvdGU6DQo+IA0KPiBTbywNCj4gDQo+IEkgZmVsdCBsaWtlIHByb3Zp
-ZGluZyBzb21lIGFkZGl0aW9uYWwgdGhvdWdodHMgYWJvdXQgdGhpcyBzZXJpZXMsIGZyb20NCj4g
-YSByZWxlYXNlIHBvaW50IG9mIHZpZXcgKGFkZGluZyBQYXVsKS4NCj4gDQo+IFRpbWluZyBpcyAq
-YmV5b25kIHRpZ2h0KiBzbyBpZiB0aGlzIHNlcmllcywgZW50aXJlbHkgb3IgcGFydGx5LCBoYXMg
-YW55DQo+IGNoYW5jZSB0byBnbyBpbiwgaXQgd291bGQgYmUgdGhyb3VnaCBzb21lIGZvcm0gb2Yg
-ZXhjZXB0aW9uLCB3aGljaCBvZg0KPiBjb3Vyc2UgY29tZXMgd2l0aCBzb21lIHJpc2tzLCBldGMu
-DQo+IA0KPiBJIGRpZCB3b3JrIGhhcmQgdG8gc3VibWl0IHRoZSBmdWxsIHNlcmllcywgYmVjYXVz
-ZSBJIHdhbnRlZCBwZW9wbGUgdG8NCj4gYmUgYWJsZSB0byBzZWUgdGhlIGNvbXBsZXRlIHNvbHV0
-aW9uLiBIb3dldmVyLCBJIHRoaW5rIHRoZSBzZXJpZXMNCj4gaXRzZWxmIGNhbiBiZSBsb2dpY2Fs
-bHkgc3BsaXQgaW4gdHdvIHBhcnRzLg0KPiANCj4gQmFzaWNhbGx5LCBpZiB3ZSBqdXN0IGNvbnNp
-ZGVyIHBhdGNoZXMgMSBhbmQgNCB3ZSB3aWxsIGVuZCB1cCwgcmlnaHQNCj4gYWZ0ZXIgYm9vdCwg
-d2l0aCBhIHN5c3RlbSB0aGF0IGhhcyBzbWFsbGVyIHJ1bnF1ZXVlcy4gVGhleSB3aWxsIG1vc3QN
-Cj4gbGlrZWx5IGJlIGJhbGFuY2VkIGluIHRlcm1zIG9mIGhvdyBtYW55IENQVXMgZWFjaCBvbmUg
-aGFzLCBzbyBhIGdvb2QNCj4gc2V0dXAuIFRoaXMgd2lsbCBsaWtlbHkgKGFjdHVhbCBkaWZmZXJl
-bmNlcyBzZWVtcyB0byBkZXBlbmQgKnF1aXRlIGENCj4gYml0KiBvbiB0aGUgYWN0dWFsIHdvcmts
-b2FkKSBiZSBhbiBpbXByb3ZlbWVudCBmb3IgdmVyeSBsYXJnZSBzeXN0ZW1zLg0KDQpGdW5kYW1l
-bnRhbGx5LCBJIGZlZWwgbGlrZSB0aGUgcmVhc29uIHdlIGhhdmUgdGhlIGZlYXR1cmUgZnJlZXpl
-IGlzIGV4YWN0bHkgdG8gaGF2ZSB0byBhdm9pZCBxdWVzdGlvbnMgbGlrZSB0aGlzLiAgU29tZXRo
-aW5nIHZlcnkgbXVjaCBsaWtlIHBhdGNoIDQgd2FzIHBvc3RlZCBiZWZvcmUgdGhlIGxhc3QgcG9z
-dGluZyBkYXRlOyBwYXRjaGVzIDEtNCByZWNlaXZlZCBSLWLigJlzIGJlZm9yZSB0aGUgZmVhdHVy
-ZSBmcmVlemUuICBJIHRoaW5rIHRoZXkgc2hvdWxkIHByb2JhYmx5IGdvIGluLg0KDQpUaGUgcmVi
-YWxhbmNpbmcgcGF0Y2hlcyBJ4oCZbSBpbmNsaW5lZCB0byBzYXkgc2hvdWxkIHdhaXQgdW50aWwg
-dGhleeKAmXZlIGhhZCBhIGJpdCBtb3JlIHRpbWUgdG8gYmUgdGhvdWdodCBhYm91dC4NCg0KIC1H
-ZW9yZ2UNCg0K
+On Fri, May 29, 2020 at 10:15 AM Andrew Cooper
+<andrew.cooper3@citrix.com> wrote:
+>
+> On 29/05/2020 17:06, Tamas K Lengyel wrote:
+> > The patch 1e9bc407cf0 mistakenly converted the altp2m config option to a
+> > boolean. This is incorrect and breaks external-only usecases of altp2m that
+> > is set with a value of 2.
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+>
+> Urg yes.  Sorry.
+>
+> However, this doesn't build because there is another use of the altp2m
+> variable between the two hunks below, for compatiblity with the older
+> altp2mhvm option.
+
+Eh, so much for hastily sending a patch with last minute changes.
+
+>
+> I think changing its type just to int out to suffice?
+
+Indeed, that would work as well. Let me just resend with that.
+
+Tamas
 
