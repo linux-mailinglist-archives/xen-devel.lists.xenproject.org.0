@@ -2,63 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F0911E8525
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 19:38:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD3561E8547
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 19:40:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeixE-00059E-RZ; Fri, 29 May 2020 17:38:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jeizn-00062d-JN; Fri, 29 May 2020 17:40:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T8V9=7L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jeixD-000599-F8
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 17:37:59 +0000
-X-Inumbo-ID: 22f34fd4-a1d3-11ea-a8f4-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 22f34fd4-a1d3-11ea-a8f4-12813bfff9fa;
- Fri, 29 May 2020 17:37:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=48+5Rw/R1syS3jfI2y3hLLwuwfTh6AZnuM/wwuXlfZQ=; b=LwBq4Cx5+C+WrN8ZEMna1xcwc
- 4LCtyzM0acLfjU92AqrIpSlcVu6jlD+y/oVr3w3tXqwB7KkkN3MI/7M0wmTLuZSmYKHHhAZ9gv1RU
- JGJBkYhtAf941EDgEQNAQ5jsqtlOudmlTCoCtjdh4yf0VFUyxS9IU96AkSELuDKlHHlL4=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jeixB-00030g-Sv; Fri, 29 May 2020 17:37:57 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jeixB-0005PU-HH; Fri, 29 May 2020 17:37:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jeixB-0008Uf-GU; Fri, 29 May 2020 17:37:57 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150495-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=U2UY=7L=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jeizl-00061j-Vr
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 17:40:38 +0000
+X-Inumbo-ID: 81679c96-a1d3-11ea-8993-bc764e2007e4
+Received: from mail-ej1-x642.google.com (unknown [2a00:1450:4864:20::642])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 81679c96-a1d3-11ea-8993-bc764e2007e4;
+ Fri, 29 May 2020 17:40:37 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id k11so2854084ejr.9
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2020 10:40:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7HK8mOY3BV+ku81uwlyallfkjvbwlZmNX57RqeAJgfE=;
+ b=Y/CF7+JFBOAU3Cer6Y6reC7djOCMUs0Iag2bhU978XqlKJ6F0z29VBrkeE/LtHnx1w
+ mvG/MucZxWK7ktgdOEDPVyfKfICl9ufTuH7vtc74lZIaL+nT1Mn7Yv+VMHJlxgUpa9fa
+ cn0N8GkIcLUTORIQVB/jJi/IjT0FnK0i3KES5uXqqYnB2rRWSAUahX6BLkpsDreyUgnR
+ KcKSSptK0AEwva5+o+af0WgR2YyURAvdKtDwNb36LxbJ933ThXXl75pz6XQf1yOAwv8U
+ Lhgk/VUcxvq4IeeesaGmOX7SQwz0xjtGyYurxv2uh3NdLVugdbT2bGIhUqQBFvMeSQ4y
+ qu1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7HK8mOY3BV+ku81uwlyallfkjvbwlZmNX57RqeAJgfE=;
+ b=h4GMFOP5fxJCPWUDIekyr3XnRl2xHwmC6tEvC7xQYF46BIV3MtKp5OIUjCH6dfOiC5
+ A2PsZUYOzEShwBUIiU0q/UNtz87KUF8N+qOISAki+Lc7FNiRbSw5aXFW5UqVqJkkBriK
+ keRmljsxBc6HQchPI2bGx3kbhY7yrNxNavCrZTpuHbRjdkSvdcobJLvCrf/gpvB1Sn8U
+ R2Kb9bDR4RTQmKj5K4l+UX0+9zbabccEdJ7R8sFaImRHCIVAZvqwe5ahmF8TaiKIS0Lq
+ eUpapnfbQ9jawRQqJmaQR8xLKP9pCOxsU1ZNebne48vCrp4haHYn06GsjSwh6HZIf8nX
+ BOQA==
+X-Gm-Message-State: AOAM5306XyyEjZ5UfRkZ+asHTcWcH+fr6BdsZxoxPBMtjXRGSwJDd+ca
+ AKgZFMP/DEJFhzqdWFUM00QP75Rmwoc=
+X-Google-Smtp-Source: ABdhPJx1fM/0VSQwF3JWyKgY34j4nwomCbWk5GlXiEWHYJTWgcWyh3wFksZqpcM84kw5/Et3CAkDOQ==
+X-Received: by 2002:a17:907:217a:: with SMTP id
+ rl26mr8473721ejb.209.1590774036440; 
+ Fri, 29 May 2020 10:40:36 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com.
+ [209.85.128.50])
+ by smtp.gmail.com with ESMTPSA id h8sm7510406edk.72.2020.05.29.10.40.35
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 May 2020 10:40:35 -0700 (PDT)
+Received: by mail-wm1-f50.google.com with SMTP id r15so4565448wmh.5
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2020 10:40:35 -0700 (PDT)
+X-Received: by 2002:a1c:1b13:: with SMTP id b19mr8783754wmb.84.1590774035183; 
+ Fri, 29 May 2020 10:40:35 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150495: regressions - trouble: blocked/fail
-X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
- xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-armhf:xen-build:fail:regression
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: xen=51f9df5c19f2b8a780aa2547cdf3d20736bfddcc
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 May 2020 17:37:57 +0000
+References: <20200529162234.16824-1-tamas@tklengyel.com>
+ <00da0381-e132-03e1-3717-02f4e968ec32@citrix.com>
+ <24273.14616.523593.758476@mariner.uk.xensource.com>
+In-Reply-To: <24273.14616.523593.758476@mariner.uk.xensource.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 29 May 2020 11:39:59 -0600
+X-Gmail-Original-Message-ID: <CABfawhnf7jMDFZxzmEi65d13Wqttuju5=Bm2C5vi0Us7wKSaEQ@mail.gmail.com>
+Message-ID: <CABfawhnf7jMDFZxzmEi65d13Wqttuju5=Bm2C5vi0Us7wKSaEQ@mail.gmail.com>
+Subject: Re: [PATCH v2 for-4.14] tools/libxl: fix setting altp2m param broken
+ by 1e9bc407cf0
+To: Ian Jackson <ian.jackson@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,74 +80,31 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150495 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150495/
+On Fri, May 29, 2020 at 10:32 AM Ian Jackson <ian.jackson@citrix.com> wrote:
+>
+> Andrew Cooper writes ("Re: [PATCH v2 for-4.14] tools/libxl: fix setting altp2m param broken by 1e9bc407cf0"):
+> > On 29/05/2020 17:22, Tamas K Lengyel wrote:
+> > > The patch 1e9bc407cf0 mistakenly converted the altp2m config option to a
+> > > boolean. This is incorrect and breaks external-only usecases of altp2m that
+> > > is set with a value of 2.
+> > >
+> > > Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> >
+> > Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >
+> > Sorry for breaking it to begin with.
+>
+> Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+>
+> and pushed.
 
-Regressions :-(
+Thanks for the fast turn around.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-xsm               6 xen-build                fail REGR. vs. 150438
- build-amd64                   6 xen-build                fail REGR. vs. 150438
- build-armhf                   6 xen-build                fail REGR. vs. 150438
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
-
-version targeted for testing:
- xen                  51f9df5c19f2b8a780aa2547cdf3d20736bfddcc
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
-
-Last test of basis   150438  2020-05-28 14:01:19 Z    1 days
-Failing since        150465  2020-05-29 09:02:14 Z    0 days    6 attempts
-Testing same since   150495  2020-05-29 16:03:10 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 442 lines long.)
+Tamas
 
