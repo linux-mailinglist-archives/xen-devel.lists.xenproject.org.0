@@ -2,40 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66EF81E76B9
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 09:35:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A97781E770F
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 09:40:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeZY7-0006WW-KH; Fri, 29 May 2020 07:35:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jeZcy-0007Pn-Bx; Fri, 29 May 2020 07:40:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jeZY6-0006WR-4Y
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 07:35:26 +0000
-X-Inumbo-ID: f52bc116-a17e-11ea-8993-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f52bc116-a17e-11ea-8993-bc764e2007e4;
- Fri, 29 May 2020 07:35:24 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A12EEB032;
- Fri, 29 May 2020 07:35:22 +0000 (UTC)
-Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
-To: Julien Grall <julien@xen.org>
-References: <cover.1590675919.git.bertrand.marquis@arm.com>
- <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
- <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <dcfbca54-4773-9f43-1826-f5137a41bd9f@suse.com>
-Date: Fri, 29 May 2020 09:35:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ (envelope-from <SRS0=3I2r=7L=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
+ id 1jeZcx-0007PN-8p
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 07:40:27 +0000
+X-Inumbo-ID: a2e19467-a17f-11ea-a877-12813bfff9fa
+Received: from us-smtp-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id a2e19467-a17f-11ea-a877-12813bfff9fa;
+ Fri, 29 May 2020 07:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1590738015;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pQn0bGDZvr2S3O3jxeuAg3AzJn+Iii0I+O8+ViqeBjo=;
+ b=SqRBi73QcIL5NcVeB4u3EvriEeKDSGPFd/PAvU61uYSDUvRqwqcPSXQlDSzSHn5yzsBHkN
+ GRcEEBWCWjIjeDYR19ZQm8H3uuoNotltZ9mCNCHBv0yxYxNtpnmeszq3tNnlPDyCGBmMSV
+ l7saN9urTortR/fOYqlbU2sggbuGZJE=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-258-j2IMzAvKPCG-RW4t-W3vUw-1; Fri, 29 May 2020 03:40:14 -0400
+X-MC-Unique: j2IMzAvKPCG-RW4t-W3vUw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DF73D800D24;
+ Fri, 29 May 2020 07:40:12 +0000 (UTC)
+Received: from sirius.home.kraxel.org (ovpn-113-50.ams2.redhat.com
+ [10.36.113.50])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6EB1FA1035;
+ Fri, 29 May 2020 07:39:58 +0000 (UTC)
+Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
+ id 3314616E2C; Fri, 29 May 2020 09:39:57 +0200 (CEST)
+From: Gerd Hoffmann <kraxel@redhat.com>
+To: qemu-devel@nongnu.org
+Subject: [PATCH v3 0/4] microvm: memory config tweaks
+Date: Fri, 29 May 2020 09:39:53 +0200
+Message-Id: <20200529073957.8018-1-kraxel@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -47,43 +65,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "paul@xen.org" <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "Xia,
- Hongyan" <hongyxia@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org,
- nd@arm.com, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Eduardo Habkost <ehabkost@redhat.com>, Sergio Lopez <slp@redhat.com>,
+ Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ imammedo@redhat.com, Gerd Hoffmann <kraxel@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, xen-devel@lists.xenproject.org,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, philmd@redhat.com,
+ Richard Henderson <rth@twiddle.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.05.2020 20:54, Julien Grall wrote:
-> On 28/05/2020 16:25, Bertrand Marquis wrote:
->> At the moment on Arm, a Linux guest running with KTPI enabled will
->> cause the following error when a context switch happens in user mode:
->> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va 0xffffff837ebe0cd0
->>
->> This patch is modifying runstate handling to map the area given by the
->> guest inside Xen during the hypercall.
->> This is removing the guest virtual to physical conversion during context
->> switches which removes the bug
-> 
-> It would be good to spell out that a virtual address is not stable. So 
-> relying on it is wrong.
+With more microvm memory config tweaks split this into its owns series,
+the microvm acpi patch series is already big enough ...
 
-Guests at present are permitted to change the mapping underneath the
-virtual address provided (this may not be the best idea, but the
-interface is like it is). Therefore I don't think the present
-interface can be changed like this. Instead a new interface will need
-adding which takes a guest physical address instead. (Which, in the
-end, will merely be one tiny step towards making the hypercall
-interfaces use guest physical addresses. And it would be nice if an
-overall concept was hashed out first how that conversion should
-occur, such that the change here could at least be made fit that
-planned model. For example, an option might be to retain all present
-hypercall numbering and simply dedicate a bit in the top level
-hypercall numbers indicating whether _all_ involved addresses for
-that operation are physical vs virtual ones.)
+v2:
+ - use 3G split.
+ - add patch to move virtio-mmio region.
+ - pick up acks & reviews.
+v3:
+ - fix xen build.
+ - pick up acks & reviews.
 
-Jan
+take care,
+  Gerd
+
+Gerd Hoffmann (4):
+  microvm: use 3G split unconditionally
+  microvm: drop max-ram-below-4g support
+  x86: move max-ram-below-4g to pc
+  microvm: move virtio base to 0xfeb00000
+
+ include/hw/i386/microvm.h |  2 +-
+ include/hw/i386/pc.h      |  2 ++
+ include/hw/i386/x86.h     |  4 ----
+ hw/i386/microvm.c         | 35 +----------------------------
+ hw/i386/pc.c              | 46 +++++++++++++++++++++++++++++++++++++++
+ hw/i386/pc_piix.c         | 10 ++++-----
+ hw/i386/pc_q35.c          | 10 ++++-----
+ hw/i386/x86.c             | 46 ---------------------------------------
+ hw/i386/xen/xen-hvm.c     |  2 +-
+ 9 files changed, 61 insertions(+), 96 deletions(-)
+
+-- 
+2.18.4
+
 
