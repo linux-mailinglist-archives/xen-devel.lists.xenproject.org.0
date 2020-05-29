@@ -2,64 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F35BC1E838F
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 18:22:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36C401E8397
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 18:25:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jehmO-00067W-Rr; Fri, 29 May 2020 16:22:44 +0000
+	id 1jehoW-0006EL-9I; Fri, 29 May 2020 16:24:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U2UY=7L=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jehmN-00067R-Lf
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 16:22:43 +0000
-X-Inumbo-ID: 9f941326-a1c8-11ea-8993-bc764e2007e4
-Received: from mail-oi1-x244.google.com (unknown [2607:f8b0:4864:20::244])
+ <SRS0=mY44=7L=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1jehoU-0006EG-VX
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 16:24:55 +0000
+X-Inumbo-ID: ed8a5be4-a1c8-11ea-9947-bc764e2007e4
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9f941326-a1c8-11ea-8993-bc764e2007e4;
- Fri, 29 May 2020 16:22:43 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id w4so3090107oia.1
- for <xen-devel@lists.xenproject.org>; Fri, 29 May 2020 09:22:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3Fg0rrM7+ln+XqJgJiVqac7czaLMntvGuEOYTNHktkI=;
- b=ZhavIuKTFVV6ev207J3C345uY8iNeT4+Sr6NNp4U+FDt+DL8ea660azh03fumFDCOq
- 4nIrNIIJhoSeYwgLzcuHClSRTefBGPwhEita1r+08/LTdJ9+fJWS38LPX/0KlK9QnPbF
- Z4ONcl4Iiqfy9ti+Q/lIGPbeJWvIHN6qx4iZ27+Ml8ltzYTHbS5qNdSdp7vZvp847+ne
- BVVmADmWb2I6AyA70hcwCY8jYIxO7qQgK0ZxdObyayCzqAqJjrfcWl2JT7nl/0PD0UZH
- XliT6HA6HuOr1mGAjrL9OQ2/klsho8nPwr6FL/OGuFjK8J/hHxyZCsRDMXlQGgf8h7tJ
- wfaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3Fg0rrM7+ln+XqJgJiVqac7czaLMntvGuEOYTNHktkI=;
- b=Ptt/hsuuXmTqs8n+KsuF+hHCGYk6QCCFmrZewl21CXfj8aFRMixlB7oUgb8ptTL548
- Rxt+8opqg2yijdV93TmoA0MgXwBKo8nb7VLcjdIv/fzQJyiQDjMy09a+7T/s83Hha25a
- rVDgnob2tanAvZUKc9DfbhAl5/jZ4YieHjIgl8BW1TakvWNJOMg3jcl2mK3TErY0f+rZ
- bfx7xbMz4oPJU1HHP3dxWmbQozDTm7Elox787+G8DZ1apFqDS6P7YtQNwcuJPel7ESfj
- mTWw5Cj17MNc93OwVkl2fQ7AbxqrgJr1UVesj8oqiK8XU5UUeww1yM+YIW+hyQpMWI97
- Uccw==
-X-Gm-Message-State: AOAM532c/EGY9v8qyOMH4IrG7rN1xsO4BLvPETHCSLheWD0Z34/sMrJj
- 2L4JfGFSp2sS/VSSFnrkfjgNb09ou8k=
-X-Google-Smtp-Source: ABdhPJywU00eYjcmhRsCu/lkigi4LaEqjW2ZrgqQ0Q+Ct/rP1p9cVAZmXdDdb9l0vGGeuZ/FhIjqGQ==
-X-Received: by 2002:aca:b585:: with SMTP id e127mr622601oif.52.1590769357368; 
- Fri, 29 May 2020 09:22:37 -0700 (PDT)
-Received: from localhost (c-71-205-12-124.hsd1.co.comcast.net. [71.205.12.124])
- by smtp.gmail.com with ESMTPSA id 89sm2599596oth.9.2020.05.29.09.22.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 May 2020 09:22:36 -0700 (PDT)
-From: Tamas K Lengyel <tamas@tklengyel.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2 for-4.14] tools/libxl: fix setting altp2m param broken by
- 1e9bc407cf0
-Date: Fri, 29 May 2020 10:22:34 -0600
-Message-Id: <20200529162234.16824-1-tamas@tklengyel.com>
-X-Mailer: git-send-email 2.26.2
+ id ed8a5be4-a1c8-11ea-9947-bc764e2007e4;
+ Fri, 29 May 2020 16:24:54 +0000 (UTC)
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:35382
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1jehoR-000ouI-Lu (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Fri, 29 May 2020 17:24:51 +0100
+Subject: Re: [PATCH v3] x86/PV: remove unnecessary toggle_guest_pt() overhead
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <24d8b606-f74b-9367-d67e-e952838c7048@suse.com>
+ <d7840278-b999-65fa-40bf-2b78e5266837@citrix.com>
+ <a6084473-2fb7-4106-66a4-d180ef483314@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <3dc314dd-3016-aa5e-c327-834b88e9eec2@citrix.com>
+Date: Fri, 29 May 2020 17:24:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <a6084473-2fb7-4106-66a4-d180ef483314@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,38 +52,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The patch 1e9bc407cf0 mistakenly converted the altp2m config option to a
-boolean. This is incorrect and breaks external-only usecases of altp2m that
-is set with a value of 2.
+On 22/05/2020 11:07, Jan Beulich wrote:
+> On 21.05.2020 18:46, Andrew Cooper wrote:
+>> On 05/05/2020 07:16, Jan Beulich wrote:
+>>> While the mere updating of ->pv_cr3 and ->root_pgt_changed aren't overly
+>>> expensive (but still needed only for the toggle_guest_mode() path), the
+>>> effect of the latter on the exit-to-guest path is not insignificant.
+>>> Move the logic into toggle_guest_mode(), on the basis that
+>>> toggle_guest_pt() will always be invoked in pairs, yet we can't safely
+>>> undo the setting of root_pgt_changed during the second of these
+>>> invocations.
+>>>
+>>> While at it, add a comment ahead of toggle_guest_pt() to clarify its
+>>> intended usage.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> I'm still of the opinion that the commit message wants rewriting to get
+>> the important points across clearly.
+>>
+>> And those are that toggle_guest_pt() is called in pairs specifically to
+>> read kernel data structures when emulating a userspace action, and that
+>> this doesn't modify cr3 from the guests point of view, and therefore
+>> doesn't need the resync on exit-to-guest path.
+> Is this
+>
+> "toggle_guest_pt() is called in pairs, to read guest kernel data
+>  structures when emulating a guest userspace action. Hence this doesn't
+>  modify cr3 from the guest's point of view, and therefore doesn't need
+>  any resync on the exit-to-guest path. Therefore move the updating of
+>  ->pv_cr3 and ->root_pgt_changed into toggle_guest_mode(), since undoing
+>  the changes during the second of these invocations wouldn't be a safe
+>  thing to do."
+>
+> any better?
 
-Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
----
-v2: just convert bool to unsigned int
----
- tools/libxl/libxl_x86.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes - that will do.
 
-diff --git a/tools/libxl/libxl_x86.c b/tools/libxl/libxl_x86.c
-index f8bc828e62..e57f63282e 100644
---- a/tools/libxl/libxl_x86.c
-+++ b/tools/libxl/libxl_x86.c
-@@ -391,7 +391,7 @@ static int hvm_set_conf_params(libxl__gc *gc, uint32_t domid,
-     libxl_ctx *ctx = libxl__gc_owner(gc);
-     xc_interface *xch = ctx->xch;
-     int ret = ERROR_FAIL;
--    bool altp2m = info->altp2m;
-+    unsigned int altp2m = info->altp2m;
- 
-     switch(info->type) {
-     case LIBXL_DOMAIN_TYPE_HVM:
--- 
-2.26.2
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
