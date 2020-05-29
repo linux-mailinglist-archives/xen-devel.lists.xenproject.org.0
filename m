@@ -2,63 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 138151E79E1
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F2E51E79E5
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:56:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jebhv-0004QX-Ni; Fri, 29 May 2020 09:53:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TCiv=7L=redhat.com=armbru@srs-us1.protection.inumbo.net>)
- id 1jebhu-0004QK-3D
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:53:42 +0000
-X-Inumbo-ID: 4682678c-a192-11ea-81bc-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 4682678c-a192-11ea-81bc-bc764e2007e4;
- Fri, 29 May 2020 09:53:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1590746020;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GBbcRVFEfSxughTklZo44hT/qdDRmX6G0cum4Aww9eQ=;
- b=V31SYRYB+IKCCsOr8DFt+iQ9dOkMDn9oczKRCnTmSoYJBe3PYWwYDHCQS5ByV7YvGPs2Cj
- Bk4Z9z18MbzLBnrPsZm2IajMTe7+LPGUUIp3BweywGDJZt+XsxXH1T4jzk+yUfLEp0D4PF
- WVcs1Q5eB33Hy30RJDlRyipLewg+yCs=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-250-hXw6j1zUO6qJWRJ1JtaZ6A-1; Fri, 29 May 2020 05:53:38 -0400
-X-MC-Unique: hXw6j1zUO6qJWRJ1JtaZ6A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A3FFABFC7;
- Fri, 29 May 2020 09:53:36 +0000 (UTC)
-Received: from blackfin.pond.sub.org (ovpn-112-32.ams2.redhat.com
- [10.36.112.32])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AC8F110013D4;
- Fri, 29 May 2020 09:53:27 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 2BDC6113864A; Fri, 29 May 2020 11:53:26 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: Roman Kagan <rvkagan@yandex-team.ru>
-Subject: Re: [PATCH v8 2/8] block: consolidate blocksize properties
- consistency checks
-References: <20200528225516.1676602-1-rvkagan@yandex-team.ru>
- <20200528225516.1676602-3-rvkagan@yandex-team.ru>
-Date: Fri, 29 May 2020 11:53:26 +0200
-In-Reply-To: <20200528225516.1676602-3-rvkagan@yandex-team.ru> (Roman Kagan's
- message of "Fri, 29 May 2020 01:55:10 +0300")
-Message-ID: <87r1v3m5ih.fsf@dusky.pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
+	id 1jebjz-0004d5-7n; Fri, 29 May 2020 09:55:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K2ub=7L=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jebjy-0004cz-6V
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:55:50 +0000
+X-Inumbo-ID: 927d5048-a192-11ea-a884-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 927d5048-a192-11ea-a884-12813bfff9fa;
+ Fri, 29 May 2020 09:55:48 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: APnZCmYO1jHiQ2/5NGVObmdQqF1pqHQbm6o5GYuCIiegfTwXA22LRJ1aJj5icJvgnW/aBMX+r+
+ RWYXaeivtT33PvrMNm+F+LOkD+fcAJMPrBc3yfKy79maqNvF0EFmSU2eKNn8IDnh/VrkIj2U+n
+ OQGOJEcYWiYa/IHLNQGUKnk/xRmHTH2mnoEFyvloV4+H+61yGcGWlEl4HBrbDrMAKHU3gTYpUU
+ ClynxUM4S6MAe74NSHoiuo0WxlwLFOGwHXJ/sfgkk0rWWrWylAVlyBDbb9WC0YFizk0OmKWvSr
+ zCU=
+X-SBRS: 2.7
+X-MesageID: 18996183
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,448,1583211600"; d="scan'208";a="18996183"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: Xen XSM/FLASK policy, grub defaults, etc.
+Thread-Topic: Xen XSM/FLASK policy, grub defaults, etc.
+Thread-Index: AQHWND0/xSJFUOR5YU28XikgbPuX46i7+DWAgAKqrACAABHAAA==
+Date: Fri, 29 May 2020 09:55:44 +0000
+Message-ID: <9A98D1CA-83E5-4E03-8ED6-E353653338CB@citrix.com>
+References: <24270.35349.838484.116865@mariner.uk.xensource.com>
+ <0D83AAA6-A205-4256-8A38-CC8122AC063D@citrix.com>
+ <757d53a0-ec8f-62f1-ca20-72eaf9e1c84d@suse.com>
+In-Reply-To: <757d53a0-ec8f-62f1-ca20-72eaf9e1c84d@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <F4C8026B8615C34A912099095CD116CF@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,293 +64,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Fam Zheng <fam@euphon.net>, Kevin Wolf <kwolf@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. =?utf-8?Q?Berrang=C3=A9?=" <berrange@redhat.com>,
- Eduardo Habkost <ehabkost@redhat.com>, qemu-block@nongnu.org,
- Paul Durrant <paul@xen.org>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, qemu-devel@nongnu.org,
- Laurent Vivier <laurent@vivier.eu>, Anthony Perard <anthony.perard@citrix.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- xen-devel@lists.xenproject.org, Keith Busch <kbusch@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Max Reitz <mreitz@redhat.com>,
- John Snow <jsnow@redhat.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, "cjwatson@debian.org" <cjwatson@debian.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Roman Kagan <rvkagan@yandex-team.ru> writes:
-
-> Several block device properties related to blocksize configuration must
-> be in certain relationship WRT each other: physical block must be no
-> smaller than logical block; min_io_size, opt_io_size, and
-> discard_granularity must be a multiple of a logical block.
->
-> To ensure these requirements are met, add corresponding consistency
-> checks to blkconf_blocksizes, adjusting its signature to communicate
-> possible error to the caller.  Also remove the now redundant consistency
-> checks from the specific devices.
->
-> Signed-off-by: Roman Kagan <rvkagan@yandex-team.ru>
-> Reviewed-by: Eric Blake <eblake@redhat.com>
-> Reviewed-by: Paul Durrant <paul@xen.org>
-> ---
->  include/hw/block/block.h   |  2 +-
->  hw/block/block.c           | 30 +++++++++++++++++++++++++++++-
->  hw/block/fdc.c             |  5 ++++-
->  hw/block/nvme.c            |  5 ++++-
->  hw/block/swim.c            |  5 ++++-
->  hw/block/virtio-blk.c      |  7 +------
->  hw/block/xen-block.c       |  6 +-----
->  hw/ide/qdev.c              |  5 ++++-
->  hw/scsi/scsi-disk.c        | 12 +++++-------
->  hw/usb/dev-storage.c       |  5 ++++-
->  tests/qemu-iotests/172.out |  2 +-
->  11 files changed, 58 insertions(+), 26 deletions(-)
->
-> diff --git a/include/hw/block/block.h b/include/hw/block/block.h
-> index d7246f3862..784953a237 100644
-> --- a/include/hw/block/block.h
-> +++ b/include/hw/block/block.h
-> @@ -87,7 +87,7 @@ bool blk_check_size_and_read_all(BlockBackend *blk, void *buf, hwaddr size,
->  bool blkconf_geometry(BlockConf *conf, int *trans,
->                        unsigned cyls_max, unsigned heads_max, unsigned secs_max,
->                        Error **errp);
-> -void blkconf_blocksizes(BlockConf *conf);
-> +bool blkconf_blocksizes(BlockConf *conf, Error **errp);
->  bool blkconf_apply_backend_options(BlockConf *conf, bool readonly,
->                                     bool resizable, Error **errp);
->  
-> diff --git a/hw/block/block.c b/hw/block/block.c
-> index bf56c7612b..b22207c921 100644
-> --- a/hw/block/block.c
-> +++ b/hw/block/block.c
-> @@ -61,7 +61,7 @@ bool blk_check_size_and_read_all(BlockBackend *blk, void *buf, hwaddr size,
->      return true;
->  }
->  
-> -void blkconf_blocksizes(BlockConf *conf)
-> +bool blkconf_blocksizes(BlockConf *conf, Error **errp)
->  {
->      BlockBackend *blk = conf->blk;
->      BlockSizes blocksizes;
-> @@ -83,6 +83,34 @@ void blkconf_blocksizes(BlockConf *conf)
->              conf->logical_block_size = BDRV_SECTOR_SIZE;
->          }
->      }
-> +
-> +    if (conf->logical_block_size > conf->physical_block_size) {
-> +        error_setg(errp,
-> +                   "logical_block_size > physical_block_size not supported");
-> +        return false;
-> +    }
-
-Pardon me if this has been answered already for prior revisions: do we
-really support physical block sizes that are not a multiple of the
-logical block size?
-
-> +
-> +    if (!QEMU_IS_ALIGNED(conf->min_io_size, conf->logical_block_size)) {
-> +        error_setg(errp,
-> +                   "min_io_size must be a multiple of logical_block_size");
-> +        return false;
-> +    }
-> +
-> +    if (!QEMU_IS_ALIGNED(conf->opt_io_size, conf->logical_block_size)) {
-> +        error_setg(errp,
-> +                   "opt_io_size must be a multiple of logical_block_size");
-> +        return false;
-> +    }
-> +
-> +    if (conf->discard_granularity != -1 &&
-> +        !QEMU_IS_ALIGNED(conf->discard_granularity,
-> +                         conf->logical_block_size)) {
-> +        error_setg(errp, "discard_granularity must be "
-> +                   "a multiple of logical_block_size");
-> +        return false;
-> +    }
-> +
-> +    return true;
->  }
->  
->  bool blkconf_apply_backend_options(BlockConf *conf, bool readonly,
-> diff --git a/hw/block/fdc.c b/hw/block/fdc.c
-> index c5fb9d6ece..8eda572ef4 100644
-> --- a/hw/block/fdc.c
-> +++ b/hw/block/fdc.c
-> @@ -554,7 +554,10 @@ static void floppy_drive_realize(DeviceState *qdev, Error **errp)
->          read_only = !blk_bs(dev->conf.blk) || blk_is_read_only(dev->conf.blk);
->      }
->  
-> -    blkconf_blocksizes(&dev->conf);
-> +    if (!blkconf_blocksizes(&dev->conf, errp)) {
-> +        return;
-> +    }
-> +
->      if (dev->conf.logical_block_size != 512 ||
->          dev->conf.physical_block_size != 512)
->      {
-> diff --git a/hw/block/nvme.c b/hw/block/nvme.c
-> index 2f3100e56c..672650e162 100644
-> --- a/hw/block/nvme.c
-> +++ b/hw/block/nvme.c
-> @@ -1390,7 +1390,10 @@ static void nvme_realize(PCIDevice *pci_dev, Error **errp)
->          host_memory_backend_set_mapped(n->pmrdev, true);
->      }
->  
-> -    blkconf_blocksizes(&n->conf);
-> +    if (!blkconf_blocksizes(&n->conf, errp)) {
-> +        return;
-> +    }
-> +
->      if (!blkconf_apply_backend_options(&n->conf, blk_is_read_only(n->conf.blk),
->                                         false, errp)) {
->          return;
-> diff --git a/hw/block/swim.c b/hw/block/swim.c
-> index 8f124782f4..74f56e8f46 100644
-> --- a/hw/block/swim.c
-> +++ b/hw/block/swim.c
-> @@ -189,7 +189,10 @@ static void swim_drive_realize(DeviceState *qdev, Error **errp)
->          assert(ret == 0);
->      }
->  
-> -    blkconf_blocksizes(&dev->conf);
-> +    if (!blkconf_blocksizes(&dev->conf, errp)) {
-> +        return;
-> +    }
-> +
->      if (dev->conf.logical_block_size != 512 ||
->          dev->conf.physical_block_size != 512)
->      {
-> diff --git a/hw/block/virtio-blk.c b/hw/block/virtio-blk.c
-> index 413083e62f..4ffdb130be 100644
-> --- a/hw/block/virtio-blk.c
-> +++ b/hw/block/virtio-blk.c
-> @@ -1162,12 +1162,7 @@ static void virtio_blk_device_realize(DeviceState *dev, Error **errp)
->          return;
->      }
->  
-> -    blkconf_blocksizes(&conf->conf);
-> -
-> -    if (conf->conf.logical_block_size >
-> -        conf->conf.physical_block_size) {
-> -        error_setg(errp,
-> -                   "logical_block_size > physical_block_size not supported");
-> +    if (!blkconf_blocksizes(&conf->conf, errp)) {
->          return;
->      }
->  
-> diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-> index 570489d6d9..e17fec50e1 100644
-> --- a/hw/block/xen-block.c
-> +++ b/hw/block/xen-block.c
-> @@ -239,11 +239,7 @@ static void xen_block_realize(XenDevice *xendev, Error **errp)
->          return;
->      }
->  
-> -    blkconf_blocksizes(conf);
-> -
-> -    if (conf->logical_block_size > conf->physical_block_size) {
-> -        error_setg(
-> -            errp, "logical_block_size > physical_block_size not supported");
-> +    if (!blkconf_blocksizes(conf, errp)) {
->          return;
->      }
->  
-> diff --git a/hw/ide/qdev.c b/hw/ide/qdev.c
-> index 06b11583f5..b4821b2403 100644
-> --- a/hw/ide/qdev.c
-> +++ b/hw/ide/qdev.c
-> @@ -187,7 +187,10 @@ static void ide_dev_initfn(IDEDevice *dev, IDEDriveKind kind, Error **errp)
->          return;
->      }
->  
-> -    blkconf_blocksizes(&dev->conf);
-> +    if (!blkconf_blocksizes(&dev->conf, errp)) {
-> +        return;
-> +    }
-> +
->      if (dev->conf.logical_block_size != 512) {
->          error_setg(errp, "logical_block_size must be 512 for IDE");
->          return;
-> diff --git a/hw/scsi/scsi-disk.c b/hw/scsi/scsi-disk.c
-> index 387503e11b..8ce68a9dd6 100644
-> --- a/hw/scsi/scsi-disk.c
-> +++ b/hw/scsi/scsi-disk.c
-> @@ -2346,12 +2346,7 @@ static void scsi_realize(SCSIDevice *dev, Error **errp)
->          return;
->      }
->  
-> -    blkconf_blocksizes(&s->qdev.conf);
-> -
-> -    if (s->qdev.conf.logical_block_size >
-> -        s->qdev.conf.physical_block_size) {
-> -        error_setg(errp,
-> -                   "logical_block_size > physical_block_size not supported");
-> +    if (!blkconf_blocksizes(&s->qdev.conf, errp)) {
->          return;
->      }
->  
-> @@ -2436,7 +2431,9 @@ static void scsi_hd_realize(SCSIDevice *dev, Error **errp)
->      if (s->qdev.conf.blk) {
->          ctx = blk_get_aio_context(s->qdev.conf.blk);
->          aio_context_acquire(ctx);
-> -        blkconf_blocksizes(&s->qdev.conf);
-> +        if (!blkconf_blocksizes(&s->qdev.conf, errp)) {
-> +            goto out;
-> +        }
->      }
->      s->qdev.blocksize = s->qdev.conf.logical_block_size;
->      s->qdev.type = TYPE_DISK;
-> @@ -2444,6 +2441,7 @@ static void scsi_hd_realize(SCSIDevice *dev, Error **errp)
->          s->product = g_strdup("QEMU HARDDISK");
->      }
->      scsi_realize(&s->qdev, errp);
-> +out:
->      if (ctx) {
->          aio_context_release(ctx);
->      }
-> diff --git a/hw/usb/dev-storage.c b/hw/usb/dev-storage.c
-> index 4eba47538d..de461f37bd 100644
-> --- a/hw/usb/dev-storage.c
-> +++ b/hw/usb/dev-storage.c
-> @@ -599,7 +599,10 @@ static void usb_msd_storage_realize(USBDevice *dev, Error **errp)
->          return;
->      }
->  
-> -    blkconf_blocksizes(&s->conf);
-> +    if (!blkconf_blocksizes(&s->conf, errp)) {
-> +        return;
-> +    }
-> +
->      if (!blkconf_apply_backend_options(&s->conf, blk_is_read_only(blk), true,
->                                         errp)) {
->          return;
-> diff --git a/tests/qemu-iotests/172.out b/tests/qemu-iotests/172.out
-> index 7abbe82427..59cc70aebb 100644
-> --- a/tests/qemu-iotests/172.out
-> +++ b/tests/qemu-iotests/172.out
-> @@ -1204,7 +1204,7 @@ Testing: -drive if=none,file=TEST_DIR/t.qcow2 -device floppy,drive=none0,physica
->                  drive-type = "144"
->  
->  Testing: -drive if=none,file=TEST_DIR/t.qcow2 -device floppy,drive=none0,logical_block_size=4096
-> -QEMU_PROG: -device floppy,drive=none0,logical_block_size=4096: Physical and logical block size must be 512 for floppy
-> +QEMU_PROG: -device floppy,drive=none0,logical_block_size=4096: logical_block_size > physical_block_size not supported
->  
->  Testing: -drive if=none,file=TEST_DIR/t.qcow2 -device floppy,drive=none0,physical_block_size=1024
->  QEMU_PROG: -device floppy,drive=none0,physical_block_size=1024: Physical and logical block size must be 512 for floppy
-
-This no longer exercises floppy_drive_realize()'s check of
-logical_block_size:
-
-    if (dev->conf.logical_block_size != 512 ||
-        dev->conf.physical_block_size != 512)
-    {
-        error_setg(errp, "Physical and logical block size must "
-                   "be 512 for floppy");
-        return;
-    }
-
-Please update the test.
-
+DQoNCj4gT24gTWF5IDI5LCAyMDIwLCBhdCA5OjUyIEFNLCBKYW4gQmV1bGljaCA8amJldWxpY2hA
+c3VzZS5jb20+IHdyb3RlOg0KPiANCj4gT24gMjcuMDUuMjAyMCAxODowOCwgR2VvcmdlIER1bmxh
+cCB3cm90ZToNCj4+PiBPbiBNYXkgMjcsIDIwMjAsIGF0IDQ6NDEgUE0sIElhbiBKYWNrc29uIDxp
+YW4uamFja3NvbkBjaXRyaXguY29tPiB3cm90ZToNCj4+PiAyLiBYZW4gc2hvdWxkIGRpc2FibGUg
+dGhlIFhTTSBwb2xpY3kgYnVpbGQgd2hlbiBGTEFTSyBpcyBkaXNhYmxlZC4NCj4+PiBUaGlzIGlz
+IHVuZm9ydHVuYXRlbHkgbm90IHNvIHNpbXBsZSBiZWNhdXNlIHRoZSBYU00gcG9saWN5IGJ1aWxk
+IGlzIGENCj4+PiB0b29scyBvcHRpb24gYW5kIEZMQVNLIGlzIGEgWGVuIG9wdGlvbiBhbmQgdGhl
+IGNvbmZpZ3VyYXRpb24gc3lzdGVtcw0KPj4+IGFyZSBkaXNqb2ludC4gIEJ1dCBhdCB0aGUgdmVy
+eSBsZWFzdCBhIGRlZmF1bHQgYnVpbGQsIHdoaWNoIGhhcyBubyBYU00NCj4+PiBzdXBwb3J0LCBz
+aG91bGQgbm90IGJ1aWxkIGFuIFhTTSBwb2xpY3kgZmlsZSBlaXRoZXIuDQo+PiANCj4+IEEgc2lt
+cGxlIHRoaW5nIHRvIGRvIGhlcmUgd291bGQgYmUgdG8gaGF2ZSB0aGUgZmxhc2sgcG9saWN5IGNv
+bnRyb2xsZWQgYnkgYSBjb25maWd1cmUgLS1mbGFzayBvcHRpb24uICBJZiBuZWl0aGVyIC0tZmxh
+c2sgbm9yIC0tbm8tZmxhc2sgaXMgc3BlY2lmaWVkLCB3ZSBjb3VsZCBtYXliZSBoYXZlIGNvbmZp
+Z3VyZSBhbHNvIGNoZWNrIHRoZSBjb250ZW50cyBvZiB4ZW4vLmNvbmZpZyB0byBzZWUgaWYgQ09O
+RklHX1hTTV9GTEFTSyBpcyBlbmFibGVkPw0KPiANCj4gQnV0IHRoYXQncyBjcmVhdGluZyBhIGNo
+aWNrZW4tYW5kLWVnZyBwcm9ibGVtOiBUaGVyZSdzIG5vIG9yZGVyaW5nDQo+IGJldHdlZW4gdGhl
+IHRvb2xzLyBhbmQgeGVuLyBidWlsZHMuIHhlbi8gbWF5IG5vdCBiZSBidWlsdCBhdCBhbGwsDQo+
+IGFuZCB0aGlzIGlzIGdvaW5nIHRvIGJlY29tZSBpbmNyZWFzaW5nbHkgbGlrZWx5IG9uY2UgdGhl
+IHhlbi8gcGFydA0KPiBvZiB0aGUgdHJlZSBzdXBwb3J0cyBvdXQtb2YtdHJlZSBidWlsZHMgKGF0
+IGxlYXN0IEknbGwgc3dpdGNoIG1vc3QNCj4gb2YgbXkgYnVpbGQgdHJlZXMgdG8gdGhhdCBtb2Rl
+bCBhcyBzb29uIGFzIGl0J3MgYXZhaWxhYmxlKS4NCg0KRG8gb3V0LW9mLXRyZWUgYnVpbGRzIHB1
+dCB0aGUgLmNvbmZpZyBvdXQgb2YgdHJlZSBhcyB3ZWxsPyAgSWYgc28sIHllcywgdGhhdCB3b3Vs
+ZCBkZWZpbml0ZWx5IGxpbWl0IHRoZSB1c2VmdWxuZXNzIG9mIHRoaXMgaWRlYS4NCg0KTXkgc3Vn
+Z2VzdGlvbiB3YXMgYmFzZWQgb24gdGhlIGlkZWEgdGhhdCBhIOKAnHR5cGljYWzigJ0gYnVpbGQg
+KndoaWNoIG1pZ2h0IGVuYWJsZSBYU00qIHdvdWxkIGxvb2sgbGlrZSB0aGlzOg0KDQoxLiBSdW4g
+4oCYbWFrZSBtZW51Y29uZmln4oCZIChvciBzb21ldGhpbmcgbGlrZSBpdCkgaW4geGVuLw0KDQoy
+LiBSdW4gLi9jb25maWd1cmUgYXQgdGhlIHRvcGxldmVsDQoNCjMuIERvIHRoZSBmdWxsIGJ1aWxk
+Lg0KDQpCdXQgbG9va2luZyBiYWNrIGF0IGl0LCB0aGVyZeKAmXMgbm8gcGFydGljdWxhciByZWFz
+b24gdGhhdCBzb21lb25lIGNvbWluZyB0byBidWlsZCBYZW4gbWlnaHQgZXhwZWN0IHRvIGRvIHRo
+aW5ncyBpbiB0aGF0IG9yZGVyIHJhdGhlciB0aGFuICMxLg0KDQpJdCBtaWdodCBtYWtlIHNlbnNl
+IHRvIHNpbXBseSBkZWNsYXJlIHRoYXQgdGhlIHRvb2xzIGRlcGVuZCBvbiB0aGUgeGVuIGNvbmZp
+ZywgYW5kIG1vZGlmeWluZyAuL2NvbmZpZ3VyZSB0byByZXByZXNlbnQgdGhhdDoNCg0KMS4gQWRk
+IGEgYOKAlHhlbi1jb25maWc9YCBvcHRpb24gdG8gY29uZmlndXJlIHRlbGxpbmcgaXQgd2hlcmUg
+dG8gbG9vayBmb3IgdGhlIHhlbiBjb25maWc7IGlmIHRoYXTigJlzIG5vdCBzcGVjaWZpZWQsIGxv
+b2sgZm9yIGEgc3BlY2lmaWMgc2hlbGwgdmFyaWFibGUgc2F5aW5nIHdoZXJlIHRoZSBYZW4gdHJl
+ZSBpczsgaWYgdGhhdOKAmXMgbm90IGF2YWlsYWJsZSwgbG9va2luZyBpbiB0aGUgY3VycmVudCB0
+cmVlLg0KDQoyLiBIYXZlIC4vY29uZmlndXJlIGZhaWwgYnkgZGVmYXVsdCBpZiBpdCBjYW7igJl0
+IGZpbmQgYSAuY29uZmlnLCB1bmxlc3Mg4oCUbm8teGVuLWNvbmZpZyBpcyBzcGVjaWZpZWQuDQoN
+Cj4gRG8gd2UgcGVyaGFwcyBuZWVkIHRvIHJlc29ydCB0byBhIG1ha2UgY29tbWFuZCBsaW5lIG9w
+dGlvbiwgdXNhYmxlDQo+IGF0IHRoZSB0b3AgbGV2ZWwgYXMgd2VsbCBhcyBmb3IgbWFqb3Igc3Vi
+dHJlZSBidWlsZHMsIGFuZCBiZWluZw0KPiBob25vcmVkIChhcyBsb25nIGFzIHNldCBlaXRoZXIg
+d2F5LCBmYWxsaW5nIGJhY2sgdG8gY3VycmVudA0KPiBiZWhhdmlvciBpZiB1bnNldCkgYnkgYm90
+aCAuL2NvbmZpZ3VyZSBhbmQgdGhlIGh5cGVydmlzb3Incw0KPiBLY29uZmlnPw0KDQpXaGF0IGtp
+bmQgb2YgY29tbWFuZC1saW5lIG9wdGlvbiBkaWQgeW91IGhhdmUgaW4gbWluZD8NCg0KIC1HZW9y
+Z2U=
 
