@@ -2,56 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D251E6FC4
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 00:56:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45CC91E71B2
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 02:38:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeRRT-0001gI-JW; Thu, 28 May 2020 22:56:03 +0000
+	id 1jeT0Y-0002zy-RH; Fri, 29 May 2020 00:36:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=leMz=7K=yandex-team.ru=rvkagan@srs-us1.protection.inumbo.net>)
- id 1jeRRS-0001ff-HW
- for xen-devel@lists.xenproject.org; Thu, 28 May 2020 22:56:02 +0000
-X-Inumbo-ID: 6215db2a-a136-11ea-81bc-bc764e2007e4
-Received: from forwardcorp1p.mail.yandex.net (unknown
- [2a02:6b8:0:1472:2741:0:8b6:217])
+ <SRS0=3yhI=7L=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jeT0Y-0002zt-80
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 00:36:22 +0000
+X-Inumbo-ID: 6a53ab6a-a144-11ea-8993-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6215db2a-a136-11ea-81bc-bc764e2007e4;
- Thu, 28 May 2020 22:55:54 +0000 (UTC)
-Received: from mxbackcorp1g.mail.yandex.net (mxbackcorp1g.mail.yandex.net
- [IPv6:2a02:6b8:0:1402::301])
- by forwardcorp1p.mail.yandex.net (Yandex) with ESMTP id 32C8B2E129E;
- Fri, 29 May 2020 01:55:53 +0300 (MSK)
-Received: from iva4-7c3d9abce76c.qloud-c.yandex.net
- (iva4-7c3d9abce76c.qloud-c.yandex.net [2a02:6b8:c0c:4e8e:0:640:7c3d:9abc])
- by mxbackcorp1g.mail.yandex.net (mxbackcorp/Yandex) with ESMTP id
- khWQ9a8QXE-tmImd9j8; Fri, 29 May 2020 01:55:53 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; 
- t=1590706553; bh=itQBN5U3tIfrRjr7457Zr+edY1y64XE74HVeivo86lM=;
- h=In-Reply-To:Message-Id:References:Date:Subject:To:From:Cc;
- b=QxWGv/p1mseN6guUFN5KYndvGTq4k0mrL5Ss9GRClWK210Mu68nWVZwYo4tHdwoJs
- d+lIK5E30z/7U6EHatw/dmi9UaDzWYrjqjwwQL53PdI5ERCeRwPNvvOGheMBrtWdGx
- Fynmct87UZBGpabgcraQ8zfOg+ZRm9zywA7JMFI4=
-Authentication-Results: mxbackcorp1g.mail.yandex.net;
- dkim=pass header.i=@yandex-team.ru
-Received: from dynamic-vpn.dhcp.yndx.net (dynamic-vpn.dhcp.yndx.net
- [2a02:6b8:b081:1318::1:10])
- by iva4-7c3d9abce76c.qloud-c.yandex.net (smtpcorp/Yandex) with ESMTPSA id
- tdfEhvD3Vg-tlWSL1MN; Fri, 29 May 2020 01:55:48 +0300
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (Client certificate not present)
-From: Roman Kagan <rvkagan@yandex-team.ru>
-To: qemu-devel@nongnu.org
-Subject: [PATCH v8 8/8] block: lift blocksize property limit to 2 MiB
-Date: Fri, 29 May 2020 01:55:16 +0300
-Message-Id: <20200528225516.1676602-9-rvkagan@yandex-team.ru>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200528225516.1676602-1-rvkagan@yandex-team.ru>
-References: <20200528225516.1676602-1-rvkagan@yandex-team.ru>
+ id 6a53ab6a-a144-11ea-8993-bc764e2007e4;
+ Fri, 29 May 2020 00:36:20 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: wNmvSahmlECqvHg8JedH8RH/SKV/ZtpBZD5yQOkwQklXAkkK2tdbw9cYZpQ1grSS6NuAzPm99s
+ ZCXnSApvy4M+vi3fH0e4HHV7wAvDJfCYB/SD0TVVuFra5Qjvq47DmEU6rPR6+SNf/a3RHI/E5D
+ 8uN6QYuSjmdZ01rZs7t0svsO6e6zsZETKLHsDF6lij6av30wpHXGEQqLHoBWOyls7C9BPL2UkN
+ Ei5WSmaOOuIal6G+xvSEBedIlOpzj98LxXyfPtOTUGZ9Abo3SS8eRkcRU2ajQgGkbzEXWrC7AV
+ riY=
+X-SBRS: 2.7
+X-MesageID: 19456684
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,446,1583211600"; d="scan'208";a="19456684"
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/svm: do not try to handle recalc NPT faults immediately
+Date: Fri, 29 May 2020 01:35:53 +0100
+Message-ID: <1590712553-7298-1-git-send-email-igor.druzhinin@citrix.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +49,94 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Fam Zheng <fam@euphon.net>, Kevin Wolf <kwolf@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
- Eduardo Habkost <ehabkost@redhat.com>, qemu-block@nongnu.org,
- Paul Durrant <paul@xen.org>, John Snow <jsnow@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Laurent Vivier <laurent@vivier.eu>,
- Eric Blake <eblake@redhat.com>, Max Reitz <mreitz@redhat.com>,
- Keith Busch <kbusch@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+Cc: Igor Druzhinin <igor.druzhinin@citrix.com>, wl@xen.org,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Logical and physical block sizes in QEMU are limited to 32 KiB.
+A recalculation NPT fault doesn't always require additional handling
+in hvm_hap_nested_page_fault(), moreover in general case if there is no
+explicit handling done there - the fault is wrongly considered fatal.
 
-This appears unnecessarily tight, and we've seen bigger block sizes
-handy at times.
+Instead of trying to be opportunistic - use safer approach and handle
+P2M recalculation in a separate NPT fault by attempting to retry after
+making the necessary adjustments. This is aligned with Intel behavior
+where there are separate VMEXITs for recalculation and EPT violations
+(faults) and only faults are handled in hvm_hap_nested_page_fault().
+Do it by also unifying do_recalc return code with Intel implementation
+where returning 1 means P2M was actually changed.
 
-Lift the limitation up to 2 MiB which appears to be good enough for
-everybody, and matches the qcow2 cluster size limit.
+This covers a specific case of migration with vGPU assigned on AMD:
+global log-dirty is enabled and causes immediate recalculation NPT
+fault in MMIO area upon access.
 
-Signed-off-by: Roman Kagan <rvkagan@yandex-team.ru>
-Reviewed-by: Eric Blake <eblake@redhat.com>
+Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
 ---
- hw/core/qdev-properties.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+This is a safer alternative to:
+https://lists.xenproject.org/archives/html/xen-devel/2020-05/msg01662.html
+and more correct approach from my PoV.
+---
+ xen/arch/x86/hvm/svm/svm.c | 5 +++--
+ xen/arch/x86/mm/p2m-pt.c   | 8 ++++++--
+ 2 files changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/hw/core/qdev-properties.c b/hw/core/qdev-properties.c
-index 63d48db70c..ead35d7ffd 100644
---- a/hw/core/qdev-properties.c
-+++ b/hw/core/qdev-properties.c
-@@ -784,9 +784,12 @@ const PropertyInfo qdev_prop_size32 = {
- /* lower limit is sector size */
- #define MIN_BLOCK_SIZE          512
- #define MIN_BLOCK_SIZE_STR      "512 B"
--/* upper limit is the max power of 2 that fits in uint16_t */
--#define MAX_BLOCK_SIZE          (32 * KiB)
--#define MAX_BLOCK_SIZE_STR      "32 KiB"
-+/*
-+ * upper limit is arbitrary, 2 MiB looks sufficient for all sensible uses, and
-+ * matches qcow2 cluster size limit
-+ */
-+#define MAX_BLOCK_SIZE          (2 * MiB)
-+#define MAX_BLOCK_SIZE_STR      "2 MiB"
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 46a1aac..7f6f578 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -2923,9 +2923,10 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
+             v->arch.hvm.svm.cached_insn_len = vmcb->guest_ins_len & 0xf;
+         rc = vmcb->exitinfo1 & PFEC_page_present
+              ? p2m_pt_handle_deferred_changes(vmcb->exitinfo2) : 0;
+-        if ( rc >= 0 )
++        if ( rc == 0 )
++            /* If no recal adjustments were being made - handle this fault */
+             svm_do_nested_pgfault(v, regs, vmcb->exitinfo1, vmcb->exitinfo2);
+-        else
++        else if ( rc < 0 )
+         {
+             printk(XENLOG_G_ERR
+                    "%pv: Error %d handling NPF (gpa=%08lx ec=%04lx)\n",
+diff --git a/xen/arch/x86/mm/p2m-pt.c b/xen/arch/x86/mm/p2m-pt.c
+index 5c05017..377565b 100644
+--- a/xen/arch/x86/mm/p2m-pt.c
++++ b/xen/arch/x86/mm/p2m-pt.c
+@@ -340,7 +340,7 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+     unsigned long gfn_remainder = gfn;
+     unsigned int level = 4;
+     l1_pgentry_t *pent;
+-    int err = 0;
++    int err = 0, rc = 0;
  
- static void set_blocksize(Object *obj, Visitor *v, const char *name,
-                           void *opaque, Error **errp)
+     table = map_domain_page(pagetable_get_mfn(p2m_get_pagetable(p2m)));
+     while ( --level )
+@@ -402,6 +402,8 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+                 clear_recalc(l1, e);
+                 err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+                 ASSERT(!err);
++
++                rc = 1;
+             }
+         }
+         unmap_domain_page((void *)((unsigned long)pent & PAGE_MASK));
+@@ -448,12 +450,14 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+             clear_recalc(l1, e);
+         err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+         ASSERT(!err);
++
++        rc = 1;
+     }
+ 
+  out:
+     unmap_domain_page(table);
+ 
+-    return err;
++    return err ? err : rc;
+ }
+ 
+ int p2m_pt_handle_deferred_changes(uint64_t gpa)
 -- 
-2.26.2
+2.7.4
 
 
