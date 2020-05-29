@@ -2,60 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF62B1E84C0
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 19:26:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F0911E8525
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 19:38:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeikt-0003q5-3B; Fri, 29 May 2020 17:25:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mKAR=7L=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jeikr-0003q0-Le
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 17:25:13 +0000
-X-Inumbo-ID: 5ab53cc2-a1d1-11ea-81bc-bc764e2007e4
+	id 1jeixE-00059E-RZ; Fri, 29 May 2020 17:38:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=T8V9=7L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jeixD-000599-F8
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 17:37:59 +0000
+X-Inumbo-ID: 22f34fd4-a1d3-11ea-a8f4-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5ab53cc2-a1d1-11ea-81bc-bc764e2007e4;
- Fri, 29 May 2020 17:25:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 22f34fd4-a1d3-11ea-a8f4-12813bfff9fa;
+ Fri, 29 May 2020 17:37:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yveHsKIkPGCJOia9sJHWlG6RuOoukAdfzhEBNIBMXf0=; b=Imrku9NFV7ena52MRWJKCHOVO8
- RNyg+XsuzemvxIFOHARVYL6v/4DIGt5bXLGgx2aESXzrdUtJkpn3JnV60mPzP6Dfnvrb3W3Jc4ke/
- LZ1n+hzqKYIph1Qhk5D0vt20Zj4uR1pXqZSCgnL+ULCc7VziDhrkRyh7hl5DM6ulmr0A=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=48+5Rw/R1syS3jfI2y3hLLwuwfTh6AZnuM/wwuXlfZQ=; b=LwBq4Cx5+C+WrN8ZEMna1xcwc
+ 4LCtyzM0acLfjU92AqrIpSlcVu6jlD+y/oVr3w3tXqwB7KkkN3MI/7M0wmTLuZSmYKHHhAZ9gv1RU
+ JGJBkYhtAf941EDgEQNAQ5jsqtlOudmlTCoCtjdh4yf0VFUyxS9IU96AkSELuDKlHHlL4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jeikf-0002he-Sk; Fri, 29 May 2020 17:25:01 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jeikf-0008DZ-Ji; Fri, 29 May 2020 17:25:01 +0000
-Subject: Re: Xen XSM/FLASK policy, grub defaults, etc.
-To: Jan Beulich <jbeulich@suse.com>
-References: <24270.35349.838484.116865@mariner.uk.xensource.com>
- <0D83AAA6-A205-4256-8A38-CC8122AC063D@citrix.com>
- <24272.59646.746545.343358@mariner.uk.xensource.com>
- <4a8e7cf2-8f63-d4d2-e051-9484a5b8c8ed@suse.com>
- <96F32637-E410-4EC8-937A-CFC8BE724352@citrix.com>
- <24273.8332.662607.125522@mariner.uk.xensource.com>
- <7eaa7541-f698-b29b-b4b3-1f40fc37c5d7@xen.org>
- <63838ce9-8dbf-aacf-521d-97540758a945@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <429e81a2-80d5-0d50-6352-6471cd4698a8@xen.org>
-Date: Fri, 29 May 2020 18:24:59 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.1
-MIME-Version: 1.0
-In-Reply-To: <63838ce9-8dbf-aacf-521d-97540758a945@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jeixB-00030g-Sv; Fri, 29 May 2020 17:37:57 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jeixB-0005PU-HH; Fri, 29 May 2020 17:37:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jeixB-0008Uf-GU; Fri, 29 May 2020 17:37:57 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150495-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150495: regressions - trouble: blocked/fail
+X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+ xen-unstable-smoke:build-amd64:xen-build:fail:regression
+ xen-unstable-smoke:build-armhf:xen-build:fail:regression
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: xen=51f9df5c19f2b8a780aa2547cdf3d20736bfddcc
+X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 May 2020 17:37:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +69,74 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "cjwatson@debian.org" <cjwatson@debian.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+flight 150495 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150495/
 
-On 29/05/2020 16:11, Jan Beulich wrote:
-> On 29.05.2020 17:05, Julien Grall wrote:
->> On 29/05/2020 15:47, Ian Jackson wrote:
->>> George Dunlap writes ("Re: Xen XSM/FLASK policy, grub defaults, etc."):
->>>> Which isn’t to say we shouldn’t do it; but it might be nice to also have an intermediate solution that works right now, even if it’s not optimal.
->>>
->>> I propose the following behaviour by updste-grub:
->>>
->>>    1. Look for an ELF note, TBD.  If it's found, make XSM boot entries.
->>>       (For now, skip this step, since the ELF note is not defined.)
->>
->> I am afraid the ELF note is a very x86 thing. On Arm, we don't have such
->> thing for the kernel/xen (actually the final binary is not even an ELF).
-> 
-> Ouch - of course. Is there anything similar one could employ there?
+Regressions :-(
 
-In the past, we discussed about adding support for note in the zImage 
-(arm32 kernel format) but I never got the chance to pursue the discussion.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 150438
+ build-amd64                   6 xen-build                fail REGR. vs. 150438
+ build-armhf                   6 xen-build                fail REGR. vs. 150438
 
-With Juergen's hypfs series, the hypervisor now embbed the .config. Is 
-it possible to extract it?
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
 
-Cheers,
+version targeted for testing:
+ xen                  51f9df5c19f2b8a780aa2547cdf3d20736bfddcc
+baseline version:
+ xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
 
--- 
-Julien Grall
+Last test of basis   150438  2020-05-28 14:01:19 Z    1 days
+Failing since        150465  2020-05-29 09:02:14 Z    0 days    6 attempts
+Testing same since   150495  2020-05-29 16:03:10 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Andrew Cooper <andrew.cooper@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  fail    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 442 lines long.)
 
