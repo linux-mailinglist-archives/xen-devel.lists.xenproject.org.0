@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A3551E7BF2
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 13:33:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 390811E7BF8
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 13:34:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jedGn-0001Zk-3w; Fri, 29 May 2020 11:33:49 +0000
+	id 1jedHG-00024x-6R; Fri, 29 May 2020 11:34:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gj5c=7L=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jedGk-0001Xz-Q0
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:33:46 +0000
-X-Inumbo-ID: 301a01b8-a1a0-11ea-9dbe-bc764e2007e4
+ id 1jedHE-00023s-R0
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:34:16 +0000
+X-Inumbo-ID: 3af54a34-a1a0-11ea-8993-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 301a01b8-a1a0-11ea-9dbe-bc764e2007e4;
- Fri, 29 May 2020 11:33:16 +0000 (UTC)
+ id 3af54a34-a1a0-11ea-8993-bc764e2007e4;
+ Fri, 29 May 2020 11:33:34 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jed3S-0003xZ-K0; Fri, 29 May 2020 12:20:02 +0100
+ id 1jed3S-0003xZ-US; Fri, 29 May 2020 12:20:03 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 21/49] buster: Extend ARM clock workaround
-Date: Fri, 29 May 2020 12:19:17 +0100
-Message-Id: <20200529111945.21394-22-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 22/49] buster: Extend guest bootloader workaround
+Date: Fri, 29 May 2020 12:19:18 +0100
+Message-Id: <20200529111945.21394-23-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200529111945.21394-1-ian.jackson@eu.citrix.com>
 References: <20200529111945.21394-1-ian.jackson@eu.citrix.com>
@@ -55,18 +55,18 @@ Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
-index bac33d00..71167351 100644
+index 71167351..3fc9e555 100644
 --- a/Osstest/Debian.pm
 +++ b/Osstest/Debian.pm
-@@ -248,7 +248,7 @@ END
- 	push @xenkopt, $xenkopt;
- 	# https://bugs.xenproject.org/xen/bug/45
- 	push @xenkopt, "clk_ignore_unused"
--	    if $ho->{Suite} =~ m/wheezy|jessie|stretch/;
-+	    if $ho->{Suite} =~ m/wheezy|jessie|stretch|buster/;
+@@ -1064,7 +1064,7 @@ END
+     logm("\$arch is $arch, \$suite is $suite");
+     if ($xopts{PvMenuLst} &&
+ 	$arch =~ /^arm/ &&
+-	$suite =~ /wheezy|jessie|stretch|sid/ ) {
++	$suite =~ /wheezy|jessie|stretch|buster|sid/ ) {
  
- 	$xenkopt = join ' ', @xenkopt;
- 	logm("Dom0 Linux options: $xenkopt");
+ 	# Debian doesn't currently know what bootloader to install in
+ 	# a Xen guest on ARM. We install pv-grub-menu above which
 -- 
 2.20.1
 
