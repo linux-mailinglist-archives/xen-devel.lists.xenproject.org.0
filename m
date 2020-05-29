@@ -2,54 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E89F51E7EA0
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 15:27:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3A91E7EBB
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 15:30:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jef29-0000IQ-PU; Fri, 29 May 2020 13:26:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jef5B-0000Qm-AM; Fri, 29 May 2020 13:29:57 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tJvr=7L=xen.org=roger@srs-us1.protection.inumbo.net>)
- id 1jef28-0000IL-21
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 13:26:48 +0000
-X-Inumbo-ID: 0bad9e7e-a1b0-11ea-9947-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0bad9e7e-a1b0-11ea-9947-bc764e2007e4;
- Fri, 29 May 2020 13:26:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=y9d3Sz8TkZs8K4+aocoQALMZMUfk0CJsw4anA87e/mQ=; b=fKLRYmggfk771pQEovQC9Jfuby
- DE6ZqkPi70Hu4cVD6H6/qgl7289Kq64ApRlXBFpzhOLOm4k6R2TG0DI6A2McTvs+lDZvboolYRJjl
- X8TUD7Rm4bH0DA3gjJOpoS0jQiMYjRTzsdJO5pP8z+6KrMjv/eKgEzLdv9E6YujIMbT0=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jef25-0005FB-Oa; Fri, 29 May 2020 13:26:45 +0000
-Received: from [212.230.157.105] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jef25-0007ZM-8N; Fri, 29 May 2020 13:26:45 +0000
-Date: Fri, 29 May 2020 15:26:37 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
-Message-ID: <20200529132020.GN1195@Air-de-Roger>
-References: <cover.1590675919.git.bertrand.marquis@arm.com>
- <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
- <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
- <dcfbca54-4773-9f43-1826-f5137a41bd9f@suse.com>
- <B5889544-3EB5-41ED-8428-8BCA05269371@arm.com>
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jef59-0000Qh-Iv
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 13:29:55 +0000
+X-Inumbo-ID: 7b52d686-a1b0-11ea-a8b6-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7b52d686-a1b0-11ea-a8b6-12813bfff9fa;
+ Fri, 29 May 2020 13:29:54 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B62E2AD6B;
+ Fri, 29 May 2020 13:29:53 +0000 (UTC)
+Subject: Re: [PATCH v10 1/9] x86emul: address x86_insn_is_mem_{access, write}()
+ omissions
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <d2375ecb-f662-99d8-84c2-e9f9c5cf7b9e@suse.com>
+ <f41a4f27-bbe2-6450-38c1-6c4e23f2b07b@suse.com>
+ <8e976b4b-60f2-bf94-843d-0fe0ba57087c@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5e46ec9b-2ae0-3d28-01c8-794356532456@suse.com>
+Date: Fri, 29 May 2020 15:29:53 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <8e976b4b-60f2-bf94-843d-0fe0ba57087c@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <B5889544-3EB5-41ED-8428-8BCA05269371@arm.com>
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,74 +49,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, "paul@xen.org" <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, "Xia, Hongyan" <hongyxia@amazon.com>,
- Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
- nd <nd@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 29, 2020 at 08:32:51AM +0000, Bertrand Marquis wrote:
-> Hi Jan
+On 29.05.2020 14:18, Andrew Cooper wrote:
+> On 25/05/2020 15:26, Jan Beulich wrote:
+>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>> @@ -11474,25 +11474,87 @@ x86_insn_operand_ea(const struct x86_emu
+>>      return state->ea.mem.off;
+>>  }
+>>  
+>> +/*
+>> + * This function means to return 'true' for all supported insns with explicit
+>> + * accesses to memory.  This means also insns which don't have an explicit
+>> + * memory operand (like POP), but it does not mean e.g. segment selector
+>> + * loads, where the descriptor table access is considered an implicit one.
+>> + */
+>>  bool
+>>  x86_insn_is_mem_access(const struct x86_emulate_state *state,
+>>                         const struct x86_emulate_ctxt *ctxt)
+>>  {
+>> +    if ( mode_64bit() && state->not_64bit )
+>> +        return false;
 > 
-> > On 29 May 2020, at 08:35, Jan Beulich <jbeulich@suse.com> wrote:
-> > 
-> > On 28.05.2020 20:54, Julien Grall wrote:
-> >> On 28/05/2020 16:25, Bertrand Marquis wrote:
-> >>> At the moment on Arm, a Linux guest running with KTPI enabled will
-> >>> cause the following error when a context switch happens in user mode:
-> >>> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va 0xffffff837ebe0cd0
-> >>> 
-> >>> This patch is modifying runstate handling to map the area given by the
-> >>> guest inside Xen during the hypercall.
-> >>> This is removing the guest virtual to physical conversion during context
-> >>> switches which removes the bug
-> >> 
-> >> It would be good to spell out that a virtual address is not stable. So 
-> >> relying on it is wrong.
-> > 
-> > Guests at present are permitted to change the mapping underneath the
-> > virtual address provided (this may not be the best idea, but the
-> > interface is like it is). Therefore I don't think the present
-> > interface can be changed like this. Instead a new interface will need
-> > adding which takes a guest physical address instead. (Which, in the
-> > end, will merely be one tiny step towards making the hypercall
-> > interfaces use guest physical addresses. And it would be nice if an
-> > overall concept was hashed out first how that conversion should
-> > occur, such that the change here could at least be made fit that
-> > planned model. For example, an option might be to retain all present
-> > hypercall numbering and simply dedicate a bit in the top level
-> > hypercall numbers indicating whether _all_ involved addresses for
-> > that operation are physical vs virtual ones.)
-> 
-> I definitely fully agree that moving to interfaces using physical addresses
-> would definitely be better but would need new hypercall numbers (or the
-> bit system you suggest) to keep backward compatibility.
-> 
-> Regarding the change of virtual address, even though this is theoretically
-> possible with the current interface I do not really see how this could be
-> handled cleanly with KPTI or even without it as this would not be an atomic
-> change on the guest side so the only way to cleanly do this would be to
-> do an hypercall to remove the address in xen and then recall the hypercall
-> to register the new address.
-> 
-> So the only way to solve the KPTI issue would actually be to create a new
-> hypercall and keep the current bug/problem ?
+> Is this path actually used?
 
-I think you will find it easier to just introduce a new hypercall that
-uses a physical address and has a set of restrictions similar to
-VCPUOP_register_vcpu_info for example than to bend the current
-hypercall into doing something sane.
+Yes, it is. It's only x86_emulate() which has
 
-TBH I would just remove the error message on Arm from the current
-hypercall, I don't think it's useful. If there's corruption caused by
-the hypercall we could always make it a noop and simply update the
-runstate area only once at registration and leave it like that. The
-guest should check the timestamp in the data and realize the
-information is stale.
+    generate_exception_if(state->not_64bit && mode_64bit(), EXC_UD);
 
-Roger.
+right now.
+
+> state->not_64bit ought to fail instruction
+> decode, at which point we wouldn't have a valid state to be used here.
+
+x86_decode() currently doesn't have much raising of #UD at all, I
+think. If it wasn't like this, the not_64bit field wouldn't be
+needed - it's used only to communicate from decode to execute.
+We're not entirely consistent with this though, seeing in
+x86_decode_onebyte(), a few lines below the block of case labels
+setting that field,
+
+    case 0x9a: /* call (far, absolute) */
+    case 0xea: /* jmp (far, absolute) */
+        generate_exception_if(mode_64bit(), EXC_UD);
+
+We could certainly drop the field and raise #UD during decode
+already, but don't you think we then should do so for all
+encodings that ultimately lead to #UD, e.g. also for AVX insns
+without AVX available to the guest? This would make
+x86_decode() quite a bit larger, as it would then also need to
+have a giant switch() (or something else that's suitable to
+cover all cases).
+
+> Everything else looks ok, so Acked-by: Andrew Cooper
+> <andrew.cooper3@citrix.com>
+
+Thanks.
+
+Jan
 
