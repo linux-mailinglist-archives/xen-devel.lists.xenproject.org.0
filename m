@@ -2,56 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A68391E796E
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:28:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83E621E7979
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:31:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jebIj-0001SI-Ti; Fri, 29 May 2020 09:27:41 +0000
+	id 1jebMY-0002Gf-Dn; Fri, 29 May 2020 09:31:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tJvr=7L=xen.org=roger@srs-us1.protection.inumbo.net>)
- id 1jebIi-0001SD-5N
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:27:40 +0000
-X-Inumbo-ID: a3d26170-a18e-11ea-8993-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jebMW-0002Ga-Dd
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:31:36 +0000
+X-Inumbo-ID: 30298bda-a18f-11ea-9947-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a3d26170-a18e-11ea-8993-bc764e2007e4;
- Fri, 29 May 2020 09:27:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=BxZZQfnKFewwzq6TFnDVatgM6OggcVXQyx/sXIIHAcI=; b=w3HrklYNl+P8T19a167HNJaL8z
- gTW5RAxMHFSeAkK0dpCQ7C6ixBME8D9PDndGjhxSAb8Gx2f+aMTJk+D7XMC3YvdHby84LHa6O87z3
- RVaGr5UDNYHAxZyLB6lc5SWcCy12LbxEohF/ximCti8eIVg7r8jXNyzZA4Udn8+0gNKc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jebIf-00084J-GH; Fri, 29 May 2020 09:27:37 +0000
-Received: from [212.230.157.105] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jebIf-0008Qa-1D; Fri, 29 May 2020 09:27:37 +0000
-Date: Fri, 29 May 2020 11:27:29 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+ id 30298bda-a18f-11ea-9947-bc764e2007e4;
+ Fri, 29 May 2020 09:31:35 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 9303AAF77;
+ Fri, 29 May 2020 09:31:33 +0000 (UTC)
 Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
-Message-ID: <20200529092716.GK1195@Air-de-Roger>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
 References: <cover.1590675919.git.bertrand.marquis@arm.com>
  <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
  <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
  <3B88C76B-6972-4A66-AFDC-0B5C27FBA740@arm.com>
  <52e26c9d-b662-2597-b521-dacf4f8acfc8@suse.com>
  <077FCC5B-AD47-4707-AF55-12F0455ED26F@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3dce8e37-b9a3-c3e6-10f4-b7489f1dea03@suse.com>
+Date: Fri, 29 May 2020 11:31:33 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 In-Reply-To: <077FCC5B-AD47-4707-AF55-12F0455ED26F@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,36 +55,37 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, "Xia, Hongyan" <hongyxia@amazon.com>,
- Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
- nd <nd@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 29, 2020 at 09:18:42AM +0000, Bertrand Marquis wrote:
+On 29.05.2020 11:18, Bertrand Marquis wrote:
 > Hi Jan,
 > 
-> > On 29 May 2020, at 09:45, Jan Beulich <jbeulich@suse.com> wrote:
-> > 
-> > On 29.05.2020 10:13, Bertrand Marquis wrote:
-> >>> On 28 May 2020, at 19:54, Julien Grall <julien@xen.org> wrote:
-> >>> AFAICT, there is no restriction on when the runstate hypercall can be called. So this can even be called before the vCPU is brought up.
-> >> 
-> >> I understand the remark but it still feels very weird to allow an invalid address in an hypercall.
-> >> Wouldn’t we have a lot of potential issues accepting an address that we cannot check ?
-> > 
-> > I don't think so: The hypervisor uses copy_to_guest() to protect
-> > itself from the addresses to be invalid at the time of copying.
-> > If the guest doesn't make sure they're valid at that time, it
-> > simply won't get the information (perhaps until Xen's next
-> > attempt to copy it out).
-> > 
-> > You may want to take a look at the x86 side of this (also the
-> > vCPU time updating): Due to the way x86-64 PV guests work, the
-> > address may legitimately be unmapped at the time Xen wants to
-> > copy it, when the vCPU is currently executing guest user mode
-> > code. In such a case the copy gets retried the next time the
-> > guest transitions from user to kernel mode (which involves a
-> > page table change).
+>> On 29 May 2020, at 09:45, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 29.05.2020 10:13, Bertrand Marquis wrote:
+>>>> On 28 May 2020, at 19:54, Julien Grall <julien@xen.org> wrote:
+>>>> AFAICT, there is no restriction on when the runstate hypercall can be called. So this can even be called before the vCPU is brought up.
+>>>
+>>> I understand the remark but it still feels very weird to allow an invalid address in an hypercall.
+>>> Wouldn’t we have a lot of potential issues accepting an address that we cannot check ?
+>>
+>> I don't think so: The hypervisor uses copy_to_guest() to protect
+>> itself from the addresses to be invalid at the time of copying.
+>> If the guest doesn't make sure they're valid at that time, it
+>> simply won't get the information (perhaps until Xen's next
+>> attempt to copy it out).
+>>
+>> You may want to take a look at the x86 side of this (also the
+>> vCPU time updating): Due to the way x86-64 PV guests work, the
+>> address may legitimately be unmapped at the time Xen wants to
+>> copy it, when the vCPU is currently executing guest user mode
+>> code. In such a case the copy gets retried the next time the
+>> guest transitions from user to kernel mode (which involves a
+>> page table change).
 > 
 > If I understand everything correctly runstate is updated only if there is
 > a context switch in xen while the guest is running in kernel mode and
@@ -105,7 +94,17 @@ On Fri, May 29, 2020 at 09:18:42AM +0000, Bertrand Marquis wrote:
 > So this is a best effort in Xen and the guest cannot really rely on the
 > runstate information (as it might not be up to date).
 > Could this have impacts somehow if this is used for scheduling ?
-> 
+
+Yes, it could, and hence it's not really best effort only, but
+said retry upon guest mode switch had been added years ago.
+(This was one of the things overlooked when x86-64 support was
+introduced, as x86-32 doesn't have this same problem.) The
+updating is best-effort only as far as a misbehaving guest goes;
+in all other aspects it's reliable, assuming that vCPU's only
+look at their own data for the purpose of making decisions
+(logging and alike are of course still fine, as long as people
+are aware of the data possibly being stale).
+
 > In the end the only accepted trade off would be to:
 > - reduce error verbosity and just ignore it
 > - introduce a new system call using a physical address
@@ -116,18 +115,9 @@ On Fri, May 29, 2020 at 09:18:42AM +0000, Bertrand Marquis wrote:
 > would not really be logic and this kind of change should be made across
 > all hypercalls if it is done.
 
-FRT, there are other hypercalls using a physical address instead of a
-linear one, see VCPUOP_register_vcpu_info for example. It's just a
-mixed bag right now, with some hypercalls using a linear address and
-some using a physical one.
+Hence my request to preferably first settle on a model, such
+that the change here could be simply the first step on that
+journey.
 
-I think introducing a new hypercall that uses a physical address would
-be fine, and then you can add a set of restrictions similar to the
-ones listed by VCPUOP_register_vcpu_info.
-
-Changing the current hypercall as proposed is risky, but I think the
-current behavior is broken by design specially on auto translated
-guests, even more with XPTI.
-
-Thanks, Roger.
+Jan
 
