@@ -2,41 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C2B1E7E0D
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 15:09:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62DCF1E7E0E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 15:10:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeel3-0006Yf-Fb; Fri, 29 May 2020 13:09:09 +0000
+	id 1jeely-0007Cf-PK; Fri, 29 May 2020 13:10:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jeel1-0006Ya-L6
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 13:09:07 +0000
-X-Inumbo-ID: 933b59d8-a1ad-11ea-a8b4-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=tJvr=7L=xen.org=roger@srs-us1.protection.inumbo.net>)
+ id 1jeelx-000790-6u
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 13:10:05 +0000
+X-Inumbo-ID: b5243d1d-a1ad-11ea-a8b4-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 933b59d8-a1ad-11ea-a8b4-12813bfff9fa;
- Fri, 29 May 2020 13:09:06 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4B1D1AD63;
- Fri, 29 May 2020 13:09:05 +0000 (UTC)
-Subject: Re: [PATCH v2 14/14] x86/shstk: Activate Supervisor Shadow Stacks
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
- <20200527191847.17207-15-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <886eccd3-e2d4-fdc5-f1cd-e8671a5271e2@suse.com>
-Date: Fri, 29 May 2020 15:09:05 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id b5243d1d-a1ad-11ea-a8b4-12813bfff9fa;
+ Fri, 29 May 2020 13:10:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
+ :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=DHAOINmpm6nq8+NpyX885jUqaREsot82c5E8XAtKKj4=; b=cgQQCoONN/2apq1i8rh9YnrxFh
+ IrxlgptKpPSEg7pTWsaEwlMLf9TMAYa/IPbNSGJeJThBunJATpUBSobLJjYBApe6h63AH4xCHpomO
+ CSGA8sKBnhM/hHM8jGoxRzwzDo5CfsaE/M3yllE2OdqEmG8kKMkS/D/Qnq5JriV2xRqk=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <roger@xen.org>)
+ id 1jeels-0004s6-1K; Fri, 29 May 2020 13:10:00 +0000
+Received: from [212.230.157.105] (helo=localhost)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <roger@xen.org>)
+ id 1jeelr-0006II-Bj; Fri, 29 May 2020 13:09:59 +0000
+Date: Fri, 29 May 2020 15:09:49 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
+To: Julien Grall <julien@xen.org>
+Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
+Message-ID: <20200529130936.GM1195@Air-de-Roger>
+References: <cover.1590675919.git.bertrand.marquis@arm.com>
+ <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
+ <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
+ <dcfbca54-4773-9f43-1826-f5137a41bd9f@suse.com>
+ <43781f37-184d-3ac8-8997-0a9be1de05ce@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20200527191847.17207-15-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <43781f37-184d-3ac8-8997-0a9be1de05ce@xen.org>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,50 +61,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "paul@xen.org" <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "Xia,
+ Hongyan" <hongyxia@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, nd@arm.com,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.05.2020 21:18, Andrew Cooper wrote:
-> With all other plumbing in place, activate shadow stacks when possible.  Note
-> that this requires prohibiting the use of PV32.  Compatibility can be
-> maintained if necessary via PV-Shim.
+On Fri, May 29, 2020 at 11:59:40AM +0100, Julien Grall wrote:
+> Hi Jan,
+> 
+> On 29/05/2020 08:35, Jan Beulich wrote:
+> > On 28.05.2020 20:54, Julien Grall wrote:
+> > > On 28/05/2020 16:25, Bertrand Marquis wrote:
+> > > > At the moment on Arm, a Linux guest running with KTPI enabled will
+> > > > cause the following error when a context switch happens in user mode:
+> > > > (XEN) p2m.c:1890: d1v0: Failed to walk page-table va 0xffffff837ebe0cd0
+> > > > 
+> > > > This patch is modifying runstate handling to map the area given by the
+> > > > guest inside Xen during the hypercall.
+> > > > This is removing the guest virtual to physical conversion during context
+> > > > switches which removes the bug
+> > > 
+> > > It would be good to spell out that a virtual address is not stable. So
+> > > relying on it is wrong.
+> > 
+> > Guests at present are permitted to change the mapping underneath the
+> > virtual address provided (this may not be the best idea, but the
+> > interface is like it is).
+> 
+> Well yes, it could be point to data used by the userpsace. So you could
+> corrupt a program. It is not very great.
 
-In the revision log you say "Discuss CET-SS disabling PV32", and I
-agree both here and in the command line doc you mention the "that"
-aspect. But what about the "why"? Aiui "is incompatible" or
-"requires" are too strong statements: It could be made work (by
-disabling / enabling CET on the way out of / back into Xen), but
-besides losing some of the intended protection that way, it would
-be quite a bit of overhead. So it's more like a design decision,
-and it would be nice to express it like this at least in the
-commit message.
+Yes, that's also my worry with the current hypercall. The current
+interface is IMO broken for autotranslated guests, at least in the way
+it's currently used by OSes.
 
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -664,6 +664,13 @@ static void __init noreturn reinit_bsp_stack(void)
->      stack_base[0] = stack;
->      memguard_guard_stack(stack);
->  
-> +    if ( cpu_has_xen_shstk )
-> +    {
-> +        wrmsrl(MSR_PL0_SSP, (unsigned long)stack + 0x5ff8);
-
-Please replace this remaining literal number accordingly.
-
-> @@ -1801,6 +1823,10 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->  
->      alternative_branches();
->  
-> +    /* Defer CR4.CET until alternatives have finished playing with CR4.WP */
-> +    if ( cpu_has_xen_shstk )
-> +        set_in_cr4(X86_CR4_CET);
-
-Nit: The comment still wants changing to CR0.WP.
-
-With these taken care of in some form
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
+Roger.
 
