@@ -2,43 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36C401E8397
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 18:25:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A7AD1E839F
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 18:27:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jehoW-0006EL-9I; Fri, 29 May 2020 16:24:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jehqb-0006MX-Mc; Fri, 29 May 2020 16:27:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mY44=7L=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1jehoU-0006EG-VX
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 16:24:55 +0000
-X-Inumbo-ID: ed8a5be4-a1c8-11ea-9947-bc764e2007e4
+ id 1jehqb-0006MS-2C
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 16:27:05 +0000
+X-Inumbo-ID: 3a0d3997-a1c9-11ea-a8e7-12813bfff9fa
 Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ed8a5be4-a1c8-11ea-9947-bc764e2007e4;
- Fri, 29 May 2020 16:24:54 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3a0d3997-a1c9-11ea-a8e7-12813bfff9fa;
+ Fri, 29 May 2020 16:27:04 +0000 (UTC)
 X-Cam-AntiVirus: no malware found
 X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:35382
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:35466
  helo=[192.168.1.219])
  by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
  with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1jehoR-000ouI-Lu (Exim 4.92.3)
- (return-path <amc96@hermes.cam.ac.uk>); Fri, 29 May 2020 17:24:51 +0100
-Subject: Re: [PATCH v3] x86/PV: remove unnecessary toggle_guest_pt() overhead
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <24d8b606-f74b-9367-d67e-e952838c7048@suse.com>
- <d7840278-b999-65fa-40bf-2b78e5266837@citrix.com>
- <a6084473-2fb7-4106-66a4-d180ef483314@suse.com>
+ id 1jehqX-000qPe-Jz (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Fri, 29 May 2020 17:27:01 +0100
+Subject: Re: [PATCH v2 for-4.14] tools/libxl: fix setting altp2m param broken
+ by 1e9bc407cf0
+To: Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
+References: <20200529162234.16824-1-tamas@tklengyel.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <3dc314dd-3016-aa5e-c327-834b88e9eec2@citrix.com>
-Date: Fri, 29 May 2020 17:24:50 +0100
+Message-ID: <00da0381-e132-03e1-3717-02f4e968ec32@citrix.com>
+Date: Fri, 29 May 2020 17:27:00 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <a6084473-2fb7-4106-66a4-d180ef483314@suse.com>
+In-Reply-To: <20200529162234.16824-1-tamas@tklengyel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
@@ -52,46 +51,19 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22/05/2020 11:07, Jan Beulich wrote:
-> On 21.05.2020 18:46, Andrew Cooper wrote:
->> On 05/05/2020 07:16, Jan Beulich wrote:
->>> While the mere updating of ->pv_cr3 and ->root_pgt_changed aren't overly
->>> expensive (but still needed only for the toggle_guest_mode() path), the
->>> effect of the latter on the exit-to-guest path is not insignificant.
->>> Move the logic into toggle_guest_mode(), on the basis that
->>> toggle_guest_pt() will always be invoked in pairs, yet we can't safely
->>> undo the setting of root_pgt_changed during the second of these
->>> invocations.
->>>
->>> While at it, add a comment ahead of toggle_guest_pt() to clarify its
->>> intended usage.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> I'm still of the opinion that the commit message wants rewriting to get
->> the important points across clearly.
->>
->> And those are that toggle_guest_pt() is called in pairs specifically to
->> read kernel data structures when emulating a userspace action, and that
->> this doesn't modify cr3 from the guests point of view, and therefore
->> doesn't need the resync on exit-to-guest path.
-> Is this
+On 29/05/2020 17:22, Tamas K Lengyel wrote:
+> The patch 1e9bc407cf0 mistakenly converted the altp2m config option to a
+> boolean. This is incorrect and breaks external-only usecases of altp2m that
+> is set with a value of 2.
 >
-> "toggle_guest_pt() is called in pairs, to read guest kernel data
->  structures when emulating a guest userspace action. Hence this doesn't
->  modify cr3 from the guest's point of view, and therefore doesn't need
->  any resync on the exit-to-guest path. Therefore move the updating of
->  ->pv_cr3 and ->root_pgt_changed into toggle_guest_mode(), since undoing
->  the changes during the second of these invocations wouldn't be a safe
->  thing to do."
->
-> any better?
+> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
 
-Yes - that will do.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Sorry for breaking it to begin with.
 
