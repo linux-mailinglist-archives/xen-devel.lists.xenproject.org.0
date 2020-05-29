@@ -2,56 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C64601E7B18
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 12:59:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F21B1E7B1F
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 13:02:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jecjs-0002xv-UQ; Fri, 29 May 2020 10:59:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jecmO-0003qU-Ff; Fri, 29 May 2020 11:02:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mKAR=7L=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jecjr-0002xm-NR
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 10:59:47 +0000
-X-Inumbo-ID: 82a9e16e-a19b-11ea-81bc-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82a9e16e-a19b-11ea-81bc-bc764e2007e4;
- Fri, 29 May 2020 10:59:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bsXupUX5CAQgLcEwi1O7VUnO+wqZMFdhDU3R/Md8S0o=; b=dOwn4Yfuko8rcl2gDNiGLd7fGg
- DiJGnSfUpT9YfAaQBFix7Qel1jNWJVTz/Y8z7QvuVSxjx5JmmsvKAMZM9YuSzwcNdjT+FTCN9aZk6
- keGQjhOxuxIVeKl/YR/Ct8E6yhzdC7XSGg3EDw5bfXz7jNiRpS/KQGazWQ+o2cjHY8X8=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jecjo-0001hr-3p; Fri, 29 May 2020 10:59:44 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jecjn-0005qx-Si; Fri, 29 May 2020 10:59:44 +0000
-Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
-To: Jan Beulich <jbeulich@suse.com>
-References: <cover.1590675919.git.bertrand.marquis@arm.com>
- <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
- <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
- <dcfbca54-4773-9f43-1826-f5137a41bd9f@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <43781f37-184d-3ac8-8997-0a9be1de05ce@xen.org>
-Date: Fri, 29 May 2020 11:59:40 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.1
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jecmM-0003qP-Tx
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:02:22 +0000
+X-Inumbo-ID: de166b08-a19b-11ea-a893-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id de166b08-a19b-11ea-a893-12813bfff9fa;
+ Fri, 29 May 2020 11:02:21 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 9C6B7AD09;
+ Fri, 29 May 2020 11:02:19 +0000 (UTC)
+Subject: Re: Xen XSM/FLASK policy, grub defaults, etc.
+To: Ian Jackson <ian.jackson@citrix.com>
+References: <24270.35349.838484.116865@mariner.uk.xensource.com>
+ <0D83AAA6-A205-4256-8A38-CC8122AC063D@citrix.com>
+ <24272.59646.746545.343358@mariner.uk.xensource.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <4a8e7cf2-8f63-d4d2-e051-9484a5b8c8ed@suse.com>
+Date: Fri, 29 May 2020 13:02:20 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <dcfbca54-4773-9f43-1826-f5137a41bd9f@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <24272.59646.746545.343358@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,46 +48,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "paul@xen.org" <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "Xia,
- Hongyan" <hongyxia@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org,
- nd@arm.com, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ "cjwatson@debian.org" <cjwatson@debian.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
-
-On 29/05/2020 08:35, Jan Beulich wrote:
-> On 28.05.2020 20:54, Julien Grall wrote:
->> On 28/05/2020 16:25, Bertrand Marquis wrote:
->>> At the moment on Arm, a Linux guest running with KTPI enabled will
->>> cause the following error when a context switch happens in user mode:
->>> (XEN) p2m.c:1890: d1v0: Failed to walk page-table va 0xffffff837ebe0cd0
->>>
->>> This patch is modifying runstate handling to map the area given by the
->>> guest inside Xen during the hypercall.
->>> This is removing the guest virtual to physical conversion during context
->>> switches which removes the bug
+On 29.05.2020 12:50, Ian Jackson wrote:
+> George Dunlap writes ("Re: Xen XSM/FLASK policy, grub defaults, etc."):
+>>> On May 27, 2020, at 4:41 PM, Ian Jackson <ian.jackson@citrix.com> wrote:
+>>> 3. Failing that, Xen should provide some other mechanism which would
+>>> enable something like update-grub to determine whether a particular
+>>> hypervisor can sensibly be run with a policy file and flask=enforcing.
 >>
->> It would be good to spell out that a virtual address is not stable. So
->> relying on it is wrong.
+>> So you want update-grub to check whether *the Xen binary it’s creating entries for* has FLASK enabled.  We generally include the Xen config used to build the hypervisor — could we have it check for CONFIG_XSM_FLASK?
 > 
-> Guests at present are permitted to change the mapping underneath the
-> virtual address provided (this may not be the best idea, but the
-> interface is like it is).
+> That would be a possibility.  Including kernel configs has gone out of
+> fashion but I think most distros ship them.
+> 
+> Are we confident that this config name will remain stable ?
 
-Well yes, it could be point to data used by the userpsace. So you could 
-corrupt a program. It is not very great.
+Well, if it's to be used like this, then we'll have to keep it
+stable if at all possible. But that's the reason why I dislike
+the .config grep-ing approach (not just for Xen, also for
+Linux). It would imo be better if the binary included something
+that can be queried. Such a "something" is then much more
+logical to keep stable, imo. This "something" could be an ELF
+note, for example (assuming a similar problem to the one here
+doesn't exist for xen.efi, or else we'd need to find a solution
+there, too).
 
-So I would be ready to accept such restriction on Arm at least because 
-KPTI use case is far more concerning that a kernel trying to change the 
-location of the runstate in physical memory.
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
