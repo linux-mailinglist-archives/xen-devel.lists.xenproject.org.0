@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0C9C1E817D
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 17:18:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5BAE1E8199
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 17:20:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeglk-0005ez-7A; Fri, 29 May 2020 15:18:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3yhI=7L=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1jeglj-0005eu-1l
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 15:17:59 +0000
-X-Inumbo-ID: 92c3caaa-a1bf-11ea-a8d7-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 92c3caaa-a1bf-11ea-a8d7-12813bfff9fa;
- Fri, 29 May 2020 15:17:56 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: gzE/Y/bcAQE6Hc/ZTh1X3ETkde1v3Ul5V/2yVBkTH6i3ZEA5z6XgmiS46wVLlICUHocVigImHc
- k36YYUwFjfcE1sZeIVWwtdW+kL1HMLMiJiF/yp5oYX8r8fiJWOROVRmKShYpCmwB3RDW7Rglet
- 28gROmxIWkwVl+nL8CoKEQ+8wOsgF4sj/bR+8nyINezUzYwDJhvVeHB94HCicM0Ynq0P9p4z6A
- LkXoRewx+D4/p9sjCt+zqku0ONExI71e1BIFWGYiCA5/5KEiuEVzZ6UZSfirBSu/46tZfEeZkl
- 1qw=
-X-SBRS: 2.7
-X-MesageID: 19120258
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,449,1583211600"; d="scan'208";a="19120258"
-Subject: Re: [PATCH] x86/svm: do not try to handle recalc NPT faults
- immediately
-To: Jan Beulich <jbeulich@suse.com>
-References: <1590712553-7298-1-git-send-email-igor.druzhinin@citrix.com>
- <bb934c0c-3f0d-df7e-1720-8dbbdbf7691d@suse.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <026404fb-54b7-d03f-b4c5-367bcb5af41d@citrix.com>
-Date: Fri, 29 May 2020 16:17:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	id 1jegnh-0005lk-JM; Fri, 29 May 2020 15:20:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jegng-0005lf-Fb
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 15:20:00 +0000
+X-Inumbo-ID: dc24cbc2-a1bf-11ea-8993-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dc24cbc2-a1bf-11ea-8993-bc764e2007e4;
+ Fri, 29 May 2020 15:19:59 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A480FB07D;
+ Fri, 29 May 2020 15:19:58 +0000 (UTC)
+Subject: Re: [PATCH v10 1/9] x86emul: address x86_insn_is_mem_{access, write}()
+ omissions
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <d2375ecb-f662-99d8-84c2-e9f9c5cf7b9e@suse.com>
+ <f41a4f27-bbe2-6450-38c1-6c4e23f2b07b@suse.com>
+ <8e976b4b-60f2-bf94-843d-0fe0ba57087c@citrix.com>
+ <5e46ec9b-2ae0-3d28-01c8-794356532456@suse.com>
+ <56a4b478-6b3e-1eea-12b6-560dcb2776f2@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1c030ba3-b1e0-62b6-b048-f907acade662@suse.com>
+Date: Fri, 29 May 2020 17:19:58 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <bb934c0c-3f0d-df7e-1720-8dbbdbf7691d@suse.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <56a4b478-6b3e-1eea-12b6-560dcb2776f2@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,115 +50,84 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com,
- george.dunlap@citrix.com, wl@xen.org, andrew.cooper3@citrix.com
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29/05/2020 15:34, Jan Beulich wrote:
-> On 29.05.2020 02:35, Igor Druzhinin wrote:
->> A recalculation NPT fault doesn't always require additional handling
->> in hvm_hap_nested_page_fault(), moreover in general case if there is no
->> explicit handling done there - the fault is wrongly considered fatal.
+On 29.05.2020 17:03, Andrew Cooper wrote:
+> On 29/05/2020 14:29, Jan Beulich wrote:
+>> On 29.05.2020 14:18, Andrew Cooper wrote:
+>>> On 25/05/2020 15:26, Jan Beulich wrote:
+>>>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>>>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>>>> @@ -11474,25 +11474,87 @@ x86_insn_operand_ea(const struct x86_emu
+>>>>      return state->ea.mem.off;
+>>>>  }
+>>>>  
+>>>> +/*
+>>>> + * This function means to return 'true' for all supported insns with explicit
+>>>> + * accesses to memory.  This means also insns which don't have an explicit
+>>>> + * memory operand (like POP), but it does not mean e.g. segment selector
+>>>> + * loads, where the descriptor table access is considered an implicit one.
+>>>> + */
+>>>>  bool
+>>>>  x86_insn_is_mem_access(const struct x86_emulate_state *state,
+>>>>                         const struct x86_emulate_ctxt *ctxt)
+>>>>  {
+>>>> +    if ( mode_64bit() && state->not_64bit )
+>>>> +        return false;
+>>> Is this path actually used?
+>> Yes, it is. It's only x86_emulate() which has
 >>
->> Instead of trying to be opportunistic - use safer approach and handle
->> P2M recalculation in a separate NPT fault by attempting to retry after
->> making the necessary adjustments. This is aligned with Intel behavior
->> where there are separate VMEXITs for recalculation and EPT violations
->> (faults) and only faults are handled in hvm_hap_nested_page_fault().
->> Do it by also unifying do_recalc return code with Intel implementation
->> where returning 1 means P2M was actually changed.
+>>     generate_exception_if(state->not_64bit && mode_64bit(), EXC_UD);
 >>
->> This covers a specific case of migration with vGPU assigned on AMD:
->> global log-dirty is enabled and causes immediate recalculation NPT
->> fault in MMIO area upon access.
+>> right now.
 > 
-> To be honest, from this last paragraph I still can't really derive
-> what goes wrong exactly why, before this change.
-
-I admit it might require some knowledge of how vGPU is implemented. I will try
-to give more info in this paragraph.
-
->> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
->> ---
->> This is a safer alternative to:
->> https://lists.xenproject.org/archives/html/xen-devel/2020-05/msg01662.html
->> and more correct approach from my PoV.
+> Oh.  That is a bit awkward.
 > 
-> Indeed - I was about to reply there, but then I thought I'd first
-> look at this patch, in case it was a replacement.
+>>> state->not_64bit ought to fail instruction
+>>> decode, at which point we wouldn't have a valid state to be used here.
+>> x86_decode() currently doesn't have much raising of #UD at all, I
+>> think. If it wasn't like this, the not_64bit field wouldn't be
+>> needed - it's used only to communicate from decode to execute.
+>> We're not entirely consistent with this though, seeing in
+>> x86_decode_onebyte(), a few lines below the block of case labels
+>> setting that field,
+>>
+>>     case 0x9a: /* call (far, absolute) */
+>>     case 0xea: /* jmp (far, absolute) */
+>>         generate_exception_if(mode_64bit(), EXC_UD);
 > 
->> --- a/xen/arch/x86/hvm/svm/svm.c
->> +++ b/xen/arch/x86/hvm/svm/svm.c
->> @@ -2923,9 +2923,10 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
->>              v->arch.hvm.svm.cached_insn_len = vmcb->guest_ins_len & 0xf;
->>          rc = vmcb->exitinfo1 & PFEC_page_present
->>               ? p2m_pt_handle_deferred_changes(vmcb->exitinfo2) : 0;
->> -        if ( rc >= 0 )
->> +        if ( rc == 0 )
->> +            /* If no recal adjustments were being made - handle this fault */
->>              svm_do_nested_pgfault(v, regs, vmcb->exitinfo1, vmcb->exitinfo2);
->> -        else
->> +        else if ( rc < 0 )
+> This is because there is no legitimate way to determine the end of the
+> instruction.
 > 
-> So from going through the code and judging by the comment in
-> finish_type_change() (which btw you will need to update, to avoid
-> it becoming stale) the >= here was there just in case, without
-> there actually being any case where a positive value would be
-> returned. It that's also the conclusion you've drawn, then I
-> think it would help mentioning this in the description.
+> Most of the not_64bit instructions do have a well-defined end, even if
+> they aren't permitted for use.
 
-I re-read the comments in finish_type_change() and to me they look
-pretty much in line with the now common interface between EPT and NPT
-recalc calls. 
+I wouldn't bet on that. Just look at the re-use of opcode D6
+(salc in 32-bit) by L1OM for an extreme example. There's nothing
+we can say on how any of the reserved opcodes may get re-used.
+Prior to AVX / AVX512 we'd have estimated C4, C5, and 62 wrongly
+as well (but that's true independent of execution mode).
 
-Ok, I will point out that I concluded there was no additional intent
-of necessarily calling svm_do_nested_pgfault() after recalc.
-
-> It is also desirable to mention finish_type_change() not being
-> affected, as already dealing with the > 0 case.
-
-Will mention that as well.
-
->> --- a/xen/arch/x86/mm/p2m-pt.c
->> +++ b/xen/arch/x86/mm/p2m-pt.c
->> @@ -340,7 +340,7 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
->>      unsigned long gfn_remainder = gfn;
->>      unsigned int level = 4;
->>      l1_pgentry_t *pent;
->> -    int err = 0;
->> +    int err = 0, rc = 0;
->>  
->>      table = map_domain_page(pagetable_get_mfn(p2m_get_pagetable(p2m)));
->>      while ( --level )
->> @@ -402,6 +402,8 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
->>                  clear_recalc(l1, e);
->>                  err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
->>                  ASSERT(!err);
->> +
->> +                rc = 1;
->>              }
->>          }
->>          unmap_domain_page((void *)((unsigned long)pent & PAGE_MASK));
->> @@ -448,12 +450,14 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
->>              clear_recalc(l1, e);
->>          err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
->>          ASSERT(!err);
->> +
->> +        rc = 1;
->>      }
->>  
->>   out:
->>      unmap_domain_page(table);
->>  
->> -    return err;
->> +    return err ? err : rc;
+>> We could certainly drop the field and raise #UD during decode
+>> already, but don't you think we then should do so for all
+>> encodings that ultimately lead to #UD, e.g. also for AVX insns
+>> without AVX available to the guest? This would make
+>> x86_decode() quite a bit larger, as it would then also need to
+>> have a giant switch() (or something else that's suitable to
+>> cover all cases).
 > 
-> Typically we write this as "err ?: rc". I'd like to ask that "rc" also
-> be renamed, to something like "recalc_done", and then to become bool.
+> I think there is a semantic difference between "we can't parse the
+> instruction", and "we can parse it, but it's not legitimate in this
+> context".
+> 
+> I don't think our exact split is correct, but I don't think moving all
+> #UD checking into x86_decode() is correct either.
 
-Sure.
+Do you have any clear, sufficiently simple rule in mind for where
+we could draw the boundary?
 
-Igor
- 
+Jan
 
