@@ -2,39 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16EEA1E8133
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 17:07:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 704261E8135
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 17:07:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jegay-0003wt-4C; Fri, 29 May 2020 15:06:52 +0000
+	id 1jegbJ-00040T-H6; Fri, 29 May 2020 15:07:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BsAk=7L=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jegaw-0003wm-BH
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 15:06:50 +0000
-X-Inumbo-ID: 051a158e-a1be-11ea-81bc-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ <SRS0=3yhI=7L=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jegbI-00040I-Ay
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 15:07:12 +0000
+X-Inumbo-ID: 1219e28c-a1be-11ea-8993-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 051a158e-a1be-11ea-81bc-bc764e2007e4;
- Fri, 29 May 2020 15:06:49 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3E5D2ACC5;
- Fri, 29 May 2020 15:06:48 +0000 (UTC)
-Message-ID: <60c7224bf3f502e62a21deeb4d45f0aec9cdd943.camel@suse.com>
-Subject: Re: [PATCH 0/2] xen: credit2: limit the number of CPUs per runqueue
-From: Dario Faggioli <dfaggioli@suse.com>
-To: xen-devel@lists.xenproject.org
-Date: Fri, 29 May 2020 17:06:46 +0200
-In-Reply-To: <ab810b293ca8324ca3fba22476401a58435243fa.camel@suse.com>
-References: <158818022727.24327.14309662489731832234.stgit@Palanthas>
- <ab810b293ca8324ca3fba22476401a58435243fa.camel@suse.com>
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-GwpRhYkaFr/g6S+yArtv"
-User-Agent: Evolution 3.36.2 
+ id 1219e28c-a1be-11ea-8993-bc764e2007e4;
+ Fri, 29 May 2020 15:07:11 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: e7XbytowCZx0ORFF5jF8a6kGqCFaqssE1F7VlabNyK7R2AlLLWub5sftG0Y61FE4T1S2FJyniL
+ lSZ4W78NgiuUK48V2uDucyoXzLXFhaxYubrgmE6uueoMM7ICCkLGfq25PndSQ1sISd+KT0XSTm
+ flPgBl41970kDw2BXh4f1ENsKfDs0yV/hENx3gxaQFEL3qYkR7sOPdyphGKRVok4AM6jSRa9gD
+ N9Dzc2eg1m0nSduDx3kiraWS4r8M+9UokCyW2zDOHAnDxc1lj/jLxL+287NGG7UShflgEYXs3m
+ k1w=
+X-SBRS: 2.7
+X-MesageID: 19118900
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,449,1583211600"; d="scan'208";a="19118900"
+Subject: Re: [PATCH] x86/svm: do not try to handle recalc NPT faults
+ immediately
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger@xen.org>
+References: <1590712553-7298-1-git-send-email-igor.druzhinin@citrix.com>
+ <20200529143331.GO1195@Air-de-Roger>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <98dda864-e47e-bba5-a66b-02662708c540@citrix.com>
+Date: Fri, 29 May 2020 16:06:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
+In-Reply-To: <20200529143331.GO1195@Air-de-Roger>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,188 +56,116 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org, george.dunlap@citrix.com, wl@xen.org,
+ jbeulich@suse.com, andrew.cooper3@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 29/05/2020 15:33, Roger Pau Monné wrote:
+> On Fri, May 29, 2020 at 01:35:53AM +0100, Igor Druzhinin wrote:
+>> A recalculation NPT fault doesn't always require additional handling
+>> in hvm_hap_nested_page_fault(), moreover in general case if there is no
+>> explicit handling done there - the fault is wrongly considered fatal.
+>>
+>> Instead of trying to be opportunistic - use safer approach and handle
+>> P2M recalculation in a separate NPT fault by attempting to retry after
+>> making the necessary adjustments. This is aligned with Intel behavior
+>> where there are separate VMEXITs for recalculation and EPT violations
+>> (faults) and only faults are handled in hvm_hap_nested_page_fault().
+>> Do it by also unifying do_recalc return code with Intel implementation
+>> where returning 1 means P2M was actually changed.
+> 
+> That seems like a good approach IMO.
+> 
+> Do you know whether this will make the code slower? (since there are
+> cases previously handled in a single vmexit that would take two
+> vmexits now)
 
---=-GwpRhYkaFr/g6S+yArtv
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The only case I could think of is memory writes during migration -
+first fault would propagate P2M type recalculation while the second
+actually log a dirty page.
 
-On Fri, 2020-05-29 at 13:46 +0200, Dario Faggioli wrote:
-> Basically, if we just consider patches 1 and 4 we will end up, right
-> after boot, with a system that has smaller runqueues.
->
-Actually, to be fully precise, given how I reorganized the series, it's
-not patches 1 and 4, it's patches 1, 3 and 4.
+The slowdown would be only during live phase obviously but should be
+marginal and in line with what we currently have on Intel.
 
-Hopefully, that is not a big deal, but it patch 3 is really a problem,
-I can re-arrange patch 4 for working without it.
+>> This covers a specific case of migration with vGPU assigned on AMD:
+>> global log-dirty is enabled and causes immediate recalculation NPT
+>> fault in MMIO area upon access.
+>>
+>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+>> ---
+>> This is a safer alternative to:
+>> https://lists.xenproject.org/archives/html/xen-devel/2020-05/msg01662.html
+>> and more correct approach from my PoV.
+>> ---
+>>  xen/arch/x86/hvm/svm/svm.c | 5 +++--
+>>  xen/arch/x86/mm/p2m-pt.c   | 8 ++++++--
+>>  2 files changed, 9 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+>> index 46a1aac..7f6f578 100644
+>> --- a/xen/arch/x86/hvm/svm/svm.c
+>> +++ b/xen/arch/x86/hvm/svm/svm.c
+>> @@ -2923,9 +2923,10 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
+>>              v->arch.hvm.svm.cached_insn_len = vmcb->guest_ins_len & 0xf;
+>>          rc = vmcb->exitinfo1 & PFEC_page_present
+>>               ? p2m_pt_handle_deferred_changes(vmcb->exitinfo2) : 0;
+>> -        if ( rc >= 0 )
+>> +        if ( rc == 0 )
+>> +            /* If no recal adjustments were being made - handle this fault */
+>>              svm_do_nested_pgfault(v, regs, vmcb->exitinfo1, vmcb->exitinfo2);
+>> -        else
+>> +        else if ( rc < 0 )
+>>          {
+>>              printk(XENLOG_G_ERR
+>>                     "%pv: Error %d handling NPF (gpa=%08lx ec=%04lx)\n",
+>> diff --git a/xen/arch/x86/mm/p2m-pt.c b/xen/arch/x86/mm/p2m-pt.c
+>> index 5c05017..377565b 100644
+>> --- a/xen/arch/x86/mm/p2m-pt.c
+>> +++ b/xen/arch/x86/mm/p2m-pt.c
+>> @@ -340,7 +340,7 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+>>      unsigned long gfn_remainder = gfn;
+>>      unsigned int level = 4;
+>>      l1_pgentry_t *pent;
+>> -    int err = 0;
+>> +    int err = 0, rc = 0;
+>>  
+>>      table = map_domain_page(pagetable_get_mfn(p2m_get_pagetable(p2m)));
+>>      while ( --level )
+>> @@ -402,6 +402,8 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+>>                  clear_recalc(l1, e);
+>>                  err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+>>                  ASSERT(!err);
+>> +
+>> +                rc = 1;
+>>              }
+>>          }
+>>          unmap_domain_page((void *)((unsigned long)pent & PAGE_MASK));
+>> @@ -448,12 +450,14 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+>>              clear_recalc(l1, e);
+>>          err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+>>          ASSERT(!err);
+>> +
+>> +        rc = 1;
+>>      }
+>>  
+>>   out:
+>>      unmap_domain_page(table);
+>>  
+>> -    return err;
+>> +    return err ? err : rc;
+> 
+> Nit: you can use the elvis operator here: return err ?: rc;
+> 
+> Also I couldn't spot any caller that would have troubles with the
+> function now returning 1 in certain conditions, can you confirm the
+> callers have been audited?
 
-Apart from this, and for adding more information, on a system with 96
-CPUs in 2 sockets, this is how the runqueues looks like (with these
-patches:
+Yes, I checked all the callers before making the change. That's actually
+where I spotted Intel side is doing exactly the same already.
 
-(XEN) Online Cpus: 0-95
-(XEN) Cpupool 0:
-(XEN) Cpus: 0-95
-(XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
-(XEN) Scheduler: SMP Credit Scheduler rev2 (credit2)
-(XEN) Active queues: 6
-(XEN)   default-weight     =3D 256
-(XEN) Runqueue 0:
-(XEN)   ncpus              =3D 16
-(XEN)   cpus               =3D 0-15
-(XEN)   max_weight         =3D 256
-(XEN)   pick_bias          =3D 0
-(XEN)   instload           =3D 0
-(XEN)   aveload            =3D 1223 (~0%)
-(XEN)   idlers: 00000000,00000000,00000000,00000000,00000000,00000000,0000f=
-fff
-(XEN)   tickled: 00000000,00000000,00000000,00000000,00000000,00000000,0000=
-0000
-(XEN)   fully idle cores: 00000000,00000000,00000000,00000000,00000000,0000=
-0000,0000ffff
-(XEN) Runqueue 1:
-(XEN)   ncpus              =3D 16
-(XEN)   cpus               =3D 16-31
-(XEN)   max_weight         =3D 256
-(XEN)   pick_bias          =3D 16
-(XEN)   instload           =3D 0
-(XEN)   aveload            =3D 3324 (~1%)
-(XEN)   idlers: 00000000,00000000,00000000,00000000,00000000,00000000,ffff0=
-000
-(XEN)   tickled: 00000000,00000000,00000000,00000000,00000000,00000000,0000=
-0000
-(XEN)   fully idle cores: 00000000,00000000,00000000,00000000,00000000,0000=
-0000,ffff0000
-(XEN) Runqueue 2:
-(XEN)   ncpus              =3D 16
-(XEN)   cpus               =3D 32-47
-(XEN)   max_weight         =3D 256
-(XEN)   pick_bias          =3D 32
-(XEN)   instload           =3D 1
-(XEN)   aveload            =3D 8996 (~3%)
-(XEN)   idlers: 00000000,00000000,00000000,00000000,00000000,0000feff,00000=
-000
-(XEN)   tickled: 00000000,00000000,00000000,00000000,00000000,00000000,0000=
-0000
-(XEN)   fully idle cores: 00000000,00000000,00000000,00000000,00000000,0000=
-fcff,00000000
-(XEN) Runqueue 3:
-(XEN)   ncpus              =3D 16
-(XEN)   cpus               =3D 48-63
-(XEN)   max_weight         =3D 256
-(XEN)   pick_bias          =3D 48
-(XEN)   instload           =3D 0
-(XEN)   aveload            =3D 2424 (~0%)
-(XEN)   idlers: 00000000,00000000,00000000,00000000,00000000,ffff0000,00000=
-000
-(XEN)   tickled: 00000000,00000000,00000000,00000000,00000000,00000000,0000=
-0000
-(XEN)   fully idle cores: 00000000,00000000,00000000,00000000,00000000,ffff=
-0000,00000000
-(XEN) Runqueue 4:
-(XEN)   ncpus              =3D 16
-(XEN)   cpus               =3D 64-79
-(XEN)   max_weight         =3D 256
-(XEN)   pick_bias          =3D 66
-(XEN)   instload           =3D 0
-(XEN)   aveload            =3D 1070 (~0%)
-(XEN)   idlers: 00000000,00000000,00000000,00000000,0000ffff,00000000,00000=
-000
-(XEN)   tickled: 00000000,00000000,00000000,00000000,00000000,00000000,0000=
-0000
-(XEN)   fully idle cores: 00000000,00000000,00000000,00000000,0000ffff,0000=
-0000,00000000
-(XEN) Runqueue 5:
-(XEN)   ncpus              =3D 16
-(XEN)   cpus               =3D 80-95
-(XEN)   max_weight         =3D 256
-(XEN)   pick_bias          =3D 82
-(XEN)   instload           =3D 0
-(XEN)   aveload            =3D 425 (~0%)
-(XEN)   idlers: 00000000,00000000,00000000,00000000,ffff0000,00000000,00000=
-000
-(XEN)   tickled: 00000000,00000000,00000000,00000000,00000000,00000000,0000=
-0000
-(XEN)   fully idle cores: 00000000,00000000,00000000,00000000,ffff0000,0000=
-0000,00000000
-
-Without the patches, there would be just 2 of them (on with CPUs 0-47
-and another with CPUs 48-95).
-
-On a system with "just" 16 CPUs, in 2 sockets, they look like this:
-
-(XEN) Online Cpus: 0-15
-(XEN) Cpupool 0:
-(XEN) Cpus: 0-15
-(XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
-(XEN) Scheduler: SMP Credit Scheduler rev2 (credit2)
-(XEN) Active queues: 2
-(XEN) 	default-weight     =3D 256
-(XEN) Runqueue 0:
-(XEN) 	ncpus              =3D 8
-(XEN) 	cpus               =3D 0-7
-(XEN) 	max_weight         =3D 256
-(XEN) 	pick_bias          =3D 0
-(XEN) 	instload           =3D 0
-(XEN) 	aveload            =3D 7077 (~2%)
-(XEN) 	idlers: 00000000,000000ff
-(XEN) 	tickled: 00000000,00000000
-(XEN) 	fully idle cores: 00000000,000000ff
-(XEN) Runqueue 1:
-(XEN) 	ncpus              =3D 8
-(XEN) 	cpus               =3D 8-15
-(XEN) 	max_weight         =3D 256
-(XEN) 	pick_bias          =3D 8
-(XEN) 	instload           =3D 1
-(XEN) 	aveload            =3D 11848 (~4%)
-(XEN) 	idlers: 00000000,0000fe00
-(XEN) 	tickled: 00000000,00000000
-(XEN) 	fully idle cores: 00000000,0000fc00
-
-There are still 2, because there are 2 sockets, and we still honor the
-topology (and 8 CPUs in a runqueue is fine, because is lower than 16).
-
-I'll share the same output on a 256 CPU system, as soon as I finish
-installing it.
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-GwpRhYkaFr/g6S+yArtv
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl7RJQYACgkQFkJ4iaW4
-c+4uixAAlTOJjjZ9Rj6VGZf5eymjfRW7DlYb3IhIAiTcOLVrTYUF8+OCDJ+8AJLS
-+OCPR9ANqIoJ5HBNgPcvPtMTmS0VqMSxkVIBS/bQseQixJl9mBLqbENCNwE4wOBk
-8Q9h7LIzmaANn4P8FuhnjnWU6UJYbOv9UfiUN3OSQqANS3cjqtA8g1PGzCII2kV5
-rwJhAOuuX3GQ0AGRu/8kvqN3lz3stSLhdyvLAtCjFhvQ2xnRNycnEVZJc8j21yZ6
-CS551p7exO4UBw5KdSERPe/XuwtMZfpvtWJBOI9ufC6tAWIB5mDGCGZUDIw9flNZ
-ckLbcVsA+qFyf2UITVRqoFOlnLaEeBP4YkZ9aMZF/KhL0L4zNeVK7/u9Kzgxm2FD
-NrrXd641CSU+NmNEsasPEEA2d2iHzv8vA1Wv8mRQzOQGXr0lyDq03Vra5xZbmfwl
-gmbI2lQu/9hCpK0UZDGW8x1l5r8RhTKWyUOrOxibPotlBsZWgN0i/FYh9Ikr2ste
-OCg9UtHXXUvEOk6dytQAjz50N4NDDAJKKoyQgG45Wd1znuwQpeNRX9VDKveGN+67
-iI+4U9SAgYBFwSPXVBn34PefT7USHf9FfGKcduSuL+PYMfhE/SmG6V+SoP0ZOJq2
-vzMcfmBN1dbJy15Fh+1k7dlWJi+wqUZkMTaQAmhb9OUgR7A3+/I=
-=LxRn
------END PGP SIGNATURE-----
-
---=-GwpRhYkaFr/g6S+yArtv--
-
+Igor
 
