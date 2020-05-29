@@ -2,62 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE6DB1E872E
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 21:05:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBB0D1E87A6
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 21:21:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jekJb-0005kI-Cj; Fri, 29 May 2020 19:05:11 +0000
+	id 1jekZ8-0007hn-RE; Fri, 29 May 2020 19:21:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T8V9=7L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jekJZ-0005k7-MU
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 19:05:09 +0000
-X-Inumbo-ID: 50663132-a1df-11ea-8993-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=mY44=7L=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1jekZ7-0007gB-7F
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 19:21:13 +0000
+X-Inumbo-ID: 8e1fed7c-a1e1-11ea-9dbe-bc764e2007e4
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 50663132-a1df-11ea-8993-bc764e2007e4;
- Fri, 29 May 2020 19:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1UVK56gpo6abrF2Dj8xV+mzkLvna7y5eLTSJRGSnz3g=; b=c/aTv8POB6uUQDjqt6eLYBnBT
- GvAi9gutAFos0EhrfB3YDHItcwTqNwXCtspyD4GJjPdnpWKC96L1gzWb72OXJMcSunR1YBzVRAd6z
- 2UjsNIWJXnLRTg4PZCHcFYCEgGgkj6Wrcs8NdnOkr5HonZA0CJUOFBGl9PSMJJslnUUwA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jekJY-0004tR-3G; Fri, 29 May 2020 19:05:08 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jekJX-0003HV-Pe; Fri, 29 May 2020 19:05:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jekJX-0003XE-P3; Fri, 29 May 2020 19:05:07 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150498-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 8e1fed7c-a1e1-11ea-9dbe-bc764e2007e4;
+ Fri, 29 May 2020 19:21:11 +0000 (UTC)
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:41684
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1jekZ2-000OgG-MS (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Fri, 29 May 2020 20:21:09 +0100
+Subject: Re: [PATCH v2 05/14] x86/shstk: Re-layout the stack block for shadow
+ stacks
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200527191847.17207-1-andrew.cooper3@citrix.com>
+ <20200527191847.17207-6-andrew.cooper3@citrix.com>
+ <03cc30f8-4849-f77d-857d-b63248c70a25@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <bfa93460-486b-3977-475e-8c92114baa75@citrix.com>
+Date: Fri, 29 May 2020 20:21:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150498: regressions - trouble: blocked/fail
-X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
- xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-armhf:xen-build:fail:regression
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: xen=8e2aa76dc1670e82eaa15683353853bc66bf54fc
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 May 2020 19:05:07 +0000
+In-Reply-To: <03cc30f8-4849-f77d-857d-b63248c70a25@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,77 +52,167 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150498 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150498/
+On 28/05/2020 13:33, Jan Beulich wrote:
+> On 27.05.2020 21:18, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/traps.c
+>> +++ b/xen/arch/x86/traps.c
+>> @@ -365,20 +365,15 @@ static void show_guest_stack(struct vcpu *v, const struct cpu_user_regs *regs)
+>>  /*
+>>   * Notes for get_stack_trace_bottom() and get_stack_dump_bottom()
+>>   *
+>> - * Stack pages 0 - 3:
+>> + * Stack pages 1 - 4:
+>>   *   These are all 1-page IST stacks.  Each of these stacks have an exception
+>>   *   frame and saved register state at the top.  The interesting bound for a
+>>   *   trace is the word adjacent to this, while the bound for a dump is the
+>>   *   very top, including the exception frame.
+>>   *
+>> - * Stack pages 4 and 5:
+>> - *   None of these are particularly interesting.  With MEMORY_GUARD, page 5 is
+>> - *   explicitly not present, so attempting to dump or trace it is
+>> - *   counterproductive.  Without MEMORY_GUARD, it is possible for a call chain
+>> - *   to use the entire primary stack and wander into page 5.  In this case,
+>> - *   consider these pages an extension of the primary stack to aid debugging
+>> - *   hopefully rare situations where the primary stack has effective been
+>> - *   overflown.
+>> + * Stack pages 0 and 5:
+>> + *   Shadow stacks.  These are mapped read-only, and used by CET-SS capable
+>> + *   processors.  They will never contain regular stack data.
+> I don't mind the comment getting put in place already here, but will it
+> reflect reality even when CET-SS is not in use, in that the pages then
+> still are mapped r/o rather than being left unmapped to act as guard
+> pages not only for stack pushes but also for stack pops?
 
-Regressions :-(
+I can't parse this question.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-xsm               6 xen-build                fail REGR. vs. 150438
- build-amd64                   6 xen-build                fail REGR. vs. 150438
- build-armhf                   6 xen-build                fail REGR. vs. 150438
+However, I think it is answered by the following patch which does move
+things to unilaterally being r/o even in the non-CET-SS case.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
+> At which point
+> the "dump or trace it is counterproductive" remark would still apply in
+> this case, and hence may better be retained.
 
-version targeted for testing:
- xen                  8e2aa76dc1670e82eaa15683353853bc66bf54fc
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+Well - I'm thinking forwards to cleanup where we'd want to integrate the
+shadow stack into stack trace reporting, at which point we would
+consider these frames interesting to dump/trace.
 
-Last test of basis   150438  2020-05-28 14:01:19 Z    1 days
-Failing since        150465  2020-05-29 09:02:14 Z    0 days    7 attempts
-Testing same since   150498  2020-05-29 18:01:30 Z    0 days    1 attempts
+>
+>> @@ -392,13 +387,10 @@ unsigned long get_stack_trace_bottom(unsigned long sp)
+>>  {
+>>      switch ( get_stack_page(sp) )
+>>      {
+>> -    case 0 ... 3:
+>> +    case 1 ... 4:
+>>          return ROUNDUP(sp, PAGE_SIZE) -
+>>              offsetof(struct cpu_user_regs, es) - sizeof(unsigned long);
+>>  
+>> -#ifndef MEMORY_GUARD
+>> -    case 4 ... 5:
+>> -#endif
+>>      case 6 ... 7:
+>>          return ROUNDUP(sp, STACK_SIZE) -
+>>              sizeof(struct cpu_info) - sizeof(unsigned long);
+>> @@ -412,12 +404,9 @@ unsigned long get_stack_dump_bottom(unsigned long sp)
+>>  {
+>>      switch ( get_stack_page(sp) )
+>>      {
+>> -    case 0 ... 3:
+>> +    case 1 ... 4:
+>>          return ROUNDUP(sp, PAGE_SIZE) - sizeof(unsigned long);
+>>  
+>> -#ifndef MEMORY_GUARD
+>> -    case 4 ... 5:
+>> -#endif
+>>      case 6 ... 7:
+>>          return ROUNDUP(sp, STACK_SIZE) - sizeof(unsigned long);
+> The need to adjust these literal numbers demonstrates how fragile
+> this is. I admit I can't see a good way to get rid of the literal
+> numbers altogether,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Wei Liu <wl@xen.org>
+Frankly, this is why there is a massive comment, and I really didn't
+want to introduce PRIMARY_SHSTK_SLOT to begin with, because the whole
+thing is fragile and there is no obvious naming/labelling scheme which
+is liable to survive tweaking.
 
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+>  but could I talk you into switching to (for
+> the latter, as example)
+>
+>     switch ( get_stack_page(sp) )
+>     {
+>     case 0: case PRIMARY_SHSTK_SLOT:
+>         return 0;
+>
+>     case 1 ... 4:
+>         return ROUNDUP(sp, PAGE_SIZE) - sizeof(unsigned long);
+>
+>     case 6 ... 7:
+>         return ROUNDUP(sp, STACK_SIZE) - sizeof(unsigned long);
+>
+>     default:
+>         return sp - sizeof(unsigned long);
+>     }
+>
+> ? Of course this will need the callers to be aware they may get
+> back zero, but there are only very few (which made me notice the
+> functions would better be static).
 
+It was definitely needed externally at some point in the past.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>  And the returning of zero may
+> then want changing (conditionally upon us using CET-SS) in a
+> later patch, where iirc you use the shadow stack for call trace
+> generation.
+>
+> As a positive side effect this will yield a compile error if
+> PRIMARY_SHSTK_SLOT gets changed without adjusting these
+> functions.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Overall to your question, potentially as future clean-up to how we
+express stacks, but not right now for 4.14.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+>
+>> --- a/xen/include/asm-x86/config.h
+>> +++ b/xen/include/asm-x86/config.h
+>> @@ -75,6 +75,9 @@
+>>  /* Primary stack is restricted to 8kB by guard pages. */
+>>  #define PRIMARY_STACK_SIZE 8192
+>>  
+>> +/* Primary shadow stack is slot 5 of 8, immediately under the primary stack. */
+>> +#define PRIMARY_SHSTK_SLOT 5
+> Any reason to put it here rather than ...
+>
+>> --- a/xen/include/asm-x86/current.h
+>> +++ b/xen/include/asm-x86/current.h
+>> @@ -16,12 +16,12 @@
+>>   *
+>>   * 7 - Primary stack (with a struct cpu_info at the top)
+>>   * 6 - Primary stack
+>> - * 5 - Optionally not present (MEMORY_GUARD)
+>> - * 4 - Unused; optionally not present (MEMORY_GUARD)
+>> - * 3 - Unused; optionally not present (MEMORY_GUARD)
+>> - * 2 - MCE IST stack
+>> - * 1 - NMI IST stack
+>> - * 0 - Double Fault IST stack
+>> + * 5 - Primay Shadow Stack (read-only)
+>> + * 4 - #DF IST stack
+>> + * 3 - #DB IST stack
+>> + * 2 - NMI IST stack
+>> + * 1 - #MC IST stack
+>> + * 0 - IST Shadow Stacks (4x 1k, read-only)
+>>   */
+> ... right below this comment?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Yes - grouping the related constants.
 
+> Same question as above regarding the "read-only" here.
 
-Not pushing.
+I'll adjust the commit message to make it clearer that some of the text
+here is made true in the next patch.
 
-(No revision log; it would be 773 lines long.)
+~Andrew
 
