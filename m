@@ -2,36 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A18A1E7B9B
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 13:20:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E5571E7BAF
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 13:27:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jed49-0006od-IR; Fri, 29 May 2020 11:20:45 +0000
+	id 1jedA3-0007XY-7m; Fri, 29 May 2020 11:26:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gj5c=7L=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jed48-0006nv-DN
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:20:44 +0000
-X-Inumbo-ID: 559fe83c-a19e-11ea-9dbe-bc764e2007e4
-Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
+ <SRS0=K2ub=7L=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jedA1-0007XT-Ht
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:26:49 +0000
+X-Inumbo-ID: 48ff5ee0-a19f-11ea-9947-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 559fe83c-a19e-11ea-9dbe-bc764e2007e4;
- Fri, 29 May 2020 11:20:00 +0000 (UTC)
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
- (return-path ijackson@chiark.greenend.org.uk)
- id 1jed3P-0003xZ-Lq; Fri, 29 May 2020 12:19:59 +0100
-From: Ian Jackson <ian.jackson@eu.citrix.com>
-To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 09/49] Bodge systemd random seed arrangements
-Date: Fri, 29 May 2020 12:19:05 +0100
-Message-Id: <20200529111945.21394-10-ian.jackson@eu.citrix.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200529111945.21394-1-ian.jackson@eu.citrix.com>
-References: <20200529111945.21394-1-ian.jackson@eu.citrix.com>
+ id 48ff5ee0-a19f-11ea-9947-bc764e2007e4;
+ Fri, 29 May 2020 11:26:48 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 6grXn+OLhyh93kdoxBZnR91t4WZgnmX5+ICqZyoFk7YiiaFGEyvFonYrYct8qI6FERMJAefL0K
+ Jnvk+LJMhlT0Ai7FtoNovy7DVAHiq2elTwjwmg2FXNmnHVta4R5hTGjycK2+nmkZ8W3PH42p4Z
+ N/Ao0L3xv9QBaMxb6jtXg4Tj4qOoc3b1iFKnRPxms1XYu8PH+Njm8j/S0IFMgeE3NRh3WfLv2q
+ ARHEpXgpEkrBIou5vcvGfokc2nB2fcflNT94yDV7WuuHeRQvNLH7ixkJ/glOwtCTaPmcqJeLNR
+ QtM=
+X-SBRS: 2.7
+X-MesageID: 19001746
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,448,1583211600"; d="scan'208";a="19001746"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: Xen XSM/FLASK policy, grub defaults, etc.
+Thread-Topic: Xen XSM/FLASK policy, grub defaults, etc.
+Thread-Index: AQHWND0/xSJFUOR5YU28XikgbPuX46i7+DWAgALLwwCAAANFAIAABtKA
+Date: Fri, 29 May 2020 11:26:45 +0000
+Message-ID: <96F32637-E410-4EC8-937A-CFC8BE724352@citrix.com>
+References: <24270.35349.838484.116865@mariner.uk.xensource.com>
+ <0D83AAA6-A205-4256-8A38-CC8122AC063D@citrix.com>
+ <24272.59646.746545.343358@mariner.uk.xensource.com>
+ <4a8e7cf2-8f63-d4d2-e051-9484a5b8c8ed@suse.com>
+In-Reply-To: <4a8e7cf2-8f63-d4d2-e051-9484a5b8c8ed@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <28F1714F0E393C40ABF7D25F43EB4578@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,139 +64,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, "cjwatson@debian.org" <cjwatson@debian.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-systemd does not regard the contents of the random seed file as useful
-for the purposes of placating the kernel's entropy tracker.  As a
-result, the system hangs at boot waiting for entropy.
-
-Fix this by providing a small program which can be used to load a seed
-file into /dev/random and also call RNDADDTOENTCNT to add the
-appropriate amount to the kernel's counter.
-
-Arrange to run this program instead of
-   /lib/systemd/systemd-random-seed load
-
-With systemd the random seed file is in /var/lib/systemd/random-seed
-rather than /var/lib/urandom/random-seed.
-
-And, provide an initial contents of this file, via a d-i late_command.
-
-Unfortunately we must hardcode the actual numerical value of
-RNDADDTOENTCNT because we don't have a suitable compiler anywhere
-nearby.  It seems to have the same value on i386, amd64, armhf and
-arm64, our currently supported architectures.
-
-Thanks to Colin Watson for pointers to the systemd random unit and
-Matthew Vernon for instructions on overriding just ExecStart.
-
-I think this change should be a no-op on non-systemd systems.
-
-In principle this is a bug in Debian or in systemd, that ought to be
-reported upstream.  However, it has been extensively discussed on
-debian-devel and it does not seem that any improvement is likely.
-
-Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
----
- Osstest/Debian.pm                             | 18 ++++++++++
- .../override.conf                             |  3 ++
- overlay/usr/local/bin/random-seed-add         | 33 +++++++++++++++++++
- 3 files changed, 54 insertions(+)
- create mode 100644 overlay/etc/systemd/system/systemd-random-seed.service.d/override.conf
- create mode 100755 overlay/usr/local/bin/random-seed-add
-
-diff --git a/Osstest/Debian.pm b/Osstest/Debian.pm
-index b8bf67dc..8ccacc79 100644
---- a/Osstest/Debian.pm
-+++ b/Osstest/Debian.pm
-@@ -49,6 +49,7 @@ BEGIN {
-                       di_installcmdline_core
-                       di_vg_name
-                       debian_dhcp_rofs_fix
-+		      debian_write_random_seed_command
-                       );
-     %EXPORT_TAGS = ( );
- 
-@@ -1087,6 +1088,13 @@ ln -s . /target/boot/boot
- END
-     }
- 
-+    my $cmd = debian_write_random_seed_command('/target');
-+    preseed_hook_command($ho, 'late_command', $sfx, <<END);
-+#!/bin/sh
-+set -ex
-+$cmd
-+END
-+
-     $preseed_file .= preseed_hook_cmds();
- 
-     return create_webfile($ho, "preseed$sfx", $preseed_file);
-@@ -1612,4 +1620,14 @@ mv '$script.new' '$script'
- END
- }
- 
-+sub debian_write_random_seed_command ($) {
-+    my ($mountpoint) = @_;
-+    my $dir = "$mountpoint/var/lib/systemd";
-+    return <<END;
-+        umask 077
-+        test -d $dir || mkdir -m 0755 $dir
-+        dd if=/dev/urandom of=$dir/random-seed bs=1k count=1
-+END
-+}
-+
- 1;
-diff --git a/overlay/etc/systemd/system/systemd-random-seed.service.d/override.conf b/overlay/etc/systemd/system/systemd-random-seed.service.d/override.conf
-new file mode 100644
-index 00000000..f6cc0f84
---- /dev/null
-+++ b/overlay/etc/systemd/system/systemd-random-seed.service.d/override.conf
-@@ -0,0 +1,3 @@
-+[Service]
-+ExecStart=
-+ExecStart=/usr/local/bin/random-seed-add /var/lib/systemd/random-seed
-diff --git a/overlay/usr/local/bin/random-seed-add b/overlay/usr/local/bin/random-seed-add
-new file mode 100755
-index 00000000..89e75c4d
---- /dev/null
-+++ b/overlay/usr/local/bin/random-seed-add
-@@ -0,0 +1,33 @@
-+#!/usr/bin/perl -w
-+use strict;
-+
-+open R, '>', '/dev/random' or die "open /dev/random: $!\n";
-+R->autoflush(1);
-+
-+sub rndaddtoentcnt ($) {
-+    my ($bits) = @_;
-+    my $x = pack 'L', $bits;
-+    my $r = ioctl R, 0x40045201, $x;
-+    defined $r or die "RNDADDTOENTCNT: $!\n";
-+}
-+
-+sub process_stdin ($) {
-+    my ($f) = @_;
-+    my $got = read STDIN, $_, 512;
-+    defined $got or die "read $f: $!\n";
-+    last if !$got;
-+    print R $_ or die "write /dev/random: $!\n";
-+    my $bits = length($_) * 8;
-+    rndaddtoentcnt($bits);
-+}
-+
-+if (!@ARGV) {
-+    process_stdin('stdin');
-+} else {
-+    die "no options supported\n" if $ARGV[0] =~ m/^\-/;
-+    foreach my $f (@ARGV) {
-+        open STDIN, '<', $f or die "open for reading $f: $!\n";
-+        process_stdin($f);
-+    }
-+}
-+
--- 
-2.20.1
-
+DQoNCj4gT24gTWF5IDI5LCAyMDIwLCBhdCAxMjowMiBQTSwgSmFuIEJldWxpY2ggPGpiZXVsaWNo
+QHN1c2UuY29tPiB3cm90ZToNCj4gDQo+IE9uIDI5LjA1LjIwMjAgMTI6NTAsIElhbiBKYWNrc29u
+IHdyb3RlOg0KPj4gR2VvcmdlIER1bmxhcCB3cml0ZXMgKCJSZTogWGVuIFhTTS9GTEFTSyBwb2xp
+Y3ksIGdydWIgZGVmYXVsdHMsIGV0Yy4iKToNCj4+Pj4gT24gTWF5IDI3LCAyMDIwLCBhdCA0OjQx
+IFBNLCBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AY2l0cml4LmNvbT4gd3JvdGU6DQo+Pj4+IDMu
+IEZhaWxpbmcgdGhhdCwgWGVuIHNob3VsZCBwcm92aWRlIHNvbWUgb3RoZXIgbWVjaGFuaXNtIHdo
+aWNoIHdvdWxkDQo+Pj4+IGVuYWJsZSBzb21ldGhpbmcgbGlrZSB1cGRhdGUtZ3J1YiB0byBkZXRl
+cm1pbmUgd2hldGhlciBhIHBhcnRpY3VsYXINCj4+Pj4gaHlwZXJ2aXNvciBjYW4gc2Vuc2libHkg
+YmUgcnVuIHdpdGggYSBwb2xpY3kgZmlsZSBhbmQgZmxhc2s9ZW5mb3JjaW5nLg0KPj4+IA0KPj4+
+IFNvIHlvdSB3YW50IHVwZGF0ZS1ncnViIHRvIGNoZWNrIHdoZXRoZXIgKnRoZSBYZW4gYmluYXJ5
+IGl04oCZcyBjcmVhdGluZyBlbnRyaWVzIGZvciogaGFzIEZMQVNLIGVuYWJsZWQuICBXZSBnZW5l
+cmFsbHkgaW5jbHVkZSB0aGUgWGVuIGNvbmZpZyB1c2VkIHRvIGJ1aWxkIHRoZSBoeXBlcnZpc29y
+IOKAlCBjb3VsZCB3ZSBoYXZlIGl0IGNoZWNrIGZvciBDT05GSUdfWFNNX0ZMQVNLPw0KPj4gDQo+
+PiBUaGF0IHdvdWxkIGJlIGEgcG9zc2liaWxpdHkuICBJbmNsdWRpbmcga2VybmVsIGNvbmZpZ3Mg
+aGFzIGdvbmUgb3V0IG9mDQo+PiBmYXNoaW9uIGJ1dCBJIHRoaW5rIG1vc3QgZGlzdHJvcyBzaGlw
+IHRoZW0uDQo+PiANCj4+IEFyZSB3ZSBjb25maWRlbnQgdGhhdCB0aGlzIGNvbmZpZyBuYW1lIHdp
+bGwgcmVtYWluIHN0YWJsZSA/DQo+IA0KPiBXZWxsLCBpZiBpdCdzIHRvIGJlIHVzZWQgbGlrZSB0
+aGlzLCB0aGVuIHdlJ2xsIGhhdmUgdG8ga2VlcCBpdA0KPiBzdGFibGUgaWYgYXQgYWxsIHBvc3Np
+YmxlLiBCdXQgdGhhdCdzIHRoZSByZWFzb24gd2h5IEkgZGlzbGlrZQ0KPiB0aGUgLmNvbmZpZyBn
+cmVwLWluZyBhcHByb2FjaCAobm90IGp1c3QgZm9yIFhlbiwgYWxzbyBmb3INCj4gTGludXgpLiBJ
+dCB3b3VsZCBpbW8gYmUgYmV0dGVyIGlmIHRoZSBiaW5hcnkgaW5jbHVkZWQgc29tZXRoaW5nDQo+
+IHRoYXQgY2FuIGJlIHF1ZXJpZWQuIFN1Y2ggYSAic29tZXRoaW5nIiBpcyB0aGVuIG11Y2ggbW9y
+ZQ0KPiBsb2dpY2FsIHRvIGtlZXAgc3RhYmxlLCBpbW8uIFRoaXMgInNvbWV0aGluZyIgY291bGQg
+YmUgYW4gRUxGDQo+IG5vdGUsIGZvciBleGFtcGxlIChhc3N1bWluZyBhIHNpbWlsYXIgcHJvYmxl
+bSB0byB0aGUgb25lIGhlcmUNCj4gZG9lc24ndCBleGlzdCBmb3IgeGVuLmVmaSwgb3IgZWxzZSB3
+ZSdkIG5lZWQgdG8gZmluZCBhIHNvbHV0aW9uDQo+IHRoZXJlLCB0b28pLg0KDQpJIHRoaW5rIGFu
+IGVsZiBub3RlIG9uIHRoZSBiaW5hcnkgd291bGQgYmUgbmljZTsgYnV0IGl0IHdvbuKAmXQgaGVs
+cCB1bnRpbCBhbGwgdGhlIGRpc3Ryb3MgcGljayB1cCBYZW4gNC4xNS4NCg0KV2hpY2ggaXNu4oCZ
+dCB0byBzYXkgd2Ugc2hvdWxkbuKAmXQgZG8gaXQ7IGJ1dCBpdCBtaWdodCBiZSBuaWNlIHRvIGFs
+c28gaGF2ZSBhbiBpbnRlcm1lZGlhdGUgc29sdXRpb24gdGhhdCB3b3JrcyByaWdodCBub3csIGV2
+ZW4gaWYgaXTigJlzIG5vdCBvcHRpbWFsLg0KDQogLUdlb3JnZQ==
 
