@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60A4B1E7B91
+	by mail.lfdr.de (Postfix) with ESMTPS id E92991E7B94
 	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 13:20:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jed3V-0006DE-9F; Fri, 29 May 2020 11:20:05 +0000
+	id 1jed3a-0006SL-Gi; Fri, 29 May 2020 11:20:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gj5c=7L=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jed3U-00066V-Be
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:20:04 +0000
-X-Inumbo-ID: 5480d47a-a19e-11ea-9dbe-bc764e2007e4
+ id 1jed3Z-0006SG-CR
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 11:20:09 +0000
+X-Inumbo-ID: 54a7bb08-a19e-11ea-81bc-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5480d47a-a19e-11ea-9dbe-bc764e2007e4;
+ id 54a7bb08-a19e-11ea-81bc-bc764e2007e4;
  Fri, 29 May 2020 11:19:58 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jed3N-0003xZ-TK; Fri, 29 May 2020 12:19:58 +0100
+ id 1jed3O-0003xZ-4f; Fri, 29 May 2020 12:19:58 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 01/49] ts-logs-capture: Cope if xl shutdown leaves
- domain running for a bit
-Date: Fri, 29 May 2020 12:18:57 +0100
-Message-Id: <20200529111945.21394-2-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 02/49] ts-xen-build-prep: Install rsync
+Date: Fri, 29 May 2020 12:18:58 +0100
+Message-Id: <20200529111945.21394-3-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200529111945.21394-1-ian.jackson@eu.citrix.com>
 References: <20200529111945.21394-1-ian.jackson@eu.citrix.com>
@@ -47,31 +46,30 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This seems mostly to affect buster but it could in principle affect
-earlier releases too I think.
+osstest uses this for transferring configuration, build artefacts, and
+so on.
 
-In principle it would be nice to fix this bug, and to have a proper
-test for it, but a reliable test is hard and an unreliable one is not
-useful.  So I guess we are going to have this workaround
-indefinitely...
+In Debian stretch and earlier, rsync happened to be pulled in by
+something else.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- ts-logs-capture | 1 +
- 1 file changed, 1 insertion(+)
+ ts-xen-build-prep | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/ts-logs-capture b/ts-logs-capture
-index 0320a5a5..d75a2fda 100755
---- a/ts-logs-capture
-+++ b/ts-logs-capture
-@@ -272,6 +272,7 @@ sub shutdown_guests () {
- 		( xl shutdown -a -F -w ; echo y ) &
- 	    ) | (
- 		read x
-+		sleep 10 # xl shutdown is a bit racy :-/
- 		xl list | awk '!/^Domain-0 |^Name / {print $2}' \
- 		| xargs -t -r -n1 xl destroy ||:
- 	    )
+diff --git a/ts-xen-build-prep b/ts-xen-build-prep
+index e9298d54..8e73f763 100755
+--- a/ts-xen-build-prep
++++ b/ts-xen-build-prep
+@@ -197,7 +197,7 @@ END
+ }
+ 
+ sub prep () {
+-    my @packages = qw(mercurial
++    my @packages = qw(mercurial rsync
+                       build-essential bin86 bcc iasl bc
+                       flex bison cmake
+                       libpci-dev libncurses5-dev libssl-dev python-dev
 -- 
 2.20.1
 
