@@ -2,103 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2E491E824F
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 17:43:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C001E8259
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 17:44:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jehAP-0000Ne-DP; Fri, 29 May 2020 15:43:29 +0000
+	id 1jehBC-0000Sk-SF; Fri, 29 May 2020 15:44:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T8V9=7L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jehAO-0000NZ-Ac
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 15:43:28 +0000
-X-Inumbo-ID: 22eba7f8-a1c3-11ea-9dbe-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=Wp2E=7L=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jehBB-0000SB-25
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 15:44:17 +0000
+X-Inumbo-ID: 40391566-a1c3-11ea-81bc-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 22eba7f8-a1c3-11ea-9dbe-bc764e2007e4;
- Fri, 29 May 2020 15:43:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lggXKX0qv+Xfgmp9NrwaIzHFDYG58tic9d+BrAqSkyU=; b=IDF7nMTGU6Gmnw1U+y3iYBOOn
- TPltBskQSNCAuZwWAMKMPWpiDXE1QPd51rurW0Y5+Xh95augt2fXYhCgiZr0LWbMa8CagmHDwfBNj
- AbzUEfDCx4bxV1+uCeKnWjsyeUdOc/v3kh5jBezfsWQM8UJ9VQBKKT+MZyPNDnS6We65E=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jehAM-0008Oc-56; Fri, 29 May 2020 15:43:26 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jehAL-0000Vh-Ts; Fri, 29 May 2020 15:43:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jehAL-00058w-T8; Fri, 29 May 2020 15:43:25 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150457-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 40391566-a1c3-11ea-81bc-bc764e2007e4;
+ Fri, 29 May 2020 15:44:16 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: ONeqteup3dw6Lh+z7jrKEbgJlIGDTIAlGo2dQNpr7TcYtTUojg5zTrQwssXp7yTfM4ySGg2kHA
+ mQgz2TfSfCiwoyClkyLr+re1BT+Nh4KUpGErp6z3FA2eOgGuQn4Ax1HjzILlfKuNsVi97p7S+D
+ 9bE5ffjwgsHfXnFdbtnJJ5gVSi8Ldcfo4oaVKY9YlAjZvvUK8/io0jYhZ3zCS9J4JD2CZopgBl
+ MbZiWfLrLafq1rm23E+/5gvbnGZX0xk85wRr47uHOv6Vj+gGc9qoWmTVwZZ1AsIZl5yt08ewB4
+ +dA=
+X-SBRS: 2.7
+X-MesageID: 19024984
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,449,1583211600"; d="scan'208";a="19024984"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [XEN PATCH] xen/build: introduce CLANG_FLAGS for testing other CFLAGS
+Date: Fri, 29 May 2020 16:43:43 +0100
+Message-ID: <20200529154343.1616925-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 150457: tolerable FAIL - PUSHED
-X-Osstest-Failures: qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: qemuu=a20ab81d22300cca80325c284f21eefee99aa740
-X-Osstest-Versions-That: qemuu=06539ebc76b8625587aa78d646a9d8d5fddf84f3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 May 2020 15:43:25 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,198 +50,143 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150457 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150457/
+Commit 534519f0514f ("xen: Have Kconfig check $(CC)'s version")
+introduced the use of CLANG_FLAGS in Kconfig which is used when
+testing for other CFLAGS via $(cc-option ...) but CLANG_FLAGS doesn't
+exist in the Xen build system. (It's a Linux/Kbuild variable that
+haven't been added yet.)
 
-Failures :-/ but no regressions.
+The missing CLANG_FLAGS isn't an issue for $(cc-option ..) but it
+would be when $(as-instr ..) gets imported from Kbuild to tests
+assembly instruction. We need to know if we are going to use clang's
+assembler or not.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-rtds     18 guest-localmigrate/x10       fail  like 150420
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 150420
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 150420
- test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat    fail  like 150420
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 150420
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 150420
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 150420
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+CLANG_FLAGS needs to be calculated before we call Kconfig.
 
-version targeted for testing:
- qemuu                a20ab81d22300cca80325c284f21eefee99aa740
-baseline version:
- qemuu                06539ebc76b8625587aa78d646a9d8d5fddf84f3
+So, this patch adds CLANG_FLAGS which may contain two flags which are
+needed for further testing of $(CC)'s capabilities:
+  -no-integrated-as
+    This flags isn't new, but simply tested earlier so that it can be
+    used in Kconfig. The flags is only added for x86 builds like
+    before.
+  -Werror=unknown-warning-option
+    The one is new and is to make sure that the warning is enabled,
+    even though it is by default but could be disabled in a particular
+    build of clang, see Linux's commit e8de12fb7cde ("kbuild: Check
+    for unknown options with cc-option usage in Kconfig and clang")
 
-Last test of basis   150420  2020-05-28 04:29:55 Z    1 days
-Testing same since   150457  2020-05-28 20:07:40 Z    0 days    1 attempts
+    It is present in clang 3.0.0, according Linux's commit
+    589834b3a009 ("kbuild: Add -Werror=unknown-warning-option to
+    CLANG_FLAGS").
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alex Bennée <alex.bennee@linaro.org>
-  Alex Williamson <alex.williamson@redhat.com>
-  Alistair Francis <alistair.francis@wdc.com>
-  Cleber Rosa <crosa@redhat.com>
-  Cédric Le Goater <clg@kaod.org>
-  David Gibson <david@gibson.dropbear.id.au>
-  Greg Kurz <groug@kaod.org>
-  Leonardo Bras <leobras.c@gmail.com>
-  Leonardo Bras <leonardo@linux.ibm.com>
-  Markus Armbruster <armbru@redhat.com>
-  Nicholas Piggin <npiggin@gmail.com>
-  Paul Durrant <paul@xen.org>
-  Peter Maydell <peter.maydell@linaro.org>
-  Philippe Mathieu-Daudé <f4bug@amsat.org>
-  Philippe Mathieu-Daudé <philmd@redhat.com>
-  Shivaprasad G Bhat <sbhat@linux.ibm.com>
-  Thomas Huth <thuth@redhat.com>
+(The "note" that say that the flags was only added once wasn't true
+when tested on CentOS 6, so the patch uses $(or) and the flag will only
+be added once.)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+Fixes: 534519f0514f ("xen: Have Kconfig check $(CC)'s version")
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+ xen/Makefile         | 31 +++++++++++++++++++++++++++++--
+ xen/arch/x86/arch.mk | 24 ------------------------
+ 2 files changed, 29 insertions(+), 26 deletions(-)
 
+diff --git a/xen/Makefile b/xen/Makefile
+index 30c3568a4791..2e897f222cc9 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -48,6 +48,7 @@ default: build
+ .PHONY: dist
+ dist: install
+ 
++include scripts/Kbuild.include
+ 
+ ifneq ($(root-make-done),y)
+ # section to run before calling Rules.mk, but only once.
+@@ -124,11 +125,37 @@ ifneq ($(filter %config,$(MAKECMDGOALS)),)
+     config-build := y
+ endif
+ 
++# CLANG_FLAGS needs to be calculated before calling Kconfig
++ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
++CLANG_FLAGS :=
++
++ifeq ($(TARGET_ARCH),x86)
++# The tests to select whether the integrated assembler is usable need to happen
++# before testing any assembler features, or else the result of the tests would
++# be stale if the integrated assembler is not used.
++
++# Older clang's built-in assembler doesn't understand .skip with labels:
++# https://bugs.llvm.org/show_bug.cgi?id=27369
++t1 = $(call as-insn,$(CC),".L0: .L1: .skip (.L1 - .L0)",,-no-integrated-as)
++
++# Check whether clang asm()-s support .include.
++t2 = $(call as-insn,$(CC) -I$(BASEDIR)/include,".include \"asm-x86/indirect_thunk_asm.h\"",,-no-integrated-as)
++
++# Check whether clang keeps .macro-s between asm()-s:
++# https://bugs.llvm.org/show_bug.cgi?id=36110
++t3 = $(call as-insn,$(CC),".macro FOO;.endm"$(close); asm volatile $(open)".macro FOO;.endm",-no-integrated-as)
++
++CLANG_FLAGS += $(call or,$(t1),$(t2),$(t3))
++endif
++
++CLANG_FLAGS += -Werror=unknown-warning-option
++CFLAGS += $(CLANG_FLAGS)
++export CLANG_FLAGS
++endif
++
+ export root-make-done := y
+ endif # root-make-done
+ 
+-include scripts/Kbuild.include
+-
+ # Shorthand for kconfig
+ kconfig = -f $(BASEDIR)/tools/kconfig/Makefile.kconfig ARCH=$(ARCH) SRCARCH=$(SRCARCH) HOSTCC="$(HOSTCC)" HOSTCXX="$(HOSTCXX)"
+ 
+diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+index 62b7c9700776..1f7211623399 100644
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -11,30 +11,6 @@ CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
+ # Prevent floating-point variables from creeping into Xen.
+ CFLAGS += -msoft-float
+ 
+-ifeq ($(CONFIG_CC_IS_CLANG),y)
+-# Note: Any test which adds -no-integrated-as will cause subsequent tests to
+-# succeed, and not trigger further additions.
+-#
+-# The tests to select whether the integrated assembler is usable need to happen
+-# before testing any assembler features, or else the result of the tests would
+-# be stale if the integrated assembler is not used.
+-
+-# Older clang's built-in assembler doesn't understand .skip with labels:
+-# https://bugs.llvm.org/show_bug.cgi?id=27369
+-$(call as-option-add,CFLAGS,CC,".L0: .L1: .skip (.L1 - .L0)",,\
+-                     -no-integrated-as)
+-
+-# Check whether clang asm()-s support .include.
+-$(call as-option-add,CFLAGS,CC,".include \"asm-x86/indirect_thunk_asm.h\"",,\
+-                     -no-integrated-as)
+-
+-# Check whether clang keeps .macro-s between asm()-s:
+-# https://bugs.llvm.org/show_bug.cgi?id=36110
+-$(call as-option-add,CFLAGS,CC,\
+-                     ".macro FOO;.endm"$$(close); asm volatile $$(open)".macro FOO;.endm",\
+-                     -no-integrated-as)
+-endif
+-
+ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
+ $(call as-option-add,CFLAGS,CC,"vmcall",-DHAVE_AS_VMX)
+-- 
+Anthony PERARD
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/qemu-xen.git
-   06539ebc76..a20ab81d22  a20ab81d22300cca80325c284f21eefee99aa740 -> upstream-tested
 
