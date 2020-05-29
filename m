@@ -2,58 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9ACE1E805E
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 16:36:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A0621E80BD
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 16:46:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeg7W-0008Tp-JI; Fri, 29 May 2020 14:36:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jegGy-00013A-HJ; Fri, 29 May 2020 14:46:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tJvr=7L=xen.org=roger@srs-us1.protection.inumbo.net>)
- id 1jeg7U-0008Tk-Ui
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 14:36:24 +0000
-X-Inumbo-ID: c5987e72-a1b9-11ea-a8ca-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c5987e72-a1b9-11ea-a8ca-12813bfff9fa;
- Fri, 29 May 2020 14:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ASbQW/l111czFXENkL/tSDDP7R2aHdoRCkb4iDylmps=; b=1l5yRhLyWTpqwFK+pRrC2rJk3s
- 0fYCYLxNGY6Jx1eeXDx1jS4l5HVMsVk1VVxB2lfC1yvGpQubGVLYvu4GEjrxVbgDdhv8cESbGMZaM
- XXB6Gg/ZBTE3hNlcwFfWeQSD3oBvKqgdLv4cN5h3Q6clbx791g6G9LLKAoOeYoqcQm5E=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jeg7S-0006p9-Vi; Fri, 29 May 2020 14:36:22 +0000
-Received: from [212.230.157.105] (helo=localhost)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <roger@xen.org>)
- id 1jeg7S-0003l0-GD; Fri, 29 May 2020 14:36:22 +0000
-Date: Fri, 29 May 2020 16:36:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger@xen.org>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
-Message-ID: <20200529143613.GP1195@Air-de-Roger>
-References: <cover.1590675919.git.bertrand.marquis@arm.com>
- <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
- <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
- <dcfbca54-4773-9f43-1826-f5137a41bd9f@suse.com>
- <B5889544-3EB5-41ED-8428-8BCA05269371@arm.com>
- <20200529132020.GN1195@Air-de-Roger>
- <e7a757b4-b285-7089-91ea-d4248443aaf1@xen.org>
+ (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jegGw-000134-PG
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 14:46:10 +0000
+X-Inumbo-ID: 223dab74-a1bb-11ea-9dbe-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 223dab74-a1bb-11ea-9dbe-bc764e2007e4;
+ Fri, 29 May 2020 14:46:10 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A5CBBAFB8;
+ Fri, 29 May 2020 14:46:08 +0000 (UTC)
+Subject: Re: [PATCH] x86/hvm: Improve error information in handle_pio()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200528130738.12816-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <7ba144b3-3741-8bc5-8417-ceb84e6d23ce@suse.com>
+Date: Fri, 29 May 2020 16:46:08 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <20200528130738.12816-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e7a757b4-b285-7089-91ea-d4248443aaf1@xen.org>
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,33 +45,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "paul@xen.org" <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "Xia,
- Hongyan" <hongyxia@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul.durrant@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 29, 2020 at 02:37:24PM +0100, Julien Grall wrote:
-> Hi,
+On 28.05.2020 15:07, Andrew Cooper wrote:
+> domain_crash() should always have a message which emitted even in release
+> builds, so something more useful than this is presented.
 > 
-> On 29/05/2020 14:26, Roger Pau Monné wrote:
-> > TBH I would just remove the error message on Arm from the current
-> > hypercall, I don't think it's useful.
-> The message is part of the helpers get_page_from_gva() which is also used by
-> copy_{to, from}_guest. While it may not be useful in the context of the
-> runstate, it was introduced because there was some other weird bug happening
-> before KPTI even existed (see [1]). I haven't yet managed to find the bottom
-> line of the issue.
+>   (XEN) domain_crash called from io.c:171
+>   (XEN) domain_crash called from io.c:171
+>   (XEN) domain_crash called from io.c:171
+>   ...
 > 
-> So I would still very much like to keep the message in place. Although we
-> could reduce the number of cases where this is hapenning based on the fault.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Ack, I someone hove wrongly assumed the message was explicitly about
-the runstate area, not a generic one in the helpers.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Roger.
+> --- a/xen/arch/x86/hvm/io.c
+> +++ b/xen/arch/x86/hvm/io.c
+> @@ -167,7 +167,9 @@ bool handle_pio(uint16_t port, unsigned int size, int dir)
+>          break;
+>  
+>      default:
+> -        gdprintk(XENLOG_ERR, "Weird HVM ioemulation status %d.\n", rc);
+> +        gprintk(XENLOG_ERR, "Unexpected PIO status %d, port %#x %s 0x%0*lx\n",
+> +                rc, port, dir == IOREQ_WRITE ? "write" : "read",
+> +                size * 2, data & ((1ul << (size * 8)) - 1));
+
+I agree with Roger that potentially logging rubbish for IOREQ_READ
+may be confusing, so initializing "data" might end up being better.
+Perhaps simply drop (or put in a comment) the
+"if ( dir == IOREQ_WRITE )" at the top of the function? (As an
+aside, it's also odd for "data" to be "unsigned long" rather than
+just "unsigned int" or, less preferable, "uint32_t".)
+
+Jan
 
