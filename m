@@ -2,44 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E621E7979
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:31:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D6AF1E797E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 11:35:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jebMY-0002Gf-Dn; Fri, 29 May 2020 09:31:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jshP=7L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jebMW-0002Ga-Dd
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:31:36 +0000
-X-Inumbo-ID: 30298bda-a18f-11ea-9947-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 30298bda-a18f-11ea-9947-bc764e2007e4;
- Fri, 29 May 2020 09:31:35 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9303AAF77;
- Fri, 29 May 2020 09:31:33 +0000 (UTC)
-Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <cover.1590675919.git.bertrand.marquis@arm.com>
- <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
- <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
- <3B88C76B-6972-4A66-AFDC-0B5C27FBA740@arm.com>
- <52e26c9d-b662-2597-b521-dacf4f8acfc8@suse.com>
- <077FCC5B-AD47-4707-AF55-12F0455ED26F@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3dce8e37-b9a3-c3e6-10f4-b7489f1dea03@suse.com>
-Date: Fri, 29 May 2020 11:31:33 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <077FCC5B-AD47-4707-AF55-12F0455ED26F@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+	id 1jebPP-0002OY-Tj; Fri, 29 May 2020 09:34:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=T8V9=7L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jebPP-0002OT-9r
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 09:34:35 +0000
+X-Inumbo-ID: 979c22fc-a18f-11ea-a882-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 979c22fc-a18f-11ea-a882-12813bfff9fa;
+ Fri, 29 May 2020 09:34:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=AvtBuYeb1l7+x/pZ/Cb3JtDXpEP14QvoM6lE/EoWFr8=; b=yVihxydJbFxwHiH0Oz6dC71PJ
+ 9R5+2hIGTnnBNhuZ844dhon4sr2GRdSUkymRl0rsYlEVZxorRJVZbXvDWrlCgP1Y5WqmPPV+mxneF
+ 7TEGqlqtYRTXpwgaqKJf6kMqwFR1liwDC0nzogDsQQvTTOgyW06TawJ7ZH2qoUKKJ6cFc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jebPI-0008Cy-M0; Fri, 29 May 2020 09:34:28 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jebPI-00089q-9D; Fri, 29 May 2020 09:34:28 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jebPI-00023V-8X; Fri, 29 May 2020 09:34:28 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150465-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150465: regressions - trouble: blocked/fail
+X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+ xen-unstable-smoke:build-amd64:xen-build:fail:regression
+ xen-unstable-smoke:build-armhf:xen-build:fail:regression
+ xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: xen=ef716e1dc6206adc5e2a181fe0e20dfd6072bf4c
+X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 May 2020 09:34:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,74 +69,146 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, "paul@xen.org" <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, "Xia, Hongyan" <hongyxia@amazon.com>,
- xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29.05.2020 11:18, Bertrand Marquis wrote:
-> Hi Jan,
-> 
->> On 29 May 2020, at 09:45, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 29.05.2020 10:13, Bertrand Marquis wrote:
->>>> On 28 May 2020, at 19:54, Julien Grall <julien@xen.org> wrote:
->>>> AFAICT, there is no restriction on when the runstate hypercall can be called. So this can even be called before the vCPU is brought up.
->>>
->>> I understand the remark but it still feels very weird to allow an invalid address in an hypercall.
->>> Wouldn’t we have a lot of potential issues accepting an address that we cannot check ?
->>
->> I don't think so: The hypervisor uses copy_to_guest() to protect
->> itself from the addresses to be invalid at the time of copying.
->> If the guest doesn't make sure they're valid at that time, it
->> simply won't get the information (perhaps until Xen's next
->> attempt to copy it out).
->>
->> You may want to take a look at the x86 side of this (also the
->> vCPU time updating): Due to the way x86-64 PV guests work, the
->> address may legitimately be unmapped at the time Xen wants to
->> copy it, when the vCPU is currently executing guest user mode
->> code. In such a case the copy gets retried the next time the
->> guest transitions from user to kernel mode (which involves a
->> page table change).
-> 
-> If I understand everything correctly runstate is updated only if there is
-> a context switch in xen while the guest is running in kernel mode and
-> if the address is mapped at that time.
-> 
-> So this is a best effort in Xen and the guest cannot really rely on the
-> runstate information (as it might not be up to date).
-> Could this have impacts somehow if this is used for scheduling ?
+flight 150465 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150465/
 
-Yes, it could, and hence it's not really best effort only, but
-said retry upon guest mode switch had been added years ago.
-(This was one of the things overlooked when x86-64 support was
-introduced, as x86-32 doesn't have this same problem.) The
-updating is best-effort only as far as a misbehaving guest goes;
-in all other aspects it's reliable, assuming that vCPU's only
-look at their own data for the purpose of making decisions
-(logging and alike are of course still fine, as long as people
-are aware of the data possibly being stale).
+Regressions :-(
 
-> In the end the only accepted trade off would be to:
-> - reduce error verbosity and just ignore it
-> - introduce a new system call using a physical address
->   -> Using a virtual address with restrictions sounds very complex
->   to document (current core, no remapping).
-> 
-> But it feels like having only one hypercall using guest physical addresses
-> would not really be logic and this kind of change should be made across
-> all hypercalls if it is done.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 150438
+ build-amd64                   6 xen-build                fail REGR. vs. 150438
+ build-armhf                   6 xen-build                fail REGR. vs. 150438
 
-Hence my request to preferably first settle on a model, such
-that the change here could be simply the first step on that
-journey.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
 
-Jan
+version targeted for testing:
+ xen                  ef716e1dc6206adc5e2a181fe0e20dfd6072bf4c
+baseline version:
+ xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+
+Last test of basis   150438  2020-05-28 14:01:19 Z    0 days
+Testing same since   150465  2020-05-29 09:02:14 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  fail    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit ef716e1dc6206adc5e2a181fe0e20dfd6072bf4c
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri May 29 10:20:32 2020 +0200
+
+    tools: add xenfs tool
+    
+    Add the xenfs tool for accessing the hypervisor filesystem.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 86234eafb95295621aef6c618e4c22c10d8e4138
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri May 29 10:20:21 2020 +0200
+
+    libs: add libxenhypfs
+    
+    Add the new library libxenhypfs for access to the hypervisor filesystem.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+
+commit 5b5ccafb0c425b85a60fd4f241d5f6951d0e4928
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri May 29 10:15:50 2020 +0200
+
+    xen: add basic hypervisor filesystem support
+    
+    Add the infrastructure for the hypervisor filesystem.
+    
+    This includes the hypercall interface and the base functions for
+    entry creation, deletion and modification.
+    
+    In order not to have to repeat the same pattern multiple times in case
+    adding a new node should BUG_ON() failure, the helpers for adding a
+    node (hypfs_add_dir() and hypfs_add_leaf()) get a nofault parameter
+    causing the BUG() in case of a failure.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 0e9dcd0159c671608e154da5b8b7e0edd2905067
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri May 29 10:15:35 2020 +0200
+
+    docs: add feature document for Xen hypervisor sysfs-like support
+    
+    On the 2019 Xen developer summit there was agreement that the Xen
+    hypervisor should gain support for a hierarchical name-value store
+    similar to the Linux kernel's sysfs.
+    
+    In the beginning there should only be basic support: entries can be
+    added from the hypervisor itself only, there is a simple hypercall
+    interface to read the data.
+    
+    Add a feature document for setting the base of a discussion regarding
+    the desired functionality and the entries to add.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit c48a9956e334a5dd99e846d04ad56185b07aab64
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri May 29 10:15:08 2020 +0200
+
+    xen: add a generic way to include binary files as variables
+    
+    Add a new script xen/tools/binfile for including a binary file at build
+    time being usable via a pointer and a size variable in the hypervisor.
+    
+    Make use of that generic tool in xsm.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Wei Liu <wl@xen.org>
+(qemu changes not included)
 
