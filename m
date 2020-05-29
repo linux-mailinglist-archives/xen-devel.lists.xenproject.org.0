@@ -2,59 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B8731E7AFB
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 12:52:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28FE21E7B00
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 12:54:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jeccx-0002OE-0h; Fri, 29 May 2020 10:52:39 +0000
+	id 1jeceT-0002W1-Cs; Fri, 29 May 2020 10:54:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mKAR=7L=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jeccv-0002O1-2j
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 10:52:37 +0000
-X-Inumbo-ID: 81e48a82-a19a-11ea-9dbe-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K2ub=7L=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jeceR-0002Vs-Vb
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 10:54:12 +0000
+X-Inumbo-ID: ba074f12-a19a-11ea-9947-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 81e48a82-a19a-11ea-9dbe-bc764e2007e4;
- Fri, 29 May 2020 10:52:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=u2KZ2qiKEr4Ck19+FUrXzpklwGUqh5WnUQyBrGCeDOs=; b=m/j2ibkZXK68SLVA719KFXwvPa
- l/A98ixm5eAues8zmQCImBrvCgCmR2WKxxMDCGnIh+u/D68HsS7ADY7NWPi02f+5AywflmHrt/lrH
- cIMLwubJwpj0W5o40pL5bq2zuYINdGfK4mJHcyxI4ewvYyJQj3oHumkxjzn3S5jv66YU=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jeccp-0001Xr-IZ; Fri, 29 May 2020 10:52:31 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jeccp-0005Ru-Am; Fri, 29 May 2020 10:52:31 +0000
-Subject: Re: [RFC PATCH 1/1] xen: Use a global mapping for runstate
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Jan Beulich <jbeulich@suse.com>
-References: <cover.1590675919.git.bertrand.marquis@arm.com>
- <03e7cd740922bfbaa479f22d81d9de06f718a305.1590675919.git.bertrand.marquis@arm.com>
- <e63a83a1-7d71-9cc5-517a-275e17880e2b@xen.org>
- <3B88C76B-6972-4A66-AFDC-0B5C27FBA740@arm.com>
- <52e26c9d-b662-2597-b521-dacf4f8acfc8@suse.com>
- <077FCC5B-AD47-4707-AF55-12F0455ED26F@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <038f55bc-5486-4347-f902-3e3ab5c9a53d@xen.org>
-Date: Fri, 29 May 2020 11:52:28 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.1
+ id ba074f12-a19a-11ea-9947-bc764e2007e4;
+ Fri, 29 May 2020 10:54:11 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: bERa16mt1R/JAJK61o8LRYzmUQRyjQzranHHWzNaJlOJMp9ZIsMBYTU/7KaMmJzeIfnde12jcf
+ 4ImnVP5ZCe67aRE53TNWmnfyS8VJa+fcID1t5RxpPGLKJmpR13Qj2Drng3u8AtxzqiKgeHCky2
+ CquWTTHYTQN5yD1nuVzffvl0oSu/y4+4QvYy4PZfJhiLqkenqDO1f8xcW88Add764MopP4LhVK
+ eO0atxlMx8L8sXTmzfyH7eK7AEC1jvgZDYFame2nGbZ2YAZdyG5e7Wq2vnxs1o0eq9iMrh/T+c
+ s/U=
+X-SBRS: 2.7
+X-MesageID: 19041289
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,448,1583211600"; d="scan'208";a="19041289"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Ian Jackson <Ian.Jackson@citrix.com>
+Subject: Re: [PATCH] xsm: also panic upon "flask=enforcing" when XSM_FLASK=n
+Thread-Topic: [PATCH] xsm: also panic upon "flask=enforcing" when XSM_FLASK=n
+Thread-Index: AQHWNZxiYb+bsyhbWESXJxTbHwGxDKi+tSMAgAAI34CAAAQxgA==
+Date: Fri, 29 May 2020 10:54:07 +0000
+Message-ID: <B6E74C43-224F-4A8A-B073-46DDCB38BCA3@citrix.com>
+References: <8a4c4486-cf27-66a0-5ff9-5329277deccf@suse.com>
+ <c90b70f7-e52e-405c-adb4-1303d7d1c009@citrix.com>
+ <24272.58955.340315.479568@mariner.uk.xensource.com>
+In-Reply-To: <24272.58955.340315.479568@mariner.uk.xensource.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <568ADFE2154D1E4C9B515CB577DF4044@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <077FCC5B-AD47-4707-AF55-12F0455ED26F@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,84 +63,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "paul@xen.org" <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, "Xia, Hongyan" <hongyxia@amazon.com>,
- xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Daniel de Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
-
-On 29/05/2020 10:18, Bertrand Marquis wrote:
->> On 29 May 2020, at 09:45, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 29.05.2020 10:13, Bertrand Marquis wrote:
->>>> On 28 May 2020, at 19:54, Julien Grall <julien@xen.org> wrote:
->>>> AFAICT, there is no restriction on when the runstate hypercall can be called. So this can even be called before the vCPU is brought up.
->>>
->>> I understand the remark but it still feels very weird to allow an invalid address in an hypercall.
->>> Wouldn’t we have a lot of potential issues accepting an address that we cannot check ?
->>
->> I don't think so: The hypervisor uses copy_to_guest() to protect
->> itself from the addresses to be invalid at the time of copying.
->> If the guest doesn't make sure they're valid at that time, it
->> simply won't get the information (perhaps until Xen's next
->> attempt to copy it out).
->>
->> You may want to take a look at the x86 side of this (also the
->> vCPU time updating): Due to the way x86-64 PV guests work, the
->> address may legitimately be unmapped at the time Xen wants to
->> copy it, when the vCPU is currently executing guest user mode
->> code. In such a case the copy gets retried the next time the
->> guest transitions from user to kernel mode (which involves a
->> page table change).
-> 
-> If I understand everything correctly runstate is updated only if there is
-> a context switch in xen while the guest is running in kernel mode and
-> if the address is mapped at that time.
-> 
-> So this is a best effort in Xen and the guest cannot really rely on the
-> runstate information (as it might not be up to date).
-> Could this have impacts somehow if this is used for scheduling ?
-> 
-> In the end the only accepted trade off would be to:
-> - reduce error verbosity and just ignore it
-
-The error is already a dprintk(XENLOG_G_DEBUG,...). So you can't really 
-do better in term of verbosity.
-
-But I would still like to keep it as there was some weirdness hapenning 
-also in the non-KPTI case (see [1]).
-
-> - introduce a new system call using a physical address
->    -> Using a virtual address with restrictions sounds very complex
->    to document (current core, no remapping).
-> 
-> But it feels like having only one hypercall using guest physical addresses
-> would not really be logic and this kind of change should be made across
-> all hypercalls if it is done.
-
-This is not correct, there are other hypercalls using guest physical 
-address (for instance, EVTCHNOP_init_control).
-
-At least on Arm, this is the only hypercall that requires to keep the 
-virtual address across the hypercall.
-
-For all the other hypercalls, the virtual address is used for buffer. 
-This is still risky but less than this one. It is also going to be a 
-major rework that would require quite a bit of work.
-
-So I would rather trying to fix the most concerning instance now and 
-address the rest afterwards.
-
-Cheers,
-
-[1] https://lists.xen.org/archives/html/xen-devel/2017-11/msg00942.html
-
--- 
-Julien Grall
+DQo+IE9uIE1heSAyOSwgMjAyMCwgYXQgMTE6MzkgQU0sIElhbiBKYWNrc29uIDxpYW4uamFja3Nv
+bkBjaXRyaXguY29tPiB3cm90ZToNCj4gDQo+IEFuZHJldyBDb29wZXIgd3JpdGVzICgiUmU6IFtQ
+QVRDSF0geHNtOiBhbHNvIHBhbmljIHVwb24gImZsYXNrPWVuZm9yY2luZyIgd2hlbiBYU01fRkxB
+U0s9biIpOg0KPj4gT24gMjkvMDUvMjAyMCAxMDozNCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+Pj4g
+V2hpbGUgdGhlIGJlaGF2aW9yIHRvIGlnbm9yZSB0aGlzIG9wdGlvbiB3aXRob3V0IEZMQVNLIHN1
+cHBvcnQgd2FzDQo+Pj4gcHJvcGVybHkgZG9jdW1lbnRlZCwgaXQgaXMgc3RpbGwgc29tZXdoYXQg
+c3VycHJpc2luZyB0byBzb21lb25lIHVzaW5nDQo+Pj4gdGhpcyBvcHRpb24gYW5kIHRoZW4gc3Rp
+bGwgX25vdF8gZ2V0dGluZyB0aGUgYXNzdW1lZCBzZWN1cml0eS4gQWRkIGENCj4+PiAybmQgaGFu
+ZGxlciBmb3IgdGhlIGNvbW1hbmQgbGluZSBvcHRpb24gZm9yIHRoZSBYU01fRkxBU0s9biBjYXNl
+LCBhbmQNCj4+PiBpbnZva2UgcGFuaWMoKSB3aGVuIHRoZSBvcHRpb24gaXMgc3BlY2lmaWVkIChh
+bmQgbm90IHN1YnNlcXVlbnRseQ0KPj4+IG92ZXJyaWRkZW4gYnkgImZsYXNrPWRpc2FibGVkIiku
+DQo+Pj4gDQo+Pj4gU3VnZ2VzdGVkLWJ5OiBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AY2l0cml4
+LmNvbT4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+
+DQo+PiANCj4+IEknbSB2ZXJ5IHRlbXB0ZWQgdG8gbmFjayB0aGlzIG91dHJpZ2h0LCBsZXN0IEkg
+cmVtaW5kIGJvdGggb2YgeW91IG9mIHRoZQ0KPj4gdG90YWwgZGlzYXN0ZXIgdGhhdCB3YXMgWFNB
+LTksIGFuZCB0aGUgc3Vic2VxdWVudCByZXRyYWN0aW9uIG9mIHRoZSBjb2RlDQo+PiB3aGljaCBk
+aWQgZXhhY3RseSB0aGlzLg0KPiANCj4gWW91IGFyZSByaWdodCB0byByZW1pbmQgbWUgb2YsIHdl
+bGwsIHdoYXRldmVyIGl0IGlzIHlvdSBhcmUgdHJ5aW5nIHRvDQo+IHJlbWluZCBtZSBvZiwgc2lu
+Y2UgSSdtIGFmcmFpZCBJIGRvbid0IGtub3cgd2hhdCB5b3UgbWVhbiAuLi4gIERvIHlvdQ0KPiBy
+ZWFsbHkgbWVhbiBYU0EtOSA/ICBJIHdlbnQgYXQgbG9va2VkIGl0IHVwIGFuZCB0aGUgY29ubmVj
+dGlvbiBlbHVkZXMNCj4gbWUuDQoNCmh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvaGcveGVuLXVuc3Rh
+YmxlLmhnL3Jldi9iYzJmM2E4NDhmOWENCg0KV2hpY2ggYXBwYXJlbnRseSB3b3VsZCBjYXVzZSBY
+ZW4gdG8gKHB1cnBvc2VseSkgcGFuaWMgd2hlbiBib290ZWQgb24gc3lzdGVtcyB3aXRoIHRoZSBz
+cGVjaWZpZWQgQU1EIGVycmF0dW0uDQoNCj4+IElmIHlvdSB3YW50IHRvIGRvIHNvbWV0aGluZyBs
+aWtlIHRoaXMsIHByb2hpYml0IGNyZWF0aW5nIGd1ZXN0cyBzbyB0aGUNCj4+IGFkbWluaXN0cmF0
+b3IgY2FuIHN0aWxsIGxvZyBpbiBhbmQgdW5icmVhaywgaW5zdGVhZCBvZiBoYXZpbmcgaXQNCj4+
+IGVudGVyaW5nIGEgcmVib290IGxvb3Agd2l0aCBubyBvdXRwdXQuICBUaGUgY29uc29sZSBpc24n
+dCBlc3RhYmxpc2hlZA0KPj4gdGhpcyBlYXJseSwgc28gbm9uZSBvZiB0aGlzIHRleHQgbWFrZXMg
+aXQgb3V0IG9udG8gVkdBL3NlcmlhbC4NCj4gDQo+IENlcnRhaW5seSBhIHNpbGVudCByZWJvb3Qg
+bG9vcCB3b3VsZCBiZSB2ZXJ5IHVuaGVscGZ1bC4gIEkgdGhpbmsgaWYNCj4gWGVuIHdlcmUgdG8g
+YWN0dWFsbHkgcHJpbnQgc29tZXRoaW5nIHRvIHRoZSBzZXJpYWwgY29uc29sZSB0aGF0IHdvdWxk
+DQo+IGJlIHRvbGVyYWJsZSAoc2luY2UgdGhlIGFkbWluaXN0cmF0b3IgY2FuIHRoZW4gYWRqdXN0
+IHRoZSBib290IGNvbW1hbmQNCj4gbGluZSksIGJ1dCB5b3VyIHN1Z2dlc3Rpb24gdG8gcHJvaGli
+aXQgZ3Vlc3QgY3JlYXRpb24gd291bGQgYmUgZmluZQ0KPiB0b28uDQoNCkl0IHNlZW1zIGxpa2Ug
+aGF2aW5nIHRoZSBpbmZyYXN0cnVjdHVyZSB0byBwdXQgWGVuIGludG8gYSDigJx1bnNhZmUgbW9k
+ZeKAnSwgd2hlcmUgd2UgcmVmdXNlZCB0byBjcmVhdGUgZ3Vlc3RzIChvciBzb21lIG90aGVyIHNp
+bWlsYXIgcmVzcG9uc2UpLCB3b3VsZCBiZSBhIGdvb2QgaW52ZXN0bWVudCB0byBoYW5kbGUgdGhp
+cyBzb3J0IG9mIGlzc3VlIGluIHRoZSBmdXR1cmUuDQoNCiAtR2Vvcmdl
 
