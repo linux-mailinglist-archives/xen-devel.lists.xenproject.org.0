@@ -2,49 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 814261E83C0
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 18:33:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC5D81E83D8
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2020 18:38:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jehw7-0007JB-Bv; Fri, 29 May 2020 16:32:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jei0f-0007UV-Vb; Fri, 29 May 2020 16:37:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hF3w=7L=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jehw6-0007J6-9E
- for xen-devel@lists.xenproject.org; Fri, 29 May 2020 16:32:46 +0000
-X-Inumbo-ID: 06279288-a1ca-11ea-a8e7-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 06279288-a1ca-11ea-a8e7-12813bfff9fa;
- Fri, 29 May 2020 16:32:45 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ <SRS0=Wp2E=7L=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jei0e-0007UQ-LV
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2020 16:37:28 +0000
+X-Inumbo-ID: aed5e704-a1ca-11ea-8993-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id aed5e704-a1ca-11ea-8993-bc764e2007e4;
+ Fri, 29 May 2020 16:37:28 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: cNZNwNdz9imlDuD7aarbNOnTiS4Q0578xyQsM7utOUPYSoTWOxh7HgA9JAN7O+N0wLtseKdk40
- wr5wDYle/jfJAbGB/q9BO+vk+h+Fyg79TAw2BIVgnvxiXdW8RbXXKTxbsWXfytpS0s6fGShoGB
- gLUgIznsw6jfbpAYwu6BQ5x+QEPpduWy8MzMuyzEYqFr/Rr1DOhZpPB6cjYOxaAIgWl2qrENdq
- DAi+LODHzosOucNMZ3KpYzp00HobG+qNRr5kGiT72lbFBIw6QRwvHfrDkUjmTH6yQnu6a6t/pf
- PJs=
+IronPort-SDR: 54EilSntCTQud5ajH6XVnza1bO4Lqnoh3Zy8zBlF3AiGtOzowxprf1HACKHYCswC5XEDpikHH9
+ 02H67rhq1XY46D+R1+AFXakzbxUYzylfa7FOANbswrhETVEOuXquy50A6eXuS89FLT0J1jxQFv
+ 76jEGvcOY+21Fe/kpab3R0802ZpeiIIiQf6Do/rf+RORO5xu1Lw52Iz9dQIu06Vep0nFE9vvb2
+ g26LrijsREgsO/jjMkJeTyIPxd5ZqpVBeRbT39nZZ2x2iYGnJ2mjo0F8XbOfKDV2mPwHebWG0b
+ 7pY=
 X-SBRS: 2.7
-X-MesageID: 18801622
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 19524735
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,449,1583211600"; d="scan'208";a="18801622"
-From: Ian Jackson <ian.jackson@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.73,449,1583211600"; d="scan'208";a="19524735"
+Date: Fri, 29 May 2020 17:37:22 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: George Dunlap <George.Dunlap@citrix.com>
+Subject: Re: [PATCH v2 3/5] automation/archlinux: Add 32-bit glibc headers
+Message-ID: <20200529163722.GM2105@perard.uk.xensource.com>
+References: <20200526221612.900922-1-george.dunlap@citrix.com>
+ <20200526221612.900922-4-george.dunlap@citrix.com>
+ <20200527104316.GH2105@perard.uk.xensource.com>
+ <20200527112928.72amqcojenrz2a46@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+ <CF50B50F-BDC0-4290-A606-33927CE86FE9@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24273.14616.523593.758476@mariner.uk.xensource.com>
-Date: Fri, 29 May 2020 17:32:24 +0100
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 for-4.14] tools/libxl: fix setting altp2m param broken
- by 1e9bc407cf0
-In-Reply-To: <00da0381-e132-03e1-3717-02f4e968ec32@citrix.com>
-References: <20200529162234.16824-1-tamas@tklengyel.com>
- <00da0381-e132-03e1-3717-02f4e968ec32@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CF50B50F-BDC0-4290-A606-33927CE86FE9@citrix.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,25 +56,26 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Tamas K Lengyel <tamas@tklengyel.com>, Wei Liu <wl@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Andrew Cooper writes ("Re: [PATCH v2 for-4.14] tools/libxl: fix setting altp2m param broken by 1e9bc407cf0"):
-> On 29/05/2020 17:22, Tamas K Lengyel wrote:
-> > The patch 1e9bc407cf0 mistakenly converted the altp2m config option to a
-> > boolean. This is incorrect and breaks external-only usecases of altp2m that
-> > is set with a value of 2.
-> >
-> > Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+On Thu, May 28, 2020 at 12:32:02PM +0100, George Dunlap wrote:
+> On May 27, 2020, at 12:29 PM, Wei Liu <wl@xen.org> wrote:
+> > All automation patches:
+> > 
+> > Acked-by: Wei Liu <wl@xen.org>
+> > 
+> > Anthony, can you generate and push the new images? Thanks.
 > 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> These are checked in now.
 > 
-> Sorry for breaking it to begin with.
+> BTW it looks like there may be some other compilation issues updating the archlinux image.  I tested the minimum configuration required to get the golang bindings to build; but a full build fails with other errors I haven’t had time to diagnose yet.
 
-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+The only issue seems to be that ipxe doesn't build. A simple -Wno-error
+would make it works.
 
-and pushed.
+-- 
+Anthony PERARD
 
