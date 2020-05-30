@@ -2,54 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B421E9489
-	for <lists+xen-devel@lfdr.de>; Sun, 31 May 2020 01:34:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4227A1E948A
+	for <lists+xen-devel@lfdr.de>; Sun, 31 May 2020 01:47:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfAz3-0003uk-Er; Sat, 30 May 2020 23:33:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jfBBi-0004ph-MG; Sat, 30 May 2020 23:46:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HnEH=7M=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jfAz1-0003uf-MJ
- for xen-devel@lists.xenproject.org; Sat, 30 May 2020 23:33:43 +0000
-X-Inumbo-ID: fee29eb4-a2cd-11ea-aa0a-12813bfff9fa
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fee29eb4-a2cd-11ea-aa0a-12813bfff9fa;
- Sat, 30 May 2020 23:33:42 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04UNTgG4017275;
- Sat, 30 May 2020 23:33:12 GMT
+ id 1jfBBg-0004pc-Jd
+ for xen-devel@lists.xenproject.org; Sat, 30 May 2020 23:46:48 +0000
+X-Inumbo-ID: d2fb5136-a2cf-11ea-9dbe-bc764e2007e4
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d2fb5136-a2cf-11ea-9dbe-bc764e2007e4;
+ Sat, 30 May 2020 23:46:47 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04UNkBVD028322;
+ Sat, 30 May 2020 23:46:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=bpnxv8YRoYnV/V0HR0U2Kr/99s99vonN/fiLRTXTQ2I=;
- b=MWV7EaS35dIKUubQlgdn44K13sB4+JJQ6rbNEUh5Jy9ovQ3KIwFXER8tDnKH5b4AvcfU
- oReAOc1makkqLQsL+ijNEoqyvvwPsO0Xge6Qz/a8ozkFAK634sY2l8AHbmsQ5Ms2RvVI
- mWE3Wvr8vfNN8EE4w4smFR478Feq4zSkcU+myC6IpUwL7CwFsYfwsF14JSkFhymeqiK+
- L+BMVkE9NRXeS3usVPv3GV89Akjm7flg0URYIewj2h9k50tSANnAjFqfABdn3tK6WJjF
- jJ5llmed44VYBQ3sFXEkqqhZ+LmtgLyLr0PQbQmlZ8GE5Q9j5vIje2gGZNMmafxb9Dih ZQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 31bfeksxem-1
+ bh=CGJWHE0csoRD/xXyfOk0gl8RIuzI9ee8fxwxm6/4ZSc=;
+ b=MzzvgN8DtWnQ8zO9sruEXEJ2VXp6h04eNlvTg0r7ykCuv1KKXIz4IauDR+AhGW+dCyw7
+ XSqkXFU8BA2+C5TPCHTCIedXMxD28U/+dG3+EemrcLzw3Q4OHk557p4zKn91EhlU/UYA
+ u1cqeceFOiOCLrvqj8uLsAU7O4tJQrJYh8gLccCJW1dTLriOxFKIqTZOfr1buzCZBPOK
+ RToOXklHUsNxqEk4eslZ9ejz1a4oJ6Q4xdm2L1OalO9W8GyPVUhrz0ZX17FjdBNEBobt
+ l0RGmwm330lxk7rA6LRWb00h+Mu2cP11w9TobX7jqJnqe3G1WHpQcuWRoEZXc8URST/l eQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2120.oracle.com with ESMTP id 31bg4msv5r-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Sat, 30 May 2020 23:33:12 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04UNX5Ic150405;
- Sat, 30 May 2020 23:33:11 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3030.oracle.com with ESMTP id 31bckr95xa-1
+ Sat, 30 May 2020 23:46:11 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04UNhDvY021958;
+ Sat, 30 May 2020 23:44:10 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 31c12jgbdn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 30 May 2020 23:33:11 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 04UNX2Sg027376;
- Sat, 30 May 2020 23:33:03 GMT
+ Sat, 30 May 2020 23:44:10 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 04UNi9wl021788;
+ Sat, 30 May 2020 23:44:09 GMT
 Received: from [10.39.241.21] (/10.39.241.21)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Sat, 30 May 2020 16:33:02 -0700
-Subject: Re: [PATCH 08/12] xen/time: introduce xen_{save,restore}_steal_clock
+ with ESMTP ; Sat, 30 May 2020 16:44:08 -0700
+Subject: Re: [PATCH 09/12] x86/xen: save and restore steal clock
 To: Anchal Agarwal <anchalag@amazon.com>, tglx@linutronix.de, mingo@redhat.com,
  bp@alien8.de, hpa@zytor.com, x86@kernel.org, jgross@suse.com,
  linux-pm@vger.kernel.org, linux-mm@kvack.org, kamatam@amazon.com,
@@ -60,7 +59,7 @@ To: Anchal Agarwal <anchalag@amazon.com>, tglx@linutronix.de, mingo@redhat.com,
  vkuznets@redhat.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, dwmw@amazon.co.uk, benh@kernel.crashing.org
 References: <cover.1589926004.git.anchalag@amazon.com>
- <ae90ece495d29f54fc9986a07f45ab6659136573.1589926004.git.anchalag@amazon.com>
+ <6f39a1594a25ab5325f34e1e297900d699cd92bf.1589926004.git.anchalag@amazon.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
@@ -105,30 +104,30 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <5e1094c5-f6c3-c83d-d86f-0bbeaa9f2086@oracle.com>
-Date: Sat, 30 May 2020 19:32:59 -0400
+Message-ID: <5edb4147-af12-3a0e-e8f7-5b72650209ac@oracle.com>
+Date: Sat, 30 May 2020 19:44:06 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <ae90ece495d29f54fc9986a07f45ab6659136573.1589926004.git.anchalag@amazon.com>
+In-Reply-To: <6f39a1594a25ab5325f34e1e297900d699cd92bf.1589926004.git.anchalag@amazon.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9637
  signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- malwarescore=0 adultscore=0
- suspectscore=0 mlxscore=0 spamscore=0 mlxlogscore=999 phishscore=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ phishscore=0 malwarescore=0
+ adultscore=0 suspectscore=0 spamscore=0 bulkscore=0 mlxlogscore=999
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2005300184
+ definitions=main-2005300185
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9637
  signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- suspectscore=0
- mlxlogscore=999 priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015
- impostorscore=0 adultscore=0 spamscore=0 mlxscore=0 lowpriorityscore=0
- cotscore=-2147483648 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2005300183
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015
+ lowpriorityscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ mlxlogscore=999 cotscore=-2147483648 bulkscore=0 mlxscore=0
+ impostorscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2005300185
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,59 +144,79 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 On 5/19/20 7:28 PM, Anchal Agarwal wrote:
 > From: Munehisa Kamata <kamatam@amazon.com>
 >
-> Currently, steal time accounting code in scheduler expects steal clock
-> callback to provide monotonically increasing value. If the accounting
-> code receives a smaller value than previous one, it uses a negative
-> value to calculate steal time and results in incorrectly updated idle
-> and steal time accounting. This breaks userspace tools which read
-> /proc/stat.
->
-> top - 08:05:35 up  2:12,  3 users,  load average: 0.00, 0.07, 0.23
-> Tasks:  80 total,   1 running,  79 sleeping,   0 stopped,   0 zombie
-> Cpu(s):  0.0%us,  0.0%sy,  0.0%ni,30100.0%id,  0.0%wa,  0.0%hi, 0.0%si,=
--1253874204672.0%st
->
-> This can actually happen when a Xen PVHVM guest gets restored from
-> hibernation, because such a restored guest is just a fresh domain from
-> Xen perspective and the time information in runstate info starts over
-> from scratch.
->
-> This patch introduces xen_save_steal_clock() which saves current values=
+> Save steal clock values of all present CPUs in the system core ops
+> suspend callbacks. Also, restore a boot CPU's steal clock in the system=
 
-> in runstate info into per-cpu variables. Its couterpart,
-> xen_restore_steal_clock(), sets offset if it found the current values i=
-n
-> runstate info are smaller than previous ones. xen_steal_clock() is also=
-
-> modified to use the offset to ensure that scheduler only sees
-> monotonically increasing number.
+> core resume callback. For non-boot CPUs, restore after they're brought
+> up, because runstate info for non-boot CPUs are not active until then.
 >
 > Signed-off-by: Munehisa Kamata <kamatam@amazon.com>
 > Signed-off-by: Anchal Agarwal <anchalag@amazon.com>
 > ---
->  drivers/xen/time.c    | 29 ++++++++++++++++++++++++++++-
->  include/xen/xen-ops.h |  2 ++
->  2 files changed, 30 insertions(+), 1 deletion(-)
+>  arch/x86/xen/suspend.c | 13 ++++++++++++-
+>  arch/x86/xen/time.c    |  3 +++
+>  2 files changed, 15 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/xen/time.c b/drivers/xen/time.c
-> index 0968859c29d0..3560222cc0dd 100644
-> --- a/drivers/xen/time.c
-> +++ b/drivers/xen/time.c
-> @@ -23,6 +23,9 @@ static DEFINE_PER_CPU(struct vcpu_runstate_info, xen_=
-runstate);
+> diff --git a/arch/x86/xen/suspend.c b/arch/x86/xen/suspend.c
+> index 784c4484100b..dae0f74f5390 100644
+> --- a/arch/x86/xen/suspend.c
+> +++ b/arch/x86/xen/suspend.c
+> @@ -91,12 +91,20 @@ void xen_arch_suspend(void)
+>  static int xen_syscore_suspend(void)
+>  {
+>  	struct xen_remove_from_physmap xrfp;
+> -	int ret;
+> +	int cpu, ret;
 > =20
->  static DEFINE_PER_CPU(u64[4], old_runstate_time);
+>  	/* Xen suspend does similar stuffs in its own logic */
+>  	if (xen_suspend_mode_is_xen_suspend())
+>  		return 0;
 > =20
-> +static DEFINE_PER_CPU(u64, xen_prev_steal_clock);
-> +static DEFINE_PER_CPU(u64, xen_steal_clock_offset);
+> +	for_each_present_cpu(cpu) {
+> +		/*
+> +		 * Nonboot CPUs are already offline, but the last copy of
+> +		 * runstate info is still accessible.
+> +		 */
+> +		xen_save_steal_clock(cpu);
+> +	}
+> +
+>  	xrfp.domid =3D DOMID_SELF;
+>  	xrfp.gpfn =3D __pa(HYPERVISOR_shared_info) >> PAGE_SHIFT;
+> =20
+> @@ -118,6 +126,9 @@ static void xen_syscore_resume(void)
+> =20
+>  	pvclock_resume();
 
 
-Can you use old_runstate_time here? It is used to solve a similar
-problem for pv suspend, isn't it?
+Doesn't make any difference but I think since this patch is where you
+are dealing with clock then pvclock_resume() should be added here and
+not in the earlier patch.
 
 
 -boris
 
+
+> =20
+> +	/* Nonboot CPUs will be resumed when they're brought up */
+> +	xen_restore_steal_clock(smp_processor_id());
+> +
+>  	gnttab_resume();
+>  }
+> =20
+> diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
+> index c8897aad13cd..33d754564b09 100644
+> --- a/arch/x86/xen/time.c
+> +++ b/arch/x86/xen/time.c
+> @@ -545,6 +545,9 @@ static void xen_hvm_setup_cpu_clockevents(void)
+>  {
+>  	int cpu =3D smp_processor_id();
+>  	xen_setup_runstate_info(cpu);
+> +	if (cpu)
+> +		xen_restore_steal_clock(cpu);
+> +
+>  	/*
+>  	 * xen_setup_timer(cpu) - snprintf is bad in atomic context. Hence
+>  	 * doing it xen_hvm_cpu_notify (which gets called by smp_init during
 
 
 
