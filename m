@@ -2,60 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E1FE1E915B
-	for <lists+xen-devel@lfdr.de>; Sat, 30 May 2020 15:01:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADA081E9268
+	for <lists+xen-devel@lfdr.de>; Sat, 30 May 2020 17:56:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jf16o-00022H-RB; Sat, 30 May 2020 13:01:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jf3pB-0007Ww-Ie; Sat, 30 May 2020 15:55:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=74Fv=7M=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jf16n-00022B-Jw
- for xen-devel@lists.xenproject.org; Sat, 30 May 2020 13:01:05 +0000
-X-Inumbo-ID: 9df9136a-a275-11ea-a989-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9df9136a-a275-11ea-a989-12813bfff9fa;
- Sat, 30 May 2020 13:01:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=U/ueQBi9ZagP6RWerZbeFINVml4j6G1H7MtFQJgruaA=; b=6oM8WaFZ2WOcCk4n9H4uE9Cr4
- aGAQPGlKrjc29L/czVWWy0KE650xSx//Lh+O4ElMBu7UpY9cG6YVg/snwZWsnRXG33XqKmOezMFJ8
- +nqNPQiWesnFmduiHB6uo+azSKpb39wqjmaJPyfV/NKdtryBmS9AjYZOH26BQH3r23d78=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jf16k-00059M-WA; Sat, 30 May 2020 13:01:03 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jf16k-0000O3-E3; Sat, 30 May 2020 13:01:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jf16k-000862-DW; Sat, 30 May 2020 13:01:02 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150531-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=YcdI=7M=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1jf3pA-0007Wr-0q
+ for xen-devel@lists.xenproject.org; Sat, 30 May 2020 15:55:04 +0000
+X-Inumbo-ID: ec2bd9e2-a28d-11ea-81bc-bc764e2007e4
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ec2bd9e2-a28d-11ea-81bc-bc764e2007e4;
+ Sat, 30 May 2020 15:55:03 +0000 (UTC)
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:50216
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1jf3p4-000jH7-MD (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Sat, 30 May 2020 16:54:58 +0100
+Subject: Re: [PATCH v10 05/12] libs: add libxenhypfs
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20200519072106.26894-1-jgross@suse.com>
+ <20200519072106.26894-6-jgross@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <8468b7ea-81ba-0512-c638-322803134576@citrix.com>
+Date: Sat, 30 May 2020 16:54:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150531: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=ad33a573c009d72466432b41ba0591c64e819c19
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 30 May 2020 13:01:02 +0000
+In-Reply-To: <20200519072106.26894-6-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,75 +50,74 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150531 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150531/
+On 19/05/2020 08:20, Juergen Gross wrote:
+> diff --git a/tools/libs/hypfs/include/xenhypfs.h b/tools/libs/hypfs/include/xenhypfs.h
+> new file mode 100644
+> index 0000000000..ab157edceb
+> --- /dev/null
+> +++ b/tools/libs/hypfs/include/xenhypfs.h
+> @@ -0,0 +1,90 @@
+> +/*
+> + * Copyright (c) 2019 SUSE Software Solutions Germany GmbH
+> + *
+> + * This library is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU Lesser General Public
+> + * License as published by the Free Software Foundation;
+> + * version 2.1 of the License.
+> + *
+> + * This library is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+> + * Lesser General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU Lesser General Public
+> + * License along with this library; If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +#ifndef XENHYPFS_H
+> +#define XENHYPFS_H
+> +
+> +#include <stdbool.h>
+> +#include <stdint.h>
+> +#include <sys/types.h>
+> +
+> +/* Callers who don't care don't need to #include <xentoollog.h> */
+> +struct xentoollog_logger;
+> +
+> +typedef struct xenhypfs_handle xenhypfs_handle;
+> +
+> +struct xenhypfs_dirent {
+> +    char *name;
+> +    size_t size;
+> +    enum {
+> +        xenhypfs_type_dir,
+> +        xenhypfs_type_blob,
+> +        xenhypfs_type_string,
+> +        xenhypfs_type_uint,
+> +        xenhypfs_type_int,
+> +        xenhypfs_type_bool
+> +    } type;
+> +    enum {
+> +        xenhypfs_enc_plain,
+> +        xenhypfs_enc_gzip
+> +    } encoding;
+> +    bool is_writable;
+> +};
 
-Regressions :-(
+I'm afraid this a blocker bug for 4.14.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 150438
+enum's aren't safe in public ABI structs, even under _GNU_SOURCE.  Use
+unsigned int's, and declare the enumerations earlier.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+There is also 3/7 bytes of trailing padding and very little forward
+extensibility.  How about an unsigned int flags, of which writeable is
+the bottom bit, seeing as this is purely an informational field?
 
-version targeted for testing:
- xen                  ad33a573c009d72466432b41ba0591c64e819c19
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
-
-Last test of basis   150438  2020-05-28 14:01:19 Z    1 days
-Failing since        150465  2020-05-29 09:02:14 Z    1 days   14 attempts
-Testing same since   150515  2020-05-30 01:00:47 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1196 lines long.)
+~Andrew
 
