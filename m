@@ -2,60 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 495761E9985
-	for <lists+xen-devel@lfdr.de>; Sun, 31 May 2020 19:39:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3CD01E997F
+	for <lists+xen-devel@lfdr.de>; Sun, 31 May 2020 19:39:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfRv8-0003ef-Og; Sun, 31 May 2020 17:38:50 +0000
+	id 1jfRvD-0003hA-1Q; Sun, 31 May 2020 17:38:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yblG=7N=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jfRv7-0003e8-9Z
- for xen-devel@lists.xenproject.org; Sun, 31 May 2020 17:38:49 +0000
-X-Inumbo-ID: 88be7936-a365-11ea-8993-bc764e2007e4
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
+ id 1jfRvC-0003gl-A9
+ for xen-devel@lists.xenproject.org; Sun, 31 May 2020 17:38:54 +0000
+X-Inumbo-ID: 899b0f22-a365-11ea-9947-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 88be7936-a365-11ea-8993-bc764e2007e4;
- Sun, 31 May 2020 17:38:27 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id k26so9130932wmi.4
- for <xen-devel@lists.xenproject.org>; Sun, 31 May 2020 10:38:27 -0700 (PDT)
+ id 899b0f22-a365-11ea-9947-bc764e2007e4;
+ Sun, 31 May 2020 17:38:28 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id k26so9130958wmi.4
+ for <xen-devel@lists.xenproject.org>; Sun, 31 May 2020 10:38:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=iYvFEgksB/BdazMa4Cs2c4jhXMbkN0WXaFJS9CHNgVo=;
- b=mLOiMHew1qF2hGdISfFnUSQy6ouAsSbwhEJxg/OGYSPf9xv1xTbVr8mBMRqJHP0j55
- yBAV5qmG/+djftEUqMiPwGr4Bh3GmX3ZVamOeBJXaKaDNXOaK/dz/G5T07RNwS0DFgrY
- c6bALnWU6nCvGXRvmEhcQH90po/UBDda62lpMh8uL/oBuNFtkrZ/+WZD/xRTxEPgKh8w
- YobGHA9manrtqDfq5TIha9eaxMdsJWURJqAn1SCZ+ZvWMz1ywD46nuh/+b1NyAbjDy7+
- GWlf7/+f8s9uLntj5m+01uzRU7k+D/zt9t5VXEvBWhKQ9MlGmJn6WzbC/VlmhCnqS0u0
- g/ng==
+ bh=nx6i+AHtHhOPOYC0ludmYEcyPCtH+R6fArfoXhgX/80=;
+ b=ecRtJ9+dMcz6HFcCrjMA79m2NLL9pLTe3YlR6u/5U8B/pDwEZnHkpthloUcJD9mdeX
+ z4NzrruZHIQ5BDed7AH8zcr/JzgBoZ1wQmFBvCf0zqPlH2VDi3PlRQEl/z3dTDw8CP0R
+ VEh2hNdQFoGTa0ucGgNoDbeocX77DmNTTR7f1AuNpakZHtfsid+pCIBY0so133aao2cN
+ b+i37OA+ThO+bxJeMeXuuwDMmwuLCLkIY+kfFnePWYnEWyGruAmEtPG2VehLleFSgTQF
+ GNo4UF310Aboap3C76RpTvPD64wZq/2auDdcnjb13FWLdoOod69RR73rZOQlRY4ZML6K
+ vZmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=iYvFEgksB/BdazMa4Cs2c4jhXMbkN0WXaFJS9CHNgVo=;
- b=CB7OI1ol+ATI2rfGAEt7szes8XDcFce1QBl13ZOgXfxXR/FYKWbUxtKKpBINXiYF2i
- oLfNqX4DX68Zvmr/oaSZljadKKIfJDztOG2c+JwhbssDxtEEQU9oRL3+cr3chFqH0Fw4
- HKoVOxbpxBuovNbpOXxnFBCJ4+oYasxSUjt0CyPX+WdbBy/sJFfyaZ9rZCL34sluQN54
- 4vVjbR8Ilq6ieKRtKWVMjJpRyWgyH1i3Ab8NjhJLFVRAoswT+RzayClILP+ALKUEHn1G
- YvHmH25i2lHTSG80yNeo6JctgxHnW/xqI66HLIOsYWRbD22B1geCtZxPonyZwBA/wXu6
- FMRQ==
-X-Gm-Message-State: AOAM531vz5kMz62yjSEhhd+dOietFzhymgKEhxmPB8iPuFomA9VyuNqg
- QWl9VLN6O4JTALAvS5nZUgE=
-X-Google-Smtp-Source: ABdhPJwhb/IFbThB/tKVOWT/s2NPGR4HDMLpVaDysxOxobXYSvPIAsMTEGuw+7HN9OrZnw/sT/Aqyw==
-X-Received: by 2002:a1c:4d0c:: with SMTP id o12mr18594700wmh.181.1590946706678; 
- Sun, 31 May 2020 10:38:26 -0700 (PDT)
+ bh=nx6i+AHtHhOPOYC0ludmYEcyPCtH+R6fArfoXhgX/80=;
+ b=ibIKM81wuAJwmyyB9/sJG5jiR1rrduahqSCDE7tksQI9lNEzx3xqzPJy0eYMWvhikr
+ lcUmQBy8ESZgRMM3fr1FFDlYH4SU8YQRx9GWybH7SpT5BC1RZBZfv6S8DRJT5fAPt4ka
+ Nd1ManrvpVMrFrkWP29FzdJzswFtcUonUfm0ojgNAsQ3rN5edMqEXNo4PzxdjmfjjcrN
+ O3RNW94GW3FNhHvFFcCH/knhtus+BkCh0+qOX5h7zUyskUPKPvp385/9fpgp7UIe2syG
+ E8bLKb/MdyLmFMuF4jDsJv28gdyUVbYpOGYY0Bmau4x404vlkS1PvuLe0ypIUg2oUEVv
+ Vyig==
+X-Gm-Message-State: AOAM531Vof60L2JDKfP3KE0YJVYCTgO+1kfkQ0kwT9r54l5/BfavwCrJ
+ gpkjuqjn4AOIwiScz4LLGQ8=
+X-Google-Smtp-Source: ABdhPJwrR3vwdIenjSppjEGj76X18jhrVpnPd8ljKzuiMJUGDNuZXGPyuZJVIrkrS466Afme7Vb7pg==
+X-Received: by 2002:a1c:39c1:: with SMTP id g184mr17816585wma.9.1590946708068; 
+ Sun, 31 May 2020 10:38:28 -0700 (PDT)
 Received: from localhost.localdomain (43.red-83-51-162.dynamicip.rima-tde.net.
  [83.51.162.43])
- by smtp.gmail.com with ESMTPSA id l19sm7973121wmj.14.2020.05.31.10.38.25
+ by smtp.gmail.com with ESMTPSA id l19sm7973121wmj.14.2020.05.31.10.38.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 31 May 2020 10:38:26 -0700 (PDT)
+ Sun, 31 May 2020 10:38:27 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org
-Subject: [PATCH 6/8] hw/hppa/dino: Use the IEC binary prefix definitions
-Date: Sun, 31 May 2020 19:38:12 +0200
-Message-Id: <20200531173814.8734-7-f4bug@amsat.org>
+Subject: [PATCH 7/8] hw/i386/xen/xen-hvm: Use the IEC binary prefix definitions
+Date: Sun, 31 May 2020 19:38:13 +0200
+Message-Id: <20200531173814.8734-8-f4bug@amsat.org>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200531173814.8734-1-f4bug@amsat.org>
 References: <20200531173814.8734-1-f4bug@amsat.org>
@@ -93,31 +93,30 @@ IEC binary prefixes ease code review: the unit is explicit.
 
 Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 ---
- hw/hppa/dino.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ hw/i386/xen/xen-hvm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/hw/hppa/dino.c b/hw/hppa/dino.c
-index 2b1b38c58a..7290f23962 100644
---- a/hw/hppa/dino.c
-+++ b/hw/hppa/dino.c
-@@ -542,7 +542,7 @@ PCIBus *dino_init(MemoryRegion *addr_space,
-                                 &s->parent_obj.data_mem);
+diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+index 82ece6b9e7..679d74e6a3 100644
+--- a/hw/i386/xen/xen-hvm.c
++++ b/hw/i386/xen/xen-hvm.c
+@@ -9,6 +9,7 @@
+  */
  
-     /* Dino PCI bus memory.  */
--    memory_region_init(&s->pci_mem, OBJECT(s), "pci-memory", 1ull << 32);
-+    memory_region_init(&s->pci_mem, OBJECT(s), "pci-memory", 4 * GiB);
+ #include "qemu/osdep.h"
++#include "qemu/units.h"
  
-     b = pci_register_root_bus(dev, "pci", dino_set_irq, dino_pci_map_irq, s,
-                               &s->pci_mem, get_system_io(),
-@@ -561,7 +561,7 @@ PCIBus *dino_init(MemoryRegion *addr_space,
+ #include "cpu.h"
+ #include "hw/pci/pci.h"
+@@ -230,7 +231,7 @@ static void xen_ram_init(PCMachineState *pcms,
+          * Xen does not allocate the memory continuously, it keeps a
+          * hole of the size computed above or passed in.
+          */
+-        block_len = (1ULL << 32) + x86ms->above_4g_mem_size;
++        block_len = 4 * GiB + x86ms->above_4g_mem_size;
      }
- 
-     /* Set up PCI view of memory: Bus master address space.  */
--    memory_region_init(&s->bm, OBJECT(s), "bm-dino", 1ull << 32);
-+    memory_region_init(&s->bm, OBJECT(s), "bm-dino", 4 * GiB);
-     memory_region_init_alias(&s->bm_ram_alias, OBJECT(s),
-                              "bm-system", addr_space, 0,
-                              0xf0000000 + DINO_MEM_CHUNK_SIZE);
+     memory_region_init_ram(&ram_memory, NULL, "xen.ram", block_len,
+                            &error_fatal);
 -- 
 2.21.3
 
