@@ -2,60 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8AFC1E9A79
-	for <lists+xen-devel@lfdr.de>; Sun, 31 May 2020 23:14:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28D4F1E9AA9
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 00:06:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfVGY-0005tp-LP; Sun, 31 May 2020 21:13:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bt/9=7N=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jfVGX-0005tk-Gn
- for xen-devel@lists.xenproject.org; Sun, 31 May 2020 21:13:09 +0000
-X-Inumbo-ID: 86121260-a383-11ea-aaa6-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 86121260-a383-11ea-aaa6-12813bfff9fa;
- Sun, 31 May 2020 21:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=83GXXRYiJeiOXlDY+0kCOFX1ICPtOuyFMgtgwdfHknI=; b=KXAYIBuiRKPGCW4Ml8jU8JVot
- VNZTodDPjXOd8rMbIGUxu8WtuebMviRCcrqkhxaJ/IG1MdTt/9LLp96cpzfO0uKsN2pxNgi6yb+y3
- hLK6oTuhcLR3QJ7GYp82OT1qWoOMRANlObhFo8KnRS0oiTLF6LyP5ooCZ7Al/OKrfQFWc=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jfVGU-0007Er-HF; Sun, 31 May 2020 21:13:06 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jfVGU-0005UP-8L; Sun, 31 May 2020 21:13:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jfVGU-0001ei-7h; Sun, 31 May 2020 21:13:06 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150581-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jfW5c-0001jo-Ov; Sun, 31 May 2020 22:05:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Jz0d=7N=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1jfW5a-0001jj-MQ
+ for xen-devel@lists.xenproject.org; Sun, 31 May 2020 22:05:54 +0000
+X-Inumbo-ID: e570b98a-a38a-11ea-8993-bc764e2007e4
+Received: from mail-qv1-xf2e.google.com (unknown [2607:f8b0:4864:20::f2e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e570b98a-a38a-11ea-8993-bc764e2007e4;
+ Sun, 31 May 2020 22:05:53 +0000 (UTC)
+Received: by mail-qv1-xf2e.google.com with SMTP id f89so3634594qva.3
+ for <xen-devel@lists.xenproject.org>; Sun, 31 May 2020 15:05:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=m3hCykIFfDuc556EkAd2MzlXxt69c5qKxSkCefOY8Tc=;
+ b=b8WSe1917oWKcBIzDhxQzjPiw6UP0QYa3360vfp+3tychI06UXE/TRQbaaC4jge7Se
+ jSPnnxjsiPbn0xjCkaF3uuqs6eOfatD2h/RgVvXafVZZniJzIz7QKtMlwqTABTVTliby
+ m5YkB8IzDhRegl3UJPBYhLXQn4Odst1Qs98qRS3o3Ofcqid9YKeu1Y0wcA2V+qymzZks
+ UqXPTwkV7Uug80OztDt3vh7p7Z9YB5Em0r/tSwHRBxfXdhmCsEc2s1RqaK6QrU297ws5
+ I8DfEeCuTo3idJucKbsxmi2HaIormRFvlkO2u/NxFopGGXq+Nosjuhk2bV6haTDodLZ5
+ lf7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=m3hCykIFfDuc556EkAd2MzlXxt69c5qKxSkCefOY8Tc=;
+ b=PIPA2jyqKL/J8WbbDgawXiy6mg1cUqw7fJrHtsoNRJUsFk/CClHTCnZ7iGn6vp0CSa
+ 9AM31g2atri4pggLIUMp9MBUjbz1Jek/KZ1RN9ej+uQnnC/J6NRjIT+SuwKXCEU+MtV1
+ 1snlqmEKpsDzpsx8j77oDEgkJLiKjkdH1T3Qmv2NkB3OJ6AVUks2M2XhrQE83QJRZeUi
+ bFiEZbpIsrnG65dXkejOJpH8eC5wXnqFgIwzvGQPGg0I88gwNV9S3vXvVFTSCdiv6L1h
+ V1Cy9+gtwqRJZfSV21zy00Gz0I9Xj9EE3HZD8rCpvK+KQPttp0CbD+UDVKWVHV14r9+V
+ gamQ==
+X-Gm-Message-State: AOAM532FqR+/FrjE7AdgOSmZ2wb2n33s6uuLFjNqOoJfeAPDPu9dXBc9
+ ZxzcneUUabqPhmS/NHxT+UkmPdALzMdCc8aN2JHDWidU/LI=
+X-Google-Smtp-Source: ABdhPJy8sEtObPTb7oepTJISI2si0swIZAMlfWtR4NZ2WWGhi6yeD5gIob4TqpWf1eEchb9chbXz39xB8k1ePtldsII=
+X-Received: by 2002:a0c:eb11:: with SMTP id j17mr128872qvp.193.1590962753196; 
+ Sun, 31 May 2020 15:05:53 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150581: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=ad33a573c009d72466432b41ba0591c64e819c19
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 31 May 2020 21:13:06 +0000
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Sun, 31 May 2020 15:05:42 -0700
+Message-ID: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
+Subject: UEFI support in ARM DomUs
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,75 +61,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Nataliya Korovkina <malus.brandywine@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150581 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150581/
+Hi!
 
-Regressions :-(
+with a lot of help from Stefano, we're getting RPi4 support in
+Project EVE pretty much on par between KVM and Xen.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 150438
+One big area that still remains is supporting UEFI boot sequence
+for DomUs. With KVM, given the qemu virt device model this is
+as simple as using either stock UEFI build for arm or even U-Boot
+EFI emulation environment and passing it via -bios option.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Obviously with Xen on ARM we don't have the device model so
+my understanding is that the easiest way we can support it would
+be to port UEFI's OvmfPkg/OvmfXen target to ARM (it seems to
+be currently exclusively X64).
 
-version targeted for testing:
- xen                  ad33a573c009d72466432b41ba0591c64e819c19
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+So here's my first question: if there's anybody on this list who had
+a hand in implementing OvmfPkg/OvmfXen can you please share
+your thoughts on how much work that port may be (or whether it is
+even feasible -- I may totally be missing something really obvious here).
 
-Last test of basis   150438  2020-05-28 14:01:19 Z    3 days
-Failing since        150465  2020-05-29 09:02:14 Z    2 days   24 attempts
-Testing same since   150515  2020-05-30 01:00:47 Z    1 days   14 attempts
+And as long as I've got your attention: two more questions:
+   1.. compared to the above, would porting pvgrub to ARM be any
+   easier or more difficult?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Wei Liu <wl@xen.org>
+   2. same question for teaching u-boot about PV calls.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
+Thanks,
+Roman.
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1196 lines long.)
+P.S. Oh and I guess between:
+   0. OvmfPkg/OvmfXen on ARM64
+   1. pvgrub on ARM64
+   2. u-boot/EFI emulation with PV calls backend
+I didn't miss any other obvious way of making UEFI-aware VM images
+to boot on Xen ARM64 DomU, right?
 
