@@ -2,47 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBCC31EA55F
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 15:54:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62A911EA56B
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 15:57:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfkte-0002HF-3X; Mon, 01 Jun 2020 13:54:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3ele=7O=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jfktc-0002Gy-BA
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 13:54:32 +0000
-X-Inumbo-ID: 69163ce0-a40f-11ea-ab1d-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 69163ce0-a40f-11ea-ab1d-12813bfff9fa;
- Mon, 01 Jun 2020 13:54:28 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: sVIGuYT6wuHcAonyZ38W2nycDKp7UJw344QeU+pC4GVEpCF6iMHC2c3+fzesUdvrOvHW5waw1l
- 14tRczf9UcUAdiWTz1aTwvKden+IEVCntbDPMu75Nze0dXDG5A/OEDiA03NwboGx3+tgWSmyw4
- 452MGiLWj33XCMnplr+gb6bscf65+W1G1VP0aoNyI3svWOpnNIDKuGW/NZl4//YFsFyfiABiE1
- c6SpcODi54eY3TV8+oKP1fq5vI/MrJzun9gooG+7qyb9Olyjh4Zo79WScNBr6Uj1/AD3cq6Zyq
- jpw=
-X-SBRS: 2.7
-X-MesageID: 19215690
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,461,1583211600"; d="scan'208";a="19215690"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH v3 2/2] build32: don't discard .shstrtab in linker script
-Date: Mon, 1 Jun 2020 15:53:25 +0200
-Message-ID: <20200601135325.34156-3-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200601135325.34156-1-roger.pau@citrix.com>
-References: <20200601135325.34156-1-roger.pau@citrix.com>
+	id 1jfkwD-0002Zc-H9; Mon, 01 Jun 2020 13:57:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kFUs=7O=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jfkwB-0002ZR-Ie
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 13:57:11 +0000
+X-Inumbo-ID: ca231954-a40f-11ea-9dbe-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ca231954-a40f-11ea-9dbe-bc764e2007e4;
+ Mon, 01 Jun 2020 13:57:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=RI26nJEjlSMT+f2wgvD/8C4nvY4PnmZob0X/mxL/G5k=; b=zTkV/8cF0m5u/kJ4SPZeHmeKGE
+ SyEMYmhlO122dSqUT7sdZ9N7u+01MaxjklfBL5KQ2s937mpoqdceL0rIstFxFeDKHQSyb0W05nkIV
+ hoMGmmiXkN/pWYIDWAbYzgsoZR5ka+FnK+bZyhv8V4aYnnqPCrDysm6t2KFWWQmvqsRo=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jfkw9-0002l7-Ss; Mon, 01 Jun 2020 13:57:09 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jfkw9-0005bk-Lv; Mon, 01 Jun 2020 13:57:09 +0000
+Subject: Re: Xen XSM/FLASK policy, grub defaults, etc.
+To: George Dunlap <George.Dunlap@citrix.com>
+References: <24270.35349.838484.116865@mariner.uk.xensource.com>
+ <0D83AAA6-A205-4256-8A38-CC8122AC063D@citrix.com>
+ <24272.59646.746545.343358@mariner.uk.xensource.com>
+ <4a8e7cf2-8f63-d4d2-e051-9484a5b8c8ed@suse.com>
+ <96F32637-E410-4EC8-937A-CFC8BE724352@citrix.com>
+ <24273.8332.662607.125522@mariner.uk.xensource.com>
+ <7eaa7541-f698-b29b-b4b3-1f40fc37c5d7@xen.org>
+ <63838ce9-8dbf-aacf-521d-97540758a945@suse.com>
+ <429e81a2-80d5-0d50-6352-6471cd4698a8@xen.org>
+ <EEFCB4D0-9C2F-4527-8445-0FA78DE7285E@citrix.com>
+ <b06a89b2-3fa1-86d7-ba82-d4aac1236cf2@xen.org>
+ <4F8449D8-6023-4A40-9C87-875299DD0EEF@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <51c5e3db-48a9-9ef6-699c-e8b48db1b499@xen.org>
+Date: Mon, 1 Jun 2020 14:57:07 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <4F8449D8-6023-4A40-9C87-875299DD0EEF@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,56 +70,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>, paul@xen.org
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "cjwatson@debian.org" <cjwatson@debian.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-LLVM linker doesn't support discarding .shstrtab, and complains with:
 
-ld -melf_i386_fbsd -N -T build32.lds -o reloc.lnk reloc.o
-ld: error: discarding .shstrtab section is not allowed
 
-Add an explicit .shstrtab, .strtab and .symtab sections to the linker
-script after the text section in order to make LLVM LD happy and match
-the behavior of GNU LD.
+On 01/06/2020 14:35, George Dunlap wrote:
+> 
+> 
+>> On Jun 1, 2020, at 2:10 PM, Julien Grall <julien@xen.org> wrote:
+>> 4. Extract the .config from the binary using a similar script to script/extract-ikconfig.
+> 
+> Ah, gotcha.  I did misunderstand your suggestion.
+The advantage I can see with this solution is this is arch agnostic and 
+can be easily extend to other options. But it also means at least some 
+of CONFIG_* needs to be stable.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes since v2:
- - Also add .strtab and .symtab sections to match GNU behavior.
----
- xen/arch/x86/boot/build32.lds | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Can this solution be an alternative to the ELF note?
 
-diff --git a/xen/arch/x86/boot/build32.lds b/xen/arch/x86/boot/build32.lds
-index 97454b40ff..1ab9418793 100644
---- a/xen/arch/x86/boot/build32.lds
-+++ b/xen/arch/x86/boot/build32.lds
-@@ -50,6 +50,20 @@ SECTIONS
-         *(.got.plt)
-   }
- 
-+  /*
-+   * Discarding .shstrtab is not supported by LLD (LLVM LD) and will trigger an
-+   * error. Also keep the rest of the control sections to match GNU LD behavior.
-+   */
-+  .shstrtab : {
-+        *(.shstrtab)
-+  }
-+  .strtab : {
-+        *(.strtab)
-+  }
-+  .symtab : {
-+        *(.symtab)
-+  }
-+
-   /DISCARD/ : {
-         /*
-          * Discard everything else, to prevent linkers from putting
+Cheers,
+
 -- 
-2.26.2
-
+Julien Grall
 
