@@ -2,71 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D9BC1EA685
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 17:08:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A6C81EA6C1
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 17:19:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfm2f-0001PL-Mo; Mon, 01 Jun 2020 15:07:57 +0000
+	id 1jfmDY-0002NP-T2; Mon, 01 Jun 2020 15:19:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=L6P3=7O=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jfm2e-0001PG-OA
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 15:07:56 +0000
-X-Inumbo-ID: abe263fa-a419-11ea-81bc-bc764e2007e4
-Received: from mail-ed1-x543.google.com (unknown [2a00:1450:4864:20::543])
+ id 1jfmDW-0002NG-Sf
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 15:19:10 +0000
+X-Inumbo-ID: 3daa2f6a-a41b-11ea-9dbe-bc764e2007e4
+Received: from mail-ej1-x62d.google.com (unknown [2a00:1450:4864:20::62d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id abe263fa-a419-11ea-81bc-bc764e2007e4;
- Mon, 01 Jun 2020 15:07:55 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id k19so7506573edv.9
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 08:07:55 -0700 (PDT)
+ id 3daa2f6a-a41b-11ea-9dbe-bc764e2007e4;
+ Mon, 01 Jun 2020 15:19:09 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id n24so9579632ejd.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 08:19:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=r6FP2YosZWHFalCC+WBNkBLcjUgXO6VrNF/Y8BUD2FA=;
- b=KDbv2USn9gc6uxUznYqOp+eSQH7sAjYKnB1K2XF7xD1FGmIQZSSKv7M6ZLx2ZP5Hdd
- OJsBwAPD9iQVPJXfZtsSJ4omByHaT2e+cFiXxqAWk0FM+JnV6HJwoMTtTCqRwDaj/cYk
- ZoFMNnnnXoao99og8NpM1J0EknIpPOP/cRwywSfGSWN62lyhooHxYQFc36bR8bIENXqW
- 68AQ5tUeMX/s+QxiVawNlChEeJtC3n2Icx650qDUZibe1D6Z8JwTP3pO1SFXq3kcwnx2
- /T82Brb9ZrkmYindIhuL7beBNBVH9edpQwDsWKjKlQZN4gUk7gM3BwnPSBUI9JKERR1f
- 6IwQ==
+ :thread-index; bh=I3z+TGgCjqU+RgML/yFoOLMrSRU4S4kmaHi0OCyG2cU=;
+ b=VLh1DfNTwHBdXvPmzJ0CSDEDIam+ai2OrNBLUvwWzTZ/ctWa8LdzbFixMftzps+wLQ
+ F9s0fuMMqo/C7m8Po2abhjaQbTPFPYiVT1sXwOBngUHR3o9eGXLshEu7bJLtPocZqqrB
+ SRy7JCKDmvZGh9d0NgKQijk/dHqLYMCrp1u6gPuogYN6Skm2lp0su2wjSZnOghV0SCv3
+ 9MEJXsb3/YVCNNpG3dqIApctQjpKpXXEBZEiHV/gUTJ71r9s4zjQr8znd0VHTq07C9IB
+ AJOOKxcxswcCeqVe/G9f7+yxpJO+XWfeTL8MCTeHGrglRc5BrVExlqM47HaXdTy2e+7u
+ tl/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :content-language:thread-index;
- bh=r6FP2YosZWHFalCC+WBNkBLcjUgXO6VrNF/Y8BUD2FA=;
- b=owigeTQcUtpD6fKG5hf9OKrWoWGG1LSYecyekvFFKG1KE+ky8WTXXbLmbGcTThxaIv
- vXHZQ5vx+5yJUTJY8iJU8bcC0Dum2A5ZKb+3IsdmfYkJFYRn8kzEYhTIZyhG0FAigsMS
- o1gfd2/DE0pIK5F8Xlb+yInAyVOCX2TkwaAmOTIVllvj/FT6urmwRsrJZCusPilJQv0p
- kjV/guJcfOfLXi/d+RO97PQ2YydLp3HnmOn86kXjYjGiz5Uez4s5UTdsz/qZUqTq0m9X
- SmAn4SlpDgnf1aDvEaHRlTjlGaEW03YcVzTCx1cipHWISlbpDy5ulql4DvJ2Dx0m2tTp
- 1K7Q==
-X-Gm-Message-State: AOAM530xfSu/ERLYWLTw6krXOsb9/hkg5CuhE18r2Qrjj+0MFLtLDczC
- 9SG+i26k8/r7qgpcKv+p3Ks=
-X-Google-Smtp-Source: ABdhPJySZHC+AaRIn80jw0F4XxN0lDGW7KyvsRgdqZT7PfcV87HgndLrXXemLMMglliswlUnBLO08w==
-X-Received: by 2002:a50:d490:: with SMTP id s16mr21405293edi.242.1591024074966; 
- Mon, 01 Jun 2020 08:07:54 -0700 (PDT)
+ bh=I3z+TGgCjqU+RgML/yFoOLMrSRU4S4kmaHi0OCyG2cU=;
+ b=U+t/bqMacH+EhL8ZgvmiSilgYLpljJDlvs4dVLDx6Jv7w9dHhRxL+c062/BnZT3eIE
+ kVRJaQnDWZardvhHQL1YBvq7Qu7TdyHPGv2laeBTnzrRg7Y5iQGU45CM8YZGj9Q/YIjT
+ 1B2U9ufDn4ih9YTcVbvCyb8wNvKTOIQP+mInpyHK7484ChhGwkDsJh+4c77jOaaeyp63
+ MVs6klhi+Q+qDLbf7HGperrM0fgrFv+/0O8BrfizM4mLXVW2/olUf3u0klpmaGsh033B
+ /s3huW4aRp8ykXMfIJ3GM2JOO8OdPtaQSCKpLwB6sok47k4MrpDsBVjlh+Fy+EK9yhR1
+ JNQw==
+X-Gm-Message-State: AOAM5334Hwq/3h9i+AAI8diJvMVTZgqCOCgewHOOVvrevWv4Ow1/P9J1
+ o04fNE05WdA05fu491WE+z8=
+X-Google-Smtp-Source: ABdhPJwC463SFXhYeSRAiZDGbIujQCLoXRCd7HXbntfWsAHNxXdaEd++Fcd5SG0syzZxOzwcUVIGTA==
+X-Received: by 2002:a17:906:8d0:: with SMTP id
+ o16mr20514557eje.196.1591024749047; 
+ Mon, 01 Jun 2020 08:19:09 -0700 (PDT)
 Received: from CBGR90WXYV0 (54-240-197-236.amazon.com. [54.240.197.236])
- by smtp.gmail.com with ESMTPSA id w21sm14248499ejc.11.2020.06.01.08.07.53
+ by smtp.gmail.com with ESMTPSA id q12sm8994614ejn.23.2020.06.01.08.19.07
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 01 Jun 2020 08:07:54 -0700 (PDT)
+ Mon, 01 Jun 2020 08:19:08 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Tamas K Lengyel'" <tamas.lengyel@intel.com>,
- <xen-devel@lists.xenproject.org>
-References: <cover.1591017086.git.tamas.lengyel@intel.com>
-In-Reply-To: <cover.1591017086.git.tamas.lengyel@intel.com>
-Subject: RE: [PATCH v19 for-4.14 00/13] VM forking
-Date: Mon, 1 Jun 2020 16:07:52 +0100
-Message-ID: <000c01d63826$6d125900$47370b00$@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'Xen-devel'" <xen-devel@lists.xenproject.org>
+References: <20200601134025.24142-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20200601134025.24142-1-andrew.cooper3@citrix.com>
+Subject: RE: [PATCH for-4.14] docs/ucode: Extend runtime microcode loading
+ documentation
+Date: Mon, 1 Jun 2020 16:19:07 +0100
+Message-ID: <000e01d63827$fede4d70$fc9ae850$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: en-gb
-Thread-Index: AQLopxTEy5NbImEQwB/v9n5io2F1+qae/fDA
+Thread-Index: AQGxKdezJRRpkuANC4vfHjenNW9S2akN+uKw
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,166 +80,93 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: paul@xen.org
-Cc: 'Kevin Tian' <kevin.tian@intel.com>,
- 'Stefano Stabellini' <sstabellini@kernel.org>, 'Julien Grall' <julien@xen.org>,
- 'Jan Beulich' <jbeulich@suse.com>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>,
- 'Tamas K Lengyel' <tamas@tklengyel.com>,
- 'Jun Nakajima' <jun.nakajima@intel.com>,
- 'Anthony PERARD' <anthony.perard@citrix.com>,
- =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
+ 'Konrad Rzeszutek Wilk' <konrad.wilk@oracle.com>,
+ 'George Dunlap' <George.Dunlap@eu.citrix.com>,
+ 'Jan Beulich' <JBeulich@suse.com>, 'Ian Jackson' <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
-Tamas K Lengyel
-> Sent: 01 June 2020 14:22
-> To: xen-devel@lists.xenproject.org
-> Cc: Kevin Tian <kevin.tian@intel.com>; Stefano Stabellini =
-<sstabellini@kernel.org>; Tamas K Lengyel
-> <tamas.lengyel@intel.com>; Jun Nakajima <jun.nakajima@intel.com>; Wei =
-Liu <wl@xen.org>; Andrew Cooper
-> <andrew.cooper3@citrix.com>; Ian Jackson <ian.jackson@eu.citrix.com>; =
-George Dunlap
-> <george.dunlap@citrix.com>; Tamas K Lengyel <tamas@tklengyel.com>; Jan =
-Beulich <jbeulich@suse.com>;
-> Anthony PERARD <anthony.perard@citrix.com>; Julien Grall =
-<julien@xen.org>; Roger Pau Monn=C3=A9
-> <roger.pau@citrix.com>
-> Subject: [PATCH v19 for-4.14 00/13] VM forking
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> Sent: 01 June 2020 14:40
+> To: Xen-devel <xen-devel@lists.xenproject.org>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <George.Dunlap@eu.citrix.com>; Ian
+> Jackson <ian.jackson@citrix.com>; Jan Beulich <JBeulich@suse.com>; Konrad Rzeszutek Wilk
+> <konrad.wilk@oracle.com>; Stefano Stabellini <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Julien
+> Grall <julien@xen.org>; Paul Durrant <paul@xen.org>
+> Subject: [PATCH for-4.14] docs/ucode: Extend runtime microcode loading documentation
+> 
+> Extend the disclaimer about runtime loading.  While we've done our best to
+> make the mechaism reliable, the safety of late loading does ultimately depend
+> on the contents of the blobs.
+> 
+> Extend the xen-ucode portion with examples of how to use it.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> CC: Ian Jackson <ian.jackson@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Wei Liu <wl@xen.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Paul Durrant <paul@xen.org>
+> ---
+>  docs/admin-guide/microcode-loading.rst | 22 +++++++++++++++++++---
+>  1 file changed, 19 insertions(+), 3 deletions(-)
+> 
+> diff --git a/docs/admin-guide/microcode-loading.rst b/docs/admin-guide/microcode-loading.rst
+> index 5f0f661a2e..8cd5d0351b 100644
+> --- a/docs/admin-guide/microcode-loading.rst
+> +++ b/docs/admin-guide/microcode-loading.rst
+> @@ -104,8 +104,8 @@ modules to find any CPIO archives, and search the archive for the applicable
+>  file.  Xen will stop searching at the first match.
+> 
+> 
+> -Run time microcode loading
+> ---------------------------
+> +Runtime microcode loading
+> +-------------------------
+> 
+>  .. warning::
+> 
+> @@ -113,7 +113,23 @@ Run time microcode loading
+>     or at boot time.  Not all microcode updates (or parts thereof) can be
+>     applied at runtime.
+> 
+> -The ``xen-ucode`` utility can be used to initiate a runtime microcode load.
+> +   Given the proprietry nature of microcode, we are unable to make any claim
 
-Hi,
+s/proprietry/proprietary
 
-  This series looks to be largely un-acked so, since we are now past the =
-freeze date, I don't really think it can go into 4.14. Is there a =
-particular reason that you think it should be considered?
+with that fixed this is...
 
-  Paul
+Release-acked-by: Paul Durrant <paul@xen.org>
 
->=20
-> The following patches are part of the series that implement VM forking =
-for
-> Intel HVM guests to allow for the fast creation of identical VMs =
-without the
-> assosciated high startup costs of booting or restoring the VM from a =
-savefile.
->=20
-> JIRA issue: https://xenproject.atlassian.net/browse/XEN-89
->=20
-> The fork operation is implemented as part of the "xl fork-vm" command:
->     xl fork-vm -C <config> -Q <qemu-save-file> <parent_domid>
->=20
-> By default a fully functional fork is created. The user is in charge =
-however to
-> create the appropriate config file for the fork and to generate the =
-QEMU save
-> file before the fork-vm call is made. The config file needs to give =
-the
-> fork a new name at minimum but other settings may also require =
-changes. Certain
-> settings in the config file of both the parent and the fork have to be =
-set to
-> default. Details are documented.
->=20
-> The interface also allows to split the forking into two steps:
->     xl fork-vm --launch-dm no \
->                -m <max-vcpus> \
-> 			   -p <parent_domid>
-> 	xl fork-vm --launch-dm late \
-> 	           -C <config_file_for_fork> \
-> 			   -Q <qemu_save_file> \
-> 			   <fork_domid>
->=20
-> The split creation model is useful when the VM needs to be created as =
-fast as
-> possible. The forked VM can be unpaused without the device model being =
-launched
-> to be monitored and accessed via VMI. Note however that without its =
-device
-> model running (depending on what is executing in the VM) it is bound =
-to
-> misbehave or even crash when its trying to access devices that would =
-be
-> emulated by QEMU. We anticipate that for certain use-cases this would =
-be an
-> acceptable situation, in case for example when fuzzing is performed of =
-code
-> segments that don't access such devices.
->=20
-> Launching the device model requires the QEMU Xen savefile to be =
-generated
-> manually from the parent VM. This can be accomplished simply by =
-connecting to
-> its QMP socket and issuing the "xen-save-devices-state" command. For =
-example
-> using the standard tool socat these commands can be used to generate =
-the file:
->     socat - UNIX-CONNECT:/var/run/xen/qmp-libxl-<parent_domid>
-> 	{ "execute": "qmp_capabilities" }
-> 	{ "execute": "xen-save-devices-state", \
-> 		"arguments": { "filename": "/path/to/save/qemu_state", \
-> 						"live": false} }
->=20
-> The series has been tested with Windows VMs and functions as expected. =
-Linux
-> VMs when forked from a running VM will have a frozen VNC screen. Linux =
-VMs at
-> this time can only be forked with a working device model when the =
-parent VM was
-> restored from a snapshot using "xl restore -p". This is a known =
-limitation due
-> to Linux VMs having to be made aware of being saved/migrated.
->=20
-> New in v19:
-> 	Including all the patches currently outstanding into the series
-> 	Breaking up libxl/xl patch to many sub-patches to make it easier to =
-review
-> 	libxl/xl is now reduced to the bare essential to launch QEMU for a VM =
-fork
->=20
-> Tamas K Lengyel (13):
->   x86/mem_sharing: block interrupt injection for forks
->   tools/libxc: xc_memshr_fork with interrupts blocked
->   tools/libxl: Split libxl__domain_make
->   tools/libxl: populate xenstore entries when launching dm for VM fork
->   tools/libxl: Add checks for dm_restore_file
->   tools/libxl: adjust domcreate_bootloader_done
->   tools/libxl: Adjust libxl__build_pre
->   tools/libxl: Adjust libxl__build_post
->   tools/libxl: libxl__build_hvm_fork
->   tools/libxl: set QEMU saved_state from dm_restore_file
->   tools/libxl: Add VM forking public functions
->   tools/xl: Add xl fork-vm command
->   tools/xl: document fork-vm command
->=20
->  docs/man/xl.1.pod.in             |  39 +++++++++
->  tools/libxc/include/xenctrl.h    |   3 +-
->  tools/libxc/xc_memshr.c          |   4 +-
->  tools/libxl/libxl.h              |  10 +++
->  tools/libxl/libxl_create.c       | 134 =
-+++++++++++++++++++++++++------
->  tools/libxl/libxl_dm.c           |   2 +-
->  tools/libxl/libxl_dom.c          |  59 +++++++++++---
->  tools/libxl/libxl_internal.h     |   5 +-
->  tools/libxl/libxl_types.idl      |   1 +
->  tools/xl/Makefile                |   2 +-
->  tools/xl/xl.h                    |   4 +
->  tools/xl/xl_cmdtable.c           |  13 +++
->  tools/xl/xl_forkvm.c             | 122 ++++++++++++++++++++++++++++
->  tools/xl/xl_vmcontrol.c          |  13 +++
->  xen/arch/x86/hvm/vmx/intr.c      |   6 ++
->  xen/arch/x86/mm/mem_sharing.c    |   6 +-
->  xen/include/asm-x86/hvm/domain.h |   2 +-
->  xen/include/public/memory.h      |   3 +
->  18 files changed, 383 insertions(+), 45 deletions(-)
->  create mode 100644 tools/xl/xl_forkvm.c
->=20
+> +   that a runtime microcode is risk-free.  Any runtime microcode loading needs
+> +   adequate testing on a dev instance before being rolled out to production
+> +   systems.
+> +
+> +The ``xen-ucode`` utility can be used to initiate a runtime microcode load::
+> +
+> +  [root@host ~]# xen-ucode
+> +  xen-ucode: Xen microcode updating tool
+> +  Usage: xen-ucode <microcode blob>
+> +  [root@host ~]#
+> +
+> +e.g. With a Linux dom0 on a Haswell system::
+> +
+> +  [root@host ~]# xen-ucode /lib/firmware/intel-ucode/06-3c-03
+> +  [root@host ~]#
+> +
+>  It will pass the blob to Xen, which will check to see whether the blob is
+>  correct for the processor, and newer than the running microcode.
+> 
 > --
-> 2.25.1
->=20
+> 2.11.0
 
 
 
