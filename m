@@ -2,73 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A6C81EA6C1
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 17:19:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15F471EA6C6
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 17:21:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfmDY-0002NP-T2; Mon, 01 Jun 2020 15:19:12 +0000
+	id 1jfmFp-0003BL-9x; Mon, 01 Jun 2020 15:21:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L6P3=7O=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jfmDW-0002NG-Sf
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 15:19:10 +0000
-X-Inumbo-ID: 3daa2f6a-a41b-11ea-9dbe-bc764e2007e4
-Received: from mail-ej1-x62d.google.com (unknown [2a00:1450:4864:20::62d])
+ <SRS0=aSYU=7O=gmail.com=codewiz2280@srs-us1.protection.inumbo.net>)
+ id 1jfmFn-0003BG-H5
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 15:21:31 +0000
+X-Inumbo-ID: 919f3c1e-a41b-11ea-9947-bc764e2007e4
+Received: from mail-wm1-x32c.google.com (unknown [2a00:1450:4864:20::32c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3daa2f6a-a41b-11ea-9dbe-bc764e2007e4;
- Mon, 01 Jun 2020 15:19:09 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id n24so9579632ejd.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 08:19:09 -0700 (PDT)
+ id 919f3c1e-a41b-11ea-9947-bc764e2007e4;
+ Mon, 01 Jun 2020 15:21:30 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id f185so11778501wmf.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 08:21:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=I3z+TGgCjqU+RgML/yFoOLMrSRU4S4kmaHi0OCyG2cU=;
- b=VLh1DfNTwHBdXvPmzJ0CSDEDIam+ai2OrNBLUvwWzTZ/ctWa8LdzbFixMftzps+wLQ
- F9s0fuMMqo/C7m8Po2abhjaQbTPFPYiVT1sXwOBngUHR3o9eGXLshEu7bJLtPocZqqrB
- SRy7JCKDmvZGh9d0NgKQijk/dHqLYMCrp1u6gPuogYN6Skm2lp0su2wjSZnOghV0SCv3
- 9MEJXsb3/YVCNNpG3dqIApctQjpKpXXEBZEiHV/gUTJ71r9s4zjQr8znd0VHTq07C9IB
- AJOOKxcxswcCeqVe/G9f7+yxpJO+XWfeTL8MCTeHGrglRc5BrVExlqM47HaXdTy2e+7u
- tl/w==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=eEI0Z2ltjlEuzeKpCquZANxjoiXQ28qny9Vq/1zpwek=;
+ b=luxm+kMHLNzW4UMsm7xZZ8Za1hmjW7ITKHzoFQTBrVVfuu7cCT+J4XzW7JrTMX6bZf
+ aPsV52VI21L30Fyw7iOgdA8AXuoJqcbxGXspbXuSL1DozbDPFh5abGWERH0TLWfbYUlI
+ mgFjcjXohXEyMOhPqTGh06w/KOhCFpF2OeHlgdjby8lExOC6uMZ0hK2dV/PRCSx1hylO
+ n3XFFOke/ie1PJ3AfFD6596EjeNGn0T+SM8950lRIfHL6KjCCrvNC7Nhn7T8Odd12Kvy
+ VwnpiE04D34QpNIPg8KzGN2cCEzBUbm7XlXaCj0tzohnuy8BBRHxASqo3KGLv26UfJZV
+ vLqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=I3z+TGgCjqU+RgML/yFoOLMrSRU4S4kmaHi0OCyG2cU=;
- b=U+t/bqMacH+EhL8ZgvmiSilgYLpljJDlvs4dVLDx6Jv7w9dHhRxL+c062/BnZT3eIE
- kVRJaQnDWZardvhHQL1YBvq7Qu7TdyHPGv2laeBTnzrRg7Y5iQGU45CM8YZGj9Q/YIjT
- 1B2U9ufDn4ih9YTcVbvCyb8wNvKTOIQP+mInpyHK7484ChhGwkDsJh+4c77jOaaeyp63
- MVs6klhi+Q+qDLbf7HGperrM0fgrFv+/0O8BrfizM4mLXVW2/olUf3u0klpmaGsh033B
- /s3huW4aRp8ykXMfIJ3GM2JOO8OdPtaQSCKpLwB6sok47k4MrpDsBVjlh+Fy+EK9yhR1
- JNQw==
-X-Gm-Message-State: AOAM5334Hwq/3h9i+AAI8diJvMVTZgqCOCgewHOOVvrevWv4Ow1/P9J1
- o04fNE05WdA05fu491WE+z8=
-X-Google-Smtp-Source: ABdhPJwC463SFXhYeSRAiZDGbIujQCLoXRCd7HXbntfWsAHNxXdaEd++Fcd5SG0syzZxOzwcUVIGTA==
-X-Received: by 2002:a17:906:8d0:: with SMTP id
- o16mr20514557eje.196.1591024749047; 
- Mon, 01 Jun 2020 08:19:09 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-236.amazon.com. [54.240.197.236])
- by smtp.gmail.com with ESMTPSA id q12sm8994614ejn.23.2020.06.01.08.19.07
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 01 Jun 2020 08:19:08 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
- "'Xen-devel'" <xen-devel@lists.xenproject.org>
-References: <20200601134025.24142-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20200601134025.24142-1-andrew.cooper3@citrix.com>
-Subject: RE: [PATCH for-4.14] docs/ucode: Extend runtime microcode loading
- documentation
-Date: Mon, 1 Jun 2020 16:19:07 +0100
-Message-ID: <000e01d63827$fede4d70$fc9ae850$@xen.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=eEI0Z2ltjlEuzeKpCquZANxjoiXQ28qny9Vq/1zpwek=;
+ b=ZGZsCfIvdoq1geUdL67KC+XiDJuD5Bj7BqhwST1aAmN6t9GWrl+GShIjcZklULTxZf
+ jrfdpyV0FGHR24N68DYTOiL2EEkl7mNHyDy3pnn8QVoXvh8k76BeXJDfTWD5/4hnkf8s
+ sU2EQRgyb1OGCOxyzrwkiWzb07keuOSuaHcHXTW97DG46Q6/dgIreRyK9D9daVMIXO5O
+ 0/bcUu66q9Y6ASJtP8GWOyv029SzPbGnLvLqz5fQwgpLt1Wh8K2S9sZf9AVz6dUuAPRq
+ Wz4H8pp1quRFapaX5wsVxXEAz/+mdR2azGtb+PsDiLICPz6td1cZjYGvEaMpxR4IsXxd
+ 8tlw==
+X-Gm-Message-State: AOAM532WhRqfVFYYo28xGhRHoWVZ9Kf1IZd8lTc7wZOO+Yg+THWNp4Xc
+ OWPgMsqUzKnAm4xJxN+d2+dBXw1AyFfg6f5xxe40258ZNOM=
+X-Google-Smtp-Source: ABdhPJwqzcjBqvzUWw7ejJF1jpZfyVz9jSGQ0FArAOImK0f4qo90k/K6HVpxrG/Vp+UYxwy6Ntdy7ikDiWY6omHky3Q=
+X-Received: by 2002:a1c:e903:: with SMTP id q3mr21054474wmc.76.1591024889923; 
+ Mon, 01 Jun 2020 08:21:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQGxKdezJRRpkuANC4vfHjenNW9S2akN+uKw
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+ <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
+In-Reply-To: <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
+From: CodeWiz2280 <codewiz2280@gmail.com>
+Date: Mon, 1 Jun 2020 11:21:17 -0400
+Message-ID: <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
+Subject: Re: Keystone Issue
+To: Julien Grall <julien@xen.org>
+Content-Type: multipart/alternative; boundary="000000000000648c2a05a707595a"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,94 +65,166 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
- 'Konrad Rzeszutek Wilk' <konrad.wilk@oracle.com>,
- 'George Dunlap' <George.Dunlap@eu.citrix.com>,
- 'Jan Beulich' <JBeulich@suse.com>, 'Ian Jackson' <ian.jackson@citrix.com>
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Andrew Cooper <andrew.cooper3@citrix.com>
-> Sent: 01 June 2020 14:40
-> To: Xen-devel <xen-devel@lists.xenproject.org>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <George.Dunlap@eu.citrix.com>; Ian
-> Jackson <ian.jackson@citrix.com>; Jan Beulich <JBeulich@suse.com>; Konrad Rzeszutek Wilk
-> <konrad.wilk@oracle.com>; Stefano Stabellini <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Julien
-> Grall <julien@xen.org>; Paul Durrant <paul@xen.org>
-> Subject: [PATCH for-4.14] docs/ucode: Extend runtime microcode loading documentation
-> 
-> Extend the disclaimer about runtime loading.  While we've done our best to
-> make the mechaism reliable, the safety of late loading does ultimately depend
-> on the contents of the blobs.
-> 
-> Extend the xen-ucode portion with examples of how to use it.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Ian Jackson <ian.jackson@citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Paul Durrant <paul@xen.org>
-> ---
->  docs/admin-guide/microcode-loading.rst | 22 +++++++++++++++++++---
->  1 file changed, 19 insertions(+), 3 deletions(-)
-> 
-> diff --git a/docs/admin-guide/microcode-loading.rst b/docs/admin-guide/microcode-loading.rst
-> index 5f0f661a2e..8cd5d0351b 100644
-> --- a/docs/admin-guide/microcode-loading.rst
-> +++ b/docs/admin-guide/microcode-loading.rst
-> @@ -104,8 +104,8 @@ modules to find any CPIO archives, and search the archive for the applicable
->  file.  Xen will stop searching at the first match.
-> 
-> 
-> -Run time microcode loading
-> ---------------------------
-> +Runtime microcode loading
-> +-------------------------
-> 
->  .. warning::
-> 
-> @@ -113,7 +113,23 @@ Run time microcode loading
->     or at boot time.  Not all microcode updates (or parts thereof) can be
->     applied at runtime.
-> 
-> -The ``xen-ucode`` utility can be used to initiate a runtime microcode load.
-> +   Given the proprietry nature of microcode, we are unable to make any claim
+--000000000000648c2a05a707595a
+Content-Type: text/plain; charset="UTF-8"
 
-s/proprietry/proprietary
+Hi Julien,
 
-with that fixed this is...
+Thank you for your response.  I will try and post a log for you.  I have
+been switching back and forth between configurations and need to take a new
+one.
 
-Release-acked-by: Paul Durrant <paul@xen.org>
+The board has 4GB of memory. Uboot places the kernel/initramfs/dtb in the
+0x8000_0000 region but then the kernel switches its code/data over to a
+0x8_0000_0000 range via the pv-fixup-asm.S assembly code called from
+early_paging_init in arch/arm/mm/mmu.c.  That code is exclusive to the
+keystone in the 4.19 kernel when "CONFIG_ARM_PV_FIXUP" and "ARM_LPAE" are
+enabled in the kernel .  The upper 2GB of memory is above 0xFFFF_FFFF so
+LPAE is required.
 
-> +   that a runtime microcode is risk-free.  Any runtime microcode loading needs
-> +   adequate testing on a dev instance before being rolled out to production
-> +   systems.
-> +
-> +The ``xen-ucode`` utility can be used to initiate a runtime microcode load::
-> +
-> +  [root@host ~]# xen-ucode
-> +  xen-ucode: Xen microcode updating tool
-> +  Usage: xen-ucode <microcode blob>
-> +  [root@host ~]#
-> +
-> +e.g. With a Linux dom0 on a Haswell system::
-> +
-> +  [root@host ~]# xen-ucode /lib/firmware/intel-ucode/06-3c-03
-> +  [root@host ~]#
-> +
->  It will pass the blob to Xen, which will check to see whether the blob is
->  correct for the processor, and newer than the running microcode.
-> 
+/proc/iomem looks like this without running xen after the switch and the
+kernel boots:
+
+80000000 - 9fffffff : System RAM (boot alias)
+c8000000 - ffffffff : System RAM (boot alias)
+800000000 - 1fffffff : System RAM
+    800008000-800dfffff : Kernel Code
+    801000000-80108ab3f : Kernel data
+848000000-8ffffffff : System RAM
+
+I was able to duplicate this issue with a build of your latest "master"
+repository from this morning.
+
+On Mon, Jun 1, 2020 at 9:29 AM Julien Grall <julien@xen.org> wrote:
+
+> Hello,
+>
+> I have a few questions in order to understand a bit more your problem.
+>
+> On 01/06/2020 13:38, CodeWiz2280 wrote:
+> > Hello, I am using a Texas Instruments K2E Keystone Eval board with Linux
+> > 4.19.59.  It has a 32-bit ARM Cortex A15 processor. There is keystone
+> > specific code in the kernel in arch/arm/mm/pv-fixup-asm.s that executes
+> > during early_paging_init for LPAE support.  This causes the kernel to
+> > switch its running 32-bit address space to a 36-bit address space and
+> > the hypervisor traps repeatedly and stops it from booting.
+>
+> Without any log it is going to be difficult to help. Could you post the
+> hypervisor log when debug is enabled?
+>
+> >  I suspect
+> > this is because Xen only allowed for the original 32-bit memory range
+> > specified by the dom0 device tree.
+>
+> How much RAM did you give to your Dom0?
+>
+> > The 36-bit LPAE address is a fixed
+> > offset from the 32-bit address and is not physically different memory.
+>
+> I am not sure to understand this. Are you suggesting that the kernel is
+> trying to relocate itself in a different part of the physical memory?
+>
+> Can you provide more details on the fixed offset?
+>
+> >
+> > Can you suggest any way to get through this problem? I am using the
+> > master branch of xen from earlier this year.
+>
+> Can you provide the exact baseline your are using? Did make any changes
+> on top?
+>
+> > Any help is greatly
+> > appreciated.
+> Best regards,
+>
 > --
-> 2.11.0
+> Julien Grall
+>
 
+--000000000000648c2a05a707595a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div>Hi Julien,</div><div><br></div><div>Thank you for you=
+r response.=C2=A0 I will try and post a log for you.=C2=A0 I have been swit=
+ching back and forth between configurations and need to take a new one.</di=
+v><div><br></div><div>The board has 4GB of memory. Uboot places the kernel/=
+initramfs/dtb in the 0x8000_0000 region but then the kernel switches its co=
+de/data over to a 0x8_0000_0000 range via the pv-fixup-asm.S assembly code =
+called from early_paging_init in arch/arm/mm/mmu.c.=C2=A0 That code is excl=
+usive to the keystone in the 4.19 kernel when &quot;CONFIG_ARM_PV_FIXUP&quo=
+t; and &quot;ARM_LPAE&quot; are enabled in the kernel .=C2=A0 The upper 2GB=
+ of memory is above 0xFFFF_FFFF so LPAE is required.=C2=A0</div><div><br></=
+div><div>/proc/iomem looks like this without running xen after the switch a=
+nd the kernel boots:</div><div><br></div><div>80000000 - 9fffffff : System =
+RAM (boot alias)</div><div>c8000000 - ffffffff : System RAM (boot alias)</d=
+iv><div>800000000 - 1fffffff : System RAM</div><div>=C2=A0 =C2=A0 800008000=
+-800dfffff : Kernel Code</div><div>=C2=A0 =C2=A0 801000000-80108ab3f : Kern=
+el data</div><div>848000000-8ffffffff : System RAM</div><div><br></div><div=
+>I was able to duplicate this issue with a build of your latest &quot;maste=
+r&quot; repository from this morning.</div></div><br><div class=3D"gmail_qu=
+ote"><div class=3D"gmail_attr" dir=3D"ltr">On Mon, Jun 1, 2020 at 9:29 AM J=
+ulien Grall &lt;<a href=3D"mailto:julien@xen.org">julien@xen.org</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;padding-left:1ex;border-left-color:rgb(204,204,204);border-left-widt=
+h:1px;border-left-style:solid">Hello,<br>
+<br>
+I have a few questions in order to understand a bit more your problem.<br>
+<br>
+On 01/06/2020 13:38, CodeWiz2280 wrote:<br>
+&gt; Hello, I am using a Texas Instruments K2E Keystone Eval board with Lin=
+ux <br>
+&gt; 4.19.59.=C2=A0 It has a 32-bit ARM Cortex A15 processor. There is keys=
+tone <br>
+&gt; specific code in the kernel in arch/arm/mm/pv-fixup-asm.s that execute=
+s <br>
+&gt; during early_paging_init for LPAE support.=C2=A0 This causes the kerne=
+l to <br>
+&gt; switch its running 32-bit address space to a 36-bit address space and =
+<br>
+&gt; the hypervisor traps repeatedly and stops it from booting.<br>
+<br>
+Without any log it is going to be difficult to help. Could you post the <br=
+>
+hypervisor log when debug is enabled?<br>
+<br>
+&gt;=C2=A0 I suspect <br>
+&gt; this is because Xen only allowed for the original 32-bit memory range =
+<br>
+&gt; specified by the dom0 device tree.<br>
+<br>
+How much RAM did you give to your Dom0?<br>
+<br>
+&gt; The 36-bit LPAE address is a fixed <br>
+&gt; offset from the 32-bit address and is not physically different memory.=
+<br>
+<br>
+I am not sure to understand this. Are you suggesting that the kernel is <br=
+>
+trying to relocate itself in a different part of the physical memory?<br>
+<br>
+Can you provide more details on the fixed offset?<br>
+<br>
+&gt;=C2=A0 <br>
+&gt; Can you suggest any way to get through this problem? I am using the <b=
+r>
+&gt; master branch of xen from earlier this year.=C2=A0 <br>
+<br>
+Can you provide the exact baseline your are using? Did make any changes <br=
+>
+on top?<br>
+<br>
+&gt; Any help is greatly <br>
+&gt; appreciated.<br>
+Best regards,<br>
+<br>
+-- <br>
+Julien Grall<br>
+</blockquote></div>
+
+--000000000000648c2a05a707595a--
 
