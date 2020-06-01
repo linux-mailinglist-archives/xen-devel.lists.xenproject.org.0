@@ -2,68 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D82361EB245
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 01:37:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 025DF1EB246
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 01:38:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jftzx-0006tS-VX; Mon, 01 Jun 2020 23:37:41 +0000
+	id 1jfu0H-000704-8P; Mon, 01 Jun 2020 23:38:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zqDJ=7O=linaro.org=richard.henderson@srs-us1.protection.inumbo.net>)
- id 1jftzw-0006t6-L5
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 23:37:40 +0000
-X-Inumbo-ID: e1b666d8-a460-11ea-8993-bc764e2007e4
-Received: from mail-pg1-x541.google.com (unknown [2607:f8b0:4864:20::541])
+ id 1jfu0E-0006zR-U2
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 23:37:58 +0000
+X-Inumbo-ID: ec9d4e86-a460-11ea-81bc-bc764e2007e4
+Received: from mail-pj1-x1042.google.com (unknown [2607:f8b0:4864:20::1042])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e1b666d8-a460-11ea-8993-bc764e2007e4;
- Mon, 01 Jun 2020 23:37:40 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id s10so4211369pgm.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 16:37:40 -0700 (PDT)
+ id ec9d4e86-a460-11ea-81bc-bc764e2007e4;
+ Mon, 01 Jun 2020 23:37:58 +0000 (UTC)
+Received: by mail-pj1-x1042.google.com with SMTP id nm22so490606pjb.4
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 16:37:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=KUapqzqKD/nil8AJP/KRmcd5zCFEf0jfxXrXYdNEGQI=;
- b=FatqtVOR5hD/fcjlHQiJxex0C6zQusiasYEb/yEipsUHJ8XYLQsy5xfoCZP0e+yu2k
- iuyeevu0q7AhEwUlWsJu32GG5SazukklQ7e67apLyPFjt5a/kRoa7XobmxW3KegBIMKP
- ENP/BSizdgxJ2u8Tvh8iFJAyCgLU5iLwR4aQ1m509XvSedk9+fo6MComm8rgpnGt+o0N
- Q98WvROsPGMZBjMcvm6JrmLaNrnVanswonOdPV+SMxS43AgLRfuApjZXh5bhpv+tDGdz
- MMCTMQ66HTYSfiIMqxA5Ki+niSFNrxoUK9Dpm02g07u76J4kojC7ItRwfO6gs62s6NM6
- DARQ==
+ bh=HfFhYalJY0owExcssF2oPatU+OO5rT0/qJC/uP661lE=;
+ b=D6RFiyd3vhs4PAjso9chbZyN90KGj+KGNss4NJQQ8ZtfXqYr8rob/58LqdkivyQ18S
+ l8MM5DCaRgDBwmpNMqKrdYLfNRH4UDuLUbWD+FrxdZlCs7oRa7NWFLsPTWt+x02Cg+Y8
+ cq/LBMagSbGn+1O9fmyA2upRrb1DRGWB3KkOBS4QZLb8bwrISwNs2qMqtQ5CMDZRh+fI
+ HSymYViN4Vz251sbBkoz7+QKOmlsXmmdPwlsLYqWFEzzYkaFl1BQKctLNlp4pOMzWc6H
+ lAQS+t6tOCAJf70J2cbezgmakkny+l09OEdidLQyiADzbfoocJWYEiW1gmFcQPbIpryA
+ 8FcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=KUapqzqKD/nil8AJP/KRmcd5zCFEf0jfxXrXYdNEGQI=;
- b=RFa/WiI4Pybh8QrzXQrUoril5f/v0xgaja7BzjBcfTKoDu9JcKnhdvOnpOD9laF1DI
- AfskaIN+/pUTdyUU+owFKyiGamHmKGLAvG36Hnci+YhXsojRMUBbC08rF685MwzK8Pob
- vyWIMOGd3Raa8TZQ9WRWfibaHidHCFb87c/6IA5bWuKabHx0ChXbIxA67CEMYQ6YUODL
- 4DeD/6Y3ysyfSq4Bc7eHE4srVxfHGLrrBiy39s3IPpbh4VxDzbASE70F9JyyJDRgwi27
- l5+4QQAJ3B6XEOTfMvNy6XtzKTERhIMMzJs83fIQT+zDj9jkEaCQ0Fsn7dXVxf+M4Ms8
- df2Q==
-X-Gm-Message-State: AOAM531wFXMFLSlrg6wt3IO6cYsohJyfx8xJKhh9tYA2VMsdM/7BcArR
- 9+OJAqabBLgg0rzy3PXdU2ekQQ==
-X-Google-Smtp-Source: ABdhPJxhd+PX2dAfPlV44Fx/pz/N3NFXKQtVkApW6bgZq/7EFs6cRCLgC6WvnR+4RiTgTsBqwCGGXQ==
-X-Received: by 2002:a63:6345:: with SMTP id x66mr20915001pgb.156.1591054659488; 
- Mon, 01 Jun 2020 16:37:39 -0700 (PDT)
+ bh=HfFhYalJY0owExcssF2oPatU+OO5rT0/qJC/uP661lE=;
+ b=teh+8MQskn5fPa2yCUgAHjZi/7OQVgePvDTXjkPgkIm0aEUoxv1uGDVvR74omLUU/E
+ YS9VSFuRNrG+FZNMa1CDBx5AIeSVMy0HZDjJ0eLX4xWD0YIK6OXRxPXwiV+JW4Yb56pJ
+ QO7GkPAgkBh2F8TDTQ+JmXgGTZQDeOCnPYxZVix0QzZjbh4wTWXfu0wDp5ZCJykVgGU6
+ KFFvCEQJkoKNl41WDoByJ2VdxhaCQsKQyGUxh9cNMcZdHgAQqvFWKHbhb8zwRPGlPZ8w
+ XAiHCw1MkQDbeipINTbTuUnhLTswIvcEzOvvLFXnL2WwEhyoz2C5fXQxTFzybuA7YW9X
+ wmIQ==
+X-Gm-Message-State: AOAM531QTodeyuIRGUnVc/Is4Lyu64MIgpyfk4puExtwNtU14vToih03
+ xYMyzbbQ9t0RectxMqQxtrSmqgormfI=
+X-Google-Smtp-Source: ABdhPJwQbu/car7bKu2JAjkABhB4S+ApIJr/aipBL4QQbfu0LhpD4XGgfdkXxwi8pkIXezTuXqaYwg==
+X-Received: by 2002:a17:902:bf43:: with SMTP id
+ u3mr21921053pls.240.1591054677830; 
+ Mon, 01 Jun 2020 16:37:57 -0700 (PDT)
 Received: from [192.168.1.11] (174-21-143-238.tukw.qwest.net. [174.21.143.238])
- by smtp.gmail.com with ESMTPSA id g19sm415680pfo.209.2020.06.01.16.37.37
+ by smtp.gmail.com with ESMTPSA id h13sm444790pfk.25.2020.06.01.16.37.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Jun 2020 16:37:38 -0700 (PDT)
-Subject: Re: [PATCH v2 7/8] hw/i386/xen/xen-hvm: Use the IEC binary prefix
+ Mon, 01 Jun 2020 16:37:57 -0700 (PDT)
+Subject: Re: [PATCH v2 8/8] target/i386/cpu: Use the IEC binary prefix
  definitions
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
  qemu-devel@nongnu.org
 References: <20200601142930.29408-1-f4bug@amsat.org>
- <20200601142930.29408-8-f4bug@amsat.org>
+ <20200601142930.29408-9-f4bug@amsat.org>
 From: Richard Henderson <richard.henderson@linaro.org>
-Message-ID: <403c7efe-bfa4-c6e3-7ab7-0592bc16bfc8@linaro.org>
-Date: Mon, 1 Jun 2020 16:37:36 -0700
+Message-ID: <fc1a89c0-c631-505d-f901-6a7821c74c2b@linaro.org>
+Date: Mon, 1 Jun 2020 16:37:54 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200601142930.29408-8-f4bug@amsat.org>
+In-Reply-To: <20200601142930.29408-9-f4bug@amsat.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -97,8 +98,8 @@ On 6/1/20 7:29 AM, Philippe Mathieu-Daudé wrote:
 > Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
 > Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 > ---
->  hw/i386/xen/xen-hvm.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  target/i386/cpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 
