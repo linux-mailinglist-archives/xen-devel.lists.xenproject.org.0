@@ -2,45 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55AA01EA4DA
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 15:22:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A82D1EA4FF
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 15:29:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfkOh-00071P-89; Mon, 01 Jun 2020 13:22:35 +0000
+	id 1jfkV6-0007xz-VD; Mon, 01 Jun 2020 13:29:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OmQg=7O=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
- id 1jfkOg-00070X-3m
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 13:22:34 +0000
-X-Inumbo-ID: e14aa228-a40a-11ea-8993-bc764e2007e4
-Received: from mga12.intel.com (unknown [192.55.52.136])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kFUs=7O=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jfkV5-0007xq-7H
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 13:29:11 +0000
+X-Inumbo-ID: e07b8f64-a40b-11ea-9dbe-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e14aa228-a40a-11ea-8993-bc764e2007e4;
- Mon, 01 Jun 2020 13:22:02 +0000 (UTC)
-IronPort-SDR: k2VvIlGHeuF5FHzawTp51swC4PNEusRm4BONrgxIy4XUSIsaVdm4B5QWKqUU3dwKOQqQwiyGkW
- OKZxsiPGsWJA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2020 06:22:01 -0700
-IronPort-SDR: H1aV+v7D8iqBCn+kOObTwwAklxRSIFRI2v89rHm0OiToMY/GQuN4Op2Uk9MAHvIs6P9uNmgRXf
- XwA23kt8+UuA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,460,1583222400"; d="scan'208";a="303887330"
-Received: from alayek-mobl.amr.corp.intel.com (HELO ubuntu.localdomain)
- ([10.209.11.99])
- by orsmga008.jf.intel.com with ESMTP; 01 Jun 2020 06:22:00 -0700
-From: Tamas K Lengyel <tamas.lengyel@intel.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v19 for-4.14 13/13] tools/xl: document fork-vm command
-Date: Mon,  1 Jun 2020 06:21:47 -0700
-Message-Id: <ec4931e5c3fb995514daf6f2c2cf261d6b15ec46.1591017086.git.tamas.lengyel@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1591017086.git.tamas.lengyel@intel.com>
-References: <cover.1591017086.git.tamas.lengyel@intel.com>
+ id e07b8f64-a40b-11ea-9dbe-bc764e2007e4;
+ Mon, 01 Jun 2020 13:29:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=GLHrgBGOFloKOwkupYiTD8oGR2dt6jDGmP+jyKOu7VY=; b=n4Ozb6I2PA7HX5cZtUfLvdvfeP
+ LDL7tQPpyZvwraa+OtdCaLig1wMkbrkEubL4HcbU4om8lTGprhPz+wDZW/GJJucm133sovO953ZnD
+ t827myyAAjqKBeDw/BoTSHqgbiPCPAKs2RUAhPimKjNapHffHWgJySGvsb1876Ox46EM=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jfkV4-0002Ah-Fe; Mon, 01 Jun 2020 13:29:10 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jfkV4-0003nL-93; Mon, 01 Jun 2020 13:29:10 +0000
+Subject: Re: Keystone Issue
+To: CodeWiz2280 <codewiz2280@gmail.com>, xen-devel@lists.xenproject.org
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
+Date: Mon, 1 Jun 2020 14:29:08 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.1
 MIME-Version: 1.0
+In-Reply-To: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -52,67 +59,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
----
- docs/man/xl.1.pod.in | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+Hello,
 
-diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-index 09339282e6..9e87b0314f 100644
---- a/docs/man/xl.1.pod.in
-+++ b/docs/man/xl.1.pod.in
-@@ -708,6 +708,45 @@ above).
- 
- =back
- 
-+=item B<fork-vm> [I<OPTIONS>] I<domain-id>
-+
-+Create a fork of a running VM.  The domain will be paused after the operation
-+and remains paused while forks of it exist.  Experimental and x86 only.
-+Forks can only be made of domains with HAP enabled and on Intel hardware.  The
-+parent domain must be created with the xl toolstack and its configuration must
-+not manually define max_grant_frames, max_maptrack_frames or max_event_channels.
-+
-+B<OPTIONS>
-+
-+=over 4
-+
-+=item B<-p>
-+
-+Leave the forked VM paused after creating it.  The parent always remains paused
-+while there are forks active from it and that's enforced by the hypervisor.
-+
-+=item B<--launch-dm>
-+
-+Specify whether the device model (QEMU) should be launched for the fork.  Late
-+launch allows to start the device model for an already running fork previously
-+created with "--launch-dm no".
-+
-+=item B<-C>
-+
-+The config file to use when launching the device model.  Currently required when
-+launching the device model.  Most config settings MUST match the parent domain
-+exactly, only change VM name, disk path and network configurations.
-+
-+=item B<-Q>
-+
-+The path to the QEMU save file to use when launching the device model.  Currently
-+required when launching the device model.  Generate it by connecting to the parent
-+domain's QMP socket and issuing:
-+ { "execute": "qmp_capabilities" }
-+ { "execute": "xen-save-devices-state", "arguments": { "filename": "/path/to/qemu.save", "live": false} }
-+
-+=back
-+
- =item B<sharing> [I<domain-id>]
- 
- Display the number of shared pages for a specified domain. If no domain is
+I have a few questions in order to understand a bit more your problem.
+
+On 01/06/2020 13:38, CodeWiz2280 wrote:
+> Hello, I am using a Texas Instruments K2E Keystone Eval board with Linux 
+> 4.19.59.  It has a 32-bit ARM Cortex A15 processor. There is keystone 
+> specific code in the kernel in arch/arm/mm/pv-fixup-asm.s that executes 
+> during early_paging_init for LPAE support.  This causes the kernel to 
+> switch its running 32-bit address space to a 36-bit address space and 
+> the hypervisor traps repeatedly and stops it from booting.
+
+Without any log it is going to be difficult to help. Could you post the 
+hypervisor log when debug is enabled?
+
+>  I suspect 
+> this is because Xen only allowed for the original 32-bit memory range 
+> specified by the dom0 device tree.
+
+How much RAM did you give to your Dom0?
+
+> The 36-bit LPAE address is a fixed 
+> offset from the 32-bit address and is not physically different memory.
+
+I am not sure to understand this. Are you suggesting that the kernel is 
+trying to relocate itself in a different part of the physical memory?
+
+Can you provide more details on the fixed offset?
+
+>  
+> Can you suggest any way to get through this problem? I am using the 
+> master branch of xen from earlier this year.  
+
+Can you provide the exact baseline your are using? Did make any changes 
+on top?
+
+> Any help is greatly 
+> appreciated.
+Best regards,
+
 -- 
-2.25.1
-
+Julien Grall
 
