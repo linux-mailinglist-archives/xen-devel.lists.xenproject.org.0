@@ -2,67 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F17371EA5E1
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 16:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D0901EA5EF
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 16:33:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jflSB-0006G8-Sz; Mon, 01 Jun 2020 14:30:15 +0000
+	id 1jflUv-0006rm-D4; Mon, 01 Jun 2020 14:33:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+AG4=7O=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jflSA-0006FR-Li
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 14:30:14 +0000
-X-Inumbo-ID: 571b3b3a-a414-11ea-9dbe-bc764e2007e4
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
+ <SRS0=55se=7O=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jflUt-0006rc-Qg
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 14:33:03 +0000
+X-Inumbo-ID: cc9fc5ba-a414-11ea-9947-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 571b3b3a-a414-11ea-9dbe-bc764e2007e4;
- Mon, 01 Jun 2020 14:29:46 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id k26so11592076wmi.4
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 07:29:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=BWyCSlaGZ5iGWtDERp092wuI7W/yJ6Q5PNPhUdRKhqE=;
- b=YYdDUqhdLC78jQgiEyQ97vcy07tygmsEfX05PhXA32BxLX4Qe9twTWzZmVHR3RVHIY
- +iIyt1j0gFZqOFSr605qHbE2POl+jt9MJdfiedY4UGCiWC/djzHGT4gJjI3nG74wfkyf
- E/2/Kkh958INFuor/mhxBoXRwW4pFSd1w3zYBCgs8YkNUZoMLPAcfgJcNIx2hjDevr1L
- kgbcUNCBqqQhZlc+JNsd85h9B66dOpEA3+cInY/WOBNWG0Lc1Pa92lK7g4BUtZ4aaTKV
- mwP8Slp3c6cYpbvlWHqG1VDHdhtDUaTiWEO7Y4qycQdTKuVs8LtVl4dH8Jffj0657DSq
- Qi1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=BWyCSlaGZ5iGWtDERp092wuI7W/yJ6Q5PNPhUdRKhqE=;
- b=Qp59LMxYXjpSC6XTYUwV1qyTfqWhH7Pn+7BdZ6wEiOdglnikr1S3hBDsgSLCWfOkCL
- wMtKHvYbJBZubxxlTj12R6qLPAN3vTYXeOcwHzpgfP8POqWaMYFI3un9ExDcNZXzOFdW
- wHgDCKAw90HiPqc6ycHNjlB4FMJOIPouXycsyKcrNPxIPacTMwqFtzcxwMinIJ+LZZZt
- JBL/gAgoapcYLbDplua9NNoKJLW7ABhAVaR68FxKoan4lPi5jyxFsIaAmXw+/4cjs8Lb
- 7hOnPUNPh9vpOWmkzS+1Rdr13L2ggq0c4eHoQpkOjYGwRKx1tAqPW2A9/pMUOsLLnTwO
- Pr6w==
-X-Gm-Message-State: AOAM532xHZxqvI8LcRHsTY7kdX4eHw607l8FRldeN6WW3u9KWg4aolcX
- pFUEQmV0w3OwrrZq1SYNSkU=
-X-Google-Smtp-Source: ABdhPJwzKaKvNJHEQ9IyYhEt4dQ3EvLLXvUAscQJQxiSIYHiAQMssMIh3EDSb2IIdm7moUjOASs4pA==
-X-Received: by 2002:a1c:b656:: with SMTP id g83mr23163858wmf.151.1591021785290; 
- Mon, 01 Jun 2020 07:29:45 -0700 (PDT)
-Received: from localhost.localdomain (43.red-83-51-162.dynamicip.rima-tde.net.
- [83.51.162.43])
- by smtp.gmail.com with ESMTPSA id u12sm6824954wrq.90.2020.06.01.07.29.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 07:29:44 -0700 (PDT)
-From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
-To: qemu-devel@nongnu.org
-Subject: [PATCH v2 8/8] target/i386/cpu: Use the IEC binary prefix definitions
-Date: Mon,  1 Jun 2020 16:29:30 +0200
-Message-Id: <20200601142930.29408-9-f4bug@amsat.org>
-X-Mailer: git-send-email 2.21.3
-In-Reply-To: <20200601142930.29408-1-f4bug@amsat.org>
-References: <20200601142930.29408-1-f4bug@amsat.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Type: text/plain; charset="utf-8"
+ id cc9fc5ba-a414-11ea-9947-bc764e2007e4;
+ Mon, 01 Jun 2020 14:33:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=s7Qt+u2HoXy5w2EV7PCVq4ApdLlYH/pIHTdRabPTeQs=; b=sGLykQJ+UNyZEU62TBPltsaVL
+ f2tUtA2U4y3vzECO0wO0KTQ+CEvGWIHCE9aMlrExPnwCmfmKsE2RnSJ6nq6xECV6yhnL2/8yO28Bx
+ W30IG4aTic1pXc5yUmAvd4EYIlUOhJcc/DTB9NMoafSDzX1PP2sDrK3aya2kNIaXmz4tE=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jflUs-0003bm-KR; Mon, 01 Jun 2020 14:33:02 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jflUs-0000pF-BI; Mon, 01 Jun 2020 14:33:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jflUs-00022w-Ah; Mon, 01 Jun 2020 14:33:02 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150596-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150596: regressions - FAIL
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=ad33a573c009d72466432b41ba0591c64e819c19
+X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 01 Jun 2020 14:33:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,44 +65,75 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Eduardo Habkost <ehabkost@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Andrew Jeffery <andrew@aj.id.au>, Helge Deller <deller@gmx.de>,
- Paul Durrant <paul@xen.org>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
- qemu-trivial@nongnu.org, qemu-arm@nongnu.org,
- =?UTF-8?q?Herv=C3=A9=20Poussineau?= <hpoussin@reactos.org>,
- Joel Stanley <joel@jms.id.au>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Richard Henderson <rth@twiddle.net>, qemu-ppc@nongnu.org,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-IEC binary prefixes ease code review: the unit is explicit.
+flight 150596 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150596/
 
-Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
----
- target/i386/cpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Regressions :-(
 
-diff --git a/target/i386/cpu.c b/target/i386/cpu.c
-index 3733d9a279..33ce4861fb 100644
---- a/target/i386/cpu.c
-+++ b/target/i386/cpu.c
-@@ -6159,7 +6159,7 @@ static void x86_cpu_machine_done(Notifier *n, void *unused)
-     if (smram) {
-         cpu->smram = g_new(MemoryRegion, 1);
-         memory_region_init_alias(cpu->smram, OBJECT(cpu), "smram",
--                                 smram, 0, 1ull << 32);
-+                                 smram, 0, 4 * GiB);
-         memory_region_set_enabled(cpu->smram, true);
-         memory_region_add_subregion_overlap(cpu->cpu_as_root, 0, cpu->smram, 1);
-     }
--- 
-2.21.3
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 150438
 
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  ad33a573c009d72466432b41ba0591c64e819c19
+baseline version:
+ xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+
+Last test of basis   150438  2020-05-28 14:01:19 Z    4 days
+Failing since        150465  2020-05-29 09:02:14 Z    3 days   29 attempts
+Testing same since   150515  2020-05-30 01:00:47 Z    2 days   19 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Andrew Cooper <andrew.cooper@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1196 lines long.)
 
