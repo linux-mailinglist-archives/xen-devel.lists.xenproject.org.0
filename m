@@ -2,61 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1AAC1EA5DC
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 16:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8731EA5DD
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 16:30:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jflRY-0005Ol-B1; Mon, 01 Jun 2020 14:29:36 +0000
+	id 1jflRc-0005Oz-Jf; Mon, 01 Jun 2020 14:29:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+AG4=7O=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jflRW-0005Og-QM
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 14:29:34 +0000
-X-Inumbo-ID: 4fd15c88-a414-11ea-9947-bc764e2007e4
-Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
+ id 1jflRb-0005Ot-Kj
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 14:29:39 +0000
+X-Inumbo-ID: 50afece6-a414-11ea-8993-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4fd15c88-a414-11ea-9947-bc764e2007e4;
- Mon, 01 Jun 2020 14:29:33 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id f185so11593464wmf.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 07:29:33 -0700 (PDT)
+ id 50afece6-a414-11ea-8993-bc764e2007e4;
+ Mon, 01 Jun 2020 14:29:35 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id f185so11593562wmf.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 07:29:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZM7/znQriD0UhsswZg6MLv2Z3oBcZnpOAq0NEHbW664=;
- b=GGgHYPRiatHdFDW9BVH8eF+dSyAynNmKp7tCKjge/3dzd5/m4+sDYh6i+4CuC5eLnk
- d0K9s7FRYLtW94rL93bIkN/F7acb+khmY4E/jXZ1+TK0lKJF6DwpIBoGcy9+FjiVQ8J9
- 7rFPUqqlrBtnqHcc5XCpn7TgT39xntNtLVatlVAThT01V8OoIhDmcEhbQwH+v9/vTefx
- QbSfJSl1P16H7ir6sCNJi5IW6OyYMHqgHYolpGT/KvNvl6YtjqK/ZBPCr7uPoowpHCVJ
- jwhp67uNSCvqURSdBp37Z4gJjZsIkxpb3v1DRn+Brn7MWWRG4OMLkp7HpEQbF9T+B8Xc
- fbvA==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=HzSo+FKM+7hllBEEZUwDzngvpJfgcJMgoiFq36o0B8U=;
+ b=XTbutdDKkJKkajTBQBfb3gKAZ8HdQTRh7KPk2PRf4BKVCmPN/4PTUsFkxrz9l/MxyE
+ WUpRpf229tNzjnPfHSCA8du3tlIB75OS5/RVT9l2X8Pi8CcwsUCX6HO+2vIyYWMLw2tC
+ ebQhYTRJklmhotmYL2rx/GdLsCDfCBNHfnduxY4Q5bNFjSm8izV9JBOdMPkxXDwKlw4c
+ 031Lz9blGnoP7VIxmgxsb+iWzGBmm5T0wI/Tv3aiTxDNGjcUF71CVDuNVRspxPMH9UPA
+ 3nwu20FxG3BzD2wN0HUsD79p+AZtAAKT3qF+a+MxMkbmLHvKPtyLwMf0vUqt0hTFsvk2
+ JbNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=ZM7/znQriD0UhsswZg6MLv2Z3oBcZnpOAq0NEHbW664=;
- b=ToAZhxgcMOP6nm0qzcBbZ04/H9pJj/A99k7oJr0u+kty4drShD72uJQEe1oeBJEiG+
- bYAkNoD96NbCrhoYf3O2XTErIGkj4u7dH/+/nQB4Ei1Fr3SkJSVTFuqK7ZbAAjyPpwHo
- vhr4pGqgaHssHkeDqSYdAqyMh02Qbu7lxe5DADIkwOl1fi+5tSIMc5xHCCbzYs6OLINg
- EOYQWKeHMztUg7NcwVcPvhksJ9eO/qpHEM0sexpDB1wQQBlQkJyfR9jmWOMwAViKEAE1
- eNIWRxSqI/ynCC84WG9qvbf/R9tnLjgm5CKKGn37/aR491IdfnY+bOeUWq1UPEogaJlz
- ZU+g==
-X-Gm-Message-State: AOAM530WV5R5+qBERrXu5GjtoMW/9+JqPhBFQgyAnbHIeKElxWg9Mtj/
- +nMwGlOJZUsJNSxLD0KQj50=
-X-Google-Smtp-Source: ABdhPJwufRnQl4HmwANVRDq93UByxPUJbZfC4pM9aQ9eCt/8cwII0ubngoSEbHzq8tnEDNEvDybD9g==
-X-Received: by 2002:a1c:998c:: with SMTP id b134mr22850671wme.78.1591021773028; 
- Mon, 01 Jun 2020 07:29:33 -0700 (PDT)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=HzSo+FKM+7hllBEEZUwDzngvpJfgcJMgoiFq36o0B8U=;
+ b=I6lssgU33SyusPhn97mHp5QEF+Y8kS64LSyi2vSDrUOMcU6AmjtLh6X6Qr5237ntJB
+ ZGUPufjnURc0KJU0bJD7oZGyYv0p+YKZ/aiTqUHNvDh0V/Y6tHTf4DCDP/mYwBNqloky
+ Wv0jh/CunPc5Vsi6LZARxULXIxjLKzW/xgl7hQTaolDe93iu5CeQKaSElv8BZHgjTyap
+ 1ioU0787g5346F1yqx9GC66NqOOaLCLkIJnI780cJymp1Kp1sR53jwzWSor5nTqv3fMk
+ axjMWL5lxtsRggNpe3V/7OZSVimXaU4vy6atFcBRGUlUXTOO6LsHGFzSWpgoBqUVAmNi
+ jaFA==
+X-Gm-Message-State: AOAM531c9WRAFyz/UvAgHxctdI810ie+3pu8B8mFmS04Iy4Jp5X+WyDH
+ F+u6KNe1Kg2QguYn099+QRw=
+X-Google-Smtp-Source: ABdhPJwBHE8bkJSVSp9Yf35551bkKIwhQ9ZWpujBeFh9r1gwWsJDZxkC3k++/FRQy/FR48XoWkpxlQ==
+X-Received: by 2002:a7b:c84b:: with SMTP id c11mr21338870wml.78.1591021774481; 
+ Mon, 01 Jun 2020 07:29:34 -0700 (PDT)
 Received: from localhost.localdomain (43.red-83-51-162.dynamicip.rima-tde.net.
  [83.51.162.43])
- by smtp.gmail.com with ESMTPSA id u12sm6824954wrq.90.2020.06.01.07.29.31
+ by smtp.gmail.com with ESMTPSA id u12sm6824954wrq.90.2020.06.01.07.29.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 07:29:32 -0700 (PDT)
+ Mon, 01 Jun 2020 07:29:33 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org
-Subject: [PATCH v2 0/8] hw: Fix some incomplete memory region size
-Date: Mon,  1 Jun 2020 16:29:22 +0200
-Message-Id: <20200601142930.29408-1-f4bug@amsat.org>
+Subject: [PATCH v2 1/8] hw/arm/aspeed: Correct DRAM container region size
+Date: Mon,  1 Jun 2020 16:29:23 +0200
+Message-Id: <20200601142930.29408-2-f4bug@amsat.org>
 X-Mailer: git-send-email 2.21.3
+In-Reply-To: <20200601142930.29408-1-f4bug@amsat.org>
+References: <20200601142930.29408-1-f4bug@amsat.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Type: text/plain; charset="utf-8"
@@ -87,47 +89,46 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Series fully reviewed.
-
-Since v1:
-- Add parenthesis on the Xen patch (Paul Durrant)
-- Add Peter's R-b tags
-
 memory_region_set_size() handle the 16 Exabytes limit by
-special-casing the UINT64_MAX value.
-This is not a problem for the 32-bit maximum, 4 GiB, but
-in some places we incorrectly use UINT32_MAX instead of
-4 GiB, and end up missing 1 byte in the memory region.
+special-casing the UINT64_MAX value. This is not a problem
+for the 32-bit maximum, 4 GiB.
+By using the UINT32_MAX value, the aspeed-ram-container
+MemoryRegion ends up missing 1 byte:
 
-This series fixes the cases I encountered.
-Also included few patches while reviewing, I replaced some
-magic values by the IEC binary prefix equivalent.
+ $ qemu-system-arm -M ast2600-evb -S -monitor stdio
+ (qemu) info mtree
 
-Regards,
+  address-space: aspeed.fmc-ast2600-dma-dram
+    0000000080000000-000000017ffffffe (prio 0, i/o): aspeed-ram-container
+      0000000080000000-00000000bfffffff (prio 0, ram): ram
+      00000000c0000000-ffffffffffffffff (prio 0, i/o): max_ram
 
-Phil.
+Fix by using the correct value. We now have:
 
-Philippe Mathieu-Daudé (8):
-  hw/arm/aspeed: Correct DRAM container region size
-  hw/pci-host/prep: Correct RAVEN bus bridge memory region size
-  hw/pci/pci_bridge: Correct pci_bridge_io memory region size
-  hw/pci/pci_bridge: Use the IEC binary prefix definitions
-  hw/pci-host: Use the IEC binary prefix definitions
-  hw/hppa/dino: Use the IEC binary prefix definitions
-  hw/i386/xen/xen-hvm: Use the IEC binary prefix definitions
-  target/i386/cpu: Use the IEC binary prefix definitions
+  address-space: aspeed.fmc-ast2600-dma-dram
+    0000000080000000-000000017fffffff (prio 0, i/o): aspeed-ram-container
+      0000000080000000-00000000bfffffff (prio 0, ram): ram
+      00000000c0000000-ffffffffffffffff (prio 0, i/o): max_ram
 
- hw/arm/aspeed.c         | 2 +-
- hw/hppa/dino.c          | 4 ++--
- hw/i386/xen/xen-hvm.c   | 3 ++-
- hw/pci-host/i440fx.c    | 3 ++-
- hw/pci-host/prep.c      | 2 +-
- hw/pci-host/q35.c       | 2 +-
- hw/pci-host/versatile.c | 5 +++--
- hw/pci/pci_bridge.c     | 7 ++++---
- target/i386/cpu.c       | 2 +-
- 9 files changed, 17 insertions(+), 13 deletions(-)
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+---
+ hw/arm/aspeed.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/hw/arm/aspeed.c b/hw/arm/aspeed.c
+index 2c23297edf..62344ac6a3 100644
+--- a/hw/arm/aspeed.c
++++ b/hw/arm/aspeed.c
+@@ -262,7 +262,7 @@ static void aspeed_machine_init(MachineState *machine)
+     bmc = g_new0(AspeedBoardState, 1);
+ 
+     memory_region_init(&bmc->ram_container, NULL, "aspeed-ram-container",
+-                       UINT32_MAX);
++                       4 * GiB);
+     memory_region_add_subregion(&bmc->ram_container, 0, machine->ram);
+ 
+     object_initialize_child(OBJECT(machine), "soc", &bmc->soc,
 -- 
 2.21.3
 
