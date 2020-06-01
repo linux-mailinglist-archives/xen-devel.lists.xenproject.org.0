@@ -2,94 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A86AB1EB23D
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 01:36:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7BB1EB23E
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 01:36:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jftz0-0006c1-2w; Mon, 01 Jun 2020 23:36:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jftz7-0006eL-Cr; Mon, 01 Jun 2020 23:36:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nC3Z=7O=amazon.com=prvs=41453e0bb=anchalag@srs-us1.protection.inumbo.net>)
- id 1jftyz-0006bp-A3
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 23:36:41 +0000
-X-Inumbo-ID: be6dc3ce-a460-11ea-ab6a-12813bfff9fa
-Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id be6dc3ce-a460-11ea-ab6a-12813bfff9fa;
- Mon, 01 Jun 2020 23:36:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1591054601; x=1622590601;
- h=from:to:date:message-id:references:in-reply-to:
- content-id:content-transfer-encoding:mime-version:subject;
- bh=J/MloPbOinRJ95w81UPzW+FxLSViVtVGzpvoTyLM11E=;
- b=RZxK3wAOHv6CMin5dMxgBXCRZ9obWrv84xYhEPiBIL3JP2iPgWCZwwFw
- MM5UMHV9x/2Qdd3ctwiXXfVvBI85t5xZo9erEs3RhTlSWjyNfakuvmq83
- GgvgzIF33CIaUY4r/+N2Gr61rKg5m85UmMgl/lUZo96Vx6jv+cr0f2+0i U=;
-IronPort-SDR: LkBdX1Jax7kcHTVh6vnZJsyZjBLWu31bHv/02Ku7vm+Mkckt6fxAI0NtZC78idaa9UVK8IjDRw
- A+7M5cTZONqA==
-X-IronPort-AV: E=Sophos;i="5.73,462,1583193600"; d="scan'208";a="33842841"
-Subject: Re: [PATCH 02/12] xenbus: add freeze/thaw/restore callbacks support
-Thread-Topic: [PATCH 02/12] xenbus: add freeze/thaw/restore callbacks support
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-2b-5bdc5131.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
- 01 Jun 2020 23:36:26 +0000
-Received: from EX13MTAUWB001.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
- by email-inbound-relay-2b-5bdc5131.us-west-2.amazon.com (Postfix) with ESMTPS
- id C2C57A1F45; Mon,  1 Jun 2020 23:36:24 +0000 (UTC)
-Received: from EX13D10UWB001.ant.amazon.com (10.43.161.111) by
- EX13MTAUWB001.ant.amazon.com (10.43.161.249) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 1 Jun 2020 23:36:24 +0000
-Received: from EX13D07UWB001.ant.amazon.com (10.43.161.238) by
- EX13D10UWB001.ant.amazon.com (10.43.161.111) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 1 Jun 2020 23:36:24 +0000
-Received: from EX13D07UWB001.ant.amazon.com ([10.43.161.238]) by
- EX13D07UWB001.ant.amazon.com ([10.43.161.238]) with mapi id 15.00.1497.006;
- Mon, 1 Jun 2020 23:36:23 +0000
-From: "Agarwal, Anchal" <anchalag@amazon.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, "tglx@linutronix.de"
- <tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
- <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "x86@kernel.org"
- <x86@kernel.org>, "jgross@suse.com" <jgross@suse.com>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "linux-mm@kvack.org"
- <linux-mm@kvack.org>, "Kamata, Munehisa" <kamatam@amazon.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>, "konrad.wilk@oracle.com"
- <konrad.wilk@oracle.com>, "roger.pau@citrix.com" <roger.pau@citrix.com>,
- "axboe@kernel.dk" <axboe@kernel.dk>, "davem@davemloft.net"
- <davem@davemloft.net>, "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "len.brown@intel.com" <len.brown@intel.com>, "pavel@ucw.cz" <pavel@ucw.cz>,
- "peterz@infradead.org" <peterz@infradead.org>, "Valentin, Eduardo"
- <eduval@amazon.com>, "Singh, Balbir" <sblbir@amazon.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "vkuznets@redhat.com" <vkuznets@redhat.com>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "Woodhouse, David" <dwmw@amazon.co.uk>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>
-Thread-Index: AQHWLjS9hSpS5JM2xU+iWpBujRQ276jBTrMAgAK6doA=
-Date: Mon, 1 Jun 2020 23:36:23 +0000
-Message-ID: <687F52C0-A277-4D21-8802-3CF1358EEB31@amazon.com>
-References: <cover.1589926004.git.anchalag@amazon.com>
- <7fd12227f923eacc5841b47bd69f72b4105843a7.1589926004.git.anchalag@amazon.com>
- <835ca864-3e35-9a82-f3fd-24ca4e2ec06e@oracle.com>
-In-Reply-To: <835ca864-3e35-9a82-f3fd-24ca4e2ec06e@oracle.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.162.200]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E4B98ACC553D1F40BCA6C165846D175D@amazon.com>
-Content-Transfer-Encoding: base64
+ <SRS0=zqDJ=7O=linaro.org=richard.henderson@srs-us1.protection.inumbo.net>)
+ id 1jftz5-0006dr-Mo
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 23:36:47 +0000
+X-Inumbo-ID: c22a70ac-a460-11ea-8993-bc764e2007e4
+Received: from mail-pf1-x441.google.com (unknown [2607:f8b0:4864:20::441])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c22a70ac-a460-11ea-8993-bc764e2007e4;
+ Mon, 01 Jun 2020 23:36:47 +0000 (UTC)
+Received: by mail-pf1-x441.google.com with SMTP id f3so4159674pfd.11
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 16:36:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=utp8UPhvpVOjKQDHheJJZxOdw9rN2rKIwvixqFfY6I0=;
+ b=xTG7Mc8Ke+P7C8o56JElmLFbH18twbQfttKAc5G/dIXmkm2onWlNspWFfvusLOTgLg
+ pTRDJq/tgRyR7y8JuLP6CZFE2Egd7bg09ZKOeD396awq3y3Wt4q7J+Liinm2BBOuvUrx
+ PPw+rh9aMrrdNIj2zKTtH0aArySoR9V7wv0LwGc+yun4GQvO89nczwsvBnve0Xlf9HLH
+ 7jA8bUorURzKagLbFYICNCER7T+CBwhJkzcywpFi0y9NCCGAjDZRm5Uhst8GI6Mk+SKq
+ qe0DI8YoF1wc321Lg2a7uLv3QwcS6piwxXYRRqVkl86ZgCgMmu7bDWT6NTv4v2CVRdQd
+ XsRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=utp8UPhvpVOjKQDHheJJZxOdw9rN2rKIwvixqFfY6I0=;
+ b=Y+5JKUB04BBOZgp9V0mWMZGd7vsNQx+s1KrWExHUJRFjUNhSOphbXF2a9wzTHw35DO
+ Icn+MT4qim71A+HC6O4L7mFrDUTU4cQtJ5HVdt1Q8hrjIUFTJfOiUVfoEd9WmYLsHWgj
+ r3lEMgum1NbVqQZFD6Hgsdy2SeBrlAKIm/SLdH/2e3rqabaTm6+jyeTDj0bW15KbWDRM
+ QTzRfRbzdiXVlUu8rg5d00BnVJm5rzIjFPQaihhv1UEWwwjRX81FaefD63/w+ny3ieiA
+ HRNuP0r1hQuDVRD8UHpTsgEcIN+qkoZW8frqGPCEYY0dRw+C/dGkRkEVb/sANl8GmJtB
+ E8ww==
+X-Gm-Message-State: AOAM532oTL018Hxmy3D4Pszw+okWUfEwuf48GIBg8VkXyqWxi+9/HX9B
+ CMHjXMwmIrItpkn+XRfNoewzmg==
+X-Google-Smtp-Source: ABdhPJylPCz6NJ8Nv/4CwG5eFZALKyaW9WbeoXC1cmJzPEV4oHq3Rbd3WXYgkQZHOnN28B1WNZx0MQ==
+X-Received: by 2002:aa7:8c53:: with SMTP id e19mr22646004pfd.264.1591054606599; 
+ Mon, 01 Jun 2020 16:36:46 -0700 (PDT)
+Received: from [192.168.1.11] (174-21-143-238.tukw.qwest.net. [174.21.143.238])
+ by smtp.gmail.com with ESMTPSA id k7sm452101pga.87.2020.06.01.16.36.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Jun 2020 16:36:45 -0700 (PDT)
+Subject: Re: [PATCH v2 5/8] hw/pci-host: Use the IEC binary prefix definitions
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
+ qemu-devel@nongnu.org
+References: <20200601142930.29408-1-f4bug@amsat.org>
+ <20200601142930.29408-6-f4bug@amsat.org>
+From: Richard Henderson <richard.henderson@linaro.org>
+Message-ID: <2aa683fc-ff9d-17ed-a35f-f177bb5c9e77@linaro.org>
+Date: Mon, 1 Jun 2020 16:36:43 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Precedence: Bulk
+In-Reply-To: <20200601142930.29408-6-f4bug@amsat.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -97,38 +76,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Eduardo Habkost <ehabkost@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Helge Deller <deller@gmx.de>,
+ Paul Durrant <paul@xen.org>, qemu-trivial@nongnu.org,
+ =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>, qemu-arm@nongnu.org,
+ =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
+ Joel Stanley <joel@jms.id.au>, xen-devel@lists.xenproject.org,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, qemu-ppc@nongnu.org,
+ Richard Henderson <rth@twiddle.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCu+7vyAgICBDQVVUSU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9m
-IHRoZSBvcmdhbml6YXRpb24uIERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRz
-IHVubGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBp
-cyBzYWZlLg0KDQoNCg0KICAgIE9uIDUvMTkvMjAgNzoyNSBQTSwgQW5jaGFsIEFnYXJ3YWwgd3Jv
-dGU6DQogICAgPg0KICAgID4gIGludCB4ZW5idXNfZGV2X3Jlc3VtZShzdHJ1Y3QgZGV2aWNlICpk
-ZXYpDQogICAgPiAgew0KICAgID4gLSAgICAgaW50IGVycjsNCiAgICA+ICsgICAgIGludCBlcnIg
-PSAwOw0KDQoNCiAgICBUaGF0J3Mgbm90IG5lY2Vzc2FyeS4NCkFDSy4NCg0KICAgID4gICAgICAg
-c3RydWN0IHhlbmJ1c19kcml2ZXIgKmRydjsNCiAgICA+ICAgICAgIHN0cnVjdCB4ZW5idXNfZGV2
-aWNlICp4ZGV2DQogICAgPiAgICAgICAgICAgICAgID0gY29udGFpbmVyX29mKGRldiwgc3RydWN0
-IHhlbmJ1c19kZXZpY2UsIGRldik7DQogICAgPiAtDQogICAgPiArICAgICBib29sIHhlbl9zdXNw
-ZW5kID0geGVuX3N1c3BlbmRfbW9kZV9pc194ZW5fc3VzcGVuZCgpOw0KICAgID4gICAgICAgRFBS
-SU5USygiJXMiLCB4ZGV2LT5ub2RlbmFtZSk7DQogICAgPg0KICAgID4gICAgICAgaWYgKGRldi0+
-ZHJpdmVyID09IE5VTEwpDQogICAgPiBAQCAtNjI3LDI0ICs2NDUsMzIgQEAgaW50IHhlbmJ1c19k
-ZXZfcmVzdW1lKHN0cnVjdCBkZXZpY2UgKmRldikNCiAgICA+ICAgICAgIGRydiA9IHRvX3hlbmJ1
-c19kcml2ZXIoZGV2LT5kcml2ZXIpOw0KICAgID4gICAgICAgZXJyID0gdGFsa190b19vdGhlcmVu
-ZCh4ZGV2KTsNCiAgICA+ICAgICAgIGlmIChlcnIpIHsNCiAgICA+IC0gICAgICAgICAgICAgcHJf
-d2FybigicmVzdW1lICh0YWxrX3RvX290aGVyZW5kKSAlcyBmYWlsZWQ6ICVpXG4iLA0KICAgID4g
-KyAgICAgICAgICAgICBwcl93YXJuKCIlcyAodGFsa190b19vdGhlcmVuZCkgJXMgZmFpbGVkOiAl
-aVxuIiwNCg0KDQogICAgUGxlYXNlIHVzZSBkZXZfd2FybigpIGV2ZXJ5d2hlcmUsIHdlIGp1c3Qg
-aGFkIGEgYnVuY2ggb2YgcGF0Y2hlcyB0aGF0DQogICAgcmVwbGFjZWQgcHJfd2FybigpLiBJbiBm
-YWN0LCAgdGhpcyBpcyBvbmUgb2YgdGhlIGxpbmVzIHRoYXQgZ290IGNoYW5nZWQuDQoNCkFDSy4g
-V2lsbCBzZW5kIGZpeGVzIGluIG5leHQgc2VyaWVzDQoNCiAgICA+DQogICAgPiAgaW50IHhlbmJ1
-c19kZXZfY2FuY2VsKHN0cnVjdCBkZXZpY2UgKmRldikNCiAgICA+ICB7DQogICAgPiAtICAgICAv
-KiBEbyBub3RoaW5nICovDQogICAgPiAtICAgICBEUFJJTlRLKCJjYW5jZWwiKTsNCiAgICA+ICsg
-ICAgIGludCBlcnIgPSAwOw0KDQoNCiAgICBBZ2Fpbiwgbm8gbmVlZCB0byBpbml0aWFsaXplLg0K
-DQpBQ0suDQogICAgPiArICAgICBzdHJ1Y3QgeGVuYnVzX2RyaXZlciAqZHJ2Ow0KICAgID4gKyAg
-ICAgc3RydWN0IHhlbmJ1c19kZXZpY2UgKnhkZXYNCiAgICA+ICsgICAgICAgICAgICAgPSBjb250
-YWluZXJfb2YoZGV2LCBzdHJ1Y3QgeGVuYnVzX2RldmljZSwgZGV2KTsNCg0KDQogICAgeGVuZGV2
-IHBsZWFzZSB0byBiZSBjb25zaXN0ZW50IHdpdGggb3RoZXIgY29kZS4gQW5kIHVzZSB0b194ZW5i
-dXNfZGV2aWNlKCkuDQpBQ0suDQoNCiAgICAtYm9yaXMNCg0KSSB3aWxsIHB1dCB0aGUgZml4ZXMg
-aW4gbmV4dCByb3VuZCBvZiBwYXRjaGVzLg0KDQpUaGFua3MsDQpBbmNoYWwNCg0KDQo=
+On 6/1/20 7:29 AM, Philippe Mathieu-Daudé wrote:
+> IEC binary prefixes ease code review: the unit is explicit.
+> 
+> Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
+> Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+> ---
+>  hw/pci-host/i440fx.c    | 3 ++-
+>  hw/pci-host/q35.c       | 2 +-
+>  hw/pci-host/versatile.c | 5 +++--
+>  3 files changed, 6 insertions(+), 4 deletions(-)
+
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+
+
+r~
+
 
