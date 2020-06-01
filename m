@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 146431EA7A0
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 18:13:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F3871EA7FC
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 18:52:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfn3V-0000KW-VX; Mon, 01 Jun 2020 16:12:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jfnec-0003yZ-FJ; Mon, 01 Jun 2020 16:51:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T30I=7O=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jfn3U-0000KR-VT
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 16:12:53 +0000
-X-Inumbo-ID: bdfab4ee-a422-11ea-ab2f-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bdfab4ee-a422-11ea-ab2f-12813bfff9fa;
- Mon, 01 Jun 2020 16:12:51 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 99760206C3;
- Mon,  1 Jun 2020 16:12:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591027970;
- bh=KR0RYgpHZ2PN6KaQgrrKmx5yqFIfhICtOodWI3QPFSg=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=xRCt56M+uT7gaPF9KQh/HF/wm3gP3GII7msL8Zbv6PT9ucWdLsEBCaDQkIxuiIe6M
- 6pxa1R7EWFCPIBI+cNIYRtDIOedxKtUAr2Z+c2rSHU85M1OAkHjTcv7JtGcDTwdiKH
- +rRJ3srZYhb9EyItznW6AOU4X534gC+ih08LHcmw=
-Date: Mon, 1 Jun 2020 09:12:45 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Roman Shaposhnik <roman@zededa.com>
-Subject: Re: UEFI support in ARM DomUs
-In-Reply-To: <CAMmSBy_djgfQ1NT2TGo+1=7c20PyX-mzf6JiPx5ibnRkFT_5BQ@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2006010911260.12801@sstabellini-ThinkPad-T480s>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <CAJ=z9a2B1+A8jPXiE9adNSTWHENtULnmAxq2M5v6MxB5thZLfw@mail.gmail.com>
- <CAMmSBy_djgfQ1NT2TGo+1=7c20PyX-mzf6JiPx5ibnRkFT_5BQ@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=3ele=7O=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jfneb-0003yU-LU
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 16:51:13 +0000
+X-Inumbo-ID: 19731ca8-a428-11ea-81bc-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 19731ca8-a428-11ea-81bc-bc764e2007e4;
+ Mon, 01 Jun 2020 16:51:12 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: NKYITG2Nna1s56beZgklef6jwSPFDnR0DvWsVEs7qjASBC12AIVJNkHr7X8LsCmNseY9g7+oiW
+ 9dpkM0VYSfTOaBpP1CYvLIXbO4bVeX+PWaHr9sSSq0/OVQ2VslLxqbi3B7w2raVr5ZstXfu7cT
+ YRkGVKIGaInch/AqT6h7etus5OftTxgWaookItUq1Rn2gRf2cJ3vWSayqj+bnViLT02UxQ7NeE
+ 4+SjNND5lMZ0NdVmwqNATzcyVCZA7DPnRnjelHDeSw1v9Z7dRfyg2bx8UUqO9GcmzQYGQoYu9N
+ u6Y=
+X-SBRS: 2.7
+X-MesageID: 19197850
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,461,1583211600"; d="scan'208";a="19197850"
+Date: Mon, 1 Jun 2020 18:51:05 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH for-4.14] docs/ucode: Extend runtime microcode loading
+ documentation
+Message-ID: <20200601165105.GU1195@Air-de-Roger>
+References: <20200601134025.24142-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200601134025.24142-1-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,55 +55,81 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, George.Dunlap@citrix.com,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Julien Grall <julien.grall.oss@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Paul Durrant <paul@xen.org>,
+ Jan Beulich <JBeulich@suse.com>, Ian Jackson <ian.jackson@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-+ George
 
-On Sun, 31 May 2020, Roman Shaposhnik wrote:
-> Hi Julien!
+
+On Mon, Jun 01, 2020 at 02:40:25PM +0100, Andrew Cooper wrote:
+> Extend the disclaimer about runtime loading.  While we've done our best to
+> make the mechaism reliable, the safety of late loading does ultimately depend
+> on the contents of the blobs.
 > 
-> On Sun, May 31, 2020 at 3:24 PM Julien Grall <julien.grall.oss@gmail.com> wrote:
-> >
-> > On Sun, 31 May 2020 at 23:05, Roman Shaposhnik <roman@zededa.com> wrote:
-> > > Hi!
-> > >
-> > > with a lot of help from Stefano, we're getting RPi4 support in
-> > > Project EVE pretty much on par between KVM and Xen.
-> > >
-> > > One big area that still remains is supporting UEFI boot sequence
-> > > for DomUs. With KVM, given the qemu virt device model this is
-> > > as simple as using either stock UEFI build for arm or even U-Boot
-> > > EFI emulation environment and passing it via -bios option.
-> > >
-> > > Obviously with Xen on ARM we don't have the device model so
-> > > my understanding is that the easiest way we can support it would
-> > > be to port UEFI's OvmfPkg/OvmfXen target to ARM (it seems to
-> > > be currently exclusively X64).
-> >
-> > EDK2 has been supporting Xen on Arm for the past 5 years. We don't use
-> > OvmfPkg/OvmfXen but ArmVirtPkg/ArmVirtXen (see [1]).
-> > I haven't tried to build it recently, but I should be able to help if
-> > there is any issue with it.
-> >
-> > Cheers,
-> >
-> > [1] https://github.com/tianocore/edk2/blob/master/ArmVirtPkg/ArmVirtXen.fdf
+> Extend the xen-ucode portion with examples of how to use it.
 > 
-> This is really, really awesome -- I guess it would be really helpful to document
-> this someplace on the ARM/Xen wiki (I can volunteer if someone can grant
-> me the karma).
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Regarding the wiki: yes please! Let George know if you don't have write access.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-
-> I've built XEN_EFI.fd and the rest worked out like a charm.
+> ---
+> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> CC: Ian Jackson <ian.jackson@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Wei Liu <wl@xen.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Paul Durrant <paul@xen.org>
+> ---
+>  docs/admin-guide/microcode-loading.rst | 22 +++++++++++++++++++---
+>  1 file changed, 19 insertions(+), 3 deletions(-)
 > 
-> All on Raspberry Pi 4!
+> diff --git a/docs/admin-guide/microcode-loading.rst b/docs/admin-guide/microcode-loading.rst
+> index 5f0f661a2e..8cd5d0351b 100644
+> --- a/docs/admin-guide/microcode-loading.rst
+> +++ b/docs/admin-guide/microcode-loading.rst
+> @@ -104,8 +104,8 @@ modules to find any CPIO archives, and search the archive for the applicable
+>  file.  Xen will stop searching at the first match.
+>  
+>  
+> -Run time microcode loading
+> ---------------------------
+> +Runtime microcode loading
+> +-------------------------
+>  
+>  .. warning::
+>  
+> @@ -113,7 +113,23 @@ Run time microcode loading
+>     or at boot time.  Not all microcode updates (or parts thereof) can be
+>     applied at runtime.
+>  
+> -The ``xen-ucode`` utility can be used to initiate a runtime microcode load.
+> +   Given the proprietry nature of microcode, we are unable to make any claim
+> +   that a runtime microcode is risk-free.  Any runtime microcode loading needs
+> +   adequate testing on a dev instance before being rolled out to production
+> +   systems.
+> +
+> +The ``xen-ucode`` utility can be used to initiate a runtime microcode load::
+> +
+> +  [root@host ~]# xen-ucode
+> +  xen-ucode: Xen microcode updating tool
+> +  Usage: xen-ucode <microcode blob>
+> +  [root@host ~]#
+> +
+> +e.g. With a Linux dom0 on a Haswell system::
+> +
+> +  [root@host ~]# xen-ucode /lib/firmware/intel-ucode/06-3c-03
 
-Fantastic!
+Could you expand a bit on the nomenclature used here?
+
+I assume it's something like <fam>-<model>-<version> but might be good
+to provide people a hint to know how to find the appropriate blob for
+their system if possible.
+
+Thanks, Roger.
 
