@@ -2,48 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74ABE1EA4D1
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 15:22:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EE011EA4D6
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 15:22:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfkOA-0006a6-KE; Mon, 01 Jun 2020 13:22:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jfkO9-0006Zp-C4; Mon, 01 Jun 2020 13:22:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OmQg=7O=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
- id 1jfkO9-0006Zz-SF
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 13:22:01 +0000
-X-Inumbo-ID: ddea53d0-a40a-11ea-ab1b-12813bfff9fa
+ id 1jfkO7-0006Zk-93
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 13:21:59 +0000
+X-Inumbo-ID: ddd06506-a40a-11ea-9dbe-bc764e2007e4
 Received: from mga12.intel.com (unknown [192.55.52.136])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ddea53d0-a40a-11ea-ab1b-12813bfff9fa;
- Mon, 01 Jun 2020 13:21:56 +0000 (UTC)
-IronPort-SDR: Ji+TwovGG1LW3mC7YDXtNoadPZpzsZgTKai+7RNf0SB1nKJj3xYVIwGblJs44kWIDMGttKAe2H
- WuVxZrpAZHRg==
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ddd06506-a40a-11ea-9dbe-bc764e2007e4;
+ Mon, 01 Jun 2020 13:21:57 +0000 (UTC)
+IronPort-SDR: EKWuFPQTlQo2nXmEb57T0pwfRBTs2DWQkl+jsOS4QmLECQY9zltaVs3Ky3gGsn+XjAWdf8rwqJ
+ hyjhlsy5da/Q==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2020 06:21:54 -0700
-IronPort-SDR: vyNToxXCPi1GYxEewQa8wW777KqdP2qZ/RwvvSPnmhxqv3gdY14S+abDy4+ksqb8Di5N8DUPHz
- Jb66VM7jxTIg==
+ 01 Jun 2020 06:21:55 -0700
+IronPort-SDR: JYYGi1Zv63q1rClSv3u55YlsaJLhwwbopbhxoOvJBRFiPlzxskqtLck516JzHjYi6Gvvxy9p0B
+ AiVbe0WNDnoQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,460,1583222400"; d="scan'208";a="303887260"
+X-IronPort-AV: E=Sophos;i="5.73,460,1583222400"; d="scan'208";a="303887264"
 Received: from alayek-mobl.amr.corp.intel.com (HELO ubuntu.localdomain)
  ([10.209.11.99])
  by orsmga008.jf.intel.com with ESMTP; 01 Jun 2020 06:21:54 -0700
 From: Tamas K Lengyel <tamas.lengyel@intel.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v19 for-4.14 02/13] tools/libxc: xc_memshr_fork with
- interrupts blocked
-Date: Mon,  1 Jun 2020 06:21:36 -0700
-Message-Id: <03b382a38c62b5431c63d00f9acffacf43b55c1d.1591017086.git.tamas.lengyel@intel.com>
+Subject: [PATCH v19 for-4.14 03/13] tools/libxl: Split libxl__domain_make
+Date: Mon,  1 Jun 2020 06:21:37 -0700
+Message-Id: <853ceef8391bdfb7dc43ae2d9a9cb45818f256e4.1591017086.git.tamas.lengyel@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1591017086.git.tamas.lengyel@intel.com>
 References: <cover.1591017086.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -55,58 +52,163 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Toolstack side for creating forks with interrupt injection blocked.
+Make part of libxl__domain_make into a separate function. No functional change.
 
 Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- tools/libxc/include/xenctrl.h | 3 ++-
- tools/libxc/xc_memshr.c       | 4 +++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ tools/libxl/libxl_create.c   | 62 +++++++++++++++++++++++-------------
+ tools/libxl/libxl_internal.h |  4 ++-
+ 2 files changed, 42 insertions(+), 24 deletions(-)
 
-diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
-index f9e17ae424..5eeee1de46 100644
---- a/tools/libxc/include/xenctrl.h
-+++ b/tools/libxc/include/xenctrl.h
-@@ -2241,7 +2241,8 @@ int xc_memshr_range_share(xc_interface *xch,
- int xc_memshr_fork(xc_interface *xch,
-                    uint32_t source_domain,
-                    uint32_t client_domain,
--                   bool allow_with_iommu);
-+                   bool allow_with_iommu,
-+                   bool block_interrupts);
- 
- /*
-  * Note: this function is only intended to be used on short-lived forks that
-diff --git a/tools/libxc/xc_memshr.c b/tools/libxc/xc_memshr.c
-index 2300cc7075..a6cfd7dccf 100644
---- a/tools/libxc/xc_memshr.c
-+++ b/tools/libxc/xc_memshr.c
-@@ -240,7 +240,7 @@ int xc_memshr_debug_gref(xc_interface *xch,
- }
- 
- int xc_memshr_fork(xc_interface *xch, uint32_t pdomid, uint32_t domid,
--                   bool allow_with_iommu)
-+                   bool allow_with_iommu, bool block_interrupts)
+diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
+index 75862dc6ed..09cf99d304 100644
+--- a/tools/libxl/libxl_create.c
++++ b/tools/libxl/libxl_create.c
+@@ -579,15 +579,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+                        uint32_t *domid, bool soft_reset)
  {
-     xen_mem_sharing_op_t mso;
+     libxl_ctx *ctx = libxl__gc_owner(gc);
+-    int ret, rc, nb_vm;
+-    const char *dom_type;
+-    char *uuid_string;
+-    char *dom_path, *vm_path, *libxl_path;
+-    struct xs_permissions roperm[2];
+-    struct xs_permissions rwperm[1];
+-    struct xs_permissions noperm[1];
+-    xs_transaction_t t = 0;
+-    libxl_vminfo *vm_list;
++    int ret, rc;
  
-@@ -251,6 +251,8 @@ int xc_memshr_fork(xc_interface *xch, uint32_t pdomid, uint32_t domid,
+     /* convenience aliases */
+     libxl_domain_create_info *info = &d_config->c_info;
+@@ -595,12 +587,6 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
  
-     if ( allow_with_iommu )
-         mso.u.fork.flags |= XENMEM_FORK_WITH_IOMMU_ALLOWED;
-+    if ( block_interrupts )
-+        mso.u.fork.flags |= XENMEM_FORK_BLOCK_INTERRUPTS;
+     assert(soft_reset || *domid == INVALID_DOMID);
  
-     return xc_memshr_memop(xch, domid, &mso);
- }
+-    uuid_string = libxl__uuid2string(gc, info->uuid);
+-    if (!uuid_string) {
+-        rc = ERROR_NOMEM;
+-        goto out;
+-    }
+-
+     if (!soft_reset) {
+         struct xen_domctl_createdomain create = {
+             .ssidref = info->ssidref,
+@@ -731,7 +717,37 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+         goto out;
+     }
+ 
+-    dom_path = libxl__xs_get_dompath(gc, *domid);
++    rc = libxl__domain_make_xs_entries(gc, d_config, state, *domid);
++
++ out:
++    return rc;
++}
++
++int libxl__domain_make_xs_entries(libxl__gc *gc, libxl_domain_config *d_config,
++                                  libxl__domain_build_state *state,
++                                  uint32_t domid)
++{
++    libxl_ctx *ctx = libxl__gc_owner(gc);
++    int rc, nb_vm;
++    const char *dom_type;
++    char *uuid_string;
++    char *dom_path, *vm_path, *libxl_path;
++    struct xs_permissions roperm[2];
++    struct xs_permissions rwperm[1];
++    struct xs_permissions noperm[1];
++    xs_transaction_t t = 0;
++    libxl_vminfo *vm_list;
++
++    /* convenience aliases */
++    libxl_domain_create_info *info = &d_config->c_info;
++
++    uuid_string = libxl__uuid2string(gc, info->uuid);
++    if (!uuid_string) {
++        rc = ERROR_NOMEM;
++        goto out;
++    }
++
++    dom_path = libxl__xs_get_dompath(gc, domid);
+     if (!dom_path) {
+         rc = ERROR_FAIL;
+         goto out;
+@@ -739,12 +755,12 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+ 
+     vm_path = GCSPRINTF("/vm/%s", uuid_string);
+     if (!vm_path) {
+-        LOGD(ERROR, *domid, "cannot allocate create paths");
++        LOGD(ERROR, domid, "cannot allocate create paths");
+         rc = ERROR_FAIL;
+         goto out;
+     }
+ 
+-    libxl_path = libxl__xs_libxl_path(gc, *domid);
++    libxl_path = libxl__xs_libxl_path(gc, domid);
+     if (!libxl_path) {
+         rc = ERROR_FAIL;
+         goto out;
+@@ -755,10 +771,10 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+ 
+     roperm[0].id = 0;
+     roperm[0].perms = XS_PERM_NONE;
+-    roperm[1].id = *domid;
++    roperm[1].id = domid;
+     roperm[1].perms = XS_PERM_READ;
+ 
+-    rwperm[0].id = *domid;
++    rwperm[0].id = domid;
+     rwperm[0].perms = XS_PERM_NONE;
+ 
+ retry_transaction:
+@@ -776,7 +792,7 @@ retry_transaction:
+                     noperm, ARRAY_SIZE(noperm));
+ 
+     xs_write(ctx->xsh, t, GCSPRINTF("%s/vm", dom_path), vm_path, strlen(vm_path));
+-    rc = libxl__domain_rename(gc, *domid, 0, info->name, t);
++    rc = libxl__domain_rename(gc, domid, 0, info->name, t);
+     if (rc)
+         goto out;
+ 
+@@ -866,7 +882,7 @@ retry_transaction:
+ 
+     vm_list = libxl_list_vm(ctx, &nb_vm);
+     if (!vm_list) {
+-        LOGD(ERROR, *domid, "cannot get number of running guests");
++        LOGD(ERROR, domid, "cannot get number of running guests");
+         rc = ERROR_FAIL;
+         goto out;
+     }
+@@ -890,7 +906,7 @@ retry_transaction:
+             t = 0;
+             goto retry_transaction;
+         }
+-        LOGED(ERROR, *domid, "domain creation ""xenstore transaction commit failed");
++        LOGED(ERROR, domid, "domain creation ""xenstore transaction commit failed");
+         rc = ERROR_FAIL;
+         goto out;
+     }
+diff --git a/tools/libxl/libxl_internal.h b/tools/libxl/libxl_internal.h
+index c7ece066c4..19b367daca 100644
+--- a/tools/libxl/libxl_internal.h
++++ b/tools/libxl/libxl_internal.h
+@@ -1983,7 +1983,9 @@ _hidden int libxl__domain_make(libxl__gc *gc,
+                                libxl_domain_config *d_config,
+                                libxl__domain_build_state *state,
+                                uint32_t *domid, bool soft_reset);
+-
++_hidden int libxl__domain_make_xs_entries(libxl__gc *gc, libxl_domain_config *d_config,
++                                          libxl__domain_build_state *state,
++                                          uint32_t domid);
+ _hidden int libxl__domain_build(libxl__gc *gc,
+                                 libxl_domain_config *d_config,
+                                 uint32_t domid,
 -- 
 2.25.1
 
