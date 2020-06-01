@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B36FD1EA5DA
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 16:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F6411EA5E0
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Jun 2020 16:30:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jflRi-0005Pg-0J; Mon, 01 Jun 2020 14:29:46 +0000
+	id 1jflRn-0005Qe-8g; Mon, 01 Jun 2020 14:29:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+AG4=7O=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jflRg-0005PZ-Ks
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 14:29:44 +0000
-X-Inumbo-ID: 51863440-a414-11ea-81bc-bc764e2007e4
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
+ id 1jflRl-0005QA-Kb
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2020 14:29:49 +0000
+X-Inumbo-ID: 5270d9b4-a414-11ea-9dbe-bc764e2007e4
+Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 51863440-a414-11ea-81bc-bc764e2007e4;
- Mon, 01 Jun 2020 14:29:36 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id r9so10881094wmh.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 07:29:36 -0700 (PDT)
+ id 5270d9b4-a414-11ea-9dbe-bc764e2007e4;
+ Mon, 01 Jun 2020 14:29:38 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id d128so11621927wmc.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 07:29:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=vBrOLTqq31ej2e44mSMA9447regWRi/096me+XUNWFc=;
- b=aYp6jMcbZt1EvSCtzGVSDvw0LjOVZN9U9J6IPOWER7nZTfo2AJX9+2u9BbzugNhsHn
- Y37qYszwgtSp5Vi9meiZMPRCBrru/b392x/XySILcHH864UsCPa7D4edh2DtjgMpgeQF
- KB7IfsR9l+RvEZ41vlpb8yOXOfnby9TjY8pU9epCl8a2EIRP3GOpubRy0xq+tjioH92Q
- ZdZKA/fD+8ONkO9XePvj6FRtCYXyfnGwh41bJX2ZwRt55t3Wk2i7NgF8TKRcQ/D5WHp8
- c0MPNHyco0u+zIe2mvXsvW8NO9B/YVxgKM1DhZ0+Xu714KN+vQ5Tl3CCM4/snBRMzpJh
- MyCg==
+ bh=mxI9GbbijxDixix+zf0tcfiMCEcCufTLAytrxKWhnaw=;
+ b=McijkDfUDfkGD5lMdNQ+M+R1KyklnbVnSE2xHGQXgc1FoZJoCchot8LzXFDjcv6KOM
+ NfDZQCYHBzFyP55Su7iZS69grQCQSVbwDOPJ+fB1HbziyodXwYIRjrKQJxgmPT4ArVpq
+ rm9Pu0LT63ray48uF1rziqp7IZcfFUNMkYG9A+LsNcigRtirUvuwvV444Ky81hpelupC
+ +5N9EyRxBaOoygPIaPo+byEWNWCAKP5TJYnc3C0AUoXQLnUV2+IO/kOm471D5FNX4dGS
+ PXeofGbkbTz3KyYJzwzy8JhQSJZBOmbcV67oJceaEhbsL8Eabp6qKyVKz5B+XRC8hlPA
+ RKhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=vBrOLTqq31ej2e44mSMA9447regWRi/096me+XUNWFc=;
- b=QbaUt0u3c2+4FILIcsGY/b2eG3r3el9ObxRGcPO5wIytG3xKTYuXQBX0CGMSnr1sY8
- Xx0byOmb2K38DGINqF6iwxHhKo6F9rXo78xzI/38IBsy6IjisiWaHXFXLQzffzEMC6fB
- XK0vyDrni/U5WEKOqYAvkEDiLPwzNcMta3DB9ag5l9+7TEAiOAlZPHojQunekx4dmgcm
- Flj38FyGr+BegAB1kDpIhcbfDzGK7c0cKGkEGeryVTVLV/XYjDVHzdi6nMIRrdy2q628
- sBx4438ZvH/pFp5wbhmNJnnfO/iga91ZgZiZtBiXkXPwu6FEdbUnmuStE8vOyRLu2lY2
- DqWQ==
-X-Gm-Message-State: AOAM533pUyQFaWwTlTGl8kT4WRus/0jehGKpxaEVkkhkN/bSU7bJHzIE
- P2M7nS38/bYXnajocOupFIE=
-X-Google-Smtp-Source: ABdhPJzOxS6SdO4MzNSLT95XruS6WV6AMszcyX4HNvgqW82fuRu7xSM8biS+Gv+YwkDeI9wFb3oYMQ==
-X-Received: by 2002:a1c:814c:: with SMTP id c73mr21234151wmd.140.1591021775955; 
- Mon, 01 Jun 2020 07:29:35 -0700 (PDT)
+ bh=mxI9GbbijxDixix+zf0tcfiMCEcCufTLAytrxKWhnaw=;
+ b=ln2kB1BybxCf73EUlvDIgqcsP5a+sQJy8PF8FBXQ7ePpMOulOxpkgiEvZpY4y1Epmk
+ IU6qxcXFV6b8OGAmNcz5wbpU+XpciqtZYiZOyYNEHIkkr/+/9yFWlX+vOgYJtdL1FO8T
+ H0Qca5aSxjbLFd7KpkcNlypS5qjv8+QHZo8o3I5xJwbeeQHmssSWP/XAvr7LgXqPVe7e
+ le3OCcMLKcjpo6MkrUTXEojJ08DQVQjZ6RHSLmm25n0qqGMsynhtqCHzNSwNHpa6q63H
+ 9WSLHPiPnJ6hWMyic4K7azHgKTpZQC2J9AqrKQ1dWsb4udEop8mTciliNxIK6QH4Kihc
+ EMrQ==
+X-Gm-Message-State: AOAM533jVFIMpTsrkc+DpKpz8YAhSHeoO8iBMFdYTlFKn3rZLoVnRG4o
+ G/o1Iy117lAx9jVRcB/2pr4=
+X-Google-Smtp-Source: ABdhPJy45MyMB35sU56T7YLu7WldCE4HuCq6HN3F6gvzbGobgbl/tu9cwCNmdjlgEG1zdLyU9Mx++g==
+X-Received: by 2002:a7b:c248:: with SMTP id b8mr20855219wmj.2.1591021777436;
+ Mon, 01 Jun 2020 07:29:37 -0700 (PDT)
 Received: from localhost.localdomain (43.red-83-51-162.dynamicip.rima-tde.net.
  [83.51.162.43])
- by smtp.gmail.com with ESMTPSA id u12sm6824954wrq.90.2020.06.01.07.29.34
+ by smtp.gmail.com with ESMTPSA id u12sm6824954wrq.90.2020.06.01.07.29.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 07:29:35 -0700 (PDT)
+ Mon, 01 Jun 2020 07:29:36 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org
-Subject: [PATCH v2 2/8] hw/pci-host/prep: Correct RAVEN bus bridge memory
- region size
-Date: Mon,  1 Jun 2020 16:29:24 +0200
-Message-Id: <20200601142930.29408-3-f4bug@amsat.org>
+Subject: [PATCH v2 3/8] hw/pci/pci_bridge: Correct pci_bridge_io memory region
+ size
+Date: Mon,  1 Jun 2020 16:29:25 +0200
+Message-Id: <20200601142930.29408-4-f4bug@amsat.org>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200601142930.29408-1-f4bug@amsat.org>
 References: <20200601142930.29408-1-f4bug@amsat.org>
@@ -93,41 +93,54 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 memory_region_set_size() handle the 16 Exabytes limit by
 special-casing the UINT64_MAX value. This is not a problem
 for the 32-bit maximum, 4 GiB.
-By using the UINT32_MAX value, the bm-raven MemoryRegion
+By using the UINT32_MAX value, the pci_bridge_io MemoryRegion
 ends up missing 1 byte:
 
-  $ qemu-system-ppc -M prep -S -monitor stdio -usb
-  memory-region: bm-raven
-    0000000000000000-00000000fffffffe (prio 0, i/o): bm-raven
-      0000000000000000-000000003effffff (prio 0, i/o): alias bm-pci-memory @pci-memory 0000000000000000-000000003effffff
-      0000000080000000-00000000ffffffff (prio 0, i/o): alias bm-system @system 0000000000000000-000000007fffffff
+  (qemu) info mtree
+  memory-region: pci_bridge_io
+    0000000000000000-00000000fffffffe (prio 0, i/o): pci_bridge_io
+      0000000000000060-0000000000000060 (prio 0, i/o): i8042-data
+      0000000000000064-0000000000000064 (prio 0, i/o): i8042-cmd
+      00000000000001ce-00000000000001d1 (prio 0, i/o): vbe
+      0000000000000378-000000000000037f (prio 0, i/o): parallel
+      00000000000003b4-00000000000003b5 (prio 0, i/o): vga
+      ...
 
 Fix by using the correct value. We now have:
 
-  memory-region: bm-raven
-    0000000000000000-00000000ffffffff (prio 0, i/o): bm-raven
-      0000000000000000-000000003effffff (prio 0, i/o): alias bm-pci-memory @pci-memory 0000000000000000-000000003effffff
-      0000000080000000-00000000ffffffff (prio 0, i/o): alias bm-system @system 0000000000000000-000000007fffffff
+  memory-region: pci_bridge_io
+    0000000000000000-00000000ffffffff (prio 0, i/o): pci_bridge_io
+      0000000000000060-0000000000000060 (prio 0, i/o): i8042-data
+      0000000000000064-0000000000000064 (prio 0, i/o): i8042-cmd
+      ...
 
 Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
 Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 ---
- hw/pci-host/prep.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ hw/pci/pci_bridge.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/hw/pci-host/prep.c b/hw/pci-host/prep.c
-index 1a02e9a670..88e2fc66a9 100644
---- a/hw/pci-host/prep.c
-+++ b/hw/pci-host/prep.c
-@@ -294,7 +294,7 @@ static void raven_pcihost_initfn(Object *obj)
-                              &s->pci_memory, &s->pci_io, 0, TYPE_PCI_BUS);
+diff --git a/hw/pci/pci_bridge.c b/hw/pci/pci_bridge.c
+index 97967d12eb..3ba3203f72 100644
+--- a/hw/pci/pci_bridge.c
++++ b/hw/pci/pci_bridge.c
+@@ -30,6 +30,7 @@
+  */
  
-     /* Bus master address space */
--    memory_region_init(&s->bm, obj, "bm-raven", UINT32_MAX);
-+    memory_region_init(&s->bm, obj, "bm-raven", 4 * GiB);
-     memory_region_init_alias(&s->bm_pci_memory_alias, obj, "bm-pci-memory",
-                              &s->pci_memory, 0,
-                              memory_region_size(&s->pci_memory));
+ #include "qemu/osdep.h"
++#include "qemu/units.h"
+ #include "hw/pci/pci_bridge.h"
+ #include "hw/pci/pci_bus.h"
+ #include "qemu/module.h"
+@@ -381,7 +382,7 @@ void pci_bridge_initfn(PCIDevice *dev, const char *typename)
+     memory_region_init(&br->address_space_mem, OBJECT(br), "pci_bridge_pci", UINT64_MAX);
+     sec_bus->address_space_io = &br->address_space_io;
+     memory_region_init(&br->address_space_io, OBJECT(br), "pci_bridge_io",
+-                       UINT32_MAX);
++                       4 * GiB);
+     br->windows = pci_bridge_region_init(br);
+     QLIST_INIT(&sec_bus->child);
+     QLIST_INSERT_HEAD(&parent->child, sec_bus, sibling);
 -- 
 2.21.3
 
