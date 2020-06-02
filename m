@@ -2,48 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72F831EBF75
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 17:55:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0D161EC061
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 18:48:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jg9Fu-0003i8-Nj; Tue, 02 Jun 2020 15:55:10 +0000
+	id 1jgA4F-0000EM-Pb; Tue, 02 Jun 2020 16:47:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FM/C=7P=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jg9Ft-0003i1-DD
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 15:55:09 +0000
-X-Inumbo-ID: 6f20f654-a4e9-11ea-8993-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=g7Yl=7P=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jgA4E-0000EG-Bn
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 16:47:10 +0000
+X-Inumbo-ID: b30cbf4a-a4f0-11ea-8993-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6f20f654-a4e9-11ea-8993-bc764e2007e4;
- Tue, 02 Jun 2020 15:55:09 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1CDFD2067B;
- Tue,  2 Jun 2020 15:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591113308;
- bh=PRxYptlqDh/ho5Adpy8HLDZHSmhfvJbp9cjTmMciy58=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=rqolI2+cJdcgCjFb938OQrKwiPnmVdg09hq9mw0rg3s/2xntd5muOFt2qIOjCU6yt
- JL5oyl+4M1uHTMXcV7sDlr3yTxMpdCvOXSYOxOHXfujuQRMO5vZEztUqutLOtD3Atb
- GDB+AIu2CqT/LfTdGrDSRzpjlKflJrrfpVV6Seho=
-Date: Tue, 2 Jun 2020 08:55:07 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Dominique Martinet <asmadeus@codewreck.org>
-Subject: Re: [PATCH v2] 9p/xen: increase XEN_9PFS_RING_ORDER
-In-Reply-To: <20200602060246.GA16791@nautica>
-Message-ID: <alpine.DEB.2.21.2006020855010.12801@sstabellini-ThinkPad-T480s>
-References: <20200521193242.15953-1-sstabellini@kernel.org>
- <20200522055847.GA2833@nautica>
- <alpine.DEB.2.21.2006011406100.12801@sstabellini-ThinkPad-T480s>
- <20200602060246.GA16791@nautica>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id b30cbf4a-a4f0-11ea-8993-bc764e2007e4;
+ Tue, 02 Jun 2020 16:47:09 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: ujbwwpWRYI4lp6XtfnrvdBbGL8PHUQFdC6lxYSro5hgMQzPRoxte6LGxLr2HVq2m07FWCRNsuc
+ VtEzJi2gRN/IJZSeAaPL4BHlDJBC6EQRE5DhOgPSN+u2PhjqNhBUKTDGO3j45ekqlIEQCtpl5Y
+ 9ISJUkrJjW544TAi68yi7SW1vPASFhpuog04d8hPR6BPAu789IAPEbXMlvcD89f8BVy8JusEY8
+ wfAMKcLkC3fBUj7ZbTWeaybZeQXR8hMSVmxnSMBKdq/RqtLVFhFjesOKjVHMtSJ8cjWl2zMMo6
+ mCg=
+X-SBRS: 2.7
+X-MesageID: 19789751
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,465,1583211600"; d="scan'208";a="19789751"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+Message-ID: <24278.33416.384684.587646@mariner.uk.xensource.com>
+Date: Tue, 2 Jun 2020 17:47:04 +0100
+To: Roger Pau Monne <roger.pau@citrix.com>
+Subject: Re: [[PATCH v2 for-4.14]] m4: use test instead of []
+In-Reply-To: <20200602092447.GV1195@Air-de-Roger>
+References: <20200602090138.28656-1-wl@xen.org>
+ <20200602092447.GV1195@Air-de-Roger>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,25 +53,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, lucho@ionkov.net,
- Stefano Stabellini <sstabellini@kernel.org>, ericvh@gmail.com,
- linux-kernel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
- xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Xen Development List <xen-devel@lists.xenproject.org>,
+ "paul@xen.org" <paul@xen.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, 2 Jun 2020, Dominique Martinet wrote:
-> Stefano Stabellini wrote on Mon, Jun 01, 2020:
-> > > LGTM, I'll try to find some time to test this by the end of next week or
-> > > will trust you if I can't make it -- ping me around June 1st if I don't
-> > > reply again until then...
-> > 
-> > Ping :-)
+Roger Pau Monne writes ("Re: [[PATCH v2 for-4.14]] m4: use test instead of []"):
+> There's a double [] enclosure in the subject
 > 
-> I actually did think about this patch this weekend! . . .but didn't
-> quite make it :/
-> Anyway, as promised pushed to linux-next, I'll submit this for 5.8
+> On Tue, Jun 02, 2020 at 09:01:38AM +0000, Wei Liu wrote:
+> > It is reported that [] was removed by autoconf, which caused the
+> > following error:
+> > 
+> >   ./configure: line 4681: -z: command not found
+> > 
+> > Switch to test. That's what is used throughout our configure scripts.
+> > Also put the variable expansion in quotes.
+> > 
+> > Signed-off-by: Wei Liu <wl@xen.org>
+> > Reported-by: Bertrand Marquis <Bertrand.Marquis@arm.com>
+> > Fixes: 8a6b1665d987 ("configure: also add EXTRA_PREFIX to {CPP/LD}FLAGS")
+> > Signed-off-by: Wei Liu <wl@xen.org>
+> 
+> There's a double SoB ;)
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thank you!
+Pushed, thanks.
+
+Ian.
 
