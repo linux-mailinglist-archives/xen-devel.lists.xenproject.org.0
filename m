@@ -2,99 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD7961EB2E4
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 03:13:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 455671EB3F5
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 05:50:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfvTa-0002cV-69; Tue, 02 Jun 2020 01:12:22 +0000
+	id 1jfxvW-0007F3-Ub; Tue, 02 Jun 2020 03:49:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+4g6=7P=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1jfvTZ-0002cP-1u
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 01:12:21 +0000
-X-Inumbo-ID: 1aea3ea4-a46e-11ea-ab73-12813bfff9fa
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com (unknown
- [40.107.13.55]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1aea3ea4-a46e-11ea-ab73-12813bfff9fa;
- Tue, 02 Jun 2020 01:12:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dv9JJ+yZzjAYZICrp691FDqCkFIDFwQFVP53uZg6dNi9LLZi3V81nHtDIao/IATRoGmaznx0xi0mPgV9Ehnjyhy0RTRVGRRFQWTCnHf3X3F/I8MGXCTdea0tMbA+P1PPFm/CMmrSYX1a86C6OutLbTv+3Nn9r/eZer/Dd2rEZkaakTvfMjJL9uBMFjIW8MPqtkqscAx+UOc64R4l64IDx28H6fJrf5GyOr2hWLyYQDId0cbVhL+bkRtdFQsC/4z8w+RWOoti2KgDzF04N5aZAtz65RqkCzTE7spFhHyUghgHDBxqbOVLOTlz+IcBlf3FhR531hwSYRXiUX4vGEArww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3xQrngUYPEu8lqWQhL3J7bxSr1SPE39TjnwqMaCAlhQ=;
- b=KhIERCZwWXJe9qSTsOSz1sNueCeC+AdJ7QI65gIoywrbsF9YJdQ2NERBIrSKSkgbLWbC3Vq+FhoT71uZPaiz/CeQgn/VjObmaE7Iw20AO0MEJ4m5yuFwZXHOYYfX/dXT039kZ9eVFV74zJXeU/LWCxKodW+U9SmR0EltBKEvejlP4KIVyJY5iaxgY7esiU5UN2N9AWeXx+tj7qZU0uJRPa9JOJDDVL0lHbEWfGkeYfrzYfXndq8dNd60IkI9BqFp/YjcPmm8q7LLSO8hyG7j5hLDGRlakmrfkJL9+lfPJwKGEVFa8CfAhMJYPClqZwAjwcPpqLM60YeYn6Fx0KOiiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3xQrngUYPEu8lqWQhL3J7bxSr1SPE39TjnwqMaCAlhQ=;
- b=K8RCKsB2PtS5JAUcyyhbWsCbyu4PyWyTr4eJbtyWmrlvSwF8AXBBtlJj3oZlE1aUW24GYbOU+AV1Si8DVA1bSFYWb0Y4Y/g1Bpp3ug7Xuj65Wx0N25/eOOasoWepFFMRPzuXl1OyHZ0qAOB+UEZIT1xTHuetxB/O3Ff52TcoSd8=
-Received: from VI1PR0302MB3407.eurprd03.prod.outlook.com
- (2603:10a6:803:23::18) by VI1PR0302MB3215.eurprd03.prod.outlook.com
- (2603:10a6:803:1f::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17; Tue, 2 Jun
- 2020 01:12:16 +0000
-Received: from VI1PR0302MB3407.eurprd03.prod.outlook.com
- ([fe80::a01e:c0b1:7174:4c75]) by VI1PR0302MB3407.eurprd03.prod.outlook.com
- ([fe80::a01e:c0b1:7174:4c75%5]) with mapi id 15.20.3045.024; Tue, 2 Jun 2020
- 01:12:16 +0000
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: "dfaggioli@suse.com" <dfaggioli@suse.com>, "george.dunlap@eu.citrix.com"
- <george.dunlap@eu.citrix.com>, "julien.grall@arm.com" <julien.grall@arm.com>, 
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [Xen-devel] [RFC 1/9] schedule: Introduce per-pcpu time accounting
-Thread-Topic: [Xen-devel] [RFC 1/9] schedule: Introduce per-pcpu time
- accounting
-Thread-Index: AQHVaIxKZPZB1+b+UEeHqKVXpxsigKdwZuYAgA3xnYCBPODKAIAFIZCAgAXJvoA=
-Date: Tue, 2 Jun 2020 01:12:16 +0000
-Message-ID: <061528bf93664a3ca00fce5d4bd3c585af1282e9.camel@epam.com>
-References: <1568197942-15374-1-git-send-email-andrii.anisov@gmail.com>
- <1568197942-15374-2-git-send-email-andrii.anisov@gmail.com>
- <8c74cacb-ff73-eddc-626c-f6fa862cf5a6@arm.com>
- <f3767489-e46a-3830-8b3c-0b637b71e0b8@gmail.com>
- <0e46fc4b29b7c3b3e6b4ca4704b9e7dac5738868.camel@epam.com>
- <6fcdb69457e5768b0fa2259f83a23158e9c939f5.camel@suse.com>
-In-Reply-To: <6fcdb69457e5768b0fa2259f83a23158e9c939f5.camel@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.36.2 
-authentication-results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [176.36.48.175]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7afffd39-0500-416c-b203-08d80691fd48
-x-ms-traffictypediagnostic: VI1PR0302MB3215:
-x-microsoft-antispam-prvs: <VI1PR0302MB3215B47D53D85796B4F365CBE68B0@VI1PR0302MB3215.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 0422860ED4
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: veRA4+akgna7zXvP4bBjKavm3EWuIzh9vg7wucHZPPvauBdrLZEN28ksQ3/ILJCIeorHJsjXy0HUddi3No6mnjptdPD0fYKdMilMKWLNCBGQgR+83WhBmh3D+1wqaLj8EPldzhlINAFfob8K8Ue4eVVe6MoRTKWhzOBltidaNK8+Pu0mtBj7LFMeM0uiPvNRGmk7c19JvM9T5PRRlss3QIbGaJWa3GEtEXecnZlnJ0EmiMrKlkSROquNyO9BlhbJ1sADfSLlbUNeT9lNw2WEuV4uMg34qhCfWHloFjMX4YFfFntix9ueBVuKkt3r64MJn4u6+Pz0SVJu0ysQf48PqA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR0302MB3407.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(376002)(396003)(366004)(39860400002)(346002)(15650500001)(5660300002)(316002)(2906002)(2616005)(8676002)(86362001)(6512007)(6486002)(478600001)(71200400001)(55236004)(6506007)(54906003)(110136005)(36756003)(7416002)(8936002)(66446008)(91956017)(76116006)(26005)(186003)(64756008)(66476007)(66946007)(4326008)(83380400001)(66556008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: AMjjh/ZDAZ2oOKYDxZWq742fDzKK0AhfzzoYVngVY5Mr+RtjU6bgDTCahcmTn1YN5y1x0m3ZjJrcro8BPIqUaClIbthIYLj1sv+fBlpLKFnGLsje3bAtRHzzpdIUjDn/Lb5o+dOeItzz2EUB9rhwTFdhuTnaj03s02Fev/uoPIAtTT5A7gZd/EpBeFc21NgPuorOYVGFZgpssDr7+sRlHTT/n+pRLFyaE6PSXVdIsdR3SI+5jmMhcmoRDZTavt0YXC5Jm05xIMNwx5gwHJOod6xxsjILAyFtvKyHdmo4KoD3X2M0qS8XA+uC60bmmQOYFf9MGQS/Vnx0OYV0LXqUVACi7o5xtB2PkuvF1cA3iS+rmlRVqZI9viaxsWlu3vFcwQU33AcmbhTLVN7l9U2Y1t8hCd8XbydR1Imk1Tg/N46rNvroynSP35thLXNCCieYOW+fELzUoixyShXla8/55YlgedVIqYKQ4+bWzC13Xhs=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F3D35729CF2BD447A4690E651F25042C@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=PmCl=7P=redhat.com=mst@srs-us1.protection.inumbo.net>)
+ id 1jfxvU-0007Ey-4X
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 03:49:20 +0000
+X-Inumbo-ID: 08ee76be-a484-11ea-ab8b-12813bfff9fa
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 08ee76be-a484-11ea-ab8b-12813bfff9fa;
+ Tue, 02 Jun 2020 03:49:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1591069757;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ExLd1Z+1FIxt0ntrrBRLTV4rcrryp6L3gYgD3JMEe7Y=;
+ b=NBW72FDhpLe52v1SNV4xZxz7ETgpbVoM3nIswTun+gGALr12gJT6LUgiw7MJ3cHcfeQm85
+ KxuhG4vInCiXzLemhm3NFPfU0BKeDgjF/dOwKC4HfQ40lJKltjnhaMQpEFvdnTs3kuGePW
+ d1ZkPilbswuTPfodPk0smjD72ZZFUhk=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-513-v18-1bDFPyKc62xwSlhAWQ-1; Mon, 01 Jun 2020 23:49:16 -0400
+X-MC-Unique: v18-1bDFPyKc62xwSlhAWQ-1
+Received: by mail-wr1-f70.google.com with SMTP id m14so817680wrj.12
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2020 20:49:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=UPZhIAGyj/VLbIsoUlC2KngQ5PLwTgQRP4hRk68ZAN8=;
+ b=UpTxBq2qegW9ICRJClvBrPLzUrq7PYtOVMIDkL0C2uVJS3S9eVktkAucUrdEnFI/JB
+ Mu/l0nPxgQUK5rEpE33joWO0OIOAeEo3E1z7QNalbwT/yIwTR1/ylaW9llWvn7T4qABK
+ YV9wOD/epGEALPGwRW6UcJl/u9LSN3+O5GVDuySnyGeN/qQio/8qc2AW0R7bXkQC/Tcq
+ 8zZVDqyuaWiWsaP2Rf0s89k0BZ+VP+6BG2XO/Gk3vGYGw/B6ME9B/KdtEohAZ4J3oPet
+ Uo/rnCifsdeF+BZbL+9UpTVokibf3yTyrVww3Pzcqk85dO7rKwAr2ZXYc6YA+iL2BI3j
+ 72aw==
+X-Gm-Message-State: AOAM530Q5hpNmzLdecSxS8o6+p342tVlQqAtWLjNYvon8EzUXxnHVqfI
+ qCwlZbvP3bQ91FUSWH+qGW8r9f5Mg88r6/PnrfG3U2ebDpUbD91IvBFowygQ+ExewMJfciSuWBv
+ YtO1FsMWf+rkVcHunJn8i0T5RL8o=
+X-Received: by 2002:a5d:4a43:: with SMTP id v3mr25958765wrs.115.1591069755171; 
+ Mon, 01 Jun 2020 20:49:15 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwbFuz2uv/TDCU4M0qN37P/g2y+Wa4iddh/8yNcs/CsBmvsOG4NKyvS+2vtx6Nf23TXqpMcXQ==
+X-Received: by 2002:a5d:4a43:: with SMTP id v3mr25958746wrs.115.1591069754999; 
+ Mon, 01 Jun 2020 20:49:14 -0700 (PDT)
+Received: from redhat.com (bzq-109-64-41-91.red.bezeqint.net. [109.64.41.91])
+ by smtp.gmail.com with ESMTPSA id
+ g18sm1578601wme.17.2020.06.01.20.49.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jun 2020 20:49:14 -0700 (PDT)
+Date: Mon, 1 Jun 2020 23:49:11 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <f4bug@amsat.org>
+Subject: Re: [PATCH v2 0/8] hw: Fix some incomplete memory region size
+Message-ID: <20200601234822-mutt-send-email-mst@kernel.org>
+References: <20200601142930.29408-1-f4bug@amsat.org>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7afffd39-0500-416c-b203-08d80691fd48
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2020 01:12:16.1037 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9hW3MwH7P2IioEvuam8Rbr9Z2n3COiLOh+tVSELzsKeugJSkDaedxE/yb0ZUJxvID5kEp5Sp05EoSfrmMw62P7KeNU72em7TyXL7tINg0JU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0302MB3215
+In-Reply-To: <20200601142930.29408-1-f4bug@amsat.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,48 +83,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "wl@xen.org" <wl@xen.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "tim@xen.org" <tim@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Eduardo Habkost <ehabkost@redhat.com>, Paul Durrant <paul@xen.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Helge Deller <deller@gmx.de>,
+ qemu-devel@nongnu.org, qemu-trivial@nongnu.org, qemu-arm@nongnu.org,
+ =?iso-8859-1?Q?Herv=E9?= Poussineau <hpoussin@reactos.org>,
+ Joel Stanley <joel@jms.id.au>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Richard Henderson <rth@twiddle.net>, qemu-ppc@nongnu.org,
+ =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gRnJpLCAyMDIwLTA1LTI5IGF0IDEwOjQ4ICswMjAwLCBEYXJpbyBGYWdnaW9saSB3cm90ZToN
-Cj4gT24gVHVlLCAyMDIwLTA1LTI2IGF0IDAyOjI3ICswMDAwLCBWb2xvZHlteXIgQmFiY2h1ayB3
-cm90ZToNCj4gPiBIZWxsbyBBbGwsDQo+ID4gDQo+IEhlbGxvIFZvbG9keW15ciwNCj4gDQoNCkhp
-IERhcmlvLA0KDQo+ID4gVGhpcyBpcyBnZW50bGUgcmVtaW5kZXIgYWJvdXQgdGhpcyBSRkMuIA0K
-PiA+IA0KPiA+IFNhZGx5LCBBbmRyaWkgQW5pc292IGhhcyBsZWZ0IG91ciB0ZWFtLiBCdXQgSSdt
-IGNvbW1pdGVkIHRvIGNvbnRpbnVlDQo+ID4gaGlzIHdvcmsgb24gdGltZSBhY2NvdW50aW5nIGFu
-ZCByZWFsIHRpbWUgc2NoZWR1bGluZy4NCj4gPiANCj4gT2ssIHNvLCBmaXJzdCBvZiBhbGwsIHNv
-cnJ5IHRoYXQgdGhpcyBoYXMgbm90IGJlZW4gcHJvcGVybHkgYWRkcmVzc2VkLg0KPiANCj4gSSBw
-ZXJzb25hbGx5IG5ldmVyIGZvcmdvdCBhYm91dCBpdCBvciBhbnl0aGluZy4uLiBTdGlsbCwgSSBo
-YXZlbid0IGJlZW4NCj4gYWJsZSB0byBsb29rIGludG8gaXQgcHJvcGVybHkuDQo+IA0KDQpJIHNl
-ZS4uIEFueXdheXMsIHRoYW5rcyBmb3IgdGhlIHJlcGx5LiANCg0KQWN0dWFsbHksIEkgdHJpZWQg
-dG8gbm90IG9ubHkgcmViYXNlIHRoaXMgcGF0Y2ggc2VyaWVzIHRvIHRoZSBjdXJyZW50DQptYWlu
-bGluZSwgYnV0IGFsc28gdG8gYWRkIHg4NiBzdXBwb3J0LiBUaGlzIGdhdmUgbWUgZGVlcGVyDQp1
-bnN0ZXJzdGFuZGluZyBvZiB0aGUgaW5uZXIgd29ya2luZ3MuIEF0IGxlYXN0IEkgaG9wZSBzbyA6
-KQ0KDQpBbnl3YXlzLCBJIHdhbnQgdG8gZGlzY3VzcyB0aGUgbWF0dGVyIGJlZm9yZSBjb250aW51
-aW5nIHJld29ya2luZyB0aGUNCnBhdGNoZXMuIFRoZSBnb2FsIG9mIHRob3NlIHBhdGNoZXMgaXMg
-dG8gYWNjb3VudCBndWVzdCB0aW1lIG1vcmUNCnByZWNpc2VseS4gDQoNClJpZ2h0IG5vdyBJIGNh
-biBzZWUgb25seSB0d28gbWFpbiByZWFzb25zLCB3aGVuIGd1ZXN0IGNhbiBiZSBjaGFyZ2VkDQpm
-b3IgYSB0aW1lIGl0IGRpbmRuJ3QgdXNlZDogaW50ZXJydXB0cyBhbmQgc29mdCBpcnFzLiANCg0K
-LSBkb19zb2Z0aXJxKCkgaXMgY2FsbGVkIGV2ZXJ5IHRpbWUgd2UgbGVhdmUgaHlwZXJ2aXNvciBt
-b2RlLiBJdCBpcw0KdXNlZCB0byBkbyBob3VzZWtlZXBpbmcgZm9yIHRoZSBoeXBlcnZpc29yIGl0
-c2VsZi4gQnV0LCBzb21lIHJhbmRvbQ0KZ3Vlc3Qgd2lsbCBjaGFyZ2VkIGZvciB0aW1lIHNwZW50
-IGluIGRvX3NvZnRpcnEoKSB1bmxlc3MgdGhpcyBmdW5jdGlvbg0KaXMgbm90IGNhbGxlZCBvbiBh
-IGlkbGUgdmNwdS4NCg0KLSBhbHNvLCBwQ1BVIGNhbiBiZSBpbnRlcnJ1cHRlZCBieSBJUlEgYXNz
-aWduZWQgdG8gc29tZSBvdGhlciBndWVzdCBvcg0KdG8gaHlwZXJ2aXNvciBpdHNlbGYuIEJ1dCB0
-aW1lIHNwZW50IGluIGludGVycnVwdCBoYW5kbGVyIHdpbGwgYmUNCmNoYXJnZWQgZm9yIGEgZ3Vl
-c3QgYmVpbmcgaW50ZXJydXB0ZWQuDQoNClNvLCBiYXNpY2FsbHksIHRvIGFjY291bnQgZ3Vlc3Qg
-dGltZSBjb3JyZWN0bHksIHdlIG5lZWQgdG8gc3Vic3RyYWN0DQp0aW1lIHNwZW50IGluIGRvX3Nv
-ZnRpcnEoKSBhbmQgaW4gZG9fSVJRKCkuIA0KDQpBY3R1YWxseSwgd2UgY2FuIGNoYXJnZSB0aGUg
-Y29ycmVjdCBndWVzdCBmb3IgdGltZSBzcGVudCBpbiBkb19JUlEoKSwNCmJlY2F1c2UgaGFuZGxl
-ciBjb2RlIHdpbGwgZXZlbnR1YWxseSBrbm93IHRhcmdldCB2Q1BVIGZvciB0aGUNCmludGVycnVw
-dC4gVGhlcmUgaXMgdGVjaG5pY2FsIHByb2JsZW0gd2l0aCBpbnRlcnJ1cHQgbmVzdGluZy4gV2Ug
-d2lsbA0KbmVlZCBzb21lIHN0YWNrIHRvIHRyYWNrIG5lc3RpbmcgY29ycmVjdGx5LiBCdXQgdGhp
-cyBpcyBkb2FibGUuDQoNCkp1c3QgZm9yIHN0YXRpc3RpY2FsIHB1cnBvc2VzIHdlIGNhbiB0cmFj
-ayBoeXBlcnZpc29yIHRpbWUgc29td2hlcmUsDQpidXQgaXQgaXMgbm90IG5lZWRlZCBmb3Igc2No
-ZWR1bGluZyBkZWNpc2lvbnMuDQoNCkFtIEkgbWlzc2luZyBzb21ldGhpbmc/DQoNCg0K
+On Mon, Jun 01, 2020 at 04:29:22PM +0200, Philippe Mathieu-Daudé wrote:
+> Series fully reviewed.
+> 
+> Since v1:
+> - Add parenthesis on the Xen patch (Paul Durrant)
+> - Add Peter's R-b tags
+
+
+PCI things:
+
+Reviewed-by: Michael S. Tsirkin <mst@redhat.com>
+
+I'll queue pci patches in my tree.
+
+> memory_region_set_size() handle the 16 Exabytes limit by
+> special-casing the UINT64_MAX value.
+> This is not a problem for the 32-bit maximum, 4 GiB, but
+> in some places we incorrectly use UINT32_MAX instead of
+> 4 GiB, and end up missing 1 byte in the memory region.
+> 
+> This series fixes the cases I encountered.
+> Also included few patches while reviewing, I replaced some
+> magic values by the IEC binary prefix equivalent.
+> 
+> Regards,
+> 
+> Phil.
+> 
+> Philippe Mathieu-Daudé (8):
+>   hw/arm/aspeed: Correct DRAM container region size
+>   hw/pci-host/prep: Correct RAVEN bus bridge memory region size
+>   hw/pci/pci_bridge: Correct pci_bridge_io memory region size
+>   hw/pci/pci_bridge: Use the IEC binary prefix definitions
+>   hw/pci-host: Use the IEC binary prefix definitions
+>   hw/hppa/dino: Use the IEC binary prefix definitions
+>   hw/i386/xen/xen-hvm: Use the IEC binary prefix definitions
+>   target/i386/cpu: Use the IEC binary prefix definitions
+> 
+>  hw/arm/aspeed.c         | 2 +-
+>  hw/hppa/dino.c          | 4 ++--
+>  hw/i386/xen/xen-hvm.c   | 3 ++-
+>  hw/pci-host/i440fx.c    | 3 ++-
+>  hw/pci-host/prep.c      | 2 +-
+>  hw/pci-host/q35.c       | 2 +-
+>  hw/pci-host/versatile.c | 5 +++--
+>  hw/pci/pci_bridge.c     | 7 ++++---
+>  target/i386/cpu.c       | 2 +-
+>  9 files changed, 17 insertions(+), 13 deletions(-)
+> 
+> -- 
+> 2.21.3
+
 
