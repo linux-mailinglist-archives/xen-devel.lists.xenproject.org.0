@@ -2,76 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A371EBC19
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 14:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3BA21EBC1F
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 14:55:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jg6PF-0002G9-I4; Tue, 02 Jun 2020 12:52:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jg6RG-0002OU-V2; Tue, 02 Jun 2020 12:54:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Sr0K=7P=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jg6PE-0002G4-2a
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 12:52:36 +0000
-X-Inumbo-ID: ee1bb83c-a4cf-11ea-81bc-bc764e2007e4
-Received: from mail-ed1-x542.google.com (unknown [2a00:1450:4864:20::542])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ee1bb83c-a4cf-11ea-81bc-bc764e2007e4;
- Tue, 02 Jun 2020 12:52:35 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id g9so9959276edw.10
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2020 05:52:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SC2aYUuLkEh9YWcBjGQ8OFPka9a6woGYTDWf4xa8Aos=;
- b=NDKDMWTzXVb+QLnEiV03jjuFO19cpEZjFHMvpoJoWQ5lb1vAUJrQ9KrBEQ3fF6j0EM
- 68rBAfP4WWHnye3+dSXf2iVuNikXqrttD2HWFJuLSBHAkREcoaLR148hHdaNAF8M6qpI
- 5fcuiPUMHH7RRWPYcmWgwyqV4+K4UFPwpUlP1IElgIdje9YcDsL+5jw1jQfthxIl4yzO
- RJtqmn28FlD3cgE9UiX2fIMH/dYNZo2pbOJBpermjznuFF5v3GFUEpXdLd6KL9HfXK0f
- 3XK4Ky3lMdc40YTjKiRnlmQDVBebtN+uhEhEzYSkZES7iQW574qECfPcGGwZRWThmxbr
- mgKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SC2aYUuLkEh9YWcBjGQ8OFPka9a6woGYTDWf4xa8Aos=;
- b=NH++/TXZcPN99cx4HJiF6zOOMBVeIHrlz7t3l24/cUCBtxfZqVOvyhEPXnPVMc6sip
- ND+Ie/4eU3B6LSJc/eE01Xecx+oRcdBRR4lnyFkduhUD3da8g6K71aTxKuM6bBV7wWOW
- EHxaj4XOO+6VdIRtf40yXJ2NkROrIxMm8EaA7OertwfT3wk+Du0RXyvFCx1K0a9iekq/
- bFuDgI8mWCVchwSWt/hAR7syoYqTxUIdXO1nRXyPg5u7lc9JXfaBPMrJEhf9JGhWzvbw
- yUFNxOB6HRSrYpinqoHzP8rEF/gLbBT4yJtYOqTuyyQhW+TY6Imj/hK7/dgnwoAjTkWe
- SOuQ==
-X-Gm-Message-State: AOAM530QuQpULcu/z8nJ9TAljnjEHBV88nwo+eX+XINwCXyow0lRlXhR
- 9PhzrZvLj1n3iBluHSEkFpJE/RbWBps=
-X-Google-Smtp-Source: ABdhPJxPOEs0bMsATGINlVeTV4UxcXrqAwa0MbZkd9C9KoK0ZhE558y56dYsOsjBhaBTdECo4FrKgA==
-X-Received: by 2002:a50:9b13:: with SMTP id o19mr21068354edi.143.1591102354147; 
- Tue, 02 Jun 2020 05:52:34 -0700 (PDT)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com.
- [209.85.221.42])
- by smtp.gmail.com with ESMTPSA id d6sm1549054edn.75.2020.06.02.05.52.33
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2020 05:52:33 -0700 (PDT)
-Received: by mail-wr1-f42.google.com with SMTP id q11so3313679wrp.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2020 05:52:33 -0700 (PDT)
-X-Received: by 2002:a5d:490f:: with SMTP id x15mr26040237wrq.259.1591102353002; 
- Tue, 02 Jun 2020 05:52:33 -0700 (PDT)
-MIME-Version: 1.0
+ <SRS0=Snlw=7P=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jg6RF-0002OP-Mq
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 12:54:41 +0000
+X-Inumbo-ID: 38e77536-a4d0-11ea-abea-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 38e77536-a4d0-11ea-abea-12813bfff9fa;
+ Tue, 02 Jun 2020 12:54:40 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: KKi2eqdfOPWnuZddKE7EZJ0z/Ujn0YJYCM0WfQqZCRSph7z8MTWW2w1+vyM76hpO4jtTTAFPcB
+ m/h+UQkCFGhX4Kf7gyTkDDrOq8mYhBUXldS0BHytmc6/+5NbvHqlNqVXSao7T26UEQsKTP9mzg
+ SNIrYOe7CrN7GLpwuvftFfBcGyD8sb6HNPrQ7yyThFdxpnzEoeM2y5hIHZciQ5BjZSVHiwkJr4
+ tbO6JWVJi53HRDVircbrkcMgjJTbriVbiW64Q1m9LT5MiSFBJoIsr2m+6YSEVVdUea/b2oODnM
+ PeM=
+X-SBRS: 2.7
+X-MesageID: 19364950
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,464,1583211600"; d="scan'208";a="19364950"
+Date: Tue, 2 Jun 2020 14:54:33 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [PATCH v2 for-4.14 3/3] xen/vm_event: Add safe to disable vm_event
+Message-ID: <20200602125433.GY1195@Air-de-Roger>
 References: <cover.1590028160.git.tamas@tklengyel.com>
- <b3c147cc226f3a30daec73b2ffd57bd285bc8659.1590028160.git.tamas@tklengyel.com>
- <20200602110223.GW1195@Air-de-Roger>
- <CABfawh=NST0Vq+O5UCqyCxt1z2O9pcES_DQon4-cs9w0TPOuJQ@mail.gmail.com>
- <a9256e7a-b11f-cd45-7d8c-a72cfca4ddab@suse.com>
-In-Reply-To: <a9256e7a-b11f-cd45-7d8c-a72cfca4ddab@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Tue, 2 Jun 2020 06:51:56 -0600
-X-Gmail-Original-Message-ID: <CABfawhkneOTsVE3nD41_F3u3Jihf8kk8N9eFHMP9znGUnugvsw@mail.gmail.com>
-Message-ID: <CABfawhkneOTsVE3nD41_F3u3Jihf8kk8N9eFHMP9znGUnugvsw@mail.gmail.com>
-Subject: Re: [PATCH v2 for-4.14 1/3] xen/monitor: Control register values
-To: Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <682dde916f982e2889b2be2263418e9506a82c1e.1590028160.git.tamas@tklengyel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <682dde916f982e2889b2be2263418e9506a82c1e.1590028160.git.tamas@tklengyel.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,65 +56,153 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 2, 2020 at 6:47 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 02.06.2020 14:40, Tamas K Lengyel wrote:
-> > On Tue, Jun 2, 2020 at 5:08 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.c=
-om> wrote:
-> >>
-> >> On Wed, May 20, 2020 at 08:31:52PM -0600, Tamas K Lengyel wrote:
-> >>> Extend the monitor_op domctl to include option that enables
-> >>> controlling what values certain registers are permitted to hold
-> >>> by a monitor subscriber.
-> >>
-> >> I think the change could benefit for some more detail commit message
-> >> here. Why is this useful?
-> >
-> > You would have to ask the Bitdefender folks who made the feature. I
-> > don't use it. Here we are just making it optional as it is buggy so it
-> > is disabled by default.
->
-> Now that's exactly the opposite of what I had derived from the
-> description here so far. Perhaps an at least weak indication
-> that you want to reword this. For example, from your reply to
-> Roger I understand it's rather that the new flag allows to
-> "suppress" the controlling (since presumably you don't change
-> default behavior), rather then "enabling" it.
+On Wed, May 20, 2020 at 08:31:54PM -0600, Tamas K Lengyel wrote:
+> Instead of having to repeatedly try to disable vm_events,
 
-What we are adding is a domctl you need to call that enables this
-feature. It's not an option to suppress it. It shouldn't have been
-enabled by default to begin with. That was a mistake when the feature
-was contributed and it is buggy.
+Why not use a hypercall continuation instead so that this is all
+hidden from the caller?
 
->
-> >> There already seems to be some support for gating MSR writes, which
-> >> seems to be expanded by this commit?
-> >
-> > We don't expand on any existing features, we make an existing feature o=
-ptional.
-> >
-> >>
-> >> Is it solving some kind of bug reported?
-> >
-> > It does, please take a look at the cover letter.
->
-> Please can such important aspects also go in the commit message,
-> so they're available later without needing to hunt down mail
-> threads (besides this way being more readily available to
-> reviewers)?
+I take that the current interface requires the user to repeatedly
+issue hypercalls in order to disable vm_events until one of those
+succeeds?
 
-Noted.
+> request a specific
+> vm_event to be sent when the domain is safe to continue with shutting down
+> the vm_event interface.
+> 
+> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> ---
+>  xen/arch/x86/hvm/hvm.c            | 38 ++++++++++++++++++++++++++-----
+>  xen/arch/x86/hvm/monitor.c        | 14 ++++++++++++
+>  xen/arch/x86/monitor.c            | 13 +++++++++++
+>  xen/include/asm-x86/domain.h      |  1 +
+>  xen/include/asm-x86/hvm/monitor.h |  1 +
+>  xen/include/public/domctl.h       |  2 ++
+>  xen/include/public/vm_event.h     |  8 +++++++
+>  7 files changed, 71 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index e6780c685b..fc7e1e2b22 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -563,15 +563,41 @@ void hvm_do_resume(struct vcpu *v)
+>          v->arch.hvm.inject_event.vector = HVM_EVENT_VECTOR_UNSET;
+>      }
+>  
+> -    if ( unlikely(v->arch.vm_event) && v->arch.monitor.next_interrupt_enabled )
+> +    if ( unlikely(v->arch.vm_event) )
+>      {
+> -        struct x86_event info;
+> +        struct domain *d = v->domain;
+> +
+> +        if ( v->arch.monitor.next_interrupt_enabled )
+> +        {
+> +            struct x86_event info;
+> +
+> +            if ( hvm_get_pending_event(v, &info) )
+> +            {
+> +                hvm_monitor_interrupt(info.vector, info.type, info.error_code,
+> +                                      info.cr2);
+> +                v->arch.monitor.next_interrupt_enabled = false;
+> +            }
+> +        }
+>  
+> -        if ( hvm_get_pending_event(v, &info) )
+> +        if ( d->arch.monitor.safe_to_disable )
+>          {
+> -            hvm_monitor_interrupt(info.vector, info.type, info.error_code,
+> -                                  info.cr2);
+> -            v->arch.monitor.next_interrupt_enabled = false;
+> +            const struct vcpu *check_vcpu;
+> +            bool pending_op = false;
+> +
+> +            for_each_vcpu ( d, check_vcpu )
+> +            {
+> +                if ( vm_event_check_pending_op(check_vcpu) )
 
-Thanks,
-Tamas
+Don't you need some kind of lock here, since you are poking at another
+vCPU which could be modifying any of those bits?
+
+> +                {
+> +                    pending_op = true;
+> +                    break;
+> +                }
+> +            }
+> +
+> +            if ( !pending_op )
+> +            {
+> +                hvm_monitor_safe_to_disable();
+> +                d->arch.monitor.safe_to_disable = false;
+> +            }
+>          }
+>      }
+>  }
+> diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+> index f5d89e71d1..75fd1a4b68 100644
+> --- a/xen/arch/x86/hvm/monitor.c
+> +++ b/xen/arch/x86/hvm/monitor.c
+> @@ -300,6 +300,20 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
+>      return monitor_traps(curr, true, &req) >= 0;
+>  }
+>  
+> +void hvm_monitor_safe_to_disable(void)
+> +{
+> +    struct vcpu *curr = current;
+> +    struct arch_domain *ad = &curr->domain->arch;
+
+const
+
+> +    vm_event_request_t req = {};
+> +
+> +    if ( !ad->monitor.safe_to_disable )
+> +        return;
+
+Should this rather be an ASSERT? I don't think you are supposed to
+call hvm_monitor_safe_to_disable when the bit is not set?
+
+> +
+> +    req.reason = VM_EVENT_REASON_SAFE_TO_DISABLE;
+
+I think you cat set the field at definition time.
+
+> +
+> +    monitor_traps(curr, 0, &req);
+> +}
+> +
+>  /*
+>   * Local variables:
+>   * mode: C
+> diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
+> index 1517a97f50..86e0ba2fbc 100644
+> --- a/xen/arch/x86/monitor.c
+> +++ b/xen/arch/x86/monitor.c
+> @@ -339,6 +339,19 @@ int arch_monitor_domctl_event(struct domain *d,
+>          break;
+>      }
+>  
+> +    case XEN_DOMCTL_MONITOR_EVENT_SAFE_TO_DISABLE:
+> +    {
+> +        bool old_status = ad->monitor.safe_to_disable;
+> +
+> +        if ( unlikely(old_status == requested_status) )
+> +            return -EEXIST;
+> +
+> +        domain_pause(d);
+> +        ad->monitor.safe_to_disable = requested_status;
+
+Maybe I'm missing something, but I don't see any check that others
+events are disabled before safe_to_disable is set?
+
+In the same way, you should prevent setting any events when
+safe_to_disable is set IMO, likely returning -EBUSY in both cases.
+
+Thanks, Roger.
 
