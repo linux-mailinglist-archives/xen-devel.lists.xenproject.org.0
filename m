@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91ED91EB8CC
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 11:49:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E33B1EB8D3
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 11:50:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jg3Xa-0007si-7R; Tue, 02 Jun 2020 09:49:02 +0000
+	id 1jg3YJ-0007vq-Gu; Tue, 02 Jun 2020 09:49:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Exxl=7P=hermes.cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1jg3XZ-0007sd-Gh
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 09:49:01 +0000
-X-Inumbo-ID: 48c75076-a4b6-11ea-8993-bc764e2007e4
+ id 1jg3YI-0007vi-Jm
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 09:49:46 +0000
+X-Inumbo-ID: 63f7a558-a4b6-11ea-9947-bc764e2007e4
 Received: from ppsw-30.csi.cam.ac.uk (unknown [131.111.8.130])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 48c75076-a4b6-11ea-8993-bc764e2007e4;
- Tue, 02 Jun 2020 09:49:00 +0000 (UTC)
+ id 63f7a558-a4b6-11ea-9947-bc764e2007e4;
+ Tue, 02 Jun 2020 09:49:46 +0000 (UTC)
 X-Cam-AntiVirus: no malware found
 X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:53906
+Received: from 88-109-182-220.dynamic.dsl.as9105.com ([88.109.182.220]:53914
  helo=[192.168.1.219])
  by ppsw-30.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.156]:465)
  with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1jg3XT-000lLb-eL (Exim 4.92.3)
- (return-path <amc96@hermes.cam.ac.uk>); Tue, 02 Jun 2020 10:48:55 +0100
-Subject: Re: [PATCH for-4.14] compilers/clang: always use _Static_assert with
- clang
-To: paul@xen.org, 'Wei Liu' <wl@xen.org>,
- 'Roger Pau Monne' <roger.pau@citrix.com>
-References: <20200602091602.38422-1-roger.pau@citrix.com>
- <20200602092314.uydguwrje4bomktf@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
- <003a01d638bf$d54dc100$7fe94300$@xen.org>
+ id 1jg3YF-000lhP-eF (Exim 4.92.3)
+ (return-path <amc96@hermes.cam.ac.uk>); Tue, 02 Jun 2020 10:49:43 +0100
+Subject: Re: [PATCH for-4.14] x86/cpu: fix build with clang 3.5
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20200602090536.38064-1-roger.pau@citrix.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <8507bef6-9277-6960-b878-14adb387e42b@citrix.com>
-Date: Tue, 2 Jun 2020 10:48:54 +0100
+Message-ID: <025f047c-bf92-1ffd-031d-ec46e17f6ffa@citrix.com>
+Date: Tue, 2 Jun 2020 10:49:42 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <003a01d638bf$d54dc100$7fe94300$@xen.org>
+In-Reply-To: <20200602090536.38064-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
@@ -53,33 +49,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 02/06/2020 10:26, Paul Durrant wrote:
->> On Tue, Jun 02, 2020 at 11:16:02AM +0200, Roger Pau Monne wrote:
->>> All versions of clang used by Xen support _Static_assert, so use it
->>> unconditionally when building Xen with clang.
->>>
->>> No functional change expected.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> Reviewed-by: Wei Liu <wl@xen.org>
->>
->>> ---
->>> Not sure whether this fully qualifies as a bugfix, as the current
->>> behavior should also work fine under clang. Note that all versions of
->>> clang from 3.5 to trunk (11) seem to return __GNUC__ == 4 and
->>> __GNUC_MINOR__ == 2.
->> IMHO it wouldn't hurt to apply this patch since any breakage is easy to
->> catch.
-> Yes, seems reasonable.
+On 02/06/2020 10:05, Roger Pau Monne wrote:
+> Clang 3.5 complains with:
 >
-> Release-acked-by: Paul Durrant <paul@xen.org>
+> common.c:794:24: error: statement expression not allowed at file scope
+>                       i < ARRAY_SIZE(this_cpu(tss_page).ist_ssp); ++i )
+>                                      ^
+> /build/xen/include/asm/percpu.h:14:7: note: expanded from macro 'this_cpu'
+>     (*RELOC_HIDE(&per_cpu__##var, get_cpu_info()->per_cpu_offset))
+>       ^
+> /build/xen/include/xen/compiler.h:104:3: note: expanded from macro 'RELOC_HIDE'
+>   ({ unsigned long __ptr;                       \
+>   ^
+> /build/xen/include/xen/lib.h:68:69: note: expanded from macro 'ARRAY_SIZE'
+> #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]) + __must_be_array(x))
+>                                                                     ^
+> /build/xen/include/xen/compiler.h:85:57: note: expanded from macro '__must_be_array'
+>   BUILD_BUG_ON_ZERO(__builtin_types_compatible_p(typeof(a), typeof(&a[0])))
+>                                                         ^
+> /build/xen/include/xen/lib.h:39:57: note: expanded from macro 'BUILD_BUG_ON_ZERO'
+> #define BUILD_BUG_ON_ZERO(cond) sizeof(struct { int:-!!(cond); })
+>                                                         ^
+>
+> Workaround this by defining the tss_page as a local variable. Adjust
+> other users of the per-cpu tss_page to also use the newly introduced
+> local variable.
+>
+> No functional change expected.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Sorry for more carnage.
 
 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
