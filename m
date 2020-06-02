@@ -2,51 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B560C1EBA0C
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 13:07:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 913611EBA10
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 13:08:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jg4kl-00074D-Vf; Tue, 02 Jun 2020 11:06:43 +0000
+	id 1jg4mL-0007B4-Aa; Tue, 02 Jun 2020 11:08:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d8pY=7P=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jg4kj-000742-O4
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 11:06:41 +0000
-X-Inumbo-ID: 22952e54-a4c1-11ea-9dbe-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Snlw=7P=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jg4mJ-0007Ax-TT
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 11:08:19 +0000
+X-Inumbo-ID: 5c66761a-a4c1-11ea-8993-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 22952e54-a4c1-11ea-9dbe-bc764e2007e4;
- Tue, 02 Jun 2020 11:06:40 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 26D98AD4D;
- Tue,  2 Jun 2020 11:06:42 +0000 (UTC)
-Subject: Re: [PATCH v2] tools/libxl: make default of max event channels
- dependant on vcpus [and 1 more messages]
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200406082704.13994-1-jgross@suse.com>
- <afc7e988-3b51-bbee-cba8-af30a7605dc4@xen.org>
- <d1b095db-064e-bccf-b55d-d85fecb3045a@suse.com>
- <24203.2251.628483.557280@mariner.uk.xensource.com>
- <fd09220a-7470-4679-ce16-f4553579171b@xen.org>
- <26161282-7bad-5888-16c9-634647e6fde8@xen.org>
- <8a6f6e41-9395-6c68-eae9-4c1aeb7d96e2@suse.com>
- <24203.2546.728186.463143@mariner.uk.xensource.com>
- <24203.2996.819908.965198@mariner.uk.xensource.com>
- <799396b3-0304-e149-cc3f-45c5a46c7c0c@suse.com>
- <c85e15d2-3d3f-7d7f-eb7a-af5270df2e2d@suse.com>
- <b769c6e8-586f-7d3b-1e5d-d5c948ac7971@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <715f6143-38b3-3f70-b9e3-1ac4a240282f@suse.com>
-Date: Tue, 2 Jun 2020 13:06:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 5c66761a-a4c1-11ea-8993-bc764e2007e4;
+ Tue, 02 Jun 2020 11:08:17 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: CA6JXN5taPJIG5chtMC3k/73aTWN226RsB1rFfHpGv4KZ/MhlIPozAKeYMftYN+ZF2T/HgQ1fC
+ 8pEJgZqpUdqqERGNhKrxdFcib4FSl15h/tey1hxjI1H/1DESSDbotM5LoH+/Z5eQFM1axKbD08
+ MOcTsFSncQRMVr4xCkH69zpVEkudx1pJamUSZ8Mt+Lx9koZavCtCqSjO2BcoxGdpbI3MClf+s9
+ HdGOsZ/idZQtkGQjJ6/XNT6VZQmhUUTXloE9yv4EFvsVJLwcwYoMdUDPYkewubfhpkevERZ0mQ
+ KOE=
+X-SBRS: 2.7
+X-MesageID: 19356099
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,464,1583211600"; d="scan'208";a="19356099"
+Date: Tue, 2 Jun 2020 13:08:07 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [PATCH v2 for-4.14 1/3] xen/monitor: Control register values
+Message-ID: <20200602110223.GW1195@Air-de-Roger>
+References: <cover.1590028160.git.tamas@tklengyel.com>
+ <b3c147cc226f3a30daec73b2ffd57bd285bc8659.1590028160.git.tamas@tklengyel.com>
 MIME-Version: 1.0
-In-Reply-To: <b769c6e8-586f-7d3b-1e5d-d5c948ac7971@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <b3c147cc226f3a30daec73b2ffd57bd285bc8659.1590028160.git.tamas@tklengyel.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,89 +54,127 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 06.04.20 14:09, Jan Beulich wrote:
-> On 06.04.2020 13:54, Jürgen Groß wrote:
->> On 06.04.20 13:11, Jan Beulich wrote:
->>> On 06.04.2020 13:00, Ian Jackson wrote:
->>>> Julien Grall writes ("Re: [PATCH v2] tools/libxl: make default of max event channels dependant on vcpus"):
->>>>> There are no correlation between event channels and vCPUs. The number of
->>>>> event channels only depends on the number of frontend you have in your
->>>>> guest. So...
->>>>>
->>>>> Hi Ian,
->>>>>
->>>>> On 06/04/2020 11:47, Ian Jackson wrote:
->>>>>> If ARM folks want to have a different formula for the default then
->>>>>> that is of course fine but I wonder whether this might do ARMk more
->>>>>> harm than good in this case.
->>>>>
->>>>> ... 1023 event channels is going to be plenty enough for most of the use
->>>>> cases.
->>>>
->>>> OK, thanks for the quick reply.
->>>>
->>>> So, Jürgen, I think everyone will be happy with this:
->>>
->>> I don't think I will be - my prior comment still holds on there not
->>> being any grounds to use a specific OS kernel's (and to be precise
->>> a specific OS kernel version's) requirements for determining
->>> defaults. If there was to be such a dependency, then OS kernel
->>> [variant] should be part of the inputs to such a (set of) formula(s).
->>
->> IMO this kind of trying to be perfect will completely block a sane
->> heuristic for being able to boot large guests at all.
-> 
-> This isn't about being perfect - I'm suggesting to leave the
-> default alone, not to improve the calculation, not the least
-> because I've been implying ...
-> 
->> The patch isn't about to find an as stringent as possible upper
->> boundary for huge guests, but a sane value being able to boot most of
->> those.
->>
->> And how should Xen know the OS kernel needs exactly after all?
-> 
-> ... the answer of "It can#t" to this question.
-> 
->> And it is not that we talking about megabytes of additional memory. A
->> guest with 256 vcpus will just be able to use additional 36 memory
->> pages. The maximum non-PV domain (the probably only relevant case
->> of another OS than Linux being used) with 128 vcpus would "waste"
->> 32 kB. In case the guest misbehaves.
-> 
-> Any extra page counts, or else - where do you draw the line? Any
-> single page may decide between Xen (not) being out of memory,
-> and hence also not being able to fulfill certain other requests.
-> 
->> The alternative would be to do nothing and having to let the user
->> experience a somewhat cryptic guest crash. He could google for a
->> possible solution which would probably end in a rather high static
->> limit resulting in wasting even more memory.
-> 
-> I realize this. Otoh more people running into this will improve
-> the chances of later ones finding useful suggestions. Of course
-> there's also nothing wrong with trying to make the error less
-> cryptic.
+On Wed, May 20, 2020 at 08:31:52PM -0600, Tamas K Lengyel wrote:
+> Extend the monitor_op domctl to include option that enables
+> controlling what values certain registers are permitted to hold
+> by a monitor subscriber.
 
-Reviving this discussion.
+I think the change could benefit for some more detail commit message
+here. Why is this useful?
 
-I strongly disagree with your reasoning.
+There already seems to be some support for gating MSR writes, which
+seems to be expanded by this commit?
 
-Rejecting to modify tools defaults for large guests to make them boot
-is a bad move IMO. We are driving more people away from Xen this way.
+Is it solving some kind of bug reported?
 
-The fear of a misbehaving guest of that size to use a few additional
-pages on a machine with at least 100 cpus is fine from the academical
-point of view, but should not be weighed higher than the usability
-aspect in this case IMO.
+> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> ---
+>  xen/arch/x86/hvm/hvm.c       | 25 ++++++++++++++++---------
+>  xen/arch/x86/monitor.c       | 10 +++++++++-
+>  xen/include/asm-x86/domain.h |  1 +
+>  xen/include/public/domctl.h  |  1 +
+>  4 files changed, 27 insertions(+), 10 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 09ee299bc7..e6780c685b 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -2263,7 +2263,8 @@ int hvm_set_cr0(unsigned long value, bool may_defer)
+>      {
+>          ASSERT(v->arch.vm_event);
+>  
+> -        if ( hvm_monitor_crX(CR0, value, old_value) )
+> +        if ( hvm_monitor_crX(CR0, value, old_value) &&
+> +             v->domain->arch.monitor.control_register_values )
+>          {
+>              /* The actual write will occur in hvm_do_resume(), if permitted. */
+>              v->arch.vm_event->write_data.do_write.cr0 = 1;
+> @@ -2362,7 +2363,8 @@ int hvm_set_cr3(unsigned long value, bool may_defer)
+>      {
+>          ASSERT(v->arch.vm_event);
+>  
+> -        if ( hvm_monitor_crX(CR3, value, old) )
+> +        if ( hvm_monitor_crX(CR3, value, old) &&
+> +             v->domain->arch.monitor.control_register_values )
+>          {
+>              /* The actual write will occur in hvm_do_resume(), if permitted. */
+>              v->arch.vm_event->write_data.do_write.cr3 = 1;
+> @@ -2443,7 +2445,8 @@ int hvm_set_cr4(unsigned long value, bool may_defer)
+>      {
+>          ASSERT(v->arch.vm_event);
+>  
+> -        if ( hvm_monitor_crX(CR4, value, old_cr) )
+> +        if ( hvm_monitor_crX(CR4, value, old_cr) &&
+> +             v->domain->arch.monitor.control_register_values )
 
+I think you could return control_register_values in hvm_monitor_crX
+instead of having to add the check to each caller?
 
-Juergen
+>          {
+>              /* The actual write will occur in hvm_do_resume(), if permitted. */
+>              v->arch.vm_event->write_data.do_write.cr4 = 1;
+> @@ -3587,13 +3590,17 @@ int hvm_msr_write_intercept(unsigned int msr, uint64_t msr_content,
+>  
+>          ASSERT(v->arch.vm_event);
+>  
+> -        /* The actual write will occur in hvm_do_resume() (if permitted). */
+> -        v->arch.vm_event->write_data.do_write.msr = 1;
+> -        v->arch.vm_event->write_data.msr = msr;
+> -        v->arch.vm_event->write_data.value = msr_content;
+> -
+>          hvm_monitor_msr(msr, msr_content, msr_old_content);
+> -        return X86EMUL_OKAY;
+> +
+> +        if ( v->domain->arch.monitor.control_register_values )
+
+Is there any value in limiting control_register_values to MSR that
+represent control registers, like EFER and XSS?
+
+> +        {
+> +            /* The actual write will occur in hvm_do_resume(), if permitted. */
+> +            v->arch.vm_event->write_data.do_write.msr = 1;
+> +            v->arch.vm_event->write_data.msr = msr;
+> +            v->arch.vm_event->write_data.value = msr_content;
+> +
+> +            return X86EMUL_OKAY;
+> +        }
+
+You seem to change the previous flow of the function here, that would
+just call hvm_monitor_msr and return previously.
+
+Don't you need to move the return from outside the added if condition
+in order to keep previous behavior? Or else the write is committed
+straight away.
+
+>      }
+>  
+>      if ( (ret = guest_wrmsr(v, msr, msr_content)) != X86EMUL_UNHANDLEABLE )
+> diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
+> index bbcb7536c7..1517a97f50 100644
+> --- a/xen/arch/x86/monitor.c
+> +++ b/xen/arch/x86/monitor.c
+> @@ -144,7 +144,15 @@ int arch_monitor_domctl_event(struct domain *d,
+>                                struct xen_domctl_monitor_op *mop)
+>  {
+>      struct arch_domain *ad = &d->arch;
+> -    bool requested_status = (XEN_DOMCTL_MONITOR_OP_ENABLE == mop->op);
+> +    bool requested_status;
+> +
+> +    if ( XEN_DOMCTL_MONITOR_OP_CONTROL_REGISTERS == mop->op )
+> +    {
+> +        ad->monitor.control_register_values = true;
+
+I think strictly speaking you need to use 1 here, since this variable
+is not a boolean.
+
+Thanks, Roger.
 
