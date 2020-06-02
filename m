@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CEA31EBA4C
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 13:23:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2057E1EBA98
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 13:41:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jg50s-0000hj-G3; Tue, 02 Jun 2020 11:23:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jg5Hy-0002WB-8b; Tue, 02 Jun 2020 11:41:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fJyN=7P=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jg50r-0000hW-Bb
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 11:23:21 +0000
-X-Inumbo-ID: 7676f2da-a4c3-11ea-abd8-12813bfff9fa
+ (envelope-from <SRS0=d8pY=7P=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jg5Hw-0002W2-Ef
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 11:41:00 +0000
+X-Inumbo-ID: ea9fb35c-a4c5-11ea-9dbe-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7676f2da-a4c3-11ea-abd8-12813bfff9fa;
- Tue, 02 Jun 2020 11:23:20 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ea9fb35c-a4c5-11ea-9dbe-bc764e2007e4;
+ Tue, 02 Jun 2020 11:40:54 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0B259AD48;
- Tue,  2 Jun 2020 11:23:21 +0000 (UTC)
-Subject: Re: [PATCH for-4.14] x86/ucode: Fix errors with start/end_update()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200601145755.3661-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e852d7b8-34e7-abc5-23a5-30106d271876@suse.com>
-Date: Tue, 2 Jun 2020 13:23:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+ by mx2.suse.de (Postfix) with ESMTP id 78663AD5D;
+ Tue,  2 Jun 2020 11:40:55 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH-for-4.14 0/2] xen: build fixes for CONFIG_HYPFS
+Date: Tue,  2 Jun 2020 13:40:48 +0200
+Message-Id: <20200602114050.5964-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200601145755.3661-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,42 +40,26 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 01.06.2020 16:57, Andrew Cooper wrote:
-> --- a/xen/arch/x86/cpu/microcode/amd.c
-> +++ b/xen/arch/x86/cpu/microcode/amd.c
-> @@ -395,26 +395,9 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
->      return patch;
->  }
->  
-> -#ifdef CONFIG_HVM
-> -static int start_update(void)
-> -{
-> -    /*
-> -     * svm_host_osvw_init() will be called on each cpu by calling '.end_update'
-> -     * in common code.
-> -     */
-> -    svm_host_osvw_reset();
-> -
-> -    return 0;
-> -}
-> -#endif
-> -
->  const struct microcode_ops amd_ucode_ops = {
->      .cpu_request_microcode            = cpu_request_microcode,
->      .collect_cpu_info                 = collect_cpu_info,
->      .apply_microcode                  = apply_microcode,
-> -#ifdef CONFIG_HVM
-> -    .start_update                     = start_update,
-> -    .end_update_percpu                = svm_host_osvw_init,
+Fixing an issue Andrew met, and disabling CONFIG_HYPFS in pv-shim.
 
-As a result the function can (and imo should) become static. Preferably
-with that
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Juergen Gross (2):
+  xen: fix build with CONFIG_HYPFS_CONFIG enabled
+  xen/config: disable hypervisor filesystem for pv-shim
 
-Jan
+ xen/arch/x86/configs/pvshim_defconfig | 1 +
+ xen/common/Makefile                   | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+-- 
+2.26.2
+
 
