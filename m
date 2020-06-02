@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC2721EB58D
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 08:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00CF91EB593
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 08:03:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jfzyP-0002nx-Kc; Tue, 02 Jun 2020 06:00:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jg00v-00036d-AT; Tue, 02 Jun 2020 06:03:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d8pY=7P=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jfzyO-0002ns-HM
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 06:00:28 +0000
-X-Inumbo-ID: 59a040db-a496-11ea-ab98-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 59a040db-a496-11ea-ab98-12813bfff9fa;
- Tue, 02 Jun 2020 06:00:25 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 252CDAFB0;
- Tue,  2 Jun 2020 06:00:26 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH-for-4.14 2/2] tools: make libxenhypfs interface more future
- proof
-Date: Tue,  2 Jun 2020 08:00:21 +0200
-Message-Id: <20200602060021.23289-3-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200602060021.23289-1-jgross@suse.com>
-References: <20200602060021.23289-1-jgross@suse.com>
+ (envelope-from <SRS0=AzWc=7P=notk.org=asmadeus@srs-us1.protection.inumbo.net>)
+ id 1jg00t-00036X-Ip
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 06:03:03 +0000
+X-Inumbo-ID: b76d8c18-a496-11ea-9dbe-bc764e2007e4
+Received: from nautica.notk.org (unknown [2001:41d0:1:7a93::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b76d8c18-a496-11ea-9dbe-bc764e2007e4;
+ Tue, 02 Jun 2020 06:03:02 +0000 (UTC)
+Received: by nautica.notk.org (Postfix, from userid 1001)
+ id 4FC2AC009; Tue,  2 Jun 2020 08:03:01 +0200 (CEST)
+Date: Tue, 2 Jun 2020 08:02:46 +0200
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2] 9p/xen: increase XEN_9PFS_RING_ORDER
+Message-ID: <20200602060246.GA16791@nautica>
+References: <20200521193242.15953-1-sstabellini@kernel.org>
+ <20200522055847.GA2833@nautica>
+ <alpine.DEB.2.21.2006011406100.12801@sstabellini-ThinkPad-T480s>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2006011406100.12801@sstabellini-ThinkPad-T480s>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,102 +43,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Cc: jgross@suse.com, lucho@ionkov.net, ericvh@gmail.com,
+ linux-kernel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
+ xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-As compilers are free to choose the width of an enum they should be
-avoided in stable interfaces when declaring a variable. So the
-struct xenhypfs_dirent definition should be modified to have explicitly
-sized members for type and encoding and the related enums should be
-defined separately.
+Stefano Stabellini wrote on Mon, Jun 01, 2020:
+> > LGTM, I'll try to find some time to test this by the end of next week or
+> > will trust you if I can't make it -- ping me around June 1st if I don't
+> > reply again until then...
+> 
+> Ping :-)
 
-Additionally it is better to have a larger flags member in that struct
-with the "writable" indicator occupying only a single bit. This will
-make future additions easier.
+I actually did think about this patch this weekend! . . .but didn't
+quite make it :/
+Anyway, as promised pushed to linux-next, I'll submit this for 5.8
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- tools/libs/hypfs/core.c             |  2 +-
- tools/libs/hypfs/include/xenhypfs.h | 31 +++++++++++++++++------------
- tools/misc/xenhypfs.c               |  3 ++-
- 3 files changed, 21 insertions(+), 15 deletions(-)
-
-diff --git a/tools/libs/hypfs/core.c b/tools/libs/hypfs/core.c
-index d4309b5ae2..c91e165705 100644
---- a/tools/libs/hypfs/core.c
-+++ b/tools/libs/hypfs/core.c
-@@ -204,7 +204,7 @@ static void xenhypfs_set_attrs(struct xen_hypfs_direntry *entry,
-         dirent->type = xenhypfs_type_blob;
-     }
- 
--    dirent->is_writable = entry->max_write_len;
-+    dirent->flags = entry->max_write_len ? XENHYPFS_FLAG_WRITABLE : 0;
- }
- 
- void *xenhypfs_read_raw(xenhypfs_handle *fshdl, const char *path,
-diff --git a/tools/libs/hypfs/include/xenhypfs.h b/tools/libs/hypfs/include/xenhypfs.h
-index ab157edceb..25432d2a16 100644
---- a/tools/libs/hypfs/include/xenhypfs.h
-+++ b/tools/libs/hypfs/include/xenhypfs.h
-@@ -26,22 +26,27 @@ struct xentoollog_logger;
- 
- typedef struct xenhypfs_handle xenhypfs_handle;
- 
-+enum xenhypfs_type {
-+    xenhypfs_type_dir,
-+    xenhypfs_type_blob,
-+    xenhypfs_type_string,
-+    xenhypfs_type_uint,
-+    xenhypfs_type_int,
-+    xenhypfs_type_bool,
-+};
-+
-+enum xenhypfs_encoding {
-+    xenhypfs_enc_plain,
-+    xenhypfs_enc_gzip
-+};
-+
- struct xenhypfs_dirent {
-     char *name;
-     size_t size;
--    enum {
--        xenhypfs_type_dir,
--        xenhypfs_type_blob,
--        xenhypfs_type_string,
--        xenhypfs_type_uint,
--        xenhypfs_type_int,
--        xenhypfs_type_bool
--    } type;
--    enum {
--        xenhypfs_enc_plain,
--        xenhypfs_enc_gzip
--    } encoding;
--    bool is_writable;
-+    unsigned short type;
-+    unsigned short encoding;
-+    unsigned int flags;
-+#define XENHYPFS_FLAG_WRITABLE  0x00000001
- };
- 
- xenhypfs_handle *xenhypfs_open(struct xentoollog_logger *logger,
-diff --git a/tools/misc/xenhypfs.c b/tools/misc/xenhypfs.c
-index 5145b8969f..5da24aed90 100644
---- a/tools/misc/xenhypfs.c
-+++ b/tools/misc/xenhypfs.c
-@@ -125,7 +125,8 @@ static int xenhypfs_ls(char *path)
-     } else {
-         for (i = 0; i < n; i++)
-             printf("%s r%c %s\n", xenhypfs_type(ent + i),
--                   ent[i].is_writable ? 'w' : '-', ent[i].name);
-+                   (ent[i].flags & XENHYPFS_FLAG_WRITABLE) ? 'w' : '-',
-+                   ent[i].name);
- 
-         free(ent);
-     }
 -- 
-2.26.2
-
+Dominique
 
