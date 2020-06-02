@@ -2,56 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 810BF1EC2A8
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 21:24:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 125FF1EC41C
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 23:01:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgCWG-0006Jr-4i; Tue, 02 Jun 2020 19:24:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jgE11-0006ms-S0; Tue, 02 Jun 2020 21:00:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FM/C=7P=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jgCWE-0006Jm-7D
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 19:24:14 +0000
-X-Inumbo-ID: a439194e-a506-11ea-8993-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a439194e-a506-11ea-8993-bc764e2007e4;
- Tue, 02 Jun 2020 19:24:13 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 75312206E2;
- Tue,  2 Jun 2020 19:24:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591125852;
- bh=CStxKi7GNxsvMOGhzKrkhSxML7SEV2wR10QVNYr+zVQ=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=Ytsu3/KDvFSbmo4EBLSvzSQUqp49j6YwqLJF6HIJ0L3/EzovGzwYB4kBfS4zklWFw
- rOp4KdEOMBf/Xy4mOamRhjui9bq7qpePkiL6AyeqnikFIxOsUH8tELfE2ftVujQdPH
- XHHl54Svr0a4OukEQMXivIq0umgf5/xUQUPdZOrc=
-Date: Tue, 2 Jun 2020 12:24:05 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Corey Minyard <minyard@acm.org>
-Subject: Re: Troubles running Xen on Raspberry Pi 4 with 5.6.1 DomU
-In-Reply-To: <20200602183420.GE2880@minyard.net>
-Message-ID: <alpine.DEB.2.21.2006021222490.6774@sstabellini-ThinkPad-T480s>
-References: <2187cd7c-4d48-986b-77d6-4428e8178404@oracle.com>
- <CADz_WD68bYj-0CSm_zib+LRiMGd1+1eoNLgiJj=vHog685Khsw@mail.gmail.com>
- <alpine.DEB.2.21.2005060956120.14706@sstabellini-ThinkPad-T480s>
- <CAMmSBy_wcSD3BVcVFJVR1y1CtvxA9xMkobKwbsdf8dGxS5Hcbw@mail.gmail.com>
- <alpine.DEB.2.21.2005121723240.26167@sstabellini-ThinkPad-T480s>
- <42253259-9663-67e8-117f-8ba631243585@xen.org>
- <alpine.DEB.2.21.2005130810270.26167@sstabellini-ThinkPad-T480s>
- <d940d405-5706-c749-f546-c0c60528394d@xen.org>
- <d19f82a9-160e-ccc5-ebf9-8eb397dbeb08@xen.org>
- <alpine.DEB.2.21.2005131249570.26167@sstabellini-ThinkPad-T480s>
- <20200602183420.GE2880@minyard.net>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=NiWU=7P=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jgE10-0006mm-PE
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 21:00:06 +0000
+X-Inumbo-ID: 037e036d-a514-11ea-ac7b-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 037e036d-a514-11ea-ac7b-12813bfff9fa;
+ Tue, 02 Jun 2020 20:59:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=JhxiZs47yOkF144jMvsSxOiarbHSpdo3gzr0+4/ffvU=; b=vnkacDkGbRMlKW2mqlstn+FxW
+ mqn5KsIHKqXhtaRpwanpuKpDEmrxcPiqW2blN9Q92RNzZlEa9oID4okEHPuV3sc2qGCSi1b50nvY2
+ LxIo8yab33oHVNZ6nTVzh0GJpISaLoISkkFFB5zqQUJPBjpgApyr/ZhWHHWvcVpMd1LEI=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgE0r-0006RP-B4; Tue, 02 Jun 2020 20:59:57 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgE0r-0000iy-38; Tue, 02 Jun 2020 20:59:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgE0r-0002ID-2Z; Tue, 02 Jun 2020 20:59:57 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150623-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-2140389372-1591125815=:6774"
-Content-ID: <alpine.DEB.2.21.2006021223540.6774@sstabellini-ThinkPad-T480s>
+Subject: [xen-unstable-smoke test] 150623: regressions - FAIL
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=e181db8ba4e0797b8f9b55996adfa71ffb5b4081
+X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 02 Jun 2020 20:59:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,65 +66,79 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- roman@zededa.com,
- "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>,
- Julien Grall <julien.grall@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- boris.ostrovsky@oracle.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 150623 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150623/
 
---8323329-2140389372-1591125815=:6774
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2006021223541.6774@sstabellini-ThinkPad-T480s>
+Regressions :-(
 
-On Tue, 2 Jun 2020, Corey Minyard wrote:
-> Snip
-> 
-> > > > > > whether
-> > > > > > this was already done:
-> > > > > >      1) Does the kernel boot on baremetal (i.e without Xen)? This should
-> > > > > > help
-> > > > > > to confirm whether the bug is Xen is related.
-> > > > > 
-> > > > > Yes it boots
-> > > > > 
-> > > > > >      2) Swiotlb should not be necessary for basic dom0 boot on Arm. Did
-> > > > > > you try
-> > > > > > to disable it? This should help to confirm whether swiotlb is the
-> > > > > > problem or
-> > > > > > not.
-> > > > > 
-> > > > > It boots disabling swiotlb-xen
-> > > > 
-> > > > Thank you for the answer! swiotlb-xen should basically be a NOP for dom0. So
-> > > > this suggests swiotlb is doing some transformation on the DMA address.
-> > > > 
-> > > > I have an idea what may have gone wrong. AFAICT, xen-swiotlb seems to assume
-> > > > the DMA address space and CPU address space is the same. Is RPI using the
-> > > > same address space?
-> > > 
-> > > Another question, is the DMA request bounced? If so, are we sure the bounce
-> > > buffer is in the first GB?
-> > 
-> > Yes, it is. This is actually where we spent the last few days, and I
-> > found another little related bug in the initialization of the
-> > swiotlb-xen but now I am sure the memory is under 1GB (0x34000000-0x38000000)
-> 
-> Was anything ever resolved on this issue?  It just kind of ended for me,
-> and I looked in the main kernel and didn't find anything that looked
-> related.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 150438
 
-Yes, we have a patch series on the list for the Linux kernel to fix this
-issue but it hasn't been merged yet:
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-https://marc.info/?l=linux-kernel&m=159001831406263&w=2
---8323329-2140389372-1591125815=:6774--
+version targeted for testing:
+ xen                  e181db8ba4e0797b8f9b55996adfa71ffb5b4081
+baseline version:
+ xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+
+Last test of basis   150438  2020-05-28 14:01:19 Z    5 days
+Failing since        150465  2020-05-29 09:02:14 Z    4 days   33 attempts
+Testing same since   150623  2020-06-02 17:08:22 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Andrew Cooper <andrew.cooper@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Olaf Hering <olaf@aepfle.de>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1434 lines long.)
 
