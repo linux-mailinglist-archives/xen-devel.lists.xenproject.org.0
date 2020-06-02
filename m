@@ -2,59 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CA811EB7E7
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 11:07:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 707961EB7F7
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jun 2020 11:09:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jg2tL-0003Te-90; Tue, 02 Jun 2020 09:07:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jg2um-0003bD-KH; Tue, 02 Jun 2020 09:08:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BVk0=7P=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jg2tJ-0003TY-LD
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 09:07:25 +0000
-X-Inumbo-ID: 790ce602-a4b0-11ea-abaf-12813bfff9fa
-Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 790ce602-a4b0-11ea-abaf-12813bfff9fa;
- Tue, 02 Jun 2020 09:07:24 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id c3so2524670wru.12
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2020 02:07:24 -0700 (PDT)
+ id 1jg2uk-0003b6-UG
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2020 09:08:54 +0000
+X-Inumbo-ID: ae947dda-a4b0-11ea-9dbe-bc764e2007e4
+Received: from mail-wr1-f66.google.com (unknown [209.85.221.66])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ae947dda-a4b0-11ea-9dbe-bc764e2007e4;
+ Tue, 02 Jun 2020 09:08:54 +0000 (UTC)
+Received: by mail-wr1-f66.google.com with SMTP id c3so2529810wru.12
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2020 02:08:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=bCtDczNiIvM6dn7XFsIWZta7yPzY8mB6emd9+VqAWQA=;
- b=XijJhpqa0EFASp6djiIX0/lZ/rTR2Ceww8YFiw44Ii3ZfRxu1vC82nUVFVPDMs/1xl
- ahuZwGh9NGfiu0yfbxvcNqvTPyy/c7kVCTn0BzFKE6wWfBmTofPvUGsgbuqGGDAUV+om
- RBdft/MKE6lZg5TOkmJRN0zqbMM+3C3zXue9mWP1HyKGbnp05anaXJNbIrJLPWbqkway
- NCwqWTppWM3f0VNg0UE3m3sBQaMPts2J+b89exo9XjVT59ev0dy/2fIjpx9oYv81z0te
- bnco8DA4779IrUKsbzAQsCKAQadXa0DV+khtM9d7g452dsilNngToCBJRj2J2g7eLRyy
- Uf8w==
-X-Gm-Message-State: AOAM532HAnJY2y6oglzR+QTGaW6+BjRmucO36cw43OpZMqiAhrf7cgv1
- rfTqvIyrHhhSGrvhAGnMO/k=
-X-Google-Smtp-Source: ABdhPJzamQgOM6bbB9fIxfy3bNy9BxSvHtSAcgK2Q8eJEDWcf0q2qgNDTEVWFIzEtOIHa24XGsDSqQ==
-X-Received: by 2002:adf:ef47:: with SMTP id c7mr27502156wrp.57.1591088843647; 
- Tue, 02 Jun 2020 02:07:23 -0700 (PDT)
+ bh=Ibp+xKt5PP9drAqQA2xRugrbmqMz3rwjwdKXKe9l/h4=;
+ b=Re+IzVD8WRVcfls6iC/TY7L0StB2ntSa9cjBQPwziphVr22batvb5bij4ixkvqRpzO
+ LWszSUf2SRNiIpsabHYMVd/DzJjY5vPRf89fy/5qgLtSC8Ao9atBDzWlNtE6m/9yMnRe
+ 4InM06Jub9A3qUfq0BKT6pD/8xLVOZo91oZ68Sdp+vJRbqpjEFaHOi6GfYnNGqioLuvM
+ LQqu6jCArjwKOa5+UsLixr6c5E6+Y6Elt2uuzhKT2afTyzXDg4bZw1RR4qWW5+iyaeGC
+ bL7wCSI92PO2sldzbUxet7iYJjj9qNpvDWViO4pZjhntiP/9kH2S7T0cvTtlNPn53Q7z
+ zo8w==
+X-Gm-Message-State: AOAM530ZSwBl8lNo94cX/X6Qvm7zYHcjVzSGFCsTZPK+HhHWCYiAxTkf
+ n1DqGk//qR89V3pG2JWAKfI=
+X-Google-Smtp-Source: ABdhPJzs0tOPjipDIPNVUgCVsYq8A3AMHd+T5fBp+j+WGIAw1CnQyQTxMItbSrpZDeV8xu3HQ+Rrfw==
+X-Received: by 2002:a5d:4701:: with SMTP id y1mr24975008wrq.310.1591088933470; 
+ Tue, 02 Jun 2020 02:08:53 -0700 (PDT)
 Received: from
  liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
  ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id w10sm2665858wrp.16.2020.06.02.02.07.22
+ by smtp.gmail.com with ESMTPSA id j11sm2735544wru.69.2020.06.02.02.08.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2020 02:07:23 -0700 (PDT)
-Date: Tue, 2 Jun 2020 09:07:21 +0000
+ Tue, 02 Jun 2020 02:08:52 -0700 (PDT)
+Date: Tue, 2 Jun 2020 09:08:51 +0000
 From: Wei Liu <wl@xen.org>
-To: Dario Faggioli <dfaggioli@suse.com>
-Subject: Re: [PATCH 0/3] Automation: improve openSUSE containers + podman
-Message-ID: <20200602090721.r62ho7cagazgr2ji@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
-References: <158827088416.19371.17008531228521109457.stgit@Palanthas>
- <86969ba1ea7e270267cfaa3408a89b55c86b3dca.camel@suse.com>
- <78e986122386915cacba8b4c3b572a460f9622e1.camel@suse.com>
+To: Hongyan Xia <hx242@xen.org>
+Subject: Re: [PATCH 00/16] Remove the direct map
+Message-ID: <20200602090851.hxfxwoiflip6kcym@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+References: <cover.1588278317.git.hongyxia@amazon.com>
+ <20200501120715.hjak2gjp7ialwfq5@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+ <689a7c860a8a551e3b6009b16590e812dbf21055.camel@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <78e986122386915cacba8b4c3b572a460f9622e1.camel@suse.com>
+In-Reply-To: <689a7c860a8a551e3b6009b16590e812dbf21055.camel@xen.org>
 User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -66,61 +65,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
- Doug Goldstein <cardoe@cardoe.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, May 29, 2020 at 12:20:25PM +0200, Dario Faggioli wrote:
-> On Thu, 2020-05-21 at 09:43 +0200, Dario Faggioli wrote:
-> > On Thu, 2020-04-30 at 20:27 +0200, Dario Faggioli wrote:
-> > > Hello,
+On Fri, May 01, 2020 at 02:53:08PM +0100, Hongyan Xia wrote:
+> On Fri, 2020-05-01 at 12:07 +0000, Wei Liu wrote:
+> > On Thu, Apr 30, 2020 at 09:44:09PM +0100, Hongyan Xia wrote:
+> > > From: Hongyan Xia <hongyxia@amazon.com>
 > > > 
-> > > This short series contains some improvements for building Xen in
-> > > openSUSE containers. In fact, the build dependencies inside the
-> > > Tumbleweed container are updated and more handy helpers are added,
-> > > in
-> > > containerize, for referring to both Leap and Tumbleweed containers.
+> > > This series depends on Xen page table domheap conversion:
 > > > 
-> > > In addition to that, in patch 3, the containerize script is
-> > > enhanced
-> > > so
-> > > that it is now possible to use podman, instead of docker. Rootless
-> > > mode
-> > > for podman also works (provided the system is properly configured)
-> > > which,
-> > > IMO, is rather nice.
+> https://lists.xenproject.org/archives/html/xen-devel/2020-04/msg01374.html
+> > > .
 > > > 
-> > > Docker of course continue to work, and is kept as the default.
+> > > After breaking the reliance on the direct map to manipulate Xen
+> > > page
+> > > tables, we can now finally remove the direct map altogether.
 > > > 
-> > Ping?
-> >
-> Ping^2? :-D
+> > > This series:
+> > > - fixes many places that use the direct map incorrectly or assume
+> > > the
+> > >   presence of an always-mapped direct map in a wrong way.
+> > > - includes the early vmap patches for global mappings.
+> > > - initialises the mapcache for all domains, disables the fast path
+> > > that
+> > >   uses the direct map for mappings.
+> > > - maps and unmaps xenheap on-demand.
+> > > - adds a boot command line switch to enable or disable the direct
+> > > map.
+> > > 
+> > > This previous version was in RFC state and can be found here:
+> > > 
+> https://lists.xenproject.org/archives/html/xen-devel/2019-09/msg02647.html
+> > > ,
+> > > which has since been broken into small series.
+> > 
+> > OOI have you done any performance measurements?
+> > 
+> > Seeing that now even guest table needs mapping / unmapping during
+> > restore, I'm curious to know how that would impact performance.
 > 
-> Adding Wei. get-maintainers.pl seems told me I should no Cc him, so I
-> dind't, but I've seen automation/ stuff Acked-by him recently, so...
+> I actually have a lot of performance numbers but unfortunately on an
+> older version of Xen, not staging. I need to evaluate it again before
+> coming back to you. As you suspected, one strong signal from the
+> performance results is definitely the impact of walking guest tables.
+> For EPT, mapping and unmapping 20 times is no fun. This shows up in
+> micro-benchmarks, although larger benchmarks tend to be fine.
+> 
+> My question is, do we care about hiding EPT? I think it is fine to just
+> use xenheap pages (or any other form which does the job) so that we go
+> down from 20 mappings to only 4. I have done this hack with EPT and saw
+> significantly reduced impact for HVM guests in micro-benchmarks.
 
-I think these are good improvements, so in Doug's absence:
+Not sure about hiding EPT. I will leave this question to Jan and
+Andrew...
 
-Acked-by: Wei Liu <wl@xen.org>
-
-You can already push to the container registries right?
-
-Cc Paul. Gitlab CI is not gating pushes. I think there is very low risk
-involved in committing this series during freeze.
-
+Wei.
 
 > 
-> Thanks and Regards
-> -- 
-> Dario Faggioli, Ph.D
-> http://about.me/dario.faggioli
-> Virtualization Software Engineer
-> SUSE Labs, SUSE https://www.suse.com/
-> -------------------------------------------------------------------
-> <<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+> Hongyan
 > 
-
-
 
