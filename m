@@ -2,97 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF5551ED8B7
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 00:40:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17EB01ED8BB
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 00:42:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgc3c-0007XC-Aq; Wed, 03 Jun 2020 22:40:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jgc5T-0007sS-Li; Wed, 03 Jun 2020 22:42:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7VQx=7Q=amazon.com=prvs=416d6d090=anchalag@srs-us1.protection.inumbo.net>)
- id 1jgc3a-0007X7-UO
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 22:40:22 +0000
-X-Inumbo-ID: 3536f436-a5eb-11ea-adc4-12813bfff9fa
-Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3536f436-a5eb-11ea-adc4-12813bfff9fa;
- Wed, 03 Jun 2020 22:40:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1591224023; x=1622760023;
- h=from:to:date:message-id:references:in-reply-to:
- content-id:content-transfer-encoding:mime-version:subject;
- bh=Myq6ZV85It0R/N8eLRhclOg1iR9ZpMgAQsNUyFxW00E=;
- b=NnQnwO0JfVBrOCEVdhRSeA4I93sEuDrZNXu4j8m6AscIntOfLMMQCz4J
- VFCAtlEqVwGzxpUj9mLcxLv3eYukp/V+RfrJLM+r9HDOcIAG/abIavv2T
- aKirMSKkHhJj7iOOduNXG9Bml2WR8tCGJ8ocpSLUORfl0+C/uamiiwE8q Y=;
-IronPort-SDR: HGlszbAaMjRlQSBHjzfb07Sq8D3XcgSehxso6VS97ueiDdkojxtD16vl+YaA7qNIELHPqOLb9F
- PkJE9W82B+IA==
-X-IronPort-AV: E=Sophos;i="5.73,470,1583193600"; d="scan'208";a="41391349"
-Subject: Re: [PATCH 04/12] x86/xen: add system core suspend and resume
- callbacks
-Thread-Topic: [PATCH 04/12] x86/xen: add system core suspend and resume
- callbacks
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1e-17c49630.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
- 03 Jun 2020 22:40:18 +0000
-Received: from EX13MTAUWB001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1e-17c49630.us-east-1.amazon.com (Postfix) with ESMTPS
- id 5F279A179C; Wed,  3 Jun 2020 22:40:16 +0000 (UTC)
-Received: from EX13D05UWB001.ant.amazon.com (10.43.161.181) by
- EX13MTAUWB001.ant.amazon.com (10.43.161.249) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 3 Jun 2020 22:40:15 +0000
-Received: from EX13D07UWB001.ant.amazon.com (10.43.161.238) by
- EX13D05UWB001.ant.amazon.com (10.43.161.181) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 3 Jun 2020 22:40:15 +0000
-Received: from EX13D07UWB001.ant.amazon.com ([10.43.161.238]) by
- EX13D07UWB001.ant.amazon.com ([10.43.161.238]) with mapi id 15.00.1497.006;
- Wed, 3 Jun 2020 22:40:15 +0000
-From: "Agarwal, Anchal" <anchalag@amazon.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, "tglx@linutronix.de"
- <tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
- <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "x86@kernel.org"
- <x86@kernel.org>, "jgross@suse.com" <jgross@suse.com>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "linux-mm@kvack.org"
- <linux-mm@kvack.org>, "Kamata, Munehisa" <kamatam@amazon.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>, "konrad.wilk@oracle.com"
- <konrad.wilk@oracle.com>, "roger.pau@citrix.com" <roger.pau@citrix.com>,
- "axboe@kernel.dk" <axboe@kernel.dk>, "davem@davemloft.net"
- <davem@davemloft.net>, "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "len.brown@intel.com" <len.brown@intel.com>, "pavel@ucw.cz" <pavel@ucw.cz>,
- "peterz@infradead.org" <peterz@infradead.org>, "Valentin, Eduardo"
- <eduval@amazon.com>, "Singh, Balbir" <sblbir@amazon.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "vkuznets@redhat.com" <vkuznets@redhat.com>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "Woodhouse, David" <dwmw@amazon.co.uk>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>, "Agarwal, Anchal"
- <anchalag@amazon.com>
-Thread-Index: AQHWLjTkyZyRRrOMA06VZoqhuNYdW6jBUn0AgAXLpQA=
-Date: Wed, 3 Jun 2020 22:40:15 +0000
-Message-ID: <B966B3A2-4F08-42FA-AF59-B8AA0783C2BA@amazon.com>
-References: <cover.1589926004.git.anchalag@amazon.com>
- <79cf02631dc00e62ebf90410bfbbdb52fe7024cb.1589926004.git.anchalag@amazon.com>
- <4b577564-e4c3-0182-2b9e-5f79004f32a1@oracle.com>
-In-Reply-To: <4b577564-e4c3-0182-2b9e-5f79004f32a1@oracle.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.160.48]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <FB32A01A0FC73E469E52EFDA0074EE47@amazon.com>
-Content-Transfer-Encoding: base64
+ <SRS0=zj/c=7Q=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jgc5S-0007sM-UF
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 22:42:18 +0000
+X-Inumbo-ID: 79cb1578-a5eb-11ea-8993-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 79cb1578-a5eb-11ea-8993-bc764e2007e4;
+ Wed, 03 Jun 2020 22:42:17 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: qNUUHcsHPR5/ZX5jfA7j6npFLJxUeGnPzbb4ZqKdxW5bVbQArf/pY3ydnF9iDS/6BcwVeUIPP+
+ yUyESqrysuG+3b1Q+7wVTG54qvd6IP2F7xMOV0nnckNU+PN2hvwNfX1a6cXm7Ica42rSJowKNU
+ E7ho/Yp15AlvDzJoLaQ+7eBo5hvkO5eIuD1PIBmZjN0hKtMqYikPViBlOmmKoLCdxoNoq+VA7y
+ Ki4Ig4JU/Jn4Vk7ueNSU21915059hJrg9ey6Ex/uAMziSqyy8nGuUXV+vhvC7WEy4iWE8hf3li
+ oFc=
+X-SBRS: 2.7
+X-MesageID: 19193519
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,470,1583211600"; d="scan'208";a="19193519"
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc NPT faults
+ immediately
+Date: Wed, 3 Jun 2020 23:41:48 +0100
+Message-ID: <1591224108-564-1-git-send-email-igor.druzhinin@citrix.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Precedence: Bulk
+Content-Type: text/plain; charset="y"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -100,62 +51,124 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Igor Druzhinin <igor.druzhinin@citrix.com>, wl@xen.org, paul@xen.org,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ICAgIENBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9y
-Z2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNz
-IHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUu
-DQoNCg0KDQogICAgT24gNS8xOS8yMCA3OjI2IFBNLCBBbmNoYWwgQWdhcndhbCB3cm90ZToNCiAg
-ICA+IEZyb206IE11bmVoaXNhIEthbWF0YSA8a2FtYXRhbUBhbWF6b24uY29tPg0KICAgID4NCiAg
-ICA+IEFkZCBYZW4gUFZIVk0gc3BlY2lmaWMgc3lzdGVtIGNvcmUgY2FsbGJhY2tzIGZvciBQTSBz
-dXNwZW5kIGFuZA0KICAgID4gaGliZXJuYXRpb24gc3VwcG9ydC4gVGhlIGNhbGxiYWNrcyBzdXNw
-ZW5kIGFuZCByZXN1bWUgWGVuDQogICAgPiBwcmltaXRpdmVzLGxpa2Ugc2hhcmVkX2luZm8sIHB2
-Y2xvY2sgYW5kIGdyYW50IHRhYmxlLiBOb3RlIHRoYXQNCiAgICA+IFhlbiBzdXNwZW5kIGNhbiBo
-YW5kbGUgdGhlbSBpbiBhIGRpZmZlcmVudCBtYW5uZXIsIGJ1dCBzeXN0ZW0NCiAgICA+IGNvcmUg
-Y2FsbGJhY2tzIGFyZSBjYWxsZWQgZnJvbSB0aGUgY29udGV4dC4NCg0KDQogICAgSSBkb24ndCB0
-aGluayBJIHVuZGVyc3RhbmQgdGhhdCBsYXN0IHNlbnRlbmNlLg0KDQpMb29rcyBsaWtlIGl0IG1h
-eSBoYXZlIGNyeXB0aWMgbWVhbmluZyBvZiBzdGF0aW5nIHRoYXQgeGVuX3N1c3BlbmQgY2FsbHMg
-c3lzY29yZV9zdXNwZW5kIGZyb20geGVuX3N1c3BlbmQNClNvLCBpZiB0aGVzZSBzeXNjb3JlIG9w
-cyBnZXRzIGNhbGxlZCAgZHVyaW5nIHhlbl9zdXNwZW5kIGRvIG5vdCBkbyBhbnl0aGluZy4gQ2hl
-Y2sgaWYgdGhlIG1vZGUgaXMgaW4geGVuIHN1c3BlbmQgDQphbmQgcmV0dXJuIGZyb20gdGhlcmUu
-IFRoZXNlIHN5c2NvcmVfb3BzIGFyZSBzcGVjaWZpY2FsbHkgZm9yIGRvbVUgaGliZXJuYXRpb24u
-DQpJIG11c3QgYWRtaXQsIEkgbWF5IGhhdmUgb3Zlcmxvb2tlZCBsYWNrIG9mIGV4cGxhbmF0aW9u
-IG9mIHNvbWUgaW1wbGljaXQgZGV0YWlscyBpbiB0aGUgb3JpZ2luYWwgY29tbWl0IG1zZy4gDQoN
-CiAgICA+ICBTbyBpZiB0aGUgY2FsbGJhY2tzDQogICAgPiBhcmUgY2FsbGVkIGZyb20gWGVuIHN1
-c3BlbmQgY29udGV4dCwgcmV0dXJuIGltbWVkaWF0ZWx5Lg0KICAgID4NCg0KDQogICAgPiArDQog
-ICAgPiArc3RhdGljIGludCB4ZW5fc3lzY29yZV9zdXNwZW5kKHZvaWQpDQogICAgPiArew0KICAg
-ID4gKyAgICAgc3RydWN0IHhlbl9yZW1vdmVfZnJvbV9waHlzbWFwIHhyZnA7DQogICAgPiArICAg
-ICBpbnQgcmV0Ow0KICAgID4gKw0KICAgID4gKyAgICAgLyogWGVuIHN1c3BlbmQgZG9lcyBzaW1p
-bGFyIHN0dWZmcyBpbiBpdHMgb3duIGxvZ2ljICovDQogICAgPiArICAgICBpZiAoeGVuX3N1c3Bl
-bmRfbW9kZV9pc194ZW5fc3VzcGVuZCgpKQ0KICAgID4gKyAgICAgICAgICAgICByZXR1cm4gMDsN
-CiAgICA+ICsNCiAgICA+ICsgICAgIHhyZnAuZG9taWQgPSBET01JRF9TRUxGOw0KICAgID4gKyAg
-ICAgeHJmcC5ncGZuID0gX19wYShIWVBFUlZJU09SX3NoYXJlZF9pbmZvKSA+PiBQQUdFX1NISUZU
-Ow0KICAgID4gKw0KICAgID4gKyAgICAgcmV0ID0gSFlQRVJWSVNPUl9tZW1vcnlfb3AoWEVOTUVN
-X3JlbW92ZV9mcm9tX3BoeXNtYXAsICZ4cmZwKTsNCiAgICA+ICsgICAgIGlmICghcmV0KQ0KICAg
-ID4gKyAgICAgICAgICAgICBIWVBFUlZJU09SX3NoYXJlZF9pbmZvID0gJnhlbl9kdW1teV9zaGFy
-ZWRfaW5mbzsNCiAgICA+ICsNCiAgICA+ICsgICAgIHJldHVybiByZXQ7DQogICAgPiArfQ0KICAg
-ID4gKw0KICAgID4gK3N0YXRpYyB2b2lkIHhlbl9zeXNjb3JlX3Jlc3VtZSh2b2lkKQ0KICAgID4g
-K3sNCiAgICA+ICsgICAgIC8qIFhlbiBzdXNwZW5kIGRvZXMgc2ltaWxhciBzdHVmZnMgaW4gaXRz
-IG93biBsb2dpYyAqLw0KICAgID4gKyAgICAgaWYgKHhlbl9zdXNwZW5kX21vZGVfaXNfeGVuX3N1
-c3BlbmQoKSkNCiAgICA+ICsgICAgICAgICAgICAgcmV0dXJuOw0KICAgID4gKw0KICAgID4gKyAg
-ICAgLyogTm8gbmVlZCB0byBzZXR1cCB2Y3B1X2luZm8gYXMgaXQncyBhbHJlYWR5IG1vdmVkIG9m
-ZiAqLw0KICAgID4gKyAgICAgeGVuX2h2bV9tYXBfc2hhcmVkX2luZm8oKTsNCiAgICA+ICsNCiAg
-ICA+ICsgICAgIHB2Y2xvY2tfcmVzdW1lKCk7DQogICAgPiArDQogICAgPiArICAgICBnbnR0YWJf
-cmVzdW1lKCk7DQoNCg0KICAgIERvIHlvdSBjYWxsIGdudHRhYl9zdXNwZW5kKCkgaW4gcG0gc3Vz
-cGVuZCBwYXRoPw0KTm8sIHNpbmNlIGl0IGRvZXMgbm90aGluZyBmb3IgSFZNIGd1ZXN0cy4gVGhl
-IHVubWFwX2ZyYW1lcyBpcyBvbmx5IGFwcGxpY2FibGUgZm9yIFBWIGd1ZXN0cyByaWdodD8NCg0K
-ICAgID4gK30NCiAgICA+ICsNCiAgICA+ICsvKg0KICAgID4gKyAqIFRoZXNlIGNhbGxiYWNrcyB3
-aWxsIGJlIGNhbGxlZCB3aXRoIGludGVycnVwdHMgZGlzYWJsZWQgYW5kIHdoZW4gaGF2aW5nIG9u
-bHkNCiAgICA+ICsgKiBvbmUgQ1BVIG9ubGluZS4NCiAgICA+ICsgKi8NCiAgICA+ICtzdGF0aWMg
-c3RydWN0IHN5c2NvcmVfb3BzIHhlbl9odm1fc3lzY29yZV9vcHMgPSB7DQogICAgPiArICAgICAu
-c3VzcGVuZCA9IHhlbl9zeXNjb3JlX3N1c3BlbmQsDQogICAgPiArICAgICAucmVzdW1lID0geGVu
-X3N5c2NvcmVfcmVzdW1lDQogICAgPiArfTsNCiAgICA+ICsNCiAgICA+ICt2b2lkIF9faW5pdCB4
-ZW5fc2V0dXBfc3lzY29yZV9vcHModm9pZCkNCiAgICA+ICt7DQogICAgPiArICAgICBpZiAoeGVu
-X2h2bV9kb21haW4oKSkNCg0KDQogICAgSGF2ZSB5b3UgdGVzdGVkIHRoaXMgKHRoZSB3aG9sZSBm
-ZWF0dXJlLCBub3QganVzdCB0aGlzIHBhdGNoKSB3aXRoIFBWSA0KICAgIGd1ZXN0IEJUVz8gQW5k
-IFBWSCBkb20wIGZvciB0aGF0IG1hdHRlcj8NCg0KTm8gSSBoYXZlbid0LiBUaGUgd2hvbGUgc2Vy
-aWVzIGlzIGp1c3QgdGVzdGVkIHdpdGggaHZtL3B2aHZtIGd1ZXN0cy4NCg0KICAgIC1ib3Jpcw0K
-VGhhbmtzLA0KQW5jaGFsDQoNCiAgICA+ICsgICAgICAgICAgICAgcmVnaXN0ZXJfc3lzY29yZV9v
-cHMoJnhlbl9odm1fc3lzY29yZV9vcHMpOw0KICAgID4gK30NCg0KDQoNCg0K
+A recalculation NPT fault doesn't always require additional handling
+in hvm_hap_nested_page_fault(), moreover in general case if there is no
+explicit handling done there - the fault is wrongly considered fatal.
+
+This covers a specific case of migration with vGPU assigned which
+uses direct MMIO mappings made by XEN_DOMCTL_memory_mapping hypercall:
+at a moment log-dirty is enabled globally, recalculation is requested
+for the whole guest memory including those mapped MMIO regions
+which causes a page fault being raised at the first access to them;
+but due to MMIO P2M type not having any explicit handling in
+hvm_hap_nested_page_fault() a domain is erroneously crashed with unhandled
+SVM violation.
+
+Instead of trying to be opportunistic - use safer approach and handle
+P2M recalculation in a separate NPT fault by attempting to retry after
+making the necessary adjustments. This is aligned with Intel behavior
+where there are separate VMEXITs for recalculation and EPT violations
+(faults) and only faults are handled in hvm_hap_nested_page_fault().
+Do it by also unifying do_recalc return code with Intel implementation
+where returning 1 means P2M was actually changed.
+
+Since there was no case previously where p2m_pt_handle_deferred_changes()
+could return a positive value - it's safe to replace ">= 0" with just "== 0"
+in VMEXIT_NPF handler. finish_type_change() is also not affected by the
+change as being able to deal with >0 return value of p2m->recalc from
+EPT implementation.
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+---
+Changes in v2:
+- replace rc with recalc_done bool
+- updated comment in finish_type_change()
+- significantly extended commit description
+Changes in v3:
+- covert bool to int implicitly
+- a little bit more info of the usecase in the message
+---
+ xen/arch/x86/hvm/svm/svm.c | 5 +++--
+ xen/arch/x86/mm/p2m-pt.c   | 7 ++++++-
+ xen/arch/x86/mm/p2m.c      | 2 +-
+ 3 files changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 46a1aac..7f6f578 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -2923,9 +2923,10 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
+             v->arch.hvm.svm.cached_insn_len = vmcb->guest_ins_len & 0xf;
+         rc = vmcb->exitinfo1 & PFEC_page_present
+              ? p2m_pt_handle_deferred_changes(vmcb->exitinfo2) : 0;
+-        if ( rc >= 0 )
++        if ( rc == 0 )
++            /* If no recal adjustments were being made - handle this fault */
+             svm_do_nested_pgfault(v, regs, vmcb->exitinfo1, vmcb->exitinfo2);
+-        else
++        else if ( rc < 0 )
+         {
+             printk(XENLOG_G_ERR
+                    "%pv: Error %d handling NPF (gpa=%08lx ec=%04lx)\n",
+diff --git a/xen/arch/x86/mm/p2m-pt.c b/xen/arch/x86/mm/p2m-pt.c
+index 5c05017..070389e 100644
+--- a/xen/arch/x86/mm/p2m-pt.c
++++ b/xen/arch/x86/mm/p2m-pt.c
+@@ -341,6 +341,7 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+     unsigned int level = 4;
+     l1_pgentry_t *pent;
+     int err = 0;
++    bool recalc_done = false;
+ 
+     table = map_domain_page(pagetable_get_mfn(p2m_get_pagetable(p2m)));
+     while ( --level )
+@@ -402,6 +403,8 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+                 clear_recalc(l1, e);
+                 err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+                 ASSERT(!err);
++
++                recalc_done = true;
+             }
+         }
+         unmap_domain_page((void *)((unsigned long)pent & PAGE_MASK));
+@@ -448,12 +451,14 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+             clear_recalc(l1, e);
+         err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+         ASSERT(!err);
++
++        recalc_done = true;
+     }
+ 
+  out:
+     unmap_domain_page(table);
+ 
+-    return err;
++    return err ?: recalc_done;
+ }
+ 
+ int p2m_pt_handle_deferred_changes(uint64_t gpa)
+diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
+index 17f320b..db7bde0 100644
+--- a/xen/arch/x86/mm/p2m.c
++++ b/xen/arch/x86/mm/p2m.c
+@@ -1197,7 +1197,7 @@ static int finish_type_change(struct p2m_domain *p2m,
+         rc = p2m->recalc(p2m, gfn);
+         /*
+          * ept->recalc could return 0/1/-ENOMEM. pt->recalc could return
+-         * 0/-ENOMEM/-ENOENT, -ENOENT isn't an error as we are looping
++         * 0/1/-ENOMEM/-ENOENT, -ENOENT isn't an error as we are looping
+          * gfn here. If rc is 1 we need to have it 0 for success.
+          */
+         if ( rc == -ENOENT || rc > 0 )
+-- 
+2.7.4
+
 
