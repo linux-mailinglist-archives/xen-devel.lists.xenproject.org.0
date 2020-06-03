@@ -2,50 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 037CC1ED538
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 19:45:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4CD61ED5DD
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 20:10:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgXRY-0000Yq-42; Wed, 03 Jun 2020 17:44:48 +0000
-Resent-Date: Wed, 03 Jun 2020 17:44:48 +0000
-Resent-Message-Id: <E1jgXRY-0000Yq-42@lists.xenproject.org>
+	id 1jgXpH-0003Bz-Vs; Wed, 03 Jun 2020 18:09:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=umOB=7Q=patchew.org=no-reply@srs-us1.protection.inumbo.net>)
- id 1jgXRW-0000Yl-SX
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 17:44:46 +0000
-X-Inumbo-ID: e8cb258c-a5c1-11ea-81bc-bc764e2007e4
-Received: from sender4-of-o57.zoho.com (unknown [136.143.188.57])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rNY3=7Q=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jgXpG-0003Bq-Hi
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 18:09:18 +0000
+X-Inumbo-ID: 5745ba88-a5c5-11ea-81bc-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e8cb258c-a5c1-11ea-81bc-bc764e2007e4;
- Wed, 03 Jun 2020 17:44:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1591206280; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=mf/5XO/WCJa1vO5yYUsqcbuRELmvxawB3oAlsgo1GFDLn3WYnL0zvpSyIQPCaYppY18vdtgomHWZZZG6qyKqfuIbZorQY24lB4SJjXMTZPSjH5cS6oKmysEXHsfvxGCSiyhiBfp5Y/2CYZERrVrzzGJBb2tovPGUnci4DDhN/Zc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1591206280;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:Reply-To:Subject:To;
- bh=aDOnCV6IQtXJX8qeg6Ku1tNLl+yTLwktKpyCW/ob1pM=; 
- b=mhR1GP5JJqctNZ2mdMFAeIgbG7IOWyxxVsAHd6Ax8xxJm/Xwy602ySHCplhJ4xCYv2fM3NirSJ4wv/oqoZDaHsbtgpdeNfW1/A6uacjxWN+XtdWQwufjtKCVsqm4z1H8I25LPgS4rvaardjeoHWKMxuSWmiuctnydlA23Xgcg4Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- spf=pass  smtp.mailfrom=no-reply@patchew.org;
- dmarc=pass header.from=<no-reply@patchew.org>
- header.from=<no-reply@patchew.org>
-Received: from [172.17.0.3] (23.253.156.214 [23.253.156.214]) by
- mx.zohomail.com with SMTPS id 1591206278372849.3348416366575;
- Wed, 3 Jun 2020 10:44:38 -0700 (PDT)
-Message-ID: <159120627656.23398.3742621530752770397@45ef0f9c86ae>
-In-Reply-To: <20200603160442.3151170-1-anthony.perard@citrix.com>
-Subject: Re: [PATCH v3] xen: fix build without pci passthrough
+ id 5745ba88-a5c5-11ea-81bc-bc764e2007e4;
+ Wed, 03 Jun 2020 18:09:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Z3kV3c89rh2AGBiuIci0itQ8FahxqdbX55Sg4/68Wpk=; b=vpvCVmSJtRB+3wEyXgiHXAbjpA
+ HJEIvPJ3ei/LjkdVHDyArp+9ZqcUih1Nq5PYd6DcyPXshj9BJgVPOQt5TQl+cxrv1hHBkOTurqi4s
+ SXdynXjjHQqGVSwqhQQElMlE3ZHw+iN44zSOvXe4faLLU7G8TYrDziF5kCs9Zb9jq5Qs=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jgXpF-0003H7-1S; Wed, 03 Jun 2020 18:09:17 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jgXpE-0008Lg-RE; Wed, 03 Jun 2020 18:09:16 +0000
+Subject: Re: Keystone Issue
+To: CodeWiz2280 <codewiz2280@gmail.com>
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+ <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
+ <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
+ <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
+ <25953300-f69d-19a4-9215-49cfedbd16ed@xen.org>
+ <CALYbLDh3C02+CV88LqR2zv+ggRgup-Qhi+udGzgePmkdM0KcFw@mail.gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <deee1523-cfb5-f186-11a3-33fa1f7b94c1@xen.org>
+Date: Wed, 3 Jun 2020 19:09:15 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Resent-From: 
-From: no-reply@patchew.org
-To: anthony.perard@citrix.com
-Date: Wed, 3 Jun 2020 10:44:38 -0700 (PDT)
-X-ZohoMailClient: External
+In-Reply-To: <CALYbLDh3C02+CV88LqR2zv+ggRgup-Qhi+udGzgePmkdM0KcFw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +64,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org, ehabkost@redhat.com, paul@xen.org, mst@redhat.com,
- qemu-devel@nongnu.org, marcel.apfelbaum@gmail.com, pbonzini@redhat.com,
- anthony.perard@citrix.com, xen-devel@lists.xenproject.org, rth@twiddle.net,
- roger.pau@citrix.com
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-UGF0Y2hldyBVUkw6IGh0dHBzOi8vcGF0Y2hldy5vcmcvUUVNVS8yMDIwMDYwMzE2MDQ0Mi4zMTUx
-MTcwLTEtYW50aG9ueS5wZXJhcmRAY2l0cml4LmNvbS8KCgoKSGksCgpUaGlzIHNlcmllcyBmYWls
-ZWQgdGhlIGRvY2tlci1taW5nd0BmZWRvcmEgYnVpbGQgdGVzdC4gUGxlYXNlIGZpbmQgdGhlIHRl
-c3RpbmcgY29tbWFuZHMgYW5kCnRoZWlyIG91dHB1dCBiZWxvdy4gSWYgeW91IGhhdmUgRG9ja2Vy
-IGluc3RhbGxlZCwgeW91IGNhbiBwcm9iYWJseSByZXByb2R1Y2UgaXQKbG9jYWxseS4KCj09PSBU
-RVNUIFNDUklQVCBCRUdJTiA9PT0KIyEgL2Jpbi9iYXNoCmV4cG9ydCBBUkNIPXg4Nl82NAptYWtl
-IGRvY2tlci1pbWFnZS1mZWRvcmEgVj0xIE5FVFdPUks9MQp0aW1lIG1ha2UgZG9ja2VyLXRlc3Qt
-bWluZ3dAZmVkb3JhIEo9MTQgTkVUV09SSz0xCj09PSBURVNUIFNDUklQVCBFTkQgPT09CgogIEND
-ICAgICAgaW8vY2hhbm5lbC1zb2NrZXQubwpJbiBmaWxlIGluY2x1ZGVkIGZyb20gL3RtcC9xZW11
-LXRlc3Qvc3JjL2h3L3hlbi94ZW5fcHQuaDo0LAogICAgICAgICAgICAgICAgIGZyb20gL3RtcC9x
-ZW11LXRlc3Qvc3JjL3N0dWJzL3hlbi1wdC5jOjk6Ci90bXAvcWVtdS10ZXN0L3NyYy9pbmNsdWRl
-L2h3L3hlbi94ZW5fY29tbW9uLmg6MTM6MTA6IGZhdGFsIGVycm9yOiB4ZW5jdHJsLmg6IE5vIHN1
-Y2ggZmlsZSBvciBkaXJlY3RvcnkKICNpbmNsdWRlIDx4ZW5jdHJsLmg+CiAgICAgICAgICBefn5+
-fn5+fn5+fgpjb21waWxhdGlvbiB0ZXJtaW5hdGVkLgptYWtlOiAqKiogWy90bXAvcWVtdS10ZXN0
-L3NyYy9ydWxlcy5tYWs6Njk6IHN0dWJzL3hlbi1wdC5vXSBFcnJvciAxCm1ha2U6ICoqKiBXYWl0
-aW5nIGZvciB1bmZpbmlzaGVkIGpvYnMuLi4uCiAgQ0MgICAgICBpby9jaGFubmVsLXRscy5vCiAg
-Q0MgICAgICBpby9jaGFubmVsLXdhdGNoLm8KLS0tCiAgICByYWlzZSBDYWxsZWRQcm9jZXNzRXJy
-b3IocmV0Y29kZSwgY21kKQpzdWJwcm9jZXNzLkNhbGxlZFByb2Nlc3NFcnJvcjogQ29tbWFuZCAn
-WydzdWRvJywgJy1uJywgJ2RvY2tlcicsICdydW4nLCAnLS1sYWJlbCcsICdjb20ucWVtdS5pbnN0
-YW5jZS51dWlkPWNkMDNlY2VhNGM0MzQ1Mjk4ODY0NTI5YzhiZDU2Y2MyJywgJy11JywgJzEwMDEn
-LCAnLS1zZWN1cml0eS1vcHQnLCAnc2VjY29tcD11bmNvbmZpbmVkJywgJy0tcm0nLCAnLWUnLCAn
-VEFSR0VUX0xJU1Q9JywgJy1lJywgJ0VYVFJBX0NPTkZJR1VSRV9PUFRTPScsICctZScsICdWPScs
-ICctZScsICdKPTE0JywgJy1lJywgJ0RFQlVHPScsICctZScsICdTSE9XX0VOVj0nLCAnLWUnLCAn
-Q0NBQ0hFX0RJUj0vdmFyL3RtcC9jY2FjaGUnLCAnLXYnLCAnL2hvbWUvcGF0Y2hldy8uY2FjaGUv
-cWVtdS1kb2NrZXItY2NhY2hlOi92YXIvdG1wL2NjYWNoZTp6JywgJy12JywgJy92YXIvdG1wL3Bh
-dGNoZXctdGVzdGVyLXRtcC1mbXkzbWYxei9zcmMvZG9ja2VyLXNyYy4yMDIwLTA2LTAzLTEzLjQy
-LjE5LjIyMDU5Oi92YXIvdG1wL3FlbXU6eixybycsICdxZW11OmZlZG9yYScsICcvdmFyL3RtcC9x
-ZW11L3J1bicsICd0ZXN0LW1pbmd3J10nIHJldHVybmVkIG5vbi16ZXJvIGV4aXQgc3RhdHVzIDIu
-CmZpbHRlcj0tLWZpbHRlcj1sYWJlbD1jb20ucWVtdS5pbnN0YW5jZS51dWlkPWNkMDNlY2VhNGM0
-MzQ1Mjk4ODY0NTI5YzhiZDU2Y2MyCm1ha2VbMV06ICoqKiBbZG9ja2VyLXJ1bl0gRXJyb3IgMQpt
-YWtlWzFdOiBMZWF2aW5nIGRpcmVjdG9yeSBgL3Zhci90bXAvcGF0Y2hldy10ZXN0ZXItdG1wLWZt
-eTNtZjF6L3NyYycKbWFrZTogKioqIFtkb2NrZXItcnVuLXRlc3QtbWluZ3dAZmVkb3JhXSBFcnJv
-ciAyCgpyZWFsICAgIDJtMTcuODAzcwp1c2VyICAgIDBtOS4xMDRzCgoKVGhlIGZ1bGwgbG9nIGlz
-IGF2YWlsYWJsZSBhdApodHRwOi8vcGF0Y2hldy5vcmcvbG9ncy8yMDIwMDYwMzE2MDQ0Mi4zMTUx
-MTcwLTEtYW50aG9ueS5wZXJhcmRAY2l0cml4LmNvbS90ZXN0aW5nLmRvY2tlci1taW5nd0BmZWRv
-cmEvP3R5cGU9bWVzc2FnZS4KLS0tCkVtYWlsIGdlbmVyYXRlZCBhdXRvbWF0aWNhbGx5IGJ5IFBh
-dGNoZXcgW2h0dHBzOi8vcGF0Y2hldy5vcmcvXS4KUGxlYXNlIHNlbmQgeW91ciBmZWVkYmFjayB0
-byBwYXRjaGV3LWRldmVsQHJlZGhhdC5jb20=
+
+
+On 03/06/2020 18:13, CodeWiz2280 wrote:
+> Hi Julien,
+
+Hello,
+
+In general, we avoid top post on xen-devel, instead we reply inline. I 
+believe gmail should allow you to do it :).
+
+> 
+> The offset is already applied to the memory nodes in the device tree, 
+> meaning a direct Linux boot from uboot would have only the 36-bit 
+> addresses in the device tree (0x8_0000_0000 and 0x8_8000_0000).  Linux 
+> would start executing from a 32-bit address space however and then 
+> switch over to the aliased 36-bit addresses in the device tree as 
+> discussed below by early_paging_init().
+> 
+> I had to add the 32-bit memory node 0x8000_0000 in uboot in place of the 
+> 0x8_0000_0000 node otherwise Xen would detect the 32-bit processor and 
+> panic on "Unable to detect the first memory bank" in domain_build.c. 
+
+So for 32-bit Xen requires to have the first bank below 4GB. This is 
+because you can't boot from a physical address above 32-bit.
+
+Obviously, this check wouldn't work on your platform because all your 
+memory will be above 4GB.
+
+> If 
+> I leave only the 36-bit addresses in the device tree and skip past the 
+> panic check in domain_build.c, then I could not get the dom0 kernel to 
+> boot at all.  I believe I would only see "Serial input to DOM0" and 
+> nothing else at that point.
+
+Which would make sense per above.
+
+> 
+> Yes, leaving LPAE support on for the kernel is preferred.
+
+Ok, so the solution I suggested below should work. Unfortunately, I 
+don't have time to work on it. Although, I would be more than happy to 
+answers questions and reviewing the patches.
+
+Would you be willing to have a try to implement it?
+
+Cheers,
+
+-- 
+Julien Grall
 
