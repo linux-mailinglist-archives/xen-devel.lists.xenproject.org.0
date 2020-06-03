@@ -2,46 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD0181ED896
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 00:23:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7507A1ED8AA
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 00:32:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgbmt-0004mm-Pm; Wed, 03 Jun 2020 22:23:07 +0000
+	id 1jgbvU-0006hC-GA; Wed, 03 Jun 2020 22:32:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0WRj=7Q=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jgbms-0004lW-7l
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 22:23:06 +0000
-X-Inumbo-ID: c502df1a-a5e8-11ea-81bc-bc764e2007e4
+ id 1jgbvT-0006h7-1j
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 22:31:59 +0000
+X-Inumbo-ID: 092b3416-a5ea-11ea-81bc-bc764e2007e4
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c502df1a-a5e8-11ea-81bc-bc764e2007e4;
- Wed, 03 Jun 2020 22:22:54 +0000 (UTC)
+ id 092b3416-a5ea-11ea-81bc-bc764e2007e4;
+ Wed, 03 Jun 2020 22:31:58 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
  (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E899D20897;
- Wed,  3 Jun 2020 22:22:53 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B954F2067B;
+ Wed,  3 Jun 2020 22:31:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591222974;
- bh=lK4AfabqfBMg+UgGk9XZHrVioJuYeQJmxxbhRHjLG1Y=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HU0yb8Se8hTNLEEvdnECpahuasRiicyLghp6oTLQ6baEadzpC09vZdyPb/DNQntF5
- 2cm5wkWTrm3qbvlueLnW1tYtdJd8pLuLNtcbZd/mDyiu2uPR+ZrQ7jvTXiQetm74Ec
- xqJAsL1OE7ZMCQrK2T3CUYQVNY6ZfhynSrMCDYa8=
+ s=default; t=1591223518;
+ bh=y0pwcX6CXfJoRYSOzlsliNS8HcDu032oeBcqYJ8YDtg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Twr04paC3T7wh/8UQkngPzj2fBcGsMrA0yjHW6GpY1X0O340Ms5VtN0WgInBTuZtw
+ X4FOAYf/+EyibX0EXZsJ4qKvGzC9ACNfyp/mgXoo5k9AT18Ed0iBLn5ojOdXCyn+ez
+ 3zLEBDh7vgrLLVPd1tUJdcY86TBV6aFrDrYsFBlQ=
 From: Stefano Stabellini <sstabellini@kernel.org>
-To: jgross@suse.com,
-	boris.ostrovsky@oracle.com,
-	konrad.wilk@oracle.com
-Subject: [PATCH v2 11/11] xen/arm: call dma_to_phys on the dma_addr_t
- parameter of dma_cache_maint
-Date: Wed,  3 Jun 2020 15:22:47 -0700
-Message-Id: <20200603222247.11681-11-sstabellini@kernel.org>
+To: julien@xen.org
+Subject: [PATCH] xen/rpi4: implement watchdog-based reset
+Date: Wed,  3 Jun 2020 15:31:56 -0700
+Message-Id: <20200603223156.12767-1-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,88 +47,106 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: sstabellini@kernel.org, roman@zededa.com, linux-kernel@vger.kernel.org,
- tamas@tklengyel.com, xen-devel@lists.xenproject.org,
+Cc: cminyard@mvista.com, tamas@tklengyel.com, roman@zededa.com,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
  Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Touching the watchdog is required to be able to reboot the board.
 
-dma_cache_maint is getting called passing a dma address which could be
-different from a physical address.
-
-Add a struct device* parameter to dma_cache_maint.
-
-Translate the dma_addr_t parameter of dma_cache_maint by calling
-dma_to_phys. Do it for the first page and all the following pages, in
-case of multipage handling.
+The implementation is based on
+drivers/watchdog/bcm2835_wdt.c:__bcm2835_restart in Linux.
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Tested-by: Corey Minyard <cminyard@mvista.com>
-Tested-by: Roman Shaposhnik <roman@zededa.com>
 ---
-Changes in v2:
-- improve commit message
----
- arch/arm/xen/mm.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ xen/arch/arm/platforms/brcm-raspberry-pi.c | 60 ++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
-diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
-index bbad712a890d..1dc20f4bdc33 100644
---- a/arch/arm/xen/mm.c
-+++ b/arch/arm/xen/mm.c
-@@ -43,15 +43,18 @@ unsigned long xen_get_swiotlb_free_pages(unsigned int order)
- static bool hypercall_cflush = false;
+diff --git a/xen/arch/arm/platforms/brcm-raspberry-pi.c b/xen/arch/arm/platforms/brcm-raspberry-pi.c
+index f5ae58a7d5..0214ae2b3c 100644
+--- a/xen/arch/arm/platforms/brcm-raspberry-pi.c
++++ b/xen/arch/arm/platforms/brcm-raspberry-pi.c
+@@ -18,6 +18,10 @@
+  */
  
- /* buffers in highmem or foreign pages cannot cross page boundaries */
--static void dma_cache_maint(dma_addr_t handle, size_t size, u32 op)
-+static void dma_cache_maint(struct device *dev, dma_addr_t handle,
-+			    size_t size, u32 op)
+ #include <asm/platform.h>
++#include <xen/delay.h>
++#include <xen/mm.h>
++#include <xen/vmap.h>
++#include <asm/io.h>
+ 
+ static const char *const rpi4_dt_compat[] __initconst =
  {
- 	struct gnttab_cache_flush cflush;
+@@ -37,12 +41,68 @@ static const struct dt_device_match rpi4_blacklist_dev[] __initconst =
+      * The aux peripheral also shares a page with the aux UART.
+      */
+     DT_MATCH_COMPATIBLE("brcm,bcm2835-aux"),
++    /* Special device used for rebooting */
++    DT_MATCH_COMPATIBLE("brcm,bcm2835-pm"),
+     { /* sentinel */ },
+ };
  
--	cflush.a.dev_bus_addr = handle & XEN_PAGE_MASK;
- 	cflush.offset = xen_offset_in_page(handle);
- 	cflush.op = op;
-+	handle &= XEN_PAGE_MASK;
- 
- 	do {
-+		cflush.a.dev_bus_addr = dma_to_phys(dev, handle);
 +
- 		if (size + cflush.offset > XEN_PAGE_SIZE)
- 			cflush.length = XEN_PAGE_SIZE - cflush.offset;
- 		else
-@@ -60,7 +63,7 @@ static void dma_cache_maint(dma_addr_t handle, size_t size, u32 op)
- 		HYPERVISOR_grant_table_op(GNTTABOP_cache_flush, &cflush, 1);
++#define PM_PASSWORD         0x5a000000
++#define PM_RSTC             0x1c
++#define PM_WDOG             0x24
++#define PM_RSTC_WRCFG_FULL_RESET    0x00000020
++#define PM_RSTC_WRCFG_CLR           0xffffffcf
++
++static void __iomem *rpi4_map_watchdog(void)
++{
++    void __iomem *base;
++    struct dt_device_node *node;
++    paddr_t start, len;
++    int ret;
++
++    node = dt_find_compatible_node(NULL, NULL, "brcm,bcm2835-pm");
++    if ( !node )
++        return NULL;
++
++    ret = dt_device_get_address(node, 0, &start, &len);
++    if ( ret )
++    {
++        dprintk(XENLOG_ERR, "Cannot read watchdog register address\n");
++        return NULL;
++    }
++
++    base = ioremap_nocache(start & PAGE_MASK, PAGE_SIZE);
++    if ( !base )
++    {
++        dprintk(XENLOG_ERR, "Unable to map watchdog register!\n");
++        return NULL;
++    }
++
++    return base;
++}
++
++static void rpi4_reset(void)
++{
++    u32 val;
++    void __iomem *base = rpi4_map_watchdog();
++    if ( !base )
++        return;
++
++    /* use a timeout of 10 ticks (~150us) */
++    writel(10 | PM_PASSWORD, base + PM_WDOG);
++    val = readl(base + PM_RSTC);
++    val &= PM_RSTC_WRCFG_CLR;
++    val |= PM_PASSWORD | PM_RSTC_WRCFG_FULL_RESET;
++    writel(val, base + PM_RSTC);
++
++    /* No sleeping, possibly atomic. */
++    mdelay(1);
++}
++
+ PLATFORM_START(rpi4, "Raspberry Pi 4")
+     .compatible     = rpi4_dt_compat,
+     .blacklist_dev  = rpi4_blacklist_dev,
++    .reset = rpi4_reset,
+     .dma_bitsize    = 30,
+ PLATFORM_END
  
- 		cflush.offset = 0;
--		cflush.a.dev_bus_addr += cflush.length;
-+		handle += cflush.length;
- 		size -= cflush.length;
- 	} while (size);
- }
-@@ -79,7 +82,7 @@ void xen_dma_sync_for_cpu(struct device *dev, dma_addr_t handle,
- 	if (pfn_valid(PFN_DOWN(dma_to_phys(dev, handle))))
- 		arch_sync_dma_for_cpu(paddr, size, dir);
- 	else if (dir != DMA_TO_DEVICE)
--		dma_cache_maint(handle, size, GNTTAB_CACHE_INVAL);
-+		dma_cache_maint(dev, handle, size, GNTTAB_CACHE_INVAL);
- }
- 
- void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
-@@ -89,9 +92,9 @@ void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
- 	if (pfn_valid(PFN_DOWN(dma_to_phys(dev, handle))))
- 		arch_sync_dma_for_device(paddr, size, dir);
- 	else if (dir == DMA_FROM_DEVICE)
--		dma_cache_maint(handle, size, GNTTAB_CACHE_INVAL);
-+		dma_cache_maint(dev, handle, size, GNTTAB_CACHE_INVAL);
- 	else
--		dma_cache_maint(handle, size, GNTTAB_CACHE_CLEAN);
-+		dma_cache_maint(dev, handle, size, GNTTAB_CACHE_CLEAN);
- }
- 
- bool xen_arch_need_swiotlb(struct device *dev,
 -- 
 2.17.1
 
