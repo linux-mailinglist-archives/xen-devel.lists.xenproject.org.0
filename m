@@ -2,66 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 191AC1ED496
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 18:56:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4550E1ED4B7
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 19:09:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgWgz-0003Mq-1E; Wed, 03 Jun 2020 16:56:41 +0000
+	id 1jgWt0-0004iH-7c; Wed, 03 Jun 2020 17:09:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=azRW=7Q=gmail.com=hydrapolic@srs-us1.protection.inumbo.net>)
- id 1jgWgx-0003Ml-9R
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 16:56:39 +0000
-X-Inumbo-ID: 2dcbdb9c-a5bb-11ea-81bc-bc764e2007e4
-Received: from mail-qk1-x736.google.com (unknown [2607:f8b0:4864:20::736])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2dcbdb9c-a5bb-11ea-81bc-bc764e2007e4;
- Wed, 03 Jun 2020 16:56:33 +0000 (UTC)
-Received: by mail-qk1-x736.google.com with SMTP id w1so2864338qkw.5;
- Wed, 03 Jun 2020 09:56:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lC+LcmDTqWh6iLD+2pjOV/lv74IVE5D+i7ERR9trLK8=;
- b=bddfWtgFvJwv9TfQtWQi1eI7fC8hIU20r42V3p/APxe332Yv8CABJZ5GPKsgH3Hyg9
- 3GxnH7r4CZz4Fm5EgvwyFaQV5nqKIl/+lIxt0WHVHszSIlEUgsSGgrN2EKdO22WAv8KX
- kZx2e4ZkJO2CnX9R7hAd2ijZZ+3yGKJcy1P/XQlxlUtl3cLPkq5JcVHiFxuAX/NUEFGm
- GYlZUXS2eWnTRsA7c5AKLePKpv8Xdb/MIGbnXyoEIMUJ08vq3fsnWOi+j76nwmww3fSF
- WLwXPYeVR0Ce4B1bBziymocgrv+lOpdxAY63vqPgSP6OBhF5ps5CdmF3xGGzYXbLJXUh
- jCjA==
+ <SRS0=CLKU=7Q=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
+ id 1jgWsy-0004iB-7X
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 17:09:04 +0000
+X-Inumbo-ID: ec1d692a-a5bc-11ea-81bc-bc764e2007e4
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id ec1d692a-a5bc-11ea-81bc-bc764e2007e4;
+ Wed, 03 Jun 2020 17:09:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1591204142;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rS446/KGlPZUtACxgdHjhWpFjUqIoulxEPtmo1bYVf0=;
+ b=NFkfD1y/1cjBscvec3lcAChFOdAToCC6gclyRgZKKQq6K2F623VNuW2fSp1l4xw16pI37/
+ YyajD2h1RxpnTzwKFWke7jPIPXScXf+OOjzr8WhABgK9a+dcxTZMW61g4ENPt/XV0B7fky
+ keFKrp842tIic09fgajZMwbnMuTBSlM=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-399-NY8uc4IjMZuSSMc4ajEDUQ-1; Wed, 03 Jun 2020 13:09:00 -0400
+X-MC-Unique: NY8uc4IjMZuSSMc4ajEDUQ-1
+Received: by mail-wm1-f69.google.com with SMTP id t145so1105005wmt.2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2020 10:09:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lC+LcmDTqWh6iLD+2pjOV/lv74IVE5D+i7ERR9trLK8=;
- b=qGeg2aUYtJO8iVY4VqsduobZIc5/tlh1C9yognLLM+3lw1adj9gGH/uNiBQU4ljYSd
- CvqyGkjNgkQ5obo4SBGSMrMrx5nS0e+SjTvZyNitOT51HEkYTkHYFN1bQX+GZCOoEMG8
- vB9rUjt1rSomxpZB700DIFMxjTnW8tWIz+qo4dMMNBSiqFyjoMCZgHzcHc/kgg6J7Qc1
- bHx0WXf7auG5oOL6TxWTHTfcy71Yepo7GO13kOMCEZoYJXYV+YrVb/Q4eCUVX4gNXVRF
- 43p3Dk2p++mpwRIE4QdC6y2fS55ELPWKNiQKrgnt02JeHNZkLPcWIllfvcE2ilANOlG+
- QpYQ==
-X-Gm-Message-State: AOAM531kNAcEV6tx0xi2g+/0AwHJeMDVLFCHijVtn7viCOraslCoLaz9
- hKqR1tybW5wb7DBRB2UqKtTCWJwKa9abX2tRtnk=
-X-Google-Smtp-Source: ABdhPJxBMhu1IsrZsNhB0Ndr9iYzrI6ZmDyp1Dxt2IccgmEBTVIWdtgGHS+pkyh8YBCZ36HD62oiLGBokF9RGO4sK1o=
-X-Received: by 2002:a05:620a:210e:: with SMTP id
- l14mr549263qkl.242.1591203392929; 
- Wed, 03 Jun 2020 09:56:32 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=rS446/KGlPZUtACxgdHjhWpFjUqIoulxEPtmo1bYVf0=;
+ b=c65Ry72VaXhSG2wMKjY4a780gCZ4+Je9EIji4j3H9ClkxUrjl8TJw0Ncd/lvYMp1Xs
+ IkxO4d/yfkfnW0RVzHBXInOIIJce8Y7yxClao7538UXVMi75sCgThXUCqARh/4Jt1jzm
+ 3Sa6z9tSf0DGEb9gTVeo6yHr1aOQaqNcyG8pNXDmw4y9ywPnZacoJC7PiydPMJvPpPD7
+ HJNXxZcf2bn13vaSoac9f1Q77Zy10dUOS4n8wA5o9aHHffwVRWDi9PerAH2T2GHmXIL6
+ m7G9j9TRQHSx/JoSY9gUQxc8DOuqL2DkD5T582ks8Q0OdTexe5DWBNgH1VDVwVTucqmR
+ JrtA==
+X-Gm-Message-State: AOAM530i2vknsAdW5q2apEatc0TYQOgshocBzBjS5qMSj92Lt2/mOUiC
+ t7aGjZlo4plu5KY4CmpfAGSd2IIyMBuflMftbBx9iP9VGi0i0Jxg8hqZn2ypm1tHCLZaGL5Hh3q
+ a3qXwFrBtc29VUFQ6Vn8IGTLBXks=
+X-Received: by 2002:a1c:a74f:: with SMTP id q76mr154438wme.65.1591204138900;
+ Wed, 03 Jun 2020 10:08:58 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxwkCPAEMXCpG0Na33VwxpLRawCgnRsNwVIi22brbtvYEWZ1vj1f5fkIdqzSEPamlLCfBJurw==
+X-Received: by 2002:a1c:a74f:: with SMTP id q76mr154409wme.65.1591204138545;
+ Wed, 03 Jun 2020 10:08:58 -0700 (PDT)
+Received: from [192.168.178.58] ([151.20.243.176])
+ by smtp.gmail.com with ESMTPSA id j5sm4281911wrm.57.2020.06.03.10.08.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Jun 2020 10:08:57 -0700 (PDT)
+Subject: Re: [PATCH v3] xen: fix build without pci passthrough
+To: Anthony PERARD <anthony.perard@citrix.com>, qemu-devel@nongnu.org
+References: <20200603160442.3151170-1-anthony.perard@citrix.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <8bf5371c-713a-c9f4-fffb-4a2ddc50dd1b@redhat.com>
+Date: Wed, 3 Jun 2020 19:08:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-References: <CAG6MAzRcvUifqf=m7EE98bz0w_s2+Z=0Nx7YT0SVv75ek0Mc2Q@mail.gmail.com>
- <CAG6MAzR_bU5qnCLKpuUAt-S_dfxjnxgh12gUjnXfsfC7Fw2qMw@mail.gmail.com>
- <CAG6MAzSS0Kw2KHWZpb6O9kfoDKK2spn_WHfy9gnZcZLvES0wnQ@mail.gmail.com>
- <CAG6MAzRZsSaVdO6Qv+Xi1dpaUsrdh+kT9F-_K=8s7fHyXRbFWQ@mail.gmail.com>
- <CAAVVsFmwoopngy6U8z1vUBH5j0gzuTLcMX+NcjQRjwshNr_LDw@mail.gmail.com>
- <CAG6MAzQ4QQjre7o5iLN5gX9=mRkJzy_pDM+aRgXi999yfp0srg@mail.gmail.com>
- <CAG6MAzQfX13KuaWtmJb_3Srdt5FTV+nvKmnNVXq5j8QF44NhTw@mail.gmail.com>
- <CAAVVsFmExExdwkokB1i9=KwT8k=eHABQZruYiA9Yr2MJ7ibyWA@mail.gmail.com>
-In-Reply-To: <CAAVVsFmExExdwkokB1i9=KwT8k=eHABQZruYiA9Yr2MJ7ibyWA@mail.gmail.com>
-From: Tomas Mozes <hydrapolic@gmail.com>
-Date: Wed, 3 Jun 2020 18:56:21 +0200
-Message-ID: <CAG6MAzRG-9r-nVr9W03UzzCN0kFoQ92AvG761xD1VByPvKtTNQ@mail.gmail.com>
-Subject: Re: [Xen-users] xen domU stall on 4.12.1
-To: Glen <glenbarney@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000000494a05a730e992"
+In-Reply-To: <20200603160442.3151170-1-anthony.perard@citrix.com>
+Content-Language: en-US
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,86 +83,177 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Eduardo Habkost <ehabkost@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Paul Durrant <paul@xen.org>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ xen-devel@lists.xenproject.org, Roger Pau Monne <roger.pau@citrix.com>,
+ Richard Henderson <rth@twiddle.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---00000000000000494a05a730e992
-Content-Type: text/plain; charset="UTF-8"
+On 03/06/20 18:04, Anthony PERARD wrote:
+> From: Roger Pau Monne <roger.pau@citrix.com>
+> 
+> Xen PCI passthrough support may not be available and thus the global
+> variable "has_igd_gfx_passthru" might be compiled out. Common code
+> should not access it in that case.
+> 
+> Unfortunately, we can't use CONFIG_XEN_PCI_PASSTHROUGH directly in
+> xen-common.c so this patch instead move access to the
+> has_igd_gfx_passthru variable via function and those functions are
+> also implemented as stubs. The stubs will be used when QEMU is built
+> without passthrough support.
+> 
+> Now, when one will want to enable igd-passthru via the -machine
+> property, they will get an error message if QEMU is built without
+> passthrough support.
+> 
+> Fixes: 46472d82322d0 ('xen: convert "-machine igd-passthru" to an accelerator property')
+> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+> 
+> Notes:
+>     Changes in v3:
+>     - reworked to use stubs instead of #ifdef CONFIG_XEN_PCI_PASSTHROUGH
+>       CONFIG_XEN_PCI_PASSTHROUGH isn't available in xen-common.c
+>     
+>       moving CONFIG_XEN_PCI_PASSTHROUGH to be in config_host_mak isn't
+>       really possible, or at least I didn't managed to make that work.
+> 
+>  hw/i386/pc_piix.c   |  2 +-
+>  hw/xen/xen-common.c |  4 ++--
+>  hw/xen/xen_pt.c     | 12 +++++++++++-
+>  hw/xen/xen_pt.h     |  6 ++++--
+>  stubs/Makefile.objs |  1 +
+>  stubs/xen-pt.c      | 22 ++++++++++++++++++++++
+>  6 files changed, 41 insertions(+), 6 deletions(-)
+>  create mode 100644 stubs/xen-pt.c
+> 
+> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+> index f66e1d73ce0b..347fb8c6c807 100644
+> --- a/hw/i386/pc_piix.c
+> +++ b/hw/i386/pc_piix.c
+> @@ -375,7 +375,7 @@ static void pc_init_isa(MachineState *machine)
+>  #ifdef CONFIG_XEN
+>  static void pc_xen_hvm_init_pci(MachineState *machine)
+>  {
+> -    const char *pci_type = has_igd_gfx_passthru ?
+> +    const char *pci_type = xen_igd_gfx_pt_enabled() ?
+>                  TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE : TYPE_I440FX_PCI_DEVICE;
+>  
+>      pc_init1(machine,
+> diff --git a/hw/xen/xen-common.c b/hw/xen/xen-common.c
+> index 70564cc952d5..dd2c22cc4c0b 100644
+> --- a/hw/xen/xen-common.c
+> +++ b/hw/xen/xen-common.c
+> @@ -129,12 +129,12 @@ static void xen_change_state_handler(void *opaque, int running,
+>  
+>  static bool xen_get_igd_gfx_passthru(Object *obj, Error **errp)
+>  {
+> -    return has_igd_gfx_passthru;
+> +    return xen_igd_gfx_pt_enabled();
+>  }
+>  
+>  static void xen_set_igd_gfx_passthru(Object *obj, bool value, Error **errp)
+>  {
+> -    has_igd_gfx_passthru = value;
+> +    xen_igd_gfx_pt_set(value, errp);
+>  }
+>  
+>  static void xen_setup_post(MachineState *ms, AccelState *accel)
+> diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
+> index 81d5ad8da7f0..ab84443d5ec8 100644
+> --- a/hw/xen/xen_pt.c
+> +++ b/hw/xen/xen_pt.c
+> @@ -65,7 +65,17 @@
+>  #include "qemu/range.h"
+>  #include "exec/address-spaces.h"
+>  
+> -bool has_igd_gfx_passthru;
+> +static bool has_igd_gfx_passthru;
+> +
+> +bool xen_igd_gfx_pt_enabled(void)
+> +{
+> +    return has_igd_gfx_passthru;
+> +}
+> +
+> +void xen_igd_gfx_pt_set(bool value, Error **errp)
+> +{
+> +    has_igd_gfx_passthru = value;
+> +}
+>  
+>  #define XEN_PT_NR_IRQS (256)
+>  static uint8_t xen_pt_mapped_machine_irq[XEN_PT_NR_IRQS] = {0};
+> diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
+> index 179775db7b22..6e9cec95f3b7 100644
+> --- a/hw/xen/xen_pt.h
+> +++ b/hw/xen/xen_pt.h
+> @@ -5,6 +5,9 @@
+>  #include "hw/pci/pci.h"
+>  #include "xen-host-pci-device.h"
+>  
+> +bool xen_igd_gfx_pt_enabled(void);
+> +void xen_igd_gfx_pt_set(bool value, Error **errp);
+> +
+>  void xen_pt_log(const PCIDevice *d, const char *f, ...) GCC_FMT_ATTR(2, 3);
+>  
+>  #define XEN_PT_ERR(d, _f, _a...) xen_pt_log(d, "%s: Error: "_f, __func__, ##_a)
+> @@ -322,10 +325,9 @@ extern void *pci_assign_dev_load_option_rom(PCIDevice *dev,
+>                                              unsigned int domain,
+>                                              unsigned int bus, unsigned int slot,
+>                                              unsigned int function);
+> -extern bool has_igd_gfx_passthru;
+>  static inline bool is_igd_vga_passthrough(XenHostPCIDevice *dev)
+>  {
+> -    return (has_igd_gfx_passthru
+> +    return (xen_igd_gfx_pt_enabled()
+>              && ((dev->class_code >> 0x8) == PCI_CLASS_DISPLAY_VGA));
+>  }
+>  int xen_pt_register_vga_regions(XenHostPCIDevice *dev);
+> diff --git a/stubs/Makefile.objs b/stubs/Makefile.objs
+> index 6a9e3135e8f9..564527e00997 100644
+> --- a/stubs/Makefile.objs
+> +++ b/stubs/Makefile.objs
+> @@ -40,6 +40,7 @@ stub-obj-y += target-get-monitor-def.o
+>  stub-obj-y += vmgenid.o
+>  stub-obj-y += xen-common.o
+>  stub-obj-y += xen-hvm.o
+> +stub-obj-y += xen-pt.o
+>  stub-obj-y += pci-host-piix.o
+>  stub-obj-y += ram-block.o
+>  stub-obj-y += ramfb.o
+> diff --git a/stubs/xen-pt.c b/stubs/xen-pt.c
+> new file mode 100644
+> index 000000000000..2d8cac8d54b9
+> --- /dev/null
+> +++ b/stubs/xen-pt.c
+> @@ -0,0 +1,22 @@
+> +/*
+> + * Copyright (C) 2020       Citrix Systems UK Ltd.
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2 or later.
+> + * See the COPYING file in the top-level directory.
+> + */
+> +
+> +#include "qemu/osdep.h"
+> +#include "hw/xen/xen_pt.h"
+> +#include "qapi/error.h"
+> +
+> +bool xen_igd_gfx_pt_enabled(void)
+> +{
+> +    return false;
+> +}
+> +
+> +void xen_igd_gfx_pt_set(bool value, Error **errp)
+> +{
+> +    if (value) {
+> +        error_setg(errp, "Xen PCI passthrough support not built in");
+> +    }
+> +}
+> 
+Queued, thanks (I have other conflicting patches in the queue).
 
-On Wed, Jun 3, 2020 at 5:30 PM Glen <glenbarney@gmail.com> wrote:
+Paolo
 
-> Tomas -
->
-> On Tue, Jun 2, 2020 at 7:43 PM Tomas Mozes <hydrapolic@gmail.com> wrote:
-> >> On Mon, Feb 24, 2020 at 4:55 PM Glen <glenbarney@gmail.com> wrote:
-> >>> I'm now going to bring one of the previously-live guests on its own
-> >>> host back to credit2 so I can crash it and try to capture debugging
-> >>> output for xen-devel as requested.  But sched=credit is definitely
-> >>> what we needed to solve this problem!  Thank you all for helping us
-> >>> get there!
-> > Just tested Xen 4.12.3, but a domU hanged again with credit2. It works
-> rock solid with credit1.
->
-> I have several hosts back on credit2, no problems so far.  But the
-> bulk of my production hosts are still on credit1, and they do seem to
-> run "better" (subjectively, looking at responsiveness and load
-> averages) but of course by subjectively I mean that I have no real
-> data to back this feeling.
->
-> I was hoping one of my domU's on credit2 would crash so I could grab
-> debugging info for the development team - I hope you are/were able to
-> grab and submit data on that crash???
->
-> Glen
->
-
-Unfortunately no, it was one of my production hosts so I wanted to get it
-back working as quickly as possible.
-
-Tomas
-
---00000000000000494a05a730e992
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jun 3, 2020 at 5:30 PM Glen &=
-lt;<a href=3D"mailto:glenbarney@gmail.com">glenbarney@gmail.com</a>&gt; wro=
-te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Tomas -<br>
-<br>
-On Tue, Jun 2, 2020 at 7:43 PM Tomas Mozes &lt;<a href=3D"mailto:hydrapolic=
-@gmail.com" target=3D"_blank">hydrapolic@gmail.com</a>&gt; wrote:<br>
-&gt;&gt; On Mon, Feb 24, 2020 at 4:55 PM Glen &lt;<a href=3D"mailto:glenbar=
-ney@gmail.com" target=3D"_blank">glenbarney@gmail.com</a>&gt; wrote:<br>
-&gt;&gt;&gt; I&#39;m now going to bring one of the previously-live guests o=
-n its own<br>
-&gt;&gt;&gt; host back to credit2 so I can crash it and try to capture debu=
-gging<br>
-&gt;&gt;&gt; output for xen-devel as requested.=C2=A0 But sched=3Dcredit is=
- definitely<br>
-&gt;&gt;&gt; what we needed to solve this problem!=C2=A0 Thank you all for =
-helping us<br>
-&gt;&gt;&gt; get there!<br>
-&gt; Just tested Xen 4.12.3, but a domU hanged again with credit2. It works=
- rock solid with credit1.<br>
-<br>
-I have several hosts back on credit2, no problems so far.=C2=A0 But the<br>
-bulk of my production hosts are still on credit1, and they do seem to<br>
-run &quot;better&quot; (subjectively, looking at responsiveness and load<br=
->
-averages) but of course by subjectively I mean that I have no real<br>
-data to back this feeling.<br>
-<br>
-I was hoping one of my domU&#39;s on credit2 would crash so I could grab<br=
->
-debugging info for the development team - I hope you are/were able to<br>
-grab and submit data on that crash???<br>
-<br>
-Glen<br></blockquote><div><br></div><div>Unfortunately no, it was one of my=
- production hosts so I wanted to get it back working as quickly as possible=
-.</div><div><br></div><div>Tomas</div><div><br></div></div></div>
-
---00000000000000494a05a730e992--
 
