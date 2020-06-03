@@ -2,51 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCFEE1ED79A
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 22:47:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A961ED87C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 00:16:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgaHH-0002pM-CS; Wed, 03 Jun 2020 20:46:23 +0000
+	id 1jgbfT-0003Vv-2C; Wed, 03 Jun 2020 22:15:27 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EnF2=7Q=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jgaHF-0002pH-Px
- for xen-devel@lists.xen.org; Wed, 03 Jun 2020 20:46:21 +0000
-X-Inumbo-ID: 47119d10-a5db-11ea-adaf-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=/GLy=7Q=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jgbfS-0003Vq-DK
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 22:15:26 +0000
+X-Inumbo-ID: b5a74084-a5e7-11ea-adbe-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 47119d10-a5db-11ea-adaf-12813bfff9fa;
- Wed, 03 Jun 2020 20:46:20 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: ZEa2eF+s/eaIrs3thAnFPIjtP2GgNPrHpZ2geRiHgP3i9ORY3LjT0Z1DZdhMB0Bs0xLKnfEAyA
- DurC/XM+xhBC+/tT7TNx1/o24bs/hu+kMh1VEor0x9YW30LQJ4kHvRGA8bof/xkcsdZb18Bjxo
- SH06ymt2caW+StrAiNPbNJH/3zZ4ftdh9tk152jO6F/IJWi03fQUNNZ2+Fm/L/yhk0y3+C3E99
- qP7oB33MvEE8kLeNxsd/bmawkZG1Ml+vARc4YBIpElE4XG6H5NidHlt7Tvo36K+RkLyKoqM6f5
- NTo=
-X-SBRS: 2.7
-X-MesageID: 19185429
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,469,1583211600"; d="scan'208";a="19185429"
-Subject: Re: [XTF] xenbus: fix xenbus_write() ring overflow
-To: Pawel Wieczorkiewicz <wipawel@amazon.de>, <xen-devel@lists.xen.org>
-References: <20200603082141.42683-1-wipawel@amazon.de>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <75f655aa-6bea-cfe9-84de-bd4ef0195ab3@citrix.com>
-Date: Wed, 3 Jun 2020 21:46:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200603082141.42683-1-wipawel@amazon.de>
-Content-Type: text/plain; charset="utf-8"
+ id b5a74084-a5e7-11ea-adbe-12813bfff9fa;
+ Wed, 03 Jun 2020 22:15:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=6OxDBR2snl2npbb3UJyTDf5nnFn7wmPqkfhbUfEImWk=; b=Lv44RZRwtSks8k5VAADEVdz7P
+ 4z3sfaEbJKsO+kYuNyhSvtEejTECw1wvD1xlK5lbM8QNZsD/TE+Ust77+NAwHYRBLsevyxMZJg+2J
+ NOg9TwMETRuHVQgls7bLcO0hDEiEGIjFFU9WwWlTDbHuoJbfsTTzzmvbOxeM+0k0oKq8g=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgbfK-0008Lc-UV; Wed, 03 Jun 2020 22:15:18 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgbfK-0005f2-Me; Wed, 03 Jun 2020 22:15:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgbfK-0005TK-M1; Wed, 03 Jun 2020 22:15:18 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150664-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 150664: regressions - FAIL
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:heisenbug
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=d9f58cd54fe2f05e1f05e2fe254684bd1840de8e
+X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 03 Jun 2020 22:15:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,23 +67,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: julien@xen.org, wipawel@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03/06/2020 09:21, Pawel Wieczorkiewicz wrote:
-> Currently the xenbus_write() does not handle ring wrapping around
-> correctly. When ring buffer is almost full and there is not enough
-> space for next packet (e.g. there is 12 bytes of space left, but the
-> packet header needs to transmit 16 bytes) the memcpy() goes out of the
-> ring buffer boundry.
-> Instead, the part variable should be limited to the space available in
-> the ring buffer, so the memcpy() can fill up the buffer, update len
-> variable (to indicate that there is still some data to be copied) and
-> thereby the xenbus_write() loop can iterate again to finish copying
-> the remainder of data to the beginning of the ring buffer.
->
-> Signed-off-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
+flight 150664 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150664/
 
-Oops.  Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> and pushed.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 150438
+
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail pass in 150658
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  d9f58cd54fe2f05e1f05e2fe254684bd1840de8e
+baseline version:
+ xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+
+Last test of basis   150438  2020-05-28 14:01:19 Z    6 days
+Failing since        150465  2020-05-29 09:02:14 Z    5 days   41 attempts
+Testing same since   150649  2020-06-03 13:01:44 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Andrew Cooper <andrew.cooper@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Olaf Hering <olaf@aepfle.de>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1522 lines long.)
 
