@@ -2,44 +2,97 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7507A1ED8AA
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 00:32:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF5551ED8B7
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 00:40:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgbvU-0006hC-GA; Wed, 03 Jun 2020 22:32:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jgc3c-0007XC-Aq; Wed, 03 Jun 2020 22:40:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0WRj=7Q=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jgbvT-0006h7-1j
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 22:31:59 +0000
-X-Inumbo-ID: 092b3416-a5ea-11ea-81bc-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 092b3416-a5ea-11ea-81bc-bc764e2007e4;
- Wed, 03 Jun 2020 22:31:58 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
- (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B954F2067B;
- Wed,  3 Jun 2020 22:31:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591223518;
- bh=y0pwcX6CXfJoRYSOzlsliNS8HcDu032oeBcqYJ8YDtg=;
- h=From:To:Cc:Subject:Date:From;
- b=Twr04paC3T7wh/8UQkngPzj2fBcGsMrA0yjHW6GpY1X0O340Ms5VtN0WgInBTuZtw
- X4FOAYf/+EyibX0EXZsJ4qKvGzC9ACNfyp/mgXoo5k9AT18Ed0iBLn5ojOdXCyn+ez
- 3zLEBDh7vgrLLVPd1tUJdcY86TBV6aFrDrYsFBlQ=
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: julien@xen.org
-Subject: [PATCH] xen/rpi4: implement watchdog-based reset
-Date: Wed,  3 Jun 2020 15:31:56 -0700
-Message-Id: <20200603223156.12767-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.17.1
+ <SRS0=7VQx=7Q=amazon.com=prvs=416d6d090=anchalag@srs-us1.protection.inumbo.net>)
+ id 1jgc3a-0007X7-UO
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 22:40:22 +0000
+X-Inumbo-ID: 3536f436-a5eb-11ea-adc4-12813bfff9fa
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3536f436-a5eb-11ea-adc4-12813bfff9fa;
+ Wed, 03 Jun 2020 22:40:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1591224023; x=1622760023;
+ h=from:to:date:message-id:references:in-reply-to:
+ content-id:content-transfer-encoding:mime-version:subject;
+ bh=Myq6ZV85It0R/N8eLRhclOg1iR9ZpMgAQsNUyFxW00E=;
+ b=NnQnwO0JfVBrOCEVdhRSeA4I93sEuDrZNXu4j8m6AscIntOfLMMQCz4J
+ VFCAtlEqVwGzxpUj9mLcxLv3eYukp/V+RfrJLM+r9HDOcIAG/abIavv2T
+ aKirMSKkHhJj7iOOduNXG9Bml2WR8tCGJ8ocpSLUORfl0+C/uamiiwE8q Y=;
+IronPort-SDR: HGlszbAaMjRlQSBHjzfb07Sq8D3XcgSehxso6VS97ueiDdkojxtD16vl+YaA7qNIELHPqOLb9F
+ PkJE9W82B+IA==
+X-IronPort-AV: E=Sophos;i="5.73,470,1583193600"; d="scan'208";a="41391349"
+Subject: Re: [PATCH 04/12] x86/xen: add system core suspend and resume
+ callbacks
+Thread-Topic: [PATCH 04/12] x86/xen: add system core suspend and resume
+ callbacks
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-1e-17c49630.us-east-1.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 03 Jun 2020 22:40:18 +0000
+Received: from EX13MTAUWB001.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
+ by email-inbound-relay-1e-17c49630.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 5F279A179C; Wed,  3 Jun 2020 22:40:16 +0000 (UTC)
+Received: from EX13D05UWB001.ant.amazon.com (10.43.161.181) by
+ EX13MTAUWB001.ant.amazon.com (10.43.161.249) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 3 Jun 2020 22:40:15 +0000
+Received: from EX13D07UWB001.ant.amazon.com (10.43.161.238) by
+ EX13D05UWB001.ant.amazon.com (10.43.161.181) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 3 Jun 2020 22:40:15 +0000
+Received: from EX13D07UWB001.ant.amazon.com ([10.43.161.238]) by
+ EX13D07UWB001.ant.amazon.com ([10.43.161.238]) with mapi id 15.00.1497.006;
+ Wed, 3 Jun 2020 22:40:15 +0000
+From: "Agarwal, Anchal" <anchalag@amazon.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, "tglx@linutronix.de"
+ <tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
+ <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "x86@kernel.org"
+ <x86@kernel.org>, "jgross@suse.com" <jgross@suse.com>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>, "Kamata, Munehisa" <kamatam@amazon.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>, "konrad.wilk@oracle.com"
+ <konrad.wilk@oracle.com>, "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ "axboe@kernel.dk" <axboe@kernel.dk>, "davem@davemloft.net"
+ <davem@davemloft.net>, "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "len.brown@intel.com" <len.brown@intel.com>, "pavel@ucw.cz" <pavel@ucw.cz>,
+ "peterz@infradead.org" <peterz@infradead.org>, "Valentin, Eduardo"
+ <eduval@amazon.com>, "Singh, Balbir" <sblbir@amazon.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "vkuznets@redhat.com" <vkuznets@redhat.com>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "Woodhouse, David" <dwmw@amazon.co.uk>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>, "Agarwal, Anchal"
+ <anchalag@amazon.com>
+Thread-Index: AQHWLjTkyZyRRrOMA06VZoqhuNYdW6jBUn0AgAXLpQA=
+Date: Wed, 3 Jun 2020 22:40:15 +0000
+Message-ID: <B966B3A2-4F08-42FA-AF59-B8AA0783C2BA@amazon.com>
+References: <cover.1589926004.git.anchalag@amazon.com>
+ <79cf02631dc00e62ebf90410bfbbdb52fe7024cb.1589926004.git.anchalag@amazon.com>
+ <4b577564-e4c3-0182-2b9e-5f79004f32a1@oracle.com>
+In-Reply-To: <4b577564-e4c3-0182-2b9e-5f79004f32a1@oracle.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.160.48]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FB32A01A0FC73E469E52EFDA0074EE47@amazon.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -47,107 +100,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: cminyard@mvista.com, tamas@tklengyel.com, roman@zededa.com,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Touching the watchdog is required to be able to reboot the board.
-
-The implementation is based on
-drivers/watchdog/bcm2835_wdt.c:__bcm2835_restart in Linux.
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
----
- xen/arch/arm/platforms/brcm-raspberry-pi.c | 60 ++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
-
-diff --git a/xen/arch/arm/platforms/brcm-raspberry-pi.c b/xen/arch/arm/platforms/brcm-raspberry-pi.c
-index f5ae58a7d5..0214ae2b3c 100644
---- a/xen/arch/arm/platforms/brcm-raspberry-pi.c
-+++ b/xen/arch/arm/platforms/brcm-raspberry-pi.c
-@@ -18,6 +18,10 @@
-  */
- 
- #include <asm/platform.h>
-+#include <xen/delay.h>
-+#include <xen/mm.h>
-+#include <xen/vmap.h>
-+#include <asm/io.h>
- 
- static const char *const rpi4_dt_compat[] __initconst =
- {
-@@ -37,12 +41,68 @@ static const struct dt_device_match rpi4_blacklist_dev[] __initconst =
-      * The aux peripheral also shares a page with the aux UART.
-      */
-     DT_MATCH_COMPATIBLE("brcm,bcm2835-aux"),
-+    /* Special device used for rebooting */
-+    DT_MATCH_COMPATIBLE("brcm,bcm2835-pm"),
-     { /* sentinel */ },
- };
- 
-+
-+#define PM_PASSWORD         0x5a000000
-+#define PM_RSTC             0x1c
-+#define PM_WDOG             0x24
-+#define PM_RSTC_WRCFG_FULL_RESET    0x00000020
-+#define PM_RSTC_WRCFG_CLR           0xffffffcf
-+
-+static void __iomem *rpi4_map_watchdog(void)
-+{
-+    void __iomem *base;
-+    struct dt_device_node *node;
-+    paddr_t start, len;
-+    int ret;
-+
-+    node = dt_find_compatible_node(NULL, NULL, "brcm,bcm2835-pm");
-+    if ( !node )
-+        return NULL;
-+
-+    ret = dt_device_get_address(node, 0, &start, &len);
-+    if ( ret )
-+    {
-+        dprintk(XENLOG_ERR, "Cannot read watchdog register address\n");
-+        return NULL;
-+    }
-+
-+    base = ioremap_nocache(start & PAGE_MASK, PAGE_SIZE);
-+    if ( !base )
-+    {
-+        dprintk(XENLOG_ERR, "Unable to map watchdog register!\n");
-+        return NULL;
-+    }
-+
-+    return base;
-+}
-+
-+static void rpi4_reset(void)
-+{
-+    u32 val;
-+    void __iomem *base = rpi4_map_watchdog();
-+    if ( !base )
-+        return;
-+
-+    /* use a timeout of 10 ticks (~150us) */
-+    writel(10 | PM_PASSWORD, base + PM_WDOG);
-+    val = readl(base + PM_RSTC);
-+    val &= PM_RSTC_WRCFG_CLR;
-+    val |= PM_PASSWORD | PM_RSTC_WRCFG_FULL_RESET;
-+    writel(val, base + PM_RSTC);
-+
-+    /* No sleeping, possibly atomic. */
-+    mdelay(1);
-+}
-+
- PLATFORM_START(rpi4, "Raspberry Pi 4")
-     .compatible     = rpi4_dt_compat,
-     .blacklist_dev  = rpi4_blacklist_dev,
-+    .reset = rpi4_reset,
-     .dma_bitsize    = 30,
- PLATFORM_END
- 
--- 
-2.17.1
-
+ICAgIENBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9y
+Z2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNz
+IHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUu
+DQoNCg0KDQogICAgT24gNS8xOS8yMCA3OjI2IFBNLCBBbmNoYWwgQWdhcndhbCB3cm90ZToNCiAg
+ICA+IEZyb206IE11bmVoaXNhIEthbWF0YSA8a2FtYXRhbUBhbWF6b24uY29tPg0KICAgID4NCiAg
+ICA+IEFkZCBYZW4gUFZIVk0gc3BlY2lmaWMgc3lzdGVtIGNvcmUgY2FsbGJhY2tzIGZvciBQTSBz
+dXNwZW5kIGFuZA0KICAgID4gaGliZXJuYXRpb24gc3VwcG9ydC4gVGhlIGNhbGxiYWNrcyBzdXNw
+ZW5kIGFuZCByZXN1bWUgWGVuDQogICAgPiBwcmltaXRpdmVzLGxpa2Ugc2hhcmVkX2luZm8sIHB2
+Y2xvY2sgYW5kIGdyYW50IHRhYmxlLiBOb3RlIHRoYXQNCiAgICA+IFhlbiBzdXNwZW5kIGNhbiBo
+YW5kbGUgdGhlbSBpbiBhIGRpZmZlcmVudCBtYW5uZXIsIGJ1dCBzeXN0ZW0NCiAgICA+IGNvcmUg
+Y2FsbGJhY2tzIGFyZSBjYWxsZWQgZnJvbSB0aGUgY29udGV4dC4NCg0KDQogICAgSSBkb24ndCB0
+aGluayBJIHVuZGVyc3RhbmQgdGhhdCBsYXN0IHNlbnRlbmNlLg0KDQpMb29rcyBsaWtlIGl0IG1h
+eSBoYXZlIGNyeXB0aWMgbWVhbmluZyBvZiBzdGF0aW5nIHRoYXQgeGVuX3N1c3BlbmQgY2FsbHMg
+c3lzY29yZV9zdXNwZW5kIGZyb20geGVuX3N1c3BlbmQNClNvLCBpZiB0aGVzZSBzeXNjb3JlIG9w
+cyBnZXRzIGNhbGxlZCAgZHVyaW5nIHhlbl9zdXNwZW5kIGRvIG5vdCBkbyBhbnl0aGluZy4gQ2hl
+Y2sgaWYgdGhlIG1vZGUgaXMgaW4geGVuIHN1c3BlbmQgDQphbmQgcmV0dXJuIGZyb20gdGhlcmUu
+IFRoZXNlIHN5c2NvcmVfb3BzIGFyZSBzcGVjaWZpY2FsbHkgZm9yIGRvbVUgaGliZXJuYXRpb24u
+DQpJIG11c3QgYWRtaXQsIEkgbWF5IGhhdmUgb3Zlcmxvb2tlZCBsYWNrIG9mIGV4cGxhbmF0aW9u
+IG9mIHNvbWUgaW1wbGljaXQgZGV0YWlscyBpbiB0aGUgb3JpZ2luYWwgY29tbWl0IG1zZy4gDQoN
+CiAgICA+ICBTbyBpZiB0aGUgY2FsbGJhY2tzDQogICAgPiBhcmUgY2FsbGVkIGZyb20gWGVuIHN1
+c3BlbmQgY29udGV4dCwgcmV0dXJuIGltbWVkaWF0ZWx5Lg0KICAgID4NCg0KDQogICAgPiArDQog
+ICAgPiArc3RhdGljIGludCB4ZW5fc3lzY29yZV9zdXNwZW5kKHZvaWQpDQogICAgPiArew0KICAg
+ID4gKyAgICAgc3RydWN0IHhlbl9yZW1vdmVfZnJvbV9waHlzbWFwIHhyZnA7DQogICAgPiArICAg
+ICBpbnQgcmV0Ow0KICAgID4gKw0KICAgID4gKyAgICAgLyogWGVuIHN1c3BlbmQgZG9lcyBzaW1p
+bGFyIHN0dWZmcyBpbiBpdHMgb3duIGxvZ2ljICovDQogICAgPiArICAgICBpZiAoeGVuX3N1c3Bl
+bmRfbW9kZV9pc194ZW5fc3VzcGVuZCgpKQ0KICAgID4gKyAgICAgICAgICAgICByZXR1cm4gMDsN
+CiAgICA+ICsNCiAgICA+ICsgICAgIHhyZnAuZG9taWQgPSBET01JRF9TRUxGOw0KICAgID4gKyAg
+ICAgeHJmcC5ncGZuID0gX19wYShIWVBFUlZJU09SX3NoYXJlZF9pbmZvKSA+PiBQQUdFX1NISUZU
+Ow0KICAgID4gKw0KICAgID4gKyAgICAgcmV0ID0gSFlQRVJWSVNPUl9tZW1vcnlfb3AoWEVOTUVN
+X3JlbW92ZV9mcm9tX3BoeXNtYXAsICZ4cmZwKTsNCiAgICA+ICsgICAgIGlmICghcmV0KQ0KICAg
+ID4gKyAgICAgICAgICAgICBIWVBFUlZJU09SX3NoYXJlZF9pbmZvID0gJnhlbl9kdW1teV9zaGFy
+ZWRfaW5mbzsNCiAgICA+ICsNCiAgICA+ICsgICAgIHJldHVybiByZXQ7DQogICAgPiArfQ0KICAg
+ID4gKw0KICAgID4gK3N0YXRpYyB2b2lkIHhlbl9zeXNjb3JlX3Jlc3VtZSh2b2lkKQ0KICAgID4g
+K3sNCiAgICA+ICsgICAgIC8qIFhlbiBzdXNwZW5kIGRvZXMgc2ltaWxhciBzdHVmZnMgaW4gaXRz
+IG93biBsb2dpYyAqLw0KICAgID4gKyAgICAgaWYgKHhlbl9zdXNwZW5kX21vZGVfaXNfeGVuX3N1
+c3BlbmQoKSkNCiAgICA+ICsgICAgICAgICAgICAgcmV0dXJuOw0KICAgID4gKw0KICAgID4gKyAg
+ICAgLyogTm8gbmVlZCB0byBzZXR1cCB2Y3B1X2luZm8gYXMgaXQncyBhbHJlYWR5IG1vdmVkIG9m
+ZiAqLw0KICAgID4gKyAgICAgeGVuX2h2bV9tYXBfc2hhcmVkX2luZm8oKTsNCiAgICA+ICsNCiAg
+ICA+ICsgICAgIHB2Y2xvY2tfcmVzdW1lKCk7DQogICAgPiArDQogICAgPiArICAgICBnbnR0YWJf
+cmVzdW1lKCk7DQoNCg0KICAgIERvIHlvdSBjYWxsIGdudHRhYl9zdXNwZW5kKCkgaW4gcG0gc3Vz
+cGVuZCBwYXRoPw0KTm8sIHNpbmNlIGl0IGRvZXMgbm90aGluZyBmb3IgSFZNIGd1ZXN0cy4gVGhl
+IHVubWFwX2ZyYW1lcyBpcyBvbmx5IGFwcGxpY2FibGUgZm9yIFBWIGd1ZXN0cyByaWdodD8NCg0K
+ICAgID4gK30NCiAgICA+ICsNCiAgICA+ICsvKg0KICAgID4gKyAqIFRoZXNlIGNhbGxiYWNrcyB3
+aWxsIGJlIGNhbGxlZCB3aXRoIGludGVycnVwdHMgZGlzYWJsZWQgYW5kIHdoZW4gaGF2aW5nIG9u
+bHkNCiAgICA+ICsgKiBvbmUgQ1BVIG9ubGluZS4NCiAgICA+ICsgKi8NCiAgICA+ICtzdGF0aWMg
+c3RydWN0IHN5c2NvcmVfb3BzIHhlbl9odm1fc3lzY29yZV9vcHMgPSB7DQogICAgPiArICAgICAu
+c3VzcGVuZCA9IHhlbl9zeXNjb3JlX3N1c3BlbmQsDQogICAgPiArICAgICAucmVzdW1lID0geGVu
+X3N5c2NvcmVfcmVzdW1lDQogICAgPiArfTsNCiAgICA+ICsNCiAgICA+ICt2b2lkIF9faW5pdCB4
+ZW5fc2V0dXBfc3lzY29yZV9vcHModm9pZCkNCiAgICA+ICt7DQogICAgPiArICAgICBpZiAoeGVu
+X2h2bV9kb21haW4oKSkNCg0KDQogICAgSGF2ZSB5b3UgdGVzdGVkIHRoaXMgKHRoZSB3aG9sZSBm
+ZWF0dXJlLCBub3QganVzdCB0aGlzIHBhdGNoKSB3aXRoIFBWSA0KICAgIGd1ZXN0IEJUVz8gQW5k
+IFBWSCBkb20wIGZvciB0aGF0IG1hdHRlcj8NCg0KTm8gSSBoYXZlbid0LiBUaGUgd2hvbGUgc2Vy
+aWVzIGlzIGp1c3QgdGVzdGVkIHdpdGggaHZtL3B2aHZtIGd1ZXN0cy4NCg0KICAgIC1ib3Jpcw0K
+VGhhbmtzLA0KQW5jaGFsDQoNCiAgICA+ICsgICAgICAgICAgICAgcmVnaXN0ZXJfc3lzY29yZV9v
+cHMoJnhlbl9odm1fc3lzY29yZV9vcHMpOw0KICAgID4gK30NCg0KDQoNCg0K
 
