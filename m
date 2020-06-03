@@ -2,64 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B691ED35E
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 17:30:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A28C91ED388
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 17:37:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgVLo-000247-IN; Wed, 03 Jun 2020 15:30:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jgVS6-0002Xb-8q; Wed, 03 Jun 2020 15:37:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KLBN=7Q=gmail.com=glenbarney@srs-us1.protection.inumbo.net>)
- id 1jgVLm-00023s-R4
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 15:30:42 +0000
-X-Inumbo-ID: 2c72665a-a5af-11ea-9947-bc764e2007e4
-Received: from mail-qt1-x843.google.com (unknown [2607:f8b0:4864:20::843])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c72665a-a5af-11ea-9947-bc764e2007e4;
- Wed, 03 Jun 2020 15:30:37 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id c12so2344091qtq.11;
- Wed, 03 Jun 2020 08:30:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=14Oc4IIbH5lfOi6aqd01Xj+O/vzK1lMBVdL+M+b9qEo=;
- b=AeP1muxBvJ8Ah5fjIx/lOzHsPS2dY52HDYR9P4MMr2BX3Y9MpXeDPxThi0V2HfxHwg
- 8K00mTUYj/D4BsSNp8yNoRcfC9gEA8IZkBxCrb0Kwu9T27RRcL3n8bjm2WUbdnrpBes9
- NGhv5Ei8bEUZsdZAK92A9+hMgCl+emMyKa5pIRnIjKz2dFZLrI5jh63XuZyJbxFY+EJJ
- uu4KliNUkxLdUQU3W3+0yRDVdBNg0Q2ryDAnvA7BJlmuPkFvh0Ol3NavDhrIRF2WIWK7
- g+uwRKp0MXYOHW7zDqIKqTuhSWSSSokbZDx4/OzM+7QzqgCOCL25byJHIJKFCOBj0jsC
- 6bVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=14Oc4IIbH5lfOi6aqd01Xj+O/vzK1lMBVdL+M+b9qEo=;
- b=EYs2dR+GZbqhyPqUpMR19waCBLgjEfCK3ezPqJZJAIS0K68Y6WRhVojQKk0IqnkdwU
- 4+emLGy8FVdrUoAgc1fBkn8YE0Y1KygSulMxuGmVTtqpjhu57RJRxonIA7ywwEGP9bBN
- JyGuGcYsYKSiFKfSF9udPHsMqsMfBMaqZcET4BLSWYAnf4yDSWzIPnF1gxF0X/32mu8Q
- Rec1LHRStfzoTjnisH80vwyIqr+7tqowiSV8mmByzQ016rsOC33zvxglFEASw+XvYusF
- YVxeJii1NPDO+fZQaDTHC9ew6F/aSa4I1Jgsr0BnXeslpP3ObhNaEMhbBNFi8LASCFP5
- WA1A==
-X-Gm-Message-State: AOAM532Dc53nbRp1EIPUl/6YR29Iet1Hpzuzayh7I+7J5KwqleinYZ+B
- CRdvfOtY5VyuX+4ZocgdYSfCq8GuZbfAJaoV+hbKU1Py
-X-Google-Smtp-Source: ABdhPJyNSWpPY64RY+qSK3E7xvi3A2r1Klf5W2PdU1VHfuLglYenpIkfs6+2+QK8vHkLyipsx224MnDjGRijQuxY5mo=
-X-Received: by 2002:ac8:5148:: with SMTP id h8mr31684113qtn.316.1591198236813; 
- Wed, 03 Jun 2020 08:30:36 -0700 (PDT)
+ <SRS0=0WRj=7Q=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jgVS4-0002XW-6Y
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 15:37:12 +0000
+X-Inumbo-ID: 172a2c5a-a5b0-11ea-ad4f-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 172a2c5a-a5b0-11ea-ad4f-12813bfff9fa;
+ Wed, 03 Jun 2020 15:37:11 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 46ADA20679;
+ Wed,  3 Jun 2020 15:37:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591198630;
+ bh=qMrrpXKqDomN/H9XypBdOxNN+kTZteJOVlUEUDdt0Bs=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=00ilQPtQMJCCZMfdLU0AypaH0oAU8L/iH2sXRkmS03kJQOGsokmxcBRsC1LU7LnbG
+ NznBp81SdxV6A+LY3z209EFJZ0oBlL6yg57pmmizOJgWkGlYfopkRHJUAc9D42B8Up
+ dQ8jwKW6w7S72MMa5VMkXuW/kB3xjoVVq+dzoT3Y=
+Date: Wed, 3 Jun 2020 08:37:09 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Corey Minyard <minyard@acm.org>
+Subject: Re: Troubles running Xen on Raspberry Pi 4 with 5.6.1 DomU
+In-Reply-To: <20200603152914.GJ2880@minyard.net>
+Message-ID: <alpine.DEB.2.21.2006030835170.6774@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2005060956120.14706@sstabellini-ThinkPad-T480s>
+ <CAMmSBy_wcSD3BVcVFJVR1y1CtvxA9xMkobKwbsdf8dGxS5Hcbw@mail.gmail.com>
+ <alpine.DEB.2.21.2005121723240.26167@sstabellini-ThinkPad-T480s>
+ <42253259-9663-67e8-117f-8ba631243585@xen.org>
+ <alpine.DEB.2.21.2005130810270.26167@sstabellini-ThinkPad-T480s>
+ <d940d405-5706-c749-f546-c0c60528394d@xen.org>
+ <d19f82a9-160e-ccc5-ebf9-8eb397dbeb08@xen.org>
+ <alpine.DEB.2.21.2005131249570.26167@sstabellini-ThinkPad-T480s>
+ <20200602183420.GE2880@minyard.net>
+ <alpine.DEB.2.21.2006021222490.6774@sstabellini-ThinkPad-T480s>
+ <20200603152914.GJ2880@minyard.net>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-References: <CAG6MAzRcvUifqf=m7EE98bz0w_s2+Z=0Nx7YT0SVv75ek0Mc2Q@mail.gmail.com>
- <CAG6MAzR_bU5qnCLKpuUAt-S_dfxjnxgh12gUjnXfsfC7Fw2qMw@mail.gmail.com>
- <CAG6MAzSS0Kw2KHWZpb6O9kfoDKK2spn_WHfy9gnZcZLvES0wnQ@mail.gmail.com>
- <CAG6MAzRZsSaVdO6Qv+Xi1dpaUsrdh+kT9F-_K=8s7fHyXRbFWQ@mail.gmail.com>
- <CAAVVsFmwoopngy6U8z1vUBH5j0gzuTLcMX+NcjQRjwshNr_LDw@mail.gmail.com>
- <CAG6MAzQ4QQjre7o5iLN5gX9=mRkJzy_pDM+aRgXi999yfp0srg@mail.gmail.com>
- <CAG6MAzQfX13KuaWtmJb_3Srdt5FTV+nvKmnNVXq5j8QF44NhTw@mail.gmail.com>
-In-Reply-To: <CAG6MAzQfX13KuaWtmJb_3Srdt5FTV+nvKmnNVXq5j8QF44NhTw@mail.gmail.com>
-From: Glen <glenbarney@gmail.com>
-Date: Wed, 3 Jun 2020 08:30:23 -0700
-Message-ID: <CAAVVsFmExExdwkokB1i9=KwT8k=eHABQZruYiA9Yr2MJ7ibyWA@mail.gmail.com>
-Subject: Re: [Xen-users] xen domU stall on 4.12.1
-To: Tomas Mozes <hydrapolic@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; boundary="8323329-1675369806-1591198630=:6774"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,30 +62,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
+Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ roman@zededa.com,
+ "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>,
+ Julien Grall <julien.grall@arm.com>,
+ Nataliya Korovkina <malus.brandywine@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ boris.ostrovsky@oracle.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Tomas -
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Tue, Jun 2, 2020 at 7:43 PM Tomas Mozes <hydrapolic@gmail.com> wrote:
->> On Mon, Feb 24, 2020 at 4:55 PM Glen <glenbarney@gmail.com> wrote:
->>> I'm now going to bring one of the previously-live guests on its own
->>> host back to credit2 so I can crash it and try to capture debugging
->>> output for xen-devel as requested.  But sched=credit is definitely
->>> what we needed to solve this problem!  Thank you all for helping us
->>> get there!
-> Just tested Xen 4.12.3, but a domU hanged again with credit2. It works rock solid with credit1.
+--8323329-1675369806-1591198630=:6774
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-I have several hosts back on credit2, no problems so far.  But the
-bulk of my production hosts are still on credit1, and they do seem to
-run "better" (subjectively, looking at responsiveness and load
-averages) but of course by subjectively I mean that I have no real
-data to back this feeling.
+On Wed, 3 Jun 2020, Corey Minyard wrote:
+> On Tue, Jun 02, 2020 at 12:24:05PM -0700, Stefano Stabellini wrote:
+> > On Tue, 2 Jun 2020, Corey Minyard wrote:
+> > > Snip
+> > > 
+> > > > > > > > whether
+> > > > > > > > this was already done:
+> > > > > > > >      1) Does the kernel boot on baremetal (i.e without Xen)? This should
+> > > > > > > > help
+> > > > > > > > to confirm whether the bug is Xen is related.
+> > > > > > > 
+> > > > > > > Yes it boots
+> > > > > > > 
+> > > > > > > >      2) Swiotlb should not be necessary for basic dom0 boot on Arm. Did
+> > > > > > > > you try
+> > > > > > > > to disable it? This should help to confirm whether swiotlb is the
+> > > > > > > > problem or
+> > > > > > > > not.
+> > > > > > > 
+> > > > > > > It boots disabling swiotlb-xen
+> > > > > > 
+> > > > > > Thank you for the answer! swiotlb-xen should basically be a NOP for dom0. So
+> > > > > > this suggests swiotlb is doing some transformation on the DMA address.
+> > > > > > 
+> > > > > > I have an idea what may have gone wrong. AFAICT, xen-swiotlb seems to assume
+> > > > > > the DMA address space and CPU address space is the same. Is RPI using the
+> > > > > > same address space?
+> > > > > 
+> > > > > Another question, is the DMA request bounced? If so, are we sure the bounce
+> > > > > buffer is in the first GB?
+> > > > 
+> > > > Yes, it is. This is actually where we spent the last few days, and I
+> > > > found another little related bug in the initialization of the
+> > > > swiotlb-xen but now I am sure the memory is under 1GB (0x34000000-0x38000000)
+> > > 
+> > > Was anything ever resolved on this issue?  It just kind of ended for me,
+> > > and I looked in the main kernel and didn't find anything that looked
+> > > related.
+> > 
+> > Yes, we have a patch series on the list for the Linux kernel to fix this
+> > issue but it hasn't been merged yet:
+> > 
+> > https://marc.info/?l=linux-kernel&m=159001831406263&w=2
+> 
+> Just FYI, I pulled the changes on top of
+>   https://github.com/raspberrypi/linux.git rpi-5.4.y
+> Along with change
+>   56e35f9c5b87ec dma-mapping: drop the dev argument to arch_sync_dma_for_*
+> before the series so it applies on 5.4, and I was able to boot and
+> create a domU.  So:
+> 
+> Tested-by: Corey Minyard <cminyard@mvista.com>
+> 
+> At least on 5.4.  If you think it would be valuable, I can test on
+> rpi-5.7.y.
 
-I was hoping one of my domU's on credit2 would crash so I could grab
-debugging info for the development team - I hope you are/were able to
-grab and submit data on that crash???
+I'd feel better adding your Tested-by to my next upstream submission of
+the series if you could also test on 5.7. Thank you in advance!
 
-Glen
+
+> I'll be integrating this in with our Pi Xen yocto layer at
+> https://github.com/MontaVista-OpenSourceTechnology/meta-raspberrypi-xen
+
+That's great!
+--8323329-1675369806-1591198630=:6774--
 
