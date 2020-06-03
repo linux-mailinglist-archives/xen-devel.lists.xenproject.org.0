@@ -2,72 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 448C71ECDB1
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 12:37:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA01B1ECE37
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 13:23:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgQmI-0003RV-K1; Wed, 03 Jun 2020 10:37:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0NKV=7Q=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jgQmG-0003RG-Pf
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 10:37:44 +0000
-X-Inumbo-ID: 41c40ec4-a586-11ea-9dbe-bc764e2007e4
-Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 41c40ec4-a586-11ea-9dbe-bc764e2007e4;
- Wed, 03 Jun 2020 10:37:44 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id l26so1408938wme.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2020 03:37:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=MLU5khfbr7JsqvosO9o/P4FiYWqNa4DvdOELnUFqTOE=;
- b=fq5yD9vPOzqXwmPUbjASn3g2y/dI5Z43yaS6K5HsqaW/jMeybE+JuZ3OXbzP21Nz0h
- ++CWpcR7owQrdIJ37yad+NNbl3S5zPpGKt3+2j9pVfcebs6PREY8jtejWv+K2z2Hhvls
- Q5uW1f1zTLFMDJmGPxAmka6EsKhXc+neRUnUX3EWp7yBqFluYQtNgAnf9ehnfSzdxxgc
- F6AbZHxT0anE06KTNXPQbbmA8qzjSONVJmB2keK+qwZb2SF/1d7M4K9kqF4pXX2nIxUW
- L2wfgtYYWwxF72hA5jdlV1xnY+/9S81RTXV9p3dfWdxBCICRLwgcXn4vqk3u96e/Xf/y
- rNEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=MLU5khfbr7JsqvosO9o/P4FiYWqNa4DvdOELnUFqTOE=;
- b=SbDYhmB6q6gFaEfEiLmv0zv6vmVluSMhIqwhiHcI3MsyuAuQwutfHNkidutWzob5tz
- UK5/dyoYQnsbccsONX6J8KSJtdIP3fu0EVl3guSOUwM76/2qYYtpSf9mI3IVxDeDplOJ
- 7Sbri9z6KWluZ1QYx5DP9rH0zEMnUMo/f7cjHe2Cez+gSGpx45A2R4Lk5G7BuTFY9Q5o
- gwSxRmmJxGaldblQM9jOsivBHPOEnb9+Tp0H6By4InxOq6/b6BOE8KxlwgnG59MIgKE/
- Rshv4hVzOoChd4Mxd5V962argdS7tTGnmqzI0snrsHgCMFirt9N9L7XquvB1DbnmEAVs
- W8MQ==
-X-Gm-Message-State: AOAM531qo+J0SNHPP2rfDqMBvysEnFY8m7U2lXaF5cZ+iReTPkyQk0HJ
- er87Co0rGQqjthAMsXsuLJE=
-X-Google-Smtp-Source: ABdhPJzjL1a5ycQj8kmeVmMg8kvy3hEVZT7aNfil4y1xpKaz+MhTJ/pjSnWigSqNOsXopjT8TJaH/g==
-X-Received: by 2002:a1c:24c6:: with SMTP id k189mr8638556wmk.9.1591180663194; 
- Wed, 03 Jun 2020 03:37:43 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id o6sm2717059wrp.3.2020.06.03.03.37.42
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Jun 2020 03:37:42 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Ian Jackson'" <ian.jackson@citrix.com>,
- "'Roger Pau Monne'" <roger.pau@citrix.com>
-References: <20200528102648.8724-1-roger.pau@citrix.com>
- <24279.29302.517771.382439@mariner.uk.xensource.com>
-In-Reply-To: <24279.29302.517771.382439@mariner.uk.xensource.com>
-Subject: RE: [PATCH 0/2] osstest: update FreeBSD guest tests
-Date: Wed, 3 Jun 2020 11:37:41 +0100
-Message-ID: <001901d63993$02f73720$08e5a560$@xen.org>
+	id 1jgRTH-0008Iy-0y; Wed, 03 Jun 2020 11:22:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=n250=7Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jgRTF-0008It-Ho
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 11:22:09 +0000
+X-Inumbo-ID: 744d005c-a58c-11ea-ace1-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 744d005c-a58c-11ea-ace1-12813bfff9fa;
+ Wed, 03 Jun 2020 11:22:05 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A790FAC91;
+ Wed,  3 Jun 2020 11:22:07 +0000 (UTC)
+Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults
+ immediately
+To: paul@xen.org
+References: <1591116981-30162-1-git-send-email-igor.druzhinin@citrix.com>
+ <37e6e543-564d-2625-b8d9-ccca6106efd2@suse.com>
+ <000f01d63991$717b5e80$54721b80$@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f1157af8-dd61-d9c2-a405-1e7d13615980@suse.com>
+Date: Wed, 3 Jun 2020 13:22:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.1
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQJmWAE7/fGO/u5K1e2UODFOX0tHRAM8LhApp4yRnBA=
+In-Reply-To: <000f01d63991$717b5e80$54721b80$@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,53 +49,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org, 'Paul Durrant' <xadimgnik@gmail.com>
+Cc: 'Igor Druzhinin' <igor.druzhinin@citrix.com>, wl@xen.org,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com,
+ xen-devel@lists.xenproject.org, roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Ian Jackson <ian.jackson@citrix.com>
-> Sent: 03 June 2020 10:51
-> To: Roger Pau Monne <roger.pau@citrix.com>
-> Cc: xen-devel@lists.xenproject.org; Paul Durrant <xadimgnik@gmail.com>
-> Subject: Re: [PATCH 0/2] osstest: update FreeBSD guest tests
+On 03.06.2020 12:26, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 03 June 2020 11:03
+>> To: Igor Druzhinin <igor.druzhinin@citrix.com>
+>> Cc: xen-devel@lists.xenproject.org; andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com;
+>> george.dunlap@citrix.com; Paul Durrant <paul@xen.org>
+>> Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults immediately
+>>
+>> On 02.06.2020 18:56, Igor Druzhinin wrote:
+>>> A recalculation NPT fault doesn't always require additional handling
+>>> in hvm_hap_nested_page_fault(), moreover in general case if there is no
+>>> explicit handling done there - the fault is wrongly considered fatal.
+>>>
+>>> This covers a specific case of migration with vGPU assigned on AMD:
+>>> at a moment log-dirty is enabled globally, recalculation is requested
+>>> for the whole guest memory including directly mapped MMIO regions of vGPU
+>>> which causes a page fault being raised at the first access to those;
+>>> but due to MMIO P2M type not having any explicit handling in
+>>> hvm_hap_nested_page_fault() a domain is erroneously crashed with unhandled
+>>> SVM violation.
+>>>
+>>> Instead of trying to be opportunistic - use safer approach and handle
+>>> P2M recalculation in a separate NPT fault by attempting to retry after
+>>> making the necessary adjustments. This is aligned with Intel behavior
+>>> where there are separate VMEXITs for recalculation and EPT violations
+>>> (faults) and only faults are handled in hvm_hap_nested_page_fault().
+>>> Do it by also unifying do_recalc return code with Intel implementation
+>>> where returning 1 means P2M was actually changed.
+>>>
+>>> Since there was no case previously where p2m_pt_handle_deferred_changes()
+>>> could return a positive value - it's safe to replace ">= 0" with just "== 0"
+>>> in VMEXIT_NPF handler. finish_type_change() is also not affected by the
+>>> change as being able to deal with >0 return value of p2m->recalc from
+>>> EPT implementation.
+>>>
+>>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+>>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> albeit preferably with ...
+>>
+>>> @@ -448,12 +451,14 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+>>>              clear_recalc(l1, e);
+>>>          err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+>>>          ASSERT(!err);
+>>> +
+>>> +        recalc_done = true;
+>>>      }
+>>>
+>>>   out:
+>>>      unmap_domain_page(table);
+>>>
+>>> -    return err;
+>>> +    return err ?: (recalc_done ? 1 : 0);
+>>
+>> ... this shrunk to
+>>
+>>     return err ?: recalc_done;
+>>
+>> (easily doable while committing).
+>>
+>> Also Cc Paul.
+>>
 > 
-> Roger Pau Monne writes ("[PATCH 0/2] osstest: update FreeBSD guest tests"):
-> > The following series adds FreeBSD 11 and 12 guests tests to osstest.
-> > ATM this is only tested on amd64, since the i386 versions had a bug.
-> >
-> > The result can be seen at:
-> >
-> > http://logs.test-lab.xenproject.org/osstest/logs/150428/
-> 
-> Thanks, Roger.
-> 
-> I think that for this change I ought to get an ack from Paul as the
-> RM.
-> 
-> Paul: how do you want to handle osstest changes during the freeze ?  I
-> already pushed on Monday - without asking you - a series to fix a
-> problem with bisection which was stopping osstest from bisecting the
-> libvirt failure in the smoke tests.  Please let me know if you think I
-> should have checked with you.
-> 
+> paging_log_dirty_enable() still fails global enable if has_arch_pdevs()
+> is true, so presumably there's no desperate need for this to go in 4.14?
 
-I'm no expert in osstest so I need to trust your judgement as to whether a patch is needed for 4.14 testing. That fix was clearly
-necessary to help diagnose the libvirt issue so I don't think you need check with me for such things.
+The MMIO case is just the particular situation here. Aiui the same issue
+could potentially surface with other p2m types. Also given I'd consider
+this a backporting candidate, while it may not be desperately needed for
+the release, I think it deserves considering beyond the specific aspect
+you mention.
 
-> I think we should take this change from Roger.  Right now we are still
-> waiting for even the smoke tests from staging to pass.  I don't
-> think this would interfere with that nor will it get in the way of the
-> osstest buster upgrade.
-
-We should certainly try to limit changes to only those where really are beneficial for 4.14 at this stage, but it looks like this
-series is adding more relevant testing (i.e. on newer OS) so I think it qualifies.
-
-  Paul
-
-> 
-> Thanks,
-> Ian.
-
+Jan
 
