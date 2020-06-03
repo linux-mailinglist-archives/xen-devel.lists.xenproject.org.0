@@ -2,55 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05E191ECF80
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 14:11:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FF1E1ECFBA
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 14:26:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgSE0-0005Fp-Nh; Wed, 03 Jun 2020 12:10:28 +0000
+	id 1jgSTF-0006nj-O6; Wed, 03 Jun 2020 12:26:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zj/c=7Q=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1jgSDz-0005Fk-2Z
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 12:10:27 +0000
-X-Inumbo-ID: 348c31fc-a593-11ea-9dbe-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=ecxI=7Q=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jgSTE-0006nV-AW
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 12:26:12 +0000
+X-Inumbo-ID: 685293b2-a595-11ea-9dbe-bc764e2007e4
+Received: from mail-ej1-x642.google.com (unknown [2a00:1450:4864:20::642])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 348c31fc-a593-11ea-9dbe-bc764e2007e4;
- Wed, 03 Jun 2020 12:10:25 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: al/iUDHjbqCLo0Dbfa69Rh48/RKETZ0BT/JrPri5Aah68Cb0hOBUwW7v/mlj7AaU7J6ROesNhG
- FhRnZCy4HfY0XLOXrc4CMvDa1cnKUzhT4T1gDG9Bh/LR8MOCP/5LqgSdJ6DW7zN8clTSB/87eD
- fXVb80bAvG9cA0yHgRjvNyqbDAyHhxQTJtYcKQXyda10M+YuSWG80qF5VXIzGHY67+x4tXxgH1
- 5TpERorVuNPt+9TIE8RZySL833osFWs4AZdxb5llAqAL6mNxHD9kRjdHOMgLS8VMUhAtUCB6nY
- x6I=
-X-SBRS: 2.7
-X-MesageID: 19461645
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,467,1583211600"; d="scan'208";a="19461645"
-Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults
- immediately
-To: <paul@xen.org>, 'Jan Beulich' <jbeulich@suse.com>
-References: <1591116981-30162-1-git-send-email-igor.druzhinin@citrix.com>
- <37e6e543-564d-2625-b8d9-ccca6106efd2@suse.com>
- <000f01d63991$717b5e80$54721b80$@xen.org>
- <f1157af8-dd61-d9c2-a405-1e7d13615980@suse.com>
- <001e01d6399a$1ac56820$50503860$@xen.org>
- <ee50db9a-3d73-2ed4-579d-983882d13ef3@citrix.com>
- <002d01d6399c$ec115a90$c4340fb0$@xen.org>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <b3d01e55-8473-399e-8a9d-8ac8aefd2fd6@citrix.com>
-Date: Wed, 3 Jun 2020 13:10:19 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ id 685293b2-a595-11ea-9dbe-bc764e2007e4;
+ Wed, 03 Jun 2020 12:26:11 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id gl26so1930188ejb.11
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2020 05:26:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=WJ5W6AxroBMLD68IaEhFmZy4K36m34K2nIdGZSm2vB8=;
+ b=oxh35808L0reWI07HJzgVLpcJ2ClaFwGumrNPds6D3/P2yHHugicz71Ju3s0/OEDod
+ v/k3XjIveBc/xe/GCgeBQvY32IKmvCNHFBkWWGCI7IbmMdTy5lSyQH1VoruUMp2Q6rf3
+ W8UjkKw/NXucIANHacVhJY3DOfH9RHO8CgYhfgXlIGAYYPNQxiOFESIaaOMT+iAu2DEx
+ X+k5jT26VeHS6S5dPM6xl/2lHCTUXr9AkQVbKIXLgL02G0sB1I5nhXSHw5yp6oadNKVm
+ cISRiPm/cYREtudy3LKo4yPM0I/jY+TxLENioNXx7gy6M3O50PNefpNU0scUOzGAorIm
+ uYuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=WJ5W6AxroBMLD68IaEhFmZy4K36m34K2nIdGZSm2vB8=;
+ b=PG3dlm39igNYaXOYsfZWJpgo2H8vBWJF6PoP/uvBO0KBy7Gzf9gAVI4aZUNI9GMXe8
+ DYNFY/spalYn/aUNMvoHfVYBSkCiizbT0GkZTmq8LPyEwduqFbuYtpINybawH2eq/ftq
+ dbLcvTJhE4iQq8IhCSSPCX30h/Z6qYfPFA1RDiwgtdRGkko+s/WgNYgwPqS54QuX8qrZ
+ IobC+KNaUSDdDCKJ5XrvZqemkhtcndcg0BOVOAl4renvVP4S0TOtwXnDh3UvTKVw/yxb
+ GsnUiNmBjnyk1BbrvzLmNBpKndbBhsIauumSp41HLS1iOVMs0egzOI988Mp1MEKrmNX3
+ u8Vg==
+X-Gm-Message-State: AOAM531laIkQ6KmOvst/Y7sHmVAOGDACNuzLxfEmwXSxzJhOOWDVdSCD
+ qQrg0jeW4OeHFtzdrXe251UoqmNFFyg=
+X-Google-Smtp-Source: ABdhPJwN7ROwWqEZTJ+pFtur98VTAZ6ShX82sB8trP8oOuiiTsFKO2R0gA5l1P8EBBJj1tuoeP76VA==
+X-Received: by 2002:a17:906:746:: with SMTP id
+ z6mr13108987ejb.12.1591187169208; 
+ Wed, 03 Jun 2020 05:26:09 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com.
+ [209.85.128.51])
+ by smtp.gmail.com with ESMTPSA id a7sm591133edx.3.2020.06.03.05.26.07
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Jun 2020 05:26:08 -0700 (PDT)
+Received: by mail-wm1-f51.google.com with SMTP id u13so1738340wml.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2020 05:26:07 -0700 (PDT)
+X-Received: by 2002:a05:600c:23ce:: with SMTP id
+ p14mr8553265wmb.77.1591187167541; 
+ Wed, 03 Jun 2020 05:26:07 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <002d01d6399c$ec115a90$c4340fb0$@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <20200602134909.66581-1-tamas@tklengyel.com>
+ <20200603082824.GC1195@Air-de-Roger>
+In-Reply-To: <20200603082824.GC1195@Air-de-Roger>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Wed, 3 Jun 2020 06:25:31 -0600
+X-Gmail-Original-Message-ID: <CABfawhnfwMrEYhhsQik_SjVZ2qqL2L2UaSQ6zdR5uBEWvvN8=g@mail.gmail.com>
+Message-ID: <CABfawhnfwMrEYhhsQik_SjVZ2qqL2L2UaSQ6zdR5uBEWvvN8=g@mail.gmail.com>
+Subject: Re: [PATCH v3 for-4.14] x86/monitor: revert default behavior when
+ monitoring register write events
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,120 +82,276 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com,
- george.dunlap@citrix.com, wl@xen.org, andrew.cooper3@citrix.com
+Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03/06/2020 12:48, Paul Durrant wrote:
->> -----Original Message-----
->> From: Igor Druzhinin <igor.druzhinin@citrix.com>
->> Sent: 03 June 2020 12:45
->> To: paul@xen.org; 'Jan Beulich' <jbeulich@suse.com>
->> Cc: xen-devel@lists.xenproject.org; andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com;
->> george.dunlap@citrix.com
->> Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults immediately
->>
->> On 03/06/2020 12:28, Paul Durrant wrote:
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: 03 June 2020 12:22
->>>> To: paul@xen.org
->>>> Cc: 'Igor Druzhinin' <igor.druzhinin@citrix.com>; xen-devel@lists.xenproject.org;
->>>> andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com; george.dunlap@citrix.com
->>>> Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults immediately
->>>>
->>>> On 03.06.2020 12:26, Paul Durrant wrote:
->>>>>> -----Original Message-----
->>>>>> From: Jan Beulich <jbeulich@suse.com>
->>>>>> Sent: 03 June 2020 11:03
->>>>>> To: Igor Druzhinin <igor.druzhinin@citrix.com>
->>>>>> Cc: xen-devel@lists.xenproject.org; andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com;
->>>>>> george.dunlap@citrix.com; Paul Durrant <paul@xen.org>
->>>>>> Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults immediately
->>>>>>
->>>>>> On 02.06.2020 18:56, Igor Druzhinin wrote:
->>>>>>> A recalculation NPT fault doesn't always require additional handling
->>>>>>> in hvm_hap_nested_page_fault(), moreover in general case if there is no
->>>>>>> explicit handling done there - the fault is wrongly considered fatal.
->>>>>>>
->>>>>>> This covers a specific case of migration with vGPU assigned on AMD:
->>>>>>> at a moment log-dirty is enabled globally, recalculation is requested
->>>>>>> for the whole guest memory including directly mapped MMIO regions of vGPU
->>>>>>> which causes a page fault being raised at the first access to those;
->>>>>>> but due to MMIO P2M type not having any explicit handling in
->>>>>>> hvm_hap_nested_page_fault() a domain is erroneously crashed with unhandled
->>>>>>> SVM violation.
->>>>>>>
->>>>>>> Instead of trying to be opportunistic - use safer approach and handle
->>>>>>> P2M recalculation in a separate NPT fault by attempting to retry after
->>>>>>> making the necessary adjustments. This is aligned with Intel behavior
->>>>>>> where there are separate VMEXITs for recalculation and EPT violations
->>>>>>> (faults) and only faults are handled in hvm_hap_nested_page_fault().
->>>>>>> Do it by also unifying do_recalc return code with Intel implementation
->>>>>>> where returning 1 means P2M was actually changed.
->>>>>>>
->>>>>>> Since there was no case previously where p2m_pt_handle_deferred_changes()
->>>>>>> could return a positive value - it's safe to replace ">= 0" with just "== 0"
->>>>>>> in VMEXIT_NPF handler. finish_type_change() is also not affected by the
->>>>>>> change as being able to deal with >0 return value of p2m->recalc from
->>>>>>> EPT implementation.
->>>>>>>
->>>>>>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>>>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
->>>>>>
->>>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>>>> albeit preferably with ...
->>>>>>
->>>>>>> @@ -448,12 +451,14 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
->>>>>>>              clear_recalc(l1, e);
->>>>>>>          err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
->>>>>>>          ASSERT(!err);
->>>>>>> +
->>>>>>> +        recalc_done = true;
->>>>>>>      }
->>>>>>>
->>>>>>>   out:
->>>>>>>      unmap_domain_page(table);
->>>>>>>
->>>>>>> -    return err;
->>>>>>> +    return err ?: (recalc_done ? 1 : 0);
->>>>>>
->>>>>> ... this shrunk to
->>>>>>
->>>>>>     return err ?: recalc_done;
->>>>>>
->>>>>> (easily doable while committing).
->>>>>>
->>>>>> Also Cc Paul.
->>>>>>
->>>>>
->>>>> paging_log_dirty_enable() still fails global enable if has_arch_pdevs()
->>>>> is true, so presumably there's no desperate need for this to go in 4.14?
->>>>
->>>> The MMIO case is just the particular situation here. Aiui the same issue
->>>> could potentially surface with other p2m types. Also given I'd consider
->>>> this a backporting candidate, while it may not be desperately needed for
->>>> the release, I think it deserves considering beyond the specific aspect
->>>> you mention.
->>>>
->>>
->>> In which case I think the commit message probably ought to be rephrased, since it appears to focus
->> on a case that cannot currently happen.
->>
->> This can happen without has_arch_pdevs() being true. It's enough to just
->> directly map some physical memory into a guest to get p2m_direct_mmio
->> type present in the page tables.
-> 
-> OK, that's fine, but when will that happen without pass-through? If we can have a commit message justifying the change based on what can actually happen now, then I would not be opposed to it going in 4.14.
+On Wed, Jun 3, 2020 at 2:28 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com> =
+wrote:
+>
+> On Tue, Jun 02, 2020 at 07:49:09AM -0600, Tamas K Lengyel wrote:
+> > For the last couple years we have received numerous reports from users =
+of
+> > monitor vm_events of spurious guest crashes when using events. In parti=
+cular,
+> > it has observed that the problem occurs when vm_events are being disabl=
+ed. The
+> > nature of the guest crash varied widely and has only occured occasional=
+ly. This
+> > made debugging the issue particularly hard. We had discussions about th=
+is issue
+> > even here on the xen-devel mailinglist with no luck figuring it out.
+> >
+> > The bug has now been identified as a race-condition between register ev=
+ent
+> > handling and disabling the monitor vm_event interface.
+> >
+> > Patch 96760e2fba100d694300a81baddb5740e0f8c0ee, "vm_event: deny registe=
+r writes
+> > if refused by  vm_event reply" is the patch that introduced the error. =
+In this
+>
+> FWIW, we use the 'Fixes:' tag in order to make it easier for
+> maintainers of stable trees to know which bugfixes to pick. This
+> should have:
+>
+> Fixes: 96760e2fba10 ('vm_event: deny register writes if refused by vm_eve=
+nt reply')
+>
+> Before the SoB.
+>
+> > patch the default behavior regarding emulation of register write events=
+ is
+> > changed so that they get postponed until the corresponding vm_event han=
+dler
+> > decides whether to allow such write to take place. Unfortunately this c=
+an only
+> > be implemented by performing the deny/allow step when the vCPU gets sch=
+eduled.
+> > Due to that postponed emulation of the event if the user decides to pau=
+se the
+> > VM in the vm_event handler and then disable events, the entire emulatio=
+n step
+> > is skipped the next time the vCPU is resumed. Even if the user doesn't =
+pause
+> > during the vm_event handling but exits immediately and disables vm_even=
+t, the
+> > situation becomes racey as disabling vm_event may succeed before the gu=
+est's
+> > vCPUs get scheduled with the pending emulation task. This has been part=
+icularly
+> > the case with VMS that have several vCPUs as after the VM is unpaused i=
+t may
+> > actually take a long time before all vCPUs get scheduled.
+> >
+> > In this patch we are reverting the default behavior to always perform e=
+mulation
+> > of register write events when the event occurs. To postpone them can be=
+ turned
+> > on as an option. In that case the user of the interface still has to ta=
+ke care
+> > of only disabling the interface when its safe as it remains buggy.
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+>
+> Thanks for taking care of this!
+>
+> > ---
+> >  xen/arch/x86/hvm/hvm.c            | 14 ++++++++------
+> >  xen/arch/x86/hvm/monitor.c        | 13 ++++++++-----
+> >  xen/arch/x86/monitor.c            | 10 +++++++++-
+> >  xen/include/asm-x86/domain.h      |  1 +
+> >  xen/include/asm-x86/hvm/monitor.h |  7 +++----
+> >  xen/include/public/domctl.h       |  1 +
+> >  6 files changed, 30 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> > index 74c9f84462..5bb47583b3 100644
+> > --- a/xen/arch/x86/hvm/hvm.c
+> > +++ b/xen/arch/x86/hvm/hvm.c
+> > @@ -3601,13 +3601,15 @@ int hvm_msr_write_intercept(unsigned int msr, u=
+int64_t msr_content,
+> >
+> >          ASSERT(v->arch.vm_event);
+> >
+> > -        /* The actual write will occur in hvm_do_resume() (if permitte=
+d). */
+> > -        v->arch.vm_event->write_data.do_write.msr =3D 1;
+> > -        v->arch.vm_event->write_data.msr =3D msr;
+> > -        v->arch.vm_event->write_data.value =3D msr_content;
+> > +        if ( hvm_monitor_msr(msr, msr_content, msr_old_content) )
+> > +        {
+> > +            /* The actual write will occur in hvm_do_resume(), if perm=
+itted. */
+> > +            v->arch.vm_event->write_data.do_write.msr =3D 1;
+> > +            v->arch.vm_event->write_data.msr =3D msr;
+> > +            v->arch.vm_event->write_data.value =3D msr_content;
+> >
+> > -        hvm_monitor_msr(msr, msr_content, msr_old_content);
+> > -        return X86EMUL_OKAY;
+> > +            return X86EMUL_OKAY;
+> > +        }
+> >      }
+> >
+> >      if ( (ret =3D guest_wrmsr(v, msr, msr_content)) !=3D X86EMUL_UNHAN=
+DLEABLE )
+> > diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+> > index 8aa14137e2..36894b33a4 100644
+> > --- a/xen/arch/x86/hvm/monitor.c
+> > +++ b/xen/arch/x86/hvm/monitor.c
+> > @@ -53,11 +53,11 @@ bool hvm_monitor_cr(unsigned int index, unsigned lo=
+ng value, unsigned long old)
+> >              .u.write_ctrlreg.old_value =3D old
+> >          };
+> >
+> > -        if ( monitor_traps(curr, sync, &req) >=3D 0 )
+> > -            return 1;
+> > +        return monitor_traps(curr, sync, &req) >=3D 0 &&
+> > +            curr->domain->arch.monitor.control_register_values;
+>
+> Nit (it can be fixed while committing IMO): curr should be aligned to
+> monitor.
 
-Yes, it can happen now - we had regular (not SR-IOV) vGPU migration totally
-broken because of this on AMD - never got tested before at all. You don't need
-special patches on top of Xen or anything.
+This is the established style already in-place, see
+http://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3Dxen/arch/x86/hvm/mo=
+nitor.c;h=3D8aa14137e25a47d3826843441e244decf81dc855;hb=3Drefs/heads/stagin=
+g#l76:
 
-To get p2m_mmio_direct you just need to call XEN_DOMCTL_memory_mapping on a domain.
+  76     return curr->domain->arch.monitor.emul_unimplemented_enabled &&
+  77         monitor_traps(curr, true, &req) =3D=3D 1;
 
-All 
+I don't really care either way but at least we should be consistent.
 
-Igor
+>
+> >      }
+> >
+> > -    return 0;
+> > +    return false;
+> >  }
+> >
+> >  bool hvm_monitor_emul_unimplemented(void)
+> > @@ -77,7 +77,7 @@ bool hvm_monitor_emul_unimplemented(void)
+> >          monitor_traps(curr, true, &req) =3D=3D 1;
+> >  }
+> >
+> > -void hvm_monitor_msr(unsigned int msr, uint64_t new_value, uint64_t ol=
+d_value)
+> > +bool hvm_monitor_msr(unsigned int msr, uint64_t new_value, uint64_t ol=
+d_value)
+> >  {
+> >      struct vcpu *curr =3D current;
+> >
+> > @@ -92,8 +92,11 @@ void hvm_monitor_msr(unsigned int msr, uint64_t new_=
+value, uint64_t old_value)
+> >              .u.mov_to_msr.old_value =3D old_value
+> >          };
+> >
+> > -        monitor_traps(curr, 1, &req);
+> > +        return monitor_traps(curr, 1, &req) >=3D 0 &&
+> > +            curr->domain->arch.monitor.control_register_values;
+>
+> Same here.
+>
+> >      }
+> > +
+> > +    return false;
+> >  }
+> >
+> >  void hvm_monitor_descriptor_access(uint64_t exit_info,
+> > diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
+> > index bbcb7536c7..1517a97f50 100644
+> > --- a/xen/arch/x86/monitor.c
+> > +++ b/xen/arch/x86/monitor.c
+> > @@ -144,7 +144,15 @@ int arch_monitor_domctl_event(struct domain *d,
+> >                                struct xen_domctl_monitor_op *mop)
+> >  {
+> >      struct arch_domain *ad =3D &d->arch;
+> > -    bool requested_status =3D (XEN_DOMCTL_MONITOR_OP_ENABLE =3D=3D mop=
+->op);
+> > +    bool requested_status;
+> > +
+> > +    if ( XEN_DOMCTL_MONITOR_OP_CONTROL_REGISTERS =3D=3D mop->op )
+> > +    {
+> > +        ad->monitor.control_register_values =3D true;
+> > +        return 0;
+>
+> I think this would be better implemented in arch_monitor_domctl_op
+> which already handles other XEN_DOMCTL_MONITOR_OP_* options, and also
+> skips the arch_monitor_domctl_event call?
+
+Hm, yea, that would be better placement for it, you are right.
+
+>
+> > +    }
+> > +
+> > +    requested_status =3D (XEN_DOMCTL_MONITOR_OP_ENABLE =3D=3D mop->op)=
+;
+> >
+> >      switch ( mop->event )
+> >      {
+> > diff --git a/xen/include/asm-x86/domain.h b/xen/include/asm-x86/domain.=
+h
+> > index e8cee3d5e5..6fd94c2e14 100644
+> > --- a/xen/include/asm-x86/domain.h
+> > +++ b/xen/include/asm-x86/domain.h
+> > @@ -418,6 +418,7 @@ struct arch_domain
+> >           * This is used to filter out pagefaults.
+> >           */
+> >          unsigned int inguest_pagefault_disabled                       =
+     : 1;
+> > +        unsigned int control_register_values                          =
+     : 1;
+> >          struct monitor_msr_bitmap *msr_bitmap;
+> >          uint64_t write_ctrlreg_mask[4];
+> >      } monitor;
+> > diff --git a/xen/include/asm-x86/hvm/monitor.h b/xen/include/asm-x86/hv=
+m/monitor.h
+> > index 66de24cb75..a75cd8545c 100644
+> > --- a/xen/include/asm-x86/hvm/monitor.h
+> > +++ b/xen/include/asm-x86/hvm/monitor.h
+> > @@ -29,15 +29,14 @@ enum hvm_monitor_debug_type
+> >  };
+> >
+> >  /*
+> > - * Called for current VCPU on crX/MSR changes by guest.
+> > - * The event might not fire if the client has subscribed to it in onch=
+angeonly
+> > - * mode, hence the bool return type for control register write events.
+> > + * Called for current VCPU on crX/MSR changes by guest. Bool return si=
+gnals
+> > + * whether emulation should be postponed.
+> >   */
+> >  bool hvm_monitor_cr(unsigned int index, unsigned long value,
+> >                      unsigned long old);
+> >  #define hvm_monitor_crX(cr, new, old) \
+> >                          hvm_monitor_cr(VM_EVENT_X86_##cr, new, old)
+> > -void hvm_monitor_msr(unsigned int msr, uint64_t value, uint64_t old_va=
+lue);
+> > +bool hvm_monitor_msr(unsigned int msr, uint64_t value, uint64_t old_va=
+lue);
+> >  void hvm_monitor_descriptor_access(uint64_t exit_info,
+> >                                     uint64_t vmx_exit_qualification,
+> >                                     uint8_t descriptor, bool is_write);
+> > diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> > index 1ad34c35eb..cbcd25f12c 100644
+> > --- a/xen/include/public/domctl.h
+> > +++ b/xen/include/public/domctl.h
+> > @@ -1025,6 +1025,7 @@ struct xen_domctl_psr_cmt_op {
+> >  #define XEN_DOMCTL_MONITOR_OP_DISABLE           1
+> >  #define XEN_DOMCTL_MONITOR_OP_GET_CAPABILITIES  2
+> >  #define XEN_DOMCTL_MONITOR_OP_EMULATE_EACH_REP  3
+> > +#define XEN_DOMCTL_MONITOR_OP_CONTROL_REGISTERS 4
+>
+> Could you please add a note that this is broken?
+
+Sure.
+
+Thanks,
+Tamas
 
