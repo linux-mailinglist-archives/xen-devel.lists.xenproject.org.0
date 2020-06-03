@@ -2,43 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20E791ED205
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 16:23:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E29BF1ED2FF
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 17:08:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgUIq-0003I6-Qa; Wed, 03 Jun 2020 14:23:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=n250=7Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jgUIp-0003I0-4h
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 14:23:35 +0000
-X-Inumbo-ID: ce6e569e-a5a5-11ea-ad2b-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ce6e569e-a5a5-11ea-ad2b-12813bfff9fa;
- Wed, 03 Jun 2020 14:23:34 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8EB09B1A7;
- Wed,  3 Jun 2020 14:23:36 +0000 (UTC)
-Subject: Re: Re [PATCH] x86/CET: Fix build following c/s 43b98e7190
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <1eeb47f4-b9b9-c4d8-a5c9-58d78f0e0aeb@suse.com>
- <fa2a6ce5-7a15-6ac7-defd-ded1c229d642@citrix.com>
- <cf5bca49-ca3a-b130-5d68-a92870416620@suse.com>
- <1c507672-bc8e-bc7e-df45-a652fb4c21f2@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <76b88620-9d36-3981-a468-a56dd54deffd@suse.com>
-Date: Wed, 3 Jun 2020 16:23:32 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+	id 1jgUzM-0007T5-DD; Wed, 03 Jun 2020 15:07:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vZjh=7Q=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jgUzL-0007T0-AL
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 15:07:31 +0000
+X-Inumbo-ID: f18f2b52-a5ab-11ea-9947-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f18f2b52-a5ab-11ea-9947-bc764e2007e4;
+ Wed, 03 Jun 2020 15:07:30 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: /WgkDs/icnrRkxrfZ5EuDKaR7SvsXSddDbMaxvp4qdegV01Q6FsqD1EMTL1E0Vr9ftNRBzjE7J
+ Zw6bIsqlRad+xFB959P+xnslb3FHqVgUeSA59fQ+GfFMjbHJfk9QS0spNVsCmjkvavwzxkVLam
+ muX/9JsZs7FiwkPbIRpa9XKwVEGonQfH/pDUSP7zccolISm2o8DSh5M7vjybKk8+CZHXtS4GzH
+ Hee0dRXPss9u7aJMIWcggEGiHL5z6qDdUwUiTUUq2tzs5BVX6mjTixpyWjC4SS54M/uqUkgtGu
+ n4o=
+X-SBRS: 2.7
+X-MesageID: 19425457
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,467,1583211600"; d="scan'208";a="19425457"
+Date: Wed, 3 Jun 2020 17:07:21 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [PATCH v4 for-4.14] x86/monitor: revert default behavior when
+ monitoring register write events
+Message-ID: <20200603150721.GF1195@Air-de-Roger>
+References: <20200603125237.100041-1-tamas@tklengyel.com>
 MIME-Version: 1.0
-In-Reply-To: <1c507672-bc8e-bc7e-df45-a652fb4c21f2@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200603125237.100041-1-tamas@tklengyel.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,66 +55,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.06.2020 13:44, Andrew Cooper wrote:
-> On 03/06/2020 10:50, Jan Beulich wrote:
->> On 02.06.2020 19:15, Andrew Cooper wrote:
->>> On 02/06/2020 15:21, Jan Beulich wrote:
->>>>> OSSTest reports:
->>>>>
->>>>>   x86_64.S: Assembler messages:
->>>>>   x86_64.S:57: Error: no such instruction: `setssbsy'
->>>>>   /home/osstest/build.150510.build-amd64/xen/xen/Rules.mk:183: recipe for target 'head.o' failed
->>>>>   make[4]: Leaving directory '/home/osstest/build.150510.build-amd64/xen/xen/arch/x86/boot'
->>>>>   make[4]: *** [head.o] Error 1
->>>>>
->>>>> All use of CET instructions, even those inside alternative blocks, needs to be
->>>>> behind CONFIG_XEN_SHSTK, as it indicates suitable toolchain support.
->>>>>
->>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> That's quite a bit of #ifdef-ary here. Simple (operand-less) insns
->>>> like SETSSBSY could easily be made available via .byte directives.
->>>> Would you be amenable to to ack-ing a patch to replace some of the
->>>> #ifdef-s (at least the ones at the lstar, cstar, and sysenter
->>>> entry points), after 4.14?
->>> Yeah - that was a bit of a mess in the end.  (But given the
->>> circumstances, and that I've got past form typo'ing the SETSSBSY opcode,
->>> it probably was the right move even in hindsight).
->>>
->>> Reducing it to .byte should be fine so long as some form of /* setssbsy
->>> */ comment appears.
->> Sure.
->>
->>> One other option would be to introduce a SETSSBSY macro, but that hides
->>> the alternative so is something I'd prefer to avoid.
->> With this you mean you'd rather not see us go the CLAC/STAC route?
->> I was instead thinking of a pure assembly macro named "setssbsy".
->> In fact we could switch the CLAC/STAC ugliness to some such, if we
->> end up being happy with the model.
+On Wed, Jun 03, 2020 at 06:52:37AM -0600, Tamas K Lengyel wrote:
+> For the last couple years we have received numerous reports from users of
+> monitor vm_events of spurious guest crashes when using events. In particular,
+> it has observed that the problem occurs when vm_events are being disabled. The
+> nature of the guest crash varied widely and has only occured occasionally. This
+> made debugging the issue particularly hard. We had discussions about this issue
+> even here on the xen-devel mailinglist with no luck figuring it out.
 > 
-> The thing about the current STAC / CLAC is that, as written, they give
-> the impression of being unconditional.  This is poor in terms of code
-> clarity.
+> The bug has now been identified as a race-condition between register event
+> handling and disabling the monitor vm_event interface. The default behavior
+> regarding emulation of register write events is changed so that they get
+> postponed until the corresponding vm_event handler decides whether to allow such
+> write to take place. Unfortunately this can only be implemented by performing the
+> deny/allow step when the vCPU gets scheduled.
 > 
-> Furthermore, making them indistinguishable from the plain instructions
-> is definitely a no-go, because then we've got assembly source (again,
-> which appears unconditional) which doesn't match its disassembly (the
-> backing nops) - at least with the macros in upper case, it is obvious
-> that something is up, even if you have to searching for why.
+> Due to that postponed emulation of the event if the user decides to pause the
+> VM in the vm_event handler and then disable events, the entire emulation step
+> is skipped the next time the vCPU is resumed. Even if the user doesn't pause
+> during the vm_event handling but exits immediately and disables vm_event, the
+> situation becomes racey as disabling vm_event may succeed before the guest's
+> vCPUs get scheduled with the pending emulation task. This has been particularly
+> the case with VMS that have several vCPUs as after the VM is unpaused it may
+> actually take a long time before all vCPUs get scheduled.
 > 
-> If we went for pure assembly macros with an alt_ or maybe_ prefix, then
-> that would be reasonable.  It looks as close to regular instruction as
-> possible, but also makes it explicitly clear that it is conditional.
+> In this patch we are reverting the default behavior to always perform emulation
+> of register write events when the event occurs. To postpone them can be turned
+> on as an option. In that case the user of the interface still has to take care
+> of only disabling the interface when its safe as it remains buggy.
+> 
+> Fixes: 96760e2fba10 ('vm_event: deny register writes if refused by vm_event
+> reply').
+> 
+> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
 
-That wasn't the plan - I didn't mean to hide the alternatives aspect.
-I wanted to have simple "setssbsy", "clac", and "stac" macros expanding
-to just the insns, getting instantiated when !HAVE_AS_<whatever>. This
-would make assembly code look descriptive no matter what assembler
-capabilities there are (for these operand-less insns, that is, not in
-general).
+Thanks!
 
-Jan
+Reviewed-by: Roger Pau Monné <rogerpau@citrix.com>
+
+I would like to get some input from Bitdefender really, and whether
+they are fine with this approach.
 
