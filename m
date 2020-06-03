@@ -2,77 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 489131ED1B2
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 16:07:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BE9C1ED1FB
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 16:22:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgU2b-0001DG-Vl; Wed, 03 Jun 2020 14:06:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jgUGz-0003D4-Ed; Wed, 03 Jun 2020 14:21:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ecxI=7Q=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jgU2a-0001DB-4V
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 14:06:48 +0000
-X-Inumbo-ID: 761d2a08-a5a3-11ea-81bc-bc764e2007e4
-Received: from mail-ej1-x644.google.com (unknown [2a00:1450:4864:20::644])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 761d2a08-a5a3-11ea-81bc-bc764e2007e4;
- Wed, 03 Jun 2020 14:06:47 +0000 (UTC)
-Received: by mail-ej1-x644.google.com with SMTP id e2so2277564eje.13
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2020 07:06:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=rdDXsiPxGSJU2BtwbPhpcMj2P5mFJwWwZcKY6DLpIbw=;
- b=HSnDEB2SMNO4n9KsnRD//6k/52vtDufIxaSIpwL/58X6YZDCZpHaCMoY74Ki4C+EP5
- 36RajTCquG2qBIK+W5IV5LL4tTXO7ePdJlPTITDQXOeeSrTsnqqb1SL877kewz6hIo3B
- koLMs83qaGmwPBrOpQHGfrmxzlK/eD/1W1+Oho9g2Db7CdpAjlqGnwx9W+iLC0RGyxOn
- au3OYlccTtMUYt1n4UByJNav/hNMS3J5dY1g74yV3Wur6qBrLkgsUmC663aVKugJgEn0
- A158lSvknQVVyf1CXOEbIB0/7xlEmnG12XihepuDUsieYI5tGrJ1+vbKsSsQYKnkcbnG
- 6WdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=rdDXsiPxGSJU2BtwbPhpcMj2P5mFJwWwZcKY6DLpIbw=;
- b=lWljiaJfAown907s31AOrNcKE4mXOBcyGss0IZNhZtNIxz3oOL6pVA/srlLhjfwYUd
- C8kHgc+UmHuKJTtHJCROVRqZ/Mjq6DAS255tEKhwDHgN4UWPmCo5i9DDsUKkSZopkFUP
- 12MVRaUZnNCRCTXbfaF4W2QSujZ2ackv6VgblcawuCtM7uk40pK5qCyxtZH+6Z1M13e+
- bCWTW75uIY2K6y9ny9Bl7xeOjUnlYgWLSLBWvvDQCYVT9QsDZFn6jTiVVtYklCGP65RK
- f/hixjuFUSiunWBwJEex3NoPDxSgKy4D0LpRR2d92XBWnw/hLk8v9wrK6DT6il799tMY
- UpCQ==
-X-Gm-Message-State: AOAM532nseEmS7cT31vBBfy7ig8VlEJDPg4308bwFvQ1URNjXAHo+wS8
- 8q/Gmsmv2yYiK+Dhyru5MSIRyPrfOf8=
-X-Google-Smtp-Source: ABdhPJwXWaFYtdEiDKU2C6gfDcx03M6ZL22N6597CHY8WoN/KbdNPamfdEi8WVptWt5qJaAtm6cS0w==
-X-Received: by 2002:a17:906:1d5b:: with SMTP id
- o27mr20959702ejh.344.1591193206082; 
- Wed, 03 Jun 2020 07:06:46 -0700 (PDT)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com.
- [209.85.221.47])
- by smtp.gmail.com with ESMTPSA id ce23sm1276985edb.79.2020.06.03.07.06.45
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jun 2020 07:06:45 -0700 (PDT)
-Received: by mail-wr1-f47.google.com with SMTP id e1so2530281wrt.5
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2020 07:06:45 -0700 (PDT)
-X-Received: by 2002:adf:f0c6:: with SMTP id x6mr33671775wro.301.1591193204812; 
- Wed, 03 Jun 2020 07:06:44 -0700 (PDT)
+ <SRS0=WnGI=7Q=redhat.com=phrdina@srs-us1.protection.inumbo.net>)
+ id 1jgUGy-0003Cz-8L
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 14:21:40 +0000
+X-Inumbo-ID: 8838b3fe-a5a5-11ea-ad2b-12813bfff9fa
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 8838b3fe-a5a5-11ea-ad2b-12813bfff9fa;
+ Wed, 03 Jun 2020 14:21:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1591194096;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dG/yQ9a63s7lXKLvQbG7qj+rieUda3Umi2z626t+lmM=;
+ b=K9ZWXO42oERx2aZNu46gm/rS20+NdEFVkl/9wO+7QGdyM4z6iNlquBAJBmjReLZSYvIir2
+ f9ZK/yIYMpSzEfp3pWeulVuwQ4jXU0Zx7Ntf4hVA6QBkzy35+7v3svUllGGR4qo0sgBvxv
+ 3S6Ym6qu6Q1TXdwKh7rcgjA01+67ClA=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-237-oCDvC9PbNs2o3V9QRXd3ag-1; Wed, 03 Jun 2020 10:21:25 -0400
+X-MC-Unique: oCDvC9PbNs2o3V9QRXd3ag-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3820B18A0761;
+ Wed,  3 Jun 2020 14:21:24 +0000 (UTC)
+Received: from antique-laptop (unknown [10.40.194.48])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D05A60C47;
+ Wed,  3 Jun 2020 14:21:20 +0000 (UTC)
+Date: Wed, 3 Jun 2020 16:21:17 +0200
+From: Pavel Hrdina <phrdina@redhat.com>
+To: Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: Re: [PATCH] autogen.sh: Restore --no-git (avoid git submodule update)
+Message-ID: <20200603142117.GD11390@antique-laptop>
+References: <20200602154745.15054-1-ian.jackson@eu.citrix.com>
 MIME-Version: 1.0
-References: <20200602134909.66581-1-tamas@tklengyel.com>
- <20200603082824.GC1195@Air-de-Roger>
- <CABfawhnfwMrEYhhsQik_SjVZ2qqL2L2UaSQ6zdR5uBEWvvN8=g@mail.gmail.com>
- <20200603135656.GE1195@Air-de-Roger>
-In-Reply-To: <20200603135656.GE1195@Air-de-Roger>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Wed, 3 Jun 2020 08:06:08 -0600
-X-Gmail-Original-Message-ID: <CABfawh=tNFvb3_v0jHbMmtKhfHHz5Ok4cmXHDAQntGymgbC2Qg@mail.gmail.com>
-Message-ID: <CABfawh=tNFvb3_v0jHbMmtKhfHHz5Ok4cmXHDAQntGymgbC2Qg@mail.gmail.com>
-Subject: Re: [PATCH v3 for-4.14] x86/monitor: revert default behavior when
- monitoring register write events
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20200602154745.15054-1-ian.jackson@eu.citrix.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="F8dlzb82+Fcn6AgP"
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,59 +65,106 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: libvir-list@redhat.com, xen-devel@lists.xenproject.org,
+ George Dunlap <George.Dunlap@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jun 3, 2020 at 7:57 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com> =
-wrote:
->
-> On Wed, Jun 03, 2020 at 06:25:31AM -0600, Tamas K Lengyel wrote:
-> > On Wed, Jun 3, 2020 at 2:28 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.c=
-om> wrote:
-> > >
-> > > On Tue, Jun 02, 2020 at 07:49:09AM -0600, Tamas K Lengyel wrote:
-> > > > diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.=
-c
-> > > > index 8aa14137e2..36894b33a4 100644
-> > > > --- a/xen/arch/x86/hvm/monitor.c
-> > > > +++ b/xen/arch/x86/hvm/monitor.c
-> > > > @@ -53,11 +53,11 @@ bool hvm_monitor_cr(unsigned int index, unsigne=
-d long value, unsigned long old)
-> > > >              .u.write_ctrlreg.old_value =3D old
-> > > >          };
-> > > >
-> > > > -        if ( monitor_traps(curr, sync, &req) >=3D 0 )
-> > > > -            return 1;
-> > > > +        return monitor_traps(curr, sync, &req) >=3D 0 &&
-> > > > +            curr->domain->arch.monitor.control_register_values;
-> > >
-> > > Nit (it can be fixed while committing IMO): curr should be aligned to
-> > > monitor.
-> >
-> > This is the established style already in-place, see
-> > http://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3Dxen/arch/x86/hv=
-m/monitor.c;h=3D8aa14137e25a47d3826843441e244decf81dc855;hb=3Drefs/heads/st=
-aging#l76:
-> >
-> >   76     return curr->domain->arch.monitor.emul_unimplemented_enabled &=
-&
-> >   77         monitor_traps(curr, true, &req) =3D=3D 1;
-> >
-> > I don't really care either way but at least we should be consistent.
->
-> Oh, OK. This is slightly different from the indentation that I tend to
-> use, sorry for the request then.
+--F8dlzb82+Fcn6AgP
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I made the change regardless. Feel free to re-adjust the style or
-change the alignment of the above return on commit.
+On Tue, Jun 02, 2020 at 04:47:45PM +0100, Ian Jackson wrote:
+> Prior to 2621d48f005a "gnulib: delete all gnulib integration",
+> one could pass ./autogen.sh --no-git to prevent the libvirt build
+> system from running git submodule update.
+>=20
+> This feature is needed by systems like the Xen Project CI which want
+> to explicitly control the revisions of every tree.  These will
+> typically arrange to initialise the submodules check out the right
+> version of everything, and then expect the build system not to mess
+> with it any more.
+>=20
+> Despite to the old documentation comments referring only to gnulib,
+> the --no-git feature is required not only because of gnulib but also
+> because of the other submodule, src/keycodemapdb.
+>=20
+> (And in any case, even if it were no longer required because all the
+> submodules were removed, it ought ideally to have been retained as a
+> no-op for compaibility reasons.)
+>=20
+> So restore the --no-git feature.
+>=20
+> Because of the way the argument parsing of autogen.sh works, it is
+> easiest to recognise this option only if it comes first.  This works
+> for the Xen Project CI, which has always passed this option first.
+>=20
+> If something else is using this option (and hasn't introduced a
+> different workaround in the meantime), not in the first position,
+> then perhaps a more sophisticated approach will be needed.  But I
+> think this will do for now.
+>=20
+> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+> ---
+>  autogen.sh | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/autogen.sh b/autogen.sh
+> index 4e1bbceb0a..1c98273452 100755
+> --- a/autogen.sh
+> +++ b/autogen.sh
+> @@ -1,5 +1,10 @@
+>  #!/bin/sh
+>  # Run this to generate all the initial makefiles, etc.
+> +#
+> +# THe following options must come first.  All other or subsequent
+> +# arguments are passed to configure:
+> +#   --no-git   skip `git submodule update --init`
+> +
+>  test -n "$srcdir" || srcdir=3D$(dirname "$0")
+>  test -n "$srcdir" || srcdir=3D.
+> =20
+> @@ -13,7 +18,11 @@ cd "$srcdir"
+>      exit 1
+>  }
+> =20
+> -git submodule update --init || exit 1
+> +if [ "x$1" =3D x--no-git ]; then
+> +=09shift
+> +else
+> +=09git submodule update --init || exit 1
 
-Thanks,
-Tamas
+I changed the TAB into spaces.
+
+> +fi
+> =20
+>  autoreconf --verbose --force --install || exit 1
+
+Reviewed-by: Pavel Hrdina <phrdina@redhat.com>
+
+and pushed.
+
+--F8dlzb82+Fcn6AgP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEcbzs91ho/coWWY7aUi1kczAH4YwFAl7Xsd0ACgkQUi1kczAH
+4YwW0A//YKePxHaQmxH2flmbCR5i5WvXmCHbvROj6ql2lKIu9d80NLqICeb8p5UL
+iS+S6e+l5L18DmCKT6XYQpIz+oKR7oj+EL/bnt8KF3B+tQS3pXLmTZ7QJeAMXw2a
+8KjBH1P5BMQ1/mR8vbF0UKAW/luk1OYSlF/pH74GfK+fqlNP5rJgiIQf/X7m8FsU
+2MCPko9JLYdGq959KThgR2WbbibhmhM7iDxxcYzUYpT777bBbCn53Efvdn/2khnA
+l4rMe1eAPVFdVPHU62mckLOF7fZFTCicr8BU3JIX87Lx4N4I8TMl+Zd0ZYG0QOX3
+lnoNSZBPOtzWPdJb3zLIWIHCm50460jw+SAThsaIa0BbzkcS/Yy40A/K0ynbRPRt
+SF+N7PF3+dlOLz9RsNVgKf1/eiNBVNmzLDxYsqp7AatMEftbTnSwXtqc5/tLwWxv
+lLufxuc3GBb60M0pum+xzF0CE1IfZXAxOpSTk//gVdjAPasQOJUE6nyWO4iDzPut
+raCUVkaGyxazSX/Gu7atOEF6C2qO7VYYhFVsduEMcmza9lzwmjrzvmNBFRQ4RXpU
+YIf4PmhdpB8bZxQl8QI8da4Kqibeq3Een0enSM4zXf8gEYDm7BRWUgh1ZAAKfwj8
+zTUy5ldjjGyHEt5IMnTGLZkaFZ1mm647dTjElFKUatlPQofCOtg=
+=SGHf
+-----END PGP SIGNATURE-----
+
+--F8dlzb82+Fcn6AgP--
+
 
