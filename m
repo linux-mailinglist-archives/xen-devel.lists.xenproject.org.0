@@ -2,52 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCCE91ECEC6
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 13:45:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C40D1ECECB
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 13:45:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgRp2-0002Fd-QE; Wed, 03 Jun 2020 11:44:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jgRpu-0002JV-4M; Wed, 03 Jun 2020 11:45:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EnF2=7Q=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jgRp1-0002FX-5I
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 11:44:39 +0000
-X-Inumbo-ID: 9a4a56d0-a58f-11ea-8993-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9a4a56d0-a58f-11ea-8993-bc764e2007e4;
- Wed, 03 Jun 2020 11:44:38 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ <SRS0=zj/c=7Q=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jgRpt-0002Ij-Ek
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 11:45:33 +0000
+X-Inumbo-ID: bace524e-a58f-11ea-acf0-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bace524e-a58f-11ea-acf0-12813bfff9fa;
+ Wed, 03 Jun 2020 11:45:32 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: IZTmpl3bIBHHpNBltS3GaBREVzm7EROitnIadLmDc9/nwLtsOAhbbcXCXJRHkYx+zMRfdgBwqz
- NY5bnZ+L04Ha7xEenfUNCbQwBC0yNVuRTXdgqDRIqtdm0dHIMDqszkFpGVXKWS1yLaOw1znWd0
- M3I3HKVW8c1eObfptRBINhiDrN7Sp9X6aXqD9/2cTLHPhYV5KvQUQeef5UFz37v2AH9uqS2T9q
- ccEyMexJbE1mAn9OLZJHb9FW5Uta8Jjj8ywG0U+xzfv9F1eILGY2LRWlc1F8kAOLrW7iCPsRcJ
- mo8=
+IronPort-SDR: T1wGLoubHyylm5a0q8mo2I0DXdp536zzAPMoUI0aj5YpdoDYFwW9wj0bNoNs8AEUhx/NCYXZRG
+ /Fb6K2MgoYL0h375Nq7pPur5+Mv/Vdsm97NkA8FocLPIQh9K9f2ebDwZrdWC8ub9W8Yb168Pqo
+ Edjz24ghYqyrjZQWUeFEX+Rvmb8EAr7Z690+O9nLWFqV8HLFQhxvOagwsAq0yfGlW8l4gSN2wQ
+ migTWuQY5UwNR6f1D2em7rh7b6/GGzqKkYdlvM9KrRZ2PGk/yp7wRGr0kXh0mR2Ngeu5YK5ovD
+ JA8=
 X-SBRS: 2.7
-X-MesageID: 19856069
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 19106376
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,467,1583211600"; d="scan'208";a="19856069"
-Subject: Re: Re [PATCH] x86/CET: Fix build following c/s 43b98e7190
-To: Jan Beulich <jbeulich@suse.com>
-References: <1eeb47f4-b9b9-c4d8-a5c9-58d78f0e0aeb@suse.com>
- <fa2a6ce5-7a15-6ac7-defd-ded1c229d642@citrix.com>
- <cf5bca49-ca3a-b130-5d68-a92870416620@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <1c507672-bc8e-bc7e-df45-a652fb4c21f2@citrix.com>
-Date: Wed, 3 Jun 2020 12:44:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+X-IronPort-AV: E=Sophos;i="5.73,467,1583211600"; d="scan'208";a="19106376"
+Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults
+ immediately
+To: <paul@xen.org>, 'Jan Beulich' <jbeulich@suse.com>
+References: <1591116981-30162-1-git-send-email-igor.druzhinin@citrix.com>
+ <37e6e543-564d-2625-b8d9-ccca6106efd2@suse.com>
+ <000f01d63991$717b5e80$54721b80$@xen.org>
+ <f1157af8-dd61-d9c2-a405-1e7d13615980@suse.com>
+ <001e01d6399a$1ac56820$50503860$@xen.org>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <ee50db9a-3d73-2ed4-579d-983882d13ef3@citrix.com>
+Date: Wed, 3 Jun 2020 12:45:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <cf5bca49-ca3a-b130-5d68-a92870416620@suse.com>
+In-Reply-To: <001e01d6399a$1ac56820$50503860$@xen.org>
 Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,58 +60,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com,
+ george.dunlap@citrix.com, wl@xen.org, andrew.cooper3@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03/06/2020 10:50, Jan Beulich wrote:
-> On 02.06.2020 19:15, Andrew Cooper wrote:
->> On 02/06/2020 15:21, Jan Beulich wrote:
->>>> OSSTest reports:
->>>>
->>>>   x86_64.S: Assembler messages:
->>>>   x86_64.S:57: Error: no such instruction: `setssbsy'
->>>>   /home/osstest/build.150510.build-amd64/xen/xen/Rules.mk:183: recipe for target 'head.o' failed
->>>>   make[4]: Leaving directory '/home/osstest/build.150510.build-amd64/xen/xen/arch/x86/boot'
->>>>   make[4]: *** [head.o] Error 1
->>>>
->>>> All use of CET instructions, even those inside alternative blocks, needs to be
->>>> behind CONFIG_XEN_SHSTK, as it indicates suitable toolchain support.
->>>>
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> That's quite a bit of #ifdef-ary here. Simple (operand-less) insns
->>> like SETSSBSY could easily be made available via .byte directives.
->>> Would you be amenable to to ack-ing a patch to replace some of the
->>> #ifdef-s (at least the ones at the lstar, cstar, and sysenter
->>> entry points), after 4.14?
->> Yeah - that was a bit of a mess in the end.  (But given the
->> circumstances, and that I've got past form typo'ing the SETSSBSY opcode,
->> it probably was the right move even in hindsight).
+On 03/06/2020 12:28, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 03 June 2020 12:22
+>> To: paul@xen.org
+>> Cc: 'Igor Druzhinin' <igor.druzhinin@citrix.com>; xen-devel@lists.xenproject.org;
+>> andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com; george.dunlap@citrix.com
+>> Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults immediately
 >>
->> Reducing it to .byte should be fine so long as some form of /* setssbsy
->> */ comment appears.
-> Sure.
->
->> One other option would be to introduce a SETSSBSY macro, but that hides
->> the alternative so is something I'd prefer to avoid.
-> With this you mean you'd rather not see us go the CLAC/STAC route?
-> I was instead thinking of a pure assembly macro named "setssbsy".
-> In fact we could switch the CLAC/STAC ugliness to some such, if we
-> end up being happy with the model.
+>> On 03.06.2020 12:26, Paul Durrant wrote:
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: 03 June 2020 11:03
+>>>> To: Igor Druzhinin <igor.druzhinin@citrix.com>
+>>>> Cc: xen-devel@lists.xenproject.org; andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com;
+>>>> george.dunlap@citrix.com; Paul Durrant <paul@xen.org>
+>>>> Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT faults immediately
+>>>>
+>>>> On 02.06.2020 18:56, Igor Druzhinin wrote:
+>>>>> A recalculation NPT fault doesn't always require additional handling
+>>>>> in hvm_hap_nested_page_fault(), moreover in general case if there is no
+>>>>> explicit handling done there - the fault is wrongly considered fatal.
+>>>>>
+>>>>> This covers a specific case of migration with vGPU assigned on AMD:
+>>>>> at a moment log-dirty is enabled globally, recalculation is requested
+>>>>> for the whole guest memory including directly mapped MMIO regions of vGPU
+>>>>> which causes a page fault being raised at the first access to those;
+>>>>> but due to MMIO P2M type not having any explicit handling in
+>>>>> hvm_hap_nested_page_fault() a domain is erroneously crashed with unhandled
+>>>>> SVM violation.
+>>>>>
+>>>>> Instead of trying to be opportunistic - use safer approach and handle
+>>>>> P2M recalculation in a separate NPT fault by attempting to retry after
+>>>>> making the necessary adjustments. This is aligned with Intel behavior
+>>>>> where there are separate VMEXITs for recalculation and EPT violations
+>>>>> (faults) and only faults are handled in hvm_hap_nested_page_fault().
+>>>>> Do it by also unifying do_recalc return code with Intel implementation
+>>>>> where returning 1 means P2M was actually changed.
+>>>>>
+>>>>> Since there was no case previously where p2m_pt_handle_deferred_changes()
+>>>>> could return a positive value - it's safe to replace ">= 0" with just "== 0"
+>>>>> in VMEXIT_NPF handler. finish_type_change() is also not affected by the
+>>>>> change as being able to deal with >0 return value of p2m->recalc from
+>>>>> EPT implementation.
+>>>>>
+>>>>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+>>>>
+>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>> albeit preferably with ...
+>>>>
+>>>>> @@ -448,12 +451,14 @@ static int do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+>>>>>              clear_recalc(l1, e);
+>>>>>          err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+>>>>>          ASSERT(!err);
+>>>>> +
+>>>>> +        recalc_done = true;
+>>>>>      }
+>>>>>
+>>>>>   out:
+>>>>>      unmap_domain_page(table);
+>>>>>
+>>>>> -    return err;
+>>>>> +    return err ?: (recalc_done ? 1 : 0);
+>>>>
+>>>> ... this shrunk to
+>>>>
+>>>>     return err ?: recalc_done;
+>>>>
+>>>> (easily doable while committing).
+>>>>
+>>>> Also Cc Paul.
+>>>>
+>>>
+>>> paging_log_dirty_enable() still fails global enable if has_arch_pdevs()
+>>> is true, so presumably there's no desperate need for this to go in 4.14?
+>>
+>> The MMIO case is just the particular situation here. Aiui the same issue
+>> could potentially surface with other p2m types. Also given I'd consider
+>> this a backporting candidate, while it may not be desperately needed for
+>> the release, I think it deserves considering beyond the specific aspect
+>> you mention.
+>>
+> 
+> In which case I think the commit message probably ought to be rephrased, since it appears to focus on a case that cannot currently happen.
 
-The thing about the current STAC / CLAC is that, as written, they give
-the impression of being unconditional.  This is poor in terms of code
-clarity.
+This can happen without has_arch_pdevs() being true. It's enough to just
+directly map some physical memory into a guest to get p2m_direct_mmio
+type present in the page tables.
 
-Furthermore, making them indistinguishable from the plain instructions
-is definitely a no-go, because then we've got assembly source (again,
-which appears unconditional) which doesn't match its disassembly (the
-backing nops) - at least with the macros in upper case, it is obvious
-that something is up, even if you have to searching for why.
-
-If we went for pure assembly macros with an alt_ or maybe_ prefix, then
-that would be reasonable.  It looks as close to regular instruction as
-possible, but also makes it explicitly clear that it is conditional.
-
-~Andrew
+Igor
 
