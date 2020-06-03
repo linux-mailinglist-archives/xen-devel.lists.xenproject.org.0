@@ -2,74 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F6C1ECE5B
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 13:28:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DEA71ECE69
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 13:33:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgRZQ-0008Ud-NJ; Wed, 03 Jun 2020 11:28:32 +0000
+	id 1jgRdc-00011Y-6f; Wed, 03 Jun 2020 11:32:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0NKV=7Q=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jgRZP-0008UY-Q1
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 11:28:31 +0000
-X-Inumbo-ID: 599abc8a-a58d-11ea-81bc-bc764e2007e4
-Received: from mail-ed1-x52b.google.com (unknown [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rNY3=7Q=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jgRda-00011T-UQ
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 11:32:50 +0000
+X-Inumbo-ID: f4b7d446-a58d-11ea-9947-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 599abc8a-a58d-11ea-81bc-bc764e2007e4;
- Wed, 03 Jun 2020 11:28:30 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id w7so1447973edt.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2020 04:28:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=kgayONtgpl++/r/ziuQqKKOQ09tlFEGVK58WaG5UvPI=;
- b=p8ZAxBbIoOj4W5OiB8EQyNNX4z7nA9PpL9Mf+Vs8Ohd23JT9zJyHMrs1SEBgUqlyvz
- 0duEc4G2Rid84dqt5kzP8HiAqAXvk4Ct1Ip25othuhEvTQ9+wwvY7aYNhLqCKCGLY8QV
- UAlfJ9sGDX+INtQDL0FEmcyNPxpCW5UL4c7jgckP2wVtla1EUvXYZtJr2pSmpGOKhPjA
- keMq34laikkChpMvGD++cuSn+Cg1SmbxZC0KAKt02to/5z4JQ1/Qy2TuzuajBPqBROEm
- x0ZCIxitCwujcFvsY//l0b0LV5Q1QCJdgoIC3uFz0nKc1eRTbdd+htXXMjJgzITmb0xU
- WJdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=kgayONtgpl++/r/ziuQqKKOQ09tlFEGVK58WaG5UvPI=;
- b=GlSvgUR/EWUmNwOMExxMTFTuqch6AFTFKcOTtnz0Sc5wZIajxzoMaU83tg4XMiDuxE
- lvXn/3KxTDbilq2zhU1dVQD7La1UK388s9xF/xQ/Lah/8zXbNAxf+lehckgjXlZXd6IA
- Dy7ujqJsCD9SmzAutB+kGvCQSLh+ERhSZYrFPmsOwRPi1Dxtg85/eLSLBHcOfCqxT6xt
- jvh4MezfY7ft9IKAgzbbkvg7a8xG3pgEEJV/9/A6ReJc15RGoJj3IrNtigRzQmzG4wi7
- N6SNwVJJFqyw7sDtob6GPzO0/yosLQuAFfqgCcsw/G5nw4LcymRksLcNx10s0VqdCf83
- d14A==
-X-Gm-Message-State: AOAM532sKw7ocDBfYFUZVBOIeJIB/rZGzITLdz1d3MV9an3NLbxsRZrG
- 74cRP0Jd5gI3rglFWBqT17c=
-X-Google-Smtp-Source: ABdhPJz+X0NFQB3B6Cq7BopG/QKpUpBbhEosDWPtc/b7ZfuFTPQIMy4R0mvE//sgmN75YaYZbY2mkg==
-X-Received: by 2002:a50:d7d1:: with SMTP id m17mr31946110edj.126.1591183709642; 
- Wed, 03 Jun 2020 04:28:29 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.187])
- by smtp.gmail.com with ESMTPSA id 93sm1044740edy.49.2020.06.03.04.28.28
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Jun 2020 04:28:29 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-References: <1591116981-30162-1-git-send-email-igor.druzhinin@citrix.com>
- <37e6e543-564d-2625-b8d9-ccca6106efd2@suse.com>
- <000f01d63991$717b5e80$54721b80$@xen.org>
- <f1157af8-dd61-d9c2-a405-1e7d13615980@suse.com>
-In-Reply-To: <f1157af8-dd61-d9c2-a405-1e7d13615980@suse.com>
-Subject: RE: [PATCH v2] x86/svm: do not try to handle recalc NPT faults
- immediately
-Date: Wed, 3 Jun 2020 12:28:27 +0100
-Message-ID: <001e01d6399a$1ac56820$50503860$@xen.org>
+ id f4b7d446-a58d-11ea-9947-bc764e2007e4;
+ Wed, 03 Jun 2020 11:32:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hrefAA9Jg4cRJk55r6WANYtsWiWZsDqnYSBXDaZiI+4=; b=5n7vyFDxYnxUgR/unYz6AjUAP2
+ 6B4/LuVvWVBW/2C2whcJoPpekPEOs+uwWkgaZusn28F2hGPYkdZzK+/AWpMwsOv4HV9ZeuVxrlkmq
+ PoLCYq5P2KiUJYoLWJHtS4JpS584zwYRNaGbOARohn/OqUWwtVBnk0Anz+umkQOF3D+c=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jgRdZ-0002kn-8x; Wed, 03 Jun 2020 11:32:49 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jgRdZ-0008W5-2e; Wed, 03 Jun 2020 11:32:49 +0000
+Subject: Re: Keystone Issue
+To: CodeWiz2280 <codewiz2280@gmail.com>
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+ <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
+ <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
+ <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <25953300-f69d-19a4-9215-49cfedbd16ed@xen.org>
+Date: Wed, 3 Jun 2020 12:32:47 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.1
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQGQ4llbDaBtW772ehRPn2nRu43DNwHKaT0mAbXxiPcBOYrBC6krn8XA
+In-Reply-To: <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,130 +62,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Igor Druzhinin' <igor.druzhinin@citrix.com>, wl@xen.org,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com,
- xen-devel@lists.xenproject.org, roger.pau@citrix.com
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 03 June 2020 12:22
-> To: paul@xen.org
-> Cc: 'Igor Druzhinin' <igor.druzhinin@citrix.com>; =
-xen-devel@lists.xenproject.org;
-> andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com; =
-george.dunlap@citrix.com
-> Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT =
-faults immediately
->=20
-> On 03.06.2020 12:26, Paul Durrant wrote:
-> >> -----Original Message-----
-> >> From: Jan Beulich <jbeulich@suse.com>
-> >> Sent: 03 June 2020 11:03
-> >> To: Igor Druzhinin <igor.druzhinin@citrix.com>
-> >> Cc: xen-devel@lists.xenproject.org; andrew.cooper3@citrix.com; =
-wl@xen.org; roger.pau@citrix.com;
-> >> george.dunlap@citrix.com; Paul Durrant <paul@xen.org>
-> >> Subject: Re: [PATCH v2] x86/svm: do not try to handle recalc NPT =
-faults immediately
-> >>
-> >> On 02.06.2020 18:56, Igor Druzhinin wrote:
-> >>> A recalculation NPT fault doesn't always require additional =
-handling
-> >>> in hvm_hap_nested_page_fault(), moreover in general case if there =
-is no
-> >>> explicit handling done there - the fault is wrongly considered =
-fatal.
-> >>>
-> >>> This covers a specific case of migration with vGPU assigned on =
-AMD:
-> >>> at a moment log-dirty is enabled globally, recalculation is =
-requested
-> >>> for the whole guest memory including directly mapped MMIO regions =
-of vGPU
-> >>> which causes a page fault being raised at the first access to =
-those;
-> >>> but due to MMIO P2M type not having any explicit handling in
-> >>> hvm_hap_nested_page_fault() a domain is erroneously crashed with =
-unhandled
-> >>> SVM violation.
-> >>>
-> >>> Instead of trying to be opportunistic - use safer approach and =
-handle
-> >>> P2M recalculation in a separate NPT fault by attempting to retry =
-after
-> >>> making the necessary adjustments. This is aligned with Intel =
-behavior
-> >>> where there are separate VMEXITs for recalculation and EPT =
-violations
-> >>> (faults) and only faults are handled in =
-hvm_hap_nested_page_fault().
-> >>> Do it by also unifying do_recalc return code with Intel =
-implementation
-> >>> where returning 1 means P2M was actually changed.
-> >>>
-> >>> Since there was no case previously where =
-p2m_pt_handle_deferred_changes()
-> >>> could return a positive value - it's safe to replace ">=3D 0" with =
-just "=3D=3D 0"
-> >>> in VMEXIT_NPF handler. finish_type_change() is also not affected =
-by the
-> >>> change as being able to deal with >0 return value of p2m->recalc =
-from
-> >>> EPT implementation.
-> >>>
-> >>> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> >>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-> >>
-> >> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> >> albeit preferably with ...
-> >>
-> >>> @@ -448,12 +451,14 @@ static int do_recalc(struct p2m_domain *p2m, =
-unsigned long gfn)
-> >>>              clear_recalc(l1, e);
-> >>>          err =3D p2m->write_p2m_entry(p2m, gfn, pent, e, level + =
-1);
-> >>>          ASSERT(!err);
-> >>> +
-> >>> +        recalc_done =3D true;
-> >>>      }
-> >>>
-> >>>   out:
-> >>>      unmap_domain_page(table);
-> >>>
-> >>> -    return err;
-> >>> +    return err ?: (recalc_done ? 1 : 0);
-> >>
-> >> ... this shrunk to
-> >>
-> >>     return err ?: recalc_done;
-> >>
-> >> (easily doable while committing).
-> >>
-> >> Also Cc Paul.
-> >>
-> >
-> > paging_log_dirty_enable() still fails global enable if =
-has_arch_pdevs()
-> > is true, so presumably there's no desperate need for this to go in =
-4.14?
->=20
-> The MMIO case is just the particular situation here. Aiui the same =
-issue
-> could potentially surface with other p2m types. Also given I'd =
-consider
-> this a backporting candidate, while it may not be desperately needed =
-for
-> the release, I think it deserves considering beyond the specific =
-aspect
-> you mention.
->=20
+(+Bertrand and Stefano)
 
-In which case I think the commit message probably ought to be rephrased, =
-since it appears to focus on a case that cannot currently happen.
+On 01/06/2020 18:38, CodeWiz2280 wrote:
+> Hi Julien,
 
-  Paul
+Hi Dave,
 
+> 
+> As requested please see log below from the eval board booting dom0, some 
+> notes are as follows:
+
+Thanks for the logs and the notes. They are useful to understand your issue.
+
+> 1. The offset that gets applied to the 32-bit address to translate it 
+> to 36-bits is 0x7_8000_0000
+
+Is this offset present in the Device-Tree?
+
+> 2. Uboot has been setup to not change the address of the memory in the 
+> device tree prior to launching xen, otherwise it would 
+> automatically offset it and replace it with a 36-bit address and xen 
+> would immediately panic at the 36-bit address for a 32-bit processor.
+
+What is the list of the memory banks Xen will see?
+
+Xen is able to support 36-bit address, can you point to the panic() you 
+are hitting?
+
+> 3. The RAM starting address placed in the device tree is 0x8000_0000, 
+> which gets carved up by xen and replaced with 0xA000_0000 prior to 
+> booting dom0..  I had to put in test code to have the kernel offset the 
+> 0xA000_0000 32-bit starting address to the 36-bit address needed before 
+> the kernel will attempt to switch.  If it stays 32-bit then it will not 
+> switch over the address space.  Note that without xen in play uboot 
+> would normally replace the address in the device tree with the 36-bit one.
+
+IIUC, in the case of Linux boot directly, the Device-Tree will not 
+describe the low memory range. Is that correct?
+
+> 4. The dom0 kernel will boot from xen if the early_paging_init switch 
+> step is skipped, and the low mem stays in 32-bit....but there is a 
+> problem with the peripherals so this is not an acceptable solution.
+
+Can you details a bit more the problem with the peripherals?
+
+> 
+> It seems that either the kernel would need some API to tell xen that 
+> there is going to be a change in the memory its using prior to call 
+> early_paging_init(), 
+
+ From my understanding, the problem is very specific to the KeyStone. So 
+I would rather avoid to introduce an hypercall specific to your 
+platform. But...
+
+> or Xen would need to add the additional 36-bit 
+> addresses during the memory bank allocation step....but recognize that 
+> they are not actually different physical memory but just aliased to a 
+> different address.
+
+... I think it is possible to fix it entirely in Xen without any 
+modification in the device-tree.
+
+It is seems better that Xen treats the low memory region as "not usable" 
+and only use the high memory region internally. When allocating a Dom0 
+memory banks, it would need to ensure that there is a corresponding 
+alias in low memory.
+
+Xen will also need to do two mappings in the Dom0 stage-2 page-tables. 
+The extra one is for the alias.
+
+This approach will prevent to use hypercall buffer from low memory and 
+therefore require your guest to support LPAE. Is it going to be an issue 
+for you?
+
+Cheers,
+
+-- 
+Julien Grall
 
