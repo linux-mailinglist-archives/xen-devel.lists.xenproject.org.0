@@ -2,56 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DEA71ECE69
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 13:33:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FAC51ECE78
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 13:34:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgRdc-00011Y-6f; Wed, 03 Jun 2020 11:32:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rNY3=7Q=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jgRda-00011T-UQ
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 11:32:50 +0000
-X-Inumbo-ID: f4b7d446-a58d-11ea-9947-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f4b7d446-a58d-11ea-9947-bc764e2007e4;
- Wed, 03 Jun 2020 11:32:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hrefAA9Jg4cRJk55r6WANYtsWiWZsDqnYSBXDaZiI+4=; b=5n7vyFDxYnxUgR/unYz6AjUAP2
- 6B4/LuVvWVBW/2C2whcJoPpekPEOs+uwWkgaZusn28F2hGPYkdZzK+/AWpMwsOv4HV9ZeuVxrlkmq
- PoLCYq5P2KiUJYoLWJHtS4JpS584zwYRNaGbOARohn/OqUWwtVBnk0Anz+umkQOF3D+c=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jgRdZ-0002kn-8x; Wed, 03 Jun 2020 11:32:49 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jgRdZ-0008W5-2e; Wed, 03 Jun 2020 11:32:49 +0000
-Subject: Re: Keystone Issue
-To: CodeWiz2280 <codewiz2280@gmail.com>
-References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
- <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
- <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
- <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <25953300-f69d-19a4-9215-49cfedbd16ed@xen.org>
-Date: Wed, 3 Jun 2020 12:32:47 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.1
+	id 1jgRfI-0001AI-M6; Wed, 03 Jun 2020 11:34:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WnGI=7Q=redhat.com=phrdina@srs-us1.protection.inumbo.net>)
+ id 1jgRfG-0001AD-SA
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 11:34:35 +0000
+X-Inumbo-ID: 3179963a-a58e-11ea-ace8-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 3179963a-a58e-11ea-ace8-12813bfff9fa;
+ Wed, 03 Jun 2020 11:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1591184072;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=jbak0LTaAnQiiMFNvn9Gt/Y2OHMAg9Z1OTjz5g3/Lb8=;
+ b=U0gB0G6A4jI9OAogEgZF9zROw4s0dsmsGsOQYE5+73fJ+TF3ljCYjhBjIzFUVB48TjA+ED
+ LZ0MrER/ng8TvywB6Ns5l90nCQKB6avkK9UJnSlxgILWpLTU05XpwdjA64XcU2+/eypJyz
+ UEyyZ2gpbHyKjiKR7QvC0c71KiECIEE=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-62-Bepr0SE1PoO1ikwAqzQbEA-1; Wed, 03 Jun 2020 07:34:26 -0400
+X-MC-Unique: Bepr0SE1PoO1ikwAqzQbEA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4EF7C107ACCD;
+ Wed,  3 Jun 2020 11:34:25 +0000 (UTC)
+Received: from antique-laptop (unknown [10.40.194.48])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 38B7F7E7F1;
+ Wed,  3 Jun 2020 11:34:21 +0000 (UTC)
+Date: Wed, 3 Jun 2020 13:34:18 +0200
+From: Pavel Hrdina <phrdina@redhat.com>
+To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+Subject: Re: [PATCH] autogen.sh: Restore --no-git (avoid git submodule update)
+Message-ID: <20200603113418.GB11390@antique-laptop>
+References: <20200602154745.15054-1-ian.jackson@eu.citrix.com>
+ <20200603103109.GA11390@antique-laptop>
+ <20200603103708.GB2892653@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200603103708.GB2892653@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="uZ3hkaAS1mZxFaxD"
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,87 +67,102 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: libvir-list@redhat.com, xen-devel@lists.xenproject.org,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-(+Bertrand and Stefano)
+--uZ3hkaAS1mZxFaxD
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 01/06/2020 18:38, CodeWiz2280 wrote:
-> Hi Julien,
+On Wed, Jun 03, 2020 at 11:37:08AM +0100, Daniel P. Berrang=C3=A9 wrote:
+> On Wed, Jun 03, 2020 at 12:31:09PM +0200, Pavel Hrdina wrote:
+> > On Tue, Jun 02, 2020 at 04:47:45PM +0100, Ian Jackson wrote:
+> > > Prior to 2621d48f005a "gnulib: delete all gnulib integration",
+> > > one could pass ./autogen.sh --no-git to prevent the libvirt build
+> > > system from running git submodule update.
+> > >=20
+> > > This feature is needed by systems like the Xen Project CI which want
+> > > to explicitly control the revisions of every tree.  These will
+> > > typically arrange to initialise the submodules check out the right
+> > > version of everything, and then expect the build system not to mess
+> > > with it any more.
+> >=20
+> > To be honest I don't understand why would anyone want to keep track of
+> > all submodules of all projects for any CI and update it manually every
+> > time the upstream project changes these submodules. Sounds like a lot
+> > of unnecessary work but maybe I'm missing something.
+>=20
+> Two possible scenarios that I think are valid
+>=20
+>  - The CI job script does not have network access
+>  - The CI job script sees the source dir as read-only
+>=20
+> In both cases the CI harness would have to initialize the submodule
+> before runing the CI job.
+>=20
+> I don't know if this is what Xen CI is hitting, but I think the
+> request is reasonable none the less.
+>=20
+> Both Jenkins and GitLab CI have option to make the harness init
+> submodules prior to the job running.
 
-Hi Dave,
+My point was that running 'git submodule update --init' will not change
+anything if all submodules are updated to the correct revision and if
+the repository was pre-created with submodules and is read-only when the
+test is executed the git command will not fail as well and everything
+will be fine.
 
-> 
-> As requested please see log below from the eval board booting dom0, some 
-> notes are as follows:
+If the submodules are not updated to the correct revision then it will
+fail and notify the CI users that something is broken.
 
-Thanks for the logs and the notes. They are useful to understand your issue.
+There should not be any need to disable this explicitly unless you want
+to build libvirt with different revisions of submodules.
 
-> 1. The offset that gets applied to the 32-bit address to translate it 
-> to 36-bits is 0x7_8000_0000
+> > > Despite to the old documentation comments referring only to gnulib,
+> > > the --no-git feature is required not only because of gnulib but also
+> > > because of the other submodule, src/keycodemapdb.
+> > >=20
+> > > (And in any case, even if it were no longer required because all the
+> > > submodules were removed, it ought ideally to have been retained as a
+> > > no-op for compaibility reasons.)
+> >=20
+> > Well, we will break a lot more by switching to Meson build system where
+> > everyone building libvirt will have to change their scripts as it will
+> > not be compatible at all.
+>=20
+> Yes, but I think that's tangential, as the two above reasons will
+> still apply, and Meson will cope with having submodules pre-initialized.
 
-Is this offset present in the Device-Tree?
+Yes, these are unrelated and I just wanted to point out that
+compaibility reasons are in most cases not valid to changes to build
+system or moving files around in git repository and so on.
 
-> 2. Uboot has been setup to not change the address of the memory in the 
-> device tree prior to launching xen, otherwise it would 
-> automatically offset it and replace it with a 36-bit address and xen 
-> would immediately panic at the 36-bit address for a 32-bit processor.
+Pavel
 
-What is the list of the memory banks Xen will see?
+--uZ3hkaAS1mZxFaxD
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Xen is able to support 36-bit address, can you point to the panic() you 
-are hitting?
+-----BEGIN PGP SIGNATURE-----
 
-> 3. The RAM starting address placed in the device tree is 0x8000_0000, 
-> which gets carved up by xen and replaced with 0xA000_0000 prior to 
-> booting dom0..  I had to put in test code to have the kernel offset the 
-> 0xA000_0000 32-bit starting address to the 36-bit address needed before 
-> the kernel will attempt to switch.  If it stays 32-bit then it will not 
-> switch over the address space.  Note that without xen in play uboot 
-> would normally replace the address in the device tree with the 36-bit one.
+iQIzBAEBCAAdFiEEcbzs91ho/coWWY7aUi1kczAH4YwFAl7XiroACgkQUi1kczAH
+4Yy+UxAAqbVqkN2Cc0PyW3DI637tUGNiPTgO4rdD4D9sL4IVgRVGBDQvJxk8+qv/
+ifbVs139Amrn5ELB2comrvsWFF5PVjbbQMYH0DnuIz3AHGvjKb7uUzcmx0HgWLbE
+uhMqPkD1ClzzeNJXd73eFcSJPn72UZP1Opsm6KZOhIb1KXA1BDC4v5V96GvY0N69
+W9j2L+uuMiiWtBJWBCsTBKxd1Eokq38djuoaaHzup87+jCwkmGEnNqLTdVIYqSPt
+D9WffH/9RA5KT92PPccpNfl8CuOn0lGf2H6JY+F7Q8PonC9vVNWlS2mB+NymErLf
+Hihs216IiGs4I58TJ2hkEpj8rfxIa4ygUg6DgUBgsnS+HICcr6xehyYchgfv6nhC
+rhn0flQDa39ib/jKscRagkL6Wkbb872EDGDn85LaLz3kzOVmrBn6CmjaKXTlfJkJ
+HqnJ/OpEySQUt2SjPBdalLkAebjr8CF1jCogkd8XzyTFpTSdOr+l164jBBMXdZy+
+RGN3wskVv0bk6q9RZik3rE3Ivdc8WMABX4gvJN2I9ZwXwjSpjkMBWMWV1WYi1XaV
+CoVFKzWY/LaVcQU+f2jLOXVxe6rIW+qxaYhA2J50E2zl2gM7Xu0EFP+KEenH2sw7
+Kx60uvc7aAK0XZdQ5W3IOKlsr2HzzaYtvew26EQPCqv/1kDjDys=
+=TnYM
+-----END PGP SIGNATURE-----
 
-IIUC, in the case of Linux boot directly, the Device-Tree will not 
-describe the low memory range. Is that correct?
+--uZ3hkaAS1mZxFaxD--
 
-> 4. The dom0 kernel will boot from xen if the early_paging_init switch 
-> step is skipped, and the low mem stays in 32-bit....but there is a 
-> problem with the peripherals so this is not an acceptable solution.
-
-Can you details a bit more the problem with the peripherals?
-
-> 
-> It seems that either the kernel would need some API to tell xen that 
-> there is going to be a change in the memory its using prior to call 
-> early_paging_init(), 
-
- From my understanding, the problem is very specific to the KeyStone. So 
-I would rather avoid to introduce an hypercall specific to your 
-platform. But...
-
-> or Xen would need to add the additional 36-bit 
-> addresses during the memory bank allocation step....but recognize that 
-> they are not actually different physical memory but just aliased to a 
-> different address.
-
-... I think it is possible to fix it entirely in Xen without any 
-modification in the device-tree.
-
-It is seems better that Xen treats the low memory region as "not usable" 
-and only use the high memory region internally. When allocating a Dom0 
-memory banks, it would need to ensure that there is a corresponding 
-alias in low memory.
-
-Xen will also need to do two mappings in the Dom0 stage-2 page-tables. 
-The extra one is for the alias.
-
-This approach will prevent to use hypercall buffer from low memory and 
-therefore require your guest to support LPAE. Is it going to be an issue 
-for you?
-
-Cheers,
-
--- 
-Julien Grall
 
