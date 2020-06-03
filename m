@@ -2,54 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 482FF1ED47B
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 18:43:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CE661ED48D
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 18:52:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgWUD-00028Y-7Z; Wed, 03 Jun 2020 16:43:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jgWcC-0003CQ-1s; Wed, 03 Jun 2020 16:51:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/GLy=7Q=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jgWUB-00028T-Sr
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 16:43:27 +0000
-X-Inumbo-ID: 562dbed6-a5b9-11ea-81bc-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 562dbed6-a5b9-11ea-81bc-bc764e2007e4;
- Wed, 03 Jun 2020 16:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=85NI97GHdoKjkfO5we6qMz1uo7X8fxNGUgDltHMrihU=; b=adpNz2FW2wgMZ8cmtR8gLwxdf
- uJih3BxMnGkqJrp3GfPwIjboWFNO9BvfJvZSKo4AoGr/1w8JKxcsnVLKGytIOB2byXGoI40n6C8US
- 0txxnxSKAtYS7lj+H6NzyPZgm4xkSPQyXXrwzcPaxo9FLWiIyJxupDB3nXXnurOrMNZsI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgWU6-0001QC-06; Wed, 03 Jun 2020 16:43:22 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgWU5-0006gV-Mx; Wed, 03 Jun 2020 16:43:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jgWU5-0003Yc-MH; Wed, 03 Jun 2020 16:43:21 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150653-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=vZjh=7Q=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jgWcA-0003CL-RZ
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 16:51:42 +0000
+X-Inumbo-ID: 7fa57f0a-a5ba-11ea-ad67-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7fa57f0a-a5ba-11ea-ad67-12813bfff9fa;
+ Wed, 03 Jun 2020 16:51:41 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 4decgFsKWVfn1fWOoLwMQVuM72S682hSoKwo8se4vZ+1DVD4ts/5dVGfITtwNzfl+5JVQGgS34
+ B79x6y2Nw2Vkal3x6wnsBCOQX3JfUHDOZZpaEEL4O5cTQa0XEmolumQ1UMkCaLdHy95vw67HOh
+ IKuxQbsUto2Yk2AlzO+fGHE7jr6QcCnpiSfSSXpHBDLyt9YWCvxCDlL/GCcXBvTIjTNcPe3Jt5
+ HfoCkTjys8DX/p7u2o9orlu69ySp80ehc3kQyFaJOr7G5aZm/tp6wW48H3y8yeOljyNkZk3DkD
+ SBw=
+X-SBRS: 2.7
+X-MesageID: 19395688
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,468,1583211600"; d="scan'208";a="19395688"
+Date: Wed, 3 Jun 2020 18:51:34 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v3] xen: fix build without pci passthrough
+Message-ID: <20200603165134.GG1195@Air-de-Roger>
+References: <20200603160442.3151170-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 150653: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=7191dd3c5990416cf473ce36b3fb84ecb2f7b950
-X-Osstest-Versions-That: ovmf=ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 03 Jun 2020 16:43:21 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200603160442.3151170-1-anthony.perard@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +55,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Eduardo Habkost <ehabkost@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Paul Durrant <paul@xen.org>, qemu-devel@nongnu.org, Marcel
+ Apfelbaum <marcel.apfelbaum@gmail.com>, xen-devel@lists.xenproject.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Richard Henderson <rth@twiddle.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150653 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150653/
+On Wed, Jun 03, 2020 at 05:04:42PM +0100, Anthony PERARD wrote:
+> From: Roger Pau Monne <roger.pau@citrix.com>
+> 
+> Xen PCI passthrough support may not be available and thus the global
+> variable "has_igd_gfx_passthru" might be compiled out. Common code
+> should not access it in that case.
+> 
+> Unfortunately, we can't use CONFIG_XEN_PCI_PASSTHROUGH directly in
+> xen-common.c so this patch instead move access to the
+> has_igd_gfx_passthru variable via function and those functions are
+> also implemented as stubs. The stubs will be used when QEMU is built
+> without passthrough support.
+> 
+> Now, when one will want to enable igd-passthru via the -machine
+> property, they will get an error message if QEMU is built without
+> passthrough support.
+> 
+> Fixes: 46472d82322d0 ('xen: convert "-machine igd-passthru" to an accelerator property')
+> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 7191dd3c5990416cf473ce36b3fb84ecb2f7b950
-baseline version:
- ovmf                 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9
+Tested-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Last test of basis   150614  2020-06-02 08:10:08 Z    1 days
-Testing same since   150653  2020-06-03 14:09:17 Z    0 days    1 attempts
+Fixes the build for me on FreeBSD without pci-passthrough.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   ca407c7246..7191dd3c59  7191dd3c5990416cf473ce36b3fb84ecb2f7b950 -> xen-tested-master
+Thanks!
 
