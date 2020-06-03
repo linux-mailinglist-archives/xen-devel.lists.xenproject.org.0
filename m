@@ -2,59 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B29541ECC53
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 11:17:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B52421ECCF7
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jun 2020 11:51:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgPVo-0003W8-7x; Wed, 03 Jun 2020 09:16:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/GLy=7Q=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jgPVm-0003W3-OU
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 09:16:38 +0000
-X-Inumbo-ID: ed7841d8-a57a-11ea-9dbe-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ed7841d8-a57a-11ea-9dbe-bc764e2007e4;
- Wed, 03 Jun 2020 09:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=boeBwvLycEOU4JA4Sm6V9LSyGxUpTFD0jdYR3b8L1D4=; b=QrfJA42y+aY5OJxf7gisp2/wb
- D0O/wt7DY1ckvloq6Vp0H4G/nO6+J6ReUF3llbN0xAmeOYcCKEyvXmDcA+v0TeuXoI39gtkIjY6B2
- tbepP3bA1RKn02eZe40nOzVMJySaYb5oUbwLoc6THdSaNMvoOjG2LnhCKWQElC9OFZzm0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgPVl-00086G-Au; Wed, 03 Jun 2020 09:16:37 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgPVl-0007io-0j; Wed, 03 Jun 2020 09:16:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jgPVk-0006ha-WC; Wed, 03 Jun 2020 09:16:36 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150643-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jgQ2q-0007Fy-0p; Wed, 03 Jun 2020 09:50:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=n250=7Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jgQ2n-0007Ft-Vp
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2020 09:50:46 +0000
+X-Inumbo-ID: b15eb524-a57f-11ea-acd3-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b15eb524-a57f-11ea-acd3-12813bfff9fa;
+ Wed, 03 Jun 2020 09:50:44 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D0502ACB1;
+ Wed,  3 Jun 2020 09:50:46 +0000 (UTC)
+Subject: Re: Re [PATCH] x86/CET: Fix build following c/s 43b98e7190
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <1eeb47f4-b9b9-c4d8-a5c9-58d78f0e0aeb@suse.com>
+ <fa2a6ce5-7a15-6ac7-defd-ded1c229d642@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <cf5bca49-ca3a-b130-5d68-a92870416620@suse.com>
+Date: Wed, 3 Jun 2020 11:50:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150643: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=99a76a88d5e7f4693bb6b286e366006e1da1c954
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 03 Jun 2020 09:16:36 +0000
+In-Reply-To: <fa2a6ce5-7a15-6ac7-defd-ded1c229d642@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,79 +47,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150643 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150643/
+On 02.06.2020 19:15, Andrew Cooper wrote:
+> On 02/06/2020 15:21, Jan Beulich wrote:
+>>> OSSTest reports:
+>>>
+>>>   x86_64.S: Assembler messages:
+>>>   x86_64.S:57: Error: no such instruction: `setssbsy'
+>>>   /home/osstest/build.150510.build-amd64/xen/xen/Rules.mk:183: recipe for target 'head.o' failed
+>>>   make[4]: Leaving directory '/home/osstest/build.150510.build-amd64/xen/xen/arch/x86/boot'
+>>>   make[4]: *** [head.o] Error 1
+>>>
+>>> All use of CET instructions, even those inside alternative blocks, needs to be
+>>> behind CONFIG_XEN_SHSTK, as it indicates suitable toolchain support.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> That's quite a bit of #ifdef-ary here. Simple (operand-less) insns
+>> like SETSSBSY could easily be made available via .byte directives.
+>> Would you be amenable to to ack-ing a patch to replace some of the
+>> #ifdef-s (at least the ones at the lstar, cstar, and sysenter
+>> entry points), after 4.14?
+> 
+> Yeah - that was a bit of a mess in the end.  (But given the
+> circumstances, and that I've got past form typo'ing the SETSSBSY opcode,
+> it probably was the right move even in hindsight).
+> 
+> Reducing it to .byte should be fine so long as some form of /* setssbsy
+> */ comment appears.
 
-Regressions :-(
+Sure.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 150438
+> One other option would be to introduce a SETSSBSY macro, but that hides
+> the alternative so is something I'd prefer to avoid.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+With this you mean you'd rather not see us go the CLAC/STAC route?
+I was instead thinking of a pure assembly macro named "setssbsy".
+In fact we could switch the CLAC/STAC ugliness to some such, if we
+end up being happy with the model.
 
-version targeted for testing:
- xen                  99a76a88d5e7f4693bb6b286e366006e1da1c954
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
-
-Last test of basis   150438  2020-05-28 14:01:19 Z    5 days
-Failing since        150465  2020-05-29 09:02:14 Z    5 days   37 attempts
-Testing same since   150629  2020-06-02 21:00:40 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Olaf Hering <olaf@aepfle.de>
-  Paul Durrant <paul@xen.org>
-  Paul Durrant <pdurrant@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1494 lines long.)
+Jan
 
