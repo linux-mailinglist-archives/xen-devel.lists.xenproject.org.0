@@ -2,127 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10D7B1EEA50
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 20:33:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 458D91EEA57
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 20:34:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgufe-0007Wd-NI; Thu, 04 Jun 2020 18:32:54 +0000
+	id 1jgugk-0007eS-5S; Thu, 04 Jun 2020 18:34:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZXme=7R=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jgufd-0007WX-Kk
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 18:32:53 +0000
-X-Inumbo-ID: ccc7de04-a691-11ea-9947-bc764e2007e4
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ <SRS0=zxGl=7R=amazon.com=prvs=41758ceaf=anchalag@srs-us1.protection.inumbo.net>)
+ id 1jgugi-0007eE-Lm
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 18:34:00 +0000
+X-Inumbo-ID: f4e1a8de-a691-11ea-81bc-bc764e2007e4
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ccc7de04-a691-11ea-9947-bc764e2007e4;
- Thu, 04 Jun 2020 18:32:53 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 054IMfnt017698;
- Thu, 4 Jun 2020 18:32:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=A4QZV2GTyDxhLtS6+iS2i/ZvHsElXA2WyGUlklwEGnM=;
- b=Qa27ZUGz9DCwHY8//UGyndpQtZM8OTtJLKL87gPXMPJ1+UI0yxLiBYbVv3y8mDapbtPF
- BmoTaeForzupxSAS6Ojm4FcF8M5cDRZveNMuCXX2dog5xGNBErd4sBrf1rSkfu/71nVW
- Es8D9fyfIuwoOdl2rj37Il37NS4Ca+n8VmxN/37nXQjUMC300nMD6FMhYFWmJFNVdzcM
- VMD+XedB1vkozfELx7kkIxRpN0yAQj35zt79rFmhkPh7EsQya37LII0zOi6m7tLDMxXK
- 1+kEW0DJkBTanjedxpcmiTfUOTnhzrOv6Wj3qP1+NU+s/Jp/8ZVpvVP4fG/VTaNcUjI1 1w== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 31evap37qv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 04 Jun 2020 18:32:48 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 054IJNmJ172543;
- Thu, 4 Jun 2020 18:32:47 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 31c1e27fgd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 04 Jun 2020 18:32:47 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 054IWjtu000814;
- Thu, 4 Jun 2020 18:32:45 GMT
-Received: from [10.39.203.50] (/10.39.203.50)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 04 Jun 2020 11:32:45 -0700
-Subject: Re: [PATCH v2 00/11] fix swiotlb-xen for RPi4
-To: Stefano Stabellini <sstabellini@kernel.org>, jgross@suse.com,
- konrad.wilk@oracle.com
-References: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
- 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
- Jg6OxFYd01z+a+oL
-Message-ID: <359d08b7-974e-f755-6019-9fa043cc9921@oracle.com>
-Date: Thu, 4 Jun 2020 14:32:43 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id f4e1a8de-a691-11ea-81bc-bc764e2007e4;
+ Thu, 04 Jun 2020 18:34:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1591295641; x=1622831641;
+ h=date:from:to:cc:message-id:references:mime-version:
+ in-reply-to:subject;
+ bh=HTqcTU628wYZT8oBd+ArbsC8bAoTC8fUsqm9xVXgmro=;
+ b=SAaXs7pokykunMTWUj65jwQyokdkFbwc0cGtac2kn5UVn3+HVsvG+gWi
+ RCIQdqIQ0E9upBydp+072qA8IL/Qyn/Uqng4kYlpJGNhu+yOsquCbXQvv
+ EURfAnvUNJHdqggaImjBcUiZo70kqda3l4ioZlU0JL71TlhMJOChO1hNS o=;
+IronPort-SDR: Bp9sXjz5OL6Qmgdn1t2NjI2Ij78oRPs1ANk1UfVNxYHuSJrPGMGuWQ5o01KOARrU4ThWIT/DpG
+ g10L4tLv3oVA==
+X-IronPort-AV: E=Sophos;i="5.73,472,1583193600"; d="scan'208";a="41639696"
+Subject: Re: [PATCH 09/12] x86/xen: save and restore steal clock
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 04 Jun 2020 18:33:58 +0000
+Received: from EX13MTAUEB002.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+ by email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 2AEAAA22B6; Thu,  4 Jun 2020 18:33:56 +0000 (UTC)
+Received: from EX13D08UEB004.ant.amazon.com (10.43.60.142) by
+ EX13MTAUEB002.ant.amazon.com (10.43.60.12) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 4 Jun 2020 18:33:36 +0000
+Received: from EX13MTAUEB002.ant.amazon.com (10.43.60.12) by
+ EX13D08UEB004.ant.amazon.com (10.43.60.142) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 4 Jun 2020 18:33:36 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.60.234) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Thu, 4 Jun 2020 18:33:36 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id 5663D403BB; Thu,  4 Jun 2020 18:33:36 +0000 (UTC)
+Date: Thu, 4 Jun 2020 18:33:36 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <20200604183336.GA25251@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+References: <cover.1589926004.git.anchalag@amazon.com>
+ <6f39a1594a25ab5325f34e1e297900d699cd92bf.1589926004.git.anchalag@amazon.com>
+ <5edb4147-af12-3a0e-e8f7-5b72650209ac@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9642
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- mlxlogscore=999
- spamscore=0 bulkscore=0 adultscore=0 suspectscore=0 mlxscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2006040129
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9642
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- adultscore=0
- impostorscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 clxscore=1015 phishscore=0 mlxlogscore=999 mlxscore=0
- suspectscore=0 cotscore=-2147483648 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2004280000 definitions=main-2006040129
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <5edb4147-af12-3a0e-e8f7-5b72650209ac@oracle.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -130,46 +73,104 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, julien.grall@arm.com, tamas@tklengyel.com,
- linux-kernel@vger.kernel.org, roman@zededa.com
+Cc: eduval@amazon.com, len.brown@intel.com, peterz@infradead.org,
+ benh@kernel.crashing.org, x86@kernel.org, linux-mm@kvack.org, pavel@ucw.cz,
+ hpa@zytor.com, sstabellini@kernel.org, kamatam@amazon.com, mingo@redhat.com,
+ xen-devel@lists.xenproject.org, sblbir@amazon.com, axboe@kernel.dk,
+ konrad.wilk@oracle.com, anchalag@amazon.com, bp@alien8.de, tglx@linutronix.de,
+ jgross@suse.com, netdev@vger.kernel.org, linux-pm@vger.kernel.org,
+ rjw@rjwysocki.net, linux-kernel@vger.kernel.org, vkuznets@redhat.com,
+ davem@davemloft.net, dwmw@amazon.co.uk, roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 6/3/20 6:22 PM, Stefano Stabellini wrote:
-> Hi all,
->
-> This series is a collection of fixes to get Linux running on the RPi4 a=
-s
-> dom0.
->
-> Conceptually there are only two significant changes:
->
-> - make sure not to call virt_to_page on vmalloc virt addresses (patch
->   #1)
-> - use phys_to_dma and dma_to_phys to translate phys to/from dma
->   addresses (all other patches)
->
-> In particular in regards to the second part, the RPi4 is the first
-> board where Xen can run that has the property that dma addresses are
-> different from physical addresses, and swiotlb-xen was written with the=
+On Sat, May 30, 2020 at 07:44:06PM -0400, Boris Ostrovsky wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> 
+> 
+> 
+> On 5/19/20 7:28 PM, Anchal Agarwal wrote:
+> > From: Munehisa Kamata <kamatam@amazon.com>
+> >
+> > Save steal clock values of all present CPUs in the system core ops
+> > suspend callbacks. Also, restore a boot CPU's steal clock in the system
+> > core resume callback. For non-boot CPUs, restore after they're brought
+> > up, because runstate info for non-boot CPUs are not active until then.
+> >
+> > Signed-off-by: Munehisa Kamata <kamatam@amazon.com>
+> > Signed-off-by: Anchal Agarwal <anchalag@amazon.com>
+> > ---
+> >  arch/x86/xen/suspend.c | 13 ++++++++++++-
+> >  arch/x86/xen/time.c    |  3 +++
+> >  2 files changed, 15 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/arch/x86/xen/suspend.c b/arch/x86/xen/suspend.c
+> > index 784c4484100b..dae0f74f5390 100644
+> > --- a/arch/x86/xen/suspend.c
+> > +++ b/arch/x86/xen/suspend.c
+> > @@ -91,12 +91,20 @@ void xen_arch_suspend(void)
+> >  static int xen_syscore_suspend(void)
+> >  {
+> >       struct xen_remove_from_physmap xrfp;
+> > -     int ret;
+> > +     int cpu, ret;
+> >
+> >       /* Xen suspend does similar stuffs in its own logic */
+> >       if (xen_suspend_mode_is_xen_suspend())
+> >               return 0;
+> >
+> > +     for_each_present_cpu(cpu) {
+> > +             /*
+> > +              * Nonboot CPUs are already offline, but the last copy of
+> > +              * runstate info is still accessible.
+> > +              */
+> > +             xen_save_steal_clock(cpu);
+> > +     }
+> > +
+> >       xrfp.domid = DOMID_SELF;
+> >       xrfp.gpfn = __pa(HYPERVISOR_shared_info) >> PAGE_SHIFT;
+> >
+> > @@ -118,6 +126,9 @@ static void xen_syscore_resume(void)
+> >
+> >       pvclock_resume();
+> 
+> 
+> Doesn't make any difference but I think since this patch is where you
+> are dealing with clock then pvclock_resume() should be added here and
+> not in the earlier patch.
+> 
+> 
+> -boris
+I think the reason it may be in previous patch because it was a part
+of syscore_resume and steal clock fix came in later. 
+It could me moved to this patch that deals with all clock stuff.
 
-> assumption that phys addr =3D=3D dma addr.
->
-> This series adds the phys_to_dma and dma_to_phys calls to make it work.=
+-Anchal
+> 
+> 
 
->
-> Cheers,
->
-> Stefano
-
-
-(+ Julien)
-
-
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-
-
-
-
-
+> >
+> > +     /* Nonboot CPUs will be resumed when they're brought up */
+> > +     xen_restore_steal_clock(smp_processor_id());
+> > +
+> >       gnttab_resume();
+> >  }
+> >
+> > diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
+> > index c8897aad13cd..33d754564b09 100644
+> > --- a/arch/x86/xen/time.c
+> > +++ b/arch/x86/xen/time.c
+> > @@ -545,6 +545,9 @@ static void xen_hvm_setup_cpu_clockevents(void)
+> >  {
+> >       int cpu = smp_processor_id();
+> >       xen_setup_runstate_info(cpu);
+> > +     if (cpu)
+> > +             xen_restore_steal_clock(cpu);
+> > +
+> >       /*
+> >        * xen_setup_timer(cpu) - snprintf is bad in atomic context. Hence
+> >        * doing it xen_hvm_cpu_notify (which gets called by smp_init during
+> 
+> 
+> 
 
