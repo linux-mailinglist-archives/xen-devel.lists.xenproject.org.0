@@ -2,55 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C84721EDA20
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 02:48:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9943F1EDAB1
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 03:47:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jge2Y-0003Cc-QP; Thu, 04 Jun 2020 00:47:26 +0000
+	id 1jgexg-00012w-C9; Thu, 04 Jun 2020 01:46:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DmD4=7R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jge2X-0003CX-Ng
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 00:47:25 +0000
-X-Inumbo-ID: f4d4dfea-a5fc-11ea-ade3-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=SnWc=7R=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1jgexe-00012r-IE
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 01:46:26 +0000
+X-Inumbo-ID: 3324945e-a605-11ea-ade5-12813bfff9fa
+Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f4d4dfea-a5fc-11ea-ade3-12813bfff9fa;
- Thu, 04 Jun 2020 00:47:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mxch3F3T3jroPzPBnscaEsJ5/G/fsUmzIBEqKuEiyCc=; b=NtPDq4+uGCBVyrcj6h6CquMfj
- yJNSBAXRrbz7PvPZzTK+aNXBDFXSvZ/fL1Qa4OkdkQjgr5fWtBb9FtDQXNPP7CZ2t//fo6507a7Tw
- w6/0EJIQ8R5Jkw/XwxCnaVLebcbRukTucD3h0vEDjzd1UOf/0vVqMIM0gdM8y5eaTi93M=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jge2W-0003h8-88; Thu, 04 Jun 2020 00:47:24 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jge2W-0005MZ-02; Thu, 04 Jun 2020 00:47:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jge2V-0002Wl-Va; Thu, 04 Jun 2020 00:47:23 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150667-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 3324945e-a605-11ea-ade5-12813bfff9fa;
+ Thu, 04 Jun 2020 01:46:25 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 155DD5C00B7
+ for <xen-devel@lists.xenproject.org>; Wed,  3 Jun 2020 21:46:25 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Wed, 03 Jun 2020 21:46:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=bx/CQ+vstaFVaJlSsi8G0wcmiGz0b
+ 8b7zkvx/mq9B/M=; b=0lLRWR14PXyb6sC7675eRhGPAyzTluc6zfYOe4egM4z/P
+ GmcqrCtwasfY3lOQt6JCaktpNPakAVN86NQbWTAVmrsLDJjfyE4OtA3k5sLxti6N
+ iUpfUfAvca4vudlgriJ854So5ywp6kNeWElvCne2xFi4AlQpFjqRyUAcwBw8Qs/k
+ MY9iNeXr+5YtSXEhmEDrzclUBT1o6rtf1C9yy95PBw2OpxmJFKX5L6YsIBqQimvc
+ 98GgA1Nd+Hd7p4+ljPfKNzc8V1TcNI3DsVunfY6esyCXKr0n5CGr0jUXwBSDD0bn
+ gGKlWFH6pZPEvrdqTT4G4rQIHOqgCx1Um5H4jZttg==
+X-ME-Sender: <xms:cFLYXiRjOgoJ6eBTI-lYVDwS_Fww9Qme1mnF1sgTKd_h-4RsUlRI1A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudegtddggeelucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
+ dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
+ uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
+ cuggftrfgrthhtvghrnhepteduteeiudevkeegvefhtdekhfelgffhhedukedvvdeuuddv
+ jeehvddtieehudfgnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucfkphepledurd
+ eihedrfeegrdeffeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhl
+ fhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
+ hm
+X-ME-Proxy: <xmx:cFLYXnyqFLVEzEQQSCmU9IHmMfucuUVylMCUDAIwHiErpv59zNfCig>
+ <xmx:cFLYXv1WqFRYcEzezuV1zspEuPMd5N9ARlsg6ysGBRC6pIG10UpN_Q>
+ <xmx:cFLYXuDD8yXNCv3GncGZvDAkAdgz0X6QxwFVpY1NFcGbCq6ohwS6Ww>
+ <xmx:cVLYXujBXxkiAD61Z4wq2McrLSo5l_qnyHU-JyKGeRYDT9F2EE1puQ>
+Received: from mail-itl (unknown [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 8630C30614FA
+ for <xen-devel@lists.xenproject.org>; Wed,  3 Jun 2020 21:46:24 -0400 (EDT)
+Date: Thu, 4 Jun 2020 03:46:21 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: handle_pio looping during domain shutdown, with qemu 4.2.0 in stubdom
+Message-ID: <20200604014621.GA203658@mail-itl>
 MIME-Version: 1.0
-Subject: [xtf test] 150667: all pass - PUSHED
-X-Osstest-Versions-This: xtf=cce0ffab7cc43c810580889a197662d77f2d8ebd
-X-Osstest-Versions-That: xtf=9d934985adb9eb8290e62df187e044105c9dd6b8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 04 Jun 2020 00:47:23 +0000
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="bg08WKrSYDhXBjb5"
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +75,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150667 xtf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150667/
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xtf                  cce0ffab7cc43c810580889a197662d77f2d8ebd
-baseline version:
- xtf                  9d934985adb9eb8290e62df187e044105c9dd6b8
+--bg08WKrSYDhXBjb5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: handle_pio looping during domain shutdown, with qemu 4.2.0 in stubdom
 
-Last test of basis   147207  2020-02-17 18:39:34 Z  107 days
-Testing same since   150667  2020-06-03 21:09:33 Z    0 days    1 attempts
+Hi,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Pawel Wieczorkiewicz <wipawel@amazon.de>
+(continuation of a thread from #xendevel)
 
-jobs:
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-amd64-pvops                                            pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
+During system shutdown quite often I hit infinite stream of errors like
+this:
 
+    (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
+    (XEN) domain_crash called from io.c:178
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+This is all running on Xen 4.13.0 (I think I've got this with 4.13.1
+too), nested within KVM. The KVM part means everything is very slow, so
+various race conditions are much more likely to happen.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+It started happening not long ago, and I'm pretty sure it's about
+updating to qemu 4.2.0 (in linux stubdom), previous one was 3.0.0.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Thanks to Andrew and Roger, I've managed to collect more info.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Context:
+    dom0: pv
+    dom1: hvm
+    dom2: stubdom for dom1
+    dom3: hvm
+    dom4: stubdom for dom3
+    dom5: pvh
+    dom6: pvh
 
+It starts I think ok:
 
-Pushing revision :
+    (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
+    (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+    (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+    (XEN) d3v0 handle_pio port 0xb004 write 0x0001
+    (XEN) d3v0 handle_pio port 0xb004 write 0x2001
+    (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+    (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
+    (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+    (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+    (XEN) d1v0 handle_pio port 0xb004 write 0x0001
+    (XEN) d1v0 handle_pio port 0xb004 write 0x2001
+    (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
 
-To xenbits.xen.org:/home/xen/git/xtf.git
-   9d93498..cce0ffa  cce0ffab7cc43c810580889a197662d77f2d8ebd -> xen-tested-master
+But then (after a second or so) when the toolstack tries to clean it up,
+things go sideways:
+
+    (XEN) d0v0 XEN_DOMCTL_destroydomain domain 6
+    (XEN) d0v0 XEN_DOMCTL_destroydomain domain 6 got domain_lock
+    (XEN) d0v0 XEN_DOMCTL_destroydomain domain 6 ret -85
+    (XEN) d0v0 XEN_DOMCTL_destroydomain domain 6
+    (XEN) d0v0 XEN_DOMCTL_destroydomain domain 6 got domain_lock
+    (XEN) d0v0 XEN_DOMCTL_destroydomain domain 6 ret -85
+    (... long stream of domain destroy that can't really finish ...)
+   =20
+And then, similar also for dom1:
+
+    (XEN) d0v1 XEN_DOMCTL_destroydomain domain 1
+    (XEN) d0v1 XEN_DOMCTL_destroydomain domain 1 got domain_lock
+    (XEN) d0v1 XEN_DOMCTL_destroydomain domain 1 ret -85
+    (... now a stream of this for dom1 and dom6 interleaved ...)
+
+At some point, domain 2 (stubdom for domain 1) and domain 5 join too.=20
+
+Then, we get the main issue:
+
+    (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+    (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
+    (XEN) domain_crash called from io.c:178
+
+Note, there was no XEN_DOMCTL_destroydomain for domain 3 nor its stubdom
+yet. But XEN_DMOP_remote_shutdown for domain 3 was called already.
+
+Full log of the shutdown:
+https://gist.github.com/marmarek/fbfe1b5d8f4c7b47df5a5e28bd95ea66
+
+And the patch adding those extra messages:
+https://gist.github.com/marmarek/dc739a820928e641a1ed6b4759cdf6f3
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--bg08WKrSYDhXBjb5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl7YUmwACgkQ24/THMrX
+1yzCSQf+OAz2io9qtyBkdpqNjDPcLtz8DfIxhftj9CV/Rp2kqTc/Idl0bxoufa3A
+pGIyfp9XIlytEg1c34fwJq8/fQQ2sBLol78wlJI4eW2oi5bJktFjZUi425UJOGc5
+ttXMRAZimXswr8FAtcaqw+lbKhbkdZufcNagEAqIdzD37SvKl7ZT7nIbJfSbHPcc
+ubxGZ+pBvpvL8bhCsgGCkEkNCfMI0AFXViJJbsTH0iFp3NI7IsF4DH8b2uk5ohvB
+UXgpubEfhOteBFEbvHVAjEfnU6Z+HE1p+N185WI+l+kFN6vgpihfoCjn7ix4kToQ
+/zggge9iTxL6JC5ycKGbFkt6mKdSWw==
+=OgE6
+-----END PGP SIGNATURE-----
+
+--bg08WKrSYDhXBjb5--
 
