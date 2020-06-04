@@ -2,54 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECDF01EECB2
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 22:58:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E81851EEE1B
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 01:05:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgwwX-0004HY-Jx; Thu, 04 Jun 2020 20:58:29 +0000
+	id 1jgytx-0007qL-Uh; Thu, 04 Jun 2020 23:03:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NfFn=7R=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jgwwW-0004HO-2h
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 20:58:28 +0000
-X-Inumbo-ID: 22d85db4-a6a6-11ea-81bc-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=zxGl=7R=amazon.com=prvs=41758ceaf=anchalag@srs-us1.protection.inumbo.net>)
+ id 1jgytv-0007qG-Sh
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 23:03:55 +0000
+X-Inumbo-ID: aa20ad9c-a6b7-11ea-9947-bc764e2007e4
+Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 22d85db4-a6a6-11ea-81bc-bc764e2007e4;
- Thu, 04 Jun 2020 20:58:27 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: NTr8wPCtadSgKrmYquzmaqZQe+gEChFrGnrWsg7LpnJPJBDJnMvF9mwXNUfohEZGdSoUOm7UMM
- 4E2UV2Ab6p+jca8C1gzoI2tDS30Nh3QWiBfYij+GpZjSAilVT05QGcUNM2YiPOM6Q2TY6yTA/k
- jQqfTNS2QIC1d8Gcqa5QNbP1QVuePJn6W/N543oThOLfSiIZel+DDf2oFPyFM8QvTKBPZ4hTW8
- 7CoScj2ED75gKDXp8yrSlEMR67+ascYe20qrS5I3jhvyigvErQMB1oBqA/WVEM84biIxnBjb/m
- Wqw=
-X-SBRS: 2.7
-X-MesageID: 19567633
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,472,1583211600"; d="scan'208";a="19567633"
-Subject: Re: [PATCH for-4.14 RFC] docs/support-matrix: Gross bodge to unbreak
- docs rendering
-To: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20200604205226.14518-1-andrew.cooper3@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f2a2fbe6-c198-708c-b8c8-d8e9c27d00ee@citrix.com>
-Date: Thu, 4 Jun 2020 21:58:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id aa20ad9c-a6b7-11ea-9947-bc764e2007e4;
+ Thu, 04 Jun 2020 23:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1591311836; x=1622847836;
+ h=date:from:to:cc:message-id:references:mime-version:
+ in-reply-to:subject;
+ bh=XlvjY2cbK79XKJQbABj6I52DuwNCmkoPmmNUgRZuzx4=;
+ b=FsgtDi4Pv7uJuxVHUmYuYmjeDKtjri0bEhdXdULKxXlXZik0elc8l+1H
+ Okxa5LoVs10W2+uh5dWu2Zf9V5m9t2BE0I58KYm4xTOcr/TBdkUTsGe8X
+ xlus2sPLU/yRrLu7yrqqc7QwunL6zfIgt1D1iFB1k5N0GuJGFiMgyqMB0 I=;
+IronPort-SDR: BU/B31Mc2p1teKXE8T0M/Qekrk1iOuiIqPmHAVira61H+IDlK+H6BZmL2NxaskgX4guwfy+OUc
+ I5F/nNdpGkaw==
+X-IronPort-AV: E=Sophos;i="5.73,472,1583193600"; d="scan'208";a="34541182"
+Subject: Re: [PATCH 03/12] x86/xen: Introduce new function to map
+ HYPERVISOR_shared_info on Resume
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-1e-57e1d233.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
+ 04 Jun 2020 23:03:43 +0000
+Received: from EX13MTAUWC001.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
+ by email-inbound-relay-1e-57e1d233.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 7E52614194D; Thu,  4 Jun 2020 23:03:35 +0000 (UTC)
+Received: from EX13D05UWC001.ant.amazon.com (10.43.162.82) by
+ EX13MTAUWC001.ant.amazon.com (10.43.162.135) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 4 Jun 2020 23:03:07 +0000
+Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
+ EX13D05UWC001.ant.amazon.com (10.43.162.82) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 4 Jun 2020 23:03:07 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Thu, 4 Jun 2020 23:03:07 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id 705A940712; Thu,  4 Jun 2020 23:03:07 +0000 (UTC)
+Date: Thu, 4 Jun 2020 23:03:07 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <20200604230307.GB25251@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+References: <cover.1589926004.git.anchalag@amazon.com>
+ <529f544a64bb93b920bf86b1d3f86d93b0a4219b.1589926004.git.anchalag@amazon.com>
+ <72989b50-0c13-7a2b-19e2-de4a3646c83f@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <20200604205226.14518-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <72989b50-0c13-7a2b-19e2-de4a3646c83f@oracle.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -57,75 +74,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek
- Wilk <konrad.wilk@oracle.com>, George Dunlap <George.Dunlap@eu.citrix.com>,
- Paul Durrant <paul@xen.org>, Jan Beulich <JBeulich@suse.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>
+Cc: eduval@amazon.com, len.brown@intel.com, peterz@infradead.org,
+ benh@kernel.crashing.org, x86@kernel.org, linux-mm@kvack.org, pavel@ucw.cz,
+ hpa@zytor.com, sstabellini@kernel.org, kamatam@amazon.com, mingo@redhat.com,
+ xen-devel@lists.xenproject.org, sblbir@amazon.com, axboe@kernel.dk,
+ konrad.wilk@oracle.com, bp@alien8.de, tglx@linutronix.de, jgross@suse.com,
+ netdev@vger.kernel.org, linux-pm@vger.kernel.org, rjw@rjwysocki.net,
+ linux-kernel@vger.kernel.org, vkuznets@redhat.com, davem@davemloft.net,
+ dwmw@amazon.co.uk, roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04/06/2020 21:52, Andrew Cooper wrote:
-> The cronjob which renders https://xenbits.xen.org/docs/ has been broken for a
-> while.  commitish_version() pulls an old version of xen/Makefile out of
-> history, and uses the xenversion rule.
->
-> Currently, this fails with:
->
->   tmp.support-matrix.xen.make:130: scripts/Kbuild.include: No such file or directory
->
-> which is because the Makefile legitimately references Kbuild.include with a
-> relative rather than absolute path.
->
-> Rearrange $CWD of the make rune to be in xen/
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Ian Jackson <ian.jackson@citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Anthony PERARD <anthony.perard@citrix.com>
-> CC: Paul Durrant <paul@xen.org>
->
-> This is obviously not a proper fix.  It will break in an unfixable way if we
-> ever delete a file from the xen/ build system.
->
-> I don't think pulling a makefile out of history and expecting it to work in
-> the current working tree is a reasonable expectation.
+On Sat, May 30, 2020 at 07:02:01PM -0400, Boris Ostrovsky wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> 
+> 
+> 
+> On 5/19/20 7:25 PM, Anchal Agarwal wrote:
+> > Introduce a small function which re-uses shared page's PA allocated
+> > during guest initialization time in reserve_shared_info() and not
+> > allocate new page during resume flow.
+> > It also  does the mapping of shared_info_page by calling
+> > xen_hvm_init_shared_info() to use the function.
+> >
+> > Signed-off-by: Anchal Agarwal <anchalag@amazon.com>
+> > ---
+> >  arch/x86/xen/enlighten_hvm.c | 7 +++++++
+> >  arch/x86/xen/xen-ops.h       | 1 +
+> >  2 files changed, 8 insertions(+)
+> >
+> > diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
+> > index e138f7de52d2..75b1ec7a0fcd 100644
+> > --- a/arch/x86/xen/enlighten_hvm.c
+> > +++ b/arch/x86/xen/enlighten_hvm.c
+> > @@ -27,6 +27,13 @@
+> >
+> >  static unsigned long shared_info_pfn;
+> >
+> > +void xen_hvm_map_shared_info(void)
+> > +{
+> > +     xen_hvm_init_shared_info();
+> > +     if (shared_info_pfn)
+> > +             HYPERVISOR_shared_info = __va(PFN_PHYS(shared_info_pfn));
+> > +}
+> > +
+> 
+> 
+> AFAICT it is only called once so I don't see a need for new routine.
+> 
+> 
+HYPERVISOR_shared_info can only be mapped in this scope without refactoring
+much of the code.
+> And is it possible for shared_info_pfn to be NULL in resume path (which
+> is where this is called)?
+> 
+> 
+I don't think it should be, still a sanity check but I don't think its needed there
+because hibernation will fail in any case if thats the case. 
+However, HYPERVISOR_shared_info does needs to be re-mapped on resume as its been
+marked to dummy address on suspend. Its also safe in case va changes.
+Does the answer your question?
+> -boris
 
-Actually - it occurs to me that we only want the major and minor number.
-
-I think it is reasonable to expect that those will always be plain
-numbers, and we can grep them directly out of the file, rather than
-feeding the thing to make.
-
-Thoughts?
-
-~Andrew
-
-> ---
->  docs/support-matrix-generate | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/docs/support-matrix-generate b/docs/support-matrix-generate
-> index a3d93321f1..2a1c3fad57 100755
-> --- a/docs/support-matrix-generate
-> +++ b/docs/support-matrix-generate
-> @@ -102,8 +102,8 @@ commitish_version () {
->      esac
->  
->      git cat-file blob "$commitish:$versionfile" >"$tmp_versionfile"
-> -    version=$(make --no-print-directory -C docs \
-> -                   -f "${tmp_versionfile#docs/}" xenversion)
-> +    version=$(make --no-print-directory -C xen \
-> +                   -f "../${tmp_versionfile}" xenversion)
->      case "$version" in
->          *.*.*) version="${version%.*}" ;;
->      esac
-
+-Anchal
+> 
+> 
 
