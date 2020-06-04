@@ -2,53 +2,186 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A1A31EE310
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 13:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CC0E1EE35C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 13:24:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgnoD-0004WY-Nn; Thu, 04 Jun 2020 11:13:17 +0000
+	id 1jgnyF-0005VI-PN; Thu, 04 Jun 2020 11:23:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NfFn=7R=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jgnoC-0004WT-FG
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 11:13:16 +0000
-X-Inumbo-ID: 6234bd4c-a654-11ea-8993-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=DmD4=7R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jgnyF-0005VC-4D
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 11:23:39 +0000
+X-Inumbo-ID: d1ffe6d2-a655-11ea-81bc-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6234bd4c-a654-11ea-8993-bc764e2007e4;
- Thu, 04 Jun 2020 11:13:14 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: oDor9dntqjX/CZq4EOWuvzz9MMJkD1I0M0gt1qCcqHU8OYVP/SXpQfJUsnrYO80Au6Z92f+w7x
- QGsytnEB2UhRDZmMNQO1Y68PX/sPqhaAnkKn51Kb6NxsQ1Mb8wsSZe8HkZOoVtRyEfUug/RxsX
- /tjKRvMNCQHdi5gRfSjXcKcl05ZzxHdtE/N7ThPYcvnejsDuLLHAxlsUNHZD1vb0bR8cr0X96b
- J56Rr4V4xod7gtciHGhqDVDpwdZgJNaTxMS20JoCSuJLKu8kDP0OR8dGgK0e48n/w01py8m+C5
- ng4=
-X-SBRS: 2.7
-X-MesageID: 19460865
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,472,1583211600"; d="scan'208,217";a="19460865"
-Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
- stubdom
-To: Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <20200604014621.GA203658@mail-itl>
- <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
-Date: Thu, 4 Jun 2020 12:13:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id d1ffe6d2-a655-11ea-81bc-bc764e2007e4;
+ Thu, 04 Jun 2020 11:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=U6gLJvE6cdgDcJtWERX00zQ6FtuHH6YaMzEzww7bW6s=; b=CUrnD+mk6DEmI0bzlhR3I6oic
+ mrsdcYfSweY6LIZ9Lkp1PFgPLSBoFbdbRJzpJdoAx0zxNlSyRE/uHBcJX4uK7BHZyF7jvgrLOrIaF
+ Nr00E5vFz5QfKYxRKvV9f89rm8It0dMd4VGbN8+r20mPs0efru6dax9hpWCyan7EUhagk=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgny7-0002pP-3L; Thu, 04 Jun 2020 11:23:31 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgny6-0004OG-QE; Thu, 04 Jun 2020 11:23:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jgny6-0007WR-PZ; Thu, 04 Jun 2020 11:23:30 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150674-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
-Content-Type: multipart/alternative;
- boundary="------------DCC7A6CAB5EFD944658332FB"
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: [xen-unstable test] 150674: trouble: broken/fail/pass
+X-Osstest-Failures: xen-unstable:test-amd64-coresched-i386-xl:<job
+ status>:broken:regression
+ xen-unstable:test-amd64-i386-qemuu-rhel6hvm-intel:<job
+ status>:broken:regression
+ xen-unstable:test-amd64-amd64-xl-shadow:<job status>:broken:regression
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:<job status>:broken:regression
+ xen-unstable:test-armhf-armhf-libvirt:<job status>:broken:regression
+ xen-unstable:test-amd64-coresched-amd64-xl:<job status>:broken:regression
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-intel:<job
+ status>:broken:regression
+ xen-unstable:test-amd64-i386-qemuu-rhel6hvm-amd:<job status>:broken:regression
+ xen-unstable:test-amd64-i386-xl-raw:<job status>:broken:regression
+ xen-unstable:test-amd64-amd64-xl-qemuu-ovmf-amd64:<job
+ status>:broken:regression
+ xen-unstable:test-amd64-i386-xl-qemuu-ovmf-amd64:<job
+ status>:broken:regression
+ xen-unstable:test-xtf-amd64-amd64-5:<job status>:broken:regression
+ xen-unstable:test-xtf-amd64-amd64-4:<job status>:broken:regression
+ xen-unstable:test-amd64-amd64-qemuu-nested-intel:<job
+ status>:broken:regression
+ xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:<job
+ status>:broken:regression
+ xen-unstable:test-amd64-amd64-xl-qemut-debianhvm-amd64:<job
+ status>:broken:regression
+ xen-unstable:test-amd64-i386-xl-qemut-debianhvm-amd64:<job
+ status>:broken:regression
+ xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:<job
+ status>:broken:regression
+ xen-unstable:test-xtf-amd64-amd64-2:<job status>:broken:regression
+ xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:<job
+ status>:broken:regression
+ xen-unstable:test-armhf-armhf-libvirt-raw:capture-logs(11):running:regression
+ xen-unstable:test-armhf-armhf-libvirt-raw:syslog-server:running:regression
+ xen-unstable:test-amd64-i386-xl-qemut-debianhvm-amd64:hosts-allocate:broken:heisenbug
+ xen-unstable:test-amd64-coresched-i386-xl:hosts-allocate:broken:heisenbug
+ xen-unstable:test-amd64-i386-xl-qemuu-ovmf-amd64:hosts-allocate:broken:heisenbug
+ xen-unstable:test-amd64-amd64-xl-qemut-debianhvm-amd64:hosts-allocate:broken:heisenbug
+ xen-unstable:test-amd64-coresched-amd64-xl:host-install(4):broken:heisenbug
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:host-install(4):broken:heisenbug
+ xen-unstable:test-xtf-amd64-amd64-2:host-install(4):broken:heisenbug
+ xen-unstable:test-xtf-amd64-amd64-4:host-install(4):broken:heisenbug
+ xen-unstable:test-xtf-amd64-amd64-5:host-install(4):broken:heisenbug
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-intel:host-install(4):broken:heisenbug
+ xen-unstable:test-amd64-amd64-xl-shadow:host-install(4):broken:heisenbug
+ xen-unstable:test-xtf-amd64-amd64-2:syslog-server:broken:heisenbug
+ xen-unstable:test-xtf-amd64-amd64-4:syslog-server:broken:heisenbug
+ xen-unstable:test-xtf-amd64-amd64-5:syslog-server:broken:heisenbug
+ xen-unstable:test-amd64-coresched-amd64-xl:syslog-server:broken:heisenbug
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:syslog-server:broken:heisenbug
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-intel:syslog-server:broken:heisenbug
+ xen-unstable:test-amd64-amd64-xl-shadow:syslog-server:broken:heisenbug
+ xen-unstable:test-amd64-i386-xl:syslog-server:broken:heisenbug
+ xen-unstable:test-armhf-armhf-xl-rtds:syslog-server:broken:heisenbug
+ xen-unstable:test-amd64-i386-qemuu-rhel6hvm-intel:host-ping-check-xen:fail:heisenbug
+ xen-unstable:test-amd64-amd64-xl-qemuu-ovmf-amd64:guest-localmigrate:fail:heisenbug
+ xen-unstable:test-amd64-i386-qemuu-rhel6hvm-amd:guest-start/redhat.repeat:fail:heisenbug
+ xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-localmigrate:fail:heisenbug
+ xen-unstable:test-amd64-i386-xl-raw:guest-saverestore:fail:heisenbug
+ xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:guest-start/debianhvm.repeat:fail:heisenbug
+ xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:heisenbug
+ xen-unstable:test-armhf-armhf-libvirt-raw:debian-di-install:fail:heisenbug
+ xen-unstable:test-amd64-amd64-qemuu-nested-intel:capture-logs/l1(20):fail:heisenbug
+ xen-unstable:test-armhf-armhf-libvirt:guest-start/debian.repeat:fail:heisenbug
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-intel:capture-logs(5):broken:nonblocking
+ xen-unstable:test-amd64-amd64-xl-shadow:capture-logs(5):broken:nonblocking
+ xen-unstable:test-xtf-amd64-amd64-2:capture-logs(5):broken:nonblocking
+ xen-unstable:test-xtf-amd64-amd64-4:capture-logs(5):broken:nonblocking
+ xen-unstable:test-xtf-amd64-amd64-5:capture-logs(5):broken:nonblocking
+ xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:capture-logs(5):broken:nonblocking
+ xen-unstable:test-amd64-i386-qemuu-rhel6hvm-intel:capture-logs(9):broken:nonblocking
+ xen-unstable:test-amd64-i386-qemuu-rhel6hvm-amd:capture-logs(13):broken:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-ovmf-amd64:capture-logs(15):broken:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:capture-logs(15):broken:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:capture-logs(11):broken:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-nested-intel:capture-logs(21):broken:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:capture-logs(17):broken:nonblocking
+ xen-unstable:test-amd64-coresched-amd64-xl:capture-logs(5):broken:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:capture-logs(19):broken:nonblocking
+ xen-unstable:test-amd64-i386-xl-raw:capture-logs(15):broken:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
+X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 04 Jun 2020 11:23:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,149 +192,337 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---------------DCC7A6CAB5EFD944658332FB
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+flight 150674 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150674/
 
-On 04/06/2020 08:08, Jan Beulich wrote:
-> On 04.06.2020 03:46, Marek Marczykowski-Górecki wrote:
->> Then, we get the main issue:
->>
->>     (XEN) d3v0 handle_pio port 0xb004 read 0x0000
->>     (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
->>     (XEN) domain_crash called from io.c:178
->>
->> Note, there was no XEN_DOMCTL_destroydomain for domain 3 nor its stubdom
->> yet. But XEN_DMOP_remote_shutdown for domain 3 was called already.
-> I'd guess an issue with the shutdown deferral logic. Did you / can
-> you check whether XEN_DMOP_remote_shutdown managed to pause all
-> CPUs (I assume it didn't, since once they're paused there shouldn't
-> be any I/O there anymore, and hence no I/O emulation)?
+Failures and problems with tests :-(
 
-The vcpu in question is talking to Qemu, so will have v->defer_shutdown
-intermittently set, and skip the pause in domain_shutdown()
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-coresched-i386-xl    <job status>                 broken
+ test-amd64-i386-qemuu-rhel6hvm-intel    <job status>                 broken
+ test-amd64-amd64-xl-shadow      <job status>                 broken
+ test-amd64-i386-qemut-rhel6hvm-amd    <job status>                 broken
+ test-armhf-armhf-libvirt        <job status>                 broken
+ test-amd64-coresched-amd64-xl    <job status>                 broken
+ test-amd64-i386-qemut-rhel6hvm-intel    <job status>                 broken
+ test-amd64-i386-qemuu-rhel6hvm-amd    <job status>                 broken
+ test-amd64-i386-xl-raw          <job status>                 broken
+ test-amd64-amd64-xl-qemuu-ovmf-amd64    <job status>                 broken
+ test-amd64-i386-xl-qemuu-ovmf-amd64    <job status>                 broken
+ test-xtf-amd64-amd64-5          <job status>                 broken
+ test-xtf-amd64-amd64-4          <job status>                 broken
+ test-amd64-amd64-qemuu-nested-intel    <job status>                 broken
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow    <job status>        broken
+ test-amd64-amd64-xl-qemut-debianhvm-amd64    <job status>               broken
+ test-amd64-i386-xl-qemut-debianhvm-amd64    <job status>                broken
+ test-amd64-i386-xl-qemuu-ws16-amd64    <job status>                 broken
+ test-xtf-amd64-amd64-2          <job status>                 broken
+ test-amd64-i386-xl-qemut-win7-amd64    <job status>                 broken
+ test-armhf-armhf-libvirt-raw 11 capture-logs(11)             running
+ test-armhf-armhf-libvirt-raw  3 syslog-server                running
 
-I presume this lack of pause is to allow the vcpu in question to still
-be scheduled to consume the IOREQ reply?  (Its fairly opaque logic with
-0 clarifying details).
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemut-debianhvm-amd64 2 hosts-allocate broken pass in 150635
+ test-amd64-coresched-i386-xl  2 hosts-allocate           broken pass in 150635
+ test-amd64-i386-xl-qemuu-ovmf-amd64  2 hosts-allocate    broken pass in 150635
+ test-amd64-amd64-xl-qemut-debianhvm-amd64 2 hosts-allocate broken pass in 150635
+ test-amd64-coresched-amd64-xl  4 host-install(4)         broken pass in 150635
+ test-amd64-i386-qemut-rhel6hvm-amd  4 host-install(4)    broken pass in 150635
+ test-xtf-amd64-amd64-2        4 host-install(4)          broken pass in 150635
+ test-xtf-amd64-amd64-4        4 host-install(4)          broken pass in 150635
+ test-xtf-amd64-amd64-5        4 host-install(4)          broken pass in 150635
+ test-amd64-i386-qemut-rhel6hvm-intel  4 host-install(4)  broken pass in 150635
+ test-amd64-amd64-xl-shadow    4 host-install(4)          broken pass in 150635
+ test-xtf-amd64-amd64-2        3 syslog-server            broken pass in 150635
+ test-xtf-amd64-amd64-4        3 syslog-server            broken pass in 150635
+ test-xtf-amd64-amd64-5        3 syslog-server            broken pass in 150635
+ test-amd64-coresched-amd64-xl  3 syslog-server           broken pass in 150635
+ test-amd64-i386-qemut-rhel6hvm-amd  3 syslog-server      broken pass in 150635
+ test-amd64-i386-qemut-rhel6hvm-intel  3 syslog-server    broken pass in 150635
+ test-amd64-amd64-xl-shadow    3 syslog-server            broken pass in 150635
+ test-amd64-i386-xl            3 syslog-server            broken pass in 150635
+ test-armhf-armhf-xl-rtds      3 syslog-server            broken pass in 150635
+ test-amd64-i386-qemuu-rhel6hvm-intel 8 host-ping-check-xen fail pass in 150635
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 14 guest-localmigrate fail pass in 150635
+ test-amd64-i386-qemuu-rhel6hvm-amd 12 guest-start/redhat.repeat fail pass in 150635
+ test-amd64-i386-xl-qemut-win7-amd64 14 guest-localmigrate  fail pass in 150635
+ test-amd64-i386-xl-raw       14 guest-saverestore          fail pass in 150635
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 18 guest-start/debianhvm.repeat fail pass in 150635
+ test-amd64-i386-xl-qemuu-ws16-amd64 10 windows-install     fail pass in 150635
+ test-armhf-armhf-libvirt-raw 10 debian-di-install          fail pass in 150635
+ test-amd64-amd64-qemuu-nested-intel 20 capture-logs/l1(20) fail pass in 150635
+ test-armhf-armhf-libvirt     16 guest-start/debian.repeat  fail pass in 150635
 
-What *should* happen is that, after consuming the reply, the vcpu should
-notice and pause itself, at which point it would yield to the
-scheduler.  This is the purpose of vcpu_{start,end}_shutdown_deferral().
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-qemut-rhel6hvm-intel 5 capture-logs(5) broken blocked in 150635
+ test-amd64-amd64-xl-shadow    5 capture-logs(5)       broken blocked in 150635
+ test-xtf-amd64-amd64-2        5 capture-logs(5)       broken blocked in 150635
+ test-xtf-amd64-amd64-4        5 capture-logs(5)       broken blocked in 150635
+ test-xtf-amd64-amd64-5        5 capture-logs(5)       broken blocked in 150635
+ test-amd64-i386-qemut-rhel6hvm-amd  5 capture-logs(5) broken blocked in 150635
+ test-amd64-i386-qemuu-rhel6hvm-intel 9 capture-logs(9) broken blocked in 150635
+ test-amd64-i386-qemuu-rhel6hvm-amd 13 capture-logs(13) broken blocked in 150635
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 15 capture-logs(15) broken blocked in 150635
+ test-amd64-i386-xl-qemut-win7-amd64 15 capture-logs(15) broken blocked in 150635
+ test-amd64-i386-xl-qemuu-ws16-amd64 11 capture-logs(11) broken blocked in 150635
+ test-amd64-amd64-qemuu-nested-intel 21 capture-logs(21) broken blocked in 150635
+ test-armhf-armhf-libvirt     17 capture-logs(17)      broken blocked in 150635
+ test-amd64-coresched-amd64-xl  5 capture-logs(5)             broken never pass
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 19 capture-logs(19) broken never pass
+ test-amd64-i386-xl-raw       15 capture-logs(15)             broken never pass
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop   fail in 150635 like 150609
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check fail in 150635 like 150609
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop   fail in 150635 like 150609
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check fail in 150635 never pass
+ test-amd64-amd64-xl-rtds     18 guest-localmigrate/x10       fail  like 150635
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 150635
+ test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat    fail  like 150635
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 150635
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 150635
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 150635
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 150635
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 150635
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
 
-Evidentially, this is not happening.
+version targeted for testing:
+ xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+baseline version:
+ xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
 
-Marek: can you add a BUG() after the weird PIO printing?  That should
-confirm whether we're getting into handle_pio() via the
-handle_hvm_io_completion() path, or via the vmexit path (at which case,
-we're fully re-entering the guest).
+Last test of basis   150674  2020-06-04 01:58:27 Z    0 days
+Testing same since                          (not found)         0 attempts
 
-I suspect you can drop the debugging of XEN_DOMCTL_destroydomain - I
-think its just noise atm.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       broken  
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       broken  
+ test-xtf-amd64-amd64-5                                       broken  
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                broken  
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 broken  
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           broken  
+ test-amd64-i386-qemuu-rhel6hvm-amd                           broken  
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    broken  
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     broken  
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         broken  
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          broken  
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          broken  
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          broken  
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          broken  
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         broken  
+ test-amd64-i386-qemuu-rhel6hvm-intel                         broken  
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     broken  
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-xl-raw                                       broken  
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             broken  
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   broken  
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-However, it would be very helpful to see the vcpus which fall into
-domain_shutdown()'s "else if ( v->defer_shutdown ) continue;" path.
 
-> Another question though: In 4.13 the log message next to the
-> domain_crash() I assume you're hitting is "Weird HVM ioemulation
-> status", not "Weird PIO status", and the debugging patch you
-> referenced doesn't have any change there. Andrew's recent
-> change to master, otoh, doesn't use the word "weird" anymore. I
-> can therefore only guess that the value logged is still
-> hvmemul_do_pio_buffer()'s return value, i.e. X86EMUL_UNHANDLEABLE.
-> Please confirm.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-It's the first draft of the patch which I did, before submitting to
-xen-devel.  We do have X86EMUL_UNHANDLEABLE at this point, but its not
-terribly helpful - there are loads of paths which fail silently with
-this error.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-~Andrew
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---------------DCC7A6CAB5EFD944658332FB
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 04/06/2020 08:08, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com">
-      <pre class="moz-quote-pre" wrap="">On 04.06.2020 03:46, Marek Marczykowski-Górecki wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Then, we get the main issue:
+broken-job test-amd64-coresched-i386-xl broken
+broken-job test-amd64-i386-qemuu-rhel6hvm-intel broken
+broken-job test-amd64-amd64-xl-shadow broken
+broken-job test-amd64-i386-qemut-rhel6hvm-amd broken
+broken-job test-armhf-armhf-libvirt broken
+broken-job test-amd64-coresched-amd64-xl broken
+broken-job test-amd64-i386-qemut-rhel6hvm-intel broken
+broken-job test-amd64-i386-qemuu-rhel6hvm-amd broken
+broken-job test-amd64-i386-xl-raw broken
+broken-job test-amd64-amd64-xl-qemuu-ovmf-amd64 broken
+broken-job test-amd64-i386-xl-qemuu-ovmf-amd64 broken
+broken-job test-xtf-amd64-amd64-5 broken
+broken-job test-xtf-amd64-amd64-4 broken
+broken-job test-amd64-amd64-qemuu-nested-intel broken
+broken-job test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow broken
+broken-job test-amd64-amd64-xl-qemut-debianhvm-amd64 broken
+broken-job test-amd64-i386-xl-qemut-debianhvm-amd64 broken
+broken-job test-amd64-i386-xl-qemuu-ws16-amd64 broken
+broken-job test-xtf-amd64-amd64-2 broken
+broken-job test-amd64-i386-xl-qemut-win7-amd64 broken
+broken-step test-amd64-i386-qemut-rhel6hvm-intel capture-logs(5)
+broken-step test-amd64-i386-xl-qemut-debianhvm-amd64 hosts-allocate
+broken-step test-amd64-coresched-i386-xl hosts-allocate
+broken-step test-amd64-i386-xl-qemuu-ovmf-amd64 hosts-allocate
+broken-step test-amd64-amd64-xl-qemut-debianhvm-amd64 hosts-allocate
+broken-step test-amd64-amd64-xl-shadow capture-logs(5)
+broken-step test-xtf-amd64-amd64-2 capture-logs(5)
+broken-step test-xtf-amd64-amd64-4 capture-logs(5)
+broken-step test-xtf-amd64-amd64-5 capture-logs(5)
+broken-step test-amd64-i386-qemut-rhel6hvm-amd capture-logs(5)
+broken-step test-amd64-coresched-amd64-xl capture-logs(5)
+broken-step test-amd64-coresched-amd64-xl host-install(4)
+broken-step test-amd64-i386-qemut-rhel6hvm-amd host-install(4)
+broken-step test-xtf-amd64-amd64-2 host-install(4)
+broken-step test-xtf-amd64-amd64-4 host-install(4)
+broken-step test-xtf-amd64-amd64-5 host-install(4)
+broken-step test-amd64-i386-qemut-rhel6hvm-intel host-install(4)
+broken-step test-amd64-amd64-xl-shadow host-install(4)
+broken-step test-amd64-i386-qemuu-rhel6hvm-intel capture-logs(9)
+broken-step test-xtf-amd64-amd64-2 syslog-server
+broken-step test-xtf-amd64-amd64-4 syslog-server
+broken-step test-xtf-amd64-amd64-5 syslog-server
+broken-step test-amd64-i386-qemuu-rhel6hvm-amd capture-logs(13)
+broken-step test-amd64-amd64-xl-qemuu-ovmf-amd64 capture-logs(15)
+broken-step test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow capture-logs(19)
+broken-step test-amd64-coresched-amd64-xl syslog-server
+broken-step test-amd64-i386-qemut-rhel6hvm-amd syslog-server
+broken-step test-amd64-i386-xl-raw capture-logs(15)
+broken-step test-amd64-i386-qemut-rhel6hvm-intel syslog-server
+broken-step test-amd64-i386-xl-qemut-win7-amd64 capture-logs(15)
+broken-step test-amd64-i386-xl-qemuu-ws16-amd64 capture-logs(11)
+broken-step test-amd64-amd64-xl-shadow syslog-server
+broken-step test-amd64-i386-xl syslog-server
+broken-step test-amd64-amd64-qemuu-nested-intel capture-logs(21)
+broken-step test-armhf-armhf-libvirt capture-logs(17)
+broken-step test-armhf-armhf-xl-rtds syslog-server
 
-    (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-    (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
-    (XEN) domain_crash called from io.c:178
+Published tested tree is already up to date.
 
-Note, there was no XEN_DOMCTL_destroydomain for domain 3 nor its stubdom
-yet. But XEN_DMOP_remote_shutdown for domain 3 was called already.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I'd guess an issue with the shutdown deferral logic. Did you / can
-you check whether XEN_DMOP_remote_shutdown managed to pause all
-CPUs (I assume it didn't, since once they're paused there shouldn't
-be any I/O there anymore, and hence no I/O emulation)?</pre>
-    </blockquote>
-    <br>
-    The vcpu in question is talking to Qemu, so will have
-    v-&gt;defer_shutdown intermittently set, and skip the pause in
-    domain_shutdown()<br>
-    <br>
-    I presume this lack of pause is to allow the vcpu in question to
-    still be scheduled to consume the IOREQ reply?  (Its fairly opaque
-    logic with 0 clarifying details).<br>
-    <br>
-    What *should* happen is that, after consuming the reply, the vcpu
-    should notice and pause itself, at which point it would yield to the
-    scheduler.  This is the purpose of
-    vcpu_{start,end}_shutdown_deferral().<br>
-    <br>
-    Evidentially, this is not happening.<br>
-    <br>
-    Marek: can you add a BUG() after the weird PIO printing?  That
-    should confirm whether we're getting into handle_pio() via the
-    handle_hvm_io_completion() path, or via the vmexit path (at which
-    case, we're fully re-entering the guest).<br>
-    <br>
-    I suspect you can drop the debugging of <span class="pl-mi1">XEN_DOMCTL_destroydomain
-      - I think its just noise atm.<br>
-      <br>
-      However, it would be very helpful to see the vcpus which fall into
-      domain_shutdown()'s "else if ( v-&gt;defer_shutdown ) continue;"
-      path.<br>
-    </span><br>
-    <blockquote type="cite"
-      cite="mid:4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com">
-      <pre class="moz-quote-pre" wrap="">Another question though: In 4.13 the log message next to the
-domain_crash() I assume you're hitting is "Weird HVM ioemulation
-status", not "Weird PIO status", and the debugging patch you
-referenced doesn't have any change there. Andrew's recent
-change to master, otoh, doesn't use the word "weird" anymore. I
-can therefore only guess that the value logged is still
-hvmemul_do_pio_buffer()'s return value, i.e. X86EMUL_UNHANDLEABLE.
-Please confirm.</pre>
-    </blockquote>
-    <br>
-    It's the first draft of the patch which I did, before submitting to
-    xen-devel.  We do have X86EMUL_UNHANDLEABLE at this point, but its
-    not terribly helpful - there are loads of paths which fail silently
-    with this error.<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------DCC7A6CAB5EFD944658332FB--
 
