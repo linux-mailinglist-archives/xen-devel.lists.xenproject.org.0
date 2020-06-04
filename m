@@ -2,89 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3766D1EE934
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 19:14:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1C8F1EE94C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 19:19:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgtRF-0008Df-Gg; Thu, 04 Jun 2020 17:13:57 +0000
+	id 1jgtWT-0008Ok-4N; Thu, 04 Jun 2020 17:19:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gChz=7R=arm.com=andre.przywara@srs-us1.protection.inumbo.net>)
- id 1jgtRD-0008Da-IG
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 17:13:55 +0000
-X-Inumbo-ID: c47ac8e8-a686-11ea-81bc-bc764e2007e4
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id c47ac8e8-a686-11ea-81bc-bc764e2007e4;
- Thu, 04 Jun 2020 17:13:54 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C52531FB;
- Thu,  4 Jun 2020 10:13:53 -0700 (PDT)
-Received: from [192.168.2.22] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7649A3F6CF;
- Thu,  4 Jun 2020 10:13:52 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uZ5H=7R=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jgtWQ-0008OC-Sz
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 17:19:18 +0000
+X-Inumbo-ID: 85998bfe-a687-11ea-81bc-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 85998bfe-a687-11ea-81bc-bc764e2007e4;
+ Thu, 04 Jun 2020 17:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=gyUeud3LAHOQgArjc8k9cmbOBFeQ4cDOX7SmrC9NY90=; b=RupD+k6Ldk8z1x8bgfjerbCVXq
+ lgWAF8lhO2wE/17bNw6yv+JuQ87nFUJ+SAyrBBjmNp/pAaFI05VOazcyMbtt82Qexs9gYmvW+JfcK
+ K4KHNX0ouJSpFFXgHhoLFaIq/HvcSkgjOtGK0vfupgnBMYHL8QMR3mK14COt9VZCwMbg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jgtWN-0002OE-Qk; Thu, 04 Jun 2020 17:19:15 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jgtWN-0005bf-It; Thu, 04 Jun 2020 17:19:15 +0000
 Subject: Re: [PATCH] xen/rpi4: implement watchdog-based reset
-To: Stefano Stabellini <sstabellini@kernel.org>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Andr=c3=a9_Przywara?= <andre.przywara@arm.com>
 References: <20200603223156.12767-1-sstabellini@kernel.org>
  <3b3fa1cd-e50a-66f7-f5ac-eebc6f1d0953@xen.org>
  <24026a53-044b-843c-e548-22bb8325e5a7@arm.com>
  <alpine.DEB.2.21.2006040916370.6774@sstabellini-ThinkPad-T480s>
  <fb58e72b-2731-9d1b-5fb1-1fc14e3ef31f@arm.com>
  <alpine.DEB.2.21.2006040940140.6774@sstabellini-ThinkPad-T480s>
-From: =?UTF-8?Q?Andr=c3=a9_Przywara?= <andre.przywara@arm.com>
-Autocrypt: addr=andre.przywara@arm.com; prefer-encrypt=mutual; keydata=
- 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
- i4aIXCH3Wv6K
-Organization: ARM Ltd.
-Message-ID: <6c5912f1-29b1-dd27-6072-1b9acb49646f@arm.com>
-Date: Thu, 4 Jun 2020 18:12:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+From: Julien Grall <julien@xen.org>
+Message-ID: <d0e9dec8-40c6-13c3-724f-aa05e1ec3063@xen.org>
+Date: Thu, 4 Jun 2020 18:19:12 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.9.0
 MIME-Version: 1.0
 In-Reply-To: <alpine.DEB.2.21.2006040940140.6774@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -96,11 +65,12 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: cminyard@mvista.com, tamas@tklengyel.com, Julien Grall <julien@xen.org>,
- roman@zededa.com, xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: xen-devel@lists.xenproject.org, roman@zededa.com, tamas@tklengyel.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, cminyard@mvista.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+
+
 
 On 04/06/2020 17:46, Stefano Stabellini wrote:
 > On Thu, 4 Jun 2020, André Przywara wrote:
@@ -157,30 +127,35 @@ On 04/06/2020 17:46, Stefano Stabellini wrote:
 > kernel, once it is removed from there I'd be happy to take it away from
 > Xen too ;-)
 
-The kernel needs to support all RPi models, so we definitely need this.
-Also it's already in there, so removing it is more churn.
+Xen is not a slave of Linux. We make our own informed decision ;).
 
-The reason I am bringing this up is that we should get away from those
-platform specific files in Xen at all. The only reason we have it for
-the RPi4 is the non-page-aligned MMIO regions and overlaps, which could
-actually be determined much better at runtime ...
-
+> 
 > I know I am being cheeky but we have enough battles to fight and enough
 > problems with Xen -- I don't think we should use the hypervisor as a
 > leverage to get people to use or upgrade TF. We just need to get good
 > functionalities to our users with the less amount of friction possible.
 
-As I said: it's not my call, just pointing that out. It's just sad that
-people everywhere work around the limited firmware instead of doing it
-properly.
+Well it is nice to have functionality but you also need to have Xen 
+running reliably and safely. No-one wants to drive in car with no brake 
+on a windy road. Or maybe I am wrong? ;)
 
+> 
 > Everything you mentioned are good reason to use TF, and this patch does
 > not take anything away from it. My suggestion would be to work with
-> raspberrypi.org to have TF installed by default by the Raspberry Pi
-> Imager.
+> raspberrypi.org to have TF installed by default by the 	.
 
-As far as I know there are (were?) efforts underway. For years ;-)
+We actually did use the hypervisor as a leverage in the past. A pretty 
+good example is RPI 3.
+
+Anyway, the patch is pretty simple and limited to the platform. So I 
+would be inclined to accept it.
+
+Although this is just sweeping stability concern under the carpet and 
+hoping for the best. What are the odds this is going to be used in 
+production like that?
 
 Cheers,
-Andre
+
+-- 
+Julien Grall
 
