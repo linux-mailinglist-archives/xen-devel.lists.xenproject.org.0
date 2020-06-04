@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6428A1EE4B4
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 14:45:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 911DE1EE4B7
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 14:45:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgpF4-0005VX-MG; Thu, 04 Jun 2020 12:45:06 +0000
+	id 1jgpFI-0005Ze-J4; Thu, 04 Jun 2020 12:45:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IlcT=7R=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jgpF2-0005VR-Dw
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 12:45:04 +0000
-X-Inumbo-ID: 35bab20a-a661-11ea-9947-bc764e2007e4
+ id 1jgpFH-0005ZI-Cc
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 12:45:19 +0000
+X-Inumbo-ID: 36dc180e-a661-11ea-81bc-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35bab20a-a661-11ea-9947-bc764e2007e4;
- Thu, 04 Jun 2020 12:45:03 +0000 (UTC)
+ id 36dc180e-a661-11ea-81bc-bc764e2007e4;
+ Thu, 04 Jun 2020 12:45:05 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jgpF0-0006vr-PK; Thu, 04 Jun 2020 13:45:02 +0100
+ id 1jgpF2-0006vr-Nt; Thu, 04 Jun 2020 13:45:04 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 0/4] bisection: Skip some useless repros
-Date: Thu,  4 Jun 2020 13:44:55 +0100
-Message-Id: <20200604124459.18453-1-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 1/4] cs-bisection-step: need_repro_sequence: Provide
+ info to callback
+Date: Thu,  4 Jun 2020 13:44:56 +0100
+Message-Id: <20200604124459.18453-2-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200604124459.18453-1-ian.jackson@eu.citrix.com>
+References: <20200604124459.18453-1-ian.jackson@eu.citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -40,32 +43,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>, Paul Durrant <xadimgnik@gmail.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This arranges for an ongoing bisection to be able to restart more
-efficiently when the staging tip advances, and yet the test being
-bisected still fails.
+This will be used by the callback in a moment.
 
-This will speed up the current osstest bisection of the smoke test
-libvirt failure.
+No functional change yet.
 
-There are no code changes outside the bisector and the bisector is not
-itself subject to the osstest self-test.  I am therefore going to
-force-push these four changes straight into osstest production.
-(Obviously I have tested them locally and seen that bisection still
-basically works and also that this fixes the issue.)
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+---
+ cs-bisection-step | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Ian Jackson (4):
-  cs-bisection-step: need_repro_sequence: Provide info to callback
-  cs-bisection-step: need_repro: Provision for $xinfo
-  cs-bisection-step: need_repro: Support $consider_parents
-  cs-bisection-step: Do not needlessly repro on tip
-
- cs-bisection-step | 34 ++++++++++++++++++++++++++++------
- 1 file changed, 28 insertions(+), 6 deletions(-)
-
+diff --git a/cs-bisection-step b/cs-bisection-step
+index 478baa5b..35085e89 100755
+--- a/cs-bisection-step
++++ b/cs-bisection-step
+@@ -805,7 +805,8 @@ our $repro_count;
+ sub need_repro_sequence ($$) {
+     my ($need_each, $code) = @_;
+     #
+-    # $code->() should call, in turn for each required event,
++    # $code->($repro_count, $is_last_repro)
++    # should call, in turn for each required event,
+     #    need_repro('pass', $nodes{SOMETHING}, $what) or
+     #    need_repro('fail', $nodes{SOMETHING}, $what)
+     # and return true as soon as any of the need_repro's return true.
+@@ -817,7 +818,7 @@ sub need_repro_sequence ($$) {
+     local ($repro_lastflight) = 0;
+     local ($repro_count);
+     for ($repro_count=0; $repro_count<$need_each; $repro_count++) {
+-        return 1 if $code->();
++        return 1 if $code->($repro_count, $repro_count==$need_each-1);
+     }
+ }
+ 
+@@ -851,6 +852,7 @@ sub search () {
+ 
+     return if 
+         need_repro_sequence(2, sub {
++            my ($repro_count, $is_last_repro) = @_;
+             need_repro('pass', $nodes{"@basispass_rtuple"}, "basis pass") ||
+             need_repro('fail', $nodes{"@latest_rtuple"},    "basis failure");
+         });
 -- 
 2.20.1
 
