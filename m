@@ -2,76 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AFC71EE3C9
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 13:58:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA321EE3CC
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 13:59:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgoW0-0000CO-Ci; Thu, 04 Jun 2020 11:58:32 +0000
+	id 1jgoWh-0000GR-M4; Thu, 04 Jun 2020 11:59:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EphU=7R=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jgoVz-0000CJ-I6
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 11:58:31 +0000
-X-Inumbo-ID: b51ed1ae-a65a-11ea-9947-bc764e2007e4
-Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ <SRS0=Cgp2=7R=mvista.com=cminyard@srs-us1.protection.inumbo.net>)
+ id 1jgoWg-0000GE-0x
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 11:59:14 +0000
+X-Inumbo-ID: ccdd0e1e-a65a-11ea-9947-bc764e2007e4
+Received: from mail-oi1-x243.google.com (unknown [2607:f8b0:4864:20::243])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b51ed1ae-a65a-11ea-9947-bc764e2007e4;
- Thu, 04 Jun 2020 11:58:30 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id r7so5807854wro.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2020 04:58:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=cNAuUPcCaciSyOFWPd6BJu6y9TZPieUoikaUPOLBltY=;
- b=G3BA3qKwpoQrQT2givVUUQrCkQcWl/0RaYNR80VftP/VvvqG35TFRKTePRdezRdUxt
- gM+FxZDxmZQ4L3pQei9A/RPLwtS+D09NvYskmrnU/WmS77fTiloTu67SsGqNCzaXcCCs
- DnnWqKoN245/8s4gTCwWaq4P6DBRU2/nqLFLNSU9DaemmnKj76uyegYkEesn8Qk4/bau
- AyjKr376Lpv1ukwYOtZZ1IqxacUmW1/rtLWuOdojc8I9zLpj8JseTSsLSom2HIxs26Ln
- sNbQjtGvTK6X065WQBNjY8jKqW/U/5ZxAYahUVW7x0IbjKsHB7nXhsc8UXtyq+YqmL50
- qWdA==
+ id ccdd0e1e-a65a-11ea-9947-bc764e2007e4;
+ Thu, 04 Jun 2020 11:59:10 +0000 (UTC)
+Received: by mail-oi1-x243.google.com with SMTP id j189so4799463oih.10
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2020 04:59:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mvista-com.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=MP+MSIIv1u5nMjP12qFOOqmxhDupPPSuAsiS0Q7kPh8=;
+ b=KPoKu+QjsSf/3CVTmbiW61qyvxa7L+kfeCuQwJ7CXjFHy6Jrb8LGGHLeqYrfju3vBG
+ L76jKx9fpWPIj8bZnoWTlmwf6zKlo+I8hOYjD+KpPevMKiwD3lTqoTpJE/QGiHqvEQSv
+ Lc27GYfLqWo3oqXL7fFIB5xn8NQVBddMcyDJ5/57eltI7wFCk2FJcf88HsGxeQjc97PK
+ 9kCN0T2nwIIzSeVvhfHskZ1REDJ/mYOSE0qJNHDjRWIWyyDxxcW1r0dMTW4jy98qkx5T
+ Ss+BIHPRFQSH38zquhl2xOWJe/zj9S0zw+sCw/ptRGBBAvGV+WmAZwqnTP0lmIc+YmPI
+ 6jSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :thread-index:content-language;
- bh=cNAuUPcCaciSyOFWPd6BJu6y9TZPieUoikaUPOLBltY=;
- b=CaBY7ltRR6SrV364ItdCgExiVS6XpiOQKBEWl6dV62ly1Q43Hch6vSt2FZ0Rs9POoV
- A9EDnMzQ+ebg0y2HHyybQr1/bRRQuwRodz1s2EzlPPRIDXOzS+AcOX1Jk14VrhRd+gNi
- +I/gxVZmmY8oOJER8uWvmpltqhLBul/BkFdqOwlx8j+BaInTZgeZG0gtWYIIMsXMt00E
- 7pk1O8pKaCo4ZWQw1O7FelwD5/uYBCyvkdHHePUY6rLwHCATKDYlI4M4knRY7MHYpT0y
- K1PtW4kPDneCvYzpIcH9WFJqae/6Y/k5fzY0iNSsLaU8gY84yObxpngS1KOQYqekQBp0
- hwuQ==
-X-Gm-Message-State: AOAM530LKyHi/ZetiUye37tWs9TBr+CQ6kcAgv92DpX8MBoqj48w9zvO
- /RoNp0UeZBsFg5FEuZgPFnk=
-X-Google-Smtp-Source: ABdhPJx3pyZ+2yfqfX6IwOd6p299idt+NCIYMiybC/FarcClMxnVstqQeNZO0xPSEy0qDjDU492XwA==
-X-Received: by 2002:adf:aad7:: with SMTP id i23mr4180792wrc.331.1591271909989; 
- Thu, 04 Jun 2020 04:58:29 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id s7sm7958628wrr.60.2020.06.04.04.58.28
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 04 Jun 2020 04:58:29 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-References: <1591224108-564-1-git-send-email-igor.druzhinin@citrix.com>
- <006401d63a44$a27349e0$e759dda0$@xen.org>
- <4d1da8eb-a06e-c97a-09a0-e84070dc5ec8@suse.com>
- <000f01d63a5d$fe3787f0$faa697d0$@xen.org>
- <bc69e2a7-4c0d-5e77-db37-15f5525b9474@suse.com>
-In-Reply-To: <bc69e2a7-4c0d-5e77-db37-15f5525b9474@suse.com>
-Subject: RE: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc NPT
- faults immediately
-Date: Thu, 4 Jun 2020 12:58:27 +0100
-Message-ID: <001401d63a67$763f9810$62bec830$@xen.org>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=MP+MSIIv1u5nMjP12qFOOqmxhDupPPSuAsiS0Q7kPh8=;
+ b=sl6RFw29NsZe67XLHtHdrMRYfMjdBDao0pWbE8g84FTCkMAeic1AeRaEU0desGvht1
+ 3aSj/SBLark+kKZK7ioq+n3wO0/PB6wJzKJc9jk0tE/Qgy3j29RPm7JTk8FmRJwHrxoK
+ 9lXv+LtBfWtGNsy5P7AVBMicM0Po6o7H9aFwKN4gIeTNXP/5/ugMwnshyyqOethYXmQ3
+ DyZgSqT+nl7kprdopl0+/Vq9wqvmE7RQtuTXC42OaO3Uy/fRbRFTeYXF/rJ8IVTxTM1Q
+ Jea5aN2OJejVEKdz4cM3f9jPaUsboUTdAaPjuWoqmmthbqy9f/XfLUNrXHzBREGKE2Pw
+ tFVg==
+X-Gm-Message-State: AOAM5301jAPkKnF64C1/lZ0gHNidLDq+6u4yF7v7VEZfJOWksturN5vv
+ K5wX6kxtK1iSDYdBsxG46mK9eEj0IEo=
+X-Google-Smtp-Source: ABdhPJz69RfwEVipNTi6DzGS/HAU+oavhlaLxYHsKLyUUrMcde30wMQgCwHOLB4sDkS4PgZ/lk+1OQ==
+X-Received: by 2002:aca:d583:: with SMTP id m125mr2821909oig.138.1591271949814; 
+ Thu, 04 Jun 2020 04:59:09 -0700 (PDT)
+Received: from minyard.net ([2001:470:b8f6:1b:9d35:f7bd:647:6545])
+ by smtp.gmail.com with ESMTPSA id j2sm1059292otk.61.2020.06.04.04.59.08
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 04 Jun 2020 04:59:09 -0700 (PDT)
+Date: Thu, 4 Jun 2020 06:59:07 -0500
+From: Corey Minyard <cminyard@mvista.com>
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] xen/rpi4: implement watchdog-based reset
+Message-ID: <20200604115907.GD2903@minyard.net>
+References: <20200603223156.12767-1-sstabellini@kernel.org>
+ <20200604001552.GC2903@minyard.net>
+ <50ad4bca-5eb8-8db0-0aae-dc7febfdb56a@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQKnLWBT9mNjQEOL+u7d2oiXq95SHgJRYkBUAnFt9OEB/ZZVsALqGHDzptkfTAA=
-Content-Language: en-gb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <50ad4bca-5eb8-8db0-0aae-dc7febfdb56a@xen.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,98 +74,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Igor Druzhinin' <igor.druzhinin@citrix.com>, wl@xen.org,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com,
- xen-devel@lists.xenproject.org, roger.pau@citrix.com
+Reply-To: cminyard@mvista.com
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ tamas@tklengyel.com, roman@zededa.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 04 June 2020 12:47
-> To: paul@xen.org
-> Cc: 'Igor Druzhinin' <igor.druzhinin@citrix.com>; =
-xen-devel@lists.xenproject.org;
-> andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com; =
-george.dunlap@citrix.com
-> Subject: Re: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc =
-NPT faults immediately
->=20
-> On 04.06.2020 12:50, Paul Durrant wrote:
-> >> From: Jan Beulich <jbeulich@suse.com>
-> >> Sent: 04 June 2020 11:34
-> >>
-> >> On 04.06.2020 09:49, Paul Durrant wrote:
-> >>>> -----Original Message-----
-> >>>> From: Igor Druzhinin <igor.druzhinin@citrix.com>
-> >>>> Sent: 03 June 2020 23:42
-> >>>> To: xen-devel@lists.xenproject.org
-> >>>> Cc: jbeulich@suse.com; andrew.cooper3@citrix.com; wl@xen.org; =
-roger.pau@citrix.com;
-> >>>> george.dunlap@citrix.com; paul@xen.org; Igor Druzhinin =
-<igor.druzhinin@citrix.com>
-> >>>> Subject: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc =
-NPT faults immediately
-> >>>>
-> >>>> A recalculation NPT fault doesn't always require additional =
-handling
-> >>>> in hvm_hap_nested_page_fault(), moreover in general case if there =
-is no
-> >>>> explicit handling done there - the fault is wrongly considered =
-fatal.
-> >>>>
-> >>>> This covers a specific case of migration with vGPU assigned which
-> >>>> uses direct MMIO mappings made by XEN_DOMCTL_memory_mapping =
-hypercall:
-> >>>> at a moment log-dirty is enabled globally, recalculation is =
-requested
-> >>>> for the whole guest memory including those mapped MMIO regions
-> >>>
-> >>> I still think it is odd to put this in the commit comment since, =
-as I
-> >>> said before, Xen ensures that this situation cannot happen at
-> >>> the moment.
-> >>
-> >> Aiui Igor had replaced reference to passed-through devices by =
-reference
-> >> to mere handing of an MMIO range to a guest. Are you saying we =
-suppress
-> >> log-dirty enabling in this case as well? I didn't think we do:
-> >
-> > No, but the comment says "migration with vGPU *assigned*" (my =
-emphasis), which surely means
-> has_arch_pdevs() will be true.
-> >
-> >>
-> >>     if ( has_arch_pdevs(d) && log_global )
-> >>     {
-> >>         /*
-> >>          * Refuse to turn on global log-dirty mode
-> >>          * if the domain is sharing the P2M with the IOMMU.
-> >>          */
-> >>         return -EINVAL;
-> >>     }
-> >>
-> >> Seeing this code I wonder about the non-sharing case: If what the
-> >> comment says was true, the condition would need to change, but I
-> >> think it's the comment which is wrong, and we don't want global
-> >> log-dirty as long as an IOMMU is in use at all for a domain.
-> >
-> > I think is the comment that is correct, not the condition. It is
-> > only when using shared EPT that enabling logdirty is clearly an
-> > unsafe thing to do. Using sync-ed IOMMU mappings should be ok.
->=20
-> Even with sync-ed IOMMU mappings dirtying happening by I/O won't be
-> noticed, and hence the purpose of global log-dirty is undermined.
+On Thu, Jun 04, 2020 at 09:15:33AM +0100, Julien Grall wrote:
+> Hi,
+> 
+> On 04/06/2020 01:15, Corey Minyard wrote:
+> > On Wed, Jun 03, 2020 at 03:31:56PM -0700, Stefano Stabellini wrote:
+> > > Touching the watchdog is required to be able to reboot the board.
+> > > 
+> > > The implementation is based on
+> > > drivers/watchdog/bcm2835_wdt.c:__bcm2835_restart in Linux.
+> > 
+> > Ah, I was looking at this just today, as it had been annoying me
+> > greatly.  This works for me, so:
+> > 
+> > Tested-by: Corey Minyard <cminyard@mvista.com>
+> > 
+> > However, I was wondering if it might be better to handle this by failing
+> > the operation in xen and passing it back to dom0 to do.  On the Pi you
+> > send a firmware message to reboot, and that seems like too much to do in
+> > Xen, but it would seem possible to send this back to dom0.
+> I don't think this is possible in the current setup. Xen will usually
+> restart the platform if Dom0 requested a clean reboot or crashed. So the
+> domain wouldn't be in state to service such call.
 
-It is, but there are point solutions in some devices and, if not in the =
-device, in the emulator managing the device. This is why migration with =
-assigned h/w is currently feasible even without IOMMU faulting.
+Ok, I hadn't looked at Xen yet, I didn't know how much shutdown of dom0
+happens on a reset.
 
-  Paul
+> 
+> > Just a
+> > thought, as it might be a more general fix for other devices in the same
+> > situation.
+> 
+> What are the devices you have in mind?
 
->=20
-> Jan
+Nothing in particular, but other systems might have the same issue.  I
+guess you have ACPI implemented on x86 already.  It just seemed that
+Linux already has to be able to do this, and passing the buck back there
+might be a more general solution.
 
+Thanks,
+
+-corey
+
+> 
+> Cheers,
+> 
+> -- 
+> Julien Grall
 
