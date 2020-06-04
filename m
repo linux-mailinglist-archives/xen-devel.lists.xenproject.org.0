@@ -2,55 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7616B1EE2D8
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 12:54:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A9EC1EE2DF
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 13:00:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgnWJ-0002ZD-TJ; Thu, 04 Jun 2020 10:54:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jgnaz-0002jr-Gk; Thu, 04 Jun 2020 10:59:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DmD4=7R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jgnWI-0002Z8-Nc
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 10:54:46 +0000
-X-Inumbo-ID: cc9a3480-a651-11ea-ae63-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc9a3480-a651-11ea-ae63-12813bfff9fa;
- Thu, 04 Jun 2020 10:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xvc3tk3MgveuCCv+xgkUU20Otl5YBfB8LGN8wrnHOX4=; b=fs8MqAxNW0wwFTtBzgefiezDS
- LvXMlbSsiC2A2yWAsxYVC7enjm868HyF1w2oP4LDpxqQV7aNDT1pK9FIw92vDcL0Q1VzrwsvvcIMM
- PTMvIKeTPEziv2/jnYJRZfOk2oOMPubvi7mHGl7gm3DeQ9PotSGED6ONZF2PRHGXQWOOU=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgnWG-0002C9-6d; Thu, 04 Jun 2020 10:54:44 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgnWF-0003lR-UT; Thu, 04 Jun 2020 10:54:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jgnWF-0001Uc-Tv; Thu, 04 Jun 2020 10:54:43 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150687-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=lkaD=7R=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jgnay-0002jm-3h
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 10:59:36 +0000
+X-Inumbo-ID: 794d7688-a652-11ea-81bc-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 794d7688-a652-11ea-81bc-bc764e2007e4;
+ Thu, 04 Jun 2020 10:59:34 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: XVxB87/Z9g5o5YKbU2OBpRABk1sML0trbpWTiJ0zUHsznL9Ul24n3cKKc0zfuvprxY67muag5Y
+ rJCOnGelI58TqsyAyn3HtL9r06Cxf4y0tZsiepM8xymJkhbeOTkYnCdueP24ZWPtCMYwxYj0x2
+ k4p76QZ1y6a63AQEQ/WVWxaJZH2apWQfbqeasWfw7DV/abLRbEtnPwNKXKYvWv+1q5nCgGEGQr
+ UmqhgAXukFApC1qH0U1bvfNK4gE0VFpPQO22vphqQcfC/eINoigF8Si6oqnm3XXJFNAiDvZZbT
+ 1r0=
+X-SBRS: 2.7
+X-MesageID: 19502629
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,472,1583211600"; d="scan'208";a="19502629"
+Subject: Re: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc NPT
+ faults immediately
+To: <paul@xen.org>, 'Jan Beulich' <jbeulich@suse.com>
+References: <1591224108-564-1-git-send-email-igor.druzhinin@citrix.com>
+ <006401d63a44$a27349e0$e759dda0$@xen.org>
+ <4d1da8eb-a06e-c97a-09a0-e84070dc5ec8@suse.com>
+ <000f01d63a5d$fe3787f0$faa697d0$@xen.org>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <caf77909-cc09-b281-a9ab-a4e8c83cf397@citrix.com>
+Date: Thu, 4 Jun 2020 11:59:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Subject: [ovmf test] 150687: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=bb78cfbec07eda45118b630a09b0af549b43a135
-X-Osstest-Versions-That: ovmf=68d720fd92bbdbbfae5adee02d6d9fd24ca38f30
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 04 Jun 2020 10:54:43 +0000
+In-Reply-To: <000f01d63a5d$fe3787f0$faa697d0$@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,59 +58,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com,
+ george.dunlap@citrix.com, wl@xen.org, andrew.cooper3@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150687 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150687/
+On 04/06/2020 11:50, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 04 June 2020 11:34
+>> To: paul@xen.org
+>> Cc: 'Igor Druzhinin' <igor.druzhinin@citrix.com>; xen-devel@lists.xenproject.org;
+>> andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com; george.dunlap@citrix.com
+>> Subject: Re: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc NPT faults immediately
+>>
+>> On 04.06.2020 09:49, Paul Durrant wrote:
+>>>> -----Original Message-----
+>>>> From: Igor Druzhinin <igor.druzhinin@citrix.com>
+>>>> Sent: 03 June 2020 23:42
+>>>> To: xen-devel@lists.xenproject.org
+>>>> Cc: jbeulich@suse.com; andrew.cooper3@citrix.com; wl@xen.org; roger.pau@citrix.com;
+>>>> george.dunlap@citrix.com; paul@xen.org; Igor Druzhinin <igor.druzhinin@citrix.com>
+>>>> Subject: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc NPT faults immediately
+>>>>
+>>>> A recalculation NPT fault doesn't always require additional handling
+>>>> in hvm_hap_nested_page_fault(), moreover in general case if there is no
+>>>> explicit handling done there - the fault is wrongly considered fatal.
+>>>>
+>>>> This covers a specific case of migration with vGPU assigned which
+>>>> uses direct MMIO mappings made by XEN_DOMCTL_memory_mapping hypercall:
+>>>> at a moment log-dirty is enabled globally, recalculation is requested
+>>>> for the whole guest memory including those mapped MMIO regions
+>>>
+>>> I still think it is odd to put this in the commit comment since, as I
+>>> said before, Xen ensures that this situation cannot happen at
+>>> the moment.
+>>
+>> Aiui Igor had replaced reference to passed-through devices by reference
+>> to mere handing of an MMIO range to a guest. Are you saying we suppress
+>> log-dirty enabling in this case as well? I didn't think we do:
+> 
+> No, but the comment says "migration with vGPU *assigned*" (my emphasis), which surely means has_arch_pdevs() will be true.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 bb78cfbec07eda45118b630a09b0af549b43a135
-baseline version:
- ovmf                 68d720fd92bbdbbfae5adee02d6d9fd24ca38f30
+You may replace it with 'associated' or something if you don't like this word.
 
-Last test of basis   150668  2020-06-03 21:39:18 Z    0 days
-Testing same since   150687  2020-06-04 09:14:34 Z    0 days    1 attempts
+>>
+>>     if ( has_arch_pdevs(d) && log_global )
+>>     {
+>>         /*
+>>          * Refuse to turn on global log-dirty mode
+>>          * if the domain is sharing the P2M with the IOMMU.
+>>          */
+>>         return -EINVAL;
+>>     }
+>>
+>> Seeing this code I wonder about the non-sharing case: If what the
+>> comment says was true, the condition would need to change, but I
+>> think it's the comment which is wrong, and we don't want global
+>> log-dirty as long as an IOMMU is in use at all for a domain.
+> 
+> I think is the comment that is correct, not the condition. It is only when using shared EPT that enabling logdirty is clearly an unsafe thing to do. Using sync-ed IOMMU mappings should be ok.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Derek Lin <derek.lin2@hpe.com>
-  Nickle Wang <nickle.wang@hpe.com>
-  Ray Ni <ray.ni@intel.com>
+It seems that the case of simple MMIO mappings made without IOMMU being
+enabled for a domain, in fact, irrelevant to the this condition.
+I take it as a separate discussion on a different topic.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   68d720fd92..bb78cfbec0  bb78cfbec07eda45118b630a09b0af549b43a135 -> xen-tested-master
+Igor
 
