@@ -2,59 +2,126 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C8F1EE94C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 19:19:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA8FD1EE9BB
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 19:48:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgtWT-0008Ok-4N; Thu, 04 Jun 2020 17:19:21 +0000
+	id 1jgtyo-0002m0-Q4; Thu, 04 Jun 2020 17:48:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uZ5H=7R=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jgtWQ-0008OC-Sz
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 17:19:18 +0000
-X-Inumbo-ID: 85998bfe-a687-11ea-81bc-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZXme=7R=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1jgtyn-0002lr-Sy
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 17:48:37 +0000
+X-Inumbo-ID: 9e04b4d0-a68b-11ea-9dbe-bc764e2007e4
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 85998bfe-a687-11ea-81bc-bc764e2007e4;
- Thu, 04 Jun 2020 17:19:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gyUeud3LAHOQgArjc8k9cmbOBFeQ4cDOX7SmrC9NY90=; b=RupD+k6Ldk8z1x8bgfjerbCVXq
- lgWAF8lhO2wE/17bNw6yv+JuQ87nFUJ+SAyrBBjmNp/pAaFI05VOazcyMbtt82Qexs9gYmvW+JfcK
- K4KHNX0ouJSpFFXgHhoLFaIq/HvcSkgjOtGK0vfupgnBMYHL8QMR3mK14COt9VZCwMbg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jgtWN-0002OE-Qk; Thu, 04 Jun 2020 17:19:15 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jgtWN-0005bf-It; Thu, 04 Jun 2020 17:19:15 +0000
-Subject: Re: [PATCH] xen/rpi4: implement watchdog-based reset
-To: Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Andr=c3=a9_Przywara?= <andre.przywara@arm.com>
-References: <20200603223156.12767-1-sstabellini@kernel.org>
- <3b3fa1cd-e50a-66f7-f5ac-eebc6f1d0953@xen.org>
- <24026a53-044b-843c-e548-22bb8325e5a7@arm.com>
- <alpine.DEB.2.21.2006040916370.6774@sstabellini-ThinkPad-T480s>
- <fb58e72b-2731-9d1b-5fb1-1fc14e3ef31f@arm.com>
- <alpine.DEB.2.21.2006040940140.6774@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <d0e9dec8-40c6-13c3-724f-aa05e1ec3063@xen.org>
-Date: Thu, 4 Jun 2020 18:19:12 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
+ id 9e04b4d0-a68b-11ea-9dbe-bc764e2007e4;
+ Thu, 04 Jun 2020 17:48:37 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 054HmahN121097;
+ Thu, 4 Jun 2020 17:48:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=LH/X5HxwQdBaUYabhBH9v/jDWKVE1Mx/V+ryFL/r/5I=;
+ b=uIb0KSi2lCSG9pB7uHG2rQSkHiEdNBMHRjWQcoI6PkASryhYM2u32quzzOFQfmSFnJru
+ oSfloPZM//pCXRqPwpcxaI2XXMuEnhBTJZWYZ01cPU97m6r5RcD0mDhEpVWsoevY0dxN
+ SVzNj72cCfH3oVoQTwqll4aQgmzjmBxTFjj6Kxt6u+dmE08Tu2yoGSzAkySwTFFEjpBn
+ IE9lF1mj4Trymo9Unfo+4e/wJlPrHhzeIUjGuBFaR6ujPpMocsKPmQ9DgzsAVLXw26TD
+ qHy+ZE9x0FhFeMriK9YycGcHnRiE/nrHaZzHyoYjChtZOgJJK08g/kGvDPiNkROJNG2D RA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2120.oracle.com with ESMTP id 31ev96u2ct-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 04 Jun 2020 17:48:35 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 054Hc7An123543;
+ Thu, 4 Jun 2020 17:46:35 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by userp3020.oracle.com with ESMTP id 31dju5c7ys-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 04 Jun 2020 17:46:35 +0000
+Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 054HkXaM002314;
+ Thu, 4 Jun 2020 17:46:33 GMT
+Received: from [10.39.203.50] (/10.39.203.50)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 04 Jun 2020 10:46:30 -0700
+Subject: Re: [PATCH v2 08/11] swiotlb-xen: introduce phys_to_dma/dma_to_phys
+ translations
+To: Stefano Stabellini <sstabellini@kernel.org>, jgross@suse.com,
+ konrad.wilk@oracle.com
+References: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
+ <20200603222247.11681-8-sstabellini@kernel.org>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
+ 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
+ Jg6OxFYd01z+a+oL
+Message-ID: <af4c8c3f-6bb5-5b42-8589-8fe66fc7621a@oracle.com>
+Date: Thu, 4 Jun 2020 13:46:28 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2006040940140.6774@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200603222247.11681-8-sstabellini@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9642
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ mlxlogscore=999
+ phishscore=0 malwarescore=0 mlxscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2006040123
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9642
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ adultscore=0
+ malwarescore=0 priorityscore=1501 cotscore=-2147483648 impostorscore=0
+ spamscore=0 phishscore=0 mlxscore=0 clxscore=1015 bulkscore=0
+ mlxlogscore=999 lowpriorityscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2006040124
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,97 +132,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, roman@zededa.com, tamas@tklengyel.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, cminyard@mvista.com
+Cc: xen-devel@lists.xenproject.org, tamas@tklengyel.com,
+ linux-kernel@vger.kernel.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, roman@zededa.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 6/3/20 6:22 PM, Stefano Stabellini wrote:
+>
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 0a6cb67f0fc4..60ef07440905 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -64,16 +64,16 @@ static inline dma_addr_t xen_phys_to_bus(struct dev=
+ice *dev, phys_addr_t paddr)
 
 
-On 04/06/2020 17:46, Stefano Stabellini wrote:
-> On Thu, 4 Jun 2020, André Przywara wrote:
->> On 04/06/2020 17:24, Stefano Stabellini wrote:
->>> On Thu, 4 Jun 2020, André Przywara wrote:
->>>> On 04/06/2020 09:48, Julien Grall wrote:
->>>>
->>>> Hi,
->>>>
->>>>> On 03/06/2020 23:31, Stefano Stabellini wrote:
->>>>>> Touching the watchdog is required to be able to reboot the board.
->>>>>
->>>>> In general the preferred method is PSCI. Does it mean RPI 4 doesn't
->>>>> support PSCI at all?
->>>>
->>>> There is mainline Trusted Firmware (TF-A) support for the RPi4 for a few
->>>> months now, which includes proper PSCI support (both for SMP bringup and
->>>> system reset/shutdown). At least that should work, if not, it's a bug.
->>>> An EDK-2 build for RPi4 bundles TF-A automatically, but you can use TF-A
->>>> without it, with or without U-Boot: It works as a drop-in replacement
->>>> for armstub.bin. Instruction for building it (one line!) are here:
->>>> https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/tree/docs/plat/rpi4.rst
->>>>
->>>>>>
->>>>>> The implementation is based on
->>>>>> drivers/watchdog/bcm2835_wdt.c:__bcm2835_restart in Linux.
->>>>>
->>>>> Can you give the baseline? This would allow us to track an issue and
->>>>> port them.
->>>>
->>>> Given the above I don't think it's a good idea to add extra platform
->>>> specific code to Xen.
->>>
->>> The RPi4, at least the one I have, doesn't come with any TF, and it
->>
->> My RPi4 didn't come with anything, actually ;-) It's just a matter of
->> what you put in the uSD card slot.
->>
->>> doesn't come with PSCI in device tree.
->>
->> TF-A patches the PSCI nodes in:
->> https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/commit/plat/rpi/rpi4?id=f67fa69cb6937a7fc559bbec4a7acce5edefa888
->>
->>> As a user, I would rather have
->>> this patch (even downstream) than having to introduce TF in my build and
->>> deployment just to be able to reboot.
->>
->> I get your point, but would rather put more pressure on people using
->> TF-A. After all you run without CPU hotplug, A72 errata workarounds and
->> without Spectre/Meltdown fixes. What was the IP address of your board
->> again? ;-)
-> 
-> Please send a pull request to remove __bcm2835_restart from the Linux
-> kernel, once it is removed from there I'd be happy to take it away from
-> Xen too ;-)
+Weren't you going to rename this to xen_phys_to_dma()? (And the the one
+below to xen_dma_to_phys())?
 
-Xen is not a slave of Linux. We make our own informed decision ;).
 
-> 
-> I know I am being cheeky but we have enough battles to fight and enough
-> problems with Xen -- I don't think we should use the hypervisor as a
-> leverage to get people to use or upgrade TF. We just need to get good
-> functionalities to our users with the less amount of friction possible.
+-boris
 
-Well it is nice to have functionality but you also need to have Xen 
-running reliably and safely. No-one wants to drive in car with no brake 
-on a windy road. Or maybe I am wrong? ;)
 
-> 
-> Everything you mentioned are good reason to use TF, and this patch does
-> not take anything away from it. My suggestion would be to work with
-> raspberrypi.org to have TF installed by default by the 	.
+> =20
+>  	dma |=3D paddr & ~XEN_PAGE_MASK;
+> =20
+> -	return dma;
+> +	return phys_to_dma(dev, dma);
+>  }
+> =20
+> -static inline phys_addr_t xen_bus_to_phys(struct device *dev, dma_addr=
+_t baddr)
+> +static inline phys_addr_t xen_bus_to_phys(struct device *dev,
+> +					  dma_addr_t dma_addr)
+>  {
+> +	phys_addr_t baddr =3D dma_to_phys(dev, dma_addr);
+>  	unsigned long xen_pfn =3D bfn_to_pfn(XEN_PFN_DOWN(baddr));
+> -	dma_addr_t dma =3D (dma_addr_t)xen_pfn << XEN_PAGE_SHIFT;
+> -	phys_addr_t paddr =3D dma;
+> -
+> -	paddr |=3D baddr & ~XEN_PAGE_MASK;
+> +	phys_addr_t paddr =3D (xen_pfn << XEN_PAGE_SHIFT) |
+> +			    (baddr & ~XEN_PAGE_MASK);
+> =20
 
-We actually did use the hypervisor as a leverage in the past. A pretty 
-good example is RPI 3.
 
-Anyway, the patch is pretty simple and limited to the platform. So I 
-would be inclined to accept it.
-
-Although this is just sweeping stability concern under the carpet and 
-hoping for the best. What are the odds this is going to be used in 
-production like that?
-
-Cheers,
-
--- 
-Julien Grall
 
