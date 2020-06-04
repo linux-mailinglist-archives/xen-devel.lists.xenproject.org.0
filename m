@@ -2,53 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFA5A1EE228
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 12:12:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65E4C1EE247
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 12:16:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgmqs-0006qS-Te; Thu, 04 Jun 2020 10:11:58 +0000
+	id 1jgmuw-00070y-FG; Thu, 04 Jun 2020 10:16:10 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NfFn=7R=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jgmqr-0006qN-0D
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 10:11:57 +0000
-X-Inumbo-ID: d18b419c-a64b-11ea-ae57-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uZ5H=7R=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jgmuu-00070F-J2
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 10:16:08 +0000
+X-Inumbo-ID: 64cc8e3e-a64c-11ea-ae57-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d18b419c-a64b-11ea-ae57-12813bfff9fa;
- Thu, 04 Jun 2020 10:11:56 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: JW+8Ma8rK3J/RLJ/tobmpVsemQwnCPOWbgFx6kLfufZt5muS+5Z9R4iCkdKkQREccG2xdpxHm7
- T8EgDVCNf8cctxeGgHJ3wX3bkNjMcONxyHoUJgAFwsUWn1UiNgK4qLDIq+cbvrPp8tb4U+CNBm
- x7OuvGOoA4ZpfyYw+uk8mVUtqjTi8+JLKHVWPJZXygZ5D0+cl3skK8PSW3OiD6JyFBdUSnAhDH
- htv070kDndjSrxnp3RML6LgjVJP52v+9ORn6JuJWGsW4nIMxxXlMiqMwesQl8s/H+CNssG5Glt
- Jw8=
-X-SBRS: 2.7
-X-MesageID: 19557215
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,472,1583211600"; d="scan'208";a="19557215"
-Subject: Re: [PATCH for-4.14] x86/shim: Fix defconfig selection and trim the
- build further
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200603170908.13239-1-andrew.cooper3@citrix.com>
- <1a158ff8-e11e-432c-236d-ff884602d48a@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a5a0708b-6738-8cc7-af55-dc2331761ece@citrix.com>
-Date: Thu, 4 Jun 2020 11:11:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id 64cc8e3e-a64c-11ea-ae57-12813bfff9fa;
+ Thu, 04 Jun 2020 10:16:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=abCn9t+cnQcKoWG+FfX/UQ1+boT+CWGrlGLJFkWts7M=; b=AJtxA9bHCg8v0/Mn9yxG5MZ01w
+ mw63MIec+49lCuQEwkajuX4BgHPv/pq43YKyayhUxkQiMIFcwdM+KpfXAD71c5bt8XrTQM17h1n3l
+ UTFlylz8P6hUBEBMgyKsvD0DOovyMbjmA1zbHeRfds9rO+1fRChArFXG/DcEAypwViPY=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jgmuo-0001PY-Fn; Thu, 04 Jun 2020 10:16:02 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jgmuo-0006AN-8H; Thu, 04 Jun 2020 10:16:02 +0000
+Subject: Re: Keystone Issue
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+ <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
+ <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
+ <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
+ <25953300-f69d-19a4-9215-49cfedbd16ed@xen.org>
+ <CALYbLDh3C02+CV88LqR2zv+ggRgup-Qhi+udGzgePmkdM0KcFw@mail.gmail.com>
+ <deee1523-cfb5-f186-11a3-33fa1f7b94c1@xen.org>
+ <8C39F9D0-8351-4671-9A39-D5D4BFF02BD6@arm.com>
+ <3ff17aa9-0aae-d598-40ce-4e90d4e50cc7@xen.org>
+ <00E14EAD-BD23-4A3A-872E-0C47C26B7B41@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <c2466674-a56e-08a4-7f3f-2438d5565953@xen.org>
+Date: Thu, 4 Jun 2020 11:15:59 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.8.1
 MIME-Version: 1.0
-In-Reply-To: <1a158ff8-e11e-432c-236d-ff884602d48a@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <00E14EAD-BD23-4A3A-872E-0C47C26B7B41@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,88 +69,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ CodeWiz2280 <codewiz2280@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04/06/2020 07:43, Jan Beulich wrote:
-> On 03.06.2020 19:09, Andrew Cooper wrote:
->> Several options (TBOOT, XENOPROF, Scheduler) depend on EXPERT to be able to
->> deselect/configure.
->>
->> Enabling EXPERT now causes the request of the Credit1 scheduler to be honoured
->> (rather than giving us Credit2), but take this opportunity to switch to Null,
->> as the previously problematic issues are now believed to be fixed.
->>
->> Enabling EXPERT also allows XEN_SHSTK to be selected, and we don't want this
->> being built for shim.  We also don't want TRACEBUFFER or GDBSX either.
->>
->> Take this oppotunity to swap the disable of HVM_FEP for a general disable of
->> HVM (likely to have wider impliciations in the future), and disable ARGO (will
->> necesserily need plumbing work to function in shim).
-> Odd. I was quite sure this is the case already; in particular my
-> own build test of a shim config has this already.
+Hi,
 
-It is currently off because of its default in Xen, but even if that were
-to change, its not usable in shim without further development work.
+On 04/06/2020 10:08, Bertrand Marquis wrote:
+> I would have thought that linux would have need some memory, even small in the 32bit space in order to boot.
 
->
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Yes it needs some, but then they are switching to use the high memory 
+alias after the MMU has been switch on.
 
-Thanks.
+ From my understanding, the only difference is the page-tables will 
+point to the high memory alias address rather than the low memory one.
+Linux will still be located at the same place but now accessed from the 
+high memory alias rather than the low one.
 
->
-> I have a question though (without implying the patch here needs
-> adjusting, but rather with a look towards after 4.14):
->
->> --- a/xen/arch/x86/configs/pvshim_defconfig
->> +++ b/xen/arch/x86/configs/pvshim_defconfig
->> @@ -5,19 +5,25 @@ CONFIG_PVH_GUEST=y
->>  CONFIG_PV_SHIM=y
->>  CONFIG_PV_SHIM_EXCLUSIVE=y
->>  CONFIG_NR_CPUS=32
->> +CONFIG_EXPERT=y
->> +CONFIG_SCHED_NULL=y
->>  # Disable features not used by the PV shim
->> +# CONFIG_HVM is not set
->> +# CONFIG_XEN_SHSTK is not set
->>  # CONFIG_HYPFS is not set
->>  # CONFIG_SHADOW_PAGING is not set
->>  # CONFIG_BIGMEM is not set
->> -# CONFIG_HVM_FEP is not set
->>  # CONFIG_TBOOT is not set
->>  # CONFIG_KEXEC is not set
->>  # CONFIG_XENOPROF is not set
->>  # CONFIG_XSM is not set
->> +# CONFIG_ARGO is not set
->> +# CONFIG_SCHED_CREDIT is not set
->>  # CONFIG_SCHED_CREDIT2 is not set
->>  # CONFIG_SCHED_RTDS is not set
->>  # CONFIG_SCHED_ARINC653 is not set
->> -# CONFIG_SCHED_NULL is not set
->>  # CONFIG_LIVEPATCH is not set
->>  # CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS is not set
->> +# CONFIG_TRACEBUFFER is not set
->>  # CONFIG_DEBUG is not set
->> +# CONFIG_GDBSX is not set
-> I assume both the "enable" and "disable" sections here are ordered
-> like they would be in a resulting full .config.
+Note that AFAICT the secondary CPUs will still be brought-up using the 
+low memory alias.
 
-They are, yes.
+> I could understand that some memory in the low address space needs to be reserved by Linux as DMA area for peripherals not supporting 36-bit addresses, but the whole low memory sounds like a big restriction.
+Many platforms have devices only supporting 32-bit DMA, but none of them 
+require such aliasing. So this doesn't look to be the issue here.
 
-> But this being two
-> separate sections, doing so doesn't help e.g. diff-ing.
+TBH, this code is only used by Keystone and switching address space is 
+expensive (you have to turn off the MMU, updates page-tables, flush the 
+cache...). I find hard to believe a developper would have come up with 
+this complexity if it were possible to always use the low memory address 
+range. It is even harder to believe Linux community would have accepted it.
 
-Having them in order helps massively with scanning through the two files
-together.
+> 
+> Would it be possible to have a bit more information on the “problem with peripherals” here ?
 
-I'm not entirely certain why the two sections are separate to begin
-with.  Merging them would probably make things even easier, but I think
-the file does want to stay in .config order.
+I am curious as well, so I looked in more depth :). Going through the 
+Linux history, one of the commit message [1] suggests they are switching 
+to a coherent address space. The datasheet [2] (page 75) also confirm 
+that the low region is not IO coherent.
 
-~Andrew
+So I think you would not be able to do DMA without flush the cache which 
+can be pretty expensive. For a PoC, it might be possible to force Linux 
+flushing the area before and after each DMA request. This should be 
+possible by marking the devices as not coherent.
+
+Although, I am not entirely sure if there is any fallout.
+
+@Dave, do you think it is possible for you to have a try? I can provide 
+the patch for Linux to disable DMA coherency if possible.
+
+For a proper solution, I think we need to implement something similar to 
+what I wrote earlier.
+
+Cheers,
+
+[1] 5eb3da7246a5b2dfac9f38a7be62b1a0295584c7
+[2] https://www.ti.com/lit/ds/symlink/tci6638k2k.pdf?ts=1591183242813
+
+
+-- 
+Julien Grall
 
