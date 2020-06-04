@@ -2,58 +2,102 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EF111EE7E9
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 17:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180801EE825
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 18:00:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgrxC-0005kF-A5; Thu, 04 Jun 2020 15:38:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jgsHa-0007fk-24; Thu, 04 Jun 2020 15:59:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uZ5H=7R=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jgrxA-0005kA-6Y
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 15:38:48 +0000
-X-Inumbo-ID: 7afd8848-a679-11ea-aeb0-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7afd8848-a679-11ea-aeb0-12813bfff9fa;
- Thu, 04 Jun 2020 15:38:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=eyBkw7dJwBtByMaT7riuWQsouHwxln5MXJ2TYAmqFRE=; b=DDjCM/y/CGJDuVyBsNuVWdxW9o
- VJ87P1PgHFrJ5zWanRH9+qYjV220WXnMIHnHrm7nI9RKcQBgPxw2k9xjNaAthHqdobYe453fv9S5p
- VFpYYnahyyAEsVIihWdSaVa4jRB5ViLoxdx73VBkgY7qAo+5vo68Wm4u0Y2AYAj3V6CA=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jgrx8-00089H-D0; Thu, 04 Jun 2020 15:38:46 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jgrx8-0008Vz-6X; Thu, 04 Jun 2020 15:38:46 +0000
-Subject: Re: UEFI support in ARM DomUs
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Peng Fan <peng.fan@nxp.com>, Roman Shaposhnik <roman@zededa.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <dc3998f3-5fa1-9b97-12cd-a1e3bb29eee5@xen.org>
-Date: Thu, 4 Jun 2020 16:38:43 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
-MIME-Version: 1.0
-In-Reply-To: <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+ (envelope-from <SRS0=GEZq=7R=suse.com=jfehlig@srs-us1.protection.inumbo.net>)
+ id 1jgsHZ-0007ff-5p
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 15:59:53 +0000
+X-Inumbo-ID: 6a040988-a67c-11ea-81bc-bc764e2007e4
+Received: from m4a0072g.houston.softwaregrp.com (unknown [15.124.2.130])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6a040988-a67c-11ea-81bc-bc764e2007e4;
+ Thu, 04 Jun 2020 15:59:50 +0000 (UTC)
+Received: FROM m4a0072g.houston.softwaregrp.com (15.120.17.147) BY
+ m4a0072g.houston.softwaregrp.com WITH ESMTP; 
+ Thu,  4 Jun 2020 15:58:33 +0000
+Received: from M9W0067.microfocus.com (2002:f79:be::f79:be) by
+ M4W0335.microfocus.com (2002:f78:1193::f78:1193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10; Thu, 4 Jun 2020 15:57:27 +0000
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com (15.124.72.12) by
+ M9W0067.microfocus.com (15.121.0.190) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10 via Frontend Transport; Thu, 4 Jun 2020 15:57:26 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Bw24vyHk0Rn/HJNdsY9XVANEFLWcnLa0rrhq+ZhvpVefgDFrX6cHC83UhkQKFM6erMlSjmKNFKyHZijFwJdqUNyi/Jll2ZLvHdJnkqHHrQQPbzGbFfHpU/POVj8f07R/k1Qeu04ZQZGudk9jgvjZIZME27dXwDcpGbb1JY+Bk7FEPe6DavDI5DU59QI6DzsXCgdQVV/iw2WH6hJ9CPCbreo399nX34XTz+5BtubJPYWEExJrLnnJt4abZpn/2RRCNC9xYr7uriMu0lg4KRieyiDcGxifPuP1i1dHwz99dICnG7r7W7vwpAy/spcE1P3tasR4/d0TKnReufczrxQ7Cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a/w+lXdLh32mZEP9wP3L7bFEMzEAM7IawwazQl/OO6I=;
+ b=hUfKSCBX1PdI+TxG46FM8uttz0CtlKfPlvge2c9tN+DoxrdcK+jmbC83pb0dUgGqIS99AtkoZRZx7t3u03NXLAGaKQAqX7YrCBcndbFhSq3dJHIkMPG7QRhEEzvuH01uGqiPqyqsHtJeqz8xbulBvWHSxEZ4we5VqT4dk2jytjTxEcKJq51wrlwjCWi1fHvXGklb6GZXik778tCy6jobzYt0vtJz8kst7RpBR/G0OR/KHlUcLkK37Py4ccn5PqfnkS56eFP+BAh8FVYJq76TDximz461bb/lNOnhO+cjG3oWi2HHK5GNyoq4kHGcqPW7a9joAy9jSLMLfNk/9fsO0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=suse.com;
+Received: from CY4PR1801MB2071.namprd18.prod.outlook.com
+ (2603:10b6:910:79::35) by CY4PR1801MB1958.namprd18.prod.outlook.com
+ (2603:10b6:910:7b::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.21; Thu, 4 Jun
+ 2020 15:57:24 +0000
+Received: from CY4PR1801MB2071.namprd18.prod.outlook.com
+ ([fe80::412:7771:b22b:7f67]) by CY4PR1801MB2071.namprd18.prod.outlook.com
+ ([fe80::412:7771:b22b:7f67%6]) with mapi id 15.20.3045.024; Thu, 4 Jun 2020
+ 15:57:24 +0000
+Subject: Re: [libvirt test] 149773: regressions - FAIL
+To: Ian Jackson <ian.jackson@citrix.com>
+References: <osstest-149773-mainreport@xen.org>
+ <7c47a937-551f-2c7a-edd3-8b172155a506@suse.com>
+ <24280.60980.488961.267238@mariner.uk.xensource.com>
+From: Jim Fehlig <jfehlig@suse.com>
+Message-ID: <f803ba59-4f9d-f300-8335-9c8f0ce22757@suse.com>
+Date: Thu, 4 Jun 2020 09:57:21 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+In-Reply-To: <24280.60980.488961.267238@mariner.uk.xensource.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MWHPR11CA0015.namprd11.prod.outlook.com
+ (2603:10b6:301:1::25) To CY4PR1801MB2071.namprd18.prod.outlook.com
+ (2603:10b6:910:79::35)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.1.55] (192.225.185.129) by
+ MWHPR11CA0015.namprd11.prod.outlook.com (2603:10b6:301:1::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3066.18 via Frontend Transport; Thu, 4 Jun 2020 15:57:23 +0000
+X-Originating-IP: [192.225.185.129]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9ddefc06-5c08-4fd3-e3dc-08d8089ff902
+X-MS-TrafficTypeDiagnostic: CY4PR1801MB1958:
+X-Microsoft-Antispam-PRVS: <CY4PR1801MB195824B70E699FFA0F2413FEC6890@CY4PR1801MB1958.namprd18.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-Forefront-PRVS: 04244E0DC5
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dWS6R1ls7GtiEFnKIXYDwr09k8JyAnXfPVTJMTSCylepiwMkTyeU7l5JgieDVU0D4weiklCdjm8kkBzVRaYRSEjQq+prUqYaIgXO5j3pgoim/ROTXaq7p/+mJ78pJb6Kt086YXQ2eMSxjf9X32vWZE/2IFr0F/TLxiMrFFP864Y+QaT3jKvN7S0a0I5ySkZwS/3CaO8JnY3vzB5w61RvoPkfIRlXWdf/s5xqUZALYIMCV+o7h5GekXqFeyYeceN5DkpxBJorxFXZMz3tPDlirbX57fAmoOD8aJz5yIUSTfC4j5WhwRcdIVaoMmdEd4TRIsDgF0wG58UD7LB173bm1bLk6lV+N2NM08sbWe1WxeCLGK281vSbjCmAh2lDiT3ch7+YfEl688JnsdNBkt3Gb3j+lU1NrzHcZ5SYAxKDdCzgdCFMyyYU5lhzzs4aFQ2zPqvb9g6bb9YCXXZVoWR5aw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR1801MB2071.namprd18.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(366004)(136003)(376002)(396003)(346002)(39860400002)(316002)(16576012)(31696002)(86362001)(4326008)(6916009)(6486002)(36756003)(478600001)(83380400001)(31686004)(8676002)(2906002)(54906003)(66556008)(186003)(66946007)(8936002)(5660300002)(66476007)(26005)(16526019)(956004)(2616005)(52116002)(53546011)(966005)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData: Y5wLnPE2D2IHh06f8tNl/q6hbMmFKM/L6dQ2nPKW10atAeFpDcHhehX2vZJqCl2xx966S5uervZM/CZi6E8guwfWufLiUpSiOBiQJd+Ov1WShONe0B989mUMJPM9ekeQAfI6Dn+WLyQANrHQ2iaEl6t3XVqR0ePsQ0yrcUGK8c7Q+DZB74iH8VOQGvKKjRiHquKZ0fCG4Zk9axFZgY3WKrkOuHMMrT5OMdQ7gnART/NF3Oie8V96VOWuMF1AXp0uqYp4zz4LxRdklFXhXZNViTCQF9hoNBysVkudJyiAj8qSz8kSoAWkGcRPGTHpKt0fsgLG7BJ9RidGU37ij111crZ63DWI7guMekYU3vQKFGOsCoMC0k9acK1NsfzLX7TiyRVgMoHmgr2k7zlTuOzuLOafjz3KkC4YEsYFyoTfW4g2r9CEzgED/owFJR4cQV3P7vsuSLfpiLK6zpizXRfVXAm9BQaCfZOxJRY3E5Q2fT0=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ddefc06-5c08-4fd3-e3dc-08d8089ff902
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2020 15:57:24.5062 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UQOUxS8p5VfjPDj7N3plOMtRIHDqlMMmCfBCtyVIKaC5Ey6/TOlNP++WZNJHrr8gorhXZS1Etlb++Qf0xRaYdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1801MB1958
+X-OriginatorOrg: suse.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,37 +108,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Nataliya Korovkina <malus.brandywine@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ osstest service owner <osstest-admin@xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
-
-On 04/06/2020 16:26, Oleksandr Andrushchenko wrote:
-> On 6/4/20 4:57 AM, Peng Fan wrote:
->> Grall <julien@xen.org>;
->>> Nataliya Korovkina <malus.brandywine@gmail.com>
->>> Subject: UEFI support in ARM DomUs
->> We have made U-Boot run inside XEN DomU, but just only PV console part,
->> not implement other frontend drivers currently. Would this help for your
->> case if enable EFI in U-Boot?
+On 6/4/20 6:51 AM, Ian Jackson wrote:
+> Jim Fehlig writes ("Re: [libvirt test] 149773: regressions - FAIL"):
+>> On 4/24/20 3:53 AM, osstest service owner wrote:
+>>> flight 149773 libvirt real [real]
+>>> http://logs.test-lab.xenproject.org/osstest/logs/149773/
+>>>
+>>> Regressions :-(
+>>>
+>>> Tests which did not succeed and are blocking,
+>>> including tests which could not be run:
+>>>    build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+>>>    build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
+>>>    build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+>>>    build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+>>
+>> Probably best to disable these tests to avoid all the spam.
 > 
-> Well, we have a working PV block implementation on top of that on iMX8
+> I have fixed the build bug now...
 
-That's a nice work and will be a good addition. However...
+I saw your patch on the libvirt dev list, thanks! I'm a bit embarrassed for not 
+considering a fix on the libvirt side while trying to address this a few months 
+back :-/.
 
-> 
-> platform, mostly ported from mini-os. Currently we are finalizing the work
+I suspect the upcoming move to meson will be a bit more disruptive and will 
+likely require changes to osstest.
 
-... AFAICT mini-os is licensed using BSD-2 while U-boot is using GPLv2. 
-So I would be careful with the licensing here.
-
-It might be better to consider to port Linux PV driver instead or 
-rewrite them completely.
-
-Cheers,
-
--- 
-Julien Grall
+Regards,
+Jim
 
