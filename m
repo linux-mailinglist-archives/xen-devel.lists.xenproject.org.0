@@ -2,73 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33B5A1EDEDA
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 09:49:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0ABC1EDEDB
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 09:50:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgkcl-0000Q2-HB; Thu, 04 Jun 2020 07:49:15 +0000
+	id 1jgkeB-0001Bf-Sd; Thu, 04 Jun 2020 07:50:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EphU=7R=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jgkcj-0000Px-Gf
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 07:49:13 +0000
-X-Inumbo-ID: e144065a-a637-11ea-9947-bc764e2007e4
-Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
+ id 1jgkeA-0001BY-7T
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 07:50:42 +0000
+X-Inumbo-ID: 164fd9b4-a638-11ea-9947-bc764e2007e4
+Received: from mail-ed1-x52d.google.com (unknown [2a00:1450:4864:20::52d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e144065a-a637-11ea-9947-bc764e2007e4;
- Thu, 04 Jun 2020 07:49:12 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id y13so5014175eju.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2020 00:49:12 -0700 (PDT)
+ id 164fd9b4-a638-11ea-9947-bc764e2007e4;
+ Thu, 04 Jun 2020 07:50:41 +0000 (UTC)
+Received: by mail-ed1-x52d.google.com with SMTP id p18so3884927eds.7
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2020 00:50:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=19uOk58PH69NQ0JMuow4/Erep/Zgdt87/SsuR3J05QM=;
- b=M2CjCNzBIqnh0CAkeaDcJUiE/YVrCMHA5TbRg9ffvE+qOEOQCNnjAqYqfVqB6gRm4P
- TW5cb3/FLpYqmbR5xCXZZL1PiFD7YUV+3Bdyx/kckx3eBjcd+BHhA74bMgryUNEgGRcu
- 2A/b+X7J4U+V3iqmkq8W9WqBraUiSk/w9amrlZMmjQJ1indVChSRWonbPsMSw0ircl6l
- 2CboHoakl2W5pQT2VqTyhFLUM7a3NzbMZcxNZdzdob3h3JTUkf2Jv5xSc3T3qt0wJ6np
- wa8yucMwWrjX38z0OTFi/Wej9v6buh1SyNfPfRHEjo9tlUULopVFFWtTNMe9zT3sq9iJ
- 7XCQ==
+ :thread-index; bh=KuNf6C8p5U/pV3cH0HVswaojeUwltwpCkRZOPJXfz5U=;
+ b=Y7FVr2ngIEYiTZl0edDmqaq9hjMiz1SmKQ1oDwyTCFTi/JqtYouQr+coxnkN8/bJ6S
+ UttOnOwPTlxH2RLs+d2qsCPfvHLfCSeGD6GYiWE9/gEssC9KMvVJ9Kce+yvmYUU6c98s
+ +ORackNhRTr35ij070nHuJBJ0Dti4Bn9SII7MP8KrmigtSZf/3DfjzW8LGPb5fGkmb3P
+ Xz32erOHc63npK4zPMbOPqIpu/rEv9RDbWY1KkvrcaYnur0Bo9xMtBEYYjry3E06Rjt4
+ Zn5Mynf+Zwju4RdzJhq700/wXU+tLJKq65NHFK1y0TlocrEtZPodGYsUBIghWtQ9Sh7u
+ Ihhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :content-language:thread-index;
- bh=19uOk58PH69NQ0JMuow4/Erep/Zgdt87/SsuR3J05QM=;
- b=mDUoV14eofoqUEBNmvfV1VOnGJWQIJAewz1Tb02c/6evvbvVQiASFA2a4Ams3vjx+e
- PVaIV0ceOrq09jPPq35a/RoKaicl5on015tQqCJH2EzaG3TaewIHZ4cr2h5mVWHnaZ5p
- uoYFMhNtyPgdHe/2wxVjb4DU8tuaXM3KwkpacdZLP/0vi8KNvEfLG7JhKaYTCooT769K
- 0QUb7FTdyz/zN4/YQpu/dwGXPkrfMD22MqIR4fMigqcy19j6adPfdzaTVcQpe/cV3lew
- W+rhcY1TSLu/1TC2ysKWyX10eXjfGBC83uUv4e8jf1DWzhVXNcagSKKIRqXxkLf6/Vno
- 2crg==
-X-Gm-Message-State: AOAM5338CD3Mp4o0L58C6DWJ5NS8ottgTieV/t+PNJGmy5ReqXmuc1Cz
- rSsVaH0UZp8VaTH5hssbTG4=
-X-Google-Smtp-Source: ABdhPJyE1rU6SDPxCX9paZnnqCGpntFePH5Vkcj0AY1ZGlwq/JdCJXxNxlFYGCfphrB1Yo+z3MdO4Q==
-X-Received: by 2002:a17:906:ecfa:: with SMTP id
- qt26mr2786774ejb.493.1591256951657; 
- Thu, 04 Jun 2020 00:49:11 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.187])
- by smtp.gmail.com with ESMTPSA id k22sm1570811edr.93.2020.06.04.00.49.10
+ bh=KuNf6C8p5U/pV3cH0HVswaojeUwltwpCkRZOPJXfz5U=;
+ b=W0Jq7IFp2/RUmQtbYgW470D5CnsLcAI3fbJVG6zBHU4oQR2fgmoHsFYDf+pZ4ZwKgy
+ MFRQ8CCiqApo0gzsS2xTqUCXzLNh3A4qbrnvXolIzbx5h2d58izqte6fHhUZN1HZM3CM
+ Hkt+4uPY7G4icA2WpccMQlu76ALiQFx2fVADnGYO5BGY/qDtmrjyu76eJgMQ1UhrN2la
+ m7e6jHEfEhcbwPo3j2flUaDdEE6pBIl73fk91uO6PDn1ml4Afbo+TS89/++OwnDvFsIB
+ lph9glUTXVrc0pOVZCgjP6cL2DXDd68oSDhTvUZkpfofFDB92eB93fo+2InI0r+tUSJu
+ ATdA==
+X-Gm-Message-State: AOAM531T50lw69f6xwwoIRLqiG2RK8/AlE+4fkYXB9/fvu2GIhJFSjti
+ f2YKNT4R853l3h7HJMgzzPA=
+X-Google-Smtp-Source: ABdhPJzJ0sjZoihPlAmf98Qw/AKjHh5M3IVSEWx63Kk3T1jB0sk90e4VwRp2MBwMtOHhrUn3IipHUg==
+X-Received: by 2002:a50:fd01:: with SMTP id i1mr3346973eds.32.1591257040795;
+ Thu, 04 Jun 2020 00:50:40 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id n6sm1557427edv.24.2020.06.04.00.50.39
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 04 Jun 2020 00:49:11 -0700 (PDT)
+ Thu, 04 Jun 2020 00:50:40 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Igor Druzhinin'" <igor.druzhinin@citrix.com>,
- <xen-devel@lists.xenproject.org>
-References: <1591224108-564-1-git-send-email-igor.druzhinin@citrix.com>
-In-Reply-To: <1591224108-564-1-git-send-email-igor.druzhinin@citrix.com>
-Subject: RE: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc NPT
- faults immediately
-Date: Thu, 4 Jun 2020 08:49:09 +0100
-Message-ID: <006401d63a44$a27349e0$e759dda0$@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>
+References: <20200603170908.13239-1-andrew.cooper3@citrix.com>
+ <1a158ff8-e11e-432c-236d-ff884602d48a@suse.com>
+In-Reply-To: <1a158ff8-e11e-432c-236d-ff884602d48a@suse.com>
+Subject: RE: [PATCH for-4.14] x86/shim: Fix defconfig selection and trim the
+ build further
+Date: Thu, 4 Jun 2020 08:50:38 +0100
+Message-ID: <006501d63a44$d771e0c0$8655a240$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
-	charset="iso-8859-1"
+	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: en-gb
-Thread-Index: AQKnLWBT9mNjQEOL+u7d2oiXq95SHqcmLb0g
+Thread-Index: AQDiB7eoitU4qCF1PTePgHsB/Nx/GAHHmGl6qqI9QAA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,164 +80,97 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: paul@xen.org
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, wl@xen.org,
- jbeulich@suse.com, roger.pau@citrix.com
+Cc: 'Juergen Gross' <jgross@suse.com>,
+ 'Xen-devel' <xen-devel@lists.xenproject.org>,
+ 'Dario Faggioli' <dfaggioli@suse.com>, 'Wei Liu' <wl@xen.org>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
-> From: Igor Druzhinin <igor.druzhinin@citrix.com>
-> Sent: 03 June 2020 23:42
-> To: xen-devel@lists.xenproject.org
-> Cc: jbeulich@suse.com; andrew.cooper3@citrix.com; wl@xen.org; =
-roger.pau@citrix.com;
-> george.dunlap@citrix.com; paul@xen.org; Igor Druzhinin =
-<igor.druzhinin@citrix.com>
-> Subject: [PATCH for-4.14 v3] x86/svm: do not try to handle recalc NPT =
-faults immediately
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 04 June 2020 07:43
+> To: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Xen-devel <xen-devel@lists.xenproject.org>; Wei Liu <wl@xen.org>; =
+Roger Pau Monn=C3=A9
+> <roger.pau@citrix.com>; Juergen Gross <jgross@suse.com>; Paul Durrant =
+<paul@xen.org>; Dario Faggioli
+> <dfaggioli@suse.com>
+> Subject: Re: [PATCH for-4.14] x86/shim: Fix defconfig selection and =
+trim the build further
 >=20
-> A recalculation NPT fault doesn't always require additional handling
-> in hvm_hap_nested_page_fault(), moreover in general case if there is =
-no
-> explicit handling done there - the fault is wrongly considered fatal.
+> On 03.06.2020 19:09, Andrew Cooper wrote:
+> > Several options (TBOOT, XENOPROF, Scheduler) depend on EXPERT to be =
+able to
+> > deselect/configure.
+> >
+> > Enabling EXPERT now causes the request of the Credit1 scheduler to =
+be honoured
+> > (rather than giving us Credit2), but take this opportunity to switch =
+to Null,
+> > as the previously problematic issues are now believed to be fixed.
+> >
+> > Enabling EXPERT also allows XEN_SHSTK to be selected, and we don't =
+want this
+> > being built for shim.  We also don't want TRACEBUFFER or GDBSX =
+either.
+> >
+> > Take this oppotunity to swap the disable of HVM_FEP for a general =
+disable of
+> > HVM (likely to have wider impliciations in the future), and disable =
+ARGO (will
+> > necesserily need plumbing work to function in shim).
 >=20
-> This covers a specific case of migration with vGPU assigned which
-> uses direct MMIO mappings made by XEN_DOMCTL_memory_mapping hypercall:
-> at a moment log-dirty is enabled globally, recalculation is requested
-> for the whole guest memory including those mapped MMIO regions
-
-I still think it is odd to put this in the commit comment since, as I =
-said before, Xen ensures that this situation cannot happen at
-the moment.
-
-> which causes a page fault being raised at the first access to them;
-> but due to MMIO P2M type not having any explicit handling in
-> hvm_hap_nested_page_fault() a domain is erroneously crashed with =
-unhandled
-> SVM violation.
+> Odd. I was quite sure this is the case already; in particular my
+> own build test of a shim config has this already.
 >=20
-> Instead of trying to be opportunistic - use safer approach and handle
-> P2M recalculation in a separate NPT fault by attempting to retry after
-> making the necessary adjustments. This is aligned with Intel behavior
-> where there are separate VMEXITs for recalculation and EPT violations
-> (faults) and only faults are handled in hvm_hap_nested_page_fault().
-> Do it by also unifying do_recalc return code with Intel implementation
-> where returning 1 means P2M was actually changed.
->=20
-> Since there was no case previously where =
-p2m_pt_handle_deferred_changes()
-> could return a positive value - it's safe to replace ">=3D 0" with =
-just "=3D=3D 0"
-> in VMEXIT_NPF handler. finish_type_change() is also not affected by =
-the
-> change as being able to deal with >0 return value of p2m->recalc from
-> EPT implementation.
+> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >=20
 > Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-
-However, it's a worthy fix so...
 
 Release-acked-by: Paul Durrant <paul@xen.org>
 
-> ---
-> Changes in v2:
-> - replace rc with recalc_done bool
-> - updated comment in finish_type_change()
-> - significantly extended commit description
-> Changes in v3:
-> - covert bool to int implicitly
-> - a little bit more info of the usecase in the message
-> ---
->  xen/arch/x86/hvm/svm/svm.c | 5 +++--
->  xen/arch/x86/mm/p2m-pt.c   | 7 ++++++-
->  xen/arch/x86/mm/p2m.c      | 2 +-
->  3 files changed, 10 insertions(+), 4 deletions(-)
 >=20
-> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-> index 46a1aac..7f6f578 100644
-> --- a/xen/arch/x86/hvm/svm/svm.c
-> +++ b/xen/arch/x86/hvm/svm/svm.c
-> @@ -2923,9 +2923,10 @@ void svm_vmexit_handler(struct cpu_user_regs =
-*regs)
->              v->arch.hvm.svm.cached_insn_len =3D vmcb->guest_ins_len & =
-0xf;
->          rc =3D vmcb->exitinfo1 & PFEC_page_present
->               ? p2m_pt_handle_deferred_changes(vmcb->exitinfo2) : 0;
-> -        if ( rc >=3D 0 )
-> +        if ( rc =3D=3D 0 )
-> +            /* If no recal adjustments were being made - handle this =
-fault */
->              svm_do_nested_pgfault(v, regs, vmcb->exitinfo1, =
-vmcb->exitinfo2);
-> -        else
-> +        else if ( rc < 0 )
->          {
->              printk(XENLOG_G_ERR
->                     "%pv: Error %d handling NPF (gpa=3D%08lx =
-ec=3D%04lx)\n",
-> diff --git a/xen/arch/x86/mm/p2m-pt.c b/xen/arch/x86/mm/p2m-pt.c
-> index 5c05017..070389e 100644
-> --- a/xen/arch/x86/mm/p2m-pt.c
-> +++ b/xen/arch/x86/mm/p2m-pt.c
-> @@ -341,6 +341,7 @@ static int do_recalc(struct p2m_domain *p2m, =
-unsigned long gfn)
->      unsigned int level =3D 4;
->      l1_pgentry_t *pent;
->      int err =3D 0;
-> +    bool recalc_done =3D false;
+> I have a question though (without implying the patch here needs
+> adjusting, but rather with a look towards after 4.14):
 >=20
->      table =3D =
-map_domain_page(pagetable_get_mfn(p2m_get_pagetable(p2m)));
->      while ( --level )
-> @@ -402,6 +403,8 @@ static int do_recalc(struct p2m_domain *p2m, =
-unsigned long gfn)
->                  clear_recalc(l1, e);
->                  err =3D p2m->write_p2m_entry(p2m, gfn, pent, e, level =
-+ 1);
->                  ASSERT(!err);
-> +
-> +                recalc_done =3D true;
->              }
->          }
->          unmap_domain_page((void *)((unsigned long)pent & PAGE_MASK));
-> @@ -448,12 +451,14 @@ static int do_recalc(struct p2m_domain *p2m, =
-unsigned long gfn)
->              clear_recalc(l1, e);
->          err =3D p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
->          ASSERT(!err);
-> +
-> +        recalc_done =3D true;
->      }
+> > --- a/xen/arch/x86/configs/pvshim_defconfig
+> > +++ b/xen/arch/x86/configs/pvshim_defconfig
+> > @@ -5,19 +5,25 @@ CONFIG_PVH_GUEST=3Dy
+> >  CONFIG_PV_SHIM=3Dy
+> >  CONFIG_PV_SHIM_EXCLUSIVE=3Dy
+> >  CONFIG_NR_CPUS=3D32
+> > +CONFIG_EXPERT=3Dy
+> > +CONFIG_SCHED_NULL=3Dy
+> >  # Disable features not used by the PV shim
+> > +# CONFIG_HVM is not set
+> > +# CONFIG_XEN_SHSTK is not set
+> >  # CONFIG_HYPFS is not set
+> >  # CONFIG_SHADOW_PAGING is not set
+> >  # CONFIG_BIGMEM is not set
+> > -# CONFIG_HVM_FEP is not set
+> >  # CONFIG_TBOOT is not set
+> >  # CONFIG_KEXEC is not set
+> >  # CONFIG_XENOPROF is not set
+> >  # CONFIG_XSM is not set
+> > +# CONFIG_ARGO is not set
+> > +# CONFIG_SCHED_CREDIT is not set
+> >  # CONFIG_SCHED_CREDIT2 is not set
+> >  # CONFIG_SCHED_RTDS is not set
+> >  # CONFIG_SCHED_ARINC653 is not set
+> > -# CONFIG_SCHED_NULL is not set
+> >  # CONFIG_LIVEPATCH is not set
+> >  # CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS is not set
+> > +# CONFIG_TRACEBUFFER is not set
+> >  # CONFIG_DEBUG is not set
+> > +# CONFIG_GDBSX is not set
 >=20
->   out:
->      unmap_domain_page(table);
+> I assume both the "enable" and "disable" sections here are ordered
+> like they would be in a resulting full .config. But this being two
+> separate sections, doing so doesn't help e.g. diff-ing. How about
+> we sort both sections alphabetically (short of other good sorting
+> criteria, yet better than entirely unsorted)?
 >=20
-> -    return err;
-> +    return err ?: recalc_done;
->  }
->=20
->  int p2m_pt_handle_deferred_changes(uint64_t gpa)
-> diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-> index 17f320b..db7bde0 100644
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -1197,7 +1197,7 @@ static int finish_type_change(struct p2m_domain =
-*p2m,
->          rc =3D p2m->recalc(p2m, gfn);
->          /*
->           * ept->recalc could return 0/1/-ENOMEM. pt->recalc could =
-return
-> -         * 0/-ENOMEM/-ENOENT, -ENOENT isn't an error as we are =
-looping
-> +         * 0/1/-ENOMEM/-ENOENT, -ENOENT isn't an error as we are =
-looping
->           * gfn here. If rc is 1 we need to have it 0 for success.
->           */
->          if ( rc =3D=3D -ENOENT || rc > 0 )
-> --
-> 2.7.4
-
+> Jan
 
 
