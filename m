@@ -2,46 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90DAC1EE55C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 15:31:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFD451EE663
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 16:14:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgpxM-0002Nr-PT; Thu, 04 Jun 2020 13:30:52 +0000
+	id 1jgqc1-0006By-Uj; Thu, 04 Jun 2020 14:12:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lbTH=7R=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jgpxL-0002Nl-1f
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 13:30:51 +0000
-X-Inumbo-ID: 9ac63d76-a667-11ea-9947-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=NfFn=7R=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jgqc1-0006Bt-1l
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 14:12:53 +0000
+X-Inumbo-ID: 799c51c0-a66d-11ea-8993-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ac63d76-a667-11ea-9947-bc764e2007e4;
- Thu, 04 Jun 2020 13:30:50 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ id 799c51c0-a66d-11ea-8993-bc764e2007e4;
+ Thu, 04 Jun 2020 14:12:51 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: XE7ialVyZEW8eWC7san8djLnSSs3Mf4xl9IuDfkBvl91ONgwbprqOHlnc26hz5SO7BFPX974Uv
- gfyrC2PSOCFNdBeLraRWrSWDzYW5M33JsI2b2jM6rI7ewWZjBpYhJt7Seq2DJS0q8kMpLRbXq3
- Bnw6rhgUNg15FOM5RbFOoRl42owJERjY56GgtUgQp0zC2TOZ0P4Dye5KbaefC4Oi4NG+tFi38P
- 4kBEJfb/MXOvw+7oXWy8dzyOaSvJ10c3t3NZSs2Huij9fMbEZS5TIQaTlhN0wwmRbOwh4xlpEV
- QuU=
+IronPort-SDR: r7lOM1xHIpM87SQ0kT3E1TYuTair+lwl4sJwUNQoAHk1W+k5+iTppNTfEMAPNN+EAw9DZgyUlw
+ ZJD9zwmCSVS8KEVaWvhwIhuj/iEwwrndr79c5SNqaraplltwwCrWiA9GuXtSGMkT3kwRujXOia
+ 2UtlxMW5TG2t6BGqkb/nfyvGydSFXLEsx05SzAv9qoDjYEAdbNufJk5/bKOYa518Gz5ImvYPHo
+ CWr17MqI4pJDUojKIudlgrLH3OdE9ByeOwHX9u16IKUl7bigdaGf3Bm5f5pRY34S1F6+/cKRhY
+ qCo=
 X-SBRS: 2.7
-X-MesageID: 19475987
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 19251302
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,472,1583211600"; d="scan'208";a="19475987"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <qemu-devel@nongnu.org>, Paolo Bonzini <pbonzini@redhat.com>
-Subject: [PATCH v4] xen: fix build without pci passthrough
-Date: Thu, 4 Jun 2020 14:30:42 +0100
-Message-ID: <20200604133042.3380585-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <159120627656.23398.3742621530752770397@45ef0f9c86ae>
-References: <159120627656.23398.3742621530752770397@45ef0f9c86ae>
+X-IronPort-AV: E=Sophos;i="5.73,472,1583211600"; d="scan'208";a="19251302"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH XTF] vsnprintf: Expand \n to \r\n for console output
+Date: Thu, 4 Jun 2020 15:12:23 +0100
+Message-ID: <20200604141223.14153-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,182 +49,220 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Eduardo
- Habkost <ehabkost@redhat.com>, Paul Durrant <paul@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Richard Henderson <rth@twiddle.net>
+Cc: Pawel Wieczorkiewicz <wipawel@amazon.de>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Xen PCI passthrough support may not be available and thus the global
-variable "has_igd_gfx_passthru" might be compiled out. Common code
-should not access it in that case.
+xenconsoled doesn't automatically convert \n into \r\n, which causes test
+output appear like this in a terminal:
 
-Unfortunately, we can't use CONFIG_XEN_PCI_PASSTHROUGH directly in
-xen-common.c so this patch instead move access to the
-has_igd_gfx_passthru variable via function and those functions are
-also implemented as stubs. The stubs will be used when QEMU is built
-without passthrough support.
+  [root@host ~]# xl create -c tests/selftest/test-pv64-selftest.cfg
+  Parsing config from tests/selftest/test-pv64-selftest.cfg
+  --- Xen Test Framework ---
+                            Environment: PV 64bit (Long mode 4 levels)
+                                                                      XTF Selftests
 
-Now, when one will want to enable igd-passthru via the -machine
-property, they will get an error message if QEMU is built without
-passthrough support.
+There are a number of ways to do this, but by far the most efficient way is to
+have vsnprintf() expand \n's in the output buffer.
 
-Fixes: 46472d82322d0 ('xen: convert "-machine igd-passthru" to an accelerator property')
-Reported-by: Roger Pau Monné <roger.pau@citrix.com>
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Acked-by: Paul Durrant <paul@xen.org>
-Tested-by: Roger Pau Monné <roger.pau@citrix.com>
+This however is non-standard behaviour for vsnprintf().  Rename it to
+vsnprintf_internal() and take extra flags, and have vprintk() use the new
+LF_TO_CRLF control flag.
+
+Inside vsnprintf_internal(), rearrange the non-format and %c logic to share
+the expansion logic, as well as extending the logic to fmt_string().
+
+Extend the selftests to confirm correct behaviour in both modes, for all ways
+of being able to pass newline characters into a format operation.
+
+Reported-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
+Pawel: Does this fix the issues you were seeing?
+---
+ common/console.c        |  2 +-
+ common/libc/vsnprintf.c | 23 +++++++++++++++--------
+ include/xtf/libc.h      | 15 ++++++++++++++-
+ tests/selftest/main.c   | 38 ++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 68 insertions(+), 10 deletions(-)
 
-Notes:
-    v4:
-    - fix build when Xen headers aren't available.
-      By building stubs/xen-pt.c only when CONFIG_XEN=y
-      (The alternative would be to move the prototypes used by the stub into
-      xen.h, which doesn't depends on xen headers.)
-    
-    Changes in v3:
-    - reworked to use stubs instead of #ifdef CONFIG_XEN_PCI_PASSTHROUGH
-      CONFIG_XEN_PCI_PASSTHROUGH isn't available in xen-common.c
-    
-      moving CONFIG_XEN_PCI_PASSTHROUGH to be in config_host_mak isn't
-      really possible, or at least I didn't managed to make that work.
-
- hw/i386/pc_piix.c   |  2 +-
- hw/xen/xen-common.c |  4 ++--
- hw/xen/xen_pt.c     | 12 +++++++++++-
- hw/xen/xen_pt.h     |  6 ++++--
- stubs/Makefile.objs |  1 +
- stubs/xen-pt.c      | 22 ++++++++++++++++++++++
- 6 files changed, 41 insertions(+), 6 deletions(-)
- create mode 100644 stubs/xen-pt.c
-
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index f66e1d73ce0b..347fb8c6c807 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -375,7 +375,7 @@ static void pc_init_isa(MachineState *machine)
- #ifdef CONFIG_XEN
- static void pc_xen_hvm_init_pci(MachineState *machine)
- {
--    const char *pci_type = has_igd_gfx_passthru ?
-+    const char *pci_type = xen_igd_gfx_pt_enabled() ?
-                 TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE : TYPE_I440FX_PCI_DEVICE;
+diff --git a/common/console.c b/common/console.c
+index 0724fc9f..b3e89473 100644
+--- a/common/console.c
++++ b/common/console.c
+@@ -122,7 +122,7 @@ void vprintk(const char *fmt, va_list args)
+     unsigned int i;
+     int rc;
  
-     pc_init1(machine,
-diff --git a/hw/xen/xen-common.c b/hw/xen/xen-common.c
-index 70564cc952d5..dd2c22cc4c0b 100644
---- a/hw/xen/xen-common.c
-+++ b/hw/xen/xen-common.c
-@@ -129,12 +129,12 @@ static void xen_change_state_handler(void *opaque, int running,
+-    rc = vsnprintf(buf, sizeof(buf), fmt, args);
++    rc = vsnprintf_internal(buf, sizeof(buf), fmt, args, LF_TO_CRLF);
  
- static bool xen_get_igd_gfx_passthru(Object *obj, Error **errp)
- {
--    return has_igd_gfx_passthru;
-+    return xen_igd_gfx_pt_enabled();
- }
+     if ( rc > (int)sizeof(buf) )
+         panic("vprintk() buffer overflow\n");
+diff --git a/common/libc/vsnprintf.c b/common/libc/vsnprintf.c
+index a49fd308..c907d42b 100644
+--- a/common/libc/vsnprintf.c
++++ b/common/libc/vsnprintf.c
+@@ -47,6 +47,7 @@ static int isdigit(int c)
+ /* Conversions */
+ #define UPPER     (1u << 5)
+ #define SIGNED    (1u << 6)
++/* Careful not to overlap with vsnprintf_internal() flags. */
  
- static void xen_set_igd_gfx_passthru(Object *obj, bool value, Error **errp)
- {
--    has_igd_gfx_passthru = value;
-+    xen_igd_gfx_pt_set(value, errp);
- }
+ /* Shorthand for ensuring str moves forwards, but not overruning the buffer. */
+ #define PUT(c)                                  \
+@@ -185,7 +186,11 @@ char *fmt_string(char *str, char *end, const char *val,
+             PUT(' ');
  
- static void xen_setup_post(MachineState *ms, AccelState *accel)
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 81d5ad8da7f0..ab84443d5ec8 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -65,7 +65,17 @@
- #include "qemu/range.h"
- #include "exec/address-spaces.h"
- 
--bool has_igd_gfx_passthru;
-+static bool has_igd_gfx_passthru;
-+
-+bool xen_igd_gfx_pt_enabled(void)
-+{
-+    return has_igd_gfx_passthru;
-+}
-+
-+void xen_igd_gfx_pt_set(bool value, Error **errp)
-+{
-+    has_igd_gfx_passthru = value;
-+}
- 
- #define XEN_PT_NR_IRQS (256)
- static uint8_t xen_pt_mapped_machine_irq[XEN_PT_NR_IRQS] = {0};
-diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
-index 179775db7b22..6e9cec95f3b7 100644
---- a/hw/xen/xen_pt.h
-+++ b/hw/xen/xen_pt.h
-@@ -5,6 +5,9 @@
- #include "hw/pci/pci.h"
- #include "xen-host-pci-device.h"
- 
-+bool xen_igd_gfx_pt_enabled(void);
-+void xen_igd_gfx_pt_set(bool value, Error **errp);
-+
- void xen_pt_log(const PCIDevice *d, const char *f, ...) GCC_FMT_ATTR(2, 3);
- 
- #define XEN_PT_ERR(d, _f, _a...) xen_pt_log(d, "%s: Error: "_f, __func__, ##_a)
-@@ -322,10 +325,9 @@ extern void *pci_assign_dev_load_option_rom(PCIDevice *dev,
-                                             unsigned int domain,
-                                             unsigned int bus, unsigned int slot,
-                                             unsigned int function);
--extern bool has_igd_gfx_passthru;
- static inline bool is_igd_vga_passthrough(XenHostPCIDevice *dev)
- {
--    return (has_igd_gfx_passthru
-+    return (xen_igd_gfx_pt_enabled()
-             && ((dev->class_code >> 0x8) == PCI_CLASS_DISPLAY_VGA));
- }
- int xen_pt_register_vga_regions(XenHostPCIDevice *dev);
-diff --git a/stubs/Makefile.objs b/stubs/Makefile.objs
-index 6a9e3135e8f9..e0427158132f 100644
---- a/stubs/Makefile.objs
-+++ b/stubs/Makefile.objs
-@@ -40,6 +40,7 @@ stub-obj-y += target-get-monitor-def.o
- stub-obj-y += vmgenid.o
- stub-obj-y += xen-common.o
- stub-obj-y += xen-hvm.o
-+stub-obj-$(CONFIG_XEN) += xen-pt.o
- stub-obj-y += pci-host-piix.o
- stub-obj-y += ram-block.o
- stub-obj-y += ramfb.o
-diff --git a/stubs/xen-pt.c b/stubs/xen-pt.c
-new file mode 100644
-index 000000000000..2d8cac8d54b9
---- /dev/null
-+++ b/stubs/xen-pt.c
-@@ -0,0 +1,22 @@
-+/*
-+ * Copyright (C) 2020       Citrix Systems UK Ltd.
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2 or later.
-+ * See the COPYING file in the top-level directory.
-+ */
-+
-+#include "qemu/osdep.h"
-+#include "hw/xen/xen_pt.h"
-+#include "qapi/error.h"
-+
-+bool xen_igd_gfx_pt_enabled(void)
-+{
-+    return false;
-+}
-+
-+void xen_igd_gfx_pt_set(bool value, Error **errp)
-+{
-+    if (value) {
-+        error_setg(errp, "Xen PCI passthrough support not built in");
+     for ( i = 0; i < len; ++i )
++    {
++        if ( (flags & LF_TO_CRLF) && val[i] == '\n' )
++            PUT('\r');
+         PUT(val[i]);
 +    }
+ 
+     while ( len < width-- )
+         PUT(' ');
+@@ -268,7 +273,8 @@ static char *pointer(
+                       width, precision, flags);
+ }
+ 
+-int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
++int vsnprintf_internal(char *buf, size_t size, const char *fmt, va_list args,
++                       unsigned int caller_flags)
+ {
+     char *str = buf, *end = buf + size;
+ 
+@@ -277,15 +283,15 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
+         const char *spec_start = fmt; /* For rewinding on error. */
+ 
+         unsigned long long num;
+-        unsigned int base, flags = 0;
++        unsigned int base, flags = caller_flags;
+         int width = -1, precision = -1;
+-        char length_mod = 'i';
++        char c, length_mod = 'i';
+ 
+         /* Put regular characters into the destination. */
+         if ( *fmt != '%' )
+         {
+-            PUT(*fmt);
+-            continue;
++            c = *fmt;
++            goto put_char;
+         }
+ 
+  next_flag: /* Process any flags. */
+@@ -359,20 +365,21 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
+             continue;
+ 
+         case 'c': /* Unsigned char. */
+-        {
+-            unsigned char c = va_arg(args, int);
++            c = va_arg(args, int);
+ 
+             if ( !(flags & LEFT) )
+                 while ( --width > 0 )
+                     PUT(' ');
+ 
++        put_char:
++            if ( (flags & LF_TO_CRLF) && c == '\n' )
++                PUT('\r');
+             PUT(c);
+ 
+             while ( --width > 0 )
+                 PUT(' ');
+ 
+             continue;
+-        }
+ 
+         case 's': /* String. */
+             str = fmt_string(str, end, va_arg(args, const char *),
+diff --git a/include/xtf/libc.h b/include/xtf/libc.h
+index 66f834b4..f24a631f 100644
+--- a/include/xtf/libc.h
++++ b/include/xtf/libc.h
+@@ -37,8 +37,21 @@ int memcmp(const void *s1, const void *s2, size_t n);
+ 
+ size_t strnlen(const char *str, size_t max);
+ 
++/*
++ * Internal version of vsnprintf(), taking extra control flags.
++ *
++ * LF_TO_CRLF causes "\n" to be expanded to "\r\n" in the output buffer.
++ */
++#define LF_TO_CRLF (1u << 7)
+ int __printf(3, 0)
+-    vsnprintf(char *buf, size_t size, const char *fmt, va_list args);
++    vsnprintf_internal(char *buf, size_t size, const char *fmt, va_list args,
++                       unsigned int flags);
++
++static inline int __printf(3, 0)
++    vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
++{
++    return vsnprintf_internal(buf, size, fmt, args, 0);
 +}
+ 
+ int __printf(3, 4)
+     snprintf(char *buf, size_t size, const char *fmt, ...);
+diff --git a/tests/selftest/main.c b/tests/selftest/main.c
+index c2f6e727..a5c205ba 100644
+--- a/tests/selftest/main.c
++++ b/tests/selftest/main.c
+@@ -340,6 +340,43 @@ static void test_driver_init(void)
+         xtf_failure("Fail: xtf_init_grant_table(2) returned %d\n", rc);
+ }
+ 
++static void test_vsnprintf_crlf_one(const char *fmt, ...)
++{
++    va_list args;
++
++    char buf[4];
++    int rc;
++
++    va_start(args, fmt);
++    rc = vsnprintf(buf, sizeof(buf), fmt, args);
++    va_end(args);
++
++    if ( rc != 1 )
++        return xtf_failure("Fail: '%s', expected length 1, got %d\n", fmt, rc);
++    if ( strcmp(buf, "\n") )
++        return xtf_failure("Fail: '%s', expected \"\\n\", got %*ph\n",
++                           fmt, (int)sizeof(buf), buf);
++
++    va_start(args, fmt);
++    rc = vsnprintf_internal(buf, sizeof(buf), fmt, args, LF_TO_CRLF);
++    va_end(args);
++
++    if ( rc != 2 )
++        return xtf_failure("Fail: '%s', expected length 2, got %d\n", fmt, rc);
++    if ( strcmp(buf, "\r\n") )
++        return xtf_failure("Fail: '%s', expected \"\\r\\n\", got %*ph\n",
++                           fmt, (int)sizeof(buf), buf);
++}
++
++static void test_vsnprintf_crlf(void)
++{
++    printk("Test: vsnprintf() with CRLF expansion\n");
++
++    test_vsnprintf_crlf_one("\n");
++    test_vsnprintf_crlf_one("%c", '\n');
++    test_vsnprintf_crlf_one("%s", "\n");
++}
++
+ void test_main(void)
+ {
+     /*
+@@ -368,6 +405,7 @@ void test_main(void)
+     test_extable_handler();
+     test_custom_idte();
+     test_driver_init();
++    test_vsnprintf_crlf();
+ 
+     if ( has_xenstore )
+         test_xenstore();
 -- 
-Anthony PERARD
+2.11.0
 
 
