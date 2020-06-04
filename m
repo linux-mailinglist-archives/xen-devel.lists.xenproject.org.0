@@ -2,43 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFD451EE663
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 16:14:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFA6F1EE69A
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 16:26:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgqc1-0006By-Uj; Thu, 04 Jun 2020 14:12:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jgqoa-0007Ol-Fv; Thu, 04 Jun 2020 14:25:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NfFn=7R=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jgqc1-0006Bt-1l
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 14:12:53 +0000
-X-Inumbo-ID: 799c51c0-a66d-11ea-8993-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 799c51c0-a66d-11ea-8993-bc764e2007e4;
- Thu, 04 Jun 2020 14:12:51 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: r7lOM1xHIpM87SQ0kT3E1TYuTair+lwl4sJwUNQoAHk1W+k5+iTppNTfEMAPNN+EAw9DZgyUlw
- ZJD9zwmCSVS8KEVaWvhwIhuj/iEwwrndr79c5SNqaraplltwwCrWiA9GuXtSGMkT3kwRujXOia
- 2UtlxMW5TG2t6BGqkb/nfyvGydSFXLEsx05SzAv9qoDjYEAdbNufJk5/bKOYa518Gz5ImvYPHo
- CWr17MqI4pJDUojKIudlgrLH3OdE9ByeOwHX9u16IKUl7bigdaGf3Bm5f5pRY34S1F6+/cKRhY
- qCo=
-X-SBRS: 2.7
-X-MesageID: 19251302
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,472,1583211600"; d="scan'208";a="19251302"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH XTF] vsnprintf: Expand \n to \r\n for console output
-Date: Thu, 4 Jun 2020 15:12:23 +0100
-Message-ID: <20200604141223.14153-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+ <SRS0=SnWc=7R=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1jgqoY-0007Of-6e
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 14:25:50 +0000
+X-Inumbo-ID: 4946ae60-a66f-11ea-ae9c-12813bfff9fa
+Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4946ae60-a66f-11ea-ae9c-12813bfff9fa;
+ Thu, 04 Jun 2020 14:25:49 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 1C164588;
+ Thu,  4 Jun 2020 10:25:48 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 04 Jun 2020 10:25:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=bDtBHF
+ WaN5CLSwkbqcp31cYLJxcUXX1vGtm06j7NDQQ=; b=uKTgCnmN7iQXfXMCIL4Bqp
+ cCdDUzvrSnkR/3trM0rC68KaeGQUQN8S+OH/El4NSCu8CncirLzAvGVTACxMpr2S
+ GOgcc+PZdvWLnZnqFu7eAgFSA6uZtVd5QDS6tw28D7lBMLPzB0nRQwK4tJi9Zm10
+ qquljhxHt+6J+NTMRzpkI4+8/7GwYNdbZ23IfPQOEevLl3x0XWY9zDnaw2VYRaYG
+ TFejM1uBNkwmjHoF+oK2O2aq6R8NXKRBDGwWzl80IZvJZdEY1rjkmt7AyuDIJp9i
+ uoRIKLiNJ5CSSBqvXg2RhqxCMNY9rtuFPP6RQQ9DwjdqHGbvm9g2UYRWi69IyvjQ
+ ==
+X-ME-Sender: <xms:awTZXg2llrN_Zh01h0-pMXy67njhUqIN8_YEaQcHeAfvQ-B4rX66sA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudeguddgjeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+ iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
+ durdeihedrfeegrdeffeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
+ ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
+ gtohhm
+X-ME-Proxy: <xmx:awTZXrEQYIUvV6SNpdBT0fmdiQh2iVU5oeOLOstTwUMDvom1Qd3XIQ>
+ <xmx:awTZXo55cvF3u3pqdoh9nwdVS9L3vSu8_6DEyfNVAnRAcc-HJnL6Lw>
+ <xmx:awTZXp3Bvh4wqgOhC3RR8cjt0ULfHsLVDJPRbyrHBox4zRUlR_EFLg>
+ <xmx:awTZXqxIGaRB0-NWIlNxuRpgx7zvLhx7PdaiO2Ly5iX8BZBpc6doxg>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7E696328005D;
+ Thu,  4 Jun 2020 10:25:46 -0400 (EDT)
+Date: Thu, 4 Jun 2020 16:25:42 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
+ stubdom
+Message-ID: <20200604142542.GC98582@mail-itl>
+References: <20200604014621.GA203658@mail-itl>
+ <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
+ <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
+ <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="+RqgOR8y65RRYhVY"
+Content-Disposition: inline
+In-Reply-To: <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,220 +79,160 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Pawel Wieczorkiewicz <wipawel@amazon.de>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-xenconsoled doesn't automatically convert \n into \r\n, which causes test
-output appear like this in a terminal:
 
-  [root@host ~]# xl create -c tests/selftest/test-pv64-selftest.cfg
-  Parsing config from tests/selftest/test-pv64-selftest.cfg
-  --- Xen Test Framework ---
-                            Environment: PV 64bit (Long mode 4 levels)
-                                                                      XTF Selftests
+--+RqgOR8y65RRYhVY
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
+ stubdom
 
-There are a number of ways to do this, but by far the most efficient way is to
-have vsnprintf() expand \n's in the output buffer.
+On Thu, Jun 04, 2020 at 02:36:26PM +0200, Jan Beulich wrote:
+> On 04.06.2020 13:13, Andrew Cooper wrote:
+> > On 04/06/2020 08:08, Jan Beulich wrote:
+> >> On 04.06.2020 03:46, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> Then, we get the main issue:
+> >>>
+> >>>     (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> >>>     (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
+> >>>     (XEN) domain_crash called from io.c:178
+> >>>
+> >>> Note, there was no XEN_DOMCTL_destroydomain for domain 3 nor its stub=
+dom
+> >>> yet. But XEN_DMOP_remote_shutdown for domain 3 was called already.
+> >> I'd guess an issue with the shutdown deferral logic. Did you / can
+> >> you check whether XEN_DMOP_remote_shutdown managed to pause all
+> >> CPUs (I assume it didn't, since once they're paused there shouldn't
+> >> be any I/O there anymore, and hence no I/O emulation)?
+> >=20
+> > The vcpu in question is talking to Qemu, so will have v->defer_shutdown
+> > intermittently set, and skip the pause in domain_shutdown()
+> >=20
+> > I presume this lack of pause is to allow the vcpu in question to still
+> > be scheduled to consume the IOREQ reply?=C2=A0 (Its fairly opaque logic=
+ with
+> > 0 clarifying details).
+> >=20
+> > What *should* happen is that, after consuming the reply, the vcpu should
+> > notice and pause itself, at which point it would yield to the
+> > scheduler.=C2=A0 This is the purpose of vcpu_{start,end}_shutdown_defer=
+ral().
+> >=20
+> > Evidentially, this is not happening.
+>=20
+> We can't tell yet, until ...
+>=20
+> > Marek: can you add a BUG() after the weird PIO printing?=C2=A0 That sho=
+uld
+> > confirm whether we're getting into handle_pio() via the
+> > handle_hvm_io_completion() path, or via the vmexit path (at which case,
+> > we're fully re-entering the guest).
+>=20
+> ... we know this. handle_pio() gets called from handle_hvm_io_completion()
+> after having called hvm_wait_for_io() -> hvm_io_assist() ->
+> vcpu_end_shutdown_deferral(), so the issue may be that we shouldn't call
+> handle_pio() (etc) at all anymore in this state. IOW perhaps
+> hvm_wait_for_io() should return "!sv->vcpu->domain->is_shutting_down"
+> instead of plain "true"?
+>=20
+> Adding Paul to Cc, as being the maintainer here.
 
-This however is non-standard behaviour for vsnprintf().  Rename it to
-vsnprintf_internal() and take extra flags, and have vprintk() use the new
-LF_TO_CRLF control flag.
+Got it, by sticking BUG() just before that domain_crash() in
+handle_pio(). And also vcpu 0 of both HVM domains do have
+v->defer_shutdown.
 
-Inside vsnprintf_internal(), rearrange the non-format and %c logic to share
-the expansion logic, as well as extending the logic to fmt_string().
+(XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
+(XEN) d3v0 handle_pio port 0xb004 read 0x0000
+(XEN) d3v0 handle_pio port 0xb004 read 0x0000
+(XEN) d3v0 handle_pio port 0xb004 write 0x0001
+(XEN) d3v0 handle_pio port 0xb004 write 0x2001
+(XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+(XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
+(XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
+(XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
+(XEN) d1v0 handle_pio port 0xb004 read 0x0000
+(XEN) d1v0 handle_pio port 0xb004 read 0x0000
+(XEN) d1v0 handle_pio port 0xb004 write 0x0001
+(XEN) d1v0 handle_pio port 0xb004 write 0x2001
+(XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
+(XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
+(XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
+(XEN) grant_table.c:3702:d0v0 Grant release 0x3 ref 0x11d flags 0x2 d6
+(XEN) grant_table.c:3702:d0v0 Grant release 0x4 ref 0x11e flags 0x2 d6
+(XEN) d3v0 handle_pio port 0xb004 read 0x0000
+(XEN) d3v0 Unexpected PIO status 1, port 0xb004 read 0xffff
+(XEN) Xen BUG at io.c:178
+(XEN) ----[ Xen-4.13.0  x86_64  debug=3Dy   Not tainted ]----
+(XEN) CPU:    1
+(XEN) RIP:    e008:[<ffff82d0802fcb0f>] handle_pio+0x1e4/0x1e6
+(XEN) RFLAGS: 0000000000010282   CONTEXT: hypervisor (d3v0)
+(XEN) rax: ffff8301ba6fffff   rbx: 0000000000000002   rcx: 0000000000000000
+(XEN) rdx: 0000000000000001   rsi: 000000000000000a   rdi: ffff82d080438698
+(XEN) rbp: ffff8301ba6ffe90   rsp: ffff8301ba6ffe58   r8:  0000000000000001
+(XEN) r9:  ffff8301ba6ffdc0   r10: 0000000000000001   r11: 000000000000000f
+(XEN) r12: 000000000000b004   r13: ffff8300bfcf1000   r14: 0000000000000001
+(XEN) r15: ffff8300bfcf4000   cr0: 000000008005003b   cr4: 00000000000006e0
+(XEN) cr3: 00000000bebb8000   cr2: 00007d081d9b82a0
+(XEN) fsb: 00007d081cafcb80   gsb: ffff9ae510c00000   gss: 0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+(XEN) Xen code around <ffff82d0802fcb0f> (handle_pio+0x1e4/0x1e6):
+(XEN)  03 09 00 e8 5b 83 f4 ff <0f> 0b 55 48 89 e5 e8 b2 f5 ff ff 48 85 c0 =
+74 0f
+(XEN) Xen stack trace from rsp=3Dffff8301ba6ffe58:
+(XEN)    000000000000ffff ffff8300bfcfffff 000000000000007b ffff8301ba6ffef8
+(XEN)    ffff8300bfcf1000 ffff8300bfcf4000 0000000000000000 ffff8301ba6ffee8
+(XEN)    ffff82d0803128f1 00ff8301ba6ffec0 ffff82d08030c257 ffff8301ba6ffef8
+(XEN)    ffff8300bfcf1000 ffff8300bfcf4000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 00007cfe459000e7 ffff82d08031470b
+(XEN)    0000000000000010 0000000000000010 0000000000000010 ffffa92ec001fd0c
+(XEN)    000000000000b004 0000000000000010 0000000000000001 0000000000000000
+(XEN)    0000000000000002 000000000000b004 ffffa92ec001fca4 0000000000000002
+(XEN)    000000000000b004 ffffa92ec001fd0c 000000000000b004 0000beef0000beef
+(XEN)    ffffffffaa5d43bf 000000bf0000beef 0000000000000046 ffffa92ec001fca0
+(XEN)    000000000000beef 000000000000beef 000000000000beef 000000000000beef
+(XEN)    000000000000beef 0000e01000000001 ffff8300bfcf4000 000000313a1d6000
+(XEN)    00000000000006e0 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000
+(XEN) Xen call trace:
+(XEN)    [<ffff82d0802fcb0f>] R handle_pio+0x1e4/0x1e6
+(XEN)    [<ffff82d0803128f1>] F svm_vmexit_handler+0x97a/0x165b
+(XEN)    [<ffff82d08031470b>] F svm_stgi_label+0x8/0x18
+(XEN)=20
+(XEN)=20
+(XEN) ****************************************
+(XEN) Panic on CPU 1:
+(XEN) Xen BUG at io.c:178
+(XEN) ****************************************
+(XEN)=20
+(XEN) Reboot in five seconds...
 
-Extend the selftests to confirm correct behaviour in both modes, for all ways
-of being able to pass newline characters into a format operation.
 
-Reported-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-Pawel: Does this fix the issues you were seeing?
----
- common/console.c        |  2 +-
- common/libc/vsnprintf.c | 23 +++++++++++++++--------
- include/xtf/libc.h      | 15 ++++++++++++++-
- tests/selftest/main.c   | 38 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 68 insertions(+), 10 deletions(-)
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
 
-diff --git a/common/console.c b/common/console.c
-index 0724fc9f..b3e89473 100644
---- a/common/console.c
-+++ b/common/console.c
-@@ -122,7 +122,7 @@ void vprintk(const char *fmt, va_list args)
-     unsigned int i;
-     int rc;
- 
--    rc = vsnprintf(buf, sizeof(buf), fmt, args);
-+    rc = vsnprintf_internal(buf, sizeof(buf), fmt, args, LF_TO_CRLF);
- 
-     if ( rc > (int)sizeof(buf) )
-         panic("vprintk() buffer overflow\n");
-diff --git a/common/libc/vsnprintf.c b/common/libc/vsnprintf.c
-index a49fd308..c907d42b 100644
---- a/common/libc/vsnprintf.c
-+++ b/common/libc/vsnprintf.c
-@@ -47,6 +47,7 @@ static int isdigit(int c)
- /* Conversions */
- #define UPPER     (1u << 5)
- #define SIGNED    (1u << 6)
-+/* Careful not to overlap with vsnprintf_internal() flags. */
- 
- /* Shorthand for ensuring str moves forwards, but not overruning the buffer. */
- #define PUT(c)                                  \
-@@ -185,7 +186,11 @@ char *fmt_string(char *str, char *end, const char *val,
-             PUT(' ');
- 
-     for ( i = 0; i < len; ++i )
-+    {
-+        if ( (flags & LF_TO_CRLF) && val[i] == '\n' )
-+            PUT('\r');
-         PUT(val[i]);
-+    }
- 
-     while ( len < width-- )
-         PUT(' ');
-@@ -268,7 +273,8 @@ static char *pointer(
-                       width, precision, flags);
- }
- 
--int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
-+int vsnprintf_internal(char *buf, size_t size, const char *fmt, va_list args,
-+                       unsigned int caller_flags)
- {
-     char *str = buf, *end = buf + size;
- 
-@@ -277,15 +283,15 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
-         const char *spec_start = fmt; /* For rewinding on error. */
- 
-         unsigned long long num;
--        unsigned int base, flags = 0;
-+        unsigned int base, flags = caller_flags;
-         int width = -1, precision = -1;
--        char length_mod = 'i';
-+        char c, length_mod = 'i';
- 
-         /* Put regular characters into the destination. */
-         if ( *fmt != '%' )
-         {
--            PUT(*fmt);
--            continue;
-+            c = *fmt;
-+            goto put_char;
-         }
- 
-  next_flag: /* Process any flags. */
-@@ -359,20 +365,21 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
-             continue;
- 
-         case 'c': /* Unsigned char. */
--        {
--            unsigned char c = va_arg(args, int);
-+            c = va_arg(args, int);
- 
-             if ( !(flags & LEFT) )
-                 while ( --width > 0 )
-                     PUT(' ');
- 
-+        put_char:
-+            if ( (flags & LF_TO_CRLF) && c == '\n' )
-+                PUT('\r');
-             PUT(c);
- 
-             while ( --width > 0 )
-                 PUT(' ');
- 
-             continue;
--        }
- 
-         case 's': /* String. */
-             str = fmt_string(str, end, va_arg(args, const char *),
-diff --git a/include/xtf/libc.h b/include/xtf/libc.h
-index 66f834b4..f24a631f 100644
---- a/include/xtf/libc.h
-+++ b/include/xtf/libc.h
-@@ -37,8 +37,21 @@ int memcmp(const void *s1, const void *s2, size_t n);
- 
- size_t strnlen(const char *str, size_t max);
- 
-+/*
-+ * Internal version of vsnprintf(), taking extra control flags.
-+ *
-+ * LF_TO_CRLF causes "\n" to be expanded to "\r\n" in the output buffer.
-+ */
-+#define LF_TO_CRLF (1u << 7)
- int __printf(3, 0)
--    vsnprintf(char *buf, size_t size, const char *fmt, va_list args);
-+    vsnprintf_internal(char *buf, size_t size, const char *fmt, va_list args,
-+                       unsigned int flags);
-+
-+static inline int __printf(3, 0)
-+    vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
-+{
-+    return vsnprintf_internal(buf, size, fmt, args, 0);
-+}
- 
- int __printf(3, 4)
-     snprintf(char *buf, size_t size, const char *fmt, ...);
-diff --git a/tests/selftest/main.c b/tests/selftest/main.c
-index c2f6e727..a5c205ba 100644
---- a/tests/selftest/main.c
-+++ b/tests/selftest/main.c
-@@ -340,6 +340,43 @@ static void test_driver_init(void)
-         xtf_failure("Fail: xtf_init_grant_table(2) returned %d\n", rc);
- }
- 
-+static void test_vsnprintf_crlf_one(const char *fmt, ...)
-+{
-+    va_list args;
-+
-+    char buf[4];
-+    int rc;
-+
-+    va_start(args, fmt);
-+    rc = vsnprintf(buf, sizeof(buf), fmt, args);
-+    va_end(args);
-+
-+    if ( rc != 1 )
-+        return xtf_failure("Fail: '%s', expected length 1, got %d\n", fmt, rc);
-+    if ( strcmp(buf, "\n") )
-+        return xtf_failure("Fail: '%s', expected \"\\n\", got %*ph\n",
-+                           fmt, (int)sizeof(buf), buf);
-+
-+    va_start(args, fmt);
-+    rc = vsnprintf_internal(buf, sizeof(buf), fmt, args, LF_TO_CRLF);
-+    va_end(args);
-+
-+    if ( rc != 2 )
-+        return xtf_failure("Fail: '%s', expected length 2, got %d\n", fmt, rc);
-+    if ( strcmp(buf, "\r\n") )
-+        return xtf_failure("Fail: '%s', expected \"\\r\\n\", got %*ph\n",
-+                           fmt, (int)sizeof(buf), buf);
-+}
-+
-+static void test_vsnprintf_crlf(void)
-+{
-+    printk("Test: vsnprintf() with CRLF expansion\n");
-+
-+    test_vsnprintf_crlf_one("\n");
-+    test_vsnprintf_crlf_one("%c", '\n');
-+    test_vsnprintf_crlf_one("%s", "\n");
-+}
-+
- void test_main(void)
- {
-     /*
-@@ -368,6 +405,7 @@ void test_main(void)
-     test_extable_handler();
-     test_custom_idte();
-     test_driver_init();
-+    test_vsnprintf_crlf();
- 
-     if ( has_xenstore )
-         test_xenstore();
--- 
-2.11.0
+--+RqgOR8y65RRYhVY
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl7ZBGUACgkQ24/THMrX
+1yyfegf+NN6ftiu7aH5eyEwvj+jE9XK595wR39HTVkAnWUCu3vTMxe19rjtoSGCg
+LkxVgwtgO4IKpiVBcIl7U+pYnXuh95+/RsPDabuudKuMdIyw8rgoIMV3CtHf8EM0
+SoxsyCHO9AIAHRogYykTpZECvm32YlWLV+bGEajb82BsdXSAe19EVKifbiOMEbXm
++EQ/hchwTLFRCvBvQpco8WtkILhH/1H56/QE0Qf4ct0huaNpVPxlfVLzEIat6iNV
+HVV7lCb/h+HLF496t7G7tNnYgsnwxG6B8NqDl3YvgGUQEPWLMiW/QhdHSP7nVXwV
+4lO1h1VeDdvEnu4dC6jEVJIaOa9PYQ==
+=Pwft
+-----END PGP SIGNATURE-----
+
+--+RqgOR8y65RRYhVY--
 
