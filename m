@@ -2,59 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FEE81EEBBB
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 22:18:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1DE91EEC10
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 22:32:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgwJo-0000P3-IZ; Thu, 04 Jun 2020 20:18:28 +0000
+	id 1jgwWZ-0002CO-SZ; Thu, 04 Jun 2020 20:31:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DmD4=7R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jgwJn-0000Ox-Kd
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 20:18:27 +0000
-X-Inumbo-ID: 893c79a6-a6a0-11ea-81bc-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=Dy7L=7R=ainfosec.com=quinnr@srs-us1.protection.inumbo.net>)
+ id 1jgwWX-0002CJ-SV
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 20:31:38 +0000
+X-Inumbo-ID: 620b1a16-a6a2-11ea-8993-bc764e2007e4
+Received: from USG02-CY1-obe.outbound.protection.office365.us (unknown
+ [2001:489a:2202:d::625])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 893c79a6-a6a0-11ea-81bc-bc764e2007e4;
- Thu, 04 Jun 2020 20:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=l0uq6O4krP262rp+A/XIV1TbxyijkADKDEIiRNhsFhM=; b=5Tvjt+soVQZpjnTldkao1G397
- gw4yhwQjYwycpX0jWWGLgEmCgfumc5Q7dlSbQra+QDgHTj/EhMid5EakTvDug9eRBE6xK7Zjkvpnc
- FZs3QHw795q+k1/9mdWrNWObxVSPy4TOTcwDSdYFmcPwBr9moWZZA4EiCzAFXPjvHSIPQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgwJh-0006Do-Et; Thu, 04 Jun 2020 20:18:21 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgwJh-00018g-7O; Thu, 04 Jun 2020 20:18:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jgwJh-0004ub-6q; Thu, 04 Jun 2020 20:18:21 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150702-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 620b1a16-a6a2-11ea-8993-bc764e2007e4;
+ Thu, 04 Jun 2020 20:31:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
+ b=SE8SKJZSt6xQNEmGLgiV9GF8P6Okk4uzWhZUcN0q7YBtwFPiJ15kiVZZ34J9ftidUYYPIw5yO+g3PkJuTN1Evb8v06EyHATSh0mRzvdPJUwbfbinB5dR5zhFS5KtLxvmr/Hj4qkfKDkcYxnVShZjvZYPrPaYXUiGqmbF7F11mtHZ+GoFIXfH4LkHLyVpQFolhwehjyUyS6CvlZjXX3iTcOFcT2c9hqQ9rLGLH+O+35pGlLd25Wt2Xb8z77K7zFzXvL6SaY2e+M2IvvtsAfj2kJyQWPGprMIGnvLsq23CA/gvqc/fWdALUkYe3wl0Is5BYUNF2IRNpH8/+iX8kpEVWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector5401;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=59mar/+RoylVT7yyoQC/RF9nvtJV+CcBIhHU3qYaAlk=;
+ b=f4NHssBaYPqqOjdGWrtEByGWKa4u+1NmB/PeDvdS9z9AQfhAxXnvwzqaKERoETfRxw2lhGBMVbiuSuBQ1SZ7+uZeaLNNm2U/ys8VwFaEaBOJ7s/LaVLMf3zlhApeg/QckYd4lorXb9H3pA0ziDzaRxXKQHPDdv58/GlFcluDyeIJ7Jx/t+kJVQQnv7yhS1XLb9JRq/1Njl6nO9XbFLeurTTxU0oTSTxISvbaQkjeabJFTeCFWHZBaVDKE0aT5XMsfNwLO4JT3FdnKQbw0KgcWat1A7XxRPv6Vb3JLPDSzwBxaXvqtKe+mU0Y3q1tuUmwn4GEN346KJRMbaw9Elwm5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ainfosec.com; dmarc=pass action=none header.from=ainfosec.com;
+ dkim=pass header.d=ainfosec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ainfosec.onmicrosoft.com; s=selector1-ainfosec-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=59mar/+RoylVT7yyoQC/RF9nvtJV+CcBIhHU3qYaAlk=;
+ b=ToRj2T5rBoREdV1c19KfM49WHjkjOp4kt7RjuB/S52+hEGCtM6ixecBZagDHiTiVjMenbej8We9szpL1EtMq3mcPYZQtnAE5ac2lxmy2OY9/D48T6t+W6lG3ZCLtvNIK5mr1FwbH6TVMoCjUD4pJXeg+tmHYWLU5igzJf5UbUdQ=
+Received: from SN5P110MB0575.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:41c::18)
+ by SN5P110MB0430.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:41a::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.32; Thu, 4 Jun
+ 2020 20:31:32 +0000
+Received: from SN5P110MB0575.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::fc21:c1b1:b54f:8bc4]) by SN5P110MB0575.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::fc21:c1b1:b54f:8bc4%10]) with mapi id 15.20.3021.036; Thu, 4 Jun 2020
+ 20:31:32 +0000
+From: Rian Quinn <quinnr@ainfosec.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Bareflank Hypervisor Community Call on 6/12/2020 at 3pm UTC
+Thread-Topic: Bareflank Hypervisor Community Call on 6/12/2020 at 3pm UTC
+Thread-Index: AQHWOq5p5w+0IvuZ4k2F8eRFCHspnQ==
+Date: Thu, 4 Jun 2020 20:31:32 +0000
+Message-ID: <SN5P110MB0575AC553EC055C1D947D688B0890@SN5P110MB0575.NAMP110.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=ainfosec.com;
+x-originating-ip: [2601:283:4600:d83:5d70:a85c:ba25:790d]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: fa32afe3-e9cb-4c16-9016-08d808c644f5
+x-ms-traffictypediagnostic: SN5P110MB0430:
+x-microsoft-antispam-prvs: <SN5P110MB043001D27A55F75478A838C7B0890@SN5P110MB0430.NAMP110.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 04244E0DC5
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN5P110MB0575.NAMP110.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(366004)(86362001)(8936002)(4744005)(5660300002)(83380400001)(52536014)(8676002)(9686003)(498600001)(33656002)(55016002)(66476007)(64756008)(186003)(966005)(71200400001)(2906002)(7696005)(6506007)(66556008)(6916009)(66946007)(66446008)(76116006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150702: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=d9f58cd54fe2f05e1f05e2fe254684bd1840de8e
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 04 Jun 2020 20:18:21 +0000
+X-OriginatorOrg: ainfosec.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa32afe3-e9cb-4c16-9016-08d808c644f5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2020 20:31:32.4036 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 82614573-95ee-4948-be35-3c0a8fc6ff9c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN5P110MB0430
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,76 +95,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150702 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150702/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 150438
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  d9f58cd54fe2f05e1f05e2fe254684bd1840de8e
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
-
-Last test of basis   150438  2020-05-28 14:01:19 Z    7 days
-Failing since        150465  2020-05-29 09:02:14 Z    6 days   47 attempts
-Testing same since   150649  2020-06-03 13:01:44 Z    1 days    9 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Olaf Hering <olaf@aepfle.de>
-  Paul Durrant <paul@xen.org>
-  Paul Durrant <pdurrant@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1522 lines long.)
+During the Xen Community Call today, I was asked to forward information abo=
+ut the Bareflank Community Call taking place next week.=A0=0A=
+=0A=
+The Zoom information for this call will be posted to this issue prior to th=
+e meeting. Also, if you have something specific you would like to add to th=
+e agenda, please post it to this ticket as well.=A0=0A=
+https://github.com/Bareflank/hypervisor/issues/915=0A=
+=0A=
+Thanks,=0A=
+Rian Quinn=0A=
+=0A=
 
