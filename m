@@ -2,60 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D5FD1EDD19
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 08:19:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F28E1EDD64
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jun 2020 08:44:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jgjDP-0000YR-Rs; Thu, 04 Jun 2020 06:18:59 +0000
+	id 1jgjbF-00039y-UX; Thu, 04 Jun 2020 06:43:37 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DmD4=7R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jgjDO-0000YJ-GO
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 06:18:58 +0000
-X-Inumbo-ID: 424a0af6-a62b-11ea-ae1c-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qluw=7R=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jgjbE-00039t-36
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2020 06:43:36 +0000
+X-Inumbo-ID: b629319d-a62e-11ea-ae1e-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 424a0af6-a62b-11ea-ae1c-12813bfff9fa;
- Thu, 04 Jun 2020 06:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UNk8hARPznmxf9XPF4jn5i3hEYv6aE0eHosQteFXCKE=; b=JfkSnyDN+gnu/YfL09IaSRcCg
- VyyswO3nQvfHa+unzxjUF3iyUxmF5oK07XmIzbgb8A2rgnu+SFgcfJ9RT06IbTHcWlvqlY2UI45s0
- ZA6+ggR6R8kVMkSS5DsM9CrOHZDAvxDNYua9dab3wqZWRNRdyQHQ3xgU7Q7L9qx4ICf7U=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgjDG-0004Lm-Om; Thu, 04 Jun 2020 06:18:50 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jgjDG-0004Dp-Dh; Thu, 04 Jun 2020 06:18:50 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jgjDG-00056B-Cv; Thu, 04 Jun 2020 06:18:50 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150676-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id b629319d-a62e-11ea-ae1e-12813bfff9fa;
+ Thu, 04 Jun 2020 06:43:35 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id BC70CACA3;
+ Thu,  4 Jun 2020 06:43:37 +0000 (UTC)
+Subject: Re: [PATCH for-4.14] x86/shim: Fix defconfig selection and trim the
+ build further
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200603170908.13239-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1a158ff8-e11e-432c-236d-ff884602d48a@suse.com>
+Date: Thu, 4 Jun 2020 08:43:27 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150676: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:regression
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=d9f58cd54fe2f05e1f05e2fe254684bd1840de8e
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 04 Jun 2020 06:18:50 +0000
+In-Reply-To: <20200603170908.13239-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,79 +47,74 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150676 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150676/
+On 03.06.2020 19:09, Andrew Cooper wrote:
+> Several options (TBOOT, XENOPROF, Scheduler) depend on EXPERT to be able to
+> deselect/configure.
+> 
+> Enabling EXPERT now causes the request of the Credit1 scheduler to be honoured
+> (rather than giving us Credit2), but take this opportunity to switch to Null,
+> as the previously problematic issues are now believed to be fixed.
+> 
+> Enabling EXPERT also allows XEN_SHSTK to be selected, and we don't want this
+> being built for shim.  We also don't want TRACEBUFFER or GDBSX either.
+> 
+> Take this oppotunity to swap the disable of HVM_FEP for a general disable of
+> HVM (likely to have wider impliciations in the future), and disable ARGO (will
+> necesserily need plumbing work to function in shim).
 
-Regressions :-(
+Odd. I was quite sure this is the case already; in particular my
+own build test of a shim config has this already.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 150438
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-version targeted for testing:
- xen                  d9f58cd54fe2f05e1f05e2fe254684bd1840de8e
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+I have a question though (without implying the patch here needs
+adjusting, but rather with a look towards after 4.14):
 
-Last test of basis   150438  2020-05-28 14:01:19 Z    6 days
-Failing since        150465  2020-05-29 09:02:14 Z    5 days   43 attempts
-Testing same since   150649  2020-06-03 13:01:44 Z    0 days    5 attempts
+> --- a/xen/arch/x86/configs/pvshim_defconfig
+> +++ b/xen/arch/x86/configs/pvshim_defconfig
+> @@ -5,19 +5,25 @@ CONFIG_PVH_GUEST=y
+>  CONFIG_PV_SHIM=y
+>  CONFIG_PV_SHIM_EXCLUSIVE=y
+>  CONFIG_NR_CPUS=32
+> +CONFIG_EXPERT=y
+> +CONFIG_SCHED_NULL=y
+>  # Disable features not used by the PV shim
+> +# CONFIG_HVM is not set
+> +# CONFIG_XEN_SHSTK is not set
+>  # CONFIG_HYPFS is not set
+>  # CONFIG_SHADOW_PAGING is not set
+>  # CONFIG_BIGMEM is not set
+> -# CONFIG_HVM_FEP is not set
+>  # CONFIG_TBOOT is not set
+>  # CONFIG_KEXEC is not set
+>  # CONFIG_XENOPROF is not set
+>  # CONFIG_XSM is not set
+> +# CONFIG_ARGO is not set
+> +# CONFIG_SCHED_CREDIT is not set
+>  # CONFIG_SCHED_CREDIT2 is not set
+>  # CONFIG_SCHED_RTDS is not set
+>  # CONFIG_SCHED_ARINC653 is not set
+> -# CONFIG_SCHED_NULL is not set
+>  # CONFIG_LIVEPATCH is not set
+>  # CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS is not set
+> +# CONFIG_TRACEBUFFER is not set
+>  # CONFIG_DEBUG is not set
+> +# CONFIG_GDBSX is not set
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Olaf Hering <olaf@aepfle.de>
-  Paul Durrant <paul@xen.org>
-  Paul Durrant <pdurrant@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Wei Liu <wl@xen.org>
+I assume both the "enable" and "disable" sections here are ordered
+like they would be in a resulting full .config. But this being two
+separate sections, doing so doesn't help e.g. diff-ing. How about
+we sort both sections alphabetically (short of other good sorting
+criteria, yet better than entirely unsorted)?
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1522 lines long.)
+Jan
 
