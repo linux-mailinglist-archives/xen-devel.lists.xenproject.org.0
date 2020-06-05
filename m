@@ -2,46 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3E1B1EF606
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 13:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F13901EF611
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 13:06:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhA7f-0004P9-Rk; Fri, 05 Jun 2020 11:02:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jhAAi-0004YB-AJ; Fri, 05 Jun 2020 11:06:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lb65=7S=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jhA7e-0004P4-BR
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 11:02:50 +0000
-X-Inumbo-ID: 17bb47d6-a71c-11ea-af9d-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 17bb47d6-a71c-11ea-af9d-12813bfff9fa;
- Fri, 05 Jun 2020 11:02:49 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: ocq4NPS5Lxg6hYuvKZHSF2ee9D1Y0mCrj0p2EcWgZT7OsyifM2RmZeaSDSIDnJl3hIS6906KgS
- fc6bYPw005hY9H6LSaGimQKzv0zMWjKbWytSWi2nS43l3B7AYaus+FuUYelcAXuVTexGlVJQRB
- MwlgYeqONzpSXYBo84rEMKZl3BmCyPotSb9b5Wcy6b4BE8fq9m1TQZHefotnzlzlCl9sm6wfRt
- 2jwAmdvD4XnF3kCJUU6eHDJHyo6uZLWkjv/eUvpaFQvaXO22qSAxK4ncwsxJJGIarW4FmN35zN
- E50=
-X-SBRS: 2.7
-X-MesageID: 19313218
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,476,1583211600"; d="scan'208";a="19313218"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH for-4.14 v2] x86/rtc: provide mediated access to RTC for PVH
- dom0
-Date: Fri, 5 Jun 2020 13:02:39 +0200
-Message-ID: <20200605110240.52545-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.2
+ <SRS0=0ATx=7S=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jhAAg-0004Y6-VL
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 11:05:59 +0000
+X-Inumbo-ID: 8856a800-a71c-11ea-96fb-bc764e2007e4
+Received: from mail-wr1-x42f.google.com (unknown [2a00:1450:4864:20::42f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8856a800-a71c-11ea-96fb-bc764e2007e4;
+ Fri, 05 Jun 2020 11:05:58 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id l11so9339022wru.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2020 04:05:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=sMLA6y3VrYdV8WDI4utr8jCM/UWPfkD7O7iwOFlk4f0=;
+ b=N3JzRNAaU46CHQUDw1WDMWo+HWpBuORl6eRylvN7nf2vvepZiUZzWC7ahEnYH1FQdi
+ pjOvO5MZk+EfVnjbmv6Nkxys4X+taJJdBrcqhvT5nAx3O5UObIbb6z+HVAEKOagXCLyS
+ RzVS6Jdkl/dW2kpaelWEPxYmA0tap7hia5Er7N7acnvF3keQO1R9M0bsd9w2czDI6qjQ
+ 2ig5uXKgQNXZ/zxm2JB85DI44RRxAhWSdPv/jKfPaSoZ8JjmnMWhP9p2BMRVEInLTpTC
+ 4xdCr8acvWJyUUXBw4FDBHhZNYcfsQXjjmHRkq1vVhkO0b/gnTwSGtbU9mntQivstpYy
+ iRPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=sMLA6y3VrYdV8WDI4utr8jCM/UWPfkD7O7iwOFlk4f0=;
+ b=FvnU7KFHmOrTCfoO10DQRi7+eJj40Ylq5pmJQb1uI+fL3V6tO9A+hNhzGJkyFWv4G/
+ ngDmprjaj3ai5HbsIYz7xR7MDBmVZbQvXkgwICcxMhzprVQCNK+B5KZhyjjo+P/500XE
+ VxRuJ0wyoAgSIWkbrEhJvAiTz08jxcSMLtFrRAqGg+93UUSMnYcJJFvaxOqEDQo0zz0/
+ OsSN2OpLWe0NVyTo9zlKXefgq1z05ae4TIo+a4jUfPu86H4mk5Ylyz7KHt6rsZ/BTq9N
+ vQiy4/Y602BOvz18K5D3+DsKPOQDANAJGgnP/fejVToPxHNFTBk5qtmXNbZiA29lVO31
+ 89qA==
+X-Gm-Message-State: AOAM532WPJ/agl8vBRPXnoCj0Atva+xEL1BYDocd2qGVMXwNFMgQxB+q
+ y5wBZAojv7RH9Za5vwmOQwQ=
+X-Google-Smtp-Source: ABdhPJzRQ2L07jIo+z6l1Yl0Wd2Ae71FPuuduYeNSIeWnIYJVeFhxaz5V7C1OwL9cnAmyb2FH/8q8A==
+X-Received: by 2002:adf:db09:: with SMTP id s9mr8853520wri.256.1591355157309; 
+ Fri, 05 Jun 2020 04:05:57 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id y5sm12169453wrs.63.2020.06.05.04.05.56
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 05 Jun 2020 04:05:56 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+ =?UTF-8?Q?'Marek_Marczykowski-G=C3=B3recki'?=
+ <marmarek@invisiblethingslab.com>
+References: <20200604014621.GA203658@mail-itl>
+ <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
+ <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
+ <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
+ <20200604142542.GC98582@mail-itl>
+ <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
+In-Reply-To: <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
+Subject: RE: handle_pio looping during domain shutdown,
+ with qemu 4.2.0 in stubdom
+Date: Fri, 5 Jun 2020 12:05:55 +0100
+Message-ID: <000501d63b29$496ce6e0$dc46b4a0$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGjLdCXHS+ot6864srdbAQDyQsvoACJ30jDAXuEodcCsFgQ5AHivRJwAUZxxQCo8P3IUA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,249 +84,141 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>, paul@xen.org
+Reply-To: paul@xen.org
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'xen-devel' <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Mediated access to the RTC was provided for PVHv1 dom0 using the PV
-code paths (guest_io_{write/read}), but those accesses where never
-implemented for PVHv2 dom0. This patch provides such mediated accesses
-to the RTC for PVH dom0, just like it's provided for a classic PV
-dom0.
+Sorry, only just catching up with this...
 
-Pull out some of the RTC logic from guest_io_{read/write} into
-specific helpers that can be used by both PV and HVM guests. The
-setup of the handlers for PVH is done in rtc_init, which is already
-used to initialize the fully emulated RTC.
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 05 June 2020 10:09
+> To: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; xen-devel =
+<xen-devel@lists.xenproject.org>; Paul
+> Durrant <paul@xen.org>
+> Subject: Re: handle_pio looping during domain shutdown, with qemu =
+4.2.0 in stubdom
+>=20
+> On 04.06.2020 16:25, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Thu, Jun 04, 2020 at 02:36:26PM +0200, Jan Beulich wrote:
+> >> On 04.06.2020 13:13, Andrew Cooper wrote:
+> >>> On 04/06/2020 08:08, Jan Beulich wrote:
+> >>>> On 04.06.2020 03:46, Marek Marczykowski-G=C3=B3recki wrote:
+> >>>>> Then, we get the main issue:
+> >>>>>
+> >>>>>     (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> >>>>>     (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
+> >>>>>     (XEN) domain_crash called from io.c:178
+> >>>>>
+> >>>>> Note, there was no XEN_DOMCTL_destroydomain for domain 3 nor its =
+stubdom
+> >>>>> yet. But XEN_DMOP_remote_shutdown for domain 3 was called =
+already.
+> >>>> I'd guess an issue with the shutdown deferral logic. Did you / =
+can
+> >>>> you check whether XEN_DMOP_remote_shutdown managed to pause all
+> >>>> CPUs (I assume it didn't, since once they're paused there =
+shouldn't
+> >>>> be any I/O there anymore, and hence no I/O emulation)?
+> >>>
+> >>> The vcpu in question is talking to Qemu, so will have =
+v->defer_shutdown
+> >>> intermittently set, and skip the pause in domain_shutdown()
+> >>>
+> >>> I presume this lack of pause is to allow the vcpu in question to =
+still
+> >>> be scheduled to consume the IOREQ reply?  (Its fairly opaque logic =
+with
+> >>> 0 clarifying details).
+> >>>
+> >>> What *should* happen is that, after consuming the reply, the vcpu =
+should
+> >>> notice and pause itself, at which point it would yield to the
+> >>> scheduler.  This is the purpose of =
+vcpu_{start,end}_shutdown_deferral().
+> >>>
+> >>> Evidentially, this is not happening.
+> >>
+> >> We can't tell yet, until ...
+> >>
+> >>> Marek: can you add a BUG() after the weird PIO printing?  That =
+should
+> >>> confirm whether we're getting into handle_pio() via the
+> >>> handle_hvm_io_completion() path, or via the vmexit path (at which =
+case,
+> >>> we're fully re-entering the guest).
+> >>
+> >> ... we know this. handle_pio() gets called from =
+handle_hvm_io_completion()
+> >> after having called hvm_wait_for_io() -> hvm_io_assist() ->
+> >> vcpu_end_shutdown_deferral(), so the issue may be that we shouldn't =
+call
+> >> handle_pio() (etc) at all anymore in this state. IOW perhaps
+> >> hvm_wait_for_io() should return =
+"!sv->vcpu->domain->is_shutting_down"
+> >> instead of plain "true"?
+> >>
+> >> Adding Paul to Cc, as being the maintainer here.
+> >
+> > Got it, by sticking BUG() just before that domain_crash() in
+> > handle_pio(). And also vcpu 0 of both HVM domains do have
+> > v->defer_shutdown.
+>=20
+> As per the log they did get it set. I'd be curious of the flag's
+> value (as well as v->paused_for_shutdown's) at the point of the
+> problematic handle_pio() invocation (see below). It may be
+> worthwhile to instrument vcpu_check_shutdown() (inside its if())
+> - before exiting to guest context (in order to then come back
+> and call handle_pio()) the vCPU ought to be getting through
+> there. No indication of it doing so would be a sign that there's
+> a code path bypassing the call to vcpu_end_shutdown_deferral().
+>=20
+> > (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
+> > (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> > (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> > (XEN) d3v0 handle_pio port 0xb004 write 0x0001
+> > (XEN) d3v0 handle_pio port 0xb004 write 0x2001
+> > (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+> > (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
+> > (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
+> > (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
+> > (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+> > (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+> > (XEN) d1v0 handle_pio port 0xb004 write 0x0001
+> > (XEN) d1v0 handle_pio port 0xb004 write 0x2001
+> > (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
+> > (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
+> > (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
+> > (XEN) grant_table.c:3702:d0v0 Grant release 0x3 ref 0x11d flags 0x2 =
+d6
+> > (XEN) grant_table.c:3702:d0v0 Grant release 0x4 ref 0x11e flags 0x2 =
+d6
+> > (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+>=20
+> Perhaps in this message could you also log
+> v->domain->is_shutting_down, v->defer_shutdown, and
+> v->paused_for_shutdown? (Would be nice if, after having made
+> changes to your debugging patch, you could point again at the
+> precise version you've used for the log provided.)
+>=20
+> > (XEN) d3v0 Unexpected PIO status 1, port 0xb004 read 0xffff
+> > (XEN) Xen BUG at io.c:178
+>=20
+> Btw, instead of BUG(), WARN() or dump_execution_state() would
+> likely also do, keeping Xen alive.
+>=20
 
-Without this a Linux PVH dom0 will read garbage when trying to access
-the RTC, and one vCPU will be constantly looping in
-rtc_timer_do_work.
+A shutdown deferral problem would result in X86EMUL_RETRY wouldn't it? =
+That would mean we wouldn't be seeing the "Unexpected PIO" message. From =
+that message this clearly X86EMUL_UNHANDLEABLE which suggests a race =
+with ioreq server teardown, possibly due to selecting a server but then =
+not finding a vcpu match in ioreq_vcpu_list.
 
-Note that such issue doesn't happen on domUs because the ACPI
-NO_CMOS_RTC flag is set in FADT, which prevents the OS from accessing
-the RTC. Also the X86_EMU_RTC flag is not set for PVH dom0, as the
-accesses are not emulated but rather forwarded to the physical
-hardware.
+  Paul
 
-No functional change expected for classic PV dom0.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-for-4.14 reasoning: the fix is mostly isolated to PVH dom0, and as
-such the risk is very low of causing issues to other guests types, but
-without this fix one vCPU when using a Linux dom0 will be constantly
-looping over rtc_timer_do_work with 100% CPU usage, at least when
-using Linux 4.19 or newer.
----
-Changes since v1:
- - Share the code with PV.
- - Add access checks to the IO ports.
----
- xen/arch/x86/hvm/rtc.c            | 34 ++++++++++++++++++
- xen/arch/x86/pv/emul-priv-op.c    | 28 +++------------
- xen/arch/x86/time.c               | 59 +++++++++++++++++++++++++++++++
- xen/include/asm-x86/mc146818rtc.h |  3 ++
- 4 files changed, 100 insertions(+), 24 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
-index 5bbbdc0e0f..9f304a0fb4 100644
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -22,6 +22,7 @@
-  * IN THE SOFTWARE.
-  */
- 
-+#include <asm/iocap.h>
- #include <asm/mc146818rtc.h>
- #include <asm/hvm/vpt.h>
- #include <asm/hvm/io.h>
-@@ -808,10 +809,43 @@ void rtc_reset(struct domain *d)
-     s->pt.source = PTSRC_isa;
- }
- 
-+/* RTC mediator for HVM hardware domain. */
-+static int hw_rtc_io(int dir, unsigned int port, unsigned int size,
-+                     uint32_t *val)
-+{
-+    if ( dir == IOREQ_READ )
-+        *val = ~0;
-+
-+    if ( size != 1 )
-+    {
-+        gdprintk(XENLOG_WARNING, "bad RTC access size (%u)\n", size);
-+        return X86EMUL_OKAY;
-+    }
-+    if ( !ioports_access_permitted(current->domain, port, port) )
-+    {
-+        gdprintk(XENLOG_WARNING, "access to RTC port %x not allowed\n", port);
-+        return X86EMUL_OKAY;
-+    }
-+
-+    if ( dir == IOREQ_WRITE )
-+        rtc_guest_write(port, *val);
-+    else
-+        *val = rtc_guest_read(port);
-+
-+    return X86EMUL_OKAY;
-+}
-+
- void rtc_init(struct domain *d)
- {
-     RTCState *s = domain_vrtc(d);
- 
-+    if ( is_hardware_domain(d) )
-+    {
-+        /* Hardware domain gets mediated access to the physical RTC. */
-+        register_portio_handler(d, RTC_PORT(0), 2, hw_rtc_io);
-+        return;
-+    }
-+
-     if ( !has_vrtc(d) )
-         return;
- 
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index fad6c754ad..1597f27ed9 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -280,19 +280,10 @@ static uint32_t guest_io_read(unsigned int port, unsigned int bytes,
-         {
-             sub_data = pv_pit_handler(port, 0, 0);
-         }
--        else if ( port == RTC_PORT(0) )
--        {
--            sub_data = currd->arch.cmos_idx;
--        }
--        else if ( (port == RTC_PORT(1)) &&
-+        else if ( (port == RTC_PORT(0) || port == RTC_PORT(1)) &&
-                   ioports_access_permitted(currd, RTC_PORT(0), RTC_PORT(1)) )
-         {
--            unsigned long flags;
--
--            spin_lock_irqsave(&rtc_lock, flags);
--            outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
--            sub_data = inb(RTC_PORT(1));
--            spin_unlock_irqrestore(&rtc_lock, flags);
-+            sub_data = rtc_guest_read(port);
-         }
-         else if ( (port == 0xcf8) && (bytes == 4) )
-         {
-@@ -413,21 +404,10 @@ static void guest_io_write(unsigned int port, unsigned int bytes,
-         {
-             pv_pit_handler(port, (uint8_t)data, 1);
-         }
--        else if ( port == RTC_PORT(0) )
--        {
--            currd->arch.cmos_idx = data;
--        }
--        else if ( (port == RTC_PORT(1)) &&
-+        else if ( (port == RTC_PORT(0) || port == RTC_PORT(1)) &&
-                   ioports_access_permitted(currd, RTC_PORT(0), RTC_PORT(1)) )
-         {
--            unsigned long flags;
--
--            if ( pv_rtc_handler )
--                pv_rtc_handler(currd->arch.cmos_idx & 0x7f, data);
--            spin_lock_irqsave(&rtc_lock, flags);
--            outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
--            outb(data, RTC_PORT(1));
--            spin_unlock_irqrestore(&rtc_lock, flags);
-+            rtc_guest_write(port, data);
-         }
-         else if ( (port == 0xcf8) && (bytes == 4) )
-         {
-diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-index bbaea3aa65..e1c81067ce 100644
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -27,6 +27,7 @@
- #include <xen/keyhandler.h>
- #include <xen/guest_access.h>
- #include <asm/io.h>
-+#include <asm/iocap.h>
- #include <asm/msr.h>
- #include <asm/mpspec.h>
- #include <asm/processor.h>
-@@ -1110,6 +1111,64 @@ static unsigned long get_cmos_time(void)
-     return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
- }
- 
-+/* Helpers for guest accesses to the physical RTC. */
-+unsigned int rtc_guest_read(unsigned int port)
-+{
-+    const struct domain *currd = current->domain;
-+    unsigned long flags;
-+    unsigned int data = ~0;
-+
-+    ASSERT(port == RTC_PORT(0) || port == RTC_PORT(1));
-+    if ( !ioports_access_permitted(currd, port, port) )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return data;
-+    }
-+
-+    switch ( port )
-+    {
-+    case RTC_PORT(0):
-+        data = currd->arch.cmos_idx;
-+        break;
-+
-+    case RTC_PORT(1):
-+        spin_lock_irqsave(&rtc_lock, flags);
-+        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
-+        data = inb(RTC_PORT(1));
-+        spin_unlock_irqrestore(&rtc_lock, flags);
-+        break;
-+    }
-+
-+    return data;
-+}
-+
-+void rtc_guest_write(unsigned int port, unsigned int data)
-+{
-+    struct domain *currd = current->domain;
-+    unsigned long flags;
-+
-+    ASSERT(port == RTC_PORT(0) || port == RTC_PORT(1));
-+    if ( !ioports_access_permitted(currd, port, port) )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return;
-+    }
-+
-+    switch ( port )
-+    {
-+    case RTC_PORT(0):
-+        currd->arch.cmos_idx = data;
-+        break;
-+
-+    case RTC_PORT(1):
-+        spin_lock_irqsave(&rtc_lock, flags);
-+        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
-+        outb(data, RTC_PORT(1));
-+        spin_unlock_irqrestore(&rtc_lock, flags);
-+        break;
-+    }
-+}
-+
- static unsigned long get_wallclock_time(void)
- {
- #ifdef CONFIG_XEN_GUEST
-diff --git a/xen/include/asm-x86/mc146818rtc.h b/xen/include/asm-x86/mc146818rtc.h
-index 8758528f7c..803b236c0a 100644
---- a/xen/include/asm-x86/mc146818rtc.h
-+++ b/xen/include/asm-x86/mc146818rtc.h
-@@ -110,4 +110,7 @@ outb_p((val),RTC_PORT(1)); \
- 
- #define RTC_IRQ 8
- 
-+unsigned int rtc_guest_read(unsigned int port);
-+void rtc_guest_write(unsigned int port, unsigned int data);
-+
- #endif /* _ASM_MC146818RTC_H */
--- 
-2.26.2
+> Jan
 
 
