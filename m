@@ -2,76 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF3F31EFC39
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 17:11:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 687B81EFC5C
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 17:18:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhDza-0006FV-Vx; Fri, 05 Jun 2020 15:10:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jhE6Z-0006Rm-OM; Fri, 05 Jun 2020 15:17:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0ATx=7S=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jhDzZ-0006FQ-H4
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 15:10:45 +0000
-X-Inumbo-ID: ba5422a2-a73e-11ea-96fb-bc764e2007e4
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ba5422a2-a73e-11ea-96fb-bc764e2007e4;
- Fri, 05 Jun 2020 15:10:44 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id r7so10142980wro.1
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2020 08:10:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=IZoRVj27HCkcHvbu9sXMUWc2RYh8crvQ8silDUuIsFY=;
- b=mI7q6dcgPWRRev5M/MD0eMzY9oVSBgcBJRhrKA8qe3z2k27YfajYQg3wSowLQKJS+I
- WSy9wOGqUrYnaUZsmwVU5AK8VGMupmoxEd5iHOjiDObvn/BMQPM1SC9cdN4LRNd1Y0xI
- LifxclxWa/t+vQ2boMPU4kP3/vVY/IfjZ0+4N6lG/IDX2LZGYDFJWTBWShTqnQB9ahXa
- jAo2B1FBLJnUpszZsr/Ucx2moBxEwxwjl00tsYnYD90oFtpD/1kP9lUbPKoxFjfHo+Tp
- xBzW5jJ3ni0IOCWCwAjZfZyC2/wrjd2lmXSTNp7sezdnlyqUbcBck1cpuRWvTzgL8JOD
- K3PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=IZoRVj27HCkcHvbu9sXMUWc2RYh8crvQ8silDUuIsFY=;
- b=rLMh7ylbBcJoAQxm/yHnF3/Z9bSnP3Y4wfvZOkePtDvDhX5n4D+w04U66fVMLAokwN
- gFlTvnbF4CusIqgzUofMHFekvY8QL+nXIfGx2FKHdrCCAYHKFk2yqkdetlpgGppQA8uZ
- 1ZQUaLyOJT8vczlv4kdXD3npTWJH8v+iK532fdy4DfHaYy/vhC6JO7VH3t2BpbB0w2rA
- 86Enx1/MOYrxyV8yRaoVM7LAQJJ0eAL+U5Q6uxzwpLQK16yni0NJyLkm2VN5g/p3JQJ3
- YbILkZpWMwSoS0EKEMfipdVpMN4En3zk1pakfLDK3xf8V0Sb1GpogQsdtwmWKMwALEpA
- MCUg==
-X-Gm-Message-State: AOAM531Y5zQpDhSnq478qHRPs7u31pvYliAGg1YfjTryzKsLwn9JKfpM
- 5vqUih+jVNRi46DAafSdmi8=
-X-Google-Smtp-Source: ABdhPJzaQbIq1F3YvIx7zjCSB4qpQQbNoYZeIoptz/1WrtaYcz3M5qPjd+Ocif2QG7EdvyuG9mRGPQ==
-X-Received: by 2002:a5d:440c:: with SMTP id z12mr10357881wrq.241.1591369843967; 
- Fri, 05 Jun 2020 08:10:43 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id z16sm12465472wrm.70.2020.06.05.08.10.42
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 05 Jun 2020 08:10:43 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>,
- =?UTF-8?Q?'Marek_Marczykowski-G=C3=B3recki'?=
- <marmarek@invisiblethingslab.com>
-References: <20200604014621.GA203658@mail-itl>
- <e9c6dba3-2780-b155-5b12-3eb44dc31957@suse.com>
- <20200605111840.GE98582@mail-itl>
- <ae54e2f6-efc9-1c39-d33a-f633def549e0@suse.com>
-In-Reply-To: <ae54e2f6-efc9-1c39-d33a-f633def549e0@suse.com>
-Subject: RE: handle_pio looping during domain shutdown,
- with qemu 4.2.0 in stubdom
-Date: Fri, 5 Jun 2020 16:10:42 +0100
-Message-ID: <002301d63b4b$7b65bf60$72313e20$@xen.org>
+ <SRS0=lb65=7S=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jhE6Y-0006Rh-Qt
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 15:17:58 +0000
+X-Inumbo-ID: bc3f2d23-a73f-11ea-afd8-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bc3f2d23-a73f-11ea-afd8-12813bfff9fa;
+ Fri, 05 Jun 2020 15:17:57 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: D0PnSQOv/L+HoZMJ0K5wPBHnoIgB6sl+ZXbvRR+Fg38kWWX/HNk4Q0cgA+7yFRkyFBYsDDWPLw
+ BXwz/PntUvbgkQNzYks57ubLj8+Tg/TUE4It1w6Zr7/t3XO74N8CEhKEOrd58Pt0j2EmKu7qJD
+ Edc3xfhRxTrEGRAbvtN9uLB6eHsMT8XXWj1cd2+pj119uHTFL7UvEgrmeHsxT7P9mZwm2rZvIl
+ usjoI79M38BumwXw0dqlddLKxMAcaAU33mEdIG3SO2yZ7Yqxz+RgXkuizV1bEcnViq0wHCJ4NE
+ RsM=
+X-SBRS: 2.7
+X-MesageID: 19686232
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,476,1583211600"; d="scan'208";a="19686232"
+Date: Fri, 5 Jun 2020 17:17:48 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH for-4.14 v2] x86/rtc: provide mediated access to RTC for
+ PVH dom0
+Message-ID: <20200605151748.GC660@Air-de-Roger>
+References: <20200605110240.52545-1-roger.pau@citrix.com>
+ <f71e1c35-d48a-fc0a-ad89-8867a2875cae@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQGjLdCXHS+ot6864srdbAQDyQsvoAIM6jibAY4RUisDBXtFN6j7Nxlw
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <f71e1c35-d48a-fc0a-ad89-8867a2875cae@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,94 +56,157 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'xen-devel' <xen-devel@lists.xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
-Jan Beulich
-> Sent: 05 June 2020 15:00
-> To: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> Cc: xen-devel <xen-devel@lists.xenproject.org>
-> Subject: Re: handle_pio looping during domain shutdown, with qemu =
-4.2.0 in stubdom
->=20
-> On 05.06.2020 13:18, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Fri, Jun 05, 2020 at 11:38:17AM +0200, Jan Beulich wrote:
-> >> On 04.06.2020 03:46, Marek Marczykowski-G=C3=B3recki wrote:
-> >>> Hi,
-> >>>
-> >>> (continuation of a thread from #xendevel)
-> >>>
-> >>> During system shutdown quite often I hit infinite stream of errors =
-like
-> >>> this:
-> >>>
-> >>>     (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
-> >>>     (XEN) domain_crash called from io.c:178
-> >>>
-> >>> This is all running on Xen 4.13.0 (I think I've got this with =
-4.13.1
-> >>> too), nested within KVM. The KVM part means everything is very =
-slow, so
-> >>> various race conditions are much more likely to happen.
-> >>>
-> >>> It started happening not long ago, and I'm pretty sure it's about
-> >>> updating to qemu 4.2.0 (in linux stubdom), previous one was 3.0.0.
-> >>>
-> >>> Thanks to Andrew and Roger, I've managed to collect more info.
-> >>>
-> >>> Context:
-> >>>     dom0: pv
-> >>>     dom1: hvm
-> >>>     dom2: stubdom for dom1
-> >>>     dom3: hvm
-> >>>     dom4: stubdom for dom3
-> >>>     dom5: pvh
-> >>>     dom6: pvh
-> >>>
-> >>> It starts I think ok:
-> >>>
-> >>>     (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
-> >>>     (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> >>>     (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> >>>     (XEN) d3v0 handle_pio port 0xb004 write 0x0001
-> >>>     (XEN) d3v0 handle_pio port 0xb004 write 0x2001
-> >>>     (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
-> >>
-> >> I can't seem to be able to spot the call site of this, in any of
-> >> qemu, libxl, or libxc. I'm in particular curious as to the further
-> >> actions taken on the domain after this was invoked: Do any ioreq
-> >> servers get unregistered immediately (which I think would be a
-> >> problem)?
-> >
-> > It is here:
-> > https://github.com/qemu/qemu/blob/master/hw/i386/xen/xen-hvm.c#L1539
-> >
-> > I think it's called from cpu_handle_ioreq(), and I think the request
-> > state is set to STATE_IORESP_READY before exiting (unless there is =
-some
-> > exit() hidden in another function used there).
->=20
-> Thanks. There's nothing in surrounding code there that would =
-unregister
-> an ioreq server. But as said elsewhere, I don't know qemu very well,
-> and hence I may easily overlook how else one may get unregistered
-> prematurely.
->=20
+On Fri, Jun 05, 2020 at 04:44:32PM +0200, Jan Beulich wrote:
+> On 05.06.2020 13:02, Roger Pau Monne wrote:
+> > Mediated access to the RTC was provided for PVHv1 dom0 using the PV
+> > code paths (guest_io_{write/read}), but those accesses where never
+> > implemented for PVHv2 dom0. This patch provides such mediated accesses
+> > to the RTC for PVH dom0, just like it's provided for a classic PV
+> > dom0.
+> > 
+> > Pull out some of the RTC logic from guest_io_{read/write} into
+> > specific helpers that can be used by both PV and HVM guests. The
+> > setup of the handlers for PVH is done in rtc_init, which is already
+> > used to initialize the fully emulated RTC.
+> > 
+> > Without this a Linux PVH dom0 will read garbage when trying to access
+> > the RTC, and one vCPU will be constantly looping in
+> > rtc_timer_do_work.
+> > 
+> > Note that such issue doesn't happen on domUs because the ACPI
+> > NO_CMOS_RTC flag is set in FADT, which prevents the OS from accessing
+> > the RTC. Also the X86_EMU_RTC flag is not set for PVH dom0, as the
+> > accesses are not emulated but rather forwarded to the physical
+> > hardware.
+> > 
+> > No functional change expected for classic PV dom0.
+> 
+> But there is, in whether (virtual) port 0x71 can be read/written (even
+> by a DomU). I'm afraid of being called guilty in splitting hair, though.
 
-See =
-https://git.qemu.org/?p=3Dqemu.git;a=3Dcommit;h=3Dba7fdd64b6714af7e42dfbe=
-5969caf62c0823f75
+Urg, OK, I realized that but considered it a harmless mistake.
 
-This makes sure the server is destroyed in the exit notifier (called =
-when the QEMU process is killed)
+> > @@ -808,10 +809,43 @@ void rtc_reset(struct domain *d)
+> >      s->pt.source = PTSRC_isa;
+> >  }
+> >  
+> > +/* RTC mediator for HVM hardware domain. */
+> > +static int hw_rtc_io(int dir, unsigned int port, unsigned int size,
+> > +                     uint32_t *val)
+> > +{
+> > +    if ( dir == IOREQ_READ )
+> > +        *val = ~0;
+> > +
+> > +    if ( size != 1 )
+> > +    {
+> > +        gdprintk(XENLOG_WARNING, "bad RTC access size (%u)\n", size);
+> > +        return X86EMUL_OKAY;
+> > +    }
+> > +    if ( !ioports_access_permitted(current->domain, port, port) )
+> 
+> This wants to move into the helper, such that the PV side can have
+> it moved too.
+> 
+> >  void rtc_init(struct domain *d)
+> >  {
+> >      RTCState *s = domain_vrtc(d);
+> >  
+> > +    if ( is_hardware_domain(d) )
+> > +    {
+> > +        /* Hardware domain gets mediated access to the physical RTC. */
+> > +        register_portio_handler(d, RTC_PORT(0), 2, hw_rtc_io);
+> > +        return;
+> 
+> Any reason for this explicit return, rather than ...
+> 
+> > +    }
+> > +
+> >      if ( !has_vrtc(d) )
+> >          return;
+> 
+> ... making use of this one? In fact wouldn't it be more correct
+> to have
+> 
+>     if ( !has_vrtc(d) )
+>     {
+>         /* Hardware domain gets mediated access to the physical RTC. */
+>         if ( is_hardware_domain(d) )
+>             register_portio_handler(d, RTC_PORT(0), 2, hw_rtc_io);
+>         return;
+>     }
+> 
+> such that eventual (perhaps optional) enabling of vRTC for hwdom
+> would have it properly work without changing this function again?
 
-  Paul
+Right, that seems fine to me.
 
-> Jan
+> > --- a/xen/arch/x86/pv/emul-priv-op.c
+> > +++ b/xen/arch/x86/pv/emul-priv-op.c
+> > @@ -280,19 +280,10 @@ static uint32_t guest_io_read(unsigned int port, unsigned int bytes,
+> >          {
+> >              sub_data = pv_pit_handler(port, 0, 0);
+> >          }
+> > -        else if ( port == RTC_PORT(0) )
+> > -        {
+> > -            sub_data = currd->arch.cmos_idx;
+> 
+> Note how there was no permission check here. Having one or more
+> I/O ports that can be used to simply latch a value can, as I've
+> learned, be quite valuable as a debugging vehicle, and there
+> aren't many (if any) ports beyond this one that a PV DomU might
+> use for such a purpose. Arguably the value is somewhat limited
+> here, as the value wouldn't survive a crash, but I'd still
+> prefer if we could retain prior functionality.
 
+OK, as said above I considered this a harmless mistake, but seeing as
+you find it valuable I will make sure to keep the behavior.
 
+> > @@ -1110,6 +1111,64 @@ static unsigned long get_cmos_time(void)
+> >      return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
+> >  }
+> >  
+> > +/* Helpers for guest accesses to the physical RTC. */
+> > +unsigned int rtc_guest_read(unsigned int port)
+> > +{
+> > +    const struct domain *currd = current->domain;
+> > +    unsigned long flags;
+> > +    unsigned int data = ~0;
+> > +
+> > +    ASSERT(port == RTC_PORT(0) || port == RTC_PORT(1));
+> 
+> Instead of this, how about ...
+> 
+> > +    if ( !ioports_access_permitted(currd, port, port) )
+> > +    {
+> > +        ASSERT_UNREACHABLE();
+> > +        return data;
+> > +    }
+> > +
+> > +    switch ( port )
+> > +    {
+> > +    case RTC_PORT(0):
+> > +        data = currd->arch.cmos_idx;
+> > +        break;
+> > +
+> > +    case RTC_PORT(1):
+> > +        spin_lock_irqsave(&rtc_lock, flags);
+> > +        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> > +        data = inb(RTC_PORT(1));
+> > +        spin_unlock_irqrestore(&rtc_lock, flags);
+> > +        break;
+> 
+>     default:
+>         ASSERT_UNREACHABLE();
+>         break;
+> 
+> ?
+
+Sure.
+
+Thanks, Roger.
 
