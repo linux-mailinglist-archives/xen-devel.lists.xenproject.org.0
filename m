@@ -2,165 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6F5D1EF846
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 14:48:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80C4D1EF88E
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 15:05:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhBlP-0006uA-Bl; Fri, 05 Jun 2020 12:47:59 +0000
+	id 1jhC1A-0000Ns-Rj; Fri, 05 Jun 2020 13:04:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/r6m=7S=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1jhBlN-0006u5-LN
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 12:47:57 +0000
-X-Inumbo-ID: c7304f6e-a72a-11ea-ba62-bc764e2007e4
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:7e1a::605])
+ <SRS0=wSaP=7S=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1jhC18-0000Nn-Qr
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 13:04:15 +0000
+X-Inumbo-ID: 0dcbd3b0-a72d-11ea-9b55-bc764e2007e4
+Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c7304f6e-a72a-11ea-ba62-bc764e2007e4;
- Fri, 05 Jun 2020 12:47:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mteM1wNltbXTw5kY/XIrXv2xFQSiYbFD/2Hznhk6rPY=;
- b=eStDKL9+9e0UVGIuGZiIfkuyk4fqTngiISf/FULrW0+fvy/erukWZWO2b9KIGtFVXNbObser6bYn7izTJFKccBpQHiKrZadGRXyZHov4mNUT69FwQY8dWGBtLP+3LgqisVHp1uSTmXVQkAjnrrPWxeCQvl+VPwCjeuMHNDwZK3I=
-Received: from DB6PR0601CA0016.eurprd06.prod.outlook.com (2603:10a6:4:7b::26)
- by VI1PR08MB3677.eurprd08.prod.outlook.com (2603:10a6:803:7f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18; Fri, 5 Jun
- 2020 12:47:54 +0000
-Received: from DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:7b:cafe::6c) by DB6PR0601CA0016.outlook.office365.com
- (2603:10a6:4:7b::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18 via Frontend
- Transport; Fri, 5 Jun 2020 12:47:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
- dmarc=bestguesspass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT025.mail.protection.outlook.com (10.152.20.104) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.18 via Frontend Transport; Fri, 5 Jun 2020 12:47:53 +0000
-Received: ("Tessian outbound 3e82c366635e:v59");
- Fri, 05 Jun 2020 12:47:53 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 51fbe6779753dcb4
-X-CR-MTA-TID: 64aa7808
-Received: from 0fa81f2ceb15.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- B6F749F8-E2BB-4989-BA02-08061816C785.1; 
- Fri, 05 Jun 2020 12:47:48 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0fa81f2ceb15.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 05 Jun 2020 12:47:48 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MSmk2dKhLsCYElS9Bn4uLEwRd9u8iNz4xCtpODzblBe19kWWSRcQYeePNoP9nuApKreHtwZSoJZMAnSa5eurkTboADCFNeOl+PYnVv0aaCPm0Oiqljeh6+bgcJWX8ghZMUrsJwdOw39MGEpRHSrb1wF3F6zPWdqcWTdqmfSL+2wRWW6v/NsoiOYwf9TR3JGJzsiBdVYoZJ0HN+0dvkAFTTh/T7Rh6qQRTX6QuGBBqnXH7i+5NJLc8/xrPFzPFJ/V/Yl2opAWIbwmJ73+oRZZrv34Cx2s0kWqPBvNjg9Nf2Gd5KCoBVYq+6CPeA5OzXDXNKjvNg3mAozF99opIykUAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mteM1wNltbXTw5kY/XIrXv2xFQSiYbFD/2Hznhk6rPY=;
- b=EsJWRhVKAcyCqM5dygUQTFD1sQM354LTmi5kigDrMn39v58f5hcFyTY7kzV8SfeBwlTeFgtDUDXo+xn8qcyhTFazDoVS0ejLp27iOVSfSfbCvayJXMgqC/tZGnaDWHabnmuSU3+Sj/jhaGXhAokPnRdD2g9x92LTetPz8Jl74NLhts7AOg4V/G6yGm0zvqoMUYf90ft9Aza/VKDiMcokwxAtSu6u0pWs9ohWWEineClNvBd/0/pVnSu0+NB9H9Lhm/75MpZOspMLr0AENNBc5xonOqj26czoiSQnGtntmKs68q7BzLiCSUtF9H5hwkZT4JH5oGNcTNrhesXkXZmzlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mteM1wNltbXTw5kY/XIrXv2xFQSiYbFD/2Hznhk6rPY=;
- b=eStDKL9+9e0UVGIuGZiIfkuyk4fqTngiISf/FULrW0+fvy/erukWZWO2b9KIGtFVXNbObser6bYn7izTJFKccBpQHiKrZadGRXyZHov4mNUT69FwQY8dWGBtLP+3LgqisVHp1uSTmXVQkAjnrrPWxeCQvl+VPwCjeuMHNDwZK3I=
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
- by DB7PR08MB3868.eurprd08.prod.outlook.com (2603:10a6:10:32::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.20; Fri, 5 Jun
- 2020 12:47:46 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::4001:43ad:d113:46a8]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::4001:43ad:d113:46a8%5]) with mapi id 15.20.3066.019; Fri, 5 Jun 2020
- 12:47:46 +0000
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: CodeWiz2280 <codewiz2280@gmail.com>
-Subject: Re: Keystone Issue
-Thread-Topic: Keystone Issue
-Thread-Index: AQHWOBaIAfEL/lLkK0WiNSn4kZcZc6jDwRQAgAAfVYCAACZwgIACvmKAgABfPYCAAA+JgIAA6NEAgAAP9wCAAAJxgIAAEuGAgAAfEwCAAGmFAIAAh2UAgABV34CAAFCtAIAAAUSAgAADZQCAAAGKgA==
-Date: Fri, 5 Jun 2020 12:47:46 +0000
-Message-ID: <77006AAF-BC3B-4C6E-BDFC-577CF87DE64E@arm.com>
-References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
- <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
- <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
- <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
- <25953300-f69d-19a4-9215-49cfedbd16ed@xen.org>
- <CALYbLDh3C02+CV88LqR2zv+ggRgup-Qhi+udGzgePmkdM0KcFw@mail.gmail.com>
- <deee1523-cfb5-f186-11a3-33fa1f7b94c1@xen.org>
- <8C39F9D0-8351-4671-9A39-D5D4BFF02BD6@arm.com>
- <3ff17aa9-0aae-d598-40ce-4e90d4e50cc7@xen.org>
- <00E14EAD-BD23-4A3A-872E-0C47C26B7B41@arm.com>
- <c2466674-a56e-08a4-7f3f-2438d5565953@xen.org>
- <CALYbLDjNptWfVMGjw801y6f0zu40b2pzBnLS+w2Zx5eVStCUYQ@mail.gmail.com>
- <da23ecc8-60f0-8a26-58d5-ea692dcf0102@xen.org>
- <CALYbLDhpwbHTrjDaNmfW81m5Fqt6HbfqoqbGDH1qUxxJtMBmEA@mail.gmail.com>
- <8C6A23AE-6C2B-411F-ACAD-F5574211E8ED@arm.com>
- <CALYbLDiOX0JW_=6AgAb+m5q++3WvQtivJRy+ePrp5pJXd7T9Vg@mail.gmail.com>
- <14244e49-e1ac-a29d-bbd9-bd4c202bf186@xen.org>
- <CALYbLDjCdDvwja1VoahJmnrKDfKyw7DNhYBBcmJv70QDA4+6Ag@mail.gmail.com>
-In-Reply-To: <CALYbLDjCdDvwja1VoahJmnrKDfKyw7DNhYBBcmJv70QDA4+6Ag@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-Authentication-Results-Original: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [82.24.250.194]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c1e1e56e-fd8f-486e-0aed-08d8094eaa28
-x-ms-traffictypediagnostic: DB7PR08MB3868:|VI1PR08MB3677:
-X-Microsoft-Antispam-PRVS: <VI1PR08MB36770E746ECDFEDDCDA1987B9D860@VI1PR08MB3677.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:3513;OLM:3513;
-x-forefront-prvs: 0425A67DEF
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original: CEA0K4L8rLGpgex7wKHPW1A8zdY/8RBOf9NoAHL3akQ5DujtK9AuAYZA9Rp+aVMe3OwIKmPz0nHmxLviEgo7mo05dKBFBA9nszjeR4R0ZsUL/L0taW7pPfJai8S5n96Thzt5OgHaesXX7YZQrcI1yFeIlNIK9knXcO9fgnzPv5peJduyXllI0vg33r4x9fhMfBh9qUGpdKA/hJ/TPOME9ngMxqZirQRbwFQ3/xQzSxU2EfxlIPqYBlzcikXD2Q2novG3xBksLPmCVLz11VCzRDGdSVvRmga1WAWICLKi9KBLPH1u9mDYSvCw8LQpM2NYKRMgNUVxSLKJw3QhgjIaNA==
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DB7PR08MB3689.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE; SFTY:;
- SFS:(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(54906003)(6486002)(71200400001)(5660300002)(2906002)(2616005)(3480700007)(316002)(36756003)(86362001)(6916009)(33656002)(66946007)(26005)(83380400001)(66476007)(4326008)(66556008)(186003)(76116006)(66446008)(64756008)(8676002)(8936002)(91956017)(7116003)(53546011)(6506007)(6512007)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: HsTh1RVkVD4WD7/2XVo4sj2WpF98m60yOqK937Min+Tt598yhrnrjmJUTuzXi8+r+1iAo9/ITGUd5oU9g7DLJDji2XttJESQqufvmfKDtVxVT0xsHKUQ596RtF7GBZuD5ndlXhtkQUfu2WlS6Asrsn6CTEMqmcrIhmezx3RHE35M6venlaHJ9DqWpITPlkgqDk7wm2AoV3XGHPYbb7Ksega/fo9+QGAdo5aftFI8d8EPJDiEf0NA7iR94Lun9GTDYTDA81R2LcFptKJxO40ZeUa9cFv/f9fDD2Ym9I6/VUtuteeHymNcCsOjJfQju55tX4YyjCoAcxV/YwxmVzaFK0opnjWJrTB5xbH5SZXuL9E6UvH8ljHx5/NDnsZ26L68FfuVJDdD761O1j9FBjTKEYLZltvQk4CJ69xXF5Zl9IuVErZpoE4bFHUDHHNsT2WhYtMkGNjJjnOvdoXmilhoDMjhSRBNDXEDSt5kaeyadRl/UU/dUmn25v90s/JH1UBD
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <A8A27425B774E5429B8DDBF26CB587A8@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+ id 0dcbd3b0-a72d-11ea-9b55-bc764e2007e4;
+ Fri, 05 Jun 2020 13:04:13 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id C075959D;
+ Fri,  5 Jun 2020 09:04:12 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Fri, 05 Jun 2020 09:04:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=gsMNM6
+ L0WQQkqWnkTPeSQhmnMIonhYIndfng/RGnFmc=; b=HI1czHP/JDX0YSS0n8cqj8
+ XaqBHO1ZupDP7SvNA7nNGCe9dMgEkQaYMOwJgnOPrE82CJtMRiqehYY3MDwDXelH
+ HzjmxyPKYaVB2ljVRj7LH45NI/fR3578yUWTu9UT8n1wcLUq9CjU/iWGapw3BAC2
+ 1HAbTpoFF420AmHWCJ9WE5hQJFsNOdcLB8c42bODyg+tC3g/e1AEu3DIh15xImnh
+ mSHaLSR39ASXw6ck2r36v+8xP+xdFPMd01ROznYp9vBBcZaJ+8euMfkSotW70CQ8
+ 0y60r+zGp/qmvtgGnl3aH79RZmxG+VEFSn19dhPg6eJwCZrEVFpwNZ4ehyBB4XXQ
+ ==
+X-ME-Sender: <xms:zELaXgH523bvU7eHsTFwWS8ddi8MdmXofILNAHiWHtZNiRUhBPdpNg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudegfedghedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpedkofgrrhgv
+ khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhikdcuoehmrghrmhgrrhgvkhesih
+ hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeff
+ gfdugeegtdeggeetheefveffteeigeekjedtueelhedtvdeuffejkeelhfekheenucffoh
+ hmrghinhepghhithhhuhgsrdgtohhmnecukfhppeeluddrieehrdefgedrfeefnecuvehl
+ uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvg
+ hksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:zELaXpUHQvBF0Za524Upa3jzKY3VNOwQ87T5mZdqfFQzqWWRQ_CdFQ>
+ <xmx:zELaXqJwqcl1GLvSKSukqs8AMNs5LDyBC7TQknZxvTIysS_tM53c9w>
+ <xmx:zELaXiHtka5GC3KZF818Nf_TkQEHm8P_Z5ITNUluu3ueFpwqbiMHhg>
+ <xmx:zELaXhC4hQ4OdAQEAnnOrQKPFpbceWtIGVvz2oN6yevN-_uDP_NiYw>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5D8B63280059;
+ Fri,  5 Jun 2020 09:04:11 -0400 (EDT)
+Date: Fri, 5 Jun 2020 15:04:08 +0200
+From: 'Marek =?utf-8?Q?Marczykowski-G=C3=B3recki'?=
+ <marmarek@invisiblethingslab.com>
+To: paul@xen.org
+Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
+ stubdom
+Message-ID: <20200605130408.GI98582@mail-itl>
+References: <20200604014621.GA203658@mail-itl>
+ <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
+ <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
+ <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
+ <20200604142542.GC98582@mail-itl>
+ <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
+ <f22ce6e0-d80b-2fc3-586a-c030fa22b3e8@suse.com>
+ <20200605120137.GF98582@mail-itl>
+ <000a01d63b36$5ca617b0$15f24710$@xen.org>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3868
-Original-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
-X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
- PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE; SFTY:;
- SFS:(4636009)(346002)(39860400002)(376002)(136003)(396003)(46966005)(70206006)(186003)(2906002)(81166007)(82740400003)(6512007)(36756003)(316002)(53546011)(6486002)(47076004)(336012)(356005)(86362001)(5660300002)(33656002)(6506007)(82310400002)(478600001)(54906003)(8936002)(70586007)(8676002)(6862004)(26005)(3480700007)(4326008)(2616005)(83380400001)(7116003);
- DIR:OUT; SFP:1101; 
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 39f7cb6f-8904-4bc2-beff-08d8094ea5bd
-X-Forefront-PRVS: 0425A67DEF
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UrR5iBxtppLF/tYBRRzdK8dXmcXGNnkqmi/+HnInPsUx+yi7MiahM2H+v1/V7Y44vZfckUiMqeJIlF2uYj5YKcVmbL3i3Tl7Ysh2EkhRO/LmSbgPmUgmwXHz0rvmOqldAfZ01PixPX5rRG/bamsr5qV1gBKPd8VwPKTAB4jA4nRd7x1HvYzjGcQpaM/eBJ290QNcJiiYKPHKvbg+USSsvYZFytgmI75G4RdlSmBlaw1wedwFOx6hygwyj8u1hBVVsboPBXZE4D0ZxySjaOnFuV7h3egvn57e19FZHH/aTwBQfAzk6vAzXlhxbtRWgHe+tfIecUgX51uvMZYms+ev92OSY4VSId53II/jzFxvXtdM182soT8kVo8UprqGBio1e1bhkkRZpvF8JMhNJV8Qxw==
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2020 12:47:53.9705 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1e1e56e-fd8f-486e-0aed-08d8094eaa28
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
- Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3677
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="PqX6tBBuHl4HmZHK"
+Content-Disposition: inline
+In-Reply-To: <000a01d63b36$5ca617b0$15f24710$@xen.org>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,41 +83,150 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Jan Beulich' <jbeulich@suse.com>,
+ 'xen-devel' <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
+--PqX6tBBuHl4HmZHK
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
+ stubdom
 
-> On 5 Jun 2020, at 13:42, CodeWiz2280 <codewiz2280@gmail.com> wrote:
+On Fri, Jun 05, 2020 at 01:39:31PM +0100, Paul Durrant wrote:
+> > -----Original Message-----
+> > From: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> > Sent: 05 June 2020 13:02
+> > To: Jan Beulich <jbeulich@suse.com>
+> > Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Paul Durrant <paul@xen.o=
+rg>; xen-devel <xen-
+> > devel@lists.xenproject.org>
+> > Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0=
+ in stubdom
+> >=20
+> > On Fri, Jun 05, 2020 at 11:22:46AM +0200, Jan Beulich wrote:
+> > > On 05.06.2020 11:09, Jan Beulich wrote:
+> > > > On 04.06.2020 16:25, Marek Marczykowski-G=C3=B3recki wrote:
+> > > >> (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
+> > > >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> > > >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> > > >> (XEN) d3v0 handle_pio port 0xb004 write 0x0001
+> > > >> (XEN) d3v0 handle_pio port 0xb004 write 0x2001
+> > > >> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+> > > >> (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
+> > > >> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
+> > > >> (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
+> > > >> (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+> > > >> (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+> > > >> (XEN) d1v0 handle_pio port 0xb004 write 0x0001
+> > > >> (XEN) d1v0 handle_pio port 0xb004 write 0x2001
+> > > >> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
+> > > >> (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
+> > > >> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
+> > > >> (XEN) grant_table.c:3702:d0v0 Grant release 0x3 ref 0x11d flags 0x=
+2 d6
+> > > >> (XEN) grant_table.c:3702:d0v0 Grant release 0x4 ref 0x11e flags 0x=
+2 d6
+> > > >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> > > >
+> > > > Perhaps in this message could you also log
+> > > > v->domain->is_shutting_down, v->defer_shutdown, and
+> > > > v->paused_for_shutdown?
+> > >
+> > > And v->domain->is_shut_down please.
+> >=20
+> > Here it is:
+> >=20
+> > (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
+> > (XEN) d3v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_=
+shutdown 0 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d3v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_=
+shutdown 0 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d3v0 handle_pio port 0xb004 write 0x0001 is_shutting_down 0 defer=
+_shutdown 0 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d3v0 handle_pio port 0xb004 write 0x2001 is_shutting_down 0 defer=
+_shutdown 0 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+> > (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
+> > (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
+> > (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
+> > (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_=
+shutdown 0 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_=
+shutdown 0 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d1v0 handle_pio port 0xb004 write 0x0001 is_shutting_down 0 defer=
+_shutdown 0 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d1v0 handle_pio port 0xb004 write 0x2001 is_shutting_down 0 defer=
+_shutdown 0 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
+> > (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
+> > (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
+> > (XEN) grant_table.c:3702:d0v1 Grant release 0x3 ref 0x125 flags 0x2 d6
+> > (XEN) grant_table.c:3702:d0v1 Grant release 0x4 ref 0x126 flags 0x2 d6
+> > (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 1 defer_=
+shutdown 1 paused_for_shutdown
+> > 0 is_shut_down 0
+> > (XEN) d1v0 Unexpected PIO status 1, port 0xb004 read 0xffff
+> >=20
+> > (and then the stacktrace saying it's from vmexit handler)
+> >=20
+> > Regarding BUG/WARN - do you think I could get any more info then? I
+> > really don't mind crashing that system, it's a virtual machine
+> > currently used only for debugging this issue.
 >=20
-> On Fri, Jun 5, 2020 at 8:30 AM Julien Grall <julien@xen.org> wrote:
->>=20
->> Hi,
->>=20
->> On 05/06/2020 13:25, CodeWiz2280 wrote:
->>> The Keystone uses the netcp driver, which has interrupts from 40-79
->>> listed in the device tree (arch/arm/boot/keystone-k2e-netcp.dtsi).
->>> I'm using the same device tree between my non-xen standalone kernel
->>> and my dom0 kernel booted by xen.  In the standalone (non-xen) kernel
->>> the ethernet works fine, but I don't see any of its interrupts in the
->>> output of /proc/iomem.  I'm not seeing them in /proc/iomem when
->>> running dom0 under Xen either.  When booting with Xen I get this
->>> behavior where the ifconfig output shows 1 RX message and 1 TX
->>> message, and then nothing else.
->>=20
->> I am not sure whether this is a typo in the e-mail. /proc/iomem is
->> listing the list of the MMIO regions. You want to use /proc/interrupts.
->>=20
->> Can you confirm which path you are dumping?
-> Yes, that was a typo.  Sorry about that.  I meant that I am dumping
-> /proc/interrupts and do not
-> see them under the non-xen kernel or xen booted dom0.
+> In your logging, is that handle_pio with is_shutting_down =3D=3D 1 the ve=
+ry last one, or is the 'Unexpected PIO' coming from another one issued afte=
+rwards?
 
-Could you post both /proc/interrupts content ?
+That's the same function call - handle_pio message is before hvmemul_do_pio=
+_buffer() and Unexpected PIO is after.
 
-Cheers
-Bertrand
+Here is the current debugging patch: https://gist.github.com/marmarek/da37d=
+a3722179057a6e7add4fb361e06
 
+> The reason I ask is that hvmemul_do_io() can call hvm_send_ioreq() to sta=
+rt an I/O when is_shutting_down is set, but will write the local io_req.sta=
+te back to NONE even when X86EMUL_RETRY is returned. Thus another call to h=
+andle_pio() will try to start a new I/O but will fail with X86EMUL_UNHANDLE=
+ABLE in hvm_send_ioreq() because the ioreq state in the shared page will no=
+t be NONE.
+
+Isn't it a problem that hvm_send_ioreq() can be called called if is_shuttin=
+g_down is set?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--PqX6tBBuHl4HmZHK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl7aQscACgkQ24/THMrX
+1ywwcQf/Uyl9MhWtHyawitPXnGCrbzUdE2fqJE6R0IKThUCmWa2PIvMIE9HUfvUe
+dl5i+gBq1FHYUDSX6M4QxoyCOyw7xnhnJyJFVhMSmljUlqdp73TLYbPdIkgBcX1Z
+TF0X4OP4QmtZcArFniYSqhH4NoaILPwBWSF9cfOz2crWUAjEwRBJG9DGwRiuRH9h
+DgIQb10a4MOF+hfjjTxWvy3XxQkX3rGaD3k/RjJrhBRLIZs413BMcwyT9WjyfbYJ
++fcyROKEUH7MUe4TZR/NX6YiUPUP1sXKyOGIQirvFu84y0t9WpvCGgpFZCBm2yHx
+1px8CN8ypgMNOLw6DQB5TDGn6bE3Lw==
+=7dQV
+-----END PGP SIGNATURE-----
+
+--PqX6tBBuHl4HmZHK--
 
