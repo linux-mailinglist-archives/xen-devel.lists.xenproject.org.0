@@ -2,100 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF431F02E8
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Jun 2020 00:32:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC43E1F0395
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Jun 2020 01:44:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhKsV-0007sC-MU; Fri, 05 Jun 2020 22:31:55 +0000
+	id 1jhLzi-000699-VI; Fri, 05 Jun 2020 23:43:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vDJQ=7S=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jhKsT-0007s6-Uj
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 22:31:54 +0000
-X-Inumbo-ID: 56d87582-a77c-11ea-96fb-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RWBJ=7S=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1jhLzi-000694-1v
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 23:43:26 +0000
+X-Inumbo-ID: 58d78026-a786-11ea-96fb-bc764e2007e4
+Received: from mail-qv1-xf43.google.com (unknown [2607:f8b0:4864:20::f43])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 56d87582-a77c-11ea-96fb-bc764e2007e4;
- Fri, 05 Jun 2020 22:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Y88DBPcxMZB+qb/MnqUHcF+BDWadVXhUEaI03dtYtEw=; b=phLbY1Xd5HfJrUWR/wLReMTUu
- oY2YnlHWliX2tA04oLm52TOCk5bEuI0mS51tTH3ShR9axXgJGIFBaYTqG/gaS9c/49nVW7xGhHjsQ
- jx854/IE4gAmjJ8YPfAb/GhIILkQOJzfHiw5pT0h3hcI2WoQuoFu9L9TGy3ie9pSo6Ts0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jhKsL-00010C-Jx; Fri, 05 Jun 2020 22:31:45 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jhKsL-0006gI-13; Fri, 05 Jun 2020 22:31:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jhKsL-0006Te-01; Fri, 05 Jun 2020 22:31:45 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150831-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 58d78026-a786-11ea-96fb-bc764e2007e4;
+ Fri, 05 Jun 2020 23:43:24 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id e20so5608312qvu.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2020 16:43:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=4oKka4He3nRW9OgSI9rsgItl0j6AS9IA/l25DC/YHdk=;
+ b=el/2NraBp3xuQ6JOdeJKDO1SKrkNXv03TIU/cHSPGOLcoazpUqpDf/wmVxmhxU0iU2
+ KZtd97gf7017uBaOEy+xsywUK1vtO3th7PAbITbYnEaXNnORJNgh5KeTUgj/uKhFMhbT
+ wHe+V9zECrLlyet0r0MCfWXvJppdS2S4eKXCACdeKCsPJVSSP8593EQoNBdRqEwDKflV
+ E1s4mk4olJiD4X8oC+ac7yaGxC8p4Z8uieT6zCSiGYU/QY36tPNITGbYIvcCEhHKd/UF
+ ikycvLcUerd/7mc1RrW7dkja8z/+ryV3FDC74+xcv43Ycxvyki6kCSyfnpEwyD9cxlp1
+ cTSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=4oKka4He3nRW9OgSI9rsgItl0j6AS9IA/l25DC/YHdk=;
+ b=YTWoYaQ6AMf7fFJxBN9jRFsI9Z5RZe6Mc4JWYi7oWvI+LIbF0oSQIyTPyhTi+OFt5a
+ 5PaNoKXk3OkH5dw94OpxnABTaNN6qnr/zCn+IJ5M4fGhcf/1exPp5LSrtKJijNoQWRsZ
+ HU8QN2txQ8cNHyqKQCBebsNG9JL22k2wS1jdxcgjOJZD4PTXd1jRU1T+uFvrr4RGyDo/
+ r7NSU2THO3K66aPU6gxcUBdUyg2W0ikVSkYSzmVVdGZs3RqTaW/nHVFsgc9lYAB+PaII
+ 09LrTZvhTfzSrTqvt2t5SpTfykIAACikRKN6CujYqcr0jUKh29lzNPNWqgsfUn5FtZz6
+ A9wg==
+X-Gm-Message-State: AOAM530Xu0jJY4Kp2c6dT8f8Wt4ZFVqhuYSeK3Js2sSsNrELmI4D81/M
+ zg1Qkp5a1g/Mo45cy0gWKPYOdotRh9VfFA8MuQBKLw==
+X-Google-Smtp-Source: ABdhPJwcniVNNo4EhtxwgacSCSgMm1FVB40bFpT+gHMVg7J78OLLWTQWEeEthzFefXL4v9p7W1l9sY8GMXiVsPFue+A=
+X-Received: by 2002:a05:6214:1c3:: with SMTP id
+ c3mr12187299qvt.19.1591400604218; 
+ Fri, 05 Jun 2020 16:43:24 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 150831: regressions - FAIL
-X-Osstest-Failures: qemu-mainline:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
- qemu-mainline:test-armhf-armhf-xl-vhd:guest-start:fail:regression
- qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This: qemuu=b489f015fbe2bd59d409211f79ea0a8ac5d2a66d
-X-Osstest-Versions-That: qemuu=66234fee9c2d37bfbc523aa8d0ae5300a14cc10e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 05 Jun 2020 22:31:45 +0000
+References: <20200605110240.52545-1-roger.pau@citrix.com>
+In-Reply-To: <20200605110240.52545-1-roger.pau@citrix.com>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Fri, 5 Jun 2020 16:43:12 -0700
+Message-ID: <CAMmSBy8=8tGwLgs+eMbrHcRbSahJHCpts7ODiK-cf-ZATfosxw@mail.gmail.com>
+Subject: Re: [PATCH for-4.14 v2] x86/rtc: provide mediated access to RTC for
+ PVH dom0
+To: Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,395 +68,271 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150831 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150831/
+On Fri, Jun 5, 2020 at 4:03 AM Roger Pau Monne <roger.pau@citrix.com> wrote=
+:
+>
+> Mediated access to the RTC was provided for PVHv1 dom0 using the PV
+> code paths (guest_io_{write/read}), but those accesses where never
+> implemented for PVHv2 dom0. This patch provides such mediated accesses
+> to the RTC for PVH dom0, just like it's provided for a classic PV
+> dom0.
+>
+> Pull out some of the RTC logic from guest_io_{read/write} into
+> specific helpers that can be used by both PV and HVM guests. The
+> setup of the handlers for PVH is done in rtc_init, which is already
+> used to initialize the fully emulated RTC.
+>
+> Without this a Linux PVH dom0 will read garbage when trying to access
+> the RTC, and one vCPU will be constantly looping in
+> rtc_timer_do_work.
+>
+> Note that such issue doesn't happen on domUs because the ACPI
+> NO_CMOS_RTC flag is set in FADT, which prevents the OS from accessing
+> the RTC. Also the X86_EMU_RTC flag is not set for PVH dom0, as the
+> accesses are not emulated but rather forwarded to the physical
+> hardware.
+>
+> No functional change expected for classic PV dom0.
 
-Regressions :-(
+For the dense guys like me: what is the user-visible feature that is now be=
+ing
+offered with this? Would really appreciate a pointer or two.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl-arndale   7 xen-boot                 fail REGR. vs. 150694
- test-armhf-armhf-xl-vhd      11 guest-start              fail REGR. vs. 150694
+Thanks,
+Roman.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-rtds     18 guest-localmigrate/x10       fail  like 150694
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 150694
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 150694
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 150694
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 150694
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 150694
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
-
-version targeted for testing:
- qemuu                b489f015fbe2bd59d409211f79ea0a8ac5d2a66d
-baseline version:
- qemuu                66234fee9c2d37bfbc523aa8d0ae5300a14cc10e
-
-Last test of basis   150694  2020-06-04 11:44:20 Z    1 days
-Testing same since   150831  2020-06-05 13:06:20 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Alexander Bulekov <alxndr@bu.edu>
-  Kevin Wolf <kwolf@redhat.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Peter Maydell <peter.maydell@linaro.org>
-  Philippe Mathieu-Daudé <philmd@redhat.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Stefano Garzarella <sgarzare@redhat.com>
-  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit b489f015fbe2bd59d409211f79ea0a8ac5d2a66d
-Merge: 66234fee9c 7d2410cea1
-Author: Peter Maydell <peter.maydell@linaro.org>
-Date:   Fri Jun 5 11:53:37 2020 +0100
-
-    Merge remote-tracking branch 'remotes/stefanha/tags/block-pull-request' into staging
-    
-    Pull request
-    
-    # gpg: Signature made Fri 05 Jun 2020 10:47:27 BST
-    # gpg:                using RSA key 8695A8BFD3F97CDAAC35775A9CA4ABB381AB73C8
-    # gpg: Good signature from "Stefan Hajnoczi <stefanha@redhat.com>" [full]
-    # gpg:                 aka "Stefan Hajnoczi <stefanha@gmail.com>" [full]
-    # Primary key fingerprint: 8695 A8BF D3F9 7CDA AC35  775A 9CA4 ABB3 81AB 73C8
-    
-    * remotes/stefanha/tags/block-pull-request:
-      block: Factor out bdrv_run_co()
-      exec: Rename qemu_ram_writeback() as qemu_ram_msync()
-      hw/block: Let the NVMe emulated device be target-agnostic
-      memory: Extract memory_region_msync() from memory_region_writeback()
-      memory: Rename memory_region_do_writeback -> memory_region_writeback
-      fuzz: run the main-loop in fork-server process
-      fuzz: add mangled object name to linker script
-      fuzz: fix typo in i440fx-qtest-reboot arguments
-      fuzz: add datadir for oss-fuzz compatability
-      io_uring: use io_uring_cq_ready() to check for ready cqes
-      io_uring: retry io_uring_submit() if it fails with errno=EINTR
-    
-    Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-
-commit 7d2410cea154bf915fb30179ebda3b17ac36e70e
-Author: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-Date:   Wed May 20 17:49:01 2020 +0300
-
-    block: Factor out bdrv_run_co()
-    
-    We have a few bdrv_*() functions that can either spawn a new coroutine
-    and wait for it with BDRV_POLL_WHILE() or use a fastpath if they are
-    alreeady running in a coroutine. All of them duplicate basically the
-    same code.
-    
-    Factor the common code into a new function bdrv_run_co().
-    
-    Signed-off-by: Kevin Wolf <kwolf@redhat.com>
-    Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-    Message-id: 20200520144901.16589-1-vsementsov@virtuozzo.com
-       [Factor out bdrv_run_co_entry too]
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit ab7e41e6679224e5ad8da6d70ed7e645a5a482ab
-Author: Philippe Mathieu-Daudé <philmd@redhat.com>
-Date:   Fri May 8 08:24:56 2020 +0200
-
-    exec: Rename qemu_ram_writeback() as qemu_ram_msync()
-    
-    Rename qemu_ram_writeback() as qemu_ram_msync() to better
-    match what it does.
-    
-    Suggested-by: Stefan Hajnoczi <stefanha@redhat.com>
-    Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-    Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-    Acked-by: Paolo Bonzini <pbonzini@redhat.com>
-    Message-id: 20200508062456.23344-5-philmd@redhat.com
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit bc2a2364b8050632a3b3de07f30d88b7f0734845
-Author: Philippe Mathieu-Daudé <philmd@redhat.com>
-Date:   Fri May 8 08:24:55 2020 +0200
-
-    hw/block: Let the NVMe emulated device be target-agnostic
-    
-    Now than the non-target specific memory_region_msync() function
-    is available, use it to make this device target-agnostic.
-    
-    Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-    Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-    Acked-by: Paolo Bonzini <pbonzini@redhat.com>
-    Message-id: 20200508062456.23344-4-philmd@redhat.com
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit 9ecc996a3d39bdbf64a488936f97a9496b74ebd8
-Author: Philippe Mathieu-Daudé <philmd@redhat.com>
-Date:   Fri May 8 08:24:54 2020 +0200
-
-    memory: Extract memory_region_msync() from memory_region_writeback()
-    
-    Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-    Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-    Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-    Acked-by: Paolo Bonzini <pbonzini@redhat.com>
-    Message-id: 20200508062456.23344-3-philmd@redhat.com
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit 4dfe59d187d9b218efca8d89c0c2fac1298d8712
-Author: Philippe Mathieu-Daudé <philmd@redhat.com>
-Date:   Fri May 8 08:24:53 2020 +0200
-
-    memory: Rename memory_region_do_writeback -> memory_region_writeback
-    
-    We usually use '_do_' for internal functions. Rename
-    memory_region_do_writeback() as memory_region_writeback().
-    
-    Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-    Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-    Acked-by: Paolo Bonzini <pbonzini@redhat.com>
-    Message-id: 20200508062456.23344-2-philmd@redhat.com
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit dfd5ddb5680511a2aa5576d8ed01ff214cc0fc03
-Author: Alexander Bulekov <alxndr@bu.edu>
-Date:   Mon May 11 23:01:33 2020 -0400
-
-    fuzz: run the main-loop in fork-server process
-    
-    Without this, the time since the last main-loop keeps increasing, as the
-    fuzzer runs. The forked children need to handle all the "past-due"
-    timers, slowing them down, over time. With this change, the
-    parent/fork-server process runs the main-loop, while waiting on the
-    child, ensuring that the timer events do not pile up, over time.
-    
-    Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
-    Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-    Message-id: 20200512030133.29896-5-alxndr@bu.edu
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit 3b113229c5d5477d34f54fce0a3e8781090c93b6
-Author: Alexander Bulekov <alxndr@bu.edu>
-Date:   Mon May 11 23:01:32 2020 -0400
-
-    fuzz: add mangled object name to linker script
-    
-    Previously, we relied on "FuzzerTracePC*(.bss*)" to place libfuzzer's
-    fuzzer::TPC object into our contiguous shared-memory region. This does
-    not work for some libfuzzer builds, so this addition identifies the
-    region by its mangled name: *(.bss._ZN6fuzzer3TPCE);
-    
-    Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
-    Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-    Message-id: 20200512030133.29896-4-alxndr@bu.edu
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit 6851803a467238ed39408e35b5f2063c1370b156
-Author: Alexander Bulekov <alxndr@bu.edu>
-Date:   Mon May 11 23:01:31 2020 -0400
-
-    fuzz: fix typo in i440fx-qtest-reboot arguments
-    
-    Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
-    Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-    Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-    Message-id: 20200512030133.29896-3-alxndr@bu.edu
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit 7a071a96d3ef48095892c1d1075c0181c8940058
-Author: Alexander Bulekov <alxndr@bu.edu>
-Date:   Mon May 11 23:01:30 2020 -0400
-
-    fuzz: add datadir for oss-fuzz compatability
-    
-    This allows us to keep pc-bios in executable_dir/pc-bios, rather than
-    executable_dir/../pc-bios, which is incompatible with oss-fuzz' file
-    structure.
-    
-    Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
-    Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-    Message-id: 20200512030133.29896-2-alxndr@bu.edu
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit 769335ecb1e8fd9c4317bdff7cfd0f84af7ab2f9
-Author: Stefano Garzarella <sgarzare@redhat.com>
-Date:   Tue May 19 15:49:42 2020 +0200
-
-    io_uring: use io_uring_cq_ready() to check for ready cqes
-    
-    In qemu_luring_poll_cb() we are not using the cqe peeked from the
-    CQ ring. We are using io_uring_peek_cqe() only to see if there
-    are cqes ready, so we can replace it with io_uring_cq_ready().
-    
-    Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
-    Message-id: 20200519134942.118178-1-sgarzare@redhat.com
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-
-commit b4e44c9944e19c8bfc7fbf0c4a6a5e48f3ba3dc0
-Author: Stefano Garzarella <sgarzare@redhat.com>
-Date:   Tue May 19 15:30:41 2020 +0200
-
-    io_uring: retry io_uring_submit() if it fails with errno=EINTR
-    
-    As recently documented [1], io_uring_enter(2) syscall can return an
-    error (errno=EINTR) if the operation was interrupted by a delivery
-    of a signal before it could complete.
-    
-    This should happen when IORING_ENTER_GETEVENTS flag is used, for
-    example during io_uring_submit_and_wait() or during io_uring_submit()
-    when IORING_SETUP_IOPOLL is enabled.
-    
-    We shouldn't have this problem for now, but it's better to prevent it.
-    
-    [1] https://github.com/axboe/liburing/commit/344355ec6619de8f4e64584c9736530b5346e4f4
-    
-    Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
-    Message-id: 20200519133041.112138-1-sgarzare@redhat.com
-    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+>
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+> for-4.14 reasoning: the fix is mostly isolated to PVH dom0, and as
+> such the risk is very low of causing issues to other guests types, but
+> without this fix one vCPU when using a Linux dom0 will be constantly
+> looping over rtc_timer_do_work with 100% CPU usage, at least when
+> using Linux 4.19 or newer.
+> ---
+> Changes since v1:
+>  - Share the code with PV.
+>  - Add access checks to the IO ports.
+> ---
+>  xen/arch/x86/hvm/rtc.c            | 34 ++++++++++++++++++
+>  xen/arch/x86/pv/emul-priv-op.c    | 28 +++------------
+>  xen/arch/x86/time.c               | 59 +++++++++++++++++++++++++++++++
+>  xen/include/asm-x86/mc146818rtc.h |  3 ++
+>  4 files changed, 100 insertions(+), 24 deletions(-)
+>
+> diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
+> index 5bbbdc0e0f..9f304a0fb4 100644
+> --- a/xen/arch/x86/hvm/rtc.c
+> +++ b/xen/arch/x86/hvm/rtc.c
+> @@ -22,6 +22,7 @@
+>   * IN THE SOFTWARE.
+>   */
+>
+> +#include <asm/iocap.h>
+>  #include <asm/mc146818rtc.h>
+>  #include <asm/hvm/vpt.h>
+>  #include <asm/hvm/io.h>
+> @@ -808,10 +809,43 @@ void rtc_reset(struct domain *d)
+>      s->pt.source =3D PTSRC_isa;
+>  }
+>
+> +/* RTC mediator for HVM hardware domain. */
+> +static int hw_rtc_io(int dir, unsigned int port, unsigned int size,
+> +                     uint32_t *val)
+> +{
+> +    if ( dir =3D=3D IOREQ_READ )
+> +        *val =3D ~0;
+> +
+> +    if ( size !=3D 1 )
+> +    {
+> +        gdprintk(XENLOG_WARNING, "bad RTC access size (%u)\n", size);
+> +        return X86EMUL_OKAY;
+> +    }
+> +    if ( !ioports_access_permitted(current->domain, port, port) )
+> +    {
+> +        gdprintk(XENLOG_WARNING, "access to RTC port %x not allowed\n", =
+port);
+> +        return X86EMUL_OKAY;
+> +    }
+> +
+> +    if ( dir =3D=3D IOREQ_WRITE )
+> +        rtc_guest_write(port, *val);
+> +    else
+> +        *val =3D rtc_guest_read(port);
+> +
+> +    return X86EMUL_OKAY;
+> +}
+> +
+>  void rtc_init(struct domain *d)
+>  {
+>      RTCState *s =3D domain_vrtc(d);
+>
+> +    if ( is_hardware_domain(d) )
+> +    {
+> +        /* Hardware domain gets mediated access to the physical RTC. */
+> +        register_portio_handler(d, RTC_PORT(0), 2, hw_rtc_io);
+> +        return;
+> +    }
+> +
+>      if ( !has_vrtc(d) )
+>          return;
+>
+> diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-o=
+p.c
+> index fad6c754ad..1597f27ed9 100644
+> --- a/xen/arch/x86/pv/emul-priv-op.c
+> +++ b/xen/arch/x86/pv/emul-priv-op.c
+> @@ -280,19 +280,10 @@ static uint32_t guest_io_read(unsigned int port, un=
+signed int bytes,
+>          {
+>              sub_data =3D pv_pit_handler(port, 0, 0);
+>          }
+> -        else if ( port =3D=3D RTC_PORT(0) )
+> -        {
+> -            sub_data =3D currd->arch.cmos_idx;
+> -        }
+> -        else if ( (port =3D=3D RTC_PORT(1)) &&
+> +        else if ( (port =3D=3D RTC_PORT(0) || port =3D=3D RTC_PORT(1)) &=
+&
+>                    ioports_access_permitted(currd, RTC_PORT(0), RTC_PORT(=
+1)) )
+>          {
+> -            unsigned long flags;
+> -
+> -            spin_lock_irqsave(&rtc_lock, flags);
+> -            outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> -            sub_data =3D inb(RTC_PORT(1));
+> -            spin_unlock_irqrestore(&rtc_lock, flags);
+> +            sub_data =3D rtc_guest_read(port);
+>          }
+>          else if ( (port =3D=3D 0xcf8) && (bytes =3D=3D 4) )
+>          {
+> @@ -413,21 +404,10 @@ static void guest_io_write(unsigned int port, unsig=
+ned int bytes,
+>          {
+>              pv_pit_handler(port, (uint8_t)data, 1);
+>          }
+> -        else if ( port =3D=3D RTC_PORT(0) )
+> -        {
+> -            currd->arch.cmos_idx =3D data;
+> -        }
+> -        else if ( (port =3D=3D RTC_PORT(1)) &&
+> +        else if ( (port =3D=3D RTC_PORT(0) || port =3D=3D RTC_PORT(1)) &=
+&
+>                    ioports_access_permitted(currd, RTC_PORT(0), RTC_PORT(=
+1)) )
+>          {
+> -            unsigned long flags;
+> -
+> -            if ( pv_rtc_handler )
+> -                pv_rtc_handler(currd->arch.cmos_idx & 0x7f, data);
+> -            spin_lock_irqsave(&rtc_lock, flags);
+> -            outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> -            outb(data, RTC_PORT(1));
+> -            spin_unlock_irqrestore(&rtc_lock, flags);
+> +            rtc_guest_write(port, data);
+>          }
+>          else if ( (port =3D=3D 0xcf8) && (bytes =3D=3D 4) )
+>          {
+> diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+> index bbaea3aa65..e1c81067ce 100644
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -27,6 +27,7 @@
+>  #include <xen/keyhandler.h>
+>  #include <xen/guest_access.h>
+>  #include <asm/io.h>
+> +#include <asm/iocap.h>
+>  #include <asm/msr.h>
+>  #include <asm/mpspec.h>
+>  #include <asm/processor.h>
+> @@ -1110,6 +1111,64 @@ static unsigned long get_cmos_time(void)
+>      return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec=
+);
+>  }
+>
+> +/* Helpers for guest accesses to the physical RTC. */
+> +unsigned int rtc_guest_read(unsigned int port)
+> +{
+> +    const struct domain *currd =3D current->domain;
+> +    unsigned long flags;
+> +    unsigned int data =3D ~0;
+> +
+> +    ASSERT(port =3D=3D RTC_PORT(0) || port =3D=3D RTC_PORT(1));
+> +    if ( !ioports_access_permitted(currd, port, port) )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return data;
+> +    }
+> +
+> +    switch ( port )
+> +    {
+> +    case RTC_PORT(0):
+> +        data =3D currd->arch.cmos_idx;
+> +        break;
+> +
+> +    case RTC_PORT(1):
+> +        spin_lock_irqsave(&rtc_lock, flags);
+> +        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> +        data =3D inb(RTC_PORT(1));
+> +        spin_unlock_irqrestore(&rtc_lock, flags);
+> +        break;
+> +    }
+> +
+> +    return data;
+> +}
+> +
+> +void rtc_guest_write(unsigned int port, unsigned int data)
+> +{
+> +    struct domain *currd =3D current->domain;
+> +    unsigned long flags;
+> +
+> +    ASSERT(port =3D=3D RTC_PORT(0) || port =3D=3D RTC_PORT(1));
+> +    if ( !ioports_access_permitted(currd, port, port) )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return;
+> +    }
+> +
+> +    switch ( port )
+> +    {
+> +    case RTC_PORT(0):
+> +        currd->arch.cmos_idx =3D data;
+> +        break;
+> +
+> +    case RTC_PORT(1):
+> +        spin_lock_irqsave(&rtc_lock, flags);
+> +        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> +        outb(data, RTC_PORT(1));
+> +        spin_unlock_irqrestore(&rtc_lock, flags);
+> +        break;
+> +    }
+> +}
+> +
+>  static unsigned long get_wallclock_time(void)
+>  {
+>  #ifdef CONFIG_XEN_GUEST
+> diff --git a/xen/include/asm-x86/mc146818rtc.h b/xen/include/asm-x86/mc14=
+6818rtc.h
+> index 8758528f7c..803b236c0a 100644
+> --- a/xen/include/asm-x86/mc146818rtc.h
+> +++ b/xen/include/asm-x86/mc146818rtc.h
+> @@ -110,4 +110,7 @@ outb_p((val),RTC_PORT(1)); \
+>
+>  #define RTC_IRQ 8
+>
+> +unsigned int rtc_guest_read(unsigned int port);
+> +void rtc_guest_write(unsigned int port, unsigned int data);
+> +
+>  #endif /* _ASM_MC146818RTC_H */
+> --
+> 2.26.2
+>
+>
 
