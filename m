@@ -2,71 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 317841EF65A
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 13:20:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CFD31EF660
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 13:26:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhAN5-0005az-Fi; Fri, 05 Jun 2020 11:18:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jhATy-0006Zq-77; Fri, 05 Jun 2020 11:25:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wSaP=7S=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1jhAN3-0005au-M6
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 11:18:46 +0000
-X-Inumbo-ID: 51c78c8a-a71e-11ea-af9f-12813bfff9fa
-Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 51c78c8a-a71e-11ea-af9f-12813bfff9fa;
- Fri, 05 Jun 2020 11:18:45 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 049FC5C012C;
- Fri,  5 Jun 2020 07:18:45 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Fri, 05 Jun 2020 07:18:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=8tbOzL
- dqHoqtee8s7JzdRooeTy5fY0jAVkxsEy3PYkU=; b=jreeL1NDetYYbk51rbHgXV
- rKJXOfwAJA8R9G/uwNkpUeTyY7COvHoH1GbsuKa5KaJbKyOckwgGQ2Wmbyi9ycRI
- zO0rbnh9Mn8507alpSSV4cduv8kxEb8qoindgeyQxMihHXw9YeqUG4wrxCrdSKtD
- n8m6hMU8F8rNKu8jkrDrz9NGh4R/R1krWFma6MjoW23Al4esnV6jUbpp3Fs+R3C0
- ShwTDcfgOqykoRs+CQh8+R/NOoMBd4o6knvt85BCiEWIsFf45uL7SnODJ8RcifoW
- HvkwzGHpGrXjswbvXGu9S0fbWLNU4Vnf2QB2jNtskZ+yQW1ftDPLPZswSBo2dQEg
- ==
-X-ME-Sender: <xms:FCraXjUFHxl4XrJB3zVzXqvB8qMIwdmESRfsXJXiL1EhE34aeQFeqQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudegfedgfedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeekgedt
- gfdvieehhfehtddvleeiieeuteevheetffejjeejvdeijeevhfeufeefgeenucffohhmrg
- hinhepghhithhhuhgsrdgtohhmnecukfhppeeluddrieehrdefgedrfeefnecuvehluhhs
- thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghkse
- hinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:FCraXrnxtJtp1pfAmNp_sllHJQIK71mNG9tJ_qxSCEcvceduHaHEEA>
- <xmx:FCraXvZ5IxkCjF05G9TUuGubL2_id69U76T_Z8czBgxMOYcypJELbg>
- <xmx:FCraXuVdWZszDw1Z6B6CYzkpS1f3nuUMQ7IcFuH9cnPLBRAzgIFaNA>
- <xmx:FSraXvnhTxxXaaQ-icBJR71w-_p2mGmMzVq2wQwvbGRTN8O9IbMbtg>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 57AEE328005A;
- Fri,  5 Jun 2020 07:18:44 -0400 (EDT)
-Date: Fri, 5 Jun 2020 13:18:40 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <SRS0=0ATx=7S=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jhATw-0006Zl-5k
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 11:25:52 +0000
+X-Inumbo-ID: 4f2c5748-a71f-11ea-9ad7-bc764e2007e4
+Received: from mail-wm1-x336.google.com (unknown [2a00:1450:4864:20::336])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4f2c5748-a71f-11ea-9ad7-bc764e2007e4;
+ Fri, 05 Jun 2020 11:25:50 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id v19so8110081wmj.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2020 04:25:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=dlYTlG/wymsby/4U+vjonCAb2F5ntKKcsWFlhfbgi5I=;
+ b=WS09KQ7EsjMBoQrJ/ZgYKD0icqMrZlH2uMwwQ1V0z14uHzqhUHlwSycHxvCnPqEaNV
+ MD8pjL8UYBv5yWhsDVCjvyzKnHUKxVNuz+QbP8sO0m6x8EjSEI2bu2dVCjDC969Kz+bL
+ bta7ek6CqH3jaUrEF6+VxnrUghfEzbHUWIZ6lAhPKl0EdOoXLSxPfhuXfQKLz//pRcxn
+ RFQ5S1bvwfNJNkMBZyM0ZZd5/FkUVtQbnSfv1EhFT/wvFh/a70yHrN42wQknianrTDkF
+ f2hPd1peQ4WsIq7PO3H/6rplKsFZNT4EEek1dII6p8ZsyyjlUPDyY0s/EJpxjP7ERZmW
+ 0aTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=dlYTlG/wymsby/4U+vjonCAb2F5ntKKcsWFlhfbgi5I=;
+ b=PpeUh7uTFQBg8rGZ+Lm66KuhTA9sfczGNb89OIixVjFtF+GSnnF5vniyXihsN5vD12
+ hx4ZWds603TSoj1Snzc8gVcHHgHZMmv09SYuKvJk9HTSN6U/MGp/AphGiR9YHoIOvrHm
+ PXvidsBLfzEA0Fg9/g7EK7Br+IPhNjzAyl8AORmPli+baj3gBN6vzG/yHJo41/J9zi/+
+ 2qR5eZae5EUOas0/Pr9vpQeizsOYLa4ih4pUjP9aw6q6K4L13kysV794dcsgvFI58WOK
+ xQe0dlfT0PE5j0NnEEM6y8Cj4z9fFrVcMHbup869kPkzxniGgXd5d6Kp0zq3FOy1ncVc
+ G8ag==
+X-Gm-Message-State: AOAM531gtFMuYU0IuKQq7LLjJVDHbbL2ReVkExR9aibsyhkNezcAZDNp
+ tn/cv6+2mZGUc3gnlkawZGM=
+X-Google-Smtp-Source: ABdhPJyJP2N4Y/lD+1IJcoUcakf+Edk6oYfMzMR1pUMbN70kPPRbFXOaj66o/SPsSoCw6F+qt+E/kg==
+X-Received: by 2002:a1c:4008:: with SMTP id n8mr2375719wma.118.1591356349822; 
+ Fri, 05 Jun 2020 04:25:49 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.187])
+ by smtp.gmail.com with ESMTPSA id j5sm11644078wrq.39.2020.06.05.04.25.48
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 05 Jun 2020 04:25:49 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: <paul@xen.org>, "'Jan Beulich'" <jbeulich@suse.com>,
+ =?UTF-8?Q?'Marek_Marczykowski-G=C3=B3recki'?=
  <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
- stubdom
-Message-ID: <20200605111840.GE98582@mail-itl>
 References: <20200604014621.GA203658@mail-itl>
- <e9c6dba3-2780-b155-5b12-3eb44dc31957@suse.com>
+ <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
+ <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
+ <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
+ <20200604142542.GC98582@mail-itl>
+ <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
+ <000501d63b29$496ce6e0$dc46b4a0$@xen.org>
+In-Reply-To: <000501d63b29$496ce6e0$dc46b4a0$@xen.org>
+Subject: RE: handle_pio looping during domain shutdown,
+ with qemu 4.2.0 in stubdom
+Date: Fri, 5 Jun 2020 12:25:48 +0100
+Message-ID: <000701d63b2c$10536930$30fa3b90$@xen.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="/7F8UcOhwbEJvS7n"
-Content-Disposition: inline
-In-Reply-To: <e9c6dba3-2780-b155-5b12-3eb44dc31957@suse.com>
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGjLdCXHS+ot6864srdbAQDyQsvoACJ30jDAXuEodcCsFgQ5AHivRJwAUZxxQAClbGaTqjcVVBw
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,91 +85,164 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
+Reply-To: paul@xen.org
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'xen-devel' <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---/7F8UcOhwbEJvS7n
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
- stubdom
-
-On Fri, Jun 05, 2020 at 11:38:17AM +0200, Jan Beulich wrote:
-> On 04.06.2020 03:46, Marek Marczykowski-G=C3=B3recki wrote:
-> > Hi,
-> >=20
-> > (continuation of a thread from #xendevel)
-> >=20
-> > During system shutdown quite often I hit infinite stream of errors like
-> > this:
-> >=20
-> >     (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
-> >     (XEN) domain_crash called from io.c:178
-> >=20
-> > This is all running on Xen 4.13.0 (I think I've got this with 4.13.1
-> > too), nested within KVM. The KVM part means everything is very slow, so
-> > various race conditions are much more likely to happen.
-> >=20
-> > It started happening not long ago, and I'm pretty sure it's about
-> > updating to qemu 4.2.0 (in linux stubdom), previous one was 3.0.0.
-> >=20
-> > Thanks to Andrew and Roger, I've managed to collect more info.
-> >=20
-> > Context:
-> >     dom0: pv
-> >     dom1: hvm
-> >     dom2: stubdom for dom1
-> >     dom3: hvm
-> >     dom4: stubdom for dom3
-> >     dom5: pvh
-> >     dom6: pvh
-> >=20
-> > It starts I think ok:
-> >=20
-> >     (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
-> >     (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> >     (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> >     (XEN) d3v0 handle_pio port 0xb004 write 0x0001
-> >     (XEN) d3v0 handle_pio port 0xb004 write 0x2001
-> >     (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+> -----Original Message-----
+> From: Paul Durrant <xadimgnik@gmail.com>
+> Sent: 05 June 2020 12:06
+> To: 'Jan Beulich' <jbeulich@suse.com>; 'Marek =
+Marczykowski-G=C3=B3recki' <marmarek@invisiblethingslab.com>
+> Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'xen-devel' =
+<xen-devel@lists.xenproject.org>
+> Subject: RE: handle_pio looping during domain shutdown, with qemu =
+4.2.0 in stubdom
 >=20
-> I can't seem to be able to spot the call site of this, in any of
-> qemu, libxl, or libxc. I'm in particular curious as to the further
-> actions taken on the domain after this was invoked: Do any ioreq
-> servers get unregistered immediately (which I think would be a
-> problem)?
+> Sorry, only just catching up with this...
+>=20
+> > -----Original Message-----
+> > From: Jan Beulich <jbeulich@suse.com>
+> > Sent: 05 June 2020 10:09
+> > To: Marek Marczykowski-G=C3=B3recki =
+<marmarek@invisiblethingslab.com>
+> > Cc: Andrew Cooper <andrew.cooper3@citrix.com>; xen-devel =
+<xen-devel@lists.xenproject.org>; Paul
+> > Durrant <paul@xen.org>
+> > Subject: Re: handle_pio looping during domain shutdown, with qemu =
+4.2.0 in stubdom
+> >
+> > On 04.06.2020 16:25, Marek Marczykowski-G=C3=B3recki wrote:
+> > > On Thu, Jun 04, 2020 at 02:36:26PM +0200, Jan Beulich wrote:
+> > >> On 04.06.2020 13:13, Andrew Cooper wrote:
+> > >>> On 04/06/2020 08:08, Jan Beulich wrote:
+> > >>>> On 04.06.2020 03:46, Marek Marczykowski-G=C3=B3recki wrote:
+> > >>>>> Then, we get the main issue:
+> > >>>>>
+> > >>>>>     (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> > >>>>>     (XEN) d3v0 Weird PIO status 1, port 0xb004 read 0xffff
+> > >>>>>     (XEN) domain_crash called from io.c:178
+> > >>>>>
+> > >>>>> Note, there was no XEN_DOMCTL_destroydomain for domain 3 nor =
+its stubdom
+> > >>>>> yet. But XEN_DMOP_remote_shutdown for domain 3 was called =
+already.
+> > >>>> I'd guess an issue with the shutdown deferral logic. Did you / =
+can
+> > >>>> you check whether XEN_DMOP_remote_shutdown managed to pause all
+> > >>>> CPUs (I assume it didn't, since once they're paused there =
+shouldn't
+> > >>>> be any I/O there anymore, and hence no I/O emulation)?
+> > >>>
+> > >>> The vcpu in question is talking to Qemu, so will have =
+v->defer_shutdown
+> > >>> intermittently set, and skip the pause in domain_shutdown()
+> > >>>
+> > >>> I presume this lack of pause is to allow the vcpu in question to =
+still
+> > >>> be scheduled to consume the IOREQ reply?  (Its fairly opaque =
+logic with
+> > >>> 0 clarifying details).
+> > >>>
+> > >>> What *should* happen is that, after consuming the reply, the =
+vcpu should
+> > >>> notice and pause itself, at which point it would yield to the
+> > >>> scheduler.  This is the purpose of =
+vcpu_{start,end}_shutdown_deferral().
+> > >>>
+> > >>> Evidentially, this is not happening.
+> > >>
+> > >> We can't tell yet, until ...
+> > >>
+> > >>> Marek: can you add a BUG() after the weird PIO printing?  That =
+should
+> > >>> confirm whether we're getting into handle_pio() via the
+> > >>> handle_hvm_io_completion() path, or via the vmexit path (at =
+which case,
+> > >>> we're fully re-entering the guest).
+> > >>
+> > >> ... we know this. handle_pio() gets called from =
+handle_hvm_io_completion()
+> > >> after having called hvm_wait_for_io() -> hvm_io_assist() ->
+> > >> vcpu_end_shutdown_deferral(), so the issue may be that we =
+shouldn't call
+> > >> handle_pio() (etc) at all anymore in this state. IOW perhaps
+> > >> hvm_wait_for_io() should return =
+"!sv->vcpu->domain->is_shutting_down"
+> > >> instead of plain "true"?
+> > >>
+> > >> Adding Paul to Cc, as being the maintainer here.
+> > >
+> > > Got it, by sticking BUG() just before that domain_crash() in
+> > > handle_pio(). And also vcpu 0 of both HVM domains do have
+> > > v->defer_shutdown.
+> >
+> > As per the log they did get it set. I'd be curious of the flag's
+> > value (as well as v->paused_for_shutdown's) at the point of the
+> > problematic handle_pio() invocation (see below). It may be
+> > worthwhile to instrument vcpu_check_shutdown() (inside its if())
+> > - before exiting to guest context (in order to then come back
+> > and call handle_pio()) the vCPU ought to be getting through
+> > there. No indication of it doing so would be a sign that there's
+> > a code path bypassing the call to vcpu_end_shutdown_deferral().
+> >
+> > > (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
+> > > (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> > > (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> > > (XEN) d3v0 handle_pio port 0xb004 write 0x0001
+> > > (XEN) d3v0 handle_pio port 0xb004 write 0x2001
+> > > (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+> > > (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
+> > > (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
+> > > (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
+> > > (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+> > > (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+> > > (XEN) d1v0 handle_pio port 0xb004 write 0x0001
+> > > (XEN) d1v0 handle_pio port 0xb004 write 0x2001
+> > > (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
+> > > (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
+> > > (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
+> > > (XEN) grant_table.c:3702:d0v0 Grant release 0x3 ref 0x11d flags =
+0x2 d6
+> > > (XEN) grant_table.c:3702:d0v0 Grant release 0x4 ref 0x11e flags =
+0x2 d6
+> > > (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+> >
+> > Perhaps in this message could you also log
+> > v->domain->is_shutting_down, v->defer_shutdown, and
+> > v->paused_for_shutdown? (Would be nice if, after having made
+> > changes to your debugging patch, you could point again at the
+> > precise version you've used for the log provided.)
+> >
+> > > (XEN) d3v0 Unexpected PIO status 1, port 0xb004 read 0xffff
+> > > (XEN) Xen BUG at io.c:178
+> >
+> > Btw, instead of BUG(), WARN() or dump_execution_state() would
+> > likely also do, keeping Xen alive.
+> >
+>=20
+> A shutdown deferral problem would result in X86EMUL_RETRY wouldn't it? =
+That would mean we wouldn't be
+> seeing the "Unexpected PIO" message. From that message this clearly =
+X86EMUL_UNHANDLEABLE which
+> suggests a race with ioreq server teardown, possibly due to selecting =
+a server but then not finding a
+> vcpu match in ioreq_vcpu_list.
 
-It is here:
-https://github.com/qemu/qemu/blob/master/hw/i386/xen/xen-hvm.c#L1539
+Actually looking at remote_shutdown... the test of ( reason =3D=3D =
+SHUTDOWN_crash ) and then clearing defer_shutdown looks a bit odd... =
+Just because the domain shutdown code has been set that way doesn't mean =
+that a vcpu is not deferred in emulation; SCHEDOP_shutdown_code could =
+easily be called from one vcpu whilst another has emulation pending.
 
-I think it's called from cpu_handle_ioreq(), and I think the request
-state is set to STATE_IORESP_READY before exiting (unless there is some
-exit() hidden in another function used there).
+  Paul
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+>=20
+>   Paul
+>=20
+> > Jan
 
---/7F8UcOhwbEJvS7n
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl7aKhEACgkQ24/THMrX
-1yxDHAf+NCJzXnzBD4v148UxdvvTkENOTAZwdNbopbDpxkG1z+EcUES6FBtF1AGa
-oEeKB0MXVTZWCbiIrKe1LiiToeAJx+8eQH8xCXTGPezNOFC8OYPuc57I6lkY4q6k
-UvvWOv+d5bwe+aos3bp5PZvMptEwMdvG9S6fVURWRPgpP6rVkRRS6eA94fBnChEP
-y8gOkq/617gZ6kAR1Dvys0RJ0m0IIqEAKeBJWLMgZ4eKTSg+aE/mayNIP9LhWvWM
-rCJDKu6Jc80Lfr2Dq8Uzqq44KY5DwfANZSOq1umSqkUPtByOhOYFQssjhenIjNd1
-RrcDYzjpdllQklL/6INmW3E+oaSE7A==
-=lyNc
------END PGP SIGNATURE-----
-
---/7F8UcOhwbEJvS7n--
 
