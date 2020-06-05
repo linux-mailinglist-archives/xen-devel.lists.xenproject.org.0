@@ -2,78 +2,151 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAECF1F011E
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 22:44:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF63A1F0186
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 23:26:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhJBQ-0005cN-Ma; Fri, 05 Jun 2020 20:43:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jhJqI-000150-Vg; Fri, 05 Jun 2020 21:25:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wSaP=7S=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1jhJBP-0005cI-3J
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 20:43:19 +0000
-X-Inumbo-ID: 2eecf520-a76d-11ea-9ad7-bc764e2007e4
-Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2eecf520-a76d-11ea-9ad7-bc764e2007e4;
- Fri, 05 Jun 2020 20:43:17 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 25DF141A;
- Fri,  5 Jun 2020 16:43:16 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Fri, 05 Jun 2020 16:43:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=d/klCz
- Dv7E5k4j6UzvEybo7FT4gyETyaRstTK2pm2gI=; b=vBC5RCkv3WuCTKf+SzUH4Q
- SyZdk2iLiUiLI2pdwV4V0VnhWq5vbNPjXIhqVGpR0y8S3qi/V0cNFtgUIUepT4UK
- yuPOtjki3GLySZ1SxwiayaQelO6G6244YXQxFsxjFgCihlV6KhvycC3HuT+4BqqI
- 6qk4oquScwRVzQVymvgmg0AMdmTMaSqg2vAfwZ7Yh2aNcqz6uF8SBVG2g7oa3ccq
- SZNonDU+VSarZGf2+bUjWOkkVCSLeOjgKUXsbVC4MF2et/VbZHVdbLjHGqL08qn7
- 2Wo6W9LOVankpewBG+MPULy4/dQJMEYoF9Ymn5h0sOSKhqSO5o61UiSCqcMMbC1A
- ==
-X-ME-Sender: <xms:Y67aXtAGwXm5FSs9R-7I8bv2ibl5yu5e5s-OyTgxUgPQLXbknd1XgQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudegfedgudeflecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepkdforghr
- vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihdkuceomhgrrhhmrghrvghkse
- hinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhep
- fffgudeggedtgeegteehfeevffetieegkeejtdeuleehtddvueffjeeklefhkeehnecuff
- homhgrihhnpehgihhthhhusgdrtghomhenucfkphepledurdeihedrfeegrdeffeenucev
- lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrh
- gvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:Y67aXrjiBDPeeDdbuaQTPr9XdvXLckMwgdb_FngriPG0sh61kxe9LA>
- <xmx:Y67aXokwxqVrbbVHqjc1o9LGM4OjYzvFEaq_LOHWdz0KfiNmUeD2aQ>
- <xmx:Y67aXnwsLXY6ml3B8IXmeqA9Jx3gXBWnKe-6aDj5XBXda9Vc3JIjVw>
- <xmx:Y67aXpO0zRixllehGLyBoJaORjJojqgjJcoP6mwtYZqMM9RD62zgvg>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id C173C3061CCB;
- Fri,  5 Jun 2020 16:43:14 -0400 (EDT)
-Date: Fri, 5 Jun 2020 22:43:10 +0200
-From: 'Marek =?utf-8?Q?Marczykowski-G=C3=B3recki'?=
- <marmarek@invisiblethingslab.com>
-To: paul@xen.org
-Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
- stubdom
-Message-ID: <20200605204310.GK98582@mail-itl>
-References: <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
- <000501d63b29$496ce6e0$dc46b4a0$@xen.org>
- <000701d63b2c$10536930$30fa3b90$@xen.org>
- <0296d5d6-cc7f-6e34-2403-acf34b870b5b@suse.com>
- <002101d63b3f$4e9dc830$ebd95890$@xen.org>
- <e2b8dd67-59c2-7e59-36f6-ce30b2df8b86@suse.com>
- <002201d63b40$1e135ee0$5a3a1ca0$@xen.org>
- <002f01d63b50$c8b49a70$5a1dcf50$@xen.org>
- <20200605171353.GG6329@mail-itl>
- <001501d63b5e$26a991a0$73fcb4e0$@xen.org>
+ <SRS0=eUU5=7S=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1jhJqH-00014v-Jr
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 21:25:33 +0000
+X-Inumbo-ID: 15f4757e-a773-11ea-b038-12813bfff9fa
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 15f4757e-a773-11ea-b038-12813bfff9fa;
+ Fri, 05 Jun 2020 21:25:32 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 055LCfnP068053;
+ Fri, 5 Jun 2020 21:24:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=aV98zPU93QBvNWrzk/ChQ5VDmnpe9w8rIC4yo8Fb6lM=;
+ b=Q1wCXDw9w/bF7V0bkGC6IvL76x/w0WRjHOjcxmnHanLSCPjsBGyoHCWarj+RUh94mOSJ
+ JOw6GQd3a5lw9KYdYwB2p/gU3zJuSBSrGrcp6GYC6IH07y9J6nCZZj+uTRccUfHts6bd
+ MdUyRr//DuAUp9QUBtGFB4+83Cz9gWQPj0pd9i6KcEhicYRbbQUTTrLaGUHKpeehAJCZ
+ 81LgCPL7zl/DqQu7VMtqkC3X4EK4U8vjMA9l5YLArm6psse7CKjV7A9oD3lz3ZtmSrRt
+ ET2Dx60lQiQPN8gE2bl/ckY4w3R5KJWxgT9i2gvTGQxuSupj4SrfzCWHtvZJZpGjkGwB yQ== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 31f91dvsxd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 05 Jun 2020 21:24:53 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 055LEWQ2149042;
+ Fri, 5 Jun 2020 21:24:52 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3020.oracle.com with ESMTP id 31f927qyn8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 05 Jun 2020 21:24:52 +0000
+Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 055LOfOR001022;
+ Fri, 5 Jun 2020 21:24:41 GMT
+Received: from [10.39.238.70] (/10.39.238.70)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 05 Jun 2020 14:24:41 -0700
+Subject: Re: [PATCH 04/12] x86/xen: add system core suspend and resume
+ callbacks
+To: "Agarwal, Anchal" <anchalag@amazon.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+ "hpa@zytor.com" <hpa@zytor.com>, "x86@kernel.org" <x86@kernel.org>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "Kamata, Munehisa" <kamatam@amazon.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ "axboe@kernel.dk" <axboe@kernel.dk>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "len.brown@intel.com" <len.brown@intel.com>, "pavel@ucw.cz" <pavel@ucw.cz>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "Valentin, Eduardo" <eduval@amazon.com>, "Singh, Balbir"
+ <sblbir@amazon.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "vkuznets@redhat.com" <vkuznets@redhat.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Woodhouse, David" <dwmw@amazon.co.uk>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>
+References: <cover.1589926004.git.anchalag@amazon.com>
+ <79cf02631dc00e62ebf90410bfbbdb52fe7024cb.1589926004.git.anchalag@amazon.com>
+ <4b577564-e4c3-0182-2b9e-5f79004f32a1@oracle.com>
+ <B966B3A2-4F08-42FA-AF59-B8AA0783C2BA@amazon.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
+ 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
+ Jg6OxFYd01z+a+oL
+Message-ID: <e2073aa4-2410-4630-fee6-4e4abc172876@oracle.com>
+Date: Fri, 5 Jun 2020 17:24:37 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="SR0DFWOzPg+ymaCV"
-Content-Disposition: inline
-In-Reply-To: <001501d63b5e$26a991a0$73fcb4e0$@xen.org>
+In-Reply-To: <B966B3A2-4F08-42FA-AF59-B8AA0783C2BA@amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9643
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ phishscore=0
+ mlxlogscore=999 bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2006050158
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9643
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 bulkscore=0
+ clxscore=1015 cotscore=-2147483648 malwarescore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 phishscore=0 spamscore=0 mlxscore=0
+ impostorscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2006050158
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,115 +157,95 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Jan Beulich' <jbeulich@suse.com>,
- 'xen-devel' <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 6/3/20 6:40 PM, Agarwal, Anchal wrote:
+>     CAUTION: This email originated from outside of the organization. Do=
+ not click links or open attachments unless you can confirm the sender an=
+d know the content is safe.
+>
+>
+>
+>     On 5/19/20 7:26 PM, Anchal Agarwal wrote:
+>     > From: Munehisa Kamata <kamatam@amazon.com>
+>     >
+>     > Add Xen PVHVM specific system core callbacks for PM suspend and
+>     > hibernation support. The callbacks suspend and resume Xen
+>     > primitives,like shared_info, pvclock and grant table. Note that
+>     > Xen suspend can handle them in a different manner, but system
+>     > core callbacks are called from the context.
+>
+>
+>     I don't think I understand that last sentence.
+>
+> Looks like it may have cryptic meaning of stating that xen_suspend call=
+s syscore_suspend from xen_suspend
+> So, if these syscore ops gets called  during xen_suspend do not do anyt=
+hing. Check if the mode is in xen suspend=20
+> and return from there. These syscore_ops are specifically for domU hibe=
+rnation.
+> I must admit, I may have overlooked lack of explanation of some implici=
+t details in the original commit msg.=20
+>
+>     >  So if the callbacks
+>     > are called from Xen suspend context, return immediately.
+>     >
+>
+>
+>     > +
+>     > +static int xen_syscore_suspend(void)
+>     > +{
+>     > +     struct xen_remove_from_physmap xrfp;
+>     > +     int ret;
+>     > +
+>     > +     /* Xen suspend does similar stuffs in its own logic */
+>     > +     if (xen_suspend_mode_is_xen_suspend())
+>     > +             return 0;
 
---SR0DFWOzPg+ymaCV
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
- stubdom
 
-On Fri, Jun 05, 2020 at 06:24:20PM +0100, Paul Durrant wrote:
-> > -----Original Message-----
-> > From: 'Marek Marczykowski-G=C3=B3recki' <marmarek@invisiblethingslab.co=
-m>
-> > Sent: 05 June 2020 18:14
-> > To: paul@xen.org
-> > Cc: 'Jan Beulich' <jbeulich@suse.com>; 'Andrew Cooper' <andrew.cooper3@=
-citrix.com>; 'xen-devel' <xen-
-> > devel@lists.xenproject.org>
-> > Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0=
- in stubdom
-> >=20
-> > On Fri, Jun 05, 2020 at 04:48:39PM +0100, Paul Durrant wrote:
-> > > This (untested) patch might help:
-> >=20
-> > It is different now. I don't get domain_crash because of
-> > X86EMUL_UNHANDLEABLE anymore, but I still see handle_pio looping for
-> > some time. But it eventually ends, not really sure why.
->=20
-> That'll be the shutdown deferral, which I realised later that I forgot ab=
-out...
->=20
-> >=20
-> > I've tried the patch with a modification to make it build:
-> >=20
-> > > diff --git a/xen/arch/x86/hvm/ioreq.c b/xen/arch/x86/hvm/ioreq.c
-> > > index c55c4bc4bc..8aa8779ba2 100644
-> > > --- a/xen/arch/x86/hvm/ioreq.c
-> > > +++ b/xen/arch/x86/hvm/ioreq.c
-> > > @@ -109,12 +109,7 @@ static void hvm_io_assist(struct hvm_ioreq_vcpu =
-*sv, uint64_t data)
-> > >      ioreq_t *ioreq =3D &v->arch.hvm.hvm_io.io_req;
-> > >
-> > >      if ( hvm_ioreq_needs_completion(ioreq) )
-> > > -    {
-> > > -        ioreq->state =3D STATE_IORESP_READY;
-> > >          ioreq->data =3D data;
-> > > -    }
-> > > -    else
-> > > -        ioreq->state =3D STATE_IOREQ_NONE;
-> > >
-> > >      msix_write_completion(v);
-> > >      vcpu_end_shutdown_deferral(v);
->=20
-> In fact, move both of these lines...
->=20
-> > > @@ -209,6 +204,9 @@ bool handle_hvm_io_completion(struct vcpu *v)
-> > >          }
-> > >      }
-> > >
-> > > +    ioreq->state =3D hvm_ioreq_needs_completion(&vio->ioreq) ?
-> >        vio->io_req->state ... &vio->io_req
-> >=20
-> > > +        STATE_IORESP_READY : STATE_IOREQ_NONE;
-> > > +
->=20
-> ... to here too.
->=20
-> > >      io_completion =3D vio->io_completion;
-> > >      vio->io_completion =3D HVMIO_no_completion;
-> > >
-> >=20
-> > The full patch (together with my debug prints):
-> > https://gist.github.com/marmarek/da37da3722179057a6e7add4fb361e06
+With your explanation now making this clearer, is this check really
+necessary? From what I see we are in XEN_SUSPEND mode when
+lock_system_sleep() lock is taken, meaning that we can't initialize
+hibernation.
 
-The current patch:
-https://gist.github.com/marmarek/5ae795129c1be2dae13bfc517547c0f1
 
-> I guess it is the destroy being held off by the shutdown deferral? Hopefu=
-lly the above tweaks should sort that out.
+>     > +
+>     > +     xrfp.domid =3D DOMID_SELF;
+>     > +     xrfp.gpfn =3D __pa(HYPERVISOR_shared_info) >> PAGE_SHIFT;
+>     > +
+>     > +     ret =3D HYPERVISOR_memory_op(XENMEM_remove_from_physmap, &x=
+rfp);
+>     > +     if (!ret)
+>     > +             HYPERVISOR_shared_info =3D &xen_dummy_shared_info;
+>     > +
+>     > +     return ret;
+>     > +}
+>     > +
+>     > +static void xen_syscore_resume(void)
+>     > +{
+>     > +     /* Xen suspend does similar stuffs in its own logic */
+>     > +     if (xen_suspend_mode_is_xen_suspend())
+>     > +             return;
+>     > +
+>     > +     /* No need to setup vcpu_info as it's already moved off */
+>     > +     xen_hvm_map_shared_info();
+>     > +
+>     > +     pvclock_resume();
+>     > +
+>     > +     gnttab_resume();
+>
+>
+>     Do you call gnttab_suspend() in pm suspend path?
+> No, since it does nothing for HVM guests. The unmap_frames is only appl=
+icable for PV guests right?
 
-Yes, now it works (tried 5 times in a row, previously it crashed on
-the first or the second one). Thanks!
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+You should call it nevertheless. It will decide whether or not anything
+needs to be done.
 
---SR0DFWOzPg+ymaCV
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+-boris
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl7arl4ACgkQ24/THMrX
-1yyZxgf/fHIMG20frDFWRvxY7zz087+IPvXEVpbSqGygPKYP35Zs4qp9vyY0V+wx
-Co3y+UGloILRX1/z7+eh2hxDJbXPtMEQGbkF1+SFFDNKhLTX5W0MGmW+ujX37NFP
-IvPZf6FsHIfA4GNlf+rlCA7YGO4tWGzSD8QEReqBdoLzkdncfJRbSNtPeu4BV31g
-OAKhsDIipu9NeN7qPBJkw49tocgsQPEvlyy7GG45IrlCdE+dRUW69Ukaf2u83sgI
-GtJwSNJ0+V/ieFI9pv5cU7mjGgjrhz8s46Tmfq6PUhYJKC4vJ+da1x+LW4NRWkoa
-k/78vCkZ/EGAalCDCawPI67foVlHCg==
-=Cnfr
------END PGP SIGNATURE-----
 
---SR0DFWOzPg+ymaCV--
 
