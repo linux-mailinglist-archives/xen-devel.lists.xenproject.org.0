@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B9D21EF272
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 09:50:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8126F1EF274
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 09:51:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jh77N-00011K-6L; Fri, 05 Jun 2020 07:50:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lb65=7S=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jh77L-00011F-U7
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 07:50:19 +0000
-X-Inumbo-ID: 333bf8ae-a701-11ea-9947-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 333bf8ae-a701-11ea-9947-bc764e2007e4;
- Fri, 05 Jun 2020 07:50:18 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: UfAALRlWE6qiXUKQ5xipb/JQm0FMueBWje/OyMcykw03jdL2F2idFe4vUdael29xJf9Vyr7k+H
- lmM3UupEoir8p1ECyAb6y1PN69hiI8soAIx4AqSdkBHz+E4taCqw+yZdieHY4g28bCYp3wFVAX
- R1iC1mHd7ZLoUWTUJiWiCyxSvPVMEamSh1ZYmhUKRl+StjY4wyfI93DM2nRowGpYHXC5v8k1w7
- Z+ywdco4eJ+pd6Hkahn5p1FtQ6STwgVDcfrQzRDdjqMaJBEYVBonj70/bg1BhwHlguZQo8srOk
- UN8=
-X-SBRS: 2.7
-X-MesageID: 19550453
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,475,1583211600"; d="scan'208";a="19550453"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH for-4.14] x86/rtc: provide mediated access to RTC for PVH dom0
-Date: Fri, 5 Jun 2020 09:50:06 +0200
-Message-ID: <20200605075006.51238-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.2
+	id 1jh78L-0001Ca-KB; Fri, 05 Jun 2020 07:51:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=thT7=7S=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jh78J-0001CQ-TB
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 07:51:19 +0000
+X-Inumbo-ID: 555ba286-a701-11ea-af7f-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 555ba286-a701-11ea-af7f-12813bfff9fa;
+ Fri, 05 Jun 2020 07:51:16 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7B094AB7D;
+ Fri,  5 Jun 2020 07:51:18 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/Intel: insert Ice Lake and Comet Lake model numbers
+Message-ID: <baa738ce-0398-48df-e94e-dc8b86a35f6c@suse.com>
+Date: Fri, 5 Jun 2020 09:51:09 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,126 +44,71 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>, paul@xen.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-At some point (maybe PVHv1?) mediated access to the RTC was provided
-for PVH dom0 using the PV code paths (guest_io_{write/read}). At some
-point this code has been made PV specific and unhooked from the
-current PVH IO path. This patch provides such mediated access to the
-RTC for PVH dom0, just like it's provided for a classic PV dom0.
+Both match prior generation processors as far as LBR and C-state MSRs
+go (SDM rev 072) as well as applicability of the if_pschange_mc erratum
+(recent spec updates).
 
-Instead of re-using the PV paths implement such handler together with
-the vRTC code for HVM, so that calling rtc_init will setup the
-appropriate handlers for all HVM based guests.
-
-Without this a Linux PVH dom0 will read garbage when trying to access
-the RTC, and one vCPU will be constantly looping in
-rtc_timer_do_work.
-
-Note that such issue doesn't happen on domUs because the ACPI
-NO_CMOS_RTC flag is set in FADT, which prevents the OS from accessing
-the RTC.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-for-4.14 reasoning: the fix is completely isolated to PVH dom0, and as
-such the risk is very low of causing issues to other guests types, but
-without this fix one vCPU when using a Linux dom0 will be constantly
-looping over rtc_timer_do_work with 100% CPU usage, at least when
-using Linux 4.19 or newer.
+Such changes having been subject to backporting in the past, this
+change may want considering for 4.14.
 ---
- xen/arch/x86/hvm/rtc.c | 69 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+I'm leaving alone spec_ctrl.c, albeit there's a scary looking erratum
+for Ice Lake indicating that MDS_NO may wrongly be set. But this is
+apparently addressed by ucode update, so we may not need to deal with
+it in software.
 
-diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
-index 5bbbdc0e0f..5d637cf018 100644
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -808,10 +808,79 @@ void rtc_reset(struct domain *d)
-     s->pt.source = PTSRC_isa;
- }
+--- a/xen/arch/x86/acpi/cpu_idle.c
++++ b/xen/arch/x86/acpi/cpu_idle.c
+@@ -180,9 +180,15 @@ static void do_get_hw_residencies(void *
+     case 0x4E:
+     case 0x55:
+     case 0x5E:
++    /* Ice Lake */
++    case 0x7D:
++    case 0x7E:
+     /* Kaby Lake */
+     case 0x8E:
+     case 0x9E:
++    /* Comet Lake */
++    case 0xA5:
++    case 0xA6:
+         GET_PC2_RES(hw_res->pc2);
+         GET_CC7_RES(hw_res->cc7);
+         /* fall through */
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2438,8 +2438,12 @@ static bool __init has_if_pschange_mc(vo
+     case 0x4e: /* Skylake M */
+     case 0x5e: /* Skylake D */
+     case 0x55: /* Skylake-X / Cascade Lake */
++    case 0x7d: /* Ice Lake */
++    case 0x7e: /* Ice Lake */
+     case 0x8e: /* Kaby / Coffee / Whiskey Lake M */
+     case 0x9e: /* Kaby / Coffee / Whiskey Lake D */
++    case 0xa5: /* Comet Lake H/S */
++    case 0xa6: /* Comet Lake U */
+         return true;
  
-+/* RTC mediator for HVM hardware domain. */
-+static unsigned int hw_read(unsigned int port)
-+{
-+    const struct domain *currd = current->domain;
-+    unsigned long flags;
-+    unsigned int data = 0;
-+
-+    switch ( port )
-+    {
-+    case RTC_PORT(0):
-+          data = currd->arch.cmos_idx;
-+          break;
-+
-+    case RTC_PORT(1):
-+          spin_lock_irqsave(&rtc_lock, flags);
-+          outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
-+          data = inb(RTC_PORT(1));
-+          spin_unlock_irqrestore(&rtc_lock, flags);
-+          break;
-+    }
-+
-+    return data;
-+}
-+
-+static void hw_write(unsigned int port, unsigned int data)
-+{
-+    struct domain *currd = current->domain;
-+    unsigned long flags;
-+
-+    switch ( port )
-+    {
-+    case RTC_PORT(0):
-+          currd->arch.cmos_idx = data;
-+          break;
-+
-+    case RTC_PORT(1):
-+          spin_lock_irqsave(&rtc_lock, flags);
-+          outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
-+          outb(data, RTC_PORT(1));
-+          spin_unlock_irqrestore(&rtc_lock, flags);
-+          break;
-+    }
-+}
-+
-+static int hw_rtc_io(int dir, unsigned int port, unsigned int size,
-+                     uint32_t *val)
-+{
-+    if ( size != 1 )
-+    {
-+        gdprintk(XENLOG_WARNING, "bad RTC access size (%u)\n", size);
-+        *val = ~0;
-+        return X86EMUL_OKAY;
-+    }
-+
-+    if ( dir == IOREQ_WRITE )
-+        hw_write(port, *val);
-+    else
-+        *val = hw_read(port);
-+
-+    return X86EMUL_OKAY;
-+}
-+
- void rtc_init(struct domain *d)
- {
-     RTCState *s = domain_vrtc(d);
- 
-+    if ( is_hardware_domain(d) )
-+    {
-+        /* Hardware domain gets mediated access to the physical RTC. */
-+        register_portio_handler(d, RTC_PORT(0), 2, hw_rtc_io);
-+        return;
-+    }
-+
-     if ( !has_vrtc(d) )
-         return;
- 
--- 
-2.26.2
-
+         /*
+@@ -2781,10 +2785,14 @@ static const struct lbr_info *last_branc
+         case 0x66:
+         /* Goldmont Plus */
+         case 0x7a:
++        /* Ice Lake */
++        case 0x7d: case 0x7e:
+         /* Tremont */
+         case 0x86:
+         /* Kaby Lake */
+         case 0x8e: case 0x9e:
++        /* Comet Lake */
++        case 0xa5: case 0xa6:
+             return sk_lbr;
+         /* Atom */
+         case 0x1c: case 0x26: case 0x27: case 0x35: case 0x36:
 
