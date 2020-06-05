@@ -2,48 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D253B1EF3EE
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 11:21:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C88F51EF3F4
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 11:21:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jh8Wu-0002k7-0q; Fri, 05 Jun 2020 09:20:48 +0000
+	id 1jh8XY-0002o7-Do; Fri, 05 Jun 2020 09:21:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lb65=7S=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jh8Wr-0002k1-QP
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 09:20:45 +0000
-X-Inumbo-ID: d49f7b9c-a70d-11ea-af92-12813bfff9fa
+ id 1jh8XX-0002nx-4E
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 09:21:27 +0000
+X-Inumbo-ID: ee185ab2-a70d-11ea-af92-12813bfff9fa
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d49f7b9c-a70d-11ea-af92-12813bfff9fa;
- Fri, 05 Jun 2020 09:20:43 +0000 (UTC)
+ id ee185ab2-a70d-11ea-af92-12813bfff9fa;
+ Fri, 05 Jun 2020 09:21:26 +0000 (UTC)
 Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: Y4RzL7ZlZtLJOn65u7lt07CElv8iMPCsqdoRiOwZegPpKjaQQAjeYkp3dOz+df6GnNvtbrq7+d
- uwQCauS7MSRrIcsoXAs7/lku7RTfK7IeByYJ3sCwsuJ0HY2dZKrujactrmMUAlOqAHP6URbJ9D
- +YN0k4iDsT7yPoQ7Rh82jbML4CVp+XdA/3IOZHtim+FGbce0twK6+3CsvWTY4q6iW8/F96ZKbf
- QEoBXQtZ4PGcie4zJPPjjNiyi7ERjiJ3EFW66tLQna9anauLURW94kJDdl2NUxFUFWIQ2oy2oh
- 1Yc=
+IronPort-SDR: L+UWBliUE3jgTH6GDv2zRb3XTL5nA7ZNrHBlwtGKEU2BWjJbH6cmXzRmdMdlE55XU3Fx7VEtul
+ 5Pskt52HdPVR+lEokf8AvD3u4DyFEbMHCBs8vmbbFN8kCGJpGd4t5hTmzzeLA5qUBEX1D9o+kb
+ qFV7ts+qld26h8rwwS5v2w1NYteWUO0YBlCUhRTMoCA71Ksr1dEJIURHIzUzYboVTFHidwRE3v
+ Sx82K3WQzFzsgk7o1yr7pNWoBqSQNuEYFCWVWJhp9uZTyCNbC5PsKTCwv6u2rqo+/dG4JvyqDS
+ 65c=
 X-SBRS: 2.7
-X-MesageID: 19601042
+X-MesageID: 19601087
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,475,1583211600"; d="scan'208";a="19601042"
-Date: Fri, 5 Jun 2020 11:20:35 +0200
+X-IronPort-AV: E=Sophos;i="5.73,475,1583211600"; d="scan'208";a="19601087"
+Date: Fri, 5 Jun 2020 11:21:18 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH for-4.14] x86/rtc: provide mediated access to RTC for PVH
- dom0
-Message-ID: <20200605092035.GL1195@Air-de-Roger>
-References: <20200605075006.51238-1-roger.pau@citrix.com>
- <ac523b3f-cc96-e63e-732c-2aa7ac3eac59@suse.com>
+Subject: Re: [PATCH] x86/Intel: insert Ice Lake and Comet Lake model numbers
+Message-ID: <20200605092118.GM1195@Air-de-Roger>
+References: <baa738ce-0398-48df-e94e-dc8b86a35f6c@suse.com>
+ <20200605080216.GI1195@Air-de-Roger>
+ <32c4cdf7-0fdd-8b12-ee42-dfe8fe096935@suse.com>
+ <20200605084644.GJ1195@Air-de-Roger>
+ <d24f6ebc-7b3c-d560-c073-3c039542ebf8@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <ac523b3f-cc96-e63e-732c-2aa7ac3eac59@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d24f6ebc-7b3c-d560-c073-3c039542ebf8@suse.com>
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -56,108 +59,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, paul@xen.org
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jun 05, 2020 at 10:48:48AM +0200, Jan Beulich wrote:
-> On 05.06.2020 09:50, Roger Pau Monne wrote:
-> > At some point (maybe PVHv1?) mediated access to the RTC was provided
-> > for PVH dom0 using the PV code paths (guest_io_{write/read}). At some
-> > point this code has been made PV specific and unhooked from the
-> > current PVH IO path.
-> 
-> I don't suppose you've identified the commit which did? This would
-> help deciding whether / how far to backport such a change.
-
-I've attempted to, but failed to find the exact commit. I guess it
-might have happened at ecaba067e1e433 when guest_io_{read/write} was
-moved into emul-priv-op.c and made PV specific, but that's just a hint.
-
-> > This patch provides such mediated access to the
-> > RTC for PVH dom0, just like it's provided for a classic PV dom0.
+On Fri, Jun 05, 2020 at 10:54:22AM +0200, Jan Beulich wrote:
+> On 05.06.2020 10:46, Roger Pau Monné wrote:
+> > On Fri, Jun 05, 2020 at 10:10:01AM +0200, Jan Beulich wrote:
+> >> On 05.06.2020 10:02, Roger Pau Monné wrote:
+> >>> On Fri, Jun 05, 2020 at 09:51:09AM +0200, Jan Beulich wrote:
+> >>>> Both match prior generation processors as far as LBR and C-state MSRs
+> >>>> go (SDM rev 072) as well as applicability of the if_pschange_mc erratum
+> >>>> (recent spec updates).
+> >>>>
+> >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>>> ---
+> >>>> Such changes having been subject to backporting in the past, this
+> >>>> change may want considering for 4.14.
+> >>>> ---
+> >>>> I'm leaving alone spec_ctrl.c, albeit there's a scary looking erratum
+> >>>> for Ice Lake indicating that MDS_NO may wrongly be set. But this is
+> >>>> apparently addressed by ucode update, so we may not need to deal with
+> >>>> it in software.
+> >>>>
+> >>>> --- a/xen/arch/x86/acpi/cpu_idle.c
+> >>>> +++ b/xen/arch/x86/acpi/cpu_idle.c
+> >>>
+> >>> What about mwait-idle? I guess we pick that from Linux and no patch
+> >>> has been added so far?
+> >>
+> >> Correct. I've looked at recent history there, and I'm uncertain they'll
+> >> add further models there. They look to prefer to use ACPI _CST now again
+> >> with, as it seems, not overly much of a difference to the ACPI driver
+> >> (which, if we were to follow, I'd rather see us integrate there).
 > > 
-> > Instead of re-using the PV paths implement such handler together with
-> > the vRTC code for HVM, so that calling rtc_init will setup the
-> > appropriate handlers for all HVM based guests.
+> > Urg, OK, that's a shame as using mwait-idle was IMO better from a Xen
+> > PoV as we didn't rely on dom0 in order to discover C states. I wonder
+> > if we could continue to update mwait-idle on our own for newer models.
 > 
-> Hooking this into rtc_init() makes sense as long as it's really
-> just the RTC. Looking at the PV code you're cloning from, I
-> wonder though whether pv_pit_handler() should also regain callers
-> for PVH. As it stands the function is called for PV only, yet was
-> deliberately put/kept outside of pv/.
-
-IIRC pv_pit_handler was also used by PVHv1 dom0, but we decided to not
-enable it for PVHv2 because no one really knew why the PIT was
-actually needed for by dom0.
-
-I think it's in emul-i8524.c (outside of pv/) because it calls into
-static functions on that file that are also used by HVM
-(handle_pit_io)?
-
-> So along the lines of Paul's reply I think it would be better if
-> code was shared between PV and PVH Dom0, perhaps by breaking out
-> respective pieces from guest_io_{read,write}().
-
-OK, I can try but it will involve more code churn.
-
+> This would be nice indeed, but would require Intel to provide us with
+> the necessary data.
 > 
-> > Note that such issue doesn't happen on domUs because the ACPI
-> > NO_CMOS_RTC flag is set in FADT, which prevents the OS from accessing
-> > the RTC.
+> > FWIW, wikichip also lists 6c and 6a [0] as Ice Lake Server model versions,
+> > but I'm not sure if this has been confirmed in any way?
 > 
-> Will it? I'm pretty sure Linux may (have?) ignore(d) this flag.
+> SDM vol 4 confirms this, but mentions the two model numbers exclusively
+> in the table matching signatures to model names ("Future Intel Xeon
+> processors based on Ice Lake microarchitecture"). Without there being an
+> actual table for these I don't think we should "speculatively" add the
+> numbers anywhere.
 
-Seems like it's acknowledged now:
+Ack.
 
-https://elixir.bootlin.com/linux/latest/source/arch/x86/kernel/acpi/boot.c#L969
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-PVHv2 support is fairly recent anyway, and I wouldn't recommend using
-anything below Linux 4.19, which also has this implemented.
-
-> > --- a/xen/arch/x86/hvm/rtc.c
-> > +++ b/xen/arch/x86/hvm/rtc.c
-> > @@ -808,10 +808,79 @@ void rtc_reset(struct domain *d)
-> >      s->pt.source = PTSRC_isa;
-> >  }
-> >  
-> > +/* RTC mediator for HVM hardware domain. */
-> > +static unsigned int hw_read(unsigned int port)
-> > +{
-> > +    const struct domain *currd = current->domain;
-> > +    unsigned long flags;
-> > +    unsigned int data = 0;
-> > +
-> > +    switch ( port )
-> > +    {
-> > +    case RTC_PORT(0):
-> > +          data = currd->arch.cmos_idx;
-> > +          break;
-> > +
-> > +    case RTC_PORT(1):
-> > +          spin_lock_irqsave(&rtc_lock, flags);
-> > +          outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
-> > +          data = inb(RTC_PORT(1));
-> > +          spin_unlock_irqrestore(&rtc_lock, flags);
-> 
-> Avoiding to clone the original code would also avoid omissions
-> like the ioports_access_permitted() calls you've dropped from
-> here as well as the write counterpart. This may seem redundant
-> as we never deny access right now, but should imo be there in
-> case we decide to do (e.g. on NO_CMOS_RTC systems).
-> 
-> Actually, "never" wasn't quite right I think: Late-hwdom
-> creation will revoke access from dom0 and instead grant it to
-> the new hwdom. Without the check, dom0 would continue to be
-> able to access the RTC.
-
-TBH I'm not sure late-hwdom switching from an initial PVH domain will
-work work very well, as we would already have to modify the vmcs/vmcb
-io_bitmap in order to convey the changes to the allowed IO port ranges
-which we don't do now.
-
-Let me see if I can split the helpers.
-
-Roger.
+Thanks.
 
