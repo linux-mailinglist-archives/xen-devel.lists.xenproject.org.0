@@ -2,80 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A6D1EF816
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 14:40:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2380B1EF826
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 14:42:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhBdI-0005i6-Q4; Fri, 05 Jun 2020 12:39:36 +0000
+	id 1jhBg6-0006cx-Cc; Fri, 05 Jun 2020 12:42:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0ATx=7S=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jhBdH-0005i1-4g
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 12:39:35 +0000
-X-Inumbo-ID: 9b956dea-a729-11ea-96fb-bc764e2007e4
-Received: from mail-ej1-x631.google.com (unknown [2a00:1450:4864:20::631])
+ <SRS0=Us8T=7S=gmail.com=codewiz2280@srs-us1.protection.inumbo.net>)
+ id 1jhBg4-0006cs-Qb
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 12:42:28 +0000
+X-Inumbo-ID: 038a3f2a-a72a-11ea-96fb-bc764e2007e4
+Received: from mail-ej1-x641.google.com (unknown [2a00:1450:4864:20::641])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b956dea-a729-11ea-96fb-bc764e2007e4;
- Fri, 05 Jun 2020 12:39:34 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id x1so9912624ejd.8
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2020 05:39:33 -0700 (PDT)
+ id 038a3f2a-a72a-11ea-96fb-bc764e2007e4;
+ Fri, 05 Jun 2020 12:42:28 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id x1so9922150ejd.8
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2020 05:42:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=y7ZbTDjEZID7JxufTackG+ISWZQimmY0w3U+s6CBkyE=;
- b=EWfydwxVB/wul9AW4p/QELCnc2/P3WDDLQuUvMu7AfbRwLgSoxluX5UIKcnf4Y0PZ9
- ETEc1lJqnB3oNZBBlbBW+QB9+FN9oAdyaDk7q2yUgszcn6K8IX3g6zJ+7ld6Ar5qc4uv
- 7kFKuKNelRcONh0XExIwWC+l9xZdaTbVBopJ9KrmhmkwOegJG27OliSiCeEfuNQctdnl
- 5vZ2g8/6J4J6Mq9YDOWQs803UzqrKb+TInyqmF55XGF4UfN2x0HjbzGoGgMjsTN6wQu5
- QeU68hUSipAzB7qqD3+W29euCcXbbXXUJiyO/3F5n0dsq8vbak97h+j6VGkAWEC40oZo
- KBdA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7gDE5ftp8pEVvtW1JgGQS31oKVudle1B73F3+TfRCJU=;
+ b=tzoKny5QrTn9O8a5QtdURekaFnSepbgiaSdd/YNn7oa1M9FtL7/JzOU+21tPoy9BN9
+ sjGMjQ3sx4tfMdacDawQhJH/LlZ3UJS9Q9RwVzGxWWdtE7MFeDAIuPOLM8LUd1zjSGeA
+ PqE8sMkLzyV5M7p1ymvHFInL/CCHKgP358772GPM3ad9m8dw1DypxeBAH7ceZ4/q4C5X
+ Ai3oF1iap86M+nqUi0Q8zheJ/De3e0N1nD2RFw5vvMiuj4EOCbWgLFQu68+JCRfrDZRE
+ JKMJH7wff92gV237F0TPYXK24WMmGkWI5z0Ai+4cx/ao7Mo7+zP/OhaxwLhsPbKIj6/A
+ 8EJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=y7ZbTDjEZID7JxufTackG+ISWZQimmY0w3U+s6CBkyE=;
- b=Lb1DpF7U+B39H69yUR+113f/03+1oj+qHkS7u2kCwEEObjjPaxGgBSgZr/jfbmB7eZ
- 7v0PR/jM2ot68QMkAgEqcqclnIxk3g6Oa0HTDUJTAmkpIeKR1yoTCZq597xEfCmG7PPY
- K0vAzhKmNtObvUGRUY1duuW+JLMWx+PRth+iqwBWXPvXVxMi/gwSmwohxgy4pxv81kfF
- XHqku155I0Bao9bm0kV0oxGPhcjZ5DjomoMT3w9T9FfkyS/5UCmW5wlt6BQKsKypHLoe
- iOh+/vw1tsKGGEE9oXVZLjM29AUqxjhOsxhBM5WYKID1l6LenYw0E81RDhtg1rewaSba
- 3poA==
-X-Gm-Message-State: AOAM5325QJgWFEYYLHLzSQ5fIjwtwcHMSiISGKy0XSMnfXoKocmYD+B/
- S0oYPLQWhYjWcz7z1wTrq4Q=
-X-Google-Smtp-Source: ABdhPJyTBVepzEaY8my0WQ673//qu/a4aJneftnfwoNtAPln1tJetBBmH4zhrMK8FCL31hifokXQtQ==
-X-Received: by 2002:a17:907:9486:: with SMTP id
- dm6mr8860641ejc.248.1591360773031; 
- Fri, 05 Jun 2020 05:39:33 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id f13sm4741774edk.36.2020.06.05.05.39.31
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 05 Jun 2020 05:39:32 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: =?UTF-8?Q?'Marek_Marczykowski-G=C3=B3recki'?=
- <marmarek@invisiblethingslab.com>, "'Jan Beulich'" <jbeulich@suse.com>
-References: <20200604014621.GA203658@mail-itl>
- <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
- <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
- <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
- <20200604142542.GC98582@mail-itl>
- <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
- <f22ce6e0-d80b-2fc3-586a-c030fa22b3e8@suse.com>
- <20200605120137.GF98582@mail-itl>
-In-Reply-To: <20200605120137.GF98582@mail-itl>
-Subject: RE: handle_pio looping during domain shutdown,
- with qemu 4.2.0 in stubdom
-Date: Fri, 5 Jun 2020 13:39:31 +0100
-Message-ID: <000a01d63b36$5ca617b0$15f24710$@xen.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7gDE5ftp8pEVvtW1JgGQS31oKVudle1B73F3+TfRCJU=;
+ b=kd9QDzua2/5CPAJ/AMyVozXwoxlzOE6Hb/3ZOBu9PI3TxC/1pXce/tESgl0ySByv7J
+ qqy47UfxRhug/b7OPVcxjpyPssktpKBWOJSpHhDfIrBtqZQAopPB0fhY259o70JbyDKm
+ zaI/ZiXtsf92VSq0jfqwnk3JXzvacqrb4XtJIsEstVFEhRY2yBXSG94MWcWYU2FVzEXI
+ M/6fCmzJ3EYj4fSmJ5qZd78Y5b+hmyv3BRoUgnUCcVp718dFRgbiS6jewC97uaGSuW/K
+ Tp2E8FPy8YrQMdTXeagAE3eKns+HAXQHwp9TgpR7S8RldU+aCAZ/Pr0fivLct3vTqAYS
+ N51w==
+X-Gm-Message-State: AOAM533pO53dqOMUY/LjXFKhSyV6mvVYig3mYAVETKk+r/vXyB2kLh4c
+ K41qHiE42nnwggI1l0Cq/fyn8QWUQMzMXrkYs1iDMPEI
+X-Google-Smtp-Source: ABdhPJwgoXdzC3T3k2GsSNP9FxvFRmlpJM/O49j2fgGcdtv8C3Ttz+W/5pQj3HiKXRyOj3pyxgkCD+dKsr675ap0ffU=
+X-Received: by 2002:a17:906:5f93:: with SMTP id
+ a19mr8386660eju.10.1591360947505; 
+ Fri, 05 Jun 2020 05:42:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQGjLdCXHS+ot6864srdbAQDyQsvoACJ30jDAXuEodcCsFgQ5AHivRJwAUZxxQABFk5KigGiA5kJqNtVkMA=
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+ <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
+ <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
+ <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
+ <25953300-f69d-19a4-9215-49cfedbd16ed@xen.org>
+ <CALYbLDh3C02+CV88LqR2zv+ggRgup-Qhi+udGzgePmkdM0KcFw@mail.gmail.com>
+ <deee1523-cfb5-f186-11a3-33fa1f7b94c1@xen.org>
+ <8C39F9D0-8351-4671-9A39-D5D4BFF02BD6@arm.com>
+ <3ff17aa9-0aae-d598-40ce-4e90d4e50cc7@xen.org>
+ <00E14EAD-BD23-4A3A-872E-0C47C26B7B41@arm.com>
+ <c2466674-a56e-08a4-7f3f-2438d5565953@xen.org>
+ <CALYbLDjNptWfVMGjw801y6f0zu40b2pzBnLS+w2Zx5eVStCUYQ@mail.gmail.com>
+ <da23ecc8-60f0-8a26-58d5-ea692dcf0102@xen.org>
+ <CALYbLDhpwbHTrjDaNmfW81m5Fqt6HbfqoqbGDH1qUxxJtMBmEA@mail.gmail.com>
+ <8C6A23AE-6C2B-411F-ACAD-F5574211E8ED@arm.com>
+ <CALYbLDiOX0JW_=6AgAb+m5q++3WvQtivJRy+ePrp5pJXd7T9Vg@mail.gmail.com>
+ <14244e49-e1ac-a29d-bbd9-bd4c202bf186@xen.org>
+In-Reply-To: <14244e49-e1ac-a29d-bbd9-bd4c202bf186@xen.org>
+From: CodeWiz2280 <codewiz2280@gmail.com>
+Date: Fri, 5 Jun 2020 08:42:14 -0400
+Message-ID: <CALYbLDjCdDvwja1VoahJmnrKDfKyw7DNhYBBcmJv70QDA4+6Ag@mail.gmail.com>
+Subject: Re: Keystone Issue
+To: Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,120 +81,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'xen-devel' <xen-devel@lists.xenproject.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Marek Marczykowski-G=C3=B3recki =
-<marmarek@invisiblethingslab.com>
-> Sent: 05 June 2020 13:02
-> To: Jan Beulich <jbeulich@suse.com>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Paul Durrant =
-<paul@xen.org>; xen-devel <xen-
-> devel@lists.xenproject.org>
-> Subject: Re: handle_pio looping during domain shutdown, with qemu =
-4.2.0 in stubdom
->=20
-> On Fri, Jun 05, 2020 at 11:22:46AM +0200, Jan Beulich wrote:
-> > On 05.06.2020 11:09, Jan Beulich wrote:
-> > > On 04.06.2020 16:25, Marek Marczykowski-G=C3=B3recki wrote:
-> > >> (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
-> > >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> > >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> > >> (XEN) d3v0 handle_pio port 0xb004 write 0x0001
-> > >> (XEN) d3v0 handle_pio port 0xb004 write 0x2001
-> > >> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
-> > >> (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
-> > >> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
-> > >> (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
-> > >> (XEN) d1v0 handle_pio port 0xb004 read 0x0000
-> > >> (XEN) d1v0 handle_pio port 0xb004 read 0x0000
-> > >> (XEN) d1v0 handle_pio port 0xb004 write 0x0001
-> > >> (XEN) d1v0 handle_pio port 0xb004 write 0x2001
-> > >> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
-> > >> (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
-> > >> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
-> > >> (XEN) grant_table.c:3702:d0v0 Grant release 0x3 ref 0x11d flags =
-0x2 d6
-> > >> (XEN) grant_table.c:3702:d0v0 Grant release 0x4 ref 0x11e flags =
-0x2 d6
-> > >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> > >
-> > > Perhaps in this message could you also log
-> > > v->domain->is_shutting_down, v->defer_shutdown, and
-> > > v->paused_for_shutdown?
-> >
-> > And v->domain->is_shut_down please.
->=20
-> Here it is:
->=20
-> (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
-> (XEN) d3v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 =
-defer_shutdown 0 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d3v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 =
-defer_shutdown 0 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d3v0 handle_pio port 0xb004 write 0x0001 is_shutting_down 0 =
-defer_shutdown 0 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d3v0 handle_pio port 0xb004 write 0x2001 is_shutting_down 0 =
-defer_shutdown 0 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
-> (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
-> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
-> (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
-> (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 =
-defer_shutdown 0 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 =
-defer_shutdown 0 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d1v0 handle_pio port 0xb004 write 0x0001 is_shutting_down 0 =
-defer_shutdown 0 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d1v0 handle_pio port 0xb004 write 0x2001 is_shutting_down 0 =
-defer_shutdown 0 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
-> (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
-> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
-> (XEN) grant_table.c:3702:d0v1 Grant release 0x3 ref 0x125 flags 0x2 d6
-> (XEN) grant_table.c:3702:d0v1 Grant release 0x4 ref 0x126 flags 0x2 d6
-> (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 1 =
-defer_shutdown 1 paused_for_shutdown
-> 0 is_shut_down 0
-> (XEN) d1v0 Unexpected PIO status 1, port 0xb004 read 0xffff
->=20
-> (and then the stacktrace saying it's from vmexit handler)
->=20
-> Regarding BUG/WARN - do you think I could get any more info then? I
-> really don't mind crashing that system, it's a virtual machine
-> currently used only for debugging this issue.
-
-In your logging, is that handle_pio with is_shutting_down =3D=3D 1 the =
-very last one, or is the 'Unexpected PIO' coming from another one issued =
-afterwards?
-
-The reason I ask is that hvmemul_do_io() can call hvm_send_ioreq() to =
-start an I/O when is_shutting_down is set, but will write the local =
-io_req.state back to NONE even when X86EMUL_RETRY is returned. Thus =
-another call to handle_pio() will try to start a new I/O but will fail =
-with X86EMUL_UNHANDLEABLE in hvm_send_ioreq() because the ioreq state in =
-the shared page will not be NONE.
-
-  Paul
-
->=20
+On Fri, Jun 5, 2020 at 8:30 AM Julien Grall <julien@xen.org> wrote:
+>
+> Hi,
+>
+> On 05/06/2020 13:25, CodeWiz2280 wrote:
+> > The Keystone uses the netcp driver, which has interrupts from 40-79
+> > listed in the device tree (arch/arm/boot/keystone-k2e-netcp.dtsi).
+> > I'm using the same device tree between my non-xen standalone kernel
+> > and my dom0 kernel booted by xen.  In the standalone (non-xen) kernel
+> > the ethernet works fine, but I don't see any of its interrupts in the
+> > output of /proc/iomem.  I'm not seeing them in /proc/iomem when
+> > running dom0 under Xen either.  When booting with Xen I get this
+> > behavior where the ifconfig output shows 1 RX message and 1 TX
+> > message, and then nothing else.
+>
+> I am not sure whether this is a typo in the e-mail. /proc/iomem is
+> listing the list of the MMIO regions. You want to use /proc/interrupts.
+>
+> Can you confirm which path you are dumping?
+Yes, that was a typo.  Sorry about that.  I meant that I am dumping
+/proc/interrupts and do not
+see them under the non-xen kernel or xen booted dom0.
+>
+> Cheers,
+>
 > --
-> Best Regards,
-> Marek Marczykowski-G=C3=B3recki
-> Invisible Things Lab
-> A: Because it messes up the order in which people normally read text.
-> Q: Why is top-posting such a bad thing?
-
+> Julien Grall
 
