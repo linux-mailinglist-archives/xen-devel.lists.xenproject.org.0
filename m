@@ -2,75 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2380B1EF826
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 14:42:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228D11EF835
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 14:45:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhBg6-0006cx-Cc; Fri, 05 Jun 2020 12:42:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jhBir-0006lx-R9; Fri, 05 Jun 2020 12:45:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Us8T=7S=gmail.com=codewiz2280@srs-us1.protection.inumbo.net>)
- id 1jhBg4-0006cs-Qb
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 12:42:28 +0000
-X-Inumbo-ID: 038a3f2a-a72a-11ea-96fb-bc764e2007e4
-Received: from mail-ej1-x641.google.com (unknown [2a00:1450:4864:20::641])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 038a3f2a-a72a-11ea-96fb-bc764e2007e4;
- Fri, 05 Jun 2020 12:42:28 +0000 (UTC)
-Received: by mail-ej1-x641.google.com with SMTP id x1so9922150ejd.8
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2020 05:42:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7gDE5ftp8pEVvtW1JgGQS31oKVudle1B73F3+TfRCJU=;
- b=tzoKny5QrTn9O8a5QtdURekaFnSepbgiaSdd/YNn7oa1M9FtL7/JzOU+21tPoy9BN9
- sjGMjQ3sx4tfMdacDawQhJH/LlZ3UJS9Q9RwVzGxWWdtE7MFeDAIuPOLM8LUd1zjSGeA
- PqE8sMkLzyV5M7p1ymvHFInL/CCHKgP358772GPM3ad9m8dw1DypxeBAH7ceZ4/q4C5X
- Ai3oF1iap86M+nqUi0Q8zheJ/De3e0N1nD2RFw5vvMiuj4EOCbWgLFQu68+JCRfrDZRE
- JKMJH7wff92gV237F0TPYXK24WMmGkWI5z0Ai+4cx/ao7Mo7+zP/OhaxwLhsPbKIj6/A
- 8EJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7gDE5ftp8pEVvtW1JgGQS31oKVudle1B73F3+TfRCJU=;
- b=kd9QDzua2/5CPAJ/AMyVozXwoxlzOE6Hb/3ZOBu9PI3TxC/1pXce/tESgl0ySByv7J
- qqy47UfxRhug/b7OPVcxjpyPssktpKBWOJSpHhDfIrBtqZQAopPB0fhY259o70JbyDKm
- zaI/ZiXtsf92VSq0jfqwnk3JXzvacqrb4XtJIsEstVFEhRY2yBXSG94MWcWYU2FVzEXI
- M/6fCmzJ3EYj4fSmJ5qZd78Y5b+hmyv3BRoUgnUCcVp718dFRgbiS6jewC97uaGSuW/K
- Tp2E8FPy8YrQMdTXeagAE3eKns+HAXQHwp9TgpR7S8RldU+aCAZ/Pr0fivLct3vTqAYS
- N51w==
-X-Gm-Message-State: AOAM533pO53dqOMUY/LjXFKhSyV6mvVYig3mYAVETKk+r/vXyB2kLh4c
- K41qHiE42nnwggI1l0Cq/fyn8QWUQMzMXrkYs1iDMPEI
-X-Google-Smtp-Source: ABdhPJwgoXdzC3T3k2GsSNP9FxvFRmlpJM/O49j2fgGcdtv8C3Ttz+W/5pQj3HiKXRyOj3pyxgkCD+dKsr675ap0ffU=
-X-Received: by 2002:a17:906:5f93:: with SMTP id
- a19mr8386660eju.10.1591360947505; 
- Fri, 05 Jun 2020 05:42:27 -0700 (PDT)
+ <SRS0=wVi9=7S=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jhBiq-0006ls-E4
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 12:45:20 +0000
+X-Inumbo-ID: 698161dc-a72a-11ea-afad-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 698161dc-a72a-11ea-afad-12813bfff9fa;
+ Fri, 05 Jun 2020 12:45:19 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: vel0pPoaFd46hVvlqul1HNTdMuk/V3VM5eqeEQvXyDhgCvi0slzrDpYVB26bgQgoO/pmEx82s6
+ 5YqooUMzknCsIGYjQIXvP3UFRUuuFHq7DrjM3qIH8nwr4vkEMaInR1cjESpbOFIqtMB20QRJ2Q
+ QvHuN7qrE/ty/0Blvq03c5xC7w6tzEIRXNXGU16uPOQEDxbRt/AADVeDh0GkTkEcijTe5vGRCe
+ GjdjVo5en4ssYxQSg1rOfkl2ZvOhmpVpj0CJAg/ppAki3xz3dLAkqu5gFBxlfwGScVhLPqYMMn
+ L+U=
+X-SBRS: 2.7
+X-MesageID: 19320157
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,476,1583211600"; 
+ d="asc'?scan'208";a="19320157"
+Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
+ stubdom
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
+References: <20200604014621.GA203658@mail-itl>
+ <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
+ <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
+ <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
+ <20200604142542.GC98582@mail-itl>
+ <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
+ <f22ce6e0-d80b-2fc3-586a-c030fa22b3e8@suse.com>
+ <20200605120137.GF98582@mail-itl>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <38121217-988a-40e1-f220-4643652a8609@citrix.com>
+Date: Fri, 5 Jun 2020 13:44:54 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
- <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
- <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
- <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
- <25953300-f69d-19a4-9215-49cfedbd16ed@xen.org>
- <CALYbLDh3C02+CV88LqR2zv+ggRgup-Qhi+udGzgePmkdM0KcFw@mail.gmail.com>
- <deee1523-cfb5-f186-11a3-33fa1f7b94c1@xen.org>
- <8C39F9D0-8351-4671-9A39-D5D4BFF02BD6@arm.com>
- <3ff17aa9-0aae-d598-40ce-4e90d4e50cc7@xen.org>
- <00E14EAD-BD23-4A3A-872E-0C47C26B7B41@arm.com>
- <c2466674-a56e-08a4-7f3f-2438d5565953@xen.org>
- <CALYbLDjNptWfVMGjw801y6f0zu40b2pzBnLS+w2Zx5eVStCUYQ@mail.gmail.com>
- <da23ecc8-60f0-8a26-58d5-ea692dcf0102@xen.org>
- <CALYbLDhpwbHTrjDaNmfW81m5Fqt6HbfqoqbGDH1qUxxJtMBmEA@mail.gmail.com>
- <8C6A23AE-6C2B-411F-ACAD-F5574211E8ED@arm.com>
- <CALYbLDiOX0JW_=6AgAb+m5q++3WvQtivJRy+ePrp5pJXd7T9Vg@mail.gmail.com>
- <14244e49-e1ac-a29d-bbd9-bd4c202bf186@xen.org>
-In-Reply-To: <14244e49-e1ac-a29d-bbd9-bd4c202bf186@xen.org>
-From: CodeWiz2280 <codewiz2280@gmail.com>
-Date: Fri, 5 Jun 2020 08:42:14 -0400
-Message-ID: <CALYbLDjCdDvwja1VoahJmnrKDfKyw7DNhYBBcmJv70QDA4+6Ag@mail.gmail.com>
-Subject: Re: Keystone Issue
-To: Julien Grall <julien@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20200605120137.GF98582@mail-itl>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="zLORsC50kkiBCzUXwngisULTRAa30TRIs"
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +67,119 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jun 5, 2020 at 8:30 AM Julien Grall <julien@xen.org> wrote:
+--zLORsC50kkiBCzUXwngisULTRAa30TRIs
+Content-Type: multipart/mixed; boundary="wCLS4FvVOeyXnND98kb7g2fVrTH67g8jK"
+
+--wCLS4FvVOeyXnND98kb7g2fVrTH67g8jK
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+
+On 05/06/2020 13:01, Marek Marczykowski-G=C3=B3recki wrote:
+> On Fri, Jun 05, 2020 at 11:22:46AM +0200, Jan Beulich wrote:
+>> On 05.06.2020 11:09, Jan Beulich wrote:
+>>> On 04.06.2020 16:25, Marek Marczykowski-G=C3=B3recki wrote:
+>>>> (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
+>>>> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+>>>> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+>>>> (XEN) d3v0 handle_pio port 0xb004 write 0x0001
+>>>> (XEN) d3v0 handle_pio port 0xb004 write 0x2001
+>>>> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+>>>> (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
+>>>> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
+>>>> (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
+>>>> (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+>>>> (XEN) d1v0 handle_pio port 0xb004 read 0x0000
+>>>> (XEN) d1v0 handle_pio port 0xb004 write 0x0001
+>>>> (XEN) d1v0 handle_pio port 0xb004 write 0x2001
+>>>> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
+>>>> (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
+>>>> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
+>>>> (XEN) grant_table.c:3702:d0v0 Grant release 0x3 ref 0x11d flags 0x2 =
+d6
+>>>> (XEN) grant_table.c:3702:d0v0 Grant release 0x4 ref 0x11e flags 0x2 =
+d6
+>>>> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
+>>> Perhaps in this message could you also log
+>>> v->domain->is_shutting_down, v->defer_shutdown, and
+>>> v->paused_for_shutdown?
+>> And v->domain->is_shut_down please.
+> Here it is:
 >
-> Hi,
+> (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
+> (XEN) d3v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_=
+shutdown 0 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d3v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_=
+shutdown 0 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d3v0 handle_pio port 0xb004 write 0x0001 is_shutting_down 0 defer=
+_shutdown 0 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d3v0 handle_pio port 0xb004 write 0x2001 is_shutting_down 0 defer=
+_shutdown 0 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
+> (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
+> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
+> (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
+> (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_=
+shutdown 0 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_=
+shutdown 0 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d1v0 handle_pio port 0xb004 write 0x0001 is_shutting_down 0 defer=
+_shutdown 0 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d1v0 handle_pio port 0xb004 write 0x2001 is_shutting_down 0 defer=
+_shutdown 0 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
+> (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
+> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
+> (XEN) grant_table.c:3702:d0v1 Grant release 0x3 ref 0x125 flags 0x2 d6
+> (XEN) grant_table.c:3702:d0v1 Grant release 0x4 ref 0x126 flags 0x2 d6
+> (XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 1 defer_=
+shutdown 1 paused_for_shutdown 0 is_shut_down 0
+> (XEN) d1v0 Unexpected PIO status 1, port 0xb004 read 0xffff
 >
-> On 05/06/2020 13:25, CodeWiz2280 wrote:
-> > The Keystone uses the netcp driver, which has interrupts from 40-79
-> > listed in the device tree (arch/arm/boot/keystone-k2e-netcp.dtsi).
-> > I'm using the same device tree between my non-xen standalone kernel
-> > and my dom0 kernel booted by xen.  In the standalone (non-xen) kernel
-> > the ethernet works fine, but I don't see any of its interrupts in the
-> > output of /proc/iomem.  I'm not seeing them in /proc/iomem when
-> > running dom0 under Xen either.  When booting with Xen I get this
-> > behavior where the ifconfig output shows 1 RX message and 1 TX
-> > message, and then nothing else.
+> (and then the stacktrace saying it's from vmexit handler)
 >
-> I am not sure whether this is a typo in the e-mail. /proc/iomem is
-> listing the list of the MMIO regions. You want to use /proc/interrupts.
->
-> Can you confirm which path you are dumping?
-Yes, that was a typo.  Sorry about that.  I meant that I am dumping
-/proc/interrupts and do not
-see them under the non-xen kernel or xen booted dom0.
->
-> Cheers,
->
-> --
-> Julien Grall
+> Regarding BUG/WARN - do you think I could get any more info then? I
+> really don't mind crashing that system, it's a virtual machine
+> currently used only for debugging this issue.
+
+I specifically recommended BUG() so it crashed cleanly and didn't loop
+infinitely spewing into the logs.
+
+=46rom the analysis so far, whatever is going wrong is going wrong betwee=
+n
+XEN_DMOP_remote_shutdown and the first bad PIO, so I don't think letting
+the system loop further is going to be helpful.
+
+~Andrew
+
+
+--wCLS4FvVOeyXnND98kb7g2fVrTH67g8jK--
+
+--zLORsC50kkiBCzUXwngisULTRAa30TRIs
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEzzVJW36m9w6nfSF2ZcP5BqXXn6AFAl7aPlYACgkQZcP5BqXX
+n6A7ABAAn9bkSaPLulmkahc0e0aEcANlpPYjLbqDEjj1ij8TEldfjfCmvVDrzFDo
+j86sMPl39wSUD7rwdKOZo3g/ZCnFwXTBDIfQmjPWIXfJW8U2n32/wHr0xsE8SRXn
+5hCCmjR5LOJY1Yr//hGScEy4hCGgbBlSe+eODVzTJZJKsVe3jcgmufofqoXDO8As
+JpNwdq2npA3Y2eUvzQpKpUBfSkEci7ckVFjQojunM1FzB65ZUo5X2f4chPDCxM81
+VZEaECCX4EtG9gPWElyQ0fkkJ9ySuSbFt4FcfWIxBvrYolc83bL7o1m/FXtehR95
+XEj45jdIM0YQb5eWFKrfEpC1MImzItG7+7WSFmQUSTwfgf0FhslP0GXjttzh9Xwm
+2ytEKDhzt/E38iwXpachegyKD/9oB9okF8zHpGopoSkiMqgaskyX4jGvN0KNrMBE
+8tVQiQpRDGKFHQgauvy+bOvriUkXxOeiprShBexcfvQZleF6rb9hWvrpySUvu9vC
+ZVedoitMS0wUnVJKd+918zJE352Xf83fWbab9olGmfRPmLB7eYVno/3ggHuwnuDs
+ctp87H1rb0s1gPnuCJ5FmeIypihPooDbbPwHofIxNL41xZj+5Idshse/jNTMRO7w
+pOU3/Gs7C4yqOzHUi+T6kqGlroyh2loHGd3jMiqd4O2wKAvRr4U=
+=pxyN
+-----END PGP SIGNATURE-----
+
+--zLORsC50kkiBCzUXwngisULTRAa30TRIs--
 
