@@ -2,76 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A489E1EF6F2
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 14:02:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD4DE1EF754
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 14:26:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhB2f-0002VV-5p; Fri, 05 Jun 2020 12:01:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jhBPz-0004Yt-97; Fri, 05 Jun 2020 12:25:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wSaP=7S=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1jhB2d-0002VQ-J1
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 12:01:43 +0000
-X-Inumbo-ID: 5155f347-a724-11ea-afa5-12813bfff9fa
-Received: from wout3-smtp.messagingengine.com (unknown [64.147.123.19])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5155f347-a724-11ea-afa5-12813bfff9fa;
- Fri, 05 Jun 2020 12:01:42 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 3384B60F;
- Fri,  5 Jun 2020 08:01:41 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Fri, 05 Jun 2020 08:01:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Tgwya9
- oSsAp2RwRCuoKIgeUwTMvQcQrcDwbg3ZtqayY=; b=OdEo6UUDSaKwwhyYKEHA3M
- ifv1+yHJeWkbUkZvCyh9lllpq/L+Sel3s/wHf6vMXhtw+it8qDVSPPWPrGX0a/G8
- EQXea0W6avwV971LZx3cZhwpDLvJWBwG+gtv4o2nFR2R2yQbr/HaBqCFTtPqh4mS
- 65vRlqIk7Cr2VSr0LEdsAWbf06ep1dF+V9ndK+TbWjASpOfmse4SxR70qXQrGrxC
- i58fa6512Qq/bWIJO9Iz1i9Pb6SLEgDTq181SjibKi7LWZrilv9akCqDnNn32NXU
- K+PrI1T2hd+OAsKb0aJtEfe9L1Z/bzVZi0071SDl+NrQih6IIgjF13FXMz58qc2A
- ==
-X-ME-Sender: <xms:JDTaXqPIUGgLmkRGsL_UrDYoP90F7qzFRh2Ukkjha0Z-vX-xeh8Kwg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudegfedggedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
- iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
- durdeihedrfeegrdeffeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
- ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
- gtohhm
-X-ME-Proxy: <xmx:JDTaXo_74ZZBQP1N-mwVzBNHmh9qdUgPsg6JdTcEnM_D8BEiw9ISJA>
- <xmx:JDTaXhTubief-GV8L_ixe3oywAoA4RVwnrZWiiH6FVcJIi1-XiwT_Q>
- <xmx:JDTaXqvCdItG-5aj8YYu2xL0kMRPHe_YR2Y4wb4Aq-OlVwUQ2o5EOw>
- <xmx:JDTaXkpxzmpD56UJgnosgedONTu1P-2p2N6UdHlQ3v7uL3cdDKkzGQ>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id D094430618B7;
- Fri,  5 Jun 2020 08:01:39 -0400 (EDT)
-Date: Fri, 5 Jun 2020 14:01:37 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
- stubdom
-Message-ID: <20200605120137.GF98582@mail-itl>
-References: <20200604014621.GA203658@mail-itl>
- <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
- <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
- <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
- <20200604142542.GC98582@mail-itl>
- <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
- <f22ce6e0-d80b-2fc3-586a-c030fa22b3e8@suse.com>
+ <SRS0=Us8T=7S=gmail.com=codewiz2280@srs-us1.protection.inumbo.net>)
+ id 1jhBPy-0004Yo-JE
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 12:25:50 +0000
+X-Inumbo-ID: b040c8f4-a727-11ea-ba62-bc764e2007e4
+Received: from mail-ej1-x644.google.com (unknown [2a00:1450:4864:20::644])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b040c8f4-a727-11ea-ba62-bc764e2007e4;
+ Fri, 05 Jun 2020 12:25:49 +0000 (UTC)
+Received: by mail-ej1-x644.google.com with SMTP id l12so6127542ejn.10
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2020 05:25:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=f2LAqKOptg+KacV4p0Xdmg+M+FNYWQVRRgYfWTzbnYo=;
+ b=a/K45qyX1YAgqK+s6WPHbjFUStj52TCRaQGYmmpe8qzIwG17BbY9mEG/o+EtV4WLzF
+ diQ8LzQ9xJnMfz6ZazRLmWZC4DwkviIOwMnmSR5+11hRVc7D3AzA8ETtbMRm36HRgqW0
+ /CsOfk0BzqAhgQOHStCqRlpUWYam6NZhBP1JWHOy0hEqbyteWeM5xmkw6fDbnMkH0OtC
+ RDLoyfT31gl/87V2wfUuqP90Tl7O77v+Trkq+9db3ww7ECtC3PNFBhKQQdbA5yVB6LdJ
+ 7Qg4zU+8SahrmDVwwQLDz66uQMjYtr/9Hjw/M6/ouQFB9ri1OcQIXcQ9j7UJIwKM7V8E
+ TSrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=f2LAqKOptg+KacV4p0Xdmg+M+FNYWQVRRgYfWTzbnYo=;
+ b=bl2iX9mfG8IkcnOF3rijpZA2je91Tt7SXJoLh+ADfNnLrI/iQ3OeD1xF99oOlTlmS2
+ ER50+tkulTj36/aARiPFTRYsNei1nbzn09sUknTGOaWBX0d3S2w7m4xge3mvjlL39QYi
+ a8DjBLL1Zq2xxXbBHppi7tTlwfkl5z9x9KOibIOXx86KPaCr4+aanVhRvxBD8xbL9BCi
+ EFqYpJ5gns0xFqq7a7CAWF2eN2hrrtxr1CnEnsAH67tr43pS9ZHYkzYfkxr4yzFWdLy/
+ gDNT7lrBu173nxRWEeLwVV8Ey5t8hw8tQMAZtWu2++hsb2fQp+xKRt002NVwGCfbGEPS
+ +KFA==
+X-Gm-Message-State: AOAM530fWNEj5pleGNKyxGexQ6hBLRVCJyX73Csbo7mDKCjmR0gyEyIA
+ 3XIRtl3SiQVMc1M6enVGkkA48mI7Mlr04XPJey4=
+X-Google-Smtp-Source: ABdhPJwCFXVCpyYlwn2irhMpkBJs3xwaIS9By65SJehmMSk5qRUy7/8C2YmCTWhM8tnCAcOqXlb+LdIykqLTLv1tBGE=
+X-Received: by 2002:a17:906:11d9:: with SMTP id
+ o25mr8182151eja.377.1591359948627; 
+ Fri, 05 Jun 2020 05:25:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="YCGSkTKVt49j0xAo"
-Content-Disposition: inline
-In-Reply-To: <f22ce6e0-d80b-2fc3-586a-c030fa22b3e8@suse.com>
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+ <fce2434d-9a0c-50ef-46b6-5858ede00bc4@xen.org>
+ <CALYbLDgwjjF5C+CrVn5bYiGVEmocAhmTDKmdj8aAxzsfjcVs0g@mail.gmail.com>
+ <CALYbLDit9mx=DHbUAu2mTrKTvkxt3RfPhV1xQPRVP1gPmxU6aw@mail.gmail.com>
+ <25953300-f69d-19a4-9215-49cfedbd16ed@xen.org>
+ <CALYbLDh3C02+CV88LqR2zv+ggRgup-Qhi+udGzgePmkdM0KcFw@mail.gmail.com>
+ <deee1523-cfb5-f186-11a3-33fa1f7b94c1@xen.org>
+ <8C39F9D0-8351-4671-9A39-D5D4BFF02BD6@arm.com>
+ <3ff17aa9-0aae-d598-40ce-4e90d4e50cc7@xen.org>
+ <00E14EAD-BD23-4A3A-872E-0C47C26B7B41@arm.com>
+ <c2466674-a56e-08a4-7f3f-2438d5565953@xen.org>
+ <CALYbLDjNptWfVMGjw801y6f0zu40b2pzBnLS+w2Zx5eVStCUYQ@mail.gmail.com>
+ <da23ecc8-60f0-8a26-58d5-ea692dcf0102@xen.org>
+ <CALYbLDhpwbHTrjDaNmfW81m5Fqt6HbfqoqbGDH1qUxxJtMBmEA@mail.gmail.com>
+ <8C6A23AE-6C2B-411F-ACAD-F5574211E8ED@arm.com>
+In-Reply-To: <8C6A23AE-6C2B-411F-ACAD-F5574211E8ED@arm.com>
+From: CodeWiz2280 <codewiz2280@gmail.com>
+Date: Fri, 5 Jun 2020 08:25:34 -0400
+Message-ID: <CALYbLDiOX0JW_=6AgAb+m5q++3WvQtivJRy+ePrp5pJXd7T9Vg@mail.gmail.com>
+Subject: Re: Keystone Issue
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,107 +81,156 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Fri, Jun 5, 2020 at 3:37 AM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi,
+>
+> > On 5 Jun 2020, at 03:29, CodeWiz2280 <codewiz2280@gmail.com> wrote:
+> >
+> > On Thu, Jun 4, 2020 at 2:24 PM Julien Grall <julien@xen.org> wrote:
+> >>
+> >> Hi,
+> >>
+> >> On 04/06/2020 13:07, CodeWiz2280 wrote:
+> >>> On Thu, Jun 4, 2020 at 6:16 AM Julien Grall <julien@xen.org> wrote:
+> >>>>
+> >>>> Hi,
+> >>>>
+> >>>> On 04/06/2020 10:08, Bertrand Marquis wrote:
+> >>>>> I would have thought that linux would have need some memory, even s=
+mall in the 32bit space in order to boot.
+> >>>>
+> >>>> Yes it needs some, but then they are switching to use the high memor=
+y
+> >>>> alias after the MMU has been switch on.
+> >>>>
+> >>>>  From my understanding, the only difference is the page-tables will
+> >>>> point to the high memory alias address rather than the low memory on=
+e.
+> >>>> Linux will still be located at the same place but now accessed from =
+the
+> >>>> high memory alias rather than the low one.
+> >>>>
+> >>>> Note that AFAICT the secondary CPUs will still be brought-up using t=
+he
+> >>>> low memory alias.
+> >>>>
+> >>>>> I could understand that some memory in the low address space needs =
+to be reserved by Linux as DMA area for peripherals not supporting 36-bit a=
+ddresses, but the whole low memory sounds like a big restriction.
+> >>>> Many platforms have devices only supporting 32-bit DMA, but none of =
+them
+> >>>> require such aliasing. So this doesn't look to be the issue here.
+> >>>>
+> >>>> TBH, this code is only used by Keystone and switching address space =
+is
+> >>>> expensive (you have to turn off the MMU, updates page-tables, flush =
+the
+> >>>> cache...). I find hard to believe a developper would have come up wi=
+th
+> >>>> this complexity if it were possible to always use the low memory add=
+ress
+> >>>> range. It is even harder to believe Linux community would have accep=
+ted it.
+> >>>>
+> >>>>>
+> >>>>> Would it be possible to have a bit more information on the =E2=80=
+=9Cproblem with peripherals=E2=80=9D here ?
+> >>>>
+> >>>> I am curious as well, so I looked in more depth :). Going through th=
+e
+> >>>> Linux history, one of the commit message [1] suggests they are switc=
+hing
+> >>>> to a coherent address space. The datasheet [2] (page 75) also confir=
+m
+> >>>> that the low region is not IO coherent.
+> >>>>
+> >>>> So I think you would not be able to do DMA without flush the cache w=
+hich
+> >>>> can be pretty expensive. For a PoC, it might be possible to force Li=
+nux
+> >>>> flushing the area before and after each DMA request. This should be
+> >>>> possible by marking the devices as not coherent.
+> >>>>
+> >>>> Although, I am not entirely sure if there is any fallout.
+> >>>>
+> >>>> @Dave, do you think it is possible for you to have a try? I can prov=
+ide
+> >>>> the patch for Linux to disable DMA coherency if possible.
+> >>> I attempted to do that, where I removed the "dma-coherent" flags from
+> >>> the device tree.  There are likely other issues, but the most glaring
+> >>> problem that I ran into is that the ethernet does not work.  Eth0
+> >>> shows up in ifconfig but there is no activity on it after a small
+> >>> handful of message exchanges, whereas booting without Xen it seems to
+> >>> work fine even if left in 32-bit mode (with the dma-coherent
+> >>> disabled).  I don't know what implications behind the scenes there ar=
+e
+> >>> trying to stay in the lower 0x8000_0000 alias range either though.
+> >>
+> >> Thank you for the answer. As wrote, Linux is working fine in 32-bit mo=
+de
+> >> when dma-coherent is left in 32-bit mode. So this suggest a different
+> >> issue on the platform.
+> >>
+> >> Given that you receive an handful of packet and then nothing, this wou=
+ld
+> >> lead to maybe an interrupt problem. Can you check whether the number o=
+f
+> >> interrupts increments the same way on baremetal and on Xen?
+> >>
+> >> Dumping /proc/interrupts should be sufficient.
+> >>
+> > I am able to ping the board from itself, do you think it could still
+> > be an interrupt issue?  It just cannot seem to ping out to a different
+> > host (or ping from
+> > my pc).  Unfortunately, the interrupts for the netcp Ethernet driver
+> > on this board don't show up in the cat /proc/interrupts output under
+> > the non-Xen kernel or
+> > Xen loaded kernel from what I can tell.  I'm not sure how I would confi=
+rm that.
+>
+> Could you check the content of /proc/interrupts ?
+>
+> I did raise an issue several years ago on the keystone 2 related to inter=
+rupts and virtualization (no with Xen but the context should still be right=
+):
+> https://e2e.ti.com/support/processors/f/791/t/462126?Keystone-2-no-interr=
+upts-received-out-of-80-and-92-
+>
+> There might be something to check in regards to level vs front interrupts=
+ for forwarded interrupts.
+>
+The Keystone uses the netcp driver, which has interrupts from 40-79
+listed in the device tree (arch/arm/boot/keystone-k2e-netcp.dtsi).
+I'm using the same device tree between my non-xen standalone kernel
+and my dom0 kernel booted by xen.  In the standalone (non-xen) kernel
+the ethernet works fine, but I don't see any of its interrupts in the
+output of /proc/iomem.  I'm not seeing them in /proc/iomem when
+running dom0 under Xen either.  When booting with Xen I get this
+behavior where the ifconfig output shows 1 RX message and 1 TX
+message, and then nothing else.
 
---YCGSkTKVt49j0xAo
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
- stubdom
-
-On Fri, Jun 05, 2020 at 11:22:46AM +0200, Jan Beulich wrote:
-> On 05.06.2020 11:09, Jan Beulich wrote:
-> > On 04.06.2020 16:25, Marek Marczykowski-G=C3=B3recki wrote:
-> >> (XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
-> >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> >> (XEN) d3v0 handle_pio port 0xb004 write 0x0001
-> >> (XEN) d3v0 handle_pio port 0xb004 write 0x2001
-> >> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
-> >> (XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
-> >> (XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
-> >> (XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
-> >> (XEN) d1v0 handle_pio port 0xb004 read 0x0000
-> >> (XEN) d1v0 handle_pio port 0xb004 read 0x0000
-> >> (XEN) d1v0 handle_pio port 0xb004 write 0x0001
-> >> (XEN) d1v0 handle_pio port 0xb004 write 0x2001
-> >> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
-> >> (XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
-> >> (XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
-> >> (XEN) grant_table.c:3702:d0v0 Grant release 0x3 ref 0x11d flags 0x2 d6
-> >> (XEN) grant_table.c:3702:d0v0 Grant release 0x4 ref 0x11e flags 0x2 d6
-> >> (XEN) d3v0 handle_pio port 0xb004 read 0x0000
-> >=20
-> > Perhaps in this message could you also log
-> > v->domain->is_shutting_down, v->defer_shutdown, and
-> > v->paused_for_shutdown?
->=20
-> And v->domain->is_shut_down please.
-
-Here it is:
-
-(XEN) hvm.c:1620:d6v0 All CPUs offline -- powering off.
-(XEN) d3v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_shut=
-down 0 paused_for_shutdown 0 is_shut_down 0
-(XEN) d3v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_shut=
-down 0 paused_for_shutdown 0 is_shut_down 0
-(XEN) d3v0 handle_pio port 0xb004 write 0x0001 is_shutting_down 0 defer_shu=
-tdown 0 paused_for_shutdown 0 is_shut_down 0
-(XEN) d3v0 handle_pio port 0xb004 write 0x2001 is_shutting_down 0 defer_shu=
-tdown 0 paused_for_shutdown 0 is_shut_down 0
-(XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 reason 0
-(XEN) d4v0 domain 3 domain_shutdown vcpu_id 0 defer_shutdown 1
-(XEN) d4v0 XEN_DMOP_remote_shutdown domain 3 done
-(XEN) hvm.c:1620:d5v0 All CPUs offline -- powering off.
-(XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_shut=
-down 0 paused_for_shutdown 0 is_shut_down 0
-(XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 0 defer_shut=
-down 0 paused_for_shutdown 0 is_shut_down 0
-(XEN) d1v0 handle_pio port 0xb004 write 0x0001 is_shutting_down 0 defer_shu=
-tdown 0 paused_for_shutdown 0 is_shut_down 0
-(XEN) d1v0 handle_pio port 0xb004 write 0x2001 is_shutting_down 0 defer_shu=
-tdown 0 paused_for_shutdown 0 is_shut_down 0
-(XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 reason 0
-(XEN) d2v0 domain 1 domain_shutdown vcpu_id 0 defer_shutdown 1
-(XEN) d2v0 XEN_DMOP_remote_shutdown domain 1 done
-(XEN) grant_table.c:3702:d0v1 Grant release 0x3 ref 0x125 flags 0x2 d6
-(XEN) grant_table.c:3702:d0v1 Grant release 0x4 ref 0x126 flags 0x2 d6
-(XEN) d1v0 handle_pio port 0xb004 read 0x0000 is_shutting_down 1 defer_shut=
-down 1 paused_for_shutdown 0 is_shut_down 0
-(XEN) d1v0 Unexpected PIO status 1, port 0xb004 read 0xffff
-
-(and then the stacktrace saying it's from vmexit handler)
-
-Regarding BUG/WARN - do you think I could get any more info then? I
-really don't mind crashing that system, it's a virtual machine
-currently used only for debugging this issue.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---YCGSkTKVt49j0xAo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl7aNCAACgkQ24/THMrX
-1yyxzgf9HLTtJBMDyDhKjMlHR/zTr/kgWaborb8SY3XT0jFfEGmIN2i+ufMRz/zO
-SKDBDRQfLQCINcu+RnkOEHVDrIzkm2zPpW26eeZ7FnlHpMfPhCONp3rekvXgtHUP
-+++54nmnAF1QgHLWfznF2DECuLnDETlDQGVSEgb1pcnqEco2NbvPOYZiBDu844hJ
-b4aC0caFB+jUEkt16g/RceDaH8XI0sFJ2K+dnoTa7Wa2heWjKAKhXpFoY0NqgUDd
-U4usKPo2BVDM2lBJw3FRw/5I4X8q1YeE2D/jACmteOZdn4IIFseo0RHKASdKX8QS
-1zcVKCaoE5Xrxt9zq213UpXE87PY2A==
-=4JaN
------END PGP SIGNATURE-----
-
---YCGSkTKVt49j0xAo--
+> Regards
+> Bertrand
+>
+>
+>
+> >
+> >>> I
+> >>> would rather run it as intended by switching to the upper
+> >>> 0x8_0000_0000 alias region.
+> >>
+> >> I agree this would be ideal :).
+> >>
+> >> Cheers,
+> >>
+> >> --
+> >> Julien Grall
+>
 
