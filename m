@@ -2,60 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D5801F0075
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 21:40:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAECF1F011E
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jun 2020 22:44:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jhIBw-0007R2-1d; Fri, 05 Jun 2020 19:39:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jhJBQ-0005cN-Ma; Fri, 05 Jun 2020 20:43:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vDJQ=7S=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jhIBu-0007Qx-Dz
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 19:39:46 +0000
-X-Inumbo-ID: 4b461a99-a764-11ea-b024-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4b461a99-a764-11ea-b024-12813bfff9fa;
- Fri, 05 Jun 2020 19:39:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=WzGZH0VH/KPsLvt7CdaAfL+UUdYGryQNxVo0PplCx3c=; b=v74QnQR4tH7fQBpPFVEQGpsHI
- UbVljsFTM0J330pQFTW8+YutahAs20Zpud3qkESkfjG24osyynS+DfilMYxEsU126ePT+i4s6zti+
- mkRfYK2yuakysjv8Co3tsHKPN5MWHHPj1Y/ohKhdOWWLTdB/qIGjtSZU5v7Ry0EMuVb1s=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jhIBn-0005kK-Bi; Fri, 05 Jun 2020 19:39:39 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jhIBn-0005WF-3t; Fri, 05 Jun 2020 19:39:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jhIBn-0002mF-3F; Fri, 05 Jun 2020 19:39:39 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150867-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=wSaP=7S=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1jhJBP-0005cI-3J
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2020 20:43:19 +0000
+X-Inumbo-ID: 2eecf520-a76d-11ea-9ad7-bc764e2007e4
+Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2eecf520-a76d-11ea-9ad7-bc764e2007e4;
+ Fri, 05 Jun 2020 20:43:17 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 25DF141A;
+ Fri,  5 Jun 2020 16:43:16 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Fri, 05 Jun 2020 16:43:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=d/klCz
+ Dv7E5k4j6UzvEybo7FT4gyETyaRstTK2pm2gI=; b=vBC5RCkv3WuCTKf+SzUH4Q
+ SyZdk2iLiUiLI2pdwV4V0VnhWq5vbNPjXIhqVGpR0y8S3qi/V0cNFtgUIUepT4UK
+ yuPOtjki3GLySZ1SxwiayaQelO6G6244YXQxFsxjFgCihlV6KhvycC3HuT+4BqqI
+ 6qk4oquScwRVzQVymvgmg0AMdmTMaSqg2vAfwZ7Yh2aNcqz6uF8SBVG2g7oa3ccq
+ SZNonDU+VSarZGf2+bUjWOkkVCSLeOjgKUXsbVC4MF2et/VbZHVdbLjHGqL08qn7
+ 2Wo6W9LOVankpewBG+MPULy4/dQJMEYoF9Ymn5h0sOSKhqSO5o61UiSCqcMMbC1A
+ ==
+X-ME-Sender: <xms:Y67aXtAGwXm5FSs9R-7I8bv2ibl5yu5e5s-OyTgxUgPQLXbknd1XgQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrudegfedgudeflecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepkdforghr
+ vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihdkuceomhgrrhhmrghrvghkse
+ hinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhep
+ fffgudeggedtgeegteehfeevffetieegkeejtdeuleehtddvueffjeeklefhkeehnecuff
+ homhgrihhnpehgihhthhhusgdrtghomhenucfkphepledurdeihedrfeegrdeffeenucev
+ lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrh
+ gvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:Y67aXrjiBDPeeDdbuaQTPr9XdvXLckMwgdb_FngriPG0sh61kxe9LA>
+ <xmx:Y67aXokwxqVrbbVHqjc1o9LGM4OjYzvFEaq_LOHWdz0KfiNmUeD2aQ>
+ <xmx:Y67aXnwsLXY6ml3B8IXmeqA9Jx3gXBWnKe-6aDj5XBXda9Vc3JIjVw>
+ <xmx:Y67aXpO0zRixllehGLyBoJaORjJojqgjJcoP6mwtYZqMM9RD62zgvg>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id C173C3061CCB;
+ Fri,  5 Jun 2020 16:43:14 -0400 (EDT)
+Date: Fri, 5 Jun 2020 22:43:10 +0200
+From: 'Marek =?utf-8?Q?Marczykowski-G=C3=B3recki'?=
+ <marmarek@invisiblethingslab.com>
+To: paul@xen.org
+Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
+ stubdom
+Message-ID: <20200605204310.GK98582@mail-itl>
+References: <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
+ <000501d63b29$496ce6e0$dc46b4a0$@xen.org>
+ <000701d63b2c$10536930$30fa3b90$@xen.org>
+ <0296d5d6-cc7f-6e34-2403-acf34b870b5b@suse.com>
+ <002101d63b3f$4e9dc830$ebd95890$@xen.org>
+ <e2b8dd67-59c2-7e59-36f6-ce30b2df8b86@suse.com>
+ <002201d63b40$1e135ee0$5a3a1ca0$@xen.org>
+ <002f01d63b50$c8b49a70$5a1dcf50$@xen.org>
+ <20200605171353.GG6329@mail-itl>
+ <001501d63b5e$26a991a0$73fcb4e0$@xen.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150867: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=51ca66c37371b10b378513af126646de22eddb17
-X-Osstest-Versions-That: xen=1497e78068421d83956f8e82fb6e1bf1fc3b1199
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 05 Jun 2020 19:39:39 +0000
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="SR0DFWOzPg+ymaCV"
+Content-Disposition: inline
+In-Reply-To: <001501d63b5e$26a991a0$73fcb4e0$@xen.org>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,78 +84,115 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Jan Beulich' <jbeulich@suse.com>,
+ 'xen-devel' <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150867 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150867/
 
-Failures :-/ but no regressions.
+--SR0DFWOzPg+ymaCV
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
+ stubdom
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+On Fri, Jun 05, 2020 at 06:24:20PM +0100, Paul Durrant wrote:
+> > -----Original Message-----
+> > From: 'Marek Marczykowski-G=C3=B3recki' <marmarek@invisiblethingslab.co=
+m>
+> > Sent: 05 June 2020 18:14
+> > To: paul@xen.org
+> > Cc: 'Jan Beulich' <jbeulich@suse.com>; 'Andrew Cooper' <andrew.cooper3@=
+citrix.com>; 'xen-devel' <xen-
+> > devel@lists.xenproject.org>
+> > Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0=
+ in stubdom
+> >=20
+> > On Fri, Jun 05, 2020 at 04:48:39PM +0100, Paul Durrant wrote:
+> > > This (untested) patch might help:
+> >=20
+> > It is different now. I don't get domain_crash because of
+> > X86EMUL_UNHANDLEABLE anymore, but I still see handle_pio looping for
+> > some time. But it eventually ends, not really sure why.
+>=20
+> That'll be the shutdown deferral, which I realised later that I forgot ab=
+out...
+>=20
+> >=20
+> > I've tried the patch with a modification to make it build:
+> >=20
+> > > diff --git a/xen/arch/x86/hvm/ioreq.c b/xen/arch/x86/hvm/ioreq.c
+> > > index c55c4bc4bc..8aa8779ba2 100644
+> > > --- a/xen/arch/x86/hvm/ioreq.c
+> > > +++ b/xen/arch/x86/hvm/ioreq.c
+> > > @@ -109,12 +109,7 @@ static void hvm_io_assist(struct hvm_ioreq_vcpu =
+*sv, uint64_t data)
+> > >      ioreq_t *ioreq =3D &v->arch.hvm.hvm_io.io_req;
+> > >
+> > >      if ( hvm_ioreq_needs_completion(ioreq) )
+> > > -    {
+> > > -        ioreq->state =3D STATE_IORESP_READY;
+> > >          ioreq->data =3D data;
+> > > -    }
+> > > -    else
+> > > -        ioreq->state =3D STATE_IOREQ_NONE;
+> > >
+> > >      msix_write_completion(v);
+> > >      vcpu_end_shutdown_deferral(v);
+>=20
+> In fact, move both of these lines...
+>=20
+> > > @@ -209,6 +204,9 @@ bool handle_hvm_io_completion(struct vcpu *v)
+> > >          }
+> > >      }
+> > >
+> > > +    ioreq->state =3D hvm_ioreq_needs_completion(&vio->ioreq) ?
+> >        vio->io_req->state ... &vio->io_req
+> >=20
+> > > +        STATE_IORESP_READY : STATE_IOREQ_NONE;
+> > > +
+>=20
+> ... to here too.
+>=20
+> > >      io_completion =3D vio->io_completion;
+> > >      vio->io_completion =3D HVMIO_no_completion;
+> > >
+> >=20
+> > The full patch (together with my debug prints):
+> > https://gist.github.com/marmarek/da37da3722179057a6e7add4fb361e06
 
-version targeted for testing:
- xen                  51ca66c37371b10b378513af126646de22eddb17
-baseline version:
- xen                  1497e78068421d83956f8e82fb6e1bf1fc3b1199
+The current patch:
+https://gist.github.com/marmarek/5ae795129c1be2dae13bfc517547c0f1
 
-Last test of basis   150438  2020-05-28 14:01:19 Z    8 days
-Failing since        150465  2020-05-29 09:02:14 Z    7 days   54 attempts
-Testing same since   150867  2020-06-05 17:00:42 Z    0 days    1 attempts
+> I guess it is the destroy being held off by the shutdown deferral? Hopefu=
+lly the above tweaks should sort that out.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Cooper <andrew.cooper@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Olaf Hering <olaf@aepfle.de>
-  Paul Durrant <paul@xen.org>
-  Paul Durrant <pdurrant@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Wei Liu <wl@xen.org>
+Yes, now it works (tried 5 times in a row, previously it crashed on
+the first or the second one). Thanks!
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
 
+--SR0DFWOzPg+ymaCV
+Content-Type: application/pgp-signature; name="signature.asc"
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-----BEGIN PGP SIGNATURE-----
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl7arl4ACgkQ24/THMrX
+1yyZxgf/fHIMG20frDFWRvxY7zz087+IPvXEVpbSqGygPKYP35Zs4qp9vyY0V+wx
+Co3y+UGloILRX1/z7+eh2hxDJbXPtMEQGbkF1+SFFDNKhLTX5W0MGmW+ujX37NFP
+IvPZf6FsHIfA4GNlf+rlCA7YGO4tWGzSD8QEReqBdoLzkdncfJRbSNtPeu4BV31g
+OAKhsDIipu9NeN7qPBJkw49tocgsQPEvlyy7GG45IrlCdE+dRUW69Ukaf2u83sgI
+GtJwSNJ0+V/ieFI9pv5cU7mjGgjrhz8s46Tmfq6PUhYJKC4vJ+da1x+LW4NRWkoa
+k/78vCkZ/EGAalCDCawPI67foVlHCg==
+=Cnfr
+-----END PGP SIGNATURE-----
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   1497e78068..51ca66c373  51ca66c37371b10b378513af126646de22eddb17 -> smoke
+--SR0DFWOzPg+ymaCV--
 
