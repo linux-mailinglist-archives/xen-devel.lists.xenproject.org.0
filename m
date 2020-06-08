@@ -2,50 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7C761F144F
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 10:15:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF0A01F147F
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 10:30:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiCux-0001Id-1U; Mon, 08 Jun 2020 08:14:03 +0000
+	id 1jiDAf-0002wD-BN; Mon, 08 Jun 2020 08:30:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Nc1T=7V=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jiCuw-0001IU-1w
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 08:14:02 +0000
-X-Inumbo-ID: 01c2cd78-a960-11ea-9b55-bc764e2007e4
+ id 1jiDAd-0002w8-UY
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 08:30:15 +0000
+X-Inumbo-ID: 464f0270-a962-11ea-9b55-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 01c2cd78-a960-11ea-9b55-bc764e2007e4;
- Mon, 08 Jun 2020 08:14:00 +0000 (UTC)
+ id 464f0270-a962-11ea-9b55-bc764e2007e4;
+ Mon, 08 Jun 2020 08:30:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CCB6AB0BF;
- Mon,  8 Jun 2020 08:14:02 +0000 (UTC)
-Subject: Re: handle_pio looping during domain shutdown, with qemu 4.2.0 in
- stubdom
-To: =?UTF-8?Q?=27Marek_Marczykowski-G=c3=b3recki=27?=
- <marmarek@invisiblethingslab.com>, paul@xen.org
-References: <4dcc0092-6f6d-5d63-06cb-15b2fec244db@suse.com>
- <ecca6d68-9b86-0549-1e1a-308704e11aad@citrix.com>
- <c58d7d90-94cb-fa3e-a5ad-c3fb85b921a9@suse.com>
- <20200604142542.GC98582@mail-itl>
- <3b4dbb2f-7a0a-29a8-cca7-0cb641e8338d@suse.com>
- <000501d63b29$496ce6e0$dc46b4a0$@xen.org>
- <fe275c12-9bea-8733-dbdc-b225bf15fea3@suse.com>
- <002001d63b3e$7c268a40$74739ec0$@xen.org>
- <a418a2ea-f4ff-2b8e-eabf-2622099561f6@suse.com>
- <002e01d63b4f$914b3a90$b3e1afb0$@xen.org> <20200605161804.GJ98582@mail-itl>
+ by mx2.suse.de (Postfix) with ESMTP id DE0D7ACED;
+ Mon,  8 Jun 2020 08:30:16 +0000 (UTC)
+Subject: Re: [PATCH for-4.14 v2] x86/rtc: provide mediated access to RTC for
+ PVH dom0
+To: Roman Shaposhnik <roman@zededa.com>
+References: <20200605110240.52545-1-roger.pau@citrix.com>
+ <CAMmSBy8=8tGwLgs+eMbrHcRbSahJHCpts7ODiK-cf-ZATfosxw@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d1bc0e70-c5a1-438a-e430-76b3d561564c@suse.com>
-Date: Mon, 8 Jun 2020 10:13:58 +0200
+Message-ID: <971692d4-68ab-215a-0128-72f1f6d4fbc8@suse.com>
+Date: Mon, 8 Jun 2020 10:30:12 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.1
 MIME-Version: 1.0
-In-Reply-To: <20200605161804.GJ98582@mail-itl>
+In-Reply-To: <CAMmSBy8=8tGwLgs+eMbrHcRbSahJHCpts7ODiK-cf-ZATfosxw@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,65 +47,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'xen-devel' <xen-devel@lists.xenproject.org>
+Cc: Paul Durrant <paul@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05.06.2020 18:18, 'Marek Marczykowski-Górecki' wrote:
-> On Fri, Jun 05, 2020 at 04:39:56PM +0100, Paul Durrant wrote:
->>> From: Jan Beulich <jbeulich@suse.com>
->>> Sent: 05 June 2020 14:57
->>>
->>> On 05.06.2020 15:37, Paul Durrant wrote:
->>>>> From: Jan Beulich <jbeulich@suse.com>
->>>>> Sent: 05 June 2020 14:32
->>>>>
->>>>> On 05.06.2020 13:05, Paul Durrant wrote:
->>>>>> That would mean we wouldn't be seeing the "Unexpected PIO" message. From that message this clearly
->>>>> X86EMUL_UNHANDLEABLE which suggests a race with ioreq server teardown, possibly due to selecting a
->>>>> server but then not finding a vcpu match in ioreq_vcpu_list.
->>>>>
->>>>> I was suspecting such, but at least the tearing down of all servers
->>>>> happens only from relinquish-resources, which gets started only
->>>>> after ->is_shut_down got set (unless the tool stack invoked
->>>>> XEN_DOMCTL_destroydomain without having observed XEN_DOMINF_shutdown
->>>>> set for the domain).
->>>>>
->>>>> For individually unregistered servers - yes, if qemu did so, this
->>>>> would be a problem. They need to remain registered until all vCPU-s
->>>>> in the domain got paused.
->>>>
->>>> It shouldn't be a problem should it? Destroying an individual server is only done with the domain
->>> paused, so no vcpus can be running at the time.
->>>
->>> Consider the case of one getting destroyed after it has already
->>> returned data, but the originating vCPU didn't consume that data
->>> yet. Once that vCPU gets unpaused, handle_hvm_io_completion()
->>> won't find the matching server anymore, and hence the chain
->>> hvm_wait_for_io() -> hvm_io_assist() ->
->>> vcpu_end_shutdown_deferral() would be skipped. handle_pio()
->>> would then still correctly consume the result.
+On 06.06.2020 01:43, Roman Shaposhnik wrote:
+> On Fri, Jun 5, 2020 at 4:03 AM Roger Pau Monne <roger.pau@citrix.com> wrote:
 >>
->> True, and skipping hvm_io_assist() means the vcpu internal ioreq state will be left set to IOREQ_READY and *that* explains why we would then exit hvmemul_do_io() with X86EMUL_UNHANDLEABLE (from the first switch).
+>> Mediated access to the RTC was provided for PVHv1 dom0 using the PV
+>> code paths (guest_io_{write/read}), but those accesses where never
+>> implemented for PVHv2 dom0. This patch provides such mediated accesses
+>> to the RTC for PVH dom0, just like it's provided for a classic PV
+>> dom0.
+>>
+>> Pull out some of the RTC logic from guest_io_{read/write} into
+>> specific helpers that can be used by both PV and HVM guests. The
+>> setup of the handlers for PVH is done in rtc_init, which is already
+>> used to initialize the fully emulated RTC.
+>>
+>> Without this a Linux PVH dom0 will read garbage when trying to access
+>> the RTC, and one vCPU will be constantly looping in
+>> rtc_timer_do_work.
+>>
+>> Note that such issue doesn't happen on domUs because the ACPI
+>> NO_CMOS_RTC flag is set in FADT, which prevents the OS from accessing
+>> the RTC. Also the X86_EMU_RTC flag is not set for PVH dom0, as the
+>> accesses are not emulated but rather forwarded to the physical
+>> hardware.
+>>
+>> No functional change expected for classic PV dom0.
 > 
-> I can confirm X86EMUL_UNHANDLEABLE indeed comes from the first switch in
-> hvmemul_do_io(). And it happens shortly after ioreq server is destroyed:
-> 
-> (XEN) d12v0 XEN_DMOP_remote_shutdown domain 11 reason 0
-> (XEN) d12v0 domain 11 domain_shutdown vcpu_id 0 defer_shutdown 1
-> (XEN) d12v0 XEN_DMOP_remote_shutdown domain 11 done
-> (XEN) d12v0 hvm_destroy_ioreq_server called for 11, id 0
+> For the dense guys like me: what is the user-visible feature that is now being
+> offered with this? Would really appreciate a pointer or two.
 
-Can either of you tell why this is? As said before, qemu shouldn't
-start tearing down ioreq servers until the domain has made it out
-of all shutdown deferrals, and all its vCPU-s have been paused.
-For the moment I think the proposed changes, while necessary, will
-mask another issue elsewhere. The @releaseDomain xenstore watch,
-being the trigger I would consider relevant here, will trigger
-only once XEN_DOMINF_shutdown is reported set for a domain, which
-gets derived from d->is_shut_down (i.e. not mistakenly
-d->is_shutting_down).
+PV Dom0 has always been permitted direct access to the hardware RTC.
+This change makes PVH Dom0 follow suit.
 
 Jan
 
