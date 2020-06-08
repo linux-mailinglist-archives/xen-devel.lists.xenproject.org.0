@@ -2,58 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F5D1F2068
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 22:03:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF0731F2069
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 22:03:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiNzI-0004Qj-5a; Mon, 08 Jun 2020 20:03:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jiNzV-0004Rz-EH; Mon, 08 Jun 2020 20:03:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iFSh=7V=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1jiNzG-0004QP-JD
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 20:03:14 +0000
-X-Inumbo-ID: 1266dad0-a9c3-11ea-bb8b-bc764e2007e4
-Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1266dad0-a9c3-11ea-bb8b-bc764e2007e4;
- Mon, 08 Jun 2020 20:03:08 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id l11so18838084wru.0;
- Mon, 08 Jun 2020 13:03:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=v5NHBLFIrvrnQIUGtRyTRxnMHCx8z8QMwiCN/AFz6Lk=;
- b=P0Dgxi+IsDRGO+Bk3lyRDQgRKlZp+Ci9Pk6gL3G5cwt53aEKy723gSSrVrEwCk/X2X
- FAKbF2EZKYpmI6KLabj8CLrpFraCuLEHxjsZiDiozTniNWHZSpV/IisJcPc5OBlGNbqZ
- YskelP4i5A5wJuI5tJBe+4ZtPfCB1+MPUwU9sR5XMD+LyoymmFHBqPlgN/59KfRhEtvm
- WOdPrOTgAzEcd/gmrl89wVBozhR6+T5k6yv/2z1SWq95nxq5LHHnR0fL/438q+O/O35s
- 4bsmMc//JR1VioXooxoKgDNMnDCVa0eZcVBG1OV8jrfb8dIl1g674CT0wf9uQWgTvzQT
- oZrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=v5NHBLFIrvrnQIUGtRyTRxnMHCx8z8QMwiCN/AFz6Lk=;
- b=e/Hy8QSV/A6z/cyo2cSDMNfTqun7oNG8q/Yk+R08E3l5Bug0A8XmfHLcUaQx3upX2J
- 2dYdSpFoozSWpxg6xlldeojhoYSZTWuhhJlux50UW/d0xD0N5rzmowpLw4MvchuuEKy3
- WdNlbjfkEfXWklidETgGOWP8nmNruiqnalnmMhfWXb4Fwo0uPRC1a8IhNhu8u8JbTx+1
- rKjxAiVJXiGDM5YDt4/HVC+zT6EQb4EZfvmKVZkOi9A6SdlwFdrk85B7rEGX5HCd27YD
- zQ8eFD/kEBzoNc6MNm54QJk0E9DDA1KjFAoXuLvPpAuoSuaQKu+ZaSbNGvp2Cwu02zmh
- 5FYA==
-X-Gm-Message-State: AOAM531Ln2kwW/XFgmRZr3ShM0uI56BfGPSJkTgnp6fvZ8CGf3ur4g6I
- 3kdgbXAXAfwJ0lsLRBnGvWsMHzgyHtV0uZhp+7b6LqIvDLk=
-X-Google-Smtp-Source: ABdhPJz0bwLjqoGXcyBts+PvnSrh0xcHjW2k0+BL1aQesxbAtiVzH6jUXYxAXq5daPk6KAS3uFOizs4nSPd45UOx93U=
-X-Received: by 2002:a5d:490f:: with SMTP id x15mr429300wrq.259.1591646587271; 
- Mon, 08 Jun 2020 13:03:07 -0700 (PDT)
+ <SRS0=UmkZ=7V=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jiNzU-0004Ro-1h
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 20:03:28 +0000
+X-Inumbo-ID: 1d19e757-a9c3-11ea-b2b4-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1d19e757-a9c3-11ea-b2b4-12813bfff9fa;
+ Mon, 08 Jun 2020 20:03:26 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: vrPx+l5c6c1DQApKmkH6KuR7ukEc+x/2qf/ndpPZ+F0DZF33YblI2d2PGxzfYArUPJGQFvuD/Q
+ V/VH14OawbstzgOp/uX9/W1g1jtmbtW3707NsIgLAPErbOArL6TEP1qjCnRKMLZqNpbDgc2ZRD
+ 3Gn1jka14moTRxDHNUG2Rx/LcVYknILDUun3kYavZhg/SxWkhel9JWDyiZODMPVIo2qVj0M7BQ
+ NrNxucq9e9K6FBchWtHfjUy/16lCdmusdc3wexBnkIbidpeKw89JHBtgPgwnSBw/UFAYO3p/YD
+ JUY=
+X-SBRS: 2.7
+X-MesageID: 19811629
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,487,1583211600"; d="scan'208";a="19811629"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH for-4.14] x86/livepatch: Make livepatching compatible with CET
+ Shadow Stacks
+Date: Mon, 8 Jun 2020 21:02:59 +0100
+Message-ID: <20200608200259.17681-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <20200608163934.313-1-paul@xen.org>
-In-Reply-To: <20200608163934.313-1-paul@xen.org>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Mon, 8 Jun 2020 14:02:31 -0600
-Message-ID: <CABfawhn3HJCHonYKnMFPgUEN125SDBSXKcMFMWd2hG5SGKF8YQ@mail.gmail.com>
-Subject: Re: Xen 4.14 RC1
-To: Xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +52,146 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-announce@lists.xenproject.org, xen-users@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Pawel Wieczorkiewicz <wipawel@amazon.de>, Paul Durrant <paul@xen.org>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 8, 2020 at 10:41 AM Paul Durrant <paul@xen.org> wrote:
->
-> Hi all,
->
-> Xen 4.14 RC1 is tagged. You can check that out from xen.git:
->
-> git://xenbits.xen.org/xen.git 4.14.0-rc1
->
-> For your convenience there is also a tarball at:
-> https://downloads.xenproject.org/release/xen/4.14.0-rc1/xen-4.14.0-rc1.tar.gz
->
-> And the signature is at:
-> https://downloads.xenproject.org/release/xen/4.14.0-rc1/xen-4.14.0-rc1.tar.gz.sig
->
-> Please send bug reports and test reports to xen-devel@lists.xenproject.org.
-> When sending bug reports, please CC relevant maintainers and me (paul@xen.org).
->
-> As a reminder, there will be a Xen Test Day. Please see the test day schedule at
-> https://wiki.xenproject.org/wiki/Xen_Project_Test_Days and test instructions at
-> https://wiki.xenproject.org/wiki/Xen_4.14_RC_test_instructions.
+Just like the alternatives infrastructure, the livepatch infrastructure
+disables CR0.WP to perform patching, which is not permitted with CET active.
 
-Hi Paul,
-I'm sad to see this RC1 still missing patch:
+Modify arch_livepatch_{quiesce,revive}() to disable CET before disabling WP,
+and reset the dirty bits on all virtual regions before re-enabling CET.  One
+complication is that arch_livepatch_revive() has to fix up the top of the
+shadow stack.
 
-https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg00179.html
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+CC: Ross Lagerwall <ross.lagerwall@citrix.com>
+CC: Pawel Wieczorkiewicz <wipawel@amazon.de>
+CC: Paul Durrant <paul@xen.org>
 
-The following even have the release-ack and yet are also missing:
+For 4.14.  This is a bug in a 4.14 feature, with a very low risk to non-CET
+usecases.
 
-https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg00025.html
-https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg00028.html
+A better longterm plan (but definitely 4.15 material now) would be to create a
+separate set of writeable mappings to perform the patching on, at which point
+we don't need to disable CET, play with WP, or retroactively clear dirty bits.
 
-Without these patches I won't be testing or upgrading to 4.14 at all.
+Do we ever write into .rodata?  AFAICT, we introduce new fuctions for
+references to new .rodata, rather than modifying existing .rodata.  If however
+we do modify .rodata, then the virtual regions need extending with information
+about .rodata so we can zap those dirty bits as well.
+---
+ xen/arch/x86/livepatch.c         | 28 ++++++++++++++++++++++++++++
+ xen/common/virtual_region.c      | 13 +++++++++++++
+ xen/include/xen/virtual_region.h |  1 +
+ 3 files changed, 42 insertions(+)
 
-Thanks,
-Tamas
+diff --git a/xen/arch/x86/livepatch.c b/xen/arch/x86/livepatch.c
+index 901fad96bf..10231a4e40 100644
+--- a/xen/arch/x86/livepatch.c
++++ b/xen/arch/x86/livepatch.c
+@@ -12,6 +12,7 @@
+ #include <xen/livepatch.h>
+ #include <xen/sched.h>
+ #include <xen/vm_event.h>
++#include <xen/virtual_region.h>
+ 
+ #include <asm/fixmap.h>
+ #include <asm/nmi.h>
+@@ -58,6 +59,10 @@ int arch_livepatch_safety_check(void)
+ 
+ int arch_livepatch_quiesce(void)
+ {
++    /* If Shadow Stacks are in use, disable CR4.CET so we can modify CR0.WP. */
++    if ( cpu_has_xen_shstk )
++        write_cr4(read_cr4() & ~X86_CR4_CET);
++
+     /* Disable WP to allow changes to read-only pages. */
+     write_cr0(read_cr0() & ~X86_CR0_WP);
+ 
+@@ -68,6 +73,29 @@ void arch_livepatch_revive(void)
+ {
+     /* Reinstate WP. */
+     write_cr0(read_cr0() | X86_CR0_WP);
++
++    /* Clobber dirty bits and reinstate CET, if applicable. */
++    if ( IS_ENABLED(CONFIG_XEN_SHSTK) && cpu_has_xen_shstk )
++    {
++        unsigned long tmp;
++
++        reset_virtual_region_perms();
++
++        write_cr4(read_cr4() | X86_CR4_CET);
++
++        /*
++         * Fix up the return address on the shadow stack, which currently
++         * points at arch_livepatch_quiesce()'s caller.
++         *
++         * Note: this is somewhat fragile, and depends on both
++         * arch_livepatch_{quiesce,revive}() being called from the same
++         * function, which is currently the case.
++         */
++        asm volatile ("rdsspq %[ssp];"
++                      "wrssq %[addr], (%[ssp]);"
++                      : [ssp] "=&r" (tmp)
++                      : [addr] "r" (__builtin_return_address(0)));
++    }
+ }
+ 
+ int arch_livepatch_verify_func(const struct livepatch_func *func)
+diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
+index aa23918bce..84d993d8f8 100644
+--- a/xen/common/virtual_region.c
++++ b/xen/common/virtual_region.c
+@@ -4,6 +4,7 @@
+ 
+ #include <xen/init.h>
+ #include <xen/kernel.h>
++#include <xen/mm.h>
+ #include <xen/rcupdate.h>
+ #include <xen/spinlock.h>
+ #include <xen/virtual_region.h>
+@@ -91,6 +92,18 @@ void unregister_virtual_region(struct virtual_region *r)
+     remove_virtual_region(r);
+ }
+ 
++void reset_virtual_region_perms(void)
++{
++    const struct virtual_region *region;
++
++    rcu_read_lock(&rcu_virtual_region_lock);
++    list_for_each_entry_rcu( region, &virtual_region_list, list )
++        modify_xen_mappings((unsigned long)region->start,
++                            ROUNDUP((unsigned long)region->end, PAGE_SIZE),
++                            PAGE_HYPERVISOR_RX);
++    rcu_read_unlock(&rcu_virtual_region_lock);
++}
++
+ void __init unregister_init_virtual_region(void)
+ {
+     BUG_ON(system_state != SYS_STATE_active);
+diff --git a/xen/include/xen/virtual_region.h b/xen/include/xen/virtual_region.h
+index e5e58ed96b..ba408eb87a 100644
+--- a/xen/include/xen/virtual_region.h
++++ b/xen/include/xen/virtual_region.h
+@@ -33,6 +33,7 @@ void setup_virtual_regions(const struct exception_table_entry *start,
+ void unregister_init_virtual_region(void);
+ void register_virtual_region(struct virtual_region *r);
+ void unregister_virtual_region(struct virtual_region *r);
++void reset_virtual_region_perms(void);
+ 
+ #endif /* __XEN_VIRTUAL_REGION_H__ */
+ 
+-- 
+2.11.0
+
 
