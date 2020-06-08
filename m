@@ -2,74 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FBC21F1BAD
+	by mail.lfdr.de (Postfix) with ESMTPS id 12BB01F1BAC
 	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 17:07:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiJMd-0005nc-L0; Mon, 08 Jun 2020 15:07:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jiJMo-0005oC-Tb; Mon, 08 Jun 2020 15:07:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9p0X=7V=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jiJMc-0005nW-Lp
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 15:07:02 +0000
-X-Inumbo-ID: b4b51e3e-a999-11ea-9b55-bc764e2007e4
-Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b4b51e3e-a999-11ea-9b55-bc764e2007e4;
- Mon, 08 Jun 2020 15:07:02 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id y17so17764577wrn.11
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 08:07:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=QB5BKohjXJ32ObghKFMDps1tKYPC1acdJx9MCMAOsC0=;
- b=GqCBO1MsYlAi/jAEUcqsWXRH770V1vlToZ2+rFS14pFsdhBJKHq6itHPaplghJLKHu
- BN0VfP5nXHP/ihJqZrv6NwbEjtVDPst143ppNVV8cK3yxbE0BaC4nCC2VfWE3Y+EVdeo
- qD9g+fy/FnRiyOmNtt9uKJK+TGAmxsIyELu3momWxT+OGr4szstDXbCyYXhC1o7Oynt0
- jBLUtyzVC/tI4KI8QbxqXfHjBUcpNESJlVF8gK4VYqpZrDrj8YAunxRp+np0Yev7h24/
- 8rRxMNPZ25tVd/tCdEkz2Eu2LYXdYWQCBtjAmPUc5ogD4KJAySUxrqjJH6PukCVL0oTa
- 89NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=QB5BKohjXJ32ObghKFMDps1tKYPC1acdJx9MCMAOsC0=;
- b=uCGp+PDE2SkSvRz0ADjqNkB+dn+BP3zaM/r4blnX3HbbOhjUsGfRg+CFNj2qSCemcS
- VVuO+QIZR+C3ornPKiu4Pk95NaMP5jIHE8GP/fFOFeF92ff4ScXjrg8hI7/MqXKAA6mG
- QSbzWac6+EuEuGffDsUjMJlA9H4YGk6tvdRvm9fHcViOOP/jUW7ORyZZNlhG/CgoyyCE
- 5wDiCOot113FEVkT7NrCfVESoV5ctEoH1fOoqcEXU/IhPEP+c/PZUHv73dKcAHb9aAbJ
- 3JLEtTjPXm2YGOPpPJWQDoU1vldE8duHnyiY5z2zky6nyY9Ea56C2acEbRZqWDXoybde
- LHsw==
-X-Gm-Message-State: AOAM530rVLirELpqvhAp00IuJrrmTYryBsvfi9/OiftCCLSxfqeMOAO5
- GIqo73+zlZYaJIIF13flyio=
-X-Google-Smtp-Source: ABdhPJzAMXwWHE/RsCcwmdSNbSaJl0ri5Y5vMAp64ThZ2XsYp4AQAslGOX2H7FKuSc+W/z3AE4COCg==
-X-Received: by 2002:adf:dcc3:: with SMTP id x3mr23255066wrm.93.1591628821191; 
- Mon, 08 Jun 2020 08:07:01 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.187])
- by smtp.gmail.com with ESMTPSA id p7sm20599wro.26.2020.06.08.08.06.59
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 08 Jun 2020 08:07:00 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'George Dunlap'" <George.Dunlap@citrix.com>,
- "'Nick Rosbrook'" <rosbrookn@gmail.com>
-References: <20200606161025.19057-1-rosbrookn@ainfosec.com>
- <B9F0A2FB-CF09-46DA-A136-54D6ABA17B4B@citrix.com>
- <34A9DEE3-7408-4717-853B-43BD5BA7B6C8@citrix.com>
-In-Reply-To: <34A9DEE3-7408-4717-853B-43BD5BA7B6C8@citrix.com>
-Subject: RE: [PATCH for-4.14] golang/xenlight: remove call to go fmt in
- gengotypes.py
-Date: Mon, 8 Jun 2020 16:06:59 +0100
-Message-ID: <004501d63da6$75d9ecd0$618dc670$@xen.org>
+ <SRS0=11Lh=7V=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jiJMn-0005o4-Ld
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 15:07:13 +0000
+X-Inumbo-ID: bad64dce-a999-11ea-b28d-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bad64dce-a999-11ea-b28d-12813bfff9fa;
+ Mon, 08 Jun 2020 15:07:12 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 0TPijvVH2saqwdi8Wesv0zmlAiKq6hvHLneDATXFeNK8+2NIi77IthaCO5OGpS9KBP6UgI1TsH
+ v+Fd6ecEy9joq8vqb6N1Mj1Sbcj5xm095WxdZgr6kB/s+zIiSAJiANd0W+ElLqEF7rxnPy8z2w
+ Dob0ivQcHDPxE0jYZR8ZlYBA5Pj67TaBnvtun8UcBkOrb4KsovcVQzdLyAXh+1ottDq8cf6DJI
+ TQGe/Qga4ZVuet/GLF8Yo/Tbg2xHxk7SRZIp5nYj3oFMhUKxHurIudwWzZaUHg3IwW0RihNDJZ
+ iuA=
+X-SBRS: 2.7
+X-MesageID: 19505789
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,487,1583211600"; d="scan'208";a="19505789"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Ian Jackson <Ian.Jackson@citrix.com>
+Subject: Re: 4.14.0-rc1 blocked on goland build failure - decision needed
+Thread-Topic: 4.14.0-rc1 blocked on goland build failure - decision needed
+Thread-Index: AQHWPaORQPtYscwMOUSBGUclg/JjvajOqv0AgAAFKQA=
+Date: Mon, 8 Jun 2020 15:07:08 +0000
+Message-ID: <4DD3680F-7EE6-4C97-B070-DFFE86AE7D4A@citrix.com>
+References: <005201d635a9$2b9bbc20$82d33460$@xen.org>
+ <2C4D8F6A-1498-4F13-923C-AAF2960D531F@citrix.com>
+ <007401d635c2$6b14a150$413de3f0$@xen.org>
+ <001201d63b5b$d8ebe7d0$8ac3b770$@xen.org>
+ <DC327618-2416-47D9-832E-AE8198060A97@citrix.com>
+ <002901d63d7f$2301a6a0$6904f3e0$@xen.org>
+ <24286.12984.247498.799575@mariner.uk.xensource.com>
+ <003001d63d93$9a4bbcf0$cee336d0$@xen.org>
+ <24286.18072.880121.172973@mariner.uk.xensource.com>
+ <003301d63d9e$97de3e60$c79abb20$@xen.org>
+ <24286.20279.622221.291800@mariner.uk.xensource.com>
+ <24286.20424.998938.535648@mariner.uk.xensource.com>
+In-Reply-To: <24286.20424.998938.535648@mariner.uk.xensource.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <8867DBA564D79D4A86700B4E0682CBBE@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQMZuxlWX/GkGcJw6dDksLH66QFH1QGz0NGjAkULNCymKA+YwA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,59 +73,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Nick Rosbrook' <rosbrookn@ainfosec.com>,
- 'Xen-devel' <xen-devel@lists.xenproject.org>, 'Wei Liu' <wl@xen.org>,
- 'Ian Jackson' <Ian.Jackson@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: George Dunlap <George.Dunlap@citrix.com>
-> Sent: 08 June 2020 15:16
-> To: Nick Rosbrook <rosbrookn@gmail.com>
-> Cc: Xen-devel <xen-devel@lists.xenproject.org>; Nick Rosbrook =
-<rosbrookn@ainfosec.com>; Ian Jackson
-> <Ian.Jackson@citrix.com>; Wei Liu <wl@xen.org>; Paul Durrant =
-<paul@xen.org>
-> Subject: Re: [PATCH for-4.14] golang/xenlight: remove call to go fmt =
-in gengotypes.py
->=20
-> CC=E2=80=99ing release manager
->=20
-> > On Jun 8, 2020, at 12:39 PM, George Dunlap =
-<george.dunlap@citrix.com> wrote:
-> >
-> >>
-> >> On Jun 6, 2020, at 5:10 PM, Nick Rosbrook <rosbrookn@gmail.com> =
-wrote:
-> >>
-> >> Since the golang bindings are now set to be re-generated whenever a
-> >> change is made to tools/libxl/libxl_types.idl, the call to go fmt =
-in
-> >> gengotypes.py results in a dirty git tree for users without go
-> >> installed.
-> >>
-> >> As an immediate fix, just remove the call to go fmt from =
-gengotypes.py.
-> >> While here, make sure the DO NOT EDIT comment and package =
-declaration
-> >> remain formatted correctly. All other generated code is left
-> >> un-formatted for now.
-> >>
-> >> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-> >
-> > Reviewed-by: George Dunlap <george.dunlap@citrix.com>
->=20
-> Paul, this is a fix to the build system that only affects the =
-formatting of some generated code.  (At
-> the moment, the generated code will look differently depending on =
-whether you have golang installed or
-> not.)
-
-Ok, that sounds low risk.
-
-Release-acked-by: Paul Durrant <paul@xen.org>
-
-
+DQoNCj4gT24gSnVuIDgsIDIwMjAsIGF0IDM6NDggUE0sIElhbiBKYWNrc29uIDxpYW4uamFja3Nv
+bkBjaXRyaXguY29tPiB3cm90ZToNCj4gDQo+IElhbiBKYWNrc29uIHdyaXRlcyAoIjQuMTQuMC1y
+YzEgYmxvY2tlZCBvbiBnb2xhbmQgYnVpbGQgZmFpbHVyZSAtIGRlY2lzaW9uIG5lZWRlZCIpOg0K
+Pj4gSGksIFBhdWwuICBGb3IgdGhvc2Ugb24geGVuLWRldmVsOiBjb250ZXh0IGlzIHRoYXQgUGF1
+bCBhc2tlZCBtZSB0bw0KPj4gY3V0IDQuMTQuMC1yYzEuICBUaGUgY2hlY2tsaXN0IGFza3MgbWUg
+dG8gcGVyZm9ybSBhIHRlc3QgYnVpbGQuDQo+PiANCj4+IE15IDMyLWJpdCB0b29scyB0ZXN0IGJ1
+aWxkIGZhaWxlZC4gIEkgdGhpbmsgdGhlIHByb2JsZW0gaXMgcHJvYmFibHkNCj4+IHNwZWNpZmlj
+IHRvIDMyLWJpdCB1c2VybGFuZCBvbiA2NC1iaXQgTGludXgga2VybmVsLiAgSSB3aWxsIHNlbmQg
+YQ0KPj4gc2Vjb25kIGZvbGxvd3VwIG1haWwgbm90IENDIFBhdWwgd2l0aCB0ZWNobmljYWwgZGV0
+YWlscy4NCj4gDQo+IFRlY2huaWNhbCBkZXRhaWxzQDoNCj4gDQo+IFRoZSBmaXJzdCBlcnJvciBs
+b29rcyBsaWtlIHRoaXM6DQo+IA0KPiAuL2hlbHBlcnMuZ2VuLmdvOjkwMVsvdG1wL2dvLWJ1aWxk
+NjQzMTU4Njg2L18vdS9pd2ovd29yay94ZW4uZ2l0L3Rvb2xzL2dvbGFuZy94ZW5saWdodC9fb2Jq
+L2hlbHBlcnMuZ2VuLmNnbzEuZ286MTE3Ml06DQo+IHR5cGUgWzI2ODQzNTQ1Nl1fQ3R5cGVfc3Ry
+dWN0X2xpYnhsX3NjaGVkX3BhcmFtcyBsYXJnZXIgdGhhbiBhZGRyZXNzDQo+IHNwYWNlDQoNCkFj
+dHVhbGx5LCBJIGRvbuKAmXQgdGhpbmsgdGhpcyBoYXMgYW55dGhpbmcgdG8gZG8gd2l0aCAzMi1i
+aXQgdXNlcnNwYWNlLCBidXQgaW5zdGVhZCBoYXMgdG8gZG8gd2l0aCB0aGUgdmVyc2lvbiBvZiBn
+bzogVGhlIHZlcnNpb24gaW4gc3RyZXRjaCBpcyAxLjcgYW5kIGNob2tlcyBvbiB0aGlzIGZvciBz
+b21lIHJlYXNvbi4gIEkgaGF2ZW7igJl0IGhhZCB0aW1lIHRvIHRyYWNrIGRvd24gd2h5LiAgSXQg
+ZG9lcyB3b3JrIGZvciBnb2xhbmcgMS4xMS4NCg0KT3B0aW9ucyBhcmU6DQoNCjEuIERvY3VtZW50
+IHRoYXQgaWYgeW91IGhhdmUgYSB2ZXJzaW9uIG9mIGdvbGFuZyBvbGRlciB0aGFuIDEuMTEsIHlv
+dSBuZWVkIHRvIGFkZCBg4oCUZGlzYWJsZS1nb2xhbmdgIA0KDQoyLiBNb2RpZnkgY29uZmlndXJl
+IHRvIGNoZWNrIGZvciB0aGUgZ28gdmVyc2lvbiwgYW5kIG9ubHkgZW5hYmxlIGlmIHRoZSB2ZXJz
+aW9uIGlzID4gMS4xMQ0KDQozLiBUcnkgdG8gcm9vdC1jYXVzZSB0aGUgaXNzdWUuDQoNCknigJlt
+IGluY2xpbmVkIHRvIHNheSB3ZSBzaG91bGQgZ28gd2l0aCAjMSBmb3IgdGhpcyBSQywgdGhlbiBl
+aXRoZXIgIzIgb3IgIzMuDQoNCiAtR2VvcmdlDQoNCg==
 
