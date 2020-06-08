@@ -2,48 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99DED1F1339
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 09:09:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5076A1F1346
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 09:11:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiBud-0008TH-9D; Mon, 08 Jun 2020 07:09:39 +0000
+	id 1jiBvw-0000tH-MS; Mon, 08 Jun 2020 07:11:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ohtu=7V=bombadil.srs.infradead.org=batv+c8e86b2099343dd9fc1e+6133+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1jiBub-0008T4-Ke
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 07:09:37 +0000
-X-Inumbo-ID: 031227cc-a957-11ea-ba62-bc764e2007e4
-Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
+ <SRS0=Py4y=7V=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jiBvw-0000tC-4K
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 07:11:00 +0000
+X-Inumbo-ID: 31622794-a957-11ea-96fb-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 031227cc-a957-11ea-ba62-bc764e2007e4;
- Mon, 08 Jun 2020 07:09:37 +0000 (UTC)
+ id 31622794-a957-11ea-96fb-bc764e2007e4;
+ Mon, 08 Jun 2020 07:10:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=riTlVvjTBVFVzOBQ14vr3osfjEjXKYJJb4irFAZraug=; b=mrrf00JD+nWPYE2DUp6aInWaGN
- a0TxqMgzuk/LZrKik9Im/aZcH6eN6HqEQ6SXpJb1qToyKWPK/mAAx6+qceEklRjCStr6sT9NR15iC
- G7zApsVtqHeNiJLCkNz/l/f3NxMiEJWdWykEdvN17+3WrJmZ37+O4628h8PIkyaTbI6dyc4WpeS7w
- /CvBKq3CoXFkMGqT8kq6RGDfyyGSqG9B735Rq17SHasqFOmkkWHaOJJgPzhNxGk2HMBsdqDvWOL8X
- KixbEX6rwCAMRY9fmWt8XRMo5f6s2AsghXmBgqFVATH/dejo6gIXS5Uuonc7MSsGYPgNwsGeoeC2q
- 1wRSFvkQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1jiBuY-0003VP-6I; Mon, 08 Jun 2020 07:09:34 +0000
-Date: Mon, 8 Jun 2020 00:09:34 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 09/11] swiotlb-xen: rename xen_phys_to_bus to
- xen_phys_to_dma and xen_bus_to_phys to xen_dma_to_phys
-Message-ID: <20200608070934.GE15742@infradead.org>
-References: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
- <20200603222247.11681-9-sstabellini@kernel.org>
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Ro5kyLqKFxon7E+ohRMnBdYEG3ywjT8M+mRM2Z1flRE=; b=PhuBr11iHjwrG/2x5XQRU2k+8
+ mOTOdEKe89uZU8rtBLdt87cJmqX9FKlAisZ/jRe7py4bTOisqG09vmDCPHVjY9TFOF6l9sMJGR7Td
+ IzNJIY9Z260y3TfUIW3N9p12+muimZvCPll+sYi0AoGrs8vuhv8uMVUEaVm60T3mBqh4I=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jiBvp-0000NW-Oc; Mon, 08 Jun 2020 07:10:53 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jiBvp-0003w7-D2; Mon, 08 Jun 2020 07:10:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jiBvp-0004pn-CV; Mon, 08 Jun 2020 07:10:53 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150917-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200603222247.11681-9-sstabellini@kernel.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [ovmf test] 150917: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=6ff7c838d09224dd4e4c9b5b93152d8db1b19740
+X-Osstest-Versions-That: ovmf=cfd73e0065f523e1d56bb32b5c9d48e162c903f8
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 08 Jun 2020 07:10:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,18 +60,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, tamas@tklengyel.com, konrad.wilk@oracle.com,
- roman@zededa.com, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
- boris.ostrovsky@oracle.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jun 03, 2020 at 03:22:45PM -0700, Stefano Stabellini wrote:
-> so that their names can better describe their behavior.
-> 
-> No functional changes.
+flight 150917 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150917/
 
-I think this should go with the actual change, and adding the
-parameters.  Touching this function piecemail in three patches for
-what really is a single logical change is rather strange.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 6ff7c838d09224dd4e4c9b5b93152d8db1b19740
+baseline version:
+ ovmf                 cfd73e0065f523e1d56bb32b5c9d48e162c903f8
+
+Last test of basis   150911  2020-06-07 20:10:10 Z    0 days
+Testing same since   150917  2020-06-08 01:40:21 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Leif Lindholm <leif@nuviainc.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   cfd73e0065..6ff7c838d0  6ff7c838d09224dd4e4c9b5b93152d8db1b19740 -> xen-tested-master
 
