@@ -2,113 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EBAB1F1D5E
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:31:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A12351F1D6E
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:34:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiKfs-0001Zt-MS; Mon, 08 Jun 2020 16:31:00 +0000
+	id 1jiKit-0001kK-Ao; Mon, 08 Jun 2020 16:34:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Py4y=7V=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jiKfr-0001Zo-JJ
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:30:59 +0000
-X-Inumbo-ID: 6e86cf14-a9a5-11ea-96fb-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=9p0X=7V=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jiKir-0001kF-IJ
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:34:05 +0000
+X-Inumbo-ID: dd7ec782-a9a5-11ea-9ad7-bc764e2007e4
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6e86cf14-a9a5-11ea-96fb-bc764e2007e4;
- Mon, 08 Jun 2020 16:30:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UNZEoxDqD5Gy8/P6JGOrXrr3jGxxiUA0cxcX7A06HpI=; b=IRg2MwgdLgckukm5Rx1L3Ubkh
- VlwPABBXZA/b38LJOrfrI0ML01ViCKj+FQXfE7AxZb0Ibjm2PEVKWLBYfSz4WPJXJUYSTDFdjyyBc
- NrCrjQJTJJvTZOGj46L5RBJ6NO2/bLU9Bq6AjrxA2dLU0/+T92Xij5iENNPrxPukcT5GE=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jiKfp-0003LY-HI; Mon, 08 Jun 2020 16:30:57 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jiKfp-0001I2-95; Mon, 08 Jun 2020 16:30:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jiKfp-0004SA-8U; Mon, 08 Jun 2020 16:30:57 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150918-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id dd7ec782-a9a5-11ea-9ad7-bc764e2007e4;
+ Mon, 08 Jun 2020 16:34:04 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id l10so18099505wrr.10
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:34:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=AtEnjShvwY/k06VTmB0mLv1uwHmYlMMdW/0/wJZrmIQ=;
+ b=hR17YPlwAqCXqtJJ/AzM+KAb1E9jpXmfd1qDhGyzXcTqDseFZxnXrWY+pL3HtmNarP
+ NGz0L3J7tXVBBOy0EkU59DzV2QM4kArOomoc3UxPJBsD8p7ffLz9j3O1VD9b3qY6szhr
+ vvcO9c2FirLX4d3vsgVI4h/ZfIZlGckvRKcKOh8bmxRJ1BdzJrhcGnJsIrxwq9SXkK5N
+ 9TUs7mp55Hmr0AxnlLRaWaO1Va530LV2PNLC2Efcd/RIescuepm8Iu4vLoyShRvO+2A2
+ nCVY18huWmIFXI+XdioCwaFcErwg4hW6BtrqbwgWkJNA8IFrM/xztMCYrgtJSHvDOqms
+ ssmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=AtEnjShvwY/k06VTmB0mLv1uwHmYlMMdW/0/wJZrmIQ=;
+ b=Q+8j2V4c8JMybtGRLC1o6HX3dWJLNlTwozGIVN8eHmjyKP5SjvrXbZIiY4ruMy3p4D
+ DYjHsx84A4oQETv7+/rZxHFakiBhswGHmX9dlgZd5D5g3OOeydUeaNMdRFwQvjUZsU7B
+ BVHTMIQHVxsSpMRE/3t3vUguX492tAuAax6zH80Lp8Cx1yIxOyshe0RwdQSkGi8KxL8X
+ WZbta8yh9OirU7ktjrFJ1IcoL/483dpFYI40iiwglDUR1jJrzTilDxMW2scYmEpPSHSF
+ J+gCPnjl9RXx40mNFzi8C9+1GzILEcl4Izt2T/RT4O9qeTQfzrmVpI9PIhQNaorFmjTX
+ BSOQ==
+X-Gm-Message-State: AOAM532BGMGnxWluQBvUaZqsxoSB/B7FgV32TcepXP5ecJxJq3nCAvkD
+ LMK/PgovxpZjKWU7++OTTXbr8OXx1T0=
+X-Google-Smtp-Source: ABdhPJwTz5aaN1yHXp9ouooEB0CT7vN9ttKkpxywDxF4/F429xljwLAt/0quhTuty7B1PizGKSU+gQ==
+X-Received: by 2002:adf:a51a:: with SMTP id i26mr23842353wrb.406.1591634043467; 
+ Mon, 08 Jun 2020 09:34:03 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id u7sm276831wrm.23.2020.06.08.09.34.02
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 08 Jun 2020 09:34:02 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Roger Pau Monne'" <roger.pau@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+References: <20200608161353.2654-1-roger.pau@citrix.com>
+In-Reply-To: <20200608161353.2654-1-roger.pau@citrix.com>
+Subject: RE: [PATCH for-4.14 v4] x86/rtc: provide mediated access to RTC for
+ PVH dom0
+Date: Mon, 8 Jun 2020 17:34:01 +0100
+Message-ID: <004a01d63db2$9ea22db0$dbe68910$@xen.org>
 MIME-Version: 1.0
-Subject: [xen-unstable test] 150918: trouble: broken/fail/pass
-X-Osstest-Failures: xen-unstable:test-amd64-amd64-xl-rtds:<job
- status>:broken:regression
- xen-unstable:test-amd64-amd64-xl-rtds:guest-saverestore.2:fail:heisenbug
- xen-unstable:test-armhf-armhf-xl-rtds:guest-stop:fail:heisenbug
- xen-unstable:test-amd64-amd64-xl-rtds:capture-logs(18):broken:nonblocking
- xen-unstable:test-arm64-arm64-libvirt-xsm:guest-start/debian.repeat:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=51ca66c37371b10b378513af126646de22eddb17
-X-Osstest-Versions-That: xen=51ca66c37371b10b378513af126646de22eddb17
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 08 Jun 2020 16:30:57 +0000
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJDDnpi0r6pS+dLTuHWH2aB9skHoKf1SB6g
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,220 +78,287 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Jan Beulich' <jbeulich@suse.com>, 'Wei Liu' <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150918 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150918/
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+Roger Pau Monne
+> Sent: 08 June 2020 17:14
+> To: xen-devel@lists.xenproject.org
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Roger Pau Monne =
+<roger.pau@citrix.com>; Wei Liu
+> <wl@xen.org>; Jan Beulich <jbeulich@suse.com>; paul@xen.org
+> Subject: [PATCH for-4.14 v4] x86/rtc: provide mediated access to RTC =
+for PVH dom0
+>=20
+> Mediated access to the RTC was provided for PVHv1 dom0 using the PV
+> code paths (guest_io_{write/read}), but those accesses where never
+> implemented for PVHv2 dom0. This patch provides such mediated accesses
+> to the RTC for PVH dom0, just like it's provided for a classic PV
+> dom0.
+>=20
+> Pull out some of the RTC logic from guest_io_{read/write} into
+> specific helpers that can be used by both PV and HVM guests. The
+> setup of the handlers for PVH is done in rtc_init, which is already
+> used to initialize the fully emulated RTC.
+>=20
+> Without this a Linux PVH dom0 will read garbage when trying to access
+> the RTC, and one vCPU will be constantly looping in
+> rtc_timer_do_work.
+>=20
+> Note that such issue doesn't happen on domUs because the ACPI
+> NO_CMOS_RTC flag is set in FADT, which prevents the OS from accessing
+> the RTC. Also the X86_EMU_RTC flag is not set for PVH dom0, as the
+> accesses are not emulated but rather forwarded to the physical
+> hardware.
+>=20
+> No functional change expected for classic PV dom0.
+>=20
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Failures and problems with tests :-(
+Release-acked-by: Paul Durrant <paul@xen.org>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-rtds        <job status>                 broken
+> ---
+> for-4.14 reasoning: the fix is mostly isolated to PVH dom0, and as
+> such the risk is very low of causing issues to other guests types, but
+> without this fix one vCPU when using a Linux dom0 will be constantly
+> looping over rtc_timer_do_work with 100% CPU usage, at least when
+> using Linux 4.19 or newer.
+> ---
+> Changes since v3:
+>  - Reword comment.
+>  - Add missing newline after break.
+>  - Remove extra parentheses in the RTC ports check in
+>    guest_io_{read/write}.
+>=20
+> Changes since v2:
+>  - Move the access check into the read/write handler.
+>  - Allow access to the latched first RTC port by all PV guests.
+>  - Register the handlers for HVM native accesses if vRTC is disabled.
+>=20
+> Changes since v1:
+>  - Share the code with PV.
+>  - Add access checks to the IO ports.
+> ---
+>  xen/arch/x86/hvm/rtc.c            | 26 +++++++++++++
+>  xen/arch/x86/pv/emul-priv-op.c    | 30 ++------------
+>  xen/arch/x86/time.c               | 65 =
++++++++++++++++++++++++++++++++
+>  xen/include/asm-x86/mc146818rtc.h |  3 ++
+>  4 files changed, 98 insertions(+), 26 deletions(-)
+>=20
+> diff --git a/xen/arch/x86/hvm/rtc.c b/xen/arch/x86/hvm/rtc.c
+> index 5bbbdc0e0f..3150f5f147 100644
+> --- a/xen/arch/x86/hvm/rtc.c
+> +++ b/xen/arch/x86/hvm/rtc.c
+> @@ -808,12 +808,38 @@ void rtc_reset(struct domain *d)
+>      s->pt.source =3D PTSRC_isa;
+>  }
+>=20
+> +/* RTC mediator for HVM hardware domain. */
+> +static int hw_rtc_io(int dir, unsigned int port, unsigned int size,
+> +                     uint32_t *val)
+> +{
+> +    if ( dir =3D=3D IOREQ_READ )
+> +        *val =3D ~0;
+> +
+> +    if ( size !=3D 1 )
+> +    {
+> +        gdprintk(XENLOG_WARNING, "bad RTC access size (%u)\n", size);
+> +        return X86EMUL_OKAY;
+> +    }
+> +
+> +    if ( dir =3D=3D IOREQ_WRITE )
+> +        rtc_guest_write(port, *val);
+> +    else
+> +        *val =3D rtc_guest_read(port);
+> +
+> +    return X86EMUL_OKAY;
+> +}
+> +
+>  void rtc_init(struct domain *d)
+>  {
+>      RTCState *s =3D domain_vrtc(d);
+>=20
+>      if ( !has_vrtc(d) )
+> +    {
+> +        if ( is_hardware_domain(d) )
+> +            /* Hardware domain gets mediated access to the physical =
+RTC. */
+> +            register_portio_handler(d, RTC_PORT(0), 2, hw_rtc_io);
+>          return;
+> +    }
+>=20
+>      spin_lock_init(&s->lock);
+>=20
+> diff --git a/xen/arch/x86/pv/emul-priv-op.c =
+b/xen/arch/x86/pv/emul-priv-op.c
+> index fad6c754ad..254da2b849 100644
+> --- a/xen/arch/x86/pv/emul-priv-op.c
+> +++ b/xen/arch/x86/pv/emul-priv-op.c
+> @@ -280,19 +280,9 @@ static uint32_t guest_io_read(unsigned int port, =
+unsigned int bytes,
+>          {
+>              sub_data =3D pv_pit_handler(port, 0, 0);
+>          }
+> -        else if ( port =3D=3D RTC_PORT(0) )
+> +        else if ( port =3D=3D RTC_PORT(0) || port =3D=3D RTC_PORT(1) =
+)
+>          {
+> -            sub_data =3D currd->arch.cmos_idx;
+> -        }
+> -        else if ( (port =3D=3D RTC_PORT(1)) &&
+> -                  ioports_access_permitted(currd, RTC_PORT(0), =
+RTC_PORT(1)) )
+> -        {
+> -            unsigned long flags;
+> -
+> -            spin_lock_irqsave(&rtc_lock, flags);
+> -            outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> -            sub_data =3D inb(RTC_PORT(1));
+> -            spin_unlock_irqrestore(&rtc_lock, flags);
+> +            sub_data =3D rtc_guest_read(port);
+>          }
+>          else if ( (port =3D=3D 0xcf8) && (bytes =3D=3D 4) )
+>          {
+> @@ -413,21 +403,9 @@ static void guest_io_write(unsigned int port, =
+unsigned int bytes,
+>          {
+>              pv_pit_handler(port, (uint8_t)data, 1);
+>          }
+> -        else if ( port =3D=3D RTC_PORT(0) )
+> -        {
+> -            currd->arch.cmos_idx =3D data;
+> -        }
+> -        else if ( (port =3D=3D RTC_PORT(1)) &&
+> -                  ioports_access_permitted(currd, RTC_PORT(0), =
+RTC_PORT(1)) )
+> +        else if ( port =3D=3D RTC_PORT(0) || port =3D=3D RTC_PORT(1) =
+)
+>          {
+> -            unsigned long flags;
+> -
+> -            if ( pv_rtc_handler )
+> -                pv_rtc_handler(currd->arch.cmos_idx & 0x7f, data);
+> -            spin_lock_irqsave(&rtc_lock, flags);
+> -            outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> -            outb(data, RTC_PORT(1));
+> -            spin_unlock_irqrestore(&rtc_lock, flags);
+> +            rtc_guest_write(port, data);
+>          }
+>          else if ( (port =3D=3D 0xcf8) && (bytes =3D=3D 4) )
+>          {
+> diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+> index bbaea3aa65..d643590c0a 100644
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -27,6 +27,7 @@
+>  #include <xen/keyhandler.h>
+>  #include <xen/guest_access.h>
+>  #include <asm/io.h>
+> +#include <asm/iocap.h>
+>  #include <asm/msr.h>
+>  #include <asm/mpspec.h>
+>  #include <asm/processor.h>
+> @@ -1110,6 +1111,70 @@ static unsigned long get_cmos_time(void)
+>      return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, =
+rtc.sec);
+>  }
+>=20
+> +/* Helpers for guest accesses to the physical RTC. */
+> +unsigned int rtc_guest_read(unsigned int port)
+> +{
+> +    const struct domain *currd =3D current->domain;
+> +    unsigned long flags;
+> +    unsigned int data =3D ~0;
+> +
+> +    switch ( port )
+> +    {
+> +    case RTC_PORT(0):
+> +        /*
+> +         * All PV domains (and PVH dom0) are allowed to read the =
+latched value
+> +         * of the first RTC port, as there's no access to the =
+physical IO
+> +         * ports.
+> +         */
+> +        data =3D currd->arch.cmos_idx;
+> +        break;
+> +
+> +    case RTC_PORT(1):
+> +        if ( !ioports_access_permitted(currd, RTC_PORT(0), =
+RTC_PORT(1)) )
+> +            break;
+> +        spin_lock_irqsave(&rtc_lock, flags);
+> +        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> +        data =3D inb(RTC_PORT(1));
+> +        spin_unlock_irqrestore(&rtc_lock, flags);
+> +        break;
+> +
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
+> +
+> +    return data;
+> +}
+> +
+> +void rtc_guest_write(unsigned int port, unsigned int data)
+> +{
+> +    struct domain *currd =3D current->domain;
+> +    unsigned long flags;
+> +
+> +    switch ( port )
+> +    {
+> +    case RTC_PORT(0):
+> +        /*
+> +         * All PV domains (and PVH dom0) are allowed to write to the =
+latched
+> +         * value of the first RTC port, as there's no access to the =
+physical IO
+> +         * ports.
+> +         */
+> +        currd->arch.cmos_idx =3D data;
+> +        break;
+> +
+> +    case RTC_PORT(1):
+> +        if ( !ioports_access_permitted(currd, RTC_PORT(0), =
+RTC_PORT(1)) )
+> +            break;
+> +        spin_lock_irqsave(&rtc_lock, flags);
+> +        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> +        outb(data, RTC_PORT(1));
+> +        spin_unlock_irqrestore(&rtc_lock, flags);
+> +        break;
+> +
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
+> +}
+> +
+>  static unsigned long get_wallclock_time(void)
+>  {
+>  #ifdef CONFIG_XEN_GUEST
+> diff --git a/xen/include/asm-x86/mc146818rtc.h =
+b/xen/include/asm-x86/mc146818rtc.h
+> index 8758528f7c..803b236c0a 100644
+> --- a/xen/include/asm-x86/mc146818rtc.h
+> +++ b/xen/include/asm-x86/mc146818rtc.h
+> @@ -110,4 +110,7 @@ outb_p((val),RTC_PORT(1)); \
+>=20
+>  #define RTC_IRQ 8
+>=20
+> +unsigned int rtc_guest_read(unsigned int port);
+> +void rtc_guest_write(unsigned int port, unsigned int data);
+> +
+>  #endif /* _ASM_MC146818RTC_H */
+> --
+> 2.26.2
+>=20
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-rtds     17 guest-saverestore.2        fail pass in 150900
- test-armhf-armhf-xl-rtds     15 guest-stop                 fail pass in 150900
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-rtds     18 capture-logs(18)      broken blocked in 150900
- test-arm64-arm64-libvirt-xsm 16 guest-start/debian.repeat fail in 150900 like 150869
- test-amd64-amd64-xl-rtds  18 guest-localmigrate/x10 fail in 150900 like 150897
- test-armhf-armhf-xl-rtds 16 guest-start/debian.repeat fail in 150900 like 150897
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 150900
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 150900
- test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop             fail like 150900
- test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 150900
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 150900
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 150900
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 150900
- test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 150900
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 150900
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
-
-version targeted for testing:
- xen                  51ca66c37371b10b378513af126646de22eddb17
-baseline version:
- xen                  51ca66c37371b10b378513af126646de22eddb17
-
-Last test of basis   150918  2020-06-08 01:51:14 Z    0 days
-Testing same since                          (not found)         0 attempts
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     broken  
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job test-amd64-amd64-xl-rtds broken
-broken-step test-amd64-amd64-xl-rtds capture-logs(18)
-
-Published tested tree is already up to date.
 
 
