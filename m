@@ -2,69 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C7DC1F1CA1
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:01:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 558161F1CA2
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:01:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiKDX-0003vr-Ho; Mon, 08 Jun 2020 16:01:43 +0000
+	id 1jiKDc-0003zN-R4; Mon, 08 Jun 2020 16:01:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8Blr=7V=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1jiKDV-0003ui-K4
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:01:41 +0000
-X-Inumbo-ID: 57832dd4-a9a1-11ea-9ad7-bc764e2007e4
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
+ id 1jiKDb-0003yb-A9
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:01:47 +0000
+X-Inumbo-ID: 5ae958d6-a9a1-11ea-ba62-bc764e2007e4
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 57832dd4-a9a1-11ea-9ad7-bc764e2007e4;
- Mon, 08 Jun 2020 16:01:41 +0000 (UTC)
+ id 5ae958d6-a9a1-11ea-ba62-bc764e2007e4;
+ Mon, 08 Jun 2020 16:01:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591632101;
+ s=mimecast20190719; t=1591632106;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gxT4B45O1zWyFYki8IWzx+7CIdrw2K/5FRLdU4/GP/s=;
- b=N2DdErRqsyskEuGnIL6IIOra+szxgFTHezrH3k0nylRDWuV5ophAD6etCKcTawrsz+1NAp
- GZg3tyFIeLDnBXR5q6xZgD9JXWkA9kASGqE/FAzhtm4i5fxoyVhuZABTJwOglFafAz6Z97
- +HVomMRl/DPlD9V7hNYGcjleYUuGI7g=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-461-WAtSPRwdOTqH1Ew_IoSHJA-1; Mon, 08 Jun 2020 12:01:39 -0400
-X-MC-Unique: WAtSPRwdOTqH1Ew_IoSHJA-1
-Received: by mail-wm1-f71.google.com with SMTP id r1so4998wmh.7
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:01:39 -0700 (PDT)
+ bh=wevOFGWECaRJOmLpbzON6N0ynWLO2tBiVdtI/WyaADw=;
+ b=NkW3UnwTbxxaLsuKfjS3EBcBjcDhv1go6laBXYOB+rFptyXhwpJ6FoPbvRNNbtIsgYMXwH
+ TwzJxY/H5i3I16+12dNHPkTrk5JxeJrafH6n5rjvaa5YE56oGnF1R97P/MNFJQZ20kw8sX
+ ivtKzD9hc7IWlS6v81sMyb5TvHRDiCs=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-262-BruzOao4MFKnk_HSbyC77A-1; Mon, 08 Jun 2020 12:01:44 -0400
+X-MC-Unique: BruzOao4MFKnk_HSbyC77A-1
+Received: by mail-wr1-f70.google.com with SMTP id d6so7338878wrn.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:01:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=gxT4B45O1zWyFYki8IWzx+7CIdrw2K/5FRLdU4/GP/s=;
- b=eRCJ2v1RMV6FFHCWYo2qljR6RDN9fcwLVPialCVV5XBWN8o+zaAnlYYUEamf6X9S/h
- 7NMRPq4rfQBHFdD+YMdZHsr9Tu3vo5SGuDwgfo2SHfTwNLWL5cRMTPritTibZH0cDfrW
- TGS7BoRjOK582k5hhv756GFvpDG1jQSmJ+SfH80qIqooIDhIKGvjuOMi1UumFdQkShHs
- G1A10drk2Z/P+edqanbCRIQTZtWa3BRWi8cTnr4/ntRsffv8etFiypWyByPv7oaK/xin
- lq3+MHa1YCUjq53I/RvDBeM7k3WOMmJpOVOEobVVfp8ksvNhOxb/zBurCbuS81wgp3IH
- hV7g==
-X-Gm-Message-State: AOAM532R9JVEkTEZhjNuSd+aEJY5KNIZZpfO5LBabH5/UgihPfeA9ouT
- JEsxQo3Fr3SH7opIfovVH+B00KVjdLYtzxm3siViC0GEo8cu58QezPkVvnvcjhFEzyc6XhGBmxO
- i0esXEHTux5WIHhOW/en2oVvYeYk=
-X-Received: by 2002:a05:600c:2215:: with SMTP id
- z21mr76252wml.48.1591632098182; 
- Mon, 08 Jun 2020 09:01:38 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxecWPcyOuK8uF9ReCv2dq+PoGEfPzfu+FZfYV8n2WgE2MmJ6zu0OPEpglwHYV7Ppo9rtY/wQ==
-X-Received: by 2002:a05:600c:2215:: with SMTP id
- z21mr76223wml.48.1591632098001; 
- Mon, 08 Jun 2020 09:01:38 -0700 (PDT)
+ bh=wevOFGWECaRJOmLpbzON6N0ynWLO2tBiVdtI/WyaADw=;
+ b=cXt5bWqCE/P4uzZ3JdX5em4FbZCHdooGTYV+QBDv+vngkWaTBIH46VSChJZtEhC8x7
+ eWHcvAnDQSw7eOmPPDQhN1rmTUNGeOzhBiPaj748YhUJdG56ToInL3nG7jCnvVlRQzqw
+ BpNys2pLBRn806lTzp8qwE2pL8RRVp7zDhSOulAVNSkX7VACtvtKuYkC4FcNz4rwKhvO
+ /M2t3iF0xZeRLkCHE2ImfbDjVIHEft5Y8h1MzUq8WqPRV1U6/Bgl0vTAGjC+U0qj3IqM
+ ykWlK4ATTPfNzXD87hj9wG87ItfKP0+wFmpGyIArQHckOp3t8InLKM5b7z7ph2cmKQvt
+ ekfQ==
+X-Gm-Message-State: AOAM533sBXYqsClnM1sKqK7ld5Rm4GVDD2W9Q7EUFnrL+lwxrhISaIoh
+ nZ06mUHtlEqgnflD3Nk0fhOagDacGdL8Gmb/TKmF7e2ZOrxOpZk5FeWMZNTqYa9cmdL19Ell+9V
+ m9GXvSNpFCY7zEtg6KhCMRErEE4g=
+X-Received: by 2002:adf:fd81:: with SMTP id d1mr24815725wrr.96.1591632103558; 
+ Mon, 08 Jun 2020 09:01:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzgYI93lvZ2rTNUf8uc34cwDYk4WA9pXLtkl6aiMXyXdGzMVgF1rzOkVGZM3nz7yDUz0VO1vA==
+X-Received: by 2002:adf:fd81:: with SMTP id d1mr24815694wrr.96.1591632103352; 
+ Mon, 08 Jun 2020 09:01:43 -0700 (PDT)
 Received: from localhost.localdomain
  (181.red-88-10-103.dynamicip.rima-tde.net. [88.10.103.181])
- by smtp.gmail.com with ESMTPSA id g3sm188327wrb.46.2020.06.08.09.01.36
+ by smtp.gmail.com with ESMTPSA id b185sm342940wmd.3.2020.06.08.09.01.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jun 2020 09:01:37 -0700 (PDT)
+ Mon, 08 Jun 2020 09:01:42 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
-Subject: [RFC PATCH 09/35] hw/display/ramfb: Emit warning when old code is used
-Date: Mon,  8 Jun 2020 18:00:18 +0200
-Message-Id: <20200608160044.15531-10-philmd@redhat.com>
+Subject: [RFC PATCH 10/35] hw/display/tc6393xb: Emit warning when old code is
+ used
+Date: Mon,  8 Jun 2020 18:00:19 +0200
+Message-Id: <20200608160044.15531-11-philmd@redhat.com>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200608160044.15531-1-philmd@redhat.com>
 References: <20200608160044.15531-1-philmd@redhat.com>
@@ -114,30 +113,30 @@ This code hasn't been QOM'ified yet. Warn the user.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- hw/display/ramfb.c | 3 +++
+ hw/display/tc6393xb.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/hw/display/ramfb.c b/hw/display/ramfb.c
-index 79b9754a58..a4a427e5c7 100644
---- a/hw/display/ramfb.c
-+++ b/hw/display/ramfb.c
-@@ -18,6 +18,7 @@
- #include "hw/display/bochs-vbe.h" /* for limits */
+diff --git a/hw/display/tc6393xb.c b/hw/display/tc6393xb.c
+index 49a676d1b0..e4900e9502 100644
+--- a/hw/display/tc6393xb.c
++++ b/hw/display/tc6393xb.c
+@@ -21,6 +21,7 @@
  #include "ui/console.h"
- #include "sysemu/reset.h"
+ #include "ui/pixel_ops.h"
+ #include "sysemu/blockdev.h"
 +#include "hw/qdev-deprecated.h"
  
- struct QEMU_PACKED RAMFBCfg {
-     uint64_t addr;
-@@ -120,6 +121,8 @@ RAMFBState *ramfb_setup(Error **errp)
-     FWCfgState *fw_cfg = fw_cfg_find();
-     RAMFBState *s;
+ #define IRQ_TC6393_NAND		0
+ #define IRQ_TC6393_MMC		1
+@@ -556,6 +557,8 @@ TC6393xbState *tc6393xb_init(MemoryRegion *sysmem, uint32_t base, qemu_irq irq)
+         },
+     };
  
 +    qdev_warn_deprecated_function_used();
 +
-     if (!fw_cfg || !fw_cfg->dma_enabled) {
-         error_setg(errp, "ramfb device requires fw_cfg with DMA");
-         return NULL;
+     s = (TC6393xbState *) g_malloc0(sizeof(TC6393xbState));
+     s->irq = irq;
+     s->gpio_in = qemu_allocate_irqs(tc6393xb_gpio_set, s, TC6393XB_GPIOS);
 -- 
 2.21.3
 
