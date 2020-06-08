@@ -2,49 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51E5E1F1395
+	by mail.lfdr.de (Postfix) with ESMTPS id AD1451F1396
 	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 09:30:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiCDd-0002Ab-Sg; Mon, 08 Jun 2020 07:29:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iYtX=7V=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1jiCDa-0002AW-Et
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 07:29:16 +0000
-X-Inumbo-ID: be0f3126-a959-11ea-b24e-12813bfff9fa
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.217])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id be0f3126-a959-11ea-b24e-12813bfff9fa;
- Mon, 08 Jun 2020 07:29:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1591601349;
- s=strato-dkim-0002; d=aepfle.de;
- h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
- Subject:Sender;
- bh=UT9GKALVD7ZZpy+lYWU1wdLLFXK8X0l/a8iN3useVsg=;
- b=eE1VpybZlOKtF/ZL5fxalTwHCzDkVjg8a7/OSzIR83ctEFrjlMawGJg7Faq71E9ZO0
- yUbbTuUoaK+zFU3lFKrhjvl+xdWbC0lFLN+5pxmYLDXrHRcMZoUomcnaUb3cc4VmiJ3w
- Xmh6aSzm13GeUoZ2hx/t5TG4ATI7AOq3De5JzOmkJtm7Fug/jqOIg6IsTdaWTg0nuQSb
- mS82qhttRrXNAefdMbZ4tsuOiD/dSOr8OalkViBVXdEteoLYbax76hmDcmuYpOZ2KLC6
- 8QUp2+ENetME2jJqiagCWMUPpNOth3zbd3J9Skv4BfEHlqPIKiEefRfR6GE7EXVKElj5
- n2hw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3GpKjw=="
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 46.9.2 DYNA|AUTH)
- with ESMTPSA id I09bd2w587SwEk4
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 8 Jun 2020 09:28:58 +0200 (CEST)
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v1] tools: fix usage of strncpy
-Date: Mon,  8 Jun 2020 09:28:54 +0200
-Message-Id: <20200608072855.26589-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
+	id 1jiCED-0002Cb-63; Mon, 08 Jun 2020 07:29:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9p0X=7V=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jiCEC-0002CW-IU
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 07:29:52 +0000
+X-Inumbo-ID: d6e92dd2-a959-11ea-9b55-bc764e2007e4
+Received: from mail-wm1-x32b.google.com (unknown [2a00:1450:4864:20::32b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d6e92dd2-a959-11ea-9b55-bc764e2007e4;
+ Mon, 08 Jun 2020 07:29:51 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id r15so15416916wmh.5
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 00:29:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=rXS4JTeUY9K/JTTPim0861F+6JiaK2fAoudEh3BjvDw=;
+ b=V+tlTwY9mGMWHb8OL92aFTV1SdcrVSPEAIRxfxsCZYM7fQJY67nwjopiwnpWrJ+CaV
+ 4g2P4g3D8ysGb0iLmLz5cB5lcyuBQVXtWB99xCHFMiINog0TzL1ldufCd85Ook3MAl5T
+ 2ubAOZk/fPx61z82mQamdsIrfQS1bBAGsWa1KgdW8tgnYQETIhvt/IVW2RKSBZxxahjF
+ TYxeLsfGxcdRHvQYXaZKkXvix4PpVuN2KvUJXrxCbvVNJJwpqlCxC4K0VJHQ42lNuWxl
+ 3TzKOQ4SLE5O7B987JtN3ARZnudRGd36MPxbp9v+x6OsSPnB2m6/pPl25rNGGK/fSF3s
+ dIew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:references:in-reply-to:subject
+ :date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=rXS4JTeUY9K/JTTPim0861F+6JiaK2fAoudEh3BjvDw=;
+ b=aHX8XQW2SfTmy6Ewb/8FKSrBAnRZCYjj5he0M3W6mttdJ05g6dw4V0EMng+i25b6sp
+ IvOnCSHGPiHd8sWeLEtj9a6mOK7koquTrgFMsWOEiCyXitxXpiDNT6xZVqDFKMDwTTvI
+ dwjcW+zIWN8LHz/s/oJZx40BtYIk+TqfedDzTzhNFr46Guv2wjfC16IktUerySw89u87
+ rPF3WmWn4cwChKC0dGqBnnUscUAmDgjLG0Fazv9sH6EUetX+fLQLQeYAEkMbFYYr0ACK
+ 2Ragf1CR+dUB1n9FwsI57sX6liAaBVA4Tv66OeoTysWc7djt4epwOXmd4f333sPYxjKg
+ u0Aw==
+X-Gm-Message-State: AOAM533++6hNeVdBmuq4h5D3nUA8ZF88zVQ4lbKZE7mkK5wW9T6gUCF7
+ Rl/VER67KRi+qHmOUMiFVsR1BE1V8ac=
+X-Google-Smtp-Source: ABdhPJx9y49rA700HBd9pOOBFPrqL0CbBLpEmA64sue272XbgM1vCelFSbU9I//e0MWCUBCi/YyXSA==
+X-Received: by 2002:a05:600c:2110:: with SMTP id
+ u16mr14810817wml.26.1591601390723; 
+ Mon, 08 Jun 2020 00:29:50 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.187])
+ by smtp.gmail.com with ESMTPSA id b81sm23349934wmc.5.2020.06.08.00.29.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 08 Jun 2020 00:29:49 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: =?utf-8?B?J+KAjeWwj+Wkqic=?= <nospam@kota.moe>,
+ <xen-devel@lists.xenproject.org>
+References: <CACsxjPY6Zhau786kB8N0f+ejgT7VQ+MFFZOcayjmqt_ecOjuVg@mail.gmail.com>
+In-Reply-To: <CACsxjPY6Zhau786kB8N0f+ejgT7VQ+MFFZOcayjmqt_ecOjuVg@mail.gmail.com>
+Subject: RE: xenforeignmemory fails to map PCI device memory with "Invalid
+ Argument" error
+Date: Mon, 8 Jun 2020 08:29:48 +0100
+Message-ID: <001b01d63d66$97f0fd80$c7d2f880$@xen.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJMiBb2MW2/R0K83Fy7lBrWOICjaKfhuzVQ
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,85 +79,105 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>, Olaf Hering <olaf@aepfle.de>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Reply-To: paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In case of truncation no trailing zero will be added to the target
-string. Reduce the amount of bytes to copy by one to make sure a
-trailing zero always exists.
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+???
+> Sent: 07 June 2020 23:19
+> To: xen-devel@lists.xenproject.org
+> Subject: xenforeignmemory fails to map PCI device memory with "Invalid =
+Argument" error
+>=20
+> Hi xen-devel,
+>=20
+> I'm trying to read HVM guest PCI memory from Dom0 using the =
+xenforeignmemory
+> library, but it's consistently failing with "Invalid Argument", no =
+matter
+> which PCI device I try.
+> However, if I try to map in regular (non-device) memory, it seems to =
+work fine.
+>=20
+> Do you know why I can't seem to map in guest PCI memory? Am I meant to =
+be
+> mapping in the memory in some other way instead?
 
-In file included from /usr/include/string.h:495,
-                 from libxl_internal.h:38,
-                 from libxl_utils.c:20:
-In function 'strncpy',
-    inlined from 'libxl__prepare_sockaddr_un' at libxl_utils.c:1262:5:
-/usr/include/bits/string_fortified.h:106:10: error: '__builtin_strncpy' specified bound 108 equals destination size [-Werror=stringop-truncation]
-  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
-      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
+This behaviour is not surprising...
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
+>=20
+> (Background: I'm trying to port Looking Glass to Xen:
+> https://forum.level1techs.com/t/looking-glass-on-xen/158089)
+>=20
+> Some example code to demonstrate the problem:
+>=20
+>     #include <stdint.h>
+>     #include <stdio.h>
+>     #include <sys/mman.h>
+>     #include <unistd.h>
+>     #include <xenforeignmemory.h>
+>=20
+>     void map(xenforeignmemory_handle* xfm, uint32_t dom, uintptr_t =
+addr) {
+>         xen_pfn_t frame =3D addr / sysconf(_SC_PAGESIZE);
+>         void* out =3D xenforeignmemory_map(xfm, dom, PROT_READ |
+> PROT_WRITE, 1, &frame, NULL);
+>         if (!out) {
+>             printf("Failed to map Dom%u's 0x%08lx: %m\n", dom, addr);
+>             return;
+>         }
+>=20
+>         printf("Dom%u 0x%08lx: 0x%08lx 0x%08lx 0x%08lx 0x%08lx\n",
+>             dom, addr,
+>             ((unsigned long*)out)[0],
+>             ((unsigned long*)out)[1],
+>             ((unsigned long*)out)[2],
+>             ((unsigned long*)out)[3]
+>         );
+>         xenforeignmemory_unmap(xfm, out, 1);
+>     }
+>=20
+>     int main(void) {
+>         xenforeignmemory_handle* xfm =3D xenforeignmemory_open(NULL, =
+0);
+>         if (!xfm) {
+>             perror("xenforeignmemory_open");
+>             return 1;
+>         }
+>=20
+>         // Regular memory - works fine
+>         map(xfm, 3, 0x10000000);
+>=20
+>         // PCI device memory - errors with "Invalid Argument"
+>         map(xfm, 3, 0xf2311000);
+>=20
+>         xenforeignmemory_close(xfm);
+>         return 0;
+>     }
+>=20
+> In this case, Dom 3's 0xf2311000 belongs to the emulated SATA device:
 
-gcc may not detect the off-by-one error in libxl__prepare_sockaddr_un, fix the strncpy usage anyway.
+...since, as you say here, the address belongs to an *emulated* device. =
+To emulate the device, BAR accesses need to be trapped and this is done =
+by leaving 'holes' in the guest P2M at those addresses such than =
+accesses cause page faults, at which point the faulting instruction can =
+be examined to determine the nature of the access.
 
- tools/libvchan/vchan-socket-proxy.c | 8 ++++----
- tools/libxl/libxl_utils.c           | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+  Paul
 
-diff --git a/tools/libvchan/vchan-socket-proxy.c b/tools/libvchan/vchan-socket-proxy.c
-index 13700c5d67..b312f05ca7 100644
---- a/tools/libvchan/vchan-socket-proxy.c
-+++ b/tools/libvchan/vchan-socket-proxy.c
-@@ -140,7 +140,7 @@ static int set_nonblocking(int fd, int nonblocking) {
- static int connect_socket(const char *path_or_fd) {
-     int fd;
-     char *endptr;
--    struct sockaddr_un addr;
-+    struct sockaddr_un addr = {};
- 
-     fd = strtoll(path_or_fd, &endptr, 0);
-     if (*endptr == '\0') {
-@@ -153,7 +153,7 @@ static int connect_socket(const char *path_or_fd) {
-         return -1;
- 
-     addr.sun_family = AF_UNIX;
--    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path));
-+    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path) - 1);
-     if (connect(fd, (const struct sockaddr *)&addr, sizeof(addr)) == -1) {
-         close(fd);
-         return -1;
-@@ -167,7 +167,7 @@ static int connect_socket(const char *path_or_fd) {
- static int listen_socket(const char *path_or_fd) {
-     int fd;
-     char *endptr;
--    struct sockaddr_un addr;
-+    struct sockaddr_un addr = {};
- 
-     fd = strtoll(path_or_fd, &endptr, 0);
-     if (*endptr == '\0') {
-@@ -180,7 +180,7 @@ static int listen_socket(const char *path_or_fd) {
-         return -1;
- 
-     addr.sun_family = AF_UNIX;
--    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path));
-+    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path) - 1);
-     if (bind(fd, (const struct sockaddr *)&addr, sizeof(addr)) == -1) {
-         close(fd);
-         return -1;
-diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
-index f360f5e228..83592e829d 100644
---- a/tools/libxl/libxl_utils.c
-+++ b/tools/libxl/libxl_utils.c
-@@ -1259,7 +1259,7 @@ int libxl__prepare_sockaddr_un(libxl__gc *gc,
-     }
-     memset(un, 0, sizeof(struct sockaddr_un));
-     un->sun_family = AF_UNIX;
--    strncpy(un->sun_path, path, sizeof(un->sun_path));
-+    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
-     return 0;
- }
- 
+>=20
+>     $ sudo xl qemu-monitor-command 3 'info pci'
+>     ...snip...
+>       Bus  0, device   5, function 0:
+>         SATA controller: PCI device 8086:2922
+>           PCI subsystem 1af4:1100
+>           IRQ 0.
+>           BAR4: I/O at 0xc260 [0xc27f].
+>           BAR5: 32 bit memory at 0xf2311000 [0xf2311fff].
+>           id "ahci0"
+>     ...snip...
+
+
 
