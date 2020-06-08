@@ -2,45 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF0731F2069
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 22:03:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C41161F20C7
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 22:40:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiNzV-0004Rz-EH; Mon, 08 Jun 2020 20:03:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UmkZ=7V=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jiNzU-0004Ro-1h
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 20:03:28 +0000
-X-Inumbo-ID: 1d19e757-a9c3-11ea-b2b4-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1d19e757-a9c3-11ea-b2b4-12813bfff9fa;
- Mon, 08 Jun 2020 20:03:26 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: vrPx+l5c6c1DQApKmkH6KuR7ukEc+x/2qf/ndpPZ+F0DZF33YblI2d2PGxzfYArUPJGQFvuD/Q
- V/VH14OawbstzgOp/uX9/W1g1jtmbtW3707NsIgLAPErbOArL6TEP1qjCnRKMLZqNpbDgc2ZRD
- 3Gn1jka14moTRxDHNUG2Rx/LcVYknILDUun3kYavZhg/SxWkhel9JWDyiZODMPVIo2qVj0M7BQ
- NrNxucq9e9K6FBchWtHfjUy/16lCdmusdc3wexBnkIbidpeKw89JHBtgPgwnSBw/UFAYO3p/YD
- JUY=
-X-SBRS: 2.7
-X-MesageID: 19811629
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,487,1583211600"; d="scan'208";a="19811629"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH for-4.14] x86/livepatch: Make livepatching compatible with CET
- Shadow Stacks
-Date: Mon, 8 Jun 2020 21:02:59 +0100
-Message-ID: <20200608200259.17681-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+	id 1jiOXy-00078C-9C; Mon, 08 Jun 2020 20:39:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iYtX=7V=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1jiOXv-000785-Vh
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 20:39:04 +0000
+X-Inumbo-ID: 16507110-a9c8-11ea-b7bb-bc764e2007e4
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 16507110-a9c8-11ea-b7bb-bc764e2007e4;
+ Mon, 08 Jun 2020 20:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1591648741;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+ Subject:Sender;
+ bh=MLeNcQsbr99FDR38AxGkMCSTjv8YFEmQTlDcNz7LdfM=;
+ b=DmH1n52zT2rcMIv0uNwu5RQxcDAb9NordXZGirLGa2fZag3WPkPsubcZYsltck4UeK
+ f1ZZu7v7kmogVQvoJWrqXyG6InjV3pk9PK8lUy4FvR9RyiNM6FaInWCSubMNB0l3aLz/
+ MnOih2FuiNmIIw0hXO3kH8ZZQsSUFKBxrytyGypOZsCCIvj4yEN3GTYNIZrq8lTV0JbS
+ 0alcnggiS07Bw0+5rGO9PxxqgZFTP3CWUSRap1khpP/FHvOnKaJ8AKiSvwerefkCMwdO
+ tVsz/WRuoz3BNHBM+oFGM6XFQggYabL/QzIV21PI4l24Wu8zO2iLcrAKvF+tVbL7SIml
+ DTKg==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3GpKjw=="
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 46.9.2 DYNA|AUTH)
+ with ESMTPSA id I09bd2w58KcrHyi
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 8 Jun 2020 22:38:53 +0200 (CEST)
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v1] kdd: remove zero-length arrays
+Date: Mon,  8 Jun 2020 22:38:48 +0200
+Message-Id: <20200608203849.18341-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -52,146 +54,92 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Pawel Wieczorkiewicz <wipawel@amazon.de>, Paul Durrant <paul@xen.org>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>, Olaf Hering <olaf@aepfle.de>,
+ Tim Deegan <tim@xen.org>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Just like the alternatives infrastructure, the livepatch infrastructure
-disables CR0.WP to perform patching, which is not permitted with CET active.
+Struct 'kdd_hdr' already has a member named 'payload[]' to easily
+refer to the data after the header.  Remove the payload member from
+'kdd_pkt' and always use 'kdd_hdr' to fix the following compile error:
 
-Modify arch_livepatch_{quiesce,revive}() to disable CET before disabling WP,
-and reset the dirty bits on all virtual regions before re-enabling CET.  One
-complication is that arch_livepatch_revive() has to fix up the top of the
-shadow stack.
+kdd.c: In function 'kdd_tx':
+kdd.c:746:30: error: array subscript 65534 is outside the bounds of an interior zero-length array 'uint8_t[0]' {aka 'unsigned char[]'} [-Werror=zero-length-bounds]
+  746 |         sum += s->txp.payload[i];
+      |                ~~~~~~~~~~~~~~^~~
+In file included from kdd.c:53:
+kdd.h:326:17: note: while referencing 'payload'
+  326 |         uint8_t payload[0];
+      |                 ^~~~~~~
+cc1: all warnings being treated as errors
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-CC: Ross Lagerwall <ross.lagerwall@citrix.com>
-CC: Pawel Wieczorkiewicz <wipawel@amazon.de>
-CC: Paul Durrant <paul@xen.org>
+ tools/debugger/kdd/kdd.c | 10 +++++-----
+ tools/debugger/kdd/kdd.h |  3 +--
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
-For 4.14.  This is a bug in a 4.14 feature, with a very low risk to non-CET
-usecases.
-
-A better longterm plan (but definitely 4.15 material now) would be to create a
-separate set of writeable mappings to perform the patching on, at which point
-we don't need to disable CET, play with WP, or retroactively clear dirty bits.
-
-Do we ever write into .rodata?  AFAICT, we introduce new fuctions for
-references to new .rodata, rather than modifying existing .rodata.  If however
-we do modify .rodata, then the virtual regions need extending with information
-about .rodata so we can zap those dirty bits as well.
----
- xen/arch/x86/livepatch.c         | 28 ++++++++++++++++++++++++++++
- xen/common/virtual_region.c      | 13 +++++++++++++
- xen/include/xen/virtual_region.h |  1 +
- 3 files changed, 42 insertions(+)
-
-diff --git a/xen/arch/x86/livepatch.c b/xen/arch/x86/livepatch.c
-index 901fad96bf..10231a4e40 100644
---- a/xen/arch/x86/livepatch.c
-+++ b/xen/arch/x86/livepatch.c
-@@ -12,6 +12,7 @@
- #include <xen/livepatch.h>
- #include <xen/sched.h>
- #include <xen/vm_event.h>
-+#include <xen/virtual_region.h>
+diff --git a/tools/debugger/kdd/kdd.c b/tools/debugger/kdd/kdd.c
+index 3ebda9b12c..4c6b39c22b 100644
+--- a/tools/debugger/kdd/kdd.c
++++ b/tools/debugger/kdd/kdd.c
+@@ -249,7 +249,7 @@ static void kdd_log_pkt(kdd_state *s, char *name, kdd_pkt *p)
  
- #include <asm/fixmap.h>
- #include <asm/nmi.h>
-@@ -58,6 +59,10 @@ int arch_livepatch_safety_check(void)
+     /* Re-check the checksum */
+     for (i = 0; i < p->h.len; i++)
+-        sum += p->payload[i];
++        sum += p->h.payload[i];
  
- int arch_livepatch_quiesce(void)
- {
-+    /* If Shadow Stacks are in use, disable CR4.CET so we can modify CR0.WP. */
-+    if ( cpu_has_xen_shstk )
-+        write_cr4(read_cr4() & ~X86_CR4_CET);
-+
-     /* Disable WP to allow changes to read-only pages. */
-     write_cr0(read_cr0() & ~X86_CR0_WP);
+     fprintf(f, "\n"
+             "%s: %s type 0x%4.4"PRIx16" len 0x%4.4"PRIx16
+@@ -267,8 +267,8 @@ static void kdd_log_pkt(kdd_state *s, char *name, kdd_pkt *p)
+             fprintf(f, "%8.8x ", i);
+         } else if (i % 8 == 0)
+             fprintf(f, " ");
+-        fprintf(f, " %2.2x", p->payload[i]);
+-        ascii[i % 16] = (isprint(((int)p->payload[i])) ? p->payload[i] : 0x2e);
++        fprintf(f, " %2.2x", p->h.payload[i]);
++        ascii[i % 16] = (isprint(((int)p->h.payload[i])) ? p->h.payload[i] : 0x2e);
+         if (i % 16 == 15)
+             fprintf(f, "  |%s|\n", ascii);
+     }
+@@ -743,7 +743,7 @@ static void kdd_tx(kdd_state *s)
  
-@@ -68,6 +73,29 @@ void arch_livepatch_revive(void)
- {
-     /* Reinstate WP. */
-     write_cr0(read_cr0() | X86_CR0_WP);
-+
-+    /* Clobber dirty bits and reinstate CET, if applicable. */
-+    if ( IS_ENABLED(CONFIG_XEN_SHSTK) && cpu_has_xen_shstk )
-+    {
-+        unsigned long tmp;
-+
-+        reset_virtual_region_perms();
-+
-+        write_cr4(read_cr4() | X86_CR4_CET);
-+
-+        /*
-+         * Fix up the return address on the shadow stack, which currently
-+         * points at arch_livepatch_quiesce()'s caller.
-+         *
-+         * Note: this is somewhat fragile, and depends on both
-+         * arch_livepatch_{quiesce,revive}() being called from the same
-+         * function, which is currently the case.
-+         */
-+        asm volatile ("rdsspq %[ssp];"
-+                      "wrssq %[addr], (%[ssp]);"
-+                      : [ssp] "=&r" (tmp)
-+                      : [addr] "r" (__builtin_return_address(0)));
-+    }
- }
+     /* Fix up the checksum before we send */
+     for (i = 0; i < s->txp.h.len; i++)
+-        sum += s->txp.payload[i];
++        sum += s->txp.h.payload[i];
+     s->txp.h.sum = sum;
  
- int arch_livepatch_verify_func(const struct livepatch_func *func)
-diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
-index aa23918bce..84d993d8f8 100644
---- a/xen/common/virtual_region.c
-+++ b/xen/common/virtual_region.c
-@@ -4,6 +4,7 @@
+     kdd_log_pkt(s, "TX", &s->txp);
+@@ -1127,7 +1127,7 @@ static void kdd_handle_pkt(kdd_state *s, kdd_pkt *p)
  
- #include <xen/init.h>
- #include <xen/kernel.h>
-+#include <xen/mm.h>
- #include <xen/rcupdate.h>
- #include <xen/spinlock.h>
- #include <xen/virtual_region.h>
-@@ -91,6 +92,18 @@ void unregister_virtual_region(struct virtual_region *r)
-     remove_virtual_region(r);
- }
+     /* Simple checksum: add all the bytes */
+     for (i = 0; i < p->h.len; i++)
+-        sum += p->payload[i];
++        sum += p->h.payload[i];
+     if (p->h.sum != sum) {
+         kdd_send_ack(s, p->h.id, KDD_ACK_BAD);
+         return;
+diff --git a/tools/debugger/kdd/kdd.h b/tools/debugger/kdd/kdd.h
+index bfb00ba5c5..57525d36c6 100644
+--- a/tools/debugger/kdd/kdd.h
++++ b/tools/debugger/kdd/kdd.h
+@@ -68,7 +68,7 @@ typedef struct {
+     uint16_t len;     /* Payload length, excl. header and trailing byte */
+     uint32_t id;      /* Echoed in responses */
+     uint32_t sum;     /* Unsigned sum of all payload bytes */
+-    uint8_t payload[0];
++    uint8_t payload[];
+ } PACKED kdd_hdr;
  
-+void reset_virtual_region_perms(void)
-+{
-+    const struct virtual_region *region;
-+
-+    rcu_read_lock(&rcu_virtual_region_lock);
-+    list_for_each_entry_rcu( region, &virtual_region_list, list )
-+        modify_xen_mappings((unsigned long)region->start,
-+                            ROUNDUP((unsigned long)region->end, PAGE_SIZE),
-+                            PAGE_HYPERVISOR_RX);
-+    rcu_read_unlock(&rcu_virtual_region_lock);
-+}
-+
- void __init unregister_init_virtual_region(void)
- {
-     BUG_ON(system_state != SYS_STATE_active);
-diff --git a/xen/include/xen/virtual_region.h b/xen/include/xen/virtual_region.h
-index e5e58ed96b..ba408eb87a 100644
---- a/xen/include/xen/virtual_region.h
-+++ b/xen/include/xen/virtual_region.h
-@@ -33,6 +33,7 @@ void setup_virtual_regions(const struct exception_table_entry *start,
- void unregister_init_virtual_region(void);
- void register_virtual_region(struct virtual_region *r);
- void unregister_virtual_region(struct virtual_region *r);
-+void reset_virtual_region_perms(void);
+ #define KDD_PKT_CMD 0x0002      /* Debugger commands (and replies to them) */
+@@ -323,7 +323,6 @@ typedef struct {
+         kdd_msg msg;
+         kdd_reg reg;
+         kdd_stc stc;
+-        uint8_t payload[0];
+     };
+ } PACKED kdd_pkt;
  
- #endif /* __XEN_VIRTUAL_REGION_H__ */
- 
--- 
-2.11.0
-
 
