@@ -2,76 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB4301F1DE1
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:55:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9096D1F1E2E
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 19:11:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiL32-00041L-Eq; Mon, 08 Jun 2020 16:54:56 +0000
+	id 1jiLI9-0005pW-Nr; Mon, 08 Jun 2020 17:10:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9p0X=7V=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jiL31-00041E-5r
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:54:55 +0000
-X-Inumbo-ID: c699ef4e-a9a8-11ea-ba62-bc764e2007e4
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
+ <SRS0=lHR7=7V=amazon.com=prvs=42145175d=anchalag@srs-us1.protection.inumbo.net>)
+ id 1jiLI7-0005pR-FH
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 17:10:31 +0000
+X-Inumbo-ID: f25fd204-a9aa-11ea-9282-bc764e2007e4
+Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c699ef4e-a9a8-11ea-ba62-bc764e2007e4;
- Mon, 08 Jun 2020 16:54:54 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id k26so217798wmi.4
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=oNB6pAr4fcRFpfN0vgO3R/SPq1U20RR7okPBo0+FgUE=;
- b=TAfmK0oQkeSGz62TuViy7NuLCNk1BF68l8xbAdU7an1ZC1hVV98IKOoRjmqyaTwVAN
- +in5sBo54K9vZ+PoT5Dju2DDOh9ml4x74mKWFDeR19EFjNT+Klc17086J5unyRp6crm0
- iX59NmiKjPexLajwu2LCbDjom1z4V5Ya7Tr/x9a2tD7WOo4+qq200GMJWH+At1YTWsbM
- +wJH2TSrIVK7d5tnTy4ZVb1OjT049f7NavDysekPgvsZp+8YL5JJqDIx0twx4zpgFLUZ
- BUPmA4rk/i0fKuA7MEpGHm8R9boPmkow/IyBFJZL0415yukucMZFCcEQRzyZerGGqu0H
- ++ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=oNB6pAr4fcRFpfN0vgO3R/SPq1U20RR7okPBo0+FgUE=;
- b=d2wdiJs9VoXWQtCZPJeTT2OhW7s8qupgdHWMbVzCsi9Le6HMCu6hBiKR63dUIbH/8W
- vqMV03NQwfcQda/dHvpBWMh8abSdbaUom75Hq7bxiGt/gJqWvTFBeHeqsleUCkg8Ivzf
- KiUd/d9LJKMwQEmYee6dGaJn26DWZlSpzNZUBs+cxvH5DypYohvLUrcx+4G9hJqVzb1s
- F7vdykIyJDeDANTUOPjHE7TsKpGjyAsY9pRwqZBwhv0S/yGD2R05vAia6QcR/At1uuDF
- Dvx+QLW/djVTfCIZIGhePBI6PuE+hXJpjALjDErqQygy4vC9szNyqVX8sShb4dh+OX8z
- JWuA==
-X-Gm-Message-State: AOAM530zYpZuhjV5wCCZzZk7loQRbpeEevyducPPbZjKf+MIrb2FNevi
- hfQJt6nE8ceTZUvNRVbqn5U=
-X-Google-Smtp-Source: ABdhPJxYf2eoroXcg65HH/FtSRR8gJU7TD34bYCLjdlEtahbcmy4LN05uTpS+ECevCEPvzvZc0skGg==
-X-Received: by 2002:a1c:4e17:: with SMTP id g23mr274089wmh.38.1591635293576;
- Mon, 08 Jun 2020 09:54:53 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id s72sm120153wme.35.2020.06.08.09.54.50
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 08 Jun 2020 09:54:52 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: =?utf-8?Q?'Philippe_Mathieu-Daud=C3=A9'?= <philmd@redhat.com>,
- <qemu-devel@nongnu.org>
-References: <20200608160044.15531-1-philmd@redhat.com>
- <20200608160044.15531-16-philmd@redhat.com>
-In-Reply-To: <20200608160044.15531-16-philmd@redhat.com>
-Subject: RE: [RFC PATCH 15/35] hw/i386/xen/xen-hvm: Emit warning when old code
- is used
-Date: Mon, 8 Jun 2020 17:54:49 +0100
-Message-ID: <004b01d63db5$87a83110$96f89330$@xen.org>
+ id f25fd204-a9aa-11ea-9282-bc764e2007e4;
+ Mon, 08 Jun 2020 17:10:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1591636227; x=1623172227;
+ h=date:from:to:cc:message-id:references:mime-version:
+ in-reply-to:subject;
+ bh=t5Ht9pQ/L15OhRjsj3oBdWbi3godPK4J8lNDSU8Sric=;
+ b=NhgdstKIFBHILGXKhwpX0Ez6RrU+EaB2VpVhkDN/FX0/maWd1ncx1LzJ
+ 8QS/xbluKIHuUth/qcQiO6B1lkL14ifLSAnMOkWyiiXRMCI8xMRtzRSyI
+ Ba5vt/UtG504/9wP466frqPdmRxYSJJ3WyNhBVFGmkINTkr1QyUDN2KBf E=;
+IronPort-SDR: S8JB7UWD4QsekyIBB/T3lttKcrT1Ne/0DCTZfl8uIv+BINZ1G4WVygkiGFpts8j2A2qHCjsFIu
+ YrHU8J2n5sQQ==
+X-IronPort-AV: E=Sophos;i="5.73,487,1583193600"; d="scan'208";a="49364832"
+Subject: Re: [PATCH 04/12] x86/xen: add system core suspend and resume
+ callbacks
+Received: from sea32-co-svc-lb4-vlan2.sea.corp.amazon.com (HELO
+ email-inbound-relay-1e-57e1d233.us-east-1.amazon.com) ([10.47.23.34])
+ by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
+ 08 Jun 2020 17:10:17 +0000
+Received: from EX13MTAUWC001.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
+ by email-inbound-relay-1e-57e1d233.us-east-1.amazon.com (Postfix) with ESMTPS
+ id C791814168C; Mon,  8 Jun 2020 17:10:08 +0000 (UTC)
+Received: from EX13D05UWC001.ant.amazon.com (10.43.162.82) by
+ EX13MTAUWC001.ant.amazon.com (10.43.162.135) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Mon, 8 Jun 2020 17:09:48 +0000
+Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
+ EX13D05UWC001.ant.amazon.com (10.43.162.82) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Mon, 8 Jun 2020 17:09:48 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Mon, 8 Jun 2020 17:09:47 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id F15BC40832; Mon,  8 Jun 2020 17:09:47 +0000 (UTC)
+Date: Mon, 8 Jun 2020 17:09:47 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <20200608170947.GA4392@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+References: <cover.1589926004.git.anchalag@amazon.com>
+ <79cf02631dc00e62ebf90410bfbbdb52fe7024cb.1589926004.git.anchalag@amazon.com>
+ <4b577564-e4c3-0182-2b9e-5f79004f32a1@oracle.com>
+ <B966B3A2-4F08-42FA-AF59-B8AA0783C2BA@amazon.com>
+ <e2073aa4-2410-4630-fee6-4e4abc172876@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQFYw0U0oKWIX6kmOq5Lq1JhZGgcHAJ29BtBqbYsFpA=
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <e2073aa4-2410-4630-fee6-4e4abc172876@oracle.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -79,112 +76,117 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Peter Maydell' <peter.maydell@linaro.org>,
- 'Sagar Karandikar' <sagark@eecs.berkeley.edu>,
- "'Michael S. Tsirkin'" <mst@redhat.com>,
- 'Mark Cave-Ayland' <mark.cave-ayland@ilande.co.uk>,
- 'Max Filippov' <jcmvbkbc@gmail.com>,
- 'Alistair Francis' <Alistair.Francis@wdc.com>,
- 'Gerd Hoffmann' <kraxel@redhat.com>,
- "'Edgar E. Iglesias'" <edgar.iglesias@gmail.com>,
- 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Magnus Damm' <magnus.damm@gmail.com>, 'Markus Armbruster' <armbru@redhat.com>,
- 'Marcel Apfelbaum' <marcel.apfelbaum@gmail.com>,
- 'Anthony Perard' <anthony.perard@citrix.com>,
- =?utf-8?Q?'Marc-Andr=C3=A9_Lureau'?= <marcandre.lureau@redhat.com>,
- 'David Gibson' <david@gibson.dropbear.id.au>,
- 'Andrzej Zaborowski' <balrogg@gmail.com>,
- 'Eduardo Habkost' <ehabkost@redhat.com>,
- 'Alistair Francis' <alistair@alistair23.me>, qemu-arm@nongnu.org,
- xen-devel@lists.xenproject.org, qemu-riscv@nongnu.org,
- 'Stafford Horne' <shorne@gmail.com>, 'Palmer Dabbelt' <palmer@dabbelt.com>,
- 'Richard Henderson' <rth@twiddle.net>,
- "'Daniel P . Berrange'" <berrange@redhat.com>,
- 'Thomas Huth' <huth@tuxfamily.org>,
- 'Bastian Koppelmann' <kbastian@mail.uni-paderborn.de>,
- 'Michael Walle' <michael@walle.cc>, qemu-ppc@nongnu.org,
- 'Paolo Bonzini' <pbonzini@redhat.com>, 'Aurelien Jarno' <aurelien@aurel32.net>
+Cc: "Valentin, Eduardo" <eduval@amazon.com>,
+ "len.brown@intel.com" <len.brown@intel.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
+ "x86@kernel.org" <x86@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "pavel@ucw.cz" <pavel@ucw.cz>, "hpa@zytor.com" <hpa@zytor.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>, "Kamata,
+ Munehisa" <kamatam@amazon.com>, "mingo@redhat.com" <mingo@redhat.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Singh,
+ Balbir" <sblbir@amazon.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "bp@alien8.de" <bp@alien8.de>, "tglx@linutronix.de" <tglx@linutronix.de>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "vkuznets@redhat.com" <vkuznets@redhat.com>,
+ "davem@davemloft.net" <davem@davemloft.net>, "Woodhouse,
+ David" <dwmw@amazon.co.uk>, "roger.pau@citrix.com" <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> Sent: 08 June 2020 17:00
-> To: qemu-devel@nongnu.org
-> Cc: qemu-arm@nongnu.org; Markus Armbruster <armbru@redhat.com>; Max =
-Filippov <jcmvbkbc@gmail.com>;
-> Marcel Apfelbaum <marcel.apfelbaum@gmail.com>; Peter Maydell =
-<peter.maydell@linaro.org>; Michael Walle
-> <michael@walle.cc>; Edgar E. Iglesias <edgar.iglesias@gmail.com>; =
-Aurelien Jarno
-> <aurelien@aurel32.net>; Gerd Hoffmann <kraxel@redhat.com>; Stafford =
-Horne <shorne@gmail.com>; Andrzej
-> Zaborowski <balrogg@gmail.com>; qemu-ppc@nongnu.org; Alistair Francis =
-<alistair@alistair23.me>;
-> Richard Henderson <rth@twiddle.net>; Mark Cave-Ayland =
-<mark.cave-ayland@ilande.co.uk>; Marc-Andr=C3=A9
-> Lureau <marcandre.lureau@redhat.com>; Daniel P . Berrange =
-<berrange@redhat.com>; qemu-
-> riscv@nongnu.org; Michael S. Tsirkin <mst@redhat.com>; =
-xen-devel@lists.xenproject.org; Sagar
-> Karandikar <sagark@eecs.berkeley.edu>; Anthony Perard =
-<anthony.perard@citrix.com>; Palmer Dabbelt
-> <palmer@dabbelt.com>; Stefano Stabellini <sstabellini@kernel.org>; =
-Paul Durrant <paul@xen.org>; Paolo
-> Bonzini <pbonzini@redhat.com>; Alistair Francis =
-<Alistair.Francis@wdc.com>; Eduardo Habkost
-> <ehabkost@redhat.com>; Thomas Huth <huth@tuxfamily.org>; Bastian =
-Koppelmann <kbastian@mail.uni-
-> paderborn.de>; David Gibson <david@gibson.dropbear.id.au>; Magnus Damm =
-<magnus.damm@gmail.com>;
-> Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> Subject: [RFC PATCH 15/35] hw/i386/xen/xen-hvm: Emit warning when old =
-code is used
->=20
-> This code hasn't been QOM'ified yet. Warn the user.
-
-"Based on today's IRC chat, this is a trivial RFC series
-to anotate pre-qdev/QOM devices so developers using them
-without knowing they are not QOM'ified yet can realize
-it and convert them if they have time."
-
-So, how should this be coded then? The XenIOState doesn't really qualify =
-as a 'device', does it?
-
-  Paul
-
->=20
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> ---
->  hw/i386/xen/xen-hvm.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
-> index 82ece6b9e7..a1163b1529 100644
-> --- a/hw/i386/xen/xen-hvm.c
-> +++ b/hw/i386/xen/xen-hvm.c
-> @@ -31,7 +31,7 @@
->  #include "sysemu/xen-mapcache.h"
->  #include "trace.h"
->  #include "exec/address-spaces.h"
-> -
-> +#include "hw/qdev-deprecated.h"
->  #include <xen/hvm/ioreq.h>
->  #include <xen/hvm/e820.h>
->=20
-> @@ -1401,6 +1401,8 @@ void xen_hvm_init(PCMachineState *pcms, =
-MemoryRegion **ram_memory)
->      xen_pfn_t ioreq_pfn;
->      XenIOState *state;
->=20
-> +    qdev_warn_deprecated_function_used();
-> +
->      state =3D g_malloc0(sizeof (XenIOState));
->=20
->      state->xce_handle =3D xenevtchn_open(NULL, 0);
-> --
-> 2.21.3
-
-
+On Fri, Jun 05, 2020 at 05:24:37PM -0400, Boris Ostrovsky wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> 
+> 
+> 
+> On 6/3/20 6:40 PM, Agarwal, Anchal wrote:
+> >     CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> >
+> >
+> >
+> >     On 5/19/20 7:26 PM, Anchal Agarwal wrote:
+> >     > From: Munehisa Kamata <kamatam@amazon.com>
+> >     >
+> >     > Add Xen PVHVM specific system core callbacks for PM suspend and
+> >     > hibernation support. The callbacks suspend and resume Xen
+> >     > primitives,like shared_info, pvclock and grant table. Note that
+> >     > Xen suspend can handle them in a different manner, but system
+> >     > core callbacks are called from the context.
+> >
+> >
+> >     I don't think I understand that last sentence.
+> >
+> > Looks like it may have cryptic meaning of stating that xen_suspend calls syscore_suspend from xen_suspend
+> > So, if these syscore ops gets called  during xen_suspend do not do anything. Check if the mode is in xen suspend
+> > and return from there. These syscore_ops are specifically for domU hibernation.
+> > I must admit, I may have overlooked lack of explanation of some implicit details in the original commit msg.
+> >
+> >     >  So if the callbacks
+> >     > are called from Xen suspend context, return immediately.
+> >     >
+> >
+> >
+> >     > +
+> >     > +static int xen_syscore_suspend(void)
+> >     > +{
+> >     > +     struct xen_remove_from_physmap xrfp;
+> >     > +     int ret;
+> >     > +
+> >     > +     /* Xen suspend does similar stuffs in its own logic */
+> >     > +     if (xen_suspend_mode_is_xen_suspend())
+> >     > +             return 0;
+> 
+> 
+> With your explanation now making this clearer, is this check really
+> necessary? From what I see we are in XEN_SUSPEND mode when
+> lock_system_sleep() lock is taken, meaning that we can't initialize
+> hibernation.
+> 
+I see. Sounds plausible. I will fix both the code and commit message
+for better readability. Thanks for catching this.
+> 
+> >     > +
+> >     > +     xrfp.domid = DOMID_SELF;
+> >     > +     xrfp.gpfn = __pa(HYPERVISOR_shared_info) >> PAGE_SHIFT;
+> >     > +
+> >     > +     ret = HYPERVISOR_memory_op(XENMEM_remove_from_physmap, &xrfp);
+> >     > +     if (!ret)
+> >     > +             HYPERVISOR_shared_info = &xen_dummy_shared_info;
+> >     > +
+> >     > +     return ret;
+> >     > +}
+> >     > +
+> >     > +static void xen_syscore_resume(void)
+> >     > +{
+> >     > +     /* Xen suspend does similar stuffs in its own logic */
+> >     > +     if (xen_suspend_mode_is_xen_suspend())
+> >     > +             return;
+> >     > +
+> >     > +     /* No need to setup vcpu_info as it's already moved off */
+> >     > +     xen_hvm_map_shared_info();
+> >     > +
+> >     > +     pvclock_resume();
+> >     > +
+> >     > +     gnttab_resume();
+> >
+> >
+> >     Do you call gnttab_suspend() in pm suspend path?
+> > No, since it does nothing for HVM guests. The unmap_frames is only applicable for PV guests right?
+> 
+> 
+> You should call it nevertheless. It will decide whether or not anything
+> needs to be done.
+Will fix it in V2.
+> 
+> 
+> -boris
+> 
+Thanks,
+Anchal
+> 
 
