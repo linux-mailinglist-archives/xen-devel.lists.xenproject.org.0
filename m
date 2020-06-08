@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A31321F21FD
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 00:54:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC4321F2200
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 00:55:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiQeY-000211-7G; Mon, 08 Jun 2020 22:54:02 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jiQgB-00027c-II; Mon, 08 Jun 2020 22:55:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yn46=7V=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jiQeW-00020t-R3
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 22:54:00 +0000
-X-Inumbo-ID: f110ce00-a9da-11ea-b7bb-bc764e2007e4
+ id 1jiQg9-00027Q-DH
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 22:55:41 +0000
+X-Inumbo-ID: 2cf23418-a9db-11ea-b2c4-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f110ce00-a9da-11ea-b7bb-bc764e2007e4;
- Mon, 08 Jun 2020 22:54:00 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2cf23418-a9db-11ea-b2c4-12813bfff9fa;
+ Mon, 08 Jun 2020 22:55:40 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6A0DD2076A;
- Mon,  8 Jun 2020 22:53:59 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DE7B8206D5;
+ Mon,  8 Jun 2020 22:55:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591656839;
- bh=aFtqwt+bYOZhJ7U9irm3TzEiOtvg48f3YiInMbcBYs0=;
+ s=default; t=1591656940;
+ bh=lmj78NsywzOH58ADrFq/+/zw3NLJPj16X1Kl9wTzZlA=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=sV9brVTS0fbsMYHJ/0OiYUYepwLpKHZZvVEPsCcTclhj201DpvYC6IxwM1XDwdEIe
- K1aFJ5vaHAov9BwrlY9IHX4mYNHZkTNxt1DgO7EyhoVEcdrayUCUJJ00a6kr5y+QET
- 7Agxg++7d8MkC5wB88ZPCM3NNvh4ps0v1mIPE2Lo=
-Date: Mon, 8 Jun 2020 15:53:58 -0700 (PDT)
+ b=vxd2TBISH8H0Cfr4Y2boYussvZELUi1dGQYCN0391gCqf+M+zEHTxMJ3eiBCXwo/m
+ Qcaay/hGXQIgfxgQfJp6K0fsW1H0JquhtId6jMP4h7XA9wKQlvbZd8pIDvL8CaAR+0
+ VU9uq18isLanuFMVY8NzMiP+1IEas3OaCgSqXiUI=
+Date: Mon, 8 Jun 2020 15:55:39 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH v2 01/11] swiotlb-xen: use vmalloc_to_page on vmalloc
- virt addresses
-In-Reply-To: <20200608070411.GA15742@infradead.org>
-Message-ID: <alpine.DEB.2.21.2006081539110.2815@sstabellini-ThinkPad-T480s>
+Subject: Re: [PATCH v2 03/11] swiotlb-xen: add struct device* parameter to
+ xen_phys_to_bus
+In-Reply-To: <20200608070507.GB15742@infradead.org>
+Message-ID: <alpine.DEB.2.21.2006081539550.2815@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
- <20200603222247.11681-1-sstabellini@kernel.org>
- <20200608070411.GA15742@infradead.org>
+ <20200603222247.11681-3-sstabellini@kernel.org>
+ <20200608070507.GB15742@infradead.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -61,36 +62,20 @@ Cc: jgross@suse.com, Stefano Stabellini <sstabellini@kernel.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Christoph,
-
-Thanks you for the review.
-
-
 On Mon, 8 Jun 2020, Christoph Hellwig wrote:
-> Well, this isn't just RPi4, but basically any ARM or ARM64 system
-> with non-coherent DMA (which is most of them).
-
-Well... yes :-)
-
-
-> > +	struct page *pg;
+> On Wed, Jun 03, 2020 at 03:22:39PM -0700, Stefano Stabellini wrote:
+> > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > 
+> > The parameter is unused in this patch.
+> > No functional changes.
 > 
-> Please spell out page.
+> This looks weird.  I'm pretty sure you are going to use it later, but
+> why not just add the argument when it actually is used?
 
-OK
-
-
-> >  
-> >  	if (hwdev && hwdev->coherent_dma_mask)
-> >  		dma_mask = hwdev->coherent_dma_mask;
-> > @@ -346,9 +347,11 @@ xen_swiotlb_free_coherent(struct device *hwdev, size_t size, void *vaddr,
-> >  	/* Convert the size to actually allocated. */
-> >  	size = 1UL << (order + XEN_PAGE_SHIFT);
-> >  
-> > +	pg = is_vmalloc_addr(vaddr) ? vmalloc_to_page(vaddr) :
-> > +				      virt_to_page(vaddr);
-> 
-> Please use plain old if/else to make this more readable.
-
-Sure
+It is just a matter of taste. Xen reviewers tend to ask for splitting
+patches into small chunks, especially large verbose non-functional
+changes like renaming or adding parameters. It is supposed to make it
+easier to review, to make it easier not to get distracted by
+renaming/non-functional changes while looking at the important changes.
+As a contributor, I am happy either way.
 
