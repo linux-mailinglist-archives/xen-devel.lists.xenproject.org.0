@@ -2,60 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E63991F181F
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 13:47:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A88281F1822
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 13:47:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiGFC-0003X2-8L; Mon, 08 Jun 2020 11:47:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Py4y=7V=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jiGFA-0003Wm-EH
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 11:47:08 +0000
-X-Inumbo-ID: c7c4851c-a97d-11ea-b267-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c7c4851c-a97d-11ea-b267-12813bfff9fa;
- Mon, 08 Jun 2020 11:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=IiPA5ifNKWi7WWEbpu/wWX2iSY4/P0Pnbn9+p2K+u9w=; b=LBKOnWxyRIlLtjezVls+xqO7j
- 50WyuOvy1cUbWcwIiTmmCveQPA90JPvyXk9pyZCSOr7gZZIdHNvAfjHKeJvzONlCjhek9F2FQKEMi
- gsGhQIYoAV8XLV9ggD1+SCFUKPPdJMv3m+QKUhSLpWDuKnsBRRfjBBrhIO/mGpE4fgUO0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jiGF9-0004tW-77; Mon, 08 Jun 2020 11:47:07 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jiGF8-0002k6-Pf; Mon, 08 Jun 2020 11:47:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jiGF8-0004gL-P8; Mon, 08 Jun 2020 11:47:06 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150922-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jiGFY-0003bm-LK; Mon, 08 Jun 2020 11:47:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Nc1T=7V=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jiGFW-0003bQ-Ex
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 11:47:30 +0000
+X-Inumbo-ID: d49df4ee-a97d-11ea-ba62-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d49df4ee-a97d-11ea-ba62-bc764e2007e4;
+ Mon, 08 Jun 2020 11:47:29 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 0F67CAB8F;
+ Mon,  8 Jun 2020 11:47:32 +0000 (UTC)
+Subject: Re: [PATCH for-4.14 v3] x86/rtc: provide mediated access to RTC for
+ PVH dom0
+To: Roger Pau Monne <roger.pau@citrix.com>
+References: <20200608102948.7327-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <71e0d073-165b-8fcc-62b9-3fb028b3c526@suse.com>
+Date: Mon, 8 Jun 2020 13:47:26 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150922: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=75131ad75bb3c91717b5dfda6881e61c52bfd22e
-X-Osstest-Versions-That: xen=51ca66c37371b10b378513af126646de22eddb17
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 08 Jun 2020 11:47:06 +0000
+In-Reply-To: <20200608102948.7327-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,63 +46,78 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150922 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150922/
+On 08.06.2020 12:29, Roger Pau Monne wrote:
+> Mediated access to the RTC was provided for PVHv1 dom0 using the PV
+> code paths (guest_io_{write/read}), but those accesses where never
+> implemented for PVHv2 dom0. This patch provides such mediated accesses
+> to the RTC for PVH dom0, just like it's provided for a classic PV
+> dom0.
+> 
+> Pull out some of the RTC logic from guest_io_{read/write} into
+> specific helpers that can be used by both PV and HVM guests. The
+> setup of the handlers for PVH is done in rtc_init, which is already
+> used to initialize the fully emulated RTC.
+> 
+> Without this a Linux PVH dom0 will read garbage when trying to access
+> the RTC, and one vCPU will be constantly looping in
+> rtc_timer_do_work.
+> 
+> Note that such issue doesn't happen on domUs because the ACPI
+> NO_CMOS_RTC flag is set in FADT, which prevents the OS from accessing
+> the RTC. Also the X86_EMU_RTC flag is not set for PVH dom0, as the
+> accesses are not emulated but rather forwarded to the physical
+> hardware.
+> 
+> No functional change expected for classic PV dom0.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Failures :-/ but no regressions.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+preferably with ...
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+> @@ -1110,6 +1111,67 @@ static unsigned long get_cmos_time(void)
+>      return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
+>  }
+>  
+> +/* Helpers for guest accesses to the physical RTC. */
+> +unsigned int rtc_guest_read(unsigned int port)
+> +{
+> +    const struct domain *currd = current->domain;
+> +    unsigned long flags;
+> +    unsigned int data = ~0;
+> +
+> +    switch ( port )
+> +    {
+> +    case RTC_PORT(0):
+> +        /*
+> +         * All PV domains are allowed to read the latched value of the first
+> +         * RTC port. This is useful in order to store data when debugging.
+> +         */
 
-version targeted for testing:
- xen                  75131ad75bb3c91717b5dfda6881e61c52bfd22e
-baseline version:
- xen                  51ca66c37371b10b378513af126646de22eddb17
+... at least the 2nd sentence of this and ...
 
-Last test of basis   150867  2020-06-05 17:00:42 Z    2 days
-Testing same since   150922  2020-06-08 09:02:44 Z    0 days    1 attempts
+> +void rtc_guest_write(unsigned int port, unsigned int data)
+> +{
+> +    struct domain *currd = current->domain;
+> +    unsigned long flags;
+> +
+> +    switch ( port )
+> +    {
+> +    case RTC_PORT(0):
+> +        /*
+> +         * All PV domains are allowed to write to the latched value of the
+> +         * first RTC port. This is useful in order to store data when
+> +         * debugging.
+> +         */
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
+... this comment dropped again. This justification of the possible
+usefulness is my very private guessing. Just like the original code
+was, I think we could leave this uncommented altogether.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   51ca66c373..75131ad75b  75131ad75bb3c91717b5dfda6881e61c52bfd22e -> smoke
+Jan
 
