@@ -2,67 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F04951F1C9B
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:01:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDCD01F1CA6
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:02:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiKD5-0003hR-5T; Mon, 08 Jun 2020 16:01:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jiKDs-0004B7-Ra; Mon, 08 Jun 2020 16:02:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8Blr=7V=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1jiKD4-0003h2-6w
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:01:14 +0000
-X-Inumbo-ID: 46eafbaa-a9a1-11ea-96fb-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 46eafbaa-a9a1-11ea-96fb-bc764e2007e4;
- Mon, 08 Jun 2020 16:01:13 +0000 (UTC)
+ id 1jiKDr-0004AK-Ku
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:02:03 +0000
+X-Inumbo-ID: 648e11a6-a9a1-11ea-b292-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 648e11a6-a9a1-11ea-b292-12813bfff9fa;
+ Mon, 08 Jun 2020 16:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591632073;
+ s=mimecast20190719; t=1591632122;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=O7Ly94SWL+SMdJ3uuRJWrIP/iOhgME/DwBVu03IUalo=;
- b=XMVNPDP+pwORdzbIBc7g/MDKo1KzzqHVDxTrWAO/+n/C3cNnvWDiRULUhkcM0RmtWv6/fF
- aJXJH75uEqSv2idrGZXb4Hx1eB4HRWReQ4Yk45AsZdg9uPUimYivqHzYtcsZVV4wmLDaMX
- nubEISQNHbruLjAuWhMVsTrilAwVXgM=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-231-vSu2zWhsOSmHhzMJ7I1Hkg-1; Mon, 08 Jun 2020 12:01:11 -0400
-X-MC-Unique: vSu2zWhsOSmHhzMJ7I1Hkg-1
-Received: by mail-wm1-f69.google.com with SMTP id p24so11166wmc.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:01:11 -0700 (PDT)
+ bh=JPFQ0bX3Ul9NeHHcjGis7Hob0YUuGxD/aHEXimgfPe0=;
+ b=SNg3Vw1wOv3e531S7bQvEPa0ySxt/QmIxqGPmHm/U1zxU1WjNFWluxou2WsblLYn2lyaBM
+ tWW3Vjg0Ms+1vtmiSD1HfOBfIBEXNjXKjrV04oUxlAqtQaMwUvew9W0ltKOY5mwQYPF0DX
+ w8mMKJPlge1H2E7RMOkn/Rn4IoSse68=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-42-l8Bl9tn2MCqI9ozdZXHAHQ-1; Mon, 08 Jun 2020 12:01:16 -0400
+X-MC-Unique: l8Bl9tn2MCqI9ozdZXHAHQ-1
+Received: by mail-wr1-f71.google.com with SMTP id c14so7301677wrw.11
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:01:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=O7Ly94SWL+SMdJ3uuRJWrIP/iOhgME/DwBVu03IUalo=;
- b=fAB/rMZxqiXWk1IisYOMRE21fZKko0S95HVwIS0pCcVAwByXaAp0pSWybgoe5JulbT
- mFE9oqxCV/MEz9jxMNZUXCItq6/vMs5OkpWQNRRRxdk4ZqmUC4remXNv5cxfy2/eSDdX
- oMQrQ0dUPwaR/x4PrN8i+VudpFgQR8WGkTbmVNOp/7F7hhKL6Jzo3QMD6gYlPh1uPE65
- JYggDG45xg9tuCic72VAbIWnVPNSirucvGVPRJlwuZOyhjPNvz+w2x6YokGrUD7cBCJU
- iMq5YqiA04ET4pWIJGPpSwI2s98//y2/YVtcY5gxzs1ON0xylg5/GLBsO+LaXFoRjjke
- imiw==
-X-Gm-Message-State: AOAM533LbWRu/2p1Z9YW+Ehzzdm2djfznLmdyVz/jdh7kEeCo99TAa+q
- G/ttdOq8NXlZuJI5jsm6lfFJdzmJ4iQEdasRj5F4YJ48ywh9feWklOOpUP/POpKAcVzKBylzlFd
- OQ28Lt+R1lFr+WEsx7WKxx4txTVA=
-X-Received: by 2002:a5d:6acf:: with SMTP id u15mr25749793wrw.277.1591632070227; 
- Mon, 08 Jun 2020 09:01:10 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzcPzEmUfH07HRp9H1Y3tf4BoKsOaXn7cpLkhpXaJ1S6O0iNu0DeeV5KKJL41RODtirsARieQ==
-X-Received: by 2002:a5d:6acf:: with SMTP id u15mr25749771wrw.277.1591632069976; 
- Mon, 08 Jun 2020 09:01:09 -0700 (PDT)
+ bh=JPFQ0bX3Ul9NeHHcjGis7Hob0YUuGxD/aHEXimgfPe0=;
+ b=JHuZ41yMKsrE7iToceMc9W8Sx1VA4Yhzp7GST67+JuTT8b8fg8j9SQCH5R54zbcgO4
+ Yi9M9QzQVmMfXkpGK9iJP4I4Hc8u0HgtKRsVJtJN2GjmwTUgpIcug4W8K9srpmwgRBkn
+ LwWvbRnBa5CC/oMxWE2YqjslQTCnLl+p18pP5Fp85kppjVgVf8n1TkR020pfKbLgI/cF
+ RZXNx6T35Uvh8qFSv200cBLYpb/7mnG9Br1jDQy0KqvdO8Ql4P6v9cgCtV0AECdjZVwz
+ 6lvcqKIJRcUxtCxuLZIGVFd35feupXj6/B+SmKjVkeFj8hHACK0GUoackEOjycuip20K
+ 1PWQ==
+X-Gm-Message-State: AOAM5322JTqBec5Ssuo3B6IIWMS1HWbMWe4JvSYL0N5058hZnPhV8Zju
+ eCh/yXIM0J1WOPkpA3oFd9o6FEnjYLKF3rYVliznpULAPj+hzeh2pza0dhsABPSS6kBYTW+sEpI
+ 9yyKQpB8+itw4giaEg//xfC5l5oQ=
+X-Received: by 2002:a1c:63c2:: with SMTP id x185mr71332wmb.68.1591632075683;
+ Mon, 08 Jun 2020 09:01:15 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwHSTbXCqkGc9kOsbxhlXHtghZhPx9xWZVb7ZeU/GWo7Q7cDZTZJUQ93U+AAUtsWNU3dUVBvg==
+X-Received: by 2002:a1c:63c2:: with SMTP id x185mr71295wmb.68.1591632075484;
+ Mon, 08 Jun 2020 09:01:15 -0700 (PDT)
 Received: from localhost.localdomain
  (181.red-88-10-103.dynamicip.rima-tde.net. [88.10.103.181])
- by smtp.gmail.com with ESMTPSA id e12sm163622wro.52.2020.06.08.09.01.08
+ by smtp.gmail.com with ESMTPSA id h12sm145322wro.80.2020.06.08.09.01.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jun 2020 09:01:09 -0700 (PDT)
+ Mon, 08 Jun 2020 09:01:14 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
-Subject: [RFC PATCH 04/35] hw/arm/pxa2xx: Emit warning when old code is used
-Date: Mon,  8 Jun 2020 18:00:13 +0200
-Message-Id: <20200608160044.15531-5-philmd@redhat.com>
+Subject: [RFC PATCH 05/35] hw/arm/nseries: Emit warning when old code is used
+Date: Mon,  8 Jun 2020 18:00:14 +0200
+Message-Id: <20200608160044.15531-6-philmd@redhat.com>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200608160044.15531-1-philmd@redhat.com>
 References: <20200608160044.15531-1-philmd@redhat.com>
@@ -112,73 +113,28 @@ This code hasn't been QOM'ified yet. Warn the user.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- hw/arm/pxa2xx.c          | 3 +++
- hw/display/pxa2xx_lcd.c  | 3 +++
- hw/input/pxa2xx_keypad.c | 3 +++
- 3 files changed, 9 insertions(+)
+ hw/arm/nseries.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/hw/arm/pxa2xx.c b/hw/arm/pxa2xx.c
-index e649f8930c..483003d161 100644
---- a/hw/arm/pxa2xx.c
-+++ b/hw/arm/pxa2xx.c
-@@ -27,6 +27,7 @@
- #include "sysemu/qtest.h"
- #include "qemu/cutils.h"
+diff --git a/hw/arm/nseries.c b/hw/arm/nseries.c
+index eae800b5c1..bd0c3f39a9 100644
+--- a/hw/arm/nseries.c
++++ b/hw/arm/nseries.c
+@@ -44,6 +44,7 @@
+ #include "hw/sysbus.h"
  #include "qemu/log.h"
+ #include "exec/address-spaces.h"
 +#include "hw/qdev-deprecated.h"
  
- static struct {
-     hwaddr io_base;
-@@ -1768,6 +1769,8 @@ static PXA2xxI2SState *pxa2xx_i2s_init(MemoryRegion *sysmem,
+ /* Nokia N8x0 support */
+ struct n800_s {
+@@ -703,6 +704,7 @@ static void *mipid_init(void)
  {
-     PXA2xxI2SState *s = g_new0(PXA2xxI2SState, 1);
+     struct mipid_s *s = (struct mipid_s *) g_malloc0(sizeof(*s));
  
 +    qdev_warn_deprecated_function_used();
-+
-     s->irq = irq;
-     s->rx_dma = rx_dma;
-     s->tx_dma = tx_dma;
-diff --git a/hw/display/pxa2xx_lcd.c b/hw/display/pxa2xx_lcd.c
-index ff90104b80..cf6241ff21 100644
---- a/hw/display/pxa2xx_lcd.c
-+++ b/hw/display/pxa2xx_lcd.c
-@@ -20,6 +20,7 @@
- /* FIXME: For graphic_rotate. Should probably be done in common code.  */
- #include "sysemu/sysemu.h"
- #include "framebuffer.h"
-+#include "hw/qdev-deprecated.h"
- 
- struct DMAChannel {
-     uint32_t branch;
-@@ -1011,6 +1012,8 @@ PXA2xxLCDState *pxa2xx_lcdc_init(MemoryRegion *sysmem,
-     PXA2xxLCDState *s;
-     DisplaySurface *surface;
- 
-+    qdev_warn_deprecated_function_used();
-+
-     s = (PXA2xxLCDState *) g_malloc0(sizeof(PXA2xxLCDState));
-     s->invalidated = 1;
-     s->irq = irq;
-diff --git a/hw/input/pxa2xx_keypad.c b/hw/input/pxa2xx_keypad.c
-index 62aa6f6b15..6de1e9e4bb 100644
---- a/hw/input/pxa2xx_keypad.c
-+++ b/hw/input/pxa2xx_keypad.c
-@@ -17,6 +17,7 @@
- #include "migration/vmstate.h"
- #include "hw/arm/pxa.h"
- #include "ui/console.h"
-+#include "hw/qdev-deprecated.h"
- 
- /*
-  * Keypad
-@@ -316,6 +317,8 @@ PXA2xxKeyPadState *pxa27x_keypad_init(MemoryRegion *sysmem,
- {
-     PXA2xxKeyPadState *s;
- 
-+    qdev_warn_deprecated_function_used();
-+
-     s = (PXA2xxKeyPadState *) g_malloc0(sizeof(PXA2xxKeyPadState));
-     s->irq = irq;
+     s->id = 0x838f03;
+     mipid_reset(s);
  
 -- 
 2.21.3
