@@ -2,68 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 145E31F1CC9
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:03:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6981F1CCB
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:04:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiKFb-0005uj-Kt; Mon, 08 Jun 2020 16:03:51 +0000
+	id 1jiKFi-00062l-DG; Mon, 08 Jun 2020 16:03:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8Blr=7V=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1jiKFa-0005tu-IH
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:03:50 +0000
-X-Inumbo-ID: a4570be4-a9a1-11ea-b292-12813bfff9fa
+ id 1jiKFg-00060k-AE
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:03:56 +0000
+X-Inumbo-ID: a7c53adb-a9a1-11ea-b292-12813bfff9fa
 Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id a4570be4-a9a1-11ea-b292-12813bfff9fa;
- Mon, 08 Jun 2020 16:03:50 +0000 (UTC)
+ id a7c53adb-a9a1-11ea-b292-12813bfff9fa;
+ Mon, 08 Jun 2020 16:03:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591632229;
+ s=mimecast20190719; t=1591632235;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+WkHvAzEi0wEkdKvuBuPydWDbkpdF7QxEn1l5oochA0=;
- b=N4p54fYmCXOpchXnz0ZN1/cwQxg11GtBAtIichPgSaIhepD7fvyuocQ5BEW9A2xBn5qmnR
- u7q//ZSbVc+0ypI6BlemWubZPd0cg/5D4tktzbM56JpIkJOk3OsNyHV83GqzjL/DjY5Xg/
- 9mL5CyiLuPSSk5uZqwujWShVip99JAg=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-gHiAprgVOM-9B2uXODz0Lw-1; Mon, 08 Jun 2020 12:03:48 -0400
-X-MC-Unique: gHiAprgVOM-9B2uXODz0Lw-1
-Received: by mail-wm1-f69.google.com with SMTP id a7so12838wmf.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:03:48 -0700 (PDT)
+ bh=qfeQjgHHg6Ez9waCGJmOrJzAr/zUBGXbuFUiyuF/Rfo=;
+ b=i0gWMupYQnQaFUEqTKaVJBfEe2HNXu7+J/baMmXCmjt4r32d3aYvlLPLRjroSb/5hxImAc
+ uC3PbyJL9Znc/AfU8nlK8C59RGAgTKM1qMcX+L4K9FxhXkQhXrh66avYo1etStY+pgnPup
+ Oq+k1H8cr0en46mXrLNzlbEfZfcry30=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-177-fkrCQdsqMBKNuS5RKU1dOA-1; Mon, 08 Jun 2020 12:03:54 -0400
+X-MC-Unique: fkrCQdsqMBKNuS5RKU1dOA-1
+Received: by mail-wr1-f70.google.com with SMTP id o1so7301067wrm.17
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:03:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=+WkHvAzEi0wEkdKvuBuPydWDbkpdF7QxEn1l5oochA0=;
- b=oax5GYL2o9ro/6xAlqGmureExpmqS8MZdSKqExdiPMX+w0L5KvproJJ3Usk0PZgKVc
- /+fVt5D/DO6Kcet6caDZmieQiA5VK7fGG2yh+ceeP64uUhXR2wvpqkeMmKER1qjMTbSx
- J0xO/A8zbiAY1nf4t7IOhMfQyPOBmQGxuB0VQFEa7qaWCIb0DAk95ELMlhMTFveo8VI6
- gGG953PSz3418aTcWwKmCzkcpjLwIMoVlPQK6Mt/yV82qYc/ZA4ywd0DVDX4wEc1nZRK
- 9DFsDt/qywC5Op0BlEIa5sejV3eu3o78GmcBLoxmpO/ml+0Jsoqiya7Px261mYRJp0v/
- 81cw==
-X-Gm-Message-State: AOAM530QZLCVh83Iy/2SE05Ykv1w3lhMEZ8dSXFJDlX0FO968GffdLpx
- eZuL5z50C6H9uLMhO7HrIekGpcjsBcvVi6dTFkxnYN+zis1Aiq+nbRarx0ZxcsTJ29vdgwPE7Me
- 0LE5/83FqXbslTCgvK2NpYN8rnHE=
-X-Received: by 2002:a5d:49c5:: with SMTP id t5mr24893755wrs.18.1591632227121; 
- Mon, 08 Jun 2020 09:03:47 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzrpgU9KBovh6Bb8PslmNvBRv90nOw1Va1g7BnyPuxlNkUnSsxx5Z+mEp10XtU+59c/IEfXNQ==
-X-Received: by 2002:a5d:49c5:: with SMTP id t5mr24893708wrs.18.1591632226912; 
- Mon, 08 Jun 2020 09:03:46 -0700 (PDT)
+ bh=qfeQjgHHg6Ez9waCGJmOrJzAr/zUBGXbuFUiyuF/Rfo=;
+ b=rWixmA5Q8jXZw28KKwt/9OhtlIq9ugTF60XXRG7wSYDZ1vLWtRiSmTvVbcQBxBlxAZ
+ G9aobf6c+tEjBcYVl80sbW6l1PvE5+PbxQge7+aQ1xTIJ4yBNQrsBxdSKLtjTWELXZJp
+ PbrW/PaLPK+WuLcy9Hr/Fm6Li2ubxhjg1ASA1V+gK9Sat2Xb3rVcc0dlmRs3ty8y2sQF
+ DT6PIFvJmdTBkTeB6eyERNM+JYcsLKVmP8u7ePr3hZdfddcFcYJ6C68hILgn+WqueTel
+ 6DWmjyRojgVjCXalDrefm53MFOPWr2KkWRmCF/XldPmLSKOKPzsFnPkmPuWqLj1j26Ia
+ g7RA==
+X-Gm-Message-State: AOAM533HrBHZO/Jw4mXWXWC3OtUIxIAGS1dC+zASiB0xFik6A9iE7Uu4
+ hiEdLzlv7UaM8rss6mZs/1p6FGwifUepbRvn881GdseL3L1KHtfYOCFpHKuYJaI/ufv355RfH/z
+ D50ypoDmTORQ4IeHb0tnMef0i8Iw=
+X-Received: by 2002:a7b:cd04:: with SMTP id f4mr54308wmj.3.1591632232863;
+ Mon, 08 Jun 2020 09:03:52 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxLcq9fw++IqBSfctMa2VnenePzSclzDPUX9srn5OE/PiQtrx427TCsmbU35rGSbrlanE52/A==
+X-Received: by 2002:a7b:cd04:: with SMTP id f4mr54282wmj.3.1591632232663;
+ Mon, 08 Jun 2020 09:03:52 -0700 (PDT)
 Received: from localhost.localdomain
  (181.red-88-10-103.dynamicip.rima-tde.net. [88.10.103.181])
- by smtp.gmail.com with ESMTPSA id s8sm181183wrg.50.2020.06.08.09.03.45
+ by smtp.gmail.com with ESMTPSA id q4sm4466wma.47.2020.06.08.09.03.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jun 2020 09:03:46 -0700 (PDT)
+ Mon, 08 Jun 2020 09:03:52 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
-Subject: [RFC PATCH 31/35] hw/sh4: Emit warning when old code is used
-Date: Mon,  8 Jun 2020 18:00:40 +0200
-Message-Id: <20200608160044.15531-32-philmd@redhat.com>
+Subject: [RFC PATCH 32/35] hw/riscv: Emit warning when old code is used
+Date: Mon,  8 Jun 2020 18:00:41 +0200
+Message-Id: <20200608160044.15531-33-philmd@redhat.com>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200608160044.15531-1-philmd@redhat.com>
 References: <20200608160044.15531-1-philmd@redhat.com>
@@ -113,135 +113,54 @@ This code hasn't been QOM'ified yet. Warn the user.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- hw/char/sh_serial.c | 3 +++
- hw/intc/sh_intc.c   | 3 +++
- hw/sh4/r2d.c        | 3 +++
- hw/sh4/sh7750.c     | 4 ++++
- hw/timer/sh_timer.c | 5 +++++
- 5 files changed, 18 insertions(+)
+ hw/riscv/riscv_htif.c  | 4 ++++
+ hw/riscv/sifive_uart.c | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/hw/char/sh_serial.c b/hw/char/sh_serial.c
-index 167f4d8cb9..9366a23dd2 100644
---- a/hw/char/sh_serial.c
-+++ b/hw/char/sh_serial.c
-@@ -31,6 +31,7 @@
- #include "chardev/char-fe.h"
- #include "qapi/error.h"
+diff --git a/hw/riscv/riscv_htif.c b/hw/riscv/riscv_htif.c
+index ca87a5cf9f..bd080dbefb 100644
+--- a/hw/riscv/riscv_htif.c
++++ b/hw/riscv/riscv_htif.c
+@@ -30,6 +30,7 @@
+ #include "hw/riscv/riscv_htif.h"
  #include "qemu/timer.h"
+ #include "qemu/error-report.h"
 +#include "hw/qdev-deprecated.h"
  
- //#define DEBUG_SERIAL
+ #define RISCV_DEBUG_HTIF 0
+ #define HTIF_DEBUG(fmt, ...)                                                   \
+@@ -238,6 +239,9 @@ HTIFState *htif_mm_init(MemoryRegion *address_space, MemoryRegion *main_mem,
+     uint64_t fromhost_offset = fromhost_addr - base;
  
-@@ -382,6 +383,8 @@ void sh_serial_init(MemoryRegion *sysmem,
- {
-     sh_serial_state *s;
- 
+     HTIFState *s = g_malloc0(sizeof(HTIFState));
++
 +    qdev_warn_deprecated_function_used();
 +
-     s = g_malloc0(sizeof(sh_serial_state));
- 
-     s->feat = feat;
-diff --git a/hw/intc/sh_intc.c b/hw/intc/sh_intc.c
-index 72a55e32dd..c90fbf47bb 100644
---- a/hw/intc/sh_intc.c
-+++ b/hw/intc/sh_intc.c
-@@ -13,6 +13,7 @@
- #include "hw/sh4/sh_intc.h"
+     s->address_space = address_space;
+     s->main_mem = main_mem;
+     s->main_mem_ram_ptr = memory_region_get_ram_ptr(main_mem);
+diff --git a/hw/riscv/sifive_uart.c b/hw/riscv/sifive_uart.c
+index 9350482662..1a5890d5f7 100644
+--- a/hw/riscv/sifive_uart.c
++++ b/hw/riscv/sifive_uart.c
+@@ -25,6 +25,7 @@
+ #include "hw/hw.h"
  #include "hw/irq.h"
- #include "hw/sh4/sh.h"
+ #include "hw/riscv/sifive_uart.h"
 +#include "hw/qdev-deprecated.h"
  
- //#define DEBUG_INTC
- //#define DEBUG_INTC_SOURCES
-@@ -444,6 +445,8 @@ int sh_intc_init(MemoryRegion *sysmem,
+ /*
+  * Not yet implemented:
+@@ -183,6 +184,9 @@ SiFiveUARTState *sifive_uart_create(MemoryRegion *address_space, hwaddr base,
+     Chardev *chr, qemu_irq irq)
  {
-     unsigned int i, j;
- 
+     SiFiveUARTState *s = g_malloc0(sizeof(SiFiveUARTState));
++
 +    qdev_warn_deprecated_function_used();
 +
-     desc->pending = 0;
-     desc->nr_sources = nr_sources;
-     desc->mask_regs = mask_regs;
-diff --git a/hw/sh4/r2d.c b/hw/sh4/r2d.c
-index 72bb5285cc..22bbbe7d3c 100644
---- a/hw/sh4/r2d.c
-+++ b/hw/sh4/r2d.c
-@@ -43,6 +43,7 @@
- #include "hw/usb.h"
- #include "hw/block/flash.h"
- #include "exec/address-spaces.h"
-+#include "hw/qdev-deprecated.h"
- 
- #define FLASH_BASE 0x00000000
- #define FLASH_SIZE (16 * MiB)
-@@ -187,6 +188,8 @@ static qemu_irq *r2d_fpga_init(MemoryRegion *sysmem,
- {
-     r2d_fpga_t *s;
- 
-+    qdev_warn_deprecated_function_used();
-+
-     s = g_malloc0(sizeof(r2d_fpga_t));
- 
-     s->irl = irl;
-diff --git a/hw/sh4/sh7750.c b/hw/sh4/sh7750.c
-index d660714443..379822e0c2 100644
---- a/hw/sh4/sh7750.c
-+++ b/hw/sh4/sh7750.c
-@@ -32,6 +32,7 @@
- #include "hw/sh4/sh_intc.h"
- #include "cpu.h"
- #include "exec/exec-all.h"
-+#include "hw/qdev-deprecated.h"
- 
- #define NB_DEVICES 4
- 
-@@ -756,6 +757,8 @@ SH7750State *sh7750_init(SuperHCPU *cpu, MemoryRegion *sysmem)
- {
-     SH7750State *s;
- 
-+    qdev_warn_deprecated_function_used();
-+
-     s = g_malloc0(sizeof(SH7750State));
-     s->cpu = cpu;
-     s->periph_freq = 60000000;	/* 60MHz */
-@@ -866,6 +869,7 @@ SH7750State *sh7750_init(SuperHCPU *cpu, MemoryRegion *sysmem)
- 
- qemu_irq sh7750_irl(SH7750State *s)
- {
-+    qdev_warn_deprecated_function_used();
-     sh_intc_toggle_source(sh_intc_source(&s->intc, IRL), 1, 0); /* enable */
-     return qemu_allocate_irq(sh_intc_set_irl, sh_intc_source(&s->intc, IRL), 0);
- }
-diff --git a/hw/timer/sh_timer.c b/hw/timer/sh_timer.c
-index 13c4051808..d5e33507b0 100644
---- a/hw/timer/sh_timer.c
-+++ b/hw/timer/sh_timer.c
-@@ -14,6 +14,7 @@
- #include "hw/sh4/sh.h"
- #include "qemu/timer.h"
- #include "hw/ptimer.h"
-+#include "hw/qdev-deprecated.h"
- 
- //#define DEBUG_TIMER
- 
-@@ -199,6 +200,8 @@ static void *sh_timer_init(uint32_t freq, int feat, qemu_irq irq)
- {
-     sh_timer_state *s;
- 
-+    qdev_warn_deprecated_function_used();
-+
-     s = (sh_timer_state *)g_malloc0(sizeof(sh_timer_state));
-     s->freq = freq;
-     s->feat = feat;
-@@ -319,6 +322,8 @@ void tmu012_init(MemoryRegion *sysmem, hwaddr base,
-     tmu012_state *s;
-     int timer_feat = (feat & TMU012_FEAT_EXTCLK) ? TIMER_FEAT_EXTCLK : 0;
- 
-+    qdev_warn_deprecated_function_used();
-+
-     s = (tmu012_state *)g_malloc0(sizeof(tmu012_state));
-     s->feat = feat;
-     s->timer[0] = sh_timer_init(freq, timer_feat, ch0_irq);
+     s->irq = irq;
+     qemu_chr_fe_init(&s->chr, chr, &error_abort);
+     qemu_chr_fe_set_handlers(&s->chr, uart_can_rx, uart_rx, uart_event,
 -- 
 2.21.3
 
