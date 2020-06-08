@@ -2,68 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C929A1F1CA4
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:02:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C462B1F1CA5
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:02:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiKDl-00044q-4O; Mon, 08 Jun 2020 16:01:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jiKDn-00047C-Jb; Mon, 08 Jun 2020 16:01:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8Blr=7V=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1jiKDk-00044a-Jv
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:01:56 +0000
-X-Inumbo-ID: 5f66f1f2-a9a1-11ea-96fb-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.120])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 5f66f1f2-a9a1-11ea-96fb-bc764e2007e4;
- Mon, 08 Jun 2020 16:01:54 +0000 (UTC)
+ id 1jiKDm-00045t-4x
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:01:58 +0000
+X-Inumbo-ID: 6176dfe9-a9a1-11ea-b292-12813bfff9fa
+Received: from us-smtp-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 6176dfe9-a9a1-11ea-b292-12813bfff9fa;
+ Mon, 08 Jun 2020 16:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591632114;
+ s=mimecast20190719; t=1591632117;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=faJPKsgnKj1MSj1B3bxzpLa01+W3HhU/7Hynie77jqI=;
- b=Vk7EC4A/3O2/cwwWEVAqrHluyPPdf7NPqzGdX1AQm83e3FvG/csEVW9zrd09gPsbYc8LuZ
- 4YE8uaQsGXMsdAEm510pLC7bJf0kjk8RKvwCwVYzgPh3VEa71A4fj3drAaVgeZ2VIcgM99
- I9GtVCFrL9PbR4GnrKrlqqNk4EKHyLY=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-121-hCDpPhwJNySWu5jbvoflJA-1; Mon, 08 Jun 2020 12:01:50 -0400
-X-MC-Unique: hCDpPhwJNySWu5jbvoflJA-1
-Received: by mail-wr1-f69.google.com with SMTP id w4so7364563wrl.13
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:01:50 -0700 (PDT)
+ bh=uHbfMTMnP0pPoIUOMaNBIF3qcn8JPSW/pdevUa2NjDA=;
+ b=FpF4eDcfAtrF/PCga4L5v4LJ/fkMSyuZchTlSs/sjRwmrIZHt3KruPO4ic/slfdA7ekyOW
+ TM8fg+jamCenJ88JGGsbY4EPbKUd22wgmF1++KUf4LfZjlKIgd65Y9riR2USmHzLPFTDkR
+ 0WrCCxnwwAnU/vRsqjHkN0o/tf2Mzmk=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-438-IyjJ421gM3agjRJtPom0Gg-1; Mon, 08 Jun 2020 12:01:56 -0400
+X-MC-Unique: IyjJ421gM3agjRJtPom0Gg-1
+Received: by mail-wm1-f72.google.com with SMTP id y15so12425wmi.0
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:01:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=faJPKsgnKj1MSj1B3bxzpLa01+W3HhU/7Hynie77jqI=;
- b=as4X6sWS5XTQQVRyv/w90tbWPZ21O8rsIygk77b2RWzbArcJKVY762Z5Wc5kflsCOI
- IkwSzJ58hSciyvlilHFYGEONlyqMWdDo4Dp5fD5NJCOmRTT0QaPo742uCcWW7pr/62Ts
- TBJW1dEShsWDwtrdqY+ZXNUa0NgsisiwubVBuwXHnrvTxUS1dpewl6VEJtCqBYpkSZOf
- 4eKS1PGxq7SAALkxVXF7ZunTFrrZSZrYmgh3/Rt73cbt9+D5TAhbzllQ8Fj+ZgHz8UE1
- Mc511J+1BL4X3xOFtDPx2D4GLqR/wHBbsJ1ie0qURBPDsc7A8QkGfZuWvIYUS1XLO2/H
- 3M6g==
-X-Gm-Message-State: AOAM5331B2UA5/hKZfZzezTcZ31I3VdvUtBKmfPpAgs1hqkMwf1Of03n
- 45eUM/oJ2c//MvIm6UeFji7JN8QzndyojL6TiZZshnWGBwWj6+N43h8R2JWlIeydYbFIBXnCNb2
- 3V0xVJE7OPlTRFm/VyyGMV4phE0k=
-X-Received: by 2002:adf:9304:: with SMTP id 4mr25264189wro.280.1591632109661; 
- Mon, 08 Jun 2020 09:01:49 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx9mBFO0YH5teWKyWXjB3IP6YUG1XRf7/NfjmoGjY1J2DcXSECmfNz6g9nRc2AB3mdjKgV/Zg==
-X-Received: by 2002:adf:9304:: with SMTP id 4mr25264164wro.280.1591632109513; 
- Mon, 08 Jun 2020 09:01:49 -0700 (PDT)
+ bh=uHbfMTMnP0pPoIUOMaNBIF3qcn8JPSW/pdevUa2NjDA=;
+ b=BiIsoqjtuNsJ9Dop55nnUQTKGx+PtGVzPSNrVsJjmML88QdhmotgXhggwhLXqZMn6/
+ eFsvrM0NXGMXdkgDCN3GUFHnwSbUQBX2OLKTfvcLF5jcR/ettcYwqvql40TI0tDrn8kL
+ Sy2ncXLuNrlXdhx/VRP2L9i/LweT1sp82i5b8uWu0JVfgllDmYsC/zAiJLBJCrvI6gA1
+ lhA227POOqpukHCVxZZLy/Jmj9qAWk8fkm3uyp/17zeyZo3XmD6btFayp2FPDwB5j1gQ
+ jP0931SVlw6s6dueP+KgwMdiKRfLiuhciFvhCGg2JvH4rGjhJ9kKWuW+4tnioeFc7rYm
+ kYtQ==
+X-Gm-Message-State: AOAM533fOUy4OtPuQsoI7vA2+Bzc1K1TVegMKLE0s5KguHEM+sBEp8U8
+ qKduaYZ1FTs3kp2RyToKuJjh8WtSyKhS1KVTk1xMZGqQxJW/uJKS4dHX6RLKviZ7wK6Azn5mN4o
+ rRIpvj24EpKQPZjNTFoDgAlFuuM0=
+X-Received: by 2002:a05:6000:4c:: with SMTP id
+ k12mr23864566wrx.215.1591632114952; 
+ Mon, 08 Jun 2020 09:01:54 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzjnqOGBWofUhF/g/CPg0SMkJ8njA1iKr2pcTJ7xpwajdAOHpMg7tlHe1H6wlLAySWDO/5VvQ==
+X-Received: by 2002:a05:6000:4c:: with SMTP id
+ k12mr23864524wrx.215.1591632114766; 
+ Mon, 08 Jun 2020 09:01:54 -0700 (PDT)
 Received: from localhost.localdomain
  (181.red-88-10-103.dynamicip.rima-tde.net. [88.10.103.181])
- by smtp.gmail.com with ESMTPSA id l1sm220993wrb.31.2020.06.08.09.01.47
+ by smtp.gmail.com with ESMTPSA id y17sm194731wrn.12.2020.06.08.09.01.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jun 2020 09:01:48 -0700 (PDT)
+ Mon, 08 Jun 2020 09:01:54 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
-Subject: [RFC PATCH 11/35] hw/display/vga-isa-mm: Emit warning when old code
- is used
-Date: Mon,  8 Jun 2020 18:00:20 +0200
-Message-Id: <20200608160044.15531-12-philmd@redhat.com>
+Subject: [RFC PATCH 12/35] hw/dma/etraxfs_dma: Emit warning when old code is
+ used
+Date: Mon,  8 Jun 2020 18:00:21 +0200
+Message-Id: <20200608160044.15531-13-philmd@redhat.com>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200608160044.15531-1-philmd@redhat.com>
 References: <20200608160044.15531-1-philmd@redhat.com>
@@ -113,61 +116,31 @@ This code hasn't been QOM'ified yet. Warn the user.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- hw/display/vga-isa-mm.c | 5 +++++
- hw/display/vga.c        | 3 +++
- 2 files changed, 8 insertions(+)
+ hw/dma/etraxfs_dma.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/hw/display/vga-isa-mm.c b/hw/display/vga-isa-mm.c
-index 7321b7a06d..3e62389b63 100644
---- a/hw/display/vga-isa-mm.c
-+++ b/hw/display/vga-isa-mm.c
-@@ -29,6 +29,7 @@
- #include "hw/display/vga.h"
- #include "vga_int.h"
- #include "ui/pixel_ops.h"
+diff --git a/hw/dma/etraxfs_dma.c b/hw/dma/etraxfs_dma.c
+index c4334e87bf..d2f7e7ca9d 100644
+--- a/hw/dma/etraxfs_dma.c
++++ b/hw/dma/etraxfs_dma.c
+@@ -28,7 +28,7 @@
+ #include "qemu/main-loop.h"
+ #include "sysemu/runstate.h"
+ #include "exec/address-spaces.h"
+-
 +#include "hw/qdev-deprecated.h"
+ #include "hw/cris/etraxfs_dma.h"
  
- #define VGA_RAM_SIZE (8 * MiB)
- 
-@@ -71,6 +72,8 @@ static void vga_mm_init(ISAVGAMMState *s, hwaddr vram_base,
+ #define D(x)
+@@ -765,6 +765,8 @@ void *etraxfs_dmac_init(hwaddr base, int nr_channels)
  {
-     MemoryRegion *s_ioport_ctrl, *vga_io_memory;
+ 	struct fs_dma_ctrl *ctrl = NULL;
  
 +    qdev_warn_deprecated_function_used();
 +
-     s->it_shift = it_shift;
-     s_ioport_ctrl = g_malloc(sizeof(*s_ioport_ctrl));
-     memory_region_init_io(s_ioport_ctrl, NULL, &vga_mm_ctrl_ops, s,
-@@ -99,6 +102,8 @@ int isa_vga_mm_init(hwaddr vram_base,
+ 	ctrl = g_malloc0(sizeof *ctrl);
  
-     s = g_malloc0(sizeof(*s));
- 
-+    qdev_warn_deprecated_function_used();
-+
-     s->vga.vram_size_mb = VGA_RAM_SIZE / MiB;
-     s->vga.global_vmstate = true;
-     vga_common_init(&s->vga, NULL);
-diff --git a/hw/display/vga.c b/hw/display/vga.c
-index 061fd9ab8f..d59a9c896b 100644
---- a/hw/display/vga.c
-+++ b/hw/display/vga.c
-@@ -35,6 +35,7 @@
- #include "hw/xen/xen.h"
- #include "migration/vmstate.h"
- #include "trace.h"
-+#include "hw/qdev-deprecated.h"
- 
- //#define DEBUG_VGA_MEM
- //#define DEBUG_VGA_REG
-@@ -2262,6 +2263,8 @@ MemoryRegion *vga_init_io(VGACommonState *s, Object *obj,
- {
-     MemoryRegion *vga_mem;
- 
-+    qdev_warn_deprecated_function_used();
-+
-     *vga_ports = vga_portio_list;
-     *vbe_ports = vbe_portio_list;
- 
+         ctrl->bh = qemu_bh_new(DMA_run, ctrl);
 -- 
 2.21.3
 
