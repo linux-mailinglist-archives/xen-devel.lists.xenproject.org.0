@@ -2,49 +2,80 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AD1C1F2247
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 01:07:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B68D21F267B
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 01:43:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiQr6-00034T-KL; Mon, 08 Jun 2020 23:07:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jiROr-0006Oe-OZ; Mon, 08 Jun 2020 23:41:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yn46=7V=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jiQr6-00034O-1L
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 23:07:00 +0000
-X-Inumbo-ID: c16e39e2-a9dc-11ea-b2c4-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c16e39e2-a9dc-11ea-b2c4-12813bfff9fa;
- Mon, 08 Jun 2020 23:06:59 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6C48520820;
- Mon,  8 Jun 2020 23:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591657618;
- bh=9kgiWfc80bQ1pFTP10CoDvlD9i3E2sMoZB2p3Vvgd/g=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=IAKP9+uyhx+Mw+/ttmtWvmUV5DWr7Hx4rynsr/VlhWY7naVEcoN2oD/N3/5SjrSVB
- EmHPS5CiBaqDmNLIqVqDyRmUgYL0/hy7nAFMhxlSh1iB+5l18sVCmDe/ECVJA17l06
- HJUi2skFlwTFsob6tOCCspquwIIueUlnqfhHl8Bo=
-Date: Mon, 8 Jun 2020 16:06:57 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH v2 08/11] swiotlb-xen: introduce phys_to_dma/dma_to_phys
- translations
-In-Reply-To: <20200608070850.GD15742@infradead.org>
-Message-ID: <alpine.DEB.2.21.2006081558400.2815@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
- <20200603222247.11681-8-sstabellini@kernel.org>
- <20200608070850.GD15742@infradead.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=YeZs=7V=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jiROq-0006OZ-Dr
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 23:41:52 +0000
+X-Inumbo-ID: a02323c4-a9e1-11ea-8496-bc764e2007e4
+Received: from mail-ed1-x542.google.com (unknown [2a00:1450:4864:20::542])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a02323c4-a9e1-11ea-8496-bc764e2007e4;
+ Mon, 08 Jun 2020 23:41:51 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id e12so14874286eds.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 16:41:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=0SGT/xqyswMR4HEMWjxUb0fTo55TAfwIiVwxif8Zu+0=;
+ b=rNA8+WLhOAWTRCMIA0chx5jqMvaWY6W5/4IGUKOTAM8U0sp5eMCvcNnqwsrkwcmBDA
+ fdaetF2roGkSwuKfv1YGXV1mr9pL/15hKuto+wkeJ2Y7e47HOBiXP02VvP+1Utud1FQn
+ Xm3VHlxa5vAjI/nt63grfTfKvStpGY5Xk6/jyDpS31doU4YjcrnMlnBQdtrGviDpEhC5
+ oFBB0DfdI5Hz1fmOo3q0yup+hTZ05Gzdnl2l/7Q8R2/MFCFKN3d7ydL/Wb18Dz3fXQ+d
+ H/SCC0Uz4Tw6u8DhwWSf8JMoUMiph1lcw0MLDHoSVL39yIA59TUTXPgnCotP3ZDGHfpZ
+ IheA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=0SGT/xqyswMR4HEMWjxUb0fTo55TAfwIiVwxif8Zu+0=;
+ b=WYD4v+PVmpaqbAswm6nXpYx39ea6YqfoDCxGjh55i1eMBWZnej/xwEXM3xvj6nIKXY
+ 2m/DSlsSTe5NjpTIu4f7astzQsvuEUM/XsgPpM1cAYJm4cFn8IqZtU0kwODvYMRI/WMB
+ 95b76x7BksRDpor81DpdYYaROHIvyTHV2mmm1Y+KkdWzMJK86MX3yBL04o05vhxLtEJo
+ 4wZ0wtzmQBLT0uyIfg2cl9M0rehZ1jgkIY9KNHwFYAZKYv4jaqd4nZbcZVgTEmM7ZfM0
+ UbQpr1qw2foqN8QPKJ1GZvUVP5fNZwd/YWyAdzuKwVDhjZNf6cPhK82dGTUtX63lO9Sa
+ kxxg==
+X-Gm-Message-State: AOAM533mBRaQ2qJJ33eSEEZEKWBCbp6HryZMNRoSs5X+j3fQozploWLT
+ Cxqtm543pPYh1FOu8wRToQC1dXOe7pY=
+X-Google-Smtp-Source: ABdhPJwqvUYxfCbu/lCjrrmkOCcwPagSyG4Srq6bnZZKR5KLWqjot1/kgDdMRe8fdmCbTgf9c5LxxA==
+X-Received: by 2002:a50:f106:: with SMTP id w6mr24462675edl.131.1591659710104; 
+ Mon, 08 Jun 2020 16:41:50 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com.
+ [209.85.221.46])
+ by smtp.gmail.com with ESMTPSA id j31sm13668017edb.12.2020.06.08.16.41.49
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jun 2020 16:41:49 -0700 (PDT)
+Received: by mail-wr1-f46.google.com with SMTP id r7so19315714wro.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 16:41:49 -0700 (PDT)
+X-Received: by 2002:a5d:490f:: with SMTP id x15mr1181633wrq.259.1591659708778; 
+ Mon, 08 Jun 2020 16:41:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20200603125237.100041-1-tamas@tklengyel.com>
+ <20200603150721.GF1195@Air-de-Roger>
+ <be627680-5ab2-d93d-b042-2b6aadbdcd8d@suse.com>
+ <ffa44e09-a9fd-8fff-16af-e0991db3cb9b@bitdefender.com>
+ <CABfawhnNC3yCuG+xNicyjA_Qo89qpvXKL-Cp9wAc4Cq=Xv8BYQ@mail.gmail.com>
+ <aded2ba0-3a16-bee5-d3e0-98bf5beb068d@bitdefender.com>
+ <CABfawh=s6OL54ckemhvjWRQWu_apmV6--L0+bRY9xEQKaPj16Q@mail.gmail.com>
+ <fdedc03a-57cf-3899-93d1-db491ecbbc5d@bitdefender.com>
+ <CABfawhkU+L0irWg47aoPWW0g6nJSY62Vodwi=mPH7f=tnghKTg@mail.gmail.com>
+ <4cd66e91-3c7e-6af6-e789-9cca5109dc18@bitdefender.com>
+In-Reply-To: <4cd66e91-3c7e-6af6-e789-9cca5109dc18@bitdefender.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 8 Jun 2020 17:41:12 -0600
+X-Gmail-Original-Message-ID: <CABfawhk2tPr93SsP5GzDdduM8eohXP3R-gYUO7JrxM=eY1K26w@mail.gmail.com>
+Message-ID: <CABfawhk2tPr93SsP5GzDdduM8eohXP3R-gYUO7JrxM=eY1K26w@mail.gmail.com>
+Subject: Re: [PATCH v4 for-4.14] x86/monitor: revert default behavior when
+ monitoring register write events
+To: Razvan Cojocaru <rcojocaru@bitdefender.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,86 +86,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Stefano Stabellini <sstabellini@kernel.org>,
- konrad.wilk@oracle.com, roman@zededa.com, linux-kernel@vger.kernel.org,
- tamas@tklengyel.com, xen-devel@lists.xenproject.org,
- boris.ostrovsky@oracle.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Andrei LUTAS <vlutas@bitdefender.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?B?TWloYWkgRG9uyJt1?= <mdontu@bitdefender.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, 8 Jun 2020, Christoph Hellwig wrote:
-> On Wed, Jun 03, 2020 at 03:22:44PM -0700, Stefano Stabellini wrote:
-> > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > 
-> > With some devices physical addresses are different than dma addresses.
-> > To be able to deal with these cases, we need to call phys_to_dma on
-> > physical addresses (including machine addresses in Xen terminology)
-> > before returning them from xen_swiotlb_alloc_coherent and
-> > xen_swiotlb_map_page.
-> > 
-> > We also need to convert dma addresses back to physical addresses using
-> > dma_to_phys in xen_swiotlb_free_coherent and xen_swiotlb_unmap_page if
-> > we want to do any operations on them.
-> > 
-> > Call dma_to_phys in is_xen_swiotlb_buffer.
-> > Call phys_to_dma in xen_phys_to_bus.
-> > Call dma_to_phys in xen_bus_to_phys.
-> > 
-> > Everything is taken care of by these changes except for
-> > xen_swiotlb_alloc_coherent and xen_swiotlb_free_coherent, which need a
-> > few explicit phys_to_dma/dma_to_phys calls.
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > Tested-by: Corey Minyard <cminyard@mvista.com>
-> > Tested-by: Roman Shaposhnik <roman@zededa.com>
-> > ---
-> > Changes in v2:
-> > - improve commit message
-> > ---
-> >  drivers/xen/swiotlb-xen.c | 22 ++++++++++++----------
-> >  1 file changed, 12 insertions(+), 10 deletions(-)
-> > 
-> > diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> > index 0a6cb67f0fc4..60ef07440905 100644
-> > --- a/drivers/xen/swiotlb-xen.c
-> > +++ b/drivers/xen/swiotlb-xen.c
-> > @@ -64,16 +64,16 @@ static inline dma_addr_t xen_phys_to_bus(struct device *dev, phys_addr_t paddr)
-> >  
-> >  	dma |= paddr & ~XEN_PAGE_MASK;
-> >  
-> > -	return dma;
-> > +	return phys_to_dma(dev, dma);
-> 
-> So looking at this function:
-> 
-> The dma name for something passed to phys_to_dma is really
-> weird.
+On Mon, Jun 8, 2020 at 5:14 PM Razvan Cojocaru
+<rcojocaru@bitdefender.com> wrote:
+>
+> On 6/9/20 1:50 AM, Tamas K Lengyel wrote:
+> > On Mon, Jun 8, 2020 at 3:16 PM Razvan Cojocaru
+> > <rcojocaru@bitdefender.com> wrote:
+> >> 1. A security application that is unable to _prevent_ things being done
+> >> to a system is not doing a very good job, since in that case you can
+> >> only collect stats and not veto anything. I would argue that the default
+> >> for such a monitoring application should be the current one (all events
+> >> should be pre-action).
+> >
+> > Not all security applications require this though. Malware analysis
+> > where stealth is required would absolutely not want this side-effect
+> > to be visible to the guest where malware could use it to determine
+> > that it's being monitored. So I don't buy into this argument.
+>
+> Fair enough, in that case having both models supported should be fine.
+> I'll leave the rest of that conversation to my colleagues.
+>
+> >> 2. This is further supported by the fact that that's exactly how the EPT
+> >> vm_events work: you get a "I want to write to this page" event _before_
+> >> the write occurs. If register writes behave differently, you have _two_
+> >> different models: one where you get an event post-action, and one where
+> >> you get one pre-action.
+> >
+> > Whether you get an event before or after the effects of the event have
+> > been applied to the system state shouldn't matter as long as you can
+> > revert that action. I wouldn't care either way to be the default. But
+> > having a default that breaks other use-cases is unacceptable.
+>
+> You keep saying that as if I disagree. :) But we've already established
+> that the potential for a race condition has been found and needs to be
+> fixed.
+>
+> My only (minor) objection has been that a patch fixing the current model
+> would have been preferable to one that switches the default as a
+> workaround. Still, it's understandable that perhaps there's no time or
+> motivation for that.
 
-Yeah, that is true, I am not sure why I chose that confusing name. I'll
-rename it.
+I've already sent two other patches that make it more manageable to
+disable the interface when this feature is used. Your colleagues are
+welcome to pick those up or send other fixes that they prefer. As I
+don't use this feature I won't be spending more time fixing it then
+what I've already spent on it. At this point collectively I probably
+spent weeks trying to just track the issue down as it was such an
+annoying bug to find.
 
-
-> The fact that the comments says don't use XEN_PFN_PHYS
-> beause of the type mismatch while nothing but swiotlb-xen is the only
-> user of XEN_PFN_PHYS is also weird.  I think XEN_PFN_PHYS needs to move
-> to swiotlb-xen first, then use a hardcoded u64 for the size, and the
-> split the function into a phys_to_xen_phys (or so) function where
-> the result gets passed to phys_to_dma.
-
-I understand what you are suggesting about having something like:
-
-    xen_phys_to_dma(...)
-    {
-        phys_addr_t phys = xen_phys_to_bus(dev, paddr)
-        return phys_to_dma(phys);
-    }
-
-I thought about it myself. I'll do it.
-
-But I don't think I understood the comment about XEN_PFN_PHYS.
-
-
-> Similar for the reverse direction.
-
-OK
+Tamas
 
