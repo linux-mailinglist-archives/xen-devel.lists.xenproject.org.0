@@ -2,71 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12F051F1CC5
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:03:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77D901F1CC6
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 18:03:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiKF9-0005Om-1s; Mon, 08 Jun 2020 16:03:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jiKFJ-0005Zk-D1; Mon, 08 Jun 2020 16:03:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8Blr=7V=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1jiKF6-0005Mf-TZ
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:03:20 +0000
-X-Inumbo-ID: 92650185-a9a1-11ea-b292-12813bfff9fa
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 92650185-a9a1-11ea-b292-12813bfff9fa;
- Mon, 08 Jun 2020 16:03:20 +0000 (UTC)
+ id 1jiKFI-0005Ys-FD
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 16:03:32 +0000
+X-Inumbo-ID: 96decccc-a9a1-11ea-96fb-bc764e2007e4
+Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.120])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 96decccc-a9a1-11ea-96fb-bc764e2007e4;
+ Mon, 08 Jun 2020 16:03:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591632199;
+ s=mimecast20190719; t=1591632207;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=J738BQqBvhpMt3eJFPP/lmrii93ELO7mMMfmrV28FMw=;
- b=Jd0Mgg+ZT6Y8OPN783wC5xi+OI1H3J++7k9ZDAL06Q0UQirlPDkyhB1KGqCWfWttlsPVxZ
- zKYudmWG5aIkMsrbm0N7Cj2DGJ9TH1Aon+M6ltxG4csce6FYFf3bFMl8JG5r7wpMcnfRVl
- hWmnZYeBhWehD8VbhLJqFZiw2a5H3qo=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-105-U1L0J_ShPWCUkCO6Wtav9Q-1; Mon, 08 Jun 2020 12:03:18 -0400
-X-MC-Unique: U1L0J_ShPWCUkCO6Wtav9Q-1
-Received: by mail-wm1-f70.google.com with SMTP id s15so5963wmc.8
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:03:17 -0700 (PDT)
+ bh=6htctWfi0MuFSG0QMH05N/TPpEubln82RtGM2+VRUkY=;
+ b=Ul0cJiIVNQn4mBpQsqELB939niuIBptRc4P0+yZfe5NLoh/q0RBlkA2CiR4p8tlycIa36L
+ eK/ubT+1YDMyFH43qmUAjkFflYGZYgBsdMVgYgZidAU7Nru+AP/J4bDbvyzgRpCt7BIN+8
+ 6xEwdg9BR38CyY1ws+jzlA/cn3umFnE=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-193-cKOrTLa9NsmBOi00y4g5GQ-1; Mon, 08 Jun 2020 12:03:25 -0400
+X-MC-Unique: cKOrTLa9NsmBOi00y4g5GQ-1
+Received: by mail-wm1-f71.google.com with SMTP id b63so116042wme.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 09:03:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=J738BQqBvhpMt3eJFPP/lmrii93ELO7mMMfmrV28FMw=;
- b=oPS36daukOFH+ywisHayweVDwAce5z8ayGreJDTIPCymeGx3KVGSeSNj5Mezoww0Yj
- Gro1PDNDwr+bsAgeXD4KUdJC7cEylWu/1m7RI4cxSdOKwWjyVdxwBCQ8e8yh6ZE1SJ72
- y4fc9/IOPiU2uqjdjViROwtJwi9DKe8McH7gAAH56KyicJ8xjZJXwaghdjzocysvdD38
- v7Ml2nKKvEyE51Sg/W9L+MM2/CKNLI+4ZPhqr82H2qDp+jiRMPe9aL0+YgUYqbKOD0pS
- rrf/FBPc+m8clO+01WNvprLLW5VludVn45AX64zp+9D+KC2AU+YQs9R8/MaNJD8SucfY
- YnCg==
-X-Gm-Message-State: AOAM530I9un4QwOzhgJwobVM/0QpiExZXGkxAIqT3W24Kg/4jdbaxrng
- 9RU/4oqECo1vVVN3oy3bkFy5Vau87K/mLl32Dayrx/UV8RG8/aJsq0P4y5aUokXJD+LAgxQsa+f
- FFCg8cAj6DQTULAy2FMFB15CKGkk=
-X-Received: by 2002:a05:600c:4410:: with SMTP id
- u16mr73255wmn.88.1591632196834; 
- Mon, 08 Jun 2020 09:03:16 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz3xkvh2Vk+4PYCBSKCv2fZwGK7MNY+4FcnyFPW+oUbVotWO8gdASoKL+nfN+0YxJIIGJ7I2g==
-X-Received: by 2002:a05:600c:4410:: with SMTP id
- u16mr73234wmn.88.1591632196640; 
- Mon, 08 Jun 2020 09:03:16 -0700 (PDT)
+ bh=6htctWfi0MuFSG0QMH05N/TPpEubln82RtGM2+VRUkY=;
+ b=SBMtI8HJJ1ONZxzHkXNweac4Li1fDENMLqmN9T2/jUwPS88A8bpWEiuTY/VcPrxLaT
+ v/nCXWrCTUghZSOW0TprQzT1ZFjj0E8GEaKHYtdM72FRVAcmkOcCUlRDk2iosl+RWVVl
+ j5pf2OZDAek4m1kDeXq54q50gpEC4xgl5nSvJ3O43W6cxNgu/rtv9AbHHo+qmaNo1NG8
+ CesFTqX7lAAAeiiLKB3ZzM7CqIDBy6DjyilD2/e3LWMoOHOaHUm38creOxusAKr6V8lp
+ ovdmhtlqBEvnvh1CdlkFCG3Vg5/y+5WIa/6PcgLhiHmwgnRgnq1uwMLElOAYc4GFHeXj
+ eyqQ==
+X-Gm-Message-State: AOAM531untfaIRnooh6G6KWtIpqRQRExbl5qcJzYLYbDcuN2qRQZtchw
+ OCj56RMGgowFnYNEZYI5gKoDfDYG+S3oAXqhDOtt3OhFdCoqjKaZpQRAE+IpG57/DstvCpPGLRN
+ ILef1UZvFnkxryhyXHQd5OAbAGGg=
+X-Received: by 2002:a5d:5585:: with SMTP id i5mr23967103wrv.112.1591632204338; 
+ Mon, 08 Jun 2020 09:03:24 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzPoWRkkwB/FnLCAhEPa5I9PvgN5hBH0wEtPqJP6K6G5xK4bW4Hm9SvYdS2VHkDfOIc4QPeAQ==
+X-Received: by 2002:a5d:5585:: with SMTP id i5mr23967049wrv.112.1591632204161; 
+ Mon, 08 Jun 2020 09:03:24 -0700 (PDT)
 Received: from localhost.localdomain
  (181.red-88-10-103.dynamicip.rima-tde.net. [88.10.103.181])
- by smtp.gmail.com with ESMTPSA id l17sm32396wmi.16.2020.06.08.09.03.14
+ by smtp.gmail.com with ESMTPSA id f71sm21622wmf.22.2020.06.08.09.03.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jun 2020 09:03:16 -0700 (PDT)
+ Mon, 08 Jun 2020 09:03:23 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: qemu-devel@nongnu.org
-Subject: [RFC PATCH 26/35] hw/openrisc/cputimer: Emit warning when old code is
- used
-Date: Mon,  8 Jun 2020 18:00:35 +0200
-Message-Id: <20200608160044.15531-27-philmd@redhat.com>
+Subject: [RFC PATCH 27/35] hw/ppc/ppc: Emit warning when old code is used
+Date: Mon,  8 Jun 2020 18:00:36 +0200
+Message-Id: <20200608160044.15531-28-philmd@redhat.com>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200608160044.15531-1-philmd@redhat.com>
 References: <20200608160044.15531-1-philmd@redhat.com>
@@ -116,30 +112,30 @@ This code hasn't been QOM'ified yet. Warn the user.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
 ---
- hw/openrisc/cputimer.c | 3 +++
+ hw/ppc/ppc.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/hw/openrisc/cputimer.c b/hw/openrisc/cputimer.c
-index 93268815d8..60f2c9667f 100644
---- a/hw/openrisc/cputimer.c
-+++ b/hw/openrisc/cputimer.c
-@@ -22,6 +22,7 @@
- #include "cpu.h"
+diff --git a/hw/ppc/ppc.c b/hw/ppc/ppc.c
+index 4a11fb1640..39fcf746c5 100644
+--- a/hw/ppc/ppc.c
++++ b/hw/ppc/ppc.c
+@@ -37,6 +37,7 @@
+ #include "kvm_ppc.h"
  #include "migration/vmstate.h"
- #include "qemu/timer.h"
+ #include "trace.h"
 +#include "hw/qdev-deprecated.h"
  
- #define TIMER_PERIOD 50 /* 50 ns period for 20 MHz timer */
+ //#define PPC_DEBUG_IRQ
+ //#define PPC_DEBUG_TB
+@@ -1114,6 +1115,8 @@ clk_setup_cb cpu_ppc_tb_init (CPUPPCState *env, uint32_t freq)
+     PowerPCCPU *cpu = env_archcpu(env);
+     ppc_tb_t *tb_env;
  
-@@ -135,6 +136,8 @@ static const VMStateDescription vmstate_or1k_timer = {
- 
- void cpu_openrisc_clock_init(OpenRISCCPU *cpu)
- {
 +    qdev_warn_deprecated_function_used();
 +
-     cpu->env.timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, &openrisc_timer_cb, cpu);
-     cpu->env.ttmr = 0x00000000;
- 
+     tb_env = g_malloc0(sizeof(ppc_tb_t));
+     env->tb_env = tb_env;
+     tb_env->flags = PPC_DECR_UNDERFLOW_TRIGGERED;
 -- 
 2.21.3
 
