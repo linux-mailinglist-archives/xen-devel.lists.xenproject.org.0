@@ -2,71 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22FB21F1368
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 09:17:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E5E1F1395
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jun 2020 09:30:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiC1P-0001BZ-LN; Mon, 08 Jun 2020 07:16:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9p0X=7V=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jiC1N-0001BU-LI
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 07:16:37 +0000
-X-Inumbo-ID: fd31beca-a957-11ea-ba62-bc764e2007e4
-Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd31beca-a957-11ea-ba62-bc764e2007e4;
- Mon, 08 Jun 2020 07:16:36 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id c3so16137285wru.12
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2020 00:16:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=Lb5RKUus1nw/vCNQmPl6ydLOwk5yInAAPsiNBgTIcks=;
- b=UcLYGP+7UQY9J5GHvrXobHNzFqATzO6Y8O5Lxi0WZBiKT7QJ2auIxeFvU0Zwg0Fl5L
- NyEwf1nz3jOPhvkBztumLEbbTSO5pG3VJVo52AcZk8ik5WVxsOPtF+mkVJJuW5Dtba28
- UPPx2jsVQ0wZdX5eoUfLmCTRE/MiuV93o6sYh+iCc/hh5+vhNg81yj2+zM1h4mCnWtcC
- XhaVErY5GNGjXlcKH0pKFqUKVZvx3dG6Teyqrh6ggBeQ2CiZcEIMaOv/PuFV47L8EXnn
- Xk+fWL97IosFE7JiKSxMuDiRp8DITQLM0wy6KICRY6PK/ZjWoISc0bh86mBWSkM8qDgN
- DR4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=Lb5RKUus1nw/vCNQmPl6ydLOwk5yInAAPsiNBgTIcks=;
- b=GVthxn9NclleSLw0mrHHxnKO67t0+w/wiRvU5wOpvXBwW10BiMNSUjYUXMrnD8D7V/
- nSMDAMvVc5xvTKb+DBy+xNHX/ChNVOvYAxtXgLl4dPsGsgN0yIPCTj6VGmO4CVVNLXe7
- PR8HSoD/rIXiEmqo6GLjpHO9UMVE4y/FieJAT+9AkZYh7eftwVX6PbTflBAdr3kguezt
- EGhTHJ0Y/cXI/WhvdJNKsnKJyTKUkf99TMyJrum5JTjQmQ9SFv8y71mq/s5V6FdUzN8o
- PQn9uXwmsFQttlEYtQqH3LV8qGyy+FlkgIWNhfgBdRS3vjgHqVtCXuF+6Rvd3+vrWsxe
- NOEg==
-X-Gm-Message-State: AOAM5323M8t2ftLCSeP3roPYEGiyOmrrAcT8ohBDnH8Kh8TszNNtvrmV
- 05VAtbOhaKKtVX4969Lc7aA=
-X-Google-Smtp-Source: ABdhPJz+zJr9dXsemaLNBpxq3KOnuu4rehyDFS8hdMpW0iCYk5UkFQQhctHl0jhaedq2O7KmHf3Uvw==
-X-Received: by 2002:a5d:628c:: with SMTP id k12mr21865179wru.211.1591600595974; 
- Mon, 08 Jun 2020 00:16:35 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.186])
- by smtp.gmail.com with ESMTPSA id g19sm1059860wmh.29.2020.06.08.00.16.34
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 08 Jun 2020 00:16:35 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>,
-	<xen-devel@lists.xenproject.org>
-References: <ec58c0cd-2e39-15bd-a102-fd5b40e5e35d@suse.com>
-In-Reply-To: <ec58c0cd-2e39-15bd-a102-fd5b40e5e35d@suse.com>
-Subject: RE: [PATCH v2] build: fix dependency tracking for preprocessed files
-Date: Mon, 8 Jun 2020 08:16:33 +0100
-Message-ID: <001901d63d64$be475c60$3ad61520$@xen.org>
+	id 1jiCDd-0002Ab-Sg; Mon, 08 Jun 2020 07:29:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iYtX=7V=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1jiCDa-0002AW-Et
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2020 07:29:16 +0000
+X-Inumbo-ID: be0f3126-a959-11ea-b24e-12813bfff9fa
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.217])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id be0f3126-a959-11ea-b24e-12813bfff9fa;
+ Mon, 08 Jun 2020 07:29:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1591601349;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+ Subject:Sender;
+ bh=UT9GKALVD7ZZpy+lYWU1wdLLFXK8X0l/a8iN3useVsg=;
+ b=eE1VpybZlOKtF/ZL5fxalTwHCzDkVjg8a7/OSzIR83ctEFrjlMawGJg7Faq71E9ZO0
+ yUbbTuUoaK+zFU3lFKrhjvl+xdWbC0lFLN+5pxmYLDXrHRcMZoUomcnaUb3cc4VmiJ3w
+ Xmh6aSzm13GeUoZ2hx/t5TG4ATI7AOq3De5JzOmkJtm7Fug/jqOIg6IsTdaWTg0nuQSb
+ mS82qhttRrXNAefdMbZ4tsuOiD/dSOr8OalkViBVXdEteoLYbax76hmDcmuYpOZ2KLC6
+ 8QUp2+ENetME2jJqiagCWMUPpNOth3zbd3J9Skv4BfEHlqPIKiEefRfR6GE7EXVKElj5
+ n2hw==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3GpKjw=="
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 46.9.2 DYNA|AUTH)
+ with ESMTPSA id I09bd2w587SwEk4
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 8 Jun 2020 09:28:58 +0200 (CEST)
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v1] tools: fix usage of strncpy
+Date: Mon,  8 Jun 2020 09:28:54 +0200
+Message-Id: <20200608072855.26589-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQKkJ/Oy2eqdW+EjW3qdCJH7l2wxc6cyeTUg
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,83 +55,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>, Olaf Hering <olaf@aepfle.de>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 05 June 2020 15:23
-> To: xen-devel@lists.xenproject.org
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Ian Jackson
-> <ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
-> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Paul Durrant <paul@xen.org>
-> Subject: [PATCH v2] build: fix dependency tracking for preprocessed files
-> 
-> While the issue is more general, I noticed that asm-macros.i not getting
-> re-generated as needed. This was due to its .*.d file mentioning
-> asm-macros.o instead of asm-macros.i. Use -MQ here as well, and while at
-> it also use -MQ to avoid the somewhat fragile sed-ary on the *.lds
-> dependency tracking files. While there, further avoid open-coding $(CPP)
-> and drop the bogus (Arm) / stale (x86) -Ui386.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v2: Move -MQ ahead on command lines.
+In case of truncation no trailing zero will be added to the target
+string. Reduce the amount of bytes to copy by one to make sure a
+trailing zero always exists.
 
-Looks like this is a fairly low risk fix to pull into 4.14 and it looks like it would be worth it...
+In file included from /usr/include/string.h:495,
+                 from libxl_internal.h:38,
+                 from libxl_utils.c:20:
+In function 'strncpy',
+    inlined from 'libxl__prepare_sockaddr_un' at libxl_utils.c:1262:5:
+/usr/include/bits/string_fortified.h:106:10: error: '__builtin_strncpy' specified bound 108 equals destination size [-Werror=stringop-truncation]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
 
-Release-acked-by: Paul Durrant <paul@xen.org>
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
 
-> 
-> --- a/xen/Rules.mk
-> +++ b/xen/Rules.mk
-> @@ -201,13 +201,13 @@ $(filter %.init.o,$(obj-y) $(obj-bin-y)
->  	$(call if_changed,obj_init_o)
-> 
->  quiet_cmd_cpp_i_c = CPP     $@
-> -cmd_cpp_i_c = $(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) $< -o $@
-> +cmd_cpp_i_c = $(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -MQ $@ -o $@ $<
-> 
->  quiet_cmd_cc_s_c = CC      $@
->  cmd_cc_s_c = $(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -S $< -o $@
-> 
->  quiet_cmd_s_S = CPP     $@
-> -cmd_s_S = $(CPP) $(filter-out -Wa$(comma)%,$(a_flags)) $< -o $@
-> +cmd_s_S = $(CPP) $(filter-out -Wa$(comma)%,$(a_flags)) -MQ $@ -o $@ $<
-> 
->  %.i: %.c FORCE
->  	$(call if_changed,cpp_i_c)
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -123,9 +123,7 @@ asm-offsets.s: $(TARGET_SUBARCH)/asm-off
->  	$(CC) $(filter-out -flto,$(c_flags)) -S -o $@ $<
-> 
->  xen.lds: xen.lds.S
-> -	$(CC) -P -E -Ui386 $(a_flags) -o $@ $<
-> -	sed -e 's/xen\.lds\.o:/xen\.lds:/g' <.xen.lds.d >.xen.lds.d.new
-> -	mv -f .xen.lds.d.new .xen.lds.d
-> +	$(CPP) -P $(a_flags) -MQ $@ -o $@ $<
-> 
->  dtb.o: $(CONFIG_DTB_FILE)
-> 
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -244,9 +244,7 @@ $(BASEDIR)/include/asm-x86/asm-macros.h:
-> 
->  efi.lds: AFLAGS-y += -DEFI
->  xen.lds efi.lds: xen.lds.S
-> -	$(CC) -P -E -Ui386 $(filter-out -Wa$(comma)%,$(a_flags)) -o $@ $<
-> -	sed -e 's/.*\.lds\.o:/$(@F):/g' <.$(@F).d >.$(@F).d.new
-> -	mv -f .$(@F).d.new .$(@F).d
-> +	$(CPP) -P $(filter-out -Wa$(comma)%,$(a_flags)) -MQ $@ -o $@ $<
-> 
->  boot/mkelf32: boot/mkelf32.c
->  	$(HOSTCC) $(HOSTCFLAGS) -o $@ $<
+gcc may not detect the off-by-one error in libxl__prepare_sockaddr_un, fix the strncpy usage anyway.
 
+ tools/libvchan/vchan-socket-proxy.c | 8 ++++----
+ tools/libxl/libxl_utils.c           | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/tools/libvchan/vchan-socket-proxy.c b/tools/libvchan/vchan-socket-proxy.c
+index 13700c5d67..b312f05ca7 100644
+--- a/tools/libvchan/vchan-socket-proxy.c
++++ b/tools/libvchan/vchan-socket-proxy.c
+@@ -140,7 +140,7 @@ static int set_nonblocking(int fd, int nonblocking) {
+ static int connect_socket(const char *path_or_fd) {
+     int fd;
+     char *endptr;
+-    struct sockaddr_un addr;
++    struct sockaddr_un addr = {};
+ 
+     fd = strtoll(path_or_fd, &endptr, 0);
+     if (*endptr == '\0') {
+@@ -153,7 +153,7 @@ static int connect_socket(const char *path_or_fd) {
+         return -1;
+ 
+     addr.sun_family = AF_UNIX;
+-    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path));
++    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path) - 1);
+     if (connect(fd, (const struct sockaddr *)&addr, sizeof(addr)) == -1) {
+         close(fd);
+         return -1;
+@@ -167,7 +167,7 @@ static int connect_socket(const char *path_or_fd) {
+ static int listen_socket(const char *path_or_fd) {
+     int fd;
+     char *endptr;
+-    struct sockaddr_un addr;
++    struct sockaddr_un addr = {};
+ 
+     fd = strtoll(path_or_fd, &endptr, 0);
+     if (*endptr == '\0') {
+@@ -180,7 +180,7 @@ static int listen_socket(const char *path_or_fd) {
+         return -1;
+ 
+     addr.sun_family = AF_UNIX;
+-    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path));
++    strncpy(addr.sun_path, path_or_fd, sizeof(addr.sun_path) - 1);
+     if (bind(fd, (const struct sockaddr *)&addr, sizeof(addr)) == -1) {
+         close(fd);
+         return -1;
+diff --git a/tools/libxl/libxl_utils.c b/tools/libxl/libxl_utils.c
+index f360f5e228..83592e829d 100644
+--- a/tools/libxl/libxl_utils.c
++++ b/tools/libxl/libxl_utils.c
+@@ -1259,7 +1259,7 @@ int libxl__prepare_sockaddr_un(libxl__gc *gc,
+     }
+     memset(un, 0, sizeof(struct sockaddr_un));
+     un->sun_family = AF_UNIX;
+-    strncpy(un->sun_path, path, sizeof(un->sun_path));
++    strncpy(un->sun_path, path, sizeof(un->sun_path) - 1);
+     return 0;
+ }
+ 
 
