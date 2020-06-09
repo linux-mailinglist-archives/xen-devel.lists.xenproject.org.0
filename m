@@ -2,45 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FBD61F3F6C
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 17:33:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837971F3F95
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 17:39:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jigFZ-0004B7-VN; Tue, 09 Jun 2020 15:33:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yKpO=7W=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jigFZ-0004B2-3h
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 15:33:17 +0000
-X-Inumbo-ID: 8876a5b8-aa66-11ea-b335-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8876a5b8-aa66-11ea-b335-12813bfff9fa;
- Tue, 09 Jun 2020 15:33:14 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3529DAE35;
- Tue,  9 Jun 2020 15:33:17 +0000 (UTC)
-Subject: Re: [PATCH-for-4.14] ioreq: handle pending emulation racing with
- ioreq server destruction
-To: paul@xen.org
-References: <20200608094619.28336-1-paul@xen.org>
- <4d63c9c7-f4e8-4c56-7778-df17b3c5254b@suse.com>
- <002a01d63d84$9c351430$d49f3c90$@xen.org>
- <86e29001-4b33-de46-0675-0107a2e2b386@suse.com>
- <00c201d63e72$a9d28bb0$fd77a310$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d7ce8147-149f-fe84-1923-4a436d127996@suse.com>
-Date: Tue, 9 Jun 2020 17:33:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+	id 1jigKq-0004OR-Jr; Tue, 09 Jun 2020 15:38:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=r2m0=7W=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1jigKp-0004OM-6d
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 15:38:43 +0000
+X-Inumbo-ID: 4c0cb4c2-aa67-11ea-bca7-bc764e2007e4
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4c0cb4c2-aa67-11ea-bca7-bc764e2007e4;
+ Tue, 09 Jun 2020 15:38:42 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id d128so3632429wmc.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2020 08:38:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=ucWmNLkNFPUVczPToRcxFSCi5MdBM/Nvj/6rGX8RCBY=;
+ b=mcxSYc3Wk3bZVYJUc/cT5GO/8PyyoT28fL2xxuXduz2GFFb7Qmsr2ySrnRxHcvi30i
+ aOFdnZlaTDQawIhu33lf22C/fcIbOPcwDE0oMsoRXA3UF5W4GYDVZe5+Pa1EJVjMfiOe
+ J9jQTmj9hwj/5cTFVR/PZUkhKKiCFFPkn565+3P57ZyLWEsQKWdT+UC+ZK8Fgpuj6gfR
+ rksyw4Lvj/clxg6y+GMFS9hkoEjkVCXHRgBBxlmpJk/uaQ9Rg/GzS1cRq9SueDzSg9xI
+ +0xNUtFYy7/ZY7VT04kyHlusHHjt6aFYvblKcQuRggeIBubMp1xtD3jQ+1q1HUFIbhvF
+ ZMmw==
+X-Gm-Message-State: AOAM530MviglN62D2vkw6fwPb6PzyAv2gTQu2zYWigB6SewvNAthIUo+
+ C+Ag/sGz6ZAcMmxZe9gPIrM=
+X-Google-Smtp-Source: ABdhPJz/HlOOdmjVI4U4/A2Va2+pJ3mjkVlJ9ANwsBeF91ZZlFya6wut+JqkSIPlG0S8iyDk4nm5Sg==
+X-Received: by 2002:a1c:67c3:: with SMTP id b186mr4397783wmc.167.1591717121844; 
+ Tue, 09 Jun 2020 08:38:41 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id s72sm3165939wme.35.2020.06.09.08.38.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jun 2020 08:38:40 -0700 (PDT)
+Date: Tue, 9 Jun 2020 15:38:39 +0000
+From: Wei Liu <wl@xen.org>
+To: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH for-4.14 0/2] tools: two minor fixes for libxenhypfs
+Message-ID: <20200609153839.wjqpremfgirxdoj3@liuwe-devbox-debian-v2>
+References: <20200609144850.28619-1-jgross@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <00c201d63e72$a9d28bb0$fd77a310$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200609144850.28619-1-jgross@suse.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,85 +61,31 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, 'Paul Durrant' <pdurrant@amazon.com>,
- =?UTF-8?Q?=27Marek_Marczykowski-G=c3=b3recki=27?=
- <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 09.06.2020 17:28, Paul Durrant wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 09 June 2020 16:08
->> To: paul@xen.org
->> Cc: xen-devel@lists.xenproject.org; 'Paul Durrant' <pdurrant@amazon.com>; 'Marek Marczykowski-Górecki'
->> <marmarek@invisiblethingslab.com>
->> Subject: Re: [PATCH-for-4.14] ioreq: handle pending emulation racing with ioreq server destruction
->>
->> On 08.06.2020 13:04, Paul Durrant wrote:
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: 08 June 2020 11:58
->>>>
->>>> On 08.06.2020 11:46, Paul Durrant wrote:
->>>>> --- a/xen/arch/x86/hvm/ioreq.c
->>>>> +++ b/xen/arch/x86/hvm/ioreq.c
->>>>> @@ -109,15 +109,7 @@ static void hvm_io_assist(struct hvm_ioreq_vcpu *sv, uint64_t data)
->>>>>      ioreq_t *ioreq = &v->arch.hvm.hvm_io.io_req;
->>>>>
->>>>>      if ( hvm_ioreq_needs_completion(ioreq) )
->>>>> -    {
->>>>> -        ioreq->state = STATE_IORESP_READY;
->>>>>          ioreq->data = data;
->>>>> -    }
->>>>> -    else
->>>>> -        ioreq->state = STATE_IOREQ_NONE;
->>>>> -
->>>>> -    msix_write_completion(v);
->>>>> -    vcpu_end_shutdown_deferral(v);
->>>>>
->>>>>      sv->pending = false;
->>>>>  }
->>>>
->>>> With this, is the function worth keeping at all?
->>>
->>> I did think about that, but it is called in more than one place. So,
->>> in the interest of trying to make back-porting straightforward, I
->>> thought it best to keep it simple.
->>
->> Fair enough, but going forward I still think it would be nice to get
->> rid of the function. To do this sufficiently cleanly, the main
->> question I have is: Why is hvm_wait_for_io() implemented as a loop?
+On Tue, Jun 09, 2020 at 04:48:48PM +0200, Juergen Gross wrote:
+> Two fixes for libxenhypfs:
 > 
-> I guess the idea is that it should tolerate the emulator kicking the
-> event channel spuriously. I don't know whether this was the case at
-> one time, but it seems reasonable to be robust against waking up
-> from wait_on_xen_event_channel() before state has made it to
-> IORESP_READY.
+> - xenhypfs terminating with segfault when hypervisor doesn't have
+>   hypfs support
+> - wrong error reporting in case for access errors with xenhypfs
+> 
+> Juergen Gross (2):
+>   tools: fix error path of xenhypfs_open()
+>   tools: fix setting of errno in xenhypfs_read_raw()
 
-But such wakeup is taken care of by "goto recheck", not by the main
-loop in the function.
+Applied. I also added Fixes tags to them.
 
-Jan
+Wei.
 
->> Hasn't this become pointless with the XSA-262 fix? Switching this to
->> a do {} while(false) construct (seeing that the only caller has
->> already checked sv->pending) would look to allow moving what is now
->> in hvm_io_assist() immediately past this construct, at the expense
->> of a local variable holding ~0ul initially and then in the common
->> case p->data.
 > 
-> That sounds ok. We can do that even with the current while loop by just setting sv->pending to false when we see state == IORESP_READY. After the loop terminates then we can grab the result and set state back to IOREQ_NONE.
+>  tools/libs/hypfs/core.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 > 
->>
->> Thoughts? (I'll be happy to make such a patch, I'm just checking
->> whether I'm overlooking something crucial.)
->>
+> -- 
+> 2.26.2
 > 
-> Only that I don't think we should use do {} while(false) just in case of early wakeup.
-> 
->   Paul
-> 
->> Jan
-> 
-
 
