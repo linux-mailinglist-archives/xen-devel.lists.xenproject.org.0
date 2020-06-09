@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 587071F338B
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 07:40:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF811F341A
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 08:28:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiWzO-000597-KH; Tue, 09 Jun 2020 05:39:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OzdP=7W=bombadil.srs.infradead.org=batv+0efb7c18612ba92a370e+6134+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1jiWzN-000591-Bx
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 05:39:57 +0000
-X-Inumbo-ID: a4471d52-aa13-11ea-bca7-bc764e2007e4
-Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a4471d52-aa13-11ea-bca7-bc764e2007e4;
- Tue, 09 Jun 2020 05:39:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=9d5I29beiuD8NWd2IsPtQEkt8LGPlWEkqusG+bWe9Kc=; b=g1VsEAhWGLq6aDTVOGdfeDkonX
- y1gSr98rgZ2hcxCxV2zauJeM6hdWqvsFQnaSSQijOhtGEoNVA1aa07WMA42IHEOMq/RDPmo8hSeGi
- pSUOrrie20eynxqznnGZXRmEu1/qMjG58X0vq16YJiVur+7QfzhxYdh5LepnWkJE+y5Q2YhkQtlnN
- f+kBccJFktcR9xtsq7y6zdcC/88HnUpcCFZZumhRWXz6fTNUYIiGw1gf1PjM+9l6RRrNGSXBRyODQ
- Sq35sayJTmQD1/WhSvbwCL5ruGavLLTd3hYDtD9ueSN+BLG5UPao6Wl5u0Sf3OSSe+KU5/xRDXFQi
- YiB520Nw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1jiWzF-0006xo-UR; Tue, 09 Jun 2020 05:39:49 +0000
-Date: Mon, 8 Jun 2020 22:39:49 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 10/11] xen/arm: introduce phys/dma translations in
- xen_dma_sync_for_*
-Message-ID: <20200609053949.GA26473@infradead.org>
-References: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
- <20200603222247.11681-10-sstabellini@kernel.org>
- <20200608071221.GF15742@infradead.org>
- <alpine.DEB.2.21.2006081614530.2815@sstabellini-ThinkPad-T480s>
- <20200609053802.GB3015@infradead.org>
+	id 1jiXk5-0000yM-KM; Tue, 09 Jun 2020 06:28:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yKpO=7W=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jiXk4-0000yF-8b
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 06:28:12 +0000
+X-Inumbo-ID: 639900f2-aa1a-11ea-b2e3-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 639900f2-aa1a-11ea-b2e3-12813bfff9fa;
+ Tue, 09 Jun 2020 06:28:11 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id BFC82AC7D;
+ Tue,  9 Jun 2020 06:28:12 +0000 (UTC)
+Subject: Re: [PATCH v4 for-4.14] x86/monitor: revert default behavior when
+ monitoring register write events
+To: Razvan Cojocaru <rcojocaru@bitdefender.com>
+References: <20200603125237.100041-1-tamas@tklengyel.com>
+ <20200603150721.GF1195@Air-de-Roger>
+ <be627680-5ab2-d93d-b042-2b6aadbdcd8d@suse.com>
+ <ffa44e09-a9fd-8fff-16af-e0991db3cb9b@bitdefender.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <41623a3b-b959-25ab-9369-e1615f0e779a@suse.com>
+Date: Tue, 9 Jun 2020 08:28:08 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200609053802.GB3015@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <ffa44e09-a9fd-8fff-16af-e0991db3cb9b@bitdefender.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,39 +50,79 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, tamas@tklengyel.com, konrad.wilk@oracle.com,
- roman@zededa.com, linux-kernel@vger.kernel.org,
- Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org,
- boris.ostrovsky@oracle.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Andrei LUTAS <vlutas@bitdefender.com>, Tamas K Lengyel <tamas@tklengyel.com>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Mihai_Don=c8=9bu?= <mdontu@bitdefender.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alexandru Isaila <aisaila@bitdefender.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 08, 2020 at 10:38:02PM -0700, Christoph Hellwig wrote:
-> On Mon, Jun 08, 2020 at 05:38:28PM -0700, Stefano Stabellini wrote:
-> > Yeah, the pfn_valid check is a bit weird by definition because we are
-> > using it to understand whether the address belong to us or to another
-> > VM. To do the pfn_valid check we need to translate the dma address into
-> > something the CPU understands, hence, the dma_to_phys call.
-> > 
-> > Why can't we use the already-provided paddr? Because paddr has been
-> > translated twice:
-> > 1) from dma to maybe-foreign phys address (could be ours, or another VM)
-> > 2) from maybe-foreign address to local (using our local mapping of the foreign page)
-> > 
-> > In fact, it would be clearer if we had all three addresses as parameters
-> > of xen_dma_sync_for_cpu: the dma address, the maybe-foreign physical
-> > address (we tend to call it xenbus address, baddr), the local physical
-> > address. Something like:
+On 08.06.2020 20:58, Razvan Cojocaru wrote:
+> On 6/8/20 6:55 PM, Jan Beulich wrote:
+>> On 03.06.2020 17:07, Roger Pau Monné wrote:
+>>> On Wed, Jun 03, 2020 at 06:52:37AM -0600, Tamas K Lengyel wrote:
+>>>> For the last couple years we have received numerous reports from users of
+>>>> monitor vm_events of spurious guest crashes when using events. In particular,
+>>>> it has observed that the problem occurs when vm_events are being disabled. The
+>>>> nature of the guest crash varied widely and has only occured occasionally. This
+>>>> made debugging the issue particularly hard. We had discussions about this issue
+>>>> even here on the xen-devel mailinglist with no luck figuring it out.
+>>>>
+>>>> The bug has now been identified as a race-condition between register event
+>>>> handling and disabling the monitor vm_event interface. The default behavior
+>>>> regarding emulation of register write events is changed so that they get
+>>>> postponed until the corresponding vm_event handler decides whether to allow such
+>>>> write to take place. Unfortunately this can only be implemented by performing the
+>>>> deny/allow step when the vCPU gets scheduled.
+>>>>
+>>>> Due to that postponed emulation of the event if the user decides to pause the
+>>>> VM in the vm_event handler and then disable events, the entire emulation step
+>>>> is skipped the next time the vCPU is resumed. Even if the user doesn't pause
+>>>> during the vm_event handling but exits immediately and disables vm_event, the
+>>>> situation becomes racey as disabling vm_event may succeed before the guest's
+>>>> vCPUs get scheduled with the pending emulation task. This has been particularly
+>>>> the case with VMS that have several vCPUs as after the VM is unpaused it may
+>>>> actually take a long time before all vCPUs get scheduled.
+>>>>
+>>>> In this patch we are reverting the default behavior to always perform emulation
+>>>> of register write events when the event occurs. To postpone them can be turned
+>>>> on as an option. In that case the user of the interface still has to take care
+>>>> of only disabling the interface when its safe as it remains buggy.
+>>>>
+>>>> Fixes: 96760e2fba10 ('vm_event: deny register writes if refused by vm_event
+>>>> reply').
+>>>>
+>>>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+>>>
+>>> Thanks!
+>>>
+>>> Reviewed-by: Roger Pau Monné <rogerpau@citrix.com>
+>>>
+>>> I would like to get some input from Bitdefender really, and whether
+>>> they are fine with this approach.
 > 
-> I think instead we should move the arch_sync_dma_for_{device,cpu}
-> calls from xen_dma_sync_for_{device,cpu} into the callers, as they
-> are provided by the generic dma-noncoherent.h and optimized out for
-> coherent architectures like x86.  Then the swiotlb-xen.c code only
-> need to call dma_cache_maint as the interface (which would have to
-> grow a better name), which should then only need a single kind of
-> address.
+> Hello,
+> 
+> Not really my call to make anymore, but I do have a few notes.
 
-... actually I'd keep the xen_dma_sync_for_{device,cpu} names for the
-low-level interface, just move the arch_sync_dma_for_{device,cpu}
-calls up.
+Even more so thanks for replying; I did Cc you merely because of
+history and because I thought with Alexandru and Petre not
+replying you might either know someone else who should, or nudge
+them.
+
+> Secondly, I see no reason why we couldn't adapt to the new default
+> behaviour provided that the old behaviour continues to work _exactly_ as
+> before.
+
+That's my understanding (and nothing to the contrary looks to
+have surfaced from the other communication between you and Tamas),
+so with that I guess I'll go and throw in the patch.
+
+Jan
 
