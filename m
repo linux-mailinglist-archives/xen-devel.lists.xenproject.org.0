@@ -2,56 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5452F1F3BE9
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 15:17:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD241F3C10
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 15:18:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jie7S-0007Ov-Uk; Tue, 09 Jun 2020 13:16:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jie9A-0007WK-A0; Tue, 09 Jun 2020 13:18:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LdGU=7W=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1jie7Q-0007Oq-QR
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 13:16:45 +0000
-X-Inumbo-ID: 75eec348-aa53-11ea-bb8b-bc764e2007e4
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.160])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 75eec348-aa53-11ea-bb8b-bc764e2007e4;
- Tue, 09 Jun 2020 13:16:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1591708602;
+ id 1jie98-0007WB-PZ
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 13:18:30 +0000
+X-Inumbo-ID: b45af7f0-aa53-11ea-b31f-12813bfff9fa
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [85.215.255.53])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b45af7f0-aa53-11ea-b31f-12813bfff9fa;
+ Tue, 09 Jun 2020 13:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1591708707;
  s=strato-dkim-0002; d=aepfle.de;
  h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
  X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=oPJSOALdwkaDDWPOwJBGFgVmYK2D83SYyOKMMIxz3As=;
- b=cfy1Je8+jqA442LLpKCTw9FbcaLBMUWITZjWBiF2i2xdPdLBoM1sYTRoXEkmqElzA6
- GkRaFDN1VJ5uXwmGlM8duYu3gtE7cbzcjqlf1tQTaljtsp+QDare/WqGwyuEt1P3uh+N
- 2SWdQHbt3q7rmjgZ8wocBJDnNKOKEhde4dtxv+6nQrkOt8C4XYugXZdPynNiy5DJNeQ1
- nq3FsU0gZ1sM4w3wHTIubc556H8yuiN0TyDglLoB4tgE4D3IAYZ1NfsiIYg1caGVKd8Z
- LNmBZoYs8y1sGqMGrfxoZcKF7ajrpCnnOYnnAIFwvPX7jQdg4zg36j6hKPX1yFMLPSQr
- H9ZQ==
+ bh=eJHGV41BtyQAam0J+s+OBHJIJPEiips8Xw6SXLrX+m8=;
+ b=Jy39DC25024pGAf5JKSoOptlS29yd6F0vKvEdZv0n0ADeet1IE5RJs0tv3YEwpZbCl
+ P9PHJMbLGsXPcS6aMqSvUa7PR/UNkbkTAxGYyPmWZOfUnZFGUQRmzBkwNRcK9Aq+2SW8
+ zZYa69FhzYqtpY9u960l5uAgBSsFgMzoeDu5snx0DXKIXLsq1tyvBUiif05m0/mJkWGa
+ JMqYO4LtGj0B79a0oAoMIx8ncMo+UYTLCXUaW2TqyQEKfdlgsQbYfaQAMonxL6icdSfZ
+ jsI3ZIZ6+2q6lTJQmwttuPcE/g1l4zHAKar2Tey3804PEhpJ4VUtgA0Kl0mCJmmCzS7H
+ f4Xg==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4AUztn93FPS2dyuYMxg4g=="
 X-RZG-CLASS-ID: mo00
 Received: from sender by smtp.strato.de (RZmta 46.9.2 DYNA|AUTH)
- with ESMTPSA id I09bd2w59DGcKtw
+ with ESMTPSA id I09bd2w59DIPKuM
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Tue, 9 Jun 2020 15:16:38 +0200 (CEST)
-Date: Tue, 9 Jun 2020 15:16:36 +0200
+ Tue, 9 Jun 2020 15:18:25 +0200 (CEST)
+Date: Tue, 9 Jun 2020 15:18:23 +0200
 From: Olaf Hering <olaf@aepfle.de>
-To: Jason Andryuk <jandryuk@gmail.com>
-Subject: Re: [PATCH v1] tools: fix usage of strncpy
-Message-ID: <20200609151636.57c98545.olaf@aepfle.de>
-In-Reply-To: <CAKf6xptNnyEvOu-skpf0Hh_n4d-9LpYKX_5Z7vmA5uoe4oF7Hw@mail.gmail.com>
-References: <20200608072855.26589-1-olaf@aepfle.de>
- <20200608100051.16be834e.olaf@aepfle.de>
- <24286.6790.983312.672969@mariner.uk.xensource.com>
- <CAKf6xpusrQaMb3ET_HJyrreSPvvogEQORSWUG1X2H5oa-HUZiA@mail.gmail.com>
- <20200608161111.26c2cdd4.olaf@aepfle.de>
- <CAKf6xptNnyEvOu-skpf0Hh_n4d-9LpYKX_5Z7vmA5uoe4oF7Hw@mail.gmail.com>
+To: Ian Jackson <ian.jackson@citrix.com>
+Subject: Re: [PATCH v2] libxl__prepare_sockaddr_un
+Message-ID: <20200609151823.509cf395.olaf@aepfle.de>
+In-Reply-To: <24287.34799.645497.809135@mariner.uk.xensource.com>
+References: <20200608182539.29415-1-olaf@aepfle.de>
+ <24287.34799.645497.809135@mariner.uk.xensource.com>
 X-Mailer: Claws Mail 2020.06.03 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/_kVOEFAmLuUnK68C/YJsd./"; protocol="application/pgp-signature"
+ boundary="Sig_/VRTLKantihJdDl/E83V_LxT"; protocol="application/pgp-signature"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,47 +59,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei
+ Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---Sig_/_kVOEFAmLuUnK68C/YJsd./
+--Sig_/VRTLKantihJdDl/E83V_LxT
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Am Tue, 9 Jun 2020 08:33:12 -0400
-schrieb Jason Andryuk <jandryuk@gmail.com>:
+Am Tue, 9 Jun 2020 14:00:31 +0100
+schrieb Ian Jackson <ian.jackson@citrix.com>:
 
-> What version of gcc are you using?  I was using 9.x and it didn't warn fr=
-om what I can remember.
+> Why do you not use strcpy here ?
 
-This is gcc10 from current Tumbleweed. For libxl strcpy will certainly work=
- because the length check is done prior the copying of data.
+Either variant of 'cpy' will work in this context. I decided to use memcpy =
+for no specific reason.
 
 Olaf
 
---Sig_/_kVOEFAmLuUnK68C/YJsd./
+--Sig_/VRTLKantihJdDl/E83V_LxT
 Content-Type: application/pgp-signature
 Content-Description: Digitale Signatur von OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl7fi7QACgkQ86SN7mm1
-DoB+ZQ//atBDH2NRPMw0r7kqih1NGwaP/84F/nTlaSlyOQycM6krw/m62f7NnaTh
-i1HD58081UWXxH3MgkzVc1Cvr/ByJGIGyiSvZwemnaEr21OeIIODxspJvdx7N6e0
-/6U26GCRnqNuff87TzCcWLyr1tlpyXjPiGLPyAxzYTgfkMfzkV3MVhcECWWvw4nt
-I9IyXkz7S8788/I33tnxaoZzii0P+NHNhZPNzQU/11TXkHiUShzKSVrWfsqriTI9
-6uWfV7k7aHHpoLwnN2MOR0SPV1uzWM8RJdTVemOJMttHC4OMMe4VQ/pOzyrflB2j
-3u+pJ3x08/4r3ePIUEhS0zP0QUh7RTxuqJ5VYLhvpw9W1vCPq0PpHmRkcsknn5rN
-lOGRA4WnaH8poWjUooKYf3S+MDPmt7w81ScweRLe5iM0+bViGGhQRUaOVt8rYeWQ
-wulZZ7qsUQaN8TWmSCOPHNybX9e+qq2afQeUeHB0pXichyKLxZeYD/Yn6G8Y9eJ6
-TmCsKUvAzkEXl/eEVa4OXg8xerN7l7vaQabsIrifUhRj2+luQa9kBGmI2Qn+ZXKA
-jS/pP3HwI/h73POsp3ycz/qOfI3mLv85oo38SXccLnqDNLr7tAJnU3PJw5dSi7Op
-FJZuTNJCbl+0QNXEYon/+cDtA1WtNWK2j0VQ6X2UwjdHguEZLeo=
-=lGly
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl7fjB8ACgkQ86SN7mm1
+DoBlrRAAgTAjXaiah0MWz+1pV4TK+CAEvd5YM3sEnQagOnQnbO/QCuNn+irVUbjX
+E5TFUWWKt1DPoyQrfrTGOpaKn2XrvjnBkrNQmprBcEVzg4LancCPiGcy1xZeS6Xy
+weDRKuEdauZifb4lNqQFj4zHYzH4ibPdkBamfANQKahQ+PVHlbgpqfUIp8oEt8kd
+fHWl3MY4S/hzM4t3xl73fto8T7gBTTk6Bv5lhMgti4NbLDJS3Egkvgbvd5dzy5BT
+Hr21aZILHVpqnWCNjBb21Nzu464hgv/pi9phWqeN+zDgiQ5sxIacCtU2hWSnFyGT
+GntcVfwi5yJLC7ftOHPRLy6TroEKpDylrQzSkcK1LOvumOTjJy6rOxVLIrC9SwRw
+VYa1Hl27k3VFseTEGNDaefJybu9yVnuDy5y1vJfX8m1B8dtpWmrJe7pzxSApat2G
+4aTmdSRkwPheJMVS8/xOPXTr2H6zAY0hrdg6RmgZknBy7Ke7gwl0GuuF5CgEMtpH
+YfPa5514seRUXan51aWgeg3OmDBhl3xyv3U96/kNR7/rB02XL1r05iegNIFkWfzE
+HnYJqsItO2wuVOTnTZcHoNJqU6757yfMAVsbkH8CWsbn34y7gTe37agn9fEzlFET
+zDLmCf1yjebZzbtN2fIaRqSCqUvTkcsg5R7DrZUzU3w3RiF8XwY=
+=4WIx
 -----END PGP SIGNATURE-----
 
---Sig_/_kVOEFAmLuUnK68C/YJsd./--
+--Sig_/VRTLKantihJdDl/E83V_LxT--
 
