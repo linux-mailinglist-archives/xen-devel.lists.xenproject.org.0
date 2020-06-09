@@ -2,49 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F93F1F40E2
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 18:30:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 380BB1F4104
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 18:36:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jih81-0001Af-Rh; Tue, 09 Jun 2020 16:29:33 +0000
+	id 1jihEC-00029w-HX; Tue, 09 Jun 2020 16:35:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h0up=7W=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1jih80-00019z-Ke
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 16:29:32 +0000
-X-Inumbo-ID: 64b1e3b0-aa6e-11ea-bca7-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=fMpV=7W=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1jihEA-00029r-Q3
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 16:35:54 +0000
+X-Inumbo-ID: 49a3489c-aa6f-11ea-8496-bc764e2007e4
+Received: from mail-io1-xd43.google.com (unknown [2607:f8b0:4864:20::d43])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 64b1e3b0-aa6e-11ea-bca7-bc764e2007e4;
- Tue, 09 Jun 2020 16:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CFfR8OPlKnnlTFL8namRQAlsqp9E0KgFPJ1Ttff1kYg=; b=Y7AjTfYl+205kCb99lwmI4Xsl8
- uWp62PQZ2antftiVrdy37WpIvELgo5pE/YXhKxcDTGfTsx75hLIwraA+v6f5ARJnOnSqitkWBzOf4
- O0h2ykRrfquM6Yol5LmiOmIT5uWwlm2NhxNAdV8xOZcZ67ExyMGw9pvuM2zgV2U3h9+Y=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1jih7w-0003W1-MX; Tue, 09 Jun 2020 16:29:28 +0000
-Received: from [54.239.6.185] (helo=CBG-R90WXYV0.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1jih7w-0003N4-Bh; Tue, 09 Jun 2020 16:29:28 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH-for-4.14 2/2] CHANGELOG: add revised kdd handshake (supporting
- Windows 7, 8, and 10)
-Date: Tue,  9 Jun 2020 17:29:22 +0100
-Message-Id: <20200609162922.14679-3-paul@xen.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200609162922.14679-1-paul@xen.org>
-References: <20200609162922.14679-1-paul@xen.org>
+ id 49a3489c-aa6f-11ea-8496-bc764e2007e4;
+ Tue, 09 Jun 2020 16:35:54 +0000 (UTC)
+Received: by mail-io1-xd43.google.com with SMTP id q8so23459326iow.7
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2020 09:35:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=content-transfer-encoding:from:mime-version:subject:date:message-id
+ :references:cc:in-reply-to:to;
+ bh=dDmpwfxSB7xq+nl+xf69iWKoal8j+zfpCNakAwwcUgc=;
+ b=sNZwBXv00cxskE5SIHqXQw6g4j1XBMeSJQsN28+4r7vzGHcc9X+/tJQwB7dLM7cmK7
+ uHA+Qy9pghOn+pZYfrVcimJJCUKaM/Ti2tSTsB4iwq4otl9ibsq0ckrapQFIeFnM9Qao
+ uf/2YZ6M9Qy6P7lhM7XvdmQGTGOEPV3wtjnOuyEiyrERMmp9NbaKyDlIr+LCqJvbETDH
+ JzWsfYESprzGB1D95Z5/M1IK+tDqPlNL6GiRJKEp8CcysxAg6TOGqj2uUf7sTg9EIs4o
+ 7NWTb3vbsUifOw62UgJcZ2iXsIlsOLunmjuW4zTFK7TbiwtQ6VxugsEdT5UFP8yfT7d5
+ R5qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:content-transfer-encoding:from:mime-version
+ :subject:date:message-id:references:cc:in-reply-to:to;
+ bh=dDmpwfxSB7xq+nl+xf69iWKoal8j+zfpCNakAwwcUgc=;
+ b=Dsl+/kxaYGRR3U8YUa1k36D3EialiPtypnjE0POc3XE5PL0zXPo1GwAnqr6cfHRcV6
+ BVRxKzE6Hb5nW+KWP/ui25DpcWqZ65ssr9TiRQo6QFu5obkxj2a3x7s6PoyirPaPigKr
+ VqtJODBFCnWMf7A5mwjG1ddXZYxDpb/2oSmeEfTIugpEmIlqA92fo1jLTa6HwnqS8qGP
+ EJRT4emgqI8aiPrwyDueeWHhM/WcOMjgJtaU/yPUBZjCUTZGQDEmCHMVFL51dIFhPplc
+ 2FtYXHUJKzTWRfjWpzwn5GBgBns5FIc9Stlb6dQeHaKm+HFzd1ePY8kwcIfS3k0es446
+ jhyg==
+X-Gm-Message-State: AOAM533jop3MpUVhi7A4uSjscN+fN6FTHV8Eb1O/6VqsC25Px4uMfK/0
+ D1iFy8+QT6FpDQwfdVVrRtQ=
+X-Google-Smtp-Source: ABdhPJyKCI/p/AACig2mOdVXBRSKvBBIJOzuzKETn/UHazI9mMMgjgd+Q6oKsPXCKqLOwX0qtZaj8A==
+X-Received: by 2002:a6b:e714:: with SMTP id b20mr28249467ioh.195.1591720553712; 
+ Tue, 09 Jun 2020 09:35:53 -0700 (PDT)
+Received: from [100.64.72.28] ([173.245.215.240])
+ by smtp.gmail.com with ESMTPSA id a10sm9617754ilb.31.2020.06.09.09.35.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Jun 2020 09:35:52 -0700 (PDT)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Rich Persaud <persaur@gmail.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH v1] tools: fix usage of strncpy
+Date: Tue, 9 Jun 2020 12:35:51 -0400
+Message-Id: <E1632643-349D-4B0B-A78C-A06E64321964@gmail.com>
+References: <20200608161111.26c2cdd4.olaf@aepfle.de>
+In-Reply-To: <20200608161111.26c2cdd4.olaf@aepfle.de>
+To: Olaf Hering <olaf@aepfle.de>
+X-Mailer: iPhone Mail (17F75)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,33 +71,29 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Community Manager <community.manager@xenproject.org>,
- Paul Durrant <pdurrant@amazon.com>
+Cc: Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>,
+ =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Paul Durrant <pdurrant@amazon.com>
+On Jun 8, 2020, at 10:12, Olaf Hering <olaf@aepfle.de> wrote:
+>=20
+> =EF=BB=BFAm Mon, 8 Jun 2020 08:43:50 -0400
+> schrieb Jason Andryuk <jandryuk@gmail.com>:
+>=20
+>> I added a length check in this patch:
+>=20
+> gcc will not recognize such runtime checks and will (most likely) complain=
+ about the strncpy usage anyway, just as it does now in libxl__prepare_socka=
+ddr_un. While the usage in libxl__prepare_sockaddr_un is fatal due to -Werro=
+r, libvchan is apparently built without -Werror.
+>=20
+> Olaf
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
---
-Cc: Community Manager <community.manager@xenproject.org>
----
- CHANGELOG.md | 1 +
- 1 file changed, 1 insertion(+)
+Is there any reason not to take a patch that builds libvchan with -Werror?
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index cb1566ea5b..43fd260156 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-  - libxl support for running qemu-xen device model in a linux stubdomain.
-  - New 'domid_policy', allowing domain-ids to be randomly chosen.
-  - Option to preserve domain-id across migrate or save+restore.
-+ - Support in kdd for initial KD protocol handshake for Win 7, 8 and 10 (64 bit).
- 
- ## [4.13.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.13.0) - 2019-12-17
- 
--- 
-2.17.1
-
+Rich=
 
