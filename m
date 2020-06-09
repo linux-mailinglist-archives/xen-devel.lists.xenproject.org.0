@@ -2,52 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEAEC1F3693
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 11:01:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46A421F3697
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 11:04:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jia84-0007BW-2R; Tue, 09 Jun 2020 09:01:08 +0000
+	id 1jiaBQ-0007Kg-Hw; Tue, 09 Jun 2020 09:04:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LdGU=7W=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1jia81-0007BR-H2
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 09:01:06 +0000
-X-Inumbo-ID: bd0deb56-aa2f-11ea-8496-bc764e2007e4
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.162])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kazQ=7W=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jiaBO-0007Ka-FV
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 09:04:34 +0000
+X-Inumbo-ID: 3bccb06c-aa30-11ea-bca7-bc764e2007e4
+Received: from mail-wr1-x433.google.com (unknown [2a00:1450:4864:20::433])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bd0deb56-aa2f-11ea-8496-bc764e2007e4;
- Tue, 09 Jun 2020 09:01:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1591693259;
- s=strato-dkim-0002; d=aepfle.de;
- h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=RuuZCKgjPIJgtyGzKuYaweVGVX6p/xg0mzFWFdKIUMg=;
- b=W8rzkQ+/vf+c1oFRILxT+QeoCPeuiSiptpjr4kpiI/XVLyOBWI7zTGsnEyYnUichu5
- biPVHwIZ5VHk0SD3qTr9IthgsAvbQcZC35kQePo6iCwWq61tf+Xf9sH/sCCQKb1tdmaP
- W/iXsBN8agNS9zA4tspIR3tmxqUy9RIeQ3/WK+sHmLhUNLmpwLnUKumOtUx7iavk00kw
- suzZNcyvgusYTFbMCxGiOAWuJOixsNx6IOhY2gXt8RcBAlAGO5w2WRyKzmk9Ft6QhJU1
- akoMyucGoXAeneKQpCkgHuMAf0dn+pvC4ocNQ6eY8EK7X5VjXCEboYq38euH9g0pKgVs
- Vd1Q==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4AUztn93FPS2dyuYMxg4g=="
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 46.9.2 DYNA|AUTH)
- with ESMTPSA id I09bd2w5990uJTp
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 9 Jun 2020 11:00:56 +0200 (CEST)
-Date: Tue, 9 Jun 2020 11:00:16 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Paul Durrant <xadimgnik@gmail.com>
-Subject: Re: [PATCH v1] kdd: remove zero-length arrays
-Message-ID: <20200609110016.16a52277.olaf@aepfle.de>
-In-Reply-To: <005001d63e3b$c85059f0$58f10dd0$@xen.org>
-References: <20200608203849.18341-1-olaf@aepfle.de>
- <005001d63e3b$c85059f0$58f10dd0$@xen.org>
-X-Mailer: Claws Mail 2020.06.03 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+ id 3bccb06c-aa30-11ea-bca7-bc764e2007e4;
+ Tue, 09 Jun 2020 09:04:34 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id l11so20389774wru.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2020 02:04:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=EwXjFS4gOJyHR/4Nd3R4W/9hxeU0/owz7YOEd8D3ozM=;
+ b=K8rqDeu7lfQCPMhCRyb1ygtmFaIdFMuxNksjcCLfK5RJmqDWkAzquHXb2vNl89ewC3
+ EgOTxfGgf1pWOAmf4WAywanWbM4KhRIuyKzMBECXxN4Pg/MEKTumV6ATOW0QHzj32D5C
+ CSuRtb52VBW0oYbrbkk1PfRSIRQFrceiSfC4ump5vz5+bMjrQHSdebZZ+2q8K4vmUZJw
+ YssSxwcxjpdSRkVgh1ViXWX2kLa66yyCSupZPW/N9jguoZxiv4/rMM6JouUiv3TwNjhH
+ Y3+Ma+AjKuH1/MULutOUroEXRBKPB0sY8GqhfLxXbuIrPiq+lxYx2mpWh0UuAyF7zZ0t
+ YRAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=EwXjFS4gOJyHR/4Nd3R4W/9hxeU0/owz7YOEd8D3ozM=;
+ b=b91TTgucigjpm22M5+C+O4Uo1dWMlCmnl6JJFQw4Do8B1t0sTje8bC0UF48BoU/ebN
+ r0PLsjs/LdPPGLSRrpiTvu3TF2c6WUmhJSdPUnD06/8uB9rPiaPPh99BahqVv9TJyg+P
+ 3i1V4YaLKC2MgVsrhb2VjXrT0MJNS9CCvgd4gwHj48HEHph28kvYNeaRuDHI4ROtphk6
+ h8wpQtnUvenOX3Jp4iL0Njof+jhNpo1EQmaUWFVRW5M7PZicYxuFZmhBa1PZYDEx+5HF
+ kWq9XXXrYmlK+915JSjWyQZ5J4F4pPntP4NCrOA7mi5yK4S7BqH1WBmIYyF1aIrlKs4s
+ AlQw==
+X-Gm-Message-State: AOAM530k6Wht0UNP/8sbUOT+hwOAP3jDWr4NGNzhLLwpY3ZBlUrFCF4w
+ XsT7P1mpDbu+DxQTc/ESbf8=
+X-Google-Smtp-Source: ABdhPJzZ1FtJ/MDNDi9PHASPF6lk9ujWFQQn6cTZWaMv/QA2N/7FPBSr+EUb+62nGuRkziMUXhdRDw==
+X-Received: by 2002:adf:fc4e:: with SMTP id e14mr3250098wrs.348.1591693472336; 
+ Tue, 09 Jun 2020 02:04:32 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id 30sm2607068wrd.47.2020.06.09.02.04.31
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 09 Jun 2020 02:04:31 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Olaf Hering'" <olaf@aepfle.de>,
+	"'Paul Durrant'" <xadimgnik@gmail.com>
+References: <20200608203849.18341-1-olaf@aepfle.de>	<005001d63e3b$c85059f0$58f10dd0$@xen.org>
+ <20200609110016.16a52277.olaf@aepfle.de>
+In-Reply-To: <20200609110016.16a52277.olaf@aepfle.de>
+Subject: RE: [PATCH v1] kdd: remove zero-length arrays
+Date: Tue, 9 Jun 2020 10:04:30 +0100
+Message-ID: <005f01d63e3c$fcf84fe0$f6e8efa0$@xen.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/xLgo8N7WlYzeWYneK6Qtz7v"; protocol="application/pgp-signature"
+Content-Type: text/plain;
+	charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQIqIZk/Qusa7Qsu5bkjM27jAUAPHgHVoA+LAZtbwz6oDK6X0A==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,46 +78,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, 'Tim Deegan' <tim@xen.org>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>, 'Wei Liu' <wl@xen.org>,
- paul@xen.org
+Reply-To: paul@xen.org
+Cc: xen-devel@lists.xenproject.org, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'Wei Liu' <wl@xen.org>, 'Tim Deegan' <tim@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---Sig_/xLgo8N7WlYzeWYneK6Qtz7v
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+> -----Original Message-----
+> From: Olaf Hering <olaf@aepfle.de>
+> Sent: 09 June 2020 10:00
+> To: Paul Durrant <xadimgnik@gmail.com>
+> Cc: paul@xen.org; xen-devel@lists.xenproject.org; 'Ian Jackson' <ian.jackson@eu.citrix.com>; 'Tim
+> Deegan' <tim@xen.org>; 'Wei Liu' <wl@xen.org>
+> Subject: Re: [PATCH v1] kdd: remove zero-length arrays
+> 
+> Am Tue, 9 Jun 2020 09:55:52 +0100
+> schrieb Paul Durrant <xadimgnik@gmail.com>:
+> 
+> > Is it not sufficient to just change the declaration of payload in kdd_pkt from [0] to []?
+> 
+> AFAIR this lead to compile errors.
+> 
 
-Am Tue, 9 Jun 2020 09:55:52 +0100
-schrieb Paul Durrant <xadimgnik@gmail.com>:
+OOI which compiler (might be worth mentioning in the commit comment too, for reference)? I'm not seeing a problem.
 
-> Is it not sufficient to just change the declaration of payload in kdd_pkt=
- from [0] to []?
+  Paul
 
-AFAIR this lead to compile errors.
+> Olaf
 
-Olaf
-
---Sig_/xLgo8N7WlYzeWYneK6Qtz7v
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl7fT6AACgkQ86SN7mm1
-DoAwCg//fJdmIIqoOS9TdBWweShgRB9K9KXMh//e1H1ZumbV5jP+IkwtmSrrDsTj
-Q86fqlIgR8HkVlDPwxOjxf/mX7v6NipDsbHRyclaZ1eePhFzrLV8lcmTQhBSZRVj
-IX0qxtMFHLVHX6xGcI3thISuv2T3viiBchoH4owXxpqD9dIrJ5iXWS1de45Ewgs2
-xRGqsnPfCbtLn4XxsjNJ+5RHr3zpdkJEqQ1NXm9m6c4PQuRiRfEoBjHskbDhT8Cw
-iXHge+aC9IRL/1oMJudyB3g6OpIFad8Ar1h1k1tR/YRAUznThDg+bIE3eU8JgLDg
-/P8vEffB0EqkE+b1bhHgdlFdfbkud69P87C7sY4bgDkLoXWYRaVOgMUSTzvpb5RE
-Hkx0jb/4RUJpz+ZWYDZaUKeEKRCoTY51MUCTyHMWInWwX0r5QlYknYrhjJ0BAHma
-Wf729Mn8pQuFV5PwpFBftcyBBfCAWmebV/EEn/Zyq8wWKCwmmi1CYedHHor4GBdc
-2ma5o0nouIv1pnVY33gN5RgFT2oQDprnFcEbKeo/2yBDJAQYcZK5Vi9yjUxNeT5u
-+kdKcq+jYBnKj0bBaY4m8pu60ZVsPeWfNzJap220oHG656L4USish+NU/Fa5K7Ni
-jLV3ew2vn8pRSv9Fscz5s2zj3bMQIDoJdbr8cuLvM9aFx61KBCA=
-=PBl6
------END PGP SIGNATURE-----
-
---Sig_/xLgo8N7WlYzeWYneK6Qtz7v--
 
