@@ -2,74 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 262E21F3E41
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 16:33:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E6271F3E80
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 16:43:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jifJU-0006P4-HR; Tue, 09 Jun 2020 14:33:16 +0000
+	id 1jifSH-0007I9-DT; Tue, 09 Jun 2020 14:42:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dTuU=7W=gmail.com=codewiz2280@srs-us1.protection.inumbo.net>)
- id 1jifJT-0006Oz-OG
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 14:33:15 +0000
-X-Inumbo-ID: 26c0d832-aa5e-11ea-8496-bc764e2007e4
-Received: from mail-ed1-x544.google.com (unknown [2a00:1450:4864:20::544])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rjqw=7W=gmail.com=dunlapg@srs-us1.protection.inumbo.net>)
+ id 1jifSG-0007I4-AO
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 14:42:20 +0000
+X-Inumbo-ID: 6b7fdada-aa5f-11ea-8496-bc764e2007e4
+Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 26c0d832-aa5e-11ea-8496-bc764e2007e4;
- Tue, 09 Jun 2020 14:33:14 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id g1so16546509edv.6
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2020 07:33:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ id 6b7fdada-aa5f-11ea-8496-bc764e2007e4;
+ Tue, 09 Jun 2020 14:42:19 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id mb16so22676827ejb.4
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2020 07:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=umich.edu; s=google-2016-06-03;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GhFdTY087BssM0LHrrXn5Gs8DdReJyWC1sjLIGZq3vs=;
- b=s1g4iZ++6YO96Ozj+KcN70U7zSSJHxijWXfmKe/JSYYvlp7slAg08YOStY9ZsVLv50
- 1lDKSfghsJ1ZyYzqT5hgceHVU8LDEaoOqvY70XvBW7L5vaEiC2P7A4FcpMwGaY27izAc
- u5AUTclqWZTM3xX5TlDmFy51riHmzGpRcpG5x05Ejys9cwIneLdhqB8++gDrrh39iulC
- CAm0uXd24rs1iwPYEMbrXc73udIKcz0pBRqqcR2/WhVrg27/aEUAAA2nKgfIC1s0oKN+
- DLzZ1NqbHyz1C5Fn1ep+SqSSqyZDbzpB8UgrYp9bJARTzOKBAOBVBVKzc4PVufmcP6et
- 8VvQ==
+ :cc; bh=ki+xtFzrVQ5beBnZloSaLFJth1P9xZ3c7hTehpR30zI=;
+ b=aXzAnSPrw3hH829dvi2JYMl9VAwnMDzkS9G3iYxLBRo0ll+c0HdgbhotibPEIsMRDS
+ kF3n2++F6m8NiOkBnW2pOsht9vbiLIp6twY8dZ6uUqDb45OV/O/3whCD9K+pKi8v2gwf
+ HteJln8RP8YZi8NOcWzzem4OQeqSSqyOc65qL23he3yD9O+kcQD8aMmiNoM5kCmU8Gq2
+ TTOIeTZWCMuaGtfGY7x6yyH83QXMZ7bQGdJqBpRPRdT9ZQQmjAqzW6lIOTfRpv7vKFfU
+ nw/v3XwYy+G5GVMwb/y85T6HUyPWCny3gb6K6WkIJbXsciotOitfYwMy+L/LM0AjlbfI
+ BvhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=GhFdTY087BssM0LHrrXn5Gs8DdReJyWC1sjLIGZq3vs=;
- b=oOdACNKM9XlHbONL8UBoT3I8w6Zp43iHrjw4rNAmLSHdmG5rkWbeUfy5Z8gd7vh0qI
- hZeigyPXl4oWVVDUXU6ppGMFAiWzfebKcrB/ZigVpUySIKpfCWrIO3/443bczjdt3gTA
- cJADDPRqg6AIiQKLxA2bg0mqa3IjifguNdn7abW9cMrss1BhPV/KllB27zqS2Z3nme0m
- 8lb0E6s3c6TlY8bRu5ft+0RzcZiauNrj1xpO4cxJqZ6oTx+29G+plglFXFkWkOZes78A
- V4sj0ASUERUGKkEl064eb/lvSD/6LtZmQTT+QhiZPxXSWda6EN8VcJ8SBj+O0ltmo+tr
- jMHQ==
-X-Gm-Message-State: AOAM531UjK7eofJtMZnznYpd7x1ZSrRIJIOrilGw0i6Cp7fGQNN1odHs
- xWCujCMntsdUyYZbtxYfeDtuGFM2YhUfS/vQowWDNvGk
-X-Google-Smtp-Source: ABdhPJzr7xCCxok/50s3Tfchst0CvihW4+SHAkGVpYPBt5PJC4kzJCMkXGpdSLr7coNvzdl7KFgy4x5DKKPqWgMGr78=
-X-Received: by 2002:a50:b2e1:: with SMTP id p88mr27363767edd.198.1591713193842; 
- Tue, 09 Jun 2020 07:33:13 -0700 (PDT)
+ bh=ki+xtFzrVQ5beBnZloSaLFJth1P9xZ3c7hTehpR30zI=;
+ b=SmXmmhFlaGatsUpdPTvPOruXIxFdjwySvgLYBGu4iAD41O5VWdMKBHizePn2bXRACf
+ 9TFRiM+1nxqe6/jgKXwKJE0Glr+ox85V6uzKyVVbtKVWpm7j4zWs4ots2USbtMaPfLKK
+ lz6yXLpYyLcZEPF/eOGE/SG6a7NWKWgzQ7qLEHovGN2RFGvV9oAOKPH8BDP72ZW8n76/
+ y9N2xhdLcjvK+X7nAqjLeZL/wMV1xDN2vkfO4bKivupJRrECmG0S/apa0FuJ8JIjlw71
+ g7pL0DMQwC7PXIi9vt+UB8jV3hA45SSMiHDIsXSpdZvtt+b9jADqdR4vGbGxYbtZtbLX
+ YNyw==
+X-Gm-Message-State: AOAM532MSGDVSAAvfiOsllcTdqrtU5vF5u8+nheU8vMzp+qT4qSiMwS/
+ Y/cm39xG3FVb1EU+XtZKzb3YrGmDhvPySXVNX60=
+X-Google-Smtp-Source: ABdhPJzOmZo/yNpZsRiQLsQ/s2UhYQo8JdBADxgQtgGm7kiGusFc3m963OrV5Pl75e4gJ42yEy7SJmRLyjaugEDwqWI=
+X-Received: by 2002:a17:906:5203:: with SMTP id
+ g3mr25058979ejm.58.1591713738725; 
+ Tue, 09 Jun 2020 07:42:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
- <3ff17aa9-0aae-d598-40ce-4e90d4e50cc7@xen.org>
- <00E14EAD-BD23-4A3A-872E-0C47C26B7B41@arm.com>
- <c2466674-a56e-08a4-7f3f-2438d5565953@xen.org>
- <CALYbLDjNptWfVMGjw801y6f0zu40b2pzBnLS+w2Zx5eVStCUYQ@mail.gmail.com>
- <da23ecc8-60f0-8a26-58d5-ea692dcf0102@xen.org>
- <CALYbLDhpwbHTrjDaNmfW81m5Fqt6HbfqoqbGDH1qUxxJtMBmEA@mail.gmail.com>
- <8C6A23AE-6C2B-411F-ACAD-F5574211E8ED@arm.com>
- <CALYbLDiOX0JW_=6AgAb+m5q++3WvQtivJRy+ePrp5pJXd7T9Vg@mail.gmail.com>
- <14244e49-e1ac-a29d-bbd9-bd4c202bf186@xen.org>
- <CALYbLDjCdDvwja1VoahJmnrKDfKyw7DNhYBBcmJv70QDA4+6Ag@mail.gmail.com>
- <77006AAF-BC3B-4C6E-BDFC-577CF87DE64E@arm.com>
- <CALYbLDheT8jWSAqJJZvvjzWGvygJaJ6UG7ejgpLLYeQB-tCsJA@mail.gmail.com>
- <CALYbLDjZu-YzqZPjCk785=4hpd3BRsoXeotd3ygESD_Ezm63Yg@mail.gmail.com>
- <99E77330-049F-4471-ABF9-13F9AB4E95B5@arm.com>
- <CALYbLDizxgaXJzhNVeKVZ6q-Hbttm1T+ZPP7f-1PDvi49VFOjA@mail.gmail.com>
- <alpine.DEB.2.21.2006080911500.2815@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2006080911500.2815@sstabellini-ThinkPad-T480s>
-From: CodeWiz2280 <codewiz2280@gmail.com>
-Date: Tue, 9 Jun 2020 10:33:00 -0400
-Message-ID: <CALYbLDh8F0JuGmRY0C1Nhp_b4FP041KMa14pOmyoSBtHcz=A2A@mail.gmail.com>
-Subject: Re: Keystone Issue
-To: Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+References: <20191114045543.6759-1-julian.tuminaro@gmail.com>
+ <CACCGGhBUhdLkh7x=Uf8=d=73DH-CAiNw0YcSwbzZG+0nEj3hRQ@mail.gmail.com>
+In-Reply-To: <CACCGGhBUhdLkh7x=Uf8=d=73DH-CAiNw0YcSwbzZG+0nEj3hRQ@mail.gmail.com>
+From: George Dunlap <dunlapg@umich.edu>
+Date: Tue, 9 Jun 2020 15:42:07 +0100
+Message-ID: <CAFLBxZZ3k_U1zrs977PJCO8jEGL=+6e9-thChUwFUi4_ukbJPw@mail.gmail.com>
+Subject: Re: [Xen-devel] [PATCH V2] kdd.c: Add support for initial handshake
+ in KD protocol for Win 7, 8 and 10 (64 bit)
+To: Paul Durrant <pdurrant@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000fb1f0005a7a7bb78"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,172 +68,120 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Wei Liu <wei.liu2@citrix.com>, Tim Deegan <tim@xen.org>,
+ Jenish Rakholiya <rjenish@cmu.edu>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Julian Tuminaro <jtuminar@andrew.cmu.edu>,
+ George Dunlap <george.dunlap@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Julian Tuminaro <julian.tuminaro@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There does appear to be a secondary (CIC) controller that can forward
-events to the GIC-400 and EDMA controllers for the keystone 2 family.
-Admittedly, i'm not sure how it is being used with regards to the
-peripherals.  I only see mention of the GIC-400 parent for the devices
-in the device tree.  Maybe Bertrand has a better idea on whether any
-peripherals go through the CIC first?  I see that gic_interrupt ()
-fires once in Xen, which calls doIRQ to push out the virtual interrupt
-to the dom0 kernel.  The dom0 kernel then handles the interrupt and
-returns, but gic_interrupt() never fires again in Xen.
+--000000000000fb1f0005a7a7bb78
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jun 8, 2020 at 12:13 PM Stefano Stabellini
-<sstabellini@kernel.org> wrote:
->
->
->
-> On Mon, 8 Jun 2020, CodeWiz2280 wrote:
-> > It actually shows only 1 interrupt for any of the devices in that list
-> > (e.g. spi, ttyS0, ethernet) so you're probably right on the money with
-> > it being an interrupt acknowledge issue.  Any help you can provide is
-> > greatly appreciated.
+On Fri, Nov 15, 2019 at 1:31 PM Paul Durrant <pdurrant@gmail.com> wrote:
+
+> On Thu, 14 Nov 2019 at 04:57, Julian Tuminaro <julian.tuminaro@gmail.com>
+> wrote:
 > >
-> > On Mon, Jun 8, 2020 at 4:40 AM Bertrand Marquis
-> > <Bertrand.Marquis@arm.com> wrote:
-> > >
-> > >
-> > >
-> > > > On 5 Jun 2020, at 20:12, CodeWiz2280 <codewiz2280@gmail.com> wrote:
-> > > >
-> > > > On Fri, Jun 5, 2020 at 11:05 AM CodeWiz2280 <codewiz2280@gmail.com> wrote:
-> > > >>
-> > > >> On Fri, Jun 5, 2020 at 8:47 AM Bertrand Marquis
-> > > >> <Bertrand.Marquis@arm.com> wrote:
-> > > >>>
-> > > >>>
-> > > >>>
-> > > >>>> On 5 Jun 2020, at 13:42, CodeWiz2280 <codewiz2280@gmail.com> wrote:
-> > > >>>>
-> > > >>>> On Fri, Jun 5, 2020 at 8:30 AM Julien Grall <julien@xen.org> wrote:
-> > > >>>>>
-> > > >>>>> Hi,
-> > > >>>>>
-> > > >>>>> On 05/06/2020 13:25, CodeWiz2280 wrote:
-> > > >>>>>> The Keystone uses the netcp driver, which has interrupts from 40-79
-> > > >>>>>> listed in the device tree (arch/arm/boot/keystone-k2e-netcp.dtsi).
-> > > >>>>>> I'm using the same device tree between my non-xen standalone kernel
-> > > >>>>>> and my dom0 kernel booted by xen.  In the standalone (non-xen) kernel
-> > > >>>>>> the ethernet works fine, but I don't see any of its interrupts in the
-> > > >>>>>> output of /proc/iomem.  I'm not seeing them in /proc/iomem when
-> > > >>>>>> running dom0 under Xen either.  When booting with Xen I get this
-> > > >>>>>> behavior where the ifconfig output shows 1 RX message and 1 TX
-> > > >>>>>> message, and then nothing else.
-> > > >>>>>
-> > > >>>>> I am not sure whether this is a typo in the e-mail. /proc/iomem is
-> > > >>>>> listing the list of the MMIO regions. You want to use /proc/interrupts.
-> > > >>>>>
-> > > >>>>> Can you confirm which path you are dumping?
-> > > >>>> Yes, that was a typo.  Sorry about that.  I meant that I am dumping
-> > > >>>> /proc/interrupts and do not
-> > > >>>> see them under the non-xen kernel or xen booted dom0.
-> > > >>>
-> > > >>> Could you post both /proc/interrupts content ?
-> > > >>
-> > > >> Standalone non-xen kernel (Ethernet works)
-> > > >> # cat /proc/interrupts
-> > > >>           CPU0       CPU1       CPU2       CPU3
-> > > >> 17:          0          0          0          0     GICv2  29 Level
-> > > >>  arch_timer
-> > > >> 18:       9856       1202        457        650     GICv2  30 Level
-> > > >>  arch_timer
-> > > >> 21:          0          0          0          0     GICv2 142 Edge
-> > > >>  timer-keystone
-> > > >> 22:          0          0          0          0     GICv2  52 Edge      arm-pmu
-> > > >> 23:          0          0          0          0     GICv2  53 Edge      arm-pmu
-> > > >> 24:          0          0          0          0     GICv2  54 Edge      arm-pmu
-> > > >> 25:          0          0          0          0     GICv2  55 Edge      arm-pmu
-> > > >> 26:          0          0          0          0     GICv2  36 Edge
-> > > >>  26202a0.keystone_irq
-> > > >> 27:       1435          0          0          0     GICv2 309 Edge      ttyS0
-> > > >> 29:          0          0          0          0     GICv2 315 Edge
-> > > >>  2530000.i2c
-> > > >> 30:          1          0          0          0     GICv2 318 Edge
-> > > >>  2530400.i2c
-> > > >> 31:          0          0          0          0     GICv2 321 Edge
-> > > >>  2530800.i2c
-> > > >> 32:         69          0          0          0     GICv2 324 Edge
-> > > >>  21000400.spi
-> > > >> 33:          0          0          0          0     GICv2 328 Edge
-> > > >>  21000600.spi
-> > > >> 34:          0          0          0          0     GICv2 332 Edge
-> > > >>  21000800.spi
-> > > >> 70:          0          0          0          0     GICv2 417 Edge
-> > > >>  ks-pcie-error-irq
-> > > >> 79:          0          0          0          0   PCI-MSI   0 Edge
-> > > >>  PCIe PME, aerdrv
-> > > >> 88:         57          0          0          0     GICv2  80 Level
-> > > >>  hwqueue-528
-> > > >> 89:         57          0          0          0     GICv2  81 Level
-> > > >>  hwqueue-529
-> > > >> 90:         47          0          0          0     GICv2  82 Level
-> > > >>  hwqueue-530
-> > > >> 91:         41          0          0          0     GICv2  83 Level
-> > > >>  hwqueue-531
-> > > >> IPI0:          0          0          0          0  CPU wakeup interrupts
-> > > >> IPI1:          0          0          0          0  Timer broadcast interrupts
-> > > >> IPI2:        730        988       1058        937  Rescheduling interrupts
-> > > >> IPI3:          2          3          4          6  Function call interrupts
-> > > >> IPI4:          0          0          0          0  CPU stop interrupts
-> > > >> IPI5:          0          0          0          0  IRQ work interrupts
-> > > >> IPI6:          0          0          0          0  completion interrupts
-> > > >>
-> > > >> Xen dom0 (Ethernet stops)
-> > > >> # cat /proc/interrupts
-> > > >>           CPU0
-> > > >> 18:      10380     GIC-0  27 Level     arch_timer
-> > > >> 19:          0     GIC-0 142 Edge      timer-keystone
-> > > >> 20:         88     GIC-0  16 Level     events
-> > > >> 21:          0   xen-dyn     Edge    -event     xenbus
-> > > >> 22:          0     GIC-0  36 Edge      26202a0.keystone_irq
-> > > >> 23:          1     GIC-0 312 Edge      ttyS0
-> > > >> 25:          1     GIC-0 318 Edge
-> > > >> 27:          1     GIC-0 324 Edge      21000400.spi
-> > > >> 28:          0     GIC-0 328 Edge      21000600.spi
-> > > >> 29:          0     GIC-0 332 Edge      21000800.spi
-> > > >> 65:          0     GIC-0 417 Edge      ks-pcie-error-irq
-> > > >> 74:          0   PCI-MSI   0 Edge      PCIe PME, aerdrv
-> > > >> 83:          1     GIC-0  80 Level     hwqueue-528
-> > > >> 84:          1     GIC-0  81 Level     hwqueue-529
-> > > >> 85:          1     GIC-0  82 Level     hwqueue-530
-> > > >> 86:          1     GIC-0  83 Level     hwqueue-531
-> > > >> 115:         87   xen-dyn     Edge    -virq      hvc_console
-> > > >> IPI0:          0  CPU wakeup interrupts
-> > > >> IPI1:          0  Timer broadcast interrupts
-> > > >> IPI2:          0  Rescheduling interrupts
-> > > >> IPI3:          0  Function call interrupts
-> > > >> IPI4:          0  CPU stop interrupts
-> > > >> IPI5:          0  IRQ work interrupts
-> > > >> IPI6:          0  completion interrupts
-> > > >> Err:          0
-> > > > After getting a chance to look at this a little more, I believe the
-> > > > TX/RX interrupts for the ethernets map like this:
-> > > >
-> > > > eth0 Rx  - hwqueue-528
-> > > > eth1 Rx - hwqueue-529
-> > > > eth0 Tx  - hwqueue-530
-> > > > eth1 Tx - hwqueue-531
-> > > >>
-> > > > The interrupt counts in the standlone working kernel seem to roughly
-> > > > correspond to the counts of Tx/Rx messages in ifconfig.  Going on
-> > > > that, its clear that only 1 interrupt has been received for Tx and 1
-> > > > for Rx in the Xen Dom0 equivalent.  Any thoughts on this?
-> > >
-> > > This definitely look like an interrupt acknowledgement issue.
-> > > This could be caused by 2 things I remember of:
-> > > - front vs level interrupts
-> > > - a problem with forwarded interrupt acknowledgement.
-> > > I think there was something related to that where the vcpu ack was not properly
-> > > handled on a keystone and I had to change the way the interrupt was acked for
-> > > forwarded hardware interrupts.
+> > From: Julian Tuminaro and Jenish Rakholiya <julian.tuminaro@gmail.com
+> and rakholiyajenish.07@gmail.com>
+> >
+> > Current implementation of find_os is based on the hard-coded values for
+> > different Windows version. It uses the value for get the address to
+> > start looking for DOS header in the given specified range. However, this
+> > is not scalable to all version of Windows as it will require us to keep
+> > adding new entries and also due to KASLR, chances of not hitting the PE
+> > header is significant. We implement a way for 64-bit systems to use IDT
+> > entry to get a valid exception/interrupt handler and then move back into
+> > the memory to find the valid DOS header. Since IDT entries are protected
+> > by PatchGuard, we think our assumption that IDT entries will not be
+> > corrupted is valid for our purpose. Once we have the image base, we
+> > search for the DBGKD_GET_VERSION64 structure type in .data section to
+> > get information required for handshake.
+> >
+> > Currently, this is a work in progress feature and current patch only
+> > supports the handshake and memory read/write on 64-bit systems.
+> >
+> > NOTE: This is the Updated version of the previous patch submitted
+> > NOTE: This has currently been only tested when debugging was not enabled
+> > on the guest Windows.
+> >
+> > Signed-off-by: Jenish Rakholiya <rjenish@cmu.edu>
+> > Signed-off-by: Julian Tuminaro <jtuminar@andrew.cmu.edu>
 >
-> Is there maybe some sort of secondary interrupt controller (secondary in
-> addition to the GIC) or interrupt "concentrator" on KeyStone?
+> LGTM.
 >
-> Or is it just a small deviation from normal GIC behavior?
+> Reviewed-by: Paul Durrant <paul@xen.org>
+>
+
+Paul, is this something worth adding a line to CHANGELOG about?
+
+ -George
+
+--000000000000fb1f0005a7a7bb78
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Nov 15, 2019 at 1:31 PM Paul =
+Durrant &lt;<a href=3D"mailto:pdurrant@gmail.com">pdurrant@gmail.com</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Thu,=
+ 14 Nov 2019 at 04:57, Julian Tuminaro &lt;<a href=3D"mailto:julian.tuminar=
+o@gmail.com" target=3D"_blank">julian.tuminaro@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; From: Julian Tuminaro and Jenish Rakholiya &lt;<a href=3D"mailto:julia=
+n.tuminaro@gmail.com" target=3D"_blank">julian.tuminaro@gmail.com</a> and <=
+a href=3D"mailto:rakholiyajenish.07@gmail.com" target=3D"_blank">rakholiyaj=
+enish.07@gmail.com</a>&gt;<br>
+&gt;<br>
+&gt; Current implementation of find_os is based on the hard-coded values fo=
+r<br>
+&gt; different Windows version. It uses the value for get the address to<br=
+>
+&gt; start looking for DOS header in the given specified range. However, th=
+is<br>
+&gt; is not scalable to all version of Windows as it will require us to kee=
+p<br>
+&gt; adding new entries and also due to KASLR, chances of not hitting the P=
+E<br>
+&gt; header is significant. We implement a way for 64-bit systems to use ID=
+T<br>
+&gt; entry to get a valid exception/interrupt handler and then move back in=
+to<br>
+&gt; the memory to find the valid DOS header. Since IDT entries are protect=
+ed<br>
+&gt; by PatchGuard, we think our assumption that IDT entries will not be<br=
+>
+&gt; corrupted is valid for our purpose. Once we have the image base, we<br=
+>
+&gt; search for the DBGKD_GET_VERSION64 structure type in .data section to<=
+br>
+&gt; get information required for handshake.<br>
+&gt;<br>
+&gt; Currently, this is a work in progress feature and current patch only<b=
+r>
+&gt; supports the handshake and memory read/write on 64-bit systems.<br>
+&gt;<br>
+&gt; NOTE: This is the Updated version of the previous patch submitted<br>
+&gt; NOTE: This has currently been only tested when debugging was not enabl=
+ed<br>
+&gt; on the guest Windows.<br>
+&gt;<br>
+&gt; Signed-off-by: Jenish Rakholiya &lt;<a href=3D"mailto:rjenish@cmu.edu"=
+ target=3D"_blank">rjenish@cmu.edu</a>&gt;<br>
+&gt; Signed-off-by: Julian Tuminaro &lt;<a href=3D"mailto:jtuminar@andrew.c=
+mu.edu" target=3D"_blank">jtuminar@andrew.cmu.edu</a>&gt;<br>
+<br>
+LGTM.<br>
+<br>
+Reviewed-by: Paul Durrant &lt;<a href=3D"mailto:paul@xen.org" target=3D"_bl=
+ank">paul@xen.org</a>&gt;<br></blockquote></div><div class=3D"gmail_quote">=
+<br></div><div class=3D"gmail_quote">Paul, is this something worth adding a=
+ line to CHANGELOG about?</div><div class=3D"gmail_quote"><br></div><div cl=
+ass=3D"gmail_quote">=C2=A0-George<br></div></div>
+
+--000000000000fb1f0005a7a7bb78--
 
