@@ -2,65 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 380BB1F4104
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 18:36:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A911F4133
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 18:41:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jihEC-00029w-HX; Tue, 09 Jun 2020 16:35:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jihJQ-00031g-6A; Tue, 09 Jun 2020 16:41:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fMpV=7W=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1jihEA-00029r-Q3
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 16:35:54 +0000
-X-Inumbo-ID: 49a3489c-aa6f-11ea-8496-bc764e2007e4
-Received: from mail-io1-xd43.google.com (unknown [2607:f8b0:4864:20::d43])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 49a3489c-aa6f-11ea-8496-bc764e2007e4;
- Tue, 09 Jun 2020 16:35:54 +0000 (UTC)
-Received: by mail-io1-xd43.google.com with SMTP id q8so23459326iow.7
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2020 09:35:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:date:message-id
- :references:cc:in-reply-to:to;
- bh=dDmpwfxSB7xq+nl+xf69iWKoal8j+zfpCNakAwwcUgc=;
- b=sNZwBXv00cxskE5SIHqXQw6g4j1XBMeSJQsN28+4r7vzGHcc9X+/tJQwB7dLM7cmK7
- uHA+Qy9pghOn+pZYfrVcimJJCUKaM/Ti2tSTsB4iwq4otl9ibsq0ckrapQFIeFnM9Qao
- uf/2YZ6M9Qy6P7lhM7XvdmQGTGOEPV3wtjnOuyEiyrERMmp9NbaKyDlIr+LCqJvbETDH
- JzWsfYESprzGB1D95Z5/M1IK+tDqPlNL6GiRJKEp8CcysxAg6TOGqj2uUf7sTg9EIs4o
- 7NWTb3vbsUifOw62UgJcZ2iXsIlsOLunmjuW4zTFK7TbiwtQ6VxugsEdT5UFP8yfT7d5
- R5qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:date:message-id:references:cc:in-reply-to:to;
- bh=dDmpwfxSB7xq+nl+xf69iWKoal8j+zfpCNakAwwcUgc=;
- b=Dsl+/kxaYGRR3U8YUa1k36D3EialiPtypnjE0POc3XE5PL0zXPo1GwAnqr6cfHRcV6
- BVRxKzE6Hb5nW+KWP/ui25DpcWqZ65ssr9TiRQo6QFu5obkxj2a3x7s6PoyirPaPigKr
- VqtJODBFCnWMf7A5mwjG1ddXZYxDpb/2oSmeEfTIugpEmIlqA92fo1jLTa6HwnqS8qGP
- EJRT4emgqI8aiPrwyDueeWHhM/WcOMjgJtaU/yPUBZjCUTZGQDEmCHMVFL51dIFhPplc
- 2FtYXHUJKzTWRfjWpzwn5GBgBns5FIc9Stlb6dQeHaKm+HFzd1ePY8kwcIfS3k0es446
- jhyg==
-X-Gm-Message-State: AOAM533jop3MpUVhi7A4uSjscN+fN6FTHV8Eb1O/6VqsC25Px4uMfK/0
- D1iFy8+QT6FpDQwfdVVrRtQ=
-X-Google-Smtp-Source: ABdhPJyKCI/p/AACig2mOdVXBRSKvBBIJOzuzKETn/UHazI9mMMgjgd+Q6oKsPXCKqLOwX0qtZaj8A==
-X-Received: by 2002:a6b:e714:: with SMTP id b20mr28249467ioh.195.1591720553712; 
- Tue, 09 Jun 2020 09:35:53 -0700 (PDT)
-Received: from [100.64.72.28] ([173.245.215.240])
- by smtp.gmail.com with ESMTPSA id a10sm9617754ilb.31.2020.06.09.09.35.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jun 2020 09:35:52 -0700 (PDT)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
+ (envelope-from <SRS0=LdGU=7W=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1jihJO-00031b-O9
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 16:41:19 +0000
+X-Inumbo-ID: 05e61e59-aa70-11ea-b33f-12813bfff9fa
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.165])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 05e61e59-aa70-11ea-b33f-12813bfff9fa;
+ Tue, 09 Jun 2020 16:41:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1591720871;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=rCph44Qv+8B3A8r8KBGK8gj6BdfkmD4uvC3nxBG6swg=;
+ b=ijRTWbUCaTdWdwNqSR6p5xDZk0TPx1w4VsDfUz/e8Nw7C2T1NIsaPWlulYaoHbH2rF
+ 8Tb1FqFJFvfZyZcqnjgtrPIcZeFiTqBR51oBfT/gSRHWLLfgeKbqwujrG1w1gxtokPiE
+ zrziWMZplAhreOZm15nUvoG7qowHXdXs1wU3/d1vSaqkUUWMh7XR8jW3+3x4YOcmkGba
+ P8uArZfoF1N1QK5Ts5UNLzOr01sTr+AQRfpBknKHrpnvqTOH2MWN/eKtY6cDeBYi8WtZ
+ M8yA7Xy8In8z9MpotmqUOcK35pc0LQTkW6Xt5YJKWKJvrSVH035BSsOnLVLsO0SG1kSY
+ WQYQ==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4AUztn93FPS2dyuYMxg4g=="
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 46.9.2 DYNA|AUTH)
+ with ESMTPSA id I09bd2w59Gf7Lds
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 9 Jun 2020 18:41:07 +0200 (CEST)
+Date: Tue, 9 Jun 2020 18:41:05 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Rich Persaud <persaur@gmail.com>
 Subject: Re: [PATCH v1] tools: fix usage of strncpy
-Date: Tue, 9 Jun 2020 12:35:51 -0400
-Message-Id: <E1632643-349D-4B0B-A78C-A06E64321964@gmail.com>
+Message-ID: <20200609184105.01ea9b12.olaf@aepfle.de>
+In-Reply-To: <E1632643-349D-4B0B-A78C-A06E64321964@gmail.com>
 References: <20200608161111.26c2cdd4.olaf@aepfle.de>
-In-Reply-To: <20200608161111.26c2cdd4.olaf@aepfle.de>
-To: Olaf Hering <olaf@aepfle.de>
-X-Mailer: iPhone Mail (17F75)
+ <E1632643-349D-4B0B-A78C-A06E64321964@gmail.com>
+X-Mailer: Claws Mail 2020.06.03 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/6RsHom6v_0zYFSK4tN5xo/J"; protocol="application/pgp-signature"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,28 +60,48 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>,
- =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ Marek =?UTF-8?B?TWFyY3p5a293c2tpLUfDs3JlY2tp?=
  <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>,
  Anthony PERARD <anthony.perard@citrix.com>,
  Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Jun 8, 2020, at 10:12, Olaf Hering <olaf@aepfle.de> wrote:
->=20
-> =EF=BB=BFAm Mon, 8 Jun 2020 08:43:50 -0400
-> schrieb Jason Andryuk <jandryuk@gmail.com>:
->=20
->> I added a length check in this patch:
->=20
-> gcc will not recognize such runtime checks and will (most likely) complain=
- about the strncpy usage anyway, just as it does now in libxl__prepare_socka=
-ddr_un. While the usage in libxl__prepare_sockaddr_un is fatal due to -Werro=
-r, libvchan is apparently built without -Werror.
->=20
-> Olaf
+--Sig_/6RsHom6v_0zYFSK4tN5xo/J
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Is there any reason not to take a patch that builds libvchan with -Werror?
+Am Tue, 9 Jun 2020 12:35:51 -0400
+schrieb Rich Persaud <persaur@gmail.com>:
 
-Rich=
+> Is there any reason not to take a patch that builds libvchan with -Werror?
+
+The per-subdirectory settings of -Werror should probably become a global -W=
+error. Someone has to step up and explore that path.
+Bonus points if -Werror could be disabled via configure.
+
+Olaf
+
+--Sig_/6RsHom6v_0zYFSK4tN5xo/J
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl7fu6EACgkQ86SN7mm1
+DoBoXA/+LSYk2/sq2Mhh07orSQKklACKgKhFlIQSXWr+ZkNKXZ0WqgBr1bP6VkL9
+FEAW9rfP+WSD0KhnsOAX6XA2R1Ox51Y/HutjQcu4eIAaVLXP0N3rknb2ECaOXdIk
+V1kJ0fLjEOuhlur9GifLaqUv9W+k0Ifi9+bUcSQAahtvl2fSEAqW1ckazGA8kWFm
+BtivVoeH7HKjaR3ay3bVveWQkF/kz3osC332/oDRfbcGDaVn+1bTgqa/lDbt5qZF
+iyqRkJsu9jglPV9YcNwfhoFOSe9WhObngELYy6Xx9e+vrYj7y3MlmQjW3l6yzGqe
+XkAj+kllSH2m22FLDvqoSWHJGY/3RDX6aE6QhANjYk5m/UWmMiFUVJqfVQmGnmMu
+Q4SKsIGco+hJOXTNBd2Mpz2THnxcDUYQdamP2vwWkBC3mBcEafiFa5gqv/ckgoj9
+HMK5ZZCTj3QhJn/JYsnO8cGsuvMHfYcl8suHMmg2ft6XFiAvvMuMwRLTElHar8zy
+eF1Y0T+AjD0DCwJadfUFQxn8wiUFX/cp+IpPeZw5vdMTytBvj4DGHYFbagfacxaN
+Itq052x0Co4tgVflHcaLiniBZvK8iHWiHUOup/KO6gL/fHQvs2btBKfLeepzZh8k
+tg88gDp9cptA4xA5BPUse06jN/HPxBdRsbQOvzUVGn+WBRF7QC4=
+=qzZI
+-----END PGP SIGNATURE-----
+
+--Sig_/6RsHom6v_0zYFSK4tN5xo/J--
 
