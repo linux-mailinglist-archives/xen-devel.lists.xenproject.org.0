@@ -2,40 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 168771F3CD6
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 15:41:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28FBC1F3D70
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 15:59:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jieVE-0001pr-Vn; Tue, 09 Jun 2020 13:41:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yKpO=7W=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jieVD-0001pm-WC
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 13:41:20 +0000
-X-Inumbo-ID: e5b16c14-aa56-11ea-bb8b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e5b16c14-aa56-11ea-bb8b-bc764e2007e4;
- Tue, 09 Jun 2020 13:41:19 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 71235B1E7;
- Tue,  9 Jun 2020 13:41:21 +0000 (UTC)
-Subject: Re: [PATCH for-4.14] x86/livepatch: Make livepatching compatible with
- CET Shadow Stacks
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200608200259.17681-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <620e5f66-2802-24e7-bb6e-285e99f12975@suse.com>
-Date: Tue, 9 Jun 2020 15:41:17 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+	id 1jiemQ-0002w0-IO; Tue, 09 Jun 2020 13:59:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aKNw=7W=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jiemP-0002vZ-D1
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 13:59:05 +0000
+X-Inumbo-ID: 5cf40690-aa59-11ea-b322-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5cf40690-aa59-11ea-b322-12813bfff9fa;
+ Tue, 09 Jun 2020 13:58:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Fple00WsmllUlUW002L0IWhC44DQclgR4RyRS4JLyMU=; b=qZdKQKJfWkJW0p4KZpb373hFN
+ O52ZhmgLN3oty1OHZAOo5x3H9DrGfXTfrFgn21nB3Z/XbKovVlEUhUp69yC1enAYIu8lwsVKp0m7k
+ wOu3b5l7Lwe/4TfKzvNvmRedzA8qfAaUDEKsk1oR83U7dccrmj7gShAmrIlTZqfbFHhiA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jiemH-0008C8-CB; Tue, 09 Jun 2020 13:58:57 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jiemG-0003yk-Ra; Tue, 09 Jun 2020 13:58:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jiemG-0004bg-Qy; Tue, 09 Jun 2020 13:58:56 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-150935-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200608200259.17681-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 150935: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=f7039ee41b3d3448775a1623f230037fd0455104
+X-Osstest-Versions-That: xen=835d8d69d96aa7feb52ef7b3dd8ecf43f0807578
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 09 Jun 2020 13:58:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,97 +66,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, Paul Durrant <paul@xen.org>,
- Pawel Wieczorkiewicz <wipawel@amazon.de>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 08.06.2020 22:02, Andrew Cooper wrote:
-> Do we ever write into .rodata?  AFAICT, we introduce new fuctions for
-> references to new .rodata, rather than modifying existing .rodata.  If however
-> we do modify .rodata, then the virtual regions need extending with information
-> about .rodata so we can zap those dirty bits as well.
+flight 150935 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/150935/
 
-Inspired by looking at setup_virtual_regions(), do exception fixup
-or bug frame tables possibly get patched?
+Failures :-/ but no regressions.
 
-> @@ -58,6 +59,10 @@ int arch_livepatch_safety_check(void)
->  
->  int arch_livepatch_quiesce(void)
->  {
-> +    /* If Shadow Stacks are in use, disable CR4.CET so we can modify CR0.WP. */
-> +    if ( cpu_has_xen_shstk )
-> +        write_cr4(read_cr4() & ~X86_CR4_CET);
-> +
->      /* Disable WP to allow changes to read-only pages. */
->      write_cr0(read_cr0() & ~X86_CR0_WP);
->  
-> @@ -68,6 +73,29 @@ void arch_livepatch_revive(void)
->  {
->      /* Reinstate WP. */
->      write_cr0(read_cr0() | X86_CR0_WP);
-> +
-> +    /* Clobber dirty bits and reinstate CET, if applicable. */
-> +    if ( IS_ENABLED(CONFIG_XEN_SHSTK) && cpu_has_xen_shstk )
-> +    {
-> +        unsigned long tmp;
-> +
-> +        reset_virtual_region_perms();
-> +
-> +        write_cr4(read_cr4() | X86_CR4_CET);
-> +
-> +        /*
-> +         * Fix up the return address on the shadow stack, which currently
-> +         * points at arch_livepatch_quiesce()'s caller.
-> +         *
-> +         * Note: this is somewhat fragile, and depends on both
-> +         * arch_livepatch_{quiesce,revive}() being called from the same
-> +         * function, which is currently the case.
-> +         */
-> +        asm volatile ("rdsspq %[ssp];"
-> +                      "wrssq %[addr], (%[ssp]);"
-> +                      : [ssp] "=&r" (tmp)
-> +                      : [addr] "r" (__builtin_return_address(0)));
-> +    }
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-To be safe against LTO I think this wants accompanying with making
-both functions noinline.
+version targeted for testing:
+ xen                  f7039ee41b3d3448775a1623f230037fd0455104
+baseline version:
+ xen                  835d8d69d96aa7feb52ef7b3dd8ecf43f0807578
 
-As to the fragility - how about arch_livepatch_quiesce() returning
-__builtin_return_address(0) to its caller, for passing into here
-for verification? This would also make more noticeable that the
-two should be be called from the same function (or else the "token"
-would need passing further around).
+Last test of basis   150929  2020-06-08 19:02:22 Z    0 days
+Testing same since   150935  2020-06-09 11:02:19 Z    0 days    1 attempts
 
-> @@ -91,6 +92,18 @@ void unregister_virtual_region(struct virtual_region *r)
->      remove_virtual_region(r);
->  }
->  
-> +void reset_virtual_region_perms(void)
-> +{
-> +    const struct virtual_region *region;
-> +
-> +    rcu_read_lock(&rcu_virtual_region_lock);
-> +    list_for_each_entry_rcu( region, &virtual_region_list, list )
-> +        modify_xen_mappings((unsigned long)region->start,
-> +                            ROUNDUP((unsigned long)region->end, PAGE_SIZE),
-> +                            PAGE_HYPERVISOR_RX);
-> +    rcu_read_unlock(&rcu_virtual_region_lock);
-> +}
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Paul Durrant <pdurrant@amazon.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
 
-Doesn't this result in shattering the trailing (and currently still
-only) 2Mb page mapping .text in the xen.efi case? With the
-expectation of the approach changing in 4.15 this may not need
-addressing, but should imo be mentioned as a shortcoming in the
-description then.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Also - how about "restore" instead of "reset"?
 
-Finally, while indeed not a lot of code, should it nevertheless go
-inside #ifdef CONFIG_LIVEPATCH?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Jan
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   835d8d69d9..f7039ee41b  f7039ee41b3d3448775a1623f230037fd0455104 -> smoke
 
