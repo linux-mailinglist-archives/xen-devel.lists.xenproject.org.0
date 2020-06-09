@@ -2,59 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A95971F48E0
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 23:28:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BEC71F491D
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 23:51:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jilnQ-00050c-DT; Tue, 09 Jun 2020 21:28:36 +0000
+	id 1jim8w-0007Sg-EA; Tue, 09 Jun 2020 21:50:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aKNw=7W=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jilnO-00050X-PG
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 21:28:34 +0000
-X-Inumbo-ID: 2afb8e4e-aa98-11ea-bb8b-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=aF9f=7W=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jim8v-0007Sb-6n
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 21:50:49 +0000
+X-Inumbo-ID: 4774ddd4-aa9b-11ea-b7bb-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2afb8e4e-aa98-11ea-bb8b-bc764e2007e4;
- Tue, 09 Jun 2020 21:28:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=c0QE2h7otWjbjfSGz51mFLitMlrPmgCmo2cMZwties4=; b=M8zYli4xqpmA4hQlZYb3odQh9
- t9+1AD61l6ikGFDA11g8DV+zCUrdzbIPhpPeUTCtbtSTRg92Z4dTDQrzGN/KKn0StgdE8LNVbMQWb
- 9VJ41XE4xiLJZVROfx95tK/MveGur4m7SWc3dR/jGfRZFevSwY9NFf3jy6CTVyqFgaQMI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jilnL-0001Uf-SL; Tue, 09 Jun 2020 21:28:31 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jilnL-0003It-KG; Tue, 09 Jun 2020 21:28:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jilnL-0000OM-Jg; Tue, 09 Jun 2020 21:28:31 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150950-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 4774ddd4-aa9b-11ea-b7bb-bc764e2007e4;
+ Tue, 09 Jun 2020 21:50:48 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AA98B206D5;
+ Tue,  9 Jun 2020 21:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591739448;
+ bh=n8q6RBqf99l7e7L1EOCdjDHHs3POGMUOsceVpb6TqsY=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=lVBxOO94oJCocVzgGYmxBV/gu6l2FaYei13cIzYMryQHWhbZi9YaLr7cUz1MLaG/w
+ 0bRbjImP1w5xBQtTIIuvOMS2PPZMzHArb4ACkNEFsb07qxEhJdHgvYjszfQY3Gfyp9
+ iAYY4qIeIYOHSZ7he94+zdY72e7wCdtwCk17qwBM=
+Date: Tue, 9 Jun 2020 14:50:46 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH v2 08/11] swiotlb-xen: introduce phys_to_dma/dma_to_phys
+ translations
+In-Reply-To: <20200609053240.GA3015@infradead.org>
+Message-ID: <alpine.DEB.2.21.2006091246350.2815@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2006031506590.6774@sstabellini-ThinkPad-T480s>
+ <20200603222247.11681-8-sstabellini@kernel.org>
+ <20200608070850.GD15742@infradead.org>
+ <alpine.DEB.2.21.2006081558400.2815@sstabellini-ThinkPad-T480s>
+ <20200609053240.GA3015@infradead.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150950: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=6a49b9a7920c82015381740905582b666160d955
-X-Osstest-Versions-That: xen=058023b343d4e366864831db46e9b438e9e3a178
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 09 Jun 2020 21:28:31 +0000
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +56,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: jgross@suse.com, Stefano Stabellini <sstabellini@kernel.org>,
+ konrad.wilk@oracle.com, roman@zededa.com, linux-kernel@vger.kernel.org,
+ tamas@tklengyel.com, xen-devel@lists.xenproject.org,
+ boris.ostrovsky@oracle.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150950 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150950/
+On Mon, 8 Jun 2020, Christoph Hellwig wrote:
+> On Mon, Jun 08, 2020 at 04:06:57PM -0700, Stefano Stabellini wrote:
+> > I understand what you are suggesting about having something like:
+> > 
+> >     xen_phys_to_dma(...)
+> >     {
+> >         phys_addr_t phys = xen_phys_to_bus(dev, paddr)
+> >         return phys_to_dma(phys);
+> >     }
+> > 
+> > I thought about it myself. I'll do it.
+> 
+> "something", yes. Except that I think the bus is a little confusing,
+> isn't it?  What is the Xen term for these addresses?
 
-Failures :-/ but no regressions.
+Xen reasons in terms of frame numbers. Xen calls them "dfn" for device
+frame number. They were supposed to be called "bfn" but eventually they
+settled for a different name when the series was committed.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  6a49b9a7920c82015381740905582b666160d955
-baseline version:
- xen                  058023b343d4e366864831db46e9b438e9e3a178
-
-Last test of basis   150939  2020-06-09 17:00:49 Z    0 days
-Testing same since   150950  2020-06-09 19:00:58 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+I could s/bfn/dfn/g to match the terminology, if that helps.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> Also we probably don't need the extra local variable.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Sure
 
 
-Pushing revision :
+> > But I don't think I understood the comment about XEN_PFN_PHYS.
+> 
+> There is a comment above xen_phys_to_bus that it avoids using
+> XEN_PFN_PHYS because XEN_PFN_PHYS of the phys_addr_t vs dma_addr_t
+> mismatch.  But XEN_PFN_PHYS could just use a u64 instead of the
+> phys_addr_t and then we could use it.   Especially as XEN_PFN_PHYS
+> isn't actually used anywhere except in swiotlb-xen.c.  Or we could
+> remove XEN_PFN_PHYS enirely, as it isn't all that useful to start
+> with.
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   058023b343..6a49b9a792  6a49b9a7920c82015381740905582b666160d955 -> smoke
+I'll remove it.
 
