@@ -2,43 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 023641F3721
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 11:36:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A28431F3724
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 11:37:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiafk-0001gE-KZ; Tue, 09 Jun 2020 09:35:56 +0000
+	id 1jiahJ-0001s4-NF; Tue, 09 Jun 2020 09:37:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yKpO=7W=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jiafj-0001fT-5c
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 09:35:55 +0000
-X-Inumbo-ID: 99033a72-aa34-11ea-b2f8-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=LdGU=7W=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1jiahG-0001rY-U9
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 09:37:32 +0000
+X-Inumbo-ID: d56c93b4-aa34-11ea-b2f8-12813bfff9fa
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.165])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 99033a72-aa34-11ea-b2f8-12813bfff9fa;
- Tue, 09 Jun 2020 09:35:47 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 08C6AAD5D;
- Tue,  9 Jun 2020 09:35:49 +0000 (UTC)
-Subject: Re: Xen 4.14 RC1
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-References: <20200608163934.313-1-paul@xen.org>
- <CABfawhn3HJCHonYKnMFPgUEN125SDBSXKcMFMWd2hG5SGKF8YQ@mail.gmail.com>
- <20200609081039.GA1635@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e8cfad05-3a03-5b9b-243f-030eba8de199@suse.com>
-Date: Tue, 9 Jun 2020 11:35:46 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+ id d56c93b4-aa34-11ea-b2f8-12813bfff9fa;
+ Tue, 09 Jun 2020 09:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1591695448;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=Zn/pXRjO5vbTfIwqoQSy1CtR0CnKp80YdW24gR5AxKA=;
+ b=YP+4WqfmsrQ4KcNmpVz0r+HXxgWznN71cpOSP/MNdPAheBii6SkE7UyikPk6uVDdlY
+ 9zDA6EsUtER6BdYKV/hnnUDQpVS0ezfvGR+lzmHxuYOLbSg2uY1KUY2iscrAnCzoqBqe
+ x0c5ouRtSLSVRk4awcFpv8izuR1Y9P9d1cx430p7vJix0KGFxx8oCCuayNTX+IIjx2cD
+ b3PX8D10HFFbgyvf0rCzqk24uuhdyqUg50iGMKKGne9PyJ9JzfgixKxek7xtVcThSxo3
+ SKf19HkWs44t3OUQaqnW7URifucmCUCW8sc23HKp1DRuHNP2gmrx7HlVzgprZuAnuexh
+ YDCQ==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4AUztn93FPS2dyuYMxg4g=="
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 46.9.2 DYNA|AUTH)
+ with ESMTPSA id I09bd2w599bOJmM
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 9 Jun 2020 11:37:24 +0200 (CEST)
+Date: Tue, 9 Jun 2020 11:37:08 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Paul Durrant <xadimgnik@gmail.com>
+Subject: Re: [PATCH v1] kdd: remove zero-length arrays
+Message-ID: <20200609113708.01d64a93.olaf@aepfle.de>
+In-Reply-To: <005f01d63e3c$fcf84fe0$f6e8efa0$@xen.org>
+References: <20200608203849.18341-1-olaf@aepfle.de>
+ <005001d63e3b$c85059f0$58f10dd0$@xen.org>
+ <20200609110016.16a52277.olaf@aepfle.de>
+ <005f01d63e3c$fcf84fe0$f6e8efa0$@xen.org>
+X-Mailer: Claws Mail 2020.06.03 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20200609081039.GA1635@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/gjpsBezG2SDuPjegf_Kv978"; protocol="application/pgp-signature"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,52 +61,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <paul@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
- xen-announce@lists.xenproject.org, xen-users@lists.xenproject.org
+Cc: xen-devel@lists.xenproject.org, 'Tim Deegan' <tim@xen.org>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>, 'Wei Liu' <wl@xen.org>,
+ paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 09.06.2020 10:11, Roger Pau Monné wrote:
-> On Mon, Jun 08, 2020 at 02:02:31PM -0600, Tamas K Lengyel wrote:
->> On Mon, Jun 8, 2020 at 10:41 AM Paul Durrant <paul@xen.org> wrote:
->>>
->>> Hi all,
->>>
->>> Xen 4.14 RC1 is tagged. You can check that out from xen.git:
->>>
->>> git://xenbits.xen.org/xen.git 4.14.0-rc1
->>>
->>> For your convenience there is also a tarball at:
->>> https://downloads.xenproject.org/release/xen/4.14.0-rc1/xen-4.14.0-rc1.tar.gz
->>>
->>> And the signature is at:
->>> https://downloads.xenproject.org/release/xen/4.14.0-rc1/xen-4.14.0-rc1.tar.gz.sig
->>>
->>> Please send bug reports and test reports to xen-devel@lists.xenproject.org.
->>> When sending bug reports, please CC relevant maintainers and me (paul@xen.org).
->>>
->>> As a reminder, there will be a Xen Test Day. Please see the test day schedule at
->>> https://wiki.xenproject.org/wiki/Xen_Project_Test_Days and test instructions at
->>> https://wiki.xenproject.org/wiki/Xen_4.14_RC_test_instructions.
->>
->> Hi Paul,
->> I'm sad to see this RC1 still missing patch:
->>
->> https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg00179.html
->>
->> The following even have the release-ack and yet are also missing:
->>
->> https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg00025.html
-> 
-> Ideally this one requires an Ack from the VMX maintainers, which
-> hasn't happened AFAICT. Might be worth trying to ping them on the patch
-> by putting them on the To field.
-> 
-> Alternatively we can consider pushing it without such Ack if the x86
-> maintainers agree.
+--Sig_/gjpsBezG2SDuPjegf_Kv978
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-I would likely do so once the time we usually see Kevin reply has
-expired, but we're not past that point yet.
+Am Tue, 9 Jun 2020 10:04:30 +0100
+schrieb Paul Durrant <xadimgnik@gmail.com>:
 
-Jan
+> OOI which compiler (might be worth mentioning in the commit comment too, =
+for reference)? I'm not seeing a problem.
+
+This is from gcc10. I think the build automation for Tumbleweed will show t=
+his error, unless the Tumbleweed image is older than a week.
+
+Olaf
+
+--Sig_/gjpsBezG2SDuPjegf_Kv978
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl7fWEQACgkQ86SN7mm1
+DoCG8RAAggyNYva97bMCqqAbSoLxbLLq2ViptaFg5XjSvc8nI2I64/ifusGRJfM8
+91Wz9qUZOg5tGObABRm4VDxtT1F83ReUFgDuIHCulQpI7ljhyXs7njRAiCZpci63
+HcOfscyXrq0pd26Nm6gxqjFeKCCXDe/r+JA0gqHk4faI+gY08hP3nmpWyri2Uww0
+RQQ8jjDgdV3ZVWQt1MMCmB9TlWn5iH9wh9EKykXvkb93GaawuvQ5rqMn20OC3Uu2
+1dDbwt4Sh36PEDRYZ604Hu3k6qEOYYjNG257pIaISbd6Xy+apnP7z7VtAOZMpmmy
+iiMCvo074RDlu9mzWoyYvDbIeg1kBUbpKugDYx2gFLwzSd5yr+Kx437WbGeGNpX5
+rEoOgKI+JltF56SAVH8nz8OGmyFeZTk4DiueH+ZtYXTladQWsq8lVx+G2OUnB57x
+jo0WwEFah/71WM9Pljl1ZFg2gfE3vVJelnt5HDObrFAj4g9lVDSANTpDbxOtKsSl
+Rzv3vYSBzKiBabZ+KNmmszi8xK/dOkgoJuctonJ15vOOE3UKaZTOcfZk0Cq9tIwl
+pX6lwU4bWeIMqu0s5dcsNTTaZYFpY/v0ZdLZRh+9uX7L5dH8MIXCXATAlWie5Gne
+oJ4ABPabvlb3CsaYiSbToMTrnxVwELyON3zrKIK0q2Uo8iAMo78=
+=I7e1
+-----END PGP SIGNATURE-----
+
+--Sig_/gjpsBezG2SDuPjegf_Kv978--
 
