@@ -2,60 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28FBC1F3D70
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 15:59:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 061C31F3E15
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jun 2020 16:27:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jiemQ-0002w0-IO; Tue, 09 Jun 2020 13:59:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jifCo-0005Xv-Pt; Tue, 09 Jun 2020 14:26:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aKNw=7W=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jiemP-0002vZ-D1
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 13:59:05 +0000
-X-Inumbo-ID: 5cf40690-aa59-11ea-b322-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5cf40690-aa59-11ea-b322-12813bfff9fa;
- Tue, 09 Jun 2020 13:58:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Fple00WsmllUlUW002L0IWhC44DQclgR4RyRS4JLyMU=; b=qZdKQKJfWkJW0p4KZpb373hFN
- O52ZhmgLN3oty1OHZAOo5x3H9DrGfXTfrFgn21nB3Z/XbKovVlEUhUp69yC1enAYIu8lwsVKp0m7k
- wOu3b5l7Lwe/4TfKzvNvmRedzA8qfAaUDEKsk1oR83U7dccrmj7gShAmrIlTZqfbFHhiA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jiemH-0008C8-CB; Tue, 09 Jun 2020 13:58:57 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jiemG-0003yk-Ra; Tue, 09 Jun 2020 13:58:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jiemG-0004bg-Qy; Tue, 09 Jun 2020 13:58:56 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-150935-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=K0Bv=7W=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jifCm-0005Xo-Na
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2020 14:26:20 +0000
+X-Inumbo-ID: 2f4278a4-aa5d-11ea-b7bb-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2f4278a4-aa5d-11ea-b7bb-bc764e2007e4;
+ Tue, 09 Jun 2020 14:26:19 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: rt+6U3WZm4rtikJxcqUk0gEVNQADr72s+8TPUpC4uPUOA/SdTsOQBTumWjWF2qTdOcRHLtJ9a+
+ HKmfljcPtAc/dYb20p3dX6DfDLQI6NzT9hAOsFhWfhN44mX++mN2KiSBGWhaVaVHRuiaKdJY0z
+ yuewOiFsMymrtNQbL5c4pS0TvcZh41cazMWz49X2AdmOsNW1l4xg14tKhL2azAHwqK+Zn4qBYA
+ 7SuKZG5JpTwWE9Okk236kuHtC1jnRAEKsiXbVJT1m49XNbOwRPASJsawmibZajjkynOB4ldMeV
+ agQ=
+X-SBRS: 2.7
+X-MesageID: 19600043
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,492,1583211600"; d="scan'208";a="19600043"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: TESTDAY Report: Unexpected results for xenhyps
+Thread-Topic: TESTDAY Report: Unexpected results for xenhyps
+Thread-Index: AQHWPmnv/u+9i0TYCEuGnSB4UmFapQ==
+Date: Tue, 9 Jun 2020 14:26:15 +0000
+Message-ID: <062D5150-C24E-4A81-834C-9794510F0229@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <D42C45D5339C7A4FA42FC2D42E863C39@citrix.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 150935: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=f7039ee41b3d3448775a1623f230037fd0455104
-X-Osstest-Versions-That: xen=835d8d69d96aa7feb52ef7b3dd8ecf43f0807578
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 09 Jun 2020 13:58:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,65 +59,84 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Juergen Gross <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 150935 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/150935/
+Playing around with the new `xenhypfs` binary, got some unexpected results:
 
-Failures :-/ but no regressions.
+* Unexpected error message for non-existent nodes
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Command executed:
 
-version targeted for testing:
- xen                  f7039ee41b3d3448775a1623f230037fd0455104
-baseline version:
- xen                  835d8d69d96aa7feb52ef7b3dd8ecf43f0807578
+# xenhypfs cat /params/loglvlx
+could not read: Operation not permitted
 
-Last test of basis   150929  2020-06-08 19:02:22 Z    0 days
-Testing same since   150935  2020-06-09 11:02:19 Z    0 days    1 attempts
+Expected behavior: -ENOENT-style message
+Actual behavior: -EACCESS-style message
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Paul Durrant <pdurrant@amazon.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
+* Truncated output from /params/loglvl
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+root@immortal:~# xenhypfs write /params/loglvl none
+root@immortal:~# xenhypfs cat /params/loglvl
+none/non
+root@immortal:~# xenhypfs write /params/loglvl error
+root@immortal:~# xenhypfs cat /params/loglvl
+error/er
+root@immortal:~# xenhypfs write /params/loglvl warning
+root@immortal:~# xenhypfs cat /params/loglvl
+warning/
+
+Expected behavior: Full new string printed (`none/none`, `error/error`, `wa=
+rning/warning` respectively)
+
+Actual behavior: Only 8 characters ever printed
+
+* Same as above for /params/guest_loglvl
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Everything else looks OK.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+# xl info
+xl info
+host                   : immortal
+release                : 5.2.0-2-amd64
+version                : #1 SMP Debian 5.2.9-2 (2019-08-21)
+machine                : x86_64
+nr_cpus                : 8
+max_cpu_id             : 31
+nr_nodes               : 1
+cores_per_socket       : 4
+threads_per_core       : 2
+cpu_mhz                : 2533.431
+hw_caps                : bfebfbff:029ee3ff:2c100800:00000001:00000000:00000=
+000:00000000:00000100
+virt_caps              : pv hvm hvm_directio pv_directio hap shadow
+total_memory           : 6141
+free_memory            : 5028
+sharing_freed_memory   : 0
+sharing_used_memory    : 0
+outstanding_claims     : 0
+free_cpus              : 0
+xen_major              : 4
+xen_minor              : 14
+xen_extra              : .0-rc
+xen_version            : 4.14.0-rc
+xen_caps               : xen-3.0-x86_64 xen-3.0-x86_32p hvm-3.0-x86_32 hvm-=
+3.0-x86_32p hvm-3.0-x86_64
+xen_scheduler          : credit2
+xen_pagesize           : 4096
+platform_params        : virt_start=3D0xffff800000000000
+xen_changeset          :
+xen_commandline        : placeholder dom0_mem=3D1024M,max:1024M cpuinfo com=
+1=3D115200,8n1 console=3Dcom1,tty loglvl=3Dall guest_loglvl=3Dall acpi_slee=
+p=3Ds3_fake debug_synthetic_preemption=3D1024
+cc_compiler            : gcc (Debian 9.2.1-30) 9.2.1 20200224
+cc_compile_by          : root
+cc_compile_domain      :
+cc_compile_date        : Tue Jun  9 13:32:54 UTC 2020
+build_id               : da97d170bfab3ccce05773f63cffdce3e3cc52ba
+xend_config_format     : 4
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   835d8d69d9..f7039ee41b  f7039ee41b3d3448775a1623f230037fd0455104 -> smoke
 
