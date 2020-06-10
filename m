@@ -2,57 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 556B61F5649
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2020 15:56:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FBB1F569B
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2020 16:11:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jj1D4-0002nc-72; Wed, 10 Jun 2020 13:56:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jj1RR-0004ZQ-GV; Wed, 10 Jun 2020 14:10:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h/9h=7X=lucina.net=martin@srs-us1.protection.inumbo.net>)
- id 1jj1D2-0002nO-Ua
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2020 13:56:04 +0000
-X-Inumbo-ID: 1ef3cee2-ab22-11ea-b449-12813bfff9fa
-Received: from smtp.lucina.net (unknown [62.176.169.44])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1ef3cee2-ab22-11ea-b449-12813bfff9fa;
- Wed, 10 Jun 2020 13:56:03 +0000 (UTC)
-Received: from nodbug.lucina.net (78-141-76-187.dynamic.orange.sk
- [78.141.76.187])
- by smtp.lucina.net (Postfix) with ESMTPSA id 0C91D122804;
- Wed, 10 Jun 2020 15:56:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lucina.net;
- s=dkim-201811; t=1591797362;
- bh=dQM1v/InNxn2/aJ4PouUn9hXkCZr2u+Zl52zCY32cuY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pOuQUOvlnw+gpAgMWeGC/cj0tznQq9o3pPrIxd3B4J7/JX2aWxbL0AZqiB1ZdSJt9
- 3RVDVR0TDb4w9urLfnKqXfdg+aXnRdxJtw4XGtwmDWymfBWzDcqs7udJUK3h+KTgiK
- tDSHbpddSAffTw6mnd6/rUc/+bWrD3JYCTSVG8xXH/n7Biuz/WAfBuH/U8Jw5mSY/s
- niJ1uTvx69XmjqzxM0jpAuEGSmVXDeVLZRPzTN3N6rlUSBDOJoguHNs7I1nnONmSfK
- X22uPtqLB+ko3j9zG9yWXixpih7FSIlOLo3hhSlA/qCzXss9CuxbBND8Wcmj1uUvcz
- dDlr5ajmoPeLw==
-Received: by nodbug.lucina.net (Postfix, from userid 1000)
- id E448D265E722; Wed, 10 Jun 2020 15:56:01 +0200 (CEST)
-Date: Wed, 10 Jun 2020 15:56:01 +0200
-From: Martin Lucina <martin@lucina.net>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: XENMAPSPACE_grant_table vs. GNTTABOP_setup_table
-Message-ID: <20200610135601.GB16839@nodbug.lucina.net>
-Mail-Followup-To: Martin Lucina <martin@lucina.net>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, mirageos-devel@lists.xenproject.org
-References: <20200609094425.GB9734@nodbug.lucina.net>
- <3c7269b9-bf3f-5359-6ce2-049f935c8e84@citrix.com>
- <20200610132225.GA16839@nodbug.lucina.net>
- <46e87834-bf47-4003-1f32-89a47255155d@citrix.com>
+ (envelope-from <SRS0=wuKn=7X=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jj1RQ-0004ZL-KU
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2020 14:10:56 +0000
+X-Inumbo-ID: 333a76e2-ab24-11ea-bb8b-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 333a76e2-ab24-11ea-bb8b-bc764e2007e4;
+ Wed, 10 Jun 2020 14:10:56 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 36262ABC7;
+ Wed, 10 Jun 2020 14:10:58 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] efi: avoid error message when booting under Xen
+Date: Wed, 10 Jun 2020 16:10:52 +0200
+Message-Id: <20200610141052.13258-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <46e87834-bf47-4003-1f32-89a47255155d@citrix.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +41,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, mirageos-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>, Peter Jones <pjones@redhat.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wednesday, 10.06.2020 at 14:40, Andrew Cooper wrote:
-> > So, going with the grant v2 ABI, is there a modern equivalent of
-> > GNTTABOP_get_status_frames? Reading memory.h I'm guessing that it might be
-> > XENMEM_add_to_physmap with space=XENMAPSPACE_grant_table and
-> > idx=(XENMAPIDX_grant_table_status + N) where N is the frame I want, but
-> > this is not explicitly mentioned anywhere and Linux uses the GNTTABOP
-> > mechanism.
-> >
-> > Further to that, what is the format of the grant status frames?
-> > grant_table.h doesn't have much to say about it.
-> >
-> > And lastly, given that I want the v2 grant ABI exclusively, I presume it's
-> > sufficient to call GNTTABOP_set_version (version=2) first thing and abort
-> > if it failed? Presumably the default is always v1 at start of day?
-> 
-> What kind of guests are you trying to target here?
+efifb_probe() will issue an error message in case the kernel is booted
+as Xen dom0 from UEFI as EFI_MEMMAP won't be set in this case. Avoid
+that message by calling efi_mem_desc_lookup() only if EFI_PARAVIRT
+isn't set.
 
-PVHv2 only. x86_64 only for now, though the code should remain easily
-portable to at least ARM64, should someone decide they need that.
+Fixes: 38ac0287b7f4 ("fbdev/efifb: Honour UEFI memory map attributes when mapping the FB")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/video/fbdev/efifb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Since my reply, I tried to experiment, and I think you're forced to use
-> GNTTABOP_setup_table/GNTTABOP_get_status_frames for x86 PV guests, and
-> XENMEM_add_to_physmap for x86 HVM/PVH guests.
-> 
-> You can't depend on version 2 being available.  Its not available for
-> ARM at all, and may be disabled for security reasons on x86 (there was
-> some extended fun with transitive grants in the past, and we offered
-> "totally disable grant v2" as one mitigation).
+diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+index 65491ae74808..f5eccd1373e9 100644
+--- a/drivers/video/fbdev/efifb.c
++++ b/drivers/video/fbdev/efifb.c
+@@ -453,7 +453,7 @@ static int efifb_probe(struct platform_device *dev)
+ 	info->apertures->ranges[0].base = efifb_fix.smem_start;
+ 	info->apertures->ranges[0].size = size_remap;
+ 
+-	if (efi_enabled(EFI_BOOT) &&
++	if (efi_enabled(EFI_BOOT) && !efi_enabled(EFI_PARAVIRT) &&
+ 	    !efi_mem_desc_lookup(efifb_fix.smem_start, &md)) {
+ 		if ((efifb_fix.smem_start + efifb_fix.smem_len) >
+ 		    (md.phys_addr + (md.num_pages << EFI_PAGE_SHIFT))) {
+-- 
+2.26.2
 
-I don't need v2 at all, I was just going by the comments in grant_table.h,
-which read: "Version 1 of the grant table entry structure is maintained
-purely for backwards compatibility.  New guests should use version 2."
-
-Grant status frames are a v2-only thing, right? Or can I use v1 and ask for
-grant status frames?
-
--mato
 
