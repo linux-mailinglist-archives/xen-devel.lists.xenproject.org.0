@@ -2,67 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1E51F5B89
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2020 20:54:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2CDD1F5BE4
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2020 21:18:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jj5rh-0005CQ-QM; Wed, 10 Jun 2020 18:54:21 +0000
+	id 1jj6De-0006wx-Le; Wed, 10 Jun 2020 19:17:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cWXx=7X=mvista.com=cminyard@srs-us1.protection.inumbo.net>)
- id 1jj5rg-0005CL-Lj
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2020 18:54:20 +0000
-X-Inumbo-ID: c94f6594-ab4b-11ea-bca7-bc764e2007e4
-Received: from mail-oi1-x233.google.com (unknown [2607:f8b0:4864:20::233])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Tsn8=7X=xen.org=tim@srs-us1.protection.inumbo.net>)
+ id 1jj6Dc-0006ws-VL
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2020 19:17:00 +0000
+X-Inumbo-ID: f50f06be-ab4e-11ea-bb8b-bc764e2007e4
+Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c94f6594-ab4b-11ea-bca7-bc764e2007e4;
- Wed, 10 Jun 2020 18:54:17 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id j189so3027689oih.10
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2020 11:54:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mvista-com.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:subject:message-id:reply-to:mime-version
- :content-disposition:user-agent;
- bh=qc/OfoZtFHoHNSDxvAltCZBY+UjDohB6V1B587JdG9E=;
- b=dNY/KSzWhUA+L5A0lpkFrWfQgn5TgKCWn897IvR/DN2+KgWJakgZTDcsJdbsu0x5gR
- /HFO/QqbZtzhtk+gv3Ev4QOiB4/E0NUP/Utz2JbD2ODYby5P+edvEu8FmVjrSe/Ruk1S
- 6EOfHxL2sp3lVoYmMsEJRDb0JWthOvlpWpyDzu2JGwmB+/n9K3pEWNQW8hkwT9wblO9g
- PxG4p9sCYqQzYOp2u0IegfL/x8TE046mS+44dbn5GURf7h0+FCOS4+AL9RaSbClf1j2m
- ACmJ8TBScXLEueF7sfhGT3cBW3Yj1Eazq0dBXWK+EtyNXMhTyOneSDYWoAl+QxO0MlSo
- 21aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:reply-to
- :mime-version:content-disposition:user-agent;
- bh=qc/OfoZtFHoHNSDxvAltCZBY+UjDohB6V1B587JdG9E=;
- b=hX0HyccUigjyk8wqWXk2YYfP7XpyltBdcZ9OnbUl0JzqP9C8MtVYM2l9C+htAYSM82
- waLqGQDTbynVU7NdjlD8f+GNhEBuWLfVah1CGyK4YrCpZuHS0j+5wjhpsCeU79wIKjz4
- SeCZ4lUXzmEziauDhaFyF391gNjjRv7rANT/4PpI1KZnF49YcrsAgkz9ZUXcuNI1cHwZ
- V2gH9LsBbsgj8b9CQdkKzWqS9kW0Hf/oX9t21a9s2KyqjlLbAbTtKEwAop1BjHd70XCh
- PjGWKrH0tEBBhGNF+ZX4tdcdwMNcdkuFo/yfyh4I8SZuBlcEO+uzu1fuyTopy0r8Wphf
- M0QQ==
-X-Gm-Message-State: AOAM530mcrYYJXQpKqctikRKE1l8Txq9PaTPsTzZ9BtEnr4FbM7PQwd9
- lCmC41hY/NsoVUobxCySGkVjXWrH0tE=
-X-Google-Smtp-Source: ABdhPJwm+YuITJ95oR873g1fKYSwIDC8Ew2zEHXEAreCkghF6CrJPc7rj1fL+Y1Hm4mY39/hhSMymA==
-X-Received: by 2002:aca:5395:: with SMTP id h143mr3710599oib.126.1591815257173; 
- Wed, 10 Jun 2020 11:54:17 -0700 (PDT)
-Received: from minyard.net ([2001:470:b8f6:1b:814:e40e:3b2b:9d19])
- by smtp.gmail.com with ESMTPSA id s69sm177967otb.4.2020.06.10.11.54.16
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 10 Jun 2020 11:54:16 -0700 (PDT)
-Date: Wed, 10 Jun 2020 13:54:15 -0500
-From: Corey Minyard <cminyard@mvista.com>
-To: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, roman@zededa.com,
- tamas@tklengyel.com
-Subject: Xen on Pi4: Xen doesn't work with overlays from Raspberry Pi 5.4
- kernel
-Message-ID: <20200610185415.GG7231@minyard.net>
+ id f50f06be-ab4e-11ea-bb8b-bc764e2007e4;
+ Wed, 10 Jun 2020 19:17:00 +0000 (UTC)
+Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.3 (FreeBSD))
+ (envelope-from <tim@xen.org>)
+ id 1jj6DZ-000I6A-Uq; Wed, 10 Jun 2020 19:16:57 +0000
+Date: Wed, 10 Jun 2020 20:16:57 +0100
+From: Tim Deegan <tim@xen.org>
+To: Olaf Hering <olaf@aepfle.de>
+Subject: Re: [PATCH v1] kdd: remove zero-length arrays
+Message-ID: <20200610191657.GA69414@deinos.phlegethon.org>
+References: <20200608203849.18341-1-olaf@aepfle.de>
+ <005001d63e3b$c85059f0$58f10dd0$@xen.org>
+ <20200609121549.GA90841@deinos.phlegethon.org>
+ <20200609152233.039cfc86.olaf@aepfle.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20200609152233.039cfc86.olaf@aepfle.de>
+User-Agent: Mutt/1.11.1 (2018-12-01)
+X-SA-Known-Good: Yes
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: tim@xen.org
+X-SA-Exim-Scanned: No (on deinos.phlegethon.org);
+ SAEximRunCond expanded to false
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,25 +50,78 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: cminyard@mvista.com
+Cc: xen-devel@lists.xenproject.org, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'Wei Liu' <wl@xen.org>, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-I had been working on Xen on the Pi4 by throwing kernels I compiled onto
-existing sd cards, and this was working fine.  I finally got to a full
-yocto build of the system, and it didn't boot.
+At 15:22 +0200 on 09 Jun (1591716153), Olaf Hering wrote:
+> Am Tue, 9 Jun 2020 13:15:49 +0100
+> schrieb Tim Deegan <tim@xen.org>:
+> 
+> > Olaf, can you try dropping the 'payload' field from the header and replacing the payload[0] in pkt with payload[] ?
+> 
+> In file included from kdd.c:53:
+> kdd.h:325:17: error: flexible array member in union
+>   325 |         uint8_t payload[];
 
-In fact, Xen didn't print anything at all, and nothing happens that
-might suggest it's booting without any console output.
+How tedious.  Well, the only place we actually allocate one of these
+we already leave enough space for a max-size packet, so how about
+this?
 
-I traced the issue down to the vc4-fkms-v3d dtoverly.  With everything
-else the same, the 4.19 version of that overlay works, and the 5.4
-version does not work.  It also didn't work if I completely removed the
-overlay.  The base device trees are the same between the two kernels.
+kdd: stop using [0] arrays to access packet contents.
 
-Looking at the overlay changes between the versions and Xen source, I
-can't trace down anything that would cause an issue.  Has anyone seen
-this issue of have any ideas?
+GCC 10 is unhappy about this, and we already use 64k buffers
+in the only places where packets are allocated, so move the
+64k size into the packet definition.
 
--corey
+Reported-by: Olaf Hering <olaf@aepfle.de>
+Signed-off-by: Tim Deegan <tim@xen.org>
+---
+ tools/debugger/kdd/kdd.c | 4 ++--
+ tools/debugger/kdd/kdd.h | 3 +--
+ 2 files changed, 3 insertions(+), 4 deletions(-)
+
+diff --git tools/debugger/kdd/kdd.c tools/debugger/kdd/kdd.c
+index 3ebda9b12c..a7d0976ea4 100644
+--- tools/debugger/kdd/kdd.c
++++ tools/debugger/kdd/kdd.c
+@@ -79,11 +79,11 @@ typedef struct {
+ /* State of the debugger stub */
+ typedef struct {
+     union {
+-        uint8_t txb[sizeof (kdd_hdr) + 65536];   /* Marshalling area for tx */
++        uint8_t txb[sizeof (kdd_pkt)];           /* Marshalling area for tx */
+         kdd_pkt txp;                 /* Also readable as a packet structure */
+     };
+     union {
+-        uint8_t rxb[sizeof (kdd_hdr) + 65536];   /* Marshalling area for rx */
++        uint8_t rxb[sizeof (kdd_pkt)];           /* Marshalling area for rx */
+         kdd_pkt rxp;                 /* Also readable as a packet structure */
+     };
+     unsigned int cur;       /* Offset into rx where we'll put the next byte */
+diff --git tools/debugger/kdd/kdd.h tools/debugger/kdd/kdd.h
+index bfb00ba5c5..b9a17440df 100644
+--- tools/debugger/kdd/kdd.h
++++ tools/debugger/kdd/kdd.h
+@@ -68,7 +68,6 @@ typedef struct {
+     uint16_t len;     /* Payload length, excl. header and trailing byte */
+     uint32_t id;      /* Echoed in responses */
+     uint32_t sum;     /* Unsigned sum of all payload bytes */
+-    uint8_t payload[0];
+ } PACKED kdd_hdr;
+ 
+ #define KDD_PKT_CMD 0x0002      /* Debugger commands (and replies to them) */
+@@ -323,7 +322,7 @@ typedef struct {
+         kdd_msg msg;
+         kdd_reg reg;
+         kdd_stc stc;
+-        uint8_t payload[0];
++        uint8_t payload[65536];
+     };
+ } PACKED kdd_pkt;
+ 
+-- 
+2.26.2
+
 
