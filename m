@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 833D91F53D5
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3CB1F53D6
 	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2020 13:51:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jizGb-0008AH-Ai; Wed, 10 Jun 2020 11:51:37 +0000
+	id 1jizGg-0008BO-J8; Wed, 10 Jun 2020 11:51:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VUV0=7X=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jizGa-000894-5Q
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2020 11:51:36 +0000
-X-Inumbo-ID: bb02dff6-ab10-11ea-8496-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1jizGf-000894-5e
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2020 11:51:41 +0000
+X-Inumbo-ID: bc778184-ab10-11ea-bb8b-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bb02dff6-ab10-11ea-8496-bc764e2007e4;
- Wed, 10 Jun 2020 11:51:33 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ id bc778184-ab10-11ea-bb8b-bc764e2007e4;
+ Wed, 10 Jun 2020 11:51:36 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: SIf3w8dtwNB7iDK3eBGtb9BdQAGPSIashFWNXnaUw2TDk1TmjHPbOeVM7+NVKHoHbhckS6siWf
- 6DQBTE932NsEiTRnfDxM4biet1nlEzA+lkdbhU8tvCMcnD7DZ4gc1neCIXs5d8186X6VhOjkkR
- bLnHul6iDqDgaL0aD0eYdMfM0JhEQIE4xhnrF2XZ5suM9XgAFSBdXQNmln1esi5091r3z5zcdq
- 4SnYj9bUz1VARA5tVyhKVlmLARENH+kYflbM9r0PF2ZPDR4xfz1Geh0vuJDa7wnunSsNYbv9/s
- tUQ=
+IronPort-SDR: c+5iYyULtN6MmJAxB9TxPcrmkNfHgal4+8BuiEm2tC/wgr23aYplq31C8WJQeoJGHLZ79omQiN
+ 4c93Rc4dAIIFaFZI5z033JpEuZYVvJqTPBCWCpqo3Y8LLdAdnIfHNo8raGIH3UP37MyHfgMsyP
+ /W1Qxzl7m2NDU+4OWCLrKacObIhQzktx3CP5RoPZObW3YMNftQXuDQqmpIVoZMH+ZCl0++NLgF
+ gdgm048dekes7sP8cnvKn9Q3AKo6PPVjSZ+LZDgYc36gWERsfy87X/EAIqa1CCBdB+8vntcn/c
+ rjI=
 X-SBRS: 2.7
-X-MesageID: 19673839
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 19690637
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,495,1583211600"; d="scan'208";a="19673839"
+X-IronPort-AV: E=Sophos;i="5.73,495,1583211600"; d="scan'208";a="19690637"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH for-4.14 1/2] x86/passthrough: do not assert edge triggered
- GSIs for PVH dom0
-Date: Wed, 10 Jun 2020 13:51:02 +0200
-Message-ID: <20200610115103.7592-2-roger.pau@citrix.com>
+Subject: [PATCH for-4.14 2/2] x86/passthrough: introduce a flag for GSIs not
+ requiring an EOI or unmask
+Date: Wed, 10 Jun 2020 13:51:03 +0200
+Message-ID: <20200610115103.7592-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200610115103.7592-1-roger.pau@citrix.com>
 References: <20200610115103.7592-1-roger.pau@citrix.com>
@@ -59,65 +59,79 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Edge triggered interrupts do not assert the line, so the handling done
-in Xen should also avoid asserting it. Asserting the line prevents
-further edge triggered interrupts on the same vIO-APIC pin from being
-delivered, since the line is not de-asserted.
+There's no need to setup a timer for GSIs that are edge triggered,
+since those don't require any EIO or unmask, and hence couldn't block
+other interrupts.
 
-One case of such kind of interrupt is the RTC timer, which is edge
-triggered and available to a PVH dom0. Note this should not affect
-domUs, as it only modifies the behavior of IDENTITY_GSI kind of passed
-through interrupts.
+Note this is only used by PVH dom0, that can setup the passthrough of
+edge triggered interrupts from the vIO-APIC. One example of such kind
+of interrupt that can be used by a PVH dom0 would be the RTC timer.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/hvm/irq.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ xen/drivers/passthrough/io.c  | 14 +++++++++++++-
+ xen/include/asm-x86/hvm/irq.h |  2 ++
+ 2 files changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
-index 9c8adbc495..9a56543c1b 100644
---- a/xen/arch/x86/hvm/irq.c
-+++ b/xen/arch/x86/hvm/irq.c
-@@ -169,9 +169,10 @@ void hvm_pci_intx_deassert(
+diff --git a/xen/drivers/passthrough/io.c b/xen/drivers/passthrough/io.c
+index b292e79382..be1d5b1434 100644
+--- a/xen/drivers/passthrough/io.c
++++ b/xen/drivers/passthrough/io.c
+@@ -138,7 +138,8 @@ static void pt_pirq_softirq_reset(struct hvm_pirq_dpci *pirq_dpci)
  
- void hvm_gsi_assert(struct domain *d, unsigned int gsi)
+ bool pt_irq_need_timer(uint32_t flags)
  {
-+    int level = vioapic_get_trigger_mode(d, gsi);
-     struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+-    return !(flags & (HVM_IRQ_DPCI_GUEST_MSI | HVM_IRQ_DPCI_TRANSLATE));
++    return !(flags & (HVM_IRQ_DPCI_GUEST_MSI | HVM_IRQ_DPCI_TRANSLATE |
++                      HVM_IRQ_DPCI_NO_EOI));
+ }
  
--    if ( gsi >= hvm_irq->nr_gsis )
-+    if ( gsi >= hvm_irq->nr_gsis || level < 0 )
-     {
-         ASSERT_UNREACHABLE();
-         return;
-@@ -186,9 +187,10 @@ void hvm_gsi_assert(struct domain *d, unsigned int gsi)
-      * to know if the GSI is pending or not.
-      */
-     spin_lock(&d->arch.hvm.irq_lock);
--    if ( !hvm_irq->gsi_assert_count[gsi] )
-+    if ( !level || !hvm_irq->gsi_assert_count[gsi] )
-     {
--        hvm_irq->gsi_assert_count[gsi] = 1;
-+        if ( !level )
-+            hvm_irq->gsi_assert_count[gsi] = 1;
-         assert_gsi(d, gsi);
-     }
-     spin_unlock(&d->arch.hvm.irq_lock);
-@@ -196,11 +198,12 @@ void hvm_gsi_assert(struct domain *d, unsigned int gsi)
+ static int pt_irq_guest_eoi(struct domain *d, struct hvm_pirq_dpci *pirq_dpci,
+@@ -558,6 +559,12 @@ int pt_irq_create_bind(
+                      */
+                     ASSERT(!mask);
+                     share = trigger_mode;
++                    if ( !trigger_mode )
++                        /*
++                         * Edge IO-APIC interrupt, no EOI or unmask to perform
++                         * and hence no timer needed.
++                         */
++                        pirq_dpci->flags |= HVM_IRQ_DPCI_NO_EOI;
+                 }
+             }
  
- void hvm_gsi_deassert(struct domain *d, unsigned int gsi)
- {
-+    int level = vioapic_get_trigger_mode(d, gsi);
-     struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+@@ -920,6 +927,11 @@ static void hvm_dirq_assist(struct domain *d, struct hvm_pirq_dpci *pirq_dpci)
+         if ( pirq_dpci->flags & HVM_IRQ_DPCI_IDENTITY_GSI )
+         {
+             hvm_gsi_assert(d, pirq->pirq);
++            if ( pirq_dpci->flags & HVM_IRQ_DPCI_NO_EOI )
++            {
++                spin_unlock(&d->event_lock);
++                return;
++            }
+             pirq_dpci->pending++;
+         }
  
--    if ( gsi >= hvm_irq->nr_gsis )
-+    if ( level <= 0 || gsi >= hvm_irq->nr_gsis )
-     {
--        ASSERT_UNREACHABLE();
-+        ASSERT(level == 0 && gsi < hvm_irq->nr_gsis);
-         return;
-     }
+diff --git a/xen/include/asm-x86/hvm/irq.h b/xen/include/asm-x86/hvm/irq.h
+index d306cfeade..532880d497 100644
+--- a/xen/include/asm-x86/hvm/irq.h
++++ b/xen/include/asm-x86/hvm/irq.h
+@@ -121,6 +121,7 @@ struct dev_intx_gsi_link {
+ #define _HVM_IRQ_DPCI_GUEST_PCI_SHIFT           4
+ #define _HVM_IRQ_DPCI_GUEST_MSI_SHIFT           5
+ #define _HVM_IRQ_DPCI_IDENTITY_GSI_SHIFT        6
++#define _HVM_IRQ_DPCI_NO_EOI_SHIFT              7
+ #define _HVM_IRQ_DPCI_TRANSLATE_SHIFT          15
+ #define HVM_IRQ_DPCI_MACH_PCI        (1u << _HVM_IRQ_DPCI_MACH_PCI_SHIFT)
+ #define HVM_IRQ_DPCI_MACH_MSI        (1u << _HVM_IRQ_DPCI_MACH_MSI_SHIFT)
+@@ -129,6 +130,7 @@ struct dev_intx_gsi_link {
+ #define HVM_IRQ_DPCI_GUEST_PCI       (1u << _HVM_IRQ_DPCI_GUEST_PCI_SHIFT)
+ #define HVM_IRQ_DPCI_GUEST_MSI       (1u << _HVM_IRQ_DPCI_GUEST_MSI_SHIFT)
+ #define HVM_IRQ_DPCI_IDENTITY_GSI    (1u << _HVM_IRQ_DPCI_IDENTITY_GSI_SHIFT)
++#define HVM_IRQ_DPCI_NO_EOI          (1u << _HVM_IRQ_DPCI_NO_EOI_SHIFT)
+ #define HVM_IRQ_DPCI_TRANSLATE       (1u << _HVM_IRQ_DPCI_TRANSLATE_SHIFT)
  
+ struct hvm_gmsi_info {
 -- 
 2.26.2
 
