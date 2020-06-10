@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E318D1F56D1
+	by mail.lfdr.de (Postfix) with ESMTPS id 62A441F56D0
 	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2020 16:30:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jj1jd-0005mq-No; Wed, 10 Jun 2020 14:29:45 +0000
+	id 1jj1ji-0005oD-0l; Wed, 10 Jun 2020 14:29:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VUV0=7X=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jj1jc-0005mB-3K
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2020 14:29:44 +0000
-X-Inumbo-ID: d1b5259a-ab26-11ea-b44c-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1jj1jh-0005mB-3K
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2020 14:29:49 +0000
+X-Inumbo-ID: d394e594-ab26-11ea-b44c-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d1b5259a-ab26-11ea-b44c-12813bfff9fa;
- Wed, 10 Jun 2020 14:29:40 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ id d394e594-ab26-11ea-b44c-12813bfff9fa;
+ Wed, 10 Jun 2020 14:29:44 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: GJLjP7ff4EuEieDZJLxNjrBIVSzjkb8E/aRLYSRCwvDs0aQ7cM9xfIB3V0T1kwJ4mVLMqOkCzU
- gG/ukGGjgU8EjEsZVF9MUSyk1jlH8GjxzlRynFmce1eHmkCMkj1ceVoOZlKgylG417kKDMUXX8
- vdhb24ldULRaHlusPRMqB4pVOKOTkOSL3ixZS0vcYddO3CGOTHVbZ/nsWxUPHpuaTX8BHk2iLC
- f6CollDsE8BWm131ni9qc6LS+xPOzrodg6rYbXVHr3YC71daGG5uIs57HB2iRmRo9YAiuxZKvH
- kIA=
+IronPort-SDR: D4DDbPAQIkhAcN7IgbISu0+cSqAjP8J12kawIFw0UslmU2T6Hr2bFH4GfAn/AuDorrBMJkuqfP
+ /UobpnxSz8qST9WKNbI17BIQ+66CEt7DAujFAHd1bDfU+t4ixyDItt12OPWL9aJCqsPkGi3Bvq
+ w4EMNlJv0XFwoMsKgYEphIGL9oZn0gRTeUhdwFfSp7BJADP6Y/SlDsRyeKI0uRqA+X4UJjjMai
+ vnvB2ymqUGFbhI8M+QY2Wi+nvdW1g28uJR9Yti/WMVRf4uNPfDDDXBTMJxLD1P9NzrN07koVBg
+ vQo=
 X-SBRS: 2.7
-X-MesageID: 20039447
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 19690573
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,496,1583211600"; d="scan'208";a="20039447"
+X-IronPort-AV: E=Sophos;i="5.73,496,1583211600"; d="scan'208";a="19690573"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH for-4.14 v2 1/2] x86/passthrough: do not assert edge triggered
- GSIs for PVH dom0
-Date: Wed, 10 Jun 2020 16:29:22 +0200
-Message-ID: <20200610142923.9074-2-roger.pau@citrix.com>
+Subject: [PATCH for-4.14 v2 2/2] x86/passthrough: introduce a flag for GSIs
+ not requiring an EOI or unmask
+Date: Wed, 10 Jun 2020 16:29:23 +0200
+Message-ID: <20200610142923.9074-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200610142923.9074-1-roger.pau@citrix.com>
 References: <20200610142923.9074-1-roger.pau@citrix.com>
@@ -60,69 +60,121 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Edge triggered interrupts do not assert the line, so the handling done
-in Xen should also avoid asserting it. Asserting the line prevents
-further edge triggered interrupts on the same vIO-APIC pin from being
-delivered, since the line is not de-asserted.
+There's no need to setup a timer for GSIs that are edge triggered,
+since those don't require any EIO or unmask, and hence couldn't block
+other interrupts.
 
-One case of such kind of interrupt is the RTC timer, which is edge
-triggered and available to a PVH dom0. Note this should not affect
-domUs, as it only modifies the behavior of IDENTITY_GSI kind of passed
-through interrupts.
+Note this is only used by PVH dom0, that can setup the passthrough of
+edge triggered interrupts from the vIO-APIC. One example of such kind
+of interrupt that can be used by a PVH dom0 would be the RTC timer.
+
+While there introduce an out label to do the unlock and reduce code
+duplication.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 Changes since v1:
- - Compare the triggering against VIOAPIC_{EDGE/LEVEL}_TRIG.
+ - Introduce an out label that does the unlock.
 ---
- xen/arch/x86/hvm/irq.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ xen/drivers/passthrough/io.c  | 24 +++++++++++++++---------
+ xen/include/asm-x86/hvm/irq.h |  2 ++
+ 2 files changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
-index 9c8adbc495..fd02cf2e8d 100644
---- a/xen/arch/x86/hvm/irq.c
-+++ b/xen/arch/x86/hvm/irq.c
-@@ -169,9 +169,10 @@ void hvm_pci_intx_deassert(
+diff --git a/xen/drivers/passthrough/io.c b/xen/drivers/passthrough/io.c
+index b292e79382..6b1305a3e5 100644
+--- a/xen/drivers/passthrough/io.c
++++ b/xen/drivers/passthrough/io.c
+@@ -138,7 +138,8 @@ static void pt_pirq_softirq_reset(struct hvm_pirq_dpci *pirq_dpci)
  
- void hvm_gsi_assert(struct domain *d, unsigned int gsi)
+ bool pt_irq_need_timer(uint32_t flags)
  {
-+    int trig = vioapic_get_trigger_mode(d, gsi);
-     struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+-    return !(flags & (HVM_IRQ_DPCI_GUEST_MSI | HVM_IRQ_DPCI_TRANSLATE));
++    return !(flags & (HVM_IRQ_DPCI_GUEST_MSI | HVM_IRQ_DPCI_TRANSLATE |
++                      HVM_IRQ_DPCI_NO_EOI));
+ }
  
--    if ( gsi >= hvm_irq->nr_gsis )
-+    if ( gsi >= hvm_irq->nr_gsis || trig < 0 )
-     {
-         ASSERT_UNREACHABLE();
-         return;
-@@ -186,9 +187,10 @@ void hvm_gsi_assert(struct domain *d, unsigned int gsi)
-      * to know if the GSI is pending or not.
-      */
-     spin_lock(&d->arch.hvm.irq_lock);
--    if ( !hvm_irq->gsi_assert_count[gsi] )
-+    if ( trig == VIOAPIC_EDGE_TRIG || !hvm_irq->gsi_assert_count[gsi] )
-     {
--        hvm_irq->gsi_assert_count[gsi] = 1;
-+        if ( trig == VIOAPIC_LEVEL_TRIG )
-+            hvm_irq->gsi_assert_count[gsi] = 1;
-         assert_gsi(d, gsi);
+ static int pt_irq_guest_eoi(struct domain *d, struct hvm_pirq_dpci *pirq_dpci,
+@@ -558,6 +559,12 @@ int pt_irq_create_bind(
+                      */
+                     ASSERT(!mask);
+                     share = trigger_mode;
++                    if ( trigger_mode == VIOAPIC_EDGE_TRIG )
++                        /*
++                         * Edge IO-APIC interrupt, no EOI or unmask to perform
++                         * and hence no timer needed.
++                         */
++                        pirq_dpci->flags |= HVM_IRQ_DPCI_NO_EOI;
+                 }
+             }
+ 
+@@ -897,17 +904,13 @@ static void hvm_dirq_assist(struct domain *d, struct hvm_pirq_dpci *pirq_dpci)
+             send_guest_pirq(d, pirq);
+ 
+             if ( pirq_dpci->flags & HVM_IRQ_DPCI_GUEST_MSI )
+-            {
+-                spin_unlock(&d->event_lock);
+-                return;
+-            }
++                goto out;
+         }
+ 
+         if ( pirq_dpci->flags & HVM_IRQ_DPCI_GUEST_MSI )
+         {
+             vmsi_deliver_pirq(d, pirq_dpci);
+-            spin_unlock(&d->event_lock);
+-            return;
++            goto out;
+         }
+ 
+         list_for_each_entry ( digl, &pirq_dpci->digl_list, list )
+@@ -920,6 +923,8 @@ static void hvm_dirq_assist(struct domain *d, struct hvm_pirq_dpci *pirq_dpci)
+         if ( pirq_dpci->flags & HVM_IRQ_DPCI_IDENTITY_GSI )
+         {
+             hvm_gsi_assert(d, pirq->pirq);
++            if ( pirq_dpci->flags & HVM_IRQ_DPCI_NO_EOI )
++                goto out;
+             pirq_dpci->pending++;
+         }
+ 
+@@ -927,8 +932,7 @@ static void hvm_dirq_assist(struct domain *d, struct hvm_pirq_dpci *pirq_dpci)
+         {
+             /* for translated MSI to INTx interrupt, eoi as early as possible */
+             __msi_pirq_eoi(pirq_dpci);
+-            spin_unlock(&d->event_lock);
+-            return;
++            goto out;
+         }
+ 
+         /*
+@@ -941,6 +945,8 @@ static void hvm_dirq_assist(struct domain *d, struct hvm_pirq_dpci *pirq_dpci)
+         ASSERT(pt_irq_need_timer(pirq_dpci->flags));
+         set_timer(&pirq_dpci->timer, NOW() + PT_IRQ_TIME_OUT);
      }
-     spin_unlock(&d->arch.hvm.irq_lock);
-@@ -196,11 +198,12 @@ void hvm_gsi_assert(struct domain *d, unsigned int gsi)
++
++ out:
+     spin_unlock(&d->event_lock);
+ }
  
- void hvm_gsi_deassert(struct domain *d, unsigned int gsi)
- {
-+    int trig = vioapic_get_trigger_mode(d, gsi);
-     struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+diff --git a/xen/include/asm-x86/hvm/irq.h b/xen/include/asm-x86/hvm/irq.h
+index d306cfeade..532880d497 100644
+--- a/xen/include/asm-x86/hvm/irq.h
++++ b/xen/include/asm-x86/hvm/irq.h
+@@ -121,6 +121,7 @@ struct dev_intx_gsi_link {
+ #define _HVM_IRQ_DPCI_GUEST_PCI_SHIFT           4
+ #define _HVM_IRQ_DPCI_GUEST_MSI_SHIFT           5
+ #define _HVM_IRQ_DPCI_IDENTITY_GSI_SHIFT        6
++#define _HVM_IRQ_DPCI_NO_EOI_SHIFT              7
+ #define _HVM_IRQ_DPCI_TRANSLATE_SHIFT          15
+ #define HVM_IRQ_DPCI_MACH_PCI        (1u << _HVM_IRQ_DPCI_MACH_PCI_SHIFT)
+ #define HVM_IRQ_DPCI_MACH_MSI        (1u << _HVM_IRQ_DPCI_MACH_MSI_SHIFT)
+@@ -129,6 +130,7 @@ struct dev_intx_gsi_link {
+ #define HVM_IRQ_DPCI_GUEST_PCI       (1u << _HVM_IRQ_DPCI_GUEST_PCI_SHIFT)
+ #define HVM_IRQ_DPCI_GUEST_MSI       (1u << _HVM_IRQ_DPCI_GUEST_MSI_SHIFT)
+ #define HVM_IRQ_DPCI_IDENTITY_GSI    (1u << _HVM_IRQ_DPCI_IDENTITY_GSI_SHIFT)
++#define HVM_IRQ_DPCI_NO_EOI          (1u << _HVM_IRQ_DPCI_NO_EOI_SHIFT)
+ #define HVM_IRQ_DPCI_TRANSLATE       (1u << _HVM_IRQ_DPCI_TRANSLATE_SHIFT)
  
--    if ( gsi >= hvm_irq->nr_gsis )
-+    if ( trig <= VIOAPIC_EDGE_TRIG || gsi >= hvm_irq->nr_gsis )
-     {
--        ASSERT_UNREACHABLE();
-+        ASSERT(trig == VIOAPIC_EDGE_TRIG && gsi < hvm_irq->nr_gsis);
-         return;
-     }
- 
+ struct hvm_gmsi_info {
 -- 
 2.26.2
 
