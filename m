@@ -2,49 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9B7E1F6DA0
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2020 20:51:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 229AB1F6DAA
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2020 20:58:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjSHL-0004cm-QK; Thu, 11 Jun 2020 18:50:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jjSP2-0004qm-LS; Thu, 11 Jun 2020 18:58:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mIhq=7Y=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jjSHK-0004ch-01
- for xen-devel@lists.xenproject.org; Thu, 11 Jun 2020 18:50:18 +0000
-X-Inumbo-ID: 6460bd08-ac14-11ea-b563-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6460bd08-ac14-11ea-b563-12813bfff9fa;
- Thu, 11 Jun 2020 18:50:17 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 712CE206DC;
- Thu, 11 Jun 2020 18:50:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591901416;
- bh=uDvsfQxTchtiWuXxTrpFglDfyW0ucaFH3zwefEaGOCU=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=ID9oGR3To+f3esIgWD6KOPOgYomj9Ga1r9j5EN0P1td5ztwGbE3uHM66cFQ+lq/Xs
- 6WvKpdW0qTaQVXNixLVCCN3dTiIq7ahBoLN17mJuhc57gp0v3ZZibk+ve47jVyBCYr
- iC9ztC7suIaJLl1kvADTFp/NO3/HrOFBQkBiJlbo=
-Date: Thu, 11 Jun 2020 11:50:16 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall.oss@gmail.com>
-Subject: Re: [PATCH 1/2] xen/arm: Convert runstate address during hypcall
-In-Reply-To: <CAJ=z9a3u7ztgSmJbhjVATrfJEBBVkHbZei6ydBQeV8nzdDFA3Q@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2006111143530.2815@sstabellini-ThinkPad-T480s>
-References: <cover.1591806713.git.bertrand.marquis@arm.com>
- <8b450dddb2c855225c97741dce66453a80b9add2.1591806713.git.bertrand.marquis@arm.com>
- <alpine.DEB.2.21.2006111055360.2815@sstabellini-ThinkPad-T480s>
- <CAJ=z9a3u7ztgSmJbhjVATrfJEBBVkHbZei6ydBQeV8nzdDFA3Q@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=ccth=7Y=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jjSP1-0004qS-O5
+ for xen-devel@lists.xenproject.org; Thu, 11 Jun 2020 18:58:15 +0000
+X-Inumbo-ID: 7e2ad8c6-ac15-11ea-bca7-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7e2ad8c6-ac15-11ea-bca7-bc764e2007e4;
+ Thu, 11 Jun 2020 18:58:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ciqaPBb/87mxWVVBFtWyrqhRjdOZMedTm8sno2/P17E=; b=N9kBbefHCFgbFL7z3V9QRpmGT
+ TJKeTrT6KMoS9V09TTqEDb9FBpMAEpmum85b8GIf+m75URd/HcWPJkkH9T3UcXaMZvHJUs37y9IV0
+ G0YMbhoa8N1ae06R81sAM2vDmp8gqzIrNsHoY17255VRZMMB9RIUkffStHk9VaQqzI8zs=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jjSOv-00038D-Ol; Thu, 11 Jun 2020 18:58:09 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jjSOv-0007jk-Ep; Thu, 11 Jun 2020 18:58:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jjSOv-0004n4-EE; Thu, 11 Jun 2020 18:58:09 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151049-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 151049: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=7028534d8482d25860c4d1aa8e45f0b911abfc5a
+X-Osstest-Versions-That: xen=6a49b9a7920c82015381740905582b666160d955
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 11 Jun 2020 18:58:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,63 +65,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 11 Jun 2020, Julien Grall wrote:
-> > > +        return -EINVAL;
-> > >      }
-> > >
-> > > -    __copy_to_guest(runstate_guest(v), &runstate, 1);
-> > > +    v->arch.runstate_guest.page = page;
-> > > +    v->arch.runstate_guest.offset = offset;
-> > > +
-> > > +    spin_unlock(&v->arch.runstate_guest.lock);
-> > > +
-> > > +    return 0;
-> > > +}
-> > > +
-> > > +
-> > > +/* Update per-VCPU guest runstate shared memory area (if registered). */
-> > > +static void update_runstate_area(struct vcpu *v)
-> > > +{
-> > > +    struct vcpu_runstate_info *guest_runstate;
-> > > +    void *p;
-> > > +
-> > > +    spin_lock(&v->arch.runstate_guest.lock);
-> > >
-> > > -    if ( guest_handle )
-> > > +    if ( v->arch.runstate_guest.page )
-> > >      {
-> > > -        runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
-> > > +        p = __map_domain_page(v->arch.runstate_guest.page);
-> > > +        guest_runstate = p + v->arch.runstate_guest.offset;
-> > > +
-> > > +        if ( VM_ASSIST(v->domain, runstate_update_flag) )
-> > > +        {
-> > > +            v->runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
-> > > +            guest_runstate->state_entry_time |= XEN_RUNSTATE_UPDATE;
-> >
-> > I think that this write to guest_runstate should use write_atomic or
-> > another atomic write operation.
-> 
-> I thought about suggesting the same, but  guest_copy_* helpers may not
-> do a single memory write to state_entry_time.
-> What are you trying to prevent with the write_atomic()?
+flight 151049 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151049/
 
-I am thinking that without using an atomic write, it would be (at least
-theoretically) possible for a guest to see a partial write to
-state_entry_time, which is not good. In theory, the set of assembly
-instructions generated by the compiler could go through an intermediate
-state that we don't want the guest to see. In practice, I doubt that any
-possible combination of assembly instructions generated by the compiler
-could lead to something harmful.
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  7028534d8482d25860c4d1aa8e45f0b911abfc5a
+baseline version:
+ xen                  6a49b9a7920c82015381740905582b666160d955
+
+Last test of basis   150950  2020-06-09 19:00:58 Z    1 days
+Testing same since   151049  2020-06-11 16:00:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   6a49b9a792..7028534d84  7028534d8482d25860c4d1aa8e45f0b911abfc5a -> smoke
 
