@@ -2,59 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F2F1F6088
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2020 05:31:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C44201F6085
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2020 05:31:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjDvU-00086a-MP; Thu, 11 Jun 2020 03:30:48 +0000
+	id 1jjDva-0008A2-4N; Thu, 11 Jun 2020 03:30:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MzHD=7Y=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jjDvT-0007xd-S4
- for xen-devel@lists.xenproject.org; Thu, 11 Jun 2020 03:30:47 +0000
-X-Inumbo-ID: e7aaa2cc-ab93-11ea-bb8b-bc764e2007e4
-Received: from mail-qk1-x742.google.com (unknown [2607:f8b0:4864:20::742])
+ id 1jjDvY-0007xd-SQ
+ for xen-devel@lists.xenproject.org; Thu, 11 Jun 2020 03:30:52 +0000
+X-Inumbo-ID: e8951ee2-ab93-11ea-bca7-bc764e2007e4
+Received: from mail-qk1-x744.google.com (unknown [2607:f8b0:4864:20::744])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7aaa2cc-ab93-11ea-bb8b-bc764e2007e4;
- Thu, 11 Jun 2020 03:30:32 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id c185so4357305qke.7
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2020 20:30:32 -0700 (PDT)
+ id e8951ee2-ab93-11ea-bca7-bc764e2007e4;
+ Thu, 11 Jun 2020 03:30:33 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id q8so4321085qkm.12
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2020 20:30:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=0QHpnXfDLIU42Ajcn7oe5u4g/H2EWJ6mBd+W546xwxc=;
- b=NYja3UulW133MDWz7THaPy5RuR9uRLPFZCcavpEeBICBdVNluA3ZqxpDPSIliOyRd5
- DNKunBo1ICSU7dvWYlQIK8GVeYywImCazfZOIIsPyUiJajpMj8+6SmV7UHHwnmHARr8j
- l0rmbWl/rz7QfzSo+l+MSkQQxIH7r6CtEq/ximG7YGnGkLtARyqdx30cnhYK8UtyZTgR
- /EwEFHWc4Wt4uAF9+VYOCiY/Gmu166QHSuwqeo9WSNDdjmsOs5cRcShgU8wFmYeVnHOA
- 4OTs9lZ+GnbDX9b9Dis6xbIvvH43vBJb6Z0G8sjGSTmjap5ulZhq1nyu8uwWsu5Uofhg
- DOfQ==
+ bh=acDEo8MXiNoRRWQ/LKc41cpCF79OTRwWmw6nG02XKJE=;
+ b=sRbm1ow6OMy4RlPfEgTljW9izUWN0W3hAaRtX7YSpSJRbcPKUyJM977UrI/CqjreUt
+ JRFwICjEeLa3I4zG7Y/PH9PcqVpW7tW6/Os4BzeHGJkZZiSV2seuia9LAo7FQ1m6oqPa
+ vvIsj8YShjmxi/nWzcdRAhCKOMJjpXlhKmjcfYNsRMclOHXFtRulwfJgNDZnk813xPg5
+ Zp/no8di6X9tDIZwJiNN2SlooqJgkZa3jRrpn0cuX1yzIx7n05+8F16TEUG5Xc415Q6E
+ cFKmY6WAp45aSIpL1/i6XFGF14Kp79ZrUFVuttwaLJ8svEs/YS3AcnEcTOGHfzVvB0Ra
+ czNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=0QHpnXfDLIU42Ajcn7oe5u4g/H2EWJ6mBd+W546xwxc=;
- b=miuW/iMVzxqVEYsS2dSLiKoW5nRL8qg1FKaUFtI3ZK7+kZZGxFnHi+/hjLb9jTaJpx
- jFlhAdJn0PEMpiCWkDi21Rol6sKe8fQerXadTKSPnAFWLCK1u1yEhqalIgjTBwC6LMQS
- pl6hu+TVZYjQRr5K+5/z9XyMnWBB4Tyyz7OWOPeG4k1vGjrwo+UbrwPrDy54a9bp/wHa
- toVhRd+yUCFMzqeVdqeupwdr9RaoBaxA75S3Jvspl2scyJ7SN5nc1QJIxxB9ecEZ9Qe0
- QYDxRz7YQuJ3qHOJz0C9xlZ10jHjtfEwVOODqCVRnfDS2idAVwEdcLNBTYeOY07krYq2
- pG9g==
-X-Gm-Message-State: AOAM533HucrZdPVvupr+mECX5vxEoPonpNC3PsCSnKMT+xfEgUDT7gvO
- sR03iPIidoQoHA8FhLlscVRm7EGV
-X-Google-Smtp-Source: ABdhPJwdhVkHS2DNi9/Nuua9kYv3yXSI9U6EZrJZD0L9oLp14VJMoLqPgvUyonhT8Gg2MqBfLOmlcA==
-X-Received: by 2002:a37:a64c:: with SMTP id p73mr6240900qke.273.1591846231748; 
- Wed, 10 Jun 2020 20:30:31 -0700 (PDT)
+ bh=acDEo8MXiNoRRWQ/LKc41cpCF79OTRwWmw6nG02XKJE=;
+ b=cv17oiOiJZzA1YMmQwbDkmZz5/KTkSUeY10QZ3Eju9ah9mFnWiFyOtXXEL2O6B8EcT
+ mt+5kHEiY2oyXCoqrVdmQESBWSI+t4cgTJnoTf4Gxhz473P4qvXwyysRvkMsUKpTUUBw
+ PmDZKKoCqDHskDrjOJ9vzFfYYtH9w+oAlOTnfNY3L3p7GdXv6FJwIFbYUyH6PfGDjS43
+ BRx7/tT0bj6ZJcKYS49Cjde/IRdizvtdYtKvbgA+3cLLDzlMPNLX6BexDnpk5KEmVDll
+ vdZqBdUixL9/ZRhV2VvKdr6Jr2jv1T/59CKyHvX9NqXjHYSxh95vf8t6LaDkqkKXx+kj
+ Wj7A==
+X-Gm-Message-State: AOAM532LJQ6buj7YIc6AlaPAohSCGbQKe8evCTD40s0ZJYuJG15qMLoi
+ LGthS+zhjBfSOLSlJSX0UNM82ba8
+X-Google-Smtp-Source: ABdhPJxCYNtb5p4oYxf9KdVt/5taYFzlGn+/XLgqcMPRp/Tup+mWZ10k/7oJPMPupNmwbz2Vz0r50A==
+X-Received: by 2002:a37:a416:: with SMTP id n22mr6190740qke.49.1591846233327; 
+ Wed, 10 Jun 2020 20:30:33 -0700 (PDT)
 Received: from shine.lan ([2001:470:8:67e:dd4d:2b5c:f471:f332])
- by smtp.gmail.com with ESMTPSA id v3sm1164078qkh.130.2020.06.10.20.30.30
+ by smtp.gmail.com with ESMTPSA id v3sm1164078qkh.130.2020.06.10.20.30.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jun 2020 20:30:31 -0700 (PDT)
+ Wed, 10 Jun 2020 20:30:32 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2 06/10] vchan-socket-proxy: Use a struct to store state
-Date: Wed, 10 Jun 2020 23:29:32 -0400
-Message-Id: <20200611032936.350657-7-jandryuk@gmail.com>
+Subject: [PATCH v2 07/10] vchan-socket-proxy: Switch data_loop() to take state
+Date: Wed, 10 Jun 2020 23:29:33 -0400
+Message-Id: <20200611032936.350657-8-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200611032936.350657-1-jandryuk@gmail.com>
 References: <20200611032936.350657-1-jandryuk@gmail.com>
@@ -75,131 +75,153 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Use a struct to group the vchan ctrl and FDs.  This will facilite
-tracking the state of open and closed FDs and ctrl in data_loop().
+Switch data_loop to take a pointer to vchan_proxy_state.
+
+No functional change.
+
+This removes a dead store to input_fd identified by Coverity.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- tools/libvchan/vchan-socket-proxy.c | 52 +++++++++++++++++------------
- 1 file changed, 30 insertions(+), 22 deletions(-)
+ tools/libvchan/vchan-socket-proxy.c | 65 +++++++++++++++--------------
+ 1 file changed, 33 insertions(+), 32 deletions(-)
 
 diff --git a/tools/libvchan/vchan-socket-proxy.c b/tools/libvchan/vchan-socket-proxy.c
-index 36a2fe2cb8..a932c94c97 100644
+index a932c94c97..29a12260ed 100644
 --- a/tools/libvchan/vchan-socket-proxy.c
 +++ b/tools/libvchan/vchan-socket-proxy.c
-@@ -89,6 +89,12 @@ int insiz = 0;
- int outsiz = 0;
- int verbose = 0;
+@@ -286,13 +286,13 @@ static void discard_buffers(struct libxenvchan *ctrl) {
+     }
+ }
  
-+struct vchan_proxy_state {
-+    struct libxenvchan *ctrl;
-+    int output_fd;
-+    int input_fd;
-+};
-+
- static void vchan_wr(struct libxenvchan *ctrl) {
-     int ret;
- 
-@@ -381,8 +387,9 @@ int main(int argc, char **argv)
+-int data_loop(struct libxenvchan *ctrl, int input_fd, int output_fd)
++int data_loop(struct vchan_proxy_state *state)
  {
-     int is_server = 0;
-     int socket_fd = -1;
--    int input_fd, output_fd;
--    struct libxenvchan *ctrl = NULL;
-+    struct vchan_proxy_state state = { .ctrl = NULL,
-+                                       .input_fd = -1,
-+                                       .output_fd = -1 };
-     const char *socket_path;
-     int domid;
-     const char *vchan_path;
-@@ -422,15 +429,15 @@ int main(int argc, char **argv)
-     socket_path = argv[optind+2];
+     int ret;
+     int libxenvchan_fd;
+     int max_fd;
  
-     if (is_server) {
--        ctrl = libxenvchan_server_init(NULL, domid, vchan_path, 0, 0);
--        if (!ctrl) {
-+        state.ctrl = libxenvchan_server_init(NULL, domid, vchan_path, 0, 0);
-+        if (!state.ctrl) {
-             perror("libxenvchan_server_init");
+-    libxenvchan_fd = libxenvchan_fd_for_select(ctrl);
++    libxenvchan_fd = libxenvchan_fd_for_select(state->ctrl);
+     for (;;) {
+         fd_set rfds;
+         fd_set wfds;
+@@ -300,15 +300,15 @@ int data_loop(struct libxenvchan *ctrl, int input_fd, int output_fd)
+         FD_ZERO(&wfds);
+ 
+         max_fd = -1;
+-        if (input_fd != -1 && insiz != BUFSIZE) {
+-            FD_SET(input_fd, &rfds);
+-            if (input_fd > max_fd)
+-                max_fd = input_fd;
++        if (state->input_fd != -1 && insiz != BUFSIZE) {
++            FD_SET(state->input_fd, &rfds);
++            if (state->input_fd > max_fd)
++                max_fd = state->input_fd;
+         }
+-        if (output_fd != -1 && outsiz) {
+-            FD_SET(output_fd, &wfds);
+-            if (output_fd > max_fd)
+-                max_fd = output_fd;
++        if (state->output_fd != -1 && outsiz) {
++            FD_SET(state->output_fd, &wfds);
++            if (state->output_fd > max_fd)
++                max_fd = state->output_fd;
+         }
+         FD_SET(libxenvchan_fd, &rfds);
+         if (libxenvchan_fd > max_fd)
+@@ -319,52 +319,53 @@ int data_loop(struct libxenvchan *ctrl, int input_fd, int output_fd)
              exit(1);
          }
-     } else {
-         if (strcmp(socket_path, "-") == 0) {
--            input_fd = 0;
--            output_fd = 1;
-+            state.input_fd = 0;
-+            state.output_fd = 1;
-         } else {
-             socket_fd = listen_socket(socket_path);
-             if (socket_fd == -1) {
-@@ -460,21 +467,21 @@ int main(int argc, char **argv)
-     for (;;) {
-         if (is_server) {
-             /* wait for vchan connection */
--            while (libxenvchan_is_open(ctrl) != 1)
--                libxenvchan_wait(ctrl);
-+            while (libxenvchan_is_open(state.ctrl) != 1)
-+                libxenvchan_wait(state.ctrl);
-             /* vchan client connected, setup local FD if needed */
-             if (strcmp(socket_path, "-") == 0) {
--                input_fd = 0;
--                output_fd = 1;
-+                state.input_fd = 0;
-+                state.output_fd = 1;
-             } else {
--                input_fd = output_fd = connect_socket(socket_path);
-+                state.input_fd = state.output_fd = connect_socket(socket_path);
+         if (FD_ISSET(libxenvchan_fd, &rfds)) {
+-            libxenvchan_wait(ctrl);
+-            if (!libxenvchan_is_open(ctrl)) {
++            libxenvchan_wait(state->ctrl);
++            if (!libxenvchan_is_open(state->ctrl)) {
+                 if (verbose)
+                     fprintf(stderr, "vchan client disconnected\n");
+                 while (outsiz)
+-                    socket_wr(output_fd);
+-                close(output_fd);
+-                close(input_fd);
+-                discard_buffers(ctrl);
++                    socket_wr(state->output_fd);
++                close(state->output_fd);
++                close(state->input_fd);
++                discard_buffers(state->ctrl);
+                 break;
              }
--            if (input_fd == -1) {
-+            if (state.input_fd == -1) {
-                 fprintf(stderr, "connect_socket failed\n");
+-            vchan_wr(ctrl);
++            vchan_wr(state->ctrl);
+         }
+ 
+-        if (FD_ISSET(input_fd, &rfds)) {
+-            ret = read(input_fd, inbuf + insiz, BUFSIZE - insiz);
++        if (FD_ISSET(state->input_fd, &rfds)) {
++            ret = read(state->input_fd, inbuf + insiz, BUFSIZE - insiz);
+             if (ret < 0 && errno != EAGAIN)
+                 exit(1);
+             if (verbose)
+                 fprintf(stderr, "from-unix: %.*s\n", ret, inbuf + insiz);
+             if (ret == 0) {
+                 /* EOF on socket, write everything in the buffer and close the
+-                 * input_fd socket */
++                 * state->input_fd socket */
+                 while (insiz) {
+-                    vchan_wr(ctrl);
+-                    libxenvchan_wait(ctrl);
++                    vchan_wr(state->ctrl);
++                    libxenvchan_wait(state->ctrl);
+                 }
+-                close(input_fd);
+-                input_fd = -1;
++                close(state->input_fd);
++                state->input_fd = -1;
+                 /* TODO: maybe signal the vchan client somehow? */
+                 break;
+             }
+             if (ret)
+                 insiz += ret;
+-            vchan_wr(ctrl);
++            vchan_wr(state->ctrl);
+         }
+-        if (FD_ISSET(output_fd, &wfds))
+-            socket_wr(output_fd);
+-        while (libxenvchan_data_ready(ctrl) && outsiz < BUFSIZE) {
+-            ret = libxenvchan_read(ctrl, outbuf + outsiz, BUFSIZE - outsiz);
++        if (FD_ISSET(state->output_fd, &wfds))
++            socket_wr(state->output_fd);
++        while (libxenvchan_data_ready(state->ctrl) && outsiz < BUFSIZE) {
++            ret = libxenvchan_read(state->ctrl, outbuf + outsiz,
++                                   BUFSIZE - outsiz);
+             if (ret < 0)
+                 exit(1);
+             if (verbose)
+                 fprintf(stderr, "from-vchan: %.*s\n", ret, outbuf + outsiz);
+             outsiz += ret;
+-            socket_wr(output_fd);
++            socket_wr(state->output_fd);
+         }
+     }
+     return 0;
+@@ -481,7 +482,7 @@ int main(int argc, char **argv)
                  ret = 1;
                  break;
              }
--            if (data_loop(ctrl, input_fd, output_fd) != 0)
-+            if (data_loop(state.ctrl, state.input_fd, state.output_fd) != 0)
+-            if (data_loop(state.ctrl, state.input_fd, state.output_fd) != 0)
++            if (data_loop(&state) != 0)
                  break;
              /* keep it running only when get UNIX socket path */
              if (socket_path[0] != '/')
-@@ -482,28 +489,29 @@ int main(int argc, char **argv)
-         } else {
-             /* wait for local socket connection */
-             if (strcmp(socket_path, "-") != 0)
--                input_fd = output_fd = accept(socket_fd, NULL, NULL);
--            if (input_fd == -1) {
-+                state.input_fd = state.output_fd = accept(socket_fd,
-+                                                          NULL, NULL);
-+            if (state.input_fd == -1) {
-                 perror("accept");
+@@ -504,7 +505,7 @@ int main(int argc, char **argv)
                  ret = 1;
                  break;
              }
--            set_nonblocking(input_fd, 1);
--            set_nonblocking(output_fd, 1);
--            ctrl = connect_vchan(domid, vchan_path);
--            if (!ctrl) {
-+            set_nonblocking(state.input_fd, 1);
-+            set_nonblocking(state.output_fd, 1);
-+            state.ctrl = connect_vchan(domid, vchan_path);
-+            if (!state.ctrl) {
-                 perror("vchan client init");
-                 ret = 1;
-                 break;
-             }
--            if (data_loop(ctrl, input_fd, output_fd) != 0)
-+            if (data_loop(state.ctrl, state.input_fd, state.output_fd) != 0)
+-            if (data_loop(state.ctrl, state.input_fd, state.output_fd) != 0)
++            if (data_loop(&state) != 0)
                  break;
              /* don't reconnect if output was stdout */
              if (strcmp(socket_path, "-") == 0)
-                 break;
- 
--            libxenvchan_close(ctrl);
--            ctrl = NULL;
-+            libxenvchan_close(state.ctrl);
-+            state.ctrl = NULL;
-         }
-     }
- 
 -- 
 2.25.1
 
