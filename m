@@ -2,44 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB8DF1F6B2A
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2020 17:37:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4B121F6BC6
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2020 18:01:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjPFH-0003wc-9R; Thu, 11 Jun 2020 15:35:59 +0000
+	id 1jjPdA-0006uU-9x; Thu, 11 Jun 2020 16:00:40 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iFEF=7Y=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jjPFF-0003wX-Bq
- for xen-devel@lists.xenproject.org; Thu, 11 Jun 2020 15:35:57 +0000
-X-Inumbo-ID: 3de50618-abf9-11ea-b543-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=TmH/=7Y=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jjPd8-0006uP-6q
+ for xen-devel@lists.xenproject.org; Thu, 11 Jun 2020 16:00:38 +0000
+X-Inumbo-ID: b0bdee9a-abfc-11ea-b546-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3de50618-abf9-11ea-b543-12813bfff9fa;
- Thu, 11 Jun 2020 15:35:56 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1C2AAADE8;
- Thu, 11 Jun 2020 15:35:59 +0000 (UTC)
+ id b0bdee9a-abfc-11ea-b546-12813bfff9fa;
+ Thu, 11 Jun 2020 16:00:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Qgt/OlqG3i6mOaCMtJT58zik+YXK2HMOThtAuwaUZp4=; b=XVsMsV/nzsh/SIE88qdWNc92jc
+ iuQZ1JE7mhFgjjlEgaQMTLQ6iyl3ojJsTnbX5XrSOOzZzZmjcXC5luyL6iI5nevO8iRQWsNbDweAn
+ TsXu8WuGfBBAj9jkvt6MxoHXxklr0OlpRfwZ3FS/4Ml++k6JOM/9wbRo3l7h7phaqCpw=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jjPd4-0008Hp-RH; Thu, 11 Jun 2020 16:00:34 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jjPd4-0002oU-K7; Thu, 11 Jun 2020 16:00:34 +0000
 Subject: Re: Kexec and libxenctlr.so
-To: Julien Grall <julien@xen.org>, Julien Grall <jgrall@amazon.com>,
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Julien Grall <jgrall@amazon.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Anthony Perard <anthony.perard@citrix.com>, "wl@xen.org" <wl@xen.org>,
  daniel.kiper@oracle.com
 References: <7a88218d-981e-6583-15a5-3fcaffb05294@amazon.com>
  <261293b1-f4c9-e41d-0c76-cd47fe5c0dc2@suse.com>
  <5602eebf-c149-17f7-37c9-b263ff290509@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <ffd017a7-8278-85ee-81fa-9dad147eb0e5@suse.com>
-Date: Thu, 11 Jun 2020 17:35:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <ffd017a7-8278-85ee-81fa-9dad147eb0e5@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <6fa3067c-2c71-bb8e-eab8-30f44782d002@xen.org>
+Date: Thu, 11 Jun 2020 17:00:32 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <5602eebf-c149-17f7-37c9-b263ff290509@xen.org>
+In-Reply-To: <ffd017a7-8278-85ee-81fa-9dad147eb0e5@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -57,72 +73,85 @@ Cc: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 11.06.20 17:27, Julien Grall wrote:
-> Hi,
-> 
-> On 11/06/2020 16:21, Jürgen Groß wrote:
->> On 11.06.20 16:57, Julien Grall wrote:
->>> Hi all,
->>>
->>> kexec-tools has an option to load dynamically libxenctlr.so (not 
->>> .so.4.x) (see [1]).
->>>
->>> Given that the library has never been considered stable, it is 
->>> probably a disaster that is waiting to happen.
->>>
->>> Looking at the tree kexec is using the follow libxc functions:
->>>     - xc_kexec_get_range()
->>>     - xc_kexec_load()
->>>     - xc_kexec_unload()
->>>     - xc_kexec_status()
->>>     - xc_kexec_exec()
->>>     - xc_version()
->>>     - xc_interface_open()
->>>     - xc_interface_close()
->>>     - xc_get_max_cpus()
->>>     - xc_get_machine_memory_map()
->>>
->>> I think it is uncontroversial that we want a new stable library for 
->>> all the xc_kexec_* functions (maybe libxenexec)?
->>>
->>> However I am not entirely sure where to put the others.
->>>
->>> I am thinking to introduce libxensysctl for xc_get_max_cpus() as it 
->>> is a XEN_SYSCTL. We could possibly include 
->>> xc_get_machine_memory_map() (despite it is a XENMEM_).
->>>
->>> For xc_version(), I am thinking to extend libxentoolcore to also 
->>> include "stable xen API".
->>>
->>> Any opinion on the approach?
+
+
+On 11/06/2020 16:35, Jürgen Groß wrote:
+> On 11.06.20 17:27, Julien Grall wrote:
+>> Hi,
 >>
->> You could consider hypfs (at least for some of the functionality).
+>> On 11/06/2020 16:21, Jürgen Groß wrote:
+>>> On 11.06.20 16:57, Julien Grall wrote:
+>>>> Hi all,
+>>>>
+>>>> kexec-tools has an option to load dynamically libxenctlr.so (not 
+>>>> .so.4.x) (see [1]).
+>>>>
+>>>> Given that the library has never been considered stable, it is 
+>>>> probably a disaster that is waiting to happen.
+>>>>
+>>>> Looking at the tree kexec is using the follow libxc functions:
+>>>>     - xc_kexec_get_range()
+>>>>     - xc_kexec_load()
+>>>>     - xc_kexec_unload()
+>>>>     - xc_kexec_status()
+>>>>     - xc_kexec_exec()
+>>>>     - xc_version()
+>>>>     - xc_interface_open()
+>>>>     - xc_interface_close()
+>>>>     - xc_get_max_cpus()
+>>>>     - xc_get_machine_memory_map()
+>>>>
+>>>> I think it is uncontroversial that we want a new stable library for 
+>>>> all the xc_kexec_* functions (maybe libxenexec)?
+>>>>
+>>>> However I am not entirely sure where to put the others.
+>>>>
+>>>> I am thinking to introduce libxensysctl for xc_get_max_cpus() as it 
+>>>> is a XEN_SYSCTL. We could possibly include 
+>>>> xc_get_machine_memory_map() (despite it is a XENMEM_).
+>>>>
+>>>> For xc_version(), I am thinking to extend libxentoolcore to also 
+>>>> include "stable xen API".
+>>>>
+>>>> Any opinion on the approach?
+>>>
+>>> You could consider hypfs (at least for some of the functionality).
+>>
+>> That would work!
+>>
+>>>
+>>> xc_version() and xc_get_max_cpus() would be rather easy.
+>>
+>> I am guessing we will need a fallback to the normal hypercalls if 
+>> hypfs is not present.
 > 
-> That would work!
+> Or we don't support kexec-tools running on a system without hypfs
+> (or the related functions would return an error on those systems).
+
+AFAICT, hypfs allows you to modify runtime parameters which is not 
+required for kexec.
+
+Such feature could be undesirable in some setup and therefore I don't 
+think this is acceptable to impose that for kexec.
+
 > 
 >>
->> xc_version() and xc_get_max_cpus() would be rather easy.
+>>> xc_get_machine_memory_map() is using a stable hypercall used by
+>>> the kernel, too.
+>>
+>> IIUC, you are suggesting to put this one in hypfs library as well. Is 
+>> that correct?
 > 
-> I am guessing we will need a fallback to the normal hypercalls if hypfs 
-> is not present.
-
-Or we don't support kexec-tools running on a system without hypfs
-(or the related functions would return an error on those systems).
-
+> Not really. I wanted to point out that this call would be a good
+> candidate for another stable library, maybe part of libxenexec?
 > 
->> xc_get_machine_memory_map() is using a stable hypercall used by
->> the kernel, too.
+> In theory the memory map could be dumped via a hypfs node, either
+> as a string (not nice for working with it) or as binary blob, of
+> course.
 > 
-> IIUC, you are suggesting to put this one in hypfs library as well. Is 
-> that correct?
+> 
+> Juergen
 
-Not really. I wanted to point out that this call would be a good
-candidate for another stable library, maybe part of libxenexec?
-
-In theory the memory map could be dumped via a hypfs node, either
-as a string (not nice for working with it) or as binary blob, of
-course.
-
-
-Juergen
+-- 
+Julien Grall
 
