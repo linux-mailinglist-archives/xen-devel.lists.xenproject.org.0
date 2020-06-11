@@ -2,76 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67FDF1F6912
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2020 15:34:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74D741F695A
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2020 15:49:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjNL2-0001pB-4y; Thu, 11 Jun 2020 13:33:48 +0000
+	id 1jjNZa-0002nX-E0; Thu, 11 Jun 2020 13:48:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XPau=7Y=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jjNL1-0001p6-75
- for xen-devel@lists.xenproject.org; Thu, 11 Jun 2020 13:33:47 +0000
-X-Inumbo-ID: 2cc04b06-abe8-11ea-bca7-bc764e2007e4
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rsWf=7Y=gmail.com=dunlapg@srs-us1.protection.inumbo.net>)
+ id 1jjNZY-0002nR-MP
+ for xen-devel@lists.xenproject.org; Thu, 11 Jun 2020 13:48:48 +0000
+X-Inumbo-ID: 45b2e982-abea-11ea-bb8b-bc764e2007e4
+Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2cc04b06-abe8-11ea-bca7-bc764e2007e4;
- Thu, 11 Jun 2020 13:33:46 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id l10so6167462wrr.10
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2020 06:33:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=V4u0XW0sq3+1Rb7aA4YKUdRc9wue2mtPLEIIwicVyT4=;
- b=Oi3qpGCCxNG/Vn82vElw9RuzyJfYi9g9QX1oicQ8GyuhXRR7ha1Q95mNU2PFLJaP51
- Whxd9DY04DbNbr24DbyeXFoZVPRJGGgvImX6u1E3KzcKGoa+mr24y3TDUq5efD2RyyDI
- yvXPJDPAJcChKfemXr50tMVXfgxV7EI+qQFSwTcBma1Gor/joeSxQrxrDXv9IihQoq5e
- jeaIyKScnrkRDR9xKG9GVE07HKjImqsBauLqwdSxFpV3QrJ2xpzxb2lPC55PEsFCqdlB
- SGk3RdMMeEj1w2geq4bsUwwDD2lhBFX7Bz7otL7QWKP96VMbrVmZ9jk5kKcy2iR6hj5r
- r5+w==
+ id 45b2e982-abea-11ea-bb8b-bc764e2007e4;
+ Thu, 11 Jun 2020 13:48:47 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id w16so5975216ejj.5
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2020 06:48:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=umich.edu; s=google-2016-06-03;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=HsnFYtbzFzP/QoDBhCqgQNFkyNpcu1IJ8yezc2HzJrM=;
+ b=JYi/oG/akEXJDuehVyYk+KdQGA/7lF7FXLEYVxgffmjNMUGHXMKwa9xd5hJQeEv/oj
+ EF0QHTESTpGnZZ2DrqJeRnnSBUTe9MyDpuWOEEthjKl4B0KbJEOKHuGMRxOoPW7M9fRi
+ bnkUu2AERA2SKYTYbaKYDy8Dh7UQq4m/RHrSc6wJYnY8AgnInAPIjh2Gkcd1gCKnI411
+ n0YHsGMQPER/YbExnr7zZwM7POqT7KClKDQV+c35SSJZyTY/QfOsNEw/jc1kORytzS5g
+ JtNrGJadzY2ZaTARj4Tb5+WplMFFGPkPfn94MkYj8txbebCDWsIbvAicPxBIrkyd0moZ
+ OLMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=V4u0XW0sq3+1Rb7aA4YKUdRc9wue2mtPLEIIwicVyT4=;
- b=Vbn2MZEqBBZAQhUuoV3tbHPU4cFuSb4lSG2k838fL1xpYd+KiTUg+pKxIjENCeg11O
- zcr7kIw7hTGN1l9DBQ8UeYtaV0t0SasGH9RIptgKPd3El3WQPvBfW4JXiSni0zZl6YS3
- q4DRzoA/0nN6LOfHTLZUviTc/G0Y3Mh1HX/4icj3lp8aWnGcayARWrV34b07/08y2sQd
- 0XQ5smXEHIHoAhBzUwOK5y3JE8F3qgj+v3mvFxX+EhZaXCk12MizIcM8UEr5J06RJe5z
- jJ/WeOECJjmbzRctCRGed3AmI6r/qDhwoivpRVkShsoPey2DGjlesKlbHrDUjVzng9VT
- LEng==
-X-Gm-Message-State: AOAM533GwOthy8F/YFNy+K7BHWCdAzMqXNc2a/EO3ArjsDZrWvLZQVmb
- KYAr3UUYfK3MJu89/22O4JE=
-X-Google-Smtp-Source: ABdhPJzb0+9WinKjDHVX4R9JUn2+3N0/77C5hH2WeLcJxGXErHJIQr/usA8diMmm38OjWa7j2FrlCA==
-X-Received: by 2002:adf:c6c5:: with SMTP id c5mr9188797wrh.13.1591882425568;
- Thu, 11 Jun 2020 06:33:45 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.177])
- by smtp.gmail.com with ESMTPSA id z8sm4988629wru.33.2020.06.11.06.33.43
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 11 Jun 2020 06:33:45 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Julien Grall'" <julien@xen.org>,
- "'Julien Grall'" <julien.grall.oss@gmail.com>,
- =?utf-8?Q?'J=C3=BCrgen_Gro=C3=9F'?= <jgross@suse.com>
-References: <20200609154546.4531-1-jgross@suse.com>
- <4a3c4e5e-1fbd-5017-1e3e-64052ae2410a@xen.org>
- <fa5aaa8c-f695-cd87-a837-7d41e4f64a82@suse.com>
- <CAJ=z9a1QHY_4Ktg8jTfWeBwfrX6nsjoHhz4VT_ap-hiMvftoFg@mail.gmail.com>
- <1da8a9bd-b77a-86c0-5b6a-638ea94b2cbc@xen.org>
-In-Reply-To: <1da8a9bd-b77a-86c0-5b6a-638ea94b2cbc@xen.org>
-Subject: RE: [PATCH for-4.14] xen/hypfs: fix loglvl parameter setting
-Date: Thu, 11 Jun 2020 14:33:43 +0100
-Message-ID: <00ec01d63ff4$ede7f460$c9b7dd20$@xen.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=HsnFYtbzFzP/QoDBhCqgQNFkyNpcu1IJ8yezc2HzJrM=;
+ b=SM7pqbMf2A5Q4fpIL6Ebmv1CWCZ2lMCCEdhdiO2663B6ixQvOecb6CUF2kqASRVpCP
+ UHFKjMKR2xnL7woJMUO+VOCIlCBbYow/U+dU0k+HkcoQgu9V0uvyC/f5yp5BG/uUmv3r
+ cHtF/UclWf71VofpfdqLYiyvcZQ/xI0nHi73SKGfkm3kVXkCpc9Wa5MgfCiv95fquKOv
+ 47duXd0H4uJU6o/ny6LubI3FxuzdAu179YLwwqvnv4c8keaPySBXh8kul2UC6CjoRwc1
+ zhNdHtpYpMQE5e0vl4NKe5o39wobaLe6Qybi8VO60OOLpVAcKwg7nICjPyh4B8QtGkyv
+ jsCg==
+X-Gm-Message-State: AOAM532v3g4UoF84eWkBAknCJ4ppNTTiJ3J5fnLrsH7we+IrqPTVfrQr
+ 98GoiSAZAT3o5+XsjM1ZPquGm3QlmJm0P7Z2GII=
+X-Google-Smtp-Source: ABdhPJzGxJ70Aw8WdRrM3Da4wfXhE9wkU3d/nLwCc6rV0q1ru62dD/XpCJq8bRKvhrMS6cvJQhAEHY8zH44DkI9EYh0=
+X-Received: by 2002:a17:906:cd05:: with SMTP id
+ oz5mr9015280ejb.335.1591883326500; 
+ Thu, 11 Jun 2020 06:48:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQHwbJlqkk7O35noToy96/KV5kSeeQKFTsPRAb1oUx0DSQa4gwGSMGxrqFYhDdA=
+References: <20191126100801.124844-1-wipawel@amazon.de>
+In-Reply-To: <20191126100801.124844-1-wipawel@amazon.de>
+From: George Dunlap <dunlapg@umich.edu>
+Date: Thu, 11 Jun 2020 14:48:35 +0100
+Message-ID: <CAFLBxZaejTq21f9a0CzFuTtsg9Au4USLdDEaVwxUbs-65qy__A@mail.gmail.com>
+Subject: Re: [Xen-devel] [PATCH v6 00/12] livepatch: new features and fixes
+To: Pawel Wieczorkiewicz <wipawel@amazon.de>
+Content-Type: multipart/alternative; boundary="00000000000033327705a7cf38b0"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,93 +66,301 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>,
- 'xen-devel' <xen-devel@lists.xenproject.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Julien Grall <julien@xen.org>
-> Sent: 11 June 2020 10:20
-> To: Julien Grall <julien.grall.oss@gmail.com>; J=C3=BCrgen Gro=C3=9F =
-<jgross@suse.com>; Paul Durrant
-> <paul@xen.org>
-> Cc: xen-devel <xen-devel@lists.xenproject.org>; Andrew Cooper =
-<andrew.cooper3@citrix.com>; George
-> Dunlap <george.dunlap@citrix.com>; Ian Jackson =
-<ian.jackson@eu.citrix.com>; Jan Beulich
-> <jbeulich@suse.com>; Stefano Stabellini <sstabellini@kernel.org>; Wei =
-Liu <wl@xen.org>
-> Subject: Re: [PATCH for-4.14] xen/hypfs: fix loglvl parameter setting
->=20
->=20
->=20
-> On 10/06/2020 22:47, Julien Grall wrote:
-> > On Wed, 10 Jun 2020 at 19:49, J=C3=BCrgen Gro=C3=9F =
-<jgross@suse.com> wrote:
-> >>
-> >> On 10.06.20 19:55, Julien Grall wrote:
-> >>> Hi Juergen,
-> >>>
-> >>> On 09/06/2020 16:45, Juergen Gross wrote:
-> >>>> Writing the runtime parameters loglvl or guest_loglvl omits =
-setting the
-> >>>> new length of the resulting parameter value.
-> >>>>
-> >>>> Reported-by: George Dunlap <george.dunlap@citrix.com>
-> >>>> Signed-off-by: Juergen Gross <jgross@suse.com>
-> >>>
-> >>> Reviewed-by: Julien Grall <jgrall@amazon.com>
-> >>>
-> >>> Although one unrelated comment below.
-> >>>
-> >>>> ---
-> >>>>    xen/drivers/char/console.c | 19 +++++++++++++++----
-> >>>>    1 file changed, 15 insertions(+), 4 deletions(-)
-> >>>>
-> >>>> diff --git a/xen/drivers/char/console.c =
-b/xen/drivers/char/console.c
-> >>>> index 56e24821b2..861ad53a8f 100644
-> >>>> --- a/xen/drivers/char/console.c
-> >>>> +++ b/xen/drivers/char/console.c
-> >>>> @@ -241,14 +241,25 @@ static int _parse_loglvl(const char *s, int
-> >>>> *lower, int *upper, char *val)
-> >>>>    static int parse_loglvl(const char *s)
-> >>>>    {
-> >>>> -    return _parse_loglvl(s, &xenlog_lower_thresh, =
-&xenlog_upper_thresh,
-> >>>> -                         xenlog_val);
-> >>>> +    int ret;
-> >>>> +
-> >>>> +    ret =3D _parse_loglvl(s, &xenlog_lower_thresh, =
-&xenlog_upper_thresh,
-> >>>> +                        xenlog_val);
-> >>>> +    custom_runtime_set_var(param_2_parfs(parse_loglvl), =
-xenlog_val);
-> >>>
-> >>> Mixing function and variable name is pretty confusing. It took me
-> >>> sometimes to go through the macro maze to figure out what's =
-happening.
-> >>>
-> >>> It might be worth thinking to document more the custom_runtime_* =
-interface.
-> >>
-> >> I have already some streamlining ideas for 4.15.
-> >
-> > Cool! I will commit it tomorrow morning.
->=20
-> Actually I am missing a Released-acked-by from Paul on this patch.
->=20
+--00000000000033327705a7cf38b0
+Content-Type: text/plain; charset="UTF-8"
 
-Release-acked-by: Paul Durrant <paul@xen.org>
+On Tue, Nov 26, 2019 at 10:14 AM Pawel Wieczorkiewicz <wipawel@amazon.de>
+wrote:
 
-> Cheers,
->=20
-> --
-> Julien Grall
+> This series introduces new features to the livepatch functionality as
+> briefly discussed during Xen Developer Summit 2019: [a] and [b].
+> It also provides a few fixes and some small improvements.
+>
+> Main changes in v6:
+> - Added missing action pad field zeroing
+>
+> Main changes in v4:
+> - Fix various typos and minor issues
+> - Simplify arch_livepatch_{apply,revert} by using
+>   common_livepatch_{apply,revert}
+> - Improve python bindings and fix few issues
+>
+> Main changes in v3:
+> - Fix expectation test to work on Arm
+> - Add test for metadata (Konrad)
+> - Minor fixes to documentation
+>
+> Main changes in v2:
+> - added new features to livepatch documentation
+> - added livepatch tests
+> - enabled Arm support for [5]
+> - make .modinfo optional for [11]
+> - fixed typos
+>
+> FEATURES:
+>
+> 1. independent modules (patches: [1], [2])
+>
+>   * livepatch-build-tools repo dependency [A]
+>
+>   Livepatch enforces the following buildid-based dependency chain
+>   between hotpatch modules:
+>     1) first module depends on given hypervisor buildid
+>     2) every consecutive module depends on previous module's buildid
+>   This way proper hotpatch stack order is maintained and enforced.
+>   While it is important for production hotpatches it limits agility and
+>   blocks usage of testing or debug hotpatches. These kinds of hotpatch
+>   modules are typically expected to be loaded at any time irrespective
+>   of current state of the modules stack.
+>
+>   [A] livepatch-build: Embed hypervisor build id into every hotpatch
+>
+> 2. pre- and post- apply|revert actions hooks (patches: [3], [4])
+>
+>   * livepatch-build-tools repo dependency [B]
+>
+>   This is an implementation of 4 new livepatch module vetoing hooks,
+>   that can be optionally supplied along with modules.
+>   Hooks that currently exists in the livepatch mechanism aren't agile
+>   enough and have various limitations:
+>   * run only from within a quiescing zone
+>   * cannot conditionally prevent applying or reverting
+>   * do not have access to the module context
+>   To address these limitations the following has been implemented:
+>   1) pre-apply hook
+>   2) post-apply hook
+>   3) pre-revert hook
+>   4) post-revert hook
+>
+>   [B] create-diff-object: Handle extra pre-|post- hooks
+>
+> 3. apply|revert actions replacement hooks (patches: [5], [6], [7])
+>
+>   * livepatch-build-tools repo dependency: [C], [D], [E]
+>
+>   To increase hotpatching system's agility and provide more flexiable
+>   long-term hotpatch solution, allow to overwrite the default apply
+>   and revert action functions with hook-like supplied alternatives.
+>   The alternative functions are optional and the default functions are
+>   used by default.
+>
+>   [C] create-diff-object: Do not create empty .livepatch.funcs section
+>   [D] create-diff-object: Handle optional apply|revert hooks
+>   [E] create-diff-object: Add support for applied/reverted marker
+>
+> 4. inline asm hotpatching expectations (patches: [8])
+>
+>   * livepatch-build-tools repo dependency: [F]
+>
+>   Expectations are designed as optional feature, since the main use of
+>   them is planned for inline asm hotpatching.
+>   The payload structure is modified as each expectation structure is
+>   part of the livepatch_func structure and hence extends the payload.
+>   The payload version is bumped to 3 with this change to highlight the
+>   ABI modification and enforce proper support.
+>   The expectation is manually enabled during inline asm module
+>   construction. If enabled, expectation ensures that the expected
+>   content of memory is to be found at a given patching (old_addr)
+>   location.
+>
+>   [F] create-diff-object: Add support for expectations
+>
+> 5. runtime hotpatch metadata support (patches: [9], [10], [11])
+>
+>   Having detailed hotpatch metadata helps to properly identify module's
+>   origin and version. It also allows to keep track of the history of
+>   hotpatch loads in the system (at least within dmesg buffer size
+>   limits).
+>   Extend the livepatch list operation to fetch also payloads' metadata.
+>   This is achieved by extending the sysctl list interface with 2 extra
+>   guest handles:
+>   * metadata     - an array of arbitrary size strings
+>   * metadata_len - an array of metadata strings' lengths (uin32_t each)
+>   To unify and simplify the interface, handle the modules' name strings
+>   of arbitrary size by copying them in adhering chunks to the userland.
+>
+> 6. python bindings for livepatch operations (patches: [12])
+>
+>   Extend the XC python bindings library to support all common livepatch
+>   operations and actions:
+>   - status (pyxc_livepatch_status):
+>   - action (pyxc_livepatch_action):
+>   - upload (pyxc_livepatch_upload):
+>   - list (pyxc_livepatch_list):
+>
 
+This series looks like it would be a good candidate for a CHANGELOG.md line.
+
+What about something like this:
+
+- Livepatch improvements: Buildid / hotpatch "stack" restrictions,
+Additional {pre,post}-{apply,revert} hooks, inline hotpatching
+expectations, runtime hotpatch metdata, python bindings for livepatch
+operations
+
+--00000000000033327705a7cf38b0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Nov 26, 2019 at 10:14 AM Pawe=
+l Wieczorkiewicz &lt;<a href=3D"mailto:wipawel@amazon.de">wipawel@amazon.de=
+</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+This series introduces new features to the livepatch functionality as<br>
+briefly discussed during Xen Developer Summit 2019: [a] and [b].<br>
+It also provides a few fixes and some small improvements.<br>
+<br>
+Main changes in v6:<br>
+- Added missing action pad field zeroing<br>
+<br>
+Main changes in v4:<br>
+- Fix various typos and minor issues<br>
+- Simplify arch_livepatch_{apply,revert} by using<br>
+=C2=A0 common_livepatch_{apply,revert}<br>
+- Improve python bindings and fix few issues<br>
+<br>
+Main changes in v3:<br>
+- Fix expectation test to work on Arm<br>
+- Add test for metadata (Konrad)<br>
+- Minor fixes to documentation<br>
+<br>
+Main changes in v2:<br>
+- added new features to livepatch documentation<br>
+- added livepatch tests<br>
+- enabled Arm support for [5]<br>
+- make .modinfo optional for [11]<br>
+- fixed typos<br>
+<br>
+FEATURES:<br>
+<br>
+1. independent modules (patches: [1], [2])<br>
+<br>
+=C2=A0 * livepatch-build-tools repo dependency [A]<br>
+<br>
+=C2=A0 Livepatch enforces the following buildid-based dependency chain<br>
+=C2=A0 between hotpatch modules:<br>
+=C2=A0 =C2=A0 1) first module depends on given hypervisor buildid<br>
+=C2=A0 =C2=A0 2) every consecutive module depends on previous module&#39;s =
+buildid<br>
+=C2=A0 This way proper hotpatch stack order is maintained and enforced.<br>
+=C2=A0 While it is important for production hotpatches it limits agility an=
+d<br>
+=C2=A0 blocks usage of testing or debug hotpatches. These kinds of hotpatch=
+<br>
+=C2=A0 modules are typically expected to be loaded at any time irrespective=
+<br>
+=C2=A0 of current state of the modules stack.<br>
+<br>
+=C2=A0 [A] livepatch-build: Embed hypervisor build id into every hotpatch<b=
+r>
+<br>
+2. pre- and post- apply|revert actions hooks (patches: [3], [4])<br>
+<br>
+=C2=A0 * livepatch-build-tools repo dependency [B]<br>
+<br>
+=C2=A0 This is an implementation of 4 new livepatch module vetoing hooks,<b=
+r>
+=C2=A0 that can be optionally supplied along with modules.<br>
+=C2=A0 Hooks that currently exists in the livepatch mechanism aren&#39;t ag=
+ile<br>
+=C2=A0 enough and have various limitations:<br>
+=C2=A0 * run only from within a quiescing zone<br>
+=C2=A0 * cannot conditionally prevent applying or reverting<br>
+=C2=A0 * do not have access to the module context<br>
+=C2=A0 To address these limitations the following has been implemented:<br>
+=C2=A0 1) pre-apply hook<br>
+=C2=A0 2) post-apply hook<br>
+=C2=A0 3) pre-revert hook<br>
+=C2=A0 4) post-revert hook<br>
+<br>
+=C2=A0 [B] create-diff-object: Handle extra pre-|post- hooks<br>
+<br>
+3. apply|revert actions replacement hooks (patches: [5], [6], [7])<br>
+<br>
+=C2=A0 * livepatch-build-tools repo dependency: [C], [D], [E]<br>
+<br>
+=C2=A0 To increase hotpatching system&#39;s agility and provide more flexia=
+ble<br>
+=C2=A0 long-term hotpatch solution, allow to overwrite the default apply<br=
+>
+=C2=A0 and revert action functions with hook-like supplied alternatives.<br=
+>
+=C2=A0 The alternative functions are optional and the default functions are=
+<br>
+=C2=A0 used by default.<br>
+<br>
+=C2=A0 [C] create-diff-object: Do not create empty .livepatch.funcs section=
+<br>
+=C2=A0 [D] create-diff-object: Handle optional apply|revert hooks<br>
+=C2=A0 [E] create-diff-object: Add support for applied/reverted marker<br>
+<br>
+4. inline asm hotpatching expectations (patches: [8])<br>
+<br>
+=C2=A0 * livepatch-build-tools repo dependency: [F]<br>
+<br>
+=C2=A0 Expectations are designed as optional feature, since the main use of=
+<br>
+=C2=A0 them is planned for inline asm hotpatching.<br>
+=C2=A0 The payload structure is modified as each expectation structure is<b=
+r>
+=C2=A0 part of the livepatch_func structure and hence extends the payload.<=
+br>
+=C2=A0 The payload version is bumped to 3 with this change to highlight the=
+<br>
+=C2=A0 ABI modification and enforce proper support.<br>
+=C2=A0 The expectation is manually enabled during inline asm module<br>
+=C2=A0 construction. If enabled, expectation ensures that the expected<br>
+=C2=A0 content of memory is to be found at a given patching (old_addr)<br>
+=C2=A0 location.<br>
+<br>
+=C2=A0 [F] create-diff-object: Add support for expectations<br>
+<br>
+5. runtime hotpatch metadata support (patches: [9], [10], [11])<br>
+<br>
+=C2=A0 Having detailed hotpatch metadata helps to properly identify module&=
+#39;s<br>
+=C2=A0 origin and version. It also allows to keep track of the history of<b=
+r>
+=C2=A0 hotpatch loads in the system (at least within dmesg buffer size<br>
+=C2=A0 limits).<br>
+=C2=A0 Extend the livepatch list operation to fetch also payloads&#39; meta=
+data.<br>
+=C2=A0 This is achieved by extending the sysctl list interface with 2 extra=
+<br>
+=C2=A0 guest handles:<br>
+=C2=A0 * metadata=C2=A0 =C2=A0 =C2=A0- an array of arbitrary size strings<b=
+r>
+=C2=A0 * metadata_len - an array of metadata strings&#39; lengths (uin32_t =
+each)<br>
+=C2=A0 To unify and simplify the interface, handle the modules&#39; name st=
+rings<br>
+=C2=A0 of arbitrary size by copying them in adhering chunks to the userland=
+.<br>
+<br>
+6. python bindings for livepatch operations (patches: [12])<br>
+<br>
+=C2=A0 Extend the XC python bindings library to support all common livepatc=
+h<br>
+=C2=A0 operations and actions:<br>
+=C2=A0 - status (pyxc_livepatch_status):<br>
+=C2=A0 - action (pyxc_livepatch_action):<br>
+=C2=A0 - upload (pyxc_livepatch_upload):<br>
+=C2=A0 - list (pyxc_livepatch_list):<br></blockquote><div><br></div><div><d=
+iv>This series looks like it would be a good candidate for a CHANGELOG.md l=
+ine.</div><div><br></div><div>What about something like this:</div><div><br=
+></div><div>-
+ Livepatch improvements: Buildid / hotpatch &quot;stack&quot; restrictions,=
+=20
+Additional {pre,post}-{apply,revert} hooks, inline hotpatching=20
+expectations, runtime hotpatch metdata, python bindings for livepatch=20
+operations</div><font color=3D"#888888"><div><br></div></font></div></div><=
+/div>
+
+--00000000000033327705a7cf38b0--
 
