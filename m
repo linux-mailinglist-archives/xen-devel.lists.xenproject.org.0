@@ -2,45 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07DCE1F7AEA
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 17:30:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C33A81F7B0F
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 17:44:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjlco-0003hc-Gn; Fri, 12 Jun 2020 15:29:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jjlqh-0005Ii-PW; Fri, 12 Jun 2020 15:44:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u81f=7Z=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jjlcn-0003hV-36
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 15:29:45 +0000
-X-Inumbo-ID: 8a4354ed-acc1-11ea-b5e1-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8a4354ed-acc1-11ea-b5e1-12813bfff9fa;
- Fri, 12 Jun 2020 15:29:44 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4A74CACA7;
- Fri, 12 Jun 2020 15:29:46 +0000 (UTC)
-Message-ID: <78910b5c27a3711726d53e931feb075c5cc4a64c.camel@suse.com>
-Subject: Re: [RFC PATCH v1 4/6] xentop: collect IRQ and HYP time statistics.
-From: Dario Faggioli <dfaggioli@suse.com>
-To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Date: Fri, 12 Jun 2020 17:29:40 +0200
-In-Reply-To: <a5d7bbe8-a9ff-1396-bd7f-3b6143bddac7@suse.com>
-References: <20200612002205.174295-1-volodymyr_babchuk@epam.com>
- <20200612002205.174295-5-volodymyr_babchuk@epam.com>
- <2a0ff6f5-1ada-9d0a-5014-709c873ec3e3@suse.com>
- <88eac035-8769-24f7-45e6-11a1c4739ccb@xen.org>
- <a5d7bbe8-a9ff-1396-bd7f-3b6143bddac7@suse.com>
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-E3CEUp2PggUbrhDrBR5L"
-User-Agent: Evolution 3.36.3 
+ <SRS0=dChH=7Z=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jjlqg-0005Ib-5G
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 15:44:06 +0000
+X-Inumbo-ID: 8b9e425a-acc3-11ea-bb8b-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8b9e425a-acc3-11ea-bb8b-bc764e2007e4;
+ Fri, 12 Jun 2020 15:44:05 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: /4zzphKVAOE+c6m0SyfnltFuDjtRwyrGfrggpTZUCt3W+rhsIH/D7qh35/WSGbC0uht8mHSlLx
+ ks8y3BIk33r1Mz23qv+Lcm+CLYAn10xNSTzNlK1094HeNBpsos+Q+0KJaVoT+fm27byRoGnVUU
+ N7j9uC1PeMMp8f4Td9Bu/d7sWvioVeS/qbS7D2qrT/ci+5o39V2amLM5NH2kNwzIUdwBbDksWr
+ Z7qjXhVtXMOJhpu7VWanifY+QLMFbVslM8qcNJFsfNpAeac3/xEZ3QfwN8BPWxTe9Y4HKKcNj8
+ HwQ=
+X-SBRS: 2.7
+X-MesageID: 20687027
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="20687027"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24291.41663.838349.127061@mariner.uk.xensource.com>
+Date: Fri, 12 Jun 2020 16:43:59 +0100
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+Subject: Re: [PATCH for-4.14] tools: fix error path of xendevicemodel_open()
+In-Reply-To: <765b4fed-60d3-9c4a-d6b7-bcd9893c525b@citrix.com>
+References: <20200610114004.30023-1-andrew.cooper3@citrix.com>
+ <010401d6408a$2c57bba0$850732e0$@xen.org>
+ <765b4fed-60d3-9c4a-d6b7-bcd9893c525b@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,78 +54,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: 'Juergen Gross' <jgross@suse.com>,
+ 'Xen-devel' <xen-devel@lists.xenproject.org>, 'Wei Liu' <wl@xen.org>,
+ "paul@xen.org" <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Andrew Cooper writes ("Re: [PATCH for-4.14] tools: fix error path of xendevicemodel_open()"):
+> There is still the crash described below which needs some form of
+> figuring out and fixing.
+...
+> >> Failure to create the logger will still hit the NULL deference, in all of the
+> >> stable libs, not just devicemodel.
 
---=-E3CEUp2PggUbrhDrBR5L
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Are you sure ?
 
-On Fri, 2020-06-12 at 14:41 +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> On 12.06.20 14:29, Julien Grall wrote:
-> > On 12/06/2020 05:57, J=C3=BCrgen Gro=C3=9F wrote:
-> > > On 12.06.20 02:22, Volodymyr Babchuk wrote:
-> > > >=20
-> > > > @@ -994,9 +998,22 @@ s_time_t sched_get_time_correction(struct=20
-> > > > sched_unit *u)
-> > > >               break;
-> > > >       }
-> > > > +    spin_lock_irqsave(&sched_stat_lock, flags);
-> > > > +    sched_stat_irq_time +=3D irq;
-> > > > +    sched_stat_hyp_time +=3D hyp;
-> > > > +    spin_unlock_irqrestore(&sched_stat_lock, flags);
-> > >=20
-> > > Please don't use a lock. Just use add_sized() instead which will
-> > > add
-> > > atomically.
-> >=20
-> > If we expect sched_get_time_correction to be called concurrently
-> > then we=20
-> > would need to introduce atomic64_t or a spin lock.
->=20
-> Or we could use percpu variables and add the cpu values up when
-> fetching the values.
->=20
-Yes, either percpu or atomic looks much better than locking, to me, for
-this.
+I think you mean this sequence of events:
 
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+  xencall_open(logger=NULL, open_flags=0)
+     xcall->logger = NULL; /* from logger */
+     xcall->logger_tofree = NULL;
+     if (1) {
+       xtl_createlogger_stdiostream => NULL
+       /* so */ goto err;
+     }
 
+   err:
+     xentoolcore__deregister_active_handle(&xcall->tc_ah); /* " */
+     osdep_xencall_close(xcall);
+     xencall_close(dmod->xcall);
+     xtl_logger_destroy(xcall->logger_tofree /* NULL */); // <- crash?
+     free(xcall);
 
---=-E3CEUp2PggUbrhDrBR5L
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+But xtl_logger_destroy(NULL) is a safe no-op.
 
------BEGIN PGP SIGNATURE-----
+However,
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl7jn2QACgkQFkJ4iaW4
-c+6gQg//QBMNiOfvDBk7sLcjbKTTV5c/G+t1XZj9uy3Y0DHcgOpqwOkdXiNJ2ONm
-ld+HkHGsNRkglocNFKCx8ZfLVvQX++KR/ou8BhvBItsqtB9frECppX2X6/ejbnu0
-OLHuQzfzM4qR2FEOwqvETq/l531NIqro81N4a4Qf4AGTcFDZsD3kv7s4HBUXoVvv
-Ahnt3MYP+ZwO1giV31Vw4XS8Vo89iHsvTV+K7eIhZOu/THa3yO0T8F1znGJ5lE8+
-JIR+mX22570m79SDsZui6YISixLStbh0UFizPvbp7OLAPH1C9vew/17JHYN11vEo
-lx2rlQ0g7rrf7Fifj4ilRFMTTGsQnR3bRstCqKcw98DvKwhUfkJEMF0AkH0IZXsP
-P1NDAvWYa4d1LqwnNC+qzVY7ScOgGzykSIAyrkvnaPX+QBvmjbRhZgZgwOB4lGMq
-PJV9HMbPnkMdJIpRfOtTZZlBtJwws78vxKQLow6wOWvKlbZj9qHna6imauN7vh78
-G+lurZyPJFCq3iJTP1twddhW8xtOEm/2oPQSWT0PibBjMDKI7+Lv/i/5dIe1PIwC
-WYW92qSZkdDIX0gIcauBMOgm7CcAe1vaol9SK9MFEKmwXQI3+oL1VMC4TQeVxYsw
-Uke5k8a5vfvHjG8nTPBaReZBlHHM26MOBskszhIFSWu1658tPO4=
-=YBDq
------END PGP SIGNATURE-----
+> >> Also, unless I'd triple checked the history, I was about to reintroduce the
+> >> deadlock from c/s 9976f3874d4
 
---=-E3CEUp2PggUbrhDrBR5L--
+These comments made me look again at 9976f3874d4 "tools:
+xentoolcore_restrict_all: Do deregistration before close".
 
+Just now I wrote:
+
+   I notice that the tail of xendevicemodel_open is now identical to
+   xendevicemodel_close.  I think this is expected, and that it would be
+   better to combine the two sets of code.  If they hadn't been separate
+   then we might have avoided this bug...
+
+But in fact this is not true.  xendevicemodel_close has them in the
+right order, but xendevicemodel_open's err block has them in the wrong
+order.
+
+Now that I look at xencall, I discover tht xencall_open's err block is
+not identical to xencall_close.  xencall close calls
+buffer_release_cache and xencall_open's err block does not.  Looking
+more closely I think this happens not to be a memory leak because
+xcall->buffer* don't contain any malloc'd stuff until they are used.
+
+But I think this is poor practice and another example of teardown code
+duplication being a bad idea.
+
+> >> because it totally counterintuitive wrong to
+> >> expect setup and teardown in opposite orders.
+
+Are you sure you wrote what you meant ?  To my mind it is usual for
+setup and teardown to proceed in precisely the opposite order.
+
+The need to call xentoolcore__deregister_active_handle before closing
+the fd is to my mind unusual and counterintuitive.  The reasons are
+explained in the commit message for 9976f3874d4cca82.
+
+Does that all make sense ?
+
+Perhaps we should at least delete the wrong err path of
+xendevicemodel_open with a call to xendevicemodel_close ?
+
+Ian.
 
