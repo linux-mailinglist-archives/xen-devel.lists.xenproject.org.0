@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206991F7B85
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 18:17:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 181E41F7BBA
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 18:41:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjmN7-00014Y-0G; Fri, 12 Jun 2020 16:17:37 +0000
+	id 1jjmjN-0003Qi-Sw; Fri, 12 Jun 2020 16:40:37 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dChH=7Z=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jjmN5-00014T-Al
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 16:17:35 +0000
-X-Inumbo-ID: 39378760-acc8-11ea-b5ee-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1jjmjM-0003Qd-MA
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 16:40:36 +0000
+X-Inumbo-ID: 6b56c6b8-accb-11ea-b5f2-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 39378760-acc8-11ea-b5ee-12813bfff9fa;
- Fri, 12 Jun 2020 16:17:34 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ id 6b56c6b8-accb-11ea-b5f2-12813bfff9fa;
+ Fri, 12 Jun 2020 16:40:27 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 0ptANPNdamrB2YqqU3B9qUCxi2hPq/pKSD1d4fb7k5D24/x1cEw516lweQnGA2sRHVLymi8Vza
- JQMGRk4o5cjnzUr+gHOx5ulfWEEfoTw/p0Pw1mRD7DvujqqAZzrcT8hnWwuUQM5jdWZKyoTQ9F
- lUkQfUpsL/ybS3xgzVoI4BQHRMZo+dpbhB5tvUUql/UXd8iWDW0PQ2ZHsgSyPePQDo+zVKMPio
- TJ4iz6fJvvYfTYX3F4cWKCICJh4lXURy3ZsusLbGyBBLmuRGJBREzXDavQ3HWl45VK+we8uk20
- 14o=
+IronPort-SDR: gZoIN09Vz+IXXufYqWHQtjrhp2XgWt0qAXqDketWTyqVHlzRn/VDiO5yqmD6rcGabUIEZmg0WY
+ Nq8wycBuRA9bmGo5ovFp0yrjXfucQ4W6Se/LJCFfAQVN1X8bL/X2DaTChhbVDEBk8O7MOPPtMm
+ TwpTEa5z6IthnvZJd4Jx1aPrRtEy7xWZjRroFzbFW4vU7OVYWy4ZWOs5pXUdxTLxAn/hV20BnU
+ Tnzu1990lxZNYHn3j5bT2MSIs+a/JQxl4f3putSTH+dbe1BdGpqED1/I5NYka9OpLsP/T+NlU5
+ PWc=
 X-SBRS: 2.7
-X-MesageID: 20267819
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 19922826
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="20267819"
+X-IronPort-AV: E=Sophos;i="5.73,504,1583211600"; d="scan'208";a="19922826"
 From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-ID: <24291.43673.301735.439410@mariner.uk.xensource.com>
-Date: Fri, 12 Jun 2020 17:17:29 +0100
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test]
- 151033: regressions - trouble: blocked/fail/pass/starved)
-In-Reply-To: <osstest-151033-mainreport@xen.org>
-References: <osstest-151033-mainreport@xen.org>
+Message-ID: <24291.45045.185355.587474@mariner.uk.xensource.com>
+Date: Fri, 12 Jun 2020 17:40:21 +0100
+To: Nick Rosbrook <rosbrookn@gmail.com>
+Subject: Re: [PATCH for-4.14] tools: check go compiler version if present
+In-Reply-To: <d2ca8de34a0711313e5eb1d5fb7d438ff3add7d0.1591971605.git.rosbrookn@ainfosec.com>
+References: <d2ca8de34a0711313e5eb1d5fb7d438ff3add7d0.1591971605.git.rosbrookn@ainfosec.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -54,65 +53,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, George
- Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <George.Dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ "paul@xen.org" <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-osstest service owner writes ("[xen-4.10-testing test] 151033: regressions - trouble: blocked/fail/pass/starved"):
-> flight 151033 xen-4.10-testing real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/151033/
-> 
-> Regressions :-(
-> 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 150039
->  build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 150039
->  build-i386-libvirt            6 libvirt-build            fail REGR. vs. 150039
->  build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 150039
+Nick Rosbrook writes ("[PATCH for-4.14] tools: check go compiler version if present"):
+> Currently, no minimum go compiler version is required by the configure
+> scripts. However, the go bindings actually will not build with some
+> older versions of go. Add a check for a minimum go version of 1.11.1 in
+> accordance with tools/golang/xenlight/go.mod.
 
-  ../../../gnulib/lib/fseeko.c: In function 'rpl_fseeko':
-  ../../../gnulib/lib/fseeko.c:110:4: error: #error "Please port gnulib fseeko.c to your platform! Look at the code in fseeko.c, then report this to bug-gnulib."
-     #error "Please port gnulib fseeko.c to your platform! Look at the code in fseeko.c, then report this to bug-gnulib."
-      ^~~~~
-  make[3]: *** [Makefile:2473: fseeko.lo] Error 1
+> diff --git a/tools/configure.ac b/tools/configure.ac
+> index a9af0a21c6..9d126b7a14 100644
+> --- a/tools/configure.ac
+> +++ b/tools/configure.ac
+> @@ -338,6 +338,13 @@ AS_IF([test "x$golang" = "xy"], [
+>              AC_MSG_ERROR([Go tools enabled, but missing go compiler])
+>          ])
+>          golang="n"
+> +    ], [
+> +        AX_COMPARE_VERSION([$GOVERSION], [lt], [1.11.1], [
+> +            AS_IF([test "x$enable_golang" = "xyes"], [
+> +                AC_MSG_ERROR(["Your version of go: $GOVERSION is not supported"])
+> +            ])
+> +            golang="n"
+> +        ])
+>      ])
+>  ])
 
-http://logs.test-lab.xenproject.org/osstest/logs/151033/build-amd64-libvirt/6.ts-libvirt-build.log
+I don't understand this code.  Why are you checking $enable_golang in
+your new code whereas the old code checks $golang ?  I actually read
+the generated code trying to see where $golang is set and AFAICT it is
+only ever set to n ?
 
-In principle maybe we could fix this by generating a private libvirt
-branch with the build fixes ?  Or maybe we should simply try plucking
-a new version of libvirt ?  We could update the pinned version in Xen
-4.10 to the one from 4.11 ?  We might have to do the same for 4.9
-then.
+This is all very weird.  Surely golang should be enabled by default
+when the proper compiler is present, and disabled by default
+otherwise.  I think this effect will be quite hard to achieve with
+AX_ARG_DEFAULT_ENABLE.  Probably you should be using AC_ARG_ENABLE
+and doing the defaulting yourself so that you can use a computed
+default etc.
 
->  test-amd64-amd64-xl-qcow2    10 debian-di-install        fail REGR. vs. 150039
->  test-amd64-amd64-pygrub      10 debian-di-install        fail REGR. vs. 150039
->  test-amd64-i386-xl-raw       10 debian-di-install        fail REGR. vs. 150039
-
-  domainbuilder: detail: xc_dom_find_loader: trying Linux bzImage loader ... 
-  domainbuilder: detail: XZ: Saw data stream end
-  domainbuilder: detail: _xc_try_lzma_decode: XZ decompress OK, 0x4cd8f0 -> 0x1a7779c
-  domainbuilder: detail: loader probe OK
-  ...
-  domainbuilder: detail: xc_dom_alloc_segment:   module0      : 0xffffffff82c00000 -> 0xffffffff82c02000  (pfn 0x2c00 + 0x2 pages)
-  xc: error: panic: xc_dom_core.c:387: xc_dom_do_gunzip: inflate failed (rc=-5): Internal error
-  libxl: error: libxl_dom.c:744:libxl__build_dom: xc_dom_build_image failed: No such file or directory
-
-http://logs.test-lab.xenproject.org/osstest/logs/151033/test-amd64-amd64-pygrub/10.ts-debian-di-install.log
-
-????  Anyone have any ideas ?  I would have guessed that this was an
-incompatibility between pygrub and the boot config made by the new
-pygrub but
-   git-log origin/staging-4.10..origin/stable-4.11 tools/pygrub/
-suggests not.
-
-
-As an alternative to trying to fix these, I could arrange for Xen 4.10
-and earlier to use stretch rather than buster.  4.10 is end of
-security support in December and probably stretch will not break too
-badly for us before then.
+The docs are not clear but reading the code, AC_ARG_ENABLE sets the
+variable enable_foo to "no" if --disable-foo is given, to "" if
+--enable-foo is given, or to the value given to
+--enable-foo=VALUE.
 
 Ian.
 
