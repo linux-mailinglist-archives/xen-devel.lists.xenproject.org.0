@@ -2,63 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B541F78D3
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 15:39:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 370DA1F7957
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 16:13:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjjtC-0002N3-FM; Fri, 12 Jun 2020 13:38:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jjkPs-0005dx-Bd; Fri, 12 Jun 2020 14:12:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tzU/=7Z=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1jjjtA-0002My-G9
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 13:38:32 +0000
-X-Inumbo-ID: 011ad50a-acb2-11ea-bb8b-bc764e2007e4
-Received: from mail-lf1-x133.google.com (unknown [2a00:1450:4864:20::133])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 011ad50a-acb2-11ea-bb8b-bc764e2007e4;
- Fri, 12 Jun 2020 13:38:31 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id z206so5501479lfc.6
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2020 06:38:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=r2efMH73jQtkX8/ee00G2Vfh+yT5y4lHRLBewPYzKcA=;
- b=FzbknQUscr1Fie0172QOMeFZofGDSzabpi1X2vGSCJQACjc3KSrlySrBMJYjmdyIYS
- 5af/uNBRPt/KX8NSHMqaHBIfvoks6wECrSs7FGzNDXSCpwc43OMzcXWS8609rFaUXprP
- KY5bLaPq6hc5oinj3RB2vZx70zH1EaMsvq39B8NJ9vyrIUwWPUfNtBhZBx9L7mhyRuv7
- fMvHNjDjGI4bILvvFHJ8N3OCRi03kf41mBYT1nXPSgqq7J6g5O2t/zfc2DosW/NTH+rt
- /6qipFQUEYVamTxNc327Dq8v0CHtx9JrIV9cpTsPXKp/RGJi1qId0jWSUDJgHFkYYDkG
- /qSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=r2efMH73jQtkX8/ee00G2Vfh+yT5y4lHRLBewPYzKcA=;
- b=KJIRdnLS8UKHx3zypdv7DnJ1yQuapEXGdAgnPQ4qjARGJKz3oSuBbXtNti5H7UTqxl
- cGef9i9J454GT/Qc28t4dLk5n3h8W7PykVnUjKXUzLyrfTV7NH9yDr4zyMifk81/2Lzq
- qYhvxRvMJVrZIqNQBaQlZuSE42pBgzsNeQKT6GBbLNhPFWmhJDo8mjqR4lGftoWIINpy
- BDXW7iHklhUfnnz5yZRc9mN6iHDAt6VFn9gsb9JEMDFk2oNPd6bi9gWRWJpnPXW7Wd5F
- 0899kn6FN7Zm4BjZBK7gS5M769dDreHvJ5YnFDII0vmGeSKpQaBmjjGxsl2Lh/bjXfYA
- gnlA==
-X-Gm-Message-State: AOAM5322SVGRJ1TQ6ps2s+ypvgHBRrVMGNGfuEPLPAvi9k5WjW1CrTq+
- AILhMu0CYKPnJqrGCfvqIpOiZDMSni2jduLWbgXugjeH
-X-Google-Smtp-Source: ABdhPJw3OreDDptJODf2oFgkx9Q0yHNSKaNPoKU72I0QThneXvrmNOGTh3k5tQCVqFqSxHU7G0LH116RMaZCMbfHWSk=
-X-Received: by 2002:a05:6512:62:: with SMTP id
- i2mr6846563lfo.152.1591969110569; 
- Fri, 12 Jun 2020 06:38:30 -0700 (PDT)
+ <SRS0=dChH=7Z=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jjkPq-0005ds-UE
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 14:12:18 +0000
+X-Inumbo-ID: b90e57b4-acb6-11ea-b5d4-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b90e57b4-acb6-11ea-b5d4-12813bfff9fa;
+ Fri, 12 Jun 2020 14:12:18 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: HuiODcQvIs84RzWq+XzbI4P0f9gcZjjP2aOhlN4/CUkS4m5l0uJvjxbB2WW6YMhFTlcrDltPMQ
+ zwwmg7/PbAACcr1PvqzBdBynTmC68BdJIoeDsiMaw+kKlg3F1Uycsk31H0HxZKwqMGFaFOUXrq
+ gCJX8poqBk94G0PA5oHi0SF6f0bTyCtIUz8OlY4PHxOJqQiX39TAAfvmKUF9301UTcMsfbaX/5
+ MwBjgD/LnyOvOXiKeXIw9zW7gQ4+hhPdr8zcpLxoUBoMGsWDqzXKTIWytrCVZgUj3bYQs6XT5Q
+ iAc=
+X-SBRS: 2.7
+X-MesageID: 20147663
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="20147663"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-References: <ab679f8c-a09f-cbc6-c0fc-6285550ba3af@citrix.com>
- <A8F5EC16-53D8-40F4-863F-0862298193EA@citrix.com>
- <1b412370-3a8f-59af-f7cf-042ae45ea802@citrix.com>
-In-Reply-To: <1b412370-3a8f-59af-f7cf-042ae45ea802@citrix.com>
-From: Nick Rosbrook <rosbrookn@gmail.com>
-Date: Fri, 12 Jun 2020 09:38:18 -0400
-Message-ID: <CAEBZRSe4ve862s7ZRarUG+OvuTw2+R9JCNPTYLn-uNrLx6kB3Q@mail.gmail.com>
-Subject: Re: golang bindings dirty in tree after libxl build
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+Message-ID: <24291.36156.961284.809662@mariner.uk.xensource.com>
+Date: Fri, 12 Jun 2020 15:12:12 +0100
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+Subject: Re: libxl dirty in tree after libxl build
+In-Reply-To: <439f3d92-2e18-1868-2b4b-2747973fbe3b@citrix.com>
+References: <439f3d92-2e18-1868-2b4b-2747973fbe3b@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,66 +53,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- George Dunlap <George.Dunlap@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jun 12, 2020 at 8:15 AM Andrew Cooper <andrew.cooper3@citrix.com> w=
-rote:
->
-> On 12/06/2020 12:59, George Dunlap wrote:
-> >
-> >> On Jun 12, 2020, at 12:00 PM, Andrew Cooper <Andrew.Cooper3@citrix.com=
-> wrote:
-> >>
-> >> Hello,
-> >>
-> >> I've just done a libxl build and got things such as:
-> >>
-> >> --- a/tools/golang/xenlight/helpers.gen.go
-> >> +++ b/tools/golang/xenlight/helpers.gen.go
-> >> @@ -431,14 +431,14 @@ x.Evtch =3D int(xc.evtch)
-> >>  x.Rref =3D int(xc.rref)
-> >>  x.Connection =3D ChannelConnection(xc.connection)
-> >>  switch x.Connection{
-> >> -case ChannelConnectionUnknown:
-> >> -x.ConnectionUnion =3D nil
-> >>  case ChannelConnectionPty:
-> >>  var connectionPty ChannelinfoConnectionUnionPty
-> >>  if err :=3D connectionPty.fromC(xc);err !=3D nil {
-> >>   return fmt.Errorf("converting field connectionPty: %v", err)
-> >>  }
-> >>  x.ConnectionUnion =3D connectionPty
-> >> +case ChannelConnectionUnknown:
-> >> +x.ConnectionUnion =3D nil
-> >>  case ChannelConnectionSocket:
-> >>  x.ConnectionUnion =3D nil
-> >>  default:
-> >>
-> >> dirty in tree.  They are all case labels, and only their order in the
-> >> switch has changed.
-> >>
-> >> Does the current binding generation rely on the order of entries in a
-> >> python dictionary by any chance?
-> > Not explicitly, but obviously somewhat implicitly.
-> >
-> > Is this a python2/3 issue, or would different versions of python within=
- 2/3 end up with different sort orders?
-> >
-> > If python3 will always put them in the same order, then we might consid=
-er just switching the script to being explicitly python3.  Otherwise, we=E2=
-=80=99ll probably have to add sorts.
->
-> Python 3.6 now guarantees that the insert order of elements will be
-> preserved.  Before that, there are no guarantees at all.
->
-> It sounds like some sprinkling of sorted() will be needed.
+Andrew Cooper writes ("libxl dirty in tree after libxl build"):
+> A build of libxl has just dirtied the tree with:
+> 
+> index 05f7ac74a0..94a4438666 100644
+> --- a/tools/libxl/libxlu_disk_l.c
+> +++ b/tools/libxl/libxlu_disk_l.c
+> @@ -10,221 +10,11 @@
+>  #define FLEX_SCANNER
+>  #define YY_FLEX_MAJOR_VERSION 2
+>  #define YY_FLEX_MINOR_VERSION 6
+> -#define YY_FLEX_SUBMINOR_VERSION 4
+> +#define YY_FLEX_SUBMINOR_VERSION 1
+>  #if YY_FLEX_SUBMINOR_VERSION > 0
+>  #define FLEX_BETA
+>  #endif
+> 
+> and a whole slew of other changes in the generated code.  It looks like
+> the version of Flex has just been updated in Jessie.
+> 
+> Given the flex and bison are strictly required for the libxl build, why
+> is this temporary file checked in?
 
-George,
+The point of the exercise is to *not* require them.  The reason is
+that some of our developers have very old development systems which do
+not support essential flex/bison features.
 
-Unless you have a burning desire, I can take care of this patch today
-or tomorrow.
+How about we update them to the version from buster ?
 
--NR
+Ian.
 
