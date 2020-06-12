@@ -2,47 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 881EF1F7DFA
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 22:09:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9B1C1F7E0F
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 22:32:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjpyq-0003nq-Ne; Fri, 12 Jun 2020 20:08:48 +0000
+	id 1jjqKv-00069c-Mq; Fri, 12 Jun 2020 20:31:37 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u81f=7Z=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jjpyo-0003nl-Gf
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 20:08:46 +0000
-X-Inumbo-ID: 84ef2c74-ace8-11ea-b60f-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Kdnc=7Z=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jjqKu-00069X-Mp
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 20:31:36 +0000
+X-Inumbo-ID: b5f4b7d2-aceb-11ea-b611-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 84ef2c74-ace8-11ea-b60f-12813bfff9fa;
- Fri, 12 Jun 2020 20:08:45 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B7BFCABE3;
- Fri, 12 Jun 2020 20:08:47 +0000 (UTC)
-Message-ID: <0fc7034d696bbc601ccf2bd563ef9fb435499eea.camel@suse.com>
-Subject: Re: [RFC PATCH v1 1/6] sched: track time spent in IRQ handler
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, "jgross@suse.com" <jgross@suse.com>, 
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Date: Fri, 12 Jun 2020 22:08:41 +0200
-In-Reply-To: <51fce146-f2bd-6098-bef9-2fd925ec7f96@xen.org>
-References: <20200612002205.174295-1-volodymyr_babchuk@epam.com>
- <20200612002205.174295-2-volodymyr_babchuk@epam.com>
- <0ce0bbf8-fd15-e87b-727c-56dd7c09cdcb@suse.com>
- <7ec7b6568afb3df41f8407015c198b1ccb341c5b.camel@epam.com>
- <fcedf156-4ed6-c56a-482d-df2f867f7b3e@xen.org>
- <5bd54018f5e045816d25f686124395a1f27a2122.camel@epam.com>
- <51fce146-f2bd-6098-bef9-2fd925ec7f96@xen.org>
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-a9RRqL44kgNEFokXkhUn"
-User-Agent: Evolution 3.36.3 
+ id b5f4b7d2-aceb-11ea-b611-12813bfff9fa;
+ Fri, 12 Jun 2020 20:31:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=e1TMIE54Q4kiscicTcg3pw4vezN+fiy5hFhuJp2uWD8=; b=wL2sirVTxrkfGr9uhdQXRoevnp
+ 14VY+18z3WkWVdzdCaOdB8UYG2S+QZ2FwJB5KVKtaSoiABPXWaXxUHPEQer+hCrP5BbotPLurb1vQ
+ T/IhIRdSo4sedkfjVhJGVmDRBhXayCDKU358ppW5YlgPcXuIrq1T/YQqBc/jQqqRWsgc=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jjqKp-000205-DD; Fri, 12 Jun 2020 20:31:31 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jjqKp-0001OC-5F; Fri, 12 Jun 2020 20:31:31 +0000
+Subject: Re: [PATCH 1/2] xen/arm: Convert runstate address during hypcall
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <cover.1591806713.git.bertrand.marquis@arm.com>
+ <8b450dddb2c855225c97741dce66453a80b9add2.1591806713.git.bertrand.marquis@arm.com>
+ <974bf796-d410-9dd7-9e60-873987cd8434@xen.org>
+ <71F7AE7B-BB12-4D3B-8337-3FA6040CA632@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <2ea01884-a254-47c5-68a7-98ca77afc06b@xen.org>
+Date: Fri, 12 Jun 2020 21:31:28 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.9.0
 MIME-Version: 1.0
+In-Reply-To: <71F7AE7B-BB12-4D3B-8337-3FA6040CA632@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,92 +63,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "wl@xen.org" <wl@xen.org>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
- "jbeulich@suse.com" <jbeulich@suse.com>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---=-a9RRqL44kgNEFokXkhUn
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2020-06-12 at 13:21 +0100, Julien Grall wrote:
-> On 12/06/2020 12:33, Volodymyr Babchuk wrote:
-> > On Fri, 2020-06-12 at 12:29 +0100, Julien Grall wrote:
-> > > > Basically, this value holds time span between calls to
-> > > > schedule(). This
-> > > > variable gets zeroed out every time scheduler requests for time
-> > > > adjustment value. So, it should not depend on total VM run
-> > > > time.
-> > > This is assuming that the scheduler will be called. With the NULL
-> > > scheduler in place, there is a fair chance this may never be
-> > > called.
-> > >=20
->
-Yeah, this is a good point. I mean, I wouldn't be sure about "never",
-as even there, we'd probably have softirqs, tasklets, etc... And I
-still have to look at these patches in more details to figure out
-properly whether they'd help for this.
+On 12/06/2020 17:51, Bertrand Marquis wrote:
 
-But I'd say that, in general, we should depend of the frequency of the
-scheduling events as few as possible. Therefore, using 64 bits from the
-start would be preferrable IMO.
+Hi,
 
-> > > So I think using a 64-bit value is likely safer.
-> >=20
-Yep.
+>>> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
+>>> index 4e2f582006..3a7f53e13d 100644
+>>> --- a/xen/include/asm-arm/domain.h
+>>> +++ b/xen/include/asm-arm/domain.h
+>>> @@ -11,6 +11,7 @@
+>>>   #include <asm/vgic.h>
+>>>   #include <asm/vpl011.h>
+>>>   #include <public/hvm/params.h>
+>>> +#include <public/vcpu.h>
+>>
+>> Why do you need to add this new include?
+> 
+> Sorry I forgot to answer to this one.
+> This is needed to have the definition of vcpu_register_runstate_memory_area.
 
-> > Well, I wanted to use 64-bit value in the first place. But I got
-> > the
-> > impression that atomic_t supports only 32-bit values. At least,
-> > this is
-> > what I'm seeing in atomic.h
-> >=20
-> > Am I wrong?
->=20
-> There is no atomic64_t support in Xen yet. It shouldn't be very=20
-> difficult to add support for it if you require them.
->=20
-Cool! That would be much appreciated. :-D
+I might be missing something because nothing you have added this header 
+seem to require vcpu_register_runstate_memory_area. So should the 
+include be done in a different header?
 
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+Cheers,
 
-
---=-a9RRqL44kgNEFokXkhUn
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl7j4MkACgkQFkJ4iaW4
-c+5AZQ//Zei1VtS8e4OqjD3aJm6mfxzS1VVqGut8VzP76PUF56gsqHreChryanVc
-swlprXxpHd1h7xtmlUzUZCPzWcrtJbFfCpmVQH1iuJ3fL3YpMJevOL+8+2MkUS4S
-LiewZteqkqPWmbwBTnFkYVxfdX+Lsogme0hv+PRDiePQ2RvzrmVKTo+BFtUVoWnw
-5LGWgcUIpcgtC8wVVbTXx4mrHuVRUJcXQBK5b9UZRh7Grwn9TiH19jyMRzaylF3v
-P30X37UUBHkgfpBgh38XQpka5iOlaCVNcJvAr1UbtjAvCjcdmm5RCujR5nQNlL99
-TDE+Br/6teFQpeV8nKv73HII3OFddjXe5Qj68qmBGSBKOdiT0U19mxMq7DbAtSDO
-wzeFfWGHFins4q4uoZBdO8UJRGbDeCHKFh3I3qgeg3kenBZouZn1H+aJuJps5Su3
-89SaN66/OYHj9yDBqThbdE0g2uBRcdgM9tBuOOFH97WDeAtbORBC8nGHEte5vtrG
-pxPxizZdFyKyQvu/bJDbC7muoPODhilsJd4aF5Qgrn9ST93CGsEASBcH/96TmFki
-Wc7vAkcd58gALoxm9Nh/658cowUe5OQqy41NAy/2S+gyVswbBmN6tpBXV4H0e0G8
-7cXyH9aniT9nvkcIxCDGymtnYyHGhdU/Czt3p317Jb2HaBmrLRM=
-=McQc
------END PGP SIGNATURE-----
-
---=-a9RRqL44kgNEFokXkhUn--
-
+-- 
+Julien Grall
 
