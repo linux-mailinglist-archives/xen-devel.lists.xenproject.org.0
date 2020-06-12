@@ -2,55 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 536D11F77BE
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 14:15:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A7A1F77C5
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 14:16:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjiaM-0003fQ-C7; Fri, 12 Jun 2020 12:15:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Kdnc=7Z=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jjiaK-0003fL-Gy
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 12:15:00 +0000
-X-Inumbo-ID: 5639caca-aca6-11ea-b5be-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5639caca-aca6-11ea-b5be-12813bfff9fa;
- Fri, 12 Jun 2020 12:15:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JsXxqUF/QPhgsow/SIQLFdeZsE3FOY3Yzo/7lnvuEK0=; b=D6+AG0ZkAIQIsSa1haHkoRclBE
- sIAMifvbOsCG+LITssSJo17m1G9X9FQTBFSa7aWJqM6OKFahzrxAlIJe0FbiwJ96T0HubVKJgeGvX
- MYPMOZejc7YtbJIp7Q7wUGP4twAUFd2qOSP1K5dgBM+6oL4LTnoOiMoY6M6SpbkKpQhU=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jjiaI-0000SV-Oh; Fri, 12 Jun 2020 12:14:58 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jjiaI-00051v-DY; Fri, 12 Jun 2020 12:14:58 +0000
-Subject: Re: [PATCH 2/2] xen/arm: Support runstate crossing pages
-To: Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <cover.1591806713.git.bertrand.marquis@arm.com>
- <b4843bd234d4ece4f843bc636071106746abb3b5.1591806713.git.bertrand.marquis@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <0ea51410-050b-58a6-806a-b175f534852f@xen.org>
-Date: Fri, 12 Jun 2020 13:14:56 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
+	id 1jjibJ-0003j5-ML; Fri, 12 Jun 2020 12:16:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4JN/=7Z=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jjibJ-0003if-2T
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 12:16:01 +0000
+X-Inumbo-ID: 78881cda-aca6-11ea-bca7-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 78881cda-aca6-11ea-bca7-bc764e2007e4;
+ Fri, 12 Jun 2020 12:15:58 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: NKcKlwxWljgx+R7dtt4YKZaLPoc8WwgO0grQBfms08EHwOvRVo/Re1r/aeWKE1Lp6SMmGWjTsk
+ rz3i0PvaauRETPH7fV/gT2gmP90EqzVIJtJ6MJP+rQbw1SwTuNdOXW0wgHdEPD2fpgJLG7tcxX
+ asq7VXhpNxaN4OT/6wZa/bcTob/zvf+amuLYBWKNrpfHVS0ffQk2Dap7dWznIwQyyztKzwQFY+
+ 8jL8sQYvLK9yam0gNtfNpx9Y7ul/aJX/rIt0/0TiP5EIqr6RcBEszuwnFYry8Kc53ht9sSdPkK
+ yqU=
+X-SBRS: 2.7
+X-MesageID: 19898299
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="19898299"
+Subject: Re: golang bindings dirty in tree after libxl build
+To: George Dunlap <George.Dunlap@citrix.com>
+References: <ab679f8c-a09f-cbc6-c0fc-6285550ba3af@citrix.com>
+ <A8F5EC16-53D8-40F4-863F-0862298193EA@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <1b412370-3a8f-59af-f7cf-042ae45ea802@citrix.com>
+Date: Fri, 12 Jun 2020 13:15:53 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <b4843bd234d4ece4f843bc636071106746abb3b5.1591806713.git.bertrand.marquis@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <A8F5EC16-53D8-40F4-863F-0862298193EA@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,134 +57,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: nd@arm.com, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ "rosbrookn@gmail.com" <rosbrookn@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+On 12/06/2020 12:59, George Dunlap wrote:
+>
+>> On Jun 12, 2020, at 12:00 PM, Andrew Cooper <Andrew.Cooper3@citrix.com> wrote:
+>>
+>> Hello,
+>>
+>> I've just done a libxl build and got things such as:
+>>
+>> --- a/tools/golang/xenlight/helpers.gen.go
+>> +++ b/tools/golang/xenlight/helpers.gen.go
+>> @@ -431,14 +431,14 @@ x.Evtch = int(xc.evtch)
+>>  x.Rref = int(xc.rref)
+>>  x.Connection = ChannelConnection(xc.connection)
+>>  switch x.Connection{
+>> -case ChannelConnectionUnknown:
+>> -x.ConnectionUnion = nil
+>>  case ChannelConnectionPty:
+>>  var connectionPty ChannelinfoConnectionUnionPty
+>>  if err := connectionPty.fromC(xc);err != nil {
+>>   return fmt.Errorf("converting field connectionPty: %v", err)
+>>  }
+>>  x.ConnectionUnion = connectionPty
+>> +case ChannelConnectionUnknown:
+>> +x.ConnectionUnion = nil
+>>  case ChannelConnectionSocket:
+>>  x.ConnectionUnion = nil
+>>  default:
+>>
+>> dirty in tree.  They are all case labels, and only their order in the
+>> switch has changed.
+>>
+>> Does the current binding generation rely on the order of entries in a
+>> python dictionary by any chance?
+> Not explicitly, but obviously somewhat implicitly.
+>
+> Is this a python2/3 issue, or would different versions of python within 2/3 end up with different sort orders?
+>
+> If python3 will always put them in the same order, then we might consider just switching the script to being explicitly python3.  Otherwise, we’ll probably have to add sorts.
 
-On 11/06/2020 12:58, Bertrand Marquis wrote:
-> Add support for runstate area register with the structure crossing pages
+Python 3.6 now guarantees that the insert order of elements will be
+preserved.  Before that, there are no guarantees at all.
 
-Well, this has always been supported until your previous patch. In 
-general, we try to not break thing in a middle of the series so we can 
-still bisect it.
+It sounds like some sprinkling of sorted() will be needed.
 
-I think this patch can be simplified a lot by mapping the two page 
-contiguously (see my previous answer). With that it would be feasible to 
-fold this patch in #1.
-
-> The code is storing up to 2 pages reference during the hypercall.
-> During a context switch, the code is computing where the
-> state_entry_time is and is breaking the memcpy in 2 parts when it is
-> required.
-> 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->   xen/arch/arm/domain.c        | 101 +++++++++++++++++++++++++----------
->   xen/include/asm-arm/domain.h |   5 +-
->   2 files changed, 76 insertions(+), 30 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 739059234f..d847cb00f2 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -280,11 +280,16 @@ void arch_cleanup_runstate_guest(struct vcpu *v)
->   {
->       spin_lock(&v->arch.runstate_guest.lock);
->   
-> -    /* cleanup previous page if any */
-> -    if ( v->arch.runstate_guest.page )
-> +    /* cleanup previous pages if any */
-> +    if ( v->arch.runstate_guest.page[0] )
->       {
-> -        put_page_and_type(v->arch.runstate_guest.page);
-> -        v->arch.runstate_guest.page = NULL;
-> +        put_page_and_type(v->arch.runstate_guest.page[0]);
-> +        v->arch.runstate_guest.page[0] = NULL;
-> +        if ( v->arch.runstate_guest.page[1] )
-> +        {
-> +            put_page_and_type(v->arch.runstate_guest.page[1]);
-> +            v->arch.runstate_guest.page[1] = NULL;
-> +        }
-
-I think this can be moved outside of the first if.
-
->           v->arch.runstate_guest.offset = 0;
->       }
->   
-> @@ -294,26 +299,25 @@ void arch_cleanup_runstate_guest(struct vcpu *v)
->   int arch_setup_runstate_guest(struct vcpu *v,
->                               struct vcpu_register_runstate_memory_area area)
->   {
-> -    struct page_info *page;
-> +    struct page_info *page[2] = {NULL,NULL};
-
-I don't think you need the temporary variable. You can directly update 
-page[0] as it is protected by the lock. The nice benefits is you could 
-take advantage of a common helper to cleanup and reduce the complexity 
-of the code.
-
->       unsigned offset;
->   
->       spin_lock(&v->arch.runstate_guest.lock);
->   
-> -    /* cleanup previous page if any */
-> -    if ( v->arch.runstate_guest.page )
-> +    /* cleanup previous pages if any */
-> +    if ( v->arch.runstate_guest.page[0] )
->       {
-> -        put_page_and_type(v->arch.runstate_guest.page);
-> -        v->arch.runstate_guest.page = NULL;
-> +        put_page_and_type(v->arch.runstate_guest.page[0]);
-> +        v->arch.runstate_guest.page[0] = NULL;
-> +        if ( v->arch.runstate_guest.page[1] )
-> +        {
-> +            put_page_and_type(v->arch.runstate_guest.page[1]);
-> +            v->arch.runstate_guest.page[1] = NULL;
-> +        }
->           v->arch.runstate_guest.offset = 0;
->       }
->   
->       offset = ((vaddr_t)area.addr.v) & ~PAGE_MASK;
-> -    if ( offset > (PAGE_SIZE - sizeof(struct vcpu_runstate_info)) )
-> -    {
-> -        spin_unlock(&v->arch.runstate_guest.lock);
-> -        gprintk(XENLOG_DEBUG, "Runstate is crossing pages\n");
-> -        return -EINVAL;
-> -    }
->   
->       /* provided address must be aligned to a 64bit */
->       if ( offset % alignof(struct vcpu_runstate_info) )
-> @@ -323,15 +327,30 @@ int arch_setup_runstate_guest(struct vcpu *v,
->           return -EINVAL;
->       }
->   
-> -    page = get_page_from_gva(v, (vaddr_t)area.addr.v, GV2M_WRITE);
-> -    if ( !page )
-> +    page[0] = get_page_from_gva(v, (vaddr_t)area.addr.v, GV2M_WRITE);
-> +    if ( !page[0] )
->       {
->           spin_unlock(&v->arch.runstate_guest.lock);
->           gprintk(XENLOG_DEBUG, "Runstate pointer is not mapped\n");
->           return -EINVAL;
->       }
->   
-> -    v->arch.runstate_guest.page = page;
-> +    if ( offset > (PAGE_SIZE - sizeof(struct vcpu_runstate_info)) )
-> +    {
-> +        /* guest area is crossing pages */
-> +        page[1] = get_page_from_gva(v, (vaddr_t)area.addr.v + PAGE_SIZE,
-> +                                        GV2M_WRITE);
-> +        if ( !page[1] )
-> +        {
-> +            put_page_and_type(v->arch.runstate_guest.page[0]);
-v->arch.runstate_guest.page[0] would be NULL as you set it afterwards. 
-So you want to set v->arch.runstate_guest.page[0] beforehand.
-
-Cheers,
-
--- 
-Julien Grall
+~Andrew
 
