@@ -2,60 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1073D1F763E
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 11:54:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9568E1F763F
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 11:54:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjgNX-0007aF-TD; Fri, 12 Jun 2020 09:53:39 +0000
+	id 1jjgNd-0007aw-5D; Fri, 12 Jun 2020 09:53:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Kdnc=7Z=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jjgNW-0007aA-Jj
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 09:53:38 +0000
-X-Inumbo-ID: 958c32da-ac92-11ea-b5b0-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4JN/=7Z=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jjgNb-0007aA-9l
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 09:53:43 +0000
+X-Inumbo-ID: 98b3d8be-ac92-11ea-b5b0-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 958c32da-ac92-11ea-b5b0-12813bfff9fa;
- Fri, 12 Jun 2020 09:53:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SEIVc/Yz1hxdlqGX/ofEjIrjNOz6KZqGqNDqbSOUunk=; b=zCkbxHUVaW1J8DmMpSO/EdA5VZ
- NYwEoAys5Mc/pXFhBOFJB4m5NWnCtWyNa/3XX8RJXGw0Fm76oKHhqdSEIAIcSo1ib1/+I4goIBrHj
- aKCOy8ZcYQYmiK79HFBHgaqDiA/tNHx/TjcSpKZbPDaccez/APoQo26pSCcYWVu5IB9U=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jjgNQ-0006CL-9P; Fri, 12 Jun 2020 09:53:32 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jjgNQ-0005HV-2F; Fri, 12 Jun 2020 09:53:32 +0000
-Subject: Re: [PATCH 1/2] xen/arm: Convert runstate address during hypcall
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1591806713.git.bertrand.marquis@arm.com>
- <8b450dddb2c855225c97741dce66453a80b9add2.1591806713.git.bertrand.marquis@arm.com>
- <alpine.DEB.2.21.2006111055360.2815@sstabellini-ThinkPad-T480s>
- <CAJ=z9a3u7ztgSmJbhjVATrfJEBBVkHbZei6ydBQeV8nzdDFA3Q@mail.gmail.com>
- <alpine.DEB.2.21.2006111143530.2815@sstabellini-ThinkPad-T480s>
- <74475748-e884-1e6e-633d-bf67d5ed32fe@xen.org>
- <alpine.DEB.2.21.2006111250180.2815@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a8379e95-3f9c-1ee3-61fd-741bb9c41d4b@xen.org>
-Date: Fri, 12 Jun 2020 10:53:29 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
+ id 98b3d8be-ac92-11ea-b5b0-12813bfff9fa;
+ Fri, 12 Jun 2020 09:53:42 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: VA5PqxmCpZsnA/rl8fUrRRvX420SqoeFC2oU1F/cBAy8d1F+lNya0RWBjF85hpF9JAU1J8d79O
+ cqtYtRFM9MazDYRncU3JFBupSUlAMuGZkn/B7aboA88dL6r0XiG7oNJ9ZU5/eSIyzkaQH3sLMo
+ 64gJlZtjXuikbs05MWYRkvAOKDgxTu98PRbPjgY3mXHf4UgQvhnVUmfpX9ehhsSvodw1VOAGWr
+ yfFbWPDogms/AE0wZSWJMwzY9b6LbDkLEb8vpEbvHNCTXcroQ00CJfkA5TX1nBD3U+uFqtnYQ0
+ /AE=
+X-SBRS: 2.7
+X-MesageID: 20656360
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,502,1583211600"; d="scan'208";a="20656360"
+Subject: Re: [PATCH for-4.14] tools: fix error path of xendevicemodel_open()
+To: <paul@xen.org>, 'Xen-devel' <xen-devel@lists.xenproject.org>
+References: <20200610114004.30023-1-andrew.cooper3@citrix.com>
+ <010401d6408a$2c57bba0$850732e0$@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <765b4fed-60d3-9c4a-d6b7-bcd9893c525b@citrix.com>
+Date: Fri, 12 Jun 2020 10:53:37 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2006111250180.2815@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <010401d6408a$2c57bba0$850732e0$@xen.org>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,112 +58,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall.oss@gmail.com>
+Cc: 'Juergen Gross' <jgross@suse.com>, 'Ian Jackson' <Ian.Jackson@citrix.com>,
+ 'Wei Liu' <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-
-On 12/06/2020 02:09, Stefano Stabellini wrote:
-> On Thu, 11 Jun 2020, Julien Grall wrote:
->> Hi Stefano,
+On 12/06/2020 08:22, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Sent: 10 June 2020 12:40
+>> To: Xen-devel <xen-devel@lists.xenproject.org>
+>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Ian Jackson <Ian.Jackson@citrix.com>; Wei Liu
+>> <wl@xen.org>; Juergen Gross <jgross@suse.com>; Paul Durrant <paul@xen.org>
+>> Subject: [PATCH for-4.14] tools: fix error path of xendevicemodel_open()
 >>
->> On 11/06/2020 19:50, Stefano Stabellini wrote:
->>> On Thu, 11 Jun 2020, Julien Grall wrote:
->>>>>> +        return -EINVAL;
->>>>>>        }
->>>>>>
->>>>>> -    __copy_to_guest(runstate_guest(v), &runstate, 1);
->>>>>> +    v->arch.runstate_guest.page = page;
->>>>>> +    v->arch.runstate_guest.offset = offset;
->>>>>> +
->>>>>> +    spin_unlock(&v->arch.runstate_guest.lock);
->>>>>> +
->>>>>> +    return 0;
->>>>>> +}
->>>>>> +
->>>>>> +
->>>>>> +/* Update per-VCPU guest runstate shared memory area (if registered).
->>>>>> */
->>>>>> +static void update_runstate_area(struct vcpu *v)
->>>>>> +{
->>>>>> +    struct vcpu_runstate_info *guest_runstate;
->>>>>> +    void *p;
->>>>>> +
->>>>>> +    spin_lock(&v->arch.runstate_guest.lock);
->>>>>>
->>>>>> -    if ( guest_handle )
->>>>>> +    if ( v->arch.runstate_guest.page )
->>>>>>        {
->>>>>> -        runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
->>>>>> +        p = __map_domain_page(v->arch.runstate_guest.page);
->>>>>> +        guest_runstate = p + v->arch.runstate_guest.offset;
->>>>>> +
->>>>>> +        if ( VM_ASSIST(v->domain, runstate_update_flag) )
->>>>>> +        {
->>>>>> +            v->runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
->>>>>> +            guest_runstate->state_entry_time |= XEN_RUNSTATE_UPDATE;
->>>>>
->>>>> I think that this write to guest_runstate should use write_atomic or
->>>>> another atomic write operation.
->>>>
->>>> I thought about suggesting the same, but  guest_copy_* helpers may not
->>>> do a single memory write to state_entry_time.
->>>> What are you trying to prevent with the write_atomic()?
->>>
->>> I am thinking that without using an atomic write, it would be (at least
->>> theoretically) possible for a guest to see a partial write to
->>> state_entry_time, which is not good.
+>> c/s 6902cb00e03 "tools/libxendevicemodel: extract functions and add a compat
+>> layer" introduced calls to both xencall_open() and osdep_xendevicemodel_open()
+>> but failed to fix up the error path.
 >>
->> It is already the case with existing implementation as Xen may write byte by
->> byte. So are you suggesting the existing code is also buggy?
+>> c/s f68c7c618a3 "libs/devicemodel: free xencall handle in error path in
+>> _open()" fixed up the xencall_open() aspect of the error path (missing the
+>> osdep_xendevicemodel_open() aspect), but positioned the xencall_close()
+>> incorrectly, creating the same pattern proved to be problematic by c/s
+>> 30a72f02870 "tools: fix error path of xenhypfs_open()".
+>>
+>> Reposition xtl_logger_destroy(), and introduce the missing
+>> osdep_xendevicemodel_close().
+>>
+>> Fixes: 6902cb00e03 ("tools/libxendevicemodel: extract functions and add a compat layer")
+>> Fixes: f68c7c618a3 ("libs/devicemodel: free xencall handle in error path in _open()")
+>> Backport: 4.9+
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Ian Jackson <Ian.Jackson@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>> CC: Juergen Gross <jgross@suse.com>
+>> CC: Paul Durrant <paul@xen.org>
+>>
+>> RFC - this is still broken.
+>>
+> I'm slightly confused. Do you want this in 4.14 in this form or are you expecting to update it?
 
-It looks like I may have misread the code as we only copy one byte. But 
-I still think this is fragile.
+In this form, it is an improvement over before.
 
-For this context, I agree that a write_atomic() should do the job.
+There is still the crash described below which needs some form of
+figuring out and fixing.
 
-However, I still want to answer to your comments below.
+~Andrew
 
-> 
-> Writing byte by byte is a different case. That is OK. In that case, the
-> guest could see the state after 3 bytes written and it would be fine and
-> consistent.
+>
+>   Paul
+>
+>> Failure to create the logger will still hit the NULL deference, in all of the
+>> stable libs, not just devicemodel.
+>>
+>> Also, unless I'd triple checked the history, I was about to reintroduce the
+>> deadlock from c/s 9976f3874d4, because it totally counterintuitive wrong to
+>> expect setup and teardown in opposite orders.
+>> ---
+>>  tools/libs/devicemodel/core.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
+>> index db501d9e80..4d4063956d 100644
+>> --- a/tools/libs/devicemodel/core.c
+>> +++ b/tools/libs/devicemodel/core.c
+>> @@ -67,9 +67,10 @@ xendevicemodel_handle *xendevicemodel_open(xentoollog_logger *logger,
+>>      return dmod;
+>>
+>>  err:
+>> -    xtl_logger_destroy(dmod->logger_tofree);
+>> +    osdep_xendevicemodel_close(dmod);
+>>      xentoolcore__deregister_active_handle(&dmod->tc_ah);
+>>      xencall_close(dmod->xcall);
+>> +    xtl_logger_destroy(dmod->logger_tofree);
+>>      free(dmod);
+>>      return NULL;
+>>  }
+>> --
+>> 2.11.0
+>
 
-Why? What does actually prevent a guest to see an in-between value?
-
-To give a concrete example, if the original value is 0xabc and you want 
-to write 0xdef. Why would the guest never see 0xabf or 0xaec?
-
-> If this hadn't been the case, then yes, the existing code
-> would also be buggy.
-> 
-> So if we did the write with a memcpy, it would be fine, no need for
-> atomics:
-> 
->    memcpy(&guest_runstate->state_entry_time,
->           &v->runstate.state_entry_time,
->           XXX);
-> 
-> 
-> The |= case is different: GCC could implement it in any way it likes,
-> including going through a zero-write to any of the bytes in the word, or
-> doing an addition then a subtraction. GCC doesn't make any guarantees.
-> If we want guarantees we need to use atomics.
-
-Yes GCC can generate assembly for |= in any way it likes. But so does 
-for memcpy(). So I still don't understand why one would be fine for you 
-and not the other...
-
-Cheers,
-
--- 
-Julien Grall
 
