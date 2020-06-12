@@ -2,42 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A614A1F7B32
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C3431F7B2E
 	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 17:57:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjm3e-0006RM-DH; Fri, 12 Jun 2020 15:57:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jjm3Y-0006ML-12; Fri, 12 Jun 2020 15:57:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5h37=7Z=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jjm3c-0006K0-3i
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 15:57:28 +0000
-X-Inumbo-ID: 64878f00-acc5-11ea-b5e3-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 64878f00-acc5-11ea-b5e3-12813bfff9fa;
- Fri, 12 Jun 2020 15:57:18 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ id 1jjm3W-0006Lr-4d
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 15:57:22 +0000
+X-Inumbo-ID: 6624bcfa-acc5-11ea-bb8b-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6624bcfa-acc5-11ea-bb8b-bc764e2007e4;
+ Fri, 12 Jun 2020 15:57:21 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: eRFtV+V4WhEVoVjHDyCMwnWyvoCyKAzxQJKaFS42Ybaa5AaK/TbaSitMe4MGEUWWVFlyq8X3S2
- f3+EWI/Ns2FNkYx30rBE4krpVQyHehlYT6KJQKkGHr+4PVrfFz8oyU+OUlDW60iE2BLyBDcfSE
- B+L2Qe935SRk+mUjCIp9SCOOZIHERNKdjx+g32oADaAl4TqkDG+68q6P6SJxyWUdn7BW3xHCZ8
- 4yH5ysQPR3jylPczxBDa0cNVkMigf/nMSpg5E3cG3Kw+3C37tcK2PE52UEHn1QyOFSHBc8t/5l
- XZM=
+IronPort-SDR: rVAZ4lcV09ivW5keN6zjsXLA88pLfNsACRUUlIrMjY0Np5SExn6kfS/MQ39zwDOZc/r4NY9NQi
+ oa+niKpIOqTzC7qZN+SdHYA8agDCLiZZGPM6p/clhXW7jR/ogaTT4LeqZL6jwMN6f0X9egi3xX
+ EBrvU2B3oUdCMR+ayxGN9l0tO26jz9tz/Try8F0FaOeVOaVrv7OmH0/pQoCeuh0iUT458ogL35
+ vmqnKSRxO9V4I1UAIuY/JInBXcH6MKNCARP07by0SEtbDOK+xK6iubEoG8YEGOX4DDj2OV53qW
+ Hts=
 X-SBRS: 2.7
-X-MesageID: 20213502
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 19919135
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="20213502"
+X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="19919135"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH for-4.14 4/8] x86/vpt: only try to resume timers belonging to
- enabled devices
-Date: Fri, 12 Jun 2020 17:56:36 +0200
-Message-ID: <20200612155640.4101-5-roger.pau@citrix.com>
+Subject: [PATCH for-4.14 5/8] x86/hvm: only translate ISA interrupts to GSIs
+ in virtual timers
+Date: Fri, 12 Jun 2020 17:56:37 +0200
+Message-ID: <20200612155640.4101-6-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200612155640.4101-1-roger.pau@citrix.com>
 References: <20200612155640.4101-1-roger.pau@citrix.com>
@@ -60,51 +59,31 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Check whether the emulated device is actually enabled before trying to
-resume the associated timers.
+Only call hvm_isa_irq_to_gsi for ISA interrupts, interrupts
+originating from an IO APIC pin already use a GSI and don't need to be
+translated.
 
-Thankfully all those structures are zeroed at initialization, and
-since the devices are not enabled they are never populated, which
-triggers the pt->vcpu check at the beginning of pt_resume forcing an
-exit from the function.
-
-While there limit the scope of i and make it unsigned.
+I haven't observed any issues from this, but I think it's better to
+use it correctly.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/hvm/vpt.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ xen/arch/x86/hvm/vpt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/xen/arch/x86/hvm/vpt.c b/xen/arch/x86/hvm/vpt.c
-index 47f2c2aa64..62c87867c5 100644
+index 62c87867c5..6a975fc668 100644
 --- a/xen/arch/x86/hvm/vpt.c
 +++ b/xen/arch/x86/hvm/vpt.c
-@@ -636,14 +636,19 @@ static void pt_resume(struct periodic_time *pt)
+@@ -86,7 +86,7 @@ static int pt_irq_vector(struct periodic_time *pt, enum hvm_intsrc src)
+         return pt->irq;
  
- void pt_may_unmask_irq(struct domain *d, struct periodic_time *vlapic_pt)
- {
--    int i;
--
-     if ( d )
-     {
--        pt_resume(&d->arch.vpit.pt0);
--        pt_resume(&d->arch.hvm.pl_time->vrtc.pt);
--        for ( i = 0; i < HPET_TIMER_NUM; i++ )
--            pt_resume(&d->arch.hvm.pl_time->vhpet.pt[i]);
-+        if ( has_vpit(d) )
-+            pt_resume(&d->arch.vpit.pt0);
-+        if ( has_vrtc(d) )
-+            pt_resume(&d->arch.hvm.pl_time->vrtc.pt);
-+        if ( has_vhpet(d) )
-+        {
-+            unsigned int i;
-+
-+            for ( i = 0; i < HPET_TIMER_NUM; i++ )
-+                pt_resume(&d->arch.hvm.pl_time->vhpet.pt[i]);
-+        }
-     }
+     isa_irq = pt->irq;
+-    gsi = hvm_isa_irq_to_gsi(isa_irq);
++    gsi = pt->source == PTSRC_isa ? hvm_isa_irq_to_gsi(isa_irq) : pt->irq;
  
-     if ( vlapic_pt )
+     if ( src == hvm_intsrc_pic )
+         return (v->domain->arch.hvm.vpic[isa_irq >> 3].irq_base
 -- 
 2.26.2
 
