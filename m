@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C33A81F7B0F
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 17:44:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 084901F7B22
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 17:54:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjlqh-0005Ii-PW; Fri, 12 Jun 2020 15:44:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jjm0V-0006B3-OG; Fri, 12 Jun 2020 15:54:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dChH=7Z=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jjlqg-0005Ib-5G
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 15:44:06 +0000
-X-Inumbo-ID: 8b9e425a-acc3-11ea-bb8b-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8b9e425a-acc3-11ea-bb8b-bc764e2007e4;
- Fri, 12 Jun 2020 15:44:05 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ id 1jjm0U-0006Ay-E7
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 15:54:14 +0000
+X-Inumbo-ID: f5bc216a-acc4-11ea-b5e3-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f5bc216a-acc4-11ea-b5e3-12813bfff9fa;
+ Fri, 12 Jun 2020 15:54:13 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: /4zzphKVAOE+c6m0SyfnltFuDjtRwyrGfrggpTZUCt3W+rhsIH/D7qh35/WSGbC0uht8mHSlLx
- ks8y3BIk33r1Mz23qv+Lcm+CLYAn10xNSTzNlK1094HeNBpsos+Q+0KJaVoT+fm27byRoGnVUU
- N7j9uC1PeMMp8f4Td9Bu/d7sWvioVeS/qbS7D2qrT/ci+5o39V2amLM5NH2kNwzIUdwBbDksWr
- Z7qjXhVtXMOJhpu7VWanifY+QLMFbVslM8qcNJFsfNpAeac3/xEZ3QfwN8BPWxTe9Y4HKKcNj8
- HwQ=
+IronPort-SDR: YXrMwguBL+IgQnqDk0+ehaEcLNp0LZ5jt6xVp6hqo/xaZkWeBYdSSRXt/sg9Cj5K2Ld/6dJBR5
+ bMJeVWmatGTDj1Z46cEchT8IgwEQ2WR5MRCBckvvzN9B1LJRNdabRNQf+vrO4ry3ukIkfZV5HN
+ ENcKRN/ELT1HOmWZc+GC0i0SOKDMegIY+iGW4DI/Ri04AsUaGGWnwyGXGzClpsTt3RuaQmf0nz
+ zJCPkdLTex5/1QDAheQMzcdgiZw1GTtnx7zYXsDG3Me2tKVmZ2DFxEqAmtNg65P4VRnOk3g7Zy
+ aO4=
 X-SBRS: 2.7
-X-MesageID: 20687027
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 20213136
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="20687027"
+X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="20213136"
 From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-ID: <24291.41663.838349.127061@mariner.uk.xensource.com>
-Date: Fri, 12 Jun 2020 16:43:59 +0100
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Subject: Re: [PATCH for-4.14] tools: fix error path of xendevicemodel_open()
-In-Reply-To: <765b4fed-60d3-9c4a-d6b7-bcd9893c525b@citrix.com>
-References: <20200610114004.30023-1-andrew.cooper3@citrix.com>
- <010401d6408a$2c57bba0$850732e0$@xen.org>
- <765b4fed-60d3-9c4a-d6b7-bcd9893c525b@citrix.com>
+Message-ID: <24291.42247.159206.867256@mariner.uk.xensource.com>
+Date: Fri, 12 Jun 2020 16:53:43 +0100
+To: "paul@xen.org" <paul@xen.org>
+Subject: RE: [PATCH for-4.14] tools/libxc: Drop config_transformed parameter
+ from xc_cpuid_set()
+In-Reply-To: <000301d640a9$743c5510$5cb4ff30$@xen.org>
+References: <20200612105519.18728-1-andrew.cooper3@citrix.com>
+ <000301d640a9$743c5510$5cb4ff30$@xen.org>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -54,82 +55,35 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Juergen Gross' <jgross@suse.com>,
- 'Xen-devel' <xen-devel@lists.xenproject.org>, 'Wei Liu' <wl@xen.org>,
- "paul@xen.org" <paul@xen.org>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>, 'Wei Liu' <wl@xen.org>,
+ 'Xen-devel' <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Andrew Cooper writes ("Re: [PATCH for-4.14] tools: fix error path of xendevicemodel_open()"):
-> There is still the crash described below which needs some form of
-> figuring out and fixing.
-...
-> >> Failure to create the logger will still hit the NULL deference, in all of the
-> >> stable libs, not just devicemodel.
+Paul Durrant writes ("RE: [PATCH for-4.14] tools/libxc: Drop config_transformed parameter from xc_cpuid_set()"):
+> > -----Original Message-----
+> > From: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Sent: 12 June 2020 11:55
+> > To: Xen-devel <xen-devel@lists.xenproject.org>
+> > Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Ian Jackson <Ian.Jackson@citrix.com>; Wei Liu
+> > <wl@xen.org>; Paul Durrant <paul@xen.org>
+> > Subject: [PATCH for-4.14] tools/libxc: Drop config_transformed parameter from xc_cpuid_set()
+> > 
+> > libxl is now the sole caller of xc_cpuid_set().  The config_transformed output
+> > is ignored, and this patch trivially highlights the resulting memory leak.
+> > 
+> > "transformed" config is now properly forwarded on migrate as part of the
+> > general VM state, so delete the transformation logic completely, rather than
+> > trying to adjust just libxl to avoid leaking memory.
+> > 
+> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> Reviewed-by: Paul Durrant <paul@xen.org>
+> Release-acked-by: Paul Durrant <paul@xen.org>
 
-Are you sure ?
+Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-I think you mean this sequence of events:
-
-  xencall_open(logger=NULL, open_flags=0)
-     xcall->logger = NULL; /* from logger */
-     xcall->logger_tofree = NULL;
-     if (1) {
-       xtl_createlogger_stdiostream => NULL
-       /* so */ goto err;
-     }
-
-   err:
-     xentoolcore__deregister_active_handle(&xcall->tc_ah); /* " */
-     osdep_xencall_close(xcall);
-     xencall_close(dmod->xcall);
-     xtl_logger_destroy(xcall->logger_tofree /* NULL */); // <- crash?
-     free(xcall);
-
-But xtl_logger_destroy(NULL) is a safe no-op.
-
-However,
-
-> >> Also, unless I'd triple checked the history, I was about to reintroduce the
-> >> deadlock from c/s 9976f3874d4
-
-These comments made me look again at 9976f3874d4 "tools:
-xentoolcore_restrict_all: Do deregistration before close".
-
-Just now I wrote:
-
-   I notice that the tail of xendevicemodel_open is now identical to
-   xendevicemodel_close.  I think this is expected, and that it would be
-   better to combine the two sets of code.  If they hadn't been separate
-   then we might have avoided this bug...
-
-But in fact this is not true.  xendevicemodel_close has them in the
-right order, but xendevicemodel_open's err block has them in the wrong
-order.
-
-Now that I look at xencall, I discover tht xencall_open's err block is
-not identical to xencall_close.  xencall close calls
-buffer_release_cache and xencall_open's err block does not.  Looking
-more closely I think this happens not to be a memory leak because
-xcall->buffer* don't contain any malloc'd stuff until they are used.
-
-But I think this is poor practice and another example of teardown code
-duplication being a bad idea.
-
-> >> because it totally counterintuitive wrong to
-> >> expect setup and teardown in opposite orders.
-
-Are you sure you wrote what you meant ?  To my mind it is usual for
-setup and teardown to proceed in precisely the opposite order.
-
-The need to call xentoolcore__deregister_active_handle before closing
-the fd is to my mind unusual and counterintuitive.  The reasons are
-explained in the commit message for 9976f3874d4cca82.
-
-Does that all make sense ?
-
-Perhaps we should at least delete the wrong err path of
-xendevicemodel_open with a call to xendevicemodel_close ?
+I will commit this in a moment.
 
 Ian.
 
