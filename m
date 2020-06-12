@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6391F7703
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 13:01:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A37BD1F7713
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 13:06:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjhQW-0005Jm-Gk; Fri, 12 Jun 2020 11:00:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jjhVF-0005T3-3A; Fri, 12 Jun 2020 11:05:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4JN/=7Z=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jjhQV-0005Jh-GL
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 11:00:47 +0000
-X-Inumbo-ID: f778eae8-ac9b-11ea-b5ba-12813bfff9fa
+ id 1jjhVD-0005Sy-Ta
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 11:05:39 +0000
+X-Inumbo-ID: a5e57af6-ac9c-11ea-bb8b-bc764e2007e4
 Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f778eae8-ac9b-11ea-b5ba-12813bfff9fa;
- Fri, 12 Jun 2020 11:00:46 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a5e57af6-ac9c-11ea-bb8b-bc764e2007e4;
+ Fri, 12 Jun 2020 11:05:39 +0000 (UTC)
 Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: vR9NiALn/RFNcbxQ7REIJJ82GE238rLWs2R/k1YrGceQnb7KWLosRPitTpd+2lEC483fq04PAS
- XxXyX9838Be2vllZq9TLC+IGzULzUQRPBuI+7I8JP6J/qFnPVENSDO56HcU5FEXxhxvQZEVnUC
- znYRKR8U41k98YlKMfDaHW6QEXN8jWl3+wqZPXPEaj3MlUw3H7OBs2kyFRVs3+eUS69a3eSzsx
- opMJWlTRbuOrYJH17LI4ALGlOR9kRuVBGAjck7KwcZuS1MCn8CYvaAovQwMIFsTxETp/Ld5vpb
- c/s=
+IronPort-SDR: ciLDfLLVW4KC2YidnuKDXb5ozQH/geSuIQfi+ZmYjF7OmZ2dEr39mQFqLnzAJ4F+MLM2vORDuu
+ p6c8I7Ud/8QIRQLED6ecRK/zhgrZ13bF2kPrY6MRmHkXatl4gthAulEQKX0dNp9vF/TrulqTsj
+ SCNpK4zoFfUQU/pm1/ylwANu++dXgorHKGZ0V1svQDvwEUffpMO04A7TS8mVX/SUfTJYqiB4Il
+ Yo+27VaXjgl4q53ykBoTm8Vyl3LyoI65fLmYaibDtK8YnWe7kfDsnuDijmxfomiHxcqbxLCREP
+ NJw=
 X-SBRS: 2.7
-X-MesageID: 20239235
+X-MesageID: 20239744
 X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="20239235"
-To: xen-devel <xen-devel@lists.xenproject.org>, George Dunlap
- <george.dunlap@citrix.com>, <rosbrookn@gmail.com>
+X-IronPort-AV: E=Sophos;i="5.73,503,1583211600"; d="scan'208";a="20239744"
+To: xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson
+ <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: golang bindings dirty in tree after libxl build
-Message-ID: <ab679f8c-a09f-cbc6-c0fc-6285550ba3af@citrix.com>
-Date: Fri, 12 Jun 2020 12:00:17 +0100
+Subject: libxl dirty in tree after libxl build
+Message-ID: <439f3d92-2e18-1868-2b4b-2747973fbe3b@citrix.com>
+Date: Fri, 12 Jun 2020 12:05:20 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -61,33 +60,26 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 Hello,
 
-I've just done a libxl build and got things such as:
+A build of libxl has just dirtied the tree with:
 
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -431,14 +431,14 @@ x.Evtch = int(xc.evtch)
- x.Rref = int(xc.rref)
- x.Connection = ChannelConnection(xc.connection)
- switch x.Connection{
--case ChannelConnectionUnknown:
--x.ConnectionUnion = nil
- case ChannelConnectionPty:
- var connectionPty ChannelinfoConnectionUnionPty
- if err := connectionPty.fromC(xc);err != nil {
-  return fmt.Errorf("converting field connectionPty: %v", err)
- }
- x.ConnectionUnion = connectionPty
-+case ChannelConnectionUnknown:
-+x.ConnectionUnion = nil
- case ChannelConnectionSocket:
- x.ConnectionUnion = nil
- default:
+index 05f7ac74a0..94a4438666 100644
+--- a/tools/libxl/libxlu_disk_l.c
++++ b/tools/libxl/libxlu_disk_l.c
+@@ -10,221 +10,11 @@
+ #define FLEX_SCANNER
+ #define YY_FLEX_MAJOR_VERSION 2
+ #define YY_FLEX_MINOR_VERSION 6
+-#define YY_FLEX_SUBMINOR_VERSION 4
++#define YY_FLEX_SUBMINOR_VERSION 1
+ #if YY_FLEX_SUBMINOR_VERSION > 0
+ #define FLEX_BETA
+ #endif
 
-dirty in tree.  They are all case labels, and only their order in the
-switch has changed.
+and a whole slew of other changes in the generated code.  It looks like
+the version of Flex has just been updated in Jessie.
 
-Does the current binding generation rely on the order of entries in a
-python dictionary by any chance?
+Given the flex and bison are strictly required for the libxl build, why
+is this temporary file checked in?
 
 ~Andrew
 
