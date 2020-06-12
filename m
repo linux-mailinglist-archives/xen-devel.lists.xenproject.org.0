@@ -2,44 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F27241F7BBF
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 18:44:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFF711F7BCA
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2020 18:48:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jjmnM-0003Zr-EU; Fri, 12 Jun 2020 16:44:44 +0000
+	id 1jjmqN-0003iA-TW; Fri, 12 Jun 2020 16:47:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CBv9=7Z=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1jjmnL-0003Zl-40
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 16:44:43 +0000
-X-Inumbo-ID: 0365ac9e-accc-11ea-bb8b-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=dChH=7Z=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jjmqM-0003i4-5J
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2020 16:47:50 +0000
+X-Inumbo-ID: 72f935ee-accc-11ea-bb8b-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0365ac9e-accc-11ea-bb8b-bc764e2007e4;
- Fri, 12 Jun 2020 16:44:42 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ id 72f935ee-accc-11ea-bb8b-bc764e2007e4;
+ Fri, 12 Jun 2020 16:47:49 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: IjLRnD1CjhquFjV5pHyTMPb8LFKYcG/tJyvf5x9B/YHjixQABN2MIllxhs/IWFsX2JtafQ/AU3
- x3sCl6FU5DgkHJlisoZoCy5Rc/vkP58tllufSlu1jQY5XxZxqTiKKn54yGMADxptbIiiIKv/K0
- Xr1y1ZZHVNOUHwRbqFQaqwfU4RQMaP2mpac9bVZwAMm62AQx576qhVvRDA/cfCzSMfjUdygOqd
- zTeJ73HpKaclaTzDh4N+YgCSUdIj1SA5kyFkjCsUKX80fyjnftS0n7T1+21z+32gXfYMElKu0n
- bqU=
+IronPort-SDR: t5u17d6LZp9nU5NWS2xrf7Cyy+4Yk7VwsNEkuMIasjliIsMw/kBwlseXJzvRAMvCPAZnYsCTGP
+ hGcpuzXoU4evL5kqaYyReEaZcYLcmVfMXLoIVbiu2d5JNZYXzJVwsionONrN5gT4LlX73ku33K
+ tvZPF4PBU3OZkCvRXpdljnwCKrflQUieOpe1y7OEt1wVdloDOd6IQn7COtqSNVCjp4TcjvCT9h
+ s319Dr+pKU5Nr9GEGLU8ho87hlmAyAlUNQgEnq1JtRbnwRDSdDPjp/S/Fx11QBtKe3H4/hy7DM
+ n6M=
 X-SBRS: 2.7
-X-MesageID: 19938843
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 20270291
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,504,1583211600"; d="scan'208";a="19938843"
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH] tools/xen-ucode: fix error code propagation of microcode load
- operation
-Date: Fri, 12 Jun 2020 17:44:15 +0100
-Message-ID: <1591980255-18811-1-git-send-email-igor.druzhinin@citrix.com>
-X-Mailer: git-send-email 2.7.4
+X-IronPort-AV: E=Sophos;i="5.73,504,1583211600"; d="scan'208";a="20270291"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24291.45488.423085.940252@mariner.uk.xensource.com>
+Date: Fri, 12 Jun 2020 17:47:44 +0100
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+Subject: Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test]
+ 151033: regressions - trouble: blocked/fail/pass/starved)
+In-Reply-To: <24291.43673.301735.439410@mariner.uk.xensource.com>
+References: <osstest-151033-mainreport@xen.org>
+ <24291.43673.301735.439410@mariner.uk.xensource.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,43 +57,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: andrew.cooper3@citrix.com, ian.jackson@eu.citrix.com, wl@xen.org,
- Igor Druzhinin <igor.druzhinin@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Otherwise it's impossible to know the reason for a fault or blob rejection
-inside the automation.
+Ian Jackson writes ("Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test] 151033: regressions - trouble: blocked/fail/pass/starved)"):
+> >  test-amd64-amd64-xl-qcow2    10 debian-di-install        fail REGR. vs. 150039
+> >  test-amd64-amd64-pygrub      10 debian-di-install        fail REGR. vs. 150039
+> >  test-amd64-i386-xl-raw       10 debian-di-install        fail REGR. vs. 150039
+> 
+>   domainbuilder: detail: xc_dom_find_loader: trying Linux bzImage loader ... 
+>   domainbuilder: detail: XZ: Saw data stream end
+>   domainbuilder: detail: _xc_try_lzma_decode: XZ decompress OK, 0x4cd8f0 -> 0x1a7779c
+>   domainbuilder: detail: loader probe OK
+>   ...
+>   domainbuilder: detail: xc_dom_alloc_segment:   module0      : 0xffffffff82c00000 -> 0xffffffff82c02000  (pfn 0x2c00 + 0x2 pages)
+>   xc: error: panic: xc_dom_core.c:387: xc_dom_do_gunzip: inflate failed (rc=-5): Internal error
+>   libxl: error: libxl_dom.c:744:libxl__build_dom: xc_dom_build_image failed: No such file or directory
+> 
+> http://logs.test-lab.xenproject.org/osstest/logs/151033/test-amd64-amd64-pygrub/10.ts-debian-di-install.log
+> 
+> ????  Anyone have any ideas ?  I would have guessed that this was an
+> incompatibility between pygrub and the boot config made by the new
+> pygrub but
+>    git-log origin/staging-4.10..origin/stable-4.11 tools/pygrub/
+> suggests not.
 
-Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
----
- tools/misc/xen-ucode.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Andy suggested on IRC that there were some compression fixes which had
+perhaps not been backported far enough.
 
-diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
-index 0c257f4..2c907e1 100644
---- a/tools/misc/xen-ucode.c
-+++ b/tools/misc/xen-ucode.c
-@@ -62,8 +62,11 @@ int main(int argc, char *argv[])
- 
-     ret = xc_microcode_update(xch, buf, len);
-     if ( ret )
-+    {
-+        ret = errno;
-         fprintf(stderr, "Failed to update microcode. (err: %s)\n",
-                 strerror(errno));
-+    }
- 
-     xc_interface_close(xch);
- 
-@@ -74,5 +77,5 @@ int main(int argc, char *argv[])
-     }
-     close(fd);
- 
--    return 0;
-+    return ret;
- }
--- 
-2.7.4
+I think that's
 
+   lz4: fix system halt at boot kernel on x86_64
+   14b62ab3e5a79816edfc6dd3afce1bb68c106ac5
+   master commit: 5d90ff79542ab9c6eebe5c315c68c196bcf353b9
+
+   lz4: refine commit 9143a6c55ef7 for the 64-bit case
+   6561994b87af3e9cd28ee99c42e8b2697621687d
+   master commit: 2d7572cdfa4d481c1ca246aa1ce5239ccae7eb59
+
+Anyone have any objection to me sending those to 4.10 and maybe 4.9 ?
+They apply cleanly in both cases.
+
+Ian.
 
