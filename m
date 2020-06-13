@@ -2,49 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 707F41F84AA
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2020 20:43:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9B21F8524
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2020 22:33:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkB6G-0007Iz-IE; Sat, 13 Jun 2020 18:41:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rKRb=72=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jkB6F-0007Iu-Cg
- for xen-devel@lists.xenproject.org; Sat, 13 Jun 2020 18:41:51 +0000
-X-Inumbo-ID: 8a686928-ada5-11ea-b6c2-12813bfff9fa
+	id 1jkCou-0007hr-HD; Sat, 13 Jun 2020 20:32:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VdXd=72=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jkCot-0007hm-19
+ for xen-devel@lists.xenproject.org; Sat, 13 Jun 2020 20:32:03 +0000
+X-Inumbo-ID: efa610d8-adb4-11ea-b7bb-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8a686928-ada5-11ea-b6c2-12813bfff9fa;
- Sat, 13 Jun 2020 18:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=MFePwdJckU5c3mtocnCg48ruUviS+H7vs4qM4vnDBuQ=; b=xx9UH4tMWXBSWwg1m983PJovE2
- iXY7FqpAd1BMM8GVdN/o0KQyILC0u7Udsfbz2XhfqkyW7tXAZPiw82R+Z9uRtOc8x56FE1aDdW+sA
- DMjKJmZROmvizR7nNLcXjKDbdr09tXBYENnCiHp4ULmq9/lHhmczbUsFZh03lhTAxRWc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id efa610d8-adb4-11ea-b7bb-bc764e2007e4;
+ Sat, 13 Jun 2020 20:32:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=MjHQblp3XHh3JO14df6l7OePanGzuffS3w1NvDHcnuE=; b=H6PqqapWnQlbJz8nobexrr83H
+ bRCy/pxeVH8zg4xGhfMUODHtMj+OKc78jvU+tMyCJRCr4UavsZhbXhgWOg+VIvA03850JObWDDB+x
+ FV5kP6jjNOaaHlNABYdr8X3XBlPr+0u38tVT28D7hKKn5lyEajFE+DieYwFlqhGpnOnRM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jkB6B-0004vi-Lx; Sat, 13 Jun 2020 18:41:47 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=ufe34d9ed68d054.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jkB6B-0003hP-C5; Sat, 13 Jun 2020 18:41:47 +0000
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v3 for-4.14] pvcalls: Document correctly and explicitely the
- padding for all arches
-Date: Sat, 13 Jun 2020 19:41:32 +0100
-Message-Id: <20200613184132.11880-1-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jkCoq-0006zz-Vb; Sat, 13 Jun 2020 20:32:01 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jkCoq-000128-N5; Sat, 13 Jun 2020 20:32:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jkCoq-0002yo-MT; Sat, 13 Jun 2020 20:32:00 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151062-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 151062: regressions - FAIL
+X-Osstest-Failures: libvirt:test-arm64-arm64-libvirt-qcow2:debian-di-install:fail:regression
+ libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This: libvirt=63d08bec0b2dace2fcefffb23a1fa5b14c473d67
+X-Osstest-Versions-That: libvirt=0d009ca646a4e7438952f6d2739ab7f48ef533ab
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 13 Jun 2020 20:32:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,148 +76,170 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <jgrall@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Julien Grall <jgrall@amazon.com>
+flight 151062 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151062/
 
-The documentation of pvcalls suggests there is padding for 32-bit x86
-at the end of most the structure. However, they are not described in
-in the public header.
+Regressions :-(
 
-Because of that all the structures would be 32-bit aligned and not
-64-bit aligned for 32-bit x86.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-libvirt-qcow2 10 debian-di-install      fail REGR. vs. 151040
 
-For all the other architectures supported (Arm and 64-bit x86), the
-structure are aligned to 64-bit because they contain uint64_t field.
-Therefore all the structures contain implicit padding.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151040
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151040
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
 
-The paddings are now corrected for 32-bit x86 and written explicitly for
-all the architectures.
+version targeted for testing:
+ libvirt              63d08bec0b2dace2fcefffb23a1fa5b14c473d67
+baseline version:
+ libvirt              0d009ca646a4e7438952f6d2739ab7f48ef533ab
 
-While the structure size between 32-bit and 64-bit x86 is different, it
-shouldn't cause any incompatibility between a 32-bit and 64-bit
-frontend/backend because the commands are always 56 bits and the padding
-are at the end of the structure.
+Last test of basis   151040  2020-06-11 04:19:36 Z    2 days
+Testing same since   151062  2020-06-12 12:50:09 Z    1 days    1 attempts
 
-As an aside, the padding sadly cannot be mandated to be 0 as they are
-already present. So it is not going to be possible to use the padding
-for extending a command in the future.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Yi Li <yili@winhong.com>
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
----
-    Changes in v3:
-        - Use __i386__ rather than CONFIG_X86_32
 
-    Changes in v2:
-        - It is not possible to use the same padding for 32-bit x86 and
-        all the other supported architectures.
----
- docs/misc/pvcalls.pandoc        | 18 ++++++++++--------
- xen/include/public/io/pvcalls.h | 14 ++++++++++++++
- 2 files changed, 24 insertions(+), 8 deletions(-)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-diff --git a/docs/misc/pvcalls.pandoc b/docs/misc/pvcalls.pandoc
-index 665dad556c39..caa71b36d78b 100644
---- a/docs/misc/pvcalls.pandoc
-+++ b/docs/misc/pvcalls.pandoc
-@@ -246,9 +246,9 @@ The format is defined as follows:
-     			uint32_t domain;
-     			uint32_t type;
-     			uint32_t protocol;
--    			#ifdef CONFIG_X86_32
-+			#ifndef __i386__
-     			uint8_t pad[4];
--    			#endif
-+			#endif
-     		} socket;
-     		struct xen_pvcalls_connect {
-     			uint64_t id;
-@@ -257,16 +257,18 @@ The format is defined as follows:
-     			uint32_t flags;
-     			grant_ref_t ref;
-     			uint32_t evtchn;
--    			#ifdef CONFIG_X86_32
-+			#ifndef __i386__
-     			uint8_t pad[4];
--    			#endif
-+			#endif
-     		} connect;
-     		struct xen_pvcalls_release {
-     			uint64_t id;
-     			uint8_t reuse;
--    			#ifdef CONFIG_X86_32
-+			#ifndef __i386__
-     			uint8_t pad[7];
--    			#endif
-+			#else
-+			uint8_t pad[3];
-+			#endif
-     		} release;
-     		struct xen_pvcalls_bind {
-     			uint64_t id;
-@@ -276,9 +278,9 @@ The format is defined as follows:
-     		struct xen_pvcalls_listen {
-     			uint64_t id;
-     			uint32_t backlog;
--    			#ifdef CONFIG_X86_32
-+			#ifndef __i386__
-     			uint8_t pad[4];
--    			#endif
-+			#endif
-     		} listen;
-     		struct xen_pvcalls_accept {
-     			uint64_t id;
-diff --git a/xen/include/public/io/pvcalls.h b/xen/include/public/io/pvcalls.h
-index cb8171275c13..28374a82f410 100644
---- a/xen/include/public/io/pvcalls.h
-+++ b/xen/include/public/io/pvcalls.h
-@@ -65,6 +65,9 @@ struct xen_pvcalls_request {
-             uint32_t domain;
-             uint32_t type;
-             uint32_t protocol;
-+#ifndef __i386__
-+            uint8_t pad[4];
-+#endif
-         } socket;
-         struct xen_pvcalls_connect {
-             uint64_t id;
-@@ -73,10 +76,18 @@ struct xen_pvcalls_request {
-             uint32_t flags;
-             grant_ref_t ref;
-             uint32_t evtchn;
-+#ifndef __i386__
-+            uint8_t pad[4];
-+#endif
-         } connect;
-         struct xen_pvcalls_release {
-             uint64_t id;
-             uint8_t reuse;
-+#ifndef __i386__
-+            uint8_t pad[7];
-+#else
-+            uint8_t pad[3];
-+#endif
-         } release;
-         struct xen_pvcalls_bind {
-             uint64_t id;
-@@ -86,6 +97,9 @@ struct xen_pvcalls_request {
-         struct xen_pvcalls_listen {
-             uint64_t id;
-             uint32_t backlog;
-+#ifndef __i386__
-+            uint8_t pad[4];
-+#endif
-         } listen;
-         struct xen_pvcalls_accept {
-             uint64_t id;
--- 
-2.17.1
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 63d08bec0b2dace2fcefffb23a1fa5b14c473d67
+Author: Andrea Bolognani <abologna@redhat.com>
+Date:   Thu Jun 11 20:06:02 2020 +0200
+
+    ci: Swap mipsel and ppc64le builds
+    
+    Debian sid is currently broken on mipsel, so use Debian 10 for
+    that architecture; at the same time, move the ppc64le build from
+    Debian 10 to Debian sid to keep things balanced.
+    
+    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+
+commit 2250a0b56f12e30d67210fd49d2123014bc73d2c
+Author: Andrea Bolognani <abologna@redhat.com>
+Date:   Tue Jun 2 17:28:58 2020 +0200
+
+    ci: Update build system integration
+    
+    The ci-* targets need to know where our container images are stored
+    and how they are called to work, so now that we use the GitLab
+    container registry instead of Quay some changes are necessary.
+    
+    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+
+commit 95abbdc432133b9ae4a76d15251d64b5893717e6
+Author: Andrea Bolognani <abologna@redhat.com>
+Date:   Tue Jun 2 17:28:57 2020 +0200
+
+    ci: Use GitLab container registry
+    
+    Instead of using pre-built containers hosted on Quay, build
+    containers as part of the GitLab CI pipeline and upload them to the
+    GitLab container registry for later use.
+    
+    This will not significantly slow down builds, because containers are
+    only rebuilt when the corresponding Dockerfile has been modified.
+    
+    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+
+commit 7ef13242847405328836a38e445aa2894c0ebab9
+Author: Andrea Bolognani <abologna@redhat.com>
+Date:   Tue Jun 2 17:28:55 2020 +0200
+
+    ci: Use variables to build image names
+    
+    This removes a lot of repetition and makes the configuration much
+    easier to read.
+    
+    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+
+commit 9170b0ee6f867d2be1165e83c80910b0e0ac952d
+Author: Andrea Bolognani <abologna@redhat.com>
+Date:   Wed Jun 10 18:11:04 2020 +0200
+
+    docs: Document CIRRUS_GITHUB_REPO variable
+    
+    This needs to be set for every repository for Cirrus CI integration
+    to work.
+    
+    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+
+commit 414aee194aed23370df87f5cde28dce1d1492235
+Author: Yi Li <yili@winhong.com>
+Date:   Thu Jun 11 11:26:29 2020 +0800
+
+    conf: snapshot: Drop unused variable 'creation'
+    
+    Signed-off-by: Yi Li <yili@winhong.com>
+    Reviewed-by: Erik Skultety <eskultet@redhat.com>
 
