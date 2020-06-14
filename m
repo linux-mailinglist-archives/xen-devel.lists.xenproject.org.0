@@ -2,62 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF3461F8B12
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 00:12:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 759811F8B13
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 00:12:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkarX-0000BP-7k; Sun, 14 Jun 2020 22:12:23 +0000
+	id 1jkarc-0000Ci-GJ; Sun, 14 Jun 2020 22:12:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UtKD=73=gmail.com=gorbak25@srs-us1.protection.inumbo.net>)
- id 1jkarV-00009r-Mu
- for xen-devel@lists.xenproject.org; Sun, 14 Jun 2020 22:12:21 +0000
-X-Inumbo-ID: 1a644538-ae8c-11ea-bb8b-bc764e2007e4
-Received: from mail-ej1-x644.google.com (unknown [2a00:1450:4864:20::644])
+ id 1jkara-00009r-NB
+ for xen-devel@lists.xenproject.org; Sun, 14 Jun 2020 22:12:26 +0000
+X-Inumbo-ID: 1b898bb2-ae8c-11ea-8496-bc764e2007e4
+Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1a644538-ae8c-11ea-bb8b-bc764e2007e4;
- Sun, 14 Jun 2020 22:12:15 +0000 (UTC)
-Received: by mail-ej1-x644.google.com with SMTP id mb16so15382762ejb.4
- for <xen-devel@lists.xenproject.org>; Sun, 14 Jun 2020 15:12:15 -0700 (PDT)
+ id 1b898bb2-ae8c-11ea-8496-bc764e2007e4;
+ Sun, 14 Jun 2020 22:12:17 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id gl26so15342904ejb.11
+ for <xen-devel@lists.xenproject.org>; Sun, 14 Jun 2020 15:12:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=K9vVjeVfBAmD5toSQvhwolJYZoUXP1UxEwduLBU73+A=;
- b=adGPkbzd1pDFW3MMUjjil8woWTnpy+IswqfHTBgRpgUbyY0AVHlMEKG1ayjzQFjxGz
- 5G3gUp4An2Nvf5+xtlvUBunXcYc2WLQX42O7pVQmwJH/zJWgWgTIEr54qGeS/VuALz1Q
- 9wUpKwpddrfCgGMAKXevlA9ZRN+cEoWSsfsAwIBmt5lrAV/7cEXZ7u4de4sv1XjYr3HV
- FbEAYtti7lgeykcE0PlstCDtmD++QZDXkd+CQYw1hpNja4QvDqV5OIyA3PjeVLUtNQPE
- 1DNv4GtjP2YW3QlKlZDr/H5zzlG4vL6HpcWB4eHWUmFvZsSHBKFGFLXqAbmu10LaxikN
- gzYg==
+ bh=kLRVBuDUDaOcgBVQ0wo5+UBjW8DkKN77rftCvaZTsIA=;
+ b=nekzYCKtPlBwtlHnKvgZ9CzTcRT1AtzMXQnmTO+Ob3xGKrOHXKGXinBUOlfitQfQxj
+ ZCEHH+Iun4a2lBF8xkAiON++UnRrbOE31OymdlD0PHC3t+wuYyKyIx2nU0d+Y/fyFv47
+ h6YeG9ALHOj+CJkXbphz5+cW8Qk/pF8Et213L8PHGdTIRvvbp1tgu/o6e5MUujYWcjCn
+ q/x7AIO7U6QTbmFsuSrYCN502H+bD8/oj9kCiClP2/2dYf00xGN6Rq51llar0eVlwksR
+ KTZdIAsPZTBTCQRjBd0iprT2fWDeovBcOmWB6bTZBKw1kOVLJbpWTKtIWE4or+AFvc4/
+ 5DtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=K9vVjeVfBAmD5toSQvhwolJYZoUXP1UxEwduLBU73+A=;
- b=ZGrwSYmnc1eJpEuYifzTk2Zr+TCDrYgbQ8Ksw8Ovw/xtywTrV5E/Wca15mbX7fUhpw
- WKR6UIpVlF0wPeL4JgC8gnVhH0xu96LbGApKVmK6neZ4IKpa725gSEoSqiyoOU9wKAoU
- MmVOcQSpK+O9k1WKK0mgK4wHJUJFfON+1wsp1GlhRrLADbRusoV1pedZSVq6S5CeLrcu
- bad4mf/MKCj/YfRHbSB4Q6Kr+s3lPqQorETM4CMWRhZlUnXl/qXJi3E7gU7oNS4Ujywi
- CxLaOlDniuBwFWIIhUkz6Jz/lmLCYR6c19URmPVgIIXu/oQ6XkTERChxLfM/bQ5RS2/p
- vjQA==
-X-Gm-Message-State: AOAM530pQpzJp4BTzGOw2Agh8W/T5+s2tT5OCbArFRK7PWJrOnLu//QI
- DsVA8qfluWAVVKV4UzIQgplNQtlLC4QrdQ==
-X-Google-Smtp-Source: ABdhPJxxMqGxxS/Bt2pPFAmezto6oZ1Tkhi9T994RozWfo95KLi4xIcCkyj/iEhidE91AhWez433ig==
-X-Received: by 2002:a17:906:b1c3:: with SMTP id
- bv3mr23526685ejb.292.1592172734456; 
- Sun, 14 Jun 2020 15:12:14 -0700 (PDT)
+ bh=kLRVBuDUDaOcgBVQ0wo5+UBjW8DkKN77rftCvaZTsIA=;
+ b=g8PP/JF8ae/cdlqh+0tDrVLCHie4S6s+iYAoC/tJx4dR72a4MnTGB6d4b4CPrZP/dl
+ /RfCYSFigBsZV7qUrhpG8zhK4MD3XN58N5y907VkRtcdSdOsY9ahOlMGd+bFsLdf9EsY
+ J/JWj/btUes8XZOjDMqBpHaphDH/QoYh0BqtHeYPcVLiPYgiQr/JAvN5W9DJ3edZUpxd
+ KmU1jv/NPtUWbui3EnLLdjS7rsK7SWlBgt0YWHdLMpeTiSlVRGlmRsNW7kd9m1R4s5n9
+ ZhKSJlBqXB/2YksiHq87Ta+9CXx7h7+JsK4Wrw2cW58UNI0ntpShD/iT5SysvKZXfkDc
+ h5Zw==
+X-Gm-Message-State: AOAM530F8Xc7fJ0aRrU43gjKtvaVrnlUX5rYmRhxueUe5XhWrwQ1XAHU
+ hfiCjqBeaE774jp0ML6Q14FKE6u41GBXeQ==
+X-Google-Smtp-Source: ABdhPJz0czg6GoGOiQFBr78sHMKFKu2xW2RrdQcRTPNKDp6zAcszpEcJ6ykOIpV0LcbSQwAIhSlTJg==
+X-Received: by 2002:a17:907:2162:: with SMTP id
+ rl2mr21608022ejb.365.1592172736358; 
+ Sun, 14 Jun 2020 15:12:16 -0700 (PDT)
 Received: from localhost.localdomain (public-gprs354212.centertel.pl.
  [37.47.14.229])
- by smtp.gmail.com with ESMTPSA id o13sm7772828ejb.46.2020.06.14.15.12.13
+ by smtp.gmail.com with ESMTPSA id o13sm7772828ejb.46.2020.06.14.15.12.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Jun 2020 15:12:13 -0700 (PDT)
+ Sun, 14 Jun 2020 15:12:15 -0700 (PDT)
 From: Grzegorz Uriasz <gorbak25@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 2/3] tools/libxl: Grant permission for mapping opregions to
- the target domain
-Date: Sun, 14 Jun 2020 22:12:02 +0000
-Message-Id: <18bebc4af48b83d71b3247082434b958be84b841.1592171394.git.gorbak25@gmail.com>
+Subject: [PATCH 3/3] tools/libxl: Directly map VBIOS to stubdomain
+Date: Sun, 14 Jun 2020 22:12:03 +0000
+Message-Id: <9817b73ea628c7ac86903bb9aa7fcfecf4f7b900.1592171394.git.gorbak25@gmail.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <cover.1592171394.git.gorbak25@gmail.com>
 References: <cover.1592171394.git.gorbak25@gmail.com>
@@ -80,76 +79,60 @@ Cc: Wei Liu <wl@xen.org>, jakub@bartmin.ski,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-IGD VGA devices require a special opregion MMIO region which functions as
-an extra BAR in the PCI configuration space. Right now qemu is assigning those
-permissions - this is failing inside a linux based stubdomain as the
-stubdomain is not privileged. This patch grants the permissions for
-opregions in libxl instead of qemu. Granting permissions in qemu may be removed
-when this patch get's merged - for now linux based stubdomains which use IGD's
-need to patch qemu and include this patch in xen for IGD passthrough to work.
+When passing through a IGD VGA device qemu needs to copy the host VBIOS
+to the target domain. Right now the current implementation on the qemu side
+is one big undefined behavior as described in my qemu patchset here:
+https://patchew.org/QEMU/20200428062847.7764-1-gorbak25@gmail.com/
+This patch is tied to the linked patchset for qemu but fortunately
+this patch still works without the qemu part merged. When the qemu part
+gets merged then qemu will access the VBIOS using /dev/mem - this is
+required as currently the linux kernel forbids accessing this memory
+region when the VBIOS is corrupted - which will always be the case as
+described in the linked patchset. When qemu is running inside a linux
+based stubdomain then the stubdomain does not have access to the VBIOS.
+This patch maps the VBIOS to the stubdomain so qemu with my fixes may
+create a shadow copy for the target domain.
 
 Signed-off-by: Grzegorz Uriasz <gorbak25@gmail.com>
 ---
- tools/libxl/libxl_pci.c | 46 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 45 insertions(+), 1 deletion(-)
+ tools/libxl/libxl_pci.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/tools/libxl/libxl_pci.c b/tools/libxl/libxl_pci.c
-index 436190f790..48b1d8073b 100644
+index 48b1d8073b..9b9564dd73 100644
 --- a/tools/libxl/libxl_pci.c
 +++ b/tools/libxl/libxl_pci.c
-@@ -2497,7 +2497,51 @@ static int libxl__grant_legacy_vga_permissions(libxl__gc *gc, const uint32_t dom
- }
+@@ -2445,6 +2445,8 @@ static int libxl__grant_legacy_vga_permissions(libxl__gc *gc, const uint32_t dom
+     int ret, i;
+     uint64_t vga_iomem_start = 0xa0000 >> XC_PAGE_SHIFT;
+     uint64_t vga_iomem_npages = 0x20;
++    uint64_t vga_vbios_start = 0xc0000 >> XC_PAGE_SHIFT;
++    uint64_t vga_vbios_npages = 0x20;
+     uint32_t stubdom_domid = libxl_get_stubdom_id(CTX, domid);
+     uint64_t vga_ioport_start[] = {0x3B0, 0x3C0};
+     uint64_t vga_ioport_size[] = {0xC, 0x20};
+@@ -2460,6 +2462,7 @@ static int libxl__grant_legacy_vga_permissions(libxl__gc *gc, const uint32_t dom
+               vga_iomem_start, (vga_iomem_start + (vga_iomem_npages << XC_PAGE_SHIFT) - 1));
+         return ret;
+     }
++
+     ret = xc_domain_iomem_permission(CTX->xch, domid,
+                                      vga_iomem_start, vga_iomem_npages, 1);
+     if (ret < 0) {
+@@ -2470,6 +2473,13 @@ static int libxl__grant_legacy_vga_permissions(libxl__gc *gc, const uint32_t dom
+         return ret;
+     }
  
- static int libxl__grant_igd_opregion_permission(libxl__gc *gc, const uint32_t domid) {
--    return 0;
-+    char* sysfs_path;
-+    FILE* f;
-+    uint32_t igd_host_opregion;
-+    int ret = 0;
-+    uint32_t stubdom_domid = libxl_get_stubdom_id(CTX, domid);
-+
-+    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/config", 0, 0, 2, 0);
-+    f = fopen(sysfs_path, "r");
-+    if (!f) {
-+        LOGED(ERROR, domid, "Unable to access IGD config space");
-+        return ERROR_FAIL;
-+    }
-+
-+    ret = fseek(f, 0xfc, SEEK_SET);
++    /* VGA ROM */
++    ret = xc_domain_memory_mapping(CTX->xch, stubdom_domid, vga_vbios_start, vga_vbios_start, vga_vbios_npages, DPCI_ADD_MAPPING);
 +    if (ret < 0) {
-+        LOGED(ERROR, domid, "Unable to lseek in PCI config space");
-+        goto out;
++        LOGED(ERROR, domid, "failed to map VBIOS to stubdom%d", stubdom_domid);
++        return ret;
 +    }
 +
-+    ret = fread((void*)&igd_host_opregion, 4, 1, f);
-+    if (ret < 0) {
-+        LOGED(ERROR, domid, "Unable to read opregion register");
-+        goto out;
-+    }
-+
-+    ret = xc_domain_iomem_permission(CTX->xch, stubdom_domid,
-+                                     (unsigned long)(igd_host_opregion >> XC_PAGE_SHIFT), 0x3, 1);
-+    if (ret < 0) {
-+        LOGED(ERROR, domid,
-+              "failed to give stubdom%d access to %"PRIx32" opregions for igd passthrough", stubdom_domid, igd_host_opregion);
-+        goto out;
-+    }
-+
-+    ret = xc_domain_iomem_permission(CTX->xch, domid,
-+                                     (unsigned long)(igd_host_opregion >> XC_PAGE_SHIFT), 0x3, 1);
-+    if (ret < 0) {
-+        LOGED(ERROR, domid,
-+              "failed to give dom%d access to %"PRIx32" opregions for igd passthrough", domid, igd_host_opregion);
-+        goto out;
-+    }
-+
-+    out:
-+    if(f)
-+        fclose(f);
-+    return ret;
- }
- 
- int libxl__grant_vga_iomem_permission(libxl__gc *gc, const uint32_t domid,
+     /* VGA IOPORTS */
+     for (i = 0 ; i < 2 ; i++) {
+         ret = xc_domain_ioport_permission(CTX->xch, stubdom_domid,
 -- 
 2.27.0
 
