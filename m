@@ -2,62 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AADD1F8947
+	by mail.lfdr.de (Postfix) with ESMTPS id E61C91F8948
 	for <lists+xen-devel@lfdr.de>; Sun, 14 Jun 2020 16:37:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkTl1-0004YG-TC; Sun, 14 Jun 2020 14:37:11 +0000
+	id 1jkTlB-0004Yp-5L; Sun, 14 Jun 2020 14:37:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UtKD=73=gmail.com=gorbak25@srs-us1.protection.inumbo.net>)
- id 1jkTl0-0004YB-SF
- for xen-devel@lists.xenproject.org; Sun, 14 Jun 2020 14:37:10 +0000
-X-Inumbo-ID: 874c264c-ae4c-11ea-b7bb-bc764e2007e4
-Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
+ id 1jkTl9-0004YZ-Na
+ for xen-devel@lists.xenproject.org; Sun, 14 Jun 2020 14:37:19 +0000
+X-Inumbo-ID: 8c810dbc-ae4c-11ea-8496-bc764e2007e4
+Received: from mail-ej1-x641.google.com (unknown [2a00:1450:4864:20::641])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 874c264c-ae4c-11ea-b7bb-bc764e2007e4;
- Sun, 14 Jun 2020 14:37:10 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id l27so14724108ejc.1
- for <xen-devel@lists.xenproject.org>; Sun, 14 Jun 2020 07:37:10 -0700 (PDT)
+ id 8c810dbc-ae4c-11ea-8496-bc764e2007e4;
+ Sun, 14 Jun 2020 14:37:19 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id l27so14724301ejc.1
+ for <xen-devel@lists.xenproject.org>; Sun, 14 Jun 2020 07:37:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=F6On6rf2nicxLWMEIcW1TLcL1Hrgjpywh0LpJEepZ+k=;
- b=oxPWLN2RwlVG6htFCyTgxZKsxUBq7DbHG2EtNWJHb3TseGAKq4i8qIVWF7B4jWv1Pp
- 5j62QlNPBifHdsNk4uFFi7DTWyyvAMSG7Jgzo/tacn45UddqAyK3tHGG5chf5hna3Nmp
- HodrGPRIca6y1EvLsrCmFa7m5yjcy9sJurLbXswQBfn6OqGLcKKql4jRIkwMatorKFRt
- zF1OTrHnVUPNAzHOFAJ1oWSl6w/TP1XY5ZVOuUMMOr00Ni9hRB1KrcBs4VCJxUROEQ1o
- AAo2xQGEzKZ7nhza8lhTPMnFLnvA4cjXEF7ihZRKX/DsG/iQKMefYATaVrwdyAO8VUDm
- L/jg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=CedW14TZMrLJXwa4+9NGmni6qCAFSImofjSKJjmOefU=;
+ b=gJQq1FDmHMLUhXCfeJ9EaXnakb1HIsoBaM/XtOYTk8lagU6V50luI9Wlhl+uu6KBl5
+ hLyw6rIprV2KPFLzGrBSvCLCQam1asQ4oLOwQ0zqUyvvljqKksTKa+sNJ7zQIUZUsDs2
+ PEP66Fsn+ntqXgnDt1w15ZTuXAfIKZMDElfj7qVtpfnVbFcJqrtrmaJ0g9DSRZSVU741
+ 5LMBc8sWzWcmf0YeVG4RiZCJjGv8g8JWNYlFFSmAjDFe4B7i6PZ9Nq3izmOaEX0hLNPP
+ lfVsoorjpSkQJPx7JNDdBpL3xXj+wOu/BmFR3wBmu79rwaxsrU7IcQrw2BT2SrGUt1nV
+ 4xlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=F6On6rf2nicxLWMEIcW1TLcL1Hrgjpywh0LpJEepZ+k=;
- b=gxlsF2j/H0+hzXpZLww8DCTtmcCJX1sDL+6bOvSBuV5Fx6AIfVbTSDXO/EqWs1mDYO
- 6sXOZhhSfRNvNHjltsrs20bLNyQv7O1pJ5pP9xpqziwB8S7E5AQXBKbFBknG7dR+NW+h
- rLN81C1uybVXcB1sdknULVQmS5rJ2QJZKhtAAZ6sa5HzfERrHrUyhAE57J1RL8gqvqHe
- OVMDItEstp0nNccRgB+J0AFeo34dHIBUYB7glK2L67wqW4ySCqZn9/JIXjuYa2GFDqcK
- Yj5nAHbLpIfVXKmyuteL53JBSDyvojPwfLjmtnbTF5VCmRU83u5SHfI6qh3xxljrvMgc
- nEVg==
-X-Gm-Message-State: AOAM530q/qdESSR5gvqQZOKWPGnDK/VmDpyjhjeokMH7Sci/uvNzLxLL
- QTh0xfIeFyoCfn5n8yExpaqaTXDEiAX5hA==
-X-Google-Smtp-Source: ABdhPJy2itoXi9nScreiQpUBnRAYugeC2fwZnD4WdPcs4gx2OBKLUy8Nsba+6yJV2mYuNx5COFgW2A==
-X-Received: by 2002:a17:906:784c:: with SMTP id
- p12mr21434137ejm.123.1592145429358; 
- Sun, 14 Jun 2020 07:37:09 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=CedW14TZMrLJXwa4+9NGmni6qCAFSImofjSKJjmOefU=;
+ b=G8woINkKRJIqncihWB27G19N7EpQt7YJ+U6/nn40jU/WYlO6x0S50ORbWOpJrxCmDg
+ d2nFvBfXhbd7F227bRvmCH3EahugKiYlfQGMGr5OPmEaA+tPAPNAZvoYsc359DaDKHbB
+ CuyfwOhz1ActdWk8YP/CPeVepvgFViU1RA6iZXp23SUL9mzRuitarhOSw8EedLOJpf/p
+ dZZxWm9hmFDwLhJyeJcY4MYCShxCvTlv1cBoAoRueegmp2PcP/qWS+hAQq7XnlWA6Oqd
+ MCwbZk/Vl70xGlazqnOXF8Mvfc1sfKi+uPcaSt+h6E8Pe+snxblHCDBBp0AJoBaHUDJL
+ q0sA==
+X-Gm-Message-State: AOAM533c+mBS91BihmBj+KjdlcpCVZocDFe3yvPSPRvyw6VjS2vcS90Q
+ 4629SCoR8bktpU6ngIaNKL1VC7xHwW7ZhA==
+X-Google-Smtp-Source: ABdhPJz0eyvA2OIgEU9X+Hg7Ah43Y42zZY+0qhsOZ53d3nnb1vpl798Adk67xG2sumjh0f9KqhCRgA==
+X-Received: by 2002:a17:906:d933:: with SMTP id
+ rn19mr22297701ejb.158.1592145437986; 
+ Sun, 14 Jun 2020 07:37:17 -0700 (PDT)
 Received: from localhost.localdomain (public-gprs354212.centertel.pl.
  [37.47.14.229])
- by smtp.gmail.com with ESMTPSA id l18sm6753823eds.46.2020.06.14.07.37.07
+ by smtp.gmail.com with ESMTPSA id l18sm6753823eds.46.2020.06.14.07.37.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Jun 2020 07:37:08 -0700 (PDT)
+ Sun, 14 Jun 2020 07:37:17 -0700 (PDT)
 From: Grzegorz Uriasz <gorbak25@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 0/1] Fix broken suspend on some machines
-Date: Sun, 14 Jun 2020 14:36:27 +0000
-Message-Id: <cover.1592142369.git.gorbak25@gmail.com>
+Subject: [PATCH 1/1] x86/acpi: Use FADT flags to determine the PMTMR width
+Date: Sun, 14 Jun 2020 14:36:28 +0000
+Message-Id: <dba39869b788f7f9d937fac48f0476a0443925f0.1592142369.git.gorbak25@gmail.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <cover.1592142369.git.gorbak25@gmail.com>
+References: <cover.1592142369.git.gorbak25@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -78,33 +80,36 @@ Cc: artur@puzio.waw.pl, Wei Liu <wl@xen.org>, jakub@bartmin.ski,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+On some computers the bit width of the PM Timer as reported
+by ACPI is 32 bits when in fact the FADT flags report correctly
+that the timer is 24 bits wide. On affected machines such as the
+ASUS FX504GM and never gaming laptops this results in the inability
+to resume the machine from suspend. Without this patch suspend is
+broken on affected machines and even if a machine manages to resume
+correctly then the kernel time and xen timers are trashed.
 
-The included patch is a small subset of a bigger patch set spanning few 
-projects aiming to isolate the GPU in Qubes OS to a dedicated security domain.
-I'm doing this together with 3 colleagues as part of our Bachelors thesis.
-While working on the project we came across 2 machines - newer gaming
-laptops on which the suspend functionality on unmodified xen is completely broken.
-
-The affected machines were able to suspend but not always resume. Even
-if the resume succeeded then the kernel time was trashed in the dmesg log
-and the machine never managed to suspend another time. After changing
-the xen clock to hpet, suspend started working again both on stock
-xen and Qubes OS - this indicates a bug in the ACPI PM Timer. After
-disassembling the FADT ACPI table on the ASUS FX504GM I understood that the
-reported bit width is 32 bits but the flags indicate a 24 bit PM timer.
-
-The included patch fixes the suspend feature on ASUS FX504GM and hopefully
-other laptops - Probably next week I will test this patch on my
-friend's laptop where this issue also occurs(suspend is broken, trashed kernel
-time after resume).
-
-Grzegorz Uriasz (1):
-  x86/acpi: Use FADT flags to determine the PMTMR width
-
+Signed-off-by: Grzegorz Uriasz <gorbak25@gmail.com>
+Tested-by: Grzegorz Uriasz <gorbak25@gmail.com>
+---
  xen/arch/x86/acpi/boot.c | 5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
+index bcba52e232..2ad3eb4abc 100644
+--- a/xen/arch/x86/acpi/boot.c
++++ b/xen/arch/x86/acpi/boot.c
+@@ -480,7 +480,10 @@ static int __init acpi_parse_fadt(struct acpi_table_header *table)
+ 		if (fadt->xpm_timer_block.space_id ==
+ 		    ACPI_ADR_SPACE_SYSTEM_IO) {
+ 			pmtmr_ioport = fadt->xpm_timer_block.address;
+-			pmtmr_width = fadt->xpm_timer_block.bit_width;
++			if (fadt->flags & ACPI_FADT_32BIT_TIMER)
++				pmtmr_width = 32;
++			else
++				pmtmr_width = 24;
+ 		}
+ 	}
+ 	/*
 -- 
 2.27.0
 
