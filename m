@@ -2,43 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F13701F9895
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 15:30:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF7621F9939
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 15:45:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkpBH-0002wq-Jj; Mon, 15 Jun 2020 13:29:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gw2r=74=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jkpBG-0002wl-Ds
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 13:29:42 +0000
-X-Inumbo-ID: 44283eda-af0c-11ea-b7fb-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 44283eda-af0c-11ea-b7fb-12813bfff9fa;
- Mon, 15 Jun 2020 13:29:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 72ACEACE1;
- Mon, 15 Jun 2020 13:29:43 +0000 (UTC)
+	id 1jkpPj-0004ZR-88; Mon, 15 Jun 2020 13:44:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7yVv=74=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jkpPh-0004ZM-PG
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 13:44:37 +0000
+X-Inumbo-ID: 59edc9f4-af0e-11ea-bca7-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 59edc9f4-af0e-11ea-bca7-bc764e2007e4;
+ Mon, 15 Jun 2020 13:44:36 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: gR2qyDqKKdvLukNS3333WdjMUNCY5Qx8IyMuFOQvmE7Y736g2SI7Vt4sYAOoyBFZcA15Xbc/Se
+ MtZ51YV5EekUQdKumefw5rktkLMsiUhdK18MXdEl8uNKzzLi+3uSqtATi8f/Zj0ufF9GaCw7gr
+ LTdNRyfJa9TQC7vBGIKIz8SFpwcBMKms2HyhY4WdvWsTJMwbpm0H9D/u9XHBiWWoJUqG0aOjMv
+ DRQ2zOkg6VODx8uIdYyldUn2BUhGX86Oqc9tE5celOhbWOsAT1gG27niVLU0LEZKGeYVJliKWV
+ mWY=
+X-SBRS: 2.7
+X-MesageID: 20835255
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,514,1583211600"; d="scan'208";a="20835255"
+From: Ian Jackson <ian.jackson@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+Message-ID: <24295.31551.406528.629952@mariner.uk.xensource.com>
+Date: Mon, 15 Jun 2020 14:44:31 +0100
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>
 Subject: Re: Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test]
- 151033: regressions - trouble: blocked/fail/pass/starved)
-To: Ian Jackson <ian.jackson@citrix.com>
+ 151033: regressions - trouble: blocked/fail/pass/starved) [and 1 more
+ messages]
+In-Reply-To: <becfad2d-01fd-2559-7fb4-837a9d71eb42@citrix.com>,
+ <3c68a609-a069-f7e1-3c99-291da372df96@suse.com>
 References: <osstest-151033-mainreport@xen.org>
  <24291.43673.301735.439410@mariner.uk.xensource.com>
  <24291.45488.423085.940252@mariner.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3c68a609-a069-f7e1-3c99-291da372df96@suse.com>
-Date: Mon, 15 Jun 2020 15:29:38 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
-MIME-Version: 1.0
-In-Reply-To: <24291.45488.423085.940252@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ <3c68a609-a069-f7e1-3c99-291da372df96@suse.com>
+ <becfad2d-01fd-2559-7fb4-837a9d71eb42@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,58 +59,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 12.06.2020 18:47, Ian Jackson wrote:
-> Ian Jackson writes ("Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test] 151033: regressions - trouble: blocked/fail/pass/starved)"):
->>>  test-amd64-amd64-xl-qcow2    10 debian-di-install        fail REGR. vs. 150039
->>>  test-amd64-amd64-pygrub      10 debian-di-install        fail REGR. vs. 150039
->>>  test-amd64-i386-xl-raw       10 debian-di-install        fail REGR. vs. 150039
->>
->>   domainbuilder: detail: xc_dom_find_loader: trying Linux bzImage loader ... 
->>   domainbuilder: detail: XZ: Saw data stream end
->>   domainbuilder: detail: _xc_try_lzma_decode: XZ decompress OK, 0x4cd8f0 -> 0x1a7779c
->>   domainbuilder: detail: loader probe OK
->>   ...
->>   domainbuilder: detail: xc_dom_alloc_segment:   module0      : 0xffffffff82c00000 -> 0xffffffff82c02000  (pfn 0x2c00 + 0x2 pages)
->>   xc: error: panic: xc_dom_core.c:387: xc_dom_do_gunzip: inflate failed (rc=-5): Internal error
->>   libxl: error: libxl_dom.c:744:libxl__build_dom: xc_dom_build_image failed: No such file or directory
->>
->> http://logs.test-lab.xenproject.org/osstest/logs/151033/test-amd64-amd64-pygrub/10.ts-debian-di-install.log
->>
->> ????  Anyone have any ideas ?  I would have guessed that this was an
->> incompatibility between pygrub and the boot config made by the new
->> pygrub but
->>    git-log origin/staging-4.10..origin/stable-4.11 tools/pygrub/
->> suggests not.
+Andrew Cooper writes ("Re: Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test] 151033: regressions - trouble: blocked/fail/pass/starved)"):
+> On 12/06/2020 17:47, Ian Jackson wrote:
+> > Ian Jackson writes ("Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test] 151033: regressions - trouble: blocked/fail/pass/starved)"):
+> > I think that's
+> >
+> >    lz4: fix system halt at boot kernel on x86_64
+> >    14b62ab3e5a79816edfc6dd3afce1bb68c106ac5
+> >    master commit: 5d90ff79542ab9c6eebe5c315c68c196bcf353b9
+> >
+> >    lz4: refine commit 9143a6c55ef7 for the 64-bit case
+> >    6561994b87af3e9cd28ee99c42e8b2697621687d
+> >    master commit: 2d7572cdfa4d481c1ca246aa1ce5239ccae7eb59
+> >
+> > Anyone have any objection to me sending those to 4.10 and maybe 4.9 ?
+> > They apply cleanly in both cases.
 > 
-> Andy suggested on IRC that there were some compression fixes which had
-> perhaps not been backported far enough.
+> Ah - you found them faster than I did.  Yes - these were the ones I was
+> thinking of.
 > 
-> I think that's
-> 
->    lz4: fix system halt at boot kernel on x86_64
->    14b62ab3e5a79816edfc6dd3afce1bb68c106ac5
->    master commit: 5d90ff79542ab9c6eebe5c315c68c196bcf353b9
-> 
->    lz4: refine commit 9143a6c55ef7 for the 64-bit case
->    6561994b87af3e9cd28ee99c42e8b2697621687d
->    master commit: 2d7572cdfa4d481c1ca246aa1ce5239ccae7eb59
-> 
-> Anyone have any objection to me sending those to 4.10 and maybe 4.9 ?
-> They apply cleanly in both cases.
+> No objections.
 
-Seeing the other pieces that have been put onto these old branches
-recently, it's probably fine to add the two ones here as well. In
-general, as mentioned before, I view it as wrong to put non-
-security fixes onto the security-only branches. But since I can see
-why changes to address newer compilers' changed behavior may be
-wanted/needed, I guess the ones here fall into a pretty similar
-group.
+Thanks.
 
-Jan
+Jan Beulich writes ("Re: Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test] 151033: regressions - trouble: blocked/fail/pass/starved)"):
+> Seeing the other pieces that have been put onto these old branches
+> recently, it's probably fine to add the two ones here as well. In
+> general, as mentioned before, I view it as wrong to put non-
+> security fixes onto the security-only branches.
+
+Yes.  I can see why this is not ideal.
+
+> But since I can see why changes to address newer compilers' changed
+> behavior may be wanted/needed, I guess the ones here fall into a
+> pretty similar group.
+
+However, as a practical matter, I think it is probably a good idea to
+enable (i) us to test these branches with an up-to-date CI setup (ii)
+people to be able to build it with modern compilers.
+
+So I think in general I am saying that narrow and low-risk build fixes
+are reasonable backport candidates.
+
+Thanks to both for your opinions.  I have pushed those two to 4.10 and
+will see how things go.  I may send them to 4.9 too.
+
+Ian.
 
