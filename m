@@ -2,49 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C204F1F9D99
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 18:38:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 450161F9DDF
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 18:54:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jks7T-0006YC-88; Mon, 15 Jun 2020 16:37:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jksM2-00088h-Ne; Mon, 15 Jun 2020 16:53:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7yVv=74=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jks7S-0006Y7-7d
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 16:37:58 +0000
-X-Inumbo-ID: 90c46562-af26-11ea-b81a-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 90c46562-af26-11ea-b81a-12813bfff9fa;
- Mon, 15 Jun 2020 16:37:56 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ <SRS0=p+Ae=74=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jksM1-000880-HO
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 16:53:01 +0000
+X-Inumbo-ID: a7bbb898-af28-11ea-bca7-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a7bbb898-af28-11ea-bca7-bc764e2007e4;
+ Mon, 15 Jun 2020 16:52:54 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 6wL7nnxTvCEzHhOOw6QoD49jx/5X8vooQFJqq3Iy9SnIu0qPZvqdGjKnUwO4fh9ifYa0jwfKPI
- +SKh+c0682Ca/ZvSws2LEA7ruxZlGdX8DdUCGR/yC2tG7XqLkQNq50RBNNvKv0GrO58/IYQBKJ
- kX6W6gDupjOBByO4a0EJyhszykZ0d/GfnDFjF4LmuTLJ9rkKJ/6mlahamC8tgbqQavftbirzG+
- s4fnhnPvEEDSyYGi47kZIGMRx4gESOGDrJs/VO2Lq8y2DyYiEFw1DA3+Nq5n32mXJzXdoRv7EC
- faI=
+IronPort-SDR: ogwVSP6sgRf3vISs9oDIA72rmuVO3ykqi0ng0XugkFMlFYpWvSszEQrgg5rnUQlX/r3HyRrAws
+ 79Um+qmAsa/DJznWc5iTyejkKz9/1lWGI9etbKo4Dk1vXmSBqHpj5Qnq/y1uBFKfs61C8eJxFw
+ QaPpOiVAUbx3q0IytCYwC8sovLU6KAVqBGhB8EVDU2w0ybqG5L9x8p6LyPEQy8l/OjyWloGXsE
+ mlbyjVVY/vjNt0Oy4ckUKC6KtLsCqsCzlnO9m7kPQoFklgHRfGdnxhjM+oIgBNAipsKP015T6k
+ REE=
 X-SBRS: 2.7
-X-MesageID: 20856669
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 20427979
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,515,1583211600"; d="scan'208";a="20856669"
-From: Ian Jackson <ian.jackson@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.73,515,1583211600"; d="scan'208";a="20427979"
+Date: Mon, 15 Jun 2020 18:52:44 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Martin Lucina <martin@lucina.net>
+Subject: Re: Event delivery and "domain blocking" on PVHv2
+Message-ID: <20200615165101.GJ735@Air-de-Roger>
+References: <62479d08f7650c22678d7a86851eafc4@lucina.net>
+ <20200615150344.GG735@Air-de-Roger>
+ <4a0bb4fa4dca2732feae4e2f825eb2a6@lucina.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24295.41945.883230.966002@mariner.uk.xensource.com>
-Date: Mon, 15 Jun 2020 17:37:45 +0100
-To: Roger Pau Monne <roger.pau@citrix.com>
-Subject: Re: [PATCH] libxl: tooling expects wrong errno
-In-Reply-To: <20200615155646.GI735@Air-de-Roger>
-References: <ebdcefb5ab4b9053dee7c090b4e6562e597b3474.1592151144.git.gorbak25@gmail.com>
- <24295.36070.945693.791220@mariner.uk.xensource.com>
- <20200615155646.GI735@Air-de-Roger>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4a0bb4fa4dca2732feae4e2f825eb2a6@lucina.net>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,74 +56,208 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, "jakub@bartmin.ski" <jakub@bartmin.ski>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>,
- Grzegorz Uriasz <gorbak25@gmail.com>,
- Anthony Perard <anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- "j.nowak26@student.uw.edu.pl" <j.nowak26@student.uw.edu.pl>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "contact@puzio.waw.pl" <contact@puzio.waw.pl>
+Cc: xen-devel@lists.xenproject.org, mirageos-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Roger Pau Monne writes ("Re: [PATCH] libxl: tooling expects wrong errno"):
-> On Mon, Jun 15, 2020 at 03:59:50PM +0100, Ian Jackson wrote:
-> > Grzegorz Uriasz writes ("[PATCH] libxl: tooling expects wrong errno"):
-> > > When iommu is not enabled for a given domain then pci passthrough
-> > > hypercalls such as xc_test_assign_device return EOPNOTSUPP.
-> > > The code responsible for this is in "iommu_do_domctl" inside
-> > > xen/drivers/passthrough/iommu.c
-> > > This patch fixes the error message reported by libxl when assigning
-> > > pci devices to domains without iommu.
-> > > 
-> > > Signed-off-by: Grzegorz Uriasz <gorbak25@gmail.com>
-> > > Tested-by: Grzegorz Uriasz <gorbak25@gmail.com>
-> > > ---
-> > >  tools/libxl/libxl_pci.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/tools/libxl/libxl_pci.c b/tools/libxl/libxl_pci.c
-> > > index 957ff5c8e9..bc5843b137 100644
-> > > --- a/tools/libxl/libxl_pci.c
-> > > +++ b/tools/libxl/libxl_pci.c
-> > > @@ -1561,7 +1561,7 @@ void libxl__device_pci_add(libxl__egc *egc, uint32_t domid,
-> > >              LOGD(ERROR, domid,
-> > >                   "PCI device %04x:%02x:%02x.%u %s?",
-> > >                   pcidev->domain, pcidev->bus, pcidev->dev, pcidev->func,
-> > > -                 errno == ENOSYS ? "cannot be assigned - no IOMMU"
-> > > +                 errno == EOPNOTSUPP ? "cannot be assigned - no IOMMU"
-> > >                   : "already assigned to a different guest");
-> > >              goto out;
-> > >          }
+On Mon, Jun 15, 2020 at 05:51:51PM +0200, Martin Lucina wrote:
+> On 2020-06-15 17:03, Roger Pau Monné wrote:
+> > This way of event channel injection is slitgly hackish, and I would
+> > recommend using HVMOP_set_evtchn_upcall_vector, that way vectors will
+> > be properly routed using the lapic.
 > > 
-> > Thanks.  I have addressed some Xen IOMMU maintainers.  Can you confirm
-> > whether this is right ?
+> > Using HVM_PARAM_CALLBACK_TYPE_VECTOR vectors are injected without
+> > setting the IRR/ISR bit in the lapic registers.
 > 
-> Not an IOMMU maintainer myself, but I've taken a look at the code and
-> I think Grzegorz is right. iommu_do_domctl will return -EOPNOTSUPP if
-> the IOMMU is not enabled for the domain. Another option would be to
-> check for EBUSY (which will certainly be returned when the device is
-> busy) and log the error code with a message when it's different than
-> EBUSY?
+> I picked HVM_PARAM_CALLBACK_TYPE_VECTOR since that seemed like the easiest
+> option for a uniprocessor, PVH-only guest.
 > 
-> There are many possible error here, for example the device itself
-> might not be behind an IOMMU, in which case Xen will return -ENODEV at
-> least on the Intel case.
+> What does <vector> mean in the context of HVMOP_set_evtchn_upcall_vector? If
+> it's an APIC vector number (sorry, not too familiar with the post-legacy
+> i8259 world), does that imply that if I use HVMOP_set_evtchn_upcall_vector I
+> need to do some APIC initialisation / programming?
+> 
+> All I need for Solo5/Mirage purposes is to have the upcall land on IDT
+> vector #32 or above.
 
-Thanks for the analysis.  So:
+Oh, OK. It was reported that HVM_PARAM_CALLBACK_TYPE_VECTOR doesn't
+work well with migration and when using hardware APIC virtualization
+IIRC, because of the fact that interrupts are not signaled in the
+lapic and directly injected.
 
-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+> > > Questions:
+> > > 
+> > > 1. Being based on the Solo5 virtio code, the low-level setup code is
+> > > doing
+> > > the "usual" i8259 PIC setup, to remap the PIC IRQs to vectors 32 and
+> > > above.
+> > > Should I be doing this initialisation for Xen PVH at all?
+> > 
+> > Hm, there are no IO-APICs (or legacy PICs) on a PVH domU, so there's
+> > not much to route. If Solo5 is thinking it's somehow configuring them
+> > it's likely writing to some hole in memory, or to some RAM.
+> 
+> Solo5 only has a very primitive understanding of hardware interrupts, so
+> it's only configuring the legacy PICs via port IO.
 
-This would seem to be a backport candidate.  AFAICT check has been
-there, looking for ENOSYS, since this code was introduced in
-   826eb17271d3c647516d9944c47b0779afedea25
-   libxl: suppress device assignment to HVM guest when there is no IOMMU
-?
+Oh, then there's definitely no legacy PIC at all. Writes to the PIC IO
+ports will be dropped/ignored, and reads will return ~0. I guess you
+could implement some check based on that in order to avoid doing any
+initialization?
 
-But that commit has a Tested-by.  Maybe Xen changed its error return
-at some point ?
+I don't think it should be harmful in any way, but you are just likely
+spending a bunch of time trapping into the hypervisor to handle those
+reads/writes for no good reason.
 
-Ian.
+> > 
+> > IO-APIC presence is signaled on the ACPI MADT table on PVH domU.
+> > 
+> 
+> Hmm, it'd be very unfortunate if I had to deal with ACPI, so here's hoping
+> that I don't actually need to touch the APIC.
+
+If you don't do any IO-APIC configuration at all then that's
+completely fine.
+
+> > > I'm not interested
+> > > in using the PIC for anything, and all interrupts will be delivered
+> > > via Xen
+> > > event channels.
+> > > 
+> > > 2. Related to the above, the IRQ handler code is ACKing the
+> > > interrupt after
+> > > the handler runs. Should I be doing that? Does ACKing "IRQ" 0 on the
+> > > PIC
+> > > have any interactions with Xen's view of event channels/pending
+> > > upcalls?
+> > 
+> > Which kind of ACking it's doing? Is it writing to the lapic EOI
+> > register? If so that would be OK when using
+> > HVMOP_set_evtchn_upcall_vector. If using
+> > HVM_PARAM_CALLBACK_TYPE_VECTOR there's nothing to Ack I think.
+> 
+> Legacy PIC EOI via port IO.
+
+No need to do that. There's no legacy PIC on PVH, and then event
+channel interrupts are not routed through the PIC when using
+HVM_PARAM_CALLBACK_TYPE_VECTOR.
+
+> > I'm not sure. Keep in mind that a new call to hypercall_set_timer_op
+> > will overwrite the previous timer, and hence should be fine I think as
+> > long as you are using the one-shot timer.
+> 
+> Is there something other than a one-shot timer? hypercall_set_timer_op is
+> just a single-argument hypercall with an uint64_t deadline, right? (And not
+> documented in xen.h either ...)
+
+There's also a periodic timer (see VCPUOP_{set/stop}_periodic_timer),
+which was enabled by default at 100Hz for PV guests. This is not the
+case for PVH.
+
+> > > I can also post the code that does the actual demuxing of events
+> > > from Xen
+> > > (i.e. the upcall handler), but I've read through that several times
+> > > now and
+> > > I don't think the problem is there; adding diagnostic prints to both
+> > > the
+> > > low-level C event channel code and higher-level OCaml Activations code
+> > > confirms that received events are being mapped to their ports
+> > > correctly.
+> > 
+> > I can take a look at the event channel handler if you want, as you
+> > wish. The only weird think I've noticed is the error in the unmask
+> > where you seem to use evtchn_mask instead of evtchn_pending.
+> 
+> Thanks for the offer, this stuff is fairly subtle.
+> 
+> In the Mirage/Xen scenario, there are two parts to the upcall handler. The
+> top half is executed in interrupt context and basically does nothing except
+> acknowledge the upcall:
+> 
+> int solo5__xen_evtchn_vector_handler(void *arg __attribute__((unused)))
+> {
+>     struct vcpu_info *vi = VCPU0_INFO();
+> 
+>     /*
+>      * All work is done outside of interrupt context by
+> evtchn_demux_pending(),
+>      * so all we need to do here is acknowledge the upcall from Xen.
+>      */
+>     vi->evtchn_upcall_pending = 0;
+
+I think you should best avoid clearing evtchn_upcall_pending here, as
+Xen will then inject more vector callbacks if a new event is signaled,
+even when you have not processed the previous one?
+
+>     return 1;
+> }
+> 
+> The bottom half is then called periodically (and always before blocking) by
+> the OCaml code:
+> 
+> static bool evtchn_demux_pending(void)
+> {
+>     struct shared_info *s = SHARED_INFO();
+>     struct vcpu_info *vi = VCPU0_INFO();
+>     bool some_pending = false;
+> 
+>     vi->evtchn_upcall_pending = 0;
+> 
+>     /*
+>      * Demux events received from Xen.
+>      *
+>      * pending_l1 is the "outer" per-VCPU selector (evtchn_pending_sel).
+>      * pending_l2 is the "inner" system-wide word (evtchn_pending[l1i]).
+>      */
+>     xen_ulong_t pending_l1, pending_l2;
+>     atomic_sync_xchg(&vi->evtchn_pending_sel, 0, &pending_l1);
+>     while (pending_l1 != 0) {
+>         xen_ulong_t l1i = ffs(pending_l1);
+> 
+>         /*
+>          * Masking pending_l2 with ~evtchn_mask[l1i] is necessary to get the
+>          * *current* masked events; otherwise races like the following
+>          * can occur:
+>          *
+>          *     1. X is generated, upcall scheduled by Xen.
+>          *     2. X is masked.
+>          *     3. Upcall is delivered.
+>          *     4. X fires despite now being masked.
+>          */
+>         while ((pending_l2 =
+>                     (s->evtchn_pending[l1i] & ~s->evtchn_mask[l1i])) != 0) {
+>             xen_ulong_t l2i = ffs(pending_l2);
+> 
+>             evtchn_port_t port = (l1i * (sizeof(xen_ulong_t) * 8)) + l2i;
+>             /*
+>              * Mark as pending on the OCaml side.
+>              */
+>             evtchn_callback_ml[port] = 1;
+
+How is this cleared? It must be cleared before the handler is run, or
+else you will likely miss interrupts.
+
+Also, I think you could mask the port before setting
+evtchn_callback_ml and unmask it when evtchn_callback_ml is cleared?
+
+>             some_pending = true;
+> 
+>             atomic_sync_btc(l2i, &s->evtchn_pending[l1i]);
+>         }
+> 
+>         pending_l1 &= ~(1UL << l1i);
+>     }
+> 
+>     return some_pending;
+> }
+
+If you can dump the event channel numbers and their usage from Solo5
+then you can check against the 'e' debug key from Xen in order to
+check if there are indeed pending events to be delivered on some of
+them.
+
+Just checking the output from the 'e' debug key will tell you if
+there's anything pending and if there are any channels masked.
+
+Roger.
 
