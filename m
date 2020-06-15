@@ -2,60 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9254F1FA154
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 22:20:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DF8E1FA17D
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 22:31:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkvZ8-0008QS-RI; Mon, 15 Jun 2020 20:18:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jkvkr-0001Yy-Se; Mon, 15 Jun 2020 20:30:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nTSQ=74=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jkvZ7-0008Q6-3q
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 20:18:45 +0000
-X-Inumbo-ID: 652b7173-af45-11ea-b83c-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 652b7173-af45-11ea-b83c-12813bfff9fa;
- Mon, 15 Jun 2020 20:18:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=u08XOvrZgx2f7JTaQjZ4AgQLrCa7wv9x+QdqQN39F/g=; b=Mn9cv+B5XkNgAG5vELqE6gGbV
- 5p+Rpk4aQDUQnj3YhywViAE6HQh+fOUSa7ZII3imJA2SjPmXXHirx1EV5iwflOl0OiYdHKYqwk9gF
- 4vMdZaMBTNW1qnLcW4U98h77+84vd/1FkptSH8SJQnShdBlisOVKMwSrHzkPafBKJaX7s=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jkvZ0-0000v3-Co; Mon, 15 Jun 2020 20:18:38 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jkvYz-0007qX-UX; Mon, 15 Jun 2020 20:18:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jkvYz-0005us-U3; Mon, 15 Jun 2020 20:18:37 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151159-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=8CMz=74=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jkvkq-0001Yt-5q
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 20:30:52 +0000
+X-Inumbo-ID: 1a6c8c1e-af47-11ea-bb8b-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1a6c8c1e-af47-11ea-bb8b-bc764e2007e4;
+ Mon, 15 Jun 2020 20:30:51 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1E6E92071A;
+ Mon, 15 Jun 2020 20:30:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1592253050;
+ bh=B8BcKnLFlX2Qxrnl55jdc/FDpiUylFO4osEaNFhVlzY=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=TBf64I58PX0wtOg9XDIcmVMB9EZo0hUp1AnGAcnLU/IB8TFqInN0jcIYar03Jzn04
+ j3KbiVBZ7kKX/XjYz8DaCLJCsMLASF04jMePO191ptIJuoswOHBssGaVfio05dgBTm
+ NykfCoq5GOC64ZGqjdx5INwKG8ZHQa1Imu4y/ScI=
+Date: Mon, 15 Jun 2020 13:30:49 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: Re: [PATCH 1/2] xen/arm: Convert runstate address during hypcall
+In-Reply-To: <0D644096-05E3-44F3-A1FD-75006C718F23@arm.com>
+Message-ID: <alpine.DEB.2.21.2006151322060.9074@sstabellini-ThinkPad-T480s>
+References: <cover.1591806713.git.bertrand.marquis@arm.com>
+ <8b450dddb2c855225c97741dce66453a80b9add2.1591806713.git.bertrand.marquis@arm.com>
+ <alpine.DEB.2.21.2006111055360.2815@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a3u7ztgSmJbhjVATrfJEBBVkHbZei6ydBQeV8nzdDFA3Q@mail.gmail.com>
+ <alpine.DEB.2.21.2006111143530.2815@sstabellini-ThinkPad-T480s>
+ <74475748-e884-1e6e-633d-bf67d5ed32fe@xen.org>
+ <alpine.DEB.2.21.2006111250180.2815@sstabellini-ThinkPad-T480s>
+ <48F66B8F-3AEF-4E54-A572-C246F5A7C117@arm.com>
+ <alpine.DEB.2.21.2006120944460.2815@sstabellini-ThinkPad-T480s>
+ <0D644096-05E3-44F3-A1FD-75006C718F23@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 151159: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=1251402caf8685f45d9d580f01583370f7e2d272
-X-Osstest-Versions-That: xen=fec6a7af5c5760b9bccd9e7c3eaf29f0401af264
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 15 Jun 2020 20:18:37 +0000
+Content-Type: multipart/mixed; boundary="8323329-1291058156-1592253050=:9074"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,65 +60,135 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
+ nd <nd@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Julien Grall <julien.grall.oss@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151159 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151159/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Failures :-/ but no regressions.
+--8323329-1291058156-1592253050=:9074
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+On Mon, 15 Jun 2020, Bertrand Marquis wrote:
+> > On 13 Jun 2020, at 01:24, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > 
+> > On Fri, 12 Jun 2020, Bertrand Marquis wrote:
+> >>> On 12 Jun 2020, at 02:09, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> >>> 
+> >>> On Thu, 11 Jun 2020, Julien Grall wrote:
+> >>>> Hi Stefano,
+> >>>> 
+> >>>> On 11/06/2020 19:50, Stefano Stabellini wrote:
+> >>>>> On Thu, 11 Jun 2020, Julien Grall wrote:
+> >>>>>>>> +        return -EINVAL;
+> >>>>>>>>     }
+> >>>>>>>> 
+> >>>>>>>> -    __copy_to_guest(runstate_guest(v), &runstate, 1);
+> >>>>>>>> +    v->arch.runstate_guest.page = page;
+> >>>>>>>> +    v->arch.runstate_guest.offset = offset;
+> >>>>>>>> +
+> >>>>>>>> +    spin_unlock(&v->arch.runstate_guest.lock);
+> >>>>>>>> +
+> >>>>>>>> +    return 0;
+> >>>>>>>> +}
+> >>>>>>>> +
+> >>>>>>>> +
+> >>>>>>>> +/* Update per-VCPU guest runstate shared memory area (if registered).
+> >>>>>>>> */
+> >>>>>>>> +static void update_runstate_area(struct vcpu *v)
+> >>>>>>>> +{
+> >>>>>>>> +    struct vcpu_runstate_info *guest_runstate;
+> >>>>>>>> +    void *p;
+> >>>>>>>> +
+> >>>>>>>> +    spin_lock(&v->arch.runstate_guest.lock);
+> >>>>>>>> 
+> >>>>>>>> -    if ( guest_handle )
+> >>>>>>>> +    if ( v->arch.runstate_guest.page )
+> >>>>>>>>     {
+> >>>>>>>> -        runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
+> >>>>>>>> +        p = __map_domain_page(v->arch.runstate_guest.page);
+> >>>>>>>> +        guest_runstate = p + v->arch.runstate_guest.offset;
+> >>>>>>>> +
+> >>>>>>>> +        if ( VM_ASSIST(v->domain, runstate_update_flag) )
+> >>>>>>>> +        {
+> >>>>>>>> +            v->runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
+> >>>>>>>> +            guest_runstate->state_entry_time |= XEN_RUNSTATE_UPDATE;
+> >>>>>>> 
+> >>>>>>> I think that this write to guest_runstate should use write_atomic or
+> >>>>>>> another atomic write operation.
+> >>>>>> 
+> >>>>>> I thought about suggesting the same, but  guest_copy_* helpers may not
+> >>>>>> do a single memory write to state_entry_time.
+> >>>>>> What are you trying to prevent with the write_atomic()?
+> >>>>> 
+> >>>>> I am thinking that without using an atomic write, it would be (at least
+> >>>>> theoretically) possible for a guest to see a partial write to
+> >>>>> state_entry_time, which is not good. 
+> >>>> 
+> >>>> It is already the case with existing implementation as Xen may write byte by
+> >>>> byte. So are you suggesting the existing code is also buggy?
+> >>> 
+> >>> Writing byte by byte is a different case. That is OK. In that case, the
+> >>> guest could see the state after 3 bytes written and it would be fine and
+> >>> consistent. If this hadn't been the case, then yes, the existing code
+> >>> would also be buggy.
+> >>> 
+> >>> So if we did the write with a memcpy, it would be fine, no need for
+> >>> atomics:
+> >>> 
+> >>> memcpy(&guest_runstate->state_entry_time,
+> >>>        &v->runstate.state_entry_time,
+> >>>        XXX);
+> >>> 
+> >>> 
+> >>> The |= case is different: GCC could implement it in any way it likes,
+> >>> including going through a zero-write to any of the bytes in the word, or
+> >>> doing an addition then a subtraction. GCC doesn't make any guarantees.
+> >>> If we want guarantees we need to use atomics.
+> >> 
+> >> Wouldn’t that require all accesses to state_entry_time to use also atomic operations ?
+> >> In this case we could not propagate the changes to a guest without changing the interface itself.
+> >> 
+> >> As the copy time needs to be protected, the write barriers are there to make sure that during the copy the bit is set and that when we unset it, the copy is done.
+> >> I added for this purpose a barrier after the memcpy to make sure that when/if we unset the bit the copy has already been done.
+> > 
+> > As you say, we have a flag to mark a transitiong period, the flag is
+> > XEN_RUNSTATE_UPDATE. So, I think it is OK if we don't use atomics during
+> > the transitioning period. But we need to make sure to use atomics for the
+> > update of the XEN_RUNSTATE_UPDATE flag itself.
+> > 
+> > Does it make sense? Or maybe I misunderstood some of the things you
+> > wrote?
+> 
+> To achieve this you would do an atomic operation on state_entry_time to set/unset the XEN_RUNSTATE_UPDATE bit.
+> This field is holding a flag in the upper bit but also a value, so all operations on state_entry_time would need to be changed to use atomic operations.
 
-version targeted for testing:
- xen                  1251402caf8685f45d9d580f01583370f7e2d272
-baseline version:
- xen                  fec6a7af5c5760b9bccd9e7c3eaf29f0401af264
-
-Last test of basis   151152  2020-06-15 15:01:14 Z    0 days
-Testing same since   151159  2020-06-15 18:00:41 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  George Dunlap <george.dunlap@citrix.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Nick Rosbrook <rosbrookn@ainfosec.com>
-  Nick Rosbrook <rosbrookn@gmail.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+I don't think that all operations on state_entry_time need to be atomic.
+Only the bit write to XEN_RUNSTATE_UPDATE. More on this below.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> Also this state_entry_time might also be accessed by the guest on other cores at the same time (to retrieve the time part).
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Yes but they are all just readers, right?
 
 
-Pushing revision :
+> To prevent something being used as atomic and non atomic, specific types are usually used (atomic_t) and this structure is also used by guests so modifying it will not be easy.
+> 
+> Or did I missunderstood something here ?
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   fec6a7af5c..1251402caf  1251402caf8685f45d9d580f01583370f7e2d272 -> smoke
+I was not suggesting to use an atomic_t type. I was only suggesting to
+use an atomic operation, i.e. calling write_u32_atomic directly (or
+something like that.) I would not change the type of state_entry_time.
+Also using memcpy would be acceptable due to the fact that we only need
+to update one byte.
+--8323329-1291058156-1592253050=:9074--
 
