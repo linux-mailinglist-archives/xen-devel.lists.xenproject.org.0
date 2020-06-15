@@ -2,49 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 879371F8F03
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 09:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 009541F9158
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 10:27:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkjBz-0003wy-SJ; Mon, 15 Jun 2020 07:06:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jkkRY-0002dj-MH; Mon, 15 Jun 2020 08:26:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p+Ae=74=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jkjBy-0003wt-Nv
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 07:06:02 +0000
-X-Inumbo-ID: aadc3fcc-aed6-11ea-b7c5-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id aadc3fcc-aed6-11ea-b7c5-12813bfff9fa;
- Mon, 15 Jun 2020 07:06:00 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 0WTN05Vi8M7oqOf5ArlUqW6cmr8syDAfoJDQqIWPIVHkjdE+tFQ1Gr/hyliRwcvcCAWlMwDtlG
- DlPFbTm5CDdeChWpSWIoQlYETY5GZkYEa8wWq9StiOc5UgKnM9xJ5y0PzN0JoUjEyDz8cbe7Hk
- LdOK5t4fhtKTW7yuCIK7K7OqIytjp1NGvgDfAzWdPH8HL6aeHsxuFeQC4u85oLOVb1tVo9YPr7
- a2Tc0mPt2hQtNQ3I1O7O2nm0gBzd1ikzmWGZSK4qMR4b5GpCMxtJ3uabkJuGi+IWFDp+hJ6ZXz
- 0DU=
-X-SBRS: 2.7
-X-MesageID: 20374503
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,514,1583211600"; d="scan'208";a="20374503"
-Date: Mon, 15 Jun 2020 09:05:49 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Grzegorz Uriasz <gorbak25@gmail.com>
-Subject: Re: [PATCH 1/1] x86/acpi: Use FADT flags to determine the PMTMR width
-Message-ID: <20200615070549.GA735@Air-de-Roger>
-References: <cover.1592142369.git.gorbak25@gmail.com>
- <dba39869b788f7f9d937fac48f0476a0443925f0.1592142369.git.gorbak25@gmail.com>
+ <SRS0=8mLd=74=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jkkRX-0002de-7M
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 08:26:11 +0000
+X-Inumbo-ID: dd7b138a-aee1-11ea-bb8b-bc764e2007e4
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dd7b138a-aee1-11ea-bb8b-bc764e2007e4;
+ Mon, 15 Jun 2020 08:26:10 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id l11so16122841wru.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2020 01:26:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=cqhzZxtqAsRRO3BzrlM6m9t/GkiBo/7EUSd/KzYdIbk=;
+ b=MYpR7KNtizfDZo2iLVlKeXyFEvnN82kDlPWv+7SgEli37rq4gCv6oTD2jy4WL0TDYw
+ SwQInUzLgI5iatZ/piryiorwntk0U2BQ19ySNBzmExnJ/ap5uCDvZTaKefsqXE+1CqW/
+ smoco1uVE+7qJ25cDlwwRQxV/7lXA7CUuqUG/kXfD/QJlmidGyU4w6oB+e7a8/h2OaGa
+ NOViInN+a7zLYrFI9PQq9N/IlHoerWs7Nvtabj8cpoPq1jXzYND5WDJtjbTlNnGkNqOO
+ gRNvzysniMTHC8ovoRNmeCaMNaHBPh/ON3Wah9XtFlakjq3VdlnhWPBn4YqA/BiptYAb
+ 51yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=cqhzZxtqAsRRO3BzrlM6m9t/GkiBo/7EUSd/KzYdIbk=;
+ b=ZUiZfmGsDpreMnZdJOP4zj0OxKumcUGRbDFu7okWqH5uXFRLp8yH0D/HIlHVp+Mghg
+ a6YXxFiZlN3mqiAInHEJgy1JKRErbwyJwiohrFZhpPRJHYgu1glimvoHltUnXbcvF6LT
+ 1jsaWXT7GwlCGcluWy2CtZXETjQZajLaa18RZZgoybb5Ith1WnQ4mIOBANABTAlUs+b1
+ +HMHLE5QT3xBrLF7oqe0OThJD9M6bPBPu9vTftlExZizw7sdamjKPbTzTAd0CCPjIdGj
+ wrY+JRXn0PoebfoMxwbGS0jWpPNx/y6vMpNqrfo8NB31wKMiZBUGZRxm2unNhbeq/8vm
+ EoPA==
+X-Gm-Message-State: AOAM530BdxsjHg3zB18sivDDcRu6OZmh1GDSQr6xOG4xkvrr6Oh6YUJG
+ 6u4XJHGQsgkGSQVgujztNak=
+X-Google-Smtp-Source: ABdhPJxIO5NxtMYxrMLj02HiqnOMDm6/U4pOCMdhgOWYaNt1Js549ycX2ty/Oa7pDhAJPXEcBuLNHw==
+X-Received: by 2002:a05:6000:1184:: with SMTP id
+ g4mr26351447wrx.46.1592209568984; 
+ Mon, 15 Jun 2020 01:26:08 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-234.amazon.com. [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id r2sm23941985wrg.68.2020.06.15.01.26.07
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 15 Jun 2020 01:26:08 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>
+References: <20200613184132.11880-1-julien@xen.org>
+In-Reply-To: <20200613184132.11880-1-julien@xen.org>
+Subject: RE: [PATCH v3 for-4.14] pvcalls: Document correctly and explicitely
+ the padding for all arches
+Date: Mon, 15 Jun 2020 09:26:06 +0100
+Message-ID: <002301d642ee$9e86c390$db944ab0$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <dba39869b788f7f9d937fac48f0476a0443925f0.1592142369.git.gorbak25@gmail.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQIdN0zh64cmcx6NK7tx64iRcBxsdKhLbmMQ
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,56 +79,166 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: artur@puzio.waw.pl, Wei Liu <wl@xen.org>, jakub@bartmin.ski, Andrew
- Cooper <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
- Jan Beulich <jbeulich@suse.com>, j.nowak26@student.uw.edu.pl,
- xen-devel@lists.xenproject.org
+Reply-To: paul@xen.org
+Cc: 'Juergen Gross' <jgross@suse.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Julien Grall' <jgrall@amazon.com>, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sun, Jun 14, 2020 at 02:36:28PM +0000, Grzegorz Uriasz wrote:
-> On some computers the bit width of the PM Timer as reported
-> by ACPI is 32 bits when in fact the FADT flags report correctly
-> that the timer is 24 bits wide. On affected machines such as the
-> ASUS FX504GM and never gaming laptops this results in the inability
-> to resume the machine from suspend. Without this patch suspend is
-> broken on affected machines and even if a machine manages to resume
-> correctly then the kernel time and xen timers are trashed.
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 13 June 2020 19:42
+> To: xen-devel@lists.xenproject.org
+> Cc: paul@xen.org; Julien Grall <jgrall@amazon.com>; Andrew Cooper <andrew.cooper3@citrix.com>; George
+> Dunlap <george.dunlap@citrix.com>; Ian Jackson <ian.jackson@eu.citrix.com>; Jan Beulich
+> <jbeulich@suse.com>; Julien Grall <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Wei
+> Liu <wl@xen.org>; Juergen Gross <jgross@suse.com>
+> Subject: [PATCH v3 for-4.14] pvcalls: Document correctly and explicitely the padding for all arches
 > 
-> Signed-off-by: Grzegorz Uriasz <gorbak25@gmail.com>
-> Tested-by: Grzegorz Uriasz <gorbak25@gmail.com>
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> The documentation of pvcalls suggests there is padding for 32-bit x86
+> at the end of most the structure. However, they are not described in
+> in the public header.
+> 
+> Because of that all the structures would be 32-bit aligned and not
+> 64-bit aligned for 32-bit x86.
+> 
+> For all the other architectures supported (Arm and 64-bit x86), the
+> structure are aligned to 64-bit because they contain uint64_t field.
+> Therefore all the structures contain implicit padding.
+> 
+> The paddings are now corrected for 32-bit x86 and written explicitly for
+> all the architectures.
+> 
+> While the structure size between 32-bit and 64-bit x86 is different, it
+> shouldn't cause any incompatibility between a 32-bit and 64-bit
+> frontend/backend because the commands are always 56 bits and the padding
+> are at the end of the structure.
+> 
+> As an aside, the padding sadly cannot be mandated to be 0 as they are
+> already present. So it is not going to be possible to use the padding
+> for extending a command in the future.
 
-Thanks for the patch! I'm not sure it's required to add your
-Tested-by, I usually assume a patch has been tested by it's author
-unless told otherwise.
+Ugh.
 
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+Release-acked-by: Paul Durrant <paul@xen.org>
+
+> 
 > ---
->  xen/arch/x86/acpi/boot.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>     Changes in v3:
+>         - Use __i386__ rather than CONFIG_X86_32
 > 
-> diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
-> index bcba52e232..2ad3eb4abc 100644
-> --- a/xen/arch/x86/acpi/boot.c
-> +++ b/xen/arch/x86/acpi/boot.c
-> @@ -480,7 +480,10 @@ static int __init acpi_parse_fadt(struct acpi_table_header *table)
->  		if (fadt->xpm_timer_block.space_id ==
->  		    ACPI_ADR_SPACE_SYSTEM_IO) {
->  			pmtmr_ioport = fadt->xpm_timer_block.address;
-> -			pmtmr_width = fadt->xpm_timer_block.bit_width;
-> +			if (fadt->flags & ACPI_FADT_32BIT_TIMER)
-> +				pmtmr_width = 32;
-> +			else
-> +				pmtmr_width = 24;
+>     Changes in v2:
+>         - It is not possible to use the same padding for 32-bit x86 and
+>         all the other supported architectures.
+> ---
+>  docs/misc/pvcalls.pandoc        | 18 ++++++++++--------
+>  xen/include/public/io/pvcalls.h | 14 ++++++++++++++
+>  2 files changed, 24 insertions(+), 8 deletions(-)
+> 
+> diff --git a/docs/misc/pvcalls.pandoc b/docs/misc/pvcalls.pandoc
+> index 665dad556c39..caa71b36d78b 100644
+> --- a/docs/misc/pvcalls.pandoc
+> +++ b/docs/misc/pvcalls.pandoc
+> @@ -246,9 +246,9 @@ The format is defined as follows:
+>      			uint32_t domain;
+>      			uint32_t type;
+>      			uint32_t protocol;
+> -    			#ifdef CONFIG_X86_32
+> +			#ifndef __i386__
+>      			uint8_t pad[4];
+> -    			#endif
+> +			#endif
+>      		} socket;
+>      		struct xen_pvcalls_connect {
+>      			uint64_t id;
+> @@ -257,16 +257,18 @@ The format is defined as follows:
+>      			uint32_t flags;
+>      			grant_ref_t ref;
+>      			uint32_t evtchn;
+> -    			#ifdef CONFIG_X86_32
+> +			#ifndef __i386__
+>      			uint8_t pad[4];
+> -    			#endif
+> +			#endif
+>      		} connect;
+>      		struct xen_pvcalls_release {
+>      			uint64_t id;
+>      			uint8_t reuse;
+> -    			#ifdef CONFIG_X86_32
+> +			#ifndef __i386__
+>      			uint8_t pad[7];
+> -    			#endif
+> +			#else
+> +			uint8_t pad[3];
+> +			#endif
+>      		} release;
+>      		struct xen_pvcalls_bind {
+>      			uint64_t id;
+> @@ -276,9 +278,9 @@ The format is defined as follows:
+>      		struct xen_pvcalls_listen {
+>      			uint64_t id;
+>      			uint32_t backlog;
+> -    			#ifdef CONFIG_X86_32
+> +			#ifndef __i386__
+>      			uint8_t pad[4];
+> -    			#endif
+> +			#endif
+>      		} listen;
+>      		struct xen_pvcalls_accept {
+>      			uint64_t id;
+> diff --git a/xen/include/public/io/pvcalls.h b/xen/include/public/io/pvcalls.h
+> index cb8171275c13..28374a82f410 100644
+> --- a/xen/include/public/io/pvcalls.h
+> +++ b/xen/include/public/io/pvcalls.h
+> @@ -65,6 +65,9 @@ struct xen_pvcalls_request {
+>              uint32_t domain;
+>              uint32_t type;
+>              uint32_t protocol;
+> +#ifndef __i386__
+> +            uint8_t pad[4];
+> +#endif
+>          } socket;
+>          struct xen_pvcalls_connect {
+>              uint64_t id;
+> @@ -73,10 +76,18 @@ struct xen_pvcalls_request {
+>              uint32_t flags;
+>              grant_ref_t ref;
+>              uint32_t evtchn;
+> +#ifndef __i386__
+> +            uint8_t pad[4];
+> +#endif
+>          } connect;
+>          struct xen_pvcalls_release {
+>              uint64_t id;
+>              uint8_t reuse;
+> +#ifndef __i386__
+> +            uint8_t pad[7];
+> +#else
+> +            uint8_t pad[3];
+> +#endif
+>          } release;
+>          struct xen_pvcalls_bind {
+>              uint64_t id;
+> @@ -86,6 +97,9 @@ struct xen_pvcalls_request {
+>          struct xen_pvcalls_listen {
+>              uint64_t id;
+>              uint32_t backlog;
+> +#ifndef __i386__
+> +            uint8_t pad[4];
+> +#endif
+>          } listen;
+>          struct xen_pvcalls_accept {
+>              uint64_t id;
+> --
+> 2.17.1
 
-I think there's also a block below that you need to fix, when
-xpm_timer_block is not set the data is fetched from pm_timer_block
-instead, which AFAICT also needs to take ACPI_FADT_32BIT_TIMER into
-account in order to use the correct size.
 
-FWIW, I would set pmtmr_width only once after pmtmr_ioport has been
-set, since regardless of whether the port is discovered using
-xpm_timer_block or pm_timer_block the size will always be derived from
-the flags field.
-
-Thanks, Roger.
 
