@@ -2,52 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD6251F9DF2
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 18:59:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B36C1F9E0B
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 19:04:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jksRY-0008MT-GI; Mon, 15 Jun 2020 16:58:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jksX8-0000p9-8Y; Mon, 15 Jun 2020 17:04:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OSTQ=74=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jksRW-0008MO-Vx
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 16:58:43 +0000
-X-Inumbo-ID: 76887684-af29-11ea-b81b-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 76887684-af29-11ea-b81b-12813bfff9fa;
- Mon, 15 Jun 2020 16:58:41 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: EXtZe8DLeKVW4NdhUXHJmGzS59nbanjNfuh7yl5Z6MYZ/Kz9FQVS9HiRIleskPNxIm72kqgted
- AOGB8s90YLICbqr6FjalVEdRHyP4F79zci3LGleFoo9/t2Lo7GEq6+DUYDLS5pyyGl3KAXJpAK
- uthQbNTH8WWi950siBHikKGEDc4Zoaq7mP3/iaobTRbg+UD9ootzT0VIvv52jWVx97Zn+heRu5
- iLZ9UkXvVuxmwXpEdzTlR9bW+gDx2sAAlUxKh3Qc3DHDLyn0YJhOC05c+LXpLpUyQuSb55w/TF
- pjg=
-X-SBRS: 2.7
-X-MesageID: 20383002
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,515,1583211600"; d="scan'208";a="20383002"
-Subject: Re: Event delivery and "domain blocking" on PVHv2
-To: <xen-devel@lists.xenproject.org>, <mirageos-devel@lists.xenproject.org>,
- <martin@lucina.net>
-References: <62479d08f7650c22678d7a86851eafc4@lucina.net>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <5865159c-4190-e841-8020-7a4f3cf0fc24@citrix.com>
-Date: Mon, 15 Jun 2020 17:58:36 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <SRS0=8mLd=74=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jksX7-0000p4-7n
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 17:04:29 +0000
+X-Inumbo-ID: 458eff16-af2a-11ea-8496-bc764e2007e4
+Received: from mail-ed1-x531.google.com (unknown [2a00:1450:4864:20::531])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 458eff16-af2a-11ea-8496-bc764e2007e4;
+ Mon, 15 Jun 2020 17:04:28 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id w7so12094468edt.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2020 10:04:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=S2de4X8bQU6oWpw9XaayCjvxIw6dq1jIeG/5ypF6h+0=;
+ b=sK8XRmAd3KFxuWu4466Dk9HVnw2TiJbEsJSnm/6lyEXt5N0espnfh695n52Ooim3Q+
+ Kfu1H/t3HLf5O3oVs5KrkOYqugjesNReYM6Ub/6LZZLGe2nLlJsBfy2XnS/6DmBZI+su
+ Z/u0bKGj912/LN39/OG/UxiT9KU7yEwLhaKzCAhEylz5NHicjxsGgIE7muU+Vjig+pzQ
+ RCtwoHPgWVU1a4K2PeqHwm/aIcQ+kfo3rXkccGf15j4cbrt3F/xdFsOk+ib1WqCOY7zJ
+ CCEtzTOtZ9r33QpeVOrc3tuII9BFLhWFlHIelJpMAY9sH7NNJSIWcmkrsUU2jTrpngYr
+ wbJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=S2de4X8bQU6oWpw9XaayCjvxIw6dq1jIeG/5ypF6h+0=;
+ b=jkSkmIcczUz9WQQtOoMg1SLokAqd3QiihwDJW6r+1ljXM12WSHTu7CjQtcm0o1WNuT
+ 4SmP4NYMQuk9i1Sh+IIVDCeATEwxzREoBe80AklnM1O91YsYC8hPaCtnD2v/7An4idkh
+ rlkTYV+UnGU6Ibh2+tId7eIbI2TbleqqjOcH1dAjqBT2AHMK0HuqENwn7vg0i71Hw97v
+ jjMylZ1Pb1Ec/GZZRehiaf1tMvkglIrU8weo/arAXzTxRsOxbBgKXOtpNPxBUGRV7eSC
+ +WmINk/Te4klvS3ufb6Ii0Duuw2U9ebAtFmn53AwMPBD2sbjLzRLYyY/DG3LdXcC5KrT
+ wkwg==
+X-Gm-Message-State: AOAM531DNiFM3zVi4znaCOODv7mWVvRavwUJ7A8be0Eh3/rzjESCnmrP
+ qX63tlBTC5GR5wrdi2zokhVdtWizrwY=
+X-Google-Smtp-Source: ABdhPJyDMSfThUyMXff4nQaOrfl9LFCNstxUsEyenT5TwyNyCOjz7pFCoVbJp91tnuNCUR4Hbbt9Qg==
+X-Received: by 2002:a05:6402:3052:: with SMTP id
+ bu18mr24025992edb.323.1592240667450; 
+ Mon, 15 Jun 2020 10:04:27 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-234.amazon.com. [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id o16sm9416577ejg.106.2020.06.15.10.04.26
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 15 Jun 2020 10:04:26 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'Xen-devel'" <xen-devel@lists.xenproject.org>
+References: <20200615141532.1927-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20200615141532.1927-1-andrew.cooper3@citrix.com>
+Subject: RE: [PATCH for-4.14 0/9] XSA-320 follow for IvyBridge
+Date: Mon, 15 Jun 2020 18:04:25 +0100
+Message-ID: <003101d64337$06b202c0$14160840$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <62479d08f7650c22678d7a86851eafc4@lucina.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQBu9n1OIN1/SF0JEfFzSQwAilcbPKuogK/g
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,81 +78,112 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
+Cc: 'Ian Jackson' <Ian.Jackson@citrix.com>, 'Jan Beulich' <JBeulich@suse.com>,
+ 'Wei Liu' <wl@xen.org>,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15/06/2020 15:25, Martin Lucina wrote:
-> Hi,
->
-> puzzle time: In my continuing explorations of the PVHv2 ABIs for the
-> new MirageOS Xen stack, I've run into some issues with what looks like
-> missed deliveries of events on event channels.
->
-> While a simple unikernel that only uses the Xen console and
-> effectively does for (1..5) { printf("foo"); sleep(1); } works fine,
-> once I plug in the existing OCaml Xenstore and Netfront code, the
-> behaviour I see is that the unikernel hangs in random places, blocking
-> as if an event that should have been delivered has been missed.
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+Andrew Cooper
+> Sent: 15 June 2020 15:15
+> To: Xen-devel <xen-devel@lists.xenproject.org>
+> Cc: Wei Liu <wl@xen.org>; Paul Durrant <paul@xen.org>; Andrew Cooper =
+<andrew.cooper3@citrix.com>; Jan
+> Beulich <JBeulich@suse.com>; Ian Jackson <Ian.Jackson@citrix.com>; =
+Roger Pau Monn=C3=A9
+> <roger.pau@citrix.com>
+> Subject: [PATCH for-4.14 0/9] XSA-320 follow for IvyBridge
+>=20
+> This is some work in light of IvyBridge not gaining microcode to =
+combat SRBDS
+> / XSA-320.  It is a mix of some work I'd planned for 4.15, and some =
+patches
+> posted already and delayed due to dependence's I'd discovered =
+after-the-fact.
+>=20
+> This provides a more user-friendly way of making IvyBridge safe by =
+default
+> without encountering migration incompatibilities.
+>=20
+> In terms of functionality, it finishes the "fresh boot" vs =
+"migrate/restore
+> from pre-4.14" split in the libxc CPUID logic, and uses this to let us =
+safely
+> hide features by default without breaking the "divine what a guest may =
+have
+> seen previously" logic on migrate.
+>=20
+> On top of that, we hide RDRAND by default to mitigate XSA-320.
+>=20
+> Additionally, take the opportunity of finally getting this logic =
+working to
+> hide MPX by default (as posted previously), due to upcoming Intel =
+timelines.
+>=20
+> Request for 4.14.  The IvyBridge angle only became apparent after the =
+public
+> embargo on Tue 9th.  Otherwise, I would have made a concerted effort =
+to get
+> this logic sorted sooner and/or part of XSA-320 itself.
+>=20
+> Strictly speaking, patches 1-4 aren't necessary, but without them the =
+logic is
+> very confusing to follow, particularly the reasoning about the safely =
+of later
+> changes.  As it is a simple set of transforms, we're better with them =
+than
+> without.
+>=20
+> Also, the MPX patch isn't related to the RDRAND issue, but I was =
+planning to
+> get it into 4.14 already, until realising that the migration path was =
+broken.
+> Now that the path is fixed for the RDRAND issue, include the MPX patch =
+as it
+> pertains to future hardware compatibility (and would be backported to =
+4.14.1
+> if it misses 4.14.0).
+>=20
 
-You can see what is going on, event channel wise, with the 'e'
-debug-key.  This will highlight cases such as the event channel being
-masked and pending, which is a common guest bug ending up in this state.
+Fair enough. Once the series has all the requisite maintainer acks then =
+I'll release-ack it.
 
->
-> <snip>
-> Given that I've essentially re-written the low-level event channel C
-> code, I'd like to verify that the mechanisms I'm using for event
-> delivery are indeed the right thing to do on PVHv2.
->
-> For event delivery, I'm registering the upcall with Xen as follows:
->
->     uint64_t val = 32ULL;
->     val |= (uint64_t)HVM_PARAM_CALLBACK_TYPE_VECTOR << 56;
->     int rc = hypercall_hvm_set_param(HVM_PARAM_CALLBACK_IRQ, val);
->     assert(rc == 0);
->
-> i.e. upcalls are to be delivered via IDT vector.
+  Paul
 
-Don't use HVM_PARAM_CALLBACK_TYPE_VECTOR.  It is conceptually broken, as
-it bypasses all queueing and IRR logic in the LAPIC.
+> Andrew Cooper (9):
+>   tools/libx[cl]: Introduce struct xc_xend_cpuid for xc_cpuid_set()
+>   tests/cpu-policy: Confirm that CPUID serialisation is sorted
+>   tools/libx[cl]: Move processing loop down into xc_cpuid_set()
+>   tools/libx[cl]: Merge xc_cpuid_set() into xc_cpuid_apply_policy()
+>   tools/libx[cl]: Plumb bool restore down into xc_cpuid_apply_policy()
+>   x86/gen-cpuid: Distinguish default vs max in feature annotations
+>   x86/hvm: Disable MPX by default
+>   x86/cpuid: Introduce missing feature adjustment in =
+calculate_pv_def_policy()
+>   x86/spec-ctrl: Hide RDRAND by default on IvyBridge
+>=20
+>  docs/misc/xen-command-line.pandoc           |  20 ++-
+>  tools/libxc/include/xenctrl.h               |  42 ++++-
+>  tools/libxc/xc_cpuid_x86.c                  | 239 =
+++++++++++++++++------------
+>  tools/libxl/libxl.h                         |   8 +-
+>  tools/libxl/libxl_cpuid.c                   |  17 +-
+>  tools/libxl/libxl_create.c                  |   2 +-
+>  tools/libxl/libxl_dom.c                     |   2 +-
+>  tools/libxl/libxl_internal.h                |  12 +-
+>  tools/libxl/libxl_nocpuid.c                 |   2 +-
+>  tools/tests/cpu-policy/test-cpu-policy.c    |  49 +++++-
+>  xen/arch/x86/cpuid.c                        |  23 +++
+>  xen/include/public/arch-x86/cpufeatureset.h |   4 +-
+>  xen/tools/gen-cpuid.py                      |  18 +--
+>  13 files changed, 278 insertions(+), 160 deletions(-)
+>=20
+> --
+> 2.11.0
+>=20
 
-At some point, I'm going to have to figure out a compatible way to deal
-with all the guests still using this mechanism, because it is
-incompatible with using hardware accelerated APIC support in
-IvyBridge/Zen+ hardware.
 
-Use HVMOP_set_evtchn_upcall_vector instead, which does the same thing,
-but actually behaves like a real vector as far as the rest of the LAPIC
-is concerned.
-
->
-> Questions:
->
-> 1. Being based on the Solo5 virtio code, the low-level setup code is
-> doing the "usual" i8259 PIC setup, to remap the PIC IRQs to vectors 32
-> and above. Should I be doing this initialisation for Xen PVH at all?
-> I'm not interested in using the PIC for anything, and all interrupts
-> will be delivered via Xen event channels.
-
-PVH guests don't get a PIC by default.  Xen will just be swallowing all
-your setup and doing nothing with it.
-
-"plain" PVH guests also don't get an IO-APIC by default.  Unless you're
-wanting to get PVH dom0 support working, (or PCI Passthrough in the
-future), don't worry about the IO-APIC either.
-
->
-> 2. Related to the above, the IRQ handler code is ACKing the interrupt
-> after the handler runs. Should I be doing that? Does ACKing "IRQ" 0 on
-> the PIC have any interactions with Xen's view of event
-> channels/pending upcalls?
-
-There's no PIC to begin with, but even then, talking to the PIC/IO-APIC
-would only be correct for type INTX/GSI.
-
-TYPE_VECTOR shouldn't have an ack at the LAPIC (it is this properly
-which makes it incompatible with hardware acceleration), while
-HVMOP_set_evtchn_upcall_vector should be acked at the LAPIC.
-
-~Andrew
 
