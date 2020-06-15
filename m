@@ -2,68 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1F071F9A52
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 16:33:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FF311F9A8B
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 16:43:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkqAW-00022V-IX; Mon, 15 Jun 2020 14:33:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jkqJl-0002tx-G8; Mon, 15 Jun 2020 14:42:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EAde=74=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1jkqAV-00022Q-3z
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 14:32:59 +0000
-X-Inumbo-ID: 1bfc8be2-af15-11ea-8496-bc764e2007e4
-Received: from mail-qk1-x743.google.com (unknown [2607:f8b0:4864:20::743])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1bfc8be2-af15-11ea-8496-bc764e2007e4;
- Mon, 15 Jun 2020 14:32:58 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id q8so15841502qkm.12
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2020 07:32:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=xoZYTOrbaJ/qtaL6gpEpGtLcw0cV9fBngumMP/8sReM=;
- b=QqMwmPns7wD3eXZ6V0fxcUauGKmQdLa0qaGV+ui0UVjeLm3GJOf8PkWn05rZLVZ6cU
- MNa1fpNum1BkwRikQ/FGMbdafVZwS/DW4pPKA+l2KZj/kagtsti+YhIbeAc50CW8KIP4
- IQXfGQm3t3C2zqMW/IvYHKtXWtBV3F3xANmv00MdwJYw9bZNg767PYgzbMQ6XmcyDAFP
- RULDhhEdblcWtq6b5nfNxZxBvH57qI+MSLsKUuPU4B1KNXGpB3DyY7g8qbYTEmC+sUEf
- 023/tK/31qHeHLvT/0tXnylBikV/DgGwYRIAV+TGLSPQPx02Xxq+831Bor96wmzoU9ez
- 7lNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=xoZYTOrbaJ/qtaL6gpEpGtLcw0cV9fBngumMP/8sReM=;
- b=lnThhLiyoH1qhaW+rBzO7A+/d8nbSwGiuY9WZb2HkyHItCxY6sIaxuKNvhkSwjR5Wh
- IKnWP2Jeozc+sgIBe0bbuQWh0bK4QvDmCJKFW695yO0xQKHDsEQernu9ivQ/dfuZRgxP
- Q9IYPm2fGIsaPA275alSWTZ/3on0MPvwhNj/hIPE3aTlZkaL/Ys70WBKrovdrNacRUSQ
- 1OgE8p4bWk7eIImUy0ML6iiCH4UllwM95vDV52XgpsWTICKDeOfeAMoS5aeNbJgeUZGH
- Y49rnpLYe796lSVayK4LfLYgiD19q1IZ4aedDY0xFCN7Emjkl+UUvxvfTxL6ewyRWfRV
- sIzQ==
-X-Gm-Message-State: AOAM532xzTk1d8sYUmf6pQRhuAQOmAYl+4x298E0kKl0brBj4p32hDOy
- D9QAOjssqBcjqiY9rL+q2+Y=
-X-Google-Smtp-Source: ABdhPJw/swk4IFbSzol+4IYT/MmFSzV1G1JXY4dekTCGcaYcTfpMcGWLNv9chzO3z40pRE2+DA0+Ew==
-X-Received: by 2002:a37:f505:: with SMTP id l5mr15143174qkk.118.1592231578399; 
- Mon, 15 Jun 2020 07:32:58 -0700 (PDT)
-Received: from six (cpe-67-241-56-252.twcny.res.rr.com. [67.241.56.252])
- by smtp.gmail.com with ESMTPSA id d14sm10990442qkk.5.2020.06.15.07.32.56
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 15 Jun 2020 07:32:56 -0700 (PDT)
-Date: Mon, 15 Jun 2020 10:32:54 -0400
-From: Nick Rosbrook <rosbrookn@gmail.com>
-To: Ian Jackson <ian.jackson@citrix.com>
+ <SRS0=7yVv=74=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jkqJk-0002ts-BZ
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 14:42:32 +0000
+X-Inumbo-ID: 7110f400-af16-11ea-b803-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7110f400-af16-11ea-b803-12813bfff9fa;
+ Mon, 15 Jun 2020 14:42:31 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: ++b6ryou+3hcsRjgvvXk2cARcqWt54xrYj6Dbbd7DKytNOiIzqcEbFteRSGV3BctjB9jzaipW1
+ 2TQC8HLBGlQUrqPKZdlS61mob8ZJ76ooUYaWhxdqmcZi/TwRia5urNAYNlSE4aN3mgprbqThIN
+ uF9qZm+h44kawlV7IXhVWFO4FTc8VpiNMuR582zRBmFuHehKFu7xASlYJfak/eHnbfmjPXYsXn
+ FlWaS016lFKk9yx/F+gunBD/NnXlxTT3Ufo8nl67ciVIpWr9SGeo/URdLpxvwxjHSLO+tlSL3T
+ Swc=
+X-SBRS: 2.7
+X-MesageID: 20067924
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,514,1583211600"; d="scan'208";a="20067924"
+From: Ian Jackson <ian.jackson@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24295.35026.88022.957662@mariner.uk.xensource.com>
+Date: Mon, 15 Jun 2020 15:42:26 +0100
+To: Nick Rosbrook <rosbrookn@gmail.com>
 Subject: Re: [PATCH for-4.14] tools: check go compiler version if present
-Message-ID: <20200615143254.GA29455@six>
+In-Reply-To: <20200615143254.GA29455@six>
 References: <d2ca8de34a0711313e5eb1d5fb7d438ff3add7d0.1591971605.git.rosbrookn@ainfosec.com>
  <24291.45045.185355.587474@mariner.uk.xensource.com>
  <20200612215028.GA6286@six>
  <24295.31778.201405.748753@mariner.uk.xensource.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <24295.31778.201405.748753@mariner.uk.xensource.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+ <20200615143254.GA29455@six>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,27 +64,30 @@ Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> Ideally at some point maybe we would make this clearer but not now.
-
-Okay, sounds good.
-
-> Have you tested the situations you describe ?  That might be a better
-> way of checking that it's right than the code inspection which is
-> obviously failing for me now...
-
-Yes, I have tested the following situations:
-
-  (1) ./configure without go installed => go is not enabled
-  (2) ./configure with go version < 1.11.1 => go is not enabled
-  (3) ./configure with go version > 1.11.1 => go is enabled
-  (4) ./configure --enable-golang without go installed => error
-  (5) ./configure --enable-golang with go < 1.11.1 => error
-  (6) ./configure --disable-golang in any case => go is not enabled
+Nick Rosbrook writes ("Re: [PATCH for-4.14] tools: check go compiler version if present"):
+> > Ideally at some point maybe we would make this clearer but not now.
 > 
-> I definitely think we want to fix this for 4.14.  So thanks for your
-> continued help!
+> Okay, sounds good.
+> 
+> > Have you tested the situations you describe ?  That might be a better
+> > way of checking that it's right than the code inspection which is
+> > obviously failing for me now...
+> 
+> Yes, I have tested the following situations:
+> 
+>   (1) ./configure without go installed => go is not enabled
+>   (2) ./configure with go version < 1.11.1 => go is not enabled
+>   (3) ./configure with go version > 1.11.1 => go is enabled
+>   (4) ./configure --enable-golang without go installed => error
+>   (5) ./configure --enable-golang with go < 1.11.1 => error
+>   (6) ./configure --disable-golang in any case => go is not enabled
 
-You're welcome. Thank you again for the review.
+Thorough!
 
--NR
+Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+
+Paul, this should go into 4.14.  Can I have a release ack plase ?
+
+Thanks,
+Ian.
 
