@@ -2,76 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6991FA039
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 21:29:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9254F1FA154
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 22:20:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkumZ-0004LZ-S8; Mon, 15 Jun 2020 19:28:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jkvZ8-0008QS-RI; Mon, 15 Jun 2020 20:18:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9aT8=74=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jkumY-0004LU-2N
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 19:28:34 +0000
-X-Inumbo-ID: 66374566-af3e-11ea-b7bb-bc764e2007e4
-Received: from mail-ej1-x643.google.com (unknown [2a00:1450:4864:20::643])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 66374566-af3e-11ea-b7bb-bc764e2007e4;
- Mon, 15 Jun 2020 19:28:33 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id p20so18662102ejd.13
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2020 12:28:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LStajdU5A97rbmxSqmjdia4JbDB3BVApLrPOJJzsEJ4=;
- b=v7Fwr4DxgQenRnlVbcXFIcivtrjqEgCljBqBdQ0lzIV3iGU9Z/7hec54kJu6qq4uU0
- WEqn5yVnDx3d3/YUNTOsVD72kil5oO5TjfXbE6QL6J5tDoHiXZ7wEWvMBMsDc3zWT83Y
- n8nMPuGLR61bAzXdfTsuJUHlGiPR2MOHZaIAMfg5jkXECDvR5ySw+qV967z9sb0vY9lu
- i2Y2mucHNLGOVWTkQUSDGTyRwMfuZZnPVLU/Go3PtkzMaeddheQTxB6QwDELVy5uDpgy
- sCcP/gFBVlR1ld9QoHFIgvU52GKv/+rZ0P2XmAXqc2rZ/DOj5JbNNgsG0plXteeA2ktZ
- BLhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LStajdU5A97rbmxSqmjdia4JbDB3BVApLrPOJJzsEJ4=;
- b=fyCPnnLqmeYHQBfGDvCT7K5XDbSZtAj3xPIaENJ6quMnlR4uhcI4nLZ+QJPJsuHjjI
- 5fgnbapem4KxVsCWqUo9Nz3AWrYuYD/pI3JT/KKIHDNPBz4J8/wom0e785wKH7qPLmv1
- vTmFyzRmtHv0qSz4ct+jjUI3i3C7SC1r/AuuFITIrQP9b1lo3MNF440YtQcalwNJFYbo
- Cgn5xfFLXVk7grbFdemkmDrSzkWOncnUIRo75toxVfO9twW1+G76p+VxGbcWMKTV19Ds
- 513iXHcGWynC2M98wdN/EGdR9V1aKwC9z0bYRxcV081MLIWcyBYXk2TpsiLBQ8vlkmM+
- wzqw==
-X-Gm-Message-State: AOAM533e6VmHs9JF8XYlJ+fHmdCZOzsfi11YBXTjJ6Cfo4RnJOfWsDhk
- Va1oDYHVoyt+HnG88VDHXNABcziG/yE=
-X-Google-Smtp-Source: ABdhPJyiukRpCUdQmWi6CqZlbmW+OTsG11swd4UJu/ApUCzDRImEpGiE3Y34PDbqZiTQDimChKVEFQ==
-X-Received: by 2002:a17:906:f53:: with SMTP id
- h19mr12403945ejj.491.1592249311477; 
- Mon, 15 Jun 2020 12:28:31 -0700 (PDT)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com.
- [209.85.128.52])
- by smtp.gmail.com with ESMTPSA id dm1sm9558735ejc.99.2020.06.15.12.28.29
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2020 12:28:30 -0700 (PDT)
-Received: by mail-wm1-f52.google.com with SMTP id g10so679573wmh.4
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2020 12:28:29 -0700 (PDT)
-X-Received: by 2002:a1c:964d:: with SMTP id y74mr897479wmd.154.1592249309494; 
- Mon, 15 Jun 2020 12:28:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1591017086.git.tamas.lengyel@intel.com>
- <000c01d63826$6d125900$47370b00$@xen.org>
- <4017F2B3-BB9B-4E9F-813C-6FE68BA0D568@citrix.com>
- <CABfawh=YHA9Lxbto5Qgf_wkSFAR+JxCdWB99iAhCmBgwSwvmVg@mail.gmail.com>
- <002401d638b0$a5460f80$efd22e80$@xen.org>
- <d3df7cbf-843a-9253-292c-b6bb48ff9c94@suse.com>
-In-Reply-To: <d3df7cbf-843a-9253-292c-b6bb48ff9c94@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 15 Jun 2020 13:27:54 -0600
-X-Gmail-Original-Message-ID: <CABfawhmMgNCBwoTZ6Fm300q3CVUu0sQNLOU3_jW_iCr_OMTWLg@mail.gmail.com>
-Message-ID: <CABfawhmMgNCBwoTZ6Fm300q3CVUu0sQNLOU3_jW_iCr_OMTWLg@mail.gmail.com>
-Subject: Re: [PATCH v19 for-4.14 00/13] VM forking
-To: Jan Beulich <jbeulich@suse.com>
+ <SRS0=nTSQ=74=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jkvZ7-0008Q6-3q
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 20:18:45 +0000
+X-Inumbo-ID: 652b7173-af45-11ea-b83c-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 652b7173-af45-11ea-b83c-12813bfff9fa;
+ Mon, 15 Jun 2020 20:18:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=u08XOvrZgx2f7JTaQjZ4AgQLrCa7wv9x+QdqQN39F/g=; b=Mn9cv+B5XkNgAG5vELqE6gGbV
+ 5p+Rpk4aQDUQnj3YhywViAE6HQh+fOUSa7ZII3imJA2SjPmXXHirx1EV5iwflOl0OiYdHKYqwk9gF
+ 4vMdZaMBTNW1qnLcW4U98h77+84vd/1FkptSH8SJQnShdBlisOVKMwSrHzkPafBKJaX7s=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jkvZ0-0000v3-Co; Mon, 15 Jun 2020 20:18:38 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jkvYz-0007qX-UX; Mon, 15 Jun 2020 20:18:38 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jkvYz-0005us-U3; Mon, 15 Jun 2020 20:18:37 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151159-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 151159: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=1251402caf8685f45d9d580f01583370f7e2d272
+X-Osstest-Versions-That: xen=fec6a7af5c5760b9bccd9e7c3eaf29f0401af264
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 15 Jun 2020 20:18:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,32 +66,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Ian Jackson <Ian.Jackson@citrix.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 2, 2020 at 3:39 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 02.06.2020 09:37, Paul Durrant wrote:
-> > Maintainers/committers, can we please get those patches in a.s.a.p.?
->
-> The sole reason I didn't put in at least the 1st patch on Friday
-> (perhaps also the 2nd, as it is suitably ack-ed) was that it's
-> still missing a VMX maintainer ack, and Kevin had provided
-> comments on v2 of the smaller (2-patch) series.
+flight 151159 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151159/
 
-Can we get the first patches from this series merged now with Kevin's
-Reviewed-by he sent last week
-(https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg00732.html)?
+Failures :-/ but no regressions.
 
-Thanks,
-Tamas
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  1251402caf8685f45d9d580f01583370f7e2d272
+baseline version:
+ xen                  fec6a7af5c5760b9bccd9e7c3eaf29f0401af264
+
+Last test of basis   151152  2020-06-15 15:01:14 Z    0 days
+Testing same since   151159  2020-06-15 18:00:41 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  George Dunlap <george.dunlap@citrix.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Nick Rosbrook <rosbrookn@ainfosec.com>
+  Nick Rosbrook <rosbrookn@gmail.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   fec6a7af5c..1251402caf  1251402caf8685f45d9d580f01583370f7e2d272 -> smoke
 
