@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C09C61F99D7
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 16:16:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C12BC1F99D0
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2020 16:16:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jkpuJ-00081k-2D; Mon, 15 Jun 2020 14:16:15 +0000
+	id 1jkpu4-0007sF-G6; Mon, 15 Jun 2020 14:16:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OSTQ=74=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jkpuI-0007qe-5u
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 14:16:14 +0000
-X-Inumbo-ID: b9e8f80c-af12-11ea-bb8b-bc764e2007e4
+ id 1jkpu3-0007qe-5V
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2020 14:15:59 +0000
+X-Inumbo-ID: b9508c70-af12-11ea-bca7-bc764e2007e4
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b9e8f80c-af12-11ea-bb8b-bc764e2007e4;
- Mon, 15 Jun 2020 14:15:55 +0000 (UTC)
+ id b9508c70-af12-11ea-bca7-bc764e2007e4;
+ Mon, 15 Jun 2020 14:15:54 +0000 (UTC)
 Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: UDaqbc4TbHeYODtc+HkmveLoGbw/Tno3hC+KDZcJ96XhD748wssAHbyq/SyAnFuaZFPhHX+vxB
- bf1cOvEcp0XrYwqCjk25x88wV+9yrTrLLVnlEusbDIxnZ4PpdUg3a+Z87VhFRZFkHFN6X0fQXZ
- YOh1W6DRzAxgseB+FrUBfXJJ6zSxXo8A1nqKicOdIjaC0SInshwv1/D2pHwHSRMXxnEMCLs7Kj
- hkSjdhOwRY/mg9PzaAnrJ9vWkzMzIdWiK9nyKAvWl0IulfEsBIVT4PZwFNMarlVr63uUEv1R2Y
- SOY=
+IronPort-SDR: A04GakzAv8qhrDMfu5/dxLlX0prS/Tx3wC3kejqOajtC++rwD9oS+SnvHudkC83u52g3DzSgfK
+ TV4xr+pPX6QLzEvL6PvEecxK9IVuJvWM5gavfu1BY4YBVv788HXRmdJZjKwQxcXuI4hFAZEhhn
+ OhmE/WvawQRTrWmdKTYl4c3S7Bxa9sRIyejEPhoK7RMm6rbmttT01M3UrL2UAzmSWTLbh4QgFh
+ 0UjeNYb3NLqj63Q/8JIiPnq0UfM1Q9LNUS0FEQHlW5+48GZcHH7NpTG4oVyXlXBp5IqdZx7eGk
+ wlE=
 X-SBRS: 2.7
-X-MesageID: 20064840
+X-MesageID: 20064837
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,514,1583211600"; d="scan'208";a="20064840"
+X-IronPort-AV: E=Sophos;i="5.73,514,1583211600"; d="scan'208";a="20064837"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 1/9] tools/libx[cl]: Introduce struct xc_xend_cpuid for
- xc_cpuid_set()
-Date: Mon, 15 Jun 2020 15:15:24 +0100
-Message-ID: <20200615141532.1927-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/9] tests/cpu-policy: Confirm that CPUID serialisation is
+ sorted
+Date: Mon, 15 Jun 2020 15:15:25 +0100
+Message-ID: <20200615141532.1927-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200615141532.1927-1-andrew.cooper3@citrix.com>
 References: <20200615141532.1927-1-andrew.cooper3@citrix.com>
@@ -60,244 +60,108 @@ Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In order to combine the functionality of xc_cpuid_set() with
-xc_cpuid_apply_policy(), arrange to pass the data in a single contained
-struct, rather than two arrays.
+The existing x86_cpuid_copy_to_buffer() does produce sorted results, and we're
+about to start relying on this.  Extend the unit tests.
 
-libxl__cpuid_policy is the ideal structure to use, but that would introduce a
-reverse dependency between libxc and libxl.  Introduce xc_xend_cpuid (with a
-transparent union to provide more useful names for the inputs), and use this
-structure in libxl.
+As test_cpuid_serialise_success() is a fairly limited set of synthetic
+examples right now, introduce test_cpuid_current() to operate on the full
+policy for the current CPU.
 
-The public API has libxl_cpuid_policy as an opaque type referencing
-libxl__cpuid_policy.  Drop the inappropriate comment about its internals, and
-use xc_xend_cpuid as a differently named opaque backing object.  Users of both
-libxl and libxc are not permitted to look at the internals.
-
-No change in behaviour.
+Tweak the fail() macro to allow for simplified control flow.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-CC: Ian Jackson <Ian.Jackson@citrix.com>
-CC: Wei Liu <wl@xen.org>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Ian Jackson <Ian.Jackson@citrix.com>
+CC: Wei Liu <wl@xen.org>
 CC: Paul Durrant <paul@xen.org>
 ---
- tools/libxc/include/xenctrl.h | 30 ++++++++++++++++++++++++++++--
- tools/libxc/xc_cpuid_x86.c    | 39 +++++++++++----------------------------
- tools/libxl/libxl.h           |  8 ++++----
- tools/libxl/libxl_cpuid.c     |  7 +++----
- tools/libxl/libxl_internal.h  | 10 ----------
- 5 files changed, 46 insertions(+), 48 deletions(-)
+ tools/tests/cpu-policy/test-cpu-policy.c | 49 +++++++++++++++++++++++++++++++-
+ 1 file changed, 48 insertions(+), 1 deletion(-)
 
-diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
-index 113ddd935d..178144e8e2 100644
---- a/tools/libxc/include/xenctrl.h
-+++ b/tools/libxc/include/xenctrl.h
-@@ -1792,10 +1792,36 @@ int xc_domain_debug_control(xc_interface *xch,
-                             uint32_t vcpu);
+diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
+index fe8cdf6ea9..7ba9707236 100644
+--- a/tools/tests/cpu-policy/test-cpu-policy.c
++++ b/tools/tests/cpu-policy/test-cpu-policy.c
+@@ -16,7 +16,7 @@ static unsigned int nr_failures;
+ #define fail(fmt, ...)                          \
+ ({                                              \
+     nr_failures++;                              \
+-    printf(fmt, ##__VA_ARGS__);                 \
++    (void)printf(fmt, ##__VA_ARGS__);           \
+ })
  
- #if defined(__i386__) || defined(__x86_64__)
-+
-+/*
-+ * CPUID policy data, expressed in the legacy XEND format.
-+ *
-+ * Policy is an array of strings, 32 chars long:
-+ *   policy[0] = eax
-+ *   policy[1] = ebx
-+ *   policy[2] = ecx
-+ *   policy[3] = edx
-+ *
-+ * The format of the string is the following:
-+ *   '1' -> force to 1
-+ *   '0' -> force to 0
-+ *   'x' -> we don't care (use default)
-+ *   'k' -> pass through host value
-+ *   's' -> legacy alias for 'k'
-+ */
-+struct xc_xend_cpuid {
-+    union {
-+        struct {
-+            uint32_t leaf, subleaf;
-+        };
-+        uint32_t input[2];
-+    };
-+    char *policy[4];
-+};
-+
- int xc_cpuid_set(xc_interface *xch,
-                  uint32_t domid,
--                 const unsigned int *input,
--                 const char **config);
-+                 const struct xc_xend_cpuid *xend);
- 
- /*
-  * Make adjustments to the CPUID settings for a domain.
-diff --git a/tools/libxc/xc_cpuid_x86.c b/tools/libxc/xc_cpuid_x86.c
-index b42edd6457..edc2ad9b47 100644
---- a/tools/libxc/xc_cpuid_x86.c
-+++ b/tools/libxc/xc_cpuid_x86.c
-@@ -259,27 +259,8 @@ int xc_set_domain_cpu_policy(xc_interface *xch, uint32_t domid,
-     return ret;
+ #define memdup(ptr)                             \
+@@ -66,6 +66,45 @@ static void test_vendor_identification(void)
+     }
  }
  
--/*
-- * Configure a single input with the informatiom from config.
-- *
-- * Config is an array of strings:
-- *   config[0] = eax
-- *   config[1] = ebx
-- *   config[2] = ecx
-- *   config[3] = edx
-- *
-- * The format of the string is the following:
-- *   '1' -> force to 1
-- *   '0' -> force to 0
-- *   'x' -> we don't care (use default)
-- *   'k' -> pass through host value
-- *   's' -> legacy alias for 'k'
-- *
-- * In all cases, the returned string consists of just '0' and '1'.
-- */
- int xc_cpuid_set(
--    xc_interface *xch, uint32_t domid, const unsigned int *input,
--    const char **config)
-+    xc_interface *xch, uint32_t domid, const struct xc_xend_cpuid *xend)
++static bool leaves_are_sorted(const xen_cpuid_leaf_t *leaves, unsigned int nr)
++{
++    for ( unsigned int i = 1; i < nr; ++i )
++    {
++        /* leaf index went backwards => not sorted. */
++        if ( leaves[i - 1].leaf > leaves[i].leaf )
++            return false;
++
++        /* leaf index went forwards => ok */
++        if ( leaves[i - 1].leaf < leaves[i].leaf )
++            continue;
++
++        /* leave index the same, subleaf didn't increase => not sorted. */
++        if ( leaves[i - 1].subleaf >= leaves[i].subleaf )
++            return false;
++    }
++
++    return true;
++}
++
++static void test_cpuid_current(void)
++{
++    struct cpuid_policy p;
++    xen_cpuid_leaf_t leaves[CPUID_MAX_SERIALISED_LEAVES];
++    unsigned int nr = ARRAY_SIZE(leaves);
++    int rc;
++
++    printf("Testing CPUID on current CPU\n");
++
++    x86_cpuid_policy_fill_native(&p);
++
++    rc = x86_cpuid_copy_to_buffer(&p, leaves, &nr);
++    if ( rc != 0 )
++        return fail("  Serialise, expected rc 0, got %d\n", rc);
++
++    if ( !leaves_are_sorted(leaves, nr) )
++        return fail("  Leaves not sorted\n");
++}
++
+ static void test_cpuid_serialise_success(void)
  {
-     int rc;
-     unsigned int i, j, regs[4] = {}, polregs[4] = {};
-@@ -324,7 +305,8 @@ int xc_cpuid_set(
-         goto fail;
+     static const struct test {
+@@ -178,6 +217,13 @@ static void test_cpuid_serialise_success(void)
+             goto test_done;
+         }
+ 
++        if ( !leaves_are_sorted(leaves, nr) )
++        {
++            fail("  Test %s, leaves not sorted\n",
++                 t->name);
++            goto test_done;
++        }
++
+     test_done:
+         free(leaves);
      }
-     for ( i = 0; i < policy_leaves; ++i )
--        if ( leaves[i].leaf == input[0] && leaves[i].subleaf == input[1] )
-+        if ( leaves[i].leaf == xend->leaf &&
-+             leaves[i].subleaf == xend->subleaf )
-         {
-             polregs[0] = leaves[i].a;
-             polregs[1] = leaves[i].b;
-@@ -345,7 +327,8 @@ int xc_cpuid_set(
-         goto fail;
-     }
-     for ( i = 0; i < policy_leaves; ++i )
--        if ( leaves[i].leaf == input[0] && leaves[i].subleaf == input[1] )
-+        if ( leaves[i].leaf == xend->leaf &&
-+             leaves[i].subleaf == xend->subleaf )
-         {
-             regs[0] = leaves[i].a;
-             regs[1] = leaves[i].b;
-@@ -356,7 +339,7 @@ int xc_cpuid_set(
+@@ -613,6 +659,7 @@ int main(int argc, char **argv)
  
-     for ( i = 0; i < 4; i++ )
-     {
--        if ( config[i] == NULL )
-+        if ( xend->policy[i] == NULL )
-         {
-             regs[i] = polregs[i];
-             continue;
-@@ -375,14 +358,14 @@ int xc_cpuid_set(
-             unsigned char polval = !!((polregs[i] & (1U << (31 - j))));
+     test_vendor_identification();
  
-             rc = -EINVAL;
--            if ( !strchr("10xks", config[i][j]) )
-+            if ( !strchr("10xks", xend->policy[i][j]) )
-                 goto fail;
- 
--            if ( config[i][j] == '1' )
-+            if ( xend->policy[i][j] == '1' )
-                 val = 1;
--            else if ( config[i][j] == '0' )
-+            else if ( xend->policy[i][j] == '0' )
-                 val = 0;
--            else if ( config[i][j] == 'x' )
-+            else if ( xend->policy[i][j] == 'x' )
-                 val = polval;
- 
-             if ( val )
-@@ -393,7 +376,7 @@ int xc_cpuid_set(
-     }
- 
-     /* Feed the transformed leaf back up to Xen. */
--    leaves[0] = (xen_cpuid_leaf_t){ input[0], input[1],
-+    leaves[0] = (xen_cpuid_leaf_t){ xend->leaf, xend->subleaf,
-                                     regs[0], regs[1], regs[2], regs[3] };
-     rc = xc_set_domain_cpu_policy(xch, domid, 1, leaves, 0, NULL,
-                                   &err_leaf, &err_subleaf, &err_msr);
-diff --git a/tools/libxl/libxl.h b/tools/libxl/libxl.h
-index 71709dc585..1cd6c38e83 100644
---- a/tools/libxl/libxl.h
-+++ b/tools/libxl/libxl.h
-@@ -1310,11 +1310,11 @@ typedef struct {
- void libxl_bitmap_init(libxl_bitmap *map);
- void libxl_bitmap_dispose(libxl_bitmap *map);
- 
--/* libxl_cpuid_policy_list is a dynamic array storing CPUID policies
-- * for multiple leafs. It is terminated with an entry holding
-- * XEN_CPUID_INPUT_UNUSED in input[0]
-+/*
-+ * libxl_cpuid_policy is opaque in the libxl ABI.  Users of both libxl and
-+ * libxc may not make assumptions about xc_xend_cpuid.
-  */
--typedef struct libxl__cpuid_policy libxl_cpuid_policy;
-+typedef struct xc_xend_cpuid libxl_cpuid_policy;
- typedef libxl_cpuid_policy * libxl_cpuid_policy_list;
- void libxl_cpuid_dispose(libxl_cpuid_policy_list *cpuid_list);
- int libxl_cpuid_policy_list_length(const libxl_cpuid_policy_list *l);
-diff --git a/tools/libxl/libxl_cpuid.c b/tools/libxl/libxl_cpuid.c
-index 796ec4f2d9..e001cbcd4f 100644
---- a/tools/libxl/libxl_cpuid.c
-+++ b/tools/libxl/libxl_cpuid.c
-@@ -288,7 +288,7 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list *cpuid, const char* str)
-     char *sep, *val, *endptr;
-     int i;
-     const struct cpuid_flags *flag;
--    struct libxl__cpuid_policy *entry;
-+    struct xc_xend_cpuid *entry;
-     unsigned long num;
-     char flags[33], *resstr;
- 
-@@ -366,7 +366,7 @@ int libxl_cpuid_parse_config_xend(libxl_cpuid_policy_list *cpuid,
-     char *endptr;
-     unsigned long value;
-     uint32_t leaf, subleaf = XEN_CPUID_INPUT_UNUSED;
--    struct libxl__cpuid_policy *entry;
-+    struct xc_xend_cpuid *entry;
- 
-     /* parse the leaf number */
-     value = strtoul(str, &endptr, 0);
-@@ -442,8 +442,7 @@ void libxl__cpuid_legacy(libxl_ctx *ctx, uint32_t domid,
-         return;
- 
-     for (i = 0; cpuid[i].input[0] != XEN_CPUID_INPUT_UNUSED; i++)
--        xc_cpuid_set(ctx->xch, domid, cpuid[i].input,
--                     (const char**)cpuid[i].policy);
-+        xc_cpuid_set(ctx->xch, domid, &cpuid[i]);
- }
- 
- static const char *input_names[2] = { "leaf", "subleaf" };
-diff --git a/tools/libxl/libxl_internal.h b/tools/libxl/libxl_internal.h
-index c7ece066c4..79c2bf5f5e 100644
---- a/tools/libxl/libxl_internal.h
-+++ b/tools/libxl/libxl_internal.h
-@@ -2056,16 +2056,6 @@ typedef yajl_gen_status (*libxl__gen_json_callback)(yajl_gen hand, void *);
- _hidden char *libxl__object_to_json(libxl_ctx *ctx, const char *type,
-                                     libxl__gen_json_callback gen, void *p);
- 
--  /* holds the CPUID response for a single CPUID leaf
--   * input contains the value of the EAX and ECX register,
--   * and each policy string contains a filter to apply to
--   * the host given values for that particular leaf.
--   */
--struct libxl__cpuid_policy {
--    uint32_t input[2];
--    char *policy[4];
--};
--
- _hidden void libxl__cpuid_legacy(libxl_ctx *ctx, uint32_t domid,
-                                  libxl_domain_build_info *info);
- 
++    test_cpuid_current();
+     test_cpuid_serialise_success();
+     test_cpuid_deserialise_failure();
+     test_cpuid_out_of_range_clearing();
 -- 
 2.11.0
 
