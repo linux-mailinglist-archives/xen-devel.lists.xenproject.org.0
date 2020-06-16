@@ -2,50 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57F681FB0F8
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 14:41:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 356FF1FB1A8
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 15:07:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlAtW-0003X8-M7; Tue, 16 Jun 2020 12:40:50 +0000
+	id 1jlBID-0005NM-RA; Tue, 16 Jun 2020 13:06:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FkxY=75=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1jlAtV-0003X2-4O
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 12:40:49 +0000
-X-Inumbo-ID: 9a69e4d4-afce-11ea-8496-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=dGtU=75=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jlBIC-0005N9-RS
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 13:06:21 +0000
+X-Inumbo-ID: 2bae44dc-afd2-11ea-bb8b-bc764e2007e4
+Received: from mail-ej1-x641.google.com (unknown [2a00:1450:4864:20::641])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9a69e4d4-afce-11ea-8496-bc764e2007e4;
- Tue, 16 Jun 2020 12:40:48 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: IxqVyysXiedplLMYiC8PyE27klOryAY1LIS89ayKLPhYWtlltfUNSovh6RpHfVJYYVF6NLi0Lb
- m6qDOBi2icrd/yi8gKx92DqbARYZfOqkS3bgRhyNDIEs1WYQtk3p1+VPokcuhPiQMlAED1XiSw
- Tqi60+lXr9Rn25VPfZjqzkspk+QUch8bKjTBxkMqnDjye6zOnFEOGfAj6rpi7+/7fgooKuTKjG
- paJhzBCD5zhcWPx6UXAx25i/I7VbpX1tnkkcU6Hra1A7tUeJytVs350V2xF8CJYOdEzjDUn01P
- Vgs=
-X-SBRS: 2.7
-X-MesageID: 20456615
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,518,1583211600"; d="scan'208";a="20456615"
-Subject: Re: [PATCH for-4.14 v2] tools/xen-ucode: fix error code propagation
- of microcode load operation
-To: Jan Beulich <jbeulich@suse.com>
-References: <1592307754-8844-1-git-send-email-igor.druzhinin@citrix.com>
- <be06eb9d-680c-d356-5f44-ba0a76c5b2a1@suse.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <4d0bacbf-506c-e3c3-5448-b5ab8f6dd0ba@citrix.com>
-Date: Tue, 16 Jun 2020 13:40:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ id 2bae44dc-afd2-11ea-bb8b-bc764e2007e4;
+ Tue, 16 Jun 2020 13:06:20 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id o15so21385714ejm.12
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2020 06:06:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=hi5RfA1lgLnQxg+WfKSbNLbjWGiSN79j2OmzZMgyrlE=;
+ b=NPx8O1KEJBIVUKhBoFnWjT0AABeXFxzEgzpWL2kcTPBxIeDxzXvXQ+JGYUb5f+CB4N
+ t9/nw2fOdlymQ7CW74a2TGeVReMnGeD/McTw9NJ2hBJ2M0unQQtstkOWtDu4EIEvMZFA
+ 7ihzCL/hXFUqstHNXnVdwUhB/GY3SBZJ6wFKbFnldEzrYmSbJMpvq48mRmwPMQQhJBdl
+ aDTHAYMjBv1MqkGeF1IdvwJqi6WaT59ezS2n336LOuXGLCq6Tw7t0u/uGLuyh9qCPqlL
+ esuZ+jIWTC6YQdtDGQCR/muRCbzfL+tiasKqxLIcFooNlJNdNU8m5hOiVKtlmmWEfWGG
+ lRYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=hi5RfA1lgLnQxg+WfKSbNLbjWGiSN79j2OmzZMgyrlE=;
+ b=OwyDXevDIDydFvwiTbASXYKTt/CSmgHkxFRH9burAeuSeV7OEuTPVEYWZsq5IHEM+l
+ x2yS6zJ6rcdcW9Hf5Ot7oRmYWz9ks6TEOnSsLiKBaYx609u/1Tx7MPP87CewRDseh+qS
+ 9OSnYRrJKREyIIitrRCLaG07VBPsDpv9yLGqIj/eKdGDErRZNOU2eFdsiIzr3CuWYJde
+ tDPC9kDXMEMY3xYk3tEnocn+ucfE1xFBcz/Zv09fTzJdOBB/FppPE4c30aGzJELxyyif
+ xYJof9aSCboq2Y7KUzvg/x33vCK9eRUR8KuRGfOmVO57G3l2mXClwEpJ9eZSAjtTEsHC
+ 60Dg==
+X-Gm-Message-State: AOAM533cy9mKfEFfGaFyO36wNo2cAE0gMiC8MfYldPIFR5vDJtvkQi4n
+ /0FDImYMPTgnRCRNTYVTEjvwX036gXs=
+X-Google-Smtp-Source: ABdhPJxKrbel6HC1pGWcO1OKeAolTO8PpXTybRiEfVWWTPhivcm0v2d3TH/WuJKTKnCulLmy9RjZhA==
+X-Received: by 2002:a17:906:c10f:: with SMTP id
+ do15mr2800308ejc.249.1592312779396; 
+ Tue, 16 Jun 2020 06:06:19 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com.
+ [209.85.221.46])
+ by smtp.gmail.com with ESMTPSA id z15sm10931989eju.18.2020.06.16.06.06.17
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Jun 2020 06:06:18 -0700 (PDT)
+Received: by mail-wr1-f46.google.com with SMTP id q11so20717448wrp.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2020 06:06:17 -0700 (PDT)
+X-Received: by 2002:adf:f0c6:: with SMTP id x6mr3225697wro.301.1592312777282; 
+ Tue, 16 Jun 2020 06:06:17 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <be06eb9d-680c-d356-5f44-ba0a76c5b2a1@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <cover.1591017086.git.tamas.lengyel@intel.com>
+ <12d37927-5608-b497-67cc-eb5436fa0b78@suse.com>
+In-Reply-To: <12d37927-5608-b497-67cc-eb5436fa0b78@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Tue, 16 Jun 2020 07:05:40 -0600
+X-Gmail-Original-Message-ID: <CABfawhkeJu=PjmQ9RAWtdte1tg8qGQHkzn9Z35GeZ5Qkqd1kiA@mail.gmail.com>
+Message-ID: <CABfawhkeJu=PjmQ9RAWtdte1tg8qGQHkzn9Z35GeZ5Qkqd1kiA@mail.gmail.com>
+Subject: Re: [PATCH v19 for-4.14 00/13] VM forking
+To: Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,35 +78,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, ian.jackson@eu.citrix.com, wl@xen.org,
- xadimgnik@gmail.com
+Cc: Julien Grall <julien@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16/06/2020 13:25, Jan Beulich wrote:
-> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
-> 
-> On 16.06.2020 13:42, Igor Druzhinin wrote:
->> @@ -62,8 +62,11 @@ int main(int argc, char *argv[])
->>  
->>      ret = xc_microcode_update(xch, buf, len);
->>      if ( ret )
->> +    {
->>          fprintf(stderr, "Failed to update microcode. (err: %s)\n",
->>                  strerror(errno));
->> +        return errno;
-> 
-> I think you need to latch errno, as fprintf() may in principle run
-> into another error.
+On Tue, Jun 16, 2020 at 2:32 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 01.06.2020 15:21, Tamas K Lengyel wrote:
+> > Tamas K Lengyel (13):
+> >   x86/mem_sharing: block interrupt injection for forks
+> >   tools/libxc: xc_memshr_fork with interrupts blocked
+>
+> I've committed these two, and I'll leave the rest to the tool stack
+> maintainers.
 
-Yes, I also noticed that but the whole file has this problem so I didn't
-change it here specifically.
+Thanks!
 
-If fixing the whole file - I'd rather rewrite error reporting completely:
-return 1 on error, 0 on success, etc. From what I've read returning errno
-has many incompatibilities and might lead to surprise consequences.
-
-I'll send v3 to clean this all up.
-
-Igor
+Tamas
 
