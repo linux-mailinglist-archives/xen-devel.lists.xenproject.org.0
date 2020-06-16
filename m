@@ -2,74 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A941FBD48
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 19:48:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A4231FBD68
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 19:59:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlFga-0006Xu-7U; Tue, 16 Jun 2020 17:47:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jlFrq-0007UJ-A3; Tue, 16 Jun 2020 17:59:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xJom=75=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jlFgZ-0006Xp-5M
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 17:47:47 +0000
-X-Inumbo-ID: 7c5e218c-aff9-11ea-bca7-bc764e2007e4
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7c5e218c-aff9-11ea-bca7-bc764e2007e4;
- Tue, 16 Jun 2020 17:47:46 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 41158A2F9F;
- Tue, 16 Jun 2020 19:47:45 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 35187A2F98;
- Tue, 16 Jun 2020 19:47:44 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id QJtHddik42Er; Tue, 16 Jun 2020 19:47:43 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 9947DA2F9F;
- Tue, 16 Jun 2020 19:47:43 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id ZrFB61byiPS5; Tue, 16 Jun 2020 19:47:43 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 71055A2F98;
- Tue, 16 Jun 2020 19:47:43 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 6145B2171F;
- Tue, 16 Jun 2020 19:47:13 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id wtN2IQ-4u9Lm; Tue, 16 Jun 2020 19:47:08 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id EF8A221866;
- Tue, 16 Jun 2020 19:47:07 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id B5S2HbGMqY-G; Tue, 16 Jun 2020 19:47:07 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id C54C62171F;
- Tue, 16 Jun 2020 19:47:07 +0200 (CEST)
-Date: Tue, 16 Jun 2020 19:47:07 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
-Message-ID: <676696113.8782412.1592329627666.JavaMail.zimbra@cert.pl>
-In-Reply-To: <20200616173857.GU735@Air-de-Roger>
-References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
- <317430261.8766476.1592321051337.JavaMail.zimbra@cert.pl>
- <20200616173857.GU735@Air-de-Roger>
-Subject: Re: [PATCH v1 7/7] x86/vmx: switch IPT MSRs on vmentry/vmexit
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
-Thread-Topic: x86/vmx: switch IPT MSRs on vmentry/vmexit
-Thread-Index: IsFlRe2+pVIoLpVn5usOa8NJmss1gw==
+ (envelope-from <SRS0=QOm8=75=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jlFro-0007Ta-6d
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 17:59:24 +0000
+X-Inumbo-ID: 1c2ca34a-affb-11ea-b923-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1c2ca34a-affb-11ea-b923-12813bfff9fa;
+ Tue, 16 Jun 2020 17:59:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=wGfJn96R3ZlVVuYZ9IwqkUyeFMh4LTwYfmmbem1Z51E=; b=tVQhtFigcnMutcLTi5GeqlfvhN
+ YL1zs1vJkFKer+dmngOqbZboQXhLIaVontpJE1+6VKxw7YK92lwiNNslLANTETeQ1eqofTOH93M6B
+ NbulPRnmaGeto2t4j8dxlwFYS1s+Dz5nqsTIvSJg8fBNr2QilNJMndRN5qP8DOYbr5Rc=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jlFri-0003kY-8n; Tue, 16 Jun 2020 17:59:18 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jlFrh-00036w-Uo; Tue, 16 Jun 2020 17:59:18 +0000
+From: Julien Grall <julien@xen.org>
+To: security@xenproject.org
+Subject: [PATCH 0/2] xen/arm: Mitigate straight-line speculation
+Date: Tue, 16 Jun 2020 18:59:11 +0100
+Message-Id: <20200616175913.7368-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,43 +54,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: sstabellini@kernel.org, paul@xen.org, Andre.Przywara@arm.com,
+ Julien Grall <jgrall@amazon.com>, Bertrand.Marquis@arm.com,
+ xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 16 cze 2020 o 19:38, Roger Pau Monn=C3=A9 roger.pau@citrix.com napisa=
-=C5=82(a):
+From: Julien Grall <jgrall@amazon.com>
 
-> On Tue, Jun 16, 2020 at 05:24:11PM +0200, Micha=C5=82 Leszczy=C5=84ski wr=
-ote:
->> Enable IPT when entering the VM and disable it on vmexit.
->> Register state is persisted using vCPU ipt_state structure.
->=20
-> Shouldn't this be better done using Intel MSR load lists?
->=20
-> That seems to be what the SDM recommends for tracing VM events.
->=20
-> Thanks, Roger.
+Hi all,
 
+Arm recently released a whitepaper about a new category of speculation.
+(see [1] and [2]). In short, a processor may be able to speculate past
+some of the unconditional control flow instructions (e.g eret, smc, br).
 
-This is intentional, additionally described by the comment:
+In some of the cases, the registers will contain values controlled by
+the guest. While there is no known gadget afterwards, we still want to
+prevent any leakage in the future.
 
-// MSR_IA32_RTIT_CTL is context-switched manually instead of being
-// stored inside VMCS, as of Q2'20 only the most recent processors
-// support such field in VMCS
+The mitigation is planned in two parts:
+   1) Arm provided patches for both GCC and LLVM to add speculation barrier
+   and remove problematic code sequence.
+   2) Inspection of assembly code and call to higher level (e.g smc in our case).
 
+I am still waiting on more input for 1), so this series only address 2)
+for the moment.
 
-There is a special feature flag which indicates whether MSR_IA32_RTIT_CTL c=
-an be loaded using MR load lists. During my experiments, I haven't found an=
-y single CPU available to me that would declare such a feature flag. I was =
-mostly testing CPUs that were launched in 2018, so I suppose that this feat=
-ure is present only on very recent hardware. Unfortunately it's not possibl=
-e to check on Intel ARK as this information is not listed there at all.
+Note that the ERET instruction was already addressed as part of XSA-312.
 
+The patch series is directly sent on the mailing list as the
+security team has been aware of the issues after the whitepaper was
+publicly released.
 
-Best regards,
-Micha=C5=82 Leszczy=C5=84ski
-CERT Polska
+Cheers,
+
+[1] https://developer.arm.com/support/arm-security-updates/speculative-processor-vulnerability
+[2] https://developer.arm.com/support/arm-security-updates/speculative-processor-vulnerability/downloads/straight-line-speculation
+
+Julien Grall (2):
+  xen/arm: entry: Place a speculation barrier following an ret
+    instruction
+  xen/arm: Mitigate straight-line speculation for SMC call
+
+ xen/arch/arm/arm32/entry.S   |  1 +
+ xen/arch/arm/arm64/entry.S   |  2 ++
+ xen/arch/arm/arm64/smc.S     |  1 +
+ xen/include/asm-arm/smccc.h  | 13 +++++++++++++
+ xen/include/asm-arm/system.h |  8 ++++++++
+ 5 files changed, 25 insertions(+)
+
+-- 
+2.17.1
+
 
