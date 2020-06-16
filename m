@@ -2,60 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4453B1FA58F
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 03:19:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A69851FA598
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 03:24:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jl0Ft-0001Hl-1P; Tue, 16 Jun 2020 01:19:13 +0000
+	id 1jl0L3-00026K-LM; Tue, 16 Jun 2020 01:24:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FxI/=75=zededa.com=roman@srs-us1.protection.inumbo.net>)
- id 1jl0Fr-0001Hg-At
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 01:19:11 +0000
-X-Inumbo-ID: 61b049da-af6f-11ea-bb8b-bc764e2007e4
-Received: from mail-qt1-x844.google.com (unknown [2607:f8b0:4864:20::844])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=R/yp=75=gmail.com=vlad.babchuk@srs-us1.protection.inumbo.net>)
+ id 1jl0L2-00026F-AX
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 01:24:32 +0000
+X-Inumbo-ID: 212b3112-af70-11ea-bb8b-bc764e2007e4
+Received: from mail-vs1-xe43.google.com (unknown [2607:f8b0:4864:20::e43])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 61b049da-af6f-11ea-bb8b-bc764e2007e4;
- Tue, 16 Jun 2020 01:19:10 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id q14so14264606qtr.9
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2020 18:19:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
+ id 212b3112-af70-11ea-bb8b-bc764e2007e4;
+ Tue, 16 Jun 2020 01:24:31 +0000 (UTC)
+Received: by mail-vs1-xe43.google.com with SMTP id m25so10530402vsp.8
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2020 18:24:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=iXsXRL7cKOK7W4zCPeLJpCiQpirlDE+jAyotbH2/Zco=;
- b=CL9QlwbWNe01cLygqxg1X2QsAvMCPdeBiKVdRI1gtvbHhntk46OmJ9FpaAYBgSVAJr
- 7lcvv8RGbd2lluLu7sFfeBIp4O9QvdasQNJrGoPJ5f2KYY6OtuCoolQiyEeuNUri9wno
- 9PUt7FlxpcS8hDqSzhm/a+KwASGnODAED8ToCWeMSBCGXQVksuTKiPFiesIu5FzVbwP9
- VdK9qxeSFf0yC6dBOjPoXXbLOZvq8eEWV1vpN3n0t1PuObSoKtgThO1I9a08iCbs+67H
- 9kWK9swoxz6R7/vau+NbNjAxLvxmEIh7G9sw13xAqXY/TuDWvvH6Ymy0zQwCErEedH3B
- /8jQ==
+ :cc; bh=AWPRPexqcmyKI3v44fbOhZSz+HGtd9V7akn/oXB6X4A=;
+ b=iy9ksS7dWc9insCdT65B93eg0YIQ0r+FJGVR6DCpsjTnZ465ZK6REocHE03NldZPoF
+ XxXXlh+IcRe0HJUCihF7Ug+3ozrYJqzgT8sUSxkk74o34ZgNCWRES7sjXwU1BY414mO8
+ TUq79CdGAm9fiylanXeTtUPeLxqtiXDK0kcxc+sMoyJMeBQmICuFbUciAvk3K5xWnLcb
+ rBOp6zuYueT+uryD5QTAcVC8ISUTqG9w+SSIwDNHV2+gIGNwTVf2R6+nTJblBqdkLjo0
+ OefZU7tuQeolaJm020iKLZJPmE/kVob/sP+bAB+AKegyVbNxzsz0kYlWPRV9RL8c0xEA
+ ONUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=iXsXRL7cKOK7W4zCPeLJpCiQpirlDE+jAyotbH2/Zco=;
- b=ssuwpgA35BP7V3O2jkrzJva6jKHu1s4UQrwttZ84cw2EGJ1rNNnQ1ZWEYClNniBnsz
- IIpLExVsASyq/NbH3IGI33Y2WjXl8egur2cJ8ml27syoRoOCM60h3nCvUMGdXOrS0/TC
- o8vBoCPMr6J9J2IHuWZgNLXHmenjzeFevmEYAMczjidaSGZPaz/tuldd7hMWzEMcI8/k
- 0xQInU84YMYlkgHSXfD13xZuVnqjlR4Upe/tQr7E7DhQkcW/pLV1dLEA0eBA8D49K99m
- LblwyLUI3sNWc0qDv0oMtEQwOFAsZlZQ85b6suDkLnljeEJ8Nf2C+Ad+Ywysjt+bygzU
- z69Q==
-X-Gm-Message-State: AOAM532WGJRr8oCRz3MccYz6k1GwqrCrzyR8+21L1mheto8rQdvEnDNr
- OFrMLheEWrjKIX9X9fDvMzz1DCBNhM7+Ia6RyQ53UQ==
-X-Google-Smtp-Source: ABdhPJyNBl0oZoIp9VOvR37OdLYhvrCjw3kjpvFC5ePC4zZHOnAzJDQdBWTlJkxnAiDKfPMiEwmctkWTrZ7W9AGDQUo=
-X-Received: by 2002:ac8:7c8e:: with SMTP id y14mr19416964qtv.365.1592270350026; 
- Mon, 15 Jun 2020 18:19:10 -0700 (PDT)
+ bh=AWPRPexqcmyKI3v44fbOhZSz+HGtd9V7akn/oXB6X4A=;
+ b=rKqs8YXSK3yAsI+M77v5lZ1SXlukkh5OM6mHMdg8X0FwlkdZWgQFerIXAY/oWpzFTn
+ ATJrEzsNLVaeR8E9mibGRDt6wbRe03pGIrJOorHlex+iXyBmh0AGMQFnkN0+BHj2DdCj
+ XD/e8wiJtUzlh54oX7dNPpNhIWrQYWSTTa3yamnjFx9fCOk946IZjJ6etLqFz/fj+mcN
+ Z66nBGKPpb703SX1hEZG5YIKQjkPDl3ieqxSlZt/UGaHvRjYLcwNOYfqVCnV1GLXqVXj
+ 80K8ljrJB3So2/KkeI80X369SsDkqOTx0tObZLiXsOWlwXC9v6FfzuugoWzNOCFrJZY2
+ SuNw==
+X-Gm-Message-State: AOAM531lijXqg0dECefL0RjIjWp+0pOqzjrzpf7LirwbZCC2Py0klMIc
+ r2/V/e5AEQ4xrG5PDYeUNRT3DN1Qy5IRGEsQSSI=
+X-Google-Smtp-Source: ABdhPJwMFqMuV/UdbdISJyaYS8N82sH5CUJkXQAF1CT+kyq94F4qTka7Egt9oTSyexZZwvo+u8+OUgts0cchTwtm95Q=
+X-Received: by 2002:a67:7d81:: with SMTP id y123mr343026vsc.126.1592270671186; 
+ Mon, 15 Jun 2020 18:24:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200610185415.GG7231@minyard.net>
- <CAMmSBy8gGCjJ0yLcC7rxwEtQDfzRVF=sp=seYtBA3FM3vuXgEQ@mail.gmail.com>
- <CACMJ4GaOx7aFJgRno511C7KOWbSu9751HBx4hikByU4J_X3vLg@mail.gmail.com>
-In-Reply-To: <CACMJ4GaOx7aFJgRno511C7KOWbSu9751HBx4hikByU4J_X3vLg@mail.gmail.com>
-From: Roman Shaposhnik <roman@zededa.com>
-Date: Mon, 15 Jun 2020 18:18:58 -0700
-Message-ID: <CAMmSBy_AJBnLGsHo_4HWR1TxXZ3O+caUWBs1Q02-k8s1CT72UQ@mail.gmail.com>
-Subject: Re: Xen on Pi4: Xen doesn't work with overlays from Raspberry Pi 5.4
- kernel
-To: Christopher Clark <christopher.w.clark@gmail.com>
+References: <DB6PR0402MB276091802866E8CB878A8130889C0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+In-Reply-To: <DB6PR0402MB276091802866E8CB878A8130889C0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+From: Volodymyr Babchuk <vlad.babchuk@gmail.com>
+Date: Tue, 16 Jun 2020 04:24:20 +0300
+Message-ID: <CAOcqxo2B4cnJdqERr81rVzJKb=Rj=kmotd7Cui9nOMy52wVKmg@mail.gmail.com>
+Subject: Re: [Tee-dev] TEE with XEN
+To: Peng Fan <peng.fan@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -67,73 +64,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Corey Minyard <cminyard@mvista.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- tamas@tklengyel.com, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Julien Grall <julien@xen.org>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ "tee-dev@lists.linaro.org" <tee-dev@lists.linaro.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>, Stefano Babic <sbabic@denx.de>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 15, 2020 at 4:35 PM Christopher Clark
-<christopher.w.clark@gmail.com> wrote:
+Hi Peng,
+
+On Mon, 15 Jun 2020 at 05:07, Peng Fan <peng.fan@nxp.com> wrote:
 >
-> On Wed, Jun 10, 2020 at 7:21 PM Roman Shaposhnik <roman@zededa.com> wrote:
-> >
-> > On Wed, Jun 10, 2020 at 11:54 AM Corey Minyard <cminyard@mvista.com> wrote:
-> > >
-> > > I had been working on Xen on the Pi4 by throwing kernels I compiled onto
-> > > existing sd cards, and this was working fine.  I finally got to a full
-> > > yocto build of the system, and it didn't boot.
-> > >
-> > > In fact, Xen didn't print anything at all, and nothing happens that
-> > > might suggest it's booting without any console output.
+> Hi All,
 >
-> I've reproduced this. Linux 4.19 from the Raspberry Pi kernel branch
-> works fine, whereas I see no console output from the kernel once Xen
-> tries to hand off to dom0 with either a 5.4 or 5.6 kernel.
+> While enabling trusty os with xen, I took same approach as OP-TEE,
+> with OP-TEE running in secure world. But I am also thinking this might
+> introduce potential issue is that secure world OS communicate with DomU.
+> If there are some misbehavior in secure world OS, it might let XEN
+> hypervisor not work proper.
 >
-> > > I traced the issue down to the vc4-fkms-v3d dtoverly.  With everything
-> > > else the same, the 4.19 version of that overlay works, and the 5.4
-> > > version does not work.  It also didn't work if I completely removed the
-> > > overlay.  The base device trees are the same between the two kernels.
-> > >
-> > > Looking at the overlay changes between the versions and Xen source, I
-> > > can't trace down anything that would cause an issue.  Has anyone seen
-> > > this issue of have any ideas?
+> In my setup, trusty os sometimes panic in secure world, xen will not able
+> to control the panic core anymore.
 >
-> Seen it: yes, but no progress on resolving it to report at this point.
->
-> > FWIW: I ran into very similar issues, ditched 5.4 kernel and moved to 5.6.x:
-> >     https://github.com/raspberrypi/linux/tree/rpi-5.6.y
-> >
-> > The 5.6.14 seems to be working quite nicely with Xen for me (and Stefano).
->
-> Hi Roman - is there a specific commit in that rpi-5.6.y branch that
-> you guys have working ok?
+> So I am thinking whether we need to emulating secure world in a XEN VM
+> which is the VM running DomU. Just like what ACRN did to run trusty
+> os.
 
-Pretty much the latest really. The problem is that it seems RPi ppl.
-keep forcepushing to that branch. Hence what we had to do on
-the EVE side is to basically "snapshot" it with this gigantic patch:
-     https://github.com/lf-edge/eve/blob/master/pkg/new-kernel/patches-5.6.x/0000-rpi-kernel-changes.patch
+Well, it depends on whom you are trusting more. Both XEN and TEE are minimal
+OS implementations with aim at security. I'm speaking about generic TEE OS, not
+about particular OS like OP-TEE or Trusty. Problem is that, if TEE is
+running inside
+VM, it will be susceptible to a hypervisor misbehaviour. You need to understand
+that Xen and privileged domain (dom0, mostly) can access memory of any guest.
+At least, in default configuration. There are means to harden this
+setup. But anyways,
+Xen can't be stopped from reading TEE's secrets.
 
-This needs to be applied on top of straight up upstream 5.6.14 (since
-that's what the closest common ancestor was on that branch at the time)
+If this is okay for your needs, then you can run TEE as a VM of course.
 
-In fact, the entire build process is captured here (if you're curious):
-      https://github.com/lf-edge/eve/blob/master/pkg/new-kernel/Dockerfile
-(you can literally just docker build . build the whole thing)
+So, this is heavilly depends on your security threats model. There
+can't be universal
+solution. Also, I'm proposing to check Google's requirements for
+Trusty environment.
+Do they allow it to run outside of TrustZone? For example, GPD TEE System
+Architecture document clearly says that TEE should be separated from REE by
+hardware mechanisms that are not controlled by REE (section 2.2.1). I
+believe, that
+should be a similar document for Trusty.
 
-> It looks like the bcm2711_defconfig file wasn't included in the kernel
-> source tree of that branch at the point the kernel version was bumped
-> up to 5.6.14, so is there somewhere else to look for a matching kernel
-> config?
-
-Yes ;-) I can share the kind of config that has been pretty extensively
-tested by us here at Project EVE:
-     https://github.com/lf-edge/eve/blob/master/pkg/new-kernel/kernel_config-5.6.x-aarch64
-
-None of it is terribly EVE specific -- so you should have a reasonable
-base-line.
-
-Thanks,
-Roman.
+-- 
+WBR Volodymyr Babchuk aka lorc [+380976646013]
+mailto: vlad.babchuk@gmail.com
 
