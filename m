@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7737D1FA924
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 08:52:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AE4D1FA98C
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 09:08:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jl5RH-0004qY-1C; Tue, 16 Jun 2020 06:51:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jl5gs-0005rq-DA; Tue, 16 Jun 2020 07:07:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LuhO=75=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jl5RF-0004qT-Sk
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 06:51:17 +0000
-X-Inumbo-ID: c6b2893c-af9d-11ea-bb8b-bc764e2007e4
+ id 1jl5gr-0005rl-3a
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 07:07:25 +0000
+X-Inumbo-ID: 06c1ef98-afa0-11ea-b88a-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c6b2893c-af9d-11ea-bb8b-bc764e2007e4;
- Tue, 16 Jun 2020 06:51:17 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 06c1ef98-afa0-11ea-b88a-12813bfff9fa;
+ Tue, 16 Jun 2020 07:07:23 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id EC30DAF96;
- Tue, 16 Jun 2020 06:51:19 +0000 (UTC)
-Subject: Re: [PATCH 2/9] tests/cpu-policy: Confirm that CPUID serialisation is
- sorted
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>
-References: <20200615141532.1927-1-andrew.cooper3@citrix.com>
- <20200615141532.1927-3-andrew.cooper3@citrix.com>
- <24295.35624.644030.417783@mariner.uk.xensource.com>
- <ec1364c4-f1df-c52d-8651-bbfb3b5b6a0b@citrix.com>
- <24295.38146.988316.316252@mariner.uk.xensource.com>
- <53a1f221-89ae-0d8e-32ef-c9c8c83580c5@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id B513DAC85;
+ Tue, 16 Jun 2020 07:07:25 +0000 (UTC)
+Subject: Re: [PATCH v19 for-4.14 00/13] VM forking
+To: Tamas K Lengyel <tamas@tklengyel.com>
+References: <cover.1591017086.git.tamas.lengyel@intel.com>
+ <000c01d63826$6d125900$47370b00$@xen.org>
+ <4017F2B3-BB9B-4E9F-813C-6FE68BA0D568@citrix.com>
+ <CABfawh=YHA9Lxbto5Qgf_wkSFAR+JxCdWB99iAhCmBgwSwvmVg@mail.gmail.com>
+ <002401d638b0$a5460f80$efd22e80$@xen.org>
+ <d3df7cbf-843a-9253-292c-b6bb48ff9c94@suse.com>
+ <CABfawhmMgNCBwoTZ6Fm300q3CVUu0sQNLOU3_jW_iCr_OMTWLg@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <feb177f1-86bb-493d-cce7-4f49a836211a@suse.com>
-Date: Tue, 16 Jun 2020 08:51:16 +0200
+Message-ID: <52f24592-934a-da54-9439-a67fea004af3@suse.com>
+Date: Tue, 16 Jun 2020 09:07:21 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <53a1f221-89ae-0d8e-32ef-c9c8c83580c5@citrix.com>
+In-Reply-To: <CABfawhmMgNCBwoTZ6Fm300q3CVUu0sQNLOU3_jW_iCr_OMTWLg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,35 +52,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>,
- Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Ian Jackson <Ian.Jackson@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.06.2020 18:12, Andrew Cooper wrote:
-> On 15/06/2020 16:34, Ian Jackson wrote:
->> Andrew Cooper writes ("Re: [PATCH 2/9] tests/cpu-policy: Confirm that CPUID serialisation is sorted"):
->>> Nothing runs it by default, but it is part of my prepush testing for
->>> anything in the relevant area.
->>>
->>> We should do something better, but its not totally trivial.  The x86
->>> emulator test for example needs a fairly bleeding edge version of
->>> binutils, given that we routinely add support for bleeding edge
->>> instruction groups.
->> Hmmm.  Is it likely that installing the version from Debian testing
->> (say) would work ?  Or do we want to build it from source ?  These are
->> all possibilities.
+On 15.06.2020 21:27, Tamas K Lengyel wrote:
+> On Tue, Jun 2, 2020 at 3:39 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 02.06.2020 09:37, Paul Durrant wrote:
+>>> Maintainers/committers, can we please get those patches in a.s.a.p.?
+>>
+>> The sole reason I didn't put in at least the 1st patch on Friday
+>> (perhaps also the 2nd, as it is suitably ack-ed) was that it's
+>> still missing a VMX maintainer ack, and Kevin had provided
+>> comments on v2 of the smaller (2-patch) series.
 > 
-> Pulling from Sid may work, if they're fairly prompt to update to new
-> binutils releases.  (They're certainly up to date ATM)
-> 
-> Jan: are we ever in a position where we need something more bleeding
-> edge than the latest binutils release?
+> Can we get the first patches from this series merged now with Kevin's
+> Reviewed-by he sent last week
+> (https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg00732.html)?
 
-Gcc needs to be about as recent: Right now the minimum is gcc 8 I
-think, and I have a few hacks in place locally to make things
-somewhat work back to gcc 5, as on my laptop (and hence when
-working from home) I don't have any custom gcc builds.
+Please can you be a little more patient? I've been out of the
+office until yesterday afternoon, and I'm dealing with half
+broken email now.
 
 Jan
 
