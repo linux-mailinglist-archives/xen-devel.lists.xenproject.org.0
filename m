@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14E3B1FB616
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 17:25:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77D8A1FB8CD
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 17:59:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlDSo-0001Pn-OX; Tue, 16 Jun 2020 15:25:26 +0000
+	id 1jlDyU-00048U-9B; Tue, 16 Jun 2020 15:58:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AL9H=75=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jlDSn-0001PT-Hr
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 15:25:25 +0000
-X-Inumbo-ID: 9942cdf2-afe5-11ea-8496-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=CuXX=75=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jlDyS-00048O-2y
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 15:58:08 +0000
+X-Inumbo-ID: 2a83dac8-afea-11ea-8496-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9942cdf2-afe5-11ea-8496-bc764e2007e4;
- Tue, 16 Jun 2020 15:25:24 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ id 2a83dac8-afea-11ea-8496-bc764e2007e4;
+ Tue, 16 Jun 2020 15:58:06 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 4YeycwbLnR0Q+5ReITbnQGl3JzNlBbWvLCbC/GwLfj7fKXix6wIYIHJLjHr/sYe2Qit9DVvX4E
- /EY1zSLBHxYBeVAiceDHz3YTvIIsCd5sJ9jJH0XJ07wBKbRynwu56eQYuTpsF4gb7D+t5d1AlO
- 0oBoOLHFe79S94cQKaY6m48nke/OpqbNIOeLuboZX5Amokw0DhUSLREgBKoffKlJmLtf5LuWNe
- SCv+w+IgE7d+Dm1hEalo/NzjVZWnQ7ll5xQDVjZhlkSCPmC8a/hmlU/8hpyNd4AHWpvF1bgXSI
- TeQ=
+IronPort-SDR: 9RTjJn1cu1zbGK1/wMEoAbg1cEEXppsSBe2Wu3i7UhI/yIW3aNhaqLAqTEaCYY/tQ/bTOy0xFC
+ dOkiq4jbO59DYhDhnYZQF0JL2Sg6HJsPFMnrD0S2S3eQZHRW9mdL9xTfK90UOtJRqvjDCwR0M5
+ 2QE0uMI4ZeLTQ0feSNAr+zcBU4xQi0LRw2sn9OsaUGjnAzEe17eGYIc+MP4eL2I7cRtl4XPrK1
+ 8m6TFmc8tVwky8F9FVZs2NtPk97izsUgJnuJaZOo33dhczjXaHSA7f/Q3q8irRAq/iBsFeq7f3
+ jtw=
 X-SBRS: 2.7
-X-MesageID: 20178617
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 20528443
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,518,1583211600"; d="scan'208";a="20178617"
-Date: Tue, 16 Jun 2020 17:25:15 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.73,518,1583211600"; d="scan'208";a="20528443"
+Subject: Re: [PATCH 3/9] tools/libx[cl]: Move processing loop down into
+ xc_cpuid_set()
 To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 1/1] x86/acpi: Use FADT flags to determine the PMTMR width
-Message-ID: <20200616152515.GQ735@Air-de-Roger>
-References: <cover.1592142369.git.gorbak25@gmail.com>
- <dba39869b788f7f9d937fac48f0476a0443925f0.1592142369.git.gorbak25@gmail.com>
- <6b921b43-03f6-448c-297e-8c8f041eea2a@suse.com>
- <20200616103204.GN735@Air-de-Roger>
- <e6356183-cabe-1c54-dc6d-04365d4650a7@suse.com>
- <20200616145951.GP735@Air-de-Roger>
- <cfe13cc5-ce0a-a50f-fed6-8546407d2e81@suse.com>
+References: <20200615141532.1927-1-andrew.cooper3@citrix.com>
+ <20200615141532.1927-4-andrew.cooper3@citrix.com>
+ <7ac49edf-1a8c-435d-0b5b-96496432e9f6@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <f270ce4d-a17a-8006-7b36-155833e74598@citrix.com>
+Date: Tue, 16 Jun 2020 16:58:01 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <7ac49edf-1a8c-435d-0b5b-96496432e9f6@suse.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <cfe13cc5-ce0a-a50f-fed6-8546407d2e81@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -60,37 +59,187 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: artur@puzio.waw.pl, Wei Liu <wl@xen.org>, jakub@bartmin.ski,
- Andrew Cooper <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
- Grzegorz Uriasz <gorbak25@gmail.com>, j.nowak26@student.uw.edu.pl,
- xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 16, 2020 at 05:11:58PM +0200, Jan Beulich wrote:
-> On 16.06.2020 16:59, Roger Pau Monné wrote:
-> > On Tue, Jun 16, 2020 at 03:25:42PM +0200, Jan Beulich wrote:
-> >> --- unstable.orig/xen/arch/x86/acpi/boot.c
-> >> +++ unstable/xen/arch/x86/acpi/boot.c
-> >> @@ -480,7 +480,9 @@ static int __init acpi_parse_fadt(struct
-> >>  	if (fadt->header.revision >= FADT2_REVISION_ID) {
-> >>  		/* FADT rev. 2 */
-> >>  		if (fadt->xpm_timer_block.space_id ==
-> >> -		    ACPI_ADR_SPACE_SYSTEM_IO) {
-> >> +		    ACPI_ADR_SPACE_SYSTEM_IO &&
-> >> +		    (fadt->xpm_timer_block.access_width == 0 ||
-> >> +		     fadt->xpm_timer_block.access_width == 3)) {
-> > 
-> > We should really have defines for those values, or else they seem to
-> > imply actual access sizes. What about adding
-> > ACPI_ADDR_ACCESS_{LEGACY,BYTE,WORD,DWORD,QWORD}?
-> 
-> If there were such defines, I'd have used them. Adding them is
-> inappropriate though, as this would modify an imported header in a
-> Xen-specific way. We could leverage ACPI_ACCESS_BIT_WIDTH() here,
-> though.
+On 16/06/2020 10:16, Jan Beulich wrote:
+> On 15.06.2020 16:15, Andrew Cooper wrote:
+>> Currently, libxl__cpuid_legacy() passes each element of the policy list to
+>> xc_cpuid_set() individually.  This is wasteful both in terms of the number of
+>> hypercalls made, and the quantity of repeated merging/auditing work performed
+>> by Xen.
+>>
+>> Move the loop processing down into xc_cpuid_set(), which allows us to do one
+>> set of hypercalls, rather than one per list entry.
+>>
+>> In xc_cpuid_set(), obtain the full host, guest max and current policies to
+>> begin with, and loop over the xend array, processing one leaf at a time.
+>> Replace the linear search with a binary search, seeing as the serialised
+>> leaves are sorted.
+>>
+>> No change in behaviour from the guests point of view.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with a few remarks:
+>
+>> @@ -286,99 +311,101 @@ int xc_cpuid_set(
+>>      }
+>>  
+>>      rc = -ENOMEM;
+>> -    if ( (leaves = calloc(nr_leaves, sizeof(*leaves))) == NULL )
+>> +    if ( (host = calloc(nr_leaves, sizeof(*host))) == NULL ||
+>> +         (max  = calloc(nr_leaves, sizeof(*max)))  == NULL ||
+>> +         (cur  = calloc(nr_leaves, sizeof(*cur)))  == NULL )
+>>      {
+>>          ERROR("Unable to allocate memory for %u CPUID leaves", nr_leaves);
+>>          goto fail;
+>>      }
+>>  
+>> +    /* Get the domain's current policy. */
+>> +    nr_msrs = 0;
+>> +    nr_cur = nr_leaves;
+>> +    rc = xc_get_domain_cpu_policy(xch, domid, &nr_cur, cur, &nr_msrs, NULL);
+>> +    if ( rc )
+>> +    {
+>> +        PERROR("Failed to obtain d%d current policy", domid);
+>> +        rc = -errno;
+>> +        goto fail;
+>> +    }
+>> +
+>>      /* Get the domain's max policy. */
+>>      nr_msrs = 0;
+>> -    policy_leaves = nr_leaves;
+>> +    nr_max = nr_leaves;
+>>      rc = xc_get_system_cpu_policy(xch, di.hvm ? XEN_SYSCTL_cpu_policy_hvm_max
+>>                                                : XEN_SYSCTL_cpu_policy_pv_max,
+>> -                                  &policy_leaves, leaves, &nr_msrs, NULL);
+>> +                                  &nr_max, max, &nr_msrs, NULL);
+>>      if ( rc )
+>>      {
+>>          PERROR("Failed to obtain %s max policy", di.hvm ? "hvm" : "pv");
+>>          rc = -errno;
+>>          goto fail;
+>>      }
+>> -    for ( i = 0; i < policy_leaves; ++i )
+>> -        if ( leaves[i].leaf == xend->leaf &&
+>> -             leaves[i].subleaf == xend->subleaf )
+>> -        {
+>> -            polregs[0] = leaves[i].a;
+>> -            polregs[1] = leaves[i].b;
+>> -            polregs[2] = leaves[i].c;
+>> -            polregs[3] = leaves[i].d;
+>> -            break;
+>> -        }
+>>  
+>>      /* Get the host policy. */
+>>      nr_msrs = 0;
+>> -    policy_leaves = nr_leaves;
+>> +    nr_host = nr_leaves;
+>>      rc = xc_get_system_cpu_policy(xch, XEN_SYSCTL_cpu_policy_host,
+>> -                                  &policy_leaves, leaves, &nr_msrs, NULL);
+>> +                                  &nr_host, host, &nr_msrs, NULL);
+>>      if ( rc )
+>>      {
+>>          PERROR("Failed to obtain host policy");
+>>          rc = -errno;
+>>          goto fail;
+>>      }
+>> -    for ( i = 0; i < policy_leaves; ++i )
+>> -        if ( leaves[i].leaf == xend->leaf &&
+>> -             leaves[i].subleaf == xend->subleaf )
+>> -        {
+>> -            regs[0] = leaves[i].a;
+>> -            regs[1] = leaves[i].b;
+>> -            regs[2] = leaves[i].c;
+>> -            regs[3] = leaves[i].d;
+>> -            break;
+>> -        }
+>>  
+>> -    for ( i = 0; i < 4; i++ )
+>> +    rc = -EINVAL;
+>> +    for ( ; xend->leaf != XEN_CPUID_INPUT_UNUSED; ++xend )
+>>      {
+>> -        if ( xend->policy[i] == NULL )
+>> +        xen_cpuid_leaf_t *cur_leaf = find_leaf(cur, nr_cur, xend);
+>> +        const xen_cpuid_leaf_t *max_leaf = find_leaf(max, nr_max, xend);
+>> +        const xen_cpuid_leaf_t *host_leaf = find_leaf(host, nr_host, xend);
+>> +
+>> +        if ( cur_leaf == NULL || max_leaf == NULL || host_leaf == NULL )
+>>          {
+>> -            regs[i] = polregs[i];
+>> -            continue;
+>> +            ERROR("Missing leaf %#x, subleaf %#x", xend->leaf, xend->subleaf);
+>> +            goto fail;
+>>          }
+>>  
+>> -        /*
+>> -         * Notes for following this algorithm:
+>> -         *
+>> -         * While it will accept any leaf data, it only makes sense to use on
+>> -         * feature leaves.  regs[] initially contains the host values.  This,
+>> -         * with the fall-through chain, is how the 's' and 'k' options work.
+>> -         */
+>> -        for ( j = 0; j < 32; j++ )
+>> +        for ( int i = 0; i < 4; i++ )
+> As you move the declaration here, perhaps switch to unsigned int
+> as well? And express 4 as ARRAY_SIZE()?
+>
+>>          {
+>> -            unsigned char val = !!((regs[i] & (1U << (31 - j))));
+>> -            unsigned char polval = !!((polregs[i] & (1U << (31 - j))));
+>> -
+>> -            rc = -EINVAL;
+>> -            if ( !strchr("10xks", xend->policy[i][j]) )
+>> -                goto fail;
+>> -
+>> -            if ( xend->policy[i][j] == '1' )
+>> -                val = 1;
+>> -            else if ( xend->policy[i][j] == '0' )
+>> -                val = 0;
+>> -            else if ( xend->policy[i][j] == 'x' )
+>> -                val = polval;
+>> -
+>> -            if ( val )
+>> -                set_feature(31 - j, regs[i]);
+>> -            else
+>> -                clear_feature(31 - j, regs[i]);
+>> +            uint32_t *cur_reg = &cur_leaf->a + i;
+>> +            const uint32_t *max_reg = &max_leaf->a + i;
+>> +            const uint32_t *host_reg = &host_leaf->a + i;
+>> +
+>> +            if ( xend->policy[i] == NULL )
+>> +                continue;
+>> +
+>> +            for ( int j = 0; j < 32; j++ )
+> unsigned int again? I don't think there's a suitable array available
+> to also use ARRAY_SIZE() here.
 
-Yes, that would be better IMO.
+All fixed.
 
-Thanks, Roger.
+>
+>> +            {
+>> +                bool val;
+>> +
+>> +                if ( xend->policy[i][j] == '1' )
+>> +                    val = true;
+>> +                else if ( xend->policy[i][j] == '0' )
+>> +                    val = false;
+>> +                else if ( xend->policy[i][j] == 'x' )
+>> +                    val = test_bit(31 - j, max_reg);
+> Still seeing "max" used here is somewhat confusing given the purpose
+> of the series, and merely judging from the titles I can't yet spot
+> where later on it'll change. But I assume it will ...
+
+No - it won't change.  The legacy xend adjustments have always been
+based on the max featureset, and changing it will break VM migration.
+
+The soon-to-exist (4.15 at this point) brand new "what do I do for a
+fresh boot" path will do things differently even for the legacy Xend
+leaves, but the logic here must not semantically change.
+
+~Andrew
 
