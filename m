@@ -2,56 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AB631FADE4
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 12:27:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7B371FAE0A
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 12:33:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jl8nn-0008Du-VM; Tue, 16 Jun 2020 10:26:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QOm8=75=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jl8nn-0008Dp-2k
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 10:26:47 +0000
-X-Inumbo-ID: e1611172-afbb-11ea-bca7-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e1611172-afbb-11ea-bca7-bc764e2007e4;
- Tue, 16 Jun 2020 10:26:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=6AU8q+Can2i4rgXg2sr3VGSvRrDgI1BfdpkASbJhCI0=; b=miQSii911zrPISIXOsq9p67WZ3
- VUxgLeUAw4q+DSSKwMJWB1wwc38azd8HMtrHXja0bB44y89JQtW6CvKP66GUnW4qqM430hQ6jFXKj
- BqVDvcqHUPs9xBi0g3vR65/fxEa4rqdXRal+wxicrJvFOCY02ThvKWvz6ytzYQ5gy/8Y=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jl8nl-0003BE-Mp; Tue, 16 Jun 2020 10:26:45 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jl8nl-0008Ku-GM; Tue, 16 Jun 2020 10:26:45 +0000
-Subject: Re: ARM - Successful install on RockPro64
-To: Richard Simpson <xen@huskydog.org.uk>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <46497134-fb7c-3d1f-6414-539138856480@huskydog.org.uk>
- <6AB44468-BD6A-4140-B0EF-3D2E5EDC99A0@arm.com>
- <e0420114-95df-dcaa-8235-7726042c427d@huskydog.org.uk>
-From: Julien Grall <julien@xen.org>
-Message-ID: <8013f2db-3732-0679-81f6-7b274b39c44f@xen.org>
-Date: Tue, 16 Jun 2020 11:26:43 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
+	id 1jl8t6-0000cV-Ou; Tue, 16 Jun 2020 10:32:16 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AL9H=75=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jl8t5-0000cN-GE
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 10:32:15 +0000
+X-Inumbo-ID: a43af1ea-afbc-11ea-b8ac-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a43af1ea-afbc-11ea-b8ac-12813bfff9fa;
+ Tue, 16 Jun 2020 10:32:13 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: bWFKksfp5EiXZY6hVfcd1q/6Ph05ZeEMTLrIKdwEoDD5zcXnHJvlxLox25BnEDi91oGFD28x9x
+ tgdmDs1eGU3eSYNi5Zd+2Qf1VwczulxE+0VueZzRY5ghrmzfgrKcjLa/fSI7SZijqccvTiH24L
+ eEmoEMo9smUeL0T9+ZAeOuk2qRQ4pnQPl4bWZ7p3NGWCjRSo0Xa1LnyZ5RzO/dSRfWZGJN1x4a
+ rYUH/YtYOQ/b8BpNaWzgPfz41zELOw2j3lJFYTXvQt62WSpjRPtt3tR0hSopBlU4LCCXHKlwnt
+ G/Q=
+X-SBRS: 2.7
+X-MesageID: 20144470
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,518,1583211600"; d="scan'208";a="20144470"
+Date: Tue, 16 Jun 2020 12:32:04 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 1/1] x86/acpi: Use FADT flags to determine the PMTMR width
+Message-ID: <20200616103204.GN735@Air-de-Roger>
+References: <cover.1592142369.git.gorbak25@gmail.com>
+ <dba39869b788f7f9d937fac48f0476a0443925f0.1592142369.git.gorbak25@gmail.com>
+ <6b921b43-03f6-448c-297e-8c8f041eea2a@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <e0420114-95df-dcaa-8235-7726042c427d@huskydog.org.uk>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <6b921b43-03f6-448c-297e-8c8f041eea2a@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +56,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+Cc: artur@puzio.waw.pl, Wei Liu <wl@xen.org>, jakub@bartmin.ski,
+ Andrew Cooper <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
+ Grzegorz Uriasz <gorbak25@gmail.com>, j.nowak26@student.uw.edu.pl,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hello,
-
-On 16/06/2020 09:33, Richard Simpson wrote:
-> I would be happy to try to report my success via the smoke test page 
-> (https://wiki.xenproject.org/wiki/Xen_ARM_Manual_Smoke_Test/Results) if 
-> I can figure out how.  Strangely, I can't see anything listed under 
-> "Test Results" from anyone else.  Perhaps it is a problem with my browser.
-This is not a browser problem :). In the past, we did attempt to list 
-all the boards we know works on a given version of Xen. But this never 
-really gain any momentum.
-
-If there is any specific setup you need for your board (e.g. 
-non-upstream kernel, a new U-boot...), then I would suggest to create a 
-new page with steps to boot Xen the platform. You can have a look how we 
-list the other boards in [1].
-
+On Tue, Jun 16, 2020 at 10:07:05AM +0200, Jan Beulich wrote:
+> On 14.06.2020 16:36, Grzegorz Uriasz wrote:
+> > --- a/xen/arch/x86/acpi/boot.c
+> > +++ b/xen/arch/x86/acpi/boot.c
+> > @@ -480,7 +480,10 @@ static int __init acpi_parse_fadt(struct acpi_table_header *table)
+> >  		if (fadt->xpm_timer_block.space_id ==
+> >  		    ACPI_ADR_SPACE_SYSTEM_IO) {
+> >  			pmtmr_ioport = fadt->xpm_timer_block.address;
+> > -			pmtmr_width = fadt->xpm_timer_block.bit_width;
+> > +			if (fadt->flags & ACPI_FADT_32BIT_TIMER)
+> > +				pmtmr_width = 32;
+> > +			else
+> > +				pmtmr_width = 24;
 > 
-> I also notice an instruction which reads "Test hypervisor 
-> functionalities: clone raisin on the platform and run ./raise test".  I 
-> can try to do this if it will help.  Do I just run "git clone <link from 
-> web page>" and then presumably the test prints out some results?
+> I think disagreement of the two wants logging, and you want to
+> default to using the smaller of the two (or even to ignoring the
+> timer altogether). Then there wants to be a way to override
+> (unless we already have one) our defaulting, in case it's wrong.
 
-It is just meant to be an easy way to test basic functionality of Xen 
-(e.g booting a guest). You seem to have done it manually, so it should 
-be sufficient.
+TBH, I presume timer_block will always return 32bits, because that's
+the size of the register. Then the timer can implement less bits than
+the full size of the register, and that's what gets signaled using the
+ACPI flags. What we care about here is the number of bits used by the
+timer, not the size of the register.
 
-> 
-> Happy to try a beta version of Xen if you decide to include the patch 
-> and I can also try some of the interrupt config options if you want.
+I think we should only ignore the timer if pm_timer_block.bit_width <
+pmtmr_width.
 
-The patch should already be included in xen 4.14-rc2. Would you mind to 
-give a spin?
+Printing a (debug) message when those values disagree is fine, but I
+bet it's going to trigger always when the implemented timer is only
+using 24bits.
 
-Best regards,
-
-[1] https://wiki.xenproject.org/wiki/Xen_ARM_with_Virtualization_Extensions
-
--- 
-Julien Grall
+Roger.
 
