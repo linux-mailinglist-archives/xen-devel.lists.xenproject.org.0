@@ -2,48 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40EF51FA8D3
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 08:36:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7737D1FA924
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 08:52:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jl5CE-0003G9-Kc; Tue, 16 Jun 2020 06:35:46 +0000
+	id 1jl5RH-0004qY-1C; Tue, 16 Jun 2020 06:51:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LuhO=75=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jl5CD-0003G4-PM
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 06:35:45 +0000
-X-Inumbo-ID: 9af4dd42-af9b-11ea-bb8b-bc764e2007e4
+ id 1jl5RF-0004qT-Sk
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 06:51:17 +0000
+X-Inumbo-ID: c6b2893c-af9d-11ea-bb8b-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9af4dd42-af9b-11ea-bb8b-bc764e2007e4;
- Tue, 16 Jun 2020 06:35:44 +0000 (UTC)
+ id c6b2893c-af9d-11ea-bb8b-bc764e2007e4;
+ Tue, 16 Jun 2020 06:51:17 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 82B76ACCF;
- Tue, 16 Jun 2020 06:35:47 +0000 (UTC)
-Subject: Re: Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test]
- 151033: regressions - trouble: blocked/fail/pass/starved) [and 1 more
- messages]
-To: Ian Jackson <ian.jackson@citrix.com>
-References: <osstest-151033-mainreport@xen.org>
- <24291.43673.301735.439410@mariner.uk.xensource.com>
- <24291.45488.423085.940252@mariner.uk.xensource.com>
- <3c68a609-a069-f7e1-3c99-291da372df96@suse.com>
- <becfad2d-01fd-2559-7fb4-837a9d71eb42@citrix.com>
- <24295.31551.406528.629952@mariner.uk.xensource.com>
- <3849058f-32db-2294-6aa6-c8f829571f4b@suse.com>
- <24295.32975.664225.928516@mariner.uk.xensource.com>
+ by mx2.suse.de (Postfix) with ESMTP id EC30DAF96;
+ Tue, 16 Jun 2020 06:51:19 +0000 (UTC)
+Subject: Re: [PATCH 2/9] tests/cpu-policy: Confirm that CPUID serialisation is
+ sorted
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>
+References: <20200615141532.1927-1-andrew.cooper3@citrix.com>
+ <20200615141532.1927-3-andrew.cooper3@citrix.com>
+ <24295.35624.644030.417783@mariner.uk.xensource.com>
+ <ec1364c4-f1df-c52d-8651-bbfb3b5b6a0b@citrix.com>
+ <24295.38146.988316.316252@mariner.uk.xensource.com>
+ <53a1f221-89ae-0d8e-32ef-c9c8c83580c5@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <107f8a65-4b2d-7417-3625-73bc543bcc48@suse.com>
-Date: Tue, 16 Jun 2020 08:35:43 +0200
+Message-ID: <feb177f1-86bb-493d-cce7-4f49a836211a@suse.com>
+Date: Tue, 16 Jun 2020 08:51:16 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <24295.32975.664225.928516@mariner.uk.xensource.com>
+In-Reply-To: <53a1f221-89ae-0d8e-32ef-c9c8c83580c5@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,36 +52,35 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.06.2020 16:08, Ian Jackson wrote:
-> Jan Beulich writes ("Re: Xen 4.10 breakage with buster (was Re: [xen-4.10-testing test] 151033: regressions - trouble: blocked/fail/pass/starved) [and 1 more messages]"):
->> On 15.06.2020 15:44, Ian Jackson wrote:
->>> Thanks to both for your opinions.  I have pushed those two to 4.10 and
->>> will see how things go.  I may send them to 4.9 too.
->>
->> Won't 4.10 continue to be blocked then because or -prev issues?
+On 15.06.2020 18:12, Andrew Cooper wrote:
+> On 15/06/2020 16:34, Ian Jackson wrote:
+>> Andrew Cooper writes ("Re: [PATCH 2/9] tests/cpu-policy: Confirm that CPUID serialisation is sorted"):
+>>> Nothing runs it by default, but it is part of my prepush testing for
+>>> anything in the relevant area.
+>>>
+>>> We should do something better, but its not totally trivial.  The x86
+>>> emulator test for example needs a fairly bleeding edge version of
+>>> binutils, given that we routinely add support for bleeding edge
+>>> instruction groups.
+>> Hmmm.  Is it likely that installing the version from Debian testing
+>> (say) would work ?  Or do we want to build it from source ?  These are
+>> all possibilities.
 > 
-> There are multiple issues.  My hope is to get rid of all of them...
+> Pulling from Sid may work, if they're fairly prompt to update to new
+> binutils releases.  (They're certainly up to date ATM)
 > 
-> Eventually I think we will have to force push 4.9 because its prev
-> builds will fail and  won't want to update 4.8.
+> Jan: are we ever in a position where we need something more bleeding
+> edge than the latest binutils release?
 
-Right - which will then enable 4.10's -prev build to work, which
-will in turn allow 4.11's -prev builds to work, and then the same
-for 4.12. I.e. osstest will continue to be quite busy for the
-next several days.
-
-Instead of building -prev anew each time, wouldn't it make sense
-to store and re-use the most recent "prev" tree's build? This
-ought to avoid this sort of cascade dependencies in particular
-when upgrading the test platform underneath. There's no reason
-to fail a flight just because the N-1 tree doesn't build anymore.
+Gcc needs to be about as recent: Right now the minimum is gcc 8 I
+think, and I have a few hacks in place locally to make things
+somewhat work back to gcc 5, as on my laptop (and hence when
+working from home) I don't have any custom gcc builds.
 
 Jan
 
