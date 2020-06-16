@@ -2,62 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 880B11FC106
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 23:32:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C87B1FC10A
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 23:34:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlJBh-0001k9-Hr; Tue, 16 Jun 2020 21:32:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jlJE7-0001sc-WD; Tue, 16 Jun 2020 21:34:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6FtR=75=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1jlJBg-0001k4-Cr
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 21:32:08 +0000
-X-Inumbo-ID: d3eecb76-b018-11ea-b7bb-bc764e2007e4
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d3eecb76-b018-11ea-b7bb-bc764e2007e4;
- Tue, 16 Jun 2020 21:32:07 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id j10so155430wrw.8
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2020 14:32:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Bbz7zOoIy337G+1SGLsqaVhTrFOdE+Yf7K/dfCuRs/Y=;
- b=ZYIi+dQC4hdwvsBnGanamlYlCuTHULL5eSdfLxA91lTgkXgQlzAF2iv6wnjRdni/MN
- blflkRTfLy80iJk9lXxBPTrnhtVNnBjwlQapePycRPsNg9mOr3A60mrToN8aJrGM3Icy
- BAr1jzmIOhLKPSYLig0WbTUwwDbDujUGGPqlEHc/vhxl/EeXjaDf2XbfuRhytQIYwpyC
- QoPS9mRC083BX4gKB7WB7i5MpPw6MksACI21PzGjAfPPpqPddCbBANy0NlSa3UreHf5H
- dz4VBB6WK+TDykGKIF8GkDrF4+Hn87uZu0Qha4L3DMEmy3UYCo+vmNqI7xjeDadchzG8
- xU2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Bbz7zOoIy337G+1SGLsqaVhTrFOdE+Yf7K/dfCuRs/Y=;
- b=kPWRgOV3UmMyGwR0Ce2GTHBOpcWV36fdDWBETL2uFtu9M6oihYoh9tC9Py+WTrBbpQ
- 0SBdg9/6rP1mJI0oaFsKm96rEpb/cJFFeBK+ViHUmoOh49Qs/KtazZOd7hep5LzfK2pj
- uEdoFtnho6BlaIaDs8KOH6WWnn3afu2L2w9VbT02lEvZZNRCeVg2punBtATdTMhR6Fws
- 9HP20sZMtZ1ab+Nc2kbzDG+eYKYegKDJIGEhmw86D8ufPNjeT8PvD98+vu54Fs6ORiqo
- c4DU3H3Vga1tqjQ7bzctWq9VARN5mLmSGfuY134ewcd8+ljfI9GnNGzbyAaYahUPE2pd
- vm9Q==
-X-Gm-Message-State: AOAM531DySTWiWOc9NGlvzACJQiRCvZg/THZJXZ752CQWiesGwn7r9V9
- 7pfg2B2R+0WEDgxpM68Knhib5t6kFPXjqc3c514=
-X-Google-Smtp-Source: ABdhPJz31/tpJkRxBSJhdm9rc3q6KemybgUsS47j/u/6ubu7LDZmyAckJIIYRlmOAUaPYIrXlhqnUssQGf00KMdtOTI=
-X-Received: by 2002:adf:f64e:: with SMTP id x14mr5213028wrp.426.1592343126573; 
- Tue, 16 Jun 2020 14:32:06 -0700 (PDT)
+ <SRS0=S/rR=75=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jlJE6-0001sR-4M
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 21:34:38 +0000
+X-Inumbo-ID: 2c23758b-b019-11ea-b956-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2c23758b-b019-11ea-b956-12813bfff9fa;
+ Tue, 16 Jun 2020 21:34:36 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 280E42085B;
+ Tue, 16 Jun 2020 21:34:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1592343275;
+ bh=D+pdHi31E7TsCSVDQt1gYFY7mD0R1ArodcVj97a2D5E=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=FKCRw6jm+T3Fie7eB/mg5Udp9ikh/s65V+zHlt78VQEaZO/b59SlABN43c9Vyy9Qk
+ MvlbbnRGjhfYe/NlLuWzyTkZaKe1pbNJKt9TRsMwjvlr9gVnCI6SspshZycXEa4LKq
+ e9MqTMcLRKZaF2q18cvLJfK1Tls1uAFkJeceFUow=
+Date: Tue, 16 Jun 2020 14:34:34 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH 2/2] xen/arm: Mitigate straight-line speculation for SMC
+ call
+In-Reply-To: <20200616175913.7368-3-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2006161425480.24982@sstabellini-ThinkPad-T480s>
+References: <20200616175913.7368-1-julien@xen.org>
+ <20200616175913.7368-3-julien@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-References: <20200613184132.11880-1-julien@xen.org>
- <alpine.DEB.2.21.2006151343430.9074@sstabellini-ThinkPad-T480s>
- <35c8373f-b691-d95e-17de-021c72faf216@xen.org>
- <alpine.DEB.2.21.2006161322210.24982@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2006161322210.24982@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Tue, 16 Jun 2020 22:31:55 +0100
-Message-ID: <CAJ=z9a2cnMUiYBz+hA2_hjf5ShVh66tUwE9kbjqSM-H0TkTbyw@mail.gmail.com>
-Subject: Re: [PATCH v3 for-4.14] pvcalls: Document correctly and explicitely
- the padding for all arches
-To: Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,143 +54,146 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <jgrall@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: sstabellini@kernel.org, paul@xen.org, Andre.Przywara@arm.com,
+ Julien Grall <jgrall@amazon.com>, Bertrand.Marquis@arm.com,
+ security@xenproject.org, xen-devel@lists.xenproject.org,
+ Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, 16 Jun 2020 at 21:57, Stefano Stabellini <sstabellini@kernel.org> wrote:
->
-> On Tue, 16 Jun 2020, Julien Grall wrote:
-> > On 16/06/2020 02:00, Stefano Stabellini wrote:
-> > > On Sat, 13 Jun 2020, Julien Grall wrote:
-> > > > From: Julien Grall <jgrall@amazon.com>
-> > > >
-> > > > The documentation of pvcalls suggests there is padding for 32-bit x86
-> > > > at the end of most the structure. However, they are not described in
-> > > > in the public header.
-> > > >
-> > > > Because of that all the structures would be 32-bit aligned and not
-> > > > 64-bit aligned for 32-bit x86.
-> > > >
-> > > > For all the other architectures supported (Arm and 64-bit x86), the
-> > > > structure are aligned to 64-bit because they contain uint64_t field.
-> > > > Therefore all the structures contain implicit padding.
-> > > >
-> > > > The paddings are now corrected for 32-bit x86 and written explicitly for
-> > > > all the architectures.
-> > > >
-> > > > While the structure size between 32-bit and 64-bit x86 is different, it
-> > > > shouldn't cause any incompatibility between a 32-bit and 64-bit
-> > > > frontend/backend because the commands are always 56 bits and the padding
-> > > > are at the end of the structure.
-> > > >
-> > > > As an aside, the padding sadly cannot be mandated to be 0 as they are
-> > > > already present. So it is not going to be possible to use the padding
-> > > > for extending a command in the future.
-> > > >
-> > > > Signed-off-by: Julien Grall <jgrall@amazon.com>
-> > > >
-> > > > ---
-> > > >      Changes in v3:
-> > > >          - Use __i386__ rather than CONFIG_X86_32
-> > > >
-> > > >      Changes in v2:
-> > > >          - It is not possible to use the same padding for 32-bit x86 and
-> > > >          all the other supported architectures.
-> > > > ---
-> > > >   docs/misc/pvcalls.pandoc        | 18 ++++++++++--------
-> > > >   xen/include/public/io/pvcalls.h | 14 ++++++++++++++
-> > > >   2 files changed, 24 insertions(+), 8 deletions(-)
-> > > >
-> > > > diff --git a/docs/misc/pvcalls.pandoc b/docs/misc/pvcalls.pandoc
-> > > > index 665dad556c39..caa71b36d78b 100644
-> > > > --- a/docs/misc/pvcalls.pandoc
-> > > > +++ b/docs/misc/pvcalls.pandoc
-> > > > @@ -246,9 +246,9 @@ The format is defined as follows:
-> > > >                           uint32_t domain;
-> > > >                           uint32_t type;
-> > > >                           uint32_t protocol;
-> > > > -                         #ifdef CONFIG_X86_32
-> > > > +                 #ifndef __i386__
-> > > >                           uint8_t pad[4];
-> > > > -                         #endif
-> > > > +                 #endif
-> > >
-> > >
-> > > Hi Julien,
-> > >
-> > > Thank you for doing this, and sorry for having missed v2 of this patch, I
-> > > should have replied earlier.
-> > >
-> > > The intention of the #ifdef blocks like:
-> > >
-> > >    #ifdef CONFIG_X86_32
-> > >      uint8_t pad[4];
-> > >    #endif
-> > >
-> > > in pvcalls.pandoc was to make sure that these structs would be 64bit
-> > > aligned on x86_32 too.
-> > >
-> > > I realize that the public header doesn't match, but the spec is the
-> > > "master copy".
-> >
-> > So far, the public headers are the defacto official ABI. So did you mark the
-> > pvcall header as just a reference?
->
-> No, there is no document that says that the canonical copy of the
-> interface is pvcalls.pandoc. However, it was clearly spelled out from
-> the start on xen-devel (see below.)
-> In fact, if you notice, this is the
-> first document under docs/misc that goes into this level of details in
-> describing a new PV protocol. Also note the title of the document which
-> is "PV Calls Protocol version 1".
+On Tue, 16 Jun 2020, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> SMC call will update some of registers (typically only x0) depending on
+  ^a SMC call
 
-While I understand this may have been the original intention, you
-can't expect a developer to go through the archive to check whether
-he/she should trust the header of the document.
+> the arguments provided.
+> 
+> Some CPUs can speculate past a SMC instruction and potentially perform
+> speculative access to emrmoy using the pre-call values before executing
+                        ^ memory
 
->
->
-> In reply to Jan:
-> > A public header can't be "fixed" if it may already be in use by
-> > anyone. We can only do as Andrew and you suggest (mandate textual
-> > descriptions to be "the ABI") when we do so for _new_ interfaces from
-> > the very beginning, making clear that the public header (if any)
-> > exists just for reference.
->
-> What if somebody took the specification of the interface from
-> pvcalls.pandoc and wrote their own headers and code? It is definitely
-> possible.
+> the SMC.
+> 
+> There is no known gadget available after the SMC call today. However
+> some of the registers may contain values from the guest and are expected
+> to be updated by the SMC call.
+> 
+> In order to harden the code, it would be better to prevent straight-line
+> speculation from an SMC. Architecturally executing the speculation
+                   ^ a? any?
 
-As it is possible for someone to have picked the headers from Xen as
-in the past public/ has always been the authority.
 
-> At the time, it was clarified that the purpose of writing such
-> a detailed specification document was that the document was the
-> specification :-)
+> barrier after every SMC can be rather expensive (particularly on core
+> not SB). Therefore we want to mitigate it diferrently:
+       ^ not SB capable?                    ^ differently
 
-At the risk of being pedantic, if it is not written in xen.git it
-doesn't exist ;).
 
-Anyway, no matter the decision you take here, you are going to
-potentially break one set of the users.
+> 
+>     * For arm_smccc_1_0_smc, we can avoid a speculation barrier right
+>     after the SMC instruction and instead rely on the one after eret.
+                                                                  ^ ret
 
-I am leaning towards the header as authoritative because this has
-always been the case in the past and nothing in xen.git says
-otherwise. However I am not a user of pvcalls, so I don't really have
-any big incentive to go either way.
 
-For the future, I would highly suggest writing down the support
-decision in xen.git. This would avoid such debate on what is the
-authority...
+>     * For arm_smccc_1_1_smc, we can place a B instruction after the SMC
+>     instruction to skip the barrier.
+> 
+> Note that arm_smccc_1_0_smc version on arm32 is just an alias to
+> arm_smccc_1_1_smc.
+> 
+> Note that no speculation barrier has been added after the SMC
+> instruction in arm64/entry.S. This is fine because the call is not
+> expected to modify any registers. So straight-line speculation doesn't
+> matter.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Cheers,
+I couldn't spot any issues with the patch and I compile-tested it.
 
--- 
-Julien Grall
+
+> ---
+> 
+> Note this hasn't been vetted by Arm but they are using the same
+> sort of mitigation for blr. So I am quite confident this could do the
+> trick.
+
+Noted
+
+
+> ---
+>  xen/arch/arm/arm64/smc.S     |  1 +
+>  xen/include/asm-arm/smccc.h  | 13 +++++++++++++
+>  xen/include/asm-arm/system.h |  8 ++++++++
+>  3 files changed, 22 insertions(+)
+> 
+> diff --git a/xen/arch/arm/arm64/smc.S b/xen/arch/arm/arm64/smc.S
+> index b0752be57e8f..e0a3106dd7ec 100644
+> --- a/xen/arch/arm/arm64/smc.S
+> +++ b/xen/arch/arm/arm64/smc.S
+> @@ -30,3 +30,4 @@ ENTRY(__arm_smccc_1_0_smc)
+>          stp     x2, x3, [x4, #SMCCC_RES_a2]
+>  1:
+>          ret
+> +        sb
+> diff --git a/xen/include/asm-arm/smccc.h b/xen/include/asm-arm/smccc.h
+> index 9d94beb3df2d..8650224923b1 100644
+> --- a/xen/include/asm-arm/smccc.h
+> +++ b/xen/include/asm-arm/smccc.h
+> @@ -200,11 +200,24 @@ struct arm_smccc_res {
+>   * We have an output list that is not necessarily used, and GCC feels
+>   * entitled to optimise the whole sequence away. "volatile" is what
+>   * makes it stick.
+> + *
+> + * Some of the SMC callers are passing directly values that are
+> + * controlled by the guest. To mitigate against straight-line
+> + * speculation, a speculation barrier is required. As it may be
+> + * expensive to architecturally execute the speculation barrier, we are
+> + * using a B instruction to architecturally skip it.
+> + *
+> + * Note that the speculation barrier is technically not necessary as the
+> + * B instruction should already block straight-line speculation. But
+> + * better be safe than sorry ;).
+
+Eh eh indeed :-)
+
+I think this would be one thing to consider removing depending on ARM's
+feedback.
+
+
+>   */
+>  #define arm_smccc_1_1_smc(...)                                  \
+>      do {                                                        \
+>          __declare_args(__count_args(__VA_ARGS__), __VA_ARGS__); \
+>          asm volatile("smc #0\n"                                 \
+> +                     "b 1f\n"                                   \
+> +                     ASM_SB                                     \
+> +                     "1:\n"                                     \
+>                       __constraints(__count_args(__VA_ARGS__))); \
+>          if ( ___res )                                           \
+>          *___res = (typeof(*___res)){r0, r1, r2, r3};            \
+> diff --git a/xen/include/asm-arm/system.h b/xen/include/asm-arm/system.h
+> index 65d5c8e423d7..e33ff4e0fc39 100644
+> --- a/xen/include/asm-arm/system.h
+> +++ b/xen/include/asm-arm/system.h
+> @@ -33,6 +33,14 @@
+>  #define smp_mb__before_atomic()    smp_mb()
+>  #define smp_mb__after_atomic()     smp_mb()
+>  
+> +/*
+> + * Speculative barrier
+> + * XXX: Add support for the 'sb' instruction
+> + */
+> +#define ASM_SB "dsb nsh \n isb \n"
+
+Why not ';' ? Anyway it doesn't matter.
+
+
+> +#define sb()    asm volatile(ASM_SB)
+> +
+>  /*
+>   * This is used to ensure the compiler did actually allocate the register we
+>   * asked it for some inline assembly sequences.  Apparently we can't trust
+> -- 
+> 2.17.1
+> 
 
