@@ -2,50 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 865751FBBA8
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 18:27:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FDB31FBBBD
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2020 18:31:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlEQK-0007Sd-IY; Tue, 16 Jun 2020 16:26:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jlETp-0008Fb-2W; Tue, 16 Jun 2020 16:30:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CuXX=75=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jlEQI-0007SY-Ez
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 16:26:54 +0000
-X-Inumbo-ID: 3019b562-afee-11ea-b7bb-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3019b562-afee-11ea-b7bb-bc764e2007e4;
- Tue, 16 Jun 2020 16:26:53 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ <SRS0=AL9H=75=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jlETo-0008FW-15
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2020 16:30:32 +0000
+X-Inumbo-ID: b1f969a6-afee-11ea-b909-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b1f969a6-afee-11ea-b909-12813bfff9fa;
+ Tue, 16 Jun 2020 16:30:31 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: jFRHlA2SqXJTd1GAldKrz5PtrKSPhCaMf1yu+89Kqb4P3k9+/P/brE/QqcIkSM8CrHdOh5Ov3r
- lM8K4lC/Xy+E5AMPxQTsvIRS1z9Ah7EQ54yB3OIt2NUjtT5zNEG3tSDPTX3FlVppWOvVF1d3t7
- ZQbHMSCrMzMVqTS65oJBO5Wx/3ZS2V+EkPQMOYyrQI2Vs9PL4isneHm9C5O0RwmulotXSHpEVL
- tRV62YjPbB98ys6BC80m2n8gN9Wti+M+WvFVAiNzixAmFZ6L1Ej4Bm1oA0QAq43+/E0UqwGLU9
- G8k=
+IronPort-SDR: 8WCRVleYSWyRcKCY1Lu4bEIR4oys2xkvQNC+CyZxHm5KCU2azZfZBJQ/a5LazukssAOrrKsLm9
+ ELBe3um5vMK4lYK7G1GkWJvV4HR57RxDV07Q6zYoWriynFeaNpEsgQaTFDul+YnusMz42H/zfG
+ 8gDc9ebGhepyu+kwS7VpIbTxS/VDdNJ+5GRiqWkw19uZT+hzWVanwu58cy4sxauF+2QORLeYV2
+ LeJ+0xn2CjaDytv+wnwVtu5E+4Xz6BqV94HWO8+tBvbvt3ySlqBHLTQNon/gG61xViKapM/P54
+ 2T4=
 X-SBRS: 2.7
-X-MesageID: 20965500
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 20418132
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,518,1583211600"; d="scan'208";a="20965500"
-Subject: Re: [PATCH 9/9] x86/spec-ctrl: Hide RDRAND by default on IvyBridge
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200615141532.1927-1-andrew.cooper3@citrix.com>
- <20200615141532.1927-10-andrew.cooper3@citrix.com>
- <a0733b2c-da6b-e5bc-3041-de30002bcb47@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <00db98fd-d268-71ae-fad1-fb59d2f1eba1@citrix.com>
-Date: Tue, 16 Jun 2020 17:26:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+X-IronPort-AV: E=Sophos;i="5.73,518,1583211600"; d="scan'208";a="20418132"
+Date: Tue, 16 Jun 2020 18:30:22 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v1 2/7] x86/vmx: add IPT cpu feature
+Message-ID: <20200616163022.GR735@Air-de-Roger>
+References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
+ <1672321493.8765712.1592320839082.JavaMail.zimbra@cert.pl>
 MIME-Version: 1.0
-In-Reply-To: <a0733b2c-da6b-e5bc-3041-de30002bcb47@suse.com>
 Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
+In-Reply-To: <1672321493.8765712.1592320839082.JavaMail.zimbra@cert.pl>
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -58,109 +56,110 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <paul@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Ian Jackson <Ian.Jackson@citrix.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16/06/2020 11:00, Jan Beulich wrote:
-> On 15.06.2020 16:15, Andrew Cooper wrote:
->> --- a/docs/misc/xen-command-line.pandoc
->> +++ b/docs/misc/xen-command-line.pandoc
->> @@ -512,11 +512,21 @@ The Speculation Control hardware features `srbds-ctrl`, `md-clear`, `ibrsb`,
->>  `stibp`, `ibpb`, `l1d-flush` and `ssbd` are used by default if available and
->>  applicable.  They can all be ignored.
->>  
->> -`rdrand` and `rdseed` can be ignored, as a mitigation to XSA-320 /
->> -CVE-2020-0543.  The RDRAND feature is disabled by default on certain AMD
->> -systems, due to possible malfunctions after ACPI S3 suspend/resume.  `rdrand`
->> -may be used in its positive form to override Xen's default behaviour on these
->> -systems, and make the feature fully usable.
->> +`rdrand` and `rdseed` have multiple interactions.
->> +
->> +*   For Special Register Buffer Data Sampling (SRBDS, XSA-320, CVE-2020-0543),
->> +    RDRAND and RDSEED can be ignored.
->> +
->> +    Due to the absence microcode to address SRBDS on IvyBridge hardware, the
-> Nit: "... absence of microcode ..."
+On Tue, Jun 16, 2020 at 05:20:39PM +0200, Michał Leszczyński wrote:
+> Check if Intel Processor Trace feature is supported by current
+> processor. Define hvm_ipt_supported function.
+> 
+> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
+> ---
+>  xen/arch/x86/hvm/vmx/vmx.c                  | 24 +++++++++++++++++++++
+>  xen/include/asm-x86/cpufeature.h            |  1 +
+>  xen/include/asm-x86/hvm/hvm.h               |  9 ++++++++
+>  xen/include/asm-x86/hvm/vmx/vmcs.h          |  1 +
+>  xen/include/public/arch-x86/cpufeatureset.h |  1 +
+>  5 files changed, 36 insertions(+)
+> 
+> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+> index ab19d9424e..a91bbdb798 100644
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -2484,6 +2484,7 @@ static bool __init has_if_pschange_mc(void)
+>  
+>  const struct hvm_function_table * __init start_vmx(void)
+>  {
+> +    u64 _vmx_misc_cap;
 
-Fixed.
+Please use uint64_t, and you can drop the leading _vmx prefix, this is
+already vmx specific. Also add a newline between variable definition
+and code.
 
->
->> +    RDRAND feature is hidden by default for guests, unless `rdrand` is used in
->> +    its positive form.  Irrespective of the default setting here, VMs can use
->> +    RDRAND if explicitly enabled in guest config file, and VMs already using
->> +    RDRAND can migrate in.
-> I'm somewhat confused by the use of "default setting" here, when at the same
-> time you talk about our default behavior for guests. Aiui the two "default"
-> mean different things, so I'd suggest dropping that latter "default".
+>      set_in_cr4(X86_CR4_VMXE);
+>  
+>      if ( vmx_vmcs_init() )
+> @@ -2557,6 +2558,29 @@ const struct hvm_function_table * __init start_vmx(void)
+>          vmx_function_table.get_guest_bndcfgs = vmx_get_guest_bndcfgs;
+>      }
+>  
+> +    /* Check whether IPT is supported in VMX operation */
+> +    vmx_function_table.ipt_supported = 1;
+> +
+> +    if ( !cpu_has_ipt )
+> +    {
+> +        vmx_function_table.ipt_supported = 0;
+> +        printk("VMX: Missing support for Intel Processor Trace x86 feature.\n");
+> +    }
+> +
+> +    rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
+> +
+> +    if ( !( _vmx_misc_cap & VMX_MISC_PT_SUPPORTED ) )
+> +    {
+> +        vmx_function_table.ipt_supported = 0;
+> +        printk("VMX: Missing support for Intel Processor Trace in VMX operation, VMX_MISC caps: %llx\n",
+> +               (unsigned long long)_vmx_misc_cap);
+> +    }
+> +
+> +    if (vmx_function_table.ipt_supported)
+> +    {
+> +        printk("VMX: Intel Processor Trace is SUPPORTED");
+> +    }
 
-Ok, done.
+I think you could simplify this as:
 
->
-> This raises a question though: Is disabling RDRAND just for guests good
-> enough? I.e. what about Xen's own uses of RDRAND? There may not be any
-> problematic ones right now, but wouldn't there be a latent issue no-one is
-> going to notice?
+vmx_function_table.ipt_supported = cpu_has_ipt &&
+                                   (misc_cap & VMX_MISC_PT_SUPPORTED);
 
-I was sorely tempted to delete all of Xen's use of RDRAND, seeing as its
-not even safe to the AMD issue.
+Also the code is too chatty IMO.
 
-What we don't have is a "no-xen" concept for CPUID features, so I can't
-stop Xen using it without hiding it from all guests, which in turn would
-render the point of this series useless, and reintroduce the migration
-problems we're trying to code around.
+Looking at how other VMX features are detected, I think you should
+move the checks to vmx_init_vmcs_config and set the relevant bits in
+the VM control registers that you can then evaluate in
+vmx_display_features in order to print if the feature is supported?
 
-I was planning to leave the Xen uses as-are for now.
+> +
+>      lbr_tsx_fixup_check();
+>      ler_to_fixup_check();
+>  
+> diff --git a/xen/include/asm-x86/cpufeature.h b/xen/include/asm-x86/cpufeature.h
+> index f790d5c1f8..8d7955dd87 100644
+> --- a/xen/include/asm-x86/cpufeature.h
+> +++ b/xen/include/asm-x86/cpufeature.h
+> @@ -104,6 +104,7 @@
+>  #define cpu_has_clwb            boot_cpu_has(X86_FEATURE_CLWB)
+>  #define cpu_has_avx512er        boot_cpu_has(X86_FEATURE_AVX512ER)
+>  #define cpu_has_avx512cd        boot_cpu_has(X86_FEATURE_AVX512CD)
+> +#define cpu_has_ipt             boot_cpu_has(X86_FEATURE_IPT)
+>  #define cpu_has_sha             boot_cpu_has(X86_FEATURE_SHA)
+>  #define cpu_has_avx512bw        boot_cpu_has(X86_FEATURE_AVX512BW)
+>  #define cpu_has_avx512vl        boot_cpu_has(X86_FEATURE_AVX512VL)
+> diff --git a/xen/include/asm-x86/hvm/hvm.h b/xen/include/asm-x86/hvm/hvm.h
+> index 1eb377dd82..48465b6067 100644
+> --- a/xen/include/asm-x86/hvm/hvm.h
+> +++ b/xen/include/asm-x86/hvm/hvm.h
+> @@ -96,6 +96,9 @@ struct hvm_function_table {
+>      /* Necessary hardware support for alternate p2m's? */
+>      bool altp2m_supported;
+>  
+> +    /* Hardware support for IPT? */
+> +    bool ipt_supported;
 
->
->> --- a/tools/libxc/xc_cpuid_x86.c
->> +++ b/tools/libxc/xc_cpuid_x86.c
->> @@ -503,6 +503,9 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
->>       */
->>      if ( restore )
->>      {
->> +        if ( test_bit(X86_FEATURE_RDRAND, host_featureset) && !p->basic.rdrand )
->> +            p->basic.rdrand = true;
-> Same question as before: Why do you derive from the host feature set rather
-> than the domain type's maximum one?
+We might want to name this pt_supported, since it's possible for other
+vendors to also introduce a processor tracing feature in the future?
 
-Answer the same as previous.
-
-Although I do see now that this should be simplified to:
-
-    p->basic.rdrand = test_bit(X86_FEATURE_RDRAND, host_featureset);
-
-which I've done.
-
->
->> --- a/xen/arch/x86/cpuid.c
->> +++ b/xen/arch/x86/cpuid.c
->> @@ -340,6 +340,25 @@ static void __init calculate_host_policy(void)
->>      }
->>  }
->>  
->> +static void __init guest_common_default_feature_adjustments(uint32_t *fs)
->> +{
->> +    /*
->> +     * IvyBridge client parts suffer from leakage of RDRAND data due to SRBDS
->> +     * (XSA-320 / CVE-2020-0543), and won't be receiving microcode to
->> +     * compensate.
->> +     *
->> +     * Mitigate by hiding RDRAND from guests by default, unless explicitly
->> +     * overridden on the Xen command line (cpuid=rdrand).  Irrespective of the
->> +     * default setting, guests can use RDRAND if explicitly enabled
->> +     * (cpuid="host,rdrand=1") in the VM's config file, and VMs which were
->> +     * previously using RDRAND can migrate in.
->> +     */
->> +    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
->> +         boot_cpu_data.x86 == 6 && boot_cpu_data.x86_model == 0x3a &&
-> This is the first time (description plus patch so far) that the issue
-> gets mentioned to be for and the workaround restricted to client parts
-> only. If so, I think at least the doc should say so too.
-
-I've updated the command line doc, and patch subject.
-
-~Andrew
+Thanks, Roger.
 
