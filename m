@@ -2,76 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 618031FCCD4
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 13:56:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB6B1FCD5C
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 14:27:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlWf8-0004GZ-0U; Wed, 17 Jun 2020 11:55:26 +0000
+	id 1jlX8s-0006ry-RJ; Wed, 17 Jun 2020 12:26:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=t1O8=76=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jlWf6-0004GU-Sc
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 11:55:24 +0000
-X-Inumbo-ID: 6d0557d0-b091-11ea-b7bb-bc764e2007e4
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6d0557d0-b091-11ea-b7bb-bc764e2007e4;
- Wed, 17 Jun 2020 11:55:24 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id E3A0EA3227;
- Wed, 17 Jun 2020 13:55:22 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id D5CEFA3221;
- Wed, 17 Jun 2020 13:55:21 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id C1Bl_heD8IBc; Wed, 17 Jun 2020 13:55:21 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 3337EA3226;
- Wed, 17 Jun 2020 13:55:21 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id m_D4QzqUynqh; Wed, 17 Jun 2020 13:55:21 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 09244A3221;
- Wed, 17 Jun 2020 13:55:21 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id F0535215FA;
- Wed, 17 Jun 2020 13:54:50 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id h6igKZ9eMG5q; Wed, 17 Jun 2020 13:54:45 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 87B6E2244D;
- Wed, 17 Jun 2020 13:54:45 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id QBZoRIukessH; Wed, 17 Jun 2020 13:54:45 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id 6AD932182D;
- Wed, 17 Jun 2020 13:54:45 +0200 (CEST)
-Date: Wed, 17 Jun 2020 13:54:45 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
-Message-ID: <574150.9103505.1592394885283.JavaMail.zimbra@cert.pl>
-In-Reply-To: <20200617090942.GY735@Air-de-Roger>
-References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
- <317430261.8766476.1592321051337.JavaMail.zimbra@cert.pl>
- <20200616173857.GU735@Air-de-Roger>
- <676696113.8782412.1592329627666.JavaMail.zimbra@cert.pl>
- <20200617090942.GY735@Air-de-Roger>
-Subject: Re: [PATCH v1 7/7] x86/vmx: switch IPT MSRs on vmentry/vmexit
+ (envelope-from <SRS0=UiE7=76=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
+ id 1jlX8r-0006rt-58
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 12:26:09 +0000
+X-Inumbo-ID: b8a0e804-b095-11ea-b7bb-bc764e2007e4
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id b8a0e804-b095-11ea-b7bb-bc764e2007e4;
+ Wed, 17 Jun 2020 12:26:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1592396768;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=i7Fhq/nMTPV4L9BtCZvLvgrxeMBQxohyRbXdk/P9aBA=;
+ b=FfTPbND0+3jKZBT/Ko254KUxPHfWfNfIukIG2OMwjxQpun40O4XLHLV6IjxP9lh7v+X9Mf
+ sDRgD8sGkQIc2ViTd8sToWPV47eKHrjlJIJG0Hz/ylqBkpQvAimoyS742W4/6N1LGpF4Uc
+ /oDYRiO3jfapYqMuLWPhiapgyXuK91Y=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-226-EzyBSljVMdCehpHK2qf3Dw-1; Wed, 17 Jun 2020 08:26:06 -0400
+X-MC-Unique: EzyBSljVMdCehpHK2qf3Dw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 14EED8CE68E;
+ Wed, 17 Jun 2020 12:25:52 +0000 (UTC)
+Received: from sirius.home.kraxel.org (ovpn-112-67.ams2.redhat.com
+ [10.36.112.67])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 2EDC279332;
+ Wed, 17 Jun 2020 12:25:24 +0000 (UTC)
+Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
+ id 025DE16E16; Wed, 17 Jun 2020 14:25:23 +0200 (CEST)
+Date: Wed, 17 Jun 2020 14:25:22 +0200
+From: Gerd Hoffmann <kraxel@redhat.com>
+To: qemu-devel@nongnu.org
+Subject: Re: [PATCH v3 0/4] microvm: memory config tweaks
+Message-ID: <20200617122522.wvkpkifysdpixzml@sirius.home.kraxel.org>
+References: <20200529073957.8018-1-kraxel@redhat.com>
+ <20200608132507.snzujn4yb37z3xmj@sirius.home.kraxel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
-Thread-Topic: x86/vmx: switch IPT MSRs on vmentry/vmexit
-Thread-Index: Fne+GBNZEUczmf1siwoEM5lna0gtRA==
+In-Reply-To: <20200608132507.snzujn4yb37z3xmj@sirius.home.kraxel.org>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,71 +67,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Eduardo Habkost <ehabkost@redhat.com>, Sergio Lopez <slp@redhat.com>,
+ Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ imammedo@redhat.com, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ xen-devel@lists.xenproject.org, Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, philmd@redhat.com,
+ Richard Henderson <rth@twiddle.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 17 cze 2020 o 11:09, Roger Pau Monn=C3=A9 roger.pau@citrix.com napisa=
-=C5=82(a):
+On Mon, Jun 08, 2020 at 03:25:07PM +0200, Gerd Hoffmann wrote:
 
-> On Tue, Jun 16, 2020 at 07:47:07PM +0200, Micha=C5=82 Leszczy=C5=84ski wr=
-ote:
->> ----- 16 cze 2020 o 19:38, Roger Pau Monn=C3=A9 roger.pau@citrix.com nap=
-isa=C5=82(a):
->>=20
->> > On Tue, Jun 16, 2020 at 05:24:11PM +0200, Micha=C5=82 Leszczy=C5=84ski=
- wrote:
->> >> Enable IPT when entering the VM and disable it on vmexit.
->> >> Register state is persisted using vCPU ipt_state structure.
->> >=20
->> > Shouldn't this be better done using Intel MSR load lists?
->> >=20
->> > That seems to be what the SDM recommends for tracing VM events.
->> >=20
->> > Thanks, Roger.
->>=20
->>=20
->> This is intentional, additionally described by the comment:
->>=20
->> // MSR_IA32_RTIT_CTL is context-switched manually instead of being
->> // stored inside VMCS, as of Q2'20 only the most recent processors
->> // support such field in VMCS
->>=20
->>=20
->> There is a special feature flag which indicates whether MSR_IA32_RTIT_CT=
-L can be
->> loaded using MR load lists.
->=20
-> I've been looking at the Intel SDM and I'm not able to find which bit
-> signals whether MSR_IA32_RTIT_CTL can be loaded using MSR load lists.
-> Sorry to ask, but can you elaborate on where is this signaled?
->=20
-> Thanks, Roger.
+> Ping.  Anyone going to pick this up?  MAINTAINERS lists Sergio+Paolo ...
+> Or should I send a pull req myself?
 
+Hmm, no reply.  I guess that means "send a pull req" ...
 
-According to SDM:
+take care,
+  Gerd
 
-> 24 Virtual Machine Control Structures -> 24.4 Guest-state Area -> 24.4.1 =
-Guest Register State
-
-> IA32_RTIT_CTL (64 bits). This field is supported only on processors that =
-support either the 1-setting of the "load IA32_RTIT_CTL" VM-entry control o=
-r that of the "clear IA32_RTIT_CTL" VM-exit control.
-
-
-> 24 Virtual Machine Control Structures -> 24.8 VM-entry Control Fields -> =
-24.8.1 VM-Entry Controls
-
-> Software should consult the VMX capability MSRs IA32_VMX_ENTRY_CTLS to de=
-termine how it should set the reserved bits.
-
-Please look at bit position 18 "Load IA32_RTIT_CTL".
-
-
-
-Best regards,
-Micha=C5=82 Leszczy=C5=84ski
-CERT Polska
 
