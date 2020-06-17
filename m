@@ -2,51 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B57D81FCF86
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 16:29:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 302BE1FCF87
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 16:29:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlZ42-0002EY-Es; Wed, 17 Jun 2020 14:29:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jlZ4I-0002Gd-PD; Wed, 17 Jun 2020 14:29:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jIsh=76=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jlZ41-0002ET-Rv
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 14:29:17 +0000
-X-Inumbo-ID: ec266c56-b0a6-11ea-b7bb-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec266c56-b0a6-11ea-b7bb-bc764e2007e4;
- Wed, 17 Jun 2020 14:29:16 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: tXawYVhJi4rmpuc0VBfdOaNDN2PVWsyFKEqGMhzZ95FoDydYUpd51AKDKoUkuiNPV1lgCKu3PO
- TKT3uc5KO99sQ1CkFDtYYOVQQJ9egA+U0SpTFSSuBiV1xD0+uC5MxHfLDE2fLC38BR7rkUhfDd
- WYM3uQpDZdSHLuAcO29tHWGUmSGtO1WA9K2OQ68m1zsn9AG44qzJSGX5kjNfEU7wQsQy3G0LE3
- 4YKCkHFx+mr5fYC/KERv14LCEXQmBDBPX1pwG16ecieWLOKtewbonMFegPi4Gha58xkWCVgLYy
- pl0=
-X-SBRS: 2.7
-X-MesageID: 21059693
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,522,1583211600"; d="scan'208";a="21059693"
-Date: Wed, 17 Jun 2020 16:29:08 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Subject: Re: [PATCH for-4.14] x86/hap: use get_gfn_type in
- hap_update_paging_modes
-Message-ID: <20200617142908.GC735@Air-de-Roger>
-References: <6a2ae3bae4a4ad32bc7caecd8af2655a76a9fb19.1592335579.git.tamas.lengyel@intel.com>
- <20200617082340.GV735@Air-de-Roger>
- <CABfawh=QbbzJF1X_Ddk_BvJbxCiZ0kVWM4XZ3dGoLhe_ZPh8NQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+ <SRS0=EDe+=76=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jlZ4H-0002Fq-Uz
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 14:29:33 +0000
+X-Inumbo-ID: f30ecb9e-b0a6-11ea-b9f3-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f30ecb9e-b0a6-11ea-b9f3-12813bfff9fa;
+ Wed, 17 Jun 2020 14:29:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=E8iNmU7G+JdRadaU33um9Y1eetN7gbjGTG51XjFJ8I8=; b=TlOOjHmDuO8sRTtDYSJ/suB7i
+ mYd39zqrHaIc1c4pPjGQ2z74bRgOLPag17kfrhmb/Vw318qeNJL0S1kI/jfXIqFSu6wkSVxfpohBx
+ TnZnreXmXvUq3R+2eKw2bS9Ic2DVQbwpuhACu+VBZwVQVotofDK34iyRvZaqIYigg7Kvw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jlZ4B-0004rq-8g; Wed, 17 Jun 2020 14:29:27 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jlZ4A-0001as-LE; Wed, 17 Jun 2020 14:29:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jlZ4A-0007xK-Kc; Wed, 17 Jun 2020 14:29:26 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151165-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABfawh=QbbzJF1X_Ddk_BvJbxCiZ0kVWM4XZ3dGoLhe_ZPh8NQ@mail.gmail.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+MIME-Version: 1.0
+Subject: [libvirt test] 151165: tolerable all pass - PUSHED
+X-Osstest-Failures: libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This: libvirt=1eabe312ea4fa80922443ad73a950857c1f87786
+X-Osstest-Versions-That: libvirt=63d08bec0b2dace2fcefffb23a1fa5b14c473d67
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 17 Jun 2020 14:29:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,94 +78,99 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>, Paul
- Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, George
- Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jun 17, 2020 at 06:49:16AM -0600, Tamas K Lengyel wrote:
-> On Wed, Jun 17, 2020 at 2:25 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
-> >
-> > On Tue, Jun 16, 2020 at 12:31:06PM -0700, Tamas K Lengyel wrote:
-> > > While forking VMs running a small RTOS systems (Zephyr) a Xen crash has been
-> > > observed due to a mm-lock order violation while copying the HVM CPU context
-> > > from the parent. This issue has been identified to be due to
-> > > hap_update_paging_modes getting a lock on the gfn using get_gfn. This call also
-> > > creates a shared entry in the fork's memory map for the cr3 gfn. The function
-> > > later calls hap_update_cr3 while holding the paging_lock, which results in the
-> > > lock-order violation in vmx_load_pdptrs when it tries to unshare the above entry.
-> > >
-> > > This issue has not affected VMs running other OS's as a call to vmx_load_pdptrs
-> > > is benign if PAE is not enabled or if EFER_LMA is set and returns before
-> > > trying to unshare and map the page.
-> > >
-> > > Using get_gfn_type to get a lock on the gfn avoids this problem as we can
-> > > populate the fork's gfn with a copied page instead of a shared entry if its
-> > > needed, thus avoiding the lock order violation while holding paging_lock.
-> > >
-> > > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> > > ---
-> > > The bug seems to have been present since commit 4cb6c4f4941, only discovered
-> > > now due to the heavy use of mem_sharing with VM forks. As this is a simple
-> > > bug-fix it would be nice to include it in the 4.14 release.
-> >
-> > I agree it seems like a candidate bugfix to be included. I've added
-> > Paul to the Cc so he is aware.
-> >
-> > > ---
-> > >  xen/arch/x86/mm/hap/hap.c | 17 ++++++++++++-----
-> > >  1 file changed, 12 insertions(+), 5 deletions(-)
-> > >
-> > > diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
-> > > index 7f84d0c6ea..9ae4c3ae6e 100644
-> > > --- a/xen/arch/x86/mm/hap/hap.c
-> > > +++ b/xen/arch/x86/mm/hap/hap.c
-> > > @@ -748,12 +748,19 @@ static void hap_update_paging_modes(struct vcpu *v)
-> > >      struct domain *d = v->domain;
-> > >      unsigned long cr3_gfn = v->arch.hvm.guest_cr[3] >> PAGE_SHIFT;
-> > >      p2m_type_t t;
-> > > +    p2m_query_t q = P2M_ALLOC;
-> > >
-> > > -    /* We hold onto the cr3 as it may be modified later, and
-> > > -     * we need to respect lock ordering. No need for
-> > > -     * checks here as they are performed by vmx_load_pdptrs
-> > > -     * (the potential user of the cr3) */
-> > > -    (void)get_gfn(d, cr3_gfn, &t);
-> > > +    /*
-> > > +     * We hold onto the cr3 as it may be modified later, and
-> > > +     * we need to respect lock ordering. Unshare here if we have to as to avoid
-> > > +     * a lock-order violation later while we are holding the paging_lock.
-> > > +     * Further checks are performed by vmx_load_pdptrs (the potential user of
-> > > +     * the cr3).
-> > > +     */
-> > > +    if ( hvm_pae_enabled(v) && !hvm_long_mode_active(v) )
-> > > +        q |= P2M_UNSHARE;
-> > > +
-> > > +    (void)get_gfn_type(d, cr3_gfn, &t, q);
-> >
-> > While there I think you can drop the cast to void.
-> 
-> Sure.
-> 
-> >
-> > In order for this to be more resilient, maybe it would be better to
-> > just use get_gfn_unshare directly and avoid checking what paging mode
-> > the guest is currently using?
-> >
-> > Or would that be too expensive in terms of performance for the not
-> > affected case?
-> 
-> That's what I originally considered sending in but yes, in the fuzzing
-> case it would mean a full-page copy for each iteration even on
-> unaffected cases instead of a one-time shared entry setup. That would
-> be a considerable waste.
+flight 151165 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151165/
 
-Right, I'm afraid I don't really like the implementation details of
-vmx_load_pdptrs leaking into hap_update_paging_modes which is a
-generic function, so IMO a cleaner solution would be to always use
-P2M_UNSHARE.
+Failures :-/ but no regressions.
 
-Thanks, Roger.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151091
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151091
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-qcow2 12 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 13 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ libvirt              1eabe312ea4fa80922443ad73a950857c1f87786
+baseline version:
+ libvirt              63d08bec0b2dace2fcefffb23a1fa5b14c473d67
+
+Last test of basis   151091  2020-06-13 20:33:29 Z    3 days
+Testing same since   151165  2020-06-16 04:18:45 Z    1 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   63d08bec0b..1eabe312ea  1eabe312ea4fa80922443ad73a950857c1f87786 -> xen-tested-master
 
