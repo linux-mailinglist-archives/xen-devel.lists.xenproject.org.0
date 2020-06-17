@@ -2,125 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 095C51FD3ED
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 20:00:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 077401FD4CC
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 20:48:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlcLZ-0003xJ-EF; Wed, 17 Jun 2020 17:59:37 +0000
+	id 1jld58-00081c-61; Wed, 17 Jun 2020 18:46:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NeLQ=76=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jlcLY-0003xE-7r
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 17:59:36 +0000
-X-Inumbo-ID: 4db8528c-b0c4-11ea-bca7-bc764e2007e4
-Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ <SRS0=wEkE=76=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jld56-00081X-1y
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 18:46:40 +0000
+X-Inumbo-ID: e0f2f538-b0ca-11ea-b7bb-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4db8528c-b0c4-11ea-bca7-bc764e2007e4;
- Wed, 17 Jun 2020 17:59:35 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05HHloNU161537;
- Wed, 17 Jun 2020 17:59:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=a92NKzD+wELPlL5gwVmn6QwX3yrnJrCoSb0A1XwFyf8=;
- b=i9L+Ut15lVvT20mCi0Nj1r3yQI7IjVLSCiE1OWvmXPR6m5/xK1R30iysRBLTvzr1W+E0
- n2x9dRA8elaNK+35AXjwUCSS68iEWHs7A89ZxsahvgtYNEMx6JovtsQ0gzJFwHIqxO/T
- IUBmqo32N/sfmKIpMn9Kam0NaeCcl4tqLSHu3wdjN3wkV1anQVnpA0+2eXBuwFEnugpI
- +eRqaPwIqCB50DBLaJGuUevpqzG9bHh/8L/uFd/mqr2ZljSorlTE/1986hN/PkDsm7tb
- ZeuDQ24a12RqOYszKOXIpp3warlR+YDCBpOX7sKBfAOVN7GvEdOHlfkbNDIx5q0/V+i5 vQ== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2130.oracle.com with ESMTP id 31q65yvuew-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 17 Jun 2020 17:59:33 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05HHlerj026150;
- Wed, 17 Jun 2020 17:57:32 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3020.oracle.com with ESMTP id 31q65y06nx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 17 Jun 2020 17:57:32 +0000
-Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 05HHvV3e005931;
- Wed, 17 Jun 2020 17:57:31 GMT
-Received: from [10.39.247.125] (/10.39.247.125)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 17 Jun 2020 10:57:31 -0700
-Subject: Re: [RFC PATCH] xen/privcmd: Convert get_user_pages*() to
- pin_user_pages*()
-To: Souptick Joarder <jrdr.linux@gmail.com>, jgross@suse.com,
- sstabellini@kernel.org
-References: <1592363698-4266-1-git-send-email-jrdr.linux@gmail.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
- xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
- PQg8rMsSd0OzIvvjbEAvaWLlbs8wa3MtVLysHY/DfqRK9Zvr/RgrsYC6ukOB7igy2PGqZd+M
- MDnSmVzik0sPvB6xPV7QyFsykEgpnHbvdZAUy/vyys8xgT0PVYR5hyvhyf6VIfGuvqIsvJw5
- C8+P71CHI+U/IhsKrLrsiYHpAhQkw+Zvyeml6XSi5w4LXDbF+3oholKYCkPwxmGdK8MUIdkM
- d7iYdKqiP4W6FKQou/lC3jvOceGupEoDV9botSWEIIlKdtm6C4GfL45RD8V4B9iy24JHPlom
- woVWc0xBZboQguhauQqrBFooHO3roEeM1pxXjLUbDtH4t3SAI3gt4dpSyT3EvzhyNQVVIxj2
- FXnIChrYxR6S0ijSqUKO0cAduenhBrpYbz9qFcB/GyxD+ZWY7OgQKHUZMWapx5bHGQ8bUZz2
- SfjZwK+GETGhfkvNMf6zXbZkDq4kKB/ywaKvVPodS1Poa44+B9sxbUp1jMfFtlOJ3AYB0WDS
- Op3d7F2ry20CIf1Ifh0nIxkQPkTX7aX5rI92oZeu5u038dHUu/dO2EcuCjl1eDMGm5PLHDSP
- 0QUw5xzk1Y8MG1JQ56PtqReO33inBXG63yTIikJmUXFTw6lLJwARAQABzTNCb3JpcyBPc3Ry
- b3Zza3kgKFdvcmspIDxib3Jpcy5vc3Ryb3Zza3lAb3JhY2xlLmNvbT7CwXgEEwECACIFAlH8
- CgsCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEIredpCGysGyasEP/j5xApopUf4g
- 9Fl3UxZuBx+oduuw3JHqgbGZ2siA3EA4bKwtKq8eT7ekpApn4c0HA8TWTDtgZtLSV5IdH+9z
- JimBDrhLkDI3Zsx2CafL4pMJvpUavhc5mEU8myp4dWCuIylHiWG65agvUeFZYK4P33fGqoaS
- VGx3tsQIAr7MsQxilMfRiTEoYH0WWthhE0YVQzV6kx4wj4yLGYPPBtFqnrapKKC8yFTpgjaK
- jImqWhU9CSUAXdNEs/oKVR1XlkDpMCFDl88vKAuJwugnixjbPFTVPyoC7+4Bm/FnL3iwlJVE
- qIGQRspt09r+datFzPqSbp5Fo/9m4JSvgtPp2X2+gIGgLPWp2ft1NXHHVWP19sPgEsEJXSr9
- tskM8ScxEkqAUuDs6+x/ISX8wa5Pvmo65drN+JWA8EqKOHQG6LUsUdJolFM2i4Z0k40BnFU/
- kjTARjrXW94LwokVy4x+ZYgImrnKWeKac6fMfMwH2aKpCQLlVxdO4qvJkv92SzZz4538az1T
- m+3ekJAimou89cXwXHCFb5WqJcyjDfdQF857vTn1z4qu7udYCuuV/4xDEhslUq1+GcNDjAhB
- nNYPzD+SvhWEsrjuXv+fDONdJtmLUpKs4Jtak3smGGhZsqpcNv8nQzUGDQZjuCSmDqW8vn2o
- hWwveNeRTkxh+2x1Qb3GT46uzsFNBFH8CgsBEADGC/yx5ctcLQlB9hbq7KNqCDyZNoYu1HAB
- Hal3MuxPfoGKObEktawQPQaSTB5vNlDxKihezLnlT/PKjcXC2R1OjSDinlu5XNGc6mnky03q
- yymUPyiMtWhBBftezTRxWRslPaFWlg/h/Y1iDuOcklhpr7K1h1jRPCrf1yIoxbIpDbffnuyz
- kuto4AahRvBU4Js4sU7f/btU+h+e0AcLVzIhTVPIz7PM+Gk2LNzZ3/on4dnEc/qd+ZZFlOQ4
- KDN/hPqlwA/YJsKzAPX51L6Vv344pqTm6Z0f9M7YALB/11FO2nBB7zw7HAUYqJeHutCwxm7i
- BDNt0g9fhviNcJzagqJ1R7aPjtjBoYvKkbwNu5sWDpQ4idnsnck4YT6ctzN4I+6lfkU8zMzC
- gM2R4qqUXmxFIS4Bee+gnJi0Pc3KcBYBZsDK44FtM//5Cp9DrxRQOh19kNHBlxkmEb8kL/pw
- XIDcEq8MXzPBbxwHKJ3QRWRe5jPNpf8HCjnZz0XyJV0/4M1JvOua7IZftOttQ6KnM4m6WNIZ
- 2ydg7dBhDa6iv1oKdL7wdp/rCulVWn8R7+3cRK95SnWiJ0qKDlMbIN8oGMhHdin8cSRYdmHK
- kTnvSGJNlkis5a+048o0C6jI3LozQYD/W9wq7MvgChgVQw1iEOB4u/3FXDEGulRVko6xCBU4
- SQARAQABwsFfBBgBAgAJBQJR/AoLAhsMAAoJEIredpCGysGyfvMQAIywR6jTqix6/fL0Ip8G
- jpt3uk//QNxGJE3ZkUNLX6N786vnEJvc1beCu6EwqD1ezG9fJKMl7F3SEgpYaiKEcHfoKGdh
- 30B3Hsq44vOoxR6zxw2B/giADjhmWTP5tWQ9548N4VhIZMYQMQCkdqaueSL+8asp8tBNP+TJ
- PAIIANYvJaD8xA7sYUXGTzOXDh2THWSvmEWWmzok8er/u6ZKdS1YmZkUy8cfzrll/9hiGCTj
- u3qcaOM6i/m4hqtvsI1cOORMVwjJF4+IkC5ZBoeRs/xW5zIBdSUoC8L+OCyj5JETWTt40+lu
- qoqAF/AEGsNZTrwHJYu9rbHH260C0KYCNqmxDdcROUqIzJdzDKOrDmebkEVnxVeLJBIhYZUd
- t3Iq9hdjpU50TA6sQ3mZxzBdfRgg+vaj2DsJqI5Xla9QGKD+xNT6v14cZuIMZzO7w0DoojM4
- ByrabFsOQxGvE0w9Dch2BDSI2Xyk1zjPKxG1VNBQVx3flH37QDWpL2zlJikW29Ws86PHdthh
- Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
- 19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
- Jg6OxFYd01z+a+oL
-Message-ID: <d9e8ad0f-f2aa-eea4-5bc7-a802c626ace6@oracle.com>
-Date: Wed, 17 Jun 2020 13:57:29 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id e0f2f538-b0ca-11ea-b7bb-bc764e2007e4;
+ Wed, 17 Jun 2020 18:46:39 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id A0F96206DB;
+ Wed, 17 Jun 2020 18:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1592419598;
+ bh=AZlrV4tr4okvc/a6JtqMjvtsB5OnHTp5BUesZHw/d2A=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=dobZBLGGYuKTJwyNJUT+Ad5KjHTuwE5BDQOozZpiwPhSXjHXcBWWDUcdoIURxVVw/
+ uK2NIrZUofZOh2XRJzDaLGru2TbFxXlamq1EGGCmWoiJWBgyi1isvp175VBqnLFLdp
+ 9BrxUfRWkp5K95Qcenj1VCD0NtcRhwsr6rFk1yd0=
+Date: Wed, 17 Jun 2020 11:46:38 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: CodeWiz2280 <codewiz2280@gmail.com>
+Subject: Re: Keystone Issue
+In-Reply-To: <CALYbLDhbRO=FeK21FLTMbt=eMciTW4hhjJUVhpmPUJ0D1ELeqA@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2006171134350.14005@sstabellini-ThinkPad-T480s>
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+ <99E77330-049F-4471-ABF9-13F9AB4E95B5@arm.com>
+ <CALYbLDizxgaXJzhNVeKVZ6q-Hbttm1T+ZPP7f-1PDvi49VFOjA@mail.gmail.com>
+ <alpine.DEB.2.21.2006080911500.2815@sstabellini-ThinkPad-T480s>
+ <CALYbLDh8F0JuGmRY0C1Nhp_b4FP041KMa14pOmyoSBtHcz=A2A@mail.gmail.com>
+ <363A05E0-61C6-4AE4-9C84-EEAC466989D8@arm.com>
+ <b28cbead-c7ce-7848-4e21-109a022e64da@xen.org>
+ <03607739-A4FF-486A-899A-F5F36870225A@arm.com>
+ <2ec6255c-9d28-92e7-bd0a-59edb9fc078a@xen.org>
+ <6033f9cecbf10f50f4a713ce52105426@kernel.org>
+ <CAJ=z9a1k606A+sA467eY8iPuHnptMUFzxEFithpe=JKHogjt0g@mail.gmail.com>
+ <CALYbLDjF8_eoNB_pSfbD73LkC3Ppyxpi0MxHgtS5y_wc-TVfzQ@mail.gmail.com>
+ <4bab90465acfddae5868ce2311bd9889@kernel.org>
+ <CALYbLDjNF5s2SXkunjJNv4x9jQAcDfoMBWp3WFHBkjnNdfT3Sg@mail.gmail.com>
+ <bd3fade765bf21342a4ce6b952a5ca00@kernel.org>
+ <CALYbLDhbRO=FeK21FLTMbt=eMciTW4hhjJUVhpmPUJ0D1ELeqA@mail.gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <1592363698-4266-1-git-send-email-jrdr.linux@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9655
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- spamscore=0
- phishscore=0 bulkscore=0 malwarescore=0 mlxscore=0 adultscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2006170141
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9655
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 malwarescore=0
- bulkscore=0 phishscore=0 adultscore=0 priorityscore=1501 mlxscore=0
- spamscore=0 clxscore=1011 mlxlogscore=999 suspectscore=0 impostorscore=0
- cotscore=-2147483648 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2006170141
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,71 +66,97 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, paul@xen.org, linux-kernel@vger.kernel.org,
- John Hubbard <jhubbard@nvidia.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Julien Grall <julien.grall.oss@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 6/16/20 11:14 PM, Souptick Joarder wrote:
-> In 2019, we introduced pin_user_pages*() and now we are converting
-> get_user_pages*() to the new API as appropriate. [1] & [2] could
-> be referred for more information.
->
-> [1] Documentation/core-api/pin_user_pages.rst
->
-> [2] "Explicit pinning of user-space pages":
->         https://lwn.net/Articles/807108/
->
-> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-> Cc: John Hubbard <jhubbard@nvidia.com>
-> ---
-> Hi,
->
-> I have compile tested this patch but unable to run-time test,
-> so any testing help is much appriciated.
->
-> Also have a question, why the existing code is not marking the
-> pages dirty (since it did FOLL_WRITE) ?
+On Wed, 17 Jun 2020, CodeWiz2280 wrote:
+> On Tue, Jun 16, 2020 at 2:23 PM Marc Zyngier <maz@kernel.org> wrote:
+> >
+> > On 2020-06-16 19:13, CodeWiz2280 wrote:
+> > > On Tue, Jun 16, 2020 at 4:11 AM Marc Zyngier <maz@kernel.org> wrote:
+> > >>
+> > >> On 2020-06-15 20:14, CodeWiz2280 wrote:
+> > >>
+> > >> [...]
+> > >>
+> > >> > Also, the latest linux kernel still has the X-Gene storm distributor
+> > >> > address as "0x78010000" in the device tree, which is what the Xen code
+> > >> > considers a match with the old firmware.  What were the addresses for
+> > >> > the device tree supposed to be changed to?
+> > >>
+> > >> We usually don't care, as the GIC address is provided by the
+> > >> bootloader,
+> > >> whether via DT or ACPI (this is certainly what happens on Mustang).
+> > >> Whatever is still in the kernel tree is just as dead as the platform
+> > >> it
+> > >> describes.
+> > >>
+> > >> > Is my understanding
+> > >> > correct that there is a different base address required to access the
+> > >> > "non-secure" region instead of the "secure" 0x78010000 region?  I'm
+> > >> > trying to see if there are corresponding different addresses for the
+> > >> > keystone K2E, but haven't found them yet in the manuals.
+> > >>
+> > >> There is no such address. Think of the NS bit as an *address space*
+> > >> identifier.
+> > >>
+> > >> The only reason XGene presents the NS part of the GIC at a different
+> > >> address is because XGene is broken enough not to have EL3, hence no
+> > >> secure mode. To wire the GIC (and other standard ARM IPs) to the core,
+> > >> the designers simply used the CPU NS signal as an address bit.
+> > >>
+> > >> On your platform, the NS bit does exist. I strongly suppose that it
+> > >> isn't wired to the GIC. Please talk to your SoC vendor for whether iot
+> > >> is possible to work around this.
+> > >>
+> > > I do have a question about this out to TI, but at least this method
+> > > gives me something to work with in the meantime.  I was just looking
+> > > to confirm that there wouldn't be any other undesirable side effects
+> > > with Dom0 or DomU when using it.  Was there an actual FPGA for the
+> > > X-Gene that needed to be updated which controlled the GIC access?  Or
+> > > by firmware do you mean the boot loader (e.g. uboot).  Thanks for the
+> > > support so far to all.
+> >
+> > As I said, the specific case of XGene was just a matter of picking the
+> > right address, as the NS bit is used as an address bit on this platform.
+> > This was possible because this machine doesn't have any form of
+> > security. So no HW was changed, no FPGA reprogrammed. Only a firmware
+> > table was fixed to point to the right spot. Not even u-boot or EFI was
+> > changed.
+> Ok, thank you for clarifying.  I have one more question if you don't
+> mind.  I'm aware that dom0 can share physical memory with dom1 via
+> grant tables.
+> However, is it possible to reserve a chunk of contiguous physical
+> memory and directly allocate it only to dom1?
+> For example, if I wanted dom1 to have access to 8MB of contiguous
+> memory at 0x8200_0000 (in addition to whatever virtual memory Xen
+> gives it).
+> How would one go about doing this on ARM?  Is there something in the
+> guest config or device tree that can be set?  Thanks for you help.
+ 
+There isn't a "proper" way to do it, only a workaround.
 
+It is possible to do it by using the iomem option, which is meant for
+device MMIO regions.
 
-Indeed, seems to me it should. Paul?
+We have patches in the Xilinx Xen tree (not upstream) to allow for
+specifying the cacheability that you want for the iomem mapping so that
+you can map it as normal memory. This is the latest branch:
 
+https://github.com/Xilinx/xen.git xilinx/release-2020.1
 
->
->  drivers/xen/privcmd.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-> index a250d11..543739e 100644
-> --- a/drivers/xen/privcmd.c
-> +++ b/drivers/xen/privcmd.c
-> @@ -594,7 +594,7 @@ static int lock_pages(
->  		if (requested > nr_pages)
->  			return -ENOSPC;
-> =20
-> -		pinned =3D get_user_pages_fast(
-> +		pinned =3D pin_user_pages_fast(
->  			(unsigned long) kbufs[i].uptr,
->  			requested, FOLL_WRITE, pages);
->  		if (pinned < 0)
-> @@ -614,10 +614,7 @@ static void unlock_pages(struct page *pages[], uns=
-igned int nr_pages)
->  	if (!pages)
->  		return;
-> =20
-> -	for (i =3D 0; i < nr_pages; i++) {
-> -		if (pages[i])
-> -			put_page(pages[i]);
-> -	}
-> +	unpin_user_pages(pages, nr_pages);
+The relevant commits are the ones from:
+https://github.com/Xilinx/xen/commit/a5c76ac1c5dc14d3e9ccedc5c1e7dd2ddc1397b6
+to:
+https://github.com/Xilinx/xen/commit/b4b7e91c1524f9cf530b81b7ba95df2bf50c78e4
 
+You might want to make sure that the page is not used by the normal
+memory allocator. This document explains how to something along those
+lines:
 
-Why are you no longer checking for valid pages?
-
-
--boris
-
-
-
-
+https://github.com/Xilinx/xen/commit/35f72d9130448272e07466bd73cc30406f33135e
 
