@@ -2,61 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0AC11FC46F
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 05:07:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C8FF1FC490
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 05:17:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlOPd-0007MX-DV; Wed, 17 Jun 2020 03:06:53 +0000
+	id 1jlOZ7-0008Hw-Bx; Wed, 17 Jun 2020 03:16:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dcrs=76=gmail.com=jrdr.linux@srs-us1.protection.inumbo.net>)
- id 1jlOPb-0007MR-Tc
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 03:06:51 +0000
-X-Inumbo-ID: 96fd4fe2-b047-11ea-bca7-bc764e2007e4
-Received: from mail-pf1-x443.google.com (unknown [2607:f8b0:4864:20::443])
+ <SRS0=zn23=76=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jlOZ5-0008Hr-W4
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 03:16:40 +0000
+X-Inumbo-ID: f4eb053a-b048-11ea-bca7-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 96fd4fe2-b047-11ea-bca7-bc764e2007e4;
- Wed, 17 Jun 2020 03:06:51 +0000 (UTC)
-Received: by mail-pf1-x443.google.com with SMTP id 23so415292pfw.10
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2020 20:06:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=dq2SjmoQupE4U9LhXdo/f9IZ6YV5RooIfJwqe+qSBlg=;
- b=cRtzcfZIAK/fnCW3uavu1pTWu4tlI6Gez8w4jjX7ksTVmViB2GmyPtbfv4pHB2N0B7
- 52+2ATk8e+AdXsI+gEvmXN+4fq+8vjqv5o1Q0+Vd0gW34QPnbxztqI7LwNR9biWgAZ+K
- iouMSgsyC99J7dM0nr1U+0TzVOj6EhcTo2mWN62PK3JzQGIoX4VIrHq49FgsD5+CV6F5
- qU4zo67ue4q3ETFJqak0LoXVYaD8bpLC4qjg64CJULa32Hlk6S/kdBQ2e+0k+xTrp5Ap
- r2l0ZLwk0wBa1V5SVadZXT7AZlW/xY4KUHIACaXXJvCEgsyULxXV6Kpj0/Uv1SEvLz6T
- rMxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=dq2SjmoQupE4U9LhXdo/f9IZ6YV5RooIfJwqe+qSBlg=;
- b=hORn5p17sHhQpeBUECYZqH+SbV/gvZteRVgMX5dIg7ZmA6ZS0arz1AbZKgGkjTIA2U
- JqBmK9eqngpxXZRNW+8z7tTGp8onjoVNWRuf/CWZqTirJ+qtY+AUbNzjtypkYLTyoPNx
- GbIx2s3LfSPGoWNvuFGGoE0m/JFux75/g4n8gLu6lS05xpiVE3dwMNkV2uvanHra9FmK
- gB+JCcvsTqsMLEfbqFyB0UfVa9y7kMC8P5prvy9+EeU6qouzGwoN+0WujfymYqRPYvgp
- leiMvD4QnMVrH/OLdvhLdcfVxSIuS/CFoysZ8IvE+rabMCPtOCR//8SVz5QuHs69q2l7
- aEjQ==
-X-Gm-Message-State: AOAM531mQFmIi9AI9nm5uccO+UNgbmtVwrD231Zs53YAmNei/KTJu8NA
- 2xpUQM8ut4viA0P4E9FRJ2Y=
-X-Google-Smtp-Source: ABdhPJw//k0NXcYX0XzZ+Ih/gjrZwd7t+FwVka95iS2KhwMy/vQRUu8NT/fZjBz2+jqHCu7RJ8h7ag==
-X-Received: by 2002:a63:4822:: with SMTP id v34mr3878745pga.81.1592363210656; 
- Tue, 16 Jun 2020 20:06:50 -0700 (PDT)
-Received: from jordon-HP-15-Notebook-PC.domain.name ([122.171.213.184])
- by smtp.gmail.com with ESMTPSA id g19sm18210446pfo.209.2020.06.16.20.06.47
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 16 Jun 2020 20:06:49 -0700 (PDT)
-From: Souptick Joarder <jrdr.linux@gmail.com>
-To: boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org
-Subject: [RFC PATCH] xen/privcmd: Convert get_user_pages*() to
- pin_user_pages*()
-Date: Wed, 17 Jun 2020 08:44:58 +0530
-Message-Id: <1592363698-4266-1-git-send-email-jrdr.linux@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ id f4eb053a-b048-11ea-bca7-bc764e2007e4;
+ Wed, 17 Jun 2020 03:16:38 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: uQjg1G0HvWxXWfGi5qH+NbnaYb7nco842zSXOWROgXsraU0tqCAnSMctSOGz8ZWTnN6Sre2lyY
+ ShwG2mKWSKGsRkivYDUisV0EFyZkEQhIXs5C//Y+K2puS2TC3L1Aqeh6tOZr1vZFSsucHcImel
+ OExCxLoTaRumjDNqRxUvX1F8MqUB54+IK6UTH9I5LES+ykWuTjHiW2LHocFN/b9hv6eKel4ELr
+ SPRHCSqwVjEjv2xp7QifZk5E+hNxTYKkV0qrqhlk79gHDWP7E0VEtcarQGt10UJdSCvElT47NY
+ HE4=
+X-SBRS: 2.7
+X-MesageID: 20575272
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,521,1583211600"; d="scan'208";a="20575272"
+Subject: Re: [PATCH] OvmfPkg: End timer interrupt later to avoid stack
+ overflow under load
+To: Laszlo Ersek <lersek@redhat.com>, <devel@edk2.groups.io>, xen-devel
+ <xen-devel@lists.xenproject.org>
+References: <1592275782-9369-1-git-send-email-igor.druzhinin@citrix.com>
+ <ee7d61de-ed38-acc4-1666-cd886d76cc14@redhat.com>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <17ee2671-c44b-f3fb-43af-0a75f7d161fc@citrix.com>
+Date: Wed, 17 Jun 2020 04:16:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <ee7d61de-ed38-acc4-1666-cd886d76cc14@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,60 +57,125 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- John Hubbard <jhubbard@nvidia.com>, Souptick Joarder <jrdr.linux@gmail.com>
+Cc: julien@xen.org, jordan.l.justen@intel.com, Ray Ni <ray.ni@intel.com>,
+ ard.biesheuvel@arm.com, anthony.perard@citrix.com,
+ Paolo Bonzini <pbonzini@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In 2019, we introduced pin_user_pages*() and now we are converting
-get_user_pages*() to the new API as appropriate. [1] & [2] could
-be referred for more information.
+On 16/06/2020 19:42, Laszlo Ersek wrote
+> If I understand correctly, TimerInterruptHandler()
+> [OvmfPkg/8254TimerDxe/Timer.c] currently does the following:
+> 
+> - RaiseTPL (TPL_HIGH_LEVEL) --> mask interrupts from being delivered
+> 
+> - mLegacy8259->EndOfInterrupt() --> permit the PIC to generate further
+> interrupts (= make them pending)
+> 
+> - RestoreTPL() --> unmask interrupts (allow delivery)
+> 
+> RestoreTPL() is always expected to invoke handlers (on its own stack)
+> that have just been unmasked, so that behavior is not unexpected, in my
+> opinion.
 
-[1] Documentation/core-api/pin_user_pages.rst
+Yes, this is where I'd like to have a confirmation - opening a window
+for uncontrollable number of nested interrupts with a small stack
+looks dangerous.
 
-[2] "Explicit pinning of user-space pages":
-        https://lwn.net/Articles/807108/
+> What seems unexpected is the queueing of a huge number of timer
+> interrupts. I would think a timer interrupt is either pending or not
+> pending (i.e. if it's already pending, then the next generated interrupt
+> is coalesced, not queued). While there would still be a window between
+> the EOI and the unmasking, I don't think it would normally allow for a
+> *huge* number of queued interrupts (and consequently a stack overflow).
 
-Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-Cc: John Hubbard <jhubbard@nvidia.com>
----
-Hi,
+It's not a window between EOI and unmasking but the very fact vCPU is 
+descheduled for a considerable amount of time that causes backlog of
+timer interrupts to build up. This is Xen default behavior and is
+configurable (there are several timer modes including coalescing
+you mention). That is done for compatibility with some guests basing
+time accounting on the number of periodic interrupts they receive.
 
-I have compile tested this patch but unable to run-time test,
-so any testing help is much appriciated.
+> So I basically see the root of the problem in the interrupts being
+> queued rather than coalesced. I'm pretty unfamiliar with this x86 area
+> (= the 8259 PIC in general), but the following wiki article seems to
+> agree with my suspicion:
+> 
+> https://wiki.osdev.org/8259_PIC#How_does_the_8259_PIC_chip_work.3F
+> 
+>     [...] and whether there's an interrupt already pending. If the
+>     channel is unmasked and there's no interrupt pending, the PIC will
+>     raise the interrupt line [...]
+> 
+> Can we say that the interrupt queueing (as opposed to coalescing) is a
+> Xen issue?
 
-Also have a question, why the existing code is not marking the
-pages dirty (since it did FOLL_WRITE) ?
+I can admit that the whole issue might be Xen specific if that form
+of timer mode is not used in QEMU-KVM. What mode is typical there
+then? We might consider switching Xen to a different mode if so, as I believe
+those guests are not in support for many years.
 
- drivers/xen/privcmd.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+> (Hmmm... maybe the hypervisor *has* to queue the timer interrupts,
+> otherwise some of them would simply be lost, and the guest would lose
+> track of time.)
+> 
+> Either way, I'm not sure what the best approach is. This driver was
+> moved under OvmfPkg from PcAtChipsetPkg in commit 1a3ffdff82e6
+> ("OvmfPkg: Copy 8254TimerDxe driver from PcAtChipsetPkg", 2019-04-11).
+> HpetTimerDxe also lives under PcAtChipsetPkg.
+> 
+> So I think I'll have to rely on the expertise of Ray here (CC'd).
 
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index a250d11..543739e 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -594,7 +594,7 @@ static int lock_pages(
- 		if (requested > nr_pages)
- 			return -ENOSPC;
- 
--		pinned = get_user_pages_fast(
-+		pinned = pin_user_pages_fast(
- 			(unsigned long) kbufs[i].uptr,
- 			requested, FOLL_WRITE, pages);
- 		if (pinned < 0)
-@@ -614,10 +614,7 @@ static void unlock_pages(struct page *pages[], unsigned int nr_pages)
- 	if (!pages)
- 		return;
- 
--	for (i = 0; i < nr_pages; i++) {
--		if (pages[i])
--			put_page(pages[i]);
--	}
-+	unpin_user_pages(pages, nr_pages);
- }
- 
- static long privcmd_ioctl_dm_op(struct file *file, void __user *udata)
--- 
-1.9.1
+Also note that since the issue might be Xen specific we might want to
+try to fix it in XenTimer only - I modified 8254Timer due to the
+fact Xen is still present in general config (but that should soon
+go away).
 
+> Also, I recall a recent-ish QEMU commit that seems vaguely related
+> (i.e., to timer interrupt coalescing -- see 7a3e29b12f5a, "mc146818rtc:
+> fix timer interrupt reinjection again", 2019-11-19), so I'm CC'ing Paolo
+> too.
+
+Hmm that looks more like a RTC implementation specific issue.
+
+> Some more comments / questions below:
+> 
+>>
+>> diff --git a/OvmfPkg/8254TimerDxe/Timer.c b/OvmfPkg/8254TimerDxe/Timer.c
+>> index 67e22f5..fd1691b 100644
+>> --- a/OvmfPkg/8254TimerDxe/Timer.c
+>> +++ b/OvmfPkg/8254TimerDxe/Timer.c
+>> @@ -79,8 +79,6 @@ TimerInterruptHandler (
+>>  
+>>    OriginalTPL = gBS->RaiseTPL (TPL_HIGH_LEVEL);
+>>  
+>> -  mLegacy8259->EndOfInterrupt (mLegacy8259, Efi8259Irq0);
+>> -
+>>    if (mTimerNotifyFunction != NULL) {
+>>      //
+>>      // @bug : This does not handle missed timer interrupts
+>> @@ -89,6 +87,9 @@ TimerInterruptHandler (
+>>    }
+>>  
+>>    gBS->RestoreTPL (OriginalTPL);
+>> +
+>> +  DisableInterrupts ();
+>> +  mLegacy8259->EndOfInterrupt (mLegacy8259, Efi8259Irq0);
+>>  }
+> 
+> So this briefly (temporarily) unmasks interrupt delivery (between
+> RestoreTPL() and DisableInterrupts()) while the PIC is still blocked
+> from generating more, and then unblocks the PIC.
+> 
+> It looks plausible for preventing the unbounded recursion per se, but
+> why is it safe to leave the function with interrupts disabled? Before
+> the patch, that didn't use to be the case.
+
+Quickly looking through the code it appears to me the first thing that
+caller does after interrupt handler - it clears interrupt flag to make
+sure those disabled. So I don't see any assumption that interrupts should
+be enabled on exiting. But I might not know about all of the possible
+combinations here.
+
+Igor
 
