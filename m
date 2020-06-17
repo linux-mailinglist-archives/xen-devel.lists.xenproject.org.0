@@ -2,83 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 684051FD0DC
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 17:25:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F631FD135
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 17:48:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlZwN-0007VE-Bq; Wed, 17 Jun 2020 15:25:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jlaHC-0000kb-6a; Wed, 17 Jun 2020 15:46:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6J/g=76=kernel.org=maz@srs-us1.protection.inumbo.net>)
- id 1jlZwL-0007V9-H5
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 15:25:25 +0000
-X-Inumbo-ID: c3f5b130-b0ae-11ea-b7bb-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c3f5b130-b0ae-11ea-b7bb-bc764e2007e4;
- Wed, 17 Jun 2020 15:25:25 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 46C3C206FA;
- Wed, 17 Jun 2020 15:25:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592407524;
- bh=Nuuzrx+M5/FZDa6ziN9baR7HX4AUzdEo2YtwnRa2ulU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=KAP72ynht0+GaLrgI8S1n8pLj/YK4tOU57njEW4JN3NuatnGHlOv14qciYDOU7B/2
- QjK1buON5/0iROamO6itgsHICTJLESce3mdQqSbN+O3bUIGXYhCMLFAe4TyQjL2rLN
- TCMxI0UkUwKZmgWzZumrk5VnOohGifI54Xy53B3Y=
-Received: from disco-boy.misterjones.org ([51.254.78.96] helo=www.loen.fr)
- by disco-boy.misterjones.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <maz@kernel.org>)
- id 1jlZwI-003oaL-O3; Wed, 17 Jun 2020 16:25:22 +0100
+ (envelope-from <SRS0=RQSQ=76=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jlaHA-0000kW-So
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 15:46:56 +0000
+X-Inumbo-ID: c2d0a776-b0b1-11ea-b9f7-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c2d0a776-b0b1-11ea-b9f7-12813bfff9fa;
+ Wed, 17 Jun 2020 15:46:51 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B1CC5AB76;
+ Wed, 17 Jun 2020 15:46:54 +0000 (UTC)
+Subject: Re: [PATCH for-4.14] x86/hap: use get_gfn_type in
+ hap_update_paging_modes
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+References: <6a2ae3bae4a4ad32bc7caecd8af2655a76a9fb19.1592335579.git.tamas.lengyel@intel.com>
+ <a35d0df9-ca56-1d64-99a0-d2d744ab2186@suse.com>
+ <CABfawhnXg+-HZzOhVyYreQtc6BE1xAyS5rJdQkE+1QNZA=iOnw@mail.gmail.com>
+ <4b06e4f3-2b23-359a-9d80-c881016c0d91@suse.com>
+ <CABfawh=AkBQ6iCOdWpjGvyXykePc7wVC-SZEn13_=q+P-zW4JA@mail.gmail.com>
+ <47abe61b-76e1-4491-f539-60c427c2ffc8@suse.com>
+ <CABfawhki5+wv9cfivbxRhMurqYD4Ls4o5OUG9e-cV5SPzeG9jw@mail.gmail.com>
+ <17dab1c9-175a-3faa-3937-9102e09f72b0@suse.com>
+ <CABfawhk4N9MsjWqf87hPpyEHP27E=SpiHUSC+bVhAh4xW9-n8w@mail.gmail.com>
+ <15ff55e0-2b75-b1dd-9fa5-3b50f7aa8d9c@suse.com>
+ <CABfawhk=hk4qWjQQpamQO+EiZO=7=2j4_aezjr5a+YFmYfHjsw@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <fce071de-336e-ddf0-0513-f2357b1937e9@suse.com>
+Date: Wed, 17 Jun 2020 17:46:50 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+In-Reply-To: <CABfawhk=hk4qWjQQpamQO+EiZO=7=2j4_aezjr5a+YFmYfHjsw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Date: Wed, 17 Jun 2020 16:25:22 +0100
-From: Marc Zyngier <maz@kernel.org>
-To: CodeWiz2280 <codewiz2280@gmail.com>
-Subject: Re: Keystone Issue
-In-Reply-To: <CALYbLDhbRO=FeK21FLTMbt=eMciTW4hhjJUVhpmPUJ0D1ELeqA@mail.gmail.com>
-References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
- <CALYbLDhpwbHTrjDaNmfW81m5Fqt6HbfqoqbGDH1qUxxJtMBmEA@mail.gmail.com>
- <8C6A23AE-6C2B-411F-ACAD-F5574211E8ED@arm.com>
- <CALYbLDiOX0JW_=6AgAb+m5q++3WvQtivJRy+ePrp5pJXd7T9Vg@mail.gmail.com>
- <14244e49-e1ac-a29d-bbd9-bd4c202bf186@xen.org>
- <CALYbLDjCdDvwja1VoahJmnrKDfKyw7DNhYBBcmJv70QDA4+6Ag@mail.gmail.com>
- <77006AAF-BC3B-4C6E-BDFC-577CF87DE64E@arm.com>
- <CALYbLDheT8jWSAqJJZvvjzWGvygJaJ6UG7ejgpLLYeQB-tCsJA@mail.gmail.com>
- <CALYbLDjZu-YzqZPjCk785=4hpd3BRsoXeotd3ygESD_Ezm63Yg@mail.gmail.com>
- <99E77330-049F-4471-ABF9-13F9AB4E95B5@arm.com>
- <CALYbLDizxgaXJzhNVeKVZ6q-Hbttm1T+ZPP7f-1PDvi49VFOjA@mail.gmail.com>
- <alpine.DEB.2.21.2006080911500.2815@sstabellini-ThinkPad-T480s>
- <CALYbLDh8F0JuGmRY0C1Nhp_b4FP041KMa14pOmyoSBtHcz=A2A@mail.gmail.com>
- <363A05E0-61C6-4AE4-9C84-EEAC466989D8@arm.com>
- <b28cbead-c7ce-7848-4e21-109a022e64da@xen.org>
- <03607739-A4FF-486A-899A-F5F36870225A@arm.com>
- <2ec6255c-9d28-92e7-bd0a-59edb9fc078a@xen.org>
- <6033f9cecbf10f50f4a713ce52105426@kernel.org>
- <CAJ=z9a1k606A+sA467eY8iPuHnptMUFzxEFithpe=JKHogjt0g@mail.gmail.com>
- <CALYbLDjF8_eoNB_pSfbD73LkC3Ppyxpi0MxHgtS5y_wc-TVfzQ@mail.gmail.com>
- <4bab90465acfddae5868ce2311bd9889@kernel.org>
- <CALYbLDjNF5s2SXkunjJNv4x9jQAcDfoMBWp3WFHBkjnNdfT3Sg@mail.gmail.com>
- <bd3fade765bf21342a4ce6b952a5ca00@kernel.org>
- <CALYbLDhbRO=FeK21FLTMbt=eMciTW4hhjJUVhpmPUJ0D1ELeqA@mail.gmail.com>
-User-Agent: Roundcube Webmail/1.4.5
-Message-ID: <76414f25f6f1e9f27cfbe482d57d3cb1@kernel.org>
-X-Sender: maz@kernel.org
-X-SA-Exim-Connect-IP: 51.254.78.96
-X-SA-Exim-Rcpt-To: codewiz2280@gmail.com, julien.grall.oss@gmail.com,
- Bertrand.Marquis@arm.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org, nd@arm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,87 +57,91 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall.oss@gmail.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 2020-06-17 15:45, CodeWiz2280 wrote:
-> On Tue, Jun 16, 2020 at 2:23 PM Marc Zyngier <maz@kernel.org> wrote:
->> 
->> On 2020-06-16 19:13, CodeWiz2280 wrote:
->> > On Tue, Jun 16, 2020 at 4:11 AM Marc Zyngier <maz@kernel.org> wrote:
->> >>
->> >> On 2020-06-15 20:14, CodeWiz2280 wrote:
->> >>
->> >> [...]
->> >>
->> >> > Also, the latest linux kernel still has the X-Gene storm distributor
->> >> > address as "0x78010000" in the device tree, which is what the Xen code
->> >> > considers a match with the old firmware.  What were the addresses for
->> >> > the device tree supposed to be changed to?
->> >>
->> >> We usually don't care, as the GIC address is provided by the
->> >> bootloader,
->> >> whether via DT or ACPI (this is certainly what happens on Mustang).
->> >> Whatever is still in the kernel tree is just as dead as the platform
->> >> it
->> >> describes.
->> >>
->> >> > Is my understanding
->> >> > correct that there is a different base address required to access the
->> >> > "non-secure" region instead of the "secure" 0x78010000 region?  I'm
->> >> > trying to see if there are corresponding different addresses for the
->> >> > keystone K2E, but haven't found them yet in the manuals.
->> >>
->> >> There is no such address. Think of the NS bit as an *address space*
->> >> identifier.
->> >>
->> >> The only reason XGene presents the NS part of the GIC at a different
->> >> address is because XGene is broken enough not to have EL3, hence no
->> >> secure mode. To wire the GIC (and other standard ARM IPs) to the core,
->> >> the designers simply used the CPU NS signal as an address bit.
->> >>
->> >> On your platform, the NS bit does exist. I strongly suppose that it
->> >> isn't wired to the GIC. Please talk to your SoC vendor for whether iot
->> >> is possible to work around this.
->> >>
->> > I do have a question about this out to TI, but at least this method
->> > gives me something to work with in the meantime.  I was just looking
->> > to confirm that there wouldn't be any other undesirable side effects
->> > with Dom0 or DomU when using it.  Was there an actual FPGA for the
->> > X-Gene that needed to be updated which controlled the GIC access?  Or
->> > by firmware do you mean the boot loader (e.g. uboot).  Thanks for the
->> > support so far to all.
->> 
->> As I said, the specific case of XGene was just a matter of picking the
->> right address, as the NS bit is used as an address bit on this 
->> platform.
->> This was possible because this machine doesn't have any form of
->> security. So no HW was changed, no FPGA reprogrammed. Only a firmware
->> table was fixed to point to the right spot. Not even u-boot or EFI was
->> changed.
-> Ok, thank you for clarifying.  I have one more question if you don't
-> mind.  I'm aware that dom0 can share physical memory with dom1 via
-> grant tables.
-> However, is it possible to reserve a chunk of contiguous physical
-> memory and directly allocate it only to dom1?
-> For example, if I wanted dom1 to have access to 8MB of contiguous
-> memory at 0x8200_0000 (in addition to whatever virtual memory Xen
-> gives it).
-> How would one go about doing this on ARM?  Is there something in the
-> guest config or device tree that can be set?  Thanks for you help.
+On 17.06.2020 16:49, Tamas K Lengyel wrote:
+> On Wed, Jun 17, 2020 at 8:24 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 17.06.2020 15:43, Tamas K Lengyel wrote:
+>>> On Wed, Jun 17, 2020 at 7:36 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>
+>>>> On 17.06.2020 15:31, Tamas K Lengyel wrote:
+>>>>> On Wed, Jun 17, 2020 at 7:28 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>
+>>>>>> On 17.06.2020 15:21, Tamas K Lengyel wrote:
+>>>>>>> On Wed, Jun 17, 2020 at 7:04 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>>>
+>>>>>>>> On 17.06.2020 15:00, Tamas K Lengyel wrote:
+>>>>>>>>> On Wed, Jun 17, 2020 at 3:59 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>>>>> If there are code paths of both kinds, which approach to use in
+>>>>>>>>>> vmx_load_pdptrs() may need to be chosen based on what
+>>>>>>>>>> paging_locked_by_me() returns. Or perhaps an unlocked query is
+>>>>>>>>>> fine in either case?
+>>>>>>>>>
+>>>>>>>>> Perhaps adjusting vmx_load_pdptrs to chose the unlocked query would be
+>>>>>>>>> fine. But at that point what is the reason for having the lock
+>>>>>>>>> ordering at all? Why not just have a single recursive lock and avoid
+>>>>>>>>> issues like this altogether?
+>>>>>>>>
+>>>>>>>> With just a single lock, contention problems we already know we
+>>>>>>>> have would be even worse. When the current locking model was
+>>>>>>>> introduced, there was actually a plan to make gfn_lock() more
+>>>>>>>> fine-grained (i.e. not simply "de-generate" to p2m_lock()), for
+>>>>>>>> example.
+>>>>>>>
+>>>>>>> Sigh. Well, I've been checking and adjust vmx_load_pdptrs to use an
+>>>>>>> unlocked query doesn't seem as straightforward because, well, there is
+>>>>>>> no unlocked version of p2m_get_page_from_gfn which would also do the
+>>>>>>> "fixups".
+>>>>>>
+>>>>>> Which fixups do we need here, in particular? Of course, whenever
+>>>>>> any fixups get done, the operation can't be lock-less.
+>>>>>>
+>>>>>>> What seems redundant to me though is that
+>>>>>>> hap_update_paging_modes takes both the p2m_lock via get_gfn PLUS the
+>>>>>>> paging_lock. Does it really need to take the paging_lock?
+>>>>>>
+>>>>>> From mm-locks.h's comments:
+>>>>>>
+>>>>>>  * For HAP, it protects the NPT/EPT tables and mode changes.
+>>>>>
+>>>>> We do the population of the EPT as part of fork_page() if there was a
+>>>>> hole in the p2m when the query was issued using P2M_ALLOC (or
+>>>>> P2M_UNSHARE). I checked and without the paging lock held it throws up
+>>>>> at hap_alloc's ASSERT.. So yea, currently I don't think we have a
+>>>>> better route then what I currently sent in.
+>>>>
+>>>> You didn't answer my question regarding the "fixups" needed, so
+>>>> for the moment it's not clear to me yet whether indeed there's
+>>>> no better way.
+>>>
+>>> Umm, I did. The fixups entail populating the EPT from the parent as I
+>>> described above.
+>>
+>> Isn't this taken care of by the new call to get_gfn_type() which you add?
+>> As said before, I think at the point we want to obtain the PDPTs all
+>> other adjustments and arrangements should have been done already, by
+>> higher layers. This code should have no need to do anything beyond a
+>> simple lookup.
+> 
+> I don't really know what else to say. There are multiple paths leading
+> to vmx_load_pdptrs, some take the paging_lock while some don't. In
+> this particular case we can do the fixups earlier as I do in this
+> patch because there happens to be a lookup before the paging_lock is
+> taken but in other cases there isn't such a route so removing
+> P2M_UNSHARE from vmx_load_pdptrs is not an option.
 
-That's a question for someone who understands Xen (KVM maintainer here, 
-sorry).
+I disagree (because such missing unshare requests could be put
+elsewhere), but let me ask another question then: Why is it that
+vmx_load_pdptrs() needs to unshare? The function only reads from
+the page. Even if the page's content changed later on, we wouldn't
+care, as there's no coherence of the PDPTRs once loaded.
 
-My hunch is that you could simply represent this memory as a device, and 
-map that "device" into the guest. You'd still need Xen to give you the 
-right memory attributes so that you can map it cacheable at Stage-1.
-
-         M.
--- 
-Jazz is not dead. It just smells funny...
+Jan
 
