@@ -2,53 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76FAE1FC900
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 10:39:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4084C1FC905
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 10:39:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlTb7-0003GD-My; Wed, 17 Jun 2020 08:39:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jlTbp-0003Ju-0o; Wed, 17 Jun 2020 08:39:49 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jIsh=76=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jlTb6-0003G8-Tz
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 08:39:04 +0000
-X-Inumbo-ID: ffb3fe54-b075-11ea-b9a8-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ffb3fe54-b075-11ea-b9a8-12813bfff9fa;
- Wed, 17 Jun 2020 08:39:04 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: rXJCpYrqKVrAxeK/HGufl69LKC4pcQTcUUGZYB534dwGmUxVSqjN+x/504zNn9i+YPShSGKfW0
- U0QMIZHnITxsotA99KOFT6OeNi8ZZ1m2L7oXIXDGt902t7cD4K5WSO+YP/COJ+vMNSTSziyGu7
- HNftc9oo9lXvpx57ycrXBxaltImFbOK3Us6eexDysElhroEjtq8q7fatJV8B7YHjav9ncYU2JC
- 6yWJiQKYqhQurhE6bspELNnpxxK4ZszRp06jGIM0AlVuGxTyJg6YOrknOiMVmGXdVj9Ks/74SW
- yzE=
-X-SBRS: 2.7
-X-MesageID: 20246153
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,522,1583211600"; d="scan'208";a="20246153"
-Date: Wed, 17 Jun 2020 10:38:50 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anchal Agarwal <anchalag@amazon.com>
-Subject: Re: [PATCH 06/12] xen-blkfront: add callbacks for PM suspend and
- hibernation]
-Message-ID: <20200617083850.GX735@Air-de-Roger>
-References: <7FD7505E-79AA-43F6-8D5F-7A2567F333AB@amazon.com>
- <20200604070548.GH1195@Air-de-Roger>
- <20200616214925.GA21684@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200616223003.GA28769@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <SRS0=c7kS=76=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jlTbn-0003J6-0u
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 08:39:47 +0000
+X-Inumbo-ID: 18e58cc6-b076-11ea-bca7-bc764e2007e4
+Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 18e58cc6-b076-11ea-bca7-bc764e2007e4;
+ Wed, 17 Jun 2020 08:39:46 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id g10so1007247wmh.4
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2020 01:39:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=+wdC9mW3JSrWfdn3V4wPeinzlJyZ8c3Jf3+qdLTGosI=;
+ b=FT5/HfzHHgg2TwcVBJ/08E6KZRbX4wHUg8PPwIxtSUQcZ3eWONSvIxmv6faKMmaYMY
+ Wn3wk64gwz5Ru+Gbm259jzZuKyCU6ManqaqEExqE6A9mboYh0mTNrY+ABOJ0GA32yHxr
+ Og31o8FPzWK8inNSUpXxhnsVUDgQxOOZMHk1RpaxmPBYGrsxpFetfFsMDUaB/YN0TSiE
+ 6C+KlBG87QQraTUf8q5iIV9MFu8EVnLihCdIYnoZOQlin7hEO0U6LJXwygaXQq6edGoQ
+ C54GYTKkzyZK1TtiNymzUzYicGOyDGZqf08VAykNbOxVTOb7sBKMpqfCCuVE5Y6bsrsz
+ C3Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=+wdC9mW3JSrWfdn3V4wPeinzlJyZ8c3Jf3+qdLTGosI=;
+ b=H/QatnBi0rfk/UPxMxJ20b6EFCtMHdJ/2NWq2EQlTmNoGGbXYVff+8CucnW8zAGlN2
+ rzjp9LYO/r+PrzwHE24iYk6+S8uhcE4x6e8+INJNhGO5q0y5+BNYOjkcn1dI0cX1zWts
+ e5HHpxExCRvWaBscC6CQ/vKBC5dmTFVdTHu2qac3SQ+3BsiQ/oILOmw0mmPmZvjkRI58
+ 7YxSUYZ9okibRUq0WyPYl9+cRAtCvpCTPFiTxqJHld6jHCt6bohg/mhyfrR9tZXtGBBj
+ 1ysY1Uigr15tKEAkhIiIr2GrbLXnUyvS61rjBYwcpzaJ3W6KXVo25aY1RtODzT6EG5B6
+ n9nQ==
+X-Gm-Message-State: AOAM533Vsjtx/eEddg+EFIImoIP30u55P1hG5Uf2Wv8+At4dvrSEf6A4
+ vEeFUZxFl2zYBDCSZ7dQZYk=
+X-Google-Smtp-Source: ABdhPJyCl2D1rgnxUWSlyoAhU4WIeJGpGNIxu1nPmBqdBfpkJFANSFEdvywjqyubBzyX/Df3bIa5WQ==
+X-Received: by 2002:a1c:6884:: with SMTP id d126mr7371345wmc.121.1592383185461; 
+ Wed, 17 Jun 2020 01:39:45 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.187])
+ by smtp.gmail.com with ESMTPSA id g19sm7037742wmh.29.2020.06.17.01.39.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 17 Jun 2020 01:39:45 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Igor Druzhinin'" <igor.druzhinin@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+References: <1592360353-31231-1-git-send-email-igor.druzhinin@citrix.com>
+In-Reply-To: <1592360353-31231-1-git-send-email-igor.druzhinin@citrix.com>
+Subject: RE: [PATCH for-4.14 v3] tools/xen-ucode: return correct exit code on
+ failed microcode update
+Date: Wed, 17 Jun 2020 09:39:43 +0100
+Message-ID: <005b01d64482$da189650$8e49c2f0$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200616223003.GA28769@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGeNywcRe2CjUFC+SqYd4wUtfCSSqlMlzSQ
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,92 +78,103 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Valentin, Eduardo" <eduval@amazon.com>,
- "len.brown@intel.com" <len.brown@intel.com>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
- "x86@kernel.org" <x86@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "pavel@ucw.cz" <pavel@ucw.cz>, "hpa@zytor.com" <hpa@zytor.com>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>, "Kamata,
- Munehisa" <kamatam@amazon.com>, "mingo@redhat.com" <mingo@redhat.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Singh,
- Balbir" <sblbir@amazon.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "bp@alien8.de" <bp@alien8.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "jgross@suse.com" <jgross@suse.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "vkuznets@redhat.com" <vkuznets@redhat.com>,
- "davem@davemloft.net" <davem@davemloft.net>, "Woodhouse,
- David" <dwmw@amazon.co.uk>
+Reply-To: paul@xen.org
+Cc: ian.jackson@eu.citrix.com, xadimgnik@gmail.com, wl@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 16, 2020 at 10:30:03PM +0000, Anchal Agarwal wrote:
-> On Tue, Jun 16, 2020 at 09:49:25PM +0000, Anchal Agarwal wrote:
-> > On Thu, Jun 04, 2020 at 09:05:48AM +0200, Roger Pau Monné wrote:
-> > > On Wed, Jun 03, 2020 at 11:33:52PM +0000, Agarwal, Anchal wrote:
-> > > >     On Tue, May 19, 2020 at 11:27:50PM +0000, Anchal Agarwal wrote:
-> > > >     > From: Munehisa Kamata <kamatam@amazon.com>
-> > > >     > +             xenbus_dev_error(dev, err, "Freezing timed out;"
-> > > >     > +                              "the device may become inconsistent state");
-> > > >
-> > > >     Leaving the device in this state is quite bad, as it's in a closed
-> > > >     state and with the queues frozen. You should make an attempt to
-> > > >     restore things to a working state.
-> > > >
-> > > > You mean if backend closed after timeout? Is there a way to know that? I understand it's not good to
-> > > > leave it in this state however, I am still trying to find if there is a good way to know if backend is still connected after timeout.
-> > > > Hence the message " the device may become inconsistent state".  I didn't see a timeout not even once on my end so that's why
-> > > > I may be looking for an alternate perspective here. may be need to thaw everything back intentionally is one thing I could think of.
-> > > 
-> > > You can manually force this state, and then check that it will behave
-> > > correctly. I would expect that on a failure to disconnect from the
-> > > backend you should switch the frontend to the 'Init' state in order to
-> > > try to reconnect to the backend when possible.
-> > > 
-> > From what I understand forcing manually is, failing the freeze without
-> > disconnect and try to revive the connection by unfreezing the
-> > queues->reconnecting to backend [which never got diconnected]. May be even
-> > tearing down things manually because I am not sure what state will frontend
-> > see if backend fails to to disconnect at any point in time. I assumed connected.
-> > Then again if its "CONNECTED" I may not need to tear down everything and start
-> > from Initialising state because that may not work.
-> > 
-> > So I am not so sure about backend's state so much, lets say if  xen_blkif_disconnect fail,
-> > I don't see it getting handled in the backend then what will be backend's state?
-> > Will it still switch xenbus state to 'Closed'? If not what will frontend see, 
-> > if it tries to read backend's state through xenbus_read_driver_state ?
-> > 
-> > So the flow be like:
-> > Front end marks XenbusStateClosing
-> > Backend marks its state as XenbusStateClosing
-> >     Frontend marks XenbusStateClosed
-> >     Backend disconnects calls xen_blkif_disconnect
-> >        Backend fails to disconnect, the above function returns EBUSY
-> >        What will be state of backend here? 
-> >        Frontend did not tear down the rings if backend does not switches the
-> >        state to 'Closed' in case of failure.
-> > 
-> > If backend stays in CONNECTED state, then even if we mark it Initialised in frontend, backend
-> > won't be calling connect(). {From reading code in frontend_changed}
-> > IMU, Initialising will fail since backend dev->state != XenbusStateClosed plus
-> > we did not tear down anything so calling talk_to_blkback may not be needed
-> > 
-> > Does that sound correct?
-> Send that too quickly, I also meant to add XenBusIntialised state should be ok
-> only if we expect backend will stay in "Connected" state. Also, I experimented
-> with that notion. I am little worried about the correctness here. 
-> Can the backend  come to an Unknown state somehow?
+> -----Original Message-----
+> From: Igor Druzhinin <igor.druzhinin@citrix.com>
+> Sent: 17 June 2020 03:19
+> To: xen-devel@lists.xenproject.org
+> Cc: ian.jackson@eu.citrix.com; wl@xen.org; xadimgnik@gmail.com; Igor Druzhinin
+> <igor.druzhinin@citrix.com>
+> Subject: [PATCH for-4.14 v3] tools/xen-ucode: return correct exit code on failed microcode update
+> 
+> Otherwise it's difficult to know if operation failed inside the automation.
+> 
+> While at it, also switch to returning 1 and 2 instead of errno to avoid
+> incompatibilies between errno and special exit code numbers.
+> 
+> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
 
-Not really, there's no such thing as an Unknown state.
+Reviewed-by: Paul Durrant <paul@xen.org>
+Release-acked-by: Paul Durrant <paul@xen.org>
 
-There are no guarantees about what a backend can do really, so it
-could indeed switch to a not recognized state, but that would be a
-bug in the backend.
+> ---
+> Changes in v3:
+> - conventionally return 1 and 2 instead of errno as exit code
+> ---
+>  tools/misc/xen-ucode.c | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
+> 
+> diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
+> index 0c257f4..ad32fac 100644
+> --- a/tools/misc/xen-ucode.c
+> +++ b/tools/misc/xen-ucode.c
+> @@ -25,7 +25,7 @@ int main(int argc, char *argv[])
+>          fprintf(stderr,
+>                  "xen-ucode: Xen microcode updating tool\n"
+>                  "Usage: %s <microcode blob>\n", argv[0]);
+> -        return 0;
+> +        exit(2);
+>      }
+> 
+>      filename = argv[1];
+> @@ -34,14 +34,14 @@ int main(int argc, char *argv[])
+>      {
+>          fprintf(stderr, "Could not open %s. (err: %s)\n",
+>                  filename, strerror(errno));
+> -        return errno;
+> +        exit(1);
+>      }
+> 
+>      if ( fstat(fd, &st) != 0 )
+>      {
+>          fprintf(stderr, "Could not get the size of %s. (err: %s)\n",
+>                  filename, strerror(errno));
+> -        return errno;
+> +        exit(1);
+>      }
+> 
+>      len = st.st_size;
+> @@ -49,7 +49,7 @@ int main(int argc, char *argv[])
+>      if ( buf == MAP_FAILED )
+>      {
+>          fprintf(stderr, "mmap failed. (error: %s)\n", strerror(errno));
+> -        return errno;
+> +        exit(1);
+>      }
+> 
+>      xch = xc_interface_open(NULL, NULL, 0);
+> @@ -57,20 +57,23 @@ int main(int argc, char *argv[])
+>      {
+>          fprintf(stderr, "Error opening xc interface. (err: %s)\n",
+>                  strerror(errno));
+> -        return errno;
+> +        exit(1);
+>      }
+> 
+>      ret = xc_microcode_update(xch, buf, len);
+>      if ( ret )
+> +    {
+>          fprintf(stderr, "Failed to update microcode. (err: %s)\n",
+>                  strerror(errno));
+> +        exit(1);
+> +    }
+> 
+>      xc_interface_close(xch);
+> 
+>      if ( munmap(buf, len) )
+>      {
+>          printf("Could not unmap: %d(%s)\n", errno, strerror(errno));
+> -        return errno;
+> +        exit(1);
+>      }
+>      close(fd);
+> 
+> --
+> 2.7.4
 
-Roger.
+
 
