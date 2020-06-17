@@ -2,56 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E181FD1E8
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 18:23:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4194D1FD1F5
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 18:28:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlaqN-0004pv-8f; Wed, 17 Jun 2020 16:23:19 +0000
+	id 1jlauk-0004yR-RU; Wed, 17 Jun 2020 16:27:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VBsC=76=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jlaqM-0004pp-1t
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 16:23:18 +0000
-X-Inumbo-ID: d97c3ff8-b0b6-11ea-bb8b-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qFwG=76=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jlaui-0004yM-TA
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 16:27:48 +0000
+X-Inumbo-ID: 7ac7fa32-b0b7-11ea-bb8b-bc764e2007e4
+Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d97c3ff8-b0b6-11ea-bb8b-bc764e2007e4;
- Wed, 17 Jun 2020 16:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=qmp7KriPlTNX+dbyIsz4SSI8efFYX5h0yhnkAvyhYpU=; b=46RT7xRBZ6b5k4OQHzTxiXw21J
- GeU3XgZ0qBs+6D0TMlhhLnx3WT3VG37CWUciZNccX5o9IpzPBfssgzzYU9R93soTSfYrog0rmLwrE
- N1K4UDuPMwfCUtejskYBubQROz6ka9qrawQOcL01b2wkMX0BRbF6bza7afM92zk/rzYY=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jlaqE-0007UR-28; Wed, 17 Jun 2020 16:23:10 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jlaqD-0004Or-RZ; Wed, 17 Jun 2020 16:23:09 +0000
-Subject: Re: [PATCH 1/2] xen/arm: entry: Place a speculation barrier following
- an ret instruction
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <20200616175913.7368-1-julien@xen.org>
- <20200616175913.7368-2-julien@xen.org>
- <alpine.DEB.2.21.2006161422240.24982@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <57696b4d-da83-a4d6-4d82-41a6f6c9174c@xen.org>
-Date: Wed, 17 Jun 2020 17:23:07 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
+ id 7ac7fa32-b0b7-11ea-bb8b-bc764e2007e4;
+ Wed, 17 Jun 2020 16:27:47 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id b82so2463558wmb.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2020 09:27:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=YXHpOWeBQgiev/hCsiOwbuwRn+k6Vqsq5BwuVxCq3Uo=;
+ b=Y7ujb9RZhct+nG4S8T0s77cZDkh3a5cFVT/MSM4+i4NOUBmP30hSnnFqWENt2AEE5R
+ 2ufDBn6RBc9gT8t3Mv3A9j6xygppOOttIuYQOLigTVV7n1Qwa8UftYFg9E/l6FDYYMb8
+ YPBVkMe1aU7yXNpKmBEjyVSCKY/a7XBHlUlDtgtyI8ApSy9Amm2+V9cpEtah4oYMNOHC
+ Ic3MTjOU1oeOXPyHLP7evvQBWbijp7ZuQHSMRPsrLACtqf+185exYAdb+ms92VH17exR
+ Gnj9n5a0yNaikJVSzDRqGdKDkj+6bEVbUnSZxUSpFCQ7fnLIdCOWvz94XiZXYAmo6mSA
+ RjpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=YXHpOWeBQgiev/hCsiOwbuwRn+k6Vqsq5BwuVxCq3Uo=;
+ b=NZ7hU1zgcQthK9RG6exHHYC0Oyedqn/B0Y7Ko5PmdPuQIwiqKW1BT58euLIRvfJm5w
+ YvFZ+r62sLTJzOsKOq/RjDNImVNmhkXCQ10o1M8WKk+Ee9rRGRpD+6fg7pt3CKo3MQ2n
+ uIKSYVb0K3kgPTq6/ODkhAOUt+d/PwZ/d8UgF/ABvGiCACxps2+3V5C3633yM6OMhLMm
+ myMHKl5qREb/c+tWnkyzwSwmwSNovyQ+AXvUPVb0tTlrVo/hMLO9tH7/yPONQ4/NblTa
+ unlA8XNpKR1gFI6T9yEXa4RvcG7o//A+euRuHA1g25rgU7PMCxKCLzirD5LADStyFeh1
+ Hzlw==
+X-Gm-Message-State: AOAM5312tT7RVCY3elNZOzf2dkn8fYIFD28TKGZO+RCSO5/DYRjlMZoY
+ YNVysW9IF8M+HmmjunJz6639mO1IFyI1yyuIsoI=
+X-Google-Smtp-Source: ABdhPJwi3HCwBtuMe6WgdWn+DmQtRl2xUBTJAxTg46wXu4g6dc/YJZ9mCMnfJA7rVb/Mu2XWZ7xn8sW7mY1sehsLiaQ=
+X-Received: by 2002:a1c:23d2:: with SMTP id j201mr9371658wmj.186.1592411266824; 
+ Wed, 17 Jun 2020 09:27:46 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2006161422240.24982@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
+ <cb530abc-bef6-23b9-86d8-f43167e14736@citrix.com>
+ <1555629278.8787770.1592333278517.JavaMail.zimbra@cert.pl>
+ <d4e37559-bf23-36a4-41d9-a6a8bfc84ac3@citrix.com>
+ <CABfawhnhLKEhJFqyH97YFNiHX6vNoLDR4x52gnaNK_5B1VyWOA@mail.gmail.com>
+ <6da28899-25ae-7355-fa0a-70fac44f597e@citrix.com>
+In-Reply-To: <6da28899-25ae-7355-fa0a-70fac44f597e@citrix.com>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Wed, 17 Jun 2020 10:27:10 -0600
+Message-ID: <CABfawhn3UsLo_Ffe4C47Po+gCCChGXnH6ghENSNTY3OwqnBjUg@mail.gmail.com>
+Subject: Re: [PATCH v1 0/7] Implement support for external IPT monitoring
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,63 +71,149 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: paul@xen.org, Andre.Przywara@arm.com, Julien Grall <jgrall@amazon.com>,
- Bertrand.Marquis@arm.com, security@xenproject.org,
- xen-devel@lists.xenproject.org, Volodymyr_Babchuk@epam.com
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?B?TWljaGHFgiBMZXN6Y3p5xYRza2k=?= <michal.leszczynski@cert.pl>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+On Wed, Jun 17, 2020 at 10:19 AM Andrew Cooper
+<andrew.cooper3@citrix.com> wrote:
+>
+> On 17/06/2020 04:02, Tamas K Lengyel wrote:
+> > On Tue, Jun 16, 2020 at 2:17 PM Andrew Cooper <andrew.cooper3@citrix.co=
+m> wrote:
+> >> On 16/06/2020 19:47, Micha=C5=82 Leszczy=C5=84ski wrote:
+> >>> ----- 16 cze 2020 o 20:17, Andrew Cooper andrew.cooper3@citrix.com na=
+pisa=C5=82(a):
+> >>>
+> >>>> Are there any restrictions on EPT being enabled in the first place? =
+ I'm
+> >>>> not aware of any, and in principle we could use this functionality f=
+or
+> >>>> PV guests as well (using the CPL filter).  Therefore, I think it wou=
+ld
+> >>>> be helpful to not tie the functionality to HVM guests, even if that =
+is
+> >>>> the only option enabled to start with.
+> >>> I think at the moment it's not required to have EPT. This patch serie=
+s doesn't use any translation feature flags, so the output address is alway=
+s a machine physical address, regardless of context. I will check if it cou=
+ld be easily used with PV.
+> >> If its trivial to add PV support then please do.  If its not, then don=
+'t
+> >> feel obliged, but please do at least consider how PV support might loo=
+k
+> >> in the eventual feature.
+> >>
+> >> (Generally speaking, considering "how would I make this work in other
+> >> modes where it is possible" leads to a better design.)
+> >>
+> >>>> The buffer mapping and creation logic is fairly problematic.  Instea=
+d of
+> >>>> fighting with another opencoded example, take a look at the IOREQ
+> >>>> server's use of "acquire resource" which is a mapping interface whic=
+h
+> >>>> supports allocating memory on behalf of the guest, outside of the gu=
+est
+> >>>> memory, for use by control tools.
+> >>>>
+> >>>> I think what this wants is a bit somewhere in domain_create to indic=
+ate
+> >>>> that external tracing is used for this domain (and allocate whatever
+> >>>> structures/buffers are necessary), acquire resource to map the buffe=
+rs
+> >>>> themselves, and a domctl for any necessary runtime controls.
+> >>>>
+> >>> I will check this out, this sounds like a good option as it would rem=
+ove lots of complexity from the existing ipt_enable domctl.
+> >> Xen has traditionally opted for a "and turn this extra thing on
+> >> dynamically" model, but this has caused no end of security issues and
+> >> broken corner cases.
+> >>
+> >> You can see this still existing in the difference between
+> >> XEN_DOMCTL_createdomain and XEN_DOMCTL_max_vcpus, (the latter being
+> >> required to chose the number of vcpus for the domain) and we're making
+> >> good progress undoing this particular wart (before 4.13, it was
+> >> concerning easy to get Xen to fall over a NULL d->vcpu[] pointer by
+> >> issuing other hypercalls between these two).
+> >>
+> >> There is a lot of settings which should be immutable for the lifetime =
+of
+> >> the domain, and external monitoring looks like another one of these.
+> >> Specifying it at createdomain time allows for far better runtime
+> >> behaviour (you are no longer in a situation where the first time you t=
+ry
+> >> to turn tracing on, you end up with -ENOMEM because another VM booted =
+in
+> >> the meantime and used the remaining memory), and it makes for rather
+> >> more simple code in Xen itself (at runtime, you can rely on it having
+> >> been set up properly, because a failure setting up will have killed th=
+e
+> >> domain already).
+> > I'm not in favor of this being a flag that gets set during domain
+> > creation time. It could certainly be the case that some users would
+> > want this being on from the start till the end but in other cases you
+> > may want to enable it intermittently only for some time in-between
+> > particular events. If it's an on/off flag during domain creation you
+> > pretty much force that choice on the users and while the overhead of
+> > PT is better than say MTF it's certainly not nothing. In case there is
+> > an OOM situation enabling IPT dynamically the user can always just
+> > pause the VM and wait till memory becomes available.
+>
+> There is nothing wrong with having "turn tracing on/off at runtime"
+> hypercalls.  It is specifically what I suggested two posts up in this
+> thread, but it should be limited to the TraceEn bit in RTIT_CTL.
+>
+> What isn't ok is trying to allocate the buffers, write the TOPA, etc on
+> first-enable or first-map, because the runtime complexity of logic like
+> this large, and far too easy to get wrong in security relevant ways.
+>
+> The domain create flag would mean "I wish to use tracing with this
+> domain", and not "I want tracing enabled from the getgo".
 
-On 16/06/2020 22:24, Stefano Stabellini wrote:
-> On Tue, 16 Jun 2020, Julien Grall wrote:
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Some CPUs can speculate past a RET instruction and potentially perform
->> speculative accesses to memory before processing the return.
->>
->> There is no known gadget available after the RET instruction today.
->> However some of the registers (such as in check_pending_guest_serror())
->> may contain a value provided the guest.
->                                ^ by
-> 
-> 
->> In order to harden the code, it would be better to add a speculation
->> barrier after each RET instruction. The performance is meant to be
->> negligeable as the speculation barrier is not meant to be archicturally
->> executed.
->>
->> Note that on arm32, the ldmia instruction will act as a return from the
->> function __context_switch(). While the whitepaper doesn't suggest it is
->> possible to speculate after the instruction, add preventively a
->> speculation barrier after it as well.
->>
->> This is part of the work to mitigate straight-line speculation.
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> I did a compile-test on the patch too.
-> 
-> 
->> ---
->>
->> I am still unsure whether we preventively should add a speculation barrier
->> preventively after all the RET instructions in arm*/lib/. The smc call be
->> taken care in a follow-up patch.
-> 
-> SMC is great to have but it seems to be overkill to do the ones under
-> lib/.
- From my understanding, the compiler will add a speculation barrier 
-preventively after each 'ret' when the mitigation are turned on.So it 
-feels to me we want to follow the same approach.
+Gotcha, that's reasonable.
 
-Obviously, we can avoid them but I would like to have a justification 
-for not adding them (nothing is overkilled against speculation ;)).
+>
+> >>>> What semantics do you want for the buffer becoming full?  Given that
+> >>>> debugging/tracing is the goal, I presume "pause vcpu on full" is the
+> >>>> preferred behaviour, rather than drop packets on full?
+> >>>>
+> >>> Right now this is a ring-style buffer and when it would become full i=
+t would simply wrap and override the old data.
+> >> How does the consumer spot that the data has wrapped?  What happens if
+> >> data starts getting logged, but noone is listening?  What happens if t=
+he
+> >> consumer exits/crashes/etc and stops listening as a consequence?
+> >>
+> >> It's fine to simply state what will happen, and possibly even "don't d=
+o
+> >> that then", but the corner cases do at least need thinking about.
+> > AFAIU the current use-case is predominantly to be used in conjunction
+> > with VMI events where you want to be able to see the trace leading up
+> > to a particular vmexit. So in the case when the buffer is wrapped
+> > in-between events and data is lost that's not really of concern.
+>
+> That's all fine.  I imagine the output here is voluminous, and needs
+> help being cut down as much as possible.
+>
+> On a tangent, I presume you'd like to include VM-fork eventually, which
+> ought to include copying the trace buffer on fork?
 
-Cheers,
+I would eventually like to use it to reconstruct the branch history so
+we can update AFL's coverage map with that instead of having to do the
+current breakpoint-singlestep dance. But for that I would only care
+about the trace starting after the fork, so copying the parent's PT
+buffer is not needed. We'll also probably only use PT if the branch
+history is larger than what LBR can hold. I asked Michal to name the
+hypercall interface "vmtrace" for this reason so we can add other
+stuff like LBR later using the same interface (which I already
+implemented in https://github.com/tklengyel/xen/commits/lbr).
 
--- 
-Julien Grall
+Tamas
 
