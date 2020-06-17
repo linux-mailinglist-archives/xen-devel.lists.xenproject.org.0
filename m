@@ -2,77 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22E351FC877
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 10:22:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2C551FC87A
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 10:24:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlTK3-00022X-Kd; Wed, 17 Jun 2020 08:21:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jlTMP-0002AF-2J; Wed, 17 Jun 2020 08:23:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c7kS=76=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jlTK1-00022S-VD
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 08:21:26 +0000
-X-Inumbo-ID: 88aaa8fa-b073-11ea-bb8b-bc764e2007e4
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 88aaa8fa-b073-11ea-bb8b-bc764e2007e4;
- Wed, 17 Jun 2020 08:21:25 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id c3so1296075wru.12
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2020 01:21:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=XX6vOBkl7CUdr6Wcaym4pJD64r/uqplNd2RI5rA9oSc=;
- b=EuPnKvEqo+oH61QcsQjIc0VIG3SXtkA33gZcHHY6FmJbfQ2CzOyacZXldO9tb8NO9F
- FIJuaGgfgxeFIuof6LXF+f3TJy7vjhVWW8MkLQnju+PBE50kSqP43h1G4up9zsOuxKeP
- buuYkLC9S1dPei1EXduL9VNyIll3XXFPPvEDT1vu1AeQ7qxKp5dVDaaXDhItCTMaqBsc
- DtZxFGLg54lLyG2yH+qaNS/VMkjA5JGKFxyw8w2cRBP97Aim9UJq+1UUX8J5ovBIHyAE
- h/Leebj7CATHQ1x6EAqhJ0yWmibzuNu5Y6aC47seTqy8APAXUgGpq4VKK7hPGyzb6t75
- 7Mnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=XX6vOBkl7CUdr6Wcaym4pJD64r/uqplNd2RI5rA9oSc=;
- b=iClrspZRSzlHa1bAymVn14XILlQWk5Fd7XjBrrTvM/7NjFhzINf/aaJ6364CG/lnSp
- h16wp7RgQZzupC+CM7YQFxcM/XTVGUOUMYHBgqxAmn9j+Ypf/pS81QRMVcTaOZIpp08P
- INpTQVsF6BwMBNYUAtqNTVlDBlTaXJONiOQUVxrwktEI62aB61FObOrEUgECZnRzy0gC
- GwAhW90BYV/ubIJqg2eKKnliYr/49Yrj8IveQa+wVrdHABbmAo43TodgZBRDFJ+hDCPs
- t39iBU7f/0ZNnVYskiATYypq5uYMubB8gafFbP1cdRyBkOhNbxDywj8H2fWLWzRxFH+4
- 12SA==
-X-Gm-Message-State: AOAM531/z0v7C2BkDcYTdcMJOAk+2m4YsDkX9lOi4wmYXU8qtDCJKFiX
- kkQruKRPD0C869CZtvDSQVQ=
-X-Google-Smtp-Source: ABdhPJxyB7EhBRYOrz2iKOlOGnX8miyPVZxveDRPJ2X9Fjf4UDeze5XGZHpREWRHM8YBNENtC7vrRA==
-X-Received: by 2002:adf:f7ce:: with SMTP id a14mr7082462wrq.362.1592382084539; 
- Wed, 17 Jun 2020 01:21:24 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id z12sm35480067wrg.9.2020.06.17.01.21.23
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 17 Jun 2020 01:21:23 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Christopher Clark'" <christopher.w.clark@gmail.com>,
- "'Olaf Hering'" <olaf@aepfle.de>
-References: <20200608203849.18341-1-olaf@aepfle.de>
- <005001d63e3b$c85059f0$58f10dd0$@xen.org>
- <20200609121549.GA90841@deinos.phlegethon.org>
- <20200609152233.039cfc86.olaf@aepfle.de>
- <20200610191657.GA69414@deinos.phlegethon.org>
- <20200611211004.11e38f8f.olaf@aepfle.de>
- <CACMJ4Ga2oO94kXw2NVdRQb=dOZ9kqZRgDLkrE630D3RFTMoYQg@mail.gmail.com>
-In-Reply-To: <CACMJ4Ga2oO94kXw2NVdRQb=dOZ9kqZRgDLkrE630D3RFTMoYQg@mail.gmail.com>
-Subject: RE: [PATCH v1] kdd: remove zero-length arrays
-Date: Wed, 17 Jun 2020 09:21:22 +0100
-Message-ID: <005a01d64480$49ce0730$dd6a1590$@xen.org>
+ <SRS0=jIsh=76=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jlTMN-0002A8-Pc
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 08:23:51 +0000
+X-Inumbo-ID: df7280ea-b073-11ea-b9a7-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id df7280ea-b073-11ea-b9a7-12813bfff9fa;
+ Wed, 17 Jun 2020 08:23:51 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Yf04g/K2zQAYOiVFaYAWop5x5T9/Z1/Nc2LsWVgFWbfIeKdAYXwSJfdO0m13ailsvE3Rh4R8fN
+ r7F2DZwY8Z/ym37F4zvK7t7V7X1dihwq4vuZs/7QGxxO5k3VdMA8zxr4bRwhKBwNprmFT7CfRM
+ Oh1vdPfdwh5jfAcvNFSAvrLb7LUmwiq8IIFTsai/eyHbv8Q6KcBbXug4gmVEI5M8XxFXanYT5T
+ z8DwkSbz9CYhC/+x4PcDMzJWZWFLgtZS5hIM7JNBMjlFeoAFfvF8+80/B8IciDVjbV+M4oKl6Y
+ +Rs=
+X-SBRS: 2.7
+X-MesageID: 20548223
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,522,1583211600"; d="scan'208";a="20548223"
+Date: Wed, 17 Jun 2020 10:23:40 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas.lengyel@intel.com>
+Subject: Re: [PATCH for-4.14] x86/hap: use get_gfn_type in
+ hap_update_paging_modes
+Message-ID: <20200617082340.GV735@Air-de-Roger>
+References: <6a2ae3bae4a4ad32bc7caecd8af2655a76a9fb19.1592335579.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIqIZk/Qusa7Qsu5bkjM27jAUAPHgHVoA+LAfW9KPcCU2XTcQH8d5RuAcV3opsCrD1gbKfQVYCQ
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <6a2ae3bae4a4ad32bc7caecd8af2655a76a9fb19.1592335579.git.tamas.lengyel@intel.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,77 +55,80 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'xen-devel' <xen-devel@lists.xenproject.org>, 'Tim Deegan' <tim@xen.org>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>, 'Wei Liu' <wl@xen.org>
+Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Christopher Clark <christopher.w.clark@gmail.com>
-> Sent: 16 June 2020 21:50
-> To: Olaf Hering <olaf@aepfle.de>
-> Cc: Tim Deegan <tim@xen.org>; xen-devel <xen-devel@lists.xenproject.org>; Ian Jackson
-> <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>; paul@xen.org
-> Subject: Re: [PATCH v1] kdd: remove zero-length arrays
+On Tue, Jun 16, 2020 at 12:31:06PM -0700, Tamas K Lengyel wrote:
+> While forking VMs running a small RTOS systems (Zephyr) a Xen crash has been
+> observed due to a mm-lock order violation while copying the HVM CPU context
+> from the parent. This issue has been identified to be due to
+> hap_update_paging_modes getting a lock on the gfn using get_gfn. This call also
+> creates a shared entry in the fork's memory map for the cr3 gfn. The function
+> later calls hap_update_cr3 while holding the paging_lock, which results in the
+> lock-order violation in vmx_load_pdptrs when it tries to unshare the above entry.
 > 
-> On Thu, Jun 11, 2020 at 12:12 PM Olaf Hering <olaf@aepfle.de> wrote:
-> >
-> > Am Wed, 10 Jun 2020 20:16:57 +0100
-> > schrieb Tim Deegan <tim@xen.org>:
-> >
-> > > How tedious.
-> >
-> > Indeed. This compiles for me as well:
+> This issue has not affected VMs running other OS's as a call to vmx_load_pdptrs
+> is benign if PAE is not enabled or if EFER_LMA is set and returns before
+> trying to unshare and map the page.
 > 
-> just a nudge on this; it would be nice to get a patch into the tree
-> since the build failure affects master builds of Xen in OpenEmbedded
-> now.
+> Using get_gfn_type to get a lock on the gfn avoids this problem as we can
+> populate the fork's gfn with a copied page instead of a shared entry if its
+> needed, thus avoiding the lock order violation while holding paging_lock.
 > 
+> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> ---
+> The bug seems to have been present since commit 4cb6c4f4941, only discovered
+> now due to the heavy use of mem_sharing with VM forks. As this is a simple
+> bug-fix it would be nice to include it in the 4.14 release.
 
-I'd be happy to take a patch into 4.14 if someone can provide one with a suitable maintainer ack.
+I agree it seems like a candidate bugfix to be included. I've added
+Paul to the Cc so he is aware.
 
-  Paul
-
-> Christopher
+> ---
+>  xen/arch/x86/mm/hap/hap.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
 > 
-> >
-> > --- orig/kdd.h  2020-06-08 17:40:05.000000000 +0000
-> > +++ kdd.h       2020-06-11 19:00:44.234364040 +0000
-> > @@ -68,7 +68,6 @@
-> >      uint16_t len;     /* Payload length, excl. header and trailing byte */
-> >      uint32_t id;      /* Echoed in responses */
-> >      uint32_t sum;     /* Unsigned sum of all payload bytes */
-> > -    uint8_t payload[0];
-> >  } PACKED kdd_hdr;
-> >
-> >  #define KDD_PKT_CMD 0x0002      /* Debugger commands (and replies to them) */
-> > @@ -323,7 +322,7 @@
-> >          kdd_msg msg;
-> >          kdd_reg reg;
-> >          kdd_stc stc;
-> > -        uint8_t payload[0];
-> > +        uint8_t payload[65536];
-> >      };
-> >  } PACKED kdd_pkt;
-> >
-> > --- orig/kdd.c  2020-06-08 17:40:05.000000000 +0000
-> > +++ kdd.c       2020-06-11 19:08:36.775724640 +0000
-> > @@ -79,11 +79,11 @@
-> >  /* State of the debugger stub */
-> >  typedef struct {
-> >      union {
-> > -        uint8_t txb[sizeof (kdd_hdr) + 65536];   /* Marshalling area for tx */
-> > +        uint8_t txb[sizeof (kdd_hdr) + 0xffff];   /* Marshalling area for tx */
-> >          kdd_pkt txp;                 /* Also readable as a packet structure */
-> >      };
-> >      union {
-> > -        uint8_t rxb[sizeof (kdd_hdr) + 65536];   /* Marshalling area for rx */
-> > +        uint8_t rxb[sizeof (kdd_hdr)];   /* Marshalling area for rx */
-> >          kdd_pkt rxp;                 /* Also readable as a packet structure */
-> >      };
-> >      unsigned int cur;       /* Offset into rx where we'll put the next byte */
-> >
-> > Olaf
+> diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
+> index 7f84d0c6ea..9ae4c3ae6e 100644
+> --- a/xen/arch/x86/mm/hap/hap.c
+> +++ b/xen/arch/x86/mm/hap/hap.c
+> @@ -748,12 +748,19 @@ static void hap_update_paging_modes(struct vcpu *v)
+>      struct domain *d = v->domain;
+>      unsigned long cr3_gfn = v->arch.hvm.guest_cr[3] >> PAGE_SHIFT;
+>      p2m_type_t t;
+> +    p2m_query_t q = P2M_ALLOC;
+>  
+> -    /* We hold onto the cr3 as it may be modified later, and
+> -     * we need to respect lock ordering. No need for 
+> -     * checks here as they are performed by vmx_load_pdptrs
+> -     * (the potential user of the cr3) */
+> -    (void)get_gfn(d, cr3_gfn, &t);
+> +    /*
+> +     * We hold onto the cr3 as it may be modified later, and
+> +     * we need to respect lock ordering. Unshare here if we have to as to avoid
+> +     * a lock-order violation later while we are holding the paging_lock.
+> +     * Further checks are performed by vmx_load_pdptrs (the potential user of
+> +     * the cr3).
+> +     */
+> +    if ( hvm_pae_enabled(v) && !hvm_long_mode_active(v) )
+> +        q |= P2M_UNSHARE;
+> +
+> +    (void)get_gfn_type(d, cr3_gfn, &t, q);
 
+While there I think you can drop the cast to void.
+
+In order for this to be more resilient, maybe it would be better to
+just use get_gfn_unshare directly and avoid checking what paging mode
+the guest is currently using?
+
+Or would that be too expensive in terms of performance for the not
+affected case?
+
+I feel like relying on the internals of vmx_load_pdptrs here is
+fragile.
+
+Thanks, Roger.
 
