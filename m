@@ -2,63 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A074A1FC431
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 04:38:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E76A81FC46B
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 05:03:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlNwj-0004eZ-Q1; Wed, 17 Jun 2020 02:37:01 +0000
+	id 1jlOM1-0007BU-Td; Wed, 17 Jun 2020 03:03:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nxAP=76=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1jlNwh-0004eU-VK
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 02:37:00 +0000
-X-Inumbo-ID: 6b01640e-b043-11ea-bca7-bc764e2007e4
-Received: from mail-qv1-xf44.google.com (unknown [2607:f8b0:4864:20::f44])
+ <SRS0=qFwG=76=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jlOM0-0007BP-8h
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 03:03:08 +0000
+X-Inumbo-ID: 114b8b7a-b047-11ea-b7bb-bc764e2007e4
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6b01640e-b043-11ea-bca7-bc764e2007e4;
- Wed, 17 Jun 2020 02:36:59 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id cv17so324804qvb.13
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2020 19:36:59 -0700 (PDT)
+ id 114b8b7a-b047-11ea-b7bb-bc764e2007e4;
+ Wed, 17 Jun 2020 03:03:07 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id c3so642133wru.12
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2020 20:03:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=nSKfD5d2+BwYaR4WdN1c/tjc8AtQ3TM9Fxf2YQVCFdE=;
- b=YwITUNCPcpczVoPZlIIzNDSk2OzucWlQYkDu4bVo0ZdTWJC68P2iImasxrLTQtTQ0H
- zfScFHjvyfkFx0+aVu5M8fAcIE0cgIuvfU45LwzydVqr8YhIcy4mSIqGxVm1q+HVPQJx
- DC8FAC+w9nPFAzRhu/f0iZ27wC9iIfBfGqOFQSN2CA4AKQX+j867kHDmZYYCvhKqa+XJ
- ZQKTRwl1Q0qBTPqotGBjknq36prgtXssxwfW6nMMdz+5UGqfRw5T98yWm7J0PXR/yemk
- ozUWs7a216+r7f5PfpBPSlNmXQGrrI0bApYAethYzMHEpi8UvJC07SQTL3l95oKTuanV
- Lb4Q==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=FjXM/IwLBHDK3QOT5MbqpDBMbj+8Bj45bhvyM2CJ014=;
+ b=Z6M3UXff/OqFGmAWtOgpHXdFNtacX8jkQbXGLXrSaseWOFzBhbWG5Q7ULOmZaPKOGY
+ 6g8N8tB7F13M5etl1mOobPUvAhzoBgmGSTewdCOE5siAaRxIQNLTgmVzehlDWUPcgqNS
+ kFs8HwAq47oDSrbZ2evwstbAPkCOGeR3K/vSpct2PxiQQselgkGP/ik9Fxjd4TFLqpzl
+ pqyX5zFwSIz+4+dtRYe9NZ3Er9a3XvXz0oA3PmfS3AL8U3Nfg4RGYFyh112D9MdAalvR
+ txE8F06CPmemK8Au7iUcnzA3LmNSHNWwExPQ3ZAGhb9DkoQErMnGh6e5nJf9gpMSk/Jj
+ OGIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=nSKfD5d2+BwYaR4WdN1c/tjc8AtQ3TM9Fxf2YQVCFdE=;
- b=ZmZ/hXNYHfVJq+MFWEDnIx2xvH12zhLIBkChoFxeHgJhXMMqdTMbsaQa8mcjOT20gl
- eTQgeNtU5YpLAS2BlsKKMqik4VV7uW/dTxrUksZ5EiOgHxkJ6dJIDmRQklTCag0r3h7B
- XDxPFzto3Fo1QPQO/qewG92h7LDx16wG1b0ufV3wk33T9k6Z4R3uZYbu2/OFLlptRxyT
- 4UmUE33uvF6efc+3eYqmCzzKtI8kk0Qv9Bo5QTeG+doySFLo0ZwVxUPxDMGDhqQo0qVv
- B88VM7/aSwxo7o8FVvaeE1zcn3POOcOdO+ALt1KjxNNhbiVfG5EuCCpbwEoAZfIKaiuR
- FnLg==
-X-Gm-Message-State: AOAM531jweFwg4iDHdpDBs+MMbknPuTc6iUnuNkxaI8G3ZhHv0Hy0ijM
- srYPO6vsGGlECJttkjFSRlbzyuiE
-X-Google-Smtp-Source: ABdhPJzJYrzOWey3fg0wjUkfWvus9hkPeIrZyUHTuvBAIs9L/XD59VgDkguPoTukZhZg0su1mzIRUw==
-X-Received: by 2002:a05:6214:405:: with SMTP id
- z5mr5294960qvx.112.1592361418533; 
- Tue, 16 Jun 2020 19:36:58 -0700 (PDT)
-Received: from shine.lan ([2001:470:8:67e:c083:40e9:3c38:2bd9])
- by smtp.gmail.com with ESMTPSA id 124sm16308558qkm.115.2020.06.16.19.36.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jun 2020 19:36:57 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH] xl: Allow shutdown wait for domain death
-Date: Tue, 16 Jun 2020 22:36:42 -0400
-Message-Id: <20200617023642.80594-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=FjXM/IwLBHDK3QOT5MbqpDBMbj+8Bj45bhvyM2CJ014=;
+ b=ELilvD5MUoo9v9W1pRqPUxRLyZufYUJqTHA1PmyV9dy05iNNUGdN9CI9kLH+N4Ijh3
+ i4Q2feLlj+D6EgMKHN4Z8jrbUSLYRdXaki9FiUZ5FsFu+7O57s3MrEy3VsXBZTAYKz/3
+ 3Z8K34wvKLPQo9GeNmHHtmmUkEr6CUw1ZecSdt2EmM/WVYO47EhhdNJhKNj8g+Eo0YNc
+ lY0llEZqEprwNT+iTJIp+YIkjZ5PFMGhbGK6c10xQjaN0Rz7tdKA/9r0t9jkxTaqbJbC
+ hUy9dGdUsLQtKQ454Tb7s3wJXBALDuv2G3xHdMZSyCkhkpw+WCvWB+0GYiA6oj9hibvO
+ afPw==
+X-Gm-Message-State: AOAM531b5ds19xvQ05BL9lTtYnkCfZiVm8ipbeZCbx2zgZKM1BCAqwua
+ mXmV8ozKisKSz6iCwFROT60OXT03DHKaN2dRVMc=
+X-Google-Smtp-Source: ABdhPJzTa2JS66zBqAwQsijJblHvayeP4S+qH9M5g4GLHVBkvGlktEcA672mNhOcwlDP/9txArMrEhHLFkQznWVG+aM=
+X-Received: by 2002:a5d:490f:: with SMTP id x15mr5883871wrq.259.1592362986226; 
+ Tue, 16 Jun 2020 20:03:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
+ <cb530abc-bef6-23b9-86d8-f43167e14736@citrix.com>
+ <1555629278.8787770.1592333278517.JavaMail.zimbra@cert.pl>
+ <d4e37559-bf23-36a4-41d9-a6a8bfc84ac3@citrix.com>
+In-Reply-To: <d4e37559-bf23-36a4-41d9-a6a8bfc84ac3@citrix.com>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Tue, 16 Jun 2020 21:02:30 -0600
+Message-ID: <CABfawhnhLKEhJFqyH97YFNiHX6vNoLDR4x52gnaNK_5B1VyWOA@mail.gmail.com>
+Subject: Re: [PATCH v1 0/7] Implement support for external IPT monitoring
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,98 +69,109 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Jason Andryuk <jandryuk@gmail.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?B?TWljaGHFgiBMZXN6Y3p5xYRza2k=?= <michal.leszczynski@cert.pl>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-`xl shutdown -w` waits for the first of either domain shutdown or death.
-Shutdown is the halting of the guest operating system, and death is the
-freeing of domain resources.
+On Tue, Jun 16, 2020 at 2:17 PM Andrew Cooper <andrew.cooper3@citrix.com> w=
+rote:
+>
+> On 16/06/2020 19:47, Micha=C5=82 Leszczy=C5=84ski wrote:
+> > ----- 16 cze 2020 o 20:17, Andrew Cooper andrew.cooper3@citrix.com napi=
+sa=C5=82(a):
+> >
+> >> Are there any restrictions on EPT being enabled in the first place?  I=
+'m
+> >> not aware of any, and in principle we could use this functionality for
+> >> PV guests as well (using the CPL filter).  Therefore, I think it would
+> >> be helpful to not tie the functionality to HVM guests, even if that is
+> >> the only option enabled to start with.
+> > I think at the moment it's not required to have EPT. This patch series =
+doesn't use any translation feature flags, so the output address is always =
+a machine physical address, regardless of context. I will check if it could=
+ be easily used with PV.
+>
+> If its trivial to add PV support then please do.  If its not, then don't
+> feel obliged, but please do at least consider how PV support might look
+> in the eventual feature.
+>
+> (Generally speaking, considering "how would I make this work in other
+> modes where it is possible" leads to a better design.)
+>
+> >> The buffer mapping and creation logic is fairly problematic.  Instead =
+of
+> >> fighting with another opencoded example, take a look at the IOREQ
+> >> server's use of "acquire resource" which is a mapping interface which
+> >> supports allocating memory on behalf of the guest, outside of the gues=
+t
+> >> memory, for use by control tools.
+> >>
+> >> I think what this wants is a bit somewhere in domain_create to indicat=
+e
+> >> that external tracing is used for this domain (and allocate whatever
+> >> structures/buffers are necessary), acquire resource to map the buffers
+> >> themselves, and a domctl for any necessary runtime controls.
+> >>
+> > I will check this out, this sounds like a good option as it would remov=
+e lots of complexity from the existing ipt_enable domctl.
+>
+> Xen has traditionally opted for a "and turn this extra thing on
+> dynamically" model, but this has caused no end of security issues and
+> broken corner cases.
+>
+> You can see this still existing in the difference between
+> XEN_DOMCTL_createdomain and XEN_DOMCTL_max_vcpus, (the latter being
+> required to chose the number of vcpus for the domain) and we're making
+> good progress undoing this particular wart (before 4.13, it was
+> concerning easy to get Xen to fall over a NULL d->vcpu[] pointer by
+> issuing other hypercalls between these two).
+>
+> There is a lot of settings which should be immutable for the lifetime of
+> the domain, and external monitoring looks like another one of these.
+> Specifying it at createdomain time allows for far better runtime
+> behaviour (you are no longer in a situation where the first time you try
+> to turn tracing on, you end up with -ENOMEM because another VM booted in
+> the meantime and used the remaining memory), and it makes for rather
+> more simple code in Xen itself (at runtime, you can rely on it having
+> been set up properly, because a failure setting up will have killed the
+> domain already).
 
-Allow specifying -w multiple times to wait for only domain death.  This
-is useful in scripts so that all resources are free before the script
-continues.
+I'm not in favor of this being a flag that gets set during domain
+creation time. It could certainly be the case that some users would
+want this being on from the start till the end but in other cases you
+may want to enable it intermittently only for some time in-between
+particular events. If it's an on/off flag during domain creation you
+pretty much force that choice on the users and while the overhead of
+PT is better than say MTF it's certainly not nothing. In case there is
+an OOM situation enabling IPT dynamically the user can always just
+pause the VM and wait till memory becomes available.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- docs/man/xl.1.pod.in    |  4 +++-
- tools/xl/xl_vmcontrol.c | 17 +++++++++++------
- 2 files changed, 14 insertions(+), 7 deletions(-)
+>
+> >> What semantics do you want for the buffer becoming full?  Given that
+> >> debugging/tracing is the goal, I presume "pause vcpu on full" is the
+> >> preferred behaviour, rather than drop packets on full?
+> >>
+> > Right now this is a ring-style buffer and when it would become full it =
+would simply wrap and override the old data.
+>
+> How does the consumer spot that the data has wrapped?  What happens if
+> data starts getting logged, but noone is listening?  What happens if the
+> consumer exits/crashes/etc and stops listening as a consequence?
+>
+> It's fine to simply state what will happen, and possibly even "don't do
+> that then", but the corner cases do at least need thinking about.
 
-diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-index 09339282e6..52a47a6fbd 100644
---- a/docs/man/xl.1.pod.in
-+++ b/docs/man/xl.1.pod.in
-@@ -743,7 +743,9 @@ of a Xen system.
- 
- =item B<-w>, B<--wait>
- 
--Wait for the domain to complete shutdown before returning.
-+Wait for the domain to complete shutdown before returning.  If given once,
-+the wait is for domain shutdown or domain death.  If given multiple times,
-+the wait is for domain death only.
- 
- =item B<-F>
- 
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 17b4514c94..435155a033 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -162,7 +162,8 @@ static void shutdown_domain(uint32_t domid,
-     }
- }
- 
--static void wait_for_domain_deaths(libxl_evgen_domain_death **deathws, int nr)
-+static void wait_for_domain_deaths(libxl_evgen_domain_death **deathws, int nr,
-+                                   int wait_for_shutdown_or_death)
- {
-     int rc, count = 0;
-     LOG("Waiting for %d domains", nr);
-@@ -183,8 +184,12 @@ static void wait_for_domain_deaths(libxl_evgen_domain_death **deathws, int nr)
-         case LIBXL_EVENT_TYPE_DOMAIN_SHUTDOWN:
-             LOG("Domain %d has been shut down, reason code %d",
-                 event->domid, event->u.domain_shutdown.shutdown_reason);
--            libxl_evdisable_domain_death(ctx, deathws[event->for_user]);
--            count++;
-+            if (wait_for_shutdown_or_death) {
-+                libxl_evdisable_domain_death(ctx, deathws[event->for_user]);
-+                count++;
-+            } else {
-+                LOG("Domain %d continue waiting for death", event->domid);
-+            }
-             break;
-         default:
-             LOG("Unexpected event type %d", event->type);
-@@ -214,7 +219,7 @@ static int main_shutdown_or_reboot(int do_reboot, int argc, char **argv)
-         all = 1;
-         break;
-     case 'w':
--        wait_for_it = 1;
-+        wait_for_it++;
-         break;
-     case 'F':
-         fallback_trigger = 1;
-@@ -246,7 +251,7 @@ static int main_shutdown_or_reboot(int do_reboot, int argc, char **argv)
-         }
- 
-         if (deathws) {
--            wait_for_domain_deaths(deathws, nrdeathws);
-+            wait_for_domain_deaths(deathws, nrdeathws, wait_for_it == 1);
-             free(deathws);
-         }
- 
-@@ -258,7 +263,7 @@ static int main_shutdown_or_reboot(int do_reboot, int argc, char **argv)
-         fn(domid, wait_for_it ? &deathw : NULL, 0, fallback_trigger);
- 
-         if (wait_for_it)
--            wait_for_domain_deaths(&deathw, 1);
-+            wait_for_domain_deaths(&deathw, 1, wait_for_it == 1);
-     }
- 
- 
--- 
-2.25.1
+AFAIU the current use-case is predominantly to be used in conjunction
+with VMI events where you want to be able to see the trace leading up
+to a particular vmexit. So in the case when the buffer is wrapped
+in-between events and data is lost that's not really of concern.
 
+Tamas
 
