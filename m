@@ -2,54 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 446C91FC9D5
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 11:28:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 884A71FCA2C
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 11:49:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlUMc-0007q6-52; Wed, 17 Jun 2020 09:28:10 +0000
+	id 1jlUgS-0001Fx-Ti; Wed, 17 Jun 2020 09:48:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EDe+=76=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jlUMa-0007ob-FV
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 09:28:08 +0000
-X-Inumbo-ID: d79497c4-b07c-11ea-bb8b-bc764e2007e4
+ id 1jlUgR-0001Fd-AG
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 09:48:39 +0000
+X-Inumbo-ID: b53fcf24-b07f-11ea-b7bb-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d79497c4-b07c-11ea-bb8b-bc764e2007e4;
- Wed, 17 Jun 2020 09:28:02 +0000 (UTC)
+ id b53fcf24-b07f-11ea-b7bb-bc764e2007e4;
+ Wed, 17 Jun 2020 09:48:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
  Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=szpolumGaZTwyvpQJZDSSUINfbwfFLmAiJYjhDWeicc=; b=GG4x90l2CYV2GIHDKrmBwZeM3
- 4dikHhOOYOPQppxw4dZIFT7SYnK6fijoxV2cSAoyOYLrHofOyjFVf+Eh0EU1/n3GP0u4ZGgmid8dW
- 80kmb8sTOj0d9VTnx7h4td3ospWxLqecw+y8saeQN4qgtSSKSWrIiE9rAeYNCFdQdTY+Y=;
+ bh=eUZMhkBEY0GHPn35bUmtW2VgD75gHL5pCVCpExNeFRo=; b=XXSYhvpN99pIduVPEz5D21QKK
+ YnA1YCXo5k/+c8jcs9W3jyxYdxz9c7dFTl+zEr2nn3OVRBJgp50z/cXc9fLnHJgJbGVLbMFZYhAYn
+ rPVkldvQUDBcqHWOzFEg2KYVkZy7dDmhkNSs9QFUT6VJFCrMZlUlsgshVSRlQaPeQQKFo=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1jlUMU-0007Uo-52; Wed, 17 Jun 2020 09:28:02 +0000
+ id 1jlUgK-0007ra-Ri; Wed, 17 Jun 2020 09:48:32 +0000
 Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1jlUMT-0002aD-QZ; Wed, 17 Jun 2020 09:28:01 +0000
+ id 1jlUgK-0003LH-Id; Wed, 17 Jun 2020 09:48:32 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jlUMT-0008E8-Pp; Wed, 17 Jun 2020 09:28:01 +0000
+ id 1jlUgK-0005RB-I9; Wed, 17 Jun 2020 09:48:32 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-151162-mainreport@xen.org>
+Message-ID: <osstest-151186-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 151162: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=8927e2777786a43cddfaa328b0f4c41a09c629c9
-X-Osstest-Versions-That: ovmf=b90beadfae8f1153697fbb87f923cfa14578ee3e
+Subject: [xen-unstable-coverity test] 151186: all pass - PUSHED
+X-Osstest-Versions-This: xen=3625b04991b4d6affadd99d377ab84bac48dfff4
+X-Osstest-Versions-That: xen=b91825f628c9a62cf2a3a0d972ea81484a8b7fce
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 17 Jun 2020 09:28:01 +0000
+Date: Wed, 17 Jun 2020 09:48:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,34 +63,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151162 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151162/
+flight 151186 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151186/
 
 Perfect :-)
 All tests in this flight passed as required
 version targeted for testing:
- ovmf                 8927e2777786a43cddfaa328b0f4c41a09c629c9
+ xen                  3625b04991b4d6affadd99d377ab84bac48dfff4
 baseline version:
- ovmf                 b90beadfae8f1153697fbb87f923cfa14578ee3e
+ xen                  b91825f628c9a62cf2a3a0d972ea81484a8b7fce
 
-Last test of basis   151139  2020-06-15 00:09:55 Z    2 days
-Testing same since   151162  2020-06-16 01:58:37 Z    1 days    1 attempts
+Last test of basis   151106  2020-06-14 09:23:09 Z    3 days
+Testing same since   151186  2020-06-17 09:18:28 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Rebecca Cran <rebecca@bsdio.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Nick Rosbrook <rosbrookn@ainfosec.com>
+  Nick Rosbrook <rosbrookn@gmail.com>
+  Tamas K Lengyel <tamas.lengyel@intel.com>
+  Wei Liu <wl@xen.org>
 
 jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ coverity-amd64                                               pass    
 
 
 ------------------------------------------------------------
@@ -111,6 +110,6 @@ Test harness code can be found at
 
 Pushing revision :
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   b90beadfae..8927e27777  8927e2777786a43cddfaa328b0f4c41a09c629c9 -> xen-tested-master
+To xenbits.xen.org:/home/xen/git/xen.git
+   b91825f628..3625b04991  3625b04991b4d6affadd99d377ab84bac48dfff4 -> coverity-tested/smoke
 
