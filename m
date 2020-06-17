@@ -2,71 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7DB71FD172
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 18:00:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DA9D1FD1D3
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 18:20:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlaTj-0001mG-Ph; Wed, 17 Jun 2020 15:59:55 +0000
+	id 1jlama-0003xy-FW; Wed, 17 Jun 2020 16:19:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qFwG=76=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1jlaTh-0001mB-R1
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 15:59:53 +0000
-X-Inumbo-ID: 948ba59e-b0b3-11ea-b7bb-bc764e2007e4
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ <SRS0=6FoJ=76=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jlamY-0003xt-P9
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 16:19:22 +0000
+X-Inumbo-ID: 4c352a60-b0b6-11ea-8496-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 948ba59e-b0b3-11ea-b7bb-bc764e2007e4;
- Wed, 17 Jun 2020 15:59:53 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id q2so468695wrv.8
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2020 08:59:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JCd+sxVc3WHf9M8vNhlh5kXn7lmtWraZ9nU9GyA1H2k=;
- b=vIL6E6HJaxpKvOnKWjHNw1+5tD9fdf4AaAeH2f9eCk63K5ZkE63irFk2o/HeL94YAU
- frHRoc3aDztismXohAD04GN0XJc5G/LW94q3humiHc0ktDRL8+qxUVxxNZJw4H1269jq
- qjfCcWV7nzEBcm9KzA8OraUXTSBIZ+AKkA0ENuo3Y1sWnaOoNmy/qIvlY8EG7lzw7N7X
- AmTffN9i9JkHdntOx9fSeLt/Zr8kSIlsTGhljw+kBYMNZHk2d0sG1pu4BEHr3m42IgO9
- eQ58cZxGIYbppSrNg2zJeTakjsCMevgoivxrNypQccXh9MlVl+y1amXtedC4iEPf2Znz
- nNEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=JCd+sxVc3WHf9M8vNhlh5kXn7lmtWraZ9nU9GyA1H2k=;
- b=WOx1X7xvsqMbXtxUg2iX5ixoTzvlAd/kvMVgFDOY0iyKMDdJexVlKU8tiQBKH+hZ0f
- jrCQW58R7OWyk+DCdtMy0S3+wmn9n2JR0bNr1bZKao1jz4cVg6eimeTYr3zNSJ/4u/QO
- 0g8L+Lv5LKYIVMO70PF8CJHyTUPR1dcRYjUjaCOoJCRMLqBemjQvAUFkFUpJ+bWR0B9E
- 33FkElElDUaMAi6Uoys7DPGIJw17X1/0BzjijWox5Opi2+jpfshReNblnpM2zWDutkg5
- sx7FHt1OTRiAjbBe4TXs/aQ3EF0pqM0YA3GmboshkrPfB/yBgKFwoBSTsSjkZPjxu7PC
- 3RIg==
-X-Gm-Message-State: AOAM532jTjhATttWob44pDyGUXoj51rwhoO1OlEIjI3dLS3BET/B/vat
- 7t/NCQwIZMFi95TCP6v3FDI4vWbi+V1zYKGlX8U=
-X-Google-Smtp-Source: ABdhPJzOGbex+xZZHM6E5OzUcEyMWLsnOUR2G87CZ8ouZ6SNODIxjqHB/4Xa5OSrH/o//wht7AmeV1sBxxbhEyieswo=
-X-Received: by 2002:adf:f0c6:: with SMTP id x6mr9932216wro.301.1592409592212; 
- Wed, 17 Jun 2020 08:59:52 -0700 (PDT)
+ id 4c352a60-b0b6-11ea-8496-bc764e2007e4;
+ Wed, 17 Jun 2020 16:19:21 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: zq2ehM8fwF58L2dEjXpcOpRHXAr8oODFbTzIxMFCrit3qVo5gwSQuXXv0jv+Vb0P5nCVT7+EVS
+ hnXxKIblzbHy/v9q9LPItditKQ0Vmkq7q6lWt5aVGcZilxD56vWUkl8JCi2LOO1QBBCXiB+YMy
+ AdOcyIQ59piWmLAX4+Nc95+/SrtyeW6FOe/jqjYw3jFL0m3j2t5JGRtJ/SxfKvOzaFNfMMHBMK
+ ZYJ8EVV5bosbREH0JXHOJYcrNMpZeCns0N/KATRgQeYWOP70lETeARb0CqmL4HQDVK0Z7p9scI
+ Sg0=
+X-SBRS: 2.7
+X-MesageID: 20592051
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,523,1583211600"; d="scan'208";a="20592051"
+Subject: Re: [PATCH v1 0/7] Implement support for external IPT monitoring
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
+ <cb530abc-bef6-23b9-86d8-f43167e14736@citrix.com>
+ <1555629278.8787770.1592333278517.JavaMail.zimbra@cert.pl>
+ <d4e37559-bf23-36a4-41d9-a6a8bfc84ac3@citrix.com>
+ <CABfawhnhLKEhJFqyH97YFNiHX6vNoLDR4x52gnaNK_5B1VyWOA@mail.gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <6da28899-25ae-7355-fa0a-70fac44f597e@citrix.com>
+Date: Wed, 17 Jun 2020 17:19:03 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-References: <6a2ae3bae4a4ad32bc7caecd8af2655a76a9fb19.1592335579.git.tamas.lengyel@intel.com>
- <a35d0df9-ca56-1d64-99a0-d2d744ab2186@suse.com>
- <CABfawhnXg+-HZzOhVyYreQtc6BE1xAyS5rJdQkE+1QNZA=iOnw@mail.gmail.com>
- <4b06e4f3-2b23-359a-9d80-c881016c0d91@suse.com>
- <CABfawh=AkBQ6iCOdWpjGvyXykePc7wVC-SZEn13_=q+P-zW4JA@mail.gmail.com>
- <47abe61b-76e1-4491-f539-60c427c2ffc8@suse.com>
- <CABfawhki5+wv9cfivbxRhMurqYD4Ls4o5OUG9e-cV5SPzeG9jw@mail.gmail.com>
- <17dab1c9-175a-3faa-3937-9102e09f72b0@suse.com>
- <CABfawhk4N9MsjWqf87hPpyEHP27E=SpiHUSC+bVhAh4xW9-n8w@mail.gmail.com>
- <15ff55e0-2b75-b1dd-9fa5-3b50f7aa8d9c@suse.com>
- <CABfawhk=hk4qWjQQpamQO+EiZO=7=2j4_aezjr5a+YFmYfHjsw@mail.gmail.com>
- <fce071de-336e-ddf0-0513-f2357b1937e9@suse.com>
- <CABfawhnXbLq3MmEmiKEPG-pt9qutNxOnnWU7K2SjJqg5Ysoj8w@mail.gmail.com>
-In-Reply-To: <CABfawhnXbLq3MmEmiKEPG-pt9qutNxOnnWU7K2SjJqg5Ysoj8w@mail.gmail.com>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Wed, 17 Jun 2020 09:59:16 -0600
-Message-ID: <CABfawh=ZoXDn94eGBEOGw4kjZ0NABqrkQYwZPwMKBR+2R61w2A@mail.gmail.com>
-Subject: Re: [PATCH for-4.14] x86/hap: use get_gfn_type in
- hap_update_paging_modes
-To: Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CABfawhnhLKEhJFqyH97YFNiHX6vNoLDR4x52gnaNK_5B1VyWOA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,103 +60,109 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jun 17, 2020 at 9:54 AM Tamas K Lengyel
-<tamas.k.lengyel@gmail.com> wrote:
->
-> On Wed, Jun 17, 2020 at 9:46 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >
-> > On 17.06.2020 16:49, Tamas K Lengyel wrote:
-> > > On Wed, Jun 17, 2020 at 8:24 AM Jan Beulich <jbeulich@suse.com> wrote:
-> > >>
-> > >> On 17.06.2020 15:43, Tamas K Lengyel wrote:
-> > >>> On Wed, Jun 17, 2020 at 7:36 AM Jan Beulich <jbeulich@suse.com> wrote:
-> > >>>>
-> > >>>> On 17.06.2020 15:31, Tamas K Lengyel wrote:
-> > >>>>> On Wed, Jun 17, 2020 at 7:28 AM Jan Beulich <jbeulich@suse.com> wrote:
-> > >>>>>>
-> > >>>>>> On 17.06.2020 15:21, Tamas K Lengyel wrote:
-> > >>>>>>> On Wed, Jun 17, 2020 at 7:04 AM Jan Beulich <jbeulich@suse.com> wrote:
-> > >>>>>>>>
-> > >>>>>>>> On 17.06.2020 15:00, Tamas K Lengyel wrote:
-> > >>>>>>>>> On Wed, Jun 17, 2020 at 3:59 AM Jan Beulich <jbeulich@suse.com> wrote:
-> > >>>>>>>>>> If there are code paths of both kinds, which approach to use in
-> > >>>>>>>>>> vmx_load_pdptrs() may need to be chosen based on what
-> > >>>>>>>>>> paging_locked_by_me() returns. Or perhaps an unlocked query is
-> > >>>>>>>>>> fine in either case?
-> > >>>>>>>>>
-> > >>>>>>>>> Perhaps adjusting vmx_load_pdptrs to chose the unlocked query would be
-> > >>>>>>>>> fine. But at that point what is the reason for having the lock
-> > >>>>>>>>> ordering at all? Why not just have a single recursive lock and avoid
-> > >>>>>>>>> issues like this altogether?
-> > >>>>>>>>
-> > >>>>>>>> With just a single lock, contention problems we already know we
-> > >>>>>>>> have would be even worse. When the current locking model was
-> > >>>>>>>> introduced, there was actually a plan to make gfn_lock() more
-> > >>>>>>>> fine-grained (i.e. not simply "de-generate" to p2m_lock()), for
-> > >>>>>>>> example.
-> > >>>>>>>
-> > >>>>>>> Sigh. Well, I've been checking and adjust vmx_load_pdptrs to use an
-> > >>>>>>> unlocked query doesn't seem as straightforward because, well, there is
-> > >>>>>>> no unlocked version of p2m_get_page_from_gfn which would also do the
-> > >>>>>>> "fixups".
-> > >>>>>>
-> > >>>>>> Which fixups do we need here, in particular? Of course, whenever
-> > >>>>>> any fixups get done, the operation can't be lock-less.
-> > >>>>>>
-> > >>>>>>> What seems redundant to me though is that
-> > >>>>>>> hap_update_paging_modes takes both the p2m_lock via get_gfn PLUS the
-> > >>>>>>> paging_lock. Does it really need to take the paging_lock?
-> > >>>>>>
-> > >>>>>> From mm-locks.h's comments:
-> > >>>>>>
-> > >>>>>>  * For HAP, it protects the NPT/EPT tables and mode changes.
-> > >>>>>
-> > >>>>> We do the population of the EPT as part of fork_page() if there was a
-> > >>>>> hole in the p2m when the query was issued using P2M_ALLOC (or
-> > >>>>> P2M_UNSHARE). I checked and without the paging lock held it throws up
-> > >>>>> at hap_alloc's ASSERT.. So yea, currently I don't think we have a
-> > >>>>> better route then what I currently sent in.
-> > >>>>
-> > >>>> You didn't answer my question regarding the "fixups" needed, so
-> > >>>> for the moment it's not clear to me yet whether indeed there's
-> > >>>> no better way.
-> > >>>
-> > >>> Umm, I did. The fixups entail populating the EPT from the parent as I
-> > >>> described above.
-> > >>
-> > >> Isn't this taken care of by the new call to get_gfn_type() which you add?
-> > >> As said before, I think at the point we want to obtain the PDPTs all
-> > >> other adjustments and arrangements should have been done already, by
-> > >> higher layers. This code should have no need to do anything beyond a
-> > >> simple lookup.
-> > >
-> > > I don't really know what else to say. There are multiple paths leading
-> > > to vmx_load_pdptrs, some take the paging_lock while some don't. In
-> > > this particular case we can do the fixups earlier as I do in this
-> > > patch because there happens to be a lookup before the paging_lock is
-> > > taken but in other cases there isn't such a route so removing
-> > > P2M_UNSHARE from vmx_load_pdptrs is not an option.
-> >
-> > I disagree (because such missing unshare requests could be put
-> > elsewhere), but let me ask another question then: Why is it that
-> > vmx_load_pdptrs() needs to unshare? The function only reads from
-> > the page. Even if the page's content changed later on, we wouldn't
-> > care, as there's no coherence of the PDPTRs once loaded.
->
-> Ah, I see what you mean. It really just looks like it reads from the
-> page so P2M_ALLOC would suffice. Let me verify.
+On 17/06/2020 04:02, Tamas K Lengyel wrote:
+> On Tue, Jun 16, 2020 at 2:17 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>> On 16/06/2020 19:47, Michał Leszczyński wrote:
+>>> ----- 16 cze 2020 o 20:17, Andrew Cooper andrew.cooper3@citrix.com napisał(a):
+>>>
+>>>> Are there any restrictions on EPT being enabled in the first place?  I'm
+>>>> not aware of any, and in principle we could use this functionality for
+>>>> PV guests as well (using the CPL filter).  Therefore, I think it would
+>>>> be helpful to not tie the functionality to HVM guests, even if that is
+>>>> the only option enabled to start with.
+>>> I think at the moment it's not required to have EPT. This patch series doesn't use any translation feature flags, so the output address is always a machine physical address, regardless of context. I will check if it could be easily used with PV.
+>> If its trivial to add PV support then please do.  If its not, then don't
+>> feel obliged, but please do at least consider how PV support might look
+>> in the eventual feature.
+>>
+>> (Generally speaking, considering "how would I make this work in other
+>> modes where it is possible" leads to a better design.)
+>>
+>>>> The buffer mapping and creation logic is fairly problematic.  Instead of
+>>>> fighting with another opencoded example, take a look at the IOREQ
+>>>> server's use of "acquire resource" which is a mapping interface which
+>>>> supports allocating memory on behalf of the guest, outside of the guest
+>>>> memory, for use by control tools.
+>>>>
+>>>> I think what this wants is a bit somewhere in domain_create to indicate
+>>>> that external tracing is used for this domain (and allocate whatever
+>>>> structures/buffers are necessary), acquire resource to map the buffers
+>>>> themselves, and a domctl for any necessary runtime controls.
+>>>>
+>>> I will check this out, this sounds like a good option as it would remove lots of complexity from the existing ipt_enable domctl.
+>> Xen has traditionally opted for a "and turn this extra thing on
+>> dynamically" model, but this has caused no end of security issues and
+>> broken corner cases.
+>>
+>> You can see this still existing in the difference between
+>> XEN_DOMCTL_createdomain and XEN_DOMCTL_max_vcpus, (the latter being
+>> required to chose the number of vcpus for the domain) and we're making
+>> good progress undoing this particular wart (before 4.13, it was
+>> concerning easy to get Xen to fall over a NULL d->vcpu[] pointer by
+>> issuing other hypercalls between these two).
+>>
+>> There is a lot of settings which should be immutable for the lifetime of
+>> the domain, and external monitoring looks like another one of these.
+>> Specifying it at createdomain time allows for far better runtime
+>> behaviour (you are no longer in a situation where the first time you try
+>> to turn tracing on, you end up with -ENOMEM because another VM booted in
+>> the meantime and used the remaining memory), and it makes for rather
+>> more simple code in Xen itself (at runtime, you can rely on it having
+>> been set up properly, because a failure setting up will have killed the
+>> domain already).
+> I'm not in favor of this being a flag that gets set during domain
+> creation time. It could certainly be the case that some users would
+> want this being on from the start till the end but in other cases you
+> may want to enable it intermittently only for some time in-between
+> particular events. If it's an on/off flag during domain creation you
+> pretty much force that choice on the users and while the overhead of
+> PT is better than say MTF it's certainly not nothing. In case there is
+> an OOM situation enabling IPT dynamically the user can always just
+> pause the VM and wait till memory becomes available.
 
-Alright, that works and it's an even better solution as we don't
-unnecessarily unshare the page even for PAE guests.
+There is nothing wrong with having "turn tracing on/off at runtime"
+hypercalls.  It is specifically what I suggested two posts up in this
+thread, but it should be limited to the TraceEn bit in RTIT_CTL.
 
-Thanks, will send v2 shortly,
-Tamas
+What isn't ok is trying to allocate the buffers, write the TOPA, etc on
+first-enable or first-map, because the runtime complexity of logic like
+this large, and far too easy to get wrong in security relevant ways.
+
+The domain create flag would mean "I wish to use tracing with this
+domain", and not "I want tracing enabled from the getgo".
+
+>>>> What semantics do you want for the buffer becoming full?  Given that
+>>>> debugging/tracing is the goal, I presume "pause vcpu on full" is the
+>>>> preferred behaviour, rather than drop packets on full?
+>>>>
+>>> Right now this is a ring-style buffer and when it would become full it would simply wrap and override the old data.
+>> How does the consumer spot that the data has wrapped?  What happens if
+>> data starts getting logged, but noone is listening?  What happens if the
+>> consumer exits/crashes/etc and stops listening as a consequence?
+>>
+>> It's fine to simply state what will happen, and possibly even "don't do
+>> that then", but the corner cases do at least need thinking about.
+> AFAIU the current use-case is predominantly to be used in conjunction
+> with VMI events where you want to be able to see the trace leading up
+> to a particular vmexit. So in the case when the buffer is wrapped
+> in-between events and data is lost that's not really of concern.
+
+That's all fine.  I imagine the output here is voluminous, and needs
+help being cut down as much as possible.
+
+On a tangent, I presume you'd like to include VM-fork eventually, which
+ought to include copying the trace buffer on fork?
+
+~Andrew
 
