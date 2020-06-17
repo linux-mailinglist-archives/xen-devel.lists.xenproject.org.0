@@ -2,75 +2,111 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB3A1FD53B
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 21:14:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51FE21FD566
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 21:24:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jldVM-000298-P9; Wed, 17 Jun 2020 19:13:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=t1O8=76=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jldVL-000293-7u
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 19:13:47 +0000
-X-Inumbo-ID: a9e746da-b0ce-11ea-ba16-12813bfff9fa
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a9e746da-b0ce-11ea-ba16-12813bfff9fa;
- Wed, 17 Jun 2020 19:13:45 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 6957BA2C6C;
- Wed, 17 Jun 2020 21:13:44 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 59450A1E06;
- Wed, 17 Jun 2020 21:13:43 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id QcdfFw0QIu1N; Wed, 17 Jun 2020 21:13:42 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 5A624A2C6C;
- Wed, 17 Jun 2020 21:13:42 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Hcot-ETBUUZk; Wed, 17 Jun 2020 21:13:42 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 2D3E2A1BE2;
- Wed, 17 Jun 2020 21:13:42 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 15A6920755;
- Wed, 17 Jun 2020 21:13:12 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id ltjCRaiJ2KCw; Wed, 17 Jun 2020 21:13:06 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 021F02097A;
- Wed, 17 Jun 2020 21:13:06 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 4SqaTcL2sq0T; Wed, 17 Jun 2020 21:13:05 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id CE98A20755;
- Wed, 17 Jun 2020 21:13:05 +0200 (CEST)
-Date: Wed, 17 Jun 2020 21:13:05 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
-Message-ID: <998292451.9258672.1592421185726.JavaMail.zimbra@cert.pl>
-In-Reply-To: <20200616172352.GT735@Air-de-Roger>
-References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
- <34833328.8766172.1592320926648.JavaMail.zimbra@cert.pl>
- <20200616172352.GT735@Air-de-Roger>
-Subject: Re: [PATCH v1 4/7] x86/vmx: add do_vmtrace_op
+	id 1jldf7-00031r-RX; Wed, 17 Jun 2020 19:23:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EDe+=76=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jldf6-00031X-89
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 19:23:52 +0000
+X-Inumbo-ID: 0fbc8fbe-b0d0-11ea-bb8b-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0fbc8fbe-b0d0-11ea-bb8b-bc764e2007e4;
+ Wed, 17 Jun 2020 19:23:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=wJuhy9EHQ/AOptvi4Rmdc/tZQPF0tV72u2AwzQ5UR0k=; b=jgREwb31OZvw8P+8Rmbl28dpM
+ Agh3Vfz1ate9MOC0CYYlS5XRUltbHdUenxXq7F287tQfJJTofTGMv3uWlIcJTvrQlbVqonUm8dkLo
+ HQJ0PoM1uoVVbrtn+wTStt/HgH4iRJ+77B94GsdkY7ThP/0MpmbywPJ0qea2mqp9y+pTg=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jldey-0002SN-QW; Wed, 17 Jun 2020 19:23:44 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jldey-00007S-Im; Wed, 17 Jun 2020 19:23:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jldey-0005S9-Hn; Wed, 17 Jun 2020 19:23:44 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151166-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
-Thread-Topic: x86/vmx: add do_vmtrace_op
-Thread-Index: 2F7rUJxrX+qiejqyNWQFiyWrG+s5iA==
+Subject: [xen-4.11-testing test] 151166: regressions - FAIL
+X-Osstest-Failures: xen-4.11-testing:build-amd64-prev:xen-build:fail:regression
+ xen-4.11-testing:build-i386-prev:xen-build:fail:regression
+ xen-4.11-testing:test-amd64-i386-migrupgrade:build-check(1):blocked:nonblocking
+ xen-4.11-testing:test-amd64-amd64-migrupgrade:build-check(1):blocked:nonblocking
+ xen-4.11-testing:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.11-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-4.11-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.11-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: xen=2b77729888fb851ab96e7f77bc854122626b4861
+X-Osstest-Versions-That: xen=7dd2ac39e40f0afe1cc6d879bfe65cbf19520cab
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 17 Jun 2020 19:23:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,423 +117,281 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 16 cze 2020 o 19:23, Roger Pau Monn=C3=A9 roger.pau@citrix.com napisa=
-=C5=82(a):
+flight 151166 xen-4.11-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151166/
 
-> On Tue, Jun 16, 2020 at 05:22:06PM +0200, Micha=C5=82 Leszczy=C5=84ski wr=
-ote:
->> Provide an interface for privileged domains to manage
->> external IPT monitoring.
->>=20
->> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
->=20
-> Thanks for the patch! I have some questions below which require your
-> input.
->=20
->> ---
->>  xen/arch/x86/hvm/hvm.c          | 170 ++++++++++++++++++++++++++++++++
->>  xen/include/public/hvm/hvm_op.h |  27 +++++
->>  2 files changed, 197 insertions(+)
->>=20
->> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
->> index 5bb47583b3..9292caebe0 100644
->> --- a/xen/arch/x86/hvm/hvm.c
->> +++ b/xen/arch/x86/hvm/hvm.c
->> @@ -4949,6 +4949,172 @@ static int compat_altp2m_op(
->>      return rc;
->>  }
->> =20
->> +static int do_vmtrace_op(
->> +    XEN_GUEST_HANDLE_PARAM(void) arg)
->=20
-> No need for the newline, this can fit on a single line.
->=20
->> +{
->> +    struct xen_hvm_vmtrace_op a;
->> +    struct domain *d =3D NULL;
->=20
-> I don't think you need to init d to NULL (at least by looking at the
-> current code below).
->=20
->> +    int rc =3D -EFAULT;
->=20
-> No need to init rc.
->=20
->> +    int i;
->=20
-> unsigned since it's used as a loop counter.
->=20
->> +    struct vcpu *v;
->> +    void* buf;
->=20
-> Nit: '*' should be prepended to the variable name.
->=20
->> +    uint32_t buf_size;
->=20
-> size_t
->=20
->> +    uint32_t buf_order;
->=20
-> Order is generally fine using unsigned int, no need to use a
-> specifically sized type.
->=20
->> +    uint64_t buf_mfn;
->=20
-> Could this use the mfn type?
->=20
->> +    struct page_info *pg;
->> +
->> +    if ( !hvm_ipt_supported() )
->> +        return -EOPNOTSUPP;
->> +
->> +    if ( copy_from_guest(&a, arg, 1) )
->> +        return -EFAULT;
->> +
->> +    if ( a.version !=3D HVMOP_VMTRACE_INTERFACE_VERSION )
->> +        return -EINVAL;
->> +
->> +    switch ( a.cmd )
->> +    {
->> +    case HVMOP_vmtrace_ipt_enable:
->> +    case HVMOP_vmtrace_ipt_disable:
->> +    case HVMOP_vmtrace_ipt_get_buf:
->> +    case HVMOP_vmtrace_ipt_get_offset:
->> +        break;
->> +
->> +    default:
->> +        return -EOPNOTSUPP;
->> +    }
->> +
->> +    d =3D rcu_lock_domain_by_any_id(a.domain);
->> +
->> +    if ( d =3D=3D NULL )
->> +        return -ESRCH;
->> +
->> +    if ( !is_hvm_domain(d) )
->> +    {
->> +        rc =3D -EOPNOTSUPP;
->> +        goto out;
->> +    }
->> +
->> +    domain_pause(d);
->> +
->> +    if ( a.vcpu >=3D d->max_vcpus )
->> +    {
->> +        rc =3D -EINVAL;
->> +        goto out;
->> +    }
->> +
->> +    v =3D d->vcpu[a.vcpu];
->> +
->> +    if ( a.cmd =3D=3D HVMOP_vmtrace_ipt_enable )
->=20
-> Please use a switch here, you might even consider re-using the switch
-> from above and moving the domain checks before actually checking the
-> command field, so that you don't need to perform two switches against
-> a.cmd.
->=20
->> +    {
->> +        if ( v->arch.hvm.vmx.ipt_state ) {
->=20
-> Coding style, brace should be on newline (there are more below which
-> I'm not going to comment on).
->=20
->> +            // already enabled
->=20
-> Comments should use /* ... */, there multiple instances of this below
-> which I'm not going to comment on, please check CODING_STYLE.
->=20
-> Also, the interface looks racy, I think you are missing a lock to
-> protect v->arch.hvm.vmx.ipt_state from being freed under your feet if
-> you issue concurrent calls to the interface.
->=20
->> +            rc =3D -EINVAL;
->> +            goto out;
->> +        }
->> +
->> +        if ( a.size < PAGE_SIZE || a.size > 1000000 * PAGE_SIZE ) {
->=20
-> You can use GB(4) which is easier to read. Should the size also be a
-> multiple of a PAGE_SIZE?
->=20
->> +            // we don't accept trace buffer size smaller than single pa=
-ge
->> +            // and the upper bound is defined as 4GB in the specificati=
-on
->> +            rc =3D -EINVAL;
->> +            goto out;
->> +=09}
->=20
-> Stray tab.
->=20
->> +
->> +        buf_order =3D get_order_from_bytes(a.size);
->> +
->> +        if ( (a.size >> PAGE_SHIFT) !=3D (1 << buf_order) ) {
->=20
-> Oh here is the check. I think you can move this with the checks above
-> by doing a.size & ~PAGE_MASK.
+Regressions :-(
 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-prev              6 xen-build                fail REGR. vs. 150040
+ build-i386-prev               6 xen-build                fail REGR. vs. 150040
 
-I belive it's more strict than a.size & ~PAGE_MASK. I think that CPU expect=
-s that the buffer size is a power of 2, so you can have 64 MB or 128 MB, bu=
-t not 96 MB buffer.
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-migrupgrade   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-migrupgrade  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail never pass
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop             fail never pass
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop             fail never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
 
+version targeted for testing:
+ xen                  2b77729888fb851ab96e7f77bc854122626b4861
+baseline version:
+ xen                  7dd2ac39e40f0afe1cc6d879bfe65cbf19520cab
 
->=20
->> +            rc =3D -EINVAL;
->> +            goto out;
->> +        }
->> +
->> +        buf =3D page_to_virt(alloc_domheap_pages(d, buf_order,
->> MEMF_no_refcount));
->=20
-> What if alloc_domheap_pages return NULL?
->=20
-> Since I think you only what the linear address of the page to zero it
-> I would suggest using clear_domain_page.
->=20
+Last test of basis   150040  2020-05-05 16:06:51 Z   43 days
+Failing since        150942  2020-06-09 17:05:43 Z    8 days    9 attempts
+Testing same since   151061  2020-06-12 12:25:05 Z    5 days    4 attempts
 
-Hmm. This was fixed already. Most probably I did something strange with git=
- and this change was not stored. I will correct this with patch v2.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Christopher Clark <christopher.clark6@baesystems.com>
+  Christopher Clark <christopher.w.clark@gmail.com>
+  Julien Grall <jgrall@amazon.com>
+  Wei Liu <wei.liu2@citrix.com>
+  Wei Liu <wl@xen.org>
 
-
->> +        buf_size =3D a.size;
->> +
->> +        if ( !buf ) {
->> +            rc =3D -EFAULT;
->> +            goto out;
->> +        }
->> +
->> +        memset(buf, 0, buf_size);
->> +
->> +        for ( i =3D 0; i < (buf_size >> PAGE_SHIFT); i++ ) {
->> +            share_xen_page_with_privileged_guests(virt_to_page(buf) + i=
-,
->> SHARE_ro);
->=20
-> This line (and some more below) exceeds 80 characters, please split
-> it.
->=20
->> +        }
->> +
->> +        v->arch.hvm.vmx.ipt_state =3D xmalloc(struct ipt_state);
->=20
-> You should check that xmalloc has succeeds before trying to access
-> ipt_state.
->=20
->> +        v->arch.hvm.vmx.ipt_state->output_base =3D virt_to_mfn(buf) <<
->> PAGE_SHIFT;
->> +        v->arch.hvm.vmx.ipt_state->output_mask =3D buf_size - 1;
->> +        v->arch.hvm.vmx.ipt_state->status =3D 0;
->> +        v->arch.hvm.vmx.ipt_state->ctl =3D RTIT_CTL_TRACEEN | RTIT_CTL_=
-OS |
->> RTIT_CTL_USR | RTIT_CTL_BRANCH_EN;
->=20
-> Shouldn't the user be able to select what tracing should be enabled?
->=20
->> +    }
->> +    else if ( a.cmd =3D=3D HVMOP_vmtrace_ipt_disable )
->> +    {
->> +        if ( !v->arch.hvm.vmx.ipt_state ) {
->> +            rc =3D -EINVAL;
->> +            goto out;
->> +        }
->> +
->> +        buf_mfn =3D v->arch.hvm.vmx.ipt_state->output_base >> PAGE_SHIF=
-T;
->> +        buf_size =3D ( v->arch.hvm.vmx.ipt_state->output_mask + 1 ) &
->> 0xFFFFFFFFUL;
->> +
->> +        for ( i =3D 0; i < (buf_size >> PAGE_SHIFT); i++ )
->> +        {
->> +            if ( (mfn_to_page(_mfn(buf_mfn + i))->count_info & PGC_coun=
-t_mask)
->> !=3D 1 )
->> +            {
->> +                rc =3D -EBUSY;
->> +                goto out;
->> +            }
->> +        }
->> +
->> +        xfree(v->arch.hvm.vmx.ipt_state);
->> +=09v->arch.hvm.vmx.ipt_state =3D NULL;
->> +
->> +        for ( i =3D 0; i < (buf_size >> PAGE_SHIFT); i++ )
->> +        {
->> +            pg =3D mfn_to_page(_mfn(buf_mfn + i));
->> +            put_page_alloc_ref(pg);
->> +            if ( !test_and_clear_bit(_PGC_xen_heap, &pg->count_info) )
->> +                ASSERT_UNREACHABLE();
->> +            pg->u.inuse.type_info =3D 0;
->> +            page_set_owner(pg, NULL);
->> +            free_domheap_page(pg);
->=20
-> Hm, this seems fairly dangerous, what guarantees that the caller is
-> not going to map the buffer while you are trying to tear it down?
->=20
-> You perform a check before freeing ipt_state, but between the check
-> and the actual tearing down the domain might have setup mappings to
-> them.
->=20
-> I wonder, could you expand a bit on why trace buffers are allocated
-> from domheap memory by Xen?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             fail    
+ build-i386-prev                                              fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 blocked 
+ test-amd64-i386-migrupgrade                                  blocked 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-In general, I thought it would be good to account trace buffers for particu=
-lar DomUs, so it would be easier to troubleshoot the memory usage.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
->=20
-> There are a couple of options here, maybe the caller could provide
-> it's own buffer, then Xen would take an extra reference to those pages
-> and setup them to be used as buffers.
->=20
-> Another alternative would be to use domhep memory but not let the
-> caller map it directly, and instead introduce a hypercall to copy
-> from the internal Xen buffer into a user-provided one.
->=20
-> How much memory is used on average by those buffers? That would help
-> decide a model that would best fit the usage.
+Not pushing.
 
+------------------------------------------------------------
+commit 2b77729888fb851ab96e7f77bc854122626b4861
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jun 10 18:57:00 2020 +0100
 
-From 4 kB to 4 GB. Right now I use 128 MB buffers and it takes just a few s=
-econds to fill them up completely.
+    x86/spec-ctrl: Allow the RDRAND/RDSEED features to be hidden
+    
+    RDRAND/RDSEED can be hidden using cpuid= to mitigate SRBDS if microcode
+    isn't available.
+    
+    This is part of XSA-320 / CVE-2020-0543.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+    (cherry picked from commit 7028534d8482d25860c4d1aa8e45f0b911abfc5a)
 
-I think I've just copied the pattern which is already present in Xen's code=
-, e.g. interfaces used by xenbaked/xentrace tools.
+commit 9be79927a6395f12c9e24afaccf6acbaf81d402e
+Author: Christopher Clark <christopher.w.clark@gmail.com>
+Date:   Wed Jul 18 15:22:17 2018 -0700
 
+    tools/xentop : replace use of deprecated vwprintw
+    
+    gcc-8.1 complains:
+    
+    | xentop.c: In function 'print':
+    | xentop.c:304:4: error: 'vwprintw' is deprecated [-Werror=deprecated-declarations]
+    |     vwprintw(stdscr, (curses_str_t)fmt, args);
+    |     ^~~~~~~~
+    
+    vw_printw (note the underscore) is a non-deprecated alternative.
+    
+    Signed-off-by: Christopher Clark <christopher.clark6@baesystems.com>
+    Acked-by: Wei Liu <wei.liu2@citrix.com>
+    (cherry picked from commit 2b50cdbc444c637575580dcfa6c9525a84d5cc62)
 
->=20
->> +        }
->> +    }
->> +    else if ( a.cmd =3D=3D HVMOP_vmtrace_ipt_get_buf )
->> +    {
->> +        if ( !v->arch.hvm.vmx.ipt_state ) {
->> +            rc =3D -EINVAL;
->> +            goto out;
->> +        }
->> +
->> +        a.mfn =3D v->arch.hvm.vmx.ipt_state->output_base >> PAGE_SHIFT;
->=20
-> This will not work for translated domains, ie: a PVH or HVM domain
-> won't be able to use this interface since it has no way to request the
-> mapping of a specific mfn into it's physmap. I think we need to take
-> this into account when deciding how the interface should be, so that
-> we don't corner ourselves with a PV only interface.
+commit b8d476a9eaee8877cd5ba2c9eb6dbc5412626d13
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jan 8 19:47:46 2020 +0000
 
-Please be aware that this is only going to be used by Dom0. Is is well-supp=
-orted case that somebody is using PVH/HVM Dom0?
+    x86/spec-ctrl: Mitigate the Special Register Buffer Data Sampling sidechannel
+    
+    See patch documentation and comments.
+    
+    This is part of XSA-320 / CVE-2020-0543
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    (cherry picked from commit 6a49b9a7920c82015381740905582b666160d955)
 
-I think that all Virtual Machine Introspection stuff currently requires to =
-have Dom0 PV. Our main goal is to have this working well in combo with VMI.
+commit 1c751c4146b9e1d8dd9b61ee6a01caa1b07463cc
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jan 8 19:47:46 2020 +0000
 
-
->=20
->> +        a.size =3D (v->arch.hvm.vmx.ipt_state->output_mask + 1) & 0xFFF=
-FFFFFUL;
->=20
-> You can truncate it easier by casting to uint32_t I think.
->=20
-> Or even better, you could put output_mask in a union like:
->=20
-> union {
->    uint64_t raw;
->    struct {
->        uint32_t size;
->=09uint32_t offset;
->    }
-> }
->=20
-> Then you can avoid the shifting and the castings.
->=20
->> +    }
->> +    else if ( a.cmd =3D=3D HVMOP_vmtrace_ipt_get_offset )
->> +    {
->> +        if ( !v->arch.hvm.vmx.ipt_state ) {
->> +            rc =3D -EINVAL;
->> +            goto out;
->> +        }
->> +
->> +        a.offset =3D v->arch.hvm.vmx.ipt_state->output_mask >> 32;
->> +    }
->> +
->> +    rc =3D -EFAULT;
->> +    if ( __copy_to_guest(arg, &a, 1) )
->> +      goto out;
->> +    rc =3D 0;
->> +
->> + out:
->> +    smp_wmb();
->=20
-> Why do you need a barrier here?
->=20
->> +    domain_unpause(d);
->> +    rcu_unlock_domain(d);
->> +
->> +    return rc;
->> +}
->> +
->> +DEFINE_XEN_GUEST_HANDLE(compat_hvm_vmtrace_op_t);
->> +
->>  static int hvmop_get_mem_type(
->>      XEN_GUEST_HANDLE_PARAM(xen_hvm_get_mem_type_t) arg)
->>  {
->> @@ -5101,6 +5267,10 @@ long do_hvm_op(unsigned long op,
->> XEN_GUEST_HANDLE_PARAM(void) arg)
->>          rc =3D current->hcall_compat ? compat_altp2m_op(arg) : do_altp2=
-m_op(arg);
->>          break;
->> =20
->> +    case HVMOP_vmtrace:
->> +        rc =3D do_vmtrace_op(arg);
->> +        break;
->> +
->>      default:
->>      {
->>          gdprintk(XENLOG_DEBUG, "Bad HVM op %ld.\n", op);
->> diff --git a/xen/include/public/hvm/hvm_op.h b/xen/include/public/hvm/hv=
-m_op.h
->> index 870ec52060..3bbcd54c96 100644
->> --- a/xen/include/public/hvm/hvm_op.h
->> +++ b/xen/include/public/hvm/hvm_op.h
->> @@ -382,6 +382,33 @@ struct xen_hvm_altp2m_op {
->>  typedef struct xen_hvm_altp2m_op xen_hvm_altp2m_op_t;
->>  DEFINE_XEN_GUEST_HANDLE(xen_hvm_altp2m_op_t);
->> =20
->> +/* HVMOP_vmtrace: Perform VM tracing related operation */
->> +#define HVMOP_vmtrace 26
->> +
->> +#define HVMOP_VMTRACE_INTERFACE_VERSION 0x00000001
->> +
->> +struct xen_hvm_vmtrace_op {
->> +    /* IN variable */
->> +    uint32_t version;   /* HVMOP_VMTRACE_INTERFACE_VERSION */
->> +    uint32_t cmd;
->> +/* Enable/disable external vmtrace for given domain */
->> +#define HVMOP_vmtrace_ipt_enable      1
->> +#define HVMOP_vmtrace_ipt_disable     2
->> +#define HVMOP_vmtrace_ipt_get_buf     3
->> +#define HVMOP_vmtrace_ipt_get_offset  4
->> +    domid_t domain;
->=20
-> You are missing a padding field here AFAICT.
->=20
-> Roger.
-
-
-Thanks for your feedback, I will apply all the remaining suggestions in pat=
-ch v2.
-
-Best regards,
-Micha=C5=82 Leszczy=C5=84ski
-CERT Polska
+    x86/spec-ctrl: CPUID/MSR definitions for Special Register Buffer Data Sampling
+    
+    This is part of XSA-320 / CVE-2020-0543
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+    (cherry picked from commit caab85ab58c0cdf74ab070a5de5c4df89f509ff3)
+(qemu changes not included)
 
