@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7267A1FCDBC
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 14:52:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F9EF1FCDC9
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 14:53:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlXXn-0001iQ-Sz; Wed, 17 Jun 2020 12:51:55 +0000
+	id 1jlXZd-0001tH-8V; Wed, 17 Jun 2020 12:53:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jIsh=76=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jlXXm-0001iJ-SK
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 12:51:54 +0000
-X-Inumbo-ID: 51d00b88-b099-11ea-bca7-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1jlXZc-0001tB-11
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 12:53:48 +0000
+X-Inumbo-ID: 9542b9f6-b099-11ea-bb8b-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 51d00b88-b099-11ea-bca7-bc764e2007e4;
- Wed, 17 Jun 2020 12:51:54 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ id 9542b9f6-b099-11ea-bb8b-bc764e2007e4;
+ Wed, 17 Jun 2020 12:53:47 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: JelWnxgmzcGxW2RilfLHiKwTeGyTzsm+y9rEL7KMQEj43MMwwWZbkt1P5xdODg8VUJbhDWa8vU
- +NMXNNp8SvERiO0PqrhaeJXL3z0KqFUJVIT3DjKU8+sT5bwHWTRWAN0X1bM/6kXQcQsVdYaKlc
- cG7ujtsRPASJVA4pOihNkxH7Szz1UQLTWJYAzP41VChdEvmh+Hmay4LF4n0C56G81kSM3Spr8m
- zv+G8I8gIlOURRQQY0noKlL1//vrAw0uJRMELY/IqGVACHVp2Yso1L2mzo/u8m/Y2u+A/AmciS
- rz8=
+IronPort-SDR: hFbQ4rmH6qBHHMliPvv+BVE5yCWgnHfKKS/Tpff7AFdUQbh5OcnX19iN/TFhP3Un6irs+K3dsX
+ nVpcWjz0GwpMCH0syRTI21OTlAxJPjzph3YfiwoaUuZmhoNNt/RzF4UBJe11WpaguFYyJ9cofB
+ q+zEIVhIA2yuTUCeoZyGGZeWQUWo4hOn3UOTHT76s9bk54EPS6feDMMii68pbS6S7f4WiWQhrB
+ CYgKZ1oe28o+wBgNcyIcSwoKDleFBXxpfZEFLESogC6kjZ6z4S/RVv9aACfY7UH32xW+lahws+
+ MUg=
 X-SBRS: 2.7
-X-MesageID: 20611856
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 20567749
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,522,1583211600"; d="scan'208";a="20611856"
-Date: Wed, 17 Jun 2020 14:51:46 +0200
+X-IronPort-AV: E=Sophos;i="5.73,522,1583211600"; d="scan'208";a="20567749"
+Date: Wed, 17 Jun 2020 14:53:39 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-Subject: Re: [PATCH v1 7/7] x86/vmx: switch IPT MSRs on vmentry/vmexit
-Message-ID: <20200617125146.GA735@Air-de-Roger>
+To: "Kang, Luwei" <luwei.kang@intel.com>
+Subject: Re: [PATCH v1 0/7] Implement support for external IPT monitoring
+Message-ID: <20200617125339.GB735@Air-de-Roger>
 References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
- <317430261.8766476.1592321051337.JavaMail.zimbra@cert.pl>
- <20200616173857.GU735@Air-de-Roger>
- <676696113.8782412.1592329627666.JavaMail.zimbra@cert.pl>
- <20200617090942.GY735@Air-de-Roger>
- <574150.9103505.1592394885283.JavaMail.zimbra@cert.pl>
+ <cb530abc-bef6-23b9-86d8-f43167e14736@citrix.com>
+ <1555629278.8787770.1592333278517.JavaMail.zimbra@cert.pl>
+ <MWHPR11MB1645D9EFF209C6733C4DC5018C9A0@MWHPR11MB1645.namprd11.prod.outlook.com>
+ <DM5PR1101MB22669C0DD0A5AA455681A08D809A0@DM5PR1101MB2266.namprd11.prod.outlook.com>
+ <20200617092103.GZ735@Air-de-Roger>
+ <DM5PR1101MB22669E5CB0C4384B1005A58E809A0@DM5PR1101MB2266.namprd11.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <574150.9103505.1592394885283.JavaMail.zimbra@cert.pl>
+In-Reply-To: <DM5PR1101MB22669E5CB0C4384B1005A58E809A0@DM5PR1101MB2266.namprd11.prod.outlook.com>
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -59,67 +59,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
+Cc: "Tian, Kevin" <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, "Nakajima, Jun" <jun.nakajima@intel.com>,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
+ =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jun 17, 2020 at 01:54:45PM +0200, Michał Leszczyński wrote:
-> ----- 17 cze 2020 o 11:09, Roger Pau Monné roger.pau@citrix.com napisał(a):
+On Wed, Jun 17, 2020 at 12:37:13PM +0000, Kang, Luwei wrote:
+> > How does KVM deal with this, do they insert/modify trace packets on trapped
+> > and emulated instructions by the VMM?
 > 
-> > On Tue, Jun 16, 2020 at 07:47:07PM +0200, Michał Leszczyński wrote:
-> >> ----- 16 cze 2020 o 19:38, Roger Pau Monné roger.pau@citrix.com napisał(a):
-> >> 
-> >> > On Tue, Jun 16, 2020 at 05:24:11PM +0200, Michał Leszczyński wrote:
-> >> >> Enable IPT when entering the VM and disable it on vmexit.
-> >> >> Register state is persisted using vCPU ipt_state structure.
-> >> > 
-> >> > Shouldn't this be better done using Intel MSR load lists?
-> >> > 
-> >> > That seems to be what the SDM recommends for tracing VM events.
-> >> > 
-> >> > Thanks, Roger.
-> >> 
-> >> 
-> >> This is intentional, additionally described by the comment:
-> >> 
-> >> // MSR_IA32_RTIT_CTL is context-switched manually instead of being
-> >> // stored inside VMCS, as of Q2'20 only the most recent processors
-> >> // support such field in VMCS
-> >> 
-> >> 
-> >> There is a special feature flag which indicates whether MSR_IA32_RTIT_CTL can be
-> >> loaded using MR load lists.
-> > 
-> > I've been looking at the Intel SDM and I'm not able to find which bit
-> > signals whether MSR_IA32_RTIT_CTL can be loaded using MSR load lists.
-> > Sorry to ask, but can you elaborate on where is this signaled?
-> > 
-> > Thanks, Roger.
-> 
-> 
-> According to SDM:
-> 
-> > 24 Virtual Machine Control Structures -> 24.4 Guest-state Area -> 24.4.1 Guest Register State
-> 
-> > IA32_RTIT_CTL (64 bits). This field is supported only on processors that support either the 1-setting of the "load IA32_RTIT_CTL" VM-entry control or that of the "clear IA32_RTIT_CTL" VM-exit control.
-> 
-> 
-> > 24 Virtual Machine Control Structures -> 24.8 VM-entry Control Fields -> 24.8.1 VM-Entry Controls
-> 
-> > Software should consult the VMX capability MSRs IA32_VMX_ENTRY_CTLS to determine how it should set the reserved bits.
-> 
-> Please look at bit position 18 "Load IA32_RTIT_CTL".
+> The KVM includes instruction decoder and emulator(arch/x86/kvm/emulate.c), and the guest's memory can be set to write-protect as well. But it doesn't support Intel PT packets software emulator. For KVM, the Intel PT feature will be exposed to KVM guest and KVM guest can use Intel PT feature like native.
 
-I think this is something different from what I was referring to.
-Those options you refer to (load/clear IA32_RTIT_CTL) deal with
-loading/storing a specific field on the vmcs that maps to the guest
-IA32_RTIT_CTL.
+But if such feature is exposed to the guest for it's own usage, won't
+it be missing packets for instructions emulated by the VMM?
 
-OTOH MSR load lists can be used to load and store any arbitrary MSR on
-vmentry/vmexit, see section 26.4 LOADING MSRS on the SDM. There's
-already infrastructure on Xen to do so, see vmx_{add/del/find}_msr.
-
-Roger.
+Thanks, Roger.
 
