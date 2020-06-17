@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F6731FC607
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 08:09:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FEAD1FC60B
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 08:15:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlRFu-0006W1-Ft; Wed, 17 Jun 2020 06:09:02 +0000
+	id 1jlRLo-0007LN-7H; Wed, 17 Jun 2020 06:15:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gOQl=76=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1jlRFs-0006Vu-9j
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 06:09:01 +0000
-X-Inumbo-ID: 078b6d8e-b061-11ea-b7bb-bc764e2007e4
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.20])
+ id 1jlRLl-0007LI-RN
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 06:15:06 +0000
+X-Inumbo-ID: e1a39a50-b061-11ea-b7bb-bc764e2007e4
+Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.166])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 078b6d8e-b061-11ea-b7bb-bc764e2007e4;
- Wed, 17 Jun 2020 06:08:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1592374137;
+ id e1a39a50-b061-11ea-b7bb-bc764e2007e4;
+ Wed, 17 Jun 2020 06:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1592374503;
  s=strato-dkim-0002; d=aepfle.de;
  h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
  Subject:Sender;
- bh=BPYpE9GksVEBqAS0fZJlKXX9acwPilfaAPWjwRABGJo=;
- b=AC8gwV4pgt0HB3V79wmnnfRHrfvykVtFBM01ZZ48yWKy3zEX2Y3AJOc5s0DsR0NiJr
- z9pua3jb9FeX86x560sQWZ88IsTmhBa7xnYu01LHtdknR8phrdgPx0PgPvSZMFVTBts5
- dktq/NvXhkmvVo7G1SmlZWGmiXDmRpsVdEROT//fEXpsEn96r982t5+hPU0NgixKa77E
- vGTzeOwKN+XM5DBOGhUu/CfDwMkgWD0HeRNpCmWjtRLYKWluE2uFbu1UQEdcn5JJOYLo
- ugMcZiXRQov+lWGi6JzEdxxRMuAFcjqnpxzdnM30avl638xPNm1WJwx4t8TOCp2Biuy9
- xRvQ==
+ bh=LleofVG/8ySnMgVXLkfGiWlGl5Zthgo4wUc7zE2IRkw=;
+ b=OJYblfXrv6ui9mwQt4uWQ5jClpn9/XTvMDD8n3KurA9SFfl31HOzObQqPfIa76l5Ll
+ bWq+ceExjAAlTEauMBs4gJxctpWGmNrvm/4fDQN3PpmGdCaYNf+7E53qY7m3R7fKWqrk
+ 1HO2ff4GX9DN6ruRPt84jG9294iCxCOqVgV9dhCHyphcTqbSN5l2Io76J4JVoGBgqDSG
+ uajN3wG3Ouiv1PNc+0DGOEesTbA36APny4Cq9WEqLZVs73GvhdPmbamiA+xIJEMXSOBs
+ oTdc+TpjzgHtYUmck7x/ryT+lQ2sVqriNSez1Kl9SQ1kko9fpvEtjUish2nNO9r5Sa6t
+ FW4Q==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3GpKjw=="
 X-RZG-CLASS-ID: mo00
 Received: from sender by smtp.strato.de (RZmta 46.10.4 DYNA|AUTH)
- with ESMTPSA id 0013a0w5H68mGuq
+ with ESMTPSA id 0013a0w5H6DpGvs
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
  (Client did not present a certificate);
- Wed, 17 Jun 2020 08:08:48 +0200 (CEST)
+ Wed, 17 Jun 2020 08:13:51 +0200 (CEST)
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v1] stubdom/vtpm: add extern to function declarations
-Date: Wed, 17 Jun 2020 08:08:41 +0200
-Message-Id: <20200617060841.7241-1-olaf@aepfle.de>
+Subject: [PATCH v1] stubdom/vtpmmgr: simplify handling of hardware_version
+Date: Wed, 17 Jun 2020 08:13:49 +0200
+Message-Id: <20200617061349.7623-1-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -55,84 +55,73 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Olaf Hering <olaf@aepfle.de>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
+ Olaf Hering <olaf@aepfle.de>, Quan Xu <quan.xu0@gmail.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Code compiled with gcc10 will not link properly due to multiple definition of the same function.
+Remove complicated code which deals with a simple boolean, to make gcc10 happy.
+
+ld: /home/abuild/rpmbuild/BUILD/xen-4.14.20200616T103126.3625b04991/non-dbg/stubdom/vtpmmgr/vtpmmgr.a(vtpm_cmd_handler.o):(.bss+0x0): multiple definition of `tpm_version'; /home/abuild/rpmbuild/BUILD/xen-4.14.20200616T103126.3625b04991/non-dbg/stubdom/vtpmmgr/vtpmmgr.a(vtpmmgr.o):(.bss+0x0): first defined here
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- stubdom/Makefile          |  1 +
- stubdom/vtpm_extern.patch | 48 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 49 insertions(+)
- create mode 100644 stubdom/vtpm_extern.patch
+ stubdom/vtpmmgr/vtpmmgr.c | 8 +++-----
+ stubdom/vtpmmgr/vtpmmgr.h | 9 ---------
+ 2 files changed, 3 insertions(+), 14 deletions(-)
 
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 12aa211ac3..af8cde41b9 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -231,6 +231,7 @@ tpm_emulator-$(XEN_TARGET_ARCH): tpm_emulator-$(TPMEMU_VERSION).tar.gz
- 	patch -d $@ -p1 < vtpm-cmake-Wextra.patch
- 	patch -d $@ -p1 < vtpm-implicit-fallthrough.patch
- 	patch -d $@ -p1 < vtpm_TPM_ChangeAuthAsymFinish.patch
-+	patch -d $@ -p1 < vtpm_extern.patch
- 	mkdir $@/build
- 	cd $@/build; CC=${CC} $(CMAKE) .. -DCMAKE_C_FLAGS:STRING="-std=c99 -DTPM_NO_EXTERN $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) -Wno-declaration-after-statement"
- 	touch $@
-diff --git a/stubdom/vtpm_extern.patch b/stubdom/vtpm_extern.patch
-new file mode 100644
-index 0000000000..5ea4023e6d
---- /dev/null
-+++ b/stubdom/vtpm_extern.patch
-@@ -0,0 +1,48 @@
-+ld: /home/abuild/rpmbuild/BUILD/xen-4.8.20191211T160002.8db85532cb/non-dbg/stubdom/vtpm/vtpm.a(vtpm_cmd.o):(.bss+0x28): multiple definition of `tpm_malloc'; /home/abuild/rpmbuild/BUILD/xen-4.8.20191211T160002.8db85532cb/non-dbg/stubdom/vtpm/vtpm.a(vtpm.o):(.bss+0x728): first defined here
-+--- a/tpm/tpm_emulator_extern.h
-++++ b/tpm/tpm_emulator_extern.h
-+@@ -29,7 +29,7 @@ enum {
-+   TPM_LOG_ERROR
-+ };
-+ 
-+-void (*tpm_log)(int priority, const char *fmt, ...);
-++extern void (*tpm_log)(int priority, const char *fmt, ...);
-+ 
-+ #if defined(_WIN32) || defined(_WIN64)
-+ #define __BFILE__ ((strrchr(__FILE__, '\\') ? : __FILE__ - 1) + 1)
-+@@ -44,27 +44,27 @@ void (*tpm_log)(int priority, const char
-+ #define error(fmt, ...) tpm_log(TPM_LOG_ERROR, "%s:%d: Error: " fmt "\n", \
-+                                 __BFILE__, __LINE__, ## __VA_ARGS__)
-+ /* initialization */
-+-int (*tpm_extern_init)(void);
-+-void (*tpm_extern_release)(void);
-++extern int (*tpm_extern_init)(void);
-++extern void (*tpm_extern_release)(void);
-+ 
-+ /* memory allocation */
-+ 
-+-void* (*tpm_malloc)(size_t size);
-++extern void* (*tpm_malloc)(size_t size);
-+ 
-+-void (*tpm_free)(/*const*/ void *ptr);
-++extern void (*tpm_free)(/*const*/ void *ptr);
-+ 
-+ /* random numbers */
-+ 
-+-void (*tpm_get_extern_random_bytes)(void *buf, size_t nbytes);
-++extern void (*tpm_get_extern_random_bytes)(void *buf, size_t nbytes);
-+ 
-+ /* usec since last call */
-+ 
-+-uint64_t (*tpm_get_ticks)(void);
-++extern uint64_t (*tpm_get_ticks)(void);
-+ 
-+ /* file handling */
-+ 
-+-int (*tpm_write_to_storage)(uint8_t *data, size_t data_length);
-+-int (*tpm_read_from_storage)(uint8_t **data, size_t *data_length);
-++extern int (*tpm_write_to_storage)(uint8_t *data, size_t data_length);
-++extern int (*tpm_read_from_storage)(uint8_t **data, size_t *data_length);
-+ 
-+ #endif /* _TPM_EMULATOR_EXTERN_H_ */
-+ 
+diff --git a/stubdom/vtpmmgr/vtpmmgr.c b/stubdom/vtpmmgr/vtpmmgr.c
+index 9fddaa24f8..94578adbff 100644
+--- a/stubdom/vtpmmgr/vtpmmgr.c
++++ b/stubdom/vtpmmgr/vtpmmgr.c
+@@ -45,9 +45,7 @@
+ #include "vtpmmgr.h"
+ #include "tcg.h"
+ 
+-struct tpm_hardware_version hardware_version = {
+-    .hw_version = TPM1_HARDWARE,
+-};
++static int hardware_version;
+ 
+ int parse_cmdline_hw(int argc, char** argv)
+ {
+@@ -55,7 +53,7 @@ int parse_cmdline_hw(int argc, char** argv)
+ 
+     for (i = 1; i < argc; ++i) {
+         if (!strcmp(argv[i], TPM2_EXTRA_OPT)) {
+-            hardware_version.hw_version = TPM2_HARDWARE;
++            hardware_version = 2;
+             break;
+         }
+     }
+@@ -64,7 +62,7 @@ int parse_cmdline_hw(int argc, char** argv)
+ 
+ int hw_is_tpm2(void)
+ {
+-    return (hardware_version.hw_version == TPM2_HARDWARE) ? 1 : 0;
++    return hardware_version == 2 ? 1 : 0;
+ }
+ 
+ void main_loop(void) {
+diff --git a/stubdom/vtpmmgr/vtpmmgr.h b/stubdom/vtpmmgr/vtpmmgr.h
+index 2e6f8de9e4..6523604bdc 100644
+--- a/stubdom/vtpmmgr/vtpmmgr.h
++++ b/stubdom/vtpmmgr/vtpmmgr.h
+@@ -50,16 +50,7 @@
+ #define RSA_KEY_SIZE 0x0800
+ #define RSA_CIPHER_SIZE (RSA_KEY_SIZE / 8)
+ 
+-enum {
+-    TPM1_HARDWARE = 1,
+-    TPM2_HARDWARE,
+-} tpm_version;
+ 
+-struct tpm_hardware_version {
+-    int hw_version;
+-};
+-
+-extern struct tpm_hardware_version hardware_version;
+ 
+ struct vtpm_globals {
+    int tpm_fd;
 
