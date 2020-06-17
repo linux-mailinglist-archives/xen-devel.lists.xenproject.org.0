@@ -2,49 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25B171FCF76
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 16:24:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B57D81FCF86
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2020 16:29:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlYzO-0001z3-SN; Wed, 17 Jun 2020 14:24:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RQSQ=76=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jlYzM-0001yv-JG
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 14:24:28 +0000
-X-Inumbo-ID: 3fdfdb3a-b0a6-11ea-b9f3-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3fdfdb3a-b0a6-11ea-b9f3-12813bfff9fa;
- Wed, 17 Jun 2020 14:24:27 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 07EC0AD72;
- Wed, 17 Jun 2020 14:24:29 +0000 (UTC)
+	id 1jlZ42-0002EY-Es; Wed, 17 Jun 2020 14:29:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jIsh=76=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jlZ41-0002ET-Rv
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2020 14:29:17 +0000
+X-Inumbo-ID: ec266c56-b0a6-11ea-b7bb-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ec266c56-b0a6-11ea-b7bb-bc764e2007e4;
+ Wed, 17 Jun 2020 14:29:16 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: tXawYVhJi4rmpuc0VBfdOaNDN2PVWsyFKEqGMhzZ95FoDydYUpd51AKDKoUkuiNPV1lgCKu3PO
+ TKT3uc5KO99sQ1CkFDtYYOVQQJ9egA+U0SpTFSSuBiV1xD0+uC5MxHfLDE2fLC38BR7rkUhfDd
+ WYM3uQpDZdSHLuAcO29tHWGUmSGtO1WA9K2OQ68m1zsn9AG44qzJSGX5kjNfEU7wQsQy3G0LE3
+ 4YKCkHFx+mr5fYC/KERv14LCEXQmBDBPX1pwG16ecieWLOKtewbonMFegPi4Gha58xkWCVgLYy
+ pl0=
+X-SBRS: 2.7
+X-MesageID: 21059693
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,522,1583211600"; d="scan'208";a="21059693"
+Date: Wed, 17 Jun 2020 16:29:08 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
 Subject: Re: [PATCH for-4.14] x86/hap: use get_gfn_type in
  hap_update_paging_modes
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Message-ID: <20200617142908.GC735@Air-de-Roger>
 References: <6a2ae3bae4a4ad32bc7caecd8af2655a76a9fb19.1592335579.git.tamas.lengyel@intel.com>
- <a35d0df9-ca56-1d64-99a0-d2d744ab2186@suse.com>
- <CABfawhnXg+-HZzOhVyYreQtc6BE1xAyS5rJdQkE+1QNZA=iOnw@mail.gmail.com>
- <4b06e4f3-2b23-359a-9d80-c881016c0d91@suse.com>
- <CABfawh=AkBQ6iCOdWpjGvyXykePc7wVC-SZEn13_=q+P-zW4JA@mail.gmail.com>
- <47abe61b-76e1-4491-f539-60c427c2ffc8@suse.com>
- <CABfawhki5+wv9cfivbxRhMurqYD4Ls4o5OUG9e-cV5SPzeG9jw@mail.gmail.com>
- <17dab1c9-175a-3faa-3937-9102e09f72b0@suse.com>
- <CABfawhk4N9MsjWqf87hPpyEHP27E=SpiHUSC+bVhAh4xW9-n8w@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <15ff55e0-2b75-b1dd-9fa5-3b50f7aa8d9c@suse.com>
-Date: Wed, 17 Jun 2020 16:24:25 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ <20200617082340.GV735@Air-de-Roger>
+ <CABfawh=QbbzJF1X_Ddk_BvJbxCiZ0kVWM4XZ3dGoLhe_ZPh8NQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CABfawhk4N9MsjWqf87hPpyEHP27E=SpiHUSC+bVhAh4xW9-n8w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABfawh=QbbzJF1X_Ddk_BvJbxCiZ0kVWM4XZ3dGoLhe_ZPh8NQ@mail.gmail.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,75 +57,94 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>, Paul
+ Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, George
+ Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 17.06.2020 15:43, Tamas K Lengyel wrote:
-> On Wed, Jun 17, 2020 at 7:36 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 17.06.2020 15:31, Tamas K Lengyel wrote:
->>> On Wed, Jun 17, 2020 at 7:28 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 17.06.2020 15:21, Tamas K Lengyel wrote:
->>>>> On Wed, Jun 17, 2020 at 7:04 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>>>>
->>>>>> On 17.06.2020 15:00, Tamas K Lengyel wrote:
->>>>>>> On Wed, Jun 17, 2020 at 3:59 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>>>>>> If there are code paths of both kinds, which approach to use in
->>>>>>>> vmx_load_pdptrs() may need to be chosen based on what
->>>>>>>> paging_locked_by_me() returns. Or perhaps an unlocked query is
->>>>>>>> fine in either case?
->>>>>>>
->>>>>>> Perhaps adjusting vmx_load_pdptrs to chose the unlocked query would be
->>>>>>> fine. But at that point what is the reason for having the lock
->>>>>>> ordering at all? Why not just have a single recursive lock and avoid
->>>>>>> issues like this altogether?
->>>>>>
->>>>>> With just a single lock, contention problems we already know we
->>>>>> have would be even worse. When the current locking model was
->>>>>> introduced, there was actually a plan to make gfn_lock() more
->>>>>> fine-grained (i.e. not simply "de-generate" to p2m_lock()), for
->>>>>> example.
->>>>>
->>>>> Sigh. Well, I've been checking and adjust vmx_load_pdptrs to use an
->>>>> unlocked query doesn't seem as straightforward because, well, there is
->>>>> no unlocked version of p2m_get_page_from_gfn which would also do the
->>>>> "fixups".
->>>>
->>>> Which fixups do we need here, in particular? Of course, whenever
->>>> any fixups get done, the operation can't be lock-less.
->>>>
->>>>> What seems redundant to me though is that
->>>>> hap_update_paging_modes takes both the p2m_lock via get_gfn PLUS the
->>>>> paging_lock. Does it really need to take the paging_lock?
->>>>
->>>> From mm-locks.h's comments:
->>>>
->>>>  * For HAP, it protects the NPT/EPT tables and mode changes.
->>>
->>> We do the population of the EPT as part of fork_page() if there was a
->>> hole in the p2m when the query was issued using P2M_ALLOC (or
->>> P2M_UNSHARE). I checked and without the paging lock held it throws up
->>> at hap_alloc's ASSERT.. So yea, currently I don't think we have a
->>> better route then what I currently sent in.
->>
->> You didn't answer my question regarding the "fixups" needed, so
->> for the moment it's not clear to me yet whether indeed there's
->> no better way.
+On Wed, Jun 17, 2020 at 06:49:16AM -0600, Tamas K Lengyel wrote:
+> On Wed, Jun 17, 2020 at 2:25 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
+> >
+> > On Tue, Jun 16, 2020 at 12:31:06PM -0700, Tamas K Lengyel wrote:
+> > > While forking VMs running a small RTOS systems (Zephyr) a Xen crash has been
+> > > observed due to a mm-lock order violation while copying the HVM CPU context
+> > > from the parent. This issue has been identified to be due to
+> > > hap_update_paging_modes getting a lock on the gfn using get_gfn. This call also
+> > > creates a shared entry in the fork's memory map for the cr3 gfn. The function
+> > > later calls hap_update_cr3 while holding the paging_lock, which results in the
+> > > lock-order violation in vmx_load_pdptrs when it tries to unshare the above entry.
+> > >
+> > > This issue has not affected VMs running other OS's as a call to vmx_load_pdptrs
+> > > is benign if PAE is not enabled or if EFER_LMA is set and returns before
+> > > trying to unshare and map the page.
+> > >
+> > > Using get_gfn_type to get a lock on the gfn avoids this problem as we can
+> > > populate the fork's gfn with a copied page instead of a shared entry if its
+> > > needed, thus avoiding the lock order violation while holding paging_lock.
+> > >
+> > > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> > > ---
+> > > The bug seems to have been present since commit 4cb6c4f4941, only discovered
+> > > now due to the heavy use of mem_sharing with VM forks. As this is a simple
+> > > bug-fix it would be nice to include it in the 4.14 release.
+> >
+> > I agree it seems like a candidate bugfix to be included. I've added
+> > Paul to the Cc so he is aware.
+> >
+> > > ---
+> > >  xen/arch/x86/mm/hap/hap.c | 17 ++++++++++++-----
+> > >  1 file changed, 12 insertions(+), 5 deletions(-)
+> > >
+> > > diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
+> > > index 7f84d0c6ea..9ae4c3ae6e 100644
+> > > --- a/xen/arch/x86/mm/hap/hap.c
+> > > +++ b/xen/arch/x86/mm/hap/hap.c
+> > > @@ -748,12 +748,19 @@ static void hap_update_paging_modes(struct vcpu *v)
+> > >      struct domain *d = v->domain;
+> > >      unsigned long cr3_gfn = v->arch.hvm.guest_cr[3] >> PAGE_SHIFT;
+> > >      p2m_type_t t;
+> > > +    p2m_query_t q = P2M_ALLOC;
+> > >
+> > > -    /* We hold onto the cr3 as it may be modified later, and
+> > > -     * we need to respect lock ordering. No need for
+> > > -     * checks here as they are performed by vmx_load_pdptrs
+> > > -     * (the potential user of the cr3) */
+> > > -    (void)get_gfn(d, cr3_gfn, &t);
+> > > +    /*
+> > > +     * We hold onto the cr3 as it may be modified later, and
+> > > +     * we need to respect lock ordering. Unshare here if we have to as to avoid
+> > > +     * a lock-order violation later while we are holding the paging_lock.
+> > > +     * Further checks are performed by vmx_load_pdptrs (the potential user of
+> > > +     * the cr3).
+> > > +     */
+> > > +    if ( hvm_pae_enabled(v) && !hvm_long_mode_active(v) )
+> > > +        q |= P2M_UNSHARE;
+> > > +
+> > > +    (void)get_gfn_type(d, cr3_gfn, &t, q);
+> >
+> > While there I think you can drop the cast to void.
 > 
-> Umm, I did. The fixups entail populating the EPT from the parent as I
-> described above.
+> Sure.
+> 
+> >
+> > In order for this to be more resilient, maybe it would be better to
+> > just use get_gfn_unshare directly and avoid checking what paging mode
+> > the guest is currently using?
+> >
+> > Or would that be too expensive in terms of performance for the not
+> > affected case?
+> 
+> That's what I originally considered sending in but yes, in the fuzzing
+> case it would mean a full-page copy for each iteration even on
+> unaffected cases instead of a one-time shared entry setup. That would
+> be a considerable waste.
 
-Isn't this taken care of by the new call to get_gfn_type() which you add?
-As said before, I think at the point we want to obtain the PDPTs all
-other adjustments and arrangements should have been done already, by
-higher layers. This code should have no need to do anything beyond a
-simple lookup.
+Right, I'm afraid I don't really like the implementation details of
+vmx_load_pdptrs leaking into hap_update_paging_modes which is a
+generic function, so IMO a cleaner solution would be to always use
+P2M_UNSHARE.
 
-Jan
+Thanks, Roger.
 
