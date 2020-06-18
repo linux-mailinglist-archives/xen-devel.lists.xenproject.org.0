@@ -2,49 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4888F1FF0EC
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 13:46:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00FD41FF0FB
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 13:50:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlt05-0002ej-JO; Thu, 18 Jun 2020 11:46:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jlt3A-0002p9-2g; Thu, 18 Jun 2020 11:49:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HRl3=77=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jlt03-0002dn-Ku
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 11:46:31 +0000
-X-Inumbo-ID: 561f377a-b159-11ea-ba7a-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 561f377a-b159-11ea-ba7a-12813bfff9fa;
- Thu, 18 Jun 2020 11:46:25 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ id 1jlt38-0002p3-Nv
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 11:49:42 +0000
+X-Inumbo-ID: cb328e68-b159-11ea-bca7-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cb328e68-b159-11ea-bca7-bc764e2007e4;
+ Thu, 18 Jun 2020 11:49:41 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: sy/Tg8xTzfK+X5o0GbCh3t2mEwwRBxT7c/ucS7IEu41qVuoXUWhCmruU4w4/GFpz7BjSniz20p
- tr3fEW1ZfeMdDywwHNKeFNjWANYEa6arIDzMkGzEnqcZi+FvXWCxwQVebTayKMcyXMlpO62y9m
- KnC3KYbUryRbJeK5mU47Q1gdA137rXHU+NaFrmOoMXNE5zgZHDcpJatK4WKo5HhjpuuglDTpMj
- c69T+fJs5F3+aNeBRvaGKLSiNg+SNurZotH4ZqFmegQ7wz2pMeyivC/wWCQ47187U9RbaEk6yZ
- lzw=
+IronPort-SDR: FvWJse9e9MomQ5r6ZVF8hG4rPNJhsgJlkPBTPzlZLMJorWRD9IWUOFgrAqoYAI8Q/rk0dPCmcI
+ FiBN8IPt7xNScWmJ6dOVuLZlHyobQ5748RHWqrzYww0NlzOoCFxrS9DR4tYtYqJBinTRSqqIiU
+ vdtaAWwwC2m+vM8Eb4jbhBBxo4OYL3eaXsqNaHk7YAE05KGOFD/JtlhZ2oq2ATZYSFKhkrVKNt
+ RrUsGB/fg2YAe7J1xZP32DtnHtoOi4pfBosK1YvD7D8A8gNc9Jjw1GECZUcwpsH7cFPG78hCq8
+ fJI=
 X-SBRS: 2.7
-X-MesageID: 20705463
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 20359021
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,526,1583211600"; d="scan'208";a="20705463"
-Date: Thu, 18 Jun 2020 13:46:17 +0200
+X-IronPort-AV: E=Sophos;i="5.73,526,1583211600"; d="scan'208";a="20359021"
+Date: Thu, 18 Jun 2020 13:49:33 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Martin Lucina <martin@lucina.net>
-Subject: Re: Event delivery and "domain blocking" on PVHv2
-Message-ID: <20200618114617.GJ735@Air-de-Roger>
-References: <62479d08f7650c22678d7a86851eafc4@lucina.net>
- <5865159c-4190-e841-8020-7a4f3cf0fc24@citrix.com>
- <20200618101330.GB10330@nodbug.lucina.net>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v1 7/7] x86/vmx: switch IPT MSRs on vmentry/vmexit
+Message-ID: <20200618114933.GK735@Air-de-Roger>
+References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
+ <676696113.8782412.1592329627666.JavaMail.zimbra@cert.pl>
+ <20200617090942.GY735@Air-de-Roger>
+ <574150.9103505.1592394885283.JavaMail.zimbra@cert.pl>
+ <20200617125146.GA735@Air-de-Roger>
+ <5ad138bb-9195-a8de-5566-468db553422e@citrix.com>
+ <219980918.9257247.1592420217746.JavaMail.zimbra@cert.pl>
+ <20200618085208.GG735@Air-de-Roger>
+ <633218159.9539851.1592478453009.JavaMail.zimbra@cert.pl>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200618101330.GB10330@nodbug.lucina.net>
+In-Reply-To: <633218159.9539851.1592478453009.JavaMail.zimbra@cert.pl>
 X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -57,248 +62,93 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- mirageos-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+Cc: Kevin Tian <kevin.tian@intel.com>, luwei kang <luwei.kang@intel.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Jun 18, 2020 at 12:13:30PM +0200, Martin Lucina wrote:
-> On Monday, 15.06.2020 at 17:58, Andrew Cooper wrote:
-> > On 15/06/2020 15:25, Martin Lucina wrote:
-> > > Hi,
-> > >
-> > > puzzle time: In my continuing explorations of the PVHv2 ABIs for the
-> > > new MirageOS Xen stack, I've run into some issues with what looks like
-> > > missed deliveries of events on event channels.
-> > >
-> > > While a simple unikernel that only uses the Xen console and
-> > > effectively does for (1..5) { printf("foo"); sleep(1); } works fine,
-> > > once I plug in the existing OCaml Xenstore and Netfront code, the
-> > > behaviour I see is that the unikernel hangs in random places, blocking
-> > > as if an event that should have been delivered has been missed.
+On Thu, Jun 18, 2020 at 01:07:33PM +0200, Michał Leszczyński wrote:
+> ----- 18 cze 2020 o 10:52, Roger Pau Monné roger.pau@citrix.com napisał(a):
+> 
+> > On Wed, Jun 17, 2020 at 08:56:57PM +0200, Michał Leszczyński wrote:
+> >> ----- 17 cze 2020 o 17:14, Andrew Cooper andrew.cooper3@citrix.com napisał(a):
+> >> 
+> >> > On 17/06/2020 13:51, Roger Pau Monné wrote:
+> >> >> On Wed, Jun 17, 2020 at 01:54:45PM +0200, Michał Leszczyński wrote:
+> >> >>> ----- 17 cze 2020 o 11:09, Roger Pau Monné roger.pau@citrix.com napisał(a):
+> >> >>>
+> >> >>>> 24 Virtual Machine Control Structures -> 24.8 VM-entry Control Fields -> 24.8.1
+> >> >>>> VM-Entry Controls
+> >> >>>> Software should consult the VMX capability MSRs IA32_VMX_ENTRY_CTLS to determine
+> >> >>>> how it should set the reserved bits.
+> >> >>> Please look at bit position 18 "Load IA32_RTIT_CTL".
+> >> >> I think this is something different from what I was referring to.
+> >> >> Those options you refer to (load/clear IA32_RTIT_CTL) deal with
+> >> >> loading/storing a specific field on the vmcs that maps to the guest
+> >> >> IA32_RTIT_CTL.
+> >> >>
+> >> >> OTOH MSR load lists can be used to load and store any arbitrary MSR on
+> >> >> vmentry/vmexit, see section 26.4 LOADING MSRS on the SDM. There's
+> >> >> already infrastructure on Xen to do so, see vmx_{add/del/find}_msr.
+> >> > 
+> >> > If I remember the historic roadmaps correctly, there are 3 cases.
+> >> > 
+> >> > The first hardware to support PT (Broadwell?) prohibited its use
+> >> > completely in VMX operations.  In this case, we can use it to trace PV
+> >> > guests iff we don't enable VMX in hardware to begin with.
+> >> > 
+> >> > This was relaxed in later hardware (Skylake?) to permit use within VMX
+> >> > operations, but without any help in the VMCS.  (i.e. manual context
+> >> > switching per this patch, or MSR load lists as noted in the SDM.)
+> >> > 
+> >> > Subsequent support for "virtualised PT" was added (IceLake?) which adds
+> >> > the load/save controls, and the ability to translate the output buffer
+> >> > under EPT.
+> >> > 
+> >> > 
+> >> > All of this is from memory so I'm quite possibly wrong with details, but
+> >> > I believe this is why the current complexity exists.
+> >> > 
+> >> > ~Andrew
+> >> 
+> >> 
+> >> I've managed to toggle MSR_IA32_RTIT_CTL values using MSR load lists, as in:
+> >> 
+> >> > 35.5.2.2 Guest-Only Tracing
+> >> > "For this usage, VM-entry is programmed to enable trace packet generation, while
+> >> > VM-exit is programmed to clear MSR_IA32_RTIT_CTL.TraceEn so as to disable
+> >> > trace-packet generation in the host."
+> >> 
+> >> it actually helped a bit. With patch v1 there were parts of hypervisor recorded
+> >> in the trace (i.e. the moment between TRACE_EN being set and actual vmenter,
+> >> and the moment between vmexit and TRACE_EN being unset). Using MSR load list
+> >> this was eliminated. This change will be reflected in patch v2.
+> >> 
+> >> 
+> >> I can't however implement any working scenario in which all these MSRs are
+> >> managed using MSR load lists. As in "35.3.3 Flushing Trace Output": packets are
+> >> buffered internally and are flushed only when TRACE_EN bit in MSR_IA32_RTIT_CTL
+> >> is set to 0. The values of remaining registers will be stable after everything
+> >> is serialized. I think this is too complex for the load lists alone. I belive
+> >> that currently SDM instructs to use load lists only for toggling this single
+> >> bit on-or-off.
 > > 
-> > You can see what is going on, event channel wise, with the 'e'
-> > debug-key.  This will highlight cases such as the event channel being
-> > masked and pending, which is a common guest bug ending up in this state.
+> > I think that's exactly what we want: handling TraceEn at
+> > vmentry/vmexit, so that no hypervisor packets are recorded. The rest
+> > of the MSRs can be handled in VMM mode without issues. Switching those
+> > on every vmentry/vmexit would also add more overhead that needed,
+> > since I assume they don't need to be modified on every entry/exit?
 > 
-> Ok, based on your and Roger's suggestions I've made some changes:
 > 
-> 1. I've dropped all the legacy PIC initialisation code from the Solo5
-> parts, written some basic APIC initialisation code and switched to using
-> HVMOP_set_evtchn_upcall_vector for upcall registration, along with setting
-> HVM_PARAM_CALLBACK_IRQ to 1 as suggested by Roger and done by Xen when
-> running as a guest. Commit at [1], nothing controversial there.
+> Assuming that there is a single DomU per pcpu and they are never migrated between pcpus then you never need to modify the remaining MSRs.
 > 
-> 2. I've re-worked the "bottom half" of the event channel upcall handler to
-> mask the event when marking it as pending in the OCaml-side "shadow"
-> structure, and unmask it immediately before an OCaml-side handler would be
-> run, i.e. when doing a "test and clear port" operation on the OCaml-side
-> structure.
+> In case DomUs are floating or there are multiple DomUs per pcpu, we need to read out a few MSRs on vm-exit and restore them on vm-entry. Right now I'm always using this approach as I'm pretty not sure how to optimize it without introducing additional bugs. I will show the implementation in patch v2.
 
-As long as the unmask happens after you having cleared the bit on the
-ocaml-side structure I think it should be fine, however I would unmask
-the event channel once you have finished running the ocaml handler for
-it.
-
-> 
-> However, none of this seems to have fundamentally changed the behaviour.
-> The unikernel still gets "stuck" at random points during netfront set-up.
-> Now that I've extended the grant table size, *sometimes* get as far as a
-> fully functioning netfront and packets will flow, but things will
-> eventually freeze up (pretty much immediately if I do something like ping
-> -f).
-> 
-> When the unikernel is in the "frozen" state, the domain is blocked (so we
-> think we're waiting for events), and the "e" debug key shows the relevant
-> event channels (Xenstore or netfront) as pending but unmasked:
-> 
-> Example - when hung during netfront bring-up:
-> 
-> (XEN) Event channel information for domain 27:
-> (XEN) Polling vCPUs: {}
-> (XEN)     port [p/m/s]
-> (XEN)        1 [1/0/1]: s=3 n=0 x=0 d=0 p=33
-> (XEN)        2 [1/1/1]: s=3 n=0 x=0 d=0 p=34
-> (XEN)        3 [1/0/1]: s=5 n=0 x=0 v=0
-> 
-> (1 is Xenstore, 2 is console which we don't care about, 3 is VIRQ_TIMER).
-> 
-> When hung after hammering with "ping -f":
-> 
-> (XEN) Event channel information for domain 28:
-> (XEN) Polling vCPUs: {}
-> (XEN)     port [p/m/s]
-> (XEN)        1 [0/0/1]: s=3 n=0 x=0 d=0 p=33
-> (XEN)        2 [1/1/1]: s=3 n=0 x=0 d=0 p=34
-> (XEN)        3 [1/0/1]: s=5 n=0 x=0 v=0
-> (XEN)        4 [1/0/1]: s=3 n=0 x=0 d=0 p=35
-> 
-> (as above, 4 is netfront)
-
-So events are pending but somehow not injected.
-
-> 
-> Some more questions about the "bottom half" of the event channel upcall,
-> called periodically by OCaml outside of interrupt context:
-> 
-> static bool evtchn_demux_pending(void)
-> {
->     struct shared_info *s = SHARED_INFO();
->     struct vcpu_info *vi = VCPU0_INFO();
->     bool some_pending = false;
-> 
->     vi->evtchn_upcall_pending = 0;
-> >>>> Based on Roger's suggestion, this is now only done here and no longer
-> >>>> in the "top half" in interrupt context, which now only ACKs the vector
-> >>>> on the APIC.
-> 
->     /*
->      * Demux events received from Xen.
->      *
->      * pending_l1 is the "outer" per-VCPU selector (evtchn_pending_sel).
->      * pending_l2 is the "inner" system-wide word (evtchn_pending[l1i]).
->      */
->     xen_ulong_t pending_l1, pending_l2;
->     atomic_sync_xchg(&vi->evtchn_pending_sel, 0, &pending_l1);
->     while (pending_l1 != 0) {
->         xen_ulong_t l1i = ffs(pending_l1);
->         pending_l1 &= ~(1UL << l1i);
-> 
->         /*
->          * Masking pending_l2 with ~evtchn_mask[l1i] is necessary to get the
->          * *current* masked events; otherwise races like the following
->          * can occur:
->          *
->          *     1. X is generated, upcall scheduled by Xen.
->          *     2. X is masked.
->          *     3. Upcall is delivered.
->          *     4. X fires despite now being masked.
->          */
->         while ((pending_l2 =
->                     (s->evtchn_pending[l1i] & ~s->evtchn_mask[l1i])) != 0) {
->             xen_ulong_t l2i = ffs(pending_l2);
->             pending_l2 &= ~(1UL << l2i);
-> >>>> Do I need the above? It doesn't make a difference and seems redundant
-> >>>> since pending_l2 is always reassigned in the loop, but Mini-OS and
-> >>>> others are doing it...?
-
-No, pending_l2 AFAICT it's only used to get the event channel to
-process, so there's no point in clearing it on the local variable.
-What you care about is clearing it in evtchn_pending[l1i].
-
-> 
->             evtchn_port_t port = (l1i * (sizeof(xen_ulong_t) * 8)) + l2i;
->             /*
->              * Mark as pending on the OCaml side and mask the event until
->              * just before OCaml gets around to handling it. Also, clear
->              * the pending bit on the Xen side.
->              */
->             evtchn_callback_ml[port] = 1;
->             atomic_sync_bts(l2i, &s->evtchn_mask[l1i]);
-> >>>> Mask added at Roger's suggestion, not in the original Mini-OS PV-based
-> >>>> implementation.
->             atomic_sync_btc(l2i, &s->evtchn_pending[l1i]);
->             some_pending = true;
->         }
->     }
->     return some_pending;
-> }
-> 
-> The OCaml code essentially calls the above periodically, and, if
-> it returns true, then calls into the following "test and clear" operation
-> for all ports:
-> 
-> static inline bool evtchn_test_and_clear(evtchn_port_t port)
-> {
->     assert(port < EVTCHN_2L_NR_CHANNELS);
->     if (evtchn_callback_ml[port] > 0) {
->         evtchn_callback_ml[port] = 0;
->         evtchn_unmask(port);
-> >>>> Unmask added at Roger's suggestion, not in the original Mini-OS
-> >>>> PV-based implementation. I'm not entirely happy about this, since
-> >>>> it'll probably result in a lot more hypercalls when the event channel
-> >>>> is busy?
-
-OTOH you will likely continue to get interrupts from it if you don't
-mask it, so you might receive several interrupts (because you clear
-the pending bit) without having executed the handler.
-
-IMO it would be better to do the unmask after the handler has run.
-
->         return true;
->     }
->     else {
->         return false;
->     }
-> }
-> 
-> If this returns true, then the event handler will get run immediately after
-> returning from here, and before any further call to evtchn_demux_pending().
-> 
-> At this point I don't really have a clear idea of how to progress,
-> comparing my implementation side-by-side with the original PV Mini-OS-based
-> implementation doesn't show up any differences I can see.
-> 
-> AFAICT the OCaml code I've also not changed in any material way, and that
-> has been running in production on PV for years, so I'd be inclined to think
-> the problem is in my reimplementation of the C parts, but where...?
-
-A good start would be to print the ISR and IRR lapic registers when
-blocked, to assert there are no pending vectors there.
-
-Can you apply the following patch to your Xen, rebuild and check the
-output of the 'l' debug key?
-
-Also add the output of the 'v' key.
+I think you might likely only need to modify the MSRs when doing
+context switches of domains, instead of doing it on every
+vmentry/vmexit?
 
 Roger.
----8<---
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 7b5c633033..45b195cc05 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -23,6 +23,7 @@
- #include <xen/domain.h>
- #include <xen/domain_page.h>
- #include <xen/event.h>
-+#include <xen/keyhandler.h>
- #include <xen/nospec.h>
- #include <xen/trace.h>
- #include <xen/lib.h>
-@@ -1662,6 +1663,34 @@ void vlapic_destroy(struct vcpu *v)
-     free_domheap_page(vlapic->regs_page);
- }
- 
-+static void print_lapic(unsigned char key)
-+{
-+    const struct domain *d;
-+
-+    for_each_domain ( d )
-+    {
-+        const struct vcpu *v;
-+
-+        if ( !has_vlapic(d) )
-+            continue;
-+
-+        for_each_vcpu ( d, v )
-+        {
-+            const struct vlapic *vlapic = vcpu_vlapic(v);
-+
-+            printk("%pv IRR: %*pb\n", v, 256, &vlapic->regs->data[APIC_IRR]);
-+            printk("%pv ISR: %*pb\n", v, 256, &vlapic->regs->data[APIC_ISR]);
-+        }
-+    }
-+}
-+
-+static int __init print_lapic_init(void)
-+{
-+    register_keyhandler('l', print_lapic, "dump local APIC info", 1);
-+    return 0;
-+}
-+__initcall(print_lapic_init);
-+
- /*
-  * Local variables:
-  * mode: C
-
 
