@@ -2,73 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 516161FF815
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 17:52:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21CD31FF82F
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 17:53:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlwq6-0001rZ-3z; Thu, 18 Jun 2020 15:52:30 +0000
+	id 1jlwqu-0001xI-DQ; Thu, 18 Jun 2020 15:53:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XTxy=77=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jlwq4-0001rU-4w
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 15:52:28 +0000
-X-Inumbo-ID: b5552afc-b17b-11ea-8496-bc764e2007e4
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ id 1jlwqs-0001x9-RU
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 15:53:18 +0000
+X-Inumbo-ID: d3a4d750-b17b-11ea-bca7-bc764e2007e4
+Received: from mail-wm1-x329.google.com (unknown [2a00:1450:4864:20::329])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b5552afc-b17b-11ea-8496-bc764e2007e4;
- Thu, 18 Jun 2020 15:52:27 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id q11so6606820wrp.3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2020 08:52:27 -0700 (PDT)
+ id d3a4d750-b17b-11ea-bca7-bc764e2007e4;
+ Thu, 18 Jun 2020 15:53:18 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id t194so6202138wmt.4
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2020 08:53:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=li8oNN6ew0XxeSaemvQowz7zMpb4IhYQRYuOZlpR9iA=;
- b=VdI3CU3HVI9QgOOl87oggvIpp4Aqg9NOkOszxFc1laqe5BnG3mQonGGokUwkQPAV0O
- K71zW3qNISPdk5L1mL2gQzivk5/9hbzNLfBtUay9ksQuaeaEws4H+SnnvIYO3lQIKL4C
- acal+12kgAdPhH1mFzyG2GIc+xAOKTQwid1aSrV0laDea5F7JenwVE8aWscnUh1Iao5o
- i1hWbZawt1y2PG2GzjlR/1endJxWMLFaOLRRokppQgJc6Kbv8Ol0XPXNj1gPCDdiHjDr
- Ml9aU63adOPpQsomH8fiM0+wXVceCYzQBamiQWaOPwqK6EbcYRWCSdXrFNee9+JEBGd1
- 2f2g==
+ :thread-index; bh=7OemMlugsfNR/zOcIFRBo1G90vX4bXrh9IltK8wewwk=;
+ b=BEVBEEOymBbYZSHRwJbW6pZ+M9b8NzIk7qEvgyeHBNkRj3xzaErcbByHVUvBeBVfYO
+ lj+2X40Kbf8GcVXNM3JIFupwAeV2zQ5myyz9xYgumoCgIAguGm0dO4+6h+xsimZJZ9Sm
+ Nyy+qaCKh5OpAbceWyR7nDGXqON3pRt9IvnAVClQgdsia6IxOKKUP7/gdUYRPCJuA78w
+ CjFefFxRQwN7gCB80jAAIIT27MDf3cQuUxQ6k8m8iPENQBKT5VgyfWJMbeUqWry+r20b
+ SDa67raTQcFGWyJNXMdWajsYVB0X3fp52B5i4LYJEnSGS8K9DqT13oAbb61i59BrlFpZ
+ oWRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :content-language:thread-index;
- bh=li8oNN6ew0XxeSaemvQowz7zMpb4IhYQRYuOZlpR9iA=;
- b=I10lA5H9DLZxJCWEPjMGM4ThUid2RqomhF7zKj9gBHsqqoTADzhPbpOC7eOxv11Kue
- xN4Hbvk4rm12D3I4ZpXAntBJsRCCHkSHGul1hT40wIBpfCqWsrQGY3MuGkqLAyeGeYlo
- x5qpKVVutzP9A/6htGiqiZK/x4xH0pakXWV9LSqANoSyQ2bzhMmKroxTmrMFh3NvRRPH
- Z8N1CzjcZni2crbmyBSrTLo2kXJA7Yr2W7iR0ov5bQlI3aO/OYp2U7sXJOgQ5hBGuS/J
- rQMhfA4LibRcWERlhiZYCOp4w9FjFpmSIhXL5+w13TjXdgiJEwOOlrTQiCjnv3vaG+7N
- xjqA==
-X-Gm-Message-State: AOAM530r82aEZXV/rBUzdDqGHJh7gm77mEps+7voA+TRoT+9owgyPoU3
- 8EQwsczLgVx/mI+7eAZ7LzU=
-X-Google-Smtp-Source: ABdhPJywNomNciTkbMbtXKWzCsoWo4d59SvcZqmmWsJ7oz3AIpANNz9Gp2RzmwOH2FiGybsyNZZ/rQ==
-X-Received: by 2002:adf:fd4b:: with SMTP id h11mr5092570wrs.209.1592495546649; 
- Thu, 18 Jun 2020 08:52:26 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.186])
- by smtp.gmail.com with ESMTPSA id v24sm4706202wrd.92.2020.06.18.08.52.25
+ bh=7OemMlugsfNR/zOcIFRBo1G90vX4bXrh9IltK8wewwk=;
+ b=NG2ERQr4ov3VhsTLCISrwcnFaOBj4G8BVLsj/3U2jKwezL7B9mo8kAelH2J/idzmL/
+ H4cDt7Stno/n9GibWHVI17a49g2rrYTMWfEiRAiNutXGki8pctD7E3IygGFhDc3hLPm9
+ L/j2p7RrfVGRbsNDNzIoIs+r8EFLTmwjDdk6MKIjojJVg5fCBCKF9VBb8yzOS6mMyDTV
+ A554rVY/GjliL5JFHLxMj19JpcJPapcY50VjMEb3AOW44Fve+UDk9S/nrgX1afZYlJGK
+ fuu6DxuKqwYaE28Hxy9k9J3Y1vl6Go1VnBY5H9F4eLuAJ/4TjbAzE5JUNGs1MSK10MSa
+ wXVw==
+X-Gm-Message-State: AOAM530M/voMsyeYi5KvblvTRtVmmfAg0w1/rwpkLsOdVUMHqDQ1CpRo
+ oS30O+C8WNtjk7DkuU2WtXI=
+X-Google-Smtp-Source: ABdhPJyEwRrV2scBIT8jVnXYBE80tA2ka4XPswQoaXNSnqJHKL0EjP1povvUU2RYTeDhzG0l4p/unw==
+X-Received: by 2002:a1c:2002:: with SMTP id g2mr4545826wmg.132.1592495597447; 
+ Thu, 18 Jun 2020 08:53:17 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id b18sm3944314wrn.88.2020.06.18.08.53.16
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 18 Jun 2020 08:52:26 -0700 (PDT)
+ Thu, 18 Jun 2020 08:53:16 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Ian Jackson'" <ian.jackson@citrix.com>,
- "'Jason Andryuk'" <jandryuk@gmail.com>,
- "'Paul Durrant'" <xadimgnik@gmail.com>
-References: <20200617023642.80594-1-jandryuk@gmail.com>
- <24299.35750.218855.454255@mariner.uk.xensource.com>
-In-Reply-To: <24299.35750.218855.454255@mariner.uk.xensource.com>
-Subject: RE: [PATCH for-4.14] xl: Allow shutdown wait for domain death
-Date: Thu, 18 Jun 2020 16:52:24 +0100
-Message-ID: <006701d64588$768bf1c0$63a3d540$@xen.org>
+To: =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+ "'Tamas K Lengyel'" <tamas.lengyel@intel.com>
+References: <a7635e7423f834f44a132114bd3e039dd0435a00.1592490545.git.tamas.lengyel@intel.com>
+ <20200618154628.GW735@Air-de-Roger>
+In-Reply-To: <20200618154628.GW735@Air-de-Roger>
+Subject: RE: [PATCH v3 for-4.14] x86/vmx: use P2M_ALLOC in vmx_load_pdptrs
+ instead of P2M_UNSHARE
+Date: Thu, 18 Jun 2020 16:53:15 +0100
+Message-ID: <006801d64588$94d23040$be7690c0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: en-gb
-Thread-Index: AQETCCTnF9zzaa9ZdYDjbhQPQhOWdgHtT5ikqlWV2OA=
+Thread-Index: AQHYIgYxVlP9Qzxyln81XR9BR28vqgI/b39iqMjRgGA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,130 +80,69 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: paul@xen.org
-Cc: 'Anthony Perard' <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org, 'Wei Liu' <wl@xen.org>
+Cc: 'Kevin Tian' <kevin.tian@intel.com>,
+ 'Jun Nakajima' <jun.nakajima@intel.com>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
-> From: Ian Jackson <ian.jackson@citrix.com>
-> Sent: 18 June 2020 16:44
-> To: Jason Andryuk <jandryuk@gmail.com>; Paul Durrant <xadimgnik@gmail.com>
-> Cc: xen-devel@lists.xenproject.org; Wei Liu <wl@xen.org>; Anthony Perard <anthony.perard@citrix.com>
-> Subject: Re: [PATCH for-4.14] xl: Allow shutdown wait for domain death
-> 
-> Jason Andryuk writes ("[PATCH] xl: Allow shutdown wait for domain death"):
-> > `xl shutdown -w` waits for the first of either domain shutdown or death.
-> > Shutdown is the halting of the guest operating system, and death is the
-> > freeing of domain resources.
+> From: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> Sent: 18 June 2020 16:46
+> To: Tamas K Lengyel <tamas.lengyel@intel.com>
+> Cc: xen-devel@lists.xenproject.org; Jun Nakajima =
+<jun.nakajima@intel.com>; Kevin Tian
+> <kevin.tian@intel.com>; Jan Beulich <jbeulich@suse.com>; Andrew Cooper =
+<andrew.cooper3@citrix.com>;
+> Wei Liu <wl@xen.org>; Paul Durrant <paul@xen.org>
+> Subject: Re: [PATCH v3 for-4.14] x86/vmx: use P2M_ALLOC in =
+vmx_load_pdptrs instead of P2M_UNSHARE
+>=20
+> On Thu, Jun 18, 2020 at 07:39:04AM -0700, Tamas K Lengyel wrote:
+> > While forking VMs running a small RTOS system (Zephyr) a Xen crash =
+has been
+> > observed due to a mm-lock order violation while copying the HVM CPU =
+context
+> > from the parent. This issue has been identified to be due to
+> > hap_update_paging_modes first getting a lock on the gfn using =
+get_gfn. This
+> > call also creates a shared entry in the fork's memory map for the =
+cr3 gfn. The
+> > function later calls hap_update_cr3 while holding the paging_lock, =
+which
+> > results in the lock-order violation in vmx_load_pdptrs when it tries =
+to unshare
+> > the above entry when it grabs the page with the P2M_UNSHARE flag =
+set.
 > >
-> > Allow specifying -w multiple times to wait for only domain death.  This
-> > is useful in scripts so that all resources are free before the script
-> > continues.
-> 
-> Thanks!
-> 
-> Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-> 
-> Paul, I think this is a candidate for 4.14.  Without this patch it is
-> not possible to reliably wait for a domain, with xl, and then restart
-> it.  (At least not without a good deal of pratting about and polling
-> with xl list.)  osstest has a `sleep' as a workaround...
-> 
-
-Yes, it would nice to drop such workarounds.
-
-> I have reviewed this patch particularly carefully with a view to
-> understanding what happens if you pass just one `-w' as before.
-> I have convinced myself that there is definitely no change, so I don't
-> think this patch can introduce a regression.
-
-Ok, I'll trust your judgement.
+> > Since vmx_load_pdptrs only reads from the page its usage of =
+P2M_UNSHARE was
+> > unnecessary to start with. Using P2M_ALLOC is the appropriate flag =
+to ensure
+> > the p2m is properly populated.
+> >
+> > Note that the lock order violation is avoided because before the =
+paging_lock is
+> > taken a lookup is performed with P2M_ALLOC that forks the page, thus =
+the second
+> > lookup in vmx_load_pdptrs succeeds without having to perform the =
+fork. We keep
+> > P2M_ALLOC in vmx_load_pdptrs because there are code-paths leading up =
+to it
+> > which don't take the paging_lock and that have no previous lookup. =
+Currently no
+> > other code-path exists leading there with the paging_lock taken, =
+thus no
+> > further adjustments are necessary.
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+>=20
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>=20
 
 Release-acked-by: Paul Durrant <paul@xen.org>
 
-> 
-> Ian.
-> 
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> > ---
-> >  docs/man/xl.1.pod.in    |  4 +++-
-> >  tools/xl/xl_vmcontrol.c | 17 +++++++++++------
-> >  2 files changed, 14 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-> > index 09339282e6..52a47a6fbd 100644
-> > --- a/docs/man/xl.1.pod.in
-> > +++ b/docs/man/xl.1.pod.in
-> > @@ -743,7 +743,9 @@ of a Xen system.
-> >
-> >  =item B<-w>, B<--wait>
-> >
-> > -Wait for the domain to complete shutdown before returning.
-> > +Wait for the domain to complete shutdown before returning.  If given once,
-> > +the wait is for domain shutdown or domain death.  If given multiple times,
-> > +the wait is for domain death only.
-> >
-> >  =item B<-F>
-> >
-> > diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-> > index 17b4514c94..435155a033 100644
-> > --- a/tools/xl/xl_vmcontrol.c
-> > +++ b/tools/xl/xl_vmcontrol.c
-> > @@ -162,7 +162,8 @@ static void shutdown_domain(uint32_t domid,
-> >      }
-> >  }
-> >
-> > -static void wait_for_domain_deaths(libxl_evgen_domain_death **deathws, int nr)
-> > +static void wait_for_domain_deaths(libxl_evgen_domain_death **deathws, int nr,
-> > +                                   int wait_for_shutdown_or_death)
-> >  {
-> >      int rc, count = 0;
-> >      LOG("Waiting for %d domains", nr);
-> > @@ -183,8 +184,12 @@ static void wait_for_domain_deaths(libxl_evgen_domain_death **deathws, int nr)
-> >          case LIBXL_EVENT_TYPE_DOMAIN_SHUTDOWN:
-> >              LOG("Domain %d has been shut down, reason code %d",
-> >                  event->domid, event->u.domain_shutdown.shutdown_reason);
-> > -            libxl_evdisable_domain_death(ctx, deathws[event->for_user]);
-> > -            count++;
-> > +            if (wait_for_shutdown_or_death) {
-> > +                libxl_evdisable_domain_death(ctx, deathws[event->for_user]);
-> > +                count++;
-> > +            } else {
-> > +                LOG("Domain %d continue waiting for death", event->domid);
-> > +            }
-> >              break;
-> >          default:
-> >              LOG("Unexpected event type %d", event->type);
-> > @@ -214,7 +219,7 @@ static int main_shutdown_or_reboot(int do_reboot, int argc, char **argv)
-> >          all = 1;
-> >          break;
-> >      case 'w':
-> > -        wait_for_it = 1;
-> > +        wait_for_it++;
-> >          break;
-> >      case 'F':
-> >          fallback_trigger = 1;
-> > @@ -246,7 +251,7 @@ static int main_shutdown_or_reboot(int do_reboot, int argc, char **argv)
-> >          }
-> >
-> >          if (deathws) {
-> > -            wait_for_domain_deaths(deathws, nrdeathws);
-> > +            wait_for_domain_deaths(deathws, nrdeathws, wait_for_it == 1);
-> >              free(deathws);
-> >          }
-> >
-> > @@ -258,7 +263,7 @@ static int main_shutdown_or_reboot(int do_reboot, int argc, char **argv)
-> >          fn(domid, wait_for_it ? &deathw : NULL, 0, fallback_trigger);
-> >
-> >          if (wait_for_it)
-> > -            wait_for_domain_deaths(&deathw, 1);
-> > +            wait_for_domain_deaths(&deathw, 1, wait_for_it == 1);
-> >      }
-> >
-> >
-> > --
-> > 2.25.1
-> >
+> Thanks!
 
 
