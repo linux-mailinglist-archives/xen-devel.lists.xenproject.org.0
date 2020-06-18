@@ -2,64 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BECE61FFE59
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 00:50:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F16561FFE9B
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 01:29:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jm3Lr-0004di-8Q; Thu, 18 Jun 2020 22:49:43 +0000
+	id 1jm3y4-0007tV-H8; Thu, 18 Jun 2020 23:29:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UxAD=77=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1jm3Lp-0004dd-QO
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 22:49:41 +0000
-X-Inumbo-ID: fe4461c6-b1b5-11ea-bb8b-bc764e2007e4
-Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fe4461c6-b1b5-11ea-bb8b-bc764e2007e4;
- Thu, 18 Jun 2020 22:49:40 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id y20so7341024wmi.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2020 15:49:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=e4v5lGFAfpa4m/MPKqRqTZ8nc/gfuYPKkhcMxsNKeT4=;
- b=sIya2hykS0aDKCgm6LdW6vLYW0Y7OMWgkIXWRxIuIxUE/Wf4iQdRatgWVx1kn38/MP
- H+2Vq4Fvo1IdcAmcfQiC9tOLHz/VhQk2STtVRUB2NVwpB2IA0GRFlBMdLlhqrVKY/f0n
- RBQgmeMRfgGGFziIlrskILvHGx5TXDCp5Z1DV3zo0PYeLUI+Rh/j9Q8sWdPA6+eHQ03d
- YJ0fPHS7XyVw5wEPI1BgeY+w1rDrpYAE1YKhZG4tExwjSk01lMIBeASHb66GbHshlKik
- LWyL/vCwmw/DNGxEe/0AjOef7vEtNr9YbEVoqumMqiU9qG/Uq2GdwhLvfXboWRpQsLf6
- gD+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=e4v5lGFAfpa4m/MPKqRqTZ8nc/gfuYPKkhcMxsNKeT4=;
- b=a5mY2HpTDVCZJ7OXNq4uvjNglS+dpm4cfW6Q475eUlbYLtIWvad9pOMJrBg+DL6J4/
- ToOBMKyHVKzj7aIcKzkFzdqjAdIoMt4z8jMyErhgQvpf3RZC4HKQQEZqlCg5M9rqKebe
- yk2yUJCDorM6uhj6H64+s87AKArnuvoe9R8D/CCXV+9Ce1DaQW/SXD/JFZc2gAioR+qK
- R8+ZvOxVrn3gg6OvUtVlpwRkRrtO/RzdQKlQexw1HihPABxJjgf+yJ1f6CQpwAgtjS/H
- Il2WWihHo0ucEjL45/N1jp0FFjWUZx7h7Ja9eHRAMx9rBTR2Z7TZ3viVNGvJD/b4HEbV
- FLXw==
-X-Gm-Message-State: AOAM532KF+zR0F23OW6px6R0TnYwmaitaZjniwYueevv1LLIAcBERDZS
- rhLwxqRQPaNd+YYVL0VTbrgLc6zGrxLwd95xpFg=
-X-Google-Smtp-Source: ABdhPJzVjjjIo24UGU0ekySe9iGYTjHxs1H+O7FYAU2n4DRr/FCblWMUMvvccBi3NTN3xvV+LxOA2+VRISdypg796Ig=
-X-Received: by 2002:a1c:c1:: with SMTP id 184mr560500wma.74.1592520579547;
- Thu, 18 Jun 2020 15:49:39 -0700 (PDT)
+ <SRS0=0e1t=77=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
+ id 1jm3y2-0007tQ-Kb
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 23:29:10 +0000
+X-Inumbo-ID: 822bf828-b1bb-11ea-bca7-bc764e2007e4
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.2.65]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 822bf828-b1bb-11ea-bca7-bc764e2007e4;
+ Thu, 18 Jun 2020 23:29:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l7Gd3dXLhrflVSrzgXMgM9E3UIM3MYaPlxwf1uBuWldJFDp96B6D3jWeb283H1IxLkoomhwKLaWNSmb10wstPMoChUqCUjgRlEmosXe5lHJBIw1h31LUSDYdRBwnUcWM1OBFWDdfQST2Kr6IBxsbH3P1DqRRuN47svl85BaWGOz/fmOsWUnfNcbdwifPiBZ64QLx367Ty7nw05P6lA27XNx/tp+W80JJExthe1qw0HLbQeocwjG61jFl6qQKamVf/pwS2Il8/bMn1J6ZJpwDKiWDPheNxztyH1me6kwIPkaG5DxA8atsnVBYY089N5lKNzOjj35dnRK2ZpsPrqC0Sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BE3xGRqIJ5fZeXZq5TpIagarg1WJmbmqwsnEhcIfRhE=;
+ b=l3cSafqEj2+S3SoDIp1AOTPRjfc1VGm/4QtfdtMScqQCjI3HjbjorfABdeJ1RFchbmoyLdCDPL5S2mzHofh1fxzNAEUzYeLcnjlqvvaz7x0tGOHCmDVlyPTMqislOIIVjX1219/0We5Mu14QQPHEhBa8WDu3KpAe5wHIjsn4pWmbQUhYeKcWltEzsE+CkalKyA22NU8D/JRny9I/wLrpfAaIhwQp1LBWMpTcUm7NSFCm8HL+iYAKok1hhmSKebvFLPyGgtarjuWk8sSBYlKrcuzF7DQTQHa1P19kZuQPFyqrY7gSZiHux11/pSyIKJc2crAPrFFHuFVGuZpSb5uPLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BE3xGRqIJ5fZeXZq5TpIagarg1WJmbmqwsnEhcIfRhE=;
+ b=FAJApfXIRi9n+MBkiYKio2gOeQDTrFQDFyQl2eWUsdCKCNFhONzJEL8eGZMZrN/f+yQEFY9HYQU/chEs+WKvxZBVCICjBmu4Oiksjiy+qmrSL0GMt5apgKVw7HJJOZpg/xsX9VDsgJTLyI1/Bv2Hka6c7TFpuVRLPJ6PFsxfjuDQz//Ctrvb6GvY2/8nHcjeJBzYWx6ikE6BlJVZYV4591Glc9WOoX5sQhKLsVrWaTmpgiWriXeHms4hcSakfaEXvn9TQFZrCHm5TcnRcME9do28XEHWJgYQUkiI8cvJ8fIPvF2y04C0C2Qf4FO/3geF/Ive76CRxzn3MxEfCNqFCA==
+Received: from VI1PR03MB2926.eurprd03.prod.outlook.com (2603:10a6:802:35::28)
+ by VI1PR03MB5005.eurprd03.prod.outlook.com (2603:10a6:803:b7::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22; Thu, 18 Jun
+ 2020 23:29:07 +0000
+Received: from VI1PR03MB2926.eurprd03.prod.outlook.com
+ ([fe80::95fd:55d9:421b:1f37]) by VI1PR03MB2926.eurprd03.prod.outlook.com
+ ([fe80::95fd:55d9:421b:1f37%7]) with mapi id 15.20.3088.028; Thu, 18 Jun 2020
+ 23:29:07 +0000
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] xen/arm: optee: allow plain TMEM buffers with NULL address
+Thread-Topic: [PATCH] xen/arm: optee: allow plain TMEM buffers with NULL
+ address
+Thread-Index: AQHWLLcTxhZtogukPEOG78aedSZTLajL0lyAgBNkugA=
+Date: Thu, 18 Jun 2020 23:29:07 +0000
+Message-ID: <878sgk2bst.fsf@epam.com>
+References: <2a32c7c2048333169c9378194d6a435e2e7ed2d7.camel@epam.com>
+ <1b596a11-95b5-3e87-bbf5-c0c4dceb6489@xen.org>
+In-Reply-To: <1b596a11-95b5-3e87-bbf5-c0c4dceb6489@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.4.10; emacs 26.3
+authentication-results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [176.36.48.175]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 85797aee-a6ba-457f-6371-08d813df6594
+x-ms-traffictypediagnostic: VI1PR03MB5005:
+x-microsoft-antispam-prvs: <VI1PR03MB5005518435F3C39ACC82EAD8E69B0@VI1PR03MB5005.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 0438F90F17
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: kiNeWXaFAg5hzOFMpOXuA69R8cWiek7mro5KMErihYyUwCtGzebnC9Ia7e2N4oRoXysIDEZFEUAVc04m+HhoNhAas24FRsTdRrHHHwrCRQz0el4mAttWFmw+MU5O+43eNZoHxP9ODHUxLqC9cOUOtv3ZPpzKHQ3LMzFN6u5d7FlReJT4O1yRxRodBm2l136bxcWD6izVpI8GpQTVE8+1++NsxcHGom2i50PBiVuRUVN/Xw1lp7c7QFdriUM5ZZmz1ML8h2ahr8m3+VgEkMluub81x9KElsPr9Hv9mfra8NtKwtATmD8bk1s5rgV9M5ooOrfVOniY54zGQvaIY8gGaQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR03MB2926.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(366004)(2906002)(6506007)(53546011)(26005)(83380400001)(6486002)(5660300002)(8936002)(8676002)(71200400001)(55236004)(186003)(36756003)(4326008)(6916009)(66946007)(86362001)(54906003)(316002)(478600001)(76116006)(91956017)(66476007)(64756008)(66556008)(2616005)(66446008)(6512007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: RECDs+Z/Oz3USSfu0CwTx1KYeYLeEYoQqqXoewmBb35JY9iZT09rhZTYLDUV5SE0uGjcneNkjxBEUeOOYmRdQ1+QGykDul+uLgOrWTPfxQOqc8qqLqn7rlI0UAV+zmBZHeK4ImoVeqsrvTtyCJShJSdPaKzIsgZKD7imo//B3ZLxjMD9nCvYZDzgZPvU84GzVImd4nc7E1YH4DQQbI0B0b5ZzP4yvz8U8l4nVloj5Mk8NUo9msldaF7QCJG3tOxDYCmCxxur1I+3qPg+HgOpUuxo15Z4KSc3fHdj4M8HGnkOYsn7x1Q60L5vYhj96AMvvBLNwCuVBWyo02zX+SWW8UBS9xBZxIOJLcAFcaZ7epar3U9EIei7+Ikk9E5TW2qL+zdhjiaD9A9h01nESFFcu3CgoIBkKlaRUEW18VLVvXrfFiME3R+LsXDRlll5gaMeifvVcchd/vWQV/eC+k3Nf9sQlS5o1lOVqY8ipYr2Hzg=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
- <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
- <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
- <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
- <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Thu, 18 Jun 2020 23:49:28 +0100
-Message-ID: <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
-Subject: Re: UEFI support in ARM DomUs
-To: Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85797aee-a6ba-457f-6371-08d813df6594
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2020 23:29:07.4704 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: j9qPPnPwFThcVZab86Bo4QHA7LoTrf6HiDSi0TxO/1nDih0Sg6AjGFbjdVAiH8tcu+ng/XHK6lcgmewyVekPkroXS7MuJc6Vs+YJgw9v5R8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB5005
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,161 +97,93 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Roman Shaposhnik <roman@zededa.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "paul@xen.org" <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 18 Jun 2020 at 23:00, Stefano Stabellini <sstabellini@kernel.org> wrote:
->
-> On Thu, 18 Jun 2020, Julien Grall wrote:
-> > On 18/06/2020 06:22, Oleksandr Andrushchenko wrote:
-> > >
-> > > On 6/4/20 6:31 PM, Stefano Stabellini wrote:
-> > > > On Thu, 4 Jun 2020, Oleksandr Andrushchenko wrote:
-> > > > > On 6/4/20 4:57 AM, Peng Fan wrote:
-> > > > > > Grall <julien@xen.org>;
-> > > > > > > Nataliya Korovkina <malus.brandywine@gmail.com>
-> > > > > > > Subject: UEFI support in ARM DomUs
-> > > > > > We have made U-Boot run inside XEN DomU, but just only PV console
-> > > > > > part,
-> > > > > > not implement other frontend drivers currently. Would this help for
-> > > > > > your
-> > > > > > case if enable EFI in U-Boot?
-> > > > > Well, we have a working PV block implementation on top of that on iMX8
-> > > > >
-> > > > > platform, mostly ported from mini-os. Currently we are finalizing the
-> > > > > work
-> > > > >
-> > > > > and cleaning up (it's going to take a week or so hopefully). Then, we
-> > > > > we'll post
-> > > > >
-> > > > > it on our public github. We are also thinking about upstreaming the
-> > > > > work, but it may
-> > > > >
-> > > > > take quite some time if the whole idea fits u-boot's view on such an
-> > > > > extension at all.
-> > > > Yes please to both of you! :-)
-> > > >
-> > > > In the meantime, while we wait for those changes to go upstream in
-> > > > uboot, could you please post a branch on github and a link on this email
-> > > > thread?
-> > >
-> > > It took a bit more time than we expected, but here we go [1]:
-> > >
-> > > this is in form of a pull-request as we would love to hear from the
-> > >
-> > > community and it is easier to discuss the code (please leave comments there)
-> > >
-> > > 1. There is code originating from MiniOS and work done by Peng, so we
-> > >
-> > > would like to ask the respective copyright owners to raise their hands and
-> >
-> > Not everyone are closely watching xen-devel. So if you want to find out who
-> > are the copyright owners, then your best solution is to go through the git log
-> > and CC the authors.
->
-> That is true. But why do you want to contact them? It doesn't look like
-> there would be any licensing issues.
 
-From the sentence, I wasn't entirely sure whether he wanted to contact
-the copyright owner for crediting them in the headers.
+Hi Julien,
 
-> > >
-> > > 5. We use -D__XEN__ to access some of the hidden defines we need such as
-> > >
-> > > GUEST_RAM0_BASE and the friends as there is no other way but manually
-> > > defining the
-> > >
-> > > same which is not cute.
-> >
-> > I have replied to this in the pull request. But I want to bring the
-> > conversation here to have a wider discussion.
-> >
-> > For a first, __XEN__ should really only be defined by the hypervisor and not
-> > used by the guest. This is used to gate non-stable ABI (such as the tools) and
-> > anything behind it hasn't been vetted to work in other build configuration
-> > that the one used by Xen.
-> >
-> > In general, we expect the guest to discover everything for the device-tree
-> > because the memory layout is not stable (we want to be able to reshuffle as we
-> > add more features).
-> >
-> > I know that EDK2/Tianocore can be built once and work on every Xen
-> > configuration. It would be ideal that U-boot follow the same. If it is really
-> > not possible, then we should explore a path that is preventing to define
-> > __XEN__.
-> >
-> > How much does U-boot expect to know about the memory layout? Does it require
-> > to know all the memory banks? Or would it be sufficient for it to know the
-> > start address of the first bank and the minimum of RAM?
->
-> Copy/pasting here from my comment on the pull request plus additional
-> thoughts.
->
-> Uboot is one of those embedded projects that typically assumes that all
-> the information about the platform is available at *build time*. It is
-> meant to be built tailored for a specific version of a specific board. A
-> Uboot binary is not expected to be "portable" across different versions
-> of the platform or different platforms. In other words, it is not
-> expected to be portable across Xen versions.
+Julien Grall writes:
 
-Can you define "version" here? Do you refer to the difference in terms
-of memory?
+> (+Paul)
+>
+> Hi,
+>
+> On 18/05/2020 02:53, Volodymyr Babchuk wrote:
+>> Trusted Applications use popular approach to determine required size
+>> of buffer: client provides a memory reference with the NULL pointer to
+>> a buffer. This is so called "Null memory reference".  TA updates the
+>
+> NIT: You use double space after '.' here but all the others use a
+> single space.
+
+Oops, missed that.
+
+>> reference with the required size and returns it back to client. Then
+>> client allocates buffer of needed size and repeats the operation.
+>>
+>> This behavior is described in TEE Client API Specification, paragraph
+>> 3.2.5. Memory References.
+>
+> From the spec, it is not a clear cut that NULL will always used as
+> fetching the required size of an output buffer. In particular, they
+> suggest to refer to the protocol.
+>
+> In your commit message you indirectly point to an example where 0/NULL
+> would have a different meaning depending on the flags. This is not
+> explained in the TEE Client API Specification. Do you have some
+> pointer I could use to check the behavior?
+
+Well, GP specification describes application interface. It does not
+specifies how implementation should handle this internally. Basically,
+GP defines functions, data types, macros, etc to be used by CAs and
+TAs. But it does not define how exactly call from CA will be delivered
+to TA. Implementation is free to use any means as far, as they conform
+with rules described in the specification.
+
+OPTEE's REE<->TEE interface is described in the header files, that I
+added to xen (optee_msg.h, optee_rpc_cmd.h,optee_smc.h). But it does not
+describe every aspect, unfortunately.
+
+>>
+>> OP-TEE represents this null memory reference as a TMEM parameter with
+>> buf_ptr =3D=3D NULL. This is the only case when we should allow TMEM
+>> buffer without the OPTEE_MSG_ATTR_NONCONTIG flag.
+>
+> IIUC, 0 with OPTEE_MSG_ATTR_NONCONTIG set would mean "use the buffer
+> at address 0" but with the flag cleared, it would mean "return the
+> size". Am I correct?
+
+Not exactly. This flag does not affect behavior for buffers with address
+NULL. In any case, this would not mean "return the size" to
+OP-TEE. This is because OP-TEE works as a transport between CA and TA
+and it does not assign any meaning to client buffers. But certainly,
+null buffer will mean "return the size" for some TAs, as described in
+GlobalPlatform specification.
+
+Reason why I prohibited buffers without OPTEE_MSG_ATTR_NONCONTIG flag in
+the the original patch is that such buffers could span across page
+boundary, which is no-go for fragmented p2m.
+
+But I missed that special case: null buffer without
+OPTEE_MSG_ATTR_NONCONTIG flag. As this is a special type of buffer, it
+can be allowed with and without said flag.
 
 >
-> This is a different model meant for different use-cases. I don't think
-> it is a problem "philosophically" to let Uboot know about Xen details at
-> build time. Yes, that is not what we did historically but it is very
-> much in the spirit of Uboot.
-
-TBH, I don't particularly mind that U-boot is built against a specific
-version of Xen. I am more concerned about the long term implication if
-we endorse it
-and then try to change the memory layout in depth.
-
+>>
+>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> The code looks to match your commit message, but I wasn't able to
+> match it with the spec. Do you have other pointer I could use to check
+> the behavior?
 >
-> But of course the least Uboot depends on these details the better
-> because it will be more flexible, but it could very well be that we
-> won't be able to reach the point where the binary works on any version
-> like we did with Tianocore. The two projects work differently.
+> I assume this wants to be part of Xen 4.14. The change is only for
+> OP-TEE which is a tech preview feature. So the risk is very limited.
 
-Can we have a list of things U-boot require to know at compile time?
+Sure.
 
-In particular, I would like to understand if it would be sufficient to
-only be aware of the first bank. If it is, then my preference would be
-to standardize that bit of the layout.
-
-> That said, I think Julien is right that we need to be careful on how we
-> expose these information to Uboot, i.e. defining __XEN__ to build Uboot
-> doesn't seem like a good idea because we enable definitions that were
-> never meant to be used outside of a Xen build. Also, it wouldn't be easy
-> to know exactly which definitions are actively used by Uboot and which
-> ones aren't.
->
-> If we are going to make Uboot dependent on version-specific information
-> of the Xen interface, it would be better to be very clear about which
-> definitions we are using. So that one day if we need to change them, we
-> can find them easily.
->
-> So I think it would be better to introduce a set of defines with the
-> minimum amount of information required by Uboot statically. That way,
-> at least we have a single place where to find all the version-specific
-> definitions that Uboot is using.
-
-I am not sure what you are suggesting. Can you expand a bit more?
-
-> We can also manage versioning of the
-> Xen interface (like we do in QEMU) if we have to.
-
-Can you provide more details about the compatibility? I am quite
-interested in the part where you would have to deal with an older QEMU
-version built against a new Xen?
-
-Cheers,
+--=20
+Volodymyr Babchuk at EPAM=
 
