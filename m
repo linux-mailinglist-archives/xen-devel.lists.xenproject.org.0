@@ -2,59 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D75F1FF05B
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 13:15:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 730851FF088
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 13:33:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlsW4-0008Vz-Ql; Thu, 18 Jun 2020 11:15:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gG4j=77=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
- id 1jlsW3-0008Vu-FQ
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 11:15:31 +0000
-X-Inumbo-ID: 05437ec8-b155-11ea-b7bb-bc764e2007e4
-Received: from mail-ot1-x331.google.com (unknown [2607:f8b0:4864:20::331])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05437ec8-b155-11ea-b7bb-bc764e2007e4;
- Thu, 18 Jun 2020 11:15:30 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id e5so4190160ote.11
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2020 04:15:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Lfy+bP/6vJ3x/eThUcFMoD17ZCsLCF7U1giHYoTwtA4=;
- b=sUxznxSmchgqY2f5sYqi6xE3YfX14kI/Ag2KwH8ycZkmBoba3F+gzNOyDL+AkZm30b
- V8WrWBPR4W/AGEaGYd7o1M6CPMRS2iJi3GtlWVZdXcIl0DWvyY1w/qkhWIesrNYeva5x
- gmWhJY8Ho6jcQzf1jUHNhipod6sf0QKr/cPxpRxIVL1opWWcd8a+0+cx4Ny4zvpqUnfa
- iTt/HYuR4puUSdP0McH5kvLUdq3Fl50h18gSkxhUDa8jfYEnYaXVLeGdsJGXAHu1e7WX
- TkFo/sKLgUAf5ZMPUq79VtLepytd05CLpn7dWwwvmdNT9Zax52uL2iwrKlK8K+SgLUc2
- f/fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Lfy+bP/6vJ3x/eThUcFMoD17ZCsLCF7U1giHYoTwtA4=;
- b=eBcraZ+Trk9eQ8fLCks/j4yB/tMl+bI8sfrAOOHCM3SteeNLg5ml958iHvcNHBn1N4
- TjLkQmtp4wk+oSBjnd07TOEN8VzPjiDyvHsOFNwbBAqluoh8LtisWFJsPx5qhjjsgK8o
- DzinjxFBytQx434VGERN8mVO9772H9KWdz1H6zcDl63vc8f5OhFECC8O+w+Y+e3tWPRO
- z221s3Ex/ubr6FSDJMoLl3rprbKhH9xyYgRQ7yECBSAbo02bQpet6eGiM4Bk4c1UqPCk
- s0uxy60ln/44LCEAuiSRmrpLn/2yAgSVftGf9I3ynx8NYNC9853P3hJ1JQK4VfkdPvf8
- miUg==
-X-Gm-Message-State: AOAM531E/zxoee055eweqjzp6IFiGWv8s3sMAKHnKkIDTUH4R9Y9gO2D
- /21yeT1VgfdccjaaZ68uVhURfJ7HydEstZcZJ8w03Q==
-X-Google-Smtp-Source: ABdhPJy48JqtekoXt/q251dx9kp7Qx2YkwKld0xXxO1OsCMccwd06f7lZhP3D9H98GxoL52m/6CA5MxkhAk5hJKdiyk=
-X-Received: by 2002:a05:6830:8d:: with SMTP id
- a13mr2919781oto.91.1592478930363; 
- Thu, 18 Jun 2020 04:15:30 -0700 (PDT)
+	id 1jlsmg-0001is-BD; Thu, 18 Jun 2020 11:32:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fT7M=77=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jlsmf-0001in-4W
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 11:32:41 +0000
+X-Inumbo-ID: 69d7018c-b157-11ea-ba74-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 69d7018c-b157-11ea-ba74-12813bfff9fa;
+ Thu, 18 Jun 2020 11:32:38 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 13478ACA7;
+ Thu, 18 Jun 2020 11:32:37 +0000 (UTC)
+Subject: Re: [PATCH v2 for-4.14] x86/vmx: use P2M_ALLOC in vmx_load_pdptrs
+ instead of P2M_UNSHARE
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <3555e16baa9e1909dbefaaab04330694135c9021.1592410065.git.tamas.lengyel@intel.com>
+ <d63e00e0-0097-c37e-ba9d-ac9340192dfb@suse.com>
+ <20200618094014.GH735@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <cd04414d-a08e-d3a9-8bab-076a578f8329@suse.com>
+Date: Thu, 18 Jun 2020 13:32:38 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-References: <20200617122901.13327-1-kraxel@redhat.com>
-In-Reply-To: <20200617122901.13327-1-kraxel@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Thu, 18 Jun 2020 12:15:19 +0100
-Message-ID: <CAFEAcA8KhmoSsXBPOJAu6upNiQc5H26OeP=Hm1fNtS5c-We5=Q@mail.gmail.com>
-Subject: Re: [PULL 0/4] Microvm 20200617 patches
-To: Gerd Hoffmann <kraxel@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20200618094014.GH735@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,40 +49,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Eduardo Habkost <ehabkost@redhat.com>, Sergio Lopez <slp@redhat.com>,
- Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- QEMU Developers <qemu-devel@nongnu.org>,
- "open list:X86" <xen-devel@lists.xenproject.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Richard Henderson <rth@twiddle.net>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 17 Jun 2020 at 13:33, Gerd Hoffmann <kraxel@redhat.com> wrote:
->
-> The following changes since commit 5c24bce3056ff209a1ecc50ff4b7e65b85ad8e74:
->
->   Merge remote-tracking branch 'remotes/stsquad/tags/pull-testing-and-plugin-160620-2' into staging (2020-06-16 14:57:15 +0100)
->
-> are available in the Git repository at:
->
->   git://git.kraxel.org/qemu tags/microvm-20200617-pull-request
->
-> for you to fetch changes up to c8b473594b8fbba169a6ea950493a3015d15a18d:
->
->   microvm: move virtio base to 0xfeb00000 (2020-06-17 14:24:28 +0200)
->
-> ----------------------------------------------------------------
-> microvm: memory config tweaks
->
-> ----------------------------------------------------------------
+On 18.06.2020 11:40, Roger Pau Monné wrote:
+> On Thu, Jun 18, 2020 at 08:30:08AM +0200, Jan Beulich wrote:
+>> On 17.06.2020 18:19, Tamas K Lengyel wrote:
+>>> While forking VMs running a small RTOS system (Zephyr) a Xen crash has been
+>>> observed due to a mm-lock order violation while copying the HVM CPU context
+>>> from the parent. This issue has been identified to be due to
+>>> hap_update_paging_modes first getting a lock on the gfn using get_gfn. This
+>>> call also creates a shared entry in the fork's memory map for the cr3 gfn. The
+>>> function later calls hap_update_cr3 while holding the paging_lock, which
+>>> results in the lock-order violation in vmx_load_pdptrs when it tries to unshare
+>>> the above entry when it grabs the page with the P2M_UNSHARE flag set.
+>>>
+>>> Since vmx_load_pdptrs only reads from the page its usage of P2M_UNSHARE was
+>>> unnecessary to start with. Using P2M_ALLOC is the appropriate flag to ensure
+>>> the p2m is properly populated and to avoid the lock-order violation we
+>>> observed.
+>>
+>> Using P2M_ALLOC is not going to address the original problem though
+>> afaict: You may hit the mem_sharing_fork_page() path that way, and
+>> via nominate_page() => __grab_shared_page() => mem_sharing_page_lock()
+>> you'd run into a lock order violation again.
+> 
+> Well, I guess Tamas avoids this because of the get_gfn call in
+> hap_update_paging_modes will have already populated the entry, so it's
+> never going to hit the p2m_is_hole check in __get_gfn_type_access.
+> 
+>> The change is an improvement, so I'd be fine with it going in this
+>> way, but only as long as the description mentions that there's still
+>> an open issue here (which may be non-trivial to address). Or perhaps
+>> combining with your v1 change is the way to go (for now or even
+>> permanently)?
+> 
+> If vmx_load_pdptrs only requires P2M_ALLOC then this is already
+> covered by the call to get_gfn performed in hap_update_paging_modes,
+> so I don't think there's much point in merging with v1, as forcing
+> hap_update_paging_modes to unshare the entry won't affect
+> vmx_load_pdptrs anymore.
 
+Oh, I simply mis-remembered what v1 did; for some reason I thought
+it added a call rather than modifying the query type from alloc to
+unshare.
 
-Applied, thanks.
-
-Please update the changelog at https://wiki.qemu.org/ChangeLog/5.1
-for any user-visible changes.
-
--- PMM
+Jan
 
