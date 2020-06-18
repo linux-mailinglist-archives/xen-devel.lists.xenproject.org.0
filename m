@@ -2,40 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D631A1FF0FE
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 13:50:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17AB1FF111
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 13:55:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlt3P-0002qv-Bl; Thu, 18 Jun 2020 11:49:59 +0000
+	id 1jlt8j-0003iV-WF; Thu, 18 Jun 2020 11:55:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fT7M=77=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jlt3O-0002qo-IK
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 11:49:58 +0000
-X-Inumbo-ID: d526955e-b159-11ea-b7bb-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HRl3=77=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jlt8i-0003iQ-4p
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 11:55:28 +0000
+X-Inumbo-ID: 995a614e-b15a-11ea-8496-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d526955e-b159-11ea-b7bb-bc764e2007e4;
- Thu, 18 Jun 2020 11:49:57 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 092DDAC50;
- Thu, 18 Jun 2020 11:49:55 +0000 (UTC)
-Subject: Re: [PATCH] VT-x: simplify/clarify vmx_load_pdptrs()
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <b2bd8c84-9109-8b21-afb4-51e49b271a83@suse.com>
- <20200618101113.GI735@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <762c5e4a-4132-b82f-7234-3b3e9508d1ae@suse.com>
-Date: Thu, 18 Jun 2020 13:49:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ id 995a614e-b15a-11ea-8496-bc764e2007e4;
+ Thu, 18 Jun 2020 11:55:27 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: CveAVyGHF0CqV5F/97PfNZUCLyjpXZyf5EDwD6GISBNuzu4Q8mr9ZOushC1k0UR/HaqcEWfvL8
+ 9QZ7FRw47aX84jhFRkSjIg4/k3C6qiwxyFucQCteozJXjvzOY9YA58E5ujHrjob67oIN9altol
+ UQjRU1byJUVa/9dpSZM2497mIE39BDW0sZBfzHz/nP1jNVfQCNv8QmSC654skFw3M8d/LS8Bgq
+ 1kXLHNIJ65KpBtbSy2X1jRqlF4qqkpl+fnxEx3yaaNvSGxcv8CnmMESsnLDk5u9sm8jNh2A//G
+ Twc=
+X-SBRS: 2.7
+X-MesageID: 20706045
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,526,1583211600"; d="scan'208";a="20706045"
+Date: Thu, 18 Jun 2020 13:55:19 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v1 4/7] x86/vmx: add do_vmtrace_op
+Message-ID: <20200618115519.GL735@Air-de-Roger>
+References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
+ <34833328.8766172.1592320926648.JavaMail.zimbra@cert.pl>
+ <20200616172352.GT735@Air-de-Roger>
+ <998292451.9258672.1592421185726.JavaMail.zimbra@cert.pl>
+ <CABfawhmxUtuyBUYjVf9iOMvJop-_7SfciRNQThZt0sAqPsVqrg@mail.gmail.com>
+ <832789003.9534743.1592478099057.JavaMail.zimbra@cert.pl>
 MIME-Version: 1.0
-In-Reply-To: <20200618101113.GI735@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <832789003.9534743.1592478099057.JavaMail.zimbra@cert.pl>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,87 +59,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.06.2020 12:11, Roger Pau Monné wrote:
-> On Thu, Jun 18, 2020 at 08:38:27AM +0200, Jan Beulich wrote:
->> * Guests outside of long mode can't have PCID enabled. Drop the
->>   respective check to make more obvious that there's no security issue
->>   (from potentially accessing past the mapped page's boundary).
->>
->> * Only the low 32 bits of CR3 are relevant outside of long mode, even
->>   if they remained unchanged after leaving that mode.
->>
->> * Drop the unnecessary and badly typed local variable p.
->>
->> * Don't open-code hvm_long_mode_active() (and extend this to the related
->>   nested VT-x code).
->>
->> * Constify guest_pdptes to clarify that we're only reading from the
->>   page.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Thu, Jun 18, 2020 at 01:01:39PM +0200, Michał Leszczyński wrote:
+> ----- 18 cze 2020 o 5:20, Tamas K Lengyel tamas.k.lengyel@gmail.com napisał(a):
 > 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
-
->> --- a/xen/arch/x86/hvm/vmx/vmx.c
->> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->> @@ -1312,17 +1312,16 @@ static void vmx_set_interrupt_shadow(str
->>  
->>  static void vmx_load_pdptrs(struct vcpu *v)
->>  {
->> -    unsigned long cr3 = v->arch.hvm.guest_cr[3];
->> -    uint64_t *guest_pdptes;
->> +    uint32_t cr3 = v->arch.hvm.guest_cr[3];
->> +    const uint64_t *guest_pdptes;
->>      struct page_info *page;
->>      p2m_type_t p2mt;
->> -    char *p;
->>  
->>      /* EPT needs to load PDPTRS into VMCS for PAE. */
->> -    if ( !hvm_pae_enabled(v) || (v->arch.hvm.guest_efer & EFER_LMA) )
->> +    if ( !hvm_pae_enabled(v) || hvm_long_mode_active(v) )
->>          return;
->>  
->> -    if ( (cr3 & 0x1fUL) && !hvm_pcid_enabled(v) )
->> +    if ( cr3 & 0x1f )
->>          goto crash;
+> >> >> +
+> >> >> +        a.mfn = v->arch.hvm.vmx.ipt_state->output_base >> PAGE_SHIFT;
+> >> >
+> >> > This will not work for translated domains, ie: a PVH or HVM domain
+> >> > won't be able to use this interface since it has no way to request the
+> >> > mapping of a specific mfn into it's physmap. I think we need to take
+> >> > this into account when deciding how the interface should be, so that
+> >> > we don't corner ourselves with a PV only interface.
+> >>
+> >> Please be aware that this is only going to be used by Dom0. Is is well-supported
+> >> case that somebody is using PVH/HVM Dom0?
+> >>
+> >> I think that all Virtual Machine Introspection stuff currently requires to have
+> >> Dom0 PV. Our main goal is to have this working well in combo with VMI.
+> > 
+> > FYI the VMI interface doesn't require a PV domain. It works fine from
+> > PVH dom0 or even from a secondary privileged HVM DomU as well,
+> > provided you have the right XSM policy to allow that.
+> > 
+> > Tamas
 > 
-> Intel SDM says bits 0 to 4 are ignored, not reserved, so I'm not sure
-> we need to crash the guest here. I have no reference how real hardware
-> behaves here, so maybe crashing is the right thing to do.
-
-No, I was mislead by the wording of the description in the old
-patch I've referenced. IOW ...
-
->> @@ -1332,14 +1331,12 @@ static void vmx_load_pdptrs(struct vcpu
->>           * queue, but this is the wrong place. We're holding at least
->>           * the paging lock */
->>          gdprintk(XENLOG_ERR,
->> -                 "Bad cr3 on load pdptrs gfn %lx type %d\n",
->> +                 "Bad cr3 on load pdptrs gfn %"PRIx32" type %d\n",
->>                   cr3 >> PAGE_SHIFT, (int) p2mt);
->>          goto crash;
->>      }
->>  
->> -    p = __map_domain_page(page);
->> -
->> -    guest_pdptes = (uint64_t *)(p + (cr3 & ~PAGE_MASK));
->> +    guest_pdptes = __map_domain_page(page) + (cr3 & ~PAGE_MASK);
 > 
-> Instead I think this could be:
+> It was previously stated that:
 > 
-> guest_pdptes = __map_domain_page(page) + (cr3 & ~(PAGE_MASK | 0x1f));
+> > PVH or HVM domain
+> > won't be able to use this interface since it has no way to request the
+> > mapping of a specific mfn into it's physmap.
+> 
+> but however, taking LibVMI as an example:
+> 
+> https://github.com/libvmi/libvmi/blob/c461e20ae88bc62c08c27f50fcead23c27a30f9e/libvmi/driver/xen/xen.c#L51
+> 
+> An essential abstraction xen_get_memory() relies on xc_map_foreign_range(). Doesn't this mean that it's not usable from PVH or HVM domains, or did I got it all wrong?
 
-... I agree and will change to this; I'll assume your R-b stands
-with the change made (and the description adjusted accordingly).
+That was my fault, so the buffer mfns are assigned to Xen, and then
+the Xen domain ID is used to map those, which should work on both PV
+and HVM (or PVH).
 
-Jan
+I still think using XENMEM_acquire_resource might be better, but I
+would let others comment.
+
+Roger.
 
