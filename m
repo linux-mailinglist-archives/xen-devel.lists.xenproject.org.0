@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5D921FF652
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 17:12:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE3AB1FF664
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 17:16:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlwDE-0005aV-JV; Thu, 18 Jun 2020 15:12:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jlwHG-0005ji-4X; Thu, 18 Jun 2020 15:16:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fT7M=77=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jlwDD-0005aQ-0z
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 15:12:19 +0000
-X-Inumbo-ID: 19157840-b176-11ea-baac-12813bfff9fa
+ id 1jlwHE-0005jd-QB
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 15:16:28 +0000
+X-Inumbo-ID: ae5430b8-b176-11ea-8496-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 19157840-b176-11ea-baac-12813bfff9fa;
- Thu, 18 Jun 2020 15:12:17 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ae5430b8-b176-11ea-8496-bc764e2007e4;
+ Thu, 18 Jun 2020 15:16:28 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 26202ADF7;
- Thu, 18 Jun 2020 15:12:16 +0000 (UTC)
-Subject: Re: [PATCH for-4.14 6/8] x86/vpt: fix injection to remote vCPU
-To: Roger Pau Monne <roger.pau@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 8E85CADE3;
+ Thu, 18 Jun 2020 15:16:26 +0000 (UTC)
+Subject: Re: [PATCH for-4.14 2/8] x86/hvm: don't force vCPU 0 for IRQ 0 when
+ using fixed destination mode
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <20200612155640.4101-1-roger.pau@citrix.com>
- <20200612155640.4101-7-roger.pau@citrix.com>
+ <20200612155640.4101-3-roger.pau@citrix.com>
+ <ac179f79-3b40-9ff3-9437-16a30e019813@suse.com>
+ <20200618134841.GQ735@Air-de-Roger>
+ <ddaeb562-1d61-1855-508c-40bb2b796357@suse.com>
+ <20200618141805.GR735@Air-de-Roger>
+ <69de3bdb-b521-798b-a727-fd8f20ee6294@suse.com>
+ <20200618144936.GS735@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <57b6f9fd-4cbc-abc9-09e3-6493eba6c377@suse.com>
-Date: Thu, 18 Jun 2020 17:12:17 +0200
+Message-ID: <f08d77eb-8c73-ae9e-a6e2-c28311fd6f4c@suse.com>
+Date: Thu, 18 Jun 2020 17:16:28 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200612155640.4101-7-roger.pau@citrix.com>
+In-Reply-To: <20200618144936.GS735@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -52,168 +58,61 @@ Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 12.06.2020 17:56, Roger Pau Monne wrote:
-> vpt timers are usually added to the per-vCPU list of the vCPU where
-> they get setup, but depending on the timer source type that vCPU might
-> be different than the one where the interrupt vector gets injected.
+On 18.06.2020 16:49, Roger Pau Monné wrote:
+> On Thu, Jun 18, 2020 at 04:29:59PM +0200, Jan Beulich wrote:
+>> On 18.06.2020 16:18, Roger Pau Monné wrote:
+>>> On Thu, Jun 18, 2020 at 04:08:28PM +0200, Jan Beulich wrote:
+>>>> On 18.06.2020 15:48, Roger Pau Monné wrote:
+>>>>> On Thu, Jun 18, 2020 at 03:43:00PM +0200, Jan Beulich wrote:
+>>>>>> On 12.06.2020 17:56, Roger Pau Monne wrote:
+>>>>>>> When the IO APIC pin mapped to the ISA IRQ 0 has been configured to
+>>>>>>> use fixed delivery mode do not forcefully route interrupts to vCPU 0,
+>>>>>>> as the OS might have setup those interrupts to be injected to a
+>>>>>>> different vCPU, and injecting to vCPU 0 can cause the OS to miss such
+>>>>>>> interrupts or errors to happen due to unexpected vectors being
+>>>>>>> injected on vCPU 0.
+>>>>>>>
+>>>>>>> In order to fix remove such handling altogether for fixed destination
+>>>>>>> mode pins and just inject them according to the data setup in the
+>>>>>>> IO-APIC entry.
+>>>>>>>
+>>>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>>>
+>>>>>> Technically
+>>>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>>>>
+>>>>>> I wonder though why this was done in the first place - it very much
+>>>>>> feels like a workaround for certain guest behavior, and hence
+>>>>>> getting rid of it may mean a certain risk of regressions. Not a
+>>>>>> very good point in time to make risky changes ...
+>>>>>
+>>>>> We can defer to after the release I guess, but I will still ask for
+>>>>> the changes to be backported.
+>>>>
+>>>> That's fine, albeit if we decide to delay it until 4.15 was branched,
+>>>> then I think we want to also wait longer than usual until it would hit
+>>>> the stable trees. Unfortunately c8e79412c001's description is of no
+>>>> help to understand what or why "time jumps" may result from delivering
+>>>> the interrupt as requested.
+>>>
+>>> Yes, I've also looked at the original commit and have no idea what it
+>>> was actually trying to fix, and why delivering to vCPU 0 fixed it.
+>>> FWIW, I tried delivering to a different vCPU and it seems to work
+>>> fine.
+>>
+>> Right, I too was thinking that delivering to a "stable" CPU might be
+>> all that's needed. In patch 3 this may then call for latching that
+>> CPU, and preferring it over what vlapic_lowest_prio() produces.
 > 
-> For example the PIT timer use a PIC or IO-APIC pin in order to select
-> the destination vCPU and vector, which might not match the vCPU they
-> are configured from.
-> 
-> If such a situation happens pt_intr_post won't be called, and thus the
-> vpt will be left in a limbo where the next interrupt won't be
-> scheduled. Fix this by generalizing the special handling done to
-> IO-APIC level interrupts to be applied always when the destination
-> vCPU of the injected vector is different from the vCPU where the vpt
-> belongs to (ie: usually the one it's been configured from).
-> 
-> A further improvement as noted in a comment added to the code might be
-> to move the vpt so it's handled by the same vCPU where the vector gets
-> injected.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/hvm/vpt.c | 80 +++++++++++++++++++++---------------------
->  1 file changed, 40 insertions(+), 40 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hvm/vpt.c b/xen/arch/x86/hvm/vpt.c
-> index 6a975fc668..52ad5b90a7 100644
-> --- a/xen/arch/x86/hvm/vpt.c
-> +++ b/xen/arch/x86/hvm/vpt.c
-> @@ -358,59 +358,59 @@ int pt_update_irq(struct vcpu *v)
->           * interrupt delivery case. Otherwise return -1 to do nothing.
->           */
->          vlapic_set_irq(vcpu_vlapic(v), irq, 0);
-> -        pt_vector = irq;
-> -        break;
-> +        return irq;
->  
->      case PTSRC_isa:
->          hvm_isa_irq_deassert(v->domain, irq);
->          if ( platform_legacy_irq(irq) && vlapic_accept_pic_intr(v) &&
->               v->domain->arch.hvm.vpic[irq >> 3].int_output )
-> -            hvm_isa_irq_assert(v->domain, irq, NULL);
-> +            pt_vector = hvm_isa_irq_assert(v->domain, irq, NULL);
->          else
-> -        {
->              pt_vector = hvm_isa_irq_assert(v->domain, irq, vioapic_get_vector);
-> -            /*
-> -             * hvm_isa_irq_assert may not set the corresponding bit in vIRR
-> -             * when mask field of IOAPIC RTE is set. Check it again.
-> -             */
+> Yes, I also considered that route for the lowest priority mode (which
+> is dealt with in the next patch), but for fixed mode we need to
+> delivered to the listed vCPUs, there's no trick we can play here
+> IMO.
 
-For one, the transformation done here looks to call for folding
-both calls to hvm_isa_irq_assert() into one. I'm not, however,
-convinced recording the function's return value is useful in the
-case where it wasn't recorded before. The change is benign right
-now because hvm_isa_irq_assert() will return -1 when its last
-argument is NULL, but the question is whether the code here should
-start depending on such behavior.
-
-And then, according to this comment (which doesn't get retained in
-any form or shape) ...
-
-> -            if ( pt_vector < 0 || !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
-> -                pt_vector = -1;
-> -        }
-> +
-> +        if ( pt_vector < 0 )
-> +            return pt_vector;
-> +
->          break;
->  
->      case PTSRC_ioapic:
->          pt_vector = hvm_ioapic_assert(v->domain, irq, level);
-> -        if ( pt_vector < 0 || !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
-> -        {
-> -            pt_vector = -1;
-> -            if ( level )
-> +        if ( pt_vector < 0 )
-> +            return pt_vector;
-> +
-> +        break;
-> +    }
-> +
-> +    ASSERT(pt_vector >= 0);
-> +    if ( !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
-> +    {
-> +        time_cb *cb = NULL;
-> +        void *cb_priv;
-> +
-> +        /*
-> +         * Vector has been injected to a different vCPU, call pt_irq_fired and
-> +         * execute the callback, since the destination vCPU(s) won't call
-> +         * pt_intr_post for it.
-
-... this isn't the only reason to come here. Beyond what the comment
-says there is the hvm_domain_use_pirq() check in assert_gsi() which
-would similarly result in the IRR bit not observed set here. At the
-very least these cases want mentioning; I have to admit that I'm not
-entirely clear yet whether your handling is correct for both, or
-whether the information needs to be propagated into here.
-
-Also instead of ASSERT(pt_vector >= 0) would you pull the respective
-if() out of the switch(), to also cover the case of a fall through
-without hitting any of the explicitly handled cases, resulting in
-pt_vector left at its initial value of -1?
-
-> +         * TODO: move this vpt to one of the vCPUs where the vector gets
-> +         * injected.
-> +         */
-> +        spin_lock(&v->arch.hvm.tm_lock);
-> +        /* Make sure the timer is still on the list. */
-> +        list_for_each_entry ( pt, &v->arch.hvm.tm_list, list )
-> +            if ( pt == earliest_pt )
->              {
-> -                /*
-> -                 * Level interrupts are always asserted because the pin assert
-> -                 * count is incremented regardless of whether the pin is masked
-> -                 * or the vector latched in IRR, so also execute the callback
-> -                 * associated with the timer.
-> -                 */
-> -                time_cb *cb = NULL;
-> -                void *cb_priv;
-> -
-> -                spin_lock(&v->arch.hvm.tm_lock);
-> -                /* Make sure the timer is still on the list. */
-> -                list_for_each_entry ( pt, &v->arch.hvm.tm_list, list )
-> -                    if ( pt == earliest_pt )
-> -                    {
-> -                        pt_irq_fired(v, pt);
-> -                        cb = pt->cb;
-> -                        cb_priv = pt->priv;
-> -                        break;
-> -                    }
-> -                spin_unlock(&v->arch.hvm.tm_lock);
-> -
-> -                if ( cb != NULL )
-> -                    cb(v, cb_priv);
-> +                pt_irq_fired(v, pt);
-> +                cb = pt->cb;
-> +                cb_priv = pt->priv;
-> +                break;
->              }
-> -        }
-> -        break;
-> +        spin_unlock(&v->arch.hvm.tm_lock);
-> +
-> +        if ( cb != NULL )
-> +            cb(v, cb_priv);
-> +
-> +        pt_vector = -1;
->      }
->  
->      return pt_vector;
-
-To further reduce indentation (and seeing the significant code
-churn that happens here anyway), could you consider inverting the
-surrounding if() to
-
-    if ( vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
-        return pt_vector;    
-
-?
+The set may still be empty, in which case the lowest-prio consideration
+(of falling back to CPU0) may still apply here as well. But of course
+there's nothing to latch here, as fixed mode means multi-cast if more
+than one destination matches.
 
 Jan
 
