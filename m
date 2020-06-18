@@ -2,54 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E51A71FFED9
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 01:44:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8F181FFEF2
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 01:53:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jm4CU-0001vQ-PQ; Thu, 18 Jun 2020 23:44:06 +0000
+	id 1jm4Ka-0002sA-KU; Thu, 18 Jun 2020 23:52:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0tkY=77=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jm4CT-0001uX-MN
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 23:44:05 +0000
-X-Inumbo-ID: 94ae3310-b1bd-11ea-bb8b-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ZeQT=77=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1jm4KZ-0002s5-Gv
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 23:52:27 +0000
+X-Inumbo-ID: c2c31594-b1be-11ea-bb8b-bc764e2007e4
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 94ae3310-b1bd-11ea-bb8b-bc764e2007e4;
- Thu, 18 Jun 2020 23:43:59 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: uFy2yF6A3Sz1dmKVsQj8ZhJG1SABuqaEaoPwHhB8Y6/iNzyUA/U/xV0ZpN9d06cQS2bdfVIWUl
- bJauUP46LSy9HaJd9th/lLF/rusg4AEYsYC3H3U3qZSnhLmyUsXEBzhX60YNVoA7JT9g+2tbAY
- aXLXo3bBlfCVkM2VNolaXd54+MZl/cAY7DOx+9NcGqeV/paOHuf3GYs+ehwff2bdptf4xVmY3U
- Ni3Mx7ShySsIofO22N9sHbMdVgGtEUW1RpTfVDBJf0ZkQW48nJALoxJRXZFaqQFu/5mc+nlXXH
- geE=
-X-SBRS: 2.7
-X-MesageID: 20650521
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,253,1589256000"; d="scan'208";a="20650521"
-Subject: Re: Event delivery and "domain blocking" on PVHv2
-To: Martin Lucina <martin@lucina.net>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>,
- <mirageos-devel@lists.xenproject.org>
-References: <62479d08f7650c22678d7a86851eafc4@lucina.net>
- <5865159c-4190-e841-8020-7a4f3cf0fc24@citrix.com>
- <20200618101330.GB10330@nodbug.lucina.net>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <2f5c8fbc-0153-17b7-4a44-8f8ba0e3179f@citrix.com>
-Date: Fri, 19 Jun 2020 00:43:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ id c2c31594-b1be-11ea-bb8b-bc764e2007e4;
+ Thu, 18 Jun 2020 23:52:26 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 47E1AA3131;
+ Fri, 19 Jun 2020 01:52:25 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 2EE21A312D;
+ Fri, 19 Jun 2020 01:52:24 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id DR3LhTfkcpdE; Fri, 19 Jun 2020 01:52:23 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id B18F2A3131;
+ Fri, 19 Jun 2020 01:52:22 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id TCKmSYjHPzGH; Fri, 19 Jun 2020 01:52:22 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 8D449A312D;
+ Fri, 19 Jun 2020 01:52:22 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 7A01D2059A;
+ Fri, 19 Jun 2020 01:51:52 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id dUW_3J0fmgSG; Fri, 19 Jun 2020 01:51:46 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id D49EF215FA;
+ Fri, 19 Jun 2020 01:51:46 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id iiAAqbqYF5FN; Fri, 19 Jun 2020 01:51:46 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id A22402059A;
+ Fri, 19 Jun 2020 01:51:46 +0200 (CEST)
+Date: Fri, 19 Jun 2020 01:51:46 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <782191628.9821033.1592524306516.JavaMail.zimbra@cert.pl>
+In-Reply-To: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
+References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
+Subject: Re: [PATCH v2 0/7] Implement support for external IPT monitoring
 MIME-Version: 1.0
-In-Reply-To: <20200618101330.GB10330@nodbug.lucina.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
+Thread-Topic: Implement support for external IPT monitoring
+Thread-Index: hSzh8Vr462omVBiCuz/GiNtdRkOdyINWwTy9
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,55 +78,106 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>,
+ Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, "Kang,
+ Luwei" <luwei.kang@intel.com>,
+ Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18/06/2020 11:13, Martin Lucina wrote:
-> On Monday, 15.06.2020 at 17:58, Andrew Cooper wrote:
->> On 15/06/2020 15:25, Martin Lucina wrote:
->>> Hi,
->>>
->>> puzzle time: In my continuing explorations of the PVHv2 ABIs for the
->>> new MirageOS Xen stack, I've run into some issues with what looks like
->>> missed deliveries of events on event channels.
->>>
->>> While a simple unikernel that only uses the Xen console and
->>> effectively does for (1..5) { printf("foo"); sleep(1); } works fine,
->>> once I plug in the existing OCaml Xenstore and Netfront code, the
->>> behaviour I see is that the unikernel hangs in random places, blocking
->>> as if an event that should have been delivered has been missed.
->> You can see what is going on, event channel wise, with the 'e'
->> debug-key.  This will highlight cases such as the event channel being
->> masked and pending, which is a common guest bug ending up in this state.
-> Ok, based on your and Roger's suggestions I've made some changes:
->
-> 1. I've dropped all the legacy PIC initialisation code from the Solo5
-> parts, written some basic APIC initialisation code and switched to using
-> HVMOP_set_evtchn_upcall_vector for upcall registration, along with setting
-> HVM_PARAM_CALLBACK_IRQ to 1 as suggested by Roger and done by Xen when
-> running as a guest. Commit at [1], nothing controversial there.
+----- 19 cze 2020 o 1:34, Micha=C5=82 Leszczy=C5=84ski michal.leszczynski@c=
+ert.pl napisa=C5=82(a):
 
-Well...
+> Intel Processor Trace is an architectural extension available in modern I=
+ntel
+> family CPUs. It allows recording the detailed trace of activity while the
+> processor executes the code. One might use the recorded trace to reconstr=
+uct
+> the code flow. It means, to find out the executed code paths, determine
+> branches taken, and so forth.
+>=20
+> The abovementioned feature is described in Intel(R) 64 and IA-32 Architec=
+tures
+> Software Developer's Manual Volume 3C: System Programming Guide, Part 3,
+> Chapter 36: "Intel Processor Trace."
+>=20
+> This patch series implements an interface that Dom0 could use in order to
+> enable IPT for particular vCPUs in DomU, allowing for external monitoring=
+. Such
+> a feature has numerous applications like malware monitoring, fuzzing, or
+> performance testing.
+>=20
+> Also thanks to Tamas K Lengyel for a few preliminary hints before
+> first version of this patch was submitted to xen-devel.
+>=20
+> Changed since v1:
+>  * MSR_RTIT_CTL is managed using MSR load lists
+>  * other PT-related MSRs are modified only when vCPU goes out of context
+>  * trace buffer is now acquired as a resource
+>  * added vmtrace_pt_size parameter in xl.cfg, the size of trace buffer
+>    must be specified in the moment of domain creation
+>  * trace buffers are allocated on domain creation, destructed on
+>    domain destruction
+>  * HVMOP_vmtrace_ipt_enable/disable is limited to enabling/disabling PT
+>    these calls don't manage buffer memory anymore
+>  * lifted 32 MFN/GFN array limit when acquiring resources
+>  * minor code style changes according to review
+>=20
+> Michal Leszczynski (7):
+>  xen/mm: lift 32 item limit from mfn/gfn arrays
+>  x86/vmx: add Intel PT MSR definitions
+>  x86/vmx: add IPT cpu feature
+>  x86/vmx: add do_vmtrace_op
+>  tools/libxc: add xc_vmtrace_* functions
+>  tools/libxl: add vmtrace_pt_size parameter
+>  tools/proctrace: add proctrace tool
+>=20
+> tools/golang/xenlight/helpers.gen.go        |   2 +
+> tools/golang/xenlight/types.gen.go          |   1 +
+> tools/libxc/Makefile                        |   1 +
+> tools/libxc/include/xenctrl.h               |  39 +++
+> tools/libxc/xc_vmtrace.c                    |  97 ++++++
+> tools/libxl/libxl_types.idl                 |   2 +
+> tools/libxl/libxl_x86.c                     |   5 +
+> tools/proctrace/COPYING                     | 339 ++++++++++++++++++++
+> tools/proctrace/Makefile                    |  50 +++
+> tools/proctrace/proctrace.c                 | 153 +++++++++
+> tools/xl/xl_parse.c                         |   4 +
+> xen/arch/x86/hvm/hvm.c                      | 167 ++++++++++
+> xen/arch/x86/hvm/vmx/vmcs.c                 |   4 +
+> xen/arch/x86/hvm/vmx/vmx.c                  |  24 ++
+> xen/arch/x86/mm.c                           |  37 +++
+> xen/common/domain.c                         |   1 +
+> xen/common/memory.c                         |  39 +--
+> xen/include/asm-x86/cpufeature.h            |   1 +
+> xen/include/asm-x86/hvm/hvm.h               |   9 +
+> xen/include/asm-x86/hvm/vmx/vmcs.h          |  17 +
+> xen/include/asm-x86/msr-index.h             |  37 +++
+> xen/include/public/arch-x86/cpufeatureset.h |   1 +
+> xen/include/public/hvm/hvm_op.h             |  23 ++
+> xen/include/public/hvm/params.h             |   5 +-
+> xen/include/public/memory.h                 |   1 +
+> xen/include/xen/sched.h                     |   3 +
+> 26 files changed, 1039 insertions(+), 23 deletions(-)
+> create mode 100644 tools/libxc/xc_vmtrace.c
+> create mode 100644 tools/proctrace/COPYING
+> create mode 100644 tools/proctrace/Makefile
+> create mode 100644 tools/proctrace/proctrace.c
+>=20
+> --
+> 2.20.1
 
-    uint64_t apic_base = rdmsrq(MSR_IA32_APIC_BASE);
-    wrmsrq(MSR_IA32_APIC_BASE,
-            apic_base | (APIC_BASE << 4) | MSR_IA32_APIC_BASE_ENABLE);
-    apic_base = rdmsrq(MSR_IA32_APIC_BASE);
-    if (!(apic_base & MSR_IA32_APIC_BASE_ENABLE)) {
-        log(ERROR, "Solo5: Could not enable APIC or not present\n");
-        assert(false);
-    }
 
-The only reason Xen doesn't crash your guest on that WRMSR is because
-0xfee00080ull | (0xfee00000u << 4) == 0xfee00080ull, due to truncation
-and 0xfe | 0xee == 0xfe.
-
-Either way, the logic isn't correct.
-
-Xen doesn't support moving the APIC MMIO window (and almost certainly
-never will, because the only thing which changes it is malware).  You
-can rely on the default state being correct, because it is
-architecturally specified.
-
-~Andrew
+Thanks for all comments related to v1. I did my best to address all of them=
+ and
+thus almost all code was altered. Due to that, I've decided to post the nex=
+t
+version at this stage.
 
