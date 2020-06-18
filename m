@@ -2,39 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E2891FEC4D
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 09:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11AFD1FED8E
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 10:27:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jloot-0004f5-RH; Thu, 18 Jun 2020 07:18:43 +0000
+	id 1jlprv-0002LS-87; Thu, 18 Jun 2020 08:25:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fT7M=77=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jloos-0004f0-4n
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 07:18:42 +0000
-X-Inumbo-ID: efa0bfd4-b133-11ea-bb8b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HRl3=77=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jlpru-0002LN-Ah
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 08:25:54 +0000
+X-Inumbo-ID: 529870ba-b13d-11ea-bb8b-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id efa0bfd4-b133-11ea-bb8b-bc764e2007e4;
- Thu, 18 Jun 2020 07:18:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8C2A5AD12;
- Thu, 18 Jun 2020 07:18:39 +0000 (UTC)
-Subject: Re: [PATCH for-4.14 0/9] XSA-320 follow for IvyBridge
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200615141532.1927-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f7c873ff-75f4-5917-b277-bd6bb18faac3@suse.com>
-Date: Thu, 18 Jun 2020 09:18:41 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ id 529870ba-b13d-11ea-bb8b-bc764e2007e4;
+ Thu, 18 Jun 2020 08:25:53 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: aUzc8Ydkiseqfeq4nFLSZUDWWcmloLHuLBYYqBl0Io+PGkCEaQbMmNeBdQRwjcafxXNUqfR/mZ
+ ZoJ2rdDztBdhKLIteYIiVvMYpmxHjxmuUgMYo04zGasWtZpiV7+rRVlV74XpEOqw2VPp6/BsL9
+ A8RCFf4CipTWeWoIkF0SCJ5QZoa8vPBR1RDuQETD/K8M6rPbY+qxAsVVj1+iFzL4b2gZ/ukF9y
+ b79mynIbqnzHHmt9CPVgF2cSSpLLIBjez+wsAxiP2Ti5fZ1kI+Mc+mj+0Fuz16PL3wK2uE/o3q
+ kug=
+X-SBRS: 2.7
+X-MesageID: 20345651
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,526,1583211600"; d="scan'208";a="20345651"
+Date: Thu, 18 Jun 2020 10:25:39 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v1 0/7] Implement support for external IPT monitoring
+Message-ID: <20200618082539.GE735@Air-de-Roger>
+References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
+ <cb530abc-bef6-23b9-86d8-f43167e14736@citrix.com>
+ <1555629278.8787770.1592333278517.JavaMail.zimbra@cert.pl>
+ <d4e37559-bf23-36a4-41d9-a6a8bfc84ac3@citrix.com>
+ <CABfawhnhLKEhJFqyH97YFNiHX6vNoLDR4x52gnaNK_5B1VyWOA@mail.gmail.com>
+ <6da28899-25ae-7355-fa0a-70fac44f597e@citrix.com>
+ <1348695738.9265003.1592425220928.JavaMail.zimbra@cert.pl>
 MIME-Version: 1.0
-In-Reply-To: <20200615141532.1927-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1348695738.9265003.1592425220928.JavaMail.zimbra@cert.pl>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,48 +60,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>, Paul Durrant <paul@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Jun
+ Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.06.2020 16:15, Andrew Cooper wrote:
-> This is some work in light of IvyBridge not gaining microcode to combat SRBDS
-> / XSA-320.  It is a mix of some work I'd planned for 4.15, and some patches
-> posted already and delayed due to dependence's I'd discovered after-the-fact.
+On Wed, Jun 17, 2020 at 10:20:20PM +0200, Michał Leszczyński wrote:
+> ----- 17 cze 2020 o 18:19, Andrew Cooper andrew.cooper3@citrix.com napisał(a):
 > 
-> This provides a more user-friendly way of making IvyBridge safe by default
-> without encountering migration incompatibilities.
+> > On 17/06/2020 04:02, Tamas K Lengyel wrote:
+> >> On Tue, Jun 16, 2020 at 2:17 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> >>> On 16/06/2020 19:47, Michał Leszczyński wrote:
+> >>>> ----- 16 cze 2020 o 20:17, Andrew Cooper andrew.cooper3@citrix.com napisał(a):
+> >>>>
+> >>>>> Are there any restrictions on EPT being enabled in the first place?  I'm
+> >>>>> not aware of any, and in principle we could use this functionality for
+> >>>>> PV guests as well (using the CPL filter).  Therefore, I think it would
+> >>>>> be helpful to not tie the functionality to HVM guests, even if that is
+> >>>>> the only option enabled to start with.
+> >>>> I think at the moment it's not required to have EPT. This patch series doesn't
+> >>>> use any translation feature flags, so the output address is always a machine
+> >>>> physical address, regardless of context. I will check if it could be easily
+> >>>> used with PV.
+> >>> If its trivial to add PV support then please do.  If its not, then don't
+> >>> feel obliged, but please do at least consider how PV support might look
+> >>> in the eventual feature.
+> >>>
+> >>> (Generally speaking, considering "how would I make this work in other
+> >>> modes where it is possible" leads to a better design.)
+> >>>
+> >>>>> The buffer mapping and creation logic is fairly problematic.  Instead of
+> >>>>> fighting with another opencoded example, take a look at the IOREQ
+> >>>>> server's use of "acquire resource" which is a mapping interface which
+> >>>>> supports allocating memory on behalf of the guest, outside of the guest
+> >>>>> memory, for use by control tools.
+> >>>>>
 > 
-> In terms of functionality, it finishes the "fresh boot" vs "migrate/restore
-> from pre-4.14" split in the libxc CPUID logic, and uses this to let us safely
-> hide features by default without breaking the "divine what a guest may have
-> seen previously" logic on migrate.
 > 
-> On top of that, we hide RDRAND by default to mitigate XSA-320.
+> One thing that remains unclear to me is the "acquire resource" part. Could you give some more details on that?
 > 
-> Additionally, take the opportunity of finally getting this logic working to
-> hide MPX by default (as posted previously), due to upcoming Intel timelines.
-> 
-> Request for 4.14.  The IvyBridge angle only became apparent after the public
-> embargo on Tue 9th.  Otherwise, I would have made a concerted effort to get
-> this logic sorted sooner and/or part of XSA-320 itself.
-> 
-> Strictly speaking, patches 1-4 aren't necessary, but without them the logic is
-> very confusing to follow, particularly the reasoning about the safely of later
-> changes.  As it is a simple set of transforms, we're better with them than
-> without.
-> 
-> Also, the MPX patch isn't related to the RDRAND issue, but I was planning to
-> get it into 4.14 already, until realising that the migration path was broken.
-> Now that the path is fixed for the RDRAND issue, include the MPX patch as it
-> pertains to future hardware compatibility (and would be backported to 4.14.1
-> if it misses 4.14.0).
+> Assuming that buffers are allocated right from the domain creation, what mechanism (instead of xc_map_foreign_range) should I use to map the IPT buffers into Dom0?
 
-Just to be sure - it is my understanding that none of this can sensibly
-be backported, even if it was nice for us to take care of the IvyBridge
-situation on older trees as well.
+Take a look at demu's demu_initialize function [0] (and it's usage of
+xenforeignmemory_map_resource), you likely need something similar for
+the trace buffers, introducing a new XENMEM_resource_trace_data kind
+of resource (naming subject to change), and use the id field in
+xen_mem_acquire_resource to signal which vCPU buffer you want to
+map.
 
-Jan
+That's usable by both PV and HVM guests.
+
+Roger.
+
+[0] http://xenbits.xen.org/gitweb/?p=people/pauldu/demu.git;a=blob;f=demu.c;h=f785b394d0cf141dffa05bdddecf338214358aea;hb=refs/heads/master#l453
 
