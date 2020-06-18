@@ -2,67 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5F051FF929
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 18:24:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E02D31FF9AF
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 18:50:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlxK8-0005t3-IX; Thu, 18 Jun 2020 16:23:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jlxiw-0007g9-JB; Thu, 18 Jun 2020 16:49:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nSvJ=77=cert.pl=hubert.jasudowicz@srs-us1.protection.inumbo.net>)
- id 1jlxK7-0005sy-7f
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 16:23:31 +0000
-X-Inumbo-ID: 0b74dd34-b180-11ea-babb-12813bfff9fa
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0b74dd34-b180-11ea-babb-12813bfff9fa;
- Thu, 18 Jun 2020 16:23:30 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 08509A31E1;
- Thu, 18 Jun 2020 18:23:29 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id F2373A1E22;
- Thu, 18 Jun 2020 18:23:27 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id t_SUwrxZQpDC; Thu, 18 Jun 2020 18:23:27 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 8D2BCA31E1;
- Thu, 18 Jun 2020 18:23:27 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id ykPHM6-kYoqo; Thu, 18 Jun 2020 18:23:27 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 6BE59A1E22;
- Thu, 18 Jun 2020 18:23:27 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 5BF4D20981;
- Thu, 18 Jun 2020 18:22:57 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id bHSnnSqrvzd7; Thu, 18 Jun 2020 18:22:52 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id EDE8821698;
- Thu, 18 Jun 2020 18:22:51 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 4TBmn3T2BaKb; Thu, 18 Jun 2020 18:22:51 +0200 (CEST)
-Received: from arnold.localdomain (unknown [195.187.238.48])
- by belindir.nask.net.pl (Postfix) with ESMTPSA id 7D5EF20981;
- Thu, 18 Jun 2020 18:22:51 +0200 (CEST)
-From: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH] x86/cpuid: Expose number of vCPUs in CPUID.1.EBX
-Date: Thu, 18 Jun 2020 18:22:33 +0200
-Message-Id: <f9c2583332d83fe76c3d98e215c76b7b111650e3.1592496443.git.hubert.jasudowicz@cert.pl>
-X-Mailer: git-send-email 2.27.0
+ <SRS0=ZvAL=77=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jlxiu-0007g4-Od
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 16:49:08 +0000
+X-Inumbo-ID: a0289058-b183-11ea-bb8b-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a0289058-b183-11ea-bb8b-bc764e2007e4;
+ Thu, 18 Jun 2020 16:49:07 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Zr+m9GWFRCHyYgtlCuEKnE2kRxikAl8R4vqWx98h+7Z9U/KSoQVb+Vk4L2eVXIBW5Ea1NuJxFt
+ WXioX74NbCpLmEZVH1lY34pt+HHRxXMnsgrzls8nkUrQ6ySyAkGwTxAhIRMf9iGjHjdY9Mag8z
+ UF2PQrIeAOWxzoQFenJyGLDOP8TCGt5JiVjJMT99rcAkgeravj8v0GPVcz4Ql+TaXo3GIel/1I
+ WAOx6lVHJChQwVCUD6xOfmoHsV18UfJTjeza9xsAH8jqeGE5XluhBL52xpQPrUVvxAzk4YcX8b
+ /Ts=
+X-SBRS: 2.7
+X-MesageID: 20694624
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,251,1589256000"; d="scan'208";a="20694624"
+Date: Thu, 18 Jun 2020 17:48:57 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: Re: [XEN PATCH for-4.14 2/2] tools: Commit flex (2.6.4) & bison
+ (3.3.2) output from Debian buster
+Message-ID: <20200618164857.GA2099@perard.uk.xensource.com>
+References: <000401d640c9$7b14e760$713eb620$@xen.org>
+ <20200612151931.1083-3-ian.jackson@eu.citrix.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20200612151931.1083-3-ian.jackson@eu.citrix.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,52 +53,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-When running under KVM (or presumably other hypervisors) we enable
-the CPUID.1.EDX.HTT flag, thus indicating validity of CPUID.1.EBX[23:16]
-- maximum number of logical processors which the guest reads as 0.
+On Fri, Jun 12, 2020 at 04:19:31PM +0100, Ian Jackson wrote:
+> These files are in tree so that people can build (including from git)
+> without needing less-than-a-decade-old flex and bison.
+> 
+> We should update them periodically.  Debian buster has been Debian
+> stable for a while.  Our CI is running buster.
+> 
+> There should be no significant functional change; it's possible that
+> there are bugfixes but I have not reviewed the changes.  I *have*
+> checked that the flex I am using has the fix for CVE-2016-6354.
+> 
+> CC: Paul Durrant <paul@xen.org>
+> CC: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-Although this method of topology detection is considered legacy,
-Windows falls back to it when CPUID.0BH.EBX is 0.
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-CPUID.1.EBX[23:16] being equal to 0, triggers memory corruption in
-ntoskrnl.exe as Windows assumes that number of logical processors would
-be at least 1. Memory corruption manifests itself while mapping
-framebuffer for early graphical subsystem, causing BSOD.
-
-This patch fixes running nested Windows (tested on 7 and 10) with KVM as
-L0 hypervisor, by setting the value to maximum number of vCPUs in domain.
-
-Signed-off-by: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
----
- xen/arch/x86/cpuid.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index ee11087626..bf38398ef3 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -811,10 +811,12 @@ void guest_cpuid(const struct vcpu *v, uint32_t lea=
-f,
-=20
-     case 0x1:
-         /* TODO: Rework topology logic. */
--        res->b &=3D 0x00ffffffu;
-+        res->b &=3D 0x0000ffffu;
-         if ( is_hvm_domain(d) )
-             res->b |=3D (v->vcpu_id * 2) << 24;
-=20
-+        res->b |=3D (d->max_vcpus & 0xff) << 16;
-+
-         /* TODO: Rework vPMU control in terms of toolstack choices. */
-         if ( vpmu_available(v) &&
-              vpmu_is_set(vcpu_vpmu(v), VPMU_CPU_HAS_DS) )
---=20
-2.27.0
-
+-- 
+Anthony PERARD
 
