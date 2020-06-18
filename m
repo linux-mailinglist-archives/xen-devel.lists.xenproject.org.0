@@ -2,92 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48EBF1FFEA7
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 01:32:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D117C1FFEAC
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 01:35:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jm41P-0000D7-1B; Thu, 18 Jun 2020 23:32:39 +0000
+	id 1jm43r-0000Mk-QC; Thu, 18 Jun 2020 23:35:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0e1t=77=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1jm41N-0000D1-7V
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 23:32:37 +0000
-X-Inumbo-ID: fd5bcba4-b1bb-11ea-bca7-bc764e2007e4
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com (unknown
- [40.107.2.42]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd5bcba4-b1bb-11ea-bca7-bc764e2007e4;
- Thu, 18 Jun 2020 23:32:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SIHikpxl1ZW4T/vNKEKLhVhunksozaIlIhG9VUla23z1tpJLbrsOV2plvwxfCYd227Nf2ahl2dT7Q+XdAh3RPgM3ICVC0Cxpcr1O4fAclTbLj8LiVs35hJtMa11tDchOcwRp2S1Bex3ncLqd9uqiWWBLMFtKTL2cEnsJUykaHYTVyKFB740pojIyevAVXDdInwA1yP8CueZ6qo0HNJQefhK3AK54WGB9Mbb7F9id4a5Yy3VRs/U05EGzbrJfsXO+EsqV/QXF3/a2vqrIgsl0zEc1pl2epU2EZ3pr/QWhIQtzlAHMH8LRYdg/YcsLsCQHwp14/WJ1FGY2HLrB9wTRxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e7hZM8c+yFgdJK1pVUcrcRMzanV6KtMbZ2wsOksde2w=;
- b=f+zHVpkHAtNfeDz3totfozPP1JJtty14bksJcf4Kekm0fUISURX6HFrIj244WdSS2EXrzToIipc70/WhX7wxqTyytcxGz8I0DGa1e382TjlLTNe/EHmEmC1GWNfe+1Xts4JFkWV8g30KuukoBvfgf6QK/qD3SdUdcbWoxBouF3boaVUlE0B8mkZolTskydtkia4Gt1HlVdvhwS4uUwBZu8E+upznsY8+N/2Wk+1P9yB35NXoXJcV4DWQ1NjBczOxpVScl9ozil279ssE3JCo9TmL7V5UxoYfpyL2nOv4LP4TiBsLxwYYFCBIJa080Thxhs2h1akf+yBxXxNZkn9w9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e7hZM8c+yFgdJK1pVUcrcRMzanV6KtMbZ2wsOksde2w=;
- b=JumNNtQQ6FsONdwCOq8h8bEhrjzvap5qWSnFMl73aNkSlZN89ZQzOnmATvZkZoHWN5hpunE+YQ1wGfpg03TXHEqThsOm6GmeCspSGePypVija/KUNVflEDS5vKYrMEgeepVF6TkhZWA/acHuhDIJ/AO4YUya1SUVq1JZXJZQljwKrZOqkjXv+0CcFZtOCjW/aaBAq5jaRIIxhpDEPCHFGaZStl5xB1zcXFBZgq50WPHg2tFuFr0T0cgdGAYG0zKDKv/6NPAPVsqvgCyLrL0F4Wnh8bcP6uzL4qmhzi3a/vZMAjNDioZ1Uh29v78G7KL9Ma1UvHDReIIGjEUswoRS/w==
-Received: from VI1PR03MB2926.eurprd03.prod.outlook.com (2603:10a6:802:35::28)
- by VI1PR03MB5005.eurprd03.prod.outlook.com (2603:10a6:803:b7::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22; Thu, 18 Jun
- 2020 23:32:34 +0000
-Received: from VI1PR03MB2926.eurprd03.prod.outlook.com
- ([fe80::95fd:55d9:421b:1f37]) by VI1PR03MB2926.eurprd03.prod.outlook.com
- ([fe80::95fd:55d9:421b:1f37%7]) with mapi id 15.20.3088.028; Thu, 18 Jun 2020
- 23:32:34 +0000
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] xen/arm: optee: allow plain TMEM buffers with NULL address
-Thread-Topic: [PATCH] xen/arm: optee: allow plain TMEM buffers with NULL
- address
-Thread-Index: AQHWLLcTxhZtogukPEOG78aedSZTLajL0lyAgBNTToCAABJigA==
-Date: Thu, 18 Jun 2020 23:32:34 +0000
-Message-ID: <871rmc2bn2.fsf@epam.com>
-References: <2a32c7c2048333169c9378194d6a435e2e7ed2d7.camel@epam.com>
- <1b596a11-95b5-3e87-bbf5-c0c4dceb6489@xen.org>
- <alpine.DEB.2.21.2006181523070.14005@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2006181523070.14005@sstabellini-ThinkPad-T480s>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.4.10; emacs 26.3
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [176.36.48.175]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: bd550ef5-9a10-4c6d-a38a-08d813dfe0cb
-x-ms-traffictypediagnostic: VI1PR03MB5005:
-x-microsoft-antispam-prvs: <VI1PR03MB50059C653EB0B0C1C1475FEBE69B0@VI1PR03MB5005.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0438F90F17
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: rzb9BgE26ZRg+FoY1M6xMjggH52/Eh+RROdUpKOJLquiMQCsJvBRyeWwqbMYDbgGQim//buIGjDadex8XpxFgYP1v1lmbBvWoJ7M60vExKuPEqu1TYg+Tcthg7r8EQXABPtAgYOeS9N/rM+CpyGI1UeQZSjUtcXsLE88SqqImUYAH6yPr7dGHxYIbpWMpI5zCHXvf4qmyCVJcTGmd1d1SiiuV9Wh40Pbp8F0oJ8ajksM+9itOcI71jg3pCSG8Ld4yM0qo6DQbSst1O7rVS4nagknd9PVMXKRonrnfX6bhdACMo9QYh7d7WGXasoiuqKYlYTSVnknyaJKrDiAkMG/5A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR03MB2926.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(376002)(346002)(136003)(396003)(366004)(2906002)(6506007)(26005)(6486002)(5660300002)(8936002)(8676002)(71200400001)(55236004)(186003)(36756003)(4326008)(6916009)(66946007)(86362001)(54906003)(316002)(4744005)(478600001)(76116006)(91956017)(66476007)(64756008)(66556008)(2616005)(66446008)(6512007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: YzMe4UQAbMOSRi/lhioQmhZNjUlgNYR/fjATCQx6icSlLlwK2ww/hhGDKBN9YQNaPFlx11mHDB6Xhu+R5+ELpXpwBgNC0VfhCJLahz7hJTpa5r9/XV43is4dPr9e4YAKtuYXh+t4j15kYo69TEHpIh7BAqLVsoDHvemMH+j7LzVlosffCZPiwDknYOpvGbDxI8DM2Y2kTi6LTrPt9b4zYgitR5mDiDAmdx+7Jraoq7AGDmddqO6KC2TAsnTgQsmAwpQmZtBOFkobB5q0t8jWmKt4BBJU4z01n//sdCf2mGCVcTWu/Q+A70+bfpIek8oMUVbbLjg6e3k5rGxy9PdUW0GkeqSK0vQq/iBXhRrit5JD9pYQB8ddErWl6/2f6h6zGHNiIR+oC3IJZffFFs4uqPhmfQUDZSXKIOIX+pgqB91cLBzIdxOqKeHisqAHpXBjklp7+xzMM/imEvn0nd1lf9ncLRJnQ+e9NKbg1VjYyN0=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ZeQT=77=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1jm43q-0000MA-7c
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 23:35:10 +0000
+X-Inumbo-ID: 55622500-b1bc-11ea-8496-bc764e2007e4
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 55622500-b1bc-11ea-8496-bc764e2007e4;
+ Thu, 18 Jun 2020 23:35:03 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id CDD80A303E;
+ Fri, 19 Jun 2020 01:35:02 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id B0FD1A3037;
+ Fri, 19 Jun 2020 01:35:01 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id xXyKT2Mq5nE9; Fri, 19 Jun 2020 01:35:01 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id D732FA303E;
+ Fri, 19 Jun 2020 01:35:00 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 6f9GeTGTX6mH; Fri, 19 Jun 2020 01:35:00 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id A2865A3037;
+ Fri, 19 Jun 2020 01:35:00 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 8602621447;
+ Fri, 19 Jun 2020 01:34:30 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id nZULIfJ6rzLJ; Fri, 19 Jun 2020 01:34:25 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id F0F4021493;
+ Fri, 19 Jun 2020 01:34:24 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id PJnnIJxFyCih; Fri, 19 Jun 2020 01:34:24 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id BBF6521447;
+ Fri, 19 Jun 2020 01:34:24 +0200 (CEST)
+Date: Fri, 19 Jun 2020 01:34:24 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
+Subject: [PATCH v2 0/7] Implement support for external IPT monitoring
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd550ef5-9a10-4c6d-a38a-08d813dfe0cb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2020 23:32:34.1442 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bRmg1Fmn9LXOzcVlhsvEVqg/8Trfp0LDk2DtqYl4MY5DbYXXR4xI3VJGoeJl/8XT1cvVhn1eEGX2ww1nJVgffNWJXZCeDUU8y2YyNjP4YoE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB5005
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
+Thread-Topic: Implement support for external IPT monitoring
+Thread-Index: hSzh8Vr462omVBiCuz/GiNtdRkOdyA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,30 +76,91 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "pdurrant@amazon.com" <pdurrant@amazon.com>, "julien@xen.org" <julien@xen.org>,
- "xadimgnik@gmail.com" <xadimgnik@gmail.com>, "paul@xen.org" <paul@xen.org>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, "Kang,
+ Luwei" <luwei.kang@intel.com>,
+ Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Intel Processor Trace is an architectural extension available in modern Intel 
+family CPUs. It allows recording the detailed trace of activity while the 
+processor executes the code. One might use the recorded trace to reconstruct 
+the code flow. It means, to find out the executed code paths, determine 
+branches taken, and so forth.
 
-Hi Stefano,
+The abovementioned feature is described in Intel(R) 64 and IA-32 Architectures 
+Software Developer's Manual Volume 3C: System Programming Guide, Part 3, 
+Chapter 36: "Intel Processor Trace."
 
-Stefano Stabellini writes:
+This patch series implements an interface that Dom0 could use in order to 
+enable IPT for particular vCPUs in DomU, allowing for external monitoring. Such 
+a feature has numerous applications like malware monitoring, fuzzing, or 
+performance testing.
 
-> Hi Paul, Julien, Volodymyr,
->
-> This is another bug fix that I would like to get in 4.14. It doesn't
-> look like we need any changes to this patch, assuming that it is
-> accurate to the spec.
->
-> It would be nice if Volodymyr could provide more info on the spec side,
-> but honestly I trust his experience on this.
+Also thanks to Tamas K Lengyel for a few preliminary hints before
+first version of this patch was submitted to xen-devel.
 
-I'm sorry for the delay. Julien asks very good and deep questions and
-it sometimes requires deep research, to fully and correctly answer to
-them. This was exactly that case. I'll answer timely to the next e-mails.
+Changed since v1:
+  * MSR_RTIT_CTL is managed using MSR load lists
+  * other PT-related MSRs are modified only when vCPU goes out of context
+  * trace buffer is now acquired as a resource
+  * added vmtrace_pt_size parameter in xl.cfg, the size of trace buffer
+    must be specified in the moment of domain creation
+  * trace buffers are allocated on domain creation, destructed on
+    domain destruction
+  * HVMOP_vmtrace_ipt_enable/disable is limited to enabling/disabling PT
+    these calls don't manage buffer memory anymore
+  * lifted 32 MFN/GFN array limit when acquiring resources
+  * minor code style changes according to review
 
---=20
-Volodymyr Babchuk at EPAM=
+Michal Leszczynski (7):
+  xen/mm: lift 32 item limit from mfn/gfn arrays
+  x86/vmx: add Intel PT MSR definitions
+  x86/vmx: add IPT cpu feature
+  x86/vmx: add do_vmtrace_op
+  tools/libxc: add xc_vmtrace_* functions
+  tools/libxl: add vmtrace_pt_size parameter
+  tools/proctrace: add proctrace tool
+
+ tools/golang/xenlight/helpers.gen.go        |   2 +
+ tools/golang/xenlight/types.gen.go          |   1 +
+ tools/libxc/Makefile                        |   1 +
+ tools/libxc/include/xenctrl.h               |  39 +++
+ tools/libxc/xc_vmtrace.c                    |  97 ++++++
+ tools/libxl/libxl_types.idl                 |   2 +
+ tools/libxl/libxl_x86.c                     |   5 +
+ tools/proctrace/COPYING                     | 339 ++++++++++++++++++++
+ tools/proctrace/Makefile                    |  50 +++
+ tools/proctrace/proctrace.c                 | 153 +++++++++
+ tools/xl/xl_parse.c                         |   4 +
+ xen/arch/x86/hvm/hvm.c                      | 167 ++++++++++
+ xen/arch/x86/hvm/vmx/vmcs.c                 |   4 +
+ xen/arch/x86/hvm/vmx/vmx.c                  |  24 ++
+ xen/arch/x86/mm.c                           |  37 +++
+ xen/common/domain.c                         |   1 +
+ xen/common/memory.c                         |  39 +--
+ xen/include/asm-x86/cpufeature.h            |   1 +
+ xen/include/asm-x86/hvm/hvm.h               |   9 +
+ xen/include/asm-x86/hvm/vmx/vmcs.h          |  17 +
+ xen/include/asm-x86/msr-index.h             |  37 +++
+ xen/include/public/arch-x86/cpufeatureset.h |   1 +
+ xen/include/public/hvm/hvm_op.h             |  23 ++
+ xen/include/public/hvm/params.h             |   5 +-
+ xen/include/public/memory.h                 |   1 +
+ xen/include/xen/sched.h                     |   3 +
+ 26 files changed, 1039 insertions(+), 23 deletions(-)
+ create mode 100644 tools/libxc/xc_vmtrace.c
+ create mode 100644 tools/proctrace/COPYING
+ create mode 100644 tools/proctrace/Makefile
+ create mode 100644 tools/proctrace/proctrace.c
+
+-- 
+2.20.1
 
