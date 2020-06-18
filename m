@@ -2,80 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A9341FDAA5
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 02:58:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D3D41FDBAA
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 03:14:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlirT-0005HD-Kp; Thu, 18 Jun 2020 00:56:59 +0000
+	id 1jlj7a-000805-VE; Thu, 18 Jun 2020 01:13:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZeQT=77=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jlirR-0005H8-PO
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 00:56:57 +0000
-X-Inumbo-ID: 9b33b90e-b0fe-11ea-ba33-12813bfff9fa
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ (envelope-from <SRS0=PYu3=77=kernel.org=sashal@srs-us1.protection.inumbo.net>)
+ id 1jlj7Z-000800-R7
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 01:13:37 +0000
+X-Inumbo-ID: efaea79e-b100-11ea-ba33-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9b33b90e-b0fe-11ea-ba33-12813bfff9fa;
- Thu, 18 Jun 2020 00:56:56 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 625C0A2FAE;
- Thu, 18 Jun 2020 02:56:55 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 4E7D1A2F9E;
- Thu, 18 Jun 2020 02:56:54 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id o5n85De7uYtf; Thu, 18 Jun 2020 02:56:53 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id C4ECBA2FAE;
- Thu, 18 Jun 2020 02:56:53 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id M8zf2CvrWWM3; Thu, 18 Jun 2020 02:56:53 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 8C6C6A2F9E;
- Thu, 18 Jun 2020 02:56:53 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 6CF6420981;
- Thu, 18 Jun 2020 02:56:23 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id j0AqRmOhXW1I; Thu, 18 Jun 2020 02:56:17 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id D6C1520BB5;
- Thu, 18 Jun 2020 02:56:17 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Ts7feNZlCDTp; Thu, 18 Jun 2020 02:56:17 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id 9BBA520981;
- Thu, 18 Jun 2020 02:56:17 +0200 (CEST)
-Date: Thu, 18 Jun 2020 02:56:17 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: "Kang, Luwei" <luwei.kang@intel.com>
-Message-ID: <1683804232.9278740.1592441777496.JavaMail.zimbra@cert.pl>
-In-Reply-To: <DM5PR1101MB22662FC744E519062C941A40809A0@DM5PR1101MB2266.namprd11.prod.outlook.com>
-References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
- <1555629278.8787770.1592333278517.JavaMail.zimbra@cert.pl>
- <MWHPR11MB1645D9EFF209C6733C4DC5018C9A0@MWHPR11MB1645.namprd11.prod.outlook.com>
- <DM5PR1101MB22669C0DD0A5AA455681A08D809A0@DM5PR1101MB2266.namprd11.prod.outlook.com>
- <20200617092103.GZ735@Air-de-Roger>
- <DM5PR1101MB22669E5CB0C4384B1005A58E809A0@DM5PR1101MB2266.namprd11.prod.outlook.com>
- <20200617125339.GB735@Air-de-Roger>
- <DM5PR1101MB22662FC744E519062C941A40809A0@DM5PR1101MB2266.namprd11.prod.outlook.com>
-Subject: Re: [PATCH v1 0/7] Implement support for external IPT monitoring
+ id efaea79e-b100-11ea-ba33-12813bfff9fa;
+ Thu, 18 Jun 2020 01:13:37 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C07F3221EB;
+ Thu, 18 Jun 2020 01:13:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1592442816;
+ bh=w8V3cTH4FJj2K9JiCLrtLjXXfg1XK0Rl1yo5hamlduY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=uyMWBSbjABXyGlynbRDNDWGl5kfLLRgPTowTwBJVD98rnW6OyLH+lOSn2PIyd+J9H
+ NigPk/ICcq6pqWp+RACr97Oa0zLZx0sp84jaPb+NFb2CexQ7vlQd/t950GXRZrdg6p
+ aHuH8rl9eRHnX85PfXOdKuaQFyyUf9uOKxfm/IWg=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.7 254/388] xen/cpuhotplug: Fix initial CPU offlining
+ for PV(H) guests
+Date: Wed, 17 Jun 2020 21:05:51 -0400
+Message-Id: <20200618010805.600873-254-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
+References: <20200618010805.600873-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
-Thread-Topic: Implement support for external IPT monitoring
-Thread-Index: KAn5ItxMsuAqHW3ZzkheyNf1oni9hpiVzvKAgAAIowCAAHHNAIAAVp/wgAArhICAADbMIIAABJuAgACxxQC8IyuhIw==
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,53 +56,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Tian, Kevin" <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- "Nakajima, Jun" <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, Sasha Levin <sashal@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 18 cze 2020 o 1:29, Kang, Luwei luwei.kang@intel.com napisa=C5=82(a):
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
->> > > How does KVM deal with this, do they insert/modify trace packets on
->> > > trapped and emulated instructions by the VMM?
->> >
->> > The KVM includes instruction decoder and
->> emulator(arch/x86/kvm/emulate.c), and the guest's memory can be set to
->> write-protect as well. But it doesn't support Intel PT packets software
->> emulator.
->> For KVM, the Intel PT feature will be exposed to KVM guest and KVM guest=
- can
->> use Intel PT feature like native.
->>=20
->> But if such feature is exposed to the guest for it's own usage, won't it=
- be
->> missing packets for instructions emulated by the VMM?
->=20
-> If setting the guest's memory write-protect, I think yes.
+[ Upstream commit c54b071c192dfe8061336f650ceaf358e6386e0b ]
 
+Commit a926f81d2f6c ("xen/cpuhotplug: Replace cpu_up/down() with
+device_online/offline()") replaced cpu_down() with device_offline()
+call which requires that the CPU has been registered before. This
+registration, however, happens later from topology_init() which
+is called as subsys_initcall(). setup_vcpu_hotplug_event(), on the
+other hand, is invoked earlier, during arch_initcall().
 
-Thus, I propose to leave it as it is right now. If somebody is purposely al=
-tering the VM state then he/she should consult not only the IPT but also un=
-derstand what was done "in the meantime" by additional features, e.g. when =
-something was altered by vm_event callback. As Tamas said previously, we us=
-ually just want to see certain path leading to vmexit.
+As result, booting a PV(H) guest with vcpus < maxvcpus causes a crash.
 
-Please also note that there is a PTWRITE instruction that could be used in =
-the future in order to add custom payloads/hints to the PT trace, when need=
-ed.
+Move setup_vcpu_hotplug_event() (and therefore setup_cpu_watcher()) to
+late_initcall(). In addition, instead of performing all offlining steps
+in setup_cpu_watcher() simply call disable_hotplug_cpu().
 
+Fixes: a926f81d2f6c (xen/cpuhotplug: Replace cpu_up/down() with device_online/offline()"
+Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Link: https://lore.kernel.org/r/1588976923-3667-1-git-send-email-boris.ostrovsky@oracle.com
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/xen/cpu_hotplug.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
->=20
-> Thanks,
-> Luwei Kang
->=20
->>=20
-> > Thanks, Roger.
+diff --git a/drivers/xen/cpu_hotplug.c b/drivers/xen/cpu_hotplug.c
+index ec975decb5de..b96b11e2b571 100644
+--- a/drivers/xen/cpu_hotplug.c
++++ b/drivers/xen/cpu_hotplug.c
+@@ -93,10 +93,8 @@ static int setup_cpu_watcher(struct notifier_block *notifier,
+ 	(void)register_xenbus_watch(&cpu_watch);
+ 
+ 	for_each_possible_cpu(cpu) {
+-		if (vcpu_online(cpu) == 0) {
+-			device_offline(get_cpu_device(cpu));
+-			set_cpu_present(cpu, false);
+-		}
++		if (vcpu_online(cpu) == 0)
++			disable_hotplug_cpu(cpu);
+ 	}
+ 
+ 	return NOTIFY_DONE;
+@@ -119,5 +117,5 @@ static int __init setup_vcpu_hotplug_event(void)
+ 	return 0;
+ }
+ 
+-arch_initcall(setup_vcpu_hotplug_event);
++late_initcall(setup_vcpu_hotplug_event);
+ 
+-- 
+2.25.1
+
 
