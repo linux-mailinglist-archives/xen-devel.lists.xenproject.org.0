@@ -2,62 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B5981FF605
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 17:01:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F571FF618
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 17:03:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jlw2S-0004Yk-90; Thu, 18 Jun 2020 15:01:12 +0000
+	id 1jlw4e-0004iL-M1; Thu, 18 Jun 2020 15:03:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AXO0=77=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jlw2Q-0004YE-Qg
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 15:01:10 +0000
-X-Inumbo-ID: 8a4d15b0-b174-11ea-8496-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HRl3=77=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jlw4c-0004iF-Rc
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 15:03:26 +0000
+X-Inumbo-ID: dc3a009a-b174-11ea-b7bb-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8a4d15b0-b174-11ea-8496-bc764e2007e4;
- Thu, 18 Jun 2020 15:01:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=e6BiZ54Z/n2Xyd58G5HpcMng3Zpnf3qzBo6kBoUe6DA=; b=So8fSUxSIPgxfEZzeTzZRprjX0
- swsEuswzmnwC9sQQfP1VXxw33nXWWrqohqdahzLtbF85e07wYTEGOzrYIfUVqc1ADkgVJFk1X2YnG
- q5cWkvDtExmavy3h0bmi2xi81y2TFWicZxkQoYkztydp0I5mcG82fUugISNEgyTtEYwM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jlw2I-0002cu-Os; Thu, 18 Jun 2020 15:01:02 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jlw2I-00053t-AO; Thu, 18 Jun 2020 15:01:02 +0000
-Subject: Re: [PATCH v3 for-4.14] pvcalls: Document correctly and explicitely
- the padding for all arches
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall.oss@gmail.com>,
- "committers@xenproject.org" <committers@xenproject.org>
-References: <20200613184132.11880-1-julien@xen.org>
- <alpine.DEB.2.21.2006151343430.9074@sstabellini-ThinkPad-T480s>
- <35c8373f-b691-d95e-17de-021c72faf216@xen.org>
- <alpine.DEB.2.21.2006161322210.24982@sstabellini-ThinkPad-T480s>
- <CAJ=z9a2cnMUiYBz+hA2_hjf5ShVh66tUwE9kbjqSM-H0TkTbyw@mail.gmail.com>
- <alpine.DEB.2.21.2006171146510.14005@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <cefe0cc7-5b1c-4ae2-a160-3857cc131a3d@xen.org>
-Date: Thu, 18 Jun 2020 16:00:58 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
+ id dc3a009a-b174-11ea-b7bb-bc764e2007e4;
+ Thu, 18 Jun 2020 15:03:26 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: jS/4hb9kl5ri8lQqwPOY7uZJ+Usuv0maMMeS9Nuu7NbMxC3rSnlyRLRwUdYdwocD/VQfgDZVx/
+ VtkvXLKH1CbD8DoEBJDGLcaHy8Vj22WAn76u8vYJ2Xxy4RGCNuHv80o4Dj3p2HUHydRfn/ESlm
+ bOHotUYkUIn0lqzFqU6ES8+d410omnaUJOZc8sN5XcGAMfZsz93JJfYwOZnSKB2GO/UZXMl0Ek
+ Z03fe4avhfDMW8j7+7oKWJqD50U8ZGytEAZsMUyk3FDinLs601Lq13VC8DTl5c3kIQGONmmgyd
+ UAo=
+X-SBRS: 2.7
+X-MesageID: 20682596
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,251,1589256000"; d="scan'208";a="20682596"
+Date: Thu, 18 Jun 2020 17:03:18 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH for-4.14 5/8] x86/hvm: only translate ISA interrupts to
+ GSIs in virtual timers
+Message-ID: <20200618150318.GV735@Air-de-Roger>
+References: <20200612155640.4101-1-roger.pau@citrix.com>
+ <20200612155640.4101-6-roger.pau@citrix.com>
+ <2b7eb220-afb8-26e6-6406-70759cac9333@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2006171146510.14005@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2b7eb220-afb8-26e6-6406-70759cac9333@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,174 +57,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <jgrall@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-(+ Committers)
+On Thu, Jun 18, 2020 at 04:47:57PM +0200, Jan Beulich wrote:
+> On 12.06.2020 17:56, Roger Pau Monne wrote:
+> > Only call hvm_isa_irq_to_gsi for ISA interrupts, interrupts
+> > originating from an IO APIC pin already use a GSI and don't need to be
+> > translated.
+> > 
+> > I haven't observed any issues from this, but I think it's better to
+> > use it correctly.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> However, ...
+> 
+> > --- a/xen/arch/x86/hvm/vpt.c
+> > +++ b/xen/arch/x86/hvm/vpt.c
+> > @@ -86,7 +86,7 @@ static int pt_irq_vector(struct periodic_time *pt, enum hvm_intsrc src)
+> >          return pt->irq;
+> >  
+> >      isa_irq = pt->irq;
+> > -    gsi = hvm_isa_irq_to_gsi(isa_irq);
+> > +    gsi = pt->source == PTSRC_isa ? hvm_isa_irq_to_gsi(isa_irq) : pt->irq;
+> 
+> ... would you mind taking the opportunity and moving this ...
+> 
+> >      if ( src == hvm_intsrc_pic )
+> >          return (v->domain->arch.hvm.vpic[isa_irq >> 3].irq_base
+> 
+> ... below here, perhaps even past the ASSERT() that follows?
+> 
+> (I have to admit that I find the two kinds of "source" indicators
+> - the "src" function parameter and "pt->source" confusing. Aren't
+> they supposed to match up?)
 
-On 18/06/2020 02:34, Stefano Stabellini wrote:
-> On Tue, 16 Jun 2020, Julien Grall wrote:
->> On Tue, 16 Jun 2020 at 21:57, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>
->>> On Tue, 16 Jun 2020, Julien Grall wrote:
->>>> On 16/06/2020 02:00, Stefano Stabellini wrote:
->>>>> On Sat, 13 Jun 2020, Julien Grall wrote:
->>>>>> From: Julien Grall <jgrall@amazon.com>
->>>>>>
->>>>>> The documentation of pvcalls suggests there is padding for 32-bit x86
->>>>>> at the end of most the structure. However, they are not described in
->>>>>> in the public header.
->>>>>>
->>>>>> Because of that all the structures would be 32-bit aligned and not
->>>>>> 64-bit aligned for 32-bit x86.
->>>>>>
->>>>>> For all the other architectures supported (Arm and 64-bit x86), the
->>>>>> structure are aligned to 64-bit because they contain uint64_t field.
->>>>>> Therefore all the structures contain implicit padding.
->>>>>>
->>>>>> The paddings are now corrected for 32-bit x86 and written explicitly for
->>>>>> all the architectures.
->>>>>>
->>>>>> While the structure size between 32-bit and 64-bit x86 is different, it
->>>>>> shouldn't cause any incompatibility between a 32-bit and 64-bit
->>>>>> frontend/backend because the commands are always 56 bits and the padding
->>>>>> are at the end of the structure.
->>>>>>
->>>>>> As an aside, the padding sadly cannot be mandated to be 0 as they are
->>>>>> already present. So it is not going to be possible to use the padding
->>>>>> for extending a command in the future.
->>>>>>
->>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>>>
->>>>>> ---
->>>>>>       Changes in v3:
->>>>>>           - Use __i386__ rather than CONFIG_X86_32
->>>>>>
->>>>>>       Changes in v2:
->>>>>>           - It is not possible to use the same padding for 32-bit x86 and
->>>>>>           all the other supported architectures.
->>>>>> ---
->>>>>>    docs/misc/pvcalls.pandoc        | 18 ++++++++++--------
->>>>>>    xen/include/public/io/pvcalls.h | 14 ++++++++++++++
->>>>>>    2 files changed, 24 insertions(+), 8 deletions(-)
->>>>>>
->>>>>> diff --git a/docs/misc/pvcalls.pandoc b/docs/misc/pvcalls.pandoc
->>>>>> index 665dad556c39..caa71b36d78b 100644
->>>>>> --- a/docs/misc/pvcalls.pandoc
->>>>>> +++ b/docs/misc/pvcalls.pandoc
->>>>>> @@ -246,9 +246,9 @@ The format is defined as follows:
->>>>>>                            uint32_t domain;
->>>>>>                            uint32_t type;
->>>>>>                            uint32_t protocol;
->>>>>> -                         #ifdef CONFIG_X86_32
->>>>>> +                 #ifndef __i386__
->>>>>>                            uint8_t pad[4];
->>>>>> -                         #endif
->>>>>> +                 #endif
->>>>>
->>>>>
->>>>> Hi Julien,
->>>>>
->>>>> Thank you for doing this, and sorry for having missed v2 of this patch, I
->>>>> should have replied earlier.
->>>>>
->>>>> The intention of the #ifdef blocks like:
->>>>>
->>>>>     #ifdef CONFIG_X86_32
->>>>>       uint8_t pad[4];
->>>>>     #endif
->>>>>
->>>>> in pvcalls.pandoc was to make sure that these structs would be 64bit
->>>>> aligned on x86_32 too.
->>>>>
->>>>> I realize that the public header doesn't match, but the spec is the
->>>>> "master copy".
->>>>
->>>> So far, the public headers are the defacto official ABI. So did you mark the
->>>> pvcall header as just a reference?
->>>
->>> No, there is no document that says that the canonical copy of the
->>> interface is pvcalls.pandoc. However, it was clearly spelled out from
->>> the start on xen-devel (see below.)
->>> In fact, if you notice, this is the
->>> first document under docs/misc that goes into this level of details in
->>> describing a new PV protocol. Also note the title of the document which
->>> is "PV Calls Protocol version 1".
->>
->> While I understand this may have been the original intention, you
->> can't expect a developer to go through the archive to check whether
->> he/she should trust the header of the document.
->>
->>>
->>>
->>> In reply to Jan:
->>>> A public header can't be "fixed" if it may already be in use by
->>>> anyone. We can only do as Andrew and you suggest (mandate textual
->>>> descriptions to be "the ABI") when we do so for _new_ interfaces from
->>>> the very beginning, making clear that the public header (if any)
->>>> exists just for reference.
->>>
->>> What if somebody took the specification of the interface from
->>> pvcalls.pandoc and wrote their own headers and code? It is definitely
->>> possible.
->>
->> As it is possible for someone to have picked the headers from Xen as
->> in the past public/ has always been the authority.
-> 
-> We never had documents under docs/ before specifying the interfaces
-> before pvcalls. It is not written anywhere that the headers under
-> public/ are the authoritative interfaces either, it is just that it was
-> the only thing available before. If you are new to the project you might
-> go to docs/ first.
-> 
-> 
->>> At the time, it was clarified that the purpose of writing such
->>> a detailed specification document was that the document was the
->>> specification :-)
->>
->> At the risk of being pedantic, if it is not written in xen.git it
->> doesn't exist ;).
->>
->> Anyway, no matter the decision you take here, you are going to
->> potentially break one set of the users.
->>
->> I am leaning towards the header as authoritative because this has
->> always been the case in the past and nothing in xen.git says
->> otherwise. However I am not a user of pvcalls, so I don't really have
->> any big incentive to go either way.
-> 
-> Yeah, we are risking breaking one set of users either way :-/
-> In reality, we are using pvcalls on arm64 in a new project (but it is
-> still very green). I am not aware of anybody using pvcalls on x86
-> (especially x86_32).
-> 
-> I would prefer to honor the pvcalls.pandoc specification because that is
-> what it was meant to be, and also leads to a better protocol
-> specification.
+They are supposed to match when the injected interrupt is the timer
+one, if there's a highest priority interrupt that gets injected
+instead of the timer one they don't match.
 
-As Jan and you disagree on the approach, I would like to get more input.
+AFAICT the function it's trying to get the vector that would match the
+timer using the 'src' interrupt source. TBH I think this is way more
+complex than needed, but I don't plan to deal with it right now.
 
-To summarize the discussion, the document for PV calls and the public 
-headers don't match when describing the padding. There is a disagreement 
-on which of the two are the authority and therefore which one to fix.
-
-Does anyone else have a preference on the approach?
-
-> 
-> 
->> For the future, I would highly suggest writing down the support
->> decision in xen.git. This would avoid such debate on what is the
->> authority...
-> 
-> Yes that's the way to go
-> 
-
--- 
-Julien Grall
+Thanks, Roger.
 
