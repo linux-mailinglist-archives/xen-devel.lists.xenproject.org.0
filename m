@@ -2,67 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06F491FF32C
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 15:35:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A141FF357
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2020 15:41:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jluhE-0004PU-Mq; Thu, 18 Jun 2020 13:35:12 +0000
+	id 1jlumS-0005Ec-Et; Thu, 18 Jun 2020 13:40:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FPuN=77=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1jluhD-0004PN-78
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 13:35:11 +0000
-X-Inumbo-ID: 87c76298-b168-11ea-bca7-bc764e2007e4
-Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
+ <SRS0=HRl3=77=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jlumQ-0005EX-CB
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2020 13:40:34 +0000
+X-Inumbo-ID: 47ff4ae4-b169-11ea-bca7-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 87c76298-b168-11ea-bca7-bc764e2007e4;
- Thu, 18 Jun 2020 13:35:10 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id c3so6051286wru.12
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2020 06:35:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=PgU7W2ZEDR8G3GYE3WyiZ0cSbfQREU9R2sTXUYCmOWE=;
- b=aDT75fKfc8y05/WXaHkV7n6rDQyhyUYVOHTG3MSWmHwCmWta4YLHlffJodsTMBV9Ph
- GqIL2vz9vh27obm0XPMCW2MRxMTwwNtajyzWUNFBFcC6LutwABGSV7HymmRBYpG44h30
- A6x/A7/tqjs1uNWQ0cAsFCGlGmDLl3zoJLfgJV8Ckl21ochFBAmooiZW805vmIjBFy02
- xsVaG4wIMGANDkcV5cGDxXgEeyC4JTZXpnusXpFxPe/FjVDlclxAoOE8/iuNzfVqBXuk
- skMhEmCU4T7H8VlrwPJFJVmCUSQN6TVJA5t4vWfWLlFtcYOnhvWs2AS1imwH21mWQZgT
- cxzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=PgU7W2ZEDR8G3GYE3WyiZ0cSbfQREU9R2sTXUYCmOWE=;
- b=rfplPNphiKP0pz+BnjAlfi9/V+U38BzqiHqrfO6DWHDc3xqUK+wxvEd3Daizb600Rv
- g+nQ4kLr6g1aFh+15mqDUOPo7sk1w74Gcpndgy7qRrgcjDF1wMZCcUW3tRZv2xmmLqUE
- jcRg6i7ism9Ex9FnHqJBBWx8PazPvlEfupEpjXoVu/s001OJ0nCI0ahrIbcPFxai7lmu
- Scr9CZrkKhycgTz4kgQbOGcgwajI5BcOMODdTfHNbAFISz7V+5C93YvTFxylZUisQ55K
- 8jSnSIFePpXO1b2Zwt3kK6wnblNt/AtLDAhO3AVGRMbT7SHYuncHyEi6FuUP6nVH8qQm
- g0XQ==
-X-Gm-Message-State: AOAM530VSEgnLAjCgqAbntI2UqdRzvKpQx8z1gpWSFwazPW00wJfDlIY
- fU61G1L8QWgZbGijx6vNKGPcTWZ3bYL5fBB9NyI=
-X-Google-Smtp-Source: ABdhPJy+xNr1SKrJ2FJ8JLX6h0Q5JyhpIM+GFVJ+ZbWA6RDtumN9h0U/YCGf5dwmiguivgXwiK6oAMhhLgBNptU/ips=
-X-Received: by 2002:a5d:6809:: with SMTP id w9mr4944689wru.182.1592487309702; 
- Thu, 18 Jun 2020 06:35:09 -0700 (PDT)
+ id 47ff4ae4-b169-11ea-bca7-bc764e2007e4;
+ Thu, 18 Jun 2020 13:40:33 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: yN3UFB3VzsZR+28uTtTftXIBNXMfN1rGaIT6HroeD/cbj2HC4NKoRzn5wXPyHvBNJT6eJRHF9w
+ z6QlPbhrRxpkItIXVRdPrBHf6PjvWDXEoWGPq2X46h7jtI15H7k2nJOiCFjInhBjNhizKxJO+v
+ X9q4sfBA2EfOuBNQPadI6vH7GY5O2Su4XUCd5PIWkd1UXRaqYyhQD7HCC8a9Hy0e0heqwdz+4z
+ S+kbaWbfYHBugtHnPEayn+XzhxufkscS/JHoMT5l24KkoyDLcLEOhJmOPr88Un5hPRNH5+Hpk3
+ Gj4=
+X-SBRS: 2.7
+X-MesageID: 20717356
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,526,1583211600"; d="scan'208";a="20717356"
+Date: Thu, 18 Jun 2020 15:40:23 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v1 4/7] x86/vmx: add do_vmtrace_op
+Message-ID: <20200618134023.GP735@Air-de-Roger>
+References: <1548605014.8764792.1592320576239.JavaMail.zimbra@cert.pl>
+ <34833328.8766172.1592320926648.JavaMail.zimbra@cert.pl>
+ <20200616172352.GT735@Air-de-Roger>
+ <998292451.9258672.1592421185726.JavaMail.zimbra@cert.pl>
+ <CABfawhmxUtuyBUYjVf9iOMvJop-_7SfciRNQThZt0sAqPsVqrg@mail.gmail.com>
+ <832789003.9534743.1592478099057.JavaMail.zimbra@cert.pl>
+ <20200618115519.GL735@Air-de-Roger>
+ <9924a5d9-b851-257a-9a6a-7a5712898a71@suse.com>
+ <1226758073.9662727.1592485797234.JavaMail.zimbra@cert.pl>
 MIME-Version: 1.0
-References: <3555e16baa9e1909dbefaaab04330694135c9021.1592410065.git.tamas.lengyel@intel.com>
- <d63e00e0-0097-c37e-ba9d-ac9340192dfb@suse.com>
- <CABfawhngJT0cFJfNxoa9H6qvPEF1nNO9m9PrrbRgQsA5Z0Jc6g@mail.gmail.com>
- <c9288d56-297d-dc1f-0e99-6537d82b393c@suse.com>
- <20200618125205.GO735@Air-de-Roger>
- <CABfawhn5gtFpDoLM16zAF3Sx0QagSs0xjzMauVhBptEraFLRAQ@mail.gmail.com>
- <e936d7a1-e661-24d0-3dd1-28eb2a3f4da0@suse.com>
-In-Reply-To: <e936d7a1-e661-24d0-3dd1-28eb2a3f4da0@suse.com>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Thu, 18 Jun 2020 07:34:34 -0600
-Message-ID: <CABfawhkHsYN55=yjhxB60xYKjHTRpX1nhOSkqv4tV6R8y+4SmA@mail.gmail.com>
-Subject: Re: [PATCH v2 for-4.14] x86/vmx: use P2M_ALLOC in vmx_load_pdptrs
- instead of P2M_UNSHARE
-To: Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1226758073.9662727.1592485797234.JavaMail.zimbra@cert.pl>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,84 +62,106 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Jun 18, 2020 at 7:26 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 18.06.2020 15:00, Tamas K Lengyel wrote:
-> > On Thu, Jun 18, 2020 at 6:52 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.=
-com> wrote:
-> >>
-> >> On Thu, Jun 18, 2020 at 02:46:24PM +0200, Jan Beulich wrote:
-> >>> On 18.06.2020 14:39, Tamas K Lengyel wrote:
-> >>>> On Thu, Jun 18, 2020 at 12:31 AM Jan Beulich <jbeulich@suse.com> wro=
-te:
-> >>>>>
-> >>>>> On 17.06.2020 18:19, Tamas K Lengyel wrote:
-> >>>>>> While forking VMs running a small RTOS system (Zephyr) a Xen crash=
- has been
-> >>>>>> observed due to a mm-lock order violation while copying the HVM CP=
-U context
-> >>>>>> from the parent. This issue has been identified to be due to
-> >>>>>> hap_update_paging_modes first getting a lock on the gfn using get_=
-gfn. This
-> >>>>>> call also creates a shared entry in the fork's memory map for the =
-cr3 gfn. The
-> >>>>>> function later calls hap_update_cr3 while holding the paging_lock,=
- which
-> >>>>>> results in the lock-order violation in vmx_load_pdptrs when it tri=
-es to unshare
-> >>>>>> the above entry when it grabs the page with the P2M_UNSHARE flag s=
-et.
-> >>>>>>
-> >>>>>> Since vmx_load_pdptrs only reads from the page its usage of P2M_UN=
-SHARE was
-> >>>>>> unnecessary to start with. Using P2M_ALLOC is the appropriate flag=
- to ensure
-> >>>>>> the p2m is properly populated and to avoid the lock-order violatio=
-n we
-> >>>>>> observed.
-> >>>>>
-> >>>>> Using P2M_ALLOC is not going to address the original problem though
-> >>>>> afaict: You may hit the mem_sharing_fork_page() path that way, and
-> >>>>> via nominate_page() =3D> __grab_shared_page() =3D> mem_sharing_page=
-_lock()
-> >>>>> you'd run into a lock order violation again.
-> >>>>
-> >>>> Note that the nominate_page you see in that path is for the parent V=
-M.
-> >>>> The paging lock is not taken for the parent VM thus nominate_page
-> >>>> succeeds without any issues any time fork_page is called. There is n=
-o
-> >>>> nominate_page called for the client domain as there is nothing to
-> >>>> nominate when plugging a hole.
+On Thu, Jun 18, 2020 at 03:09:57PM +0200, Michał Leszczyński wrote:
+> ----- 18 cze 2020 o 14:51, Jan Beulich jbeulich@suse.com napisał(a):
+> 
+> > On 18.06.2020 13:55, Roger Pau Monné wrote:
+> >> On Thu, Jun 18, 2020 at 01:01:39PM +0200, Michał Leszczyński wrote:
+> >>> It was previously stated that:
 > >>>
-> >>> But that's still a lock order issue then, isn't it? Just one that
-> >>> the machinery can't detect / assert upon.
-> >>
-> >> Yes, mm lock ordering doesn't differentiate between domains, and the
-> >> current lock order on the pCPU is based on the last lock taken
-> >> (regardless of the domain it belongs to).
-> >
-> > I see, makes sense. In that case the issue is avoided purely due to
-> > get_gfn being called that happens before the paging_lock is taken.
-> > That would have to be the way-to-go on other paths leading to
-> > vmx_load_pdptrs as well but since all other paths leading there do it
-> > without the paging lock being taken there aren't any more adjustments
-> > necessary right now that I can see.
->
-> If this is indeed the case, then I guess all that's needed is a further
-> extended / refined commit message in v3.
+> >>>> PVH or HVM domain
+> >>>> won't be able to use this interface since it has no way to request the
+> >>>> mapping of a specific mfn into it's physmap.
+> >>>
+> >>> but however, taking LibVMI as an example:
+> >>>
+> >>> https://github.com/libvmi/libvmi/blob/c461e20ae88bc62c08c27f50fcead23c27a30f9e/libvmi/driver/xen/xen.c#L51
+> >>>
+> >>> An essential abstraction xen_get_memory() relies on xc_map_foreign_range().
+> >>> Doesn't this mean that it's not usable from PVH or HVM domains, or did I got it
+> >>> all wrong?
+> >> 
+> >> That was my fault, so the buffer mfns are assigned to Xen, and then
+> >> the Xen domain ID is used to map those, which should work on both PV
+> >> and HVM (or PVH).
+> >> 
+> >> I still think using XENMEM_acquire_resource might be better, but I
+> >> would let others comment.
+> > 
+> > +1
+> > 
+> > Jan
+> 
+> 
+> I'm trying to implement this right now. I've added some very simple code to mm.c just for testing:
+> 
+> ---
+> 
+> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+> index e376fc7e8f..aaaefe6d23 100644
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -4624,6 +4624,26 @@ int arch_acquire_resource(struct domain *d, unsigned int type,
+>          }
+>          break;
+>      }
+> +
+> +    case XENMEM_resource_vmtrace_buf:
+> +    {
+> +        uint64_t output_base;
+> +        mfn_t mfn;
+> +        unsigned int i;
+> +
+> +        printk("vmtrace buf acquire\n");
+> +        output_base = d->vcpu[id]->arch.hvm.vmx.ipt_state->output_base;
+> +        mfn = mfn_x(output_base >> PAGE_SHIFT);
+> +
+> +        rc = 0;
+> +        for ( i = 0; i < nr_frames; i++ )
+> +        {
+> +            __map_domain_page_global(mfn_to_page(mfn + i));
 
-Alright.
+I don't think you need the __map_domain_page_global?
 
-Thanks,
-Tamas
+> +            mfn_list[i] = mfn + i;
+
+I think you need mfn_add here, or else this won't build?
+
+> +        }
+> +
+> +        break;
+> +    }
+>  #endif
+> 
+>      default:
+> 
+> ---
+> 
+> 
+> and then in my "proctrace" tool I'm trying to acquire it like this:
+> 
+>     fres = xenforeignmemory_map_resource(
+>         fmem, domid, XENMEM_resource_vmtrace_buf,
+>         /* vcpu: */ 0, /* frame: */ 0, /* num_frames: */ 128, (void **)&buf,
+>         PROT_READ, 0);
+> 
+> 
+> ioctl fails with "Argument list too long". It works fine when I provide some small number of frames (e.g. num_frames: 1 or 32), but doesn't work for any larger quantity.
+> 
+> How should I proceed with this? The PT buffer could be large, even up to 4 GB.
+
+I think adding a loop and hypercall continuation support could make
+this work without having to expand the size of mfn_list and
+gfn_list?
+
+Thanks, Roger.
 
