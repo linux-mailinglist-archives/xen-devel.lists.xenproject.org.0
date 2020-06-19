@@ -2,76 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78F86200817
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 13:52:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D813200840
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 13:59:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmFZ6-0008TD-FG; Fri, 19 Jun 2020 11:52:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=318C=AA=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jmFZ5-0008T8-1b
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 11:52:11 +0000
-X-Inumbo-ID: 4e45b108-b223-11ea-bca7-bc764e2007e4
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4e45b108-b223-11ea-bca7-bc764e2007e4;
- Fri, 19 Jun 2020 11:52:10 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 1A8FEA3457;
- Fri, 19 Jun 2020 13:52:09 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 09658A328F;
- Fri, 19 Jun 2020 13:52:08 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id VtwnB6FmtmDD; Fri, 19 Jun 2020 13:52:07 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 82627A3457;
- Fri, 19 Jun 2020 13:52:07 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id b9OA9_9QeFuU; Fri, 19 Jun 2020 13:52:07 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 56CE6A328F;
- Fri, 19 Jun 2020 13:52:07 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 3F3C621747;
- Fri, 19 Jun 2020 13:51:37 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id tmSQ1ygic8_q; Fri, 19 Jun 2020 13:51:31 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id B6C0A2256C;
- Fri, 19 Jun 2020 13:51:31 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 8G8oGYxRY3RS; Fri, 19 Jun 2020 13:51:31 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id 8CFF52255E;
- Fri, 19 Jun 2020 13:51:31 +0200 (CEST)
-Date: Fri, 19 Jun 2020 13:51:31 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1261259347.10148244.1592567491475.JavaMail.zimbra@cert.pl>
-In-Reply-To: <8f38c905-c5ed-06d7-db4e-e8024e897b43@suse.com>
-References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
- <1060400786.9820894.1592523480084.JavaMail.zimbra@cert.pl>
- <20200619113434.GZ735@Air-de-Roger>
- <1542506040.10138544.1592566594292.JavaMail.zimbra@cert.pl>
- <8f38c905-c5ed-06d7-db4e-e8024e897b43@suse.com>
-Subject: Re: [PATCH v2 1/7] xen/mm: lift 32 item limit from mfn/gfn arrays
+	id 1jmFfR-0000FN-6J; Fri, 19 Jun 2020 11:58:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ezQq=AA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jmFfP-0000FH-Uj
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 11:58:43 +0000
+X-Inumbo-ID: 3832a7ee-b224-11ea-bb6a-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3832a7ee-b224-11ea-bb6a-12813bfff9fa;
+ Fri, 19 Jun 2020 11:58:42 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: +7J+OWjJIU6EWdeeKMTmt2zgYYGTKWDh1shP6ZC4kaGrNIXQmNgXkAjujPijnbwymFREVfVaDY
+ 7CJftRgY1wZLte4b5J+iS5NrDqAab6FM37RFRqjCtbJ/ehVfCpFP8GQMZPWjQ8LX9rd/iEU9Gs
+ Pd5kQGRaApOgoBJYud9p4wiWQVFiVzViCu4MBSD9G+tqwJ9OmgSt/Nf+WSxKwQyHbyY3rvK0uC
+ gdfZQui4uSwfnlXXqlouywsZXGmoA5YpMxwWzN5Vg73NTeB9a/0C5ygm4Ydv/wVzyJN0n6hs/B
+ GpY=
+X-SBRS: 2.7
+X-MesageID: 20687932
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,255,1589256000"; d="scan'208";a="20687932"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH for-4.14] x86/msr: Disallow access to Processor Trace MSRs
+Date: Fri, 19 Jun 2020 12:58:23 +0100
+Message-ID: <20200619115823.22243-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
-Thread-Topic: xen/mm: lift 32 item limit from mfn/gfn arrays
-Thread-Index: LZiSNEInEtZmx5F3W49fgkm7P7pLww==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,59 +51,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, "Kang, Luwei" <luwei.kang@intel.com>,
- Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 19 cze 2020 o 13:48, Jan Beulich jbeulich@suse.com napisa=C5=82(a):
+We do not expose the feature to guests, so should disallow access to the
+respective MSRs.
 
-> On 19.06.2020 13:36, Micha=C5=82 Leszczy=C5=84ski wrote:
->> ----- 19 cze 2020 o 13:34, Roger Pau Monn=C3=A9 roger.pau@citrix.com nap=
-isa=C5=82(a):
->>=20
->>> On Fri, Jun 19, 2020 at 01:38:00AM +0200, Micha=C5=82 Leszczy=C5=84ski =
-wrote:
->>>> Replace on-stack array allocation with heap allocation
->>>> in order to lift the limit of 32 items in mfn/gfn arrays
->>>> when calling acquire_resource.
->>>
->>> I'm afraid this is not correct, you cannot allow unbounded amounts of
->>> items to be processed like this, it's likely that you manage to
->>> trigger the watchdog if the list is long enough, specially when doing
->>> set_foreign_p2m_entry.
->>>
->>> You need to process the items in batches (32 was IMO a good start), and
->>> then add support for hypercall continuations. Take a look at how
->>> XENMEM_populate_physmap just a couple of lines below makes use of
->>> hypercall_create_continuation.
->>>
->>> After processing every batch you need to check if
->>> hypercall_preempt_check returns true and if so use
->>> hypercall_create_continuation in order to encode a continuation.
->>>
->>> Thanks, Roger.
->>=20
->>=20
->> Somebody previously suggested that this limit could be lifted this way,
->> so I would like to hear some more opinions on that.
->=20
-> I did suggest the limit can be lifted, but not by processing all
-> pieces in one go. Whether batches of 32 or 64 or 128 are chosen
-> is a different thing, but you can't do arbitrary amounts without
-> any preemption checks.
->=20
-> Jan
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Paul Durrant <paul@xen.org>
+CC: Michał Leszczyński <michal.leszczynski@cert.pl>
 
+Paul: For 4.14.  This needs backporting to older trees as well.
 
-Okay. I will try to correct it within v3.
+Michał: CC'ing, just to keep you in the loop.  Xen has some dubious default
+MSR semantics which we're still in the middle of untangling in a backwards
+compatible way.  Patches like this will eventually not be necessary, but they
+are for now.
+---
+ xen/arch/x86/msr.c              | 12 ++++++++++++
+ xen/include/asm-x86/msr-index.h |  8 ++++++++
+ 2 files changed, 20 insertions(+)
 
-Best regards,
-Micha=C5=82 Leszczy=C5=84ski
-CERT Polska
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index 0bfb5839b2..05afe601a8 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -168,6 +168,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+     case MSR_TSX_FORCE_ABORT:
+     case MSR_TSX_CTRL:
+     case MSR_MCU_OPT_CTRL:
++    case MSR_RTIT_OUTPUT_BASE:
++    case MSR_RTIT_OUTPUT_MASK:
++    case MSR_RTIT_CTL:
++    case MSR_RTIT_STATUS:
++    case MSR_RTIT_CR3_MATCH:
++    case MSR_RTIT_ADDR_A(0) ... MSR_RTIT_ADDR_B(3):
+     case MSR_U_CET:
+     case MSR_S_CET:
+     case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
+@@ -329,6 +335,12 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+     case MSR_TSX_FORCE_ABORT:
+     case MSR_TSX_CTRL:
+     case MSR_MCU_OPT_CTRL:
++    case MSR_RTIT_OUTPUT_BASE:
++    case MSR_RTIT_OUTPUT_MASK:
++    case MSR_RTIT_CTL:
++    case MSR_RTIT_STATUS:
++    case MSR_RTIT_CR3_MATCH:
++    case MSR_RTIT_ADDR_A(0) ... MSR_RTIT_ADDR_B(3):
+     case MSR_U_CET:
+     case MSR_S_CET:
+     case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
+diff --git a/xen/include/asm-x86/msr-index.h b/xen/include/asm-x86/msr-index.h
+index b328a47ed8..0fe98af923 100644
+--- a/xen/include/asm-x86/msr-index.h
++++ b/xen/include/asm-x86/msr-index.h
+@@ -69,6 +69,14 @@
+ #define MSR_MCU_OPT_CTRL                    0x00000123
+ #define  MCU_OPT_CTRL_RNGDS_MITG_DIS        (_AC(1, ULL) <<  0)
+ 
++#define MSR_RTIT_OUTPUT_BASE                0x00000560
++#define MSR_RTIT_OUTPUT_MASK                0x00000561
++#define MSR_RTIT_CTL                        0x00000570
++#define MSR_RTIT_STATUS                     0x00000571
++#define MSR_RTIT_CR3_MATCH                  0x00000572
++#define MSR_RTIT_ADDR_A(n)                 (0x00000580 + (n) * 2)
++#define MSR_RTIT_ADDR_B(n)                 (0x00000581 + (n) * 2)
++
+ #define MSR_U_CET                           0x000006a0
+ #define MSR_S_CET                           0x000006a2
+ #define  CET_SHSTK_EN                       (_AC(1, ULL) <<  0)
+-- 
+2.11.0
+
 
