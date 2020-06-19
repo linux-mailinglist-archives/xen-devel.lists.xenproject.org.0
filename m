@@ -2,75 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C14200919
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 14:59:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4767200932
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 14:59:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmGbU-0006Fy-0g; Fri, 19 Jun 2020 12:58:44 +0000
+	id 1jmGcM-0006Jj-Be; Fri, 19 Jun 2020 12:59:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=318C=AA=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jmGbR-0006Ft-Rb
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 12:58:41 +0000
-X-Inumbo-ID: 9672a1f8-b22c-11ea-bb7c-12813bfff9fa
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ (envelope-from <SRS0=m4t/=AA=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jmGcL-0006Jb-24
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 12:59:37 +0000
+X-Inumbo-ID: ba81e96e-b22c-11ea-bb7c-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9672a1f8-b22c-11ea-bb7c-12813bfff9fa;
- Fri, 19 Jun 2020 12:58:36 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 9C973A3285;
- Fri, 19 Jun 2020 14:58:35 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 90327A2EC5;
- Fri, 19 Jun 2020 14:58:34 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id QE3FnZ5m0wSX; Fri, 19 Jun 2020 14:58:34 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id D760CA3285;
- Fri, 19 Jun 2020 14:58:33 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id w1LIOBKjBj8d; Fri, 19 Jun 2020 14:58:33 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id B1154A2EC5;
- Fri, 19 Jun 2020 14:58:33 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 9FA7622599;
- Fri, 19 Jun 2020 14:58:03 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id WVRasQth4Gm2; Fri, 19 Jun 2020 14:57:58 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 338EA22537;
- Fri, 19 Jun 2020 14:57:58 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id HTVcf9ezIggt; Fri, 19 Jun 2020 14:57:58 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id 16B152254F;
- Fri, 19 Jun 2020 14:57:58 +0200 (CEST)
-Date: Fri, 19 Jun 2020 14:57:57 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <893375527.10199950.1592571477991.JavaMail.zimbra@cert.pl>
-In-Reply-To: <d6c7f9f8-9c9e-9648-1c51-43db38cb0b00@suse.com>
-References: <20200619115823.22243-1-andrew.cooper3@citrix.com>
- <1417373854.10164826.1592568614663.JavaMail.zimbra@cert.pl>
- <d6c7f9f8-9c9e-9648-1c51-43db38cb0b00@suse.com>
-Subject: Re: [PATCH for-4.14] x86/msr: Disallow access to Processor Trace MSRs
+ id ba81e96e-b22c-11ea-bb7c-12813bfff9fa;
+ Fri, 19 Jun 2020 12:59:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zZXV2cGq8quVC8rQLL/wToEmak2+bNq8yjvSM/moiPM=; b=TJeOos2H7cDfy/H/QukOyIaTHl
+ Bnmdvk0XQaEILqjcVKprk9i3Eh/Rbf+iwYOoY/mhNpXbpjrUsDHgJ2jwOYodg7vABzc2PYqFQHla8
+ k2BnHksTG5kf78rKaIHNQc1gGB/BVJLkmTks0kY+8FSUD/WJkDYnMSnJxbePFAMYdndo=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jmGcI-0007C3-Gq; Fri, 19 Jun 2020 12:59:34 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jmGcI-0001Jc-9g; Fri, 19 Jun 2020 12:59:34 +0000
+Subject: Re: UEFI support in ARM DomUs
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Julien Grall <julien.grall.oss@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
+ <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
+ <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
+ <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
+ <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
+ <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
+ <17a14578-6fc7-925d-6f69-8b2fcbf40ff3@epam.com>
+ <9d4a6e78-49d3-01c3-251b-6d66f56c2761@xen.org>
+ <ebf32205-55b0-8a40-1935-d3591be058ce@epam.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <d7334aea-363e-49f6-f8c3-336e3c20eb0f@xen.org>
+Date: Fri, 19 Jun 2020 13:59:31 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
-Thread-Topic: x86/msr: Disallow access to Processor Trace MSRs
-Thread-Index: THc0AA/6//Z2X6lhwGGVbYcd5iRAcA==
+In-Reply-To: <ebf32205-55b0-8a40-1935-d3591be058ce@epam.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,51 +72,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
+ Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
+ Roman Shaposhnik <roman@zededa.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Nataliya Korovkina <malus.brandywine@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 19 cze 2020 o 14:49, Jan Beulich jbeulich@suse.com napisa=C5=82(a):
+Hi,
 
-> On 19.06.2020 14:10, Micha=C5=82 Leszczy=C5=84ski wrote:
->> ----- 19 cze 2020 o 13:58, Andrew Cooper andrew.cooper3@citrix.com napis=
-a=C5=82(a):
->>=20
->>> We do not expose the feature to guests, so should disallow access to th=
-e
->>> respective MSRs.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Wei Liu <wl@xen.org>
->>> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->>> CC: Paul Durrant <paul@xen.org>
->>> CC: Micha=C5=82 Leszczy=C5=84ski <michal.leszczynski@cert.pl>
->>>
->>> Paul: For 4.14.  This needs backporting to older trees as well.
->>>
->>> Micha=C5=82: CC'ing, just to keep you in the loop.  Xen has some dubiou=
-s default
->>> MSR semantics which we're still in the middle of untangling in a backwa=
-rds
->>> compatible way.  Patches like this will eventually not be necessary, bu=
-t they
->>> are for now.
->>=20
->>=20
->> As for external IPT monitoring, it would be best if the VM would think
->> that IPT is simply not supported at all by the underlying hypervisor.
->=20
-> This is already the case, isn't it? Yet not reporting a feature may
-> not keep a guest from trying to access the respective MSRs.
->=20
-> Jan
+On 19/06/2020 13:51, Oleksandr Andrushchenko wrote:
+> On 6/19/20 3:47 PM, Julien Grall wrote:
+>> They will not be available from the fdt, but you can retrieve them with an hypervisor call (see HVM_PARAM_STORE_PFN, HVM_PARAM_CONSOLE_PFN).
+> Yes, and it used in the relevant pieces of code (hyp calls)
+>> One question though, why do you need to map them in advance? Couldn't you map them on demand?
+> 
+> Well, we need to at least estimate the pg_table size so we can reserve and allocate memory later,
 
+Oh, so U-boot doesn't support runtime page-table table allocation. Is 
+that right?
 
-Okay, understood :)
+> 
+> so I have to provide memory range from either by coding a constant or looking into the devtree at
+> 
+> hypervisor { reg = <>; }. It is a bit tricky though
 
-ml
+Looking for a node in the device-tree shouldn't be too difficult given 
+that you have fdt_* available.
+
+However, please not that <reg> doesn't refer to the guest magic pages. 
+Instead, it provides a region you can use for mapping the grant-table frames
+
+Cheers,
+
+-- 
+Julien Grall
 
