@@ -2,52 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 178C2201BF3
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 22:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87F02201DB2
+	for <lists+xen-devel@lfdr.de>; Sat, 20 Jun 2020 00:01:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmNDv-00034j-2W; Fri, 19 Jun 2020 20:02:51 +0000
+	id 1jmP3l-0004kY-SU; Fri, 19 Jun 2020 22:00:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hXJh=AA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jmNDt-00034e-9Q
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 20:02:49 +0000
-X-Inumbo-ID: d918a652-b267-11ea-bca7-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=qhgK=AA=gmail.com=gorbak25@srs-us1.protection.inumbo.net>)
+ id 1jmP3k-0004kT-Im
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 22:00:28 +0000
+X-Inumbo-ID: 48b94da8-b278-11ea-b7bb-bc764e2007e4
+Received: from mail-ej1-x641.google.com (unknown [2a00:1450:4864:20::641])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d918a652-b267-11ea-bca7-bc764e2007e4;
- Fri, 19 Jun 2020 20:02:48 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8457320C09;
- Fri, 19 Jun 2020 20:02:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592596967;
- bh=xe6f8xVE2c7sP+o0l9LR95vqUYc1YGec51+cHjGjrho=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=eG/b0fibL/aORRg7B6B7jEHbsopAzR4FkjYympc4U9jM2OMTAnnGVMJJAdtIaabwp
- Ljd7mQRFNTWQullN1Sk0SXc5HfPuPaJ2b7ATBhMTa+90uLZwv4OkFDRUhqZiss8dJ6
- yoocFlb6Lmom3lQil+It5gj8BA/ufz8CRvmXe91Y=
-Date: Fri, 19 Jun 2020 13:02:47 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall.oss@gmail.com>
-Subject: Re: UEFI support in ARM DomUs
-In-Reply-To: <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2006191020110.12730@sstabellini-ThinkPad-T480s>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
- <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
- <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
- <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
- <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 48b94da8-b278-11ea-b7bb-bc764e2007e4;
+ Fri, 19 Jun 2020 22:00:27 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id gl26so11757970ejb.11
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2020 15:00:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=D3c6isltU9wDsjvWe1FRxWQI8iE4xtXifjJQA9egUR8=;
+ b=Etv4sm9AEDdjRMs/DjtAua8wlLcuwzn/HaH5fhUku7iwUOFQk+aVjLvX3WIqH5skMU
+ h64cMB9hZCdYu4HXPdxiG47sipua7TKM4oTe22YVQUI8e0zX1YJIWlpxcQ3JJWPETMVn
+ NHg5ZPXqYPXyd3QwH+EywidsVCxYrgLbL+GPmixOJ/ktL6bzGiS1WguUPl62TZkbsYFW
+ vjhE82uiD7/QuhRtZqImHqsiYmZx8dWGpFC7pX0qeC4O9+sNKRgRA9vrIWg2uIkxT2Ht
+ TAQs+F37XOy80HcXIOGjbR8EtelW7DenTRSocPdQO5+OddsI1RtJAL7DM70h79uhA4QB
+ L1VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=D3c6isltU9wDsjvWe1FRxWQI8iE4xtXifjJQA9egUR8=;
+ b=SQBh3+xmCttjIll8bvxOOuLZOyreuEtbsV7igBhcMXHETuSQBRY36rRv2vSQ39qn+V
+ 6Sn0iCUkHHSjBVrlKDudZHxgbhWB2+0bMvJpoY6h/ZJT4UVVBZlnezcsisphEz9o8o4x
+ T7LEPYO1J4iw4fqfrEpZVB3qUzAHp9RxLDsP+PifA0XQTZzweXVJkbC1h/p+2EWdRrD5
+ AFOCKc1rfxQAt9MUvffvescv8tUjChEBfIm5jbqJ1Orq4MdFpWVZLrEpKPCV0f+s7gYZ
+ /Vvbq5nwfxtoKOgVQwlMCvodK16fdEzu2kYnieS2wXfxJV8V9PuMnfkWI09dgsxEVplq
+ 6sUg==
+X-Gm-Message-State: AOAM532YRDgOqUSsEc6XRw8/RJmiT8hZzNYHtGkWTM+pSQkkLORw2AjG
+ fLPZ3v/3StVoyrYf+LJDNkmMDPctqcaf4A==
+X-Google-Smtp-Source: ABdhPJxFsCMAmvhnsDSAU7sNWxW+E/M2QT2vmjkYo1vZ7iuaFJ6FlFTAKDFNhSn5SsSHzMaHxd0MqA==
+X-Received: by 2002:a17:906:c952:: with SMTP id
+ fw18mr5167804ejb.505.1592604026800; 
+ Fri, 19 Jun 2020 15:00:26 -0700 (PDT)
+Received: from localhost.localdomain (public-gprs354184.centertel.pl.
+ [37.47.14.201])
+ by smtp.gmail.com with ESMTPSA id b4sm5261360ejp.40.2020.06.19.15.00.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Jun 2020 15:00:26 -0700 (PDT)
+From: Grzegorz Uriasz <gorbak25@gmail.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v3 0/1] Fix broken suspend on some machines
+Date: Fri, 19 Jun 2020 22:00:15 +0000
+Message-Id: <cover.1592603468.git.gorbak25@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,131 +70,55 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Roman Shaposhnik <roman@zededa.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, jakub@bartmin.ski,
+ Andrew Cooper <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
+ Grzegorz Uriasz <gorbak25@gmail.com>, Jan Beulich <jbeulich@suse.com>,
+ j.nowak26@student.uw.edu.pl, contact@puzio.waw.pl,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 18 Jun 2020, Julien Grall wrote:
-> > Copy/pasting here from my comment on the pull request plus additional
-> > thoughts.
-> >
-> > Uboot is one of those embedded projects that typically assumes that all
-> > the information about the platform is available at *build time*. It is
-> > meant to be built tailored for a specific version of a specific board. A
-> > Uboot binary is not expected to be "portable" across different versions
-> > of the platform or different platforms. In other words, it is not
-> > expected to be portable across Xen versions.
-> 
-> Can you define "version" here? Do you refer to the difference in terms
-> of memory?
- 
-Yes, I meant any meaningful differences in any of the external
-interfaces that end up impacting the UBoot implementation. A primary
-example would be the memory addresses for instance.
+Hi,
 
+The included patch is a small subset of a bigger patch set spanning few
+projects aiming to isolate the GPU in Qubes OS to a dedicated security domain.
+I'm doing this together with 3 colleagues as part of our Bachelors thesis.
+While working on the project we came across 2 machines - newer gaming
+laptops on which the suspend functionality on unmodified xen is completely broken.
 
-> > This is a different model meant for different use-cases. I don't think
-> > it is a problem "philosophically" to let Uboot know about Xen details at
-> > build time. Yes, that is not what we did historically but it is very
-> > much in the spirit of Uboot.
-> 
-> TBH, I don't particularly mind that U-boot is built against a specific
-> version of Xen. I am more concerned about the long term implication if
-> we endorse it
-> and then try to change the memory layout in depth.
+The affected machines were able to suspend but not always resume. Even
+if the resume succeeded then the kernel time was trashed in the dmesg log
+and the machine never managed to suspend another time. After changing
+the xen clock to hpet, suspend started working again both on stock
+xen and Qubes OS - this indicates a bug in the ACPI PM Timer. After
+disassembling the FADT ACPI table on the ASUS FX504GM I understood that the
+reported bit width is 32 bits but the flags indicate a 24 bit PM timer.
 
-I'll provide more information below.
+The included patch fixes the suspend feature on ASUS FX504GM and hopefully
+other laptops - Probably next week I will test this patch on my
+friend's laptop where this issue also occurs(suspend is broken, trashed kernel
+time after resume).
 
+Changes in v2:
+- Check pm timer access width
+- Proper timer width is set when xpm block is not present
+- Cleanup timer initialization
 
-> > But of course the least Uboot depends on these details the better
-> > because it will be more flexible, but it could very well be that we
-> > won't be able to reach the point where the binary works on any version
-> > like we did with Tianocore. The two projects work differently.
-> 
-> Can we have a list of things U-boot require to know at compile time?
-> 
-> In particular, I would like to understand if it would be sufficient to
-> only be aware of the first bank. If it is, then my preference would be
-> to standardize that bit of the layout.
+Changes in v3:
+- Check pm timer bit offset
+- Warn about acpi firmware bugs
+- Drop int cast in init_pmtimer
+- Merge if's in init_pmtimer
 
-That would be my preference too, and it was great to read that it looks
-like it can be done. Yay!
+Grzegorz Uriasz (1):
+  x86/acpi: Use FADT flags to determine the PMTMR width
 
+ xen/arch/x86/acpi/boot.c    | 19 +++++++++++++++----
+ xen/arch/x86/time.c         | 12 ++++--------
+ xen/include/acpi/acmacros.h |  8 ++++++++
+ 3 files changed, 27 insertions(+), 12 deletions(-)
 
-> > That said, I think Julien is right that we need to be careful on how we
-> > expose these information to Uboot, i.e. defining __XEN__ to build Uboot
-> > doesn't seem like a good idea because we enable definitions that were
-> > never meant to be used outside of a Xen build. Also, it wouldn't be easy
-> > to know exactly which definitions are actively used by Uboot and which
-> > ones aren't.
-> >
-> > If we are going to make Uboot dependent on version-specific information
-> > of the Xen interface, it would be better to be very clear about which
-> > definitions we are using. So that one day if we need to change them, we
-> > can find them easily.
-> >
-> > So I think it would be better to introduce a set of defines with the
-> > minimum amount of information required by Uboot statically. That way,
-> > at least we have a single place where to find all the version-specific
-> > definitions that Uboot is using.
-> 
-> I am not sure what you are suggesting. Can you expand a bit more?
-> 
-> > We can also manage versioning of the
-> > Xen interface (like we do in QEMU) if we have to.
-> 
-> Can you provide more details about the compatibility? I am quite
-> interested in the part where you would have to deal with an older QEMU
-> version built against a new Xen?
+-- 
+2.27.0
 
-Sure let me expand a bit more. I'll switch "hat" to "QEMU (or UBoot)
-contributor" for the sake of this discussion.
-
-Xen Project offers certain stability guarantees on some interfaces and
-not others. Let's say that for any reason you have to or want to use one
-of the unstable interfaces in QEMU/UBoot/Whatever. Then it becomes your
-responsibility as QEMU developer to maintain compatibility in QEMU
-itself.
-
-First I'd add code to detect the version of the interface. The detection
-is based on the Xen headers/libraries provided. In QEMU it is done in
-the "configure" script. It sets a preprocessor #define to the version
-of the interface (e.g. CONFIG_XEN_CTRL_INTERFACE_VERSION == 41100).
-
-Then you can have preprocessors checks in one of the headers such as:
-
-#if CONFIG_XEN_CTRL_INTERFACE_VERSION < 40701
-    #define xenevtchn_open(l, f) xc_evtchn_open(l, f);
-#else
-    XXX
-#endif
-
-
-And also like:
-
-#if CONFIG_XEN_CTRL_INTERFACE_VERSION < 40600
-
-#ifndef HVM_IOREQSRV_BUFIOREQ_ATOMIC
-#define HVM_IOREQSRV_BUFIOREQ_ATOMIC 2
-#endif
-
-#endif
-
-
-This works OK to handle differences in the interface between past
-versions of Xen. What about building an older QEMU against a new version
-of Xen? That is not going to work if something changes again on the Xen
-side. However, it becomes much easier to add support for the new Xen
-interface in QEMU, because you can go and look at that compatibility
-header and just add the right #else XXX. It also makes it clear what
-interfaces and definitions have been used that are unstable.
-
-Of course it is better to use the stable interfaces when possible :-)
 
