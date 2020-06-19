@@ -2,51 +2,96 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D4312019E9
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 20:05:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74ACC201A3F
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 20:24:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmLNQ-00017h-8k; Fri, 19 Jun 2020 18:04:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jmLfn-0002s1-Rv; Fri, 19 Jun 2020 18:23:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hXJh=AA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jmLNP-00017c-4Z
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 18:04:31 +0000
-X-Inumbo-ID: 51e3471b-b257-11ea-bbdb-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 51e3471b-b257-11ea-bbdb-12813bfff9fa;
- Fri, 19 Jun 2020 18:04:30 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1CA2E20DD4;
- Fri, 19 Jun 2020 18:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592589869;
- bh=9U29+BVl1swW9146VN/4P8eJUSjGnGmPDxuGpmJAwn4=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=wsJfZ2CZWiF2NBGJ6InL8H0prHLWWBwKcuIk4gxNAM4AHD7aPPNxqLljqGgZr49oh
- /UDQucoBDhr/RqBLzcKn9/mtJa1ttxbZiufVVeNonXm9GKXkallzOSkhX42atnl4OI
- 8b+6yvE5TkApoFQmFwKpT5qbcQSkuNp55uBqd4Bk=
-Date: Fri, 19 Jun 2020 11:04:28 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] xen/arm: optee: allow plain TMEM buffers with NULL address
-In-Reply-To: <c872a437-b698-55b4-36f4-4aa10cf3bba2@xen.org>
-Message-ID: <alpine.DEB.2.21.2006191101570.12730@sstabellini-ThinkPad-T480s>
-References: <2a32c7c2048333169c9378194d6a435e2e7ed2d7.camel@epam.com>
- <1b596a11-95b5-3e87-bbf5-c0c4dceb6489@xen.org> <878sgk2bst.fsf@epam.com>
- <8d2f3475-4191-fa80-f476-e72af73e0559@xen.org> <87h7v71ixf.fsf@epam.com>
- <c5af5b0c-eb18-04a5-80e9-99054eeb192e@xen.org>
- <alpine.DEB.2.21.2006191012540.12730@sstabellini-ThinkPad-T480s>
- <c872a437-b698-55b4-36f4-4aa10cf3bba2@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=qhgK=AA=gmail.com=gorbak25@srs-us1.protection.inumbo.net>)
+ id 1jmLfm-0002rw-E6
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 18:23:30 +0000
+X-Inumbo-ID: f944cedc-b259-11ea-bca7-bc764e2007e4
+Received: from mail-ej1-x644.google.com (unknown [2a00:1450:4864:20::644])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f944cedc-b259-11ea-bca7-bc764e2007e4;
+ Fri, 19 Jun 2020 18:23:29 +0000 (UTC)
+Received: by mail-ej1-x644.google.com with SMTP id y13so11168668eju.2
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2020 11:23:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:cc:references:from:autocrypt:subject:message-id:date:user-agent
+ :mime-version:in-reply-to;
+ bh=Vfy+JjQpvugirTgGbla1mvn1w9sg4RdrB9Z6ncIWjks=;
+ b=K/OaIL9F9dK44pJOR0GOY60OwH918Kmoe5tConvHMONOumzKKMC82+auUzC+AV66zL
+ cpDYK4YaTjZLd1E42Ai0sRJhsim+hbvCSgy4vdMKoRHi3hmNSzylZJ84YAxlygFNFQUX
+ LmLLtZXmO7Kww3ago+FY+V1AtlW/fWh/JiXDWPZXEGjOohSneuTYRWlYlIdf8YvFx4LT
+ eemIyXC8aw/jV1Cl7QCMPKJC4eX2IJpdtVMDFZHpoimz0g9MsKpongmPG2q9rz747HEZ
+ hFRnEB96AhcI7oyLnmDuZdQYs/UgR3QBAakWx4ZrPLWqf1RU45MxitzJlFeKZhBZYaN9
+ JDUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:cc:references:from:autocrypt:subject
+ :message-id:date:user-agent:mime-version:in-reply-to;
+ bh=Vfy+JjQpvugirTgGbla1mvn1w9sg4RdrB9Z6ncIWjks=;
+ b=ntzg7rZ9EzoXFT5RoDiPIDe1p1HuntbI2LXzP0A/jz9qWWdjrVq+BCUD0QHJzBpjlc
+ 0hfbFdlL3wvrjP++uBBB29jv/4jduldZZcEJGCS7PsLqhdX4rhGFHkVOrA1/Re/DsFg3
+ 1AwrEI4UIuXq5tiARWqyp00Um5rdejHKk8s4b7b+b3NElULQUu1xtaoD7vhzRPdMZ0nt
+ KiRVG7DcbzXnzgMrM04cgmWGbKIDw1uE5QMMu3Tkz633hvbrdYd55ZMeaBYxOjrtbhes
+ lrvnPYnREoCGJ9wsU2PxK8N0vV7IVZyJs2ew4BO10zFNBEVIrzOFuwyWqHDG1+xQPPAw
+ MlRQ==
+X-Gm-Message-State: AOAM531Rly8PFnEP+u/j5rug2ishlmMtz98bIQtmh7iJUclEWqqWoy/T
+ 4k41Bg4bsWKeuTY0Qo9h26A=
+X-Google-Smtp-Source: ABdhPJxCr3A+V5osae3kNNt1xFYptDn2Tu245o96nsYCwCub+GEqaIVZKHVLVJHvZeT35qPq/BK2Nw==
+X-Received: by 2002:a17:906:3e84:: with SMTP id
+ a4mr4634106ejj.372.1592591008810; 
+ Fri, 19 Jun 2020 11:23:28 -0700 (PDT)
+Received: from [192.168.8.124] (public-gprs354184.centertel.pl. [37.47.14.201])
+ by smtp.gmail.com with ESMTPSA id y62sm5160839edy.61.2020.06.19.11.23.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 19 Jun 2020 11:23:28 -0700 (PDT)
+To: Jan Beulich <jbeulich@suse.com>
+References: <cover.1592539868.git.gorbak25@gmail.com>
+ <b56bc897f22acc537a15740d779cb096fb2d6733.1592539868.git.gorbak25@gmail.com>
+ <a64cd64b-9717-a23a-561c-497aa4686ac0@suse.com>
+From: Grzegorz Uriasz <gorbak25@gmail.com>
+Autocrypt: addr=gorbak25@gmail.com; prefer-encrypt=mutual; keydata=
+ mQENBFyZgUUBCACo21Uf58hRRgX0uQd3kRJUqXp8/kJsC58tKZG9ENy8rvmcq15AmblqOQnD
+ k6Pmh2lhh31A+m4ONF+TT0vlFYv9sN0kA1llvHPH95LYhROXt7UwSZBQTnQlLZFVqeGa3R6M
+ pJwaAMQP/lyYgINt1pvBdCWtcNP/wKuNI/efnZuBOPDKSeBH/V0ZmmZxlSsx05/ktgtR6ibP
+ FZXPBgx5DY0DxPm/jb8CqkXO5291wyYCP2VDy85oqG8EgsfFOOPZNwBQCKS7cWLZDMEsVNnB
+ WyU3zJZBvEVK/5BwIzm1+AL9lR6RRLaOpC19k2ZqbyhEG9EhsR+/DIF0znBd9Nhjokd5ABEB
+ AAG0JEdyemVnb3J6IFVyaWFzeiA8Z29yYmFrMjVAZ21haWwuY29tPokBVwQTAQgAQQIbAwUJ
+ A8JnAAULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHDkRnQjCGTnaTo/LngD9fcXMA1pBQJd
+ /5CUAhkBAAoJEHgD9fcXMA1pb9YIAICTmZOrEGho9MC7z851jw507EamIqaAXQAADKpbxSGH
+ yVxALYZv6cqR84rsQuML0N8ai4rdCJ7PviMYyaWVX3P09kJoFxSzKhjxbwZMkRF8O+9tIhNO
+ 29h8v5cmv7Sp4NpssITFMZAms4LleJtdkivDeRxSCyJnHceZyGiD6pPTkopyuISGZIS+4axF
+ zarn+JM+uiTm1QHdCbcvK3sor//QvHr9kKjLKTxMwiTZOGQzF8+oHpVxxwX8Bz3UbFwRX/Io
+ rErT92f9WOsFWnvZHuLGcRLSlG0h9xljIuhP7mvGiudTgNoPt9YFtAG8KT/2HnUZ4XxJKi+B
+ 8Ilet++3m4m5AQ0EXJmBRQEIANBww0bVhYwP1g4AMux/Fjp7KUjYj7Q8ej+t71ShZkAzvPQT
+ 00ULdnYEa62uKM9YwXqOu0XJsnBveJKO1q3nfJuazAbsC0B3v0bYlUUQoTRxCUs3v22UOVxe
+ kaTtN3KDdnSTq7QkkZBZFvV+vAwKGlqECzsYtZ86CiIEOgmUeVA82AzyMx306l1th90OdHYt
+ LKkHxreEPWInN9jptOaKNwvB5cR6PxFfVRtVteN121tVJRK5geA0RVjHn35ig97ycDP5FcwP
+ HuuuKfr+07ANXrtFM/QLGmIvEaMEgpPmzyGkXGhbsDpMikHOkXvQCRTesJ38r8DRUffinYXI
+ vAw0IsMAEQEAAYkBPAQYAQgAJhYhBHDkRnQjCGTnaTo/LngD9fcXMA1pBQJcmYFFAhsMBQkD
+ wmcAAAoJEHgD9fcXMA1p3y8H/2nftQbUcb2oKtpyePStdmdN45A1OWjorj6iBRvTOhoig6y7
+ PbveJ9Zj35IP0Zy4W77Ke4ayK/PiBkh7bRrdQAwTAc7EiYw3j+foO32JA/4bANMgSuRBxO/d
+ xoloRPoaRE6eGUkA3N65V5WlWkinKxzSGDgSOz7Tit5QY8fGJYWeLTzFj605Y9iUu0MSLpfs
+ LQQby+I9gETWh5TUMz1uNytIB80UdMpzqcC36zCMk7wIy1g8YhbehJq1zU1+ZpDrggrN3ucH
+ 0NFFvHq5uwEkR8Llj29nDcyKuWMlnCMpM/iJcTde7N8UVdtN9yBGol4+yAZT0w5RP87pw3oD
+ fuZMcoY=
+Subject: Re: [PATCH v2 1/1] x86/acpi: Use FADT flags to determine the PMTMR
+ width
+Message-ID: <ad15c39d-d2ad-9e13-2f52-432532b869c3@gmail.com>
+Date: Fri, 19 Jun 2020 20:23:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <a64cd64b-9717-a23a-561c-497aa4686ac0@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="wnyo5xbJ5COLKig1aSkN1SX5mDPO82EtB"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,89 +102,148 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "paul@xen.org" <paul@xen.org>
+Cc: artur@puzio.waw.pl, Wei Liu <wl@xen.org>, jakub@bartmin.ski,
+ Andrew Cooper <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
+ j.nowak26@student.uw.edu.pl, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, 19 Jun 2020, Julien Grall wrote:
-> On 19/06/2020 18:15, Stefano Stabellini wrote:
-> > On Fri, 19 Jun 2020, Julien Grall wrote:
-> > > Hi Volodymyr,
-> > > 
-> > > On 19/06/2020 10:52, Volodymyr Babchuk wrote:
-> > > > > > > > OP-TEE represents this null memory reference as a TMEM parameter
-> > > > > > > > with
-> > > > > > > > buf_ptr == NULL. This is the only case when we should allow TMEM
-> > > > > > > > buffer without the OPTEE_MSG_ATTR_NONCONTIG flag.
-> > > > > > > 
-> > > > > > > IIUC, 0 with OPTEE_MSG_ATTR_NONCONTIG set would mean "use the
-> > > > > > > buffer
-> > > > > > > at address 0" but with the flag cleared, it would mean "return the
-> > > > > > > size". Am I correct?
-> > > > > > 
-> > > > > > Not exactly. This flag does not affect behavior for buffers with
-> > > > > > address
-> > > > > > NULL. In any case, this would not mean "return the size" to
-> > > > > > OP-TEE. This is because OP-TEE works as a transport between CA and
-> > > > > > TA
-> > > > > > and it does not assign any meaning to client buffers. But certainly,
-> > > > > > null buffer will mean "return the size" for some TAs, as described
-> > > > > > in
-> > > > > > GlobalPlatform specification.
-> > > > > 
-> > > > > Does it mean a guest TA may potentially access address 0?
-> > > > 
-> > > > TA is running in S-EL0. That buffer with PA=0x0 will be not mapped in TA
-> > > > address space at all. So, if TA will try to access address 0, it
-> > > > will be terminated with data abort.
-> > > > 
-> > > > > I am asking that because 0 can be a valid host physical address. We
-> > > > > are currently carving out 0 from the heap allocator to workaround a
-> > > > > bug, but there is no promise this address will be used by the boot
-> > > > > allocator and therefore Xen.
-> > > > > 
-> > > > 
-> > > > Well, this is a potential issue in OP-TEE. It does not treat 0 as a
-> > > > valid address. So, in that rare case, when REE will try to use 0
-> > > > as a correct address for data buffer, OP-TEE will not map it into
-> > > > TA address space, instead it will pass NULL to TA, so TA will think that
-> > > > no buffer was provided.
-> > > 
-> > > Thanks! That's reassuring. Although, I think we may still need to prevent
-> > > MFN
-> > > 0 to be allocated for a guest using OP-TEE. So they don't end up with
-> > > weird
-> > > failure.
-> > > 
-> > > I don't think this is an issue so far, but this may change with Stefano's
-> > > dom0less series to support direct mapping.
-> > 
-> > Yes, it is interesting to know about this limitation.
-> > 
-> > In regards to this patch, it looks OK as-is in terms of code changes.
-> 
-> I would disagree here. NULL has never been handled correctly for TMEM buffers
-> (see [1]). I would argue this needs to be folded within this patch rather than
-> be a separate one.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--wnyo5xbJ5COLKig1aSkN1SX5mDPO82EtB
+Content-Type: multipart/mixed; boundary="cNNM5kT93BLjfWRA9MTttUZY7XDXOXIy4";
+ protected-headers="v1"
+From: Grzegorz Uriasz <gorbak25@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ marmarek@invisiblethingslab.com, artur@puzio.waw.pl, jakub@bartmin.ski,
+ j.nowak26@student.uw.edu.pl
+Message-ID: <ad15c39d-d2ad-9e13-2f52-432532b869c3@gmail.com>
+Subject: Re: [PATCH v2 1/1] x86/acpi: Use FADT flags to determine the PMTMR
+ width
+References: <cover.1592539868.git.gorbak25@gmail.com>
+ <b56bc897f22acc537a15740d779cb096fb2d6733.1592539868.git.gorbak25@gmail.com>
+ <a64cd64b-9717-a23a-561c-497aa4686ac0@suse.com>
+In-Reply-To: <a64cd64b-9717-a23a-561c-497aa4686ac0@suse.com>
 
-I am OK with that too.
+--cNNM5kT93BLjfWRA9MTttUZY7XDXOXIy4
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+
+On 19/06/2020 15:17, Jan Beulich wrote:
+> On 19.06.2020 06:28, Grzegorz Uriasz wrote:
+>> --- a/xen/arch/x86/acpi/boot.c
+>> +++ b/xen/arch/x86/acpi/boot.c
+>> @@ -478,7 +478,9 @@ static int __init acpi_parse_fadt(struct acpi_tabl=
+e_header *table)
+>>  	if (fadt->header.revision >=3D FADT2_REVISION_ID) {
+>>  		/* FADT rev. 2 */
+>>  		if (fadt->xpm_timer_block.space_id =3D=3D
+>> -		    ACPI_ADR_SPACE_SYSTEM_IO) {
+>> +		    ACPI_ADR_SPACE_SYSTEM_IO &&
+>> +		    (fadt->xpm_timer_block.access_width =3D=3D 0 ||
+>> +		    ACPI_ACCESS_BIT_WIDTH(fadt->xpm_timer_block.access_width) =3D=3D=
+ 32)) {
+> Thinking about it again, since we're already tightening this
+> check, I think we would better also verify bit_offset =3D=3D 0.
+>
+> There also looks to be an indenting blank missing here.
+I will add the check and correct the indentation.
+>
+>> @@ -490,8 +492,10 @@ static int __init acpi_parse_fadt(struct acpi_tab=
+le_header *table)
+>>   	 */
+>>  	if (!pmtmr_ioport) {
+>>  		pmtmr_ioport =3D fadt->pm_timer_block;
+>> -		pmtmr_width =3D fadt->pm_timer_length =3D=3D 4 ? 24 : 0;
+>> +		pmtmr_width =3D fadt->pm_timer_length =3D=3D 4 ? 32 : 0;
+>>  	}
+>> +	if (pmtmr_width > 24 && !(fadt->flags & ACPI_FADT_32BIT_TIMER))
+>> +		pmtmr_width =3D 24;
+>>  	if (pmtmr_ioport)
+>>  		printk(KERN_INFO PREFIX "PM-Timer IO Port: %#x (%u bits)\n",
+>>  		       pmtmr_ioport, pmtmr_width);
+> I thought we had agreed to log at the very least the case where
+> the FADT flag is set but the width is less than 32 bits. (And I
+> agree that perhaps there's not much more to log, unless we'd
+> suspect e.g. strange access widths to be present somewhere.)
+>
+My bad - I've misunderstood the discussion.
+>> --- a/xen/arch/x86/time.c
+>> +++ b/xen/arch/x86/time.c
+>> @@ -457,16 +457,16 @@ static u64 read_pmtimer_count(void)
+>>  static s64 __init init_pmtimer(struct platform_timesource *pts)
+>>  {
+>>      u64 start;
+>> -    u32 count, target, mask =3D 0xffffff;
+>> +    u32 count, target, mask;
+>> =20
+>> -    if ( !pmtmr_ioport || !pmtmr_width )
+>> +    if ( !pmtmr_ioport )
+>>          return 0;
+>> =20
+>> -    if ( pmtmr_width =3D=3D 32 )
+>> -    {
+>> -        pts->counter_bits =3D 32;
+>> -        mask =3D 0xffffffff;
+>> -    }
+>> +    if ( pmtmr_width !=3D 24 && pmtmr_width !=3D 32 )
+>> +        return 0;
+>> +
+>> +    pts->counter_bits =3D (int) pmtmr_width;
+>> +    mask =3D (1ull << pmtmr_width) - 1;
+>> =20
+>>      count =3D inl(pmtmr_ioport) & mask;
+>>      start =3D rdtsc_ordered();
+>> @@ -486,7 +486,6 @@ static struct platform_timesource __initdata plt_p=
+mtimer =3D
+>>      .name =3D "ACPI PM Timer",
+>>      .frequency =3D ACPI_PM_FREQUENCY,
+>>      .read_counter =3D read_pmtimer_count,
+>> -    .counter_bits =3D 24,
+>>      .init =3D init_pmtimer
+>>  };
+> I'm struggling a little to see why this code churn is needed / wanted.
+> The change I had suggested was quite a bit less intrusive. I'm not
+> entirely opposed though, but at the very least please drop the odd
+> (int) cast. If anything we want the struct field changed to unsigned
+> int (but unlikely in this very patch).
+>
+> If you want to stick to this larger change, then also please fold the
+> two if()s at the beginning of the function.
+
+I wanted to avoid hard coding the masks -> Linux has a nice macro for
+generating the masks but I haven't found a similar macro in xen.
+Additionally this version sets the counter width in a single place
+instead of two.
+
+>
+> Jan
+Best Regards,
+Grzegorz
 
 
-> > Aside from a link to this conversation in the xen-devel archives, is
-> > there anything else you would like to add to the commit message?
-> +1 for the link. However, I don't think the commit message fully
-> match/summarize the discussion here.
-> 
-> What needs to be clearly spell out is that existing OP-TEEs will never map MFN
-> 0.
+--cNNM5kT93BLjfWRA9MTttUZY7XDXOXIy4--
 
-That would be nice
+--wnyo5xbJ5COLKig1aSkN1SX5mDPO82EtB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-> Cheers,
-> 
-> [1]  <87h7v71ixf.fsf@epam.com>
+iQEzBAEBCAAdFiEEcORGdCMIZOdpOj8ueAP19xcwDWkFAl7tAp0ACgkQeAP19xcw
+DWmofAgAp4CNdDnecJipl8pUbJ9QD37Cpe52fwDXB0p0wHY7QS7xUf4AeCOfZeLF
+WklS6U1ms2iH9wn5u9BKpx/nVPE+BNpwBnqwiL8IZOW+32jXkzwvDli/L9slFW37
+j6cEBR5g43ieupJYN1W/30CGrRBrCs/ReUUXrfM5Fj/7gsn3SNJ1AvluduA7gRXO
+0uUvqNquGowr7mwp0P+mkbGSXXQxZn4mWS/pVzmMG5J0xc3z007AfyORNWSH/xID
+9bip8td/RzuYRI+wUMJFWLM3GtnjIyKVV590lE9zitGXUI9LXGepkjAeGBug+LWh
+Qo628NV7GFXILO+DR8EFEGjTzOGGIg==
+=U5n8
+-----END PGP SIGNATURE-----
 
+--wnyo5xbJ5COLKig1aSkN1SX5mDPO82EtB--
 
