@@ -2,92 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABA5F2005C5
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 11:53:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90101200614
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 12:12:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmDhZ-0005bO-0g; Fri, 19 Jun 2020 09:52:49 +0000
+	id 1jmE0H-0007O9-P6; Fri, 19 Jun 2020 10:12:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8bIi=AA=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1jmDhY-0005bJ-CH
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 09:52:48 +0000
-X-Inumbo-ID: a0d176fc-b212-11ea-b7bb-bc764e2007e4
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.50]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a0d176fc-b212-11ea-b7bb-bc764e2007e4;
- Fri, 19 Jun 2020 09:52:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W38mVwoQgw6tlH2M9eISPcmDD8zzMh1+K3aEPRWODi5lN3WhbHj1FbiJH2hI9hDK/WIevVp2pCG0u77GYiwVh4dH1rbi7U/aOdhE9qHPymmKXBO0p6SGKaQa8uOQzvZfpx4DeCxU3pq3eIbpiRpsp1okDRb4ATTMOi9v0UMchQkT+8PHmWT+c8TpDig1PzDyL/dGdhz0JBAXnE5sYOTDUXik7fywXPOT1wCRsiGmOS3X6/z3XHJzMqxCqebH8Kx8aQNM3ivOR2so1LdIFo3r7kBJLriWM9FCcZaufDoZsrFZ4rjhtEw57IaxD0tDwBkWxP35wTiVK0oWpa1ngb36xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nSAIFLl/JBZVYKwQ11W2i/ROCM2BixfB8A+9m3RJ5+8=;
- b=HrhTySdye83u1NJuUIszlgs/dcSaG30Cw8wdX1dTiIXzIyoXpffSmLE+1NC8ASJ/0jIimkH5ixAqgyppQwciaaCVm8ZGV49SHAwZhIjt/k3+t2TidAhbcaf+aTGIm8TG4B1EKe2ROU+JKF/AxjSoLBlcXWTcBwWu2LNsgxAgndyWPNHSPL4odsH0iFHML8sta2LUIIwGHT5IRZhxItwboEPYjVn9mQhEsT2fTxDlAqPJ1MrivxStaw308qEiPq+lDzseBYScJYAmVsnOPcjGrMIw89ZF08HTy0gpF9k5T5RSv0k2QWJnAsUNrN+584atTPwK7GQN+heNRFiqo1jjKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nSAIFLl/JBZVYKwQ11W2i/ROCM2BixfB8A+9m3RJ5+8=;
- b=Xyq4fYGNAmBI/D2DxYdX8mDk3t7lnwpCh+EDZYs0z8JUxXyECS4q1dX3IqvA1oYbZrxkbQo6fX0OEdJhMHDsjqUbf1I4JY0Z8W9DqhYYKvES9LJCmpJitTg0oj7/2MtzisTiCQMSejhN3fIbjfjzAUmAVrbqsCEdcnG9/oR63mifb59TBdrZdjoho/Su5M0yIGkuhn4c3tky7dk6ORchEgDttuJOwYI2YrAo0nnmxYoVAgN+eCPbHfrU8BN9LvEIGHEW+FpXUr/n7IMjykK0JGL8xKXzrlYl57i4hnIp9wRYo+wdGJeeoebvdu8tqq53GiGZMXhh2qS/FMM+hWJT4Q==
-Received: from VI1PR03MB2926.eurprd03.prod.outlook.com (2603:10a6:802:35::28)
- by VI1PR03MB5023.eurprd03.prod.outlook.com (2603:10a6:803:c4::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Fri, 19 Jun
- 2020 09:52:45 +0000
-Received: from VI1PR03MB2926.eurprd03.prod.outlook.com
- ([fe80::95fd:55d9:421b:1f37]) by VI1PR03MB2926.eurprd03.prod.outlook.com
- ([fe80::95fd:55d9:421b:1f37%7]) with mapi id 15.20.3109.023; Fri, 19 Jun 2020
- 09:52:45 +0000
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] xen/arm: optee: allow plain TMEM buffers with NULL address
-Thread-Topic: [PATCH] xen/arm: optee: allow plain TMEM buffers with NULL
- address
-Thread-Index: AQHWLLcTxhZtogukPEOG78aedSZTLajL0lyAgBNkugCAAKX1gIAACEgA
-Date: Fri, 19 Jun 2020 09:52:45 +0000
-Message-ID: <87h7v71ixf.fsf@epam.com>
-References: <2a32c7c2048333169c9378194d6a435e2e7ed2d7.camel@epam.com>
- <1b596a11-95b5-3e87-bbf5-c0c4dceb6489@xen.org> <878sgk2bst.fsf@epam.com>
- <8d2f3475-4191-fa80-f476-e72af73e0559@xen.org>
-In-Reply-To: <8d2f3475-4191-fa80-f476-e72af73e0559@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.4.10; emacs 26.3
-authentication-results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [176.36.48.175]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6a02c990-516f-4b71-cf56-08d81436846d
-x-ms-traffictypediagnostic: VI1PR03MB5023:
-x-microsoft-antispam-prvs: <VI1PR03MB5023A80C8DFD9EFBA27B6FB0E6980@VI1PR03MB5023.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0439571D1D
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: qwLUBnet2SRaUr+IqS7AoMgldV6RdpR1/ofP19qWg4VUp6Qs+sKtrisgV7zz9yDrPflOQJVF+sFfN9hKbIPmaf31vHbnPv0miobIbUXcfVW5lDlB/livBMI6G//hNvfZZt1w9Cbfix2VedtZ4BWjtkxP4dkYZ4qz2embBhRTw7hAlDRThBFw8L4UIIbxl+9EdAbLzjsePZ1SnzvY298KCFgWU4jFgcHrQTxcDZcfNFS67N5Z7ExUeGRS+nJiFLq34Li/PLb4QAyqS3NT9Dai1iDI45KxoJToNR6vAUxj4RX/Z7q0hqKKHUk0w2VRL49xQRxslQQjU5E1u2jU8jdTQQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR03MB2926.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(396003)(376002)(136003)(39860400002)(366004)(478600001)(76116006)(91956017)(66946007)(66476007)(6916009)(2616005)(36756003)(8676002)(86362001)(66446008)(64756008)(66556008)(71200400001)(8936002)(83380400001)(26005)(316002)(186003)(6486002)(55236004)(6506007)(53546011)(2906002)(5660300002)(6512007)(4326008)(54906003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: u3BK5SjlxmiETqjUPna0dUVXUYeDxAUkMQJPPsdfNGqAMIvpgjcimCS6uXKYyyGChq8BVc/nia97/5DoeIOevC6lwkJyZVFGXem3J+VR2Iojv1Um4k7hVvupCDqsKwzpaNrUU7psRBVKyMI8ULKzAy6QZK15LD89LYlBdzZOU7nSDnOISpYJvBNZ9o+bs7+fEs7TiiqmaavbQMRdtZtOZ+cDSGiTNTzHwzeBA5BkJhQOLvu8d5B32PHZJMkRHcigodOjosZ8y9bPlB/lD8VEMP3F6/xR89Ve4J9ZbUm4VVqu6Sin4KBrD2dTUhuKBUv2cCyGE9zr3UDzf7gd5MBXlFtwELVLcyOfBeghexNWZ2BhMnRvwXMdy8JzZRVOeUwmAJJKvvao8tG/f0qqRSgrF3IbfHb8wZ7AMxssYJj1VVJJ8pO0669xYW/IVSKvqhFBGyDJR4+W68xxAOG4H97x/uZIYhH4W/7wutUop/uVdLw=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ <SRS0=NoMb=AA=gmail.com=vlad.babchuk@srs-us1.protection.inumbo.net>)
+ id 1jmE0G-0007O4-C5
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 10:12:08 +0000
+X-Inumbo-ID: 54b87ce0-b215-11ea-b7bb-bc764e2007e4
+Received: from mail-vs1-xe44.google.com (unknown [2607:f8b0:4864:20::e44])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 54b87ce0-b215-11ea-b7bb-bc764e2007e4;
+ Fri, 19 Jun 2020 10:12:07 +0000 (UTC)
+Received: by mail-vs1-xe44.google.com with SMTP id r11so5284039vsj.5
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2020 03:12:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=yvaN1qxUPGSdWMwKU0Ou8hlse2UJHRAHTqFMZkg1nwg=;
+ b=qiOUUnINsjdjcCih4F5FnZCvgRihsgtEpkhbroFd/X1YhkiAIogQTZhTpYH0XQXaA3
+ PicJDmNtcCJ5oeHPZZ9uPak0Lt7mwCPrkUdoBYbsMeuVLKuVRlAv8UQnpt5rhjjIMd/U
+ 0u4BkjN4LVWkQDHqbSWhgqb3c0iS6SNQOYzRqB4e2uJKFQ6Wau5xbXcSfDvmMKSUpRtq
+ YEQmHDy665Yq0JECRiC2kzsBCqPGoa6ErQZRIhHC8PXL/aTB7zUr+PG49qP56FgawPD7
+ Mb6kXKdDAuV/YNEDfnxknfT3v1pa+yCaVB59s91AwRIyjrC5P7FCchTRkMyPvY0Xx80I
+ iPcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=yvaN1qxUPGSdWMwKU0Ou8hlse2UJHRAHTqFMZkg1nwg=;
+ b=ceQrbk4wvCdlRH21ISFETX2p1PvEZNzmu/zmRhHuMOnPrWblmol4AAXeWGjKkZpDI6
+ AZTvfZLci4Dt8CzjhANo07cjyO6upFW4HrP7R4l3A5TM/Cj0buvBZgcbQYOBKa/jqOQQ
+ 6S5cUqKsIqjzrAitBWahIghe0RvybfIUMVnbLedfJgWEsBenrBvKHQofQAGUjOxfhCwM
+ dbYNgwIQ3zQHWkOOigI/vRQNJf3a8QOHuLg1O7hguymou7vYOPkJxkXVzgZwrgxWN8XK
+ ZJ0SJOQA/06R9qUyUGup2DgAYteX8FjxrQT9nbidTxs3dUGCyrg+kMyQSMJ3Ptg77keY
+ k4OA==
+X-Gm-Message-State: AOAM533wwRucbw252Y5NmKh6apzjM2ldwUDExy0DtTGjprVexkHJQT4W
+ +Wf0Z0aOpOBCIDd4Zc1TRJz7rckP5DT7HRjCwjA=
+X-Google-Smtp-Source: ABdhPJw6u9WruL/fd3NvdDc62ui/4aydu3pFohNcipHa+lsJF9RtXXXB6qYqrqe07npNuspcoqTea0xGgck3ETxODRA=
+X-Received: by 2002:a67:e451:: with SMTP id n17mr6942925vsm.238.1592561526885; 
+ Fri, 19 Jun 2020 03:12:06 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a02c990-516f-4b71-cf56-08d81436846d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jun 2020 09:52:45.5013 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zwO+Fq8k7nTxx/ua6AOmw6cPPzqNL8UNf9KOefaX0GoYMkVj59Gip9iW20yqcGCBr8zDWPKkKCLvjsIBFU7pf/ykDGmGPSLo+2aWbNjwyvU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB5023
+References: <DB6PR0402MB276091802866E8CB878A8130889C0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <CAOcqxo2B4cnJdqERr81rVzJKb=Rj=kmotd7Cui9nOMy52wVKmg@mail.gmail.com>
+ <8a6ba53e-59c8-0c18-00e9-2902b6edaf39@xen.org>
+ <68572FBC-8AE3-44A4-A815-1A9A7FFFA098@arm.com>
+ <DB6PR0402MB27606AA43E7A95B3CB2D228588980@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <CE6D09B1-18C4-46FA-BC1A-F45E28B2FA36@arm.com>
+ <DB6PR0402MB2760C3BF7140E02A6ECA572488980@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <CAOcqxo0Y4fgQjigQj2nDkiQETN7EEhjvOujkTxmiQtG3OBGieA@mail.gmail.com>
+ <DB6PR0402MB2760F159669AC29034EEABDA88980@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+In-Reply-To: <DB6PR0402MB2760F159669AC29034EEABDA88980@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+From: Volodymyr Babchuk <vlad.babchuk@gmail.com>
+Date: Fri, 19 Jun 2020 13:11:55 +0300
+Message-ID: <CAOcqxo3Pp0VQqYsrSwGLmgPS1AHm8uN6wkccEosBhvGLyACaBw@mail.gmail.com>
+Subject: Re: [Tee-dev] TEE with XEN
+To: Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,118 +74,243 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "paul@xen.org" <paul@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "tee-dev@lists.linaro.org" <tee-dev@lists.linaro.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Jens Wiklander <jens.wiklander@linaro.org>, Stefano Babic <sbabic@denx.de>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-Julien Grall writes:
-
-> On 19/06/2020 00:29, Volodymyr Babchuk wrote:
->>
->> Hi Julien,
+On Fri, 19 Jun 2020 at 12:50, Peng Fan <peng.fan@nxp.com> wrote:
 >
-> Hi Volodymyr,
+> > Subject: Re: [Tee-dev] TEE with XEN
+> >
+> > Hi Peng,
+> >
+> > On Fri, 19 Jun 2020 at 12:06, Peng Fan <peng.fan@nxp.com> wrote:
+> > >
+> > > > Subject: Re: [Tee-dev] TEE with XEN
+> > > >
+> > > >
+> > > >
+> > > > > On 19 Jun 2020, at 09:52, Peng Fan <peng.fan@nxp.com> wrote:
+> > > > >
+> > > > > Hi Bertrand,
+> > > > >
+> > > > >> Subject: Re: [Tee-dev] TEE with XEN
+> > > > >>
+> > > > >> Hi,
+> > > > >>
+> > > > >>> On 18 Jun 2020, at 19:05, Julien Grall <julien@xen.org> wrote:
+> > > > >>>
+> > > > >>> +Bertrand and Stefano
+> > > > >>>
+> > > > >>> On 16/06/2020 02:24, Volodymyr Babchuk wrote:
+> > > > >>>> Hi Peng,
+> > > > >>>> On Mon, 15 Jun 2020 at 05:07, Peng Fan <peng.fan@nxp.com>
+> > wrote:
+> > > > >>>>>
+> > > > >>>>> Hi All,
+> > > > >>>>>
+> > > > >>>>> While enabling trusty os with xen, I took same approach as
+> > > > >>>>> OP-TEE, with OP-TEE running in secure world. But I am also
+> > > > >>>>> thinking this might introduce potential issue is that secure
+> > > > >>>>> world OS communicate with
+> > > > >> DomU.
+> > > > >>>>> If there are some misbehavior in secure world OS, it might le=
+t
+> > > > >>>>> XEN hypervisor not work proper.
+> > > > >>>>>
+> > > > >>>>> In my setup, trusty os sometimes panic in secure world, xen
+> > > > >>>>> will not able to control the panic core anymore.
+> > > > >>>
+> > > > >>> May I ask in which case Trusty is panicking?
+> > > > >>
+> > > > >> In any case, optee should protect itself against this and it
+> > > > >> should be considered that optee is more priviledged then Xen.
+> > > > >> So if optee is crashing we cannot expect that Xen can recover or=
+ fix it.
+> > > > >>
+> > > > >> I would more consider this as a bug that optee needs to be robus=
+t
+> > against.
+> > > > >
+> > > > > ok. I am not using OP-TEE, currently I use google trusty OS.
+> > > >
+> > > > Sorry i should have been more generic.
+> > > > Please read this as =E2=80=9CAnything running in secure world=E2=80=
+=9D, being optee or
+> > trusty.
+> > > >
+> > > > >
+> > > > > I have two OS, Dom0 linux + DomU android auto.
+> > > > >
+> > > > > DomU android auto needs trusty OS, Dom0 Linux not need that.
+> > > >
+> > > > But i would guess your Dom0 is more =E2=80=9Ccritical=E2=80=9D then=
+ your DomU.
+> > > > In this case you must make sure that any resource given to your Dom=
+U
+> > > > cannot affect your Dom0.
+> > > > For example: if the DomU is starting a very heavy operation in
+> > > > blocked in trusty, any interrupt for non-secure could be blocked,
+> > > > thus affecting the ability of your Dom0.
+> > > >
+> > > > >
+> > > > > I not wanna trusty OS for DomU could bring any detect to Dom0 or =
+xen.
+> > > > >
+> > > > > One more case is if dom0 linux needs OP-TEE, DomU needs google
+> > > > > trusty, how we handle this in one SoC?
+> > > >
+> > > > You have a shared resource in this case, someone more or as trusted
+> > > > as the clients needs to decide how the resource can be shared.
+> > > > In this case could be Dom0 or Xen or Trusty or op-Tee (if i should
+> > > > make an order).
+> > > >
+> > > > >
+> > > > >>
+> > > > >>>
+> > > > >>>>>
+> > > > >>>>> So I am thinking whether we need to emulating secure world in
+> > > > >>>>> a XEN VM which is the VM running DomU. Just like what ACRN di=
+d
+> > > > >>>>> to run trusty os.
+> > > > >>>> Well, it depends on whom you are trusting more. Both XEN and
+> > > > >>>> TEE are minimal OS implementations with aim at security. I'm
+> > > > >>>> speaking about generic TEE OS, not about particular OS like OP=
+-TEE
+> > or Trusty.
+> > > > >>>> Problem is that, if TEE is running inside VM, it will be
+> > > > >>>> susceptible to a hypervisor misbehaviour. You need to
+> > > > >>>> understand that Xen and privileged domain (dom0, mostly) can
+> > > > >>>> access memory of
+> > > > any guest.
+> > > > >>>> At least, in default configuration. There are means to harden
+> > > > >>>> this setup. But anyways, Xen can't be stopped from reading TEE=
+'s
+> > secrets.
+> > > > >>>
+> > > > >>> IIRC, we discussed this approach for OP-TEE in the past. There
+> > > > >>> was other
+> > > > >> potential pitfalls with it. For instance, you wouldn't be able t=
+o
+> > > > >> directly access any secure device from that guest (it is running
+> > > > >> in
+> > > > non-secure world).
+> > > > >>>
+> > > > >>> There are also issues in term of latency as you may have the
+> > > > >>> following
+> > > > >> model:
+> > > > >>>
+> > > > >>> domU -> Xen -> domU TEE -> (Xen -> host TEE -> Xen -> domU TEE)
+> > > > >>> -> Xen ->
+> > > > >> domU.
+> > > > >>>
+> > > > >>> The bit in () is if you require to call the host TEE.
+> > > > >>>
+> > > > >>> One possibility would be to use Secure-EL2 for your Trusty OS.
+> > > > >>> But I don't
+> > > > >> know whether your platform supports it.
+> > > > >>>
+> > > > >>> Depending on whether you can modify Trusty OS, alternative woul=
+d
+> > > > >>> be to
+> > > > >> make itvirtualization aware as OP-TEE did. The core would need t=
+o
+> > > > >> be resilient and the panic only affect a given client.
+> > > > >>
+> > > > >> I do not have right a clear idea of what is the status of optee
+> > > > >> and xen but in theory I would see 2 possible ways to handle this=
+:
+> > > > >> - without optee modification, something in a guest (Dom0 or an
+> > > > >> other priviledged one) needs to have access to optee and emulate
+> > > > >> optee access for others.
+> > > > >> - with optee modifications, optee needs to have a concept of
+> > > > >> client and Xen would need to passthrough optee requests but bein=
+g
+> > > > >> responsible of adding a =E2=80=9Cclient=E2=80=9D identifier. May=
+be also informing
+> > > > >> Optee when a new client is created/removed.
+> > > > >>
+> > > > >> The second scenario could then be somehow splitted in the
+> > > > >> previous one from Julien if some parts would need to be emulated
+> > > > >> somewhere in some kind of combination of the 2 models.
+> > > > >>
+> > > > >> In any case i would always consider that anything running on
+> > > > >> optee (or in general in the secure world) is more trusted then X=
+en.
+> > > > >
+> > > > > Ok, this means optee runs on all cores in secure world, but this
+> > > > > would not work when we need to support multiple OSes with their o=
+wn
+> > TEE.
+> > > >
+> > > > I would think you have one TEE running on all cores (or runnable in=
+ this
+> > case).
+> > > > So the Tee needs to handle several contexts or someone needs to
+> > virtualize it.
+> > >
+> > > This back to my original question, should I virtualize TEE in a XEN d=
+edicated
+> > VM?
+> > > or I need to emulate secure world to let one VM could have secure and
+> > > non-secure world?
+> > >
+> >
+> > Well, I think that the best approach is that we did in the OP-TEE: make=
+ Trusty
+> > virtualization-aware, so it can handle multiple VMs.
 >
->>
->> Julien Grall writes:
->>
->>> (+Paul)
->>>
->>> Hi,
->>>
->>> On 18/05/2020 02:53, Volodymyr Babchuk wrote:
->>>> Trusted Applications use popular approach to determine required size
->>>> of buffer: client provides a memory reference with the NULL pointer to
->>>> a buffer. This is so called "Null memory reference".  TA updates the
->>>
->>> NIT: You use double space after '.' here but all the others use a
->>> single space.
->>
->> Oops, missed that.
->>
->>>> reference with the required size and returns it back to client. Then
->>>> client allocates buffer of needed size and repeats the operation.
->>>>
->>>> This behavior is described in TEE Client API Specification, paragraph
->>>> 3.2.5. Memory References.
->>>
->>>  From the spec, it is not a clear cut that NULL will always used as
->>> fetching the required size of an output buffer. In particular, they
->>> suggest to refer to the protocol.
->>>
->>> In your commit message you indirectly point to an example where 0/NULL
->>> would have a different meaning depending on the flags. This is not
->>> explained in the TEE Client API Specification. Do you have some
->>> pointer I could use to check the behavior?
->>
->> Well, GP specification describes application interface. It does not
->> specifies how implementation should handle this internally. Basically,
->> GP defines functions, data types, macros, etc to be used by CAs and
->> TAs. But it does not define how exactly call from CA will be delivered
->> to TA. Implementation is free to use any means as far, as they conform
->> with rules described in the specification.
->>
->> OPTEE's REE<->TEE interface is described in the header files, that I
->> added to xen (optee_msg.h, optee_rpc_cmd.h,optee_smc.h). But it does not
->> describe every aspect, unfortunately.
->
-> Thanks for digging-through! More below.
->
->>
->>>>
->>>> OP-TEE represents this null memory reference as a TMEM parameter with
->>>> buf_ptr =3D=3D NULL. This is the only case when we should allow TMEM
->>>> buffer without the OPTEE_MSG_ATTR_NONCONTIG flag.
->>>
->>> IIUC, 0 with OPTEE_MSG_ATTR_NONCONTIG set would mean "use the buffer
->>> at address 0" but with the flag cleared, it would mean "return the
->>> size". Am I correct?
->>
->> Not exactly. This flag does not affect behavior for buffers with address
->> NULL. In any case, this would not mean "return the size" to
->> OP-TEE. This is because OP-TEE works as a transport between CA and TA
->> and it does not assign any meaning to client buffers. But certainly,
->> null buffer will mean "return the size" for some TAs, as described in
->> GlobalPlatform specification.
->
-> Does it mean a guest TA may potentially access address 0?
+> Trusty virtualization-aware, you mean android Linux trusty driver communi=
+cate
+> with OP-TEE or else?
 
-TA is running in S-EL0. That buffer with PA=3D0x0 will be not mapped in TA
-address space at all. So, if TA will try to access address 0, it
-will be terminated with data abort.
+Okay, OP-TEE is implemented right as Bertran has suggested: OP-TEE can work
+with multiple VMs at the same time. It has special calls to create and
+destroy VM
+contextes.
 
-> I am asking that because 0 can be a valid host physical address. We
-> are currently carving out 0 from the heap allocator to workaround a
-> bug, but there is no promise this address will be used by the boot
-> allocator and therefore Xen.
->
+So, when a new VM/guest is spawned, Xen says "Hey, OP-TEE, there is a new
+VM with ID NNN". OP-TEE then initializes internal state for the new VM.
+At any moment Xen can say "Oops, that VM with ID NNN is dead". OP-TEE will
+immediately destroy the internal state for that VM.
 
-Well, this is a potential issue in OP-TEE. It does not treat 0 as a
-valid address. So, in that rare case, when REE will try to use 0
-as a correct address for data buffer, OP-TEE will not map it into
-TA address space, instead it will pass NULL to TA, so TA will think that
-no buffer was provided.
+Also, Xen needs to perform certain actions every time VM calls OP-TEE: tran=
+slate
+addresses, tell OP-TEE id of that VM, lock guest pages...
+And no changes to the OP-TEE client in Linux are needed. It thinks
+that it communicates
+directly with the OP-TEE. OP-TEE is running in the Secure World as usual.
 
->> Reason why I prohibited buffers without OPTEE_MSG_ATTR_NONCONTIG flag in
->> the the original patch is that such buffers could span across page
->> boundary, which is no-go for fragmented p2m.
->>
->> But I missed that special case: null buffer without
->> OPTEE_MSG_ATTR_NONCONTIG flag. As this is a special type of buffer, it
->> can be allowed with and without said flag.
->
-> Looking at translate_noncontig(), there is no specific treatment for
-> NULL. So the address will get translated. This is likely to result to
-> an error as usually a guest doesn't have anything mapped at address 0.
+The same can be done for any other TEE. Trusty, for example. Downside is th=
+at
+you can't run two different TEEs in the Secure world.
 
-Yes, you are right. Right now, optee client driver will not emit buffer
-wit OPTEE_MSG_ATTR_NONCONTIG and address 0. But this is possible. And
-this should be handled correctly. I'll add fix for that. Today, as
-well. Thanks for pointing this out.
+Actually, ARM added virtualization support in Secure mode, but AFAIK, i.MX8=
+ does
+not support it.
 
---=20
-Volodymyr Babchuk at EPAM=
+To sum it up:
+1. If you want to run only Trusty on your system, and you want to run
+it in Secure World,
+ you need to make Trusty virtualization-aware, and write mediator in
+Xen. This is what
+I did for OP-TEE.
+
+2. If you want to run Trusty AND OP-TEE in the Secure World, then you
+need to do p1.
+and then implement some paravirtualization support in Secure Monitor,
+Trusty and OP-TEE
+
+3. If your use case does not require high security, you can try to run
+Trusty as a VM.
+But, I am almost certain that this will not pass Google's
+requirements. So no Google Pay,
+no E-SIM, no DRM for this setup. But, you should clarify this with
+Google. I'm not a Google
+representative :)
 
