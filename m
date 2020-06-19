@@ -2,39 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45872200AF0
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 16:08:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EACE9200B42
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 16:21:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmHfW-0004jT-1d; Fri, 19 Jun 2020 14:06:58 +0000
+	id 1jmHsk-0006KX-7Z; Fri, 19 Jun 2020 14:20:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=y9JO=AA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jmHfU-0004jO-AJ
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 14:06:56 +0000
-X-Inumbo-ID: 21941f24-b236-11ea-bb8b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sYEL=AA=cert.pl=hubert.jasudowicz@srs-us1.protection.inumbo.net>)
+ id 1jmHsi-0006KS-Ax
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 14:20:36 +0000
+X-Inumbo-ID: 0a0e3e32-b238-11ea-bb8b-bc764e2007e4
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 21941f24-b236-11ea-bb8b-bc764e2007e4;
- Fri, 19 Jun 2020 14:06:55 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3998BADE5;
- Fri, 19 Jun 2020 14:06:53 +0000 (UTC)
-Subject: Re: [PATCH for-4.14] x86/tlb: fix assisted flush usage
-To: Roger Pau Monne <roger.pau@citrix.com>
-References: <20200618160403.35199-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0b6c900f-e2a6-c9b1-0e57-68c6898150a9@suse.com>
-Date: Fri, 19 Jun 2020 16:06:55 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ id 0a0e3e32-b238-11ea-bb8b-bc764e2007e4;
+ Fri, 19 Jun 2020 14:20:35 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 1A105A34AB;
+ Fri, 19 Jun 2020 16:20:34 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 0F97AA34AF;
+ Fri, 19 Jun 2020 16:20:33 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id 1fY7hZqoS_MI; Fri, 19 Jun 2020 16:20:32 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 8B662A34AB;
+ Fri, 19 Jun 2020 16:20:32 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Sw_AqVrLcHbf; Fri, 19 Jun 2020 16:20:32 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 67D29A34A9;
+ Fri, 19 Jun 2020 16:20:32 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 52EAB225A8;
+ Fri, 19 Jun 2020 16:20:02 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id UxnE5D_69fkj; Fri, 19 Jun 2020 16:19:56 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id DA91822577;
+ Fri, 19 Jun 2020 16:19:56 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Jb21ZM7euPDe; Fri, 19 Jun 2020 16:19:56 +0200 (CEST)
+Received: from [192.168.70.4] (unknown [195.187.238.48])
+ by belindir.nask.net.pl (Postfix) with ESMTPSA id 75DCF22542;
+ Fri, 19 Jun 2020 16:19:56 +0200 (CEST)
+Subject: Re: [PATCH] x86/cpuid: Expose number of vCPUs in CPUID.1.EBX
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <f9c2583332d83fe76c3d98e215c76b7b111650e3.1592496443.git.hubert.jasudowicz@cert.pl>
+ <bc49dfbd-ffc0-3548-1e46-22b808442679@citrix.com>
+From: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+Message-ID: <8174d110-be3b-5735-9085-f35f7f0318ab@cert.pl>
+Date: Fri, 19 Jun 2020 16:19:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200618160403.35199-1-roger.pau@citrix.com>
+In-Reply-To: <bc49dfbd-ffc0-3548-1e46-22b808442679@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,115 +78,68 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.06.2020 18:04, Roger Pau Monne wrote:
-> Commit e9aca9470ed86 introduced a regression when avoiding sending
-> IPIs for certain flush operations. Xen page fault handler
-> (spurious_page_fault) relies on blocking interrupts in order to
-> prevent handling TLB flush IPIs and thus preventing other CPUs from
-> removing page tables pages. Switching to assisted flushing avoided such
-> IPIs, and thus can result in pages belonging to the page tables being
-> removed (and possibly re-used) while __page_fault_type is being
-> executed.
-> 
-> Force some of the TLB flushes to use IPIs, thus avoiding the assisted
-> TLB flush. Those selected flushes are the page type change (when
-> switching from a page table type to a different one, ie: a page that
-> has been removed as a page table) and page allocation. This sadly has
-> a negative performance impact on the pvshim, as less assisted flushes
-> can be used.
-> 
-> Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
-> using an IPI (flush_tlb_mask_sync). Note that the flag is only
-> meaningfully defined when the hypervisor supports PV mode, as
-> otherwise translated domains are in charge of their page tables and
-> won't share page tables with Xen, thus not influencing the result of
-> page walks performed by the spurious fault handler.
+On 6/18/20 6:51 PM, Andrew Cooper wrote:
+> On 18/06/2020 17:22, Hubert Jasudowicz wrote:
+>> When running under KVM (or presumably other hypervisors) we enable
+>> the CPUID.1.EDX.HTT flag, thus indicating validity of CPUID.1.EBX[23:1=
+6]
+>> - maximum number of logical processors which the guest reads as 0.
+>>
+>> Although this method of topology detection is considered legacy,
+>> Windows falls back to it when CPUID.0BH.EBX is 0.
+>>
+>> CPUID.1.EBX[23:16] being equal to 0, triggers memory corruption in
+>> ntoskrnl.exe as Windows assumes that number of logical processors woul=
+d
+>> be at least 1. Memory corruption manifests itself while mapping
+>> framebuffer for early graphical subsystem, causing BSOD.
+>>
+>> This patch fixes running nested Windows (tested on 7 and 10) with KVM =
+as
+>> L0 hypervisor, by setting the value to maximum number of vCPUs in doma=
+in.
+>>
+>> Signed-off-by: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+>=20
+> I'm afraid fixing guest topology is more complicated than just this.=C2=
+=A0 On
+> its own, I'm not sure if this is safe for VMs migrating in.
+>=20
+> While I agree that Xen's logic is definitely broken, I suspect the
+> conditions for the BSOD are more complicated than this, because Windows
+> does work fine when there is no KVM in the setup described.
+>=20
+> ~Andrew
+>=20
 
-Is this true for shadow mode? If a page shadowing a guest one was
-given back quickly enough to the allocator and then re-used, I think
-the same situation could in principle arise.
+After some more testing, I've managed to boot Windows by explicitly confi=
+guring the guest
+with cpuid=3D"host,htt=3D0". If I understand correctly, the default behav=
+ior is to
+enable HTT for the guest and basically pass through the value of CPUID.1.=
+EBX[23:16]
+without any sanity checks.
 
-> Note the flag is not defined on Arm, and the introduced helper is just
-> a dummy alias to the existing flush_tlb_mask.
-> 
-> Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when available')
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> It's my understanding that not doing such IPI flushes could lead to
-> the pages tables being read by __page_fault_type being modified by a
-> third party, which could make them point to other mfns out of the
-> scope of the guest allowed physical memory addresses. However those
-> accesses would be limited to __page_fault_type, and hence the main
-> worry would be that a guest could make it point to read from a
-> physical memory region that has side effects?
+The reason this works in other setups is that the non-zero value returned=
+ by real hardware
+leaks into the guest. In my setup, what Xen sees is:
+CPUID.1h =3D=3D EAX: 000806ea EBX: 00000800 ECX: fffab223 EDX: 0f8bfbff
 
-I don't think so, no - the memory could be changed such that the
-PTEs are invalid altogether (like having reserved bits set). Consider
-for example the case of reading an MFN out of such a PTE that's larger
-than the physical address width supported by the CPU. Afaict
-map_domain_page() will happily install a respective page table entry,
-but we'd get a reserved-bit #PF upon reading from that mapping.
+In terms of VM migration, this seems already broken because guest might r=
+ead different
+values depending on what underlying hardware reports. The patch would at =
+least provide
+some consistency between hosts. Another solution would be not to enable H=
+TT bit by default.
 
-> ---
->  xen/arch/x86/mm.c              | 12 +++++++++++-
->  xen/common/memory.c            |  2 +-
->  xen/common/page_alloc.c        |  2 +-
->  xen/include/asm-arm/flushtlb.h |  1 +
->  xen/include/asm-x86/flushtlb.h | 14 ++++++++++++++
->  xen/include/xen/mm.h           |  8 ++++++--
->  6 files changed, 34 insertions(+), 5 deletions(-)
+Kind regards,
+Hubert Jasudowicz
 
-Not finding a consumer of the new flag, my first reaction was to
-ask whether there's code missing somewhere. Having looked at
-flush_area_mask() another time I now understand the itended
-behavior results because of the extra flag now allowing
-hypervisor_flush_tlb() to be entered. I think that's something
-that's worth calling out in the description, or perhaps even in
-the comment next to the #define.
 
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -2894,7 +2894,17 @@ static int _get_page_type(struct page_info *page, unsigned long type,
->                        ((nx & PGT_type_mask) == PGT_writable_page)) )
->                  {
->                      perfc_incr(need_flush_tlb_flush);
-> -                    flush_tlb_mask(mask);
-> +                    if ( (x & PGT_type_mask) &&
-> +                         (x & PGT_type_mask) <= PGT_l4_page_table )
 
-With there being 5-level page tables around the corner, I think
-we ought to get used to use PGT_root_page_table (or alike)
-whenever possible, to avoid having to touch such code when
-adding support for the new paging mode.
-
-> --- a/xen/include/asm-x86/flushtlb.h
-> +++ b/xen/include/asm-x86/flushtlb.h
-> @@ -126,6 +126,12 @@ void switch_cr3_cr4(unsigned long cr3, unsigned long cr4);
->  #else
->  #define FLUSH_HVM_ASID_CORE 0
->  #endif
-> +#if CONFIG_PV
-
-#ifdef
-
-> +/* Force an IPI to be sent */
-> +# define FLUSH_FORCE_IPI 0x8000
-> +#else
-> +# define FLUSH_FORCE_IPI 0
-> +#endif
-
-If my shadow mode concern above is unwarranted, this overhead could
-also be avoided if there's no PV domain at all in the system.
-Perhaps an improvement not for now, but for the future ...
-
-Jan
 
