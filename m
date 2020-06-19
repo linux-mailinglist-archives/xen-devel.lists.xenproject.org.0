@@ -2,50 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A3AD200A8A
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 15:45:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45872200AF0
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 16:08:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmHKI-0002s2-CH; Fri, 19 Jun 2020 13:45:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z6Go=AA=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jmHKG-0002rx-LW
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 13:45:00 +0000
-X-Inumbo-ID: 117e380c-b233-11ea-bb81-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 117e380c-b233-11ea-bb81-12813bfff9fa;
- Fri, 19 Jun 2020 13:44:59 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: KCqsDXjhRe6xidaxQhUBWEa+7/hyWKSHLXgGmWKv2u7PUEIfdUZJxINcBRV6PgS8bmtqfUaJVi
- fGmahqMyCXLslVSlUpfgFLoTHWM8fPrK1vvMiQ7xisRkL2AQ3Ec3KPuYPsaVu021ixaGYqv/7c
- bsl/biUGzJeJfcVwMxRL6w6cGsfBHnHST6JR71z56ReYz8wmEn6ks9+yulrh3wbh5lGmB4daGh
- EB4niZ7Zb68WNHYcFHPgTBXiZIcLSV2pcMyJaeKI2KdSmZARHTW/Rg/sMH4HcrQXP/sDngoX1z
- 6qM=
-X-SBRS: 2.7
-X-MesageID: 20696736
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,255,1589256000"; d="scan'208";a="20696736"
-Date: Fri, 19 Jun 2020 15:44:52 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-Subject: Re: [PATCH v2 3/7] x86/vmx: add IPT cpu feature
-Message-ID: <20200619134452.GA735@Air-de-Roger>
-References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
- <626789888.9820937.1592523621821.JavaMail.zimbra@cert.pl>
+	id 1jmHfW-0004jT-1d; Fri, 19 Jun 2020 14:06:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=y9JO=AA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jmHfU-0004jO-AJ
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 14:06:56 +0000
+X-Inumbo-ID: 21941f24-b236-11ea-bb8b-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 21941f24-b236-11ea-bb8b-bc764e2007e4;
+ Fri, 19 Jun 2020 14:06:55 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3998BADE5;
+ Fri, 19 Jun 2020 14:06:53 +0000 (UTC)
+Subject: Re: [PATCH for-4.14] x86/tlb: fix assisted flush usage
+To: Roger Pau Monne <roger.pau@citrix.com>
+References: <20200618160403.35199-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0b6c900f-e2a6-c9b1-0e57-68c6898150a9@suse.com>
+Date: Fri, 19 Jun 2020 16:06:55 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <20200618160403.35199-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <626789888.9820937.1592523621821.JavaMail.zimbra@cert.pl>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,73 +45,115 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, "Kang, Luwei" <luwei.kang@intel.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jun 19, 2020 at 01:40:21AM +0200, Michał Leszczyński wrote:
-> Check if Intel Processor Trace feature is supported by current
-> processor. Define hvm_ipt_supported function.
+On 18.06.2020 18:04, Roger Pau Monne wrote:
+> Commit e9aca9470ed86 introduced a regression when avoiding sending
+> IPIs for certain flush operations. Xen page fault handler
+> (spurious_page_fault) relies on blocking interrupts in order to
+> prevent handling TLB flush IPIs and thus preventing other CPUs from
+> removing page tables pages. Switching to assisted flushing avoided such
+> IPIs, and thus can result in pages belonging to the page tables being
+> removed (and possibly re-used) while __page_fault_type is being
+> executed.
 > 
-> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
+> Force some of the TLB flushes to use IPIs, thus avoiding the assisted
+> TLB flush. Those selected flushes are the page type change (when
+> switching from a page table type to a different one, ie: a page that
+> has been removed as a page table) and page allocation. This sadly has
+> a negative performance impact on the pvshim, as less assisted flushes
+> can be used.
+> 
+> Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
+> using an IPI (flush_tlb_mask_sync). Note that the flag is only
+> meaningfully defined when the hypervisor supports PV mode, as
+> otherwise translated domains are in charge of their page tables and
+> won't share page tables with Xen, thus not influencing the result of
+> page walks performed by the spurious fault handler.
+
+Is this true for shadow mode? If a page shadowing a guest one was
+given back quickly enough to the allocator and then re-used, I think
+the same situation could in principle arise.
+
+> Note the flag is not defined on Arm, and the introduced helper is just
+> a dummy alias to the existing flush_tlb_mask.
+> 
+> Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when available')
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > ---
+> It's my understanding that not doing such IPI flushes could lead to
+> the pages tables being read by __page_fault_type being modified by a
+> third party, which could make them point to other mfns out of the
+> scope of the guest allowed physical memory addresses. However those
+> accesses would be limited to __page_fault_type, and hence the main
+> worry would be that a guest could make it point to read from a
+> physical memory region that has side effects?
 
-We usually keep a shirt list of the changes between versions, so it's
-easier for the reviewers to know what changed. As an example:
+I don't think so, no - the memory could be changed such that the
+PTEs are invalid altogether (like having reserved bits set). Consider
+for example the case of reading an MFN out of such a PTE that's larger
+than the physical address width supported by the CPU. Afaict
+map_domain_page() will happily install a respective page table entry,
+but we'd get a reserved-bit #PF upon reading from that mapping.
 
-https://lore.kernel.org/xen-devel/20200613184132.11880-1-julien@xen.org/
+> ---
+>  xen/arch/x86/mm.c              | 12 +++++++++++-
+>  xen/common/memory.c            |  2 +-
+>  xen/common/page_alloc.c        |  2 +-
+>  xen/include/asm-arm/flushtlb.h |  1 +
+>  xen/include/asm-x86/flushtlb.h | 14 ++++++++++++++
+>  xen/include/xen/mm.h           |  8 ++++++--
+>  6 files changed, 34 insertions(+), 5 deletions(-)
 
->  xen/arch/x86/hvm/vmx/vmcs.c                 | 4 ++++
->  xen/include/asm-x86/cpufeature.h            | 1 +
->  xen/include/asm-x86/hvm/hvm.h               | 9 +++++++++
->  xen/include/asm-x86/hvm/vmx/vmcs.h          | 1 +
->  xen/include/public/arch-x86/cpufeatureset.h | 1 +
->  5 files changed, 16 insertions(+)
-> 
-> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-> index ca94c2bedc..8466ccb912 100644
-> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> @@ -315,6 +315,10 @@ static int vmx_init_vmcs_config(void)
->          if ( opt_ept_pml )
->              opt |= SECONDARY_EXEC_ENABLE_PML;
->  
-> +        /* Check whether IPT is supported in VMX operation */
-> +        hvm_funcs.pt_supported = cpu_has_ipt &&
-> +            ( _vmx_misc_cap & VMX_MISC_PT_SUPPORTED );
+Not finding a consumer of the new flag, my first reaction was to
+ask whether there's code missing somewhere. Having looked at
+flush_area_mask() another time I now understand the itended
+behavior results because of the extra flag now allowing
+hypervisor_flush_tlb() to be entered. I think that's something
+that's worth calling out in the description, or perhaps even in
+the comment next to the #define.
 
-By the placement of this chunk you are tying IPT support to the
-secondary exec availability, but I don't think that's required?
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -2894,7 +2894,17 @@ static int _get_page_type(struct page_info *page, unsigned long type,
+>                        ((nx & PGT_type_mask) == PGT_writable_page)) )
+>                  {
+>                      perfc_incr(need_flush_tlb_flush);
+> -                    flush_tlb_mask(mask);
+> +                    if ( (x & PGT_type_mask) &&
+> +                         (x & PGT_type_mask) <= PGT_l4_page_table )
 
-Ie: You should move the read of misc_cap to the top-level of the
-function and perform the VMX_MISC_PT_SUPPORTED check there also.
+With there being 5-level page tables around the corner, I think
+we ought to get used to use PGT_root_page_table (or alike)
+whenever possible, to avoid having to touch such code when
+adding support for the new paging mode.
 
-Note that space inside parentheses is only required for conditions of
-'if', 'for' and those kind of statements, here it's not required, so
-this should be:
+> --- a/xen/include/asm-x86/flushtlb.h
+> +++ b/xen/include/asm-x86/flushtlb.h
+> @@ -126,6 +126,12 @@ void switch_cr3_cr4(unsigned long cr3, unsigned long cr4);
+>  #else
+>  #define FLUSH_HVM_ASID_CORE 0
+>  #endif
+> +#if CONFIG_PV
 
-    hvm_funcs.pt_supported = cpu_has_ipt &&
-                             (_vmx_misc_cap & VMX_MISC_PT_SUPPORTED);
+#ifdef
 
-I also think this should look like:
+> +/* Force an IPI to be sent */
+> +# define FLUSH_FORCE_IPI 0x8000
+> +#else
+> +# define FLUSH_FORCE_IPI 0
+> +#endif
 
-    if ( !smp_processor_id() )
-    	hvm_funcs.pt_supported = cpu_has_ipt &&
-                                 (_vmx_misc_cap & VMX_MISC_PT_SUPPORTED);
-    else if ( hvm_funcs.pt_supported &&
-              !(_vmx_misc_cap & VMX_MISC_PT_SUPPORTED) )
-    {
-        printk("VMX: IPT capabilities fatally differ between CPU%u and CPU0\n",
-               smp_processor_id());
-        return -EINVAL;
-    }
+If my shadow mode concern above is unwarranted, this overhead could
+also be avoided if there's no PV domain at all in the system.
+Perhaps an improvement not for now, but for the future ...
 
-
-So that you can detect mismatches between CPUs.
-
-Thanks, Roger.
+Jan
 
