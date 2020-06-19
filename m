@@ -2,67 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F8792004B9
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 11:12:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 779142004ED
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 11:23:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmD4R-0001tE-Bg; Fri, 19 Jun 2020 09:12:23 +0000
+	id 1jmDEr-0002o9-GV; Fri, 19 Jun 2020 09:23:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NoMb=AA=gmail.com=vlad.babchuk@srs-us1.protection.inumbo.net>)
- id 1jmD4P-0001t9-D5
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 09:12:21 +0000
-X-Inumbo-ID: fab31bcc-b20c-11ea-b7bb-bc764e2007e4
-Received: from mail-vk1-xa32.google.com (unknown [2607:f8b0:4864:20::a32])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=m4t/=AA=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jmDEq-0002o4-Ek
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 09:23:08 +0000
+X-Inumbo-ID: 7c811b6c-b20e-11ea-bb8b-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fab31bcc-b20c-11ea-b7bb-bc764e2007e4;
- Fri, 19 Jun 2020 09:12:20 +0000 (UTC)
-Received: by mail-vk1-xa32.google.com with SMTP id e1so2127949vkd.1
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2020 02:12:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=EDENB6gkDBT5GIDa/YNo8xEfnnxfxJftsLe+hfT1MSw=;
- b=YRyuS+n4RlMOy2cbDXiSTKp4o3y8LUsRdWmwFj6/e+v1XdP/vYwz+nocPQ/728YiCt
- UBM7+1V1cDgUfcRDw+8LWfppmrsE963EMKM3Hg5SY+6WhjcTcYz9xByiqhxRUDqn3b2I
- BKsG7ihGde7iaQ4a5K6zgsL6Fz4ayGFB9ClXr6JvKi7q2EBgWlxmmiTfJsTRV3K/6E5/
- Y34IxMeyVP88SjAdLwpkH6pZ5BQIRwtYjSnCPvSNz+s7SwHC/0/FWTKKCRpr8DYDGNmy
- BCXlOlpo5kW17hMelkaThqbQ0zWyqFcaSpfx3z6BRGnEYp5ry1JY7C+9ahgfhegbArA2
- bSnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=EDENB6gkDBT5GIDa/YNo8xEfnnxfxJftsLe+hfT1MSw=;
- b=BaOuq/5/cg1BpOnusCP11sT0/TRYBbtBM8FTYykgIS0y+mO7xznN1hyy+m+qXdJdcN
- kvPdT6EZCkqY0x52NSz2UytJiIQHcX+QWD0+/puuPAVfRqHXBITHHx7Dc098YPi1XDHe
- ebTwGg1nsEJOOUkgh9KTZSmfAD0jTSEh42A2QEHmCjPL7HS75JTHiBl+4lrksdffdoHW
- mL9tA/BUYybNf/PVmpk/3m9mXrV2rdx0Xv76Kx9zaj1419HwICRRsUkLVfrfAMayskWH
- IzzASIXE+/OeFoGASL4+SltUxWJBZI3ltsxIWzdNl/wH7rDOfogDIty3HEJS181hmLWe
- bCjA==
-X-Gm-Message-State: AOAM533JuPKwE+JxbBr9ij7+QbsCGyMdJCi1r+mpbxUIYU+KxgTJW09z
- YiYRK7/TnB41Sg40bAbvbk35BpFQiEAnsbk6YFc=
-X-Google-Smtp-Source: ABdhPJx4WF9S/bhsMQYcCcMCYEGPbvrlOf44UEED05Jv+R72pRvp4ATcvuk+zSzqiQwkqK3uyt7Hs7nJzo8rFxSSnIk=
-X-Received: by 2002:a05:6122:2d6:: with SMTP id
- k22mr6632301vki.89.1592557939967; 
- Fri, 19 Jun 2020 02:12:19 -0700 (PDT)
+ id 7c811b6c-b20e-11ea-bb8b-bc764e2007e4;
+ Fri, 19 Jun 2020 09:23:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4L1+2ofd40nD+e0zXmN+kCCWAhLuklnDtMFFkL2Aesg=; b=DGBQNRngAfaSBS6rU9H0dDGWFG
+ QcZn+l2trWP5oMplR3QnOEPgPB6zHeWo3bhCYHk6rBPvqlcx84sp2jc8xI4EJ/NDdBE1BxowQrdKR
+ +xNd5EmWsUsFoGg0QhU+v+QtF6O6LBNncAB9vn68seILvpgn4XoQyFIESSjBByIgkS3w=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jmDEp-00035H-Cg; Fri, 19 Jun 2020 09:23:07 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jmDEp-0007Ii-5v; Fri, 19 Jun 2020 09:23:07 +0000
+Subject: Re: [PATCH] xen/arm: optee: allow plain TMEM buffers with NULL address
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <2a32c7c2048333169c9378194d6a435e2e7ed2d7.camel@epam.com>
+ <1b596a11-95b5-3e87-bbf5-c0c4dceb6489@xen.org> <878sgk2bst.fsf@epam.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <8d2f3475-4191-fa80-f476-e72af73e0559@xen.org>
+Date: Fri, 19 Jun 2020 10:23:05 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.9.0
 MIME-Version: 1.0
-References: <DB6PR0402MB276091802866E8CB878A8130889C0@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <CAOcqxo2B4cnJdqERr81rVzJKb=Rj=kmotd7Cui9nOMy52wVKmg@mail.gmail.com>
- <8a6ba53e-59c8-0c18-00e9-2902b6edaf39@xen.org>
- <68572FBC-8AE3-44A4-A815-1A9A7FFFA098@arm.com>
- <DB6PR0402MB27606AA43E7A95B3CB2D228588980@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <CE6D09B1-18C4-46FA-BC1A-F45E28B2FA36@arm.com>
- <DB6PR0402MB2760C3BF7140E02A6ECA572488980@DB6PR0402MB2760.eurprd04.prod.outlook.com>
-In-Reply-To: <DB6PR0402MB2760C3BF7140E02A6ECA572488980@DB6PR0402MB2760.eurprd04.prod.outlook.com>
-From: Volodymyr Babchuk <vlad.babchuk@gmail.com>
-Date: Fri, 19 Jun 2020 12:12:08 +0300
-Message-ID: <CAOcqxo0Y4fgQjigQj2nDkiQETN7EEhjvOujkTxmiQtG3OBGieA@mail.gmail.com>
-Subject: Re: [Tee-dev] TEE with XEN
-To: Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <878sgk2bst.fsf@epam.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,192 +60,105 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- "tee-dev@lists.linaro.org" <tee-dev@lists.linaro.org>,
- Xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Jens Wiklander <jens.wiklander@linaro.org>, Stefano Babic <sbabic@denx.de>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "paul@xen.org" <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Peng,
 
-On Fri, 19 Jun 2020 at 12:06, Peng Fan <peng.fan@nxp.com> wrote:
->
-> > Subject: Re: [Tee-dev] TEE with XEN
-> >
-> >
-> >
-> > > On 19 Jun 2020, at 09:52, Peng Fan <peng.fan@nxp.com> wrote:
-> > >
-> > > Hi Bertrand,
-> > >
-> > >> Subject: Re: [Tee-dev] TEE with XEN
-> > >>
-> > >> Hi,
-> > >>
-> > >>> On 18 Jun 2020, at 19:05, Julien Grall <julien@xen.org> wrote:
-> > >>>
-> > >>> +Bertrand and Stefano
-> > >>>
-> > >>> On 16/06/2020 02:24, Volodymyr Babchuk wrote:
-> > >>>> Hi Peng,
-> > >>>> On Mon, 15 Jun 2020 at 05:07, Peng Fan <peng.fan@nxp.com> wrote:
-> > >>>>>
-> > >>>>> Hi All,
-> > >>>>>
-> > >>>>> While enabling trusty os with xen, I took same approach as OP-TEE=
-,
-> > >>>>> with OP-TEE running in secure world. But I am also thinking this
-> > >>>>> might introduce potential issue is that secure world OS
-> > >>>>> communicate with
-> > >> DomU.
-> > >>>>> If there are some misbehavior in secure world OS, it might let XE=
-N
-> > >>>>> hypervisor not work proper.
-> > >>>>>
-> > >>>>> In my setup, trusty os sometimes panic in secure world, xen will
-> > >>>>> not able to control the panic core anymore.
-> > >>>
-> > >>> May I ask in which case Trusty is panicking?
-> > >>
-> > >> In any case, optee should protect itself against this and it should
-> > >> be considered that optee is more priviledged then Xen.
-> > >> So if optee is crashing we cannot expect that Xen can recover or fix=
- it.
-> > >>
-> > >> I would more consider this as a bug that optee needs to be robust ag=
-ainst.
-> > >
-> > > ok. I am not using OP-TEE, currently I use google trusty OS.
-> >
-> > Sorry i should have been more generic.
-> > Please read this as =E2=80=9CAnything running in secure world=E2=80=9D,=
- being optee or trusty.
-> >
-> > >
-> > > I have two OS, Dom0 linux + DomU android auto.
-> > >
-> > > DomU android auto needs trusty OS, Dom0 Linux not need that.
-> >
-> > But i would guess your Dom0 is more =E2=80=9Ccritical=E2=80=9D then you=
-r DomU.
-> > In this case you must make sure that any resource given to your DomU ca=
-nnot
-> > affect your Dom0.
-> > For example: if the DomU is starting a very heavy operation in blocked =
-in
-> > trusty, any interrupt for non-secure could be blocked, thus affecting t=
-he ability
-> > of your Dom0.
-> >
-> > >
-> > > I not wanna trusty OS for DomU could bring any detect to Dom0 or xen.
-> > >
-> > > One more case is if dom0 linux needs OP-TEE, DomU needs google trusty=
-,
-> > > how we handle this in one SoC?
-> >
-> > You have a shared resource in this case, someone more or as trusted as =
-the
-> > clients needs to decide how the resource can be shared.
-> > In this case could be Dom0 or Xen or Trusty or op-Tee (if i should make=
- an
-> > order).
-> >
-> > >
-> > >>
-> > >>>
-> > >>>>>
-> > >>>>> So I am thinking whether we need to emulating secure world in a
-> > >>>>> XEN VM which is the VM running DomU. Just like what ACRN did to
-> > >>>>> run trusty os.
-> > >>>> Well, it depends on whom you are trusting more. Both XEN and TEE
-> > >>>> are minimal OS implementations with aim at security. I'm speaking
-> > >>>> about generic TEE OS, not about particular OS like OP-TEE or Trust=
-y.
-> > >>>> Problem is that, if TEE is running inside VM, it will be
-> > >>>> susceptible to a hypervisor misbehaviour. You need to understand
-> > >>>> that Xen and privileged domain (dom0, mostly) can access memory of
-> > any guest.
-> > >>>> At least, in default configuration. There are means to harden this
-> > >>>> setup. But anyways, Xen can't be stopped from reading TEE's secret=
-s.
-> > >>>
-> > >>> IIRC, we discussed this approach for OP-TEE in the past. There was
-> > >>> other
-> > >> potential pitfalls with it. For instance, you wouldn't be able to
-> > >> directly access any secure device from that guest (it is running in
-> > non-secure world).
-> > >>>
-> > >>> There are also issues in term of latency as you may have the
-> > >>> following
-> > >> model:
-> > >>>
-> > >>> domU -> Xen -> domU TEE -> (Xen -> host TEE -> Xen -> domU TEE) ->
-> > >>> Xen ->
-> > >> domU.
-> > >>>
-> > >>> The bit in () is if you require to call the host TEE.
-> > >>>
-> > >>> One possibility would be to use Secure-EL2 for your Trusty OS. But =
-I
-> > >>> don't
-> > >> know whether your platform supports it.
-> > >>>
-> > >>> Depending on whether you can modify Trusty OS, alternative would be
-> > >>> to
-> > >> make itvirtualization aware as OP-TEE did. The core would need to be
-> > >> resilient and the panic only affect a given client.
-> > >>
-> > >> I do not have right a clear idea of what is the status of optee and
-> > >> xen but in theory I would see 2 possible ways to handle this:
-> > >> - without optee modification, something in a guest (Dom0 or an other
-> > >> priviledged one) needs to have access to optee and emulate optee
-> > >> access for others.
-> > >> - with optee modifications, optee needs to have a concept of client
-> > >> and Xen would need to passthrough optee requests but being
-> > >> responsible of adding a =E2=80=9Cclient=E2=80=9D identifier. Maybe a=
-lso informing
-> > >> Optee when a new client is created/removed.
-> > >>
-> > >> The second scenario could then be somehow splitted in the previous
-> > >> one from Julien if some parts would need to be emulated somewhere in
-> > >> some kind of combination of the 2 models.
-> > >>
-> > >> In any case i would always consider that anything running on optee
-> > >> (or in general in the secure world) is more trusted then Xen.
-> > >
-> > > Ok, this means optee runs on all cores in secure world, but this woul=
-d
-> > > not work when we need to support multiple OSes with their own TEE.
-> >
-> > I would think you have one TEE running on all cores (or runnable in thi=
-s case).
-> > So the Tee needs to handle several contexts or someone needs to virtual=
-ize it.
->
-> This back to my original question, should I virtualize TEE in a XEN dedic=
-ated VM?
-> or I need to emulate secure world to let one VM could have secure and non=
--secure
-> world?
->
 
-Well, I think that the best approach is that we did in the OP-TEE: make Tru=
-sty
-virtualization-aware, so it can handle multiple VMs.
+On 19/06/2020 00:29, Volodymyr Babchuk wrote:
+> 
+> Hi Julien,
 
-Things are more funny if you want to use multiple different TEEs (like
-OP-TEE and Trusty)
-at the same time. If this is your case, then the best approach is to implem=
-ent
-something like para-virtualization in the Secure World. But this would requ=
-ire
-quite big efforts, of course.
+Hi Volodymyr,
 
---=20
-WBR Volodymyr Babchuk aka lorc [+380976646013]
-mailto: vlad.babchuk@gmail.com
+> 
+> Julien Grall writes:
+> 
+>> (+Paul)
+>>
+>> Hi,
+>>
+>> On 18/05/2020 02:53, Volodymyr Babchuk wrote:
+>>> Trusted Applications use popular approach to determine required size
+>>> of buffer: client provides a memory reference with the NULL pointer to
+>>> a buffer. This is so called "Null memory reference".  TA updates the
+>>
+>> NIT: You use double space after '.' here but all the others use a
+>> single space.
+> 
+> Oops, missed that.
+> 
+>>> reference with the required size and returns it back to client. Then
+>>> client allocates buffer of needed size and repeats the operation.
+>>>
+>>> This behavior is described in TEE Client API Specification, paragraph
+>>> 3.2.5. Memory References.
+>>
+>>  From the spec, it is not a clear cut that NULL will always used as
+>> fetching the required size of an output buffer. In particular, they
+>> suggest to refer to the protocol.
+>>
+>> In your commit message you indirectly point to an example where 0/NULL
+>> would have a different meaning depending on the flags. This is not
+>> explained in the TEE Client API Specification. Do you have some
+>> pointer I could use to check the behavior?
+> 
+> Well, GP specification describes application interface. It does not
+> specifies how implementation should handle this internally. Basically,
+> GP defines functions, data types, macros, etc to be used by CAs and
+> TAs. But it does not define how exactly call from CA will be delivered
+> to TA. Implementation is free to use any means as far, as they conform
+> with rules described in the specification.
+> 
+> OPTEE's REE<->TEE interface is described in the header files, that I
+> added to xen (optee_msg.h, optee_rpc_cmd.h,optee_smc.h). But it does not
+> describe every aspect, unfortunately.
+
+Thanks for digging-through! More below.
+
+> 
+>>>
+>>> OP-TEE represents this null memory reference as a TMEM parameter with
+>>> buf_ptr == NULL. This is the only case when we should allow TMEM
+>>> buffer without the OPTEE_MSG_ATTR_NONCONTIG flag.
+>>
+>> IIUC, 0 with OPTEE_MSG_ATTR_NONCONTIG set would mean "use the buffer
+>> at address 0" but with the flag cleared, it would mean "return the
+>> size". Am I correct?
+> 
+> Not exactly. This flag does not affect behavior for buffers with address
+> NULL. In any case, this would not mean "return the size" to
+> OP-TEE. This is because OP-TEE works as a transport between CA and TA
+> and it does not assign any meaning to client buffers. But certainly,
+> null buffer will mean "return the size" for some TAs, as described in
+> GlobalPlatform specification.
+
+Does it mean a guest TA may potentially access address 0?
+
+I am asking that because 0 can be a valid host physical address. We are 
+currently carving out 0 from the heap allocator to workaround a bug, but 
+there is no promise this address will be used by the boot allocator and 
+therefore Xen.
+
+> Reason why I prohibited buffers without OPTEE_MSG_ATTR_NONCONTIG flag in
+> the the original patch is that such buffers could span across page
+> boundary, which is no-go for fragmented p2m.
+> 
+> But I missed that special case: null buffer without
+> OPTEE_MSG_ATTR_NONCONTIG flag. As this is a special type of buffer, it
+> can be allowed with and without said flag.
+
+Looking at translate_noncontig(), there is no specific treatment for 
+NULL. So the address will get translated. This is likely to result to an 
+error as usually a guest doesn't have anything mapped at address 0.
+
+Did I miss anything?
+
+Cheers,
+
+-- 
+Julien Grall
 
