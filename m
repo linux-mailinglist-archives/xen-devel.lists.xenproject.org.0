@@ -2,66 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3F092002C1
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 09:31:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 328D92002C5
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 09:33:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmBU0-0000cO-Eh; Fri, 19 Jun 2020 07:30:40 +0000
+	id 1jmBWc-0000kX-Sa; Fri, 19 Jun 2020 07:33:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ux5Q=AA=nvidia.com=jhubbard@srs-us1.protection.inumbo.net>)
- id 1jmBTz-0000cJ-9r
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 07:30:39 +0000
-X-Inumbo-ID: c570c120-b1fe-11ea-bb3e-12813bfff9fa
-Received: from hqnvemgate24.nvidia.com (unknown [216.228.121.143])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fxsm=AA=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1jmBWb-0000kR-Gw
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 07:33:21 +0000
+X-Inumbo-ID: 25b6fb4e-b1ff-11ea-bb3e-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c570c120-b1fe-11ea-bb3e-12813bfff9fa;
- Fri, 19 Jun 2020 07:30:38 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5eec69380000>; Fri, 19 Jun 2020 00:28:56 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 19 Jun 2020 00:30:37 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 19 Jun 2020 00:30:37 -0700
-Received: from [10.2.62.75] (172.20.13.39) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 19 Jun
- 2020 07:30:37 +0000
-Subject: Re: [RFC PATCH] xen/privcmd: Convert get_user_pages*() to
- pin_user_pages*()
-To: Souptick Joarder <jrdr.linux@gmail.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>
-References: <1592363698-4266-1-git-send-email-jrdr.linux@gmail.com>
- <d9e8ad0f-f2aa-eea4-5bc7-a802c626ace6@oracle.com>
- <CAFqt6zbJD+k9xkV9Se0nL2qKfnea3mRrWJ4gzPmPJBquYk4M+w@mail.gmail.com>
-From: John Hubbard <jhubbard@nvidia.com>
-Message-ID: <fe2a1d23-7abd-86a9-4aec-2c14fb11cdea@nvidia.com>
-Date: Fri, 19 Jun 2020 00:30:36 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ id 25b6fb4e-b1ff-11ea-bb3e-12813bfff9fa;
+ Fri, 19 Jun 2020 07:33:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=728HHyIo6p5jd0t/nnpHhhDp0disceXIBDG94ds5xwo=; b=itPeCfYxp2CmDQGWUHYz4B4gRO
+ vXX/lAWg1/copLPrIUvzINDNdAtppL9Q16fcrxQ3mRi05sJ6MTqg8YavIjY8XE2Wemfhi1nqQyEJa
+ P7mYvsMnGmqNdveIr2KIn2CS2ZZWttQea+/E0f0MpQb8IRHsPEu+3a5lLplkv7UvhZH0=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1jmBWY-0000XM-RK; Fri, 19 Jun 2020 07:33:18 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=u2f063a87eabd5f.cbg10.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1jmBWY-0001QB-He; Fri, 19 Jun 2020 07:33:18 +0000
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH for 4.14] libxl: allow passthrough to PV guests regardless of
+ whether IOMMU is enabled
+Date: Fri, 19 Jun 2020 08:33:15 +0100
+Message-Id: <20200619073315.8414-1-paul@xen.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <CAFqt6zbJD+k9xkV9Se0nL2qKfnea3mRrWJ4gzPmPJBquYk4M+w@mail.gmail.com>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1592551736; bh=Fe6+LEcBGqkmcut7uJjH2j1++zsWFrmLLtaEG5FehVs=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=PO9cecDSmGNiqNB9v5SItJ0pP9uHG0j0hqx1mly0Bozfnb61r+QlkigFmHiTrjnVA
- 50uX8ugVzjFrQw9jzH7jZsAMEl15fvx3mdu/9Gcq7OD00kQJskp6KzIJUGz6hc8OL4
- KMekN5uR3E7Z+Wc/XpK5k89x0TIpuvw7DQYHPhudM544WumvUaJGuay2QtZFqcmFd5
- DsfAD52xAevCZE4moN72e/Vm5ogJR7OQldT//bYwFB+jBy/UHz24CJjD2BdN3Uj6/l
- 9Z/5BV/dhjoeF3QGmiYjbHENP6qry3q39uhEjU5fcIBe5nxaOlx4cz3UlErPqcrUsb
- ZWF0KVgCIk6xg==
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,114 +57,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org, linux-kernel@vger.kernel.org, paul@xen.org
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 2020-06-18 20:12, Souptick Joarder wrote:
-> On Wed, Jun 17, 2020 at 11:29 PM Boris Ostrovsky
-> <boris.ostrovsky@oracle.com> wrote:
->>
->> On 6/16/20 11:14 PM, Souptick Joarder wrote:
->>> In 2019, we introduced pin_user_pages*() and now we are converting
->>> get_user_pages*() to the new API as appropriate. [1] & [2] could
->>> be referred for more information.
+From: Paul Durrant <pdurrant@amazon.com>
 
+Commit babde47a "introduce a 'passthrough' configuration option to xl.cfg..."
+added a check to xl_parse.c:parse_config_data() to make sure that an IOMMU
+was present and enabled in the system before allowing devices to be passed
+through to a guest. This check was then subsequently moved into
+libxl_create.c:libxl__domain_config_setdefault() by commit ad011ad0 "libxl/xl:
+Overhaul passthrough setting logic".
 
-Ideally, the commit description should say which case, in
-pin_user_pages.rst, that this is.
+Prior to this check being added, it was possible (although not in any way safe
+or supported) to pass devices through to a PV guest without an IOMMU being
+enabled in the system. This patch relaxes the check for PV guests to restore
+that possibility, emitting a warning instead.
 
+Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+---
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Wei Liu <wl@xen.org>A
+Cc: Anthony PERARD <anthony.perard@citrix.com>
 
->>>
->>> [1] Documentation/core-api/pin_user_pages.rst
->>>
->>> [2] "Explicit pinning of user-space pages":
->>>          https://lwn.net/Articles/807108/
->>>
->>> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
->>> Cc: John Hubbard <jhubbard@nvidia.com>
->>> ---
->>> Hi,
->>>
->>> I have compile tested this patch but unable to run-time test,
->>> so any testing help is much appriciated.
->>>
->>> Also have a question, why the existing code is not marking the
->>> pages dirty (since it did FOLL_WRITE) ?
->>
->>
->> Indeed, seems to me it should. Paul?
+This patch ought to be in 4.14 as it as very obvious change, restoring lost
+functionality that has affected a user.
+---
+ tools/libxl/libxl_create.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Definitely good to get an answer from an expert in this code, but
-meanwhile, it's reasonable to just mark them dirty. Below...
-
->>
->>
->>>
->>>   drivers/xen/privcmd.c | 7 ++-----
->>>   1 file changed, 2 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
->>> index a250d11..543739e 100644
->>> --- a/drivers/xen/privcmd.c
->>> +++ b/drivers/xen/privcmd.c
->>> @@ -594,7 +594,7 @@ static int lock_pages(
->>>                if (requested > nr_pages)
->>>                        return -ENOSPC;
->>>
->>> -             pinned = get_user_pages_fast(
->>> +             pinned = pin_user_pages_fast(
->>>                        (unsigned long) kbufs[i].uptr,
->>>                        requested, FOLL_WRITE, pages);
->>>                if (pinned < 0)
->>> @@ -614,10 +614,7 @@ static void unlock_pages(struct page *pages[], unsigned int nr_pages)
->>>        if (!pages)
->>>                return;
->>>
->>> -     for (i = 0; i < nr_pages; i++) {
->>> -             if (pages[i])
->>> -                     put_page(pages[i]);
->>> -     }
->>> +     unpin_user_pages(pages, nr_pages);
-
-
-...so just use unpin_user_pages_dirty_lock() here, I think.
-
-
->>
->>
->> Why are you no longer checking for valid pages?
-> 
-> My understanding is, in case of lock_pages() end up returning partial
-> mapped pages,
-> we should pass no. of partial mapped pages to unlock_pages(), not nr_pages.
-> This will avoid checking extra check to validate the pages[i].
-> 
-> and if lock_pages() returns 0 in success, anyway we have all the pages[i] valid.
-> I will try to correct it in v2.
-> 
-> But I agree, there is no harm to check for pages[i] and I believe,
-
-
-Generally, it *is* harmful to do unnecessary checks, in most code, but especially
-in most kernel code. If you can convince yourself that the check for null pages
-is redundant here, then please let's remove that check. The code becomes then
-becomes shorter, simpler, and faster.
-
-
-> unpin_user_pages()
-> is the right place to do so.
-> 
-> John any thought ?
-
-
-So far I haven't seen any cases to justify changing the implementation of
-unpin_user_pages().
-
-
-thanks,
+diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
+index 2814818e34..f1d17cfb87 100644
+--- a/tools/libxl/libxl_create.c
++++ b/tools/libxl/libxl_create.c
+@@ -1104,10 +1104,14 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
+ 
+     bool iommu_enabled = physinfo.cap_hvm_directio;
+     if (c_info->passthrough != LIBXL_PASSTHROUGH_DISABLED && !iommu_enabled) {
+-        LOGD(ERROR, domid,
+-             "passthrough not supported on this platform\n");
+-        ret = ERROR_INVAL;
+-        goto error_out;
++        if (c_info->type != LIBXL_DOMAIN_TYPE_PV) {
++            LOGD(ERROR, domid,
++                 "passthrough not supported on this platform\n");
++            ret = ERROR_INVAL;
++            goto error_out;
++        }
++        LOGD(WARN, domid,
++             "passthrough is enabled but IOMMU is not present/enabled\n");
+     }
+ 
+     if (c_info->passthrough == LIBXL_PASSTHROUGH_DISABLED && need_pt) {
 -- 
-John Hubbard
-NVIDIA
+2.20.1
+
 
