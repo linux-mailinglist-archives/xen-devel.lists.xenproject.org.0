@@ -2,73 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA471FFF6B
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 02:48:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 148EB1FFF99
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 03:16:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jm5BU-0007Y4-8M; Fri, 19 Jun 2020 00:47:08 +0000
+	id 1jm5cz-0002dm-F2; Fri, 19 Jun 2020 01:15:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=318C=AA=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jm5BS-0007Xz-NM
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 00:47:06 +0000
-X-Inumbo-ID: 6535c072-b1c6-11ea-b7bb-bc764e2007e4
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=v0l0=AA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jm5cx-0002dh-Us
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 01:15:32 +0000
+X-Inumbo-ID: 5df1528c-b1ca-11ea-b7bb-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6535c072-b1c6-11ea-b7bb-bc764e2007e4;
- Fri, 19 Jun 2020 00:47:05 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 192CFA317E;
- Fri, 19 Jun 2020 02:47:04 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 0213FA3013;
- Fri, 19 Jun 2020 02:47:03 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id WUzRUmcp1MrN; Fri, 19 Jun 2020 02:47:02 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 7A087A317E;
- Fri, 19 Jun 2020 02:47:02 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id XPbQq1Wdyg6o; Fri, 19 Jun 2020 02:47:02 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 42CCEA3013;
- Fri, 19 Jun 2020 02:47:02 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 2967021000;
- Fri, 19 Jun 2020 02:46:32 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id 0UrZxVoLe2hT; Fri, 19 Jun 2020 02:46:26 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id B317921128;
- Fri, 19 Jun 2020 02:46:26 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id rUoXKgizFVyL; Fri, 19 Jun 2020 02:46:26 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id 90B3E21000;
- Fri, 19 Jun 2020 02:46:26 +0200 (CEST)
-Date: Fri, 19 Jun 2020 02:46:26 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <1171450280.9822275.1592527586479.JavaMail.zimbra@cert.pl>
-In-Reply-To: <1005194077.9820950.1592523663199.JavaMail.zimbra@cert.pl>
-References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
- <1005194077.9820950.1592523663199.JavaMail.zimbra@cert.pl>
-Subject: Re: [PATCH v2 4/7] x86/vmx: add do_vmtrace_op
+ id 5df1528c-b1ca-11ea-b7bb-bc764e2007e4;
+ Fri, 19 Jun 2020 01:15:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=taKxPN8BmGHwiBWhvp+bQCiaNAbvgr/FmHtq6p1t48c=; b=WFRN159mNuzZ37Em8qw1peZ17
+ zsvHMcj1osuQqMibElft0BCtTRnzMhM+EiPwgEyqKUPN9mT1Chyk59kzpDQXafEuVWLZCG9qjxOr4
+ 2Yft2Hl1xsHtWj9785kOpwqhe14mWnHae2HAEnmw+cj8kyTu7n1RuqilSfJIVB3llOa34=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jm5cw-0000h8-9U; Fri, 19 Jun 2020 01:15:30 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jm5cw-00047d-24; Fri, 19 Jun 2020 01:15:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jm5cw-0001Rt-16; Fri, 19 Jun 2020 01:15:30 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151197-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
-Thread-Topic: x86/vmx: add do_vmtrace_op
-Thread-Index: hSzh8Vr462omVBiCuz/GiNtdRkOdyEuhVFaU7P5v8mM=
+Subject: [libvirt test] 151197: tolerable all pass - PUSHED
+X-Osstest-Failures: libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This: libvirt=6f28865223292a816f1bfde589901a00156cf8a1
+X-Osstest-Versions-That: libvirt=1eabe312ea4fa80922443ad73a950857c1f87786
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Jun 2020 01:15:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,52 +77,107 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>,
- Tamas K Lengyel <tamas.k.lengyel@gmail.com>, "Kang,
- Luwei" <luwei.kang@intel.com>,
- Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 19 cze 2020 o 1:41, Micha=C5=82 Leszczy=C5=84ski michal.leszczynski@c=
-ert.pl napisa=C5=82(a):
+flight 151197 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151197/
 
-> Provide an interface for privileged domains to manage
-> external IPT monitoring. Guest IPT state will be preserved
-> across vmentry/vmexit using ipt_state structure.
->=20
-> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
-> ---
+Failures :-/ but no regressions.
 
-...
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151165
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151165
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-qcow2 12 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 13 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
 
-> +struct xen_hvm_vmtrace_op {
-> +    /* IN variable */
-> +    uint32_t version;   /* HVMOP_VMTRACE_INTERFACE_VERSION */
-> +    uint32_t cmd;
-> +/* Enable/disable external vmtrace for given domain */
-> +#define HVMOP_vmtrace_ipt_enable      1
-> +#define HVMOP_vmtrace_ipt_disable     2
-> +#define HVMOP_vmtrace_ipt_get_offset  3
-> +    domid_t domain;
-> +    uint32_t vcpu;
-> +    uint64_t size;
-> +
-> +    /* OUT variable */
-> +    uint64_t offset;
-> +};
-> +typedef struct xen_hvm_vmtrace_op xen_hvm_vmtrace_op_t;
-> +DEFINE_XEN_GUEST_HANDLE(xen_hvm_vmtrace_op_t);
-> +
+version targeted for testing:
+ libvirt              6f28865223292a816f1bfde589901a00156cf8a1
+baseline version:
+ libvirt              1eabe312ea4fa80922443ad73a950857c1f87786
 
-I've forgotten about the padding thing here. This will be fixed in the next=
- patch version, sorry.
+Last test of basis   151165  2020-06-16 04:18:45 Z    2 days
+Testing same since   151197  2020-06-17 14:34:03 Z    1 days    1 attempts
 
-ml
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Viktor Mihajlovski <mihajlov@linux.ibm.com>
+  Weblate <noreply@weblate.org>
+  Yuri Chornoivan <yurchor@ukr.net>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   1eabe312ea..6f28865223  6f28865223292a816f1bfde589901a00156cf8a1 -> xen-tested-master
 
