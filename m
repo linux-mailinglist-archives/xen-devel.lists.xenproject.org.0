@@ -2,44 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B2932008CE
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 14:37:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9DC2008D0
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2020 14:38:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmGGw-0003vn-Ft; Fri, 19 Jun 2020 12:37:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=y9JO=AA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jmGGv-0003vi-I9
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 12:37:29 +0000
-X-Inumbo-ID: a2b21280-b229-11ea-bb79-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a2b21280-b229-11ea-bb79-12813bfff9fa;
- Fri, 19 Jun 2020 12:37:28 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id EF96AAEBF;
- Fri, 19 Jun 2020 12:37:26 +0000 (UTC)
-Subject: Re: [PATCH for-4.14 6/8] x86/vpt: fix injection to remote vCPU
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20200612155640.4101-1-roger.pau@citrix.com>
- <20200612155640.4101-7-roger.pau@citrix.com>
- <57b6f9fd-4cbc-abc9-09e3-6493eba6c377@suse.com>
- <20200618171413.GX735@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <164b1af6-a1e0-c25d-0d79-062803cc7c77@suse.com>
-Date: Fri, 19 Jun 2020 14:37:30 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+	id 1jmGHa-00041G-TF; Fri, 19 Jun 2020 12:38:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oPen=AA=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
+ id 1jmGHZ-000418-LQ
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 12:38:09 +0000
+X-Inumbo-ID: bb032bbc-b229-11ea-b7bb-bc764e2007e4
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id bb032bbc-b229-11ea-b7bb-bc764e2007e4;
+ Fri, 19 Jun 2020 12:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1592570288;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0vzAKNhIebVNhmPTwwk2+p6+FeyRJcrmAq4fe7SPCF8=;
+ b=QqXsN73Xd3UR+F5S5SrZZdF9D+XDzE2gnwYRobTuq3HE8eO1h/PKFb1AMr471Yos/o0a4o
+ BnteE/xhz1LqZmoSjHh4h9j9PzRbOH5CwXqnL9GkkDy016aemJMMsSClgynU1pUM88iTBa
+ OGOfaAM81g1QAPhaPJ6Ox1WJUWWLf4I=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-313-MZOZUjo2OZym8Wv5_BRnNg-1; Fri, 19 Jun 2020 08:38:06 -0400
+X-MC-Unique: MZOZUjo2OZym8Wv5_BRnNg-1
+Received: by mail-wr1-f70.google.com with SMTP id y16so435896wrr.20
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2020 05:38:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=0vzAKNhIebVNhmPTwwk2+p6+FeyRJcrmAq4fe7SPCF8=;
+ b=R1TVsgTAhKllER/pAo3egWT3lfty7do7IwfxbQv3aYlRVYtm1kpFH3A7yARNvIGxT/
+ bgZjhNZklKfYOAbkJSDmPHgCPkLjGfPXgMduJW9j0bWe7AqFCyQakY5sGfV0dfz6zR21
+ ZTmxdZGHICvuqClqeb32wmSAsgEW9MS3NZnEQkc92C7ZLCi4QBWZ2pH8UQpClBnygBit
+ VfwQFQ//z3GuQaemhVQimiaGxO+BH8rw1JNMQAg5gOmJalZgx4+bAu4Btj3rg3KQoWec
+ EeQ2ATfFXG6Ggty922W3sa/av5wcE6DcdsSqsEqkAu/gikOgZVURZYHu2/Jfk/P5ffAe
+ ho0Q==
+X-Gm-Message-State: AOAM530qyzVxRTypdFWn6hRuP2rLUxmCoYMWYWCFfctseDTq9bY/DWmI
+ gXBWr3+2YamAiTvdYcsFF06MlRpRgyC+U77rsOmbcj75df39n15byLLtCm8Ci3gHkLGK7joHGW5
+ FM2ucbN0u5Jg+XYj+tye2EVec6LQ=
+X-Received: by 2002:adf:a1c1:: with SMTP id v1mr3988940wrv.205.1592570285588; 
+ Fri, 19 Jun 2020 05:38:05 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwKe+Jqm+9+qRBocH+ge+ctOBwEa9VJyyU/fXDgduU6zy7HpK/JjOJEWzFAFBJZy+Rk1KZCjw==
+X-Received: by 2002:adf:a1c1:: with SMTP id v1mr3988925wrv.205.1592570285337; 
+ Fri, 19 Jun 2020 05:38:05 -0700 (PDT)
+Received: from ?IPv6:2001:b07:6468:f312:e1d2:138e:4eff:42cb?
+ ([2001:b07:6468:f312:e1d2:138e:4eff:42cb])
+ by smtp.gmail.com with ESMTPSA id z16sm7179070wrm.70.2020.06.19.05.38.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 19 Jun 2020 05:38:04 -0700 (PDT)
+Subject: Re: [PATCH] xen: Actually fix build without passthrough
+To: Anthony PERARD <anthony.perard@citrix.com>, qemu-devel@nongnu.org
+References: <20200619103115.254127-1-anthony.perard@citrix.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <ac75572a-6568-f5fd-16f0-f43c951e7e86@redhat.com>
+Date: Fri, 19 Jun 2020 14:38:04 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200618171413.GX735@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20200619103115.254127-1-anthony.perard@citrix.com>
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,62 +84,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, paul@xen.org
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.06.2020 19:14, Roger Pau Monné wrote:
-> On Thu, Jun 18, 2020 at 05:12:17PM +0200, Jan Beulich wrote:
->> On 12.06.2020 17:56, Roger Pau Monne wrote:
->>>      case PTSRC_ioapic:
->>>          pt_vector = hvm_ioapic_assert(v->domain, irq, level);
->>> -        if ( pt_vector < 0 || !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
->>> -        {
->>> -            pt_vector = -1;
->>> -            if ( level )
->>> +        if ( pt_vector < 0 )
->>> +            return pt_vector;
->>> +
->>> +        break;
->>> +    }
->>> +
->>> +    ASSERT(pt_vector >= 0);
->>> +    if ( !vlapic_test_irq(vcpu_vlapic(v), pt_vector) )
->>> +    {
->>> +        time_cb *cb = NULL;
->>> +        void *cb_priv;
->>> +
->>> +        /*
->>> +         * Vector has been injected to a different vCPU, call pt_irq_fired and
->>> +         * execute the callback, since the destination vCPU(s) won't call
->>> +         * pt_intr_post for it.
->>
->> ... this isn't the only reason to come here. Beyond what the comment
->> says there is the hvm_domain_use_pirq() check in assert_gsi() which
->> would similarly result in the IRR bit not observed set here. At the
->> very least these cases want mentioning; I have to admit that I'm not
->> entirely clear yet whether your handling is correct for both, or
->> whether the information needs to be propagated into here.
+On 19/06/20 12:31, Anthony PERARD wrote:
+> Fix typo.
 > 
-> I always forget about that weird pirq stuff (and I'm refraining from
-> using other adjectives) that we have for HVM.
+> Fixes: acd0c9416d48 ("xen: fix build without pci passthrough")
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+>  hw/xen/Makefile.objs | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> AFAICT vpt is already broken when trying to inject interrupts
-> generated from it over an event channel. hvm_ioapic_assert will return
-> whatever garbage is in the IO-APIC entry, which will likely not be
-> initialized because the GSI is routed over an event channel.
+> diff --git a/hw/xen/Makefile.objs b/hw/xen/Makefile.objs
+> index 3fc715e5954d..502b32d877a0 100644
+> --- a/hw/xen/Makefile.objs
+> +++ b/hw/xen/Makefile.objs
+> @@ -4,4 +4,4 @@ common-obj-y += xen-legacy-backend.o xen_devconfig.o xen_pvdev.o xen-bus.o xen-b
+>  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen-host-pci-device.o
+>  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen_pt.o xen_pt_config_init.o xen_pt_graphics.o xen_pt_msi.o
+>  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen_pt_load_rom.o
+> -obj-$(call $(lnot, $(CONFIG_XEN_PCI_PASSTHROUGH))) += xen_pt_stub.o
+> +obj-$(call lnot,$(CONFIG_XEN_PCI_PASSTHROUGH)) += xen_pt_stub.o
 > 
-> I really have no idea what hvm_ioapic_assert should return in that
-> case, the event channel callback vector maybe?
-> 
-> Maybe just returning -1 would be fine, a guest using this routing of
-> pirqs over event channels shouldn't be using any of the emulated
-> timers, and hence vpt is not required to be functional in that case?
 
-I would guess(!) that -1 ought to be fine. But this whole thing
-escapes me as well, so let's ask Stefano, who iirc was who
-introduced this.
+Queued, thanks and sorry about that.
 
-Jan
+Paolo
+
 
