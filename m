@@ -2,67 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40939201DB3
-	for <lists+xen-devel@lfdr.de>; Sat, 20 Jun 2020 00:01:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBFBF201E0E
+	for <lists+xen-devel@lfdr.de>; Sat, 20 Jun 2020 00:34:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jmP3r-0004kk-5M; Fri, 19 Jun 2020 22:00:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jmPaG-0007TM-IP; Fri, 19 Jun 2020 22:34:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qhgK=AA=gmail.com=gorbak25@srs-us1.protection.inumbo.net>)
- id 1jmP3p-0004kT-DR
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 22:00:33 +0000
-X-Inumbo-ID: 499234ce-b278-11ea-bca7-bc764e2007e4
-Received: from mail-ej1-x641.google.com (unknown [2a00:1450:4864:20::641])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 499234ce-b278-11ea-bca7-bc764e2007e4;
- Fri, 19 Jun 2020 22:00:29 +0000 (UTC)
-Received: by mail-ej1-x641.google.com with SMTP id o15so11735016ejm.12
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2020 15:00:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=HfYUNEU41EvFg2RZy0do+m9ixRVuyVGzvdL5MBLFCAo=;
- b=UP8cug/qv3i80NJ5OH4fU+mt5dwnKjMvJo5F0FYD8RXUqbA+0IJbWqQ31njqbWpRuX
- aICuVrkg2AiQgY5+PtIr/cp4JasmhkGdTCpIGnQjX9fj85TeG83nacgaAPm/yIBFS0gj
- 5A+mf0e9cdnOdKOizyidr57hpNwEQfxrv7EWbW8vSA/rrrtXkVwfpNpwQEcVYiIMlVd0
- maiWHDbjmONRUunBPofhi9gQLCifu2Wvw/AYuPRIcWSpNR68HMvyP2UA4Qg5pvY+7YPW
- kZzPhyBC0JRxHXCG6WIvWkK7y2kpSNtBYJfxhITfNccX6oKzGbZKxLL49K6d1WCg9MjK
- Vlig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=HfYUNEU41EvFg2RZy0do+m9ixRVuyVGzvdL5MBLFCAo=;
- b=H9ap1MvpcbHhrNhGY4TnlwaSwSkXyqVqLyFNIvrZXlpJwMENZlrsohnXiSkdH1dl3C
- WO61NA0cCzRSTsVnAJGEXV7+pAzLa+4ewauy5gbH7mak5Dz5U4EKyrYbUCJGz9IKlaJf
- 3Jk3ynoYu+3Zx8LiH/RxHm0o7memDgc/758BSf5d46HJ/LFuqbzu9OwKehHQPURNrzag
- fj/V1WV0vGH7ljdyKqaU9PdQzB+bFMNAgufL4n8eaGeyiFpheRUOoiVggi/O9JLP4BSB
- GKpfOtHqXLRoDHP06PRZS5TmMaDS0GyQpCteJfKFih9SyZ50F27K/chnhcAU/vQ8Aq4C
- idhQ==
-X-Gm-Message-State: AOAM530de3miXoX+ajVm72Ma89u7tvuirFg4ASVmkHAEj3KUwsJkBH32
- 19lIkcWmwsYZeA2e8BZ+RoMpsfhmf0RTmg==
-X-Google-Smtp-Source: ABdhPJwNHICadOoy5W3bfZb4CTH5KXnZ/0Dc2VMPfnFG4+wxe72TSXxvaRJpe2cFnmA71uGUv6SCfg==
-X-Received: by 2002:a17:906:cc58:: with SMTP id
- mm24mr5930152ejb.134.1592604028264; 
- Fri, 19 Jun 2020 15:00:28 -0700 (PDT)
-Received: from localhost.localdomain (public-gprs354184.centertel.pl.
- [37.47.14.201])
- by smtp.gmail.com with ESMTPSA id b4sm5261360ejp.40.2020.06.19.15.00.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jun 2020 15:00:27 -0700 (PDT)
-From: Grzegorz Uriasz <gorbak25@gmail.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v3 1/1] x86/acpi: Use FADT flags to determine the PMTMR width
-Date: Fri, 19 Jun 2020 22:00:16 +0000
-Message-Id: <de0e33d2be0924e66a220678a7683098df70c2b5.1592603468.git.gorbak25@gmail.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <cover.1592603468.git.gorbak25@gmail.com>
-References: <cover.1592603468.git.gorbak25@gmail.com>
+ <SRS0=8bIi=AA=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
+ id 1jmPaE-0007TH-Fj
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2020 22:34:02 +0000
+X-Inumbo-ID: f72248c8-b27c-11ea-bc14-12813bfff9fa
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.2.83]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f72248c8-b27c-11ea-bc14-12813bfff9fa;
+ Fri, 19 Jun 2020 22:33:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UF7llm1WkqnZ0l+BeFEgw7Cbrmzx0qEoO4K/Mjb1Cg7ALF2V8jQQsNprY4rugOIvzF3eRBBLRRppg+mNALphT/AH4qYpVOmFI21mvQObF/SCnEnUIJ/VAksA0Kex3O8DKBkc/1QrJ+oT/8Fw8gHVBUBL/84yyESIsv+8yeLS/BPvgv5wZkfNQ3SB0li1FNnn9z9zN1Yyf6Uc+Xu3lYf/Bn4ViwxgTSm5fNOMieTZjRTFqpSK/Bob6mhAu3MOVawJyjb7jCflZXbe5ZR+rMG6SU4OtBJDzt1fvCJyIzlkHf7ReEiLQEOq7i/x3MQP3VYNIOYfhL41z+jboJqBJFha1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1m/qnUjI/zR2Dk1NrXmpLkzO7PmIHROqTQgtwyhxXcE=;
+ b=NwoYfgER4lSZBqUqaguMOzakgzA+t2SmS1/WiZ1UhoCJv/PvPSHTcZC5RH9luNujhWD2BYvbV/JOu1VYFwr67JQViDHdNyp0begNQ4m8uv3jHtPYGLMabC+1wEwJ9Rkh+o/w7TrR18rwF5O+OQBauWN69aQTUueOBJnqrgGhbYmqYFV5ZYZy36HEEu5DpkZ51JKxM0EtxgM9/c8e0NRZUwZO2kUWSO8UpPXKqGGsGkcjqnMA95Y8VwIyCVF69AApwN9wzXiXwesJ1jKfC4nXZEKMxIt4zFRcuTwnMW8x3AeOEqAz/SI4odmwt4ekoFOfphdd8DQ0Rrg5djsj6xhntg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1m/qnUjI/zR2Dk1NrXmpLkzO7PmIHROqTQgtwyhxXcE=;
+ b=wC7lQCDBv8A7j4Gnqi0Y78c6sImW770/UAWLMiFk+Ls1sp/t+ettR7jngChpeRFjyI4djCM773mjqUEyJrT9bVbuSyErzow84FmCSgT/D9VGKGITNHtL0U08K41bD9BGZSy6cyugOTpS/TniIuPbmMgxcp3mjPSpqlnETCYJpYKq+BWmmi5bavVIOvkQiNak0vKvOdJtuj/V0B1csQ/l5SjrJKrPhh+iDGqtLEtiRy1KqGggJM1p/Gh3R0VfTQybtSEQhuRaxsTFStA/m+Gb4wXMGFeCAFivtDNZp5wobBL2NKgdz5ofWibXtFyItk29dlc1IHVlDPTyNSr0ckdqoQ==
+Received: from VI1PR03MB2926.eurprd03.prod.outlook.com (2603:10a6:802:35::28)
+ by VI1PR03MB6304.eurprd03.prod.outlook.com (2603:10a6:800:136::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.21; Fri, 19 Jun
+ 2020 22:33:55 +0000
+Received: from VI1PR03MB2926.eurprd03.prod.outlook.com
+ ([fe80::95fd:55d9:421b:1f37]) by VI1PR03MB2926.eurprd03.prod.outlook.com
+ ([fe80::95fd:55d9:421b:1f37%7]) with mapi id 15.20.3109.023; Fri, 19 Jun 2020
+ 22:33:55 +0000
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: "pdurrant@amazon.com" <pdurrant@amazon.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: [PATCH v2 0/2] optee: SHM handling fixes
+Thread-Topic: [PATCH v2 0/2] optee: SHM handling fixes
+Thread-Index: AQHWRom3ZYG+JNafjk+6b4hYNOXtgw==
+Date: Fri, 19 Jun 2020 22:33:55 +0000
+Message-ID: <20200619223332.438344-1-volodymyr_babchuk@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: amazon.com; dkim=none (message not signed)
+ header.d=none;amazon.com; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [176.36.48.175]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 06b4d038-271b-41f4-8130-08d814a0d9fa
+x-ms-traffictypediagnostic: VI1PR03MB6304:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <VI1PR03MB6304F30A8EB824B2EDA830AFE6980@VI1PR03MB6304.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-forefront-prvs: 0439571D1D
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2Dl+wINLZebK0+lGwRD60FQpuH7//LxpZtSqJMB4ukFzKgBRd812/qI9YpptTfFT2hO8PAhiN+ZWUbJ7tIevHvum9474xnDyX3QxQTLk5d89LkYBPYDJvZPp4KyQ42qSytNHV1bE2Vd/2DXFQljhL8Gl0fK5Ij1jqjxN40XIRYsL2TS3pTmCrMZy2i3EANQ8riHzDr5q2swK6NhO+ei/Up/hB2ectFbzDUP/XVF0C6+Y78oQXWBKHNI3xvVqPhK0WHnG4fPECyBN+Mi6k61fducHRTPum3lbJV5ZKBwhKXtSgzovqgnAdWZ4Ng9vXwj1
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR03MB2926.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(396003)(366004)(39860400002)(346002)(136003)(66946007)(66476007)(76116006)(91956017)(66556008)(64756008)(86362001)(5660300002)(66446008)(2616005)(4326008)(36756003)(6486002)(478600001)(71200400001)(4744005)(2906002)(316002)(1076003)(186003)(54906003)(55236004)(8936002)(26005)(6506007)(110136005)(8676002)(83380400001)(6512007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: ie6HgA07Il1Jxz06XWxcXJO5tkoOAksAaF/mFNzRAO0iFi0OaM+dctRZmFUQmvw7PSU2ZVjahQyJCjjXCSYNl6CsnrBG2EzlhznO3q2/S/CFtjOZgCeoWX8W/Gsnb+egD64pgBlKbeCd7XMuYizlPqqp9e/Q5W8Caa7l6sZ+lDSYWVqSl185chC2Jd3BBD5HBOmEBbwZ0HmhStjTRAkghQ/ddR41EquovaPfeBb8jlq6HcQawkxLwTOl9NSdAmMRzh636oVr1DmAWRjMbVLYj7IFso8FfwXyRKrl7IXh+djl48hLMNW+ZXwSkCwqnPTa5DbKOPalyS1rNSgTEgM9Hi9V7SbmAGWqCaktkShmcYl59YcCh9h+RZrtI2jWyhOsSX7rDhWOhTtd7y7tlrjGp/+YrCHgnKm9iBWjWTx7iu+miM9pBNq8jN9nyyKhWAbsTSlxAqCDI71ewp/BkTw4lhLqj8MoycmVjbqs5D2EPN0=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06b4d038-271b-41f4-8130-08d814a0d9fa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jun 2020 22:33:55.6491 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1yXNtDaX35/OR9ThAQKEl3O16dD9YHm4t+P8s25CQ/u79UeNcC6vQEWIuCNIzi9QEuCeRgoxxa0cmoNTwgTQ22RzDOxkyjTMtwiusocaedI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6304
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,141 +94,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, jakub@bartmin.ski,
- Andrew Cooper <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
- Grzegorz Uriasz <gorbak25@gmail.com>, Jan Beulich <jbeulich@suse.com>,
- j.nowak26@student.uw.edu.pl, contact@puzio.waw.pl,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Julien Grall <julien@xen.org>,
+ "op-tee@lists.trustedfirmware.org" <op-tee@lists.trustedfirmware.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On some computers the bit width of the PM Timer as reported
-by ACPI is 32 bits when in fact the FADT flags report correctly
-that the timer is 24 bits wide. On affected machines such as the
-ASUS FX504GM and never gaming laptops this results in the inability
-to resume the machine from suspend. Without this patch suspend is
-broken on affected machines and even if a machine manages to resume
-correctly then the kernel time and xen timers are trashed.
+There are two patches that previously was mailed separatedly. Both
+patches fix issues found during testing the OP-TEE 3.9 release.
 
-Signed-off-by: Grzegorz Uriasz <gorbak25@gmail.com>
----
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>
-Cc: "Roger Pau Monné" <roger.pau@citrix.com>
-Cc: marmarek@invisiblethingslab.com
-Cc: contact@puzio.waw.pl
-Cc: jakub@bartmin.ski
-Cc: j.nowak26@student.uw.edu.pl
+Julien and Stefano suggested to include this patches in Xen 4.14
+release, because optee support still in the preview state and those
+patches provide no new functionality, bugfixes only.
 
-Changes in v2:
-- Check pm timer access width
-- Proper timer width is set when xpm block is not present
-- Cleanup timer initialization
+Volodymyr Babchuk (2):
+  optee: immediately free buffers that are released by OP-TEE
+  optee: allow plain TMEM buffers with NULL address
 
-Changes in v3:
-- Check pm timer bit offset
-- Warn about acpi firmware bugs
-- Drop int cast in init_pmtimer
-- Merge if's in init_pmtimer
----
- xen/arch/x86/acpi/boot.c    | 19 +++++++++++++++----
- xen/arch/x86/time.c         | 12 ++++--------
- xen/include/acpi/acmacros.h |  8 ++++++++
- 3 files changed, 27 insertions(+), 12 deletions(-)
+ xen/arch/arm/tee/optee.c | 59 +++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 52 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
-index bcba52e232..24fd236eb5 100644
---- a/xen/arch/x86/acpi/boot.c
-+++ b/xen/arch/x86/acpi/boot.c
-@@ -475,10 +475,17 @@ static int __init acpi_parse_fadt(struct acpi_table_header *table)
- 
- #ifdef CONFIG_X86_PM_TIMER
- 	/* detect the location of the ACPI PM Timer */
--	if (fadt->header.revision >= FADT2_REVISION_ID) {
-+	if (fadt->header.revision >= FADT2_REVISION_ID &&
-+	    fadt->xpm_timer_block.space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
- 		/* FADT rev. 2 */
--		if (fadt->xpm_timer_block.space_id ==
--		    ACPI_ADR_SPACE_SYSTEM_IO) {
-+		if (fadt->xpm_timer_block.access_width != 0 &&
-+		    ACPI_ACCESS_BIT_WIDTH(fadt->xpm_timer_block.access_width) != 32)
-+			printk(KERN_WARNING PREFIX "PM-Timer has invalid access width(%u)\n",
-+			       fadt->xpm_timer_block.access_width);
-+		else if (fadt->xpm_timer_block.bit_offset != 0)
-+			printk(KERN_WARNING PREFIX "PM-Timer has invalid bit offset(%u)\n",
-+			       fadt->xpm_timer_block.bit_offset);
-+		else {
- 			pmtmr_ioport = fadt->xpm_timer_block.address;
- 			pmtmr_width = fadt->xpm_timer_block.bit_width;
- 		}
-@@ -490,8 +497,12 @@ static int __init acpi_parse_fadt(struct acpi_table_header *table)
-  	 */
- 	if (!pmtmr_ioport) {
- 		pmtmr_ioport = fadt->pm_timer_block;
--		pmtmr_width = fadt->pm_timer_length == 4 ? 24 : 0;
-+		pmtmr_width = fadt->pm_timer_length == 4 ? 32 : 0;
- 	}
-+	if (pmtmr_width < 32 && fadt->flags & ACPI_FADT_32BIT_TIMER)
-+        printk(KERN_WARNING PREFIX "PM-Timer is too short\n");
-+	if (pmtmr_width > 24 && !(fadt->flags & ACPI_FADT_32BIT_TIMER))
-+		pmtmr_width = 24;
- 	if (pmtmr_ioport)
- 		printk(KERN_INFO PREFIX "PM-Timer IO Port: %#x (%u bits)\n",
- 		       pmtmr_ioport, pmtmr_width);
-diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-index d643590c0a..8a45514908 100644
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -457,16 +457,13 @@ static u64 read_pmtimer_count(void)
- static s64 __init init_pmtimer(struct platform_timesource *pts)
- {
-     u64 start;
--    u32 count, target, mask = 0xffffff;
-+    u32 count, target, mask;
- 
--    if ( !pmtmr_ioport || !pmtmr_width )
-+    if ( !pmtmr_ioport || (pmtmr_width != 24 && pmtmr_width != 32) )
-         return 0;
- 
--    if ( pmtmr_width == 32 )
--    {
--        pts->counter_bits = 32;
--        mask = 0xffffffff;
--    }
-+    pts->counter_bits = pmtmr_width;
-+    mask = (1ull << pmtmr_width) - 1;
- 
-     count = inl(pmtmr_ioport) & mask;
-     start = rdtsc_ordered();
-@@ -486,7 +483,6 @@ static struct platform_timesource __initdata plt_pmtimer =
-     .name = "ACPI PM Timer",
-     .frequency = ACPI_PM_FREQUENCY,
-     .read_counter = read_pmtimer_count,
--    .counter_bits = 24,
-     .init = init_pmtimer
- };
- 
-diff --git a/xen/include/acpi/acmacros.h b/xen/include/acpi/acmacros.h
-index 6765535053..86c503c20f 100644
---- a/xen/include/acpi/acmacros.h
-+++ b/xen/include/acpi/acmacros.h
-@@ -121,6 +121,14 @@
- #define ACPI_COMPARE_NAME(a,b)          (!ACPI_STRNCMP (ACPI_CAST_PTR (char,(a)), ACPI_CAST_PTR (char,(b)), ACPI_NAME_SIZE))
- #endif
- 
-+/*
-+ * Algorithm to obtain access bit or byte width.
-+ * Can be used with access_width of struct acpi_generic_address and access_size of
-+ * struct acpi_resource_generic_register.
-+ */
-+#define ACPI_ACCESS_BIT_WIDTH(size)     (1 << ((size) + 2))
-+#define ACPI_ACCESS_BYTE_WIDTH(size)    (1 << ((size) - 1))
-+
- /*
-  * Macros for moving data around to/from buffers that are possibly unaligned.
-  * If the hardware supports the transfer of unaligned data, just do the store.
--- 
-2.27.0
-
+--=20
+2.26.2
 
