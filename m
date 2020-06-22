@@ -2,53 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C97BC203A1F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 16:58:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80352203A67
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 17:12:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnNt0-0008AF-BN; Mon, 22 Jun 2020 14:57:26 +0000
+	id 1jnO79-0001PL-Kj; Mon, 22 Jun 2020 15:12:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u48w=AD=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jnNsy-0008AA-6x
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 14:57:24 +0000
-X-Inumbo-ID: accec116-b498-11ea-b7bb-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wtl3=AD=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1jnO77-0001PG-Fz
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 15:12:01 +0000
+X-Inumbo-ID: b89b4b66-b49a-11ea-b7bb-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id accec116-b498-11ea-b7bb-bc764e2007e4;
- Mon, 22 Jun 2020 14:57:22 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: Gb07eQDSrBgJ48tHC6dN4aPTaO82hRETLrKWvYtU979mxAG9/fDK9WSNJLl9xGw38Dk+kB++4R
- vK0LxwC8SUJI3ma8HpvooexB4EShUoUMCUq0j0b3r2Aisyswqi+gAbnX9oDx/Drofso7K2T6aj
- jqPTv055cS0m+reMGMSiA7USxyEWG866ZQD2XCUWiufzvSitxtHR53Nzq49TKkBIMrmU2g4xoZ
- BgJGVgDgigIEHX16C8XXralUSFHJ0ktbEkSRIldrC12pYHYhjMa4sdbm5c4XNuXfCEtcVCRq2l
- li8=
-X-SBRS: 2.7
-X-MesageID: 20849722
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,267,1589256000"; d="scan'208";a="20849722"
-Date: Mon, 22 Jun 2020 16:56:59 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH for-4.14] x86/tlb: fix assisted flush usage
-Message-ID: <20200622145659.GL735@Air-de-Roger>
-References: <20200618160403.35199-1-roger.pau@citrix.com>
- <0b6c900f-e2a6-c9b1-0e57-68c6898150a9@suse.com>
- <20200622093123.GI735@Air-de-Roger>
- <5ad66ef4-9406-f35a-5683-ac4608242dd7@suse.com>
- <20200622132410.GJ735@Air-de-Roger>
- <b3142168-09c8-67e8-d210-05f54761051c@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b3142168-09c8-67e8-d210-05f54761051c@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+ id b89b4b66-b49a-11ea-b7bb-bc764e2007e4;
+ Mon, 22 Jun 2020 15:12:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Reply-To:Message-Id:Date:Subject:To:From:Sender:Cc:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZkYFftt9zY4NTku9bpwUBXznZU5RfaCO8ptYf1B1Tpg=; b=gpwPDSYlvgpIoB+ZDfRl7vSllG
+ Cbtk42P7qaOswXRNn8Y7754AaBlBPcUcFni+Rs2ehsWamutetM+eJv2Ki+mzLYjXxfofB8zX/2w5g
+ jmm9HAISGSlwc5PA6o3YySx0xFOR3WZ5maYGUxx6so7waJWbRt0hLWuSodx8poO9u6lk=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1jnO76-0000z5-8V; Mon, 22 Jun 2020 15:12:00 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=CBG-R90WXYV0.amazon.com) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1jnO75-00075K-VK; Mon, 22 Jun 2020 15:12:00 +0000
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org,
+ xen-announce@lists.xenproject.org
+Subject: Xen 4.14 RC3
+Date: Mon, 22 Jun 2020 16:11:58 +0100
+Message-Id: <20200622151158.109-1-paul@xen.org>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,84 +53,29 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Wei Liu <wl@xen.org>, paul@xen.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Reply-To: xen-devel@lists.xenproject.org, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 22, 2020 at 03:51:24PM +0200, Jan Beulich wrote:
-> On 22.06.2020 15:24, Roger Pau Monné wrote:
-> > On Mon, Jun 22, 2020 at 01:07:10PM +0200, Jan Beulich wrote:
-> >> On 22.06.2020 11:31, Roger Pau Monné wrote:
-> >>> On Fri, Jun 19, 2020 at 04:06:55PM +0200, Jan Beulich wrote:
-> >>>> On 18.06.2020 18:04, Roger Pau Monne wrote:
-> >>>>> Commit e9aca9470ed86 introduced a regression when avoiding sending
-> >>>>> IPIs for certain flush operations. Xen page fault handler
-> >>>>> (spurious_page_fault) relies on blocking interrupts in order to
-> >>>>> prevent handling TLB flush IPIs and thus preventing other CPUs from
-> >>>>> removing page tables pages. Switching to assisted flushing avoided such
-> >>>>> IPIs, and thus can result in pages belonging to the page tables being
-> >>>>> removed (and possibly re-used) while __page_fault_type is being
-> >>>>> executed.
-> >>>>>
-> >>>>> Force some of the TLB flushes to use IPIs, thus avoiding the assisted
-> >>>>> TLB flush. Those selected flushes are the page type change (when
-> >>>>> switching from a page table type to a different one, ie: a page that
-> >>>>> has been removed as a page table) and page allocation. This sadly has
-> >>>>> a negative performance impact on the pvshim, as less assisted flushes
-> >>>>> can be used.
-> >>>>>
-> >>>>> Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
-> >>>>> using an IPI (flush_tlb_mask_sync). Note that the flag is only
-> >>>>> meaningfully defined when the hypervisor supports PV mode, as
-> >>>>> otherwise translated domains are in charge of their page tables and
-> >>>>> won't share page tables with Xen, thus not influencing the result of
-> >>>>> page walks performed by the spurious fault handler.
-> >>>>
-> >>>> Is this true for shadow mode? If a page shadowing a guest one was
-> >>>> given back quickly enough to the allocator and then re-used, I think
-> >>>> the same situation could in principle arise.
-> >>>
-> >>> Hm, I think it's not applicable to HVM shadow mode at least, because
-> >>> CR3 is switched as part of vmentry/vmexit, and the page tables are not
-> >>> shared between Xen and the guest, so there's no way for a HVM shadow
-> >>> guest to modify the page-tables while Xen is walking them in
-> >>> spurious_page_fault (note spurious_page_fault is only called when the
-> >>> fault happens in non-guest context).
-> >>
-> >> I'm afraid I disagree, because of shadow's use of "linear page tables".
-> > 
-> > You will have to bear with me, but I don't follow.
-> > 
-> > Could you provide some pointers at how/where the shadow (I assume
-> > guest controlled) "linear page tables" are used while in Xen
-> > context?
-> 
-> See config.h:
-> 
-> /* Slot 258: linear page table (guest table). */
-> #define LINEAR_PT_VIRT_START    (PML4_ADDR(258))
-> #define LINEAR_PT_VIRT_END      (LINEAR_PT_VIRT_START + PML4_ENTRY_BYTES)
-> /* Slot 259: linear page table (shadow table). */
-> #define SH_LINEAR_PT_VIRT_START (PML4_ADDR(259))
-> #define SH_LINEAR_PT_VIRT_END   (SH_LINEAR_PT_VIRT_START + PML4_ENTRY_BYTES)
-> 
-> These linear page tables exist in the Xen page tables at basically
-> all times as long as a shadow guest's vCPU is in context. They're
-> there to limit the overhead of accessing guest page tables and
-> their shadows from inside Xen.
+Hi all,
 
-Oh, I have to admit I know very little about all this, and I'm not
-able to find a description of how this is to be used.
+Xen 4.14 RC3 is tagged. You can check that out from xen.git:
 
-I think the shadow linear page tables should be per-pCPU, and hence
-they cannot be modified by the guest while a spurious page fault is
-being processed? (since the vCPU running on the pCPU is in Xen
-context).
+git://xenbits.xen.org/xen.git 4.14.0-rc3
 
-Thanks, Roger.
+For your convenience there is also a tarball at:
+https://downloads.xenproject.org/release/xen/4.14.0-rc3/xen-4.14.0-rc3.tar.gz
+
+And the signature is at:
+https://downloads.xenproject.org/release/xen/4.14.0-rc3/xen-4.14.0-rc3.tar.gz.sig
+
+Please send bug reports and test reports to xen-devel@lists.xenproject.org.
+When sending bug reports, please CC relevant maintainers and me (paul@xen.org).
+
+As a reminder, there will be a Xen Test Day. Please see the test day schedule at
+https://wiki.xenproject.org/wiki/Xen_Project_Test_Days and test instructions at
+https://wiki.xenproject.org/wiki/Xen_4.14_RC_test_instructions.
+
+  Paul Durrant
+
 
