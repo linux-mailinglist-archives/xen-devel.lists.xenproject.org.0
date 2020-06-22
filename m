@@ -2,52 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A0320329E
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 10:58:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CEC2203328
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 11:19:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnIHe-0007iY-3Z; Mon, 22 Jun 2020 08:58:30 +0000
+	id 1jnIao-00017E-Sb; Mon, 22 Jun 2020 09:18:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u48w=AD=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jnIHd-0007iT-EN
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 08:58:29 +0000
-X-Inumbo-ID: 89e6a75e-b466-11ea-be4c-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kCdQ=AD=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1jnIam-000178-Im
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 09:18:17 +0000
+X-Inumbo-ID: 4a02df6a-b469-11ea-be54-12813bfff9fa
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 89e6a75e-b466-11ea-be4c-12813bfff9fa;
- Mon, 22 Jun 2020 08:58:28 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 8geRtY5uERBwhau9Jk2Wbodh6QmEHkneOYPOUy9Adx5myeR4R6tyRvz93guA69ufqyIWpiRUOI
- N9CyGxmjSkfmju4J85oHgPl9sIObgB5huRlMtNHESoUAsNm9wgU7UF2MukZFldzEnY6o/d6t2o
- WMgmA5knywRpJ12slehtSyC+ut8WXOf4rap1a8mEDs7rv97msMdqEc5/okrG6jQfueQ3FAJhbZ
- adwGRX8FN36tkZnZpqDe7L51MRFoBNgIBfmT6KG9bLPyKKj89AAC0Ymh1Tcw4qaYVfWPcQCDJG
- xVM=
-X-SBRS: 2.7
-X-MesageID: 20943361
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,266,1589256000"; d="scan'208";a="20943361"
-Date: Mon, 22 Jun 2020 10:58:19 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Grzegorz Uriasz <gorbak25@gmail.com>
-Subject: Re: [PATCH v3 1/1] x86/acpi: Use FADT flags to determine the PMTMR
- width
-Message-ID: <20200622085819.GH735@Air-de-Roger>
-References: <cover.1592603468.git.gorbak25@gmail.com>
- <de0e33d2be0924e66a220678a7683098df70c2b5.1592603468.git.gorbak25@gmail.com>
- <20200622085400.GG735@Air-de-Roger>
+ id 4a02df6a-b469-11ea-be54-12813bfff9fa;
+ Mon, 22 Jun 2020 09:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1592817489;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=/Wnz5DZ94JL+6N1kDWP4UJgwIXviIIbPBAQ8FVpCj3o=;
+ b=cTEmeBuhZJgEXJq+zJGi7ALIxH7qwMsjMlBcn6suqoj9izrGP8zFBPI/117iF+iYyM
+ PseX73sSy7a8YBW0dcxDmO/5VM58ybw3V0cbSQRsR1rgQ1x6QNtXRzemVrYj+fu3AB3i
+ kUdD4b1anoDg7MznTlTixutSt6LCHNw54vHeMarN7UqAXnRJlt49gPXkoJKddSOTHkwX
+ wSGWey61V0n27e9hAay+TNr+purPCsqHLizJ8KidoFMmmdyvSwZ5R5WQnka8vcGfvcij
+ GBQVAJFIGWA86lKhYEZlF7cLys1KfT2LIRugGrIny7QvNJNFYYDvjYHVaT2EGNGYemim
+ NQXg==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3G1Pjw=="
+X-RZG-CLASS-ID: mo00
+Received: from aepfle.de by smtp.strato.de (RZmta 46.10.4 DYNA|AUTH)
+ with ESMTPSA id 0013a0w5M9I3X3H
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 22 Jun 2020 11:18:03 +0200 (CEST)
+Date: Mon, 22 Jun 2020 11:17:51 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: Re: [XEN PATCH for-4.14 1/2] tools: Commit autoconf (2.69) output
+ from Debian buster
+Message-ID: <20200622091738.GA27631@aepfle.de>
+References: <000401d640c9$7b14e760$713eb620$@xen.org>
+ <20200612151931.1083-2-ian.jackson@eu.citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="mojUlQ0s9EVzWg2t"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200622085400.GG735@Air-de-Roger>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <20200612151931.1083-2-ian.jackson@eu.citrix.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,74 +60,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, jakub@bartmin.ski,
- Andrew Cooper <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
- Jan Beulich <jbeulich@suse.com>, j.nowak26@student.uw.edu.pl,
- xen-devel@lists.xenproject.org, contact@puzio.waw.pl
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+ Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 22, 2020 at 10:54:00AM +0200, Roger Pau Monné wrote:
-> On Fri, Jun 19, 2020 at 10:00:16PM +0000, Grzegorz Uriasz wrote:
-> > On some computers the bit width of the PM Timer as reported
-> > by ACPI is 32 bits when in fact the FADT flags report correctly
-> > that the timer is 24 bits wide. On affected machines such as the
-> > ASUS FX504GM and never gaming laptops this results in the inability
-> > to resume the machine from suspend. Without this patch suspend is
-> > broken on affected machines and even if a machine manages to resume
-> > correctly then the kernel time and xen timers are trashed.
-> > 
-> > Signed-off-by: Grzegorz Uriasz <gorbak25@gmail.com>
-> > ---
-> > Cc: Jan Beulich <jbeulich@suse.com>
-> > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Cc: Wei Liu <wl@xen.org>
-> > Cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> > Cc: marmarek@invisiblethingslab.com
-> > Cc: contact@puzio.waw.pl
-> > Cc: jakub@bartmin.ski
-> > Cc: j.nowak26@student.uw.edu.pl
-> > 
-> > Changes in v2:
-> > - Check pm timer access width
-> > - Proper timer width is set when xpm block is not present
-> > - Cleanup timer initialization
-> > 
-> > Changes in v3:
-> > - Check pm timer bit offset
-> > - Warn about acpi firmware bugs
-> > - Drop int cast in init_pmtimer
-> > - Merge if's in init_pmtimer
-> > ---
-> >  xen/arch/x86/acpi/boot.c    | 19 +++++++++++++++----
-> >  xen/arch/x86/time.c         | 12 ++++--------
-> >  xen/include/acpi/acmacros.h |  8 ++++++++
-> >  3 files changed, 27 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
-> > index bcba52e232..24fd236eb5 100644
-> > --- a/xen/arch/x86/acpi/boot.c
-> > +++ b/xen/arch/x86/acpi/boot.c
-> > @@ -475,10 +475,17 @@ static int __init acpi_parse_fadt(struct acpi_table_header *table)
-> >  
-> >  #ifdef CONFIG_X86_PM_TIMER
-> >  	/* detect the location of the ACPI PM Timer */
-> > -	if (fadt->header.revision >= FADT2_REVISION_ID) {
-> > +	if (fadt->header.revision >= FADT2_REVISION_ID &&
-> > +	    fadt->xpm_timer_block.space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
-> >  		/* FADT rev. 2 */
-> > -		if (fadt->xpm_timer_block.space_id ==
-> > -		    ACPI_ADR_SPACE_SYSTEM_IO) {
-> > +		if (fadt->xpm_timer_block.access_width != 0 &&
-> > +		    ACPI_ACCESS_BIT_WIDTH(fadt->xpm_timer_block.access_width) != 32)
-> > +			printk(KERN_WARNING PREFIX "PM-Timer has invalid access width(%u)\n",
-> > +			       fadt->xpm_timer_block.access_width);
-> > +		else if (fadt->xpm_timer_block.bit_offset != 0)
-> 
-> This should be a plain if instead of an else if, it's possible the
-> block has both the access_width and the bit_offset wrong.
 
-My bad, realized this avoids setting pmtmr_ioport.
+--mojUlQ0s9EVzWg2t
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Roger.
+On Fri, Jun 12, Ian Jackson wrote:
+
+> These files are in tree so that people can build (including from git)
+> without needing recent autotools.
+
+Do you know those people who can not possibly install the required (now 8year old) autoconf version?
+
+Olaf
+
+--mojUlQ0s9EVzWg2t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl7wdz8ACgkQ86SN7mm1
+DoCiQA/9HF3/RR3TaGbtcaKHzFWAAsq/3xuJ5I5/+bDe0rjzYRklRhY9wgjcEf06
+T8FZqySA7X0dXpD31Vm8w+S2gcEtpNY7dV3ZAz3gq75ur87NshzpaVOwfreq+/OY
+vGlIL/sxRFI+tUaqhtLDFJ3v0kiHhnsOrdoiI/EKvFQRTXyxIz+q0pxJ96Xw2Ba1
+zGDATjFV765J6HapzZ2sYTvTg9Az1xlBSQuqGZ4XYaJw7nuVTB9RfGeziJjuRh0A
+tICK5V12htE3jdq8u6ks+wnVa0CWzOWICIbt9JZkwQm6klwpZ9Uby4Z4yGtt4hLp
+uXf8r094qmhZSaxz/O6JA+FAG5KjVlYv9OTaKB5Q509+0M5DZzrjVOMlqxn5UjO1
+ySAsMA780X8YiB7f7EHbWVPPawAUBofDCe7t3Z+bBbvQeUDGbNGLTaDhwyOn5pEV
+4nQhbQKT9D3oOzelmAA8T8Whspj40AchWJX2RwNRFwQGTlrI74G+WJQw1gknycYb
+EpCCzgyvlskJU1rUP/I6RgDDgBU1JhVnAnNuN84uNzxOQF/O9YNEe3UoWd1qo7uN
+tYGhBHRSj3j60UP8tynEL6gk0SYCOxB/HN/xlqJmBFyDN/BRronAn8o2rJZ+/ReG
+9+9XdBvCsgjoBcz/EM6r15xaHTmK7v5WuokvZu7gNKDHZ/GL688=
+=bzS3
+-----END PGP SIGNATURE-----
+
+--mojUlQ0s9EVzWg2t--
 
