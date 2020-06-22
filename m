@@ -2,49 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A071203C64
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 18:20:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D45B2203C70
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 18:23:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnPBc-0000eI-NP; Mon, 22 Jun 2020 16:20:44 +0000
+	id 1jnPDY-0000mG-3i; Mon, 22 Jun 2020 16:22:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ahnO=AD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jnPBb-0000dk-3X
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 16:20:43 +0000
-X-Inumbo-ID: 4e02af10-b4a4-11ea-beaa-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=tVQB=AD=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1jnPDW-0000mB-OA
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 16:22:42 +0000
+X-Inumbo-ID: 97beafc0-b4a4-11ea-beaa-12813bfff9fa
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4e02af10-b4a4-11ea-beaa-12813bfff9fa;
- Mon, 22 Jun 2020 16:20:36 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B120DC220;
- Mon, 22 Jun 2020 16:20:35 +0000 (UTC)
-Subject: Re: Event delivery and "domain blocking" on PVHv2
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200618101330.GB10330@nodbug.lucina.net>
- <20200618114617.GJ735@Air-de-Roger>
- <17deb17cec442f96cc7aba98ef4c047c@lucina.net>
- <20200619112119.GY735@Air-de-Roger>
- <ab26d419909c1fb038b32024d457871c@lucina.net>
- <20200619165426.GD735@Air-de-Roger> <20200619174143.GE735@Air-de-Roger>
- <7ed4a5f98b3002f3233e02d5ce803ef0@lucina.net>
- <20200622135853.GK735@Air-de-Roger>
- <745e4ac251b146480b2c6d6afbf5f34a@lucina.net>
- <20200622160916.GM735@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c1f1a722-49fe-257c-2033-76f3efe0d60c@suse.com>
-Date: Mon, 22 Jun 2020 18:20:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ id 97beafc0-b4a4-11ea-beaa-12813bfff9fa;
+ Mon, 22 Jun 2020 16:22:41 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id ACEFEA287A;
+ Mon, 22 Jun 2020 18:22:40 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 99E97A2860;
+ Mon, 22 Jun 2020 18:22:39 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id UwW_gYi1Mr9a; Mon, 22 Jun 2020 18:22:39 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 0EC82A287A;
+ Mon, 22 Jun 2020 18:22:39 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id ustoazb4ieT0; Mon, 22 Jun 2020 18:22:38 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id D55C7A2860;
+ Mon, 22 Jun 2020 18:22:38 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id B545821BFF;
+ Mon, 22 Jun 2020 18:22:08 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id G3BaCcsvAPUO; Mon, 22 Jun 2020 18:22:03 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 2E17E21BF6;
+ Mon, 22 Jun 2020 18:22:03 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 4ZGMNt-xpVUh; Mon, 22 Jun 2020 18:22:03 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id F309821BEA;
+ Mon, 22 Jun 2020 18:22:02 +0200 (CEST)
+Date: Mon, 22 Jun 2020 18:22:02 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1402108091.11431889.1592842922883.JavaMail.zimbra@cert.pl>
+In-Reply-To: <5b7dd58f-2dc1-32bc-3add-d896631734a4@suse.com>
+References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
+ <1005194077.9820950.1592523663199.JavaMail.zimbra@cert.pl>
+ <4e040500-0532-2231-f5b7-c61e97a0a0c5@suse.com>
+ <800738193.11403725.1592836530558.JavaMail.zimbra@cert.pl>
+ <87576264-e7df-2590-f141-351d76baac7a@suse.com>
+ <1130937743.11428389.1592841763323.JavaMail.zimbra@cert.pl>
+ <5b7dd58f-2dc1-32bc-3add-d896631734a4@suse.com>
+Subject: Re: [PATCH v2 4/7] x86/vmx: add do_vmtrace_op
 MIME-Version: 1.0
-In-Reply-To: <20200622160916.GM735@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
+Thread-Topic: x86/vmx: add do_vmtrace_op
+Thread-Index: vOPHlHoSDCFKXDoky6RsptumR5lekg==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,58 +85,79 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Martin Lucina <martin@lucina.net>, mirageos-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, "Kang, Luwei" <luwei.kang@intel.com>,
+ Jun Nakajima <jun.nakajima@intel.com>,
+ Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22.06.2020 18:09, Roger Pau Monné wrote:
-> On Mon, Jun 22, 2020 at 05:31:00PM +0200, Martin Lucina wrote:
->> On 2020-06-22 15:58, Roger Pau Monné wrote:
->>> On Mon, Jun 22, 2020 at 12:58:37PM +0200, Martin Lucina wrote:
->>>> Aha! Thank you for pointing this out. I think you may be right, but
->>>> this
->>>> should be possible without doing the demuxing in interrupt context.
->>>
->>> If you don't do the demuxing in the interrupt context (ie: making the
->>> interrupt handler a noop), then you don't likely need such interrupt
->>> anyway?
->>
->> I need the/an interrupt to wake the VCPU from HLT state if we went to sleep.
->>
->>>
->>>> How about this arrangement, which appears to work for me; no hangs I
->>>> can see
->>>> so far and domU survives ping -f fine with no packet loss:
->>>>
->>>> CAMLprim value
->>>> mirage_xen_evtchn_block_domain(value v_deadline)
->>>> {
->>>>     struct vcpu_info *vi = VCPU0_INFO();
->>>>     solo5_time_t deadline = Int64_val(v_deadline);
->>>>
->>>>     if (solo5_clock_monotonic() < deadline) {
->>>>         __asm__ __volatile__ ("cli" : : : "memory");
->>>>         if (vi->evtchn_upcall_pending) {
->>>>             __asm__ __volatile__ ("sti");
->>>>         }
->>>>         else {
->>>>             hypercall_set_timer_op(deadline);
->>>
->>> What if you set a deadline so close that evtchn_upcall_pending gets
->>> set by Xen here and the interrupt is injected? You would execute the
->>> noop handler and just hlt, and could likely end up in the same blocked
->>> situation as before?
->>
->> Why would an interrupt be injected here? Doesn't the immediately preceding
->> "cli" disable that?
-> 
-> Well, I mean between the sti and the hlt instruction.
+----- 22 cze 2020 o 18:16, Jan Beulich jbeulich@suse.com napisa=C5=82(a):
 
-When EFLAGS.IF was clear before STI, then the first point at which
-an interrupt can get injected is when HLT is already executed (i.e.
-to wake from this HLT). That's the so called "STI shadow".
+> On 22.06.2020 18:02, Micha=C5=82 Leszczy=C5=84ski wrote:
+>> ----- 22 cze 2020 o 17:22, Jan Beulich jbeulich@suse.com napisa=C5=82(a)=
+:
+>>> On 22.06.2020 16:35, Micha=C5=82 Leszczy=C5=84ski wrote:
+>>>> ----- 22 cze 2020 o 15:25, Jan Beulich jbeulich@suse.com napisa=C5=82(=
+a):
+>>>>> Is any of what you do in this switch() actually legitimate without
+>>>>> hvm_set_vmtrace_pt_size() having got called for the guest? From
+>>>>> remarks elsewhere I imply you expect the param that you currently
+>>>>> use to be set upon domain creation time, but at the very least the
+>>>>> potentially big buffer should imo not get allocated up front, but
+>>>>> only when tracing is to actually be enabled.
+>>>>
+>>>> Wait... so you want to allocate these buffers in runtime?
+>>>> Previously we were talking that there is too much runtime logic
+>>>> and these enable/disable hypercalls should be stripped to absolute
+>>>> minimum.
+>>>
+>>> Basic arrangements can be made at domain creation time. I don't
+>>> think though that it would be a good use of memory if you
+>>> allocated perhaps many gigabytes of memory just for possibly
+>>> wanting to enable tracing on a guest.
+>>>
+>>=20
+>> From our previous conversations I thought that you want to have
+>> as much logic moved to the domain creation as possible.
+>>=20
+>> Thus, a parameter "vmtrace_pt_size" was introduced. By default it's
+>> zero (=3D disabled), if you set it to a non-zero value, then trace buffe=
+rs
+>> of given size will be allocated for the domain and you have possibility
+>> to use ipt_enable/ipt_disable at any moment.
+>>=20
+>> This way the runtime logic is as thin as possible. I assume user knows
+>> in advance whether he/she would want to use external monitoring with IPT
+>> or not.
+>=20
+> Andrew - I think you requested movement to domain_create(). Could
+> you clarify if indeed you mean to also allocate the big buffers
+> this early?
+>=20
+>> It's also not "many gigabytes". In most use cases a buffer of 16/32/64 M=
+B
+>> would suffice, I think.
+>=20
+> But that one such buffer per vCPU, isn't it? Plus these buffers
+> need to be physically contiguous, which is an additional possibly
+> severe constraint.
 
-Jan
+Yes. For my use case (VMI stuff) I estimate 16-64 MB per vCPU and for fuzzi=
+ng
+I think it would be even less.
+
+And also yes - these buffers need to be physically contigous and aligned
+because otherwise CPU would refuse to use them.
+
+
+Best regards,
+Micha=C5=82 Leszczy=C5=84ski
+CERT Polska
+
 
