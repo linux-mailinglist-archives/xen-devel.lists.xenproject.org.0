@@ -2,55 +2,95 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B0BC203535
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 12:59:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958F620355C
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 13:07:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnKA3-0001wS-5t; Mon, 22 Jun 2020 10:58:47 +0000
+	id 1jnKII-0002wV-4N; Mon, 22 Jun 2020 11:07:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=m+g9=AD=lucina.net=martin@srs-us1.protection.inumbo.net>)
- id 1jnKA1-0001wB-MU
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 10:58:45 +0000
-X-Inumbo-ID: 53956c2e-b477-11ea-bb8b-bc764e2007e4
-Received: from smtp.lucina.net (unknown [62.176.169.44])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 53956c2e-b477-11ea-bb8b-bc764e2007e4;
- Mon, 22 Jun 2020 10:58:39 +0000 (UTC)
-Received: from webmail.moloch.sk (w3-s.a.lucina.net [62.176.169.73])
- by smtp.lucina.net (Postfix) with ESMTPSA id 06159122804;
- Mon, 22 Jun 2020 12:58:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lucina.net;
- s=dkim-201811; t=1592823518;
- bh=AjldR7lSzE4srHcYluGJ3oH/ie3BZmsR0Ph46rZZm5g=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qltgW80XAzY/26uZa6rBcCiVvcxFVpmI0xHD3h8HuPyQA5LT+qW/llhBSj/EZk4V2
- AcfdeOuyKX8nZreZGbfwl9RteRy3B83kMx6l+tMdmT/9eJsOh7yqMBKHiH3KM4Tv3E
- Zvru9vfe2zDLGMUBHUg9U88dVlWupRTy/BnxrTNvmukmnMmrbwPr5ASAJYxPbHG5SQ
- nkG+lXhNaSczpPvwx1vo113WnafmFEwoDMeHhxliADZWy2ri728Gb3OgJzUCh03VNa
- V7ivlI3ihgJkuBPFyvSZRMwjhLq/AOy8qLr5Va6WpLxKSvW0X9pDC90XuAatUAXnpR
- EF1JUM15gCx4w==
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+ (envelope-from <SRS0=ahnO=AD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jnKIG-0002wN-6j
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 11:07:16 +0000
+X-Inumbo-ID: 87676ca4-b478-11ea-b7bb-bc764e2007e4
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
+ [40.107.20.47]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 87676ca4-b478-11ea-b7bb-bc764e2007e4;
+ Mon, 22 Jun 2020 11:07:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SYWfCSMnoa319nsrG0OFxyIoyGnc3i8ydR25U3YVa1l3ADoeWrkykCgSK6aKy2HPMzTnhY9NUgtiC3niZytYa2ULUtgsKRXXL7bYVClMetDanGbcm2ysrlmL6mJpcwFGdzvnawdQV5pG9ABu07nFqiPEktqPsq//FlzPHjqjWduaPXJ7foEqtg3Vb1v3qlMu2hEQPM17KA40mUQnMiBFj3WYKKZ1NmuKJMSi4Tal75PGKgfcru38EGPjFfxa+mMBKssGWAqOxupYk1KW99ZQAA2P11NFg2uS3BFY2sE0gorEyRsp1PZXV8HhBGwuM66WKieD53IGr4gR4yEerHAfBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4d7R8yFQ34wsCJ6WFbtDARl8fhNNb4F/O/edTEMV+0o=;
+ b=il7FGHBnFoK1+jDosD/+Kg1fGqnNe8/XScJo5ALWqwCbUc+58fDboaBCPHA/3SZDzi7rUr9qTlETIkO6IVPqMlODScnM7WAaNRQVwW657TDmR7H56GaA5yh5mLD4nQwQwzUIgfN+hCKDnMwTqKUF+5/Ww4stxVhLsC3DpFSSN0kNjPvCrlpgPjK3JG9O7IFbXxXbWoJcNhn9A3neo04kkDjNKhEYtWSs65tpiCFJ8rkNEar4UcSDaQocMWdCcjqPrQxJjHv4KljlbfcncN12rVGvoHxFv83i+6OuOpCR9RxiSFwvbug13PzQoECw/gUOoNoxw1fnUFiVVc1kH/M6MA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mysuse.onmicrosoft.com; s=selector1-mysuse-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4d7R8yFQ34wsCJ6WFbtDARl8fhNNb4F/O/edTEMV+0o=;
+ b=cGOkqVmOZBNWgYlIl/hb2nYXmr+O0gGTDhlLQGjhKRi3+b0TD+64efmX619pMvEYLR3p5WOeq6ENDIK1E32PG9K8UDxqwTGHFB09lJ2nFatKERk4Qh9zymi1GL3jtJajgNjolMkY8w6G+A+rN1cD8qWMJI1hQp6BL63oNjCUdsbx6i/pUtfXHq2cPQSXiLjioUnA26kV1YReYz0pQS4hpWXiZAL7vIft4nDgOhRyAl4DCB5Sx6HklasZTl39p7mtcxeWo8+Z0jBhFIXW8qM4Fa2LhjmawgNT0ttO7Z8HSxeyE3opzVTAx8C2fDdj+d2fMwmZgsrS8YpGQ73SSZ17Rw==
+Authentication-Results: epam.com; dkim=none (message not signed)
+ header.d=none;epam.com; dmarc=none action=none header.from=suse.com;
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB4286.eurprd04.prod.outlook.com (2603:10a6:803:46::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Mon, 22 Jun
+ 2020 11:07:13 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::3de3:8e44:3eee:8600]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::3de3:8e44:3eee:8600%6]) with mapi id 15.20.3109.027; Mon, 22 Jun 2020
+ 11:07:13 +0000
+Subject: Re: [PATCH for-4.14] x86/tlb: fix assisted flush usage
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20200618160403.35199-1-roger.pau@citrix.com>
+ <0b6c900f-e2a6-c9b1-0e57-68c6898150a9@suse.com>
+ <20200622093123.GI735@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5ad66ef4-9406-f35a-5683-ac4608242dd7@suse.com>
+Date: Mon, 22 Jun 2020 13:07:10 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
+In-Reply-To: <20200622093123.GI735@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Date: Mon, 22 Jun 2020 12:58:37 +0200
-From: Martin Lucina <martin@lucina.net>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: Event delivery and "domain blocking" on PVHv2
-In-Reply-To: <20200619174143.GE735@Air-de-Roger>
-References: <62479d08f7650c22678d7a86851eafc4@lucina.net>
- <5865159c-4190-e841-8020-7a4f3cf0fc24@citrix.com>
- <20200618101330.GB10330@nodbug.lucina.net>
- <20200618114617.GJ735@Air-de-Roger>
- <17deb17cec442f96cc7aba98ef4c047c@lucina.net>
- <20200619112119.GY735@Air-de-Roger>
- <ab26d419909c1fb038b32024d457871c@lucina.net>
- <20200619165426.GD735@Air-de-Roger> <20200619174143.GE735@Air-de-Roger>
-Message-ID: <7ed4a5f98b3002f3233e02d5ce803ef0@lucina.net>
-X-Sender: martin@lucina.net
-User-Agent: Roundcube Webmail/1.3.3
+X-ClientProxiedBy: FR2P281CA0005.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.156.60.99] (37.24.206.209) by
+ FR2P281CA0005.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:a::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3109.21 via Frontend Transport; Mon, 22 Jun 2020 11:07:13 +0000
+X-Originating-IP: [37.24.206.209]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 13be6c2a-d215-4834-f4b3-08d8169c6abd
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4286:
+X-Microsoft-Antispam-PRVS: <VI1PR04MB42868960A3695D4B8E769AFFB3970@VI1PR04MB4286.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Forefront-PRVS: 0442E569BC
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0yR5LoDDiYKYj62/5seI6MpR2herFq88gj5aF4jsnyswce8ECxY+21Kf4Mt7xlY0+fN27XsffnCzNTpP5uUpHybrKD5mnLWwPisDFrc+troZIeMPf5CfLKatkYBs3oEsQdiryNw6GSTIZm/XbJiHNpGQDZHRhMJKIPPZBKTXZTknNkVw2GM2tJ01DszZgAeS9gVxMZ8SzYukAXS1XwgV4Ek9GZp6z9HCkDPHbJpTc+3JqoQhBfV/MILOznro4qY5N5FBYJEQLF0wbbZCM8oG+fzWv1XSojotj8h8CwrU+W4eSby+MHrU1YcVBDslBqUR5OelBlNJyAO7ofvYE14yMgblT00mf/oP7bEqNW1IszF5lTRn/PpO3RJbeswkyi/G
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB5600.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(366004)(39860400002)(396003)(376002)(346002)(136003)(8936002)(31686004)(6486002)(956004)(52116002)(2616005)(8676002)(36756003)(86362001)(26005)(16526019)(186003)(316002)(16576012)(31696002)(4326008)(54906003)(53546011)(7416002)(478600001)(5660300002)(66946007)(66476007)(6916009)(83380400001)(2906002)(66556008)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: XcQ7vKg1yGe2nsqbUi8FaQdWFOS5oXzZKZThk1wzxwBt5Ka4+HmiXgwhN3w/ZAqLqz7FTvr2CpXbnhcTGgq+07ZeILCtJ8gMHYAf0R7w200jQuiWhi9AV2AR4RrNYGKhT7PQxO3TARp0soJP6dzRkPY3Tds68GXIIAIkIFu5+gVLhKirpUtSwrSLQSc62t9/AKFkrc3m80S4Np1Le+PNOV2sOt8v5j8fROv0EMIfk307A0LrSjGaER/LbGFjkIMvAXRb/zLUX6RGBWXgbsMWlpx/ruksGzon+UEa6V4X0YOeE0aiDsAlyhxpUsjl3SdnRtC40qkeli5HlcoINUSGNDJ+7t0vNhsb2iq/R7DDCcwcjeclB7iGk4bt5HmIdVNhGL/MX3g0Khci/Wxlo+HbalyoE9o6MKxaFH0sk3nNJJX1DNlybBXjRirAeCAguScSlGs/lg7UsFib3iFNQAKpBYyPjiJDNXtFswtkGGWIw/U=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13be6c2a-d215-4834-f4b3-08d8169c6abd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2020 11:07:13.5517 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zG96Na0Zesg+h7SIUOXyPbEd/o4MNBufywgmwgzxSMh70BdkLL+RWrdsmEQGw20104F67gy4cwQeWr6TrodCxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4286
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,165 +101,81 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- mirageos-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 2020-06-19 19:42, Roger Pau Monné wrote:
-> On Fri, Jun 19, 2020 at 06:54:26PM +0200, Roger Pau Monné wrote:
->> On Fri, Jun 19, 2020 at 06:41:21PM +0200, Martin Lucina wrote:
->> > On 2020-06-19 13:21, Roger Pau Monné wrote:
->> > > On Fri, Jun 19, 2020 at 12:28:50PM +0200, Martin Lucina wrote:
->> > > > On 2020-06-18 13:46, Roger Pau Monné wrote:
->> > > > > On Thu, Jun 18, 2020 at 12:13:30PM +0200, Martin Lucina wrote:
->> > > > > > At this point I don't really have a clear idea of how to progress,
->> > > > > > comparing my implementation side-by-side with the original PV
->> > > > > > Mini-OS-based
->> > > > > > implementation doesn't show up any differences I can see.
->> > > > > >
->> > > > > > AFAICT the OCaml code I've also not changed in any material way, and
->> > > > > > that
->> > > > > > has been running in production on PV for years, so I'd be inclined
->> > > > > > to think
->> > > > > > the problem is in my reimplementation of the C parts, but where...?
->> > > > >
->> > > > > A good start would be to print the ISR and IRR lapic registers when
->> > > > > blocked, to assert there are no pending vectors there.
->> > > > >
->> > > > > Can you apply the following patch to your Xen, rebuild and check the
->> > > > > output of the 'l' debug key?
->> > > > >
->> > > > > Also add the output of the 'v' key.
->> > > >
->> > > > Had to fight the Xen Debian packages a bit as I wanted to patch the
->> > > > exact
->> > > > same Xen (there are some failures when building on a system that has
->> > > > Xen
->> > > > installed due to following symlinks when fixing shebangs).
->> > > >
->> > > > Here you go, when stuck during netfront setup, after allocating its
->> > > > event
->> > > > channel, presumably waiting on Xenstore:
->> > > >
->> > > > 'e':
->> > > >
->> > > > (XEN) Event channel information for domain 3:
->> > > > (XEN) Polling vCPUs: {}
->> > > > (XEN)     port [p/m/s]
->> > > > (XEN)        1 [1/0/1]: s=3 n=0 x=0 d=0 p=33
->> > > > (XEN)        2 [1/1/1]: s=3 n=0 x=0 d=0 p=34
->> > > > (XEN)        3 [1/0/1]: s=5 n=0 x=0 v=0
->> > > > (XEN)        4 [0/1/1]: s=2 n=0 x=0 d=0
->> > > >
->> > > > 'l':
->> > > >
->> > > > (XEN) d3v0 IRR:
->> > > > ffff8301732dc200b
->> > > > (XEN) d3v0 ISR:
->> > > > ffff8301732dc100b
->> > >
->> > > Which version of Xen is this? AFAICT it doesn't have the support to
->> > > print a bitmap.
->> >
->> > That in Debian 10 (stable):
->> >
->> > ii  xen-hypervisor-4.11-amd64            4.11.3+24-g14b62ab3e5-1~deb10u1.2
->> > amd64        Xen Hypervisor on AMD64
->> >
->> > xen_major              : 4
->> > xen_minor              : 11
->> > xen_extra              : .4-pre
->> > xen_version            : 4.11.4-pre
->> >
->> > >
->> > > Do you think you could also pick commit
->> > > 8cd9500958d818e3deabdd0d4164ea6fe1623d7c [0] and rebuild? (and print
->> > > the info again).
->> >
->> > Done, here you go:
->> >
->> > (XEN) Event channel information for domain 3:
->> > (XEN) Polling vCPUs: {}
->> > (XEN)     port [p/m/s]
->> > (XEN)        1 [1/0/1]: s=3 n=0 x=0 d=0 p=33
->> > (XEN)        2 [1/1/1]: s=3 n=0 x=0 d=0 p=34
->> > (XEN)        3 [1/0/1]: s=5 n=0 x=0 v=0
->> > (XEN)        4 [0/1/1]: s=3 n=0 x=0 d=0 p=35
->> >
->> >
->> > (XEN) d3v0 IRR:
->> > 00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000
->> > (XEN) d3v0 ISR:
->> > 00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000
->> 
->> So there's nothing pending on the lapic. Can you assert that you will
->> always execute evtchn_demux_pending after you have received an event
->> channel interrupt (ie: executed solo5__xen_evtchn_vector_handler)?
->> 
->> I think this would be simpler if you moved evtchn_demux_pending into
->> solo5__xen_evtchn_vector_handler? As there would be less asynchronous
->> processing, and thus likely less races?
+On 22.06.2020 11:31, Roger Pau Monné wrote:
+> On Fri, Jun 19, 2020 at 04:06:55PM +0200, Jan Beulich wrote:
+>> On 18.06.2020 18:04, Roger Pau Monne wrote:
+>>> Commit e9aca9470ed86 introduced a regression when avoiding sending
+>>> IPIs for certain flush operations. Xen page fault handler
+>>> (spurious_page_fault) relies on blocking interrupts in order to
+>>> prevent handling TLB flush IPIs and thus preventing other CPUs from
+>>> removing page tables pages. Switching to assisted flushing avoided such
+>>> IPIs, and thus can result in pages belonging to the page tables being
+>>> removed (and possibly re-used) while __page_fault_type is being
+>>> executed.
+>>>
+>>> Force some of the TLB flushes to use IPIs, thus avoiding the assisted
+>>> TLB flush. Those selected flushes are the page type change (when
+>>> switching from a page table type to a different one, ie: a page that
+>>> has been removed as a page table) and page allocation. This sadly has
+>>> a negative performance impact on the pvshim, as less assisted flushes
+>>> can be used.
+>>>
+>>> Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
+>>> using an IPI (flush_tlb_mask_sync). Note that the flag is only
+>>> meaningfully defined when the hypervisor supports PV mode, as
+>>> otherwise translated domains are in charge of their page tables and
+>>> won't share page tables with Xen, thus not influencing the result of
+>>> page walks performed by the spurious fault handler.
+>>
+>> Is this true for shadow mode? If a page shadowing a guest one was
+>> given back quickly enough to the allocator and then re-used, I think
+>> the same situation could in principle arise.
 > 
-> Having though about this, I think this model of not demuxing in
-> solo5__xen_evtchn_vector_handler is always racy, as it's not possible
-> to assert that you would always call evtchn_demux_pending after
-> solo5__xen_evtchn_vector_handler?
+> Hm, I think it's not applicable to HVM shadow mode at least, because
+> CR3 is switched as part of vmentry/vmexit, and the page tables are not
+> shared between Xen and the guest, so there's no way for a HVM shadow
+> guest to modify the page-tables while Xen is walking them in
+> spurious_page_fault (note spurious_page_fault is only called when the
+> fault happens in non-guest context).
+
+I'm afraid I disagree, because of shadow's use of "linear page tables".
+
+>>> Note the flag is not defined on Arm, and the introduced helper is just
+>>> a dummy alias to the existing flush_tlb_mask.
+>>>
+>>> Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when available')
+>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>> It's my understanding that not doing such IPI flushes could lead to
+>>> the pages tables being read by __page_fault_type being modified by a
+>>> third party, which could make them point to other mfns out of the
+>>> scope of the guest allowed physical memory addresses. However those
+>>> accesses would be limited to __page_fault_type, and hence the main
+>>> worry would be that a guest could make it point to read from a
+>>> physical memory region that has side effects?
+>>
+>> I don't think so, no - the memory could be changed such that the
+>> PTEs are invalid altogether (like having reserved bits set). Consider
+>> for example the case of reading an MFN out of such a PTE that's larger
+>> than the physical address width supported by the CPU. Afaict
+>> map_domain_page() will happily install a respective page table entry,
+>> but we'd get a reserved-bit #PF upon reading from that mapping.
 > 
-> Ie: if you receive an interrupt just before going to sleep (after the
-> sti and before the hlt) you will execute
-> solo5__xen_evtchn_vector_handler and EOI the vector, but then
-> evtchn_demux_pending will never get called, and thus the interrupts
-> will stay indefinitely pending?
+> So there are no hazards from executing __page_fault_type against a
+> page-table that could be modified by a user?
 
-Aha! Thank you for pointing this out. I think you may be right, but this 
-should be possible without doing the demuxing in interrupt context.
+There are - I realize only now that the way I started my earlier
+reply was ambiguous. I meant to negate your "only with side effects"
+way of thinking.
 
-How about this arrangement, which appears to work for me; no hangs I can 
-see so far and domU survives ping -f fine with no packet loss:
-
-CAMLprim value
-mirage_xen_evtchn_block_domain(value v_deadline)
-{
-     struct vcpu_info *vi = VCPU0_INFO();
-     solo5_time_t deadline = Int64_val(v_deadline);
-
-     if (solo5_clock_monotonic() < deadline) {
-         __asm__ __volatile__ ("cli" : : : "memory");
-         if (vi->evtchn_upcall_pending) {
-             __asm__ __volatile__ ("sti");
-         }
-         else {
-             hypercall_set_timer_op(deadline);
-             __asm__ __volatile__ ("sti; hlt");
-         }
-     }
-     return Val_unit;
-}
-
-i.e. Always go to sleep with interrupts disabled, but before doing so 
-re-check that no events have become pending since the last time 
-evtchn_demux_pending() was called. This holds, since the only thing that 
-sets vi->evtchn_upcall_pending is Xen, and the only thing that clears it 
-is evtchn_demux_pending().
-
-Right?
-
-In an attempt to understand why the original PV code worked I re-read 
-the PV Mini-OS block_domain code again and realised that I had entirely 
-missed one part of its behaviour, which is that it intends[*] to run 
-with interrupts/upcalls disabled *all* the time and relies on 
-SCHEDOP_block atomically re-enabling them and triggering an upcall 
-before returning (PV) or "briefly enabling interrupts to allow handlers 
-to run" (HVM). We're doing the inverse, but our behaviour matches my 
-mental model of how things should work.
-
-[*] AFAICT there's a bug in Mini-OS as ASSERT(irqs_disabled) is a no-op, 
-and block_domain is called with upcalls/interrupts enabled the first 
-time round. But I'm not 100% sure, and that code is a twisty little maze 
-of #ifdefs all alike.
-
-Martin
-
-> Roger.
+Jan
 
