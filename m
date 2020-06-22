@@ -2,79 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13EC203CA6
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 18:35:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90904203CAE
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 18:36:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnPOh-00020K-Qz; Mon, 22 Jun 2020 16:34:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tVQB=AD=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jnPOg-00020E-0H
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 16:34:14 +0000
-X-Inumbo-ID: 343945a6-b4a6-11ea-bb8b-bc764e2007e4
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 343945a6-b4a6-11ea-bb8b-bc764e2007e4;
- Mon, 22 Jun 2020 16:34:12 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id CD238A23FE;
- Mon, 22 Jun 2020 18:34:11 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id CAA8DA1D3A;
- Mon, 22 Jun 2020 18:34:10 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id v16cT_qraLV1; Mon, 22 Jun 2020 18:34:10 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 5261FA23FE;
- Mon, 22 Jun 2020 18:34:10 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id uoKYThEnuR4e; Mon, 22 Jun 2020 18:34:10 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 2CE73A1D3A;
- Mon, 22 Jun 2020 18:34:10 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 15E8D218C6;
- Mon, 22 Jun 2020 18:33:40 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id vReO675wXacE; Mon, 22 Jun 2020 18:33:34 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 8483921A10;
- Mon, 22 Jun 2020 18:33:34 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id LtOUdmnuBOAN; Mon, 22 Jun 2020 18:33:34 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id 5E74320562;
- Mon, 22 Jun 2020 18:33:34 +0200 (CEST)
-Date: Mon, 22 Jun 2020 18:33:34 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
-Message-ID: <895766097.11433345.1592843614252.JavaMail.zimbra@cert.pl>
-In-Reply-To: <20200622162237.GN735@Air-de-Roger>
-References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
- <1005194077.9820950.1592523663199.JavaMail.zimbra@cert.pl>
- <4e040500-0532-2231-f5b7-c61e97a0a0c5@suse.com>
- <800738193.11403725.1592836530558.JavaMail.zimbra@cert.pl>
- <87576264-e7df-2590-f141-351d76baac7a@suse.com>
- <1130937743.11428389.1592841763323.JavaMail.zimbra@cert.pl>
- <5b7dd58f-2dc1-32bc-3add-d896631734a4@suse.com>
- <20200622162237.GN735@Air-de-Roger>
-Subject: Re: [PATCH v2 4/7] x86/vmx: add do_vmtrace_op
+	id 1jnPQx-0002DY-FJ; Mon, 22 Jun 2020 16:36:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=u48w=AD=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jnPQw-0002D1-7H
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 16:36:34 +0000
+X-Inumbo-ID: 84e521c8-b4a6-11ea-beaf-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 84e521c8-b4a6-11ea-beaf-12813bfff9fa;
+ Mon, 22 Jun 2020 16:36:28 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: zenzgTPE0gwVQjxT8qMs0u6lkcHLDtZd0ulrGRJqKik6SlE3UsmONSxc6EJJHX2OsTNN4ZJjDO
+ zQKRbX6kGGU4IaiYNrRIYYxXh1eWDB4oltec5YfhTjmbghoUd8Xo9WCEWbrq6zY165QjRx4MV6
+ vPQumjzDD0loK3L8huzC+MozOEk+e2SIG71LbLsTjb9n9LJGf8TVQ0y0oJeXhaK1x7CsF11054
+ Jfkz9g+voi5w+jLQD2+/O8PUgCh4vG6zVdN92tC9qurBytHXFziDltxhSs6mXQG0Jc72ERiDII
+ QqU=
+X-SBRS: 2.7
+X-MesageID: 20944777
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,267,1589256000"; d="scan'208";a="20944777"
+Date: Mon, 22 Jun 2020 18:36:20 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>, Martin Lucina <martin@lucina.net>
+Subject: Re: Event delivery and "domain blocking" on PVHv2
+Message-ID: <20200622163620.GO735@Air-de-Roger>
+References: <17deb17cec442f96cc7aba98ef4c047c@lucina.net>
+ <20200619112119.GY735@Air-de-Roger>
+ <ab26d419909c1fb038b32024d457871c@lucina.net>
+ <20200619165426.GD735@Air-de-Roger>
+ <20200619174143.GE735@Air-de-Roger>
+ <7ed4a5f98b3002f3233e02d5ce803ef0@lucina.net>
+ <20200622135853.GK735@Air-de-Roger>
+ <745e4ac251b146480b2c6d6afbf5f34a@lucina.net>
+ <20200622160916.GM735@Air-de-Roger>
+ <c1f1a722-49fe-257c-2033-76f3efe0d60c@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
-Thread-Topic: x86/vmx: add do_vmtrace_op
-Thread-Index: f7GTr4GfAQdWl0vLqzhU8plHMDvsqg==
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c1f1a722-49fe-257c-2033-76f3efe0d60c@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,48 +64,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, "Kang, Luwei" <luwei.kang@intel.com>,
- Jan Beulich <jbeulich@suse.com>, Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ mirageos-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 22 cze 2020 o 18:25, Roger Pau Monn=C3=A9 roger.pau@citrix.com napisa=
-=C5=82(a):
+On Mon, Jun 22, 2020 at 06:20:34PM +0200, Jan Beulich wrote:
+> On 22.06.2020 18:09, Roger Pau Monné wrote:
+> > On Mon, Jun 22, 2020 at 05:31:00PM +0200, Martin Lucina wrote:
+> >> On 2020-06-22 15:58, Roger Pau Monné wrote:
+> >>> On Mon, Jun 22, 2020 at 12:58:37PM +0200, Martin Lucina wrote:
+> >>>> Aha! Thank you for pointing this out. I think you may be right, but
+> >>>> this
+> >>>> should be possible without doing the demuxing in interrupt context.
+> >>>
+> >>> If you don't do the demuxing in the interrupt context (ie: making the
+> >>> interrupt handler a noop), then you don't likely need such interrupt
+> >>> anyway?
+> >>
+> >> I need the/an interrupt to wake the VCPU from HLT state if we went to sleep.
+> >>
+> >>>
+> >>>> How about this arrangement, which appears to work for me; no hangs I
+> >>>> can see
+> >>>> so far and domU survives ping -f fine with no packet loss:
+> >>>>
+> >>>> CAMLprim value
+> >>>> mirage_xen_evtchn_block_domain(value v_deadline)
+> >>>> {
+> >>>>     struct vcpu_info *vi = VCPU0_INFO();
+> >>>>     solo5_time_t deadline = Int64_val(v_deadline);
+> >>>>
+> >>>>     if (solo5_clock_monotonic() < deadline) {
+> >>>>         __asm__ __volatile__ ("cli" : : : "memory");
+> >>>>         if (vi->evtchn_upcall_pending) {
+> >>>>             __asm__ __volatile__ ("sti");
+> >>>>         }
+> >>>>         else {
+> >>>>             hypercall_set_timer_op(deadline);
+> >>>
+> >>> What if you set a deadline so close that evtchn_upcall_pending gets
+> >>> set by Xen here and the interrupt is injected? You would execute the
+> >>> noop handler and just hlt, and could likely end up in the same blocked
+> >>> situation as before?
+> >>
+> >> Why would an interrupt be injected here? Doesn't the immediately preceding
+> >> "cli" disable that?
+> > 
+> > Well, I mean between the sti and the hlt instruction.
+> 
+> When EFLAGS.IF was clear before STI, then the first point at which
+> an interrupt can get injected is when HLT is already executed (i.e.
+> to wake from this HLT). That's the so called "STI shadow".
 
-> On Mon, Jun 22, 2020 at 06:16:57PM +0200, Jan Beulich wrote:
->> On 22.06.2020 18:02, Micha=C5=82 Leszczy=C5=84ski wrote:
->> > ----- 22 cze 2020 o 17:22, Jan Beulich jbeulich@suse.com napisa=C5=82(=
-a):
->> >> On 22.06.2020 16:35, Micha=C5=82 Leszczy=C5=84ski wrote:
->> >>> ----- 22 cze 2020 o 15:25, Jan Beulich jbeulich@suse.com napisa=C5=
-=82(a):
->> > It's also not "many gigabytes". In most use cases a buffer of 16/32/64=
- MB
->> > would suffice, I think.
->>=20
->> But that one such buffer per vCPU, isn't it? Plus these buffers
->> need to be physically contiguous, which is an additional possibly
->> severe constraint.
->=20
-> FTR, from my reading of the SDM you can use a mode called ToPA where
-> the buffer is some kind of linked list of tables that map to output
-> regions. That would be nice, but IMO it should be implemented in a
-> next iteration after the basic support is in.
->=20
-> Roger.
+Oh, so then what Martin does seems to be fine, as there's no race, by
+the fact that evtchn_upcall_pending is checked with interrupts
+disabled.
 
-Yes. I keep that in mind but right now I would like to go for the
-minimum viable implementation, while ToPA could be added in the next
-patch series.
-
-
-Best regards,
-Micha=C5=82 Leszczy=C5=84ski
-CERT Polska
+Thanks, Roger.
 
