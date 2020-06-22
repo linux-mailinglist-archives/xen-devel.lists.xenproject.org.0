@@ -2,100 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7BB6203996
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 16:34:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 765A52039A2
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 16:36:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnNWN-00067z-4g; Mon, 22 Jun 2020 14:34:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+IWF=AD=epam.com=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1jnNWM-00067u-DB
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 14:34:02 +0000
-X-Inumbo-ID: 67c895e0-b495-11ea-bca7-bc764e2007e4
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
- [40.107.14.42]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 67c895e0-b495-11ea-bca7-bc764e2007e4;
- Mon, 22 Jun 2020 14:33:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DOo85M+L+9z5oyyd+xwWwrJlMdVud17kCNV26VKYBVJkUImd0WCvTT+a6pRmsnuVcb8BozPLJ+nq2Ubp6t3uydFbVVXsI04S2sBqDWs8jadYxUSd4lC7JN9R+H/DUdFnwa5RXaCq0f8aN/aiUDgXDJxu8RcK8N6oFgUIXf3J1IFlV32wrh6kT4HYAjQ5aeOz3r4bPwLbeGxNl3RMRgCRTjVDiIklen+h2/G8eogCG9O6AeDgJnx/LeE0WM2yvTMeMqspLTAwmEgTF510c2jMDAsKlx/HVvhgPAtucczvzXlgAtxm3HtID10RkQ4Xic8t/WcQoYUrzn62i5NKn2SBQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W1MVAF7AYJDnpBfewUOntEO3RdJbQ5xhbYNZrtFpTLE=;
- b=DlTU4pOBGsNvoRQVuA9Ix7pbcSuJvbGv5eopP08VLV6pEXzqGfaqx2epKX2WEaqaRn32+OpqW0E4zsIghNg5X4zDnCYJazi3QFxNSmXqIoT/r84T6d15Yx2JJAUA5XDLlsihjCEZOtKHWC/hW0736rtKybR1SU1lH3eHY83v1HqeyDKbgKdG78SUDTegE+5PNdkleEZPZi4cln/hFUdWr0MSlAEI+XhzMmq7tXxNtGqMxcCoDIg5by5k+4DNc0rw2lX772k4hH3/IS8T5/unL26hZfbgWtA11/fg3BigTovgysB+ZYAsQd41geciq+LMMLQ82eZFVnY112SGd4iTvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W1MVAF7AYJDnpBfewUOntEO3RdJbQ5xhbYNZrtFpTLE=;
- b=H8Z1QhfZ581m6nShu5xMtBw/K98Bg3ZaY4Bb4VScaFUL+O09YwAcLhOAyH9xzeNvs1C/X5gyZ66V+Cc0vM2Er5ATWlzjSfKqN9bcPKe3kVx7vszGHdZorWJkGX+g8kNgzNjSyXUa7wgEJMAjn4K/f4AY6msv+cX/1u59Ol9/NBdIFplH05KJj2rhiq76+o7+7KbueHGBBlJtNSxoqvaGRxQmJenhFHfSpCw2wqTYTfjrGwtyNjWwrA1vedJT+U8h1nRuUJtbeiEwXtetb3Aqs+/W2Weh9ux4wdpWxVvng8O0kwdVd6YuGGUZud/eG8MbW/zF34qssUoACgyLok5VrA==
-Received: from VI1PR03MB3998.eurprd03.prod.outlook.com (2603:10a6:803:72::14)
- by VI1PR03MB6238.eurprd03.prod.outlook.com (2603:10a6:800:13f::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22; Mon, 22 Jun
- 2020 14:33:54 +0000
-Received: from VI1PR03MB3998.eurprd03.prod.outlook.com
- ([fe80::28ec:3584:94d:27a4]) by VI1PR03MB3998.eurprd03.prod.outlook.com
- ([fe80::28ec:3584:94d:27a4%7]) with mapi id 15.20.3109.027; Mon, 22 Jun 2020
- 14:33:53 +0000
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien.grall.oss@gmail.com>
-Subject: Re: UEFI support in ARM DomUs
-Thread-Topic: UEFI support in ARM DomUs
-Thread-Index: AQHWOoSI1wnhumD+IkWBnAQX9mudyajIlWsAgBVWbwCAAJ62gIAAeBOAgAANxQCAAWPDgIAEUtgAgAAGgYCAAAHAgA==
-Date: Mon, 22 Jun 2020 14:33:53 +0000
-Message-ID: <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
- <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
- <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
- <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
- <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
- <alpine.DEB.2.21.2006191020110.12730@sstabellini-ThinkPad-T480s>
- <c5905f40-6d0a-358f-35e4-239e88ace7d8@epam.com>
- <94bfe57c-c1be-62b4-3799-b90415264487@xen.org>
-In-Reply-To: <94bfe57c-c1be-62b4-3799-b90415264487@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [176.36.245.220]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6a8a8e7c-8980-4221-0e14-08d816b94a0b
-x-ms-traffictypediagnostic: VI1PR03MB6238:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <VI1PR03MB6238CB9F67F428E31512920DE7970@VI1PR03MB6238.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 0442E569BC
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: dGRqQBXJphRu1kADDgr9VLuQDYyDf3hq3bX3OdL2nXng2RJRKsVewzq2XVyV1LUvczPRdJcGshMl/xNjwpg2OAmMFVw/l7o1XimQ7BvPmWtuUyG3koKmzqJmFdpbLCTC8FfZDpATELgZUUpDexf8OmB8fItXwUNcyC0xQIiPr/j9ko4YTGcl3wT6LWjbjKlxZLRq1vM4HHd8IRAFh7tHvyoKk5iSybZParXGswE4m/076Bd0J7nJ1eklUQgrwkAyd6B7OwlVZM5/5zuJKXlM80Ay49Izl5WpOLf9o07+W5vhprlAsxM0/IktM5ekZ/Zp
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR03MB3998.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(366004)(346002)(396003)(136003)(39860400002)(316002)(5660300002)(8936002)(36756003)(478600001)(8676002)(31686004)(7416002)(54906003)(6512007)(4326008)(110136005)(66556008)(64756008)(31696002)(26005)(91956017)(76116006)(66476007)(66946007)(66446008)(2616005)(2906002)(186003)(86362001)(71200400001)(55236004)(53546011)(6506007)(6486002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: KUYyrZOsG2OCdmIyXganATft7xNx1WM6wXesiHVyXD2Jg+GjXfQQwWUI1b7jQ8JV+y0NjdEHQMQxwlLWIlHxroTVdEO6GAsuspQyn8nMLAHXuJI0v0kOl7wocnINQnc8KMC7AmpDDMYtui9ANynJz7AVmIIv4XPFPbGEz9sEgygIs4AXqyrLIz3nIpuQoVBa8I/1Wlg/TloGOGBxWj/V/BvPE7AHcFPR/XQLy7+whnwaY2wp+eItDcjc8DQpU+P8vVSq+U5D2NV2OEKANE+Tv0GuUzPXVr9T5TBn5NTUV2gaSA+5m4vMNIs/evMGzfNddKry1ejgpy1QRq4jjoRxSffDCV+aqkyUZI8JaGsqCElchNd4E3u32SB34TmLsbIi8iJ2BbL5CVjvg6t9WPpNp0KDZuZsIA8Ba39nrtw1uOHUBdh1u0jCjwGjDX6R75dl3Qfaf8cWihUOfFisjOwqO5I3oAPRuOaCnMDuRdrSdv1DRCoDF5dGDZ41S+3OY6tt
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4B4F707C5A06344B9ED31CE4B55D91A0@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	id 1jnNYS-0006Eo-HR; Mon, 22 Jun 2020 14:36:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tVQB=AD=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1jnNYR-0006Ei-Cz
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 14:36:11 +0000
+X-Inumbo-ID: b67a2d8e-b495-11ea-be9b-12813bfff9fa
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b67a2d8e-b495-11ea-be9b-12813bfff9fa;
+ Mon, 22 Jun 2020 14:36:10 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id D16A8A2800;
+ Mon, 22 Jun 2020 16:36:08 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 9AE62A27F7;
+ Mon, 22 Jun 2020 16:36:07 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id qYy-84ZuC1iK; Mon, 22 Jun 2020 16:36:07 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id C2A61A2800;
+ Mon, 22 Jun 2020 16:36:06 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id DZEZsAODQqT8; Mon, 22 Jun 2020 16:36:06 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 947E6A27F7;
+ Mon, 22 Jun 2020 16:36:06 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 7DF262168B;
+ Mon, 22 Jun 2020 16:35:36 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id L0re4ANfyr_d; Mon, 22 Jun 2020 16:35:31 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id E63B421C2D;
+ Mon, 22 Jun 2020 16:35:30 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 8hth-wQ9UJ3a; Mon, 22 Jun 2020 16:35:30 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id C0D5621BF6;
+ Mon, 22 Jun 2020 16:35:30 +0200 (CEST)
+Date: Mon, 22 Jun 2020 16:35:30 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <800738193.11403725.1592836530558.JavaMail.zimbra@cert.pl>
+In-Reply-To: <4e040500-0532-2231-f5b7-c61e97a0a0c5@suse.com>
+References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
+ <1005194077.9820950.1592523663199.JavaMail.zimbra@cert.pl>
+ <4e040500-0532-2231-f5b7-c61e97a0a0c5@suse.com>
+Subject: Re: [PATCH v2 4/7] x86/vmx: add do_vmtrace_op
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a8a8e7c-8980-4221-0e14-08d816b94a0b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2020 14:33:53.8195 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zbxb5eLMi/KnXF2LsLMiQ8pIujU7BjshSWZ7YKkE2tdL8ioWX4L1wFia0t3vAIVjyl7/f5qSs0oD8x6Vqjn7TyP+uohVzEPmweEgQOwhrmtkeEBzHsEXBlywzfO5N/ga
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6238
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
+Thread-Topic: x86/vmx: add do_vmtrace_op
+Thread-Index: RlrguZCOMbAulIfOOXv3zf4lULTvtQ==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,41 +81,109 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- Roman Shaposhnik <roman@zededa.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, "Kang, Luwei" <luwei.kang@intel.com>,
+ Jun Nakajima <jun.nakajima@intel.com>,
+ Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQpPbiA2LzIyLzIwIDU6MjcgUE0sIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgT2xla3NhbmRy
-LA0KPg0KPiBPbiAyMi8wNi8yMDIwIDE1OjA0LCBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyB3cm90
-ZToNCj4+IE9uIDYvMTkvMjAgMTE6MDIgUE0sIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4+
-PiBPbiBUaHUsIDE4IEp1biAyMDIwLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+PiBpZmVxICgkKENP
-TkZJR19YRU4pLHkpDQo+PiBhcmNoLXkgKz0gLURfX1hFTl9JTlRFUkZBQ0VfVkVSU0lPTl9fPTB4
-MDAwNDBkMDANCj4+IGVuZGlmDQo+Pg0KPj4gYW5kIHdlIGFsc28gaGF2ZSBYZW4gNC4xMyBoZWFk
-ZXJzIGluIHRoZSBVLWJvb3QgdHJlZS4NCj4NCj4gU29ycnkgaWYgdGhpcyB3YXMgYWxyZWFkeSBh
-c2tlZCBiZWZvcmUuIFdoeSBkbyB5b3UgbmVlZCB0byBzcGVjaWZ5IF9fWEVOX0lOVEVSRkFDRV9W
-RVJTSU9OX18/DQoNClRoaXMgaXMgYmVjYXVzZSBvZiBpbmNsdWRlL3hlbi9pbnRlcmZhY2UveGVu
-LWNvbXBhdC5oOg0KDQojaWYgZGVmaW5lZChfX1hFTl9fKSB8fCBkZWZpbmVkKF9fWEVOX1RPT0xT
-X18pDQoNCi8qIFhlbiBpcyBidWlsdCB3aXRoIG1hdGNoaW5nIGhlYWRlcnMgYW5kIGltcGxlbWVu
-dHMgdGhlIGxhdGVzdCBpbnRlcmZhY2UuICovDQojZGVmaW5lIF9fWEVOX0lOVEVSRkFDRV9WRVJT
-SU9OX18gX19YRU5fTEFURVNUX0lOVEVSRkFDRV9WRVJTSU9OX18NCiNlbGlmICFkZWZpbmVkKF9f
-WEVOX0lOVEVSRkFDRV9WRVJTSU9OX18pDQovKiBHdWVzdHMgd2hpY2ggZG8gbm90IHNwZWNpZnkg
-YSB2ZXJzaW9uIGdldCB0aGUgbGVnYWN5IGludGVyZmFjZS4gKi8NCiNkZWZpbmUgX19YRU5fSU5U
-RVJGQUNFX1ZFUlNJT05fXyAweDAwMDAwMDAwDQojZW5kaWYNCg0KU28sIG9uZSBuZWVkcyB0byBz
-cGVjaWZ5IHRoZSB2ZXJzaW9uIChRRU1VIGRvZXMgdGhhdCB2aWEgaXRzIGNvbmZpZ3VyZSBzY3Jp
-cHQgYWZ0ZXINCg0Kc29tZSB0ZXN0cykNCg0KPg0KPj4NCj4+IEZvciB0aGUgZmlyc3QgcGFydCAo
-X19YRU5fSU5URVJGQUNFX1ZFUlNJT05fXykgSSB0aGluayB3ZSBjYW4gcHJvdmlkZSBpdCB2aWEN
-Cj4+DQo+PiBDRkxBR1Mgb3Igc29tZXRoaW5nLiBUaGlzIGNhbiBhbHNvIGJlIGRvbmUgZm9yIHRo
-ZSBsb2NhdGlvbiBvZiBYZW4gaGVhZGVycy4NCj4NCj4gX19YRU5fSU5URVJGQUNFX1ZFUlNJT05f
-XyBzaG91bGQgd29yayB0aHJvdWdoIHRoZSBDRkxBR1MuIEFuIGFsdGVybmF0aXZlIHdvdWxkIGJl
-IHRvIGFsbG93IHRoZSB1c2VyIHRvIHNwZWNpZnkgdGhyb3VnaCB0aGUgS2NvbmZpZy4NCg0KWW91
-IG1lYW4gc3BlY2lmeWluZyB2aWEgS2NvbmZpZyBzb21ldGhpbmcgbGlrZSAiMHgwMDA0MGQwMCI/
-DQoNCkFuZCB3aGF0IGFib3V0IHRoZSBoZWFkZXJzPyBIb3cgd2lsbCB3ZSBwcm92aWRlIHRoZWly
-IGxvY2F0aW9uIGlmIHdlIGRlY2lkZSBub3QgdG8gaW5jbHVkZSB0aG9zZQ0KDQppbiB0aGUgdHJl
-ZT8NCg0KPiBDaGVlcnMsDQo+
+----- 22 cze 2020 o 15:25, Jan Beulich jbeulich@suse.com napisa=C5=82(a):
+
+> On 19.06.2020 01:41, Micha=C5=82 Leszczy=C5=84ski wrote:
+>> +
+>> +    domain_pause(d);
+>=20
+> Who's the intended caller of this interface? You making it a hvm-op
+> suggests the guest may itself call this. But of course a guest
+> can't pause itself. If this is supposed to be a tools-only interface,
+> then you should frame it suitably in the public header and of course
+> you need to enforce this here (which would e.g. mean you shouldn't
+> use rcu_lock_domain_by_any_id()).
+>=20
+
+What should I use instead of rcu_lock_domain_by_and_id()?
+
+> Also please take a look at hvm/ioreq.c, which makes quite a bit of
+> use of domain_pause(). In particular I think you want to acquire
+> the lock only after having paused the domain.
+>=20
+
+This domain_pause() will be changed to vcpu_pause().
+
+> Shouldn't you rather remove the MSR from the load list here?
+>=20
+
+This will be fixed.
+
+> Is any of what you do in this switch() actually legitimate without
+> hvm_set_vmtrace_pt_size() having got called for the guest? From
+> remarks elsewhere I imply you expect the param that you currently
+> use to be set upon domain creation time, but at the very least the
+> potentially big buffer should imo not get allocated up front, but
+> only when tracing is to actually be enabled.
+
+Wait... so you want to allocate these buffers in runtime?
+Previously we were talking that there is too much runtime logic
+and these enable/disable hypercalls should be stripped to absolute
+minimum.
+
+
+>> --- a/xen/include/public/hvm/hvm_op.h
+>> +++ b/xen/include/public/hvm/hvm_op.h
+>> @@ -382,6 +382,29 @@ struct xen_hvm_altp2m_op {
+>>  typedef struct xen_hvm_altp2m_op xen_hvm_altp2m_op_t;
+>>  DEFINE_XEN_GUEST_HANDLE(xen_hvm_altp2m_op_t);
+>> =20
+>> +/* HVMOP_vmtrace: Perform VM tracing related operation */
+>> +#define HVMOP_vmtrace 26
+>> +
+>> +#define HVMOP_VMTRACE_INTERFACE_VERSION 0x00000001
+>=20
+> I'm unconvinced we want to introduce yet another versioned interface.
+> In any event, as hinted at earlier, this suggests it wants to be a
+> tools-only interface instead (which, at least for the time being, is
+> not required to be a stable interface then, but that's also something
+> we apparently want to move away from, and hence you may better not
+> try to rely on it not needing to be stable).
+
+Ok. I will remove the interface version.
+
+>=20
+>> +struct xen_hvm_vmtrace_op {
+>> +    /* IN variable */
+>> +    uint32_t version;   /* HVMOP_VMTRACE_INTERFACE_VERSION */
+>> +    uint32_t cmd;
+>> +/* Enable/disable external vmtrace for given domain */
+>> +#define HVMOP_vmtrace_ipt_enable      1
+>> +#define HVMOP_vmtrace_ipt_disable     2
+>> +#define HVMOP_vmtrace_ipt_get_offset  3
+>> +    domid_t domain;
+>> +    uint32_t vcpu;
+>> +    uint64_t size;
+>> +
+>> +    /* OUT variable */
+>> +    uint64_t offset;
+>=20
+> If this is to be a tools-only interface, please use uint64_aligned_t.
+>=20
+
+This type is not defined within hvm_op.h header. What should I do about it?
+
+> You also want to add an entry to xen/include/xlat.lst and use the
+> resulting macro to prove that the struct layout is the same for
+> native and compat callers.
+
+Could you tell a little bit more about this? What are "native" and
+"compat" callers and what is the purpose of this file?
+
+
+Best regards,
+Micha=C5=82 Leszczy=C5=84ski
+CERT Polska
 
