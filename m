@@ -2,66 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D66CF203E5F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 19:50:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ED68203EC2
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 20:07:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnQZN-0000SB-Pt; Mon, 22 Jun 2020 17:49:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jnQqI-0002Jh-9I; Mon, 22 Jun 2020 18:06:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O88q=AD=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jnQZM-0000S6-Jz
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 17:49:20 +0000
-X-Inumbo-ID: b3131dca-b4b0-11ea-bca7-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b3131dca-b4b0-11ea-bca7-bc764e2007e4;
- Mon, 22 Jun 2020 17:49:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9weotV/SNrMZyG1N1H3/PFtyW42B6wbbtW+YFspt8Zk=; b=insdBMx2bfBXoUpm9PYFijyIXm
- eeMtEfWsUy8zv1zWqnXNBM+nAPhn6zlh1v7+XijiV2m8HB5tu+bywNKAUIboHoi65fEbaHo/KmAy3
- CPTkGwr8VwhtQ2OwGAePrcF67+SBn/0qn9elHyV67x0Tt+UqjJcsZSQm/CBjN81Xjczs=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jnQZK-0004RH-37; Mon, 22 Jun 2020 17:49:18 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jnQZJ-0003qH-RY; Mon, 22 Jun 2020 17:49:18 +0000
-Subject: Re: UEFI support in ARM DomUs
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall.oss@gmail.com>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
- <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
- <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
- <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
- <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
- <alpine.DEB.2.21.2006191020110.12730@sstabellini-ThinkPad-T480s>
- <c5905f40-6d0a-358f-35e4-239e88ace7d8@epam.com>
- <94bfe57c-c1be-62b4-3799-b90415264487@xen.org>
- <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <1a44c645-8c9a-93ce-8466-35c87eb4fca5@xen.org>
-Date: Mon, 22 Jun 2020 18:49:15 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
+ (envelope-from <SRS0=tVQB=AD=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1jnQqH-0002Jc-GW
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 18:06:49 +0000
+X-Inumbo-ID: 232b9a68-b4b3-11ea-beb6-12813bfff9fa
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 232b9a68-b4b3-11ea-beb6-12813bfff9fa;
+ Mon, 22 Jun 2020 18:06:47 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 85B54A2894;
+ Mon, 22 Jun 2020 20:06:46 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 6FA8CA2881;
+ Mon, 22 Jun 2020 20:06:45 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id KLl5yrCTlsJO; Mon, 22 Jun 2020 20:06:44 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id C3B55A2894;
+ Mon, 22 Jun 2020 20:06:44 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id oQ3AfMYdIzwJ; Mon, 22 Jun 2020 20:06:44 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 90A17A2881;
+ Mon, 22 Jun 2020 20:06:44 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 73AE821890;
+ Mon, 22 Jun 2020 20:06:14 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id QL2k4gIO7Y9l; Mon, 22 Jun 2020 20:06:08 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id D030521C2B;
+ Mon, 22 Jun 2020 20:06:08 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 8N5wYx1KKGyw; Mon, 22 Jun 2020 20:06:08 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id AA27421890;
+ Mon, 22 Jun 2020 20:06:08 +0200 (CEST)
+Date: Mon, 22 Jun 2020 20:06:08 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: xen-devel@lists.xenproject.org
+Message-ID: <1617453791.11443328.1592849168658.JavaMail.zimbra@cert.pl>
+Subject: [PATCH v3 0/7] Implement support for external IPT monitoring
 MIME-Version: 1.0
-In-Reply-To: <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
+Thread-Topic: Implement support for external IPT monitoring
+Thread-Index: fAatEklvenYpYrSWj77J6AQD/dj+xA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,108 +77,102 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- Roman Shaposhnik <roman@zededa.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, "Kang, Luwei" <luwei.kang@intel.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>,
+ Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Intel Processor Trace is an architectural extension available in modern Intel 
+family CPUs. It allows recording the detailed trace of activity while the 
+processor executes the code. One might use the recorded trace to reconstruct 
+the code flow. It means, to find out the executed code paths, determine 
+branches taken, and so forth.
 
+The abovementioned feature is described in Intel(R) 64 and IA-32 Architectures 
+Software Developer's Manual Volume 3C: System Programming Guide, Part 3, 
+Chapter 36: "Intel Processor Trace."
 
-On 22/06/2020 15:33, Oleksandr Andrushchenko wrote:
-> 
-> On 6/22/20 5:27 PM, Julien Grall wrote:
->> Hi Oleksandr,
->>
->> On 22/06/2020 15:04, Oleksandr Andrushchenko wrote:
->>> On 6/19/20 11:02 PM, Stefano Stabellini wrote:
->>>> On Thu, 18 Jun 2020, Julien Grall wrote:
->>> ifeq ($(CONFIG_XEN),y)
->>> arch-y += -D__XEN_INTERFACE_VERSION__=0x00040d00
->>> endif
->>>
->>> and we also have Xen 4.13 headers in the U-boot tree.
->>
->> Sorry if this was already asked before. Why do you need to specify __XEN_INTERFACE_VERSION__?
-> 
-> This is because of include/xen/interface/xen-compat.h:
-> 
-> #if defined(__XEN__) || defined(__XEN_TOOLS__)
-> 
-> /* Xen is built with matching headers and implements the latest interface. */
-> #define __XEN_INTERFACE_VERSION__ __XEN_LATEST_INTERFACE_VERSION__
-> #elif !defined(__XEN_INTERFACE_VERSION__)
-> /* Guests which do not specify a version get the legacy interface. */
-> #define __XEN_INTERFACE_VERSION__ 0x00000000
-> #endif
+This patch series implements an interface that Dom0 could use in order to 
+enable IPT for particular vCPUs in DomU, allowing for external monitoring. Such 
+a feature has numerous applications like malware monitoring, fuzzing, or 
+performance testing.
 
-I am afraid this doesn't explain why you need to define it to a specific 
-version.
+Also thanks to Tamas K Lengyel for a few preliminary hints before
+first version of this patch was submitted to xen-devel.
 
-__XEN_INTERFACE_VERSION__ is really mostly here to allow a guest to 
-build if they rely on header from xen.git (we may have done some 
-renaming). Most (if not all) the interfaces you care ought to be stable.
+Changed since v1:
+  * MSR_RTIT_CTL is managed using MSR load lists
+  * other PT-related MSRs are modified only when vCPU goes out of context
+  * trace buffer is now acquired as a resource
+  * added vmtrace_pt_size parameter in xl.cfg, the size of trace buffer
+    must be specified in the moment of domain creation
+  * trace buffers are allocated on domain creation, destructed on
+    domain destruction
+  * HVMOP_vmtrace_ipt_enable/disable is limited to enabling/disabling PT
+    these calls don't manage buffer memory anymore
+  * lifted 32 MFN/GFN array limit when acquiring resources
+  * minor code style changes according to review
 
-Older Xen will return -ENOSYS/-EOPNOTSUPP should deny any values they 
-don't know.
+Changed since v2:
+  * trace buffer is now allocated on domain creation (in v2 it was
+    allocated when hvm param was set)
+  * restored 32-item limit in mfn/gfn arrays in acquire_resource
+    and instead implemented hypercall continuations
+  * code changes according to Jan's and Roger's review
 
-As you pull the headers in U-boot, you could safely define 
-__XEN_INTERFACE_VERSION__ as __XEN_LATEST_INTERFACE_VERSION__. FWIW, 
-this is what Linux is doing to some extend.
+Michal Leszczynski (7):
+  memory: batch processing in acquire_resource()
+  x86/vmx: add Intel PT MSR definitions
+  x86/vmx: add IPT cpu feature
+  x86/vmx: add do_vmtrace_op
+  tools/libxc: add xc_vmtrace_* functions
+  tools/libxl: add vmtrace_pt_size parameter
+  tools/proctrace: add proctrace tool
 
-Note that I haven't suggested to keep __XEN_INTERFACE_VERSION__ as 
-0x00000000 because it looks like it is going to do the wrong thing on 
-arm32 :(.
-
-I have at least spot one issue with GNTTABOP_setup_table where it will 
-use unsigned long (i.e 32-bit) for older interface. But the hypervisor 
-will always 64-bits.
-
-This probably going to result to some overwrite. I think we should fix 
-the headers to force it to use xen_pfn_t for all Xen on Arm version.
-
-Something like:
-
-#if !(defined(__arch64__) || defined(__arm__)) && 
-__XEN_INTERFACE_VERSION__ < 0x00040300
-     XEN_GUEST_HANDLE(ulong) frame_list;
-#else
-     XEN_GUEST_HANDLE(xen_pfn_t) frame_list;
-#endif
-
-> 
-> So, one needs to specify the version (QEMU does that via its configure script after
-> 
-> some tests)
-
-Well libxc is definitely not stable, hence why QEMU requires to specify 
-the version. But the interface with the guest is always meant to be stable.
-
->>
->>>
->>> For the first part (__XEN_INTERFACE_VERSION__) I think we can provide it via
->>>
->>> CFLAGS or something. This can also be done for the location of Xen headers.
->>
->> __XEN_INTERFACE_VERSION__ should work through the CFLAGS. An alternative would be to allow the user to specify through the Kconfig.
-> 
-> You mean specifying via Kconfig something like "0x00040d00"?
-
-Possibly yes.
-
-> 
-> And what about the headers? How will we provide their location if we decide not to include those
-> 
-> in the tree?
-
-I would do through Kconfig as well.
-
-Cheers,
+ docs/man/xl.cfg.5.pod.in                    |  10 +
+ tools/golang/xenlight/helpers.gen.go        |   2 +
+ tools/golang/xenlight/types.gen.go          |   1 +
+ tools/libxc/Makefile                        |   1 +
+ tools/libxc/include/xenctrl.h               |  39 +++
+ tools/libxc/xc_vmtrace.c                    |  94 ++++++
+ tools/libxl/libxl_create.c                  |   1 +
+ tools/libxl/libxl_types.idl                 |   2 +
+ tools/proctrace/COPYING                     | 339 ++++++++++++++++++++
+ tools/proctrace/Makefile                    |  50 +++
+ tools/proctrace/proctrace.c                 | 158 +++++++++
+ tools/xl/xl_parse.c                         |   4 +
+ xen/arch/x86/hvm/hvm.c                      | 168 ++++++++++
+ xen/arch/x86/hvm/vmx/vmcs.c                 |   7 +-
+ xen/arch/x86/hvm/vmx/vmx.c                  |  31 ++
+ xen/arch/x86/mm.c                           |  28 ++
+ xen/common/domain.c                         |   3 +
+ xen/common/memory.c                         |  32 +-
+ xen/include/asm-x86/cpufeature.h            |   1 +
+ xen/include/asm-x86/hvm/hvm.h               |   9 +
+ xen/include/asm-x86/hvm/vmx/vmcs.h          |   4 +
+ xen/include/asm-x86/hvm/vmx/vmx.h           |  14 +
+ xen/include/asm-x86/msr-index.h             |  37 +++
+ xen/include/public/arch-x86/cpufeatureset.h |   1 +
+ xen/include/public/domctl.h                 |   1 +
+ xen/include/public/hvm/hvm_op.h             |  26 ++
+ xen/include/public/hvm/params.h             |   2 +-
+ xen/include/public/memory.h                 |   1 +
+ xen/include/xen/sched.h                     |   4 +
+ xen/include/xlat.lst                        |   1 +
+ 30 files changed, 1066 insertions(+), 5 deletions(-)
+ create mode 100644 tools/libxc/xc_vmtrace.c
+ create mode 100644 tools/proctrace/COPYING
+ create mode 100644 tools/proctrace/Makefile
+ create mode 100644 tools/proctrace/proctrace.c
 
 -- 
-Julien Grall
+2.20.1
+
 
