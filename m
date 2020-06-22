@@ -2,54 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CEC2203328
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 11:19:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A43120335C
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 11:32:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnIao-00017E-Sb; Mon, 22 Jun 2020 09:18:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kCdQ=AD=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1jnIam-000178-Im
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 09:18:17 +0000
-X-Inumbo-ID: 4a02df6a-b469-11ea-be54-12813bfff9fa
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4a02df6a-b469-11ea-be54-12813bfff9fa;
- Mon, 22 Jun 2020 09:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1592817489;
- s=strato-dkim-0002; d=aepfle.de;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=/Wnz5DZ94JL+6N1kDWP4UJgwIXviIIbPBAQ8FVpCj3o=;
- b=cTEmeBuhZJgEXJq+zJGi7ALIxH7qwMsjMlBcn6suqoj9izrGP8zFBPI/117iF+iYyM
- PseX73sSy7a8YBW0dcxDmO/5VM58ybw3V0cbSQRsR1rgQ1x6QNtXRzemVrYj+fu3AB3i
- kUdD4b1anoDg7MznTlTixutSt6LCHNw54vHeMarN7UqAXnRJlt49gPXkoJKddSOTHkwX
- wSGWey61V0n27e9hAay+TNr+purPCsqHLizJ8KidoFMmmdyvSwZ5R5WQnka8vcGfvcij
- GBQVAJFIGWA86lKhYEZlF7cLys1KfT2LIRugGrIny7QvNJNFYYDvjYHVaT2EGNGYemim
- NQXg==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3G1Pjw=="
-X-RZG-CLASS-ID: mo00
-Received: from aepfle.de by smtp.strato.de (RZmta 46.10.4 DYNA|AUTH)
- with ESMTPSA id 0013a0w5M9I3X3H
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 22 Jun 2020 11:18:03 +0200 (CEST)
-Date: Mon, 22 Jun 2020 11:17:51 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Ian Jackson <ian.jackson@eu.citrix.com>
-Subject: Re: [XEN PATCH for-4.14 1/2] tools: Commit autoconf (2.69) output
- from Debian buster
-Message-ID: <20200622091738.GA27631@aepfle.de>
-References: <000401d640c9$7b14e760$713eb620$@xen.org>
- <20200612151931.1083-2-ian.jackson@eu.citrix.com>
+	id 1jnInh-0002ij-3L; Mon, 22 Jun 2020 09:31:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=u48w=AD=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jnInf-0002ie-A7
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 09:31:35 +0000
+X-Inumbo-ID: 295b7946-b46b-11ea-bb8b-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 295b7946-b46b-11ea-bb8b-bc764e2007e4;
+ Mon, 22 Jun 2020 09:31:34 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 0X73z1w2Bk0Skytn43gA6dE5BYrGftvErUanFqlLzE7YG/FZFVp0XNcBlxOSr/pr/6L1ylYy9O
+ CBO0Idq3+FECjmKpMelTaJA9SBLgqMJ0o2eiHetZ4n0cTsxiEAVn4nSKs/TW5X4jh3A0jdNw8H
+ HUz9J5vTi/PjK/05Y66OQIZFT5Zy+fHG4v0J/R6BtoP8EwhBsNszzxnORIdhynC1qJLRn/DktF
+ c3l8HpZ7XWBGyQdMwRlHMmLgMWt1Os/qM4rxI+gIv5d6/fMOG1qlDh0zSMwauU9j7KXVHUxpNO
+ 4sw=
+X-SBRS: 2.7
+X-MesageID: 20596152
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,266,1589256000"; d="scan'208";a="20596152"
+Date: Mon, 22 Jun 2020 11:31:23 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH for-4.14] x86/tlb: fix assisted flush usage
+Message-ID: <20200622093123.GI735@Air-de-Roger>
+References: <20200618160403.35199-1-roger.pau@citrix.com>
+ <0b6c900f-e2a6-c9b1-0e57-68c6898150a9@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="mojUlQ0s9EVzWg2t"
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200612151931.1083-2-ian.jackson@eu.citrix.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0b6c900f-e2a6-c9b1-0e57-68c6898150a9@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,45 +55,134 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
- Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>, paul@xen.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Fri, Jun 19, 2020 at 04:06:55PM +0200, Jan Beulich wrote:
+> On 18.06.2020 18:04, Roger Pau Monne wrote:
+> > Commit e9aca9470ed86 introduced a regression when avoiding sending
+> > IPIs for certain flush operations. Xen page fault handler
+> > (spurious_page_fault) relies on blocking interrupts in order to
+> > prevent handling TLB flush IPIs and thus preventing other CPUs from
+> > removing page tables pages. Switching to assisted flushing avoided such
+> > IPIs, and thus can result in pages belonging to the page tables being
+> > removed (and possibly re-used) while __page_fault_type is being
+> > executed.
+> > 
+> > Force some of the TLB flushes to use IPIs, thus avoiding the assisted
+> > TLB flush. Those selected flushes are the page type change (when
+> > switching from a page table type to a different one, ie: a page that
+> > has been removed as a page table) and page allocation. This sadly has
+> > a negative performance impact on the pvshim, as less assisted flushes
+> > can be used.
+> > 
+> > Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
+> > using an IPI (flush_tlb_mask_sync). Note that the flag is only
+> > meaningfully defined when the hypervisor supports PV mode, as
+> > otherwise translated domains are in charge of their page tables and
+> > won't share page tables with Xen, thus not influencing the result of
+> > page walks performed by the spurious fault handler.
+> 
+> Is this true for shadow mode? If a page shadowing a guest one was
+> given back quickly enough to the allocator and then re-used, I think
+> the same situation could in principle arise.
 
---mojUlQ0s9EVzWg2t
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Hm, I think it's not applicable to HVM shadow mode at least, because
+CR3 is switched as part of vmentry/vmexit, and the page tables are not
+shared between Xen and the guest, so there's no way for a HVM shadow
+guest to modify the page-tables while Xen is walking them in
+spurious_page_fault (note spurious_page_fault is only called when the
+fault happens in non-guest context).
 
-On Fri, Jun 12, Ian Jackson wrote:
+> > Note the flag is not defined on Arm, and the introduced helper is just
+> > a dummy alias to the existing flush_tlb_mask.
+> > 
+> > Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when available')
+> > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > It's my understanding that not doing such IPI flushes could lead to
+> > the pages tables being read by __page_fault_type being modified by a
+> > third party, which could make them point to other mfns out of the
+> > scope of the guest allowed physical memory addresses. However those
+> > accesses would be limited to __page_fault_type, and hence the main
+> > worry would be that a guest could make it point to read from a
+> > physical memory region that has side effects?
+> 
+> I don't think so, no - the memory could be changed such that the
+> PTEs are invalid altogether (like having reserved bits set). Consider
+> for example the case of reading an MFN out of such a PTE that's larger
+> than the physical address width supported by the CPU. Afaict
+> map_domain_page() will happily install a respective page table entry,
+> but we'd get a reserved-bit #PF upon reading from that mapping.
 
-> These files are in tree so that people can build (including from git)
-> without needing recent autotools.
+So there are no hazards from executing __page_fault_type against a
+page-table that could be modified by a user?
 
-Do you know those people who can not possibly install the required (now 8year old) autoconf version?
+> > ---
+> >  xen/arch/x86/mm.c              | 12 +++++++++++-
+> >  xen/common/memory.c            |  2 +-
+> >  xen/common/page_alloc.c        |  2 +-
+> >  xen/include/asm-arm/flushtlb.h |  1 +
+> >  xen/include/asm-x86/flushtlb.h | 14 ++++++++++++++
+> >  xen/include/xen/mm.h           |  8 ++++++--
+> >  6 files changed, 34 insertions(+), 5 deletions(-)
+> 
+> Not finding a consumer of the new flag, my first reaction was to
+> ask whether there's code missing somewhere. Having looked at
+> flush_area_mask() another time I now understand the itended
+> behavior results because of the extra flag now allowing
+> hypervisor_flush_tlb() to be entered. I think that's something
+> that's worth calling out in the description, or perhaps even in
+> the comment next to the #define.
 
-Olaf
+Oh right, the condition to use assisted flush is not actually changed
+in flush_area_mask since setting any bit in the flags would prevent
+using it.
 
---mojUlQ0s9EVzWg2t
-Content-Type: application/pgp-signature; name="signature.asc"
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -2894,7 +2894,17 @@ static int _get_page_type(struct page_info *page, unsigned long type,
+> >                        ((nx & PGT_type_mask) == PGT_writable_page)) )
+> >                  {
+> >                      perfc_incr(need_flush_tlb_flush);
+> > -                    flush_tlb_mask(mask);
+> > +                    if ( (x & PGT_type_mask) &&
+> > +                         (x & PGT_type_mask) <= PGT_l4_page_table )
+> 
+> With there being 5-level page tables around the corner, I think
+> we ought to get used to use PGT_root_page_table (or alike)
+> whenever possible, to avoid having to touch such code when
+> adding support for the new paging mode.
+> 
+> > --- a/xen/include/asm-x86/flushtlb.h
+> > +++ b/xen/include/asm-x86/flushtlb.h
+> > @@ -126,6 +126,12 @@ void switch_cr3_cr4(unsigned long cr3, unsigned long cr4);
+> >  #else
+> >  #define FLUSH_HVM_ASID_CORE 0
+> >  #endif
+> > +#if CONFIG_PV
+> 
+> #ifdef
+> 
+> > +/* Force an IPI to be sent */
+> > +# define FLUSH_FORCE_IPI 0x8000
+> > +#else
+> > +# define FLUSH_FORCE_IPI 0
+> > +#endif
+> 
+> If my shadow mode concern above is unwarranted, this overhead could
+> also be avoided if there's no PV domain at all in the system.
+> Perhaps an improvement not for now, but for the future ...
 
------BEGIN PGP SIGNATURE-----
+Hm, right, I guess it would be possible to turn FLUSH_FORCE_IPI into a
+dynamic flag.
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl7wdz8ACgkQ86SN7mm1
-DoCiQA/9HF3/RR3TaGbtcaKHzFWAAsq/3xuJ5I5/+bDe0rjzYRklRhY9wgjcEf06
-T8FZqySA7X0dXpD31Vm8w+S2gcEtpNY7dV3ZAz3gq75ur87NshzpaVOwfreq+/OY
-vGlIL/sxRFI+tUaqhtLDFJ3v0kiHhnsOrdoiI/EKvFQRTXyxIz+q0pxJ96Xw2Ba1
-zGDATjFV765J6HapzZ2sYTvTg9Az1xlBSQuqGZ4XYaJw7nuVTB9RfGeziJjuRh0A
-tICK5V12htE3jdq8u6ks+wnVa0CWzOWICIbt9JZkwQm6klwpZ9Uby4Z4yGtt4hLp
-uXf8r094qmhZSaxz/O6JA+FAG5KjVlYv9OTaKB5Q509+0M5DZzrjVOMlqxn5UjO1
-ySAsMA780X8YiB7f7EHbWVPPawAUBofDCe7t3Z+bBbvQeUDGbNGLTaDhwyOn5pEV
-4nQhbQKT9D3oOzelmAA8T8Whspj40AchWJX2RwNRFwQGTlrI74G+WJQw1gknycYb
-EpCCzgyvlskJU1rUP/I6RgDDgBU1JhVnAnNuN84uNzxOQF/O9YNEe3UoWd1qo7uN
-tYGhBHRSj3j60UP8tynEL6gk0SYCOxB/HN/xlqJmBFyDN/BRronAn8o2rJZ+/ReG
-9+9XdBvCsgjoBcz/EM6r15xaHTmK7v5WuokvZu7gNKDHZ/GL688=
-=bzS3
------END PGP SIGNATURE-----
-
---mojUlQ0s9EVzWg2t--
+Thanks, Roger.
 
