@@ -2,61 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F409B203FE8
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 21:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22E0620404D
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 21:28:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnRqT-0000ph-Nh; Mon, 22 Jun 2020 19:11:05 +0000
+	id 1jnS6d-000253-EH; Mon, 22 Jun 2020 19:27:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=221b=AD=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jnRqR-0000pc-IS
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 19:11:03 +0000
-X-Inumbo-ID: 1c31c833-b4bc-11ea-bebf-12813bfff9fa
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ id 1jnS6c-00024v-0H
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 19:27:46 +0000
+X-Inumbo-ID: 72b6dcea-b4be-11ea-bec3-12813bfff9fa
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1c31c833-b4bc-11ea-bebf-12813bfff9fa;
- Mon, 22 Jun 2020 19:11:02 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05MIvcUe015162;
- Mon, 22 Jun 2020 19:10:59 GMT
+ id 72b6dcea-b4be-11ea-bec3-12813bfff9fa;
+ Mon, 22 Jun 2020 19:27:45 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05MJIMZA047465;
+ Mon, 22 Jun 2020 19:27:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=YTvW6KF022iWqscuEpgkJdymiHV7M4r563GhRk8Gi08=;
- b=skkVmVom6vtg02f1frWfAAG9oc0kZ1AMSB2aidKGJn0QJ+tlVVRXVA1mBy15k6Detpkw
- eZWa1xL3AjvrCNUr5saBcqQIzfK1Ub6/LWHBJQuo4FURD5upkaqa0JIQkc50wJS7b+3o
- Yw9/b+ws2wvQoBP3MOUtgWey38+GSK1IsROHwNNacxzWpEiFtVsPXIXzhW0w8C4INJsz
- zL7d6sTg1khqrTaG2IHXtNC3T5d8MQFWqS+u3Yd6V6SbrmsPCtLdrcm2ZLS3ocIGWDuz
- 3tkcLwPXaNLK2xasPuHbsXWZOrkKMCXmXcFZbKnKhRimlOMM9WMWouCbkjUeVeURplUM 2w== 
+ bh=AFeKQK+7PpeSsuTM9GbzxOWXuT7baNsIyUiZ9VdcdPw=;
+ b=WnDSvRDeptablqMg2WNo/yaqlTQX3NsA1DgFZSBivqa0n07pfQEaxfNz8m9OeROVyAmG
+ PHobFvGxFZ1M+DFJUT4JrwA+trJn77+Ve5Nv+j3l42ZnKOvBFhe4XP2Rtq9oPFnTKW76
+ nYONLdcQkeAVX9C7ElEyPzEH/2R/bUOTLH5/U5to5TRO8EQmgejJ0CBJphsKg8QAogM1
+ A3dEKVzWGv6PYbzhAFJtLM8ebggfwU/IzkPscK070MNF18mQIjZdJN4sowuDbe+r2V3l
+ jFknOzGLAaj+pAH2VMXFL9JUf36AT8XlpTRM9Hw9A0lpuWrvt0+a0Aruq4EoC76ovNZS uQ== 
 Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 31sebb97nw-1
+ by userp2130.oracle.com with ESMTP id 31sebbh8vd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 22 Jun 2020 19:10:59 +0000
+ Mon, 22 Jun 2020 19:27:42 +0000
 Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05MIw6Y3075152;
- Mon, 22 Jun 2020 19:10:58 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3020.oracle.com with ESMTP id 31sv7qkhdy-1
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05MJO6wN008547;
+ Mon, 22 Jun 2020 19:25:42 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by userp3020.oracle.com with ESMTP id 31sv7qm43j-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 22 Jun 2020 19:10:58 +0000
-Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 05MJAuEt010530;
- Mon, 22 Jun 2020 19:10:56 GMT
+ Mon, 22 Jun 2020 19:25:42 +0000
+Received: from abhmp0012.oracle.com (abhmp0012.oracle.com [141.146.116.18])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 05MJPe8P017178;
+ Mon, 22 Jun 2020 19:25:41 GMT
 Received: from [10.39.220.59] (/10.39.220.59)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 22 Jun 2020 19:10:56 +0000
+ with ESMTP ; Mon, 22 Jun 2020 19:25:40 +0000
 Subject: Re: [RFC PATCH] xen/privcmd: Convert get_user_pages*() to
  pin_user_pages*()
-To: Souptick Joarder <jrdr.linux@gmail.com>, John Hubbard <jhubbard@nvidia.com>
+To: Souptick Joarder <jrdr.linux@gmail.com>
 References: <1592363698-4266-1-git-send-email-jrdr.linux@gmail.com>
  <d9e8ad0f-f2aa-eea4-5bc7-a802c626ace6@oracle.com>
  <CAFqt6zbJD+k9xkV9Se0nL2qKfnea3mRrWJ4gzPmPJBquYk4M+w@mail.gmail.com>
  <fe2a1d23-7abd-86a9-4aec-2c14fb11cdea@nvidia.com>
  <CAFqt6zb8hK+mpqfrZ_QoGLO4nNfbHvZ7aJLRrcNRgDsywFHKqg@mail.gmail.com>
+ <5a5133e6-b84d-a2cc-fcb4-db85c4e65d62@oracle.com>
+ <CAFqt6zY0wGGL2gkL9Vi3udEp3xNUzUoGmuJpj_H1ff7EBYr-qw@mail.gmail.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
@@ -101,14 +103,14 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <5a5133e6-b84d-a2cc-fcb4-db85c4e65d62@oracle.com>
-Date: Mon, 22 Jun 2020 15:10:53 -0400
+Message-ID: <bcb38427-ed3c-400e-81eb-4e30a11b2ffa@oracle.com>
+Date: Mon, 22 Jun 2020 15:25:38 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAFqt6zb8hK+mpqfrZ_QoGLO4nNfbHvZ7aJLRrcNRgDsywFHKqg@mail.gmail.com>
+In-Reply-To: <CAFqt6zY0wGGL2gkL9Vi3udEp3xNUzUoGmuJpj_H1ff7EBYr-qw@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9660
  signatures=668680
@@ -116,15 +118,15 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
  malwarescore=0
  phishscore=0 bulkscore=0 spamscore=0 suspectscore=0 mlxlogscore=999
  mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2006220126
+ engine=8.12.0-2004280000 definitions=main-2006220127
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9660
  signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- cotscore=-2147483648
- lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- malwarescore=0 priorityscore=1501 spamscore=0 mlxscore=0 adultscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2006220126
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ lowpriorityscore=0
+ mlxlogscore=999 cotscore=-2147483648 mlxscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 suspectscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2006220127
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,28 +137,29 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org, linux-kernel@vger.kernel.org, paul@xen.org
+Cc: Juergen Gross <jgross@suse.com>, sstabellini@kernel.org, paul@xen.org,
+ John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 6/22/20 2:52 PM, Souptick Joarder wrote:
->
-> I read the code again. I think, this check is needed to handle a scenar=
-io when
-> lock_pages() return -ENOSPC. Better to keep this check. Let me post v2 =
-of this
-> RFC for a clear view.
+On 6/22/20 3:28 PM, Souptick Joarder wrote:
+> On Tue, Jun 23, 2020 at 12:40 AM Boris Ostrovsky
+> <boris.ostrovsky@oracle.com> wrote:
+>> On 6/22/20 2:52 PM, Souptick Joarder wrote:
+>>> I read the code again. I think, this check is needed to handle a scenario when
+>>> lock_pages() return -ENOSPC. Better to keep this check. Let me post v2 of this
+>>> RFC for a clear view.
+>>
+>> Actually, error handling seems to be somewhat broken here. If
+>> lock_pages() returns number of pinned pages then that's what we end up
+>> returning from privcmd_ioctl_dm_op(), all the way to user ioctl(). Which
+>> I don't think is right, we should return proper (negative) error.
+>>
+> What -ERRNO is more appropriate here ? -ENOSPC ?
 
 
-Actually, error handling seems to be somewhat broken here. If
-lock_pages() returns number of pinned pages then that's what we end up
-returning from privcmd_ioctl_dm_op(), all the way to user ioctl(). Which
-I don't think is right, we should return proper (negative) error.
-
-
-Do you mind fixing that we well? Then you should be able to avoid
-testing pages in a loop.
+You can simply pass along error code that get_user_pages_fast() returned.
 
 
 -boris
