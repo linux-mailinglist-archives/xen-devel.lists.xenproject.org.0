@@ -2,98 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DC0F20321F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 10:32:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A4FF20323D
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 10:39:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnHrX-0005NR-No; Mon, 22 Jun 2020 08:31:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ahnO=AD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jnHrW-0005NM-9b
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 08:31:30 +0000
-X-Inumbo-ID: c186dae8-b462-11ea-be4b-12813bfff9fa
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com (unknown
- [40.107.0.41]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c186dae8-b462-11ea-be4b-12813bfff9fa;
- Mon, 22 Jun 2020 08:31:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TDgYWfQE2km+PJgZcpWkrua+galLBdruqY10D0Yf8q+zvCoz5Hy7Itg7BHb2CK02iWBV0cAeTbJQucrR6GgEMq2nkInhebA0LYlPTDWcYLrBEZ+Kt7hk+aYXski56buQznYSaKeEkE8TohFbC1ImRJNIFo540kGQiGpAsUWJdrwzI+P6UIbK1mj2lTtT5FXeOL2m3FYvvIanBq0sBbpP63uf4qmtX/eG3KlJhwpnR0aAtpDwC7gvirCnnO/PFUiyOa97gQKagiyKNz5jFYJNbP4FIw7JkEByy/WfeBqhDYP7WT/tONCtDn5xEkg/G4xvGHj4i44NxXpvNXzkibnlBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=25ytYj9uCGoj+ojl69tAQKmC4JucJCp9GoThbB8TDmk=;
- b=jWb7S5WLybFNLzo3oIUrmZajuP264eQARRH1jiEESM5C5CHW1zQTEoVAVVoKRtZ/ZMjkfAqEIHD/NB+e5kAlupRYviwtojiNBWZe2KpeXgmgozW5Lg4KsLUp1bhdxEEtZ/tmdVCZPLU4ZeMwHzjYyFlJjdyE+jTD9Hl7Vo5FrbUB9+tGEkIHH6o88QfMGl4K/SLrWWzuWG4Xf9kI/48MQ+i6jClOUeIgExl+b2naz4pYBPfRgdYN9VENJDgt0/qdRuCyDzMsug2IivaO7D3u3oz6enQOMVnzyvmIn8O0a6Unzk4xIw1/L535cwy9Hvef0hERn+UjY2qousGU58Tagw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mysuse.onmicrosoft.com; s=selector1-mysuse-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=25ytYj9uCGoj+ojl69tAQKmC4JucJCp9GoThbB8TDmk=;
- b=MOixHdnaTXOJi6PNKXhANOQdRGs5VWrpsvA9h8UZ1b9A4vQegXehXegm4XZo9R13fAVItqiw23/3OoSQ+C43TUMrCYAyLIWgWK33PZBcUdN1DSRy3W+O+Dn9UpdVCMZ0h95CsdZMkdpeEXsUPL+H2KPG7FfauuCaNGXbDwkPrDBD8xWXpLbMKIewKcrJYB3tomqBvgssSoROqJAqJdHHOjc0l1P0rnnyIrEGSkGVySJbSSF67OrVBBZWI7Mf4b/s4jlELNMYQ8Un8ZwR2/dWtlNUi6ZbQeWREWQmiQHwIH0l5ZWXRDq6VcuN3FlbIFOiX2hIZVtSJMYu6WLJ0SYiSQ==
-Authentication-Results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=suse.com;
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5454.eurprd04.prod.outlook.com (2603:10a6:803:d1::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.21; Mon, 22 Jun
- 2020 08:31:22 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::3de3:8e44:3eee:8600]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::3de3:8e44:3eee:8600%6]) with mapi id 15.20.3109.027; Mon, 22 Jun 2020
- 08:31:22 +0000
-Subject: Re: [PATCH v2 3/7] x86/vmx: add IPT cpu feature
-To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>
-References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
- <626789888.9820937.1592523621821.JavaMail.zimbra@cert.pl>
- <20200619134452.GA735@Air-de-Roger>
- <222341136.10901881.1592794156165.JavaMail.zimbra@cert.pl>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4dc53352-3936-efc8-c21c-54053fe210f7@suse.com>
-Date: Mon, 22 Jun 2020 10:31:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
-In-Reply-To: <222341136.10901881.1592794156165.JavaMail.zimbra@cert.pl>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM0PR02CA0077.eurprd02.prod.outlook.com
- (2603:10a6:208:154::18) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	id 1jnHyl-0005eT-He; Mon, 22 Jun 2020 08:38:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=u48w=AD=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jnHyk-0005eK-Ul
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 08:38:58 +0000
+X-Inumbo-ID: d013ca02-b463-11ea-bb8b-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d013ca02-b463-11ea-bb8b-bc764e2007e4;
+ Mon, 22 Jun 2020 08:38:57 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 4TpWVnbtiqhHqTm8UcF3OpAb2ZHi7hzxMchVDlx84oPPC2OsOAjK2SGuA51o1ODupl2ywABbKs
+ sTGTZwEKCHOWRk3j67f09FvjcIBqouRt4xz0ohd5suQxkDHg1yk+MHmJxOxAluIGqpnqFIF2OH
+ 04YAJ30lc/a5kSPPrGakF2TBnKOjBMH1fUOJ6TzqIMxiVO3Q14HqKHl9cdBd1jOqInig3Z6IN1
+ SRgzwpiMw315v8aBPVr76xaemjJo64jKEZKyF3QQUDhxS0lx2+OvdOzT0m389dE4n5hBxoFbH/
+ 0mM=
+X-SBRS: 2.7
+X-MesageID: 20942116
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,266,1589256000"; d="scan'208";a="20942116"
+Date: Mon, 22 Jun 2020 10:38:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anchal Agarwal <anchalag@amazon.com>
+Subject: Re: [PATCH 06/12] xen-blkfront: add callbacks for PM suspend and
+ hibernation]
+Message-ID: <20200622083846.GF735@Air-de-Roger>
+References: <7FD7505E-79AA-43F6-8D5F-7A2567F333AB@amazon.com>
+ <20200604070548.GH1195@Air-de-Roger>
+ <20200616214925.GA21684@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200617083528.GW735@Air-de-Roger>
+ <20200619234312.GA24846@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.156.60.99] (37.24.206.209) by
- AM0PR02CA0077.eurprd02.prod.outlook.com (2603:10a6:208:154::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.21 via Frontend
- Transport; Mon, 22 Jun 2020 08:31:21 +0000
-X-Originating-IP: [37.24.206.209]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5562369b-e065-40f8-4ed4-08d81686a4b3
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5454:
-X-Microsoft-Antispam-PRVS: <VI1PR04MB54541AF4EADE1DF5A796C406B3970@VI1PR04MB5454.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-Forefront-PRVS: 0442E569BC
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fxKa5FC3w5J5LCdNJJoVhjtgrScYgA49FfJm0x/9uGsdP2/QSoJ5FnEpH/NdXki3S8gMSz7lAh0s3LCQAOgqJ0N6LKqhAjyeDb7Eah8/rYC+4amEqAADiCmA/9+2DW15MT7MB89CDlAWiLFz45uCNVmuUYLsBvYjqE9GVf1zoSHIRsL9FBlLgAtlpEa+Vcur2U91/u9x/spGyEXIHSuXQMRAHNmpexQ5xiqhHuLT9+WAzr9PFEJe/5vZXJfleuviq5908tFsxzl8obQmHwDjh+1FZW+afuYrvRI2O0ux58gWT0Ep/Iby5ZVRxzb0c25zHvafqE6x8eJwXxbf6KLGgBeafdZcHH/AXjxvwJ30hNXxlQH1NQ/TVBGkkbnguPMsdflNv1Hwl+SWnwl7IJlbtg6h/g6MaPRbuTvNwnep77f5B+q01qH1nfKmtBNBJR0FBc8s5uPW4ZT/VTkh+MctUA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB5600.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(136003)(396003)(39860400002)(346002)(376002)(366004)(2616005)(66476007)(66946007)(66556008)(31696002)(26005)(6916009)(6666004)(53546011)(956004)(6486002)(16526019)(2906002)(186003)(86362001)(36756003)(478600001)(966005)(316002)(16576012)(52116002)(5660300002)(8936002)(83380400001)(66574015)(54906003)(4326008)(31686004)(8676002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: xtRGtJRypGnrGYA9B/7Vv1sfZCxXgRkxJ0WmK/1KoCqnSoWKgz4ItZqT//SsV++ueSZ8edeAII5HFhzaQvSHzTS812gPtHHCAADuRM4sUQLcnuH2vsGmD2kcWx+XW6Wkk5U4CNNMe0cymm8vFlgHUs0ajro7H0k2shk9K7wJEU/OKsL4nepMfkmKjpgtZICL5FVtx/9v8OPkGpNo0vdbDQLCMaNWo0UWDOipEsc7P9jA8J8YbENowNP96MaWS4+XUQMLG3+wWzC/2XMBi5U5PCffA3uAxjUhCx+8S6pPBtIM4cWdoYxMWhYYkbi0+sSLMQcvU/dmekUXlltiOLvovgo2nUdj8ExRh+IlkhR9i5bc5RaRDwKO/WtfyTPG4FEdPnslXG3NIl9vgy4gO+Gn7dHDB++0a4aSilj095/5OHX9ZaByVdDvcfjsnYtfi40/pNHJryDpi1qoqs9jcS0ypAn6CiIkKNB0sVlz69uJzqc=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5562369b-e065-40f8-4ed4-08d81686a4b3
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2020 08:31:21.8807 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DOdceobeyRxud/ZKnCSQ5c8keNl6PY82M3CLt3lF5P0WJXF9paCl99mrqCb2LJDj8TwQE92zIMDFowL+5Pp3SA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5454
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200619234312.GA24846@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,85 +59,125 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, "Kang, Luwei" <luwei.kang@intel.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>,
- Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "Valentin, Eduardo" <eduval@amazon.com>,
+ "len.brown@intel.com" <len.brown@intel.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
+ "x86@kernel.org" <x86@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "pavel@ucw.cz" <pavel@ucw.cz>, "hpa@zytor.com" <hpa@zytor.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>, "Kamata,
+ Munehisa" <kamatam@amazon.com>, "mingo@redhat.com" <mingo@redhat.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Singh,
+ Balbir" <sblbir@amazon.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "bp@alien8.de" <bp@alien8.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "vkuznets@redhat.com" <vkuznets@redhat.com>,
+ "davem@davemloft.net" <davem@davemloft.net>, "Woodhouse,
+ David" <dwmw@amazon.co.uk>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 22.06.2020 04:49, Michał Leszczyński wrote:
-> ----- 19 cze 2020 o 15:44, Roger Pau Monné roger.pau@citrix.com napisał(a):
-> 
->> On Fri, Jun 19, 2020 at 01:40:21AM +0200, Michał Leszczyński wrote:
->>> Check if Intel Processor Trace feature is supported by current
->>> processor. Define hvm_ipt_supported function.
->>>
->>> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
->>> ---
->>
->> We usually keep a shirt list of the changes between versions, so it's
->> easier for the reviewers to know what changed. As an example:
->>
->> https://lore.kernel.org/xen-devel/20200613184132.11880-1-julien@xen.org/
->>
->>>  xen/arch/x86/hvm/vmx/vmcs.c                 | 4 ++++
->>>  xen/include/asm-x86/cpufeature.h            | 1 +
->>>  xen/include/asm-x86/hvm/hvm.h               | 9 +++++++++
->>>  xen/include/asm-x86/hvm/vmx/vmcs.h          | 1 +
->>>  xen/include/public/arch-x86/cpufeatureset.h | 1 +
->>>  5 files changed, 16 insertions(+)
->>>
->>> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
->>> index ca94c2bedc..8466ccb912 100644
->>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
->>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
->>> @@ -315,6 +315,10 @@ static int vmx_init_vmcs_config(void)
->>>          if ( opt_ept_pml )
->>>              opt |= SECONDARY_EXEC_ENABLE_PML;
->>>  
->>> +        /* Check whether IPT is supported in VMX operation */
->>> +        hvm_funcs.pt_supported = cpu_has_ipt &&
->>> +            ( _vmx_misc_cap & VMX_MISC_PT_SUPPORTED );
->>
->> By the placement of this chunk you are tying IPT support to the
->> secondary exec availability, but I don't think that's required?
->>
->> Ie: You should move the read of misc_cap to the top-level of the
->> function and perform the VMX_MISC_PT_SUPPORTED check there also.
->>
->> Note that space inside parentheses is only required for conditions of
->> 'if', 'for' and those kind of statements, here it's not required, so
->> this should be:
->>
->>    hvm_funcs.pt_supported = cpu_has_ipt &&
->>                             (_vmx_misc_cap & VMX_MISC_PT_SUPPORTED);
->>
->> I also think this should look like:
->>
->>    if ( !smp_processor_id() )
->>    	hvm_funcs.pt_supported = cpu_has_ipt &&
->>                                 (_vmx_misc_cap & VMX_MISC_PT_SUPPORTED);
->>    else if ( hvm_funcs.pt_supported &&
->>              !(_vmx_misc_cap & VMX_MISC_PT_SUPPORTED) )
->>    {
->>        printk("VMX: IPT capabilities fatally differ between CPU%u and CPU0\n",
->>               smp_processor_id());
->>        return -EINVAL;
->>    }
->>
->>
->> So that you can detect mismatches between CPUs.
-> 
-> 
-> I'm afraid this snippet doesn't work. All CPUs read hvm_funcs.pt_supported as 0 even when it was set to 1 for CPU=0. I'm not sure if this is some multithreading issue or there is a separate hvm_funcs for each CPU?
+On Fri, Jun 19, 2020 at 11:43:12PM +0000, Anchal Agarwal wrote:
+> On Wed, Jun 17, 2020 at 10:35:28AM +0200, Roger Pau Monné wrote:
+> > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> > 
+> > 
+> > 
+> > On Tue, Jun 16, 2020 at 09:49:25PM +0000, Anchal Agarwal wrote:
+> > > On Thu, Jun 04, 2020 at 09:05:48AM +0200, Roger Pau Monné wrote:
+> > > > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> > > > On Wed, Jun 03, 2020 at 11:33:52PM +0000, Agarwal, Anchal wrote:
+> > > > >  CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> > > > >     > +             xenbus_dev_error(dev, err, "Freezing timed out;"
+> > > > >     > +                              "the device may become inconsistent state");
+> > > > >
+> > > > >     Leaving the device in this state is quite bad, as it's in a closed
+> > > > >     state and with the queues frozen. You should make an attempt to
+> > > > >     restore things to a working state.
+> > > > >
+> > > > > You mean if backend closed after timeout? Is there a way to know that? I understand it's not good to
+> > > > > leave it in this state however, I am still trying to find if there is a good way to know if backend is still connected after timeout.
+> > > > > Hence the message " the device may become inconsistent state".  I didn't see a timeout not even once on my end so that's why
+> > > > > I may be looking for an alternate perspective here. may be need to thaw everything back intentionally is one thing I could think of.
+> > > >
+> > > > You can manually force this state, and then check that it will behave
+> > > > correctly. I would expect that on a failure to disconnect from the
+> > > > backend you should switch the frontend to the 'Init' state in order to
+> > > > try to reconnect to the backend when possible.
+> > > >
+> > > From what I understand forcing manually is, failing the freeze without
+> > > disconnect and try to revive the connection by unfreezing the
+> > > queues->reconnecting to backend [which never got diconnected]. May be even
+> > > tearing down things manually because I am not sure what state will frontend
+> > > see if backend fails to to disconnect at any point in time. I assumed connected.
+> > > Then again if its "CONNECTED" I may not need to tear down everything and start
+> > > from Initialising state because that may not work.
+> > >
+> > > So I am not so sure about backend's state so much, lets say if  xen_blkif_disconnect fail,
+> > > I don't see it getting handled in the backend then what will be backend's state?
+> > > Will it still switch xenbus state to 'Closed'? If not what will frontend see,
+> > > if it tries to read backend's state through xenbus_read_driver_state ?
+> > >
+> > > So the flow be like:
+> > > Front end marks XenbusStateClosing
+> > > Backend marks its state as XenbusStateClosing
+> > >     Frontend marks XenbusStateClosed
+> > >     Backend disconnects calls xen_blkif_disconnect
+> > >        Backend fails to disconnect, the above function returns EBUSY
+> > >        What will be state of backend here?
+> > 
+> > Backend should stay in state 'Closing' then, until it can finish
+> > tearing down.
+> > 
+> It disconnects the ring after switching to connected state too. 
+> > >        Frontend did not tear down the rings if backend does not switches the
+> > >        state to 'Closed' in case of failure.
+> > >
+> > > If backend stays in CONNECTED state, then even if we mark it Initialised in frontend, backend
+> > 
+> > Backend will stay in state 'Closing' I think.
+> > 
+> > > won't be calling connect(). {From reading code in frontend_changed}
+> > > IMU, Initialising will fail since backend dev->state != XenbusStateClosed plus
+> > > we did not tear down anything so calling talk_to_blkback may not be needed
+> > >
+> > > Does that sound correct?
+> > 
+> > I think switching to the initial state in order to try to attempt a
+> > reconnection would be our best bet here.
+> >
+> It does not seems to work correctly, I get hung tasks all over and all the
+> requests to filesystem gets stuck. Backend does shows the state as connected
+> after xenbus_dev_suspend fails but I think there may be something missing.
+> I don't seem to get IO interrupts thereafter i.e hitting the function blkif_interrupts.
+> I think just marking it initialised may not be the only thing.
+> Here is a short description of what I am trying to do:
+> So, on timeout:
+>     Switch XenBusState to "Initialized"
+>     unquiesce/unfreeze the queues and return
+>     mark info->connected = BLKIF_STATE_CONNECTED
 
-hvm_funcs will be set from start_vmx()'s return value, i.e. vmx_function_table.
-Therefore at least prior to start_vmx() completing you need to fiddle with
-vmx_function_table, not hvm_funcs. And in the code here, where for APs you
-only read the value, you could easily use the former uniformly, I think.
+If xenbus state is Initialized isn't it wrong to set info->connected
+== CONNECTED?
 
-Jan
+You should tear down all the internal state (like a proper close)?
+
+>     return EBUSY
+> 
+> I even allowed blkfront_connect to switch state to "CONNECTED" rather me doing
+> it explicitly as mentioned above without re-allocating/re-registering the device
+> just to make sure bklfront_info object has all the right values.
+> Do you see anythign missing here?
+
+I'm afraid you will have to do a little bit of debugging here to
+figure out what's going on. You can add printk's to several places to
+see which path is taken, and why blkfront ends in such state.
+
+Thanks, Roger.
 
