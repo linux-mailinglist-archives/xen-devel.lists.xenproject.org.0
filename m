@@ -2,106 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A9AB203885
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 15:57:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9210820388D
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 15:59:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnMwL-0001ra-3J; Mon, 22 Jun 2020 13:56:49 +0000
+	id 1jnMyW-00022G-T6; Mon, 22 Jun 2020 13:59:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+IWF=AD=epam.com=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1jnMwK-0001rV-8f
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 13:56:48 +0000
-X-Inumbo-ID: 35c2e3f2-b490-11ea-b7bb-bc764e2007e4
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe0d::60f])
+ <SRS0=u48w=AD=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jnMyV-00022B-GC
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 13:59:03 +0000
+X-Inumbo-ID: 85dc6c64-b490-11ea-8496-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35c2e3f2-b490-11ea-b7bb-bc764e2007e4;
- Mon, 22 Jun 2020 13:56:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RjnlQGT/4MyDDRhMG7nIDtyNWZUrrTTJxm2pSio3Zp2MA5J685t3VgoSE4cX6u8Jc7Go0lmunweqAkSF9SIq8digfnVnmqD4On/2uiIEsATKuneEhUcmQbRmzvsnAqK9FqBUIIQzQH96yqu5Qxsas72COZ4hCPFqoak0h1683U4OchzNVIL06H9cYbeD7tdLBtxrFrrGCX6V45Wt0x5SADkv0f1pCVeXTNR/HDvP3/CYfSpjdBmbgVAqfxkkSKDcB3ecNR9U36qrOsElZAQr8JbDT4k1oyCt9Pm+POs/8hTkO4ZI9z0jWMUWewk24uIHKgWfgLWdCqQYYRvPqGVv+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jVOvB/yzooCwwq6oZQ6CQdZJZH/l+WZowYVZ+GbFVzw=;
- b=fo5FhVZbBz2hXogf1hqb7bwmTjRsaGjjwjcGNLLVZTf7uQRPR94PriN3la89c/K8ApUnRqHH7PrebhN3nk7txaf/1U9Ujxynnl69JTPGIiRy/QyWaJyGuSwk5G4fpnazAYkrtAfTSjejnWXSrNu0Ngxvn1FJzx89MG4kAdE/h6MlAwkzqU683sT016OFJxwxsExMWafbXpZVQVwg8JjF+JSDeWpph1HXiPWMzykC+/i+boC6IrFheCMErtm1cGlSYFLQJY62osgnZR87BAV9HO4O6SZynqfNGA4vMxTmvYlpLO6aS3D6fAYgv2QSOZZPc3DiC0RvyA2tMvrQh5fPiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jVOvB/yzooCwwq6oZQ6CQdZJZH/l+WZowYVZ+GbFVzw=;
- b=FmL3DEUgSNybcl3hVdO2YnrWXJ2DplMssYZCXgFu5l86jkA4Pnd3GItBgIAzRybOrSidljNtnJ8+wEXgBK3m5Qkpsi860TqJ4yMd/SRPlcgvWjPJ3x9rdxFEUYBm898yDAOIU2LRwM2KUcPuKxMZVlhRgs5iP7z44T3nyaJUvQlO2VtvYLkI0OaMwCY2Y7bB3YjsncMqVmvl6hTAahdfSSmhavPrW837HVx57LxZw0Rk1obv4WoYdW+lJ5c1RdDOh1f1Or42EsUBhq9/OpTN4y9N98T/KhHa4GkgYFdx4sOvgmwpTGTEj35j1rkjit6jxfmZbKlsxTYWsikBMnJSkQ==
-Received: from VI1PR03MB3998.eurprd03.prod.outlook.com (2603:10a6:803:72::14)
- by VI1PR03MB4927.eurprd03.prod.outlook.com (2603:10a6:803:bf::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Mon, 22 Jun
- 2020 13:56:44 +0000
-Received: from VI1PR03MB3998.eurprd03.prod.outlook.com
- ([fe80::28ec:3584:94d:27a4]) by VI1PR03MB3998.eurprd03.prod.outlook.com
- ([fe80::28ec:3584:94d:27a4%7]) with mapi id 15.20.3109.027; Mon, 22 Jun 2020
- 13:56:44 +0000
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Julien Grall <julien@xen.org>, Oleksandr Andrushchenko
- <andr2000@gmail.com>, Julien Grall <julien.grall.oss@gmail.com>, Stefano
- Stabellini <sstabellini@kernel.org>
-Subject: Re: UEFI support in ARM DomUs
-Thread-Topic: UEFI support in ARM DomUs
-Thread-Index: AQHWOoSI1wnhumD+IkWBnAQX9mudyajIlWsAgBVWbwCAAJ62gIAAeBOAgAANxQCAAOXggIAABCWAgAABUwCAAAIogIAAAeMAgAACtYCAAAPKgIAEvpiA
-Date: Mon, 22 Jun 2020 13:56:44 +0000
-Message-ID: <e0148721-7889-0b77-2f99-568a6150a101@epam.com>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
- <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
- <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
- <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
- <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
- <17a14578-6fc7-925d-6f69-8b2fcbf40ff3@epam.com>
- <9d4a6e78-49d3-01c3-251b-6d66f56c2761@xen.org>
- <ebf32205-55b0-8a40-1935-d3591be058ce@epam.com>
- <d7334aea-363e-49f6-f8c3-336e3c20eb0f@xen.org>
- <424cfbdc-0744-fcf7-5bb4-52aca2357df7@epam.com>
- <b3e805ef-fb0d-308c-57fb-e7b78f82a786@xen.org>
- <e40308c0-6a0e-a32c-b36e-ef0620a9b9a9@gmail.com>
-In-Reply-To: <e40308c0-6a0e-a32c-b36e-ef0620a9b9a9@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [176.36.245.220]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2b6bf3f4-be3d-4bdf-569c-08d816b41962
-x-ms-traffictypediagnostic: VI1PR03MB4927:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <VI1PR03MB4927B3096237A90E90546386E7970@VI1PR03MB4927.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0442E569BC
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LGh05987MNo91Cd6mcI+mdaKDDatMHI55V2hMw5VYFGUB0EmKNBDkgEEQkh84PlapfX02T85VBwuGI1LnCt4GLEOj429/f/W/1LwwaelM0dCeiFR3Zf7Gby7mGyrIDuKmgvxaaL1BptobCQtChhf8VpJg/yoDDoYQOJffVRO15pf+3CU6asbKFarTpRBFBbAU9GFP+Zpgwlw9YefgbaeMWG/MhabsBtgOMcRus+SvOks7p1hxR3Nz381LJwqKx35uy4n50uZPSf/EQNvApcGI6KIjAcsX3NuYH55QmzmNOCYhkHk4Fy3QSxL+zGJZ91k+mw9SCpLgWG3HD8H5U4mLmGhAglW2Vkk7nmwC/4BC8a/Vt/1g7lVVITZgpllI9NC
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR03MB3998.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(2616005)(6486002)(86362001)(8936002)(31696002)(8676002)(5660300002)(64756008)(66446008)(66476007)(83380400001)(91956017)(71200400001)(66946007)(76116006)(66556008)(186003)(6506007)(4326008)(26005)(55236004)(2906002)(6512007)(31686004)(53546011)(478600001)(7416002)(110136005)(36756003)(316002)(54906003)(98474003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: iVL/gZKcIrY2CqEo2epl7N6rui8qQvG4k7UWmFvNJIDAXPUVB7zaI8olaSyd+UeLMA/Oe9edKjLj6zm/8i98eUWdg4mU4N9s39UNkNNxyCmsH422GnDQOYWEN2RTQ1LRymeDs5K9VYJJ/YvRoBMI99JNvd+w8j2a8qmcCGKKLa2XkoPprEVMRsdk8guzs/WA5tn6pD+f3ZLQ3y48zH8xSpHPBdI0aVso0rjfjJ8z0vroQGYGazXwKxbQHahOg86AglVcXuArKGsdXXx4XUeQ2L9EKfsb0wzL6dSOkMYYjYv4R3SfBgBzMw7hLE2m2TOg/MtHrHWW0nmLlLCVWflN2xeEWi4e9NqFm7YEaWAnYGLLeG5f26CV7XJIFLP4tjFAL5d4uD//bOk/IUIGvaVFjsMn3K1HZ7Ji5ucLa2rTiTyZiyIqxylJPzyjtrzo8qUtgopMHEK55XNSSCfE7ri4XMp3CYuYy9ep1VwHz4L2xWX8/6/2KT92k1QWkPLYSsO5
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <12290F8468A9B4409B4EC1C19812689E@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ id 85dc6c64-b490-11ea-8496-bc764e2007e4;
+ Mon, 22 Jun 2020 13:59:00 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 7y4rcKvZcox4JFp72HsObqCBchKdRBPFQ+txFZgp5PYBmgG+CpJa2dAZJs5k057cPFD9L0p+9v
+ bssuV7vrAiO89TodoThg07a2b9QUBMrdkiS3JZLO1ifQtw6hZE05Zw1kq/bEAOQuK0emmgKdqN
+ LEdrw7WS8Lo4S05270JNP23KAQ2CR1Pt5iQttOoV26p+SQwHIKFCzns5zwUagRl2HspJApiJmQ
+ 3pgBxfsMdCIbovvJEsHAYblfqYcBBUa/FWRhV8okz+PMlVo11BUjLFw+EJHkFoTxlYhcCtZDNk
+ wGU=
+X-SBRS: 2.7
+X-MesageID: 20968042
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,267,1589256000"; d="scan'208";a="20968042"
+Date: Mon, 22 Jun 2020 15:58:53 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Martin Lucina <martin@lucina.net>
+Subject: Re: Event delivery and "domain blocking" on PVHv2
+Message-ID: <20200622135853.GK735@Air-de-Roger>
+References: <62479d08f7650c22678d7a86851eafc4@lucina.net>
+ <5865159c-4190-e841-8020-7a4f3cf0fc24@citrix.com>
+ <20200618101330.GB10330@nodbug.lucina.net>
+ <20200618114617.GJ735@Air-de-Roger>
+ <17deb17cec442f96cc7aba98ef4c047c@lucina.net>
+ <20200619112119.GY735@Air-de-Roger>
+ <ab26d419909c1fb038b32024d457871c@lucina.net>
+ <20200619165426.GD735@Air-de-Roger>
+ <20200619174143.GE735@Air-de-Roger>
+ <7ed4a5f98b3002f3233e02d5ce803ef0@lucina.net>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b6bf3f4-be3d-4bdf-569c-08d816b41962
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2020 13:56:44.7535 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: v/fmxxRyeuXBn8yR4GgOVSC9UKS+IKb459N41KPvq4TVNbtUcdHZVTftXGn9oO3lNgAGGdKhTvOuDOl+h0TUU5FiXWrNDNz90w1FUNLi/80ti29Ja8FoGdYQLihIiQx0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB4927
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7ed4a5f98b3002f3233e02d5ce803ef0@lucina.net>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,58 +63,217 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
- Roman Shaposhnik <roman@zededa.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ mirageos-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQpPbiA2LzE5LzIwIDQ6MjkgUE0sIE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPiBP
-biA2LzE5LzIwIDQ6MTUgUE0sIEp1bGllbiBHcmFsbCB3cm90ZToNCj4+DQo+Pg0KPj4gT24gMTkv
-MDYvMjAyMCAxNDowNiwgT2xla3NhbmRyIEFuZHJ1c2hjaGVua28gd3JvdGU6DQo+Pj4NCj4+PiBP
-biA2LzE5LzIwIDM6NTkgUE0sIEp1bGllbiBHcmFsbCB3cm90ZToNCj4+Pj4gSGksDQo+Pj4+DQo+
-Pj4+IE9uIDE5LzA2LzIwMjAgMTM6NTEsIE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIHdyb3RlOg0K
-Pj4+Pj4gT24gNi8xOS8yMCAzOjQ3IFBNLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+Pj4+Pj4gVGhl
-eSB3aWxsIG5vdCBiZSBhdmFpbGFibGUgZnJvbSB0aGUgZmR0LCBidXQgeW91IGNhbiByZXRyaWV2
-ZSB0aGVtIHdpdGggYW4gaHlwZXJ2aXNvciBjYWxsIChzZWUgSFZNX1BBUkFNX1NUT1JFX1BGTiwg
-SFZNX1BBUkFNX0NPTlNPTEVfUEZOKS4NCj4+Pj4+IFllcywgYW5kIGl0IHVzZWQgaW4gdGhlIHJl
-bGV2YW50IHBpZWNlcyBvZiBjb2RlIChoeXAgY2FsbHMpDQo+Pj4+Pj4gT25lIHF1ZXN0aW9uIHRo
-b3VnaCwgd2h5IGRvIHlvdSBuZWVkIHRvIG1hcCB0aGVtIGluIGFkdmFuY2U/IENvdWxkbid0IHlv
-dSBtYXAgdGhlbSBvbiBkZW1hbmQ/DQo+Pj4+Pg0KPj4+Pj4gV2VsbCwgd2UgbmVlZCB0byBhdCBs
-ZWFzdCBlc3RpbWF0ZSB0aGUgcGdfdGFibGUgc2l6ZSBzbyB3ZSBjYW4gcmVzZXJ2ZSBhbmQgYWxs
-b2NhdGUgbWVtb3J5IGxhdGVyLA0KPj4+Pg0KPj4+PiBPaCwgc28gVS1ib290IGRvZXNuJ3Qgc3Vw
-cG9ydCBydW50aW1lIHBhZ2UtdGFibGUgdGFibGUgYWxsb2NhdGlvbi4gSXMgdGhhdCByaWdodD8N
-Cj4+PiBBcyBwZXIgbXkgdW5kZXJzdGFuZGluZyBubywgd2UgcHJvdmlkZSBhIG1lbW9yeSBtYXAg
-YW5kIHRoZSB0YWJsZXMgYXJlIGFsbG9jYXRlZCBiZWZvcmVoYW5kDQo+Pg0KPj4gT2sgOiguDQo+
-Pg0KPj4+Pg0KPj4+Pj4NCj4+Pj4+IHNvIEkgaGF2ZSB0byBwcm92aWRlIG1lbW9yeSByYW5nZSBm
-cm9tIGVpdGhlciBieSBjb2RpbmcgYSBjb25zdGFudCBvciBsb29raW5nIGludG8gdGhlIGRldnRy
-ZWUgYXQNCj4+Pj4+DQo+Pj4+PiBoeXBlcnZpc29yIHsgcmVnID0gPD47IH0uIEl0IGlzIGEgYml0
-IHRyaWNreSB0aG91Z2gNCj4+Pj4NCj4+Pj4gTG9va2luZyBmb3IgYSBub2RlIGluIHRoZSBkZXZp
-Y2UtdHJlZSBzaG91bGRuJ3QgYmUgdG9vIGRpZmZpY3VsdCBnaXZlbiB0aGF0IHlvdSBoYXZlIGZk
-dF8qIGF2YWlsYWJsZS4NCj4+Pj4NCj4+Pj4gSG93ZXZlciwgcGxlYXNlIG5vdCB0aGF0IDxyZWc+
-IGRvZXNuJ3QgcmVmZXIgdG8gdGhlIGd1ZXN0IG1hZ2ljIHBhZ2VzLiBJbnN0ZWFkLCBpdCBwcm92
-aWRlcyBhIHJlZ2lvbiB5b3UgY2FuIHVzZSBmb3IgbWFwcGluZyB0aGUgZ3JhbnQtdGFibGUgZnJh
-bWVzDQo+Pj4NCj4+PiBJbmRlZWQsIHRoaXMgaXMgaW4gbXkgY2FzZSAweDM4MDAwMDAwLCBidXQg
-dGhlIG1hZ2ljIGlzIGF0IDB4MzkwMDAwMDANCj4+Pg0KPj4+IFNvLCBJIG5lZWQgdGhlIG1lbW9y
-eSByYW5nZSBzZXQgdXAgYmVmb3JlaGFuZCwgYnV0IEkgY2FuJ3QgYXMgdGhlcmUgaXMgbm8gY3V0
-ZSB3YXkgdG8gZ2V0IHRoYXQuDQo+Pj4NCj4+PiBPZiBjb3Vyc2UsIEkgY2FuIGlzc3VlIGEgaHlw
-IGNhbGwgdG8gZ2V0IEhWTV9QQVJBTV9DT05TT0xFX1BGTiBhbmQgdXNlIGl0IGFzIHRoZSBiYXNl
-IGFkZHJlc3MsDQo+Pj4NCj4+PiBidXQgdGhpcyBzbWVsbHMgbGlrZSBhIGhhY2suIEkgY2FuIGNh
-bGwgb3RoZXIgSFZNX1BBUkFNXyB0byBnZXQgdGhlaXIgcGZucyBhbmQgc2V0IHVwIHRoZSBtZW1v
-cnkgcmVnaW9ucywNCj4+Pg0KPj4+IGJ1dCB0aGlzIGxvb2tzIGEgYml0IHdlaXJkLg0KPj4NCj4+
-IFdoeSBpcyBpdCB3ZWlyZD8gSW4gZ2VuZXJhbCwgeW91IG9ubHkgd2FudCB0byBtYXAgZXhhY3Rs
-eSB3aGF0IHlvdSBuZWVkLiBOb3QgbGVzcywgbm90IG1vcmUuDQo+Pg0KPj4gSW4geW91ciBzaXR1
-YXRpb24sIHlvdSBvbmx5IGNhcmUgYWJvdXQgdHdvIHBhZ2VzLCB0aGUgY29uc29sZSBwYWdlIGFu
-ZCB0aGUgeGVuc3RvcmUgcGFnZS4gVGhlIHJlc3Qgc2hvdWxkbid0IGJlIG1hcHBlZC4NCj4gT2ss
-IHNvIEknbGwgdHJ5IGdldCBwZm5zIGZvciBIVk1fUEFSQU1fQ09OU09MRV9QRk4gKyBYRU5TVE9S
-RV9QRk5fT0ZGU0VUIHZpYSBoeXAgY2FsbCBhbmQgbWFwIHRob3NlDQo+Pg0KPj4+IEkgbmVlZCB0
-aGF0IGNvbnN0YW50IGJhZGx5IDspDQo+Pg0KPj4gTm8geW91IGRvbid0IDspLg0KDQpXZSBoYXZl
-IG1hbmFnZWQgdG8gbWFrZSB1c2Ugb2YgdGhlIHJlbGV2YW50IGh5cGVyY2FsbHMgdG8gZ2V0IHRo
-ZSBQRk5zLCBidXQgZm9yIHRoYXQNCg0Kd2UgbmVlZCB0byBtYWludGFpbiB0aGUgY2FjaGVzIGFz
-IHRoaXMgaGFwcGVucyAodGhlIGNhbGxzKSB3aGVuIE1NVSBpcyBub3QgeWV0DQoNCnNldHVwIGFu
-ZCBpcyBpbiB0aGUgcHJvY2VzcyBvZi4NCg0KPj4NCj4+IENoZWVycywNCj4+DQo+IFRoYW5rcyBm
-b3IgaGVscGluZyB3aXRoIHRoaXM=
+On Mon, Jun 22, 2020 at 12:58:37PM +0200, Martin Lucina wrote:
+> On 2020-06-19 19:42, Roger Pau Monné wrote:
+> > On Fri, Jun 19, 2020 at 06:54:26PM +0200, Roger Pau Monné wrote:
+> > > On Fri, Jun 19, 2020 at 06:41:21PM +0200, Martin Lucina wrote:
+> > > > On 2020-06-19 13:21, Roger Pau Monné wrote:
+> > > > > On Fri, Jun 19, 2020 at 12:28:50PM +0200, Martin Lucina wrote:
+> > > > > > On 2020-06-18 13:46, Roger Pau Monné wrote:
+> > > > > > > On Thu, Jun 18, 2020 at 12:13:30PM +0200, Martin Lucina wrote:
+> > > > > > > > At this point I don't really have a clear idea of how to progress,
+> > > > > > > > comparing my implementation side-by-side with the original PV
+> > > > > > > > Mini-OS-based
+> > > > > > > > implementation doesn't show up any differences I can see.
+> > > > > > > >
+> > > > > > > > AFAICT the OCaml code I've also not changed in any material way, and
+> > > > > > > > that
+> > > > > > > > has been running in production on PV for years, so I'd be inclined
+> > > > > > > > to think
+> > > > > > > > the problem is in my reimplementation of the C parts, but where...?
+> > > > > > >
+> > > > > > > A good start would be to print the ISR and IRR lapic registers when
+> > > > > > > blocked, to assert there are no pending vectors there.
+> > > > > > >
+> > > > > > > Can you apply the following patch to your Xen, rebuild and check the
+> > > > > > > output of the 'l' debug key?
+> > > > > > >
+> > > > > > > Also add the output of the 'v' key.
+> > > > > >
+> > > > > > Had to fight the Xen Debian packages a bit as I wanted to patch the
+> > > > > > exact
+> > > > > > same Xen (there are some failures when building on a system that has
+> > > > > > Xen
+> > > > > > installed due to following symlinks when fixing shebangs).
+> > > > > >
+> > > > > > Here you go, when stuck during netfront setup, after allocating its
+> > > > > > event
+> > > > > > channel, presumably waiting on Xenstore:
+> > > > > >
+> > > > > > 'e':
+> > > > > >
+> > > > > > (XEN) Event channel information for domain 3:
+> > > > > > (XEN) Polling vCPUs: {}
+> > > > > > (XEN)     port [p/m/s]
+> > > > > > (XEN)        1 [1/0/1]: s=3 n=0 x=0 d=0 p=33
+> > > > > > (XEN)        2 [1/1/1]: s=3 n=0 x=0 d=0 p=34
+> > > > > > (XEN)        3 [1/0/1]: s=5 n=0 x=0 v=0
+> > > > > > (XEN)        4 [0/1/1]: s=2 n=0 x=0 d=0
+> > > > > >
+> > > > > > 'l':
+> > > > > >
+> > > > > > (XEN) d3v0 IRR:
+> > > > > > ffff8301732dc200b
+> > > > > > (XEN) d3v0 ISR:
+> > > > > > ffff8301732dc100b
+> > > > >
+> > > > > Which version of Xen is this? AFAICT it doesn't have the support to
+> > > > > print a bitmap.
+> > > >
+> > > > That in Debian 10 (stable):
+> > > >
+> > > > ii  xen-hypervisor-4.11-amd64            4.11.3+24-g14b62ab3e5-1~deb10u1.2
+> > > > amd64        Xen Hypervisor on AMD64
+> > > >
+> > > > xen_major              : 4
+> > > > xen_minor              : 11
+> > > > xen_extra              : .4-pre
+> > > > xen_version            : 4.11.4-pre
+> > > >
+> > > > >
+> > > > > Do you think you could also pick commit
+> > > > > 8cd9500958d818e3deabdd0d4164ea6fe1623d7c [0] and rebuild? (and print
+> > > > > the info again).
+> > > >
+> > > > Done, here you go:
+> > > >
+> > > > (XEN) Event channel information for domain 3:
+> > > > (XEN) Polling vCPUs: {}
+> > > > (XEN)     port [p/m/s]
+> > > > (XEN)        1 [1/0/1]: s=3 n=0 x=0 d=0 p=33
+> > > > (XEN)        2 [1/1/1]: s=3 n=0 x=0 d=0 p=34
+> > > > (XEN)        3 [1/0/1]: s=5 n=0 x=0 v=0
+> > > > (XEN)        4 [0/1/1]: s=3 n=0 x=0 d=0 p=35
+> > > >
+> > > >
+> > > > (XEN) d3v0 IRR:
+> > > > 00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000
+> > > > (XEN) d3v0 ISR:
+> > > > 00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000
+> > > 
+> > > So there's nothing pending on the lapic. Can you assert that you will
+> > > always execute evtchn_demux_pending after you have received an event
+> > > channel interrupt (ie: executed solo5__xen_evtchn_vector_handler)?
+> > > 
+> > > I think this would be simpler if you moved evtchn_demux_pending into
+> > > solo5__xen_evtchn_vector_handler? As there would be less asynchronous
+> > > processing, and thus likely less races?
+> > 
+> > Having though about this, I think this model of not demuxing in
+> > solo5__xen_evtchn_vector_handler is always racy, as it's not possible
+> > to assert that you would always call evtchn_demux_pending after
+> > solo5__xen_evtchn_vector_handler?
+> > 
+> > Ie: if you receive an interrupt just before going to sleep (after the
+> > sti and before the hlt) you will execute
+> > solo5__xen_evtchn_vector_handler and EOI the vector, but then
+> > evtchn_demux_pending will never get called, and thus the interrupts
+> > will stay indefinitely pending?
+> 
+> Aha! Thank you for pointing this out. I think you may be right, but this
+> should be possible without doing the demuxing in interrupt context.
+
+If you don't do the demuxing in the interrupt context (ie: making the
+interrupt handler a noop), then you don't likely need such interrupt
+anyway?
+
+> How about this arrangement, which appears to work for me; no hangs I can see
+> so far and domU survives ping -f fine with no packet loss:
+> 
+> CAMLprim value
+> mirage_xen_evtchn_block_domain(value v_deadline)
+> {
+>     struct vcpu_info *vi = VCPU0_INFO();
+>     solo5_time_t deadline = Int64_val(v_deadline);
+> 
+>     if (solo5_clock_monotonic() < deadline) {
+>         __asm__ __volatile__ ("cli" : : : "memory");
+>         if (vi->evtchn_upcall_pending) {
+>             __asm__ __volatile__ ("sti");
+>         }
+>         else {
+>             hypercall_set_timer_op(deadline);
+
+What if you set a deadline so close that evtchn_upcall_pending gets
+set by Xen here and the interrupt is injected? You would execute the
+noop handler and just hlt, and could likely end up in the same blocked
+situation as before?
+
+>             __asm__ __volatile__ ("sti; hlt");
+>         }
+>     }
+>     return Val_unit;
+> }
+> 
+> i.e. Always go to sleep with interrupts disabled, but before doing so
+> re-check that no events have become pending since the last time
+> evtchn_demux_pending() was called. This holds, since the only thing that
+> sets vi->evtchn_upcall_pending is Xen, and the only thing that clears it is
+> evtchn_demux_pending().
+> 
+> Right?
+
+TBH this is a hard model to get right, I think your best bet at
+attempting something along this lines is to forget about using the
+event channel interrupt and instead use SCHEDOP_poll. You could do
+something like (written in pure C as I have no idea of the ocaml
+bindings):
+
+int
+mirage_xen_evtchn_block_domain(uint64_t timeout)
+{
+    evtchn_port_t ports[MAX_PORTS];
+    struct sched_poll poll = {
+    	.timeout = timeout,
+	.nr_ports = 0,
+    };
+
+    set_xen_guest_handle(poll.ports, ports);
+
+    /* Fill ports you care about (ie: all event channel ports in use) */
+    ports[poll.nr_ports++] = port_1;
+    ports[poll.nr_ports++] = port_2;
+    [...] /* Check that you don't overrun MAX_PORTS */
+
+    /* On return demux events and call timer handler if timeout expired. */
+    return hypercall_sched_op(SCHEDOP_poll, &poll);
+}
+
+Doing something like the above you could forget about setting up the
+event channel interrupt and the timer.
+
+>             __asm__ __volatile__ ("sti; hlt");
+>         }
+>     }
+>     return Val_unit;
+> }
+> 
+> In an attempt to understand why the original PV code worked I re-read the PV
+> Mini-OS block_domain code again and realised that I had entirely missed one
+> part of its behaviour, which is that it intends[*] to run with
+> interrupts/upcalls disabled *all* the time and relies on SCHEDOP_block
+> atomically re-enabling them and triggering an upcall before returning (PV)
+> or "briefly enabling interrupts to allow handlers to run" (HVM). We're doing
+> the inverse, but our behaviour matches my mental model of how things should
+> work.
+
+Not really IMO, as SCHEDOP_block is a single 'instruction' from a
+guest PoV that does the enabling of interrupts and returns if there
+are pending ones.
+
+Also SCHEDOP_block is not exactly the same on HVM, as it just checks
+for pending vectors to inject, but not for pending event channels. On
+HVM you cannot call hlt with interrupts disabled, or the vCPU will be
+taken down.
+
+There are quite a lot of subtle differences between PV and HVM in this
+regard, and I think the best approach would be to use SCHEDOP_poll in
+order to implement the kind of model you describe.
+
+Roger.
 
