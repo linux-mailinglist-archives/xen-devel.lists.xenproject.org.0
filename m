@@ -2,54 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8AB203DA5
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 19:17:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D66CF203E5F
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2020 19:50:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnQ3n-00065b-6K; Mon, 22 Jun 2020 17:16:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MNSJ=AD=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jnQ3l-00065W-Ng
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 17:16:41 +0000
-X-Inumbo-ID: 22ef1c20-b4ac-11ea-beb0-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 22ef1c20-b4ac-11ea-beb0-12813bfff9fa;
- Mon, 22 Jun 2020 17:16:40 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: hJvmAA4P5Vj+eLdeFrVChFjHf5w+aJy5ku8a4hfTC99wEquHUHSsi8DRHjpIjcKawhiN4izQfK
- BXv4Tk8l85oZUHDrJYbWl2xo0II6jp0kXYqvwvitNmbE+M6Hd2tTPVFyD6e5QOXSac7vIwILOy
- T3P/AVBW7o4++AvJfjZkZ+7sEwXgZZbFuzdMaqt2Qr8xnxv500aYr+GXCubcuYFj17yzg0wy5c
- PhVENiCYkrAqnnAVqh8r+GCX2uZmCXgptp/ROj+jUY3TnDLiZ+SYSBHXvdY23DSVTmk7OkSiry
- QQ4=
-X-SBRS: 2.7
-X-MesageID: 20865635
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,268,1589256000"; d="scan'208";a="20865635"
-Subject: Re: [PATCH for-4.14] x86/msr: Disallow access to Processor Trace MSRs
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200619115823.22243-1-andrew.cooper3@citrix.com>
- <32440578-e346-85cc-abad-1aa5694f0ab2@suse.com>
- <855c1668-3f91-c084-70d5-76f3e171f074@citrix.com>
- <f2152e32-ab27-12d2-f82c-7108c0c9867b@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <d0b118e7-5c46-bebe-b8ec-c8ae06283529@citrix.com>
-Date: Mon, 22 Jun 2020 18:16:35 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+	id 1jnQZN-0000SB-Pt; Mon, 22 Jun 2020 17:49:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O88q=AD=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jnQZM-0000S6-Jz
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2020 17:49:20 +0000
+X-Inumbo-ID: b3131dca-b4b0-11ea-bca7-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b3131dca-b4b0-11ea-bca7-bc764e2007e4;
+ Mon, 22 Jun 2020 17:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9weotV/SNrMZyG1N1H3/PFtyW42B6wbbtW+YFspt8Zk=; b=insdBMx2bfBXoUpm9PYFijyIXm
+ eeMtEfWsUy8zv1zWqnXNBM+nAPhn6zlh1v7+XijiV2m8HB5tu+bywNKAUIboHoi65fEbaHo/KmAy3
+ CPTkGwr8VwhtQ2OwGAePrcF67+SBn/0qn9elHyV67x0Tt+UqjJcsZSQm/CBjN81Xjczs=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jnQZK-0004RH-37; Mon, 22 Jun 2020 17:49:18 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jnQZJ-0003qH-RY; Mon, 22 Jun 2020 17:49:18 +0000
+Subject: Re: UEFI support in ARM DomUs
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall.oss@gmail.com>
+References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
+ <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
+ <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
+ <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
+ <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
+ <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
+ <alpine.DEB.2.21.2006191020110.12730@sstabellini-ThinkPad-T480s>
+ <c5905f40-6d0a-358f-35e4-239e88ace7d8@epam.com>
+ <94bfe57c-c1be-62b4-3799-b90415264487@xen.org>
+ <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <1a44c645-8c9a-93ce-8466-35c87eb4fca5@xen.org>
+Date: Mon, 22 Jun 2020 18:49:15 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <f2152e32-ab27-12d2-f82c-7108c0c9867b@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,48 +72,108 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
- Xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
+ Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>,
+ Roman Shaposhnik <roman@zededa.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Nataliya Korovkina <malus.brandywine@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 19/06/2020 14:39, Jan Beulich wrote:
-> On 19.06.2020 15:28, Andrew Cooper wrote:
->> On 19/06/2020 13:48, Jan Beulich wrote:
->>> On 19.06.2020 13:58, Andrew Cooper wrote:
->>>> --- a/xen/arch/x86/msr.c
->>>> +++ b/xen/arch/x86/msr.c
->>>> @@ -168,6 +168,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
->>>>      case MSR_TSX_FORCE_ABORT:
->>>>      case MSR_TSX_CTRL:
->>>>      case MSR_MCU_OPT_CTRL:
->>>> +    case MSR_RTIT_OUTPUT_BASE:
->>>> +    case MSR_RTIT_OUTPUT_MASK:
->>>> +    case MSR_RTIT_CTL:
->>>> +    case MSR_RTIT_STATUS:
->>>> +    case MSR_RTIT_CR3_MATCH:
->>>> +    case MSR_RTIT_ADDR_A(0) ... MSR_RTIT_ADDR_B(3):
->>> The respective CPUID field is 3 bits wide, so wouldn't it be better
->>> to cover the full possible range (0...6 afaict)?
->> Last time I tried, you objected to me covering MSR ranges which weren't
->> defined.
-> Wasn't that for a range where some number had been re-used from
-> earlier models (with entirely different purpose)?
 
-I don't recall, but the answer isn't relevant to whether the MSRs at
-those indices ought to be available to guests.
 
->> If you want to extend the range like that, it ought to be
->> MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7) to cover the entire area
->> which seems to be exclusively for PT.
-> I'd be okay with that, just that I'm not sure about (7): While
-> SDM Vol 2 oddly enough doesn't seem to list anything for leaf 7
-> subleaf 1 (or I'm sufficiently blind today), Vol 4 clearly says
-> for n=0...3 "If CPUID.(EAX=07H,ECX=1):EAX[2:0] > <n>", and the
-> field obviously can't be > 7.
+On 22/06/2020 15:33, Oleksandr Andrushchenko wrote:
+> 
+> On 6/22/20 5:27 PM, Julien Grall wrote:
+>> Hi Oleksandr,
+>>
+>> On 22/06/2020 15:04, Oleksandr Andrushchenko wrote:
+>>> On 6/19/20 11:02 PM, Stefano Stabellini wrote:
+>>>> On Thu, 18 Jun 2020, Julien Grall wrote:
+>>> ifeq ($(CONFIG_XEN),y)
+>>> arch-y += -D__XEN_INTERFACE_VERSION__=0x00040d00
+>>> endif
+>>>
+>>> and we also have Xen 4.13 headers in the U-boot tree.
+>>
+>> Sorry if this was already asked before. Why do you need to specify __XEN_INTERFACE_VERSION__?
+> 
+> This is because of include/xen/interface/xen-compat.h:
+> 
+> #if defined(__XEN__) || defined(__XEN_TOOLS__)
+> 
+> /* Xen is built with matching headers and implements the latest interface. */
+> #define __XEN_INTERFACE_VERSION__ __XEN_LATEST_INTERFACE_VERSION__
+> #elif !defined(__XEN_INTERFACE_VERSION__)
+> /* Guests which do not specify a version get the legacy interface. */
+> #define __XEN_INTERFACE_VERSION__ 0x00000000
+> #endif
 
-7 gives the top of the bank of MSRs.  It isn't related to CPUID data.
+I am afraid this doesn't explain why you need to define it to a specific 
+version.
 
-~Andrew
+__XEN_INTERFACE_VERSION__ is really mostly here to allow a guest to 
+build if they rely on header from xen.git (we may have done some 
+renaming). Most (if not all) the interfaces you care ought to be stable.
+
+Older Xen will return -ENOSYS/-EOPNOTSUPP should deny any values they 
+don't know.
+
+As you pull the headers in U-boot, you could safely define 
+__XEN_INTERFACE_VERSION__ as __XEN_LATEST_INTERFACE_VERSION__. FWIW, 
+this is what Linux is doing to some extend.
+
+Note that I haven't suggested to keep __XEN_INTERFACE_VERSION__ as 
+0x00000000 because it looks like it is going to do the wrong thing on 
+arm32 :(.
+
+I have at least spot one issue with GNTTABOP_setup_table where it will 
+use unsigned long (i.e 32-bit) for older interface. But the hypervisor 
+will always 64-bits.
+
+This probably going to result to some overwrite. I think we should fix 
+the headers to force it to use xen_pfn_t for all Xen on Arm version.
+
+Something like:
+
+#if !(defined(__arch64__) || defined(__arm__)) && 
+__XEN_INTERFACE_VERSION__ < 0x00040300
+     XEN_GUEST_HANDLE(ulong) frame_list;
+#else
+     XEN_GUEST_HANDLE(xen_pfn_t) frame_list;
+#endif
+
+> 
+> So, one needs to specify the version (QEMU does that via its configure script after
+> 
+> some tests)
+
+Well libxc is definitely not stable, hence why QEMU requires to specify 
+the version. But the interface with the guest is always meant to be stable.
+
+>>
+>>>
+>>> For the first part (__XEN_INTERFACE_VERSION__) I think we can provide it via
+>>>
+>>> CFLAGS or something. This can also be done for the location of Xen headers.
+>>
+>> __XEN_INTERFACE_VERSION__ should work through the CFLAGS. An alternative would be to allow the user to specify through the Kconfig.
+> 
+> You mean specifying via Kconfig something like "0x00040d00"?
+
+Possibly yes.
+
+> 
+> And what about the headers? How will we provide their location if we decide not to include those
+> 
+> in the tree?
+
+I would do through Kconfig as well.
+
+Cheers,
+
+-- 
+Julien Grall
 
