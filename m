@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 631D92046A5
+	by mail.lfdr.de (Postfix) with ESMTPS id C49382046A6
 	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 03:20:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnXbA-0001sE-RA; Tue, 23 Jun 2020 01:19:40 +0000
+	id 1jnXbG-0001sX-3h; Tue, 23 Jun 2020 01:19:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Pvsx=AE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jnXb9-0001s8-60
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 01:19:39 +0000
-X-Inumbo-ID: 9b2b10c0-b4ef-11ea-bef2-12813bfff9fa
+ id 1jnXbE-0001s8-20
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 01:19:44 +0000
+X-Inumbo-ID: 9d70a0de-b4ef-11ea-bef2-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9b2b10c0-b4ef-11ea-bef2-12813bfff9fa;
- Tue, 23 Jun 2020 01:19:38 +0000 (UTC)
+ id 9d70a0de-b4ef-11ea-bef2-12813bfff9fa;
+ Tue, 23 Jun 2020 01:19:42 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 76C162053B;
- Tue, 23 Jun 2020 01:19:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 866B62053B;
+ Tue, 23 Jun 2020 01:19:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592875177;
- bh=4OIRBLg0H5N3bTEb42UdP6Mxrr+RntsK/pnHuwgTYh4=;
+ s=default; t=1592875181;
+ bh=w6rTVAhgIBPh0garjvhse4Q6AvioIJLVTatcx1vBVuI=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=0GYXeFn5S0k7Z2rh9P66W3HmFEEip564VofjPy/wJOVHHTTBqbkYpB/i4Y5Bwjsnk
- X3nZwKHZHR1FKGYBdQOqJsWS82OqHn3ZJ1G9sgvXPWFbhqqdg1TSe6GO7cpgPO+h6n
- PngixMCGY4CskEFvf5bcPl/0J5bCI/rwZPmvCqIU=
-Date: Mon, 22 Jun 2020 18:19:37 -0700 (PDT)
+ b=gdQ4R5aB/2vicmqYRFKzs0bLFh+3N8XMCVfWakp129haNAF2QoO8Yew6231FBodW5
+ G/Mp8mndv73JHNaQBj9lMBXKLgXMXrLjbKaX6TiKLof0M7/gO5Qd4NWFMVVqNxlGG1
+ IzxaQyQVsxbjhE/Wh1WH+NRusqFhGPVwqsOTdkRA=
+Date: Mon, 22 Jun 2020 18:19:41 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 2/2] optee: allow plain TMEM buffers with NULL address
-In-Reply-To: <20200619223332.438344-3-volodymyr_babchuk@epam.com>
-Message-ID: <alpine.DEB.2.21.2006221809380.8121@sstabellini-ThinkPad-T480s>
+Subject: Re: [PATCH v2 1/2] optee: immediately free buffers that are released
+ by OP-TEE
+In-Reply-To: <20200619223332.438344-2-volodymyr_babchuk@epam.com>
+Message-ID: <alpine.DEB.2.21.2006221759540.8121@sstabellini-ThinkPad-T480s>
 References: <20200619223332.438344-1-volodymyr_babchuk@epam.com>
- <20200619223332.438344-3-volodymyr_babchuk@epam.com>
+ <20200619223332.438344-2-volodymyr_babchuk@epam.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -61,103 +62,115 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On Fri, 19 Jun 2020, Volodymyr Babchuk wrote:
-> Trusted Applications use popular approach to determine required size
-> of buffer: client provides a memory reference with the NULL pointer to
-> a buffer. This is so called "Null memory reference". TA updates the
-> reference with the required size and returns it back to the
-> client. Then client allocates buffer of needed size and repeats the
-> operation.
+> Normal World can share buffer with OP-TEE for two reasons:
+> 1. Some client application wants to exchange data with TA
+> 2. OP-TEE asks for shared buffer for internal needs
 > 
-> This behavior is described in TEE Client API Specification, paragraph
-> 3.2.5. Memory References.
+> The second case was handle more strictly than necessary:
 > 
-> OP-TEE represents this null memory reference as a TMEM parameter with
-> buf_ptr = 0x0. This is the only case when we should allow TMEM
-> buffer without the OPTEE_MSG_ATTR_NONCONTIG flag. This also the
-> special case for a buffer with OPTEE_MSG_ATTR_NONCONTIG flag.
+> 1. In RPC request OP-TEE asks for buffer
+> 2. NW allocates buffer and provides it via RPC response
+> 3. Xen pins pages and translates data
+> 4. Xen provides buffer to OP-TEE
+> 5. OP-TEE uses it
+> 6. OP-TEE sends request to free the buffer
+> 7. NW frees the buffer and sends the RPC response
+> 8. Xen unpins pages and forgets about the buffer
 > 
-> This could lead to a potential issue, because IPA 0x0 is a valid
-> address, but OP-TEE will treat it as a special case. So, care should
-> be taken when construction OP-TEE enabled guest to make sure that such
-> guest have no memory at IPA 0x0 and none of its memory is mapped at PA
-> 0x0.
+> The problem is that Xen should forget about buffer in between stages 6
+> and 7. I.e. the right flow should be like this:
+> 
+> 6. OP-TEE sends request to free the buffer
+> 7. Xen unpins pages and forgets about the buffer
+> 8. NW frees the buffer and sends the RPC response
+> 
+> This is because OP-TEE internally frees the buffer before sending the
+> "free SHM buffer" request. So we have no reason to hold reference for
+> this buffer anymore. Moreover, in multiprocessor systems NW have time
+> to reuse buffer cookie for another buffer. Xen complained about this
+> and denied the new buffer registration. I have seen this issue while
+> running tests on iMX SoC.
+> 
+> So, this patch basically corrects that behavior by freeing the buffer
+> earlier, when handling RPC return from OP-TEE.
 > 
 > Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+
+There are a couple of grammar issues in the comments, but we can fix
+them on commit.
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+
 > ---
 > 
 > Changes from v1:
->  - Added comment with TODO about possible PA/IPA 0x0 issue
->  - The same is described in the commit message
->  - Added check in translate_noncontig() for the NULL ptr buffer
+>  - reworded the comments
+>  - added WARN() for a case when OP-TEE wants to release not the
+>    buffer it requeset to allocate durint this call
 > 
 > ---
->  xen/arch/arm/tee/optee.c | 27 ++++++++++++++++++++++++---
->  1 file changed, 24 insertions(+), 3 deletions(-)
+>  xen/arch/arm/tee/optee.c | 32 ++++++++++++++++++++++++++++----
+>  1 file changed, 28 insertions(+), 4 deletions(-)
 > 
 > diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
-> index 6963238056..70bfef7e5f 100644
+> index 6a035355db..6963238056 100644
 > --- a/xen/arch/arm/tee/optee.c
 > +++ b/xen/arch/arm/tee/optee.c
-> @@ -215,6 +215,15 @@ static bool optee_probe(void)
->      return true;
->  }
+> @@ -1099,6 +1099,34 @@ static int handle_rpc_return(struct optee_domain *ctx,
+>          if ( shm_rpc->xen_arg->cmd == OPTEE_RPC_CMD_SHM_ALLOC )
+>              call->rpc_buffer_type = shm_rpc->xen_arg->params[0].u.value.a;
 >  
-> +/*
-> + * TODO: There is a potential issue with guests that either have RAM
-> + * at IPA of 0x0 or some of theirs memory is mapped at PA 0x0. This is
-                               ^ their
+> +        /*
+> +         * OP-TEE is signalling that it has freed the buffer that it
+> +         * requested before. This is the right time for us to do the
+> +         * same.
+> +         */
+> +        if ( shm_rpc->xen_arg->cmd == OPTEE_RPC_CMD_SHM_FREE )
+> +        {
+> +            uint64_t cookie = shm_rpc->xen_arg->params[0].u.value.b;
+> +
+> +            free_optee_shm_buf(ctx, cookie);
+> +
+> +            /*
+> +             * OP-TEE asks to free buffer, but this is not the same
+> +             * buffer we previously allocated for it. While nothing
+> +             * prevents OP-TEE from asking this, it is the strange
+                                                          ^ a
 
-> + * because PA of 0x0 is considered as NULL pointer by OP-TEE. It will
-> + * not be able to map buffer with such pointer to TA address space, or
-> + * use such buffer for communication with the guest. We either need to
-> + * check that guest have no such mappings or ensure that OP-TEE
-> + * enabled guest will not be created with such mappings.
-> + */
->  static int optee_domain_init(struct domain *d)
->  {
->      struct arm_smccc_res resp;
-> @@ -725,6 +734,15 @@ static int translate_noncontig(struct optee_domain *ctx,
->          uint64_t next_page_data;
->      } *guest_data, *xen_data;
+> +             * situation. This may or may not be caused by a bug in
+> +             * OP-TEE or mediator. But is better to print warning.
+                                          ^ it is
+
+> +             */
+> +            if ( call->rpc_data_cookie && call->rpc_data_cookie != cookie )
+> +            {
+> +                gprintk(XENLOG_ERR,
+> +                        "Saved RPC cookie does not corresponds to OP-TEE's (%"PRIx64" != %"PRIx64")\n",
+                                                      ^ correspond
+
+
+> +                        call->rpc_data_cookie, cookie);
+> +
+> +                WARN();
+> +            }
+> +            call->rpc_data_cookie = 0;
+> +        }
+>          unmap_domain_page(shm_rpc->xen_arg);
+>      }
 >  
-> +    /*
-> +     * Special case: buffer with buf_ptr == 0x0 is considered as NULL
-> +     * pointer by OP-TEE. No translation is needed. This can lead to
-> +     * an issue as IPA 0x0 is a valid address for Xen. See the comment
-> +     * near optee_domain_init()
-> +     */
-> +    if ( !param->u.tmem.buf_ptr )
-> +        return 0;
-
-Given that today it is not possible for this to happen, it could even be
-an ASSERT. But I think I would just return an error, maybe -EINVAL?
-
-Aside from this, and the small grammar issue, everything else looks fine
-to me.
-
-Let's wait for Julien's reply, but if this is the only thing I could fix
-on commit.
-
-
->      /* Offset of user buffer withing OPTEE_MSG_NONCONTIG_PAGE_SIZE-sized page */
->      offset = param->u.tmem.buf_ptr & (OPTEE_MSG_NONCONTIG_PAGE_SIZE - 1);
->  
-> @@ -865,9 +883,12 @@ static int translate_params(struct optee_domain *ctx,
->              }
->              else
->              {
-> -                gdprintk(XENLOG_WARNING, "Guest tries to use old tmem arg\n");
-> -                ret = -EINVAL;
-> -                goto out;
-> +                if ( call->xen_arg->params[i].u.tmem.buf_ptr )
-> +                {
-> +                    gdprintk(XENLOG_WARNING, "Guest tries to use old tmem arg\n");
-> +                    ret = -EINVAL;
-> +                    goto out;
-> +                }
+> @@ -1464,10 +1492,6 @@ static void handle_rpc_cmd(struct optee_domain *ctx, struct cpu_user_regs *regs,
 >              }
 >              break;
->          case OPTEE_MSG_ATTR_TYPE_NONE:
+>          case OPTEE_RPC_CMD_SHM_FREE:
+> -            free_optee_shm_buf(ctx, shm_rpc->xen_arg->params[0].u.value.b);
+> -            if ( call->rpc_data_cookie ==
+> -                 shm_rpc->xen_arg->params[0].u.value.b )
+> -                call->rpc_data_cookie = 0;
+>              break;
+>          default:
+>              break;
 > -- 
 > 2.26.2
 > 
