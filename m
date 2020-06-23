@@ -2,45 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C49382046A6
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 03:20:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2880F2046A7
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 03:20:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnXbG-0001sX-3h; Tue, 23 Jun 2020 01:19:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jnXcD-0002e0-Ij; Tue, 23 Jun 2020 01:20:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Pvsx=AE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jnXbE-0001s8-20
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 01:19:44 +0000
-X-Inumbo-ID: 9d70a0de-b4ef-11ea-bef2-12813bfff9fa
+ id 1jnXcC-0002dq-HX
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 01:20:44 +0000
+X-Inumbo-ID: c232a7c8-b4ef-11ea-8496-bc764e2007e4
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9d70a0de-b4ef-11ea-bef2-12813bfff9fa;
- Tue, 23 Jun 2020 01:19:42 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c232a7c8-b4ef-11ea-8496-bc764e2007e4;
+ Tue, 23 Jun 2020 01:20:44 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 866B62053B;
- Tue, 23 Jun 2020 01:19:41 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0596F20675;
+ Tue, 23 Jun 2020 01:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592875181;
- bh=w6rTVAhgIBPh0garjvhse4Q6AvioIJLVTatcx1vBVuI=;
+ s=default; t=1592875243;
+ bh=wcXgJbJlUk8bITf2CCrZAFYv+RTmBjCLBeNZ0Mjjr1A=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=gdQ4R5aB/2vicmqYRFKzs0bLFh+3N8XMCVfWakp129haNAF2QoO8Yew6231FBodW5
- G/Mp8mndv73JHNaQBj9lMBXKLgXMXrLjbKaX6TiKLof0M7/gO5Qd4NWFMVVqNxlGG1
- IzxaQyQVsxbjhE/Wh1WH+NRusqFhGPVwqsOTdkRA=
-Date: Mon, 22 Jun 2020 18:19:41 -0700 (PDT)
+ b=P/7pAL/yZr8dYQ000cFXro1hRptCvQ//z1CZ0wvZ7Fya81RQWR68KmqAk/gfRbdFV
+ JEtg10HadkzageiEQRdmG+bOym7WIlXqTvxqGPQ4z4tSFPyoXxi+neE7F+gLGJxHQp
+ QJyxuhhoJi5PvfW+glbV+hf9wQ6AsVyeUkczs8a4=
+Date: Mon, 22 Jun 2020 18:20:42 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 1/2] optee: immediately free buffers that are released
- by OP-TEE
-In-Reply-To: <20200619223332.438344-2-volodymyr_babchuk@epam.com>
-Message-ID: <alpine.DEB.2.21.2006221759540.8121@sstabellini-ThinkPad-T480s>
-References: <20200619223332.438344-1-volodymyr_babchuk@epam.com>
- <20200619223332.438344-2-volodymyr_babchuk@epam.com>
+To: Julien Grall <julien@xen.org>
+Subject: Re: UEFI support in ARM DomUs
+In-Reply-To: <1a44c645-8c9a-93ce-8466-35c87eb4fca5@xen.org>
+Message-ID: <alpine.DEB.2.21.2006221419200.8121@sstabellini-ThinkPad-T480s>
+References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
+ <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
+ <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
+ <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
+ <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
+ <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
+ <alpine.DEB.2.21.2006191020110.12730@sstabellini-ThinkPad-T480s>
+ <c5905f40-6d0a-358f-35e4-239e88ace7d8@epam.com>
+ <94bfe57c-c1be-62b4-3799-b90415264487@xen.org>
+ <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
+ <1a44c645-8c9a-93ce-8466-35c87eb4fca5@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -54,124 +63,55 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "pdurrant@amazon.com" <pdurrant@amazon.com>,
- "op-tee@lists.trustedfirmware.org" <op-tee@lists.trustedfirmware.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
+ Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>,
+ Roman Shaposhnik <roman@zededa.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Nataliya Korovkina <malus.brandywine@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien.grall.oss@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, 19 Jun 2020, Volodymyr Babchuk wrote:
-> Normal World can share buffer with OP-TEE for two reasons:
-> 1. Some client application wants to exchange data with TA
-> 2. OP-TEE asks for shared buffer for internal needs
+On Mon, 22 Jun 2020, Julien Grall wrote:
+> > > > For the first part (__XEN_INTERFACE_VERSION__) I think we can provide it
+> > > > via
+> > > > 
+> > > > CFLAGS or something. This can also be done for the location of Xen
+> > > > headers.
+> > > 
+> > > __XEN_INTERFACE_VERSION__ should work through the CFLAGS. An alternative
+> > > would be to allow the user to specify through the Kconfig.
+> > 
+> > You mean specifying via Kconfig something like "0x00040d00"?
 > 
-> The second case was handle more strictly than necessary:
+> Possibly yes.
 > 
-> 1. In RPC request OP-TEE asks for buffer
-> 2. NW allocates buffer and provides it via RPC response
-> 3. Xen pins pages and translates data
-> 4. Xen provides buffer to OP-TEE
-> 5. OP-TEE uses it
-> 6. OP-TEE sends request to free the buffer
-> 7. NW frees the buffer and sends the RPC response
-> 8. Xen unpins pages and forgets about the buffer
+> > 
+> > And what about the headers? How will we provide their location if we decide
+> > not to include those
+> > 
+> > in the tree?
 > 
-> The problem is that Xen should forget about buffer in between stages 6
-> and 7. I.e. the right flow should be like this:
-> 
-> 6. OP-TEE sends request to free the buffer
-> 7. Xen unpins pages and forgets about the buffer
-> 8. NW frees the buffer and sends the RPC response
-> 
-> This is because OP-TEE internally frees the buffer before sending the
-> "free SHM buffer" request. So we have no reason to hold reference for
-> this buffer anymore. Moreover, in multiprocessor systems NW have time
-> to reuse buffer cookie for another buffer. Xen complained about this
-> and denied the new buffer registration. I have seen this issue while
-> running tests on iMX SoC.
-> 
-> So, this patch basically corrects that behavior by freeing the buffer
-> earlier, when handling RPC return from OP-TEE.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> I would do through Kconfig as well.
 
-There are a couple of grammar issues in the comments, but we can fix
-them on commit.
+If we specify the external location of the Xen headers via Kconfig, it
+seems to me that we should be able to detect the interface version
+automatically from any Makefile as part of the build. No need to ask the
+user.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+However, if Oleksandr is thinking of using the Xen headers for the
+hypercalls definitions, then I think we might not need external headers
+at all because that is a stable interface, as Julien wrote. We could
+just define our own few headers for just what you need like Linux does.
 
-
-
-> ---
-> 
-> Changes from v1:
->  - reworded the comments
->  - added WARN() for a case when OP-TEE wants to release not the
->    buffer it requeset to allocate durint this call
-> 
-> ---
->  xen/arch/arm/tee/optee.c | 32 ++++++++++++++++++++++++++++----
->  1 file changed, 28 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
-> index 6a035355db..6963238056 100644
-> --- a/xen/arch/arm/tee/optee.c
-> +++ b/xen/arch/arm/tee/optee.c
-> @@ -1099,6 +1099,34 @@ static int handle_rpc_return(struct optee_domain *ctx,
->          if ( shm_rpc->xen_arg->cmd == OPTEE_RPC_CMD_SHM_ALLOC )
->              call->rpc_buffer_type = shm_rpc->xen_arg->params[0].u.value.a;
->  
-> +        /*
-> +         * OP-TEE is signalling that it has freed the buffer that it
-> +         * requested before. This is the right time for us to do the
-> +         * same.
-> +         */
-> +        if ( shm_rpc->xen_arg->cmd == OPTEE_RPC_CMD_SHM_FREE )
-> +        {
-> +            uint64_t cookie = shm_rpc->xen_arg->params[0].u.value.b;
-> +
-> +            free_optee_shm_buf(ctx, cookie);
-> +
-> +            /*
-> +             * OP-TEE asks to free buffer, but this is not the same
-> +             * buffer we previously allocated for it. While nothing
-> +             * prevents OP-TEE from asking this, it is the strange
-                                                          ^ a
-
-> +             * situation. This may or may not be caused by a bug in
-> +             * OP-TEE or mediator. But is better to print warning.
-                                          ^ it is
-
-> +             */
-> +            if ( call->rpc_data_cookie && call->rpc_data_cookie != cookie )
-> +            {
-> +                gprintk(XENLOG_ERR,
-> +                        "Saved RPC cookie does not corresponds to OP-TEE's (%"PRIx64" != %"PRIx64")\n",
-                                                      ^ correspond
-
-
-> +                        call->rpc_data_cookie, cookie);
-> +
-> +                WARN();
-> +            }
-> +            call->rpc_data_cookie = 0;
-> +        }
->          unmap_domain_page(shm_rpc->xen_arg);
->      }
->  
-> @@ -1464,10 +1492,6 @@ static void handle_rpc_cmd(struct optee_domain *ctx, struct cpu_user_regs *regs,
->              }
->              break;
->          case OPTEE_RPC_CMD_SHM_FREE:
-> -            free_optee_shm_buf(ctx, shm_rpc->xen_arg->params[0].u.value.b);
-> -            if ( call->rpc_data_cookie ==
-> -                 shm_rpc->xen_arg->params[0].u.value.b )
-> -                call->rpc_data_cookie = 0;
->              break;
->          default:
->              break;
-> -- 
-> 2.26.2
-> 
+If you can do that, I think it would be better because we decouple the
+UBoot build from the Xen build completely. We don't even need the Xen
+tree checked out to build UBoot. It would be a huge advantage because it
+makes it far easier to build-test changes for others in the community
+that don't know about Xen and also it becomes far easier to integrate
+into any build system.
 
