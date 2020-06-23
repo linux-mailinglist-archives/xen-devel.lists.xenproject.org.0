@@ -2,52 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8202F2056F3
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 18:18:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CAE9205714
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 18:19:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnlbQ-0002xe-V9; Tue, 23 Jun 2020 16:16:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ClC/=AE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jnlbP-0002xY-M3
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 16:16:51 +0000
-X-Inumbo-ID: f19edfcc-b56c-11ea-bfa7-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f19edfcc-b56c-11ea-bfa7-12813bfff9fa;
- Tue, 23 Jun 2020 16:16:50 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: h+kS0Md/dJ/O7jFwFjCqbFu92zkeLOY3Tdg1bcMcThuRkGf/ykPrACM+7IRmfMN7J+hx2kW+EK
- DsxtXDTTiit2RcYsHEPcI0CWGpMhEngebMwIZv92Ok6lOgtT71G/jNcpe2VrGhP+W5orsBm87X
- eyNG6MXuJvAvyJcYj/9hMqb+RWyG0oKqY5+sPD9YJ5EuggqaEMCYyOGledMnIW7wxh/WgDyuHM
- sgYcmLJ3UpQiVKwbnmu9oJGlnpuum/dYvOp5a7JITdUX0wX0oPJkNwvwJCcomaiQnJNc0NPmLL
- ymM=
-X-SBRS: 2.7
-X-MesageID: 21536931
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,271,1589256000"; d="scan'208";a="21536931"
-Date: Tue, 23 Jun 2020 18:16:42 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH for-4.14 v2] x86/tlb: fix assisted flush usage
-Message-ID: <20200623161607.GT735@Air-de-Roger>
-References: <20200623145006.66723-1-roger.pau@citrix.com>
- <741ff589-4366-1430-6639-13dc5f02fdfa@xen.org>
- <20200623151542.GR735@Air-de-Roger>
- <a3e73ebe-44ee-31a7-05ee-dd115af3414f@xen.org>
+	id 1jnldR-00035R-Fe; Tue, 23 Jun 2020 16:18:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O2Jt=AE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jnldP-00035J-Hc
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 16:18:55 +0000
+X-Inumbo-ID: 3b3a84ce-b56d-11ea-b7bb-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3b3a84ce-b56d-11ea-b7bb-bc764e2007e4;
+ Tue, 23 Jun 2020 16:18:54 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 04F64AE54;
+ Tue, 23 Jun 2020 16:18:53 +0000 (UTC)
+Subject: Re: [PATCH for-4.14] mm: fix public declaration of struct
+ xen_mem_acquire_resource
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20200623135246.66170-1-roger.pau@citrix.com>
+ <50e25ef7-e7a7-d2c1-5f78-ce32cae35f38@suse.com>
+ <20200623155609.GS735@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <da8d4d26-0524-1d77-8516-e986dd0affaa@suse.com>
+Date: Tue, 23 Jun 2020 18:18:52 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <20200623155609.GS735@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a3e73ebe-44ee-31a7-05ee-dd115af3414f@xen.org>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,108 +48,127 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 23, 2020 at 04:46:29PM +0100, Julien Grall wrote:
+On 23.06.2020 17:56, Roger Pau Monné wrote:
+> On Tue, Jun 23, 2020 at 05:02:04PM +0200, Jan Beulich wrote:
+>> On 23.06.2020 15:52, Roger Pau Monne wrote:
+>>> XENMEM_acquire_resource and it's related structure is currently inside
+>>> a __XEN__ or __XEN_TOOLS__ guarded section to limit it's scope to the
+>>> hypervisor or the toolstack only. This is wrong as the hypercall is
+>>> already being used by the Linux kernel at least, and as such needs to
+>>> be public.
+>>>
+>>> Also switch the usage of uint64_aligned_t to plain uint64_t, as
+>>> uint64_aligned_t is only to be used by the toolstack. Note that the
+>>> layout of the structure will be the same, as the field is already
+>>> naturally aligned to a 8 byte boundary.
+>>
+>> I'm afraid it's more complicated, and hence ...
+>>
+>>> No functional change expected.
+>>
+>> ... this doesn't hold: As I notice only now the struct also wrongly
+>> (if it was meant to be a tools-only interface) failed to use
+>> XEN_GUEST_HANDLE_64(), which would in principle have been a problem
+>> for 32-bit callers (passing garbage in the upper half of a handle).
+>> It's not an actual problem because, unlike would typically be the
+>> case for tools-only interfaces, there is compat translation for this
+>> struct.
 > 
+> Yes, there's already compat translation for the frame_list array.
 > 
-> On 23/06/2020 16:15, Roger Pau Monné wrote:
-> > On Tue, Jun 23, 2020 at 04:08:06PM +0100, Julien Grall wrote:
-> > > Hi Roger,
-> > > 
-> > > On 23/06/2020 15:50, Roger Pau Monne wrote:
-> > > > diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> > > > index 9b62087be1..f360166f00 100644
-> > > > --- a/xen/include/xen/mm.h
-> > > > +++ b/xen/include/xen/mm.h
-> > > > @@ -639,7 +639,8 @@ static inline void accumulate_tlbflush(bool *need_tlbflush,
-> > > >        }
-> > > >    }
-> > > > -static inline void filtered_flush_tlb_mask(uint32_t tlbflush_timestamp)
-> > > > +static inline void filtered_flush_tlb_mask(uint32_t tlbflush_timestamp,
-> > > > +                                           bool sync)
-> > > 
-> > > I read the commit message and went through the code, but it is still not
-> > > clear what "sync" means in a non-architectural way.
-> > > 
-> > > As an Arm developper, I would assume this means we don't wait for the TLB
-> > > flush to complete. But I am sure this would result to some unexpected
-> > > behavior.
-> > 
-> > No, when we return from filtered_flush_tlb_mask the flush has been
-> > performed (either with sync or without), but I understand the
-> > confusion given the parameter name.
-> > 
-> > > So can you explain on non-x86 words what this really mean?
-> > 
-> > sync (in this context) means to force the usage of an IPI (if built
-> > with PV or shadow paging support) in order to perform the flush.
+>> With this, however, the problem of your change becomes noticeable:
+>> The structure's alignment for 32-bit x86, and with it the structure's
+>> sizeof(), both change. You should be able to see this by comparing
+>> xen/common/compat/memory.c's disassembly before and after your
+>> change - the number of bytes to copy by the respective
+>> copy_from_guest() ought to have changed.
 > 
-> This is compare to?
-
-Using assisted flushes, like you do on Arm, where you don't send an
-IPI in order to achieve a TLB flush on a remote pCPU.
-
-> > AFAICT on Arm you always avoid an IPI when performing a flush, and
-> > that's fine because you don't have PV or shadow, and then you don't
-> > require this.
+> Right, this is the layout with frame aligned to 8 bytes:
 > 
-> Arm provides instructions to broadcast TLB flush, so by the time one of
-> instruction is completed there is all the TLB entry associated to the
-> translation doesn't exist.
+> struct xen_mem_acquire_resource {
+> 	uint16_t                   domid;                /*     0     2 */
+> 	uint16_t                   type;                 /*     2     2 */
+> 	uint32_t                   id;                   /*     4     4 */
+> 	uint32_t                   nr_frames;            /*     8     4 */
+> 	uint32_t                   pad;                  /*    12     4 */
+> 	uint64_t                   frame;                /*    16     8 */
+> 	long unsigned int *        frame_list;           /*    24     4 */
 > 
-> I don't think using PV or shadow would change anything here in the way we do
-> the flush.
-
-TBH, I'm not sure how this applies to Arm. There's no PV or shadow
-implementation, so I have no idea whether this would apply or not.
-
-> > Also I'm not sure Arm has the concept of a spurious
-> > page fault.
+> 	/* size: 32, cachelines: 1, members: 7 */
+> 	/* padding: 4 */
+> 	/* last cacheline: 32 bytes */
+> };
 > 
-> So if I understand correctly, the HW may raise a fault even if the mapping
-> was in the page-tables. Is it correct?
-
-Yes, this can happen when you promote the permission of a page table
-entry without doing a TLB flush AFAICT. Ie: you have a read-only page,
-which is promoted to writable, but you don't perform a TLB flush and
-just rely on getting a page fault that will clear the TLB entry and
-retry.
-
-> We have a spurious page fault handler for stage-2 (aka EPT on x86) as we
-> need to have an invalid mapping to transition for certain page-tables update
-> (e.g. superpage shattering). We are using the same rwlock with the page
-> fault handler and the page-table update, so there is no way the two can run
-> concurrently.
-
-This is slightly different as it's used by PV page tables, so the
-fault is triggered much more often than the fault handler you are
-referring to IMO.
-
-> > 
-> > I could rename to force_ipi (or require_ipi) if that's better?
+> And this is without:
 > 
-> Hmmm, based on what I wrote above, I don't think this name would be more
-> suitable. However, regardless the name, it is not clear to me when a caller
-> should use false or true.
+> struct xen_mem_acquire_resource {
+> 	uint16_t                   domid;                /*     0     2 */
+> 	uint16_t                   type;                 /*     2     2 */
+> 	uint32_t                   id;                   /*     4     4 */
+> 	uint32_t                   nr_frames;            /*     8     4 */
+> 	uint32_t                   pad;                  /*    12     4 */
+> 	uint64_t                   frame;                /*    16     8 */
+> 	long unsigned int *        frame_list;           /*    24     4 */
 > 
-> Have you considered a rwlock to synchronize the two?
+> 	/* size: 28, cachelines: 1, members: 7 */
+> 	/* last cacheline: 28 bytes */
+> };
+> 
+> Note Xen has already been copying those extra 4 padding bytes from
+> 32bit Linux kernels AFAICT, as the struct declaration in Linux has
+> dropped the aligned attribute.
+> 
+>> The question now is whether we're willing to accept such a (marginal)
+>> incompatibility. The chance of a 32-bit guest actually running into
+>> it shouldn't be very high, but with the right placement of an
+>> instance of the struct at the end of a page it would be possible to
+>> observe afaict.
+>>
+>> Or whether we go the alternative route and pad the struct suitably
+>> for 32-bit.
+> 
+> I guess we are trapped with what Linux has on it's headers now, so we
+> should handle the struct size difference in Xen?
 
-Yes, the performance drop is huge when I tried. I could try to refine,
-but I think there's always going to be a performance drop, as you then
-require mutual exclusion when modifying the page tables (you take the
-lock in write mode). Right now modification of the page tables can be
-done concurrently.
+How do you mean to notice the difference in Xen? You don't know
+what the caller's environment's sizeof() would yield.
 
-FWIW Xen explicitly moved from using a lock into this model in
-3203345bb13 apparently due to some deadlock situation. I'm not sure
-if that still holds.
+> I'm very tempted to just say switch the XEN_GUEST_HANDLE to
+> XEN_GUEST_HANDLE_64, but I guess it's risky.
 
-Roger.
+Plus, like uint64_aligned_t, iirc it's a construct exposed through
+tool-stack-only interfaces, but not generally.
+
+>>> --- a/xen/include/public/memory.h
+>>> +++ b/xen/include/public/memory.h
+>>> @@ -607,6 +607,8 @@ struct xen_reserved_device_memory_map {
+>>>  typedef struct xen_reserved_device_memory_map xen_reserved_device_memory_map_t;
+>>>  DEFINE_XEN_GUEST_HANDLE(xen_reserved_device_memory_map_t);
+>>>  
+>>> +#endif /* defined(__XEN__) || defined(__XEN_TOOLS__) */
+>>> +
+>>>  /*
+>>>   * Get the pages for a particular guest resource, so that they can be
+>>>   * mapped directly by a tools domain.
+>>
+>> This comment is now stale.
+> 
+> Hm, I'm not so sure. This is indeed used by Xen related tools (or
+> emulators) and then those domains running such tools would also be
+> tools domains?
+> 
+> Anyway, I don't mind removing it, but I also don't think it's so
+> off.
+
+Well - if this isn't a tool stack interface (see also my 2nd reply
+to your original patch), then the comment shouldn't suggest it is.
+
+Jan
 
