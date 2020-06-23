@@ -2,47 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CC8205113
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F2C9205114
 	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 13:47:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnhN2-0002Bo-71; Tue, 23 Jun 2020 11:45:44 +0000
+	id 1jnhO6-0002Kf-HH; Tue, 23 Jun 2020 11:46:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O2Jt=AE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jnhN0-0002Bj-Po
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 11:45:42 +0000
-X-Inumbo-ID: 108adb0a-b547-11ea-b7bb-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8LJ6=AE=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jnhO4-0002KA-O6
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 11:46:48 +0000
+X-Inumbo-ID: 357e1652-b547-11ea-bca7-bc764e2007e4
+Received: from mail-wr1-x42d.google.com (unknown [2a00:1450:4864:20::42d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 108adb0a-b547-11ea-b7bb-bc764e2007e4;
- Tue, 23 Jun 2020 11:45:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7A63AAF9C;
- Tue, 23 Jun 2020 11:45:40 +0000 (UTC)
-Subject: Re: [PATCH for-4.14] x86/tlb: fix assisted flush usage
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200618160403.35199-1-roger.pau@citrix.com>
- <0b6c900f-e2a6-c9b1-0e57-68c6898150a9@suse.com>
- <20200622093123.GI735@Air-de-Roger>
- <5ad66ef4-9406-f35a-5683-ac4608242dd7@suse.com>
- <20200622132410.GJ735@Air-de-Roger>
- <b3142168-09c8-67e8-d210-05f54761051c@suse.com>
- <20200622145659.GL735@Air-de-Roger>
- <9848eebc-f904-cb2f-b5e1-499f5ce6994b@suse.com>
- <20200623092543.GQ735@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2e994ef6-eeb1-a3d7-2912-b4ab18b64edb@suse.com>
-Date: Tue, 23 Jun 2020 13:45:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ id 357e1652-b547-11ea-bca7-bc764e2007e4;
+ Tue, 23 Jun 2020 11:46:43 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id s10so231442wrw.12
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2020 04:46:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=nsQo9i+/CJZ1DjKvgOB2w05FjU4Aq8s2SwHPXUXQPgg=;
+ b=MsCHTOexjRjW5Ra2id6IrAIs6x9apeOs3pvM6wBIOHmz9Bgvyb8N1EPeY/+7fpJEXd
+ VgUKeiIytfAdKBBWU5C4gcQM8aSsV/8eSah2xD9oH8APwTceIVf5ivgk/gU7jvTn74u3
+ 6YLi7ONi+eYQqTneyarVhpL+pWjT50sCSN7gaurewdm/2rEzLVKt+kgAk7rBnGG5imW2
+ 703G9g5mp5bvUzLgSQxUElSefDOkrwYmMFapCRIKwFK6275ZUIQc6KACxJRODgQ3Jsgi
+ /gOAEmvB8xiOa+DMAvvHDQTfMnua06XyOrlJ1tpgG6v6161+dDDIcxPIX2q2IBziY7rn
+ 43vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=nsQo9i+/CJZ1DjKvgOB2w05FjU4Aq8s2SwHPXUXQPgg=;
+ b=swS8vrCJBEeHp1digdDBsMW0/aF/c6IdcSkDYhkHF7DKE03rKF01KNa06EFmeaUFI1
+ J4sP0YyWUDPOfBje1hiM1JMBny4GXNCQFPc3UchSJO7YVibHGnX1SbFvmjAoo38HMvEf
+ 7qmyPrg/cJqCt/t+NtTBbQYJaE8mJsiAiQM4gU+3KEc/5Jrlkpnyc738oZav8slqmSkl
+ asa1k7KD2kMAiDVLAD0SN+B1Fq7alKqp0KIcY1q1Ktmz3VhhghHUGrCGjxU2j7XlykFg
+ 7hHVgtH0wLkzYnmS2tvqwJi3FDdeQ6uagUhC+AsZmYGa7rTDoWa7sU8rzkySIGxFJln6
+ wpHQ==
+X-Gm-Message-State: AOAM533vAt07221bt9omDbocQ/dCW74wWXU7yUJpmZW2mkTIT9eLpvSy
+ d7mVtSpH2lEsDtxhvCA7aY4=
+X-Google-Smtp-Source: ABdhPJzTJS7wzmG6kPQJ4+HLB04YWNFkLOXYkMd9lBnpM99UXIyjh8ly/AKBuLK5LYE1wp27n2CoFw==
+X-Received: by 2002:adf:d1a9:: with SMTP id w9mr22003597wrc.344.1592912802849; 
+ Tue, 23 Jun 2020 04:46:42 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-224.amazon.com. [54.240.197.224])
+ by smtp.gmail.com with ESMTPSA id z9sm3373507wmi.7.2020.06.23.04.46.41
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 23 Jun 2020 04:46:42 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Markus Armbruster'" <armbru@redhat.com>,
+ "'Jason Andryuk'" <jandryuk@gmail.com>
+References: <CAKf6xpuSD3NC2bLPQN75e2pR8asu9Ey1xTGxTNeCR_1MGsnPOg@mail.gmail.com>	<ac4dfe3b-7981-49bb-25a2-08578da150d5@ilande.co.uk>	<CAKf6xpvs6mNowsiAzbfQGLGp0aY0zKgUD=DVpSorWHycm--J8g@mail.gmail.com>
+ <87k0zykwdl.fsf@dusky.pond.sub.org>
+In-Reply-To: <87k0zykwdl.fsf@dusky.pond.sub.org>
+Subject: RE: sysbus failed assert for xen_sysdev
+Date: Tue, 23 Jun 2020 12:46:41 +0100
+Message-ID: <000001d64953$f67a1f00$e36e5d00$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20200623092543.GQ735@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQIJfv1jP4fCJU6d0eNUL65zTb1lhAKJjZPCAZLY/IEByWeHd6hQeooA
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,119 +78,215 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Reply-To: paul@xen.org
+Cc: 'Anthony PERARD' <anthony.perard@citrix.com>,
+ 'xen-devel' <xen-devel@lists.xenproject.org>,
+ 'Mark Cave-Ayland' <mark.cave-ayland@ilande.co.uk>,
+ 'QEMU' <qemu-devel@nongnu.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23.06.2020 11:25, Roger Pau Monné wrote:
-> On Mon, Jun 22, 2020 at 05:30:11PM +0200, Jan Beulich wrote:
->> On 22.06.2020 16:56, Roger Pau Monné wrote:
->>> On Mon, Jun 22, 2020 at 03:51:24PM +0200, Jan Beulich wrote:
->>>> On 22.06.2020 15:24, Roger Pau Monné wrote:
->>>>> On Mon, Jun 22, 2020 at 01:07:10PM +0200, Jan Beulich wrote:
->>>>>> On 22.06.2020 11:31, Roger Pau Monné wrote:
->>>>>>> On Fri, Jun 19, 2020 at 04:06:55PM +0200, Jan Beulich wrote:
->>>>>>>> On 18.06.2020 18:04, Roger Pau Monne wrote:
->>>>>>>>> Commit e9aca9470ed86 introduced a regression when avoiding sending
->>>>>>>>> IPIs for certain flush operations. Xen page fault handler
->>>>>>>>> (spurious_page_fault) relies on blocking interrupts in order to
->>>>>>>>> prevent handling TLB flush IPIs and thus preventing other CPUs from
->>>>>>>>> removing page tables pages. Switching to assisted flushing avoided such
->>>>>>>>> IPIs, and thus can result in pages belonging to the page tables being
->>>>>>>>> removed (and possibly re-used) while __page_fault_type is being
->>>>>>>>> executed.
->>>>>>>>>
->>>>>>>>> Force some of the TLB flushes to use IPIs, thus avoiding the assisted
->>>>>>>>> TLB flush. Those selected flushes are the page type change (when
->>>>>>>>> switching from a page table type to a different one, ie: a page that
->>>>>>>>> has been removed as a page table) and page allocation. This sadly has
->>>>>>>>> a negative performance impact on the pvshim, as less assisted flushes
->>>>>>>>> can be used.
->>>>>>>>>
->>>>>>>>> Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
->>>>>>>>> using an IPI (flush_tlb_mask_sync). Note that the flag is only
->>>>>>>>> meaningfully defined when the hypervisor supports PV mode, as
->>>>>>>>> otherwise translated domains are in charge of their page tables and
->>>>>>>>> won't share page tables with Xen, thus not influencing the result of
->>>>>>>>> page walks performed by the spurious fault handler.
->>>>>>>>
->>>>>>>> Is this true for shadow mode? If a page shadowing a guest one was
->>>>>>>> given back quickly enough to the allocator and then re-used, I think
->>>>>>>> the same situation could in principle arise.
->>>>>>>
->>>>>>> Hm, I think it's not applicable to HVM shadow mode at least, because
->>>>>>> CR3 is switched as part of vmentry/vmexit, and the page tables are not
->>>>>>> shared between Xen and the guest, so there's no way for a HVM shadow
->>>>>>> guest to modify the page-tables while Xen is walking them in
->>>>>>> spurious_page_fault (note spurious_page_fault is only called when the
->>>>>>> fault happens in non-guest context).
->>>>>>
->>>>>> I'm afraid I disagree, because of shadow's use of "linear page tables".
->>>>>
->>>>> You will have to bear with me, but I don't follow.
->>>>>
->>>>> Could you provide some pointers at how/where the shadow (I assume
->>>>> guest controlled) "linear page tables" are used while in Xen
->>>>> context?
->>>>
->>>> See config.h:
->>>>
->>>> /* Slot 258: linear page table (guest table). */
->>>> #define LINEAR_PT_VIRT_START    (PML4_ADDR(258))
->>>> #define LINEAR_PT_VIRT_END      (LINEAR_PT_VIRT_START + PML4_ENTRY_BYTES)
->>>> /* Slot 259: linear page table (shadow table). */
->>>> #define SH_LINEAR_PT_VIRT_START (PML4_ADDR(259))
->>>> #define SH_LINEAR_PT_VIRT_END   (SH_LINEAR_PT_VIRT_START + PML4_ENTRY_BYTES)
->>>>
->>>> These linear page tables exist in the Xen page tables at basically
->>>> all times as long as a shadow guest's vCPU is in context. They're
->>>> there to limit the overhead of accessing guest page tables and
->>>> their shadows from inside Xen.
->>>
->>> Oh, I have to admit I know very little about all this, and I'm not
->>> able to find a description of how this is to be used.
->>>
->>> I think the shadow linear page tables should be per-pCPU, and hence
->>> they cannot be modified by the guest while a spurious page fault is
->>> being processed? (since the vCPU running on the pCPU is in Xen
->>> context).
->>
->> A guest would have for some linear address e.g.
->>
->> vCR3 -> G4 -> G3 -> G2 -> G1
->>
->> visible to some random set of its CPUs (i.e. the same CR3 can be in
->> use by multiple vCPU-s). This will then have shadows like this:
->>
->> pCR3 -> S4 -> S3 -> S2 -> S1
->>
->> The G4 page gets hooked up into LINEAR_PT (i.e. becomes an L3 page)
->> for all vCPU-s that have this very CR3 active. Same goes for S4 and
->> SH_LINEAR_PT respectively. Afaik shadows of guest page tables also
->> don't get created on a per-pCPU basis - a page table either has a
->> shadow, or it doesn't.
->>
->> Hence afaict page tables mapped through these facilities (and
->> reachable while in Xen) can very well be modified "behind our backs".
+> -----Original Message-----
+> From: Markus Armbruster <armbru@redhat.com>
+> Sent: 23 June 2020 09:41
+> To: Jason Andryuk <jandryuk@gmail.com>
+> Cc: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>; Anthony PERARD <anthony.perard@citrix.com>; xen-
+> devel <xen-devel@lists.xenproject.org>; Paul Durrant <paul@xen.org>; QEMU <qemu-devel@nongnu.org>
+> Subject: Re: sysbus failed assert for xen_sysdev
 > 
-> Oh, I see. I'm still slightly puzzled because __hvm_copy seems to
-> always map the guest page, and sh_gva_to_gfn also seems to just walk
-> the guest page tables using the software implemented page table
-> walker, and returns a gfn (not a mfn). I was expecting __hvm_copy to
-> somehow make use of those shadow page tables when performing accesses
-> to guest memory?
+> Jason Andryuk <jandryuk@gmail.com> writes:
+> 
+> > On Mon, Jun 22, 2020 at 5:17 PM Mark Cave-Ayland
+> > <mark.cave-ayland@ilande.co.uk> wrote:
+> >>
+> >> On 22/06/2020 21:33, Jason Andryuk wrote:
+> >>
+> >> > Hi,
+> >> >
+> >> > Running qemu devel for a Xen VM is failing an assert after the recent
+> >> > "qdev: Rework how we plug into the parent bus" sysbus changes.
+> >> >
+> >> > qemu-system-i386: hw/core/qdev.c:102: qdev_set_parent_bus: Assertion
+> >> > `dc->bus_type && object_dynamic_cast(OBJECT(bus), dc->bus_type)'
+> >> > failed.
+> >> >
+> >> > dc->bus_type is "xen-sysbus" and it's the
+> >> > `object_dynamic_cast(OBJECT(bus), dc->bus_type)` portion that fails
+> >> > the assert.  bus seems to be "main-system-bus", I think:
+> >> > (gdb) p *bus
+> >> > $3 = {obj = {class = 0x55555636d780, free = 0x7ffff7c40db0 <g_free>,
+> >> > properties = 0x5555563f7180, ref = 3, parent = 0x5555563fe980}, parent
+> >> > = 0x0, name = 0x5555563fec60 "main-system-bus", ...
+> >> >
+> >> > The call comes from hw/xen/xen-legacy-backend.c:706
+> >> > sysbus_realize_and_unref(SYS_BUS_DEVICE(xen_sysdev), &error_fatal);
+> >> >
+> >> > Any pointers on what needs to be fixed?
+> >>
+> >> Hi Jason,
+> >>
+> >> My understanding is that the assert() is telling you that you're plugging a
+> >> TYPE_SYS_BUS_DEVICE into a bus that isn't derived from TYPE_SYSTEM_BUS.
+> >> TYPE_SYS_BUS_DEVICE into a bus that isn't derived from TYPE_SYSTEM_BUS. A quick look
+> 
+> Correct.  Let's review the assertion:
+> 
+>     assert(dc->bus_type && object_dynamic_cast(OBJECT(bus), dc->bus_type));
+> 
+> Context: we're supposted to plug @dev into @bus, and @dc is @dev's
+> DeviceClass.
+> 
+> The assertion checks that
+> 
+> 1. @dev plugs into a bus: dc->bus_type
+> 
+> 2. @bus is an instance of the type of bus @dev plugs into:
+>    object_dynamic_cast(OBJECT(bus), dc->bus_type)
+> 
+> >> at the file in question suggests that you could try changing the parent class of
+> >> TYPE_XENSYSBUS from TYPE_BUS to TYPE_SYSTEM_BUS to see if that helps?
+> >
+> > Hi, Mark.
+> >
+> > Thanks, but unfortunately changing xensysbus_info .parent does not
+> > stop the assert.  But it kinda pointed me in the right direction.
+> >
+> > xen-sysdev overrode the bus_type which was breaking sysbus_realize.
+> > So drop that:
+> >
+> > --- a/hw/xen/xen-legacy-backend.c
+> > +++ b/hw/xen/xen-legacy-backend.c
+> > @@ -824,7 +825,7 @@ static void xen_sysdev_class_init(ObjectClass
+> > *klass, void *data)
+> >      DeviceClass *dc = DEVICE_CLASS(klass);
+> >
+> >      device_class_set_props(dc, xen_sysdev_properties);
+> > -    dc->bus_type = TYPE_XENSYSBUS;
+> > +    //dc->bus_type = TYPE_XENSYSBUS;
+> >  }
+> 
+> Uff!
+> 
+> Let me explain how things are supposed to work.
+> 
+> Say we have FOO bus (QOM type TYPE_FOO_BUS), with FOO devices plugging
+> into it (abstract QOM type TYPE_FOO_DEVICE).  One of them is SOME_FOO
+> (concrete QOM type TYPE_SOME_FOO).  Code ties them together like this:
+> 
+>     static const TypeInfo pci_bus_info = {
+>         .name = TYPE_PCI_BUS,
+>         .parent = TYPE_BUS,
+>         ...
+>     };
+> 
+>     static const TypeInfo foo_device_info = {
+>         .name = TYPE_FOO_DEVICE,
+>         .parent = TYPE_DEVICE,
+>         .abstract = true,
+>         .class_init = foo_device_class_init,
+>         ...
+>     };
+> 
+>     static void foo_device_class_init(ObjectClass *oc, void *data)
+>     {
+>         DeviceClass *dc = DEVICE_CLASS(oc);
+> 
+>         dc->bus_type = TYPE_FOO_BUS;
+>         ...
+>     }
+> 
+>     static const TypeInfo some_foo_info = {
+>         .name = TYPE_SOME_FOO,
+>         .parent = TYPE_FOO_DEVICE,
+>         ...
+>     };
+> 
+> When you plug an instance of TYPE_SOME_FOO into a bus, the assertion
+> checks that the bus is an instance of TYPE_FOO_BUS.
+> 
+> Note that subtypes of TYPE_FOO_DEVICE do not mess with dc->bus_type!
+> 
+> TYPE_XENSYSDEV does mess with it:
+> 
+>     static void xen_sysdev_class_init(ObjectClass *klass, void *data)
+>     {
+>         DeviceClass *dc = DEVICE_CLASS(klass);
+> 
+>         device_class_set_props(dc, xen_sysdev_properties);
+>         dc->bus_type = TYPE_XENSYSBUS;
+>     }
+> 
+>     static const TypeInfo xensysdev_info = {
+>         .name          = TYPE_XENSYSDEV,
+>         .parent        = TYPE_SYS_BUS_DEVICE,
+>         .instance_size = sizeof(SysBusDevice),
+>         .class_init    = xen_sysdev_class_init,
+>     };
+> 
+> On the one hand, xensysdev_info.parent claims TYPE_XENSYSDEV is a
+> TYPE_SYS_BUS_DEVICE (and therefore should plug into a TYPE_SYSTEM_BUS).
+> On the other hand, its dc->bus_type is a TYPE_XENSYSBUS, which is *not*
+> a subtype of TYPE_SYSTEM_BUS:
+> 
+>     static const TypeInfo xensysbus_info = {
+>         .name       = TYPE_XENSYSBUS,
+> --->    .parent     = TYPE_BUS,
+>         .class_init = xen_sysbus_class_init,
+>         .interfaces = (InterfaceInfo[]) {
+>             { TYPE_HOTPLUG_HANDLER },
+>             { }
+>         }
+>     };
+> 
+> This is an inconsistent mess.
+> 
+> Are TYPE_XENSYSDEV and TYPE_XENSYSBUS related to TYPE_SYS_BUS_DEVICE and
+> TYPE_SYSTEM_BUS?
+> 
+> If no, then xensysbus_info.parent should not be TYPE_SYS_BUS_DEVICE, and
+> you must not pass instances of one kind to functions expecting the other
+> kind.
+> 
+> If yes, how?  If the former are specializations of the latter, consider
+> making the former subtypes of the latter.  Both of them.  Then a
+> TYPE_XENSYSDEV device can plug into a TYPE_XENSYSBUS bus, but not into a
+> TYPE_SYSTEM_BUS bus.
+> 
+> A TYPE_SYS_BUS_DEVICE could still plug into TYPE_XENSYSBUS, because the
+> latter is also an instance of TYPE_SYSTEM_BUS.
+> 
+> Questions?
+> 
+> >
+> >  static const TypeInfo xensysdev_info = {
+> >
+> > Then I had a different instance of the failed assert trying to attach
+> > xen-console-0 to xen-sysbus.  So I made this change:
+> > --- a/hw/xen/xen-legacy-backend.c
+> > +++ b/hw/xen/xen-legacy-backend.c
+> > @@ -789,6 +789,7 @@ static void xendev_class_init(ObjectClass *klass,
+> > void *data)
+> >      set_bit(DEVICE_CATEGORY_MISC, dc->categories);
+> >      /* xen-backend devices can be plugged/unplugged dynamically */
+> >      dc->user_creatable = true;
+> > +    dc->bus_type = TYPE_XENSYSBUS;
+> >  }
+> >
+> >  static const TypeInfo xendev_type_info = {
+> >
+> > Then it gets farther... until
+> > qemu-system-i386: hw/core/qdev.c:439: qdev_assert_realized_properly:
+> > Assertion `dev->realized' failed.
+> >
+> > dev->id is NULL. The failing device is:
+> > (gdb) p *dev.parent_obj.class.type
+> > $12 = {name = 0x555556207770 "cfi.pflash01",
+> >
 
-No, that's using the guest page table walker plus the p2m table
-instead.
+Having commented out the call to xen_be_init() entirely (and xen_bus_init() for good measure) I also get this assertion failure, so
+I don't think is related.
 
-> Is shadow code using some of this internally then?
+  Paul
 
-Yes. Just grep the shadow code for linear_l[1234]_table to find
-the uses.
 
-Jan
 
