@@ -2,76 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 546C520460C
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 02:44:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ED62204686
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 03:07:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnX2B-0006BD-Nx; Tue, 23 Jun 2020 00:43:31 +0000
+	id 1jnXN4-0000iE-Go; Tue, 23 Jun 2020 01:05:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z9Ck=AE=amazon.com=prvs=436d43016=anchalag@srs-us1.protection.inumbo.net>)
- id 1jnX2A-0006B8-1W
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 00:43:30 +0000
-X-Inumbo-ID: 8dc46333-b4ea-11ea-bef0-12813bfff9fa
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6H1f=AE=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1jnXN3-0000i9-HW
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 01:05:05 +0000
+X-Inumbo-ID: 9190af40-b4ed-11ea-bef2-12813bfff9fa
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8dc46333-b4ea-11ea-bef0-12813bfff9fa;
- Tue, 23 Jun 2020 00:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1592873009; x=1624409009;
- h=date:from:to:cc:message-id:references:mime-version:
- content-transfer-encoding:in-reply-to:subject;
- bh=xyL/GE+//VNND4ClwSzcCDyd8/X/TGjOdivfmtA0Muo=;
- b=v8gI0I1nStvjgJsGCAagFSTxJif4O9OhilXHeixi/TLZXdhSc2kgnCcI
- oBvRdjzkrR2WGSDAYDktpSgo6v+4ewNi6WVnkHhz//SFwm0EDviLGC9BA
- MwXLc/trWUe4cbwEz0WwjiInn4ZfPlHeellii/eU3Xjn0/2Ph6AZBGlNM g=;
-IronPort-SDR: ptAdrfFwuUgauX+U5uC5bBETq8cuc67rFZsuJj1H/pREvnxOuOIJ9yvB1TRAzAWBXdw2Q6TQ8N
- fIajCpJtaqLg==
-X-IronPort-AV: E=Sophos;i="5.75,268,1589241600"; d="scan'208";a="53039173"
-Subject: Re: [PATCH 06/12] xen-blkfront: add callbacks for PM suspend and
- hibernation]
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 23 Jun 2020 00:43:24 +0000
-Received: from EX13MTAUWC001.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
- by email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com (Postfix) with ESMTPS
- id 9574BA2519; Tue, 23 Jun 2020 00:43:23 +0000 (UTC)
-Received: from EX13D05UWC003.ant.amazon.com (10.43.162.226) by
- EX13MTAUWC001.ant.amazon.com (10.43.162.135) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 23 Jun 2020 00:43:14 +0000
-Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
- EX13D05UWC003.ant.amazon.com (10.43.162.226) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 23 Jun 2020 00:43:14 +0000
-Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
- (172.22.96.68) by mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP
- Server id 15.0.1497.2 via Frontend Transport; Tue, 23 Jun 2020 00:43:14 +0000
-Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
- from userid 4335130)
- id 1816D40359; Tue, 23 Jun 2020 00:43:14 +0000 (UTC)
-Date: Tue, 23 Jun 2020 00:43:14 +0000
-From: Anchal Agarwal <anchalag@amazon.com>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Message-ID: <20200623004314.GA28586@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-References: <7FD7505E-79AA-43F6-8D5F-7A2567F333AB@amazon.com>
- <20200604070548.GH1195@Air-de-Roger>
- <20200616214925.GA21684@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200617083528.GW735@Air-de-Roger>
- <20200619234312.GA24846@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200622083846.GF735@Air-de-Roger>
+ id 9190af40-b4ed-11ea-bef2-12813bfff9fa;
+ Tue, 23 Jun 2020 01:05:03 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 963B5A234A;
+ Tue, 23 Jun 2020 03:05:02 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 69E61A22B6;
+ Tue, 23 Jun 2020 03:05:01 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id bitQuvZ7NmEI; Tue, 23 Jun 2020 03:05:00 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id A833BA234A;
+ Tue, 23 Jun 2020 03:05:00 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id JNHeiI_Wmx6L; Tue, 23 Jun 2020 03:05:00 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 76CE4A22B6;
+ Tue, 23 Jun 2020 03:05:00 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 51BEC20D97;
+ Tue, 23 Jun 2020 03:04:30 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id o_KNW34omj-b; Tue, 23 Jun 2020 03:04:24 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id AAE8F216C8;
+ Tue, 23 Jun 2020 03:04:24 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id q3ukrnuaByvJ; Tue, 23 Jun 2020 03:04:24 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 8244C20D97;
+ Tue, 23 Jun 2020 03:04:24 +0200 (CEST)
+Date: Tue, 23 Jun 2020 03:04:24 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <901046162.11470361.1592874264410.JavaMail.zimbra@cert.pl>
+In-Reply-To: <5b7dd58f-2dc1-32bc-3add-d896631734a4@suse.com>
+References: <122238637.9820857.1592523264685.JavaMail.zimbra@cert.pl>
+ <1005194077.9820950.1592523663199.JavaMail.zimbra@cert.pl>
+ <4e040500-0532-2231-f5b7-c61e97a0a0c5@suse.com>
+ <800738193.11403725.1592836530558.JavaMail.zimbra@cert.pl>
+ <87576264-e7df-2590-f141-351d76baac7a@suse.com>
+ <1130937743.11428389.1592841763323.JavaMail.zimbra@cert.pl>
+ <5b7dd58f-2dc1-32bc-3add-d896631734a4@suse.com>
+Subject: Re: [PATCH v2 4/7] x86/vmx: add do_vmtrace_op
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200622083846.GF735@Air-de-Roger>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Precedence: Bulk
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - GC83 (Win)/8.6.0_GA_1194)
+Thread-Topic: x86/vmx: add do_vmtrace_op
+Thread-Index: skHlUZZiKLRaZ/TNKOwd8rxjdwwr3g==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -79,156 +85,93 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Valentin, Eduardo" <eduval@amazon.com>,
- "len.brown@intel.com" <len.brown@intel.com>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
- "x86@kernel.org" <x86@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "pavel@ucw.cz" <pavel@ucw.cz>, "hpa@zytor.com" <hpa@zytor.com>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>, "Kamata,
- Munehisa" <kamatam@amazon.com>, "mingo@redhat.com" <mingo@redhat.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Singh,
- Balbir" <sblbir@amazon.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "bp@alien8.de" <bp@alien8.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "jgross@suse.com" <jgross@suse.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "vkuznets@redhat.com" <vkuznets@redhat.com>,
- "davem@davemloft.net" <davem@davemloft.net>, "Woodhouse,
- David" <dwmw@amazon.co.uk>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, "Kang, Luwei" <luwei.kang@intel.com>,
+ Jun Nakajima <jun.nakajima@intel.com>,
+ Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 22, 2020 at 10:38:46AM +0200, Roger Pau Monné wrote:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> 
-> 
-> 
-> On Fri, Jun 19, 2020 at 11:43:12PM +0000, Anchal Agarwal wrote:
-> > On Wed, Jun 17, 2020 at 10:35:28AM +0200, Roger Pau Monné wrote:
-> > > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > >
-> > >
-> > >
-> > > On Tue, Jun 16, 2020 at 09:49:25PM +0000, Anchal Agarwal wrote:
-> > > > On Thu, Jun 04, 2020 at 09:05:48AM +0200, Roger Pau Monné wrote:
-> > > > > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > > > > On Wed, Jun 03, 2020 at 11:33:52PM +0000, Agarwal, Anchal wrote:
-> > > > > >  CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > > > > >     > +             xenbus_dev_error(dev, err, "Freezing timed out;"
-> > > > > >     > +                              "the device may become inconsistent state");
-> > > > > >
-> > > > > >     Leaving the device in this state is quite bad, as it's in a closed
-> > > > > >     state and with the queues frozen. You should make an attempt to
-> > > > > >     restore things to a working state.
-> > > > > >
-> > > > > > You mean if backend closed after timeout? Is there a way to know that? I understand it's not good to
-> > > > > > leave it in this state however, I am still trying to find if there is a good way to know if backend is still connected after timeout.
-> > > > > > Hence the message " the device may become inconsistent state".  I didn't see a timeout not even once on my end so that's why
-> > > > > > I may be looking for an alternate perspective here. may be need to thaw everything back intentionally is one thing I could think of.
-> > > > >
-> > > > > You can manually force this state, and then check that it will behave
-> > > > > correctly. I would expect that on a failure to disconnect from the
-> > > > > backend you should switch the frontend to the 'Init' state in order to
-> > > > > try to reconnect to the backend when possible.
-> > > > >
-> > > > From what I understand forcing manually is, failing the freeze without
-> > > > disconnect and try to revive the connection by unfreezing the
-> > > > queues->reconnecting to backend [which never got diconnected]. May be even
-> > > > tearing down things manually because I am not sure what state will frontend
-> > > > see if backend fails to to disconnect at any point in time. I assumed connected.
-> > > > Then again if its "CONNECTED" I may not need to tear down everything and start
-> > > > from Initialising state because that may not work.
-> > > >
-> > > > So I am not so sure about backend's state so much, lets say if  xen_blkif_disconnect fail,
-> > > > I don't see it getting handled in the backend then what will be backend's state?
-> > > > Will it still switch xenbus state to 'Closed'? If not what will frontend see,
-> > > > if it tries to read backend's state through xenbus_read_driver_state ?
-> > > >
-> > > > So the flow be like:
-> > > > Front end marks XenbusStateClosing
-> > > > Backend marks its state as XenbusStateClosing
-> > > >     Frontend marks XenbusStateClosed
-> > > >     Backend disconnects calls xen_blkif_disconnect
-> > > >        Backend fails to disconnect, the above function returns EBUSY
-> > > >        What will be state of backend here?
-> > >
-> > > Backend should stay in state 'Closing' then, until it can finish
-> > > tearing down.
-> > >
-> > It disconnects the ring after switching to connected state too.
-> > > >        Frontend did not tear down the rings if backend does not switches the
-> > > >        state to 'Closed' in case of failure.
-> > > >
-> > > > If backend stays in CONNECTED state, then even if we mark it Initialised in frontend, backend
-> > >
-> > > Backend will stay in state 'Closing' I think.
-> > >
-> > > > won't be calling connect(). {From reading code in frontend_changed}
-> > > > IMU, Initialising will fail since backend dev->state != XenbusStateClosed plus
-> > > > we did not tear down anything so calling talk_to_blkback may not be needed
-> > > >
-> > > > Does that sound correct?
-> > >
-> > > I think switching to the initial state in order to try to attempt a
-> > > reconnection would be our best bet here.
-> > >
-> > It does not seems to work correctly, I get hung tasks all over and all the
-> > requests to filesystem gets stuck. Backend does shows the state as connected
-> > after xenbus_dev_suspend fails but I think there may be something missing.
-> > I don't seem to get IO interrupts thereafter i.e hitting the function blkif_interrupts.
-> > I think just marking it initialised may not be the only thing.
-> > Here is a short description of what I am trying to do:
-> > So, on timeout:
-> >     Switch XenBusState to "Initialized"
-> >     unquiesce/unfreeze the queues and return
-> >     mark info->connected = BLKIF_STATE_CONNECTED
-> 
-> If xenbus state is Initialized isn't it wrong to set info->connected
-> == CONNECTED?
->
-Yes, you are right earlier I was marking it explicitly but that was not right,
-the connect path for blkfront will do that.
-> You should tear down all the internal state (like a proper close)?
-> 
-Isn't that similar to disconnecting in the first place that failed during
-freeze? Do you mean re-try to close but this time re-connect after close
-basically do everything you would at "restore"?
+----- 22 cze 2020 o 18:16, Jan Beulich jbeulich@suse.com napisa=C5=82(a):
 
-Also, I experimented with that and it works intermittently. I want to take a
-step back on this issue and ask few questions here:
-1. Is fixing this recovery a blocker for me sending in a V2 version?
+> On 22.06.2020 18:02, Micha=C5=82 Leszczy=C5=84ski wrote:
+>> ----- 22 cze 2020 o 17:22, Jan Beulich jbeulich@suse.com napisa=C5=82(a)=
+:
+>>> On 22.06.2020 16:35, Micha=C5=82 Leszczy=C5=84ski wrote:
+>>>> ----- 22 cze 2020 o 15:25, Jan Beulich jbeulich@suse.com napisa=C5=82(=
+a):
+>>>>> Is any of what you do in this switch() actually legitimate without
+>>>>> hvm_set_vmtrace_pt_size() having got called for the guest? From
+>>>>> remarks elsewhere I imply you expect the param that you currently
+>>>>> use to be set upon domain creation time, but at the very least the
+>>>>> potentially big buffer should imo not get allocated up front, but
+>>>>> only when tracing is to actually be enabled.
+>>>>
+>>>> Wait... so you want to allocate these buffers in runtime?
+>>>> Previously we were talking that there is too much runtime logic
+>>>> and these enable/disable hypercalls should be stripped to absolute
+>>>> minimum.
+>>>
+>>> Basic arrangements can be made at domain creation time. I don't
+>>> think though that it would be a good use of memory if you
+>>> allocated perhaps many gigabytes of memory just for possibly
+>>> wanting to enable tracing on a guest.
+>>>
+>>=20
+>> From our previous conversations I thought that you want to have
+>> as much logic moved to the domain creation as possible.
+>>=20
+>> Thus, a parameter "vmtrace_pt_size" was introduced. By default it's
+>> zero (=3D disabled), if you set it to a non-zero value, then trace buffe=
+rs
+>> of given size will be allocated for the domain and you have possibility
+>> to use ipt_enable/ipt_disable at any moment.
+>>=20
+>> This way the runtime logic is as thin as possible. I assume user knows
+>> in advance whether he/she would want to use external monitoring with IPT
+>> or not.
+>=20
+> Andrew - I think you requested movement to domain_create(). Could
+> you clarify if indeed you mean to also allocate the big buffers
+> this early?
 
-2. In our 2-3 years of supporting this feature at large scale we haven't seen this issue
-where backend fails to disconnect. What we are trying to do here is create a
-hypothetical situation where we leave backend in Closing state and try and see how it
-recovers. The reason why I think it "may not" occur and the timeout of 5HZ is
-sufficient is because we haven't come across even a single use-case where it
-caused hibernation to fail.
-The reason why I think "it may" occur is if we are running a really memory
-intensive workload and ring is busy and is unable to complete all the requests
-in the given timeout. This is very unlikely though.
+I would like to recall what Andrew wrote few days ago:
 
-3) Also, I do not think this may be straight forward to fix and expect
-hibernation to work flawlessly in subsequent invocations. I am open to 
-all suggestions.
+----- 16 cze 2020 o 22:16, Andrew Cooper andrew.cooper3@citrix.com wrote:
+> Xen has traditionally opted for a "and turn this extra thing on
+> dynamically" model, but this has caused no end of security issues and
+> broken corner cases.
+>=20
+> You can see this still existing in the difference between
+> XEN_DOMCTL_createdomain and XEN_DOMCTL_max_vcpus, (the latter being
+> required to chose the number of vcpus for the domain) and we're making
+> good progress undoing this particular wart (before 4.13, it was
+> concerning easy to get Xen to fall over a NULL d->vcpu[] pointer by
+> issuing other hypercalls between these two).
+>=20
+> There is a lot of settings which should be immutable for the lifetime of
+> the domain, and external monitoring looks like another one of these.
+> Specifying it at createdomain time allows for far better runtime
+> behaviour (you are no longer in a situation where the first time you try
+> to turn tracing on, you end up with -ENOMEM because another VM booted in
+> the meantime and used the remaining memory), and it makes for rather
+> more simple code in Xen itself (at runtime, you can rely on it having
+> been set up properly, because a failure setting up will have killed the
+> domain already).
+>=20
+> ...
+>=20
+> ~Andrew
 
-Thanks,
-Anchal
-> >     return EBUSY
-> >
-> > I even allowed blkfront_connect to switch state to "CONNECTED" rather me doing
-> > it explicitly as mentioned above without re-allocating/re-registering the device
-> > just to make sure bklfront_info object has all the right values.
-> > Do you see anythign missing here?
-> 
-> I'm afraid you will have to do a little bit of debugging here to
-> figure out what's going on. You can add printk's to several places to
-> see which path is taken, and why blkfront ends in such state.
->
-> Thanks, Roger.
+according to this quote I've moved buffer allocation to the create_domain,
+the updated version was already sent to the list as patch v3.
+
+Best regards,
+Micha=C5=82 Leszczy=C5=84ski
+CERT Polska
 
