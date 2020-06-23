@@ -2,56 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BD93204C33
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 10:20:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B4D8204C37
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 10:21:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jne9G-00083I-FN; Tue, 23 Jun 2020 08:19:18 +0000
+	id 1jneBA-0000LN-SX; Tue, 23 Jun 2020 08:21:16 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ClC/=AE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jne9F-00083D-Mc
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 08:19:17 +0000
-X-Inumbo-ID: 39602264-b52a-11ea-bf26-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O2Jt=AE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jneB9-0000LE-St
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 08:21:15 +0000
+X-Inumbo-ID: 8139d6c0-b52a-11ea-bf26-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 39602264-b52a-11ea-bf26-12813bfff9fa;
- Tue, 23 Jun 2020 08:19:15 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: ZRmsZgvndMLKlaHYgf+qJD/49thRx3s73TfBWrx+DqKTmUHpwKUQKNuTooiaUqS9PwlHrCRV6r
- MDsF3Ur+0CBVWuWqfZd82RxcsMJwhSMOAkU2xSEibiYfblGe2hF7fHZdC+cgc/hNdS/ZsGEUGI
- wl/aKVu9h+7Qh/QJ/o9WFe5kYjq+scFieaixz3fJa4aTAGAvwjV0Fzkwl7G+hg+SNUgQXQ4OCK
- K/ZSc6/OtOogVSoledpNc1794Fa9bGBUZDOc5hjyf5Yk9Z1U7yEm47l9laczbBDdQRs1Q6ztuH
- ZWI=
-X-SBRS: 2.7
-X-MesageID: 21489538
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,270,1589256000"; d="scan'208";a="21489538"
-Date: Tue, 23 Jun 2020 10:19:03 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anchal Agarwal <anchalag@amazon.com>
-Subject: Re: [PATCH 06/12] xen-blkfront: add callbacks for PM suspend and
- hibernation]
-Message-ID: <20200623081903.GP735@Air-de-Roger>
-References: <7FD7505E-79AA-43F6-8D5F-7A2567F333AB@amazon.com>
- <20200604070548.GH1195@Air-de-Roger>
- <20200616214925.GA21684@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200617083528.GW735@Air-de-Roger>
- <20200619234312.GA24846@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200622083846.GF735@Air-de-Roger>
- <20200623004314.GA28586@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ id 8139d6c0-b52a-11ea-bf26-12813bfff9fa;
+ Tue, 23 Jun 2020 08:21:15 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 326CCADCA;
+ Tue, 23 Jun 2020 08:21:14 +0000 (UTC)
+Subject: Re: [PATCH for-4.14] x86/msr: Disallow access to Processor Trace MSRs
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200619115823.22243-1-andrew.cooper3@citrix.com>
+ <32440578-e346-85cc-abad-1aa5694f0ab2@suse.com>
+ <855c1668-3f91-c084-70d5-76f3e171f074@citrix.com>
+ <f2152e32-ab27-12d2-f82c-7108c0c9867b@suse.com>
+ <d0b118e7-5c46-bebe-b8ec-c8ae06283529@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <7e20b9fb-7722-eac2-be73-81b40eb7c5ac@suse.com>
+Date: Tue, 23 Jun 2020 10:21:09 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <d0b118e7-5c46-bebe-b8ec-c8ae06283529@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200623004314.GA28586@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,166 +50,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Valentin, Eduardo" <eduval@amazon.com>,
- "len.brown@intel.com" <len.brown@intel.com>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
- "x86@kernel.org" <x86@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "pavel@ucw.cz" <pavel@ucw.cz>, "hpa@zytor.com" <hpa@zytor.com>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>, "Kamata,
- Munehisa" <kamatam@amazon.com>, "mingo@redhat.com" <mingo@redhat.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Singh,
- Balbir" <sblbir@amazon.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "bp@alien8.de" <bp@alien8.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "jgross@suse.com" <jgross@suse.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "vkuznets@redhat.com" <vkuznets@redhat.com>,
- "davem@davemloft.net" <davem@davemloft.net>, "Woodhouse,
- David" <dwmw@amazon.co.uk>
+Cc: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 23, 2020 at 12:43:14AM +0000, Anchal Agarwal wrote:
-> On Mon, Jun 22, 2020 at 10:38:46AM +0200, Roger Pau Monné wrote:
-> > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > 
-> > 
-> > 
-> > On Fri, Jun 19, 2020 at 11:43:12PM +0000, Anchal Agarwal wrote:
-> > > On Wed, Jun 17, 2020 at 10:35:28AM +0200, Roger Pau Monné wrote:
-> > > > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > > >
-> > > >
-> > > >
-> > > > On Tue, Jun 16, 2020 at 09:49:25PM +0000, Anchal Agarwal wrote:
-> > > > > On Thu, Jun 04, 2020 at 09:05:48AM +0200, Roger Pau Monné wrote:
-> > > > > > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > > > > > On Wed, Jun 03, 2020 at 11:33:52PM +0000, Agarwal, Anchal wrote:
-> > > > > > >  CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > > > > > >     > +             xenbus_dev_error(dev, err, "Freezing timed out;"
-> > > > > > >     > +                              "the device may become inconsistent state");
-> > > > > > >
-> > > > > > >     Leaving the device in this state is quite bad, as it's in a closed
-> > > > > > >     state and with the queues frozen. You should make an attempt to
-> > > > > > >     restore things to a working state.
-> > > > > > >
-> > > > > > > You mean if backend closed after timeout? Is there a way to know that? I understand it's not good to
-> > > > > > > leave it in this state however, I am still trying to find if there is a good way to know if backend is still connected after timeout.
-> > > > > > > Hence the message " the device may become inconsistent state".  I didn't see a timeout not even once on my end so that's why
-> > > > > > > I may be looking for an alternate perspective here. may be need to thaw everything back intentionally is one thing I could think of.
-> > > > > >
-> > > > > > You can manually force this state, and then check that it will behave
-> > > > > > correctly. I would expect that on a failure to disconnect from the
-> > > > > > backend you should switch the frontend to the 'Init' state in order to
-> > > > > > try to reconnect to the backend when possible.
-> > > > > >
-> > > > > From what I understand forcing manually is, failing the freeze without
-> > > > > disconnect and try to revive the connection by unfreezing the
-> > > > > queues->reconnecting to backend [which never got diconnected]. May be even
-> > > > > tearing down things manually because I am not sure what state will frontend
-> > > > > see if backend fails to to disconnect at any point in time. I assumed connected.
-> > > > > Then again if its "CONNECTED" I may not need to tear down everything and start
-> > > > > from Initialising state because that may not work.
-> > > > >
-> > > > > So I am not so sure about backend's state so much, lets say if  xen_blkif_disconnect fail,
-> > > > > I don't see it getting handled in the backend then what will be backend's state?
-> > > > > Will it still switch xenbus state to 'Closed'? If not what will frontend see,
-> > > > > if it tries to read backend's state through xenbus_read_driver_state ?
-> > > > >
-> > > > > So the flow be like:
-> > > > > Front end marks XenbusStateClosing
-> > > > > Backend marks its state as XenbusStateClosing
-> > > > >     Frontend marks XenbusStateClosed
-> > > > >     Backend disconnects calls xen_blkif_disconnect
-> > > > >        Backend fails to disconnect, the above function returns EBUSY
-> > > > >        What will be state of backend here?
-> > > >
-> > > > Backend should stay in state 'Closing' then, until it can finish
-> > > > tearing down.
-> > > >
-> > > It disconnects the ring after switching to connected state too.
-> > > > >        Frontend did not tear down the rings if backend does not switches the
-> > > > >        state to 'Closed' in case of failure.
-> > > > >
-> > > > > If backend stays in CONNECTED state, then even if we mark it Initialised in frontend, backend
-> > > >
-> > > > Backend will stay in state 'Closing' I think.
-> > > >
-> > > > > won't be calling connect(). {From reading code in frontend_changed}
-> > > > > IMU, Initialising will fail since backend dev->state != XenbusStateClosed plus
-> > > > > we did not tear down anything so calling talk_to_blkback may not be needed
-> > > > >
-> > > > > Does that sound correct?
-> > > >
-> > > > I think switching to the initial state in order to try to attempt a
-> > > > reconnection would be our best bet here.
-> > > >
-> > > It does not seems to work correctly, I get hung tasks all over and all the
-> > > requests to filesystem gets stuck. Backend does shows the state as connected
-> > > after xenbus_dev_suspend fails but I think there may be something missing.
-> > > I don't seem to get IO interrupts thereafter i.e hitting the function blkif_interrupts.
-> > > I think just marking it initialised may not be the only thing.
-> > > Here is a short description of what I am trying to do:
-> > > So, on timeout:
-> > >     Switch XenBusState to "Initialized"
-> > >     unquiesce/unfreeze the queues and return
-> > >     mark info->connected = BLKIF_STATE_CONNECTED
-> > 
-> > If xenbus state is Initialized isn't it wrong to set info->connected
-> > == CONNECTED?
-> >
-> Yes, you are right earlier I was marking it explicitly but that was not right,
-> the connect path for blkfront will do that.
-> > You should tear down all the internal state (like a proper close)?
-> > 
-> Isn't that similar to disconnecting in the first place that failed during
-> freeze? Do you mean re-try to close but this time re-connect after close
-> basically do everything you would at "restore"?
+On 22.06.2020 19:16, Andrew Cooper wrote:
+> On 19/06/2020 14:39, Jan Beulich wrote:
+>> On 19.06.2020 15:28, Andrew Cooper wrote:
+>>> On 19/06/2020 13:48, Jan Beulich wrote:
+>>>> On 19.06.2020 13:58, Andrew Cooper wrote:
+>>>>> --- a/xen/arch/x86/msr.c
+>>>>> +++ b/xen/arch/x86/msr.c
+>>>>> @@ -168,6 +168,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+>>>>>      case MSR_TSX_FORCE_ABORT:
+>>>>>      case MSR_TSX_CTRL:
+>>>>>      case MSR_MCU_OPT_CTRL:
+>>>>> +    case MSR_RTIT_OUTPUT_BASE:
+>>>>> +    case MSR_RTIT_OUTPUT_MASK:
+>>>>> +    case MSR_RTIT_CTL:
+>>>>> +    case MSR_RTIT_STATUS:
+>>>>> +    case MSR_RTIT_CR3_MATCH:
+>>>>> +    case MSR_RTIT_ADDR_A(0) ... MSR_RTIT_ADDR_B(3):
+>>>> The respective CPUID field is 3 bits wide, so wouldn't it be better
+>>>> to cover the full possible range (0...6 afaict)?
+>>> Last time I tried, you objected to me covering MSR ranges which weren't
+>>> defined.
+>> Wasn't that for a range where some number had been re-used from
+>> earlier models (with entirely different purpose)?
+> 
+> I don't recall, but the answer isn't relevant to whether the MSRs at
+> those indices ought to be available to guests.
+> 
+>>> If you want to extend the range like that, it ought to be
+>>> MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7) to cover the entire area
+>>> which seems to be exclusively for PT.
+>> I'd be okay with that, just that I'm not sure about (7): While
+>> SDM Vol 2 oddly enough doesn't seem to list anything for leaf 7
+>> subleaf 1 (or I'm sufficiently blind today), Vol 4 clearly says
+>> for n=0...3 "If CPUID.(EAX=07H,ECX=1):EAX[2:0] > <n>", and the
+>> field obviously can't be > 7.
+> 
+> 7 gives the top of the bank of MSRs.  It isn't related to CPUID data.
 
-Last time I checked blkfront supported reconnections (ie: disconnect
-from a backend and connect again). I was assuming we could apply the
-same here on timeout, and just follow the same path where the frontend
-waits indefinitely for the backend to close and then attempts to
-reconnect.
+Well, okay - let's go that route then?
 
-> Also, I experimented with that and it works intermittently. I want to take a
-> step back on this issue and ask few questions here:
-> 1. Is fixing this recovery a blocker for me sending in a V2 version?
-
-At the end of day it's your feature. I would certainly prefer for it
-to work as good as possible, this being a recovery in case of failure
-just make sure it does something sane (ie: crash/close the frontend)
-and add a TODO note.
-
-> 2. In our 2-3 years of supporting this feature at large scale we haven't seen this issue
-> where backend fails to disconnect. What we are trying to do here is create a
-> hypothetical situation where we leave backend in Closing state and try and see how it
-> recovers. The reason why I think it "may not" occur and the timeout of 5HZ is
-> sufficient is because we haven't come across even a single use-case where it
-> caused hibernation to fail.
-> The reason why I think "it may" occur is if we are running a really memory
-> intensive workload and ring is busy and is unable to complete all the requests
-> in the given timeout. This is very unlikely though.
-
-As said above I would generally prefer for code to handle possible
-failures the best way, and hence I think here it would be nice to
-fallback to the normal disconnect path and just wait for the backend
-to close.
-
-You likely have this very well tuned to your own environment and
-workloads, since this will now be upstream others might have more
-contended systems where it could start to fail.
-
-> 3) Also, I do not think this may be straight forward to fix and expect
-> hibernation to work flawlessly in subsequent invocations. I am open to 
-> all suggestions.
-
-Right, adding a TODO would seem appropriate then.
-
-Roger.
+Jan
 
