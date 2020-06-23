@@ -2,103 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 491C120493F
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 07:33:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BD93204C33
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2020 10:20:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnbXQ-00019V-Ga; Tue, 23 Jun 2020 05:32:04 +0000
+	id 1jne9G-00083I-FN; Tue, 23 Jun 2020 08:19:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EsoT=AE=epam.com=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1jnbXO-00019Q-O6
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 05:32:02 +0000
-X-Inumbo-ID: dcc8365c-b512-11ea-bf0e-12813bfff9fa
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [40.107.20.86]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dcc8365c-b512-11ea-bf0e-12813bfff9fa;
- Tue, 23 Jun 2020 05:32:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n/zLWZ7IsmFGxawv7bBFp1jRt+cUKe/EojuCv5H8yEGEl4vRPknv7t+ztH3i94bS6r4tUtkG+v0omQRBuLzw2dzQ2lpoUtLdJHiapZGsEkjzeXzf866ZC4YprpLK1My811X+9357OL5lFNiNvKgPy4uy/Ow6ktTQkvq8og1c2lCbT85h3R/hUk6dQ0JyMBRgQZCnF8alFJAOMoqj14VRpLADRS6YuvPQF095lEhgZK4r82bMJ/Hi2a1JhcTrxsLmBJWiLKROkIhKxjfTPpMzIeSV4AVAJYUE62wyLqDMTRmPK+4ja2lK6L3rT7dLOaOyjfLea5+Ll1I25WjA1wZAjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1vOkOwfSKYJz+QCvsXcJFiDvR8ra5FU5+BzRpP0dZnQ=;
- b=ki7aEw+uAHy5Tvl8ANTL2fMbXuGDSx015vc2U4Qn+LZiB+ifWqsI8CrXIHLPOIBZLjDANK4P52je3jkXuFl+i/3ga/B++nOg5Z2W2hjmQqNvQvAte/qxY+ak6dcoHPc53bF5Ajq8xZtH5auVkoJtci6br9AdWkvnvFoECDwz636rb+DtFDpfOVSaK9v/JTsVMTzPoeZ0NuJqRW/LSlEZlWgSAMQYqa2a8QfNkJcnLjEfQgGIvC76bVnmpjprGU+OfAnKGeRtoxUqBCqFNY83rc0E0AT1lFjW4IlNuiojumrQoTdSDtXr4KnSGpZPRyEjFgD9R8/beX89Gv92BGk0tA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1vOkOwfSKYJz+QCvsXcJFiDvR8ra5FU5+BzRpP0dZnQ=;
- b=yzJNAErUSNMcmskTZOSXFeujlEhhsN1cX5VfF1w0haosctVxhoeA3F0KpDSf9EItyDvP1TakJ0WIUyGEek15lWYBzcLTTdWhqmO7ktikcCWh8AFPdsc7FdvSvE5o99KDRPiwdN+JMpQ1CKGZkeuLRUsDvmAhuevN9LOD3XKNuvwjV2bMXZChFk0wNFrdbL1U6phsD9LbkO/EXAOrpe9fSxmCMOQ3T+XRjY+q9HIcSkhHlhK8ENJ86lhvJyaMOxTHucm55ekosJuD7ABa6QfsMVEkr25XYReOpwqm2uxW74nKEDjtygM7G7GtnUyzERD6qSmU/P4kNSYpqcXBdxezgg==
-Received: from AM6PR03MB3991.eurprd03.prod.outlook.com (2603:10a6:20b:25::20)
- by AM6PR03MB4024.eurprd03.prod.outlook.com (2603:10a6:20b:1b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Tue, 23 Jun
- 2020 05:31:58 +0000
-Received: from AM6PR03MB3991.eurprd03.prod.outlook.com
- ([fe80::b015:38c7:355d:1c1c]) by AM6PR03MB3991.eurprd03.prod.outlook.com
- ([fe80::b015:38c7:355d:1c1c%4]) with mapi id 15.20.3109.027; Tue, 23 Jun 2020
- 05:31:58 +0000
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Subject: Re: UEFI support in ARM DomUs
-Thread-Topic: UEFI support in ARM DomUs
-Thread-Index: AQHWOoSI1wnhumD+IkWBnAQX9mudyajIlWsAgBVWbwCAAJ62gIAAeBOAgAANxQCAAWPDgIAEUtgAgAAGgYCAAAHAgIAANpaAgAB+IgCAAEYyAA==
-Date: Tue, 23 Jun 2020 05:31:58 +0000
-Message-ID: <271a4db0-5ce5-ba25-65e7-107c040f5069@epam.com>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
- <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
- <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
- <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
- <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
- <alpine.DEB.2.21.2006191020110.12730@sstabellini-ThinkPad-T480s>
- <c5905f40-6d0a-358f-35e4-239e88ace7d8@epam.com>
- <94bfe57c-c1be-62b4-3799-b90415264487@xen.org>
- <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
- <1a44c645-8c9a-93ce-8466-35c87eb4fca5@xen.org>
- <alpine.DEB.2.21.2006221419200.8121@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2006221419200.8121@sstabellini-ThinkPad-T480s>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [46.133.149.85]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 61fef3a9-d425-4b84-3ab1-08d81736bfb2
-x-ms-traffictypediagnostic: AM6PR03MB4024:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM6PR03MB4024F2B29A3B6AADF7FA84F2E7940@AM6PR03MB4024.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 04433051BF
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7XAv0lLnuILoViAbKQN43oNXZ/KyPou4DEEeLuCUmSS6Opore6bZQYtyLiCsKD+19G6PQG7lEuFQE/h+plB54x6IBjDnyzE6ZeoLwrObE36floIDpqEnpEY0/1FTjrRU/X9FnoV6Q+8voO15c5iJQ9CyFJnETpRn/vMaoABDa2LaaYG+8lEjGVpHxyAaPwgDjfND3lpj1FwbpD7sbzeiz3R9uLpZd/I35wodjnx157ay5wuUjXVXRDM34o9gIZAjt73fH2FAASO1eZc3MAKjlOuWEEHctL0NsSdXERloWYHdO7Gz+URrayj78EPLa4MA
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM6PR03MB3991.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(136003)(346002)(39860400002)(366004)(376002)(86362001)(6512007)(7416002)(71200400001)(2906002)(8936002)(83380400001)(478600001)(2616005)(8676002)(5660300002)(6486002)(54906003)(76116006)(66556008)(64756008)(66446008)(66476007)(36756003)(66946007)(91956017)(6506007)(4326008)(53546011)(316002)(110136005)(31696002)(31686004)(186003)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: lThZ8TJeUEvlL89StVVIfo6KHqsapgV2oCnAcxnVLUssZesLwOlxte5yVg3pOTIi7+h7PZOGmN5/w5R8hxuJxImsEagjI3ehodojSLuRoPO4oiHeWtPI2WqV31+3aLLLL1hjRRF/W+YMhVA4WMvkRglekO2pV+412LZAAVgGKtDTzkDZj4CoiEq56sBX7Q7osPCt7lVUx/TkHq2Scq9m7F1tMfGV5BuLhiFxGjfU8NZRv+0/eujP07v/w4jW+DPO7JYBQWPxOykKebRD3Fs8XAmu73i/Am9eEu0PP7bv4KP0yRJuoRAN7k8My05L+crI5gVfohm3G0B8V/3yBkj2rC0a88rB0ZiM16pmuyevsr15Bb3N9bf/NCpkLvVQrsa/dvUYxV6WZeZ6hNtrihoB14w3Mia0knIDs5iJXSA124JuSn7NKQ7zPFkD5qSNQj80dQQtIceup3ljQqgfDjjW4n1gVA8xETtUUX9KKrHM31o=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0AE33060BD6EFA43B47B506147271983@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ <SRS0=ClC/=AE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jne9F-00083D-Mc
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2020 08:19:17 +0000
+X-Inumbo-ID: 39602264-b52a-11ea-bf26-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 39602264-b52a-11ea-bf26-12813bfff9fa;
+ Tue, 23 Jun 2020 08:19:15 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: ZRmsZgvndMLKlaHYgf+qJD/49thRx3s73TfBWrx+DqKTmUHpwKUQKNuTooiaUqS9PwlHrCRV6r
+ MDsF3Ur+0CBVWuWqfZd82RxcsMJwhSMOAkU2xSEibiYfblGe2hF7fHZdC+cgc/hNdS/ZsGEUGI
+ wl/aKVu9h+7Qh/QJ/o9WFe5kYjq+scFieaixz3fJa4aTAGAvwjV0Fzkwl7G+hg+SNUgQXQ4OCK
+ K/ZSc6/OtOogVSoledpNc1794Fa9bGBUZDOc5hjyf5Yk9Z1U7yEm47l9laczbBDdQRs1Q6ztuH
+ ZWI=
+X-SBRS: 2.7
+X-MesageID: 21489538
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,270,1589256000"; d="scan'208";a="21489538"
+Date: Tue, 23 Jun 2020 10:19:03 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anchal Agarwal <anchalag@amazon.com>
+Subject: Re: [PATCH 06/12] xen-blkfront: add callbacks for PM suspend and
+ hibernation]
+Message-ID: <20200623081903.GP735@Air-de-Roger>
+References: <7FD7505E-79AA-43F6-8D5F-7A2567F333AB@amazon.com>
+ <20200604070548.GH1195@Air-de-Roger>
+ <20200616214925.GA21684@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200617083528.GW735@Air-de-Roger>
+ <20200619234312.GA24846@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200622083846.GF735@Air-de-Roger>
+ <20200623004314.GA28586@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61fef3a9-d425-4b84-3ab1-08d81736bfb2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2020 05:31:58.4107 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: f9yj3e01/i0lFon5IummjYhW/l2abeCtp8z+f+ikhKuSNmd6iEGX5SX4corzaeO6IClII0ccz8JgJdZA1WUuDbO49hzhmms1hkO8VV90r+EuZ5QzPLqAviALrIekIjPy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR03MB4024
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200623004314.GA28586@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,49 +62,166 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- Roman Shaposhnik <roman@zededa.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <julien.grall.oss@gmail.com>
+Cc: "Valentin, Eduardo" <eduval@amazon.com>,
+ "len.brown@intel.com" <len.brown@intel.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
+ "x86@kernel.org" <x86@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "pavel@ucw.cz" <pavel@ucw.cz>, "hpa@zytor.com" <hpa@zytor.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>, "Kamata,
+ Munehisa" <kamatam@amazon.com>, "mingo@redhat.com" <mingo@redhat.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Singh,
+ Balbir" <sblbir@amazon.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "bp@alien8.de" <bp@alien8.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "vkuznets@redhat.com" <vkuznets@redhat.com>,
+ "davem@davemloft.net" <davem@davemloft.net>, "Woodhouse,
+ David" <dwmw@amazon.co.uk>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQpPbiA2LzIzLzIwIDQ6MjAgQU0sIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gT24gTW9u
-LCAyMiBKdW4gMjAyMCwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+Pj4gRm9yIHRoZSBmaXJzdCBw
-YXJ0IChfX1hFTl9JTlRFUkZBQ0VfVkVSU0lPTl9fKSBJIHRoaW5rIHdlIGNhbiBwcm92aWRlIGl0
-DQo+Pj4+PiB2aWENCj4+Pj4+DQo+Pj4+PiBDRkxBR1Mgb3Igc29tZXRoaW5nLiBUaGlzIGNhbiBh
-bHNvIGJlIGRvbmUgZm9yIHRoZSBsb2NhdGlvbiBvZiBYZW4NCj4+Pj4+IGhlYWRlcnMuDQo+Pj4+
-IF9fWEVOX0lOVEVSRkFDRV9WRVJTSU9OX18gc2hvdWxkIHdvcmsgdGhyb3VnaCB0aGUgQ0ZMQUdT
-LiBBbiBhbHRlcm5hdGl2ZQ0KPj4+PiB3b3VsZCBiZSB0byBhbGxvdyB0aGUgdXNlciB0byBzcGVj
-aWZ5IHRocm91Z2ggdGhlIEtjb25maWcuDQo+Pj4gWW91IG1lYW4gc3BlY2lmeWluZyB2aWEgS2Nv
-bmZpZyBzb21ldGhpbmcgbGlrZSAiMHgwMDA0MGQwMCI/DQo+PiBQb3NzaWJseSB5ZXMuDQo+Pg0K
-Pj4+IEFuZCB3aGF0IGFib3V0IHRoZSBoZWFkZXJzPyBIb3cgd2lsbCB3ZSBwcm92aWRlIHRoZWly
-IGxvY2F0aW9uIGlmIHdlIGRlY2lkZQ0KPj4+IG5vdCB0byBpbmNsdWRlIHRob3NlDQo+Pj4NCj4+
-PiBpbiB0aGUgdHJlZT8NCj4+IEkgd291bGQgZG8gdGhyb3VnaCBLY29uZmlnIGFzIHdlbGwuDQo+
-IElmIHdlIHNwZWNpZnkgdGhlIGV4dGVybmFsIGxvY2F0aW9uIG9mIHRoZSBYZW4gaGVhZGVycyB2
-aWEgS2NvbmZpZywgaXQNCj4gc2VlbXMgdG8gbWUgdGhhdCB3ZSBzaG91bGQgYmUgYWJsZSB0byBk
-ZXRlY3QgdGhlIGludGVyZmFjZSB2ZXJzaW9uDQo+IGF1dG9tYXRpY2FsbHkgZnJvbSBhbnkgTWFr
-ZWZpbGUgYXMgcGFydCBvZiB0aGUgYnVpbGQuIE5vIG5lZWQgdG8gYXNrIHRoZQ0KPiB1c2VyLg0K
-Pg0KPiBIb3dldmVyLCBpZiBPbGVrc2FuZHIgaXMgdGhpbmtpbmcgb2YgdXNpbmcgdGhlIFhlbiBo
-ZWFkZXJzIGZvciB0aGUNCj4gaHlwZXJjYWxscyBkZWZpbml0aW9ucywgdGhlbiBJIHRoaW5rIHdl
-IG1pZ2h0IG5vdCBuZWVkIGV4dGVybmFsIGhlYWRlcnMNCj4gYXQgYWxsIGJlY2F1c2UgdGhhdCBp
-cyBhIHN0YWJsZSBpbnRlcmZhY2UsIGFzIEp1bGllbiB3cm90ZS4gV2UgY291bGQNCj4ganVzdCBk
-ZWZpbmUgb3VyIG93biBmZXcgaGVhZGVycyBmb3IganVzdCB3aGF0IHlvdSBuZWVkIGxpa2UgTGlu
-dXggZG9lcy4NCg0KVGhpcyBpcyBhIGdvb2QgaWRlYTogSSdsbCB0cnkgdG8gZ2V0IHRoZSBtaW5p
-bWFsIHNldCBvZiBoZWFkZXJzIGZyb20gTGludXgNCg0KaW5zdGVhZCBvZiBYZW4gYXMgdGhvc2Ug
-c2VlbSB0byBiZSB3ZWxsIHByZXBhcmVkIGZvciBzdWNoIGEgdXNlLWNhc2UuIFRoaXMNCg0Kd2F5
-IHdlJ2xsIGhhdmUgaGVhZGVycyBpbiBVLWJvb3QgdHJlZSBhbmQgZ3VhcmFudGVlIHRoYXQgd2Ug
-aGF2ZSBhIG1pbmltYWwNCg0Kc3Vic2V0IHdoaWNoIGlzIGVhc2llciB0byBtYWludGFpbi4gSSds
-bCBrZWVwIHlvdSB1cGRhdGVkIG9uIHRoZSBwcm9ncmVzcw0KDQo+DQo+IElmIHlvdSBjYW4gZG8g
-dGhhdCwgSSB0aGluayBpdCB3b3VsZCBiZSBiZXR0ZXIgYmVjYXVzZSB3ZSBkZWNvdXBsZSB0aGUN
-Cj4gVUJvb3QgYnVpbGQgZnJvbSB0aGUgWGVuIGJ1aWxkIGNvbXBsZXRlbHkuIFdlIGRvbid0IGV2
-ZW4gbmVlZCB0aGUgWGVuDQo+IHRyZWUgY2hlY2tlZCBvdXQgdG8gYnVpbGQgVUJvb3QuIEl0IHdv
-dWxkIGJlIGEgaHVnZSBhZHZhbnRhZ2UgYmVjYXVzZSBpdA0KPiBtYWtlcyBpdCBmYXIgZWFzaWVy
-IHRvIGJ1aWxkLXRlc3QgY2hhbmdlcyBmb3Igb3RoZXJzIGluIHRoZSBjb21tdW5pdHkNCj4gdGhh
-dCBkb24ndCBrbm93IGFib3V0IFhlbiBhbmQgYWxzbyBpdCBiZWNvbWVzIGZhciBlYXNpZXIgdG8g
-aW50ZWdyYXRlDQo+IGludG8gYW55IGJ1aWxkIHN5c3RlbS4=
+On Tue, Jun 23, 2020 at 12:43:14AM +0000, Anchal Agarwal wrote:
+> On Mon, Jun 22, 2020 at 10:38:46AM +0200, Roger Pau Monné wrote:
+> > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> > 
+> > 
+> > 
+> > On Fri, Jun 19, 2020 at 11:43:12PM +0000, Anchal Agarwal wrote:
+> > > On Wed, Jun 17, 2020 at 10:35:28AM +0200, Roger Pau Monné wrote:
+> > > > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> > > >
+> > > >
+> > > >
+> > > > On Tue, Jun 16, 2020 at 09:49:25PM +0000, Anchal Agarwal wrote:
+> > > > > On Thu, Jun 04, 2020 at 09:05:48AM +0200, Roger Pau Monné wrote:
+> > > > > > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> > > > > > On Wed, Jun 03, 2020 at 11:33:52PM +0000, Agarwal, Anchal wrote:
+> > > > > > >  CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> > > > > > >     > +             xenbus_dev_error(dev, err, "Freezing timed out;"
+> > > > > > >     > +                              "the device may become inconsistent state");
+> > > > > > >
+> > > > > > >     Leaving the device in this state is quite bad, as it's in a closed
+> > > > > > >     state and with the queues frozen. You should make an attempt to
+> > > > > > >     restore things to a working state.
+> > > > > > >
+> > > > > > > You mean if backend closed after timeout? Is there a way to know that? I understand it's not good to
+> > > > > > > leave it in this state however, I am still trying to find if there is a good way to know if backend is still connected after timeout.
+> > > > > > > Hence the message " the device may become inconsistent state".  I didn't see a timeout not even once on my end so that's why
+> > > > > > > I may be looking for an alternate perspective here. may be need to thaw everything back intentionally is one thing I could think of.
+> > > > > >
+> > > > > > You can manually force this state, and then check that it will behave
+> > > > > > correctly. I would expect that on a failure to disconnect from the
+> > > > > > backend you should switch the frontend to the 'Init' state in order to
+> > > > > > try to reconnect to the backend when possible.
+> > > > > >
+> > > > > From what I understand forcing manually is, failing the freeze without
+> > > > > disconnect and try to revive the connection by unfreezing the
+> > > > > queues->reconnecting to backend [which never got diconnected]. May be even
+> > > > > tearing down things manually because I am not sure what state will frontend
+> > > > > see if backend fails to to disconnect at any point in time. I assumed connected.
+> > > > > Then again if its "CONNECTED" I may not need to tear down everything and start
+> > > > > from Initialising state because that may not work.
+> > > > >
+> > > > > So I am not so sure about backend's state so much, lets say if  xen_blkif_disconnect fail,
+> > > > > I don't see it getting handled in the backend then what will be backend's state?
+> > > > > Will it still switch xenbus state to 'Closed'? If not what will frontend see,
+> > > > > if it tries to read backend's state through xenbus_read_driver_state ?
+> > > > >
+> > > > > So the flow be like:
+> > > > > Front end marks XenbusStateClosing
+> > > > > Backend marks its state as XenbusStateClosing
+> > > > >     Frontend marks XenbusStateClosed
+> > > > >     Backend disconnects calls xen_blkif_disconnect
+> > > > >        Backend fails to disconnect, the above function returns EBUSY
+> > > > >        What will be state of backend here?
+> > > >
+> > > > Backend should stay in state 'Closing' then, until it can finish
+> > > > tearing down.
+> > > >
+> > > It disconnects the ring after switching to connected state too.
+> > > > >        Frontend did not tear down the rings if backend does not switches the
+> > > > >        state to 'Closed' in case of failure.
+> > > > >
+> > > > > If backend stays in CONNECTED state, then even if we mark it Initialised in frontend, backend
+> > > >
+> > > > Backend will stay in state 'Closing' I think.
+> > > >
+> > > > > won't be calling connect(). {From reading code in frontend_changed}
+> > > > > IMU, Initialising will fail since backend dev->state != XenbusStateClosed plus
+> > > > > we did not tear down anything so calling talk_to_blkback may not be needed
+> > > > >
+> > > > > Does that sound correct?
+> > > >
+> > > > I think switching to the initial state in order to try to attempt a
+> > > > reconnection would be our best bet here.
+> > > >
+> > > It does not seems to work correctly, I get hung tasks all over and all the
+> > > requests to filesystem gets stuck. Backend does shows the state as connected
+> > > after xenbus_dev_suspend fails but I think there may be something missing.
+> > > I don't seem to get IO interrupts thereafter i.e hitting the function blkif_interrupts.
+> > > I think just marking it initialised may not be the only thing.
+> > > Here is a short description of what I am trying to do:
+> > > So, on timeout:
+> > >     Switch XenBusState to "Initialized"
+> > >     unquiesce/unfreeze the queues and return
+> > >     mark info->connected = BLKIF_STATE_CONNECTED
+> > 
+> > If xenbus state is Initialized isn't it wrong to set info->connected
+> > == CONNECTED?
+> >
+> Yes, you are right earlier I was marking it explicitly but that was not right,
+> the connect path for blkfront will do that.
+> > You should tear down all the internal state (like a proper close)?
+> > 
+> Isn't that similar to disconnecting in the first place that failed during
+> freeze? Do you mean re-try to close but this time re-connect after close
+> basically do everything you would at "restore"?
+
+Last time I checked blkfront supported reconnections (ie: disconnect
+from a backend and connect again). I was assuming we could apply the
+same here on timeout, and just follow the same path where the frontend
+waits indefinitely for the backend to close and then attempts to
+reconnect.
+
+> Also, I experimented with that and it works intermittently. I want to take a
+> step back on this issue and ask few questions here:
+> 1. Is fixing this recovery a blocker for me sending in a V2 version?
+
+At the end of day it's your feature. I would certainly prefer for it
+to work as good as possible, this being a recovery in case of failure
+just make sure it does something sane (ie: crash/close the frontend)
+and add a TODO note.
+
+> 2. In our 2-3 years of supporting this feature at large scale we haven't seen this issue
+> where backend fails to disconnect. What we are trying to do here is create a
+> hypothetical situation where we leave backend in Closing state and try and see how it
+> recovers. The reason why I think it "may not" occur and the timeout of 5HZ is
+> sufficient is because we haven't come across even a single use-case where it
+> caused hibernation to fail.
+> The reason why I think "it may" occur is if we are running a really memory
+> intensive workload and ring is busy and is unable to complete all the requests
+> in the given timeout. This is very unlikely though.
+
+As said above I would generally prefer for code to handle possible
+failures the best way, and hence I think here it would be nice to
+fallback to the normal disconnect path and just wait for the backend
+to close.
+
+You likely have this very well tuned to your own environment and
+workloads, since this will now be upstream others might have more
+contended systems where it could start to fail.
+
+> 3) Also, I do not think this may be straight forward to fix and expect
+> hibernation to work flawlessly in subsequent invocations. I am open to 
+> all suggestions.
+
+Right, adding a TODO would seem appropriate then.
+
+Roger.
 
