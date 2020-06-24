@@ -2,58 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75AE82079DC
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 19:05:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84370207A42
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 19:29:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jo8pt-0002BO-4X; Wed, 24 Jun 2020 17:05:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jo9Cp-0004DI-Vs; Wed, 24 Jun 2020 17:29:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Z21m=AF=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jo8pr-0002BJ-H3
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 17:05:19 +0000
-X-Inumbo-ID: e1570683-b63c-11ea-8110-12813bfff9fa
+ id 1jo9Cn-0004DD-Ow
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 17:29:01 +0000
+X-Inumbo-ID: 3145f9ca-b640-11ea-bb8b-bc764e2007e4
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e1570683-b63c-11ea-8110-12813bfff9fa;
- Wed, 24 Jun 2020 17:05:18 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3145f9ca-b640-11ea-bb8b-bc764e2007e4;
+ Wed, 24 Jun 2020 17:29:01 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A570F20578;
- Wed, 24 Jun 2020 17:05:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 45E872078D;
+ Wed, 24 Jun 2020 17:29:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593018318;
- bh=/UnoLMxQONCLkO5gVNRqe1RRYpEGc4XdR1M7cDuR7wU=;
+ s=default; t=1593019740;
+ bh=VQBPgH331hw6VJmPWcybMgyEHppdU/GjfLhtKGyKFBU=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=eziwITDIF+H1hXY9h2BK/lfMeYS1S49w7sbf7HlS/Du8UZVzKP1an8MAbwK2CTiNz
- BbnVzGxbJ4AZ27KNCUpsGE7xkBTAOVaJC8SBsNRLI/JZjxNyfhZeyegqqAeDqawpOP
- 94fWFUQAE27WOIBUiCH9Y/WSyBtbWZsC8Yyp4RFk=
-Date: Wed, 24 Jun 2020 10:05:17 -0700 (PDT)
+ b=kqwT8GSK6zkaZ2rwPbU7buMudcQZyfi06sTZb8a7M52z7V40+iZzni0Od3Zm8Jm65
+ dLsEcUoiBQ4V5jXd1+NmDbbZur05SRcVvviMioDzQsWbhq5bRvq6E+ps+QFB2qOCkh
+ sfagmcy2SK3XRc5ffbUKEeeYnDXxUCvDVzGzQu3U=
+Date: Wed, 24 Jun 2020 10:28:59 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Subject: Re: UEFI support in ARM DomUs
-In-Reply-To: <a122102d-c023-0379-5d2c-b7b08d262844@epam.com>
-Message-ID: <alpine.DEB.2.21.2006241000260.8121@sstabellini-ThinkPad-T480s>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <DB6PR0402MB276072324DC3E1E9BD9A96BE88890@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
- <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
- <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
- <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
- <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
- <alpine.DEB.2.21.2006191020110.12730@sstabellini-ThinkPad-T480s>
- <c5905f40-6d0a-358f-35e4-239e88ace7d8@epam.com>
- <94bfe57c-c1be-62b4-3799-b90415264487@xen.org>
- <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
- <1a44c645-8c9a-93ce-8466-35c87eb4fca5@xen.org>
- <alpine.DEB.2.21.2006221419200.8121@sstabellini-ThinkPad-T480s>
- <271a4db0-5ce5-ba25-65e7-107c040f5069@epam.com>
- <a122102d-c023-0379-5d2c-b7b08d262844@epam.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: Re: Keystone Issue
+In-Reply-To: <30ACA5A7-089F-45E2-9A9B-A6BC4EBBC78B@arm.com>
+Message-ID: <alpine.DEB.2.21.2006241027180.8121@sstabellini-ThinkPad-T480s>
+References: <CALYbLDiNtHZusupf8=yhKtw1EA7HjMP3o3+WGdv9Omv9v8yVHg@mail.gmail.com>
+ <363A05E0-61C6-4AE4-9C84-EEAC466989D8@arm.com>
+ <b28cbead-c7ce-7848-4e21-109a022e64da@xen.org>
+ <03607739-A4FF-486A-899A-F5F36870225A@arm.com>
+ <2ec6255c-9d28-92e7-bd0a-59edb9fc078a@xen.org>
+ <6033f9cecbf10f50f4a713ce52105426@kernel.org>
+ <CAJ=z9a1k606A+sA467eY8iPuHnptMUFzxEFithpe=JKHogjt0g@mail.gmail.com>
+ <CALYbLDjF8_eoNB_pSfbD73LkC3Ppyxpi0MxHgtS5y_wc-TVfzQ@mail.gmail.com>
+ <4bab90465acfddae5868ce2311bd9889@kernel.org>
+ <CALYbLDjNF5s2SXkunjJNv4x9jQAcDfoMBWp3WFHBkjnNdfT3Sg@mail.gmail.com>
+ <bd3fade765bf21342a4ce6b952a5ca00@kernel.org>
+ <CALYbLDhbRO=FeK21FLTMbt=eMciTW4hhjJUVhpmPUJ0D1ELeqA@mail.gmail.com>
+ <alpine.DEB.2.21.2006171134350.14005@sstabellini-ThinkPad-T480s>
+ <CALYbLDjX=aDTT0oazOkSDthd_p1H2ygunbdur935+2HYpF5Pow@mail.gmail.com>
+ <CALYbLDj9SCmxPZN1Tn6+YntkFyD69iKo2AGq=tG2Cnx4o=PBtg@mail.gmail.com>
+ <30ACA5A7-089F-45E2-9A9B-A6BC4EBBC78B@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -67,64 +66,131 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- Roman Shaposhnik <roman@zededa.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ CodeWiz2280 <codewiz2280@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
  Julien Grall <julien.grall.oss@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 24 Jun 2020, Oleksandr Andrushchenko wrote:
-> On 6/23/20 8:31 AM, Oleksandr Andrushchenko wrote:
-> >
-> > On 6/23/20 4:20 AM, Stefano Stabellini wrote:
-> >> On Mon, 22 Jun 2020, Julien Grall wrote:
-> >>>>>> For the first part (__XEN_INTERFACE_VERSION__) I think we can provide it
-> >>>>>> via
-> >>>>>>
-> >>>>>> CFLAGS or something. This can also be done for the location of Xen
-> >>>>>> headers.
-> >>>>> __XEN_INTERFACE_VERSION__ should work through the CFLAGS. An alternative
-> >>>>> would be to allow the user to specify through the Kconfig.
-> >>>> You mean specifying via Kconfig something like "0x00040d00"?
-> >>> Possibly yes.
-> >>>
-> >>>> And what about the headers? How will we provide their location if we decide
-> >>>> not to include those
-> >>>>
-> >>>> in the tree?
-> >>> I would do through Kconfig as well.
-> >> If we specify the external location of the Xen headers via Kconfig, it
-> >> seems to me that we should be able to detect the interface version
-> >> automatically from any Makefile as part of the build. No need to ask the
-> >> user.
-> >>
-> >> However, if Oleksandr is thinking of using the Xen headers for the
-> >> hypercalls definitions, then I think we might not need external headers
-> >> at all because that is a stable interface, as Julien wrote. We could
-> >> just define our own few headers for just what you need like Linux does.
-> >
-> > This is a good idea: I'll try to get the minimal set of headers from Linux
-> >
-> > instead of Xen as those seem to be well prepared for such a use-case. This
-> >
-> > way we'll have headers in U-boot tree and guarantee that we have a minimal
-> >
-> > subset which is easier to maintain. I'll keep you updated on the progress
+On Wed, 24 Jun 2020, Bertrand Marquis wrote:
+> > On 23 Jun 2020, at 21:50, CodeWiz2280 <codewiz2280@gmail.com> wrote:
+> > 
+> > Is it possible to passthrough PCI devices to domU on the 32-bit arm
+> > keystone?  Any info is appreciated.
+> > 
+> > I found some old information online that "gic-v2m" is required.  I'm
+> > not sure if the GIC-400 on the K2E supports "gic_v2m".  Based on the
+> > fact that there is no "gic-v2m-frame" tag in the K2E device tree i'm
+> > guessing that it does not.
+> > 
+> > If it is possible, is there a good example for arm that I can follow?
 > 
-> We've managed to strip the headers and remove __XEN__ and the rest definitions
+> There is no PCI passthrough support on Arm for now in Xen.
 > 
-> we were talking about. So, these are now the minimal required set of headers
+> This is something I am working on and I will present something on this subject at the Xen summit.
+> But we are not targeting arm32 for now.
 > 
-> that allows U-boot to build serial and block drivers. Please take a look at [1]
-> 
-> Pull request for comments is at [2]
+> The only thing possible for now is to have PCI devices handled by Dom0 and using xen virtual drivers to pass the functionalities (ethernet, block or others).
 
-I think this is the right approach. There is no build-dependency on Xen
-anymore, is that correct?
+It should also possible to pass the entire PCI controller, together with
+the whole aperture and all interrupts to a domU. The domU would get all
+PCI devices this way, not just one.
+
+
+ 
+> > On Wed, Jun 17, 2020 at 7:52 PM CodeWiz2280 <codewiz2280@gmail.com> wrote:
+> >> 
+> >> On Wed, Jun 17, 2020 at 2:46 PM Stefano Stabellini
+> >> <sstabellini@kernel.org> wrote:
+> >>> 
+> >>> On Wed, 17 Jun 2020, CodeWiz2280 wrote:
+> >>>> On Tue, Jun 16, 2020 at 2:23 PM Marc Zyngier <maz@kernel.org> wrote:
+> >>>>> 
+> >>>>> On 2020-06-16 19:13, CodeWiz2280 wrote:
+> >>>>>> On Tue, Jun 16, 2020 at 4:11 AM Marc Zyngier <maz@kernel.org> wrote:
+> >>>>>>> 
+> >>>>>>> On 2020-06-15 20:14, CodeWiz2280 wrote:
+> >>>>>>> 
+> >>>>>>> [...]
+> >>>>>>> 
+> >>>>>>>> Also, the latest linux kernel still has the X-Gene storm distributor
+> >>>>>>>> address as "0x78010000" in the device tree, which is what the Xen code
+> >>>>>>>> considers a match with the old firmware.  What were the addresses for
+> >>>>>>>> the device tree supposed to be changed to?
+> >>>>>>> 
+> >>>>>>> We usually don't care, as the GIC address is provided by the
+> >>>>>>> bootloader,
+> >>>>>>> whether via DT or ACPI (this is certainly what happens on Mustang).
+> >>>>>>> Whatever is still in the kernel tree is just as dead as the platform
+> >>>>>>> it
+> >>>>>>> describes.
+> >>>>>>> 
+> >>>>>>>> Is my understanding
+> >>>>>>>> correct that there is a different base address required to access the
+> >>>>>>>> "non-secure" region instead of the "secure" 0x78010000 region?  I'm
+> >>>>>>>> trying to see if there are corresponding different addresses for the
+> >>>>>>>> keystone K2E, but haven't found them yet in the manuals.
+> >>>>>>> 
+> >>>>>>> There is no such address. Think of the NS bit as an *address space*
+> >>>>>>> identifier.
+> >>>>>>> 
+> >>>>>>> The only reason XGene presents the NS part of the GIC at a different
+> >>>>>>> address is because XGene is broken enough not to have EL3, hence no
+> >>>>>>> secure mode. To wire the GIC (and other standard ARM IPs) to the core,
+> >>>>>>> the designers simply used the CPU NS signal as an address bit.
+> >>>>>>> 
+> >>>>>>> On your platform, the NS bit does exist. I strongly suppose that it
+> >>>>>>> isn't wired to the GIC. Please talk to your SoC vendor for whether iot
+> >>>>>>> is possible to work around this.
+> >>>>>>> 
+> >>>>>> I do have a question about this out to TI, but at least this method
+> >>>>>> gives me something to work with in the meantime.  I was just looking
+> >>>>>> to confirm that there wouldn't be any other undesirable side effects
+> >>>>>> with Dom0 or DomU when using it.  Was there an actual FPGA for the
+> >>>>>> X-Gene that needed to be updated which controlled the GIC access?  Or
+> >>>>>> by firmware do you mean the boot loader (e.g. uboot).  Thanks for the
+> >>>>>> support so far to all.
+> >>>>> 
+> >>>>> As I said, the specific case of XGene was just a matter of picking the
+> >>>>> right address, as the NS bit is used as an address bit on this platform.
+> >>>>> This was possible because this machine doesn't have any form of
+> >>>>> security. So no HW was changed, no FPGA reprogrammed. Only a firmware
+> >>>>> table was fixed to point to the right spot. Not even u-boot or EFI was
+> >>>>> changed.
+> >>>> Ok, thank you for clarifying.  I have one more question if you don't
+> >>>> mind.  I'm aware that dom0 can share physical memory with dom1 via
+> >>>> grant tables.
+> >>>> However, is it possible to reserve a chunk of contiguous physical
+> >>>> memory and directly allocate it only to dom1?
+> >>>> For example, if I wanted dom1 to have access to 8MB of contiguous
+> >>>> memory at 0x8200_0000 (in addition to whatever virtual memory Xen
+> >>>> gives it).
+> >>>> How would one go about doing this on ARM?  Is there something in the
+> >>>> guest config or device tree that can be set?  Thanks for you help.
+> >>> 
+> >>> There isn't a "proper" way to do it, only a workaround.
+> >>> 
+> >>> It is possible to do it by using the iomem option, which is meant for
+> >>> device MMIO regions.
+> >>> 
+> >>> We have patches in the Xilinx Xen tree (not upstream) to allow for
+> >>> specifying the cacheability that you want for the iomem mapping so that
+> >>> you can map it as normal memory. This is the latest branch:
+> >>> 
+> >>> https://github.com/Xilinx/xen.git xilinx/release-2020.1
+> >>> 
+> >>> The relevant commits are the ones from:
+> >>> https://github.com/Xilinx/xen/commit/a5c76ac1c5dc14d3e9ccedc5c1e7dd2ddc1397b6
+> >>> to:
+> >>> https://github.com/Xilinx/xen/commit/b4b7e91c1524f9cf530b81b7ba95df2bf50c78e4
+> >>> 
+> >>> You might want to make sure that the page is not used by the normal
+> >>> memory allocator. This document explains how to something along those
+> >>> lines:
+> >>> 
+> >>> https://github.com/Xilinx/xen/commit/35f72d9130448272e07466bd73cc30406f33135e
+> >> 
+> >> Thank you.  I appreciate it.
+> 
 
