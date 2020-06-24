@@ -2,46 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91456207525
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 16:02:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0EC2207773
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 17:33:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jo5yF-0000Qv-S1; Wed, 24 Jun 2020 14:01:47 +0000
+	id 1jo7Na-000166-Fa; Wed, 24 Jun 2020 15:32:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hC7e=AF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jo5yE-0000Qq-D6
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 14:01:46 +0000
-X-Inumbo-ID: 3d0b08d0-b623-11ea-bb8b-bc764e2007e4
+ id 1jo7NZ-000161-7I
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 15:32:01 +0000
+X-Inumbo-ID: d86be108-b62f-11ea-bca7-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3d0b08d0-b623-11ea-bb8b-bc764e2007e4;
- Wed, 24 Jun 2020 14:01:45 +0000 (UTC)
+ id d86be108-b62f-11ea-bca7-bc764e2007e4;
+ Wed, 24 Jun 2020 15:32:00 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 83F8DACA7;
- Wed, 24 Jun 2020 14:01:44 +0000 (UTC)
-Subject: Re: [PATCH for-4.14] mm: fix public declaration of struct
- xen_mem_acquire_resource
-To: Julien Grall <julien@xen.org>
-References: <20200623135246.66170-1-roger.pau@citrix.com>
- <50e25ef7-e7a7-d2c1-5f78-ce32cae35f38@suse.com>
- <20200623155609.GS735@Air-de-Roger>
- <da8d4d26-0524-1d77-8516-e986dd0affaa@suse.com>
- <20200623172652.GU735@Air-de-Roger>
- <24d35c4d-e2b3-1f58-4c6e-71072de01b74@suse.com>
- <04410978-33bf-dedf-7401-248b1a038a9c@xen.org>
+ by mx2.suse.de (Postfix) with ESMTP id CD65DAD1F;
+ Wed, 24 Jun 2020 15:31:58 +0000 (UTC)
+Subject: Ping: [PATCH v3 1/1] x86/acpi: Use FADT flags to determine the PMTMR
+ width
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <60ac0a67-1448-4b39-4489-42dc008b6355@suse.com>
-Date: Wed, 24 Jun 2020 16:01:44 +0200
+To: Paul Durrant <paul@xen.org>
+References: <cover.1592603468.git.gorbak25@gmail.com>
+ <de0e33d2be0924e66a220678a7683098df70c2b5.1592603468.git.gorbak25@gmail.com>
+ <5993e716-d71d-cbc0-a186-5325e2bdeba4@suse.com>
+Message-ID: <2c3e8cd2-b74f-52b6-4df8-057e8d000455@suse.com>
+Date: Wed, 24 Jun 2020 17:31:58 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <04410978-33bf-dedf-7401-248b1a038a9c@xen.org>
+In-Reply-To: <5993e716-d71d-cbc0-a186-5325e2bdeba4@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,40 +48,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+Cc: Wei Liu <wl@xen.org>, jakub@bartmin.ski,
+ Andrew Cooper <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
+ Grzegorz Uriasz <gorbak25@gmail.com>, j.nowak26@student.uw.edu.pl,
+ xen-devel@lists.xenproject.org, contact@puzio.waw.pl,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.06.2020 15:41, Julien Grall wrote:
-> On 24/06/2020 11:12, Jan Beulich wrote:
->> On 23.06.2020 19:26, Roger Pau Monné wrote:
->>> I'm confused. Couldn't we switch from uint64_aligned_t to plain
->>> uint64_t (like it's currently on the Linux headers), and then use the
->>> compat layer in Xen to handle the size difference when called from
->>> 32bit environments?
->>
->> And which size would we use there? The old or the new one (breaking
->> future or existing callers respectively)? Meanwhile I think that if
->> this indeed needs to not be tools-only (which I still question),
+On 22.06.2020 10:49, Jan Beulich wrote:
+> On 20.06.2020 00:00, Grzegorz Uriasz wrote:
+>> @@ -490,8 +497,12 @@ static int __init acpi_parse_fadt(struct acpi_table_header *table)
+>>   	 */
+>>  	if (!pmtmr_ioport) {
+>>  		pmtmr_ioport = fadt->pm_timer_block;
+>> -		pmtmr_width = fadt->pm_timer_length == 4 ? 24 : 0;
+>> +		pmtmr_width = fadt->pm_timer_length == 4 ? 32 : 0;
+>>  	}
+>> +	if (pmtmr_width < 32 && fadt->flags & ACPI_FADT_32BIT_TIMER)
+>> +        printk(KERN_WARNING PREFIX "PM-Timer is too short\n");
 > 
-> I think we now agreed on a subthread that the kernel needs to know the 
-> layout of the hypercall.
+> Indentation is screwed up here.
 > 
->> then our only possible route is to add explicit padding for the
->> 32-bit case alongside the change you're already making.
+>> --- a/xen/arch/x86/time.c
+>> +++ b/xen/arch/x86/time.c
+>> @@ -457,16 +457,13 @@ static u64 read_pmtimer_count(void)
+>>  static s64 __init init_pmtimer(struct platform_timesource *pts)
+>>  {
+>>      u64 start;
+>> -    u32 count, target, mask = 0xffffff;
+>> +    u32 count, target, mask;
+>>  
+>> -    if ( !pmtmr_ioport || !pmtmr_width )
+>> +    if ( !pmtmr_ioport || (pmtmr_width != 24 && pmtmr_width != 32) )
+>>          return 0;
+>>  
+>> -    if ( pmtmr_width == 32 )
+>> -    {
+>> -        pts->counter_bits = 32;
+>> -        mask = 0xffffffff;
+>> -    }
+>> +    pts->counter_bits = pmtmr_width;
+>> +    mask = (1ull << pmtmr_width) - 1;
 > 
-> AFAICT Linux 32-bit doesn't have this padding. So wouldn't it make 
-> incompatible the two incompatible?
+> "mask" being of "u32" type, the use of 1ull is certainly a little odd
+> here, and one of the reasons why I think this extra "cleanup" would
+> better go in a separate patch.
+> 
+> Seeing that besides cosmetic aspects the patch looks okay now, I'd be
+> willing to leave the bigger adjustment mostly as is, albeit I'd
+> prefer the 1ull to go away, by instead switching to e.g.
+> 
+>     mask = 0xffffffff >> (32 - pmtmr_width);
+> 
+> With the adjustments (which I'd be happy to make while committing,
+> provided you agree)
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Also Cc-ing Paul for a possible release ack (considering this is a
+> backporting candidate).
 
-In principle yes. But they're putting the structure instance on the
-stack, so there's not risk from Xen reading 4 bytes too many. I'd
-prefer keeping the interface as is (i.e. with the previously
-implicit padding made explicit) to avoid risking to break other
-possible callers. But that's just my view on it, anyway ...
+Paul?
 
-Jan
+Thanks, Jan
 
