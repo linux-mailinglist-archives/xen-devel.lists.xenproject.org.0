@@ -2,62 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23629207C5E
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 21:48:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BF48207C5F
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 21:48:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joBMu-0000sQ-Jj; Wed, 24 Jun 2020 19:47:36 +0000
+	id 1joBO0-0000yH-1n; Wed, 24 Jun 2020 19:48:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z21m=AF=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1joBMt-0000sL-Ne
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 19:47:35 +0000
-X-Inumbo-ID: 8c9edffe-b653-11ea-8135-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Uo6N=AF=kaod.org=groug@srs-us1.protection.inumbo.net>)
+ id 1joBNy-0000yA-Pd
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 19:48:42 +0000
+X-Inumbo-ID: b46648e2-b653-11ea-8135-12813bfff9fa
+Received: from 4.mo177.mail-out.ovh.net (unknown [46.105.37.72])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8c9edffe-b653-11ea-8135-12813bfff9fa;
- Wed, 24 Jun 2020 19:47:35 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CAEDF2077D;
- Wed, 24 Jun 2020 19:47:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593028054;
- bh=NOgQrDFdeF9VVQe8qfEGZAUE9YhmFpPlPbe+DFvvKiA=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=1Dddk7Djth11RdmvLKWQj9ZvWq7QJuAYOQxXnNv81dGGx5j0vr5QY4RMd1hdnwkBr
- cCDfsQ2k0vLqdSZigTUnyyXZvaX6Gsgl+hRonOXJ+5WuwtLfKljldSWBdU62uABjry
- TgrwqpBRJSu6q2KDyFSx+mdC+KpC11A9/29okNg8=
-Date: Wed, 24 Jun 2020 12:47:33 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Subject: Re: UEFI support in ARM DomUs
-In-Reply-To: <473beeda-15e6-dd69-e140-b4084bea3ead@epam.com>
-Message-ID: <alpine.DEB.2.21.2006241247200.8121@sstabellini-ThinkPad-T480s>
-References: <CAMmSBy9R57ntWmzNZDvwcvJM1f1wwD7ogWvCshipAcPX4x-TmQ@mail.gmail.com>
- <c3856c1f-52bf-92fd-5226-4b09229e2127@epam.com>
- <alpine.DEB.2.21.2006040829390.6774@sstabellini-ThinkPad-T480s>
- <d6b39cd7-eeaa-f82b-df62-051f9f715968@epam.com>
- <54dcfce1-c401-0581-8620-dc8790209a87@xen.org>
- <alpine.DEB.2.21.2006181444460.14005@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1NtCr1MM7oUBUH3hgc8SL_K9jERy+NQ6pLzxNpGPpXzw@mail.gmail.com>
- <alpine.DEB.2.21.2006191020110.12730@sstabellini-ThinkPad-T480s>
- <c5905f40-6d0a-358f-35e4-239e88ace7d8@epam.com>
- <94bfe57c-c1be-62b4-3799-b90415264487@xen.org>
- <4ece84cf-dd68-6eb4-a0e2-e9008d264ba5@epam.com>
- <1a44c645-8c9a-93ce-8466-35c87eb4fca5@xen.org>
- <alpine.DEB.2.21.2006221419200.8121@sstabellini-ThinkPad-T480s>
- <271a4db0-5ce5-ba25-65e7-107c040f5069@epam.com>
- <a122102d-c023-0379-5d2c-b7b08d262844@epam.com>
- <alpine.DEB.2.21.2006241000260.8121@sstabellini-ThinkPad-T480s>
- <473beeda-15e6-dd69-e140-b4084bea3ead@epam.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id b46648e2-b653-11ea-8135-12813bfff9fa;
+ Wed, 24 Jun 2020 19:48:41 +0000 (UTC)
+Received: from player694.ha.ovh.net (unknown [10.110.208.202])
+ by mo177.mail-out.ovh.net (Postfix) with ESMTP id EE1C3138AB8
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 21:48:40 +0200 (CEST)
+Received: from kaod.org (lns-bzn-46-82-253-208-248.adsl.proxad.net
+ [82.253.208.248]) (Authenticated sender: groug@kaod.org)
+ by player694.ha.ovh.net (Postfix) with ESMTPSA id 930B213A32DC1;
+ Wed, 24 Jun 2020 19:48:20 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-99G0038a5f312c-448d-4468-8c63-ccc9116a4c59,C444FAC41FF2550221413609A00B1E8A3B07177F)
+ smtp.auth=groug@kaod.org
+Date: Wed, 24 Jun 2020 21:48:18 +0200
+From: Greg Kurz <groug@kaod.org>
+To: Markus Armbruster <armbru@redhat.com>
+Subject: Re: [PATCH v10 1/9] error: auto propagated local_err
+Message-ID: <20200624214818.2f7d7eda@bahia.lan>
+In-Reply-To: <87k0zw8ky6.fsf@dusky.pond.sub.org>
+References: <20200317151625.20797-1-vsementsov@virtuozzo.com>
+ <20200317151625.20797-2-vsementsov@virtuozzo.com>
+ <20200610163921.28d824aa@bahia.lan>
+ <877dw8dhvk.fsf@dusky.pond.sub.org>
+ <20200615083835.54e3fcb1@bahia.lan>
+ <87k0zw8ky6.fsf@dusky.pond.sub.org>
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 12544776764479609230
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedrudekjedgudefjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkjghfofggtgfgsehtjeertdertddvnecuhfhrohhmpefirhgvghcumfhurhiiuceoghhrohhugheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeehkefhtdehgeehheejledufeekhfdvleefvdeihefhkefhudffhfeuuedvffdthfenucfkpheptddrtddrtddrtddpkedvrddvheefrddvtdekrddvgeeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrieelgedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehgrhhouhhgsehkrghougdrohhrghdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,66 +59,75 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anastasiia Lukianenko <Anastasiia_Lukianenko@epam.com>,
- Juergen Gross <jgross@suse.com>, Peng Fan <peng.fan@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- Roman Shaposhnik <roman@zededa.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Nataliya Korovkina <malus.brandywine@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <julien.grall.oss@gmail.com>
+Cc: Kevin Wolf <kwolf@redhat.com>,
+ Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>, qemu-block@nongnu.org,
+ Paul Durrant <paul@xen.org>, Laszlo Ersek <lersek@redhat.com>,
+ Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ Michael Roth <mdroth@linux.vnet.ibm.com>, qemu-devel@nongnu.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Max Reitz <mreitz@redhat.com>,
+ Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@redhat.com>,
+ Stefan Berger <stefanb@linux.ibm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 24 Jun 2020, Oleksandr Andrushchenko wrote:
-> On 6/24/20 8:05 PM, Stefano Stabellini wrote:
-> > On Wed, 24 Jun 2020, Oleksandr Andrushchenko wrote:
-> >> On 6/23/20 8:31 AM, Oleksandr Andrushchenko wrote:
-> >>> On 6/23/20 4:20 AM, Stefano Stabellini wrote:
-> >>>> On Mon, 22 Jun 2020, Julien Grall wrote:
-> >>>>>>>> For the first part (__XEN_INTERFACE_VERSION__) I think we can provide it
-> >>>>>>>> via
-> >>>>>>>>
-> >>>>>>>> CFLAGS or something. This can also be done for the location of Xen
-> >>>>>>>> headers.
-> >>>>>>> __XEN_INTERFACE_VERSION__ should work through the CFLAGS. An alternative
-> >>>>>>> would be to allow the user to specify through the Kconfig.
-> >>>>>> You mean specifying via Kconfig something like "0x00040d00"?
-> >>>>> Possibly yes.
-> >>>>>
-> >>>>>> And what about the headers? How will we provide their location if we decide
-> >>>>>> not to include those
-> >>>>>>
-> >>>>>> in the tree?
-> >>>>> I would do through Kconfig as well.
-> >>>> If we specify the external location of the Xen headers via Kconfig, it
-> >>>> seems to me that we should be able to detect the interface version
-> >>>> automatically from any Makefile as part of the build. No need to ask the
-> >>>> user.
-> >>>>
-> >>>> However, if Oleksandr is thinking of using the Xen headers for the
-> >>>> hypercalls definitions, then I think we might not need external headers
-> >>>> at all because that is a stable interface, as Julien wrote. We could
-> >>>> just define our own few headers for just what you need like Linux does.
-> >>> This is a good idea: I'll try to get the minimal set of headers from Linux
-> >>>
-> >>> instead of Xen as those seem to be well prepared for such a use-case. This
-> >>>
-> >>> way we'll have headers in U-boot tree and guarantee that we have a minimal
-> >>>
-> >>> subset which is easier to maintain. I'll keep you updated on the progress
-> >> We've managed to strip the headers and remove __XEN__ and the rest definitions
-> >>
-> >> we were talking about. So, these are now the minimal required set of headers
-> >>
-> >> that allows U-boot to build serial and block drivers. Please take a look at [1]
-> >>
-> >> Pull request for comments is at [2]
-> > I think this is the right approach. There is no build-dependency on Xen
-> > anymore, is that correct?
->
-> No dependency
+On Wed, 24 Jun 2020 18:53:05 +0200
+Markus Armbruster <armbru@redhat.com> wrote:
 
-Great!
+> Greg Kurz <groug@kaod.org> writes:
+> 
+> > On Mon, 15 Jun 2020 07:21:03 +0200
+> > Markus Armbruster <armbru@redhat.com> wrote:
+> >
+> >> Greg Kurz <groug@kaod.org> writes:
+> >> 
+> >> > On Tue, 17 Mar 2020 18:16:17 +0300
+> >> > Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com> wrote:
+> >> >
+> >> >> Introduce a new ERRP_AUTO_PROPAGATE macro, to be used at start of
+> >> >> functions with an errp OUT parameter.
+> >> >> 
+> >> >> It has three goals:
+> >> >> 
+> >> >> 1. Fix issue with error_fatal and error_prepend/error_append_hint: user
+> >> >> can't see this additional information, because exit() happens in
+> >> >> error_setg earlier than information is added. [Reported by Greg Kurz]
+> >> >> 
+> >> >
+> >> > I have more of these coming and I'd really like to use ERRP_AUTO_PROPAGATE.
+> >> >
+> >> > It seems we have a consensus on the macro itself but this series is gated
+> >> > by the conversion of the existing code base.
+> >> >
+> >> > What about merging this patch separately so that people can start using
+> >> > it at least ?
+> >> 
+> >> Please give me a few more days to finish the work I feel should go in
+> >> before the conversion.  With any luck, Vladimir can then rebase /
+> >> recreate the conversion easily, and you can finally use the macro for
+> >> your own work.
+> >> 
+> >
+> > Sure. Thanks.
+> 
+> Just posted "[PATCH 00/46] Less clumsy error checking".  The sheer size
+> of the thing and the length of its dependency chain explains why it took
+> me so long.  I feel bad about delaying you all the same.  Apologies!
+> 
+
+No problem. This series of yours is impressive. Putting an end to the
+highjacking of the Error ** argument is really a beneficial move.
+
+> I hope we can converge quickly enough to get Vladimir's work on top
+> ready in time for the soft freeze.
+> 
+
+I'll find some cycles for reviewing.
+
+Cheers,
+
+--
+Greg
 
