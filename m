@@ -2,51 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FE6D20732B
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 14:19:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E46920732D
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 14:20:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jo4Mg-00069Z-B8; Wed, 24 Jun 2020 12:18:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b8vz=AF=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1jo4Me-00067X-Tn
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 12:18:52 +0000
-X-Inumbo-ID: dab1d4f6-b614-11ea-80a5-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dab1d4f6-b614-11ea-80a5-12813bfff9fa;
- Wed, 24 Jun 2020 12:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=WmkzEFnsGIT7sjSL+1trW0fIwoGyCpkoOnXxvyuh+2I=; b=IMWSEnAp8h0F/2AJelrjK/lD5Y
- XytjbgEbImgRnLyGQ1m8zFKYjRqaaP1EodKbhHxbGcHS3a6n26wzRt057a6vY5aGHuLNVPhaWrr58
- DzqCQmQuICWD58fsq5dry+Lf4PBdal4NM1X+u+cyrn22+nVRmKBWVY0Ggj1hrWaINn34=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1jo4MY-0000gH-PN; Wed, 24 Jun 2020 12:18:46 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=u2f063a87eabd5f.cbg10.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1jo4MY-0005fi-Gg; Wed, 24 Jun 2020 12:18:46 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org,
-	qemu-devel@nongnu.org
-Subject: [PATCH 2/2] xen: cleanup unrealized flash devices
-Date: Wed, 24 Jun 2020 13:18:41 +0100
-Message-Id: <20200624121841.17971-3-paul@xen.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200624121841.17971-1-paul@xen.org>
-References: <20200624121841.17971-1-paul@xen.org>
+	id 1jo4Nf-0006L9-MA; Wed, 24 Jun 2020 12:19:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sbuU=AF=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1jo4Ne-0006Kw-66
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 12:19:54 +0000
+X-Inumbo-ID: 0241d7f0-b615-11ea-bb8b-bc764e2007e4
+Received: from mail-qk1-x742.google.com (unknown [2607:f8b0:4864:20::742])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0241d7f0-b615-11ea-bb8b-bc764e2007e4;
+ Wed, 24 Jun 2020 12:19:53 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id e13so1553270qkg.5
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 05:19:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JeHrzBkl0W7YnFDNGzpK6Omqdh1SbNjh/JeqkFtYTYM=;
+ b=bHiigOlfRJSOsDQUtI5OujwKxFy5ZwqLJpXGvaYBK5AXFjeFbyHjglZbPkR19/LD7K
+ h8CxXew/iIM3amWTrmT8GzthWz80A4LojXAoLSAoYRfa/o4CTcMsaQ2MqCrcMmFyhmh3
+ d65C6+bnnMFHZZUPCaKXHD8xuou/AYrpxpUHIZa4MUJAlOttRnvcUjqEMH2Azqysu6bY
+ TrHvRBr4AOZ6qj8jPD4cTiibdikz02cW95d1+1iV6+6F0gl4CxgTZ/isKtni95qDKvs8
+ hvmgb3+i7qzDkgRzLqAXFCJLilOQw7Y8u8kX0+9KDGdInvcMVCtQ7P0FjE9jy1kZkcpR
+ aIkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JeHrzBkl0W7YnFDNGzpK6Omqdh1SbNjh/JeqkFtYTYM=;
+ b=fgpICnP8xTOr1XZCaKdV/QS+oFyGY1SWC0DOiTO3xtgA7I28WvY1I8AVf0BZJV10lT
+ 76XyrYNAcHejClKF+NPaW4ha/STYPuq9G61MfrM4cpH/7V0V7+XHHMKSiV8AeUTiVDCv
+ YmNNgsnWrJHTJRGrEb+ZgrLcO2EgQwdwC2539Kx4jAD3V86ABYjDATZh3IxpwRXUcBiT
+ /6M4Qtp/x/jOfk+abGjqxHbOrR8LsXMeY75K3r+kCACCu4kN88k33GyvrIKU+MOCNQad
+ YHsyU93fJDFzJymMksAODq+CaVNFK6of00Su6PSfLMbh3g0AZ/6n3yfm0yn5G+LAe8ok
+ BnYQ==
+X-Gm-Message-State: AOAM530U5V+xI/nmM5lwSWCHRKjyNAsM//MUp3+AGFwQjoGOdPIwBPs3
+ Dj5rvx444QNaxZXWEzSoa0o=
+X-Google-Smtp-Source: ABdhPJx3ZT4gYwkDD4T3fNbH4/7YMHFKibhaBWBHBCSo0bX+lInlvhxyUp1HwIUySWDeId8zj6gV/Q==
+X-Received: by 2002:a37:451:: with SMTP id 78mr16239725qke.117.1593001193342; 
+ Wed, 24 Jun 2020 05:19:53 -0700 (PDT)
+Received: from shine.lan ([2001:470:8:67e:ad7b:336a:2d40:4130])
+ by smtp.gmail.com with ESMTPSA id x4sm3685635qtj.50.2020.06.24.05.19.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jun 2020 05:19:52 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org
+Subject: [PATCH] xen: Fix xen-legacy-backend qdev types
+Date: Wed, 24 Jun 2020 08:19:39 -0400
+Message-Id: <20200624121939.10282-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -59,90 +70,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Eduardo Habkost <ehabkost@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Paul Durrant <pdurrant@amazon.com>,
- Jason Andryuk <jandryuk@gmail.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Richard Henderson <rth@twiddle.net>
+Cc: qemu-devel@nongnu.org, Jason Andryuk <jandryuk@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Paul Durrant <pdurrant@amazon.com>
+xen-sysdev is a TYPE_SYS_BUS_DEVICE.  bus_type should not be changed so
+that it can plug into the System bus.  Otherwise this assert triggers:
+qemu-system-i386: hw/core/qdev.c:102: qdev_set_parent_bus: Assertion
+`dc->bus_type && object_dynamic_cast(OBJECT(bus), dc->bus_type)'
+failed.
 
-The generic pc_machine_initfn() calls pc_system_flash_create() which creates
-'system.flash0' and 'system.flash1' devices. These devices are then realized
-by pc_system_flash_map() which is called from pc_system_firmware_init() which
-itself is called via pc_memory_init(). The latter however is not called when
-xen_enable() is true and hence the following assertion fails:
+TYPE_XENBACKEND attaches to TYPE_XENSYSBUS, so its class_init needs to
+be set accordingly to attach the qdev.  Otherwise the following assert
+triggers:
+qemu-system-i386: hw/core/qdev.c:102: qdev_set_parent_bus: Assertion
+`dc->bus_type && object_dynamic_cast(OBJECT(bus), dc->bus_type)'
+failed.
 
-qemu-system-i386: hw/core/qdev.c:439: qdev_assert_realized_properly:
-Assertion `dev->realized' failed
+TYPE_XENBACKEND is not a subclass of XEN_XENSYSDEV, so it's parent
+is just TYPE_DEVICE.  Change that.
 
-These flash devices are unneeded when using Xen so this patch avoids the
-assertion by simply removing them using pc_system_flash_cleanup_unused().
-
-Reported-by: Jason Andryuk <jandryuk@gmail.com>
-Fixes: ebc29e1beab0 ("pc: Support firmware configuration with -blockdev")
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-Tested-by: Jason Andryuk <jandryuk@gmail.com>
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Richard Henderson <rth@twiddle.net>
-Cc: Eduardo Habkost <ehabkost@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
----
- hw/i386/pc_piix.c    | 9 ++++++---
- hw/i386/pc_sysfw.c   | 2 +-
- include/hw/i386/pc.h | 1 +
- 3 files changed, 8 insertions(+), 4 deletions(-)
+ hw/xen/xen-legacy-backend.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index 1497d0e4ae..977d40afb8 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -186,9 +186,12 @@ static void pc_init1(MachineState *machine,
-     if (!xen_enabled()) {
-         pc_memory_init(pcms, system_memory,
-                        rom_memory, &ram_memory);
--    } else if (machine->kernel_filename != NULL) {
--        /* For xen HVM direct kernel boot, load linux here */
--        xen_load_linux(pcms);
-+    } else {
-+        pc_system_flash_cleanup_unused(pcms);
-+        if (machine->kernel_filename != NULL) {
-+            /* For xen HVM direct kernel boot, load linux here */
-+            xen_load_linux(pcms);
-+        }
-     }
- 
-     gsi_state = pc_gsi_create(&x86ms->gsi, pcmc->pci_enabled);
-diff --git a/hw/i386/pc_sysfw.c b/hw/i386/pc_sysfw.c
-index ec2a3b3e7e..0ff47a4b59 100644
---- a/hw/i386/pc_sysfw.c
-+++ b/hw/i386/pc_sysfw.c
-@@ -108,7 +108,7 @@ void pc_system_flash_create(PCMachineState *pcms)
-     }
+diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
+index 2335ee2e65..c5c75c0064 100644
+--- a/hw/xen/xen-legacy-backend.c
++++ b/hw/xen/xen-legacy-backend.c
+@@ -789,11 +789,12 @@ static void xendev_class_init(ObjectClass *klass, void *data)
+     set_bit(DEVICE_CATEGORY_MISC, dc->categories);
+     /* xen-backend devices can be plugged/unplugged dynamically */
+     dc->user_creatable = true;
++    dc->bus_type = TYPE_XENSYSBUS;
  }
  
--static void pc_system_flash_cleanup_unused(PCMachineState *pcms)
-+void pc_system_flash_cleanup_unused(PCMachineState *pcms)
- {
-     char *prop_name;
-     int i;
-diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
-index e6135c34d6..497f2b7ab7 100644
---- a/include/hw/i386/pc.h
-+++ b/include/hw/i386/pc.h
-@@ -187,6 +187,7 @@ int cmos_get_fd_drive_type(FloppyDriveType fd0);
+ static const TypeInfo xendev_type_info = {
+     .name          = TYPE_XENBACKEND,
+-    .parent        = TYPE_XENSYSDEV,
++    .parent        = TYPE_DEVICE,
+     .class_init    = xendev_class_init,
+     .instance_size = sizeof(struct XenLegacyDevice),
+ };
+@@ -824,7 +825,6 @@ static void xen_sysdev_class_init(ObjectClass *klass, void *data)
+     DeviceClass *dc = DEVICE_CLASS(klass);
  
- /* pc_sysfw.c */
- void pc_system_flash_create(PCMachineState *pcms);
-+void pc_system_flash_cleanup_unused(PCMachineState *pcms);
- void pc_system_firmware_init(PCMachineState *pcms, MemoryRegion *rom_memory);
+     device_class_set_props(dc, xen_sysdev_properties);
+-    dc->bus_type = TYPE_XENSYSBUS;
+ }
  
- /* acpi-build.c */
+ static const TypeInfo xensysdev_info = {
 -- 
-2.20.1
+2.25.1
 
 
