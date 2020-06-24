@@ -2,47 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CA55207B20
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 20:00:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04ED4207BB2
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 20:41:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jo9gd-0007Eb-Fw; Wed, 24 Jun 2020 17:59:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z21m=AF=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jo9gc-0007EV-13
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 17:59:50 +0000
-X-Inumbo-ID: 7eef0064-b644-11ea-8117-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7eef0064-b644-11ea-8117-12813bfff9fa;
- Wed, 24 Jun 2020 17:59:49 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 47F00207DD;
- Wed, 24 Jun 2020 17:59:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593021588;
- bh=lqF4UvFTuSVPWPvYKcQ8+owOKSTEFacagpA6y42+2I4=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=2OyEwIQ2W+yC8MeIiJn+zg6EpblYaMgeW1W2KIyhIYSiWBv27LoWjQc7whL/xeVKv
- y88icKjpG7HCb5h5QohX0bjtTPKL9DqECdzfBD8KC9GTdN07U3EonUUVOnBxKcXHUo
- yqYasuZpBgXc5lZj44gwka4tdlhLxCPXuN8CH3H4=
-Date: Wed, 24 Jun 2020 10:59:47 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH] xen: introduce xen_vring_use_dma
-In-Reply-To: <20200624050355-mutt-send-email-mst@kernel.org>
-Message-ID: <alpine.DEB.2.21.2006241047010.8121@sstabellini-ThinkPad-T480s>
-References: <20200624091732.23944-1-peng.fan@nxp.com>
- <20200624050355-mutt-send-email-mst@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	id 1joAJm-0003Po-48; Wed, 24 Jun 2020 18:40:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Aj6N=AF=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1joAJk-0003Pg-Ei
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 18:40:16 +0000
+X-Inumbo-ID: 255ab696-b64a-11ea-bb8b-bc764e2007e4
+Received: from mail-qt1-x842.google.com (unknown [2607:f8b0:4864:20::842])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 255ab696-b64a-11ea-bb8b-bc764e2007e4;
+ Wed, 24 Jun 2020 18:40:15 +0000 (UTC)
+Received: by mail-qt1-x842.google.com with SMTP id z2so2531938qts.5
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 11:40:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VoEjUlJkS7K4ydt2Ps92mPD1TlivKF5y/ZjyuI5GKLU=;
+ b=NstNfqfwjXF7T67cFXATN4XVyVAZrt7GkME+th9bzJVEM0bsZ0fvVuY3EYWInBiNe0
+ 7hGHKVPeyDgEdiX3D3g8wVHePDlfSFXmZFR2T/wD0RX03fU5Tm46YIdYBazlLihst7Rs
+ Otvsbx/ukDqSjHVaD4gR6PKym1cMI3Iof71CXbdYC0RRzOeBnNrPdsvOv9oTjqZxv0GH
+ 6Y1vOuNg1QYKVRc9MucnyGAVPm1htFbPfxbMkWyToJHIBmXA66hA5uO4obrmLtEfbjPs
+ ziaQ10+WjgMOhOw7jPBVKh3qezgBssCAZZJPR5Pk8VsU8UxoYyKEw7zZLMVNCX0WskFe
+ HLHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VoEjUlJkS7K4ydt2Ps92mPD1TlivKF5y/ZjyuI5GKLU=;
+ b=aQT/BuXJdrlOOhKP37ctkrClBP33pcwXebIgEiEyRuyACQ635PG3Z7y+mGCBh/TLxX
+ zFJ39FOUibjffzTMvLWNc/0WM6SLbxRt+o1wI5owqgchh+U98/7f77eQZWm7/DAXmbsy
+ YOFLDcd7brD1PTkHmnPmww5oU6ftsB/VLca0raoCNXWMEvDjdkv/g4qhaCJCUaiVeHzc
+ sN6yz/1uwhjLjD8WLZp4aARzURuiuiIZ3tJEX0t+LW4CV7g1+EXsAvePp1hDAY+E2ubh
+ M+Aonl2vyv+g29Ox8XAasYV8urAV7YQE+llfuwpwo3guABgRppQ+JwIv7P5ftH+TOGdj
+ Rftg==
+X-Gm-Message-State: AOAM532VPiy8C2lxn2xbD6o7dPB3z/Ql8DyAdAmtivyMJfbarZ8+vxsu
+ 352IwhUoJWLhX6Yv6QvxRP48Tkd7uZ1g3EJoaHVDew==
+X-Google-Smtp-Source: ABdhPJzH77jNmTePzO35cS43Um/S9NGkiCLFpDnxXb6EoXT0HL2PIpESw5+WyFZ6k3XILG8DW1Mt2ySJ988kYksUHmc=
+X-Received: by 2002:aed:3883:: with SMTP id k3mr13168924qte.365.1593024015547; 
+ Wed, 24 Jun 2020 11:40:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <24307.31637.214096.240023@mariner.uk.xensource.com>
+ <alpine.DEB.2.21.2006241033210.8121@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2006241033210.8121@sstabellini-ThinkPad-T480s>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Wed, 24 Jun 2020 11:40:04 -0700
+Message-ID: <CAMmSBy8X8KTx6=yzb4uxu0ULbh7x36qm4bkAqLDWoJvxoQtYGw@mail.gmail.com>
+Subject: Re: Proposal: rename xen.git#master (to #trunk, perhaps)
+To: Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,81 +65,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>, sstabellini@kernel.org,
- konrad.wilk@oracle.com, jasowang@redhat.com, x86@kernel.org,
- linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
- iommu@lists.linux-foundation.org, linux-imx@nxp.com,
- xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Ian Jackson <ian.jackson@citrix.com>, committers@xenproject.org,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 24 Jun 2020, Michael S. Tsirkin wrote:
-> On Wed, Jun 24, 2020 at 05:17:32PM +0800, Peng Fan wrote:
-> > Export xen_swiotlb for all platforms using xen swiotlb
-> > 
-> > Use xen_swiotlb to determine when vring should use dma APIs to map the
-> > ring: when xen_swiotlb is enabled the dma API is required. When it is
-> > disabled, it is not required.
-> > 
-> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> 
-> Isn't there some way to use VIRTIO_F_IOMMU_PLATFORM for this?
-> Xen was there first, but everyone else is using that now.
+On Wed, Jun 24, 2020 at 10:39 AM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> On Wed, 24 Jun 2020, Ian Jackson wrote:
+> > I think it would be a good idea to rename this branch name.  This name
+> > has unfortunate associations[1], even if it can be argued[2] that the
+> > etymology is not as bad as in some uses of the word.
+> >
+> > This is relativity straightforward on a technical level and will
+> > involve a minimum of inconvenience.  Since only osstest ever pushes to
+> > xen.git#master, we could easily make a new branch name and also keep
+> > #master for compatibility as long as we like.
+> >
+> > The effects[1] would be:
+> >
+> > Users who did "git clone https://xenbits.xen.org/git-http/xen.git""
+> > would find themselves on a branch called "trunk" which tracked
+> > "origin/trunk", by default.  (Some users with old versions of git
+> > using old protocols would still end up on "master".)
+> >
+> > Everyone who currently tracks "master" would be able to switch to
+> > tracking "trunk" at their leisure.
+> >
+> > Presumably at some future point (a year or two from now, say) we would
+> > abolish the name "master".
+> >
+> > Comments ?  In particular, comments on:
+> >
+> > 1. What the new branch name should be called.  Suggestions I have seen
+> > include "trunk" and "main".  I suggest "trunk" because this was used
+> > by SVN, CVS, RCS, CSSC (and therefore probably SCCS) for this same
+> > purpose.
+>
+> Github seems to be about to make a similar change. I wonder if we should
+> wait just a couple of weeks to see what name they are going to choose.
+>
+> https://www.theregister.com/2020/06/15/github_replaces_master_with_main/
+>
+>
+> Of course I don't particulalry care one way or the other, but it would
+> be good if we end up using the same name as everybody else. It is not
+> that we have to choose the name Github is going to choose, but their
+> user base is massive -- whatever they are going to pick is very likely
+> going to stick.
 
-Unfortunately it is complicated and it is not related to
-VIRTIO_F_IOMMU_PLATFORM :-(
+<peanut gallery>
++1 to Stefano's way of thinking here -- that's exactly what we're
+doing in some of the other LF projects I'm involved in. Of course all
+the master/slave terminology has to be addresses at the project level
+-- but I haven't come across much of that in my Xen hacking
+</peanut gallery>
 
-
-The Xen subsystem in Linux uses dma_ops via swiotlb_xen to translate
-foreign mappings (memory coming from other VMs) to physical addresses.
-On x86, it also uses dma_ops to translate Linux's idea of a physical
-address into a real physical address (this is unneeded on ARM.)
-
-
-So regardless of VIRTIO_F_IOMMU_PLATFORM, dma_ops should be used on Xen/x86
-always and on Xen/ARM if Linux is Dom0 (because it has foreign
-mappings.) That is why we have the if (xen_domain) return true; in
-vring_use_dma_api.
-
-You might have noticed that I missed one possible case above: Xen/ARM
-DomU :-)
-
-Xen/ARM domUs don't need swiotlb_xen, it is not even initialized. So if
-(xen_domain) return true; would give the wrong answer in that case.
-Linux would end up calling the "normal" dma_ops, not swiotlb-xen, and
-the "normal" dma_ops fail.
-
-
-The solution I suggested was to make the check in vring_use_dma_api more
-flexible by returning true if the swiotlb_xen is supposed to be used,
-not in general for all Xen domains, because that is what the check was
-really meant to do.
-
-
-In this regards I have two more comments:
-
-- the comment on top of the check in vring_use_dma_api is still valid
-- the patch looks broken on x86: it should always return true, but it
-  returns false instead
-
- 
-> > diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
-> > index a2de775801af..768afd79f67a 100644
-> > --- a/drivers/virtio/virtio_ring.c
-> > +++ b/drivers/virtio/virtio_ring.c
-> > @@ -252,7 +252,7 @@ static bool vring_use_dma_api(struct virtio_device *vdev)
-> >  	 * the DMA API if we're a Xen guest, which at least allows
-> >  	 * all of the sensible Xen configurations to work correctly.
-> >  	 */
-> > -	if (xen_domain())
-> > +	if (xen_vring_use_dma())
-> >  		return true;
-> >  
-> >  	return false;
-> 
-> 
-> The comment above this should probably be fixed.
-
-> 
+Thanks,
+Roman.
 
