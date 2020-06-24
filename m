@@ -2,48 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C3DE2073FA
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 15:07:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08D7E207482
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 15:30:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jo57d-0003OB-3M; Wed, 24 Jun 2020 13:07:25 +0000
+	id 1jo5SL-0005IA-11; Wed, 24 Jun 2020 13:28:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hC7e=AF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jo57b-0003O6-PD
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 13:07:23 +0000
-X-Inumbo-ID: a451ba14-b61b-11ea-8496-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sbuU=AF=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1jo5SJ-0005I5-K1
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 13:28:47 +0000
+X-Inumbo-ID: a16fa290-b61e-11ea-8496-bc764e2007e4
+Received: from mail-lj1-x233.google.com (unknown [2a00:1450:4864:20::233])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a451ba14-b61b-11ea-8496-bc764e2007e4;
- Wed, 24 Jun 2020 13:07:23 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CAA42AEFE;
- Wed, 24 Jun 2020 13:07:21 +0000 (UTC)
-Subject: Re: [PATCH for-4.14] mm: fix public declaration of struct
- xen_mem_acquire_resource
-To: paul@xen.org
-References: <20200623135246.66170-1-roger.pau@citrix.com>
- <044c278b-e0df-e389-b21a-66c7307997c4@suse.com>
- <20200623173150.GV735@Air-de-Roger>
- <3ea0ff91-8e5c-701c-ee31-4140b247f3c9@suse.com>
- <4651b23b-ca82-a478-debd-c20cdcd3facd@xen.org>
- <ccd01544-04f7-8e34-dfdc-ccf373db3996@suse.com>
- <6195142d-6fa3-474d-3070-f43105742e79@xen.org>
- <5193dc6d-0a4c-4e1b-d089-9ba359c19e3e@suse.com>
- <000b01d64a26$7aacb580$70062080$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2bcda30f-fa95-adea-d19a-4d9a4c00d130@suse.com>
-Date: Wed, 24 Jun 2020 15:07:14 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ id a16fa290-b61e-11ea-8496-bc764e2007e4;
+ Wed, 24 Jun 2020 13:28:46 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id q19so2567304lji.2
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 06:28:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=nUrO1UmohK9ah4PTXz60cWnuU3BQE5TYlbAsoayD3rs=;
+ b=j1qdfIIZ/q1NnGEj8rl1xpFjrLO16wTKUdJwWNBQqs/KEhL2zgL4G9Wuctl4moJ8L8
+ p4QD4qRv+Jxfb3+f3s7wl4Zd3HVNUHUfLz5v/chtPrx2T9XWvEXr6GmUGONf8WQLq4BW
+ 6m+SjU0Ndjxhap5GK2lRLh4Uq574Av38crJK56x1R/5NmS/M3wZfhD0jPcgUB5YDesge
+ 1PUPooOkLnVqkckEFq6tB7UrB+I4SGRviggewzrNWeK1onAWEH1IUxSRhwJIqMhRGmLK
+ HmIn7mwpJ6+6YvbNXqsbNTDDBBKInK+XtlISN/Tt0BzD4Z4K5VNdaI5FTtQ6H4aTej4k
+ 4f0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=nUrO1UmohK9ah4PTXz60cWnuU3BQE5TYlbAsoayD3rs=;
+ b=s0De5d2lQxpVlsxhe+HlK5A+I+NM6X41gqczvJmXv50FHKvvmkOBgWrbIfIEymkl1f
+ q34kgL5PYDdtWDzMB4oIJF5VzgmdEh2jwmE3Y7oKz12PO1tu0p56u6tI15zGeTp0rjzv
+ n0m2qk6QuFwLbGejgQrS1rdXr7JxLMNOPzXA6Okk5e5Osnhhwigdf+2sgLs1CAKAQ9WB
+ AHpdPBVVv1ypFdhWU5RdsWbUKdLCAjD43UgArTeRBjn7EcHBuW0UynM90Y6dfRQOsO00
+ 2lBA9CFPew5C8vw9dn3ZIpIleuva0ZpZMbHNom/rkyEWkZldKym5LM2X3qfV75SM+40F
+ oeSw==
+X-Gm-Message-State: AOAM533rrITRnxYHr/5OHPAMmZzn8pKJ74wnuoNhDHj7dcq8qVph/G52
+ k59QOKexRYNmvHX5u+lARUFckhQRnCDdyroQLBQ=
+X-Google-Smtp-Source: ABdhPJx7vdw407d2wlLmqmq7qPN+YgmYyWzZLeZti3qgdfxdqAyoP7/KyEKrMYgsteU0k3JGc7eosC0VKWXGiyAxTcE=
+X-Received: by 2002:a2e:9a59:: with SMTP id k25mr14877859ljj.114.1593005325745; 
+ Wed, 24 Jun 2020 06:28:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <000b01d64a26$7aacb580$70062080$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 24 Jun 2020 09:28:34 -0400
+Message-ID: <CAKf6xptNySqXOHAZJiiBq=h99GBQcS8Cbzmpyqzy-ucxX8Od2Q@mail.gmail.com>
+Subject: Migration vmdesc and xen-save-devices-state
+To: QEMU <qemu-devel@nongnu.org>, xen-devel <xen-devel@lists.xenproject.org>, 
+ zhang.zhanghailiang@huawei.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,93 +62,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.06.2020 14:53, Paul Durrant wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 24 June 2020 13:52
->> To: Julien Grall <julien@xen.org>
->> Cc: Roger Pau Monné <roger.pau@citrix.com>; xen-devel@lists.xenproject.org; paul@xen.org; Andrew
->> Cooper <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Ian Jackson
->> <ian.jackson@eu.citrix.com>; Stefano Stabellini <sstabellini@kernel.org>; Wei Liu <wl@xen.org>
->> Subject: Re: [PATCH for-4.14] mm: fix public declaration of struct xen_mem_acquire_resource
->>
->> On 24.06.2020 14:47, Julien Grall wrote:
->>> Hi,
->>>
->>> On 24/06/2020 13:08, Jan Beulich wrote:
->>>> On 24.06.2020 12:52, Julien Grall wrote:
->>>>> Hi Jan,
->>>>>
->>>>> On 24/06/2020 11:05, Jan Beulich wrote:
->>>>>> On 23.06.2020 19:32, Roger Pau Monné wrote:
->>>>>>> On Tue, Jun 23, 2020 at 05:04:53PM +0200, Jan Beulich wrote:
->>>>>>>> On 23.06.2020 15:52, Roger Pau Monne wrote:
->>>>>>>>> XENMEM_acquire_resource and it's related structure is currently inside
->>>>>>>>> a __XEN__ or __XEN_TOOLS__ guarded section to limit it's scope to the
->>>>>>>>> hypervisor or the toolstack only. This is wrong as the hypercall is
->>>>>>>>> already being used by the Linux kernel at least, and as such needs to
->>>>>>>>> be public.
->>>>>>>>
->>>>>>>> Actually - how does this work for the Linux kernel, seeing
->>>>>>>>
->>>>>>>>       rc = rcu_lock_remote_domain_by_id(xmar.domid, &d);
->>>>>>>>       if ( rc )
->>>>>>>>           return rc;
->>>>>>>>
->>>>>>>>       rc = xsm_domain_resource_map(XSM_DM_PRIV, d);
->>>>>>>>       if ( rc )
->>>>>>>>           goto out;
->>>>>>>>
->>>>>>>> in the function?
->>>>>>>
->>>>>>> It's my understanding (I haven't tried to use that hypercall yet on
->>>>>>> FreeBSD, so I cannot say I've tested it), that xmar.domid is the
->>>>>>> remote domain, which the functions locks and then uses
->>>>>>> xsm_domain_resource_map to check whether the current domain has
->>>>>>> permissions to do privileged operations against it.
->>>>>>
->>>>>> Yes, but that's a tool stack operation, not something the kernel
->>>>>> would do all by itself. The kernel would only ever pass DOMID_SELF
->>>>>> (or the actual local domain ID), I would think.
->>>>>
->>>>> You can't issue that hypercall directly from userspace because you need
->>>>> to map the page in the physical address space of the toolstack domain.
->>>>>
->>>>> So the kernel has to act as the proxy for the hypercall. This is
->>>>> implemented as mmap() in Linux.
->>>>
->>>> Oh, and there's no generic wrapping available here, unlike for
->>>> dmop.
->>>
->>> It is not clear to me the sort of generic wrapping you are referring to.
->>> Are you referring to a stable interface for an application?
->>>
->>>> Makes me wonder whether, for this purpose, there should
->>>> be (have been) a new dmop with identical functionality, to
->>>> allow such funneling.
->>>
->>> I am not sure how using DMOP will allow us to implement it fully in
->>> userspace. Do you mind expanding it?
->>
->> dmop was designed so that a kernel proxying requests wouldn't need
->> updating for every new request added to the interface. If the
->> request here was made through a new dmop, the kernel would never
->> have had a need to know of an interface structure that's of no
->> interest to it, but only to the tool stack.
-> 
-> How would the pages get mapped into process address space if the
-> kernel doesn't know what's being done?
+Hi,
 
-Urgh, yes, silly me.
+At some point, QEMU changed to add a json VM description (vmdesc)
+after the migration data.  The vmdesc is not needed to restore the
+migration data, but qemu_loadvm_state() will read and discard the
+vmdesc to clear the stream when should_send_vmdesc() is true.
 
-Jan
+xen-save-devices-state generates its migration data without a vmdesc.
+xen-load-devices-state in turn calls qemu_loadvm_state() which tries
+to load vmdesc since should_send_vmdesc is true for xen.  When
+restoring from a file, this is fine since it'll return EOF, print
+"Expected vmdescription section, but got 0" and end the restore
+successfully.
+
+Linux stubdoms load their migration data over a console, so they don't
+hit the EOF and end up waiting.  There does seem to be a timeout
+though and restore continues after a delay, but we'd like to eliminate
+the delay.
+
+Two options to address this are to either:
+1) set suppress_vmdesc for the Xen machines to bypass the
+should_send_vmdesc() check.
+or
+2) just send the vmdesc data.
+
+Since vmdesc is just discarded, maybe #1 should be followed.
+
+If going with #2, qemu_save_device_state() needs to generate the
+vmdesc data.  Looking at qemu_save_device_state() and
+qemu_savevm_state_complete_precopy_non_iterable(), they are both very
+similar and could seemingly be merged.  qmp_xen_save_devices_state()
+could even leverage the bdrv_inactivate_all() call in
+qemu_savevm_state_complete_precopy_non_iterable().
+
+The would make qemu_save_device_state a little more heavywight, which
+could impact COLO.  I'm not sure how performance sensitive the COLO
+code is, and I haven't measured anything.
+
+Does anyone have thoughts or opinions on the subject?
+
+Thanks,
+Jason
 
