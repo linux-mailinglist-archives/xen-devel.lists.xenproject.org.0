@@ -2,59 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62D3320699C
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 03:37:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CA90206A88
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 05:25:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jnuKn-0003zD-H5; Wed, 24 Jun 2020 01:36:17 +0000
+	id 1jnw1H-0005Wz-A6; Wed, 24 Jun 2020 03:24:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UaHK=AF=gmail.com=jrdr.linux@srs-us1.protection.inumbo.net>)
- id 1jnuKm-0003z8-Cn
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 01:36:16 +0000
-X-Inumbo-ID: 1750faa4-b5bb-11ea-bca7-bc764e2007e4
-Received: from mail-lj1-x242.google.com (unknown [2a00:1450:4864:20::242])
+ <SRS0=sbuU=AF=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1jnw1F-0005Wu-DZ
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 03:24:13 +0000
+X-Inumbo-ID: 2c5ffa62-b5ca-11ea-8496-bc764e2007e4
+Received: from mail-lj1-x22d.google.com (unknown [2a00:1450:4864:20::22d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1750faa4-b5bb-11ea-bca7-bc764e2007e4;
- Wed, 24 Jun 2020 01:36:14 +0000 (UTC)
-Received: by mail-lj1-x242.google.com with SMTP id n23so722912ljh.7
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2020 18:36:14 -0700 (PDT)
+ id 2c5ffa62-b5ca-11ea-8496-bc764e2007e4;
+ Wed, 24 Jun 2020 03:24:12 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id s9so913394ljm.11
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2020 20:24:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=q7jjyfHFC9E96qUQNIK0iSzZnFmQnU7S2H0dsaVw/bw=;
- b=hK7Rt5VMB2G5gbaRdIV0Ca6lV0ZaRMz+RDV4xUL2XkVbCQIDEzOKm49gQBGCHYiOM5
- 01IoGspdppI0EkYYitQghqMlWYxjWXvA/+3qZbU0KlZVs+xj1BqcrcCEPMGKW5PZTm8B
- g9u75oDqyl7m46djbSPk/Yw7xqTFCNyLCpUbGbck/WRnJMui8c89yeFj96+8belvxbna
- M5SZyJJ+dcvDMGJTLw4H2SZPdurlPzX0BYo0XgITMwuMlw8TnsTwTgIriOt2Exj06PtJ
- StY//vwUk0msYU4UBdT8AfDX73f5umwrQ7ITct+uyRy9dil1w0CADNCuTewpgAaJdsVC
- dPDQ==
+ :cc; bh=zATyIOC89HCqUhnBoh+lwkWVcOVUh3I8uyFWbAFlEoM=;
+ b=k/aYoqRJ6SpGM7scsWsZcHmoGIprlLyky0mNM0bxVvdwLKy7eXzAEQ9NkP3DtYw4nR
+ TQdxap2VMFzlvJc7mxNU9NWuXuXo5x8vtFKx9/V4b3tNDZxagESQhGTJczG19Q8YY6pc
+ uxKztahkcSYM4f6IttOB9q3iydH3d5QA7exX04t9tE3uHt0j4C3Kqcvsb55J4iaX+Qkk
+ 4M0nebTMRqMXKY7ztHXRVnjgh5uRdSx151SPeFLRE4pWVpI1TIVl8Dgqd+1LqN4gCOjn
+ u1NnUMYIC9EmRj03AjoXYn0652bEEFgYbrJQB/4DvvFy3zS7yBXHKheNulZi3P4nzlpd
+ jz8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=q7jjyfHFC9E96qUQNIK0iSzZnFmQnU7S2H0dsaVw/bw=;
- b=fWgYz10U5xtVkVr9Xv+QKfh4ljcsNK9lAFeXemvlRKBSR33bHy9hivTmB135d/znjU
- wnNV0R7GemB1fY3MKZAWuecBefRKY+GpaXDP5aIlZQgf+0Ff9XI0dWf/N3ej9UM+b5eL
- LzqkBQCuobP8PGtaPPiQ8WECoknV2Hdxqn1Ultt91H4pSKoebTr6CWZxfodMuVN33iSJ
- IRs6mkWHKeFXSFg20yzRt6gH+92n4gyQyr5X0M6CHMRZg0JAFqIjyQoSk7JsX/vFoQ9d
- 7Q75wH9yyHEENiFYBLhYumg1CGv9aoZ0rmB3BMatV/YPsRe8ij7v4jcHvzUxulghCAIR
- C7NQ==
-X-Gm-Message-State: AOAM530+8+jChWkqAGccF0qUQUZmA9DOwpvPhXiwv2ehoYQmvcE8De4z
- dlFjayWLi+l6duVHI6wX8PdVlV9plGQeTGKcSUY=
-X-Google-Smtp-Source: ABdhPJzOqFFVqbyUclpMCMOSdJwxZz/i0ZJW9EZ9Y352Wdacz7Zh9xF7VmRJgb1LV8FRvn+GdRWFYPs8nErn9OhneVQ=
-X-Received: by 2002:a2e:b704:: with SMTP id j4mr13041345ljo.458.1592962573834; 
- Tue, 23 Jun 2020 18:36:13 -0700 (PDT)
+ bh=zATyIOC89HCqUhnBoh+lwkWVcOVUh3I8uyFWbAFlEoM=;
+ b=DilgtoI/HCHSB7bx3sKXWwbCH4094dnTApo0+M6oCUczfQ+tIdArYxeOuXFliCvt0q
+ 25KD81Kpwi0UWHxX4XAoQj91RD8YgNy7bzHErpyA2zae2bMFd8W2BKb1V2PLcy9/auvr
+ liIHKaLSCn1O7SrrXrcY6+o/zPvQo1SpAquMOjJs/3fnIgRDrLlCF6Q9Q0+q8zAa+84D
+ DztPoSoOFn6f3k8CK982DWu1Y/HacPjoK1baX8Z8uHX94oC0MVN8Xti7DQGrwh/qjV0T
+ haK7Y8xNo53jecWZ5V6Av5JOyYuMZkzH23ZsEkSXNhGYZ+ASLP4Qpk6lKe+tv23NYEPG
+ Bs9Q==
+X-Gm-Message-State: AOAM533FtArzv76b/fzVXkRQHVRW6xJqtaqeNJM7bIaRlYhMSA7ib1tM
+ yGzJcDiFb1nWigPIGwWN2ubG4tj6Nvx+h8PVmIU=
+X-Google-Smtp-Source: ABdhPJy82cR6TDBLKeUrr7BsPQumqJX34a+ZGAf4Ewtmd6TzkP5ojuvgG5SLPlkHR12eACs2CaeuiXrWP9f+JXzNVZY=
+X-Received: by 2002:a2e:b8c2:: with SMTP id s2mr13599176ljp.368.1592969051504; 
+ Tue, 23 Jun 2020 20:24:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <1592913499-15558-1-git-send-email-jrdr.linux@gmail.com>
- <c68a3805-080f-22c3-a4d3-f03be6b32176@oracle.com>
-In-Reply-To: <c68a3805-080f-22c3-a4d3-f03be6b32176@oracle.com>
-From: Souptick Joarder <jrdr.linux@gmail.com>
-Date: Wed, 24 Jun 2020 07:06:01 +0530
-Message-ID: <CAFqt6zZo4ZZ9sHGqMGiYoGoA8HQ2z_ijwnpr_b+PHuAzq31scw@mail.gmail.com>
-Subject: Re: [RFC PATCH v2] xen/privcmd: Convert get_user_pages*() to
- pin_user_pages*()
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <CAKf6xpuSD3NC2bLPQN75e2pR8asu9Ey1xTGxTNeCR_1MGsnPOg@mail.gmail.com>
+ <ac4dfe3b-7981-49bb-25a2-08578da150d5@ilande.co.uk>
+ <CAKf6xpvs6mNowsiAzbfQGLGp0aY0zKgUD=DVpSorWHycm--J8g@mail.gmail.com>
+ <87k0zykwdl.fsf@dusky.pond.sub.org> <000001d64953$f67a1f00$e36e5d00$@xen.org>
+In-Reply-To: <000001d64953$f67a1f00$e36e5d00$@xen.org>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 23 Jun 2020 23:23:59 -0400
+Message-ID: <CAKf6xpt02SndxVkhqy52z7ZPCHtOhX1R5d7JQbeC8tVauBRm4Q@mail.gmail.com>
+Subject: Re: sysbus failed assert for xen_sysdev
+To: Paul Durrant <paul@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -66,66 +67,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org, linux-kernel@vger.kernel.org,
- John Hubbard <jhubbard@nvidia.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Markus Armbruster <armbru@redhat.com>, QEMU <qemu-devel@nongnu.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 23, 2020 at 11:11 PM Boris Ostrovsky
-<boris.ostrovsky@oracle.com> wrote:
+On Tue, Jun 23, 2020 at 7:46 AM Paul Durrant <xadimgnik@gmail.com> wrote:
 >
-> On 6/23/20 7:58 AM, Souptick Joarder wrote:
-> > In 2019, we introduced pin_user_pages*() and now we are converting
-> > get_user_pages*() to the new API as appropriate. [1] & [2] could
-> > be referred for more information. This is case 5 as per document [1].
+> > -----Original Message-----
+> > From: Markus Armbruster <armbru@redhat.com>
+> > Sent: 23 June 2020 09:41
+> > To: Jason Andryuk <jandryuk@gmail.com>
+> > Cc: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>; Anthony PERARD <anthony.perard@citrix.com>; xen-
+> > devel <xen-devel@lists.xenproject.org>; Paul Durrant <paul@xen.org>; QEMU <qemu-devel@nongnu.org>
+> > Subject: Re: sysbus failed assert for xen_sysdev
 > >
-> > As discussed, pages need to be marked as dirty before unpinned it.
-> >
-> > Previously, if lock_pages() end up partially mapping pages, it used
-> > to return -ERRNO due to which unlock_pages() have to go through
-> > each pages[i] till *nr_pages* to validate them. This can be avoided
-> > by passing correct number partially mapped pages & -ERRNO separately
-> > while returning from lock_pages() due to error.
-> > With this fix unlock_pages() doesn't need to validate pages[i] till
-> > *nr_pages* for error scenario.
+> > Jason Andryuk <jandryuk@gmail.com> writes:
+> > > Then it gets farther... until
+> > > qemu-system-i386: hw/core/qdev.c:439: qdev_assert_realized_properly:
+> > > Assertion `dev->realized' failed.
+> > >
+> > > dev->id is NULL. The failing device is:
+> > > (gdb) p *dev.parent_obj.class.type
+> > > $12 = {name = 0x555556207770 "cfi.pflash01",
+> > >
 >
->
-> This should be split into two patches please. The first one will fix the
-> return value bug (and will need to go to stable branches) and the second
-> will use new routine to pin pages.
+> Having commented out the call to xen_be_init() entirely (and xen_bus_init() for good measure) I also get this assertion failure, so
+> I don't think is related.
 
-Initially I split the patches into 2 commits. But at last moment I
-figure out that,
-this bug fix ( better to call coding error, doesn't looks like lead to
-any runtime bug) is tightly coupled to 2nd commit for
-pin_user_pages*() conversion,
-which means we don't need the bug fix patch if we are not converting the API to
-pin_user_pages*()/ unpin_user_pages_dirty_lock(). That's the reason to
-clubbed these two
-commits into a single one.
+Yes, this is something different.  pc_pflash_create() calls
+qdev_new(TYPE_PFLASH_CFI01), but it is only realized in
+pc_system_flash_map()...  and pc_system_flash_map() isn't called for
+Xen.
 
-If this looks unreasonable, will split it into 2 patches again.
+Removing the call to pc_system_flash_create() from pc_machine_initfn()
+lets QEMU startup and run a Xen HVM again.  xen_enabled() doesn't work
+there since accelerators have not been initialized yes, I guess?
 
-
->
->
-> > @@ -580,25 +580,30 @@ static long privcmd_ioctl_mmap_batch(
-> >
-> >  static int lock_pages(
-> >       struct privcmd_dm_op_buf kbufs[], unsigned int num,
-> > -     struct page *pages[], unsigned int nr_pages)
-> > +     struct page *pages[], unsigned int nr_pages, int *errno)
->
->
-> I'd prefer if you used more traditional way of returning error code by
-> the function, and pass the number of pinned pages as an argument. This
-> will also make call site simpler.
-
-Sure, Will do it.
-
->
->
-> -boris
->
+Regards,
+Jason
 
