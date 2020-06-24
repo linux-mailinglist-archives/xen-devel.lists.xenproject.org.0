@@ -2,53 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BF48207C5F
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 21:48:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4D9207C6E
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2020 21:52:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joBO0-0000yH-1n; Wed, 24 Jun 2020 19:48:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Uo6N=AF=kaod.org=groug@srs-us1.protection.inumbo.net>)
- id 1joBNy-0000yA-Pd
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 19:48:42 +0000
-X-Inumbo-ID: b46648e2-b653-11ea-8135-12813bfff9fa
-Received: from 4.mo177.mail-out.ovh.net (unknown [46.105.37.72])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b46648e2-b653-11ea-8135-12813bfff9fa;
- Wed, 24 Jun 2020 19:48:41 +0000 (UTC)
-Received: from player694.ha.ovh.net (unknown [10.110.208.202])
- by mo177.mail-out.ovh.net (Postfix) with ESMTP id EE1C3138AB8
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 21:48:40 +0200 (CEST)
-Received: from kaod.org (lns-bzn-46-82-253-208-248.adsl.proxad.net
- [82.253.208.248]) (Authenticated sender: groug@kaod.org)
- by player694.ha.ovh.net (Postfix) with ESMTPSA id 930B213A32DC1;
- Wed, 24 Jun 2020 19:48:20 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-99G0038a5f312c-448d-4468-8c63-ccc9116a4c59,C444FAC41FF2550221413609A00B1E8A3B07177F)
- smtp.auth=groug@kaod.org
-Date: Wed, 24 Jun 2020 21:48:18 +0200
-From: Greg Kurz <groug@kaod.org>
-To: Markus Armbruster <armbru@redhat.com>
-Subject: Re: [PATCH v10 1/9] error: auto propagated local_err
-Message-ID: <20200624214818.2f7d7eda@bahia.lan>
-In-Reply-To: <87k0zw8ky6.fsf@dusky.pond.sub.org>
-References: <20200317151625.20797-1-vsementsov@virtuozzo.com>
- <20200317151625.20797-2-vsementsov@virtuozzo.com>
- <20200610163921.28d824aa@bahia.lan>
- <877dw8dhvk.fsf@dusky.pond.sub.org>
- <20200615083835.54e3fcb1@bahia.lan>
- <87k0zw8ky6.fsf@dusky.pond.sub.org>
-X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
+	id 1joBRa-0001mJ-Ji; Wed, 24 Jun 2020 19:52:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cRKl=AF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1joBRY-0001lz-Vt
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2020 19:52:25 +0000
+X-Inumbo-ID: 363a5598-b654-11ea-bca7-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 363a5598-b654-11ea-bca7-bc764e2007e4;
+ Wed, 24 Jun 2020 19:52:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=+XiPqnh9NN0+rSpFl3doXTnKpHODje0LatmIO5WxocI=; b=FCXS8yGtXL1oaWtGBEoIGWfQy
+ omcenS2ch956gDQcBg4Rp6tbheeSUEaN0LKieNQneGI9OM1rHhUdQbxMtJLVIiXb56t0y/G19J6B0
+ o54mVh8OehRIt0EH9IkoM9TQ70Y+V0QCwaQWtMIxpi5UHUsd5ZQggB+7dt4ujIoJeqP4s=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1joBRS-0001Mh-Ty; Wed, 24 Jun 2020 19:52:18 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1joBRS-0004lD-In; Wed, 24 Jun 2020 19:52:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1joBRS-0001iq-I8; Wed, 24 Jun 2020 19:52:18 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151320-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 12544776764479609230
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedrudekjedgudefjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkjghfofggtgfgsehtjeertdertddvnecuhfhrohhmpefirhgvghcumfhurhiiuceoghhrohhugheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeehkefhtdehgeehheejledufeekhfdvleefvdeihefhkefhudffhfeuuedvffdthfenucfkpheptddrtddrtddrtddpkedvrddvheefrddvtdekrddvgeeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrieelgedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehgrhhouhhgsehkrghougdrohhrghdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
+Subject: [ovmf test] 151320: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=1a992030522622c42aa063788b3276789c56c1e1
+X-Osstest-Versions-That: ovmf=00b8bf7eda00fb6f0197d3968b6078cfdb4870fa
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 24 Jun 2020 19:52:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,75 +60,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Wolf <kwolf@redhat.com>,
- Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>, qemu-block@nongnu.org,
- Paul Durrant <paul@xen.org>, Laszlo Ersek <lersek@redhat.com>,
- Christian Schoenebeck <qemu_oss@crudebyte.com>,
- Michael Roth <mdroth@linux.vnet.ibm.com>, qemu-devel@nongnu.org,
- Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Max Reitz <mreitz@redhat.com>,
- Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@redhat.com>,
- Stefan Berger <stefanb@linux.ibm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 24 Jun 2020 18:53:05 +0200
-Markus Armbruster <armbru@redhat.com> wrote:
+flight 151320 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151320/
 
-> Greg Kurz <groug@kaod.org> writes:
-> 
-> > On Mon, 15 Jun 2020 07:21:03 +0200
-> > Markus Armbruster <armbru@redhat.com> wrote:
-> >
-> >> Greg Kurz <groug@kaod.org> writes:
-> >> 
-> >> > On Tue, 17 Mar 2020 18:16:17 +0300
-> >> > Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com> wrote:
-> >> >
-> >> >> Introduce a new ERRP_AUTO_PROPAGATE macro, to be used at start of
-> >> >> functions with an errp OUT parameter.
-> >> >> 
-> >> >> It has three goals:
-> >> >> 
-> >> >> 1. Fix issue with error_fatal and error_prepend/error_append_hint: user
-> >> >> can't see this additional information, because exit() happens in
-> >> >> error_setg earlier than information is added. [Reported by Greg Kurz]
-> >> >> 
-> >> >
-> >> > I have more of these coming and I'd really like to use ERRP_AUTO_PROPAGATE.
-> >> >
-> >> > It seems we have a consensus on the macro itself but this series is gated
-> >> > by the conversion of the existing code base.
-> >> >
-> >> > What about merging this patch separately so that people can start using
-> >> > it at least ?
-> >> 
-> >> Please give me a few more days to finish the work I feel should go in
-> >> before the conversion.  With any luck, Vladimir can then rebase /
-> >> recreate the conversion easily, and you can finally use the macro for
-> >> your own work.
-> >> 
-> >
-> > Sure. Thanks.
-> 
-> Just posted "[PATCH 00/46] Less clumsy error checking".  The sheer size
-> of the thing and the length of its dependency chain explains why it took
-> me so long.  I feel bad about delaying you all the same.  Apologies!
-> 
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 1a992030522622c42aa063788b3276789c56c1e1
+baseline version:
+ ovmf                 00b8bf7eda00fb6f0197d3968b6078cfdb4870fa
 
-No problem. This series of yours is impressive. Putting an end to the
-highjacking of the Error ** argument is really a beneficial move.
+Last test of basis   151303  2020-06-23 01:55:28 Z    1 days
+Testing same since   151320  2020-06-23 22:10:13 Z    0 days    1 attempts
 
-> I hope we can converge quickly enough to get Vladimir's work on top
-> ready in time for the soft freeze.
-> 
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
 
-I'll find some cycles for reviewing.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Cheers,
 
---
-Greg
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   00b8bf7eda..1a99203052  1a992030522622c42aa063788b3276789c56c1e1 -> xen-tested-master
 
