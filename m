@@ -2,28 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDAEA20A098
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 16:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD84320A0B3
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 16:17:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joSYQ-0006hQ-7d; Thu, 25 Jun 2020 14:08:38 +0000
+	id 1joSgI-0007hr-2L; Thu, 25 Jun 2020 14:16:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Bi8a=AG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1joSYO-0006hI-9f
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 14:08:36 +0000
-X-Inumbo-ID: 5bc28788-b6ed-11ea-bb8b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oVq+=AG=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1joSgG-0007hm-Tp
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 14:16:45 +0000
+X-Inumbo-ID: 7ebeb67a-b6ee-11ea-bb8b-bc764e2007e4
+Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5bc28788-b6ed-11ea-bb8b-bc764e2007e4;
- Thu, 25 Jun 2020 14:08:35 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 72C5DAE93;
- Thu, 25 Jun 2020 14:08:34 +0000 (UTC)
-Subject: Re: [XEN RFC for-4.14] Re: use of "stat -"
-To: Ian Jackson <ian.jackson@citrix.com>
+ id 7ebeb67a-b6ee-11ea-bb8b-bc764e2007e4;
+ Thu, 25 Jun 2020 14:16:44 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id 9so6705973ljv.5
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2020 07:16:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/9t7dRTd26Cj0mD+rcWjzqKsb1g6xpQenNsIlbETbYA=;
+ b=Yl4IOKZNey4JdB2Y+sia7EKy48PihvaxkjN2VOQqsGrb9F4OsoqujtUdZe0vK8y7Gw
+ cADh/kfNFWKeYEAWOjImd3kBmXf8zkD9VHr0QxoArr3ZvKdXexlDUB0u6lrErpD4HIEX
+ 81rUsSkAtfE1OVeES0Qdr3/X9vs+2p2s4P+qggIf57tzfrrWyqKzYVWMRhKsw1vtfnAm
+ 60gNG+MghxE+vZHOjSbLVEFP2LCkg6InwmUDuSOVM6T9devy7KAjkIYdQpmNA9S+vea/
+ 6rN0x55vcPHMDL98aQamFdpqMRBwZa0t099YEz9Yw6koOCfSToJJB4/deOxSOc3BptXD
+ pTMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/9t7dRTd26Cj0mD+rcWjzqKsb1g6xpQenNsIlbETbYA=;
+ b=kaz72DtQ/jPmqn8LeuncQMaDiWqbA8MNs3DNGlloR88VPBXRGOTA63bbmVcHDa4vHa
+ aqCMKKMkaWx/2OVkq6eCf31bmRYynD82l9BpK8GVejHA8EUyZs5mbY0XU6EYQQ7wsqAI
+ sH09YCd2fAcjHohGfV8e0pHcNCMOlqZeUeQBW6UNKVM/+zuWJ7qw36oc+J8uWXMNPocJ
+ I5NQbSVqo+2Z2+lRkb5jnctzhwGdYLv8Spn/7a85EjyqraT9M2Sz6mk9pHljGZE+SJMD
+ eMw9f6OWNcweR/WxDCIqNu6wln3u8/UwC1yU7i6xloDfFqy0KHvib1A9d/8JLSJBF5X6
+ FlcQ==
+X-Gm-Message-State: AOAM532xbvscvGIXhbB2CaWJRARsueK/LZ/ZwJEQIZSz27ZF/BV/77MT
+ +r6Mx8WVsF/uHWvZzCeKirUPnXwfa3zhQ7ercSM=
+X-Google-Smtp-Source: ABdhPJwCJniiKhezzR7ZTc+wMlYcH7mWg7EZRBm3g7B8IQnEZSdk4AF5GbINFUg2+Mbx5GoF4cXpFlFl8i2YMneDqzE=
+X-Received: by 2002:a2e:b8c2:: with SMTP id s2mr17958993ljp.368.1593094602877; 
+ Thu, 25 Jun 2020 07:16:42 -0700 (PDT)
+MIME-Version: 1.0
 References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
  <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
  <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
@@ -37,17 +59,16 @@ References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
  <0b449d5a-9629-8e41-5354-b985a063eba4@suse.com>
  <24307.32018.502303.817846@mariner.uk.xensource.com>
  <CAKf6xpvLrXkBR6okFQ9u=9GfN-h_XHeLtwQV9pBRRAFXmbwVsQ@mail.gmail.com>
- <24308.42571.430322.191817@mariner.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7abcae45-6a58-ea7a-be8b-64be50b080a6@suse.com>
-Date: Thu, 25 Jun 2020 16:08:36 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
-MIME-Version: 1.0
-In-Reply-To: <24308.42571.430322.191817@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ <6cd9c568-84b9-8304-d56f-99d628d945a1@suse.com>
+ <24308.42811.393047.88416@mariner.uk.xensource.com>
+ <810ea6c8-1ae4-3ecc-3559-fde819f366fe@suse.com>
+In-Reply-To: <810ea6c8-1ae4-3ecc-3559-fde819f366fe@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 25 Jun 2020 10:16:29 -0400
+Message-ID: <CAKf6xptOma_Xg4=iQ57uLqmmsXabcjEUaiVLQL886Tu+Q_naEw@mail.gmail.com>
+Subject: Re: [XEN RFC for-4.14] Re: use of "stat -"
+To: Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,68 +80,53 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Jason Andryuk <jandryuk@gmail.com>,
- Elliott Mitchell <ehem+xen@m5p.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Elliott Mitchell <ehem+xen@m5p.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25.06.2020 15:27, Ian Jackson wrote:
-> Jason Andryuk writes ("Re: [XEN RFC for-4.14] Re: use of "stat -""):
->> I was going to just write a patch to replace - with /dev/stdin and ask
->> Jan to test it.  When I opened the script, this comment was staring at
->> me:
->>         # We can't just stat /dev/stdin or /proc/self/fd/$_lockfd or
->>         # use bash's test -ef because those all go through what is
->>         # actually a synthetic symlink in /proc and we aren't
->>         # guaranteed that our stat(2) won't lose the race with an
->>         # rm(1) between reading the synthetic link and traversing the
->>         # file system to find the inum.
->>
->> On my system:
->> $ ls -l /dev/stdin
->> lrwxrwxrwx 1 root root 15 Jun 24 21:13 /dev/stdin -> /proc/self/fd/0
->> $ ls -l /proc/self/fd/0 0<lockfile
->> lrwx------ 1 jason jason 64 Jun 24 21:26 /proc/self/fd/0 -> /home/jason/lockfile
->>
->> stat /dev/stdin will work around the lack of `stat -` support, but it
->> doesn't address the race in the comment.  Is the comment valid?
-> 
-> Thanks, but:
-> 
-> The tests in my transcript show that the comment (which I wrote) is
-> false.  It shows that stat /dev/stdin works on deleted files, and
-> stats the right file even if the name has been rused.
-> 
->>  How would we prove there is no race for /dev/stdin?
-> 
-> It is easy to create the "bad" situation by hand, without racing.
-> 
-> The transcript shows that the output from readlink(2) is a fiction and
-> that stat works to stat the actual open-file.
-> 
->> I've mentioned it before, but maybe we should just use the Qubes
->> patch.  It leaves the lockfile even when no-one is holding the lock,
->> but it simplifies the code and sidesteps the issues we are discussing
->> here.
->> https://github.com/QubesOS/qubes-vmm-xen/blob/xen-4.13/patch-tools-hotplug-drop-perl-usage-in-locking-mechanism.patch
-> 
-> I don't like that because this locking code might be reused (or maybe
-> already is used) in contexts with a varying lockfile filename, leaving
-> many lockfiles.  And because having lockfiles lying about might
-> confuse sysadmins who are used to programs which use (the broken)
-> LOCK_EX-style locking paradigm.
-> 
-> So tl;dr: yes, we need that patch to replace - with /dev/stdin.
+On Thu, Jun 25, 2020 at 9:48 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 25.06.2020 15:31, Ian Jackson wrote:
+> > Jan Beulich writes ("Re: [XEN RFC for-4.14] Re: use of "stat -""):
+> >> Looking at vfs_statx() in the kernel, I can't see any provisions to
+> >> get at the data without traversing the specified path.
+> >
+> > The question is what "traversing the path" means.
+> >
+> > How do you explain this ?
+> >
+> > $ >t
+> > $ exec 3>t
+> > $ stat -L -c '%F %i' /dev/stdin <&3
+> > regular empty file 421124
+> > $ ll /dev/stdin <&3
+> > lrwxrwxrwx 1 root root 15 Jun  7 02:01 /dev/stdin -> /proc/self/fd/0
+> > $ ll /proc/self/fd/0 <&3
+> > l-wx------ 1 ian ian 64 Jun 25 14:29 /proc/self/fd/0 -> /home/ian/t
+> > $ mv t u
+> > $ ll /proc/self/fd/0 <&3
+> > l-wx------ 1 ian ian 64 Jun 25 14:29 /proc/self/fd/0 -> /home/ian/u
+> > $ rm u
+> > $ ll /proc/self/fd/0 <&3
+> > l-wx------ 1 ian ian 64 Jun 25 14:29 /proc/self/fd/0 -> '/home/ian/u (deleted)'
+> > $ stat -L -c '%F %i' /dev/stdin <&3
+> > regular empty file 421124
+> > $ ll -Li /dev/stdin <&3
+> > 421124 -rw-rw-r-- 0 ian ian 0 Jun 25 14:28 /dev/stdin
+> > $
+> >
+> > Clearly it isn't actually following this synthetic symlink to
+> > "/home/ian/u (deleted)".
+>
+> Okay, so there's clearly some trickery then which don't know where
+> to find.
 
-I'm about to test this then, but to be honest I have no idea what
-to do with the comment. I don't think I could properly justify its
-deletion in the description (beyond saying it's not really true),
-nor would I be certain whether to e.g. leave the test -ef part
-there.
+I can't say I've taken the time to read and understand all this, but
+the code in here
+https://elixir.bootlin.com/linux/latest/source/fs/proc/fd.c#L147 seems
+to lookup FDs to existing structs.
 
-Also is there any reason to go through two symlinks then, rather
-than using /proc/self/fd/$_lockfd directly?
-
-Jan
+-Jason
 
