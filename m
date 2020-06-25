@@ -2,68 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5404E20988D
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 04:38:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30538209892
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 04:44:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joHmJ-0006Wi-Py; Thu, 25 Jun 2020 02:38:15 +0000
+	id 1joHs7-0007PR-Ip; Thu, 25 Jun 2020 02:44:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oVq+=AG=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1joHmH-0006Wc-RV
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 02:38:13 +0000
-X-Inumbo-ID: e9e04f8e-b68c-11ea-bca7-bc764e2007e4
-Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
+ id 1joHs6-0007PM-Ts
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 02:44:14 +0000
+X-Inumbo-ID: c12253e8-b68d-11ea-b7bb-bc764e2007e4
+Received: from mail-lj1-x232.google.com (unknown [2a00:1450:4864:20::232])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e9e04f8e-b68c-11ea-bca7-bc764e2007e4;
- Thu, 25 Jun 2020 02:38:13 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id 9so4787169ljv.5
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 19:38:13 -0700 (PDT)
+ id c12253e8-b68d-11ea-b7bb-bc764e2007e4;
+ Thu, 25 Jun 2020 02:44:14 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id t25so233885lji.12
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 19:44:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=h0aax/W+hPyh1wto9kh47ORvApsOtay8uUSNvlfQm5c=;
- b=OoKbiIiyeix93l2WqzTKQ5Naay5CV/aSOvgTRB50yJQOAjz7Rrko5wq38ijI1njEw9
- sKP8ESdLTmQqcNQ8tSrKwzJTlEzMM6NWG+SinmVPSNrI73TpkNk7pgLVy1C31exoUD9e
- EkUDxGJs1DvgqYjYlh5ByJkqUltV4p330Co3ZR2FWCQh3aT+OeHCHmnuhsiCWxx9jRoJ
- fMwGyScncIMKBZjHNntX60Bznj0nnS2g2cW8NJ/F8BksMXSDuGQ8m1PtMM8xv67EIEWv
- w4QQ3nsWcvNnp4DPQc13D+PM3LaZG7BvNhn3EH02kKbQ1nn+qAsTUBWOfHH2VoGwnDxV
- ZXTA==
+ :cc; bh=ijxYOypE8JXmxPV7oqzpPRU34Arl5A/6UxXyzebkzTE=;
+ b=aJrRcOqcB6m7AtN2HWtoifTfn5MvNxminS0EWt/BO2jobOhDpWEwVAh/U4We2yzNwi
+ j8G1/OVA6ztA3TYFz6vw79ki0ePUwKugeodA+6ZC5m4TrhDif/lLjZv97BxEUlzKD/sw
+ qYCYbTmHp/wWihFbMiPIHYRmUG8f+zJTNWl0GXQKm/DEh3FmT0F40a5jz8dPXFJ8hDnO
+ D1k2Jln0hRIfu6HSRvUR+ci8Uoc5yAKuKgpdji+y83Jo3RuBX93j59VLcI30QvucAgje
+ CRX4Yd3NAu/q9n2ILMvaPz/nS9rDTC5XLXhew4elue1ZfiuKKQwF0/ainIbLNu+WGMjY
+ pCMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=h0aax/W+hPyh1wto9kh47ORvApsOtay8uUSNvlfQm5c=;
- b=gLwH1pZcmSdfKzVcoWLwIRO3v26B9So563zdIPW+zqzt7flmCn9fAR+XbRXHOacn26
- GuL7qv4AdlTZrrcSGYbEMYbaz5vvEnyGFQ9Px0u/SfKZE1NSisFONDul2sfsakKRzGc/
- tmLAvEloXAD1ZwubeAb2h/L9Uyj3JslYMckLypsDEKsU04cOkazx2luLvXBmAn5q7BIi
- FBGa31m0AC/jnnySG/hm7pqD+niHIafOEAKPU37raf4w0hZU8Mk6BXRNz8xW4mLAWwD5
- CdfXm8aghBxI07Lzb1LNQ0TXieu4sLBDOeN2I+IaLYorLHqMQi1OqSWbhcZ/UjBaXzo8
- tYPA==
-X-Gm-Message-State: AOAM532uPVWOehsx79L3bLlALspAq3lZWvcLxq9OuPOErB1SowMZUame
- otguznh4P0scttW9mKhp3OvASnOcxqSPwhtHdLU=
-X-Google-Smtp-Source: ABdhPJw41r6Hj8uhqS/iUICTysk3gLFkOcYY7waiJe6R75sR4fpwPf8XaOK7+6tG59wIupxd8FNjV74lOTVd7c5NhlM=
-X-Received: by 2002:a2e:9141:: with SMTP id q1mr14768939ljg.196.1593052691722; 
- Wed, 24 Jun 2020 19:38:11 -0700 (PDT)
+ bh=ijxYOypE8JXmxPV7oqzpPRU34Arl5A/6UxXyzebkzTE=;
+ b=UqI+57ZE2XLWvOSWU0GIDle0fEngL8v1wD+56z0WKTMKRJuVmn8QeJfigt3q2fUQSq
+ CidyyytJk2JyPTggEHO0QOzlMrb7yH2iziP1QDX/7wvUYz2y4cNWkfLn3RRzfFrxGlSG
+ kYdQaZzF5YQwSLywrUiXzB6nFeV1qDZMiexF8iSq05o0lugOtSZ0pdBixHiJofIjxhvV
+ pn+TYJ/K8NhhzxLhnu8YYPYodi483qSSuBPAPU9e4XPweZR1yrXgzyFm+PDtjydPdO12
+ Kiw4TX7jTtTIlRDLFgNjeDCg8Owa2jz3UsAmBBnATI1/9U6WBgXrFYcSZ/rJO0e946t6
+ F2WA==
+X-Gm-Message-State: AOAM531pylrmLbhcQWGqNUyuGdaiDQSBwaC0ruWUfkFfr1wSCGW7AisP
+ vDoDsdYgf9d/Y63mBL17MEl+JrslhrTOyebHGzc=
+X-Google-Smtp-Source: ABdhPJyuLSZ/XCaBa1ABWU/XsMuIcc8TqjQSUuD8XEgjbvwas8KZop8+H2BeD4OCm3fYLTHkJ/qjr/24fQvYc3CNdBg=
+X-Received: by 2002:a2e:978b:: with SMTP id y11mr3907624lji.399.1593053053018; 
+ Wed, 24 Jun 2020 19:44:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
- <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
- <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
- <4b90b635-84bb-e827-d52e-dfe1ebdb4e4d@citrix.com>
- <814db557-4f6a-020d-9f71-4ee3724981e3@suse.com>
- <CAKf6xps0XDRTUJsbE1zHpn=h98yTN+Y1DzaNpVGzhhJGVccRRw@mail.gmail.com>
- <20200512195005.GA96154@mattapan.m5p.com>
- <049e0022-f9c1-6dc9-3360-d25d88eeb97f@citrix.com>
- <20200512225458.GA1530@mattapan.m5p.com>
- <24253.9543.974853.499775@mariner.uk.xensource.com>
- <0b449d5a-9629-8e41-5354-b985a063eba4@suse.com>
- <24307.32018.502303.817846@mariner.uk.xensource.com>
-In-Reply-To: <24307.32018.502303.817846@mariner.uk.xensource.com>
+References: <CAKf6xptNySqXOHAZJiiBq=h99GBQcS8Cbzmpyqzy-ucxX8Od2Q@mail.gmail.com>
+ <20200624175653.GA49433@work-vm>
+In-Reply-To: <20200624175653.GA49433@work-vm>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 24 Jun 2020 22:37:59 -0400
-Message-ID: <CAKf6xpvLrXkBR6okFQ9u=9GfN-h_XHeLtwQV9pBRRAFXmbwVsQ@mail.gmail.com>
-Subject: Re: [XEN RFC for-4.14] Re: use of "stat -"
-To: Ian Jackson <ian.jackson@citrix.com>
+Date: Wed, 24 Jun 2020 22:44:00 -0400
+Message-ID: <CAKf6xpvtiOVSY8VWFi-bRAAsTGy0nVNZk0aO4HKshXAXQ9Kt5Q@mail.gmail.com>
+Subject: Re: Migration vmdesc and xen-save-devices-state
+To: "Dr. David Alan Gilbert" <dgilbert@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -75,97 +65,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Elliott Mitchell <ehem+xen@m5p.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, QEMU <qemu-devel@nongnu.org>,
+ zhang.zhanghailiang@huawei.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jun 24, 2020 at 12:19 PM Ian Jackson <ian.jackson@citrix.com> wrote:
+On Wed, Jun 24, 2020 at 1:57 PM Dr. David Alan Gilbert
+<dgilbert@redhat.com> wrote:
 >
-> Jan Beulich writes ("Re: use of "stat -""):
-> > [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
-> > On 14.05.2020 13:02, Ian Jackson wrote:
-> > > I've read this thread.  Jan, I'm sorry that this causes you
-> > > inconvenience.  I'm hoping it won't come down to a choice between
-> > > supporting people who want to ship a dom0 without perl, and people who
-> > > want a dom0 using more-than-a-decade-old coreutils.
-> > >
-> > > Jan, can you tell me what the output is of this on your ancient
-> > > system:
-> > >
-> > >   $ rm -f t
-> > >   $ >t
-> > >   $ exec 3<t
-> > >   $ stat -L -c '%F %i' /dev/stdin <&3
-> > >   regular empty file 393549
-> > >   $ rm t
-> > >   $ stat -L -c '%F %i' /dev/stdin <&3
-> > >   regular empty file 393549
-> > >   $ strace -ou stat -L -c '%F %i' /dev/stdin <&3
-> > >   $
+> * Jason Andryuk (jandryuk@gmail.com) wrote:
+> > Hi,
 > >
-> > $ rm -f t
-> > $ >t
-> > $ exec 3<t
-> > $ stat -L -c '%F %i' /dev/stdin <&3
-> > regular empty file 3380369
-> > $ rm t
-> > $ stat -L -c '%F %i' /dev/stdin <&3
-> > regular empty file 3380369
-> > $ strace -ou stat -L -c '%F %i' /dev/stdin <&3
-> > regular empty file 3380369
+> > At some point, QEMU changed to add a json VM description (vmdesc)
+> > after the migration data.  The vmdesc is not needed to restore the
+> > migration data, but qemu_loadvm_state() will read and discard the
+> > vmdesc to clear the stream when should_send_vmdesc() is true.
+>
+> About 5 years ago :-)
+
+:)
+
+> > xen-save-devices-state generates its migration data without a vmdesc.
+> > xen-load-devices-state in turn calls qemu_loadvm_state() which tries
+> > to load vmdesc since should_send_vmdesc is true for xen.  When
+> > restoring from a file, this is fine since it'll return EOF, print
+> > "Expected vmdescription section, but got 0" and end the restore
+> > successfully.
 > >
-> > > Also, the contents of the file "u" afterwards, please.
+> > Linux stubdoms load their migration data over a console, so they don't
+> > hit the EOF and end up waiting.  There does seem to be a timeout
+> > though and restore continues after a delay, but we'd like to eliminate
+> > the delay.
 > >
-> > Attached.
+> > Two options to address this are to either:
+> > 1) set suppress_vmdesc for the Xen machines to bypass the
+> > should_send_vmdesc() check.
+> > or
+> > 2) just send the vmdesc data.
+> >
+> > Since vmdesc is just discarded, maybe #1 should be followed.
 >
-> Thanks.
+> #1 does sound simple!
 >
-> I think this means that `stat -' can be replaced by `stat /dev/stdin'.
+> > If going with #2, qemu_save_device_state() needs to generate the
+> > vmdesc data.  Looking at qemu_save_device_state() and
+> > qemu_savevm_state_complete_precopy_non_iterable(), they are both very
+> > similar and could seemingly be merged.  qmp_xen_save_devices_state()
+> > could even leverage the bdrv_inactivate_all() call in
+> > qemu_savevm_state_complete_precopy_non_iterable().
+> >
+> > The would make qemu_save_device_state a little more heavywight, which
+> > could impact COLO.  I'm not sure how performance sensitive the COLO
+> > code is, and I haven't measured anything.
 >
-> This script is only run on Linux where /dev/stdin has existed
-> basically forever.  The strace output shows
->   stat("/dev/stdin", {st_mode=S_IFREG|0644, st_size=0, ...}) = 0
-> and the transcript shows that your stat(1) behaves as I hope.
->
-> Jan, will you send a patch ?  It is best if someone else but me writes
-> it and tests it because then I am a "clean" reviewer.
->
-> Paul, supposing I review such a patch and say it is low risk, and we
-> commit it by Friday, can it have a release-ack ?
+> COLO snapshots are potentially quite sensitive; although we've got a
+> load of other things we could do with speeding up, we could do without
+> making them noticably heavier.
 
-I was going to just write a patch to replace - with /dev/stdin and ask
-Jan to test it.  When I opened the script, this comment was staring at
-me:
-        # We can't just stat /dev/stdin or /proc/self/fd/$_lockfd or
-        # use bash's test -ef because those all go through what is
-        # actually a synthetic symlink in /proc and we aren't
-        # guaranteed that our stat(2) won't lose the race with an
-        # rm(1) between reading the synthetic link and traversing the
-        # file system to find the inum.
+qemu_savevm_state_complete_precopy_non_iterable() generates the vmdesc
+json and just discards it if not needed.  How much overhead that adds
+is the question.
 
-On my system:
-$ ls -l /dev/stdin
-lrwxrwxrwx 1 root root 15 Jun 24 21:13 /dev/stdin -> /proc/self/fd/0
-$ ls -l /proc/self/fd/0 0<lockfile
-lrwx------ 1 jason jason 64 Jun 24 21:26 /proc/self/fd/0 -> /home/jason/lockfile
-
-stat /dev/stdin will work around the lack of `stat -` support, but it
-doesn't address the race in the comment.  Is the comment valid?  How
-would we prove there is no race for /dev/stdin?  And as a refresher,
-`stat -` does an fstat(0), so there is no symlink lookup.  Or is there
-no race since `stat /proc/self/fd/0` isn't a symlink lookup but just
-accessing the already open fd via the proc special file? i.e.
-equivalent to fstat.
-
-I've mentioned it before, but maybe we should just use the Qubes
-patch.  It leaves the lockfile even when no-one is holding the lock,
-but it simplifies the code and sidesteps the issues we are discussing
-here.
-https://github.com/QubesOS/qubes-vmm-xen/blob/xen-4.13/patch-tools-hotplug-drop-perl-usage-in-locking-mechanism.patch
-
-Regards,
+Thanks,
 Jason
 
