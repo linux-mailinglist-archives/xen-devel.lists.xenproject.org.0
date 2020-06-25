@@ -2,65 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6A192098AA
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 04:55:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D0C2098BB
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 05:11:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joI2U-0008LG-Rp; Thu, 25 Jun 2020 02:54:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1joIHz-0001g0-7u; Thu, 25 Jun 2020 03:10:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=829E=AG=gmail.com=jrdr.linux@srs-us1.protection.inumbo.net>)
- id 1joI2T-0008Ks-9V
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 02:54:57 +0000
-X-Inumbo-ID: 40420b68-b68f-11ea-bb8b-bc764e2007e4
-Received: from mail-pg1-x544.google.com (unknown [2607:f8b0:4864:20::544])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 40420b68-b68f-11ea-bb8b-bc764e2007e4;
- Thu, 25 Jun 2020 02:54:56 +0000 (UTC)
-Received: by mail-pg1-x544.google.com with SMTP id e18so2603444pgn.7
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 19:54:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=zp4npQcgeZMS0pGjybddj8LwS3fxPZyTX8wZXmAxxq8=;
- b=Az91tkePwm/xh44txinQdcyBs/2AMx7g4pZmjPtGWK2i06v/4LoR+m3rR1QuJD/JYK
- Y07aw6vQOY6UupyMDXeuqqdgCerrwRSuFxZtNWPAPsSK2Y15Evu3u62oyDGJ1KInb3el
- y5pMfE7BF0nslx1d99ZO6inoSdV3sUcwB6LgDAXB1/vu8DHwlQRoJ97hfxqp2p6jflU5
- /jWTggLrwFX55TkRA9aPLeK2NvVdv2e/C/QwsxlOdQfBx43RxEDhMzgLpySzJZSu9EBS
- SbwThB3OXl8kBaxZVNhPp/UoUv1pyGsWBPayAXzR89WKZBIvUPbBq8KY7bFm22h8giPj
- NNYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=zp4npQcgeZMS0pGjybddj8LwS3fxPZyTX8wZXmAxxq8=;
- b=n7/WZGrLqHpaXjQk/uBwj7vzxkKe2j1P3qGvHVY/YQynpBcMoDkMsv7uQmsdCrTCsa
- 3mmipDt9aCMajniUzCVkCCXT7CAsshgXrbaeCqrncAKcg+dpX2kSRtZBy6TDZvNVFNYI
- 3jRIOKcjYGN5jUpzMzFe6ZGfVwTZOAYWVGGcY1Pb99DA9ifg/vbzpVZGeqFxcPwaq0bE
- Cu0AetYhVPjJsIn3Tx2miiujGnYcKmQvf1rkaUUcYDhu9bFatAYfXajuihIfdQfPtEtW
- zJt46s13X4HI8umuTLOJqTCQnHNUUiQ4S9p/Wn2fg47z2nBGIxYct1UDAYIzwKR8Sc4s
- YW2A==
-X-Gm-Message-State: AOAM532hWPpd42Ncc3wTYHp3szxzeNwi6P/lNSuQJcVDwk57H9NguI8H
- vXgYJGepOoa36vsYzgn0D+s=
-X-Google-Smtp-Source: ABdhPJxabE67+Alwujp7u9O15q0niQ7itBEEzErE0Ls5oHuYwsqVsBmpiuxlji26MFkmaJ/GNds1hA==
-X-Received: by 2002:a62:60c7:: with SMTP id
- u190mr30255128pfb.240.1593053695830; 
- Wed, 24 Jun 2020 19:54:55 -0700 (PDT)
-Received: from jordon-HP-15-Notebook-PC.domain.name ([122.182.254.114])
- by smtp.gmail.com with ESMTPSA id y10sm18593000pgi.54.2020.06.24.19.54.52
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 24 Jun 2020 19:54:55 -0700 (PDT)
-From: Souptick Joarder <jrdr.linux@gmail.com>
-To: boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org
-Subject: [PATCH 2/2] xen/privcmd: Convert get_user_pages*() to
- pin_user_pages*()
-Date: Thu, 25 Jun 2020 08:32:40 +0530
-Message-Id: <1593054160-12628-2-git-send-email-jrdr.linux@gmail.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1593054160-12628-1-git-send-email-jrdr.linux@gmail.com>
-References: <1593054160-12628-1-git-send-email-jrdr.linux@gmail.com>
+ <SRS0=1CTa=AG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1joIHx-0001fa-Re
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 03:10:57 +0000
+X-Inumbo-ID: 78ec9940-b691-11ea-8173-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 78ec9940-b691-11ea-8173-12813bfff9fa;
+ Thu, 25 Jun 2020 03:10:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=MjW3U0FkopEp5KXseyKUXUotrLObLulzz0vygDuwt2Q=; b=ZjbPOm1nT8ReDJIuahL/OGNow
+ 4l7d4OLEdyuVMdqW3C9qA4qzDUsokb2ymMugfXbx6a4z3JL7BfLHt8CP60BMdG3xwWM0/9yS/E4BZ
+ rHPVvqGmOLewEUwNuOVPi6mhe9GXk6ecrZJ1mGoC7LMNPeMDxK5tz1IqrXThRGdPJ87E4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1joIHq-0003OL-3s; Thu, 25 Jun 2020 03:10:50 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1joIHp-0006cK-QQ; Thu, 25 Jun 2020 03:10:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1joIHp-0004hv-Pp; Thu, 25 Jun 2020 03:10:49 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151330-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 151330: tolerable all pass - PUSHED
+X-Osstest-Failures: libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This: libvirt=c5815b31976f3982d18c7f6c1367ab6e403eb7eb
+X-Osstest-Versions-That: libvirt=597fdabbc0e7c256b61a6b5ffda64bebfddc3807
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 25 Jun 2020 03:10:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,63 +78,105 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <xadimgnik@gmail.com>,
- linux-kernel@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>,
- Souptick Joarder <jrdr.linux@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In 2019, we introduced pin_user_pages*() and now we are converting
-get_user_pages*() to the new API as appropriate. [1] & [2] could
-be referred for more information. This is case 5 as per document [1].
+flight 151330 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151330/
 
-[1] Documentation/core-api/pin_user_pages.rst
+Failures :-/ but no regressions.
 
-[2] "Explicit pinning of user-space pages":
-        https://lwn.net/Articles/807108/
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151308
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151308
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 12 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 13 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
 
-Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Paul Durrant <xadimgnik@gmail.com>
----
-Hi,
+version targeted for testing:
+ libvirt              c5815b31976f3982d18c7f6c1367ab6e403eb7eb
+baseline version:
+ libvirt              597fdabbc0e7c256b61a6b5ffda64bebfddc3807
 
-I'm compile tested this, but unable to run-time test, so any testing
-help is much appriciated.
+Last test of basis   151308  2020-06-23 04:19:04 Z    1 days
+Testing same since   151330  2020-06-24 05:57:45 Z    0 days    1 attempts
 
- drivers/xen/privcmd.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Dmitry Nesterenko <dmitry.nesterenko@virtuozzo.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Menno Lageman <menno.lageman@oracle.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Satheesh Rajendran <sathnaga@linux.vnet.ibm.com>
 
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index 0da417c..eb05254 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -595,7 +595,7 @@ static int lock_pages(
- 		if (requested > nr_pages)
- 			return -ENOSPC;
- 
--		page_count = get_user_pages_fast(
-+		page_count = pin_user_pages_fast(
- 			(unsigned long) kbufs[i].uptr,
- 			requested, FOLL_WRITE, pages);
- 		if (page_count < 0) {
-@@ -612,13 +612,7 @@ static int lock_pages(
- 
- static void unlock_pages(struct page *pages[], unsigned int nr_pages)
- {
--	unsigned int i;
--
--	for (i = 0; i < nr_pages; i++) {
--		if (!PageDirty(page))
--			set_page_dirty_lock(page);
--		put_page(pages[i]);
--	}
-+	unpin_user_pages_dirty_lock(pages, nr_pages, 1);
- }
- 
- static long privcmd_ioctl_dm_op(struct file *file, void __user *udata)
--- 
-1.9.1
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   597fdabbc0..c5815b3197  c5815b31976f3982d18c7f6c1367ab6e403eb7eb -> xen-tested-master
 
