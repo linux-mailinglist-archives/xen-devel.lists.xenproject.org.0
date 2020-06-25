@@ -2,68 +2,150 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E95F209A6F
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 09:28:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EAFA209B28
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 10:15:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joMIJ-00063u-OH; Thu, 25 Jun 2020 07:27:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HW/K=AG=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1joMII-00063p-P8
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 07:27:34 +0000
-X-Inumbo-ID: 5638fa82-b6b5-11ea-8496-bc764e2007e4
-Received: from mail-qt1-x843.google.com (unknown [2607:f8b0:4864:20::843])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5638fa82-b6b5-11ea-8496-bc764e2007e4;
- Thu, 25 Jun 2020 07:27:34 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id d27so3901141qtg.4
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2020 00:27:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:date:message-id
- :references:cc:in-reply-to:to;
- bh=eEZh0tTaT8zh5LL7N/hn9RvEV8NMH79zD1VRD/2Jbbw=;
- b=a7UwVx7WYGVzQyi5Hhk8M4DYU2kStSPTaeFf3iil0fkV5B6MyjeeVVYX9BlmbojEcc
- n/aRI0cHRhjpxZS1EagCkhDj2uS5ZisK6k/xg3ineSMdK6o6ScqR89yOTpVEpauhhOBd
- KGwpSIsEn2IBrXEPM5dEAGt4eMvX9GSh+XxdMHh3AW7fpQLZU0REmV3+TkNSkKWIgnN0
- VB8QID3QcpuC3OkdD+2KhC/c2Fb9G425sqltJ/Tdm+faX/cNnKDshgTiGnjwlDSh0hoT
- DQbNndO7UlcrSvp+uK4D0QqnaV/4Wp0ye+9CTcKat7lRL+Lv8cFxcgF3PTG7EQuXgO/J
- g1rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:date:message-id:references:cc:in-reply-to:to;
- bh=eEZh0tTaT8zh5LL7N/hn9RvEV8NMH79zD1VRD/2Jbbw=;
- b=aeq/sRyIaTydk7pCy4/jW8Pe1cxAcmgDR3RGkABkiBwQY70bN8g+ZEAt4BkhtSYgBS
- 3MDmLWvXxJ7Rye7TNOrplTpGgyb44EQixcwAPidBMd1yK7HXgpPKu+/joraEE1g7ozCH
- mdt6RMVlHDa/t7s/Uj5oMI9d3+Rv1mruZB1FLN+0qnHzBWok3oLkb5Swq8X5AAqPyP9N
- d0Jrf4eIrWlaRTrJ4oNHTwhW8YFxgOZHJbH1ikgycNfqf6KlkSSXqprhZEXDYfWTNLLS
- jMXyEjI/UCL8lYJ+v9zdsrq+H1TsV30uhvKv1W9YyT8dO5ujMsPvzqEpk9wZ9YOS69Hl
- zEyA==
-X-Gm-Message-State: AOAM5330cIxUkvdzFUfnoN+YVATbLNb9dmuejo2jhRvfHGzo7AxGVNO+
- aqkwYUYH3f198wZA4aTWpmY=
-X-Google-Smtp-Source: ABdhPJyJyAn/vGNlypE6poVXGWQBftOZ9JkatcsvllRbhBckUmpXv1zurNoWnMAGiQzC/suVNhrBHA==
-X-Received: by 2002:ac8:8a4:: with SMTP id v33mr21911252qth.392.1593070053657; 
- Thu, 25 Jun 2020 00:27:33 -0700 (PDT)
-Received: from ?IPv6:2607:fb90:e854:3fa:dec:cecd:b019:e1d1?
- ([2607:fb90:e854:3fa:dec:cecd:b019:e1d1])
- by smtp.gmail.com with ESMTPSA id n63sm5326271qkn.104.2020.06.25.00.27.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jun 2020 00:27:32 -0700 (PDT)
-Content-Type: text/plain; charset=utf-8
+	id 1joN1h-0002Bc-OC; Thu, 25 Jun 2020 08:14:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Zt3l=AG=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1joN1g-0002BW-DW
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 08:14:28 +0000
+X-Inumbo-ID: e2aeaef2-b6bb-11ea-8184-12813bfff9fa
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.14.49]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e2aeaef2-b6bb-11ea-8184-12813bfff9fa;
+ Thu, 25 Jun 2020 08:14:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fr/XeToECV2dwSWdbXEo2mKcFRRFHdG64R4BebP1dMY=;
+ b=Lzj11QbhbeiZT53IzxpoFv6BER1AbKq08WIQ9VdkT8bGueLpU7kiNkZ5DfblDorIL2Mqgidt0yT8rcfq0feq0/Ni++QhQJhivNDBKvLzOF1MeYrk78q8AEJ128qDTdG2nsEvMKOnKSsCBZhDZH7YHGO+WeOy6Srs6cuMJQNCMFY=
+Received: from DB3PR08CA0019.eurprd08.prod.outlook.com (2603:10a6:8::32) by
+ VI1PR08MB4111.eurprd08.prod.outlook.com (2603:10a6:803:ed::24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3131.21; Thu, 25 Jun 2020 08:14:24 +0000
+Received: from DB5EUR03FT060.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:8:0:cafe::f1) by DB3PR08CA0019.outlook.office365.com
+ (2603:10a6:8::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.21 via Frontend
+ Transport; Thu, 25 Jun 2020 08:14:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
+ dmarc=bestguesspass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT060.mail.protection.outlook.com (10.152.21.231) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3131.20 via Frontend Transport; Thu, 25 Jun 2020 08:14:24 +0000
+Received: ("Tessian outbound da41658aa5d4:v59");
+ Thu, 25 Jun 2020 08:14:24 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: f13a4b04593570c9
+X-CR-MTA-TID: 64aa7808
+Received: from 64c281aa9bed.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ D2F03F1F-506D-4B09-8437-49D1247F77EE.1; 
+ Thu, 25 Jun 2020 08:14:18 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 64c281aa9bed.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 25 Jun 2020 08:14:18 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=U3IKsqnmiI2nXiSz3Lhg+V8eq842aMiHJ6+HBahRPtS1WjEG7BhAMwZb5KZWGWmeNF9DTVGHYzX3BpYT/UE+EgQ0gyPB48LUgt6xcZ9oVYknVgYUuRk3KVcvd8CbibwnPiqdaMsPP2tnjkt1fnR+pFlOe5cqC0/SK8XV6n5aSPlYvC2LAXNkwUvXOjxrM5wE2prInBxqaaZw1R993X413i00C5ld7q+3S2LTRLgnJ+K2Tvj/Q5Kt1RyEbc4xdl7YSFBOFmLIPRS6ku1H8Y+Sgq5npjJC1AMgsj+aAJLcetFd5YdST2MTJz8gGIJJo9ES5hkymSLbyARdpPq+5B7vPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fr/XeToECV2dwSWdbXEo2mKcFRRFHdG64R4BebP1dMY=;
+ b=jSsGbzTwb4xrtSOLYU9VaDSnVr3HQQ5FWgi9UhUL6c2Il00Tp1AC18qqcwBS9+ZAaUSK1xF0VecTFOz5IkXcSMwtp2WZd1JV62F/pd6DgDewZ4y0PZGxxc7owaju+Ob5H1oTChmbP+MmTdP4ynTWjrvRbOaG/GdRFyR6j9yexhFSJrFCGedisKxjtR4OgExzBfuGFuPdQ/MuwwEiiGDXBmNvTbgcEU6sUjo1qFXRGfXDf8aXz078bkbKSNYSrR0tQPrJo32o1oNJ6hJbeRMvEX9/uE7jWFEYaRLyMQRw7iXMYvPI45UUa2//+UJ1Lcu1p4Kzk/bOt5yeuECTvY+b4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fr/XeToECV2dwSWdbXEo2mKcFRRFHdG64R4BebP1dMY=;
+ b=Lzj11QbhbeiZT53IzxpoFv6BER1AbKq08WIQ9VdkT8bGueLpU7kiNkZ5DfblDorIL2Mqgidt0yT8rcfq0feq0/Ni++QhQJhivNDBKvLzOF1MeYrk78q8AEJ128qDTdG2nsEvMKOnKSsCBZhDZH7YHGO+WeOy6Srs6cuMJQNCMFY=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DB7PR08MB3849.eurprd08.prod.outlook.com (2603:10a6:10:79::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.21; Thu, 25 Jun
+ 2020 08:14:16 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::4001:43ad:d113:46a8]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::4001:43ad:d113:46a8%5]) with mapi id 15.20.3131.023; Thu, 25 Jun 2020
+ 08:14:16 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: Proposal: rename xen.git#master (to #trunk, perhaps)
+Thread-Topic: Proposal: rename xen.git#master (to #trunk, perhaps)
+Thread-Index: AQHWSkKdIKK1EWuhmkmnd7oeEQV+hajoCCEAgAD0lIA=
+Date: Thu, 25 Jun 2020 08:14:16 +0000
+Message-ID: <C3C3755A-860E-42A0-83F2-D0CE9D3F2840@arm.com>
+References: <24307.31637.214096.240023@mariner.uk.xensource.com>
+ <alpine.DEB.2.21.2006241033210.8121@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2006241033210.8121@sstabellini-ThinkPad-T480s>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [82.24.250.194]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: ccc7c216-6c5b-4836-e0e5-08d818dfc55f
+x-ms-traffictypediagnostic: DB7PR08MB3849:|VI1PR08MB4111:
+X-Microsoft-Antispam-PRVS: <VI1PR08MB4111745600BDB997B0E21BB09D920@VI1PR08MB4111.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+x-forefront-prvs: 0445A82F82
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: WZOIAy7f3W6zlzcgKP1bWocpG66GI1GFNYtusBpLMBRQuEHoui4AbHaNESKfooBT72+26b32NpUDwKYRiIKH3yC9rEpOJzJQX53hmUkb3teraNGWnFr4SfMBulD/G7CTCSkX+u3P1MJWnI/SSN0gFvEoQXkuHnZvNQfxL8HogKmUKDfTmk8O3vd92Vw3cfX/4A3VsfaHCWLtRgoL2hjp51cLppW/AV2bSZrQnCXwriMHACzWUWt9usXA8NR7OLVaweEAu5lm6xIbmQqhfb8fyXrL5GEjTc2pqPfwnbfn8MzsTGyZykxv4hY6IvVH60arnVVeRb0FrtC/Y46u5tz90K9scHcPx+gsrS6yjXt91ulxEsicAvZOyzYS96yHzzmoWNSNPFdmT5GHTWVpilydMA==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DB7PR08MB3689.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE; SFTY:;
+ SFS:(4636009)(136003)(396003)(39860400002)(366004)(376002)(346002)(86362001)(6486002)(5660300002)(6916009)(26005)(8936002)(33656002)(54906003)(36756003)(91956017)(66446008)(71200400001)(186003)(64756008)(66946007)(4326008)(76116006)(66556008)(66476007)(316002)(478600001)(53546011)(2616005)(966005)(2906002)(6506007)(8676002)(6512007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: mE8N5tmnBaTZYCPH5HGPznavJ+M7/YxT4NCo5+2djwFNRYvqoNn/Efii/+djcUyNBPnNTOPZFH6TnRYp9J0z/fxwp5wNzhSmIS1KAcqS9I04uYe8ATlvof2n/85x2Us83ykEZqpkMwQyRmu9edAB5zAjGdkBYRlt1+qithLn5MvpT4NEKeXxvK+X5lllCwW0TnXUI3atKMoFstFiXDTBsRwkuMiDaQy1WNyPKs/XTUyoFuhoNN3GXWQZDB7CMA4o40yhItwFk8HkvFmX0HWLsEgK8KhcsusyDZPJpOQt2uf54C+PMUhBrtp7JbBlTfiSyALQAvgvxB32TVcvDyV1xJqCIESE0ND3E7UymrfdkypYFHVxQNo2wghi+zhB2vBfESaEEYNOPyf6dpElX2Zr6WmDW6fl92bk3ItbRnDeOvwkHk4jZn+JKntuOVU68p2BNp9B1Bat+KdvoPHCNtMFFw3DlezImxhD4OmaUTPj45o=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <80823069153A3F438DC0F68A531D57E1@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [XEN RFC for-4.14] Re: use of "stat -"
-Date: Thu, 25 Jun 2020 03:27:31 -0400
-Message-Id: <D79E1F1A-AB75-40F4-A6B3-AF985E6458BB@gmail.com>
-References: <CAKf6xpvLrXkBR6okFQ9u=9GfN-h_XHeLtwQV9pBRRAFXmbwVsQ@mail.gmail.com>
-In-Reply-To: <CAKf6xpvLrXkBR6okFQ9u=9GfN-h_XHeLtwQV9pBRRAFXmbwVsQ@mail.gmail.com>
-To: Jason Andryuk <jandryuk@gmail.com>, Ian Jackson <ian.jackson@citrix.com>,
- =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
- Jan Beulich <JBeulich@suse.com>
-X-Mailer: iPhone Mail (17F75)
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3849
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5EUR03FT060.eop-EUR03.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
+ PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE; SFTY:;
+ SFS:(4636009)(346002)(376002)(136003)(39860400002)(396003)(46966005)(70586007)(36756003)(5660300002)(2906002)(70206006)(478600001)(33656002)(6862004)(6512007)(6486002)(4326008)(186003)(86362001)(26005)(336012)(82740400003)(81166007)(47076004)(356005)(2616005)(316002)(82310400002)(6506007)(53546011)(966005)(8936002)(8676002)(54906003);
+ DIR:OUT; SFP:1101; 
+X-MS-Office365-Filtering-Correlation-Id-Prvs: d1abd0e9-ccaf-4d82-247e-08d818dfc0a4
+X-Forefront-PRVS: 0445A82F82
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: x9kVtMVERHdr2n4T3lNquK0j4oMYxGVLFy0GRACoo7CuLkOXd+KRQTky8sq+2yBNEZrjlTPfwqwDB/bNnE2KCm6VxZLl7O1JxHtEXhOwp/O6cLG4E/FGK+9zUwRMBz1m2E5EEACzwTiimjeiT5GAuPWWwLCIOC/dXp8HGAFMpKGXScK2dfchA58tbvDZVYIp2wlR/t2w1ZNHaHBk7JIdpUQlGGalmMauPSaJygBNlvy0oF5LgVmSox0T2cWfCto1tBe8+0HPeXxUJc8GWnzjt9pDi31nf7h5HwJheEcDuecof/RXzDYNGN7/GeQfYNBteDKtguWmvtsYe2i4An76oKytWanH30OAykQ6V4QytSg9NaBGAVsWJ2urTLpEbUlJPOKBL4sdYEymYEcYW38ZQlP25idV5Pn9Lvr4pMGAkXIs4z+tyztZ6XRO8fMgKW+jYOfokMTxTyvf2AJ4k1rEhRTrbfe0b+E6LoTx5RTzST0=
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2020 08:14:24.1013 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccc7c216-6c5b-4836-e0e5-08d818dfc55f
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
+ Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5EUR03FT060.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4111
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,108 +156,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Elliott Mitchell <ehem+xen@m5p.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
+Cc: Ian Jackson <ian.jackson@citrix.com>, nd <nd@arm.com>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Jun 24, 2020, at 22:39, Jason Andryuk <jandryuk@gmail.com> wrote:
->=20
-> =EF=BB=BFOn Wed, Jun 24, 2020 at 12:19 PM Ian Jackson <ian.jackson@citrix.=
-com> wrote:
->>=20
->> Jan Beulich writes ("Re: use of "stat -""):
->>> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachment=
-s unless you have verified the sender and know the content is safe.
->>>> On 14.05.2020 13:02, Ian Jackson wrote:
->>>>> I've read this thread.  Jan, I'm sorry that this causes you
->>>>> inconvenience.  I'm hoping it won't come down to a choice between
->>>>> supporting people who want to ship a dom0 without perl, and people who=
 
->>>>> want a dom0 using more-than-a-decade-old coreutils.
->>>>>=20
->>>>> Jan, can you tell me what the output is of this on your ancient
->>>>> system:
->>>>>=20
->>>>>  $ rm -f t
->>>>>  $ >t
->>>>>  $ exec 3<t
->>>>>  $ stat -L -c '%F %i' /dev/stdin <&3
->>>>>  regular empty file 393549
->>>>>  $ rm t
->>>>>  $ stat -L -c '%F %i' /dev/stdin <&3
->>>>>  regular empty file 393549
->>>>>  $ strace -ou stat -L -c '%F %i' /dev/stdin <&3
->>>>>  $
->>>=20
->>> $ rm -f t
->>> $ >t
->>> $ exec 3<t
->>> $ stat -L -c '%F %i' /dev/stdin <&3
->>> regular empty file 3380369
->>> $ rm t
->>> $ stat -L -c '%F %i' /dev/stdin <&3
->>> regular empty file 3380369
->>> $ strace -ou stat -L -c '%F %i' /dev/stdin <&3
->>> regular empty file 3380369
->>>=20
->>>> Also, the contents of the file "u" afterwards, please.
->>>=20
->>> Attached.
->>=20
->> Thanks.
->>=20
->> I think this means that `stat -' can be replaced by `stat /dev/stdin'.
->>=20
->> This script is only run on Linux where /dev/stdin has existed
->> basically forever.  The strace output shows
->>  stat("/dev/stdin", {st_mode=3DS_IFREG|0644, st_size=3D0, ...}) =3D 0
->> and the transcript shows that your stat(1) behaves as I hope.
->>=20
->> Jan, will you send a patch ?  It is best if someone else but me writes
->> it and tests it because then I am a "clean" reviewer.
->>=20
->> Paul, supposing I review such a patch and say it is low risk, and we
->> commit it by Friday, can it have a release-ack ?
->=20
-> I was going to just write a patch to replace - with /dev/stdin and ask
-> Jan to test it.  When I opened the script, this comment was staring at
-> me:
->        # We can't just stat /dev/stdin or /proc/self/fd/$_lockfd or
->        # use bash's test -ef because those all go through what is
->        # actually a synthetic symlink in /proc and we aren't
->        # guaranteed that our stat(2) won't lose the race with an
->        # rm(1) between reading the synthetic link and traversing the
->        # file system to find the inum.
->=20
-> On my system:
-> $ ls -l /dev/stdin
-> lrwxrwxrwx 1 root root 15 Jun 24 21:13 /dev/stdin -> /proc/self/fd/0
-> $ ls -l /proc/self/fd/0 0<lockfile
-> lrwx------ 1 jason jason 64 Jun 24 21:26 /proc/self/fd/0 -> /home/jason/lo=
-ckfile
->=20
-> stat /dev/stdin will work around the lack of `stat -` support, but it
-> doesn't address the race in the comment.  Is the comment valid?  How
-> would we prove there is no race for /dev/stdin?  And as a refresher,
-> `stat -` does an fstat(0), so there is no symlink lookup.  Or is there
-> no race since `stat /proc/self/fd/0` isn't a symlink lookup but just
-> accessing the already open fd via the proc special file? i.e.
-> equivalent to fstat.
->=20
-> I've mentioned it before, but maybe we should just use the Qubes
-> patch.  It leaves the lockfile even when no-one is holding the lock,
-> but it simplifies the code and sidesteps the issues we are discussing
-> here.
-> https://github.com/QubesOS/qubes-vmm-xen/blob/xen-4.13/patch-tools-hotplug=
--drop-perl-usage-in-locking-mechanism.patch
 
-Is there any practical downside to the Qubes patch, which is already deploye=
-d on production systems?  The complexity of other approaches has been reflec=
-ted in code and prior discussion.  If needed, the comments in the Qubes patc=
-h could be expanded, when merging that well-tested code into 4.14.
+> On 24 Jun 2020, at 18:38, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> On Wed, 24 Jun 2020, Ian Jackson wrote:
+>> I think it would be a good idea to rename this branch name.  This name
+>> has unfortunate associations[1], even if it can be argued[2] that the
+>> etymology is not as bad as in some uses of the word.
+>>=20
+>> This is relativity straightforward on a technical level and will
+>> involve a minimum of inconvenience.  Since only osstest ever pushes to
+>> xen.git#master, we could easily make a new branch name and also keep
+>> #master for compatibility as long as we like.
+>>=20
+>> The effects[1] would be:
+>>=20
+>> Users who did "git clone https://xenbits.xen.org/git-http/xen.git""
+>> would find themselves on a branch called "trunk" which tracked
+>> "origin/trunk", by default.  (Some users with old versions of git
+>> using old protocols would still end up on "master".)
+>>=20
+>> Everyone who currently tracks "master" would be able to switch to
+>> tracking "trunk" at their leisure.
+>>=20
+>> Presumably at some future point (a year or two from now, say) we would
+>> abolish the name "master".
+>>=20
+>> Comments ?  In particular, comments on:
+>>=20
+>> 1. What the new branch name should be called.  Suggestions I have seen
+>> include "trunk" and "main".  I suggest "trunk" because this was used
+>> by SVN, CVS, RCS, CSSC (and therefore probably SCCS) for this same
+>> purpose.
+>=20
+> Github seems to be about to make a similar change. I wonder if we should
+> wait just a couple of weeks to see what name they are going to choose.
+>=20
+> https://www.theregister.com/2020/06/15/github_replaces_master_with_main/
+>=20
+>=20
+> Of course I don't particulalry care one way or the other, but it would
+> be good if we end up using the same name as everybody else. It is not
+> that we have to choose the name Github is going to choose, but their
+> user base is massive -- whatever they are going to pick is very likely
+> going to stick.
 
-Rich=
++1 to stefano
+Whatever choice is made here it would be better to follow standards to prev=
+ent
+user from being lost. And github is definitely a bit actor :-)
+
+Bertrand
+
+>=20
+>=20
+>=20
+>> 2. Do we want to set a time now when the old name will be removed ?
+>> I think 12 months would be good but I am open to arguments.
+>>=20
+>> In any case in my capacity as osstest maintainer I plan to do
+>> something like this.  The starting point is rather different.  There
+>> will have to be an announcement about that, but I thought I would see
+>> what people thought about xen.git before pressing ahead there.
+>>=20
+>> Thanks,
+>> Ian.
+>>=20
+>> [1] It seems that for a significant number of people the word reminds
+>> them of human slavery.  This seems undesirable if we can easily avoid
+>> it, if we can.
+>>=20
+>> [2] The precise etymology of "master" in this context is unclear.  It
+>> appears to have come from BitKeeper originally.  In any case the
+>> etymology is less important than the connotations.
+
 
