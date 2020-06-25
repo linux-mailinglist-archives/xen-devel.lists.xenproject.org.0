@@ -2,45 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E66209D7C
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 13:31:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C371A209E16
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 14:06:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joQ5s-0001ou-Ne; Thu, 25 Jun 2020 11:31:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1joQcp-0004QT-25; Thu, 25 Jun 2020 12:05:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uTrP=AG=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1joQ5r-0001op-KO
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 11:30:59 +0000
-X-Inumbo-ID: 56e83a20-b6d7-11ea-819a-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 56e83a20-b6d7-11ea-819a-12813bfff9fa;
- Thu, 25 Jun 2020 11:30:58 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 6dY+MD5GbwV4CJYygIyrGt9DfL42Bo4dTC6QT3utmJkxBIrQr/jN1SOk6JTkfEbAvKlqxt7Bv2
- v+9HFoK2eIkG9qVyq6FKT2/eh0mvkJRwdKTHxyv2eS5XfDUiW9IP5WK5rpSfJb0fklh3CnmZp2
- DQFXuIleCEL8IiRryEVbo7skaJ7u7EkXbETJdwXqLSgnEmrDusu3ZwKG6IHmUTgrv06KmHvPM6
- RL7sZbP7rqpDhi8CM4xqpUd0rAZ2MW0C3QEUlGFzLdQocoKSWdKsoCGiisocY5NKuVYGapNE2U
- kFI=
-X-SBRS: 2.7
-X-MesageID: 21214721
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,279,1589256000"; d="scan'208";a="21214721"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH for-4.14 v3] x86/tlb: fix assisted flush usage
-Date: Thu, 25 Jun 2020 13:30:41 +0200
-Message-ID: <20200625113041.81507-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.2
+ <SRS0=oVq+=AG=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1joQcn-0004QO-Rj
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 12:05:02 +0000
+X-Inumbo-ID: 182eb868-b6dc-11ea-8496-bc764e2007e4
+Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 182eb868-b6dc-11ea-8496-bc764e2007e4;
+ Thu, 25 Jun 2020 12:05:01 +0000 (UTC)
+Received: by mail-lf1-x144.google.com with SMTP id g2so3083038lfb.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2020 05:05:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TGe16ZbfddTf3KRBM/WlXgxyF2K+cWOwBxXn1q46L40=;
+ b=uN4w6K85y3Mwq+2CuXJ5S/LmkwLXFkRQcqwpjCdFkTWkM+4flilBBGXx1P4IL7fzTi
+ DJvcJiIWohJ9fHcYcm0sptr354UGbWzVOpZFJ3Fixa2R6hVh/0Dn/Mdbii9z4NrH2g47
+ teNkR8QqkuWtCdLyuWJegaxyRZLjAov+3SfllCsTjo1CnRn4a4t0tuBLazDcdI8gQLbN
+ y3Gwg7xOwgmac1t6iYEuaacrTgxVWsOzJQ8fT//9H5S+CM2imECKHN2OTgH7jPGOPOLh
+ 008xoT2h3nfoTvo6uZrw8KEem/lNUGwfu3XmdtI1vB7lwyEoyrWwkJqD6s81QbHoYu4k
+ hGHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TGe16ZbfddTf3KRBM/WlXgxyF2K+cWOwBxXn1q46L40=;
+ b=TonJWzM3m4wD+RWnXKEWXdIP3mtlmyLY0GuxxJNTjC37erHv739s4ocJaD7k+2ftzj
+ OQLEgSBOdmJYmkvLvrDxG3y/Out/U1uGhtV8KbeHhHePDY+Oi2HM669COPyU+CtRfeEj
+ 2dr/DVh74t6qIucSdJlz3bY+5UtjTET808Gv8D4+mnllMmTf8u1XmDBxQsW8TuLcIvtY
+ dnfTr/GW3scxuAmJ7j9S1qC+wMYOFeVxm2ksONVoT8apmnS6C90eD/jFGlJXs3feNrkC
+ OBoESjko3meKLBvBjlRMz77tv2E5L4bOEbjfOWx+vgd/X0IIgrk+Hfav3OtkE6hg9RwE
+ mkQQ==
+X-Gm-Message-State: AOAM531Nv8EASbA8pUcS34saZi+hUE4ho1Zeo6tEMAzXHtzbrbjNO0Nk
+ 8XysNVoem2aJu7JjT8nyqMzvezYtw6UKc9rULH0=
+X-Google-Smtp-Source: ABdhPJwQzWTmtHsT59xsPnwoyi/L/UC2u4L84f57b3bPrvOuJ4jiGDu92IBZqhGpOKim+VbqoDrNBZuKdCGBfZwKEck=
+X-Received: by 2002:a19:7111:: with SMTP id m17mr13008468lfc.156.1593086699767; 
+ Thu, 25 Jun 2020 05:04:59 -0700 (PDT)
 MIME-Version: 1.0
+References: <3bfd6384-fcaf-c74a-e560-a35aafa06a43@suse.com>
+ <20200512141947.yqx4gmbvqs4grx5g@liuwe-devbox-debian-v2.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+ <fa507eab-547a-c0fb-9620-825aba5f55b2@suse.com>
+ <4b90b635-84bb-e827-d52e-dfe1ebdb4e4d@citrix.com>
+ <814db557-4f6a-020d-9f71-4ee3724981e3@suse.com>
+ <CAKf6xps0XDRTUJsbE1zHpn=h98yTN+Y1DzaNpVGzhhJGVccRRw@mail.gmail.com>
+ <20200512195005.GA96154@mattapan.m5p.com>
+ <049e0022-f9c1-6dc9-3360-d25d88eeb97f@citrix.com>
+ <20200512225458.GA1530@mattapan.m5p.com>
+ <24253.9543.974853.499775@mariner.uk.xensource.com>
+ <0b449d5a-9629-8e41-5354-b985a063eba4@suse.com>
+ <24307.32018.502303.817846@mariner.uk.xensource.com>
+ <CAKf6xpvLrXkBR6okFQ9u=9GfN-h_XHeLtwQV9pBRRAFXmbwVsQ@mail.gmail.com>
+ <6cd9c568-84b9-8304-d56f-99d628d945a1@suse.com>
+In-Reply-To: <6cd9c568-84b9-8304-d56f-99d628d945a1@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 25 Jun 2020 08:04:48 -0400
+Message-ID: <CAKf6xptYKgDZ+Se_OY6SFVY-E1q5VWqgb60xryAqehBun6-JUA@mail.gmail.com>
+Subject: Re: [XEN RFC for-4.14] Re: use of "stat -"
+To: Jan Beulich <jbeulich@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,152 +77,103 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Roger Pau Monne <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Elliott Mitchell <ehem+xen@m5p.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Commit e9aca9470ed86 introduced a regression when avoiding sending
-IPIs for certain flush operations. Xen page fault handler
-(spurious_page_fault) relies on blocking interrupts in order to
-prevent handling TLB flush IPIs and thus preventing other CPUs from
-removing page tables pages. Switching to assisted flushing avoided such
-IPIs, and thus can result in pages belonging to the page tables being
-removed (and possibly re-used) while __page_fault_type is being
-executed.
+On Thu, Jun 25, 2020 at 3:05 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 25.06.2020 04:37, Jason Andryuk wrote:
+> > On Wed, Jun 24, 2020 at 12:19 PM Ian Jackson <ian.jackson@citrix.com> wrote:
+> >>
+> >> Jan Beulich writes ("Re: use of "stat -""):
+> >>> [CAUTION - EXTERNAL EMAIL] DO NOT reply, click links, or open attachments unless you have verified the sender and know the content is safe.
+> >>> On 14.05.2020 13:02, Ian Jackson wrote:
+> >>>> I've read this thread.  Jan, I'm sorry that this causes you
+> >>>> inconvenience.  I'm hoping it won't come down to a choice between
+> >>>> supporting people who want to ship a dom0 without perl, and people who
+> >>>> want a dom0 using more-than-a-decade-old coreutils.
+> >>>>
+> >>>> Jan, can you tell me what the output is of this on your ancient
+> >>>> system:
+> >>>>
+> >>>>   $ rm -f t
+> >>>>   $ >t
+> >>>>   $ exec 3<t
+> >>>>   $ stat -L -c '%F %i' /dev/stdin <&3
+> >>>>   regular empty file 393549
+> >>>>   $ rm t
+> >>>>   $ stat -L -c '%F %i' /dev/stdin <&3
+> >>>>   regular empty file 393549
+> >>>>   $ strace -ou stat -L -c '%F %i' /dev/stdin <&3
+> >>>>   $
+> >>>
+> >>> $ rm -f t
+> >>> $ >t
+> >>> $ exec 3<t
+> >>> $ stat -L -c '%F %i' /dev/stdin <&3
+> >>> regular empty file 3380369
+> >>> $ rm t
+> >>> $ stat -L -c '%F %i' /dev/stdin <&3
+> >>> regular empty file 3380369
+> >>> $ strace -ou stat -L -c '%F %i' /dev/stdin <&3
+> >>> regular empty file 3380369
+> >>>
+> >>>> Also, the contents of the file "u" afterwards, please.
+> >>>
+> >>> Attached.
+> >>
+> >> Thanks.
+> >>
+> >> I think this means that `stat -' can be replaced by `stat /dev/stdin'.
+> >>
+> >> This script is only run on Linux where /dev/stdin has existed
+> >> basically forever.  The strace output shows
+> >>   stat("/dev/stdin", {st_mode=S_IFREG|0644, st_size=0, ...}) = 0
+> >> and the transcript shows that your stat(1) behaves as I hope.
+> >>
+> >> Jan, will you send a patch ?  It is best if someone else but me writes
+> >> it and tests it because then I am a "clean" reviewer.
+>
+> I was about to, when I saw this reply from Jason.
+>
+> >> Paul, supposing I review such a patch and say it is low risk, and we
+> >> commit it by Friday, can it have a release-ack ?
+> >
+> > I was going to just write a patch to replace - with /dev/stdin and ask
+> > Jan to test it.  When I opened the script, this comment was staring at
+> > me:
+> >         # We can't just stat /dev/stdin or /proc/self/fd/$_lockfd or
+> >         # use bash's test -ef because those all go through what is
+> >         # actually a synthetic symlink in /proc and we aren't
+> >         # guaranteed that our stat(2) won't lose the race with an
+> >         # rm(1) between reading the synthetic link and traversing the
+> >         # file system to find the inum.
+> >
+> > On my system:
+> > $ ls -l /dev/stdin
+> > lrwxrwxrwx 1 root root 15 Jun 24 21:13 /dev/stdin -> /proc/self/fd/0
+> > $ ls -l /proc/self/fd/0 0<lockfile
+> > lrwx------ 1 jason jason 64 Jun 24 21:26 /proc/self/fd/0 -> /home/jason/lockfile
+> >
+> > stat /dev/stdin will work around the lack of `stat -` support, but it
+> > doesn't address the race in the comment.  Is the comment valid?  How
+> > would we prove there is no race for /dev/stdin?  And as a refresher,
+> > `stat -` does an fstat(0), so there is no symlink lookup.  Or is there
+> > no race since `stat /proc/self/fd/0` isn't a symlink lookup but just
+> > accessing the already open fd via the proc special file? i.e.
+> > equivalent to fstat.
+>
+> Looking at vfs_statx() in the kernel, I can't see any provisions to
+> get at the data without traversing the specified path.
 
-Force some of the TLB flushes to use IPIs, thus avoiding the assisted
-TLB flush. Those selected flushes are the page type change (when
-switching from a page table type to a different one, ie: a page that
-has been removed as a page table) and page allocation. This sadly has
-a negative performance impact on the pvshim, as less assisted flushes
-can be used.
+Ian, you wrote the comment originally.  Would you please clarify the
+scenario where there is a race?  Only the lock holder is allowed to rm
+the lockfile, so how is there a race between rm and stat?
 
-Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
-using an IPI (flush_tlb_mask_sync). Note that the flag is only
-meaningfully defined when the hypervisor supports PV or shadow paging
-mode, as otherwise hardware assisted paging domains are in charge of
-their page tables and won't share page tables with Xen, thus not
-influencing the result of page walks performed by the spurious fault
-handler.
-
-Just passing this new flag when calling flush_area_mask prevents the
-usage of the assisted flush without any other side effects.
-
-Note the flag is not defined on Arm, and the introduced helper is just
-a dummy alias to the existing flush_tlb_mask.
-
-Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when available')
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v2:
- - Always do a physical IPI triggered flush in
-   filtered_flush_tlb_mask, since it's always required by the current
-   callers of the function.
-
-Changes since v1:
- - Add a comment describing the usage of FLUSH_FORCE_IPI (and why no
-   modifications to flush_area_mask are required).
- - Use PGT_root_page_table instead of PGT_l4_page_table.
- - Also perform IPI flushes if configured with shadow paging support.
- - Use ifdef instead of if.
----
- xen/arch/x86/mm.c              | 12 +++++++++++-
- xen/include/asm-arm/flushtlb.h |  1 +
- xen/include/asm-x86/flushtlb.h | 18 ++++++++++++++++++
- xen/include/xen/mm.h           |  2 +-
- 4 files changed, 31 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index c294092f93..47872dccd0 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -2894,7 +2894,17 @@ static int _get_page_type(struct page_info *page, unsigned long type,
-                       ((nx & PGT_type_mask) == PGT_writable_page)) )
-                 {
-                     perfc_incr(need_flush_tlb_flush);
--                    flush_tlb_mask(mask);
-+                    if ( (x & PGT_type_mask) &&
-+                         (x & PGT_type_mask) <= PGT_root_page_table )
-+                        /*
-+                         * If page was a page table make sure the flush is
-+                         * performed using an IPI in order to avoid changing
-+                         * the type of a page table page under the feet of
-+                         * spurious_page_fault.
-+                         */
-+                        flush_tlb_mask_sync(mask);
-+                    else
-+                        flush_tlb_mask(mask);
-                 }
- 
-                 /* We lose existing type and validity. */
-diff --git a/xen/include/asm-arm/flushtlb.h b/xen/include/asm-arm/flushtlb.h
-index ab1aae5c90..7ae0543885 100644
---- a/xen/include/asm-arm/flushtlb.h
-+++ b/xen/include/asm-arm/flushtlb.h
-@@ -27,6 +27,7 @@ static inline void page_set_tlbflush_timestamp(struct page_info *page)
- 
- /* Flush specified CPUs' TLBs */
- void flush_tlb_mask(const cpumask_t *mask);
-+#define flush_tlb_mask_sync flush_tlb_mask
- 
- /*
-  * Flush a range of VA's hypervisor mappings from the TLB of the local
-diff --git a/xen/include/asm-x86/flushtlb.h b/xen/include/asm-x86/flushtlb.h
-index 8639427cce..2444aee112 100644
---- a/xen/include/asm-x86/flushtlb.h
-+++ b/xen/include/asm-x86/flushtlb.h
-@@ -126,6 +126,16 @@ void switch_cr3_cr4(unsigned long cr3, unsigned long cr4);
- #else
- #define FLUSH_HVM_ASID_CORE 0
- #endif
-+#if defined(CONFIG_PV) || defined(CONFIG_SHADOW_PAGING)
-+/*
-+ * Force an IPI to be sent. Note that adding this to the flags passed to
-+ * flush_area_mask will prevent using the assisted flush without having any
-+ * other side effect.
-+ */
-+# define FLUSH_FORCE_IPI 0x8000
-+#else
-+# define FLUSH_FORCE_IPI 0
-+#endif
- 
- /* Flush local TLBs/caches. */
- unsigned int flush_area_local(const void *va, unsigned int flags);
-@@ -148,6 +158,14 @@ void flush_area_mask(const cpumask_t *, const void *va, unsigned int flags);
- /* Flush specified CPUs' TLBs */
- #define flush_tlb_mask(mask)                    \
-     flush_mask(mask, FLUSH_TLB)
-+/*
-+ * Flush specified CPUs' TLBs and force the usage of an IPI to do so. This is
-+ * required for certain operations that rely on page tables themselves not
-+ * being freed and reused when interrupts are blocked, as the flush IPI won't
-+ * be fulfilled until exiting from that critical region.
-+ */
-+#define flush_tlb_mask_sync(mask)               \
-+    flush_mask(mask, FLUSH_TLB | FLUSH_FORCE_IPI)
- #define flush_tlb_one_mask(mask,v)              \
-     flush_area_mask(mask, (const void *)(v), FLUSH_TLB|FLUSH_ORDER(0))
- 
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 9b62087be1..2e86bf66af 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -648,7 +648,7 @@ static inline void filtered_flush_tlb_mask(uint32_t tlbflush_timestamp)
-     if ( !cpumask_empty(&mask) )
-     {
-         perfc_incr(need_flush_tlb_flush);
--        flush_tlb_mask(&mask);
-+        flush_tlb_mask_sync(&mask);
-     }
- }
- 
--- 
-2.26.2
-
+Regards,
+Jason
 
