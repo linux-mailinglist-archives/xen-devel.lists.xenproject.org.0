@@ -2,67 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9728F2099BF
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 08:16:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06B5209A25
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2020 08:57:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joLAL-0008Oa-6c; Thu, 25 Jun 2020 06:15:17 +0000
+	id 1joLnZ-0003Eg-Cl; Thu, 25 Jun 2020 06:55:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FzsX=AG=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
- id 1joLAJ-0008OV-54
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 06:15:15 +0000
-X-Inumbo-ID: 3b7e9b8e-b6ab-11ea-8496-bc764e2007e4
-Received: from mail-ot1-x341.google.com (unknown [2607:f8b0:4864:20::341])
+ <SRS0=4bJ+=AG=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1joLnY-0003Eb-2e
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2020 06:55:48 +0000
+X-Inumbo-ID: e53fc882-b6b0-11ea-bca7-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3b7e9b8e-b6ab-11ea-8496-bc764e2007e4;
- Thu, 25 Jun 2020 06:15:14 +0000 (UTC)
-Received: by mail-ot1-x341.google.com with SMTP id 72so4241823otc.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 23:15:14 -0700 (PDT)
+ id e53fc882-b6b0-11ea-bca7-bc764e2007e4;
+ Thu, 25 Jun 2020 06:55:47 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id a6so6000672wmm.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2020 23:55:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=L3nkNUv0AI8kinjFbObpy88tHlaSp8Q2pJ4IM2vuMno=;
- b=KixfC0RsXhSGUC0PgQR55XcqRvpZ1UbEXp1nNAZxcLSjwxStUuZWz5+7AuJsvXcGZc
- vpTIE7yCi6/2tl01hn67G3ThAXFfAxRx+4YreGPCM/2FRJcYjVZZ5Vd26phn6tkd5rq6
- 2urxxkRKYIhe7yHopQwN1EGwYn4DfTltIsNyBGGDCc72Ep5Zq773Pp6gQ4YQQtTq+ki5
- 4at2y7KtY9AInSRLAJPiwxce2ov8Wv52dyKbuTJWAKUw2PPSYdBs9gaBdLYK746ae09E
- zWVkMCmDiYJNIq3EVmI4xuxKQ+yRfUlk8wpiq92DR5bCtwv9C5rN6VepLvWbnZqEv+TG
- ErcQ==
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=AcJhJWPg9ILmTg2qesw42RsvWT7rg9x8dkf0LUZBteE=;
+ b=WlVvGyoNRncnsSk+dobJfK3f2/ZNIKCr1WezZR3PM5U9DmL9pzb03igSMwv2GM8Dsa
+ /yYXvV2CZspI9U8Dv/Bt8mpIXwQaitylA7d6RRCDXDZJXTtMadfi0jtixA4pkDnnYnap
+ HuiMLAEa6oUsH4NO4hLkdtvL+KYsmtlI9EuCfVMd4XSKIW6SBPArdQl3Rd2PISSLRUAN
+ j8tzIerIgDJMplvcQ7k6VLdgJElMToVKsQNP/VKYRZ6yv8MOm8Dv9KISpaTOrFZZ65UD
+ T3v1fKbAVtZu7v5Ta7lqT75bAW5YDn4sCE9llxx3vt1nT4WzKl74y6L60g6Pb6QQyj53
+ Ytow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=L3nkNUv0AI8kinjFbObpy88tHlaSp8Q2pJ4IM2vuMno=;
- b=CFWrVJ2C2/uY4BGg3+aepufTH4Bejz05CZp+CLYmZhMCChpt8gRqWHr2LtjEUKgJ/2
- uGP2XWhkf1oqd2tGiTnfoKXxjlPikCYWgDNU1Lj+Vhms1lIY2Ug9wOOpfMdbH1tUQ8a1
- eTyniLXfOn2YsWpnF86mcpadT3hcH0bEZziROE++fT/uIJmelG9PljJ6bdyh+2ALCVHr
- 5QE21KeoGbQwoaKutlW6X7DuCJ5l4MpY8mtIBltBXoB0+pBp5EBXGTeM5WjdjjWdBWGo
- /EseXFtA1NY/SqzM310KFNIgzYdTYO2bZnnCvkxelV2yw5/pW3OPpqxGIvCiQdQ0A6gK
- hMuA==
-X-Gm-Message-State: AOAM5335Jekm0yEGBQ2kz4ELGORsd/smA9Zp4gDk1kiJMEaxvobWIaEs
- asVkPD+NaPKbWJ9v7IpfI2xiwy8ioUUEqWLY6bk=
-X-Google-Smtp-Source: ABdhPJywri45Jqh9e3FSTIJRfKhHxBuoPZK66FF2fhz/9DoXhp7JOUEUyuQExTlFGeTy9jumu5WhitmB/ocxqkM6jQU=
-X-Received: by 2002:a05:6830:3104:: with SMTP id
- b4mr26009100ots.192.1593065713823; 
- Wed, 24 Jun 2020 23:15:13 -0700 (PDT)
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=AcJhJWPg9ILmTg2qesw42RsvWT7rg9x8dkf0LUZBteE=;
+ b=hlZeGZHKTFQF8W7iy1wSHR7PRSRREbKtumZH9Ms39iE/nZd7iXXr5elgetOQPPKSYw
+ VxCwG1xfZUQofk3kqefadbViU758otm++1qjCiy/ZA5bO6Ui9Dcr2ooidI4ZVf9TszWZ
+ Jn6MGIu1EV82NUXRn9UYA6al2fBCPB6T/y/VM97FE24Lc1JnlkTaMi07TK3rBJHfzJnb
+ m8qNsZ3wePTOeChGBrsF/bQIbTkBKgjTYlqewN1OwgLcCR4qUwyJB3LhCE3IJFp618rr
+ RFjxufilG6WNJlPkXTjn+kNvXHQizgB9N3W4d8DFM/0zhd8/eqGQgUcf+k5GBWDKb+6w
+ /+wg==
+X-Gm-Message-State: AOAM531MgOIoiZ9V64soefAV2g3wgKCfz7lrntuufwQP+aoD/XrqxRDh
+ cN+nm+9EocG109ij2n0lur0=
+X-Google-Smtp-Source: ABdhPJxRemy6vIC4cLmw7UJQEJQ3V73AMdEP0/wk4hJ1tsZ6r/3ULJ644b5vAvRtJbdkLPATIbKmUQ==
+X-Received: by 2002:a1c:9cd0:: with SMTP id f199mr1666878wme.94.1593068146103; 
+ Wed, 24 Jun 2020 23:55:46 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-239.amazon.com. [54.240.197.239])
+ by smtp.gmail.com with ESMTPSA id 63sm32509045wra.86.2020.06.24.23.55.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 24 Jun 2020 23:55:45 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>
+References: <cover.1592603468.git.gorbak25@gmail.com>
+ <de0e33d2be0924e66a220678a7683098df70c2b5.1592603468.git.gorbak25@gmail.com>
+ <5993e716-d71d-cbc0-a186-5325e2bdeba4@suse.com>
+ <2c3e8cd2-b74f-52b6-4df8-057e8d000455@suse.com>
+In-Reply-To: <2c3e8cd2-b74f-52b6-4df8-057e8d000455@suse.com>
+Subject: RE: Ping: [PATCH v3 1/1] x86/acpi: Use FADT flags to determine the
+ PMTMR width
+Date: Thu, 25 Jun 2020 07:55:44 +0100
+Message-ID: <000001d64abd$a676b480$f3641d80$@xen.org>
 MIME-Version: 1.0
-References: <20200610185415.GG7231@minyard.net>
- <CAMmSBy8gGCjJ0yLcC7rxwEtQDfzRVF=sp=seYtBA3FM3vuXgEQ@mail.gmail.com>
- <CACMJ4GaOx7aFJgRno511C7KOWbSu9751HBx4hikByU4J_X3vLg@mail.gmail.com>
- <alpine.DEB.2.21.2006151710280.9074@sstabellini-ThinkPad-T480s>
- <20200616010252.GC3113@minyard.net>
- <CAMmSBy_=tYFH+HtSnGdY90bkL9XPxQ6iJ20RVP3nQU0P0bHBpA@mail.gmail.com>
- <20200616014513.GD3113@minyard.net>
- <CAMmSBy9AU-iCgvBRGmY12gWODKuWiCDiBERc1rGRjM5OyN11EQ@mail.gmail.com>
-In-Reply-To: <CAMmSBy9AU-iCgvBRGmY12gWODKuWiCDiBERc1rGRjM5OyN11EQ@mail.gmail.com>
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Wed, 24 Jun 2020 23:15:02 -0700
-Message-ID: <CACMJ4GZ2rTDGtm33Bx-wjpK+sQ4z7kQMEM8Z5VnYyFwXLU6U-g@mail.gmail.com>
-Subject: Re: Xen on Pi4: Xen doesn't work with overlays from Raspberry Pi 5.4
- kernel
-To: Roman Shaposhnik <roman@zededa.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJVMUHmkHGgErqW4WJrIi3D08QvIAHMqz2XAToNZ2MAiKHvDKfOnXqA
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,102 +80,91 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Corey Minyard <cminyard@mvista.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- tamas@tklengyel.com, Xen-devel <xen-devel@lists.xenproject.org>
+Reply-To: paul@xen.org
+Cc: 'Wei Liu' <wl@xen.org>, jakub@bartmin.ski,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>, marmarek@invisiblethingslab.com,
+ 'Grzegorz Uriasz' <gorbak25@gmail.com>, j.nowak26@student.uw.edu.pl,
+ xen-devel@lists.xenproject.org, contact@puzio.waw.pl,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 15, 2020 at 6:49 PM Roman Shaposhnik <roman@zededa.com> wrote:
->
-> On Mon, Jun 15, 2020 at 6:45 PM Corey Minyard <cminyard@mvista.com> wrote:
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 24 June 2020 16:32
+> To: Paul Durrant <paul@xen.org>
+> Cc: Grzegorz Uriasz <gorbak25@gmail.com>; Wei Liu <wl@xen.org>; =
+jakub@bartmin.ski; Andrew Cooper
+> <andrew.cooper3@citrix.com>; marmarek@invisiblethingslab.com; =
+j.nowak26@student.uw.edu.pl; xen-
+> devel@lists.xenproject.org; contact@puzio.waw.pl; Roger Pau Monn=C3=A9 =
+<roger.pau@citrix.com>
+> Subject: Ping: [PATCH v3 1/1] x86/acpi: Use FADT flags to determine =
+the PMTMR width
+>=20
+> On 22.06.2020 10:49, Jan Beulich wrote:
+> > On 20.06.2020 00:00, Grzegorz Uriasz wrote:
+> >> @@ -490,8 +497,12 @@ static int __init acpi_parse_fadt(struct =
+acpi_table_header *table)
+> >>   	 */
+> >>  	if (!pmtmr_ioport) {
+> >>  		pmtmr_ioport =3D fadt->pm_timer_block;
+> >> -		pmtmr_width =3D fadt->pm_timer_length =3D=3D 4 ? 24 : 0;
+> >> +		pmtmr_width =3D fadt->pm_timer_length =3D=3D 4 ? 32 : 0;
+> >>  	}
+> >> +	if (pmtmr_width < 32 && fadt->flags & ACPI_FADT_32BIT_TIMER)
+> >> +        printk(KERN_WARNING PREFIX "PM-Timer is too short\n");
 > >
-> > On Mon, Jun 15, 2020 at 06:05:57PM -0700, Roman Shaposhnik wrote:
-> > > On Mon, Jun 15, 2020 at 6:02 PM Corey Minyard <cminyard@mvista.com> wrote:
-> > > >
-> > > > On Mon, Jun 15, 2020 at 05:14:21PM -0700, Stefano Stabellini wrote:
-> > > > > On Mon, 15 Jun 2020, Christopher Clark wrote:
-> > > > > > On Wed, Jun 10, 2020 at 7:21 PM Roman Shaposhnik <roman@zededa.com> wrote:
-> > > > > > >
-> > > > > > > On Wed, Jun 10, 2020 at 11:54 AM Corey Minyard <cminyard@mvista.com> wrote:
-> > > > > > > >
-> > > > > > > > I had been working on Xen on the Pi4 by throwing kernels I compiled onto
-> > > > > > > > existing sd cards, and this was working fine.  I finally got to a full
-> > > > > > > > yocto build of the system, and it didn't boot.
-> > > > > > > >
-> > > > > > > > In fact, Xen didn't print anything at all, and nothing happens that
-> > > > > > > > might suggest it's booting without any console output.
-> > > > > >
-> > > > > > I've reproduced this. Linux 4.19 from the Raspberry Pi kernel branch
-> > > > > > works fine, whereas I see no console output from the kernel once Xen
-> > > > > > tries to hand off to dom0 with either a 5.4 or 5.6 kernel.
-> > > > > >
-> > > > > > > > I traced the issue down to the vc4-fkms-v3d dtoverly.  With everything
-> > > > > > > > else the same, the 4.19 version of that overlay works, and the 5.4
-> > > > > > > > version does not work.  It also didn't work if I completely removed the
-> > > > > > > > overlay.  The base device trees are the same between the two kernels.
-> > > > > > > >
-> > > > > > > > Looking at the overlay changes between the versions and Xen source, I
-> > > > > > > > can't trace down anything that would cause an issue.  Has anyone seen
-> > > > > > > > this issue of have any ideas?
-> > > > > >
-> > > > > > Seen it: yes, but no progress on resolving it to report at this point.
-> > > > > >
-> > > > > > > FWIW: I ran into very similar issues, ditched 5.4 kernel and moved to 5.6.x:
-> > > > > > >     https://github.com/raspberrypi/linux/tree/rpi-5.6.y
-> > > > > > >
-> > > > > > > The 5.6.14 seems to be working quite nicely with Xen for me (and Stefano).
-> > > > > >
-> > > > > > Hi Roman - is there a specific commit in that rpi-5.6.y branch that
-> > > > > > you guys have working ok?
-> > > > > > It looks like the bcm2711_defconfig file wasn't included in the kernel
-> > > > > > source tree of that branch at the point the kernel version was bumped
-> > > > > > up to 5.6.14, so is there somewhere else to look for a matching kernel
-> > > > > > config?
-> > > > >
-> > > > > I don't know if that is the issue but beware that some device trees
-> > > > > invert serial0 with serial1. Make sure to use /soc/serial@7e215040. You
-> > > > > can do that by passing dtuart=/soc/serial@7e215040 to the Xen command
-> > > > > line.
-> > > >
-> > > > I already have that set as part of the boot process, but it still
-> > > > doesn't print anything out once Xen is started.
-> > > >
-> > > > I tried the 5.6 device tree, and no help there, eithers.  I'm wondering
-> > > > if everyone is still running with the 4.19 device trees.
-> > >
-> > > As I pointed out in the EVE link above -- we're very happily running
-> > > with 5.6 device trees. They are, of course, taken from RPI kernel
-> > > tree.
+> > Indentation is screwed up here.
 > >
-> > Ok, what version of Xen are you running?  I'm using 4.13 with the Pi
-> > patches, but I have not tried the master branch.
->
-> We're running 4.14 + additional patches (not sure which ones will make
-> it into 4.14 proper yet):
->     https://github.com/lf-edge/eve/tree/master/pkg/xen/arch/aarch64
->
-> FWIW: the first patch is basically the delta between 4.13 and 4.14
+> >> --- a/xen/arch/x86/time.c
+> >> +++ b/xen/arch/x86/time.c
+> >> @@ -457,16 +457,13 @@ static u64 read_pmtimer_count(void)
+> >>  static s64 __init init_pmtimer(struct platform_timesource *pts)
+> >>  {
+> >>      u64 start;
+> >> -    u32 count, target, mask =3D 0xffffff;
+> >> +    u32 count, target, mask;
+> >>
+> >> -    if ( !pmtmr_ioport || !pmtmr_width )
+> >> +    if ( !pmtmr_ioport || (pmtmr_width !=3D 24 && pmtmr_width !=3D =
+32) )
+> >>          return 0;
+> >>
+> >> -    if ( pmtmr_width =3D=3D 32 )
+> >> -    {
+> >> -        pts->counter_bits =3D 32;
+> >> -        mask =3D 0xffffffff;
+> >> -    }
+> >> +    pts->counter_bits =3D pmtmr_width;
+> >> +    mask =3D (1ull << pmtmr_width) - 1;
+> >
+> > "mask" being of "u32" type, the use of 1ull is certainly a little =
+odd
+> > here, and one of the reasons why I think this extra "cleanup" would
+> > better go in a separate patch.
+> >
+> > Seeing that besides cosmetic aspects the patch looks okay now, I'd =
+be
+> > willing to leave the bigger adjustment mostly as is, albeit I'd
+> > prefer the 1ull to go away, by instead switching to e.g.
+> >
+> >     mask =3D 0xffffffff >> (32 - pmtmr_width);
+> >
+> > With the adjustments (which I'd be happy to make while committing,
+> > provided you agree)
+> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> >
+> > Also Cc-ing Paul for a possible release ack (considering this is a
+> > backporting candidate).
+>=20
+> Paul?
+>=20
 
-Corey: try adding these to your u-boot script:
+Looks ok.
 
-# Define the size and address cells
-fdt set /chosen '#size-cells' <1>
-fdt set /chosen '#address-cells' <1>
+Release-acked-by: Paul Durrant <paul@xen.org>
 
-It looks like the 4.19 kernel device tree has those nodes set by the
-time the u-boot script picks up after the GPU's work on the device
-tree, but the more recent 5.4 and 5.6 kernels do not. Adding those in
-within the u-boot script, I've been able to successfully boot the
-Linux 5.4 and 5.6 kernels from meta-raspberrypi as well as a local
-build of the Eve 5.6 kernel.
+> Thanks, Jan
 
-Stefano has a patch to do something similar in the Eve series here:
-https://github.com/lf-edge/eve/blob/master/pkg/new-kernel/patches-5.6.x/0013-adding-stdout-path-overlay.patch
-
-I've just posted an updated series to meta-virt to enable Xen on Rpi4
-with Linux 5.4 (the current Yocto kernel version) here:
-https://lists.yoctoproject.org/g/meta-virtualization/message/5449
-
-Christopher
 
