@@ -2,44 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44AE820B684
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 19:03:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7945820B6B3
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 19:17:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jorkb-0006ep-G1; Fri, 26 Jun 2020 17:02:53 +0000
+	id 1joryI-0007eJ-Pt; Fri, 26 Jun 2020 17:17:02 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b3dG=AH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jorka-0006ei-Bn
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 17:02:52 +0000
-X-Inumbo-ID: de75f3a4-b7ce-11ea-82ea-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=eduV=AH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1joryH-0007dz-0C
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 17:17:01 +0000
+X-Inumbo-ID: d56a7f6c-b7d0-11ea-82eb-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id de75f3a4-b7ce-11ea-82ea-12813bfff9fa;
- Fri, 26 Jun 2020 17:02:51 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: xvmKTUa21lqY9QLcL0hMCRDF2atr988/LpDLTxyQP2S0KJBFFFSQHLGCCcCWwoQUdlUXWEaEdW
- MveqOi/X307eP8TbVINFEE8SnYySjvUokFoxmeo5OpQ/v1jj3xllYDlYvCXzcK7rx5Viq6JRQR
- ce8BZcedU6p+6E0kLA10/bDCb2Jb5ah9tfGu0iDDp1Saljt4CYGzYOWvBICQcP91z85/85Lchz
- dNdyroIO27YHygVNf+/JmBcW7vOwUK949Y/zyp3KZ92B8RfyOQcjEJI+GMyetE2afSz8SPjgCL
- i84=
-X-SBRS: 2.7
-X-MesageID: 21041803
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,284,1589256000"; d="scan'208";a="21041803"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] xsm: Drop trailing whitespace from build scripts
-Date: Fri, 26 Jun 2020 18:02:21 +0100
-Message-ID: <20200626170221.28534-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+ id d56a7f6c-b7d0-11ea-82eb-12813bfff9fa;
+ Fri, 26 Jun 2020 17:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=byKoBzKo3oDDOnyCLGYOD82lVWyr2UiSOmP8zoxmZZA=; b=M8E0AsVMCYpPsY8I9v7bR4kbt
+ uknjbGsqvMyVMYfs1b3/JJ+lCUwBlMB2P7eWVmnS4ZJJ/lqMpjZ8mjiZKI/4PBBVE9CurA13DarMq
+ hwCTQij5CppkIo2Dxkvn1NDVkgrzhT2QZx/9aGeay7+sIzdaDbXax85X6+wvZnKYF+km4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1joryA-0000y3-Ii; Fri, 26 Jun 2020 17:16:54 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1joryA-0003Ob-77; Fri, 26 Jun 2020 17:16:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1joryA-0001sB-6U; Fri, 26 Jun 2020 17:16:54 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151380-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [xen-unstable-smoke test] 151380: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=40b532fbdcb2095da7152a1d08d9f0288524c223
+X-Osstest-Versions-That: xen=d3688bf60f798074bf38d712a3e15c88cfb81ed4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 26 Jun 2020 17:16:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,199 +66,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
----
- xen/xsm/flask/policy/mkaccess_vector.sh | 26 +++++++++++++-------------
- xen/xsm/flask/policy/mkflask.sh         | 32 ++++++++++++++++----------------
- 2 files changed, 29 insertions(+), 29 deletions(-)
+flight 151380 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151380/
 
-diff --git a/xen/xsm/flask/policy/mkaccess_vector.sh b/xen/xsm/flask/policy/mkaccess_vector.sh
-index 7fa4aaf638..942ede4713 100755
---- a/xen/xsm/flask/policy/mkaccess_vector.sh
-+++ b/xen/xsm/flask/policy/mkaccess_vector.sh
-@@ -22,7 +22,7 @@ BEGIN	{
- 		printf("/* This file is automatically generated.  Do not edit. */\n") > avpermfile;
- ;
- 	}
--/^[ \t]*#/	{ 
-+/^[ \t]*#/	{
- 			next;
- 		}
- $1 == "class"	{
-@@ -30,7 +30,7 @@ $1 == "class"	{
- 			    nextstate != "CLASS_OR_CLASS-OPENBRACKET")
- 			{
- 				printf("Parse error:  Unexpected class definition on line %d\n", NR);
--				next;	
-+				next;
- 			}
- 
- 			tclass = $2;
-@@ -39,7 +39,7 @@ $1 == "class"	{
- 			{
- 				printf("Duplicate access vector definition for %s on line %d\n", tclass, NR);
- 				next;
--			} 
-+			}
- 			av_defined[tclass] = 1;
- 
- 			permission = 0;
-@@ -47,7 +47,7 @@ $1 == "class"	{
- 			nextstate = "INHERITS_OR_CLASS-OPENBRACKET";
- 			next;
- 		}
--$1 == "{"	{ 
-+$1 == "{"	{
- 			if (nextstate != "INHERITS_OR_CLASS-OPENBRACKET" &&
- 			    nextstate != "CLASS_OR_CLASS-OPENBRACKET" &&
- 			    nextstate != "COMMON-OPENBRACKET")
-@@ -69,7 +69,7 @@ $1 == "{"	{
- 			if (nextstate != "COMMON-CLOSEBRACKET" &&
- 			    nextstate != "CLASS-CLOSEBRACKET")
- 			{
--				printf("Parse error:  Unexpected symbol %s on line %d\n", $1, NR);		
-+				printf("Parse error:  Unexpected symbol %s on line %d\n", $1, NR);
- 				next;
- 			}
- 
-@@ -83,7 +83,7 @@ $1 == "{"	{
- 
- 				common_perms[common_name,$1] = permission;
- 
--				printf("#define COMMON_%s__%s", toupper(common_name), toupper($1)) > outfile; 
-+				printf("#define COMMON_%s__%s", toupper(common_name), toupper($1)) > outfile;
- 
- 				printf("    S_(\"%s\")\n", $1) > cpermfile;
- 			}
-@@ -96,23 +96,23 @@ $1 == "{"	{
- 				}
- 
- 				av_perms[tclass,$1] = permission;
--		
--				printf("#define %s__%s", toupper(tclass), toupper($1)) > outfile; 
- 
--				printf("   S_(SECCLASS_%s, %s__%s, \"%s\")\n", toupper(tclass), toupper(tclass), toupper($1), $1) > avpermfile; 
-+				printf("#define %s__%s", toupper(tclass), toupper($1)) > outfile;
-+
-+				printf("   S_(SECCLASS_%s, %s__%s, \"%s\")\n", toupper(tclass), toupper(tclass), toupper($1), $1) > avpermfile;
- 			}
- 
- 			spaces = 40 - (length($1) + length(tclass));
- 			if (spaces < 1)
- 			      spaces = 1;
- 
--			for (i = 0; i < spaces; i++) 
--				printf(" ") > outfile; 
-+			for (i = 0; i < spaces; i++)
-+				printf(" ") > outfile;
- 			printf("(1UL << %u)\n", permission) > outfile;
- 			permission = permission + 1;
- 		}
- $1 == "}"	{
--			if (nextstate != "CLASS-CLOSEBRACKET" && 
-+			if (nextstate != "CLASS-CLOSEBRACKET" &&
- 			    nextstate != "COMMON-CLOSEBRACKET")
- 			{
- 				printf("Parse error:  Unexpected } on line %d\n", NR);
-@@ -122,7 +122,7 @@ $1 == "}"	{
- 			if (nextstate == "COMMON-CLOSEBRACKET")
- 			{
- 				common_base[common_name] = permission;
--				printf("TE_(common_%s_perm_to_string)\n\n", common_name) > cpermfile; 
-+				printf("TE_(common_%s_perm_to_string)\n\n", common_name) > cpermfile;
- 			}
- 
- 			printf("\n") > outfile;
-diff --git a/xen/xsm/flask/policy/mkflask.sh b/xen/xsm/flask/policy/mkflask.sh
-index 989a323b80..591ce832a1 100755
---- a/xen/xsm/flask/policy/mkflask.sh
-+++ b/xen/xsm/flask/policy/mkflask.sh
-@@ -37,51 +37,51 @@ BEGIN	{
- 		printf("static char *initial_sid_to_string[] =\n{\n") > debugfile2;
- 		printf("    \"null\",\n") > debugfile2;
- 	}
--/^[ \t]*#/	{ 
-+/^[ \t]*#/	{
- 			next;
- 		}
--$1 == "class"	{ 
-+$1 == "class"	{
- 			if (nextstate != "CLASS")
- 			{
- 				printf("Parse error:  Unexpected class definition on line %d\n", NR);
--				next;	
-+				next;
- 			}
- 
- 			if ($2 in class_found)
- 			{
- 				printf("Duplicate class definition for %s on line %d.\n", $2, NR);
- 				next;
--			}	
-+			}
- 			class_found[$2] = 1;
- 
- 			class_value++;
- 
- 			printf("#define SECCLASS_%s", toupper($2)) > outfile;
--			for (i = 0; i < 40 - length($2); i++) 
--				printf(" ") > outfile; 
--			printf("%d\n", class_value) > outfile; 
-+			for (i = 0; i < 40 - length($2); i++)
-+				printf(" ") > outfile;
-+			printf("%d\n", class_value) > outfile;
- 
- 			printf("    S_(\"%s\")\n", $2) > debugfile;
- 		}
--$1 == "sid"	{ 
-+$1 == "sid"	{
- 			if (nextstate == "CLASS")
- 			{
- 			    nextstate = "SID";
--			    printf("\n/*\n * Security identifier indices for initial entities\n */\n") > outfile;			    
-+			    printf("\n/*\n * Security identifier indices for initial entities\n */\n") > outfile;
- 			}
- 
- 			if ($2 in sid_found)
- 			{
- 				printf("Duplicate SID definition for %s on line %d.\n", $2, NR);
- 				next;
--			}	
-+			}
- 			sid_found[$2] = 1;
- 			sid_value++;
- 
- 			printf("#define SECINITSID_%s", toupper($2)) > outfile;
--			for (i = 0; i < 37 - length($2); i++) 
--				printf(" ") > outfile; 
--			printf("%d\n", sid_value) > outfile; 
-+			for (i = 0; i < 37 - length($2); i++)
-+				printf(" ") > outfile;
-+			printf("%d\n", sid_value) > outfile;
- 			printf("    \"%s\",\n", $2) > debugfile2;
- 		}
- END	{
-@@ -89,9 +89,9 @@ END	{
- 			printf("Parse error:  Unexpected end of file\n");
- 
- 		printf("\n#define SECINITSID_NUM") > outfile;
--		for (i = 0; i < 34; i++) 
--			printf(" ") > outfile; 
--		printf("%d\n", sid_value) > outfile; 
-+		for (i = 0; i < 34; i++)
-+			printf(" ") > outfile;
-+		printf("%d\n", sid_value) > outfile;
- 		printf("\n#endif /* __XEN__ || __XEN_TOOLS__ */\n") > outfile;
- 		printf("\n#endif\n") > outfile;
- 		printf("};\n\n") > debugfile2;
--- 
-2.11.0
+Failures :-/ but no regressions.
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  40b532fbdcb2095da7152a1d08d9f0288524c223
+baseline version:
+ xen                  d3688bf60f798074bf38d712a3e15c88cfb81ed4
+
+Last test of basis   151376  2020-06-26 11:00:34 Z    0 days
+Testing same since   151380  2020-06-26 14:09:54 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Grzegorz Uriasz <gorbak25@gmail.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Tim Deegan <tim@xen.org>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   d3688bf60f..40b532fbdc  40b532fbdcb2095da7152a1d08d9f0288524c223 -> smoke
 
