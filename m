@@ -2,58 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC5EC20B783
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 19:47:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E00DC20B79B
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 19:54:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1josQh-0001rW-RE; Fri, 26 Jun 2020 17:46:23 +0000
+	id 1josYW-0002i3-LD; Fri, 26 Jun 2020 17:54:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FAa2=AH=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1josQg-0001rP-4I
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 17:46:22 +0000
-X-Inumbo-ID: f24575ca-b7d4-11ea-bb8b-bc764e2007e4
+ id 1josYV-0002hs-B9
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 17:54:27 +0000
+X-Inumbo-ID: 13651bec-b7d6-11ea-8496-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f24575ca-b7d4-11ea-bb8b-bc764e2007e4;
- Fri, 26 Jun 2020 17:46:21 +0000 (UTC)
+ id 13651bec-b7d6-11ea-8496-bc764e2007e4;
+ Fri, 26 Jun 2020 17:54:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jt4yZmJG7KXUCRdT6sM646MFKXBc143aigS0EWKAcCw=; b=aEVIYnOCu7+qUj+0Ji7n3Y1OxN
- aQWQKi8N4hudQQRVKHs+pzMSvT2JbKJLvaRRzh6Csxelgs4IMQvMUt5c53gCW/RXxVIetzJHRn7UR
- UCrBiwEEwJy951V7a5UueEqqKlI9+dRE7mk3j+s6zQd9AhTcfIdxCRkrPwCWLaefXapg=;
+ bh=XyYKLldYnIb+Zo6QDJ7iUxVABkqbSz9KssSn408orSQ=; b=4ehXGvchdRnPa2x2qFbjRfoQha
+ im5v4meEBdxOSoGNILbjpTKXitzRQZFpZyS+HC/yudWy2eyfBAxdoanwIwq959pa4ke3pVsQu2w5H
+ 4K4BjtI5+mDbUhcGlb7T0pVmPIWIvFDVZ7UAKeGFJEY6AXK2PJ2iEXi2vRFey8I8yYz8=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1josQZ-0001Ud-Ex; Fri, 26 Jun 2020 17:46:15 +0000
+ id 1josYT-0001dk-PS; Fri, 26 Jun 2020 17:54:25 +0000
 Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1josQZ-0002LT-7a; Fri, 26 Jun 2020 17:46:15 +0000
-Subject: Re: [PATCH v3 for-4.14] pvcalls: Document correctly and explicitely
- the padding for all arches
-To: Ian Jackson <ian.jackson@citrix.com>
-References: <20200613184132.11880-1-julien@xen.org>
- <alpine.DEB.2.21.2006151343430.9074@sstabellini-ThinkPad-T480s>
- <35c8373f-b691-d95e-17de-021c72faf216@xen.org>
- <alpine.DEB.2.21.2006161322210.24982@sstabellini-ThinkPad-T480s>
- <CAJ=z9a2cnMUiYBz+hA2_hjf5ShVh66tUwE9kbjqSM-H0TkTbyw@mail.gmail.com>
- <alpine.DEB.2.21.2006171146510.14005@sstabellini-ThinkPad-T480s>
- <cefe0cc7-5b1c-4ae2-a160-3857cc131a3d@xen.org>
- <24307.16713.764272.855818@mariner.uk.xensource.com>
+ id 1josYT-0002uR-EL; Fri, 26 Jun 2020 17:54:25 +0000
+Subject: Re: [PATCH v2 2/2] optee: allow plain TMEM buffers with NULL address
+To: Stefano Stabellini <sstabellini@kernel.org>, "paul@xen.org" <paul@xen.org>
+References: <20200619223332.438344-1-volodymyr_babchuk@epam.com>
+ <20200619223332.438344-3-volodymyr_babchuk@epam.com>
+ <alpine.DEB.2.21.2006221809380.8121@sstabellini-ThinkPad-T480s>
+ <87ftampkd7.fsf@epam.com> <2df789f3-e881-36a3-51f4-010b499990f5@xen.org>
+ <alpine.DEB.2.21.2006231403220.8121@sstabellini-ThinkPad-T480s>
 From: Julien Grall <julien@xen.org>
-Message-ID: <8335fa07-7610-2a40-36fc-49d6f900026c@xen.org>
-Date: Fri, 26 Jun 2020 18:46:12 +0100
+Message-ID: <b1891206-b883-46b9-70a3-3027a931d2ed@xen.org>
+Date: Fri, 26 Jun 2020 18:54:23 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
  Gecko/20100101 Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <24307.16713.764272.855818@mariner.uk.xensource.com>
+In-Reply-To: <alpine.DEB.2.21.2006231403220.8121@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -67,90 +63,141 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Julien Grall <jgrall@amazon.com>, George Dunlap <George.Dunlap@citrix.com>,
- "committers@xenproject.org" <committers@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Julien Grall <julien.grall.oss@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "op-tee@lists.trustedfirmware.org" <op-tee@lists.trustedfirmware.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Ian,
+(using paul xen.org's email)
 
-Thank you for your input!
+Hi,
 
-On 24/06/2020 13:04, Ian Jackson wrote:
-> Julien Grall writes ("Re: [PATCH v3 for-4.14] pvcalls: Document correctly and explicitely the padding for all arches"):
->> (+ Committers)
-> ...
->> As Jan and you disagree on the approach, I would like to get more input.
->>
->> To summarize the discussion, the document for PV calls and the public
->> headers don't match when describing the padding. There is a disagreement
->> on which of the two are the authority and therefore which one to fix.
->>
->> Does anyone else have a preference on the approach?
-> 
-> Hi.
-> 
->> [Jan:]
->>> I am leaning towards the header as authoritative because this has
->>> always been the case in the past and nothing in xen.git says
->>> otherwise. However I am not a user of pvcalls, so I don't really have
->>> any big incentive to go either way.
-> 
-> I think the practice of using headers as protocol specs is not a
-> particularly good one.  Certainly my expectations anywhere outside the
-> Xen Project is that if there's a doc, that is at the very least on par
-> with any header file.  Of course there are possible compatibility
-> implications:
-> 
->> Yeah, we are risking breaking one set of users either way :-/
->> In reality, we are using pvcalls on arm64 in a new project (but it is
->> still very green). I am not aware of anybody using pvcalls on x86
->> (especially x86_32).
->>
->> I would prefer to honor the pvcalls.pandoc specification because that is
->> what it was meant to be, and also leads to a better protocol
->> specification.
-> 
-> pvcalls in Linux is Tech Preview / Experimental AFAICT ?  I think that
-> means we can de jure change things like this.
+Apologies for the late answer.
 
-SUPPORT.md suggests this is a Tech Preview, so I agree that we could 
-still change the interface.
-
-> 
-> And it seems that we don't think there are any actual users who would
-> experience compatibility problems.
-
-Right, that's what Stefano suggested.
-
-> 
-> So I don't think the compatibility concerns are a reason not to change
-> the header rather than the document.
-> 
-> So I think my conclusion is the same as Julien's: we should change the
-> header to match the doc.
-
-Ok, so you are on the same page as Stefano. I will revert to the v1 
-change and rework the commit message then.
-
-> 
->>>> For the future, I would highly suggest writing down the support
->>>> decision in xen.git. This would avoid such debate on what is the
->>>> authority...
+On 23/06/2020 22:09, Stefano Stabellini wrote:
+> On Tue, 23 Jun 2020, Julien Grall wrote:
+>> On 23/06/2020 03:49, Volodymyr Babchuk wrote:
 >>>
->>> Yes that's the way to go
+>>> Hi Stefano,
+>>>
+>>> Stefano Stabellini writes:
+>>>
+>>>> On Fri, 19 Jun 2020, Volodymyr Babchuk wrote:
+>>>>> Trusted Applications use popular approach to determine required size
+>>>>> of buffer: client provides a memory reference with the NULL pointer to
+>>>>> a buffer. This is so called "Null memory reference". TA updates the
+>>>>> reference with the required size and returns it back to the
+>>>>> client. Then client allocates buffer of needed size and repeats the
+>>>>> operation.
+>>>>>
+>>>>> This behavior is described in TEE Client API Specification, paragraph
+>>>>> 3.2.5. Memory References.
+>>>>>
+>>>>> OP-TEE represents this null memory reference as a TMEM parameter with
+>>>>> buf_ptr = 0x0. This is the only case when we should allow TMEM
+>>>>> buffer without the OPTEE_MSG_ATTR_NONCONTIG flag. This also the
+>>>>> special case for a buffer with OPTEE_MSG_ATTR_NONCONTIG flag.
+>>>>>
+>>>>> This could lead to a potential issue, because IPA 0x0 is a valid
+>>>>> address, but OP-TEE will treat it as a special case. So, care should
+>>>>> be taken when construction OP-TEE enabled guest to make sure that such
+>>>>> guest have no memory at IPA 0x0 and none of its memory is mapped at PA
+>>>>> 0x0.
+>>>>>
+>>>>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>>>>> ---
+>>>>>
+>>>>> Changes from v1:
+>>>>>    - Added comment with TODO about possible PA/IPA 0x0 issue
+>>>>>    - The same is described in the commit message
+>>>>>    - Added check in translate_noncontig() for the NULL ptr buffer
+>>>>>
+>>>>> ---
+>>>>>    xen/arch/arm/tee/optee.c | 27 ++++++++++++++++++++++++---
+>>>>>    1 file changed, 24 insertions(+), 3 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
+>>>>> index 6963238056..70bfef7e5f 100644
+>>>>> --- a/xen/arch/arm/tee/optee.c
+>>>>> +++ b/xen/arch/arm/tee/optee.c
+>>>>> @@ -215,6 +215,15 @@ static bool optee_probe(void)
+>>>>>        return true;
+>>>>>    }
+>>>>>    +/*
+>>>>> + * TODO: There is a potential issue with guests that either have RAM
+>>>>> + * at IPA of 0x0 or some of theirs memory is mapped at PA 0x0. This is
+>>>>                                  ^ their
+>>>>
+>>>>> + * because PA of 0x0 is considered as NULL pointer by OP-TEE. It will
+>>>>> + * not be able to map buffer with such pointer to TA address space, or
+>>>>> + * use such buffer for communication with the guest. We either need to
+>>>>> + * check that guest have no such mappings or ensure that OP-TEE
+>>>>> + * enabled guest will not be created with such mappings.
+>>>>> + */
+>>>>>    static int optee_domain_init(struct domain *d)
+>>>>>    {
+>>>>>        struct arm_smccc_res resp;
+>>>>> @@ -725,6 +734,15 @@ static int translate_noncontig(struct optee_domain
+>>>>> *ctx,
+>>>>>            uint64_t next_page_data;
+>>>>>        } *guest_data, *xen_data;
+>>>>>    +    /*
+>>>>> +     * Special case: buffer with buf_ptr == 0x0 is considered as NULL
+>>>>> +     * pointer by OP-TEE. No translation is needed. This can lead to
+>>>>> +     * an issue as IPA 0x0 is a valid address for Xen. See the comment
+>>>>> +     * near optee_domain_init()
+>>>>> +     */
+>>>>> +    if ( !param->u.tmem.buf_ptr )
+>>>>> +        return 0;
+>>>>
+>>>> Given that today it is not possible for this to happen, it could even be
+>>>> an ASSERT. But I think I would just return an error, maybe -EINVAL?
+>>>
+>>> Hmm, looks like my comment is somewhat misleading :(
+>>
+>> How about the following comment:
+>>
+>> We don't want to translate NULL (0) as it can be used by the guest to fetch
+>> the size of the buffer to allocate. This behavior depends on TA, but there is
+>> a guarantee that OP-TEE will not try to map it (see more details on top of
+>> optee_domain_init()).
+>>
+>>>
+>>> What I mean, is that param->u.tmem.buf_ptr == 0 is the normal situation.
+>>> This is the special case, when OP-TEE treats this buffer as a NULL. So
+>>> we are doing nothing there. Thus, "return 0".
+>>>
+>>> But, as Julien pointed out, we can have machine where 0x0 is the valid
+>>> memory address and there is a chance, that some guest will use it as a
+>>> pointer to buffer.
+>>>
+>>>> Aside from this, and the small grammar issue, everything else looks fine
+>>>> to me.
+>>>>
+>>>> Let's wait for Julien's reply, but if this is the only thing I could fix
+>>>> on commit.
+>>
+>> I agree with Volodymyr, this is the normal case here. There are more work to
+>> prevent MFN 0 to be mapped in the guest but this shouldn't be an issue today.
 > 
-> Maybe it would be worth putting a note somewhere in the headers saying
-> the headers are provided for convenience but that the ABIs and
-> protocols are as specified in the docs (at least where docs exist).
+> Let's put the MFN 0 issue aside for a moment.
+> 
+>  From the commit message I thought that if the guest wanted to pass a
+> NULL buffer ("Null memory reference") then it would also *not* set
+> OPTEE_MSG_ATTR_NONCONTIG, which would be handled by the "else" statement
+> also modified by this patch. Thus, I thought that reaching
+> translate_noncontig with buf_ptr == NULL would always be an error.
+> 
+> But re-reading the commit message and from both your answers it is not
+> the case: a "Null memory reference" is allowed with
+> OPTEE_MSG_ATTR_NONCONTIG set too.
+> 
+> Thus, I have no further comments and the improvements on the in-code
+> comment could be done on commit.
 
-I will write a patch for it.
+Good :). IIRC Paul gave a provisional RaB for this series. @Paul, now 
+that we are settled, could we get a formal one?
 
 Cheers,
 
