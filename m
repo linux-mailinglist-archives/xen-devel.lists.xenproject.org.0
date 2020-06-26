@@ -2,60 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E438B20BAD1
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 22:58:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF4D20BCFE
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Jun 2020 01:03:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jovQI-0000jC-Kg; Fri, 26 Jun 2020 20:58:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1joxMM-0002ay-54; Fri, 26 Jun 2020 23:02:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eduV=AH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jovQH-0000i0-Sg
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 20:58:09 +0000
-X-Inumbo-ID: baa13c38-b7ef-11ea-8316-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id baa13c38-b7ef-11ea-8316-12813bfff9fa;
- Fri, 26 Jun 2020 20:58:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=blaqOsrUapv7t9CpcupWuVeEl/Ia8hxipKskuVNlAlU=; b=y9TuFfzwAGFDWNo6m66H6BNoh
- 5Fn53AAAu3dUNWQ/tBQn9V7WCfR2+m8sVrRorqbJrhkmYW1TXvZZJiiclVxTuMsZ+oOGta3ZeLY7p
- qrH++xTm4DTDLclEB8icAfJ0qHrQ2hXmCxQKwmOL1y/xurDoKwRFwSCSWcXfEbdmbbYg0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jovQB-00058x-Ut; Fri, 26 Jun 2020 20:58:03 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jovQB-0004dH-L9; Fri, 26 Jun 2020 20:58:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jovQB-0002B2-Kd; Fri, 26 Jun 2020 20:58:03 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151385-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=A8Xd=AH=huskydog.org.uk=xen@srs-us1.protection.inumbo.net>)
+ id 1joxMK-0002ap-MX
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 23:02:12 +0000
+X-Inumbo-ID: 111bceb4-b801-11ea-bb8b-bc764e2007e4
+Received: from gordon.huskydog.org.uk (unknown [81.187.95.156])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 111bceb4-b801-11ea-bb8b-bc764e2007e4;
+ Fri, 26 Jun 2020 23:02:11 +0000 (UTC)
+Received: from [10.137.3.12] (percyq.huskydog.org.uk [10.42.42.111])
+ by gordon.huskydog.org.uk (Postfix) with ESMTP id 1D0A72467;
+ Sat, 27 Jun 2020 00:02:10 +0100 (BST)
+Subject: Re: ARM - Successful install on RockPro64
+To: Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <46497134-fb7c-3d1f-6414-539138856480@huskydog.org.uk>
+ <6AB44468-BD6A-4140-B0EF-3D2E5EDC99A0@arm.com>
+ <e0420114-95df-dcaa-8235-7726042c427d@huskydog.org.uk>
+ <8013f2db-3732-0679-81f6-7b274b39c44f@xen.org>
+ <49e5b539-145a-726a-fb80-a93e65e44ca0@huskydog.org.uk>
+ <e786262c-d326-66d0-e3ed-bfb9e6e3bd93@xen.org>
+From: Richard Simpson <xen@huskydog.org.uk>
+Message-ID: <f263006b-20a4-d48e-cfad-f811a1ea408f@huskydog.org.uk>
+Date: Sat, 27 Jun 2020 00:02:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 151385: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=88cfd062e8318dfeb67c7d2eb50b6cd224b0738a
-X-Osstest-Versions-That: xen=40b532fbdcb2095da7152a1d08d9f0288524c223
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 26 Jun 2020 20:58:03 +0000
+In-Reply-To: <e786262c-d326-66d0-e3ed-bfb9e6e3bd93@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,63 +49,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151385 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151385/
+Hello Julien,
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  88cfd062e8318dfeb67c7d2eb50b6cd224b0738a
-baseline version:
- xen                  40b532fbdcb2095da7152a1d08d9f0288524c223
-
-Last test of basis   151380  2020-06-26 14:09:54 Z    0 days
-Testing same since   151385  2020-06-26 18:00:39 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+I also have been busy and unable to reply.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   40b532fbdc..88cfd062e8  88cfd062e8318dfeb67c7d2eb50b6cd224b0738a -> smoke
+On 6/24/20 1:42 PM, Julien Grall wrote:
+>
+>
+> On 17/06/2020 23:28, Richard Simpson wrote:
+>> Hello Julien,
+>
+> Hello Richard,
+>
+> Apologies for the late answer.
+>
+>> I have just tried 4.14-rc2 and it seems to work fine.
+>
+> Glad to hear that. Thank you for the testing!
+>
+>> I think that the most useful page regarding the board is the one for 
+>> the Ibox3399 since this refers to the RK3399 chip which the RockPro64 
+>> uses (shouldn't the page actually be called RK3399 to make it more 
+>> generic).
+>
+> I agree with the renaming here.
+>
+>> Perhaps I can most usefully record what I did by updating that page 
+>> and making sure that the instructions work correctly. If there is 
+>> additional stuff relevant to the RockPro64 over and above the generic 
+>> RK3399 info then I'll give some thought to how to best record it.  I 
+>> will eventually be writing a fuller report on my progress on my blog 
+>> at funfoodfreedom.huskydog.org.uk.
+>
+> Any additional content on the wiki will be greatly appreciated. By 
+> default new wiki account doesn't have write permission, but we can 
+> enable it for you if you provide us your username.
+I now have editor access on the Wiki and have made a small test edit in 
+the hardware section.  I will now try to make other changes as I learn 
+more whilst trying very hard not to break anything!
+>>
+>> I now need to finish automating the boot process (still requires 
+>> manual u-boot command) and figure out how to get the console log to 
+>> work. 
+>
+> I wrote a small u-boot script in the past to try to automate the boot 
+> (see [2]).
+>
+> I vaguely remember some quoting issue and missing 0x in front of 
+> values depending on the U-boot configuration you use. So you may have 
+> to tweak it a bit.
+I now have a boot script that seems to automate the boot OK.  I am sure 
+it could be better and I would like to add a boot menu but these are 
+refinements I can do later.  I will see what I can learn from your example.
+>
+>> Currently I can either see the xen and linux kernel boot messages OR 
+>> see the dom0 console, but not both.
+>
+> Can you provide the kernel/xen command lines you use in the two cases?
+>
+> As an aside, I know that on some setup Linux will try to disable the 
+> clock of the UART used by Xen. One of the symptoms is the UART is 
+> becoming completely unusable half way through Linux boot.
+>
+> You may want to try to pass clk_ignored_unused to see if it helps.
+I still haven't fixed the boot message problem but I got very confused 
+about what changes were having which effect.  Hopefully this weekend I 
+will systematically try the various xen and Linux options and produce a 
+table of what the effect is each time.  I'll also try your clk_ignored 
+suggestion.  If I don't find a working combination then I'll post a 
+question and I guess this should be on the users list rather than this one.
+>
+>> On one more related note:  I suspect that Xen would run on the 
+>> PineBookPro as well as I get the impression that it uses very similar 
+>> hardware.  Of course that would rely on the GPU etc which I haven't 
+>> tested at all as I am using the serial console.
+> I wouldn't expect any issue to use the GPU in dom0 at least if you 
+> don't have an IOMMU on the platform. The trouble may be more with the 
+> bootloader if it doesn't drop you in hypervisor mode.
+>
+>>
+>> Finally, when I joined this mailing list I asked for a daily digest. 
+>> However I seem to be getting a new digest every hour or so.  Is this 
+>> right?
+>
+> I haven't used the digest myself. I CC Ian Jackson who may be able to 
+> help you.
+>
+> Cheers,
+>
+> [2] https://xenbits.xen.org/people/julieng/load-xen-tftp.scr.txt
+>
 
