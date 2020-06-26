@@ -2,79 +2,148 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC69B20B498
+	by mail.lfdr.de (Postfix) with ESMTPS id AE34420B499
 	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 17:33:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joqLX-0006V7-3p; Fri, 26 Jun 2020 15:32:55 +0000
+	id 1joqLb-0006VL-C3; Fri, 26 Jun 2020 15:32:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WZnf=AH=redhat.com=mst@srs-us1.protection.inumbo.net>)
- id 1joqLV-0006V2-ET
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 15:32:53 +0000
-X-Inumbo-ID: 4b95307e-b7c2-11ea-bb8b-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 4b95307e-b7c2-11ea-bb8b-bc764e2007e4;
- Fri, 26 Jun 2020 15:32:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593185570;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=RTWe4soL1srkDL8PEEfq928W6GWa5t1pS8aCmfU8LHE=;
- b=NWi7+XgbhSCSK/wUfpqjFdV1YJFwxlJVxR/Myy/rufNo6jwZ5OZNxhsUv4yrvVQH8JtLx4
- alR3Jm0vQgOXdc98glkWdTOP6Kt0ma7joFXjZQcoH8SizrS481WnGA6huSziR/aGfNIxkN
- Y/z8ohnJKJXXSXjvxTOggDRu+gid3ng=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-321-pC9Pyyy7MDugmDxvhj-VYw-1; Fri, 26 Jun 2020 11:32:48 -0400
-X-MC-Unique: pC9Pyyy7MDugmDxvhj-VYw-1
-Received: by mail-wm1-f71.google.com with SMTP id v24so11736402wmh.3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2020 08:32:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=RTWe4soL1srkDL8PEEfq928W6GWa5t1pS8aCmfU8LHE=;
- b=sp98Xf8wl89+oimxBAtLhZ/SASjSJZBg92IrtaiL74U+WqZ+3fZ4CzwZiCP8BTVvfm
- YEUsSKAMfXlyVDovOtKjitRQrfLNYnDCBjO2qSg3EKG+vKzzGH1YY5B3LHIuom7REC5+
- draqtlNTmbDXv4W61qyZTUggM8oDDXTPtETDS4YqvBERAVH3UgvG2FXsnkLSAKfihNt8
- PeCu+rLADJgDLDq9qhDcnBj5OElqesreElm98MbVSI0zlaDRzFY2OUOFKEA253lgCIvq
- Tc5+4ljSSV8RWpVAqZuqel2xzW9i6of3yN7+5hq+IL5pheuCYGnqtJEBHDt2ry2miNKw
- qXMQ==
-X-Gm-Message-State: AOAM533w5xF6hQTBeXZBhsLTDVsJ60eigPUGzkCqsbAyoZZudi1Vhqyi
- EkjwOsdY3+UlxJrsoAVhxgLuU/yQxG8rCdF9cOKTUArXDAVzELG1j3jiTXDXc6Sstpo4aoAaKtC
- N2UHv42aOv/l/oNTeuJZN1fHbV1o=
-X-Received: by 2002:a5d:55cb:: with SMTP id i11mr4167955wrw.28.1593185566631; 
- Fri, 26 Jun 2020 08:32:46 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzKcm6jtqvubhG72TQoDWqW1duiFh/JDhCCKL54qZ+AftyQ9QDCAEubqgx6Fkb+6w/6lcA4Aw==
-X-Received: by 2002:a5d:55cb:: with SMTP id i11mr4167932wrw.28.1593185566346; 
- Fri, 26 Jun 2020 08:32:46 -0700 (PDT)
-Received: from redhat.com (bzq-79-182-31-92.red.bezeqint.net. [79.182.31.92])
- by smtp.gmail.com with ESMTPSA id
- 65sm18427582wma.48.2020.06.26.08.32.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2020 08:32:45 -0700 (PDT)
-Date: Fri, 26 Jun 2020 11:32:41 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] xen: introduce xen_vring_use_dma
-Message-ID: <20200626110629-mutt-send-email-mst@kernel.org>
-References: <20200624091732.23944-1-peng.fan@nxp.com>
- <20200624050355-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241047010.8121@sstabellini-ThinkPad-T480s>
- <20200624163940-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241351430.8121@sstabellini-ThinkPad-T480s>
- <20200624181026-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006251014230.8121@sstabellini-ThinkPad-T480s>
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NbdA=AH=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1joqLa-0006V2-8x
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 15:32:58 +0000
+X-Inumbo-ID: 4d41e4ee-b7c2-11ea-bb8b-bc764e2007e4
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.107.3.58]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4d41e4ee-b7c2-11ea-bb8b-bc764e2007e4;
+ Fri, 26 Jun 2020 15:32:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0mj838u9ouUx0Gl/m9ATFQDzRi6gcd/SQw8RLH6xw2U=;
+ b=WbNorJr5LRjfG7mYpQK5L4JDt2oqndO8v7zRPhDXWe++Ev4FTZvmPlnpbFfawdL6B1hjI5dyaQhHVGiWNAkMgOzjEoMqt7a1xtgUEoYwufTkIAS3HHhZ1k+TrS+LB/ijinWlEZIlRGsuMFqd348EI8L5mNt3YdVKLG07g4vPL84=
+Received: from DB3PR08CA0020.eurprd08.prod.outlook.com (2603:10a6:8::33) by
+ DB6PR0801MB2008.eurprd08.prod.outlook.com (2603:10a6:4:77::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3131.21; Fri, 26 Jun 2020 15:32:52 +0000
+Received: from DB5EUR03FT048.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:8:0:cafe::3a) by DB3PR08CA0020.outlook.office365.com
+ (2603:10a6:8::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.21 via Frontend
+ Transport; Fri, 26 Jun 2020 15:32:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
+ dmarc=bestguesspass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT048.mail.protection.outlook.com (10.152.21.28) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3131.20 via Frontend Transport; Fri, 26 Jun 2020 15:32:52 +0000
+Received: ("Tessian outbound 1e00bf306733:v60");
+ Fri, 26 Jun 2020 15:32:52 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 1e4ac0d027b81c41
+X-CR-MTA-TID: 64aa7808
+Received: from 5779f0dc0236.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 8CA2335C-68CC-4D9E-A275-FBACBC9EB87B.1; 
+ Fri, 26 Jun 2020 15:32:47 +0000
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 5779f0dc0236.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 26 Jun 2020 15:32:47 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l+AyDN8GdwN8/e2yb0KntjUfxJkjzn7tl00eeIrkPK/EJn48IdcUO6oooMWLL+YBT+77jp5M/IJMxVTXEBuUd4ZMSu1e+5o50HStmhG8YNuDmBVGmz2rgN1Jq95xB5IjLt6vVatno8vEqk8g83LQ2aer1Hy/2Xrh7oIxIKFIfWYxOLNmV3fYXGKmKNgtMpaHp2u62pMAyO//2sD5f3a+0me7ez0DCZM2LL1so39Qmad1OLaGI6DTFr6n2zwIZMJ7Bjfpk0LsbC5hy4Xn0Fwr8zulVdgjtG0RIbX4yznL+x8XEavJG7Z6IN3Wc6CoW1ncFChIYq2bIhYh/kXsZ8up3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0mj838u9ouUx0Gl/m9ATFQDzRi6gcd/SQw8RLH6xw2U=;
+ b=U+00w6qcfyqms4uXPoOWzWcy1aj0GIN8DAQrAkYwtHWgz/pqwcmBP4I4NpX+5rkC4eFS/SN1Eo3jzJ0N7B5bd4ruaHtQh08pDz+BNY1HjZ7bVWjF40tD614s284YAIiNK+h1fcjR7BO6Ml1BtRii8GKl8dxbcKilCAFPzQguDd/GpI9M2nu4xdymXMVTu7HDaekw7c4m4MBRACt+pI+zstRm39aQ2n0/2/NBOexmLXRDZToZDJ+OVh7ZKKoImqyaNjaoGsp0YcDB0AidrXzLVhrAVcMWCsEgS9oQjWF9SU8Eu8EPxhi+2d+HzRu7Is5BUaiVw9YGVMwojEw8XGJ47g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0mj838u9ouUx0Gl/m9ATFQDzRi6gcd/SQw8RLH6xw2U=;
+ b=WbNorJr5LRjfG7mYpQK5L4JDt2oqndO8v7zRPhDXWe++Ev4FTZvmPlnpbFfawdL6B1hjI5dyaQhHVGiWNAkMgOzjEoMqt7a1xtgUEoYwufTkIAS3HHhZ1k+TrS+LB/ijinWlEZIlRGsuMFqd348EI8L5mNt3YdVKLG07g4vPL84=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DB6PR0801MB1798.eurprd08.prod.outlook.com (2603:10a6:4:3c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Fri, 26 Jun
+ 2020 15:32:45 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::4001:43ad:d113:46a8]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::4001:43ad:d113:46a8%5]) with mapi id 15.20.3131.023; Fri, 26 Jun 2020
+ 15:32:44 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] build: tweak variable exporting for make 3.82
+Thread-Topic: [PATCH] build: tweak variable exporting for make 3.82
+Thread-Index: AQHWS8ssTlAGR1rYpUSLc7qQddQ2bajrBnwA
+Date: Fri, 26 Jun 2020 15:32:44 +0000
+Message-ID: <7736F1FB-A564-419A-9F49-8860502C5A2A@arm.com>
+References: <0677fe2a-9ea1-7b3c-e212-4a2478537459@suse.com>
+In-Reply-To: <0677fe2a-9ea1-7b3c-e212-4a2478537459@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Authentication-Results-Original: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [82.24.250.194]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 6acf955d-b15c-49b8-790c-08d819e630be
+x-ms-traffictypediagnostic: DB6PR0801MB1798:|DB6PR0801MB2008:
+X-Microsoft-Antispam-PRVS: <DB6PR0801MB20082FCF4556DCA2453EDCE79D930@DB6PR0801MB2008.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:9508;OLM:9508;
+x-forefront-prvs: 0446F0FCE1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: jlzQ2NVkD2MJhqiqbaUm4Mtsn2lSU3WeabJ48aajCURQOfb0Qd3Jyh9ZV7VGffW8xRXlyRbof6KAx1c+f1aeKiNfSmXQtBl5J5Hv9HoFJ2jqZW0jdaYHQT3rS09jvhMlrzc2aKkuecJ1vZiZAMl0j5soLbLUmXRbzxJVYi8bVNucvM6TB/LNaUEHOXAmAx9dHSGZpOST8PABgFirGXvKQCvuqV4qQatpwa5cEvFZF/WYjLLXQXYCEa5h9pNT0CT9W/t/VA4Clnvy2FFU8v/w8KWbGNn+8hnDZCKb6zqaRNy/RG1xLvMP74VnLJ2UIGK7SkP9x17QWQLddUKFJk8/2A==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DB7PR08MB3689.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE; SFTY:;
+ SFS:(4636009)(366004)(396003)(376002)(346002)(136003)(39860400002)(54906003)(66556008)(66446008)(64756008)(86362001)(91956017)(76116006)(71200400001)(66946007)(6512007)(66476007)(316002)(6486002)(53546011)(2616005)(6506007)(26005)(4326008)(186003)(6916009)(7416002)(36756003)(478600001)(5660300002)(2906002)(8936002)(8676002)(33656002)(83380400001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: uc6EZ5ovZg5Cj0VElH2JaCexdIHzyAN+cUVmtTEBGOuH365fhxNtz6aL2EUAiYEftSA6lsMo1P8SSoFvzy4jz+VcNhZdyqp/XjOt4YHKscxIXiRWj1RT5DudW6j+5LgflCchCfrU5/GKSEY+Ay2KoBqd9VhOLXqkzPj3ZsG3fykq4veSk5V/EUB90sSzedx0/+E+S3HImovy+7htvd+R7VrSYQRIbbbAkdy9maOykNc7lQeRrCi3fFjSfFloaBsjIIz01tp4LckdnjUQiw1XjdyBtTaZosL3ow+jzS7kPsxffcImW97HtsFn4SEkslyJ+tPu2Z0W24oAmn1JNr0QSreN/iNZ6Z96/Wr5zFtfMCVlCoPjlmTjHAVkSlA3crKCCgFC7CtZbiPwuctnah6HwXTAD7flxwaVwKPRagSKBBNswAJdYvDMBHGgiP11R9bO1v8eaAraBNjfNVr2vkQ9LO76QJB3whQ2Yk4oiyd9IHM=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <9027C811AA7D764BBCFD0BABD16A12B8@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2006251014230.8121@sstabellini-ThinkPad-T480s>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1798
+Original-Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5EUR03FT048.eop-EUR03.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
+ PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE; SFTY:;
+ SFS:(4636009)(136003)(39860400002)(346002)(396003)(376002)(46966005)(82740400003)(81166007)(53546011)(8936002)(6506007)(2906002)(316002)(70206006)(33656002)(70586007)(83380400001)(4326008)(2616005)(186003)(26005)(6862004)(54906003)(86362001)(47076004)(336012)(6512007)(36756003)(6486002)(356005)(8676002)(82310400002)(5660300002)(478600001);
+ DIR:OUT; SFP:1101; 
+X-MS-Office365-Filtering-Correlation-Id-Prvs: f63ee55c-4741-4852-4d08-08d819e62c53
+X-Forefront-PRVS: 0446F0FCE1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fXL9HINAnQpNiga49XSnRHaorMokk9IwcrgalnOA10nIIh8NmI9jxSD5KZqIMcFO+usUbYrqkL931cLl5syTsG6EGW1nFhvS6IfvpODGcQh4sUiV4dzQLpQiB5XRAnKLZa/+b/qG3vn/3NMAHkT8HmiHtWjDKUvSH5DR8pR83pwUO10qYrabd6Y63DCja5qcpKdpAOMIGwEntsc+iCQVcsfUrurAWh+z7wp1w1oLC8OHpfNN7WHL5RuyP9Gv2BAMjf7hl7/HL+3PgZ/Os1eQVRG4ltBRfS+CD1vQ23fD6NKiQc6+ovUO32Em7I/wqiIU5/hRTx+RP4UOdqK/qMzDjVCH/CFvz5MRk9akitiorPxeIpHQULA0wHSKU/C0N8K+cdqNj8IpWcSbt2HXj3yZMA==
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2020 15:32:52.3816 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6acf955d-b15c-49b8-790c-08d819e630be
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
+ Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5EUR03FT048.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB2008
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,144 +154,74 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>, konrad.wilk@oracle.com,
- jasowang@redhat.com, x86@kernel.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, iommu@lists.linux-foundation.org,
- linux-imx@nxp.com, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ nd <nd@arm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Jun 25, 2020 at 10:31:27AM -0700, Stefano Stabellini wrote:
-> On Wed, 24 Jun 2020, Michael S. Tsirkin wrote:
-> > On Wed, Jun 24, 2020 at 02:53:54PM -0700, Stefano Stabellini wrote:
-> > > On Wed, 24 Jun 2020, Michael S. Tsirkin wrote:
-> > > > On Wed, Jun 24, 2020 at 10:59:47AM -0700, Stefano Stabellini wrote:
-> > > > > On Wed, 24 Jun 2020, Michael S. Tsirkin wrote:
-> > > > > > On Wed, Jun 24, 2020 at 05:17:32PM +0800, Peng Fan wrote:
-> > > > > > > Export xen_swiotlb for all platforms using xen swiotlb
-> > > > > > > 
-> > > > > > > Use xen_swiotlb to determine when vring should use dma APIs to map the
-> > > > > > > ring: when xen_swiotlb is enabled the dma API is required. When it is
-> > > > > > > disabled, it is not required.
-> > > > > > > 
-> > > > > > > Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> > > > > > 
-> > > > > > Isn't there some way to use VIRTIO_F_IOMMU_PLATFORM for this?
-> > > > > > Xen was there first, but everyone else is using that now.
-> > > > > 
-> > > > > Unfortunately it is complicated and it is not related to
-> > > > > VIRTIO_F_IOMMU_PLATFORM :-(
-> > > > > 
-> > > > > 
-> > > > > The Xen subsystem in Linux uses dma_ops via swiotlb_xen to translate
-> > > > > foreign mappings (memory coming from other VMs) to physical addresses.
-> > > > > On x86, it also uses dma_ops to translate Linux's idea of a physical
-> > > > > address into a real physical address (this is unneeded on ARM.)
-> > > > > 
-> > > > > 
-> > > > > So regardless of VIRTIO_F_IOMMU_PLATFORM, dma_ops should be used on Xen/x86
-> > > > > always and on Xen/ARM if Linux is Dom0 (because it has foreign
-> > > > > mappings.) That is why we have the if (xen_domain) return true; in
-> > > > > vring_use_dma_api.
-> > > > 
-> > > > VIRTIO_F_IOMMU_PLATFORM makes guest always use DMA ops.
-> > > > 
-> > > > Xen hack predates VIRTIO_F_IOMMU_PLATFORM so it *also*
-> > > > forces DMA ops even if VIRTIO_F_IOMMU_PLATFORM is clear.
-> > > >
-> > > > Unfortunately as a result Xen never got around to
-> > > > properly setting VIRTIO_F_IOMMU_PLATFORM.
-> > > 
-> > > I don't think VIRTIO_F_IOMMU_PLATFORM would be correct for this because
-> > > the usage of swiotlb_xen is not a property of virtio,
-> > 
-> > 
-> > Basically any device without VIRTIO_F_ACCESS_PLATFORM
-> > (that is it's name in latest virtio spec, VIRTIO_F_IOMMU_PLATFORM is
-> > what linux calls it) is declared as "special, don't follow normal rules
-> > for access".
-> > 
-> > So yes swiotlb_xen is not a property of virtio, but what *is* a property
-> > of virtio is that it's not special, just a regular device from DMA POV.
-> 
-> I am trying to understand what you meant but I think I am missing
-> something.
-> 
-> Are you saying that modern virtio should always have
-> VIRTIO_F_ACCESS_PLATFORM, hence use normal dma_ops as any other devices?
+Hi Jan,
 
-I am saying it's a safe default. Clear VIRTIO_F_ACCESS_PLATFORM if you
-have some special needs e.g. you are very sure it's ok to bypass DMA
-ops, or you need to support a legacy guest (produced in the window
-between virtio 1 support in 2014 and support for
-VIRTIO_F_ACCESS_PLATFORM in 2016).
+> On 26 Jun 2020, at 16:02, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> While I've been running into an issue here only because of an additional
+> local change I'm carrying, to be able to override just the compiler in
+> $(XEN_ROOT)/.config (rather than the whole tool chain), in
+> config/StdGNU.mk:
+>=20
+> ifeq ($(filter-out default undefined,$(origin CC)),)
+>=20
+> I'd like to propose to nevertheless correct the underlying issue:
+> Exporting an unset variable changes its origin from "undefined" to
+> "file". This comes into effect because of our adding of -rR to
+> MAKEFLAGS, which make 3.82 wrongly applies also upon re-invoking itself
+> after having updated auto.conf{,.cmd}.
+>=20
+> Move the export statement past $(XEN_ROOT)/config/$(XEN_OS).mk inclusion
+> such that the variables already have their designated values at that
+> point, while retaining their initial origin up to the point they get
+> defined.
 
+If I understand correctly you actually need this to be after=20
+include $(XEN_ROOT)/Config.mk
 
-> If that is the case, how is it possible that virtio breaks on ARM using
-> the default dma_ops? The breakage is not Xen related (except that Xen
-> turns dma_ops on). The original message from Peng was:
-> 
->   vring_map_one_sg -> vring_use_dma_api
->                    -> dma_map_page
->   		       -> __swiotlb_map_page
->   		                ->swiotlb_map_page
->   				->__dma_map_area(phys_to_virt(dma_to_phys(dev, dev_addr)), size, dir);
->   However we are using per device dma area for rpmsg, phys_to_virt
->   could not return a correct virtual address for virtual address in
->   vmalloc area. Then kernel panic.
-> 
-> I must be missing something. Maybe it is because it has to do with RPMesg?
+Which actually includes the .config and the StdGNU.mk
+Maybe you could say this as $(XEN_ROOT)/config/$(XEN_OS).mk is not actually=
+ included directly in the Makefile itself ?
 
-I think it's an RPMesg bug, yes.
+I tested the patch and it works on arm and x86 on my side.
 
-> 
-> > > > > You might have noticed that I missed one possible case above: Xen/ARM
-> > > > > DomU :-)
-> > > > > 
-> > > > > Xen/ARM domUs don't need swiotlb_xen, it is not even initialized. So if
-> > > > > (xen_domain) return true; would give the wrong answer in that case.
-> > > > > Linux would end up calling the "normal" dma_ops, not swiotlb-xen, and
-> > > > > the "normal" dma_ops fail.
-> > > > > 
-> > > > > 
-> > > > > The solution I suggested was to make the check in vring_use_dma_api more
-> > > > > flexible by returning true if the swiotlb_xen is supposed to be used,
-> > > > > not in general for all Xen domains, because that is what the check was
-> > > > > really meant to do.
-> > > > 
-> > > > Why not fix DMA ops so they DTRT (nop) on Xen/ARM DomU? What is wrong with that?
-> > > 
-> > > swiotlb-xen is not used on Xen/ARM DomU, the default dma_ops are the
-> > > ones that are used. So you are saying, why don't we fix the default
-> > > dma_ops to work with virtio?
-> > > 
-> > > It is bad that the default dma_ops crash with virtio, so yes I think it
-> > > would be good to fix that. However, even if we fixed that, the if
-> > > (xen_domain()) check in vring_use_dma_api is still a problem.
-> > 
-> > Why is it a problem? It just makes virtio use DMA API.
-> > If that in turn works, problem solved.
-> 
-> You are correct in the sense that it would work. However I do think it
-> is wrong for vring_use_dma_api to enable dma_ops/swiotlb-xen for Xen/ARM
-> DomUs that don't need it. There are many different types of Xen guests,
-> Xen x86 is drastically different from Xen ARM, it seems wrong to treat
-> them the same way.
+>=20
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Tested-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-I could imagine some future Xen hosts setting a flag somewhere in the
-platform capability saying "no xen specific flag, rely on
-"VIRTIO_F_ACCESS_PLATFORM". Then you set that accordingly in QEMU.
-How about that?
-
-
-> 
-> 
-> Anyway, re-reading the last messages of the original thread [1], it
-> looks like Peng had a clear idea on how to fix the general issue. Peng,
-> what happened with that?
-> 
-> 
-> [1] https://lore.kernel.org/patchwork/patch/1033801/#1222404
+>=20
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -17,8 +17,6 @@ export XEN_BUILD_HOST	?=3D $(shell hostnam
+> PYTHON_INTERPRETER	:=3D $(word 1,$(shell which python3 python python2 2>/=
+dev/null) python)
+> export PYTHON		?=3D $(PYTHON_INTERPRETER)
+>=20
+> -export CC CXX LD
+> -
+> export BASEDIR :=3D $(CURDIR)
+> export XEN_ROOT :=3D $(BASEDIR)/..
+>=20
+> @@ -42,6 +40,8 @@ export TARGET_ARCH     :=3D $(shell echo $
+> # Allow someone to change their config file
+> export KCONFIG_CONFIG ?=3D .config
+>=20
+> +export CC CXX LD
+> +
+> .PHONY: default
+> default: build
+>=20
+>=20
 
 
