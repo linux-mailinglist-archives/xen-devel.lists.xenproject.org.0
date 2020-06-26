@@ -2,76 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8379420B25D
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 15:21:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2C8F20B262
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 15:22:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jooI4-0002bD-ST; Fri, 26 Jun 2020 13:21:12 +0000
+	id 1jooIq-0002f9-AF; Fri, 26 Jun 2020 13:22:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HPqg=AH=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jooI3-0002b8-3c
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 13:21:11 +0000
-X-Inumbo-ID: e644d10a-b7af-11ea-8496-bc764e2007e4
-Received: from mail-ej1-x642.google.com (unknown [2a00:1450:4864:20::642])
+ id 1jooIp-0002f3-7n
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 13:21:59 +0000
+X-Inumbo-ID: 02bca416-b7b0-11ea-bca7-bc764e2007e4
+Received: from mail-ej1-x635.google.com (unknown [2a00:1450:4864:20::635])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e644d10a-b7af-11ea-8496-bc764e2007e4;
- Fri, 26 Jun 2020 13:21:10 +0000 (UTC)
-Received: by mail-ej1-x642.google.com with SMTP id w6so9358561ejq.6
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2020 06:21:10 -0700 (PDT)
+ id 02bca416-b7b0-11ea-bca7-bc764e2007e4;
+ Fri, 26 Jun 2020 13:21:58 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id a1so9326719ejg.12
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2020 06:21:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=/glpYqJjB3H2gbyEz5BKgq+AYHbboaAwV4vLceAFtB4=;
- b=vAGlhYEvJ7e7GUl4o+gtTlD/9/x9CXnRaO34qvwE7B+SEMDFHxP+w/5wJPHP1etBaG
- TL/5rQkf0CTPZygYItAjWYNKzG9ETo1fjcn6LPHc8igHNBn+fjzXVxc09oFc4x0JVBVf
- IhkKyyHdbe5Q1vaTv3e/0KAA+fWkZX1PjJHiNE+ipQKX39YdUuDxiB7eyLYsHtsVri3V
- D5hRvYztim6i6yHpwJdTqwNPC2cKfqpvx9ETS57aO+tji0HA68M6we7eEnE0GLtCpZ9X
- TivDy3ly+fr88iQAn6l2lpjBJLp/LbnfQAsWgo5r4sgcoL6Vsf5B8sIKuwzN84K5zV5G
- Wkxw==
+ :thread-index; bh=35nElVfO4ruHe/my6OtnItaNY19Zq7OZe2sq8RVEalA=;
+ b=b9Q7/sDzyTSOfvmKO2nLSsd19jiQxMb9W6PcT7xVJG2j2pTPdQuwBCOoaYtS0yVdDL
+ tjC8NlkDeBmx3L0p97lu/sp3iw1r/lJHgU2+kqYCSBmVHfd7XBnhIiiQxwOLb7Uo1yv3
+ b7LJZ0dJHvMQUmOWanKOyWnCaYGmW8kTnuqHqQ/axyhca6FHPg61B9KiClpO37x4ZifD
+ c5/YwsqDELmlEc54ykYCeAtKnNJsO9HDpMJEuv6ZIOMLdr5Mohx+xMQWlIaywNtZNDZu
+ qXdo0ma0whoHqahnyysiGjBUTECvYU1d76YIQMlgZrMKGMkXtPgzUbs8oTdhqkpX3r8D
+ mUbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :content-language:thread-index;
- bh=/glpYqJjB3H2gbyEz5BKgq+AYHbboaAwV4vLceAFtB4=;
- b=ZWCIt8YxfhdzEuG3qsnRXZex5vnRzS3+gOmqbrPkRc3ncaAvVqLgOUp7yLLJuAlmca
- 0VIB7Gz4+xqPedoZY6vh4A4U/XkpItJ/UbaaANu/9CfLBSdsWkslsktdLk4MSpqygWoX
- US3+eV9v4RaiKR6cyNIMLk/yK0ztLbbW+eLndb95dGR0TnuQbbatGy5YKEZSjEci44iU
- 8Zhz3L/wwDualLEiHyMedzGjq0vju20PbLdOv3nn7QnL+x0W78Isq5HOSUyP6ofWLLvZ
- 892ZIKBsr7ZVUjIzo72ptxu1IDjwqWRx9RRyHWZcE+Lj4d7hjagmXXQxMHA0IhH38b6p
- pZew==
-X-Gm-Message-State: AOAM530Ue+dHiducBX/IllBStdj6OPUlUum5eINskh4s9g7DgTwiQWYF
- 78BDPLTanBQY3khuWTq5u+s=
-X-Google-Smtp-Source: ABdhPJytLH5i9SYvmviv3AECVdSnQPng3uZgGMAFtlWiHOD3uqyTvmxsscxR6SW1SzoYh74iSM9+Lg==
-X-Received: by 2002:a17:906:c53:: with SMTP id
- t19mr2677866ejf.143.1593177669527; 
- Fri, 26 Jun 2020 06:21:09 -0700 (PDT)
+ bh=35nElVfO4ruHe/my6OtnItaNY19Zq7OZe2sq8RVEalA=;
+ b=g4MozpBTmsvqXab9/zjHNO3GrsFWn19TnGOM5YzodrPV3DcCreXI7MJ/c46byVuMBy
+ otmhjI7hs3NUSZ6CUzrxiTUJDbRe35OU5h6/nwLuokng6163zASa7ryBQrH7f/LzJ7LJ
+ /KbWsXVW3jg1TaD1axcSxbYEkMkrAt16EfZLcpArXpTh9Gnt8RuJ2HK+tiAAyqt05wAG
+ Lt9Wgbj+ErbwUtzdgnzvPYtaWbcgSug9z5mSDexVefvU3bTlIqBHECg1W8Z188MuoeoQ
+ 8lHaMngmXDBy5s3+ZovNd6vrA0BikRFxfhPLwMolskYzDNybiisCkIFDdj972Fcrhd2k
+ LF8Q==
+X-Gm-Message-State: AOAM531VV2QZj7vIa+AYJ/WqnZfC/CtNgKy3eRCjfcDGQayTrvnz8AgG
+ +gDV8WXgZ7+uM8ZoeKoz+1g=
+X-Google-Smtp-Source: ABdhPJwKed8mGY3+lJBzy831qAcDxGDZNnONnWWAIIyVanWbqwreTXOLPZ93/1rmppbN2vQUrUPp5Q==
+X-Received: by 2002:a17:907:b03:: with SMTP id
+ h3mr2665047ejl.367.1593177717324; 
+ Fri, 26 Jun 2020 06:21:57 -0700 (PDT)
 Received: from CBGR90WXYV0 (54-240-197-236.amazon.com. [54.240.197.236])
- by smtp.gmail.com with ESMTPSA id f17sm6806116ejr.71.2020.06.26.06.21.08
+ by smtp.gmail.com with ESMTPSA id bz14sm18770473ejc.100.2020.06.26.06.21.56
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 26 Jun 2020 06:21:09 -0700 (PDT)
+ Fri, 26 Jun 2020 06:21:56 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
 To: "'Jan Beulich'" <jbeulich@suse.com>,
- =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
  "'Andrew Cooper'" <andrew.cooper3@citrix.com>
-References: <20200625113041.81507-1-roger.pau@citrix.com>
- <551387c6-f45d-bf6c-a41e-b0920425db9f@xen.org>
- <20200626100745.GB735@Air-de-Roger>
- <5586cae5-8929-0c53-7a35-5dd6116c77c2@suse.com>
-In-Reply-To: <5586cae5-8929-0c53-7a35-5dd6116c77c2@suse.com>
-Subject: RE: [PATCH for-4.14 v3] x86/tlb: fix assisted flush usage
-Date: Fri, 26 Jun 2020 14:21:07 +0100
-Message-ID: <000b01d64bbc$a7822f30$f6868d90$@xen.org>
+References: <20200626122408.19151-1-andrew.cooper3@citrix.com>
+ <af00d3ae-eba1-43dd-f8b7-d800e53c197b@suse.com>
+In-Reply-To: <af00d3ae-eba1-43dd-f8b7-d800e53c197b@suse.com>
+Subject: RE: [PATCH v2 for-4.14] x86/livepatch: Make livepatching compatible
+ with CET Shadow Stacks
+Date: Fri, 26 Jun 2020 14:21:55 +0100
+Message-ID: <000c01d64bbc$c3f75730$4be60590$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: en-gb
-Thread-Index: AQNtfAT0oM7SsXX048OvW1r6oGCP7gGm0OfKAaiO/jIBsc/uaKWUdwhA
+Thread-Index: AQFni0xM86WbiVrPLWulsmYIT6MTPgHnaHqAqbknfuA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,92 +81,59 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>
+Cc: 'Wei Liu' <wl@xen.org>, 'Konrad Rzeszutek Wilk' <konrad.wilk@oracle.com>,
+ 'Ross Lagerwall' <ross.lagerwall@citrix.com>,
+ 'Pawel Wieczorkiewicz' <wipawel@amazon.de>,
+ 'Xen-devel' <xen-devel@lists.xenproject.org>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
 > From: Jan Beulich <jbeulich@suse.com>
-> Sent: 26 June 2020 14:11
-> To: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>; paul@xen.org; Andrew =
-Cooper <andrew.cooper3@citrix.com>
-> Cc: Julien Grall <julien@xen.org>; xen-devel@lists.xenproject.org; Wei =
-Liu <wl@xen.org>; George Dunlap
-> <george.dunlap@citrix.com>; Ian Jackson <ian.jackson@eu.citrix.com>; =
-Stefano Stabellini
-> <sstabellini@kernel.org>; Volodymyr Babchuk =
-<Volodymyr_Babchuk@epam.com>
-> Subject: Re: [PATCH for-4.14 v3] x86/tlb: fix assisted flush usage
+> Sent: 26 June 2020 14:15
+> To: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Xen-devel <xen-devel@lists.xenproject.org>; Wei Liu <wl@xen.org>; =
+Roger Pau Monn=C3=A9
+> <roger.pau@citrix.com>; Konrad Rzeszutek Wilk =
+<konrad.wilk@oracle.com>; Ross Lagerwall
+> <ross.lagerwall@citrix.com>; Pawel Wieczorkiewicz <wipawel@amazon.de>; =
+Paul Durrant <paul@xen.org>
+> Subject: Re: [PATCH v2 for-4.14] x86/livepatch: Make livepatching =
+compatible with CET Shadow Stacks
 >=20
-> On 26.06.2020 12:07, Roger Pau Monn=C3=A9 wrote:
-> > On Fri, Jun 26, 2020 at 10:38:11AM +0100, Julien Grall wrote:
-> >> Hi Roger,
-> >>
-> >> Sorry I didn't manage to answer to your question before you sent =
-v3.
-> >>
-> >> On 25/06/2020 12:30, Roger Pau Monne wrote:
-> >>> diff --git a/xen/include/asm-arm/flushtlb.h =
-b/xen/include/asm-arm/flushtlb.h
-> >>> index ab1aae5c90..7ae0543885 100644
-> >>> --- a/xen/include/asm-arm/flushtlb.h
-> >>> +++ b/xen/include/asm-arm/flushtlb.h
-> >>> @@ -27,6 +27,7 @@ static inline void =
-page_set_tlbflush_timestamp(struct page_info *page)
-> >>>   /* Flush specified CPUs' TLBs */
-> >>>   void flush_tlb_mask(const cpumask_t *mask);
-> >>> +#define flush_tlb_mask_sync flush_tlb_mask
-> >>
-> >> Dropping the parameter 'sync' from filtered_flush_tlb_mask() is a =
-nice
-> >> improvement, but it unfortunately doesn't fully address my concern.
-> >>
-> >> After this patch there is exactly one use of flush_tlb_mask() in =
-common code
-> >> (see grant_table.c). But without looking at the x86 code, it is not =
-clear
-> >> why this requires a different flush compare to the two other sites.
+> On 26.06.2020 14:24, Andrew Cooper wrote:
+> > Just like the alternatives infrastructure, the livepatch =
+infrastructure
+> > disables CR0.WP to perform patching, which is not permitted with CET =
+active.
 > >
-> > It's not dealing with page allocation or page type changes directly,
-> > and hence doesn't need to use an IPI in order to prevent races with
-> > spurious_page_fault.
+> > Modify arch_livepatch_{quiesce,revive}() to disable CET before =
+disabling WP,
+> > and reset the dirty bits on all virtual regions before re-enabling =
+CET.
 > >
-> >> IOW, if I want to modify the common code in the future, how do I =
-know which
-> >> flush to call?
+> > One complication is that arch_livepatch_revive() has to fix up the =
+top of the
+> > shadow stack.  This depends on the functions not being inlined, even =
+under
+> > LTO.  Another limitation is that reset_virtual_region_perms() may =
+shatter the
+> > final superpage of .text depending on alignment.
 > >
-> > Unless you modify one of the specific areas mentioned above (page
-> > allocation or page type changes) you should use flush_tlb_mask.
-> >
-> > This is not ideal, and my aim will be to be able to use the assisted
-> > flush everywhere if possible, so I would really like to get rid of =
-the
-> > interrupt disabling done in spurious_page_fault and this model where
-> > x86 relies on blocking interrupts in order to prevent page type
-> > changes or page freeing.
-> >
-> > Such change however doesn't feel appropriate for a release freeze
-> > period, and hence went with something smaller that restores the
-> > previous behavior. Another option is to just disable assisted =
-flushes
-> > for the time being and re-enable them when a suitable solution is
-> > found.
+> > This logic, and its downsides, are temporary until the patching =
+infrastructure
+> > can be adjusted to not use CR0.WP.
 >=20
-> As I can understand Julien's concern, maybe this would indeed be
-> the better approach for now? Andrew, Paul - thoughts?
+> In particular on this basis ...
 >=20
+> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>=20
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Julien's concern seems to be about long term usage whereas IIUC this =
-patch does fix the issue at hand, so can we put this patch in now on the =
-basis that Roger will do the re-work described after 4.14 (which I think =
-will address Julien's concern)?
+Release-acked-by: Paul Durrant <paul@xen.org>
 
-  Paul
-
+>=20
 > Jan
 
 
