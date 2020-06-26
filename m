@@ -2,59 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13B820B0EF
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 13:53:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0056920B10B
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 13:56:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jomub-0002qi-GT; Fri, 26 Jun 2020 11:52:53 +0000
+	id 1jomyC-00030W-1M; Fri, 26 Jun 2020 11:56:36 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=azve=AH=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jomuZ-0002qd-RJ
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 11:52:51 +0000
-X-Inumbo-ID: 8f78cd42-b7a3-11ea-82a7-12813bfff9fa
-Received: from mail-wr1-f66.google.com (unknown [209.85.221.66])
+ <SRS0=b3dG=AH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jomyA-00030R-PJ
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 11:56:34 +0000
+X-Inumbo-ID: 145e7dae-b7a4-11ea-82a7-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8f78cd42-b7a3-11ea-82a7-12813bfff9fa;
- Fri, 26 Jun 2020 11:52:50 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id a6so9222377wrm.4
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2020 04:52:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=EkhxY+ao3nRfJJXmQYt+sSP5pxPXEoEkVsAek7Jpfco=;
- b=nguc++Aa0v4HcB0eqXcfDng5M1a0FTs1VWrjPWQZaeGMpRzRSGtrpaqKn3Y2cXFlTP
- bGn91KH/dxEn/MDwWkP4Kf2BVj2ajRZjOEFzmgpZhT0ph0rKUmd9uwUmw9FSYlPy5d2V
- Y/9tWyd84uiLUCP/szz+QaOGJVgumL5lf+K84urnfABE3XRh8ybYydy0SCeXPui35pRp
- A4Dpv+V1y97vJl9mN8Hi1FT+PZYSoDNxtz++X462i5Uf96gsDEaDzjB6gcacLHmxccrZ
- U0yfjvQFKc0ap270Y1FOYTEdm8+n3vuy0EXF38MISif8MxX71P2J1Kti2wNTD6zyJ+Xx
- U3wA==
-X-Gm-Message-State: AOAM531m6z5l4JcqFNMdChENvkiZY0Ivplmc0YoGsOMsMyYU9vc9rcaI
- uCQzR9bgPTHcDxZEH0LQDLc=
-X-Google-Smtp-Source: ABdhPJwFKfgVn8dvuxZ38kkydxqedFEFWzNdLmdI1V6L/7zpM7qjAA84fEvolQzyU55LdEnD130aDQ==
-X-Received: by 2002:a5d:40cf:: with SMTP id b15mr3271179wrq.319.1593172369858; 
- Fri, 26 Jun 2020 04:52:49 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id s8sm30438524wru.38.2020.06.26.04.52.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2020 04:52:49 -0700 (PDT)
-Date: Fri, 26 Jun 2020 11:52:47 +0000
-From: Wei Liu <wl@xen.org>
-To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-Subject: Re: [PATCH v3 6/7] tools/libxl: add vmtrace_pt_size parameter
-Message-ID: <20200626115247.rbk74px33iapenzm@liuwe-devbox-debian-v2>
-References: <1617453791.11443328.1592849168658.JavaMail.zimbra@cert.pl>
- <192922589.11444004.1592849546858.JavaMail.zimbra@cert.pl>
+ id 145e7dae-b7a4-11ea-82a7-12813bfff9fa;
+ Fri, 26 Jun 2020 11:56:33 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: tyUtj61jX4bdVkTmDqu4HNLaPYwMZVTG9iOeaExSB4PTRMOiBxVOWXovZ7JDwHlaVj5vztjmx3
+ VP/5BH1yS0/beGMKAZO1rofB2ZDAyRRDsS1XGuaFEKu56v3lcz3Z1bNEQwsSLZ4E1Ky6Wih1v0
+ NtjjQGxobMbtQDAG/trhQlP3/O46Uq5GUa2dGRirJ1JveWhWjWN5BLm00cVv0TlbFUidaOcfCv
+ n8ZASLt+95h03tZsfBOf8qx2/KJjDMtXfHpU95nPM+eDnWZJgn3/px4Iz4JhywJSg/FhgOUB4I
+ VH0=
+X-SBRS: 2.7
+X-MesageID: 21024998
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,283,1589256000"; d="scan'208";a="21024998"
+Subject: Re: [PATCH for-4.14] x86/livepatch: Make livepatching compatible with
+ CET Shadow Stacks
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200608200259.17681-1-andrew.cooper3@citrix.com>
+ <620e5f66-2802-24e7-bb6e-285e99f12975@suse.com>
+ <6e353c85-b957-bdbe-6428-737b5bc8e801@citrix.com>
+ <d503e23a-f7ca-3a21-940d-9c57aa5d440a@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <ac1aca68-5402-746b-8a17-3354e530eafd@citrix.com>
+Date: Fri, 26 Jun 2020 12:56:29 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+In-Reply-To: <d503e23a-f7ca-3a21-940d-9c57aa5d440a@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <192922589.11444004.1592849546858.JavaMail.zimbra@cert.pl>
-User-Agent: NeoMutt/20180716
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,128 +61,118 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, "Kang, Luwei" <luwei.kang@intel.com>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Konrad Rzeszutek
+ Wilk <konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Paul Durrant <paul@xen.org>, Pawel Wieczorkiewicz <wipawel@amazon.de>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 22, 2020 at 08:12:26PM +0200, Michał Leszczyński wrote:
-> Allow to specify the size of per-vCPU trace buffer upon
-> domain creation. This is zero by default (meaning: not enabled).
-> 
-> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
-> ---
->  docs/man/xl.cfg.5.pod.in             | 10 ++++++++++
->  tools/golang/xenlight/helpers.gen.go |  2 ++
->  tools/golang/xenlight/types.gen.go   |  1 +
->  tools/libxl/libxl_create.c           |  1 +
->  tools/libxl/libxl_types.idl          |  2 ++
->  tools/xl/xl_parse.c                  |  4 ++++
->  6 files changed, 20 insertions(+)
-> 
-> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> index 0532739c1f..78f434b722 100644
-> --- a/docs/man/xl.cfg.5.pod.in
-> +++ b/docs/man/xl.cfg.5.pod.in
-> @@ -278,6 +278,16 @@ memory=8096 will report significantly less memory available for use
->  than a system with maxmem=8096 memory=8096 due to the memory overhead
->  of having to track the unused pages.
->  
-> +=item B<vmtrace_pt_size=BYTES>
-> +
-> +Specifies the size of processor trace buffer that would be allocated
-> +for each vCPU belonging to this domain. Disabled (i.e. B<vmtrace_pt_size=0>
-> +by default. This must be set to non-zero value in order to be able to
-> +use processor tracing features with this domain.
-> +
-> +B<NOTE>: The size value must be between 4 kB and 4 GB and it must
-> +be also a power of 2.
-> +
+On 15/06/2020 16:16, Jan Beulich wrote:
+>>>> @@ -58,6 +59,10 @@ int arch_livepatch_safety_check(void)
+>>>>  
+>>>>  int arch_livepatch_quiesce(void)
+>>>>  {
+>>>> +    /* If Shadow Stacks are in use, disable CR4.CET so we can modify CR0.WP. */
+>>>> +    if ( cpu_has_xen_shstk )
+>>>> +        write_cr4(read_cr4() & ~X86_CR4_CET);
+>>>> +
+>>>>      /* Disable WP to allow changes to read-only pages. */
+>>>>      write_cr0(read_cr0() & ~X86_CR0_WP);
+>>>>  
+>>>> @@ -68,6 +73,29 @@ void arch_livepatch_revive(void)
+>>>>  {
+>>>>      /* Reinstate WP. */
+>>>>      write_cr0(read_cr0() | X86_CR0_WP);
+>>>> +
+>>>> +    /* Clobber dirty bits and reinstate CET, if applicable. */
+>>>> +    if ( IS_ENABLED(CONFIG_XEN_SHSTK) && cpu_has_xen_shstk )
+>>>> +    {
+>>>> +        unsigned long tmp;
+>>>> +
+>>>> +        reset_virtual_region_perms();
+>>>> +
+>>>> +        write_cr4(read_cr4() | X86_CR4_CET);
+>>>> +
+>>>> +        /*
+>>>> +         * Fix up the return address on the shadow stack, which currently
+>>>> +         * points at arch_livepatch_quiesce()'s caller.
+>>>> +         *
+>>>> +         * Note: this is somewhat fragile, and depends on both
+>>>> +         * arch_livepatch_{quiesce,revive}() being called from the same
+>>>> +         * function, which is currently the case.
+>>>> +         */
+>>>> +        asm volatile ("rdsspq %[ssp];"
+>>>> +                      "wrssq %[addr], (%[ssp]);"
+>>>> +                      : [ssp] "=&r" (tmp)
+>>>> +                      : [addr] "r" (__builtin_return_address(0)));
+>>>> +    }
+>>> To be safe against LTO I think this wants accompanying with making
+>>> both functions noinline.
+>> Hmm true.
+>>
+>>> As to the fragility - how about arch_livepatch_quiesce() returning
+>>> __builtin_return_address(0) to its caller, for passing into here
+>>> for verification? This would also make more noticeable that the
+>>> two should be be called from the same function (or else the "token"
+>>> would need passing further around).
+>> This I'm less certain about, as its fairly invasive to common code, just
+>> to bodge around something I don't expect to last very long into the 4.15
+>> timeframe.
+> I don't see it  being invasive - there's a new local variable needed
+> in both of apply_payload() and revert_payload(), and of course the
+> call sites would need adjustment.
 
-Is this restriction enforced anywhere? I don't see it in this patch.
+Exactly - the call site adjustment is what makes it invasive in common
+code, and all other architectures.
 
->  =back
->  
->  =head3 Guest Virtual NUMA Configuration
-> diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-> index 935d3bc50a..986ebbd681 100644
-> --- a/tools/golang/xenlight/helpers.gen.go
-> +++ b/tools/golang/xenlight/helpers.gen.go
-> @@ -1117,6 +1117,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
->  x.ArchArm.GicVersion = GicVersion(xc.arch_arm.gic_version)
->  x.ArchArm.Vuart = VuartType(xc.arch_arm.vuart)
->  x.Altp2M = Altp2MMode(xc.altp2m)
-> +x.VmtracePtSize = int(xc.vmtrace_pt_size)
->  
->   return nil}
->  
-> @@ -1592,6 +1593,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
->  xc.arch_arm.gic_version = C.libxl_gic_version(x.ArchArm.GicVersion)
->  xc.arch_arm.vuart = C.libxl_vuart_type(x.ArchArm.Vuart)
->  xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
-> +xc.vmtrace_pt_size = C.int(x.VmtracePtSize)
->  
->   return nil
->   }
-> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-> index 663c1e86b4..41ec7cdd32 100644
-> --- a/tools/golang/xenlight/types.gen.go
-> +++ b/tools/golang/xenlight/types.gen.go
-> @@ -516,6 +516,7 @@ GicVersion GicVersion
->  Vuart VuartType
->  }
->  Altp2M Altp2MMode
-> +VmtracePtSize int
->  }
->  
->  type domainBuildInfoTypeUnion interface {
-> diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
-> index 75862dc6ed..32204b83b0 100644
-> --- a/tools/libxl/libxl_create.c
-> +++ b/tools/libxl/libxl_create.c
-> @@ -608,6 +608,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
->              .max_evtchn_port = b_info->event_channels,
->              .max_grant_frames = b_info->max_grant_frames,
->              .max_maptrack_frames = b_info->max_maptrack_frames,
-> +            .vmtrace_pt_size = b_info->vmtrace_pt_size,
->          };
->  
->          if (info->type != LIBXL_DOMAIN_TYPE_PV) {
-> diff --git a/tools/libxl/libxl_types.idl b/tools/libxl/libxl_types.idl
-> index 9d3f05f399..04c1704b72 100644
-> --- a/tools/libxl/libxl_types.idl
-> +++ b/tools/libxl/libxl_types.idl
-> @@ -645,6 +645,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
->      # supported by x86 HVM and ARM support is planned.
->      ("altp2m", libxl_altp2m_mode),
->  
-> +    ("vmtrace_pt_size", integer),
+Any getting this wrong will die with #CP[near ret] anyway.
 
-When you add a new field please also add a LIBXL_HAVE macro to libxl.h.
+The only thing passing that value around would do is let you tweak the
+error message slightly before we crash out.
 
-> +
->      ], dir=DIR_IN,
->         copy_deprecated_fn="libxl__domain_build_info_copy_deprecated",
->  )
-> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-> index 61b4ef7b7e..6ab98dda55 100644
-> --- a/tools/xl/xl_parse.c
-> +++ b/tools/xl/xl_parse.c
-> @@ -1861,6 +1861,10 @@ void parse_config_data(const char *config_source,
->          }
->      }
->  
-> +    if (!xlu_cfg_get_long(config, "vmtrace_pt_size", &l, 1)) {
-> +        b_info->vmtrace_pt_size = l;
-> +    }
-> +
->      if (!xlu_cfg_get_list(config, "ioports", &ioports, &num_ioports, 0)) {
->          b_info->num_ioports = num_ioports;
->          b_info->ioports = calloc(num_ioports, sizeof(*b_info->ioports));
-> -- 
-> 2.20.1
-> 
-> 
+>>>> @@ -91,6 +92,18 @@ void unregister_virtual_region(struct virtual_region *r)
+>>>>      remove_virtual_region(r);
+>>>>  }
+>>>>  
+>>>> +void reset_virtual_region_perms(void)
+>>>> +{
+>>>> +    const struct virtual_region *region;
+>>>> +
+>>>> +    rcu_read_lock(&rcu_virtual_region_lock);
+>>>> +    list_for_each_entry_rcu( region, &virtual_region_list, list )
+>>>> +        modify_xen_mappings((unsigned long)region->start,
+>>>> +                            ROUNDUP((unsigned long)region->end, PAGE_SIZE),
+>>>> +                            PAGE_HYPERVISOR_RX);
+>>>> +    rcu_read_unlock(&rcu_virtual_region_lock);
+>>>> +}
+>>> Doesn't this result in shattering the trailing (and currently still
+>>> only) 2Mb page mapping .text in the xen.efi case?
+>> Not any more or less than its already clobbered by this logic in the
+>> alternatives path, I think?
+> Not afaict, there we have
+>
+>     if ( cpu_has_xen_shstk )
+>         modify_xen_mappings(XEN_VIRT_START + MB(2),
+>                             (unsigned long)&__2M_text_end,
+>                             PAGE_HYPERVISOR_RX);
+
+Hmm ok.  I'll make a note.
+
+>>>  With the
+>>> expectation of the approach changing in 4.15 this may not need
+>>> addressing, but should imo be mentioned as a shortcoming in the
+>>> description then.
+>>>
+>>> Also - how about "restore" instead of "reset"?
+>> Why?  We're not passing some state sideways into the new mappings -
+>> we're resetting them to their expected values.
+> To me as a non-native speaker "reset" means more like some initial
+> state, whereas "restore" means more like "to some intended state".
+
+I feel that is a very subjective interpretation, but even if we go with
+it, the fact the function is void distinguishes the two.
+
+~Andrew
 
