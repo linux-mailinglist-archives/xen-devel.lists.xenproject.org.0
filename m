@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F25A20B09A
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 13:35:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 157BF20B0D7
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 13:49:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jomdd-00011Z-9o; Fri, 26 Jun 2020 11:35:21 +0000
+	id 1jomqM-0001yy-Jz; Fri, 26 Jun 2020 11:48:30 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=azve=AH=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jomdb-00011T-CF
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 11:35:19 +0000
-X-Inumbo-ID: 1c022f68-b7a1-11ea-82a4-12813bfff9fa
-Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+ id 1jomqK-0001yt-Oj
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 11:48:28 +0000
+X-Inumbo-ID: f2e892b4-b7a2-11ea-82a6-12813bfff9fa
+Received: from mail-wm1-f53.google.com (unknown [209.85.128.53])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1c022f68-b7a1-11ea-82a4-12813bfff9fa;
- Fri, 26 Jun 2020 11:35:18 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id 17so9062026wmo.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2020 04:35:18 -0700 (PDT)
+ id f2e892b4-b7a2-11ea-82a6-12813bfff9fa;
+ Fri, 26 Jun 2020 11:48:28 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id q15so8556419wmj.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2020 04:48:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to:user-agent;
- bh=d7U+YA59uSygIA3iiTRXVXEJD5qkA9ZYnnSsOLzLJtw=;
- b=lVHWx+lnR0VUOf92PCWH3iw2xFXD3ffYWb4EItZb9db/uank2nSbN94HbWVpXRllsi
- a1nuRXVp4ybUr/iOmeoB+xvJkV89Zlc2gi+2mIvyaJj15VaWrp1JRjxRVSz9que1l/tz
- j1AdaPlh5boRKMoLaupDWsqu/3j/lijo2QktdpMcCjJt8MOhMQF/WcnzkcP+lsgeamHO
- DPZgpsrPwdlEfvJ7nguicQbDLQWg/8Tiz6MnQHgnAgIa/vbdkgTcXBSotsTl97w/XQuh
- CeIDx6k9yd2iukj/vOz0LwwaRLkdZZ0+XO14WBPYuZm60Cd6hGjaHPT0T8tiIlFIeldl
- REaw==
-X-Gm-Message-State: AOAM532ZDjktt2K/d5QU9PbsUMZhcIXH/9flY6QxpcB5pYoiI3BZnSgu
- 3jOwUV8ltiQkTGfjdxZMuI72lFCq
-X-Google-Smtp-Source: ABdhPJyzdw9qagh+dUsvSz75mc9LqRSyqKoWUzuLAe1fxsOkfvvDNCNvpdYrZ58MuImTLb03HjtI9Q==
-X-Received: by 2002:a1c:bcd4:: with SMTP id m203mr2937021wmf.124.1593171317255; 
- Fri, 26 Jun 2020 04:35:17 -0700 (PDT)
+ bh=qqMW8S7YzpDyHslkjYwg4S5kq202QeSPCMBzFbL9qyE=;
+ b=V5MY2g+9a4ZrhQqI4vbNiY2bNYIh6YsRdRAOVXcGLOcnzNHOlIqslR26wOUkulod5n
+ aYANue49VOQCyfVvMwIUc2/BnCUKe19sH9VhBmmY23+nJppHk2rqEWt5rOjL7DZAl2cX
+ pIOIrsTSx7mcOTFOKKcGKGLLwcvQFR/fxPsPQziZhiZ41634OTxu1Uj8cVtPiGuZkxKi
+ NeicEAciokM9tuWO5zA5is7ODXipgoch21kd58/gQ6jcD2fU+RsHdXji2+Vwfbs2MnA6
+ nlhZhEVSDry9mg4ieDwiIrC17i0d7gHil9oQnlyfDJH5hpDJoxLwCuVQneriweAQJJO3
+ FXYg==
+X-Gm-Message-State: AOAM531mKwxO/7Gxh3D2MgiivsSdQI1AAwT85yjksqrWyNK1+3wSc/Of
+ mhDjxgN6oF+/5kwle2Z4FS8=
+X-Google-Smtp-Source: ABdhPJwoMMGPeN6l+tzU9JAYSeL94msfyy4A5ullbe7ES85FS5t9YSSpf32qdG3uHSO1VWYbOKTCWw==
+X-Received: by 2002:a7b:cb98:: with SMTP id m24mr3020315wmi.98.1593172106775; 
+ Fri, 26 Jun 2020 04:48:26 -0700 (PDT)
 Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id p8sm449954wrq.29.2020.06.26.04.35.16
+ by smtp.gmail.com with ESMTPSA id q188sm14260780wma.46.2020.06.26.04.48.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2020 04:35:16 -0700 (PDT)
-Date: Fri, 26 Jun 2020 11:35:15 +0000
+ Fri, 26 Jun 2020 04:48:25 -0700 (PDT)
+Date: Fri, 26 Jun 2020 11:48:24 +0000
 From: Wei Liu <wl@xen.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 for-4.14] x86/msr: Disallow access to Processor Trace
- MSRs
-Message-ID: <20200626113515.hqoa4ppt6bcnr4wj@liuwe-devbox-debian-v2>
-References: <20200626112937.919-1-andrew.cooper3@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v3 7/7] tools/proctrace: add proctrace tool
+Message-ID: <20200626114824.mt2zsbwdbed5dtwj@liuwe-devbox-debian-v2>
+References: <1617453791.11443328.1592849168658.JavaMail.zimbra@cert.pl>
+ <1786138246.11444015.1592849576272.JavaMail.zimbra@cert.pl>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200626112937.919-1-andrew.cooper3@citrix.com>
+In-Reply-To: <1786138246.11444015.1592849576272.JavaMail.zimbra@cert.pl>
 User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -65,83 +65,622 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
- Jan Beulich <JBeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, "Kang, Luwei" <luwei.kang@intel.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jun 26, 2020 at 12:29:37PM +0100, Andrew Cooper wrote:
-> We do not expose the feature to guests, so should disallow access to the
-> respective MSRs.  For simplicity, drop the entire block of MSRs, not just the
-> subset which have been specified thus far.
+On Mon, Jun 22, 2020 at 08:12:56PM +0200, Michał Leszczyński wrote:
+> Add an demonstration tool that uses xc_vmtrace_* calls in order
+> to manage external IPT monitoring for DomU.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
 > ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Paul Durrant <paul@xen.org>
-> CC: Michał Leszczyński <michal.leszczynski@cert.pl>
+>  tools/proctrace/COPYING     | 339 ++++++++++++++++++++++++++++++++++++
+>  tools/proctrace/Makefile    |  50 ++++++
+>  tools/proctrace/proctrace.c | 158 +++++++++++++++++
+>  3 files changed, 547 insertions(+)
+>  create mode 100644 tools/proctrace/COPYING
+>  create mode 100644 tools/proctrace/Makefile
+>  create mode 100644 tools/proctrace/proctrace.c
 > 
-> Paul: For 4.14.  This needs backporting to older trees as well.
-> 
-> v2:
->  * Drop the whole 0x560 => 0x58f block.
+> diff --git a/tools/proctrace/COPYING b/tools/proctrace/COPYING
+> new file mode 100644
+> index 0000000000..c0a841112c
+> --- /dev/null
+> +++ b/tools/proctrace/COPYING
+> @@ -0,0 +1,339 @@
+> +		    GNU GENERAL PUBLIC LICENSE
+> +		       Version 2, June 1991
+> +
+> + Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+> +                       59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+> + Everyone is permitted to copy and distribute verbatim copies
+> + of this license document, but changing it is not allowed.
+> +
+> +			    Preamble
+> +
+> +  The licenses for most software are designed to take away your
+> +freedom to share and change it.  By contrast, the GNU General Public
+> +License is intended to guarantee your freedom to share and change free
+> +software--to make sure the software is free for all its users.  This
+> +General Public License applies to most of the Free Software
+> +Foundation's software and to any other program whose authors commit to
+> +using it.  (Some other Free Software Foundation software is covered by
+> +the GNU Library General Public License instead.)  You can apply it to
+> +your programs, too.
+> +
+> +  When we speak of free software, we are referring to freedom, not
+> +price.  Our General Public Licenses are designed to make sure that you
+> +have the freedom to distribute copies of free software (and charge for
+> +this service if you wish), that you receive source code or can get it
+> +if you want it, that you can change the software or use pieces of it
+> +in new free programs; and that you know you can do these things.
+> +
+> +  To protect your rights, we need to make restrictions that forbid
+> +anyone to deny you these rights or to ask you to surrender the rights.
+> +These restrictions translate to certain responsibilities for you if you
+> +distribute copies of the software, or if you modify it.
+> +
+> +  For example, if you distribute copies of such a program, whether
+> +gratis or for a fee, you must give the recipients all the rights that
+> +you have.  You must make sure that they, too, receive or can get the
+> +source code.  And you must show them these terms so they know their
+> +rights.
+> +
+> +  We protect your rights with two steps: (1) copyright the software, and
+> +(2) offer you this license which gives you legal permission to copy,
+> +distribute and/or modify the software.
+> +
+> +  Also, for each author's protection and ours, we want to make certain
+> +that everyone understands that there is no warranty for this free
+> +software.  If the software is modified by someone else and passed on, we
+> +want its recipients to know that what they have is not the original, so
+> +that any problems introduced by others will not reflect on the original
+> +authors' reputations.
+> +
+> +  Finally, any free program is threatened constantly by software
+> +patents.  We wish to avoid the danger that redistributors of a free
+> +program will individually obtain patent licenses, in effect making the
+> +program proprietary.  To prevent this, we have made it clear that any
+> +patent must be licensed for everyone's free use or not licensed at all.
+> +
+> +  The precise terms and conditions for copying, distribution and
+> +modification follow.
+> +
+> +		    GNU GENERAL PUBLIC LICENSE
+> +   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+> +
+> +  0. This License applies to any program or other work which contains
+> +a notice placed by the copyright holder saying it may be distributed
+> +under the terms of this General Public License.  The "Program", below,
+> +refers to any such program or work, and a "work based on the Program"
+> +means either the Program or any derivative work under copyright law:
+> +that is to say, a work containing the Program or a portion of it,
+> +either verbatim or with modifications and/or translated into another
+> +language.  (Hereinafter, translation is included without limitation in
+> +the term "modification".)  Each licensee is addressed as "you".
+> +
+> +Activities other than copying, distribution and modification are not
+> +covered by this License; they are outside its scope.  The act of
+> +running the Program is not restricted, and the output from the Program
+> +is covered only if its contents constitute a work based on the
+> +Program (independent of having been made by running the Program).
+> +Whether that is true depends on what the Program does.
+> +
+> +  1. You may copy and distribute verbatim copies of the Program's
+> +source code as you receive it, in any medium, provided that you
+> +conspicuously and appropriately publish on each copy an appropriate
+> +copyright notice and disclaimer of warranty; keep intact all the
+> +notices that refer to this License and to the absence of any warranty;
+> +and give any other recipients of the Program a copy of this License
+> +along with the Program.
+> +
+> +You may charge a fee for the physical act of transferring a copy, and
+> +you may at your option offer warranty protection in exchange for a fee.
+> +
+> +  2. You may modify your copy or copies of the Program or any portion
+> +of it, thus forming a work based on the Program, and copy and
+> +distribute such modifications or work under the terms of Section 1
+> +above, provided that you also meet all of these conditions:
+> +
+> +    a) You must cause the modified files to carry prominent notices
+> +    stating that you changed the files and the date of any change.
+> +
+> +    b) You must cause any work that you distribute or publish, that in
+> +    whole or in part contains or is derived from the Program or any
+> +    part thereof, to be licensed as a whole at no charge to all third
+> +    parties under the terms of this License.
+> +
+> +    c) If the modified program normally reads commands interactively
+> +    when run, you must cause it, when started running for such
+> +    interactive use in the most ordinary way, to print or display an
+> +    announcement including an appropriate copyright notice and a
+> +    notice that there is no warranty (or else, saying that you provide
+> +    a warranty) and that users may redistribute the program under
+> +    these conditions, and telling the user how to view a copy of this
+> +    License.  (Exception: if the Program itself is interactive but
+> +    does not normally print such an announcement, your work based on
+> +    the Program is not required to print an announcement.)
+> +
+> +These requirements apply to the modified work as a whole.  If
+> +identifiable sections of that work are not derived from the Program,
+> +and can be reasonably considered independent and separate works in
+> +themselves, then this License, and its terms, do not apply to those
+> +sections when you distribute them as separate works.  But when you
+> +distribute the same sections as part of a whole which is a work based
+> +on the Program, the distribution of the whole must be on the terms of
+> +this License, whose permissions for other licensees extend to the
+> +entire whole, and thus to each and every part regardless of who wrote it.
+> +
+> +Thus, it is not the intent of this section to claim rights or contest
+> +your rights to work written entirely by you; rather, the intent is to
+> +exercise the right to control the distribution of derivative or
+> +collective works based on the Program.
+> +
+> +In addition, mere aggregation of another work not based on the Program
+> +with the Program (or with a work based on the Program) on a volume of
+> +a storage or distribution medium does not bring the other work under
+> +the scope of this License.
+> +
+> +  3. You may copy and distribute the Program (or a work based on it,
+> +under Section 2) in object code or executable form under the terms of
+> +Sections 1 and 2 above provided that you also do one of the following:
+> +
+> +    a) Accompany it with the complete corresponding machine-readable
+> +    source code, which must be distributed under the terms of Sections
+> +    1 and 2 above on a medium customarily used for software interchange; or,
+> +
+> +    b) Accompany it with a written offer, valid for at least three
+> +    years, to give any third party, for a charge no more than your
+> +    cost of physically performing source distribution, a complete
+> +    machine-readable copy of the corresponding source code, to be
+> +    distributed under the terms of Sections 1 and 2 above on a medium
+> +    customarily used for software interchange; or,
+> +
+> +    c) Accompany it with the information you received as to the offer
+> +    to distribute corresponding source code.  (This alternative is
+> +    allowed only for noncommercial distribution and only if you
+> +    received the program in object code or executable form with such
+> +    an offer, in accord with Subsection b above.)
+> +
+> +The source code for a work means the preferred form of the work for
+> +making modifications to it.  For an executable work, complete source
+> +code means all the source code for all modules it contains, plus any
+> +associated interface definition files, plus the scripts used to
+> +control compilation and installation of the executable.  However, as a
+> +special exception, the source code distributed need not include
+> +anything that is normally distributed (in either source or binary
+> +form) with the major components (compiler, kernel, and so on) of the
+> +operating system on which the executable runs, unless that component
+> +itself accompanies the executable.
+> +
+> +If distribution of executable or object code is made by offering
+> +access to copy from a designated place, then offering equivalent
+> +access to copy the source code from the same place counts as
+> +distribution of the source code, even though third parties are not
+> +compelled to copy the source along with the object code.
+> +
+> +  4. You may not copy, modify, sublicense, or distribute the Program
+> +except as expressly provided under this License.  Any attempt
+> +otherwise to copy, modify, sublicense or distribute the Program is
+> +void, and will automatically terminate your rights under this License.
+> +However, parties who have received copies, or rights, from you under
+> +this License will not have their licenses terminated so long as such
+> +parties remain in full compliance.
+> +
+> +  5. You are not required to accept this License, since you have not
+> +signed it.  However, nothing else grants you permission to modify or
+> +distribute the Program or its derivative works.  These actions are
+> +prohibited by law if you do not accept this License.  Therefore, by
+> +modifying or distributing the Program (or any work based on the
+> +Program), you indicate your acceptance of this License to do so, and
+> +all its terms and conditions for copying, distributing or modifying
+> +the Program or works based on it.
+> +
+> +  6. Each time you redistribute the Program (or any work based on the
+> +Program), the recipient automatically receives a license from the
+> +original licensor to copy, distribute or modify the Program subject to
+> +these terms and conditions.  You may not impose any further
+> +restrictions on the recipients' exercise of the rights granted herein.
+> +You are not responsible for enforcing compliance by third parties to
+> +this License.
+> +
+> +  7. If, as a consequence of a court judgment or allegation of patent
+> +infringement or for any other reason (not limited to patent issues),
+> +conditions are imposed on you (whether by court order, agreement or
+> +otherwise) that contradict the conditions of this License, they do not
+> +excuse you from the conditions of this License.  If you cannot
+> +distribute so as to satisfy simultaneously your obligations under this
+> +License and any other pertinent obligations, then as a consequence you
+> +may not distribute the Program at all.  For example, if a patent
+> +license would not permit royalty-free redistribution of the Program by
+> +all those who receive copies directly or indirectly through you, then
+> +the only way you could satisfy both it and this License would be to
+> +refrain entirely from distribution of the Program.
+> +
+> +If any portion of this section is held invalid or unenforceable under
+> +any particular circumstance, the balance of the section is intended to
+> +apply and the section as a whole is intended to apply in other
+> +circumstances.
+> +
+> +It is not the purpose of this section to induce you to infringe any
+> +patents or other property right claims or to contest validity of any
+> +such claims; this section has the sole purpose of protecting the
+> +integrity of the free software distribution system, which is
+> +implemented by public license practices.  Many people have made
+> +generous contributions to the wide range of software distributed
+> +through that system in reliance on consistent application of that
+> +system; it is up to the author/donor to decide if he or she is willing
+> +to distribute software through any other system and a licensee cannot
+> +impose that choice.
+> +
+> +This section is intended to make thoroughly clear what is believed to
+> +be a consequence of the rest of this License.
+> +
+> +  8. If the distribution and/or use of the Program is restricted in
+> +certain countries either by patents or by copyrighted interfaces, the
+> +original copyright holder who places the Program under this License
+> +may add an explicit geographical distribution limitation excluding
+> +those countries, so that distribution is permitted only in or among
+> +countries not thus excluded.  In such case, this License incorporates
+> +the limitation as if written in the body of this License.
+> +
+> +  9. The Free Software Foundation may publish revised and/or new versions
+> +of the General Public License from time to time.  Such new versions will
+> +be similar in spirit to the present version, but may differ in detail to
+> +address new problems or concerns.
+> +
+> +Each version is given a distinguishing version number.  If the Program
+> +specifies a version number of this License which applies to it and "any
+> +later version", you have the option of following the terms and conditions
+> +either of that version or of any later version published by the Free
+> +Software Foundation.  If the Program does not specify a version number of
+> +this License, you may choose any version ever published by the Free Software
+> +Foundation.
+> +
+> +  10. If you wish to incorporate parts of the Program into other free
+> +programs whose distribution conditions are different, write to the author
+> +to ask for permission.  For software which is copyrighted by the Free
+> +Software Foundation, write to the Free Software Foundation; we sometimes
+> +make exceptions for this.  Our decision will be guided by the two goals
+> +of preserving the free status of all derivatives of our free software and
+> +of promoting the sharing and reuse of software generally.
+> +
+> +			    NO WARRANTY
+> +
+> +  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+> +FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
+> +OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+> +PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
+> +OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+> +MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
+> +TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
+> +PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
+> +REPAIR OR CORRECTION.
+> +
+> +  12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+> +WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+> +REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,
+> +INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING
+> +OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED
+> +TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY
+> +YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
+> +PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+> +POSSIBILITY OF SUCH DAMAGES.
+> +
+> +		     END OF TERMS AND CONDITIONS
+> +
+> +	    How to Apply These Terms to Your New Programs
+> +
+> +  If you develop a new program, and you want it to be of the greatest
+> +possible use to the public, the best way to achieve this is to make it
+> +free software which everyone can redistribute and change under these terms.
+> +
+> +  To do so, attach the following notices to the program.  It is safest
+> +to attach them to the start of each source file to most effectively
+> +convey the exclusion of warranty; and each file should have at least
+> +the "copyright" line and a pointer to where the full notice is found.
+> +
+> +    <one line to give the program's name and a brief idea of what it does.>
+> +    Copyright (C) <year>  <name of author>
+> +
+> +    This program is free software; you can redistribute it and/or modify
+> +    it under the terms of the GNU General Public License as published by
+> +    the Free Software Foundation; either version 2 of the License, or
+> +    (at your option) any later version.
+> +
+> +    This program is distributed in the hope that it will be useful,
+> +    but WITHOUT ANY WARRANTY; without even the implied warranty of
+> +    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> +    GNU General Public License for more details.
+> +
+> +    You should have received a copy of the GNU General Public License
+> +    along with this program; If not, see <http://www.gnu.org/licenses/>.
+> +
+> +
+> +Also add information on how to contact you by electronic and paper mail.
+> +
+> +If the program is interactive, make it output a short notice like this
+> +when it starts in an interactive mode:
+> +
+> +    Gnomovision version 69, Copyright (C) year name of author
+> +    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+> +    This is free software, and you are welcome to redistribute it
+> +    under certain conditions; type `show c' for details.
+> +
+> +The hypothetical commands `show w' and `show c' should show the appropriate
+> +parts of the General Public License.  Of course, the commands you use may
+> +be called something other than `show w' and `show c'; they could even be
+> +mouse-clicks or menu items--whatever suits your program.
+> +
+> +You should also get your employer (if you work as a programmer) or your
+> +school, if any, to sign a "copyright disclaimer" for the program, if
+> +necessary.  Here is a sample; alter the names:
+> +
+> +  Yoyodyne, Inc., hereby disclaims all copyright interest in the program
+> +  `Gnomovision' (which makes passes at compilers) written by James Hacker.
+> +
+> +  <signature of Ty Coon>, 1 April 1989
+> +  Ty Coon, President of Vice
+> +
+> +This General Public License does not permit incorporating your program into
+> +proprietary programs.  If your program is a subroutine library, you may
+> +consider it more useful to permit linking proprietary applications with the
+> +library.  If this is what you want to do, use the GNU Library General
+> +Public License instead of this License.
+> diff --git a/tools/proctrace/Makefile b/tools/proctrace/Makefile
+> new file mode 100644
+> index 0000000000..76d7387a64
+> --- /dev/null
+> +++ b/tools/proctrace/Makefile
+> @@ -0,0 +1,50 @@
+> +# Copyright (C) CERT Polska - NASK PIB
+> +# Author: Michał Leszczyński <michal.leszczynski@cert.pl>
+> +#
+> +# This program is free software; you can redistribute it and/or modify
+> +# it under the terms of the GNU General Public License as published by
+> +# the Free Software Foundation; under version 2 of the License.
+> +#
+> +# This program is distributed in the hope that it will be useful,
+> +# but WITHOUT ANY WARRANTY; without even the implied warranty of
+> +# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> +# GNU General Public License for more details.
+> +
+> +XEN_ROOT=$(CURDIR)/../..
+> +include $(XEN_ROOT)/tools/Rules.mk
+> +
+> +CFLAGS  += -Werror
+> +CFLAGS  += $(CFLAGS_libxenevtchn)
+> +CFLAGS  += $(CFLAGS_libxenctrl)
+> +LDLIBS  += $(LDLIBS_libxenctrl)
+> +LDLIBS  += $(LDLIBS_libxenevtchn)
+> +LDLIBS  += $(LDLIBS_libxenforeignmemory)
+> +
+> +# SCRIPTS = xenmon.py
+> +
 
-Reviewed-by: Wei Liu <wl@xen.org>
+Please drop this line.
 
-I have not checked the MSR values against the manual, but the
-modifications to guest_{rd,wr}msr look correct to me.
+> +.PHONY: all
+> +all: build
+> +
+> +.PHONY: build
+> +build: proctrace
+> +
+> +.PHONY: install
+> +install: build
+> +	$(INSTALL_DIR) $(DESTDIR)$(sbindir)
+> +	$(INSTALL_PROG) proctrace $(DESTDIR)$(sbindir)/proctrace
+> +
+> +.PHONY: uninstall
+> +uninstall:
+> +	rm -f $(DESTDIR)$(sbindir)/proctrace
+> +
+> +.PHONY: clean
+> +clean:
+> +	$(RM) -f $(DEPS_RM)
+> +
+> +.PHONY: distclean
+> +distclean: clean
+> +
+> +iptlive: iptlive.o Makefile
+> +	$(CC) $(LDFLAGS) $< -o $@ $(LDLIBS) $(APPEND_LDFLAGS)
+> +
+> +-include $(DEPS_INCLUDE)
+> diff --git a/tools/proctrace/proctrace.c b/tools/proctrace/proctrace.c
+> new file mode 100644
+> index 0000000000..dddc6515f8
+> --- /dev/null
+> +++ b/tools/proctrace/proctrace.c
+> @@ -0,0 +1,158 @@
+> +/******************************************************************************
+> + * tools/proctrace.c
+> + *
+> + * Demonstrative tool for collecting Intel Processor Trace data from Xen.
+> + *  Could be used to externally monitor a given vCPU in given DomU.
+> + *
+> + * Copyright (C) 2020 by CERT Polska - NASK PIB
+> + *
+> + * Authors: Michał Leszczyński, michal.leszczynski@cert.pl
+> + * Date:    June, 2020
+> + * 
+> + *  This program is free software; you can redistribute it and/or modify
+> + *  it under the terms of the GNU General Public License as published by
+> + *  the Free Software Foundation; under version 2 of the License.
+> + *
+> + *  This program is distributed in the hope that it will be useful,
+> + *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + *  GNU General Public License for more details.
+> + *
+> + *  You should have received a copy of the GNU General Public License
+> + *  along with this program; If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <time.h>
+> +#include <stdlib.h>
+> +#include <stdio.h>
+> +#include <sys/mman.h>
+> +#include <fcntl.h>
+> +#include <unistd.h>
+> +#include <errno.h>
+> +#include <signal.h>
+> +#include <xenevtchn.h>
+> +#include <xenctrl.h>
+> +#include <xen/xen.h>
+> +#include <string.h>
+> +#include <sys/select.h>
+> +#include <getopt.h>
+> +
+
+Do yo really need so many headers? For one, I don't think you used
+getopt anywhere.
+
+> +#include <xen/xen.h>
+> +#include <xen/trace.h>
+> +#include <xenforeignmemory.h>
+> +#define XC_WANT_COMPAT_MAP_FOREIGN_API
+
+Would be nice if you don't use the compat API. They are for
+compatibility with old code. Since you're writing new code, the
+non-compat APIs are preferred.
+
+This is something for you to consider. For simple programs like this I
+won't insist.
+
+> +#include <xenevtchn.h>
+> +#include <xenctrl.h>
+> +
+> +#define BUF_SIZE 16384 * 4096
+> +
+
+#define BUF_SIZE (16384 * 4096)
+
+> +volatile int interrupted = 0;
+> +
+> +void term_handler(int signum) {
+> +    interrupted = 1;
+> +}
+> +
+> +int main(int argc, char* argv[]) {
+> +    xc_interface *xc;
+> +    uint32_t domid;
+> +    uint32_t vcpu_id;
+> +
+> +    int rc = -1;
+> +    uint8_t *buf = NULL;
+> +    uint64_t last_offset = 0;
+> +
+> +    xenforeignmemory_handle* fmem;
+
+Please put * before fmem to be consistent.
+
+> +    xenforeignmemory_resource_handle *fres;
+> +
+> +    signal(SIGINT, term_handler);
+
+You should perhaps check the return value of signal here.
+
+> +
+> +    if (argc != 3) {
+> +        fprintf(stderr, "Usage: %s <domid> <vcpu_id>\n", argv[0]);
+> +        fprintf(stderr, "It's recommended to redirect this"
+> +                        "program's output to file\n");
+> +        fprintf(stderr, "or to pipe it's output to xxd or other program.\n");
+> +        return 1;
+> +    }
+> +
+> +    domid = atoi(argv[1]);
+> +    vcpu_id = atoi(argv[2]);
+> +
+> +    xc = xc_interface_open(0, 0, 0);
+> +
+> +    fmem = xenforeignmemory_open(0, 0);
+> +
+> +    if (!xc) {
+> +        fprintf(stderr, "Failed to open xc interface\n");
+> +        return 1;
+> +    }
+> +
+> +    rc = xc_vmtrace_pt_enable(xc, domid, vcpu_id);
+> +
+> +    if (rc) {
+> +        fprintf(stderr, "Failed to call xc_vmtrace_pt_enable\n");
+> +        return 1;
+> +    }
+> +
+> +    fres = xenforeignmemory_map_resource(
+> +        fmem, domid, XENMEM_resource_vmtrace_buf,
+> +        /* vcpu: */ vcpu_id,
+> +        /* frame: */ 0,
+> +        /* num_frames: */ BUF_SIZE >> XC_PAGE_SHIFT,
+> +        (void **)&buf,
+> +        PROT_READ, 0);
+> +
+> +    if (!buf) {
+> +        fprintf(stderr, "Failed to map trace buffer\n");
+> +        return 1;
+> +    }
+> +
+> +    while (!interrupted) {
+> +        uint64_t offset;
+> +        rc = xc_vmtrace_pt_get_offset(xc, domid, vcpu_id, &offset);
+> +
+> +        if (rc) {
+> +            fprintf(stderr, "Failed to call xc_vmtrace_pt_get_offset\n");
+> +            return 1;
+> +        }
+> +
+> +        if (offset > last_offset)
+> +        {
+> +            fwrite(buf + last_offset, offset - last_offset, 1, stdout);
+> +        }
+> +        else if (offset < last_offset)
+> +        {
+> +            // buffer wrapped
+> +            fwrite(buf + last_offset, BUF_SIZE - last_offset, 1, stdout);
+> +            fwrite(buf, offset, 1, stdout);
+> +        }
+> +
+> +        last_offset = offset;
+> +        usleep(1000 * 100);
+> +    }
+> +
+> +    rc = xenforeignmemory_unmap_resource(fmem, fres);
+> +
+> +    if (rc) {
+> +        fprintf(stderr, "Failed to unmap resource\n");
+> +        return 1;
+> +    }
+> +
+> +    rc = xc_vmtrace_pt_disable(xc, domid, vcpu_id);
+> +
+> +    if (rc) {
+> +        fprintf(stderr, "Failed to call xc_vmtrace_pt_disable\n");
+> +        return 1;
+> +    }
+> +
+
+You should close fmem and xc in the exit path.
 
 Wei.
 
-> ---
->  xen/arch/x86/msr.c              | 2 ++
->  xen/include/asm-x86/msr-index.h | 8 ++++++++
->  2 files changed, 10 insertions(+)
-> 
-> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-> index 0bfb5839b2..22f921cc71 100644
-> --- a/xen/arch/x86/msr.c
-> +++ b/xen/arch/x86/msr.c
-> @@ -168,6 +168,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
->      case MSR_TSX_FORCE_ABORT:
->      case MSR_TSX_CTRL:
->      case MSR_MCU_OPT_CTRL:
-> +    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
->      case MSR_U_CET:
->      case MSR_S_CET:
->      case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
-> @@ -329,6 +330,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
->      case MSR_TSX_FORCE_ABORT:
->      case MSR_TSX_CTRL:
->      case MSR_MCU_OPT_CTRL:
-> +    case MSR_RTIT_OUTPUT_BASE ... MSR_RTIT_ADDR_B(7):
->      case MSR_U_CET:
->      case MSR_S_CET:
->      case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
-> diff --git a/xen/include/asm-x86/msr-index.h b/xen/include/asm-x86/msr-index.h
-> index b328a47ed8..0fe98af923 100644
-> --- a/xen/include/asm-x86/msr-index.h
-> +++ b/xen/include/asm-x86/msr-index.h
-> @@ -69,6 +69,14 @@
->  #define MSR_MCU_OPT_CTRL                    0x00000123
->  #define  MCU_OPT_CTRL_RNGDS_MITG_DIS        (_AC(1, ULL) <<  0)
->  
-> +#define MSR_RTIT_OUTPUT_BASE                0x00000560
-> +#define MSR_RTIT_OUTPUT_MASK                0x00000561
-> +#define MSR_RTIT_CTL                        0x00000570
-> +#define MSR_RTIT_STATUS                     0x00000571
-> +#define MSR_RTIT_CR3_MATCH                  0x00000572
-> +#define MSR_RTIT_ADDR_A(n)                 (0x00000580 + (n) * 2)
-> +#define MSR_RTIT_ADDR_B(n)                 (0x00000581 + (n) * 2)
+> +    return 0;
+> +}
 > +
->  #define MSR_U_CET                           0x000006a0
->  #define MSR_S_CET                           0x000006a2
->  #define  CET_SHSTK_EN                       (_AC(1, ULL) <<  0)
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
 > -- 
-> 2.11.0
+> 2.20.1
+> 
 > 
 
