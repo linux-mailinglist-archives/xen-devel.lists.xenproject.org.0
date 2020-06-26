@@ -2,64 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C63F820AFCB
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 12:33:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58C8620AFEC
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 12:41:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jolfd-0003dP-Oc; Fri, 26 Jun 2020 10:33:21 +0000
+	id 1jolnH-0004Ug-KX; Fri, 26 Jun 2020 10:41:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=azve=AH=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jolfb-0003dI-NH
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 10:33:19 +0000
-X-Inumbo-ID: 735b2be2-b798-11ea-b7bb-bc764e2007e4
-Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
+ <SRS0=HPqg=AH=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jolnG-0004Ub-Fv
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 10:41:14 +0000
+X-Inumbo-ID: 8e4c8a08-b799-11ea-8496-bc764e2007e4
+Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 735b2be2-b798-11ea-b7bb-bc764e2007e4;
- Fri, 26 Jun 2020 10:33:19 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id f18so8897124wml.3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2020 03:33:19 -0700 (PDT)
+ id 8e4c8a08-b799-11ea-8496-bc764e2007e4;
+ Fri, 26 Jun 2020 10:41:13 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id g18so9052472wrm.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2020 03:41:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=hrZx328xFMdqRk3GEzuNDkIS4cmTBPvBlwK6wnYbx/Q=;
+ b=s0XsWscjF6IL2OxcvbGnbl2/251Nm2z0aL+0V1SW3ULwaaG9CXWJvOT+xHfdMEV/hw
+ gDOoxyR1hdntTGjzS/OQfeSAwmlGiiblu1jyD9bC6RFrdqR0cXwN93XEUVbnxi8U5Cw/
+ rz3HP2zP7oWop19eEVSXG+w5eGiNVaSl2I8EWExcOtf7fMEskXSFUHZJy8tCWBP6Vhxd
+ WtBxV+NYMduZ1U4PBI2BxhvsAgk1nrjvcG8Ldt1FkBBT3y27jfP27KqAoRug36YDTAYm
+ o4HF0+J12YSHBnLutEXdMHx6idI4mdwLYqZ88DP4QhjfsUmF5aOGAnKmF63/hmKwNDhn
+ BRCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=PITXihdp2Xt6NNW2tpgV1RVRNn4jiXT1dHTY0wmfecY=;
- b=eOJn4D9gnZjWnVq4ORVy5NU1lcCFOVbx9vSJLi0ukYlFwO9T3uA2L6KW7Rpsok9axh
- /Tf8TGYvvBcfRksgF/89+iddOSUdMGSan/uorsREnTWf2EougtZvM1KqcSlqPntHrlyW
- 8z2LmANW2aCD4g3wlvhZhakOAG5qhSd8cjL8F4yAuVqYAvPULdF9f/aS0Fgyb/bTKtkC
- Cz9DkBfMyrP6TShw/WC9oDf2UCKUfZZQ1GCCXozyRoVlvvH6B8svpsuA6GyCiq1VH3F5
- QBx+CQUc4MXkgYz95aF95cg5L+U+cNki/Igm4XLkwqNbSqM0npP565kP5KvoRVC3ZA3E
- T6SQ==
-X-Gm-Message-State: AOAM533rx8nT23aEPhxWp5dodClFYCKRdw8ns+woCMBlr/XBAHGgcS3f
- 4zKxS2ftaggTaE8DBk89jpc=
-X-Google-Smtp-Source: ABdhPJyxenN8GGMWfsJSbxo1xAJlSo/qj3C5T+o9NaXfHcLt5RXJWYmvTCG7fs9tmOQfLThdKxhR5w==
-X-Received: by 2002:a1c:acc3:: with SMTP id v186mr2793556wme.79.1593167598355; 
- Fri, 26 Jun 2020 03:33:18 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id p13sm25868337wrn.0.2020.06.26.03.33.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2020 03:33:17 -0700 (PDT)
-Date: Fri, 26 Jun 2020 10:33:16 +0000
-From: Wei Liu <wl@xen.org>
-To: paul@xen.org
-Subject: Re: [PATCH v1] kdd: remove zero-length arrays
-Message-ID: <20200626103316.gznsycu4cuqxwvdw@liuwe-devbox-debian-v2>
-References: <20200608203849.18341-1-olaf@aepfle.de>
- <005001d63e3b$c85059f0$58f10dd0$@xen.org>
- <20200609121549.GA90841@deinos.phlegethon.org>
- <20200609152233.039cfc86.olaf@aepfle.de>
- <20200610191657.GA69414@deinos.phlegethon.org>
- <20200611211004.11e38f8f.olaf@aepfle.de>
- <CACMJ4Ga2oO94kXw2NVdRQb=dOZ9kqZRgDLkrE630D3RFTMoYQg@mail.gmail.com>
- <005a01d64480$49ce0730$dd6a1590$@xen.org>
- <20200626102654.e6ygxgnd37ptxosb@liuwe-devbox-debian-v2>
- <000401d64ba5$00424b40$00c6e1c0$@xen.org>
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=hrZx328xFMdqRk3GEzuNDkIS4cmTBPvBlwK6wnYbx/Q=;
+ b=IuWXGP5voM75ZSghwqZMuu7x9wOIL226Ia01Ivhp8DIXDRSNUGah8wtuk2Y7poTYpo
+ RpZH4vCZ2z2FIdbnw2TszdiIGdVg86oGKTkC13WLCdxmrxkt0n+TJad/4W1Atlcde5Ej
+ W/4MRFGNg6SINCLxryl1cL7qrUml/C3VDkZkhN5+OYyQlgEWp0LZhb+kzSuVttIL7pm4
+ M5q/nc+J09XxMJ1M8DS09AELS8NtqB9GYdT34AEWDLFucjK6k9oMnxHCMQQu84D7CJ/n
+ lEXXJMSObsdCMIzRu8KFwW7f/Wfl9/vlm6/4q20YaEHHSusmW4plDrd46V0tq0chK0GL
+ 43Kg==
+X-Gm-Message-State: AOAM532QL4rxqmcw9OGUGUNsVAlBOBnP+xmytb2/bCi4ECLbYyXpyVXJ
+ XJioyFT9h6F1UomDalxoWj0=
+X-Google-Smtp-Source: ABdhPJxLwspoXfM05fKDAJjGrgJk/lNl9mFqyUZOSnEVwg+LnZWVlVCcVy4z8vIdWiWqu4JkQ+R5aw==
+X-Received: by 2002:adf:c404:: with SMTP id v4mr2911572wrf.85.1593168073051;
+ Fri, 26 Jun 2020 03:41:13 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-236.amazon.com. [54.240.197.236])
+ by smtp.gmail.com with ESMTPSA id a22sm17026455wmj.9.2020.06.26.03.41.12
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 26 Jun 2020 03:41:12 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Wei Liu'" <wl@xen.org>,
+	"'Jason Andryuk'" <jandryuk@gmail.com>
+References: <20200611032936.350657-1-jandryuk@gmail.com>
+ <20200626101807.za6arkdlah7zsjzc@liuwe-devbox-debian-v2>
+In-Reply-To: <20200626101807.za6arkdlah7zsjzc@liuwe-devbox-debian-v2>
+Subject: RE: [PATCH v2 00/10]  Coverity fixes for vchan-socket-proxy
+Date: Fri, 26 Jun 2020 11:41:11 +0100
+Message-ID: <000501d64ba6$4f8d8f60$eea8ae20$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <000401d64ba5$00424b40$00c6e1c0$@xen.org>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQLDGQiei5IbGzqMSAjg0ij1F+BV+gLqYT69pvnHS1A=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,67 +78,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Olaf Hering' <olaf@aepfle.de>, 'Wei Liu' <wl@xen.org>,
- 'Tim Deegan' <tim@xen.org>, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'Christopher Clark' <christopher.w.clark@gmail.com>,
- 'xen-devel' <xen-devel@lists.xenproject.org>
+Reply-To: paul@xen.org
+Cc: xen-devel@lists.xenproject.org, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ marmarek@invisiblethingslab.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jun 26, 2020 at 11:31:48AM +0100, Paul Durrant wrote:
-> > -----Original Message-----
-> > From: Wei Liu <wl@xen.org>
-> > Sent: 26 June 2020 11:27
-> > To: paul@xen.org
-> > Cc: 'Christopher Clark' <christopher.w.clark@gmail.com>; 'Olaf Hering' <olaf@aepfle.de>; 'Tim Deegan'
-> > <tim@xen.org>; 'xen-devel' <xen-devel@lists.xenproject.org>; 'Ian Jackson'
-> > <ian.jackson@eu.citrix.com>; 'Wei Liu' <wl@xen.org>
-> > Subject: Re: [PATCH v1] kdd: remove zero-length arrays
-> > 
-> > On Wed, Jun 17, 2020 at 09:21:22AM +0100, Paul Durrant wrote:
-> > > > -----Original Message-----
-> > > > From: Christopher Clark <christopher.w.clark@gmail.com>
-> > > > Sent: 16 June 2020 21:50
-> > > > To: Olaf Hering <olaf@aepfle.de>
-> > > > Cc: Tim Deegan <tim@xen.org>; xen-devel <xen-devel@lists.xenproject.org>; Ian Jackson
-> > > > <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>; paul@xen.org
-> > > > Subject: Re: [PATCH v1] kdd: remove zero-length arrays
-> > > >
-> > > > On Thu, Jun 11, 2020 at 12:12 PM Olaf Hering <olaf@aepfle.de> wrote:
-> > > > >
-> > > > > Am Wed, 10 Jun 2020 20:16:57 +0100
-> > > > > schrieb Tim Deegan <tim@xen.org>:
-> > > > >
-> > > > > > How tedious.
-> > > > >
-> > > > > Indeed. This compiles for me as well:
-> > > >
-> > > > just a nudge on this; it would be nice to get a patch into the tree
-> > > > since the build failure affects master builds of Xen in OpenEmbedded
-> > > > now.
-> > > >
-> > >
-> > > I'd be happy to take a patch into 4.14 if someone can provide one with a suitable maintainer ack.
-> > 
-> > Tim is the maintainer of KDD. :-)
-> > 
-> > I take it you're happy with me committing his patch then?
-> > 
+> -----Original Message-----
+> From: Wei Liu <wl@xen.org>
+> Sent: 26 June 2020 11:18
+> To: Jason Andryuk <jandryuk@gmail.com>
+> Cc: xen-devel@lists.xenproject.org; Ian Jackson <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>;
+> Paul Durrant <paul@xen.org>; marmarek@invisiblethingslab.com
+> Subject: Re: [PATCH v2 00/10] Coverity fixes for vchan-socket-proxy
 > 
-> I'm happy, but ought it not have an ack from 'the rest' since Tim submitted the patch?
-
-Alright. FWIW:
-
-Acked-by: Wei Liu <wl@xen.org>
-
+> On Wed, Jun 10, 2020 at 11:29:26PM -0400, Jason Andryuk wrote:
+> > This series addresses some Coverity reports.  To handle closing FDs, a
+> > state struct is introduced to track FDs closed in both main() and
+> > data_loop().
+> >
+> > v2 changes "Ensure UNIX path NUL terminated" to avoid a warning with
+> > gcc-10.  Also, "Move perror() into listen_socket" and "Move perror()
+> > into connect_socket" are new.
+> >
+> > Jason Andryuk (10):
+> >   vchan-socket-proxy: Ensure UNIX path NUL terminated
+> >   vchan-socket-proxy: Move perror() into listen_socket
+> >   vchan-socket-proxy: Move perror() into connect_socket
+> >   vchan-socket-proxy: Check xs_watch return value
+> >   vchan-socket-proxy: Unify main return value
+> >   vchan-socket-proxy: Use a struct to store state
+> >   vchan-socket-proxy: Switch data_loop() to take state
+> >   vchan-socket-proxy: Set closed FDs to -1
+> >   vchan-socket-proxy: Cleanup resources on exit
+> >   vchan-socket-proxy: Handle closing shared input/output_fd
 > 
-> Release-acked-by: Paul Durrant <paul@xen.org>
-
-Thanks.
-
-Wei.
-
+> Acked-by: Wei Liu <wl@xen.org>
 > 
-> > Wei.
+> Cc Paul. V1 of this series was posted back in May. I consider this
+> series bug fixes, so they should be applied for 4.14. The risk is low
+> because vchan-socket-proxy is a small utility used by a small number of
+> users.
 > 
+
+Agreed. Series...
+
+Release-acked-by: Paul Durrant <paul@xen.org>
+
+> Marek, you gave Review tags in v1. Do they still apply here?
+> 
+> >
+> >  tools/libvchan/vchan-socket-proxy.c | 183 ++++++++++++++++++----------
+> >  1 file changed, 119 insertions(+), 64 deletions(-)
+> >
+> > --
+> > 2.25.1
+> >
+
 
