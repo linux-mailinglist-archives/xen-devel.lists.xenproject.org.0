@@ -2,37 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5725520B3F5
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 16:47:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 081D120B3FD
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 16:49:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jopdl-0001xi-2A; Fri, 26 Jun 2020 14:47:41 +0000
+	id 1jopf7-00024R-Cq; Fri, 26 Jun 2020 14:49:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J8X4=AH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jopdj-0001xb-Kl
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 14:47:39 +0000
-X-Inumbo-ID: fb1643c8-b7bb-11ea-bb8b-bc764e2007e4
+ id 1jopf6-00024H-D3
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 14:49:04 +0000
+X-Inumbo-ID: 2c96e88a-b7bc-11ea-8496-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fb1643c8-b7bb-11ea-bb8b-bc764e2007e4;
- Fri, 26 Jun 2020 14:47:39 +0000 (UTC)
+ id 2c96e88a-b7bc-11ea-8496-bc764e2007e4;
+ Fri, 26 Jun 2020 14:49:02 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 26724ABE2;
- Fri, 26 Jun 2020 14:47:38 +0000 (UTC)
-Subject: Re: [PATCH for-4.14] changelog: Add notes about CET and Migration
- changes
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200626143738.1525-1-andrew.cooper3@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 3D8C5AAE8;
+ Fri, 26 Jun 2020 14:49:01 +0000 (UTC)
+Subject: Re: [PATCH v2 for-4.14] x86/livepatch: Make livepatching compatible
+ with CET Shadow Stacks
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <20200626122408.19151-1-andrew.cooper3@citrix.com>
+ <4bd8ab3e-37d0-fde9-10a3-b6b2f9ca4da6@citrix.com>
+ <29ae3614-a73e-de01-f10f-8f3a32c3372a@suse.com>
+ <5756a404-2d0a-3146-0682-dc89ad4a3c61@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3f418561-440a-20fc-fe79-695e894e2184@suse.com>
-Date: Fri, 26 Jun 2020 16:47:40 +0200
+Message-ID: <5a1e12b9-5af9-f393-47bb-153c62ca51f3@suse.com>
+Date: Fri, 26 Jun 2020 16:49:03 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200626143738.1525-1-andrew.cooper3@citrix.com>
+In-Reply-To: <5756a404-2d0a-3146-0682-dc89ad4a3c61@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -46,19 +50,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Paul Durrant <paul@xen.org>,
- Ian Jackson <ian.jackson@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Pawel Wieczorkiewicz <wipawel@amazon.de>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26.06.2020 16:37, Andrew Cooper wrote:
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 26.06.2020 16:46, Andrew Cooper wrote:
+> On 26/06/2020 15:26, Jan Beulich wrote:
+>> On 26.06.2020 15:59, Ross Lagerwall wrote:
+>>> On 2020-06-26 13:24, Andrew Cooper wrote:
+>>>> @@ -56,18 +57,48 @@ int arch_livepatch_safety_check(void)
+>>>>      return -EBUSY;
+>>>>  }
+>>>>  
+>>>> -int arch_livepatch_quiesce(void)
+>>>> +int noinline arch_livepatch_quiesce(void)
+>>>>  {
+>>>> +    /* If Shadow Stacks are in use, disable CR4.CET so we can modify CR0.WP. */
+>>>> +    if ( cpu_has_xen_shstk )
+>>> Should this be:
+>>>     if ( IS_ENABLED(CONFIG_XEN_SHSTK) && cpu_has_xen_shstk )
+>>>
+>>> to match arch_livepatch_revive?
+>> While it may look a little asymmetric, I think it's preferable
+>> to is IS_ENABLED() only where really needed, i.e. here it
+>> guarding code that otherwise may not build.
+> 
+> The reason for the asymmetry is because of the asm() block, which needs
+> compiling out when we detect that we don't have a compatible assembler.
+> 
+> I was wondering whether I should make cpu_has_xen_shstk be false for
+> !CONFIG_XEN_SHSTK, but that would be 4.15 work at this point.
 
-In case wanted / needed:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Ah yes, this might then help with other code as well.
 
 Jan
 
