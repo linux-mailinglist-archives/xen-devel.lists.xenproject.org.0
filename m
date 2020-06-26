@@ -2,41 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 081D120B3FD
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 16:49:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED84620B41A
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 17:03:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jopf7-00024R-Cq; Fri, 26 Jun 2020 14:49:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jops8-0003fP-KH; Fri, 26 Jun 2020 15:02:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J8X4=AH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jopf6-00024H-D3
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 14:49:04 +0000
-X-Inumbo-ID: 2c96e88a-b7bc-11ea-8496-bc764e2007e4
+ id 1jops6-0003fK-Tj
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 15:02:30 +0000
+X-Inumbo-ID: 0dea3da4-b7be-11ea-82ce-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c96e88a-b7bc-11ea-8496-bc764e2007e4;
- Fri, 26 Jun 2020 14:49:02 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0dea3da4-b7be-11ea-82ce-12813bfff9fa;
+ Fri, 26 Jun 2020 15:02:29 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3D8C5AAE8;
- Fri, 26 Jun 2020 14:49:01 +0000 (UTC)
-Subject: Re: [PATCH v2 for-4.14] x86/livepatch: Make livepatching compatible
- with CET Shadow Stacks
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <20200626122408.19151-1-andrew.cooper3@citrix.com>
- <4bd8ab3e-37d0-fde9-10a3-b6b2f9ca4da6@citrix.com>
- <29ae3614-a73e-de01-f10f-8f3a32c3372a@suse.com>
- <5756a404-2d0a-3146-0682-dc89ad4a3c61@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id A5F91AC46;
+ Fri, 26 Jun 2020 15:02:28 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5a1e12b9-5af9-f393-47bb-153c62ca51f3@suse.com>
-Date: Fri, 26 Jun 2020 16:49:03 +0200
+Subject: [PATCH] build: tweak variable exporting for make 3.82
+Message-ID: <0677fe2a-9ea1-7b3c-e212-4a2478537459@suse.com>
+Date: Fri, 26 Jun 2020 17:02:30 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <5756a404-2d0a-3146-0682-dc89ad4a3c61@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -50,42 +44,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Pawel Wieczorkiewicz <wipawel@amazon.de>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26.06.2020 16:46, Andrew Cooper wrote:
-> On 26/06/2020 15:26, Jan Beulich wrote:
->> On 26.06.2020 15:59, Ross Lagerwall wrote:
->>> On 2020-06-26 13:24, Andrew Cooper wrote:
->>>> @@ -56,18 +57,48 @@ int arch_livepatch_safety_check(void)
->>>>      return -EBUSY;
->>>>  }
->>>>  
->>>> -int arch_livepatch_quiesce(void)
->>>> +int noinline arch_livepatch_quiesce(void)
->>>>  {
->>>> +    /* If Shadow Stacks are in use, disable CR4.CET so we can modify CR0.WP. */
->>>> +    if ( cpu_has_xen_shstk )
->>> Should this be:
->>>     if ( IS_ENABLED(CONFIG_XEN_SHSTK) && cpu_has_xen_shstk )
->>>
->>> to match arch_livepatch_revive?
->> While it may look a little asymmetric, I think it's preferable
->> to is IS_ENABLED() only where really needed, i.e. here it
->> guarding code that otherwise may not build.
-> 
-> The reason for the asymmetry is because of the asm() block, which needs
-> compiling out when we detect that we don't have a compatible assembler.
-> 
-> I was wondering whether I should make cpu_has_xen_shstk be false for
-> !CONFIG_XEN_SHSTK, but that would be 4.15 work at this point.
+While I've been running into an issue here only because of an additional
+local change I'm carrying, to be able to override just the compiler in
+$(XEN_ROOT)/.config (rather than the whole tool chain), in
+config/StdGNU.mk:
 
-Ah yes, this might then help with other code as well.
+ifeq ($(filter-out default undefined,$(origin CC)),)
 
-Jan
+I'd like to propose to nevertheless correct the underlying issue:
+Exporting an unset variable changes its origin from "undefined" to
+"file". This comes into effect because of our adding of -rR to
+MAKEFLAGS, which make 3.82 wrongly applies also upon re-invoking itself
+after having updated auto.conf{,.cmd}.
+
+Move the export statement past $(XEN_ROOT)/config/$(XEN_OS).mk inclusion
+such that the variables already have their designated values at that
+point, while retaining their initial origin up to the point they get
+defined.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -17,8 +17,6 @@ export XEN_BUILD_HOST	?= $(shell hostnam
+ PYTHON_INTERPRETER	:= $(word 1,$(shell which python3 python python2 2>/dev/null) python)
+ export PYTHON		?= $(PYTHON_INTERPRETER)
+ 
+-export CC CXX LD
+-
+ export BASEDIR := $(CURDIR)
+ export XEN_ROOT := $(BASEDIR)/..
+ 
+@@ -42,6 +40,8 @@ export TARGET_ARCH     := $(shell echo $
+ # Allow someone to change their config file
+ export KCONFIG_CONFIG ?= .config
+ 
++export CC CXX LD
++
+ .PHONY: default
+ default: build
+ 
 
