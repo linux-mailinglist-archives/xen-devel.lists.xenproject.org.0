@@ -2,42 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF0F420B235
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 15:11:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60F7720B23D
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2020 15:13:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1joo8Q-0001Xx-DQ; Fri, 26 Jun 2020 13:11:14 +0000
+	id 1jooAW-0001fU-QF; Fri, 26 Jun 2020 13:13:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J8X4=AH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1joo8O-0001Xr-Td
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 13:11:12 +0000
-X-Inumbo-ID: 81c5d716-b7ae-11ea-b7bb-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eduV=AH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jooAV-0001fP-M4
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2020 13:13:23 +0000
+X-Inumbo-ID: cfe6f8f8-b7ae-11ea-b7bb-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 81c5d716-b7ae-11ea-b7bb-bc764e2007e4;
- Fri, 26 Jun 2020 13:11:12 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 35D0FAC85;
- Fri, 26 Jun 2020 13:11:11 +0000 (UTC)
-Subject: Re: [PATCH for-4.14 v3] x86/tlb: fix assisted flush usage
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, paul@xen.org,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200625113041.81507-1-roger.pau@citrix.com>
- <551387c6-f45d-bf6c-a41e-b0920425db9f@xen.org>
- <20200626100745.GB735@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5586cae5-8929-0c53-7a35-5dd6116c77c2@suse.com>
-Date: Fri, 26 Jun 2020 15:11:13 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
-MIME-Version: 1.0
-In-Reply-To: <20200626100745.GB735@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+ id cfe6f8f8-b7ae-11ea-b7bb-bc764e2007e4;
+ Fri, 26 Jun 2020 13:13:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ELwGTR9ZAfxCOcjiNvgl/LdmT9KK6TVt0zj8TzDIbQY=; b=Wr80gBN6BrBPkfJz6xuNEdzLx
+ vmiBc9SDm0xzTeoCZx2REpbgXY0xPORNJk3MbrQ4I+KU272O5U7OoUeLsQ8fzL1Em2jPFz5o3YlT0
+ k47PhEIGOlq4PlNqTGX3o7pO15UNbndJ16Z0tOmlZirnGKXTGXUduXNXOJBZ0rs5d5djA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jooAU-0004EN-Ig; Fri, 26 Jun 2020 13:13:22 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jooAT-0006cJ-VF; Fri, 26 Jun 2020 13:13:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jooAT-00035B-Uf; Fri, 26 Jun 2020 13:13:21 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151376-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 151376: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=d3688bf60f798074bf38d712a3e15c88cfb81ed4
+X-Osstest-Versions-That: xen=e4d2207165b379ec13c8b512936f63982af62d13
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 26 Jun 2020 13:13:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,60 +65,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26.06.2020 12:07, Roger Pau Monné wrote:
-> On Fri, Jun 26, 2020 at 10:38:11AM +0100, Julien Grall wrote:
->> Hi Roger,
->>
->> Sorry I didn't manage to answer to your question before you sent v3.
->>
->> On 25/06/2020 12:30, Roger Pau Monne wrote:
->>> diff --git a/xen/include/asm-arm/flushtlb.h b/xen/include/asm-arm/flushtlb.h
->>> index ab1aae5c90..7ae0543885 100644
->>> --- a/xen/include/asm-arm/flushtlb.h
->>> +++ b/xen/include/asm-arm/flushtlb.h
->>> @@ -27,6 +27,7 @@ static inline void page_set_tlbflush_timestamp(struct page_info *page)
->>>   /* Flush specified CPUs' TLBs */
->>>   void flush_tlb_mask(const cpumask_t *mask);
->>> +#define flush_tlb_mask_sync flush_tlb_mask
->>
->> Dropping the parameter 'sync' from filtered_flush_tlb_mask() is a nice
->> improvement, but it unfortunately doesn't fully address my concern.
->>
->> After this patch there is exactly one use of flush_tlb_mask() in common code
->> (see grant_table.c). But without looking at the x86 code, it is not clear
->> why this requires a different flush compare to the two other sites.
-> 
-> It's not dealing with page allocation or page type changes directly,
-> and hence doesn't need to use an IPI in order to prevent races with
-> spurious_page_fault.
-> 
->> IOW, if I want to modify the common code in the future, how do I know which
->> flush to call?
-> 
-> Unless you modify one of the specific areas mentioned above (page
-> allocation or page type changes) you should use flush_tlb_mask.
-> 
-> This is not ideal, and my aim will be to be able to use the assisted
-> flush everywhere if possible, so I would really like to get rid of the
-> interrupt disabling done in spurious_page_fault and this model where
-> x86 relies on blocking interrupts in order to prevent page type
-> changes or page freeing.
-> 
-> Such change however doesn't feel appropriate for a release freeze
-> period, and hence went with something smaller that restores the
-> previous behavior. Another option is to just disable assisted flushes
-> for the time being and re-enable them when a suitable solution is
-> found.
+flight 151376 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151376/
 
-As I can understand Julien's concern, maybe this would indeed be
-the better approach for now? Andrew, Paul - thoughts?
+Failures :-/ but no regressions.
 
-Jan
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  d3688bf60f798074bf38d712a3e15c88cfb81ed4
+baseline version:
+ xen                  e4d2207165b379ec13c8b512936f63982af62d13
+
+Last test of basis   151356  2020-06-25 08:07:44 Z    1 days
+Testing same since   151376  2020-06-26 11:00:34 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   e4d2207165..d3688bf60f  d3688bf60f798074bf38d712a3e15c88cfb81ed4 -> smoke
 
