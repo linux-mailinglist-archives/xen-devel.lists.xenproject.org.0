@@ -2,48 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5601220CD9C
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 11:33:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 763D820CDA9
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 11:40:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jpq9g-0002cQ-Fk; Mon, 29 Jun 2020 09:32:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jpqGw-0003TV-8u; Mon, 29 Jun 2020 09:40:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wPAo=AK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jpq9e-0002cL-Py
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 09:32:46 +0000
-X-Inumbo-ID: 7d32c12a-b9eb-11ea-8547-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7d32c12a-b9eb-11ea-8547-12813bfff9fa;
- Mon, 29 Jun 2020 09:32:46 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 7f2vnpZmjRwk/HVS9W+BG0B0Tq+jpbz9Prj9My3XhZae0f8a3E9rAmqo62Z2TF/P6VIUHZaQ02
- bL1yD21I1aY6Hu5ZCaNGye9c7qEMmbrS8B/zTEinjLgzrzpj19Pyb12WWyL4wGRxINeLUtDhuK
- WjPLXsARwtpXWTtNvdrgp3qLQdpAk33tyByjheW7ZHpWIJxxYh7X7YHdiM4jZ73LM9CxxqZGqg
- 4+OQPQ3Ei/g1hQQ4oRb6r8pJ8thfqamPDErCxdKvFmUDmquQvEFUjukWEATjyBHZNW+nMP/zBR
- vuI=
-X-SBRS: 2.7
-X-MesageID: 21370894
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,294,1589256000"; d="scan'208";a="21370894"
-Date: Mon, 29 Jun 2020 11:32:39 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Trevor Bentley <trevor@yubico.com>
-Subject: Re: Suspend/hibernate not working on Dell XPS 15 9500 laptop
-Message-ID: <20200629093239.GG735@Air-de-Roger>
-References: <afe621ac-d446-7dbf-e368-e06ab0a95970@yubico.com>
+ <SRS0=D7I7=AK=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jpqGu-0003Sh-Fz
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 09:40:16 +0000
+X-Inumbo-ID: 864ab9e2-b9ec-11ea-bb8b-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 864ab9e2-b9ec-11ea-bb8b-bc764e2007e4;
+ Mon, 29 Jun 2020 09:40:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=mLaUlBOyC8XzeSahLQNWisU8sIm0qqyJPJdmoFomgo4=; b=lXNfx3Cxxq63gGYfAhtlOsBTs
+ gT3FUN1u601WImtn5XvN7cEoMD10AgxkszVLPOPMU2nirvYOEhMnobT/M5ecopUvL18Ko+C68u4mO
+ bGi5H+jkKEunmY70k96I8i2QfaCm1kyntXcq1a6hANMkoKeSqCVPeDGWED6FRC8nXVd5g=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jpqGn-00081c-Vq; Mon, 29 Jun 2020 09:40:10 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jpqGn-0007Qw-Mj; Mon, 29 Jun 2020 09:40:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jpqGn-0001Oq-Lm; Mon, 29 Jun 2020 09:40:09 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151444-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <afe621ac-d446-7dbf-e368-e06ab0a95970@yubico.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: [ovmf test] 151444: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=0060e0a694f3f249c3ec081b0e61287c36f64ebb
+X-Osstest-Versions-That: ovmf=654dc3ed852aafa126e9d539b7002db348dd6eb0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 29 Jun 2020 09:40:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,31 +60,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Jun 27, 2020 at 08:35:27AM +0000, Trevor Bentley wrote:
-> I asked on #xen on Freenode and was requested to post here.
-> 
-> Summary: Under Xen, both suspend and hibernate operations put the laptop
-> into some sort of unrecoverable low-power mode, and a force power-off is
-> required.
-> 
-> Environment:
->  - Dell XPS 15 9500, BIOS 1.0.1 (this is a new 2020 model)
->  - Intel i7-10750H
->  - Intel i915 + Nvidia GTX 1650 Ti Mobile
->  - Arch linux (clean install)
->  - Linux kernels 5.7.5, 5.7.6 tested
->  - i915 driver loaded, no nvidia drivers loaded (nouveau blacklisted)
->  - Xen 4.13.1, 4.14.0-rc3 tested
->  - UEFI, GRUB2 bootloader, LUKS-encrypted /boot, /root, and swap
-> (unencrypted /efi with GRUB stub loader)
+flight 151444 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151444/
 
-Completely a shot in the dark, but have you tried with legacy boot
-(BIOS) instead of UEFI? To try to rule out what might cause the
-issues.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 0060e0a694f3f249c3ec081b0e61287c36f64ebb
+baseline version:
+ ovmf                 654dc3ed852aafa126e9d539b7002db348dd6eb0
 
-Roger.
+Last test of basis   151401  2020-06-27 09:09:22 Z    2 days
+Testing same since   151444  2020-06-29 02:39:29 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Dong, Eric <eric.dong@intel.com>
+  Eric Dong <eric.dong@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   654dc3ed85..0060e0a694  0060e0a694f3f249c3ec081b0e61287c36f64ebb -> xen-tested-master
 
