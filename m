@@ -2,69 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B54D20CDAA
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 11:42:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9930520CDAC
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 11:44:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jpqIa-0003Yd-KP; Mon, 29 Jun 2020 09:42:00 +0000
+	id 1jpqKJ-0003go-0O; Mon, 29 Jun 2020 09:43:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LMiv=AK=yubico.com=trevor@srs-us1.protection.inumbo.net>)
- id 1jpqIZ-0003YU-B9
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 09:41:59 +0000
-X-Inumbo-ID: c6704582-b9ec-11ea-8496-bc764e2007e4
-Received: from mail-lj1-x231.google.com (unknown [2a00:1450:4864:20::231])
+ id 1jpqKG-0003gg-Mo
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 09:43:44 +0000
+X-Inumbo-ID: 054af5ea-b9ed-11ea-b7bb-bc764e2007e4
+Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c6704582-b9ec-11ea-8496-bc764e2007e4;
- Mon, 29 Jun 2020 09:41:58 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id 9so17254031ljc.8
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2020 02:41:58 -0700 (PDT)
+ id 054af5ea-b9ed-11ea-b7bb-bc764e2007e4;
+ Mon, 29 Jun 2020 09:43:44 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id c11so8698262lfh.8
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2020 02:43:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yubico.com; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=wNrpK7hVjJqj+NTq27Ygcyi06KkXeW4tOpFnlf1BjXs=;
- b=fRCmhhWjVYKIqVJj4tazme91amg+JXim7J6Ifsn0BhWyEstV9tof79cBxTd99xpDdi
- qR2ZzXzMPEtc0b3fS+1dnyIGt1fqF0bUZp0idfCSxZTxXmkbSAFTFkUkgBS1tKTmdFOK
- ZcF3yUo3+0El33BsYXkPMZuBv1CHFPB9VbO+FCgMUYTabqTH4vpGOaAdKSPjQ1z/1a1S
- 5zKrhk/vIQo+cvvDYtvNqw3vg3x7LUEycoMsXY2iwqOtpPPs7HDkqzAmodUYxppplF9r
- lr0UUfrCetwMg6QcpqFaFftLN8ZKy0sIKAJZEtZf73c6CANEfzrTnEUjL/AQV6Y2DvJb
- nbEQ==
+ bh=rvG7s+jucVSNCaXdvIkIcodl8tXal4e6UXtqml8xF4c=;
+ b=lirGeECQnn9CHcXsCZI+WDUP0yZZ1PM5dHOvZc3tSYXbYvM48Q9PwsGoThIQ+/MjFY
+ OVtAu9tIoUU0BPkZGAfoM3dWPda6KXAppMoTMregZCuUvlbInGej62Tl6hH+/xFW3nM3
+ DNZfafwyafHg9owiZ1ZJpkd7JBmq6nL+vdXqZ7WYJRgV4rmCQCm24VxrenNsVb3Wk4SX
+ EBSw2gzcaLzMpHg+wPQGoDX/FTX+cjFR5dr/XBzzJL1yuYT3fjO3HriZl/4VN7oO095e
+ /9gOXKCr7z/r8f/X/5GHIHsfNeexRxE+15wBP0sx2x0TOWttb7EPoA1mChpXBLzNjpU3
+ Snng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=wNrpK7hVjJqj+NTq27Ygcyi06KkXeW4tOpFnlf1BjXs=;
- b=ljVENrfmgD9VXz/yMC4HuDOuXeJ6ubpqyv5C56Cd0mXYcNK7PRczbr10DVylzVzERb
- lNMhSca/i3IWab/AHmkOzV/CtoohxFB/Uq/OwFJVAinsrW6ogW2zA7bEKBXsHa3c2Jbt
- P1FO4dOGuNxH9mkTrnpl7ViW+5mFbzMwPt0Mn0BydV72tee8ZSP6AFB7uygSbE3misXT
- cG9eCUHiaC4eBN1hcbvyXr2EG/KNaf5i5SjrQPTfkCLgFjtWgXqaPjWqRkITukoNaT5C
- OStWLyPqhCS6zUa7lFPxrzJDoLSPRTx2Q2/I83LRmyEVfzglQVXf4E4vWIEKG/MomK2W
- wVFA==
-X-Gm-Message-State: AOAM5333h6+UesTrxXlGV+YqGOp23YVUo56rY7eYCh5Sk2uQgJTOanMx
- Ycu3FzEQD4l0aZDeuQvL2gKLAVFOCmai/H4eBYHdUt4n047cy9VFsnEZ+p5vDlHOpS11TlsJVuj
- c2ClVAFnjN4P3tG9LhkN1vu8b8nWhCgPyxoS7AoNQAhUvP3uTVZ+7rleo2ChJE8AE7WyRjTSZJg
+ bh=rvG7s+jucVSNCaXdvIkIcodl8tXal4e6UXtqml8xF4c=;
+ b=fG9zK7vCLXmGQxPWb9D1GDXor6RNbUBz700g30O4E8NmwIJ5TW0nfNuLMgTknrV1ug
+ FIM2L0lK9tZLJ4b5TzNCmapoxu2FonJPTZ1YdbxU6gEMfW3Sb9OEvZ1f7XjhfS9LkT8p
+ 0Rk4IbufW2znK5yIioAQcpDvRVZE1YQdjQUKu7cWpjiNs1bwtbxcly+9M+qFaHZF2kug
+ 4qj5+uOO/JIj9vyvf2xPiLrrGq6KOUhLVupoj12RssVTxNqxNM1ALCpNON7Beq7YSCKN
+ /eJRy7N9QLYA3fgyTBlHX8TnKyXCze35adU1b8JorJ9slSGWvxa/Ma7c4Hm5Vb9WdzE7
+ 2u3g==
+X-Gm-Message-State: AOAM531grCn9fgErDEwm9YTAyfS1bBiPadcXek635nr8FSkixullz395
+ G+2cVOzzwlRcDiWG3YKUuRB1TnkLgi4V5Da4U9g+h46CPxW4TyC1Px6o0z9MCRrTqCB51d3Zbex
+ baaDmw8EdzZ7b25R4pSF5Oi0EUGphlAdTPbYV+lLg/+Sl1g0b3q6I1wdQwpxfvKQjEWjqnPCvQQ
  ==
-X-Google-Smtp-Source: ABdhPJyrdtYXJJJKT2H9qdGWiFqoh3E3gg1jZhN4dSa76Qcsxk8GtHTY7YXV9Fm9Q8g1akTYByblPw==
-X-Received: by 2002:a2e:97d8:: with SMTP id m24mr7740949ljj.166.1593423717266; 
- Mon, 29 Jun 2020 02:41:57 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwYUw+TD24ZDIdLkunOi4TucBqziHpLfZLla8iE4gPbIWui8B1rafwFVfl69cleARz3CX4rEw==
+X-Received: by 2002:ac2:5f0b:: with SMTP id 11mr8749749lfq.201.1593423822940; 
+ Mon, 29 Jun 2020 02:43:42 -0700 (PDT)
 Received: from apple-IIe.local (c188-151-193-98.bredband.comhem.se.
  [188.151.193.98])
- by smtp.gmail.com with ESMTPSA id 132sm9007023lfl.37.2020.06.29.02.41.56
+ by smtp.gmail.com with ESMTPSA id v19sm2688739lfi.65.2020.06.29.02.43.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jun 2020 02:41:56 -0700 (PDT)
+ Mon, 29 Jun 2020 02:43:42 -0700 (PDT)
 Subject: Re: Suspend/hibernate not working on Dell XPS 15 9500 laptop
-To: Jan Beulich <jbeulich@suse.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <afe621ac-d446-7dbf-e368-e06ab0a95970@yubico.com>
- <3d49bf4a-d82d-36d3-863c-e954d751b959@suse.com>
+ <20200629093239.GG735@Air-de-Roger>
 From: Trevor Bentley <trevor@yubico.com>
-Message-ID: <145d7f2e-cc62-740e-7f90-cd759c2aa76b@yubico.com>
-Date: Mon, 29 Jun 2020 11:41:56 +0200
+Message-ID: <774fff18-55a5-259a-0fbf-fefb2f8969fc@yubico.com>
+Date: Mon, 29 Jun 2020 11:43:42 +0200
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:75.0)
  Gecko/20100101 Thunderbird/75.0
 MIME-Version: 1.0
-In-Reply-To: <3d49bf4a-d82d-36d3-863c-e954d751b959@suse.com>
+In-Reply-To: <20200629093239.GG735@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -82,32 +82,14 @@ Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> I don't suppose you have a serial port on this laptop? I ask because
-> the serial log (and the possibility to issue debug keys) are about
-> the only thing debugging-wise that may help here, short of someone
-> noticing the underlying problem by code inspection.
+> Completely a shot in the dark, but have you tried with legacy boot
+> (BIOS) instead of UEFI? To try to rule out what might cause the
+> issues.
 
-Afraid not, it's hyper-modern; just 3 USB-C ports.
+ From the BIOS: "Legacy Boot mode is not supported on this platform."
 
-It looks like identical hardware in the Dell Precision 5550 model, in 
-case anybody gets access to either and wants to test.
-
-> Do you have any indication of the laptop at least partly waking up
-> again, e.g. from some LED or other indicator activity?
-
-None at all, no.  Could be missing the keyboard events entirely, or 
-getting them and failing to wake.  I've tried built-in keyboard, 
-external keyboard, and closing/opening the lid.
-
-When using the /sys/power/pm_test commands, does that actually do 
-anything in a Xen environment, or is that being consumed by dom0 and not 
-triggering the real VMM low-power paths?  Is there any similar debug 
-mechanism for the hypervisor?
-
-Let me know if there is any useful information I can extract.  I'm happy 
-to build patched kernels if it will help.
-
-Thanks,
+This is my punishment for buying a brand new laptop model for Linux...
 
 -Trevor
+
 
