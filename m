@@ -2,47 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02AF820CE6E
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 14:06:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEB6620CE90
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 14:52:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jpsY0-0007lA-No; Mon, 29 Jun 2020 12:06:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jptFX-0003Og-AV; Mon, 29 Jun 2020 12:51:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jsT6=AK=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jpsXy-0007l5-EG
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 12:06:02 +0000
-X-Inumbo-ID: e5e5ebce-ba00-11ea-b7bb-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e5e5ebce-ba00-11ea-b7bb-bc764e2007e4;
- Mon, 29 Jun 2020 12:06:01 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ <SRS0=R5re=AK=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jptFW-0003Ob-Mj
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 12:51:02 +0000
+X-Inumbo-ID: 2f0ab37e-ba07-11ea-8561-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2f0ab37e-ba07-11ea-8561-12813bfff9fa;
+ Mon, 29 Jun 2020 12:51:01 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: rf575NL4JziItKVrn0RKJZthvbssvZoBKB7Q5ALaCkfRShDKGCFeq6Sdd9lY/IjOQ68eJ6EBCN
- zyEhj2LGifiVKNLLNRox2VRpWtdXgkBSGH+0cfYqeKdwTflEjdSv4qwLqNKAsOYn8QxjyXeat5
- dp2omnX9eCYmXEMLfhigxvJreQYuKor4I9OwbGrrHEyhK4CNP7zzOmSXcsFpooPMoO5TGVuRNB
- DObiD2D6M11RldR7/ERjpTIEsumrxLbZlwePF50x7XI8jFO6LTT8zkLATSiWT0GW9Q2SFPsfzK
- fHI=
+IronPort-SDR: hOggAfmDbsi8FS5GTKvxaQStBB3UF3WLpR+RR8dT2pNl0yMIUbmW/qF2LyEKc1sRs3+apTmFNV
+ YGQ8CeMXbKEToL5JksFACqJLkXELXK4UMeTZ2SGfMi2DsMvYxR8m/gcpa+g6nbBNZr4a/x4km1
+ 4znaw2+gQlXFYzBuZNlFNsjI7w3ZPF90n1kcaBCVBTzZPbSq3Dw7UOELbg1IhadfaANBkvr2Wq
+ 3PLGd45SrBc7UsjqxUuDBK8BmaZD7ypafvmoqf+4G3h76AZ3WGvGI66tZlIM2SCKB3uOkjCdSQ
+ w8g=
 X-SBRS: 2.7
-X-MesageID: 21508118
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 21477854
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,294,1589256000"; d="scan'208";a="21508118"
-From: Ian Jackson <ian.jackson@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.75,294,1589256000"; d="scan'208";a="21477854"
+Subject: Re: [PATCH] xsm: Drop trailing whitespace from build scripts
+To: <paul@xen.org>, 'Jan Beulich' <jbeulich@suse.com>
+References: <20200626170221.28534-1-andrew.cooper3@citrix.com>
+ <9822c557-655b-67cb-c513-60039dbe0d8d@suse.com>
+ <000601d64dee$e47b2840$ad7178c0$@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <257c6ec8-8f0f-c765-d876-803b90832b01@citrix.com>
+Date: Mon, 29 Jun 2020 13:50:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24313.55588.61431.336617@mariner.uk.xensource.com>
-Date: Mon, 29 Jun 2020 13:05:56 +0100
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] tools/configure: drop BASH configure variable
-In-Reply-To: <880fcc83-875c-c030-bfac-c64477aa3254@suse.com>
-References: <20200626170038.27650-1-andrew.cooper3@citrix.com>
- <880fcc83-875c-c030-bfac-c64477aa3254@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+In-Reply-To: <000601d64dee$e47b2840$ad7178c0$@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,32 +59,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Paul Durrant <paul@xen.org>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: 'Xen-devel' <xen-devel@lists.xenproject.org>,
+ 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Jan Beulich writes ("Re: [PATCH] tools/configure: drop BASH configure variable"):
-> On 26.06.2020 19:00, Andrew Cooper wrote:
-> > diff --git a/xen/xsm/flask/policy/mkaccess_vector.sh b/xen/xsm/flask/policy/mkaccess_vector.sh
-> > old mode 100644
-> > new mode 100755
-> > diff --git a/xen/xsm/flask/policy/mkflask.sh b/xen/xsm/flask/policy/mkflask.sh
-> > old mode 100644
-> > new mode 100755
-> 
-> ... this may or may not take effect on the file system the sources
-> are stored on.
+On 29/06/2020 09:25, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Jan Beulich
+>> Sent: 29 June 2020 09:22
+>> To: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Cc: Xen-devel <xen-devel@lists.xenproject.org>; Daniel De Graaf <dgdegra@tycho.nsa.gov>
+>> Subject: Re: [PATCH] xsm: Drop trailing whitespace from build scripts
+>>
+>> On 26.06.2020 19:02, Andrew Cooper wrote:
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+>> Since we've not heard anything from Daniel in quite a while, just
+>> in case:
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>
+> This is pretty trivial cleanup so, if you want to put it in 4.14 consider it...
+>
+> Release-acked-by: Paul Durrant <paul@xen.org>
 
-In what circumstances might this not take effect ?
+Ok.  In it goes.
 
-IME all changes to files are properly replicated by git.  Tarball
-distributions replicate the permissions of course.
-
-The only difficulty would be if this change were to be carried as a
-patch somewhere, by a downstream, but that seems unlikely, and can be
-avoided by that downstream not taking this patch.
-
-Ian.
+~Andrew
 
