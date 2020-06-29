@@ -2,60 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 447DC20CDB6
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 11:57:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0345320CDB9
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 11:57:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jpqWw-0004iG-ET; Mon, 29 Jun 2020 09:56:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jpqXr-0004nD-RV; Mon, 29 Jun 2020 09:57:47 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lswg=AK=tttech.com=prvs=442971002=jan.ruh@srs-us1.protection.inumbo.net>)
- id 1jpqWv-0004iA-30
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 09:56:49 +0000
-X-Inumbo-ID: d6ac513c-b9ee-11ea-854b-12813bfff9fa
-Received: from mail.tttech.com (unknown [217.19.35.52])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d6ac513c-b9ee-11ea-854b-12813bfff9fa;
- Mon, 29 Jun 2020 09:56:45 +0000 (UTC)
-IronPort-SDR: 8jW9NScFxqx3q9NYF46JfkCa2W12ZRogXHWjHoTGxN5/f0RUMbst2Gq2dMf2PF5lTNuW07dpSV
- 6+J201Dp43Kz1ij9SwR4YpNztK883DnFNzC8UMEz+snGrrfpNM/ohTBrT3vhFbM3f9HOrB9+Zb
- 5PYdRNQWkXyyICn/ldWr0+4iR6m7eNyuQUDlCkoC50pdULKEYiPl4AC8/phASsxYmYQw9YbeJ+
- ED/BIqGT5sge/UTxtUR/cx50PQPkAQOCdUevW2xeEFHIHde0FKLUmVOkImopVznGLY8LClqvqg
- 9go=
-X-IronPort-AV: E=Sophos;i="5.75,294,1589234400"; 
-   d="scan'208";a="9449211"
-Received: from unknown (HELO mail.tttech.com) ([10.108.0.226])
- by mail-int.tttech.com with ESMTP; 29 Jun 2020 11:56:44 +0200
-Received: from EXVIE02.ds1.internal (10.108.0.226) by EXVIE02.ds1.internal
- (10.108.0.226) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Mon, 29 Jun
- 2020 11:56:43 +0200
-Received: from EXVIE02.ds1.internal ([fe80::4ccf:d313:b2a8:c054]) by
- EXVIE02.ds1.internal ([fe80::4ccf:d313:b2a8:c054%6]) with mapi id
- 15.01.1913.007; Mon, 29 Jun 2020 11:56:43 +0200
-From: Jan Ruh <jan.ruh@tttech.com>
-To: =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
-Subject: AW: Kernel requires x86-64 CPU, after modifying arch_shared_info
- struct
-Thread-Topic: Kernel requires x86-64 CPU, after modifying arch_shared_info
- struct
-Thread-Index: AQHWTehUS5L/6eMJQEyE2773H88H5KjvLyGAgAAjyHY=
-Sensitivity: personal
-Date: Mon, 29 Jun 2020 09:56:43 +0000
-Message-ID: <af1c2ea2298a4115baf50b580caa0017@tttech.com>
-References: <6f88fc3e2795436fa1f30dd026dd8eda@tttech.com>,
- <20200629091823.GF735@Air-de-Roger>
-In-Reply-To: <20200629091823.GF735@Air-de-Roger>
-Accept-Language: de-DE, en-GB, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.102.6.20]
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ <SRS0=aeCR=AK=web.de=joshua_peter@srs-us1.protection.inumbo.net>)
+ id 1jpqXq-0004n8-Fn
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 09:57:46 +0000
+X-Inumbo-ID: fa9246ec-b9ee-11ea-bb8b-bc764e2007e4
+Received: from mout.web.de (unknown [212.227.15.3])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fa9246ec-b9ee-11ea-bb8b-bc764e2007e4;
+ Mon, 29 Jun 2020 09:57:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+ s=dbaedf251592; t=1593424664;
+ bh=ZQbDvPXnFTZF0piKJJKk8yHV984e1gtyOn4pTVggaLk=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=LBE88t96i/Gk0zueBGtg3yZtEBlhtpEgz4b/dG6ZeXOurcppLL6J2fWE5gA/s0uel
+ KbEoDZEkmq/EjN9NmSBC02uSkMR9pnvmZnJRLaKkdkXe6K0FG7/BYnA0dvbix8SLm8
+ 76LMCuSXZsE0ZKpTilqCYDU6Eip+J8Ux4kA49xUg=
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [79.201.81.46] ([79.201.81.46]) by web-mail.web.de
+ (3c-app-webde-bs30.server.lan [172.19.170.30]) (via HTTP); Mon, 29 Jun 2020
+ 11:57:43 +0200
 MIME-Version: 1.0
+Message-ID: <trinity-b93efc54-9609-4657-8226-e10d3feca1e2-1593424663018@3c-app-webde-bs30>
+From: joshua_peter@web.de
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Aw: Re: Questions about PVH memory layout
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 29 Jun 2020 11:57:43 +0200
+Importance: normal
+Sensitivity: Normal
+In-Reply-To: <20200629085758.GE735@Air-de-Roger>
+References: <trinity-b65f5be3-8ffe-4ce5-a1e9-88e512959fc5-1593327494913@3c-app-webde-bap42>
+ <20200629085758.GE735@Air-de-Roger>
+Content-Transfer-Encoding: quoted-printable
+X-UI-Message-Type: mail
+X-Priority: 3
+X-Provags-ID: V03:K1:wHaBkn4x47uyB+TSXlHaBfdcH/o41086w8iOhSpoxSLCqkO4FmqrVWeu4IOQFfeI1q1x/
+ XDxppZ6R+2uitgMnkJJUZClhlHpVH9ZMoDjHjC7LzDw42Zm4aKaAtB5WoSPCkvQaVfVjkqX5r3WQ
+ 5vIVxW0Xk61ScduwA55/i/+9s+FIVhjtM2G20NX/fAclPsNyDurEj4UcnAl9nuq0lI0Aqu7EBsm6
+ +favt9GJfwlcx0n5uMx4LbQBdjALJr0sHbOLUD/2+PjZ/bV7E/RG25EjLRBeyHQfE6KSlD4NLxQR
+ ZI=
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:SLQln+3Toao=:2rlSCgt25VFEwEDSPIr4VC
+ 6a6cBrYNz86IpCofQpsIThgzVsDrwNOAoPv2hFtlWevm7W0BmPBNCuS8fDjKUhMsxLPWhEeBV
+ KqSNegLGG4K0ih0wAU6zfgTsIuNuYBh4fzQBHM3FN7apRXOwECrAy8AfHYAN4EAqqZ+xc4dPU
+ 2evCJLAUGHBDY1TOENWP6UA3d4t12rjch6rx8aqwlz2PWrM3np3zE8fXLLETamhYtWeC4lKCl
+ E8jGZ6ZQ1pm42aEYvvOl+oUabml52kTQX7LCwR9uwWRAzFKGGbnEiV3Oe6+QClRcKCFIm+eIp
+ WjoPbxxDump0JbKG++avMF+MTzpZbCO7MTZgJ54EHIVKMuv9zJovtNaFKCLHXUvvOk30EIx/7
+ 6YCBHASj/Y6uUzlZPpXyo9DCnQgHqXjNOmvBYkdWlC/kyuKVSgFhV84TPt5M7f9/9nlmprTTZ
+ pSzGe1D681V1c9UyYCEsOuhEoNROsPAe0dEGw/0N1tH5pRZNIpwqln37eE7JcHAeo25UK+M3J
+ SSBNvfZJUFgCzK7AGawvIhgOX+7geXw2m3UjPQ+ozVfVEGqMR/8FTLwxDBHaYdidcuMGQRfnj
+ 4wcI6D2OQwhso2u4rkXId+iHollGgLUIkQE7/DL0vDNC1J2/Qw9Pye0ZX3/9U0se4mIFo4/hM
+ 6QoDY0O4RyjPC3oadmCKj1RpGCjpDRlskosGuBjkbhQCXU2AR0d1fPfNkR/xaJ5AKugo=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,130 +71,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> Did you try backing up your changes and seeing if the same happens?
+Hi Roger,
 
-If backing up my changes everything works as expected.
+thank you very much for your help=2E Further replies are inline=2E
 
-> Did you rebuild both the Xen hypervisor and the tools?
+> Gesendet: Montag, 29=2E Juni 2020 um 10:57 Uhr
+> Von: "Roger Pau Monn=C3=A9" <roger=2Epau@citrix=2Ecom>
+> An: joshua_peter@web=2Ede
+> Cc: xen-devel@lists=2Exenproject=2Eorg
+> Betreff: Re: Questions about PVH memory layout
+>
+> > The other
+> > thing is, the first 512 pages at the beginning of the address space ar=
+e
+> > mapped linearly, which usually leads to them being mapped as a single
+> > 2MB pages=2E But there is this one page at 0x00001000 that sticks out
+> > completely=2E By that I mean (to make things more concrete), in my PVH
+> > guest the page at 0x00000000 maps to 0x13C200000, 0x00002000 maps to
+> > 0x13C202000, 0x00003000 maps to 0x13C203000, etc=2E But 0x00001000 map=
+s
+> > to 0xB8DBD000, which seems very odd to me (at least from simply lookin=
+g
+> > at the addresses)=2E
+>=20
+> Are you booting some OS on the guest before dumping the memory map?
+> Keep in mind guest have the ability to modify the physmap, either by
+> mapping Xen shared areas (like the shared info page) or just by using
+> ballooning in order to poke holes into it (which can be populated
+> later)=2E It's either that or some kind of bug/missoptimization in
+> meminit_hvm (also part of tools/libxc/xc_dom_x86=2Ec)=2E
 
-Yes, I rebuild both Xen hypervisor and the tools.
+Yes, my bad=2E I'm booting into Arch Linux=2E This must have been lost whi=
+le I
+was editing my e-mail=2E
 
-> Pasting your xl config file would be helpful in order to help debug.
+> Can you check if this 'weird' mapping at 0x1000 is also present if you
+> boot the guest with 'xl create -p foo=2Ecfg'? (that will prevent the
+> guests from running, so that you can get the memory map before the
+> guest has modified it in any way)=2E
 
-As requested my xl config:
-    type=3D"hvm"; extra=3D"console=3Dhvc0 earlyprintk=3Dxen";
-    kernel=3D"/usr/lib/kernel/vmlinuz-domu";
-    ramdisk=3D"/usr/lib/kernel/initrd.img-domu";
-    root=3D"/dev/xvda2 ro";
-    memory=3D1024;
-    autoballoon=3D"off";
-    xen_platform_pci=3D1;
-    pae=3D1; acpi=3D1; apic=3D1; vcpus=3D1;
-    name=3D"vm1";
-    disk=3D["file:domu.img,hda,w"];
-    vif=3D["bridge=3Dxenbr0"];
-    vfb=3D["type=3Dvnc,keymap=3Dde"];
-    vnclisten=3D"192.168.2.4:0";
-    boot=3D"c";'
+Yeah, starting with the "-p" flag does get rid of this 'weird' mapping=2E
 
-> Posting your changes might also help spot something wonky.
+Thank you again=2E This cleared up a bunch of things=2E
 
-diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x8=
-6/xen.h
-index 629cb2ba40..61c46504a5 100644
---- a/xen/include/public/arch-x86/xen.h
-+++ b/xen/include/public/arch-x86/xen.h
-@@ -265,6 +265,14 @@ struct arch_shared_info {
-     /* There's no room for this field in the generic structure. */
-     uint32_t wc_sec_hi;
- #endif
-+
-+    uint32_t st_version;
-+    uint64_t time_sec;
-+    uint64_t time_nsec;
-+    uint64_t cycle_last;
-+    uint32_t mult;
-+    uint32_t shift;
-+
- };
- typedef struct arch_shared_info arch_shared_info_t;
-
-diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-index c39fbe50a0..2782cb5127 100644
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -1254,15 +1254,15 @@ void update_domain_synctime(struct domain *d)
- {
-     uint32_t *st_version;
-
-+    st_version =3D &shared_info(d, arch.st_version);
-     *st_version =3D version_update_begin(*st_version);
-     smp_wmb();
-
-+    shared_info(d, arch.mult)        =3D global_time.mult;
-+    shared_info(d, arch.shift)       =3D global_time.shift;
-+    shared_info(d, arch.cycle_last)  =3D global_time.cycle_last;
-+    shared_info(d, arch.time_sec)    =3D global_time.time_sec;
-+    shared_info(d, arch.time_nsec)   =3D global_time.time_nsec;
-
-     smp_wmb();
-     *st_version =3D version_update_end(*st_version);
-
-diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index 72e7d33708..4b9ad0261b 100644
---- a/xen/common/sysctl.c
-+++ b/xen/common/sysctl.c
-@@ -503,22 +503,22 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u=
-_sysctl)
-     }
-     case XEN_SYSCTL_adjust_gtime:
-     {
-+        struct adjust_gtime *adjust_gtime =3D (struct adjust_gtime*) &op->=
-u.adjust_gtime;
-
-+        ret =3D do_adj_gtime(adjust_gtime);
-+
-         copyback =3D 1;
-
-         break;
-
-diff --git a/tools/include/xen-foreign/reference.size b/tools/include/xen-f=
-oreign/reference.size
-index bb2ada32fb..9afd11e5fa 100644
---- a/tools/include/xen-foreign/reference.size
-+++ b/tools/include/xen-foreign/reference.size
-@@ -9,6 +9,6 @@ vcpu_guest_context        |     344     344    2800    5168
- arch_vcpu_info            |       0       0      24      16
- vcpu_time_info            |      32      32      32      32
- vcpu_info                 |      48      48      64      64
--arch_shared_info          |       0       0      28      48
-+arch_shared_info          |       0       0      64      88
-
-
-global_time is a static struct in time.c, no existing Xen code is changed, =
-just functions added that are being called from the sysctl adjust_gtime.
-
-Further tests show that in /tools/libxc/xc_dom_binloader.c: xc_dom_parse_bi=
-n_kernel xc sets the dom->guest_type to "xen-3.0-x86_32" instead of "xen-3.=
-0-x86_64". I also cannot see though how it can be connected to my change to=
- arch_shared_info.
-
-Sorry for the banner, I always forget that the mail client adds that thing,=
- I hope it doesn't do it again.
-
-Jan
-
-
-
-CONFIDENTIALITY: The contents of this e-mail are confidential and intended =
-only for the above addressee(s). If you are not the intended recipient, or =
-the person responsible for delivering it to the intended recipient, copying=
- or delivering it to anyone else or using it in any unauthorized manner is =
-prohibited and may be unlawful. If you receive this e-mail by mistake, plea=
-se notify the sender and the systems administrator at straymail@tttech.com =
-immediately.
+Best regards,
+Peter
 
