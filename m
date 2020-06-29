@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80AF120CD67
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 10:58:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBBB120CD80
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2020 11:19:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jppcB-0007lG-D8; Mon, 29 Jun 2020 08:58:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jppvt-000121-2t; Mon, 29 Jun 2020 09:18:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wPAo=AK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jppcA-0007lB-1G
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 08:58:10 +0000
-X-Inumbo-ID: a6f57804-b9e6-11ea-853f-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a6f57804-b9e6-11ea-853f-12813bfff9fa;
- Mon, 29 Jun 2020 08:58:08 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ id 1jppvr-00011w-Qo
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2020 09:18:31 +0000
+X-Inumbo-ID: 7f5f88cc-b9e9-11ea-bb8b-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7f5f88cc-b9e9-11ea-bb8b-bc764e2007e4;
+ Mon, 29 Jun 2020 09:18:30 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 3DotGuMn/L7lm8Q1knDxCNoI48VWkEGWZcfryKJjpGWnUTCxIbLWKGK+WAnlmsiZCL7xXE6QwF
- xBAfYX1ZgRy1LrF/uvKYfQPtodcKw0PagJkmg2W/ZxDkAXpFnhW5HUeVJ4zGXq45Q5X5PsPWbP
- vTSyrGj9VQQ9DD4hTgtv54zUN+UYZ7J9TrF6XFdrZT1bPHe4Cmvilw5l2qIVxvj5h+Tdy6Hn1v
- 8qoR+fCD0NAQoBaiRUKeS73t7bu4/hcp5zW2TMf2xpou5gwbWZwnW7c+tMbrwVitSsDb//tATA
- Y70=
+IronPort-SDR: Gops3C6MoK9J4gyVt+TOqkXzFtEi5y8r6+SMR7bjP+umfku0oy+dntbembZZIkF5JWhiCXnfbG
+ yk58cnbnxrSsQAx3U3idyNz0eMy1Fwu2hUreU1krbTWtLxk0Bi4qvaC7EMbI+9nr6uRbWPBfux
+ Dwda0DiI20CI4suE2DznoAE/DgMh18voaRrEndgV/7wiXncxpC5JpYgS2WzUOu5mQ/mdJ+auVb
+ CaFI25F1RXJAAb8Xxa2MUpC3s8H0d1vjzxaYcJD8xfI33Xkuj58d7uQUpnLWGb0booepDXM503
+ VTE=
 X-SBRS: 2.7
-X-MesageID: 21497432
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 21149344
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,294,1589256000"; d="scan'208";a="21497432"
-Date: Mon, 29 Jun 2020 10:57:58 +0200
+X-IronPort-AV: E=Sophos;i="5.75,294,1589256000"; d="scan'208";a="21149344"
+Date: Mon, 29 Jun 2020 11:18:23 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: <joshua_peter@web.de>
-Subject: Re: Questions about PVH memory layout
-Message-ID: <20200629085758.GE735@Air-de-Roger>
-References: <trinity-b65f5be3-8ffe-4ce5-a1e9-88e512959fc5-1593327494913@3c-app-webde-bap42>
+To: Jan Ruh <jan.ruh@tttech.com>
+Subject: Re: Kernel requires x86-64 CPU, after modifying arch_shared_info
+ struct
+Message-ID: <20200629091823.GF735@Air-de-Roger>
+References: <6f88fc3e2795436fa1f30dd026dd8eda@tttech.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <trinity-b65f5be3-8ffe-4ce5-a1e9-88e512959fc5-1593327494913@3c-app-webde-bap42>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+In-Reply-To: <6f88fc3e2795436fa1f30dd026dd8eda@tttech.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -54,61 +54,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sun, Jun 28, 2020 at 08:58:14AM +0200, joshua_peter@web.de wrote:
-> Hello everyone,
+On Mon, Jun 29, 2020 at 07:43:43AM +0000, Jan Ruh wrote:
+> Hi Xen Dev Community,
 > 
-> I hope this is the right forum for these kinds of questions (the website
-> states no "technical support queries"; I'm not sure if this qualifies).
-> If not, sorry for the disturbance; just simply direct me elsewhere then.
 > 
-> Anyway, I'm currently trying to get into how Xen works in detail, so
-> for one I've been reading a lot of code, but also I dumped the P2M table
-> of my PVH guest to get a feel for how things are layed out in memory. I
-> mean there is the usual stuff, such as lots of RAM, and the APIC is
-> mapped at 0xFEE00000 and the APCI tables at 0xFC000000 onwards. But two
-> things stuck out to me, which for the life of me I couldn't figure out
-> from just reading the code. The first one is, there are a few pages at
-> the end of the 32bit address space (from 0xFEFF8000 to 0xFEFFF000),
-> which according to the E820 is declared simply as "reserved".
+> I ran into an issue when implementing a prototype for a new
+> paravirtualized clock for x86-64 hosts. I extended the
+> arch_shared_info struct by 6 fields totaling at 36 bytes. I updated
+> the xen-foreign/references.size to represent the new size of the
+> arch_shared_info struct. The fields are correctly updated in Xen and
+> I am also able to read the correct information stored from dom0.
+> However, if I try to start a hvm VM with pvh extensions it does not
+> boot telling me that "This kernel requires an x86-64 CPU, but only
+> detected an i686 CPU.".
 
-Those are the HVM special pages, which are used for various Xen
-specific things, like the shared memory ring for the PV console.
-They are setup in tools/libxc/xc_dom_x86.c (see SPECIALPAGE_*).
+Did you try backing up your changes and seeing if the same happens?
 
-> The other
-> thing is, the first 512 pages at the beginning of the address space are
-> mapped linearly, which usually leads to them being mapped as a single
-> 2MB pages. But there is this one page at 0x00001000 that sticks out
-> completely. By that I mean (to make things more concrete), in my PVH
-> guest the page at 0x00000000 maps to 0x13C200000, 0x00002000 maps to
-> 0x13C202000, 0x00003000 maps to 0x13C203000, etc. But 0x00001000 maps
-> to 0xB8DBD000, which seems very odd to me (at least from simply looking
-> at the addresses).
+Did you rebuild both the Xen hypervisor and the tools?
 
-Are you booting some OS on the guest before dumping the memory map?
-Keep in mind guest have the ability to modify the physmap, either by
-mapping Xen shared areas (like the shared info page) or just by using
-ballooning in order to poke holes into it (which can be populated
-later). It's either that or some kind of bug/missoptimization in
-meminit_hvm (also part of tools/libxc/xc_dom_x86.c).
+> I have rebuild my Linux domU kernel just as
+> the dom0 kernel and everything should be compatible. To me this
+> looks like Xen or libxc does some compatibility checks before
+> booting up my HVM domU and decides to downgrade the detectable CPU
+> due to some issue that I am not aware of. Do I miss something?
 
-Can you check if this 'weird' mapping at 0x1000 is also present if you
-boot the guest with 'xl create -p foo.cfg'? (that will prevent the
-guests from running, so that you can get the memory map before the
-guest has modified it in any way).
+Pasting your xl config file would be helpful in order to help debug.
 
-> My initial guess was that this is some bootloader
-> related stuff, but Google didn't show up any info related to that
-> memory area, and most of the x86/PC boot stuff seems to happen below
-> the 0x1000 mark.
+> Is my
+> approach to extend the arch_shared_info wrong in the first place?
 
-If you are booting with pygrub there's no bootloader at all, so
-whatever is happening is either done by the toolstack or the OS you are
-loading.
+Doesn't look directly related to a change in arch_shared_info IMO, but
+it's hard to tell without having more info.
+
+Posting your changes might also help spot something wonky.
+
+> CONFIDENTIALITY: The contents of this e-mail are confidential and
+> intended only for the above addressee(s). If you are not the
+> intended recipient, or the person responsible for delivering it to
+> the intended recipient, copying or delivering it to anyone else or
+> using it in any unauthorized manner is prohibited and may be
+> unlawful. If you receive this e-mail by mistake, please notify the
+> sender and the systems administrator at straymail@tttech.com
+> immediately.
+
+Nit: posting confidentiality banners to a public mailing lists
+messages is kind of award, as the emails are publicly available for
+anyone to read, even those that are not recipients of xen-devel, ie:
+
+https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg01868.html
 
 Roger.
 
