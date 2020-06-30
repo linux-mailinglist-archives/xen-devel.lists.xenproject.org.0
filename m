@@ -2,49 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D7E20F55F
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 15:04:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFFDC20F576
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 15:16:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqFve-00038N-H7; Tue, 30 Jun 2020 13:04:02 +0000
+	id 1jqG6c-00041l-KQ; Tue, 30 Jun 2020 13:15:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4gHU=AL=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jqFvc-00038I-Kn
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 13:04:00 +0000
-X-Inumbo-ID: 29365518-bad2-11ea-bca7-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=ETQf=AL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jqG6b-00041R-00
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 13:15:21 +0000
+X-Inumbo-ID: bc888344-bad3-11ea-b7bb-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 29365518-bad2-11ea-bca7-bc764e2007e4;
- Tue, 30 Jun 2020 13:03:59 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: SmFXgo6Z9wuA3UXh/7Qd6NGLn4cCut5oS8NbKqkID7dSCrtmTDxZoUTXIVr/PXztvaJdWICsl+
- nMM0Syc2UBjv0HS4MEZPg2RlYA8Irmx8Zah/WpGOs4dn68baAxDhsrrF/BzMz2D2vnXOZYN7LF
- UAZUnfYi5FZCsUxg37ekwvkRSQoutHvIeT4FUvtIPTBasLqpE4wySI4cRDez4RlqhCRuIWRomX
- Q6oZod9wrMPCbpfm0gGwIY8Pix6F+H6pLcTVKI/70uGouCr85HoO10tuWA3hPK4s5C4sGqQuG3
- +sY=
-X-SBRS: 2.7
-X-MesageID: 21277757
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,297,1589256000"; d="scan'208";a="21277757"
-Date: Tue, 30 Jun 2020 15:03:51 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH for-4.14 v4] x86/tlb: fix assisted flush usage
-Message-ID: <20200630130351.GL735@Air-de-Roger>
-References: <20200626155723.91558-1-roger.pau@citrix.com>
- <ea76f3e0-3c23-96a4-b6e7-597741a4af17@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+ id bc888344-bad3-11ea-b7bb-bc764e2007e4;
+ Tue, 30 Jun 2020 13:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=JI71WsBIrD3EU7SVdFpy13cYbkkGhwqO/Khf9QMRvak=; b=v0QwJyJ6jnB7M+QojzMzFEIeM
+ aevASqrdSHRNadWUyG12LiuyCG5Glp7l6IqTh8BiAkwkGQn0k04Qz9w/X0UXio5rzcRMCVZXLaM/1
+ I4WieDucJ7MT/Fzjx13SqHpd+YqGMowIqBMyik+AJHUQs09UpHA4lJzE29Nn/W0f1Z1BA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqG6V-0000gE-1l; Tue, 30 Jun 2020 13:15:15 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqG6U-0005mZ-Nz; Tue, 30 Jun 2020 13:15:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqG6U-0006CE-Mp; Tue, 30 Jun 2020 13:15:14 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151476-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ea76f3e0-3c23-96a4-b6e7-597741a4af17@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 151476: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=23ca7ec0ba620db52a646d80e22f9703a6589f66
+X-Osstest-Versions-That: xen=0e2e54966af556f4047c1048855c4a071028a32d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 30 Jun 2020 13:15:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,123 +65,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 30, 2020 at 02:13:36PM +0200, Jan Beulich wrote:
-> On 26.06.2020 17:57, Roger Pau Monne wrote:
-> > Commit e9aca9470ed86 introduced a regression when avoiding sending
-> > IPIs for certain flush operations. Xen page fault handler
-> > (spurious_page_fault) relies on blocking interrupts in order to
-> > prevent handling TLB flush IPIs and thus preventing other CPUs from
-> > removing page tables pages. Switching to assisted flushing avoided such
-> > IPIs, and thus can result in pages belonging to the page tables being
-> > removed (and possibly re-used) while __page_fault_type is being
-> > executed.
-> > 
-> > Force some of the TLB flushes to use IPIs, thus avoiding the assisted
-> > TLB flush. Those selected flushes are the page type change (when
-> > switching from a page table type to a different one, ie: a page that
-> > has been removed as a page table) and page allocation. This sadly has
-> > a negative performance impact on the pvshim, as less assisted flushes
-> > can be used. Note the flush in grant-table code is also switched to
-> > use an IPI even when not strictly needed. This is done so that a
-> > common arch_flush_tlb_mask can be introduced and always used in common
-> > code.
-> > 
-> > Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
-> > using an IPI (flush_tlb_mask_sync, x86 only). Note that the flag is
-> > only meaningfully defined when the hypervisor supports PV or shadow
-> > paging mode, as otherwise hardware assisted paging domains are in
-> > charge of their page tables and won't share page tables with Xen, thus
-> > not influencing the result of page walks performed by the spurious
-> > fault handler.
-> > 
-> > Just passing this new flag when calling flush_area_mask prevents the
-> > usage of the assisted flush without any other side effects.
-> > 
-> > Note the flag is not defined on Arm.
-> > 
-> > Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when available')
-> > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> In principle
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> A few cosmetic remarks though:
-> 
-> > --- a/xen/arch/x86/mm.c
-> > +++ b/xen/arch/x86/mm.c
-> > @@ -2894,7 +2894,17 @@ static int _get_page_type(struct page_info *page, unsigned long type,
-> >                        ((nx & PGT_type_mask) == PGT_writable_page)) )
-> >                  {
-> >                      perfc_incr(need_flush_tlb_flush);
-> > -                    flush_tlb_mask(mask);
-> > +                    if ( (x & PGT_type_mask) &&
-> > +                         (x & PGT_type_mask) <= PGT_root_page_table )
-> > +                        /*
-> > +                         * If page was a page table make sure the flush is
-> > +                         * performed using an IPI in order to avoid changing
-> > +                         * the type of a page table page under the feet of
-> > +                         * spurious_page_fault.
-> > +                         */
-> > +                        flush_tlb_mask_sync(mask);
-> > +                    else
-> > +                        flush_tlb_mask(mask);
-> 
-> Effectively this now is the only user of the new macro. I'd prefer
-> avoiding its introduction (and hence avoiding the questionable
-> "_sync" suffix), doing
-> 
->     flush_mask(mask, FLUSH_TLB | (... ? FLUSH_FORCE_IPI : 0));
+flight 151476 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151476/
 
-Right, maybe placing the '(x & PGT_type_mask) && (x & PGT_type_mask) <=
-PGT_root_page_table' condition inside the parameter list of flush_mask
-will make the code hard to read, so it might be worth to keep the
-if?
+Failures :-/ but no regressions.
 
-> here and ...
-> 
-> > @@ -148,9 +158,24 @@ void flush_area_mask(const cpumask_t *, const void *va, unsigned int flags);
-> >  /* Flush specified CPUs' TLBs */
-> >  #define flush_tlb_mask(mask)                    \
-> >      flush_mask(mask, FLUSH_TLB)
-> > +/*
-> > + * Flush specified CPUs' TLBs and force the usage of an IPI to do so. This is
-> > + * required for certain operations that rely on page tables themselves not
-> > + * being freed and reused when interrupts are blocked, as the flush IPI won't
-> > + * be fulfilled until exiting from that critical region.
-> > + */
-> > +#define flush_tlb_mask_sync(mask)               \
-> > +    flush_mask(mask, FLUSH_TLB | FLUSH_FORCE_IPI)
-> >  #define flush_tlb_one_mask(mask,v)              \
-> >      flush_area_mask(mask, (const void *)(v), FLUSH_TLB|FLUSH_ORDER(0))
-> >  
-> > +/*
-> > + * Alias the common code TLB flush helper to the sync one in order to be on the
-> > + * safe side. Note that not all calls from common code strictly require the
-> > + * _sync variant.
-> > + */
-> > +#define arch_flush_tlb_mask flush_tlb_mask_sync
-> 
-> ...
-> 
-> #define arch_flush_tlb_mask(mask)               \
->     flush_mask(mask, FLUSH_TLB | FLUSH_FORCE_IPI)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Sure. Feel free to slightly adjust the comment, I think doing
-s/Alias/Force/ would be enough.
+version targeted for testing:
+ xen                  23ca7ec0ba620db52a646d80e22f9703a6589f66
+baseline version:
+ xen                  0e2e54966af556f4047c1048855c4a071028a32d
 
-> here. I'd be okay making these adjustments while committing, if
-> you and others don't object.
+Last test of basis   151457  2020-06-29 17:01:22 Z    0 days
+Testing same since   151476  2020-06-30 11:00:51 Z    0 days    1 attempts
 
-That's fine, I leave to your judgment whether to use the ternary
-operator in the _get_page_type case.
+------------------------------------------------------------
+People who touched revisions under test:
+  Olaf Hering <olaf@aepfle.de>
 
-Roger.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   0e2e54966a..23ca7ec0ba  23ca7ec0ba620db52a646d80e22f9703a6589f66 -> smoke
 
