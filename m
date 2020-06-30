@@ -2,69 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9772220EB0B
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 03:51:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6147B20EB0F
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 03:51:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jq5Py-0003Ol-8s; Tue, 30 Jun 2020 01:50:38 +0000
+	id 1jq5R1-0003Sz-JB; Tue, 30 Jun 2020 01:51:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aLIy=AL=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
- id 1jq5Px-0003Og-Ao
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 01:50:37 +0000
-X-Inumbo-ID: 17972d72-ba74-11ea-bb8b-bc764e2007e4
-Received: from mail-pl1-x644.google.com (unknown [2607:f8b0:4864:20::644])
+ id 1jq5R0-0003Ss-Jc
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 01:51:42 +0000
+X-Inumbo-ID: 3e9a68da-ba74-11ea-8496-bc764e2007e4
+Received: from mail-pl1-x641.google.com (unknown [2607:f8b0:4864:20::641])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 17972d72-ba74-11ea-bb8b-bc764e2007e4;
- Tue, 30 Jun 2020 01:50:36 +0000 (UTC)
-Received: by mail-pl1-x644.google.com with SMTP id u9so4212695pls.13
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2020 18:50:36 -0700 (PDT)
+ id 3e9a68da-ba74-11ea-8496-bc764e2007e4;
+ Tue, 30 Jun 2020 01:51:42 +0000 (UTC)
+Received: by mail-pl1-x641.google.com with SMTP id o1so1252515plk.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2020 18:51:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=xbDPOfO5dEbdEvgJJa4Ml3IePWDMkowsVt6h1wk1qyg=;
- b=N2fg+fr8mqvdKWpq9X9sEDS0YRXkxTaCEaHnSynv0E+CJmWBkqAxjGBhqoYQpIBufO
- onfhne3a+qibTxaHP2kik1llKVIdvui6mdH2hgy2xdnHGHwu6Le2LzVLnsL+BjBCMI3r
- NOoRqe/khCIJcI2yYujX13iu3UJyFh9iho2n3CeK172KdOuOdfQkvopN36wrBEQw6q7q
- xdS3samPZIlTqqPfLEPfAynW2LtOodTm/IGlvPwFh7BkNeiHdZRXugNEnX5vDN0jp/1Q
- JppX7rIRimsVdR8YZ7mmtUFujE3F/dwwXqjZM7DeuEpmeAss4ZnlUtFF4ahp4zJtYlVL
- TN4w==
+ bh=QcL0Zhl1N0pMgp2Kkm1GtLuYDs4t+krbYwO8zi652js=;
+ b=RmMcKr+aj3J04hYD4Md41hjVR1MEd+7NN/yPHbRA6KJM78V9AGcpu2w4Fl+ozQlJUK
+ xw0Fs9vP9Xu/FR3Pmxx/ZXqxwtlQ7UmM4dGwpIfWKBaDZC0PnBO/Cui2o3Q9f9jeCMRy
+ cat0NFLGhZGX7MoP1i3Ez1wZWRemgGOyDmCj4GmxRi/X+dCToHiJKl5gotI/vI6WaOSV
+ by0LKl5oLBYfHHGE3eACm/8RSfyBmE6Bqkvbk5c9Z5HpqzbS8jQf7E6SY56Tz4kLm1W4
+ Fkw0rtfVJ9VCiUSXaKPqoDZ/+d+CcrbWzwkG81X80CS2KKLwtkd65sEwMmjV8FBZnaRi
+ UP7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=xbDPOfO5dEbdEvgJJa4Ml3IePWDMkowsVt6h1wk1qyg=;
- b=c8dVXLbczI26gKVdzSKZAGgv+hQ7wqsjQcfgv9+HZfduyUB0lndw+6iaoSlkNUSHaV
- Y/QyQhgk2YGQSKKPA1zA9EMyq2b17gPG9HGOzhSi254CgM/u9ga4Sz89aIXDgV2Wd7pI
- Ryfq7OOhWRv0aIj4xoiCJo431rbCgXsoXo/KG9jCXGsh6uJO32fdZdL/sw4CsOgjSbTM
- 5hWpDpMb5iouhMwMP9LzgtxaLsvSS04lW18Ci+tAf5pcLamwYWDOWaUhiZR5UjNMYzmq
- 1SFnOqm5L94gwnoY9tqi0AsZVqNhAdPvaK/O2i96LTkPQIdDW4FVm1Q/VxH4G6hK/Ch3
- TFCA==
-X-Gm-Message-State: AOAM5307klCCRmTMGR5m31gYDYkr7ih/r8r2lQnVxBki896085O6x+M+
- 1pyGZPP4FjquNGt+lnQ3TTE=
-X-Google-Smtp-Source: ABdhPJwYSRXrEaDV1d+CJQ7e8CQjvlAOuwOviKCnwuwwolCNe1gAB3GOHaLDv7hzTlN5Pk2kDEv7oQ==
-X-Received: by 2002:a17:902:7e04:: with SMTP id
- b4mr7222010plm.295.1593481835725; 
- Mon, 29 Jun 2020 18:50:35 -0700 (PDT)
+ bh=QcL0Zhl1N0pMgp2Kkm1GtLuYDs4t+krbYwO8zi652js=;
+ b=BeopoYUPctldUWvs1Qp7odm/7fpSAtm5FW55CnHUYOJuhIOv+3gQWTfQ6KWIGW6fGD
+ ZScwaT+zesPMoEDvj470QzHx2Y50UhjnZMV+jVCKenpaG/byxGI3ZFsigH4T+YSK3Gco
+ kNgusPywt3fCveJ8LSGNCbYMUvd8+59qeke36efXA1F9mXKShmvOc2+fzT1M5Y+pK9AE
+ Qqz7cs/6m3SReJTYmGEGxXMjet+tNql0mJF/+Kp1jLrCde9g4BtFaQDA171aPZgl/haS
+ M12sM/C6+vhHzhFXhD6TVSDOyJbHQveO+hZQ9MfXhe1lNIqVEc6qor2AZ6BkLT5+4psX
+ DipQ==
+X-Gm-Message-State: AOAM533m8vL1x+HuKZw6/H/fROBPYVzOQOLrejG05S8f+wvjckz8IqJt
+ +zcs3p8m+ySpKJM+xw7ced8=
+X-Google-Smtp-Source: ABdhPJzx6J2dwWA2DSaJGKE/ibstVv3AI5P31Opftw6WFWiKgmcTvV4Nx/SjyquY73oqj4NF8YLTWQ==
+X-Received: by 2002:a17:90a:e28c:: with SMTP id
+ d12mr21246421pjz.122.1593481901256; 
+ Mon, 29 Jun 2020 18:51:41 -0700 (PDT)
 Received: from piano ([2601:1c2:4f00:c640:fc6:7318:8185:4d2d])
- by smtp.gmail.com with ESMTPSA id z13sm782982pfq.220.2020.06.29.18.50.34
+ by smtp.gmail.com with ESMTPSA id x1sm650990pju.3.2020.06.29.18.51.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2020 18:50:35 -0700 (PDT)
-Date: Mon, 29 Jun 2020 18:50:33 -0700
+ Mon, 29 Jun 2020 18:51:40 -0700 (PDT)
+Date: Mon, 29 Jun 2020 18:51:38 -0700
 From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [RFC XEN PATCH 00/23] xen: beginning support for RISC-V
-Message-ID: <20200630015033.GA8470@piano>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [RFC XEN PATCH 22/23] riscv: Add sysctl.c
+Message-ID: <20200630015138.GB8470@piano>
 References: <cover.1579615303.git.bobbyeshleman@gmail.com>
- <alpine.DEB.2.21.2006151802470.9074@sstabellini-ThinkPad-T480s>
- <f1bff09cf101b185efe7c2f7d53d64b0aeee84a2.camel@wdc.com>
- <20200616035100.GA19383@piano>
- <alpine.DEB.2.21.2006161315200.24982@sstabellini-ThinkPad-T480s>
+ <7ebc34d888493f27302ed0a53e09216233cc9e7e.1579615303.git.bobbyeshleman@gmail.com>
+ <a50e318d-9e7b-955d-2daf-7bf5535c051c@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2006161315200.24982@sstabellini-ThinkPad-T480s>
+In-Reply-To: <a50e318d-9e7b-955d-2daf-7bf5535c051c@suse.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -76,51 +74,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "dan@dlrobertson.com" <dan@dlrobertson.com>,
- "julien@xen.org" <julien@xen.org>, "wl@xen.org" <wl@xen.org>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "George.Dunlap@eu.citrix.com" <George.Dunlap@eu.citrix.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "bobby.eshleman@starlab.io" <bobby.eshleman@starlab.io>,
- Alistair Francis <Alistair.Francis@wdc.com>,
- "jbeulich@suse.com" <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Bobby Eshleman <bobby.eshleman@starlab.io>,
+ Dan Robertson <dan@dlrobertson.com>,
+ Alistair Francis <alistair.francis@wdc.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 16, 2020 at 01:16:10PM -0700, Stefano Stabellini wrote:
-> On Mon, 15 Jun 2020, Bobby Eshleman wrote:
-> > On Tue, Jun 16, 2020 at 01:10:17AM +0000, Alistair Francis wrote:
-> > > On Mon, 2020-06-15 at 18:03 -0700, Stefano Stabellini wrote:
-> > > > Any updates? I am looking forward to this :-)
-> > > 
-> > 
-> > It has been on a slow burn since I became a new dad (shortly after the RFC).
-> > I've gradually regained free time, and so I've been able to change that
-> > slow burn to a moderate burn in the last couple weeks.
-> > 
-> > Most of my progress has been around build environment improvements.  I've done
-> > some work stripping it down to the bare minimum required to build a new arch
-> > and rooting the commit history from there, and some work with incorporating it
-> > into the gitlab CI, containerizing the build and QEMU run, etc...
-> > 
-> > As far as hypervisor status:  I'm just about done with incorporating the boot
-> > module FDT parsing code, extracting kernel info and ram regions
-> > (taken/generalized from arch/arm), plus implementing the arch-specific pieces
-> > of domain_create().
-> > 
-> > On the verge of being able to dive into a guest kernel and see what breaks
-> > first :)
-> > 
-> > I'm expected to commit an extra day or two per week in the next month or so at
-> > Vates, so this will considerably bump up my cadence in comparison to the last
-> > few months.
+On Mon, Jun 22, 2020 at 01:43:40PM +0200, Jan Beulich wrote:
+> On 22.01.2020 02:59, Bobby Eshleman wrote:
+> > --- /dev/null
+> > +++ b/xen/arch/riscv/sysctl.c
+> > @@ -0,0 +1,31 @@
+> > +/******************************************************************************
+> > + * Arch-specific sysctl.c
+> > + *
+> > + * System management operations. For use by node control stack.
+> > + *
+> > + * Copyright (c) 2012, Citrix Systems
+> > + */
+> > +
+> > +#include <xen/types.h>
+> > +#include <xen/lib.h>
+> > +#include <xen/errno.h>
+> > +#include <xen/hypercall.h>
+> > +#include <public/sysctl.h>
+> > +
+> > +void arch_do_physinfo(struct xen_sysctl_physinfo *pi) { }
+> > +
+> > +long arch_do_sysctl(struct xen_sysctl *sysctl,
+> > +                    XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+> > +{
+> > +    return -ENOSYS;
 > 
-> Great to hear and congratulations! I'll stay tuned. Next time I'll try
-> to rebuild and run your series on QEMU, I might ask you for some help
-> with the setup.
+> At the example of this (there may be more in this series) - -EOPNOTSUPP
+> please. Only top level hypercall handlers ought to produce -ENOSYS, for
+> major hypercall numbers with no handler.
 > 
 
-Thanks!  And absolutely, feel free :)
+Got it, will do.  Thanks!
 
