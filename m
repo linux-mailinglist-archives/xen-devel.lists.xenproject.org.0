@@ -2,41 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E3AC20F955
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 18:24:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 464DF20FA2C
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 19:11:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqJ2l-0003hD-HH; Tue, 30 Jun 2020 16:23:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fY2H=AL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jqJ2j-0003h8-UF
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 16:23:33 +0000
-X-Inumbo-ID: 0a1e3b98-baee-11ea-865a-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0a1e3b98-baee-11ea-865a-12813bfff9fa;
- Tue, 30 Jun 2020 16:23:32 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EC75AADE4;
- Tue, 30 Jun 2020 16:23:31 +0000 (UTC)
-Subject: Re: [PATCH v4 01/10] x86/vmx: add Intel PT MSR definitions
-To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>
-References: <cover.1593519420.git.michal.leszczynski@cert.pl>
- <2ff9ecee8367e814a29b17a34203bda0e3c48d74.1593519420.git.michal.leszczynski@cert.pl>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e18c7aa4-2340-85a8-9e17-64325fa99e5b@suse.com>
-Date: Tue, 30 Jun 2020 18:23:31 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+	id 1jqJlS-00071F-3U; Tue, 30 Jun 2020 17:09:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DJnf=AL=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jqJlQ-000718-9N
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 17:09:44 +0000
+X-Inumbo-ID: 7d1c26d6-baf4-11ea-bb8b-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7d1c26d6-baf4-11ea-bb8b-bc764e2007e4;
+ Tue, 30 Jun 2020 17:09:42 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: uVxal5l+6qY90nygpfB30oTzqbO5tiCQpFNAcwlNWp/lC1QdaD/x4TOO5b12IEipt9G9ObkKuh
+ 6O0lHAK3GNf4PdcQQTqP+MO7a+z4W3rjv0ApHbppJwntDKo4EGx/Rtns3wpC9WyJFHompHytjM
+ qfi2ZxOIqBhyqUqTqmvSpYfgjbYckqdDPiGJ3+DvbbwUgMHXv2puRS1q/78UAKshPBbi/IceH6
+ sNNm02BAsrAKU9LEx6ZwQRl3Z2NacZjfpx6r9fp591da3wPqSsCX2AdVgSstTlG7sWXYE/7P8P
+ IUI=
+X-SBRS: 2.7
+X-MesageID: 21309442
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,298,1589256000"; d="scan'208";a="21309442"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [XEN PATCH] hvmloader: Fix reading ACPI PM1 CNT value
+Date: Tue, 30 Jun 2020 18:09:13 +0100
+Message-ID: <20200630170913.123646-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <2ff9ecee8367e814a29b17a34203bda0e3c48d74.1593519420.git.michal.leszczynski@cert.pl>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,72 +50,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: tamas.lengyel@intel.com, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, luwei.kang@intel.com,
- xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30.06.2020 14:33, Michał Leszczyński wrote:
-> From: Michal Leszczynski <michal.leszczynski@cert.pl>
-> 
-> Define constants related to Intel Processor Trace features.
-> 
-> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
+In order to get the CNT value from QEMU, we were supposed to read a
+word, according to the implementation in QEMU. But it has been lax and
+allowed to read a single byte. This has changed with commit
+5d971f9e6725 ("memory: Revert "memory: accept mismatching sizes in
+memory_region_access_valid"") and result in hvmloader crashing on
+the BUG_ON.
 
-This needs re-basing onto current staging, now that Andrew's patch
-to add the MSR numbers has gone in. Apart from this a couple of
-cosmetic requests:
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-> --- a/xen/include/asm-x86/msr-index.h
-> +++ b/xen/include/asm-x86/msr-index.h
-> @@ -69,6 +69,43 @@
->  #define MSR_MCU_OPT_CTRL                    0x00000123
->  #define  MCU_OPT_CTRL_RNGDS_MITG_DIS        (_AC(1, ULL) <<  0)
->  
-> +/* Intel PT MSRs */
-> +#define MSR_RTIT_OUTPUT_BASE                0x00000560
-> +
-> +#define MSR_RTIT_OUTPUT_MASK                0x00000561
-> +
-> +#define MSR_RTIT_CTL                        0x00000570
-> +#define  RTIT_CTL_TRACEEN                    (_AC(1, ULL) <<  0)
+---
 
-The right side is indented one space too many - see the similar
-#define in context above.
+I'll try to have the QEMU implementation changes to allow reading a
+byte, but it would probably by nice to not have to change qemu.
+---
+ tools/firmware/hvmloader/hvmloader.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> +#define  RTIT_CTL_CYCEN                      (_AC(1, ULL) <<  1)
-> +#define  RTIT_CTL_OS                         (_AC(1, ULL) <<  2)
-> +#define  RTIT_CTL_USR                        (_AC(1, ULL) <<  3)
-> +#define  RTIT_CTL_PWR_EVT_EN                 (_AC(1, ULL) <<  4)
-> +#define  RTIT_CTL_FUP_ON_PTW                 (_AC(1, ULL) <<  5)
-> +#define  RTIT_CTL_FABRIC_EN                  (_AC(1, ULL) <<  6)
-> +#define  RTIT_CTL_CR3_FILTER                 (_AC(1, ULL) <<  7)
-> +#define  RTIT_CTL_TOPA                       (_AC(1, ULL) <<  8)
-> +#define  RTIT_CTL_MTC_EN                     (_AC(1, ULL) <<  9)
-> +#define  RTIT_CTL_TSC_EN                     (_AC(1, ULL) <<  10)
+diff --git a/tools/firmware/hvmloader/hvmloader.c b/tools/firmware/hvmloader/hvmloader.c
+index 598a22627872..bdcbe4a26664 100644
+--- a/tools/firmware/hvmloader/hvmloader.c
++++ b/tools/firmware/hvmloader/hvmloader.c
+@@ -256,7 +256,7 @@ static const struct bios_config *detect_bios(void)
+ 
+ static void acpi_enable_sci(void)
+ {
+-    uint8_t pm1a_cnt_val;
++    uint16_t pm1a_cnt_val;
+ 
+ #define PIIX4_SMI_CMD_IOPORT 0xb2
+ #define PIIX4_ACPI_ENABLE    0xf1
+@@ -265,11 +265,11 @@ static void acpi_enable_sci(void)
+      * PIIX4 emulation in QEMU has SCI_EN=0 by default. We have no legacy
+      * SMM implementation, so give ACPI control to the OSPM immediately.
+      */
+-    pm1a_cnt_val = inb(ACPI_PM1A_CNT_BLK_ADDRESS_V1);
++    pm1a_cnt_val = inw(ACPI_PM1A_CNT_BLK_ADDRESS_V1);
+     if ( !(pm1a_cnt_val & ACPI_PM1C_SCI_EN) )
+         outb(PIIX4_SMI_CMD_IOPORT, PIIX4_ACPI_ENABLE);
+ 
+-    pm1a_cnt_val = inb(ACPI_PM1A_CNT_BLK_ADDRESS_V1);
++    pm1a_cnt_val = inw(ACPI_PM1A_CNT_BLK_ADDRESS_V1);
+     BUG_ON(!(pm1a_cnt_val & ACPI_PM1C_SCI_EN));
+ }
+ 
+-- 
+Anthony PERARD
 
-The double blanks on the earlier lines exist such that here you
-can reduce to a single one. You'll also find examples of this
-further up in the file.
-
-> +#define  RTIT_CTL_DIS_RETC                   (_AC(1, ULL) <<  11)
-> +#define  RTIT_CTL_PTW_EN                     (_AC(1, ULL) <<  12)
-> +#define  RTIT_CTL_BRANCH_EN                  (_AC(1, ULL) <<  13)
-> +#define  RTIT_CTL_MTC_FREQ                   (_AC(0x0F, ULL) <<  14)
-
-0xf please (i.e. lower case and no random number of leading
-zeros).
-
-> +#define  RTIT_CTL_CYC_THRESH                 (_AC(0x0F, ULL) <<  19)
-> +#define  RTIT_CTL_PSB_FREQ                   (_AC(0x0F, ULL) <<  24)
-> +#define  RTIT_CTL_ADDR(n)                    (_AC(0x0F, ULL) <<  (32 + (4 * (n))))
-
-Strictly speaking we don't need the parentheses around the operands
-of binary * here - in mathematics precedence between + and * is
-well defined. (We do parenthesize certain other expressions, when
-the precedence may not be as well known.)
-
-Thanks, Jan
 
