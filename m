@@ -2,74 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C10EF20F521
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 14:52:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D7E20F55F
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 15:04:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqFk9-0002Aj-Ce; Tue, 30 Jun 2020 12:52:09 +0000
+	id 1jqFve-00038N-H7; Tue, 30 Jun 2020 13:04:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AMeW=AL=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jqFk7-0002Aa-M0
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 12:52:07 +0000
-X-Inumbo-ID: 80d19c3a-bad0-11ea-bb8b-bc764e2007e4
-Received: from mail-ed1-x543.google.com (unknown [2a00:1450:4864:20::543])
+ <SRS0=4gHU=AL=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jqFvc-00038I-Kn
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 13:04:00 +0000
+X-Inumbo-ID: 29365518-bad2-11ea-bca7-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 80d19c3a-bad0-11ea-bb8b-bc764e2007e4;
- Tue, 30 Jun 2020 12:52:07 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id d15so16046682edm.10
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2020 05:52:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=3gN6LhDZ3WO6b+v/EAtB65ovPUJ5OfHHriG5/WGDqaI=;
- b=pvVxXlQZy7X4EJVdzbjqo3BIRxt6u29gGnuOO/VTKYY2G83axV0OzfN9FXfO5Uc+eE
- zLGPBPO8Ml8WC1y7aejwbzilb50BmrLAQd8Q+BqF9sVrohi8OAvnCRMoIE8Rf8goLS08
- 0N2Zk38utjgxxzn5EoghB7eJPHuyt6cmIxKQPYb/4kBgxGIeOyFxAdAuqCasmi2EV2Vj
- h4PoSnYNNKgF28TJSzVC9OwP4EMdHtDLwUv2V6sPuEMGhncglH6poFdzylpdH6dzOiJC
- z5Vp5cikBbUWCalfzLhTYrR2FI2DSAP2cLq2s3bd6Sq1Bgrb5uwV+xPmnF+7Muf/cIgo
- pTSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :thread-index:content-language;
- bh=3gN6LhDZ3WO6b+v/EAtB65ovPUJ5OfHHriG5/WGDqaI=;
- b=JJodXoJ/MenPBaJgyMiAcFQt4AwaOT2lFpfBCIsNlCzfOq/BH0wFlJQ+PJ0phIBZlT
- TvwNT2bwBVlohxpngWsvPnR83tCvYmdm2H30Cqiy5BhGqO2pofGj5wVijXytr/sHl12c
- 49+Hhcq0KTbD0pJzI5jBF1tst/5ryXr93TFR39gX3ZLTdqR+4DxspysZBd2TU8cnZBFN
- 1gZXMlTtthWW6DnkAOVJGJ1OyK2aLMphfh+1/WXDbjYjtqGWpcNt2VUQw8pnNcxsB6d1
- Kacu56AfL3GWewhJXiRkzCjrK0xHRoL0Wpbgb81MQEi7Mpd/xJ4TjFDWtZtuPhinfb/e
- 3l+A==
-X-Gm-Message-State: AOAM531bPMPuYOglpG9kZIBa/ur5mWvH8f7c9w9ISPMKbAJ7dm/9L08w
- slNoeVDOviqje89PiypPZY8=
-X-Google-Smtp-Source: ABdhPJwDX5d7ICGG+Ej8J7zNh0awLsjM3HqQWK3MzQtsZ6k8NXYYtE3xXXRRAMosSEm3Z6yf1O8oZA==
-X-Received: by 2002:a50:8143:: with SMTP id 61mr23160507edc.202.1593521526254; 
- Tue, 30 Jun 2020 05:52:06 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-238.amazon.com. [54.240.197.238])
- by smtp.gmail.com with ESMTPSA id h2sm2753569edk.54.2020.06.30.05.52.04
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 30 Jun 2020 05:52:05 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Julien Grall'" <julien@xen.org>,
- "'Roger Pau Monne'" <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
+ id 29365518-bad2-11ea-bca7-bc764e2007e4;
+ Tue, 30 Jun 2020 13:03:59 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: SmFXgo6Z9wuA3UXh/7Qd6NGLn4cCut5oS8NbKqkID7dSCrtmTDxZoUTXIVr/PXztvaJdWICsl+
+ nMM0Syc2UBjv0HS4MEZPg2RlYA8Irmx8Zah/WpGOs4dn68baAxDhsrrF/BzMz2D2vnXOZYN7LF
+ UAZUnfYi5FZCsUxg37ekwvkRSQoutHvIeT4FUvtIPTBasLqpE4wySI4cRDez4RlqhCRuIWRomX
+ Q6oZod9wrMPCbpfm0gGwIY8Pix6F+H6pLcTVKI/70uGouCr85HoO10tuWA3hPK4s5C4sGqQuG3
+ +sY=
+X-SBRS: 2.7
+X-MesageID: 21277757
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,297,1589256000"; d="scan'208";a="21277757"
+Date: Tue, 30 Jun 2020 15:03:51 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH for-4.14 v4] x86/tlb: fix assisted flush usage
+Message-ID: <20200630130351.GL735@Air-de-Roger>
 References: <20200626155723.91558-1-roger.pau@citrix.com>
- <c7557e6f-2dd3-e9b4-07d9-51f16fe8baee@xen.org>
-In-Reply-To: <c7557e6f-2dd3-e9b4-07d9-51f16fe8baee@xen.org>
-Subject: RE: [PATCH for-4.14 v4] x86/tlb: fix assisted flush usage
-Date: Tue, 30 Jun 2020 13:52:04 +0100
-Message-ID: <000301d64edd$41fa4cf0$c5eee6d0$@xen.org>
+ <ea76f3e0-3c23-96a4-b6e7-597741a4af17@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQEPrqt6NsU03o2hOfg+V497vZFhIwIMPTDRqm37HcA=
-Content-Language: en-gb
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ea76f3e0-3c23-96a4-b6e7-597741a4af17@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,82 +55,123 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>,
- 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Julien Grall <julien@xen.org>
-> Sent: 30 June 2020 13:48
-> To: Roger Pau Monne <roger.pau@citrix.com>; =
-xen-devel@lists.xenproject.org
-> Cc: paul@xen.org; Stefano Stabellini <sstabellini@kernel.org>; =
-Volodymyr Babchuk
-> <Volodymyr_Babchuk@epam.com>; Andrew Cooper =
-<andrew.cooper3@citrix.com>; George Dunlap
-> <george.dunlap@citrix.com>; Ian Jackson <ian.jackson@eu.citrix.com>; =
-Jan Beulich <jbeulich@suse.com>;
-> Wei Liu <wl@xen.org>
-> Subject: Re: [PATCH for-4.14 v4] x86/tlb: fix assisted flush usage
->=20
-> Hi Roger,
->=20
-> On 26/06/2020 16:57, Roger Pau Monne wrote:
+On Tue, Jun 30, 2020 at 02:13:36PM +0200, Jan Beulich wrote:
+> On 26.06.2020 17:57, Roger Pau Monne wrote:
 > > Commit e9aca9470ed86 introduced a regression when avoiding sending
 > > IPIs for certain flush operations. Xen page fault handler
 > > (spurious_page_fault) relies on blocking interrupts in order to
 > > prevent handling TLB flush IPIs and thus preventing other CPUs from
-> > removing page tables pages. Switching to assisted flushing avoided =
-such
-> > IPIs, and thus can result in pages belonging to the page tables =
-being
+> > removing page tables pages. Switching to assisted flushing avoided such
+> > IPIs, and thus can result in pages belonging to the page tables being
 > > removed (and possibly re-used) while __page_fault_type is being
 > > executed.
-> >
-> > Force some of the TLB flushes to use IPIs, thus avoiding the =
-assisted
+> > 
+> > Force some of the TLB flushes to use IPIs, thus avoiding the assisted
 > > TLB flush. Those selected flushes are the page type change (when
 > > switching from a page table type to a different one, ie: a page that
-> > has been removed as a page table) and page allocation. This sadly =
-has
-> > a negative performance impact on the pvshim, as less assisted =
-flushes
+> > has been removed as a page table) and page allocation. This sadly has
+> > a negative performance impact on the pvshim, as less assisted flushes
 > > can be used. Note the flush in grant-table code is also switched to
 > > use an IPI even when not strictly needed. This is done so that a
-> > common arch_flush_tlb_mask can be introduced and always used in =
-common
+> > common arch_flush_tlb_mask can be introduced and always used in common
 > > code.
-> >
-> > Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB =
-flush
+> > 
+> > Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
 > > using an IPI (flush_tlb_mask_sync, x86 only). Note that the flag is
 > > only meaningfully defined when the hypervisor supports PV or shadow
 > > paging mode, as otherwise hardware assisted paging domains are in
-> > charge of their page tables and won't share page tables with Xen, =
-thus
+> > charge of their page tables and won't share page tables with Xen, thus
 > > not influencing the result of page walks performed by the spurious
 > > fault handler.
-> >
+> > 
 > > Just passing this new flag when calling flush_area_mask prevents the
 > > usage of the assisted flush without any other side effects.
-> >
+> > 
 > > Note the flag is not defined on Arm.
-> >
-> > Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when =
-available')
+> > 
+> > Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when available')
 > > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->=20
-> Acked-by: Julien Grall <jgrall@amazon.com>
->=20
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> In principle
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> A few cosmetic remarks though:
+> 
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -2894,7 +2894,17 @@ static int _get_page_type(struct page_info *page, unsigned long type,
+> >                        ((nx & PGT_type_mask) == PGT_writable_page)) )
+> >                  {
+> >                      perfc_incr(need_flush_tlb_flush);
+> > -                    flush_tlb_mask(mask);
+> > +                    if ( (x & PGT_type_mask) &&
+> > +                         (x & PGT_type_mask) <= PGT_root_page_table )
+> > +                        /*
+> > +                         * If page was a page table make sure the flush is
+> > +                         * performed using an IPI in order to avoid changing
+> > +                         * the type of a page table page under the feet of
+> > +                         * spurious_page_fault.
+> > +                         */
+> > +                        flush_tlb_mask_sync(mask);
+> > +                    else
+> > +                        flush_tlb_mask(mask);
+> 
+> Effectively this now is the only user of the new macro. I'd prefer
+> avoiding its introduction (and hence avoiding the questionable
+> "_sync" suffix), doing
+> 
+>     flush_mask(mask, FLUSH_TLB | (... ? FLUSH_FORCE_IPI : 0));
 
-And...
+Right, maybe placing the '(x & PGT_type_mask) && (x & PGT_type_mask) <=
+PGT_root_page_table' condition inside the parameter list of flush_mask
+will make the code hard to read, so it might be worth to keep the
+if?
 
-Release-acked-by: Paul Durrant <paul@xen.org>
+> here and ...
+> 
+> > @@ -148,9 +158,24 @@ void flush_area_mask(const cpumask_t *, const void *va, unsigned int flags);
+> >  /* Flush specified CPUs' TLBs */
+> >  #define flush_tlb_mask(mask)                    \
+> >      flush_mask(mask, FLUSH_TLB)
+> > +/*
+> > + * Flush specified CPUs' TLBs and force the usage of an IPI to do so. This is
+> > + * required for certain operations that rely on page tables themselves not
+> > + * being freed and reused when interrupts are blocked, as the flush IPI won't
+> > + * be fulfilled until exiting from that critical region.
+> > + */
+> > +#define flush_tlb_mask_sync(mask)               \
+> > +    flush_mask(mask, FLUSH_TLB | FLUSH_FORCE_IPI)
+> >  #define flush_tlb_one_mask(mask,v)              \
+> >      flush_area_mask(mask, (const void *)(v), FLUSH_TLB|FLUSH_ORDER(0))
+> >  
+> > +/*
+> > + * Alias the common code TLB flush helper to the sync one in order to be on the
+> > + * safe side. Note that not all calls from common code strictly require the
+> > + * _sync variant.
+> > + */
+> > +#define arch_flush_tlb_mask flush_tlb_mask_sync
+> 
+> ...
+> 
+> #define arch_flush_tlb_mask(mask)               \
+>     flush_mask(mask, FLUSH_TLB | FLUSH_FORCE_IPI)
 
+Sure. Feel free to slightly adjust the comment, I think doing
+s/Alias/Force/ would be enough.
+
+> here. I'd be okay making these adjustments while committing, if
+> you and others don't object.
+
+That's fine, I leave to your judgment whether to use the ternary
+operator in the _get_page_type case.
+
+Roger.
 
