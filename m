@@ -2,69 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3566020F4C1
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 14:35:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CEC320F4BE
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 14:35:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqFUA-00081C-UL; Tue, 30 Jun 2020 12:35:38 +0000
+	id 1jqFU5-0007yO-It; Tue, 30 Jun 2020 12:35:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f/Ev=AL=cert.pl=michal.leszczynski@srs-us1.protection.inumbo.net>)
- id 1jqFU9-0007rV-SP
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 12:35:37 +0000
-X-Inumbo-ID: 2d6897e6-bace-11ea-8610-12813bfff9fa
+ id 1jqFU4-0007rV-SN
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 12:35:32 +0000
+X-Inumbo-ID: 2d6897e5-bace-11ea-8610-12813bfff9fa
 Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2d6897e6-bace-11ea-8610-12813bfff9fa;
+ id 2d6897e5-bace-11ea-8610-12813bfff9fa;
  Tue, 30 Jun 2020 12:35:29 +0000 (UTC)
 Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 6140EA37F9;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 5445DA37F3;
  Tue, 30 Jun 2020 14:35:28 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 484D2A37FA;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 3B0B7A37FB;
  Tue, 30 Jun 2020 14:35:27 +0200 (CEST)
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from bagnar.nask.net.pl ([127.0.0.1])
  by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id ZlCGzAO2pZSL; Tue, 30 Jun 2020 14:35:26 +0200 (CEST)
+ with ESMTP id 3XChIHKLaS_2; Tue, 30 Jun 2020 14:35:26 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id AB7D4A37F8;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id BBF7AA37F9;
  Tue, 30 Jun 2020 14:35:26 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from bagnar.nask.net.pl ([127.0.0.1])
  by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id HSr51uoiqUOZ; Tue, 30 Jun 2020 14:35:26 +0200 (CEST)
+ with ESMTP id 8hxz5J2M2ELj; Tue, 30 Jun 2020 14:35:26 +0200 (CEST)
 Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
  [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 28DAAA37EA;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 2B04DA37F3;
  Tue, 30 Jun 2020 14:35:26 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 13D1622625;
+ by belindir.nask.net.pl (Postfix) with ESMTP id 8F7152262A;
  Tue, 30 Jun 2020 14:34:45 +0200 (CEST)
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from belindir.nask.net.pl ([127.0.0.1])
  by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id HP0zBV_9dGFy; Tue, 30 Jun 2020 14:34:39 +0200 (CEST)
+ with ESMTP id OtfMRFhj4Dx2; Tue, 30 Jun 2020 14:34:40 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 814842262E;
- Tue, 30 Jun 2020 14:34:39 +0200 (CEST)
-X-Quarantine-ID: <MsyLsha6KguP>
+ by belindir.nask.net.pl (Postfix) with ESMTP id 1DA3A22558;
+ Tue, 30 Jun 2020 14:34:40 +0200 (CEST)
+X-Quarantine-ID: <g85ttXe7J3M0>
 X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from belindir.nask.net.pl ([127.0.0.1])
  by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id MsyLsha6KguP; Tue, 30 Jun 2020 14:34:39 +0200 (CEST)
+ with ESMTP id g85ttXe7J3M0; Tue, 30 Jun 2020 14:34:40 +0200 (CEST)
 Received: from mq-desktop.cert.pl (unknown [195.187.238.217])
- by belindir.nask.net.pl (Postfix) with ESMTPSA id 60E77224C7;
+ by belindir.nask.net.pl (Postfix) with ESMTPSA id E4C23223E7;
  Tue, 30 Jun 2020 14:34:39 +0200 (CEST)
 From: =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v4 05/10] common/domain: allocate vmtrace_pt_buffer
-Date: Tue, 30 Jun 2020 14:33:48 +0200
-Message-Id: <0e02c97054da6e367f740ab8d2574e2d255553c8.1593519420.git.michal.leszczynski@cert.pl>
+Subject: [PATCH v4 06/10] memory: batch processing in acquire_resource()
+Date: Tue, 30 Jun 2020 14:33:49 +0200
+Message-Id: <a317b169e3710a481bb4be066d9b878f27b3e66c.1593519420.git.michal.leszczynski@cert.pl>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1593519420.git.michal.leszczynski@cert.pl>
 References: <cover.1593519420.git.michal.leszczynski@cert.pl>
@@ -86,140 +86,88 @@ Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Michal Leszczynski <michal.leszczynski@cert.pl>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- luwei.kang@intel.com,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+ luwei.kang@intel.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Michal Leszczynski <michal.leszczynski@cert.pl>
 
-Allocate processor trace buffer for each vCPU when the domain
-is created, deallocate trace buffers on domain destruction.
+Allow to acquire large resources by allowing acquire_resource()
+to process items in batches, using hypercall continuation.
 
 Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
 ---
- xen/arch/x86/domain.c        | 11 +++++++++++
- xen/common/domain.c          | 32 ++++++++++++++++++++++++++++++++
- xen/include/asm-x86/domain.h |  4 ++++
- xen/include/xen/sched.h      |  4 ++++
- 4 files changed, 51 insertions(+)
+ xen/common/memory.c | 32 +++++++++++++++++++++++++++++---
+ 1 file changed, 29 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index fee6c3931a..0d79fd390c 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -2199,6 +2199,17 @@ int domain_relinquish_resources(struct domain *d)
-                 altp2m_vcpu_disable_ve(v);
-         }
- 
-+        for_each_vcpu ( d, v )
-+        {
-+            if ( !v->arch.vmtrace.pt_buf )
-+                continue;
-+
-+            vmtrace_destroy_pt(v);
-+
-+            free_domheap_pages(v->arch.vmtrace.pt_buf,
-+                get_order_from_bytes(v->domain->vmtrace_pt_size));
-+        }
-+
-         if ( is_pv_domain(d) )
-         {
-             for_each_vcpu ( d, v )
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 27dcfbac8c..8513659ef8 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -137,6 +137,31 @@ static void vcpu_destroy(struct vcpu *v)
-     free_vcpu_struct(v);
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index 714077c1e5..3ab06581a2 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1046,10 +1046,12 @@ static int acquire_grant_table(struct domain *d, unsigned int id,
  }
  
-+static int vmtrace_alloc_buffers(struct vcpu *v)
-+{
-+    struct page_info *pg;
-+    uint64_t size = v->domain->vmtrace_pt_size;
+ static int acquire_resource(
+-    XEN_GUEST_HANDLE_PARAM(xen_mem_acquire_resource_t) arg)
++    XEN_GUEST_HANDLE_PARAM(xen_mem_acquire_resource_t) arg,
++    unsigned long *start_extent)
+ {
+     struct domain *d, *currd = current->domain;
+     xen_mem_acquire_resource_t xmar;
++    uint32_t total_frames;
+     /*
+      * The mfn_list and gfn_list (below) arrays are ok on stack for the
+      * moment since they are small, but if they need to grow in future
+@@ -1077,8 +1079,17 @@ static int acquire_resource(
+         return 0;
+     }
+ 
++    total_frames = xmar.nr_frames;
 +
-+    if ( size < PAGE_SIZE || size > GB(4) || (size & (size - 1)) )
++    if ( *start_extent )
 +    {
-+        /*
-+         * We don't accept trace buffer size smaller than single page
-+         * and the upper bound is defined as 4GB in the specification.
-+         * The buffer size must be also a power of 2.
-+         */
-+        return -EINVAL;
++        xmar.frame += *start_extent;
++        xmar.nr_frames -= *start_extent;
++        guest_handle_add_offset(xmar.frame_list, *start_extent);
 +    }
 +
-+    pg = alloc_domheap_pages(v->domain, get_order_from_bytes(size),
-+                             MEMF_no_refcount);
+     if ( xmar.nr_frames > ARRAY_SIZE(mfn_list) )
+-        return -E2BIG;
++        xmar.nr_frames = ARRAY_SIZE(mfn_list);
+ 
+     rc = rcu_lock_remote_domain_by_id(xmar.domid, &d);
+     if ( rc )
+@@ -1135,6 +1146,14 @@ static int acquire_resource(
+         }
+     }
+ 
++    if ( !rc )
++    {
++        *start_extent += xmar.nr_frames;
 +
-+    if ( !pg )
-+        return -ENOMEM;
++        if ( *start_extent != total_frames )
++            rc = -ERESTART;
++    }
 +
-+    v->arch.vmtrace.pt_buf = pg;
-+    return 0;
-+}
+  out:
+     rcu_unlock_domain(d);
+ 
+@@ -1600,7 +1619,14 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ 
+     case XENMEM_acquire_resource:
+         rc = acquire_resource(
+-            guest_handle_cast(arg, xen_mem_acquire_resource_t));
++            guest_handle_cast(arg, xen_mem_acquire_resource_t),
++            &start_extent);
 +
- struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
- {
-     struct vcpu *v;
-@@ -162,6 +187,9 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
-     v->vcpu_id = vcpu_id;
-     v->dirty_cpu = VCPU_CPU_CLEAN;
- 
-+    if ( d->vmtrace_pt_size && vmtrace_alloc_buffers(v) != 0 )
-+        return NULL;
++        if ( rc == -ERESTART )
++            return hypercall_create_continuation(
++                __HYPERVISOR_memory_op, "lh",
++                op | (start_extent << MEMOP_EXTENT_SHIFT), arg);
 +
-     spin_lock_init(&v->virq_lock);
+         break;
  
-     tasklet_init(&v->continue_hypercall_tasklet, NULL, NULL);
-@@ -188,6 +216,9 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
-     if ( arch_vcpu_create(v) != 0 )
-         goto fail_sched;
- 
-+    if ( d->vmtrace_pt_size && vmtrace_init_pt(v) != 0 )
-+        goto fail_sched;
-+
-     d->vcpu[vcpu_id] = v;
-     if ( vcpu_id != 0 )
-     {
-@@ -422,6 +453,7 @@ struct domain *domain_create(domid_t domid,
-     d->shutdown_code = SHUTDOWN_CODE_INVALID;
- 
-     spin_lock_init(&d->pbuf_lock);
-+    spin_lock_init(&d->vmtrace_lock);
- 
-     rwlock_init(&d->vnuma_rwlock);
- 
-diff --git a/xen/include/asm-x86/domain.h b/xen/include/asm-x86/domain.h
-index 6fd94c2e14..b01c107f5c 100644
---- a/xen/include/asm-x86/domain.h
-+++ b/xen/include/asm-x86/domain.h
-@@ -627,6 +627,10 @@ struct arch_vcpu
-     struct {
-         bool next_interrupt_enabled;
-     } monitor;
-+
-+    struct {
-+        struct page_info *pt_buf;
-+    } vmtrace;
- };
- 
- struct guest_memory_policy
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index ac53519d7f..48f0a61bbd 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -457,6 +457,10 @@ struct domain
-     unsigned    pbuf_idx;
-     spinlock_t  pbuf_lock;
- 
-+    /* Used by vmtrace features */
-+    spinlock_t  vmtrace_lock;
-+    uint64_t    vmtrace_pt_size;
-+
-     /* OProfile support. */
-     struct xenoprof *xenoprof;
- 
+     default:
 -- 
 2.20.1
 
