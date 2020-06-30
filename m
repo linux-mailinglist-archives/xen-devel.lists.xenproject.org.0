@@ -2,72 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 696F920F822
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 17:20:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 729CE20F839
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 17:26:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqI3J-0006Fk-2r; Tue, 30 Jun 2020 15:20:05 +0000
+	id 1jqI93-0006eJ-Tu; Tue, 30 Jun 2020 15:26:01 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sbHC=AL=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1jqI3H-00062X-HB
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 15:20:04 +0000
-X-Inumbo-ID: 2ad5f906-bae5-11ea-864a-12813bfff9fa
-Received: from us-smtp-1.mimecast.com (unknown [205.139.110.120])
+ id 1jqI91-0006eE-Q4
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 15:25:59 +0000
+X-Inumbo-ID: ff73de4f-bae5-11ea-864e-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.120])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 2ad5f906-bae5-11ea-864a-12813bfff9fa;
- Tue, 30 Jun 2020 15:20:01 +0000 (UTC)
+ id ff73de4f-bae5-11ea-864e-12813bfff9fa;
+ Tue, 30 Jun 2020 15:25:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593530401;
+ s=mimecast20190719; t=1593530758;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Q68uV4NKCffVlEx9DmYr8Tcy2UpV4TM2zGQR62nl10=;
- b=EeNwzWoKOg0m2RVZu6dcT/Ll34IavyPy5Qf0pYYznrMqsq5Itgd/VOyOCGlLA4KOf0W33T
- JzD6TjJpzpoUhWRv7U37UrgHu7OLgwEPigNRcWXySnmstZiBNMpj71TS850bBBAESJLGfb
- +nKOpr2EM7VaTlkl78IZ3TZKQwj4wPk=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-44-6gHfxwZ-M3Cs-gVDEWjYDw-1; Tue, 30 Jun 2020 11:19:56 -0400
-X-MC-Unique: 6gHfxwZ-M3Cs-gVDEWjYDw-1
-Received: by mail-ed1-f71.google.com with SMTP id v8so10500734edj.4
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2020 08:19:56 -0700 (PDT)
+ bh=TgmQ2qPZaMql3FNmjFEGdsNRy1PraDve/uxYO4ofKOE=;
+ b=EivupubK8RjURwFAMTEwZKMfp/TVPtf0tcxQIyyzbGWUDWesqmw1WNacJvUdDKTLCLc3IU
+ cPjsDQbTdX2i8unJDIRwV5utchCbiJNULb+3pj+4tGuju744N24KPQK5ZdLUcHb2uBCdiX
+ 9GdQcucJaDZ37bBl7iL5+igbsO6huHw=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-295-_cgXzliRO2qif8QcNEdxAQ-1; Tue, 30 Jun 2020 11:25:56 -0400
+X-MC-Unique: _cgXzliRO2qif8QcNEdxAQ-1
+Received: by mail-ed1-f72.google.com with SMTP id h5so17329664edl.7
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2020 08:25:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:autocrypt
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=3Q68uV4NKCffVlEx9DmYr8Tcy2UpV4TM2zGQR62nl10=;
- b=FBT/ntQWWgiQukk2ZNfXA7Wnof5ytcV5wEfq0TQ+EsfeTsXOwwKonGs/JIP4j5wwMd
- nOCB0hOL7IJyeiqEv6HnY9v1BMXptIPEaiWhMR6Azqq3s2cKR4OxKCaUJmdUajQB8AuN
- mQgCX65euqQQNLWU+TKXys/Can/FYCCFRAqGfUAy8RHIFawx5aWZMWQow3e3XABMVpeu
- oJLppjXmhxRXb9QCiQhd6CeyehB4FnJkTXhrsB5EWg1TWDwOoDgQcbRv0Bx8eEX97Q5H
- /6npUj7hX/SeIldOgi32968HiMz2qHAStZeyVXrHFatrkih/grT+te3dxP2TH20hL1He
- d2Aw==
-X-Gm-Message-State: AOAM533OvJTbSJsekHS2J0QVdbVZW4pvDIkCTr9bJiUm9fYaSX+JemE2
- dz1ByklWlRvgjGoI0VVt/3T592NtX0TNhZCmptJ/NsbhKA3AI74cyWe42fftfcICaUtGFK1JOrw
- O3wrrk/xx9l06T4dWXfWP/96Qk34=
-X-Received: by 2002:a17:906:4086:: with SMTP id
- u6mr20093275ejj.9.1593530395530; 
- Tue, 30 Jun 2020 08:19:55 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx968WRLbUisR+Ua1av2ZFZrg5txPJ4uxePXOJef4L9Vgi/0Ql6VBEd7JzAxiIPxCPm9IU36A==
-X-Received: by 2002:a17:906:4086:: with SMTP id
- u6mr20093262ejj.9.1593530395330; 
- Tue, 30 Jun 2020 08:19:55 -0700 (PDT)
+ bh=TgmQ2qPZaMql3FNmjFEGdsNRy1PraDve/uxYO4ofKOE=;
+ b=m7Jyjw687RhBWZFiLGqpvAe5Xrh+1xOr5Jn7VE1ifsJ0Qqh4wkzsgwcGuWPHSAQuIe
+ gT2agG1BHSDJfUBQTiYcX8quYSr3ouKQ6Timp9mcITQviBHm5UvniCitTqLWT2E51b4t
+ X3Y09ePZt2cJLgJN+UkpHZ4nAtzEiSS/0GTyexjKo0OYmUy86/DAv9CbqCQQeVfQA58w
+ LofCmn2XrUUlNyLNdJO5//EkdP778/S/9WrMWICRK4KI5FiB2c8PUX406YtQZNndZmHN
+ /zC8Xs1vA+84U8jFYGYJ4YjWgNiufuvo4fZR5rU+gJsE5R/gBsr5EAb4QRqOlp7zpWMh
+ 7uCw==
+X-Gm-Message-State: AOAM532V4U2ET1czHegp0BOBS5gr6nqGzxPwo4YzMC4uDQJ9YKvRgWys
+ 60dywrKfkxs+HSbSsU9PF1BPJkTICWmh2i3B9ur3zzqde0Hv5NBJIM21sLTc5Pm4mD7ftZqCRRY
+ 8dikW5uJmPUXk09l1ed5S4TqmynM=
+X-Received: by 2002:aa7:d049:: with SMTP id n9mr16524092edo.39.1593530755308; 
+ Tue, 30 Jun 2020 08:25:55 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx5tYsh8vTJLx6oVLu+kxWJAfWgGHr3oq2bkuchH0QACjfzGcYkSC7JX+uAed7ZNz1+qmaYuQ==
+X-Received: by 2002:aa7:d049:: with SMTP id n9mr16524086edo.39.1593530755146; 
+ Tue, 30 Jun 2020 08:25:55 -0700 (PDT)
 Received: from [192.168.1.40] (1.red-83-51-162.dynamicip.rima-tde.net.
  [83.51.162.1])
- by smtp.gmail.com with ESMTPSA id k15sm2231802eji.49.2020.06.30.08.19.54
+ by smtp.gmail.com with ESMTPSA id s1sm3242130edy.1.2020.06.30.08.25.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2020 08:19:54 -0700 (PDT)
-Subject: Re: [PATCH 1/2] xen: fix legacy 'xen-sysdev' and 'xen-backend' bus
- types
+ Tue, 30 Jun 2020 08:25:54 -0700 (PDT)
+Subject: Re: [PATCH 2/2] xen: cleanup unrealized flash devices
 To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org,
  qemu-devel@nongnu.org
 References: <20200624121841.17971-1-paul@xen.org>
- <20200624121841.17971-2-paul@xen.org>
+ <20200624121841.17971-3-paul@xen.org>
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
 Autocrypt: addr=philmd@redhat.com; keydata=
  mQINBDXML8YBEADXCtUkDBKQvNsQA7sDpw6YLE/1tKHwm24A1au9Hfy/OFmkpzo+MD+dYc+7
@@ -92,19 +89,19 @@ Autocrypt: addr=philmd@redhat.com; keydata=
  9BFSL3qgXuXso/3XuWTQjJJGgKhB6xXjMmb1J4q/h5IuVV4juv1Fem9sfmyrh+Wi5V1IzKI7
  RPJ3KVb937eBgSENk53P0gUorwzUcO+ASEo3Z1cBKkJSPigDbeEjVfXQMzNt0oDRzpQqH2vp
  apo2jHnidWt8BsckuWZpxcZ9+/9obQ55DyVQHGiTN39hkETy3Emdnz1JVHTU0Q==
-Message-ID: <ee15f95a-ef85-8246-f10d-2778baa343c7@redhat.com>
-Date: Tue, 30 Jun 2020 17:19:53 +0200
+Message-ID: <33e594dd-dbfa-7c57-1cf5-0852e8fc8e1d@redhat.com>
+Date: Tue, 30 Jun 2020 17:25:53 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200624121841.17971-2-paul@xen.org>
+In-Reply-To: <20200624121841.17971-3-paul@xen.org>
 Content-Language: en-US
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,66 +112,140 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- Paul Durrant <pdurrant@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jason Andryuk <jandryuk@gmail.com>
+Cc: Eduardo Habkost <ehabkost@redhat.com>, Jason Andryuk <jandryuk@gmail.com>,
+ Paul Durrant <pdurrant@amazon.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Richard Henderson <rth@twiddle.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 6/24/20 2:18 PM, Paul Durrant wrote:
 > From: Paul Durrant <pdurrant@amazon.com>
 > 
-> 'xen-sysdev' plugs into the 'System' bus type, not 'xen-sysbus. That bus type
-> is what 'xen-backend' plugs into.
-> 'xen-sysdev' is drived form 'sys-bus-device' so the bus type need not be
-> overridden. 'xen-backend' is derived from 'device', which plugs into the
-> generic 'bus' type, so its bus type should be overridden to 'xen-sysbus'.
+> The generic pc_machine_initfn() calls pc_system_flash_create() which creates
+> 'system.flash0' and 'system.flash1' devices. These devices are then realized
+> by pc_system_flash_map() which is called from pc_system_firmware_init() which
+> itself is called via pc_memory_init(). The latter however is not called when
+> xen_enable() is true and hence the following assertion fails:
 > 
-> Without this patch, the following assertion will fail:
+> qemu-system-i386: hw/core/qdev.c:439: qdev_assert_realized_properly:
+> Assertion `dev->realized' failed
 > 
-> qemu-system-i386: hw/core/qdev.c:102: qdev_set_parent_bus: Assertion
-> `dc->bus_type && object_dynamic_cast(OBJECT(bus), dc->bus_type)'
-> failed.
+> These flash devices are unneeded when using Xen so this patch avoids the
+> assertion by simply removing them using pc_system_flash_cleanup_unused().
 > 
 > Reported-by: Jason Andryuk <jandryuk@gmail.com>
-> Fixes: 81cb05732efb ("qdev: Assert devices are plugged into a bus that can take them")
+> Fixes: ebc29e1beab0 ("pc: Support firmware configuration with -blockdev")
 > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> Tested-by: Jason Andryuk <jandryuk@gmail.com>
 > ---
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Anthony Perard <anthony.perard@citrix.com>
+> Cc: Paolo Bonzini <pbonzini@redhat.com>
+> Cc: Richard Henderson <rth@twiddle.net>
+> Cc: Eduardo Habkost <ehabkost@redhat.com>
+> Cc: "Michael S. Tsirkin" <mst@redhat.com>
+> Cc: Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
 > ---
->  hw/xen/xen-legacy-backend.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  hw/i386/pc_piix.c    | 9 ++++++---
+>  hw/i386/pc_sysfw.c   | 2 +-
+>  include/hw/i386/pc.h | 1 +
+>  3 files changed, 8 insertions(+), 4 deletions(-)
 > 
-> diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
-> index 2335ee2e65..c5c75c0064 100644
-> --- a/hw/xen/xen-legacy-backend.c
-> +++ b/hw/xen/xen-legacy-backend.c
-> @@ -789,11 +789,12 @@ static void xendev_class_init(ObjectClass *klass, void *data)
->      set_bit(DEVICE_CATEGORY_MISC, dc->categories);
->      /* xen-backend devices can be plugged/unplugged dynamically */
->      dc->user_creatable = true;
-> +    dc->bus_type = TYPE_XENSYSBUS;
->  }
->  
->  static const TypeInfo xendev_type_info = {
->      .name          = TYPE_XENBACKEND,
-> -    .parent        = TYPE_XENSYSDEV,
-> +    .parent        = TYPE_DEVICE,
->      .class_init    = xendev_class_init,
->      .instance_size = sizeof(struct XenLegacyDevice),
->  };
-> @@ -824,7 +825,6 @@ static void xen_sysdev_class_init(ObjectClass *klass, void *data)
->      DeviceClass *dc = DEVICE_CLASS(klass);
->  
->      device_class_set_props(dc, xen_sysdev_properties);
-> -    dc->bus_type = TYPE_XENSYSBUS;
->  }
->  
->  static const TypeInfo xensysdev_info = {
-> 
+> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+> index 1497d0e4ae..977d40afb8 100644
+> --- a/hw/i386/pc_piix.c
+> +++ b/hw/i386/pc_piix.c
+> @@ -186,9 +186,12 @@ static void pc_init1(MachineState *machine,
+>      if (!xen_enabled()) {
+>          pc_memory_init(pcms, system_memory,
+>                         rom_memory, &ram_memory);
+> -    } else if (machine->kernel_filename != NULL) {
+> -        /* For xen HVM direct kernel boot, load linux here */
+> -        xen_load_linux(pcms);
+> +    } else {
+> +        pc_system_flash_cleanup_unused(pcms);
 
-Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+TIL pc_system_flash_cleanup_unused().
+
+What about restricting at the source?
+
+-- >8 --
+--- a/hw/i386/pc.c
++++ b/hw/i386/pc.c
+@@ -1004,24 +1004,26 @@ void pc_memory_init(PCMachineState *pcms,
+                                     &machine->device_memory->mr);
+     }
+
+-    /* Initialize PC system firmware */
+-    pc_system_firmware_init(pcms, rom_memory);
+-
+-    option_rom_mr = g_malloc(sizeof(*option_rom_mr));
+-    memory_region_init_ram(option_rom_mr, NULL, "pc.rom", PC_ROM_SIZE,
+-                           &error_fatal);
+-    if (pcmc->pci_enabled) {
+-        memory_region_set_readonly(option_rom_mr, true);
+-    }
+-    memory_region_add_subregion_overlap(rom_memory,
+-                                        PC_ROM_MIN_VGA,
+-                                        option_rom_mr,
+-                                        1);
+-
+     fw_cfg = fw_cfg_arch_create(machine,
+                                 x86ms->boot_cpus, x86ms->apic_id_limit);
+
+-    rom_set_fw(fw_cfg);
++    /* Initialize PC system firmware */
++    if (!xen_enabled()) {
++        pc_system_firmware_init(pcms, rom_memory);
++
++        option_rom_mr = g_malloc(sizeof(*option_rom_mr));
++        memory_region_init_ram(option_rom_mr, NULL, "pc.rom", PC_ROM_SIZE,
++                               &error_fatal);
++        if (pcmc->pci_enabled) {
++            memory_region_set_readonly(option_rom_mr, true);
++        }
++        memory_region_add_subregion_overlap(rom_memory,
++                                            PC_ROM_MIN_VGA,
++                                            option_rom_mr,
++                                            1);
++
++        rom_set_fw(fw_cfg);
++    }
+
+     if (pcmc->has_reserved_memory && machine->device_memory->base) {
+         uint64_t *val = g_malloc(sizeof(*val));
+---
+
+> +        if (machine->kernel_filename != NULL) {
+> +            /* For xen HVM direct kernel boot, load linux here */
+> +            xen_load_linux(pcms);
+> +        }
+>      }
+>  
+>      gsi_state = pc_gsi_create(&x86ms->gsi, pcmc->pci_enabled);
+> diff --git a/hw/i386/pc_sysfw.c b/hw/i386/pc_sysfw.c
+> index ec2a3b3e7e..0ff47a4b59 100644
+> --- a/hw/i386/pc_sysfw.c
+> +++ b/hw/i386/pc_sysfw.c
+> @@ -108,7 +108,7 @@ void pc_system_flash_create(PCMachineState *pcms)
+>      }
+>  }
+>  
+> -static void pc_system_flash_cleanup_unused(PCMachineState *pcms)
+> +void pc_system_flash_cleanup_unused(PCMachineState *pcms)
+>  {
+>      char *prop_name;
+>      int i;
+> diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
+> index e6135c34d6..497f2b7ab7 100644
+> --- a/include/hw/i386/pc.h
+> +++ b/include/hw/i386/pc.h
+> @@ -187,6 +187,7 @@ int cmos_get_fd_drive_type(FloppyDriveType fd0);
+>  
+>  /* pc_sysfw.c */
+>  void pc_system_flash_create(PCMachineState *pcms);
+> +void pc_system_flash_cleanup_unused(PCMachineState *pcms);
+>  void pc_system_firmware_init(PCMachineState *pcms, MemoryRegion *rom_memory);
+>  
+>  /* acpi-build.c */
+> 
 
 
