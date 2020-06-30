@@ -2,51 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D335E20F006
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 09:57:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A8F20F08B
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 10:31:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqB8x-0000QH-Bx; Tue, 30 Jun 2020 07:57:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YZbO=AL=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jqB8w-0000QC-EU
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 07:57:26 +0000
-X-Inumbo-ID: 55448dc6-baa7-11ea-85d4-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 55448dc6-baa7-11ea-85d4-12813bfff9fa;
- Tue, 30 Jun 2020 07:57:24 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B7D77AAC3;
- Tue, 30 Jun 2020 07:57:23 +0000 (UTC)
-Subject: Re: [PATCH 1/2] xen/displif: Protocol version 2
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "wl@xen.org" <wl@xen.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>
-References: <20200520090425.28558-1-andr2000@gmail.com>
- <20200520090425.28558-2-andr2000@gmail.com>
- <84d975e3-0cea-becb-f505-856368a63fb7@suse.com>
- <e6266bcc-fe03-f1cd-2a0f-40f128813b78@epam.com>
- <bbee8578-ee3c-f249-8c80-c2e47fc72ce0@suse.com>
- <80bfd713-9556-42d7-6bf7-dee85fdf8c10@gmail.com>
- <9150a2ad-7c08-1f93-674a-963341bf0ece@suse.com>
- <24252f32-ef40-0daf-a585-36cb00f149d0@epam.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <abe88a6c-fba7-a901-46e8-43761ddf8582@suse.com>
-Date: Tue, 30 Jun 2020 09:57:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+	id 1jqBem-00049z-FA; Tue, 30 Jun 2020 08:30:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4gHU=AL=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jqBek-00049u-Uc
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 08:30:18 +0000
+X-Inumbo-ID: ed8e4488-baab-11ea-bb8b-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ed8e4488-baab-11ea-bb8b-bc764e2007e4;
+ Tue, 30 Jun 2020 08:30:18 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: vJWCbZ24qNBCnRa1jeMfzFihapPAEXWOb/MH/cTYYQUyip68MUIwSFss/OBbvXPJYIxsyk1cMP
+ fykjYjWPPolzXUfAKEKbi8v5e6uTYPGHa6se6prvblrrjZ315fDhXE1Ldp+PwYlfxKFSuTxQzJ
+ fPz8b/Ptrkeq2wV7Rn+c0mEizLc08zRTfpE0PDc/3s/85ulln/xVa/ZpKNcjFMEisNHCGoh3Sk
+ yQnP6MGeMNavHGNxNXThtwWpJyX4Yohpdvq55ZlG0FcG1zCwqQ5tX3XMLY0i4aQJXKK1yVMij0
+ oLM=
+X-SBRS: 2.7
+X-MesageID: 21593289
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,296,1589256000"; d="scan'208";a="21593289"
+Date: Tue, 30 Jun 2020 10:30:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anchal Agarwal <anchalag@amazon.com>
+Subject: Re: [PATCH 06/12] xen-blkfront: add callbacks for PM suspend and
+ hibernation]
+Message-ID: <20200630083006.GJ735@Air-de-Roger>
+References: <20200604070548.GH1195@Air-de-Roger>
+ <20200616214925.GA21684@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200617083528.GW735@Air-de-Roger>
+ <20200619234312.GA24846@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200622083846.GF735@Air-de-Roger>
+ <20200623004314.GA28586@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200623081903.GP735@Air-de-Roger>
+ <20200625183659.GA26586@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <20200626091239.GA735@Air-de-Roger>
+ <20200629192035.GA13195@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
 MIME-Version: 1.0
-In-Reply-To: <24252f32-ef40-0daf-a585-36cb00f149d0@epam.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200629192035.GA13195@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,107 +64,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "Valentin, Eduardo" <eduval@amazon.com>,
+ "len.brown@intel.com" <len.brown@intel.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "benh@kernel.crashing.org" <benh@kernel.crashing.org>,
+ "x86@kernel.org" <x86@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "pavel@ucw.cz" <pavel@ucw.cz>, "hpa@zytor.com" <hpa@zytor.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>, "Kamata,
+ Munehisa" <kamatam@amazon.com>, "mingo@redhat.com" <mingo@redhat.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Singh,
+ Balbir" <sblbir@amazon.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "bp@alien8.de" <bp@alien8.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "vkuznets@redhat.com" <vkuznets@redhat.com>,
+ "davem@davemloft.net" <davem@davemloft.net>, "Woodhouse,
+ David" <dwmw@amazon.co.uk>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30.06.20 09:39, Oleksandr Andrushchenko wrote:
-> On 6/30/20 10:30 AM, Jürgen Groß wrote:
->> On 30.06.20 09:09, Oleksandr Andrushchenko wrote:
->>> On 6/30/20 10:03 AM, Jürgen Groß wrote:
->>>> On 30.06.20 08:13, Oleksandr Andrushchenko wrote:
->>>>> On 6/29/20 10:02 AM, Jürgen Groß wrote:
->>>>>> On 20.05.20 11:04, Oleksandr Andrushchenko wrote:
->>>>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>>>>
->>>>>>> 1. Change protocol version from string to integer
->>>>>>>
->>>>>>> Version string, which is in fact an integer, is hard to handle in the
->>>>>>> code that supports different protocol versions. To simplify that
->>>>>>> make the version an integer.
->>>>>>>
->>>>>>> 2. Pass buffer offset with XENDISPL_OP_DBUF_CREATE
->>>>>>>
->>>>>>> There are cases when display data buffer is created with non-zero
->>>>>>> offset to the data start. Handle such cases and provide that offset
->>>>>>> while creating a display buffer.
->>>>>>>
->>>>>>> 3. Add XENDISPL_OP_GET_EDID command
->>>>>>>
->>>>>>> Add an optional request for reading Extended Display Identification
->>>>>>> Data (EDID) structure which allows better configuration of the
->>>>>>> display connectors over the configuration set in XenStore.
->>>>>>> With this change connectors may have multiple resolutions defined
->>>>>>> with respect to detailed timing definitions and additional properties
->>>>>>> normally provided by displays.
->>>>>>>
->>>>>>> If this request is not supported by the backend then visible area
->>>>>>> is defined by the relevant XenStore's "resolution" property.
->>>>>>>
->>>>>>> If backend provides extended display identification data (EDID) with
->>>>>>> XENDISPL_OP_GET_EDID request then EDID values must take precedence
->>>>>>> over the resolutions defined in XenStore.
->>>>>>>
->>>>>>> 4. Bump protocol version to 2.
->>>>>>>
->>>>>>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>>>> ---
->>>>>>>     xen/include/public/io/displif.h | 83 +++++++++++++++++++++++++++++++--
->>>>>>>     1 file changed, 80 insertions(+), 3 deletions(-)
->>>>>>>
->>>>>>> diff --git a/xen/include/public/io/displif.h b/xen/include/public/io/displif.h
->>>>>>> index cc5de9cb1f35..4d43ba5078c8 100644
->>>>>>> --- a/xen/include/public/io/displif.h
->>>>>>> +++ b/xen/include/public/io/displif.h
->>>>>>> @@ -38,7 +38,7 @@
->>>>>>>      *                           Protocol version
->>>>>>> ******************************************************************************
->>>>>>>      */
->>>>>>> -#define XENDISPL_PROTOCOL_VERSION     "1"
->>>>>>> +#define XENDISPL_PROTOCOL_VERSION     2
->>>>>>
->>>>>> This is not very nice regarding compatibility.
->>>>>>
->>>>>> Can't you add a new macro for the integer value?
->>>>>
->>>>> We can leave it as is, e.g. define XENDISPL_PROTOCOL_VERSION as "2",
->>>>>
->>>>> so we do not break the existing users. Then if every user of the header has
->>>>>
->>>>> its local copy (this is what we now use in the display backend), then that
->>>>> local copy can be changed in a way suitable for the concrete user, e.g. "2"
->>>>>
->>>>> redefined to 2. This cannot be done (?) for the Linux Kernel though.
->>>>>
->>>>> Or we can have
->>>>>
->>>>> #define XENDISPL_PROTOCOL_VERSION     "2"
->>>>>
->>>>> #define XENDISPL_PROTOCOL_VERSION_INT  2
->>>>>
->>>>> Jurgen, what's your preference here?
->>>>
->>>> I would prefer the latter, as it avoids the need to modify the header
->>>> when copying it to a local project.
->>>>
->>> Ok, I'll have 2 definitions then
->>>
->>> Anything else (beside the comments on new functionality) I can add/change
->>>
->>> before sending v2 of the patch?
->>
->> I would have said so. :-)
-> 
-> Thank you,
-> 
-> the series also has a patch for libgnttab. Do you want me to send the protocol patch
-> 
-> separately or should we wait for Ian and Wei to review? These changes are related,
-> 
-> thus I sent then togheter
+On Mon, Jun 29, 2020 at 07:20:35PM +0000, Anchal Agarwal wrote:
+> On Fri, Jun 26, 2020 at 11:12:39AM +0200, Roger Pau Monné wrote:
+> > So the frontend should do:
+> > 
+> > - Switch to Closed state (and cleanup everything required).
+> > - Wait for backend to switch to Closed state (must be done
+> >   asynchronously, handled in blkback_changed).
+> > - Switch frontend to XenbusStateInitialising, that will in turn force
+> >   the backend to switch to XenbusStateInitWait.
+> > - After that it should just follow the normal connection procedure.
+> > 
+> > I think the part that's missing is the frontend doing the state change
+> > to XenbusStateInitialising when the backend switches to the Closed
+> > state.
+> > 
+> > > I was of the view we may just want to mark frontend closed which should do
+> > > the job of freeing resources and then following the same flow as
+> > > blkfront_restore. That does not seems to work correctly 100% of the time.
+> > 
+> > I think the missing part is that you must wait for the backend to
+> > switch to the Closed state, or else the switch to
+> > XenbusStateInitialising won't be picked up correctly by the backend
+> > (because it's still doing it's cleanup).
+> > 
+> > Using blkfront_restore might be an option, but you need to assert the
+> > backend is in the initial state before using that path.
+> >
+> Yes, I agree and I make sure that XenbusStateInitialising only triggers
+> on frontend once backend is disconnected. msleep in a loop not that graceful but
+> works.
+> Frontend only switches to XenbusStateInitialising once it sees backend
+> as Closed. The issue here is and may require more debugging is:
+> 1. Hibernate instance->Closing failed, artificially created situation by not
+> marking frontend Closed in the first place during freezing.
+> 2. System comes back up fine restored to 'backend connected'.
 
-This is something to ask the tools maintainers IMO.
+I'm not sure I'm following what is happening here, what should happen
+IMO is that the backend will eventually reach the Closed state? Ie:
+the frontend has initiated the disconnection from the backend by
+setting the Closing state, and the backend will have to eventually
+reach the Closed state.
 
+At that point the frontend can initiate a reconnection by switching to
+the Initialising state.
 
-Juergen
+> 3. Re-run (1) again without reboot
+> 4. (4) fails to recover basically freezing does not fail at all which is weird
+>    because it should timeout as it passes through same path. It hits a BUG in
+>    talk_to_blkback() and instance crashes.
 
+It's hard to tell exactly. I guess you would have to figure what makes
+the frontend not get stuck at the same place as the first attempt.
+
+Roger.
 
