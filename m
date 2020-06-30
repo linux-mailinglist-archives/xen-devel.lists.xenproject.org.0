@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A87F20F324
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 12:53:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 103FB20F451
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2020 14:15:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqDsd-0007rn-2j; Tue, 30 Jun 2020 10:52:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jqF8t-00064Y-Pi; Tue, 30 Jun 2020 12:13:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fY2H=AL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jqDsc-0007rf-3y
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 10:52:46 +0000
-X-Inumbo-ID: d1fcdaea-babf-11ea-bca7-bc764e2007e4
+ id 1jqF8s-00064T-Fu
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2020 12:13:38 +0000
+X-Inumbo-ID: 1fb85d58-bacb-11ea-860b-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d1fcdaea-babf-11ea-bca7-bc764e2007e4;
- Tue, 30 Jun 2020 10:52:41 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1fb85d58-bacb-11ea-860b-12813bfff9fa;
+ Tue, 30 Jun 2020 12:13:36 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D9ACDACE1;
- Tue, 30 Jun 2020 10:52:40 +0000 (UTC)
-Subject: Re: [PATCH] x86: fix compat header generation
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <0e617191-d61f-08e2-eaa9-b324cd6501f0@suse.com>
- <20200630095239.GK735@Air-de-Roger>
+ by mx2.suse.de (Postfix) with ESMTP id B6427AE70;
+ Tue, 30 Jun 2020 12:13:35 +0000 (UTC)
+Subject: Re: [PATCH for-4.14 v4] x86/tlb: fix assisted flush usage
+To: Roger Pau Monne <roger.pau@citrix.com>
+References: <20200626155723.91558-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7d991541-84df-b18c-acde-449d3edae384@suse.com>
-Date: Tue, 30 Jun 2020 12:52:41 +0200
+Message-ID: <ea76f3e0-3c23-96a4-b6e7-597741a4af17@suse.com>
+Date: Tue, 30 Jun 2020 14:13:36 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200630095239.GK735@Air-de-Roger>
+In-Reply-To: <20200626155723.91558-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -47,101 +47,110 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ Wei Liu <wl@xen.org>, paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30.06.2020 11:52, Roger Pau Monné wrote:
-> On Mon, Jun 29, 2020 at 05:50:59PM +0200, Jan Beulich wrote:
->> As was pointed out by "mm: fix public declaration of struct
->> xen_mem_acquire_resource", we're not currently handling structs
->> correctly that has uint64_aligned_t fields. #pragma pack(4) suppresses
->> the necessary alignment even if the type did properly survive (which
->> it also didn't) in the process of generating the headers. Overall,
->> with the above mentioned change applied, there's only a latent issue
->> here afaict, i.e. no other of our interface structs is currently
->> affected.
->>
->> As a result it is clear that using #pragma pack(4) is not an option.
->> Drop all uses from compat header generation. Make sure
->> {,u}int64_aligned_t actually survives, such that explicitly aligned
->> fields will remain aligned. Arrange for {,u}int64_t to be transformed
->> into a type that's 64 bits wide and 4-byte aligned, by utilizing that
->> in typedef-s the "aligned" attribute can be used to reduce alignment.
->>
->> Note that this changes alignment (but not size) of certain compat
->> structures, when one or more of their fields use a non-translated struct
->> as their type(s). This isn't correct, and hence applying alignof() to
->> such fields requires care, but the prior situation was even worse.
+On 26.06.2020 17:57, Roger Pau Monne wrote:
+> Commit e9aca9470ed86 introduced a regression when avoiding sending
+> IPIs for certain flush operations. Xen page fault handler
+> (spurious_page_fault) relies on blocking interrupts in order to
+> prevent handling TLB flush IPIs and thus preventing other CPUs from
+> removing page tables pages. Switching to assisted flushing avoided such
+> IPIs, and thus can result in pages belonging to the page tables being
+> removed (and possibly re-used) while __page_fault_type is being
+> executed.
 > 
-> Just to clarify my understanding, this means that struct fields that
-> are also structs will need special alignment? (because we no longer have
-> the 4byte packaging).
-
-They may need in principle, but right now there's no instance of
-such as per my comparing of the generated binaries.
-
-> I see from the generated headers that uint64_compat_t is already
-> aligned to 4 bytes, and I assume something similar will be needed for
-> all 8byte types?
-
-If there are native types that get re-used (rather than re-created
-as compat version in the compat headers, which would then necessarily
-derive from {u,}int64_t directly or indirectly, as there's no other
-non-derived 8-byte type that's legitimate to use in public headers -
-e.g. "unsigned long long" is not legitimate to be used, and all
-"unsigned long" instances [if there are any left] get converted to
-"unsigned int"), yes.
-
->> There's one change to generated code according to my observations: In
->> arch_compat_vcpu_op() the runstate area "area" variable would previously
->> have been put in a just 4-byte aligned stack slot (despite being 8 bytes
->> in size), whereas now it gets put in an 8-byte aligned location.
+> Force some of the TLB flushes to use IPIs, thus avoiding the assisted
+> TLB flush. Those selected flushes are the page type change (when
+> switching from a page table type to a different one, ie: a page that
+> has been removed as a page table) and page allocation. This sadly has
+> a negative performance impact on the pvshim, as less assisted flushes
+> can be used. Note the flush in grant-table code is also switched to
+> use an IPI even when not strictly needed. This is done so that a
+> common arch_flush_tlb_mask can be introduced and always used in common
+> code.
 > 
-> Is there someway that we could spot such changes, maybe building a
-> version of the plain structures with -m32 and comparing against their
-> compat versions?
-
-Depends on what "comparing" here means. Yes, something could
-presumably be invented. But it may also be that we'd be better of
-doing away with the re-use of native structs. But of course doing
-so will have significant fallout, which right now I have no good
-idea how to deal with.
-
-> I know we have some compat checking infrastructure, so I wonder if we
-> could use it to avoid issues like the one we had with
-> xen_mem_acquire_resource, as it seems like something that could be
-> programmatically detected.
-
-Yes, having this properly checked would definitely be nice. It's
-just the "how" that's unclear to me here.
-
->> @@ -57,16 +48,16 @@ compat/%.h: compat/%.i Makefile $(BASEDI
->>  	echo "#define $$id" >>$@.new; \
->>  	echo "#include <xen/compat.h>" >>$@.new; \
->>  	$(if $(filter-out compat/arch-%.h,$@),echo "#include <$(patsubst compat/%,public/%,$@)>" >>$@.new;) \
->> -	$(if $(prefix-y),echo "$(prefix-y)" >>$@.new;) \
->>  	grep -v '^# [0-9]' $< | \
->>  	$(PYTHON) $(BASEDIR)/tools/compat-build-header.py | uniq >>$@.new; \
->> -	$(if $(suffix-y),echo "$(suffix-y)" >>$@.new;) \
->>  	echo "#endif /* $$id */" >>$@.new
->>  	mv -f $@.new $@
->>  
->> +.PRECIOUS: compat/%.i
->>  compat/%.i: compat/%.c Makefile
->>  	$(CPP) $(filter-out -Wa$(comma)% -include %/include/xen/config.h,$(XEN_CFLAGS)) $(cppflags-y) -o $@ $<
->>  
->> +.PRECIOUS: compat/%.c
+> Introduce a new flag (FLUSH_FORCE_IPI) and helper to force a TLB flush
+> using an IPI (flush_tlb_mask_sync, x86 only). Note that the flag is
+> only meaningfully defined when the hypervisor supports PV or shadow
+> paging mode, as otherwise hardware assisted paging domains are in
+> charge of their page tables and won't share page tables with Xen, thus
+> not influencing the result of page walks performed by the spurious
+> fault handler.
 > 
-> Not sure if it's worth mentioning that the .i and .c files are now
-> kept.
+> Just passing this new flag when calling flush_area_mask prevents the
+> usage of the assisted flush without any other side effects.
+> 
+> Note the flag is not defined on Arm.
+> 
+> Fixes: e9aca9470ed86 ('x86/tlb: use Xen L0 assisted TLB flush when available')
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Ouch - these weren't supposed to be left in. They were just for my
-debugging. Thanks for noticing.
+In principle
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+A few cosmetic remarks though:
+
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -2894,7 +2894,17 @@ static int _get_page_type(struct page_info *page, unsigned long type,
+>                        ((nx & PGT_type_mask) == PGT_writable_page)) )
+>                  {
+>                      perfc_incr(need_flush_tlb_flush);
+> -                    flush_tlb_mask(mask);
+> +                    if ( (x & PGT_type_mask) &&
+> +                         (x & PGT_type_mask) <= PGT_root_page_table )
+> +                        /*
+> +                         * If page was a page table make sure the flush is
+> +                         * performed using an IPI in order to avoid changing
+> +                         * the type of a page table page under the feet of
+> +                         * spurious_page_fault.
+> +                         */
+> +                        flush_tlb_mask_sync(mask);
+> +                    else
+> +                        flush_tlb_mask(mask);
+
+Effectively this now is the only user of the new macro. I'd prefer
+avoiding its introduction (and hence avoiding the questionable
+"_sync" suffix), doing
+
+    flush_mask(mask, FLUSH_TLB | (... ? FLUSH_FORCE_IPI : 0));
+
+here and ...
+
+> @@ -148,9 +158,24 @@ void flush_area_mask(const cpumask_t *, const void *va, unsigned int flags);
+>  /* Flush specified CPUs' TLBs */
+>  #define flush_tlb_mask(mask)                    \
+>      flush_mask(mask, FLUSH_TLB)
+> +/*
+> + * Flush specified CPUs' TLBs and force the usage of an IPI to do so. This is
+> + * required for certain operations that rely on page tables themselves not
+> + * being freed and reused when interrupts are blocked, as the flush IPI won't
+> + * be fulfilled until exiting from that critical region.
+> + */
+> +#define flush_tlb_mask_sync(mask)               \
+> +    flush_mask(mask, FLUSH_TLB | FLUSH_FORCE_IPI)
+>  #define flush_tlb_one_mask(mask,v)              \
+>      flush_area_mask(mask, (const void *)(v), FLUSH_TLB|FLUSH_ORDER(0))
+>  
+> +/*
+> + * Alias the common code TLB flush helper to the sync one in order to be on the
+> + * safe side. Note that not all calls from common code strictly require the
+> + * _sync variant.
+> + */
+> +#define arch_flush_tlb_mask flush_tlb_mask_sync
+
+...
+
+#define arch_flush_tlb_mask(mask)               \
+    flush_mask(mask, FLUSH_TLB | FLUSH_FORCE_IPI)
+
+here. I'd be okay making these adjustments while committing, if
+you and others don't object.
 
 Jan
 
