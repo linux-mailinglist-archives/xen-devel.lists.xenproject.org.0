@@ -2,85 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35C6A211508
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 23:24:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0161E211543
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 23:43:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqkCm-0002iT-Ec; Wed, 01 Jul 2020 21:23:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=E/dH=AM=redhat.com=mst@srs-us1.protection.inumbo.net>)
- id 1jqkCl-0002iO-3i
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 21:23:43 +0000
-X-Inumbo-ID: 2335f852-bbe1-11ea-8786-12813bfff9fa
-Received: from us-smtp-1.mimecast.com (unknown [205.139.110.61])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 2335f852-bbe1-11ea-8786-12813bfff9fa;
- Wed, 01 Jul 2020 21:23:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593638622;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m2r4biBmgD4usQWexXh9vBu72j/PA8sqQ6Ual1zjZVg=;
- b=Frob1QcE+rnIvaVsB8k1AiEVRY+qE9u3ThkorDAkHfQ0mG0lz2JmkYSDt5C651cZAoWaWA
- kQh8g2gRehTiVbt6jrEqSXH88vaBVuHDyCvWJj64CWz8ZMcr9xbN/neZ27wO5pwYZ9SNd3
- 0UidxTkhxPfsL0eVn0tAHVmGSAhEVLk=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-160-03hKAwVoNrmUTk_-qTHYyQ-1; Wed, 01 Jul 2020 17:23:40 -0400
-X-MC-Unique: 03hKAwVoNrmUTk_-qTHYyQ-1
-Received: by mail-wr1-f69.google.com with SMTP id i14so22362529wru.17
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2020 14:23:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=m2r4biBmgD4usQWexXh9vBu72j/PA8sqQ6Ual1zjZVg=;
- b=Kig+qeBSZdBFbf0mZPn2ShswRAC8SwhOfduQL4bvthvOTBdUqUke7zpF1N+4ZiYQ1/
- 3LwstOFjWGbS2ZM19PwfprI2gVV7TIPQhZtHAvrd2QtGdaESbL1aitwZdqahf53rgRCf
- ZuKO/9a6P9bcMGHOok34Zo0uKIEwo9i/eUHP8/B4Y+FdATE/e/w5HQtwbCUkuNJrsyme
- jM/Mh7dT8E7wzt2DxHVk4VUvHfJZ40RFeSKmd3rK/W4Vea9deFzekddh80bZji0+AhNn
- soRJeOR8q7rxCFFsvhIpm7gpJ+dUdCiIuFNvSwRWTrpP8wPnnWguqzT2ZrVZwvuAIEmJ
- BzFw==
-X-Gm-Message-State: AOAM533+Uc53ROksm61AkgHwQzoOYoZ0lb7lyVimuLRQoUR3QVNQWqTt
- 7qGrWMmk9lGzu98bI/CNIdHHHqFw8DAyl/XhRtM/hItTQidBUvOs3LAz5/nlnZl3eZvngas5Gm3
- oKm7uvZDy1KRjRaus2V2pYJBAgok=
-X-Received: by 2002:a5d:6b8c:: with SMTP id n12mr28640728wrx.352.1593638617973; 
- Wed, 01 Jul 2020 14:23:37 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzQ5EOdK3/I7t3hzH2nXxlZ8gKRo3bNG63qK7yosafmw6Hvgwi6pb2IZMrXml3ZBqz0x5VNnw==
-X-Received: by 2002:a5d:6b8c:: with SMTP id n12mr28640715wrx.352.1593638617762; 
- Wed, 01 Jul 2020 14:23:37 -0700 (PDT)
-Received: from redhat.com (bzq-79-182-31-92.red.bezeqint.net. [79.182.31.92])
- by smtp.gmail.com with ESMTPSA id
- d63sm8905146wmc.22.2020.07.01.14.23.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2020 14:23:35 -0700 (PDT)
-Date: Wed, 1 Jul 2020 17:23:32 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] xen: introduce xen_vring_use_dma
-Message-ID: <20200701172219-mutt-send-email-mst@kernel.org>
-References: <20200624050355-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241047010.8121@sstabellini-ThinkPad-T480s>
- <20200624163940-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241351430.8121@sstabellini-ThinkPad-T480s>
- <20200624181026-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006251014230.8121@sstabellini-ThinkPad-T480s>
- <20200626110629-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006291621300.8121@sstabellini-ThinkPad-T480s>
- <20200701133456.GA23888@infradead.org>
- <alpine.DEB.2.21.2007011020320.8121@sstabellini-ThinkPad-T480s>
+	id 1jqkVi-0004Pw-76; Wed, 01 Jul 2020 21:43:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Xe6U=AM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jqkVg-0004Pr-UW
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 21:43:16 +0000
+X-Inumbo-ID: de9b5ba8-bbe3-11ea-bb8b-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id de9b5ba8-bbe3-11ea-bb8b-bc764e2007e4;
+ Wed, 01 Jul 2020 21:43:16 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: xvQpnHoUKgxp7zPk6oTWRD8nXqjtMm8m3ejkiJXVQ5jCQmiYJLmjpvOptimV8ebvooDOn0KEdV
+ UT8S6vdflilJ9d3ueBWmJJsVsI5J5RAcgBwvtmj0i7afgtJkCFEikz6IL9t9TDVh1T/+RQ6dIu
+ POWHUBSA3PvJaa9PFZwdxatVp0sAGEEPT5znYJhxPavPFNTI1biKUsmoZryvVuJtjhQx1rZuoq
+ c07MFEdH+HinR1C0FmVnf7B/2qqDUiqkWsUmiUY69GBm4zDDc0ic6DxeUTq7d0HVGHp9HbP8sy
+ l5A=
+X-SBRS: 2.7
+X-MesageID: 21431194
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,301,1589256000"; d="scan'208";a="21431194"
+Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
+To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ <xen-devel@lists.xenproject.org>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <f935f7f0-30e4-4ba2-588f-a8368a7b93b1@citrix.com>
+Date: Wed, 1 Jul 2020 22:42:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2007011020320.8121@sstabellini-ThinkPad-T480s>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=mst@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+In-Reply-To: <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,32 +58,130 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>, konrad.wilk@oracle.com,
- jasowang@redhat.com, x86@kernel.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- Christoph Hellwig <hch@infradead.org>, iommu@lists.linux-foundation.org,
- linux-imx@nxp.com, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Julien Grall <julien@xen.org>, Kevin Tian <kevin.tian@intel.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ luwei.kang@intel.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jul 01, 2020 at 10:34:53AM -0700, Stefano Stabellini wrote:
-> Would you be in favor of a more flexible check along the lines of the
-> one proposed in the patch that started this thread:
-> 
->     if (xen_vring_use_dma())
->             return true;
-> 
-> 
-> xen_vring_use_dma would be implemented so that it returns true when
-> xen_swiotlb is required and false otherwise.
+On 30/06/2020 13:33, Michał Leszczyński wrote:
+> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+> index ca94c2bedc..b73d824357 100644
+> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> @@ -291,6 +291,12 @@ static int vmx_init_vmcs_config(void)
+>          _vmx_cpu_based_exec_control &=
+>              ~(CPU_BASED_CR8_LOAD_EXITING | CPU_BASED_CR8_STORE_EXITING);
+>  
+> +    rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
+> +
+> +    /* Check whether IPT is supported in VMX operation. */
+> +    vmtrace_supported = cpu_has_ipt &&
+> +                        (_vmx_misc_cap & VMX_MISC_PT_SUPPORTED);
 
-Just to stress - with a patch like this virtio can *still* use DMA API
-if PLATFORM_ACCESS is set. So if DMA API is broken on some platforms
-as you seem to be saying, you guys should fix it before doing something
-like this..
+There is a subtle corner case here.  vmx_init_vmcs_config() is called on
+all CPUs, and is supposed to level things down safely if we find any
+asymmetry.
 
--- 
-MST
+If instead you go with something like this:
 
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index b73d824357..6960109183 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -294,8 +294,8 @@ static int vmx_init_vmcs_config(void)
+     rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
+ 
+     /* Check whether IPT is supported in VMX operation. */
+-    vmtrace_supported = cpu_has_ipt &&
+-                        (_vmx_misc_cap & VMX_MISC_PT_SUPPORTED);
++    if ( !(_vmx_misc_cap & VMX_MISC_PT_SUPPORTED) )
++        vmtrace_supported = false;
+ 
+     if ( _vmx_cpu_based_exec_control &
+CPU_BASED_ACTIVATE_SECONDARY_CONTROLS )
+     {
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index c9b6af826d..9d7822e006 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1092,6 +1092,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+ #endif
+     }
+ 
++    /* Set a default for VMTrace before HVM setup occurs. */
++    vmtrace_supported = cpu_has_ipt;
++
+     /* Sanitise the raw E820 map to produce a final clean version. */
+     max_page = raw_max_page = init_e820(memmap_type, &e820_raw);
+ 
+
+Then you'll also get a vmtrace_supported=true which works correctly in
+the Broadwell and no-VT-x case as well.
+
+
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 7cc9526139..0a33e0dfd6 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -82,6 +82,8 @@ struct vcpu *idle_vcpu[NR_CPUS] __read_mostly;
+>  
+>  vcpu_info_t dummy_vcpu_info;
+>  
+> +bool_t vmtrace_supported;
+
+bool please.  We're in the process of converting over to C99 bools, and
+objection was taken to a tree-wide cleanup.
+
+> +
+>  static void __domain_finalise_shutdown(struct domain *d)
+>  {
+>      struct vcpu *v;
+> diff --git a/xen/include/asm-x86/cpufeature.h b/xen/include/asm-x86/cpufeature.h
+> index f790d5c1f8..8d7955dd87 100644
+> --- a/xen/include/asm-x86/cpufeature.h
+> +++ b/xen/include/asm-x86/cpufeature.h
+> @@ -104,6 +104,7 @@
+>  #define cpu_has_clwb            boot_cpu_has(X86_FEATURE_CLWB)
+>  #define cpu_has_avx512er        boot_cpu_has(X86_FEATURE_AVX512ER)
+>  #define cpu_has_avx512cd        boot_cpu_has(X86_FEATURE_AVX512CD)
+> +#define cpu_has_ipt             boot_cpu_has(X86_FEATURE_IPT)
+>  #define cpu_has_sha             boot_cpu_has(X86_FEATURE_SHA)
+>  #define cpu_has_avx512bw        boot_cpu_has(X86_FEATURE_AVX512BW)
+>  #define cpu_has_avx512vl        boot_cpu_has(X86_FEATURE_AVX512VL)
+> diff --git a/xen/include/asm-x86/hvm/vmx/vmcs.h b/xen/include/asm-x86/hvm/vmx/vmcs.h
+> index 906810592f..0e9a0b8de6 100644
+> --- a/xen/include/asm-x86/hvm/vmx/vmcs.h
+> +++ b/xen/include/asm-x86/hvm/vmx/vmcs.h
+> @@ -283,6 +283,7 @@ extern u32 vmx_secondary_exec_control;
+>  #define VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 0x80000000000ULL
+>  extern u64 vmx_ept_vpid_cap;
+>  
+> +#define VMX_MISC_PT_SUPPORTED                   0x00004000
+
+VMX_MISC_PROC_TRACE, and ...
+
+>  #define VMX_MISC_CR3_TARGET                     0x01ff0000
+>  #define VMX_MISC_VMWRITE_ALL                    0x20000000
+>  
+> diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
+> index 5ca35d9d97..0d3f15f628 100644
+> --- a/xen/include/public/arch-x86/cpufeatureset.h
+> +++ b/xen/include/public/arch-x86/cpufeatureset.h
+> @@ -217,6 +217,7 @@ XEN_CPUFEATURE(SMAP,          5*32+20) /*S  Supervisor Mode Access Prevention */
+>  XEN_CPUFEATURE(AVX512_IFMA,   5*32+21) /*A  AVX-512 Integer Fused Multiply Add */
+>  XEN_CPUFEATURE(CLFLUSHOPT,    5*32+23) /*A  CLFLUSHOPT instruction */
+>  XEN_CPUFEATURE(CLWB,          5*32+24) /*A  CLWB instruction */
+> +XEN_CPUFEATURE(IPT,           5*32+25) /*   Intel Processor Trace */
+
+.. any chance we can spell this out as PROC_TRACE?  The "Intel" part
+won't be true if any of the other vendors choose to implement this
+interface to the spec.
+
+Otherwise, LGTM.
+
+~Andrew
 
