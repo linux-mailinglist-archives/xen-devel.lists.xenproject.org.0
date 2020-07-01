@@ -2,46 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77455210582
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 09:54:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2719210747
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 11:02:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqXYV-0004sF-8M; Wed, 01 Jul 2020 07:53:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jqYdH-0002uB-AP; Wed, 01 Jul 2020 09:02:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w4aC=AM=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jqXYT-0004sA-F5
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 07:53:17 +0000
-X-Inumbo-ID: e9736c56-bb6f-11ea-86d7-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e9736c56-bb6f-11ea-86d7-12813bfff9fa;
- Wed, 01 Jul 2020 07:53:12 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ id 1jqYdG-0002u4-CH
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 09:02:18 +0000
+X-Inumbo-ID: 902528b0-bb79-11ea-bca7-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 902528b0-bb79-11ea-bca7-bc764e2007e4;
+ Wed, 01 Jul 2020 09:02:17 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: fu4Ta5yH48MNwr0gP2MVL6yw9LSfyA5rlJq8yvKUM8DgJerDobGFXP5s5Y5Vowq8bH1xZ895ok
- TNKWZvURzOpr2Db5nmRC+iie24wL0URnYhjvZ3GZfsBsTEea/XZH3fcDLlhJd0K3JlkdQHAsJm
- wax/R2cohQpN7wNZzhkPU4y/UpX27bhjAFxwWq7JOeZeKdQwae+VnCPQxvvGKX2nnoL/klr22b
- URHOhlRPdbmYDESKpUS0b/a17KI+LklSqE9swgF/wM4pzuXyCZWZvOS0Mu+zN9YkWede3EmEKu
- srI=
+IronPort-SDR: i8xnSH4MPIXch7CDs6lVi0mHG8WXUgDdXmURI54kbExyL3Z1gYHmQ/MIONC1VwCIl9dXwU8Y4K
+ lPaCcdjNGB1TeAr6GCrU2lk9S+Y+oxcBn7kNkvmDDXTxMsNZT5gzzgt47/3LLrzcq4jpHS1KCm
+ 2abuATUcY6TJFW3SoEFpPRalqkanCAH5XfkUFSC8IXz3HW+4jM6j78/VOTdRJKjM7BIUCzILsp
+ AmoiT1LRijD/kM/tCGJW0A6A0Jkw0ybgaBcfD5hyd1vb+D25Ia1JR3bXCzcZgKqfEVAj4vRh3l
+ GG8=
 X-SBRS: 2.7
-X-MesageID: 21708591
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 22186773
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,299,1589256000"; d="scan'208";a="21708591"
-Date: Wed, 1 Jul 2020 09:52:57 +0200
+X-IronPort-AV: E=Sophos;i="5.75,299,1589256000"; d="scan'208";a="22186773"
+Date: Wed, 1 Jul 2020 11:02:10 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [XEN PATCH] hvmloader: Fix reading ACPI PM1 CNT value
-Message-ID: <20200701075257.GM735@Air-de-Roger>
-References: <20200630170913.123646-1-anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: vPT rework (and timer mode)
+Message-ID: <20200701090210.GN735@Air-de-Roger>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200630170913.123646-1-anthony.perard@citrix.com>
 X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -54,33 +51,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jun 30, 2020 at 06:09:13PM +0100, Anthony PERARD wrote:
-> In order to get the CNT value from QEMU, we were supposed to read a
-> word, according to the implementation in QEMU. But it has been lax and
-> allowed to read a single byte. This has changed with commit
-> 5d971f9e6725 ("memory: Revert "memory: accept mismatching sizes in
-> memory_region_access_valid"") and result in hvmloader crashing on
-> the BUG_ON.
+Hello,
 
-This is a bug on the QEMU side, the ACPI spec states: "Accesses to PM1
-control registers are accessed through byte and word accesses.".
-That's on section 4.8.3.2.1 PM1 Control Registers of my copy of the
-ACPI spec (6.2A).
+I've been doing some work with the virtual timers infrastructure in
+order to improve some of it's shortcomings. See:
 
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+https://lists.xenproject.org/archives/html/xen-devel/2020-06/msg00919.html
 
-I'm fine with this if such bogus behavior has made it's way into a
-release version of QEMU, but it needs to state it's a workaround for a
-QEMU bug, not a bug in hvmloader.
+For an example of such issues, and how the emulated timers are not
+architecturally correct.
 
-IMO the QEMU change should be reverted.
+It's my understanding that the purpose of pt_update_irq and
+pt_intr_post is to attempt to implement the "delay for missed ticks"
+mode, where Xen will accumulate timer interrupts if they cannot be
+injected. As shown by the patch above, this is all broken when the
+timer is added to a vCPU (pt->vcpu) different than the actual target
+vCPU where the interrupt gets delivered (note this can also be a list
+of vCPUs if routed from the IO-APIC using Fixed mode).
+
+I'm at lost at how to fix this so that virtual timers work properly
+and we also keep the "delay for missed ticks" mode without doing a
+massive rework and somehow keeping track of where injected interrupts
+originated, which seems an overly complicated solution.
+
+My proposal hence would be to completely remove the timer_mode, and
+just treat virtual timer interrupts as other interrupts, ie: they will
+be injected from the callback (pt_timer_fn) and the vCPU(s) would be
+kicked. Whether interrupts would get lost (ie: injected when a
+previous one is still pending) depends on the contention on the
+system. I'm not aware of any current OS that uses timer interrupts as
+a way to track time. I think current OSes know the differences between
+a timer counter and an event timer, and will use them appropriately.
+
+This would allow to get rid of pt_update_irq and pt_intr_post calls in
+the VMX/SVM interrupt injection paths, and likely simplify the virtual
+timers code quite a lot. Note the guest would also always track the
+real wallclock.
+
+AFAICT such change would also allow to get rid of the per-vCPU vpt
+lists.
+
+Wanted to get some feedback on this approach before starting to do the
+work, since as said above it will involve dropping the timer modes.
 
 Thanks, Roger.
 
