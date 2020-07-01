@@ -2,54 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B03D210C5C
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 15:35:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4E01210CF5
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 16:00:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqctP-0004HR-It; Wed, 01 Jul 2020 13:35:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jqdGh-000611-KK; Wed, 01 Jul 2020 13:59:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tcdi=AM=casper.srs.infradead.org=batv+501e1de201b53739768b+6156+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1jqctN-0004HM-G7
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 13:35:13 +0000
-X-Inumbo-ID: af66e1ac-bb9f-11ea-b7bb-bc764e2007e4
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id af66e1ac-bb9f-11ea-b7bb-bc764e2007e4;
- Wed, 01 Jul 2020 13:35:11 +0000 (UTC)
+ <SRS0=r09v=AM=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jqdGh-00060w-4t
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 13:59:19 +0000
+X-Inumbo-ID: 0df51e02-bba3-11ea-871d-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0df51e02-bba3-11ea-871d-12813bfff9fa;
+ Wed, 01 Jul 2020 13:59:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=6o0bqYA9UibQkqr/MmLZIfw1Phn9yQ8zQ1ln3u9Cm/E=; b=hlKDnjFXs/Y5WjrWNNgSQ+2Cvd
- RvsmfMbhXkV1KC+OK+5x7CGESEtA1Qk4HZeAu6Yaz/UH9zEAUbNa9FVjAhV4Duiv/yAyXRv3/1ni3
- CSmwa08RJtybgECUGXsj6t5Ikz9WU8jXnEjZhSsiO4Cce5bMLn+ryrsvUEQAfHt3Y/kj2M4b29Xj0
- 2lORXLltD3a0Za4R4fVC/+lv0bptUhSUEHkFmEDfSV3phIa7QD/g3Q2Zle+t27uSL2Zcfg1ARrlES
- xPbJ0Leq9BQuYJ3vQmrkn81G/oqYWCgAUIa51MwnCk73e/oMjUpHEK7/k+Ajj3vJC3XBgczD+ReMg
- 1fAQgQbQ==;
-Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
- Linux)) id 1jqct6-0006Qi-2K; Wed, 01 Jul 2020 13:34:56 +0000
-Date: Wed, 1 Jul 2020 14:34:56 +0100
-From: Christoph Hellwig <hch@infradead.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] xen: introduce xen_vring_use_dma
-Message-ID: <20200701133456.GA23888@infradead.org>
-References: <20200624091732.23944-1-peng.fan@nxp.com>
- <20200624050355-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241047010.8121@sstabellini-ThinkPad-T480s>
- <20200624163940-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241351430.8121@sstabellini-ThinkPad-T480s>
- <20200624181026-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006251014230.8121@sstabellini-ThinkPad-T480s>
- <20200626110629-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006291621300.8121@sstabellini-ThinkPad-T480s>
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=cjS1OdWOCfwHOCXLFZm8ns85U8esMmISNWI59Ftxt44=; b=JrqMv27JJWaZ7ukcxo2lnmowh
+ H/ZcLWY7BabFUtCkpiD4Gj0yK+2JbpODL2L9BBkpow489AANIDYrHKRkf3ezLnAAWS4kQEYUY9cK6
+ j5m6BtRFuG25IFnkTI9Nd/1B6tDJOEr3zUz1NFpoBUYeEU4oSLFgPXECaCz/UeEh7rOV0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqdGf-0003Bo-3S; Wed, 01 Jul 2020 13:59:17 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqdGe-0001vz-NN; Wed, 01 Jul 2020 13:59:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqdGe-0006Uv-MR; Wed, 01 Jul 2020 13:59:16 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151496-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2006291621300.8121@sstabellini-ThinkPad-T480s>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- casper.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [libvirt test] 151496: tolerable all pass - PUSHED
+X-Osstest-Failures: libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This: libvirt=e7998ebeaf15e4e8825be0dd97aa1316f194f00d
+X-Osstest-Versions-That: libvirt=4268e187531eb370bc6fbac4496018bb7fef6716
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Jul 2020 13:59:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +78,98 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>, x86@kernel.org,
- konrad.wilk@oracle.com, jasowang@redhat.com,
- "Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, iommu@lists.linux-foundation.org,
- linux-imx@nxp.com, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- linux-arm-kernel@lists.infradead.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jun 29, 2020 at 04:46:09PM -0700, Stefano Stabellini wrote:
-> > I could imagine some future Xen hosts setting a flag somewhere in the
-> > platform capability saying "no xen specific flag, rely on
-> > "VIRTIO_F_ACCESS_PLATFORM". Then you set that accordingly in QEMU.
-> > How about that?
-> 
-> Yes, that would be fine and there is no problem implementing something
-> like that when we get virtio support in Xen. Today there are still no
-> virtio interfaces provided by Xen to ARM guests (no virtio-block/net,
-> etc.)
-> 
-> In fact, in both cases we are discussing virtio is *not* provided by
-> Xen; it is a firmware interface to something entirely different:
-> 
-> 1) virtio is used to talk to a remote AMP processor (RPMesg)
-> 2) virtio is used to talk to a secure-world firmware/OS (Trusty)
->
-> VIRTIO_F_ACCESS_PLATFORM is not set by Xen in these cases but by RPMesg
-> and by Trusty respectively. I don't know if Trusty should or should not
-> set VIRTIO_F_ACCESS_PLATFORM, but I think Linux should still work
-> without issues.
-> 
+flight 151496 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151496/
 
-Any virtio implementation that is not in control of the memory map
-(aka not the hypervisor) absolutely must set VIRTIO_F_ACCESS_PLATFORM,
-else it is completely broken.
+Failures :-/ but no regressions.
 
-> The xen_domain() check in Linux makes it so that vring_use_dma_api
-> returns the opposite value on native Linux compared to Linux as Xen/ARM
-> DomU by "accident". By "accident" because there is no architectural
-> reason why Linux Xen/ARM DomU should behave differently compared to
-> native Linux in this regard.
-> 
-> I hope that now it is clearer why I think the if (xen_domain()) check
-> needs to be improved anyway, even if we fix generic dma_ops with virtio
-> interfaces missing VIRTIO_F_ACCESS_PLATFORM.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151469
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151469
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 12 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 13 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
 
-IMHO that Xen quirk should never have been added in this form..
+version targeted for testing:
+ libvirt              e7998ebeaf15e4e8825be0dd97aa1316f194f00d
+baseline version:
+ libvirt              4268e187531eb370bc6fbac4496018bb7fef6716
+
+Last test of basis   151469  2020-06-30 04:19:06 Z    1 days
+Testing same since   151496  2020-07-01 04:23:43 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Daniel P. Berrangé <berrange@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Weblate <noreply@weblate.org>
+  Yuri Chornoivan <yurchor@ukr.net>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   4268e18753..e7998ebeaf  e7998ebeaf15e4e8825be0dd97aa1316f194f00d -> xen-tested-master
 
