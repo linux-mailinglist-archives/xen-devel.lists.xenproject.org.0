@@ -2,55 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD56211207
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 19:35:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60B9A211233
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 19:52:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqgdN-00005x-Mf; Wed, 01 Jul 2020 17:34:57 +0000
+	id 1jqguA-0001jE-8B; Wed, 01 Jul 2020 17:52:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lceB=AM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jqgdM-00005s-8c
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 17:34:56 +0000
-X-Inumbo-ID: 2d5a53fc-bbc1-11ea-874c-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=Xe6U=AM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jqgu8-0001j6-Kh
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 17:52:16 +0000
+X-Inumbo-ID: 99202092-bbc3-11ea-8751-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2d5a53fc-bbc1-11ea-874c-12813bfff9fa;
- Wed, 01 Jul 2020 17:34:55 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5CDCB20781;
- Wed,  1 Jul 2020 17:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593624894;
- bh=7gRGt637RJr7xqh8m9IFhKHH4colOY8f4NtES4RwwhY=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=s4JTo+sHZ5kueHTuTEAo2QGy2uhqmeAHdidNDEG2j3pV3VxRg5Xv6wKav2TR+6t4b
- XUiS73u1pvO97HpBjUcfEuJ+XpBhQ0M0mFiLtwwqKmYcxdiCP4RGhschpBHp6VSQJP
- m93SVv9K90jHvPW8nUrDpWPn4XcEaTHFUj4sKDZM=
-Date: Wed, 1 Jul 2020 10:34:53 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH] xen: introduce xen_vring_use_dma
-In-Reply-To: <20200701133456.GA23888@infradead.org>
-Message-ID: <alpine.DEB.2.21.2007011020320.8121@sstabellini-ThinkPad-T480s>
-References: <20200624091732.23944-1-peng.fan@nxp.com>
- <20200624050355-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241047010.8121@sstabellini-ThinkPad-T480s>
- <20200624163940-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241351430.8121@sstabellini-ThinkPad-T480s>
- <20200624181026-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006251014230.8121@sstabellini-ThinkPad-T480s>
- <20200626110629-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006291621300.8121@sstabellini-ThinkPad-T480s>
- <20200701133456.GA23888@infradead.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 99202092-bbc3-11ea-8751-12813bfff9fa;
+ Wed, 01 Jul 2020 17:52:15 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: p9HUq16D4AAzzYFj4pTIdFyoJSzWL1QVqfLKaG8z+PeddPoDV8F/ejsa5l5V8M/od7FVpUskxB
+ 184RsqVyciNFukZnSXfLLW3enB7gsYfNOfOk5E+uEGJ6ymTnrEqu6obHhaGItX7023jtH6y9yn
+ zBmFLRKLgtgGpl2qSQT/reW+I5JUSgDrBrJP3O4pAUUVF2O7lxr66C7QHThRwy+USnFd9GgyFF
+ qyrtZnrdd4tIjqs0NLvV9Mn/HJR6AS/H/8XDOBByZuzcnJaEWgOeq/H2gGKL8u/a+/zf4Lc5ZX
+ r30=
+X-SBRS: 2.7
+X-MesageID: 21734709
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,301,1589256000"; d="scan'208";a="21734709"
+Subject: Re: [PATCH v4 01/10] x86/vmx: add Intel PT MSR definitions
+To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ <xen-devel@lists.xenproject.org>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <2ff9ecee8367e814a29b17a34203bda0e3c48d74.1593519420.git.michal.leszczynski@cert.pl>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <46b8c096-91ae-a3d7-1c53-d54616f38388@citrix.com>
+Date: Wed, 1 Jul 2020 18:52:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <2ff9ecee8367e814a29b17a34203bda0e3c48d74.1593519420.git.michal.leszczynski@cert.pl>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,66 +59,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>, konrad.wilk@oracle.com,
- jasowang@redhat.com, x86@kernel.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, iommu@lists.linux-foundation.org,
- "Michael S. Tsirkin" <mst@redhat.com>, linux-imx@nxp.com,
- xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- linux-arm-kernel@lists.infradead.org
+Cc: tamas.lengyel@intel.com, luwei.kang@intel.com, Wei Liu <wl@xen.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 1 Jul 2020, Christoph Hellwig wrote:
-> On Mon, Jun 29, 2020 at 04:46:09PM -0700, Stefano Stabellini wrote:
-> > > I could imagine some future Xen hosts setting a flag somewhere in the
-> > > platform capability saying "no xen specific flag, rely on
-> > > "VIRTIO_F_ACCESS_PLATFORM". Then you set that accordingly in QEMU.
-> > > How about that?
-> > 
-> > Yes, that would be fine and there is no problem implementing something
-> > like that when we get virtio support in Xen. Today there are still no
-> > virtio interfaces provided by Xen to ARM guests (no virtio-block/net,
-> > etc.)
-> > 
-> > In fact, in both cases we are discussing virtio is *not* provided by
-> > Xen; it is a firmware interface to something entirely different:
-> > 
-> > 1) virtio is used to talk to a remote AMP processor (RPMesg)
-> > 2) virtio is used to talk to a secure-world firmware/OS (Trusty)
-> >
-> > VIRTIO_F_ACCESS_PLATFORM is not set by Xen in these cases but by RPMesg
-> > and by Trusty respectively. I don't know if Trusty should or should not
-> > set VIRTIO_F_ACCESS_PLATFORM, but I think Linux should still work
-> > without issues.
-> > 
-> 
-> Any virtio implementation that is not in control of the memory map
-> (aka not the hypervisor) absolutely must set VIRTIO_F_ACCESS_PLATFORM,
-> else it is completely broken.
+On 30/06/2020 13:33, Michał Leszczyński wrote:
+> From: Michal Leszczynski <michal.leszczynski@cert.pl>
+>
+> Define constants related to Intel Processor Trace features.
+>
+> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
 
-Lots of broken virtio implementations out there it would seem :-(
+Acked-by: Andrew Cooper <andrew.cooper3@ctirix.com>
 
+I wanted to have a play with the series, and have ended up having to do
+the rebase anyway.
 
-> > The xen_domain() check in Linux makes it so that vring_use_dma_api
-> > returns the opposite value on native Linux compared to Linux as Xen/ARM
-> > DomU by "accident". By "accident" because there is no architectural
-> > reason why Linux Xen/ARM DomU should behave differently compared to
-> > native Linux in this regard.
-> > 
-> > I hope that now it is clearer why I think the if (xen_domain()) check
-> > needs to be improved anyway, even if we fix generic dma_ops with virtio
-> > interfaces missing VIRTIO_F_ACCESS_PLATFORM.
-> 
-> IMHO that Xen quirk should never have been added in this form..
+As we're in code freeze for 4.14, I've started x86-next in its usual
+location
+(https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/x86-next)
+and will commit this (and any other accumulated patches) once 4.15 opens.
 
-Would you be in favor of a more flexible check along the lines of the
-one proposed in the patch that started this thread:
-
-    if (xen_vring_use_dma())
-            return true;
-
-
-xen_vring_use_dma would be implemented so that it returns true when
-xen_swiotlb is required and false otherwise.
+~Andrew
 
