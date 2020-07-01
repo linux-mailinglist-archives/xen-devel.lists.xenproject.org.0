@@ -2,75 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8913210C0C
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 15:24:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B03D210C5C
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 15:35:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqchx-0003NO-E4; Wed, 01 Jul 2020 13:23:25 +0000
+	id 1jqctP-0004HR-It; Wed, 01 Jul 2020 13:35:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3SYL=AM=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jqchv-0003NJ-T1
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 13:23:24 +0000
-X-Inumbo-ID: 096fd264-bb9e-11ea-b7bb-bc764e2007e4
-Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
+ <SRS0=tcdi=AM=casper.srs.infradead.org=batv+501e1de201b53739768b+6156+infradead.org+hch@srs-us1.protection.inumbo.net>)
+ id 1jqctN-0004HM-G7
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 13:35:13 +0000
+X-Inumbo-ID: af66e1ac-bb9f-11ea-b7bb-bc764e2007e4
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 096fd264-bb9e-11ea-b7bb-bc764e2007e4;
- Wed, 01 Jul 2020 13:23:23 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id f139so23227066wmf.5
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2020 06:23:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=jf2wtkoCW3xmuHm5TPxfRgukLk2yxsCQD6cMw9FXid4=;
- b=JRZTfk0UBEXbxiHvzkprt7OnwOCmnqK0YSOplNzWeMPVRnneceqLBOWcNyMjqu0kxV
- L+GLOYlHYQsrrlko3ph/fstgBqOwm3LqpCCgy/ZF3YDCm6Wn6h/WsRCuJl6ED7I7uaZ/
- g47MTBzW9xDJiYIfZF/QtFl+Rd0QeDZgEfONFSqhn/hMlv/lnKykQ3I6DQcqt4L8P1FY
- pV5m/I/4WSy66Jugy2brHSwE6rBiQtG3s0ts81FIe+Pf/flS2mzFh1DvPrVds1vcRnMJ
- 3hPLvrLVl38VFqE/1+r0UBDL30Fcndt7tTNMWjT3fDJu9DdByrKhNqNSH43bv0ZaMxsj
- dHxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :thread-index:content-language;
- bh=jf2wtkoCW3xmuHm5TPxfRgukLk2yxsCQD6cMw9FXid4=;
- b=Y2ZCI7Xpgvp62dKbhv0voaMQ0qKJlLzoM1LoGjo3IeDVIxte3QWwkLidpqqfDaTliv
- usfm8jcpaloTtJ8+yc3kyLA3lRabuGfURgVUYNvnfuKGbH+RRWUMs1+R6MFMVWNjvfhr
- tvQaTQ8fDwV36t4kvrnnWWhkWRGeUfxCXRadVR8iL1yMxEKcrVFSfFS/6IGZI32a1MUm
- Z3uOTe7qFqHd52NS/N/GAfzShA/EqUg9G6aXq+JF9vOHcoTPZbMv91QpROhPEBKMDKTw
- BF8SIjwfgFT5gSkAnFuqgDkKXyLC8oZRfZYkLlhPRWLyoU8A34nzhd/0uDMKCB/lkSw3
- FP6A==
-X-Gm-Message-State: AOAM5305/tIbswx89KWIeo6A0ly1yZ4glYu6M5gbdPVWF38VeAvnHvn+
- o6x40W6td1qQqGiiZyXDQ7M=
-X-Google-Smtp-Source: ABdhPJw4NwuvaTFUJ06O9gdmNc5bF9TTa83gE/UxLK90XtyKmstGli/mWH+gg7QwhvIx0xOcvwoU4g==
-X-Received: by 2002:a1c:2d83:: with SMTP id
- t125mr27363966wmt.187.1593609802266; 
- Wed, 01 Jul 2020 06:23:22 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-238.amazon.com. [54.240.197.238])
- by smtp.gmail.com with ESMTPSA id h14sm7676165wrt.36.2020.07.01.06.23.19
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 01 Jul 2020 06:23:21 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>,
- "'Andrew Cooper'" <andrew.cooper3@citrix.com>
-References: <20200701115842.18583-1-andrew.cooper3@citrix.com>
- <41b49d79-e0fa-161a-bb27-a9a2ccf361f5@suse.com>
-In-Reply-To: <41b49d79-e0fa-161a-bb27-a9a2ccf361f5@suse.com>
-Subject: RE: [PATCH for-4.14] x86/spec-ctrl: Protect against CALL/JMP
- straight-line speculation
-Date: Wed, 1 Jul 2020 14:23:18 +0100
-Message-ID: <001201d64faa$ca8a6370$5f9f2a50$@xen.org>
+ id af66e1ac-bb9f-11ea-b7bb-bc764e2007e4;
+ Wed, 01 Jul 2020 13:35:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=6o0bqYA9UibQkqr/MmLZIfw1Phn9yQ8zQ1ln3u9Cm/E=; b=hlKDnjFXs/Y5WjrWNNgSQ+2Cvd
+ RvsmfMbhXkV1KC+OK+5x7CGESEtA1Qk4HZeAu6Yaz/UH9zEAUbNa9FVjAhV4Duiv/yAyXRv3/1ni3
+ CSmwa08RJtybgECUGXsj6t5Ikz9WU8jXnEjZhSsiO4Cce5bMLn+ryrsvUEQAfHt3Y/kj2M4b29Xj0
+ 2lORXLltD3a0Za4R4fVC/+lv0bptUhSUEHkFmEDfSV3phIa7QD/g3Q2Zle+t27uSL2Zcfg1ARrlES
+ xPbJ0Leq9BQuYJ3vQmrkn81G/oqYWCgAUIa51MwnCk73e/oMjUpHEK7/k+Ajj3vJC3XBgczD+ReMg
+ 1fAQgQbQ==;
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+ Linux)) id 1jqct6-0006Qi-2K; Wed, 01 Jul 2020 13:34:56 +0000
+Date: Wed, 1 Jul 2020 14:34:56 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] xen: introduce xen_vring_use_dma
+Message-ID: <20200701133456.GA23888@infradead.org>
+References: <20200624091732.23944-1-peng.fan@nxp.com>
+ <20200624050355-mutt-send-email-mst@kernel.org>
+ <alpine.DEB.2.21.2006241047010.8121@sstabellini-ThinkPad-T480s>
+ <20200624163940-mutt-send-email-mst@kernel.org>
+ <alpine.DEB.2.21.2006241351430.8121@sstabellini-ThinkPad-T480s>
+ <20200624181026-mutt-send-email-mst@kernel.org>
+ <alpine.DEB.2.21.2006251014230.8121@sstabellini-ThinkPad-T480s>
+ <20200626110629-mutt-send-email-mst@kernel.org>
+ <alpine.DEB.2.21.2006291621300.8121@sstabellini-ThinkPad-T480s>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQEAcbj1SdXayzh+G/7yKy5sunlvLgKYQmRNqomv8RA=
-Content-Language: en-gb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2006291621300.8121@sstabellini-ThinkPad-T480s>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,44 +60,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Xen-devel' <xen-devel@lists.xenproject.org>, 'Wei Liu' <wl@xen.org>,
- =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>, x86@kernel.org,
+ konrad.wilk@oracle.com, jasowang@redhat.com,
+ "Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, iommu@lists.linux-foundation.org,
+ linux-imx@nxp.com, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 01 July 2020 13:27
-> To: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: Xen-devel <xen-devel@lists.xenproject.org>; Wei Liu <wl@xen.org>; =
-Roger Pau Monn=C3=A9
-> <roger.pau@citrix.com>; Paul Durrant <paul@xen.org>
-> Subject: Re: [PATCH for-4.14] x86/spec-ctrl: Protect against CALL/JMP =
-straight-line speculation
->=20
-> On 01.07.2020 13:58, Andrew Cooper wrote:
-> > Some x86 CPUs speculatively execute beyond indirect CALL/JMP =
-instructions.
-> >
-> > With CONFIG_INDIRECT_THUNK / Retpolines, indirect CALL/JMP =
-instructions are
-> > converted to direct CALL/JMP's to __x86_indirect_thunk_REG(), =
-leaving just a
-> > handful of indirect JMPs implementing those stubs.
-> >
-> > There is no architectrual execution beyond an indirect JMP, so use =
-INT3 as
-> > recommended by vendors to halt speculative execution.  This is =
-shorter than
-> > LFENCE (which would also work fine), but also shows up in logs if we =
-do
-> > unexpected execute them.
-> >
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->=20
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On Mon, Jun 29, 2020 at 04:46:09PM -0700, Stefano Stabellini wrote:
+> > I could imagine some future Xen hosts setting a flag somewhere in the
+> > platform capability saying "no xen specific flag, rely on
+> > "VIRTIO_F_ACCESS_PLATFORM". Then you set that accordingly in QEMU.
+> > How about that?
+> 
+> Yes, that would be fine and there is no problem implementing something
+> like that when we get virtio support in Xen. Today there are still no
+> virtio interfaces provided by Xen to ARM guests (no virtio-block/net,
+> etc.)
+> 
+> In fact, in both cases we are discussing virtio is *not* provided by
+> Xen; it is a firmware interface to something entirely different:
+> 
+> 1) virtio is used to talk to a remote AMP processor (RPMesg)
+> 2) virtio is used to talk to a secure-world firmware/OS (Trusty)
+>
+> VIRTIO_F_ACCESS_PLATFORM is not set by Xen in these cases but by RPMesg
+> and by Trusty respectively. I don't know if Trusty should or should not
+> set VIRTIO_F_ACCESS_PLATFORM, but I think Linux should still work
+> without issues.
+> 
 
-Release-acked-by: Paul Durrant <paul@xen.org>
+Any virtio implementation that is not in control of the memory map
+(aka not the hypervisor) absolutely must set VIRTIO_F_ACCESS_PLATFORM,
+else it is completely broken.
 
+> The xen_domain() check in Linux makes it so that vring_use_dma_api
+> returns the opposite value on native Linux compared to Linux as Xen/ARM
+> DomU by "accident". By "accident" because there is no architectural
+> reason why Linux Xen/ARM DomU should behave differently compared to
+> native Linux in this regard.
+> 
+> I hope that now it is clearer why I think the if (xen_domain()) check
+> needs to be improved anyway, even if we fix generic dma_ops with virtio
+> interfaces missing VIRTIO_F_ACCESS_PLATFORM.
+
+IMHO that Xen quirk should never have been added in this form..
 
