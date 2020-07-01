@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51F18210A13
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 13:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8777210AAA
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 14:00:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqaaJ-0006pl-2W; Wed, 01 Jul 2020 11:07:23 +0000
+	id 1jqbOL-00038T-0J; Wed, 01 Jul 2020 11:59:05 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=T2yc=AM=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jqaaI-0006nx-At
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 11:07:22 +0000
-X-Inumbo-ID: 0631807e-bb8b-11ea-86ef-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Xe6U=AM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jqbOJ-00038O-S6
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 11:59:03 +0000
+X-Inumbo-ID: 40edcd88-bb92-11ea-86f7-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0631807e-bb8b-11ea-86ef-12813bfff9fa;
- Wed, 01 Jul 2020 11:07:17 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6CB08AD72;
- Wed,  1 Jul 2020 11:07:16 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] x86/paravirt: use CONFIG_PARAVIRT_XXL instead of
- CONFIG_PARAVIRT
-Date: Wed,  1 Jul 2020 13:06:50 +0200
-Message-Id: <20200701110650.16172-5-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200701110650.16172-1-jgross@suse.com>
-References: <20200701110650.16172-1-jgross@suse.com>
+ id 40edcd88-bb92-11ea-86f7-12813bfff9fa;
+ Wed, 01 Jul 2020 11:59:02 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: weTeaknDV0sEqpvRdxIpQaRfhHXiDbIXWdTcnTH88GBzTgyz3JX8JaXUOk17WdXMqXxpz5NspV
+ /pZWJz1PsVF1K3GJVKdZajwIQ0EWZ0hv29TC0n7QTrGIHrJaM2FAlT2/fDbxBUkGQmSw3WFDpL
+ J7ptZ1N6CfavGbWnd2LjEYelswXS1D+UieFeqzKhwMDuoVQvzGzLM6OTYUgLo3yWGOZo+2a+bw
+ trDDD055jEneNdtP0jDlA0p0zScAeWbA+ulnAvnUDvSF2ECOmlviBXIRlK2bEZkdOSIlv9qwhe
+ thI=
+X-SBRS: 2.7
+X-MesageID: 21379321
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,300,1589256000"; d="scan'208";a="21379321"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH for-4.14] x86/spec-ctrl: Protect against CALL/JMP
+ straight-line speculation
+Date: Wed, 1 Jul 2020 12:58:42 +0100
+Message-ID: <20200701115842.18583-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -45,69 +52,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There are some code parts using CONFIG_PARAVIRT for Xen pvops related
-issues instead of the more stringent CONFIG_PARAVIRT_XXL.
+Some x86 CPUs speculatively execute beyond indirect CALL/JMP instructions.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
+With CONFIG_INDIRECT_THUNK / Retpolines, indirect CALL/JMP instructions are
+converted to direct CALL/JMP's to __x86_indirect_thunk_REG(), leaving just a
+handful of indirect JMPs implementing those stubs.
+
+There is no architectrual execution beyond an indirect JMP, so use INT3 as
+recommended by vendors to halt speculative execution.  This is shorter than
+LFENCE (which would also work fine), but also shows up in logs if we do
+unexpected execute them.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- arch/x86/entry/entry_64.S                | 4 ++--
- arch/x86/include/asm/fixmap.h            | 2 +-
- arch/x86/include/asm/required-features.h | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Paul Durrant <paul@xen.org>
 
-diff --git a/arch/x86/entry/entry_64.S b/arch/x86/entry/entry_64.S
-index d2a00c97e53f..cb715d2b357d 100644
---- a/arch/x86/entry/entry_64.S
-+++ b/arch/x86/entry/entry_64.S
-@@ -45,13 +45,13 @@
- .code64
- .section .entry.text, "ax"
+This wants backporting to all release, possibly even into the security trees,
+and should therefore be considered for 4.14 at this point.
+---
+ xen/arch/x86/indirect-thunk.S | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/xen/arch/x86/indirect-thunk.S b/xen/arch/x86/indirect-thunk.S
+index 3c17f75c23..7392aee127 100644
+--- a/xen/arch/x86/indirect-thunk.S
++++ b/xen/arch/x86/indirect-thunk.S
+@@ -24,10 +24,12 @@
+ .macro IND_THUNK_LFENCE reg:req
+         lfence
+         jmp *%\reg
++        int3 /* Halt straight-line speculation */
+ .endm
  
--#ifdef CONFIG_PARAVIRT
-+#ifdef CONFIG_PARAVIRT_XXL
- SYM_CODE_START(native_usergs_sysret64)
- 	UNWIND_HINT_EMPTY
- 	swapgs
- 	sysretq
- SYM_CODE_END(native_usergs_sysret64)
--#endif /* CONFIG_PARAVIRT */
-+#endif /* CONFIG_PARAVIRT_XXL */
+ .macro IND_THUNK_JMP reg:req
+         jmp *%\reg
++        int3 /* Halt straight-line speculation */
+ .endm
  
  /*
-  * 64-bit SYSCALL instruction entry. Up to 6 arguments in registers.
-diff --git a/arch/x86/include/asm/fixmap.h b/arch/x86/include/asm/fixmap.h
-index b9527a54db99..f1422ada4ffe 100644
---- a/arch/x86/include/asm/fixmap.h
-+++ b/arch/x86/include/asm/fixmap.h
-@@ -99,7 +99,7 @@ enum fixed_addresses {
- 	FIX_PCIE_MCFG,
- #endif
- #endif
--#ifdef CONFIG_PARAVIRT
-+#ifdef CONFIG_PARAVIRT_XXL
- 	FIX_PARAVIRT_BOOTMAP,
- #endif
- #ifdef	CONFIG_X86_INTEL_MID
-diff --git a/arch/x86/include/asm/required-features.h b/arch/x86/include/asm/required-features.h
-index 6847d85400a8..3ff0d48469f2 100644
---- a/arch/x86/include/asm/required-features.h
-+++ b/arch/x86/include/asm/required-features.h
-@@ -54,7 +54,7 @@
- #endif
- 
- #ifdef CONFIG_X86_64
--#ifdef CONFIG_PARAVIRT
-+#ifdef CONFIG_PARAVIRT_XXL
- /* Paravirtualized systems may not have PSE or PGE available */
- #define NEED_PSE	0
- #define NEED_PGE	0
 -- 
-2.26.2
+2.11.0
 
 
