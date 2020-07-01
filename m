@@ -2,55 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B742F2112E2
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 20:40:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C6BD211407
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 22:04:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqheG-0005Yk-7u; Wed, 01 Jul 2020 18:39:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8lOf=AM=kernel.org=luto@srs-us1.protection.inumbo.net>)
- id 1jqheF-0005Yf-6J
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 18:39:55 +0000
-X-Inumbo-ID: 415c60bc-bbca-11ea-875d-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 415c60bc-bbca-11ea-875d-12813bfff9fa;
- Wed, 01 Jul 2020 18:39:54 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9FEE0208C7
- for <xen-devel@lists.xenproject.org>; Wed,  1 Jul 2020 18:39:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593628793;
- bh=BzgN9CdkNj8KsNJpO6Dp3dgk25B6SZxEFrbbFo9+dlk=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=EekpatgCfXAY5PVIXJOXKjXre1Wyt5kLnk69xj79naKsliUjFBna4Am1jKxDJ1RUB
- YwgGo3BT2S3Rx2ybuQVvOdWWxVpkyGDwgeTCGh2QZeVh0VyaK5E3Db8ddZOCtW/e4V
- jqfSmiN8gcKG4aikDeyjscuKc7uS8UTF14Y94hyM=
-Received: by mail-wr1-f51.google.com with SMTP id z15so13904765wrl.8
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2020 11:39:53 -0700 (PDT)
-X-Gm-Message-State: AOAM530IQzHyoF1amt2qVa00BdyyzlBu6JWNtYNh5Pi21kRglHvKux42
- 1sblMrkSrXt+AWtMR9X7cA6nChgsOfWVWZzNlQcHMA==
-X-Google-Smtp-Source: ABdhPJxL9r2ocTMGAnClzir8rROoW17dgBhZ2sKyXqCKyH9ofutXZA7VisI5aNG7X5iBtvuS5HHHhEDpobjJAmSLQgA=
-X-Received: by 2002:a5d:458a:: with SMTP id p10mr27429972wrq.184.1593628792155; 
- Wed, 01 Jul 2020 11:39:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1593191971.git.luto@kernel.org>
- <947880c41ade688ff4836f665d0c9fcaa9bd1201.1593191971.git.luto@kernel.org>
- <CAMzpN2iW4XD1Gsgq0ZeeH2eewLO+9Mk6eyk0LnbF-kP3v=smLg@mail.gmail.com>
-In-Reply-To: <CAMzpN2iW4XD1Gsgq0ZeeH2eewLO+9Mk6eyk0LnbF-kP3v=smLg@mail.gmail.com>
-From: Andy Lutomirski <luto@kernel.org>
-Date: Wed, 1 Jul 2020 11:39:40 -0700
-X-Gmail-Original-Message-ID: <CALCETrVy-Q4K04wmEPe5VeU=at2BL4b-bSFkoSU-BPbTaTB2Yg@mail.gmail.com>
-Message-ID: <CALCETrVy-Q4K04wmEPe5VeU=at2BL4b-bSFkoSU-BPbTaTB2Yg@mail.gmail.com>
-Subject: Re: [PATCH 3/6] x86/entry/64/compat: Fix Xen PV SYSENTER frame setup
-To: Brian Gerst <brgerst@gmail.com>
+	id 1jqix6-0004MO-ET; Wed, 01 Jul 2020 20:03:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=r09v=AM=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jqix5-0004MJ-37
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 20:03:27 +0000
+X-Inumbo-ID: ec610674-bbd5-11ea-b7bb-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ec610674-bbd5-11ea-b7bb-bc764e2007e4;
+ Wed, 01 Jul 2020 20:03:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Kj1n6YsjtwZzPlmOcKEmjyGI9s5fMpUrVj5jfaZOHcg=; b=6szkxEazrNnYWeEGCAA+z4e3X
+ j5EK9GJtazmwXDb6Rz3g8qo9X7FUrPqx7a6/ae/u2w84kUMTThGrv+n0pZkF9cTnXBv/hdreYn0XG
+ YPLyhgoBFwRjzgnO7nFHcCgzJZYqFpkafxMuLqAdAE5WBoN+KpyUDo3O234E/KYZSyslc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqix3-0002JA-Ae; Wed, 01 Jul 2020 20:03:25 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqix3-00048o-2A; Wed, 01 Jul 2020 20:03:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jqix3-0004Gb-1P; Wed, 01 Jul 2020 20:03:25 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151511-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 151511: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=3b7dab93f2401b08c673244c9ae0f92e08bd03ba
+X-Osstest-Versions-That: xen=23ca7ec0ba620db52a646d80e22f9703a6589f66
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Jul 2020 20:03:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,59 +65,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- the arch/x86 maintainers <x86@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Andy Lutomirski <luto@kernel.org>, xen-devel <xen-devel@lists.xenproject.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jul 1, 2020 at 8:42 AM Brian Gerst <brgerst@gmail.com> wrote:
->
-> On Fri, Jun 26, 2020 at 1:30 PM Andy Lutomirski <luto@kernel.org> wrote:
-> >
-> > The SYSENTER frame setup was nonsense.  It worked by accident
-> > because the normal code into which the Xen asm jumped
-> > (entry_SYSENTER_32/compat) threw away SP without touching the stack.
-> > entry_SYSENTER_compat was recently modified such that it relied on
-> > having a valid stack pointer, so now the Xen asm needs to invoke it
-> > with a valid stack.
-> >
-> > Fix it up like SYSCALL: use the Xen-provided frame and skip the bare
-> > metal prologue.
-> >
-> > Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> > Cc: Juergen Gross <jgross@suse.com>
-> > Cc: Stefano Stabellini <sstabellini@kernel.org>
-> > Cc: xen-devel@lists.xenproject.org
-> > Fixes: 1c3e5d3f60e2 ("x86/entry: Make entry_64_compat.S objtool clean")
-> > Signed-off-by: Andy Lutomirski <luto@kernel.org>
-> > ---
-> >  arch/x86/entry/entry_64_compat.S |  1 +
-> >  arch/x86/xen/xen-asm_64.S        | 20 ++++++++++++++++----
-> >  2 files changed, 17 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/arch/x86/entry/entry_64_compat.S b/arch/x86/entry/entry_64_compat.S
-> > index 7b9d8150f652..381a6de7de9c 100644
-> > --- a/arch/x86/entry/entry_64_compat.S
-> > +++ b/arch/x86/entry/entry_64_compat.S
-> > @@ -79,6 +79,7 @@ SYM_CODE_START(entry_SYSENTER_compat)
-> >         pushfq                          /* pt_regs->flags (except IF = 0) */
-> >         pushq   $__USER32_CS            /* pt_regs->cs */
-> >         pushq   $0                      /* pt_regs->ip = 0 (placeholder) */
-> > +SYM_INNER_LABEL(entry_SYSENTER_compat_after_hwframe, SYM_L_GLOBAL)
->
-> This skips over the section that truncates the syscall number to
-> 32-bits.  The comments present some doubt that it is actually
-> necessary, but the Xen path shouldn't differ from native.  That code
-> should be moved after this new label.
+flight 151511 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151511/
 
-Whoops.  I thought I caught that myself, but apparently not.  I'll fix it.
+Failures :-/ but no regressions.
 
->
-> --
-> Brian Gerst
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  3b7dab93f2401b08c673244c9ae0f92e08bd03ba
+baseline version:
+ xen                  23ca7ec0ba620db52a646d80e22f9703a6589f66
+
+Last test of basis   151476  2020-06-30 11:00:51 Z    1 days
+Testing same since   151511  2020-07-01 17:01:00 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   23ca7ec0ba..3b7dab93f2  3b7dab93f2401b08c673244c9ae0f92e08bd03ba -> smoke
 
