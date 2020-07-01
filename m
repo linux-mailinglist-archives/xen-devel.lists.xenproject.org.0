@@ -2,115 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F33E2104CD
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 09:19:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6B8A2104CE
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 09:19:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqX1X-0001dB-3S; Wed, 01 Jul 2020 07:19:15 +0000
+	id 1jqX1l-0001fA-Ga; Wed, 01 Jul 2020 07:19:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r09v=AM=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jqX1V-0001d6-Dd
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 07:19:13 +0000
-X-Inumbo-ID: 28df3ba4-bb6b-11ea-bca7-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=QDW7=AM=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
+ id 1jqX1k-0001f0-9R
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 07:19:28 +0000
+X-Inumbo-ID: 323dc5c6-bb6b-11ea-bb8b-bc764e2007e4
+Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 28df3ba4-bb6b-11ea-bca7-bc764e2007e4;
- Wed, 01 Jul 2020 07:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=P1dQVb4d5nM63GK5fgE73Gs4XB+Iq1bw7Tqlk73aimU=; b=aEiKt6uwAJm/IED5fM8d5WkdY
- 6CoJaDJBq3yXG9XLX+JXjLYMLLgti7oTyPCPNCcxfNwntmJ0EMRtAZET58OPx/pvuCDMzlQ9FkJjj
- uFje2pssmU4oG5hRfuhOQQSpDZfsR3vrXeG+66dxkT3leSDPkOUeCtwrIsVrQakJtEmQo=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jqX1S-0003ZB-JP; Wed, 01 Jul 2020 07:19:10 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jqX1S-0005tp-BJ; Wed, 01 Jul 2020 07:19:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jqX1S-0007AK-Ad; Wed, 01 Jul 2020 07:19:10 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151485-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [qemu-mainline test] 151485: regressions - FAIL
-X-Osstest-Failures: qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
- qemu-mainline:test-amd64-amd64-libvirt-vhd:debian-di-install:fail:regression
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:regression
- qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
- qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:redhat-install:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:regression
- qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-libvirt-pair:guest-start/debian:fail:regression
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
- qemu-mainline:test-amd64-i386-freebsd10-i386:guest-start:fail:regression
- qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:redhat-install:fail:regression
- qemu-mainline:test-amd64-amd64-libvirt:guest-start:fail:regression
- qemu-mainline:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
- qemu-mainline:test-amd64-i386-freebsd10-amd64:guest-start:fail:regression
- qemu-mainline:test-amd64-i386-libvirt:guest-start:fail:regression
- qemu-mainline:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
- qemu-mainline:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
- qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
- qemu-mainline:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:regression
- qemu-mainline:test-armhf-armhf-libvirt:guest-start:fail:regression
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: qemuu=fc1bff958998910ec8d25db86cd2f53ff125f7ab
-X-Osstest-Versions-That: qemuu=9e3903136d9acde2fb2dd9e967ba928050a6cb4a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 01 Jul 2020 07:19:10 +0000
+ id 323dc5c6-bb6b-11ea-bb8b-bc764e2007e4;
+ Wed, 01 Jul 2020 07:19:27 +0000 (UTC)
+Received: by mail-lj1-x244.google.com with SMTP id h22so18537886lji.9
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2020 00:19:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=Dzidh0Nswx9r0je/a6UkI0vRAjpCHlIaVow9ZwgeZoY=;
+ b=SWcZvAHvHllVZRCfxUBGg8Rg05tjPl8Woq7ZnTkpvLRnA9jgCokK28s9asoUU5Vx9e
+ LZlwGaVsrofdhr+9PSjihfd2v8d2poYKcjtVKmlxHhq+ca0DtYiBIMC0TU+fQ4ypRT02
+ zcZmv9nyU7Zvdk4RS1cC8WiuKG8foMbNnbHlC6c0cjxcaclMWcRpwsaPBhYkDVi8M+2Y
+ 72e06QiAThuTKvxMEWlJXdbyTZotjIFun2iY9eAibIXNNoNsaTDK0cLnkYYDqJJdAtSh
+ 8BTdoBfZo1zdJ4AFrfHCR7pMiT/m3dK2d34dfOxHekoyKMCjRV2aUtRMGS/BZRP766WX
+ ErOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Dzidh0Nswx9r0je/a6UkI0vRAjpCHlIaVow9ZwgeZoY=;
+ b=GRFaxKkf0l/qYXsFsdrvY8QQg1AotkeHFKARbDHP2uBbwLl7hDkD4eJpLbv5q8famS
+ F6v01pPSbl7iHHErFBvhVxRH5qZG6ld1tRaXQC3idON776fr150VaQFv+Dx5IRkNFw9o
+ mAEFt8HkiWXEvit1gWpvIDfV29DtZQPVQLQxT5GFNcSrDUxWrftk7JwdwO51sk6MLoCa
+ e7suuGdeGxA7cOczssFenUjV9JN+dAjM9vjOTkr0Jr/OcKiY6yyOLR4zYPmdFJqD6nXl
+ BJomkPmV6sZ6IbYskjykn645ukZpC4M/vA6X4wGjJmQCDHx0L8X7iYpMqKtjuDT8/pa4
+ tqiw==
+X-Gm-Message-State: AOAM533CrxfJeq/8MbNkH0HtzlOGUmy4Y3qdec1QzpX2RBBWtXwKyKwH
+ /xsyJ9mxoc9Wf929yNABs7OAXSpEhQs=
+X-Google-Smtp-Source: ABdhPJzHeP5UUKvdKY9UVyzftvsX49OGMGlY57Lr8VA82TTNT1JkFN1xWJw8Jcb1mGcoT2PMhv+p2A==
+X-Received: by 2002:a2e:a494:: with SMTP id h20mr7376403lji.435.1593587965653; 
+ Wed, 01 Jul 2020 00:19:25 -0700 (PDT)
+Received: from a2klaptop.localdomain ([185.199.97.5])
+ by smtp.gmail.com with ESMTPSA id z11sm1501163ljh.115.2020.07.01.00.19.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jul 2020 00:19:24 -0700 (PDT)
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+To: xen-devel@lists.xenproject.org, jgross@suse.com, ian.jackson@eu.citrix.com,
+ wl@xen.org
+Subject: [PATCH v2] xen/displif: Protocol version 2
+Date: Wed,  1 Jul 2020 10:19:23 +0300
+Message-Id: <20200701071923.18883-1-andr2000@gmail.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,317 +65,220 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151485 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151485/
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Regressions :-(
+1. Add protocol version as an integer
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-amd64-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-amd64-xl-qemuu-win7-amd64 10 windows-install  fail REGR. vs. 151065
- test-amd64-amd64-libvirt-vhd 10 debian-di-install        fail REGR. vs. 151065
- test-amd64-i386-xl-qemuu-win7-amd64 10 windows-install   fail REGR. vs. 151065
- test-amd64-amd64-qemuu-nested-intel 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-libvirt-xsm  12 guest-start              fail REGR. vs. 151065
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-amd64-qemuu-nested-amd 10 debian-hvm-install  fail REGR. vs. 151065
- test-amd64-amd64-xl-qcow2    10 debian-di-install        fail REGR. vs. 151065
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-qemuu-rhel6hvm-amd 10 redhat-install     fail REGR. vs. 151065
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-xl-qemuu-ws16-amd64 10 windows-install   fail REGR. vs. 151065
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-libvirt-pair 21 guest-start/debian       fail REGR. vs. 151065
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 151065
- test-amd64-i386-freebsd10-i386 11 guest-start            fail REGR. vs. 151065
- test-amd64-i386-qemuu-rhel6hvm-intel 10 redhat-install   fail REGR. vs. 151065
- test-amd64-amd64-libvirt     12 guest-start              fail REGR. vs. 151065
- test-amd64-amd64-libvirt-xsm 12 guest-start              fail REGR. vs. 151065
- test-amd64-i386-freebsd10-amd64 11 guest-start           fail REGR. vs. 151065
- test-amd64-i386-libvirt      12 guest-start              fail REGR. vs. 151065
- test-amd64-amd64-libvirt-pair 21 guest-start/debian      fail REGR. vs. 151065
- test-armhf-armhf-xl-vhd      10 debian-di-install        fail REGR. vs. 151065
- test-arm64-arm64-libvirt-xsm 12 guest-start              fail REGR. vs. 151065
- test-armhf-armhf-libvirt-raw 10 debian-di-install        fail REGR. vs. 151065
- test-amd64-amd64-xl-qemuu-ws16-amd64 10 windows-install  fail REGR. vs. 151065
- test-armhf-armhf-libvirt     12 guest-start              fail REGR. vs. 151065
+Version string, which is in fact an integer, is hard to handle in the
+code that supports different protocol versions. To simplify that
+also add the version as an integer.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+2. Pass buffer offset with XENDISPL_OP_DBUF_CREATE
 
-version targeted for testing:
- qemuu                fc1bff958998910ec8d25db86cd2f53ff125f7ab
-baseline version:
- qemuu                9e3903136d9acde2fb2dd9e967ba928050a6cb4a
+There are cases when display data buffer is created with non-zero
+offset to the data start. Handle such cases and provide that offset
+while creating a display buffer.
 
-Last test of basis   151065  2020-06-12 22:27:51 Z   18 days
-Failing since        151101  2020-06-14 08:32:51 Z   16 days   18 attempts
-Testing same since   151471  2020-06-30 05:19:07 Z    1 days    2 attempts
+3. Add XENDISPL_OP_GET_EDID command
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ahmed Karaman <ahmedkhaledkaraman@gmail.com>
-  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
-  Alex Bennée <alex.bennee@linaro.org>
-  Alex Williamson <alex.williamson@redhat.com>
-  Alexander Bulekov <alxndr@bu.edu>
-  Alexey Krasikov <alex-krasikov@yandex-team.ru>
-  Alistair Francis <alistair.francis@wdc.com>
-  Allan Peramaki <aperamak@pp1.inet.fi>
-  Andrew Jones <drjones@redhat.com>
-  Ani Sinha <ani.sinha@nutanix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Artyom Tarasenko <atar4qemu@gmail.com>
-  Aurelien Jarno <aurelien@aurel32.net>
-  Babu Moger <babu.moger@amd.com>
-  BALATON Zoltan <balaton@eik.bme.hu>
-  Bin Meng <bin.meng@windriver.com>
-  Cathy Zhang <cathy.zhang@intel.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Claudio Fontana <cfontana@suse.de>
-  Cleber Rosa <crosa@redhat.com>
-  Colin Xu <colin.xu@intel.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Le Goater <clg@kaod.org>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniele Buono <dbuono@linux.vnet.ibm.com>
-  David Carlier <devnexen@gmail.com>
-  David Gibson <david@gibson.dropbear.id.au>
-  David Hildenbrand <david@redhat.com>
-  Derek Su <dereksu@qnap.com>
-  Dr. David Alan Gilbert <dgilbert@redhat.com>
-  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
-  Eduardo Habkost <ehabkost@redhat.com>
-  Emilio G. Cota <cota@braap.org>
-  Eric Auger <eric.auger@redhat.com>
-  Eric Blake <eblake@redhat.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Smit <erik.lucas.smit@gmail.com>
-  Evgeny Yakovlev <eyakovlev@virtuozzo.com>
-  fangying <fangying1@huawei.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Finn Thain <fthain@telegraphics.com.au>
-  Geoffrey McRae <geoff@hostfission.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Greg Kurz <groug@kaod.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Gustavo Romero <gromero@linux.ibm.com>
-  Helge Deller <deller@gmx.de>
-  Huacai Chen <chenhc@lemote.com>
-  Huacai Chen <zltjiangshi@gmail.com>
-  Ian Jiang <ianjiang.ict@gmail.com>
-  Igor Mammedov <imammedo@redhat.com>
-  Janne Grunau <j@jannau.net>
-  Jason Wang <jasowang@redhat.com>
-  Jay Zhou <jianjay.zhou@huawei.com>
-  Jean-Christophe Dubois <jcd@tribudubois.net>
-  Jiaxun Yang <jiaxun.yang@flygoat.com>
-  Jingqi Liu <jingqi.liu@intel.com>
-  John Snow <jsnow@redhat.com>
-  Jon Doron <arilou@gmail.com>
-  Joseph Myers <joseph@codesourcery.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Kevin Wolf <kwolf@redhat.com>
-  Klaus Jensen <k.jensen@samsung.com>
-  Klaus Jensen <klaus.jensen@cnexlabs.com>
-  Laurent Vivier <laurent@vivier.eu>
-  Laurent Vivier <lvivier@redhat.com>
-  Leonid Bloch <lb.workbox@gmail.com>
-  Leonid Bloch <lbloch@janustech.com>
-  Li Qiang <liq3ea@gmail.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Like Xu <like.xu@linux.intel.com>
-  Lingfeng Yang <lfy@google.com>
-  Liran Alon <liran.alon@oracle.com>
-  Lukas Straub <lukasstraub2@web.de>
-  Maciej S. Szmigiero <maciej.szmigiero@oracle.com>
-  Magnus Damm <magnus.damm@gmail.com>
-  Mao Zhongyi <maozhongyi@cmss.chinamobile.com>
-  Marcelo Tosatti <mtosatti@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-  Markus Armbruster <armbru@redhat.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Max Filippov <jcmvbkbc@gmail.com>
-  Max Reitz <mreitz@redhat.com>
-  Michael S. Tsirkin <mst@redhat.com>
-  Pan Nengyuan <pannengyuan@huawei.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Pavel Dovgalyuk <Pavel.Dovgaluk@gmail.com>
-  Pavel Dovgalyuk <Pavel.Dovgaluk@ispras.ru>
-  Peter Maydell <peter.maydell@linaro.org>
-  Peter Xu <peterx@redhat.com>
-  Philippe Mathieu-Daude <philmd@redhat.com>
-  Philippe Mathieu-Daudé <f4bug@amsat.org>
-  Philippe Mathieu-Daudé <philmd@redhat.com>
-  Prasad J Pandit <pjp@fedoraproject.org>
-  Raphael Norwitz <raphael.norwitz@nutanix.com>
-  Richard Henderson <richard.henderson@linaro.org>
-  Richard W.M. Jones <rjones@redhat.com>
-  Robert Foley <robert.foley@linaro.org>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Roman Kagan <rkagan@virtuozzo.com>
-  Roman Kagan <rvkagan@yandex-team.ru>
-  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
-  Sebastian Rasmussen <sebras@gmail.com>
-  Sergio Lopez <slp@redhat.com>
-  Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Tao Xu <tao3.xu@intel.com>
-  Thomas Huth <thuth@redhat.com>
-  Tong Ho <tong.ho@xilinx.com>
-  Volker Rümelin <vr_qemu@t-online.de>
-  WangBowen <bowen.wang@intel.com>
-  Wei Huang <wei.huang2@amd.com>
-  Wei Wang <wei.w.wang@intel.com>
-  Ying Fang <fangying1@huawei.com>
-  Yoshinori Sato <ysato@users.sourceforge.jp>
-  Yuri Benditovich <yuri.benditovich@daynix.com>
-  Zhang Chen <chen.zhang@intel.com>
+Add an optional request for reading Extended Display Identification
+Data (EDID) structure which allows better configuration of the
+display connectors over the configuration set in XenStore.
+With this change connectors may have multiple resolutions defined
+with respect to detailed timing definitions and additional properties
+normally provided by displays.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-i386-freebsd10-i386                               fail    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-i386-libvirt-pair                                 fail    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-xl-vhd                                      fail    
+If this request is not supported by the backend then visible area
+is defined by the relevant XenStore's "resolution" property.
 
+If backend provides extended display identification data (EDID) with
+XENDISPL_OP_GET_EDID request then EDID values must take precedence
+over the resolutions defined in XenStore.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+4. Bump protocol version to 2.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+---
+ xen/include/public/io/displif.h | 91 +++++++++++++++++++++++++++++++--
+ 1 file changed, 88 insertions(+), 3 deletions(-)
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+diff --git a/xen/include/public/io/displif.h b/xen/include/public/io/displif.h
+index cc5de9cb1f35..0055895510f7 100644
+--- a/xen/include/public/io/displif.h
++++ b/xen/include/public/io/displif.h
+@@ -38,7 +38,8 @@
+  *                           Protocol version
+  ******************************************************************************
+  */
+-#define XENDISPL_PROTOCOL_VERSION     "1"
++#define XENDISPL_PROTOCOL_VERSION     "2"
++#define XENDISPL_PROTOCOL_VERSION_INT  2
+ 
+ /*
+  ******************************************************************************
+@@ -202,6 +203,9 @@
+  *      Width and height of the connector in pixels separated by
+  *      XENDISPL_RESOLUTION_SEPARATOR. This defines visible area of the
+  *      display.
++ *      If backend provides extended display identification data (EDID) with
++ *      XENDISPL_OP_GET_EDID request then EDID values must take precedence
++ *      over the resolutions defined here.
+  *
+  *------------------ Connector Request Transport Parameters -------------------
+  *
+@@ -349,6 +353,8 @@
+ #define XENDISPL_OP_FB_DETACH         0x13
+ #define XENDISPL_OP_SET_CONFIG        0x14
+ #define XENDISPL_OP_PG_FLIP           0x15
++/* The below command is available in protocol version 2 and above. */
++#define XENDISPL_OP_GET_EDID          0x16
+ 
+ /*
+  ******************************************************************************
+@@ -377,6 +383,10 @@
+ #define XENDISPL_FIELD_BE_ALLOC       "be-alloc"
+ #define XENDISPL_FIELD_UNIQUE_ID      "unique-id"
+ 
++#define XENDISPL_EDID_BLOCK_SIZE      128
++#define XENDISPL_EDID_BLOCK_COUNT     256
++#define XENDISPL_EDID_MAX_SIZE        (XENDISPL_EDID_BLOCK_SIZE * XENDISPL_EDID_BLOCK_COUNT)
++
+ /*
+  ******************************************************************************
+  *                          STATUS RETURN CODES
+@@ -451,7 +461,9 @@
+  * +----------------+----------------+----------------+----------------+
+  * |                           gref_directory                          | 40
+  * +----------------+----------------+----------------+----------------+
+- * |                             reserved                              | 44
++ * |                             data_ofs                              | 44
++ * +----------------+----------------+----------------+----------------+
++ * |                             reserved                              | 48
+  * +----------------+----------------+----------------+----------------+
+  * |/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/|
+  * +----------------+----------------+----------------+----------------+
+@@ -494,6 +506,7 @@
+  *   buffer size (buffer_sz) exceeds what can be addressed by this single page,
+  *   then reference to the next page must be supplied (see gref_dir_next_page
+  *   below)
++ * data_ofs - uint32_t, offset of the data in the buffer, octets
+  */
+ 
+ #define XENDISPL_DBUF_FLG_REQ_ALLOC       (1 << 0)
+@@ -506,6 +519,7 @@ struct xendispl_dbuf_create_req {
+     uint32_t buffer_sz;
+     uint32_t flags;
+     grant_ref_t gref_directory;
++    uint32_t data_ofs;
+ };
+ 
+ /*
+@@ -731,6 +745,44 @@ struct xendispl_page_flip_req {
+     uint64_t fb_cookie;
+ };
+ 
++/*
++ * Request EDID - request EDID describing current connector:
++ *         0                1                 2               3        octet
++ * +----------------+----------------+----------------+----------------+
++ * |               id                | _OP_GET_EDID   |   reserved     | 4
++ * +----------------+----------------+----------------+----------------+
++ * |                             buffer_sz                             | 8
++ * +----------------+----------------+----------------+----------------+
++ * |                          gref_directory                           | 12
++ * +----------------+----------------+----------------+----------------+
++ * |                             reserved                              | 16
++ * +----------------+----------------+----------------+----------------+
++ * |/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/|
++ * +----------------+----------------+----------------+----------------+
++ * |                             reserved                              | 64
++ * +----------------+----------------+----------------+----------------+
++ *
++ * Notes:
++ *   - This command is not available in protocol version 1 and should be
++ *     ignored.
++ *   - This request is optional and if not supported then visible area
++ *     is defined by the relevant XenStore's "resolution" property.
++ *   - Shared buffer, allocated for EDID storage, must not be less then
++ *     XENDISPL_EDID_MAX_SIZE octets.
++ *
++ * buffer_sz - uint32_t, buffer size to be allocated, octets
++ * gref_directory - grant_ref_t, a reference to the first shared page
++ *   describing EDID buffer references. See XENDISPL_OP_DBUF_CREATE for
++ *   grant page directory structure (struct xendispl_page_directory).
++ *
++ * See response format for this request.
++ */
++
++struct xendispl_get_edid_req {
++    uint32_t buffer_sz;
++    grant_ref_t gref_directory;
++};
++
+ /*
+  *---------------------------------- Responses --------------------------------
+  *
+@@ -753,6 +805,35 @@ struct xendispl_page_flip_req {
+  * id - uint16_t, private guest value, echoed from request
+  * status - int32_t, response status, zero on success and -XEN_EXX on failure
+  *
++ *
++ * Get EDID response - response for XENDISPL_OP_GET_EDID:
++ *         0                1                 2               3        octet
++ * +----------------+----------------+----------------+----------------+
++ * |               id                |    operation   |    reserved    | 4
++ * +----------------+----------------+----------------+----------------+
++ * |                              status                               | 8
++ * +----------------+----------------+----------------+----------------+
++ * |                             edid_sz                               | 12
++ * +----------------+----------------+----------------+----------------+
++ * |                             reserved                              | 16
++ * +----------------+----------------+----------------+----------------+
++ * |/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/|
++ * +----------------+----------------+----------------+----------------+
++ * |                             reserved                              | 64
++ * +----------------+----------------+----------------+----------------+
++ *
++ * Notes:
++ *   - This response is not available in protocol version 1 and should be
++ *     ignored.
++ *
++ * edid_sz - uint32_t, size of the EDID, octets
++ */
++
++struct xendispl_get_edid_resp {
++    uint32_t edid_sz;
++};
++
++/*
+  *----------------------------------- Events ----------------------------------
+  *
+  * Events are sent via a shared page allocated by the front and propagated by
+@@ -804,6 +885,7 @@ struct xendispl_req {
+         struct xendispl_fb_detach_req fb_detach;
+         struct xendispl_set_config_req set_config;
+         struct xendispl_page_flip_req pg_flip;
++        struct xendispl_get_edid_req get_edid;
+         uint8_t reserved[56];
+     } op;
+ };
+@@ -813,7 +895,10 @@ struct xendispl_resp {
+     uint8_t operation;
+     uint8_t reserved;
+     int32_t status;
+-    uint8_t reserved1[56];
++    union {
++        struct xendispl_get_edid_resp get_edid;
++        uint8_t reserved1[56];
++    } op;
+ };
+ 
+ struct xendispl_evt {
+-- 
+2.17.1
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 14425 lines long.)
 
