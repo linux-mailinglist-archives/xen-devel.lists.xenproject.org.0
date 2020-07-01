@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7800121093D
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 12:27:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECCB421093E
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 12:27:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqZxV-0001sj-FT; Wed, 01 Jul 2020 10:27:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jqZxq-0001wd-OA; Wed, 01 Jul 2020 10:27:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LFmw=AM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jqZxU-0001sS-He
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 10:27:16 +0000
-X-Inumbo-ID: 6f07a1d8-bb85-11ea-8496-bc764e2007e4
+ id 1jqZxp-0001wT-KF
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 10:27:37 +0000
+X-Inumbo-ID: 7b5abf4c-bb85-11ea-86e8-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6f07a1d8-bb85-11ea-8496-bc764e2007e4;
- Wed, 01 Jul 2020 10:27:16 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7b5abf4c-bb85-11ea-86e8-12813bfff9fa;
+ Wed, 01 Jul 2020 10:27:36 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 54BF1AD04;
- Wed,  1 Jul 2020 10:27:15 +0000 (UTC)
-Subject: [PATCH v2 4/7] x86/dmop: add compat struct checking for
- XEN_DMOP_map_mem_type_to_ioreq_server
+ by mx2.suse.de (Postfix) with ESMTP id 0A06EAD04;
+ Wed,  1 Jul 2020 10:27:36 +0000 (UTC)
+Subject: [PATCH v2 5/7] x86: generalize padding field handling
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <bb6a96c6-b6b1-76ff-f9db-10bec0fb4ab1@suse.com>
-Message-ID: <8bb00b11-7004-51c4-c679-83da922d085b@suse.com>
-Date: Wed, 1 Jul 2020 12:27:16 +0200
+Message-ID: <83274416-2812-53c9-f8cb-23ebdf73782e@suse.com>
+Date: Wed, 1 Jul 2020 12:27:37 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
@@ -55,45 +55,77 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This was forgotten when the subop was added.
+The original intention was to ignore padding fields, but the pattern
+matched only ones whose names started with an underscore. Also match
+fields whose names are in line with the C spec by not having a leading
+underscore. (Note that the leading ^ in the sed regexps was pointless
+and hence get dropped.)
 
-Also take the opportunity and move the dm_op_relocate_memory entry in
-xlat.lst to its designated place.
+This requires adjusting some vNUMA macros, to avoid triggering
+"enumeration value ... not handled in switch" warnings, which - due to
+-Werror - would cause the build to fail. (I have to admit that I find
+these padding fields odd, when translation of the containing structure
+is needed anyway.)
 
-No change in the resulting generated code.
-
-Fixes: ca2b511d3ff4 ("x86/ioreq server: add DMOP to map guest ram with p2m_ioreq_server to an ioreq server")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+While for translation macros skipping padding fields pretty surely is a
+reasonable thing to do, we may want to consider not ignoring them when
+generating checking macros.
 
---- a/xen/arch/x86/hvm/dm.c
-+++ b/xen/arch/x86/hvm/dm.c
-@@ -730,6 +730,7 @@ CHECK_dm_op_modified_memory;
- CHECK_dm_op_set_mem_type;
- CHECK_dm_op_inject_event;
- CHECK_dm_op_inject_msi;
-+CHECK_dm_op_map_mem_type_to_ioreq_server;
- CHECK_dm_op_remote_shutdown;
- CHECK_dm_op_relocate_memory;
- CHECK_dm_op_pin_memory_cacheattr;
---- a/xen/include/xlat.lst
-+++ b/xen/include/xlat.lst
-@@ -67,15 +67,16 @@
- ?	grant_entry_v2			grant_table.h
- ?	gnttab_swap_grant_ref		grant_table.h
- !	dm_op_buf			hvm/dm_op.h
--?	dm_op_relocate_memory		hvm/dm_op.h
- ?	dm_op_create_ioreq_server	hvm/dm_op.h
- ?	dm_op_destroy_ioreq_server	hvm/dm_op.h
- ?	dm_op_get_ioreq_server_info	hvm/dm_op.h
- ?	dm_op_inject_event		hvm/dm_op.h
- ?	dm_op_inject_msi		hvm/dm_op.h
- ?	dm_op_ioreq_server_range	hvm/dm_op.h
-+?	dm_op_map_mem_type_to_ioreq_server hvm/dm_op.h
- ?	dm_op_modified_memory		hvm/dm_op.h
- ?	dm_op_pin_memory_cacheattr	hvm/dm_op.h
-+?	dm_op_relocate_memory		hvm/dm_op.h
- ?	dm_op_remote_shutdown		hvm/dm_op.h
- ?	dm_op_set_ioreq_server_state	hvm/dm_op.h
- ?	dm_op_set_isa_irq_level		hvm/dm_op.h
+--- a/xen/common/compat/memory.c
++++ b/xen/common/compat/memory.c
+@@ -354,10 +354,13 @@ int compat_memory_op(unsigned int cmd, X
+                 return -EFAULT;
+ 
+ #define XLAT_vnuma_topology_info_HNDL_vdistance_h(_d_, _s_)		\
++            case XLAT_vnuma_topology_info_vdistance_pad:                \
+             guest_from_compat_handle((_d_)->vdistance.h, (_s_)->vdistance.h)
+ #define XLAT_vnuma_topology_info_HNDL_vcpu_to_vnode_h(_d_, _s_)		\
++            case XLAT_vnuma_topology_info_vcpu_to_vnode_pad:            \
+             guest_from_compat_handle((_d_)->vcpu_to_vnode.h, (_s_)->vcpu_to_vnode.h)
+ #define XLAT_vnuma_topology_info_HNDL_vmemrange_h(_d_, _s_)		\
++            case XLAT_vnuma_topology_info_vmemrange_pad:                \
+             guest_from_compat_handle((_d_)->vmemrange.h, (_s_)->vmemrange.h)
+ 
+             XLAT_vnuma_topology_info(nat.vnuma, &cmp.vnuma);
+--- a/xen/tools/get-fields.sh
++++ b/xen/tools/get-fields.sh
+@@ -218,7 +218,7 @@ for line in sys.stdin.readlines():
+ 				fi
+ 				;;
+ 			[\,\;])
+-				if [ $level = 2 -a -n "$(echo $id | $SED 's,^_pad[[:digit:]]*,,')" ]
++				if [ $level = 2 -a -n "$(echo $id | $SED 's,_\?pad[[:digit:]]*,,')" ]
+ 				then
+ 					if [ $kind = union ]
+ 					then
+@@ -347,7 +347,7 @@ build_body ()
+ 			fi
+ 			;;
+ 		[\,\;])
+-			if [ $level = 2 -a -n "$(echo $id | $SED 's,^_pad[[:digit:]]*,,')" ]
++			if [ $level = 2 -a -n "$(echo $id | $SED 's,_\?pad[[:digit:]]*,,')" ]
+ 			then
+ 				if [ -z "$array" -a -z "$array_type" ]
+ 				then
+@@ -437,7 +437,7 @@ check_field ()
+ 				id=$token
+ 				;;
+ 			[\,\;])
+-				if [ $level = 2 -a -n "$(echo $id | $SED 's,^_pad[[:digit:]]*,,')" ]
++				if [ $level = 2 -a -n "$(echo $id | $SED 's,_\?pad[[:digit:]]*,,')" ]
+ 				then
+ 					check_field $1 $2 $3.$id "$fields"
+ 					test "$token" != ";" || fields= id=
+@@ -491,7 +491,7 @@ build_check ()
+ 			test $level != 2 -o $arrlvl != 1 || id=$token
+ 			;;
+ 		[\,\;])
+-			if [ $level = 2 -a -n "$(echo $id | $SED 's,^_pad[[:digit:]]*,,')" ]
++			if [ $level = 2 -a -n "$(echo $id | $SED 's,_\?pad[[:digit:]]*,,')" ]
+ 			then
+ 				check_field $kind $1 $id "$fields"
+ 				test "$token" != ";" || fields= id=
 
 
