@@ -2,59 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B9E22110C3
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 18:34:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AF9B2111E7
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jul 2020 19:27:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqfgX-0003Tk-Tz; Wed, 01 Jul 2020 16:34:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iA1B=AM=gmail.com=brgerst@srs-us1.protection.inumbo.net>)
- id 1jqfgW-0003Tf-5Y
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 16:34:08 +0000
-X-Inumbo-ID: af31e90c-bbb8-11ea-bb8b-bc764e2007e4
-Received: from mail-io1-xd41.google.com (unknown [2607:f8b0:4864:20::d41])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id af31e90c-bbb8-11ea-bb8b-bc764e2007e4;
- Wed, 01 Jul 2020 16:34:07 +0000 (UTC)
-Received: by mail-io1-xd41.google.com with SMTP id i4so25654137iov.11
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2020 09:34:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MoybjELZfC8f+lXSCtoUVME2X9MJfIpV+bdz3fRbLPs=;
- b=UIQesNKyPGHb0LsgKEkEqKC04ivhJDSLff+nAYrcTcn1rxfacGjyvsw8a6MHdkh2OU
- dysTn5Deu/gEZ6sPLxswsTnoXY8MNBef2h7eQigzrb8i+UA/fScu+ZhchmeakIiuK9y5
- lWUtPL1yADHz4EeusxKEafPF/8hJSssq923JNp/E/Yybr3deh+6cYHVsW2lzeTghXLxX
- ZgGXH5e5fXYPugjAkgWJ89Ps8b7S5pw8vRtOtrJAGP85BydIP5Dfzu/BNSxI6BNFh6FS
- ooCn2W2QvCgGubrpoe1aQ4cWXJ8lpknkPZs0MDAdOLmDkjGjoTOM3guUedfZID0WQTLx
- JHOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MoybjELZfC8f+lXSCtoUVME2X9MJfIpV+bdz3fRbLPs=;
- b=CAkoEid6UIpuu9WdYSNEkyR0fFyTDTjDMjG63wtL+Iv4T95Bzr9Ye17Rh8awoa1s1i
- 2c0WcAhowd5LH7wmZiX2IvIV0MMsowOoCQlBXv79JLKyKRSQEtRE38Ej9vrjSsJybIqA
- rj2MVlQKz1ClFizaoupn3VyyoyRVUBefWEb4wAnve7Ohuriet8/fTil2lw19mu4RAJCG
- wuNeoRPc6CqZK1Om80pNZbhzYFUhYA4xlEpDP5rgbVF4RWVODxQp/kK3FGRwqMn9Fmsj
- Yew6ieU8gu2gw60ZH5qaj87qeIYHi8yCdsiTlsCeDnyfyv9/qUhjarLM1anZL8K51HFV
- 5JXw==
-X-Gm-Message-State: AOAM530gRV+jXe3Fq62LiArUXzh+QQxrs0MfU8qUfYxwtxr8mNjoy+Fx
- FLDWBHY5PkjiDPP0PcOcdxRmsxOqJJeLWH6bLg==
-X-Google-Smtp-Source: ABdhPJyvkzjjp3Dg16h9W16pWaYpiojKXdtxSoSo0JgxzCryuV4rnIzZSZrN/Fkw4QQZ2XiCYSCYxFItVNiYZ1CA3jg=
-X-Received: by 2002:a02:3501:: with SMTP id k1mr28948520jaa.133.1593621247338; 
- Wed, 01 Jul 2020 09:34:07 -0700 (PDT)
+	id 1jqgV5-0007eR-PL; Wed, 01 Jul 2020 17:26:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Xe6U=AM=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jqgV4-0007dZ-R0
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2020 17:26:22 +0000
+X-Inumbo-ID: fb16a39d-bbbf-11ea-874c-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fb16a39d-bbbf-11ea-874c-12813bfff9fa;
+ Wed, 01 Jul 2020 17:26:21 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 7x2vJkvdfqzPxkWHWzUVXJZqP+KkxFI2dqA03j03LrwtWNdSlG5NGzq0ZzOefKaDy3ReGrEjV+
+ FHj2KszmViTo1Tpuk+0liUsCpHf9HvoGUfjyiBGb70huTnSutly0JkRzx79ZJFiCnKgQfjBQ2l
+ aOPvhRSiDEfNLzHFkXrzOxJXZs8R5MNMYz2o+OOtlLQiZStV18GE0qqvmPR8zrL8a0/v8p1bsG
+ L2vzRYoL75HurC0a+4c6ebwVlKkVyyaoi7wLBJ/b4bwouIQpET+W+SaQJGdMlCcgqvG+VIaXLl
+ o/w=
+X-SBRS: 2.7
+X-MesageID: 21628612
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,301,1589256000"; d="scan'208";a="21628612"
+Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
+To: Julien Grall <julien@xen.org>, =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?=
+ <michal.leszczynski@cert.pl>, <xen-devel@lists.xenproject.org>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
+ <85416128-a334-4640-7504-0865f715b3a2@xen.org>
+ <48c59780-bedb-ff08-723c-be14a9b73e6b@citrix.com>
+ <f2aa4cf9-0689-82c0-cb6c-55d55ecbd5c1@xen.org>
+ <a9a33ba1-b121-5e6f-b74c-7d2a60c84b13@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <a7187837-495f-56a5-a8d0-635a53ac9234@citrix.com>
+Date: Wed, 1 Jul 2020 18:26:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-References: <20200701110650.16172-1-jgross@suse.com>
- <20200701110650.16172-2-jgross@suse.com>
-In-Reply-To: <20200701110650.16172-2-jgross@suse.com>
-From: Brian Gerst <brgerst@gmail.com>
-Date: Wed, 1 Jul 2020 12:33:56 -0400
-Message-ID: <CAMzpN2iuwv=05vpxeP6eyVqEH9_093gDtDV3QAXYQ2QrucznBQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] x86/xen: remove 32-bit Xen PV guest support
-To: Juergen Gross <jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <a9a33ba1-b121-5e6f-b74c-7d2a60c84b13@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,29 +63,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- the arch/x86 maintainers <x86@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Andy Lutomirski <luto@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ luwei.kang@intel.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jul 1, 2020 at 7:08 AM Juergen Gross <jgross@suse.com> wrote:
+On 01/07/2020 17:18, Julien Grall wrote:
 >
-> Xen is requiring 64-bit machines today and since Xen 4.14 it can be
-> built without 32-bit PV guest support. There is no need to carry the
-> burden of 32-bit PV guest support in the kernel any longer, as new
-> guests can be either HVM or PVH, or they can use a 64 bit kernel.
 >
-> Remove the 32-bit Xen PV support from the kernel.
+> On 01/07/2020 17:17, Julien Grall wrote:
+>>
+>>
+>> On 01/07/2020 17:06, Andrew Cooper wrote:
+>>> On 01/07/2020 16:12, Julien Grall wrote:
+>>>> On 30/06/2020 13:33, Michał Leszczyński wrote:
+>>>>> @@ -305,7 +311,6 @@ static int vmx_init_vmcs_config(void)
+>>>>>                   SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS |
+>>>>>                   SECONDARY_EXEC_XSAVES |
+>>>>>                   SECONDARY_EXEC_TSC_SCALING);
+>>>>> -        rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
+>>>>>            if ( _vmx_misc_cap & VMX_MISC_VMWRITE_ALL )
+>>>>>                opt |= SECONDARY_EXEC_ENABLE_VMCS_SHADOWING;
+>>>>>            if ( opt_vpid_enabled )
+>>>>> diff --git a/xen/common/domain.c b/xen/common/domain.c
+>>>>> index 7cc9526139..0a33e0dfd6 100644
+>>>>> --- a/xen/common/domain.c
+>>>>> +++ b/xen/common/domain.c
+>>>>> @@ -82,6 +82,8 @@ struct vcpu *idle_vcpu[NR_CPUS] __read_mostly;
+>>>>>      vcpu_info_t dummy_vcpu_info;
+>>>>>    +bool_t vmtrace_supported;
+>>>>
+>>>> All the code looks x86 specific. So may I ask why this was implemented
+>>>> in common code?
+>>>
+>>> There were some questions directed specifically at the ARM maintainers
+>>> about CoreSight, which have gone unanswered.
+>>
+>> I can only find one question related to the size. Is there any other?
+>>
+>> I don't know how the interface will look like given that AFAICT the
+>> buffer may be embedded in the HW. We would need to investigate how to
+>> differentiate between two domUs in this case without impacting the
+>> performance in the common code.
+>
+> s/in the common code/during the context switch/
+>
+>> So I think it is a little premature to implement this in common code
+>> and always compiled in for Arm. It would be best if this stay in x86
+>> code.
 
-If you send a v3, it would be better to split the move of the 64-bit
-code into xen-asm.S into a separate patch.
+I've just checked with a colleague.  CoreSight can dump to a memory
+buffer - there's even a decode library for the packet stream
+https://github.com/Linaro/OpenCSD, although ultimately it is platform
+specific as to whether the feature is supported.
 
---
-Brian Gerst
+Furthermore, the choice isn't "x86 vs ARM", now that RISCv support is
+on-list, and Power9 is floating on the horizon.
+
+For the sake of what is literally just one byte in common code, I stand
+my original suggestion of this being a common interface.  It is not
+something which should be x86 specific.
+
+~Andrew
 
