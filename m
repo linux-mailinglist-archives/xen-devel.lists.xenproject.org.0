@@ -2,76 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBFB0212C51
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 20:26:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA292212C6D
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 20:38:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jr3uM-0006D3-Bh; Thu, 02 Jul 2020 18:26:02 +0000
+	id 1jr46E-0007DG-Fa; Thu, 02 Jul 2020 18:38:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PV0h=AN=amazon.com=prvs=445caddfd=anchalag@srs-us1.protection.inumbo.net>)
- id 1jr3uK-0006Ct-Cd
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 18:26:00 +0000
-X-Inumbo-ID: 79f99b48-bc91-11ea-b7bb-bc764e2007e4
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rv/I=AN=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1jr46C-0007DB-5Q
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 18:38:17 +0000
+X-Inumbo-ID: 301a96c4-bc93-11ea-bb8b-bc764e2007e4
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.163])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 79f99b48-bc91-11ea-b7bb-bc764e2007e4;
- Thu, 02 Jul 2020 18:25:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1593714360; x=1625250360;
- h=date:from:to:subject:message-id:references:mime-version:
- in-reply-to; bh=jLJQ9NuVygNNRcAPap0ICuY1A6zLkRPc2aHxxOZMLNc=;
- b=Bn04Gr3BvCal+J+zvGCbb48FgninblZOYSr/Qt1aYgQ5Nx5T/oQTfegb
- bK8rj3X+OpNHAPDrR1p7VC0yAegLkvWTtoEO5LIoWb+SMrs0Mxfw0oB5n
- tC5WGmyGyWE/Xk8fQhhzMauX7TQaiTlzzB8NRtUk/HPDwbOxjovpOsZQ4 w=;
-IronPort-SDR: 9K0UaovTj6pXWTvQUqHP8tf1CyImeNnAp5dgeU8Ek2iag7xWzdGj816eXt/y4qO4q0g3EatLKK
- YauVToN5kJOg==
-X-IronPort-AV: E=Sophos;i="5.75,305,1589241600"; d="scan'208";a="55693820"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1a-16acd5e0.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 02 Jul 2020 18:25:57 +0000
-Received: from EX13MTAUEB002.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
- by email-inbound-relay-1a-16acd5e0.us-east-1.amazon.com (Postfix) with ESMTPS
- id 2B3EAA1FEE; Thu,  2 Jul 2020 18:25:49 +0000 (UTC)
-Received: from EX13D08UEB002.ant.amazon.com (10.43.60.107) by
- EX13MTAUEB002.ant.amazon.com (10.43.60.12) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Thu, 2 Jul 2020 18:25:30 +0000
-Received: from EX13MTAUEB002.ant.amazon.com (10.43.60.12) by
- EX13D08UEB002.ant.amazon.com (10.43.60.107) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Thu, 2 Jul 2020 18:25:30 +0000
-Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
- (172.22.96.68) by mail-relay.amazon.com (10.43.60.234) with Microsoft SMTP
- Server id 15.0.1497.2 via Frontend Transport; Thu, 2 Jul 2020 18:25:29 +0000
-Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
- from userid 4335130)
- id E9DAC40844; Thu,  2 Jul 2020 18:25:29 +0000 (UTC)
-Date: Thu, 2 Jul 2020 18:25:29 +0000
-From: Anchal Agarwal <anchalag@amazon.com>
-To: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <hpa@zytor.com>, 
- <x86@kernel.org>, <boris.ostrovsky@oracle.com>, <jgross@suse.com>,
- <linux-pm@vger.kernel.org>, <linux-mm@kvack.org>, <kamatam@amazon.com>,
- <sstabellini@kernel.org>, <konrad.wilk@oracle.com>, <roger.pau@citrix.com>,
- <axboe@kernel.dk>, <davem@davemloft.net>, <rjw@rjwysocki.net>,
- <len.brown@intel.com>, <pavel@ucw.cz>, <peterz@infradead.org>,
- <eduval@amazon.com>, <sblbir@amazon.com>, <anchalag@amazon.com>,
- <xen-devel@lists.xenproject.org>, <vkuznets@redhat.com>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <dwmw@amazon.co.uk>, <benh@kernel.crashing.org>
-Subject: [PATCH v2 02/11] xenbus: add freeze/thaw/restore callbacks support
-Message-ID: <20200702182529.GA3908@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-References: <cover.1593665947.git.anchalag@amazon.com>
+ id 301a96c4-bc93-11ea-bb8b-bc764e2007e4;
+ Thu, 02 Jul 2020 18:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1593715094;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=kLvpg1soij3DNc2umoAvjn9s26IXsI1NG+9wQq0SEnU=;
+ b=TZHVSU8ujsYqSaDp5YUibxI0yo5qWe2SwQh6m6PNIH8KFXesE9xEJ4Cf53v30EMdQZ
+ fbMlnucF6GACbKjBNqVq+AqKJIEYNl3tdOSr6Hgl3lNDyaYkKbfHQHSL+z9BY9Ee5BQA
+ xpgZ1QeryfbE8sK+uVQ01pA+WE3uaS5YyUic3vFk1bBwhApIfLoMIPohypd9yvM7AkHS
+ ErOqJ3albVvFBbDKOHbCMqyT19q2Jl57mFJ0D0xRkk2hB+UbkqYoKvDvOeJsUEICeVJ+
+ HYsq+RuEmHUvjXm5GYVXKqwApCC/E3NksYw7r9GQ9WgjvIvzDiQMuxraUQKSN6ocDEa9
+ tjrw==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS329Fjw=="
+X-RZG-CLASS-ID: mo00
+Received: from aepfle.de by smtp.strato.de (RZmta 46.10.5 DYNA|AUTH)
+ with ESMTPSA id m032cfw62IcAX2S
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 2 Jul 2020 20:38:10 +0200 (CEST)
+Date: Thu, 2 Jul 2020 20:38:06 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Michael Young <m.a.young@durham.ac.uk>
+Subject: Re: Build problems in kdd.c with xen-4.14.0-rc4
+Message-ID: <20200702183806.GA28738@aepfle.de>
+References: <alpine.LFD.2.22.394.2006302259370.2894@austen3.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="TB36FDmn/VVEgNH/"
 Content-Disposition: inline
-In-Reply-To: <cover.1593665947.git.anchalag@amazon.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Precedence: Bulk
+In-Reply-To: <alpine.LFD.2.22.394.2006302259370.2894@austen3.home>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -79,201 +57,133 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Munehisa Kamata <kamatam@amazon.com>
 
-Since commit b3e96c0c7562 ("xen: use freeze/restore/thaw PM events for
-suspend/resume/chkpt"), xenbus uses PMSG_FREEZE, PMSG_THAW and
-PMSG_RESTORE events for Xen suspend. However, they're actually assigned
-to xenbus_dev_suspend(), xenbus_dev_cancel() and xenbus_dev_resume()
-respectively, and only suspend and resume callbacks are supported at
-driver level. To support PM suspend and PM hibernation, modify the bus
-level PM callbacks to invoke not only device driver's suspend/resume but
-also freeze/thaw/restore.
+--TB36FDmn/VVEgNH/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Note that we'll use freeze/restore callbacks even for PM suspend whereas
-suspend/resume callbacks are normally used in the case, becausae the
-existing xenbus device drivers already have suspend/resume callbacks
-specifically designed for Xen suspend. So we can allow the device
-drivers to keep the existing callbacks wihtout modification.
+On Tue, Jun 30, Michael Young wrote:
 
-[Anchal Agarwal: Changelog]:
-RFC v1->v2: Refactored the callbacks code
-    v1->v2: Use dev_warn instead of pr_warn, naming/initialization
-            conventions
-Signed-off-by: Agarwal Anchal <anchalag@amazon.com>
-Signed-off-by: Munehisa Kamata <kamatam@amazon.com>
+> I get the following errors when trying to build xen-4.14.0-rc4
+
+This happens to work for me.
+
+Olaf
+
 ---
- drivers/xen/xenbus/xenbus_probe.c | 96 ++++++++++++++++++++++++++-----
- include/xen/xenbus.h              |  3 +
- 2 files changed, 84 insertions(+), 15 deletions(-)
+ tools/debugger/kdd/kdd.c | 8 ++++----
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index 38725d97d909..715919aacd28 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -50,6 +50,7 @@
- #include <linux/io.h>
- #include <linux/slab.h>
- #include <linux/module.h>
-+#include <linux/suspend.h>
- 
- #include <asm/page.h>
- #include <asm/xen/hypervisor.h>
-@@ -599,16 +600,33 @@ int xenbus_dev_suspend(struct device *dev)
- 	struct xenbus_driver *drv;
- 	struct xenbus_device *xdev
- 		= container_of(dev, struct xenbus_device, dev);
-+	bool xen_suspend = xen_is_xen_suspend();
- 
- 	DPRINTK("%s", xdev->nodename);
- 
- 	if (dev->driver == NULL)
- 		return 0;
- 	drv = to_xenbus_driver(dev->driver);
--	if (drv->suspend)
--		err = drv->suspend(xdev);
--	if (err)
--		dev_warn(dev, "suspend failed: %i\n", err);
-+	if (xen_suspend) {
-+		if (drv->suspend)
-+			err = drv->suspend(xdev);
-+	} else {
-+		if (drv->freeze) {
-+			err = drv->freeze(xdev);
-+			if (!err) {
-+				free_otherend_watch(xdev);
-+				free_otherend_details(xdev);
-+				return 0;
-+			}
-+		}
-+	}
-+
-+	if (err) {
-+		dev_warn(&xdev->dev, "%s %s failed: %d\n", xen_suspend ?
-+				"suspend" : "freeze", xdev->nodename, err);
-+		return err;
-+	}
-+
- 	return 0;
+--- a/tools/debugger/kdd/kdd.c
++++ b/tools/debugger/kdd/kdd.c
+@@ -742,25 +742,25 @@ static void kdd_tx(kdd_state *s)
+     int i;
+=20
+     /* Fix up the checksum before we send */
+     for (i =3D 0; i < s->txp.h.len; i++)
+         sum +=3D s->txp.payload[i];
+     s->txp.h.sum =3D sum;
+=20
+     kdd_log_pkt(s, "TX", &s->txp);
+=20
+     len =3D s->txp.h.len + sizeof (kdd_hdr);
+     if (s->txp.h.dir =3D=3D KDD_DIR_PKT)
+         /* Append the mysterious 0xaa byte to each packet */
+-        s->txb[len++] =3D 0xaa;
++        s->txp.payload[len++] =3D 0xaa;
+=20
+     (void) blocking_write(s->fd, s->txb, len);
  }
- EXPORT_SYMBOL_GPL(xenbus_dev_suspend);
-@@ -619,6 +637,7 @@ int xenbus_dev_resume(struct device *dev)
- 	struct xenbus_driver *drv;
- 	struct xenbus_device *xdev
- 		= container_of(dev, struct xenbus_device, dev);
-+	bool xen_suspend = xen_is_xen_suspend();
- 
- 	DPRINTK("%s", xdev->nodename);
- 
-@@ -627,23 +646,34 @@ int xenbus_dev_resume(struct device *dev)
- 	drv = to_xenbus_driver(dev->driver);
- 	err = talk_to_otherend(xdev);
- 	if (err) {
--		dev_warn(dev, "resume (talk_to_otherend) failed: %i\n", err);
-+		dev_warn(&xdev->dev, "%s (talk_to_otherend) %s failed: %d\n",
-+				xen_suspend ? "resume" : "restore",
-+				xdev->nodename, err);
- 		return err;
- 	}
- 
--	xdev->state = XenbusStateInitialising;
-+	if (xen_suspend) {
-+		xdev->state = XenbusStateInitialising;
-+		if (drv->resume)
-+			err = drv->resume(xdev);
-+	} else {
-+		if (drv->restore)
-+			err = drv->restore(xdev);
-+	}
- 
--	if (drv->resume) {
--		err = drv->resume(xdev);
--		if (err) {
--			dev_warn(dev, "resume failed: %i\n", err);
--			return err;
--		}
-+	if (err) {
-+		dev_warn(&xdev->dev, "%s %s failed: %d\n",
-+				xen_suspend ? "resume" : "restore",
-+				xdev->nodename, err);
-+		return err;
- 	}
- 
- 	err = watch_otherend(xdev);
- 	if (err) {
--		dev_warn(dev, "resume (watch_otherend) failed: %d\n", err);
-+		dev_warn(&xdev->dev, "%s (watch_otherend) %s failed: %d.\n",
-+				xen_suspend ? "resume" : "restore",
-+				xdev->nodename, err);
-+
- 		return err;
- 	}
- 
-@@ -653,8 +683,44 @@ EXPORT_SYMBOL_GPL(xenbus_dev_resume);
- 
- int xenbus_dev_cancel(struct device *dev)
+=20
+=20
+ /* Send an acknowledgement to the client */
+ static void kdd_send_ack(kdd_state *s, uint32_t id, uint16_t type)
  {
--	/* Do nothing */
--	DPRINTK("cancel");
-+	int err;
-+	struct xenbus_driver *drv;
-+	struct xenbus_device *xendev = to_xenbus_device(dev);
-+	bool xen_suspend = xen_is_xen_suspend();
-+
-+	if (xen_suspend) {
-+		/* Do nothing */
-+		DPRINTK("cancel");
-+		return 0;
-+	}
-+
-+	DPRINTK("%s", xendev->nodename);
-+
-+	if (dev->driver == NULL)
-+		return 0;
-+	drv = to_xenbus_driver(dev->driver);
-+	err = talk_to_otherend(xendev);
-+	if (err) {
-+		dev_warn(&xendev->dev, "thaw (talk_to_otherend) %s failed: %d.\n",
-+			xendev->nodename, err);
-+		return err;
-+	}
-+
-+	if (drv->thaw) {
-+		err = drv->thaw(xendev);
-+		if (err) {
-+			dev_warn(&xendev->dev, "thaw %s failed: %d\n", xendev->nodename, err);
-+			return err;
-+		}
-+	}
-+
-+	err = watch_otherend(xendev);
-+	if (err) {
-+		dev_warn(&xendev->dev, "thaw (watch_otherend) %s failed: %d.\n",
-+			xendev->nodename, err);
-+		return err;
-+	}
-+
- 	return 0;
+     s->txp.h.dir =3D KDD_DIR_ACK;
+     s->txp.h.type =3D type;
+     s->txp.h.len =3D 0;
+     s->txp.h.id =3D id;
+@@ -775,25 +775,25 @@ static void kdd_send_cmd(kdd_state *s, uint32_t subty=
+pe, size_t extra)
+     s->txp.h.type =3D KDD_PKT_CMD;
+     s->txp.h.len =3D sizeof (kdd_cmd) + extra;
+     s->txp.h.id =3D (s->next_id ^=3D 1);
+     s->txp.h.sum =3D 0;
+     s->txp.cmd.subtype =3D subtype;
+     kdd_tx(s);
  }
- EXPORT_SYMBOL_GPL(xenbus_dev_cancel);
-diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
-index 5a8315e6d8a6..8da964763255 100644
---- a/include/xen/xenbus.h
-+++ b/include/xen/xenbus.h
-@@ -104,6 +104,9 @@ struct xenbus_driver {
- 	int (*remove)(struct xenbus_device *dev);
- 	int (*suspend)(struct xenbus_device *dev);
- 	int (*resume)(struct xenbus_device *dev);
-+	int (*freeze)(struct xenbus_device *dev);
-+	int (*thaw)(struct xenbus_device *dev);
-+	int (*restore)(struct xenbus_device *dev);
- 	int (*uevent)(struct xenbus_device *, struct kobj_uevent_env *);
- 	struct device_driver driver;
- 	int (*read_otherend_details)(struct xenbus_device *dev);
--- 
-2.20.1
+=20
+ /* Cause the client to print a string */
+ static void kdd_send_string(kdd_state *s, char *fmt, ...)
+ {
+     uint32_t len =3D 0xffff - sizeof (kdd_msg);
+-    char *buf =3D (char *) s->txb + sizeof (kdd_hdr) + sizeof (kdd_msg);
++    char *buf =3D (char *) &s->txp + sizeof (kdd_hdr) + sizeof (kdd_msg);
+     va_list ap;
+    =20
+     va_start(ap, fmt);
+     len =3D vsnprintf(buf, len, fmt, ap);
+     va_end(ap);
+=20
+     s->txp.h.dir =3D KDD_DIR_PKT;
+     s->txp.h.type =3D KDD_PKT_MSG;
+     s->txp.h.len =3D sizeof (kdd_msg) + len;
+     s->txp.h.id =3D (s->next_id ^=3D 1);
+     s->txp.h.sum =3D 0;
+     s->txp.msg.subtype =3D KDD_MSG_PRINT;
+@@ -807,25 +807,25 @@ static void kdd_break(kdd_state *s)
+ {
+     uint16_t ilen;
+     KDD_LOG(s, "Break\n");
+=20
+     if (s->running)
+         kdd_halt(s->guest);
+     s->running =3D 0;
+=20
+     {
+         unsigned int i;
+         /* XXX debug pattern */
+         for (i =3D 0; i < 0x100 ; i++)=20
+-            s->txb[sizeof (kdd_hdr) + i] =3D i;
++            s->txp.payload[sizeof (kdd_hdr) + i] =3D i;
+     }
+=20
+     /* Send a state-change message to the client so it knows we've stopped=
+ */
+     s->txp.h.dir =3D KDD_DIR_PKT;
+     s->txp.h.type =3D KDD_PKT_STC;
+     s->txp.h.len =3D sizeof (kdd_stc);
+     s->txp.h.id =3D (s->next_id ^=3D 1);
+     s->txp.stc.subtype =3D KDD_STC_STOP;
+     s->txp.stc.stop.cpu =3D s->cpuid;
+     s->txp.stc.stop.ncpus =3D kdd_count_cpus(s->guest);=20
+     s->txp.stc.stop.kthread =3D 0; /* Let the debugger figure it out */
+     s->txp.stc.stop.status =3D KDD_STC_STATUS_BREAKPOINT;
 
+--TB36FDmn/VVEgNH/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl7+KY4ACgkQ86SN7mm1
+DoBuFA/+IZZ+sENG0nz+pSvf5pYjGZyLMHgqqTGKOn9VxoX2HeJZg8Mc2A2NMDYE
+ImX/uXMXbPKZI02eFMB3hFCQORjW7BztEEVzbVQZ9ZDw5hG/N+l82tMUyJM/HfW3
+YJrRRx6RMCDecwLAXVdhI0+0xgpET7mLXCLlLiFMByy2pKE0Dpqjka7b3I+BLNTk
+3/juc+OnCH+SikYa4yx2KY88Bd6k0guiEjSEvH63BhkuTVkXfh+VHo3L41K5fQ2F
+pbp37Gah6XUUIZ4/s+h40sZbDaBjmzsmF6kI72mrWT/6D2xlv8Kbk9A3p3EJtaCG
+RBl90byqh6a5+7kdcLAT60bQW1lwObimQd1QxGLkvRovxAVGXoE2gSgJl8U/v9eK
+jhLQB/tlwHEdvliMvtjOdj6mB82qDxQ60H9MlIvs2fpQrbNNrG6uYbGJ9HVHriOc
+RYNOdL/f2s/KKAVwkk/aqPrigzayeCTopR4o97/b8gcm7CaQyD/gQ2w1CBIqwJ/+
+GApwnQRN1a4VPSx0X1/jKUU3jYYYyKa04DCuQcnPvPXk+lCcZ+YcZA211iXSrmfg
+AkbDHu4s0Pq1gTZ3asYLKP4tEQHl+nrT4z+xd6GBq45/MbzCcqukBj5Ru/pBVFkV
+i07b5hmk/4Gd1zjLOYbX/deldyoHykw5w2p0KvBdhwiro2kZTn4=
+=onR7
+-----END PGP SIGNATURE-----
+
+--TB36FDmn/VVEgNH/--
 
