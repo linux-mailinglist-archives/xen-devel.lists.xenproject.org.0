@@ -2,58 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08982212B58
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 19:35:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77765212C1E
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 20:22:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jr36s-0000xw-I2; Thu, 02 Jul 2020 17:34:54 +0000
+	id 1jr3qS-00057d-6G; Thu, 02 Jul 2020 18:22:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gpFn=AN=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jr36r-0000xr-8L
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 17:34:53 +0000
-X-Inumbo-ID: 560e87e0-bc8a-11ea-bca7-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PV0h=AN=amazon.com=prvs=445caddfd=anchalag@srs-us1.protection.inumbo.net>)
+ id 1jr3qQ-00056y-QR
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 18:21:58 +0000
+X-Inumbo-ID: ea208cfc-bc90-11ea-bca7-bc764e2007e4
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 560e87e0-bc8a-11ea-bca7-bc764e2007e4;
- Thu, 02 Jul 2020 17:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Q26iJJNm1J2GxnnFPGVie/uZdpJ0fBopyLEBAH0PjRI=; b=o5xV1fcf5oYACBK+NfLOGn/sMa
- x9rMVWXMxMu5hJrduzSpfe2EZPqhI3pOQ6HoqJlAS8jLJV1GYleTl5Ltw8dH/VzRehecaLiKpnTGF
- q8LedVTch6SCPlN9rGmJzhFSt/6PP3TRJcUQGB/Z3VXUbQsaK9qhabe5C/Vg01bmyCOE=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jr36p-0007Ao-M7; Thu, 02 Jul 2020 17:34:51 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jr36p-0002P1-2Z; Thu, 02 Jul 2020 17:34:51 +0000
-Subject: Re: Kexec and libxenctlr.so
-To: Wei Liu <wl@xen.org>, Julien Grall <jgrall@amazon.com>
-References: <7a88218d-981e-6583-15a5-3fcaffb05294@amazon.com>
- <20200626110812.hxeoomagamkdceu7@liuwe-devbox-debian-v2>
-From: Julien Grall <julien@xen.org>
-Message-ID: <aa5ad259-5848-e8c4-61e8-6649bb65ece5@xen.org>
-Date: Thu, 2 Jul 2020 18:34:48 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+ id ea208cfc-bc90-11ea-bca7-bc764e2007e4;
+ Thu, 02 Jul 2020 18:21:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1593714118; x=1625250118;
+ h=date:from:to:subject:message-id:mime-version;
+ bh=cs2EUulVYmJiGWKGk3tjkuDldhZPB72HbPIIjHU97dk=;
+ b=Im/bqyFMVIZ9ZEysI5y0Exifv8AoyVt0F4JvyFQ6wg6oYkamRQOYZl2r
+ KHg786tY44AsAQso/39AmMSrWgJIzcbau7KHMpmTXX8T6FjunccNyfeFG
+ Rzp111s4wYKSnb23u/8rZZfVov9Hqi8ynOMey40eR9EyAHHltz77uzJNQ w=;
+IronPort-SDR: QkQyYmP3nGLpAiOJsMdMVFBarx/mgZsiYn5B7jwFEKwaWLU7F40e7pi00Eb1XlqW0VHybjgWcA
+ d/KKpJe7YxXg==
+X-IronPort-AV: E=Sophos;i="5.75,305,1589241600"; d="scan'208";a="56964454"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-1d-74cf8b49.us-east-1.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
+ 02 Jul 2020 18:21:50 +0000
+Received: from EX13MTAUEB002.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
+ by email-inbound-relay-1d-74cf8b49.us-east-1.amazon.com (Postfix) with ESMTPS
+ id BDE57C05B9; Thu,  2 Jul 2020 18:21:43 +0000 (UTC)
+Received: from EX13D08UEB002.ant.amazon.com (10.43.60.107) by
+ EX13MTAUEB002.ant.amazon.com (10.43.60.12) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 2 Jul 2020 18:21:25 +0000
+Received: from EX13MTAUEA002.ant.amazon.com (10.43.61.77) by
+ EX13D08UEB002.ant.amazon.com (10.43.60.107) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 2 Jul 2020 18:21:25 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.61.169) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Thu, 2 Jul 2020 18:21:25 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id 896F240844; Thu,  2 Jul 2020 18:21:24 +0000 (UTC)
+Date: Thu, 2 Jul 2020 18:21:24 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <hpa@zytor.com>, 
+ <x86@kernel.org>, <boris.ostrovsky@oracle.com>, <jgross@suse.com>,
+ <linux-pm@vger.kernel.org>, <linux-mm@kvack.org>, <kamatam@amazon.com>,
+ <sstabellini@kernel.org>, <konrad.wilk@oracle.com>, <roger.pau@citrix.com>,
+ <axboe@kernel.dk>, <davem@davemloft.net>, <rjw@rjwysocki.net>,
+ <len.brown@intel.com>, <pavel@ucw.cz>, <peterz@infradead.org>,
+ <eduval@amazon.com>, <sblbir@amazon.com>, <anchalag@amazon.com>,
+ <xen-devel@lists.xenproject.org>, <vkuznets@redhat.com>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <dwmw@amazon.co.uk>, <benh@kernel.crashing.org>
+Subject: [PATCH v2 00/11] Fix PM hibernation in Xen guests
+Message-ID: <cover.1593665947.git.anchalag@amazon.com>
 MIME-Version: 1.0
-In-Reply-To: <20200626110812.hxeoomagamkdceu7@liuwe-devbox-debian-v2>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -61,145 +77,126 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "paul@xen.org" <paul@xen.org>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- daniel.kiper@oracle.com,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Wei,
+Hello,
+This series fixes PM hibernation for hvm guests running on xen hypervisor.
+The running guest could now be hibernated and resumed successfully at a
+later time. The fixes for PM hibernation are added to block and
+network device drivers i.e xen-blkfront and xen-netfront. Any other driver
+that needs to add S4 support if not already, can follow same method of
+introducing freeze/thaw/restore callbacks.
+The patches had been tested against upstream kernel and xen4.11. Large
+scale testing is also done on Xen based Amazon EC2 instances. All this testing
+involved running memory exhausting workload in the background.
 
-On 26/06/2020 12:08, Wei Liu wrote:
-> On Thu, Jun 11, 2020 at 03:57:37PM +0100, Julien Grall wrote:
->> Hi all,
->>
->> kexec-tools has an option to load dynamically libxenctlr.so (not .so.4.x)
->> (see [1]).
->>
->> Given that the library has never been considered stable, it is probably a
->> disaster that is waiting to happen.
->>
->> Looking at the tree kexec is using the follow libxc functions:
->>     - xc_kexec_get_range()
->>     - xc_kexec_load()
->>     - xc_kexec_unload()
->>     - xc_kexec_status()
->>     - xc_kexec_exec()
->>     - xc_version()
->>     - xc_interface_open()
->>     - xc_interface_close()
->>     - xc_get_max_cpus()
->>     - xc_get_machine_memory_map()
->>
->> I think it is uncontroversial that we want a new stable library for all the
->> xc_kexec_* functions (maybe libxenexec)?
-> 
-> That sounds fine to me.
-> 
-> Looking at the list of functions, all the xc_kexec_* ones are probably
-> already rather stable.
+Doing guest hibernation does not involve any support from hypervisor and
+this way guest has complete control over its state. Infrastructure
+restrictions for saving up guest state can be overcome by guest initiated
+hibernation.
 
-That's my understanding as well.
+These patches were send out as RFC before and all the feedback had been
+incorporated in the patches. The last v1 could be found here:
 
-Although, we may want to rethink some of the hypercalls (such as 
-KEXEC_cmd_kexec_get_range) in the future as they have different layout 
-between 32-bit and 64-bit. Thanksfully this wasn't exposed outside of 
-libxc, so it shouldn't be an issue to have a stable library.
+[v1]: https://lkml.org/lkml/2020/5/19/1312
+All comments and feedback from v1 had been incorporated in v2 series.
+Any comments/suggestions are welcome
 
-> 
-> For xc_interface_open / close, they are perhaps used only to obtain an
-> xc handle such that it can be used to make hypercalls. You new kexec
-> library is going to expose its own handle with a xencall handle wrapped
-> inside, so you can do away with an xc handle.
+Known issues:
+1.KASLR causes intermittent hibernation failures. VM fails to resumes and
+has to be restarted. I will investigate this issue separately and shouldn't
+be a blocker for this patch series.
+2. During hibernation, I observed sometimes that freezing of tasks fails due
+to busy XFS workqueuei[xfs-cil/xfs-sync]. This is also intermittent may be 1
+out of 200 runs and hibernation is aborted in this case. Re-trying hibernation
+may work. Also, this is a known issue with hibernation and some
+filesystems like XFS has been discussed by the community for years with not an
+effectve resolution at this point.
 
-I have already a PoC for the new library. I had to tweak a bit the list 
-of helpers as some use hypercalls arguments directly. Below, the 
-proposed interface:
+Testing How to:
+---------------
+1. Setup xen hypervisor on a physical machine[ I used Ubuntu 16.04 +upstream
+xen-4.11]
+2. Bring up a HVM guest w/t kernel compiled with hibernation patches
+[I used ubuntu18.04 netboot bionic images and also Amazon Linux on-prem images].
+3. Create a swap file size=RAM size
+4. Update grub parameters and reboot
+5. Trigger pm-hibernation from within the VM
 
-/* Callers who don't care don't need to #include <xentoollog.h> */
-struct xentoollog_logger;
+Example:
+Set up a file-backed swap space. Swap file size>=Total memory on the system
+sudo dd if=/dev/zero of=/swap bs=$(( 1024 * 1024 )) count=4096 # 4096MiB
+sudo chmod 600 /swap
+sudo mkswap /swap
+sudo swapon /swap
 
-typedef struct xenkexec_handle xenkexec_handle;
+Update resume device/resume offset in grub if using swap file:
+resume=/dev/xvda1 resume_offset=200704 no_console_suspend=1
 
-typedef struct xenkexec_segments xenkexec_segments;
+Execute:
+--------
+sudo pm-hibernate
+OR
+echo disk > /sys/power/state && echo reboot > /sys/power/disk
 
-xenkexec_handle *xenkexec_open(struct xentoollog_logger *logger,
-                                unsigned int open_flags);
-int xenkexec_close(xenkexec_handle *khdl);
+Compute resume offset code:
+"
+#!/usr/bin/env python
+import sys
+import array
+import fcntl
 
-int xenkexec_exec(xenkexec_handle *khdl, int type);
-int xenkexec_get_range(xenkexec_handle *khdl, int range, int nr,
-                        uint64_t *size, uint64_t *start);
-int xenkexec_load(xenkexec_handle *khdl, uint8_t type, uint16_t arch,
-                   uint64_t entry_maddr, uint32_t nr_segments,
-                   xenkexec_segments *segments);
-int xenkexec_unload(xenkexec_handle *khdl, int type);
-int xenkexec_status(xenkexec_handle *khdl, int type);
+#swap file
+f = open(sys.argv[1], 'r')
+buf = array.array('L', [0])
 
-xenkexec_segments *xenkexec_allocate_segments(xenkexec_handle *khdl,
-                                               unsigned int nr);
-void xenkexec_free_segments(xenkexec_handle *khdl, xenkexec_segments *segs);
-
-int xenkexec_update_segment(xenkexec_handle *khdl, xenkexec_segments *segs,
-                             unsigned int idx, void *buffer, size_t 
-buffer_size,
-                             uint64_t dest_maddr, size_t dest_size);
+#FIBMAP
+ret = fcntl.ioctl(f.fileno(), 0x01, buf)
+print buf[0]
+"
 
 
-> 
->>
->> However I am not entirely sure where to put the others.
->>
->> I am thinking to introduce libxensysctl for xc_get_max_cpus() as it is a
->> XEN_SYSCTL. We could possibly include xc_get_machine_memory_map() (despite
->> it is a XENMEM_).
->>
-> 
-> Introducing an libxensysctl before we stabilise sysctl interface seems
-> wrong to me. We can bury the call inside libxenkexec itself for the time
-> being.
+Aleksei Besogonov (1):
+  PM / hibernate: update the resume offset on SNAPSHOT_SET_SWAP_AREA
 
-That would work for me.
+Anchal Agarwal (4):
+  x86/xen: Introduce new function to map HYPERVISOR_shared_info on
+    Resume
+  x86/xen: save and restore steal clock during PM hibernation
+  xen: Introduce wrapper for save/restore sched clock offset
+  xen: Update sched clock offset to avoid system instability in
+    hibernation
 
-> 
->> For xc_version(), I am thinking to extend libxentoolcore to also include
->> "stable xen API".
->>
-> 
-> If you can do without an xc handle, do you still need to call
-> xc_version?
+Munehisa Kamata (5):
+  xen/manage: keep track of the on-going suspend mode
+  xenbus: add freeze/thaw/restore callbacks support
+  x86/xen: add system core suspend and resume callbacks
+  xen-blkfront: add callbacks for PM suspend and hibernation
+  xen-netfront: add callbacks for PM suspend and hibernation
 
-Looking at kexec, xc_version() is used by crashdump to determine which 
-architecture is used by Xen (in this case 32-bit x86 vs 64-bit x86).
+Thomas Gleixner (1):
+  genirq: Shutdown irq chips in suspend/resume during hibernation
 
-The was introcuded by commit:
-
-commit cdbc9b011fe43407908632d842e3a39e495e48d9
-Author: Ian Campbell <ian.campbell@xensource.com>
-Date:   Fri Mar 16 10:10:24 2007 +0000
-
-     Set crash dump ELF header e_machine field based on underlying 
-hypervisor architecture.
-
-     This is necessary when running Xen with a 64 bit hypervisor and 32 bit
-     domain 0 since the CPU crash notes will be 64 bit.
-
-     Detecting the hypervisor archiecture requires libxenctrl and 
-therefore this
-     support is optional and disabled by default.
-
-     Signed-off-by: Ian Campbell <ian.campbell@xensource.com>
-     Acked-by: Magnus Damm <magnus@valinux.co.jp>
-     Signed-off-by: Simon Horman <horms@verge.net.au>
-
-As we drop support for 32-bit Xen quite a long time ago, we may be able 
-to remove the call to xc_version().
-
-Cheers,
+ arch/x86/xen/enlighten_hvm.c      |   7 ++
+ arch/x86/xen/suspend.c            |  53 +++++++++++++
+ arch/x86/xen/time.c               |  15 +++-
+ arch/x86/xen/xen-ops.h            |   3 +
+ drivers/block/xen-blkfront.c      | 122 +++++++++++++++++++++++++++++-
+ drivers/net/xen-netfront.c        |  98 +++++++++++++++++++++++-
+ drivers/xen/events/events_base.c  |   1 +
+ drivers/xen/manage.c              |  60 +++++++++++++++
+ drivers/xen/xenbus/xenbus_probe.c |  96 +++++++++++++++++++----
+ include/linux/irq.h               |   2 +
+ include/xen/xen-ops.h             |   3 +
+ include/xen/xenbus.h              |   3 +
+ kernel/irq/chip.c                 |   2 +-
+ kernel/irq/internals.h            |   1 +
+ kernel/irq/pm.c                   |  31 +++++---
+ kernel/power/user.c               |   6 +-
+ 16 files changed, 470 insertions(+), 33 deletions(-)
 
 -- 
-Julien Grall
+2.20.1
+
 
