@@ -2,54 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2C31212638
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 16:26:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41C23212655
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 16:32:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jr09y-0001JJ-6f; Thu, 02 Jul 2020 14:25:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WaoH=AN=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jr09w-0001JD-5s
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 14:25:52 +0000
-X-Inumbo-ID: edbdd9da-bc6f-11ea-b7bb-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id edbdd9da-bc6f-11ea-b7bb-bc764e2007e4;
- Thu, 02 Jul 2020 14:25:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1593699950;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=P8qqWwaT3JO4DtYZfTWWgYAYHCkV32cVmUHPjU8krbs=;
- b=gDndjqABMnKA9vjodQpAg8grWdUjV2QcfHkIaR1hGhsEAMG7qc5wR7mE
- antLuNKCQ7n6PZMdibvyN6BAX/y4iEwkJC3/bQD6nTaTEMyGW8BYMvWjq
- QTl70BVmDdcJ63WW+8E0KsegfKJ6a7gGvZIzFZi1Q6WLdNuAtfQ0G3sS2 c=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: Dck9YdOiChKAkoJYdjmrWBMAMyc5NUpu70ZCutMjgsdLlU9Xl3KAOxhOlMAIYPaypMCDiFfy9F
- Gp6onPQUk1pU6kN5zrj/2oFnwiHuIqsS7AljGoE6WmAFppou6rqa5+z25T3n8uXqQlTPNgsOd2
- obIBuVpSL97mRDcINEiyB8y5MCgOgOdKCxLGC4yiOMaFka5dF8pSm8kCp9waMaMbiH3f+aSsOE
- IQD5hrBme7rwuYe9j+Z79Xjm0wVA+Lr0YieBRjYeqAjZ3qaHWfk98MkYNJ6LMmBWvEgLW6897R
- USs=
-X-SBRS: 2.7
-X-MesageID: 22307503
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,304,1589256000"; d="scan'208";a="22307503"
-Date: Thu, 2 Jul 2020 15:25:44 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Paul Durrant <paul.durrant@citrix.com>
-Subject: Re: [PATCH v5] xen: fix build without pci passthrough
-Message-ID: <20200702142544.GA2157@perard.uk.xensource.com>
-References: <20200604183141.32044-1-pbonzini@redhat.com>
+	id 1jr0FM-00028c-Vc; Thu, 02 Jul 2020 14:31:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gpFn=AN=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jr0FL-00028X-RI
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 14:31:27 +0000
+X-Inumbo-ID: b57ccc1a-bc70-11ea-883d-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b57ccc1a-bc70-11ea-883d-12813bfff9fa;
+ Thu, 02 Jul 2020 14:31:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=YR4Xopsj3V/FSwV7yfqdS6ETcxQG7fnxAzc4VfHKV/M=; b=gHG9tkVCn5lGFm+cFWQ2fbq4et
+ W9mS+2LYQ4broDtWtzvtLl1Uuxl6BVe3kV1MIj5bLrtF/oFQHyX0D80jE9sT8ybba1f7XfGYIIgWT
+ SUUtkRigUFgy71S+fwsCpFErDZj8aN9q8oW6qHq6rW0D0SYW6KyJiQX2VINPufNxmLGY=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jr0FF-0003GU-54; Thu, 02 Jul 2020 14:31:21 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jr0FE-0005Jt-Rl; Thu, 02 Jul 2020 14:31:20 +0000
+Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
+To: Jan Beulich <jbeulich@suse.com>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
+ <85416128-a334-4640-7504-0865f715b3a2@xen.org>
+ <48c59780-bedb-ff08-723c-be14a9b73e6b@citrix.com>
+ <f2aa4cf9-0689-82c0-cb6c-55d55ecbd5c1@xen.org>
+ <a9a33ba1-b121-5e6f-b74c-7d2a60c84b13@xen.org>
+ <a7187837-495f-56a5-a8d0-635a53ac9234@citrix.com>
+ <95154add-164a-5450-28e1-f24611e1642f@xen.org>
+ <df0aa9b4-d7f7-f909-e833-3f2f3040a2dc@citrix.com>
+ <de298379-43c3-648f-aade-9efc7f761970@xen.org>
+ <8df16863-2207-6747-cf17-f88124927ddb@suse.com>
+ <cf41855b-9e5e-13f2-9ab0-04b98f8b3cdd@xen.org>
+ <75066926-9fe4-1e51-707c-c77c4e6d63ae@suse.com>
+ <3fa0c3e7-9243-b1bb-d6ad-a3bd21437782@xen.org>
+ <0e02a9b5-ba7a-43a2-3369-a4410f216ddb@suse.com>
+ <9a3f4d58-e5ad-c7a1-6c5f-42aa92101ca1@xen.org>
+ <d0165fc3-fb05-2e49-eff3-e45a674b00e1@suse.com>
+ <7f915146-6566-e5a7-14d2-cb2319838562@xen.org>
+ <7ac383c2-0264-cc75-a85b-13c1fdfb0bd6@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <dadeeedd-a9e1-d5f4-4754-8da3f065fd44@xen.org>
+Date: Thu, 2 Jul 2020 15:31:18 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200604183141.32044-1-pbonzini@redhat.com>
+In-Reply-To: <7ac383c2-0264-cc75-a85b-13c1fdfb0bd6@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,196 +79,60 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ luwei.kang@intel.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Jun 04, 2020 at 02:31:41PM -0400, Paolo Bonzini wrote:
-> From: Anthony PERARD <anthony.perard@citrix.com>
-> 
-> Xen PCI passthrough support may not be available and thus the global
-> variable "has_igd_gfx_passthru" might be compiled out. Common code
-> should not access it in that case.
-> 
-> Unfortunately, we can't use CONFIG_XEN_PCI_PASSTHROUGH directly in
-> xen-common.c so this patch instead move access to the
-> has_igd_gfx_passthru variable via function and those functions are
-> also implemented as stubs. The stubs will be used when QEMU is built
-> without passthrough support.
-> 
-> Now, when one will want to enable igd-passthru via the -machine
-> property, they will get an error message if QEMU is built without
-> passthrough support.
-> 
-> Fixes: 46472d82322d0 ('xen: convert "-machine igd-passthru" to an accelerator property')
-> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> Message-Id: <20200603160442.3151170-1-anthony.perard@citrix.com>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-Hi Paul,
 
-Can I backport this patch to qemu-xen-4.14? It allows to build qemu
-without pci passthrough support which seems to be important for FreeBSD
-as PT with QEMU is only available on Linux.
-
-(There's a fix to the patch that I would backport as well. "xen:
-Actually fix build without passthrough")
-
-Thanks.
-
-> ---
->  accel/xen/xen-all.c  |  4 ++--
->  hw/Makefile.objs     |  2 +-
->  hw/i386/pc_piix.c    |  2 +-
->  hw/xen/Makefile.objs |  3 ++-
->  hw/xen/xen_pt.c      | 12 +++++++++++-
->  hw/xen/xen_pt.h      |  6 ++++--
->  hw/xen/xen_pt_stub.c | 22 ++++++++++++++++++++++
->  7 files changed, 43 insertions(+), 8 deletions(-)
->  create mode 100644 hw/xen/xen_pt_stub.c
+On 02/07/2020 15:17, Jan Beulich wrote:
+> On 02.07.2020 16:14, Julien Grall wrote:
+>> On 02/07/2020 14:30, Jan Beulich wrote:
+>>> On 02.07.2020 11:57, Julien Grall wrote:
+>>>> On 02/07/2020 10:18, Jan Beulich wrote:
+>>>>> On 02.07.2020 10:54, Julien Grall wrote:
+>>>>>> On 02/07/2020 09:50, Jan Beulich wrote:
+>>>>>>> On 02.07.2020 10:42, Julien Grall wrote:
+>>>>>>>> On 02/07/2020 09:29, Jan Beulich wrote:
+>>>> Another way to do it, would be the toolstack to do the mapping. At which
+>>>> point, you still need an hypercall to do the mapping (probably the
+>>>> hypercall acquire).
+>>>
+>>> There may not be any mapping to do in such a contrived, fixed-range
+>>> environment. This scenario was specifically to demonstrate that the
+>>> way the mapping gets done may be arch-specific (here: a no-op)
+>>> despite the allocation not being so.
+>> You are arguing on extreme cases which I don't think is really helpful
+>> here. Yes if you want to map at a fixed address in a guest you may not
+>> need the acquire hypercall. But in most of the other cases (see has for
+>> the tools) you will need it.
+>>
+>> So what's the problem with requesting to have the acquire hypercall
+>> implemented in common code?
 > 
-> diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-> index f3edc65ec9..0c24d4b191 100644
-> --- a/accel/xen/xen-all.c
-> +++ b/accel/xen/xen-all.c
-> @@ -137,12 +137,12 @@ static void xen_change_state_handler(void *opaque, int running,
->  
->  static bool xen_get_igd_gfx_passthru(Object *obj, Error **errp)
->  {
-> -    return has_igd_gfx_passthru;
-> +    return xen_igd_gfx_pt_enabled();
->  }
->  
->  static void xen_set_igd_gfx_passthru(Object *obj, bool value, Error **errp)
->  {
-> -    has_igd_gfx_passthru = value;
-> +    xen_igd_gfx_pt_set(value, errp);
->  }
->  
->  static void xen_setup_post(MachineState *ms, AccelState *accel)
-> diff --git a/hw/Makefile.objs b/hw/Makefile.objs
-> index 660e2b4373..4cbe5e4e57 100644
-> --- a/hw/Makefile.objs
-> +++ b/hw/Makefile.objs
-> @@ -35,7 +35,7 @@ devices-dirs-y += usb/
->  devices-dirs-$(CONFIG_VFIO) += vfio/
->  devices-dirs-y += virtio/
->  devices-dirs-y += watchdog/
-> -devices-dirs-y += xen/
-> +devices-dirs-$(CONFIG_XEN) += xen/
->  devices-dirs-$(CONFIG_MEM_DEVICE) += mem/
->  devices-dirs-$(CONFIG_NUBUS) += nubus/
->  devices-dirs-y += semihosting/
-> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-> index eea964e72b..054d3aa9f7 100644
-> --- a/hw/i386/pc_piix.c
-> +++ b/hw/i386/pc_piix.c
-> @@ -377,7 +377,7 @@ static void pc_init_isa(MachineState *machine)
->  #ifdef CONFIG_XEN
->  static void pc_xen_hvm_init_pci(MachineState *machine)
->  {
-> -    const char *pci_type = has_igd_gfx_passthru ?
-> +    const char *pci_type = xen_igd_gfx_pt_enabled() ?
->                  TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE : TYPE_I440FX_PCI_DEVICE;
->  
->      pc_init1(machine,
-> diff --git a/hw/xen/Makefile.objs b/hw/xen/Makefile.objs
-> index 340b2c5096..3fc715e595 100644
-> --- a/hw/xen/Makefile.objs
-> +++ b/hw/xen/Makefile.objs
-> @@ -1,6 +1,7 @@
->  # xen backend driver support
-> -common-obj-$(CONFIG_XEN) += xen-legacy-backend.o xen_devconfig.o xen_pvdev.o xen-bus.o xen-bus-helper.o xen-backend.o
-> +common-obj-y += xen-legacy-backend.o xen_devconfig.o xen_pvdev.o xen-bus.o xen-bus-helper.o xen-backend.o
->  
->  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen-host-pci-device.o
->  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen_pt.o xen_pt_config_init.o xen_pt_graphics.o xen_pt_msi.o
->  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen_pt_load_rom.o
-> +obj-$(call $(lnot, $(CONFIG_XEN_PCI_PASSTHROUGH))) += xen_pt_stub.o
-> diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-> index 81d5ad8da7..ab84443d5e 100644
-> --- a/hw/xen/xen_pt.c
-> +++ b/hw/xen/xen_pt.c
-> @@ -65,7 +65,17 @@
->  #include "qemu/range.h"
->  #include "exec/address-spaces.h"
->  
-> -bool has_igd_gfx_passthru;
-> +static bool has_igd_gfx_passthru;
-> +
-> +bool xen_igd_gfx_pt_enabled(void)
-> +{
-> +    return has_igd_gfx_passthru;
-> +}
-> +
-> +void xen_igd_gfx_pt_set(bool value, Error **errp)
-> +{
-> +    has_igd_gfx_passthru = value;
-> +}
->  
->  #define XEN_PT_NR_IRQS (256)
->  static uint8_t xen_pt_mapped_machine_irq[XEN_PT_NR_IRQS] = {0};
-> diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
-> index 179775db7b..6e9cec95f3 100644
-> --- a/hw/xen/xen_pt.h
-> +++ b/hw/xen/xen_pt.h
-> @@ -5,6 +5,9 @@
->  #include "hw/pci/pci.h"
->  #include "xen-host-pci-device.h"
->  
-> +bool xen_igd_gfx_pt_enabled(void);
-> +void xen_igd_gfx_pt_set(bool value, Error **errp);
-> +
->  void xen_pt_log(const PCIDevice *d, const char *f, ...) GCC_FMT_ATTR(2, 3);
->  
->  #define XEN_PT_ERR(d, _f, _a...) xen_pt_log(d, "%s: Error: "_f, __func__, ##_a)
-> @@ -322,10 +325,9 @@ extern void *pci_assign_dev_load_option_rom(PCIDevice *dev,
->                                              unsigned int domain,
->                                              unsigned int bus, unsigned int slot,
->                                              unsigned int function);
-> -extern bool has_igd_gfx_passthru;
->  static inline bool is_igd_vga_passthrough(XenHostPCIDevice *dev)
->  {
-> -    return (has_igd_gfx_passthru
-> +    return (xen_igd_gfx_pt_enabled()
->              && ((dev->class_code >> 0x8) == PCI_CLASS_DISPLAY_VGA));
->  }
->  int xen_pt_register_vga_regions(XenHostPCIDevice *dev);
-> diff --git a/hw/xen/xen_pt_stub.c b/hw/xen/xen_pt_stub.c
-> new file mode 100644
-> index 0000000000..2d8cac8d54
-> --- /dev/null
-> +++ b/hw/xen/xen_pt_stub.c
-> @@ -0,0 +1,22 @@
-> +/*
-> + * Copyright (C) 2020       Citrix Systems UK Ltd.
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2 or later.
-> + * See the COPYING file in the top-level directory.
-> + */
-> +
-> +#include "qemu/osdep.h"
-> +#include "hw/xen/xen_pt.h"
-> +#include "qapi/error.h"
-> +
-> +bool xen_igd_gfx_pt_enabled(void)
-> +{
-> +    return false;
-> +}
-> +
-> +void xen_igd_gfx_pt_set(bool value, Error **errp)
-> +{
-> +    if (value) {
-> +        error_setg(errp, "Xen PCI passthrough support not built in");
-> +    }
-> +}
-> -- 
-> 2.26.2
-> 
-> 
+> Didn't we start out by you asking that there be as little common code
+> as possible for the time being?
+
+Well as I said I am not in favor of having the allocation in common 
+code, but if you want to keep it then you also want to implement 
+map/unmap in the common code ([1], [2]).
+
+> I have no issue with putting the
+> acquire implementation there ...
+This was definitely not clear given how you argued with extreme cases...
+
+Cheers,
+
+[1] <9a3f4d58-e5ad-c7a1-6c5f-42aa92101ca1@xen.org>
+[2] <cf41855b-9e5e-13f2-9ab0-04b98f8b3cdd@xen.org>
 
 -- 
-Anthony PERARD
+Julien Grall
 
