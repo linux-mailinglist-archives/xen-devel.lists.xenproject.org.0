@@ -2,66 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1211E211F3B
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 10:55:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B871211F5B
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 11:01:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jquzl-0006Hj-Sz; Thu, 02 Jul 2020 08:55:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gpFn=AN=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jquzk-0006He-MN
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 08:55:00 +0000
-X-Inumbo-ID: b5f8bc14-bc41-11ea-bb8b-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b5f8bc14-bc41-11ea-bb8b-bc764e2007e4;
- Thu, 02 Jul 2020 08:55:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Y+hK0IzQPWUcTCbqph1dqrlzmbOv8FUI0IwplOzU5dE=; b=xHqkDZHLeg18xPLBX21Hm851DY
- Cmj70XxrBNQ3bhwU/Ib38V8gulQRsp1zIGtTKKxxvMd9/DbrmP+UP3jQppzYP0AvPEJZZ+Up6ldNc
- XA3H2YeRvs3uBs3UZlUKeDT0RwAfRwtyWmw2joUE9EecEt8w2GNGzswFqqjiPi6Javhg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jquzf-0005N9-DF; Thu, 02 Jul 2020 08:54:55 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jquzf-0003nk-4I; Thu, 02 Jul 2020 08:54:55 +0000
-Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
-To: Jan Beulich <jbeulich@suse.com>
+	id 1jqv5X-00078Y-J1; Thu, 02 Jul 2020 09:00:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gJZC=AN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jqv5V-00078T-JH
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 09:00:57 +0000
+X-Inumbo-ID: 89a459ba-bc42-11ea-87ea-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 89a459ba-bc42-11ea-87ea-12813bfff9fa;
+ Thu, 02 Jul 2020 09:00:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1593680456;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=u/OOQ7QEogZlO8NIoN1DS/EdDXM56LmhZLHwVl9cVBs=;
+ b=WEOpWT3hpCjyXVQpTvqDXEIW0L6dwK43ZCwTat2N/uF0S5okjkigKXHO
+ wIxoKtI6v8yWqnjnKbPRC6dAP3NwgHxwS5xCCMKnwRgjzJ8xb4kKWsjHq
+ YwDQDjZ0SFmw2824MqgBex8grkXJk1f2JFgdyiRmhXxwQYENfu+Y8tdD3 4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: by4ASU/LdoqsYGCBXHu/F+KIfFHDaFiWCruCDUIDIlUofFeGWPhMXON5a4xiAJ1I+vf/gqk5zf
+ en91MWrvUWecEk06jfJWCQEbgseK5xR6d8RvEWEsNE0ZqmnSUS3hdDx3KdSOJ/8jT3K/6fZHRO
+ fflFNGDfBOwOpyDmTEWEHs2ecY6BYERXYtqArhEgnMICXqiWcxNm1yXEYxYyZx6jxpUpaNrm0u
+ 9O8FRCKrr8hGC2CQz9QubPvKZWAG4fckiod3lam302H6PBH2dgUi1A0zgoSs+7THZ4QOPSE6BO
+ r6o=
+X-SBRS: 2.7
+X-MesageID: 21461513
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,303,1589256000"; d="scan'208";a="21461513"
+Date: Thu, 2 Jul 2020 11:00:47 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v4 03/10] tools/libxl: add vmtrace_pt_size parameter
+Message-ID: <20200702090047.GX735@Air-de-Roger>
 References: <cover.1593519420.git.michal.leszczynski@cert.pl>
- <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
- <85416128-a334-4640-7504-0865f715b3a2@xen.org>
- <48c59780-bedb-ff08-723c-be14a9b73e6b@citrix.com>
- <f2aa4cf9-0689-82c0-cb6c-55d55ecbd5c1@xen.org>
- <a9a33ba1-b121-5e6f-b74c-7d2a60c84b13@xen.org>
- <a7187837-495f-56a5-a8d0-635a53ac9234@citrix.com>
- <95154add-164a-5450-28e1-f24611e1642f@xen.org>
- <df0aa9b4-d7f7-f909-e833-3f2f3040a2dc@citrix.com>
- <de298379-43c3-648f-aade-9efc7f761970@xen.org>
- <8df16863-2207-6747-cf17-f88124927ddb@suse.com>
- <cf41855b-9e5e-13f2-9ab0-04b98f8b3cdd@xen.org>
- <75066926-9fe4-1e51-707c-c77c4e6d63ae@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <3fa0c3e7-9243-b1bb-d6ad-a3bd21437782@xen.org>
-Date: Thu, 2 Jul 2020 09:54:52 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+ <5f4f4b1afa432258daff43f2dc8119b6a441fff4.1593519420.git.michal.leszczynski@cert.pl>
 MIME-Version: 1.0
-In-Reply-To: <75066926-9fe4-1e51-707c-c77c4e6d63ae@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5f4f4b1afa432258daff43f2dc8119b6a441fff4.1593519420.git.michal.leszczynski@cert.pl>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +64,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
+Cc: Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
- luwei.kang@intel.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>, luwei.kang@intel.com, Jan
+ Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Tue, Jun 30, 2020 at 02:33:46PM +0200, Michał Leszczyński wrote:
+> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> index 59bdc28c89..7b8289d436 100644
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -92,6 +92,7 @@ struct xen_domctl_createdomain {
+>      uint32_t max_evtchn_port;
+>      int32_t max_grant_frames;
+>      int32_t max_maptrack_frames;
+> +    uint8_t vmtrace_pt_order;
 
+I've been thinking about this, and even though this is a domctl (so
+not a stable interface) we might want to consider using a size (or a
+number of pages) here rather than an order. IPT also supports
+TOPA mode (kind of a linked list of buffers) that would allow for
+sizes not rounded to order boundaries to be used, since then only each
+item in the linked list needs to be rounded to an order boundary, so
+you could for example use three 4K pages in TOPA mode AFAICT.
 
-On 02/07/2020 09:50, Jan Beulich wrote:
-> On 02.07.2020 10:42, Julien Grall wrote:
->> On 02/07/2020 09:29, Jan Beulich wrote:
->>> I'm with Andrew here, fwiw, as long as the little bit of code that
->>> is actually put in common/ or include/xen/ doesn't imply arbitrary
->>> restrictions on acceptable values.
->> Well yes the code is simple. However, the code as it is wouldn't be
->> usuable on other architecture without additional work (aside arch
->> specific code). For instance, there is no way to map the buffer outside
->> of Xen as it is all x86 specific.
->>
->> If you want the allocation to be in the common code, then the
->> infrastructure to map/unmap the buffer should also be in common code.
->> Otherwise, there is no point to allocate it in common.
-> 
-> I don't think I agree here - I see nothing wrong with exposing of
-> the memory being arch specific, when allocation is generic. This
-> is no different from, in just x86, allocation logic being common
-> to PV and HVM, but exposing being different for both.
-
-Are you suggesting that the way it would be exposed may be different for 
-other architecture?
-
-If so, this is one more reason to not impose a way for allocating the 
-buffer in the common code until another arch add support for vmtrace.
-
-Cheers,
-
--- 
-Julien Grall
+Roger.
 
