@@ -2,58 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B85211DC7
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 10:11:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D21AC211DF3
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 10:19:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jquIj-0002Rr-S3; Thu, 02 Jul 2020 08:10:33 +0000
+	id 1jquQn-0002ef-Mx; Thu, 02 Jul 2020 08:18:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gJZC=AN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jquIi-0002Rm-S8
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 08:10:32 +0000
-X-Inumbo-ID: 7f471784-bc3b-11ea-8496-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=bM0n=AN=infradead.org=peterz@srs-us1.protection.inumbo.net>)
+ id 1jquQl-0002ea-CQ
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 08:18:52 +0000
+X-Inumbo-ID: a251df2e-bc3c-11ea-bb8b-bc764e2007e4
+Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7f471784-bc3b-11ea-8496-bc764e2007e4;
- Thu, 02 Jul 2020 08:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1593677432;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=nS9CkHDvm9Fd6ZbiOp3GcRc8ExkVZjAsRFvovRVDDE8=;
- b=h8gwMFfKAb3TYkH2G2MF+P+PJKeepu0YpQ7Az7IEwy6U6eXebJlGFHhh
- Qsqua77/rJ215hnW/0P3JhfkSR8NGEFctUWKzOcUlBRlXOgwF5hiP2MkK
- Jpn6sC5G+8tuuFj/CKCv4sWWJm3EAu8vN6brlpG52+11iiB/VAdkRS5Fy Q=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 8IEfGUwlmj4dBqs+N+FL6caDZBkh0i6YEWCC/Zkbo6ZYTNxtuM7+zPewuWwSuJNsU87AeWfKTz
- ipTegCxhYT/v1Iv/Rm3trXIRO8PgABHJh0FeO3f+QHW/Ekm4hanH/9SBz4FVgYSy6FZOQXek/a
- iQ+gA2nqJBJV8iFlyZ+DXNb5uug0ZQWCRHdB7B/s9hgHpLdY8VsI8VXpWjiQODjqwqBwYU7Orv
- YPh7wOUWhXgfP01dNatS2jDLVg5oPf3p00rykf6jd3lNce03rMjD0Vziwj0stwTGzq6fNHCxrj
- t5o=
-X-SBRS: 2.7
-X-MesageID: 21458305
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,303,1589256000"; d="scan'208";a="21458305"
-Date: Thu, 2 Jul 2020 10:10:20 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
-Message-ID: <20200702081020.GW735@Air-de-Roger>
-References: <cover.1593519420.git.michal.leszczynski@cert.pl>
- <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
- <f935f7f0-30e4-4ba2-588f-a8368a7b93b1@citrix.com>
+ id a251df2e-bc3c-11ea-bb8b-bc764e2007e4;
+ Thu, 02 Jul 2020 08:18:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=B95rbPlWjlDan7UytKGhRhe4eiuia9yaCCRRm9SGDcc=; b=0O81avXCjZeiwbdfkjY5QlweSc
+ OQ1RJ9hkyqKUbu32+ayp8uy/9wwehfsmaa6JgjzTXqrZDwMe7+J+xA6TVJgyB1IizYyvcg7Uqxa54
+ rIfaVVlmjsmzRQNkvd4T961eKkAkBlqBXGyaPKzDdA9vN+hRjG6G7d75lRc5zzbaSch8W70HOCU3Z
+ a9agVIRMnyCH4b8YR0I28/x4345sHesBKM1ejKjKjsuqcAqyRZmAENAMwrAm501XiELmJ968TlWC8
+ y6LOGcle+GcGrL24+mw6FN7w1VaaDJmgRSs6DJxof8IcowO2aKXxCp/5goZG43+T+9PCAmIBQUNKj
+ 7F9v0j+Q==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jquQQ-0005pZ-FU; Thu, 02 Jul 2020 08:18:30 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id C53083003D8;
+ Thu,  2 Jul 2020 10:18:27 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id AA0AE264F8CB2; Thu,  2 Jul 2020 10:18:27 +0200 (CEST)
+Date: Thu, 2 Jul 2020 10:18:27 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v2 0/4] Remove 32-bit Xen PV guest support
+Message-ID: <20200702081827.GA4781@hirez.programming.kicks-ass.net>
+References: <20200701110650.16172-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f935f7f0-30e4-4ba2-588f-a8368a7b93b1@citrix.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <20200701110650.16172-1-jgross@suse.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +60,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, Kevin Tian <kevin.tian@intel.com>, Stefano
- Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, luwei.kang@intel.com,
- Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Deep Shah <sdeep@vmware.com>,
+ "VMware, Inc." <pv-drivers@vmware.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Andy Lutomirski <luto@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ xen-devel@lists.xenproject.org, Thomas Gleixner <tglx@linutronix.de>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jul 01, 2020 at 10:42:55PM +0100, Andrew Cooper wrote:
-> On 30/06/2020 13:33, Michał Leszczyński wrote:
-> > diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-> > index ca94c2bedc..b73d824357 100644
-> > --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> > +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> > @@ -291,6 +291,12 @@ static int vmx_init_vmcs_config(void)
-> >          _vmx_cpu_based_exec_control &=
-> >              ~(CPU_BASED_CR8_LOAD_EXITING | CPU_BASED_CR8_STORE_EXITING);
-> >  
-> > +    rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
-> > +
-> > +    /* Check whether IPT is supported in VMX operation. */
-> > +    vmtrace_supported = cpu_has_ipt &&
-> > +                        (_vmx_misc_cap & VMX_MISC_PT_SUPPORTED);
-> 
-> There is a subtle corner case here.  vmx_init_vmcs_config() is called on
-> all CPUs, and is supposed to level things down safely if we find any
-> asymmetry.
-> 
-> If instead you go with something like this:
-> 
-> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-> index b73d824357..6960109183 100644
-> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> @@ -294,8 +294,8 @@ static int vmx_init_vmcs_config(void)
->      rdmsrl(MSR_IA32_VMX_MISC, _vmx_misc_cap);
->  
->      /* Check whether IPT is supported in VMX operation. */
-> -    vmtrace_supported = cpu_has_ipt &&
-> -                        (_vmx_misc_cap & VMX_MISC_PT_SUPPORTED);
-> +    if ( !(_vmx_misc_cap & VMX_MISC_PT_SUPPORTED) )
-> +        vmtrace_supported = false;
+On Wed, Jul 01, 2020 at 01:06:46PM +0200, Juergen Gross wrote:
+> The long term plan has been to replace Xen PV guests by PVH. The first
+> victim of that plan are now 32-bit PV guests, as those are used only
+> rather seldom these days. Xen on x86 requires 64-bit support and with
+> Grub2 now supporting PVH officially since version 2.04 there is no
+> need to keep 32-bit PV guest support alive in the Linux kernel.
+> Additionally Meltdown mitigation is not available in the kernel running
+> as 32-bit PV guest, so dropping this mode makes sense from security
+> point of view, too.
 
-This is also used during hotplug, so I'm not sure it's safe to turn
-vmtrace_supported off during runtime, where VMs might be already using
-it. IMO it would be easier to just set it on the BSP, and then refuse
-to bring up any AP that doesn't have the feature. TBH I don't think we
-are likely to find any system with such configuration, but seems more
-robust than changing vmtrace_supported at runtime.
-
-Roger.
+Hooray!!! Much thanks!
 
