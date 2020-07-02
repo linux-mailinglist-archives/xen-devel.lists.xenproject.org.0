@@ -2,41 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A61F1212618
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 16:22:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2C31212638
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 16:26:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jr06l-0001AO-LU; Thu, 02 Jul 2020 14:22:35 +0000
+	id 1jr09y-0001JJ-6f; Thu, 02 Jul 2020 14:25:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ftxy=AN=canonical.com=colin.king@srs-us1.protection.inumbo.net>)
- id 1jr06k-0001AJ-Dw
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 14:22:34 +0000
-X-Inumbo-ID: 7786a83c-bc6f-11ea-8496-bc764e2007e4
-Received: from youngberry.canonical.com (unknown [91.189.89.112])
+ <SRS0=WaoH=AN=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jr09w-0001JD-5s
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 14:25:52 +0000
+X-Inumbo-ID: edbdd9da-bc6f-11ea-b7bb-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7786a83c-bc6f-11ea-8496-bc764e2007e4;
- Thu, 02 Jul 2020 14:22:32 +0000 (UTC)
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1jr06Z-0000Sf-K0; Thu, 02 Jul 2020 14:22:23 +0000
-From: Colin King <colin.king@canonical.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- xen-devel@lists.xenproject.org, netdev@vger.kernel.org
-Subject: [PATCH][next] xen-netfront: remove redundant assignment to variable
- 'act'
-Date: Thu,  2 Jul 2020 15:22:23 +0100
-Message-Id: <20200702142223.48178-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.27.0
+ id edbdd9da-bc6f-11ea-b7bb-bc764e2007e4;
+ Thu, 02 Jul 2020 14:25:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1593699950;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=P8qqWwaT3JO4DtYZfTWWgYAYHCkV32cVmUHPjU8krbs=;
+ b=gDndjqABMnKA9vjodQpAg8grWdUjV2QcfHkIaR1hGhsEAMG7qc5wR7mE
+ antLuNKCQ7n6PZMdibvyN6BAX/y4iEwkJC3/bQD6nTaTEMyGW8BYMvWjq
+ QTl70BVmDdcJ63WW+8E0KsegfKJ6a7gGvZIzFZi1Q6WLdNuAtfQ0G3sS2 c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Dck9YdOiChKAkoJYdjmrWBMAMyc5NUpu70ZCutMjgsdLlU9Xl3KAOxhOlMAIYPaypMCDiFfy9F
+ Gp6onPQUk1pU6kN5zrj/2oFnwiHuIqsS7AljGoE6WmAFppou6rqa5+z25T3n8uXqQlTPNgsOd2
+ obIBuVpSL97mRDcINEiyB8y5MCgOgOdKCxLGC4yiOMaFka5dF8pSm8kCp9waMaMbiH3f+aSsOE
+ IQD5hrBme7rwuYe9j+Z79Xjm0wVA+Lr0YieBRjYeqAjZ3qaHWfk98MkYNJ6LMmBWvEgLW6897R
+ USs=
+X-SBRS: 2.7
+X-MesageID: 22307503
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,304,1589256000"; d="scan'208";a="22307503"
+Date: Thu, 2 Jul 2020 15:25:44 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Paul Durrant <paul.durrant@citrix.com>
+Subject: Re: [PATCH v5] xen: fix build without pci passthrough
+Message-ID: <20200702142544.GA2157@perard.uk.xensource.com>
+References: <20200604183141.32044-1-pbonzini@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200604183141.32044-1-pbonzini@redhat.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,36 +60,196 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org,
+ Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+On Thu, Jun 04, 2020 at 02:31:41PM -0400, Paolo Bonzini wrote:
+> From: Anthony PERARD <anthony.perard@citrix.com>
+> 
+> Xen PCI passthrough support may not be available and thus the global
+> variable "has_igd_gfx_passthru" might be compiled out. Common code
+> should not access it in that case.
+> 
+> Unfortunately, we can't use CONFIG_XEN_PCI_PASSTHROUGH directly in
+> xen-common.c so this patch instead move access to the
+> has_igd_gfx_passthru variable via function and those functions are
+> also implemented as stubs. The stubs will be used when QEMU is built
+> without passthrough support.
+> 
+> Now, when one will want to enable igd-passthru via the -machine
+> property, they will get an error message if QEMU is built without
+> passthrough support.
+> 
+> Fixes: 46472d82322d0 ('xen: convert "-machine igd-passthru" to an accelerator property')
+> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Message-Id: <20200603160442.3151170-1-anthony.perard@citrix.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-The variable act is being initialized with a value that is
-never read and it is being updated later with a new value. The
-initialization is redundant and can be removed.
+Hi Paul,
 
-Addresses-Coverity: ("Unused value")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/net/xen-netfront.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Can I backport this patch to qemu-xen-4.14? It allows to build qemu
+without pci passthrough support which seems to be important for FreeBSD
+as PT with QEMU is only available on Linux.
 
-diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
-index 468f3f6f1425..860a0cce346d 100644
---- a/drivers/net/xen-netfront.c
-+++ b/drivers/net/xen-netfront.c
-@@ -856,7 +856,7 @@ static u32 xennet_run_xdp(struct netfront_queue *queue, struct page *pdata,
- {
- 	struct xdp_frame *xdpf;
- 	u32 len = rx->status;
--	u32 act = XDP_PASS;
-+	u32 act;
- 	int err;
- 
- 	xdp->data_hard_start = page_address(pdata);
+(There's a fix to the patch that I would backport as well. "xen:
+Actually fix build without passthrough")
+
+Thanks.
+
+> ---
+>  accel/xen/xen-all.c  |  4 ++--
+>  hw/Makefile.objs     |  2 +-
+>  hw/i386/pc_piix.c    |  2 +-
+>  hw/xen/Makefile.objs |  3 ++-
+>  hw/xen/xen_pt.c      | 12 +++++++++++-
+>  hw/xen/xen_pt.h      |  6 ++++--
+>  hw/xen/xen_pt_stub.c | 22 ++++++++++++++++++++++
+>  7 files changed, 43 insertions(+), 8 deletions(-)
+>  create mode 100644 hw/xen/xen_pt_stub.c
+> 
+> diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
+> index f3edc65ec9..0c24d4b191 100644
+> --- a/accel/xen/xen-all.c
+> +++ b/accel/xen/xen-all.c
+> @@ -137,12 +137,12 @@ static void xen_change_state_handler(void *opaque, int running,
+>  
+>  static bool xen_get_igd_gfx_passthru(Object *obj, Error **errp)
+>  {
+> -    return has_igd_gfx_passthru;
+> +    return xen_igd_gfx_pt_enabled();
+>  }
+>  
+>  static void xen_set_igd_gfx_passthru(Object *obj, bool value, Error **errp)
+>  {
+> -    has_igd_gfx_passthru = value;
+> +    xen_igd_gfx_pt_set(value, errp);
+>  }
+>  
+>  static void xen_setup_post(MachineState *ms, AccelState *accel)
+> diff --git a/hw/Makefile.objs b/hw/Makefile.objs
+> index 660e2b4373..4cbe5e4e57 100644
+> --- a/hw/Makefile.objs
+> +++ b/hw/Makefile.objs
+> @@ -35,7 +35,7 @@ devices-dirs-y += usb/
+>  devices-dirs-$(CONFIG_VFIO) += vfio/
+>  devices-dirs-y += virtio/
+>  devices-dirs-y += watchdog/
+> -devices-dirs-y += xen/
+> +devices-dirs-$(CONFIG_XEN) += xen/
+>  devices-dirs-$(CONFIG_MEM_DEVICE) += mem/
+>  devices-dirs-$(CONFIG_NUBUS) += nubus/
+>  devices-dirs-y += semihosting/
+> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+> index eea964e72b..054d3aa9f7 100644
+> --- a/hw/i386/pc_piix.c
+> +++ b/hw/i386/pc_piix.c
+> @@ -377,7 +377,7 @@ static void pc_init_isa(MachineState *machine)
+>  #ifdef CONFIG_XEN
+>  static void pc_xen_hvm_init_pci(MachineState *machine)
+>  {
+> -    const char *pci_type = has_igd_gfx_passthru ?
+> +    const char *pci_type = xen_igd_gfx_pt_enabled() ?
+>                  TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE : TYPE_I440FX_PCI_DEVICE;
+>  
+>      pc_init1(machine,
+> diff --git a/hw/xen/Makefile.objs b/hw/xen/Makefile.objs
+> index 340b2c5096..3fc715e595 100644
+> --- a/hw/xen/Makefile.objs
+> +++ b/hw/xen/Makefile.objs
+> @@ -1,6 +1,7 @@
+>  # xen backend driver support
+> -common-obj-$(CONFIG_XEN) += xen-legacy-backend.o xen_devconfig.o xen_pvdev.o xen-bus.o xen-bus-helper.o xen-backend.o
+> +common-obj-y += xen-legacy-backend.o xen_devconfig.o xen_pvdev.o xen-bus.o xen-bus-helper.o xen-backend.o
+>  
+>  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen-host-pci-device.o
+>  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen_pt.o xen_pt_config_init.o xen_pt_graphics.o xen_pt_msi.o
+>  obj-$(CONFIG_XEN_PCI_PASSTHROUGH) += xen_pt_load_rom.o
+> +obj-$(call $(lnot, $(CONFIG_XEN_PCI_PASSTHROUGH))) += xen_pt_stub.o
+> diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
+> index 81d5ad8da7..ab84443d5e 100644
+> --- a/hw/xen/xen_pt.c
+> +++ b/hw/xen/xen_pt.c
+> @@ -65,7 +65,17 @@
+>  #include "qemu/range.h"
+>  #include "exec/address-spaces.h"
+>  
+> -bool has_igd_gfx_passthru;
+> +static bool has_igd_gfx_passthru;
+> +
+> +bool xen_igd_gfx_pt_enabled(void)
+> +{
+> +    return has_igd_gfx_passthru;
+> +}
+> +
+> +void xen_igd_gfx_pt_set(bool value, Error **errp)
+> +{
+> +    has_igd_gfx_passthru = value;
+> +}
+>  
+>  #define XEN_PT_NR_IRQS (256)
+>  static uint8_t xen_pt_mapped_machine_irq[XEN_PT_NR_IRQS] = {0};
+> diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
+> index 179775db7b..6e9cec95f3 100644
+> --- a/hw/xen/xen_pt.h
+> +++ b/hw/xen/xen_pt.h
+> @@ -5,6 +5,9 @@
+>  #include "hw/pci/pci.h"
+>  #include "xen-host-pci-device.h"
+>  
+> +bool xen_igd_gfx_pt_enabled(void);
+> +void xen_igd_gfx_pt_set(bool value, Error **errp);
+> +
+>  void xen_pt_log(const PCIDevice *d, const char *f, ...) GCC_FMT_ATTR(2, 3);
+>  
+>  #define XEN_PT_ERR(d, _f, _a...) xen_pt_log(d, "%s: Error: "_f, __func__, ##_a)
+> @@ -322,10 +325,9 @@ extern void *pci_assign_dev_load_option_rom(PCIDevice *dev,
+>                                              unsigned int domain,
+>                                              unsigned int bus, unsigned int slot,
+>                                              unsigned int function);
+> -extern bool has_igd_gfx_passthru;
+>  static inline bool is_igd_vga_passthrough(XenHostPCIDevice *dev)
+>  {
+> -    return (has_igd_gfx_passthru
+> +    return (xen_igd_gfx_pt_enabled()
+>              && ((dev->class_code >> 0x8) == PCI_CLASS_DISPLAY_VGA));
+>  }
+>  int xen_pt_register_vga_regions(XenHostPCIDevice *dev);
+> diff --git a/hw/xen/xen_pt_stub.c b/hw/xen/xen_pt_stub.c
+> new file mode 100644
+> index 0000000000..2d8cac8d54
+> --- /dev/null
+> +++ b/hw/xen/xen_pt_stub.c
+> @@ -0,0 +1,22 @@
+> +/*
+> + * Copyright (C) 2020       Citrix Systems UK Ltd.
+> + *
+> + * This work is licensed under the terms of the GNU GPL, version 2 or later.
+> + * See the COPYING file in the top-level directory.
+> + */
+> +
+> +#include "qemu/osdep.h"
+> +#include "hw/xen/xen_pt.h"
+> +#include "qapi/error.h"
+> +
+> +bool xen_igd_gfx_pt_enabled(void)
+> +{
+> +    return false;
+> +}
+> +
+> +void xen_igd_gfx_pt_set(bool value, Error **errp)
+> +{
+> +    if (value) {
+> +        error_setg(errp, "Xen PCI passthrough support not built in");
+> +    }
+> +}
+> -- 
+> 2.26.2
+> 
+> 
+
 -- 
-2.27.0
-
+Anthony PERARD
 
