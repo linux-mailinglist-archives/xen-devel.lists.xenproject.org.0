@@ -2,54 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D21AC211DF3
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 10:19:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F8A211ED3
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 10:30:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jquQn-0002ef-Mx; Thu, 02 Jul 2020 08:18:53 +0000
+	id 1jquas-0003Xd-NF; Thu, 02 Jul 2020 08:29:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bM0n=AN=infradead.org=peterz@srs-us1.protection.inumbo.net>)
- id 1jquQl-0002ea-CQ
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 08:18:52 +0000
-X-Inumbo-ID: a251df2e-bc3c-11ea-bb8b-bc764e2007e4
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bBDp=AN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jquar-0003XY-4g
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 08:29:17 +0000
+X-Inumbo-ID: 1d808780-bc3e-11ea-bca7-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a251df2e-bc3c-11ea-bb8b-bc764e2007e4;
- Thu, 02 Jul 2020 08:18:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=B95rbPlWjlDan7UytKGhRhe4eiuia9yaCCRRm9SGDcc=; b=0O81avXCjZeiwbdfkjY5QlweSc
- OQ1RJ9hkyqKUbu32+ayp8uy/9wwehfsmaa6JgjzTXqrZDwMe7+J+xA6TVJgyB1IizYyvcg7Uqxa54
- rIfaVVlmjsmzRQNkvd4T961eKkAkBlqBXGyaPKzDdA9vN+hRjG6G7d75lRc5zzbaSch8W70HOCU3Z
- a9agVIRMnyCH4b8YR0I28/x4345sHesBKM1ejKjKjsuqcAqyRZmAENAMwrAm501XiELmJ968TlWC8
- y6LOGcle+GcGrL24+mw6FN7w1VaaDJmgRSs6DJxof8IcowO2aKXxCp/5goZG43+T+9PCAmIBQUNKj
- 7F9v0j+Q==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jquQQ-0005pZ-FU; Thu, 02 Jul 2020 08:18:30 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id C53083003D8;
- Thu,  2 Jul 2020 10:18:27 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id AA0AE264F8CB2; Thu,  2 Jul 2020 10:18:27 +0200 (CEST)
-Date: Thu, 2 Jul 2020 10:18:27 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2 0/4] Remove 32-bit Xen PV guest support
-Message-ID: <20200702081827.GA4781@hirez.programming.kicks-ass.net>
-References: <20200701110650.16172-1-jgross@suse.com>
+ id 1d808780-bc3e-11ea-bca7-bc764e2007e4;
+ Thu, 02 Jul 2020 08:29:16 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6EF7FADC1;
+ Thu,  2 Jul 2020 08:29:15 +0000 (UTC)
+Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
+To: Julien Grall <julien@xen.org>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
+ <85416128-a334-4640-7504-0865f715b3a2@xen.org>
+ <48c59780-bedb-ff08-723c-be14a9b73e6b@citrix.com>
+ <f2aa4cf9-0689-82c0-cb6c-55d55ecbd5c1@xen.org>
+ <a9a33ba1-b121-5e6f-b74c-7d2a60c84b13@xen.org>
+ <a7187837-495f-56a5-a8d0-635a53ac9234@citrix.com>
+ <95154add-164a-5450-28e1-f24611e1642f@xen.org>
+ <df0aa9b4-d7f7-f909-e833-3f2f3040a2dc@citrix.com>
+ <de298379-43c3-648f-aade-9efc7f761970@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <8df16863-2207-6747-cf17-f88124927ddb@suse.com>
+Date: Thu, 2 Jul 2020 10:29:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200701110650.16172-1-jgross@suse.com>
+In-Reply-To: <de298379-43c3-648f-aade-9efc7f761970@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,25 +54,55 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Deep Shah <sdeep@vmware.com>,
- "VMware, Inc." <pv-drivers@vmware.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Andy Lutomirski <luto@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel@lists.xenproject.org, Thomas Gleixner <tglx@linutronix.de>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ luwei.kang@intel.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jul 01, 2020 at 01:06:46PM +0200, Juergen Gross wrote:
-> The long term plan has been to replace Xen PV guests by PVH. The first
-> victim of that plan are now 32-bit PV guests, as those are used only
-> rather seldom these days. Xen on x86 requires 64-bit support and with
-> Grub2 now supporting PVH officially since version 2.04 there is no
-> need to keep 32-bit PV guest support alive in the Linux kernel.
-> Additionally Meltdown mitigation is not available in the kernel running
-> as 32-bit PV guest, so dropping this mode makes sense from security
-> point of view, too.
+On 01.07.2020 20:09, Julien Grall wrote:
+> On 01/07/2020 19:06, Andrew Cooper wrote:
+>> On 01/07/2020 19:02, Julien Grall wrote:
+>>> On 01/07/2020 18:26, Andrew Cooper wrote:
+>>>> For the sake of what is literally just one byte in common code, I stand
+>>>> my original suggestion of this being a common interface.  It is not
+>>>> something which should be x86 specific.
+>>>
+>>> This argument can also be used against putting in common code. What I
+>>> am the most concern of is we are trying to guess how the interface
+>>> will look like for another architecture. Your suggested interface may
+>>> work, but this also may end up to be a complete mess.
+>>>
+>>> So I think we want to wait for a new architecture to use vmtrace
+>>> before moving to common code. This is not going to be a massive effort
+>>> to move that bit in common if needed.
+>>
+>> I suggest you read the series.
+> 
+> Already went through the series and ...
+> 
+>>
+>> The only thing in common code is the bit of the interface saying "I'd
+>> like buffers this big please".
+> 
+> ... I stand by my point. There is no need to have this code in common 
+> code until someone else need it. This code can be easily implemented in 
+> arch_domain_create().
 
-Hooray!!! Much thanks!
+I'm with Andrew here, fwiw, as long as the little bit of code that
+is actually put in common/ or include/xen/ doesn't imply arbitrary
+restrictions on acceptable values. For example, unless there is
+proof that for all architectures of interest currently or in the
+not too distant future an order value is fine (as opposed to a
+size one), then an order field would be fine to live in common
+code imo. Otherwise it would need to be a size one, with per-arch
+enforcement of further imposed restrictions (like needing to be a
+power of 2).
+
+Jan
 
