@@ -2,47 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7EE8211F0E
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 10:42:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FA38211F0F
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 10:42:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqunQ-0005BR-49; Thu, 02 Jul 2020 08:42:16 +0000
+	id 1jqunf-0005Cf-Ca; Thu, 02 Jul 2020 08:42:31 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DrmV=AN=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jqunP-0005BM-7z
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 08:42:15 +0000
-X-Inumbo-ID: ec634ca9-bc3f-11ea-87e7-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=gpFn=AN=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jqund-0005CU-Os
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 08:42:29 +0000
+X-Inumbo-ID: f5b3a0be-bc3f-11ea-87e7-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ec634ca9-bc3f-11ea-87e7-12813bfff9fa;
- Thu, 02 Jul 2020 08:42:12 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1F618B1CD;
- Thu,  2 Jul 2020 08:42:12 +0000 (UTC)
-Subject: Re: [PATCH v2] xen/displif: Protocol version 2
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "wl@xen.org" <wl@xen.org>
-References: <20200701071923.18883-1-andr2000@gmail.com>
- <dffd127d-c5a1-4c77-baa8-f1d931145bc4@suse.com>
- <b5a6e034-4d52-d6b2-7c14-3c44c4a19cc3@epam.com>
- <e442e4d9-fe79-7f65-c196-2a0a35923492@suse.com>
- <f50ec904-8cb2-2bd6-c3ba-35e8c44bd607@epam.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <be21be56-ea1b-e558-6905-a6cb3e5e4849@suse.com>
-Date: Thu, 2 Jul 2020 10:42:11 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ id f5b3a0be-bc3f-11ea-87e7-12813bfff9fa;
+ Thu, 02 Jul 2020 08:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=yfT+oahe/46NccK0dDGyKo1XTGX8UPZpGTv+Gg35fdw=; b=rBUepNvWQ7zM5sUErrKVC24Fuc
+ /idCYDhp2PRy3hcL8fYSai/QmFL06Fx5KTM8ppZyJC4vmIdTTwiRY3kJ94/7Ih+or8SkOzw6jBuCt
+ ZQKH70N/UDUnq5WKbVwp7sxqmKvDUyNXgqPFgnjfW4CeFi4VCAKxrt1yknSIhsFATeKI=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jqunX-00058v-Cq; Thu, 02 Jul 2020 08:42:23 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jqunX-0003KB-3v; Thu, 02 Jul 2020 08:42:23 +0000
+Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
+To: Jan Beulich <jbeulich@suse.com>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
+ <85416128-a334-4640-7504-0865f715b3a2@xen.org>
+ <48c59780-bedb-ff08-723c-be14a9b73e6b@citrix.com>
+ <f2aa4cf9-0689-82c0-cb6c-55d55ecbd5c1@xen.org>
+ <a9a33ba1-b121-5e6f-b74c-7d2a60c84b13@xen.org>
+ <a7187837-495f-56a5-a8d0-635a53ac9234@citrix.com>
+ <95154add-164a-5450-28e1-f24611e1642f@xen.org>
+ <df0aa9b4-d7f7-f909-e833-3f2f3040a2dc@citrix.com>
+ <de298379-43c3-648f-aade-9efc7f761970@xen.org>
+ <8df16863-2207-6747-cf17-f88124927ddb@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <cf41855b-9e5e-13f2-9ab0-04b98f8b3cdd@xen.org>
+Date: Thu, 2 Jul 2020 09:42:19 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <f50ec904-8cb2-2bd6-c3ba-35e8c44bd607@epam.com>
+In-Reply-To: <8df16863-2207-6747-cf17-f88124927ddb@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -54,66 +71,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ luwei.kang@intel.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 02.07.20 09:59, Oleksandr Andrushchenko wrote:
-> 
-> On 7/2/20 10:20 AM, Jürgen Groß wrote:
->> On 01.07.20 14:07, Oleksandr Andrushchenko wrote:
->>> On 7/1/20 1:46 PM, Jürgen Groß wrote:
->>>> On 01.07.20 09:19, Oleksandr Andrushchenko wrote:
->>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>>
->>>>> 1. Add protocol version as an integer
->>>>>
->>>>> Version string, which is in fact an integer, is hard to handle in the
->>>>> code that supports different protocol versions. To simplify that
->>>>> also add the version as an integer.
->>>>>
->>>>> 2. Pass buffer offset with XENDISPL_OP_DBUF_CREATE
->>>>>
->>>>> There are cases when display data buffer is created with non-zero
->>>>> offset to the data start. Handle such cases and provide that offset
->>>>> while creating a display buffer.
->>>>>
->>>>> 3. Add XENDISPL_OP_GET_EDID command
->>>>>
->>>>> Add an optional request for reading Extended Display Identification
->>>>> Data (EDID) structure which allows better configuration of the
->>>>> display connectors over the configuration set in XenStore.
->>>>> With this change connectors may have multiple resolutions defined
->>>>> with respect to detailed timing definitions and additional properties
->>>>> normally provided by displays.
->>>>>
->>>>> If this request is not supported by the backend then visible area
->>>>> is defined by the relevant XenStore's "resolution" property.
->>>>>
->>>>> If backend provides extended display identification data (EDID) with
->>>>> XENDISPL_OP_GET_EDID request then EDID values must take precedence
->>>>> over the resolutions defined in XenStore.
->>>>>
->>>>> 4. Bump protocol version to 2.
->>>>>
->>>>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Hi Jan,
+
+On 02/07/2020 09:29, Jan Beulich wrote:
+> On 01.07.2020 20:09, Julien Grall wrote:
+>> On 01/07/2020 19:06, Andrew Cooper wrote:
+>>> On 01/07/2020 19:02, Julien Grall wrote:
+>>>> On 01/07/2020 18:26, Andrew Cooper wrote:
+>>>>> For the sake of what is literally just one byte in common code, I stand
+>>>>> my original suggestion of this being a common interface.  It is not
+>>>>> something which should be x86 specific.
 >>>>
->>>> Reviewed-by: Juergen Gross <jgross@suse.com>
+>>>> This argument can also be used against putting in common code. What I
+>>>> am the most concern of is we are trying to guess how the interface
+>>>> will look like for another architecture. Your suggested interface may
+>>>> work, but this also may end up to be a complete mess.
+>>>>
+>>>> So I think we want to wait for a new architecture to use vmtrace
+>>>> before moving to common code. This is not going to be a massive effort
+>>>> to move that bit in common if needed.
 >>>
->>> Thank you, do you want me to prepare the same for the kernel so
->>>
->>> you have it at hand when the time comes?
+>>> I suggest you read the series.
 >>
->> It should be added to the kernel only when really needed (i.e. a user of
->> the new functionality is showing up).
+>> Already went through the series and ...
+>>
+>>>
+>>> The only thing in common code is the bit of the interface saying "I'd
+>>> like buffers this big please".
+>>
+>> ... I stand by my point. There is no need to have this code in common
+>> code until someone else need it. This code can be easily implemented in
+>> arch_domain_create().
 > 
-> We have a patch for that which adds EDID to the existing PV DRM frontend,
-> 
-> so while upstreaming those changes I will also include changes to the protocol
-> 
-> in the kernel series: for that we need the header in Xen tree first, right?
+> I'm with Andrew here, fwiw, as long as the little bit of code that
+> is actually put in common/ or include/xen/ doesn't imply arbitrary
+> restrictions on acceptable values.
+Well yes the code is simple. However, the code as it is wouldn't be 
+usuable on other architecture without additional work (aside arch 
+specific code). For instance, there is no way to map the buffer outside 
+of Xen as it is all x86 specific.
 
-Yes.
+If you want the allocation to be in the common code, then the 
+infrastructure to map/unmap the buffer should also be in common code. 
+Otherwise, there is no point to allocate it in common.
 
+Cheers,
 
-Juergen
+-- 
+Julien Grall
 
