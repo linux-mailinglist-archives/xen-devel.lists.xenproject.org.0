@@ -2,68 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D023621206F
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 11:58:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8C821211B
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 12:25:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jqvxz-0002zq-HK; Thu, 02 Jul 2020 09:57:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gpFn=AN=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jqvxx-0002zi-Qy
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 09:57:13 +0000
-X-Inumbo-ID: 6723a104-bc4a-11ea-bca7-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6723a104-bc4a-11ea-bca7-bc764e2007e4;
- Thu, 02 Jul 2020 09:57:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1cUWloNbnqqp/ee/lmLi98KIuvnU6uDG752B/uPOq+8=; b=feyerl8EXeOAC/zSBT3+FNhU7x
- QWAA9kCYUXBj1K85EXss9jksRtJgma1HRm52DB97jMiNwt31mhfJDlxPpqNMgbwRmP5yJ5Xyjdyhk
- ucroEcZcT+DX7OfCFEuUatRSKgi6WE7S8UiNmSyedBFYg3b6fcV9yoInjm4IYKyrsr1k=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jqvxr-0006WA-Ny; Thu, 02 Jul 2020 09:57:07 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jqvxr-0007ZV-Ej; Thu, 02 Jul 2020 09:57:07 +0000
-Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
-To: Jan Beulich <jbeulich@suse.com>
+	id 1jqwOs-0005ge-Qh; Thu, 02 Jul 2020 10:25:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WaoH=AN=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jqwOr-0005gZ-NG
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 10:25:01 +0000
+X-Inumbo-ID: 4804b00c-bc4e-11ea-87f7-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4804b00c-bc4e-11ea-87f7-12813bfff9fa;
+ Thu, 02 Jul 2020 10:24:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1593685499;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=G0Aqljya8yX75ne1DuCuJKaJD8hBtukZv46lpc2ZS+I=;
+ b=IQIi5QNGuawiu6sLimTgT2syzohUNvkJ6+HhVbIMZ7ymmlxou6WEnLS2
+ vfwas3axN+ujAiHtBvURnseT/6sy3nc/8LmZgl8YWOEB3cYWTVGI+oBb3
+ 1A9/Vh5eRKyFuymI8cX/kL712sO+fltDxhkFbEEaKWiLOOXFstXkV5buE 8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: C1t6oVau5SRudcj+lU3bEdnJyf/GtsyoZmseUbLLjUYqW9nfxM0GBgIaw1OkoQgT+MIb81x8Y0
+ 7qB7rTlsA6TPUWeZd6S1NdhdUljh4slxKmZht0wLQ71w13IQGawnSsQ2Flkqem1ZU/zyCM0tWs
+ M7HNFHPHwgjc7h+x3TxRLUex+G98+uoB2zMjUtXqgNwvLawCHJQwFmLmQD7n+q0n86bmo0a52g
+ Bruw7UvayaKJrURTg96E1OHT8KjIGlO6Rkktqi35IEFbITTlY8HUARVgmyoHltwCs/1WYYbqMM
+ kQs=
+X-SBRS: 2.7
+X-MesageID: 21787128
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,304,1589256000"; d="scan'208";a="21787128"
+Date: Thu, 2 Jul 2020 11:24:33 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v4 03/10] tools/libxl: add vmtrace_pt_size parameter
+Message-ID: <20200702102433.GE2030@perard.uk.xensource.com>
 References: <cover.1593519420.git.michal.leszczynski@cert.pl>
- <7302dbfcd07dfaad9e50bb772673e588fcc4de67.1593519420.git.michal.leszczynski@cert.pl>
- <85416128-a334-4640-7504-0865f715b3a2@xen.org>
- <48c59780-bedb-ff08-723c-be14a9b73e6b@citrix.com>
- <f2aa4cf9-0689-82c0-cb6c-55d55ecbd5c1@xen.org>
- <a9a33ba1-b121-5e6f-b74c-7d2a60c84b13@xen.org>
- <a7187837-495f-56a5-a8d0-635a53ac9234@citrix.com>
- <95154add-164a-5450-28e1-f24611e1642f@xen.org>
- <df0aa9b4-d7f7-f909-e833-3f2f3040a2dc@citrix.com>
- <de298379-43c3-648f-aade-9efc7f761970@xen.org>
- <8df16863-2207-6747-cf17-f88124927ddb@suse.com>
- <cf41855b-9e5e-13f2-9ab0-04b98f8b3cdd@xen.org>
- <75066926-9fe4-1e51-707c-c77c4e6d63ae@suse.com>
- <3fa0c3e7-9243-b1bb-d6ad-a3bd21437782@xen.org>
- <0e02a9b5-ba7a-43a2-3369-a4410f216ddb@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <9a3f4d58-e5ad-c7a1-6c5f-42aa92101ca1@xen.org>
-Date: Thu, 2 Jul 2020 10:57:04 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+ <5f4f4b1afa432258daff43f2dc8119b6a441fff4.1593519420.git.michal.leszczynski@cert.pl>
 MIME-Version: 1.0
-In-Reply-To: <0e02a9b5-ba7a-43a2-3369-a4410f216ddb@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5f4f4b1afa432258daff43f2dc8119b6a441fff4.1593519420.git.michal.leszczynski@cert.pl>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,80 +62,116 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, tamas.lengyel@intel.com,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ tamas.lengyel@intel.com, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
- luwei.kang@intel.com, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>, luwei.kang@intel.com,
+ Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+Hi Michał,
 
-On 02/07/2020 10:18, Jan Beulich wrote:
-> On 02.07.2020 10:54, Julien Grall wrote:
->>
->>
->> On 02/07/2020 09:50, Jan Beulich wrote:
->>> On 02.07.2020 10:42, Julien Grall wrote:
->>>> On 02/07/2020 09:29, Jan Beulich wrote:
->>>>> I'm with Andrew here, fwiw, as long as the little bit of code that
->>>>> is actually put in common/ or include/xen/ doesn't imply arbitrary
->>>>> restrictions on acceptable values.
->>>> Well yes the code is simple. However, the code as it is wouldn't be
->>>> usuable on other architecture without additional work (aside arch
->>>> specific code). For instance, there is no way to map the buffer outside
->>>> of Xen as it is all x86 specific.
->>>>
->>>> If you want the allocation to be in the common code, then the
->>>> infrastructure to map/unmap the buffer should also be in common code.
->>>> Otherwise, there is no point to allocate it in common.
->>>
->>> I don't think I agree here - I see nothing wrong with exposing of
->>> the memory being arch specific, when allocation is generic. This
->>> is no different from, in just x86, allocation logic being common
->>> to PV and HVM, but exposing being different for both.
->>
->> Are you suggesting that the way it would be exposed may be different for
->> other architecture?
+On Tue, Jun 30, 2020 at 02:33:46PM +0200, Michał Leszczyński wrote:
+> From: Michal Leszczynski <michal.leszczynski@cert.pl>
 > 
-> Why not? To take a possibly extreme example - consider an arch
-> where (for bare metal) the buffer is specified to appear at a
-> fixed range of addresses.
-
-I am probably missing something here... The current goal is the buffer 
-will be mapped in the dom0. Most likely the way to map it will be using 
-the acquire hypercall (unless you invent a brand new one...).
-
-For a guest, you could possibly reserve a fixed range and then map it 
-when creating the vCPU in Xen. But then, you will likely want a fixed 
-size... So why would you bother to ask the user to define the size?
-
-Another way to do it, would be the toolstack to do the mapping. At which 
-point, you still need an hypercall to do the mapping (probably the 
-hypercall acquire).
-
+> Allow to specify the size of per-vCPU trace buffer upon
+> domain creation. This is zero by default (meaning: not enabled).
 > 
->> If so, this is one more reason to not impose a way for allocating the
->> buffer in the common code until another arch add support for vmtrace.
+> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
+> ---
 > 
-> I'm still not seeing why allocation and exposure need to be done
-> at the same place.
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index 0532739c1f..78f434b722 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -278,6 +278,16 @@ memory=8096 will report significantly less memory available for use
+>  than a system with maxmem=8096 memory=8096 due to the memory overhead
+>  of having to track the unused pages.
+>  
+> +=item B<vmtrace_pt_size=BYTES>
 
-If I were going to add support for CoreSight on Arm, then the acquire 
-hypercall is likely going to be the way to go for mapping the resource 
-in the tools. At which point this will need to be common.
+I don't like much this new configuration name. To me, "pt" sound like
+passthrough, as in pci passthrough. But it seems to be for "processor
+trace" (or tracing), isn't it? So if it is, then we have "trace" twice
+in the name and I don't think that configuration is about tracing the
+processor tracing feature. (Also I don't think we need to state "vm" in
+the name easier as every configuration option should be about a vm.)
 
-I am still not entirely happy to define the interface yet, but this 
-would still be better than trying to make the allocation in common code 
-and the leaving the mapping aside. After all, this is a "little bit" 
-more code.
+How about a name that is easier to understand without having to know all
+the possible abbreviations? Maybe "processor_trace_buffer_size" or
+similar?
 
-Cheers,
+> +
+> +Specifies the size of processor trace buffer that would be allocated
+> +for each vCPU belonging to this domain. Disabled (i.e. B<vmtrace_pt_size=0>
+> +by default. This must be set to non-zero value in order to be able to
+> +use processor tracing features with this domain.
+> +
+> +B<NOTE>: The size value must be between 4 kB and 4 GB and it must
+> +be also a power of 2.
+
+Maybe the configuration variable could take KBYTES for kilo-bytes
+instead of just BYTES since the min is 4kB?
+
+Also that item seems to be in the "Memory Allocation" section, but I
+don't think that's a good place as the other options are for the size of
+guest RAM. I don't know in which section this would be better but maybe
+"Other Options" would be OK.
+
+>  =back
+>  
+>  =head3 Guest Virtual NUMA Configuration
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index 61b4ef7b7e..4eba224590 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -1861,6 +1861,26 @@ void parse_config_data(const char *config_source,
+>          }
+>      }
+>  
+> +    if (!xlu_cfg_get_long(config, "vmtrace_pt_size", &l, 1) && l) {
+> +        int32_t shift = 0;
+> +
+> +        if (l & (l - 1))
+> +        {
+> +            fprintf(stderr, "ERROR: pt buffer size must be a power of 2\n");
+
+It would be better to state the option name in the error message.
+
+> +            exit(1);
+> +        }
+> +
+> +        while (l >>= 1) ++shift;
+> +
+> +        if (shift <= XEN_PAGE_SHIFT)
+> +        {
+> +            fprintf(stderr, "ERROR: too small pt buffer\n");
+> +            exit(1);
+> +        }
+> +
+> +        b_info->vmtrace_pt_order = shift - XEN_PAGE_SHIFT;
+> +    }
+> +
+>      if (!xlu_cfg_get_list(config, "ioports", &ioports, &num_ioports, 0)) {
+>          b_info->num_ioports = num_ioports;
+>          b_info->ioports = calloc(num_ioports, sizeof(*b_info->ioports));
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 0a33e0dfd6..27dcfbac8c 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> index 59bdc28c89..7b8289d436 100644
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+
+I don't think it's wise to modify the toolstack, the hypervisor, and the
+hypercall ABI in the same patch. Can you change this last two files in a
+separate patch?
+
+Thank you,
 
 -- 
-Julien Grall
+Anthony PERARD
 
