@@ -2,74 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC8CA212946
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 18:24:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B71B7212AFE
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jul 2020 19:13:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jr20Q-0003dY-0i; Thu, 02 Jul 2020 16:24:10 +0000
+	id 1jr2l9-0007ge-LJ; Thu, 02 Jul 2020 17:12:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=c/Sk=AN=cert.pl=michall@srs-us1.protection.inumbo.net>)
- id 1jr20O-0003dT-BD
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 16:24:08 +0000
-X-Inumbo-ID: 735438ea-bc80-11ea-bb8b-bc764e2007e4
-Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ (envelope-from <SRS0=gpFn=AN=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jr2l8-0007gZ-SP
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2020 17:12:26 +0000
+X-Inumbo-ID: 33bb30ec-bc87-11ea-bca7-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 735438ea-bc80-11ea-bb8b-bc764e2007e4;
- Thu, 02 Jul 2020 16:24:07 +0000 (UTC)
-Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id E306CA3090;
- Thu,  2 Jul 2020 18:24:05 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id CBE9FA300A;
- Thu,  2 Jul 2020 18:24:04 +0200 (CEST)
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id go5xOBPgBZZb; Thu,  2 Jul 2020 18:24:04 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 4FE7BA3090;
- Thu,  2 Jul 2020 18:24:04 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
-Received: from bagnar.nask.net.pl ([127.0.0.1])
- by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id xbCvnvvTXBNC; Thu,  2 Jul 2020 18:24:04 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
- [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 13D4CA300A;
- Thu,  2 Jul 2020 18:24:04 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id E2D4F22DE9;
- Thu,  2 Jul 2020 18:23:33 +0200 (CEST)
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id I6vpVB927P65; Thu,  2 Jul 2020 18:23:28 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 71D1722E11;
- Thu,  2 Jul 2020 18:23:28 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
-Received: from belindir.nask.net.pl ([127.0.0.1])
- by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id MHEpN4-fX64b; Thu,  2 Jul 2020 18:23:28 +0200 (CEST)
-Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
- by belindir.nask.net.pl (Postfix) with ESMTP id 47A5522DE9;
- Thu,  2 Jul 2020 18:23:28 +0200 (CEST)
-Date: Thu, 2 Jul 2020 18:23:28 +0200 (CEST)
-From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-To: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
-Message-ID: <1505813895.18300396.1593707008144.JavaMail.zimbra@cert.pl>
-In-Reply-To: <20200702090047.GX735@Air-de-Roger>
-References: <cover.1593519420.git.michal.leszczynski@cert.pl>
- <5f4f4b1afa432258daff43f2dc8119b6a441fff4.1593519420.git.michal.leszczynski@cert.pl>
- <20200702090047.GX735@Air-de-Roger>
-Subject: Re: [PATCH v4 03/10] tools/libxl: add vmtrace_pt_size parameter
+ id 33bb30ec-bc87-11ea-bca7-bc764e2007e4;
+ Thu, 02 Jul 2020 17:12:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=qKo7l4ukOyqKEr2gEJ9D1gjkDyTo7aBp5+6VSKv82mw=; b=bigzbg0EmeDBNW3p+PxVkqW2P0
+ r+G4d2srdbMWFnsYZktryPyjY1oT1AID96HFJKmqGmITtxxXxCPH3kfqTdyr3V47S+yFEqAPnmFiL
+ JnR0y4t1kZGhS3EyrnRfhyJB1DJxerLw9bMjexudtGfzZ8OlOOfM+IEuTAFf/+NfV8BU=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jr2l8-0006m5-4Z; Thu, 02 Jul 2020 17:12:26 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jr2l7-0001L7-Sn; Thu, 02 Jul 2020 17:12:26 +0000
+Subject: Re: [Xen ARM64] Save coredump log when xen/dom0 crash on ARM64?
+To: jinchen <jinchen1227@qq.com>, xen-devel <xen-devel@lists.xenproject.org>
+References: <tencent_F424A8312298D36ED25612607EF4BC341B0A@qq.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <94415ba8-53de-c294-36f6-0290bfb0bc83@xen.org>
+Date: Thu, 2 Jul 2020 18:12:24 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.16.10.10]
-X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - FF77 (Linux)/8.6.0_GA_1194)
-Thread-Topic: tools/libxl: add vmtrace_pt_size parameter
-Thread-Index: 5q6wqdKAf9z93k0C4h0wD+I0N+vYmQ==
+In-Reply-To: <tencent_F424A8312298D36ED25612607EF4BC341B0A@qq.com>
+Content-Type: text/plain; charset=gb18030; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,49 +60,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- tamas lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, luwei kang <luwei.kang@intel.com>,
- Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
------ 2 lip 2020 o 11:00, Roger Pau Monn=C3=A9 roger.pau@citrix.com napisa=
-=C5=82(a):
+Hello,
 
-> On Tue, Jun 30, 2020 at 02:33:46PM +0200, Micha=C5=82 Leszczy=C5=84ski wr=
-ote:
->> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
->> index 59bdc28c89..7b8289d436 100644
->> --- a/xen/include/public/domctl.h
->> +++ b/xen/include/public/domctl.h
->> @@ -92,6 +92,7 @@ struct xen_domctl_createdomain {
->>      uint32_t max_evtchn_port;
->>      int32_t max_grant_frames;
->>      int32_t max_maptrack_frames;
->> +    uint8_t vmtrace_pt_order;
->=20
-> I've been thinking about this, and even though this is a domctl (so
-> not a stable interface) we might want to consider using a size (or a
-> number of pages) here rather than an order. IPT also supports
-> TOPA mode (kind of a linked list of buffers) that would allow for
-> sizes not rounded to order boundaries to be used, since then only each
-> item in the linked list needs to be rounded to an order boundary, so
-> you could for example use three 4K pages in TOPA mode AFAICT.
->=20
-> Roger.
+On 02/07/2020 02:41, jinchen wrote:
+> Hello xen experts:
+> 
+> Is there any way to save xen and dom0 core dump log when xen or dom0 
+> crash on ARM64 platform?
 
-In previous versions it was "size" but it was requested to change it
-to "order" in order to shrink the variable size from uint64_t to
-uint8_t, because there is limited space for xen_domctl_createdomain
-structure.
+Usually all the crash stack trace (Xen and Dom0) should be output on the 
+Xen Console.
 
-How should I proceed?
+>      I find that the kdump seems can't run on ARM64 platform?
 
-Best regards,
-Micha=C5=82 Leszczy=C5=84ski
-CERT Polska
+We don't have support for kdump/kexec on Arm in Xen yet.
+
+>      Are there any patches or other way to achive this goal?
+
+I am not aware of any patches, but they would be welcomed.
+
+For other way, it depends what exactly you expect. Do you need more than 
+the stack trace?
+
+Cheers,
+
+-- 
+Julien Grall
 
