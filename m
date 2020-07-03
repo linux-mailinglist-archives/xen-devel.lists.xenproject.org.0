@@ -2,55 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD073213742
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 11:09:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AD2F213744
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 11:09:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrHgQ-0005In-Gw; Fri, 03 Jul 2020 09:08:34 +0000
+	id 1jrHgU-0005Iz-PD; Fri, 03 Jul 2020 09:08:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rI2g=AO=virtuozzo.com=vsementsov@srs-us1.protection.inumbo.net>)
- id 1jrHgO-0005Ii-M2
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 09:08:33 +0000
-X-Inumbo-ID: c384f2be-bd0c-11ea-8952-12813bfff9fa
+ id 1jrHgT-0005Ii-H7
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 09:08:37 +0000
+X-Inumbo-ID: c4b43b68-bd0c-11ea-8952-12813bfff9fa
 Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
  [40.107.14.123]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c384f2be-bd0c-11ea-8952-12813bfff9fa;
- Fri, 03 Jul 2020 09:08:31 +0000 (UTC)
+ id c4b43b68-bd0c-11ea-8952-12813bfff9fa;
+ Fri, 03 Jul 2020 09:08:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C4AY0Ep0XMLvWjRbcvX1CzIra9cp56MtaTbTkGCacPsBPUtsXqWHjhEng5DOHajT2JfvusRniNfXriwwZa+Evf+TBAOIbYbM4QzlBugVXPx1UZF3jx/VT57NgbZ9h/jnwLp2DfAUyfxHoLeDEKdokVM8XeiLkypOEMQ0t4LekteDQNPNXqW2Nwwm8VGfGrSBfPC6JGk/q3yIVzb3PeMZtZO9ZNqBq/+w820d80QUvJu78IibQqLI2nPGc83IMiYNgwLzlQHV8MVG5EldE6gCjpbYgeSTFC7/XaP1qwRzWIUEoRorpNmvEq6N61GNFViHrbQ56w1uoXRaO9Zn4gjuNg==
+ b=PG75k+Ti7TRubwqEaO8gSY94vwbW7S+bDjZ537tvQvfdICuTL7ozIvER5SmyIsp6xbkn/Zppr4SG1sy/2wjtZkwUAFbhyvxHwf3oENnkXUyTVrum7TSu47AR9dSteFqqTU+9a0hF0fso0mwOpkNlP2ZTZ/T46TapmK+OZ0g7fpLwq9V6s7ndgUVR59H+3FsaXUuKWtQ842tX3/VFpPfWarLDaA2/jPHieCPogQRCVDH5q5LQye2YX0dEWYDLVZroB/ftRcLOO6DI3dC6ARE9WcxJTzf47fHSLzU2s9ugUC7VpcvcFNPJ3AgxNXEDSoxc7TpnjPetLY+ufEJnBZ/IAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q16QWkpMwIuNHc3KdZv/XpoCCAtL9O/q/HdoKTKbv4Q=;
- b=jgGwE0S2HBzoHY8CDSUWHqrNfdYpaYUXC+KQNWpbnKeTbn7F+G9YN+mPxqnksPbxVtejGpREGlQ/f7mdL4TEewFeDPgQZ9WwqJFSqunp/nYGSxmfw5a9PjLw5c2VFN9CJUIy1YR5MiP6h1Ypj2rLqN+E5XFYC80uCsy0IVonw8uOV3Rhc3gOH5NtxgH0BA5+GbDhdyHQvdL+P1Vx7eunhtvwAsKJAQaRPn2yCGzkNeoVaK2d5NeQOhQ7wi1OlQsq8Ju862TEmSSmtssSaIIiS6JqAAIZ7pq9GCuYJmIApR7JdRPMpzHhOrHQfQ2YF5srgPqLvIKuwgAtHagU3PTfsQ==
+ bh=xfHSVlIo44tg6W+pIWSY0xjOo9Pxh+Mei6mpQ0bwGBI=;
+ b=hfPRJtx8r8PeEjR/UnHIt4VrpuTkD5v+YQ6J1bYNuxkJhRj/nWuCwzMDf56F/n2Fm/qenz2eren1svMqpug8wPdn3uPcZpwCdeqvn3aQc5VKtM3QYurZ5hTDb6G8rcvd38DKWSvwjaxsZI2Rk0c1a8GgPxzIhNZP3F4snAkFRjTD6qBlUXlwuBpJeR/UtgW9O69eMZPlYmSOVrc6mgT2c9g8goshsxtXZHcagwTMQJU/TdwEWwdFiyBKLT60mt5j5Lkzme4XQ+js+OfgFd5xnRluRGYfShD9QjeDXDyAPuGiOvbgOTq7lTOzOWelOjbf4+2BtALDTwcfCoIlOFvMUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
  header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q16QWkpMwIuNHc3KdZv/XpoCCAtL9O/q/HdoKTKbv4Q=;
- b=LunQVUgnTaclkBF4I6nnQE+IFmN4OaxCnrkfTE3FeMAItn8A9u9KlmU/ye510QzOmG3UiyyGdumNGnZLmZ6ttTDA0uj70i4ZA9qYsOoz8m1ESgtLRMB8rUD5cdAx/BvHaqpVuNETkq1lnx5TAUOlZ85mD4+OsjdyjhC064G5zus=
+ bh=xfHSVlIo44tg6W+pIWSY0xjOo9Pxh+Mei6mpQ0bwGBI=;
+ b=I/zt7nZIKaKbYh5fzHlsIrXpH/QWCYg8H75OfNqP/KwfjJw3Yp7BvjYAcH1vW0rGfY+u2q+xroNqJqFHjqMy4rek6QZY9OU3JMWlET8kKTX+hS9zeeWt41pcqCCsOJs8thnk/251sTIEGCqMHd9O/c7BUMcSUYFeGKWdRFLqF9k=
 Authentication-Results: nongnu.org; dkim=none (message not signed)
  header.d=none;nongnu.org; dmarc=none action=none header.from=virtuozzo.com;
 Received: from AM7PR08MB5494.eurprd08.prod.outlook.com (2603:10a6:20b:dc::15)
  by AM7PR08MB5448.eurprd08.prod.outlook.com (2603:10a6:20b:106::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.28; Fri, 3 Jul
- 2020 09:08:29 +0000
+ 2020 09:08:31 +0000
 Received: from AM7PR08MB5494.eurprd08.prod.outlook.com
  ([fe80::a408:2f0f:bc6c:d312]) by AM7PR08MB5494.eurprd08.prod.outlook.com
  ([fe80::a408:2f0f:bc6c:d312%4]) with mapi id 15.20.3131.028; Fri, 3 Jul 2020
- 09:08:29 +0000
+ 09:08:31 +0000
 From: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
 To: qemu-devel@nongnu.org
-Subject: [PATCH v11 0/8] error: auto propagated local_err part I
-Date: Fri,  3 Jul 2020 12:08:08 +0300
-Message-Id: <20200703090816.3295-1-vsementsov@virtuozzo.com>
+Subject: [PATCH v11 1/8] error: auto propagated local_err
+Date: Fri,  3 Jul 2020 12:08:09 +0300
+Message-Id: <20200703090816.3295-2-vsementsov@virtuozzo.com>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20200703090816.3295-1-vsementsov@virtuozzo.com>
+References: <20200703090816.3295-1-vsementsov@virtuozzo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ClientProxiedBy: AM0PR10CA0022.EURPRD10.PROD.OUTLOOK.COM
@@ -62,34 +64,34 @@ Received: from localhost.localdomain (185.215.60.15) by
  AM0PR10CA0022.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:17c::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.23 via Frontend
- Transport; Fri, 3 Jul 2020 09:08:28 +0000
+ Transport; Fri, 3 Jul 2020 09:08:29 +0000
 X-Mailer: git-send-email 2.21.0
 X-Originating-IP: [185.215.60.15]
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1bd17e35-e055-464a-5372-08d81f30a715
+X-MS-Office365-Filtering-Correlation-Id: 223dc08a-cc50-47bf-3d53-08d81f30a7d8
 X-MS-TrafficTypeDiagnostic: AM7PR08MB5448:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <AM7PR08MB5448B4D9C641AAAE72A3A7E7C16A0@AM7PR08MB5448.eurprd08.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:549;
+X-Microsoft-Antispam-PRVS: <AM7PR08MB544893CD56056C56E2F94BF3C16A0@AM7PR08MB5448.eurprd08.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-Forefront-PRVS: 045315E1EE
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: L04HZ2pvo4FC4jRzJH8NlD47x6lKD5S+585bh7ZI9JBj3eB4TIc0PMyV8Q8msmfKLyK7roNEiqOfxB+gnhogaDtjnXGrJ+pubtnDggQzg53VjevKWAWdjb6PoRlnxYuLicjLP9DJqaRHeEzuo+L/K2Mxoxvo/MWeJD1YiarU4e1DHgIKMpGruGudnUHzpAdoUv4R5wLu08cdATQEBIHcD1ox+D0T4i2UEepDWif3GGJTBH3JzSGkthYoOZXVkhJg8KkQsB2T/v5d/3nBhSMhHff13aYoiq+2u/nDUcHZ72Pylx0mlTVUn5kJpkzrPehqk1hBQEm8NuEG01lHb8vH3rfi0G3eM9s1Hk1p79VTTX0GeCLUyLBfL2MoT16V6Ipc8gsgx+UwwLZcyPHkBuYkzw==
+X-Microsoft-Antispam-Message-Info: 1jbAEV1m1poFTYrkwpLSbN/kErl6G+bZeWohFVMoDtJNGWXm+Fmt8INoJVrgbeNzuGwWqhP1f+VL+NLOqdG/MIwyr5n1gRElbKtMMHFc0QnGXNl7RhfVKv1J30ODZzSa057Rm4CDUh9uFSbfCODxQBTDr14ILdf2J3AylZFy/74YjGHUf0+ydR5UKH3b0qh5yke4Ay76gA1vPxH5PcobrkFu6A+iSpuiLP5xeJtrRnG17eBOkFYEvR+HTPLrVCPOLjEZ1xR/tQqf+UeEGuxNeapz/cOGYbzfNzF1+nGrT445yXAjEEEGHRgIyeuc8XUDywLbKr8unsXxoxHWstIaKA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM7PR08MB5494.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39840400004)(366004)(376002)(136003)(396003)(346002)(66946007)(66476007)(66556008)(966005)(2906002)(86362001)(1076003)(8676002)(83380400001)(6512007)(5660300002)(8936002)(6666004)(186003)(36756003)(4326008)(6506007)(16526019)(6486002)(6916009)(7416002)(26005)(478600001)(956004)(52116002)(316002)(54906003)(2616005);
+ SFS:(4636009)(39840400004)(366004)(376002)(136003)(396003)(346002)(66946007)(66476007)(66556008)(2906002)(86362001)(1076003)(30864003)(8676002)(83380400001)(6512007)(5660300002)(8936002)(6666004)(186003)(36756003)(4326008)(6506007)(16526019)(6486002)(6916009)(7416002)(26005)(478600001)(956004)(52116002)(316002)(54906003)(2616005);
  DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData: VB1dOkt/mh/DTF47kWkSm6T8zoiTIA0e7iYdoDje8lqTMTtTx33rQE1gttsV68xNybs3cKHdNWAJ4BTiEQsqW9nhOUfuY6OS8LOIKqJDeZxT6l+4NeCw7s1E8IUdCScAsCYBZghDbiw/jiTKnN6WhshK6Ohk1v3JmuLMVtSIz1DLOwrgZSnIETkkQY0SwnxZHDQAILD7IJ/epaPeWGG//Cj3ut6oX4RZnl4ECJADPm8DFK2wO8fyksb0RZiy6CgbOJV3Yuq9ZcljN895dCtn56h67nGKRbXapRZJYqqK7p2qwMPCGtjvFbqzPF6WkAiphxVswlhIN96t2GM00a+52jC+gSO9aXZU1nCXJxmne96rhnz9rDjkr65wF83kM8sVpiFrv1q4h2RiPj6AOSAi8TisjwQJPiU8aVMV+Km/WCPWbZ5u+0JHadyvMVd2zEB1inbewhjxWES8hxQ7hE+rKD+SmMU10qKuap8kzDd65yu5LBbUYPgWls+KhDfVVnWR
+X-MS-Exchange-AntiSpam-MessageData: fBGiTrHrwuLh8rYAW6i0mZhe63DX/yN3XNiwlSHSCF1LLcQ9lxm8ZfeULw1gDejcYxvN4+hpD4TasCQh15+YOlOGqwdwXOpcp5qt07a/Gm6oR+RG57SY2Q52UhLyjpqT2hUDAB+ozFKHdIcG3SMpGhMFcosYuGJEyrrDeGYXNQQF0dBmreU4yY2b7eGhMgRVXNaOynDARbsEEF/NzzvpUce86vYIU4QFTuW5Bo6AHCfs0q3+wc3ubGq0TWdOCE7nhl0aN+x/rqIKbNhxeMZkONHPQ/YYQFzEiL3e+inVjizx5t+L4R4d5ojypXmb18kbhTfXhLdtM+HKpa5YYD0IUtEooxSUOznzm8vHEJfEnnPOiZtOsakFNnVEvyHQNpckpVQYPxGSrFZw/JMf5OjaL+UUpK1+0ItBgj93br0QGGLMgoLA32D0UJC8KO78mxdVtvbvSTQKtGGr7NDt3ht4drWSmWtD6klUgrn9YBbzjpA=
 X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bd17e35-e055-464a-5372-08d81f30a715
+X-MS-Exchange-CrossTenant-Network-Message-Id: 223dc08a-cc50-47bf-3d53-08d81f30a7d8
 X-MS-Exchange-CrossTenant-AuthSource: AM7PR08MB5494.eurprd08.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2020 09:08:29.6213 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2020 09:08:30.9515 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tBVLwEgyFYNMa7oBcYgz6QK7YVU2CMRv33TIjpQ6dRQIAHbDNFc0aSI5YV1cFtWHwosuu19fqWa0Dv2DJmnGPKORWKMg/FqtU2LeCqcj7is=
+X-MS-Exchange-CrossTenant-UserPrincipalName: kGsMQcAU8WJFwLq3H2143YQ8NIIaOwmWlgKU86XBdnn75rmxrPIoYGyZlzhEwQLh71Bgd6E4FSlDKvBqIciCuD45B5qLaix0G8cAbFTyygY=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR08MB5448
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -106,95 +108,46 @@ Cc: Kevin Wolf <kwolf@redhat.com>, vsementsov@virtuozzo.com,
  Paul Durrant <paul@xen.org>,
  =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
  Christian Schoenebeck <qemu_oss@crudebyte.com>, armbru@redhat.com,
- Max Reitz <mreitz@redhat.com>, groug@kaod.org,
- Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>,
+ groug@kaod.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
  Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- eblake@redhat.com, Michael Roth <mdroth@linux.vnet.ibm.com>
+ Max Reitz <mreitz@redhat.com>, eblake@redhat.com,
+ Michael Roth <mdroth@linux.vnet.ibm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Based-on: <20200702155000.3455325-1-armbru@redhat.com>
+Introduce a new ERRP_AUTO_PROPAGATE macro, to be used at start of
+functions with an errp OUT parameter.
 
-v11: (based-on "[PATCH v2 00/44] Less clumsy error checking")
-01: minor rebase of documentation, keep r-bs
-02: - minor comment tweaks [Markus]
-    - use explicit file name in MAINTAINERS instead of pattern
-    - add Markus's r-b
-03,07,08: rabase changes, drop r-bs
+It has three goals:
 
+1. Fix issue with error_fatal and error_prepend/error_append_hint: user
+can't see this additional information, because exit() happens in
+error_setg earlier than information is added. [Reported by Greg Kurz]
 
-v11 is available at
- https://src.openvz.org/scm/~vsementsov/qemu.git #tag up-auto-local-err-partI-v11
-v10 is available at
- https://src.openvz.org/scm/~vsementsov/qemu.git #tag up-auto-local-err-partI-v10
+2. Fix issue with error_abort and error_propagate: when we wrap
+error_abort by local_err+error_propagate, the resulting coredump will
+refer to error_propagate and not to the place where error happened.
+(the macro itself doesn't fix the issue, but it allows us to [3.] drop
+the local_err+error_propagate pattern, which will definitely fix the
+issue) [Reported by Kevin Wolf]
 
-In these series, there is no commit-per-subsystem script, each generated
-commit is generated in separate.
+3. Drop local_err+error_propagate pattern, which is used to workaround
+void functions with errp parameter, when caller wants to know resulting
+status. (Note: actually these functions could be merely updated to
+return int error code).
 
-Still, generating commands are very similar, and looks like
+To achieve these goals, later patches will add invocations
+of this macro at the start of functions with either use
+error_prepend/error_append_hint (solving 1) or which use
+local_err+error_propagate to check errors, switching those
+functions to use *errp instead (solving 2 and 3).
 
-    sed -n '/^<Subsystem name>$/,/^$/{s/^F: //p}' MAINTAINERS | \
-    xargs git ls-files | grep '\.[hc]$' | \
-    xargs spatch \
-        --sp-file scripts/coccinelle/auto-propagated-errp.cocci \
-        --macro-file scripts/cocci-macro-file.h \
-        --in-place --no-show-diff --max-width 80
-
-Note, that in each generated commit, generation command is the only
-text, indented by 8 spaces in 'git log -1' output, so, to regenerate all
-commits (for example, after rebase, or change in coccinelle script), you
-may use the following command:
-
-git rebase -x "sh -c \"git show --pretty= --name-only | xargs git checkout HEAD^ -- ; git reset; git log -1 | grep '^        ' | sh\"" HEAD~6
-
-Which will start automated interactive rebase for generated patches,
-which will stop if generated patch changed
-(you may do git commit --amend to apply updated generated changes).
-
-Note:
-  git show --pretty= --name-only   - lists files, changed in HEAD
-  git log -1 | grep '^        ' | sh   - rerun generation command of HEAD
-
-
-Check for compilation of changed .c files
-git rebase -x "sh -c \"git show --pretty= --name-only | sed -n 's/\.c$/.o/p' | xargs make -j9\"" HEAD~6
-
-Vladimir Sementsov-Ogievskiy (8):
-  error: auto propagated local_err
-  scripts: Coccinelle script to use ERRP_AUTO_PROPAGATE()
-  SD (Secure Card): introduce ERRP_AUTO_PROPAGATE
-  pflash: introduce ERRP_AUTO_PROPAGATE
-  fw_cfg: introduce ERRP_AUTO_PROPAGATE
-  virtio-9p: introduce ERRP_AUTO_PROPAGATE
-  nbd: introduce ERRP_AUTO_PROPAGATE
-  xen: introduce ERRP_AUTO_PROPAGATE
-
- scripts/coccinelle/auto-propagated-errp.cocci | 337 ++++++++++++++++++
- include/block/nbd.h                           |   1 +
- include/qapi/error.h                          | 208 +++++++++--
- block/nbd.c                                   |   7 +-
- hw/9pfs/9p-local.c                            |  12 +-
- hw/9pfs/9p.c                                  |   1 +
- hw/block/dataplane/xen-block.c                |  17 +-
- hw/block/pflash_cfi01.c                       |   7 +-
- hw/block/pflash_cfi02.c                       |   7 +-
- hw/block/xen-block.c                          | 102 +++---
- hw/nvram/fw_cfg.c                             |  14 +-
- hw/pci-host/xen_igd_pt.c                      |   7 +-
- hw/sd/sdhci-pci.c                             |   7 +-
- hw/sd/sdhci.c                                 |  21 +-
- hw/sd/ssi-sd.c                                |  10 +-
- hw/xen/xen-backend.c                          |   7 +-
- hw/xen/xen-bus.c                              |  92 ++---
- hw/xen/xen-host-pci-device.c                  |  27 +-
- hw/xen/xen_pt.c                               |  25 +-
- hw/xen/xen_pt_config_init.c                   |  17 +-
- nbd/client.c                                  |   5 +
- nbd/server.c                                  |   5 +
- MAINTAINERS                                   |   1 +
- 23 files changed, 690 insertions(+), 247 deletions(-)
- create mode 100644 scripts/coccinelle/auto-propagated-errp.cocci
+Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Reviewed-by: Greg Kurz <groug@kaod.org>
+Reviewed-by: Eric Blake <eblake@redhat.com>
+---
 
 Cc: Eric Blake <eblake@redhat.com>
 Cc: Kevin Wolf <kwolf@redhat.com>
@@ -214,6 +167,263 @@ Cc: qemu-devel@nongnu.org
 Cc: qemu-block@nongnu.org
 Cc: xen-devel@lists.xenproject.org
 
+ include/qapi/error.h | 205 ++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 172 insertions(+), 33 deletions(-)
+
+diff --git a/include/qapi/error.h b/include/qapi/error.h
+index 5ceb3ace06..b54aedbfd7 100644
+--- a/include/qapi/error.h
++++ b/include/qapi/error.h
+@@ -39,7 +39,7 @@
+  *   • pointer-valued functions return non-null / null pointer, and
+  *   • integer-valued functions return non-negative / negative.
+  *
+- * How to:
++ * = Deal with Error object =
+  *
+  * Create an error:
+  *     error_setg(errp, "situation normal, all fouled up");
+@@ -73,28 +73,91 @@
+  * reporting it (primarily useful in testsuites):
+  *     error_free_or_abort(&err);
+  *
+- * Pass an existing error to the caller:
+- *     error_propagate(errp, err);
+- * where Error **errp is a parameter, by convention the last one.
++ * = Deal with Error ** function parameter =
+  *
+- * Pass an existing error to the caller with the message modified:
+- *     error_propagate_prepend(errp, err);
++ * A function may use the error system to return errors. In this case, the
++ * function defines an Error **errp parameter, by convention the last one (with
++ * exceptions for functions using ... or va_list).
+  *
+- * Avoid
+- *     error_propagate(errp, err);
+- *     error_prepend(errp, "Could not frobnicate '%s': ", name);
+- * because this fails to prepend when @errp is &error_fatal.
++ * The caller may then pass in the following errp values:
++ *
++ * 1. &error_abort
++ *    Any error will result in abort().
++ * 2. &error_fatal
++ *    Any error will result in exit() with a non-zero status.
++ * 3. NULL
++ *    No error reporting through errp parameter.
++ * 4. The address of a NULL-initialized Error *err
++ *    Any error will populate errp with an error object.
+  *
+- * Create a new error and pass it to the caller:
++ * The following rules then implement the correct semantics desired by the
++ * caller.
++ *
++ * Create a new error to pass to the caller:
+  *     error_setg(errp, "situation normal, all fouled up");
+  *
+- * Call a function and receive an error from it:
++ * Calling another errp-based function:
++ *     f(..., errp);
++ *
++ * == Checking success of subcall ==
++ *
++ * If a function returns a value indicating an error in addition to setting
++ * errp (which is recommended), then you don't need any additional code, just
++ * do:
++ *
++ *     int ret = f(..., errp);
++ *     if (ret < 0) {
++ *         ... handle error ...
++ *         return ret;
++ *     }
++ *
++ * If a function returns nothing (not recommended for new code), the only way
++ * to check success is by consulting errp; doing this safely requires the use
++ * of the ERRP_AUTO_PROPAGATE macro, like this:
++ *
++ *     int our_func(..., Error **errp) {
++ *         ERRP_AUTO_PROPAGATE();
++ *         ...
++ *         subcall(..., errp);
++ *         if (*errp) {
++ *             ...
++ *             return -EINVAL;
++ *         }
++ *         ...
++ *     }
++ *
++ * ERRP_AUTO_PROPAGATE takes care of wrapping the original errp as needed, so
++ * that the rest of the function can directly use errp (including
++ * dereferencing), where any errors will then be propagated on to the original
++ * errp when leaving the function.
++ *
++ * In some cases, we need to check result of subcall, but do not want to
++ * propagate the Error object to our caller. In such cases we don't need
++ * ERRP_AUTO_PROPAGATE, but just a local Error object:
++ *
++ * Receive an error and not pass it:
+  *     Error *err = NULL;
+- *     foo(arg, &err);
++ *     subcall(arg, &err);
+  *     if (err) {
+  *         handle the error...
++ *         error_free(err);
+  *     }
+  *
++ * Note that older code that did not use ERRP_AUTO_PROPAGATE would instead need
++ * a local Error * variable and the use of error_propagate() to properly handle
++ * all possible caller values of errp. Now this is DEPRECATED* (see below).
++ *
++ * Note that any function that wants to modify an error object, such as by
++ * calling error_append_hint or error_prepend, must use ERRP_AUTO_PROPAGATE, in
++ * order for a caller's use of &error_fatal to see the additional information.
++ *
++ * In rare cases, we need to pass existing Error object to the caller by hand:
++ *     error_propagate(errp, err);
++ *
++ * Pass an existing error to the caller with the message modified:
++ *     error_propagate_prepend(errp, err);
++ *
++ *
+  * Call a function ignoring errors:
+  *     foo(arg, NULL);
+  *
+@@ -104,26 +167,6 @@
+  * Call a function treating errors as fatal:
+  *     foo(arg, &error_fatal);
+  *
+- * Receive an error and pass it on to the caller:
+- *     Error *err = NULL;
+- *     foo(arg, &err);
+- *     if (err) {
+- *         handle the error...
+- *         error_propagate(errp, err);
+- *     }
+- * where Error **errp is a parameter, by convention the last one.
+- *
+- * Do *not* "optimize" this to
+- *     foo(arg, errp);
+- *     if (*errp) { // WRONG!
+- *         handle the error...
+- *     }
+- * because errp may be NULL!
+- *
+- * But when all you do with the error is pass it on, please use
+- *     foo(arg, errp);
+- * for readability.
+- *
+  * Receive and accumulate multiple errors (first one wins):
+  *     Error *err = NULL, *local_err = NULL;
+  *     foo(arg, &err);
+@@ -151,6 +194,61 @@
+  *         error_setg(&err, ...); // WRONG!
+  *     }
+  * because this may pass a non-null err to error_setg().
++ *
++ * DEPRECATED*
++ *
++ * The following pattern of receiving, checking, and then forwarding an error
++ * to the caller by hand is now deprecated:
++ *
++ *     Error *err = NULL;
++ *     foo(arg, &err);
++ *     if (err) {
++ *         handle the error...
++ *         error_propagate(errp, err);
++ *     }
++ *
++ * Instead, use ERRP_AUTO_PROPAGATE macro.
++ *
++ * The old pattern is deprecated because of two things:
++ *
++ * 1. Issue with error_abort and error_propagate: when we wrap error_abort by
++ * local_err+error_propagate, the resulting coredump will refer to
++ * error_propagate and not to the place where error happened.
++ *
++ * 2. A lot of extra code of the same pattern
++ *
++ * How to update old code to use ERRP_AUTO_PROPAGATE?
++ *
++ * All you need is to add ERRP_AUTO_PROPAGATE() invocation at function start,
++ * than you may safely dereference errp to check errors and do not need any
++ * additional local Error variables or calls to error_propagate().
++ *
++ * Example:
++ *
++ * old code
++ *
++ *     void fn(..., Error **errp) {
++ *         Error *err = NULL;
++ *         foo(arg, &err);
++ *         if (err) {
++ *             handle the error...
++ *             error_propagate(errp, err);
++ *             return;
++ *         }
++ *         ...
++ *     }
++ *
++ * updated code
++ *
++ *     void fn(..., Error **errp) {
++ *         ERRP_AUTO_PROPAGATE();
++ *         foo(arg, errp);
++ *         if (*errp) {
++ *             handle the error...
++ *             return;
++ *         }
++ *         ...
++ *     }
+  */
+ 
+ #ifndef ERROR_H
+@@ -359,6 +457,47 @@ void error_set_internal(Error **errp,
+                         ErrorClass err_class, const char *fmt, ...)
+     GCC_FMT_ATTR(6, 7);
+ 
++typedef struct ErrorPropagator {
++    Error *local_err;
++    Error **errp;
++} ErrorPropagator;
++
++static inline void error_propagator_cleanup(ErrorPropagator *prop)
++{
++    error_propagate(prop->errp, prop->local_err);
++}
++
++G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(ErrorPropagator, error_propagator_cleanup);
++
++/*
++ * ERRP_AUTO_PROPAGATE
++ *
++ * This macro exists to assist with proper error handling in a function which
++ * uses an Error **errp parameter.  It must be used as the first line of a
++ * function which modifies an error (with error_prepend, error_append_hint, or
++ * similar) or which wants to dereference *errp.  It is still safe (but
++ * useless) to use in other functions.
++ *
++ * If errp is NULL or points to error_fatal, it is rewritten to point to a
++ * local Error object, which will be automatically propagated to the original
++ * errp on function exit (see error_propagator_cleanup).
++ *
++ * After invocation of this macro it is always safe to dereference errp
++ * (as it's not NULL anymore) and to add information by error_prepend or
++ * error_append_hint (as, if it was error_fatal, we swapped it with a
++ * local_error to be propagated on cleanup).
++ *
++ * Note: we don't wrap the error_abort case, as we want resulting coredump
++ * to point to the place where the error happened, not to error_propagate.
++ */
++#define ERRP_AUTO_PROPAGATE() \
++    g_auto(ErrorPropagator) _auto_errp_prop = {.errp = errp}; \
++    do { \
++        if (!errp || errp == &error_fatal) { \
++            errp = &_auto_errp_prop.local_err; \
++        } \
++    } while (0)
++
+ /*
+  * Special error destination to abort on error.
+  * See error_setg() and error_propagate() for details.
 -- 
 2.21.0
 
