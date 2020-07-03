@@ -2,62 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D521213E65
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 19:16:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF08F213FAB
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 20:52:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrPIK-0005We-Ds; Fri, 03 Jul 2020 17:16:12 +0000
+	id 1jrQmH-00054e-Ho; Fri, 03 Jul 2020 18:51:13 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x5eZ=AO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jrPII-0005WZ-Vo
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 17:16:11 +0000
-X-Inumbo-ID: e3172130-bd50-11ea-8a05-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=XYi7=AO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jrQmF-00054E-Mj
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 18:51:11 +0000
+X-Inumbo-ID: 247ea6f4-bd5e-11ea-8a25-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e3172130-bd50-11ea-8a05-12813bfff9fa;
- Fri, 03 Jul 2020 17:16:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1593796571;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=dqeiGuK5cYVNFmkGldspUWwR9pAfBDVSylO2ZhDXxgA=;
- b=OboNHorrDLyxTT03ZvD66t3/9cUXj0SP2+xwxrHH02xnomyJir6d6i50
- HlVF0RLj556zgUO80pdX8uaYpnGkN00FjUkE4aT+abvihgfRWpA6Sn/ZU
- Sx5JF22LzD4nVUgs4oFXEbLWzxvy+LeSX99cDdkwD7YQX6BJgzbF9y1Hq 4=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: Wmjh8XanJ46odrm8NoGJflxLrYjP3hhL6XwFpCOGk+igvaFduGuN3NR99lPlmnofEXknmtK5yj
- mwzzdR267dX4eqgtColQf885PR+XTcgtUzCf82Mt1LA8qqfWWE254d1aH161crac2N1+PkIEN6
- wreuB3wIIqvAcUFETs2YmxbDlJ4sGPI+Yeshdyq6/EprEzutj1L7lcvj25/3tjJ+lw4TSd+04W
- xIozewpd6O9j6mWYLM7dpXhA+kAcYIDXJqv5VzNXdBnnYImLbofcLHVKwymQFkU87HH8zq1SYK
- Onk=
-X-SBRS: 2.7
-X-MesageID: 21581824
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,308,1589256000"; d="scan'208";a="21581824"
-Subject: Re: FSGSBASE seems to be busted on Xen PV
-To: Andy Lutomirski <luto@kernel.org>, xen-devel
- <xen-devel@lists.xenproject.org>, LKML <linux-kernel@vger.kernel.org>,
- Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>, "Boris
- Ostrovsky" <boris.ostrovsky@oracle.com>
-References: <CALCETrVfi1Rnt5nnrHNivdxE7MqRPiLXvon4-engqo=LCKiojA@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <e78d2ee5-66cf-2ed8-c04f-71dd92efdfe1@citrix.com>
-Date: Fri, 3 Jul 2020 18:16:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <CALCETrVfi1Rnt5nnrHNivdxE7MqRPiLXvon4-engqo=LCKiojA@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+ id 247ea6f4-bd5e-11ea-8a25-12813bfff9fa;
+ Fri, 03 Jul 2020 18:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To:Sender:
+ Reply-To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=aVPZoKjOV4KRjVP2Dcp7wlHyH7EDJBzFQCiPX07Smz4=; b=xgFAGKhnd966jXxhLJPs8sCZLN
+ vsX/9XsAIwB3Kw0IMZh/SoaXfOvmy+UnmXM7WPOZwwUDLf8IzPPY/YRaTAFMd44NoiJqAtfrXFR2U
+ NVbokVtqmOFPMzv+YzgMx9M1nl0py5CSluDKUhCEniJA8mm2f3fjeMtXL+7Frwa7LMdo=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jrQm6-0005pj-3d; Fri, 03 Jul 2020 18:51:02 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jrQm5-0007QM-Kv; Fri, 03 Jul 2020 18:51:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jrQm5-0000FM-KM; Fri, 03 Jul 2020 18:51:01 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [qemu-mainline bisection] complete
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict
+Message-Id: <E1jrQm5-0000FM-KM@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 03 Jul 2020 18:51:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,42 +57,204 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: X86 ML <x86@kernel.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03/07/2020 18:10, Andy Lutomirski wrote:
-> Hi Xen folks-
->
-> I did some testing of the upcoming Linux FSGSBASE support on Xen PV,
-> and I found what appears to be some significant bugs in the Xen
-> context switching code.  These bugs are causing Linux selftest
-> failures, and they could easily cause random and hard-to-debug
-> failures of user programs that use the new instructions in a Xen PV
-> guest.
->
-> The bugs seem to boil down to the context switching code in Xen being
-> clever and trying to guess that a nonzero FS or GS means that the
-> segment base must match the in-memory descriptor.  This is simply not
-> true if CR4.FSGSBASE is set -- the bases can have any canonical value,
-> under the full control of the guest, and Xen has absolutely no way of
-> knowing whether the values are expected to be in sync with the
-> selectors.  (The same is true of FSGSBASE except that guest funny
-> business either requires MSR accesses or some descriptor table
-> fiddling, and guests are perhaps less likely to care)
->
-> Having written a bunch of the corresponding Linux code, I don't
-> there's any way around just independently saving and restoring the
-> selectors and the bases.  At least it's relatively fast with FSGSBASE
-> enabled.
->
-> If you can't get this fixed in upstream Xen reasonably quickly, we may
-> need to disable FSGSBASE in a Xen PV guest in Linux.
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict
+testid debian-hvm-install
 
-This has come up several times before, but if its actually breaking
-userspace then Xen needs to change.
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://git.qemu.org/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-I'll see about making something which is rather more robust.
+*** Found and reproduced problem changeset ***
 
-~Andrew
+  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
+  Bug introduced:  81cb05732efb36971901c515b007869cc1d3a532
+  Bug not present: d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/151591/
+
+
+  commit 81cb05732efb36971901c515b007869cc1d3a532
+  Author: Markus Armbruster <armbru@redhat.com>
+  Date:   Tue Jun 9 14:23:37 2020 +0200
+  
+      qdev: Assert devices are plugged into a bus that can take them
+      
+      This would have caught some of the bugs I just fixed.
+      
+      Signed-off-by: Markus Armbruster <armbru@redhat.com>
+      Reviewed-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+      Message-Id: <20200609122339.937862-23-armbru@redhat.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict.debian-hvm-install.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict.debian-hvm-install --summary-out=tmp/151591.bisection-summary --basis-template=151065 --blessings=real,real-bisect qemu-mainline test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict debian-hvm-install
+Searching for failure / basis pass:
+ 151547 fail [host=huxelrebe1] / 151149 [host=fiano0] 151101 [host=chardonnay1] 151065 [host=albana0] 151047 [host=godello1] 150970 [host=chardonnay0] 150930 [host=fiano1] 150916 [host=rimava1] 150909 [host=elbling1] 150899 [host=pinot1] 150895 [host=debina0] 150831 [host=huxelrebe0] 150694 [host=albana1] 150631 ok.
+Failure / basis pass flights: 151547 / 150631
+(tree with no url: minios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://git.qemu.org/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00217f1919270007d7a911f89b32e39b9dcaa907 3c659044118e34603161457db9934a34f816d78b 64f0ad8ad8e13257e7c912df470d46784b55c3fd 88ab0c15525ced2eefe39220742efe4769089ad8 23ca7ec0ba620db52a646d80e22f9703a6589f66
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 5cc7a54c2e91d82cb6a52e4921325c511fd90712 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9-00217f1919270007d7a911f89b32e39b9dcaa907 git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db99\
+ 34a34f816d78b-3c659044118e34603161457db9934a34f816d78b git://git.qemu.org/qemu.git#5cc7a54c2e91d82cb6a52e4921325c511fd90712-64f0ad8ad8e13257e7c912df470d46784b55c3fd git://xenbits.xen.org/osstest/seabios.git#2e3de6253422112ae43e608661ba94ea6b345694-88ab0c15525ced2eefe39220742efe4769089ad8 git://xenbits.xen.org/xen.git#1497e78068421d83956f8e82fb6e1bf1fc3b1199-23ca7ec0ba620db52a646d80e22f9703a6589f66
+Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
+Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
+Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
+Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
+Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
+Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
+Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
+Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
+Loaded 55263 nodes in revision graph
+Searching for test results:
+ 150631 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 5cc7a54c2e91d82cb6a52e4921325c511fd90712 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
+ 150694 [host=albana1]
+ 150831 [host=huxelrebe0]
+ 150909 [host=elbling1]
+ 150930 [host=fiano1]
+ 150916 [host=rimava1]
+ 150895 [host=debina0]
+ 150899 [host=pinot1]
+ 150970 [host=chardonnay0]
+ 151047 [host=godello1]
+ 151101 [host=chardonnay1]
+ 151065 [host=albana0]
+ 151149 [host=fiano0]
+ 151221 fail irrelevant
+ 151175 fail irrelevant
+ 151241 fail irrelevant
+ 151286 fail irrelevant
+ 151269 fail irrelevant
+ 151328 fail irrelevant
+ 151304 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 322969adf1fb3d6cfbd613f35121315715aff2ed 3c659044118e34603161457db9934a34f816d78b 171199f56f5f9bdf1e5d670d09ef1351d8f01bae 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
+ 151377 fail irrelevant
+ 151353 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1a992030522622c42aa063788b3276789c56c1e1 3c659044118e34603161457db9934a34f816d78b d4b78317b7cf8c0c635b70086503813f79ff21ec 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
+ 151399 fail irrelevant
+ 151414 fail irrelevant
+ 151435 fail irrelevant
+ 151459 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 0f01cec52f4794777feb067e4fa0bfcedfdc124e 3c659044118e34603161457db9934a34f816d78b e7651153a8801dad6805d450ea8bef9b46c1adf5 88ab0c15525ced2eefe39220742efe4769089ad8 88cfd062e8318dfeb67c7d2eb50b6cd224b0738a
+ 151471 fail irrelevant
+ 151485 fail irrelevant
+ 151546 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 3575b0aea983ad57804c9af739ed8ff7bc168393 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
+ 151526 fail irrelevant
+ 151529 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 239b50a863704f7960525799eda82de061c7c458 3c659044118e34603161457db9934a34f816d78b eefe34ea4b82c2b47abe28af4cc7247d51553626 2e3de6253422112ae43e608661ba94ea6b345694 25636ed707cf1211ce846c7ec58f8643e435d7a7
+ 151530 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 239b50a863704f7960525799eda82de061c7c458 3c659044118e34603161457db9934a34f816d78b 3f429a3400822141651486193d6af625eeab05a5 2e3de6253422112ae43e608661ba94ea6b345694 71ca0e0ad000e690899936327eb09709ab182ade
+ 151531 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 58ae92a993687d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 54cdfe511219b8051046be55a6e156c4f08ff7ff 2e3de6253422112ae43e608661ba94ea6b345694 71ca0e0ad000e690899936327eb09709ab182ade
+ 151558 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 6b0eff1a4ea47c835a7d8bee88c05c47ada37495 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
+ 151500 fail irrelevant
+ 151533 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a2433243fbe471c250d7eddc2c7da325d91265fd 3c659044118e34603161457db9934a34f816d78b 6675a653d2e57ab09c32c0ea7b44a1d6c40a7f58 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
+ 151548 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ff7c838d09224dd4e4c9b5b93152d8db1b19740 3c659044118e34603161457db9934a34f816d78b 49ee11555262a256afec592dfed7c5902d5eefd2 2e3de6253422112ae43e608661ba94ea6b345694 726c78d14dfe6ec76f5e4c7756821a91f0a04b34
+ 151534 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 53550e81e2cafe7c03a39526b95cd21b5194d9b1 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
+ 151536 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 250bc43a406f7d46e319abe87c19548d4f027828 2e3de6253422112ae43e608661ba94ea6b345694 3371ced37ced359167b5a71abee2062854371323
+ 151566 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 157ed954e2dc8c2a4230d38058ca7f1fe50902e0 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151537 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985 3c659044118e34603161457db9934a34f816d78b 9f1f264edbdf5516d6f208497310b3eedbc7b74c 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
+ 151519 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 5cc7a54c2e91d82cb6a52e4921325c511fd90712 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
+ 151591 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 81cb05732efb36971901c515b007869cc1d3a532 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151539 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e1d24410da356731da70b3334f86343e11e207d2 3c659044118e34603161457db9934a34f816d78b 470dd165d152ff7ceac61c7b71c2b89220b3aad7 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
+ 151518 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00217f1919270007d7a911f89b32e39b9dcaa907 3c659044118e34603161457db9934a34f816d78b fc1bff958998910ec8d25db86cd2f53ff125f7ab 88ab0c15525ced2eefe39220742efe4769089ad8 23ca7ec0ba620db52a646d80e22f9703a6589f66
+ 151560 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b da9630c57ee386f8beb571ba6bb4a98d546c42ca 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151541 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b eea8f5df4ecc607d64f091b8d916fcc11a697541 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
+ 151572 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 75a6ed875ff0a2eb6b2971ae2098ed09963d7329 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151543 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00217f1919270007d7a911f89b32e39b9dcaa907 3c659044118e34603161457db9934a34f816d78b fc1bff958998910ec8d25db86cd2f53ff125f7ab 88ab0c15525ced2eefe39220742efe4769089ad8 23ca7ec0ba620db52a646d80e22f9703a6589f66
+ 151578 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00217f1919270007d7a911f89b32e39b9dcaa907 3c659044118e34603161457db9934a34f816d78b 64f0ad8ad8e13257e7c912df470d46784b55c3fd 88ab0c15525ced2eefe39220742efe4769089ad8 23ca7ec0ba620db52a646d80e22f9703a6589f66
+ 151545 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ff7c838d09224dd4e4c9b5b93152d8db1b19740 3c659044118e34603161457db9934a34f816d78b 86e8c353f705f14f2f2fd7a6195cefa431aa24d9 2e3de6253422112ae43e608661ba94ea6b345694 058023b343d4e366864831db46e9b438e9e3a178
+ 151551 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8035edbe12f0f2a58e8fa9b06d05c8ee1c69ffae 3c659044118e34603161457db9934a34f816d78b 5d2f557b47dfbf8f23277a5bdd8473d4607c681a 2e3de6253422112ae43e608661ba94ea6b345694 51ca66c37371b10b378513af126646de22eddb17
+ 151555 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8035edbe12f0f2a58e8fa9b06d05c8ee1c69ffae 3c659044118e34603161457db9934a34f816d78b 7d2410cea154bf915fb30179ebda3b17ac36e70e 2e3de6253422112ae43e608661ba94ea6b345694 780aba2779b834f19b2a6f0dcdea0e7e0b5e1622
+ 151547 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00217f1919270007d7a911f89b32e39b9dcaa907 3c659044118e34603161457db9934a34f816d78b 64f0ad8ad8e13257e7c912df470d46784b55c3fd 88ab0c15525ced2eefe39220742efe4769089ad8 23ca7ec0ba620db52a646d80e22f9703a6589f66
+ 151562 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 7d3660e79830a069f1848bb4fa1cdf8f666424fb 2e3de6253422112ae43e608661ba94ea6b345694 fec6a7af5c5760b9bccd9e7c3eaf29f0401af264
+ 151556 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8035edbe12f0f2a58e8fa9b06d05c8ee1c69ffae 3c659044118e34603161457db9934a34f816d78b 175198ad91d8bac540159705873b4ffe4fb94eab 2e3de6253422112ae43e608661ba94ea6b345694 51ca66c37371b10b378513af126646de22eddb17
+ 151573 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 007d1dbf72536ec1b847a944832e4de1546af2ac 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151580 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151575 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 5cc7a54c2e91d82cb6a52e4921325c511fd90712 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
+ 151584 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151582 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 81cb05732efb36971901c515b007869cc1d3a532 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151588 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+ 151587 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 81cb05732efb36971901c515b007869cc1d3a532 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+Searching for interesting versions
+ Result found: flight 150631 (pass), for basis pass
+ Result found: flight 151547 (fail), for basis failure
+ Repro found: flight 151575 (pass), for basis pass
+ Repro found: flight 151578 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
+No revisions left to test, checking graph state.
+ Result found: flight 151580 (pass), for last pass
+ Result found: flight 151582 (fail), for first failure
+ Repro found: flight 151584 (pass), for last pass
+ Repro found: flight 151587 (fail), for first failure
+ Repro found: flight 151588 (pass), for last pass
+ Repro found: flight 151591 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
+  Bug introduced:  81cb05732efb36971901c515b007869cc1d3a532
+  Bug not present: d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/151591/
+
+
+  commit 81cb05732efb36971901c515b007869cc1d3a532
+  Author: Markus Armbruster <armbru@redhat.com>
+  Date:   Tue Jun 9 14:23:37 2020 +0200
+  
+      qdev: Assert devices are plugged into a bus that can take them
+      
+      This would have caught some of the bugs I just fixed.
+      
+      Signed-off-by: Markus Armbruster <armbru@redhat.com>
+      Reviewed-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+      Message-Id: <20200609122339.937862-23-armbru@redhat.com>
+
+dot: graph is too large for cairo-renderer bitmaps. Scaling by 0.718386 to fit
+pnmtopng: 226 colors found
+Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict.debian-hvm-install.{dot,ps,png,html,svg}.
+----------------------------------------
+151591: tolerable ALL FAIL
+
+flight 151591 qemu-mainline real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151591/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail baseline untested
+
+
+jobs:
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
