@@ -2,46 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C402213A47
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 14:52:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54509213AE4
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 15:24:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrL9i-0008SD-6q; Fri, 03 Jul 2020 12:51:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5Z/2=AO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jrL9h-0008S8-11
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 12:51:01 +0000
-X-Inumbo-ID: d4e7e0d8-bd2b-11ea-89a0-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d4e7e0d8-bd2b-11ea-89a0-12813bfff9fa;
- Fri, 03 Jul 2020 12:50:54 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E7D37ACA0;
- Fri,  3 Jul 2020 12:50:53 +0000 (UTC)
-Subject: Re: [PATCH v4 06/10] memory: batch processing in acquire_resource()
-To: Julien Grall <julien@xen.org>
-References: <cover.1593519420.git.michal.leszczynski@cert.pl>
- <a317b169e3710a481bb4be066d9b878f27b3e66c.1593519420.git.michal.leszczynski@cert.pl>
- <5be6cb58-82d0-0a78-a9b2-5c078b5d3587@xen.org>
- <004901d65128$16a6f330$43f4d990$@xen.org>
- <481e8ee7-561a-10d6-4358-7b07a8911ce8@xen.org>
- <d45edef1-5b15-fdd4-b030-1ffe5c77057d@suse.com>
- <cec1bfc7-694c-ae40-3fcd-ed0829295893@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4fbc0a79-052e-0596-ca31-ec4902dddc85@suse.com>
-Date: Fri, 3 Jul 2020 14:50:56 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 1jrLew-0002Yh-SI; Fri, 03 Jul 2020 13:23:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bw0N=AO=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jrLew-0002Yc-2O
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 13:23:18 +0000
+X-Inumbo-ID: 5ae0c430-bd30-11ea-8496-bc764e2007e4
+Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5ae0c430-bd30-11ea-8496-bc764e2007e4;
+ Fri, 03 Jul 2020 13:23:17 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id r12so32602911wrj.13
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2020 06:23:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=R34phvw8FAUR+j0p3tZaKBuCtRVikcNPvGj4M9UukwY=;
+ b=H2gCvH7IQfFnkWGMU8Ip4GsTCXDs2TWlJmoJBKNYLOyhRe0UWzGUyjbdKqnp2fIz1G
+ AUDaRaVmBca+xn/g3RhTwft+XatzyRCb2FXULb8rPSiP7o0LFZzq6ptWQqFF6KxixIPJ
+ Oj512l4H8RVZ80G+YVxrmYooNmeRwKi26XqftfgzBCxQUvUUzuvzKQGg/+2n5SDcuFO8
+ 5o8AQcI3+/du07Sm7VD57frVZNKopxqJozCwrZScVRvHRVIVguLRL7G4NB0B+0XpjPmh
+ tKrnoqi7YARmnGz8aH0QFfB/p14u33AQfRMV6ZtZhg80753vlMWEkukaY8ZyqWokc/Es
+ lFoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=R34phvw8FAUR+j0p3tZaKBuCtRVikcNPvGj4M9UukwY=;
+ b=QgHMbb+rtRa4+p4dTXeq+c/Dtkwrnmn6fV3kql+koc0u7Pd28Uk0BBdrcJ7aeHyJHf
+ Hm7aXRwAox7vOO6cmOsZ2Tt6B/BvHfNc3qGDLa/odJzarE+IK1l19GrfFYZW1r4vl2PA
+ JBygSEocXi0sQaPQEcD5XdyXH/VOpGYAWPTz0UIY6SMePZXXueprk5KpCcOstfmfHvgY
+ MIq1UOljPJ/n48nu3GRWXiUuOjEl7xy+9dFpvGHIi0TvD4lVHqyBJUS2uGXOEHq42Ny8
+ IYo195Ua4C8CmAcpuDy/AHxJ/K+r0xUfTmT0SiDko4LkZSOdaToHzhqWkKxfLjyEdtHe
+ FdLw==
+X-Gm-Message-State: AOAM531/F42JQhnX37ByM0QweEUJrgHr5N4XwZyqlz80bMeIKM/ABjZk
+ AbLcaRIvB3ZyU6gYjpVmEYsILAqeGy0=
+X-Google-Smtp-Source: ABdhPJxwi3bAGa7QuBXtqqnhRW0933s/w4ms1+YzZzc469QEya5qFktYTxqbH4mUC7C+vT0WTBRBQg==
+X-Received: by 2002:a5d:5270:: with SMTP id l16mr36553841wrc.122.1593782596488; 
+ Fri, 03 Jul 2020 06:23:16 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
+ by smtp.gmail.com with ESMTPSA id o205sm14495680wme.24.2020.07.03.06.23.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 03 Jul 2020 06:23:15 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Olaf Hering'" <olaf@aepfle.de>,
+ "'Michael Young'" <m.a.young@durham.ac.uk>
+References: <alpine.LFD.2.22.394.2006302259370.2894@austen3.home>
+ <20200702183806.GA28738@aepfle.de>
+In-Reply-To: <20200702183806.GA28738@aepfle.de>
+Subject: RE: Build problems in kdd.c with xen-4.14.0-rc4
+Date: Fri, 3 Jul 2020 14:23:14 +0100
+Message-ID: <005701d6513d$1bea4080$53bec180$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <cec1bfc7-694c-ae40-3fcd-ed0829295893@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain;
+	charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJDTGpxOkTL6sslt6TCRsF6oIyh1gJDRGtIqAnGWyA=
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,37 +79,120 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, tamas.lengyel@intel.com,
- 'Wei Liu' <wl@xen.org>, paul@xen.org,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- =?UTF-8?B?J01pY2hhxYIgTGVzemN6ecWEc2tpJw==?= <michal.leszczynski@cert.pl>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, luwei.kang@intel.com,
- xen-devel@lists.xenproject.org
+Reply-To: paul@xen.org
+Cc: xen-devel@lists.xenproject.org, 'Tim Deegan' <tim@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.07.2020 13:36, Julien Grall wrote:
-> On 03/07/2020 12:22, Jan Beulich wrote:
->> On 03.07.2020 13:17, Julien Grall wrote:
->>> In the current implementation, we tell the guest how many frames it can
->>> request in a batch. This number may be much smaller that the maximum
->>> number of frames of the type.
->>>
->>> Furthermore this value is not tie to the xmar.type. Therefore, it is
->>> valid for a guest to call this hypercall only once at boot to figure out
->>> the maximum batch.
->>>
->>> So while the change you suggest looks a good idea, I don't think it is
->>> possible to do that with the current hypercall.
->>
->> Doesn't the limit simply change to UINT_MAX >> MEMOP_EXTENT_SHIFT,
->> which then is what should be reported?
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Olaf Hering
+> Sent: 02 July 2020 19:38
+> To: Michael Young <m.a.young@durham.ac.uk>
+> Cc: xen-devel@lists.xenproject.org; Tim Deegan <tim@xen.org>
+> Subject: Re: Build problems in kdd.c with xen-4.14.0-rc4
 > 
-> Hmmm... Can you remind me whether we support migration to an older release?
+> On Tue, Jun 30, Michael Young wrote:
+> 
+> > I get the following errors when trying to build xen-4.14.0-rc4
+> 
+> This happens to work for me.
+> 
+> Olaf
+> 
+> ---
+>  tools/debugger/kdd/kdd.c | 8 ++++----
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> --- a/tools/debugger/kdd/kdd.c
+> +++ b/tools/debugger/kdd/kdd.c
+> @@ -742,25 +742,25 @@ static void kdd_tx(kdd_state *s)
+>      int i;
+> 
+>      /* Fix up the checksum before we send */
+>      for (i = 0; i < s->txp.h.len; i++)
+>          sum += s->txp.payload[i];
+>      s->txp.h.sum = sum;
+> 
+>      kdd_log_pkt(s, "TX", &s->txp);
+> 
+>      len = s->txp.h.len + sizeof (kdd_hdr);
+>      if (s->txp.h.dir == KDD_DIR_PKT)
+>          /* Append the mysterious 0xaa byte to each packet */
+> -        s->txb[len++] = 0xaa;
+> +        s->txp.payload[len++] = 0xaa;
 
-I'm pretty sure we say "N -> N+1 only" somewhere, but this "somewhere"
-clearly isn't SUPPORT.md.
+That doesn't look quite right. I think you need [len++ - sizeof(kdd_hdr)] there.
 
-Jan
+> 
+>      (void) blocking_write(s->fd, s->txb, len);
+>  }
+> 
+> 
+>  /* Send an acknowledgement to the client */
+>  static void kdd_send_ack(kdd_state *s, uint32_t id, uint16_t type)
+>  {
+>      s->txp.h.dir = KDD_DIR_ACK;
+>      s->txp.h.type = type;
+>      s->txp.h.len = 0;
+>      s->txp.h.id = id;
+> @@ -775,25 +775,25 @@ static void kdd_send_cmd(kdd_state *s, uint32_t subtype, size_t extra)
+>      s->txp.h.type = KDD_PKT_CMD;
+>      s->txp.h.len = sizeof (kdd_cmd) + extra;
+>      s->txp.h.id = (s->next_id ^= 1);
+>      s->txp.h.sum = 0;
+>      s->txp.cmd.subtype = subtype;
+>      kdd_tx(s);
+>  }
+> 
+>  /* Cause the client to print a string */
+>  static void kdd_send_string(kdd_state *s, char *fmt, ...)
+>  {
+>      uint32_t len = 0xffff - sizeof (kdd_msg);
+> -    char *buf = (char *) s->txb + sizeof (kdd_hdr) + sizeof (kdd_msg);
+> +    char *buf = (char *) &s->txp + sizeof (kdd_hdr) + sizeof (kdd_msg);
+>      va_list ap;
+> 
+>      va_start(ap, fmt);
+>      len = vsnprintf(buf, len, fmt, ap);
+>      va_end(ap);
+> 
+>      s->txp.h.dir = KDD_DIR_PKT;
+>      s->txp.h.type = KDD_PKT_MSG;
+>      s->txp.h.len = sizeof (kdd_msg) + len;
+>      s->txp.h.id = (s->next_id ^= 1);
+>      s->txp.h.sum = 0;
+>      s->txp.msg.subtype = KDD_MSG_PRINT;
+> @@ -807,25 +807,25 @@ static void kdd_break(kdd_state *s)
+>  {
+>      uint16_t ilen;
+>      KDD_LOG(s, "Break\n");
+> 
+>      if (s->running)
+>          kdd_halt(s->guest);
+>      s->running = 0;
+> 
+>      {
+>          unsigned int i;
+>          /* XXX debug pattern */
+>          for (i = 0; i < 0x100 ; i++)
+> -            s->txb[sizeof (kdd_hdr) + i] = i;
+> +            s->txp.payload[sizeof (kdd_hdr) + i] = i;
+
+Again, drop the sizeof(kdd_hdr) here I think.
+
+  Paul
+
+>      }
+> 
+>      /* Send a state-change message to the client so it knows we've stopped */
+>      s->txp.h.dir = KDD_DIR_PKT;
+>      s->txp.h.type = KDD_PKT_STC;
+>      s->txp.h.len = sizeof (kdd_stc);
+>      s->txp.h.id = (s->next_id ^= 1);
+>      s->txp.stc.subtype = KDD_STC_STOP;
+>      s->txp.stc.stop.cpu = s->cpuid;
+>      s->txp.stc.stop.ncpus = kdd_count_cpus(s->guest);
+>      s->txp.stc.stop.kthread = 0; /* Let the debugger figure it out */
+>      s->txp.stc.stop.status = KDD_STC_STATUS_BREAKPOINT;
+
 
