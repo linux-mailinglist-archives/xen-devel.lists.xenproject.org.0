@@ -2,73 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E02232137D6
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 11:42:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 875F32137E9
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 11:45:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrICY-0000Gh-8T; Fri, 03 Jul 2020 09:41:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jrIFY-0000PD-NZ; Fri, 03 Jul 2020 09:44:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bw0N=AO=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jrICW-0000Fy-HZ
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 09:41:44 +0000
-X-Inumbo-ID: 673d4cf4-bd11-11ea-8496-bc764e2007e4
-Received: from mail-ej1-x633.google.com (unknown [2a00:1450:4864:20::633])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 673d4cf4-bd11-11ea-8496-bc764e2007e4;
- Fri, 03 Jul 2020 09:41:43 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id p20so33481400ejd.13
- for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2020 02:41:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=RNt2cEIZBE61z29DbiD6gBhjcmDmLxOEByV7tgW2TTo=;
- b=TmIdnnMyaI6pFf86S7Dwrh2DA0pTIAwm0Cbtg+lj/sEabkGbDP+SMlPutplrvOo9df
- C3HMoau5QJO26ldZbj3tBdP/AxGK0UdweiDdMuQ4BrLKQw8+UCNdIGzMadYpZZmEO2Qk
- NNdLYwRPSfBV7mdfHsafPmiR+RqyvysCrTkpsOuTSCwOq0xkIzMEtI+GJ8yyi7A8QeYC
- s543UJ/nLaawEPwSzN7bqvty25udJLxobqiYEj8c9Z+bd2b1pOd80DQNuccK8zrAEU2h
- XhRWos3a9gvnqpMRwhTclycFeaWwSIvnnIoGvfUQR36lF++8vaDfiwD10TZ8FyUfjnGM
- vqHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :thread-index:content-language;
- bh=RNt2cEIZBE61z29DbiD6gBhjcmDmLxOEByV7tgW2TTo=;
- b=p38L6MCslosnLW6/mSczqOJ8uJEmH4iC6VFmiE1/eXISzduw0gl8l+syAV42NGHMVj
- ovVx7Yux1/C/kVbNLqA74Zfv4chE0lspDoFSv+/fEUDHB4BZAC1iCl9etuyVDv9tfpLt
- SFkr+bB3laJWBUV2VPSnk64zlF61sbA1zWGykyD16PAEuvXGpSKxIN0jWbCAK6rznui/
- 4ye1JEzSmaebAV1oqWXrWz1gf0RzjieyREjaEGduemOVp/7+1DrhwjlSSA6e+NlUzfLx
- eVLWktvNpPGMOYWKYZRXYDdTexhfiOen0AWA10l17bmvFcveZutP2K07wf4cbfuvzMk9
- s0jQ==
-X-Gm-Message-State: AOAM532ExuytCwHXTKDiYUAPVySc4bwvmBXkShGltW0XxCt9c5OhVGXc
- ipz55u+LmUgWLhUc0zdDqow/oi8NNq8=
-X-Google-Smtp-Source: ABdhPJzmeWZ6UCbMItNclRAj1PpClddxgIG2zJa6m3mumrbPwRXOH3YcQ4GkKKyelOJPa6aXG3Wdsw==
-X-Received: by 2002:a17:906:7a46:: with SMTP id
- i6mr30218342ejo.475.1593769302913; 
- Fri, 03 Jul 2020 02:41:42 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
- by smtp.gmail.com with ESMTPSA id s23sm9316419ejz.53.2020.07.03.02.41.41
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 03 Jul 2020 02:41:42 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Michael Young'" <m.a.young@durham.ac.uk>,
- <xen-devel@lists.xenproject.org>
-References: <alpine.LFD.2.22.394.2006302259370.2894@austen3.home>
-In-Reply-To: <alpine.LFD.2.22.394.2006302259370.2894@austen3.home>
-Subject: RE: Build problems in kdd.c with xen-4.14.0-rc4 
-Date: Fri, 3 Jul 2020 10:41:41 +0100
-Message-ID: <004601d6511e$28673710$7935a530$@xen.org>
+ <SRS0=gjf6=AO=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jrIFY-0000P8-48
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 09:44:52 +0000
+X-Inumbo-ID: d643c984-bd11-11ea-8958-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d643c984-bd11-11ea-8958-12813bfff9fa;
+ Fri, 03 Jul 2020 09:44:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1593769490;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=hQ2tplJfrun6q9GRaPBbaWrbeHkFKi0r2UTOf5iKGy8=;
+ b=R0FzuK51z/zvaKlEDAdBSFuSGlBWPX1Bi2+Y2kx4nY616KnroW45g2q2
+ FHv5ExGUSbaQbIYJaUa3CcG8d7ESe4tut0Ib+YVKIno/fDwzYSYYCwkEi
+ bO15zkw4zORmwDaNsWB6lPhLFUa0/KeoP/kzj1ZZe+ApAeEHrpFuULIJU 8=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: iI8SD/VCCQ4ZlZX16wkh3zjWWSOwCZgLRk1cV5LagIIOlB8ehZqOE/SvLECDA2isXgOGR2/Moz
+ 0502YXKR2gVsPQvKy6vK8Cv7ii+e34oYvXxSebsii9HWNadCCa097Hvl2FWuLAHmPq17XU2eaZ
+ V2Czcix3/pvqZvRw88Zh5PUm+yXVy58yD33hq0dyuMK3Qi+A9uqDXfxJwtd/fb0ghpIMoLD1ji
+ YSltImq092ctcRxhYMvnvkSwTACVpwdwTurG01gKlxDwpLxrvUw7Mh6sQAApr4zllLorLEw/1b
+ gkI=
+X-SBRS: 2.7
+X-MesageID: 21559329
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,307,1589256000"; d="scan'208";a="21559329"
+Date: Fri, 3 Jul 2020 11:44:38 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v4 03/10] tools/libxl: add vmtrace_pt_size parameter
+Message-ID: <20200703094438.GY735@Air-de-Roger>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <5f4f4b1afa432258daff43f2dc8119b6a441fff4.1593519420.git.michal.leszczynski@cert.pl>
+ <20200702090047.GX735@Air-de-Roger>
+ <1505813895.18300396.1593707008144.JavaMail.zimbra@cert.pl>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJDTGpxOkTL6sslt6TCRsF6oIyh1qgbo0Cg
-Content-Language: en-gb
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1505813895.18300396.1593707008144.JavaMail.zimbra@cert.pl>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,70 +66,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Tim Deegan' <tim@xen.org>
+Cc: Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, tamas lengyel <tamas.lengyel@intel.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, luwei kang <luwei.kang@intel.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Michael Young
-> Sent: 30 June 2020 23:22
-> To: xen-devel@lists.xenproject.org
-> Cc: Tim Deegan <tim@xen.org>
-> Subject: Build problems in kdd.c with xen-4.14.0-rc4
+On Thu, Jul 02, 2020 at 06:23:28PM +0200, Michał Leszczyński wrote:
+> ----- 2 lip 2020 o 11:00, Roger Pau Monné roger.pau@citrix.com napisał(a):
 > 
-> I get the following errors when trying to build xen-4.14.0-rc4
+> > On Tue, Jun 30, 2020 at 02:33:46PM +0200, Michał Leszczyński wrote:
+> >> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> >> index 59bdc28c89..7b8289d436 100644
+> >> --- a/xen/include/public/domctl.h
+> >> +++ b/xen/include/public/domctl.h
+> >> @@ -92,6 +92,7 @@ struct xen_domctl_createdomain {
+> >>      uint32_t max_evtchn_port;
+> >>      int32_t max_grant_frames;
+> >>      int32_t max_maptrack_frames;
+> >> +    uint8_t vmtrace_pt_order;
+> > 
+> > I've been thinking about this, and even though this is a domctl (so
+> > not a stable interface) we might want to consider using a size (or a
+> > number of pages) here rather than an order. IPT also supports
+> > TOPA mode (kind of a linked list of buffers) that would allow for
+> > sizes not rounded to order boundaries to be used, since then only each
+> > item in the linked list needs to be rounded to an order boundary, so
+> > you could for example use three 4K pages in TOPA mode AFAICT.
+> > 
+> > Roger.
 > 
-> kdd.c: In function 'kdd_tx':
-> kdd.c:754:15: error: array subscript 16 is above array bounds of 'uint8_t[16]' {aka 'unsigned
-> char[16]'} [-Werror=array-bounds]
->    754 |         s->txb[len++] = 0xaa;
->        |         ~~~~~~^~~~~~~
-> kdd.c:82:17: note: while referencing 'txb'
->     82 |         uint8_t txb[sizeof (kdd_hdr)];           /* Marshalling area for tx */
->        |                 ^~~
-> kdd.c: In function 'kdd_break':
-> kdd.c:819:19: error: array subscript 16 is above array bounds of 'uint8_t[16]' {aka 'unsigned
-> char[16]'} [-Werror=array-bounds]
->    819 |             s->txb[sizeof (kdd_hdr) + i] = i;
->        |             ~~~~~~^~~~~~~~~~~~~~~~~~~~~~
-> kdd.c:82:17: note: while referencing 'txb'
->     82 |         uint8_t txb[sizeof (kdd_hdr)];           /* Marshalling area for tx */
->        |                 ^~~
-> In file included from /usr/include/stdio.h:867,
->                   from kdd.c:36:
-> In function 'vsnprintf',
->      inlined from 'kdd_send_string' at kdd.c:791:11:
-> /usr/include/bits/stdio2.h:80:10: error: '__builtin___vsnprintf_chk' specified bound 65519 exceeds
-> destination size 0 [-Werror=stringop-overflow=]
->     80 |   return __builtin___vsnprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
->        |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->     81 |         __bos (__s), __fmt, __ap);
->        |         ~~~~~~~~~~~~~~~~~~~~~~~~~
-> cc1: all warnings being treated as errors
-> make[4]: *** [/builddir/build/BUILD/xen-4.14.0-rc4/tools/debugger/kdd/../../../tools/Rules.mk:216:
-> kdd.o] Error 1
-> 
-> The first two array-bounds errors seem to be a result of the
-> 
-> kdd: stop using [0] arrays to access packet contents
-> 
-> patch at
-> http://xenbits.xenproject.org/gitweb/?p=xen.git;a=commit;h=3471cafbdda35eacf04670881dd2aee2558b4f08
-> 
-> which reduced the size of txb from
-> sizeof (kdd_hdr) + 65536
-> to
-> sizeof (kdd_hdr)
-> which means the code now tries to write beyond the end of txb in both
-> cases.
-> 
+> In previous versions it was "size" but it was requested to change it
+> to "order" in order to shrink the variable size from uint64_t to
+> uint8_t, because there is limited space for xen_domctl_createdomain
+> structure.
 
-Sorry not to get back to you sooner. Which compiler are you using?
+It's likely I'm missing something here, but I wasn't aware
+xen_domctl_createdomain had any constrains regarding it's size. It's
+currently 48bytes which seems fairly small.
 
-  Paul
+There might be constrains on struct domain (the hypervisor internal
+domain tracking structure), but I think you are already using a size
+field there IIRC.
 
->  	Michael Young
+> 
+> How should I proceed?
 
+This is an unstable interface, so we could always change it. It seems
+like we might want to use a size parameter at some point to take
+advantage of non physically contiguous buffers, but if there are other
+blockers that prevent such field from being wider ATM I'm fine with
+it.
 
+Thanks, Roger.
 
