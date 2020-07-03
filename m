@@ -2,54 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD6B213359
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 07:09:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D3C0213372
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 07:15:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrDw7-00029o-R2; Fri, 03 Jul 2020 05:08:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XYi7=AO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jrDw6-00029j-Dj
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 05:08:30 +0000
-X-Inumbo-ID: 3bb67cf2-bceb-11ea-b7bb-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3bb67cf2-bceb-11ea-b7bb-bc764e2007e4;
- Fri, 03 Jul 2020 05:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bZ+U/6nF6RWIuETCBLIc6DE1qhEWRf/LIsjgTkq5Kqs=; b=YPNZ4o8V5bXjKroT8rHdfhq1q
- T/piFx1x/HukLleojvP2xIBudL2qJxjnGwPV6he9fEUlz9MHrDz7aCS3G4QIlyQZUEREqJrqMk3Zr
- XM088kwyk8IHzn5/jjV2KC5OqayMKW5YHllr9zHsRRO0TuqBi0PAaCdyy0krGi6XlG0m0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jrDw4-0006Lc-VA; Fri, 03 Jul 2020 05:08:28 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jrDw4-0004Ng-A2; Fri, 03 Jul 2020 05:08:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jrDw4-0003gj-9S; Fri, 03 Jul 2020 05:08:28 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151550-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jrE2u-0002z2-Jx; Fri, 03 Jul 2020 05:15:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CbuU=AO=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jrE2s-0002yx-PU
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 05:15:30 +0000
+X-Inumbo-ID: 3617d24a-bcec-11ea-891d-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3617d24a-bcec-11ea-891d-12813bfff9fa;
+ Fri, 03 Jul 2020 05:15:30 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 33B3FB03E;
+ Fri,  3 Jul 2020 05:15:29 +0000 (UTC)
+Subject: Re: [PATCH v2 1/4] x86/xen: remove 32-bit Xen PV guest support
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org
+References: <20200701110650.16172-1-jgross@suse.com>
+ <20200701110650.16172-2-jgross@suse.com>
+ <6d0b517a-6c53-61d3-117b-40e33e013037@oracle.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <96159aed-9fdb-9fcb-a1b1-7c6c2c47e6a1@suse.com>
+Date: Fri, 3 Jul 2020 07:15:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Subject: [ovmf test] 151550: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=0622a7b1b203ad4ab1675533e958792fc1afc12b
-X-Osstest-Versions-That: ovmf=c8edb70945099fd35a0997d3f3db105efc144e13
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 03 Jul 2020 05:08:28 +0000
+In-Reply-To: <6d0b517a-6c53-61d3-117b-40e33e013037@oracle.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +49,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151550 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151550/
+On 03.07.20 00:59, Boris Ostrovsky wrote:
+> On 7/1/20 7:06 AM, Juergen Gross wrote:
+>> Xen is requiring 64-bit machines today and since Xen 4.14 it can be
+>> built without 32-bit PV guest support. There is no need to carry the
+>> burden of 32-bit PV guest support in the kernel any longer, as new
+>> guests can be either HVM or PVH, or they can use a 64 bit kernel.
+>>
+>> Remove the 32-bit Xen PV support from the kernel.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>   arch/x86/entry/entry_32.S      | 109 +----------
+>>   arch/x86/include/asm/proto.h   |   2 +-
+>>   arch/x86/include/asm/segment.h |   2 +-
+>>   arch/x86/kernel/head_32.S      |  31 ---
+>>   arch/x86/xen/Kconfig           |   3 +-
+>>   arch/x86/xen/Makefile          |   3 +-
+>>   arch/x86/xen/apic.c            |  17 --
+>>   arch/x86/xen/enlighten_pv.c    |  48 +----
+> 
+> 
+> Should we drop PageHighMem() test in set_aliased_prot()?
+> 
+> 
+> (And there are few other places where is is used, in mmu_pv.c)
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 0622a7b1b203ad4ab1675533e958792fc1afc12b
-baseline version:
- ovmf                 c8edb70945099fd35a0997d3f3db105efc144e13
+Yes, will drop those.
 
-Last test of basis   151532  2020-07-02 07:45:27 Z    0 days
-Testing same since   151550  2020-07-02 20:09:20 Z    0 days    1 attempts
+> 
+> 
+> 
+>> @@ -555,13 +547,8 @@ static void xen_load_tls(struct thread_struct *t, unsigned int cpu)
+>>   	 * exception between the new %fs descriptor being loaded and
+>>   	 * %fs being effectively cleared at __switch_to().
+>>   	 */
+>> -	if (paravirt_get_lazy_mode() == PARAVIRT_LAZY_CPU) {
+>> -#ifdef CONFIG_X86_32
+>> -		lazy_load_gs(0);
+>> -#else
+> 
+> 
+> I think this also needs an adjustment to the preceding comment.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Pierre Gondois <pierre.gondois@arm.com>
+Yes.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+> 
+> 
+>>   
+>> -#ifdef CONFIG_X86_PAE
+>> -static void xen_set_pte_atomic(pte_t *ptep, pte_t pte)
+>> -{
+>> -	trace_xen_mmu_set_pte_atomic(ptep, pte);
+>> -	__xen_set_pte(ptep, pte);
+> 
+> 
+> Probably not for this series but I wonder whether __xen_set_pte() should
+> continue to use hypercall now that we are 64-bit only.
 
+As Andrew wrote already the hypercall will be cheaper.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I'll adjust the comment, though.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> 
+> 
+>> @@ -654,14 +621,12 @@ static int __xen_pgd_walk(struct mm_struct *mm, pgd_t *pgd,
+> 
+> 
+> Comment above should be updated.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Yes.
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   c8edb70945..0622a7b1b2  0622a7b1b203ad4ab1675533e958792fc1afc12b -> xen-tested-master
+Juergen
 
