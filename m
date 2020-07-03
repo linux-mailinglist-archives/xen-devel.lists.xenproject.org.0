@@ -2,71 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0464C2133D4
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 08:03:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EC49213597
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jul 2020 09:59:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrEmt-00071k-Al; Fri, 03 Jul 2020 06:03:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VO50=AO=qq.com=jinchen1227@srs-us1.protection.inumbo.net>)
- id 1jrEmn-00071a-GM
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 06:03:02 +0000
-X-Inumbo-ID: d284b566-bcf2-11ea-8923-12813bfff9fa
-Received: from smtpbgeu1.qq.com (unknown [52.59.177.22])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d284b566-bcf2-11ea-8923-12813bfff9fa;
- Fri, 03 Jul 2020 06:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1593756164; bh=uSL9O6FYZvNNmDKGVHwcm66t1VAgLHRwlBt0Em1xOZA=;
- h=From:To:Subject:Mime-Version:Date:Message-ID;
- b=aP/s8xaXjOxRJzD4DHx+dcN8wWrk7tC5tpGqIsYT+An468NBl6g1rP7Dkk4dnUgg2
- /vCZxZ90OqhvfN/uSDXWdFFHzWSwRIT2VOu3kWYSK9CdR/e3TS52az9mieJLHEcU82
- buUxgjIntM16T1SqeWjIC75+1U707eTxqANKDjcU=
-X-QQ-FEAT: 9d8LckC02S2WHpF/yotlfXpYFwNjGAYcKdZVAE+a84CrsVkjsK8phZclF+w88
- OtfhqxXAqBVaDANvIX0CIwkiqCbnuGKZ6oy6fBiVfg4LaDvaOeEKMltQoq4lkubmHVZyhWv
- +vcDw4fXYwFmuBPRX08AGh3CGx8LIR4GSfx1LnGLIlSJIfhYVfhu8B0njFEDnPi72NmC5Jr
- b6AY09SDlTnmWnT5D0cZbk1lbXxkOoK9hq9mBsPCVTVqpRi93SxncOAP+RC7BSdcOym9k0I
- hNzakm4a/E1fjcK1miNKH+Ld4=
-X-QQ-SSF: 00000000000000F000000000000000Z
-X-QQ-XMAILINFO: MRdXMdGsawJ9lYvPyqsR1aRpEm18ocO/abRAn4PtrbXwVCFDF0vKgbF03+QKYG
- QZJDVokSXhOeRPuZsDpsH1vlOz3P6IBxAKZcSnbx+yFM07vDos6z9XDioAKOVdRp0jbJD8noib7OZ
- wO5fsvwwW1ah5rvHrMrTqB+HLAOdVH6DoazDTdTuY44S/ne8qrT7TvW7Ma1o6kAvXfVwvfm7/DuyV
- OsiIYVZHBaHuJVTsQhkE1U2B4DSD7M4w8P6jCo12RQMGppO0B1xk1fSqxxHABOOqFD/SpIovHK9S5
- ix694baIFHa3zWLWurHjPdUBZfX69OJlhg38ROBiDBGemIAA+UZD/xI0HCS9T1DlYhNvs64IMMvPK
- lw1T3H82RC7HIb+GnzyAnvqIsdb9o6IIswNjzMuZsq3XG1OKDOzB2ZwW+IKMnKzyXTXwh2PiQcxBq
- Fxgrt2idohHMxY6rptlTczM8Za1qzwvPagTHjBDWQnN4qnsP1bTMIhbCIE6nzo361Ea9QYPZN70Ko
- pwVARY8uGA2OBdqmi+xUtGGHQ4Zp7jKLaiVC8pLo0zEmudso+u9nTkV4TyfeQTJF7EF2p4sk5sFpb
- p4s6KAgsEZpyq3fnUqKZ1oiBo5kBAX0E5EOuTlwEOdNDfPw4+I+Atz2LHFVyXDRij05Jl8MYpvEWr
- m+iXsKQk2lSSYznpNflvg+neYQTw7WBO/JcccJ3ywSxKyyxCd/QqEhuzdGzwYuAxmcYPHN
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 120.201.105.119
-X-QQ-STYLE: 
-X-QQ-mid: webmail712t1593756164t4706451
-From: "=?gb18030?B?amluY2hlbg==?=" <jinchen1227@qq.com>
-To: "=?gb18030?B?SnVsaWVuIEdyYWxs?=" <julien@xen.org>,
- "=?gb18030?B?eGVuLWRldmVs?=" <xen-devel@lists.xenproject.org>
-Subject: =?gb18030?B?u9i4tKO6IFtYZW4gQVJNNjRdIFNhdmUgY29yZWR1?=
- =?gb18030?B?bXAgbG9nIHdoZW4geGVuL2RvbTAgY3Jhc2ggb24g?=
- =?gb18030?B?QVJNNjQ/?=
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5EFECA03_10E771F8_7BF8E463"
-Content-Transfer-Encoding: 8Bit
-Date: Fri, 3 Jul 2020 14:02:43 +0800
-X-Priority: 3
-Message-ID: <tencent_C1F76837DF25C430969ABF6E4A557260AA0A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Fri, 03 Jul 2020 14:02:44 +0800 (CST)
-Feedback-ID: webmail:qq.com:bgforeign:bgforeign11
-X-QQ-Bgrelay: 1
+	id 1jrGaJ-0007Wv-UT; Fri, 03 Jul 2020 07:58:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Kpvw=AO=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jrGaI-0007Wq-Ke
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2020 07:58:10 +0000
+X-Inumbo-ID: efdd61e8-bd02-11ea-bca7-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id efdd61e8-bd02-11ea-bca7-bc764e2007e4;
+ Fri, 03 Jul 2020 07:58:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=y831c3SyaYAviC2e5WYtZjpRaHUueP+RBPpzoR37b8I=; b=WDzZ2nhG96liyYN8lPXOKggYBH
+ LGwv7KLXO8TN7b3HAHwMm7rzCqFHs9UUFlDR7g1BA1yrzHMcbPEZ3+8are/MLK5gNx4mDD2pmMTrC
+ Txk4e/fSTlK1PeZzUgbMweCxrBGl64FFob0VJYwZSZ5ifb53utXixLggvElw3uHlCcbU=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jrGaC-00012e-RV; Fri, 03 Jul 2020 07:58:04 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jrGaC-0005im-Ij; Fri, 03 Jul 2020 07:58:04 +0000
+Subject: Re: [PATCH v4 02/10] x86/vmx: add IPT cpu feature
+To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <3fa0c3e7-9243-b1bb-d6ad-a3bd21437782@xen.org>
+ <0e02a9b5-ba7a-43a2-3369-a4410f216ddb@suse.com>
+ <9a3f4d58-e5ad-c7a1-6c5f-42aa92101ca1@xen.org>
+ <d0165fc3-fb05-2e49-eff3-e45a674b00e1@suse.com>
+ <7f915146-6566-e5a7-14d2-cb2319838562@xen.org>
+ <7ac383c2-0264-cc75-a85b-13c1fdfb0bd6@suse.com>
+ <dadeeedd-a9e1-d5f4-4754-8da3f065fd44@xen.org>
+ <187614050.18497785.1593721708078.JavaMail.zimbra@cert.pl>
+From: Julien Grall <julien@xen.org>
+Message-ID: <2e01fca9-efcd-7d09-355f-29245bbc8721@xen.org>
+Date: Fri, 3 Jul 2020 08:58:01 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <187614050.18497785.1593721708078.JavaMail.zimbra@cert.pl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,68 +68,76 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ tamas lengyel <tamas.lengyel@intel.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ luwei kang <luwei.kang@intel.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
+Hi,
 
-------=_NextPart_5EFECA03_10E771F8_7BF8E463
-Content-Type: text/plain;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+On 02/07/2020 21:28, Michał Leszczyński wrote:
+> ----- 2 lip 2020 o 16:31, Julien Grall julien@xen.org napisał(a):
+> 
+>> On 02/07/2020 15:17, Jan Beulich wrote:
+>>> On 02.07.2020 16:14, Julien Grall wrote:
+>>>> On 02/07/2020 14:30, Jan Beulich wrote:
+>>>>> On 02.07.2020 11:57, Julien Grall wrote:
+>>>>>> On 02/07/2020 10:18, Jan Beulich wrote:
+>>>>>>> On 02.07.2020 10:54, Julien Grall wrote:
+>>>>>>>> On 02/07/2020 09:50, Jan Beulich wrote:
+>>>>>>>>> On 02.07.2020 10:42, Julien Grall wrote:
+>>>>>>>>>> On 02/07/2020 09:29, Jan Beulich wrote:
+>>>>>> Another way to do it, would be the toolstack to do the mapping. At which
+>>>>>> point, you still need an hypercall to do the mapping (probably the
+>>>>>> hypercall acquire).
+>>>>>
+>>>>> There may not be any mapping to do in such a contrived, fixed-range
+>>>>> environment. This scenario was specifically to demonstrate that the
+>>>>> way the mapping gets done may be arch-specific (here: a no-op)
+>>>>> despite the allocation not being so.
+>>>> You are arguing on extreme cases which I don't think is really helpful
+>>>> here. Yes if you want to map at a fixed address in a guest you may not
+>>>> need the acquire hypercall. But in most of the other cases (see has for
+>>>> the tools) you will need it.
+>>>>
+>>>> So what's the problem with requesting to have the acquire hypercall
+>>>> implemented in common code?
+>>>
+>>> Didn't we start out by you asking that there be as little common code
+>>> as possible for the time being?
+>>
+>> Well as I said I am not in favor of having the allocation in common
+>> code, but if you want to keep it then you also want to implement
+>> map/unmap in the common code ([1], [2]).
+>>
+>>> I have no issue with putting the
+>>> acquire implementation there ...
+>> This was definitely not clear given how you argued with extreme cases...
+>>
+>> Cheers,
+>>
+>> [1] <9a3f4d58-e5ad-c7a1-6c5f-42aa92101ca1@xen.org>
+>> [2] <cf41855b-9e5e-13f2-9ab0-04b98f8b3cdd@xen.org>
+>>
+>> --
+>> Julien Grall
+> 
+> 
+> Guys,
+> 
+> could you express your final decision on this topic?
 
-VGhhbmsgeW91IGZvciB5b3VyIHJlcGx5IQ0KDQoNCk9uIDAyLzA3LzIwMjAgMDI6NDEsIGpp
-bmNoZW4gd3JvdGU6DQomZ3Q7Jmd0OyBIZWxsbyB4ZW4gZXhwZXJ0czoNCiZndDsmZ3Q7IA0K
-Jmd0OyZndDsgSXMgdGhlcmUgYW55IHdheSB0byBzYXZlIHhlbiBhbmQgZG9tMCBjb3JlIGR1
-bXAgbG9nIHdoZW4geGVuIG9yIGRvbTAgDQomZ3Q7Jmd0OyBjcmFzaCBvbiBBUk02NCBwbGF0
-Zm9ybT8NCg0KJmd0O1VzdWFsbHkgYWxsIHRoZSBjcmFzaCBzdGFjayB0cmFjZSAoWGVuIGFu
-ZCBEb20wKSBzaG91bGQgYmUgb3V0cHV0IG9uIHRoZSANCiZndDtYZW4gQ29uc29sZS4NCg0K
-DQpCdXQgaWYgSSBkb24ndCBjb25uZWN0IGEgZGVidWcgc2VyaWFsIGFuZCB3YW50IHRvIGNo
-ZWNrIHRoZSBkdW1wIGVycm9yIGFmdGVyIHJlYm9vdD8NCg0KJmd0OyZndDsmbmJzcDsgJm5i
-c3A7ICZuYnNwOyBJIGZpbmQgdGhhdCB0aGUga2R1bXAgc2VlbXMgY2FuJ3QgcnVuIG9uIEFS
-TTY0IHBsYXRmb3JtPw0KDQomZ3Q7V2UgZG9uJ3QgaGF2ZSBzdXBwb3J0IGZvciBrZHVtcC9r
-ZXhlYyBvbiBBcm0gaW4gWGVuIHlldC4NCg0KDQpJIGZpbmQgdGhlIGtkdW1wIHNlZW1zIHRo
-ZSBhcHByb3ByaWF0ZSB3YXkgdG8gZG8gdGhpcywgYnV0IGl0IGRvZXNuJ3Qgc3VwcG9ydCB4
-ZW4gYXJtNjQuDQoNCiZndDsmZ3Q7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgQXJlIHRoZXJlIGFu
-eSBwYXRjaGVzIG9yIG90aGVyIHdheSB0byBhY2hpdmUgdGhpcyBnb2FsPw0KDQomZ3Q7SSBh
-bSBub3QgYXdhcmUgb2YgYW55IHBhdGNoZXMsIGJ1dCB0aGV5IHdvdWxkIGJlIHdlbGNvbWVk
-Lg0KDQomZ3Q7Rm9yIG90aGVyIHdheSwgaXQgZGVwZW5kcyB3aGF0IGV4YWN0bHkgeW91IGV4
-cGVjdC4gRG8geW91IG5lZWQgbW9yZSB0aGFuIA0KJmd0O3RoZSBzdGFjayB0cmFjZT8NCg0K
-VGhlIHN0YWNrIHRyYWNlIHdpbGwgYmUgb2ssIGlmIG90aGVyIGluZm9tYW50aW9uIGNhbiBi
-ZSBzYXZlIHdpbGwgYmUgYmV0dGVyIChsaWtlIG1lbW9yeS92Y3B1L2RvbWFpbiwgZXRjLik=
+Can you move the acquire implementation from x86 to common code?
 
-------=_NextPart_5EFECA03_10E771F8_7BF8E463
-Content-Type: text/html;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+Cheers,
 
-PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNo
-YXJzZXQ9R0IxODAzMCI+PGRpdj5UaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkhPC9kaXY+PGRp
-dj48YnI+PC9kaXY+PGRpdj5PbiAwMi8wNy8yMDIwIDAyOjQxLCBqaW5jaGVuIHdyb3RlOjwv
-ZGl2PjxkaXY+Jmd0OyZndDsgSGVsbG8geGVuIGV4cGVydHM6PGJyPiZndDsmZ3Q7IDxicj4m
-Z3Q7Jmd0OyBJcyB0aGVyZSBhbnkgd2F5IHRvIHNhdmUgeGVuIGFuZCBkb20wIGNvcmUgZHVt
-cCBsb2cgd2hlbiB4ZW4gb3IgZG9tMCA8YnI+Jmd0OyZndDsgY3Jhc2ggb24gQVJNNjQgcGxh
-dGZvcm0/PGJyPjxicj4mZ3Q7VXN1YWxseSBhbGwgdGhlIGNyYXNoIHN0YWNrIHRyYWNlIChY
-ZW4gYW5kIERvbTApIHNob3VsZCBiZSBvdXRwdXQgb24gdGhlIDxicj4mZ3Q7WGVuIENvbnNv
-bGUuPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5CdXQgaWYgSSBkb24ndCBjb25uZWN0IGEg
-ZGVidWcgc2VyaWFsIGFuZCB3YW50IHRvIGNoZWNrIHRoZSBkdW1wIGVycm9yIGFmdGVyIHJl
-Ym9vdD88L2Rpdj48ZGl2Pjxicj4mZ3Q7Jmd0OyZuYnNwOyAmbmJzcDsgJm5ic3A7IEkgZmlu
-ZCB0aGF0IHRoZSBrZHVtcCBzZWVtcyBjYW4ndCBydW4gb24gQVJNNjQgcGxhdGZvcm0/PGJy
-Pjxicj4mZ3Q7V2UgZG9uJ3QgaGF2ZSBzdXBwb3J0IGZvciBrZHVtcC9rZXhlYyBvbiBBcm0g
-aW4gWGVuIHlldC48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkkgZmluZCB0aGUga2R1bXAg
-c2VlbXMgdGhlIGFwcHJvcHJpYXRlIHdheSB0byBkbyB0aGlzLCBidXQgaXQgZG9lc24ndCBz
-dXBwb3J0IHhlbiBhcm02NC48YnI+PGJyPiZndDsmZ3Q7Jm5ic3A7ICZuYnNwOyAmbmJzcDsg
-QXJlIHRoZXJlIGFueSBwYXRjaGVzIG9yIG90aGVyIHdheSB0byBhY2hpdmUgdGhpcyBnb2Fs
-Pzxicj48YnI+Jmd0O0kgYW0gbm90IGF3YXJlIG9mIGFueSBwYXRjaGVzLCBidXQgdGhleSB3
-b3VsZCBiZSB3ZWxjb21lZC48YnI+PGJyPiZndDtGb3Igb3RoZXIgd2F5LCBpdCBkZXBlbmRz
-IHdoYXQgZXhhY3RseSB5b3UgZXhwZWN0LiBEbyB5b3UgbmVlZCBtb3JlIHRoYW4gPGJyPiZn
-dDt0aGUgc3RhY2sgdHJhY2U/PGJyPjxicj5UaGUgc3RhY2sgdHJhY2Ugd2lsbCBiZSBvaywg
-aWYgb3RoZXIgaW5mb21hbnRpb24gY2FuIGJlIHNhdmUgd2lsbCBiZSBiZXR0ZXIgKGxpa2Ug
-bWVtb3J5L3ZjcHUvZG9tYWluLCBldGMuKTwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PGJy
-Pjxicj48L2Rpdj4=
-
-------=_NextPart_5EFECA03_10E771F8_7BF8E463--
-
-
-
+-- 
+Julien Grall
 
