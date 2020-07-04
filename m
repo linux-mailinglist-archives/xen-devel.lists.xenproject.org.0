@@ -2,62 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39BCD2146A7
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jul 2020 16:56:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A50372146A2
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jul 2020 16:56:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrjau-00056G-OO; Sat, 04 Jul 2020 14:56:44 +0000
+	id 1jrjai-0004wt-Ts; Sat, 04 Jul 2020 14:56:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hHao=AP=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jrjVp-0003ES-T1
- for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 14:51:29 +0000
-X-Inumbo-ID: b3c731bc-be05-11ea-8496-bc764e2007e4
-Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
+ id 1jrjVu-0003ES-T0
+ for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 14:51:34 +0000
+X-Inumbo-ID: b54c7c68-be05-11ea-bca7-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b3c731bc-be05-11ea-8496-bc764e2007e4;
- Sat, 04 Jul 2020 14:50:29 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id q15so34721985wmj.2
- for <xen-devel@lists.xenproject.org>; Sat, 04 Jul 2020 07:50:29 -0700 (PDT)
+ id b54c7c68-be05-11ea-bca7-bc764e2007e4;
+ Sat, 04 Jul 2020 14:50:31 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id q15so34722043wmj.2
+ for <xen-devel@lists.xenproject.org>; Sat, 04 Jul 2020 07:50:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=fJVcVH4doVw6Km6BSM1MV1lDhvP8r9rvGpMs+kFykbo=;
- b=K2lwgSpyWnjq/h8TiOfPsKpInIWHa5+dz+1p8VTR4XavTCAi4oZM+nXkVl8WOqLewb
- ozsFFf2OwYpYbdZ3eiEwdCdNFB8xk060HSlm2pDLSmkmpqjw2t8zgC7WWS6Rtc2pYFI6
- pVhqULi6RzwvieAFZ+T/B0GoMZz0xSebo4MS/liGeIh0HixD4qcgipHRgT3GteBbaP3O
- NfDFlBiaubRh22WagrqyVHDevz3RsDYDG2zHsljANg3QGj+roWzdwYDe+wIiXCkn/EDo
- Tg6k/KyVg3AsKT99KsfBndK/TZAZVe77NfLq7pdi2mAnr6zr2XQ1x/QBBG4elYDZy0FK
- QunQ==
+ bh=BVN2tL6FsOSYOSZ1Rnc/AWNY9pAl08p/yTnmHBA4/lE=;
+ b=pCckQw2fpxMWuUrRXy5Fj3fHnP1lNxTV/c5641pZ9JVVlE/7SDn5Q+r8sSpmGeHEtX
+ DQ82DdmBJfjkp7u54KKO9Ay1CQm1OqoeBDjN4toemHPaBd5JcfQL3QaYsoKMSYnMcZ86
+ cZkSflzpX4ea7A2bLQiMRirFJDw5g/vdSSr9sfwJoCmDfKl2BVC60kE20D3yzbnZa1ls
+ bJh1WPioULkSM6b3/MugK1q0os9mcW2PgGSAqfRiQY3jHTvkj9TCGs9ygvVJCLAyMiEa
+ nPCSpr4C+N0nVyXsOtCts8cDGKX+c88yfVcUQmPePkBlul0t7jTng4E9ABkXxABaOIFb
+ KvpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=fJVcVH4doVw6Km6BSM1MV1lDhvP8r9rvGpMs+kFykbo=;
- b=WT8ixSKz5EaUKPqUvBcyTOwMcxBkrUcOsfmalOsMmUT3a0El1RGA/IrSYMMRfTuqK2
- ObV18I01To2rGO+Y/hdkcFsuz/Ysw76Fhom84NqnrI9ycTD8qVJ9q3I+O15gyo++fZsd
- onXtwTRfQyPHZNH0HpWUTnYGteP4c8YJYuSRR12JKbM0YRJNvTh32RUCL6DsVbGWRP2i
- oihQlqYUzTu6mQXUO9/hdDvXOPjzf2pxsk6r+85xRRk3gEAx9NHIVKApEQkuAO23pSN7
- J+2iirE09vK0XQMuBv3YYhf+dZliXBQ84uMlrtDPwW6FoKfB9kqXtGNIo4dNhaI+UxOj
- HJiQ==
-X-Gm-Message-State: AOAM530OTNXxatzadq/X3+8y2w16swIEi/FTcl2WN2sFGILrz5UqjxQ1
- KBvlB76CL8sTqFuBw536IfQ=
-X-Google-Smtp-Source: ABdhPJwBkQVEoJtyk9IO8+500AN1sxUzaC/kjPlQwjEVcQTj3r8o+ql1zItIAXJmSwL9GUWTiy5ETg==
-X-Received: by 2002:a1c:5986:: with SMTP id
- n128mr28975302wmb.112.1593874228406; 
- Sat, 04 Jul 2020 07:50:28 -0700 (PDT)
+ bh=BVN2tL6FsOSYOSZ1Rnc/AWNY9pAl08p/yTnmHBA4/lE=;
+ b=my7cNrqN+E9EYtMbSgLDkG+qhnBFTz+k0cP4b2wHNG1+2JHpqaWVya3UnTc0WLhIoR
+ ZIn06Jo8tku9CBXdeT6f2F4k0AsxjG70wtXK2MZt/N4IHe1FRwaCMEZbinn/yp/WP3lo
+ rFnpBfKDEiuJlPnJD4ry5tcxX4+IAVv5eRFYRod9uchjSUgSxZyOqiRuF/DCNnyGnCs5
+ uTrjDIpfc8ArBLYXtbBxLSdWQKluwxRkvSd9Z/TVgP5fb287vSlKYHG7GcOE9a5/11sP
+ W+hFgn56wK0BbXboFniKCa10ZIgEaJ5wuB2chGDwFX7tshV2JuCIB4MLfkYs9SL8zzVS
+ n+cg==
+X-Gm-Message-State: AOAM531GruCTHnBC0zIKqK2NFL4VCJQS9q0yw6YjX7ujkOTv/n5I2Fqu
+ 5Zgkc80tPlytl7z3G8wOrok=
+X-Google-Smtp-Source: ABdhPJwaQwLIlLdyKxBkKPa8GBks7V8EDYQ/7hiL57HMX9nYvfh3kbH/YgCk6NdT+Qi4tqQqI6p6nw==
+X-Received: by 2002:a7b:cc08:: with SMTP id f8mr43795677wmh.106.1593874230724; 
+ Sat, 04 Jul 2020 07:50:30 -0700 (PDT)
 Received: from localhost.localdomain (1.red-83-51-162.dynamicip.rima-tde.net.
  [83.51.162.1])
- by smtp.gmail.com with ESMTPSA id r10sm17135019wrm.17.2020.07.04.07.50.26
+ by smtp.gmail.com with ESMTPSA id r10sm17135019wrm.17.2020.07.04.07.50.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2020 07:50:27 -0700 (PDT)
+ Sat, 04 Jul 2020 07:50:30 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org,
 	BALATON Zoltan <balaton@eik.bme.hu>
-Subject: [PATCH 20/26] hw/usb: Introduce "hw/usb/usb.h" public API
-Date: Sat,  4 Jul 2020 16:49:37 +0200
-Message-Id: <20200704144943.18292-21-f4bug@amsat.org>
+Subject: [PATCH 21/26] hw/usb: Move internal API to local 'usb-internal.h'
+ header
+Date: Sat,  4 Jul 2020 16:49:38 +0200
+Message-Id: <20200704144943.18292-22-f4bug@amsat.org>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200704144943.18292-1-f4bug@amsat.org>
 References: <20200704144943.18292-1-f4bug@amsat.org>
@@ -107,314 +107,614 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Only the USB devices require to access the USB internal APIs.
+Only the files under hw/usb/ require access to the USB internal
+API. Move include/hw/usb.h to hw/usb/usb-internal.h to reduce
+its scope.
 
-The rest of the code base only wants to consume USB devices
-with a generic API. Move the generic declarations to the new
-"hw/usb/usb.h" header.
-
-Reported-by: BALATON Zoltan <balaton@eik.bme.hu>
 Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 ---
- include/hw/usb.h      | 27 +-------------------
- include/hw/usb/usb.h  | 58 +++++++++++++++++++++++++++++++++++++++++++
- chardev/baum.c        |  2 +-
- hw/i386/pc.c          |  2 +-
- hw/i386/pc_piix.c     |  2 +-
- hw/i386/pc_q35.c      |  2 +-
- hw/ppc/mac_newworld.c |  2 +-
- hw/ppc/sam460ex.c     |  1 +
- hw/ppc/spapr.c        |  2 +-
- hw/sh4/r2d.c          |  2 +-
- hw/usb/host-stub.c    |  2 +-
- monitor/misc.c        |  2 +-
- softmmu/vl.c          |  2 +-
- 13 files changed, 70 insertions(+), 36 deletions(-)
- create mode 100644 include/hw/usb/usb.h
+ hw/usb/desc.h                             | 2 +-
+ hw/usb/hcd-dwc2.h                         | 2 +-
+ hw/usb/hcd-ehci.h                         | 2 +-
+ hw/usb/hcd-ohci.h                         | 2 +-
+ hw/usb/hcd-xhci.h                         | 2 +-
+ include/hw/usb.h => hw/usb/usb-internal.h | 7 +++----
+ hw/usb/bus.c                              | 2 +-
+ hw/usb/combined-packet.c                  | 2 +-
+ hw/usb/core.c                             | 2 +-
+ hw/usb/desc-msos.c                        | 2 +-
+ hw/usb/desc.c                             | 3 +--
+ hw/usb/dev-audio.c                        | 2 +-
+ hw/usb/dev-hid.c                          | 2 +-
+ hw/usb/dev-hub.c                          | 2 +-
+ hw/usb/dev-mtp.c                          | 2 +-
+ hw/usb/dev-network.c                      | 2 +-
+ hw/usb/dev-serial.c                       | 2 +-
+ hw/usb/dev-smartcard-reader.c             | 2 +-
+ hw/usb/dev-storage.c                      | 2 +-
+ hw/usb/dev-uas.c                          | 2 +-
+ hw/usb/dev-wacom.c                        | 2 +-
+ hw/usb/hcd-dwc2.c                         | 1 +
+ hw/usb/hcd-musb.c                         | 2 +-
+ hw/usb/hcd-ohci-pci.c                     | 2 +-
+ hw/usb/hcd-ohci.c                         | 1 -
+ hw/usb/hcd-uhci.c                         | 2 +-
+ hw/usb/hcd-xhci-nec.c                     | 3 +--
+ hw/usb/hcd-xhci.c                         | 2 +-
+ hw/usb/host-libusb.c                      | 2 +-
+ hw/usb/libhw.c                            | 2 +-
+ hw/usb/quirks.c                           | 2 +-
+ hw/usb/redirect.c                         | 2 +-
+ hw/usb/tusb6010.c                         | 2 +-
+ hw/usb/xen-usb.c                          | 2 +-
+ MAINTAINERS                               | 1 -
+ 35 files changed, 35 insertions(+), 39 deletions(-)
+ rename include/hw/usb.h => hw/usb/usb-internal.h (99%)
 
-diff --git a/include/hw/usb.h b/include/hw/usb.h
-index 7ea502d421..2ea5186ea5 100644
---- a/include/hw/usb.h
-+++ b/include/hw/usb.h
-@@ -26,6 +26,7 @@
-  */
+diff --git a/hw/usb/desc.h b/hw/usb/desc.h
+index 4bf6966c4b..ee4f042602 100644
+--- a/hw/usb/desc.h
++++ b/hw/usb/desc.h
+@@ -2,7 +2,7 @@
+ #define QEMU_HW_USB_DESC_H
  
- #include "hw/qdev-core.h"
-+#include "hw/usb/usb.h"
- #include "qemu/iov.h"
- #include "qemu/queue.h"
+ #include <wchar.h>
+-#include "hw/usb.h"
++#include "usb-internal.h"
  
-@@ -176,7 +177,6 @@
- typedef struct USBBus USBBus;
- typedef struct USBBusOps USBBusOps;
- typedef struct USBPort USBPort;
--typedef struct USBDevice USBDevice;
- typedef struct USBPacket USBPacket;
- typedef struct USBCombinedPacket USBCombinedPacket;
- typedef struct USBEndpoint USBEndpoint;
-@@ -256,9 +256,6 @@ struct USBDevice {
-     const USBDescIface  *ifaces[USB_MAX_INTERFACES];
- };
+ /* binary representation */
+ typedef struct USBDescriptor {
+diff --git a/hw/usb/hcd-dwc2.h b/hw/usb/hcd-dwc2.h
+index 2adf0f53c7..2dfb3f3bc5 100644
+--- a/hw/usb/hcd-dwc2.h
++++ b/hw/usb/hcd-dwc2.h
+@@ -20,7 +20,7 @@
+ #define HW_USB_DWC2_H
  
--#define TYPE_USB_DEVICE "usb-device"
--#define USB_DEVICE(obj) \
--     OBJECT_CHECK(USBDevice, (obj), TYPE_USB_DEVICE)
- #define USB_DEVICE_CLASS(klass) \
-      OBJECT_CLASS_CHECK(USBDeviceClass, (klass), TYPE_USB_DEVICE)
- #define USB_DEVICE_GET_CLASS(obj) \
-@@ -459,15 +456,8 @@ void usb_device_reset(USBDevice *dev);
- void usb_wakeup(USBEndpoint *ep, unsigned int stream);
- void usb_generic_async_ctrl_complete(USBDevice *s, USBPacket *p);
+ #include "hw/sysbus.h"
+-#include "hw/usb.h"
++#include "usb-internal.h"
  
--/* usb-linux.c */
--void hmp_info_usbhost(Monitor *mon, const QDict *qdict);
--bool usb_host_dev_is_scsi_storage(USBDevice *usbdev);
--
- /* usb-bus.c */
+ #define DWC2_MMIO_SIZE      0x11000
  
--#define TYPE_USB_BUS "usb-bus"
--#define USB_BUS(obj) OBJECT_CHECK(USBBus, (obj), TYPE_USB_BUS)
--
- struct USBBus {
-     BusState qbus;
-     USBBusOps *ops;
-@@ -489,13 +479,8 @@ struct USBBusOps {
- void usb_bus_new(USBBus *bus, size_t bus_size,
-                  USBBusOps *ops, DeviceState *host);
- void usb_bus_release(USBBus *bus);
--USBBus *usb_bus_find(int busnr);
- void usb_legacy_register(const char *typename, const char *usbdevice_name,
-                          USBDevice *(*usbdevice_init)(const char *params));
--USBDevice *usb_new(const char *name);
--bool usb_realize_and_unref(USBDevice *dev, USBBus *bus, Error **errp);
--USBDevice *usb_create_simple(USBBus *bus, const char *name);
--USBDevice *usbdevice_create(const char *cmdline);
- void usb_register_port(USBBus *bus, USBPort *port, void *opaque, int index,
-                        USBPortOps *ops, int speedmask);
- void usb_register_companion(const char *masterbus, USBPort *ports[],
-@@ -506,16 +491,6 @@ void usb_port_location(USBPort *downstream, USBPort *upstream, int portnr);
- void usb_unregister_port(USBBus *bus, USBPort *port);
- void usb_claim_port(USBDevice *dev, Error **errp);
- void usb_release_port(USBDevice *dev);
--/**
-- * usb_get_port_path:
-- * @dev: the USB device
-- *
-- * The returned data must be released with g_free()
-- * when no longer required.
-- *
-- * Returns: a dynamically allocated pathname.
-- */
--char *usb_get_port_path(USBDevice *dev);
- void usb_device_attach(USBDevice *dev, Error **errp);
- int usb_device_detach(USBDevice *dev);
- void usb_check_attach(USBDevice *dev, Error **errp);
-diff --git a/include/hw/usb/usb.h b/include/hw/usb/usb.h
-new file mode 100644
-index 0000000000..9a13b08503
---- /dev/null
-+++ b/include/hw/usb/usb.h
-@@ -0,0 +1,58 @@
-+/*
-+ * QEMU USB API
-+ *
-+ * Copyright (c) 2005 Fabrice Bellard
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to deal
-+ * in the Software without restriction, including without limitation the rights
-+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+ * copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+ * THE SOFTWARE.
-+ */
-+#ifndef QEMU_HW_USB_H
-+#define QEMU_HW_USB_H
-+
-+typedef struct USBDevice USBDevice;
-+
-+#define TYPE_USB_DEVICE "usb-device"
-+#define USB_DEVICE(obj) \
-+     OBJECT_CHECK(USBDevice, (obj), TYPE_USB_DEVICE)
-+
-+typedef struct USBBus USBBus;
-+
-+#define TYPE_USB_BUS "usb-bus"
-+#define USB_BUS(obj) OBJECT_CHECK(USBBus, (obj), TYPE_USB_BUS)
-+
-+USBBus *usb_bus_find(int busnr);
-+USBDevice *usb_new(const char *name);
-+bool usb_realize_and_unref(USBDevice *dev, USBBus *bus, Error **errp);
-+USBDevice *usb_create_simple(USBBus *bus, const char *name);
-+USBDevice *usbdevice_create(const char *cmdline);
-+
-+/**
-+ * usb_get_port_path:
-+ * @dev: the USB device
-+ *
-+ * The returned data must be released with g_free()
-+ * when no longer required.
-+ *
-+ * Returns: a dynamically allocated pathname.
-+ */
-+char *usb_get_port_path(USBDevice *dev);
-+
-+void hmp_info_usbhost(Monitor *mon, const QDict *qdict);
-+bool usb_host_dev_is_scsi_storage(USBDevice *usbdev);
-+
-+#endif
-diff --git a/chardev/baum.c b/chardev/baum.c
-index 9c95e7bc79..fc04bf2e2f 100644
---- a/chardev/baum.c
-+++ b/chardev/baum.c
-@@ -28,7 +28,7 @@
- #include "qemu/main-loop.h"
- #include "qemu/module.h"
+diff --git a/hw/usb/hcd-ehci.h b/hw/usb/hcd-ehci.h
+index 4577f5e31d..337b3ad05c 100644
+--- a/hw/usb/hcd-ehci.h
++++ b/hw/usb/hcd-ehci.h
+@@ -19,10 +19,10 @@
+ #define HW_USB_HCD_EHCI_H
+ 
  #include "qemu/timer.h"
 -#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "ui/console.h"
- #include <brlapi.h>
- #include <brlapi_constants.h>
-diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-index 4af9679d03..a890f57ac2 100644
---- a/hw/i386/pc.c
-+++ b/hw/i386/pc.c
-@@ -83,7 +83,7 @@
- #include "qapi/qapi-visit-common.h"
- #include "qapi/visitor.h"
- #include "hw/core/cpu.h"
--#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "hw/i386/intel_iommu.h"
- #include "hw/net/ne2000-isa.h"
- #include "standard-headers/asm-x86/bootparam.h"
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index 1d832b2878..4d1de7cfab 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -36,7 +36,7 @@
- #include "hw/firmware/smbios.h"
+ #include "sysemu/dma.h"
  #include "hw/pci/pci.h"
- #include "hw/pci/pci_ids.h"
+ #include "hw/sysbus.h"
++#include "usb-internal.h"
+ 
+ #define CAPA_SIZE        0x10
+ 
+diff --git a/hw/usb/hcd-ohci.h b/hw/usb/hcd-ohci.h
+index 5c8819aedf..771927ea17 100644
+--- a/hw/usb/hcd-ohci.h
++++ b/hw/usb/hcd-ohci.h
+@@ -22,7 +22,7 @@
+ #define HCD_OHCI_H
+ 
+ #include "sysemu/dma.h"
 -#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "net/net.h"
- #include "hw/ide/pci.h"
- #include "hw/irq.h"
-diff --git a/hw/i386/pc_q35.c b/hw/i386/pc_q35.c
-index 047ea8db28..b985f5bea1 100644
---- a/hw/i386/pc_q35.c
-+++ b/hw/i386/pc_q35.c
-@@ -50,7 +50,7 @@
- #include "hw/firmware/smbios.h"
- #include "hw/ide/pci.h"
- #include "hw/ide/ahci.h"
++#include "usb-internal.h"
+ 
+ /* Number of Downstream Ports on the root hub: */
+ #define OHCI_MAX_PORTS 15
+diff --git a/hw/usb/hcd-xhci.h b/hw/usb/hcd-xhci.h
+index 8edbdc2c3e..f9a3aaceec 100644
+--- a/hw/usb/hcd-xhci.h
++++ b/hw/usb/hcd-xhci.h
+@@ -22,7 +22,7 @@
+ #ifndef HW_USB_HCD_XHCI_H
+ #define HW_USB_HCD_XHCI_H
+ 
 -#include "hw/usb.h"
-+#include "hw/usb/usb.h"
++#include "usb-internal.h"
+ 
+ #define TYPE_XHCI "base-xhci"
+ #define TYPE_NEC_XHCI "nec-usb-xhci"
+diff --git a/include/hw/usb.h b/hw/usb/usb-internal.h
+similarity index 99%
+rename from include/hw/usb.h
+rename to hw/usb/usb-internal.h
+index 2ea5186ea5..ceafb65936 100644
+--- a/include/hw/usb.h
++++ b/hw/usb/usb-internal.h
+@@ -1,8 +1,5 @@
+-#ifndef QEMU_USB_H
+-#define QEMU_USB_H
+-
+ /*
+- * QEMU USB API
++ * QEMU USB internal API
+  *
+  * Copyright (c) 2005 Fabrice Bellard
+  *
+@@ -24,6 +21,8 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
++#ifndef QEMU_USB_INTERNAL_H
++#define QEMU_USB_INTERNAL_H
+ 
+ #include "hw/qdev-core.h"
+ #include "hw/usb/usb.h"
+diff --git a/hw/usb/bus.c b/hw/usb/bus.c
+index 518e5b94ed..ba6c48e800 100644
+--- a/hw/usb/bus.c
++++ b/hw/usb/bus.c
+@@ -1,6 +1,5 @@
+ #include "qemu/osdep.h"
+ #include "hw/qdev-properties.h"
+-#include "hw/usb.h"
  #include "qapi/error.h"
  #include "qemu/error-report.h"
- #include "sysemu/numa.h"
-diff --git a/hw/ppc/mac_newworld.c b/hw/ppc/mac_newworld.c
-index 828c5992ae..7bf69f4a1f 100644
---- a/hw/ppc/mac_newworld.c
-+++ b/hw/ppc/mac_newworld.c
-@@ -69,7 +69,7 @@
- #include "sysemu/kvm.h"
- #include "sysemu/reset.h"
- #include "kvm_ppc.h"
--#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "exec/address-spaces.h"
- #include "hw/sysbus.h"
+ #include "qemu/module.h"
+@@ -9,6 +8,7 @@
+ #include "monitor/monitor.h"
  #include "trace.h"
-diff --git a/hw/ppc/sam460ex.c b/hw/ppc/sam460ex.c
-index fae970b142..781b45e14b 100644
---- a/hw/ppc/sam460ex.c
-+++ b/hw/ppc/sam460ex.c
-@@ -35,6 +35,7 @@
- #include "hw/char/serial.h"
- #include "hw/i2c/ppc4xx_i2c.h"
- #include "hw/i2c/smbus_eeprom.h"
-+#include "hw/usb/usb.h"
- #include "hw/usb/hcd-ehci.h"
- #include "hw/ppc/fdt.h"
+ #include "qemu/cutils.h"
++#include "usb-internal.h"
+ #include "desc.h"
+ 
+ static void usb_bus_dev_print(Monitor *mon, DeviceState *qdev, int indent);
+diff --git a/hw/usb/combined-packet.c b/hw/usb/combined-packet.c
+index 5d57e883dc..28e19aad12 100644
+--- a/hw/usb/combined-packet.c
++++ b/hw/usb/combined-packet.c
+@@ -21,9 +21,9 @@
+  */
+ #include "qemu/osdep.h"
+ #include "qemu/units.h"
+-#include "hw/usb.h"
+ #include "qemu/iov.h"
+ #include "trace.h"
++#include "usb-internal.h"
+ 
+ static void usb_combined_packet_add(USBCombinedPacket *combined, USBPacket *p)
+ {
+diff --git a/hw/usb/core.c b/hw/usb/core.c
+index 5abd128b6b..6fed698d20 100644
+--- a/hw/usb/core.c
++++ b/hw/usb/core.c
+@@ -24,9 +24,9 @@
+  * THE SOFTWARE.
+  */
+ #include "qemu/osdep.h"
+-#include "hw/usb.h"
+ #include "qemu/iov.h"
+ #include "trace.h"
++#include "usb-internal.h"
+ 
+ void usb_pick_speed(USBPort *port)
+ {
+diff --git a/hw/usb/desc-msos.c b/hw/usb/desc-msos.c
+index 3a5ad7c8d0..79a8093f3f 100644
+--- a/hw/usb/desc-msos.c
++++ b/hw/usb/desc-msos.c
+@@ -1,6 +1,6 @@
+ #include "qemu/osdep.h"
+-#include "hw/usb.h"
+ #include "desc.h"
++#include "usb-internal.h"
+ 
+ /*
+  * Microsoft OS Descriptors
+diff --git a/hw/usb/desc.c b/hw/usb/desc.c
+index 8b6eaea407..defb344014 100644
+--- a/hw/usb/desc.c
++++ b/hw/usb/desc.c
+@@ -1,8 +1,7 @@
+ #include "qemu/osdep.h"
+-
+-#include "hw/usb.h"
+ #include "desc.h"
+ #include "trace.h"
++#include "usb-internal.h"
+ 
+ /* ------------------------------------------------------------------ */
+ 
+diff --git a/hw/usb/dev-audio.c b/hw/usb/dev-audio.c
+index 1371c44f48..1e4d1051f3 100644
+--- a/hw/usb/dev-audio.c
++++ b/hw/usb/dev-audio.c
+@@ -32,10 +32,10 @@
+ #include "qemu/osdep.h"
+ #include "qemu/module.h"
  #include "hw/qdev-properties.h"
-diff --git a/hw/ppc/spapr.c b/hw/ppc/spapr.c
-index 221d3e7a8c..0c0409077f 100644
---- a/hw/ppc/spapr.c
-+++ b/hw/ppc/spapr.c
-@@ -70,7 +70,7 @@
- 
- #include "exec/address-spaces.h"
- #include "exec/ram_addr.h"
 -#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "qemu/config-file.h"
- #include "qemu/error-report.h"
- #include "trace.h"
-diff --git a/hw/sh4/r2d.c b/hw/sh4/r2d.c
-index 443820901d..a39c378855 100644
---- a/hw/sh4/r2d.c
-+++ b/hw/sh4/r2d.c
-@@ -40,7 +40,7 @@
- #include "hw/ide.h"
- #include "hw/irq.h"
- #include "hw/loader.h"
--#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "hw/block/flash.h"
- #include "exec/address-spaces.h"
+ #include "migration/vmstate.h"
+ #include "desc.h"
+ #include "audio/audio.h"
++#include "usb-internal.h"
  
-diff --git a/hw/usb/host-stub.c b/hw/usb/host-stub.c
-index 538ed29684..11b754892d 100644
---- a/hw/usb/host-stub.c
-+++ b/hw/usb/host-stub.c
-@@ -32,7 +32,7 @@
+ static void usb_audio_reinit(USBDevice *dev, unsigned channels);
+ 
+diff --git a/hw/usb/dev-hid.c b/hw/usb/dev-hid.c
+index 89f63b698b..59b47272ba 100644
+--- a/hw/usb/dev-hid.c
++++ b/hw/usb/dev-hid.c
+@@ -25,7 +25,6 @@
  
  #include "qemu/osdep.h"
  #include "ui/console.h"
 -#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "monitor/monitor.h"
+ #include "migration/vmstate.h"
+ #include "desc.h"
+ #include "qapi/error.h"
+@@ -33,6 +32,7 @@
+ #include "qemu/timer.h"
+ #include "hw/input/hid.h"
+ #include "hw/qdev-properties.h"
++#include "usb-internal.h"
  
- void hmp_info_usbhost(Monitor *mon, const QDict *qdict)
-diff --git a/monitor/misc.c b/monitor/misc.c
-index 89bb970b00..65c0f887dd 100644
---- a/monitor/misc.c
-+++ b/monitor/misc.c
-@@ -26,7 +26,7 @@
- #include "monitor-internal.h"
- #include "cpu.h"
- #include "monitor/qdev.h"
+ /* HID interface requests */
+ #define GET_REPORT   0xa101
+diff --git a/hw/usb/dev-hub.c b/hw/usb/dev-hub.c
+index 5f19dd9fb5..b394ae9983 100644
+--- a/hw/usb/dev-hub.c
++++ b/hw/usb/dev-hub.c
+@@ -27,11 +27,11 @@
+ #include "qemu/timer.h"
+ #include "trace.h"
+ #include "hw/qdev-properties.h"
 -#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "hw/pci/pci.h"
- #include "sysemu/watchdog.h"
- #include "hw/loader.h"
-diff --git a/softmmu/vl.c b/softmmu/vl.c
-index 3e15ee2435..25a13e913e 100644
---- a/softmmu/vl.c
-+++ b/softmmu/vl.c
-@@ -41,7 +41,7 @@
+ #include "migration/vmstate.h"
+ #include "desc.h"
  #include "qemu/error-report.h"
- #include "qemu/sockets.h"
- #include "sysemu/accel.h"
+ #include "qemu/module.h"
++#include "usb-internal.h"
+ 
+ #define MAX_PORTS 8
+ 
+diff --git a/hw/usb/dev-mtp.c b/hw/usb/dev-mtp.c
+index 15a2243101..147e564bea 100644
+--- a/hw/usb/dev-mtp.c
++++ b/hw/usb/dev-mtp.c
+@@ -24,10 +24,10 @@
+ #include "qemu/filemonitor.h"
+ #include "trace.h"
+ #include "hw/qdev-properties.h"
 -#include "hw/usb.h"
-+#include "hw/usb/usb.h"
- #include "hw/isa/isa.h"
+ #include "migration/vmstate.h"
+ #include "desc.h"
+ #include "qemu/units.h"
++#include "usb-internal.h"
+ 
+ /* ----------------------------------------------------------------------- */
+ 
+diff --git a/hw/usb/dev-network.c b/hw/usb/dev-network.c
+index c69756709b..2e06d74f69 100644
+--- a/hw/usb/dev-network.c
++++ b/hw/usb/dev-network.c
+@@ -26,7 +26,6 @@
+ #include "qemu/osdep.h"
+ #include "qapi/error.h"
+ #include "hw/qdev-properties.h"
+-#include "hw/usb.h"
+ #include "migration/vmstate.h"
+ #include "desc.h"
+ #include "net/net.h"
+@@ -37,6 +36,7 @@
+ #include "qemu/iov.h"
+ #include "qemu/module.h"
+ #include "qemu/cutils.h"
++#include "usb-internal.h"
+ 
+ /*#define TRAFFIC_DEBUG*/
+ /* Thanks to NetChip Technologies for donating this product ID.
+diff --git a/hw/usb/dev-serial.c b/hw/usb/dev-serial.c
+index 7e50e3ba47..4d3f91a85a 100644
+--- a/hw/usb/dev-serial.c
++++ b/hw/usb/dev-serial.c
+@@ -14,11 +14,11 @@
+ #include "qemu/error-report.h"
+ #include "qemu/module.h"
+ #include "hw/qdev-properties.h"
+-#include "hw/usb.h"
+ #include "migration/vmstate.h"
+ #include "desc.h"
+ #include "chardev/char-serial.h"
+ #include "chardev/char-fe.h"
++#include "usb-internal.h"
+ 
+ //#define DEBUG_Serial
+ 
+diff --git a/hw/usb/dev-smartcard-reader.c b/hw/usb/dev-smartcard-reader.c
+index fcfe216594..9602b25a10 100644
+--- a/hw/usb/dev-smartcard-reader.c
++++ b/hw/usb/dev-smartcard-reader.c
+@@ -41,9 +41,9 @@
+ #include "qemu/error-report.h"
+ #include "qemu/module.h"
+ #include "hw/qdev-properties.h"
+-#include "hw/usb.h"
+ #include "migration/vmstate.h"
+ #include "desc.h"
++#include "usb-internal.h"
+ 
+ #include "ccid.h"
+ 
+diff --git a/hw/usb/dev-storage.c b/hw/usb/dev-storage.c
+index f5977eb72e..a58c84dffa 100644
+--- a/hw/usb/dev-storage.c
++++ b/hw/usb/dev-storage.c
+@@ -13,7 +13,6 @@
+ #include "qemu/module.h"
+ #include "qemu/option.h"
+ #include "qemu/config-file.h"
+-#include "hw/usb.h"
+ #include "desc.h"
+ #include "hw/qdev-properties.h"
  #include "hw/scsi/scsi.h"
- #include "hw/display/vga.h"
+@@ -22,6 +21,7 @@
+ #include "sysemu/block-backend.h"
+ #include "qapi/visitor.h"
+ #include "qemu/cutils.h"
++#include "usb-internal.h"
+ 
+ //#define DEBUG_MSD
+ 
+diff --git a/hw/usb/dev-uas.c b/hw/usb/dev-uas.c
+index a3a4d41c07..9dc39f98a2 100644
+--- a/hw/usb/dev-uas.c
++++ b/hw/usb/dev-uas.c
+@@ -17,12 +17,12 @@
+ #include "qemu/main-loop.h"
+ #include "qemu/module.h"
+ 
+-#include "hw/usb.h"
+ #include "migration/vmstate.h"
+ #include "desc.h"
+ #include "hw/qdev-properties.h"
+ #include "hw/scsi/scsi.h"
+ #include "scsi/constants.h"
++#include "usb-internal.h"
+ 
+ /* --------------------------------------------------------------------- */
+ 
+diff --git a/hw/usb/dev-wacom.c b/hw/usb/dev-wacom.c
+index 8aba44b8bc..7c162b7f85 100644
+--- a/hw/usb/dev-wacom.c
++++ b/hw/usb/dev-wacom.c
+@@ -28,10 +28,10 @@
+ 
+ #include "qemu/osdep.h"
+ #include "ui/console.h"
+-#include "hw/usb.h"
+ #include "migration/vmstate.h"
+ #include "qemu/module.h"
+ #include "desc.h"
++#include "usb-internal.h"
+ 
+ /* Interface requests */
+ #define WACOM_GET_REPORT	0x2101
+diff --git a/hw/usb/hcd-dwc2.c b/hw/usb/hcd-dwc2.c
+index 252b60ef65..47ae18d510 100644
+--- a/hw/usb/hcd-dwc2.c
++++ b/hw/usb/hcd-dwc2.c
+@@ -43,6 +43,7 @@
+ #include "qemu/log.h"
+ #include "hw/qdev-properties.h"
+ #include "dwc2-regs.h"
++#include "usb-internal.h"
+ 
+ #define USB_HZ_FS       12000000
+ #define USB_HZ_HS       96000000
+diff --git a/hw/usb/hcd-musb.c b/hw/usb/hcd-musb.c
+index b8d8766a4a..bc3efcce65 100644
+--- a/hw/usb/hcd-musb.c
++++ b/hw/usb/hcd-musb.c
+@@ -22,10 +22,10 @@
+  */
+ #include "qemu/osdep.h"
+ #include "qemu/timer.h"
+-#include "hw/usb.h"
+ #include "hw/irq.h"
+ #include "hw/hw.h"
+ #include "hcd-musb.h"
++#include "usb-internal.h"
+ 
+ /* Common USB registers */
+ #define MUSB_HDRC_FADDR		0x00	/* 8-bit */
+diff --git a/hw/usb/hcd-ohci-pci.c b/hw/usb/hcd-ohci-pci.c
+index a7fb1666af..cb6bc55f59 100644
+--- a/hw/usb/hcd-ohci-pci.c
++++ b/hw/usb/hcd-ohci-pci.c
+@@ -21,7 +21,6 @@
+ #include "qemu/osdep.h"
+ #include "qapi/error.h"
+ #include "qemu/timer.h"
+-#include "hw/usb.h"
+ #include "migration/vmstate.h"
+ #include "hw/pci/pci.h"
+ #include "hw/sysbus.h"
+@@ -29,6 +28,7 @@
+ #include "hw/qdev-properties.h"
+ #include "trace.h"
+ #include "hcd-ohci.h"
++#include "usb-internal.h"
+ 
+ #define TYPE_PCI_OHCI "pci-ohci"
+ #define PCI_OHCI(obj) OBJECT_CHECK(OHCIPCIState, (obj), TYPE_PCI_OHCI)
+diff --git a/hw/usb/hcd-ohci.c b/hw/usb/hcd-ohci.c
+index 1e6e85e86a..f4a85a8774 100644
+--- a/hw/usb/hcd-ohci.c
++++ b/hw/usb/hcd-ohci.c
+@@ -30,7 +30,6 @@
+ #include "qapi/error.h"
+ #include "qemu/module.h"
+ #include "qemu/timer.h"
+-#include "hw/usb.h"
+ #include "migration/vmstate.h"
+ #include "hw/sysbus.h"
+ #include "hw/qdev-dma.h"
+diff --git a/hw/usb/hcd-uhci.c b/hw/usb/hcd-uhci.c
+index 37f7beb3fa..1d4dd33b6c 100644
+--- a/hw/usb/hcd-uhci.c
++++ b/hw/usb/hcd-uhci.c
+@@ -27,7 +27,6 @@
+  */
+ 
+ #include "qemu/osdep.h"
+-#include "hw/usb.h"
+ #include "hw/usb/uhci-regs.h"
+ #include "migration/vmstate.h"
+ #include "hw/pci/pci.h"
+@@ -39,6 +38,7 @@
+ #include "trace.h"
+ #include "qemu/main-loop.h"
+ #include "qemu/module.h"
++#include "usb-internal.h"
+ 
+ #define FRAME_TIMER_FREQ 1000
+ 
+diff --git a/hw/usb/hcd-xhci-nec.c b/hw/usb/hcd-xhci-nec.c
+index e6a5a22b6d..24c59fa4b0 100644
+--- a/hw/usb/hcd-xhci-nec.c
++++ b/hw/usb/hcd-xhci-nec.c
+@@ -20,11 +20,10 @@
+  */
+ 
+ #include "qemu/osdep.h"
+-#include "hw/usb.h"
+ #include "qemu/module.h"
+ #include "hw/pci/pci.h"
+ #include "hw/qdev-properties.h"
+-
++#include "usb-internal.h"
+ #include "hcd-xhci.h"
+ 
+ static Property nec_xhci_properties[] = {
+diff --git a/hw/usb/hcd-xhci.c b/hw/usb/hcd-xhci.c
+index b330e36fe6..a3f6b14681 100644
+--- a/hw/usb/hcd-xhci.c
++++ b/hw/usb/hcd-xhci.c
+@@ -23,7 +23,6 @@
+ #include "qemu/timer.h"
+ #include "qemu/module.h"
+ #include "qemu/queue.h"
+-#include "hw/usb.h"
+ #include "migration/vmstate.h"
+ #include "hw/pci/pci.h"
+ #include "hw/qdev-properties.h"
+@@ -33,6 +32,7 @@
+ #include "qapi/error.h"
+ 
+ #include "hcd-xhci.h"
++#include "usb-internal.h"
+ 
+ //#define DEBUG_XHCI
+ //#define DEBUG_DATA
+diff --git a/hw/usb/host-libusb.c b/hw/usb/host-libusb.c
+index ad7ed8fb0c..615655f2f5 100644
+--- a/hw/usb/host-libusb.c
++++ b/hw/usb/host-libusb.c
+@@ -50,7 +50,7 @@
+ #include "trace.h"
+ 
+ #include "hw/qdev-properties.h"
+-#include "hw/usb.h"
++#include "usb-internal.h"
+ 
+ /* ------------------------------------------------------------------------ */
+ 
+diff --git a/hw/usb/libhw.c b/hw/usb/libhw.c
+index 9c33a1640f..a8d7f994df 100644
+--- a/hw/usb/libhw.c
++++ b/hw/usb/libhw.c
+@@ -20,8 +20,8 @@
+  * THE SOFTWARE.
+  */
+ #include "qemu/osdep.h"
+-#include "hw/usb.h"
+ #include "sysemu/dma.h"
++#include "usb-internal.h"
+ 
+ int usb_packet_map(USBPacket *p, QEMUSGList *sgl)
+ {
+diff --git a/hw/usb/quirks.c b/hw/usb/quirks.c
+index b0d0f87e35..c427d45f1e 100644
+--- a/hw/usb/quirks.c
++++ b/hw/usb/quirks.c
+@@ -14,7 +14,7 @@
+ 
+ #include "qemu/osdep.h"
+ #include "quirks.inc.c"
+-#include "hw/usb.h"
++#include "usb-internal.h"
+ #include "usb-quirks.h"
+ 
+ static bool usb_id_match(const struct usb_device_id *ids,
+diff --git a/hw/usb/redirect.c b/hw/usb/redirect.c
+index 4c5925a039..a0c55de7f8 100644
+--- a/hw/usb/redirect.c
++++ b/hw/usb/redirect.c
+@@ -42,9 +42,9 @@
+ #include <usbredirfilter.h>
+ 
+ #include "hw/qdev-properties.h"
+-#include "hw/usb.h"
+ #include "migration/qemu-file-types.h"
+ #include "migration/vmstate.h"
++#include "usb-internal.h"
+ #include "usb-quirks.h"
+ 
+ /* ERROR is defined below. Remove any previous definition. */
+diff --git a/hw/usb/tusb6010.c b/hw/usb/tusb6010.c
+index 9f9b81b09d..191df38356 100644
+--- a/hw/usb/tusb6010.c
++++ b/hw/usb/tusb6010.c
+@@ -22,12 +22,12 @@
+ #include "qemu/osdep.h"
+ #include "qemu/module.h"
+ #include "qemu/timer.h"
+-#include "hw/usb.h"
+ #include "hw/arm/omap.h"
+ #include "hw/hw.h"
+ #include "hw/irq.h"
+ #include "hw/sysbus.h"
+ #include "hcd-musb.h"
++#include "usb-internal.h"
+ 
+ #define TYPE_TUSB6010 "tusb6010"
+ #define TUSB(obj) OBJECT_CHECK(TUSBState, (obj), TYPE_TUSB6010)
+diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
+index 4d266d7bb4..a6a0b466f9 100644
+--- a/hw/usb/xen-usb.c
++++ b/hw/usb/xen-usb.c
+@@ -27,12 +27,12 @@
+ #include "qemu/main-loop.h"
+ #include "qemu/option.h"
+ #include "hw/sysbus.h"
+-#include "hw/usb.h"
+ #include "hw/xen/xen-legacy-backend.h"
+ #include "monitor/qdev.h"
+ #include "qapi/error.h"
+ #include "qapi/qmp/qdict.h"
+ #include "qapi/qmp/qstring.h"
++#include "usb-internal.h"
+ 
+ #include "hw/xen/interface/io/usbif.h"
+ 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index dec252f38b..2566566d72 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1642,7 +1642,6 @@ F: hw/usb/*
+ F: tests/qtest/usb-*-test.c
+ F: docs/usb2.txt
+ F: docs/usb-storage.txt
+-F: include/hw/usb.h
+ F: include/hw/usb/
+ F: default-configs/usb.mak
+ 
 -- 
 2.21.3
 
