@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E514214687
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jul 2020 16:50:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A98D21468A
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jul 2020 16:50:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrjUT-0003tj-Lx; Sat, 04 Jul 2020 14:50:05 +0000
+	id 1jrjUY-0003w0-Ve; Sat, 04 Jul 2020 14:50:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hHao=AP=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jrjUS-0003ES-Oq
- for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 14:50:04 +0000
-X-Inumbo-ID: 9f27afa2-be05-11ea-b7bb-bc764e2007e4
-Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ id 1jrjUX-0003ES-P6
+ for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 14:50:09 +0000
+X-Inumbo-ID: a0583856-be05-11ea-b7bb-bc764e2007e4
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9f27afa2-be05-11ea-b7bb-bc764e2007e4;
- Sat, 04 Jul 2020 14:49:54 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id z15so24482792wrl.8
- for <xen-devel@lists.xenproject.org>; Sat, 04 Jul 2020 07:49:54 -0700 (PDT)
+ id a0583856-be05-11ea-b7bb-bc764e2007e4;
+ Sat, 04 Jul 2020 14:49:56 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id q5so35745347wru.6
+ for <xen-devel@lists.xenproject.org>; Sat, 04 Jul 2020 07:49:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=MuyWjc3EjPCzKMWDQ2x+ag455dTHS4+/J8s0D1IfWzs=;
- b=eJ712M4xvrpeG0WDBqIsWoodAc0KX1IcpGrySlrkuD9AOTok/P4V/I21yqX/UEczz4
- 3tSXj1WMi3HUlpJkfq2a6D2xREY05qgcqqJ19Jl7cdWzw2gv+ctBk/5poKNfTIv79Q0n
- BAVVtuIe/u6EewOUx6SzWsbiKfIGzmfWG/Yq7yydaZQAcV3k6WTSGWLLZAqkjp55Pn7+
- lBXvy8gVmzLifoWV3EcPuOxQzRn/bv2cit5TEsCXcdNiE6ar8MCWmB3dx2nr0CNajAWK
- hoBQwV5aFZPYADzkJ6K25xbFFvQMnugh8FXNfFas/L7BOnEBzAH5LJDg5p/AgO1233GU
- IUJw==
+ bh=Oswm/m1DAWqBYNXr2uTrm9A1MHSMTs1YgVZvoQJC8bI=;
+ b=gQJg1+Wh58x4r1H2OG452+zx84IaV+E1T+M1C2BaKGGeGjGLijbGT/5fa47rZbH8+0
+ wx3oFF6OQ4YShJqliLGLwkPIB5oJdoms+e1FUh9KOzyP0OaQJPWoQRUIivVmvk/OIni+
+ pIzj1GiWmXLxj18zi7ZWsi1d3bC0/vHZhYuKuqhtZGYCTA6vwHL3QyRfwCu4wrFZiM4w
+ nFj0qm+tx7V6fzx/zRQcGItYIzadZOv9ExIOm820D40RuWqtW4US5zoVgHElBrDFWXJU
+ AbeBG/uIbXymxcCdns7Thwq8fUZU4bxlC2yWqkCy++/qfZTE6Jfr1HmDinGWpjPF9fWy
+ Rs2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=MuyWjc3EjPCzKMWDQ2x+ag455dTHS4+/J8s0D1IfWzs=;
- b=bFdZePQLKgPiOthqM0+SNRyYusNfxCytc5NmbTJNcc7oLYEmK6trHvHKqZzEMHWlCR
- ABaib5HMnwhox9GZKSvWyPLnHWINOtYQFWeyy1iPzSzomeWq94yFB18Wm+elHRzKRklC
- C3SylrbVKwDEEV4CVnWhNU3K/1SW/1DO+mmK7he6Qcffy9bGr+Nz5BKIHlNbBfK3aR5k
- 8iZVLStIyIPqFazsb9T5VCQZyKXBXdW2WXTvu6lAbMvYFY1oEdoQzQstQ5Clu9JnnDMO
- aYqLAZaWfuU+lcm/Wcxvn3sggXrLrT8uq4+GDEEzhs0/JtCptAz+woFi28/WfDu0C0Km
- nu7A==
-X-Gm-Message-State: AOAM5334ZUOgIF2P+SZRYZbeGIXqgm/a1kt+itM0yR21nm6/OzQU+7lw
- 45dnKrtPv96oNEL6/rUF4E8=
-X-Google-Smtp-Source: ABdhPJyYcaxhb0w6bZS0TVjPWW7MJK44YHjNK2tmtt5WThpkFwrsjrZmdAUU/9drVhDWFP6nr2M8dQ==
-X-Received: by 2002:adf:e9c4:: with SMTP id l4mr42871069wrn.9.1593874193982;
- Sat, 04 Jul 2020 07:49:53 -0700 (PDT)
+ bh=Oswm/m1DAWqBYNXr2uTrm9A1MHSMTs1YgVZvoQJC8bI=;
+ b=aGJnS5c6zOcu5hbRbQWdzrVZ8XL7rqvgyex1qGcPxeCaXhlBt/ISVyV0o+WEMcPO5z
+ oWgScbSk6WOw+98tLtCCIIF4e4sq+mwdMOOs7z5xmGIA1tTxQZ22K/VQDLSXbiIbv7+p
+ x5cxs2SGN+eLllA0rxQmJR/T+Qy/0dSDBFdVYk/whO+KYkjVaN0VLQRVO1U6YrM5QDER
+ BHUdJmF5H7hGbSfL3u1OXt14vJO1kt1KJQofRCfGFeGeWMUTEGHqZcxZZokW0Cv35/U1
+ ficfSzBy2zb3aYHCKFHFgrqVTG+jOw94oJe8gdVYlVZtXLCvG4kMxPCZttWfesGDcSRY
+ fwog==
+X-Gm-Message-State: AOAM533C/b666Oo3B2eG9Uhc/YbapWM4MH/7y3LYlC7lvRl9KIrHlvV6
+ Q836nAAlyWHN/4wTGamz7ks=
+X-Google-Smtp-Source: ABdhPJwNyiTXMTeB3cC7VryyLyGzYsyh9YLCpLFWWlt+IfdrZqIJno2o/CWRvBISeVrXF/zuyPa+Cw==
+X-Received: by 2002:adf:9561:: with SMTP id 88mr11042389wrs.240.1593874195987; 
+ Sat, 04 Jul 2020 07:49:55 -0700 (PDT)
 Received: from localhost.localdomain (1.red-83-51-162.dynamicip.rima-tde.net.
  [83.51.162.1])
- by smtp.gmail.com with ESMTPSA id r10sm17135019wrm.17.2020.07.04.07.49.52
+ by smtp.gmail.com with ESMTPSA id r10sm17135019wrm.17.2020.07.04.07.49.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2020 07:49:53 -0700 (PDT)
+ Sat, 04 Jul 2020 07:49:55 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org,
 	BALATON Zoltan <balaton@eik.bme.hu>
-Subject: [PATCH 03/26] hw/usb: Remove unused VM_USB_HUB_SIZE definition
-Date: Sat,  4 Jul 2020 16:49:20 +0200
-Message-Id: <20200704144943.18292-4-f4bug@amsat.org>
+Subject: [PATCH 04/26] hw/usb: Reduce 'exec/memory.h' inclusion
+Date: Sat,  4 Jul 2020 16:49:21 +0200
+Message-Id: <20200704144943.18292-5-f4bug@amsat.org>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200704144943.18292-1-f4bug@amsat.org>
 References: <20200704144943.18292-1-f4bug@amsat.org>
@@ -106,30 +106,40 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Commit a5d2f7273c ("qdev/usb: make qemu aware of usb busses")
-removed the last use of VM_USB_HUB_SIZE, 11 years ago. Time
-to drop it.
+"exec/memory.h" is only required by "hw/usb/hcd-musb.h".
+Include it there directly.
 
 Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 ---
- include/hw/usb.h | 4 ----
- 1 file changed, 4 deletions(-)
+ include/hw/usb.h          | 1 -
+ include/hw/usb/hcd-musb.h | 2 ++
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/include/hw/usb.h b/include/hw/usb.h
-index e29a37635b..4f04a1a879 100644
+index 4f04a1a879..15b2ef300a 100644
 --- a/include/hw/usb.h
 +++ b/include/hw/usb.h
-@@ -470,10 +470,6 @@ void usb_generic_async_ctrl_complete(USBDevice *s, USBPacket *p);
- void hmp_info_usbhost(Monitor *mon, const QDict *qdict);
- bool usb_host_dev_is_scsi_storage(USBDevice *usbdev);
+@@ -25,7 +25,6 @@
+  * THE SOFTWARE.
+  */
  
--/* usb ports of the VM */
--
--#define VM_USB_HUB_SIZE 8
--
- /* usb-bus.c */
+-#include "exec/memory.h"
+ #include "hw/qdev-core.h"
+ #include "qemu/iov.h"
+ #include "qemu/queue.h"
+diff --git a/include/hw/usb/hcd-musb.h b/include/hw/usb/hcd-musb.h
+index c874b9f292..ec3ee5c4b0 100644
+--- a/include/hw/usb/hcd-musb.h
++++ b/include/hw/usb/hcd-musb.h
+@@ -13,6 +13,8 @@
+ #ifndef HW_USB_MUSB_H
+ #define HW_USB_MUSB_H
  
- #define TYPE_USB_BUS "usb-bus"
++#include "exec/memory.h"
++
+ enum musb_irq_source_e {
+     musb_irq_suspend = 0,
+     musb_irq_resume,
 -- 
 2.21.3
 
