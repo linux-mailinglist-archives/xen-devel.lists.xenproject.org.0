@@ -2,61 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4621A214683
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jul 2020 16:50:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D10362146AC
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jul 2020 16:56:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrjUy-00048H-Lj; Sat, 04 Jul 2020 14:50:36 +0000
+	id 1jrjb1-0005HU-Ra; Sat, 04 Jul 2020 14:56:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hHao=AP=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jrjUw-0003ES-Pr
- for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 14:50:34 +0000
-X-Inumbo-ID: a6634f6a-be05-11ea-bb8b-bc764e2007e4
-Received: from mail-wr1-x433.google.com (unknown [2a00:1450:4864:20::433])
+ id 1jrjV1-0003ES-QB
+ for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 14:50:39 +0000
+X-Inumbo-ID: a78974d2-be05-11ea-b7bb-bc764e2007e4
+Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a6634f6a-be05-11ea-bb8b-bc764e2007e4;
- Sat, 04 Jul 2020 14:50:06 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id f18so27702015wrs.0
- for <xen-devel@lists.xenproject.org>; Sat, 04 Jul 2020 07:50:06 -0700 (PDT)
+ id a78974d2-be05-11ea-b7bb-bc764e2007e4;
+ Sat, 04 Jul 2020 14:50:08 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id j18so34715268wmi.3
+ for <xen-devel@lists.xenproject.org>; Sat, 04 Jul 2020 07:50:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=6Mlo0AeYRU65Ls2fCVkmevBd3nH8ZXr33Z7OmOj+vXU=;
- b=gODFZA0NwiEg34xoLUZooBEFePqRiHvzOgk7GoIz2n1rFGd4QSl0yPFHs0kMpTwfun
- VxbOHiWGiK7hGkJcR55uhGHJOkSnTOylYJNNNeJNFX5MQ1AJWFLxthC0JxYRXwwA8UD6
- 0T4W6OXB8JWENKKs9BjOmQtMx26PqxWLkNEqphVLzbN6BpKPqkGpMh3IysQmS3XaqFCH
- w/AkpcTcynoV0yqxNIqLzGxVmIkT1wEWEZ/2m+7m7ZFEkqqyiCInBV+iToCedjNeVAij
- I8W2Zmy8BwxXfoflWqBcUrD9nDoivwv8OJoVTnLun2Tiql7zQaqUo+6b6+3cW7+Kchj4
- DYZA==
+ bh=CVXjF5m55kSlusAor5YG6lDc3XbyrrRebQzgpXEfhAM=;
+ b=AP5+c+c62PoQXfTA/LtPm4Xh/2BhHY+f3Lrq+ywLKxnRs/teD8SlK4rBeR1W21QVVg
+ MX5/zdYcr6MAV0tTj6y2JwWtreM0kI/3HLVXeM5Km0zk4LkxkDr+JUBRTgKPd4JDTNTQ
+ qN+mtEml6SPGpVvDH0gvcL2DaAmIUkHFVWrvjkbOj7nMpqfWvSbHnLG867tnERkfPaEt
+ R2NVOPlavAmVmA4nXJZ+9rKOMoryjsy3gDMvjOfRq/6T+kmZOAFOqpsdRHndZbJgqOt0
+ X2QNL+czgbdip7AR/uSYj4AY75akrcM9UFux62yHvkIZB1h62OgvTkd3vwzX7RVlkGWT
+ qEKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=6Mlo0AeYRU65Ls2fCVkmevBd3nH8ZXr33Z7OmOj+vXU=;
- b=pMmpzGN3Jn9yhmi/+4hWkDRbZSGJbXLJdy9AA1ygmj44la6DrbZLsx3+nPqHQfo1qk
- sdwTt1iiHw0DNxnlVP8fc6MfihBShS/xKrD0rw4bHGrhKuTc0dgNY4N1Ed0RBeD4ua/i
- 7Qt1sITlAlSlZIS63/PfouCelOo9AeFK5kNOyI3cIiXwxUVC+m1fb5pqbgRI0hFgr+Io
- S85tYEIYMGO9n9cZA8T5oKH9FfWYD7zLOG671ywULlx8B81WP6uPrUnywwVMqZrJSWAh
- w6u54D9bBtacB6MPb/cl7HZdx15GSPECMENA+e3XMFFdTFRrLw6yfZLnX+0QV0yL8yes
- xRwg==
-X-Gm-Message-State: AOAM531CnM3aEYxrYy+v0HIW+K42E9Si9cdTSE0VO6tsYzraPOkGjV3K
- pg/DoljnFlHJyrCuwZNHjqA=
-X-Google-Smtp-Source: ABdhPJx90xoS99/KVAVNosR0acMctdxAlHMTJW7Yd8LCiWu1nVe8JG8D7h3cg324kUXYXFvYsOB19w==
-X-Received: by 2002:adf:f504:: with SMTP id q4mr40505370wro.163.1593874206130; 
- Sat, 04 Jul 2020 07:50:06 -0700 (PDT)
+ bh=CVXjF5m55kSlusAor5YG6lDc3XbyrrRebQzgpXEfhAM=;
+ b=lhRpyZUIAEbEPAHb/Nraug1SZ3LRVUHjXHNvI723mGVchXoIGW8irweJuOft/pw8TD
+ DKKKCFturVMwwEbHO3DgN9ShNGtSIj/Vzb21wMUDzWEk1EfvDs/KW4JjAbUd8o/dv0F3
+ fqZ2vITH6vBldGkiWW5BDLs/nXuwLZpJmbzPk8P9Q6eN7S/QUVt/fxB8uBa/Lskiba+0
+ YJ6t2SNrpIgPSOgmRQ/gkcHmwamazUyWsUte5cART1KbcGgt2NClCwt/E5iLjKRL9AuQ
+ QlWyAOE/TnmBUqI9cM72lf8XYJsWf67sMhO51lLrvy34OcsUeJrWa/thu2xPbFj4YEgx
+ I6vQ==
+X-Gm-Message-State: AOAM533jGOYSyEKbNpsL9nB3hEIOUZP7hQ5Bh8cq5kBCZPenxoB8e03F
+ ysb5Dnqwmvap+rmDLyUJ8y8=
+X-Google-Smtp-Source: ABdhPJymro0ZDYhdB5ObnYkjPPmmHwp/a0dtBWYIDo1/eOyMgDUzyUYBTppKmDKb9G4hobFLnzrm0w==
+X-Received: by 2002:a1c:18e:: with SMTP id 136mr10977102wmb.93.1593874208054; 
+ Sat, 04 Jul 2020 07:50:08 -0700 (PDT)
 Received: from localhost.localdomain (1.red-83-51-162.dynamicip.rima-tde.net.
  [83.51.162.1])
- by smtp.gmail.com with ESMTPSA id r10sm17135019wrm.17.2020.07.04.07.50.04
+ by smtp.gmail.com with ESMTPSA id r10sm17135019wrm.17.2020.07.04.07.50.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2020 07:50:05 -0700 (PDT)
+ Sat, 04 Jul 2020 07:50:07 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: qemu-devel@nongnu.org,
 	BALATON Zoltan <balaton@eik.bme.hu>
-Subject: [PATCH 09/26] hw/usb/hcd-ehci: Remove unnecessary include
-Date: Sat,  4 Jul 2020 16:49:26 +0200
-Message-Id: <20200704144943.18292-10-f4bug@amsat.org>
+Subject: [PATCH 10/26] hw/usb/hcd-ehci: Move few definitions from header to
+ source
+Date: Sat,  4 Jul 2020 16:49:27 +0200
+Message-Id: <20200704144943.18292-11-f4bug@amsat.org>
 X-Mailer: git-send-email 2.21.3
 In-Reply-To: <20200704144943.18292-1-f4bug@amsat.org>
 References: <20200704144943.18292-1-f4bug@amsat.org>
@@ -106,25 +107,59 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-As "qemu/main-loop.h" is not used, remove it.
+Move definitions only useful for hcd-ehci.c to this source file.
 
 Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 ---
- hw/usb/hcd-ehci.c | 1 -
- 1 file changed, 1 deletion(-)
+ hw/usb/hcd-ehci.h | 11 -----------
+ hw/usb/hcd-ehci.c | 12 ++++++++++++
+ 2 files changed, 12 insertions(+), 11 deletions(-)
 
+diff --git a/hw/usb/hcd-ehci.h b/hw/usb/hcd-ehci.h
+index 57b38cfc05..4577f5e31d 100644
+--- a/hw/usb/hcd-ehci.h
++++ b/hw/usb/hcd-ehci.h
+@@ -24,17 +24,6 @@
+ #include "hw/pci/pci.h"
+ #include "hw/sysbus.h"
+ 
+-#ifndef EHCI_DEBUG
+-#define EHCI_DEBUG   0
+-#endif
+-
+-#if EHCI_DEBUG
+-#define DPRINTF printf
+-#else
+-#define DPRINTF(...)
+-#endif
+-
+-#define MMIO_SIZE        0x1000
+ #define CAPA_SIZE        0x10
+ 
+ #define NB_PORTS         6        /* Max. Number of downstream ports */
 diff --git a/hw/usb/hcd-ehci.c b/hw/usb/hcd-ehci.c
-index 1495e8f7fa..256fb91e0c 100644
+index 256fb91e0c..a0beee527c 100644
 --- a/hw/usb/hcd-ehci.c
 +++ b/hw/usb/hcd-ehci.c
-@@ -34,7 +34,6 @@
- #include "migration/vmstate.h"
- #include "trace.h"
+@@ -36,6 +36,18 @@
  #include "qemu/error-report.h"
--#include "qemu/main-loop.h"
  #include "sysemu/runstate.h"
  
++#ifndef EHCI_DEBUG
++#define EHCI_DEBUG   0
++#endif
++
++#if EHCI_DEBUG
++#define DPRINTF printf
++#else
++#define DPRINTF(...)
++#endif
++
++#define MMIO_SIZE        0x1000
++
  #define FRAME_TIMER_FREQ 1000
+ #define FRAME_TIMER_NS   (NANOSECONDS_PER_SECOND / FRAME_TIMER_FREQ)
+ #define UFRAME_TIMER_NS  (FRAME_TIMER_NS / 8)
 -- 
 2.21.3
 
