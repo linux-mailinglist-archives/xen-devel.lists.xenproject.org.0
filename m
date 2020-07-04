@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F4C12147A7
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jul 2020 19:16:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6616A2147AA
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jul 2020 19:18:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrllb-00025E-9R; Sat, 04 Jul 2020 17:15:55 +0000
+	id 1jrlnS-0002EX-Pl; Sat, 04 Jul 2020 17:17:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jWGQ=AP=eik.bme.hu=balaton@srs-us1.protection.inumbo.net>)
- id 1jrllZ-000256-K3
- for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 17:15:53 +0000
-X-Inumbo-ID: 01961bec-be1a-11ea-bca7-bc764e2007e4
+ id 1jrlnR-0002ES-5k
+ for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 17:17:49 +0000
+X-Inumbo-ID: 47c5ef8e-be1a-11ea-8496-bc764e2007e4
 Received: from zero.eik.bme.hu (unknown [152.66.115.2])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 01961bec-be1a-11ea-bca7-bc764e2007e4;
- Sat, 04 Jul 2020 17:15:50 +0000 (UTC)
+ id 47c5ef8e-be1a-11ea-8496-bc764e2007e4;
+ Sat, 04 Jul 2020 17:17:47 +0000 (UTC)
 Received: from zero.eik.bme.hu (blah.eik.bme.hu [152.66.115.182])
- by localhost (Postfix) with SMTP id 035FC74632B;
- Sat,  4 Jul 2020 19:15:49 +0200 (CEST)
+ by localhost (Postfix) with SMTP id C149F74594E;
+ Sat,  4 Jul 2020 19:17:46 +0200 (CEST)
 Received: by zero.eik.bme.hu (Postfix, from userid 432)
- id BA3BB745702; Sat,  4 Jul 2020 19:15:48 +0200 (CEST)
+ id 7B9CB745702; Sat,  4 Jul 2020 19:17:46 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by zero.eik.bme.hu (Postfix) with ESMTP id B74BF7456F8;
- Sat,  4 Jul 2020 19:15:48 +0200 (CEST)
-Date: Sat, 4 Jul 2020 19:15:48 +0200 (CEST)
+ by zero.eik.bme.hu (Postfix) with ESMTP id 79A8F7456F8;
+ Sat,  4 Jul 2020 19:17:46 +0200 (CEST)
+Date: Sat, 4 Jul 2020 19:17:46 +0200 (CEST)
 From: BALATON Zoltan <balaton@eik.bme.hu>
 To: =?ISO-8859-15?Q?Philippe_Mathieu-Daud=E9?= <f4bug@amsat.org>
-Subject: Re: [PATCH 23/26] hw/usb/usb-hcd: Use EHCI type definitions
-In-Reply-To: <20200704144943.18292-24-f4bug@amsat.org>
-Message-ID: <alpine.BSF.2.22.395.2007041914490.92265@zero.eik.bme.hu>
+Subject: Re: [PATCH 24/26] hw/usb/usb-hcd: Use UHCI type definitions
+In-Reply-To: <20200704144943.18292-25-f4bug@amsat.org>
+Message-ID: <alpine.BSF.2.22.395.2007041916060.92265@zero.eik.bme.hu>
 References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-24-f4bug@amsat.org>
+ <20200704144943.18292-25-f4bug@amsat.org>
 User-Agent: Alpine 2.22 (BSF 395 2020-01-19)
 MIME-Version: 1.0
 Content-Type: multipart/mixed;
- boundary="3866299591-1739992078-1593882948=:92265"
+ boundary="3866299591-481592883-1593883066=:92265"
 X-Spam-Checker-Version: Sophos PMX: 6.4.8.2820816,
  Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2020.7.4.170918,
  AntiVirus-Engine: 5.74.0, AntiVirus-Data: 2020.7.3.5740002
@@ -89,12 +89,12 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---3866299591-1739992078-1593882948=:92265
+--3866299591-481592883-1593883066=:92265
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8BIT
 
 On Sat, 4 Jul 2020, Philippe Mathieu-Daudé wrote:
-> Various machine/board/soc models create EHCI device instances
+> Various machine/board/soc models create UHCI device instances
 > with the generic QDEV API, and don't need to access USB internals.
 >
 > Simplify header inclusions by moving the QOM type names into a
@@ -103,194 +103,220 @@ On Sat, 4 Jul 2020, Philippe Mathieu-Daudé wrote:
 > Suggested-by: BALATON Zoltan <balaton@eik.bme.hu>
 > Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 > ---
-> hw/usb/hcd-ehci.h         | 11 +----------
-> include/hw/usb/chipidea.h |  2 +-
-> include/hw/usb/usb-hcd.h  | 11 +++++++++++
-> hw/arm/allwinner-h3.c     |  1 -
-> hw/arm/exynos4210.c       |  2 +-
-> hw/arm/sbsa-ref.c         |  3 ++-
-> hw/arm/xilinx_zynq.c      |  2 +-
-> hw/ppc/sam460ex.c         |  1 -
-> hw/usb/chipidea.c         |  1 +
-> hw/usb/hcd-ehci-sysbus.c  |  1 +
-> 10 files changed, 19 insertions(+), 16 deletions(-)
+> include/hw/usb/usb-hcd.h |  6 ++++++
+> hw/i386/pc_piix.c        |  3 ++-
+> hw/i386/pc_q35.c         | 13 +++++++------
+> hw/isa/piix4.c           |  3 ++-
+> hw/mips/fuloong2e.c      |  5 +++--
+> hw/usb/hcd-uhci.c        | 19 ++++++++++---------
+> 6 files changed, 30 insertions(+), 19 deletions(-)
 >
-> diff --git a/hw/usb/hcd-ehci.h b/hw/usb/hcd-ehci.h
-> index 337b3ad05c..da70767409 100644
-> --- a/hw/usb/hcd-ehci.h
-> +++ b/hw/usb/hcd-ehci.h
-> @@ -23,6 +23,7 @@
-> #include "hw/pci/pci.h"
-> #include "hw/sysbus.h"
-> #include "usb-internal.h"
-> +#include "hw/usb/usb-hcd.h"
->
-> #define CAPA_SIZE        0x10
->
-> @@ -316,7 +317,6 @@ void usb_ehci_realize(EHCIState *s, DeviceState *dev, Error **errp);
-> void usb_ehci_unrealize(EHCIState *s, DeviceState *dev);
-> void ehci_reset(void *opaque);
->
-> -#define TYPE_PCI_EHCI "pci-ehci-usb"
-> #define PCI_EHCI(obj) OBJECT_CHECK(EHCIPCIState, (obj), TYPE_PCI_EHCI)
->
-> typedef struct EHCIPCIState {
-> @@ -327,15 +327,6 @@ typedef struct EHCIPCIState {
->     EHCIState ehci;
-> } EHCIPCIState;
->
-> -
-> -#define TYPE_SYS_BUS_EHCI "sysbus-ehci-usb"
-> -#define TYPE_PLATFORM_EHCI "platform-ehci-usb"
-> -#define TYPE_EXYNOS4210_EHCI "exynos4210-ehci-usb"
-> -#define TYPE_AW_H3_EHCI "aw-h3-ehci-usb"
-> -#define TYPE_TEGRA2_EHCI "tegra2-ehci-usb"
-> -#define TYPE_PPC4xx_EHCI "ppc4xx-ehci-usb"
-> -#define TYPE_FUSBH200_EHCI "fusbh200-ehci-usb"
-> -
-> #define SYS_BUS_EHCI(obj) \
->     OBJECT_CHECK(EHCISysBusState, (obj), TYPE_SYS_BUS_EHCI)
-> #define SYS_BUS_EHCI_CLASS(class) \
-> diff --git a/include/hw/usb/chipidea.h b/include/hw/usb/chipidea.h
-> index 1ec2e9dbda..28f46291de 100644
-> --- a/include/hw/usb/chipidea.h
-> +++ b/include/hw/usb/chipidea.h
-> @@ -2,6 +2,7 @@
-> #define CHIPIDEA_H
->
-> #include "hw/usb/hcd-ehci.h"
-> +#include "hw/usb/usb-hcd.h"
->
-> typedef struct ChipideaState {
->     /*< private >*/
-> @@ -10,7 +11,6 @@ typedef struct ChipideaState {
->     MemoryRegion iomem[3];
-> } ChipideaState;
->
-> -#define TYPE_CHIPIDEA "usb-chipidea"
-> #define CHIPIDEA(obj) OBJECT_CHECK(ChipideaState, (obj), TYPE_CHIPIDEA)
->
-> #endif /* CHIPIDEA_H */
 > diff --git a/include/hw/usb/usb-hcd.h b/include/hw/usb/usb-hcd.h
-> index 21fdfaf22d..74af3a4533 100644
+> index 74af3a4533..c9d0a88984 100644
 > --- a/include/hw/usb/usb-hcd.h
 > +++ b/include/hw/usb/usb-hcd.h
-> @@ -13,4 +13,15 @@
-> #define TYPE_SYSBUS_OHCI            "sysbus-ohci"
-> #define TYPE_PCI_OHCI               "pci-ohci"
+> @@ -24,4 +24,10 @@
+> #define TYPE_FUSBH200_EHCI          "fusbh200-ehci-usb"
+> #define TYPE_CHIPIDEA               "usb-chipidea"
 >
-> +/* EHCI */
-> +#define TYPE_SYS_BUS_EHCI           "sysbus-ehci-usb"
-> +#define TYPE_PCI_EHCI               "pci-ehci-usb"
-> +#define TYPE_PLATFORM_EHCI          "platform-ehci-usb"
-> +#define TYPE_EXYNOS4210_EHCI        "exynos4210-ehci-usb"
-> +#define TYPE_AW_H3_EHCI             "aw-h3-ehci-usb"
-> +#define TYPE_TEGRA2_EHCI            "tegra2-ehci-usb"
-> +#define TYPE_PPC4xx_EHCI            "ppc4xx-ehci-usb"
-> +#define TYPE_FUSBH200_EHCI          "fusbh200-ehci-usb"
-> +#define TYPE_CHIPIDEA               "usb-chipidea"
-> +
-> #endif
-> diff --git a/hw/arm/allwinner-h3.c b/hw/arm/allwinner-h3.c
-> index d1d90ffa79..8b7adddc27 100644
-> --- a/hw/arm/allwinner-h3.c
-> +++ b/hw/arm/allwinner-h3.c
-> @@ -29,7 +29,6 @@
-> #include "hw/char/serial.h"
-> #include "hw/misc/unimp.h"
-> #include "hw/usb/usb-hcd.h"
-> -#include "hw/usb/hcd-ehci.h"
-> #include "hw/loader.h"
-> #include "sysemu/sysemu.h"
-> #include "hw/arm/allwinner-h3.h"
-> diff --git a/hw/arm/exynos4210.c b/hw/arm/exynos4210.c
-> index fa639806ec..692fb02159 100644
-> --- a/hw/arm/exynos4210.c
-> +++ b/hw/arm/exynos4210.c
-> @@ -35,7 +35,7 @@
-> #include "hw/qdev-properties.h"
-> #include "hw/arm/exynos4210.h"
-> #include "hw/sd/sdhci.h"
-> -#include "hw/usb/hcd-ehci.h"
-> +#include "hw/usb/usb-hcd.h"
->
-> #define EXYNOS4210_CHIPID_ADDR         0x10000000
->
-> diff --git a/hw/arm/sbsa-ref.c b/hw/arm/sbsa-ref.c
-> index 021e7c1b8b..4e4c338ae9 100644
-> --- a/hw/arm/sbsa-ref.c
-> +++ b/hw/arm/sbsa-ref.c
-> @@ -38,6 +38,7 @@
-> #include "hw/loader.h"
-> #include "hw/pci-host/gpex.h"
-> #include "hw/qdev-properties.h"
-> +#include "hw/usb/usb-hcd.h"
-> #include "hw/char/pl011.h"
-> #include "net/net.h"
->
-> @@ -485,7 +486,7 @@ static void create_ehci(const SBSAMachineState *sms)
->     hwaddr base = sbsa_ref_memmap[SBSA_EHCI].base;
->     int irq = sbsa_ref_irqmap[SBSA_EHCI];
->
-> -    sysbus_create_simple("platform-ehci-usb", base,
-> +    sysbus_create_simple(TYPE_PLATFORM_EHCI, base,
->                          qdev_get_gpio_in(sms->gic, irq));
-> }
->
-> diff --git a/hw/arm/xilinx_zynq.c b/hw/arm/xilinx_zynq.c
-> index ed970273f3..9ccdc03095 100644
-> --- a/hw/arm/xilinx_zynq.c
-> +++ b/hw/arm/xilinx_zynq.c
-> @@ -29,7 +29,7 @@
-> #include "hw/loader.h"
-> #include "hw/misc/zynq-xadc.h"
-> #include "hw/ssi/ssi.h"
-> -#include "hw/usb/chipidea.h"
-> +#include "hw/usb/usb-hcd.h"
-> #include "qemu/error-report.h"
-> #include "hw/sd/sdhci.h"
-> #include "hw/char/cadence_uart.h"
-> diff --git a/hw/ppc/sam460ex.c b/hw/ppc/sam460ex.c
-> index ac60d17a86..3f7cf0d1ae 100644
-> --- a/hw/ppc/sam460ex.c
-> +++ b/hw/ppc/sam460ex.c
-> @@ -37,7 +37,6 @@
-> #include "hw/i2c/smbus_eeprom.h"
-> #include "hw/usb/usb.h"
-> #include "hw/usb/usb-hcd.h"
-> -#include "hw/usb/hcd-ehci.h"
-> #include "hw/ppc/fdt.h"
-> #include "hw/qdev-properties.h"
-> #include "hw/pci/pci.h"
-> diff --git a/hw/usb/chipidea.c b/hw/usb/chipidea.c
-> index 3dcd22ccba..e81f63295e 100644
-> --- a/hw/usb/chipidea.c
-> +++ b/hw/usb/chipidea.c
-> @@ -11,6 +11,7 @@
->
-> #include "qemu/osdep.h"
-> #include "hw/usb/hcd-ehci.h"
-> +#include "hw/usb/usb-hcd.h"
-> #include "hw/usb/chipidea.h"
-> #include "qemu/log.h"
-> #include "qemu/module.h"
-> diff --git a/hw/usb/hcd-ehci-sysbus.c b/hw/usb/hcd-ehci-sysbus.c
-> index 3730736540..b7debc1934 100644
-> --- a/hw/usb/hcd-ehci-sysbus.c
-> +++ b/hw/usb/hcd-ehci-sysbus.c
-> @@ -18,6 +18,7 @@
-> #include "qemu/osdep.h"
-> #include "hw/qdev-properties.h"
-> #include "hw/usb/hcd-ehci.h"
-> +#include "hw/usb/usb-hcd.h"
-> #include "migration/vmstate.h"
-> #include "qemu/module.h"
+> +/* UHCI */
+> +#define TYPE_PIIX3_USB_UHCI         "piix3-usb-uhci"
+> +#define TYPE_PIIX4_USB_UHCI         "piix4-usb-uhci"
+> +#define TYPE_VT82C686B_USB_UHCI     "vt82c686b-usb-uhci"
+> +#define TYPE_ICH9_USB_UHCI(n)       "ich9-usb-uhci" #n
 
-Do these last two still need hw/usb/hcd-ehci.h? If so do they get 
-hw/usb/usb-hcd.h via that one so do they need to explicitely include it 
-again?
+What is that #n at the end? Looks like a typo. Does it break compilation?
 
 Regards,
 BALATON Zoltan
---3866299591-1739992078-1593882948=:92265--
+
+> +
+> #endif
+> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+> index 4d1de7cfab..0024c346c6 100644
+> --- a/hw/i386/pc_piix.c
+> +++ b/hw/i386/pc_piix.c
+> @@ -37,6 +37,7 @@
+> #include "hw/pci/pci.h"
+> #include "hw/pci/pci_ids.h"
+> #include "hw/usb/usb.h"
+> +#include "hw/usb/usb-hcd.h"
+> #include "net/net.h"
+> #include "hw/ide/pci.h"
+> #include "hw/irq.h"
+> @@ -275,7 +276,7 @@ static void pc_init1(MachineState *machine,
+> #endif
+>
+>     if (pcmc->pci_enabled && machine_usb(machine)) {
+> -        pci_create_simple(pci_bus, piix3_devfn + 2, "piix3-usb-uhci");
+> +        pci_create_simple(pci_bus, piix3_devfn + 2, TYPE_PIIX3_USB_UHCI);
+>     }
+>
+>     if (pcmc->pci_enabled && x86_machine_is_acpi_enabled(X86_MACHINE(pcms))) {
+> diff --git a/hw/i386/pc_q35.c b/hw/i386/pc_q35.c
+> index b985f5bea1..a80527e6ed 100644
+> --- a/hw/i386/pc_q35.c
+> +++ b/hw/i386/pc_q35.c
+> @@ -51,6 +51,7 @@
+> #include "hw/ide/pci.h"
+> #include "hw/ide/ahci.h"
+> #include "hw/usb/usb.h"
+> +#include "hw/usb/usb-hcd.h"
+> #include "qapi/error.h"
+> #include "qemu/error-report.h"
+> #include "sysemu/numa.h"
+> @@ -68,15 +69,15 @@ struct ehci_companions {
+> };
+>
+> static const struct ehci_companions ich9_1d[] = {
+> -    { .name = "ich9-usb-uhci1", .func = 0, .port = 0 },
+> -    { .name = "ich9-usb-uhci2", .func = 1, .port = 2 },
+> -    { .name = "ich9-usb-uhci3", .func = 2, .port = 4 },
+> +    { .name = TYPE_ICH9_USB_UHCI(1), .func = 0, .port = 0 },
+> +    { .name = TYPE_ICH9_USB_UHCI(2), .func = 1, .port = 2 },
+> +    { .name = TYPE_ICH9_USB_UHCI(3), .func = 2, .port = 4 },
+> };
+>
+> static const struct ehci_companions ich9_1a[] = {
+> -    { .name = "ich9-usb-uhci4", .func = 0, .port = 0 },
+> -    { .name = "ich9-usb-uhci5", .func = 1, .port = 2 },
+> -    { .name = "ich9-usb-uhci6", .func = 2, .port = 4 },
+> +    { .name = TYPE_ICH9_USB_UHCI(4), .func = 0, .port = 0 },
+> +    { .name = TYPE_ICH9_USB_UHCI(5), .func = 1, .port = 2 },
+> +    { .name = TYPE_ICH9_USB_UHCI(6), .func = 2, .port = 4 },
+> };
+>
+> static int ehci_create_ich9_with_companions(PCIBus *bus, int slot)
+> diff --git a/hw/isa/piix4.c b/hw/isa/piix4.c
+> index f634bcb2d1..e11e5fae21 100644
+> --- a/hw/isa/piix4.c
+> +++ b/hw/isa/piix4.c
+> @@ -29,6 +29,7 @@
+> #include "hw/southbridge/piix.h"
+> #include "hw/pci/pci.h"
+> #include "hw/isa/isa.h"
+> +#include "hw/usb/usb-hcd.h"
+> #include "hw/sysbus.h"
+> #include "hw/intc/i8259.h"
+> #include "hw/dma/i8257.h"
+> @@ -255,7 +256,7 @@ DeviceState *piix4_create(PCIBus *pci_bus, ISABus **isa_bus, I2CBus **smbus)
+>     pci = pci_create_simple(pci_bus, devfn + 1, "piix4-ide");
+>     pci_ide_create_devs(pci);
+>
+> -    pci_create_simple(pci_bus, devfn + 2, "piix4-usb-uhci");
+> +    pci_create_simple(pci_bus, devfn + 2, TYPE_PIIX4_USB_UHCI);
+>     if (smbus) {
+>         *smbus = piix4_pm_init(pci_bus, devfn + 3, 0x1100,
+>                                isa_get_irq(NULL, 9), NULL, 0, NULL);
+> diff --git a/hw/mips/fuloong2e.c b/hw/mips/fuloong2e.c
+> index 8ca31e5162..b6d33dd2cd 100644
+> --- a/hw/mips/fuloong2e.c
+> +++ b/hw/mips/fuloong2e.c
+> @@ -33,6 +33,7 @@
+> #include "hw/mips/mips.h"
+> #include "hw/mips/cpudevs.h"
+> #include "hw/pci/pci.h"
+> +#include "hw/usb/usb-hcd.h"
+> #include "qemu/log.h"
+> #include "hw/loader.h"
+> #include "hw/ide/pci.h"
+> @@ -258,8 +259,8 @@ static void vt82c686b_southbridge_init(PCIBus *pci_bus, int slot, qemu_irq intc,
+>     dev = pci_create_simple(pci_bus, PCI_DEVFN(slot, 1), "via-ide");
+>     pci_ide_create_devs(dev);
+>
+> -    pci_create_simple(pci_bus, PCI_DEVFN(slot, 2), "vt82c686b-usb-uhci");
+> -    pci_create_simple(pci_bus, PCI_DEVFN(slot, 3), "vt82c686b-usb-uhci");
+> +    pci_create_simple(pci_bus, PCI_DEVFN(slot, 2), TYPE_VT82C686B_USB_UHCI);
+> +    pci_create_simple(pci_bus, PCI_DEVFN(slot, 3), TYPE_VT82C686B_USB_UHCI);
+>
+>     *i2c_bus = vt82c686b_pm_init(pci_bus, PCI_DEVFN(slot, 4), 0xeee1, NULL);
+>
+> diff --git a/hw/usb/hcd-uhci.c b/hw/usb/hcd-uhci.c
+> index 1d4dd33b6c..da078dc3fa 100644
+> --- a/hw/usb/hcd-uhci.c
+> +++ b/hw/usb/hcd-uhci.c
+> @@ -39,6 +39,7 @@
+> #include "qemu/main-loop.h"
+> #include "qemu/module.h"
+> #include "usb-internal.h"
+> +#include "hw/usb/usb-hcd.h"
+>
+> #define FRAME_TIMER_FREQ 1000
+>
+> @@ -1358,21 +1359,21 @@ static void uhci_data_class_init(ObjectClass *klass, void *data)
+>
+> static UHCIInfo uhci_info[] = {
+>     {
+> -        .name       = "piix3-usb-uhci",
+> +        .name      = TYPE_PIIX3_USB_UHCI,
+>         .vendor_id = PCI_VENDOR_ID_INTEL,
+>         .device_id = PCI_DEVICE_ID_INTEL_82371SB_2,
+>         .revision  = 0x01,
+>         .irq_pin   = 3,
+>         .unplug    = true,
+>     },{
+> -        .name      = "piix4-usb-uhci",
+> +        .name      = TYPE_PIIX4_USB_UHCI,
+>         .vendor_id = PCI_VENDOR_ID_INTEL,
+>         .device_id = PCI_DEVICE_ID_INTEL_82371AB_2,
+>         .revision  = 0x01,
+>         .irq_pin   = 3,
+>         .unplug    = true,
+>     },{
+> -        .name      = "vt82c686b-usb-uhci",
+> +        .name      = TYPE_VT82C686B_USB_UHCI,
+>         .vendor_id = PCI_VENDOR_ID_VIA,
+>         .device_id = PCI_DEVICE_ID_VIA_UHCI,
+>         .revision  = 0x01,
+> @@ -1380,42 +1381,42 @@ static UHCIInfo uhci_info[] = {
+>         .realize   = usb_uhci_vt82c686b_realize,
+>         .unplug    = true,
+>     },{
+> -        .name      = "ich9-usb-uhci1", /* 00:1d.0 */
+> +        .name      = TYPE_ICH9_USB_UHCI(1), /* 00:1d.0 */
+>         .vendor_id = PCI_VENDOR_ID_INTEL,
+>         .device_id = PCI_DEVICE_ID_INTEL_82801I_UHCI1,
+>         .revision  = 0x03,
+>         .irq_pin   = 0,
+>         .unplug    = false,
+>     },{
+> -        .name      = "ich9-usb-uhci2", /* 00:1d.1 */
+> +        .name      = TYPE_ICH9_USB_UHCI(2), /* 00:1d.1 */
+>         .vendor_id = PCI_VENDOR_ID_INTEL,
+>         .device_id = PCI_DEVICE_ID_INTEL_82801I_UHCI2,
+>         .revision  = 0x03,
+>         .irq_pin   = 1,
+>         .unplug    = false,
+>     },{
+> -        .name      = "ich9-usb-uhci3", /* 00:1d.2 */
+> +        .name      = TYPE_ICH9_USB_UHCI(3), /* 00:1d.2 */
+>         .vendor_id = PCI_VENDOR_ID_INTEL,
+>         .device_id = PCI_DEVICE_ID_INTEL_82801I_UHCI3,
+>         .revision  = 0x03,
+>         .irq_pin   = 2,
+>         .unplug    = false,
+>     },{
+> -        .name      = "ich9-usb-uhci4", /* 00:1a.0 */
+> +        .name      = TYPE_ICH9_USB_UHCI(4), /* 00:1a.0 */
+>         .vendor_id = PCI_VENDOR_ID_INTEL,
+>         .device_id = PCI_DEVICE_ID_INTEL_82801I_UHCI4,
+>         .revision  = 0x03,
+>         .irq_pin   = 0,
+>         .unplug    = false,
+>     },{
+> -        .name      = "ich9-usb-uhci5", /* 00:1a.1 */
+> +        .name      = TYPE_ICH9_USB_UHCI(5), /* 00:1a.1 */
+>         .vendor_id = PCI_VENDOR_ID_INTEL,
+>         .device_id = PCI_DEVICE_ID_INTEL_82801I_UHCI5,
+>         .revision  = 0x03,
+>         .irq_pin   = 1,
+>         .unplug    = false,
+>     },{
+> -        .name      = "ich9-usb-uhci6", /* 00:1a.2 */
+> +        .name      = TYPE_ICH9_USB_UHCI(6), /* 00:1a.2 */
+>         .vendor_id = PCI_VENDOR_ID_INTEL,
+>         .device_id = PCI_DEVICE_ID_INTEL_82801I_UHCI6,
+>         .revision  = 0x03,
+>
+--3866299591-481592883-1593883066=:92265--
 
