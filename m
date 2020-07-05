@@ -2,61 +2,85 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AAD5214A28
-	for <lists+xen-devel@lfdr.de>; Sun,  5 Jul 2020 06:27:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B1F7214A72
+	for <lists+xen-devel@lfdr.de>; Sun,  5 Jul 2020 07:39:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jrwE8-0001RF-DC; Sun, 05 Jul 2020 04:26:04 +0000
+	id 1jrxLY-0007LR-Jd; Sun, 05 Jul 2020 05:37:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0p6Q=AP=gmail.com=pauldzim@srs-us1.protection.inumbo.net>)
- id 1jrkyq-0006Fv-7D
- for xen-devel@lists.xenproject.org; Sat, 04 Jul 2020 16:25:32 +0000
-X-Inumbo-ID: fab41772-be12-11ea-8496-bc764e2007e4
-Received: from mail-io1-xd42.google.com (unknown [2607:f8b0:4864:20::d42])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fab41772-be12-11ea-8496-bc764e2007e4;
- Sat, 04 Jul 2020 16:25:31 +0000 (UTC)
-Received: by mail-io1-xd42.google.com with SMTP id a12so35287479ion.13
- for <xen-devel@lists.xenproject.org>; Sat, 04 Jul 2020 09:25:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=siYZvVhE9VeBBvLQIX/nnAed+rLIHn4bVXcuyvDsWaw=;
- b=pjF0PMXkE9pbfyA44NA0kCnTofn8BML3M2OwLhH+Sqsxxe1sGclQdp8aRABF6oUm7p
- jl3jluIF8Iod+vAQYD9a9T9hizpvwz6WnAjoWUqHG6YxzqwkxwFtal6rAmecurpCeu63
- HodGkRhRHtWuT2Pe9TYLrfl5xbRYOk9LLYdPHTMPdK0DhgKFqlWb+OJKfZYFsG/Mgude
- iMrzKgB1Y747nHlXa24vTJmzsISKSK+ZiOvur0XiEJN8zeFh9UgKrjT9VXbPu7hZm6iB
- 4IkItqkdEv9WRqjf/co0WnxmfLXBQ+uTU17T3TFxcuXcGW+OlroDBON4fZDJU7C+YvxT
- s7rA==
+ <SRS0=QJgw=AQ=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
+ id 1jrxLX-0007LM-1N
+ for xen-devel@lists.xenproject.org; Sun, 05 Jul 2020 05:37:47 +0000
+X-Inumbo-ID: a68ad1b2-be81-11ea-bca7-bc764e2007e4
+Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id a68ad1b2-be81-11ea-bca7-bc764e2007e4;
+ Sun, 05 Jul 2020 05:37:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1593927463;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QjMyNamLLkRJJI8ub+Padxcs+ybIZnNdDYQZ7F5eZm8=;
+ b=NqZ0p37e8S6v0Tj3zP807s/jgXy1lZ3ZSyxU3IHZLQsl9ZEDP976bhXgYgR14f4id+rSRg
+ QTPtqCg9WZhXFpzQG8Y3HRd/C5HrmvZlkPPfhm9wMzwV7lZeSXqD2KP0CMvBVR7pH9dbWx
+ ybAfrhG6AJyhe4Y8RELNgQwPiKH4Qlk=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-417-FLuzGc-SPtSV8t3S2TekiA-1; Sun, 05 Jul 2020 01:37:42 -0400
+X-MC-Unique: FLuzGc-SPtSV8t3S2TekiA-1
+Received: by mail-wr1-f71.google.com with SMTP id z1so7876984wrn.18
+ for <xen-devel@lists.xenproject.org>; Sat, 04 Jul 2020 22:37:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=siYZvVhE9VeBBvLQIX/nnAed+rLIHn4bVXcuyvDsWaw=;
- b=dmkNKqsKoNEpHw4moA2C5JVOOyJr32Oapac2QpDDyKGH38hobx1JsaZ4dogWOCCM4P
- 06C+S914WlmV9AtI8zJi/Ho6AJXmfvkh1KYQg7slvVFsXFEtKSmx0QLhvzrl9qKspre6
- 4aG7x4iOwcV4AmBtzUsdEk+zYGyLfUGCISO2OHEwLSXff9cOWMb6+3bzbjGexhMYDIpB
- jTc0iz4UdxycdXrEl1pHrOogY/8be8gdglvdSWTlFhDdbMDkUkeKezDgKjHNus8oSnTB
- S74sbEwwToNcZnusvZXVDCMsSzQgd5RIicProf40wkt81n4tcHmujnaBBKFNybT9j3Qf
- 5ZnQ==
-X-Gm-Message-State: AOAM533NAIInM78Q4ttdThTn7kuH4uJgpU8jL+WgMoDqiicwMMvGq7Vd
- GFLYfvbCaG96eEop7B5+NxNMpklmdoLYHkzLiqY=
-X-Google-Smtp-Source: ABdhPJwZwrn7vzEIJbGYJoQZG3XTTSfTQJEX4yl2ivSAb5nZSnnjPxLr+c9nvkov/DkXTccC1tmUb5GLEFGW3coDSTU=
-X-Received: by 2002:a6b:8e56:: with SMTP id q83mr17709001iod.61.1593879930979; 
- Sat, 04 Jul 2020 09:25:30 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=QjMyNamLLkRJJI8ub+Padxcs+ybIZnNdDYQZ7F5eZm8=;
+ b=l1IDz4rnXYjgMbDfC5u0jRNacWNeG8RVsxdqDSKhSd13mfrcPnXnYd2p+Tg6DGZUCy
+ TDa0JV3j58f8hvHn2f9blF35PKgfRn2V1ur4CCtRrvLGEVHeX5GuMSP2pBLeOgSxWyah
+ eeIzMlyT3yBB2Jya6OoCMc1HidKHp6Cj/WtYUrPWFM9D3lPwIP1OrQ+jYDgl2WeZgiE6
+ 8R34kPXdUD9vNgU1WfXjXc39jq2L9zG3+T2OMOVq27UvUurx5NB/8VZJjbzDNYCetz9p
+ l8SafKW9p/stEu75H9hTHpng/QqE0NQmrN2i6zUF0RpkuZIGefSgds5H0xlznwVO3K2j
+ zGow==
+X-Gm-Message-State: AOAM533ETFmD1nfA3Xei0ZA3Kopyug8JlRZFnYsMwkcKQNpzs+NYsrQR
+ +Id55YA/jZt9iF62xv46knRyX+ZU2E0815O9r93gPfZhcOqYOOejr7nMMlXJNif+wQ7TL3x2wzV
+ x7omcn/L8Wur+M8ZC0ni/qWY4vO8=
+X-Received: by 2002:adf:ded2:: with SMTP id i18mr43454221wrn.109.1593927461014; 
+ Sat, 04 Jul 2020 22:37:41 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx3gbpxpgGybQ3VzZRMzQ46rw4ptwRvsmRqLomV48jR8zUbdkEyVOboq2NFCpnpK8+MW/QV+A==
+X-Received: by 2002:adf:ded2:: with SMTP id i18mr43454210wrn.109.1593927460808; 
+ Sat, 04 Jul 2020 22:37:40 -0700 (PDT)
+Received: from ?IPv6:2001:b07:6468:f312:adf2:29a0:7689:d40c?
+ ([2001:b07:6468:f312:adf2:29a0:7689:d40c])
+ by smtp.gmail.com with ESMTPSA id w14sm18980566wrt.55.2020.07.04.22.37.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 04 Jul 2020 22:37:40 -0700 (PDT)
+Subject: Re: [PATCH 24/26] hw/usb/usb-hcd: Use UHCI type definitions
+To: BALATON Zoltan <balaton@eik.bme.hu>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
 References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-27-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-27-f4bug@amsat.org>
-From: Paul Zimmerman <pauldzim@gmail.com>
-Date: Sat, 4 Jul 2020 09:25:20 -0700
-Message-ID: <CADBGO7832C0Rw+RbZBRuDAGGtwhk9RV+bHVBHe+EXxLupbqfig@mail.gmail.com>
-Subject: Re: [PATCH 26/26] MAINTAINERS: Cover dwc-hsotg (dwc2) USB host
- controller emulation
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
-Content-Type: multipart/alternative; boundary="00000000000019cac205a9a017dd"
-X-Mailman-Approved-At: Sun, 05 Jul 2020 04:26:02 +0000
+ <20200704144943.18292-25-f4bug@amsat.org>
+ <alpine.BSF.2.22.395.2007041916060.92265@zero.eik.bme.hu>
+ <f19dc1c9-8b72-695b-bce1-660e547e5658@amsat.org>
+ <alpine.BSF.2.22.395.2007042140380.45095@zero.eik.bme.hu>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <ba4dd94b-ec7a-b4ec-4786-c8c5dcd8127f@redhat.com>
+Date: Sun, 5 Jul 2020 07:37:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <alpine.BSF.2.22.395.2007042140380.45095@zero.eik.bme.hu>
+Content-Language: en-US
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,129 +92,56 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Peter Maydell <peter.maydell@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, BALATON Zoltan <balaton@eik.bme.hu>,
- Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Huacai Chen <chenhc@lemote.com>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
- Richard Henderson <rth@twiddle.net>, Paul Durrant <paul@xen.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, qemu-devel@nongnu.org,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Huacai Chen <chenhc@lemote.com>, Eric Blake <eblake@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Paul Durrant <paul@xen.org>,
  Magnus Damm <magnus.damm@gmail.com>, Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  Anthony Perard <anthony.perard@citrix.com>,
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
  Leif Lindholm <leif@nuviainc.com>, Andrzej Zaborowski <balrogg@gmail.com>,
  Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
  Eduardo Habkost <ehabkost@redhat.com>,
  Alistair Francis <alistair@alistair23.me>,
  "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
  Beniamino Galvani <b.galvani@gmail.com>,
+ =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
  Niek Linnenbank <nieklinnenbank@gmail.com>, qemu-arm@nongnu.org,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- David Gibson <david@gibson.dropbear.id.au>,
+ xen-devel@lists.xenproject.org, Richard Henderson <rth@twiddle.net>,
  Radoslaw Biernacki <radoslaw.biernacki@linaro.org>,
  Igor Mitsyanko <i.mitsyanko@gmail.com>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>,
- qemu-ppc@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>
+ =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
+ Paul Zimmerman <pauldzim@gmail.com>, qemu-ppc@nongnu.org,
+ David Gibson <david@gibson.dropbear.id.au>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---00000000000019cac205a9a017dd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 04/07/20 21:44, BALATON Zoltan wrote:
+> 
+> No it's OK, no need to list all defines. I just did not notice the macro
+> argument that's why I was wondering where it comes from. This seems to
+> be used elsewhere at least here:
+> 
+> hw/audio/es1370.c:#define a(n) if (val & CTRL_##n) strcat (buf, " "#n)
+> hw/audio/es1370.c:#define a(n) if (val & SCTRL_##n) strcat (buf, " "#n)
+> hw/audio/es1370.c:#define b(n) if (!(val & SCTRL_##n)) strcat (buf, " "#n)
+> 
+> Maybe writing it without the space between "# is clearer as then it
+> looks more like it's part of the value.
 
-On Sat, Jul 4, 2020 at 7:50 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
->
-wrote:
+I think keeping the space is better.
 
-> Add an section for the dwc2 host controller emulation
-> introduced in commit 153ef1662c.
->
-> Cc: Paul Zimmerman <pauldzim@gmail.com>
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
-> ---
->  MAINTAINERS | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2566566d72..e3f895bc6e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1651,6 +1651,12 @@ M: Samuel Thibault <samuel.thibault@ens-lyon.org>
->  S: Maintained
->  F: hw/usb/dev-serial.c
->
-> +USB dwc-hsotg (dwc2)
-> +M: Gerd Hoffmann <kraxel@redhat.com>
-> +R: Paul Zimmerman <pauldzim@gmail.com>
-> +S: Maintained
-> +F: hw/usb/*dwc2*
-> +
->  VFIO
->  M: Alex Williamson <alex.williamson@redhat.com>
->  S: Supported
+The reason is that CTRL_##n pastes together CTRL_ and n, but " "#n is
+different:
 
+1) First, it turns n into a string, for example "1"
 
-Acked-by: Paul Zimmerman <pauldzim@gmail.com>
+2) Then, just because there is another string just before, the two are
+concatenated, as in "CTRL_" "1".
 
+Paolo
 
-> --
-> 2.21.3
->
->
-
---00000000000019cac205a9a017dd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Sat, Jul 4, 2020 at 7:50 AM Philippe Mathieu-Daud=C3=A9 =
-&lt;<a href=3D"mailto:f4bug@amsat.org">f4bug@amsat.org</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-lef=
-t:1px #ccc solid;padding-left:1ex">Add an section for the dwc2 host control=
-ler emulation<br>
-introduced in commit 153ef1662c.<br>
-<br>
-Cc: Paul Zimmerman &lt;<a href=3D"mailto:pauldzim@gmail.com" target=3D"_bla=
-nk">pauldzim@gmail.com</a>&gt;<br>
-Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:f4bug@amsa=
-t.org" target=3D"_blank">f4bug@amsat.org</a>&gt;<br>
----<br>
-=C2=A0MAINTAINERS | 6 ++++++<br>
-=C2=A01 file changed, 6 insertions(+)<br>
-<br>
-diff --git a/MAINTAINERS b/MAINTAINERS<br>
-index 2566566d72..e3f895bc6e 100644<br>
---- a/MAINTAINERS<br>
-+++ b/MAINTAINERS<br>
-@@ -1651,6 +1651,12 @@ M: Samuel Thibault &lt;<a href=3D"mailto:samuel.thib=
-ault@ens-lyon.org" target=3D"_blank">samuel.thibault@ens-lyon.org</a>&gt;<b=
-r>
-=C2=A0S: Maintained<br>
-=C2=A0F: hw/usb/dev-serial.c<br>
-<br>
-+USB dwc-hsotg (dwc2)<br>
-+M: Gerd Hoffmann &lt;<a href=3D"mailto:kraxel@redhat.com" target=3D"_blank=
-">kraxel@redhat.com</a>&gt;<br>
-+R: Paul Zimmerman &lt;<a href=3D"mailto:pauldzim@gmail.com" target=3D"_bla=
-nk">pauldzim@gmail.com</a>&gt;<br>
-+S: Maintained<br>
-+F: hw/usb/*dwc2*<br>
-+<br>
-=C2=A0VFIO<br>
-=C2=A0M: Alex Williamson &lt;<a href=3D"mailto:alex.williamson@redhat.com" =
-target=3D"_blank">alex.williamson@redhat.com</a>&gt;<br>
-=C2=A0S: Supported</blockquote><div dir=3D"auto"><br></div><div dir=3D"auto=
-">Acked-by: Paul Zimmerman &lt;<a href=3D"mailto:pauldzim@gmail.com">pauldz=
-im@gmail.com</a>&gt;</div><div dir=3D"auto"><br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
-left:1ex"><br>
--- <br>
-2.21.3<br>
-<br>
-</blockquote></div></div>
-
---00000000000019cac205a9a017dd--
 
