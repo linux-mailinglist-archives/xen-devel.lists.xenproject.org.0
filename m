@@ -2,69 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C6A0214EB6
-	for <lists+xen-devel@lfdr.de>; Sun,  5 Jul 2020 20:56:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D54A214EC0
+	for <lists+xen-devel@lfdr.de>; Sun,  5 Jul 2020 20:56:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1js9oL-0005mp-R1; Sun, 05 Jul 2020 18:56:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1js9ob-0005zS-9X; Sun, 05 Jul 2020 18:56:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NZHG=AQ=cert.pl=michal.leszczynski@srs-us1.protection.inumbo.net>)
- id 1js9oK-0005mD-IN
- for xen-devel@lists.xenproject.org; Sun, 05 Jul 2020 18:56:20 +0000
-X-Inumbo-ID: 35a11d89-bef1-11ea-8c04-12813bfff9fa
+ id 1js9oY-0005m2-VY
+ for xen-devel@lists.xenproject.org; Sun, 05 Jul 2020 18:56:35 +0000
+X-Inumbo-ID: 37200200-bef1-11ea-bb8b-bc764e2007e4
 Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 35a11d89-bef1-11ea-8c04-12813bfff9fa;
- Sun, 05 Jul 2020 18:56:19 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 37200200-bef1-11ea-bb8b-bc764e2007e4;
+ Sun, 05 Jul 2020 18:56:21 +0000 (UTC)
 Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 97F0EA2022;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id A51CAA20CC;
  Sun,  5 Jul 2020 20:56:16 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 95673A2026;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id A272FA2037;
  Sun,  5 Jul 2020 20:56:15 +0200 (CEST)
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from bagnar.nask.net.pl ([127.0.0.1])
  by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id c23W13ESr3r9; Sun,  5 Jul 2020 20:56:14 +0200 (CEST)
+ with ESMTP id MPZIYhkmTYT3; Sun,  5 Jul 2020 20:56:15 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 7FDC7A2052;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 8DFEBA2058;
  Sun,  5 Jul 2020 20:56:14 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from bagnar.nask.net.pl ([127.0.0.1])
  by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id isgh7PHF9bSH; Sun,  5 Jul 2020 20:56:14 +0200 (CEST)
+ with ESMTP id eFOoYfuRpihs; Sun,  5 Jul 2020 20:56:14 +0200 (CEST)
 Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
  [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id C27ACA2022;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id AFA8DA201B;
  Sun,  5 Jul 2020 20:56:13 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 29CF622C3D;
+ by belindir.nask.net.pl (Postfix) with ESMTP id 1DC0522C1E;
  Sun,  5 Jul 2020 20:55:19 +0200 (CEST)
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from belindir.nask.net.pl ([127.0.0.1])
  by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id CrPYSZmT-5fP; Sun,  5 Jul 2020 20:55:13 +0200 (CEST)
+ with ESMTP id WWYAtzNBoRq6; Sun,  5 Jul 2020 20:55:13 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 3B5CF22C06;
+ by belindir.nask.net.pl (Postfix) with ESMTP id 58FF622C12;
  Sun,  5 Jul 2020 20:55:08 +0200 (CEST)
-X-Quarantine-ID: <Rz3LuF7Dh33H>
+X-Quarantine-ID: <aOEGDFEWHkIY>
 X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from belindir.nask.net.pl ([127.0.0.1])
  by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Rz3LuF7Dh33H; Sun,  5 Jul 2020 20:55:08 +0200 (CEST)
+ with ESMTP id aOEGDFEWHkIY; Sun,  5 Jul 2020 20:55:08 +0200 (CEST)
 Received: from mq-desktop.cert.pl (unknown [195.187.238.217])
- by belindir.nask.net.pl (Postfix) with ESMTPSA id 0D31A2295A;
+ by belindir.nask.net.pl (Postfix) with ESMTPSA id 2236B22C0B;
  Sun,  5 Jul 2020 20:55:08 +0200 (CEST)
 From: =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v5 05/11] tools/libxl: add vmtrace_pt_size parameter
-Date: Sun,  5 Jul 2020 20:54:58 +0200
-Message-Id: <f7e3c91789a7763b997918b6ebb987be670f9ce5.1593974333.git.michal.leszczynski@cert.pl>
+Subject: [PATCH v5 06/11] x86/hvm: processor trace interface in HVM
+Date: Sun,  5 Jul 2020 20:54:59 +0200
+Message-Id: <a4833c8168e287f0caf1dc6f16ec5c054bd88b0a.1593974333.git.michal.leszczynski@cert.pl>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1593974333.git.michal.leszczynski@cert.pl>
 References: <cover.1593974333.git.michal.leszczynski@cert.pl>
@@ -80,161 +79,159 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: luwei.kang@intel.com, Wei Liu <wl@xen.org>,
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ luwei.kang@intel.com, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Leszczynski <michal.leszczynski@cert.pl>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>, tamas.lengyel@intel.com
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ tamas.lengyel@intel.com,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Michal Leszczynski <michal.leszczynski@cert.pl>
 
-Allow to specify the size of per-vCPU trace buffer upon
-domain creation. This is zero by default (meaning: not enabled).
+Implement necessary changes in common code/HVM to support
+processor trace features. Define vmtrace_pt_* API and
+implement trace buffer allocation/deallocation in common
+code.
 
 Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
 ---
- docs/man/xl.cfg.5.pod.in             | 11 +++++++++++
- tools/golang/xenlight/helpers.gen.go |  2 ++
- tools/golang/xenlight/types.gen.go   |  1 +
- tools/libxl/libxl.h                  |  8 ++++++++
- tools/libxl/libxl_create.c           |  1 +
- tools/libxl/libxl_types.idl          |  2 ++
- tools/xl/xl_parse.c                  | 22 ++++++++++++++++++++++
- 7 files changed, 47 insertions(+)
+ xen/arch/x86/domain.c         | 19 +++++++++++++++++++
+ xen/common/domain.c           | 19 +++++++++++++++++++
+ xen/include/asm-x86/hvm/hvm.h | 20 ++++++++++++++++++++
+ xen/include/xen/sched.h       |  4 ++++
+ 4 files changed, 62 insertions(+)
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 0532739c1f..670759f6bd 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -278,6 +278,17 @@ memory=8096 will report significantly less memory available for use
- than a system with maxmem=8096 memory=8096 due to the memory overhead
- of having to track the unused pages.
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index fee6c3931a..79c9794408 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -2199,6 +2199,25 @@ int domain_relinquish_resources(struct domain *d)
+                 altp2m_vcpu_disable_ve(v);
+         }
  
-+=item B<processor_trace_buffer_size=BYTES>
++        for_each_vcpu ( d, v )
++        {
++            unsigned int i;
 +
-+Specifies the size of processor trace buffer that would be allocated
-+for each vCPU belonging to this domain. Disabled (i.e.
-+B<processor_trace_buffer_size=0> by default. This must be set to
-+non-zero value in order to be able to use processor tracing features
-+with this domain.
++            if ( !v->vmtrace.pt_buf )
++                continue;
 +
-+B<NOTE>: The size value must be between 4 kB and 4 GB and it must
-+be also a power of 2.
++            for ( i = 0; i < (v->domain->vmtrace_pt_size >> PAGE_SHIFT); i++ )
++            {
++                struct page_info *pg = mfn_to_page(
++                    mfn_add(page_to_mfn(v->vmtrace.pt_buf), i));
++                if ( (pg->count_info & PGC_count_mask) != 1 )
++                    return -EBUSY;
++            }
 +
- =back
- 
- =head3 Guest Virtual NUMA Configuration
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index 152c7e8e6b..bfc37b69c8 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1117,6 +1117,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
- x.ArchArm.GicVersion = GicVersion(xc.arch_arm.gic_version)
- x.ArchArm.Vuart = VuartType(xc.arch_arm.vuart)
- x.Altp2M = Altp2MMode(xc.altp2m)
-+x.VmtracePtOrder = int(xc.vmtrace_pt_order)
- 
-  return nil}
- 
-@@ -1592,6 +1593,7 @@ return fmt.Errorf("invalid union key '%v'", x.Type)}
- xc.arch_arm.gic_version = C.libxl_gic_version(x.ArchArm.GicVersion)
- xc.arch_arm.vuart = C.libxl_vuart_type(x.ArchArm.Vuart)
- xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
-+xc.vmtrace_pt_order = C.int(x.VmtracePtOrder)
- 
-  return nil
-  }
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index 663c1e86b4..f9b07ac862 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -516,6 +516,7 @@ GicVersion GicVersion
- Vuart VuartType
- }
- Altp2M Altp2MMode
-+VmtracePtOrder int
++            free_domheap_pages(v->vmtrace.pt_buf,
++                get_order_from_bytes(v->domain->vmtrace_pt_size));
++        }
++
+         if ( is_pv_domain(d) )
+         {
+             for_each_vcpu ( d, v )
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 25d3359c5b..f480c4e033 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -137,6 +137,21 @@ static void vcpu_destroy(struct vcpu *v)
+     free_vcpu_struct(v);
  }
  
- type domainBuildInfoTypeUnion interface {
-diff --git a/tools/libxl/libxl.h b/tools/libxl/libxl.h
-index 1cd6c38e83..4abb521756 100644
---- a/tools/libxl/libxl.h
-+++ b/tools/libxl/libxl.h
-@@ -438,6 +438,14 @@
-  */
- #define LIBXL_HAVE_CREATEINFO_PASSTHROUGH 1
++static int vmtrace_alloc_buffers(struct vcpu *v)
++{
++    struct page_info *pg;
++    uint64_t size = v->domain->vmtrace_pt_size;
++
++    pg = alloc_domheap_pages(v->domain, get_order_from_bytes(size),
++                             MEMF_no_refcount);
++
++    if ( !pg )
++        return -ENOMEM;
++
++    v->vmtrace.pt_buf = pg;
++    return 0;
++}
++
+ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
+ {
+     struct vcpu *v;
+@@ -162,6 +177,9 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
+     v->vcpu_id = vcpu_id;
+     v->dirty_cpu = VCPU_CPU_CLEAN;
  
-+/*
-+ * LIBXL_HAVE_VMTRACE_PT_ORDER indicates that
-+ * libxl_domain_create_info has a vmtrace_pt_order parameter, which
-+ * allows to enable pre-allocation of processor tracing buffers
-+ * with the given order of size.
-+ */
-+#define LIBXL_HAVE_VMTRACE_PT_ORDER 1
++    if ( d->vmtrace_pt_size && vmtrace_alloc_buffers(v) != 0 )
++        return NULL;
++
+     spin_lock_init(&v->virq_lock);
+ 
+     tasklet_init(&v->continue_hypercall_tasklet, NULL, NULL);
+@@ -422,6 +440,7 @@ struct domain *domain_create(domid_t domid,
+     d->shutdown_code = SHUTDOWN_CODE_INVALID;
+ 
+     spin_lock_init(&d->pbuf_lock);
++    spin_lock_init(&d->vmtrace_lock);
+ 
+     rwlock_init(&d->vnuma_rwlock);
+ 
+diff --git a/xen/include/asm-x86/hvm/hvm.h b/xen/include/asm-x86/hvm/hvm.h
+index 1eb377dd82..2d474a4c50 100644
+--- a/xen/include/asm-x86/hvm/hvm.h
++++ b/xen/include/asm-x86/hvm/hvm.h
+@@ -214,6 +214,10 @@ struct hvm_function_table {
+     bool_t (*altp2m_vcpu_emulate_ve)(struct vcpu *v);
+     int (*altp2m_vcpu_emulate_vmfunc)(const struct cpu_user_regs *regs);
+ 
++    /* vmtrace */
++    int (*vmtrace_control_pt)(struct vcpu *v, bool enable);
++    int (*vmtrace_get_pt_offset)(struct vcpu *v, uint64_t *offset);
++
+     /*
+      * Parameters and callbacks for hardware-assisted TSC scaling,
+      * which are valid only when the hardware feature is available.
+@@ -655,6 +659,22 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *v)
+     return false;
+ }
+ 
++static inline int vmtrace_control_pt(struct vcpu *v, bool enable)
++{
++    if ( hvm_funcs.vmtrace_control_pt )
++        return hvm_funcs.vmtrace_control_pt(v, enable);
++
++    return -EOPNOTSUPP;
++}
++
++static inline int vmtrace_get_pt_offset(struct vcpu *v, uint64_t *offset)
++{
++    if ( hvm_funcs.vmtrace_get_pt_offset )
++        return hvm_funcs.vmtrace_get_pt_offset(v, offset);
++
++    return -EOPNOTSUPP;
++}
 +
  /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
-index 2814818e34..82b595161a 100644
---- a/tools/libxl/libxl_create.c
-+++ b/tools/libxl/libxl_create.c
-@@ -608,6 +608,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-             .max_evtchn_port = b_info->event_channels,
-             .max_grant_frames = b_info->max_grant_frames,
-             .max_maptrack_frames = b_info->max_maptrack_frames,
-+            .vmtrace_pt_order = b_info->vmtrace_pt_order,
-         };
+  * This must be defined as a macro instead of an inline function,
+  * because it uses 'struct vcpu' and 'struct domain' which have
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 48f0a61bbd..95ebab0d30 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -253,6 +253,10 @@ struct vcpu
+     /* vPCI per-vCPU area, used to store data for long running operations. */
+     struct vpci_vcpu vpci;
  
-         if (info->type != LIBXL_DOMAIN_TYPE_PV) {
-diff --git a/tools/libxl/libxl_types.idl b/tools/libxl/libxl_types.idl
-index 9d3f05f399..1c5dd43e4d 100644
---- a/tools/libxl/libxl_types.idl
-+++ b/tools/libxl/libxl_types.idl
-@@ -645,6 +645,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
-     # supported by x86 HVM and ARM support is planned.
-     ("altp2m", libxl_altp2m_mode),
++    struct {
++        struct page_info *pt_buf;
++    } vmtrace;
++
+     struct arch_vcpu arch;
+ };
  
-+    ("vmtrace_pt_order", integer),
-+
-     ], dir=DIR_IN,
-        copy_deprecated_fn="libxl__domain_build_info_copy_deprecated",
- )
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 61b4ef7b7e..279f7c14d3 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1861,6 +1861,28 @@ void parse_config_data(const char *config_source,
-         }
-     }
- 
-+    if (!xlu_cfg_get_long(config, "processor_trace_buffer_size", &l, 1) && l) {
-+        int32_t shift = 0;
-+
-+        if (l & (l - 1))
-+        {
-+            fprintf(stderr, "ERROR: processor_trace_buffer_size "
-+			    "- must be a power of 2\n");
-+            exit(1);
-+        }
-+
-+        while (l >>= 1) ++shift;
-+
-+        if (shift <= XEN_PAGE_SHIFT)
-+        {
-+            fprintf(stderr, "ERROR: processor_trace_buffer_size "
-+			    "- value is too small\n");
-+            exit(1);
-+        }
-+
-+        b_info->vmtrace_pt_order = shift - XEN_PAGE_SHIFT;
-+    }
-+
-     if (!xlu_cfg_get_list(config, "ioports", &ioports, &num_ioports, 0)) {
-         b_info->num_ioports = num_ioports;
-         b_info->ioports = calloc(num_ioports, sizeof(*b_info->ioports));
 -- 
 2.17.1
 
