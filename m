@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B94215C92
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:04:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E435215C94
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:05:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsUXs-0005tG-N1; Mon, 06 Jul 2020 17:04:44 +0000
+	id 1jsUYK-0005x4-0i; Mon, 06 Jul 2020 17:05:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hiqY=AR=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1jsUXr-0005t7-Cv
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:04:43 +0000
-X-Inumbo-ID: c9232696-bfaa-11ea-bca7-bc764e2007e4
-Received: from mail-io1-xd43.google.com (unknown [2607:f8b0:4864:20::d43])
+ id 1jsUYI-0005wn-F2
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:05:10 +0000
+X-Inumbo-ID: d93ede12-bfaa-11ea-bca7-bc764e2007e4
+Received: from mail-io1-xd41.google.com (unknown [2607:f8b0:4864:20::d41])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c9232696-bfaa-11ea-bca7-bc764e2007e4;
- Mon, 06 Jul 2020 17:04:42 +0000 (UTC)
-Received: by mail-io1-xd43.google.com with SMTP id q74so16547579iod.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:04:42 -0700 (PDT)
+ id d93ede12-bfaa-11ea-bca7-bc764e2007e4;
+ Mon, 06 Jul 2020 17:05:09 +0000 (UTC)
+Received: by mail-io1-xd41.google.com with SMTP id q8so40125814iow.7
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:05:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=cTCiYJ1utsgT/OEA1JPToQ9e7sbkDVzau0vl+orbX5M=;
- b=Y5emWhnvg2wA6Hsc2mNKM91+PUECbIjNCVx4XijBRlwxhG9yPaVY4nCPuN66Pn/g4N
- jALw2uCbPtXPOhmyJkKBc45MnuJg6mxtGi3kWihcL0PytiWW/5DejqGp9pu1JW3N0B0L
- YJbqT9Ic/jycTAYWFiu+Rsh/qMuTBhTldv4DWUXGneSj8xYSSWACCuJie0v5fihIfGzM
- +FHYD1FVz9yVKlUzWPPpjP3O3le2SpOqqOzlb4GBTfB83H90A+bGP6q+3xoLfe4Nv+cq
- E6XH5NYuSvgxKJUs0XSM4FaA8Wd5kSisFNa8A9sD0zbO1Mx64e82B7/5rFnqrKTujNAu
- cLYg==
+ bh=zN9P5ColTvlUfdn83p6hlM/q3HmA739CHt0AXxAEsKY=;
+ b=eegBASf0DJgvBsiQJhBbGe04hBG8gQlnhR0e1R/ASVwj2VHV9vGLfcRsCN4KCZZL7R
+ B83BaGMH/iF7mwFtkqNwrhcYBoLeuRgJhTM45CYuhyfzNTru1stzx/37r5EW7OhPb+Sh
+ LRtrqRylWajXgEByi9cOTijxoLbDMEMhICnRVbAOOwJLu9jPbF/Te8Qvau7kveunJewl
+ Db0lsTutmvoozzVPB+KFbn17OIYLS5FptsgdKB52Bz3rn1GjOosdN0j2cy5W6T6sYt0p
+ QdMaqFdSvbzvnq0BKJyMWcewvVfyBSesh4A14gyVGvYTOfgkCHZ+MscaMJTp0T9VOAKa
+ WAHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=cTCiYJ1utsgT/OEA1JPToQ9e7sbkDVzau0vl+orbX5M=;
- b=oF0OiIuKeETAFVLQyN4/YVE30HevZ4KjHOrDS1hBcipJgQrK/wzGXDfrT8wlL9FO4A
- vwBzQHCFd9dV6T8EgZmFFOA93j/Iiuotps8vYBLKhaWFPU6SLobXHTDWf6xYRPw+F6kq
- zY7OI2D7iMPOqvMf3qlY2Kc1oNJWXzyRbTgmmb2niy1DggAQQNIjfEsOpJ42ab+Mejpn
- k4fpQNAAyu3ksaQQD5GMt7F/0vY8Atd0JlbT41IDtba3rNJgyNeDrmCEs5XytgSb0gY/
- s3h8FzPQD+jWl0GbweqzIVXME7wDOKkT2ICrpIqf0e34+8dvNjanHFpXgkc6T4nB4vSo
- jMEQ==
-X-Gm-Message-State: AOAM5304j3wtZ61yeI1DxCDuMT1F9L4MF8HedIlfKn5RK+ul65K6F6GL
- rf7elMpfDTfFprZTnS7dQaNxDi2ELW4YSYnqmXM=
-X-Google-Smtp-Source: ABdhPJwtinW+rIbee8onSzHAr9mGYnsnNGs22+9NC+YbC3w6hod1nvPLY3hYBjgn60PpMlBLwo7zj8UoDSitGwru4As=
-X-Received: by 2002:a5d:97d9:: with SMTP id k25mr26494073ios.42.1594055082487; 
- Mon, 06 Jul 2020 10:04:42 -0700 (PDT)
+ bh=zN9P5ColTvlUfdn83p6hlM/q3HmA739CHt0AXxAEsKY=;
+ b=kUaMMEh+E7vanCoBdINzGIESuMmCGm/fpfG8CwskN5ml7zRRp6gJ8fYsuKTY5cVJ29
+ M4t2fshGzhQDLFfcRUHVGy9EscQC7AzEUnY983pV7G5+J5+QG59AYXjy/s+Vvtu06wSf
+ hbZRwg/rfVLtLOCtIxfm1KCJLzen/spHLO/aLK3xQKN22AzZ+PJfpHx5XBQqaJmCPOTF
+ Ir6RxfB1y5BpmYoS3mg8lDLVZ4yPx/E7nHOq+uAXzKLq32/pyy7VeVeFSEQzVz7vbA8i
+ zZ8NFUPyBBPRMAY47yfw0g4BF5wlzEA0XNMBEc8S/lisedNUYVIpCJo6rqwJuWXCGB+F
+ Hm/Q==
+X-Gm-Message-State: AOAM530VLOIG6Av4EBjlEiu7nnm2te+C1fOhkdByIbnTjf9WINeA4tmc
+ 0v+cEJrXxfRpOaq0BWmsFA4+n2douCC2FtKBWC0=
+X-Google-Smtp-Source: ABdhPJw8hZ3hkrezlrBZ0tGzIowHRnJHp8TQNjhIxHPipZ6z7o2IrpAbgPHKaESP7cYXHZCW69GaN6F/KxK5+BYwjZc=
+X-Received: by 2002:a5d:9ed0:: with SMTP id a16mr26251024ioe.176.1594055109583; 
+ Mon, 06 Jul 2020 10:05:09 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-8-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-8-f4bug@amsat.org>
+ <20200704144943.18292-6-f4bug@amsat.org>
+In-Reply-To: <20200704144943.18292-6-f4bug@amsat.org>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Mon, 6 Jul 2020 09:54:53 -0700
-Message-ID: <CAKmqyKMk272oxLgGJHQMmZk_7+Q7N=5uPxSUdEMq2-N8DbHrLg@mail.gmail.com>
-Subject: Re: [PATCH 07/26] hw/usb/hcd-dwc2: Restrict some headers to source
+Date: Mon, 6 Jul 2020 09:55:22 -0700
+Message-ID: <CAKmqyKMW3Db-bk1+MOtz461-iAy9Se4uq=2stNmgiELzVAd3NA@mail.gmail.com>
+Subject: Re: [PATCH 05/26] hw/usb/desc: Add missing header
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -101,10 +101,8 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 On Sat, Jul 4, 2020 at 7:52 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
 > wrote:
 >
-> The header "usb/hcd-dwc2.h" doesn't need to include "qemu/timer.h",
-> "sysemu/dma.h", "hw/irq.h" (the types required are forward declared).
-> Include them in the source file which is the only one requiring the
-> function declarations.
+> This header uses the USBPacket and USBDevice types which are
+> forward declared in "hw/usb.h".
 >
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
 
@@ -113,42 +111,21 @@ Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 Alistair
 
 > ---
->  hw/usb/hcd-dwc2.h | 3 ---
->  hw/usb/hcd-dwc2.c | 3 +++
->  2 files changed, 3 insertions(+), 3 deletions(-)
+>  hw/usb/desc.h | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/hw/usb/hcd-dwc2.h b/hw/usb/hcd-dwc2.h
-> index 4ba809a07b..2adf0f53c7 100644
-> --- a/hw/usb/hcd-dwc2.h
-> +++ b/hw/usb/hcd-dwc2.h
-> @@ -19,11 +19,8 @@
->  #ifndef HW_USB_DWC2_H
->  #define HW_USB_DWC2_H
+> diff --git a/hw/usb/desc.h b/hw/usb/desc.h
+> index 4d81c68e0e..92594fbe29 100644
+> --- a/hw/usb/desc.h
+> +++ b/hw/usb/desc.h
+> @@ -2,6 +2,7 @@
+>  #define QEMU_HW_USB_DESC_H
 >
-> -#include "qemu/timer.h"
-> -#include "hw/irq.h"
->  #include "hw/sysbus.h"
->  #include "hw/usb.h"
-> -#include "sysemu/dma.h"
+>  #include <wchar.h>
+> +#include "hw/usb.h"
 >
->  #define DWC2_MMIO_SIZE      0x11000
->
-> diff --git a/hw/usb/hcd-dwc2.c b/hw/usb/hcd-dwc2.c
-> index 590e75b455..ccf05d0823 100644
-> --- a/hw/usb/hcd-dwc2.c
-> +++ b/hw/usb/hcd-dwc2.c
-> @@ -36,8 +36,11 @@
->  #include "qapi/error.h"
->  #include "hw/usb/dwc2-regs.h"
->  #include "hw/usb/hcd-dwc2.h"
-> +#include "hw/irq.h"
-> +#include "sysemu/dma.h"
->  #include "migration/vmstate.h"
->  #include "trace.h"
-> +#include "qemu/timer.h"
->  #include "qemu/log.h"
->  #include "hw/qdev-properties.h"
->
+>  /* binary representation */
+>  typedef struct USBDescriptor {
 > --
 > 2.21.3
 >
