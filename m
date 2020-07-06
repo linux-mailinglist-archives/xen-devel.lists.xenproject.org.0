@@ -2,59 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBA3D215CB4
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:10:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CFF5215CB6
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:10:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsUcs-0006Rb-G2; Mon, 06 Jul 2020 17:09:54 +0000
+	id 1jsUdh-0007Ab-Pt; Mon, 06 Jul 2020 17:10:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hiqY=AR=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1jsUcr-0006RW-2b
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:09:53 +0000
-X-Inumbo-ID: 81a928b4-bfab-11ea-bca7-bc764e2007e4
-Received: from mail-il1-x142.google.com (unknown [2607:f8b0:4864:20::142])
+ id 1jsUdg-0007A2-CC
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:10:44 +0000
+X-Inumbo-ID: a04beea0-bfab-11ea-bb8b-bc764e2007e4
+Received: from mail-io1-xd41.google.com (unknown [2607:f8b0:4864:20::d41])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 81a928b4-bfab-11ea-bca7-bc764e2007e4;
- Mon, 06 Jul 2020 17:09:52 +0000 (UTC)
-Received: by mail-il1-x142.google.com with SMTP id i18so33555859ilk.10
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:09:52 -0700 (PDT)
+ id a04beea0-bfab-11ea-bb8b-bc764e2007e4;
+ Mon, 06 Jul 2020 17:10:43 +0000 (UTC)
+Received: by mail-io1-xd41.google.com with SMTP id v6so26479595iob.4
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:10:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=Qjmg6keciKQ+VOMeBpL/AW2YN1J1Kn6ACCJR6VlV+qI=;
- b=OwWaKMMMP1QFjMhkzf7cgTSnKgDIc5+avykkBDKL5ShxrEZIh2B9WQ4e2zfIOytV/S
- nT2xYaD/K/Vz5l0Ackv84a76Sz0UM/YC/GgxV/iqLEOpTvzEuxbqE411kHshEjoTjLro
- D8tn/C0W0XdheqSqYAmla8lSsnywSVsKq0WHgzdFTlrA5qHkvSACL4/4KkAEjFI5VhYv
- yu4z/Z1UQT1x3Xag1s1raH6NdSUSqtqIsUOrtWYSlMNZfedghH8nGN5g6ZLmqfd1X3fq
- 1n5JPWWntS7W1kO4/RKlZkXlSU9pqI4NdubmRt+GADA2vNbCuw3/HfBUFwD2kp5Wgsvr
- AJtw==
+ bh=wZPcNnfJm5MPTasltoq/pBa3iV0LcdhND5nIpKUJi/8=;
+ b=k/1aoEljxB0uBEqfqH0Zn4KhFaSEHuRC7puZspsg00ZQnuYbG361wHg3SacgFJDj5D
+ tsj3n5BFbxJduCK35tjRhuF2/a9NzvStraAOtyCnDhA1x3ZIDzvxsj0SeVn96GcH66cQ
+ +fOPAx/5lIiJ6CUyYV8ORDaUEU0GMk/TmxFz2lsMqQ1ZPLYRTUaOZTHWIAoFD6WwT2w9
+ dE0VZxLY1HVMcUMAVCCqzToMHhxxVykCFBb3WPUEtZ8T5PdUIBDhJKXxk1Spjm8NLNHs
+ uMj6b4Ox5j2PchTgKufiol5/oFIvZYBrDFwPFhjtdYp+E3sHNnFizOD1mX/9Z5ZYBI8v
+ cucQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=Qjmg6keciKQ+VOMeBpL/AW2YN1J1Kn6ACCJR6VlV+qI=;
- b=HKORv38rNyC60gVibfrL+CGaOMmEe+aJab55GTZ8xCW5sn1lRa0ZacOFWXPVdZBwbE
- cITf/08zVH3JCW6d1dhEYpiX1nfA3ptz0u/iGqMt1XnDot31I/UzExue8S50F+DXKNEu
- z0/Z9fgzx3fS4c3BgvXBfra7Sl/n7N10fsbqBWPJmkFtIcOhlyWwiZ7fhJJUYq1f0TrX
- VWSwP+aMwt7572bLOo6QvuUGC7SupXxISdM8NqlyPEcev2eg1mBpQvpNv0HDVRb7ddhD
- IqiThcIaIJV4LzQIaOIr3wzq/RqIBqINpyMzHas701Oba3VTJknW95KhJTvQDjwP+Ngb
- yRoQ==
-X-Gm-Message-State: AOAM530Dz1e+C5kowEY4RTg79r5q/IoOgaN6qFrEPQllZ48WlRkI/Q/c
- 4/pGXa30Px3C8GHhKUl97UeaO2PUGYLfKGMO6/c=
-X-Google-Smtp-Source: ABdhPJyOwkiRiK+9nBFi1yzATBmoIi7mSBskR4fEEeJCsCiuqZAj+mTPEz50OG8NSilCy8YDtIqWGKoKN3C/V91lepU=
-X-Received: by 2002:a92:bb84:: with SMTP id x4mr32234878ilk.177.1594055392114; 
- Mon, 06 Jul 2020 10:09:52 -0700 (PDT)
+ bh=wZPcNnfJm5MPTasltoq/pBa3iV0LcdhND5nIpKUJi/8=;
+ b=qqfNdsATDQxUJKXjLyENvCiB56yZ2Zp3rPcGjeXUX3lyAbsZ275RXOMNnpd7PpZ40f
+ T5MfXmkCodpaJ2u2dNKBx0fHdWbB6o1al8FpLhqSCQfkZjzQDyH5CVR4YJ0Uwx97zXTz
+ r33gDEH1KKcDW534euOljWbaj1YbhX8PS02yl5Bn6t7E5SdPWfkPGQ3DdNcB3ZizaEgn
+ TqQNidmeoxGtORrIO7765XGaU1wheuoGyEGsRsj0lCndbV8Y+xUUomnYjXwiZ6c5jpJy
+ C6q0FbGLQ1H+Wo3QzXN8Uq4ndHr00Uk2on/PHyCC3uqQOnW79wgchPnQnMt0FVCIWhOI
+ OPVA==
+X-Gm-Message-State: AOAM533yMP1lviNBXHyTefqAqBytvBtZ9ZQB4heT83QikKudq3NW6uOX
+ +r/LNf8MchTXDUDBSahF42PTg8vj3Nlzl68572c=
+X-Google-Smtp-Source: ABdhPJx4Y0GqgQR2J49zdJrF6Wimg0enF5qkXxsI0KvUd7/3ziu/gL8IcMOHx3OKEzWPz3QhdGIRQSrp8CAFUbt1qmc=
+X-Received: by 2002:a02:6c4c:: with SMTP id w73mr55529406jab.26.1594055443540; 
+ Mon, 06 Jul 2020 10:10:43 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-11-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-11-f4bug@amsat.org>
+ <20200704144943.18292-14-f4bug@amsat.org>
+In-Reply-To: <20200704144943.18292-14-f4bug@amsat.org>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Mon, 6 Jul 2020 10:00:05 -0700
-Message-ID: <CAKmqyKMUWZ9BsEeZkiK4-_MAhFpZO66MKQNhoZ3q1FT+XZie3g@mail.gmail.com>
-Subject: Re: [PATCH 10/26] hw/usb/hcd-ehci: Move few definitions from header
- to source
+Date: Mon, 6 Jul 2020 10:00:56 -0700
+Message-ID: <CAKmqyKOcdG_Wv8yectwwHaxmryB9uBKK+GX1ZGtrq7ZCRcRsAw@mail.gmail.com>
+Subject: Re: [PATCH 13/26] hw/usb/desc: Reduce some declarations scope
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -99,10 +98,13 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Jul 4, 2020 at 7:53 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
+On Sat, Jul 4, 2020 at 7:59 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
 > wrote:
 >
-> Move definitions only useful for hcd-ehci.c to this source file.
+> USBDescString is forward-declared. Only bus.c uses the
+> usb_device_get_product_desc() and usb_device_get_usb_desc()
+> function. Move all that to the "desc.h" header to reduce
+> the big "hw/usb.h" header a bit.
 >
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
 
@@ -111,55 +113,75 @@ Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 Alistair
 
 > ---
->  hw/usb/hcd-ehci.h | 11 -----------
->  hw/usb/hcd-ehci.c | 12 ++++++++++++
->  2 files changed, 12 insertions(+), 11 deletions(-)
+>  hw/usb/desc.h    | 10 ++++++++++
+>  include/hw/usb.h | 10 ----------
+>  hw/usb/bus.c     |  1 +
+>  3 files changed, 11 insertions(+), 10 deletions(-)
 >
-> diff --git a/hw/usb/hcd-ehci.h b/hw/usb/hcd-ehci.h
-> index 57b38cfc05..4577f5e31d 100644
-> --- a/hw/usb/hcd-ehci.h
-> +++ b/hw/usb/hcd-ehci.h
-> @@ -24,17 +24,6 @@
->  #include "hw/pci/pci.h"
->  #include "hw/sysbus.h"
+> diff --git a/hw/usb/desc.h b/hw/usb/desc.h
+> index 92594fbe29..4bf6966c4b 100644
+> --- a/hw/usb/desc.h
+> +++ b/hw/usb/desc.h
+> @@ -242,4 +242,14 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacke=
+t *p,
+>  int usb_desc_handle_control(USBDevice *dev, USBPacket *p,
+>          int request, int value, int index, int length, uint8_t *data);
 >
-> -#ifndef EHCI_DEBUG
-> -#define EHCI_DEBUG   0
-> -#endif
+> +const char *usb_device_get_product_desc(USBDevice *dev);
+> +
+> +const USBDesc *usb_device_get_usb_desc(USBDevice *dev);
+> +
+> +struct USBDescString {
+> +    uint8_t index;
+> +    char *str;
+> +    QLIST_ENTRY(USBDescString) next;
+> +};
+> +
+>  #endif /* QEMU_HW_USB_DESC_H */
+> diff --git a/include/hw/usb.h b/include/hw/usb.h
+> index 15b2ef300a..18f1349bdc 100644
+> --- a/include/hw/usb.h
+> +++ b/include/hw/usb.h
+> @@ -192,12 +192,6 @@ typedef struct USBDescOther USBDescOther;
+>  typedef struct USBDescString USBDescString;
+>  typedef struct USBDescMSOS USBDescMSOS;
+>
+> -struct USBDescString {
+> -    uint8_t index;
+> -    char *str;
+> -    QLIST_ENTRY(USBDescString) next;
+> -};
 > -
-> -#if EHCI_DEBUG
-> -#define DPRINTF printf
-> -#else
-> -#define DPRINTF(...)
-> -#endif
+>  #define USB_MAX_ENDPOINTS  15
+>  #define USB_MAX_INTERFACES 16
+>
+> @@ -555,10 +549,6 @@ int usb_device_alloc_streams(USBDevice *dev, USBEndp=
+oint **eps, int nr_eps,
+>                               int streams);
+>  void usb_device_free_streams(USBDevice *dev, USBEndpoint **eps, int nr_e=
+ps);
+>
+> -const char *usb_device_get_product_desc(USBDevice *dev);
 > -
-> -#define MMIO_SIZE        0x1000
->  #define CAPA_SIZE        0x10
+> -const USBDesc *usb_device_get_usb_desc(USBDevice *dev);
+> -
+>  /* quirks.c */
 >
->  #define NB_PORTS         6        /* Max. Number of downstream ports */
-> diff --git a/hw/usb/hcd-ehci.c b/hw/usb/hcd-ehci.c
-> index 256fb91e0c..a0beee527c 100644
-> --- a/hw/usb/hcd-ehci.c
-> +++ b/hw/usb/hcd-ehci.c
-> @@ -36,6 +36,18 @@
->  #include "qemu/error-report.h"
->  #include "sysemu/runstate.h"
+>  /* In bulk endpoints are streaming data sources (iow behave like isoc ep=
+s) */
+> diff --git a/hw/usb/bus.c b/hw/usb/bus.c
+> index 957559b18d..111c3af7c1 100644
+> --- a/hw/usb/bus.c
+> +++ b/hw/usb/bus.c
+> @@ -9,6 +9,7 @@
+>  #include "monitor/monitor.h"
+>  #include "trace.h"
+>  #include "qemu/cutils.h"
+> +#include "desc.h"
 >
-> +#ifndef EHCI_DEBUG
-> +#define EHCI_DEBUG   0
-> +#endif
-> +
-> +#if EHCI_DEBUG
-> +#define DPRINTF printf
-> +#else
-> +#define DPRINTF(...)
-> +#endif
-> +
-> +#define MMIO_SIZE        0x1000
-> +
->  #define FRAME_TIMER_FREQ 1000
->  #define FRAME_TIMER_NS   (NANOSECONDS_PER_SECOND / FRAME_TIMER_FREQ)
->  #define UFRAME_TIMER_NS  (FRAME_TIMER_NS / 8)
+>  static void usb_bus_dev_print(Monitor *mon, DeviceState *qdev, int inden=
+t);
+>
 > --
 > 2.21.3
 >
