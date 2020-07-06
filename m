@@ -2,73 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1F652152D3
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 08:59:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 659572152DB
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 09:04:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsL63-0001f1-VO; Mon, 06 Jul 2020 06:59:23 +0000
+	id 1jsLAO-0002ZU-Gj; Mon, 06 Jul 2020 07:03:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bUWB=AR=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jsL63-0001ev-56
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 06:59:23 +0000
-X-Inumbo-ID: 385582ca-bf56-11ea-b7bb-bc764e2007e4
-Received: from mail-wm1-x332.google.com (unknown [2a00:1450:4864:20::332])
+ id 1jsLAN-0002ZP-FC
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 07:03:51 +0000
+X-Inumbo-ID: d8045e04-bf56-11ea-b7bb-bc764e2007e4
+Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 385582ca-bf56-11ea-b7bb-bc764e2007e4;
- Mon, 06 Jul 2020 06:59:22 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id 22so38052427wmg.1
- for <xen-devel@lists.xenproject.org>; Sun, 05 Jul 2020 23:59:22 -0700 (PDT)
+ id d8045e04-bf56-11ea-b7bb-bc764e2007e4;
+ Mon, 06 Jul 2020 07:03:50 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id z15so28301457wrl.8
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 00:03:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:thread-index
  :content-language;
- bh=GSqycnyOgHnqRbxkdykYxL0t6AV3g94XVZgZUh4b7Oo=;
- b=nGLQub6o9/Mr2h4TTPzgZwJ63jnsecYGyIq9xnWuaYK1LVkVRYZz1s6G51ZZGQMiVK
- hg5zIyEaCgss536nOHArIsumPnWlfg46CG615CMNLStkWnjLfZuuLTJqpz+n3f7TY7Sg
- sFRzuWYlNu+5SZI8jMMw7hAEGEz+PYmeoKMc7ZMDUyTzjnz/ClSo5KmpUCIAYbXzdHfr
- vAuoyJaQl3O4Za/QvsU/LFBah8Zv1X4zqPEe88xfcHPeBeJCPeLQ/YemmMVDzk/FztcB
- Q50au6e7BF2I3vgi2AV6sWNzTGOVQYV3oGD46nrptrfVoIXEceV1kDfxp/IHCJcJOotE
- IEhQ==
+ bh=SBKsAA7+u0dXdQjfFG41WcLWxsA+fMDFgWXbL5FWNq4=;
+ b=BkGYlwL8QNt/pwe8xZtOFlgec1ug2f/5YqgqifJMTUwvlYk+sLW4sTDOOGatKXN/Cr
+ 1bG9vOYYfCqyjuptcEJBpzWKz6akQIgKF7PhU8/exfRUnGogogitKCCaXbDY0jVAtbqw
+ TvvBwHyF7558yP4dlAeI98Ee+FExtu7wzzpLa/5PZZ0x/wN24yEIKXdTaokYIm0ArxKM
+ ZbU8irq+sXmKhgWVv0hofVHT58ZlCRczC58jlmTF3vzlygD8xW6XvCo/NZbdLW0IoCyP
+ +4YJ2B5dSKGO2SxViGbC7jihkOn13cp1cltq85jcHGTXN3/Dui6oMEyABsVpB7db7qZS
+ FocA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :thread-index:content-language;
- bh=GSqycnyOgHnqRbxkdykYxL0t6AV3g94XVZgZUh4b7Oo=;
- b=dbGWEePY0E3bc3D+vrIjsSEqDREuGfpFpLGxJFBBGiHUo8xgKjoiBDEdK5+/R1bwFV
- zkLWSzSGfF6hB80Wx3w3gHx71rZ1LwGo0x0u6q+pudHZP3LjxJP2GUlFAcUoju9NvMIu
- mlw1cR97wL+QWcpsoNwUFGfRwxC00UrJ4jDV02vXDiCVE0YlVTIaoK+Bu1yAc2aHznPY
- Z9UyYisg4gkYpLog9Ou2sE/hyFogjOCa1di/OXCLgbMer3WG2HMILL5KgMPRK/0XG6IQ
- HudJraR2dKpiPM1ff6hS0Dy6bVzwgC2wrrMEmwTdu5X92oYoQ3DCzU+XIpMa6Yy2N664
- 9hIQ==
-X-Gm-Message-State: AOAM530yfdHksyjAEwWrvsN69yVN8ZRYSWx8+IJjoYveJ9hPC1P3BunT
- i1q5AqaLz2NFYqsaDULcJK0=
-X-Google-Smtp-Source: ABdhPJwzyz2pszcNWZGno9KupPDPrGUYfRu9QXYAaGGf+9Xdw9ucJWJ0j8PPt1b+SgBWqyAquHSxNg==
-X-Received: by 2002:a05:600c:2249:: with SMTP id
- a9mr45794270wmm.163.1594018761880; 
- Sun, 05 Jul 2020 23:59:21 -0700 (PDT)
+ bh=SBKsAA7+u0dXdQjfFG41WcLWxsA+fMDFgWXbL5FWNq4=;
+ b=K/jSjLSmkdtVfSqDOhXVDnyoCMcRDxvVhewJsLxpPW2Lvs3tsZUtjaNEkQP/+mfYWj
+ xgB9gKGJP5sByJvVUJ+kanc/4b7D5PoGvxPhlQLNhokitsk7x+MPUOCDUOt1/TTeZNT3
+ s6Ajodxf+3NCTcIVWCzcyrCB7Z8G8HuznlN5a4bLBMjW2UvjuLO05XELiJf2E/9eI1rt
+ cL87K8DQIz0uY+aabyLP0Ax8bYjFGzXjCDLllilQBQMrMkazkxGIIFousv71xB3+Ug/z
+ KVEavoaSzPsnHybLU/gixUcU1YYWIjfNvhQx9GpeTwiYSlLKysCjE1v3rUSbxHY8tiRs
+ bUVQ==
+X-Gm-Message-State: AOAM533l4T7/l69nyG/ZUhn2BdVwuMq6j6Prof2+4tww14PA+zV3yNQn
+ MktRX6CoH72UWaj9G5W374s=
+X-Google-Smtp-Source: ABdhPJzOZ4Azv0pyfItyvCQIEo/vELaJ2ixVp+EAeyuIZQb9/x2pzVhR/02lYFbz3YlEDd7iKvtWaw==
+X-Received: by 2002:adf:e6c8:: with SMTP id y8mr50099349wrm.40.1594019029689; 
+ Mon, 06 Jul 2020 00:03:49 -0700 (PDT)
 Received: from CBGR90WXYV0 ([2a00:23c5:5782:7500:8191:456f:379d:d246])
- by smtp.gmail.com with ESMTPSA id z25sm21289086wmk.28.2020.07.05.23.59.21
+ by smtp.gmail.com with ESMTPSA id u2sm21773367wml.16.2020.07.06.00.03.48
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 05 Jul 2020 23:59:21 -0700 (PDT)
+ Mon, 06 Jul 2020 00:03:49 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Wei Liu'" <wl@xen.org>,
-	"'Anthony PERARD'" <anthony.perard@citrix.com>
-References: <20200703135533.336625-1-anthony.perard@citrix.com>
- <20200703201035.pv6nyhydxyzqsuit@liuwe-devbox-debian-v2>
-In-Reply-To: <20200703201035.pv6nyhydxyzqsuit@liuwe-devbox-debian-v2>
-Subject: RE: [XEN PATCH for-4.14] Config: Update QEMU
-Date: Mon, 6 Jul 2020 07:59:23 +0100
-Message-ID: <007801d65362$fb068fe0$f113afa0$@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'Jan Beulich'" <jbeulich@suse.com>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+References: <20200701090210.GN735@Air-de-Roger>
+ <f89a158a-416e-1939-597a-075ff97f2b02@suse.com>
+ <af13fa01-db36-784d-dfaf-b9905defc7fd@citrix.com>
+In-Reply-To: <af13fa01-db36-784d-dfaf-b9905defc7fd@citrix.com>
+Subject: RE: vPT rework (and timer mode)
+Date: Mon, 6 Jul 2020 08:03:50 +0100
+Message-ID: <007a01d65363$9ab7c1d0$d0274570$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
-	charset="iso-8859-1"
+	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGZdywpQDnhjbXBL4Z/m/aCXPm/pgJTGOJCqWE+v1A=
+Thread-Index: AQG+XT3UL7mtyhdM6X8x294LjZ1FmQGlQU2IApzoD8SpB/prwA==
 Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -81,31 +82,79 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- =?iso-8859-1?Q?'Roger_Pau_Monn=E9'?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, 'Wei Liu' <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
-> From: Wei Liu <wl@xen.org>
-> Sent: 03 July 2020 21:11
-> To: Anthony PERARD <anthony.perard@citrix.com>
-> Cc: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org; Roger =
-Pau Monn=E9
-> <roger.pau@citrix.com>; Ian Jackson <ian.jackson@eu.citrix.com>; Wei =
-Liu <wl@xen.org>
-> Subject: Re: [XEN PATCH for-4.14] Config: Update QEMU
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> Sent: 03 July 2020 16:03
+> To: Jan Beulich <jbeulich@suse.com>; Roger Pau Monn=C3=A9 =
+<roger.pau@citrix.com>
+> Cc: xen-devel@lists.xenproject.org; Wei Liu <wl@xen.org>; Paul Durrant =
+<paul@xen.org>
+> Subject: Re: vPT rework (and timer mode)
 >=20
-> On Fri, Jul 03, 2020 at 02:55:33PM +0100, Anthony PERARD wrote:
-> > Backport 2 commits to fix building QEMU without PCI passthrough
-> > support.
-> >
-> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> On 03/07/2020 15:50, Jan Beulich wrote:
+> > On 01.07.2020 11:02, Roger Pau Monn=C3=A9 wrote:
+> >> It's my understanding that the purpose of pt_update_irq and
+> >> pt_intr_post is to attempt to implement the "delay for missed =
+ticks"
+> >> mode, where Xen will accumulate timer interrupts if they cannot be
+> >> injected. As shown by the patch above, this is all broken when the
+> >> timer is added to a vCPU (pt->vcpu) different than the actual =
+target
+> >> vCPU where the interrupt gets delivered (note this can also be a =
+list
+> >> of vCPUs if routed from the IO-APIC using Fixed mode).
+> >>
+> >> I'm at lost at how to fix this so that virtual timers work properly
+> >> and we also keep the "delay for missed ticks" mode without doing a
+> >> massive rework and somehow keeping track of where injected =
+interrupts
+> >> originated, which seems an overly complicated solution.
+> >>
+> >> My proposal hence would be to completely remove the timer_mode, and
+> >> just treat virtual timer interrupts as other interrupts, ie: they =
+will
+> >> be injected from the callback (pt_timer_fn) and the vCPU(s) would =
+be
+> >> kicked. Whether interrupts would get lost (ie: injected when a
+> >> previous one is still pending) depends on the contention on the
+> >> system. I'm not aware of any current OS that uses timer interrupts =
+as
+> >> a way to track time. I think current OSes know the differences =
+between
+> >> a timer counter and an event timer, and will use them =
+appropriately.
+> > Fundamentally - why not, the more that this promises to be a
+> > simplification. The question we need to answer up front is whether
+> > we're happy to possibly break old OSes (presumably ones no-one
+> > ought to be using anymore these days, due to their support life
+> > cycles long having ended).
 >=20
-> FWIW:
+> The various timer modes were all compatibility, and IIRC, mostly for
+> Windows XP and older which told time by counting the number of timer
+> interrupts.
 >=20
-> Acked-by: Wei Liu <wl@xen.org>
+> Paul - you might remember better than me?
 
-Release-acked-by: Paul Durrant <paul@xen.org>
+I think it is only quite recently that Windows has started favouring =
+enlightened time sources rather than counting ticks but an admin may =
+still turn all the viridian enlightenments off so just dropping ticks =
+will probably still cause time to drift backwards.
+
+  Paul
+
+>=20
+> Its possibly worth noting that issues in this are cause triple faults =
+in
+> OVMF (it seems to enable interrupts in its timer handler), and breaks
+> in-guest kexec (because our timer-targetting logic doesn't work in a =
+way
+> remotely close to real hardware when the kexec kernel is booting on a
+> non-zero vCPU).
+>=20
+> ~Andrew
 
 
