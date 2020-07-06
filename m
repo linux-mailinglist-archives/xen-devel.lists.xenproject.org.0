@@ -2,60 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 482C021516C
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 06:15:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E07E21524D
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 08:01:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsIVz-0004nX-Ag; Mon, 06 Jul 2020 04:13:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NqVp=AQ=gmail.com=nieklinnenbank@srs-us1.protection.inumbo.net>)
- id 1jsAkD-0003Mp-5D
- for xen-devel@lists.xenproject.org; Sun, 05 Jul 2020 19:56:09 +0000
-X-Inumbo-ID: 902a64f0-bef9-11ea-bca7-bc764e2007e4
-Received: from mail-il1-x141.google.com (unknown [2607:f8b0:4864:20::141])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 902a64f0-bef9-11ea-bca7-bc764e2007e4;
- Sun, 05 Jul 2020 19:56:07 +0000 (UTC)
-Received: by mail-il1-x141.google.com with SMTP id t18so11275007ilh.2
- for <xen-devel@lists.xenproject.org>; Sun, 05 Jul 2020 12:56:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kQ6l8az03kehxbkrP0p2iddBUqHaPLMKVPPFuTfHu9U=;
- b=kWtw4Dby/XYYuLXEnjh8R367jJFb2MdhvmUNhliOCOidwjq5kztJFVOEv4/R6vhWeC
- RY7gAm4KacL28+mwTTN5KpjoSdAo8vAjWE3civZNTdkbNc1OwRWFgI58VkcmUBPnwTeg
- VhVjkU+933Xy3DQPz37vhwqc6XpqR4/JEPHHwOiCcGP6IQ4b5r/zWA+E0QCxmgfpfKAP
- FjHH57TQKb3R/k2etDT0LHHlvwT02H37/vDecDoLgw7NpwRbhqCnns2Zh2ZdMB9ml7Cj
- epxlcJkXBVkK5YxWhnLxJGl3M8QLz5pFd//ugEQWgu7LWVPk9KIhC/8yCC1piehUBCVP
- 7tQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kQ6l8az03kehxbkrP0p2iddBUqHaPLMKVPPFuTfHu9U=;
- b=rAPYWQKZ//EuG95xB4QlBsWlNdq5qDEna/ViHcwJuMMuY+v8Qmz+ATl/EVhbLlVxiS
- 1U3RQ+/E13hQ3OEG0BngwEkwTLdBvQIhZHLFbO9rDs1j83n3OFCBJJaC8OKK0HZ/7PMT
- zrYbA1KBefvLKYm34tAYBieOn757ZB9wTUNgOua+TrJFLSJT0kt2c7Sv1xg6NKjlByI2
- cyD349HDhJjwJuxek2UvCuQSYEGLj5Lwa9coSaBmPUmtY6wBOAywrXHCQpK1q5kPrRE+
- jSzLPXKCTgvCkOoAcP+dMC0KYxpCAYqq0P4zor0BEPKG4l81FL+HRLAVipDCthrsWSus
- 4qFQ==
-X-Gm-Message-State: AOAM531RNIq2fzTvPsPPBhDpgR1hR5b3F81kxQZqWociz8ebNnz+ucrA
- oQKWEEO6gMYkZARKgTNU9/CMuugRnDw597aGy4I=
-X-Google-Smtp-Source: ABdhPJx+ekJQHdSYhIZ8qbbqu+IUSLrvRvQOkodCUlCfQT65+PH7H0ICsQP//H8L6oiWIEw/oLgCAVEgTfwr7D2Bfgw=
-X-Received: by 2002:a92:844b:: with SMTP id l72mr28524731ild.19.1593978966003; 
- Sun, 05 Jul 2020 12:56:06 -0700 (PDT)
+	id 1jsKAK-00052l-Co; Mon, 06 Jul 2020 05:59:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=HS9e=AR=redhat.com=armbru@srs-us1.protection.inumbo.net>)
+ id 1jsKAI-00052g-Ia
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 05:59:42 +0000
+X-Inumbo-ID: e10d61ac-bf4d-11ea-8c41-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id e10d61ac-bf4d-11ea-8c41-12813bfff9fa;
+ Mon, 06 Jul 2020 05:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1594015179;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RDj94LFWNXNG6l5HKQRtxvGkWU+Qk9Sz8iHMo0NKMBQ=;
+ b=ISNmGHa3JUFGEK70SPIyJZbFPRljRpkKSeIU20TeOucGHMRl0UGdoLvdb8/KJRjjfy0rHa
+ +wF2LxtYA/ivBI0NjWtbFg8X+gXXFTyK4AuSSaq5kmO7gzFxBvoi6aRbexg9mylwx8EYG9
+ +TI+PKlqTvGOhH0Vo8NPsrIHDkuFT/U=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-116-XTMDI9ctPZSmrUKS_wxtNA-1; Mon, 06 Jul 2020 01:59:35 -0400
+X-MC-Unique: XTMDI9ctPZSmrUKS_wxtNA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F0977805EE6;
+ Mon,  6 Jul 2020 05:59:33 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-112-143.ams2.redhat.com
+ [10.36.112.143])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9102960BF3;
+ Mon,  6 Jul 2020 05:59:26 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 19C101138648; Mon,  6 Jul 2020 07:59:25 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+Subject: Re: [PATCH v11 1/8] error: auto propagated local_err
+References: <20200703090816.3295-1-vsementsov@virtuozzo.com>
+ <20200703090816.3295-2-vsementsov@virtuozzo.com>
+Date: Mon, 06 Jul 2020 07:59:25 +0200
+In-Reply-To: <20200703090816.3295-2-vsementsov@virtuozzo.com> (Vladimir
+ Sementsov-Ogievskiy's message of "Fri, 3 Jul 2020 12:08:09 +0300")
+Message-ID: <87o8otgp4y.fsf@dusky.pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
 MIME-Version: 1.0
-References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-23-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-23-f4bug@amsat.org>
-From: Niek Linnenbank <nieklinnenbank@gmail.com>
-Date: Sun, 5 Jul 2020 21:55:57 +0200
-Message-ID: <CAPan3WpZ_SCGws05S2sH9jf4MYjciE0kgpeqrDSviGTpcaj_+Q@mail.gmail.com>
-Subject: Re: [PATCH 22/26] hw/usb/usb-hcd: Use OHCI type definitions
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
-Content-Type: multipart/alternative; boundary="0000000000000c5dca05a9b726c6"
-X-Mailman-Approved-At: Mon, 06 Jul 2020 04:13:58 +0000
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=armbru@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,734 +73,451 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- QEMU Developers <qemu-devel@nongnu.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
- BALATON Zoltan <balaton@eik.bme.hu>, Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Huacai Chen <chenhc@lemote.com>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
- Paul Durrant <paul@xen.org>, Magnus Damm <magnus.damm@gmail.com>,
- Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Leif Lindholm <leif@nuviainc.com>, Andrzej Zaborowski <balrogg@gmail.com>,
- Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
- Eduardo Habkost <ehabkost@redhat.com>,
- Alistair Francis <alistair@alistair23.me>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
- Beniamino Galvani <b.galvani@gmail.com>, qemu-arm@nongnu.org,
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>,
- Richard Henderson <rth@twiddle.net>,
- Radoslaw Biernacki <radoslaw.biernacki@linaro.org>,
- Igor Mitsyanko <i.mitsyanko@gmail.com>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>,
- Paul Zimmerman <pauldzim@gmail.com>, qemu-ppc@nongnu.org,
- David Gibson <david@gibson.dropbear.id.au>,
- Paolo Bonzini <pbonzini@redhat.com>
+Cc: Kevin Wolf <kwolf@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Michael Roth <mdroth@linux.vnet.ibm.com>, qemu-block@nongnu.org,
+ Paul Durrant <paul@xen.org>, Laszlo Ersek <lersek@redhat.com>,
+ Christian Schoenebeck <qemu_oss@crudebyte.com>, qemu-devel@nongnu.org,
+ groug@kaod.org, Gerd Hoffmann <kraxel@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Max Reitz <mreitz@redhat.com>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---0000000000000c5dca05a9b726c6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com> writes:
 
-On Sat, Jul 4, 2020, 16:50 Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> wr=
-ote:
+> Introduce a new ERRP_AUTO_PROPAGATE macro, to be used at start of
+> functions with an errp OUT parameter.
+>
+> It has three goals:
+>
+> 1. Fix issue with error_fatal and error_prepend/error_append_hint: user
+> can't see this additional information, because exit() happens in
+> error_setg earlier than information is added. [Reported by Greg Kurz]
+>
+> 2. Fix issue with error_abort and error_propagate: when we wrap
+> error_abort by local_err+error_propagate, the resulting coredump will
+> refer to error_propagate and not to the place where error happened.
+> (the macro itself doesn't fix the issue, but it allows us to [3.] drop
+> the local_err+error_propagate pattern, which will definitely fix the
+> issue) [Reported by Kevin Wolf]
+>
+> 3. Drop local_err+error_propagate pattern, which is used to workaround
+> void functions with errp parameter, when caller wants to know resulting
+> status. (Note: actually these functions could be merely updated to
+> return int error code).
+>
+> To achieve these goals, later patches will add invocations
+> of this macro at the start of functions with either use
+> error_prepend/error_append_hint (solving 1) or which use
+> local_err+error_propagate to check errors, switching those
+> functions to use *errp instead (solving 2 and 3).
+>
+> Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+> Reviewed-by: Paul Durrant <paul@xen.org>
+> Reviewed-by: Greg Kurz <groug@kaod.org>
+> Reviewed-by: Eric Blake <eblake@redhat.com>
+> ---
+>
+> Cc: Eric Blake <eblake@redhat.com>
+> Cc: Kevin Wolf <kwolf@redhat.com>
+> Cc: Max Reitz <mreitz@redhat.com>
+> Cc: Greg Kurz <groug@kaod.org>
+> Cc: Christian Schoenebeck <qemu_oss@crudebyte.com>
+> Cc: Stefan Hajnoczi <stefanha@redhat.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Anthony Perard <anthony.perard@citrix.com>
+> Cc: Paul Durrant <paul@xen.org>
+> Cc: "Philippe Mathieu-Daud=C3=A9" <philmd@redhat.com>
+> Cc: Laszlo Ersek <lersek@redhat.com>
+> Cc: Gerd Hoffmann <kraxel@redhat.com>
+> Cc: Markus Armbruster <armbru@redhat.com>
+> Cc: Michael Roth <mdroth@linux.vnet.ibm.com>
+> Cc: qemu-devel@nongnu.org
+> Cc: qemu-block@nongnu.org
+> Cc: xen-devel@lists.xenproject.org
+>
+>  include/qapi/error.h | 205 ++++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 172 insertions(+), 33 deletions(-)
+>
+> diff --git a/include/qapi/error.h b/include/qapi/error.h
+> index 5ceb3ace06..b54aedbfd7 100644
+> --- a/include/qapi/error.h
+> +++ b/include/qapi/error.h
+> @@ -39,7 +39,7 @@
+>   *   =E2=80=A2 pointer-valued functions return non-null / null pointer, =
+and
+>   *   =E2=80=A2 integer-valued functions return non-negative / negative.
+>   *
+> - * How to:
+> + * =3D Deal with Error object =3D
+>   *
+>   * Create an error:
+>   *     error_setg(errp, "situation normal, all fouled up");
+> @@ -73,28 +73,91 @@
+>   * reporting it (primarily useful in testsuites):
+>   *     error_free_or_abort(&err);
+>   *
+> - * Pass an existing error to the caller:
+> - *     error_propagate(errp, err);
+> - * where Error **errp is a parameter, by convention the last one.
+> + * =3D Deal with Error ** function parameter =3D
+>   *
+> - * Pass an existing error to the caller with the message modified:
+> - *     error_propagate_prepend(errp, err);
+> + * A function may use the error system to return errors. In this case, t=
+he
+> + * function defines an Error **errp parameter, by convention the last on=
+e (with
+> + * exceptions for functions using ... or va_list).
+>   *
+> - * Avoid
+> - *     error_propagate(errp, err);
+> - *     error_prepend(errp, "Could not frobnicate '%s': ", name);
+> - * because this fails to prepend when @errp is &error_fatal.
+> + * The caller may then pass in the following errp values:
+> + *
+> + * 1. &error_abort
+> + *    Any error will result in abort().
+> + * 2. &error_fatal
+> + *    Any error will result in exit() with a non-zero status.
+> + * 3. NULL
+> + *    No error reporting through errp parameter.
+> + * 4. The address of a NULL-initialized Error *err
+> + *    Any error will populate errp with an error object.
 
-> Various machine/board/soc models create OHCI device instances
-> with the generic QDEV API, and don't need to access USB internals.
->
-> Simplify header inclusions by moving the QOM type names into a
-> simple header, with no need to include other "hw/usb" headers.
->
-> Suggested-by: BALATON Zoltan <balaton@eik.bme.hu>
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
->
-Reviewed-by: Niek Linnenbank <nieklinnenbank@gmail.com>
+The rebase onto my "error: Document Error API usage rules" rendered this
+this partly redundant.  I'll try my hand at a proper merge, then ask you
+to check it.
 
----
->  hw/usb/hcd-ohci.h        |  2 +-
->  include/hw/usb/usb-hcd.h | 16 ++++++++++++++++
->  hw/arm/allwinner-a10.c   |  2 +-
->  hw/arm/allwinner-h3.c    |  9 +++++----
->  hw/arm/pxa2xx.c          |  3 ++-
->  hw/arm/realview.c        |  3 ++-
->  hw/arm/versatilepb.c     |  3 ++-
->  hw/display/sm501.c       |  3 ++-
->  hw/ppc/mac_newworld.c    |  3 ++-
->  hw/ppc/mac_oldworld.c    |  3 ++-
->  hw/ppc/sam460ex.c        |  3 ++-
->  hw/ppc/spapr.c           |  3 ++-
->  hw/usb/hcd-ohci-pci.c    |  2 +-
->  13 files changed, 40 insertions(+), 15 deletions(-)
->  create mode 100644 include/hw/usb/usb-hcd.h
->
-> diff --git a/hw/usb/hcd-ohci.h b/hw/usb/hcd-ohci.h
-> index 771927ea17..6949cf0dab 100644
-> --- a/hw/usb/hcd-ohci.h
-> +++ b/hw/usb/hcd-ohci.h
-> @@ -21,6 +21,7 @@
->  #ifndef HCD_OHCI_H
->  #define HCD_OHCI_H
->
-> +#include "hw/usb/usb-hcd.h"
->  #include "sysemu/dma.h"
->  #include "usb-internal.h"
->
-> @@ -91,7 +92,6 @@ typedef struct OHCIState {
->      void (*ohci_die)(struct OHCIState *ohci);
->  } OHCIState;
->
-> -#define TYPE_SYSBUS_OHCI "sysbus-ohci"
->  #define SYSBUS_OHCI(obj) OBJECT_CHECK(OHCISysBusState, (obj),
-> TYPE_SYSBUS_OHCI)
->
->  typedef struct {
-> diff --git a/include/hw/usb/usb-hcd.h b/include/hw/usb/usb-hcd.h
-> new file mode 100644
-> index 0000000000..21fdfaf22d
-> --- /dev/null
-> +++ b/include/hw/usb/usb-hcd.h
-> @@ -0,0 +1,16 @@
+Should I fail to complete this in time for the soft freeze, we can merge
+the thing as is.  Comment improvements are fair game until -rc1 or so.
+
+>   *
+> - * Create a new error and pass it to the caller:
+> + * The following rules then implement the correct semantics desired by t=
+he
+> + * caller.
+> + *
+> + * Create a new error to pass to the caller:
+>   *     error_setg(errp, "situation normal, all fouled up");
+>   *
+> - * Call a function and receive an error from it:
+> + * Calling another errp-based function:
+> + *     f(..., errp);
+> + *
+> + * =3D=3D Checking success of subcall =3D=3D
+> + *
+> + * If a function returns a value indicating an error in addition to sett=
+ing
+> + * errp (which is recommended), then you don't need any additional code,=
+ just
+> + * do:
+> + *
+> + *     int ret =3D f(..., errp);
+> + *     if (ret < 0) {
+> + *         ... handle error ...
+> + *         return ret;
+> + *     }
+> + *
+> + * If a function returns nothing (not recommended for new code), the onl=
+y way
+
+Also when a function returns something, but there is no distinct error
+value.  Example: object_property_get_int().
+
+I shouldn't criticize comments without suggesting improvements.  But
+since I'm going to mess with this text anyway to merge your work with my
+prior work, I take it easy and only note what I think needs work.  I'll
+then try to address all that in or on top of my merge.
+
+> + * to check success is by consulting errp; doing this safely requires th=
+e use
+> + * of the ERRP_AUTO_PROPAGATE macro, like this:
+
+"Requires" is inaccurate.  Using a local variable with error_propagate()
+also works (there's even an example right below).  We prefer
+ERRP_AUTO_PROPAGATE(), because it's more readable and improves the
+debugging experience.
+
+> + *
+> + *     int our_func(..., Error **errp) {
+
+A function's opening brace goes on its own line.  More of the same below.
+
+> + *         ERRP_AUTO_PROPAGATE();
+> + *         ...
+> + *         subcall(..., errp);
+> + *         if (*errp) {
+> + *             ...
+> + *             return -EINVAL;
+> + *         }
+> + *         ...
+> + *     }
+> + *
+> + * ERRP_AUTO_PROPAGATE takes care of wrapping the original errp as neede=
+d, so
+> + * that the rest of the function can directly use errp (including
+> + * dereferencing), where any errors will then be propagated on to the or=
+iginal
+> + * errp when leaving the function.
+> + *
+> + * In some cases, we need to check result of subcall, but do not want to
+> + * propagate the Error object to our caller. In such cases we don't need
+> + * ERRP_AUTO_PROPAGATE, but just a local Error object:
+> + *
+> + * Receive an error and not pass it:
+>   *     Error *err =3D NULL;
+> - *     foo(arg, &err);
+> + *     subcall(arg, &err);
+>   *     if (err) {
+>   *         handle the error...
+> + *         error_free(err);
+>   *     }
+>   *
+> + * Note that older code that did not use ERRP_AUTO_PROPAGATE would inste=
+ad need
+> + * a local Error * variable and the use of error_propagate() to properly=
+ handle
+> + * all possible caller values of errp. Now this is DEPRECATED* (see belo=
+w).
+
+I'd prefer not to shout DEPRECATED.
+
+> + *
+> + * Note that any function that wants to modify an error object, such as =
+by
+> + * calling error_append_hint or error_prepend, must use ERRP_AUTO_PROPAG=
+ATE, in
+> + * order for a caller's use of &error_fatal to see the additional inform=
+ation.
+
+"Must" should be reserved for situations where failure to adhere is
+categorically wrong.
+
+While we *want* people to use ERRP_AUTO_PROPAGATE() with
+error_append_hint() and error_prepend(), failure to do so need not be
+wrong.
+
+Apropos error_append_hint(), the "Show errp instead of &err where &err
+is actually unusual" part of my "error: Improve examples in error.h's
+big comment" now feels premature to me.  E.g.
+
+    * Create an error and add additional explanation:
+  - *     error_setg(&err, "invalid quark");
+  - *     error_append_hint(&err, "Valid quarks are up, down, strange, "
+  + *     error_setg(errp, "invalid quark");
+  + *     error_append_hint(errp, "Valid quarks are up, down, strange, "
+    *                       "charm, top, bottom.\n");
+
+is actually bad advice until ERRP_AUTO_PROPAGATE() turns it into good
+advice.  I think I'll drop it from my commit, then see how I like the
+comment with yours applied.
+
+> + *
+> + * In rare cases, we need to pass existing Error object to the caller by=
+ hand:
+> + *     error_propagate(errp, err);
+
+Out of curiosity: can you describe such a case?
+
+> + *
+> + * Pass an existing error to the caller with the message modified:
+> + *     error_propagate_prepend(errp, err);
+> + *
+> + *
+>   * Call a function ignoring errors:
+>   *     foo(arg, NULL);
+>   *
+> @@ -104,26 +167,6 @@
+>   * Call a function treating errors as fatal:
+>   *     foo(arg, &error_fatal);
+>   *
+> - * Receive an error and pass it on to the caller:
+> - *     Error *err =3D NULL;
+> - *     foo(arg, &err);
+> - *     if (err) {
+> - *         handle the error...
+> - *         error_propagate(errp, err);
+> - *     }
+> - * where Error **errp is a parameter, by convention the last one.
+> - *
+> - * Do *not* "optimize" this to
+> - *     foo(arg, errp);
+> - *     if (*errp) { // WRONG!
+> - *         handle the error...
+> - *     }
+> - * because errp may be NULL!
+> - *
+> - * But when all you do with the error is pass it on, please use
+> - *     foo(arg, errp);
+> - * for readability.
+> - *
+>   * Receive and accumulate multiple errors (first one wins):
+>   *     Error *err =3D NULL, *local_err =3D NULL;
+>   *     foo(arg, &err);
+> @@ -151,6 +194,61 @@
+>   *         error_setg(&err, ...); // WRONG!
+>   *     }
+>   * because this may pass a non-null err to error_setg().
+> + *
+> + * DEPRECATED*
+> + *
+> + * The following pattern of receiving, checking, and then forwarding an =
+error
+> + * to the caller by hand is now deprecated:
+> + *
+> + *     Error *err =3D NULL;
+> + *     foo(arg, &err);
+> + *     if (err) {
+> + *         handle the error...
+> + *         error_propagate(errp, err);
+> + *     }
+> + *
+> + * Instead, use ERRP_AUTO_PROPAGATE macro.
+> + *
+> + * The old pattern is deprecated because of two things:
+> + *
+> + * 1. Issue with error_abort and error_propagate: when we wrap error_abo=
+rt by
+> + * local_err+error_propagate, the resulting coredump will refer to
+> + * error_propagate and not to the place where error happened.
+> + *
+> + * 2. A lot of extra code of the same pattern
+> + *
+> + * How to update old code to use ERRP_AUTO_PROPAGATE?
+> + *
+> + * All you need is to add ERRP_AUTO_PROPAGATE() invocation at function s=
+tart,
+> + * than you may safely dereference errp to check errors and do not need =
+any
+> + * additional local Error variables or calls to error_propagate().
+> + *
+> + * Example:
+> + *
+> + * old code
+> + *
+> + *     void fn(..., Error **errp) {
+> + *         Error *err =3D NULL;
+> + *         foo(arg, &err);
+> + *         if (err) {
+> + *             handle the error...
+> + *             error_propagate(errp, err);
+> + *             return;
+> + *         }
+> + *         ...
+> + *     }
+> + *
+> + * updated code
+> + *
+> + *     void fn(..., Error **errp) {
+> + *         ERRP_AUTO_PROPAGATE();
+> + *         foo(arg, errp);
+> + *         if (*errp) {
+> + *             handle the error...
+> + *             return;
+> + *         }
+> + *         ...
+> + *     }
+
+This is another spot where we need to merge your work with mine
+properly.  When foo() returns a distinct error value, then checking that
+is even better:
+
+          void fn(..., Error **errp)
+          {
+              if (!foo(arg, errp)) {
+                  handle the error...
+                  return;
+              }
+              ...
+          }
+
+>   */
+> =20
+>  #ifndef ERROR_H
+> @@ -359,6 +457,47 @@ void error_set_internal(Error **errp,
+>                          ErrorClass err_class, const char *fmt, ...)
+>      GCC_FMT_ATTR(6, 7);
+> =20
+
+The ERRP_AUTO_PROPAGATE stuff starts rather abruptly.  I'm afraid an
+unprepared reader will get what's going on only at
+G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(), or even at #define
+ERRP_AUTO_PROPAGATE().
+
+Let's move the typedef, helper function and macro invocation behind the
+definition of ERRP_AUTO_PROPAGATE(), similar to how we declare each
+error_FOO_internal() helper function right after the macro that needs
+it.
+
+> +typedef struct ErrorPropagator {
+> +    Error *local_err;
+> +    Error **errp;
+> +} ErrorPropagator;
+> +
+> +static inline void error_propagator_cleanup(ErrorPropagator *prop)
+> +{
+> +    error_propagate(prop->errp, prop->local_err);
+> +}
+> +
+> +G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(ErrorPropagator, error_propagator_clean=
+up);
+> +
 > +/*
-> + * QEMU USB HCD types
+> + * ERRP_AUTO_PROPAGATE
 > + *
-> + * Copyright (c) 2020  Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+
+No other definition comment in this file repeats the name being defined.
+Let's keep the comment style locally consistent.
+
+> + * This macro exists to assist with proper error handling in a function =
+which
+> + * uses an Error **errp parameter.  It must be used as the first line of=
+ a
+> + * function which modifies an error (with error_prepend, error_append_hi=
+nt, or
+> + * similar) or which wants to dereference *errp.  It is still safe (but
+> + * useless) to use in other functions.
 > + *
-> + * SPDX-License-Identifier: GPL-2.0-or-later
+> + * If errp is NULL or points to error_fatal, it is rewritten to point to=
+ a
+> + * local Error object, which will be automatically propagated to the ori=
+ginal
+> + * errp on function exit (see error_propagator_cleanup).
+> + *
+> + * After invocation of this macro it is always safe to dereference errp
+> + * (as it's not NULL anymore) and to add information by error_prepend or
+> + * error_append_hint (as, if it was error_fatal, we swapped it with a
+> + * local_error to be propagated on cleanup).
+> + *
+> + * Note: we don't wrap the error_abort case, as we want resulting coredu=
+mp
+> + * to point to the place where the error happened, not to error_propagat=
+e.
 > + */
+> +#define ERRP_AUTO_PROPAGATE() \
+> +    g_auto(ErrorPropagator) _auto_errp_prop =3D {.errp =3D errp}; \
+> +    do { \
+> +        if (!errp || errp =3D=3D &error_fatal) { \
+> +            errp =3D &_auto_errp_prop.local_err; \
+> +        } \
+> +    } while (0)
 > +
-> +#ifndef HW_USB_HCD_TYPES_H
-> +#define HW_USB_HCD_TYPES_H
-> +
-> +/* OHCI */
-> +#define TYPE_SYSBUS_OHCI            "sysbus-ohci"
-> +#define TYPE_PCI_OHCI               "pci-ohci"
-> +
-> +#endif
-> diff --git a/hw/arm/allwinner-a10.c b/hw/arm/allwinner-a10.c
-> index 52e0d83760..53c24ff602 100644
-> --- a/hw/arm/allwinner-a10.c
-> +++ b/hw/arm/allwinner-a10.c
-> @@ -25,7 +25,7 @@
->  #include "hw/misc/unimp.h"
->  #include "sysemu/sysemu.h"
->  #include "hw/boards.h"
-> -#include "hw/usb/hcd-ohci.h"
-> +#include "hw/usb/usb-hcd.h"
->
->  #define AW_A10_MMC0_BASE        0x01c0f000
->  #define AW_A10_PIC_REG_BASE     0x01c20400
-> diff --git a/hw/arm/allwinner-h3.c b/hw/arm/allwinner-h3.c
-> index 8e09468e86..d1d90ffa79 100644
-> --- a/hw/arm/allwinner-h3.c
-> +++ b/hw/arm/allwinner-h3.c
-> @@ -28,6 +28,7 @@
->  #include "hw/sysbus.h"
->  #include "hw/char/serial.h"
->  #include "hw/misc/unimp.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "hw/usb/hcd-ehci.h"
->  #include "hw/loader.h"
->  #include "sysemu/sysemu.h"
-> @@ -381,16 +382,16 @@ static void allwinner_h3_realize(DeviceState *dev,
-> Error **errp)
->                           qdev_get_gpio_in(DEVICE(&s->gic),
->                                            AW_H3_GIC_SPI_EHCI3));
->
-> -    sysbus_create_simple("sysbus-ohci", s->memmap[AW_H3_OHCI0],
-> +    sysbus_create_simple(TYPE_SYSBUS_OHCI, s->memmap[AW_H3_OHCI0],
->                           qdev_get_gpio_in(DEVICE(&s->gic),
->                                            AW_H3_GIC_SPI_OHCI0));
-> -    sysbus_create_simple("sysbus-ohci", s->memmap[AW_H3_OHCI1],
-> +    sysbus_create_simple(TYPE_SYSBUS_OHCI, s->memmap[AW_H3_OHCI1],
->                           qdev_get_gpio_in(DEVICE(&s->gic),
->                                            AW_H3_GIC_SPI_OHCI1));
-> -    sysbus_create_simple("sysbus-ohci", s->memmap[AW_H3_OHCI2],
-> +    sysbus_create_simple(TYPE_SYSBUS_OHCI, s->memmap[AW_H3_OHCI2],
->                           qdev_get_gpio_in(DEVICE(&s->gic),
->                                            AW_H3_GIC_SPI_OHCI2));
-> -    sysbus_create_simple("sysbus-ohci", s->memmap[AW_H3_OHCI3],
-> +    sysbus_create_simple(TYPE_SYSBUS_OHCI, s->memmap[AW_H3_OHCI3],
->                           qdev_get_gpio_in(DEVICE(&s->gic),
->                                            AW_H3_GIC_SPI_OHCI3));
->
-> diff --git a/hw/arm/pxa2xx.c b/hw/arm/pxa2xx.c
-> index f104a33463..27196170f5 100644
-> --- a/hw/arm/pxa2xx.c
-> +++ b/hw/arm/pxa2xx.c
-> @@ -18,6 +18,7 @@
->  #include "hw/arm/pxa.h"
->  #include "sysemu/sysemu.h"
->  #include "hw/char/serial.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "hw/i2c/i2c.h"
->  #include "hw/irq.h"
->  #include "hw/qdev-properties.h"
-> @@ -2196,7 +2197,7 @@ PXA2xxState *pxa270_init(MemoryRegion *address_spac=
-e,
->          s->ssp[i] =3D (SSIBus *)qdev_get_child_bus(dev, "ssi");
->      }
->
-> -    sysbus_create_simple("sysbus-ohci", 0x4c000000,
-> +    sysbus_create_simple(TYPE_SYSBUS_OHCI, 0x4c000000,
->                           qdev_get_gpio_in(s->pic, PXA2XX_PIC_USBH1));
->
->      s->pcmcia[0] =3D pxa2xx_pcmcia_init(address_space, 0x20000000);
-> diff --git a/hw/arm/realview.c b/hw/arm/realview.c
-> index b6c0a1adb9..0aa34bd4c2 100644
-> --- a/hw/arm/realview.c
-> +++ b/hw/arm/realview.c
-> @@ -16,6 +16,7 @@
->  #include "hw/net/lan9118.h"
->  #include "hw/net/smc91c111.h"
->  #include "hw/pci/pci.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "net/net.h"
->  #include "sysemu/sysemu.h"
->  #include "hw/boards.h"
-> @@ -256,7 +257,7 @@ static void realview_init(MachineState *machine,
->          sysbus_connect_irq(busdev, 3, pic[51]);
->          pci_bus =3D (PCIBus *)qdev_get_child_bus(dev, "pci");
->          if (machine_usb(machine)) {
-> -            pci_create_simple(pci_bus, -1, "pci-ohci");
-> +            pci_create_simple(pci_bus, -1, TYPE_PCI_OHCI);
->          }
->          n =3D drive_get_max_bus(IF_SCSI);
->          while (n >=3D 0) {
-> diff --git a/hw/arm/versatilepb.c b/hw/arm/versatilepb.c
-> index e596b8170f..3e6224dc96 100644
-> --- a/hw/arm/versatilepb.c
-> +++ b/hw/arm/versatilepb.c
-> @@ -17,6 +17,7 @@
->  #include "net/net.h"
->  #include "sysemu/sysemu.h"
->  #include "hw/pci/pci.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "hw/i2c/i2c.h"
->  #include "hw/i2c/arm_sbcon_i2c.h"
->  #include "hw/irq.h"
-> @@ -273,7 +274,7 @@ static void versatile_init(MachineState *machine, int
-> board_id)
->          }
->      }
->      if (machine_usb(machine)) {
-> -        pci_create_simple(pci_bus, -1, "pci-ohci");
-> +        pci_create_simple(pci_bus, -1, TYPE_PCI_OHCI);
->      }
->      n =3D drive_get_max_bus(IF_SCSI);
->      while (n >=3D 0) {
-> diff --git a/hw/display/sm501.c b/hw/display/sm501.c
-> index 9cccc68c35..5f076c841f 100644
-> --- a/hw/display/sm501.c
-> +++ b/hw/display/sm501.c
-> @@ -33,6 +33,7 @@
->  #include "hw/sysbus.h"
->  #include "migration/vmstate.h"
->  #include "hw/pci/pci.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "hw/qdev-properties.h"
->  #include "hw/i2c/i2c.h"
->  #include "hw/display/i2c-ddc.h"
-> @@ -1961,7 +1962,7 @@ static void sm501_realize_sysbus(DeviceState *dev,
-> Error **errp)
->      sysbus_init_mmio(sbd, &s->state.mmio_region);
->
->      /* bridge to usb host emulation module */
-> -    usb_dev =3D qdev_new("sysbus-ohci");
-> +    usb_dev =3D qdev_new(TYPE_SYSBUS_OHCI);
->      qdev_prop_set_uint32(usb_dev, "num-ports", 2);
->      qdev_prop_set_uint64(usb_dev, "dma-offset", s->base);
->      sysbus_realize_and_unref(SYS_BUS_DEVICE(usb_dev), &error_fatal);
-> diff --git a/hw/ppc/mac_newworld.c b/hw/ppc/mac_newworld.c
-> index 7bf69f4a1f..3c32c1831b 100644
-> --- a/hw/ppc/mac_newworld.c
-> +++ b/hw/ppc/mac_newworld.c
-> @@ -55,6 +55,7 @@
->  #include "hw/input/adb.h"
->  #include "hw/ppc/mac_dbdma.h"
->  #include "hw/pci/pci.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "net/net.h"
->  #include "sysemu/sysemu.h"
->  #include "hw/boards.h"
-> @@ -411,7 +412,7 @@ static void ppc_core99_init(MachineState *machine)
->      }
->
->      if (machine->usb) {
-> -        pci_create_simple(pci_bus, -1, "pci-ohci");
-> +        pci_create_simple(pci_bus, -1, TYPE_PCI_OHCI);
->
->          /* U3 needs to use USB for input because Linux doesn't support
-> via-cuda
->          on PPC64 */
-> diff --git a/hw/ppc/mac_oldworld.c b/hw/ppc/mac_oldworld.c
-> index f8c204ead7..a429a3e1df 100644
-> --- a/hw/ppc/mac_oldworld.c
-> +++ b/hw/ppc/mac_oldworld.c
-> @@ -37,6 +37,7 @@
->  #include "hw/isa/isa.h"
->  #include "hw/pci/pci.h"
->  #include "hw/pci/pci_host.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "hw/boards.h"
->  #include "hw/nvram/fw_cfg.h"
->  #include "hw/char/escc.h"
-> @@ -301,7 +302,7 @@ static void ppc_heathrow_init(MachineState *machine)
->      qdev_realize_and_unref(dev, adb_bus, &error_fatal);
->
->      if (machine_usb(machine)) {
-> -        pci_create_simple(pci_bus, -1, "pci-ohci");
-> +        pci_create_simple(pci_bus, -1, TYPE_PCI_OHCI);
->      }
->
->      if (graphic_depth !=3D 15 && graphic_depth !=3D 32 && graphic_depth =
-!=3D 8)
-> diff --git a/hw/ppc/sam460ex.c b/hw/ppc/sam460ex.c
-> index 781b45e14b..ac60d17a86 100644
-> --- a/hw/ppc/sam460ex.c
-> +++ b/hw/ppc/sam460ex.c
-> @@ -36,6 +36,7 @@
->  #include "hw/i2c/ppc4xx_i2c.h"
->  #include "hw/i2c/smbus_eeprom.h"
->  #include "hw/usb/usb.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "hw/usb/hcd-ehci.h"
->  #include "hw/ppc/fdt.h"
->  #include "hw/qdev-properties.h"
-> @@ -372,7 +373,7 @@ static void sam460ex_init(MachineState *machine)
->
->      /* USB */
->      sysbus_create_simple(TYPE_PPC4xx_EHCI, 0x4bffd0400, uic[2][29]);
-> -    dev =3D qdev_new("sysbus-ohci");
-> +    dev =3D qdev_new(TYPE_SYSBUS_OHCI);
->      qdev_prop_set_string(dev, "masterbus", "usb-bus.0");
->      qdev_prop_set_uint32(dev, "num-ports", 6);
->      sbdev =3D SYS_BUS_DEVICE(dev);
-> diff --git a/hw/ppc/spapr.c b/hw/ppc/spapr.c
-> index 0c0409077f..db1706a66c 100644
-> --- a/hw/ppc/spapr.c
-> +++ b/hw/ppc/spapr.c
-> @@ -71,6 +71,7 @@
->  #include "exec/address-spaces.h"
->  #include "exec/ram_addr.h"
->  #include "hw/usb/usb.h"
-> +#include "hw/usb/usb-hcd.h"
->  #include "qemu/config-file.h"
->  #include "qemu/error-report.h"
->  #include "trace.h"
-> @@ -2958,7 +2959,7 @@ static void spapr_machine_init(MachineState *machin=
-e)
->
->      if (machine->usb) {
->          if (smc->use_ohci_by_default) {
-> -            pci_create_simple(phb->bus, -1, "pci-ohci");
-> +            pci_create_simple(phb->bus, -1, TYPE_PCI_OHCI);
->          } else {
->              pci_create_simple(phb->bus, -1, "nec-usb-xhci");
->          }
-> diff --git a/hw/usb/hcd-ohci-pci.c b/hw/usb/hcd-ohci-pci.c
-> index cb6bc55f59..14df83ec2e 100644
-> --- a/hw/usb/hcd-ohci-pci.c
-> +++ b/hw/usb/hcd-ohci-pci.c
-> @@ -29,8 +29,8 @@
->  #include "trace.h"
->  #include "hcd-ohci.h"
->  #include "usb-internal.h"
-> +#include "hw/usb/usb-hcd.h"
->
-> -#define TYPE_PCI_OHCI "pci-ohci"
->  #define PCI_OHCI(obj) OBJECT_CHECK(OHCIPCIState, (obj), TYPE_PCI_OHCI)
->
->  typedef struct {
-> --
-> 2.21.3
->
->
 
---0000000000000c5dca05a9b726c6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Let's align the backslashes for consistency with nearby macros:
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Sat, Jul 4, 2020, 16:50 Philippe Mathieu-Daud=C3=A9=
- &lt;<a href=3D"mailto:f4bug@amsat.org">f4bug@amsat.org</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex">Various machine/board/soc models create=
- OHCI device instances<br>
-with the generic QDEV API, and don&#39;t need to access USB internals.<br>
-<br>
-Simplify header inclusions by moving the QOM type names into a<br>
-simple header, with no need to include other &quot;hw/usb&quot; headers.<br=
->
-<br>
-Suggested-by: BALATON Zoltan &lt;<a href=3D"mailto:balaton@eik.bme.hu" targ=
-et=3D"_blank" rel=3D"noreferrer">balaton@eik.bme.hu</a>&gt;<br>
-Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:f4bug@amsa=
-t.org" target=3D"_blank" rel=3D"noreferrer">f4bug@amsat.org</a>&gt;<br></bl=
-ockquote></div></div><div dir=3D"auto">Reviewed-by: Niek Linnenbank &lt;<a =
-href=3D"mailto:nieklinnenbank@gmail.com">nieklinnenbank@gmail.com</a>&gt;</=
-div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote=
-"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
-1px #ccc solid;padding-left:1ex">
----<br>
-=C2=A0hw/usb/hcd-ohci.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 2 +-<br>
-=C2=A0include/hw/usb/usb-hcd.h | 16 ++++++++++++++++<br>
-=C2=A0hw/arm/allwinner-a10.c=C2=A0 =C2=A0|=C2=A0 2 +-<br>
-=C2=A0hw/arm/allwinner-h3.c=C2=A0 =C2=A0 |=C2=A0 9 +++++----<br>
-=C2=A0hw/arm/pxa2xx.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 3 ++-<br>
-=C2=A0hw/arm/realview.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 3 ++-<br>
-=C2=A0hw/arm/versatilepb.c=C2=A0 =C2=A0 =C2=A0|=C2=A0 3 ++-<br>
-=C2=A0hw/display/sm501.c=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 3 ++-<br>
-=C2=A0hw/ppc/mac_newworld.c=C2=A0 =C2=A0 |=C2=A0 3 ++-<br>
-=C2=A0hw/ppc/mac_oldworld.c=C2=A0 =C2=A0 |=C2=A0 3 ++-<br>
-=C2=A0hw/ppc/sam460ex.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 3 ++-<br>
-=C2=A0hw/ppc/spapr.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 3 ++-<=
-br>
-=C2=A0hw/usb/hcd-ohci-pci.c=C2=A0 =C2=A0 |=C2=A0 2 +-<br>
-=C2=A013 files changed, 40 insertions(+), 15 deletions(-)<br>
-=C2=A0create mode 100644 include/hw/usb/usb-hcd.h<br>
-<br>
-diff --git a/hw/usb/hcd-ohci.h b/hw/usb/hcd-ohci.h<br>
-index 771927ea17..6949cf0dab 100644<br>
---- a/hw/usb/hcd-ohci.h<br>
-+++ b/hw/usb/hcd-ohci.h<br>
-@@ -21,6 +21,7 @@<br>
-=C2=A0#ifndef HCD_OHCI_H<br>
-=C2=A0#define HCD_OHCI_H<br>
-<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;sysemu/dma.h&quot;<br>
-=C2=A0#include &quot;usb-internal.h&quot;<br>
-<br>
-@@ -91,7 +92,6 @@ typedef struct OHCIState {<br>
-=C2=A0 =C2=A0 =C2=A0void (*ohci_die)(struct OHCIState *ohci);<br>
-=C2=A0} OHCIState;<br>
-<br>
--#define TYPE_SYSBUS_OHCI &quot;sysbus-ohci&quot;<br>
-=C2=A0#define SYSBUS_OHCI(obj) OBJECT_CHECK(OHCISysBusState, (obj), TYPE_SY=
-SBUS_OHCI)<br>
-<br>
-=C2=A0typedef struct {<br>
-diff --git a/include/hw/usb/usb-hcd.h b/include/hw/usb/usb-hcd.h<br>
-new file mode 100644<br>
-index 0000000000..21fdfaf22d<br>
---- /dev/null<br>
-+++ b/include/hw/usb/usb-hcd.h<br>
-@@ -0,0 +1,16 @@<br>
-+/*<br>
-+ * QEMU USB HCD types<br>
-+ *<br>
-+ * Copyright (c) 2020=C2=A0 Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mai=
-lto:f4bug@amsat.org" target=3D"_blank" rel=3D"noreferrer">f4bug@amsat.org</=
-a>&gt;<br>
-+ *<br>
-+ * SPDX-License-Identifier: GPL-2.0-or-later<br>
-+ */<br>
-+<br>
-+#ifndef HW_USB_HCD_TYPES_H<br>
-+#define HW_USB_HCD_TYPES_H<br>
-+<br>
-+/* OHCI */<br>
-+#define TYPE_SYSBUS_OHCI=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;sy=
-sbus-ohci&quot;<br>
-+#define TYPE_PCI_OHCI=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0&quot;pci-ohci&quot;<br>
-+<br>
-+#endif<br>
-diff --git a/hw/arm/allwinner-a10.c b/hw/arm/allwinner-a10.c<br>
-index 52e0d83760..53c24ff602 100644<br>
---- a/hw/arm/allwinner-a10.c<br>
-+++ b/hw/arm/allwinner-a10.c<br>
-@@ -25,7 +25,7 @@<br>
-=C2=A0#include &quot;hw/misc/unimp.h&quot;<br>
-=C2=A0#include &quot;sysemu/sysemu.h&quot;<br>
-=C2=A0#include &quot;hw/boards.h&quot;<br>
--#include &quot;hw/usb/hcd-ohci.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-<br>
-=C2=A0#define AW_A10_MMC0_BASE=C2=A0 =C2=A0 =C2=A0 =C2=A0 0x01c0f000<br>
-=C2=A0#define AW_A10_PIC_REG_BASE=C2=A0 =C2=A0 =C2=A00x01c20400<br>
-diff --git a/hw/arm/allwinner-h3.c b/hw/arm/allwinner-h3.c<br>
-index 8e09468e86..d1d90ffa79 100644<br>
---- a/hw/arm/allwinner-h3.c<br>
-+++ b/hw/arm/allwinner-h3.c<br>
-@@ -28,6 +28,7 @@<br>
-=C2=A0#include &quot;hw/sysbus.h&quot;<br>
-=C2=A0#include &quot;hw/char/serial.h&quot;<br>
-=C2=A0#include &quot;hw/misc/unimp.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;hw/usb/hcd-ehci.h&quot;<br>
-=C2=A0#include &quot;hw/loader.h&quot;<br>
-=C2=A0#include &quot;sysemu/sysemu.h&quot;<br>
-@@ -381,16 +382,16 @@ static void allwinner_h3_realize(DeviceState *dev, Er=
-ror **errp)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 qdev_get_gpio_in(DEVICE(&amp;s-&gt;gic),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0AW_H3_GIC_SPI_EHCI3));<br>
-<br>
--=C2=A0 =C2=A0 sysbus_create_simple(&quot;sysbus-ohci&quot;, s-&gt;memmap[A=
-W_H3_OHCI0],<br>
-+=C2=A0 =C2=A0 sysbus_create_simple(TYPE_SYSBUS_OHCI, s-&gt;memmap[AW_H3_OH=
-CI0],<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 qdev_get_gpio_in(DEVICE(&amp;s-&gt;gic),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0AW_H3_GIC_SPI_OHCI0));<br>
--=C2=A0 =C2=A0 sysbus_create_simple(&quot;sysbus-ohci&quot;, s-&gt;memmap[A=
-W_H3_OHCI1],<br>
-+=C2=A0 =C2=A0 sysbus_create_simple(TYPE_SYSBUS_OHCI, s-&gt;memmap[AW_H3_OH=
-CI1],<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 qdev_get_gpio_in(DEVICE(&amp;s-&gt;gic),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0AW_H3_GIC_SPI_OHCI1));<br>
--=C2=A0 =C2=A0 sysbus_create_simple(&quot;sysbus-ohci&quot;, s-&gt;memmap[A=
-W_H3_OHCI2],<br>
-+=C2=A0 =C2=A0 sysbus_create_simple(TYPE_SYSBUS_OHCI, s-&gt;memmap[AW_H3_OH=
-CI2],<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 qdev_get_gpio_in(DEVICE(&amp;s-&gt;gic),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0AW_H3_GIC_SPI_OHCI2));<br>
--=C2=A0 =C2=A0 sysbus_create_simple(&quot;sysbus-ohci&quot;, s-&gt;memmap[A=
-W_H3_OHCI3],<br>
-+=C2=A0 =C2=A0 sysbus_create_simple(TYPE_SYSBUS_OHCI, s-&gt;memmap[AW_H3_OH=
-CI3],<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 qdev_get_gpio_in(DEVICE(&amp;s-&gt;gic),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0AW_H3_GIC_SPI_OHCI3));<br>
-<br>
-diff --git a/hw/arm/pxa2xx.c b/hw/arm/pxa2xx.c<br>
-index f104a33463..27196170f5 100644<br>
---- a/hw/arm/pxa2xx.c<br>
-+++ b/hw/arm/pxa2xx.c<br>
-@@ -18,6 +18,7 @@<br>
-=C2=A0#include &quot;hw/arm/pxa.h&quot;<br>
-=C2=A0#include &quot;sysemu/sysemu.h&quot;<br>
-=C2=A0#include &quot;hw/char/serial.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;hw/i2c/i2c.h&quot;<br>
-=C2=A0#include &quot;hw/irq.h&quot;<br>
-=C2=A0#include &quot;hw/qdev-properties.h&quot;<br>
-@@ -2196,7 +2197,7 @@ PXA2xxState *pxa270_init(MemoryRegion *address_space,=
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0s-&gt;ssp[i] =3D (SSIBus *)qdev_get_child=
-_bus(dev, &quot;ssi&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-<br>
--=C2=A0 =C2=A0 sysbus_create_simple(&quot;sysbus-ohci&quot;, 0x4c000000,<br=
->
-+=C2=A0 =C2=A0 sysbus_create_simple(TYPE_SYSBUS_OHCI, 0x4c000000,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 qdev_get_gpio_in(s-&gt;pic, PXA2XX_PIC_USBH1));<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;pcmcia[0] =3D pxa2xx_pcmcia_init(address_space, 0=
-x20000000);<br>
-diff --git a/hw/arm/realview.c b/hw/arm/realview.c<br>
-index b6c0a1adb9..0aa34bd4c2 100644<br>
---- a/hw/arm/realview.c<br>
-+++ b/hw/arm/realview.c<br>
-@@ -16,6 +16,7 @@<br>
-=C2=A0#include &quot;hw/net/lan9118.h&quot;<br>
-=C2=A0#include &quot;hw/net/smc91c111.h&quot;<br>
-=C2=A0#include &quot;hw/pci/pci.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;net/net.h&quot;<br>
-=C2=A0#include &quot;sysemu/sysemu.h&quot;<br>
-=C2=A0#include &quot;hw/boards.h&quot;<br>
-@@ -256,7 +257,7 @@ static void realview_init(MachineState *machine,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0sysbus_connect_irq(busdev, 3, pic[51]);<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_bus =3D (PCIBus *)qdev_get_child_bus(=
-dev, &quot;pci&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (machine_usb(machine)) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(pci_bus, -1, &=
-quot;pci-ohci&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(pci_bus, -1, T=
-YPE_PCI_OHCI);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0n =3D drive_get_max_bus(IF_SCSI);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0while (n &gt;=3D 0) {<br>
-diff --git a/hw/arm/versatilepb.c b/hw/arm/versatilepb.c<br>
-index e596b8170f..3e6224dc96 100644<br>
---- a/hw/arm/versatilepb.c<br>
-+++ b/hw/arm/versatilepb.c<br>
-@@ -17,6 +17,7 @@<br>
-=C2=A0#include &quot;net/net.h&quot;<br>
-=C2=A0#include &quot;sysemu/sysemu.h&quot;<br>
-=C2=A0#include &quot;hw/pci/pci.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;hw/i2c/i2c.h&quot;<br>
-=C2=A0#include &quot;hw/i2c/arm_sbcon_i2c.h&quot;<br>
-=C2=A0#include &quot;hw/irq.h&quot;<br>
-@@ -273,7 +274,7 @@ static void versatile_init(MachineState *machine, int b=
-oard_id)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0if (machine_usb(machine)) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(pci_bus, -1, &quot;pci-ohci&=
-quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(pci_bus, -1, TYPE_PCI_OHCI);=
-<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0n =3D drive_get_max_bus(IF_SCSI);<br>
-=C2=A0 =C2=A0 =C2=A0while (n &gt;=3D 0) {<br>
-diff --git a/hw/display/sm501.c b/hw/display/sm501.c<br>
-index 9cccc68c35..5f076c841f 100644<br>
---- a/hw/display/sm501.c<br>
-+++ b/hw/display/sm501.c<br>
-@@ -33,6 +33,7 @@<br>
-=C2=A0#include &quot;hw/sysbus.h&quot;<br>
-=C2=A0#include &quot;migration/vmstate.h&quot;<br>
-=C2=A0#include &quot;hw/pci/pci.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;hw/qdev-properties.h&quot;<br>
-=C2=A0#include &quot;hw/i2c/i2c.h&quot;<br>
-=C2=A0#include &quot;hw/display/i2c-ddc.h&quot;<br>
-@@ -1961,7 +1962,7 @@ static void sm501_realize_sysbus(DeviceState *dev, Er=
-ror **errp)<br>
-=C2=A0 =C2=A0 =C2=A0sysbus_init_mmio(sbd, &amp;s-&gt;state.mmio_region);<br=
->
-<br>
-=C2=A0 =C2=A0 =C2=A0/* bridge to usb host emulation module */<br>
--=C2=A0 =C2=A0 usb_dev =3D qdev_new(&quot;sysbus-ohci&quot;);<br>
-+=C2=A0 =C2=A0 usb_dev =3D qdev_new(TYPE_SYSBUS_OHCI);<br>
-=C2=A0 =C2=A0 =C2=A0qdev_prop_set_uint32(usb_dev, &quot;num-ports&quot;, 2)=
-;<br>
-=C2=A0 =C2=A0 =C2=A0qdev_prop_set_uint64(usb_dev, &quot;dma-offset&quot;, s=
--&gt;base);<br>
-=C2=A0 =C2=A0 =C2=A0sysbus_realize_and_unref(SYS_BUS_DEVICE(usb_dev), &amp;=
-error_fatal);<br>
-diff --git a/hw/ppc/mac_newworld.c b/hw/ppc/mac_newworld.c<br>
-index 7bf69f4a1f..3c32c1831b 100644<br>
---- a/hw/ppc/mac_newworld.c<br>
-+++ b/hw/ppc/mac_newworld.c<br>
-@@ -55,6 +55,7 @@<br>
-=C2=A0#include &quot;hw/input/adb.h&quot;<br>
-=C2=A0#include &quot;hw/ppc/mac_dbdma.h&quot;<br>
-=C2=A0#include &quot;hw/pci/pci.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;net/net.h&quot;<br>
-=C2=A0#include &quot;sysemu/sysemu.h&quot;<br>
-=C2=A0#include &quot;hw/boards.h&quot;<br>
-@@ -411,7 +412,7 @@ static void ppc_core99_init(MachineState *machine)<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0if (machine-&gt;usb) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(pci_bus, -1, &quot;pci-ohci&=
-quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(pci_bus, -1, TYPE_PCI_OHCI);=
-<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* U3 needs to use USB for input because =
-Linux doesn&#39;t support via-cuda<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0on PPC64 */<br>
-diff --git a/hw/ppc/mac_oldworld.c b/hw/ppc/mac_oldworld.c<br>
-index f8c204ead7..a429a3e1df 100644<br>
---- a/hw/ppc/mac_oldworld.c<br>
-+++ b/hw/ppc/mac_oldworld.c<br>
-@@ -37,6 +37,7 @@<br>
-=C2=A0#include &quot;hw/isa/isa.h&quot;<br>
-=C2=A0#include &quot;hw/pci/pci.h&quot;<br>
-=C2=A0#include &quot;hw/pci/pci_host.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;hw/boards.h&quot;<br>
-=C2=A0#include &quot;hw/nvram/fw_cfg.h&quot;<br>
-=C2=A0#include &quot;hw/char/escc.h&quot;<br>
-@@ -301,7 +302,7 @@ static void ppc_heathrow_init(MachineState *machine)<br=
->
-=C2=A0 =C2=A0 =C2=A0qdev_realize_and_unref(dev, adb_bus, &amp;error_fatal);=
-<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0if (machine_usb(machine)) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(pci_bus, -1, &quot;pci-ohci&=
-quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(pci_bus, -1, TYPE_PCI_OHCI);=
-<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0if (graphic_depth !=3D 15 &amp;&amp; graphic_depth !=3D=
- 32 &amp;&amp; graphic_depth !=3D 8)<br>
-diff --git a/hw/ppc/sam460ex.c b/hw/ppc/sam460ex.c<br>
-index 781b45e14b..ac60d17a86 100644<br>
---- a/hw/ppc/sam460ex.c<br>
-+++ b/hw/ppc/sam460ex.c<br>
-@@ -36,6 +36,7 @@<br>
-=C2=A0#include &quot;hw/i2c/ppc4xx_i2c.h&quot;<br>
-=C2=A0#include &quot;hw/i2c/smbus_eeprom.h&quot;<br>
-=C2=A0#include &quot;hw/usb/usb.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;hw/usb/hcd-ehci.h&quot;<br>
-=C2=A0#include &quot;hw/ppc/fdt.h&quot;<br>
-=C2=A0#include &quot;hw/qdev-properties.h&quot;<br>
-@@ -372,7 +373,7 @@ static void sam460ex_init(MachineState *machine)<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0/* USB */<br>
-=C2=A0 =C2=A0 =C2=A0sysbus_create_simple(TYPE_PPC4xx_EHCI, 0x4bffd0400, uic=
-[2][29]);<br>
--=C2=A0 =C2=A0 dev =3D qdev_new(&quot;sysbus-ohci&quot;);<br>
-+=C2=A0 =C2=A0 dev =3D qdev_new(TYPE_SYSBUS_OHCI);<br>
-=C2=A0 =C2=A0 =C2=A0qdev_prop_set_string(dev, &quot;masterbus&quot;, &quot;=
-usb-bus.0&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0qdev_prop_set_uint32(dev, &quot;num-ports&quot;, 6);<br=
->
-=C2=A0 =C2=A0 =C2=A0sbdev =3D SYS_BUS_DEVICE(dev);<br>
-diff --git a/hw/ppc/spapr.c b/hw/ppc/spapr.c<br>
-index 0c0409077f..db1706a66c 100644<br>
---- a/hw/ppc/spapr.c<br>
-+++ b/hw/ppc/spapr.c<br>
-@@ -71,6 +71,7 @@<br>
-=C2=A0#include &quot;exec/address-spaces.h&quot;<br>
-=C2=A0#include &quot;exec/ram_addr.h&quot;<br>
-=C2=A0#include &quot;hw/usb/usb.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-=C2=A0#include &quot;qemu/config-file.h&quot;<br>
-=C2=A0#include &quot;qemu/error-report.h&quot;<br>
-=C2=A0#include &quot;trace.h&quot;<br>
-@@ -2958,7 +2959,7 @@ static void spapr_machine_init(MachineState *machine)=
-<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0if (machine-&gt;usb) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (smc-&gt;use_ohci_by_default) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(phb-&gt;bus, -=
-1, &quot;pci-ohci&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pci_create_simple(phb-&gt;bus, -=
-1, TYPE_PCI_OHCI);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_create_simple(phb-&gt;b=
-us, -1, &quot;nec-usb-xhci&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-diff --git a/hw/usb/hcd-ohci-pci.c b/hw/usb/hcd-ohci-pci.c<br>
-index cb6bc55f59..14df83ec2e 100644<br>
---- a/hw/usb/hcd-ohci-pci.c<br>
-+++ b/hw/usb/hcd-ohci-pci.c<br>
-@@ -29,8 +29,8 @@<br>
-=C2=A0#include &quot;trace.h&quot;<br>
-=C2=A0#include &quot;hcd-ohci.h&quot;<br>
-=C2=A0#include &quot;usb-internal.h&quot;<br>
-+#include &quot;hw/usb/usb-hcd.h&quot;<br>
-<br>
--#define TYPE_PCI_OHCI &quot;pci-ohci&quot;<br>
-=C2=A0#define PCI_OHCI(obj) OBJECT_CHECK(OHCIPCIState, (obj), TYPE_PCI_OHCI=
-)<br>
-<br>
-=C2=A0typedef struct {<br>
--- <br>
-2.21.3<br>
-<br>
-</blockquote></div></div></div>
+   #define ERRP_AUTO_PROPAGATE()                                   \
+       g_auto(ErrorPropagator) _auto_errp_prop =3D {.errp =3D errp};   \
+       do {                                                        \
+           if (!errp || errp =3D=3D &error_fatal) {                    \
+               errp =3D &_auto_errp_prop.local_err;                  \
+           }                                                       \
+       } while (0)
 
---0000000000000c5dca05a9b726c6--
+>  /*
+>   * Special error destination to abort on error.
+>   * See error_setg() and error_propagate() for details.
+
 
