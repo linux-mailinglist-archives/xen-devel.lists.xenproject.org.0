@@ -2,58 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCCF3215CAC
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:08:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBA3D215CB4
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:10:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsUbX-0006JG-0r; Mon, 06 Jul 2020 17:08:31 +0000
+	id 1jsUcs-0006Rb-G2; Mon, 06 Jul 2020 17:09:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hiqY=AR=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1jsUbV-0006J7-0k
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:08:29 +0000
-X-Inumbo-ID: 4f9cddca-bfab-11ea-bb8b-bc764e2007e4
-Received: from mail-il1-x144.google.com (unknown [2607:f8b0:4864:20::144])
+ id 1jsUcr-0006RW-2b
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:09:53 +0000
+X-Inumbo-ID: 81a928b4-bfab-11ea-bca7-bc764e2007e4
+Received: from mail-il1-x142.google.com (unknown [2607:f8b0:4864:20::142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4f9cddca-bfab-11ea-bb8b-bc764e2007e4;
- Mon, 06 Jul 2020 17:08:28 +0000 (UTC)
-Received: by mail-il1-x144.google.com with SMTP id r12so26334875ilh.4
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:08:28 -0700 (PDT)
+ id 81a928b4-bfab-11ea-bca7-bc764e2007e4;
+ Mon, 06 Jul 2020 17:09:52 +0000 (UTC)
+Received: by mail-il1-x142.google.com with SMTP id i18so33555859ilk.10
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:09:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=aJ+NMNUyWOSeU76/wZH/xOla8z/F8BGLKK6NO+daT7c=;
- b=DCtHRVbfbNdZdHrkno7Pg0sSHF/TO28JTJSsk4CQyuv3rpTGwPimzgtRdeipMmeYC8
- aUYtMHdn8ZYb548p0TC5sD7ZpYCJiiGQvNkmx5Fh+Y1+2AWdNXgyTbZF5g/nSA0CaFXC
- xiRGdWCgbqjAb5Jb4EW+JexNsAlDtpzx8H6+qoa4BE4MW1vaDJzHgM4Qc/aMXC3ErDa+
- xscFDbu167g1VZgMknCoWSYpzxdRsorPrRCP5QF0sWCErssL7NXmx5bWwMfBYg4XsY6P
- iFeF9TqxPGvbOg5sN22Y7ZvG9cGuDvhz6MRZPNAzvoxaV4xjYoy11GgiUBRGvz6pcpCz
- OlkA==
+ bh=Qjmg6keciKQ+VOMeBpL/AW2YN1J1Kn6ACCJR6VlV+qI=;
+ b=OwWaKMMMP1QFjMhkzf7cgTSnKgDIc5+avykkBDKL5ShxrEZIh2B9WQ4e2zfIOytV/S
+ nT2xYaD/K/Vz5l0Ackv84a76Sz0UM/YC/GgxV/iqLEOpTvzEuxbqE411kHshEjoTjLro
+ D8tn/C0W0XdheqSqYAmla8lSsnywSVsKq0WHgzdFTlrA5qHkvSACL4/4KkAEjFI5VhYv
+ yu4z/Z1UQT1x3Xag1s1raH6NdSUSqtqIsUOrtWYSlMNZfedghH8nGN5g6ZLmqfd1X3fq
+ 1n5JPWWntS7W1kO4/RKlZkXlSU9pqI4NdubmRt+GADA2vNbCuw3/HfBUFwD2kp5Wgsvr
+ AJtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=aJ+NMNUyWOSeU76/wZH/xOla8z/F8BGLKK6NO+daT7c=;
- b=cio/iDavFzDTP3UQLIxEkoBIKZ/7bt2jOHiEPrIBP2UmHRG8SENCtLcbQMu2TCeB34
- AnkP7hI+MhMlzB3+owM49MW8VmWz5edOSJ8flnLRWISThNQH3Bb9boPhSAveiBAcsB6l
- XQMSk9W0omZCl4OjypAI4GH8VG5mxyQUcYzEmBMmkOrlmPwi7yCNAeWtaMVQhqSsMg9B
- 6zimV2xw1HkMODoPCzgGVkxYb+6TJWUu/MamvTX4GfEbdHCnlrazZNaIxJrO6sORycaW
- NOEw9yzRnMCaPUxQeqEaQBVPrpzdm+Wmc9ooAu0SMvOVWe176RinvZ4hedxe1/A1Vbth
- aITw==
-X-Gm-Message-State: AOAM530jPdt7yeDSg4PEtZg5l72/i8YP90pDqq9gni1yedP3n0+2y+R6
- LQsL8UXrT+tcnnx60ft1Q0HTz8LXkg8LOt+CxvU=
-X-Google-Smtp-Source: ABdhPJztbbycqoucR5VA9L3J/eqZEps73vsP7bMZlYGOF7l5+CP/IDu5wRU4G+LaN3QoYCbBFL9miKesApB55IKBhTM=
-X-Received: by 2002:a92:c213:: with SMTP id j19mr31628274ilo.40.1594055308108; 
- Mon, 06 Jul 2020 10:08:28 -0700 (PDT)
+ bh=Qjmg6keciKQ+VOMeBpL/AW2YN1J1Kn6ACCJR6VlV+qI=;
+ b=HKORv38rNyC60gVibfrL+CGaOMmEe+aJab55GTZ8xCW5sn1lRa0ZacOFWXPVdZBwbE
+ cITf/08zVH3JCW6d1dhEYpiX1nfA3ptz0u/iGqMt1XnDot31I/UzExue8S50F+DXKNEu
+ z0/Z9fgzx3fS4c3BgvXBfra7Sl/n7N10fsbqBWPJmkFtIcOhlyWwiZ7fhJJUYq1f0TrX
+ VWSwP+aMwt7572bLOo6QvuUGC7SupXxISdM8NqlyPEcev2eg1mBpQvpNv0HDVRb7ddhD
+ IqiThcIaIJV4LzQIaOIr3wzq/RqIBqINpyMzHas701Oba3VTJknW95KhJTvQDjwP+Ngb
+ yRoQ==
+X-Gm-Message-State: AOAM530Dz1e+C5kowEY4RTg79r5q/IoOgaN6qFrEPQllZ48WlRkI/Q/c
+ 4/pGXa30Px3C8GHhKUl97UeaO2PUGYLfKGMO6/c=
+X-Google-Smtp-Source: ABdhPJyOwkiRiK+9nBFi1yzATBmoIi7mSBskR4fEEeJCsCiuqZAj+mTPEz50OG8NSilCy8YDtIqWGKoKN3C/V91lepU=
+X-Received: by 2002:a92:bb84:: with SMTP id x4mr32234878ilk.177.1594055392114; 
+ Mon, 06 Jul 2020 10:09:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-13-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-13-f4bug@amsat.org>
+ <20200704144943.18292-11-f4bug@amsat.org>
+In-Reply-To: <20200704144943.18292-11-f4bug@amsat.org>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Mon, 6 Jul 2020 09:58:41 -0700
-Message-ID: <CAKmqyKP1PJVHc=At4EM_60NZrdkokwOW9iwvqTHBoaYShWLUYg@mail.gmail.com>
-Subject: Re: [PATCH 12/26] hw/usb/hcd-musb: Restrict header scope
+Date: Mon, 6 Jul 2020 10:00:05 -0700
+Message-ID: <CAKmqyKMUWZ9BsEeZkiK4-_MAhFpZO66MKQNhoZ3q1FT+XZie3g@mail.gmail.com>
+Subject: Re: [PATCH 10/26] hw/usb/hcd-ehci: Move few definitions from header
+ to source
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -98,12 +99,10 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Jul 4, 2020 at 7:56 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
+On Sat, Jul 4, 2020 at 7:53 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
 > wrote:
 >
-> "hcd-musb.h" is only required by USB device implementions.
-> As we keep these implementations in the hw/usb/ directory,
-> move the header there.
+> Move definitions only useful for hcd-ehci.c to this source file.
 >
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
 
@@ -112,48 +111,55 @@ Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 Alistair
 
 > ---
->  {include/hw =3D> hw}/usb/hcd-musb.h | 0
->  hw/usb/hcd-musb.c                 | 2 +-
->  hw/usb/tusb6010.c                 | 2 +-
->  3 files changed, 2 insertions(+), 2 deletions(-)
->  rename {include/hw =3D> hw}/usb/hcd-musb.h (100%)
+>  hw/usb/hcd-ehci.h | 11 -----------
+>  hw/usb/hcd-ehci.c | 12 ++++++++++++
+>  2 files changed, 12 insertions(+), 11 deletions(-)
 >
-> diff --git a/include/hw/usb/hcd-musb.h b/hw/usb/hcd-musb.h
-> similarity index 100%
-> rename from include/hw/usb/hcd-musb.h
-> rename to hw/usb/hcd-musb.h
-> diff --git a/hw/usb/hcd-musb.c b/hw/usb/hcd-musb.c
-> index 85f5ff5bd4..b8d8766a4a 100644
-> --- a/hw/usb/hcd-musb.c
-> +++ b/hw/usb/hcd-musb.c
-> @@ -23,9 +23,9 @@
->  #include "qemu/osdep.h"
->  #include "qemu/timer.h"
->  #include "hw/usb.h"
-> -#include "hw/usb/hcd-musb.h"
->  #include "hw/irq.h"
->  #include "hw/hw.h"
-> +#include "hcd-musb.h"
->
->  /* Common USB registers */
->  #define MUSB_HDRC_FADDR                0x00    /* 8-bit */
-> diff --git a/hw/usb/tusb6010.c b/hw/usb/tusb6010.c
-> index 27eb28d3e4..9f9b81b09d 100644
-> --- a/hw/usb/tusb6010.c
-> +++ b/hw/usb/tusb6010.c
-> @@ -23,11 +23,11 @@
->  #include "qemu/module.h"
->  #include "qemu/timer.h"
->  #include "hw/usb.h"
-> -#include "hw/usb/hcd-musb.h"
->  #include "hw/arm/omap.h"
->  #include "hw/hw.h"
->  #include "hw/irq.h"
+> diff --git a/hw/usb/hcd-ehci.h b/hw/usb/hcd-ehci.h
+> index 57b38cfc05..4577f5e31d 100644
+> --- a/hw/usb/hcd-ehci.h
+> +++ b/hw/usb/hcd-ehci.h
+> @@ -24,17 +24,6 @@
+>  #include "hw/pci/pci.h"
 >  #include "hw/sysbus.h"
-> +#include "hcd-musb.h"
 >
->  #define TYPE_TUSB6010 "tusb6010"
->  #define TUSB(obj) OBJECT_CHECK(TUSBState, (obj), TYPE_TUSB6010)
+> -#ifndef EHCI_DEBUG
+> -#define EHCI_DEBUG   0
+> -#endif
+> -
+> -#if EHCI_DEBUG
+> -#define DPRINTF printf
+> -#else
+> -#define DPRINTF(...)
+> -#endif
+> -
+> -#define MMIO_SIZE        0x1000
+>  #define CAPA_SIZE        0x10
+>
+>  #define NB_PORTS         6        /* Max. Number of downstream ports */
+> diff --git a/hw/usb/hcd-ehci.c b/hw/usb/hcd-ehci.c
+> index 256fb91e0c..a0beee527c 100644
+> --- a/hw/usb/hcd-ehci.c
+> +++ b/hw/usb/hcd-ehci.c
+> @@ -36,6 +36,18 @@
+>  #include "qemu/error-report.h"
+>  #include "sysemu/runstate.h"
+>
+> +#ifndef EHCI_DEBUG
+> +#define EHCI_DEBUG   0
+> +#endif
+> +
+> +#if EHCI_DEBUG
+> +#define DPRINTF printf
+> +#else
+> +#define DPRINTF(...)
+> +#endif
+> +
+> +#define MMIO_SIZE        0x1000
+> +
+>  #define FRAME_TIMER_FREQ 1000
+>  #define FRAME_TIMER_NS   (NANOSECONDS_PER_SECOND / FRAME_TIMER_FREQ)
+>  #define UFRAME_TIMER_NS  (FRAME_TIMER_NS / 8)
 > --
 > 2.21.3
 >
