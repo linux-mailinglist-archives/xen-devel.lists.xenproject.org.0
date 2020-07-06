@@ -2,58 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CFF5215CB6
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:10:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 575D9215CC0
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:12:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsUdh-0007Ab-Pt; Mon, 06 Jul 2020 17:10:45 +0000
+	id 1jsUf4-0007I3-5G; Mon, 06 Jul 2020 17:12:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hiqY=AR=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1jsUdg-0007A2-CC
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:10:44 +0000
-X-Inumbo-ID: a04beea0-bfab-11ea-bb8b-bc764e2007e4
+ id 1jsUf2-0007Hx-FA
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:12:08 +0000
+X-Inumbo-ID: d2631c9c-bfab-11ea-bca7-bc764e2007e4
 Received: from mail-io1-xd41.google.com (unknown [2607:f8b0:4864:20::d41])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a04beea0-bfab-11ea-bb8b-bc764e2007e4;
- Mon, 06 Jul 2020 17:10:43 +0000 (UTC)
-Received: by mail-io1-xd41.google.com with SMTP id v6so26479595iob.4
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:10:43 -0700 (PDT)
+ id d2631c9c-bfab-11ea-bca7-bc764e2007e4;
+ Mon, 06 Jul 2020 17:12:07 +0000 (UTC)
+Received: by mail-io1-xd41.google.com with SMTP id v6so26484838iob.4
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:12:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=wZPcNnfJm5MPTasltoq/pBa3iV0LcdhND5nIpKUJi/8=;
- b=k/1aoEljxB0uBEqfqH0Zn4KhFaSEHuRC7puZspsg00ZQnuYbG361wHg3SacgFJDj5D
- tsj3n5BFbxJduCK35tjRhuF2/a9NzvStraAOtyCnDhA1x3ZIDzvxsj0SeVn96GcH66cQ
- +fOPAx/5lIiJ6CUyYV8ORDaUEU0GMk/TmxFz2lsMqQ1ZPLYRTUaOZTHWIAoFD6WwT2w9
- dE0VZxLY1HVMcUMAVCCqzToMHhxxVykCFBb3WPUEtZ8T5PdUIBDhJKXxk1Spjm8NLNHs
- uMj6b4Ox5j2PchTgKufiol5/oFIvZYBrDFwPFhjtdYp+E3sHNnFizOD1mX/9Z5ZYBI8v
- cucQ==
+ bh=P0d8Iq06s1RxhBs4I7BZ5yRhluIYSvpMY7wkvFtI2Xg=;
+ b=Y+NfzrMhVjazx3jBHloldv5qQ1eAAl6uiOiG7IwSb4NMG6+903IYIYU0tSMwa8mrC3
+ cTQQBM94OvCgQ7efQJmM6schD+rLNB+ozc5/uJgypYi55rBKWT+NxRBPTgvuL6eWEhhE
+ 7rUuX7OsT4URw2jWCniwP0L1yU131oOJcE/YnIXdhlnn6n4G1LcX+iI6fNOgQFNSh157
+ m2EprNayyIy7Rbewu0VeNMbCXbX+6iCdEKOcr8WRTrTBw4Gh4m+fC7fmitA3XMXG66WL
+ XqFVF5UEWj2WlfQevGi6yVpV9hZNiy39mq2dQqoo5OhqyH5Quk+sfoOIKSNr3g+956up
+ gJjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=wZPcNnfJm5MPTasltoq/pBa3iV0LcdhND5nIpKUJi/8=;
- b=qqfNdsATDQxUJKXjLyENvCiB56yZ2Zp3rPcGjeXUX3lyAbsZ275RXOMNnpd7PpZ40f
- T5MfXmkCodpaJ2u2dNKBx0fHdWbB6o1al8FpLhqSCQfkZjzQDyH5CVR4YJ0Uwx97zXTz
- r33gDEH1KKcDW534euOljWbaj1YbhX8PS02yl5Bn6t7E5SdPWfkPGQ3DdNcB3ZizaEgn
- TqQNidmeoxGtORrIO7765XGaU1wheuoGyEGsRsj0lCndbV8Y+xUUomnYjXwiZ6c5jpJy
- C6q0FbGLQ1H+Wo3QzXN8Uq4ndHr00Uk2on/PHyCC3uqQOnW79wgchPnQnMt0FVCIWhOI
- OPVA==
-X-Gm-Message-State: AOAM533yMP1lviNBXHyTefqAqBytvBtZ9ZQB4heT83QikKudq3NW6uOX
- +r/LNf8MchTXDUDBSahF42PTg8vj3Nlzl68572c=
-X-Google-Smtp-Source: ABdhPJx4Y0GqgQR2J49zdJrF6Wimg0enF5qkXxsI0KvUd7/3ziu/gL8IcMOHx3OKEzWPz3QhdGIRQSrp8CAFUbt1qmc=
-X-Received: by 2002:a02:6c4c:: with SMTP id w73mr55529406jab.26.1594055443540; 
- Mon, 06 Jul 2020 10:10:43 -0700 (PDT)
+ bh=P0d8Iq06s1RxhBs4I7BZ5yRhluIYSvpMY7wkvFtI2Xg=;
+ b=PcHutAMYEC+hmZIJHa537NTwe2CfAUCfRa4JR7BanBZMTPGMEvdM9KSKZTVMw/J/Al
+ xtcJxGuiXenhef0Z1srinl0xh7vHaJ3uuQi/v6Ay6vx7pgpRc5nc3LwlZxaulS4xc2Ni
+ ljf3HMne1xf70aSrVYLk6zB2adKPFtZ5fF6yuCahaM//bSE9/tXoAd0+zw4nqWDP/Usb
+ WiSPt5qgJDmKO1KZK9kAeVAngl0vo5GG88oun4Sk/WHB60lf5tDnU+TikJxN/K0xy2k2
+ BcLkVHjAkzNO2rl/YFZ/jS66dYo+jltalxoX9X/Tx0jW3t3VKfjiEyPH3cVpVkGkJlX3
+ hBbg==
+X-Gm-Message-State: AOAM530abkzsM16oXE1ZEqY+2yPps7uU0m3oszFzn5kpR2yH0pId0epx
+ nReIc7hGpnYSuOUsxfaN4+BqWgTcX3LDrjBj1ls=
+X-Google-Smtp-Source: ABdhPJwQ4Y5SU2PHxNBgM6arl9mZiS4VMzkN+WtIMsTLI4VHjyaJG6nzbQPzYC2Wzjh5CnPd7DP0E6zy1bY/U6O6MAw=
+X-Received: by 2002:a5d:9306:: with SMTP id l6mr26961459ion.105.1594055527579; 
+ Mon, 06 Jul 2020 10:12:07 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-14-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-14-f4bug@amsat.org>
+ <20200704144943.18292-15-f4bug@amsat.org>
+In-Reply-To: <20200704144943.18292-15-f4bug@amsat.org>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Mon, 6 Jul 2020 10:00:56 -0700
-Message-ID: <CAKmqyKOcdG_Wv8yectwwHaxmryB9uBKK+GX1ZGtrq7ZCRcRsAw@mail.gmail.com>
-Subject: Re: [PATCH 13/26] hw/usb/desc: Reduce some declarations scope
+Date: Mon, 6 Jul 2020 10:02:20 -0700
+Message-ID: <CAKmqyKNYrB+BxS41KFWhYc2wXetJH4sJ_18kEDcaYPzu87r49A@mail.gmail.com>
+Subject: Re: [PATCH 14/26] hw/usb/quirks: Rename included source with '.inc.c'
+ suffix
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -98,13 +99,13 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Jul 4, 2020 at 7:59 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
+On Sat, Jul 4, 2020 at 7:58 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
 > wrote:
 >
-> USBDescString is forward-declared. Only bus.c uses the
-> usb_device_get_product_desc() and usb_device_get_usb_desc()
-> function. Move all that to the "desc.h" header to reduce
-> the big "hw/usb.h" header a bit.
+> This file is not a header, but contains source code which is
+> included and compiled once. We use the '.inc.c' suffix in few
+> other cases in the repository. Follow the same convention with
+> this file.
 >
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
 
@@ -113,75 +114,48 @@ Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 Alistair
 
 > ---
->  hw/usb/desc.h    | 10 ++++++++++
->  include/hw/usb.h | 10 ----------
->  hw/usb/bus.c     |  1 +
->  3 files changed, 11 insertions(+), 10 deletions(-)
+>  hw/usb/quirks.c                   | 2 +-
+>  hw/usb/{quirks.h =3D> quirks.inc.c} | 5 -----
+>  2 files changed, 1 insertion(+), 6 deletions(-)
+>  rename hw/usb/{quirks.h =3D> quirks.inc.c} (99%)
 >
-> diff --git a/hw/usb/desc.h b/hw/usb/desc.h
-> index 92594fbe29..4bf6966c4b 100644
-> --- a/hw/usb/desc.h
-> +++ b/hw/usb/desc.h
-> @@ -242,4 +242,14 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacke=
-t *p,
->  int usb_desc_handle_control(USBDevice *dev, USBPacket *p,
->          int request, int value, int index, int length, uint8_t *data);
+> diff --git a/hw/usb/quirks.c b/hw/usb/quirks.c
+> index 23ea7a23ea..655b36f2d5 100644
+> --- a/hw/usb/quirks.c
+> +++ b/hw/usb/quirks.c
+> @@ -13,7 +13,7 @@
+>   */
 >
-> +const char *usb_device_get_product_desc(USBDevice *dev);
-> +
-> +const USBDesc *usb_device_get_usb_desc(USBDevice *dev);
-> +
-> +struct USBDescString {
-> +    uint8_t index;
-> +    char *str;
-> +    QLIST_ENTRY(USBDescString) next;
-> +};
-> +
->  #endif /* QEMU_HW_USB_DESC_H */
-> diff --git a/include/hw/usb.h b/include/hw/usb.h
-> index 15b2ef300a..18f1349bdc 100644
-> --- a/include/hw/usb.h
-> +++ b/include/hw/usb.h
-> @@ -192,12 +192,6 @@ typedef struct USBDescOther USBDescOther;
->  typedef struct USBDescString USBDescString;
->  typedef struct USBDescMSOS USBDescMSOS;
+>  #include "qemu/osdep.h"
+> -#include "quirks.h"
+> +#include "quirks.inc.c"
+>  #include "hw/usb.h"
 >
-> -struct USBDescString {
-> -    uint8_t index;
-> -    char *str;
-> -    QLIST_ENTRY(USBDescString) next;
-> -};
+>  static bool usb_id_match(const struct usb_device_id *ids,
+> diff --git a/hw/usb/quirks.h b/hw/usb/quirks.inc.c
+> similarity index 99%
+> rename from hw/usb/quirks.h
+> rename to hw/usb/quirks.inc.c
+> index 50ef2f9c2e..004b228aba 100644
+> --- a/hw/usb/quirks.h
+> +++ b/hw/usb/quirks.inc.c
+> @@ -12,9 +12,6 @@
+>   * (at your option) any later version.
+>   */
+>
+> -#ifndef HW_USB_QUIRKS_H
+> -#define HW_USB_QUIRKS_H
 > -
->  #define USB_MAX_ENDPOINTS  15
->  #define USB_MAX_INTERFACES 16
+>  /* 1 on 1 copy of linux/drivers/usb/serial/ftdi_sio_ids.h */
+>  #include "quirks-ftdi-ids.h"
+>  /* 1 on 1 copy of linux/drivers/usb/serial/pl2303.h */
+> @@ -915,5 +912,3 @@ static const struct usb_device_id usbredir_ftdi_seria=
+l_ids[] =3D {
 >
-> @@ -555,10 +549,6 @@ int usb_device_alloc_streams(USBDevice *dev, USBEndp=
-oint **eps, int nr_eps,
->                               int streams);
->  void usb_device_free_streams(USBDevice *dev, USBEndpoint **eps, int nr_e=
-ps);
->
-> -const char *usb_device_get_product_desc(USBDevice *dev);
+>  #undef USB_DEVICE
+>  #undef USB_DEVICE_AND_INTERFACE_INFO
 > -
-> -const USBDesc *usb_device_get_usb_desc(USBDevice *dev);
-> -
->  /* quirks.c */
->
->  /* In bulk endpoints are streaming data sources (iow behave like isoc ep=
-s) */
-> diff --git a/hw/usb/bus.c b/hw/usb/bus.c
-> index 957559b18d..111c3af7c1 100644
-> --- a/hw/usb/bus.c
-> +++ b/hw/usb/bus.c
-> @@ -9,6 +9,7 @@
->  #include "monitor/monitor.h"
->  #include "trace.h"
->  #include "qemu/cutils.h"
-> +#include "desc.h"
->
->  static void usb_bus_dev_print(Monitor *mon, DeviceState *qdev, int inden=
-t);
->
+> -#endif
 > --
 > 2.21.3
 >
