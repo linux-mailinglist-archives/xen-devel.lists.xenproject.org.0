@@ -2,63 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C404215848
+	by mail.lfdr.de (Postfix) with ESMTPS id 66F4B215847
 	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 15:27:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsR8h-00036n-O3; Mon, 06 Jul 2020 13:26:31 +0000
+	id 1jsR8m-00037J-4E; Mon, 06 Jul 2020 13:26:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MnCI=AR=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1jsR8g-00036i-8X
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 13:26:30 +0000
-X-Inumbo-ID: 4cbb88b4-bf8c-11ea-bb8b-bc764e2007e4
-Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ id 1jsR8l-00036i-5j
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 13:26:35 +0000
+X-Inumbo-ID: 4da95cd8-bf8c-11ea-8496-bc764e2007e4
+Received: from mail-wm1-x332.google.com (unknown [2a00:1450:4864:20::332])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4cbb88b4-bf8c-11ea-bb8b-bc764e2007e4;
- Mon, 06 Jul 2020 13:26:29 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id f18so32847578wrs.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 06:26:29 -0700 (PDT)
+ id 4da95cd8-bf8c-11ea-8496-bc764e2007e4;
+ Mon, 06 Jul 2020 13:26:31 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id o8so39335467wmh.4
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 06:26:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=tSVh3xZmU5Rl/VlxY1hhYknTsE0eO5DVOcNMGKELemE=;
- b=qbnbFANxBTkqeC8ntLvePUEA/6O+OhVKoiQ3wU8s9JPQSj4pshbaGeOTNW7MAamPcu
- Su+J3Dd1u74P4moHRgtiNEk57vt/sKjMkE9cJ46oAlj8Xe4Ltx59jSHx/tSifGlkp9jT
- jbSmk+3wA+8Uyjfv74QRqOXNsvpz9jkOL8r40qFfwnHqcWwWPWUUu5MwltusREfB6Yc0
- pS6kgkug7Yp/zCYMoPi2XhqG6MiJiRGd7USoADPe+zJglJiboMUZG8IhQY4v81cPu9zV
- mQl7kmK5T2dLV1wubFA+r0qPiAve69N7SG3QCH2MZOTHvjpa/0djo5deiRXNEJBfIsQR
- 1Ayg==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=3YzIzSCf4xQQ4VX+CJllu+9r7xAX8oggdf7gxj4TtyA=;
+ b=OLOCiChN4U2lmokDjguLFHw3NqgvzCz+ll7+2OxnLlKwNm/dOiupl0tgi/aB+OAAyK
+ I/F6mS93iP2S859lCocZLYpI9hQ85S/00BO+Hlc4l8+Zno1Q3ve55ymxlclpIRWSSEzf
+ dL1ciEGs3i7GHTaDS/vcjcuqtxw0BHZi/GGbuuJ2Z39hhexlqPdC1MHrt6mmmo4K09Qx
+ 6ESeQafi2xa8PK2l9D4UBFncrvVNv0BYL1B3PsGbkc0GhKxJEufjJpSnNYqcmxEeMFO+
+ 2iEI9NBmhocTbqGetsGXVwYt+C5l1sLBzikTUOq4PzOO6dixzuba1/zNRepylUTvGcgV
+ ne1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=tSVh3xZmU5Rl/VlxY1hhYknTsE0eO5DVOcNMGKELemE=;
- b=SObFtEo0FMMb6I6mv14zMP6QV6awC4NOuPmAVbTREIR42OBN2Gp5D49Y/3WaUn+hCj
- vmYJ5V9P6ijW2KOGfB9HshPbQBF6yhPU1IXE7vdTF2nuVkYqMp3ZDKn6pUXfhqbVIrDI
- Oft8I65wugyhja49XLFXggun/gKr39z451gvJ6FJXQmlReI6b2k/geLfwXp4qypwm2fs
- UZ+SU8Q+TTUeeSYEDO3cCdqJupMgfgMn2HYRnPpzV8SZ7JL0mAANSC4qqzHEAP8R5Aat
- j0XJHQyreTzsh14zUD0wXt8ID/PL5MbxxJu812/iPgG6ooRjELGe3hY12AOojKhttR64
- g53w==
-X-Gm-Message-State: AOAM531xPPvHIUXLccHKKB9BNqDdrUVa9pKGLVeTr+8qlqluqlxVDZg5
- UwwCxeqNyDS1nV5plWd/Vmw=
-X-Google-Smtp-Source: ABdhPJy3fteBFpWnCcBm76WBnCreC3Ozl3AURYlcuW7tquHy8jvwLRuhDJFqfAi9hiIEX+1alLgbyg==
-X-Received: by 2002:adf:f203:: with SMTP id p3mr20519115wro.331.1594041988856; 
- Mon, 06 Jul 2020 06:26:28 -0700 (PDT)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=3YzIzSCf4xQQ4VX+CJllu+9r7xAX8oggdf7gxj4TtyA=;
+ b=d4exX0Z/P1fQJALxTMuznEVouY4W0phtdpkEY/7iteI1PvXYodLSpIth1UlYL1BWGK
+ X88Un0SNpAdlxn2hun+/gLRdZTTRKkYVikgUEPC5/cwuDrRdM2oNf8DraGwQKMhmlYDz
+ 0X3k2/OLKB3s8Q8s1cSMMehXvTjiH3lIHWAzpxkg7SGfPTmUDK0z5JfG5kZgmEYQxhfj
+ ifdNV1Ej0nWvYdfdcSj/LxvAlczlVj+CY29VhK0Kvp/2ot06kQAO/4iR5T//ARfAzcQ9
+ MM8Uw9PwBHcHP4IeRhaB4o8tNz9jNrwY6U3nzaO8UtXHP2zj2Jity+ALIQtjoXdz/+26
+ sB6w==
+X-Gm-Message-State: AOAM5322jA0yLOcDhKE3FRqgwDi+xfwzPS1aZ4RZ51B9RHt9oE90c3/6
+ rhrkARXYZ+jG2q2Tcv9S6lE=
+X-Google-Smtp-Source: ABdhPJzzgZUaGkuExMqbsCd96/zTEdWjJCyCUJK2slIkLxntVuI+YroZIga1OuRs954c/HT+Jfs5VQ==
+X-Received: by 2002:a1c:1b0d:: with SMTP id b13mr47841887wmb.169.1594041990469; 
+ Mon, 06 Jul 2020 06:26:30 -0700 (PDT)
 Received: from localhost.localdomain
  (138.red-83-57-170.dynamicip.rima-tde.net. [83.57.170.138])
- by smtp.gmail.com with ESMTPSA id w2sm24447004wrs.77.2020.07.06.06.26.27
+ by smtp.gmail.com with ESMTPSA id w2sm24447004wrs.77.2020.07.06.06.26.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2020 06:26:28 -0700 (PDT)
+ Mon, 06 Jul 2020 06:26:29 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: Markus Armbruster <armbru@redhat.com>,
 	qemu-devel@nongnu.org
-Subject: [PATCH 0/2] block/block-backend: Let blk_attach_dev() provide helpful
- error
-Date: Mon,  6 Jul 2020 15:26:24 +0200
-Message-Id: <20200706132626.22133-1-f4bug@amsat.org>
+Subject: [PATCH 1/2] block/block-backend: Trace blk_attach_dev()
+Date: Mon,  6 Jul 2020 15:26:25 +0200
+Message-Id: <20200706132626.22133-2-f4bug@amsat.org>
 X-Mailer: git-send-email 2.21.3
+In-Reply-To: <20200706132626.22133-1-f4bug@amsat.org>
+References: <20200706132626.22133-1-f4bug@amsat.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Type: text/plain; charset="utf-8"
@@ -85,27 +86,43 @@ Cc: Fam Zheng <fam@euphon.net>, Kevin Wolf <kwolf@redhat.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-A pair of patches which helps me debug an issue with block
-drive already attached.
+Add a trace event to follow devices attaching block drives:
 
-Suggestions to correctly/better use the Error API welcome, in
-particular in qdev-properties-system::set_drive_helper().
+  $ qemu-system-arm -M n800 -trace blk_\*
+  9513@1594040428.738162:blk_attach_dev attaching blk 'sd0' to device 'omap2-mmc'
+  9513@1594040428.738189:blk_attach_dev attaching blk 'sd0' to device 'sd-card'
+  qemu-system-arm: sd_init failed: blk 'sd0' already attached by device 'sd-card'
 
-Philippe Mathieu-Daudé (2):
-  block/block-backend: Trace blk_attach_dev()
-  block/block-backend: Let blk_attach_dev() provide helpful error
+Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+---
+ block/block-backend.c | 1 +
+ block/trace-events    | 1 +
+ 2 files changed, 2 insertions(+)
 
- include/sysemu/block-backend.h   |  2 +-
- block/block-backend.c            | 12 +++++++++++-
- hw/block/fdc.c                   |  4 +---
- hw/block/swim.c                  |  4 +---
- hw/block/xen-block.c             |  5 +++--
- hw/core/qdev-properties-system.c | 17 ++++++++++-------
- hw/ide/qdev.c                    |  4 +---
- hw/scsi/scsi-disk.c              |  4 +---
- block/trace-events               |  1 +
- 9 files changed, 30 insertions(+), 23 deletions(-)
-
+diff --git a/block/block-backend.c b/block/block-backend.c
+index 6936b25c83..23caa45e6a 100644
+--- a/block/block-backend.c
++++ b/block/block-backend.c
+@@ -886,6 +886,7 @@ void blk_get_perm(BlockBackend *blk, uint64_t *perm, uint64_t *shared_perm)
+  */
+ int blk_attach_dev(BlockBackend *blk, DeviceState *dev)
+ {
++    trace_blk_attach_dev(blk_name(blk), object_get_typename(OBJECT(dev)));
+     if (blk->dev) {
+         return -EBUSY;
+     }
+diff --git a/block/trace-events b/block/trace-events
+index dbe76a7613..aa641c2034 100644
+--- a/block/trace-events
++++ b/block/trace-events
+@@ -9,6 +9,7 @@ blk_co_preadv(void *blk, void *bs, int64_t offset, unsigned int bytes, int flags
+ blk_co_pwritev(void *blk, void *bs, int64_t offset, unsigned int bytes, int flags) "blk %p bs %p offset %"PRId64" bytes %u flags 0x%x"
+ blk_root_attach(void *child, void *blk, void *bs) "child %p blk %p bs %p"
+ blk_root_detach(void *child, void *blk, void *bs) "child %p blk %p bs %p"
++blk_attach_dev(const char *blk_name, const char *dev_name) "attaching blk '%s' to device '%s'"
+ 
+ # io.c
+ bdrv_co_preadv(void *bs, int64_t offset, int64_t nbytes, unsigned int flags) "bs %p offset %"PRId64" nbytes %"PRId64" flags 0x%x"
 -- 
 2.21.3
 
