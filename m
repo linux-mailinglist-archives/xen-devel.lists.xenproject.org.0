@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E435215C94
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:05:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 387C0215C9C
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:06:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsUYK-0005x4-0i; Mon, 06 Jul 2020 17:05:12 +0000
+	id 1jsUZS-00066N-Bz; Mon, 06 Jul 2020 17:06:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hiqY=AR=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1jsUYI-0005wn-F2
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:05:10 +0000
-X-Inumbo-ID: d93ede12-bfaa-11ea-bca7-bc764e2007e4
-Received: from mail-io1-xd41.google.com (unknown [2607:f8b0:4864:20::d41])
+ id 1jsUZQ-00066D-U8
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:06:20 +0000
+X-Inumbo-ID: 034ee74c-bfab-11ea-8496-bc764e2007e4
+Received: from mail-il1-x144.google.com (unknown [2607:f8b0:4864:20::144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d93ede12-bfaa-11ea-bca7-bc764e2007e4;
- Mon, 06 Jul 2020 17:05:09 +0000 (UTC)
-Received: by mail-io1-xd41.google.com with SMTP id q8so40125814iow.7
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:05:09 -0700 (PDT)
+ id 034ee74c-bfab-11ea-8496-bc764e2007e4;
+ Mon, 06 Jul 2020 17:06:20 +0000 (UTC)
+Received: by mail-il1-x144.google.com with SMTP id a6so16800404ilq.13
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:06:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=zN9P5ColTvlUfdn83p6hlM/q3HmA739CHt0AXxAEsKY=;
- b=eegBASf0DJgvBsiQJhBbGe04hBG8gQlnhR0e1R/ASVwj2VHV9vGLfcRsCN4KCZZL7R
- B83BaGMH/iF7mwFtkqNwrhcYBoLeuRgJhTM45CYuhyfzNTru1stzx/37r5EW7OhPb+Sh
- LRtrqRylWajXgEByi9cOTijxoLbDMEMhICnRVbAOOwJLu9jPbF/Te8Qvau7kveunJewl
- Db0lsTutmvoozzVPB+KFbn17OIYLS5FptsgdKB52Bz3rn1GjOosdN0j2cy5W6T6sYt0p
- QdMaqFdSvbzvnq0BKJyMWcewvVfyBSesh4A14gyVGvYTOfgkCHZ+MscaMJTp0T9VOAKa
- WAHQ==
+ bh=B6iU2F4D68kBs4rXCTy4j6Bd4sjgaDyabwwjvi+hW5Q=;
+ b=AbJ0ON1qWA3F4Bki8vxBgNFCAj9bKw6GWMHnwjy0BHevGWNnPoRZOMJ0S+D6de1dhl
+ 0hNekgR0AHtFq5mG7yzL9shawGAV2AmKUgYcpgmrhjZljtKHOBACxfNrtufx07HwKaMW
+ qPASD8vFzMlW++21+2uuY8a4B3cYDOiH2vcQJdGo42bfb58doT5aEhXx2+lGYg2TladZ
+ Ss8z+SOazk9trK61OW/m2u2TWhD4ewrvaWAJWYnZPzMWA25uCSGGgRXWR8mns1NG9zn/
+ Ja/0keDaRQdPfssAe8FscZ3h1S+YYXW9ePYnlkmdrTyY7zU1cCrI9V7RI3HBRPxlyq11
+ C4uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=zN9P5ColTvlUfdn83p6hlM/q3HmA739CHt0AXxAEsKY=;
- b=kUaMMEh+E7vanCoBdINzGIESuMmCGm/fpfG8CwskN5ml7zRRp6gJ8fYsuKTY5cVJ29
- M4t2fshGzhQDLFfcRUHVGy9EscQC7AzEUnY983pV7G5+J5+QG59AYXjy/s+Vvtu06wSf
- hbZRwg/rfVLtLOCtIxfm1KCJLzen/spHLO/aLK3xQKN22AzZ+PJfpHx5XBQqaJmCPOTF
- Ir6RxfB1y5BpmYoS3mg8lDLVZ4yPx/E7nHOq+uAXzKLq32/pyy7VeVeFSEQzVz7vbA8i
- zZ8NFUPyBBPRMAY47yfw0g4BF5wlzEA0XNMBEc8S/lisedNUYVIpCJo6rqwJuWXCGB+F
- Hm/Q==
-X-Gm-Message-State: AOAM530VLOIG6Av4EBjlEiu7nnm2te+C1fOhkdByIbnTjf9WINeA4tmc
- 0v+cEJrXxfRpOaq0BWmsFA4+n2douCC2FtKBWC0=
-X-Google-Smtp-Source: ABdhPJw8hZ3hkrezlrBZ0tGzIowHRnJHp8TQNjhIxHPipZ6z7o2IrpAbgPHKaESP7cYXHZCW69GaN6F/KxK5+BYwjZc=
-X-Received: by 2002:a5d:9ed0:: with SMTP id a16mr26251024ioe.176.1594055109583; 
- Mon, 06 Jul 2020 10:05:09 -0700 (PDT)
+ bh=B6iU2F4D68kBs4rXCTy4j6Bd4sjgaDyabwwjvi+hW5Q=;
+ b=AB8gjMZw/CqUlQdqTrxYtu16Fw99kXitqWf4row/MDsLgbfDvH1u/SckXHo++e3Y6K
+ pTPS2T9O70MzgJUR7cergmYy9vAa+G7XFFgn+ZuWBCTu2f5ZFhBLnVQV+yvfGSYeuA5O
+ qiAhI2jgP0JfXceK4zDiMTaYRIidgTFRi0EKPk3Va0t+Oa/muRig6O/cd+fh/TZFc6k1
+ e/npwLiO9ef4zhGcvpXG6QXR81RvYetJqee+3K1CDVZ+KthfQ3hHf27N7UgjvbC3jPwz
+ e3nh478PUXXm08e6N5WmJW1vfbqhn18X8UAGy7F8/2LyU1Ad+CaOGrUUEaQj95qqANxR
+ qqrA==
+X-Gm-Message-State: AOAM533sJ9h3L5cwvwuRP7HJxVVvaHpnlXKLkUvWzo6kG++ViUPWF7pU
+ y+VrL8WbQQ5TOGeEbJ5xUfY2A3HZOTTyb7WjnpU=
+X-Google-Smtp-Source: ABdhPJxcajQAjV3tK1pO3vVESVT/fL33Jteajm7cQ9OrNrxAE/wXmAHw5YAkhAIBWLMGaVi/cTHnOj0BeNWBXTtUiyQ=
+X-Received: by 2002:a92:5f12:: with SMTP id t18mr31713705ilb.267.1594055180052; 
+ Mon, 06 Jul 2020 10:06:20 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-6-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-6-f4bug@amsat.org>
+ <20200704144943.18292-10-f4bug@amsat.org>
+In-Reply-To: <20200704144943.18292-10-f4bug@amsat.org>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Mon, 6 Jul 2020 09:55:22 -0700
-Message-ID: <CAKmqyKMW3Db-bk1+MOtz461-iAy9Se4uq=2stNmgiELzVAd3NA@mail.gmail.com>
-Subject: Re: [PATCH 05/26] hw/usb/desc: Add missing header
+Date: Mon, 6 Jul 2020 09:56:33 -0700
+Message-ID: <CAKmqyKMivQ6HxaB9DmJ1EgWcpC0sD1VBOC=V_09if_kkcvEwcA@mail.gmail.com>
+Subject: Re: [PATCH 09/26] hw/usb/hcd-ehci: Remove unnecessary include
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -98,11 +98,10 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Jul 4, 2020 at 7:52 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
+On Sat, Jul 4, 2020 at 7:55 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
 > wrote:
 >
-> This header uses the USBPacket and USBDevice types which are
-> forward declared in "hw/usb.h".
+> As "qemu/main-loop.h" is not used, remove it.
 >
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
 
@@ -111,21 +110,21 @@ Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 Alistair
 
 > ---
->  hw/usb/desc.h | 1 +
->  1 file changed, 1 insertion(+)
+>  hw/usb/hcd-ehci.c | 1 -
+>  1 file changed, 1 deletion(-)
 >
-> diff --git a/hw/usb/desc.h b/hw/usb/desc.h
-> index 4d81c68e0e..92594fbe29 100644
-> --- a/hw/usb/desc.h
-> +++ b/hw/usb/desc.h
-> @@ -2,6 +2,7 @@
->  #define QEMU_HW_USB_DESC_H
+> diff --git a/hw/usb/hcd-ehci.c b/hw/usb/hcd-ehci.c
+> index 1495e8f7fa..256fb91e0c 100644
+> --- a/hw/usb/hcd-ehci.c
+> +++ b/hw/usb/hcd-ehci.c
+> @@ -34,7 +34,6 @@
+>  #include "migration/vmstate.h"
+>  #include "trace.h"
+>  #include "qemu/error-report.h"
+> -#include "qemu/main-loop.h"
+>  #include "sysemu/runstate.h"
 >
->  #include <wchar.h>
-> +#include "hw/usb.h"
->
->  /* binary representation */
->  typedef struct USBDescriptor {
+>  #define FRAME_TIMER_FREQ 1000
 > --
 > 2.21.3
 >
