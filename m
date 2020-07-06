@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39390215C6B
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 18:59:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76204215C70
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:00:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsUSM-0004iX-Ui; Mon, 06 Jul 2020 16:59:02 +0000
+	id 1jsUTF-0004ok-8E; Mon, 06 Jul 2020 16:59:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hiqY=AR=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1jsUSL-0004iN-68
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 16:59:01 +0000
-X-Inumbo-ID: fd320ade-bfa9-11ea-bb8b-bc764e2007e4
-Received: from mail-io1-xd42.google.com (unknown [2607:f8b0:4864:20::d42])
+ id 1jsUTE-0004oM-JT
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 16:59:56 +0000
+X-Inumbo-ID: 1e305074-bfaa-11ea-b7bb-bc764e2007e4
+Received: from mail-il1-x142.google.com (unknown [2607:f8b0:4864:20::142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd320ade-bfa9-11ea-bb8b-bc764e2007e4;
- Mon, 06 Jul 2020 16:59:00 +0000 (UTC)
-Received: by mail-io1-xd42.google.com with SMTP id q8so40103182iow.7
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 09:59:00 -0700 (PDT)
+ id 1e305074-bfaa-11ea-b7bb-bc764e2007e4;
+ Mon, 06 Jul 2020 16:59:56 +0000 (UTC)
+Received: by mail-il1-x142.google.com with SMTP id s21so18359343ilk.5
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 09:59:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=FXnnv73L5WipvrjnAQ/ZRDtg+5iLp60OiInY9J0Zsfs=;
- b=fK2rUb2MdciYU4Z+vy8DaVGveUMlo9HFcBrc2ZvwhMG/OTSUYi16woJ2geJIOeCHf+
- s/tu4UZiATsSlkJBZD2mo3pornyf9G2RKM8kkgfjb7neQY+BTo9GGZ9L3v3UwKSUzApe
- 89qSSXu30fk4x/9gPjbYtny2dhJQctl8b9Lrmn4gsXAE9hmlLHVRcYlZiDw+zMWXKhiT
- WJsFHIKj5Bhm1NoNyZFlGdsqEUXmX9z2x7FAgTnWrhAmBppFMg16jLsf48EcsdQ3N9Ln
- BfooAlKZ7UjPxtmAAZt8fESX0cQByDrugScyx/bxh9+zbshTBMAtPKfqON37hfLVY3Rb
- eq2Q==
+ bh=9/leO9q/0J5ZJH/Ka9OiHxF4rkOPGYi23nLotDw5+po=;
+ b=t+L89NigImBrMi5A+L/vayp2Ek2Z1xRrRswlKbUWeD6I7FIa+voJRjlBIqb0sMzDec
+ lqkQijLEMiyv2fVJODfnOo9v77QgO6cdGwJYO8vhoClltQxpALdDRs8ENXpnUTqPC8qf
+ cTqrxHmxfkx4pm++FONued1iM/PgnDbs7eHuq38xcfAZlmcjn7mbBAeb9JBvYwXLMk1x
+ fkmZUkSQLJ52R1fsCbmaL3rpzt43x9FH+XrveDmr0sQHoPrYO1DZaIY+DO5ZZzWlqj8M
+ WZZMs8mMEJb1bdpZBZrqRgqogw2cqAXAXg5S3fLxb9M/1IpPh6xuhL4Lmki4tyc8gx5S
+ /BcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=FXnnv73L5WipvrjnAQ/ZRDtg+5iLp60OiInY9J0Zsfs=;
- b=Q3zXkE2wDlN7Rpfk0siEFSywCIvwzCSCU6fu4xHWsMA1JzfCN+t0PEC0SvI+I0dx/e
- QmSH5UR4qIdr12wpuiHUlsSLGjZPJrvOI+cfJaLYoD8KS7p5vANtAhy0wsP8x7I6nEdR
- 7+bNrVgpOHEmDp1EvXdmZsom0IgWTirKkXgsDhdcH1wA644b4tgFgnQ6oBjxm+gQXh0N
- AwJmi6psy2xh8/KitTSA6jbzM2j0ar2EV1wnlcfRGt6smKIulkS4R9253qiIPnYl5tN5
- 2Y5ZeGuWXhWFq4M0Of0DRAHtMazGBHFY2Jz+1XQRboS5dsiUTJkCgUFXZ3OxPu1TqpzF
- 58qg==
-X-Gm-Message-State: AOAM530CncLvtDHILju0S6QJg7c34wv8LNIfOHynmf+BDjBY7gKS4s1C
- H463YjyExbwVgIA37rYhyVAJIzh1ZvyOBaOXpH3weaLrAwU=
-X-Google-Smtp-Source: ABdhPJxhPOyzA8S179T/GnN+DxKn3yFpd4iuIOBEQ6BWF7TH4kkJEHUUUSyuyppt2TvByxifRjL0bvuZRvWhnh0C+Tc=
-X-Received: by 2002:a02:10c1:: with SMTP id 184mr52996773jay.135.1594054740444; 
- Mon, 06 Jul 2020 09:59:00 -0700 (PDT)
+ bh=9/leO9q/0J5ZJH/Ka9OiHxF4rkOPGYi23nLotDw5+po=;
+ b=KVYMsLgSYJqWEQaASvyU6nBZAs0es6YBKMwmRphiZTdDzo4nEqoFylq66iKGNu4Qy1
+ K/0j4yiJ7nypOXvs/xvfxq//kKSdeRDa3Vb2NWkCZdDt5OKigwSPdTJBLJ4Se4Ki8R5H
+ RldbA/7tu1F4pwcSJ07vNmRVyVe1WdJC+ViuYX0OpDeIuq0EK5FEpttHQAhLgHVilS3T
+ FntoNaG/YmQGfURi8S6nqCZs5rae06B989o38Rxb2CgTfmb5DfsEAtsmdcvXXQXtcyOw
+ soPax9pzJwYAjqS+PcE0EpjZfGrxO3XHtEE5Yk9gwNQpX1YhEMpimAXsVXZBAfpcK5RM
+ LlhQ==
+X-Gm-Message-State: AOAM533/VFEYVM8CR5diB/oTePHBV8LkWxOEqJSO5sWdmKs0VOhp6Zyr
+ 3AsqGOT23AFtjRjaDpWjMIh6OAmN88VouJrTerU=
+X-Google-Smtp-Source: ABdhPJw/HaHEsm0ulaS03PTv+Iez2OAy3BXjXkZdtFUms+Csyj/gKycDAQBhYI+0mtg7FDmV0+SOu7NjIzp7EDuPP3Q=
+X-Received: by 2002:a92:c213:: with SMTP id j19mr31588925ilo.40.1594054795800; 
+ Mon, 06 Jul 2020 09:59:55 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-2-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-2-f4bug@amsat.org>
+ <20200704144943.18292-3-f4bug@amsat.org>
+In-Reply-To: <20200704144943.18292-3-f4bug@amsat.org>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Mon, 6 Jul 2020 09:49:12 -0700
-Message-ID: <CAKmqyKNd3qyB33TCamM_zXPFahfvdpmCirouODOy_QFotz55EQ@mail.gmail.com>
-Subject: Re: [PATCH 01/26] hw/arm/sbsa-ref: Remove unused 'hw/usb.h' header
+Date: Mon, 6 Jul 2020 09:50:09 -0700
+Message-ID: <CAKmqyKNB3fQCBNZ29cRuj5LW14duowkP6+k+6V0fhHhZU+GtsQ@mail.gmail.com>
+Subject: Re: [PATCH 02/26] hw/ppc/sam460ex: Add missing 'hw/pci/pci.h' header
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -98,11 +98,28 @@ Cc: Peter Maydell <peter.maydell@linaro.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Jul 4, 2020 at 7:51 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
+On Sat, Jul 4, 2020 at 7:50 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
 > wrote:
 >
-> This file doesn't access anything from "hw/usb.h", remove its
-> inclusion.
+> This file uses pci_create_simple() and PCI_DEVFN() which are both
+> declared in "hw/pci/pci.h". This include is indirectly included
+> by an USB header. As we want to reduce the USB header inclusions
+> later, include the PCI header now, to avoid later:
+>
+>   hw/ppc/sam460ex.c:397:5: error: implicit declaration of function =E2=80=
+=98pci_create_simple=E2=80=99; did you mean =E2=80=98sysbus_create_simple=
+=E2=80=99? [-Werror=3Dimplicit-function-declaration]
+>     397 |     pci_create_simple(pci_bus, PCI_DEVFN(6, 0), "sm501");
+>         |     ^~~~~~~~~~~~~~~~~
+>         |     sysbus_create_simple
+>   hw/ppc/sam460ex.c:397:5: error: nested extern declaration of =E2=80=98p=
+ci_create_simple=E2=80=99 [-Werror=3Dnested-externs]
+>   hw/ppc/sam460ex.c:397:32: error: implicit declaration of function =E2=
+=80=98PCI_DEVFN=E2=80=99 [-Werror=3Dimplicit-function-declaration]
+>     397 |     pci_create_simple(pci_bus, PCI_DEVFN(6, 0), "sm501");
+>         |                                ^~~~~~~~~
+>   hw/ppc/sam460ex.c:397:32: error: nested extern declaration of =E2=80=98=
+PCI_DEVFN=E2=80=99 [-Werror=3Dnested-externs]
 >
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
 
@@ -111,20 +128,20 @@ Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 Alistair
 
 > ---
->  hw/arm/sbsa-ref.c | 1 -
->  1 file changed, 1 deletion(-)
+>  hw/ppc/sam460ex.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/hw/arm/sbsa-ref.c b/hw/arm/sbsa-ref.c
-> index e40c868a82..021e7c1b8b 100644
-> --- a/hw/arm/sbsa-ref.c
-> +++ b/hw/arm/sbsa-ref.c
-> @@ -38,7 +38,6 @@
->  #include "hw/loader.h"
->  #include "hw/pci-host/gpex.h"
+> diff --git a/hw/ppc/sam460ex.c b/hw/ppc/sam460ex.c
+> index 1a106a68de..fae970b142 100644
+> --- a/hw/ppc/sam460ex.c
+> +++ b/hw/ppc/sam460ex.c
+> @@ -38,6 +38,7 @@
+>  #include "hw/usb/hcd-ehci.h"
+>  #include "hw/ppc/fdt.h"
 >  #include "hw/qdev-properties.h"
-> -#include "hw/usb.h"
->  #include "hw/char/pl011.h"
->  #include "net/net.h"
+> +#include "hw/pci/pci.h"
+>
+>  #include <libfdt.h>
 >
 > --
 > 2.21.3
