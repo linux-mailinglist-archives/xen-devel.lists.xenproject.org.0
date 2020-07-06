@@ -2,62 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00CE2215D82
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 19:56:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71785215DFF
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jul 2020 20:08:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsVM7-0002Tr-4t; Mon, 06 Jul 2020 17:56:39 +0000
+	id 1jsVX7-0003WF-8w; Mon, 06 Jul 2020 18:08:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hiqY=AR=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
- id 1jsVM5-0002Tj-W8
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 17:56:38 +0000
-X-Inumbo-ID: 0992a7cc-bfb2-11ea-8496-bc764e2007e4
-Received: from mail-io1-xd41.google.com (unknown [2607:f8b0:4864:20::d41])
+ <SRS0=g8At=AR=gmail.com=jrdr.linux@srs-us1.protection.inumbo.net>)
+ id 1jsVX5-0003W5-Df
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2020 18:07:59 +0000
+X-Inumbo-ID: 9f89cc96-bfb3-11ea-8496-bc764e2007e4
+Received: from mail-pj1-x1030.google.com (unknown [2607:f8b0:4864:20::1030])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0992a7cc-bfb2-11ea-8496-bc764e2007e4;
- Mon, 06 Jul 2020 17:56:37 +0000 (UTC)
-Received: by mail-io1-xd41.google.com with SMTP id a12so40326864ion.13
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 10:56:37 -0700 (PDT)
+ id 9f89cc96-bfb3-11ea-8496-bc764e2007e4;
+ Mon, 06 Jul 2020 18:07:58 +0000 (UTC)
+Received: by mail-pj1-x1030.google.com with SMTP id k5so7782703pjg.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2020 11:07:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=/6i6SzUyP91tXZAmPR05xH5j33bfBUucUM0URzPP61A=;
- b=boamkXe9J4H35VxNzJVu2sKkuqZ5atZU6A1A5XhvxgFGrzuqn6g5Q7BEAyZTMpUh8n
- XRbR8Zv3k0pfntdT7a07EFE6ygQpqlJVA3b21L/ZK7KeNdytEnvSULDnEbDknQCWxcgX
- 8bbfye39D1BUQ1BAcIRGiuZaAl7MvRJXkFgyzJlB0nYJGuCrTzE1/V8GyGEUUtzXB8lM
- +2k1yGzCz+XgJBwBT+e0m0Q+bF9LqSXCkqqxeQqvPuvyliNqKuOjs+oMEntue55kn1mj
- 5tVcq8YkluSFwe7RLw7lEjbqMwpHKUCokr6yZ39bWVzbROv/rIppb5UyQ6xsvhdvU64B
- V1ZQ==
+ h=from:to:cc:subject:date:message-id;
+ bh=TtTy8zAxVVVpMKoPB5sObxEUTYAxQ4ESDdw3dI7IOfA=;
+ b=oaJIJFgUBmb7qZXeWwHQwIJgUXFmUxHmjzR/a7ly4+R/L5J6R2D0uaBXx6qjgig7XL
+ IcTfx+7t20+5Z9InaIZohd+NXxgQroM7drjaj2oeyhSmyGQyPuwslXxB08Sr1k/TFIrt
+ 3vjcEts6w/HrO1mJ2/Wm0DA4nXEfBdTSDzWhRgorpzUGd6iUTNwuHKtQy8qEvPBNDmEi
+ I8CN9f/N0NnZkCGRw9NQPNyVWTqZX2D6NQEQh6NkVROkIEj8xEOFG1mjUJ9J9t2fTGpK
+ Vs/AuIQZd8mOC96Bsi0mfi8wSoU4KUR+ozHTEGiBwRV2YYf7jrNpWFfYb83DxP4DcZJi
+ NMNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=/6i6SzUyP91tXZAmPR05xH5j33bfBUucUM0URzPP61A=;
- b=o4Beuq+n4ZTxkEQKFCQloMa4mOI/kYQv8W+DlJ+u1PgWrk3xZ9wvDmY+GfoQxCnbWD
- +kJGglqgeNLAFO21Xdd+XuOoivM3b2hrBhhbAWMCRPZ2FqczwFF7yiNkGlDtQZzhEkBk
- HhpRWz805Y/7SwYrz+o4bzgSx8Myfzr6nl+zM3A9UWJ6n+Gvrbl6xEk8NN0X3PvrUoRU
- 6Q+w3RsrjzA6WnOe+p2MU6WyuG8wkKfrY95coSQxXXco0ertth836k6LIfn0CIeGZH2X
- L3aJF9B7w7k65QlYdi4Whc7KlmzqidouAZmz5RBaIkKkvy+beY81ibKnSLwJUEf0YoEW
- LZPQ==
-X-Gm-Message-State: AOAM53341+W3/d5xiPi/p1ENO0mfGvRRjzhPez1Gl/xLqWHDPj3MZMMo
- ozmoh28fO41BbsTKqFQTL2qSR+weK66FM9m+GSA=
-X-Google-Smtp-Source: ABdhPJyWgOX4whXvLnmyTPkPv87oz9JfwIp4De0q7D/H/TDK5ZXEnOeDquw+Fo5nyel8hcaNjKzEOm1ikS3FuMmOoSw=
-X-Received: by 2002:a5d:9306:: with SMTP id l6mr27140837ion.105.1594058197170; 
- Mon, 06 Jul 2020 10:56:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200704144943.18292-1-f4bug@amsat.org>
- <20200704144943.18292-18-f4bug@amsat.org>
-In-Reply-To: <20200704144943.18292-18-f4bug@amsat.org>
-From: Alistair Francis <alistair23@gmail.com>
-Date: Mon, 6 Jul 2020 10:46:50 -0700
-Message-ID: <CAKmqyKMk==4rbi4iqEuH1aYcUNE+zTbBst5gKp8NkePz6OmDNg@mail.gmail.com>
-Subject: Re: [PATCH 17/26] hw/usb/bus: Rename usb_get_dev_path() as
- usb_get_full_dev_path()
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=TtTy8zAxVVVpMKoPB5sObxEUTYAxQ4ESDdw3dI7IOfA=;
+ b=nrWuFizRdoPAtvhnYXA+oEbZSrWPXmLCG258cCPoeGEArvVCwHzAyuEe1p69JSObD6
+ X3MrBuZnRbL/oGH8dwHlAtm00fDQAruwXmybq+DOou6nNj+x1X76aznstgyyKwh17wVe
+ +25adqC5+G7YIQLu56FQFpqtRRAi53+CxQYhf3F75EdzBWStB5T+q+tWe6fYS6I26i7Y
+ JV9KFmzArQ2VknNuUaNk9MreIKCD/6TemJtLWya1npycWX5a4ZAD57AX13v4/eyC0+ab
+ WT+YPjgJvBzzLP7cM55VnllBY4VyLwLaaq5552TlUtT6kVdcFDjakOB8JMfS1YJcDOIZ
+ u0Gw==
+X-Gm-Message-State: AOAM531+AXkJifOtOzDLuxt6N/zkUvtfPJyIDUbkezevVpOJUrGbpKb1
+ 8tAbEsAdR/jneZzYLeV4jsM=
+X-Google-Smtp-Source: ABdhPJzylX3osTAYA+Y6HJUZkzAC+UoJPBxpVk5NUh8tucD8BuQqoVsDbrqW5FAUg6C5IOlbZXlbQg==
+X-Received: by 2002:a17:902:c206:: with SMTP id
+ 6mr19932000pll.30.1594058877935; 
+ Mon, 06 Jul 2020 11:07:57 -0700 (PDT)
+Received: from jordon-HP-15-Notebook-PC.domain.name ([122.171.43.125])
+ by smtp.gmail.com with ESMTPSA id 199sm20425544pgc.79.2020.07.06.11.07.54
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 06 Jul 2020 11:07:57 -0700 (PDT)
+From: Souptick Joarder <jrdr.linux@gmail.com>
+To: boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	sstabellini@kernel.org
+Subject: [PATCH v2 0/3] Few bug fixes and Convert to pin_user_pages*()
+Date: Mon,  6 Jul 2020 23:46:09 +0530
+Message-Id: <1594059372-15563-1-git-send-email-jrdr.linux@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,89 +67,35 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- "qemu-devel@nongnu.org Developers" <qemu-devel@nongnu.org>,
- BALATON Zoltan <balaton@eik.bme.hu>, Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Huacai Chen <chenhc@lemote.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Paul Durrant <paul@xen.org>,
- Magnus Damm <magnus.damm@gmail.com>, Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- "open list:X86" <xen-devel@lists.xenproject.org>,
- Leif Lindholm <leif@nuviainc.com>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>,
- Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
- Eduardo Habkost <ehabkost@redhat.com>,
- Alistair Francis <alistair@alistair23.me>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
- Beniamino Galvani <b.galvani@gmail.com>,
- =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>,
- Niek Linnenbank <nieklinnenbank@gmail.com>, qemu-arm <qemu-arm@nongnu.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Richard Henderson <rth@twiddle.net>,
- Radoslaw Biernacki <radoslaw.biernacki@linaro.org>,
- Igor Mitsyanko <i.mitsyanko@gmail.com>, Paul Zimmerman <pauldzim@gmail.com>,
- "open list:New World" <qemu-ppc@nongnu.org>,
- David Gibson <david@gibson.dropbear.id.au>,
- Paolo Bonzini <pbonzini@redhat.com>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <xadimgnik@gmail.com>,
+ linux-kernel@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>,
+ Souptick Joarder <jrdr.linux@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, Jul 4, 2020 at 7:58 AM Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org=
-> wrote:
->
-> If the device has USB_DEV_FLAG_FULL_PATH set, usb_get_dev_path()
-> returns the full port path. Rename the function accordingly.
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+This series contains few clean up, minor bug fixes and
+Convert get_user_pages() to pin_user_pages().
 
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
+I'm compile tested this, but unable to run-time test,
+so any testing help is much appriciated.
 
-Alistair
+v2:
+	Addressed few review comments and compile issue.
+	Patch[1/2] from v1 split into 2 in v2.
 
-> ---
->  hw/usb/bus.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/hw/usb/bus.c b/hw/usb/bus.c
-> index f8901e822c..fad8194bf5 100644
-> --- a/hw/usb/bus.c
-> +++ b/hw/usb/bus.c
-> @@ -13,7 +13,7 @@
->
->  static void usb_bus_dev_print(Monitor *mon, DeviceState *qdev, int inden=
-t);
->
-> -static char *usb_get_dev_path(DeviceState *dev);
-> +static char *usb_get_full_dev_path(DeviceState *dev);
->  static char *usb_get_fw_dev_path(DeviceState *qdev);
->  static void usb_qdev_unrealize(DeviceState *qdev);
->
-> @@ -33,7 +33,7 @@ static void usb_bus_class_init(ObjectClass *klass, void=
- *data)
->      HotplugHandlerClass *hc =3D HOTPLUG_HANDLER_CLASS(klass);
->
->      k->print_dev =3D usb_bus_dev_print;
-> -    k->get_dev_path =3D usb_get_dev_path;
-> +    k->get_dev_path =3D usb_get_full_dev_path;
->      k->get_fw_dev_path =3D usb_get_fw_dev_path;
->      hc->unplug =3D qdev_simple_device_unplug_cb;
->  }
-> @@ -577,7 +577,7 @@ static void usb_bus_dev_print(Monitor *mon, DeviceSta=
-te *qdev, int indent)
->                     dev->attached ? ", attached" : "");
->  }
->
-> -static char *usb_get_dev_path(DeviceState *qdev)
-> +static char *usb_get_full_dev_path(DeviceState *qdev)
->  {
->      USBDevice *dev =3D USB_DEVICE(qdev);
->
-> --
-> 2.21.3
->
->
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Paul Durrant <xadimgnik@gmail.com>
+
+Souptick Joarder (3):
+  xen/privcmd: Corrected error handling path
+  xen/privcmd: Mark pages as dirty
+  xen/privcmd: Convert get_user_pages*() to      pin_user_pages*()
+
+ drivers/xen/privcmd.c | 32 ++++++++++++++------------------
+ 1 file changed, 14 insertions(+), 18 deletions(-)
+
+-- 
+1.9.1
+
 
