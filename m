@@ -2,92 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A76EE2169EC
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 12:19:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D9B8216A34
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 12:26:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jskgc-0002qB-6S; Tue, 07 Jul 2020 10:18:50 +0000
+	id 1jsko2-0003h2-0L; Tue, 07 Jul 2020 10:26:30 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+gHK=AS=in.bosch.com=manikandan.chockalingam@srs-us1.protection.inumbo.net>)
- id 1jskga-0002q6-So
- for xen-devel@lists.xen.org; Tue, 07 Jul 2020 10:18:48 +0000
-X-Inumbo-ID: 3da8f758-c03b-11ea-8d45-12813bfff9fa
-Received: from de-out1.bosch-org.com (unknown [139.15.230.186])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3da8f758-c03b-11ea-8d45-12813bfff9fa;
- Tue, 07 Jul 2020 10:18:46 +0000 (UTC)
-Received: from si0vm1948.rbesz01.com
- (lb41g3-ha-dmz-psi-sl1-mailout.fe.ssn.bosch.com [139.15.230.188])
- by fe0vms0187.rbdmz01.com (Postfix) with ESMTPS id 4B1JLY2tqfz1XLDQx;
- Tue,  7 Jul 2020 12:18:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=in.bosch.com;
- s=key1-intmail; t=1594117125;
- bh=0flT9FbF1bnILmJA1WrUz6hc6gUFrxwO0XIL8WgUsdU=; l=10;
- h=From:Subject:From:Reply-To:Sender;
- b=BX0qJ13YDqU+ICX8fYGlMS1GZJtOWlEyDuNJq5XlFzDYtfu/WR8Vcle+xv7JVpGLJ
- EmQ5nbcnBtXs5FiFNIii/QvFbmUHNwwlEZmGdT5LTMp938Dppi28SKztVI7mNyaZI4
- L778NlMPadPJSuUV3Fd+HPfR4C6xr6D8ZLNnBDoQ=
-Received: from si0vm2083.rbesz01.com (unknown [10.58.172.176])
- by si0vm1948.rbesz01.com (Postfix) with ESMTPS id 4B1JLY2WT5z1hw;
- Tue,  7 Jul 2020 12:18:45 +0200 (CEST)
-X-AuditID: 0a3aad17-4b9ff7000000186c-e8-5f044c052dbe
-Received: from si0vm1949.rbesz01.com ( [10.58.173.29])
- (using TLS with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by si0vm2083.rbesz01.com (SMG Outbound) with SMTP id 83.F6.06252.50C440F5;
- Tue,  7 Jul 2020 12:18:45 +0200 (CEST)
-Received: from FE-MBX2057.de.bosch.com (fe-mbx2057.de.bosch.com [10.3.231.162])
- by si0vm1949.rbesz01.com (Postfix) with ESMTPS id 4B1JLY1p7zz6CjZP2;
- Tue,  7 Jul 2020 12:18:45 +0200 (CEST)
-Received: from SGPMBX2024.APAC.bosch.com (10.187.83.44) by
- FE-MBX2057.de.bosch.com (10.3.231.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1979.3; Tue, 7 Jul 2020 12:18:44 +0200
-Received: from SGPMBX2022.APAC.bosch.com (10.187.83.37) by
- SGPMBX2024.APAC.bosch.com (10.187.83.44) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1979.3; Tue, 7 Jul 2020 18:18:42 +0800
-Received: from SGPMBX2022.APAC.bosch.com ([fe80::2d4d:b176:b210:896]) by
- SGPMBX2022.APAC.bosch.com ([fe80::2d4d:b176:b210:896%6]) with mapi id
- 15.01.1979.003; Tue, 7 Jul 2020 18:18:42 +0800
-From: "Manikandan Chockalingam (RBEI/ECF3)"
- <Manikandan.Chockalingam@in.bosch.com>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: RE: [BUG] Xen build for RCAR failing
-Thread-Topic: [BUG] Xen build for RCAR failing
-Thread-Index: AdZUKc5JeR7gPpESR52uLkZK1kYwOwAEsnEAAAD8OlAAAEBtgAABZtcg
-Date: Tue, 7 Jul 2020 10:18:42 +0000
-Message-ID: <139024a891324455a13a3d468908798d@in.bosch.com>
-References: <1b60ed1cd7834ed5957a2b4870602073@in.bosch.com>
- <1D0E7281-95D7-482E-BF6D-EE5B1FEE4876@arm.com>
- <ab84437081a346d6bf0f73581382c74e@in.bosch.com>
- <D84A5DA7-683C-480B-8837-C51D560FC2E1@arm.com>
-In-Reply-To: <D84A5DA7-683C-480B-8837-C51D560FC2E1@arm.com>
-Accept-Language: en-US, en-SG
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.187.56.214]
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ <SRS0=1dji=AS=redhat.com=berrange@srs-us1.protection.inumbo.net>)
+ id 1jsknz-0003gx-4P
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 10:26:27 +0000
+X-Inumbo-ID: 50244436-c03c-11ea-8d4a-12813bfff9fa
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 50244436-c03c-11ea-8d4a-12813bfff9fa;
+ Tue, 07 Jul 2020 10:26:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1594117586;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:in-reply-to:in-reply-to:  references:references;
+ bh=Ksh7qm6adGST/ZaaaSRGOC5KkyimhdVy3s/dSUsS2wc=;
+ b=QTC+1qPAq/g22yJeeYDhoIOn8KBr714fQfUhkU5clN4EfIqCJiVPpsaz09ImuJmPgDtiE7
+ NSFwdT9/g2eMsZY3RmlTxj3XQy3EXvhUzecPhK2QBfLjByu3oB9hFQzTY2KJaZH8FQZhb7
+ tfWvaX1gBuXPxCYV5KGGLKcHSyegp4E=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-147-OgGMpmGzP4aC_p9nKwLp_w-1; Tue, 07 Jul 2020 06:25:55 -0400
+X-MC-Unique: OgGMpmGzP4aC_p9nKwLp_w-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 742B2879511;
+ Tue,  7 Jul 2020 10:25:50 +0000 (UTC)
+Received: from redhat.com (unknown [10.36.110.57])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DEF315D9F3;
+ Tue,  7 Jul 2020 10:25:13 +0000 (UTC)
+Date: Tue, 7 Jul 2020 11:25:10 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Christophe de Dinechin <dinechin@redhat.com>
+Subject: Re: [PATCH] trivial: Remove trailing whitespaces
+Message-ID: <20200707102510.GF2649462@redhat.com>
+References: <20200706162300.1084753-1-dinechin@redhat.com>
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprNIsWRmVeSWpSXmKPExsXCZbVWVpfVhyXeYNpGYYulSzYzWZxZ3sNs
- seTjYhYHZo8189Ywehzd/ZspgCmKyyYlNSezLLVI3y6BK2NT82S2gjP8FSsaO5kbGP/wdDFy
- cEgImEjc2xraxcjFISQwg0li0oKvjF2MnEDOfkaJ9Y/tIRIfGCX29H5jh3A+MUo0vv3NDOEc
- ZJS4v2sLC0gLm0CIxL69N9hBbBEBfYnfN3+wgtjMAh4Sq67uARsrLKAr0XVuNlSNnsTWhf2s
- ELabxPuetcwgNouAisSW+9fAangFrCV61xxmhVh2nlFi+vZ3bCAJTqDE6oZGsCJGAVmJRTcn
- sUAsE5e49WQ+E4gtISAgsWTPeWYIW1Ti5eN/rBC2osSy+avYIer1JG5MncIGYWtLLFv4mhli
- saDEyZlPWCYwSsxCMnYWkpZZSFpmIWlZwMiyilG0ONOgLNfIwMJYrygptbjKwFAvOT93EyMk
- /sR3MP7v+KB3iJGJg/EQowQHs5IIb682Y7wQb0piZVVqUX58UWlOavEhRmkOFiVxXhWejXFC
- AumJJanZqakFqUUwWSYOTqkGprqJEYu+L//8gylqS1pspdP5d/zTbFSOZjoaf9123mr+BFG/
- xSu383Bbq57d4M+tMnuDZupKZf172t99OaXNn4t+ylB4OEf/soVki9leq2lzNG68m2YWrDNZ
- Wt3vxe5TaaYy32ytqy8ZfYs6e93yS+WL+MVvOHJuiglzl5nmeFpt3qH0xrj086vN2e+e9VmZ
- uxSrF9xt1s24alLnJuHEdmDynQcvb3GzcdzYLnPk+87yJXIeollbTLZNef9hrtLck/rbr39j
- 5ZC+dTFdSfdcwZfi+Q+OTig5uIr3Q1eegntf1a2bNXe/O3Xfij69OmURh4tnubHh+rdu/5pu
- 33/U/jLgYNyehJkdjm9tn5aeT1ZiKc5INNRiLipOBABYejiALgMAAA==
+In-Reply-To: <20200706162300.1084753-1-dinechin@redhat.com>
+User-Agent: Mutt/1.14.3 (2020-06-14)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=berrange@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,68 +67,144 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: nd <nd@arm.com>, "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ Dmitry Fleytman <dmitry.fleytman@gmail.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
+ Michael Roth <mdroth@linux.vnet.ibm.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Max Reitz <mreitz@redhat.com>,
+ Marek Vasut <marex@denx.de>, Stefano Stabellini <sstabellini@kernel.org>,
+ qemu-block@nongnu.org, qemu-trivial@nongnu.org, Paul Durrant <paul@xen.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Markus Armbruster <armbru@redhat.com>,
+ =?utf-8?B?SGVydsOp?= Poussineau <hpoussin@reactos.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+ Richard Henderson <rth@twiddle.net>, Andrzej Zaborowski <balrogg@gmail.com>,
+ Artyom Tarasenko <atar4qemu@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ Eduardo Habkost <ehabkost@redhat.com>, Michael Tokarev <mjt@tls.msk.ru>,
+ Riku Voipio <riku.voipio@iki.fi>, Peter Lieven <pl@kamp.de>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Roman Bolshakov <r.bolshakov@yadro.com>, qemu-arm@nongnu.org,
+ Peter Chubb <peter.chubb@nicta.com.au>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>, xen-devel@lists.xenproject.org,
+ Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ David Gibson <david@gibson.dropbear.id.au>, Kevin Wolf <kwolf@redhat.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+ Chris Wulff <crwulff@gmail.com>, Laurent Vivier <laurent@vivier.eu>,
+ Jean-Christophe Dubois <jcd@tribudubois.net>, qemu-ppc@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hello Bertrand,
+On Mon, Jul 06, 2020 at 06:23:00PM +0200, Christophe de Dinechin wrote:
+> There are a number of unnecessary trailing whitespaces that have
+> accumulated over time in the source code. They cause stray changes
+> in patches if you use tools that automatically remove them.
+> 
+> Tested by doing a `git diff -w` after the change.
+> 
+> This could probably be turned into a pre-commit hook.
 
-Thank you. I will try a fresh build with dunfell branch. All layers in the =
-sense [poky, meta-openembedded, meta-linaro, meta-rensas, meta-virtualisati=
-on, meta-selinux, xen-troops] right?
+scripts/checkpatch.pl ought to be made to check it.
 
-Also, Can I use the same proprietary drivers which I used for yocto2.19[R-C=
-ar_Gen3_Series_Evaluation_Software_Package_for_Linux-20170427.zip] for this=
- branch?
+> 
+> Signed-off-by: Christophe de Dinechin <dinechin@redhat.com>
+> ---
+>  block/iscsi.c                                 |   2 +-
+>  disas/cris.c                                  |   2 +-
+>  disas/microblaze.c                            |  80 +++---
+>  disas/nios2.c                                 | 256 +++++++++---------
+>  hmp-commands.hx                               |   2 +-
+>  hw/alpha/typhoon.c                            |   6 +-
+>  hw/arm/gumstix.c                              |   6 +-
+>  hw/arm/omap1.c                                |   2 +-
+>  hw/arm/stellaris.c                            |   2 +-
+>  hw/char/etraxfs_ser.c                         |   2 +-
+>  hw/core/ptimer.c                              |   2 +-
+>  hw/cris/axis_dev88.c                          |   2 +-
+>  hw/cris/boot.c                                |   2 +-
+>  hw/display/qxl.c                              |   2 +-
+>  hw/dma/etraxfs_dma.c                          |  18 +-
+>  hw/dma/i82374.c                               |   2 +-
+>  hw/i2c/bitbang_i2c.c                          |   2 +-
+>  hw/input/tsc2005.c                            |   2 +-
+>  hw/input/tsc210x.c                            |   2 +-
+>  hw/intc/etraxfs_pic.c                         |   8 +-
+>  hw/intc/sh_intc.c                             |  10 +-
+>  hw/intc/xilinx_intc.c                         |   2 +-
+>  hw/misc/imx25_ccm.c                           |   6 +-
+>  hw/misc/imx31_ccm.c                           |   2 +-
+>  hw/net/vmxnet3.h                              |   2 +-
+>  hw/net/xilinx_ethlite.c                       |   2 +-
+>  hw/pci/pcie.c                                 |   2 +-
+>  hw/sd/omap_mmc.c                              |   2 +-
+>  hw/sh4/shix.c                                 |   2 +-
+>  hw/sparc64/sun4u.c                            |   2 +-
+>  hw/timer/etraxfs_timer.c                      |   2 +-
+>  hw/timer/xilinx_timer.c                       |   4 +-
+>  hw/usb/hcd-musb.c                             |  10 +-
+>  hw/usb/hcd-ohci.c                             |   6 +-
+>  hw/usb/hcd-uhci.c                             |   2 +-
+>  hw/virtio/virtio-pci.c                        |   2 +-
+>  include/hw/cris/etraxfs_dma.h                 |   4 +-
+>  include/hw/net/lance.h                        |   2 +-
+>  include/hw/ppc/spapr.h                        |   2 +-
+>  include/hw/xen/interface/io/ring.h            |  34 +--
+>  include/qemu/log.h                            |   2 +-
+>  include/qom/object.h                          |   4 +-
+>  linux-user/cris/cpu_loop.c                    |  16 +-
+>  linux-user/microblaze/cpu_loop.c              |  16 +-
+>  linux-user/mmap.c                             |   8 +-
+>  linux-user/sparc/signal.c                     |   4 +-
+>  linux-user/syscall.c                          |  24 +-
+>  linux-user/syscall_defs.h                     |   2 +-
+>  linux-user/uaccess.c                          |   2 +-
+>  os-posix.c                                    |   2 +-
+>  qapi/qapi-util.c                              |   2 +-
+>  qemu-img.c                                    |   2 +-
+>  qemu-options.hx                               |  26 +-
+>  qom/object.c                                  |   2 +-
+>  target/cris/translate.c                       |  28 +-
+>  target/cris/translate_v10.inc.c               |   6 +-
+>  target/i386/hvf/hvf.c                         |   4 +-
+>  target/i386/hvf/x86.c                         |   4 +-
+>  target/i386/hvf/x86_decode.c                  |  20 +-
+>  target/i386/hvf/x86_decode.h                  |   4 +-
+>  target/i386/hvf/x86_descr.c                   |   2 +-
+>  target/i386/hvf/x86_emu.c                     |   2 +-
+>  target/i386/hvf/x86_mmu.c                     |   6 +-
+>  target/i386/hvf/x86_task.c                    |   2 +-
+>  target/i386/hvf/x86hvf.c                      |  42 +--
+>  target/i386/translate.c                       |   8 +-
+>  target/microblaze/mmu.c                       |   2 +-
+>  target/microblaze/translate.c                 |   2 +-
+>  target/sh4/op_helper.c                        |   4 +-
+>  target/xtensa/core-de212/core-isa.h           |   6 +-
+>  .../xtensa/core-sample_controller/core-isa.h  |   6 +-
+>  target/xtensa/core-test_kc705_be/core-isa.h   |   2 +-
+>  tcg/sparc/tcg-target.inc.c                    |   2 +-
+>  tcg/tcg.c                                     |  32 +--
+>  tests/tcg/multiarch/test-mmap.c               |  72 ++---
+>  ui/curses.c                                   |   4 +-
+>  ui/curses_keys.h                              |   4 +-
+>  util/cutils.c                                 |   2 +-
+>  78 files changed, 440 insertions(+), 440 deletions(-)
 
-Mit freundlichen Gr=FC=DFen / Best regards
-
- Chockalingam Manikandan
-
-ES-CM Core fn,ADIT (RBEI/ECF3)
-Robert Bosch GmbH | Postfach 10 60 50 | 70049 Stuttgart | GERMANY | www.bos=
-ch.com
-Tel. +91 80 6136-4452 | Fax +91 80 6617-0711 | Manikandan.Chockalingam@in.b=
-osch.com
-
-Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HR=
-B 14000;
-Chairman of the Supervisory Board: Franz Fehrenbach; Managing Directors: Dr=
-. Volkmar Denner,=20
-Prof. Dr. Stefan Asenkerschbaumer, Dr. Michael Bolle, Dr. Christian Fischer=
-, Dr. Stefan Hartung,
-Dr. Markus Heyn, Harald Kr=F6ger, Christoph K=FCbel, Rolf Najork, Uwe Rasch=
-ke, Peter Tyroller
+The cleanup is a good idea, however, I think it is probably better to
+split the patch approx into subsystems. That will make it much easier
+to cherry-pick for people doing backports.
 
 
------Original Message-----
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>=20
-Sent: Tuesday, July 7, 2020 3:03 PM
-To: Manikandan Chockalingam (RBEI/ECF3) <Manikandan.Chockalingam@in.bosch.c=
-om>
-Cc: xen-devel@lists.xen.org; nd <nd@arm.com>
-Subject: Re: [BUG] Xen build for RCAR failing
-
-Hi,
-
-> On 7 Jul 2020, at 10:28, Manikandan Chockalingam (RBEI/ECF3) <Manikandan.=
-Chockalingam@in.bosch.com> wrote:
->=20
-> Hello Bertrand,
->=20
-> Thanks for your quick response. I tired switching to dunfell branch and b=
-uild gives parse error as below.
->=20
-> bitbake core-image-weston
-> ERROR: ParseError in /home/manikandan/yocto_2.19/build/meta-virtualizatio=
-n/classes/: not a BitBake file
->=20
-> Is there any additional changes required here?
-
-I do not have this on my side when building using dunfell.
-You might need to restart from a fresh build and checkout (you need dunfell=
- branch on all layers).
-
-Bertrand
+Regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
