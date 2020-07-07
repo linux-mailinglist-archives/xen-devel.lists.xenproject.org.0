@@ -2,90 +2,89 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B4E72168F2
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 11:25:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 005E3216905
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 11:29:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsjqn-0006J5-FY; Tue, 07 Jul 2020 09:25:17 +0000
+	id 1jsjuD-0006Z0-FG; Tue, 07 Jul 2020 09:28:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+gHK=AS=in.bosch.com=manikandan.chockalingam@srs-us1.protection.inumbo.net>)
- id 1jsjql-0006J0-FN
- for xen-devel@lists.xen.org; Tue, 07 Jul 2020 09:25:15 +0000
-X-Inumbo-ID: c1b511ec-c033-11ea-bca7-bc764e2007e4
+ id 1jsjuB-0006Yt-U4
+ for xen-devel@lists.xen.org; Tue, 07 Jul 2020 09:28:47 +0000
+X-Inumbo-ID: 41784854-c034-11ea-b7bb-bc764e2007e4
 Received: from de-out1.bosch-org.com (unknown [139.15.230.186])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c1b511ec-c033-11ea-bca7-bc764e2007e4;
- Tue, 07 Jul 2020 09:25:12 +0000 (UTC)
-Received: from fe0vm1649.rbesz01.com
+ id 41784854-c034-11ea-b7bb-bc764e2007e4;
+ Tue, 07 Jul 2020 09:28:46 +0000 (UTC)
+Received: from si0vm1947.rbesz01.com
  (lb41g3-ha-dmz-psi-sl1-mailout.fe.ssn.bosch.com [139.15.230.188])
- by fe0vms0187.rbdmz01.com (Postfix) with ESMTPS id 4B1H8k5ssjz1XLDRG;
- Tue,  7 Jul 2020 11:25:10 +0200 (CEST)
+ by si0vms0217.rbdmz01.com (Postfix) with ESMTPS id 4B1HDs3Wzrz4f3m1c;
+ Tue,  7 Jul 2020 11:28:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=in.bosch.com;
- s=key1-intmail; t=1594113910;
- bh=A4qWJiI7Ti4LOjdFz+6O+vb2tWItS3Ce/gtvptC5txA=; l=10;
+ s=key1-intmail; t=1594114125;
+ bh=0flT9FbF1bnILmJA1WrUz6hc6gUFrxwO0XIL8WgUsdU=; l=10;
  h=From:Subject:From:Reply-To:Sender;
- b=nWIFqBgX97OYYZONIEVtYxo4hfMyhhvUfGl1WpYxGghdUc44zTScp3kdENeQcYBgN
- ksSG8kxhURGuXG9bWEjYxPm7SLjMADpa81kE4q21DF0a77ojUen27o/iwcmCK5vUcm
- CNPib0wvGF8P+9X4NEgcryNGLusva9YACLKCnF1M=
-Received: from si0vm4642.rbesz01.com (unknown [10.58.172.176])
- by fe0vm1649.rbesz01.com (Postfix) with ESMTPS id 4B1H8k5XYGz3Kf;
- Tue,  7 Jul 2020 11:25:10 +0200 (CEST)
-X-AuditID: 0a3aad12-235ff700000028b1-8e-5f043f762674
-Received: from si0vm1950.rbesz01.com ( [10.58.173.29])
+ b=NO77WDT8ctv9ACX0J9utXSQIZyT7icNwMUiclPVvijEBkeZgIMzTuqBWdcAmsxTuB
+ asdY4wiU9/lmqgByPj1EUUHEFxaTd7Vp4ded03zD+qno8v2bn2lZrTwGuRMvwmSkT9
+ 8kbhJHEnAumDnPEMBT6eMMGnHgjujDvxytGBUVDE=
+Received: from si0vm2082.rbesz01.com (unknown [10.58.172.176])
+ by si0vm1947.rbesz01.com (Postfix) with ESMTPS id 4B1HDs389zz6CjTFn;
+ Tue,  7 Jul 2020 11:28:45 +0200 (CEST)
+X-AuditID: 0a3aad16-845ff700000077c5-2a-5f04404db267
+Received: from fe0vm1651.rbesz01.com ( [10.58.173.29])
  (using TLS with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (Client did not present a certificate)
- by si0vm4642.rbesz01.com (SMG Outbound) with SMTP id CA.3C.10417.67F340F5;
- Tue,  7 Jul 2020 11:25:10 +0200 (CEST)
-Received: from FE-MBX2060.de.bosch.com (fe-mbx2060.de.bosch.com [10.3.231.165])
- by si0vm1950.rbesz01.com (Postfix) with ESMTPS id 4B1H8k4cQLzW7P;
- Tue,  7 Jul 2020 11:25:10 +0200 (CEST)
+ by si0vm2082.rbesz01.com (SMG Outbound) with SMTP id A6.ED.30661.D40440F5;
+ Tue,  7 Jul 2020 11:28:45 +0200 (CEST)
+Received: from FE-MBX2044.de.bosch.com (fe-mbx2044.de.bosch.com [10.3.231.54])
+ by fe0vm1651.rbesz01.com (Postfix) with ESMTPS id 4B1HDs2Mq0zvlC;
+ Tue,  7 Jul 2020 11:28:45 +0200 (CEST)
 Received: from SGPMBX2022.APAC.bosch.com (10.187.83.37) by
- FE-MBX2060.de.bosch.com (10.3.231.165) with Microsoft SMTP Server
+ FE-MBX2044.de.bosch.com (10.3.231.54) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1979.3; Tue, 7 Jul 2020 11:25:10 +0200
+ 15.1.1979.3; Tue, 7 Jul 2020 11:28:44 +0200
 Received: from SGPMBX2022.APAC.bosch.com (10.187.83.37) by
  SGPMBX2022.APAC.bosch.com (10.187.83.37) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1979.3; Tue, 7 Jul 2020 17:25:08 +0800
+ 15.1.1979.3; Tue, 7 Jul 2020 17:28:42 +0800
 Received: from SGPMBX2022.APAC.bosch.com ([fe80::2d4d:b176:b210:896]) by
  SGPMBX2022.APAC.bosch.com ([fe80::2d4d:b176:b210:896%6]) with mapi id
- 15.01.1979.003; Tue, 7 Jul 2020 17:25:08 +0800
+ 15.01.1979.003; Tue, 7 Jul 2020 17:28:42 +0800
 From: "Manikandan Chockalingam (RBEI/ECF3)"
  <Manikandan.Chockalingam@in.bosch.com>
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
 Subject: RE: [BUG] Xen build for RCAR failing
 Thread-Topic: [BUG] Xen build for RCAR failing
-Thread-Index: AdZUKc5JeR7gPpESR52uLkZK1kYwO///kucA//9vm+A=
-Date: Tue, 7 Jul 2020 09:25:08 +0000
-Message-ID: <898ca246818146f2bfce961d6ce9d5c1@in.bosch.com>
+Thread-Index: AdZUKc5JeR7gPpESR52uLkZK1kYwOwAEsnEAAAD8OlA=
+Date: Tue, 7 Jul 2020 09:28:42 +0000
+Message-ID: <ab84437081a346d6bf0f73581382c74e@in.bosch.com>
 References: <1b60ed1cd7834ed5957a2b4870602073@in.bosch.com>
- <48b1ea69-f5c1-4ea2-455c-50bab72bc1da@epam.com>
-In-Reply-To: <48b1ea69-f5c1-4ea2-455c-50bab72bc1da@epam.com>
+ <1D0E7281-95D7-482E-BF6D-EE5B1FEE4876@arm.com>
+In-Reply-To: <1D0E7281-95D7-482E-BF6D-EE5B1FEE4876@arm.com>
 Accept-Language: en-US, en-SG
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [10.187.56.214]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmpnkeLIzCtJLcpLzFFi42Lhslorq1tmzxJv8OyGtsWH1e9ZLZZ8XMzi
- wORxZ+lORo+ju38zBTBFcdmkpOZklqUW6dslcGU0nGtnLFgnVrFuSht7A+MT0S5GTg4JAROJ
- T2deMnUxcnEICcxgktjZ+o8FwtnDKHFxygZmCOcDo0T/4nuMIC1CAp8YJc5OdIFIHGSUuPW6
- hwkkwSYQIrFv7w12EFtEoFRiz/tTzCC2sICuRNe52VBxPYmtC/tZIWwriQmrfrJ1MXJwsAio
- SByY5QsS5hWwlphxdzM7xK5ciZY7e8HKOQVsJPbNWg4WZxSQlVh0cxILiM0sIC5x68l8Joh3
- BCSW7DnPDGGLSrx8/I8VwlaUWDZ/FTvIKmYBTYn1u/QhWhUlpnQ/ZIdYKyhxcuYTlgmM4rOQ
- TJ2F0DELSccsJB0LGFlWMYoWZxqU5ZqYmRjpFSWlFlcZGOol5+duYoTEldAOxl8dH/QOMTJx
- MB5ilOBgVhLh7dVmjBfiTUmsrEotyo8vKs1JLT7EKM3BoiTOq8KzMU5IID2xJDU7NbUgtQgm
- y8TBKdXApLc0Vv9n/vU1tVEcUVu+LPgWOlf68BFV85pnpRdE2hQ0jacs4wq6+Fik9ob+2n4J
- 490WUffq6yeUx9hGvOLtPKGXqJv5bYfLl6q8/Qx3T3KZZd0rfDll087dCZNPzz69s8Hmmdky
- cbsvL3g3nX3Z/W3LVI46nfzYops3hOe1Kt0PT/Htej3DpvXP91QZWQPXbVZeogrVG5c+WdLe
- zXDAxJHx0+6DJxjit/EytRvkFKW84/N48XZSo9nHkgjX2NANIpkiU4o1Hs0+7GpzILn7zP8P
- BxZz3xRhWszjvp5LwXTe7jnCUn5Gm90jK5267s8ueZ55oTmn0GLd9o6wzvvBz3V7rdQyZUyW
- 58o29T1TYinOSDTUYi4qTgQAP2CL+xoDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprJIsWRmVeSWpSXmKPExsXCZbVWVtfXgSXe4OcHCYulSzYzWZxZ3sNs
+ seTjYhYHZo8189Ywehzd/ZspgCmKyyYlNSezLLVI3y6BK+P3jKyCiSoVZ+e0sDYw3pbrYuTg
+ kBAwkbhzR62LkYtDSGAGk8SO62tZIJzdjBI/e79AOe8ZJfrXLWKGcD4xSjyfsoMRwjnIKPH7
+ 73b2LkZODjaBEIl9e2+A2SIC+hK/b/5gBbGZBTwkVl3dwwhiCwvoSnSdmw1VoyexdWE/K4Rt
+ JfHrZROYzSKgIjGlayeYzStgLdF29h8byK1CAjkSj7Zog4Q5gcIbl05jA7EZBWQlFt2cxAKx
+ Slzi1pP5TCC2hICAxJI955khbFGJl4//sULYihLL5q9ih6jXk7gxdQobhK0tsWzha2aItYIS
+ J2c+YZnAKDELydhZSFpmIWmZhaRlASPLKkbR4kyDslwjAwsjvaKk1OIqA0O95PzcTYyQ2BPb
+ wbi964PeIUYmDsZDjBIczEoivL3ajPFCvCmJlVWpRfnxRaU5qcWHGKU5WJTEeVV4NsYJCaQn
+ lqRmp6YWpBbBZJk4OKUamDweBgSc5y4y+9ThKyl8ZY/9/PNzHN+8OfxJKXbN8ieHNfwZ5tcf
+ j5u40sFPO2uJv/WdCZt8u8Nu3/kU/SbnzsS598syBW6/7ZDX3NLAwt87XbD3V39vT4Tk5HKW
+ KcoSnBX8LgU/ubIEii8Z/pxcmzfh7z3mZfp26UGe7RdPqvCY9r/ee0Zm7o2ZZq6PWI+7aOeb
+ m0yuvHQzUfz38kOXWEMPzFuc1ZsXPdcg9aboqTXqph7hS4xlG+989JqwKlnp6USWTaJhL6LL
+ rkw1Fc23tA+WPXzdO3L1g7f8nB87vrPdy2FqeHl4yaqldlFRvspTYzqmtUg3rH8xWbfp5Mun
+ DErHz+wqunid5U7n9ixRDiWW4oxEQy3mouJEACQfLbgsAwAA
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,44 +95,127 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: nd <nd@arm.com>, "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGVsbG8gT2xla3NhbmRyIEFuZHJ1c2hjaGVua28sDQoNClRoYW5rcyBmb3IgeW91ciBxdWljayBy
-ZXNwb25zZS4gSSBhbSB1c2luZyB0aGUgeW9jdG8gdmVyc2lvblt5b2N0b18yLjE5XSBtZW50aW9u
-ZWQgaW4gdGhlIGxpbmsuIFN0aWxsIEkgZmFjZSB0aGUgaXNzdWUuDQoNCk1pdCBmcmV1bmRsaWNo
-ZW4gR3LDvMOfZW4gLyBCZXN0IHJlZ2FyZHMNCg0KIENob2NrYWxpbmdhbSBNYW5pa2FuZGFuDQoN
-CkVTLUNNIENvcmUgZm4sQURJVCAoUkJFSS9FQ0YzKQ0KUm9iZXJ0IEJvc2NoIEdtYkggfCBQb3N0
-ZmFjaCAxMCA2MCA1MCB8IDcwMDQ5IFN0dXR0Z2FydCB8IEdFUk1BTlkgfCB3d3cuYm9zY2guY29t
-DQpUZWwuICs5MSA4MCA2MTM2LTQ0NTIgfCBGYXggKzkxIDgwIDY2MTctMDcxMSB8IE1hbmlrYW5k
-YW4uQ2hvY2thbGluZ2FtQGluLmJvc2NoLmNvbQ0KDQpSZWdpc3RlcmVkIE9mZmljZTogU3R1dHRn
-YXJ0LCBSZWdpc3RyYXRpb24gQ291cnQ6IEFtdHNnZXJpY2h0IFN0dXR0Z2FydCwgSFJCIDE0MDAw
-Ow0KQ2hhaXJtYW4gb2YgdGhlIFN1cGVydmlzb3J5IEJvYXJkOiBGcmFueiBGZWhyZW5iYWNoOyBN
-YW5hZ2luZyBEaXJlY3RvcnM6IERyLiBWb2xrbWFyIERlbm5lciwgDQpQcm9mLiBEci4gU3RlZmFu
-IEFzZW5rZXJzY2hiYXVtZXIsIERyLiBNaWNoYWVsIEJvbGxlLCBEci4gQ2hyaXN0aWFuIEZpc2No
-ZXIsIERyLiBTdGVmYW4gSGFydHVuZywNCkRyLiBNYXJrdXMgSGV5biwgSGFyYWxkIEtyw7ZnZXIs
-IENocmlzdG9waCBLw7xiZWwsIFJvbGYgTmFqb3JrLCBVd2UgUmFzY2hrZSwgUGV0ZXIgVHlyb2xs
-ZXINCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IE9sZWtzYW5kciBBbmRydXNo
-Y2hlbmtvIDxPbGVrc2FuZHJfQW5kcnVzaGNoZW5rb0BlcGFtLmNvbT4gDQpTZW50OiBUdWVzZGF5
-LCBKdWx5IDcsIDIwMjAgMTo0MiBQTQ0KVG86IE1hbmlrYW5kYW4gQ2hvY2thbGluZ2FtIChSQkVJ
-L0VDRjMpIDxNYW5pa2FuZGFuLkNob2NrYWxpbmdhbUBpbi5ib3NjaC5jb20+OyB4ZW4tZGV2ZWxA
-bGlzdHMueGVuLm9yZw0KU3ViamVjdDogUmU6IFtCVUddIFhlbiBidWlsZCBmb3IgUkNBUiBmYWls
-aW5nDQoNCg0KT24gNy83LzIwIDEwOjU4IEFNLCBNYW5pa2FuZGFuIENob2NrYWxpbmdhbSAoUkJF
-SS9FQ0YzKSB3cm90ZToNCj4NCj4gSGVsbG8gVGVhbSwNCj4NCj4gSSBhbSB0cnlpbmcgdG8gYnVp
-bGQgeGVuIGh5cGVydmlzb3IgZm9yIFJDQVIgYW5kIGZvbGxvd2luZyB0aGUgaHR0cHM6Ly93aWtp
-LnhlbnByb2plY3Qub3JnL3dpa2kvWGVuX0FSTV93aXRoX1ZpcnR1YWxpemF0aW9uX0V4dGVuc2lv
-bnMvU2FsdmF0b3ItWCBzdGVwcy4NCj4NCj4gQnV0IGFtIGZhY2luZyB0aGUgZm9sbG93aW5nIGlz
-c3Vlcw0KPg0KPiAxLlNSQ19VUkk9Imh0dHA6Ly92My5zay9+bGt1bmRyYWsvZGV2ODYvYXJjaGl2
-ZS9EZXY4NnNyYy0ke1BWfS50YXIuZ3ogaW4gcmVjaXBlcy1leHRlbmRlZC9kZXY4Ni9kZXY4Nl8w
-LjE2LjIwLmJiIGlzIG5vdCBhY2Nlc2libGUNCj4NCj4gKk1vZGlmaWNhdGlvbiBkb25lOipTUkNf
-VVJJPWh0dHBzOi8vc3JjLmZlZG9yYXByb2plY3Qub3JnL2xvb2thc2lkZS9leHRyYXMvZGV2ODYv
-RGV2ODZzcmMtMC4xNi4yMC50YXIuZ3ovNTY3Y2Y0NjBkMTMyZjlkODc3NWRkOTVmOTIwOGU0OWEv
-RGV2ODZzcmMtJHtQVn0udGFyLmd6IDxodHRwczovL3NyYy5mZWRvcmFwcm9qZWN0Lm9yZy9sb29r
-YXNpZGUvZXh0cmFzL2Rldjg2L0Rldjg2c3JjLTAuMTYuMjAudGFyLmd6LzU2N2NmNDYwZDEzMmY5
-ZDg3NzVkZDk1ZjkyMDhlNDlhL0Rldjg2c3JjLSQlN2JQViU3ZC50YXIuZ3o+DQo+DQpZb3UgY2Fu
-IHRyeSB3aGF0IHdlIHVzZSBbMV0uIEFuZCB0aGUgaXNzdWUgeW91IGFyZSBmYWNpbmcgaXMgcmF0
-aGVyIFlvY3RvIHJlbGF0ZWQsIG5vdCBSLUNhciBzcGVjaWZpYywgSU1PDQoNClsxXSBodHRwczov
-L2dpdGh1Yi5jb20veGVuLXRyb29wcy9tZXRhLXh0LXByb2QtZGV2ZWwvYmxvYi9tYXN0ZXIvcmVj
-aXBlcy1kb21kL2RvbWQtaW1hZ2Utd2VzdG9uL2ZpbGVzL21ldGEteHQtcHJvZC1leHRyYS9yZWNp
-cGVzLWV4dGVuZGVkL2Rldjg2L2Rldjg2XyUyNS5iYmFwcGVuZA0K
+Hello Bertrand,
+
+Thanks for your quick response. I tired switching to dunfell branch and bui=
+ld gives parse error as below.
+
+bitbake core-image-weston
+ERROR: ParseError in /home/manikandan/yocto_2.19/build/meta-virtualization/=
+classes/: not a BitBake file
+
+Is there any additional changes required here?
+
+Mit freundlichen Gr=FC=DFen / Best regards
+
+ Chockalingam Manikandan
+
+ES-CM Core fn,ADIT (RBEI/ECF3)
+Robert Bosch GmbH | Postfach 10 60 50 | 70049 Stuttgart | GERMANY | www.bos=
+ch.com
+Tel. +91 80 6136-4452 | Fax +91 80 6617-0711 | Manikandan.Chockalingam@in.b=
+osch.com
+
+Registered Office: Stuttgart, Registration Court: Amtsgericht Stuttgart, HR=
+B 14000;
+Chairman of the Supervisory Board: Franz Fehrenbach; Managing Directors: Dr=
+. Volkmar Denner,=20
+Prof. Dr. Stefan Asenkerschbaumer, Dr. Michael Bolle, Dr. Christian Fischer=
+, Dr. Stefan Hartung,
+Dr. Markus Heyn, Harald Kr=F6ger, Christoph K=FCbel, Rolf Najork, Uwe Rasch=
+ke, Peter Tyroller
+
+
+-----Original Message-----
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>=20
+Sent: Tuesday, July 7, 2020 2:27 PM
+To: Manikandan Chockalingam (RBEI/ECF3) <Manikandan.Chockalingam@in.bosch.c=
+om>
+Cc: xen-devel@lists.xen.org; nd <nd@arm.com>
+Subject: Re: [BUG] Xen build for RCAR failing
+
+
+
+> On 7 Jul 2020, at 08:58, Manikandan Chockalingam (RBEI/ECF3) <Manikandan.=
+Chockalingam@in.bosch.com> wrote:
+>=20
+> Hello Team,
+> =20
+> I am trying to build xen hypervisor for RCAR and following the https://wi=
+ki.xenproject.org/wiki/Xen_ARM_with_Virtualization_Extensions/Salvator-X st=
+eps.
+> =20
+> But am facing the following issues
+> 1.      SRC_URI=3D"http://v3.sk/~lkundrak/dev86/archive/Dev86src-${PV}.ta=
+r.gz in recipes-extended/dev86/dev86_0.16.20.bb is not accesible
+> Modification done: SRC_URI=3Dhttps://src.fedoraproject.org/lookaside/extr=
+as/dev86/Dev86src-0.16.20.tar.gz/567cf460d132f9d8775dd95f9208e49a/Dev86src-=
+${PV}.tar.gz
+> 2.      LIC_FILES_CHKSUM changed in recipes-extended/xen/xen.inc
+> 3.      QA Issue: xen: Files/directories were installed but not shipped i=
+n any package:
+> /usr/bin/vchan-socket-proxy
+>   /usr/sbin/xenmon
+>   /usr/sbin/xenhypfs
+>   /usr/lib/libxenfsimage.so.4.14.0
+>   /usr/lib/libxenhypfs.so.1
+>   /usr/lib/libxenfsimage.so
+>   /usr/lib/libxenhypfs.so.1.0
+>   /usr/lib/libxenfsimage.so.4.14
+>   /usr/lib/libxenhypfs.so
+>   /usr/lib/pkgconfig
+>   /usr/lib/xen/bin/depriv-fd-checker
+>   /usr/lib/pkgconfig/xenlight.pc
+>   /usr/lib/pkgconfig/xenguest.pc
+>   /usr/lib/pkgconfig/xenhypfs.pc
+>   /usr/lib/pkgconfig/xlutil.pc
+>   /usr/lib/pkgconfig/xentoolcore.pc
+>   /usr/lib/pkgconfig/xentoollog.pc
+>   /usr/lib/pkgconfig/xenstore.pc
+>   /usr/lib/pkgconfig/xencall.pc
+>   /usr/lib/pkgconfig/xencontrol.pc
+>   /usr/lib/pkgconfig/xendevicemodel.pc
+>   /usr/lib/pkgconfig/xenstat.pc
+>   /usr/lib/pkgconfig/xengnttab.pc
+>   /usr/lib/pkgconfig/xenevtchn.pc
+>   /usr/lib/pkgconfig/xenvchan.pc
+>   /usr/lib/pkgconfig/xenforeignmemory.pc
+>   /usr/lib/xenfsimage/fat/fsimage.so
+>   /usr/lib/xenfsimage/iso9660/fsimage.so
+>   /usr/lib/xenfsimage/reiserfs/fsimage.so
+>   /usr/lib/xenfsimage/ufs/fsimage.so
+>   /usr/lib/xenfsimage/ext2fs-lib/fsimage.so
+>   /usr/lib/xenfsimage/zfs/fsimage.so
+> Please set FILES such that these items are packaged. Alternatively if the=
+y are unneeded, avoid installing them or delete them within do_install.
+> xen: 32 installed and not shipped files. [installed-vs-shipped]
+> ERROR: xen-unstable+gitAUTOINC+be63d9d47f-r0 do_package: Fatal QA errors =
+found, failing task.
+> ERROR: xen-unstable+gitAUTOINC+be63d9d47f-r0 do_package: Function failed:=
+ do_package
+> ERROR: Logfile of failure stored in: /home/manikandan/yocto_2.19/build/bu=
+ild/tmp/work/aarch64-poky-linux/xen/unstable+gitAUTOINC+be63d9d47f-r0/temp/=
+log.do_package.17889
+> ERROR: Task 13 (/home/manikandan/yocto_2.19/build/meta-virtualization/rec=
+ipes-extended/xen/xen_git.bb, do_package) failed with exit code '1'
+
+The configuration from the page is using a rather old release of Yocto.
+I would suggest to switch to dunfell which will use xen 4.12.
+
+Current master status of Yocto is not building at the moment.
+Christopher Clark has done some work on it here [1] in meta-virtualization =
+but this is not merged yet.
+
+If you are trying to build Xen master by modifying a recipe you will have i=
+ssues as some things have been added like hypfs which are creating the issu=
+es you see when Yocto is checking that everything was installed.
+
+Bertrand
+
+[1] https://lists.yoctoproject.org/g/meta-virtualization/message/5495
+
 
