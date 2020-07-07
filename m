@@ -2,41 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF3F216E22
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 15:56:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4C9F2172D5
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 17:48:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jso4n-0001Ei-SO; Tue, 07 Jul 2020 13:56:01 +0000
+	id 1jspoW-0002GV-D7; Tue, 07 Jul 2020 15:47:20 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kqME=AS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jso4m-0001Ea-Pp
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 13:56:00 +0000
-X-Inumbo-ID: 9670a368-c059-11ea-8d75-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F44P=AS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jspoV-0002GQ-4G
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 15:47:19 +0000
+X-Inumbo-ID: 22ad42b5-c069-11ea-8da1-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9670a368-c059-11ea-8d75-12813bfff9fa;
- Tue, 07 Jul 2020 13:56:00 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B7CFAAE2C;
- Tue,  7 Jul 2020 13:55:59 +0000 (UTC)
-Subject: Re: [PATCH] x86emul: avoid assembler warning about .type not taking
- effect in test harness
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <4a0f9e7d-53f1-b77f-e8a9-a75483884a6f@suse.com>
-Message-ID: <7f59e378-1996-7fd7-9c2b-e8dc36c7f992@suse.com>
-Date: Tue, 7 Jul 2020 15:55:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 22ad42b5-c069-11ea-8da1-12813bfff9fa;
+ Tue, 07 Jul 2020 15:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2zJ7n0NS19MmPMjNWvUtF9lPx7+C/LUeb4wjFeKH2jM=; b=KDoEaV3jXMudM8SnhdVnlj1F1
+ 3jxCuh97qm49xBo5VYLqV9FctskFDHB9gZvXv/z81cgoWiS2Arqp/ootNrGZ1RgUwNU+N/1j0NecP
+ zBYBPaqiSUAXdph7AwPUImjSHjszNf83fq79JpGrVUHrPemt+Uw0brOes3WUUorU58l58=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jspoU-0006rD-48; Tue, 07 Jul 2020 15:47:18 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jspoT-0004AT-Sy; Tue, 07 Jul 2020 15:47:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jspoT-0007Xl-Rx; Tue, 07 Jul 2020 15:47:17 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151707-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <4a0f9e7d-53f1-b77f-e8a9-a75483884a6f@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xtf test] 151707: all pass - PUSHED
+X-Osstest-Versions-This: xtf=2dd14fbcf9d03fdc300491939aeac75d3eb9e05f
+X-Osstest-Versions-That: xtf=2a8859e87761a0efc119778e094f203dc2ea487a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 07 Jul 2020 15:47:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,23 +61,55 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.07.2020 11:35, Jan Beulich wrote:
-> gcc 9.3 started to re-order top level blocks by default when optimizing.
-> This re-ordering results in all our .type directives to get emitted to
-> the assembly file first, followed by gcc's. The assembler warns about
-> attempts to change the type of a symbol when it was already set (and
-> when there's no intervening setting to "notype").
+flight 151707 xtf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151707/
 
-Turns out this wasn't a gcc change - the problem had been there all the
-time, it just went through silently. It was the newer gas that I built
-gcc 9.3 with that caused to issue to become visible. I've slightly
-updated the description to account for this.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xtf                  2dd14fbcf9d03fdc300491939aeac75d3eb9e05f
+baseline version:
+ xtf                  2a8859e87761a0efc119778e094f203dc2ea487a
 
-Jan
+Last test of basis   150870  2020-06-05 20:09:44 Z   31 days
+Testing same since   151707  2020-07-07 10:39:37 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-amd64-pvops                                            pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xtf.git
+   2a8859e..2dd14fb  2dd14fbcf9d03fdc300491939aeac75d3eb9e05f -> xen-tested-master
 
