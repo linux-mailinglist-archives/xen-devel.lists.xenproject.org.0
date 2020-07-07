@@ -2,67 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1482177FB
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 21:31:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65050217803
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 21:36:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jstIy-0006Zj-N8; Tue, 07 Jul 2020 19:31:00 +0000
+	id 1jstOE-0006k3-Cu; Tue, 07 Jul 2020 19:36:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Hoqm=AS=nvidia.com=jhubbard@srs-us1.protection.inumbo.net>)
- id 1jstIy-0006Ze-0e
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 19:31:00 +0000
-X-Inumbo-ID: 6287bdb4-c088-11ea-8de3-12813bfff9fa
-Received: from hqnvemgate26.nvidia.com (unknown [216.228.121.65])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6287bdb4-c088-11ea-8de3-12813bfff9fa;
- Tue, 07 Jul 2020 19:30:59 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5f04cd650001>; Tue, 07 Jul 2020 12:30:45 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Tue, 07 Jul 2020 12:30:58 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Tue, 07 Jul 2020 12:30:58 -0700
-Received: from [10.2.50.36] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 7 Jul
- 2020 19:30:57 +0000
-Subject: Re: [PATCH v2 2/3] xen/privcmd: Mark pages as dirty
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Souptick Joarder
- <jrdr.linux@gmail.com>
-References: <1594059372-15563-1-git-send-email-jrdr.linux@gmail.com>
- <1594059372-15563-3-git-send-email-jrdr.linux@gmail.com>
- <8fdd8c77-27dd-2847-7929-b5d3098b1b45@suse.com>
- <CAFqt6zZRx3oDO+p2e6EiDig9fzKirME-t6fanzDRh6e7gWx+nA@mail.gmail.com>
- <4abc0dd2-655c-16fa-dfc3-95904196c81f@suse.com>
-From: John Hubbard <jhubbard@nvidia.com>
-Message-ID: <4c6e52e7-1d33-132b-1d7e-e57963966dcc@nvidia.com>
-Date: Tue, 7 Jul 2020 12:30:57 -0700
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Om5Q=AS=redhat.com=eblake@srs-us1.protection.inumbo.net>)
+ id 1jstOC-0006je-RE
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 19:36:24 +0000
+X-Inumbo-ID: 23d5ff4f-c089-11ea-8de3-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 23d5ff4f-c089-11ea-8de3-12813bfff9fa;
+ Tue, 07 Jul 2020 19:36:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1594150583;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=s4pxyif6vCA7Q2ARf0cNNXCLU62fQ7KvB9o94CRQIdw=;
+ b=hNmhmp7g9VxnHRhLFDU39rBQXaL7dx6e6G9wSA7pstdmrG811O0CXDVoDu8l+t8D0LlIMs
+ NRrF4TTdamZuxykc77GIbyRgoMuGid86B7/uikO3vYG8zchx12m8sB0kDfwEmPfwsIRLRv
+ JUVOkZGUFFaTtXssvWReFWmj3XOibfw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-150-lslRWG3pO1GJwf3QQRsP1Q-1; Tue, 07 Jul 2020 15:36:12 -0400
+X-MC-Unique: lslRWG3pO1GJwf3QQRsP1Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C0EA3800D5C;
+ Tue,  7 Jul 2020 19:36:09 +0000 (UTC)
+Received: from [10.3.115.46] (ovpn-115-46.phx2.redhat.com [10.3.115.46])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A97601A7CE;
+ Tue,  7 Jul 2020 19:36:02 +0000 (UTC)
+Subject: Re: [PATCH v12 2/8] scripts: Coccinelle script to use
+ ERRP_AUTO_PROPAGATE()
+To: Markus Armbruster <armbru@redhat.com>, qemu-devel@nongnu.org
+References: <20200707165037.1026246-1-armbru@redhat.com>
+ <20200707165037.1026246-3-armbru@redhat.com>
+From: Eric Blake <eblake@redhat.com>
+Organization: Red Hat, Inc.
+Message-ID: <764387d7-0d42-a291-d720-60df303c15e4@redhat.com>
+Date: Tue, 7 Jul 2020 14:36:02 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <4abc0dd2-655c-16fa-dfc3-95904196c81f@suse.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"; format=flowed
+In-Reply-To: <20200707165037.1026246-3-armbru@redhat.com>
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1594150245; bh=dpqlDiB4hX+WGF7HO6/5EfWHYhPI+AkkSY6wCIzaoGI=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=k7md7ayLM9GOFI11DNbkGz1E86R2aKIrNml3+R0dG1CxEQpyzJwxmDVWz4rsASK/I
- Tqdu9EMUjsfwzvxkxQfxYOw/cqRVNZH3vST7zs68eD2pn+JZyrRb9s8MHKsB8ODbYn
- HfgOfBluQzlyPE7gtGVbu740+lonybCMcXoEUlPyVNdwaUB6n1GlppmnknUS6S44pQ
- 53cO71d9AodweLvrmv422MJjRySe+0+CB34gdp7S0Oynv24TjAoeXoijmbpLzTfoNj
- MKtnXjDMTRCGqioDkQN7Dh+/amw/q/x0JeMhjvatfn/genCs/lSHd/LnBe1976d6Dd
- uiI+ffTpw6+og==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=eblake@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,97 +73,107 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, sstabellini@kernel.org,
- linux-kernel@vger.kernel.org, Paul Durrant <xadimgnik@gmail.com>
+Cc: Kevin Wolf <kwolf@redhat.com>, vsementsov@virtuozzo.com,
+ qemu-block@nongnu.org, Paul Durrant <paul@xen.org>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
+ Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ Michael Roth <mdroth@linux.vnet.ibm.com>, groug@kaod.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Max Reitz <mreitz@redhat.com>, Laszlo Ersek <lersek@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 2020-07-07 04:43, J=C3=BCrgen Gro=C3=9F wrote:
-> On 07.07.20 13:30, Souptick Joarder wrote:
->> On Tue, Jul 7, 2020 at 3:08 PM J=C3=BCrgen Gro=C3=9F <jgross@suse.com> w=
-rote:
-...
->>>> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
->>>> index 33677ea..f6c1543 100644
->>>> --- a/drivers/xen/privcmd.c
->>>> +++ b/drivers/xen/privcmd.c
->>>> @@ -612,8 +612,11 @@ static void unlock_pages(struct page *pages[], un=
-signed int nr_pages)
->>>> =C2=A0=C2=A0 {
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int i;
->>>>
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < nr_pages; i++)
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < nr_pages; i++) {
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 if (!PageDirty(pages[i]))
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_page_dirty_lock(pag=
-es[i]);
->>>
->>> With put_page() directly following I think you should be able to use
->>> set_page_dirty() instead, as there is obviously a reference to the page
->>> existing.
->>
->> Patch [3/3] will convert above codes to use unpin_user_pages_dirty_lock(=
-)
->> which internally do the same check. So I thought to keep linux-stable an=
-d
->> linux-next code in sync. John had a similar concern [1] and later agreed=
- to keep
->> this check.
->>
->> Shall I keep this check ?=C2=A0 No ?
+On 7/7/20 11:50 AM, Markus Armbruster wrote:
+> From: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+> 
+> Script adds ERRP_AUTO_PROPAGATE macro invocation where appropriate and
+> does corresponding changes in code (look for details in
+> include/qapi/error.h)
+> 
+> Usage example:
+> spatch --sp-file scripts/coccinelle/auto-propagated-errp.cocci \
+>   --macro-file scripts/cocci-macro-file.h --in-place --no-show-diff \
+>   --max-width 80 FILES...
+> 
+> Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+> Reviewed-by: Markus Armbruster <armbru@redhat.com>
+> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+> ---
+>   scripts/coccinelle/auto-propagated-errp.cocci | 337 ++++++++++++++++++
+>   include/qapi/error.h                          |   3 +
+>   MAINTAINERS                                   |   1 +
+>   3 files changed, 341 insertions(+)
+>   create mode 100644 scripts/coccinelle/auto-propagated-errp.cocci
 
-It doesn't matter *too* much, because patch 3/3 fixes up everything by
-changing it all to unpin_user_pages_dirty_lock(). However, there is somethi=
-ng
-to be said for having correct interim patches, too. :)  Details:
+Needs a tweak if we go with ERRP_GUARD.  But that's easy.
 
->>
->> [1] https://lore.kernel.org/xen-devel/a750e5e5-fd5d-663b-c5fd-261d7c939b=
-a7@nvidia.com/
->=20
-> I wasn't referring to checking PageDirty(), but to the use of
-> set_page_dirty_lock().
->=20
-> Looking at the comment just before the implementation of
-> set_page_dirty_lock() suggests that it is fine to use set_page_dirty()
-> instead (so not calling lock_page()).
+> +
+> +// Convert special case with goto separately.
+> +// I tried merging this into the following rule the obvious way, but
+> +// it made Coccinelle hang on block.c
+> +//
+> +// Note interesting thing: if we don't do it here, and try to fixup
+> +// "out: }" things later after all transformations (the rule will be
+> +// the same, just without error_propagate() call), coccinelle fails to
+> +// match this "out: }".
 
+"out: }" is not valid C; would referring to "out: ; }" fare any better?
 
-no no, that's a misreading of the comment. Unless this xen/privcmd code has
-somehow taken a reference on page->mapping->host (which I do *not* think is
-the case), then it is still racy to call set_page_dirty() here. Instead,
-set_page_dirty_lock() should be used.
+> +@ disable optional_qualifier@
+> +identifier rule1.fn, rule1.local_err, out;
+> +symbol errp;
+> +@@
+> +
+> + fn(..., Error ** ____, ...)
+> + {
+> +     <...
+> +-    goto out;
+> ++    return;
+> +     ...>
+> +- out:
+> +-    error_propagate(errp, local_err);
+> + }
+> +
+> +// Convert most of local_err related stuff.
+> +//
+> +// Note, that we inherit rule1.fn and rule1.local_err names, not
+> +// objects themselves. We may match something not related to the
+> +// pattern matched by rule1. For example, local_err may be defined with
+> +// the same name in different blocks inside one function, and in one
+> +// block follow the propagation pattern and in other block doesn't.
+> +//
+> +// Note also that errp-cleaning functions
+> +//   error_free_errp
+> +//   error_report_errp
+> +//   error_reportf_errp
+> +//   warn_report_errp
+> +//   warn_reportf_errp
+> +// are not yet implemented. They must call corresponding Error* -
+> +// freeing function and then set *errp to NULL, to avoid further
+> +// propagation to original errp (consider ERRP_AUTO_PROPAGATE in use).
+> +// For example, error_free_errp may look like this:
+> +//
+> +//    void error_free_errp(Error **errp)
+> +//    {
+> +//        error_free(*errp);
+> +//        *errp = NULL;
+> +//    }
 
+I guess we can still decide later if we want these additional functions, 
+or if they will even help after the number of places we have already 
+improved after applying this script as-is and with Markus' cleanups in 
+place.
 
->=20
-> Only the transition from get_user_pages_fast() to pin_user_pages_fast()
-> requires to use the locked version IMO.
->=20
+While I won't call myself a Coccinelle expert, it at least looks sane 
+enough that I'm comfortable if you add:
 
-That's a different misunderstanding. :) pin_user_pages*() APIs are meant to=
- be
-functionally drop-in replacements for get_user_pages*(). Internally,
-pin_user_pages*() functions do some additional tracking, but from a caller'=
-s
-perspective, it should look the same. In other words, there is nothing
-about pin_user_pages_fast() that requires set_page_dirty_lock() upon releas=
-e.
-The reason set_page_dirty_lock() was chosen is that there are very few
-(none at all?) call sites that need to release and dirty a page, that also =
-meet
-the requirements to safely call set_page_dirty().
+Reviewed-by: Eric Blake <eblake@redhat.com>
 
-That's why there is a unpin_user_pages_dirty_lock(), but there is not a
-corresponding unpin_user_pages_dirty() call: the latter has not been requir=
-ed
-so far, even though the call site conversions are nearly done.
+-- 
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.           +1-919-301-3226
+Virtualization:  qemu.org | libvirt.org
 
-
-thanks,
---=20
-John Hubbard
-NVIDIA
 
