@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88146216CAC
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 14:19:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A206216CAB
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 14:19:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsmYl-0005Tn-MC; Tue, 07 Jul 2020 12:18:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jsmYm-0005UF-VF; Tue, 07 Jul 2020 12:18:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1g3R=AS=xenbits.xen.org=iwj@srs-us1.protection.inumbo.net>)
- id 1jsmYk-0005Sp-9n
- for xen-devel@lists.xen.org; Tue, 07 Jul 2020 12:18:50 +0000
-X-Inumbo-ID: fd2469cc-c04b-11ea-bca7-bc764e2007e4
+ id 1jsmYl-0005Sv-Qd
+ for xen-devel@lists.xen.org; Tue, 07 Jul 2020 12:18:51 +0000
+X-Inumbo-ID: ff1edf8c-c04b-11ea-8d5d-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd2469cc-c04b-11ea-bca7-bc764e2007e4;
- Tue, 07 Jul 2020 12:18:39 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ff1edf8c-c04b-11ea-8d5d-12813bfff9fa;
+ Tue, 07 Jul 2020 12:18:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
  Content-Transfer-Encoding:Content-Type:Sender:Reply-To:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mFmAfu+l9Qnx7Y9fQVSM/XKGmQ57MHrxuyQCgm25OCQ=; b=qFrRGnrO5DPb5kurUU6le/eUUD
- CRXilbVw+GyIW2LF4yoHF83eJv2Lo6OS1FSAteKRby6ngUBfP4WTQTQXEktq/crTkHrQadF43OC/W
- jnoB7/SzpRDfk438u0t5y97zmw9NIc8cVs3vSjL3cKLFhTa2gwzhQ1Z/cOKGfBuF064Q=;
+ bh=pka224yeKHvOnBWMQf/upTLDc1Wie4UNUJLCWEs/KC4=; b=HQHGlhpB4pJrFNJPJts4F2QL3R
+ BQ8USz9N48wvmAx4C9Hsi8zpMVPfGYxWgbuTHqr25bH3KPLI9XeapPHLF+eP1JJPUrwYLtnhlOtCs
+ CS7wTaNjlsJK/5yRIieZVFv3NcoeRZ8I/aREgxO68K+iVFFpoOs0R5EKNcaapHhbYUw0=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <iwj@xenbits.xen.org>)
- id 1jsmYT-0002mn-TH; Tue, 07 Jul 2020 12:18:33 +0000
+ id 1jsmYX-0002mz-D6; Tue, 07 Jul 2020 12:18:37 +0000
 Received: from iwj by xenbits.xenproject.org with local (Exim 4.92)
  (envelope-from <iwj@xenbits.xen.org>)
- id 1jsmYT-0000Wl-Q7; Tue, 07 Jul 2020 12:18:33 +0000
+ id 1jsmYX-0000Xl-BV; Tue, 07 Jul 2020 12:18:37 +0000
 Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
 Content-Transfer-Encoding: binary
 MIME-Version: 1.0
@@ -41,10 +42,10 @@ X-Mailer: MIME-tools 5.509 (Entity 5.509)
 To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
  xen-users@lists.xen.org, oss-security@lists.openwall.com
 From: Xen.org security team <security@xen.org>
-Subject: Xen Security Advisory 317 v3 (CVE-2020-15566) - Incorrect error
- handling in event channel port allocation
-Message-Id: <E1jsmYT-0000Wl-Q7@xenbits.xenproject.org>
-Date: Tue, 07 Jul 2020 12:18:33 +0000
+Subject: Xen Security Advisory 319 v3 (CVE-2020-15563) - inverted code
+ paths in x86 dirty VRAM tracking
+Message-Id: <E1jsmYX-0000Xl-BV@xenbits.xenproject.org>
+Date: Tue, 07 Jul 2020 12:18:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,10 +68,10 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-            Xen Security Advisory CVE-2020-15566 / XSA-317
+            Xen Security Advisory CVE-2020-15563 / XSA-319
                                version 3
 
-       Incorrect error handling in event channel port allocation
+            inverted code paths in x86 dirty VRAM tracking
 
 UPDATES IN VERSION 3
 ====================
@@ -80,61 +81,47 @@ Public release.
 ISSUE DESCRIPTION
 =================
 
-The allocation of an event channel port may fail for multiple reasons:
-    1) Port is already in use
-    2) The memory allocation failed
-    3) The port we try to allocate is higher than what is supported by
-       the ABI (e.g 2L or FIFO) used by the guest or the limit set by an
-       administrator ('max_event_channels' in xl cfg).
-
-Due to the missing error checks, only 1) will be considered as an error.  All
-the other cases will provide a "valid" port and will result to a crash when
-trying to access the event channel.
+An inverted conditional in x86 HVM guests' dirty video RAM tracking
+code allows such guests to make Xen de-reference a pointer guaranteed
+to point at unmapped space.
 
 IMPACT
 ======
 
-When the administrator configured a guest to allow more than 1023
-event channels, that guest may be able to crash the host.
-
-When Xen is out-of-memory, allocation of new event channels will
-result in crashing the host rather than reporting an error.
+A malicious or buggy HVM guest may cause the hypervisor to crash,
+resulting in Denial of Service (DoS) affecting the entire host.
 
 VULNERABLE SYSTEMS
 ==================
 
-Xen versions 4.10 and later are affected.  (The special Xen 4.8
-"Comet" branch for XSA-254 contains changes similar to those which led
-to this vulnerability; so it is likely to be affected, but - like
-mainline Xen 4.8 - that branch is longer security-supported.)
+Xen versions from 4.8 onwards are affected.  Xen versions 4.7 and
+earlier are not affected.
 
-Older Xen versions are unaffected.
+Only x86 systems are affected.  Arm systems are not affected.
 
-All architectures are affected.
-
-The default configuration, when guests are created with xl/libxl, is
-not vulnerable, because of the default event channel limit (see
-Mitigation, below).
+Only x86 HVM guests using shadow paging can leverage the vulnerability.
+In addition there needs to be an entity actively monitoring a guest's
+video frame buffer (typically for display purposes) in order for such a
+guest to be able to leverage the vulnerability.  x86 PV guests as well
+as x86 HVM guest using hardware assisted paging (HAP) cannot leverage
+the vulnerability.
 
 MITIGATION
 ==========
 
-The problem can be avoided by reducing the number of event channels
-available to the guest no more than 1023.  For example, setting
-"max_event_channels=1023" in the xl domain configuration, or deleting
-any existing setting (since 1023 is the default for xl/libxl).
+Running only PV guests will avoid the vulnerability.
 
-For ARM systems, any limit no more than 4095 is safe.
-
-For 64-bit x86 PV guests, any limit no more than 4095 is likewise safe
-if the host configuration prevents the guest administrator from
-substituting and running a 32-bit kernel (and thereby putting the
-guest into 32-bit PV mode).
+For HVM guest explicitly configured to use shadow paging (e.g. via the
+`hap=0' xl domain configuration file parameter), changing to HAP (e.g.
+by setting `hap=1') will avoid exposing the vulnerability to those
+guests.  HAP is the default (in upstream Xen), where the hardware
+supports it; so this mitigation is only applicable if HAP has been
+disabled by configuration.
 
 CREDITS
 =======
 
-This issue was discovered by Amazon.
+This issue was discovered by Jan Beulich of SUSE.
 
 RESOLUTION
 ==========
@@ -146,41 +133,36 @@ apply to the stable branches, and may not apply cleanly to the most
 recent release tarball.  Downstreams are encouraged to update to the
 tip of the stable branch before applying these patches.
 
-xsa317.patch           Xen 4.10 - xen-unstable
+xsa319.patch           xen-unstable, 4.13 - 4.9
 
-$ sha256sum xsa317*
-11e77dd8644cee40cee609d02e27d70655f3999005cae8c24fb2801980ebb4f2  xsa317.meta
-17908035e2da07f6070fa8de345db68c96ed9bd78f8b114e43ba0194c1be3f15  xsa317.patch
+$ sha256sum xsa319*
+1fe0dc2e274776b8e1275f85129280f280f94ca4eabe6a8166113283dad93ed8  xsa319.meta
+c145f394f8ac7d8838c376a97e1850c4125c12e478fc66ebe025ae397b27e6ea  xsa319.patch
 $
 
 DEPLOYMENT DURING EMBARGO
 =========================
 
-Deployment of the *patch* described above (or others which are
+Deployment of the patch described above (or others which are
 substantially similar) is permitted during the embargo, even on
 public-facing systems with untrusted guest users and administrators.
+
+HOWEVER deployment of the "use HAP mode" mitigation described above is
+NOT permitted (except where all the affected systems and VMs are
+administered and used only by organisations which are members of the Xen
+Project Security Issues Predisclosure List).  Specifically, deployment
+on public cloud systems is NOT permitted.
+
+This is because in that case the configuration change can be observed
+by guests, which could lead to the rediscovery of the vulnerability.
 
 But: Distribution of updated software is prohibited (except to other
 members of the predisclosure list).
 
-
-And: deployment of the event channel limit reduction mitigation is NOT
-permitted (except where all the affected systems and VMs are
-administered and used only by organisations which are members of the
-Xen Project Security Issues Predisclosure List).  Specifically,
-deployment on public cloud systems is NOT permitted.
-
-This is because such a change can be visible to the guest, so it would
-leak the preconditions for the vulnerability and maybe lead to
-rediscovery.
-
-Deployment of this, or similar mitigations, is permitted only AFTER
-the embargo ends.
-
-
 Predisclosure list members who wish to deploy significantly different
 patches and/or mitigations, please contact the Xen Project Security
 Team.
+
 
 (Note: this during-embargo deployment notice is retained in
 post-embargo publicly released Xen Project advisories, even though it
@@ -192,96 +174,85 @@ consult the Xen Project community's agreed Security Policy:
   http://www.xenproject.org/security-policy.html
 -----BEGIN PGP SIGNATURE-----
 
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl8EZ/gMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZQUwIAK8W8bZ0xml2bzAu4vsXi8QqhDX4VrpkgADYZS+M
-BD8hpllQ+O/CiM5ZMECj7zaWYTt7+VrGrqK4jtf2REBs/sOWcO+k7KdEury4XCKf
-jIG4CzCBHC46RVEKftiqQNTX2ebVBDwoj+1fGeIvm7OhcZ7f6KdhYPHvE2bU8D45
-ghr2jw33HZHoG7IsPQvJn8u6wqd6l+7h0BxhgzO5U8pI+w3ZXRM4XAno+ERzs8LO
-N5ffv8UeaMIpkHoYEdsKOK/ItjhoCASoWTFvbE90u7f2WbimFnBG3oCPEVPt89kv
-Y/o0+0jBk+WjXbPChMmMu5WuQuKVFDelMXLLE6mjfhGAvnI=
-=vEgE
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl8EZ/sMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZ75YH/jX/sAs0icOgBtHkwVZHg318OBExxt9x+ehk/pxb
+i+1ZlS/IrJ8eJdHJYq8HYvAlxmtmFP1I0t+C9vmwbP4QMcR++RmKgdJI4+/sqCsB
+AMEnK+cVJSbHxD7y7eW2CPuU3h0cKx0H24JgtzA2ONse7dVz7RN+oa97D5IKryTL
+cBW8WroMn2InbKMCUy/5zj89NLAlbSuWSVZzQidDwzTITukzhZZ7Xw0+Q2yh1nkK
+S4kcmz7Bzzd5Mc1gFr1Eh1FxfmVVl5RxwDE//3a5VbmfPVo/f0kMOIWjXVd1R1dj
+x78SPrPojOAZbb8+f1LYqHmqzCgzvpa4EFbsOnsB7CBmP2Q=
+=bDFh
 -----END PGP SIGNATURE-----
 
 --=separator
-Content-Type: application/octet-stream; name="xsa317.meta"
-Content-Disposition: attachment; filename="xsa317.meta"
+Content-Type: application/octet-stream; name="xsa319.meta"
+Content-Disposition: attachment; filename="xsa319.meta"
 Content-Transfer-Encoding: base64
 
-ewogICJYU0EiOiAzMTcsCiAgIlN1cHBvcnRlZFZlcnNpb25zIjogWwogICAg
+ewogICJYU0EiOiAzMTksCiAgIlN1cHBvcnRlZFZlcnNpb25zIjogWwogICAg
 Im1hc3RlciIsCiAgICAiNC4xMyIsCiAgICAiNC4xMiIsCiAgICAiNC4xMSIs
-CiAgICAiNC4xMCIKICBdLAogICJUcmVlcyI6IFsKICAgICJ4ZW4iCiAgXSwK
-ICAiUmVjaXBlcyI6IHsKICAgICI0LjEwIjogewogICAgICAiUmVjaXBlcyI6
-IHsKICAgICAgICAieGVuIjogewogICAgICAgICAgIlN0YWJsZVJlZiI6ICJm
-ZDZlNDllY2FlMDM4NDA2MTBmZGM2YTQxNmE2Mzg1OTBjMGI2NTM1IiwKICAg
-ICAgICAgICJQcmVyZXFzIjogW10sCiAgICAgICAgICAiUGF0Y2hlcyI6IFtd
-CiAgICAgICAgfQogICAgICB9CiAgICB9LAogICAgIjQuMTEiOiB7CiAgICAg
+CiAgICAiNC4xMCIsCiAgICAiNC45IgogIF0sCiAgIlRyZWVzIjogWwogICAg
+InhlbiIKICBdLAogICJSZWNpcGVzIjogewogICAgIjQuMTAiOiB7CiAgICAg
 ICJSZWNpcGVzIjogewogICAgICAgICJ4ZW4iOiB7CiAgICAgICAgICAiU3Rh
-YmxlUmVmIjogIjJiNzc3Mjk4ODhmYjg1MWFiOTZlN2Y3N2JjODU0MTIyNjI2
-YjQ4NjEiLAogICAgICAgICAgIlByZXJlcXMiOiBbXSwKICAgICAgICAgICJQ
-YXRjaGVzIjogW10KICAgICAgICB9CiAgICAgIH0KICAgIH0sCiAgICAiNC4x
-MiI6IHsKICAgICAgIlJlY2lwZXMiOiB7CiAgICAgICAgInhlbiI6IHsKICAg
-ICAgICAgICJTdGFibGVSZWYiOiAiMDUwZmU0OGRjOTgxZTA0ODhkZTFmNmM2
-YzA3ZDgxMTBmM2I3NTIzYiIsCiAgICAgICAgICAiUHJlcmVxcyI6IFtdLAog
-ICAgICAgICAgIlBhdGNoZXMiOiBbXQogICAgICAgIH0KICAgICAgfQogICAg
-fSwKICAgICI0LjEzIjogewogICAgICAiUmVjaXBlcyI6IHsKICAgICAgICAi
-eGVuIjogewogICAgICAgICAgIlN0YWJsZVJlZiI6ICI5ZjdlOGJhYzRjYTI3
-OWIzYmZjY2I1ZjM3MzBmYjJlNTM5OGM5NWFiIiwKICAgICAgICAgICJQcmVy
-ZXFzIjogW10sCiAgICAgICAgICAiUGF0Y2hlcyI6IFtdCiAgICAgICAgfQog
-ICAgICB9CiAgICB9LAogICAgIjQuOSI6IHsKICAgICAgIlJlY2lwZXMiOiB7
-CiAgICAgICAgInhlbiI6IHsKICAgICAgICAgICJTdGFibGVSZWYiOiAiNmU0
-NzdjMmVhNGQ1YzI2YTdhN2IyZjg1MDE2NmFhNzllZGM1MjI1YyIsCiAgICAg
-ICAgICAiUHJlcmVxcyI6IFtdLAogICAgICAgICAgIlBhdGNoZXMiOiBbXQog
-ICAgICAgIH0KICAgICAgfQogICAgfSwKICAgICJtYXN0ZXIiOiB7CiAgICAg
-ICJSZWNpcGVzIjogewogICAgICAgICJ4ZW4iOiB7CiAgICAgICAgICAiU3Rh
-YmxlUmVmIjogImU0ZDIyMDcxNjViMzc5ZWMxM2M4YjUxMjkzNmY2Mzk4MmFm
-NjJkMTMiLAogICAgICAgICAgIlByZXJlcXMiOiBbXSwKICAgICAgICAgICJQ
-YXRjaGVzIjogW10KICAgICAgICB9CiAgICAgIH0KICAgIH0KICB9Cn0K
+YmxlUmVmIjogImZkNmU0OWVjYWUwMzg0MDYxMGZkYzZhNDE2YTYzODU5MGMw
+YjY1MzUiLAogICAgICAgICAgIlByZXJlcXMiOiBbCiAgICAgICAgICAgIDMx
+NwogICAgICAgICAgXSwKICAgICAgICAgICJQYXRjaGVzIjogWwogICAgICAg
+ICAgICAieHNhMzE5LnBhdGNoIgogICAgICAgICAgXQogICAgICAgIH0KICAg
+ICAgfQogICAgfSwKICAgICI0LjExIjogewogICAgICAiUmVjaXBlcyI6IHsK
+ICAgICAgICAieGVuIjogewogICAgICAgICAgIlN0YWJsZVJlZiI6ICIyYjc3
+NzI5ODg4ZmI4NTFhYjk2ZTdmNzdiYzg1NDEyMjYyNmI0ODYxIiwKICAgICAg
+ICAgICJQcmVyZXFzIjogWwogICAgICAgICAgICAzMTcKICAgICAgICAgIF0s
+CiAgICAgICAgICAiUGF0Y2hlcyI6IFsKICAgICAgICAgICAgInhzYTMxOS5w
+YXRjaCIKICAgICAgICAgIF0KICAgICAgICB9CiAgICAgIH0KICAgIH0sCiAg
+ICAiNC4xMiI6IHsKICAgICAgIlJlY2lwZXMiOiB7CiAgICAgICAgInhlbiI6
+IHsKICAgICAgICAgICJTdGFibGVSZWYiOiAiMDUwZmU0OGRjOTgxZTA0ODhk
+ZTFmNmM2YzA3ZDgxMTBmM2I3NTIzYiIsCiAgICAgICAgICAiUHJlcmVxcyI6
+IFsKICAgICAgICAgICAgMzE3CiAgICAgICAgICBdLAogICAgICAgICAgIlBh
+dGNoZXMiOiBbCiAgICAgICAgICAgICJ4c2EzMTkucGF0Y2giCiAgICAgICAg
+ICBdCiAgICAgICAgfQogICAgICB9CiAgICB9LAogICAgIjQuMTMiOiB7CiAg
+ICAgICJSZWNpcGVzIjogewogICAgICAgICJ4ZW4iOiB7CiAgICAgICAgICAi
+U3RhYmxlUmVmIjogIjlmN2U4YmFjNGNhMjc5YjNiZmNjYjVmMzczMGZiMmU1
+Mzk4Yzk1YWIiLAogICAgICAgICAgIlByZXJlcXMiOiBbCiAgICAgICAgICAg
+IDMxNwogICAgICAgICAgXSwKICAgICAgICAgICJQYXRjaGVzIjogWwogICAg
+ICAgICAgICAieHNhMzE5LnBhdGNoIgogICAgICAgICAgXQogICAgICAgIH0K
+ICAgICAgfQogICAgfSwKICAgICI0LjkiOiB7CiAgICAgICJSZWNpcGVzIjog
+ewogICAgICAgICJ4ZW4iOiB7CiAgICAgICAgICAiU3RhYmxlUmVmIjogIjZl
+NDc3YzJlYTRkNWMyNmE3YTdiMmY4NTAxNjZhYTc5ZWRjNTIyNWMiLAogICAg
+ICAgICAgIlByZXJlcXMiOiBbXSwKICAgICAgICAgICJQYXRjaGVzIjogWwog
+ICAgICAgICAgICAieHNhMzE5LnBhdGNoIgogICAgICAgICAgXQogICAgICAg
+IH0KICAgICAgfQogICAgfSwKICAgICJtYXN0ZXIiOiB7CiAgICAgICJSZWNp
+cGVzIjogewogICAgICAgICJ4ZW4iOiB7CiAgICAgICAgICAiU3RhYmxlUmVm
+IjogImU0ZDIyMDcxNjViMzc5ZWMxM2M4YjUxMjkzNmY2Mzk4MmFmNjJkMTMi
+LAogICAgICAgICAgIlByZXJlcXMiOiBbCiAgICAgICAgICAgIDMxNwogICAg
+ICAgICAgXSwKICAgICAgICAgICJQYXRjaGVzIjogWwogICAgICAgICAgICAi
+eHNhMzE5LnBhdGNoIgogICAgICAgICAgXQogICAgICAgIH0KICAgICAgfQog
+ICAgfQogIH0KfQ==
 
 --=separator
-Content-Type: application/octet-stream; name="xsa317.patch"
-Content-Disposition: attachment; filename="xsa317.patch"
+Content-Type: application/octet-stream; name="xsa319.patch"
+Content-Disposition: attachment; filename="xsa319.patch"
 Content-Transfer-Encoding: base64
 
-RnJvbSBhZWI0NmU5MmY5MTVmMTlhNjFkNWE4YTFmNGI2OTY3OTNmNjRlNmZi
-IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBKdWxpZW4gR3JhbGwg
-PGpncmFsbEBhbWF6b24uY29tPgpEYXRlOiBUaHUsIDE5IE1hciAyMDIwIDEz
-OjE3OjMxICswMDAwClN1YmplY3Q6IFtQQVRDSF0geGVuL2NvbW1vbjogZXZl
-bnRfY2hhbm5lbDogRG9uJ3QgaWdub3JlIGVycm9yIGluCiBnZXRfZnJlZV9w
-b3J0KCkKCkN1cnJlbnRseSwgZ2V0X2ZyZWVfcG9ydCgpIGlzIGFzc3VtaW5n
-IHRoYXQgdGhlIHBvcnQgaGFzIGJlZW4gYWxsb2NhdGVkCndoZW4gZXZ0Y2hu
-X2FsbG9jYXRlX3BvcnQoKSBpcyBub3QgcmV0dXJuIC1FQlVTWS4KCkhvd2V2
-ZXIsIHRoZSBmdW5jdGlvbiBtYXkgcmV0dXJuIGFuIGVycm9yIHdoZW46CiAg
-ICAtIFdlIGV4aGF1c3RlZCBhbGwgdGhlIGV2ZW50IGNoYW5uZWxzLiBUaGlz
-IGNhbiBoYXBwZW4gaWYgdGhlIGxpbWl0CiAgICBjb25maWd1cmVkIGJ5IHRo
-ZSBhZG1pbmlzdHJhdG9yIGZvciB0aGUgZ3Vlc3QgKCdtYXhfZXZlbnRfY2hh
-bm5lbHMnCiAgICBpbiB4bCBjZmcpIGlzIGhpZ2hlciB0aGFuIHRoZSBBQkkg
-dXNlZCBieSB0aGUgZ3Vlc3QuIEZvciBpbnN0YW5jZSwKICAgIGlmIHRoZSBn
-dWVzdCBpcyB1c2luZyAyTCwgdGhlIGxpbWl0IHNob3VsZCBub3QgYmUgaGln
-aGVyIHRoYW4gNDA5NS4KICAgIC0gV2UgY2Fubm90IGFsbG9jYXRlIG1lbW9y
-eSAoZS5nIFhlbiBoYXMgbm90IG1vcmUgbWVtb3J5KS4KClVzZXJzIG9mIGdl
-dF9mcmVlX3BvcnQoKSAoc3VjaCBhcyBFVlRDSE5PUF9hbGxvY191bmJvdW5k
-KSB3aWxsIHZhbGlkbHkKYXNzdW1pbmcgdGhlIHBvcnQgd2FzIHZhbGlkIGFu
-ZCB3aWxsIG5leHQgY2FsbCBldnRjaG5fZnJvbV9wb3J0KCkuIFRoaXMKd2ls
-bCByZXN1bHQgdG8gYSBjcmFzaCBhcyB0aGUgbWVtb3J5IGJhY2tpbmcgdGhl
-IGV2ZW50IGNoYW5uZWwgc3RydWN0dXJlCmlzIG5vdCBwcmVzZW50LgoKRml4
-ZXM6IDM2OGFlOWEwNWZlICgieGVuL3B2c2hpbTogZm9yd2FyZCBldnRjaG4g
-b3BzIGJldHdlZW4gTDAgWGVuIGFuZCBMMiBEb21VIikKU2lnbmVkLW9mZi1i
-eTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9uLmNvbT4KUmV2aWV3ZWQt
-Ynk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KLS0tCiB4ZW4v
-Y29tbW9uL2V2ZW50X2NoYW5uZWwuYyB8IDggKysrKy0tLS0KIDEgZmlsZSBj
-aGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEveGVuL2NvbW1vbi9ldmVudF9jaGFubmVsLmMgYi94ZW4vY29t
-bW9uL2V2ZW50X2NoYW5uZWwuYwppbmRleCBlODZlMmJmYWIwLi5hOGQxODJi
-NTg0IDEwMDY0NAotLS0gYS94ZW4vY29tbW9uL2V2ZW50X2NoYW5uZWwuYwor
-KysgYi94ZW4vY29tbW9uL2V2ZW50X2NoYW5uZWwuYwpAQCAtMTk1LDEwICsx
-OTUsMTAgQEAgc3RhdGljIGludCBnZXRfZnJlZV9wb3J0KHN0cnVjdCBkb21h
-aW4gKmQpCiAgICAgewogICAgICAgICBpbnQgcmMgPSBldnRjaG5fYWxsb2Nh
-dGVfcG9ydChkLCBwb3J0KTsKIAotICAgICAgICBpZiAoIHJjID09IC1FQlVT
-WSApCi0gICAgICAgICAgICBjb250aW51ZTsKLQotICAgICAgICByZXR1cm4g
-cG9ydDsKKyAgICAgICAgaWYgKCByYyA9PSAwICkKKyAgICAgICAgICAgIHJl
-dHVybiBwb3J0OworICAgICAgICBlbHNlIGlmICggcmMgIT0gLUVCVVNZICkK
-KyAgICAgICAgICAgIHJldHVybiByYzsKICAgICB9CiAKICAgICByZXR1cm4g
-LUVOT1NQQzsKLS0gCjIuMTcuMQoK
+RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
+OiB4ODYvc2hhZG93OiBjb3JyZWN0IGFuIGludmVydGVkIGNvbmRpdGlvbmFs
+IGluIGRpcnR5IFZSQU0gdHJhY2tpbmcKClRoaXMgb3JpZ2luYWxseSB3YXMg
+Im1mbl94KG1mbikgPT0gSU5WQUxJRF9NRk4iLiBNYWtlIGl0IGxpa2UgdGhp
+cwphZ2FpbiwgdGFraW5nIHRoZSBvcHBvcnR1bml0eSB0byBhbHNvIGRyb3Ag
+dGhlIHVubmVjZXNzYXJ5IG5lYXJieQpicmFjZXMuCgpUaGlzIGlzIFhTQS0z
+MTkuCgpGaXhlczogMjQ2YTVhMzM3N2MyICgieGVuOiBVc2UgYSB0eXBlc2Fm
+ZSB0byBkZWZpbmUgSU5WQUxJRF9NRk4iKQpTaWduZWQtb2ZmLWJ5OiBKYW4g
+QmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+ClJldmlld2VkLWJ5OiBBbmRy
+ZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgoKLS0tIGEv
+eGVuL2FyY2gveDg2L21tL3NoYWRvdy9jb21tb24uYworKysgYi94ZW4vYXJj
+aC94ODYvbW0vc2hhZG93L2NvbW1vbi5jCkBAIC0zMjUyLDEwICszMjUyLDgg
+QEAgaW50IHNoYWRvd190cmFja19kaXJ0eV92cmFtKHN0cnVjdCBkb21haQog
+ICAgICAgICAgICAgaW50IGRpcnR5ID0gMDsKICAgICAgICAgICAgIHBhZGRy
+X3Qgc2wxbWEgPSBkaXJ0eV92cmFtLT5zbDFtYVtpXTsKIAotICAgICAgICAg
+ICAgaWYgKCAhbWZuX2VxKG1mbiwgSU5WQUxJRF9NRk4pICkKLSAgICAgICAg
+ICAgIHsKKyAgICAgICAgICAgIGlmICggbWZuX2VxKG1mbiwgSU5WQUxJRF9N
+Rk4pICkKICAgICAgICAgICAgICAgICBkaXJ0eSA9IDE7Ci0gICAgICAgICAg
+ICB9CiAgICAgICAgICAgICBlbHNlCiAgICAgICAgICAgICB7CiAgICAgICAg
+ICAgICAgICAgcGFnZSA9IG1mbl90b19wYWdlKG1mbik7Cg==
 
 --=separator--
 
