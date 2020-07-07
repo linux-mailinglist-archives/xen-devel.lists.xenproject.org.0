@@ -2,61 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D9B8216A34
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 12:26:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A4E216B4C
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 13:19:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jsko2-0003h2-0L; Tue, 07 Jul 2020 10:26:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1dji=AS=redhat.com=berrange@srs-us1.protection.inumbo.net>)
- id 1jsknz-0003gx-4P
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 10:26:27 +0000
-X-Inumbo-ID: 50244436-c03c-11ea-8d4a-12813bfff9fa
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 50244436-c03c-11ea-8d4a-12813bfff9fa;
- Tue, 07 Jul 2020 10:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1594117586;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:in-reply-to:in-reply-to:  references:references;
- bh=Ksh7qm6adGST/ZaaaSRGOC5KkyimhdVy3s/dSUsS2wc=;
- b=QTC+1qPAq/g22yJeeYDhoIOn8KBr714fQfUhkU5clN4EfIqCJiVPpsaz09ImuJmPgDtiE7
- NSFwdT9/g2eMsZY3RmlTxj3XQy3EXvhUzecPhK2QBfLjByu3oB9hFQzTY2KJaZH8FQZhb7
- tfWvaX1gBuXPxCYV5KGGLKcHSyegp4E=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-147-OgGMpmGzP4aC_p9nKwLp_w-1; Tue, 07 Jul 2020 06:25:55 -0400
-X-MC-Unique: OgGMpmGzP4aC_p9nKwLp_w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 742B2879511;
- Tue,  7 Jul 2020 10:25:50 +0000 (UTC)
-Received: from redhat.com (unknown [10.36.110.57])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DEF315D9F3;
- Tue,  7 Jul 2020 10:25:13 +0000 (UTC)
-Date: Tue, 7 Jul 2020 11:25:10 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Christophe de Dinechin <dinechin@redhat.com>
-Subject: Re: [PATCH] trivial: Remove trailing whitespaces
-Message-ID: <20200707102510.GF2649462@redhat.com>
-References: <20200706162300.1084753-1-dinechin@redhat.com>
+	id 1jslbs-00082r-I3; Tue, 07 Jul 2020 11:18:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Yzy/=AS=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1jslbr-00082m-Kq
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 11:17:59 +0000
+X-Inumbo-ID: 82e0634e-c043-11ea-bb8b-bc764e2007e4
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 82e0634e-c043-11ea-bb8b-bc764e2007e4;
+ Tue, 07 Jul 2020 11:17:58 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 6C4ADA2322;
+ Tue,  7 Jul 2020 13:17:57 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 22AB6A2319;
+ Tue,  7 Jul 2020 13:17:56 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Xn2Whme0m547; Tue,  7 Jul 2020 13:17:55 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 8624AA231D;
+ Tue,  7 Jul 2020 13:17:55 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Wm18HX-qFkK6; Tue,  7 Jul 2020 13:17:55 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 58282A2319;
+ Tue,  7 Jul 2020 13:17:55 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 3D75020C25;
+ Tue,  7 Jul 2020 13:17:25 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Maul6dzMYoBj; Tue,  7 Jul 2020 13:17:19 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 8F3E921C93;
+ Tue,  7 Jul 2020 13:17:19 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 1MsecBsfTsD1; Tue,  7 Jul 2020 13:17:19 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 6AC9A21B5D;
+ Tue,  7 Jul 2020 13:17:19 +0200 (CEST)
+Date: Tue, 7 Jul 2020 13:17:19 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: Julien Grall <julien@xen.org>
+Message-ID: <1580655090.20712847.1594120639229.JavaMail.zimbra@cert.pl>
+In-Reply-To: <ab992813-4584-f8e0-b90a-7a587c396bae@xen.org>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <b5335c2e-da13-28de-002b-e93dd68a0a11@suse.com>
+ <20200703101120.GZ735@Air-de-Roger>
+ <51ecaf40-8fb5-8454-7055-5af33a47152e@xen.org>
+ <d9e604e9-acb7-17df-f0d1-7552dab526c7@suse.com>
+ <88892784-0ed6-2594-bef8-fd0ae46c2b17@xen.org>
+ <a13451d6-d6b5-6d86-aeb0-8985db730866@suse.com>
+ <ab992813-4584-f8e0-b90a-7a587c396bae@xen.org>
+Subject: Re: [PATCH v4 03/10] tools/libxl: add vmtrace_pt_size parameter
 MIME-Version: 1.0
-In-Reply-To: <20200706162300.1084753-1-dinechin@redhat.com>
-User-Agent: Mutt/1.14.3 (2020-06-14)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=berrange@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - FF78 (Linux)/8.6.0_GA_1194)
+Thread-Topic: tools/libxl: add vmtrace_pt_size parameter
+Thread-Index: 9asBT9S/k/EEKcYiYjEmMl9lAxGMew==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,144 +85,114 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- Dmitry Fleytman <dmitry.fleytman@gmail.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
- Michael Roth <mdroth@linux.vnet.ibm.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Max Reitz <mreitz@redhat.com>,
- Marek Vasut <marex@denx.de>, Stefano Stabellini <sstabellini@kernel.org>,
- qemu-block@nongnu.org, qemu-trivial@nongnu.org, Paul Durrant <paul@xen.org>,
- Magnus Damm <magnus.damm@gmail.com>, Markus Armbruster <armbru@redhat.com>,
- =?utf-8?B?SGVydsOp?= Poussineau <hpoussin@reactos.org>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
- Richard Henderson <rth@twiddle.net>, Andrzej Zaborowski <balrogg@gmail.com>,
- Artyom Tarasenko <atar4qemu@gmail.com>,
- Alistair Francis <alistair@alistair23.me>,
- Eduardo Habkost <ehabkost@redhat.com>, Michael Tokarev <mjt@tls.msk.ru>,
- Riku Voipio <riku.voipio@iki.fi>, Peter Lieven <pl@kamp.de>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
- Roman Bolshakov <r.bolshakov@yadro.com>, qemu-arm@nongnu.org,
- Peter Chubb <peter.chubb@nicta.com.au>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, xen-devel@lists.xenproject.org,
- Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
- David Gibson <david@gibson.dropbear.id.au>, Kevin Wolf <kwolf@redhat.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
- Chris Wulff <crwulff@gmail.com>, Laurent Vivier <laurent@vivier.eu>,
- Jean-Christophe Dubois <jcd@tribudubois.net>, qemu-ppc@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ tamas lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, luwei kang <luwei.kang@intel.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org,
+ Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jul 06, 2020 at 06:23:00PM +0200, Christophe de Dinechin wrote:
-> There are a number of unnecessary trailing whitespaces that have
-> accumulated over time in the source code. They cause stray changes
-> in patches if you use tools that automatically remove them.
-> 
-> Tested by doing a `git diff -w` after the change.
-> 
-> This could probably be turned into a pre-commit hook.
+----- 7 lip 2020 o 11:16, Julien Grall julien@xen.org napisa=C5=82(a):
 
-scripts/checkpatch.pl ought to be made to check it.
-
-> 
-> Signed-off-by: Christophe de Dinechin <dinechin@redhat.com>
-> ---
->  block/iscsi.c                                 |   2 +-
->  disas/cris.c                                  |   2 +-
->  disas/microblaze.c                            |  80 +++---
->  disas/nios2.c                                 | 256 +++++++++---------
->  hmp-commands.hx                               |   2 +-
->  hw/alpha/typhoon.c                            |   6 +-
->  hw/arm/gumstix.c                              |   6 +-
->  hw/arm/omap1.c                                |   2 +-
->  hw/arm/stellaris.c                            |   2 +-
->  hw/char/etraxfs_ser.c                         |   2 +-
->  hw/core/ptimer.c                              |   2 +-
->  hw/cris/axis_dev88.c                          |   2 +-
->  hw/cris/boot.c                                |   2 +-
->  hw/display/qxl.c                              |   2 +-
->  hw/dma/etraxfs_dma.c                          |  18 +-
->  hw/dma/i82374.c                               |   2 +-
->  hw/i2c/bitbang_i2c.c                          |   2 +-
->  hw/input/tsc2005.c                            |   2 +-
->  hw/input/tsc210x.c                            |   2 +-
->  hw/intc/etraxfs_pic.c                         |   8 +-
->  hw/intc/sh_intc.c                             |  10 +-
->  hw/intc/xilinx_intc.c                         |   2 +-
->  hw/misc/imx25_ccm.c                           |   6 +-
->  hw/misc/imx31_ccm.c                           |   2 +-
->  hw/net/vmxnet3.h                              |   2 +-
->  hw/net/xilinx_ethlite.c                       |   2 +-
->  hw/pci/pcie.c                                 |   2 +-
->  hw/sd/omap_mmc.c                              |   2 +-
->  hw/sh4/shix.c                                 |   2 +-
->  hw/sparc64/sun4u.c                            |   2 +-
->  hw/timer/etraxfs_timer.c                      |   2 +-
->  hw/timer/xilinx_timer.c                       |   4 +-
->  hw/usb/hcd-musb.c                             |  10 +-
->  hw/usb/hcd-ohci.c                             |   6 +-
->  hw/usb/hcd-uhci.c                             |   2 +-
->  hw/virtio/virtio-pci.c                        |   2 +-
->  include/hw/cris/etraxfs_dma.h                 |   4 +-
->  include/hw/net/lance.h                        |   2 +-
->  include/hw/ppc/spapr.h                        |   2 +-
->  include/hw/xen/interface/io/ring.h            |  34 +--
->  include/qemu/log.h                            |   2 +-
->  include/qom/object.h                          |   4 +-
->  linux-user/cris/cpu_loop.c                    |  16 +-
->  linux-user/microblaze/cpu_loop.c              |  16 +-
->  linux-user/mmap.c                             |   8 +-
->  linux-user/sparc/signal.c                     |   4 +-
->  linux-user/syscall.c                          |  24 +-
->  linux-user/syscall_defs.h                     |   2 +-
->  linux-user/uaccess.c                          |   2 +-
->  os-posix.c                                    |   2 +-
->  qapi/qapi-util.c                              |   2 +-
->  qemu-img.c                                    |   2 +-
->  qemu-options.hx                               |  26 +-
->  qom/object.c                                  |   2 +-
->  target/cris/translate.c                       |  28 +-
->  target/cris/translate_v10.inc.c               |   6 +-
->  target/i386/hvf/hvf.c                         |   4 +-
->  target/i386/hvf/x86.c                         |   4 +-
->  target/i386/hvf/x86_decode.c                  |  20 +-
->  target/i386/hvf/x86_decode.h                  |   4 +-
->  target/i386/hvf/x86_descr.c                   |   2 +-
->  target/i386/hvf/x86_emu.c                     |   2 +-
->  target/i386/hvf/x86_mmu.c                     |   6 +-
->  target/i386/hvf/x86_task.c                    |   2 +-
->  target/i386/hvf/x86hvf.c                      |  42 +--
->  target/i386/translate.c                       |   8 +-
->  target/microblaze/mmu.c                       |   2 +-
->  target/microblaze/translate.c                 |   2 +-
->  target/sh4/op_helper.c                        |   4 +-
->  target/xtensa/core-de212/core-isa.h           |   6 +-
->  .../xtensa/core-sample_controller/core-isa.h  |   6 +-
->  target/xtensa/core-test_kc705_be/core-isa.h   |   2 +-
->  tcg/sparc/tcg-target.inc.c                    |   2 +-
->  tcg/tcg.c                                     |  32 +--
->  tests/tcg/multiarch/test-mmap.c               |  72 ++---
->  ui/curses.c                                   |   4 +-
->  ui/curses_keys.h                              |   4 +-
->  util/cutils.c                                 |   2 +-
->  78 files changed, 440 insertions(+), 440 deletions(-)
-
-The cleanup is a good idea, however, I think it is probably better to
-split the patch approx into subsystems. That will make it much easier
-to cherry-pick for people doing backports.
+> On 07/07/2020 10:10, Jan Beulich wrote:
+>> On 07.07.2020 10:44, Julien Grall wrote:
+>>> Hi,
+>>>
+>>> On 06/07/2020 09:46, Jan Beulich wrote:
+>>>> On 04.07.2020 19:23, Julien Grall wrote:
+>>>>> Hi,
+>>>>>
+>>>>> On 03/07/2020 11:11, Roger Pau Monn=C3=A9 wrote:
+>>>>>> On Fri, Jul 03, 2020 at 11:56:38AM +0200, Jan Beulich wrote:
+>>>>>>> On 03.07.2020 11:44, Roger Pau Monn=C3=A9 wrote:
+>>>>>>>> On Thu, Jul 02, 2020 at 06:23:28PM +0200, Micha=C5=82 Leszczy=C5=
+=84ski wrote:
+>>>>>>>>> In previous versions it was "size" but it was requested to change=
+ it
+>>>>>>>>> to "order" in order to shrink the variable size from uint64_t to
+>>>>>>>>> uint8_t, because there is limited space for xen_domctl_createdoma=
+in
+>>>>>>>>> structure.
+>>>>>>>>
+>>>>>>>> It's likely I'm missing something here, but I wasn't aware
+>>>>>>>> xen_domctl_createdomain had any constrains regarding it's size. It=
+'s
+>>>>>>>> currently 48bytes which seems fairly small.
+>>>>>>>
+>>>>>>> Additionally I would guess a uint32_t could do here, if the value
+>>>>>>> passed was "number of pages" rather than "number of bytes"?
+>>>>> Looking at the rest of the code, the toolstack accepts a 64-bit value=
+.
+>>>>> So this would lead to truncation of the buffer if it is bigger than 2=
+^44
+>>>>> bytes.
+>>>>>
+>>>>> I agree such buffer is unlikely, yet I still think we want to harden =
+the
+>>>>> code whenever we can. So the solution is to either prevent check
+>>>>> truncation in libxl or directly use 64-bit in the domctl.
+>>>>>
+>>>>> My preference is the latter.
+>>>>>
+>>>>>>
+>>>>>> That could work, not sure if it needs to state however that those wi=
+ll
+>>>>>> be 4K pages, since Arm can have a different minimum page size IIRC?
+>>>>>> (or that's already the assumption for all number of frames fields)
+>>>>>> vmtrace_nr_frames seems fine to me.
+>>>>>
+>>>>> The hypercalls interface is using the same page granularity as the
+>>>>> hypervisor (i.e 4KB).
+>>>>>
+>>>>> While we already support guest using 64KB page granularity, it is
+>>>>> impossible to have a 64KB Arm hypervisor in the current state. You ar=
+e
+>>>>> going to either break existing guest (if you switch to 64KB page
+>>>>> granularity for the hypercall ABI) or render them insecure (the mimim=
+um
+>>>>> mapping in the P2M would be 64KB).
+>>>>>
+>>>>> DOMCTLs are not stable yet, so using a number of pages is OK. However=
+, I
+>>>>> would strongly suggest to use a number of bytes for any xl/libxl/stab=
+le
+>>>>> libraries interfaces as this avoids confusion and also make more
+>>>>> futureproof.
+>>>>
+>>>> If we can't settle on what "page size" means in the public interface
+>>>> (which imo is embarrassing), then how about going with number of kb,
+>>>> like other memory libxl controls do? (I guess using Mb, in line with
+>>>> other config file controls, may end up being too coarse here.) This
+>>>> would likely still allow for a 32-bit field to be wide enough.
+>>>
+>>> A 32-bit field would definitely not be able to cover a full address
+>>> space. So do you mind to explain what is the upper bound you expect her=
+e?
+>>=20
+>> Do you foresee a need for buffer sizes of 4Tb and up?
+>=20
+> Not I am aware of... However, I think the question was worth it given
+> that "wide enough" can mean anything.
+>=20
+> Cheers,
+>=20
+> --
+> Julien Grall
 
 
-Regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+So would it be OK to use uint32_t everywhere and to store the trace buffer
+size as number of kB? I think this is the most straightforward option.
 
+I would also stick with the name "processor_trace_buf_size"
+everywhere, both in the hypervisor, ABI and the toolstack, with the
+respective comments that the size is in kB.
+
+
+Best regards,
+Micha=C5=82 Leszczy=C5=84ski
+CERT Polska
 
