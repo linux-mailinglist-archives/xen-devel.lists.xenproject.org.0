@@ -2,74 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C714217817
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 21:41:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23881217810
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 21:41:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jstSz-00082p-OU; Tue, 07 Jul 2020 19:41:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jstSi-0007nF-Hb; Tue, 07 Jul 2020 19:41:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CHg+=AS=cert.pl=michal.leszczynski@srs-us1.protection.inumbo.net>)
- id 1jstSy-0007no-16
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 19:41:20 +0000
-X-Inumbo-ID: c9c1d00f-c089-11ea-8de3-12813bfff9fa
+ id 1jstSh-0007ml-5i
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 19:41:03 +0000
+X-Inumbo-ID: c9c50350-c089-11ea-bca7-bc764e2007e4
 Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c9c1d00f-c089-11ea-8de3-12813bfff9fa;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c9c50350-c089-11ea-bca7-bc764e2007e4;
  Tue, 07 Jul 2020 19:41:02 +0000 (UTC)
 Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 9D8B7A26B9;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 58FB1A26A3;
  Tue,  7 Jul 2020 21:41:01 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 9461AA26BD;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 5684AA26BB;
  Tue,  7 Jul 2020 21:41:00 +0200 (CEST)
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from bagnar.nask.net.pl ([127.0.0.1])
  by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id AHbW4AukT979; Tue,  7 Jul 2020 21:40:59 +0200 (CEST)
+ with ESMTP id cPr368eJ3i4J; Tue,  7 Jul 2020 21:40:59 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by bagnar.nask.net.pl (Postfix) with ESMTP id A0EAEA2691;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 83B62A26AD;
  Tue,  7 Jul 2020 21:40:59 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from bagnar.nask.net.pl ([127.0.0.1])
  by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id ciAltz9WSXP5; Tue,  7 Jul 2020 21:40:59 +0200 (CEST)
+ with ESMTP id zXXw5sv7UBpl; Tue,  7 Jul 2020 21:40:59 +0200 (CEST)
 Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
  [195.187.242.210])
- by bagnar.nask.net.pl (Postfix) with ESMTP id 7CD8CA26A8;
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 63757A2675;
  Tue,  7 Jul 2020 21:40:59 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 68EDD2242F;
+ by belindir.nask.net.pl (Postfix) with ESMTP id 531FB22467;
  Tue,  7 Jul 2020 21:40:05 +0200 (CEST)
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from belindir.nask.net.pl ([127.0.0.1])
  by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id XSkxh8RtH51F; Tue,  7 Jul 2020 21:39:59 +0200 (CEST)
+ with ESMTP id mD7MzktKtjP9; Tue,  7 Jul 2020 21:39:59 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by belindir.nask.net.pl (Postfix) with ESMTP id 367FC22426;
+ by belindir.nask.net.pl (Postfix) with ESMTP id 412DD22459;
  Tue,  7 Jul 2020 21:39:54 +0200 (CEST)
-X-Quarantine-ID: <R1Vij3rUE1XP>
+X-Quarantine-ID: <z977rWsuvJ92>
 X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
 X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
 Received: from belindir.nask.net.pl ([127.0.0.1])
  by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id R1Vij3rUE1XP; Tue,  7 Jul 2020 21:39:54 +0200 (CEST)
+ with ESMTP id z977rWsuvJ92; Tue,  7 Jul 2020 21:39:54 +0200 (CEST)
 Received: from mq-desktop.cert.pl (unknown [195.187.238.217])
- by belindir.nask.net.pl (Postfix) with ESMTPSA id F013422450;
- Tue,  7 Jul 2020 21:39:53 +0200 (CEST)
+ by belindir.nask.net.pl (Postfix) with ESMTPSA id 10B2F22454;
+ Tue,  7 Jul 2020 21:39:54 +0200 (CEST)
 From: =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v6 10/11] tools/libxc: add xc_vmtrace_* functions
-Date: Tue,  7 Jul 2020 21:39:49 +0200
-Message-Id: <476203bca92f1fb0e8de2be2bcfb88695a5688f8.1594150543.git.michal.leszczynski@cert.pl>
+Subject: [PATCH v6 11/11] tools/proctrace: add proctrace tool
+Date: Tue,  7 Jul 2020 21:39:50 +0200
+Message-Id: <8bc5959478d6ba1c1873615b53628094da578688.1594150543.git.michal.leszczynski@cert.pl>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1594150543.git.michal.leszczynski@cert.pl>
 References: <cover.1594150543.git.michal.leszczynski@cert.pl>
+MIME-Version: 1.0
 In-Reply-To: <cover.1594150543.git.michal.leszczynski@cert.pl>
 References: <cover.1594150543.git.michal.leszczynski@cert.pl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,173 +90,259 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Michal Leszczynski <michal.leszczynski@cert.pl>
 
-Add functions in libxc that use the new XEN_DOMCTL_vmtrace interface.
+Add an demonstration tool that uses xc_vmtrace_* calls in order
+to manage external IPT monitoring for DomU.
 
 Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
 ---
- tools/libxc/Makefile          |  1 +
- tools/libxc/include/xenctrl.h | 40 ++++++++++++++++
- tools/libxc/xc_vmtrace.c      | 87 +++++++++++++++++++++++++++++++++++
- 3 files changed, 128 insertions(+)
- create mode 100644 tools/libxc/xc_vmtrace.c
+ tools/proctrace/Makefile    |  45 +++++++++
+ tools/proctrace/proctrace.c | 179 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 224 insertions(+)
+ create mode 100644 tools/proctrace/Makefile
+ create mode 100644 tools/proctrace/proctrace.c
 
-diff --git a/tools/libxc/Makefile b/tools/libxc/Makefile
-index fae5969a73..605e44501d 100644
---- a/tools/libxc/Makefile
-+++ b/tools/libxc/Makefile
-@@ -27,6 +27,7 @@ CTRL_SRCS-y       += xc_csched2.c
- CTRL_SRCS-y       += xc_arinc653.c
- CTRL_SRCS-y       += xc_rt.c
- CTRL_SRCS-y       += xc_tbuf.c
-+CTRL_SRCS-y       += xc_vmtrace.c
- CTRL_SRCS-y       += xc_pm.c
- CTRL_SRCS-y       += xc_cpu_hotplug.c
- CTRL_SRCS-y       += xc_resume.c
-diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
-index 4c89b7294c..491b2c3236 100644
---- a/tools/libxc/include/xenctrl.h
-+++ b/tools/libxc/include/xenctrl.h
-@@ -1585,6 +1585,46 @@ int xc_tbuf_set_cpu_mask(xc_interface *xch, xc_cpumap_t mask);
- 
- int xc_tbuf_set_evt_mask(xc_interface *xch, uint32_t mask);
- 
-+/**
-+ * Enable processor trace for given vCPU in given DomU.
-+ * Allocate the trace ringbuffer with given size.
-+ *
-+ * @parm xch a handle to an open hypervisor interface
-+ * @parm domid domain identifier
-+ * @parm vcpu vcpu identifier
-+ * @return 0 on success, -1 on failure
-+ */
-+int xc_vmtrace_pt_enable(xc_interface *xch, uint32_t domid,
-+                         uint32_t vcpu);
-+
-+/**
-+ * Disable processor trace for given vCPU in given DomU.
-+ * Deallocate the trace ringbuffer.
-+ *
-+ * @parm xch a handle to an open hypervisor interface
-+ * @parm domid domain identifier
-+ * @parm vcpu vcpu identifier
-+ * @return 0 on success, -1 on failure
-+ */
-+int xc_vmtrace_pt_disable(xc_interface *xch, uint32_t domid,
-+                          uint32_t vcpu);
-+
-+/**
-+ * Get current offset inside the trace ringbuffer.
-+ * This allows to determine how much data was written into the buffer.
-+ * Once buffer overflows, the offset will reset to 0 and the previous
-+ * data will be overriden.
-+ *
-+ * @parm xch a handle to an open hypervisor interface
-+ * @parm domid domain identifier
-+ * @parm vcpu vcpu identifier
-+ * @parm offset current offset inside trace buffer will be written there
-+ * @parm size the total size of the trace buffer (in bytes)
-+ * @return 0 on success, -1 on failure
-+ */
-+int xc_vmtrace_pt_get_offset(xc_interface *xch, uint32_t domid,
-+                             uint32_t vcpu, uint64_t *offset, uint64_t *size);
-+
- int xc_domctl(xc_interface *xch, struct xen_domctl *domctl);
- int xc_sysctl(xc_interface *xch, struct xen_sysctl *sysctl);
- 
-diff --git a/tools/libxc/xc_vmtrace.c b/tools/libxc/xc_vmtrace.c
+diff --git a/tools/proctrace/Makefile b/tools/proctrace/Makefile
 new file mode 100644
-index 0000000000..ee034da8d3
+index 0000000000..9c135229b9
 --- /dev/null
-+++ b/tools/libxc/xc_vmtrace.c
-@@ -0,0 +1,87 @@
-+/******************************************************************************
-+ * xc_vmtrace.c
++++ b/tools/proctrace/Makefile
+@@ -0,0 +1,45 @@
++# Copyright (C) CERT Polska - NASK PIB
++# Author: Micha=C5=82 Leszczy=C5=84ski <michal.leszczynski@cert.pl>
++#
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; under version 2 of the License.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++
++XEN_ROOT=3D$(CURDIR)/../..
++include $(XEN_ROOT)/tools/Rules.mk
++
++CFLAGS  +=3D -Werror
++CFLAGS  +=3D $(CFLAGS_libxenevtchn)
++CFLAGS  +=3D $(CFLAGS_libxenctrl)
++LDLIBS  +=3D $(LDLIBS_libxenctrl)
++LDLIBS  +=3D $(LDLIBS_libxenevtchn)
++LDLIBS  +=3D $(LDLIBS_libxenforeignmemory)
++
++.PHONY: all
++all: build
++
++.PHONY: build
++build: proctrace
++
++.PHONY: install
++install: build
++	$(INSTALL_DIR) $(DESTDIR)$(sbindir)
++	$(INSTALL_PROG) proctrace $(DESTDIR)$(sbindir)/proctrace
++
++.PHONY: uninstall
++uninstall:
++	rm -f $(DESTDIR)$(sbindir)/proctrace
++
++.PHONY: clean
++clean:
++	$(RM) -f proctrace $(DEPS_RM)
++
++.PHONY: distclean
++distclean: clean
++
++-include $(DEPS_INCLUDE)
+diff --git a/tools/proctrace/proctrace.c b/tools/proctrace/proctrace.c
+new file mode 100644
+index 0000000000..3c1ccccee8
+--- /dev/null
++++ b/tools/proctrace/proctrace.c
+@@ -0,0 +1,179 @@
++/***********************************************************************=
+*******
++ * tools/proctrace.c
 + *
-+ * API for manipulating hardware tracing features
++ * Demonstrative tool for collecting Intel Processor Trace data from Xen=
+.
++ *  Could be used to externally monitor a given vCPU in given DomU.
 + *
-+ * Copyright (c) 2020, Michal Leszczynski
++ * Copyright (C) 2020 by CERT Polska - NASK PIB
 + *
-+ * Copyright 2020 CERT Polska. All rights reserved.
-+ * Use is subject to license terms.
++ * Authors: Micha=C5=82 Leszczy=C5=84ski, michal.leszczynski@cert.pl
++ * Date:    June, 2020
 + *
-+ * This library is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU Lesser General Public
-+ * License as published by the Free Software Foundation;
-+ * version 2.1 of the License.
++ *  This program is free software; you can redistribute it and/or modify
++ *  it under the terms of the GNU General Public License as published by
++ *  the Free Software Foundation; under version 2 of the License.
 + *
-+ * This library is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * Lesser General Public License for more details.
++ *  This program is distributed in the hope that it will be useful,
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *  GNU General Public License for more details.
 + *
-+ * You should have received a copy of the GNU Lesser General Public
-+ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
++ *  You should have received a copy of the GNU General Public License
++ *  along with this program; If not, see <http://www.gnu.org/licenses/>.
 + */
 +
-+#include "xc_private.h"
-+#include <xen/trace.h>
++#include <stdlib.h>
++#include <stdio.h>
++#include <sys/mman.h>
++#include <signal.h>
++#include <errno.h>
 +
-+int xc_vmtrace_pt_enable(
-+        xc_interface *xch, uint32_t domid, uint32_t vcpu)
-+{
-+    DECLARE_DOMCTL;
-+    int rc;
++#include <xenctrl.h>
++#include <xen/xen.h>
++#include <xenforeignmemory.h>
 +
-+    domctl.cmd = XEN_DOMCTL_vmtrace_op;
-+    domctl.domain = domid;
-+    domctl.u.vmtrace_op.cmd = XEN_DOMCTL_vmtrace_pt_enable;
-+    domctl.u.vmtrace_op.vcpu = vcpu;
-+    domctl.u.vmtrace_op.pad1 = 0;
-+    domctl.u.vmtrace_op.pad2 = 0;
++volatile int interrupted =3D 0;
++volatile int domain_down =3D 0;
 +
-+    rc = do_domctl(xch, &domctl);
-+    return rc;
++void term_handler(int signum) {
++    interrupted =3D 1;
 +}
 +
-+int xc_vmtrace_pt_get_offset(
-+        xc_interface *xch, uint32_t domid, uint32_t vcpu,
-+        uint64_t *offset, uint64_t *size)
-+{
-+    DECLARE_DOMCTL;
-+    int rc;
++int main(int argc, char* argv[]) {
++    xc_interface *xc;
++    uint32_t domid;
++    uint32_t vcpu_id;
++    uint64_t size;
 +
-+    domctl.cmd = XEN_DOMCTL_vmtrace_op;
-+    domctl.domain = domid;
-+    domctl.u.vmtrace_op.cmd = XEN_DOMCTL_vmtrace_pt_get_offset;
-+    domctl.u.vmtrace_op.vcpu = vcpu;
-+    domctl.u.vmtrace_op.pad1 = 0;
-+    domctl.u.vmtrace_op.pad2 = 0;
++    int rc =3D -1;
++    uint8_t *buf =3D NULL;
++    uint64_t last_offset =3D 0;
 +
-+    rc = do_domctl(xch, &domctl);
-+    if ( !rc )
++    xenforeignmemory_handle *fmem;
++    xenforeignmemory_resource_handle *fres;
++
++    if (signal(SIGINT, term_handler) =3D=3D SIG_ERR)
 +    {
-+        if (offset)
-+            *offset = domctl.u.vmtrace_op.offset;
-+
-+        if (size)
-+            *size = domctl.u.vmtrace_op.size;
++        fprintf(stderr, "Failed to register signal handler\n");
++        return 1;
 +    }
 +
-+    return rc;
++    if (argc !=3D 3) {
++        fprintf(stderr, "Usage: %s <domid> <vcpu_id>\n", argv[0]);
++        fprintf(stderr, "It's recommended to redirect this"
++                        "program's output to file\n");
++        fprintf(stderr, "or to pipe it's output to xxd or other program.=
+\n");
++        return 1;
++    }
++
++    domid =3D atoi(argv[1]);
++    vcpu_id =3D atoi(argv[2]);
++
++    xc =3D xc_interface_open(0, 0, 0);
++
++    fmem =3D xenforeignmemory_open(0, 0);
++
++    if (!xc) {
++        fprintf(stderr, "Failed to open xc interface\n");
++        return 1;
++    }
++
++    rc =3D xc_vmtrace_pt_enable(xc, domid, vcpu_id);
++
++    if (rc) {
++        fprintf(stderr, "Failed to call xc_vmtrace_pt_enable\n");
++        return 1;
++    }
++   =20
++    rc =3D xc_vmtrace_pt_get_offset(xc, domid, vcpu_id, NULL, &size);
++
++    if (rc) {
++        fprintf(stderr, "Failed to get trace buffer size\n");
++        return 1;
++    }
++
++    fres =3D xenforeignmemory_map_resource(
++        fmem, domid, XENMEM_resource_vmtrace_buf,
++        /* vcpu: */ vcpu_id,
++        /* frame: */ 0,
++        /* num_frames: */ size >> XC_PAGE_SHIFT,
++        (void **)&buf,
++        PROT_READ, 0);
++
++    if (!buf) {
++        fprintf(stderr, "Failed to map trace buffer\n");
++        return 1;
++    }
++
++    while (!interrupted) {
++        uint64_t offset;
++        rc =3D xc_vmtrace_pt_get_offset(xc, domid, vcpu_id, &offset, NUL=
+L);
++
++        if (rc =3D=3D ENODATA) {
++            interrupted =3D 1;
++            domain_down =3D 1;
++	} else if (rc) {
++            fprintf(stderr, "Failed to call xc_vmtrace_pt_get_offset\n")=
+;
++            return 1;
++        }
++
++        if (offset > last_offset)
++        {
++            fwrite(buf + last_offset, offset - last_offset, 1, stdout);
++        }
++        else if (offset < last_offset)
++        {
++            // buffer wrapped
++            fwrite(buf + last_offset, size - last_offset, 1, stdout);
++            fwrite(buf, offset, 1, stdout);
++        }
++
++        last_offset =3D offset;
++        usleep(1000 * 100);
++    }
++
++    rc =3D xenforeignmemory_unmap_resource(fmem, fres);
++
++    if (rc) {
++        fprintf(stderr, "Failed to unmap resource\n");
++        return 1;
++    }
++
++    rc =3D xenforeignmemory_close(fmem);
++
++    if (rc) {
++        fprintf(stderr, "Failed to close fmem\n");
++        return 1;
++    }
++
++    /*
++     * Don't try to disable PT if the domain is already dying.
++     */
++    if (!domain_down) {
++        rc =3D xc_vmtrace_pt_disable(xc, domid, vcpu_id);
++
++        if (rc) {
++            fprintf(stderr, "Failed to call xc_vmtrace_pt_disable\n");
++            return 1;
++        }
++    }
++
++    rc =3D xc_interface_close(xc);
++
++    if (rc) {
++        fprintf(stderr, "Failed to close xc interface\n");
++        return 1;
++    }
++
++    return 0;
 +}
 +
-+int xc_vmtrace_pt_disable(xc_interface *xch, uint32_t domid, uint32_t vcpu)
-+{
-+    DECLARE_DOMCTL;
-+    int rc;
-+
-+    domctl.cmd = XEN_DOMCTL_vmtrace_op;
-+    domctl.domain = domid;
-+    domctl.u.vmtrace_op.cmd = XEN_DOMCTL_vmtrace_pt_disable;
-+    domctl.u.vmtrace_op.vcpu = vcpu;
-+    domctl.u.vmtrace_op.pad1 = 0;
-+    domctl.u.vmtrace_op.pad2 = 0;
-+
-+    rc = do_domctl(xch, &domctl);
-+    return rc;
-+}
-+
--- 
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+--=20
 2.17.1
 
 
