@@ -2,65 +2,133 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E1D217773
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 21:03:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBA792177DD
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 21:24:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jssrp-0003r4-OL; Tue, 07 Jul 2020 19:02:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Om5Q=AS=redhat.com=eblake@srs-us1.protection.inumbo.net>)
- id 1jssrn-0003qz-RV
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 19:02:55 +0000
-X-Inumbo-ID: 76ad438a-c084-11ea-8496-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 76ad438a-c084-11ea-8496-bc764e2007e4;
- Tue, 07 Jul 2020 19:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1594148574;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KI8ePZl9TDbDjrxDfDqnNlC+04UP8bDvXEL9iQK5BS0=;
- b=WMA3Ie0lgx/n0gbNS1yziw62jZYjOqH2419WEB39BlC5xEK9DIglyvnMRqQzEv87VfGfrg
- m9cJWOIFghYHaXUbaQ6Gu3Dp7lC9EtZl+Zjb2rawT79+Ygd5gh98tQMfp2GT+rXVGGqM3U
- /z5sAagCigepG+TnLK6vJyqwHKAFrb4=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-316-UBMfkjp5NNKkrI0n77hKaA-1; Tue, 07 Jul 2020 15:02:50 -0400
-X-MC-Unique: UBMfkjp5NNKkrI0n77hKaA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED476107ACCD;
- Tue,  7 Jul 2020 19:02:48 +0000 (UTC)
-Received: from [10.3.115.46] (ovpn-115-46.phx2.redhat.com [10.3.115.46])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ED170797F3;
- Tue,  7 Jul 2020 19:02:41 +0000 (UTC)
-Subject: Re: [PATCH v12 1/8] error: New macro ERRP_AUTO_PROPAGATE()
-To: Markus Armbruster <armbru@redhat.com>, qemu-devel@nongnu.org
-References: <20200707165037.1026246-1-armbru@redhat.com>
- <20200707165037.1026246-2-armbru@redhat.com>
-From: Eric Blake <eblake@redhat.com>
-Organization: Red Hat, Inc.
-Message-ID: <afd4b693-2aec-247b-c0a7-7d061ed5bdff@redhat.com>
-Date: Tue, 7 Jul 2020 14:02:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+	id 1jstBY-0005d6-J2; Tue, 07 Jul 2020 19:23:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F44P=AS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jstBW-0005cX-QP
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 19:23:18 +0000
+X-Inumbo-ID: 4ce2fe66-c087-11ea-8ddd-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4ce2fe66-c087-11ea-8ddd-12813bfff9fa;
+ Tue, 07 Jul 2020 19:23:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=TBEsrYS8r8v9HKRGwC0Nokil/nk5rrR9oP43j7Ziypo=; b=YCp8KbJLlhgsy81xubYWZhcMG
+ sKCKkCbvIeNuV0ELoB/5ZThg1iJ/auyXR+ebnq9Er8qs28XDPqr192+uKJVFfoleuTLic/iiqm3fD
+ J13x3MH5l/xloukJ6JjYaESnIEzG+gl2qAnWgsvdUggblxVHEDxKExcbc5/SDrW7+3/o8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jstBQ-000338-Qr; Tue, 07 Jul 2020 19:23:12 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jstBQ-00009r-GC; Tue, 07 Jul 2020 19:23:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jstBQ-0001Xx-FI; Tue, 07 Jul 2020 19:23:12 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151705-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200707165037.1026246-2-armbru@redhat.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=eblake@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [linux-linus test] 151705: regressions - FAIL
+X-Osstest-Failures: linux-linus:test-arm64-arm64-libvirt-xsm:guest-start/debian.repeat:fail:regression
+ linux-linus:build-i386-pvops:kernel-build:fail:regression
+ linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:heisenbug
+ linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:heisenbug
+ linux-linus:test-armhf-armhf-xl-rtds:guest-start.2:fail:allowable
+ linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-examine:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+X-Osstest-Versions-This: linux=bfe91da29bfad9941d5d703d45e29f0812a20724
+X-Osstest-Versions-That: linux=1b5044021070efa3259f3e9548dc35d1eb6aa844
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 07 Jul 2020 19:23:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,170 +139,234 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Wolf <kwolf@redhat.com>, vsementsov@virtuozzo.com,
- Michael Roth <mdroth@linux.vnet.ibm.com>, qemu-block@nongnu.org,
- Paul Durrant <paul@xen.org>, Laszlo Ersek <lersek@redhat.com>,
- Christian Schoenebeck <qemu_oss@crudebyte.com>, groug@kaod.org,
- Max Reitz <mreitz@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Gerd Hoffmann <kraxel@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 7/7/20 11:50 AM, Markus Armbruster wrote:
-> From: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-> 
-> Introduce a new ERRP_AUTO_PROPAGATE macro, to be used at start of
-> functions with an errp OUT parameter.
-> 
-> It has three goals:
-> 
-> 1. Fix issue with error_fatal and error_prepend/error_append_hint: user
+flight 151705 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151705/
 
-the user
+Regressions :-(
 
-> can't see this additional information, because exit() happens in
-> error_setg earlier than information is added. [Reported by Greg Kurz]
-> 
-> 2. Fix issue with error_abort and error_propagate: when we wrap
-> error_abort by local_err+error_propagate, the resulting coredump will
-> refer to error_propagate and not to the place where error happened.
-> (the macro itself doesn't fix the issue, but it allows us to [3.] drop
-> the local_err+error_propagate pattern, which will definitely fix the
-> issue) [Reported by Kevin Wolf]
-> 
-> 3. Drop local_err+error_propagate pattern, which is used to workaround
-> void functions with errp parameter, when caller wants to know resulting
-> status. (Note: actually these functions could be merely updated to
-> return int error code).
-> 
-> To achieve these goals, later patches will add invocations
-> of this macro at the start of functions with either use
-> error_prepend/error_append_hint (solving 1) or which use
-> local_err+error_propagate to check errors, switching those
-> functions to use *errp instead (solving 2 and 3).
-> 
-> Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-> Reviewed-by: Paul Durrant <paul@xen.org>
-> Reviewed-by: Greg Kurz <groug@kaod.org>
-> Reviewed-by: Eric Blake <eblake@redhat.com>
-> [Comments merged properly with recent commit "error: Document Error
-> API usage rules", and edited for clarity.  Put ERRP_AUTO_PROPAGATE()
-> before its helpers, and touch up style.  Commit message tweaked.]
-> Signed-off-by: Markus Armbruster <armbru@redhat.com>
-> ---
->   include/qapi/error.h | 160 ++++++++++++++++++++++++++++++++++++++-----
->   1 file changed, 141 insertions(+), 19 deletions(-)
-> 
-> diff --git a/include/qapi/error.h b/include/qapi/error.h
-> index 3fed49747d..c865a7d2f1 100644
-> --- a/include/qapi/error.h
-> +++ b/include/qapi/error.h
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-libvirt-xsm 16 guest-start/debian.repeat fail REGR. vs. 151214
+ build-i386-pvops              6 kernel-build             fail REGR. vs. 151214
 
-> @@ -128,18 +122,26 @@
->    *         handle the error...
->    *     }
->    * when it doesn't, say a void function:
-> + *     ERRP_AUTO_PROPAGATE();
-> + *     foo(arg, errp);
-> + *     if (*errp) {
-> + *         handle the error...
-> + *     }
-> + * More on ERRP_AUTO_PROPAGATE() below.
-> + *
-> + * Code predating ERRP_AUTO_PROPAGATE() still exits, and looks like this:
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-xl-arndale   7 xen-boot         fail in 151690 pass in 151705
+ test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat  fail pass in 151690
 
-exists
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds     17 guest-start.2  fail in 151690 REGR. vs. 151214
 
->    *     Error *err = NULL;
->    *     foo(arg, &err);
->    *     if (err) {
->    *         handle the error...
-> - *         error_propagate(errp, err);
-> + *         error_propagate(errp, err); // deprecated
->    *     }
-> - * Do *not* "optimize" this to
-> + * Avoid in new code.  Do *not* "optimize" it to
->    *     foo(arg, errp);
->    *     if (*errp) { // WRONG!
->    *         handle the error...
->    *     }
-> - * because errp may be NULL!
-> + * because errp may be NULL!  Guard with ERRP_AUTO_PROPAGATE().
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-amd64-i386-xl-qemut-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemut-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-xl-raw        1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-examine       1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-xl            1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemut-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemut-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-pair          1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemut-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 151214
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 151214
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 151214
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151214
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151214
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 151214
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
 
-maybe:
+version targeted for testing:
+ linux                bfe91da29bfad9941d5d703d45e29f0812a20724
+baseline version:
+ linux                1b5044021070efa3259f3e9548dc35d1eb6aa844
 
-because errp may be NULL without the ERRP_AUTO_PROPAGATE() guard.
+Last test of basis   151214  2020-06-18 02:27:46 Z   19 days
+Failing since        151236  2020-06-19 19:10:35 Z   18 days   27 attempts
+Testing same since   151690  2020-07-06 23:10:49 Z    0 days    2 attempts
 
->    *
->    * But when all you do with the error is pass it on, please use
->    *     foo(arg, errp);
-> @@ -158,6 +160,19 @@
->    *         handle the error...
->    *     }
->    *
-> + * Pass an existing error to the caller:
+------------------------------------------------------------
+577 people touched revisions under test,
+not listing them all
 
-> + * = Converting to ERRP_AUTO_PROPAGATE() =
-> + *
-> + * To convert a function to use ERRP_AUTO_PROPAGATE():
-> + *
-> + * 0. If the Error ** parameter is not named @errp, rename it to
-> + *    @errp.
-> + *
-> + * 1. Add an ERRP_AUTO_PROPAGATE() invocation, by convention right at
-> + *    the beginning of the function.  This makes @errp safe to use.
-> + *
-> + * 2. Replace &err by errp, and err by *errp.  Delete local variable
-> + *    @err.
-> + *
-> + * 3. Delete error_propagate(errp, *errp), replace
-> + *    error_propagate_prepend(errp, *errp, ...) by error_prepend(errp, ...),
-> + *
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             fail    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           blocked 
+ test-amd64-coresched-i386-xl                                 blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           blocked 
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-i386-freebsd10-amd64                              blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      blocked 
+ test-amd64-i386-freebsd10-i386                               blocked 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         blocked 
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         blocked 
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    blocked 
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    blocked 
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-Why a comma here?
 
-> + * 4. Ensure @errp is valid at return: when you destroy *errp, set
-> + *    errp = NULL.
-> + *
-> + * Example:
-> + *
-> + *     bool fn(..., Error **errp)
-> + *     {
-> + *         Error *err = NULL;
-> + *
-> + *         foo(arg, &err);
-> + *         if (err) {
-> + *             handle the error...
-> + *             error_propagate(errp, err);
-> + *             return false;
-> + *         }
-> + *         ...
-> + *     }
-> + *
-> + * becomes
-> + *
-> + *     bool fn(..., Error **errp)
-> + *     {
-> + *         ERRP_AUTO_PROPAGATE();
-> + *
-> + *         foo(arg, errp);
-> + *         if (*errp) {
-> + *             handle the error...
-> + *             return false;
-> + *         }
-> + *         ...
-> + *     }
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Do we want the example to show the use of error_free and *errp = NULL?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Otherwise, this is looking good to me.  It will need a tweak if we go 
-with the shorter name ERRP_GUARD, but I like that idea.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
--- 
-Eric Blake, Principal Software Engineer
-Red Hat, Inc.           +1-919-301-3226
-Virtualization:  qemu.org | libvirt.org
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+(No revision log; it would be 28056 lines long.)
 
