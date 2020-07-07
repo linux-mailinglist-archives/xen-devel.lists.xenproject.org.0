@@ -2,67 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65050217803
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 21:36:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6753B21780F
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jul 2020 21:40:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jstOE-0006k3-Cu; Tue, 07 Jul 2020 19:36:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Om5Q=AS=redhat.com=eblake@srs-us1.protection.inumbo.net>)
- id 1jstOC-0006je-RE
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 19:36:24 +0000
-X-Inumbo-ID: 23d5ff4f-c089-11ea-8de3-12813bfff9fa
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 23d5ff4f-c089-11ea-8de3-12813bfff9fa;
- Tue, 07 Jul 2020 19:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1594150583;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=s4pxyif6vCA7Q2ARf0cNNXCLU62fQ7KvB9o94CRQIdw=;
- b=hNmhmp7g9VxnHRhLFDU39rBQXaL7dx6e6G9wSA7pstdmrG811O0CXDVoDu8l+t8D0LlIMs
- NRrF4TTdamZuxykc77GIbyRgoMuGid86B7/uikO3vYG8zchx12m8sB0kDfwEmPfwsIRLRv
- JUVOkZGUFFaTtXssvWReFWmj3XOibfw=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-150-lslRWG3pO1GJwf3QQRsP1Q-1; Tue, 07 Jul 2020 15:36:12 -0400
-X-MC-Unique: lslRWG3pO1GJwf3QQRsP1Q-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C0EA3800D5C;
- Tue,  7 Jul 2020 19:36:09 +0000 (UTC)
-Received: from [10.3.115.46] (ovpn-115-46.phx2.redhat.com [10.3.115.46])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A97601A7CE;
- Tue,  7 Jul 2020 19:36:02 +0000 (UTC)
-Subject: Re: [PATCH v12 2/8] scripts: Coccinelle script to use
- ERRP_AUTO_PROPAGATE()
-To: Markus Armbruster <armbru@redhat.com>, qemu-devel@nongnu.org
-References: <20200707165037.1026246-1-armbru@redhat.com>
- <20200707165037.1026246-3-armbru@redhat.com>
-From: Eric Blake <eblake@redhat.com>
-Organization: Red Hat, Inc.
-Message-ID: <764387d7-0d42-a291-d720-60df303c15e4@redhat.com>
-Date: Tue, 7 Jul 2020 14:36:02 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+	id 1jstSO-0007ep-7m; Tue, 07 Jul 2020 19:40:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CHg+=AS=cert.pl=michal.leszczynski@srs-us1.protection.inumbo.net>)
+ id 1jstSM-0007ao-VY
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2020 19:40:42 +0000
+X-Inumbo-ID: b7fb4044-c089-11ea-bb8b-bc764e2007e4
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b7fb4044-c089-11ea-bb8b-bc764e2007e4;
+ Tue, 07 Jul 2020 19:40:32 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 45DD5A2657;
+ Tue,  7 Jul 2020 21:40:31 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 2DAB7A261F;
+ Tue,  7 Jul 2020 21:40:30 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id A7sP2nFKaCHb; Tue,  7 Jul 2020 21:40:29 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 76ADDA265A;
+ Tue,  7 Jul 2020 21:40:29 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id S1odB7LY9wkz; Tue,  7 Jul 2020 21:40:29 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 3E4C7A2646;
+ Tue,  7 Jul 2020 21:40:29 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 192B622466;
+ Tue,  7 Jul 2020 21:39:59 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id ziXmPpBNaCej; Tue,  7 Jul 2020 21:39:53 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 4AA252230B;
+ Tue,  7 Jul 2020 21:39:53 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Gzc46ntvovfp; Tue,  7 Jul 2020 21:39:53 +0200 (CEST)
+Received: from mq-desktop.cert.pl (unknown [195.187.238.217])
+ by belindir.nask.net.pl (Postfix) with ESMTPSA id 13D8C21B7E;
+ Tue,  7 Jul 2020 21:39:53 +0200 (CEST)
+From: =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v6 00/11] Implement support for external IPT monitoring
+Date: Tue,  7 Jul 2020 21:39:39 +0200
+Message-Id: <cover.1594150543.git.michal.leszczynski@cert.pl>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20200707165037.1026246-3-armbru@redhat.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=eblake@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,107 +73,135 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Wolf <kwolf@redhat.com>, vsementsov@virtuozzo.com,
- qemu-block@nongnu.org, Paul Durrant <paul@xen.org>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
- Christian Schoenebeck <qemu_oss@crudebyte.com>,
- Michael Roth <mdroth@linux.vnet.ibm.com>, groug@kaod.org,
- Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Max Reitz <mreitz@redhat.com>, Laszlo Ersek <lersek@redhat.com>
+Cc: Julien Grall <julien@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, luwei.kang@intel.com,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, tamas.lengyel@intel.com,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 7/7/20 11:50 AM, Markus Armbruster wrote:
-> From: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-> 
-> Script adds ERRP_AUTO_PROPAGATE macro invocation where appropriate and
-> does corresponding changes in code (look for details in
-> include/qapi/error.h)
-> 
-> Usage example:
-> spatch --sp-file scripts/coccinelle/auto-propagated-errp.cocci \
->   --macro-file scripts/cocci-macro-file.h --in-place --no-show-diff \
->   --max-width 80 FILES...
-> 
-> Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-> Reviewed-by: Markus Armbruster <armbru@redhat.com>
-> Signed-off-by: Markus Armbruster <armbru@redhat.com>
-> ---
->   scripts/coccinelle/auto-propagated-errp.cocci | 337 ++++++++++++++++++
->   include/qapi/error.h                          |   3 +
->   MAINTAINERS                                   |   1 +
->   3 files changed, 341 insertions(+)
->   create mode 100644 scripts/coccinelle/auto-propagated-errp.cocci
+Intel Processor Trace is an architectural extension available in modern I=
+ntel=20
+family CPUs. It allows recording the detailed trace of activity while the=
+=20
+processor executes the code. One might use the recorded trace to reconstr=
+uct=20
+the code flow. It means, to find out the executed code paths, determine=20
+branches taken, and so forth.
 
-Needs a tweak if we go with ERRP_GUARD.  But that's easy.
+The abovementioned feature is described in Intel(R) 64 and IA-32 Architec=
+tures=20
+Software Developer's Manual Volume 3C: System Programming Guide, Part 3,=20
+Chapter 36: "Intel Processor Trace."
 
-> +
-> +// Convert special case with goto separately.
-> +// I tried merging this into the following rule the obvious way, but
-> +// it made Coccinelle hang on block.c
-> +//
-> +// Note interesting thing: if we don't do it here, and try to fixup
-> +// "out: }" things later after all transformations (the rule will be
-> +// the same, just without error_propagate() call), coccinelle fails to
-> +// match this "out: }".
+This patch series implements an interface that Dom0 could use in order to=
+=20
+enable IPT for particular vCPUs in DomU, allowing for external monitoring=
+. Such=20
+a feature has numerous applications like malware monitoring, fuzzing, or=20
+performance testing.
 
-"out: }" is not valid C; would referring to "out: ; }" fare any better?
+Also thanks to Tamas K Lengyel for a few preliminary hints before
+first version of this patch was submitted to xen-devel.
 
-> +@ disable optional_qualifier@
-> +identifier rule1.fn, rule1.local_err, out;
-> +symbol errp;
-> +@@
-> +
-> + fn(..., Error ** ____, ...)
-> + {
-> +     <...
-> +-    goto out;
-> ++    return;
-> +     ...>
-> +- out:
-> +-    error_propagate(errp, local_err);
-> + }
-> +
-> +// Convert most of local_err related stuff.
-> +//
-> +// Note, that we inherit rule1.fn and rule1.local_err names, not
-> +// objects themselves. We may match something not related to the
-> +// pattern matched by rule1. For example, local_err may be defined with
-> +// the same name in different blocks inside one function, and in one
-> +// block follow the propagation pattern and in other block doesn't.
-> +//
-> +// Note also that errp-cleaning functions
-> +//   error_free_errp
-> +//   error_report_errp
-> +//   error_reportf_errp
-> +//   warn_report_errp
-> +//   warn_reportf_errp
-> +// are not yet implemented. They must call corresponding Error* -
-> +// freeing function and then set *errp to NULL, to avoid further
-> +// propagation to original errp (consider ERRP_AUTO_PROPAGATE in use).
-> +// For example, error_free_errp may look like this:
-> +//
-> +//    void error_free_errp(Error **errp)
-> +//    {
-> +//        error_free(*errp);
-> +//        *errp = NULL;
-> +//    }
+Changed since v1:
+  * MSR_RTIT_CTL is managed using MSR load lists
+  * other PT-related MSRs are modified only when vCPU goes out of context
+  * trace buffer is now acquired as a resource
+  * added vmtrace_pt_size parameter in xl.cfg, the size of trace buffer
+    must be specified in the moment of domain creation
+  * trace buffers are allocated on domain creation, destructed on
+    domain destruction
+  * HVMOP_vmtrace_ipt_enable/disable is limited to enabling/disabling PT
+    these calls don't manage buffer memory anymore
+  * lifted 32 MFN/GFN array limit when acquiring resources
+  * minor code style changes according to review
 
-I guess we can still decide later if we want these additional functions, 
-or if they will even help after the number of places we have already 
-improved after applying this script as-is and with Markus' cleanups in 
-place.
+Changed since v2:
+  * trace buffer is now allocated on domain creation (in v2 it was
+    allocated when hvm param was set)
+  * restored 32-item limit in mfn/gfn arrays in acquire_resource
+    and instead implemented hypercall continuations
+  * code changes according to Jan's and Roger's review
 
-While I won't call myself a Coccinelle expert, it at least looks sane 
-enough that I'm comfortable if you add:
+Changed since v3:
+  * vmtrace HVMOPs are not implemented as DOMCTLs
+  * patches splitted up according to Andrew's comments
+  * code changes according to v3 review on the mailing list
 
-Reviewed-by: Eric Blake <eblake@redhat.com>
+Changed since v4:
+  * rebased to commit be63d9d4
+  * fixed dependencies between patches
+    (earlier patches don't reference further patches)
+  * introduced preemption check in acquire_resource
+  * moved buffer allocation to common code
+  * splitted some patches according to code review
+  * minor fixes according to code review
 
--- 
-Eric Blake, Principal Software Engineer
-Red Hat, Inc.           +1-919-301-3226
-Virtualization:  qemu.org | libvirt.org
+Changed since v5:
+  * trace buffer size is now dynamically determined by the proctrace
+    tool
+  * trace buffer size variable is uniformly defined as uint32_t
+    processor_trace_buf_kb in hypervisor, toolstack and ABI
+  * buffer pages are not freed explicitly but reference count is
+    now used instead
+  * minor fixes according to code review
+
+This patch series is available on GitHub:
+https://github.com/icedevml/xen/tree/ipt-patch-v6
+
+
+Michal Leszczynski (11):
+  memory: batch processing in acquire_resource()
+  x86/vmx: add Intel PT MSR definitions
+  x86/vmx: add IPT cpu feature
+  common: add vmtrace_pt_size domain parameter
+  tools/libxl: add vmtrace_pt_size parameter
+  x86/hvm: processor trace interface in HVM
+  x86/vmx: implement IPT in VMX
+  x86/mm: add vmtrace_buf resource type
+  x86/domctl: add XEN_DOMCTL_vmtrace_op
+  tools/libxc: add xc_vmtrace_* functions
+  tools/proctrace: add proctrace tool
+
+ docs/man/xl.cfg.5.pod.in                    |  13 ++
+ tools/golang/xenlight/helpers.gen.go        |   2 +
+ tools/golang/xenlight/types.gen.go          |   1 +
+ tools/libxc/Makefile                        |   1 +
+ tools/libxc/include/xenctrl.h               |  40 +++++
+ tools/libxc/xc_vmtrace.c                    |  87 ++++++++++
+ tools/libxl/libxl.h                         |   8 +
+ tools/libxl/libxl_create.c                  |   1 +
+ tools/libxl/libxl_types.idl                 |   4 +
+ tools/proctrace/Makefile                    |  45 +++++
+ tools/proctrace/proctrace.c                 | 179 ++++++++++++++++++++
+ tools/xl/xl_parse.c                         |  22 +++
+ xen/arch/x86/domain.c                       |  27 +++
+ xen/arch/x86/domctl.c                       |  50 ++++++
+ xen/arch/x86/hvm/vmx/vmcs.c                 |  15 +-
+ xen/arch/x86/hvm/vmx/vmx.c                  | 110 ++++++++++++
+ xen/common/domain.c                         |  46 +++++
+ xen/common/memory.c                         |  80 ++++++++-
+ xen/include/asm-x86/cpufeature.h            |   1 +
+ xen/include/asm-x86/hvm/hvm.h               |  20 +++
+ xen/include/asm-x86/hvm/vmx/vmcs.h          |   4 +
+ xen/include/asm-x86/hvm/vmx/vmx.h           |  14 ++
+ xen/include/asm-x86/msr-index.h             |  24 +++
+ xen/include/public/arch-x86/cpufeatureset.h |   1 +
+ xen/include/public/domctl.h                 |  29 ++++
+ xen/include/public/memory.h                 |   1 +
+ xen/include/xen/domain.h                    |   2 +
+ xen/include/xen/sched.h                     |   7 +
+ 28 files changed, 828 insertions(+), 6 deletions(-)
+ create mode 100644 tools/libxc/xc_vmtrace.c
+ create mode 100644 tools/proctrace/Makefile
+ create mode 100644 tools/proctrace/proctrace.c
+
+--=20
+2.17.1
 
 
