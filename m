@@ -2,70 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B63218A3B
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jul 2020 16:35:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86B75218AE6
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jul 2020 17:13:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jtB9b-00057E-7e; Wed, 08 Jul 2020 14:34:31 +0000
+	id 1jtBkw-0008Vy-NF; Wed, 08 Jul 2020 15:13:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I9ua=AT=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
- id 1jtB9Z-000579-TQ
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2020 14:34:29 +0000
-X-Inumbo-ID: 210e0640-c128-11ea-8496-bc764e2007e4
-Received: from mail-pg1-x530.google.com (unknown [2607:f8b0:4864:20::530])
+ <SRS0=sx7s=AT=gmail.com=alistair23@srs-us1.protection.inumbo.net>)
+ id 1jtBku-0008V8-U9
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2020 15:13:05 +0000
+X-Inumbo-ID: 8561223a-c12d-11ea-bca7-bc764e2007e4
+Received: from mail-io1-xd2b.google.com (unknown [2607:f8b0:4864:20::d2b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 210e0640-c128-11ea-8496-bc764e2007e4;
- Wed, 08 Jul 2020 14:34:29 +0000 (UTC)
-Received: by mail-pg1-x530.google.com with SMTP id e18so21759038pgn.7
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2020 07:34:28 -0700 (PDT)
+ id 8561223a-c12d-11ea-bca7-bc764e2007e4;
+ Wed, 08 Jul 2020 15:13:04 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id i4so47316994iov.11
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2020 08:13:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Yb7cX4ea2fPkbfiHgqV02jbgj81wzxI3uvVH5pLvZwk=;
- b=CPtKHGglkJqqmRyR9C8qoQL4AoMYiCDpXR6XIrWzo+w5yb9HiLwEATY+5iMA5n+3vQ
- amqA6xNKjgtObwGk/NFoQvdv20Z7XYASLWQSb6WtaNFuYfGfn81Kkd6aihWDvRoTknP3
- U9lB4b0Xv61X/8nbYkfk/yVWoB8UG/7NjgE7EK8XPRu27dBbqoZSdJqgzMdQZ3Qw2Ivq
- J8203Ftsbn6qwrd5EPG8gxTzfKKVN2471lKtUPa2GWBz32aRaG6BxO/20ITemX/0Rtbf
- CLZMRV2FtzbL0WlbQJOyeXPTL1q1p1S43GOcyMkw1wDuFDtokFbHG/RNcyoAjQGHuT18
- 5jmg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=xJ675J9bOACbo4EfI5RqubkWGD/0vf/sAuCPPSuqTY4=;
+ b=JGYXQbkzxsX7+RxzoeG+dRD0Om4RkBNx/3ge5VfkP7Z+Su73PKgnkkmlCPAoacFAa3
+ dHwi2L67aSQ+eMOoRAhAwiz6iYXjMUl8dxTMl4NdAWYaaA6zTGSimRTyaByXOA/Ns9Ms
+ 9o1OQDtMRI4SIGpFsz0Z6WwOTS6ZE7eotCPofyaIsKli2vP6cvNad+An29ybbHRkdhdg
+ kjTH6NIgOlS7OUAUYa0QK7/yYngdR9NFClzBam5Nn2u67R6U6RYfUViOL8zRyqwM/Lqz
+ JFn/1P4aS9Yj46ObJDZMY73RZjm97soWVEKRCFKNqIi52ZgvdpY0yib0YJVewh7RRCXg
+ hbYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Yb7cX4ea2fPkbfiHgqV02jbgj81wzxI3uvVH5pLvZwk=;
- b=g8T1N99/W7di7RCZVKs21HZXiiEpk/NO6okVsWE9ipPAJtBib5TT72b9nosNwy8570
- FGCeErQqxofA3wkJxHdFtoI1Tjk64s3At8Q+AYoPQrT6TeaR/TOxe8qhnnezo85jPM+p
- RuUgboBmIqW0N4riaEFLNUcCC9feKPsUGicQtxBfJA4PDS7Eu+eeWUbifv8HMQwBHLwg
- xbrXB5tjwl6Og9r3kfdDnhnumZI0Oj9bUqf4BxaWCc3sQIg+quVBjl+nacQ9QbywzEEF
- Dr3hXwmSN2x2Ev+DfrDR2PZ59mbGRwYtuZaFlrU5FAhmXpStTuhZk+y/6xEOAWv0fkem
- y9Gg==
-X-Gm-Message-State: AOAM531fvD9kcehWqIrvu8jOBxRSF+mB6BsUMFX59/AgDey3/lFZP+R8
- mJTILZtj0zvENaKhwFJfMu4=
-X-Google-Smtp-Source: ABdhPJzyouzTBoWX0PV+jsigo+PfoifWL165NGaAWJZJXwa6vhTJZymHfyoZwHagFLkaMavI2RaHtQ==
-X-Received: by 2002:a62:58c4:: with SMTP id
- m187mr51230914pfb.216.1594218868085; 
- Wed, 08 Jul 2020 07:34:28 -0700 (PDT)
-Received: from piano ([2601:1c2:4f00:c640:fc6:7318:8185:4d2d])
- by smtp.gmail.com with ESMTPSA id n137sm102963pfd.194.2020.07.08.07.34.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2020 07:34:27 -0700 (PDT)
-Date: Wed, 8 Jul 2020 07:34:20 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Alistair Francis <alistair23@gmail.com>
-Subject: Re: Xen and RISC-V Design Session
-Message-ID: <20200708143420.GA8562@piano>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=xJ675J9bOACbo4EfI5RqubkWGD/0vf/sAuCPPSuqTY4=;
+ b=QY8T4TECOHLOUaVQBXdseHH+PU+rVRyp90p586FJtT1UIlnlUCLpNo4wzaydf0D6Y1
+ AVeNDmTC68GcDolRDcv/vb9byRty6j1pbmpPSQcuZY3WoqBp0ouvs1FOg8A0WofzACc8
+ N8di7SIwQWKWKCE/KAOAJG2a05GUISOHkL0295NhOSFHb7VN+xj2d0c/94VSS8d9tU3x
+ WSyn+0lJEz5hXO6cYTcc+dIo8fXdNrzzKHgMHkw0CYr0z9LzX7m3q2m/n32hPKmTkvdo
+ aFzW9SGwTyh/CslmtdkgRyqGkaqop3Ks/Vni9x4kdMs1EZk3zOLrcXxD5aBWJ5URz0nw
+ TRRw==
+X-Gm-Message-State: AOAM532GZtGxu3uuXf+l9zJSgOMTkmqbvEy4i12T7rnMVD3vAFLGO3Lw
+ U/74fc/5bMS1znBH9o+rBqHu5sqxTjF7FSEetcQ=
+X-Google-Smtp-Source: ABdhPJz3+czMgC71M/Ii9yPW4uFjNbnq8Z9aQ/gKITu9QPcH06eYUuPz96o4w6exyK89HcpfjSe3XMiAgV/N1WErBDI=
+X-Received: by 2002:a02:5b83:: with SMTP id g125mr66655393jab.91.1594221184028; 
+ Wed, 08 Jul 2020 08:13:04 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAKmqyKPFMGtDLzc2RiEZR6KCcbPL6wumm+V5SNdxNf7fAowcBQ@mail.gmail.com>
  <20200708131150.GD7191@Air-de-Roger>
  <CAKmqyKOhW=YJ-WW28v-Ddt5yDDfVfCJKwijfsXo0oWAcvfrg2w@mail.gmail.com>
  <6CE81465-9F87-486F-A3CC-08857C9C4332@citrix.com>
  <CAKmqyKP5j7tQLZ8ka=CoN93X87a1LQhnMTxSeYfFo0jviMzP-w@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKmqyKP5j7tQLZ8ka=CoN93X87a1LQhnMTxSeYfFo0jviMzP-w@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <20200708143420.GA8562@piano>
+ <alpine.DEB.2.21.2007080808420.4124@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2007080808420.4124@sstabellini-ThinkPad-T480s>
+From: Alistair Francis <alistair23@gmail.com>
+Date: Wed, 8 Jul 2020 08:03:14 -0700
+Message-ID: <CAKmqyKPrQKyz8HY00pGnS-mM8Dr5P-m69sziCJ-K8yiFoza08Q@mail.gmail.com>
+Subject: Re: Xen and RISC-V Design Session
+To: Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,7 +70,7 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
  Andrew Cooper <Andrew.Cooper3@citrix.com>,
  George Dunlap <George.Dunlap@citrix.com>,
  Bobby Eshleman <bobby.eshleman@starlab.io>,
@@ -85,19 +79,28 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Jul 08, 2020 at 06:20:47AM -0700, Alistair Francis wrote:
-> 
-> Thanks! Just submitted the proposal.
-> 
-> It would be really great to have Bobby attend (on CC) as he has been
-> working on it. I'm not sure what timezone he is in though.
-> 
+On Wed, Jul 8, 2020 at 8:10 AM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> On Wed, 8 Jul 2020, Bobby Eshleman wrote:
+> > On Wed, Jul 08, 2020 at 06:20:47AM -0700, Alistair Francis wrote:
+> > >
+> > > Thanks! Just submitted the proposal.
+> > >
+> > > It would be really great to have Bobby attend (on CC) as he has been
+> > > working on it. I'm not sure what timezone he is in though.
+> > >
+> >
+> > Hey Alistair,
+> >
+> > I am on the west coast in the USA, so some of the later slots would work best
+> > for me too.
+>
+> I'd love to attend this session. Realistically we have two sessions
+> tomorrow we could use, the 7:15AM and the 8:30AM California time, we
+> could use one for FuSa and the other for RISC-V.
 
-Hey Alistair,
+Either of those work for me.
 
-I am on the west coast in the USA, so some of the later slots would work best
-for me too.
-
-Best,
-Bobby
+Alistair
 
