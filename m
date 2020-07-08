@@ -2,61 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4B60218601
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jul 2020 13:22:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAF4A2185E5
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jul 2020 13:17:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jt89Z-0005ab-T5; Wed, 08 Jul 2020 11:22:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jt84S-0004n9-8Q; Wed, 08 Jul 2020 11:17:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lA1A=AT=yadro.com=r.bolshakov@srs-us1.protection.inumbo.net>)
- id 1jt840-0004lU-Ck
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2020 11:16:32 +0000
-X-Inumbo-ID: 792ac01e-c10c-11ea-bb8b-bc764e2007e4
-Received: from mta-01.yadro.com (unknown [89.207.88.252])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 792ac01e-c10c-11ea-bb8b-bc764e2007e4;
- Wed, 08 Jul 2020 11:16:31 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id F07E74C895;
- Wed,  8 Jul 2020 11:16:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- in-reply-to:content-disposition:content-type:content-type
- :mime-version:references:message-id:subject:subject:from:from
- :date:date:received:received:received; s=mta-01; t=1594206989;
- x=1596021390; bh=IZP5UhMNqaSvqAnZInLSw7aMUyR9UHa4g7mz2kaJfkI=; b=
- LwlLD4gqzKhmjDg+9WVU7o3CgUCt71MSdjCZREhDV0oSr58YKSEbnCG0ZNKD2k5K
- K3tD35qHsix1ygABezMpCKHuFTf4V8AvRtKhcuyU/eAfNtdtkJ65uJTKxajbTCNI
- E8KgP0bcTL3+zm7qxjuC99ogd006+TMn84nN/V+WM88=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id PGMWieCgyhvF; Wed,  8 Jul 2020 14:16:29 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id A617C4C889;
- Wed,  8 Jul 2020 14:16:25 +0300 (MSK)
-Received: from localhost (172.17.204.212) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 8 Jul
- 2020 14:16:25 +0300
-Date: Wed, 8 Jul 2020 14:16:24 +0300
-From: Roman Bolshakov <r.bolshakov@yadro.com>
-To: Christophe de Dinechin <dinechin@redhat.com>
-Subject: Re: [PATCH] trivial: Remove trailing whitespaces
-Message-ID: <20200708111624.GA29018@SPB-NB-133.local>
-References: <20200706162300.1084753-1-dinechin@redhat.com>
+ <SRS0=65hh=AT=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jt84Q-0004n4-P5
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2020 11:16:58 +0000
+X-Inumbo-ID: 890ca024-c10c-11ea-8e29-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 890ca024-c10c-11ea-8e29-12813bfff9fa;
+ Wed, 08 Jul 2020 11:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1594207017;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=bojDQ70VGgpEjsSAvhiVonk1IPlVtB8NqHG4JqvRoA8=;
+ b=co+peH64vBQbk9Ne7UNpCl5I72Aq5xVIBswb/BoqCB0VhRtPl/U08WNF
+ d+JcVzkwkY8JvJhpytcaDAWvkY2sZ4QcS6FmdWCt2k8tNhyL0eArkfcz3
+ L4/VGws3sw1yvzlgDS+pJKe39J4F3TmN2TRLnIq692oyIAZwtxHss0Ket o=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Y7LAl79xRXjtB7ODpVYEuFtpRq1EBz2Li8v/eqx7wuPkp9H/OOtOUb9ODvKCSfb56Rbbvjp1TI
+ SYpncIND7tvjagbcxtS9kxWDNjkpocNgNptfJ1FQn2hHIp+XgQopyq6xZliXvCxgi5sVFC29LH
+ T7BvnFerjdObrIAJPZpvGBHCgkJcHFt/RN1PzlFPjYdCRrpw8RrHlAr3447wrndc72Z5IwdkcQ
+ 1armTpImHl5yBv7+qL4sDzmPGzqd+etoFktYkt0R3XfXMOP7dCFj+SxM0dlYw3gjY73FH36yyl
+ rmY=
+X-SBRS: 2.7
+X-MesageID: 22197937
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,327,1589256000"; d="scan'208";a="22197937"
+Date: Wed, 8 Jul 2020 13:16:47 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/mtrr: Drop workaround for old 32bit CPUs
+Message-ID: <20200708111647.GC7191@Air-de-Roger>
+References: <20200708101443.27321-1-andrew.cooper3@citrix.com>
+ <20200708104826.GB7191@Air-de-Roger>
+ <12874bc4-39e8-5ed4-3893-79154a206293@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200706162300.1084753-1-dinechin@redhat.com>
-X-Originating-IP: [172.17.204.212]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
-X-Mailman-Approved-At: Wed, 08 Jul 2020 11:22:16 +0000
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <12874bc4-39e8-5ed4-3893-79154a206293@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,53 +65,23 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- Dmitry Fleytman <dmitry.fleytman@gmail.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
- Michael Roth <mdroth@linux.vnet.ibm.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Max Reitz <mreitz@redhat.com>,
- Marek Vasut <marex@denx.de>, Stefano Stabellini <sstabellini@kernel.org>,
- qemu-block@nongnu.org, qemu-trivial@nongnu.org, Paul Durrant <paul@xen.org>,
- Magnus Damm <magnus.damm@gmail.com>, Markus Armbruster <armbru@redhat.com>,
- =?iso-8859-1?Q?Herv=E9?= Poussineau <hpoussin@reactos.org>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- =?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
- Richard Henderson <rth@twiddle.net>, Andrzej Zaborowski <balrogg@gmail.com>,
- Artyom Tarasenko <atar4qemu@gmail.com>,
- Alistair Francis <alistair@alistair23.me>,
- Eduardo Habkost <ehabkost@redhat.com>, Michael Tokarev <mjt@tls.msk.ru>,
- Riku Voipio <riku.voipio@iki.fi>, Peter Lieven <pl@kamp.de>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-arm@nongnu.org,
- Peter Chubb <peter.chubb@nicta.com.au>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, xen-devel@lists.xenproject.org,
- Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
- David Gibson <david@gibson.dropbear.id.au>, Kevin Wolf <kwolf@redhat.com>,
- Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@redhat.com>,
- Chris Wulff <crwulff@gmail.com>, Laurent Vivier <laurent@vivier.eu>,
- Jean-Christophe Dubois <jcd@tribudubois.net>, qemu-ppc@nongnu.org,
- Paolo Bonzini <pbonzini@redhat.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jul 06, 2020 at 06:23:00PM +0200, Christophe de Dinechin wrote:
-> There are a number of unnecessary trailing whitespaces that have
-> accumulated over time in the source code. They cause stray changes
-> in patches if you use tools that automatically remove them.
+On Wed, Jul 08, 2020 at 11:52:57AM +0100, Andrew Cooper wrote:
+> On 08/07/2020 11:48, Roger Pau Monné wrote:
+> > On Wed, Jul 08, 2020 at 11:14:43AM +0100, Andrew Cooper wrote:
+> >>  	/*  Check upper bits of base and last are equal and lower bits are 0
+> >>  	    for base and 1 for last  */
+> >>  	last = base + size - 1;
+> > FWIW, you could also initialize last at definition time.
 > 
-> Tested by doing a `git diff -w` after the change.
-> 
-> This could probably be turned into a pre-commit hook.
-> 
+> I've got some very different cleanup in mind for that code, seeing as it
+> can be simplified to a single test expression.
 
-For HVF bits,
+Oh, I certainly didn't look at it that much :).
 
-Reviewed-by: Roman Bolshakov <r.bolshakov@yadro.com>
-
-Thanks,
-Roman
+Thanks, Roger.
 
