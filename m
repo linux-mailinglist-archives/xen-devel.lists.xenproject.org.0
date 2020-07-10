@@ -2,74 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEFFC21B0B1
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2020 09:54:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 019AA21B2AE
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2020 11:51:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jtnqw-0005GG-Rc; Fri, 10 Jul 2020 07:53:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RM36=AV=amazon.de=prvs=453334893=wipawel@srs-us1.protection.inumbo.net>)
- id 1jtnqu-0005GB-WF
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2020 07:53:49 +0000
-X-Inumbo-ID: 7c9f6336-c282-11ea-bb8b-bc764e2007e4
-Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7c9f6336-c282-11ea-bb8b-bc764e2007e4;
- Fri, 10 Jul 2020 07:53:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1594367629; x=1625903629;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:mime-version: content-transfer-encoding;
- bh=rgE8KP+G2jBgkSX7/8VriuBGi2KgsQj33m8hlyStpus=;
- b=aetBFfIs1kLYrRPcizYRzOqTyZRaivkXz7kDk5cVM+tmXu7GbZ1qO2oi
- TaFSjJjEe3GJB/xv4Sp5118jpv3jF3+Z/iMpFb8+P1CXxA1iobw8aa/0c
- uvTukJpyU8QpyNI35ie38Qio2Kwh2+BB5ijC8p/fLTRrNOkG/hHz1PGNJ M=;
-IronPort-SDR: 8K05o5Smf0O3xPGbO1WCyBp+X1hf38iHeQjtJUsbuJPetvlSFcBSQ9F+1N/jff0xPg4vYWKiUk
- 5ZzMxP/ixsPg==
-X-IronPort-AV: E=Sophos;i="5.75,335,1589241600"; d="scan'208";a="58783042"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1d-74cf8b49.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
- 10 Jul 2020 07:53:42 +0000
-Received: from EX13MTAUEA002.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
- by email-inbound-relay-1d-74cf8b49.us-east-1.amazon.com (Postfix) with ESMTPS
- id 13009C1963; Fri, 10 Jul 2020 07:53:41 +0000 (UTC)
-Received: from EX13D05EUB003.ant.amazon.com (10.43.166.253) by
- EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 10 Jul 2020 07:53:40 +0000
-Received: from EX13D05EUB003.ant.amazon.com (10.43.166.253) by
- EX13D05EUB003.ant.amazon.com (10.43.166.253) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 10 Jul 2020 07:53:39 +0000
-Received: from EX13D05EUB003.ant.amazon.com ([10.43.166.253]) by
- EX13D05EUB003.ant.amazon.com ([10.43.166.253]) with mapi id 15.00.1497.006;
- Fri, 10 Jul 2020 07:53:39 +0000
-From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [XTF] xenbus: Don't wait if the response ring is full
-Thread-Topic: [XTF] xenbus: Don't wait if the response ring is full
-Thread-Index: AQHWVo856A8ZAu2mDEGOBIlrR83SyQ==
-Date: Fri, 10 Jul 2020 07:53:39 +0000
-Message-ID: <02F94EA5-3555-4D3B-97DF-98914410424B@amazon.com>
-References: <20200709184647.5159-1-julien@xen.org>
-In-Reply-To: <20200709184647.5159-1-julien@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.166.86]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <44A3B3D566F72048AF5A80600D164451@amazon.com>
+	id 1jtpf7-0006dI-3F; Fri, 10 Jul 2020 09:49:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RxGT=AV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jtpf6-0006dD-1c
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2020 09:49:44 +0000
+X-Inumbo-ID: acfd68e2-c292-11ea-8f79-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id acfd68e2-c292-11ea-8f79-12813bfff9fa;
+ Fri, 10 Jul 2020 09:49:41 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D99DAADC5;
+ Fri, 10 Jul 2020 09:49:40 +0000 (UTC)
+Subject: Re: [PATCH] xen: don't reschedule in preemption off sections
+To: Juergen Gross <jgross@suse.com>
+References: <20200710075050.4769-1-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <988ff766-b7de-2e25-2524-c412379686fc@suse.com>
+Date: Fri, 10 Jul 2020 11:49:41 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Precedence: Bulk
-Content-Transfer-Encoding: base64
+In-Reply-To: <20200710075050.4769-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -77,37 +46,98 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, "Grall,
- Julien" <jgrall@amazon.co.uk>, xen-devel <xen-devel@lists.xenproject.org>,
- "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
+Cc: xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+ Sarah Newman <srn@prgmr.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gOS4gSnVsIDIwMjAsIGF0IDIwOjQ2LCBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4u
-b3JnPiB3cm90ZToNCj4gDQo+IA0KPiBGcm9tOiBKdWxpZW4gR3JhbGwgPGpncmFsbEBhbWF6b24u
-Y29tPg0KPiANCj4gWGVuU3RvcmUgcmVzcG9uc2UgY2FuIGJlIGJpZ2dlciB0aGFuIHRoZSByZXNw
-b25zZSByaW5nLiBJbiB0aGlzIGNhc2UsDQo+IGl0IGlzIHBvc3NpYmxlIHRvIGhhdmUgdGhlIHJp
-bmcgZnVsbCAoZS5nIGNvbnMgPSAxOSBhbmQgcHJvZCA9IDEwNDMpLg0KPiANCj4gSG93ZXZlciwg
-WFRGIHdpbGwgY29uc2lkZXIgdGhhdCB0aGVyZSBpcyBubyBkYXRhIGFuZCB0aGVyZWZvcmUgd2Fp
-dCBmb3INCj4gbW9yZSBpbnB1dC4gVGhpcyB3aWxsIHJlc3VsdCB0byBibG9jayBpbmRlZmluaXRl
-bHkgYXMgdGhlIHJpbmcgaXMgZnVsbC4NCj4gDQo+IFRoaXMgY2FuIGJlIHNvbHZlZCBieSBhdm9p
-ZGluZyB0byBtYXNrIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4gcHJvZCBhbmQNCj4gY29ucy4NCj4g
-DQo+IFNpZ25lZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8amdyYWxsQGFtYXpvbi5jb20+DQo+IC0t
-LQ0KPiBjb21tb24veGVuYnVzLmMgfCAyICstDQo+IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlv
-bigrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2NvbW1vbi94ZW5idXMuYyBi
-L2NvbW1vbi94ZW5idXMuYw0KPiBpbmRleCAyNGZmZjQ4NzIzNzIuLmYzYmIzMGFjNjkzZiAxMDA2
-NDQNCj4gLS0tIGEvY29tbW9uL3hlbmJ1cy5jDQo+ICsrKyBiL2NvbW1vbi94ZW5idXMuYw0KPiBA
-QCAtNzUsNyArNzUsNyBAQCBzdGF0aWMgdm9pZCB4ZW5idXNfcmVhZCh2b2lkICpkYXRhLCBzaXpl
-X3QgbGVuKQ0KPiAgICAgICAgIHVpbnQzMl90IHByb2QgPSBBQ0NFU1NfT05DRSh4Yl9yaW5nLT5y
-c3BfcHJvZCk7DQo+ICAgICAgICAgdWludDMyX3QgY29ucyA9IEFDQ0VTU19PTkNFKHhiX3Jpbmct
-PnJzcF9jb25zKTsNCj4gDQo+IC0gICAgICAgIHBhcnQgPSBtYXNrX3hlbmJ1c19pZHgocHJvZCAt
-IGNvbnMpOw0KPiArICAgICAgICBwYXJ0ID0gcHJvZCAtIGNvbnM7DQo+IA0KPiAgICAgICAgIC8q
-IE5vIGRhdGE/ICBLaWNrIHhlbnN0b3JlZCBhbmQgd2FpdCBmb3IgaXQgdG8gcHJvZHVjZSBzb21l
-IGRhdGEuICovDQo+ICAgICAgICAgaWYgKCAhcGFydCApDQo+IOKAlA0KPiAyLjE3LjENCj4gDQoN
-ClJldmlld2VkLWJ5OiBQYXdlbCBXaWVjem9ya2lld2ljeiA8d2lwYXdlbEBhbWF6b24uZGU+CgoK
-CkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgR2VybWFueSBHbWJICktyYXVzZW5zdHIuIDM4CjEw
-MTE3IEJlcmxpbgpHZXNjaGFlZnRzZnVlaHJ1bmc6IENocmlzdGlhbiBTY2hsYWVnZXIsIEpvbmF0
-aGFuIFdlaXNzCkVpbmdldHJhZ2VuIGFtIEFtdHNnZXJpY2h0IENoYXJsb3R0ZW5idXJnIHVudGVy
-IEhSQiAxNDkxNzMgQgpTaXR6OiBCZXJsaW4KVXN0LUlEOiBERSAyODkgMjM3IDg3OQoKCg==
+On 10.07.2020 09:50, Juergen Gross wrote:
+> For support of long running hypercalls xen_maybe_preempt_hcall() is
+> calling cond_resched() in case a hypercall marked as preemptible has
+> been interrupted.
+> 
+> Normally this is no problem, as only hypercalls done via some ioctl()s
+> are marked to be preemptible. In rare cases when during such a
+> preemptible hypercall an interrupt occurs and any softirq action is
+> started from irq_exit(), a further hypercall issued by the softirq
+> handler will be regarded to be preemptible, too. This might lead to
+> rescheduling in spite of the softirq handler potentially having set
+> preempt_disable(), leading to splats like:
+> 
+> BUG: sleeping function called from invalid context at drivers/xen/preempt.c:37
+> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 20775, name: xl
+> INFO: lockdep is turned off.
+> CPU: 1 PID: 20775 Comm: xl Tainted: G D W 5.4.46-1_prgmr_debug.el7.x86_64 #1
+> Call Trace:
+> <IRQ>
+> dump_stack+0x8f/0xd0
+> ___might_sleep.cold.76+0xb2/0x103
+> xen_maybe_preempt_hcall+0x48/0x70
+> xen_do_hypervisor_callback+0x37/0x40
+> RIP: e030:xen_hypercall_xen_version+0xa/0x20
+> Code: ...
+> RSP: e02b:ffffc900400dcc30 EFLAGS: 00000246
+> RAX: 000000000004000d RBX: 0000000000000200 RCX: ffffffff8100122a
+> RDX: ffff88812e788000 RSI: 0000000000000000 RDI: 0000000000000000
+> RBP: ffffffff83ee3ad0 R08: 0000000000000001 R09: 0000000000000001
+> R10: 0000000000000000 R11: 0000000000000246 R12: ffff8881824aa0b0
+> R13: 0000000865496000 R14: 0000000865496000 R15: ffff88815d040000
+> ? xen_hypercall_xen_version+0xa/0x20
+> ? xen_force_evtchn_callback+0x9/0x10
+> ? check_events+0x12/0x20
+> ? xen_restore_fl_direct+0x1f/0x20
+> ? _raw_spin_unlock_irqrestore+0x53/0x60
+> ? debug_dma_sync_single_for_cpu+0x91/0xc0
+> ? _raw_spin_unlock_irqrestore+0x53/0x60
+> ? xen_swiotlb_sync_single_for_cpu+0x3d/0x140
+> ? mlx4_en_process_rx_cq+0x6b6/0x1110 [mlx4_en]
+> ? mlx4_en_poll_rx_cq+0x64/0x100 [mlx4_en]
+> ? net_rx_action+0x151/0x4a0
+> ? __do_softirq+0xed/0x55b
+> ? irq_exit+0xea/0x100
+> ? xen_evtchn_do_upcall+0x2c/0x40
+> ? xen_do_hypervisor_callback+0x29/0x40
+> </IRQ>
+> ? xen_hypercall_domctl+0xa/0x20
+> ? xen_hypercall_domctl+0x8/0x20
+> ? privcmd_ioctl+0x221/0x990 [xen_privcmd]
+> ? do_vfs_ioctl+0xa5/0x6f0
+> ? ksys_ioctl+0x60/0x90
+> ? trace_hardirqs_off_thunk+0x1a/0x20
+> ? __x64_sys_ioctl+0x16/0x20
+> ? do_syscall_64+0x62/0x250
+> ? entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> 
+> Fix that by testing preempt_count() before calling cond_resched().
+> 
+> In kernel 5.8 this can't happen any more due to the entry code rework.
+> 
+> Reported-by: Sarah Newman <srn@prgmr.com>
+> Fixes: 0fa2f5cb2b0ecd8 ("sched/preempt, xen: Use need_resched() instead of should_resched()")
+> Cc: Sarah Newman <srn@prgmr.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  drivers/xen/preempt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/xen/preempt.c b/drivers/xen/preempt.c
+> index 17240c5325a3..6ad87b5c95ed 100644
+> --- a/drivers/xen/preempt.c
+> +++ b/drivers/xen/preempt.c
+> @@ -27,7 +27,7 @@ EXPORT_SYMBOL_GPL(xen_in_preemptible_hcall);
+>  asmlinkage __visible void xen_maybe_preempt_hcall(void)
+>  {
+>  	if (unlikely(__this_cpu_read(xen_in_preemptible_hcall)
+> -		     && need_resched())) {
+> +		     && need_resched() && !preempt_count())) {
 
+Doesn't this have the at least latent risk of hiding issues in
+other call trees (by no longer triggering logging like the one
+that has propmted this change)? Wouldn't it be better to save,
+clear, and restore the flag in one of xen_evtchn_do_upcall() or
+xen_do_hypervisor_callback()?
+
+Jan
 
