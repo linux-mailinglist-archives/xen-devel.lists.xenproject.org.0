@@ -2,108 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22B1621B311
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2020 12:17:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B2A21B37C
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2020 12:51:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jtq5a-0000gL-Dd; Fri, 10 Jul 2020 10:17:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qBAA=AV=samsung.com=b.zolnierkie@srs-us1.protection.inumbo.net>)
- id 1jtq5X-0000gG-KT
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2020 10:17:04 +0000
-X-Inumbo-ID: 7eb955be-c296-11ea-8f7c-12813bfff9fa
-Received: from mailout2.w1.samsung.com (unknown [210.118.77.12])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7eb955be-c296-11ea-8f7c-12813bfff9fa;
- Fri, 10 Jul 2020 10:17:01 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200710101701euoutp022f4d00e92229c91bc3c3b0cbb04b83c7~gXLnKukvR1284512845euoutp02L
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2020 10:17:01 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20200710101701euoutp022f4d00e92229c91bc3c3b0cbb04b83c7~gXLnKukvR1284512845euoutp02L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1594376221;
- bh=zuImCTUG8KB0maKe8qkWKgOT1mxGOgJZkICKt5oGbeI=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=plnuMrsuGMEkycrAG8jAYl+NYTqyivgLb9gVuse4XXicaMM9PDEyMfw5nB5QoSfJm
- P1aQT6TW0KjabHQlpjLuvOfJMNx0eAQjIwyi7eBAgZXTdBaZyXsq6PVX9p622yLKya
- 6tgQ+p2keFGMAmWTZwwfp05CEFWjmdO4ZfAR6TnY=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20200710101701eucas1p2b25fdf4c5eb5debe392ff1ff0530324e~gXLnD4l0R0954409544eucas1p2H;
- Fri, 10 Jul 2020 10:17:01 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id B5.6D.06318.C10480F5; Fri, 10
- Jul 2020 11:17:00 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20200710101700eucas1p27a9b4f0c67d6b5af361ad3085c830d39~gXLmrr0ra0940409404eucas1p23;
- Fri, 10 Jul 2020 10:17:00 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200710101700eusmtrp20bdf7cf974e4798332791a5c06de0237~gXLmq972P2032920329eusmtrp2m;
- Fri, 10 Jul 2020 10:17:00 +0000 (GMT)
-X-AuditID: cbfec7f5-38bff700000018ae-fc-5f08401c4f46
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id F2.C0.06314.C10480F5; Fri, 10
- Jul 2020 11:17:00 +0100 (BST)
-Received: from [106.120.51.71] (unknown [106.120.51.71]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200710101700eusmtip20235ca730843f772b9729ddb9037521d~gXLmM2BMQ2026820268eusmtip2O;
- Fri, 10 Jul 2020 10:17:00 +0000 (GMT)
-Subject: Re: [PATCH] efi: avoid error message when booting under Xen
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-From: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-Message-ID: <170e01b1-220d-5cb7-03b2-c70ed3ae58e4@samsung.com>
-Date: Fri, 10 Jul 2020 12:16:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+	id 1jtqbn-0003q4-4W; Fri, 10 Jul 2020 10:50:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AY6w=AV=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jtqbl-0003pz-Mc
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2020 10:50:21 +0000
+X-Inumbo-ID: 25ef0ed8-c29b-11ea-b7bb-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 25ef0ed8-c29b-11ea-b7bb-bc764e2007e4;
+ Fri, 10 Jul 2020 10:50:20 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D3878AD75;
+ Fri, 10 Jul 2020 10:50:19 +0000 (UTC)
+Subject: Re: [PATCH] xen: don't reschedule in preemption off sections
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200710075050.4769-1-jgross@suse.com>
+ <988ff766-b7de-2e25-2524-c412379686fc@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <742457cf-4892-0e85-2fc8-d2eb9f8a3a51@suse.com>
+Date: Fri, 10 Jul 2020 12:50:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <ec21b883-dc5c-f3fe-e989-7fa13875a4c4@suse.com>
+In-Reply-To: <988ff766-b7de-2e25-2524-c412379686fc@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SeUgUYRjG+XZmx3Fx5XM1fHGlYjEhI80UGUzESmrznyL6I+3QNSePPHe8
- KzDMI8uwJMxVWNsgS0HNPNI8QMuzNPNITUjzlszFEyMtZ0fJ/57vfd4f3/PASxOyCrEVHRwe
- zarDVaEKSkJWtax3Hbb2oH2PNPa4MuvLC4jpW1mgmPyho0zq2DBi2h7qxUxvbT7FZDwbNGLW
- KrJFHrSyvOgepfx+v1WkbNb3kcqFhn5KWVrRTyqXyveeo3wkbgFsaHAsq3Zw95METXWsiiPL
- TOP1uTlUEnpgkoGMacDOMPttgMxAElqGXyJY0BSTvCHDywjG33sLxhKC1cWP1A7RkdlBCEYh
- glJtOxIe8whKJuoNuDn2hNXiJBGvLbALzC1lGvFLBP6BoLhx3LBEYVd4lFa0RdO0FLtDn/YC
- PybxAShImSN4vQdfhMXRZjGvpdgM2nMnDKgxdoPxJ3WI1wS2hOEJrUjQ+yC5Ms+QDnCLETTO
- lm3H9oSprDEjQZvDXGvFtraGvzU8zAMlCDbSZ7bpagSF2Zvb9DEY6fpN8UkJfBBKax2E8XH4
- UJ1sKADYFAbnzYQQpvC4KocQxlJIT5UJ27ZQ9mInjjVk1LwispBCs6uaZlcdza46mv//FiCy
- CFmyMVxYIMs5hbNx9pwqjIsJD7S/FhFWjrZuqXOzdeUtavjj34QwjRQmUr8NylcmVsVyCWFN
- CGhCYSE98anzqkwaoEpIZNURvuqYUJZrQnKaVFhKnXSzV2Q4UBXN3mDZSFa944poY6sk9LUu
- 1Gf1zc8v85cHCup69mfapMTrrp91jopZ0TGFcSaH9FG3ck9falv08u093xCy0p3f6lhf7yS/
- wznOhLSfqdv4dXugyNiuPOBUopP3kLQwOE3u9U5fEhdyT+v//GSSfHptWj5qox3pUz59nSUp
- q/zsZ4vEkzqXie6beXfdHNcnFSQXpHK0I9Sc6h+lhHiIRwMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrGIsWRmVeSWpSXmKPExsVy+t/xe7oyDhzxBru/yFr8/PKe0eLK1/ds
- FnNuGlm0PbzFaHGi7wOrxeVdc9gsuhbeYLf4vmUykwOHx6ZVnWwe97uPM3kc/nCFxeP9vqts
- Huu3XGXx+LxJLoAtSs+mKL+0JFUhI7+4xFYp2tDCSM/Q0kLPyMRSz9DYPNbKyFRJ384mJTUn
- syy1SN8uQS/j2alvrAUb+Co+zJzO1sDYw9PFyMkhIWAicar3FHMXIxeHkMBSRokZK5sYuxg5
- gBIyEsfXl0HUCEv8udbFBlHzmlHi3KpLjCAJYQEXiW+rG5hAbBEBM4lXn3vZQYqYBR4xSnT9
- XcYE0fEGaGrbYRaQKjYBK4mJ7avANvAK2ElcmR8CEmYRUJVY0PqKGcQWFYiQOLxjFtgCXgFB
- iZMzn4C1cgrYSDyeugcsziygLvFn3iVmCFtc4taT+UwQtrxE89bZzBMYhWYhaZ+FpGUWkpZZ
- SFoWMLKsYhRJLS3OTc8tNtQrTswtLs1L10vOz93ECIzDbcd+bt7BeGlj8CFGAQ5GJR7eHf/Z
- 4oVYE8uKK3MPMUpwMCuJ8DqdPR0nxJuSWFmVWpQfX1Sak1p8iNEU6LmJzFKiyfnAFJFXEm9o
- amhuYWlobmxubGahJM7bIXAwRkggPbEkNTs1tSC1CKaPiYNTqoHRb92WuV5/fNYZH7OQEeEs
- 1LlrHL9SQy3SLE5/7zqVJ3U7H7R+CBFw2V8k+vr8M7WoDfpMocp+seJ/ulZHKGX1RXi+6mxK
- zPFR5rM/eOm+c0dOIEc8s5DCc4N9Vx5tjO+d5SjyKl4j/cnF36cMtp2Kazo3hV89ec6JO1/9
- r2/4L9h6P5nBuU+JpTgj0VCLuag4EQDuYox+2QIAAA==
-X-CMS-MailID: 20200710101700eucas1p27a9b4f0c67d6b5af361ad3085c830d39
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200709091750eucas1p18003b0c8127600369485c62c1e587c22
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20200709091750eucas1p18003b0c8127600369485c62c1e587c22
-References: <20200610141052.13258-1-jgross@suse.com>
- <094be567-2c82-7d5b-e432-288286c6c3fb@suse.com>
- <CGME20200709091750eucas1p18003b0c8127600369485c62c1e587c22@eucas1p1.samsung.com>
- <ec21b883-dc5c-f3fe-e989-7fa13875a4c4@suse.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,60 +46,125 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Peter Jones <pjones@redhat.com>, xen-devel@lists.xenproject.org,
- Ard Biesheuvel <ardb@kernel.org>
+Cc: xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+ Sarah Newman <srn@prgmr.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-[ added EFI Maintainer & ML to Cc: ]
-
-Hi,
-
-On 7/9/20 11:17 AM, Jürgen Groß wrote:
-> On 28.06.20 10:50, Jürgen Groß wrote:
->> Ping?
+On 10.07.20 11:49, Jan Beulich wrote:
+> On 10.07.2020 09:50, Juergen Gross wrote:
+>> For support of long running hypercalls xen_maybe_preempt_hcall() is
+>> calling cond_resched() in case a hypercall marked as preemptible has
+>> been interrupted.
 >>
->> On 10.06.20 16:10, Juergen Gross wrote:
->>> efifb_probe() will issue an error message in case the kernel is booted
->>> as Xen dom0 from UEFI as EFI_MEMMAP won't be set in this case. Avoid
->>> that message by calling efi_mem_desc_lookup() only if EFI_PARAVIRT
->>> isn't set.
->>>
->>> Fixes: 38ac0287b7f4 ("fbdev/efifb: Honour UEFI memory map attributes when mapping the FB")
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>>   drivers/video/fbdev/efifb.c | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
->>> index 65491ae74808..f5eccd1373e9 100644
->>> --- a/drivers/video/fbdev/efifb.c
->>> +++ b/drivers/video/fbdev/efifb.c
->>> @@ -453,7 +453,7 @@ static int efifb_probe(struct platform_device *dev)
->>>       info->apertures->ranges[0].base = efifb_fix.smem_start;
->>>       info->apertures->ranges[0].size = size_remap;
->>> -    if (efi_enabled(EFI_BOOT) &&
->>> +    if (efi_enabled(EFI_BOOT) && !efi_enabled(EFI_PARAVIRT) &&
->>>           !efi_mem_desc_lookup(efifb_fix.smem_start, &md)) {
->>>           if ((efifb_fix.smem_start + efifb_fix.smem_len) >
->>>               (md.phys_addr + (md.num_pages << EFI_PAGE_SHIFT))) {
->>>
+>> Normally this is no problem, as only hypercalls done via some ioctl()s
+>> are marked to be preemptible. In rare cases when during such a
+>> preemptible hypercall an interrupt occurs and any softirq action is
+>> started from irq_exit(), a further hypercall issued by the softirq
+>> handler will be regarded to be preemptible, too. This might lead to
+>> rescheduling in spite of the softirq handler potentially having set
+>> preempt_disable(), leading to splats like:
 >>
+>> BUG: sleeping function called from invalid context at drivers/xen/preempt.c:37
+>> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 20775, name: xl
+>> INFO: lockdep is turned off.
+>> CPU: 1 PID: 20775 Comm: xl Tainted: G D W 5.4.46-1_prgmr_debug.el7.x86_64 #1
+>> Call Trace:
+>> <IRQ>
+>> dump_stack+0x8f/0xd0
+>> ___might_sleep.cold.76+0xb2/0x103
+>> xen_maybe_preempt_hcall+0x48/0x70
+>> xen_do_hypervisor_callback+0x37/0x40
+>> RIP: e030:xen_hypercall_xen_version+0xa/0x20
+>> Code: ...
+>> RSP: e02b:ffffc900400dcc30 EFLAGS: 00000246
+>> RAX: 000000000004000d RBX: 0000000000000200 RCX: ffffffff8100122a
+>> RDX: ffff88812e788000 RSI: 0000000000000000 RDI: 0000000000000000
+>> RBP: ffffffff83ee3ad0 R08: 0000000000000001 R09: 0000000000000001
+>> R10: 0000000000000000 R11: 0000000000000246 R12: ffff8881824aa0b0
+>> R13: 0000000865496000 R14: 0000000865496000 R15: ffff88815d040000
+>> ? xen_hypercall_xen_version+0xa/0x20
+>> ? xen_force_evtchn_callback+0x9/0x10
+>> ? check_events+0x12/0x20
+>> ? xen_restore_fl_direct+0x1f/0x20
+>> ? _raw_spin_unlock_irqrestore+0x53/0x60
+>> ? debug_dma_sync_single_for_cpu+0x91/0xc0
+>> ? _raw_spin_unlock_irqrestore+0x53/0x60
+>> ? xen_swiotlb_sync_single_for_cpu+0x3d/0x140
+>> ? mlx4_en_process_rx_cq+0x6b6/0x1110 [mlx4_en]
+>> ? mlx4_en_poll_rx_cq+0x64/0x100 [mlx4_en]
+>> ? net_rx_action+0x151/0x4a0
+>> ? __do_softirq+0xed/0x55b
+>> ? irq_exit+0xea/0x100
+>> ? xen_evtchn_do_upcall+0x2c/0x40
+>> ? xen_do_hypervisor_callback+0x29/0x40
+>> </IRQ>
+>> ? xen_hypercall_domctl+0xa/0x20
+>> ? xen_hypercall_domctl+0x8/0x20
+>> ? privcmd_ioctl+0x221/0x990 [xen_privcmd]
+>> ? do_vfs_ioctl+0xa5/0x6f0
+>> ? ksys_ioctl+0x60/0x90
+>> ? trace_hardirqs_off_thunk+0x1a/0x20
+>> ? __x64_sys_ioctl+0x16/0x20
+>> ? do_syscall_64+0x62/0x250
+>> ? entry_SYSCALL_64_after_hwframe+0x49/0xbe
+>>
+>> Fix that by testing preempt_count() before calling cond_resched().
+>>
+>> In kernel 5.8 this can't happen any more due to the entry code rework.
+>>
+>> Reported-by: Sarah Newman <srn@prgmr.com>
+>> Fixes: 0fa2f5cb2b0ecd8 ("sched/preempt, xen: Use need_resched() instead of should_resched()")
+>> Cc: Sarah Newman <srn@prgmr.com>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>   drivers/xen/preempt.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/xen/preempt.c b/drivers/xen/preempt.c
+>> index 17240c5325a3..6ad87b5c95ed 100644
+>> --- a/drivers/xen/preempt.c
+>> +++ b/drivers/xen/preempt.c
+>> @@ -27,7 +27,7 @@ EXPORT_SYMBOL_GPL(xen_in_preemptible_hcall);
+>>   asmlinkage __visible void xen_maybe_preempt_hcall(void)
+>>   {
+>>   	if (unlikely(__this_cpu_read(xen_in_preemptible_hcall)
+>> -		     && need_resched())) {
+>> +		     && need_resched() && !preempt_count())) {
 > 
-> In case I see no reaction from the maintainer for another week I'll take
-> this patch through the Xen tree.
+> Doesn't this have the at least latent risk of hiding issues in
+> other call trees (by no longer triggering logging like the one
+> that has propmted this change)? Wouldn't it be better to save,
+> clear, and restore the flag in one of xen_evtchn_do_upcall() or
+> xen_do_hypervisor_callback()?
 
-From fbdev POV this change looks fine to me and I'm OK with merging it
-through Xen or EFI tree:
+First regarding "risk of hiding issues": it seems as if lots of kernels
+aren't even configured to trigger this logging. It would need
+CONFIG_DEBUG_ATOMIC_SLEEP to be enabled and at least SUSE kernels don't
+seem to have it on. I suspect the occasional xen_mc_flush() failures we
+have seen are related to this problem.
 
-Acked-by: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+And in theory saving, clearing and restoring the flag would be fine, but
+it can't be done in a single function with the code flow as up to 5.7.
+What would need to be done is to save and clear the flag in e.g.
+__xen_evtchn_do_upcall() and to pass it to xen_maybe_preempt_hcall() as
+a parameter. In xen_maybe_preempt_hcall() the passed flag value would
+need to be used for the decision whether to call cond_resched() and then
+the flag could be restored (after the cond_resched() call).
 
-Best regards,
---
-Bartlomiej Zolnierkiewicz
-Samsung R&D Institute Poland
-Samsung Electronics
+This is basically the code flow as in kernel 5.8, but the flag handling
+would need to be spread over various source files.
+
+A problem would be possible only in case there is a missing
+preempt_disable() when doing a hypercall which should not be subject to
+be interrupted by scheduling, but then a kernel configured with
+preemption would already have a problem.
+
+In order to keep this patch - which is for stable only, after all - as
+simple as possible I'd rather leave it as is.
+
+
+Juergen
 
