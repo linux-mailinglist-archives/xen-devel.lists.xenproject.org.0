@@ -2,40 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9B2A21B37C
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2020 12:51:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A502821B395
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2020 13:01:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jtqbn-0003q4-4W; Fri, 10 Jul 2020 10:50:23 +0000
+	id 1jtqmR-0004kK-4q; Fri, 10 Jul 2020 11:01:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AY6w=AV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jtqbl-0003pz-Mc
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2020 10:50:21 +0000
-X-Inumbo-ID: 25ef0ed8-c29b-11ea-b7bb-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=V7us=AV=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jtqmP-0004kF-Lz
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2020 11:01:21 +0000
+X-Inumbo-ID: af77e5ca-c29c-11ea-bb8b-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 25ef0ed8-c29b-11ea-b7bb-bc764e2007e4;
- Fri, 10 Jul 2020 10:50:20 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D3878AD75;
- Fri, 10 Jul 2020 10:50:19 +0000 (UTC)
-Subject: Re: [PATCH] xen: don't reschedule in preemption off sections
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200710075050.4769-1-jgross@suse.com>
- <988ff766-b7de-2e25-2524-c412379686fc@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <742457cf-4892-0e85-2fc8-d2eb9f8a3a51@suse.com>
-Date: Fri, 10 Jul 2020 12:50:18 +0200
+ id af77e5ca-c29c-11ea-bb8b-bc764e2007e4;
+ Fri, 10 Jul 2020 11:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1594378880;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=puAbi62BkQpGBEAhGE13aYdWcLmORt6l59tmR5VIyyE=;
+ b=XBNNoGBHiZaX1+pM7a/UCmUVhzz1GCFa2sYh88REbtIlnGBMchWqCGDD
+ o6NGf8Bu+EiC84QQZi8KKC+XLI40FEPL+zPNDAekkWuGaUHi6ewt6CUTc
+ 6ny73241klvRAGtXPatQD6KI7vtzjkoia7QS6To3HASn+BJVz7HB8yhY8 Y=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: X5MtrZIjo/eiVV36SsriNXzfVv2nd5uvgr5eWfCiv93k/TR2/wGgs4btYZcRJLFVV2QXVmNgcR
+ Fpgw88ROkfNvjRnh0xVLFfr+VtM2I0CjU/E9nkXAu0TYWhCth9EuV98Zu0MbhxlobixSBqy/aF
+ E83VOhguMkd2FLdfEHcFd+2MHBk9A1fxOqEs1/K9FiHOfFtEOdHeBW0/kFZgESEj7NCwlfJEjv
+ Cv6GbmKxfS3hsJqvyCQNhOkU71Rq0c3beyUQJbkGKRYjAzDgyYSwOyxmS7igmHF/KKrPuyov42
+ /tU=
+X-SBRS: 2.7
+X-MesageID: 22255738
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,335,1589256000"; d="scan'208";a="22255738"
+Subject: Re: [XTF] xenbus: Don't wait if the response ring is full
+To: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>, Julien Grall <julien@xen.org>
+References: <20200709184647.5159-1-julien@xen.org>
+ <02F94EA5-3555-4D3B-97DF-98914410424B@amazon.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <1e465ce8-c86a-60de-b95b-145982a70552@citrix.com>
+Date: Fri, 10 Jul 2020 12:01:16 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <988ff766-b7de-2e25-2524-c412379686fc@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+In-Reply-To: <02F94EA5-3555-4D3B-97DF-98914410424B@amazon.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,125 +65,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- Sarah Newman <srn@prgmr.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, "Grall,
+ Julien" <jgrall@amazon.co.uk>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 10.07.20 11:49, Jan Beulich wrote:
-> On 10.07.2020 09:50, Juergen Gross wrote:
->> For support of long running hypercalls xen_maybe_preempt_hcall() is
->> calling cond_resched() in case a hypercall marked as preemptible has
->> been interrupted.
+On 10/07/2020 08:53, Wieczorkiewicz, Pawel wrote:
+>> On 9. Jul 2020, at 20:46, Julien Grall <julien@xen.org> wrote:
 >>
->> Normally this is no problem, as only hypercalls done via some ioctl()s
->> are marked to be preemptible. In rare cases when during such a
->> preemptible hypercall an interrupt occurs and any softirq action is
->> started from irq_exit(), a further hypercall issued by the softirq
->> handler will be regarded to be preemptible, too. This might lead to
->> rescheduling in spite of the softirq handler potentially having set
->> preempt_disable(), leading to splats like:
+>> XenStore response can be bigger than the response ring. In this case,
+>> it is possible to have the ring full (e.g cons = 19 and prod = 1043).
 >>
->> BUG: sleeping function called from invalid context at drivers/xen/preempt.c:37
->> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 20775, name: xl
->> INFO: lockdep is turned off.
->> CPU: 1 PID: 20775 Comm: xl Tainted: G D W 5.4.46-1_prgmr_debug.el7.x86_64 #1
->> Call Trace:
->> <IRQ>
->> dump_stack+0x8f/0xd0
->> ___might_sleep.cold.76+0xb2/0x103
->> xen_maybe_preempt_hcall+0x48/0x70
->> xen_do_hypervisor_callback+0x37/0x40
->> RIP: e030:xen_hypercall_xen_version+0xa/0x20
->> Code: ...
->> RSP: e02b:ffffc900400dcc30 EFLAGS: 00000246
->> RAX: 000000000004000d RBX: 0000000000000200 RCX: ffffffff8100122a
->> RDX: ffff88812e788000 RSI: 0000000000000000 RDI: 0000000000000000
->> RBP: ffffffff83ee3ad0 R08: 0000000000000001 R09: 0000000000000001
->> R10: 0000000000000000 R11: 0000000000000246 R12: ffff8881824aa0b0
->> R13: 0000000865496000 R14: 0000000865496000 R15: ffff88815d040000
->> ? xen_hypercall_xen_version+0xa/0x20
->> ? xen_force_evtchn_callback+0x9/0x10
->> ? check_events+0x12/0x20
->> ? xen_restore_fl_direct+0x1f/0x20
->> ? _raw_spin_unlock_irqrestore+0x53/0x60
->> ? debug_dma_sync_single_for_cpu+0x91/0xc0
->> ? _raw_spin_unlock_irqrestore+0x53/0x60
->> ? xen_swiotlb_sync_single_for_cpu+0x3d/0x140
->> ? mlx4_en_process_rx_cq+0x6b6/0x1110 [mlx4_en]
->> ? mlx4_en_poll_rx_cq+0x64/0x100 [mlx4_en]
->> ? net_rx_action+0x151/0x4a0
->> ? __do_softirq+0xed/0x55b
->> ? irq_exit+0xea/0x100
->> ? xen_evtchn_do_upcall+0x2c/0x40
->> ? xen_do_hypervisor_callback+0x29/0x40
->> </IRQ>
->> ? xen_hypercall_domctl+0xa/0x20
->> ? xen_hypercall_domctl+0x8/0x20
->> ? privcmd_ioctl+0x221/0x990 [xen_privcmd]
->> ? do_vfs_ioctl+0xa5/0x6f0
->> ? ksys_ioctl+0x60/0x90
->> ? trace_hardirqs_off_thunk+0x1a/0x20
->> ? __x64_sys_ioctl+0x16/0x20
->> ? do_syscall_64+0x62/0x250
->> ? entry_SYSCALL_64_after_hwframe+0x49/0xbe
+>> However, XTF will consider that there is no data and therefore wait for
+>> more input. This will result to block indefinitely as the ring is full.
 >>
->> Fix that by testing preempt_count() before calling cond_resched().
+>> This can be solved by avoiding to mask the difference between prod and
+>> cons.
 >>
->> In kernel 5.8 this can't happen any more due to the entry code rework.
->>
->> Reported-by: Sarah Newman <srn@prgmr.com>
->> Fixes: 0fa2f5cb2b0ecd8 ("sched/preempt, xen: Use need_resched() instead of should_resched()")
->> Cc: Sarah Newman <srn@prgmr.com>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->>   drivers/xen/preempt.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/xen/preempt.c b/drivers/xen/preempt.c
->> index 17240c5325a3..6ad87b5c95ed 100644
->> --- a/drivers/xen/preempt.c
->> +++ b/drivers/xen/preempt.c
->> @@ -27,7 +27,7 @@ EXPORT_SYMBOL_GPL(xen_in_preemptible_hcall);
->>   asmlinkage __visible void xen_maybe_preempt_hcall(void)
->>   {
->>   	if (unlikely(__this_cpu_read(xen_in_preemptible_hcall)
->> -		     && need_resched())) {
->> +		     && need_resched() && !preempt_count())) {
-> 
-> Doesn't this have the at least latent risk of hiding issues in
-> other call trees (by no longer triggering logging like the one
-> that has propmted this change)? Wouldn't it be better to save,
-> clear, and restore the flag in one of xen_evtchn_do_upcall() or
-> xen_do_hypervisor_callback()?
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Reviewed-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
 
-First regarding "risk of hiding issues": it seems as if lots of kernels
-aren't even configured to trigger this logging. It would need
-CONFIG_DEBUG_ATOMIC_SLEEP to be enabled and at least SUSE kernels don't
-seem to have it on. I suspect the occasional xen_mc_flush() failures we
-have seen are related to this problem.
+Applied, thanks.
 
-And in theory saving, clearing and restoring the flag would be fine, but
-it can't be done in a single function with the code flow as up to 5.7.
-What would need to be done is to save and clear the flag in e.g.
-__xen_evtchn_do_upcall() and to pass it to xen_maybe_preempt_hcall() as
-a parameter. In xen_maybe_preempt_hcall() the passed flag value would
-need to be used for the decision whether to call cond_resched() and then
-the flag could be restored (after the cond_resched() call).
-
-This is basically the code flow as in kernel 5.8, but the flag handling
-would need to be spread over various source files.
-
-A problem would be possible only in case there is a missing
-preempt_disable() when doing a hypercall which should not be subject to
-be interrupted by scheduling, but then a kernel configured with
-preemption would already have a problem.
-
-In order to keep this patch - which is for stable only, after all - as
-simple as possible I'd rather leave it as is.
-
-
-Juergen
+~Andrew
 
