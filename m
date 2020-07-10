@@ -2,76 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 531C321B427
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2020 13:37:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C97E021B452
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2020 13:56:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jtrKK-0007Nm-7Y; Fri, 10 Jul 2020 11:36:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6UOn=AV=oracle.com=dan.carpenter@srs-us1.protection.inumbo.net>)
- id 1jtrKI-0007Nh-L8
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2020 11:36:22 +0000
-X-Inumbo-ID: 93e5c426-c2a1-11ea-8f91-12813bfff9fa
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 93e5c426-c2a1-11ea-8f91-12813bfff9fa;
- Fri, 10 Jul 2020 11:36:21 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06ABWuaS065848;
- Fri, 10 Jul 2020 11:36:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=3J30hYgYpoiRAxDBjTQRBuPvFkgjWUboNehE/fIyh6I=;
- b=A6xesikFkn+jf7BmmzdypSPLfM7uax7Tm5Q9BA+O3rs9tZVzawg/nXAf8dEsdWJs/nvg
- Pac5LRoHBaI8rJAylW+77RnG9nj29L1fibHsAVqx6FxcF+cnnOr6qTSiFO2WjARoREkJ
- OIzMfPPpr0rT33FV5L7Tsdq+3+UI1gcN7kPTXRuvoEnHcciSLHq4laUZ4TzqWNZEefCh
- TLJVRU30dL5UXNoMTtvPRq/x7aeJpfWsa1+KnggzGCZAQnGBR4qwPEOs55U1VI9a9WTi
- 87s0AgsIza+I0Yaw+l+Q+ZYizZqKu5XMXuFBuDFLno13Bjef8sn2meAWoPdMuhLHOp6C 9Q== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2120.oracle.com with ESMTP id 325y0apxx5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 10 Jul 2020 11:36:19 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06ABTLDP037869;
- Fri, 10 Jul 2020 11:36:18 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3030.oracle.com with ESMTP id 325k3jqewy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 10 Jul 2020 11:36:18 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 06ABaGgK013873;
- Fri, 10 Jul 2020 11:36:17 GMT
-Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 10 Jul 2020 04:36:16 -0700
-Date: Fri, 10 Jul 2020 14:36:10 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>
-Subject: [PATCH] xen/xenbus: Fix a double free in xenbus_map_ring_pv()
-Message-ID: <20200710113610.GA92345@mwanda>
+	id 1jtrco-0000ny-CP; Fri, 10 Jul 2020 11:55:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RxGT=AV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jtrcm-0000nt-Rs
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2020 11:55:28 +0000
+X-Inumbo-ID: 3ecd8926-c2a4-11ea-bb8b-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3ecd8926-c2a4-11ea-bb8b-bc764e2007e4;
+ Fri, 10 Jul 2020 11:55:27 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 152FEAC46;
+ Fri, 10 Jul 2020 11:55:27 +0000 (UTC)
+Subject: Re: [PATCH] xen: don't reschedule in preemption off sections
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+References: <20200710075050.4769-1-jgross@suse.com>
+ <988ff766-b7de-2e25-2524-c412379686fc@suse.com>
+ <742457cf-4892-0e85-2fc8-d2eb9f8a3a51@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <af6db1b7-7802-0b2e-eb5f-ce69533b771f@suse.com>
+Date: Fri, 10 Jul 2020 13:55:28 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9677
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- phishscore=0
- mlxlogscore=999 bulkscore=0 spamscore=0 mlxscore=0 adultscore=0
- suspectscore=2 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2007100082
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9677
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- adultscore=0 malwarescore=0
- clxscore=1011 impostorscore=0 phishscore=0 suspectscore=2
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2007100082
+In-Reply-To: <742457cf-4892-0e85-2fc8-d2eb9f8a3a51@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,38 +47,119 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Yan Yankovskyi <yyankovskyi@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, kernel-janitors@vger.kernel.org,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Cc: xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+ Sarah Newman <srn@prgmr.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-When there is an error the caller frees "info->node" so the free here
-will result in a double free.  We should just delete first kfree().
+On 10.07.2020 12:50, Jürgen Groß wrote:
+> On 10.07.20 11:49, Jan Beulich wrote:
+>> On 10.07.2020 09:50, Juergen Gross wrote:
+>>> For support of long running hypercalls xen_maybe_preempt_hcall() is
+>>> calling cond_resched() in case a hypercall marked as preemptible has
+>>> been interrupted.
+>>>
+>>> Normally this is no problem, as only hypercalls done via some ioctl()s
+>>> are marked to be preemptible. In rare cases when during such a
+>>> preemptible hypercall an interrupt occurs and any softirq action is
+>>> started from irq_exit(), a further hypercall issued by the softirq
+>>> handler will be regarded to be preemptible, too. This might lead to
+>>> rescheduling in spite of the softirq handler potentially having set
+>>> preempt_disable(), leading to splats like:
+>>>
+>>> BUG: sleeping function called from invalid context at drivers/xen/preempt.c:37
+>>> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 20775, name: xl
+>>> INFO: lockdep is turned off.
+>>> CPU: 1 PID: 20775 Comm: xl Tainted: G D W 5.4.46-1_prgmr_debug.el7.x86_64 #1
+>>> Call Trace:
+>>> <IRQ>
+>>> dump_stack+0x8f/0xd0
+>>> ___might_sleep.cold.76+0xb2/0x103
+>>> xen_maybe_preempt_hcall+0x48/0x70
+>>> xen_do_hypervisor_callback+0x37/0x40
+>>> RIP: e030:xen_hypercall_xen_version+0xa/0x20
+>>> Code: ...
+>>> RSP: e02b:ffffc900400dcc30 EFLAGS: 00000246
+>>> RAX: 000000000004000d RBX: 0000000000000200 RCX: ffffffff8100122a
+>>> RDX: ffff88812e788000 RSI: 0000000000000000 RDI: 0000000000000000
+>>> RBP: ffffffff83ee3ad0 R08: 0000000000000001 R09: 0000000000000001
+>>> R10: 0000000000000000 R11: 0000000000000246 R12: ffff8881824aa0b0
+>>> R13: 0000000865496000 R14: 0000000865496000 R15: ffff88815d040000
+>>> ? xen_hypercall_xen_version+0xa/0x20
+>>> ? xen_force_evtchn_callback+0x9/0x10
+>>> ? check_events+0x12/0x20
+>>> ? xen_restore_fl_direct+0x1f/0x20
+>>> ? _raw_spin_unlock_irqrestore+0x53/0x60
+>>> ? debug_dma_sync_single_for_cpu+0x91/0xc0
+>>> ? _raw_spin_unlock_irqrestore+0x53/0x60
+>>> ? xen_swiotlb_sync_single_for_cpu+0x3d/0x140
+>>> ? mlx4_en_process_rx_cq+0x6b6/0x1110 [mlx4_en]
+>>> ? mlx4_en_poll_rx_cq+0x64/0x100 [mlx4_en]
+>>> ? net_rx_action+0x151/0x4a0
+>>> ? __do_softirq+0xed/0x55b
+>>> ? irq_exit+0xea/0x100
+>>> ? xen_evtchn_do_upcall+0x2c/0x40
+>>> ? xen_do_hypervisor_callback+0x29/0x40
+>>> </IRQ>
+>>> ? xen_hypercall_domctl+0xa/0x20
+>>> ? xen_hypercall_domctl+0x8/0x20
+>>> ? privcmd_ioctl+0x221/0x990 [xen_privcmd]
+>>> ? do_vfs_ioctl+0xa5/0x6f0
+>>> ? ksys_ioctl+0x60/0x90
+>>> ? trace_hardirqs_off_thunk+0x1a/0x20
+>>> ? __x64_sys_ioctl+0x16/0x20
+>>> ? do_syscall_64+0x62/0x250
+>>> ? entry_SYSCALL_64_after_hwframe+0x49/0xbe
+>>>
+>>> Fix that by testing preempt_count() before calling cond_resched().
+>>>
+>>> In kernel 5.8 this can't happen any more due to the entry code rework.
+>>>
+>>> Reported-by: Sarah Newman <srn@prgmr.com>
+>>> Fixes: 0fa2f5cb2b0ecd8 ("sched/preempt, xen: Use need_resched() instead of should_resched()")
+>>> Cc: Sarah Newman <srn@prgmr.com>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> ---
+>>>   drivers/xen/preempt.c | 2 +-
+>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/xen/preempt.c b/drivers/xen/preempt.c
+>>> index 17240c5325a3..6ad87b5c95ed 100644
+>>> --- a/drivers/xen/preempt.c
+>>> +++ b/drivers/xen/preempt.c
+>>> @@ -27,7 +27,7 @@ EXPORT_SYMBOL_GPL(xen_in_preemptible_hcall);
+>>>   asmlinkage __visible void xen_maybe_preempt_hcall(void)
+>>>   {
+>>>   	if (unlikely(__this_cpu_read(xen_in_preemptible_hcall)
+>>> -		     && need_resched())) {
+>>> +		     && need_resched() && !preempt_count())) {
+>>
+>> Doesn't this have the at least latent risk of hiding issues in
+>> other call trees (by no longer triggering logging like the one
+>> that has propmted this change)? Wouldn't it be better to save,
+>> clear, and restore the flag in one of xen_evtchn_do_upcall() or
+>> xen_do_hypervisor_callback()?
+> 
+> First regarding "risk of hiding issues": it seems as if lots of kernels
+> aren't even configured to trigger this logging. It would need
+> CONFIG_DEBUG_ATOMIC_SLEEP to be enabled and at least SUSE kernels don't
+> seem to have it on. I suspect the occasional xen_mc_flush() failures we
+> have seen are related to this problem.
+> 
+> And in theory saving, clearing and restoring the flag would be fine, but
+> it can't be done in a single function with the code flow as up to 5.7.
+> What would need to be done is to save and clear the flag in e.g.
+> __xen_evtchn_do_upcall() and to pass it to xen_maybe_preempt_hcall() as
+> a parameter. In xen_maybe_preempt_hcall() the passed flag value would
+> need to be used for the decision whether to call cond_resched() and then
+> the flag could be restored (after the cond_resched() call).
 
-Fixes: 3848e4e0a32a ("xen/xenbus: avoid large structs and arrays on the stack")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/xen/xenbus/xenbus_client.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+I'm afraid I don't follow: If __xen_evtchn_do_upcall() cleared the flag,
+xen_maybe_preempt_hcall() would amount to a no-op (up and until the
+flag's prior value would get restored), wouldn't it? No need to pass
+anything into there.
 
-diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-index 4f168b46fbca..786fbb7d8be0 100644
---- a/drivers/xen/xenbus/xenbus_client.c
-+++ b/drivers/xen/xenbus/xenbus_client.c
-@@ -693,10 +693,8 @@ static int xenbus_map_ring_pv(struct xenbus_device *dev,
- 	bool leaked;
- 
- 	area = alloc_vm_area(XEN_PAGE_SIZE * nr_grefs, info->ptes);
--	if (!area) {
--		kfree(node);
-+	if (!area)
- 		return -ENOMEM;
--	}
- 
- 	for (i = 0; i < nr_grefs; i++)
- 		info->phys_addrs[i] =
--- 
-2.27.0
-
+Jan
 
