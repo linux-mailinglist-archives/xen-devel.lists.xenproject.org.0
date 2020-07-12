@@ -2,50 +2,115 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924DB21C694
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jul 2020 23:59:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA33621C6FF
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2020 04:46:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1juNWa-0006Ti-ST; Sat, 11 Jul 2020 21:59:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1juRzG-0006CO-AF; Sun, 12 Jul 2020 02:45:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+oRR=AW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1juNWZ-0006TI-8m
- for xen-devel@lists.xenproject.org; Sat, 11 Jul 2020 21:59:11 +0000
-X-Inumbo-ID: b9d664d0-c3c1-11ea-911c-12813bfff9fa
+ <SRS0=YZHa=AX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1juRzF-0006CJ-CQ
+ for xen-devel@lists.xenproject.org; Sun, 12 Jul 2020 02:45:05 +0000
+X-Inumbo-ID: af35b8b4-c3e9-11ea-bca7-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b9d664d0-c3c1-11ea-911c-12813bfff9fa;
- Sat, 11 Jul 2020 21:59:00 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id af35b8b4-c3e9-11ea-bca7-bc764e2007e4;
+ Sun, 12 Jul 2020 02:45:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To:Sender:
- Reply-To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=EpopIUBx3KgtvDx/mmjz0+bROBd3QAEsjsP13XHCWxk=; b=JxoccIFDVthM7rbY8xk6HEGEkw
- exU8u7Ph3nePT90AyPx+yodr+zvC0+/7DDkQioSp4RgkoVJRGCzMPSKd0xMnW/qtbOKImJxWLaFKz
- ae/OGNvv1Ajg7m9A6vZk6LFM3dqqMfElWYkf48a0yXJzrNjiq1PhuoptLiwtry9hZ0lg=;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=tDgGByBA/8dzs/iV0LuTmcdjwOCKp8Vt9M31/ZZh5DI=; b=3b7D8Tr9obuUcBR7wBe64fdJa
+ NH2xzi8h9F8P8e7E3pZEkXm3tbMD9fADGaIZN1dhCfHvJefQAI1SzqUt2SXwJzcUmv6nErUWZEuE3
+ wAZ2iu899SVL3scYCIw3L7DF61s1v9C8qz9HYrRECrD3IDjvLaXJuxhWfu/5qbUx2jvgs=;
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1juNWN-0002YT-QN; Sat, 11 Jul 2020 21:58:59 +0000
+ id 1juRzB-0001hr-OA; Sun, 12 Jul 2020 02:45:01 +0000
 Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1juNWN-0004Yl-EH; Sat, 11 Jul 2020 21:58:59 +0000
+ id 1juRzB-0006Y5-Gh; Sun, 12 Jul 2020 02:45:01 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1juNWN-0007u8-DZ; Sat, 11 Jul 2020 21:58:59 +0000
+ id 1juRzB-0005lJ-G5; Sun, 12 Jul 2020 02:45:01 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete test-amd64-amd64-libvirt-vhd
-Message-Id: <E1juNWN-0007u8-DZ@osstest.test-lab.xenproject.org>
+Message-ID: <osstest-151833-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 151833: regressions - FAIL
+X-Osstest-Failures: qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:redhat-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-freebsd10-i386:guest-start:fail:regression
+ qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:redhat-install:fail:regression
+ qemu-mainline:test-amd64-i386-freebsd10-amd64:guest-start:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:regression
+ qemu-mainline:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
+ qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: qemuu=827937158b72ce2265841ff528bba3c44a1bfbc8
+X-Osstest-Versions-That: qemuu=9e3903136d9acde2fb2dd9e967ba928050a6cb4a
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 11 Jul 2020 21:58:59 +0000
+Date: Sun, 12 Jul 2020 02:45:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,249 +124,328 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-amd64-libvirt-vhd
-testid debian-di-install
+flight 151833 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151833/
 
-Tree: libvirt git://xenbits.xen.org/libvirt.git
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+Regressions :-(
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  81cb05732efb36971901c515b007869cc1d3a532
-  Bug not present: d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/151836/
-
-
-  commit 81cb05732efb36971901c515b007869cc1d3a532
-  Author: Markus Armbruster <armbru@redhat.com>
-  Date:   Tue Jun 9 14:23:37 2020 +0200
-  
-      qdev: Assert devices are plugged into a bus that can take them
-      
-      This would have caught some of the bugs I just fixed.
-      
-      Signed-off-by: Markus Armbruster <armbru@redhat.com>
-      Reviewed-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-      Message-Id: <20200609122339.937862-23-armbru@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-vhd.debian-di-install.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-vhd.debian-di-install --summary-out=tmp/151836.bisection-summary --basis-template=151065 --blessings=real,real-bisect qemu-mainline test-amd64-amd64-libvirt-vhd debian-di-install
-Searching for failure / basis pass:
- 151816 fail [host=pinot0] / 151149 [host=chardonnay0] 151101 [host=huxelrebe1] 151065 [host=huxelrebe0] 151047 [host=elbling0] 150970 [host=albana1] 150930 [host=godello1] 150916 [host=elbling1] 150909 [host=rimava1] 150899 [host=italia0] 150895 [host=albana0] 150831 [host=pinot1] 150694 [host=debina0] 150631 [host=fiano1] 150608 [host=debina1] 150593 [host=godello0] 150585 [host=fiano0] 150532 [host=huxelrebe0] 150492 [host=chardonnay0] 150457 ok.
-Failure / basis pass flights: 151816 / 150457
-(tree with no url: minios)
-(tree in basispass but not in latest: libvirt_gnulib)
-Tree: libvirt git://xenbits.xen.org/libvirt.git
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 45db94cc90c286a9965a285ba19450f448760a09 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
-Basis pass a1cd25b919509be2645dbe6f952d5263e0d4e4e5 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/libvirt.git#a1cd25b919509be2645dbe6f952d5263e0d4e4e5-2c846fa6bcc11929c9fb857a22430fb9945654ad https://gitlab.com/keycodemap/keycodemapdb.git#317d3eeb963a515e15a63fa356d8ebcda7041a51-27acf0ef828bf719b2053ba398b195829413dbdd git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0\
- dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3-bdafda8c457eb90c65f37026589b54258300f05c git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db9934a34f816d78b-3c659044118e34603161457db9934a34f816d78b git://git.qemu.org/qemu.git#a20ab81d22300cca80325c284f21eefee99aa740-45db94cc90c286a9965a285ba19450f448760a09 git://xenbits.xen.org/osstest/seabios.git#2e3de6253422112ae43e608661ba94ea6b345694-88ab0c1\
- 5525ced2eefe39220742efe4769089ad8 git://xenbits.xen.org/xen.git#9f3e9139fa6c3d620eb08dff927518fc88200b8d-3fdc211b01b29f252166937238efe02d15cb5780
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Loaded 42057 nodes in revision graph
-Searching for test results:
- 150457 pass a1cd25b919509be2645dbe6f952d5263e0d4e4e5 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 150492 [host=chardonnay0]
- 150532 [host=huxelrebe0]
- 150585 [host=fiano0]
- 150593 [host=godello0]
- 150631 [host=fiano1]
- 150608 [host=debina1]
- 150694 [host=debina0]
- 150831 [host=pinot1]
- 150909 [host=rimava1]
- 150930 [host=godello1]
- 150916 [host=elbling1]
- 150895 [host=albana0]
- 150899 [host=italia0]
- 150970 [host=albana1]
- 151047 [host=elbling0]
- 151101 [host=huxelrebe1]
- 151065 [host=huxelrebe0]
- 151149 [host=chardonnay0]
- 151221 fail irrelevant
- 151175 fail irrelevant
- 151241 fail irrelevant
- 151286 fail irrelevant
- 151269 fail irrelevant
- 151328 fail irrelevant
- 151304 fail irrelevant
- 151377 fail irrelevant
- 151353 fail c5815b31976f3982d18c7f6c1367ab6e403eb7eb 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1a992030522622c42aa063788b3276789c56c1e1 3c659044118e34603161457db9934a34f816d78b d4b78317b7cf8c0c635b70086503813f79ff21ec 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
- 151399 fail irrelevant
- 151414 fail irrelevant
- 151435 fail irrelevant
- 151459 fail d482cf6bef484e697f1dbb99f2504e7d67b149e7 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 0f01cec52f4794777feb067e4fa0bfcedfdc124e 3c659044118e34603161457db9934a34f816d78b e7651153a8801dad6805d450ea8bef9b46c1adf5 88ab0c15525ced2eefe39220742efe4769089ad8 88cfd062e8318dfeb67c7d2eb50b6cd224b0738a
- 151471 fail irrelevant
- 151485 fail irrelevant
- 151500 fail irrelevant
- 151518 fail e7998ebeaf15e4e8825be0dd97aa1316f194f00d 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00217f1919270007d7a911f89b32e39b9dcaa907 3c659044118e34603161457db9934a34f816d78b fc1bff958998910ec8d25db86cd2f53ff125f7ab 88ab0c15525ced2eefe39220742efe4769089ad8 23ca7ec0ba620db52a646d80e22f9703a6589f66
- 151547 fail irrelevant
- 151598 fail irrelevant
- 151577 fail irrelevant
- 151622 fail irrelevant
- 151656 fail irrelevant
- 151634 fail irrelevant
- 151645 fail irrelevant
- 151669 fail irrelevant
- 151685 fail irrelevant
- 151704 fail irrelevant
- 151748 fail ea3320048897f5279bc49cb49d26f8099706a834 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 239b50a863704f7960525799eda82de061c7c458 3c659044118e34603161457db9934a34f816d78b eefe34ea4b82c2b47abe28af4cc7247d51553626 2e3de6253422112ae43e608661ba94ea6b345694 25636ed707cf1211ce846c7ec58f8643e435d7a7
- 151767 pass 63d08bec0b2dace2fcefffb23a1fa5b14c473d67 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b eea8f5df4ecc607d64f091b8d916fcc11a697541 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
- 151782 blocked bc85c34ea91c46588423fa24e56e09ca5aab31dd 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8035edbe12f0f2a58e8fa9b06d05c8ee1c69ffae 3c659044118e34603161457db9934a34f816d78b 7d2410cea154bf915fb30179ebda3b17ac36e70e 2e3de6253422112ae43e608661ba94ea6b345694 780aba2779b834f19b2a6f0dcdea0e7e0b5e1622
- 151750 fail 07e1a18accee37a2850f3825c85cb29b1599b1e0 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 239b50a863704f7960525799eda82de061c7c458 3c659044118e34603161457db9934a34f816d78b 3f429a3400822141651486193d6af625eeab05a5 2e3de6253422112ae43e608661ba94ea6b345694 71ca0e0ad000e690899936327eb09709ab182ade
- 151768 pass b934d5f42f29764277bc6f0f1cae19ada6f85e74 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ff7c838d09224dd4e4c9b5b93152d8db1b19740 3c659044118e34603161457db9934a34f816d78b 86e8c353f705f14f2f2fd7a6195cefa431aa24d9 2e3de6253422112ae43e608661ba94ea6b345694 058023b343d4e366864831db46e9b438e9e3a178
- 151790 blocked ab55a8a0871207de5fe194f55cbbcecae7a3cfe9 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b 773861274ad75a62c7ecf70ecc8e4ba31ed62190 2e3de6253422112ae43e608661ba94ea6b345694 ad33a573c009d72466432b41ba0591c64e819c19
- 151769 pass 63d08bec0b2dace2fcefffb23a1fa5b14c473d67 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 3575b0aea983ad57804c9af739ed8ff7bc168393 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151752 fail 6f28865223292a816f1bfde589901a00156cf8a1 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 58ae92a993687d913aa6dd00ef3497a1bc5f6c40 3c659044118e34603161457db9934a34f816d78b 54cdfe511219b8051046be55a6e156c4f08ff7ff 2e3de6253422112ae43e608661ba94ea6b345694 71ca0e0ad000e690899936327eb09709ab182ade
- 151753 fail 3a58613b0cf6a29960b909e6fd7420639ff794bd 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a2433243fbe471c250d7eddc2c7da325d91265fd 3c659044118e34603161457db9934a34f816d78b 6675a653d2e57ab09c32c0ea7b44a1d6c40a7f58 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
- 151783 blocked 611e03127fcc84c7cd64b1da30140ca3b8fa1269 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bb78cfbec07eda45118b630a09b0af549b43a135 3c659044118e34603161457db9934a34f816d78b fe0fe4735e798578097758781166cc221319b93d 2e3de6253422112ae43e608661ba94ea6b345694 d9f58cd54fe2f05e1f05e2fe254684bd1840de8e
- 151778 fail irrelevant
- 151755 pass cf9e7726b38bc93a2728638d435199297d2b3aaa 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 53550e81e2cafe7c03a39526b95cd21b5194d9b1 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
- 151737 pass a1cd25b919509be2645dbe6f952d5263e0d4e4e5 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151770 pass f45735786a3d9bee622f80eab75131b0da485798 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ff7c838d09224dd4e4c9b5b93152d8db1b19740 3c659044118e34603161457db9934a34f816d78b 49ee11555262a256afec592dfed7c5902d5eefd2 2e3de6253422112ae43e608661ba94ea6b345694 726c78d14dfe6ec76f5e4c7756821a91f0a04b34
- 151738 fail irrelevant
- 151756 pass cf9e7726b38bc93a2728638d435199297d2b3aaa 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a2433243fbe471c250d7eddc2c7da325d91265fd 3c659044118e34603161457db9934a34f816d78b 250bc43a406f7d46e319abe87c19548d4f027828 2e3de6253422112ae43e608661ba94ea6b345694 3625b04991b4d6affadd99d377ab84bac48dfff4
- 151721 fail irrelevant
- 151741 fail 36b1e8669d85f5dbde4e40a6625df9a78085c2a0 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1a992030522622c42aa063788b3276789c56c1e1 3c659044118e34603161457db9934a34f816d78b 61fee7f45955cd0bf9b79be9fa9c7ebabb5e6a85 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
- 151813 pass 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 210d18674a34bb43bd05cdd68d24fd03e161ff3d 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151743 fail irrelevant
- 151785 blocked a5a297f387fee9e9aa4cbc2df6788c330fd33ad1 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 250b1da35d579f42319af234f36207902ca4baa4 2e3de6253422112ae43e608661ba94ea6b345694 dde6174ada5280cd9a6396e3b12606360a0d29a3
- 151758 fail 1eabe312ea4fa80922443ad73a950857c1f87786 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 9fc7fc4d3909817555ce0af6bcb69dff1606140d 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151745 fail f57a8cd3df0167d72b87fdd868a287608a741b73 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 322969adf1fb3d6cfbd613f35121315715aff2ed 3c659044118e34603161457db9934a34f816d78b bae31bfa48b9caecee25da3d5333901a126a06b4 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
- 151794 blocked f6c79ca2af3607eb1cbbb7208c194f7cbf7a6abd 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b 4ec2a1f53e8aaa22924614b64dde97321126943e 2e3de6253422112ae43e608661ba94ea6b345694 ad33a573c009d72466432b41ba0591c64e819c19
- 151763 fail irrelevant
- 151772 pass f45735786a3d9bee622f80eab75131b0da485798 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8035edbe12f0f2a58e8fa9b06d05c8ee1c69ffae 3c659044118e34603161457db9934a34f816d78b 5d2f557b47dfbf8f23277a5bdd8473d4607c681a 2e3de6253422112ae43e608661ba94ea6b345694 51ca66c37371b10b378513af126646de22eddb17
- 151760 pass 63d08bec0b2dace2fcefffb23a1fa5b14c473d67 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985 3c659044118e34603161457db9934a34f816d78b 9f1f264edbdf5516d6f208497310b3eedbc7b74c 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
- 151744 fail irrelevant
- 151761 pass 9170b0ee6f867d2be1165e83c80910b0e0ac952d 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e1d24410da356731da70b3334f86343e11e207d2 3c659044118e34603161457db9934a34f816d78b 470dd165d152ff7ceac61c7b71c2b89220b3aad7 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151786 blocked a5a297f387fee9e9aa4cbc2df6788c330fd33ad1 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 71b04329c4f7d5824a289ca5225e1883a278cf3b 2e3de6253422112ae43e608661ba94ea6b345694 e181db8ba4e0797b8f9b55996adfa71ffb5b4081
- 151762 pass a1cd25b919509be2645dbe6f952d5263e0d4e4e5 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151800 blocked 6f60d2a8503ce8c624bce6b53bf7b68476f5056f 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b b8bee16e94df0fcd03bdad9969c30894418b0e6e 2e3de6253422112ae43e608661ba94ea6b345694 fced27b002c73c47c6c24ece2fe32b78157ad6b6
- 151766 fail irrelevant
- 151806 blocked d901fd6092414417ee59a4567d2c62f853a62d5c 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151775 pass a1cd25b919509be2645dbe6f952d5263e0d4e4e5 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151796 blocked 6f60d2a8503ce8c624bce6b53bf7b68476f5056f 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b cf2d1203dcfc2bf964453d83a2302231ce77f2dc 2e3de6253422112ae43e608661ba94ea6b345694 422ec8fcf34cf961e81fbccd7d236fa2c1e678a8
- 151779 fail irrelevant
- 151788 blocked ab55a8a0871207de5fe194f55cbbcecae7a3cfe9 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b d127de3baa64d1cabc8e1994e658688abb577ba9 2e3de6253422112ae43e608661ba94ea6b345694 ad33a573c009d72466432b41ba0591c64e819c19
- 151810 pass 21597d3caad8c94996de05e5d426178966a17860 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ff7c838d09224dd4e4c9b5b93152d8db1b19740 3c659044118e34603161457db9934a34f816d78b 49ee11555262a256afec592dfed7c5902d5eefd2 2e3de6253422112ae43e608661ba94ea6b345694 16c36d27f2644737c34d4a0fc1de525d0ee185ad
- 151797 blocked 6f60d2a8503ce8c624bce6b53bf7b68476f5056f 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b b8bee16e94df0fcd03bdad9969c30894418b0e6e 2e3de6253422112ae43e608661ba94ea6b345694 3351acaee706b8e238b031a456bf181f97f167c3
- 151801 pass a1cd25b919509be2645dbe6f952d5263e0d4e4e5 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151828 pass 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151814 pass a1cd25b919509be2645dbe6f952d5263e0d4e4e5 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151798 blocked 6f60d2a8503ce8c624bce6b53bf7b68476f5056f 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b cf2d1203dcfc2bf964453d83a2302231ce77f2dc 2e3de6253422112ae43e608661ba94ea6b345694 3351acaee706b8e238b031a456bf181f97f167c3
- 151803 fail irrelevant
- 151799 blocked 6297560761adf660497ab0053af18bab159f6b2f 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151820 pass 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 589b1be07c060e583d9f758ff0cb10e0f1ff242f 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151805 blocked 4ccc69707e9e4a16d66c1bc7b5de55bc3943e3dd 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151807 blocked 0137bf0dab2738d5443e2f407239856e2aa25bb3 317d3eeb963a515e15a63fa356d8ebcda7041a51 c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b a20ab81d22300cca80325c284f21eefee99aa740 2e3de6253422112ae43e608661ba94ea6b345694 9f3e9139fa6c3d620eb08dff927518fc88200b8d
- 151811 pass 63d08bec0b2dace2fcefffb23a1fa5b14c473d67 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a4cfb842fca9693a330cb5435284c1ee8bfbbace 3c659044118e34603161457db9934a34f816d78b 23374a84c5f08e20ec2506a6322330d51f9134c5 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
- 151817 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 45db94cc90c286a9965a285ba19450f448760a09 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151804 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 45db94cc90c286a9965a285ba19450f448760a09 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151819 fail 257aba2dafee0fec97f3f0a2d06fb82587aaf1a0 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 3e80f6902c13f6edb6675c0f33edcbbf0163ec32 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151823 fail 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b da9630c57ee386f8beb571ba6bb4a98d546c42ca 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151816 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 45db94cc90c286a9965a285ba19450f448760a09 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151831 fail 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 81cb05732efb36971901c515b007869cc1d3a532 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151825 fail 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 007d1dbf72536ec1b847a944832e4de1546af2ac 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151832 pass 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151834 fail 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 81cb05732efb36971901c515b007869cc1d3a532 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151835 pass 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
- 151836 fail 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b 81cb05732efb36971901c515b007869cc1d3a532 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
-Searching for interesting versions
- Result found: flight 150457 (pass), for basis pass
- Result found: flight 151804 (fail), for basis failure
- Repro found: flight 151814 (pass), for basis pass
- Repro found: flight 151816 (fail), for basis failure
- 0 revisions at 8a4f331e8cb662d787a310df07fefd080879abde 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8927e2777786a43cddfaa328b0f4c41a09c629c9 3c659044118e34603161457db9934a34f816d78b d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a 2e3de6253422112ae43e608661ba94ea6b345694 1251402caf8685f45d9d580f01583370f7e2d272
-No revisions left to test, checking graph state.
- Result found: flight 151828 (pass), for last pass
- Result found: flight 151831 (fail), for first failure
- Repro found: flight 151832 (pass), for last pass
- Repro found: flight 151834 (fail), for first failure
- Repro found: flight 151835 (pass), for last pass
- Repro found: flight 151836 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  81cb05732efb36971901c515b007869cc1d3a532
-  Bug not present: d6b78ac8ecf94f56dbfbecc23fb4365d8772a41a
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/151836/
-
-
-  commit 81cb05732efb36971901c515b007869cc1d3a532
-  Author: Markus Armbruster <armbru@redhat.com>
-  Date:   Tue Jun 9 14:23:37 2020 +0200
-  
-      qdev: Assert devices are plugged into a bus that can take them
-      
-      This would have caught some of the bugs I just fixed.
-      
-      Signed-off-by: Markus Armbruster <armbru@redhat.com>
-      Reviewed-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-      Message-Id: <20200609122339.937862-23-armbru@redhat.com>
-
-dot: graph is too large for cairo-renderer bitmaps. Scaling by 0.202477 to fit
-pnmtopng: 157 colors found
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-vhd.debian-di-install.{dot,ps,png,html,svg}.
-----------------------------------------
-151836: tolerable FAIL
-
-flight 151836 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151836/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
+Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-amd64-amd64-libvirt-vhd 10 debian-di-install       fail baseline untested
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-qemuu-nested-intel 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-qemuu-nested-amd 10 debian-hvm-install  fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-qemuu-rhel6hvm-amd 10 redhat-install     fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-freebsd10-i386 11 guest-start            fail REGR. vs. 151065
+ test-amd64-i386-qemuu-rhel6hvm-intel 10 redhat-install   fail REGR. vs. 151065
+ test-amd64-i386-freebsd10-amd64 11 guest-start           fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-win7-amd64 10 windows-install  fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-win7-amd64 10 windows-install   fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-ws16-amd64 10 windows-install  fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-ws16-amd64 10 windows-install   fail REGR. vs. 151065
 
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds     12 guest-start              fail REGR. vs. 151065
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151065
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151065
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                827937158b72ce2265841ff528bba3c44a1bfbc8
+baseline version:
+ qemuu                9e3903136d9acde2fb2dd9e967ba928050a6cb4a
+
+Last test of basis   151065  2020-06-12 22:27:51 Z   29 days
+Failing since        151101  2020-06-14 08:32:51 Z   27 days   37 attempts
+Testing same since   151833  2020-07-11 15:07:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ahmed Karaman <ahmedkhaledkaraman@gmail.com>
+  Alberto Garcia <berto@igalia.com>
+  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexey Krasikov <alex-krasikov@yandex-team.ru>
+  Alistair Francis <alistair.francis@wdc.com>
+  Allan Peramaki <aperamak@pp1.inet.fi>
+  Andrew Jones <drjones@redhat.com>
+  Ani Sinha <ani.sinha@nutanix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Artyom Tarasenko <atar4qemu@gmail.com>
+  Aurelien Jarno <aurelien@aurel32.net>
+  Babu Moger <babu.moger@amd.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Beata Michalska <beata.michalska@linaro.org>
+  Bin Meng <bin.meng@windriver.com>
+  Catherine A. Frederick <chocola@animebitch.es>
+  Cathy Zhang <cathy.zhang@intel.com>
+  Chen Gang <chengang@emindsoft.com.cn>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christophe de Dinechin <dinechin@redhat.com>
+  Cindy Lu <lulu@redhat.com>
+  Claudio Fontana <cfontana@suse.de>
+  Cleber Rosa <crosa@redhat.com>
+  Colin Xu <colin.xu@intel.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniele Buono <dbuono@linux.vnet.ibm.com>
+  David Carlier <devnexen@gmail.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Derek Su <dereksu@qnap.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+  Eduardo Habkost <ehabkost@redhat.com>
+  Emilio G. Cota <cota@braap.org>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Smit <erik.lucas.smit@gmail.com>
+  Evgeny Yakovlev <eyakovlev@virtuozzo.com>
+  fangying <fangying1@huawei.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Filip Bozuta <Filip.Bozuta@syrmia.com>
+  Finn Thain <fthain@telegraphics.com.au>
+  Geoffrey McRae <geoff@hostfission.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Giuseppe Musacchio <thatlemon@gmail.com>
+  Greg Kurz <groug@kaod.org>
+  Guenter Roeck <linux@roeck-us.net>
+  Gustavo Romero <gromero@linux.ibm.com>
+  Halil Pasic <pasic@linux.ibm.com>
+  Helge Deller <deller@gmx.de>
+  Huacai Chen <chenhc@lemote.com>
+  Huacai Chen <zltjiangshi@gmail.com>
+  Ian Jiang <ianjiang.ict@gmail.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Janne Grunau <j@jannau.net>
+  Janosch Frank <frankja@linux.ibm.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Jason Wang <jasowang@redhat.com>
+  Jay Zhou <jianjay.zhou@huawei.com>
+  Jean-Christophe Dubois <jcd@tribudubois.net>
+  Jessica Clarke <jrtc27@jrtc27.com>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  Jingqi Liu <jingqi.liu@intel.com>
+  John Snow <jsnow@redhat.com>
+  Jon Doron <arilou@gmail.com>
+  Joseph Myers <joseph@codesourcery.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Keqian Zhu <zhukeqian1@huawei.com>
+  Kevin Wolf <kwolf@redhat.com>
+  Klaus Jensen <k.jensen@samsung.com>
+  Klaus Jensen <klaus.jensen@cnexlabs.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Leonid Bloch <lb.workbox@gmail.com>
+  Leonid Bloch <lbloch@janustech.com>
+  Li Qiang <liq3ea@gmail.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  lichun <lichun@ruijie.com.cn>
+  Lijun Pan <ljp@linux.ibm.com>
+  Like Xu <like.xu@linux.intel.com>
+  Lingfeng Yang <lfy@google.com>
+  Lingshan zhu <lingshan.zhu@intel.com>
+  Liran Alon <liran.alon@oracle.com>
+  LIU Zhiwei <zhiwei_liu@c-sky.com>
+  Lukas Straub <lukasstraub2@web.de>
+  Maciej S. Szmigiero <maciej.szmigiero@oracle.com>
+  Magnus Damm <magnus.damm@gmail.com>
+  Mao Zhongyi <maozhongyi@cmss.chinamobile.com>
+  Marcelo Tosatti <mtosatti@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Masahiro Yamada <masahiroy@kernel.org>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Max Reitz <mreitz@redhat.com>
+  Maxim Levitsky <mlevitsk@redhat.com>
+  Maxime Coquelin <maxime.coquelin@redhat.com>
+  Menno Lageman <menno.lageman@oracle.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michele Denber <denber@mindspring.com>
+  Nir Soffer <nsoffer@redhat.com>
+  Pan Nengyuan <pannengyuan@huawei.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul Durrant <pdurrant@amazon.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@ispras.ru>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Prasad J Pandit <pjp@fedoraproject.org>
+  Radoslaw Biernacki <rad@semihalf.com>
+  Raphael Norwitz <raphael.norwitz@nutanix.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Richard W.M. Jones <rjones@redhat.com>
+  Riku Voipio <riku.voipio@linaro.org>
+  Robert Foley <robert.foley@linaro.org>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Roman Kagan <rkagan@virtuozzo.com>
+  Roman Kagan <rvkagan@yandex-team.ru>
+  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
+  Sebastian Rasmussen <sebras@gmail.com>
+  Sergio Lopez <slp@redhat.com>
+  Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Tao Xu <tao3.xu@intel.com>
+  Thomas Huth <huth@tuxfamily.org>
+  Thomas Huth <thuth@redhat.com>
+  Tiwei Bie <tiwei.bie@intel.com>
+  Tong Ho <tong.ho@xilinx.com>
+  Vivek Goyal <vgoyal@redhat.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+  Volker Rümelin <vr_qemu@t-online.de>
+  WangBowen <bowen.wang@intel.com>
+  Wei Huang <wei.huang2@amd.com>
+  Wei Wang <wei.w.wang@intel.com>
+  Ying Fang <fangying1@huawei.com>
+  Yoshinori Sato <ysato@users.sourceforge.jp>
+  Yuri Benditovich <yuri.benditovich@daynix.com>
+  Zhang Chen <chen.zhang@intel.com>
 
 jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
  build-amd64-libvirt                                          pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
 ------------------------------------------------------------
@@ -319,4 +463,8 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+(No revision log; it would be 22620 lines long.)
 
