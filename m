@@ -2,57 +2,117 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F2B21CBDA
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 00:27:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 663AE21CCDA
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 03:43:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jukQL-0001f8-I3; Sun, 12 Jul 2020 22:26:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1junTw-0002ed-Ez; Mon, 13 Jul 2020 01:42:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mbu0=AX=gmail.com=marietto2008@srs-us1.protection.inumbo.net>)
- id 1jukQJ-0001f3-P7
- for xen-devel@lists.xenproject.org; Sun, 12 Jul 2020 22:26:16 +0000
-X-Inumbo-ID: b1fcbac0-c48e-11ea-bb8b-bc764e2007e4
-Received: from mail-lj1-x22f.google.com (unknown [2a00:1450:4864:20::22f])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b1fcbac0-c48e-11ea-bb8b-bc764e2007e4;
- Sun, 12 Jul 2020 22:26:14 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id x9so3537017ljc.5
- for <xen-devel@lists.xenproject.org>; Sun, 12 Jul 2020 15:26:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=DndvfLd9uyHXeaqFN4iLX+XhPAuX2eei+4DQXZwmmoQ=;
- b=R0zymY9NzRguKeF3Hh71iYc/U2gg44U2ED9YBRRZJRmSp6HN5B1RcUFk/MgGwvW1fK
- 4vFCIU+tONt6FZAYODw7twB5peyobl5SMv1Bd2nqFZSjfKJ3rW0aTlDX4o+yH1LIUE7l
- A2kxb38wZI/kUAHiiiID8GOkHVx61O6Jmfwn/VD8+q6orZVpN6awdZLLAVyHpttsh9Tg
- xS1VngL3EDFMdyCiHvKa4c7zoIxe9Du9O76jkkWroUFRPlYmhWv5OD+2DcDSeuJVrSbF
- W02krBBTfbbRNCQe/vWsWwyfXktPfEWOTDbJLtZ88f0AnC/oKuC2LBkN8LRkps/85QO+
- dlYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=DndvfLd9uyHXeaqFN4iLX+XhPAuX2eei+4DQXZwmmoQ=;
- b=oe/K3qS0RGRBTgf+OB9QWxdbGOg2WT0ujGCQ4d39Nrd+FGkefeuHweY7ElV6VGFLnW
- L4vvWTTDD8RD9e0qMKKxArMU12Kx9P/YOBqjMEG2ZXr7IQGJfuWZm0mOyrUAKZglkClI
- EkDzl9NWARG5jzaZQ09RfSeWc9fLFozXv8vikY/77PsBkIzhxjUE3bkkngUiIdh7f/KT
- RmB+4AY7wI3jdtCJEnWhz1g9wLcmWrjaeoC+OuQt/buZ3tQjDrGKORLO/ro2Thr0YPDo
- 5soBqIEz4a98nUs0KCJR4G45IAfyn3/FW9zSRyAIfT1BBlTZ05KVh4Wopr/MBD4MlrHJ
- /FQA==
-X-Gm-Message-State: AOAM533RPPGMO1hGjYPFg8YzOOX6zXwNDguZChekkwornLDIr85EcR7c
- l8FomywzSheN61Kq7kiGFvIZSRdyTPt/Bwwqo3qpmxIAoTM=
-X-Google-Smtp-Source: ABdhPJz1/3l/ddPsxJTHUY47v/X/GdUawWM8qnUQXFttSZgWrcpzupr58vuh/PlGeyVGwkCKb0Z3JyUeLDDGaz6Yqn4=
-X-Received: by 2002:a05:651c:307:: with SMTP id
- a7mr45376729ljp.297.1594592772935; 
- Sun, 12 Jul 2020 15:26:12 -0700 (PDT)
+ <SRS0=Fjqj=AY=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1junTu-0002eY-US
+ for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 01:42:11 +0000
+X-Inumbo-ID: 0e6f1f30-c4aa-11ea-9216-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0e6f1f30-c4aa-11ea-9216-12813bfff9fa;
+ Mon, 13 Jul 2020 01:42:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=q32uwym4P7p+vdfLA9T3I82w07gO5d2OnMArxDCYBHc=; b=hmwZnOtj+XjrA3ghHB7VxOigp
+ qRwiqeaOAzuHUOwAnZ/7W1J6nqEYinlhop+yTEN8QrirR7BO3+fGZrLdHqFnv70fPGVxWzbrds/Yg
+ 4k3x+mGVAt9WWl+27WdVgkKHKq/Nx08z/c/TagMBTtyjDKH/AL+famhROtLWdp6In3zo4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1junTo-00058y-NG; Mon, 13 Jul 2020 01:42:04 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1junTo-0002ur-BH; Mon, 13 Jul 2020 01:42:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1junTo-0003CT-AN; Mon, 13 Jul 2020 01:42:04 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151849-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-From: Mario Marietto <marietto2008@gmail.com>
-Date: Mon, 13 Jul 2020 00:25:36 +0200
-Message-ID: <CA+1FSiiQCcOnqJFJ0NM2mawZrmu5+5BQDUoAQ+-LeX3uAQozpA@mail.gmail.com>
-Subject: config parsing error in disk specification: unknown value for format:
- near `hdb' in `/usr/share/ovmf/OVMF.fd,hdb,w'
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000cad9a605aa460f5e"
+Subject: [qemu-mainline test] 151849: regressions - FAIL
+X-Osstest-Failures: qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:redhat-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ qemu-mainline:test-amd64-i386-freebsd10-i386:guest-start:fail:regression
+ qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:redhat-install:fail:regression
+ qemu-mainline:test-amd64-i386-freebsd10-amd64:guest-start:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:regression
+ qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:regression
+ qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: qemuu=d34498309cff7560ac90c422c56e3137e6a64b19
+X-Osstest-Versions-That: qemuu=9e3903136d9acde2fb2dd9e967ba928050a6cb4a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 13 Jul 2020 01:42:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,154 +126,357 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---000000000000cad9a605aa460f5e
-Content-Type: text/plain; charset="UTF-8"
+flight 151849 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151849/
 
-Hello.
+Regressions :-(
 
-I'm a new xen user. I'm learning how works the xen hypervisor that I have
-installed on ubuntu 20.04 with the command : apt install xen-hypervisor. I
-want to boot the phisycal installation of windows 10 x64 bit that I have on
-/dev/sdb,which belong to these partitions :
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-qemuu-nested-intel 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-ovmf-amd64 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-qemuu-nested-amd 10 debian-hvm-install  fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-qemuu-rhel6hvm-amd 10 redhat-install     fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-debianhvm-amd64 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 151065
+ test-amd64-i386-freebsd10-i386 11 guest-start            fail REGR. vs. 151065
+ test-amd64-i386-qemuu-rhel6hvm-intel 10 redhat-install   fail REGR. vs. 151065
+ test-amd64-i386-freebsd10-amd64 11 guest-start           fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-win7-amd64 10 windows-install  fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-win7-amd64 10 windows-install   fail REGR. vs. 151065
+ test-amd64-amd64-xl-qemuu-ws16-amd64 10 windows-install  fail REGR. vs. 151065
+ test-amd64-i386-xl-qemuu-ws16-amd64 10 windows-install   fail REGR. vs. 151065
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151065
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151065
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                d34498309cff7560ac90c422c56e3137e6a64b19
+baseline version:
+ qemuu                9e3903136d9acde2fb2dd9e967ba928050a6cb4a
+
+Last test of basis   151065  2020-06-12 22:27:51 Z   30 days
+Failing since        151101  2020-06-14 08:32:51 Z   28 days   39 attempts
+Testing same since   151849  2020-07-12 16:37:51 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ahmed Karaman <ahmedkhaledkaraman@gmail.com>
+  Alberto Garcia <berto@igalia.com>
+  Aleksandar Markovic <aleksandar.m.mail@gmail.com>
+  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexander Boettcher <alexander.boettcher@genode-labs.com>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexey Krasikov <alex-krasikov@yandex-team.ru>
+  Alistair Francis <alistair.francis@wdc.com>
+  Allan Peramaki <aperamak@pp1.inet.fi>
+  Andrew Jones <drjones@redhat.com>
+  Ani Sinha <ani.sinha@nutanix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Artyom Tarasenko <atar4qemu@gmail.com>
+  Aurelien Jarno <aurelien@aurel32.net>
+  Babu Moger <babu.moger@amd.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Beata Michalska <beata.michalska@linaro.org>
+  Bin Meng <bin.meng@windriver.com>
+  Cameron Esfahani <dirty@apple.com>
+  Catherine A. Frederick <chocola@animebitch.es>
+  Cathy Zhang <cathy.zhang@intel.com>
+  Chen Gang <chengang@emindsoft.com.cn>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christophe de Dinechin <dinechin@redhat.com>
+  Cindy Lu <lulu@redhat.com>
+  Claudio Fontana <cfontana@suse.de>
+  Cleber Rosa <crosa@redhat.com>
+  Colin Xu <colin.xu@intel.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniele Buono <dbuono@linux.vnet.ibm.com>
+  David Carlier <devnexen@gmail.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Derek Su <dereksu@qnap.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Ed Robbins <E.J.C.Robbins@kent.ac.uk>
+  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+  Eduardo Habkost <ehabkost@redhat.com>
+  Emilio G. Cota <cota@braap.org>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Smit <erik.lucas.smit@gmail.com>
+  Evgeny Yakovlev <eyakovlev@virtuozzo.com>
+  fangying <fangying1@huawei.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Filip Bozuta <Filip.Bozuta@syrmia.com>
+  Finn Thain <fthain@telegraphics.com.au>
+  Geoffrey McRae <geoff@hostfission.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Giuseppe Musacchio <thatlemon@gmail.com>
+  Greg Kurz <groug@kaod.org>
+  Guenter Roeck <linux@roeck-us.net>
+  Gustavo Romero <gromero@linux.ibm.com>
+  Halil Pasic <pasic@linux.ibm.com>
+  Havard Skinnemoen <hskinnemoen@google.com>
+  Helge Deller <deller@gmx.de>
+  Huacai Chen <chenhc@lemote.com>
+  Huacai Chen <zltjiangshi@gmail.com>
+  Ian Jiang <ianjiang.ict@gmail.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Jan Kiszka <jan.kiszka@siemens.com>
+  Janne Grunau <j@jannau.net>
+  Janosch Frank <frankja@linux.ibm.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Jason Wang <jasowang@redhat.com>
+  Jay Zhou <jianjay.zhou@huawei.com>
+  Jean-Christophe Dubois <jcd@tribudubois.net>
+  Jessica Clarke <jrtc27@jrtc27.com>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  Jingqi Liu <jingqi.liu@intel.com>
+  John Snow <jsnow@redhat.com>
+  Jon Doron <arilou@gmail.com>
+  Joseph Myers <joseph@codesourcery.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Keqian Zhu <zhukeqian1@huawei.com>
+  Kevin Wolf <kwolf@redhat.com>
+  Klaus Jensen <k.jensen@samsung.com>
+  Klaus Jensen <klaus.jensen@cnexlabs.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Leonid Bloch <lb.workbox@gmail.com>
+  Leonid Bloch <lbloch@janustech.com>
+  Li Qiang <liq3ea@gmail.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  lichun <lichun@ruijie.com.cn>
+  Lijun Pan <ljp@linux.ibm.com>
+  Like Xu <like.xu@linux.intel.com>
+  Lingfeng Yang <lfy@google.com>
+  Lingshan zhu <lingshan.zhu@intel.com>
+  Liran Alon <liran.alon@oracle.com>
+  LIU Zhiwei <zhiwei_liu@c-sky.com>
+  Lukas Straub <lukasstraub2@web.de>
+  Luwei Kang <luwei.kang@intel.com>
+  Maciej S. Szmigiero <maciej.szmigiero@oracle.com>
+  Magnus Damm <magnus.damm@gmail.com>
+  Mao Zhongyi <maozhongyi@cmss.chinamobile.com>
+  Marcelo Tosatti <mtosatti@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mario Smarduch <msmarduch@digitalocean.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Masahiro Yamada <masahiroy@kernel.org>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Max Reitz <mreitz@redhat.com>
+  Maxim Levitsky <mlevitsk@redhat.com>
+  Maxime Coquelin <maxime.coquelin@redhat.com>
+  Menno Lageman <menno.lageman@oracle.com>
+  Michael Rolnik <mrolnik@gmail.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michele Denber <denber@mindspring.com>
+  Nir Soffer <nsoffer@redhat.com>
+  Pan Nengyuan <pannengyuan@huawei.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul Durrant <pdurrant@amazon.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@ispras.ru>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Prasad J Pandit <pjp@fedoraproject.org>
+  Radoslaw Biernacki <rad@semihalf.com>
+  Raphael Norwitz <raphael.norwitz@nutanix.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Richard W.M. Jones <rjones@redhat.com>
+  Riku Voipio <riku.voipio@linaro.org>
+  Robert Foley <robert.foley@linaro.org>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Roman Kagan <rkagan@virtuozzo.com>
+  Roman Kagan <rvkagan@yandex-team.ru>
+  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
+  Sarah Harris <S.E.Harris@kent.ac.uk>
+  Sebastian Rasmussen <sebras@gmail.com>
+  Sergio Lopez <slp@redhat.com>
+  Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Tao Xu <tao3.xu@intel.com>
+  Thomas Huth <huth@tuxfamily.org>
+  Thomas Huth <thuth@redhat.com>
+  Tiwei Bie <tiwei.bie@intel.com>
+  Tong Ho <tong.ho@xilinx.com>
+  Vivek Goyal <vgoyal@redhat.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+  Volker Rümelin <vr_qemu@t-online.de>
+  WangBowen <bowen.wang@intel.com>
+  Wei Huang <wei.huang2@amd.com>
+  Wei Wang <wei.w.wang@intel.com>
+  Xie Yongji <xieyongji@bytedance.com>
+  Ying Fang <fangying1@huawei.com>
+  Yoshinori Sato <ysato@users.sourceforge.jp>
+  Yuri Benditovich <yuri.benditovich@daynix.com>
+  Zhang Chen <chen.zhang@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-root@ziomario-I9:/etc/xen# fdisk /dev/sdb -l
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Disk /dev/sdb: 465,78 GiB, 500107862016 bytes, 976773168 sectors
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Disk model: Samsung SSD 860
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Units: sectors of 1 * 512 = 512 bytes
-
-Sector size (logical/physical): 512 bytes / 512 bytes
-
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-
-Disklabel type: gpt
-
-
-Dispositivo Start Fine Settori Size Tipo
-
-/dev/sdb1 34 262177 262144 128M Microsoft reserved
-
-/dev/sdb2 264192 1286143 1021952 499M Windows recovery environment
-
-/dev/sdb3 1286144 1488895 202752 99M EFI System
-
-/dev/sdb4 1488896 975591423 974102528 464,5G Microsoft basic data
-
-/dev/sdb5 975591424 976773119 1181696 577M Windows recovery environment
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-I'm reading here : https://wiki.xenproject.org/wiki/OVMF
+Not pushing.
 
-
-it says that if I want to enable EFI / UEFI for virtual machines I should
-add this parameter bios='ovmf' and it also says :
-
-
-# This is a disk image with EFI guest installed, you can also use live CD
-if you prefer.
-
-disk = [ '/data/s0-efi.qcow2,qcow2,hda,w' ]
-
-
-So,according with my situation,I created a cfg file like this :
-
-
-builder = 'hvm'
-
-bios='ovmf'
-
-vif = [ 'type=ioemu, bridge=xenbr0' ]
-
-memory = 8192
-
-name = "windows-10" # domain prefix name
-
-disk = [ '/usr/share/ovmf/OVMF.fd,hdb,w' ]
-
-boot = "c"
-
-vcpus = 6 # number of cpu's to assignsdl=1
-
-stdvga = 0
-
-serial = 'pty'
-
-usbdevice = 'tablet' # Required for USB mouse
-
-on_poweroff = 'destroy'
-
-on_reboot   = 'destroy'
-
-on_crash    = 'preserve'
-
-device_model_args_hvm = [
-
-# Debug OVMF
-
-'-chardev', 'file,id=debugcon,path=/etc/xen/ovmf.log,',
-
-'-device', 'isa-debugcon,iobase=0x402,chardev=debugcon',
-
-]
-
-
-
-but it gives the following error :
-
-
-xenwin.cfg: config parsing error in disk specification: unknown value for
-format: near \hdb' in \/usr/share/ovmf/OVMF.fd,hdb,w'\``
-
-
-do u know where is the error ?
-
--- 
-Mario.
-
---000000000000cad9a605aa460f5e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello.<br><br>I&#39;m a new xen user. I&#39;m learning how=
- works the xen hypervisor that I have installed on ubuntu 20.04 with the co=
-mmand : apt install xen-hypervisor. I want to boot the phisycal installatio=
-n of windows 10 x64 bit that I have on /dev/sdb,which belong to these parti=
-tions :<br><br><br>root@ziomario-I9:/etc/xen# fdisk /dev/sdb -l<br><br>Disk=
- /dev/sdb: 465,78 GiB, 500107862016 bytes, 976773168 sectors<br><br>Disk mo=
-del: Samsung SSD 860<br><br>Units: sectors of 1 * 512 =3D 512 bytes<br><br>=
-Sector size (logical/physical): 512 bytes / 512 bytes<br><br>I/O size (mini=
-mum/optimal): 512 bytes / 512 bytes<br><br>Disklabel type: gpt<br><br><br>D=
-ispositivo Start Fine Settori Size Tipo<br><br>/dev/sdb1 34 262177 262144 1=
-28M Microsoft reserved<br><br>/dev/sdb2 264192 1286143 1021952 499M Windows=
- recovery environment<br><br>/dev/sdb3 1286144 1488895 202752 99M EFI Syste=
-m<br><br>/dev/sdb4 1488896 975591423 974102528 464,5G Microsoft basic data<=
-br><br>/dev/sdb5 975591424 976773119 1181696 577M Windows recovery environm=
-ent<br><br><br>I&#39;m reading here : <a href=3D"https://wiki.xenproject.or=
-g/wiki/OVMF">https://wiki.xenproject.org/wiki/OVMF</a><br><br><br>it says t=
-hat if I want to enable EFI / UEFI for virtual machines I should add this p=
-arameter bios=3D&#39;ovmf&#39; and it also says :<br><br><br># This is a di=
-sk image with EFI guest installed, you can also use live CD if you prefer.<=
-br><br>disk =3D [ &#39;/data/s0-efi.qcow2,qcow2,hda,w&#39; ]<br><br><br>So,=
-according with my situation,I created a cfg file like this :<br><br><br>bui=
-lder =3D &#39;hvm&#39;<br><br>bios=3D&#39;ovmf&#39;<br><br>vif =3D [ &#39;t=
-ype=3Dioemu, bridge=3Dxenbr0&#39; ]<br><br>memory =3D 8192<br><br>name =3D =
-&quot;windows-10&quot; # domain prefix name<br><br>disk =3D [ &#39;/usr/sha=
-re/ovmf/OVMF.fd,hdb,w&#39; ]<br><br>boot =3D &quot;c&quot;<br><br>vcpus =3D=
- 6 # number of cpu&#39;s to assignsdl=3D1<br><br>stdvga =3D 0<br><br>serial=
- =3D &#39;pty&#39;<br><br>usbdevice =3D &#39;tablet&#39; # Required for USB=
- mouse<br><br>on_poweroff =3D &#39;destroy&#39;<br><br>on_reboot =C2=A0 =3D=
- &#39;destroy&#39;<br><br>on_crash =C2=A0 =C2=A0=3D &#39;preserve&#39;<br><=
-br>device_model_args_hvm =3D [<br><br># Debug OVMF<br><br>&#39;-chardev&#39=
-;, &#39;file,id=3Ddebugcon,path=3D/etc/xen/ovmf.log,&#39;,<br><br>&#39;-dev=
-ice&#39;, &#39;isa-debugcon,iobase=3D0x402,chardev=3Ddebugcon&#39;,<br><br>=
-]<br><br><br><br>but it gives the following error :<br><br><br>xenwin.cfg: =
-config parsing error in disk specification: unknown value for format: near =
-\hdb&#39; in \/usr/share/ovmf/OVMF.fd,hdb,w&#39;\``<br><br><br>do u know wh=
-ere is the error ?<br clear=3D"all"><br>-- <br><div dir=3D"ltr" class=3D"gm=
-ail_signature" data-smartmail=3D"gmail_signature">Mario.<br></div></div>
-
---000000000000cad9a605aa460f5e--
+(No revision log; it would be 24438 lines long.)
 
