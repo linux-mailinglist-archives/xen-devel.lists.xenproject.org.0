@@ -2,50 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A5621D966
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 17:03:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F348421D9C9
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 17:08:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1juzyg-0007dr-EH; Mon, 13 Jul 2020 15:02:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fjqj=AY=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1juzye-0007dX-HK
- for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 15:02:44 +0000
-X-Inumbo-ID: e48d4c9e-c519-11ea-926e-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e48d4c9e-c519-11ea-926e-12813bfff9fa;
- Mon, 13 Jul 2020 15:02:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To:Sender:
- Reply-To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rpKeXUYZHKV9NfrzOsArYDEtX0bjGWA2mnWH2YBxS2U=; b=H4Z4vOnbd9+XCkvQUiX22CAGj3
- OsmCN+0UAnUyU3Wd2tIoAMGmyvV0oa+Z153YX1SiK9p4KBKF32nntCagACIoW/jVr+wkAnN9mfJhP
- tsmNS9zp+zdqA6OSTInqXjvmas6GunFBeZTRIyjVA2r7tt16sSXefvDhrXQoFmypYbGU=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1juzyY-0008Ej-ET; Mon, 13 Jul 2020 15:02:38 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1juzyY-0000P6-48; Mon, 13 Jul 2020 15:02:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1juzyY-0000qP-3Q; Mon, 13 Jul 2020 15:02:38 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete test-amd64-i386-xl-qemuu-win7-amd64
-Message-Id: <E1juzyY-0000qP-3Q@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 13 Jul 2020 15:02:38 +0000
+	id 1jv04F-0007rB-6Y; Mon, 13 Jul 2020 15:08:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GBjS=AY=arndb.de=arnd@srs-us1.protection.inumbo.net>)
+ id 1jv04E-0007r6-Cm
+ for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 15:08:30 +0000
+X-Inumbo-ID: b4d8d04e-c51a-11ea-8496-bc764e2007e4
+Received: from mout.kundenserver.de (unknown [212.227.17.13])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b4d8d04e-c51a-11ea-8496-bc764e2007e4;
+ Mon, 13 Jul 2020 15:08:28 +0000 (UTC)
+Received: from mail-lf1-f49.google.com ([209.85.167.49]) by
+ mrelayeu.kundenserver.de (mreue108 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1Mg6i8-1kVxun2WkA-00hbxs for <xen-devel@lists.xenproject.org>; Mon, 13 Jul
+ 2020 17:08:27 +0200
+Received: by mail-lf1-f49.google.com with SMTP id m26so9270820lfo.13
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2020 08:08:27 -0700 (PDT)
+X-Gm-Message-State: AOAM530bBuQ9F/0yVaZQJIjtDI25LVnq8n4YNuGbZjFgSwCTqWw7vf5G
+ vp1ANJSyLo8lvPxr+OI/+PE7G0P3N1GeomYHuAo=
+X-Google-Smtp-Source: ABdhPJwTQltR//Qoy7CJjbYFWf5SE8su8bBzApvuOmTDy/uiiaL5a6kEWZGPL3gOs+ATNW8dGkRO2Pf0imsPrOKn0vM=
+X-Received: by 2002:ac2:51a1:: with SMTP id f1mr53585665lfk.173.1594652906936; 
+ Mon, 13 Jul 2020 08:08:26 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200713122247.10985-1-refactormyself@gmail.com>
+In-Reply-To: <20200713122247.10985-1-refactormyself@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 13 Jul 2020 17:08:10 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a3NWSZw6678k1O2eJ6-c5GuW7484PRvEzU9MEPPrCD-yw@mail.gmail.com>
+Message-ID: <CAK8P3a3NWSZw6678k1O2eJ6-c5GuW7484PRvEzU9MEPPrCD-yw@mail.gmail.com>
+Subject: Re: [RFC PATCH 00/35] Move all PCIBIOS* definitions into arch/x86
+To: "Saheed O. Bolarinwa" <refactormyself@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:XFtXGoka/3tyw1FhbSmnONvaU+vzKLgXjQqTD9l5k8YtAsjujNv
+ Pa8T3ZAGZ9La16GpeF5i++nkqzF/44rTyq/p/jK5AiQykuJ3U+hXctfd/SnZunVKYSki2JQ
+ Hxeg0FnhVpvdtueHmN6S3RKp7WWC+K5Z9qADkSDwcwWj0LJsP15CD2R8dIwV3xY3CCW76rw
+ O7DHMWHP30fvFmJKrfFig==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:rTCVYQ6W/II=:+iAUCRNTn1Fv7kzF7ZV35d
+ Lm2gmW7hIihPGowNRuTixmNL5gWx/8kG84dbJGgPBbfGuEeTgBJqdE7Ep8hoU+GHo5nzMsIhe
+ GovCT4Vpzuk9o4n1QDg7lHxKmvEVj5bo4Sjva4CBDYFC0cKPgHrlPj5ON1m2W+pGO8I55nVw4
+ h/Q0J/jS5RM3Eh87PjzLX8qjRsgoM+T5hVCkRg737Z8scCWGJjF2urvAjaAOuvINV6NFsujKr
+ DUMtv3bTfRv2L4qRK2fSSwypbaRGbJrnqY711cUEvGPwq1C9vBQOznwfRiCf9XSNeGHeXINQq
+ IOItU2efwRyt/u1l/uRdSNeXEpnxhm0v6K6vN2BO/8eJFZSdHfMB0HAFDBgs2u3Rz7ZFZ2w0c
+ B+NDUHrKlRcKjEHqDwF1xN+u2ct6ZMthxQ3jWvsS/RZCC/vOjR+OwWbmG4C7hB5hsBI9kCexx
+ AAVsNeFjaYgON0F2zt2xI6PGz49KAB0YH1pjvRa/Nlin9SGoFvnZxlx+UPSHJNaAhm8rQdWfV
+ U924BhNUGR++szjgZZ0Z6ZCTuW0b+iVxoAyL4dBD830QoSyoJLYt5HjuC/5eG9aQt1beFiNo3
+ VUiy8lPurJ/wIuAhIfV7meuaJNXyny9kJjY61qv1WNdB9PPnEKl64Rggk9aQ7JeqGIsacBwOw
+ kCyqAYN6hjMWv+YZVZrI2gQhFAhQLhXwKeP0W1jotwxsHj9NGJ6/QuDPVFKje5uye0mYY/eQ8
+ nCtC7k+J2ijlWZ0Y/Jo/zsSKTKCvV2EZWdB3+RFPBe66mbnrI029hF6pLfIJ3IUOH7niiKeDk
+ jLZkbFQMvg/H252cEsMDeeFZvoeJNHLAsy1GgN1A99HQmsWeCzjIjf25XbRPtGMwZvkNSAt
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,176 +67,165 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Rich Felker <dalias@libc.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Linux-sh list <linux-sh@vger.kernel.org>,
+ linux-pci <linux-pci@vger.kernel.org>, linux-nvme@lists.infradead.org,
+ Yicong Yang <yangyicong@hisilicon.com>,
+ sparclinux <sparclinux@vger.kernel.org>,
+ Realtek linux nic maintainers <nic_swsd@realtek.com>,
+ Paul Mackerras <paulus@samba.org>, Linux I2C <linux-i2c@vger.kernel.org>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ Bjorn Helgaas <helgaas@kernel.org>, rfi@lists.rocketboards.org,
+ Toan Le <toan@os.amperecomputing.com>, Greg Ungerer <gerg@linux-m68k.org>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>, Rob Herring <robh@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ linux-scsi <linux-scsi@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, linux-atm-general@lists.sourceforge.net,
+ Russell King <linux@armlinux.org.uk>, Ley Foon Tan <ley.foon.tan@intel.com>,
+ Christoph Hellwig <hch@lst.de>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ Chas Williams <3chas3@gmail.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ xen-devel <xen-devel@lists.xenproject.org>, Matt Turner <mattst88@gmail.com>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ linux-kernel-mentees@lists.linuxfoundation.org,
+ Kevin Hilman <khilman@baylibre.com>, Guenter Roeck <linux@roeck-us.net>,
+ linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Andrew Donnellan <ajd@linux.ibm.com>, Ray Jui <rjui@broadcom.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Yue Wang <yue.wang@amlogic.com>, Jens Axboe <axboe@fb.com>,
+ Jakub Kicinski <kuba@kernel.org>, linux-m68k <linux-m68k@lists.linux-m68k.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Ivan Kokshaysky <ink@jurassic.park.msu.ru>, Michael Buesch <m@bues.ch>,
+ Shuah Khan <skhan@linuxfoundation.org>, bjorn@helgaas.com,
+ "open list:ARM/Amlogic Meson SoC support" <linux-amlogic@lists.infradead.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Guan Xuetao <gxt@pku.edu.cn>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Richard Henderson <rth@twiddle.net>, Juergen Gross <jgross@suse.com>,
+ Michal Simek <monstr@monstr.eu>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Scott Branden <sbranden@broadcom.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Networking <netdev@vger.kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Keith Busch <kbusch@kernel.org>, Brian King <brking@us.ibm.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, alpha <linux-alpha@vger.kernel.org>,
+ Frederic Barrat <fbarrat@linux.ibm.com>,
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-xl-qemuu-win7-amd64
-testid windows-install
+On Mon, Jul 13, 2020 at 3:22 PM Saheed O. Bolarinwa
+<refactormyself@gmail.com> wrote:
+> This goal of these series is to move the definition of *all* PCIBIOS* from
+> include/linux/pci.h to arch/x86 and limit their use within there.
+> All other tree specific definition will be left for intact. Maybe they can
+> be renamed.
+>
+> PCIBIOS* is an x86 concept as defined by the PCI spec. The returned error
+> codes of PCIBIOS* are positive values and this introduces some complexities
+> which other archs need not incur.
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+I think the intention is good, but I find the series in its current
+form very hard
+to review, in particular the way you touch some functions three times with
+trivial changes. Instead of
 
-*** Found and reproduced problem changeset ***
+1) replace PCIBIOS_SUCCESSFUL with 0
+2) drop pointless 0-comparison
+3) reformat whitespace
 
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  7d3660e79830a069f1848bb4fa1cdf8f666424fb
-  Bug not present: 9e3903136d9acde2fb2dd9e967ba928050a6cb4a
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/151862/
+I would suggest to combine the first two steps into one patch per
+subsystem and drop the third step.
 
+> PLAN:
+>
+> 1.   [PATCH v0 1-36] Replace all PCIBIOS_SUCCESSFUL with 0
+>
+> 2a.  Audit all functions returning PCIBIOS_* error values directly or
+>      indirectly and prevent possible bug coming in (2b)
+>
+> 2b.  Make all functions returning PCIBIOS_* error values call
+>      pcibios_err_to_errno(). *This will change their behaviour, for good.*
+>
+> 3.   Clone a pcibios_err_to_errno() into arch/x86/pci/pcbios.c as _v2.
+>      This handles the positive error codes directly and will not use any
+>      PCIBIOS* definitions. So calls to it have no outside dependence.
+>
+> 4.   Make all x86 codes that needs to convert to -E* values call the
+>      cloned version - pcibios_err_to_errno_v2()
+>
+> 5.   Assign PCIBIOS_* errors values directly to generic -E* errors
+>
+> 6.   Refactor pcibios_err_to_errno() and mark it deprecated
+>
+> 7.   Replace all calls to pcibios_err_to_errno() with the proper -E* value
+>      or 0.
+>
+> 8.   Remove all PCIBIOS* definitions in include/linux/pci.h and
+>      pcibios_err_to_errno() too.
+>
+> 9.   Redefine all PCIBIOS* definitions with original values inside
+>      arch/x86/pci/pcbios.c
+>
+> 10.  Redefine pcibios_err_to_errno() inside arch/x86/pci/pcbios.c
+>
+> 11.  Replace pcibios_err_to_errno_v2() calls with pcibios_err_to_errno()
+>
+> 12.  Remove pcibios_err_to_errno_v2()
+>
+> Suggested-by: Bjorn Helgaas <bjorn@helgaas.com>
+> Suggested-by: Yicong Yang <yangyicong@hisilicon.com>
+> Signed-off-by: "Saheed O. Bolarinwa" <refactormyself@gmail.com>
 
-  (Revision log too long, omitted.)
+I would hope that there is a simpler procedure to get to good
+code than 12 steps that rename the same things multiple times.
 
+Maybe the work can be split up differently, with a similar end result
+but fewer and easier reviewed patches. The way I'd look at the
+problem, there are three main areas that can be dealt with one at
+a time:
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-win7-amd64.windows-install.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
+a) callers of the high-level config space accessors
+   pci_{write,read}_config_{byte,word,dword}, mostly in device
+   drivers.
+b) low-level implementation of the config space accessors
+    through struct pci_ops
+c) all other occurrences of these constants
 
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-win7-amd64.windows-install --summary-out=tmp/151862.bisection-summary --basis-template=151065 --blessings=real,real-bisect qemu-mainline test-amd64-i386-xl-qemuu-win7-amd64 windows-install
-Searching for failure / basis pass:
- 151849 fail [host=pinot0] / 151065 ok.
-Failure / basis pass flights: 151849 / 151065
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b d34498309cff7560ac90c422c56e3137e6a64b19 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dafce295e6f447ed8905db4e29241e2c6c2a4389 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 058023b343d4e366864831db46e9b438e9e3a178
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#dafce295e6f447ed8905db4e29241e2c6c2a4389-f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db99\
- 34a34f816d78b-3c659044118e34603161457db9934a34f816d78b git://git.qemu.org/qemu.git#9e3903136d9acde2fb2dd9e967ba928050a6cb4a-d34498309cff7560ac90c422c56e3137e6a64b19 git://xenbits.xen.org/osstest/seabios.git#2e3de6253422112ae43e608661ba94ea6b345694-88ab0c15525ced2eefe39220742efe4769089ad8 git://xenbits.xen.org/xen.git#058023b343d4e366864831db46e9b438e9e3a178-02d69864b51a4302a148c28d6d391238a6778b4b
-From git://cache:9419/git://git.qemu.org/qemu
-   6c87d9f311..00ce6c36b3  master     -> origin/master
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Loaded 55435 nodes in revision graph
-Searching for test results:
- 151101 fail irrelevant
- 151065 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dafce295e6f447ed8905db4e29241e2c6c2a4389 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 058023b343d4e366864831db46e9b438e9e3a178
- 151149 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9af1064995d479df92e399a682ba7e4b2fc78415 3c659044118e34603161457db9934a34f816d78b 7d3660e79830a069f1848bb4fa1cdf8f666424fb 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151221 fail irrelevant
- 151175 fail irrelevant
- 151241 fail irrelevant
- 151286 fail irrelevant
- 151269 fail irrelevant
- 151328 fail irrelevant
- 151304 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 322969adf1fb3d6cfbd613f35121315715aff2ed 3c659044118e34603161457db9934a34f816d78b 171199f56f5f9bdf1e5d670d09ef1351d8f01bae 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
- 151377 fail irrelevant
- 151353 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1a992030522622c42aa063788b3276789c56c1e1 3c659044118e34603161457db9934a34f816d78b d4b78317b7cf8c0c635b70086503813f79ff21ec 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
- 151399 fail irrelevant
- 151414 fail irrelevant
- 151435 fail irrelevant
- 151459 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 0f01cec52f4794777feb067e4fa0bfcedfdc124e 3c659044118e34603161457db9934a34f816d78b e7651153a8801dad6805d450ea8bef9b46c1adf5 88ab0c15525ced2eefe39220742efe4769089ad8 88cfd062e8318dfeb67c7d2eb50b6cd224b0738a
- 151471 fail irrelevant
- 151485 fail irrelevant
- 151500 fail irrelevant
- 151518 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00217f1919270007d7a911f89b32e39b9dcaa907 3c659044118e34603161457db9934a34f816d78b fc1bff958998910ec8d25db86cd2f53ff125f7ab 88ab0c15525ced2eefe39220742efe4769089ad8 23ca7ec0ba620db52a646d80e22f9703a6589f66
- 151547 fail irrelevant
- 151598 fail irrelevant
- 151577 fail irrelevant
- 151622 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b 7b7515702012219410802a168ae4aa45b72a44df 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151656 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151634 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151645 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151669 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151685 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151704 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151778 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b aff2caf6b3fbab1062e117a47b66d27f7fd2f272 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151721 fail irrelevant
- 151763 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 48f22ad04ead83e61b4b35871ec6f6109779b791 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151744 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 8796c64ecdfd34be394ea277aaaaa53df0c76996 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151804 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 45db94cc90c286a9965a285ba19450f448760a09 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151816 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 45db94cc90c286a9965a285ba19450f448760a09 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151833 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b 827937158b72ce2265841ff528bba3c44a1bfbc8 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151862 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 7d3660e79830a069f1848bb4fa1cdf8f666424fb 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151837 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dafce295e6f447ed8905db4e29241e2c6c2a4389 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 058023b343d4e366864831db46e9b438e9e3a178
- 151839 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b 827937158b72ce2265841ff528bba3c44a1bfbc8 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151844 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 7028534d8482d25860c4d1aa8e45f0b911abfc5a
- 151845 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 394e8e4bf586b4749620a48a23c816ee19f0e04a 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
- 151846 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151841 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b 2033cc6efa98b831d7839e367aa7d5aa74d0750f 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151848 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 fd708fe0e1f813d6faf02d92ec5e8d73ce876ed1 3c659044118e34603161457db9934a34f816d78b 7d3660e79830a069f1848bb4fa1cdf8f666424fb 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151850 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 dafce295e6f447ed8905db4e29241e2c6c2a4389 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 058023b343d4e366864831db46e9b438e9e3a178
- 151851 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b 2033cc6efa98b831d7839e367aa7d5aa74d0750f 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151849 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b d34498309cff7560ac90c422c56e3137e6a64b19 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151853 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 7d3660e79830a069f1848bb4fa1cdf8f666424fb 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151857 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b d34498309cff7560ac90c422c56e3137e6a64b19 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151859 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151860 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 7d3660e79830a069f1848bb4fa1cdf8f666424fb 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151861 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
-Searching for interesting versions
- Result found: flight 151065 (pass), for basis pass
- Result found: flight 151849 (fail), for basis failure
- Repro found: flight 151850 (pass), for basis pass
- Repro found: flight 151857 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 9e3903136d9acde2fb2dd9e967ba928050a6cb4a 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
-No revisions left to test, checking graph state.
- Result found: flight 151846 (pass), for last pass
- Result found: flight 151853 (fail), for first failure
- Repro found: flight 151859 (pass), for last pass
- Repro found: flight 151860 (fail), for first failure
- Repro found: flight 151861 (pass), for last pass
- Repro found: flight 151862 (fail), for first failure
+Starting with a), my first question is whether any high-level drivers
+even need to care about errors from these functions. I see 4913
+callers that ignore the return code, and 576 that actually
+check it, and almost none care about the specific error (as you
+found as well). Unless we conclude that most PCI drivers are
+wrong, could we just change the return type to 'void' and assume
+they never fail for valid arguments on a valid pci_device* ?
 
-*** Found and reproduced problem changeset ***
+For b), it might be nice to also change other aspects of the interface,
+e.g. passing a pci_host_bridge pointer plus bus number instead of
+a pci_bus pointer, or having the callback in the pci_host_bridge
+structure.
 
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  7d3660e79830a069f1848bb4fa1cdf8f666424fb
-  Bug not present: 9e3903136d9acde2fb2dd9e967ba928050a6cb4a
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/151862/
+> Bolarinwa Olayemi Saheed (35):
+>   Change PCIBIOS_SUCCESSFUL to 0
+>   Change PCIBIOS_SUCCESSFUL to 0
+>   Change PCIBIOS_SUCCESSFUL to 0
+>   Tidy Success/Failure checks
+>   Change PCIBIOS_SUCCESSFUL to 0
+>   Tidy Success/Failure checks
+>   Change PCIBIOS_SUCCESSFUL to 0
 
+Some patches have identical subject lines including the subsystem
+prefix, which you should avoid. Try to also fix the git request-pull
+output to not drop that prefix here so the list makes more sense.
 
-  (Revision log too long, omitted.)
-
-dot: graph is too large for cairo-renderer bitmaps. Scaling by 0.780631 to fit
-pnmtopng: 176 colors found
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-win7-amd64.windows-install.{dot,ps,png,html,svg}.
-----------------------------------------
-151862: tolerable ALL FAIL
-
-flight 151862 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151862/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-win7-amd64 10 windows-install  fail baseline untested
-
-
-jobs:
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+        Arnd
 
