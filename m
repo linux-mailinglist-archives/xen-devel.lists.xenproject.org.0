@@ -2,73 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BDED21D16A
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 10:11:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29ED621D16F
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 10:13:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jutXu-00036k-Lo; Mon, 13 Jul 2020 08:10:42 +0000
+	id 1jutan-0003GC-84; Mon, 13 Jul 2020 08:13:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bAa1=AY=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jutXt-00036c-95
- for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 08:10:41 +0000
-X-Inumbo-ID: 571fbc36-c4e0-11ea-b7bb-bc764e2007e4
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
+ id 1jutam-0003G6-DA
+ for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 08:13:40 +0000
+X-Inumbo-ID: c1e70452-c4e0-11ea-b7bb-bc764e2007e4
+Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 571fbc36-c4e0-11ea-b7bb-bc764e2007e4;
- Mon, 13 Jul 2020 08:10:40 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id f18so12240555wml.3
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2020 01:10:40 -0700 (PDT)
+ id c1e70452-c4e0-11ea-b7bb-bc764e2007e4;
+ Mon, 13 Jul 2020 08:13:39 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id l2so12251097wmf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2020 01:13:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=nT2xE2I/1laRy3/n8/6HWxHbLx8UbAkaa/McJbaY/Go=;
- b=L61FhwCCvRDKQLIKdnXaGxMEL0Cgg8QW8GHZ/v5d4/c4Ig9855dnDAK7hZ3Wq81MI4
- qGwEokCjqapm8wRSgtkuMyucU0k+p2FetZQCLUDsTltZ8fg/4F8NpNvovCKRb/bXP7HX
- Ue3VEO//CgeIoEbLfWpRHvErKA0kri+aNdUQpz2B8nobBdvqjM1WD3qY428QfYJLtQ5G
- pAp6MyLRE3O84pp8zBWGe0tmiF0pXOzRvP0P/NL1gPzbUd48IENUBf4oZDwTXuy+4osv
- a+z0Rj6AUbKa9a63yMQNqYKWMMD1iBcAdVyr7vILDMeuHZuN6+EL57okjFctAnUNbBsK
- 1Saw==
+ :thread-index; bh=Ar0ph7hv3Yh6PwDGEGAD9y+GhfIA3gUk01Sca/V8LyQ=;
+ b=mlRwTfR7RDvOrnBEJ5S7rP6ObfAIVmA8W4J7oOeVAA3vbOUl0bXanzaBLwDrzG5/Lr
+ FIgQ3OQrLC0iZU8GXD4w/RKJXxbC+gYWcwM5KwQyO1+vFw6Rru5xEBj86OZRjHqzbUo5
+ 1Ad4wVTIZePwkOjCrurIQ4WKOAh6jYFlJibOHJ9i/qb2ApOrDXtAz/BmHjzq54qwUq0g
+ 3rO0gS5QGVXHkW8jfeiB9oxQ1pBi2zHM1s7HjiRI78rsJtsDkQzNc087h5Tf5TFCXeDw
+ bQw4dJy1o5PdoGOFcPuHInv8uQb5drjvixokUo6iRxLFFxsqnhhW/piVpGOwrBS6ZmD7
+ Yi7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :content-language:thread-index;
- bh=nT2xE2I/1laRy3/n8/6HWxHbLx8UbAkaa/McJbaY/Go=;
- b=loblu7048Gk8fFCnC7rIqMuHm/IuiDE5hT/rCk7rmhsHHWfyGCRcmR1+zeyVNk4ekI
- DyLuTjpbOB49wHYUn43r+TOQyIb5/+oZ1gpHrxUl0lLVL0u+dQgdbPB95mpWxVymM3yY
- ifuutqwADLHmDwkvTTaoGQdf0tITRmhDZHNpIAi0RCYjT1R5PUFEmlqB2JM0NeMtItKT
- kvODJ9FU7cBRDnA/XxbmIBBN8DACusC2uKPKT/93lSeoFXUdu8jCrbi0sSRzXeMNKyAr
- W5xAmzakFGarUY/XaxK4ZRnifDp2omGp6716mJMrAdA2pwXqseSQJUWeMKE81NVO4W4r
- 62ng==
-X-Gm-Message-State: AOAM530hu0aUu8o7cTZPzRTtkb1mReuiAqEcsbxmj9RvajmBz0KrrtsX
- 3lM16rrwNAjUOKo66x3wm9w=
-X-Google-Smtp-Source: ABdhPJygTefIsKyZlBfTQwg8Ok+6EIMpEHdvDLG1LGMonu/CaPUYSMBvfx4mgduaPCPtD/3iCo0qvQ==
-X-Received: by 2002:a7b:cd09:: with SMTP id f9mr18552307wmj.160.1594627839822; 
- Mon, 13 Jul 2020 01:10:39 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-236.amazon.com. [54.240.197.236])
- by smtp.gmail.com with ESMTPSA id n17sm21674581wrs.2.2020.07.13.01.10.38
+ bh=Ar0ph7hv3Yh6PwDGEGAD9y+GhfIA3gUk01Sca/V8LyQ=;
+ b=L2g80KofQ/IEdCEGKtn4eUgQOEix0h4NXbOSSUrKlOkm9PwUPmhbPtHT7iDrME8jP9
+ TjJH07L7l5v2DjIC1zgEnGoEjX+M+KPo4pKoadV2azTHyzxeykolGmemOfUG/PvwuveX
+ YTmyJOWH7RD2setvkT5lCZuHzVGumLMApLhXeGlOLqIAbOdGAkLWdwJhppwbvfwu+Cd4
+ NXTtiaE/HL5i6zgPcm1RZos1GtG239WwgQ8zWJfqtzQ8u7AHJn0JUIhVeS+BtOklaMYy
+ AFksS4XTV28hFtNxQWIZiYegproCKtCwUl25ZHxjBb8E67kyFoBQNS3w6EzKPjha04Vt
+ 4W3Q==
+X-Gm-Message-State: AOAM531RKfRpuaPe8CjMsZep2ncuMbJpqW+Cg4gh8RpnHwrX7580lLht
+ nbEaEVM9R6z/gPoEjYdV+Ns=
+X-Google-Smtp-Source: ABdhPJyVyUJJTvpZOfshsPBjra2CRmozn1fcF3R3+0T6/6b8nEDE+IPag8OJMWDCyFMfEdLmjAA+VA==
+X-Received: by 2002:a7b:cf18:: with SMTP id l24mr17476565wmg.116.1594628019011; 
+ Mon, 13 Jul 2020 01:13:39 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-228.amazon.com. [54.240.197.228])
+ by smtp.gmail.com with ESMTPSA id j6sm23374885wro.25.2020.07.13.01.13.37
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 13 Jul 2020 01:10:39 -0700 (PDT)
+ Mon, 13 Jul 2020 01:13:38 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Souptick Joarder'" <jrdr.linux@gmail.com>, <boris.ostrovsky@oracle.com>,
- <jgross@suse.com>, <sstabellini@kernel.org>
-References: <1594525195-28345-1-git-send-email-jrdr.linux@gmail.com>
- <1594525195-28345-4-git-send-email-jrdr.linux@gmail.com>
-In-Reply-To: <1594525195-28345-4-git-send-email-jrdr.linux@gmail.com>
-Subject: RE: [PATCH v3 3/3] xen/privcmd: Convert get_user_pages*() to
- pin_user_pages*()
-Date: Mon, 13 Jul 2020 09:10:38 +0100
-Message-ID: <003a01d658ed$1858e220$490aa660$@xen.org>
+To: "'Juergen Gross'" <jgross@suse.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20200713051639.26948-1-jgross@suse.com>
+In-Reply-To: <20200713051639.26948-1-jgross@suse.com>
+Subject: RE: [PATCH] docs: specify stability of hypfs path documentation
+Date: Mon, 13 Jul 2020 09:13:37 +0100
+Message-ID: <003b01d658ed$831ae680$8950b380$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: en-gb
-Thread-Index: AQGQUUjbM0hB7euxJ1kpRMo6FNfk+gGYi24xqYRzHNA=
+Thread-Index: AQIFNc7lIAokfYuPpo0uaUrzq7VTS6inbwKA
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,70 +78,70 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- 'Paul Durrant' <xadimgnik@gmail.com>, 'John Hubbard' <jhubbard@nvidia.com>
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
-> From: Souptick Joarder <jrdr.linux@gmail.com>
-> Sent: 12 July 2020 04:40
-> To: boris.ostrovsky@oracle.com; jgross@suse.com; sstabellini@kernel.org
-> Cc: xen-devel@lists.xenproject.org; linux-kernel@vger.kernel.org; Souptick Joarder
-> <jrdr.linux@gmail.com>; John Hubbard <jhubbard@nvidia.com>; Paul Durrant <xadimgnik@gmail.com>
-> Subject: [PATCH v3 3/3] xen/privcmd: Convert get_user_pages*() to pin_user_pages*()
+> From: Juergen Gross <jgross@suse.com>
+> Sent: 13 July 2020 06:17
+> To: xen-devel@lists.xenproject.org
+> Cc: paul@xen.org; Juergen Gross <jgross@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; George
+> Dunlap <george.dunlap@citrix.com>; Ian Jackson <ian.jackson@eu.citrix.com>; Jan Beulich
+> <jbeulich@suse.com>; Julien Grall <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Wei
+> Liu <wl@xen.org>
+> Subject: [PATCH] docs: specify stability of hypfs path documentation
 > 
-> In 2019, we introduced pin_user_pages*() and now we are converting
-> get_user_pages*() to the new API as appropriate. [1] & [2] could
-> be referred for more information. This is case 5 as per document [1].
+> In docs/misc/hypfs-paths.pandoc the supported paths in the hypervisor
+> file system are specified. Make it more clear that path availability
+> might change, e.g. due to scope widening or narrowing (e.g. being
+> limited to a specific architecture).
 > 
-> [1] Documentation/core-api/pin_user_pages.rst
-> 
-> [2] "Explicit pinning of user-space pages":
->         https://lwn.net/Articles/807108/
-> 
-> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-> Reviewed-by: Juergen Gross <jgross@suse.com>
-> Cc: John Hubbard <jhubbard@nvidia.com>
-> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> Cc: Paul Durrant <xadimgnik@gmail.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> This might be a candidate for 4.14, as hypfs is new in 4.14 and the
+> documentation should be as clear as possible.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+Agreed. Since this a pure documentation change it carries no risk, so once the final wording is agreed then consider it...
+
+Release-acked-by: Paul Durrant <paul@xen.org>
 
 > ---
->  drivers/xen/privcmd.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
+>  docs/misc/hypfs-paths.pandoc | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-> index 079d35b..63abe6c 100644
-> --- a/drivers/xen/privcmd.c
-> +++ b/drivers/xen/privcmd.c
-> @@ -593,7 +593,7 @@ static int lock_pages(
->  		if (requested > nr_pages)
->  			return -ENOSPC;
+> diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pandoc
+> index a111c6f25c..7ad4b7ba95 100644
+> --- a/docs/misc/hypfs-paths.pandoc
+> +++ b/docs/misc/hypfs-paths.pandoc
+> @@ -5,6 +5,9 @@ in the Xen hypervisor file system (hypfs).
 > 
-> -		page_count = get_user_pages_fast(
-> +		page_count = pin_user_pages_fast(
->  			(unsigned long) kbufs[i].uptr,
->  			requested, FOLL_WRITE, pages);
->  		if (page_count < 0)
-> @@ -609,13 +609,7 @@ static int lock_pages(
+>  The hypervisor file system can be accessed via the xenhypfs tool.
 > 
->  static void unlock_pages(struct page *pages[], unsigned int nr_pages)
->  {
-> -	unsigned int i;
-> -
-> -	for (i = 0; i < nr_pages; i++) {
-> -		if (!PageDirty(pages[i]))
-> -			set_page_dirty_lock(pages[i]);
-> -		put_page(pages[i]);
-> -	}
-> +	unpin_user_pages_dirty_lock(pages, nr_pages, true);
->  }
+> +The availability of the hypervisor file system depends on the hypervisor
+> +config option CONFIG_HYPFS, which is on per default.
+> +
+>  ## Notation
 > 
->  static long privcmd_ioctl_dm_op(struct file *file, void __user *udata)
+>  The hypervisor file system is similar to the Linux kernel's sysfs.
+> @@ -55,6 +58,11 @@ tags enclosed in square brackets.
+>  * CONFIG_* -- Path is valid only in case the hypervisor was built with
+>    the respective config option.
+> 
+> +Path availability is subject to change, e.g. a specific path specified
+> +for a single architecture now might be made available for other architectures
+> +in future, or it could be made conditional by an additional config option
+> +of the hypervisor.
+> +
+>  So an entry could look like this:
+> 
+>      /cpu-bugs/active-pv/xpti = ("No"|{"dom0", "domU", "PCID-on"}) [w,X86,PV]
 > --
-> 1.9.1
+> 2.26.2
 
 
 
