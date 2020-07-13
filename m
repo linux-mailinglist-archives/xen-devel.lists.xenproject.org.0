@@ -2,35 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0329A21D209
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 10:44:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6719221D322
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 11:48:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1juu2q-00018k-Cg; Mon, 13 Jul 2020 08:42:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1juv2q-0006BE-MV; Mon, 13 Jul 2020 09:46:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=C18W=AY=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1juu2o-00018L-K6
- for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 08:42:38 +0000
-X-Inumbo-ID: caa2a39a-c4e4-11ea-8496-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id caa2a39a-c4e4-11ea-8496-bc764e2007e4;
- Mon, 13 Jul 2020 08:42:32 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8077CB013;
- Mon, 13 Jul 2020 08:42:33 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v2] mini-os: don't hard-wire xen internal paths
-Date: Mon, 13 Jul 2020 10:42:30 +0200
-Message-Id: <20200713084230.18177-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+ (envelope-from <SRS0=GELZ=AY=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
+ id 1juv2o-0006B9-OA
+ for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 09:46:42 +0000
+X-Inumbo-ID: c15a7552-c4ed-11ea-9239-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id c15a7552-c4ed-11ea-9239-12813bfff9fa;
+ Mon, 13 Jul 2020 09:46:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1594633601;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=B0Oe5UV2qyeUG9Z0o/6/qc3LlnZaZG6gs7b/Di/jHF4=;
+ b=BNfy4jRNb+q7fTp8yS586Xua+3qTe/i7iKosN4pSzSpw3XCtc26N70zb6A6V04EBIY5Uj+
+ f7Xrvi7xCjqubLKUqrg8V+OVXa9thi+U/JiOSBuNCtzMJ2DPMc+LIvszHSX9srJ2moK5ka
+ OBg1B1C5BOXDp4BHcApNYInorCR9DyM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-180-SmNjCEALNaCu-3G69JToMA-1; Mon, 13 Jul 2020 05:46:38 -0400
+X-MC-Unique: SmNjCEALNaCu-3G69JToMA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6DB3E8015F4;
+ Mon, 13 Jul 2020 09:46:34 +0000 (UTC)
+Received: from sirius.home.kraxel.org (ovpn-115-89.ams2.redhat.com
+ [10.36.115.89])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 303A327DE7C;
+ Mon, 13 Jul 2020 09:46:24 +0000 (UTC)
+Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
+ id 1CA893EBB1; Mon, 13 Jul 2020 11:46:24 +0200 (CEST)
+Date: Mon, 13 Jul 2020 11:46:24 +0200
+From: Gerd Hoffmann <kraxel@redhat.com>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
+Subject: Re: [PATCH 00/26] hw/usb: Give it love, reduce 'hw/usb.h' inclusion
+ out of hw/usb/
+Message-ID: <20200713094624.occmvxdb56kvbqy2@sirius.home.kraxel.org>
+References: <20200704144943.18292-1-f4bug@amsat.org>
 MIME-Version: 1.0
+In-Reply-To: <20200704144943.18292-1-f4bug@amsat.org>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,102 +70,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, samuel.thibault@ens-lyon.org, wl@xen.org
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, BALATON Zoltan <balaton@eik.bme.hu>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Huacai Chen <chenhc@lemote.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Paul Durrant <paul@xen.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Markus Armbruster <armbru@redhat.com>,
+ =?utf-8?B?SGVydsOp?= Poussineau <hpoussin@reactos.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Leif Lindholm <leif@nuviainc.com>, Andrzej Zaborowski <balrogg@gmail.com>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ Niek Linnenbank <nieklinnenbank@gmail.com>, qemu-arm@nongnu.org,
+ =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
+ Richard Henderson <rth@twiddle.net>,
+ Radoslaw Biernacki <radoslaw.biernacki@linaro.org>,
+ Igor Mitsyanko <i.mitsyanko@gmail.com>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+ Paul Zimmerman <pauldzim@gmail.com>, qemu-ppc@nongnu.org,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Paolo Bonzini <pbonzini@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Mini-OS shouldn't use Xen internal paths for building. Import the
-needed paths from Xen and fall back to the current values only if
-the import was not possible.
+On Sat, Jul 04, 2020 at 04:49:17PM +0200, Philippe Mathieu-Daudé wrote:
+> Hi,
+> 
+> This is the second time I try to replace a magic typename string
+> by a constant, and Zoltan warns me this is counter productive as
+> "hw/usb.h" pulls in an insane amount of code.
+> 
+> Time to give the usb subsystem some love and move forward.
+> 
+> This series can be decomposed as follow:
+> 
+>  1-2:    preliminary machine cleanups (arm/ppc)
+>  3-13:   usb related headers cleanups
+>  14-15:  usb quirks cleanup
+>  16-18:  refactor usb_get_dev_path() to add usb_get_port_path()
+>  19:     let spapr use usb_get_port_path() to make USBDevice opaque
+>  20:     extract the public USB API (for machine/board/soc)
+>  21:     make the older "usb.h" internal to hw/usb/
+>  22-25:  use TYPENAME definitions
+>  26:     cover dwc2 in MAINTAINERS
+> 
+> Please review.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2: correct typo (XCALL_APTH -> CALL_PATH)
----
- Config.mk | 15 ++++++++++++++-
- Makefile  | 35 ++++++++++++++++++-----------------
- 2 files changed, 32 insertions(+), 18 deletions(-)
+Looks good overall, I don't fell like squeezing this into 5.1 though.
+Can you repost (with the few comments addressed) once 5.2 is open for
+development in roughly a month?
 
-diff --git a/Config.mk b/Config.mk
-index f6a2afa..cb823c2 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -33,6 +33,19 @@ endif
- #
- ifneq ($(XEN_ROOT),)
- MINIOS_ROOT=$(XEN_ROOT)/extras/mini-os
-+
-+-include $(XEN_ROOT)/stubdom/mini-os.mk
-+
-+XENSTORE_CPPFLAGS ?= -isystem $(XEN_ROOT)/tools/xenstore/include
-+TOOLCORE_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toolcore
-+TOOLLOG_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toollog
-+EVTCHN_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/evtchn
-+GNTTAB_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab
-+CALL_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call
-+FOREIGNMEMORY_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory
-+DEVICEMODEL_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel
-+CTRL_PATH ?= $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)
-+GUEST_PATH ?= $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)
- else
- MINIOS_ROOT=$(TOPLEVEL_DIR)
- endif
-@@ -93,7 +106,7 @@ DEF_CPPFLAGS += -D__MINIOS__
- ifeq ($(libc),y)
- DEF_CPPFLAGS += -DHAVE_LIBC
- DEF_CPPFLAGS += -isystem $(MINIOS_ROOT)/include/posix
--DEF_CPPFLAGS += -isystem $(XEN_ROOT)/tools/xenstore/include
-+DEF_CPPFLAGS += $(XENSTORE_CPPFLAGS)
- endif
- 
- ifneq ($(LWIPDIR),)
-diff --git a/Makefile b/Makefile
-index be640cd..4b76b55 100644
---- a/Makefile
-+++ b/Makefile
-@@ -125,23 +125,24 @@ OBJS := $(filter-out $(OBJ_DIR)/lwip%.o $(LWO), $(OBJS))
- 
- ifeq ($(libc),y)
- ifeq ($(CONFIG_XC),y)
--APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toolcore -whole-archive -lxentoolcore -no-whole-archive
--LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toolcore/libxentoolcore.a
--APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toollog -whole-archive -lxentoollog -no-whole-archive
--LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toollog/libxentoollog.a
--APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/evtchn -whole-archive -lxenevtchn -no-whole-archive
--LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/evtchn/libxenevtchn.a
--APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab -whole-archive -lxengnttab -no-whole-archive
--LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab/libxengnttab.a
--APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call -whole-archive -lxencall -no-whole-archive
--LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call/libxencall.a
--APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory -whole-archive -lxenforeignmemory -no-whole-archive
--LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory/libxenforeignmemory.a
--APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel -whole-archive -lxendevicemodel -no-whole-archive
--LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel/libxendevicemodel.a
--APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH) -whole-archive -lxenguest -lxenctrl -no-whole-archive
--LIBS += $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)/libxenctrl.a
--LIBS += $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)/libxenguest.a
-+APP_LDLIBS += -L$(TOOLCORE_PATH) -whole-archive -lxentoolcore -no-whole-archive
-+LIBS += $(TOOLCORE_PATH)/libxentoolcore.a
-+APP_LDLIBS += -L$(TOOLLOG_PATH) -whole-archive -lxentoollog -no-whole-archive
-+LIBS += $(TOOLLOG_PATH)/libxentoollog.a
-+APP_LDLIBS += -L$(EVTCHN_PATH) -whole-archive -lxenevtchn -no-whole-archive
-+LIBS += $(EVTCHN_PATH)/libxenevtchn.a
-+APP_LDLIBS += -L$(GNTTAB_PATH) -whole-archive -lxengnttab -no-whole-archive
-+LIBS += $(GNTTAB_PATH)/libxengnttab.a
-+APP_LDLIBS += -L$(CALL_PATH) -whole-archive -lxencall -no-whole-archive
-+LIBS += $(CALL_PATH)/libxencall.a
-+APP_LDLIBS += -L$(FOREIGNMEMORY_PATH) -whole-archive -lxenforeignmemory -no-whole-archive
-+LIBS += $(FOREIGNMEMORY_PATH)/libxenforeignmemory.a
-+APP_LDLIBS += -L$(DEVICEMODEL_PATH) -whole-archive -lxendevicemodel -no-whole-archive
-+LIBS += $(DEVICEMODEL_PATH)/libxendevicemodel.a
-+APP_LDLIBS += -L$(GUEST_PATH) -whole-archive -lxenguest -no-whole-archive
-+LIBS += $(GUEST_PATH)/libxenguest.a
-+APP_LDLIBS += -L$(CTRL_PATH) -whole-archive -lxenctrl -no-whole-archive
-+LIBS += $(CTRL_PATH)/libxenctrl.a
- endif
- APP_LDLIBS += -lpci
- APP_LDLIBS += -lz
--- 
-2.26.2
+thanks,
+  Gerd
 
 
