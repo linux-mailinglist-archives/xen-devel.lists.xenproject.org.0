@@ -2,72 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ADEB21CF9A
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 08:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0AC021D09B
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2020 09:46:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1juruc-0001bC-Bc; Mon, 13 Jul 2020 06:26:02 +0000
+	id 1jut9j-00087i-O9; Mon, 13 Jul 2020 07:45:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fjqj=AY=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jurub-0001as-Hl
- for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 06:26:01 +0000
-X-Inumbo-ID: b52a910c-c4d1-11ea-b7bb-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=C18W=AY=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jut9i-000877-4R
+ for xen-devel@lists.xenproject.org; Mon, 13 Jul 2020 07:45:42 +0000
+X-Inumbo-ID: d6233408-c4dc-11ea-8496-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b52a910c-c4d1-11ea-b7bb-bc764e2007e4;
- Mon, 13 Jul 2020 06:25:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=8bsQaYRAHOxS+cQVVJ87dgV4fmWhx4LV8pu2Xfm9Qjc=; b=GWc/1kavgj+L9bM4YzL+7smfU
- dH35LN1zXDyvysjZYyqxq6I1pxy7YXnAKJOIU/RHYI5dt56RVYbkLAud2yeiznhLjlyJko+Q7muaK
- q6D2jqcRd242/SAgHpp4jCSmCp8Q5e1sM6iIADwRqcK63nQFNS56ySjt6/9psSL2Whntw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1juruV-0003Zx-0y; Mon, 13 Jul 2020 06:25:55 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1juruU-0001Gc-L3; Mon, 13 Jul 2020 06:25:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1juruU-0005Eg-KO; Mon, 13 Jul 2020 06:25:54 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151858-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id d6233408-c4dc-11ea-8496-bc764e2007e4;
+ Mon, 13 Jul 2020 07:45:35 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C9652AC82;
+ Mon, 13 Jul 2020 07:45:36 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] mini-os: don't hard-wire xen internal paths
+Date: Mon, 13 Jul 2020 09:45:31 +0200
+Message-Id: <20200713074531.27547-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Subject: [libvirt test] 151858: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=866bb996441cd73800643df9fb7df2939bdb75bd
-X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 13 Jul 2020 06:25:54 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,102 +41,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Juergen Gross <jgross@suse.com>, samuel.thibault@ens-lyon.org, wl@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151858 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151858/
+Mini-OS shouldn't use Xen internal paths for building. Import the
+needed paths from Xen and fall back to the current values only if
+the import was not possible.
 
-Regressions :-(
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ Config.mk | 15 ++++++++++++++-
+ Makefile  | 35 ++++++++++++++++++-----------------
+ 2 files changed, 32 insertions(+), 18 deletions(-)
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+diff --git a/Config.mk b/Config.mk
+index f6a2afa..cb823c2 100644
+--- a/Config.mk
++++ b/Config.mk
+@@ -33,6 +33,19 @@ endif
+ #
+ ifneq ($(XEN_ROOT),)
+ MINIOS_ROOT=$(XEN_ROOT)/extras/mini-os
++
++-include $(XEN_ROOT)/stubdom/mini-os.mk
++
++XENSTORE_CPPFLAGS ?= -isystem $(XEN_ROOT)/tools/xenstore/include
++TOOLCORE_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toolcore
++TOOLLOG_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toollog
++EVTCHN_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/evtchn
++GNTTAB_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab
++CALL_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call
++FOREIGNMEMORY_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory
++DEVICEMODEL_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel
++CTRL_PATH ?= $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)
++GUEST_PATH ?= $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)
+ else
+ MINIOS_ROOT=$(TOPLEVEL_DIR)
+ endif
+@@ -93,7 +106,7 @@ DEF_CPPFLAGS += -D__MINIOS__
+ ifeq ($(libc),y)
+ DEF_CPPFLAGS += -DHAVE_LIBC
+ DEF_CPPFLAGS += -isystem $(MINIOS_ROOT)/include/posix
+-DEF_CPPFLAGS += -isystem $(XEN_ROOT)/tools/xenstore/include
++DEF_CPPFLAGS += $(XENSTORE_CPPFLAGS)
+ endif
+ 
+ ifneq ($(LWIPDIR),)
+diff --git a/Makefile b/Makefile
+index be640cd..82422a5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -125,23 +125,24 @@ OBJS := $(filter-out $(OBJ_DIR)/lwip%.o $(LWO), $(OBJS))
+ 
+ ifeq ($(libc),y)
+ ifeq ($(CONFIG_XC),y)
+-APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toolcore -whole-archive -lxentoolcore -no-whole-archive
+-LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toolcore/libxentoolcore.a
+-APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toollog -whole-archive -lxentoollog -no-whole-archive
+-LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toollog/libxentoollog.a
+-APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/evtchn -whole-archive -lxenevtchn -no-whole-archive
+-LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/evtchn/libxenevtchn.a
+-APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab -whole-archive -lxengnttab -no-whole-archive
+-LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab/libxengnttab.a
+-APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call -whole-archive -lxencall -no-whole-archive
+-LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call/libxencall.a
+-APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory -whole-archive -lxenforeignmemory -no-whole-archive
+-LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory/libxenforeignmemory.a
+-APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel -whole-archive -lxendevicemodel -no-whole-archive
+-LIBS += $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel/libxendevicemodel.a
+-APP_LDLIBS += -L$(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH) -whole-archive -lxenguest -lxenctrl -no-whole-archive
+-LIBS += $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)/libxenctrl.a
+-LIBS += $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)/libxenguest.a
++APP_LDLIBS += -L$(TOOLCORE_PATH) -whole-archive -lxentoolcore -no-whole-archive
++LIBS += $(TOOLCORE_PATH)/libxentoolcore.a
++APP_LDLIBS += -L$(TOOLLOG_PATH) -whole-archive -lxentoollog -no-whole-archive
++LIBS += $(TOOLLOG_PATH)/libxentoollog.a
++APP_LDLIBS += -L$(EVTCHN_PATH) -whole-archive -lxenevtchn -no-whole-archive
++LIBS += $(EVTCHN_PATH)/libxenevtchn.a
++APP_LDLIBS += -L$(GNTTAB_PATH) -whole-archive -lxengnttab -no-whole-archive
++LIBS += $(GNTTAB_PATH)/libxengnttab.a
++APP_LDLIBS += -L$(CALL_PATH) -whole-archive -lxencall -no-whole-archive
++LIBS += $(XCALL_PATH)/libxencall.a
++APP_LDLIBS += -L$(FOREIGNMEMORY_PATH) -whole-archive -lxenforeignmemory -no-whole-archive
++LIBS += $(FOREIGNMEMORY_PATH)/libxenforeignmemory.a
++APP_LDLIBS += -L$(DEVICEMODEL_PATH) -whole-archive -lxendevicemodel -no-whole-archive
++LIBS += $(DEVICEMODEL_PATH)/libxendevicemodel.a
++APP_LDLIBS += -L$(GUEST_PATH) -whole-archive -lxenguest -no-whole-archive
++LIBS += $(GUEST_PATH)/libxenguest.a
++APP_LDLIBS += -L$(CTRL_PATH) -whole-archive -lxenctrl -no-whole-archive
++LIBS += $(CTRL_PATH)/libxenctrl.a
+ endif
+ APP_LDLIBS += -lpci
+ APP_LDLIBS += -lz
+-- 
+2.26.2
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- libvirt              866bb996441cd73800643df9fb7df2939bdb75bd
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
-
-Last test of basis   151777  2020-07-10 04:19:19 Z    3 days
-Testing same since   151818  2020-07-11 04:18:52 Z    2 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Laine Stump <laine@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 691 lines long.)
 
