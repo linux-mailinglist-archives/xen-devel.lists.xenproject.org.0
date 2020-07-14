@@ -2,59 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F093021EEFA
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2020 13:18:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3858E21EF0E
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2020 13:19:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvIwF-0002cR-7N; Tue, 14 Jul 2020 11:17:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jvIxs-0002jJ-JI; Tue, 14 Jul 2020 11:19:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xDy+=AZ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jvIwD-0002c7-RT
- for xen-devel@lists.xenproject.org; Tue, 14 Jul 2020 11:17:29 +0000
-X-Inumbo-ID: 9767f932-c5c3-11ea-b7bb-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9767f932-c5c3-11ea-b7bb-bc764e2007e4;
- Tue, 14 Jul 2020 11:17:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=0ZAN8ZvqimyJJt0Soudf+92kF8H4XTgzYz/w1s6G/Ec=; b=VN8l5jZnvRu3e0AR+LJoXAiNK
- hpfs9K4p4grKr4i8exHjWtXDI1E7h1w5YbNR1jABGHkjnqTvpEYgM0ep6Z7lSzCWcG6MfvD+P7S3j
- 03CQNwcfaI59iZjXuMbm4WmlMHH+XVm3sim1kz3HkhweEjRvCMjRTrhxz44b2wbICSCtg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jvIw7-0003Mo-Gm; Tue, 14 Jul 2020 11:17:23 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jvIw7-0007Od-4Y; Tue, 14 Jul 2020 11:17:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jvIw7-00089g-42; Tue, 14 Jul 2020 11:17:23 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151891-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=CaI7=AZ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jvIxq-0002jD-Sd
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2020 11:19:10 +0000
+X-Inumbo-ID: d5ce9619-c5c3-11ea-92fb-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d5ce9619-c5c3-11ea-92fb-12813bfff9fa;
+ Tue, 14 Jul 2020 11:19:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1594725549;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=bmMPQd+N8T9YBrSTYgCcoOlLXK1DFjRkp+a//IvzCNQ=;
+ b=YTz8UlXSGNV2OcXX/cvKYb15Ik22+D6TInVYEF82cjkWN0y5D+caPbX5
+ Bves7EjjyvVT+r0XEqHqAk8e22BwONqtH5PVf0FjlhIXndn2hg70rB353
+ bP8MEOTPLigTaWvd15e1P2YOMQaZ38/gl6+ROuTKAyyaXE7dc5dO4/EQH I=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: dKvtN1W44Xs5OPJjtNdDWaeoDcRLea9VIVmnYr3g6VwRy0IdJIg9VyRU7czC6pkBts3fj5ptR/
+ elVIgypijoulLpE33wL6LdkUb3HLI/0Mg7/vQQBQ2SVrzMlE0gX5VhohOg9+X2n8bAZOoE44Sl
+ jtjMcQT0QnbzDEgG4fEJDjWZBavMRBtTJx+5gHrI5aat7emVe438Oh1grqKsfVUTJBqz9qxNH9
+ 7seSSqxxnd9vwZVTB0SUBxV01VHz0bZiwR7ZmI6jv7QwCfUeNRWKuRuuUGglz+a4Qs4FskQnOR
+ 62A=
+X-SBRS: 2.7
+X-MesageID: 22653112
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,350,1589256000"; d="scan'208";a="22653112"
+Date: Tue, 14 Jul 2020 13:19:00 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2 3/7] x86/mce: bring hypercall subop compat checking in
+ sync again
+Message-ID: <20200714111900.GI7191@Air-de-Roger>
+References: <bb6a96c6-b6b1-76ff-f9db-10bec0fb4ab1@suse.com>
+ <5d53a2e3-716c-2213-96e5-9d37371c482c@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 151891: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=1969576661f3e34318e9b0a61a1a38f9a5aee16f
-X-Osstest-Versions-That: xen=165f3afbfc3db70fcfdccad07085cde0a03c858b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 14 Jul 2020 11:17:23 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <5d53a2e3-716c-2213-96e5-9d37371c482c@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +64,22 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151891 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151891/
+On Wed, Jul 01, 2020 at 12:26:54PM +0200, Jan Beulich wrote:
+> Use a typedef in struct xen_mc also for the two subops "manually"
+> translated in the handler, just for consistency. No functional
+> change.
 
-Failures :-/ but no regressions.
+I'm slightly puzzled by the fact that mc_fetch is marked as needs
+checking while mc_physcpuinfo is marked as needs translation,
+shouldn't both be marked as needing translation? (since both need to
+handle a guest pointer using XEN_GUEST_HANDLE)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  1969576661f3e34318e9b0a61a1a38f9a5aee16f
-baseline version:
- xen                  165f3afbfc3db70fcfdccad07085cde0a03c858b
-
-Last test of basis   151863  2020-07-13 14:00:24 Z    0 days
-Testing same since   151891  2020-07-14 09:00:47 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   165f3afbfc..1969576661  1969576661f3e34318e9b0a61a1a38f9a5aee16f -> smoke
+Thanks, Roger.
 
