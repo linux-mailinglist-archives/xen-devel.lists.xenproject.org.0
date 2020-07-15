@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D903C2207D3
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 10:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45FE82207EA
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 10:57:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvd9U-00078C-BR; Wed, 15 Jul 2020 08:52:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jvdDS-0007Mw-VD; Wed, 15 Jul 2020 08:56:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9G22=A2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jvd9S-000780-CK
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 08:52:30 +0000
-X-Inumbo-ID: 82b1e77c-c678-11ea-939f-12813bfff9fa
+ id 1jvdDQ-0007Mr-TS
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 08:56:36 +0000
+X-Inumbo-ID: 16747358-c679-11ea-b7bb-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 82b1e77c-c678-11ea-939f-12813bfff9fa;
- Wed, 15 Jul 2020 08:52:28 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 16747358-c679-11ea-b7bb-bc764e2007e4;
+ Wed, 15 Jul 2020 08:56:36 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A844DAD75;
- Wed, 15 Jul 2020 08:52:30 +0000 (UTC)
-Subject: Re: [PATCH v2 6/7] flask: drop dead compat translation code
+ by mx2.suse.de (Postfix) with ESMTP id 9B0DEAF44;
+ Wed, 15 Jul 2020 08:56:38 +0000 (UTC)
+Subject: Re: [PATCH v2 1/7] x86: fix compat header generation
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <bb6a96c6-b6b1-76ff-f9db-10bec0fb4ab1@suse.com>
- <7711f68d-394e-a74f-81fa-51f8447174ce@suse.com>
- <20200714145800.GO7191@Air-de-Roger>
- <937a51c5-7563-0ac2-4ada-b4dfd7a5d636@suse.com>
- <20200715084115.GS7191@Air-de-Roger>
+ <a8139d0e-f332-b877-dea8-3ce8a6869285@suse.com>
+ <20200715084325.GT7191@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9dc3e0fd-3e1a-5bd0-b8c7-01287e5c2c93@suse.com>
-Date: Wed, 15 Jul 2020 10:52:28 +0200
+Message-ID: <f92d154e-514e-031f-aaad-f1534a06e514@suse.com>
+Date: Wed, 15 Jul 2020 10:56:36 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200715084115.GS7191@Air-de-Roger>
+In-Reply-To: <20200715084325.GT7191@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -55,79 +52,60 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Daniel de Graaf <dgdegra@tycho.nsa.gov>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.07.2020 10:41, Roger Pau Monné wrote:
-> On Wed, Jul 15, 2020 at 08:42:44AM +0200, Jan Beulich wrote:
->> On 14.07.2020 16:58, Roger Pau Monné wrote:
->>> On Wed, Jul 01, 2020 at 12:28:07PM +0200, Jan Beulich wrote:
->>>> Translation macros aren't needed at all (or else a devicetree_label
->>>> entry would have been missing), and userlist has been removed quite some
->>>> time ago.
->>>>
->>>> No functional change.
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>
->>>> --- a/xen/include/xlat.lst
->>>> +++ b/xen/include/xlat.lst
->>>> @@ -148,14 +148,11 @@
->>>>  ?	xenoprof_init			xenoprof.h
->>>>  ?	xenoprof_passive		xenoprof.h
->>>>  ?	flask_access			xsm/flask_op.h
->>>> -!	flask_boolean			xsm/flask_op.h
->>>>  ?	flask_cache_stats		xsm/flask_op.h
->>>>  ?	flask_hash_stats		xsm/flask_op.h
->>>> -!	flask_load			xsm/flask_op.h
->>>>  ?	flask_ocontext			xsm/flask_op.h
->>>>  ?	flask_peersid			xsm/flask_op.h
->>>>  ?	flask_relabel			xsm/flask_op.h
->>>>  ?	flask_setavc_threshold		xsm/flask_op.h
->>>>  ?	flask_setenforce		xsm/flask_op.h
->>>> -!	flask_sid_context		xsm/flask_op.h
->>>>  ?	flask_transition		xsm/flask_op.h
->>>
->>> Shouldn't those become checks then?
+On 15.07.2020 10:43, Roger Pau Monné wrote:
+> On Wed, Jul 01, 2020 at 12:25:15PM +0200, Jan Beulich wrote:
+>> As was pointed out by 0e2e54966af5 ("mm: fix public declaration of
+>> struct xen_mem_acquire_resource"), we're not currently handling structs
+>> correctly that have uint64_aligned_t fields. #pragma pack(4) suppresses
+>> the necessary alignment even if the type did properly survive (which
+>> it also didn't) in the process of generating the headers. Overall,
+>> with the above mentioned change applied, there's only a latent issue
+>> here afaict, i.e. no other of our interface structs is currently
+>> affected.
 >>
->> No, checking will never succeed for structures containing
->> XEN_GUEST_HANDLE(). But there's no point in generating xlat macros
->> when they're never used. There are two fundamentally different
->> strategies for handling the compat hypercalls: One is to wrap a
->> translation layer around the native hypercall. That's where the
->> xlat macros come into play. The other, used here, is to compile
->> the entire hypercall function a second time, arranging for the
->> compat structures to get used in place of the native ones. There
->> are no xlat macros involved here, all that's needed are correctly
->> translated structures. (For completeness, x86's MCA hypercall
->> uses yet another, quite adhoc strategy for handling, but also not
->> involving any xlat macro use. Hence the consideration there to
->> possibly drop the respective lines from the file here.)
-> 
-> Thanks, I think this explanation is helpful and I wonder whether it
-> would be possible to have something along this lines in a file or as a
-> comment somewhere, maybe at the top of xlat.lst?
-
-To be honest - I'm not sure: Such a comment may indeed be helpful
-to have, but I don't think I can see any single good place for it
-to live. For people editing xlat.lst (a file the existence of which
-many aren't even aware of), this would be a good place. But how
-would others have any chance of running into this comment?
-
-> Also could you add a line to the commit message noting that flask code
-> doesn't use any of the translation macros because it follows a
-> different approach to compat handling?
-
-I've made the sentence start "Translation macros aren't used (and
-hence needed) at all ..." - is that enough of an adjustment?
-
-> For the patch:
+>> As a result it is clear that using #pragma pack(4) is not an option.
+>> Drop all uses from compat header generation. Make sure
+>> {,u}int64_aligned_t actually survives, such that explicitly aligned
+>> fields will remain aligned. Arrange for {,u}int64_t to be transformed
+>> into a type that's 64 bits wide and 4-byte aligned, by utilizing that
+>> in typedef-s the "aligned" attribute can be used to reduce alignment.
+>> Additionally, for the cases where native structures get re-used,
+>> enforce suitable alignment via typedef-s (which allow alignment to be
+>> reduced).
+>>
+>> This use of typedef-s makes necessary changes to CHECK_*() macro
+>> generation: Previously get-fields.sh relied on finding struct/union
+>> keywords when other compound types were used. We now need to use the
+>> typedef-s (guaranteeing suitable alignment) now, and hence the script
+>> has to recognize those cases, too. (Unfortunately there are a few
+>> special cases to be dealt with, but this is really not much different
+>> from e.g. the pre-existing compat_domain_handle_t special case.)
+>>
+>> This need to use typedef-s is certainly somewhat fragile going forward,
+>> as in similar future cases it is imperative to also use typedef-s, or
+>> else the CHECK_*() macros won't check what they're supposed to check. I
+>> don't currently see any means to avoid this fragility, though.
+>>
+>> There's one change to generated code according to my observations: In
+>> arch_compat_vcpu_op() the runstate area "area" variable would previously
+>> have been put in a just 4-byte aligned stack slot (despite being 8 bytes
+>> in size), whereas now it gets put in an 8-byte aligned location.
+>>
+>> There also results some curious inconsistency in struct xen_mc from
+>> these changes - I intend to clean this up later on. Otherwise unrelated
+>> code would also need adjustment right here.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
 > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thanks.
+Thanks. I shall send out v3, as I had to fix an issue with old gcc:
+There were two (identical) typedef-s for {,u}int64_compat_t, which
+newer gcc tolerate, but older don't.
 
 Jan
 
