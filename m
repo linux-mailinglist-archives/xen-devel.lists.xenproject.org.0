@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45FE82207EA
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 10:57:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E32F220800
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 11:02:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvdDS-0007Mw-VD; Wed, 15 Jul 2020 08:56:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jvdIN-0008Di-LG; Wed, 15 Jul 2020 09:01:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9G22=A2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jvdDQ-0007Mr-TS
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 08:56:36 +0000
-X-Inumbo-ID: 16747358-c679-11ea-b7bb-bc764e2007e4
+ (envelope-from <SRS0=U57p=A2=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jvdIM-0008Dd-T7
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 09:01:42 +0000
+X-Inumbo-ID: cccba14e-c679-11ea-93a3-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 16747358-c679-11ea-b7bb-bc764e2007e4;
- Wed, 15 Jul 2020 08:56:36 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cccba14e-c679-11ea-93a3-12813bfff9fa;
+ Wed, 15 Jul 2020 09:01:42 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9B0DEAF44;
- Wed, 15 Jul 2020 08:56:38 +0000 (UTC)
-Subject: Re: [PATCH v2 1/7] x86: fix compat header generation
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <bb6a96c6-b6b1-76ff-f9db-10bec0fb4ab1@suse.com>
- <a8139d0e-f332-b877-dea8-3ce8a6869285@suse.com>
- <20200715084325.GT7191@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f92d154e-514e-031f-aaad-f1534a06e514@suse.com>
-Date: Wed, 15 Jul 2020 10:56:36 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by mx2.suse.de (Postfix) with ESMTP id 7F3B0AF59;
+ Wed, 15 Jul 2020 09:01:44 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH] qemu-trad: remove Xen path dependencies
+Date: Wed, 15 Jul 2020 11:01:40 +0200
+Message-Id: <20200715090140.7590-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200715084325.GT7191@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -47,65 +41,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>, ian.jackson@eu.citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.07.2020 10:43, Roger Pau Monné wrote:
-> On Wed, Jul 01, 2020 at 12:25:15PM +0200, Jan Beulich wrote:
->> As was pointed out by 0e2e54966af5 ("mm: fix public declaration of
->> struct xen_mem_acquire_resource"), we're not currently handling structs
->> correctly that have uint64_aligned_t fields. #pragma pack(4) suppresses
->> the necessary alignment even if the type did properly survive (which
->> it also didn't) in the process of generating the headers. Overall,
->> with the above mentioned change applied, there's only a latent issue
->> here afaict, i.e. no other of our interface structs is currently
->> affected.
->>
->> As a result it is clear that using #pragma pack(4) is not an option.
->> Drop all uses from compat header generation. Make sure
->> {,u}int64_aligned_t actually survives, such that explicitly aligned
->> fields will remain aligned. Arrange for {,u}int64_t to be transformed
->> into a type that's 64 bits wide and 4-byte aligned, by utilizing that
->> in typedef-s the "aligned" attribute can be used to reduce alignment.
->> Additionally, for the cases where native structures get re-used,
->> enforce suitable alignment via typedef-s (which allow alignment to be
->> reduced).
->>
->> This use of typedef-s makes necessary changes to CHECK_*() macro
->> generation: Previously get-fields.sh relied on finding struct/union
->> keywords when other compound types were used. We now need to use the
->> typedef-s (guaranteeing suitable alignment) now, and hence the script
->> has to recognize those cases, too. (Unfortunately there are a few
->> special cases to be dealt with, but this is really not much different
->> from e.g. the pre-existing compat_domain_handle_t special case.)
->>
->> This need to use typedef-s is certainly somewhat fragile going forward,
->> as in similar future cases it is imperative to also use typedef-s, or
->> else the CHECK_*() macros won't check what they're supposed to check. I
->> don't currently see any means to avoid this fragility, though.
->>
->> There's one change to generated code according to my observations: In
->> arch_compat_vcpu_op() the runstate area "area" variable would previously
->> have been put in a just 4-byte aligned stack slot (despite being 8 bytes
->> in size), whereas now it gets put in an 8-byte aligned location.
->>
->> There also results some curious inconsistency in struct xen_mc from
->> these changes - I intend to clean this up later on. Otherwise unrelated
->> code would also need adjustment right here.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+xen-hhoks.mak contains hard wired paths for the used libraries of
+qemu-trad. Replace those by the make variables from Xen's Rules.mk,
+which is already included.
 
-Thanks. I shall send out v3, as I had to fix an issue with old gcc:
-There were two (identical) typedef-s for {,u}int64_compat_t, which
-newer gcc tolerate, but older don't.
+This in turn removes the need to add the runtime link paths of the
+libraries the directly used libraries depend on.
 
-Jan
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen-hooks.mak | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
+
+diff --git a/xen-hooks.mak b/xen-hooks.mak
+index a68eba3c..2689db0f 100644
+--- a/xen-hooks.mak
++++ b/xen-hooks.mak
+@@ -1,10 +1,8 @@
+-CPPFLAGS+= -I$(XEN_ROOT)/tools/libs/toollog/include
+-CPPFLAGS+= -I$(XEN_ROOT)/tools/libs/evtchn/include
+-CPPFLAGS+= -I$(XEN_ROOT)/tools/libs/gnttab/include
++XEN_LIBS = evtchn gnttab ctrl guest store
++
+ CPPFLAGS+= -DXC_WANT_COMPAT_MAP_FOREIGN_API
+ CPPFLAGS+= -DXC_WANT_COMPAT_DEVICEMODEL_API
+-CPPFLAGS+= -I$(XEN_ROOT)/tools/libxc/include
+-CPPFLAGS+= -I$(XEN_ROOT)/tools/xenstore/include
++CPPFLAGS += $(foreach lib,$(XEN_LIBS),$(CFLAGS_libxen$(lib)))
+ CPPFLAGS+= -I$(XEN_ROOT)/tools/include
+ 
+ SSE2 := $(call cc-option,-msse2,)
+@@ -22,15 +20,7 @@ endif
+ 
+ CFLAGS += $(CMDLINE_CFLAGS)
+ 
+-LIBS += -L$(XEN_ROOT)/tools/libs/evtchn -lxenevtchn
+-LIBS += -L$(XEN_ROOT)/tools/libs/gnttab -lxengnttab
+-LIBS += -L$(XEN_ROOT)/tools/libxc -lxenctrl -lxenguest
+-LIBS += -L$(XEN_ROOT)/tools/xenstore -lxenstore
+-LIBS += -Wl,-rpath-link=$(XEN_ROOT)/tools/libs/toollog
+-LIBS += -Wl,-rpath-link=$(XEN_ROOT)/tools/libs/toolcore
+-LIBS += -Wl,-rpath-link=$(XEN_ROOT)/tools/libs/call
+-LIBS += -Wl,-rpath-link=$(XEN_ROOT)/tools/libs/foreignmemory
+-LIBS += -Wl,-rpath-link=$(XEN_ROOT)/tools/libs/devicemodel
++LIBS += $(foreach lib,$(XEN_LIBS),$(LDLIBS_libxen$(lib)))
+ 
+ LDFLAGS := $(CFLAGS) $(LDFLAGS)
+ 
+-- 
+2.26.2
+
 
