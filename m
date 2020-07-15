@@ -2,63 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 584AE220EA3
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 16:04:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6778F220F9C
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 16:38:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvhzv-0005Ya-2w; Wed, 15 Jul 2020 14:02:59 +0000
+	id 1jviX7-0008Gd-UC; Wed, 15 Jul 2020 14:37:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OEEU=A2=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1jvhzt-0005YV-JF
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 14:02:57 +0000
-X-Inumbo-ID: e1fbe842-c6a3-11ea-bca7-bc764e2007e4
-Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
+ <SRS0=+F45=A2=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jviX6-0008GY-RJ
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 14:37:16 +0000
+X-Inumbo-ID: ad450c14-c6a8-11ea-bca7-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e1fbe842-c6a3-11ea-bca7-bc764e2007e4;
- Wed, 15 Jul 2020 14:02:56 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id 17so5962230wmo.1
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2020 07:02:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fFdxqI5g3k4kC0Cs/kmhn8G4+G4mXjZCQXUJFnALC6c=;
- b=lUXqaFYE4rAgO9L9Voumo+aDCDx/z1qFxobeSljmk4kiU5DdPj4MGyksmeF7Wbe9m1
- snuW7dzyEydLjfGt4SH+8zjfyAhJ0PbLJqiItIkLSL2mDfTz8WYsPogSnatxrAtn9FKg
- eIlF5fgR0sOoBqrKTFQJukyY+oIVawNXE95xKzJLjS7qYMDTqxLoQ88i4jF3g44m6rEH
- 64yOy8W8cDnfIHTVu3CALVk681/fAPwBvnbf8E3BYIhAro1ABj7UxfKixc6J6Yw2Wa3g
- yVf7Ecse+DE92JxCy58E7JDzw4NLMvZrI+7SeM1qfWPpwqH3QRZm6Wf0rNJZQth4o9AC
- nwew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fFdxqI5g3k4kC0Cs/kmhn8G4+G4mXjZCQXUJFnALC6c=;
- b=BauJu2K3lvPgaR/HjPc9SaUqUreLW4EjuJdeBWMyZ7zGjAMhzEzcLzGeRevB/FCqc6
- njDqUdPkmnRAUnTINlM5UMJ+Bx1YjOmdRRXnqn5UJIHf64taWBtORGwJp7bThfUsYygn
- mDS6hHiqzMsO1GSvl+HpU+oTREHcuUV4USJ544uCHD8IhvT+WGZD1070l/3GLiTh95pU
- oUJ6/YVBzIrZ6ywbyd0XILK5rF3tb3rFZVM7Kv/jIaklRMMBeY7+27rfKlsXeDE9eoa+
- 6ReE4tH/Gp2f/9EDWzfXBPQMdIkp/epf+2aWER+yN/aX8vyFh846NFGPf573L0PDaZfT
- /iFQ==
-X-Gm-Message-State: AOAM532pGS3qGGIJZSN2tvCGJnPDGQcn3IcmEZMCOOMm9GIXZoRbR7W3
- 6sHcBSed93azsecrxuEhQcsiNw9R0P/+TbtYKdo=
-X-Google-Smtp-Source: ABdhPJxbv+JiGpWbOGxmA6Ap1a/KsDzNb4gmJbNp29ERmyMwMsJxF1Et28IEfkhAlqpptDK+wWBmHcyVgzPYfgAZY84=
-X-Received: by 2002:a05:600c:2058:: with SMTP id
- p24mr8814981wmg.74.1594821775800; 
- Wed, 15 Jul 2020 07:02:55 -0700 (PDT)
+ id ad450c14-c6a8-11ea-bca7-bc764e2007e4;
+ Wed, 15 Jul 2020 14:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1594823835;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=/tMb/WMnsmLLYWFUNCttYu/ZMOUPlZZvZasyxQDli7c=;
+ b=glCgp0v7E6U6ezsJqT8HTg8m2d9q1gRgQlyvNLO+k83Sa+LiaV5xNP25
+ 4cXI9k3PAkpu2cxKZk5eBf08F61dwcmo/6zQJNgqaqJu+uZmkmNaU4QTp
+ hJz1DEL0DYIhIty0DCUkU3cbk1UZmXGHDAMVjiU35BI8NccuxEmY8oYzH 8=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: ViQlBA6jt7rRCfn0fjTA5aMpL9bZBBDPr94kQYM+SOs9DiXNKJ+KZs7t1bxYSMtJh0Xaj8IOK1
+ yEwFN/WCgLIbeAAm7fyC4M9FDMI7Ket2HKX/O5I/l/JZx9dj2YWxeoSEW8HOVsa5vqrmByTKFk
+ 3LanK4Jwgnw5K9kdYvMLuPbG16xbKGgQweQYYR+uSCGSMK5RNzeLMtPSXRl5+DL38481ZCX/sW
+ ThmIZenkgsbQVnwLdI5zL4Lrdht4lu+mzzngBx0rvh0m4gvWhcoB6eArA4tZ5B8A/cj/C6tG6u
+ 3Mo=
+X-SBRS: 2.7
+X-MesageID: 22637927
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,355,1589256000"; d="scan'208";a="22637927"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Jan Beulich <JBeulich@suse.com>
+Subject: Re: [PATCH v2] docs: specify stability of hypfs path documentation
+Thread-Topic: [PATCH v2] docs: specify stability of hypfs path documentation
+Thread-Index: AQHWWR59fvtpmEuro06JsoMrFTmX86kFdV+AgAMhtYA=
+Date: Wed, 15 Jul 2020 14:37:11 +0000
+Message-ID: <68F727A8-29B8-4846-8BE9-BD4F6E0DC60D@citrix.com>
+References: <20200713140338.16172-1-jgross@suse.com>
+ <8a96b1b9-cbcb-557a-5b82-661bbe40fe25@suse.com>
+In-Reply-To: <8a96b1b9-cbcb-557a-5b82-661bbe40fe25@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <8ABD25FC33C9B44CB88AFDF79476C986@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <fef45e49-bcb4-dc11-8f7f-b2f5e4bf1a73@suse.com>
- <e47a9ef5-5f4c-1ca6-1b31-f7b10516e5ed@suse.com>
- <CAJ=z9a1AWYYVGwHWOct9j3bVDhPtWG7R3tQY05+6BY-9g3C1kQ@mail.gmail.com>
- <005381d5-3fb5-640f-002c-106c628a77a2@suse.com>
-In-Reply-To: <005381d5-3fb5-640f-002c-106c628a77a2@suse.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Wed, 15 Jul 2020 16:02:43 +0200
-Message-ID: <CAJ=z9a0LBhO7qJyF-WdBnkD52dXew-TgjTuUC7aeoS8rC13iwQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] evtchn/fifo: don't enforce higher than necessary
- alignment
-To: Jan Beulich <jbeulich@suse.com>
-Content-Type: multipart/alternative; boundary="0000000000006d3f0c05aa7b61d4"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,262 +70,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>,
+ "open list:X86" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---0000000000006d3f0c05aa7b61d4
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, 15 Jul 2020, 14:42 Jan Beulich, <jbeulich@suse.com> wrote:
-
-> On 15.07.2020 12:46, Julien Grall wrote:
-> > On Wed, 15 Jul 2020, 12:17 Jan Beulich, <jbeulich@suse.com> wrote:
-> >
-> >> Neither the code nor the original commit provide any justification for
-> >> the need to 8-byte align the struct in all cases. Enforce just as much
-> >> alignment as the structure actually needs - 4 bytes - by using alignof()
-> >> instead of a literal number.
-> >>
-> >> Take the opportunity and also
-> >> - add so far missing validation that native and compat mode layouts of
-> >>   the structures actually match,
-> >> - tie sizeof() expressions to the types of the fields we're actually
-> >>   after, rather than specifying the type explicitly (which in the
-> >>   general case risks a disconnect, even if there's close to zero risk in
-> >>   this particular case),
-> >> - use ENXIO instead of EINVAL for the two cases of the address not
-> >>   satisfying the requirements, which will make an issue here better
-> >>   stand out at the call site.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> ---
-> >> I question the need for the array_index_nospec() here. Or else I'd
-> >> expect map_vcpu_info() would also need the same.
-> >>
-> >> --- a/xen/common/event_fifo.c
-> >> +++ b/xen/common/event_fifo.c
-> >> @@ -504,6 +504,16 @@ static void setup_ports(struct domain *d
-> >>      }
-> >>  }
-> >>
-> >> +#ifdef CONFIG_COMPAT
-> >> +
-> >> +#include <compat/event_channel.h>
-> >> +
-> >> +#define xen_evtchn_fifo_control_block evtchn_fifo_control_block
-> >> +CHECK_evtchn_fifo_control_block;
-> >> +#undef xen_evtchn_fifo_control_block
-> >> +
-> >> +#endif
-> >> +
-> >>  int evtchn_fifo_init_control(struct evtchn_init_control *init_control)
-> >>  {
-> >>      struct domain *d = current->domain;
-> >> @@ -523,19 +533,20 @@ int evtchn_fifo_init_control(struct evtc
-> >>          return -ENOENT;
-> >>
-> >>      /* Must not cross page boundary. */
-> >> -    if ( offset > (PAGE_SIZE - sizeof(evtchn_fifo_control_block_t)) )
-> >> -        return -EINVAL;
-> >> +    if ( offset > (PAGE_SIZE - sizeof(*v->evtchn_fifo->control_block))
-> )
-> >> +        return -ENXIO;
-> >>
-> >>      /*
-> >>       * Make sure the guest controlled value offset is bounded even
-> during
-> >>       * speculative execution.
-> >>       */
-> >>      offset = array_index_nospec(offset,
-> >> -                           PAGE_SIZE -
-> >> sizeof(evtchn_fifo_control_block_t) + 1);
-> >> +                                PAGE_SIZE -
-> >> +                                sizeof(*v->evtchn_fifo->control_block)
-> +
-> >> 1);
-> >>
-> >> -    /* Must be 8-bytes aligned. */
-> >> -    if ( offset & (8 - 1) )
-> >> -        return -EINVAL;
-> >> +    /* Must be suitably aligned. */
-> >> +    if ( offset & (alignof(*v->evtchn_fifo->control_block) - 1) )
-> >> +        return -ENXIO;
-> >>
-> >
-> > A guest relying on this new alignment wouldn't work on older version of
-> > Xen. So I don't think a guest would ever be able to use it.
-> >
-> > Therefore is it really worth the change?
->
-> That's the question. One of your arguments for using a literal number
-> also for the vCPU info mapping check was that here a literal number
-> is used. The goal isn't so much relaxation of the interface, but
-> making the code consistent as well as eliminating a (how I'd call it)
-> kludge.
->
-
-Your commit message lead to think the relaxation is the key motivation to
-change the code.
-
-
-
-> Guests not caring to be able to run on older versions could also make
-> use of the relaxation (which may be more relevant in 10 y ears time
-> than it is now).
-
-
-That makes sense. However, I am a bit concerned that an OS developer may
-not notice the alignment problem with older version.
-
-I would suggest to at least document the alignment expected in the public
-header.
-
-
-
-> Jan
->
-
---0000000000006d3f0c05aa7b61d4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Wed, 15 Jul 2020, 14:42 Jan Beulich, &lt;<a href=3D=
-"mailto:jbeulich@suse.com" rel=3D"noreferrer noreferrer" target=3D"_blank">=
-jbeulich@suse.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On=
- 15.07.2020 12:46, Julien Grall wrote:<br>
-&gt; On Wed, 15 Jul 2020, 12:17 Jan Beulich, &lt;<a href=3D"mailto:jbeulich=
-@suse.com" rel=3D"noreferrer noreferrer noreferrer" target=3D"_blank">jbeul=
-ich@suse.com</a>&gt; wrote:<br>
-&gt; <br>
-&gt;&gt; Neither the code nor the original commit provide any justification=
- for<br>
-&gt;&gt; the need to 8-byte align the struct in all cases. Enforce just as =
-much<br>
-&gt;&gt; alignment as the structure actually needs - 4 bytes - by using ali=
-gnof()<br>
-&gt;&gt; instead of a literal number.<br>
-&gt;&gt;<br>
-&gt;&gt; Take the opportunity and also<br>
-&gt;&gt; - add so far missing validation that native and compat mode layout=
-s of<br>
-&gt;&gt;=C2=A0 =C2=A0the structures actually match,<br>
-&gt;&gt; - tie sizeof() expressions to the types of the fields we&#39;re ac=
-tually<br>
-&gt;&gt;=C2=A0 =C2=A0after, rather than specifying the type explicitly (whi=
-ch in the<br>
-&gt;&gt;=C2=A0 =C2=A0general case risks a disconnect, even if there&#39;s c=
-lose to zero risk in<br>
-&gt;&gt;=C2=A0 =C2=A0this particular case),<br>
-&gt;&gt; - use ENXIO instead of EINVAL for the two cases of the address not=
-<br>
-&gt;&gt;=C2=A0 =C2=A0satisfying the requirements, which will make an issue =
-here better<br>
-&gt;&gt;=C2=A0 =C2=A0stand out at the call site.<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com=
-" rel=3D"noreferrer noreferrer noreferrer" target=3D"_blank">jbeulich@suse.=
-com</a>&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt; I question the need for the array_index_nospec() here. Or else I&#=
-39;d<br>
-&gt;&gt; expect map_vcpu_info() would also need the same.<br>
-&gt;&gt;<br>
-&gt;&gt; --- a/xen/common/event_fifo.c<br>
-&gt;&gt; +++ b/xen/common/event_fifo.c<br>
-&gt;&gt; @@ -504,6 +504,16 @@ static void setup_ports(struct domain *d<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
-&gt;&gt;=C2=A0 }<br>
-&gt;&gt;<br>
-&gt;&gt; +#ifdef CONFIG_COMPAT<br>
-&gt;&gt; +<br>
-&gt;&gt; +#include &lt;compat/event_channel.h&gt;<br>
-&gt;&gt; +<br>
-&gt;&gt; +#define xen_evtchn_fifo_control_block evtchn_fifo_control_block<b=
-r>
-&gt;&gt; +CHECK_evtchn_fifo_control_block;<br>
-&gt;&gt; +#undef xen_evtchn_fifo_control_block<br>
-&gt;&gt; +<br>
-&gt;&gt; +#endif<br>
-&gt;&gt; +<br>
-&gt;&gt;=C2=A0 int evtchn_fifo_init_control(struct evtchn_init_control *ini=
-t_control)<br>
-&gt;&gt;=C2=A0 {<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 struct domain *d =3D current-&gt;domain;<br>
-&gt;&gt; @@ -523,19 +533,20 @@ int evtchn_fifo_init_control(struct evtc<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENOENT;<br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 /* Must not cross page boundary. */<br>
-&gt;&gt; -=C2=A0 =C2=A0 if ( offset &gt; (PAGE_SIZE - sizeof(evtchn_fifo_co=
-ntrol_block_t)) )<br>
-&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;<br>
-&gt;&gt; +=C2=A0 =C2=A0 if ( offset &gt; (PAGE_SIZE - sizeof(*v-&gt;evtchn_=
-fifo-&gt;control_block)) )<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENXIO;<br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 /*<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* Make sure the guest controlled value o=
-ffset is bounded even during<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* speculative execution.<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 offset =3D array_index_nospec(offset,<br>
-&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PAGE_SIZE -<br>
-&gt;&gt; sizeof(evtchn_fifo_control_block_t) + 1);<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PAGE_SIZE -<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 sizeof(*v-&gt;evtchn_fifo-=
-&gt;control_block) +<br>
-&gt;&gt; 1);<br>
-&gt;&gt;<br>
-&gt;&gt; -=C2=A0 =C2=A0 /* Must be 8-bytes aligned. */<br>
-&gt;&gt; -=C2=A0 =C2=A0 if ( offset &amp; (8 - 1) )<br>
-&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;<br>
-&gt;&gt; +=C2=A0 =C2=A0 /* Must be suitably aligned. */<br>
-&gt;&gt; +=C2=A0 =C2=A0 if ( offset &amp; (alignof(*v-&gt;evtchn_fifo-&gt;c=
-ontrol_block) - 1) )<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENXIO;<br>
-&gt;&gt;<br>
-&gt; <br>
-&gt; A guest relying on this new alignment wouldn&#39;t work on older versi=
-on of<br>
-&gt; Xen. So I don&#39;t think a guest would ever be able to use it.<br>
-&gt; <br>
-&gt; Therefore is it really worth the change?<br>
-<br>
-That&#39;s the question. One of your arguments for using a literal number<b=
-r>
-also for the vCPU info mapping check was that here a literal number<br>
-is used. The goal isn&#39;t so much relaxation of the interface, but<br>
-making the code consistent as well as eliminating a (how I&#39;d call it)<b=
-r>
-kludge.<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D=
-"auto">Your commit message lead to think the relaxation is the key motivati=
-on to change the code.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><=
-br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"=
-gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
-left:1ex">
-<br>
-Guests not caring to be able to run on older versions could also make<br>
-use of the relaxation (which may be more relevant in 10 y ears time<br>
-than it is now).</blockquote></div></div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto">That makes sense. However, I am a bit concerned that an OS deve=
-loper may not notice the alignment problem with older version.</div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">I would suggest to at least document=
- the alignment expected in the public header.</div><div dir=3D"auto"></div>=
-<div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"><=
-div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin=
-:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-Jan<br>
-</blockquote></div></div></div>
-
---0000000000006d3f0c05aa7b61d4--
+DQoNCj4gT24gSnVsIDEzLCAyMDIwLCBhdCAzOjQ3IFBNLCBKYW4gQmV1bGljaCA8SkJldWxpY2hA
+c3VzZS5jb20+IHdyb3RlOg0KPiANCj4gT24gMTMuMDcuMjAyMCAxNjowMywgSnVlcmdlbiBHcm9z
+cyB3cm90ZToNCj4+IEluIGRvY3MvbWlzYy9oeXBmcy1wYXRocy5wYW5kb2MgdGhlIHN1cHBvcnRl
+ZCBwYXRocyBpbiB0aGUgaHlwZXJ2aXNvcg0KPj4gZmlsZSBzeXN0ZW0gYXJlIHNwZWNpZmllZC4g
+TWFrZSBpdCBtb3JlIGNsZWFyIHRoYXQgcGF0aCBhdmFpbGFiaWxpdHkNCj4+IG1pZ2h0IGNoYW5n
+ZSwgZS5nLiBkdWUgdG8gc2NvcGUgd2lkZW5pbmcgb3IgbmFycm93aW5nIChlLmcuIGJlaW5nDQo+
+PiBsaW1pdGVkIHRvIGEgc3BlY2lmaWMgYXJjaGl0ZWN0dXJlKS4NCj4+IA0KPj4gU2lnbmVkLW9m
+Zi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KPj4gUmVsZWFzZS1hY2tlZC1i
+eTogUGF1bCBEdXJyYW50IDxwYXVsQHhlbi5vcmc+DQo+IA0KPiBBY2tlZC1ieTogSmFuIEJldWxp
+Y2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPiANCj4gSG93ZXZlciwgSSdkIGxpa2UgYWdyZWVtZW50
+IGJ5IGF0IGxlYXN0IG9uZSBvdGhlciBSRVNUIG1haW50YWluZXIgb24NCj4gLi4uDQo+IA0KPj4g
+QEAgLTU1LDYgKzU4LDExIEBAIHRhZ3MgZW5jbG9zZWQgaW4gc3F1YXJlIGJyYWNrZXRzLg0KPj4g
+KiBDT05GSUdfKiAtLSBQYXRoIGlzIHZhbGlkIG9ubHkgaW4gY2FzZSB0aGUgaHlwZXJ2aXNvciB3
+YXMgYnVpbHQgd2l0aA0KPj4gICB0aGUgcmVzcGVjdGl2ZSBjb25maWcgb3B0aW9uLg0KPj4gDQo+
+PiArSW4gY2FzZSBhIHRhZyBmb3IgYSBwYXRoIGluZGljYXRlcyB0aGF0IHRoaXMgcGF0aCBpcyBh
+dmFpbGFibGUgaW4gc29tZQ0KPj4gK2Nhc2Ugb25seSwgdGhpcyBhdmFpbGFiaWxpdHkgbWlnaHQg
+YmUgZXh0ZW5kZWQgb3IgcmVkdWNlZCBpbiBmdXR1cmUgYnkNCj4+ICttb2RpZmljYXRpb24gb3Ig
+cmVtb3ZhbCBvZiB0aGUgdGFnLiBBIHBhdGggb25jZSBhc3NpZ25lZCBtZWFuaW5nIHdvbid0IGdv
+DQo+PiArYXdheSBhbHRvZ2V0aGVyIG9yIGNoYW5nZSBpdHMgbWVhbmluZywgdGhvdWdoLg0KPiAN
+Cj4gLi4uIHRoZSBuZXdseSBpbXBvc2VkIGd1YXJhbnRlZSB3ZSdyZSBub3cgbWFraW5nLiBXZSBy
+ZWFsbHkgd2FudCB0bw0KPiBhdm9pZCBkZWNsYXJpbmcgc29tZXRoaW5nIGFzIHN0YWJsZSB3aXRo
+b3V0IGJlaW5nIHF1aXRlIGNlcnRhaW4gd2UNCj4gY2FuIGtlZXAgaXQgc3RhYmxlLg0KDQpUaGUg
+ZGVjbGFyYXRpb24gb2YgbmV3IG5vZGVzIG11c3QgYWxsIGhhcHBlbiBpbiB0aGlzIGZpbGUsIHJp
+Z2h0PyAgU28gYXMgbG9uZyBhcyB0aGUgbWFpbnRhaW5lcihzKSBmbyB0aGlzIGZpbGUgYXJlIGF3
+YXJlIG9mIHRoYXQsIGFuZCBpdOKAmXMgY29tbWVudGVkIHNvIHRoYXQgcGVvcGxlIGtub3cgdGhh
+dCBleHBlY2F0aW9uLCBJIHRoaW5rIGl04oCZcyBPSy4NCg0KQnV0IEkgdGhpbmsgdGhpcyBwYXJh
+Z3JhcGggaXNu4oCZdCB2ZXJ5IGNsZWFyIHRvIG1lIHdoYXQg4oCcbWlnaHQgYmUgZXh0ZW5kZWQg
+b3IgcmVkdWNlZCDigKZidXQgd29u4oCZdCBnbyBhd2F5IGFsdG9nZXRoZXLigJ0uDQoNCklUIHNv
+dW5kcyBsaWtlIHlvdeKAmXJlIHNheWluZzoNCg0KMS4gUGF0aHMgbGlzdGVkIHdpdGhvdXQgY29u
+ZGl0aW9ucyB3aWxsIGFsd2F5cyBiZSBhdmFpbGFibGUNCg0KMi4gUGF0aHMgbGlzdGVkIHdpdGgg
+Y29uZGl0aW9ucyBtYXkgYmUgZXh0ZW5kZWQ6IGkuZS4sIGEgbm9kZSBjdXJyZW50bHkgbGlzdGVk
+IGFzIFBWIG1pZ2h0IGFsc28gYmVjb21lIGF2YWlsYWJsZSBmb3IgSFZNIGd1ZXN0cw0KDQozLiBQ
+YXRocyBsaXN0ZWQgd2l0aCBjb25kaXRpb25zIG1pZ2h0IGhhdmUgdGhvc2UgY29uZGl0aW9ucyBy
+ZWR1Y2VkLCBidXQgd2lsbCBuZXZlciBlbnRpcmVseSBkaXNhcHBlYXIuICBTbyBzb21ldGhpbmcg
+Y3VycmVudGx5IGxpc3RlZCBhcyBQViBtaWdodCBiZSByZWR1Y2VkIHRvIENPTkZJR19IQVNfRk9P
+LCBidXQgd29u4oCZdCBiZSBjb21wbGV0ZWx5IHJlbW92ZWQuDQoNCklzIHRoYXQgd2hhdCB5b3Ug
+bWVhbnQ/DQoNCiAtR2Vvcmdl
 
