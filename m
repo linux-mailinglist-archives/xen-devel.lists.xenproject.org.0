@@ -2,59 +2,131 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E6F32217B4
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 00:20:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BEA622185C
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 01:26:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvpkK-0000UP-W7; Wed, 15 Jul 2020 22:19:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jvqmD-0006Bj-33; Wed, 15 Jul 2020 23:25:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=szr+=A2=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
- id 1jvpkJ-0000UK-Qp
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 22:19:23 +0000
-X-Inumbo-ID: 3beba410-c6e9-11ea-bb8b-bc764e2007e4
-Received: from mail-oo1-xc43.google.com (unknown [2607:f8b0:4864:20::c43])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3beba410-c6e9-11ea-bb8b-bc764e2007e4;
- Wed, 15 Jul 2020 22:19:22 +0000 (UTC)
-Received: by mail-oo1-xc43.google.com with SMTP id t12so787578ooc.10
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2020 15:19:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc
- :content-transfer-encoding;
- bh=qfx+yuKlbednJyVorfvp+HJSN+F2bTyRUM8zrY/s2k0=;
- b=vZ25fROQzOV1EB4ilKfBKLfASK4Nofrs2o4/eRG3m3Uu4rl8G5T1YfdoE7E72YHoFp
- 8hs0RNxCIHzlmozAOllUEKrvkr+kfPwPEmb6zTVMNk0d1JQnY1dMr+b9WRgPB0+KuJlI
- z1rL08HJxu6nHsk/BdmO9TqmkZKCP3LUYijeysc0d+UJ3r8GNgVVPGBc3epWOlUAS2Pz
- g45m1OLh1LwPsxxTSWNQq+uisW39LeJLyY4LnqUuRVxUJmnLhP6Zb7pQ4lMs/pSZYvyU
- u8fF8du692HxGdFYFR7ZbZVuILDNx4jDQZTBo0mGruHhe6DzmiwPiZD7rU4N+XzipYfQ
- Ba6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc
- :content-transfer-encoding;
- bh=qfx+yuKlbednJyVorfvp+HJSN+F2bTyRUM8zrY/s2k0=;
- b=oQeKWLWL/sbAdQ1G4JXIWubyFJbI1LgP6be/1c9F6+eh4ni9d/Qy/DuyFh+x62l6o9
- 1HatB5feVHA47W62cspJMiKljCBPXy80IK3M5iB9l+9+z1s4/edpoMmwrF6N6F41SH8l
- L4e/m2vw/NfhAcsB9eQPJLyhEnRZX3Uu8XjFR2DPrJLhRQaHInhJLpHT+0EVse4UfDAf
- 6ojmKYcqJPSNgQPZOlOqCSLcQ01Fp8l62T1MewYHHJJZK7Zs6Kzng5XjI+OJegb8gNnH
- KSJ2dBnzkRxJOjn4ebVXLxWeuafrFDNXvV8iJRxh3EiYkG60XGlYYSthXhBdoPOeWTBE
- Qe6g==
-X-Gm-Message-State: AOAM533AHcAGaleYc/I7fZLcQYKRAvFiXKW4DtXDcOEzceocqhD/zp0l
- jVNewoO8fusVfpN/WWQBMu06C0GOM4CA5aZPsUz8K0yY
-X-Google-Smtp-Source: ABdhPJzVZk4MFV3ldlIh5dRwFEalmr8n69fgDDy7Y8qquaBSjsALgHSJ3bUgCGZN/VuqbW5o+SMLgQ9wictm2u1fCDw=
-X-Received: by 2002:a4a:9630:: with SMTP id q45mr1390129ooi.34.1594851561559; 
- Wed, 15 Jul 2020 15:19:21 -0700 (PDT)
-MIME-Version: 1.0
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Wed, 15 Jul 2020 15:19:07 -0700
-Message-ID: <CACMJ4GYLKR99Y-J9L-qAG75BeNL9URSEi3HfYjSrCOCohqsw-A@mail.gmail.com>
-Subject: Design Sessions notes: Xen system boot: launching VMs (DomB mode of
- dom0less)
-To: xen-devel <xen-devel@lists.xenproject.org>
+ <SRS0=tzA3=A2=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jvqmA-0006Be-Rw
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 23:25:22 +0000
+X-Inumbo-ID: 72bdcf32-c6f2-11ea-9466-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 72bdcf32-c6f2-11ea-9466-12813bfff9fa;
+ Wed, 15 Jul 2020 23:25:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PL+AIi2bcZVZ3kgCPkFNm8poDiR3eOPvPltzWcuy/A4=; b=UP4Het/UnZ4T0XPnOsKbQXgUB
+ 802HSP/K4Od2xJ5SfawZowozX7P+4w4yvG9oR5qFFU/eG1lO5WMb0j8UViZ03+QPSXOPLlejTIkjo
+ uBcMZiz4DBW0JbHW/vmyM7uxhmanisXUX/iPKShiaPVv9xgOdfdPzRoK9JNXSdByZJbkI=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jvqm7-0002XC-Ct; Wed, 15 Jul 2020 23:25:19 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jvqm7-0007o8-1L; Wed, 15 Jul 2020 23:25:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jvqm7-0007wk-0d; Wed, 15 Jul 2020 23:25:19 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151908-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 151908: regressions - FAIL
+X-Osstest-Failures: linux-linus:test-arm64-arm64-libvirt-xsm:guest-start/debian.repeat:fail:regression
+ linux-linus:build-i386-pvops:kernel-build:fail:regression
+ linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
+ linux-linus:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-examine:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: linux=e9919e11e219eaa5e8041b7b1a196839143e9125
+X-Osstest-Versions-That: linux=1b5044021070efa3259f3e9548dc35d1eb6aa844
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 15 Jul 2020 23:25:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,226 +137,230 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Daniel Smith <dpsmith@apertussolutions.com>,
- Adam Schwalm <adam.schwalm@starlab.io>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-# Session Notes on Xen system boot: launching VMs (DomB mode of dom0less)
+flight 151908 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151908/
 
-Sessions Host: Christopher Clark. Scribing: Daniel Smith & Christopher Clar=
-k.
+Regressions :-(
 
-The DomB-mode-for-dom0less topic was covered in two design session slots
-at the Xen Design & Developer Summit 2020.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-libvirt-xsm 16 guest-start/debian.repeat fail REGR. vs. 151214
+ build-i386-pvops              6 kernel-build             fail REGR. vs. 151214
 
-## Session 1: Xen system boot: launching VMs (DomB)
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds    16 guest-start/debian.repeat fail REGR. vs. 151214
 
-A talk presenting background on the project and a progress update on the
-development work sponsored by Star Lab Corp. This talk is preparatory
-material for the following second session.
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemut-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-xl-qemut-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemut-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-xl            1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
+ test-amd64-i386-examine       1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemut-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemut-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-pair          1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-raw        1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 151214
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 151214
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 151214
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 151214
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 151214
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 151214
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
 
-> A presentation of progress towards building DomB: a new mode of
-> starting Xen with guest workloads launched at host boot - including
-> support for x86 platforms, system disaggregation and running without
-> dom0, and architecture to support measurement of system launch.
+version targeted for testing:
+ linux                e9919e11e219eaa5e8041b7b1a196839143e9125
+baseline version:
+ linux                1b5044021070efa3259f3e9548dc35d1eb6aa844
 
-Slides are available here:
-https://static.sched.com/hosted_files/xen2020/91/DomB%20-%20Xen%20Design%20=
-%26%20Developer%20Summit%202020.pdf
+Last test of basis   151214  2020-06-18 02:27:46 Z   27 days
+Failing since        151236  2020-06-19 19:10:35 Z   26 days   41 attempts
+Testing same since   151908  2020-07-15 03:47:00 Z    0 days    1 attempts
 
-## Session 2: Next steps for Xen system boot: launching VMs (DomB)
+------------------------------------------------------------
+725 people touched revisions under test,
+not listing them all
 
-A Design Session discussion, discussing forward direction and topics
-identified during building the initial prototype work.
-
-### Session seed notes, shared on-screen during the session:
-
-* Basics: general structure:
-    - bootloader loads domain materials into RAM (kernels, ramdisks)
-    - some metadata, in binary form, describes the domains to be launched
-    - hypervisor performs domain construction
-        - PVH and PV supported
-    - only one guest is unpaused by the hypervisor: domB
-    - domB unpauses other domains when ready to do so
-        -> allows measurement to be performed by domB
-        -> allows configuration to be applied by domB
-        -> allows domB to sequence startup of other domains, if necessary
-    - domB permissions: no hardware access, limited privileges to do
-setup operations
-    - hardware domain permissions: subset of the current dom0, no
-is_priv for control ops
-
-Needed for usability:
-    - support for bringup of PV devices
-        -> toolstack needs to be aware of Initial Domains as started
-and initiate
-           the bringup of backends
-
-* Questions:
-    - is claiming the first multiboot module, and dynamically toggling
-dom0/domB mode, acceptable?
-    - is there a tree + binary format outside of Xen that provides what we =
-need?
-    - is there momentum behind a technology elsewhere that Xen needs to sup=
-port?
-    - logic for building ACPI tables:
-        - enable DomB to do this for other Initial Domains?
-    - how best to implement "atomic handoff":
-        - exit of DomB
-        - continuation of the Initial Domains after their configuration by =
-DomB
-    - how best to surface the Launch Control Module contents to DomB?
-        - ACPI tables? (PVH)
-        - what about PV mode?
-
-* Guidance:
-    - how to bringup PV disk and network (etc) for the Initial Domains?
-        - A: the toolstack domain interrogates Xen, gets data on the
-Initial Domains,
-             and then uses its own database to bring them up
-            - means coordination between data in the toolstack and
-config in the LCM
-    - guest kernel decompression
-        - complex, and implementation is not shared with anything else
-        - would prefer to do the decompress in a guest context rather
-than the hypervisor
-          and use a bootloader-supplied decompressor binary, outside
-the hypervisor
-
-* To Research / Investigate:
-    - from Stefano: "system device tree"
-    - Implementing support for HVM-mode initial domains:
-        - primary use case is "non-PV VMs that can have devices
-directly assigned"
-            - so PVH with working PCI passthrough would suffice
-            - but having the ability to launch HVM too would be nice
-        - needs bringup of the device emulator, and Xen configured to conne=
-ct it
-
-
-### Comments and discussion during the session:
-
-_Jason Andryuk, Q: does the hypervisor construct multiple domains or domB o=
-nly?_
-Christopher, A: the hypervisor constructs multiple domains
-
-_Damien Thenot (dthenot), Q: Could DomB be used to explore hardware
-and create domain driver as needed ?_
-Christopher: yes it could; but don't want domB to become a dom0 again
-
-> post-session note: this is about wanting to avoid unbounded scope creep f=
-or a single domB:
-> the domB structure will enable doing these functions in other independent=
- initial domains
-> that are also launched and run at host boot. DomB is unlikely to have per=
-mission to perform
-> any domain creation by default, since it won't need it - it just applies =
-configuration and
-> unpause to the other domains that Xen builds at host boot.
-
-_Bobby Eshleman, Q: does no hardware access imply no TPM access here?
-Just thinking about the measurement capabilities of DomB._
-Christopher: yes but is under discussion. a possibility is to put a
-minimal tpm driver in xen so that DomB can be measured before launch.
-Roger Pau Monn=C3=A9: TPM is just assigned to dom0 (or the hw domain),
-there's no special handling of it in Xen
-Jason Andryuk: You can have the bootloader measure all the pieces into
-the TPM before transitioning to Xen/domB, but those would be the
-compressed artifacts.
-
-> post-session note: enabling a strong full-system architecture for measure=
-d launch and
-> virtual TPM support for domains, where the vTPM is rooted in the physical=
- TPM is
-> important and a motivation behind the DomB architecture.
-
-_Bertrand Marquis: Could you explain a bit more the decompression? i
-do not quite get why it is done in Xen?_
-Christopher: if the dom0 kernel is detected as compressed, Xen will
-decompress it.
-Andy Cooper: Xen needs to decompress the elf header to get elf notes
-to boot a PV domain.
-Christopher: one thought is to do it another vmcs context
-Andy: yes but adding a lot of overhead to do that
-
-_Christopher: Is the proposed LCM detection a reasonable upstreamable appro=
-ach?_
-Andy: yes it is acceptable
-??: Arm uses device tree
-- Christopher: isn't it fixed, to describe hardware?
-Bertrand: Xen already has logic to extend the tree
-Stefano: could domb use a small key/value device tree with LCM fields
-and use existing DTB parser in Arm XEN
-Julien: don't use libft on untrusted device trees, not suitable for
-the hypervisor
-
-_Christopher: Is it foreign to use ACPI to expose LCM to guests on ARM?_
-Bertrand, Stefano: ARM now has ACPI so its not really foreign, is ok
-
-_Topic: Getting device info to the toolstack after launch_
-J=C3=BCrgen Gro=C3=9F: xenstore stubdom is upstream/available
-xl/libxl is a separate issue
-problem with dom0less is issue with getting xenstored up before domU
-starts trying to do xenstore/device setups
-
-< xenstore setup discussion >
-  - basic conclusion is that it is a bit of mess and needs cleaned up
-
-_Nicolas Poirot, Q: if domB starts guests and quit, will there be no
-management (reboot, shutdown) of the guests?_
-Rich Persaud [stacktrust]: I think yes for the static partitioning use
-case, which overlaps somewhat with dom0less.  If management is needed,
-one of the started guests can be a privileged toolstack domain.
-
-> post-session note: domB doesn't host the management, control or toolstack=
- software that does that, and
-> it does not have the control domain privileged permissions that are neede=
-d to do it.
-> However, you can start a control domain at host boot, with the DomB archi=
-tecture, and that will handle it.
-> You describe the control domain you want in the Launch Control Module, pr=
-ovide a kernel and optional ramdisk
-> to the bootloader, and then Xen will build it and DomB will assist with c=
-onfiguring and starting that domain.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             fail    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           blocked 
+ test-amd64-coresched-i386-xl                                 blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           blocked 
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-i386-freebsd10-amd64                              blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      blocked 
+ test-amd64-i386-freebsd10-i386                               blocked 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         blocked 
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         blocked 
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    blocked 
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    blocked 
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-_Rich Persaud [stacktrust] : For those new to domB, some material for
-offline reading:_
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-* Dec 2019 design meeting in Cambridge: https://lists.gt.net/xen/devel/5778=
-00
-* May 2020 domB design doc v1: https://lists.gt.net/xen/devel/586365
-* TrenchBoot (DRTM):
-https://github.com/TrenchBoot/documentation/tree/master/presentations
-* OpenXT & boot integrity: https://openxt.org/ecosystems/
-* PSEC 2019: https://www.platformsecuritysummit.com/2019/videos/
-* PSEC 2018: https://www.platformsecuritysummit.com/2018/videos/
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-We can also schedule a separate conference call after Xen Summit.
-You can email rp@stacktrust.org if you're interested in being included
-in a future domB conference call to review v2 of the design doc
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> post-session note: DomB is being built with intent to support the
-> 'Hardened Access Terminals' (HAT) architecture, also presented at the
-> summit, with slides available here:
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-https://static.sched.com/hosted_files/xen2020/46/Reliable%20Platform%20Secu=
-rity_%20Xen%20and%20the%20Fidelis%20Platform%20for%20Hardened%20Access%20Te=
-rminals%20%28HAT%29.pdf
 
-### Observations
+Not pushing.
 
-> - general tone was supportive from many sides
-> - device tree needs looking at, and if so, will need a security-capable
->   parser (libfdt is specifically not suitable for it)
-> - xenstore is a pain point (yet again)
-> - we can=E2=80=99t ditch the existing kernel decompressor since PV needs =
-to read
->   the ELF notes, which need decompressing to access
-> - TPM access needs explaining in our documentation
-
-A big thanks to the conference attendees for the interest expressed in
-the two sessions that enabled both of these to be scheduled, and for the
-positive and active engagement in the discussions.
+(No revision log; it would be 38304 lines long.)
 
