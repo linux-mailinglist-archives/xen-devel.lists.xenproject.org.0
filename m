@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE0F822130B
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 18:55:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E84F122130A
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 18:55:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvkh6-0006DN-Ji; Wed, 15 Jul 2020 16:55:44 +0000
+	id 1jvkhC-0006Fb-Sz; Wed, 15 Jul 2020 16:55:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o5qj=A2=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jvkh5-0006Bo-58
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 16:55:43 +0000
-X-Inumbo-ID: 0124f41c-c6bc-11ea-bb8b-bc764e2007e4
+ id 1jvkhB-0006F0-G5
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 16:55:49 +0000
+X-Inumbo-ID: 08084f72-c6bc-11ea-bca7-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0124f41c-c6bc-11ea-bb8b-bc764e2007e4;
- Wed, 15 Jul 2020 16:55:36 +0000 (UTC)
+ id 08084f72-c6bc-11ea-bca7-bc764e2007e4;
+ Wed, 15 Jul 2020 16:55:48 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jvkDz-0001sU-HT; Wed, 15 Jul 2020 17:25:39 +0100
+ id 1jvkDz-0001sU-Qh; Wed, 15 Jul 2020 17:25:39 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 11/12] tools: split libxenstat into new tools/libs/stat
- directory
-Date: Wed, 15 Jul 2020 17:25:10 +0100
-Message-Id: <20200715162511.5941-13-ian.jackson@eu.citrix.com>
+Subject: [PATCH 12/12] tools: generate most contents of library make variables
+Date: Wed, 15 Jul 2020 17:25:11 +0100
+Message-Id: <20200715162511.5941-14-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200715162511.5941-1-ian.jackson@eu.citrix.com>
 References: <20200715162511.5941-1-ian.jackson@eu.citrix.com>
@@ -45,488 +44,311 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: incoming+61544a64d0c2dc4555813e58f3810dd7@incoming.gitlab.com,
  xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- ian.jackson@eu.citrix.com, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>
+Cc: Juergen Gross <jgross@suse.com>, ian.jackson@eu.citrix.com,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Juergen Gross <jgross@suse.com>
 
-There is no reason why libxenstat is not placed in the tools/libs
-directory.
-
-At the same time move xenstat.h to a dedicated include directory
-in tools/libs/stat in order to follow the same pattern as the other
-libraries in tools/libs.
-
-As now xentop is the only left directory in xenstat move it directly
-under tools and get rid of tools/xenstat.
-
-Fix some missing prototype errors (add one prototype and make two
-functions static).
+Library related make variables (CFLAGS_lib*, SHDEPS_lib*, LDLIBS_lib*
+and SHLIB_lib*) mostly have a common pattern for their values. Generate
+most of this content automatically by adding a new per-library variable
+defining on which other libraries a lib is depending. This in turn
+makes it possible to drop the USELIB variable from each library
+Makefile.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- .gitignore                                    |  7 +-
- tools/Makefile                                |  2 +-
- tools/Rules.mk                                |  4 +-
- tools/libs/Makefile                           |  1 +
- .../{xenstat/libxenstat => libs/stat}/COPYING |  0
- .../libxenstat => libs/stat}/Makefile         | 98 ++++---------------
- .../stat}/bindings/swig/perl/.empty           |  0
- .../stat}/bindings/swig/python/.empty         |  0
- .../stat}/bindings/swig/xenstat.i             |  0
- .../src => libs/stat/include}/xenstat.h       |  3 +
- tools/libs/stat/libxenstat.map                | 54 ++++++++++
- .../libxenstat/src => libs/stat}/xenstat.c    |  0
- .../libxenstat => libs/stat}/xenstat.pc.in    |  2 +-
- .../src => libs/stat}/xenstat_freebsd.c       |  0
- .../src => libs/stat}/xenstat_linux.c         |  4 +-
- .../src => libs/stat}/xenstat_netbsd.c        |  0
- .../src => libs/stat}/xenstat_priv.h          |  0
- .../src => libs/stat}/xenstat_qmp.c           |  0
- .../src => libs/stat}/xenstat_solaris.c       |  0
- tools/xenstat/Makefile                        | 10 --
- tools/{xenstat => }/xentop/Makefile           |  2 +-
- tools/{xenstat => }/xentop/TODO               |  0
- tools/{xenstat => }/xentop/xentop.c           |  0
- 23 files changed, 90 insertions(+), 97 deletions(-)
- rename tools/{xenstat/libxenstat => libs/stat}/COPYING (100%)
- rename tools/{xenstat/libxenstat => libs/stat}/Makefile (56%)
- rename tools/{xenstat/libxenstat => libs/stat}/bindings/swig/perl/.empty (100%)
- rename tools/{xenstat/libxenstat => libs/stat}/bindings/swig/python/.empty (100%)
- rename tools/{xenstat/libxenstat => libs/stat}/bindings/swig/xenstat.i (100%)
- rename tools/{xenstat/libxenstat/src => libs/stat/include}/xenstat.h (98%)
- create mode 100644 tools/libs/stat/libxenstat.map
- rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat.c (100%)
- rename tools/{xenstat/libxenstat => libs/stat}/xenstat.pc.in (82%)
- rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_freebsd.c (100%)
- rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_linux.c (98%)
- rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_netbsd.c (100%)
- rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_priv.h (100%)
- rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_qmp.c (100%)
- rename tools/{xenstat/libxenstat/src => libs/stat}/xenstat_solaris.c (100%)
- delete mode 100644 tools/xenstat/Makefile
- rename tools/{xenstat => }/xentop/Makefile (97%)
- rename tools/{xenstat => }/xentop/TODO (100%)
- rename tools/{xenstat => }/xentop/xentop.c (100%)
+ tools/Rules.mk                    | 103 ++++++++++--------------------
+ tools/libs/call/Makefile          |   1 -
+ tools/libs/ctrl/Makefile          |   1 -
+ tools/libs/devicemodel/Makefile   |   1 -
+ tools/libs/evtchn/Makefile        |   1 -
+ tools/libs/foreignmemory/Makefile |   1 -
+ tools/libs/gnttab/Makefile        |   1 -
+ tools/libs/hypfs/Makefile         |   1 -
+ tools/libs/libs.mk                |   5 +-
+ tools/libs/stat/Makefile          |   1 -
+ tools/libs/store/Makefile         |   1 -
+ tools/libs/vchan/Makefile         |   1 -
+ 12 files changed, 35 insertions(+), 83 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-index 3e130b0596..5c240c25db 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -120,6 +120,9 @@ tools/libs/foreignmemory/headers.chk
- tools/libs/foreignmemory/xenforeignmemory.pc
- tools/libs/devicemodel/headers.chk
- tools/libs/devicemodel/xendevicemodel.pc
-+tools/libs/stat/_paths.h
-+tools/libs/stat/headers.chk
-+tools/libs/stat/xenstat.pc
- tools/libs/store/headers.chk
- tools/libs/store/list.h
- tools/libs/store/utils.h
-@@ -273,9 +276,6 @@ tools/xenmon/xentrace_setmask
- tools/xenmon/xenbaked
- tools/xenpaging/xenpaging
- tools/xenpmd/xenpmd
--tools/xenstat/libxenstat/src/_paths.h
--tools/xenstat/libxenstat/xenstat.pc
--tools/xenstat/xentop/xentop
- tools/xenstore/xenstore
- tools/xenstore/xenstore-chmod
- tools/xenstore/xenstore-exists
-@@ -288,6 +288,7 @@ tools/xenstore/xenstore-ls
- tools/xenstore/xenstored
- tools/xenstore/xenstored_test
- tools/xenstore/xs_tdb_dump
-+tools/xentop/xentop
- tools/xentrace/xentrace_setsize
- tools/xentrace/tbctl
- tools/xentrace/xenctx
-diff --git a/tools/Makefile b/tools/Makefile
-index ed119fffd7..e37b4c0f12 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -18,7 +18,7 @@ SUBDIRS-$(CONFIG_XCUTILS) += xcutils
- SUBDIRS-$(CONFIG_X86) += firmware
- SUBDIRS-y += console
- SUBDIRS-y += xenmon
--SUBDIRS-y += xenstat
-+SUBDIRS-y += xentop
- SUBDIRS-$(CONFIG_NetBSD) += xenbackendd
- SUBDIRS-y += libfsimage
- SUBDIRS-$(CONFIG_Linux) += vchan
 diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 30ee379484..279df14152 100644
+index 279df14152..89b28e3fad 100644
 --- a/tools/Rules.mk
 +++ b/tools/Rules.mk
-@@ -22,12 +22,12 @@ XEN_libxendevicemodel = $(XEN_ROOT)/tools/libs/devicemodel
- XEN_libxenhypfs    = $(XEN_ROOT)/tools/libs/hypfs
- XEN_libxenctrl     = $(XEN_ROOT)/tools/libs/ctrl
- XEN_libxenstore    = $(XEN_ROOT)/tools/libs/store
-+XEN_libxenstat     = $(XEN_ROOT)/tools/libs/stat
- XEN_libxenvchan    = $(XEN_ROOT)/tools/libs/vchan
+@@ -12,18 +12,38 @@ INSTALL = $(XEN_ROOT)/tools/cross-install
+ LDFLAGS += $(PREPEND_LDFLAGS_XEN_TOOLS)
+ 
+ XEN_INCLUDE        = $(XEN_ROOT)/tools/include
+-XEN_libxentoolcore = $(XEN_ROOT)/tools/libs/toolcore
+-XEN_libxentoollog  = $(XEN_ROOT)/tools/libs/toollog
+-XEN_libxenevtchn   = $(XEN_ROOT)/tools/libs/evtchn
+-XEN_libxengnttab   = $(XEN_ROOT)/tools/libs/gnttab
+-XEN_libxencall     = $(XEN_ROOT)/tools/libs/call
+-XEN_libxenforeignmemory = $(XEN_ROOT)/tools/libs/foreignmemory
+-XEN_libxendevicemodel = $(XEN_ROOT)/tools/libs/devicemodel
+-XEN_libxenhypfs    = $(XEN_ROOT)/tools/libs/hypfs
+-XEN_libxenctrl     = $(XEN_ROOT)/tools/libs/ctrl
+-XEN_libxenstore    = $(XEN_ROOT)/tools/libs/store
+-XEN_libxenstat     = $(XEN_ROOT)/tools/libs/stat
+-XEN_libxenvchan    = $(XEN_ROOT)/tools/libs/vchan
++
++LIBS_LIBS += toolcore
++USELIBS_toolcore :=
++LIBS_LIBS += toollog
++USELIBS_toollog :=
++LIBS_LIBS += evtchn
++USELIBS_evtchn := toollog toolcore
++LIBS_LIBS += gnttab
++USELIBS_gnttab := toollog toolcore
++LIBS_LIBS += call
++USELIBS_call := toollog toolcore
++LIBS_LIBS += foreignmemory
++USELIBS_foreignmemory := toollog toolcore
++LIBS_LIBS += devicemodel
++USELIBS_devicemodel := toollog toolcore call
++LIBS_LIBS += hypfs
++USELIBS_hypfs := toollog toolcore call
++LIBS_LIBS += ctrl
++USELIBS_ctrl := toollog call evtchn gnttab foreignmemory devicemodel
++LIBS_LIBS += store
++USELIBS_store := toolcore
++LIBS_LIBS += stat
++USELIBS_stat := ctrl store
++LIBS_LIBS += vchan
++USELIBS_vchan := toollog store gnttab evtchn
++
++$(foreach lib,$(LIBS_LIBS),$(eval XEN_libxen$(lib) = $(XEN_ROOT)/tools/libs/$(lib)))
++$(foreach lib,$(LIBS_LIBS),$(eval CFLAGS_libxen$(lib) = -I$(XEN_libxen$(lib))/include $(CFLAGS_xeninclude)))
++$(foreach lib,$(LIBS_LIBS),$(eval SHDEPS_libxen$(lib) = $(foreach use,$(USELIBS_$(lib)),$(SHLIB_libxen$(use)))))
++$(foreach lib,$(LIBS_LIBS),$(eval LDLIBS_libxen$(lib) = $(SHDEPS_libxen$(lib)) $(XEN_libxen$(lib))/libxen$(lib)$(libextension)))
++$(foreach lib,$(LIBS_LIBS),$(eval SHLIB_libxen$(lib) = $(SHDEPS_libxen$(lib)) -Wl,-rpath-link=$(XEN_libxen$(lib))))
++
  XEN_libxenguest    = $(XEN_ROOT)/tools/libxc
  XEN_libxenlight    = $(XEN_ROOT)/tools/libxl
  # Currently libxlutil lives in the same directory as libxenlight
- XEN_libxlutil      = $(XEN_libxenlight)
--XEN_libxenstat     = $(XEN_ROOT)/tools/xenstat/libxenstat/src
+@@ -98,76 +118,19 @@ endif
+ # Consumers of libfoo should not directly use $(SHDEPS_libfoo) or
+ # $(SHLIB_libfoo)
  
- CFLAGS_xeninclude = -I$(XEN_INCLUDE)
+-CFLAGS_libxentoollog = -I$(XEN_libxentoollog)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxentoollog =
+-LDLIBS_libxentoollog = $(SHDEPS_libxentoollog) $(XEN_libxentoollog)/libxentoollog$(libextension)
+-SHLIB_libxentoollog  = $(SHDEPS_libxentoollog) -Wl,-rpath-link=$(XEN_libxentoollog)
+-
+-CFLAGS_libxentoolcore = -I$(XEN_libxentoolcore)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxentoolcore =
+-LDLIBS_libxentoolcore = $(SHDEPS_libxentoolcore) $(XEN_libxentoolcore)/libxentoolcore$(libextension)
+-SHLIB_libxentoolcore  = $(SHDEPS_libxentoolcore) -Wl,-rpath-link=$(XEN_libxentoolcore)
+-
+-CFLAGS_libxenevtchn = -I$(XEN_libxenevtchn)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxenevtchn = $(SHLIB_libxentoolcore)
+-LDLIBS_libxenevtchn = $(SHDEPS_libxenevtchn) $(XEN_libxenevtchn)/libxenevtchn$(libextension)
+-SHLIB_libxenevtchn  = $(SHDEPS_libxenevtchn) -Wl,-rpath-link=$(XEN_libxenevtchn)
+-
+-CFLAGS_libxengnttab = -I$(XEN_libxengnttab)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxengnttab = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore)
+-LDLIBS_libxengnttab = $(SHDEPS_libxengnttab) $(XEN_libxengnttab)/libxengnttab$(libextension)
+-SHLIB_libxengnttab  = $(SHDEPS_libxengnttab) -Wl,-rpath-link=$(XEN_libxengnttab)
+-
+-CFLAGS_libxencall = -I$(XEN_libxencall)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxencall = $(SHLIB_libxentoolcore)
+-LDLIBS_libxencall = $(SHDEPS_libxencall) $(XEN_libxencall)/libxencall$(libextension)
+-SHLIB_libxencall  = $(SHDEPS_libxencall) -Wl,-rpath-link=$(XEN_libxencall)
+-
+-CFLAGS_libxenforeignmemory = -I$(XEN_libxenforeignmemory)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxenforeignmemory = $(SHLIB_libxentoolcore)
+-LDLIBS_libxenforeignmemory = $(SHDEPS_libxenforeignmemory) $(XEN_libxenforeignmemory)/libxenforeignmemory$(libextension)
+-SHLIB_libxenforeignmemory  = $(SHDEPS_libxenforeignmemory) -Wl,-rpath-link=$(XEN_libxenforeignmemory)
+-
+-CFLAGS_libxendevicemodel = -I$(XEN_libxendevicemodel)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxendevicemodel = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_libxencall)
+-LDLIBS_libxendevicemodel = $(SHDEPS_libxendevicemodel) $(XEN_libxendevicemodel)/libxendevicemodel$(libextension)
+-SHLIB_libxendevicemodel  = $(SHDEPS_libxendevicemodel) -Wl,-rpath-link=$(XEN_libxendevicemodel)
+-
+-CFLAGS_libxenhypfs = -I$(XEN_libxenhypfs)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxenhypfs = $(SHLIB_libxentoollog) $(SHLIB_libxentoolcore) $(SHLIB_libxencall)
+-LDLIBS_libxenhypfs = $(SHDEPS_libxenhypfs) $(XEN_libxenhypfs)/libxenhypfs$(libextension)
+-SHLIB_libxenhypfs  = $(SHDEPS_libxenhypfs) -Wl,-rpath-link=$(XEN_libxenhypfs)
+-
+ # code which compiles against libxenctrl get __XEN_TOOLS__ and
+ # therefore sees the unstable hypercall interfaces.
+-CFLAGS_libxenctrl = -I$(XEN_libxenctrl)/include $(CFLAGS_libxentoollog) $(CFLAGS_libxenforeignmemory) $(CFLAGS_libxendevicemodel) $(CFLAGS_xeninclude) -D__XEN_TOOLS__
+-SHDEPS_libxenctrl = $(SHLIB_libxentoollog) $(SHLIB_libxenevtchn) $(SHLIB_libxengnttab) $(SHLIB_libxencall) $(SHLIB_libxenforeignmemory) $(SHLIB_libxendevicemodel)
+-LDLIBS_libxenctrl = $(SHDEPS_libxenctrl) $(XEN_libxenctrl)/libxenctrl$(libextension)
+-SHLIB_libxenctrl  = $(SHDEPS_libxenctrl) -Wl,-rpath-link=$(XEN_libxenctrl)
++CFLAGS_libxenctrl += (CFLAGS_libxentoollog) $(CFLAGS_libxenforeignmemory) $(CFLAGS_libxendevicemodel) -D__XEN_TOOLS__
  
-@@ -158,7 +158,7 @@ ifeq ($(CONFIG_Linux),y)
+ CFLAGS_libxenguest = -I$(XEN_libxenguest)/include $(CFLAGS_libxenevtchn) $(CFLAGS_libxenforeignmemory) $(CFLAGS_xeninclude)
+ SHDEPS_libxenguest = $(SHLIB_libxenevtchn) $(SHLIB_libxenctrl)
+ LDLIBS_libxenguest = $(SHDEPS_libxenguest) $(XEN_libxenguest)/libxenguest$(libextension)
+ SHLIB_libxenguest  = $(SHDEPS_libxenguest) -Wl,-rpath-link=$(XEN_libxenguest)
+ 
+-CFLAGS_libxenstore = -I$(XEN_libxenstore)/include $(CFLAGS_xeninclude)
+-SHDEPS_libxenstore = $(SHLIB_libxentoolcore)
+-LDLIBS_libxenstore = $(SHDEPS_libxenstore) $(XEN_libxenstore)/libxenstore$(libextension)
+-SHLIB_libxenstore  = $(SHDEPS_libxenstore) -Wl,-rpath-link=$(XEN_libxenstore)
+ ifeq ($(CONFIG_Linux),y)
  LDLIBS_libxenstore += -ldl
  endif
  
--CFLAGS_libxenstat  = -I$(XEN_libxenstat)
-+CFLAGS_libxenstat  = -I$(XEN_libxenstat)/include
- SHDEPS_libxenstat  = $(SHLIB_libxenctrl) $(SHLIB_libxenstore)
- LDLIBS_libxenstat  = $(SHDEPS_libxenstat) $(XEN_libxenstat)/libxenstat$(libextension)
- SHLIB_libxenstat   = $(SHDEPS_libxenstat) -Wl,-rpath-link=$(XEN_libxenstat)
-diff --git a/tools/libs/Makefile b/tools/libs/Makefile
-index 396116b0b3..a1985cf7a7 100644
---- a/tools/libs/Makefile
-+++ b/tools/libs/Makefile
-@@ -12,6 +12,7 @@ SUBDIRS-y += devicemodel
- SUBDIRS-y += ctrl
- SUBDIRS-y += hypfs
- SUBDIRS-y += store
-+SUBDIRS-y += stat
- SUBDIRS-$(CONFIG_Linux) += vchan
+-CFLAGS_libxenstat  = -I$(XEN_libxenstat)/include
+-SHDEPS_libxenstat  = $(SHLIB_libxenctrl) $(SHLIB_libxenstore)
+-LDLIBS_libxenstat  = $(SHDEPS_libxenstat) $(XEN_libxenstat)/libxenstat$(libextension)
+-SHLIB_libxenstat   = $(SHDEPS_libxenstat) -Wl,-rpath-link=$(XEN_libxenstat)
+-
+-CFLAGS_libxenvchan = -I$(XEN_libxenvchan)/include $(CFLAGS_libxengnttab) $(CFLAGS_libxenevtchn)
+-SHDEPS_libxenvchan = $(SHLIB_libxentoollog) $(SHLIB_libxenstore) $(SHLIB_libxenevtchn) $(SHLIB_libxengnttab)
+-LDLIBS_libxenvchan = $(SHDEPS_libxenvchan) $(XEN_libxenvchan)/libxenvchan$(libextension)
+-SHLIB_libxenvchan  = $(SHDEPS_libxenvchan) -Wl,-rpath-link=$(XEN_libxenvchan)
+-
+ ifeq ($(debug),y)
+ # Disable optimizations
+ CFLAGS += -O0 -fno-omit-frame-pointer
+diff --git a/tools/libs/call/Makefile b/tools/libs/call/Makefile
+index 7994b411fa..acddc41928 100644
+--- a/tools/libs/call/Makefile
++++ b/tools/libs/call/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR    = 1
+ MINOR    = 2
+ LIBNAME  := call
+-USELIBS  := toollog toolcore
  
- ifeq ($(CONFIG_RUMP),y)
-diff --git a/tools/xenstat/libxenstat/COPYING b/tools/libs/stat/COPYING
-similarity index 100%
-rename from tools/xenstat/libxenstat/COPYING
-rename to tools/libs/stat/COPYING
-diff --git a/tools/xenstat/libxenstat/Makefile b/tools/libs/stat/Makefile
-similarity index 56%
-rename from tools/xenstat/libxenstat/Makefile
-rename to tools/libs/stat/Makefile
-index 3d05ecdd9f..6162395a9a 100644
---- a/tools/xenstat/libxenstat/Makefile
+ SRCS-y                 += core.c buffer.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/ctrl/Makefile b/tools/libs/ctrl/Makefile
+index bda0b43dfa..9d9b32cd2b 100644
+--- a/tools/libs/ctrl/Makefile
++++ b/tools/libs/ctrl/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR    = 4.14
+ MINOR    = 0
+ LIBNAME  := ctrl
+-USELIBS  := toollog call evtchn gnttab foreignmemory devicemodel
+ 
+ SRCS-y       += xc_altp2m.c
+ SRCS-y       += xc_core.c
+diff --git a/tools/libs/devicemodel/Makefile b/tools/libs/devicemodel/Makefile
+index d9d1d1b850..0c0d9114cb 100644
+--- a/tools/libs/devicemodel/Makefile
++++ b/tools/libs/devicemodel/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR    = 1
+ MINOR    = 3
+ LIBNAME  := devicemodel
+-USELIBS  := toollog toolcore call
+ 
+ SRCS-y                 += core.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/evtchn/Makefile b/tools/libs/evtchn/Makefile
+index d7aa4d402f..ea529e5fb7 100644
+--- a/tools/libs/evtchn/Makefile
++++ b/tools/libs/evtchn/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR    = 1
+ MINOR    = 1
+ LIBNAME  := evtchn
+-USELIBS  := toollog toolcore
+ 
+ SRCS-y                 += core.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
+index 823989681d..17057fc1e1 100644
+--- a/tools/libs/foreignmemory/Makefile
++++ b/tools/libs/foreignmemory/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR    = 1
+ MINOR    = 3
+ LIBNAME  := foreignmemory
+-USELIBS  := toollog toolcore
+ 
+ SRCS-y                 += core.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/gnttab/Makefile b/tools/libs/gnttab/Makefile
+index c0fffdac71..2467330d1a 100644
+--- a/tools/libs/gnttab/Makefile
++++ b/tools/libs/gnttab/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR    = 1
+ MINOR    = 2
+ LIBNAME  := gnttab
+-USELIBS  := toollog toolcore
+ 
+ SRCS-GNTTAB            += gnttab_core.c
+ SRCS-GNTSHR            += gntshr_core.c
+diff --git a/tools/libs/hypfs/Makefile b/tools/libs/hypfs/Makefile
+index b4c41f6189..af358547f2 100644
+--- a/tools/libs/hypfs/Makefile
++++ b/tools/libs/hypfs/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR    = 1
+ MINOR    = 0
+ LIBNAME  := hypfs
+-USELIBS  := toollog toolcore call
+ 
+ APPEND_LDFLAGS += -lz
+ 
+diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
+index 764f5441e2..dde0360b1e 100644
+--- a/tools/libs/libs.mk
++++ b/tools/libs/libs.mk
+@@ -4,15 +4,14 @@
+ #   LIBNAME: name of lib to build, will be prepended with "libxen"
+ #   MAJOR:   major version of lib
+ #   MINOR:   minor version of lib
+-#   USELIBS: xen libs to use (e.g. "toolcore toollog")
+ 
+ SHLIB_LDFLAGS += -Wl,--version-script=libxen$(LIBNAME).map
+ 
+ CFLAGS   += -Werror -Wmissing-prototypes
+ CFLAGS   += -I./include $(CFLAGS_xeninclude)
+-CFLAGS   += $(foreach lib, $(USELIBS), $(CFLAGS_libxen$(lib)))
++CFLAGS   += $(foreach lib, $(USELIBS_$(LIBNAME)), $(CFLAGS_libxen$(lib)))
+ 
+-LDUSELIBS = $(foreach lib, $(USELIBS), $(LDLIBS_libxen$(lib)))
++LDUSELIBS = $(foreach lib, $(USELIBS_$(LIBNAME)), $(LDLIBS_libxen$(lib)))
+ 
+ LIB_OBJS := $(SRCS-y:.c=.o)
+ PIC_OBJS := $(SRCS-y:.c=.opic)
+diff --git a/tools/libs/stat/Makefile b/tools/libs/stat/Makefile
+index 6162395a9a..87bfa1b91c 100644
+--- a/tools/libs/stat/Makefile
 +++ b/tools/libs/stat/Makefile
-@@ -15,80 +15,29 @@
- XEN_ROOT=$(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
+@@ -18,7 +18,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR = 4.14
+ MINOR = 0
+ LIBNAME  := stat
+-USELIBS  := ctrl store
  
--LDCONFIG=ldconfig
--MAKE_LINK=ln -sf
--
--MAJOR=4.14
--MINOR=0
--
--LIB=src/libxenstat.a
--SHLIB=src/libxenstat.so.$(MAJOR).$(MINOR)
--SHLIB_LINKS=src/libxenstat.so.$(MAJOR) src/libxenstat.so
--OBJECTS-y=src/xenstat.o src/xenstat_qmp.o
--OBJECTS-$(CONFIG_Linux) += src/xenstat_linux.o
--OBJECTS-$(CONFIG_SunOS) += src/xenstat_solaris.o
--OBJECTS-$(CONFIG_NetBSD) += src/xenstat_netbsd.o
--OBJECTS-$(CONFIG_FreeBSD) += src/xenstat_freebsd.o
--SONAME_FLAGS=-Wl,$(SONAME_LDFLAG) -Wl,libxenstat.so.$(MAJOR)
--
--CFLAGS+=-fPIC -Werror
--CFLAGS+=-Isrc $(CFLAGS_libxenctrl) $(CFLAGS_libxenstore) $(CFLAGS_xeninclude) -include $(XEN_ROOT)/tools/config.h
--
--LDLIBS-y = $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) -lyajl
--LDLIBS-$(CONFIG_SunOS) += -lkstat
--
--PKG_CONFIG := xenstat.pc
--PKG_CONFIG_VERSION := $(MAJOR).$(MINOR)
--
--ifneq ($(CONFIG_LIBXC_MINIOS),y)
--PKG_CONFIG_INST := $(PKG_CONFIG)
--$(PKG_CONFIG_INST): PKG_CONFIG_PREFIX = $(prefix)
--$(PKG_CONFIG_INST): PKG_CONFIG_INCDIR = $(includedir)
--$(PKG_CONFIG_INST): PKG_CONFIG_LIBDIR = $(libdir)
--endif
--
--PKG_CONFIG_LOCAL := $(foreach pc,$(PKG_CONFIG),$(PKG_CONFIG_DIR)/$(pc))
-+MAJOR = 4.14
-+MINOR = 0
-+LIBNAME  := stat
-+USELIBS  := ctrl store
+ CFLAGS += $(CFLAGS_libxenctrl) $(CFLAGS_libxenstore) $(CFLAGS_xeninclude) -include $(XEN_ROOT)/tools/config.h
  
--$(PKG_CONFIG_LOCAL): PKG_CONFIG_PREFIX = $(XEN_ROOT)
--$(PKG_CONFIG_LOCAL): PKG_CONFIG_INCDIR = $(XEN_libxenstat)
--$(PKG_CONFIG_LOCAL): PKG_CONFIG_LIBDIR = $(CURDIR)
-+CFLAGS += $(CFLAGS_libxenctrl) $(CFLAGS_libxenstore) $(CFLAGS_xeninclude) -include $(XEN_ROOT)/tools/config.h
+diff --git a/tools/libs/store/Makefile b/tools/libs/store/Makefile
+index 76b30145cf..2aa8add521 100644
+--- a/tools/libs/store/Makefile
++++ b/tools/libs/store/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR = 3.0
+ MINOR = 3
+ LIBNAME  := store
+-USELIBS  := toolcore
  
--.PHONY: all
--all: $(LIB) $(SHLIB) $(SHLIB_LINKS) $(PKG_CONFIG_INST) $(PKG_CONFIG_LOCAL)
-+SRCS-y += xenstat.c
-+SRCS-y += xenstat_qmp.c
-+SRCS-$(CONFIG_Linux) += xenstat_linux.c
-+SRCS-$(CONFIG_SunOS) += xenstat_solaris.c
-+SRCS-$(CONFIG_NetBSD) += xenstat_netbsd.c
-+SRCS-$(CONFIG_FreeBSD) += xenstat_freebsd.c
+ ifeq ($(CONFIG_Linux),y)
+ APPEND_LDFLAGS += -ldl
+diff --git a/tools/libs/vchan/Makefile b/tools/libs/vchan/Makefile
+index bf944d251c..5b59ff5265 100644
+--- a/tools/libs/vchan/Makefile
++++ b/tools/libs/vchan/Makefile
+@@ -4,7 +4,6 @@ include $(XEN_ROOT)/tools/Rules.mk
+ MAJOR = 4.14
+ MINOR = 0
+ LIBNAME  := vchan
+-USELIBS  := toollog store evtchn gnttab
  
--$(OBJECTS-y): src/_paths.h
--
--$(LIB): $(OBJECTS-y)
--	$(AR) rc $@ $^
--	$(RANLIB) $@
-+LDLIBS-y += -lyajl
-+LDLIBS-$(CONFIG_SunOS) += -lkstat
-+APPEND_LDFLAGS += $(LDLIBS-y)
+ CFLAGS += $(CFLAGS_libxenctrl)
  
--$(SHLIB): $(OBJECTS-y)
--	$(CC) $(LDFLAGS) $(SONAME_FLAGS) $(SHLIB_LDFLAGS) -o $@ \
--	    $(OBJECTS-y) $(LDLIBS-y) $(APPEND_LDFLAGS)
-+include $(XEN_ROOT)/tools/libs/libs.mk
- 
--src/libxenstat.so.$(MAJOR): $(SHLIB)
--	$(MAKE_LINK) $(<F) $@
-+$(PKG_CONFIG_LOCAL): PKG_CONFIG_INCDIR = $(XEN_libxenstat)/include
- 
--src/libxenstat.so: src/libxenstat.so.$(MAJOR)
--	$(MAKE_LINK) $(<F) $@
--
--.PHONY: install
--install: all
--	$(INSTALL_DATA) src/xenstat.h $(DESTDIR)$(includedir)
--	$(INSTALL_DATA) $(LIB) $(DESTDIR)$(libdir)/libxenstat.a
--	$(INSTALL_PROG) src/libxenstat.so.$(MAJOR).$(MINOR) $(DESTDIR)$(libdir)
--	ln -sf libxenstat.so.$(MAJOR).$(MINOR) $(DESTDIR)$(libdir)/libxenstat.so.$(MAJOR)
--	ln -sf libxenstat.so.$(MAJOR) $(DESTDIR)$(libdir)/libxenstat.so
--	$(INSTALL_DATA) xenstat.pc $(DESTDIR)$(PKG_INSTALLDIR)
--
--.PHONY: uninstall
--uninstall:
--	rm -f $(DESTDIR)$(PKG_INSTALLDIR)/xenstat.pc
--	rm -f $(DESTDIR)$(libdir)/libxenstat.so
--	rm -f $(DESTDIR)$(libdir)/libxenstat.so.$(MAJOR)
--	rm -f $(DESTDIR)$(libdir)/libxenstat.so.$(MAJOR).$(MINOR)
--	rm -f $(DESTDIR)$(libdir)/libxenstat.a
--	rm -f $(DESTDIR)$(includedir)/xenstat.h
-+$(LIB_OBJS): _paths.h
- 
- PYLIB=bindings/swig/python/_xenstat.so
- PYMOD=bindings/swig/python/xenstat.py
-@@ -109,9 +58,9 @@ install-bindings: install-perl-bindings install-python-bindings
- .PHONY: uninstall-bindings
- uninstall-bindings: uninstall-perl-bindings uninstall-python-bindings
- 
--$(BINDINGS): $(SHLIB) $(SHLIB_LINKS) src/xenstat.h
-+$(BINDINGS): $(SHLIB) $(SHLIB_LINKS) include/xenstat.h
- 
--SWIG_FLAGS=-module xenstat -Isrc
-+SWIG_FLAGS=-module xenstat -Iinclude -I.
- 
- # Python bindings
- PYTHON_VERSION=$(PYTHON:python%=%)
-@@ -177,14 +126,9 @@ endif
- 
- .PHONY: clean
- clean:
--	rm -f $(LIB) $(SHLIB) $(SHLIB_LINKS) $(OBJECTS-y) \
--	      $(BINDINGS) $(BINDINGSRC) $(DEPS_RM) src/_paths.h
--	rm -f xenstat.pc
--
--.PHONY: distclean
--distclean: clean
-+	rm -f $(BINDINGS) $(BINDINGSRC) $(DEPS_RM) _paths.h
- 
- -include $(DEPS_INCLUDE)
- 
--genpath-target = $(call buildmakevars2header,src/_paths.h)
-+genpath-target = $(call buildmakevars2header,_paths.h)
- $(eval $(genpath-target))
-diff --git a/tools/xenstat/libxenstat/bindings/swig/perl/.empty b/tools/libs/stat/bindings/swig/perl/.empty
-similarity index 100%
-rename from tools/xenstat/libxenstat/bindings/swig/perl/.empty
-rename to tools/libs/stat/bindings/swig/perl/.empty
-diff --git a/tools/xenstat/libxenstat/bindings/swig/python/.empty b/tools/libs/stat/bindings/swig/python/.empty
-similarity index 100%
-rename from tools/xenstat/libxenstat/bindings/swig/python/.empty
-rename to tools/libs/stat/bindings/swig/python/.empty
-diff --git a/tools/xenstat/libxenstat/bindings/swig/xenstat.i b/tools/libs/stat/bindings/swig/xenstat.i
-similarity index 100%
-rename from tools/xenstat/libxenstat/bindings/swig/xenstat.i
-rename to tools/libs/stat/bindings/swig/xenstat.i
-diff --git a/tools/xenstat/libxenstat/src/xenstat.h b/tools/libs/stat/include/xenstat.h
-similarity index 98%
-rename from tools/xenstat/libxenstat/src/xenstat.h
-rename to tools/libs/stat/include/xenstat.h
-index 76a660f321..c3b98909dd 100644
---- a/tools/xenstat/libxenstat/src/xenstat.h
-+++ b/tools/libs/stat/include/xenstat.h
-@@ -71,6 +71,9 @@ unsigned long long xenstat_node_tot_mem(xenstat_node * node);
- /* Get amount of free memory on a node */
- unsigned long long xenstat_node_free_mem(xenstat_node * node);
- 
-+/* Get amount of freeable memory on a node */
-+long xenstat_node_freeable_mb(xenstat_node * node);
-+
- /* Find the number of domains existing on a node */
- unsigned int xenstat_node_num_domains(xenstat_node * node);
- 
-diff --git a/tools/libs/stat/libxenstat.map b/tools/libs/stat/libxenstat.map
-new file mode 100644
-index 0000000000..b736d8e94c
---- /dev/null
-+++ b/tools/libs/stat/libxenstat.map
-@@ -0,0 +1,54 @@
-+VERS_4.14.0 {
-+	global:
-+		xenstat_init;
-+		xenstat_uninit;
-+		xenstat_get_node;
-+		xenstat_free_node;
-+		xenstat_node_domain;
-+		xenstat_node_domain_by_index;
-+		xenstat_node_xen_version;
-+		xenstat_node_tot_mem;
-+		xenstat_node_free_mem;
-+		xenstat_node_freeable_mb;
-+		xenstat_node_num_domains;
-+		xenstat_node_num_cpus;
-+		xenstat_node_cpu_hz;
-+		xenstat_domain_id;
-+		xenstat_domain_name;
-+		xenstat_domain_cpu_ns;
-+		xenstat_domain_num_vcpus;
-+		xenstat_domain_vcpu;
-+		xenstat_domain_cur_mem;
-+		xenstat_domain_max_mem;
-+		xenstat_domain_ssid;
-+		xenstat_domain_dying;
-+		xenstat_domain_crashed;
-+		xenstat_domain_shutdown;
-+		xenstat_domain_paused;
-+		xenstat_domain_blocked;
-+		xenstat_domain_running;
-+		xenstat_domain_num_networks;
-+		xenstat_domain_network;
-+		xenstat_domain_num_vbds;
-+		xenstat_domain_vbd;
-+		xenstat_vcpu_online;
-+		xenstat_vcpu_ns;
-+		xenstat_network_id;
-+		xenstat_network_rbytes;
-+		xenstat_network_rpackets;
-+		xenstat_network_rerrs;
-+		xenstat_network_rdrop;
-+		xenstat_network_tbytes;
-+		xenstat_network_tpackets;
-+		xenstat_network_terrs;
-+		xenstat_network_tdrop;
-+		xenstat_vbd_type;
-+		xenstat_vbd_dev;
-+		xenstat_vbd_oo_reqs;
-+		xenstat_vbd_rd_reqs;
-+		xenstat_vbd_wr_reqs;
-+		xenstat_vbd_rd_sects;
-+		xenstat_vbd_wr_sects;
-+		xenstat_vbd_error;
-+	local: *; /* Do not expose anything by default */
-+};
-diff --git a/tools/xenstat/libxenstat/src/xenstat.c b/tools/libs/stat/xenstat.c
-similarity index 100%
-rename from tools/xenstat/libxenstat/src/xenstat.c
-rename to tools/libs/stat/xenstat.c
-diff --git a/tools/xenstat/libxenstat/xenstat.pc.in b/tools/libs/stat/xenstat.pc.in
-similarity index 82%
-rename from tools/xenstat/libxenstat/xenstat.pc.in
-rename to tools/libs/stat/xenstat.pc.in
-index ad00577c89..6005593ba1 100644
---- a/tools/xenstat/libxenstat/xenstat.pc.in
-+++ b/tools/libs/stat/xenstat.pc.in
-@@ -7,4 +7,4 @@ Description: The Xenstat library for Xen hypervisor
- Version: @@version@@
- Cflags: -I${includedir}
- Libs: @@libsflag@@${libdir} -lxenstat
--Requires.private: xencontrol,xenstore
-+Requires.private: xencontrol,xenstore,yajl
-diff --git a/tools/xenstat/libxenstat/src/xenstat_freebsd.c b/tools/libs/stat/xenstat_freebsd.c
-similarity index 100%
-rename from tools/xenstat/libxenstat/src/xenstat_freebsd.c
-rename to tools/libs/stat/xenstat_freebsd.c
-diff --git a/tools/xenstat/libxenstat/src/xenstat_linux.c b/tools/libs/stat/xenstat_linux.c
-similarity index 98%
-rename from tools/xenstat/libxenstat/src/xenstat_linux.c
-rename to tools/libs/stat/xenstat_linux.c
-index 7530349eee..793263f2b6 100644
---- a/tools/xenstat/libxenstat/src/xenstat_linux.c
-+++ b/tools/libs/stat/xenstat_linux.c
-@@ -64,7 +64,7 @@ static const char PROCNETDEV_HEADER[] =
- 
- /* We need to get the name of the bridge interface for use with bonding interfaces */
- /* Use excludeName parameter to avoid adding bridges we don't care about, eg. virbr0 */
--void getBridge(char *excludeName, char *result, size_t resultLen)
-+static void getBridge(char *excludeName, char *result, size_t resultLen)
- {
- 	struct dirent *de;
- 	DIR *d;
-@@ -89,7 +89,7 @@ void getBridge(char *excludeName, char *result, size_t resultLen)
- 
- /* parseNetLine provides regular expression based parsing for lines from /proc/net/dev, all the */
- /* information are parsed but not all are used in our case, ie. for xenstat */
--int parseNetDevLine(char *line, char *iface, unsigned long long *rxBytes, unsigned long long *rxPackets,
-+static int parseNetDevLine(char *line, char *iface, unsigned long long *rxBytes, unsigned long long *rxPackets,
- 		unsigned long long *rxErrs, unsigned long long *rxDrops, unsigned long long *rxFifo,
- 		unsigned long long *rxFrames, unsigned long long *rxComp, unsigned long long *rxMcast,
- 		unsigned long long *txBytes, unsigned long long *txPackets, unsigned long long *txErrs,
-diff --git a/tools/xenstat/libxenstat/src/xenstat_netbsd.c b/tools/libs/stat/xenstat_netbsd.c
-similarity index 100%
-rename from tools/xenstat/libxenstat/src/xenstat_netbsd.c
-rename to tools/libs/stat/xenstat_netbsd.c
-diff --git a/tools/xenstat/libxenstat/src/xenstat_priv.h b/tools/libs/stat/xenstat_priv.h
-similarity index 100%
-rename from tools/xenstat/libxenstat/src/xenstat_priv.h
-rename to tools/libs/stat/xenstat_priv.h
-diff --git a/tools/xenstat/libxenstat/src/xenstat_qmp.c b/tools/libs/stat/xenstat_qmp.c
-similarity index 100%
-rename from tools/xenstat/libxenstat/src/xenstat_qmp.c
-rename to tools/libs/stat/xenstat_qmp.c
-diff --git a/tools/xenstat/libxenstat/src/xenstat_solaris.c b/tools/libs/stat/xenstat_solaris.c
-similarity index 100%
-rename from tools/xenstat/libxenstat/src/xenstat_solaris.c
-rename to tools/libs/stat/xenstat_solaris.c
-diff --git a/tools/xenstat/Makefile b/tools/xenstat/Makefile
-deleted file mode 100644
-index b300f31289..0000000000
---- a/tools/xenstat/Makefile
-+++ /dev/null
-@@ -1,10 +0,0 @@
--XEN_ROOT = $(CURDIR)/../..
--include $(XEN_ROOT)/tools/Rules.mk
--
--SUBDIRS :=
--SUBDIRS += libxenstat
--SUBDIRS += xentop
--
--.PHONY: all install clean distclean uninstall
--
--all install clean distclean uninstall: %: subdirs-%
-diff --git a/tools/xenstat/xentop/Makefile b/tools/xentop/Makefile
-similarity index 97%
-rename from tools/xenstat/xentop/Makefile
-rename to tools/xentop/Makefile
-index ec612db2a2..0034114684 100644
---- a/tools/xenstat/xentop/Makefile
-+++ b/tools/xentop/Makefile
-@@ -10,7 +10,7 @@
- # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- # GNU General Public License for more details.
- 
--XEN_ROOT=$(CURDIR)/../../..
-+XEN_ROOT=$(CURDIR)/../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
- ifneq ($(XENSTAT_XENTOP),y)
-diff --git a/tools/xenstat/xentop/TODO b/tools/xentop/TODO
-similarity index 100%
-rename from tools/xenstat/xentop/TODO
-rename to tools/xentop/TODO
-diff --git a/tools/xenstat/xentop/xentop.c b/tools/xentop/xentop.c
-similarity index 100%
-rename from tools/xenstat/xentop/xentop.c
-rename to tools/xentop/xentop.c
 -- 
 2.20.1
 
