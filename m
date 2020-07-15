@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAC822212FB
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 18:51:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5FEC221304
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 18:55:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvkbw-0005ph-P7; Wed, 15 Jul 2020 16:50:24 +0000
+	id 1jvkgJ-00060P-A0; Wed, 15 Jul 2020 16:54:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cSQs=A2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jvkbv-0005pc-OO
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 16:50:23 +0000
-X-Inumbo-ID: 45c2e292-c6bb-11ea-9421-12813bfff9fa
+ id 1jvkgI-00060K-17
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 16:54:54 +0000
+X-Inumbo-ID: e73f0c9a-c6bb-11ea-9421-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 45c2e292-c6bb-11ea-9421-12813bfff9fa;
- Wed, 15 Jul 2020 16:50:22 +0000 (UTC)
+ id e73f0c9a-c6bb-11ea-9421-12813bfff9fa;
+ Wed, 15 Jul 2020 16:54:53 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 92EA020663;
- Wed, 15 Jul 2020 16:50:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 82FC620672;
+ Wed, 15 Jul 2020 16:54:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594831821;
- bh=MsnVDJvH5tGqYJ73GYPExLOKOnGhVsOzCRRS2prv6qE=;
+ s=default; t=1594832092;
+ bh=vIE56xHguh9oMOrReykdU+3lDSXsqRwrprk5pkM7Qq8=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=iXhnZldnLaOlvUXB59a0CIHvgBFHcScVxFSaP3tyQG3ufL0QxzRcLoST9StJWX3Di
- ocda536tl0fZuzmUmNSDuiUneCezmx4W4m3Ejgt2wrpfwuxZGZp3/b1t/OqACt1YKd
- HUSpZk0icpuIDdfQxUe/V+JEat/3q/GQkp7NHZEY=
-Date: Wed, 15 Jul 2020 09:50:20 -0700 (PDT)
+ b=EYRa8hlmcmJjrPosothC9AU9Yq1muhce8TjFmOhQ27bNOWVe75q/fUiIMlT7NWiW2
+ SC6b7jxXBNfDoE0SpKstnDLBoeI7S+FMvVNoIdvLWerKRndIbv0/OXCiR0rMYNjG6i
+ m58e14AD5Xusv+q/X5aIzAqgDmC+DsQ0iKKxcTM0=
+Date: Wed, 15 Jul 2020 09:54:52 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: incoming+61544a64d0c2dc4555813e58f3810dd7@incoming.gitlab.com, 
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 00/12] tools: move more libraries into tools/libs
-In-Reply-To: <20200715162511.5941-1-ian.jackson@eu.citrix.com>
-Message-ID: <alpine.DEB.2.21.2007150945230.4124@sstabellini-ThinkPad-T480s>
-References: <20200715162511.5941-1-ian.jackson@eu.citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 4/8] Arm: prune #include-s needed by domain.h
+In-Reply-To: <150525bb-1c48-c331-3212-eff18bc4c13d@suse.com>
+Message-ID: <alpine.DEB.2.21.2007150954410.4124@sstabellini-ThinkPad-T480s>
+References: <3375cacd-d3b7-9f06-44a7-4b684b6a77d6@suse.com>
+ <150525bb-1c48-c331-3212-eff18bc4c13d@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -53,47 +53,52 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@dornerworks.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, ian.jackson@eu.citrix.com,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 15 Jul 2020, Ian Jackson wrote:
-> [ NB: this patch series is actually from Juergen Gross.
+On Wed, 15 Jul 2020, Jan Beulich wrote:
+> asm/domain.h is a dependency of xen/sched.h, and hence should not itself
+> include xen/sched.h. Nor should any of the other #include-s used by it.
+> While at it, also drop two other #include-s that aren't needed by this
+> particular header.
 > 
->   It is being experiemntally handled as a Merge Reqeust in gitlab, in
->   part to see what problems there are with that workflow that will
->   need extra tooling or whatever.
-> 
->   I have manually generated this series using git-format-patch,
->   scripts/add_maintainers.pl, and git-send-email.  I expect that if we
->   adopt this as a real workflow, we will want to make a robot do some
->   of that.
-> 
->   I have set replies to go to the Gitlab comment thread and to
->   xen-devel.  Again this is experimental.  We are likely to need
->   something to automatically collect acks, at the very least.
-> 
->   Reviewers: for now, please review this series as normal.  You may
->   reply to the messages by email.  Please, for now, send your replies
->   to gitlab and to the mailing list.  I think I have set the reply-to
->   appropriately.
-> 
->   Alternatively you may review the code in the gitlab web UI.  But
->   please do not use the line-by-line comment system: write only to the
->   main MR discussion thread.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks for doing this Ian.
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-I am curious about this: why not the line-by-line comment system? It
-looks like it would be the most similar to emails comments. Is it
-because comments done that way cannot be sent via email while the main
-MR discussion thread can?
+
+> --- a/xen/include/asm-arm/domain.h
+> +++ b/xen/include/asm-arm/domain.h
+> @@ -2,7 +2,7 @@
+>  #define __ASM_DOMAIN_H__
+>  
+>  #include <xen/cache.h>
+> -#include <xen/sched.h>
+> +#include <xen/timer.h>
+>  #include <asm/page.h>
+>  #include <asm/p2m.h>
+>  #include <asm/vfp.h>
+> @@ -11,8 +11,6 @@
+>  #include <asm/vgic.h>
+>  #include <asm/vpl011.h>
+>  #include <public/hvm/params.h>
+> -#include <xen/serial.h>
+> -#include <xen/rbtree.h>
+>  
+>  struct hvm_domain
+>  {
+> --- a/xen/include/asm-arm/vfp.h
+> +++ b/xen/include/asm-arm/vfp.h
+> @@ -1,7 +1,7 @@
+>  #ifndef _ASM_VFP_H
+>  #define _ASM_VFP_H
+>  
+> -#include <xen/sched.h>
+> +struct vcpu;
+>  
+>  #if defined(CONFIG_ARM_32)
+>  # include <asm/arm32/vfp.h>
+> 
 
