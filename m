@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 420AF220C9A
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 14:04:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C06D8220CA1
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 14:05:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvg8z-0001od-Np; Wed, 15 Jul 2020 12:04:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jvg9v-0001wL-1t; Wed, 15 Jul 2020 12:05:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9G22=A2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jvg8y-0001oT-AH
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 12:04:12 +0000
-X-Inumbo-ID: 4b3f336a-c693-11ea-8496-bc764e2007e4
+ id 1jvg9u-0001wE-7t
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 12:05:10 +0000
+X-Inumbo-ID: 6de2f24e-c693-11ea-93cc-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4b3f336a-c693-11ea-8496-bc764e2007e4;
- Wed, 15 Jul 2020 12:04:11 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6de2f24e-c693-11ea-93cc-12813bfff9fa;
+ Wed, 15 Jul 2020 12:05:09 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 37782AB76;
- Wed, 15 Jul 2020 12:04:14 +0000 (UTC)
-Subject: [PATCH 2/3] x86/HVM: re-work hvm_wait_for_io() a little
+ by mx2.suse.de (Postfix) with ESMTP id 54009B1CE;
+ Wed, 15 Jul 2020 12:05:12 +0000 (UTC)
+Subject: [PATCH 3/3] x86/HVM: fold both instances of looking up a
+ hvm_ioreq_vcpu with a request pending
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <42270be7-43d6-ba53-3896-e20b5d7e3de0@suse.com>
-Message-ID: <872c2d16-f49a-41fd-68ae-f1e0ee14c7d8@suse.com>
-Date: Wed, 15 Jul 2020 14:04:12 +0200
+Message-ID: <ab92e0ec-d869-dae6-f47c-b7ac55bea326@suse.com>
+Date: Wed, 15 Jul 2020 14:05:09 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -50,72 +52,84 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Convert the function's main loop to a more ordinary one, without goto
-and without initial steps not needing to be inside a loop at all.
+It seems pretty likely that the "break" in the loop getting replaced in
+handle_hvm_io_completion() was meant to exit both nested loops at the
+same time. Re-purpose what has been hvm_io_pending() to hand back the
+struct hvm_ioreq_vcpu instance found, and use it to replace the two
+nested loops.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/hvm/ioreq.c
 +++ b/xen/arch/x86/hvm/ioreq.c
-@@ -106,24 +106,17 @@ bool hvm_io_pending(struct vcpu *v)
- static bool hvm_wait_for_io(struct hvm_ioreq_vcpu *sv, ioreq_t *p)
+@@ -81,7 +81,8 @@ static ioreq_t *get_ioreq(struct hvm_ior
+     return &p->vcpu_ioreq[v->vcpu_id];
+ }
+ 
+-bool hvm_io_pending(struct vcpu *v)
++static struct hvm_ioreq_vcpu *get_pending_vcpu(const struct vcpu *v,
++                                               struct hvm_ioreq_server **srvp)
  {
-     unsigned int prev_state = STATE_IOREQ_NONE;
-+    unsigned int state = p->state;
-     uint64_t data = ~0;
- 
--    do {
--        unsigned int state = p->state;
--
--        smp_rmb();
--
--    recheck:
--        if ( unlikely(state == STATE_IOREQ_NONE) )
--        {
--            /*
--             * The only reason we should see this case is when an
--             * emulator is dying and it races with an I/O being
--             * requested.
--             */
--            break;
--        }
-+    smp_rmb();
- 
-+    /*
-+     * The only reason we should see this condition be false is when an
-+     * emulator dying races with I/O being requested.
-+     */
-+    while ( likely(state != STATE_IOREQ_NONE) )
-+    {
-         if ( unlikely(state < prev_state) )
+     struct domain *d = v->domain;
+     struct hvm_ioreq_server *s;
+@@ -96,11 +97,20 @@ bool hvm_io_pending(struct vcpu *v)
+                               list_entry )
          {
-             gdprintk(XENLOG_ERR, "Weird HVM ioreq state transition %u -> %u\n",
-@@ -139,20 +132,24 @@ static bool hvm_wait_for_io(struct hvm_i
-             p->state = STATE_IOREQ_NONE;
-             data = p->data;
-             break;
-+
-         case STATE_IOREQ_READY:  /* IOREQ_{READY,INPROCESS} -> IORESP_READY */
-         case STATE_IOREQ_INPROCESS:
-             wait_on_xen_event_channel(sv->ioreq_evtchn,
-                                       ({ state = p->state;
-                                          smp_rmb();
-                                          state != prev_state; }));
--            goto recheck;
-+            continue;
-+
-         default:
-             gdprintk(XENLOG_ERR, "Weird HVM iorequest state %u\n", state);
-             sv->pending = false;
-             domain_crash(sv->vcpu->domain);
-             return false; /* bail */
+             if ( sv->vcpu == v && sv->pending )
+-                return true;
++            {
++                if ( srvp )
++                    *srvp = s;
++                return sv;
++            }
          }
--    } while ( false );
-+
-+        break;
-+    }
+     }
  
-     p = &sv->vcpu->arch.hvm.hvm_io.io_req;
-     if ( hvm_ioreq_needs_completion(p) )
-
+-    return false;
++    return NULL;
++}
++
++bool hvm_io_pending(struct vcpu *v)
++{
++    return get_pending_vcpu(v, NULL);
+ }
+ 
+ static bool hvm_wait_for_io(struct hvm_ioreq_vcpu *sv, ioreq_t *p)
+@@ -165,8 +175,8 @@ bool handle_hvm_io_completion(struct vcp
+     struct domain *d = v->domain;
+     struct hvm_vcpu_io *vio = &v->arch.hvm.hvm_io;
+     struct hvm_ioreq_server *s;
++    struct hvm_ioreq_vcpu *sv;
+     enum hvm_io_completion io_completion;
+-    unsigned int id;
+ 
+     if ( has_vpci(d) && vpci_process_pending(v) )
+     {
+@@ -174,23 +184,9 @@ bool handle_hvm_io_completion(struct vcp
+         return false;
+     }
+ 
+-    FOR_EACH_IOREQ_SERVER(d, id, s)
+-    {
+-        struct hvm_ioreq_vcpu *sv;
+-
+-        list_for_each_entry ( sv,
+-                              &s->ioreq_vcpu_list,
+-                              list_entry )
+-        {
+-            if ( sv->vcpu == v && sv->pending )
+-            {
+-                if ( !hvm_wait_for_io(sv, get_ioreq(s, v)) )
+-                    return false;
+-
+-                break;
+-            }
+-        }
+-    }
++    sv = get_pending_vcpu(v, &s);
++    if ( sv && !hvm_wait_for_io(sv, get_ioreq(s, v)) )
++        return false;
+ 
+     vio->io_req.state = hvm_ioreq_needs_completion(&vio->io_req) ?
+         STATE_IORESP_READY : STATE_IOREQ_NONE;
 
