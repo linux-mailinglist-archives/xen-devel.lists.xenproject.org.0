@@ -2,55 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D76B6221329
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 19:06:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFA38221335
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 19:07:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvkr6-0007Z6-NR; Wed, 15 Jul 2020 17:06:04 +0000
+	id 1jvksd-0007eW-2z; Wed, 15 Jul 2020 17:07:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cSQs=A2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jvkr4-0007Yz-Kz
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 17:06:02 +0000
-X-Inumbo-ID: 75f660fe-c6bd-11ea-bb8b-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=3pvp=A2=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jvksa-0007eR-Ny
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 17:07:36 +0000
+X-Inumbo-ID: add44c0c-c6bd-11ea-8496-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 75f660fe-c6bd-11ea-bb8b-bc764e2007e4;
- Wed, 15 Jul 2020 17:06:02 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0D53F2065E;
- Wed, 15 Jul 2020 17:06:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1594832761;
- bh=MVQs60eyaseKttygMi5Okmio5UqpxovjpBaGYM2KopU=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=CBPLDZ0a2kofL5+ir7rsYDlbbpzpSFpGzRjY5GXtgxKoOkAVo9rx/IXw2nZaAg6FP
- 0PGoTpRFSOeEWLcCxLE4J3D3xFoVDU+sXxptoew5BleNGM0IN0YcxXbu+SlhudGRTe
- VCtmQZUU53N6u7CQ+nguMHVqQdrr4STCBfllpVWM=
-Date: Wed, 15 Jul 2020 10:06:00 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH] xen: introduce xen_vring_use_dma
-In-Reply-To: <20200711144334-mutt-send-email-mst@kernel.org>
-Message-ID: <alpine.DEB.2.21.2007151001140.4124@sstabellini-ThinkPad-T480s>
-References: <20200624163940-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006241351430.8121@sstabellini-ThinkPad-T480s>
- <20200624181026-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006251014230.8121@sstabellini-ThinkPad-T480s>
- <20200626110629-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2006291621300.8121@sstabellini-ThinkPad-T480s>
- <20200701133456.GA23888@infradead.org>
- <alpine.DEB.2.21.2007011020320.8121@sstabellini-ThinkPad-T480s>
- <20200701172219-mutt-send-email-mst@kernel.org>
- <alpine.DEB.2.21.2007101019340.4124@sstabellini-ThinkPad-T480s>
- <20200711144334-mutt-send-email-mst@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id add44c0c-c6bd-11ea-8496-bc764e2007e4;
+ Wed, 15 Jul 2020 17:07:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1594832857;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:cc:subject:in-reply-to:references;
+ bh=FbX8MjGKU+Jfj1e6lWUlUNKCQU6B26jDQrRmqinAWoI=;
+ b=FsERpbvM4wF+rYh1AOG13MjJTRidrivsie2Pm1yaDYV+9uu/8DVhE6Ju
+ cw5ohQ1qi2rar7bRX73rsd5BvTc47Iy7a7zufwcziH5cnByBIFTWl7+Wh
+ z1/4HfphDS7Cx7ZG2N3edoswBNeKEK1hpMpY+kLhwNGCYUX/sdyt2Bnwj A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: D/DN2EO85rxYrB9J08pvpyvYW26JREQWaJAbgsFzLG69gc4OmjyR4KldJNsUye+fN17yBVse0W
+ prHEHU1JUzMTPBNdthMXHfK7n8nMfrhgd8on6j5ufvELg6merpQ7E45UowWvok967oZnZHP0Rx
+ saRi1ByNNnrILOmKPAeiZ6N0uSAKBv284+LNjWbSDn8bLU8SBre4coTmb36QV/lPGuhzGXGmSN
+ QCjqVgq1BIJWbs37VixQi4ez5ieQqmIY1eGYYcr2PL4GOKYgtdRTt9EaBIBkI/HUg2Qwc+dS3w
+ ok8=
+X-SBRS: 2.7
+X-MesageID: 22776360
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,355,1589256000"; d="scan'208";a="22776360"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24335.14276.232430.125457@mariner.uk.xensource.com>
+Date: Wed, 15 Jul 2020 18:07:16 +0100
+To: "incoming+61544a64d0c2dc4555813e58f3810dd7@incoming.gitlab.com"
+ <incoming+61544a64d0c2dc4555813e58f3810dd7@incoming.gitlab.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 07/12] tools/libxc: untangle libxenctrl from libxenguest
+In-Reply-To: <20200715162511.5941-9-ian.jackson@eu.citrix.com>
+References: <20200715162511.5941-1-ian.jackson@eu.citrix.com>
+ <20200715162511.5941-9-ian.jackson@eu.citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +63,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Peng Fan <peng.fan@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>, konrad.wilk@oracle.com,
- jasowang@redhat.com, x86@kernel.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- Christoph Hellwig <hch@infradead.org>, iommu@lists.linux-foundation.org,
- linux-imx@nxp.com, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Juergen Gross <jgross@suse.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
+ <marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sat, 11 Jul 2020, Michael S. Tsirkin wrote:
-> On Fri, Jul 10, 2020 at 10:23:22AM -0700, Stefano Stabellini wrote:
-> > Sorry for the late reply -- a couple of conferences kept me busy.
-> > 
-> > 
-> > On Wed, 1 Jul 2020, Michael S. Tsirkin wrote:
-> > > On Wed, Jul 01, 2020 at 10:34:53AM -0700, Stefano Stabellini wrote:
-> > > > Would you be in favor of a more flexible check along the lines of the
-> > > > one proposed in the patch that started this thread:
-> > > > 
-> > > >     if (xen_vring_use_dma())
-> > > >             return true;
-> > > > 
-> > > > 
-> > > > xen_vring_use_dma would be implemented so that it returns true when
-> > > > xen_swiotlb is required and false otherwise.
-> > > 
-> > > Just to stress - with a patch like this virtio can *still* use DMA API
-> > > if PLATFORM_ACCESS is set. So if DMA API is broken on some platforms
-> > > as you seem to be saying, you guys should fix it before doing something
-> > > like this..
-> > 
-> > Yes, DMA API is broken with some interfaces (specifically: rpmesg and
-> > trusty), but for them PLATFORM_ACCESS is never set. That is why the
-> > errors weren't reported before. Xen special case aside, there is no
-> > problem under normal circumstances.
+Ian Jackson writes ("[PATCH 07/12] tools/libxc: untangle libxenctrl from libxenguest"):
+> From: Juergen Gross <jgross@suse.com>
 > 
-> So why not fix DMA API? Then this patch is not needed.
+> Sources of libxenctrl and libxenguest are completely entangled. In
+> practice libxenguest is a user of libxenctrl, so don't let any source
+> libxenctrl include xg_private.h.
+> 
+> This can be achieved by moving all definitions used by libxenctrl from
+> xg_private.h to xc_private.h. Additionally xc_dom.h needs to be
+> exported, so rename it to xenctrl_dom.h.
+> 
+> Rename all libxenguest sources from xc_* to xg_*.
+> 
+> Move xc_[un]map_domain_meminfo() fnctions to new source xg_domain.c as
+> they are defined in include/xenguest.h and should be in libxenguest.
+> 
+> Remove xc_efi.h and xc_elf.h as they aren't used anywhere.
 
-It looks like the conversation is going in circles :-)
+Reviewing this is quite difficult.  Is there any way it could be split
+up ?  Perhaps some of it could be generated automatically ?  (Eg you
+could send a patch whose commit message had the perl rune you used to
+generate it, which would enable a reviewer to see what was supposed to
+be going on.)
 
-I tried to explain the reason why, even if we fixed the DMA API to work
-with rpmesg and trusty, we still need this patch with the following
-email:  https://marc.info/?l=linux-kernel&m=159347446709625&w=2
-
-
-At that time it looked like you agreed that we needed to improve this
-check?  (https://marc.info/?l=linux-kernel&m=159363662418250&w=2)
+Thanks,
+Ian.
 
