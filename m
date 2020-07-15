@@ -2,41 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E19FC220CE7
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 14:29:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CFD7220CF1
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 14:31:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvgWx-0003ye-FD; Wed, 15 Jul 2020 12:28:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9G22=A2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jvgWv-0003yZ-KT
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 12:28:57 +0000
-X-Inumbo-ID: bfe0b038-c696-11ea-93d4-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bfe0b038-c696-11ea-93d4-12813bfff9fa;
- Wed, 15 Jul 2020 12:28:56 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 513C2AC83;
- Wed, 15 Jul 2020 12:28:58 +0000 (UTC)
-Subject: Re: [PATCH v6 01/11] memory: batch processing in acquire_resource()
-To: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>
-References: <cover.1594150543.git.michal.leszczynski@cert.pl>
- <02415890e4e8211513b495228c790e1d16de767f.1594150543.git.michal.leszczynski@cert.pl>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <83100b6c-3a06-e379-bef0-fcbd8fdcce98@suse.com>
-Date: Wed, 15 Jul 2020 14:28:55 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 1jvgZ9-0004kw-T5; Wed, 15 Jul 2020 12:31:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hlgd=A2=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jvgZ8-0004kq-Fo
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 12:31:14 +0000
+X-Inumbo-ID: 12129312-c697-11ea-bb8b-bc764e2007e4
+Received: from mail-wr1-x432.google.com (unknown [2a00:1450:4864:20::432])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 12129312-c697-11ea-bb8b-bc764e2007e4;
+ Wed, 15 Jul 2020 12:31:13 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id f7so2516890wrw.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2020 05:31:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=QHdNXpa9mboIfnxcYiH8e2qwHoHgSHKSNZWbmNm5qN0=;
+ b=ipC4LPP4kT51AjTBIodCMRGeY3wTja0cjvXAsJ3HgQ82OFikIQQ7esuamuqQkrkiT4
+ 6S9dvbTnMZhwmI+m0mqIK9cYh+LlOOIYb5rMpZ4ioWzL5vncr9s8YLVp0WLcyyQv9sWl
+ PYphrIrrgCPfcHBaKyeeHBzGAFzcoz4tb+djXVu3QzHXsY+g0Yr3U2g/rP8pnxPTsBgk
+ FjCyzgHsly5QwCWX2N14iYXaHA/ugseFdSIIcfya6RH7Bkw291LRe4K3NQH8IkEbICHt
+ P/h/x/OTDnsAwBbhoBKvvO2XCpjqxF19NuJaNqAHp2mlwl4MPCZ+yvecv11L4p4msq3P
+ 0U2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=QHdNXpa9mboIfnxcYiH8e2qwHoHgSHKSNZWbmNm5qN0=;
+ b=elHhLhbq4hPOpzaJ3Dr1FjKMnEv4fVSnR6Ltaq/3j4SZJr5zTf7uJVDFVh/EdFtPH+
+ iKXC0qJaDVfHa+00ZDNPqWmebSZ61ZFySozTuLoStwGk9A9DIi+8ecjNp6Kj4/PbxDi3
+ o0qB+Brdf9jDnViSSgn0ZKAsZHWldH6t2Ub7z8VkHm0ZIVTSbmb5c7SEFKAxWAvPI6pq
+ tJCIB+G3xgyDHTdNup9V5pqbuKEhcSKKhsUUe64/vASg6r+gMBbnVh1zij36ANyc+IQj
+ uwnsnSApWXI4x066uB7KCBfz0xqsCaFfjiSbZzb3BYSc23ogAuKBMnCjFgeXCGCUPB6x
+ 3inw==
+X-Gm-Message-State: AOAM532JOg5x1BloHPccDnbUjGOKroR5RnG4xC4qSKC0i98iMLBQjPmo
+ 4T/snA56qxPMNwp7H/+h9SY=
+X-Google-Smtp-Source: ABdhPJw8zYWZhX7NAipuS5bEckvfBxCavsC8toIZHKTV9Q40oKjTlUkMUEUo7ORbqhNghQTX5czLdg==
+X-Received: by 2002:adf:fd8e:: with SMTP id d14mr11202870wrr.202.1594816272940; 
+ Wed, 15 Jul 2020 05:31:12 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
+ by smtp.gmail.com with ESMTPSA id j145sm3424894wmj.7.2020.07.15.05.31.11
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 15 Jul 2020 05:31:12 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	<xen-devel@lists.xenproject.org>
+References: <5426dd6f-50cd-dc23-5c6b-0ab631d98d38@suse.com>
+ <7dd4b668-06ca-807a-9cc1-77430b2376a8@suse.com>
+In-Reply-To: <7dd4b668-06ca-807a-9cc1-77430b2376a8@suse.com>
+Subject: RE: [PATCH v3 1/2] x86: restore pv_rtc_handler() invocation
+Date: Wed, 15 Jul 2020 13:31:11 +0100
+Message-ID: <001801d65aa3$d33bd090$79b371b0$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <02415890e4e8211513b495228c790e1d16de767f.1594150543.git.michal.leszczynski@cert.pl>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJIM2WedjUkwpXeO7NSr7H9rPuYmAKgm2H4qA/b1LA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,96 +78,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- tamas.lengyel@intel.com, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, luwei.kang@intel.com,
- xen-devel@lists.xenproject.org
+Reply-To: paul@xen.org
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>, 'Wei Liu' <wl@xen.org>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.07.2020 21:39, Michał Leszczyński wrote:
-> From: Michal Leszczynski <michal.leszczynski@cert.pl>
-> 
-> Allow to acquire large resources by allowing acquire_resource()
-> to process items in batches, using hypercall continuation.
-> 
-> Be aware that this modifies the behavior of acquire_resource
-> call with frame_list=NULL. While previously it would return
-> the size of internal array (32), with this patch it returns
-> the maximal quantity of frames that could be requested at once,
-> i.e. UINT_MAX >> MEMOP_EXTENT_SHIFT.
-
-This isn't really a behavioral change, and hence I'd prefer this
-to be re-worded: It was and is the upper bound on request sizes
-that gets reported here. It's just that this upper bound now
-changes.
-
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -1046,10 +1046,12 @@ static int acquire_grant_table(struct domain *d, unsigned int id,
->  }
->  
->  static int acquire_resource(
-> -    XEN_GUEST_HANDLE_PARAM(xen_mem_acquire_resource_t) arg)
-> +    XEN_GUEST_HANDLE_PARAM(xen_mem_acquire_resource_t) arg,
-> +    unsigned long *start_extent)
->  {
->      struct domain *d, *currd = current->domain;
->      xen_mem_acquire_resource_t xmar;
-> +    uint32_t total_frames;
-
-Please don't use fixed width types when plain C types will do
-(unsigned int here).
-
-> @@ -1069,7 +1071,7 @@ static int acquire_resource(
->          if ( xmar.nr_frames )
->              return -EINVAL;
->  
-> -        xmar.nr_frames = ARRAY_SIZE(mfn_list);
-> +        xmar.nr_frames = UINT_MAX >> MEMOP_EXTENT_SHIFT;
->  
->          if ( __copy_field_to_guest(arg, &xmar, nr_frames) )
->              return -EFAULT;
-> @@ -1077,8 +1079,28 @@ static int acquire_resource(
->          return 0;
->      }
->  
-> +    total_frames = xmar.nr_frames;
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 15 July 2020 12:57
+> To: xen-devel@lists.xenproject.org
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Paul Durrant =
+<paul@xen.org>; Wei Liu <wl@xen.org>;
+> Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> Subject: [PATCH v3 1/2] x86: restore pv_rtc_handler() invocation
+>=20
+> This was lost when making the logic accessible to PVH Dom0.
+>=20
+> While doing so make the access to the global function pointer safe
+> against races (as noticed by Roger): The only current user wants to be
+> invoked just once (but can tolerate to be invoked multiple times),
+> zapping the pointer at that point.
+>=20
+> Fixes: 835d8d69d96a ("x86/rtc: provide mediated access to RTC for PVH =
+dom0")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v3: Latch pointer under lock.
+> v2: New.
+>=20
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -1148,6 +1148,8 @@ void rtc_guest_write(unsigned int port,
+>=20
+>      switch ( port )
+>      {
+> +        typeof(pv_rtc_handler) hook;
 > +
-> +    /* Is the size too large for us to encode a continuation? */
-> +    if ( unlikely(xmar.nr_frames > (UINT_MAX >> MEMOP_EXTENT_SHIFT)) )
-> +        return -EINVAL;
+>      case RTC_PORT(0):
+>          /*
+>           * All PV domains (and PVH dom0) are allowed to write to the =
+latched
+> @@ -1160,6 +1162,14 @@ void rtc_guest_write(unsigned int port,
+>      case RTC_PORT(1):
+>          if ( !ioports_access_permitted(currd, RTC_PORT(0), =
+RTC_PORT(1)) )
+>              break;
 > +
-> +    if ( *start_extent )
-> +    {
-> +        /*
-> +         * Check whether start_extent is in bounds, as this
-> +         * value if visible to the calling domain.
-> +         */
-> +        if ( *start_extent > xmar.nr_frames )
-> +            return -EINVAL;
+> +        spin_lock_irqsave(&rtc_lock, flags);
+> +        hook =3D pv_rtc_handler;
+> +        spin_unlock_irqrestore(&rtc_lock, flags);
 > +
-> +        xmar.frame += *start_extent;
-> +        xmar.nr_frames -= *start_extent;
-> +        guest_handle_add_offset(xmar.frame_list, *start_extent);
-> +    }
+> +        if ( hook )
+> +            hook(currd->arch.cmos_idx & 0x7f, data);
+> +
+>          spin_lock_irqsave(&rtc_lock, flags);
+>          outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+>          outb(data, RTC_PORT(1));
 
-May I ask that you drop the if() around this block of code?
+LGTM..
 
-Also, looking at this, I wonder whether it's a good idea to use the
-"start extent" model here anyway: You could as well update the
-struct (saying that it may be clobbered in the public header) and
-copy the whole thing back to the original guest struct. This would
-then remove the pretty arbitrary "UINT_MAX >> MEMOP_EXTENT_SHIFT"
-limit you currently need to enforce. The main question is whether
-we'd consider such an adjustment to an existing interface
-acceptable; there's an at least theoretical risk that it may break
-existing callers. Then again no existing caller can sensibly have
-specified a count above 32, and when the copying back would be
-limited to just the continuation case, no such caller would be
-affected in any way afaict.
+Release-acked-by: Paul Durrant <paul@xen.org>
 
-Jan
+
 
