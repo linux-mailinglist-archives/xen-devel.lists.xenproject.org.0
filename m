@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 295E8220A6C
+	by mail.lfdr.de (Postfix) with ESMTPS id 71E29220A6D
 	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2020 12:48:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvexT-0002e1-Tx; Wed, 15 Jul 2020 10:48:15 +0000
+	id 1jvey1-0002iJ-7N; Wed, 15 Jul 2020 10:48:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9G22=A2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jvexS-0002dr-Qi
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 10:48:14 +0000
-X-Inumbo-ID: aeb598fe-c688-11ea-93b7-12813bfff9fa
+ id 1jvexz-0002i6-Mq
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2020 10:48:47 +0000
+X-Inumbo-ID: c204da5a-c688-11ea-93b7-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id aeb598fe-c688-11ea-93b7-12813bfff9fa;
- Wed, 15 Jul 2020 10:48:14 +0000 (UTC)
+ id c204da5a-c688-11ea-93b7-12813bfff9fa;
+ Wed, 15 Jul 2020 10:48:46 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 90D91ADC2;
- Wed, 15 Jul 2020 10:48:16 +0000 (UTC)
-Subject: [PATCH 1/4] x86: replace __ASM_{CL,ST}AC
+ by mx2.suse.de (Postfix) with ESMTP id F3884AAE8;
+ Wed, 15 Jul 2020 10:48:48 +0000 (UTC)
+Subject: [PATCH 2/4] x86: reduce CET-SS related #ifdef-ary
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <58b9211a-f6dd-85da-d0bd-c927ac537a5d@suse.com>
-Message-ID: <fc8e042e-fef8-ac38-34d8-16b13e4b0135@suse.com>
-Date: Wed, 15 Jul 2020 12:48:14 +0200
+Message-ID: <58615a18-7f81-c000-d499-1a49f4752879@suse.com>
+Date: Wed, 15 Jul 2020 12:48:46 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -51,109 +51,98 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Introduce proper assembler macros instead, enabled only when the
-assembler itself doesn't support the insns. To avoid duplicating the
-macros for assembly and C files, have them processed into asm-macros.h.
-This in turn requires adding a multiple inclusion guard when generating
-that header.
+Commit b586a81b7a90 ("x86/CET: Fix build following c/s 43b98e7190") had
+to introduce a number of #ifdef-s to make the build work with older tool
+chains. Introduce an assembler macro covering for tool chains not
+knowing of CET-SS, allowing some conditionals where just SETSSBSY is the
+problem to be dropped again.
 
 No change to generated code.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Now that I've done this I'm not longer sure which direction is better to
+follow: On one hand this introduces dead code (even if just NOPs) into
+CET-SS-disabled builds. Otoh this is a step towards breaking the tool
+chain version dependency of the feature.
 
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -235,7 +235,10 @@ $(BASEDIR)/include/asm-x86/asm-macros.h:
- 	echo '#if 0' >$@.new
- 	echo '.if 0' >>$@.new
- 	echo '#endif' >>$@.new
-+	echo '#ifndef __ASM_MACROS_H__' >>$@.new
-+	echo '#define __ASM_MACROS_H__' >>$@.new
- 	echo 'asm ( ".include \"$@\"" );' >>$@.new
-+	echo '#endif /* __ASM_MACROS_H__ */' >>$@.new
- 	echo '#if 0' >>$@.new
- 	echo '.endif' >>$@.new
- 	cat $< >>$@.new
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -20,6 +20,7 @@ $(call as-option-add,CFLAGS,CC,"rdrand %
- $(call as-option-add,CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
- $(call as-option-add,CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
- $(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
-+$(call as-option-add,CFLAGS,CC,"clac",-DHAVE_AS_CLAC_STAC)
- $(call as-option-add,CFLAGS,CC,"clwb (%rax)",-DHAVE_AS_CLWB)
- $(call as-option-add,CFLAGS,CC,".equ \"x\"$$(comma)1",-DHAVE_AS_QUOTED_SYM)
- $(call as-option-add,CFLAGS,CC,"invpcid (%rax)$$(comma)%rax",-DHAVE_AS_INVPCID)
---- a/xen/arch/x86/asm-macros.c
-+++ b/xen/arch/x86/asm-macros.c
-@@ -1 +1,2 @@
-+#include <asm/asm-defns.h>
- #include <asm/alternative-asm.h>
---- /dev/null
+I've also dropped conditionals around bigger chunks of code; while I
+think that's preferable, I'm open to undo those parts.
+
+--- a/xen/arch/x86/boot/x86_64.S
++++ b/xen/arch/x86/boot/x86_64.S
+@@ -31,7 +31,6 @@ ENTRY(__high_start)
+         jz      .L_bsp
+ 
+         /* APs.  Set up shadow stacks before entering C. */
+-#ifdef CONFIG_XEN_SHSTK
+         testl   $cpufeat_mask(X86_FEATURE_XEN_SHSTK), \
+                 CPUINFO_FEATURE_OFFSET(X86_FEATURE_XEN_SHSTK) + boot_cpu_data(%rip)
+         je      .L_ap_shstk_done
+@@ -55,7 +54,6 @@ ENTRY(__high_start)
+         mov     $XEN_MINIMAL_CR4 | X86_CR4_CET, %ecx
+         mov     %rcx, %cr4
+         setssbsy
+-#endif
+ 
+ .L_ap_shstk_done:
+         call    start_secondary
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -668,7 +668,7 @@ static void __init noreturn reinit_bsp_s
+     stack_base[0] = stack;
+     memguard_guard_stack(stack);
+ 
+-    if ( IS_ENABLED(CONFIG_XEN_SHSTK) && cpu_has_xen_shstk )
++    if ( cpu_has_xen_shstk )
+     {
+         wrmsrl(MSR_PL0_SSP,
+                (unsigned long)stack + (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8);
+--- a/xen/arch/x86/x86_64/compat/entry.S
++++ b/xen/arch/x86/x86_64/compat/entry.S
+@@ -198,9 +198,7 @@ ENTRY(cr4_pv32_restore)
+ 
+ /* See lstar_enter for entry register state. */
+ ENTRY(cstar_enter)
+-#ifdef CONFIG_XEN_SHSTK
+         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
+-#endif
+         /* sti could live here when we don't switch page tables below. */
+         CR4_PV32_RESTORE
+         movq  8(%rsp),%rax /* Restore %rax. */
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -237,9 +237,7 @@ iret_exit_to_guest:
+  * %ss must be saved into the space left by the trampoline.
+  */
+ ENTRY(lstar_enter)
+-#ifdef CONFIG_XEN_SHSTK
+         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
+-#endif
+         /* sti could live here when we don't switch page tables below. */
+         movq  8(%rsp),%rax /* Restore %rax. */
+         movq  $FLAT_KERNEL_SS,8(%rsp)
+@@ -273,9 +271,7 @@ ENTRY(lstar_enter)
+         jmp   test_all_events
+ 
+ ENTRY(sysenter_entry)
+-#ifdef CONFIG_XEN_SHSTK
+         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
+-#endif
+         /* sti could live here when we don't switch page tables below. */
+         pushq $FLAT_USER_SS
+         pushq $0
+--- a/xen/include/asm-x86/asm-defns.h
 +++ b/xen/include/asm-x86/asm-defns.h
-@@ -0,0 +1,9 @@
-+#ifndef HAVE_AS_CLAC_STAC
-+.macro clac
-+    .byte 0x0f, 0x01, 0xca
-+.endm
+@@ -7,3 +7,9 @@
+     .byte 0x0f, 0x01, 0xcb
+ .endm
+ #endif
 +
-+.macro stac
-+    .byte 0x0f, 0x01, 0xcb
++#ifndef CONFIG_HAS_AS_CET_SS
++.macro setssbsy
++    .byte 0xf3, 0x0f, 0x01, 0xe8
 +.endm
 +#endif
---- a/xen/include/asm-x86/asm_defns.h
-+++ b/xen/include/asm-x86/asm_defns.h
-@@ -13,10 +13,12 @@
- #include <asm/alternative.h>
- 
- #ifdef __ASSEMBLY__
-+#include <asm/asm-defns.h>
- #ifndef CONFIG_INDIRECT_THUNK
- .equ CONFIG_INDIRECT_THUNK, 0
- #endif
- #else
-+#include <asm/asm-macros.h>
- asm ( "\t.equ CONFIG_INDIRECT_THUNK, "
-       __stringify(IS_ENABLED(CONFIG_INDIRECT_THUNK)) );
- #endif
-@@ -200,34 +202,27 @@ register unsigned long current_stack_poi
- 
- #endif
- 
--/* "Raw" instruction opcodes */
--#define __ASM_CLAC      ".byte 0x0f,0x01,0xca"
--#define __ASM_STAC      ".byte 0x0f,0x01,0xcb"
--
- #ifdef __ASSEMBLY__
- .macro ASM_STAC
--    ALTERNATIVE "", __ASM_STAC, X86_FEATURE_XEN_SMAP
-+    ALTERNATIVE "", stac, X86_FEATURE_XEN_SMAP
- .endm
- .macro ASM_CLAC
--    ALTERNATIVE "", __ASM_CLAC, X86_FEATURE_XEN_SMAP
-+    ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
- .endm
- #else
- static always_inline void clac(void)
- {
-     /* Note: a barrier is implicit in alternative() */
--    alternative("", __ASM_CLAC, X86_FEATURE_XEN_SMAP);
-+    alternative("", "clac", X86_FEATURE_XEN_SMAP);
- }
- 
- static always_inline void stac(void)
- {
-     /* Note: a barrier is implicit in alternative() */
--    alternative("", __ASM_STAC, X86_FEATURE_XEN_SMAP);
-+    alternative("", "stac", X86_FEATURE_XEN_SMAP);
- }
- #endif
- 
--#undef __ASM_STAC
--#undef __ASM_CLAC
--
- #ifdef __ASSEMBLY__
- .macro SAVE_ALL op, compat=0
- .ifeqs "\op", "CLAC"
 
 
