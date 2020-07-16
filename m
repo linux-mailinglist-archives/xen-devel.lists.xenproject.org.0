@@ -2,61 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 007FE2221C5
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 13:55:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AFCD22222D
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 14:07:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jw2TG-0005um-B1; Thu, 16 Jul 2020 11:54:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AXgs=A3=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jw2TE-0005uh-BC
- for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 11:54:36 +0000
-X-Inumbo-ID: 1e16853c-c75b-11ea-bb8b-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1e16853c-c75b-11ea-bb8b-bc764e2007e4;
- Thu, 16 Jul 2020 11:54:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1594900476;
- h=from:to:subject:date:message-id:content-id:
- content-transfer-encoding:mime-version;
- bh=VZ84eSJHuEXHFeY9Oq583Sd5WV44pROfefSm7ED9P8A=;
- b=XgTbwsrKHz5B6LGpy9pnsVegECm1jCXR6WIH0j98/HWu7e7ln2Mcnsud
- 8EpcOqsjYclJqT1r0O872ryfJ/q1B0t6/zaOavaNWA+uXQ1o94xcw06rA
- wLK03hGXPJYf624QxwvkiX4oiMUALXaSfhAnVn7MEzNiTGs8xHWCwijeZ c=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: hSgwiYzQK5sUKsr3JM2ioRs/WbQFPbZnxLG0eJv7z/VL7K3V6ARoMpsUojGK8WYQDHJfBHFlB0
- n4NEItZ7txnZDnLmmzmbj7tnzO2Nmri7w5QPmtjDKwOmBvAZJTnS7xWvfhtAZTYL7XHZITDU5o
- CUKe2jNgqJNQaY6fn1VPwojEQgUlly+4bvRoJ+Pk+hFwvPjqzBlaRJV/Z+6G1dw+Um/F0Ti6SE
- oH6NFjbjcZ0jii00awptbm1YaZEJJxg3CY3+/aAoI1KlV50TaKCkfUj1jxvfcJLkRXeDDcQu9V
- at8=
-X-SBRS: 2.7
-X-MesageID: 22835307
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,359,1589256000"; d="scan'208";a="22835307"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Saved notes for design sessions
-Thread-Topic: Saved notes for design sessions
-Thread-Index: AQHWW2fcrzg6m88NVUmqDHsRdn6IYw==
-Date: Thu, 16 Jul 2020 11:54:29 +0000
-Message-ID: <8D97F48E-1948-4C1D-965F-0B42797516DD@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2E51A99BF8E6A140922844A77786B437@citrix.com>
-Content-Transfer-Encoding: quoted-printable
+	id 1jw2f5-0006vi-2d; Thu, 16 Jul 2020 12:06:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dhnJ=A3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jw2f3-0006vd-LE
+ for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 12:06:49 +0000
+X-Inumbo-ID: d31373c2-c75c-11ea-94ab-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d31373c2-c75c-11ea-94ab-12813bfff9fa;
+ Thu, 16 Jul 2020 12:06:48 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 7A511AFBF;
+ Thu, 16 Jul 2020 12:06:51 +0000 (UTC)
+Subject: Re: [PATCH 2/2] evtchn/fifo: don't enforce higher than necessary
+ alignment
+To: Julien Grall <julien.grall.oss@gmail.com>
+References: <fef45e49-bcb4-dc11-8f7f-b2f5e4bf1a73@suse.com>
+ <e47a9ef5-5f4c-1ca6-1b31-f7b10516e5ed@suse.com>
+ <CAJ=z9a1AWYYVGwHWOct9j3bVDhPtWG7R3tQY05+6BY-9g3C1kQ@mail.gmail.com>
+ <005381d5-3fb5-640f-002c-106c628a77a2@suse.com>
+ <CAJ=z9a0LBhO7qJyF-WdBnkD52dXew-TgjTuUC7aeoS8rC13iwQ@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <083b8df6-4587-b8dc-e501-4ed8e47aac51@suse.com>
+Date: Thu, 16 Jul 2020 14:06:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <CAJ=z9a0LBhO7qJyF-WdBnkD52dXew-TgjTuUC7aeoS8rC13iwQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,24 +51,120 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hey all,
+On 15.07.2020 16:02, Julien Grall wrote:
+> On Wed, 15 Jul 2020, 14:42 Jan Beulich, <jbeulich@suse.com> wrote:
+> 
+>> On 15.07.2020 12:46, Julien Grall wrote:
+>>> On Wed, 15 Jul 2020, 12:17 Jan Beulich, <jbeulich@suse.com> wrote:
+>>>
+>>>> Neither the code nor the original commit provide any justification for
+>>>> the need to 8-byte align the struct in all cases. Enforce just as much
+>>>> alignment as the structure actually needs - 4 bytes - by using alignof()
+>>>> instead of a literal number.
+>>>>
+>>>> Take the opportunity and also
+>>>> - add so far missing validation that native and compat mode layouts of
+>>>>   the structures actually match,
+>>>> - tie sizeof() expressions to the types of the fields we're actually
+>>>>   after, rather than specifying the type explicitly (which in the
+>>>>   general case risks a disconnect, even if there's close to zero risk in
+>>>>   this particular case),
+>>>> - use ENXIO instead of EINVAL for the two cases of the address not
+>>>>   satisfying the requirements, which will make an issue here better
+>>>>   stand out at the call site.
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> I question the need for the array_index_nospec() here. Or else I'd
+>>>> expect map_vcpu_info() would also need the same.
+>>>>
+>>>> --- a/xen/common/event_fifo.c
+>>>> +++ b/xen/common/event_fifo.c
+>>>> @@ -504,6 +504,16 @@ static void setup_ports(struct domain *d
+>>>>      }
+>>>>  }
+>>>>
+>>>> +#ifdef CONFIG_COMPAT
+>>>> +
+>>>> +#include <compat/event_channel.h>
+>>>> +
+>>>> +#define xen_evtchn_fifo_control_block evtchn_fifo_control_block
+>>>> +CHECK_evtchn_fifo_control_block;
+>>>> +#undef xen_evtchn_fifo_control_block
+>>>> +
+>>>> +#endif
+>>>> +
+>>>>  int evtchn_fifo_init_control(struct evtchn_init_control *init_control)
+>>>>  {
+>>>>      struct domain *d = current->domain;
+>>>> @@ -523,19 +533,20 @@ int evtchn_fifo_init_control(struct evtc
+>>>>          return -ENOENT;
+>>>>
+>>>>      /* Must not cross page boundary. */
+>>>> -    if ( offset > (PAGE_SIZE - sizeof(evtchn_fifo_control_block_t)) )
+>>>> -        return -EINVAL;
+>>>> +    if ( offset > (PAGE_SIZE - sizeof(*v->evtchn_fifo->control_block))
+>> )
+>>>> +        return -ENXIO;
+>>>>
+>>>>      /*
+>>>>       * Make sure the guest controlled value offset is bounded even
+>> during
+>>>>       * speculative execution.
+>>>>       */
+>>>>      offset = array_index_nospec(offset,
+>>>> -                           PAGE_SIZE -
+>>>> sizeof(evtchn_fifo_control_block_t) + 1);
+>>>> +                                PAGE_SIZE -
+>>>> +                                sizeof(*v->evtchn_fifo->control_block)
+>> +
+>>>> 1);
+>>>>
+>>>> -    /* Must be 8-bytes aligned. */
+>>>> -    if ( offset & (8 - 1) )
+>>>> -        return -EINVAL;
+>>>> +    /* Must be suitably aligned. */
+>>>> +    if ( offset & (alignof(*v->evtchn_fifo->control_block) - 1) )
+>>>> +        return -ENXIO;
+>>>>
+>>>
+>>> A guest relying on this new alignment wouldn't work on older version of
+>>> Xen. So I don't think a guest would ever be able to use it.
+>>>
+>>> Therefore is it really worth the change?
+>>
+>> That's the question. One of your arguments for using a literal number
+>> also for the vCPU info mapping check was that here a literal number
+>> is used. The goal isn't so much relaxation of the interface, but
+>> making the code consistent as well as eliminating a (how I'd call it)
+>> kludge.
+>>
+> 
+> Your commit message lead to think the relaxation is the key motivation to
+> change the code.
 
-PDFs of the saved shared notes for the design sessions can be found in this=
- zipfile:
+I've added a clarifying sentence.
 
-https://cryptpad.fr/file/#/2/file/LoJZpSq+vHKNoisVqdsPj3Z9/
+>> Guests not caring to be able to run on older versions could also make
+>> use of the relaxation (which may be more relevant in 10 y ears time
+>> than it is now).
+> 
+> 
+> That makes sense. However, I am a bit concerned that an OS developer may
+> not notice the alignment problem with older version.
+> 
+> I would suggest to at least document the alignment expected in the public
+> header.
 
-The files are labeled with the start/end time and the room in which they we=
-re held; that should help you find out the notes which are pertinent to you=
-.
+Done for v2.
 
-Please remember to post a summary of your design session to xen-devel for p=
-osterity.
-
-Thanks!
-
- -George=
+Jan
 
