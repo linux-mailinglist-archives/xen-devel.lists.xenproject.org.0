@@ -2,63 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 539F9222375
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 15:05:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 064E42223BA
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 15:19:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jw3ZJ-0003tg-QF; Thu, 16 Jul 2020 13:04:57 +0000
+	id 1jw3n5-0004s3-6e; Thu, 16 Jul 2020 13:19:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pNdb=A3=redhat.com=berrange@srs-us1.protection.inumbo.net>)
- id 1jw3ZJ-0003tb-0q
- for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 13:04:57 +0000
-X-Inumbo-ID: f1503728-c764-11ea-bca7-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id f1503728-c764-11ea-bca7-bc764e2007e4;
- Thu, 16 Jul 2020 13:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1594904694;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=az+FmhN9pIiPX+LZPos7raST+pyWDt55nirXChkVUsk=;
- b=fYZRw1uTWVebuDFBB7Wgt42/fQ8ZYH6ftBBY4EOrMiDqmKan6D7JJws4OxtDguqM9hgJzd
- Che/A6edVbJurCconjDuXvK32+BxHiDoYtTYhsaeJrrPhVsAw7M2DJRWAXlWWv4dKCpvjf
- /vJzXlwL6UHt0+hq0oN29BP7DzxBjUc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-319-wJh8r9ASND-BW_uZ_7uN3Q-1; Thu, 16 Jul 2020 09:04:49 -0400
-X-MC-Unique: wJh8r9ASND-BW_uZ_7uN3Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9AB15107ACCA;
- Thu, 16 Jul 2020 13:04:47 +0000 (UTC)
-Received: from redhat.com (unknown [10.36.110.42])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 99B3D6FEF4;
- Thu, 16 Jul 2020 13:04:43 +0000 (UTC)
-Date: Thu, 16 Jul 2020 14:04:40 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
-Subject: Re: [RFC PATCH-for-5.2 v2 2/2] block/block-backend: Let
- blk_attach_dev() provide helpful error
-Message-ID: <20200716130440.GT227735@redhat.com>
-References: <20200716123704.6557-1-f4bug@amsat.org>
- <20200716123704.6557-3-f4bug@amsat.org>
+ <SRS0=xJjh=A3=xenbits.xen.org=iwj@srs-us1.protection.inumbo.net>)
+ id 1jw3n3-0004rq-Rn
+ for xen-devel@lists.xen.org; Thu, 16 Jul 2020 13:19:09 +0000
+X-Inumbo-ID: eb9fc9f4-c766-11ea-b7bb-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id eb9fc9f4-c766-11ea-b7bb-bc764e2007e4;
+ Thu, 16 Jul 2020 13:19:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3VGZzYg6mn62RtPmWMdMHRbsHJM8t32N5zUX+qK4CUw=; b=G7u8LMu9ALbkKy8HZA3VKFPwtJ
+ ExmVOFeRW3Hkjfbt1HVZrvl2CAeZsfBaiq++awmQq1YLnmRYVn9YPIXoEm46dg9pJ6Ps4DPkdYzwd
+ pHGAM9/5cy/0G36Iv8l0Y5VmPyGTJIxMP3KLqKuPyYsnAunp95ZFEt46TTSt9M8iRZIY=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenbits.xen.org>)
+ id 1jw3ms-0006Kq-VB; Thu, 16 Jul 2020 13:18:58 +0000
+Received: from iwj by xenbits.xenproject.org with local (Exim 4.92)
+ (envelope-from <iwj@xenbits.xen.org>)
+ id 1jw3ms-0006i6-Se; Thu, 16 Jul 2020 13:18:58 +0000
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-In-Reply-To: <20200716123704.6557-3-f4bug@amsat.org>
-User-Agent: Mutt/1.14.5 (2020-06-23)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Disposition: inline
+X-Mailer: MIME-tools 5.509 (Entity 5.509)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+Subject: Xen Security Advisory 329 v2 - Linux ioperm bitmap context
+ switching issues
+Message-Id: <E1jw3ms-0006i6-Se@xenbits.xenproject.org>
+Date: Thu, 16 Jul 2020 13:18:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,89 +55,236 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-Cc: Fam Zheng <fam@euphon.net>, Kevin Wolf <kwolf@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Eduardo Habkost <ehabkost@redhat.com>, qemu-block@nongnu.org,
- Paul Durrant <paul@xen.org>, Markus Armbruster <armbru@redhat.com>,
- qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Max Reitz <mreitz@redhat.com>, John Snow <jsnow@redhat.com>,
- Laurent Vivier <laurent@vivier.eu>
+Cc: "Xen.org security team" <security-team-members@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Jul 16, 2020 at 02:37:04PM +0200, Philippe Mathieu-Daudé wrote:
-> Let blk_attach_dev() take an Error* object to return helpful
-> information. Adapt the callers.
-> 
->   $ qemu-system-arm -M n800
->   qemu-system-arm: sd_init failed: cannot attach blk 'sd0' to device 'sd-card'
->   blk 'sd0' is already attached by device 'omap2-mmc'
->   Drive 'sd0' is already in use because it has been automatically connected to another device
->   (do you need 'if=none' in the drive options?)
-> 
-> Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
-> ---
-> v2: Rebased after 668f62ec62 ("error: Eliminate error_propagate()")
-> ---
->  include/sysemu/block-backend.h   |  2 +-
->  block/block-backend.c            | 11 ++++++++++-
->  hw/block/fdc.c                   |  4 +---
->  hw/block/swim.c                  |  4 +---
->  hw/block/xen-block.c             |  5 +++--
->  hw/core/qdev-properties-system.c | 16 +++++++++-------
->  hw/ide/qdev.c                    |  4 +---
->  hw/scsi/scsi-disk.c              |  4 +---
->  8 files changed, 27 insertions(+), 23 deletions(-)
-> 
-> diff --git a/include/sysemu/block-backend.h b/include/sysemu/block-backend.h
-> index 8203d7f6f9..118fbad0b4 100644
-> --- a/include/sysemu/block-backend.h
-> +++ b/include/sysemu/block-backend.h
-> @@ -113,7 +113,7 @@ BlockDeviceIoStatus blk_iostatus(const BlockBackend *blk);
->  void blk_iostatus_disable(BlockBackend *blk);
->  void blk_iostatus_reset(BlockBackend *blk);
->  void blk_iostatus_set_err(BlockBackend *blk, int error);
-> -int blk_attach_dev(BlockBackend *blk, DeviceState *dev);
-> +int blk_attach_dev(BlockBackend *blk, DeviceState *dev, Error **errp);
->  void blk_detach_dev(BlockBackend *blk, DeviceState *dev);
->  DeviceState *blk_get_attached_dev(BlockBackend *blk);
->  char *blk_get_attached_dev_id(BlockBackend *blk);
-> diff --git a/block/block-backend.c b/block/block-backend.c
-> index 63ff940ef9..b7be0a4619 100644
-> --- a/block/block-backend.c
-> +++ b/block/block-backend.c
-> @@ -884,12 +884,21 @@ void blk_get_perm(BlockBackend *blk, uint64_t *perm, uint64_t *shared_perm)
->  
->  /*
->   * Attach device model @dev to @blk.
-> + *
-> + * @blk: Block backend
-> + * @dev: Device to attach the block backend to
-> + * @errp: pointer to NULL initialized error object
-> + *
->   * Return 0 on success, -EBUSY when a device model is attached already.
->   */
-> -int blk_attach_dev(BlockBackend *blk, DeviceState *dev)
-> +int blk_attach_dev(BlockBackend *blk, DeviceState *dev, Error **errp)
->  {
->      trace_blk_attach_dev(blk_name(blk), object_get_typename(OBJECT(dev)));
->      if (blk->dev) {
-> +        error_setg(errp, "cannot attach blk '%s' to device '%s'",
-> +                   blk_name(blk), object_get_typename(OBJECT(dev)));
-> +        error_append_hint(errp, "blk '%s' is already attached by device '%s'\n",
-> +                          blk_name(blk), object_get_typename(OBJECT(blk->dev)));
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-I would have a preference for expanding the main error message and not
-using a hint.  Any hint is completely thrown away when using QMP :-(
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+                    Xen Security Advisory XSA-329
+                              version 2
+
+             Linux ioperm bitmap context switching issues
+
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+Linux 5.5 overhauled the internal state handling for the iopl() and ioperm()
+system calls.  Unfortunately, one aspect on context switch wasn't wired up
+correctly for the Xen PVOps case.
+
+IMPACT
+======
+
+IO port permissions don't get rescinded when context switching to an
+unprivileged task.  Therefore, all userspace can use the IO ports granted to
+the most recently scheduled task with IO port permissions.
+
+VULNERABLE SYSTEMS
+==================
+
+Only x86 guests are vulnerable.
+
+All versions of Linux from 5.5 are potentially vulnerable.
+
+Linux is only vulnerable when running as x86 PV guest.  Linux is not
+vulnerable when running as an x86 HVM/PVH guests.
+
+The vulnerability can only be exploited in domains which have been granted
+access to IO ports by Xen.  This is typically only the hardware domain, and
+guests configured with PCI Passthrough.
+
+MITIGATION
+==========
+
+Running only HVM/PVH guests avoids the vulnerability.
+
+CREDITS
+=======
+
+This issue was discovered by Andy Lutomirski.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+xsa329.patch           Linux 5.5 and later
+
+$ sha256sum xsa329*
+cdb5ac9bfd21192b5965e8ec0a1c4fcf12d0a94a962a8158cd27810e6aa362f0  xsa329.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
 
 
-Regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team's decisionmaking.)
 
+For more information about permissible uses of embargoed information,
+consult the Xen Project community's agreed Security Policy:
+  http://www.xenproject.org/security-policy.html
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl8QU6EMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZ/sEIAMiCOnz119KTlRU50HTwa4pvIgLphf9htTbPzHXS
+iEb8yINqMxmep8NRcAzwFREQP+Z4Tue1upt31Vx0RPkFZpUklLuuBSXsV0JA7+UM
+LSGyWhkzDdnfj6iPUHycGmFzRTzkbB7qfcMj7khCvuYtSNbTUdOgUq04ngZksrSJ
+UMhfgUNKXawULKvVe7572L/AQTmMXK8eaolb+eWtf1U2pFkZQR8GWoLmiFbKLks2
+X2tRUF4U4cHEBzxXRzYrD1ArWLajqK6hQmauwgkCCSowvCHoD1dTv55GlrlEo4od
+MSB6YOVLl7HJuUw1GmwlKjA8XqStHq1Fi0urvlKCfHfK2Wk=
+=MP+m
+-----END PGP SIGNATURE-----
+
+--=separator
+Content-Type: application/octet-stream; name="xsa329.patch"
+Content-Disposition: attachment; filename="xsa329.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogQW5keSBMdXRvbWlyc2tpIDxsdXRvQGtlcm5lbC5vcmc+ClN1Ympl
+Y3Q6IHg4Ni9pb3Blcm06IEZpeCBpbyBiaXRtYXAgaW52YWxpZGF0aW9uIG9u
+IFhlbiBQVgoKdHNzX2ludmFsaWRhdGVfaW9fYml0bWFwKCkgd2Fzbid0IHdp
+cmVkIHVwIHByb3Blcmx5IHRocm91Z2ggdGhlIHB2b3AKbWFjaGluZXJ5LCBz
+byB0aGUgVFNTIGFuZCBYZW4ncyBpbyBiaXRtYXAgd291bGQgZ2V0IG91dCBv
+ZiBzeW5jCndoZW5ldmVyIGRpc2FibGluZyBhIHZhbGlkIGlvIGJpdG1hcC4K
+CkFkZCBhIG5ldyBwdm9wIGZvciB0c3NfaW52YWxpZGF0ZV9pb19iaXRtYXAo
+KSB0byBmaXggaXQuCgpUaGlzIGlzIFhTQS0zMjkuCgpGaXhlczogMjJmZTVi
+MDQzOWRkICgieDg2L2lvcGVybTogTW92ZSBUU1MgYml0bWFwIHVwZGF0ZSB0
+byBleGl0IHRvIHVzZXIgd29yayIpClNpZ25lZC1vZmYtYnk6IEFuZHkgTHV0
+b21pcnNraSA8bHV0b0BrZXJuZWwub3JnPgpSZXZpZXdlZC1ieTogSnVlcmdl
+biBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgpSZXZpZXdlZC1ieTogVGhvbWFz
+IEdsZWl4bmVyIDx0Z2x4QGxpbnV0cm9uaXguZGU+CgpkaWZmIC0tZ2l0IGEv
+YXJjaC94ODYvaW5jbHVkZS9hc20vaW9fYml0bWFwLmggYi9hcmNoL3g4Ni9p
+bmNsdWRlL2FzbS9pb19iaXRtYXAuaAppbmRleCBhYzFhOTlmZmJkOGQuLjdm
+MDgwZjVjN2RlZiAxMDA2NDQKLS0tIGEvYXJjaC94ODYvaW5jbHVkZS9hc20v
+aW9fYml0bWFwLmgKKysrIGIvYXJjaC94ODYvaW5jbHVkZS9hc20vaW9fYml0
+bWFwLmgKQEAgLTE5LDEyICsxOSwyOCBAQCBzdHJ1Y3QgdGFza19zdHJ1Y3Q7
+CiB2b2lkIGlvX2JpdG1hcF9zaGFyZShzdHJ1Y3QgdGFza19zdHJ1Y3QgKnRz
+ayk7CiB2b2lkIGlvX2JpdG1hcF9leGl0KHN0cnVjdCB0YXNrX3N0cnVjdCAq
+dHNrKTsKIAorc3RhdGljIGlubGluZSB2b2lkIG5hdGl2ZV90c3NfaW52YWxp
+ZGF0ZV9pb19iaXRtYXAodm9pZCkKK3sKKwkvKgorCSAqIEludmFsaWRhdGUg
+dGhlIEkvTyBiaXRtYXAgYnkgbW92aW5nIGlvX2JpdG1hcF9iYXNlIG91dHNp
+ZGUgdGhlCisJICogVFNTIGxpbWl0IHNvIGFueSBzdWJzZXF1ZW50IEkvTyBh
+Y2Nlc3MgZnJvbSB1c2VyIHNwYWNlIHdpbGwKKwkgKiB0cmlnZ2VyIGEgI0dQ
+LgorCSAqCisJICogVGhpcyBpcyBjb3JyZWN0IGV2ZW4gd2hlbiBWTUVYSVQg
+cmV3cml0ZXMgdGhlIFRTUyBsaW1pdAorCSAqIHRvIDB4NjcgYXMgdGhlIG9u
+bHkgcmVxdWlyZW1lbnQgaXMgdGhhdCB0aGUgYmFzZSBwb2ludHMKKwkgKiBv
+dXRzaWRlIHRoZSBsaW1pdC4KKwkgKi8KKwl0aGlzX2NwdV93cml0ZShjcHVf
+dHNzX3J3Lng4Nl90c3MuaW9fYml0bWFwX2Jhc2UsCisJCSAgICAgICBJT19C
+SVRNQVBfT0ZGU0VUX0lOVkFMSUQpOworfQorCiB2b2lkIG5hdGl2ZV90c3Nf
+dXBkYXRlX2lvX2JpdG1hcCh2b2lkKTsKIAogI2lmZGVmIENPTkZJR19QQVJB
+VklSVF9YWEwKICNpbmNsdWRlIDxhc20vcGFyYXZpcnQuaD4KICNlbHNlCiAj
+ZGVmaW5lIHRzc191cGRhdGVfaW9fYml0bWFwIG5hdGl2ZV90c3NfdXBkYXRl
+X2lvX2JpdG1hcAorI2RlZmluZSB0c3NfaW52YWxpZGF0ZV9pb19iaXRtYXAg
+bmF0aXZlX3Rzc19pbnZhbGlkYXRlX2lvX2JpdG1hcAogI2VuZGlmCiAKICNl
+bHNlCmRpZmYgLS1naXQgYS9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9wYXJhdmly
+dC5oIGIvYXJjaC94ODYvaW5jbHVkZS9hc20vcGFyYXZpcnQuaAppbmRleCA1
+Y2E1ZDI5N2RmNzUuLjNkMmFmZWNkZTUwYyAxMDA2NDQKLS0tIGEvYXJjaC94
+ODYvaW5jbHVkZS9hc20vcGFyYXZpcnQuaAorKysgYi9hcmNoL3g4Ni9pbmNs
+dWRlL2FzbS9wYXJhdmlydC5oCkBAIC0zMDIsNiArMzAyLDExIEBAIHN0YXRp
+YyBpbmxpbmUgdm9pZCB3cml0ZV9pZHRfZW50cnkoZ2F0ZV9kZXNjICpkdCwg
+aW50IGVudHJ5LCBjb25zdCBnYXRlX2Rlc2MgKmcpCiB9CiAKICNpZmRlZiBD
+T05GSUdfWDg2X0lPUExfSU9QRVJNCitzdGF0aWMgaW5saW5lIHZvaWQgdHNz
+X2ludmFsaWRhdGVfaW9fYml0bWFwKHZvaWQpCit7CisJUFZPUF9WQ0FMTDAo
+Y3B1LmludmFsaWRhdGVfaW9fYml0bWFwKTsKK30KKwogc3RhdGljIGlubGlu
+ZSB2b2lkIHRzc191cGRhdGVfaW9fYml0bWFwKHZvaWQpCiB7CiAJUFZPUF9W
+Q0FMTDAoY3B1LnVwZGF0ZV9pb19iaXRtYXApOwpkaWZmIC0tZ2l0IGEvYXJj
+aC94ODYvaW5jbHVkZS9hc20vcGFyYXZpcnRfdHlwZXMuaCBiL2FyY2gveDg2
+L2luY2x1ZGUvYXNtL3BhcmF2aXJ0X3R5cGVzLmgKaW5kZXggNzMyZjYyZTA0
+ZGRiLi44ZGZjYjI1MDhlNmQgMTAwNjQ0Ci0tLSBhL2FyY2gveDg2L2luY2x1
+ZGUvYXNtL3BhcmF2aXJ0X3R5cGVzLmgKKysrIGIvYXJjaC94ODYvaW5jbHVk
+ZS9hc20vcGFyYXZpcnRfdHlwZXMuaApAQCAtMTQxLDYgKzE0MSw3IEBAIHN0
+cnVjdCBwdl9jcHVfb3BzIHsKIAl2b2lkICgqbG9hZF9zcDApKHVuc2lnbmVk
+IGxvbmcgc3AwKTsKIAogI2lmZGVmIENPTkZJR19YODZfSU9QTF9JT1BFUk0K
+Kwl2b2lkICgqaW52YWxpZGF0ZV9pb19iaXRtYXApKHZvaWQpOwogCXZvaWQg
+KCp1cGRhdGVfaW9fYml0bWFwKSh2b2lkKTsKICNlbmRpZgogCmRpZmYgLS1n
+aXQgYS9hcmNoL3g4Ni9rZXJuZWwvcGFyYXZpcnQuYyBiL2FyY2gveDg2L2tl
+cm5lbC9wYXJhdmlydC5jCmluZGV4IDY3NGE3ZDY2ZDk2MC4uZGUyMTM4YmEz
+OGU1IDEwMDY0NAotLS0gYS9hcmNoL3g4Ni9rZXJuZWwvcGFyYXZpcnQuYwor
+KysgYi9hcmNoL3g4Ni9rZXJuZWwvcGFyYXZpcnQuYwpAQCAtMzI0LDcgKzMy
+NCw4IEBAIHN0cnVjdCBwYXJhdmlydF9wYXRjaF90ZW1wbGF0ZSBwdl9vcHMg
+PSB7CiAJLmNwdS5zd2FwZ3MJCT0gbmF0aXZlX3N3YXBncywKIAogI2lmZGVm
+IENPTkZJR19YODZfSU9QTF9JT1BFUk0KLQkuY3B1LnVwZGF0ZV9pb19iaXRt
+YXAJPSBuYXRpdmVfdHNzX3VwZGF0ZV9pb19iaXRtYXAsCisJLmNwdS5pbnZh
+bGlkYXRlX2lvX2JpdG1hcAk9IG5hdGl2ZV90c3NfaW52YWxpZGF0ZV9pb19i
+aXRtYXAsCisJLmNwdS51cGRhdGVfaW9fYml0bWFwCQk9IG5hdGl2ZV90c3Nf
+dXBkYXRlX2lvX2JpdG1hcCwKICNlbmRpZgogCiAJLmNwdS5zdGFydF9jb250
+ZXh0X3N3aXRjaAk9IHBhcmF2aXJ0X25vcCwKZGlmZiAtLWdpdCBhL2FyY2gv
+eDg2L2tlcm5lbC9wcm9jZXNzLmMgYi9hcmNoL3g4Ni9rZXJuZWwvcHJvY2Vz
+cy5jCmluZGV4IGYzNjJjZTBkNWFjMC4uZmU2N2RiZDc2ZTUxIDEwMDY0NAot
+LS0gYS9hcmNoL3g4Ni9rZXJuZWwvcHJvY2Vzcy5jCisrKyBiL2FyY2gveDg2
+L2tlcm5lbC9wcm9jZXNzLmMKQEAgLTMyMiwyMCArMzIyLDYgQEAgdm9pZCBh
+cmNoX3NldHVwX25ld19leGVjKHZvaWQpCiB9CiAKICNpZmRlZiBDT05GSUdf
+WDg2X0lPUExfSU9QRVJNCi1zdGF0aWMgaW5saW5lIHZvaWQgdHNzX2ludmFs
+aWRhdGVfaW9fYml0bWFwKHN0cnVjdCB0c3Nfc3RydWN0ICp0c3MpCi17Ci0J
+LyoKLQkgKiBJbnZhbGlkYXRlIHRoZSBJL08gYml0bWFwIGJ5IG1vdmluZyBp
+b19iaXRtYXBfYmFzZSBvdXRzaWRlIHRoZQotCSAqIFRTUyBsaW1pdCBzbyBh
+bnkgc3Vic2VxdWVudCBJL08gYWNjZXNzIGZyb20gdXNlciBzcGFjZSB3aWxs
+Ci0JICogdHJpZ2dlciBhICNHUC4KLQkgKgotCSAqIFRoaXMgaXMgY29ycmVj
+dCBldmVuIHdoZW4gVk1FWElUIHJld3JpdGVzIHRoZSBUU1MgbGltaXQKLQkg
+KiB0byAweDY3IGFzIHRoZSBvbmx5IHJlcXVpcmVtZW50IGlzIHRoYXQgdGhl
+IGJhc2UgcG9pbnRzCi0JICogb3V0c2lkZSB0aGUgbGltaXQuCi0JICovCi0J
+dHNzLT54ODZfdHNzLmlvX2JpdG1hcF9iYXNlID0gSU9fQklUTUFQX09GRlNF
+VF9JTlZBTElEOwotfQotCiBzdGF0aWMgaW5saW5lIHZvaWQgc3dpdGNoX3Rv
+X2JpdG1hcCh1bnNpZ25lZCBsb25nIHRpZnApCiB7CiAJLyoKQEAgLTM0Niw3
+ICszMzIsNyBAQCBzdGF0aWMgaW5saW5lIHZvaWQgc3dpdGNoX3RvX2JpdG1h
+cCh1bnNpZ25lZCBsb25nIHRpZnApCiAJICogdXNlciBtb2RlLgogCSAqLwog
+CWlmICh0aWZwICYgX1RJRl9JT19CSVRNQVApCi0JCXRzc19pbnZhbGlkYXRl
+X2lvX2JpdG1hcCh0aGlzX2NwdV9wdHIoJmNwdV90c3NfcncpKTsKKwkJdHNz
+X2ludmFsaWRhdGVfaW9fYml0bWFwKCk7CiB9CiAKIHN0YXRpYyB2b2lkIHRz
+c19jb3B5X2lvX2JpdG1hcChzdHJ1Y3QgdHNzX3N0cnVjdCAqdHNzLCBzdHJ1
+Y3QgaW9fYml0bWFwICppb2JtKQpAQCAtMzgwLDcgKzM2Niw3IEBAIHZvaWQg
+bmF0aXZlX3Rzc191cGRhdGVfaW9fYml0bWFwKHZvaWQpCiAJdTE2ICpiYXNl
+ID0gJnRzcy0+eDg2X3Rzcy5pb19iaXRtYXBfYmFzZTsKIAogCWlmICghdGVz
+dF90aHJlYWRfZmxhZyhUSUZfSU9fQklUTUFQKSkgewotCQl0c3NfaW52YWxp
+ZGF0ZV9pb19iaXRtYXAodHNzKTsKKwkJbmF0aXZlX3Rzc19pbnZhbGlkYXRl
+X2lvX2JpdG1hcCgpOwogCQlyZXR1cm47CiAJfQogCmRpZmYgLS1naXQgYS9h
+cmNoL3g4Ni94ZW4vZW5saWdodGVuX3B2LmMgYi9hcmNoL3g4Ni94ZW4vZW5s
+aWdodGVuX3B2LmMKaW5kZXggYWNjNDlmYTZhMDk3Li5jNDc1YTExYzY2MjAg
+MTAwNjQ0Ci0tLSBhL2FyY2gveDg2L3hlbi9lbmxpZ2h0ZW5fcHYuYworKysg
+Yi9hcmNoL3g4Ni94ZW4vZW5saWdodGVuX3B2LmMKQEAgLTg1MCw2ICs4NTAs
+MTcgQEAgc3RhdGljIHZvaWQgeGVuX2xvYWRfc3AwKHVuc2lnbmVkIGxvbmcg
+c3AwKQogfQogCiAjaWZkZWYgQ09ORklHX1g4Nl9JT1BMX0lPUEVSTQorc3Rh
+dGljIHZvaWQgeGVuX2ludmFsaWRhdGVfaW9fYml0bWFwKHZvaWQpCit7CisJ
+c3RydWN0IHBoeXNkZXZfc2V0X2lvYml0bWFwIGlvYml0bWFwID0geworCQku
+Yml0bWFwID0gMCwKKwkJLm5yX3BvcnRzID0gMCwKKwl9OworCisJbmF0aXZl
+X3Rzc19pbnZhbGlkYXRlX2lvX2JpdG1hcCgpOworCUhZUEVSVklTT1JfcGh5
+c2Rldl9vcChQSFlTREVWT1Bfc2V0X2lvYml0bWFwLCAmaW9iaXRtYXApOwor
+fQorCiBzdGF0aWMgdm9pZCB4ZW5fdXBkYXRlX2lvX2JpdG1hcCh2b2lkKQog
+ewogCXN0cnVjdCBwaHlzZGV2X3NldF9pb2JpdG1hcCBpb2JpdG1hcDsKQEAg
+LTEwNzksNiArMTA5MCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHZfY3B1
+X29wcyB4ZW5fY3B1X29wcyBfX2luaXRjb25zdCA9IHsKIAkubG9hZF9zcDAg
+PSB4ZW5fbG9hZF9zcDAsCiAKICNpZmRlZiBDT05GSUdfWDg2X0lPUExfSU9Q
+RVJNCisJLmludmFsaWRhdGVfaW9fYml0bWFwID0geGVuX2ludmFsaWRhdGVf
+aW9fYml0bWFwLAogCS51cGRhdGVfaW9fYml0bWFwID0geGVuX3VwZGF0ZV9p
+b19iaXRtYXAsCiAjZW5kaWYKIAkuaW9fZGVsYXkgPSB4ZW5faW9fZGVsYXks
+Cg==
+
+--=separator--
 
