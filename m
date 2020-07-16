@@ -2,44 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E52C5222661
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 17:01:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB21222712
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 17:33:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jw5No-0007G9-Lr; Thu, 16 Jul 2020 15:01:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dhnJ=A3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jw5Nm-0007G2-N8
- for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 15:01:10 +0000
-X-Inumbo-ID: 2e9f35c4-c775-11ea-94c9-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2e9f35c4-c775-11ea-94c9-12813bfff9fa;
- Thu, 16 Jul 2020 15:01:10 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 15D5AACBF;
- Thu, 16 Jul 2020 15:01:13 +0000 (UTC)
-Subject: Re: [PATCH 1/2] common: map_vcpu_info() cosmetics
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <fef45e49-bcb4-dc11-8f7f-b2f5e4bf1a73@suse.com>
- <2a0341c7-3836-a8c0-9516-b6a08e2720ec@suse.com>
- <20200716114128.GO7191@Air-de-Roger>
- <03a4d446-c26b-f171-57fd-a1eb13dad6c0@suse.com>
- <20200716144219.GQ7191@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d64ee03f-4663-39ce-fd72-5702029e0182@suse.com>
-Date: Thu, 16 Jul 2020 17:01:10 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200716144219.GQ7191@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+	id 1jw5rh-0001Yi-7M; Thu, 16 Jul 2020 15:32:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sYN5=A3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jw5rf-0001Yd-Fs
+ for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 15:32:03 +0000
+X-Inumbo-ID: 7f1e7b82-c779-11ea-8496-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7f1e7b82-c779-11ea-8496-bc764e2007e4;
+ Thu, 16 Jul 2020 15:32:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=YK5+rWAzPxg5iH3SvNGtYxLpTilZXgC6lrTxFI5DUMk=; b=iRvv+7Rk4frBkH3zs/5JxoOGS
+ +GAt2gC3d/Q5kNGgwKcA9+9sKjJnVyzZ/7um5l9K0ON45J8SnworQZmcx7niSIhSlPKqwwZ6VQQG8
+ hThNlqHtq/Gv3urLegpPiOZhGfPERrvTfmEFbw3YYVo7E/V+wVcDQc8DE4H15LcHwjLWM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jw5re-0000q1-AC; Thu, 16 Jul 2020 15:32:02 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jw5rd-0001EW-UQ; Thu, 16 Jul 2020 15:32:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jw5rd-0006WL-Ts; Thu, 16 Jul 2020 15:32:01 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-151937-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 151937: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=d9269d69138860edb1ec9796ed48549dc6ba5735
+X-Osstest-Versions-That: ovmf=e77966b341b993291ab2d95718b88a6a0d703d0c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 16 Jul 2020 15:32:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,43 +60,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16.07.2020 16:42, Roger Pau Monné wrote:
-> On Thu, Jul 16, 2020 at 01:48:51PM +0200, Jan Beulich wrote:
->> On 16.07.2020 13:41, Roger Pau Monné wrote:
->>> On Wed, Jul 15, 2020 at 12:15:10PM +0200, Jan Beulich wrote:
->>>> Use ENXIO instead of EINVAL to cover the two cases of the address not
->>>> satisfying the requirements. This will make an issue here better stand
->>>> out at the call site.
->>>
->>> Not sure whether I would use EFAULT instead of ENXIO, as the
->>> description of it is 'bad address' which seems more inline with the
->>> error that we are trying to report.
->>
->> The address isn't bad in the sense of causing a fault, it's just
->> that we elect to not allow it. Hence I don't think EFAULT is
->> suitable. I'm open to replacement suggestions for ENXIO, though.
-> 
-> Well, using an address that's not properly aligned to the requirements
-> of an interface would cause a fault? (in this case it's a software
-> interface, but the concept applies equally).
+flight 151937 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/151937/
 
-Not necessarily, see x86'es behavior. Also even on strict arches
-it is typically possible to cover for the misalignment by using
-suitable instructions; it's still an implementation choice to not
-do so.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 d9269d69138860edb1ec9796ed48549dc6ba5735
+baseline version:
+ ovmf                 e77966b341b993291ab2d95718b88a6a0d703d0c
 
-> Anyway, not something worth arguing about I think, so unless someone
-> else disagrees I'm fine with using ENXIO.
+Last test of basis   151923  2020-07-15 16:10:49 Z    0 days
+Testing same since   151937  2020-07-16 04:25:27 Z    0 days    1 attempts
 
-Good, thanks.
+------------------------------------------------------------
+People who touched revisions under test:
+  Gary Lin <glin@suse.com>
 
-Jan
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   e77966b341..d9269d6913  d9269d69138860edb1ec9796ed48549dc6ba5735 -> xen-tested-master
 
