@@ -2,63 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35D8522281C
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 18:14:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CD61222826
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 18:17:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jw6WN-0005gi-FQ; Thu, 16 Jul 2020 16:14:07 +0000
+	id 1jw6Zl-0005oA-0U; Thu, 16 Jul 2020 16:17:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AXgs=A3=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jw6WM-0005gd-E4
- for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 16:14:06 +0000
-X-Inumbo-ID: 5ecadbea-c77f-11ea-bca7-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=R7sX=A3=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1jw6Zj-0005o5-GT
+ for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 16:17:35 +0000
+X-Inumbo-ID: db52c15a-c77f-11ea-b7bb-bc764e2007e4
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5ecadbea-c77f-11ea-bca7-bc764e2007e4;
- Thu, 16 Jul 2020 16:14:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1594916046;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=dLHhgHO9Y/hl14cdfSP+15wmYO/DQNbvpNe547Ndmko=;
- b=I+tc81QG2PPhZw5zPcknyeP3QWPZVUDX/aEwOFKZCaWo/rRbVdRyPgEP
- qUTK9aDo2+dNlIz9hw9xZiq7TwgFJqfVjLNUw/6KcBHOQOF42ZBhq207T
- ptHUfMgtnX8CHj17vh333kLrzBjh1HxbG3Uw/Fr0GlkDvNIHBlqpqi5ym g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 61Kg7tnhg2c3HSwAbBkI5u2vIbSRSKp+ewd8EXL3YuzZl7Qa19QPbY/W4EKGrBaqyhT2VYMGYq
- 0NhEHiYqSVBnPfWmlQbiZEJXARuaH/34M5J9BjNQyI6eBH3jH2ujtfhAki6qJKbunkhNuBFTG0
- lousThyTNNoUGI/nGGWjU+oh/7X4EyB9RhqXCG0RvFGPmC8O1feX1BWPt1SyBZjiVgsjut8z9I
- hQj7ctbiIEhcvLB1v0Ka2mSwgEi3KSXedrV2+nhJ0kICB5O72CuwfgvbK2iXD2jtGJ8v4f1Mxz
- +yQ=
-X-SBRS: 2.7
-X-MesageID: 22864209
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,360,1589256000"; d="scan'208";a="22864209"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: add myself as a golang bindings maintainer
-Thread-Topic: [PATCH] MAINTAINERS: add myself as a golang bindings maintainer
-Thread-Index: AQHWW4pIUvo5/lAbGUaesEAOcXnVnqkKP58A
-Date: Thu, 16 Jul 2020 16:14:00 +0000
-Message-ID: <B0A42BA1-7D5F-4532-BF35-B1EA0F1169FF@citrix.com>
-References: <2e7fd9648245db7918b674953bb9643733259420.1594914981.git.rosbrookn@ainfosec.com>
-In-Reply-To: <2e7fd9648245db7918b674953bb9643733259420.1594914981.git.rosbrookn@ainfosec.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <FA235796577D7B4FAB30D6493E89E075@citrix.com>
-Content-Transfer-Encoding: quoted-printable
+ id db52c15a-c77f-11ea-b7bb-bc764e2007e4;
+ Thu, 16 Jul 2020 16:17:34 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id k6so7692336wrn.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Jul 2020 09:17:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=xodYPEeS7dp1LUqF530uwFZaAtzHV5zb4yrnlJn6COQ=;
+ b=P4VwAXAYTNHcTFoeQVwCBU1a3pmTveDh0+nzvoNHmPWPk8GCsw6TEfcf7Vxa6f0gtr
+ WYd27HyPdNGQsxk3Qe+Fclcpe9156u/dyTvX4cP6GmMfMe7uVGw8IaJtUSblv0IyTttu
+ /YfgP5U48h/N/24QtsAx+e0w7Ss6ViWWKBaxz2ZSgIw9CLg3ZgcINXDvSNkErlgo/fVf
+ OViB41oizw5h9HZ+B1CL4YmnPp4m6X53VvtN7cc/s5ZdBBwCs60R4Msb+XFicG1YDAKi
+ Ipy2Lk8mrF0wBDcVhlY87UvEKytW1mHx/qF219/lKsIPU2g0a9LOU0JvgflytvKAG79J
+ deDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=xodYPEeS7dp1LUqF530uwFZaAtzHV5zb4yrnlJn6COQ=;
+ b=gaK1zcvPR1tsiYSzE56fXGbu8nxzfAZUDzDuAbGy6qmrXNnObVunQzKR2GjRNlTuIg
+ tocXiPPVOSzNUEHCWyO0JCM3/LrhBG/fAzVU+yykP+s4t6QHnm2C+EbhhlSqCrbpVyfq
+ qrocubY4xpZUvFxtZFallZ6IZdoiyPpnqLJEnCt3GtibXR4G6FlVVP9WEDvb/j+/EKHe
+ pVf9HaP4f9TTAL2jX1YCl3BfLAxpIi1Cq2RwZX4wUvlan3+0AClMPrdM4le0rGsPe+Mp
+ P948Vqkr2CB7pGRCJrcmZVxMY9DPuye25cxhvkvlZKJfrRILoL2ZZEjamKCqfnkfYpMN
+ ErcA==
+X-Gm-Message-State: AOAM532anAsnTlIKJ1vw2x/i8XQwT7ou+1GXOgG43CI31MkAonxuxpU2
+ vkyqPyvzVYc6NI4ewshGX7Y6csGcOsbhUJiOZ9g=
+X-Google-Smtp-Source: ABdhPJztXc0xYdj3Oqi1QD7Rcor//iwik1QLBcbFBF57O9TKPTyGJBqZsKXAzBug0mTgQLcUDZat1vmrpJGdsETbo+4=
+X-Received: by 2002:adf:e88b:: with SMTP id d11mr5555855wrm.378.1594916253884; 
+ Thu, 16 Jul 2020 09:17:33 -0700 (PDT)
 MIME-Version: 1.0
+References: <fef45e49-bcb4-dc11-8f7f-b2f5e4bf1a73@suse.com>
+ <2a0341c7-3836-a8c0-9516-b6a08e2720ec@suse.com>
+ <20200716114128.GO7191@Air-de-Roger>
+ <03a4d446-c26b-f171-57fd-a1eb13dad6c0@suse.com>
+ <20200716144219.GQ7191@Air-de-Roger>
+ <d64ee03f-4663-39ce-fd72-5702029e0182@suse.com>
+In-Reply-To: <d64ee03f-4663-39ce-fd72-5702029e0182@suse.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Thu, 16 Jul 2020 18:17:21 +0200
+Message-ID: <CAJ=z9a2gCm7LNOpJUO4nbwUExmtd8KH2TBvt4VXCaqiAeXuCcg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] common: map_vcpu_info() cosmetics
+To: Jan Beulich <jbeulich@suse.com>
+Content-Type: multipart/alternative; boundary="000000000000c264d605aa9160f7"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,22 +69,131 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Nick Rosbrook <rosbrookn@ainfosec.com>, Jan Beulich <jbeulich@suse.com>, Ian
- Jackson <Ian.Jackson@citrix.com>,
- "open list:X86" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+--000000000000c264d605aa9160f7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 16 Jul 2020, 17:01 Jan Beulich, <jbeulich@suse.com> wrote:
+
+> On 16.07.2020 16:42, Roger Pau Monn=C3=A9 wrote:
+> > On Thu, Jul 16, 2020 at 01:48:51PM +0200, Jan Beulich wrote:
+> >> On 16.07.2020 13:41, Roger Pau Monn=C3=A9 wrote:
+> >>> On Wed, Jul 15, 2020 at 12:15:10PM +0200, Jan Beulich wrote:
+> >>>> Use ENXIO instead of EINVAL to cover the two cases of the address no=
+t
+> >>>> satisfying the requirements. This will make an issue here better sta=
+nd
+> >>>> out at the call site.
+> >>>
+> >>> Not sure whether I would use EFAULT instead of ENXIO, as the
+> >>> description of it is 'bad address' which seems more inline with the
+> >>> error that we are trying to report.
+> >>
+> >> The address isn't bad in the sense of causing a fault, it's just
+> >> that we elect to not allow it. Hence I don't think EFAULT is
+> >> suitable. I'm open to replacement suggestions for ENXIO, though.
+> >
+> > Well, using an address that's not properly aligned to the requirements
+> > of an interface would cause a fault? (in this case it's a software
+> > interface, but the concept applies equally).
+>
+> Not necessarily, see x86'es behavior. Also even on strict arches
+
+it is typically possible to cover for the misalignment by using
+> suitable instructions; it's still an implementation choice to not
+> do so.
 
 
-> On Jul 16, 2020, at 5:00 PM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
->=20
-> Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
-
-Acked-by: George Dunlap <george.dunlap@citrix.com>
+I am not sure about your argument here... Yes it might be possible, but at
+what cost?
 
 
+> > Anyway, not something worth arguing about I think, so unless someone
+> > else disagrees I'm fine with using ENXIO.
+>
+> Good, thanks.
+>
+
+-EFAULT can be described as "Bad address". I think it makes more sense than
+-ENXIO here even if it may not strictly result to a fault on some arch.
+
+
+> Jan
+>
+
+--000000000000c264d605aa9160f7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Thu, 16 Jul 2020, 17:01 Jan Beulich, &lt;<a href=3D=
+"mailto:jbeulich@suse.com" target=3D"_blank" rel=3D"noreferrer">jbeulich@su=
+se.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On 16.07.2020=
+ 16:42, Roger Pau Monn=C3=A9 wrote:<br>
+&gt; On Thu, Jul 16, 2020 at 01:48:51PM +0200, Jan Beulich wrote:<br>
+&gt;&gt; On 16.07.2020 13:41, Roger Pau Monn=C3=A9 wrote:<br>
+&gt;&gt;&gt; On Wed, Jul 15, 2020 at 12:15:10PM +0200, Jan Beulich wrote:<b=
+r>
+&gt;&gt;&gt;&gt; Use ENXIO instead of EINVAL to cover the two cases of the =
+address not<br>
+&gt;&gt;&gt;&gt; satisfying the requirements. This will make an issue here =
+better stand<br>
+&gt;&gt;&gt;&gt; out at the call site.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Not sure whether I would use EFAULT instead of ENXIO, as the<b=
+r>
+&gt;&gt;&gt; description of it is &#39;bad address&#39; which seems more in=
+line with the<br>
+&gt;&gt;&gt; error that we are trying to report.<br>
+&gt;&gt;<br>
+&gt;&gt; The address isn&#39;t bad in the sense of causing a fault, it&#39;=
+s just<br>
+&gt;&gt; that we elect to not allow it. Hence I don&#39;t think EFAULT is<b=
+r>
+&gt;&gt; suitable. I&#39;m open to replacement suggestions for ENXIO, thoug=
+h.<br>
+&gt; <br>
+&gt; Well, using an address that&#39;s not properly aligned to the requirem=
+ents<br>
+&gt; of an interface would cause a fault? (in this case it&#39;s a software=
+<br>
+&gt; interface, but the concept applies equally).<br>
+<br>
+Not necessarily, see x86&#39;es behavior. Also even on strict arches</block=
+quote></div></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote =
+class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid=
+;padding-left:1ex">
+it is typically possible to cover for the misalignment by using<br>
+suitable instructions; it&#39;s still an implementation choice to not<br>
+do so.</blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto=
+">I am not sure about your argument here... Yes it might be possible, but a=
+t what cost?</div><div dir=3D"auto"><br></div><div dir=3D"auto"></div><div =
+dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+&gt; Anyway, not something worth arguing about I think, so unless someone<b=
+r>
+&gt; else disagrees I&#39;m fine with using ENXIO.<br>
+<br>
+Good, thanks.<br></blockquote></div></div><div dir=3D"auto"><br></div><div =
+dir=3D"auto">-EFAULT can be described as &quot;Bad address&quot;. I think i=
+t makes more sense than -ENXIO here even if it may not strictly result to a=
+ fault on some arch.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><di=
+v class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+Jan<br>
+</blockquote></div></div></div>
+
+--000000000000c264d605aa9160f7--
 
