@@ -2,46 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AB38221E17
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 10:20:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16832221E4A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 10:27:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jvz7X-0002w8-AN; Thu, 16 Jul 2020 08:19:59 +0000
+	id 1jvzE2-0003lt-4J; Thu, 16 Jul 2020 08:26:42 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ojOb=A3=protonmail.com=peter.jac@srs-us1.protection.inumbo.net>)
- id 1jvz7V-0002w2-Km
- for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 08:19:57 +0000
-X-Inumbo-ID: 21666004-c73d-11ea-948b-12813bfff9fa
-Received: from mail-40130.protonmail.ch (unknown [185.70.40.130])
+ <SRS0=oOKz=A3=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jvzE0-0003lo-LE
+ for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 08:26:40 +0000
+X-Inumbo-ID: 114d59a6-c73e-11ea-948b-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 21666004-c73d-11ea-948b-12813bfff9fa;
- Thu, 16 Jul 2020 08:19:56 +0000 (UTC)
-Date: Thu, 16 Jul 2020 08:19:50 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail; t=1594887595;
- bh=xEJ9L75McO5xAyI2evYbwkorZc+ujoatY3A6NsvlZ5o=;
- h=Date:To:From:Reply-To:Subject:In-Reply-To:References:From;
- b=ohgpv9SLT1buuHcNajLwev1sC4H3Os8JX1DnosTZYSwCD1PtizdpdSdi5980eZWdQ
- uyh5Wj+9VWbWZ/K8xjn8b6QgpUepz5Tru+0GQOXOQ0g9Y2sjnOzkyjuxgZR5hIBVL3
- IEuFlJGLjmkBSLvlrJZsGOEPqks2OcHoq8T3qULU=
-To: jgross@suse.com, xen-users@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-From: peter.jac@protonmail.com
-Subject: Re: OpenSUSE and Xen
-Message-ID: <uoEjrT5tecvyi0A__wOfDHcCjeQTklewSye5avJNNFIdIj07bJqiWKgfuPDME-moDKtYf0M5GtJjAnXpAez4pDtYq-J2kQKvWs82oi7gNuk=@protonmail.com>
-In-Reply-To: <a6b4386f-6722-486d-9933-3cb32906b474@suse.com>
-References: <jy5CG4DqGrBAir35SWF8DPAZHsHJPYzw4pdQWS8fMylQgEe3hrFhfJG2lZmgvXorh1TayKgqOgrEX8413UGzmF-RU4i_V479poF1OrnKNw8=@protonmail.com>
- <a6b4386f-6722-486d-9933-3cb32906b474@suse.com>
+ id 114d59a6-c73e-11ea-948b-12813bfff9fa;
+ Thu, 16 Jul 2020 08:26:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1594887998;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=eJpoVJ5o3Om7legFwg1TQfD6fd6IeunmXaH8O4YF6OQ=;
+ b=M9dWhRqKl4gLZKwkZLFgzaSG1m5OxtTEt7RBRDZrIkCRvIgog9GNdbWc
+ PQECeTuIVknysplydSbX6SzdkxiTZHA+91TOcAohz1by4Q7Lg+YpDpuIQ
+ e+E8prnaWlQyHZOr1RMK2FleEJkTnkScnODUPyR2cn/yOkCyMdLgx/EqE o=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: BOluNTHkSYVdzAMNQb58R6010i5ICF06kvXn1w7dBi2F6w5uRxXGfl8G8ujIKy9LXU1DpqdzA3
+ OwGy2MpWKdDTH0M8ZHq8fxcFvgE8BmPfa/ps6/PxDDu4GsBCU0GQor1ZGHY2NxfOFdk4sDVgyp
+ 5iSz+983d3HsU+ruXy2HddlTFvprP1+lMasYyKr2cjOz0c0VjCt59fRIhWMj/tZoBXpIdB2vqb
+ 5Qp0HcelBMhhpcbVKj0IK66Y8zBjx54uZfHrTacN6Y0uq0Pj4VEYBT7ijNmaxo7n6pkY2RH8eg
+ NKI=
+X-SBRS: 2.7
+X-MesageID: 22834130
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,358,1589256000"; d="scan'208";a="22834130"
+Date: Thu, 16 Jul 2020 10:26:30 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH v6 10/11] tools/libxc: add xc_vmtrace_* functions
+Message-ID: <20200716082630.GI7191@Air-de-Roger>
+References: <cover.1594150543.git.michal.leszczynski@cert.pl>
+ <476203bca92f1fb0e8de2be2bcfb88695a5688f8.1594150543.git.michal.leszczynski@cert.pl>
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="b1_KWkRiXfl3OmaYq6zkzQYYRrxYpPs3k6Ww0lDDodlFTY"
-X-Spam-Status: No, score=-1.2 required=7.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE
- shortcircuit=no autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mail.protonmail.ch
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <476203bca92f1fb0e8de2be2bcfb88695a5688f8.1594150543.git.michal.leszczynski@cert.pl>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,64 +64,175 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: peter.jac@protonmail.com
+Cc: xen-devel@lists.xenproject.org, tamas.lengyel@intel.com,
+ luwei.kang@intel.com, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
+On Tue, Jul 07, 2020 at 09:39:49PM +0200, Michał Leszczyński wrote:
+> From: Michal Leszczynski <michal.leszczynski@cert.pl>
+> 
+> Add functions in libxc that use the new XEN_DOMCTL_vmtrace interface.
+> 
+> Signed-off-by: Michal Leszczynski <michal.leszczynski@cert.pl>
+> ---
+>  tools/libxc/Makefile          |  1 +
+>  tools/libxc/include/xenctrl.h | 40 ++++++++++++++++
+>  tools/libxc/xc_vmtrace.c      | 87 +++++++++++++++++++++++++++++++++++
+>  3 files changed, 128 insertions(+)
+>  create mode 100644 tools/libxc/xc_vmtrace.c
+> 
+> diff --git a/tools/libxc/Makefile b/tools/libxc/Makefile
+> index fae5969a73..605e44501d 100644
+> --- a/tools/libxc/Makefile
+> +++ b/tools/libxc/Makefile
+> @@ -27,6 +27,7 @@ CTRL_SRCS-y       += xc_csched2.c
+>  CTRL_SRCS-y       += xc_arinc653.c
+>  CTRL_SRCS-y       += xc_rt.c
+>  CTRL_SRCS-y       += xc_tbuf.c
+> +CTRL_SRCS-y       += xc_vmtrace.c
+>  CTRL_SRCS-y       += xc_pm.c
+>  CTRL_SRCS-y       += xc_cpu_hotplug.c
+>  CTRL_SRCS-y       += xc_resume.c
+> diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
+> index 4c89b7294c..491b2c3236 100644
+> --- a/tools/libxc/include/xenctrl.h
+> +++ b/tools/libxc/include/xenctrl.h
+> @@ -1585,6 +1585,46 @@ int xc_tbuf_set_cpu_mask(xc_interface *xch, xc_cpumap_t mask);
+>  
+>  int xc_tbuf_set_evt_mask(xc_interface *xch, uint32_t mask);
+>  
+> +/**
+> + * Enable processor trace for given vCPU in given DomU.
+> + * Allocate the trace ringbuffer with given size.
+> + *
+> + * @parm xch a handle to an open hypervisor interface
+> + * @parm domid domain identifier
+> + * @parm vcpu vcpu identifier
+> + * @return 0 on success, -1 on failure
+> + */
+> +int xc_vmtrace_pt_enable(xc_interface *xch, uint32_t domid,
+> +                         uint32_t vcpu);
+> +
+> +/**
+> + * Disable processor trace for given vCPU in given DomU.
+> + * Deallocate the trace ringbuffer.
+> + *
+> + * @parm xch a handle to an open hypervisor interface
+> + * @parm domid domain identifier
+> + * @parm vcpu vcpu identifier
+> + * @return 0 on success, -1 on failure
+> + */
+> +int xc_vmtrace_pt_disable(xc_interface *xch, uint32_t domid,
+> +                          uint32_t vcpu);
+> +
+> +/**
+> + * Get current offset inside the trace ringbuffer.
+> + * This allows to determine how much data was written into the buffer.
+> + * Once buffer overflows, the offset will reset to 0 and the previous
+> + * data will be overriden.
+                   ^ overridden.
+> + *
+> + * @parm xch a handle to an open hypervisor interface
+> + * @parm domid domain identifier
+> + * @parm vcpu vcpu identifier
+> + * @parm offset current offset inside trace buffer will be written there
+> + * @parm size the total size of the trace buffer (in bytes)
+> + * @return 0 on success, -1 on failure
+> + */
+> +int xc_vmtrace_pt_get_offset(xc_interface *xch, uint32_t domid,
+> +                             uint32_t vcpu, uint64_t *offset, uint64_t *size);
+> +
+>  int xc_domctl(xc_interface *xch, struct xen_domctl *domctl);
+>  int xc_sysctl(xc_interface *xch, struct xen_sysctl *sysctl);
+>  
+> diff --git a/tools/libxc/xc_vmtrace.c b/tools/libxc/xc_vmtrace.c
+> new file mode 100644
+> index 0000000000..ee034da8d3
+> --- /dev/null
+> +++ b/tools/libxc/xc_vmtrace.c
+> @@ -0,0 +1,87 @@
+> +/******************************************************************************
+> + * xc_vmtrace.c
+> + *
+> + * API for manipulating hardware tracing features
+> + *
+> + * Copyright (c) 2020, Michal Leszczynski
+> + *
+> + * Copyright 2020 CERT Polska. All rights reserved.
+> + * Use is subject to license terms.
+> + *
+> + * This library is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU Lesser General Public
+> + * License as published by the Free Software Foundation;
+> + * version 2.1 of the License.
+> + *
+> + * This library is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+> + * Lesser General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU Lesser General Public
+> + * License along with this library; If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include "xc_private.h"
+> +#include <xen/trace.h>
+> +
+> +int xc_vmtrace_pt_enable(
+> +        xc_interface *xch, uint32_t domid, uint32_t vcpu)
+> +{
+> +    DECLARE_DOMCTL;
 
---b1_KWkRiXfl3OmaYq6zkzQYYRrxYpPs3k6Ww0lDDodlFTY
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+You could do:
 
-RGlkIHlvdSB1c2UgaW50ZXJuZXQgZHVyaW5nIGluc3RhbGxhdGlvbj8gVGhlIEtWTSBwYWNrYWdl
-IGlzIGF2YWlsYWJsZSBvbiB0aGUgRFZEIHdpdGhvdXQgdGhlIGludGVybmV0IGNvbm5lY3Rpb24g
-YnV0IFhlbi4uLgoKU2VudCBmcm9tIFByb3Rvbk1haWwgbW9iaWxlCgotLS0tLS0tLSBPcmlnaW5h
-bCBNZXNzYWdlIC0tLS0tLS0tCk9uIEp1bCAxNiwgMjAyMCwgMTE6MDIgQU0sIErDvHJnZW4gR3Jv
-w58gd3JvdGU6Cgo+IE9uIDE1LjA3LjIwIDE5OjE2LCBwZXRlci5qYWNAcHJvdG9ubWFpbC5jb20g
-d3JvdGU6Cj4+Cj4+IEhlbGxvLAo+PiBJIGhhdmUgYSBxdWVzdGlvbiBmcm9tIGFsbCBYZW4gUHJv
-amVjdCBkZXZlbG9wZXJzIGFuZCB1c2Vycy4KPgo+IFdoYXQ/IE5vdCBmcm9tIG1lLiA7LSkKPgo+
-PiBJcyBPcGVuU1VTRSBzdXBwb3J0aW5nIFhlbiBQcm9qZWN0Pwo+Cj4gV2h5IGRvIHlvdSBhc2sg
-dGhpcyBoZXJlLCBpbnN0ZWFkIG9mIGFuIE9wZW5TVVNFIGxpc3QvZm9ydW0vd2hhdGV2ZXI/Cj4K
-Pj4gRGlkIGFueW9uZSBpbnN0YWxsIE9wZW5TVVNFPwo+Cj4gSSBrbm93IHNldmVyYWwgcGVvcGxl
-IGhhdmluZyBkb25lIHNvLCB5ZXMuCj4KPj4gV2h5IE9wZW5TVVNFIG5vdCBoYXZlIGFueSBvcHRp
-b24gYWJvdXQKPj4gaW5zdGFsbGluZyBYZW4gZHVyaW5nIGluc3RhbGxhdGlvbiBidXQgaGF2ZSBh
-biBvcHRpb24gYWJvdXQgS1ZNPwo+Cj4gQXNrIE9wZW5TVVNFIGNvbW11bml0eT8KPgo+IEJUVywg
-SSdtIGFibGUgdG8gc2VsZWN0ICJYZW4gVmlydHVhbGl6YXRpb24gSG9zdCBhbmQgVG9vbHMiIGZy
-b20gdGhlCj4gIlNvZnR3YXJlIiBtZW51IHdoZW4gaW5zdGFsbGluZyBvcGVuU1VTRSAxNS4yLiBJ
-dCBpcyBldmVuIGFib3ZlIHRoZQo+ICJLVk0gVmlydHVhbGl6YXRpb24gSG9zdCBhbmQgVG9vbHMi
-IG9wdGlvbi4KPgo+PiBXaHkgWGVuIHBhY2thZ2UgZG9lc24ndCBpbmNsdWRlZD8KPgo+IFRoZXkg
-YXJlLgo+Cj4gSnVlcmdlbg==
+DECLARE_DOMCTL = {
+    .cmd = XEN_DOMCTL_vmtrace_op,
+    .domain = domid,
+    ...
+};
 
---b1_KWkRiXfl3OmaYq6zkzQYYRrxYpPs3k6Ww0lDDodlFTY
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+And avoid setting the fields below, the same applies to the rest
+of the functions. Note that when doing this there's no need to set the
+padding fields, as they will be zeroed by the initialization.
 
-RGlkIHlvdSB1c2UgaW50ZXJuZXQgZHVyaW5nIGluc3RhbGxhdGlvbj8gVGhlIEtWTSBwYWNrYWdl
-IGlzIGF2YWlsYWJsZSBvbiB0aGUgRFZEIHdpdGhvdXQgdGhlIGludGVybmV0IGNvbm5lY3Rpb24g
-YnV0IFhlbi4uLjxicj48YnI+PGJyPlNlbnQgZnJvbSBQcm90b25NYWlsIG1vYmlsZTxicj48YnI+
-PGJyPjxicj4tLS0tLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tLS0tPGJyPk9uIEp1bCAxNiwg
-MjAyMCwgMTE6MDIgQU0sIErDvHJnZW4gR3Jvw58gPCBqZ3Jvc3NAc3VzZS5jb20+IHdyb3RlOjxi
-bG9ja3F1b3RlIGNsYXNzPSJwcm90b25tYWlsX3F1b3RlIj48YnI+PHAgZGlyPSJsdHIiPk9uIDE1
-LjA3LjIwIDE5OjE2LCBwZXRlci5qYWNAcHJvdG9ubWFpbC5jb20gd3JvdGU6PGJyPg0KJmd0Ozxi
-cj4NCiZndDsgSGVsbG8sPGJyPg0KJmd0OyBJIGhhdmUgYSBxdWVzdGlvbiBmcm9tIGFsbCBYZW4g
-UHJvamVjdCBkZXZlbG9wZXJzIGFuZCB1c2Vycy48L3A+DQo8cCBkaXI9Imx0ciI+V2hhdD8gTm90
-IGZyb20gbWUuIDstKTwvcD4NCjxwIGRpcj0ibHRyIj4mZ3Q7IElzIE9wZW5TVVNFIHN1cHBvcnRp
-bmcgWGVuIFByb2plY3Q/PC9wPg0KPHAgZGlyPSJsdHIiPldoeSBkbyB5b3UgYXNrIHRoaXMgaGVy
-ZSwgaW5zdGVhZCBvZiBhbiBPcGVuU1VTRSBsaXN0L2ZvcnVtL3doYXRldmVyPzwvcD4NCjxwIGRp
-cj0ibHRyIj4mZ3Q7IERpZCBhbnlvbmUgaW5zdGFsbCBPcGVuU1VTRT88L3A+DQo8cCBkaXI9Imx0
-ciI+SSBrbm93IHNldmVyYWwgcGVvcGxlIGhhdmluZyBkb25lIHNvLCB5ZXMuPC9wPg0KPHAgZGly
-PSJsdHIiPiZndDsgV2h5IE9wZW5TVVNFIG5vdCBoYXZlIGFueSBvcHRpb24gYWJvdXQ8YnI+DQom
-Z3Q7IGluc3RhbGxpbmcgWGVuIGR1cmluZyBpbnN0YWxsYXRpb24gYnV0IGhhdmUgYW4gb3B0aW9u
-IGFib3V0IEtWTT88L3A+DQo8cCBkaXI9Imx0ciI+QXNrIE9wZW5TVVNFIGNvbW11bml0eT88L3A+
-DQo8cCBkaXI9Imx0ciI+QlRXLCBJJ20gYWJsZSB0byBzZWxlY3QgIlhlbiBWaXJ0dWFsaXphdGlv
-biBIb3N0IGFuZCBUb29scyIgZnJvbSB0aGU8YnI+DQoiU29mdHdhcmUiIG1lbnUgd2hlbiBpbnN0
-YWxsaW5nIG9wZW5TVVNFIDE1LjIuIEl0IGlzIGV2ZW4gYWJvdmUgdGhlPGJyPg0KIktWTSBWaXJ0
-dWFsaXphdGlvbiBIb3N0IGFuZCBUb29scyIgb3B0aW9uLjwvcD4NCjxwIGRpcj0ibHRyIj4mZ3Q7
-IFdoeSBYZW4gcGFja2FnZSBkb2Vzbid0IGluY2x1ZGVkPzwvcD4NCjxwIGRpcj0ibHRyIj5UaGV5
-IGFyZS48YnI+PC9wPg0KPHAgZGlyPSJsdHIiPkp1ZXJnZW48YnI+DQo8L3A+DQo8L2Rpdj4=
+> +    int rc;
+> +
+> +    domctl.cmd = XEN_DOMCTL_vmtrace_op;
+> +    domctl.domain = domid;
+> +    domctl.u.vmtrace_op.cmd = XEN_DOMCTL_vmtrace_pt_enable;
+> +    domctl.u.vmtrace_op.vcpu = vcpu;
+> +    domctl.u.vmtrace_op.pad1 = 0;
+> +    domctl.u.vmtrace_op.pad2 = 0;
+> +
+> +    rc = do_domctl(xch, &domctl);
+> +    return rc;
 
+Just do 'return do_domctl(xch, &domctl);', and you can drop the rc
+variable (here and in xc_vmtrace_pt_disable).
 
---b1_KWkRiXfl3OmaYq6zkzQYYRrxYpPs3k6Ww0lDDodlFTY--
+> +}
+> +
+> +int xc_vmtrace_pt_get_offset(
+> +        xc_interface *xch, uint32_t domid, uint32_t vcpu,
+> +        uint64_t *offset, uint64_t *size)
+> +{
+> +    DECLARE_DOMCTL;
+> +    int rc;
+> +
+> +    domctl.cmd = XEN_DOMCTL_vmtrace_op;
+> +    domctl.domain = domid;
+> +    domctl.u.vmtrace_op.cmd = XEN_DOMCTL_vmtrace_pt_get_offset;
+> +    domctl.u.vmtrace_op.vcpu = vcpu;
+> +    domctl.u.vmtrace_op.pad1 = 0;
+> +    domctl.u.vmtrace_op.pad2 = 0;
+> +
+> +    rc = do_domctl(xch, &domctl);
+> +    if ( !rc )
+> +    {
+> +        if (offset)
+               ^ missing spaces.
 
+Thanks.
 
