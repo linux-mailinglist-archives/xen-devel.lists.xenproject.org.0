@@ -2,45 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DA0D222189
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 13:34:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 687702221A3
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 13:42:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jw29y-00041v-1k; Thu, 16 Jul 2020 11:34:42 +0000
+	id 1jw2Gh-0004s1-Pn; Thu, 16 Jul 2020 11:41:39 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1QOp=A3=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jw29x-00041q-A2
- for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 11:34:41 +0000
-X-Inumbo-ID: 55f7cc7a-c758-11ea-94a4-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oOKz=A3=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jw2Gg-0004rw-E9
+ for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 11:41:38 +0000
+X-Inumbo-ID: 4e9453ee-c759-11ea-94a5-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 55f7cc7a-c758-11ea-94a4-12813bfff9fa;
- Thu, 16 Jul 2020 11:34:40 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 93702AE44;
- Thu, 16 Jul 2020 11:34:43 +0000 (UTC)
-Subject: Re: [PATCH v2] docs: specify stability of hypfs path documentation
+ id 4e9453ee-c759-11ea-94a5-12813bfff9fa;
+ Thu, 16 Jul 2020 11:41:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1594899697;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=GSo6+S84yGEpCHdoBUFu/eMIj/LXkStHwfl7+iH6gHY=;
+ b=Sutngue4IPHv792Wv6IJb3tfopSatQ9fxv2o7NbJq5VjOC2iFVjAunp7
+ QyRKnNf3Q04A7Wb4Cc8k5ea1gyRvAxlESAQx0HAfqm79HDTMAqbSUjIci
+ VHPWI0hyNQmQi4+FsUyQJu4MQutF3kJ/Y2pshWEq0hmhs9YXQOD0af5gW k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 3H88suKxwGm3a3+3NSWMAjkXsT76LRHv8f00wQwjNoQo9p19eU9K7XOKR4D07zkZjnwcxJengj
+ Kyin4DMI18exrzbdZFMEdDiRnjx5Rvr29rK6p4TGVl43+RiROPqCTbCzHudTJc15+d1WN3PSpu
+ GZHmTvO4wB5BK+LZYjBBqin62vDCpJn/wdPEZZ3WuGBK6VBYc/AWL1HkO581/BKscCcfaVqGkL
+ BsMCRQrGZGMxFIG0VTv9cf7DMUAMzbsWgaEqqWzjXgbXTL6V+iOdGd0Z6onulpwc8d68ZdnxWk
+ Dm8=
+X-SBRS: 2.7
+X-MesageID: 22712951
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,359,1589256000"; d="scan'208";a="22712951"
+Date: Thu, 16 Jul 2020 13:41:28 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-References: <20200713140338.16172-1-jgross@suse.com>
- <8a96b1b9-cbcb-557a-5b82-661bbe40fe25@suse.com>
- <68F727A8-29B8-4846-8BE9-BD4F6E0DC60D@citrix.com>
- <9f5e86cc-4f64-982b-d84b-1de6b2739a2b@suse.com>
- <4c681c7c-be69-7e1a-4cd9-c9e05fe85372@suse.com>
- <2567da9b-be43-3f0d-e213-562b5454f4b7@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <757f5f78-6ec9-c740-18bf-a01105d552d7@suse.com>
-Date: Thu, 16 Jul 2020 13:34:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+Subject: Re: [PATCH 1/2] common: map_vcpu_info() cosmetics
+Message-ID: <20200716114128.GO7191@Air-de-Roger>
+References: <fef45e49-bcb4-dc11-8f7f-b2f5e4bf1a73@suse.com>
+ <2a0341c7-3836-a8c0-9516-b6a08e2720ec@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <2567da9b-be43-3f0d-e213-562b5454f4b7@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2a0341c7-3836-a8c0-9516-b6a08e2720ec@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,55 +65,31 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>, Ian Jackson <Ian.Jackson@citrix.com>,
- "open list:X86" <xen-devel@lists.xenproject.org>
+ Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16.07.20 13:24, Jan Beulich wrote:
-> On 16.07.2020 12:31, Jürgen Groß wrote:
->> On 16.07.20 12:11, Jan Beulich wrote:
->>> On 15.07.2020 16:37, George Dunlap wrote:
->>>> IT sounds like you’re saying:
->>>>
->>>> 1. Paths listed without conditions will always be available
->>>>
->>>> 2. Paths listed with conditions may be extended: i.e., a node currently listed as PV might also become available for HVM guests
->>>>
->>>> 3. Paths listed with conditions might have those conditions reduced, but will never entirely disappear.  So something currently listed as PV might be reduced to CONFIG_HAS_FOO, but won’t be completely removed.
->>>>
->>>> Is that what you meant?
->>>
->>> I see Jürgen replied "yes" to this, but I'm not sure about 1.
->>> above: I think it's quite reasonable to expect that paths without
->>> condition may gain a condition. Just like paths now having a
->>> condition and (perhaps temporarily) losing it shouldn't all of
->>> the sudden become "always available" when they weren't meant to
->>> be.
->>>
->>> As far a 3. goes, I'm also unsure in how far this is any better
->>> stability wise (from a consumer pov) than allowing paths to
->>> entirely disappear.
->>
->> The idea is that any user tool using hypfs can rely on paths under 1 to
->> exist, while the ones under 3 might not be there due to the hypervisor
->> config or the used system.
->>
->> A path not being allowed to entirely disappear ensures that it remains
->> in the documentation, so the same path can't be reused for something
->> different in future.
+On Wed, Jul 15, 2020 at 12:15:10PM +0200, Jan Beulich wrote:
+> Use ENXIO instead of EINVAL to cover the two cases of the address not
+> satisfying the requirements. This will make an issue here better stand
+> out at the call site.
+
+Not sure whether I would use EFAULT instead of ENXIO, as the
+description of it is 'bad address' which seems more inline with the
+error that we are trying to report.
+
+> Also add a missing compat-mode related size check: If the sizes
+> differed, other code in the function would need changing. Accompany this
+> by a change to the initial sizeof() expression, tying it to the type of
+> the variable we're actually after (matching e.g. the alignof() added by
+> XSA-327).
 > 
-> And then how do you deal with a condition getting dropped, and
-> later wanting to get re-added? Do we need a placeholder condition
-> like [ALWAYS] or [TRUE]?
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Dropping a condition has to be considered very carefully, same as
-introducing a new path without any condition.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-In worst case you can still go with [CONFIG_HYPFS].
-
-
-Juergen
+Thanks.
 
