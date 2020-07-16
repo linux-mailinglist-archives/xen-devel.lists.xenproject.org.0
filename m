@@ -2,70 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 450D7222531
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 16:21:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F1422225A5
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 16:32:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jw4kW-0002nM-4p; Thu, 16 Jul 2020 14:20:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jw4vV-00046K-K8; Thu, 16 Jul 2020 14:31:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AXgs=A3=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jw4kU-0002nH-Ll
- for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 14:20:34 +0000
-X-Inumbo-ID: 8256c458-c76f-11ea-94be-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8256c458-c76f-11ea-94be-12813bfff9fa;
- Thu, 16 Jul 2020 14:20:33 +0000 (UTC)
+ <SRS0=oOKz=A3=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jw4vU-000467-3A
+ for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 14:31:56 +0000
+X-Inumbo-ID: 184e0614-c771-11ea-b7bb-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 184e0614-c771-11ea-b7bb-bc764e2007e4;
+ Thu, 16 Jul 2020 14:31:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1594909234;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=mI+n4MWWbp6/xnt7yQROW1Mv+5F30+fTKHNKqAe+xuY=;
- b=HpmbW+I3nfCV7tmDlb4s1PgOvK6UupQ/2/3Q5U7DkiakrEJoxuWv50ay
- qvM7Tuhq+3CXB3/TPv+5AX5O4hG4PB9wqY7qRkQHz4X+OWL6pygVeq0Gt
- 5kpUPCKsLrtWyEhaLjgLREIdgnwlHh7jTRQNkqL2xpfEasaNs06pQpryY U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1594909915;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=mX6+Al+DCPGvTaGpH5vyQE9N5lqASJCT9hhRoUNp4AQ=;
+ b=N7ALdckvL3cNjFZ9rRnCz4vnct7RcpZxpUIiXspkQPnyopgatYA7sBMf
+ bEs7mOAxjc/nD6Jcfvc99lpRJIcel4GlMuriTUYd1NwN+R/TpHppCjI2z
+ YPezcqhxhQZGVIOX37kmAbDlRyu9fRAjcMdTQsZPewMoTeTX5ht9StBly 8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: SXJJF0O1jF8+i76+bT9n60MxMkBvi3U/stUfieunfvW1GusEiy5DWWoFc0eFlu0gCtzUHrn7jc
- ycv1TwOaakKxCnqa34L6Uohft09XhQxr4yL9DCxpHn8SZazJ5VCAJX3AYCjbulxiuVpsfh9NaX
- ZY88kOyLujxxKkdeV1fywZCDGFQR7IAXLQuVYCwQLGDBz1jd1PtgGmrjS+KXSGHkAWkU5QWiJ+
- uRI/p86XImVxasZw8b1ZhKu1/rcT3HlbOyu7M2r/H3M347exBNm2BGdtmG+hR7BDhlt8dujqm0
- dCQ=
+IronPort-SDR: ru5cYZopSMX+x0tUfo7K/rPcyH9pFqhrn6q0L/yjTD+mcvkF3r0V+ueHGisPhcm1Q2x1iPoTct
+ drdUyDBaYlt5X2tXx6MO4VM9zIfkvvCKpTaClIAgXwDXYK9LwBUKh42mBw1tHRC2x1tBYu2FWk
+ dUYLEEYiTKeoaQoULB+qwPzCaUH11CH/lqmhS1cnDT1LxWYkq/qpPfXxmXyso+9GvOBXgXXVzW
+ 7lpcgrDFX5tqBLKdH2v0TDSFmxvruYlYsBaW0OPqzg0rxEZODFhYdlJQst3Y8uPCsx8lEpXRJh
+ Yrs=
 X-SBRS: 2.7
-X-MesageID: 22532812
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 22852512
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,359,1589256000"; d="scan'208";a="22532812"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: [PATCH v2] docs: specify stability of hypfs path documentation
-Thread-Topic: [PATCH v2] docs: specify stability of hypfs path documentation
-Thread-Index: AQHWWR59fvtpmEuro06JsoMrFTmX86kFdV+AgAMhtYCAAUgfAIAABYeAgAAO0gCAAALcAIAALlYA
-Date: Thu, 16 Jul 2020 14:20:28 +0000
-Message-ID: <A8D7C0A3-BA48-40F2-B290-C73BC1CDEBD1@citrix.com>
-References: <20200713140338.16172-1-jgross@suse.com>
- <8a96b1b9-cbcb-557a-5b82-661bbe40fe25@suse.com>
- <68F727A8-29B8-4846-8BE9-BD4F6E0DC60D@citrix.com>
- <9f5e86cc-4f64-982b-d84b-1de6b2739a2b@suse.com>
- <4c681c7c-be69-7e1a-4cd9-c9e05fe85372@suse.com>
- <2567da9b-be43-3f0d-e213-562b5454f4b7@suse.com>
- <757f5f78-6ec9-c740-18bf-a01105d552d7@suse.com>
-In-Reply-To: <757f5f78-6ec9-c740-18bf-a01105d552d7@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <1B28F961F9ACD34392C5C594BE9E3004@citrix.com>
-Content-Transfer-Encoding: base64
+X-IronPort-AV: E=Sophos;i="5.75,359,1589256000"; d="scan'208";a="22852512"
+Date: Thu, 16 Jul 2020 16:31:45 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2 2/2] x86: detect CMOS aliasing on ports other than
+ 0x70/0x71
+Message-ID: <20200716143145.GP7191@Air-de-Roger>
+References: <416ac9b1-93d1-81a2-be19-d58d509fdfec@suse.com>
+ <72a63cba-bfdb-ae3c-284b-8ba5b9d7f7a9@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <72a63cba-bfdb-ae3c-284b-8ba5b9d7f7a9@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,69 +63,166 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Ian Jackson <Ian.Jackson@citrix.com>,
- "open list:X86" <xen-devel@lists.xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gSnVsIDE2LCAyMDIwLCBhdCAxMjozNCBQTSwgSsO8cmdlbiBHcm/DnyA8amdyb3Nz
-QHN1c2UuY29tPiB3cm90ZToNCj4gDQo+IE9uIDE2LjA3LjIwIDEzOjI0LCBKYW4gQmV1bGljaCB3
-cm90ZToNCj4+IE9uIDE2LjA3LjIwMjAgMTI6MzEsIErDvHJnZW4gR3Jvw58gd3JvdGU6DQo+Pj4g
-T24gMTYuMDcuMjAgMTI6MTEsIEphbiBCZXVsaWNoIHdyb3RlOg0KPj4+PiBPbiAxNS4wNy4yMDIw
-IDE2OjM3LCBHZW9yZ2UgRHVubGFwIHdyb3RlOg0KPj4+Pj4gSVQgc291bmRzIGxpa2UgeW914oCZ
-cmUgc2F5aW5nOg0KPj4+Pj4gDQo+Pj4+PiAxLiBQYXRocyBsaXN0ZWQgd2l0aG91dCBjb25kaXRp
-b25zIHdpbGwgYWx3YXlzIGJlIGF2YWlsYWJsZQ0KPj4+Pj4gDQo+Pj4+PiAyLiBQYXRocyBsaXN0
-ZWQgd2l0aCBjb25kaXRpb25zIG1heSBiZSBleHRlbmRlZDogaS5lLiwgYSBub2RlIGN1cnJlbnRs
-eSBsaXN0ZWQgYXMgUFYgbWlnaHQgYWxzbyBiZWNvbWUgYXZhaWxhYmxlIGZvciBIVk0gZ3Vlc3Rz
-DQo+Pj4+PiANCj4+Pj4+IDMuIFBhdGhzIGxpc3RlZCB3aXRoIGNvbmRpdGlvbnMgbWlnaHQgaGF2
-ZSB0aG9zZSBjb25kaXRpb25zIHJlZHVjZWQsIGJ1dCB3aWxsIG5ldmVyIGVudGlyZWx5IGRpc2Fw
-cGVhci4gIFNvIHNvbWV0aGluZyBjdXJyZW50bHkgbGlzdGVkIGFzIFBWIG1pZ2h0IGJlIHJlZHVj
-ZWQgdG8gQ09ORklHX0hBU19GT08sIGJ1dCB3b27igJl0IGJlIGNvbXBsZXRlbHkgcmVtb3ZlZC4N
-Cj4+Pj4+IA0KPj4+Pj4gSXMgdGhhdCB3aGF0IHlvdSBtZWFudD8NCj4+Pj4gDQo+Pj4+IEkgc2Vl
-IErDvHJnZW4gcmVwbGllZCAieWVzIiB0byB0aGlzLCBidXQgSSdtIG5vdCBzdXJlIGFib3V0IDEu
-DQo+Pj4+IGFib3ZlOiBJIHRoaW5rIGl0J3MgcXVpdGUgcmVhc29uYWJsZSB0byBleHBlY3QgdGhh
-dCBwYXRocyB3aXRob3V0DQo+Pj4+IGNvbmRpdGlvbiBtYXkgZ2FpbiBhIGNvbmRpdGlvbi4gSnVz
-dCBsaWtlIHBhdGhzIG5vdyBoYXZpbmcgYQ0KPj4+PiBjb25kaXRpb24gYW5kIChwZXJoYXBzIHRl
-bXBvcmFyaWx5KSBsb3NpbmcgaXQgc2hvdWxkbid0IGFsbCBvZg0KPj4+PiB0aGUgc3VkZGVuIGJl
-Y29tZSAiYWx3YXlzIGF2YWlsYWJsZSIgd2hlbiB0aGV5IHdlcmVuJ3QgbWVhbnQgdG8NCj4+Pj4g
-YmUuDQo+Pj4+IA0KPj4+PiBBcyBmYXIgYSAzLiBnb2VzLCBJJ20gYWxzbyB1bnN1cmUgaW4gaG93
-IGZhciB0aGlzIGlzIGFueSBiZXR0ZXINCj4+Pj4gc3RhYmlsaXR5IHdpc2UgKGZyb20gYSBjb25z
-dW1lciBwb3YpIHRoYW4gYWxsb3dpbmcgcGF0aHMgdG8NCj4+Pj4gZW50aXJlbHkgZGlzYXBwZWFy
-Lg0KPj4+IA0KPj4+IFRoZSBpZGVhIGlzIHRoYXQgYW55IHVzZXIgdG9vbCB1c2luZyBoeXBmcyBj
-YW4gcmVseSBvbiBwYXRocyB1bmRlciAxIHRvDQo+Pj4gZXhpc3QsIHdoaWxlIHRoZSBvbmVzIHVu
-ZGVyIDMgbWlnaHQgbm90IGJlIHRoZXJlIGR1ZSB0byB0aGUgaHlwZXJ2aXNvcg0KPj4+IGNvbmZp
-ZyBvciB0aGUgdXNlZCBzeXN0ZW0uDQo+Pj4gDQo+Pj4gQSBwYXRoIG5vdCBiZWluZyBhbGxvd2Vk
-IHRvIGVudGlyZWx5IGRpc2FwcGVhciBlbnN1cmVzIHRoYXQgaXQgcmVtYWlucw0KPj4+IGluIHRo
-ZSBkb2N1bWVudGF0aW9uLCBzbyB0aGUgc2FtZSBwYXRoIGNhbid0IGJlIHJldXNlZCBmb3Igc29t
-ZXRoaW5nDQo+Pj4gZGlmZmVyZW50IGluIGZ1dHVyZS4NCj4+IEFuZCB0aGVuIGhvdyBkbyB5b3Ug
-ZGVhbCB3aXRoIGEgY29uZGl0aW9uIGdldHRpbmcgZHJvcHBlZCwgYW5kDQo+PiBsYXRlciB3YW50
-aW5nIHRvIGdldCByZS1hZGRlZD8gRG8gd2UgbmVlZCBhIHBsYWNlaG9sZGVyIGNvbmRpdGlvbg0K
-Pj4gbGlrZSBbQUxXQVlTXSBvciBbVFJVRV0/DQo+IA0KPiBEcm9wcGluZyBhIGNvbmRpdGlvbiBo
-YXMgdG8gYmUgY29uc2lkZXJlZCB2ZXJ5IGNhcmVmdWxseSwgc2FtZSBhcw0KPiBpbnRyb2R1Y2lu
-ZyBhIG5ldyBwYXRoIHdpdGhvdXQgYW55IGNvbmRpdGlvbi4NCj4gDQo+IEluIHdvcnN0IGNhc2Ug
-eW91IGNhbiBzdGlsbCBnbyB3aXRoIFtDT05GSUdfSFlQRlNdLg0KDQpDb3VsZG7igJl0IHdlIGp1
-c3QgaGF2ZSBhIHNlY3Rpb24gb2YgdGhlIGRvY3VtZW50IGZvciBkZWFkIHBhdGhzIHRoYXQgYXJl
-buKAmXQgYWxsb3dlZCB0byBiZSB1c2VkPw0KDQpBbHRlcm5hdGVseSwgd2UgY291bGQgaGF2ZSBh
-IHRhZyBmb3IgZW50cmllcyB3ZSBkb27igJl0IHdhbnQgdXNlZCBhbnltb3JlOyBbREVBRF0gb3Ig
-W09CU09MRVRFXSBtYXliZT8gW0RFRlVOQ1RdPyBbUkVNT1ZFRF0/DQoNClNvIEkgdGhpbmsgSeKA
-mWQgd3JpdGUgYSBzZXBhcmF0ZSBzZWN0aW9uLCBsaWtlIHRoaXM6DQoNCn5+DQojIFN0YWJpbGl0
-eQ0KDQpQYXRoICpwcmVzZW5jZSogaXMgbm90IHN0YWJsZSwgYnV0IHBhdGggKm1lYW5pbmcqIGlz
-IGFsd2F5cyBzdGFibGU6IGlmIGEgdG9vbCB5b3Ugd3JpdGUgZmluZHMgYSBwYXRoIHByZXNlbnQs
-IGl0IGNhbiByZWx5IG9uIGJlaGF2aW9yIGluIGZ1dHVyZSB2ZXJzaW9ucyBvZiB0aGUgaHlwZXJ2
-aXNvcnMsIGFuZCBpbiBkaWZmZXJlbnQgY29uZmlndXJhdGlvbnMuICBTcGVjaWZpY2FsbHk6DQoN
-CjEuIENvbmRpdGlvbnMgdW5kZXIgd2hpY2ggcGF0aHMgYXJlIHVzZWQgbWF5IGJlIGV4dGVuZGVk
-LCByZXN0cmljdGVkLCBvciByZW1vdmVkLiAgRm9yIGV4YW1wbGUsIGEgcGF0aCB0aGF04oCZcyBh
-bHdheXMgYXZhaWxhYmxlIG9ubHkgb24gQVJNIHN5c3RlbXMgbWF5IGJlY29tZSBhdmFpbGFibGUg
-b24geDg2OyBvciBhIHBhdGggYXZhaWxhYmxlIG9uIGJvdGggc3lzdGVtcyBtYXkgYmUgcmVzdHJp
-Y3RlZCB0byBvbmx5IGFwcGVhcmluZyBvbiBBUk0gc3lzdGVtcy4gIFBhdGhzIG1heSBhbHNvIGRp
-c2FwcGVhciBlbnRpcmVseS4NCg0KMi4gSG93ZXZlciwgdGhlIG1lYW5pbmcgb2YgYSBwYXRoIHdp
-bGwgbmV2ZXIgY2hhbmdlLiAgSWYgYSBwYXRoIGlzIHByZXNlbnQsIGl0IHdpbGwgYWx3YXlzIGhh
-dmUgZXhhY3RseSB0aGUgbWVhbmluZyB0aGF0IGl0IGFsd2F5cyBoYWQuICBJbiBvcmRlciB0byBt
-YWludGFpbiB0aGlzLCByZW1vdmVkIHBhdGhzIHNob3VsZCBiZSByZXRhaW5lZCB3aXRoIHRoZSB0
-YWcgW1JFTU9WRURdLiAgVGhlIHBhdGggbWF5IGJlIHJlc3RvcmVkICpvbmx5KiBpZiB0aGUgcmVz
-dG9yZWQgdmVyc2lvbiBvZiB0aGUgcGF0aCBpcyBjb21wYXRpYmxlIHdpdGggdGhlIHByZXZpb3Vz
-IGZ1bmN0aW9uYWxpdHkuDQp+fn4NCg0KVGhvdWdodHM/DQoNCiAtR2Vvcmdl
+On Wed, Jul 15, 2020 at 11:47:56AM +0200, Jan Beulich wrote:
+> ... in order to also intercept accesses through the alias ports.
+> 
+> Also stop intercepting accesses to the CMOS ports if we won't ourselves
+> use the CMOS RTC.
+
+I think you are missing the registration of the aliased ports in
+rtc_init for a PVH hardware domain, hw_rtc_io will currently only get
+called by accesses to 0x71-0x71.
+
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v2: Re-base.
+> 
+> --- a/xen/arch/x86/physdev.c
+> +++ b/xen/arch/x86/physdev.c
+> @@ -670,6 +670,80 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_H
+>      return ret;
+>  }
+>  
+> +#ifndef COMPAT
+> +#include <asm/mc146818rtc.h>
+> +
+> +unsigned int __read_mostly cmos_alias_mask;
+> +
+> +static int __init probe_cmos_alias(void)
+> +{
+> +    unsigned int i, offs;
+> +
+> +    if ( acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC )
+> +        return 0;
+> +
+> +    for ( offs = 2; offs < 8; offs <<= 1 )
+> +    {
+> +        bool read = true;
+> +
+> +        for ( i = RTC_REG_D + 1; i < 0x80; ++i )
+> +        {
+> +            uint8_t normal, alt;
+> +            unsigned long flags;
+> +
+> +            if ( i == acpi_gbl_FADT.century )
+> +                continue;
+
+I'm missing something, why do you avoid the century register for
+comparison reasons?
+
+> @@ -2009,37 +2009,33 @@ int __hwdom_init xen_in_range(unsigned l
+>  static int __hwdom_init io_bitmap_cb(unsigned long s, unsigned long e,
+>                                       void *ctx)
+>  {
+> -    struct domain *d = ctx;
+> +    const struct domain *d = ctx;
+
+Urg, it's kind of weird to constify d ...
+
+>      unsigned int i;
+>  
+>      ASSERT(e <= INT_MAX);
+>      for ( i = s; i <= e; i++ )
+> -        __clear_bit(i, d->arch.hvm.io_bitmap);
+> +        if ( admin_io_okay(i, 1, d) )
+> +            __clear_bit(i, d->arch.hvm.io_bitmap);
+
+... when you are modifying the bitmap here.
+
+>  
+>      return 0;
+>  }
+>  
+>  void __hwdom_init setup_io_bitmap(struct domain *d)
+>  {
+> -    int rc;
+> +    if ( !is_hvm_domain(d) )
+> +        return;
+>  
+> -    if ( is_hvm_domain(d) )
+> -    {
+> -        bitmap_fill(d->arch.hvm.io_bitmap, 0x10000);
+> -        rc = rangeset_report_ranges(d->arch.ioport_caps, 0, 0x10000,
+> -                                    io_bitmap_cb, d);
+> -        BUG_ON(rc);
+> -        /*
+> -         * NB: we need to trap accesses to 0xcf8 in order to intercept
+> -         * 4 byte accesses, that need to be handled by Xen in order to
+> -         * keep consistency.
+> -         * Access to 1 byte RTC ports also needs to be trapped in order
+> -         * to keep consistency with PV.
+> -         */
+> -        __set_bit(0xcf8, d->arch.hvm.io_bitmap);
+> -        __set_bit(RTC_PORT(0), d->arch.hvm.io_bitmap);
+> -        __set_bit(RTC_PORT(1), d->arch.hvm.io_bitmap);
+> -    }
+> +    bitmap_fill(d->arch.hvm.io_bitmap, 0x10000);
+> +    if ( rangeset_report_ranges(d->arch.ioport_caps, 0, 0x10000,
+> +                                io_bitmap_cb, d) )
+> +        BUG();
+
+You can directly use BUG_ON, no need for the if. IIRC it's safe to
+call admin_io_okay (and thus ioports_access_permitted) when already
+holding the rangeset lock, as both are read-lockers and can safely
+recurse.
+
+> +
+> +    /*
+> +     * We need to trap 4-byte accesses to 0xcf8 (see admin_io_okay(),
+> +     * guest_io_read(), and guest_io_write()), which isn't covered by
+> +     * the admin_io_okay() check in io_bitmap_cb().
+> +     */
+> +    __set_bit(0xcf8, d->arch.hvm.io_bitmap);
+>  }
+>  
+>  /*
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -1092,7 +1092,10 @@ static unsigned long get_cmos_time(void)
+>          if ( seconds < 60 )
+>          {
+>              if ( rtc.sec != seconds )
+> +            {
+>                  cmos_rtc_probe = false;
+> +                acpi_gbl_FADT.boot_flags &= ~ACPI_FADT_NO_CMOS_RTC;
+
+Do you need to set this flag also when using the EFI runtime services
+in order to get the time in get_cmos_time? In that case the RTC is not
+use, and hence could be handled to the hardware domain?
+
+> +            }
+>              break;
+>          }
+>  
+> @@ -1114,7 +1117,7 @@ unsigned int rtc_guest_read(unsigned int
+>      unsigned long flags;
+>      unsigned int data = ~0;
+>  
+> -    switch ( port )
+> +    switch ( port & ~cmos_alias_mask )
+>      {
+>      case RTC_PORT(0):
+>          /*
+> @@ -1126,11 +1129,12 @@ unsigned int rtc_guest_read(unsigned int
+>          break;
+>  
+>      case RTC_PORT(1):
+> -        if ( !ioports_access_permitted(currd, RTC_PORT(0), RTC_PORT(1)) )
+> +        if ( !ioports_access_permitted(currd, port - 1, port) )
+>              break;
+>          spin_lock_irqsave(&rtc_lock, flags);
+> -        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
+> -        data = inb(RTC_PORT(1));
+> +        outb(currd->arch.cmos_idx & (0xff >> (port == RTC_PORT(1))),
+
+Why do you only mask this for accesses to the non aliased ports? If
+the RTC is aliased you also want to mask the aliased accesses in the
+same way?
+
+Thanks, Roger.
 
