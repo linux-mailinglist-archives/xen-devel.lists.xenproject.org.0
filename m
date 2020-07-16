@@ -2,54 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB21222712
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 17:33:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ACBA222715
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jul 2020 17:34:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jw5rh-0001Yi-7M; Thu, 16 Jul 2020 15:32:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jw5u5-0001ge-OY; Thu, 16 Jul 2020 15:34:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sYN5=A3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jw5rf-0001Yd-Fs
- for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 15:32:03 +0000
-X-Inumbo-ID: 7f1e7b82-c779-11ea-8496-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7f1e7b82-c779-11ea-8496-bc764e2007e4;
- Thu, 16 Jul 2020 15:32:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YK5+rWAzPxg5iH3SvNGtYxLpTilZXgC6lrTxFI5DUMk=; b=iRvv+7Rk4frBkH3zs/5JxoOGS
- +GAt2gC3d/Q5kNGgwKcA9+9sKjJnVyzZ/7um5l9K0ON45J8SnworQZmcx7niSIhSlPKqwwZ6VQQG8
- hThNlqHtq/Gv3urLegpPiOZhGfPERrvTfmEFbw3YYVo7E/V+wVcDQc8DE4H15LcHwjLWM=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jw5re-0000q1-AC; Thu, 16 Jul 2020 15:32:02 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jw5rd-0001EW-UQ; Thu, 16 Jul 2020 15:32:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jw5rd-0006WL-Ts; Thu, 16 Jul 2020 15:32:01 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151937-mainreport@xen.org>
+ <SRS0=oOKz=A3=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jw5u4-0001gZ-FY
+ for xen-devel@lists.xenproject.org; Thu, 16 Jul 2020 15:34:32 +0000
+X-Inumbo-ID: d76b004e-c779-11ea-94d5-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d76b004e-c779-11ea-94d5-12813bfff9fa;
+ Thu, 16 Jul 2020 15:34:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1594913671;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=yo0e+eVcoUNmo8qcJeqb09b3DNk81JPuxOK5U0VhGBg=;
+ b=QMyYD831qjBj80/aCs15RKZUvxYzEmELjCtPh0zExgQL54T/qbG+OeL9
+ CUJhRzCjuSg3dd7WDXqA5A63utcDfOUULkvl9RGP/4BrJJjxhPKkyI2AA
+ EBoSBCM5L4AghwRUT5MOaOm85FcaJpyYUMxknF6D4HwZeWf06tyES8CTg 0=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: U4y800+yX2wnwbhFPL8jNTMeKK5ujNqT1UfVlHUL9mcul4XnKXAAjlPDQsyJYv66KCV/2IX4a9
+ Z8BaDB1hkDXwGvcO3HhS0jImLBJB5EP4JnT4Y6FT9PwzPZArLLdlsWh1kxQ7OJm1D99B2C7Mu2
+ U34LByF7ublHiX0+gtXfZgzAuWV4YXFMgNWJSJmuMb1Jp53Pd7ydLW60NwnJu51ykDDWY4KUDT
+ MY7JmwxWjz5DQq/3rDYCghdbssCbvyayjTS84LF4FVyuSiLv4PcrooUNQwDwG3UvLfBLqg2wgy
+ 2tk=
+X-SBRS: 2.7
+X-MesageID: 22860474
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,359,1589256000"; d="scan'208";a="22860474"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [osstest PATCH] Revert "make-flight: Temporarily disable flaky test"
+Date: Thu, 16 Jul 2020 17:34:24 +0200
+Message-ID: <20200716153424.40953-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.27.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 151937: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=d9269d69138860edb1ec9796ed48549dc6ba5735
-X-Osstest-Versions-That: ovmf=e77966b341b993291ab2d95718b88a6a0d703d0c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 16 Jul 2020 15:32:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +59,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: ian.jackson@eu.citrix.com, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151937 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151937/
+This reverts commit c436ff754810c15e4d2a434257d1d07498883acb.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d9269d69138860edb1ec9796ed48549dc6ba5735
-baseline version:
- ovmf                 e77966b341b993291ab2d95718b88a6a0d703d0c
+Now that XSA-321 has been released we can try to enable PVH dom0
+tests again.
 
-Last test of basis   151923  2020-07-15 16:10:49 Z    0 days
-Testing same since   151937  2020-07-16 04:25:27 Z    0 days    1 attempts
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ make-flight | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Gary Lin <glin@suse.com>
+diff --git a/make-flight b/make-flight
+index b25144f7..b8942c1c 100755
+--- a/make-flight
++++ b/make-flight
+@@ -774,7 +774,7 @@ test_matrix_do_one () {
+   xen-4.10-testing) test_dom0pvh=n ;;
+   xen-4.11-testing) test_dom0pvh=n ;;
+   xen-4.12-testing) test_dom0pvh=n ;;
+-  *)                test_dom0pvh=n ;;
++  *)                test_dom0pvh=y ;;
+   esac
+ 
+   # core scheduling tests for versions >= 4.13 only
+-- 
+2.27.0
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   e77966b341..d9269d6913  d9269d69138860edb1ec9796ed48549dc6ba5735 -> xen-tested-master
 
