@@ -2,73 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B4C8223681
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jul 2020 10:03:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C14172236A9
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jul 2020 10:10:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jwLL3-0005W0-NM; Fri, 17 Jul 2020 08:03:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sKPa=A4=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jwLL2-0005Vb-Dt
- for xen-devel@lists.xenproject.org; Fri, 17 Jul 2020 08:03:24 +0000
-X-Inumbo-ID: f9d5b248-c803-11ea-9598-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f9d5b248-c803-11ea-9598-12813bfff9fa;
- Fri, 17 Jul 2020 08:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Il0BN/JryQ35rriEH4U15RyqFPIPH00SiujR8fQ12yU=; b=jzuaJ3V4GiDYsAIa9NSR5X0VV
- mXaahBViULDH+BzaK7dmu9jNs6EvlOGcVa6/t5ql+Y8jyqyTrzo79TyXZJbyUB4Oj3d2fUVA34d+i
- JjSNmVpx1Mqd0F8NL53Mp6g8AqnpdyLJ96/idbpRpmEk2FzOoXWLNobMjRTZ5G0EznYyk=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jwLKw-0008F6-L1; Fri, 17 Jul 2020 08:03:18 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jwLKw-0003Ig-1D; Fri, 17 Jul 2020 08:03:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jwLKw-0001ZM-0V; Fri, 17 Jul 2020 08:03:18 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151956-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jwLRl-0006M2-Ga; Fri, 17 Jul 2020 08:10:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1N/p=A4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jwLRj-0006Lx-Lu
+ for xen-devel@lists.xenproject.org; Fri, 17 Jul 2020 08:10:19 +0000
+X-Inumbo-ID: f3c53b8e-c804-11ea-b7bb-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f3c53b8e-c804-11ea-b7bb-bc764e2007e4;
+ Fri, 17 Jul 2020 08:10:18 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4EAF0B1AA;
+ Fri, 17 Jul 2020 08:10:22 +0000 (UTC)
+Subject: Re: RFC: PCI devices passthrough on Arm design proposal
+To: Rahul Singh <Rahul.Singh@arm.com>
+References: <3F6E40FB-79C5-4AE8-81CA-E16CA37BB298@arm.com>
+ <BD475825-10F6-4538-8294-931E370A602C@arm.com>
+ <E9CBAA57-5EF3-47F9-8A40-F5D7816DB2A4@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a50c714c-1642-0354-3f19-5a6f7278d8aa@suse.com>
+Date: Fri, 17 Jul 2020 10:10:21 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [libvirt test] 151956: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=8b0cb0e666f9fc24e13fe2480663c1688dd6a411
-X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 17 Jul 2020 08:03:18 +0000
+In-Reply-To: <E9CBAA57-5EF3-47F9-8A40-F5D7816DB2A4@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,111 +47,80 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ nd <nd@arm.com>, Julien Grall <julien.grall.oss@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151956 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151956/
+On 16.07.2020 19:10, Rahul Singh wrote:
+> # Discovering PCI devices:
+> 
+> PCI-PCIe enumeration is a process of detecting devices connected to its host. It is the responsibility of the hardware domain or boot firmware to do the PCI enumeration and configure the BAR, PCI capabilities, and MSI/MSI-X configuration.
+> 
+> PCI-PCIe enumeration in XEN is not feasible for the configuration part as it would require a lot of code inside Xen which would require a lot of maintenance. Added to this many platforms require some quirks in that part of the PCI code which would greatly improve Xen complexity. Once hardware domain enumerates the device then it will communicate to XEN via the below hypercall.
+> 
+> #define PHYSDEVOP_pci_device_add        25
+> struct physdev_pci_device_add {
+>     uint16_t seg;
+>     uint8_t bus;
+>     uint8_t devfn;
+>     uint32_t flags;
+>     struct {
+>     	uint8_t bus;
+>     	uint8_t devfn;
+>     } physfn;
+>     /*
+>     * Optional parameters array.
+>     * First element ([0]) is PXM domain associated with the device (if * XEN_PCI_DEV_PXM is set)
+>     */
+>     uint32_t optarr[XEN_FLEX_ARRAY_DIM];
+>     };
+> 
+> As the hypercall argument has the PCI segment number, XEN will access the PCI config space based on this segment number and find the host-bridge corresponding to this segment number. At this stage host bridge is fully initialized so there will be no issue to access the config space.
+> 
+> XEN will add the PCI devices in the linked list maintain in XEN using the function pci_add_device(). XEN will be aware of all the PCI devices on the system and all the device will be added to the hardware domain.
 
-Regressions :-(
+Have you had any thoughts about Dom0 re-arranging the bus numbering?
+This is, afaict, a still open issue on x86 as well.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+> Limitations:
+> * When PCI devices are added to XEN, MSI capability is not initialized inside XEN and not supported as of now.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+I think this is a pretty severe limitation, as modern devices tend to
+not support pin based interrupts anymore.
 
-version targeted for testing:
- libvirt              8b0cb0e666f9fc24e13fe2480663c1688dd6a411
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+> # Emulated PCI device tree node in libxl:
+> 
+> Libxl is creating a virtual PCI device tree node in the device tree to enable the guest OS to discover the virtual PCI during guest boot. We introduced the new config option [vpci="pci_ecam"] for guests. When this config option is enabled in a guest configuration, a PCI device tree node will be created in the guest device tree.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z    7 days
-Failing since        151818  2020-07-11 04:18:52 Z    6 days    7 attempts
-Testing same since   151956  2020-07-17 04:18:53 Z    0 days    1 attempts
+I support Stefano's suggestion for this to be an optional thing, i.e.
+there to be no need for it when there are PCI devices assigned to the
+guest anyway. I also wonder about the pci_ prefix here - isn't
+vpci="ecam" as unambiguous?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Jin Yan <jinyan12@huawei.com>
-  Laine Stump <laine@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Stefan Berger <stefanb@linux.ibm.com>
+> A new area has been reserved in the arm guest physical map at which the VPCI bus is declared in the device tree (reg and ranges parameters of the node). A trap handler for the PCI ECAM access from guest has been registered at the defined address and redirects requests to the VPCI driver in Xen.
+> 
+> Limitation:
+> * Only one PCI device tree node is supported as of now.
+> 
+> BAR value and IOMEM mapping:
+> 
+> Linux guest will do the PCI enumeration based on the area reserved for ECAM and IOMEM ranges in the VPCI device tree node. Once PCI	device is assigned to the guest, XEN will map the guest PCI IOMEM region to the real physical IOMEM region only for the assigned devices.
+> 
+> As of now we have not modified the existing VPCI code to map the guest PCI IOMEM region to the real physical IOMEM region. We used the existing guest “iomem” config option to map the region.
+> For example:
+> 	Guest reserved IOMEM region:  0x04020000
+>     	Real physical IOMEM region:0x50000000
+>     	IOMEM size:128MB
+>     	iomem config will be:   iomem = ["0x50000,0x8000@0x4020"]
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+This surely is planned to go away before the code hits upstream? The
+ranges really should be read out of the BARs, as I see the
+"limitations" section further down suggests, but it's not clear
+whether "limitations" are items that you plan to take care of before
+submitting your code for review.
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1318 lines long.)
+Jan
 
