@@ -2,61 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 955DA224027
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jul 2020 18:06:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81A9D22402C
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jul 2020 18:08:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jwSs4-0000k9-OW; Fri, 17 Jul 2020 16:06:00 +0000
+	id 1jwSuj-0000tL-BJ; Fri, 17 Jul 2020 16:08:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Lz8P=A4=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jwSs3-0000k4-IJ
- for xen-devel@lists.xenproject.org; Fri, 17 Jul 2020 16:05:59 +0000
-X-Inumbo-ID: 66902204-c847-11ea-b7bb-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1jwSuh-0000tG-BX
+ for xen-devel@lists.xenproject.org; Fri, 17 Jul 2020 16:08:43 +0000
+X-Inumbo-ID: c84bf6ee-c847-11ea-b7bb-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 66902204-c847-11ea-b7bb-bc764e2007e4;
- Fri, 17 Jul 2020 16:05:58 +0000 (UTC)
+ id c84bf6ee-c847-11ea-b7bb-bc764e2007e4;
+ Fri, 17 Jul 2020 16:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595001958;
+ d=citrix.com; s=securemail; t=1595002121;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=qPLkfG26nVJQE1VRNe7hHilAbOaWUvxJtkEm7+xAYT8=;
- b=WmO9bsPaRfY9b3hWXw5zu8nqHrzqKdd2QdMQQPKdamVZj0DP9qiQ3wdZ
- rPmikRiZ5WVb/AK+ww4A4yEvLDBK5DTqc7ED6Kg+g3gMVxb/cDsqp9SYL
- ppUlqCAhZoNzvUN4fZDsG/y6MoMOgvEhfHUqLODM4HGQ+EwFX/8itY5f7 k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ bh=4ugp0nuCggopPu9xvsiebu27ZkSjhyh/jUgO1t4HHRg=;
+ b=G9Wq0IO00k///GVG63J7FvhPhGEtNwhLvOIZJnvF6DepExXXjrPgSoBP
+ rrEFXhZlgQjodW+0EpET3Q2PL5tqXE8JH9RUooHyl7bWTrXTAhOzdL+gR
+ LQpb/Mr0JeWP7pdlQceyYjkjXrAeq0RWy+OSaflbFNin3yx+rTWuh2WZs E=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: EihqMnwZ2rXBRismD7B9rCDGE/8NctwbucE9w3ZE6Mr5PGYHbmVGrNM7DJ7dJQft/dq0TRPFfP
- bi2VKoGoRnpXc0tep4g+0cCvjg6mDCNCUE9omVRW24jnCrJZ7cQGMFOb9gWRh6XywOasyDWze0
- gzWetkEf6xHiKuAeARazKykf4ueBo4Brs39eqIPfZ/pnhorjDjspT3f5qCwX7FH2/OcfXEHR5X
- gmP7G2RzfgnDPLZs6cCNaTxQIGYzKB1MHtOv3xYoxv7fQca6nye3mcrFnzUbbHULvLklNJfg7m
- EuY=
+IronPort-SDR: LasNCKAHIc0ypFYjyIbg/sA4ZD7GfwzcX70V8O1SPBdRPEKZzAPp2Z+LMJAsNAM82Nth268l9V
+ Dj19Kv9ClUt9duPqwNgc7CXvyMNwR14OTkslEu/mz7U5fhKtU7iun1pBb4ri0eRp4gA27soIeH
+ d8idJhOwXL2cCLB15WHMUj7Ybsv8zP1laeurgntgzL3tO93xBtPh91LVBirPMIQhNMoTeaFn/l
+ O7lBj6InR6k0wpVqedZ/kExOkxIJiIv7L8wHzVPFag+PwpTp08wDUmcJkCACfH1CkIVJ3rtnj+
+ jWY=
 X-SBRS: 2.7
-X-MesageID: 23484045
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 22960547
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,362,1589256000"; d="scan'208";a="23484045"
-Date: Fri, 17 Jul 2020 18:05:50 +0200
+X-IronPort-AV: E=Sophos;i="5.75,362,1589256000"; d="scan'208";a="22960547"
+Date: Fri, 17 Jul 2020 18:08:34 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: PCI devices passthrough on Arm design proposal
-Message-ID: <20200717160550.GZ7191@Air-de-Roger>
-References: <3F6E40FB-79C5-4AE8-81CA-E16CA37BB298@arm.com>
- <BD475825-10F6-4538-8294-931E370A602C@arm.com>
- <8ac91a1b-e6b3-0f2b-0f23-d7aff100936d@xen.org>
- <c7d5a084-8111-9f43-57e1-bcf2bd822f5b@xen.org>
- <865D5A77-85D4-4A88-A228-DDB70BDB3691@arm.com>
- <972c0c81-6595-7c41-baa5-8882f5d1c0ff@xen.org>
- <4E6B793C-2E0A-4999-9842-24CDCDE43903@arm.com>
+Subject: Re: RFC: PCI devices passthrough on Arm design proposal
+Message-ID: <20200717160834.GA7191@Air-de-Roger>
+References: <1dd5db2d-98c7-7738-c3d4-d3f098dfe674@suse.com>
+ <F09F9354-EC9B-4D76-809B-A25AF4F7D863@arm.com>
+ <a5007a6c-bdfe-04d4-8107-53cb222b95e8@suse.com>
+ <DA19A9EC-A828-4EBC-BCAA-D1D9E4F222BB@arm.com>
+ <20200717144139.GU7191@Air-de-Roger>
+ <90AE8DAB-2223-46DC-A263-D78365E5435E@arm.com>
+ <20200717150507.GW7191@Air-de-Roger>
+ <FBE040A9-D088-43D6-8929-FFEDE9DDDE34@arm.com>
+ <20200717153043.GX7191@Air-de-Roger>
+ <C5B2BDD5-E504-4871-8542-5BA8C051F699@arm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4E6B793C-2E0A-4999-9842-24CDCDE43903@arm.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+In-Reply-To: <C5B2BDD5-E504-4871-8542-5BA8C051F699@arm.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -68,65 +71,98 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Rahul Singh <Rahul.Singh@arm.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Rahul Singh <Rahul.Singh@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  nd <nd@arm.com>, Julien Grall <julien.grall.oss@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jul 17, 2020 at 03:47:25PM +0000, Bertrand Marquis wrote:
-> > On 17 Jul 2020, at 17:26, Julien Grall <julien@xen.org> wrote:
-> > On 17/07/2020 15:47, Bertrand Marquis wrote:
-> >>>>> * Dom0Less implementation will require to have the capacity inside Xen to discover the PCI devices (without depending on Dom0 to declare them to Xen).
-> >>>>> 
-> >>>>> # Enable the existing x86 virtual PCI support for ARM:
-> >>>>> 
-> >>>>> The existing VPCI support available for X86 is adapted for Arm. When the device is added to XEN via the hyper call “PHYSDEVOP_pci_device_add”, VPCI handler for the config space access is added to the PCI device to emulate the PCI devices.
-> >>>>> 
-> >>>>> A MMIO trap handler for the PCI ECAM space is registered in XEN so that when guest is trying to access the PCI config space, XEN will trap the access and emulate read/write using the VPCI and not the real PCI hardware.
-> >>>>> 
-> >>>>> Limitation:
-> >>>>> * No handler is register for the MSI configuration.
-> >>>>> * Only legacy interrupt is supported and tested as of now, MSI is not implemented and tested.
-> >>>> IIRC, legacy interrupt may be shared between two PCI devices. How do you plan to handle this on Arm?
-> >> We plan to fix this by adding proper support for MSI in the long term.
-> >> For the use case where MSI is not supported or not wanted we might have to find a way to forward the hardware interrupt to several guests to emulate some kind of shared interrupt.
-> > 
-> > Sharing interrupts are a bit pain because you couldn't take advantage of the direct EOI in HW and have to be careful if one guest doesn't EOI in timely maneer.
-> > 
-> > This is something I would rather avoid unless there is a real use case for it.
+On Fri, Jul 17, 2020 at 03:51:47PM +0000, Bertrand Marquis wrote:
 > 
-> I would expect that most recent hardware will support MSI and this
-> will not be needed.
-
-Well, PCI Express mandates MSI support, so while this is just a spec,
-I would expect most (if not all) devices to support MSI (or MSI-X), as
-Arm platforms haven't implemented legacy PCI anyway.
-
-> When MSI is not used, the only solution would be to enforce that
-> devices assigned to different guest are using different interrupts
-> which would limit the number of domains being able to use PCI
-> devices on a bus to 4 (if the enumeration can be modified correctly
-> to assign the interrupts properly).
 > 
-> If we all agree that this is an acceptable limitation then we would
-> not need the “interrupt sharing”.
+> > On 17 Jul 2020, at 17:30, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> > 
+> > On Fri, Jul 17, 2020 at 03:23:57PM +0000, Bertrand Marquis wrote:
+> >> 
+> >> 
+> >>> On 17 Jul 2020, at 17:05, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> >>> 
+> >>> On Fri, Jul 17, 2020 at 02:49:20PM +0000, Bertrand Marquis wrote:
+> >>>> 
+> >>>> 
+> >>>>> On 17 Jul 2020, at 16:41, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> >>>>> 
+> >>>>> On Fri, Jul 17, 2020 at 02:34:55PM +0000, Bertrand Marquis wrote:
+> >>>>>> 
+> >>>>>> 
+> >>>>>>> On 17 Jul 2020, at 16:06, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>>>> 
+> >>>>>>> On 17.07.2020 15:59, Bertrand Marquis wrote:
+> >>>>>>>> 
+> >>>>>>>> 
+> >>>>>>>>> On 17 Jul 2020, at 15:19, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>>>>>> 
+> >>>>>>>>> On 17.07.2020 15:14, Bertrand Marquis wrote:
+> >>>>>>>>>>> On 17 Jul 2020, at 10:10, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>>>>>>>> On 16.07.2020 19:10, Rahul Singh wrote:
+> >>>>>>>>>>>> # Emulated PCI device tree node in libxl:
+> >>>>>>>>>>>> 
+> >>>>>>>>>>>> Libxl is creating a virtual PCI device tree node in the device tree to enable the guest OS to discover the virtual PCI during guest boot. We introduced the new config option [vpci="pci_ecam"] for guests. When this config option is enabled in a guest configuration, a PCI device tree node will be created in the guest device tree.
+> >>>>>>>>>>> 
+> >>>>>>>>>>> I support Stefano's suggestion for this to be an optional thing, i.e.
+> >>>>>>>>>>> there to be no need for it when there are PCI devices assigned to the
+> >>>>>>>>>>> guest anyway. I also wonder about the pci_ prefix here - isn't
+> >>>>>>>>>>> vpci="ecam" as unambiguous?
+> >>>>>>>>>> 
+> >>>>>>>>>> This could be a problem as we need to know that this is required for a guest upfront so that PCI devices can be assigned after using xl. 
+> >>>>>>>>> 
+> >>>>>>>>> I'm afraid I don't understand: When there are no PCI device that get
+> >>>>>>>>> handed to a guest when it gets created, but it is supposed to be able
+> >>>>>>>>> to have some assigned while already running, then we agree the option
+> >>>>>>>>> is needed (afaict). When PCI devices get handed to the guest while it
+> >>>>>>>>> gets constructed, where's the problem to infer this option from the
+> >>>>>>>>> presence of PCI devices in the guest configuration?
+> >>>>>>>> 
+> >>>>>>>> If the user wants to use xl pci-attach to attach in runtime a device to a guest, this guest must have a VPCI bus (even with no devices).
+> >>>>>>>> If we do not have the vpci parameter in the configuration this use case will not work anymore.
+> >>>>>>> 
+> >>>>>>> That's what everyone looks to agree with. Yet why is the parameter needed
+> >>>>>>> when there _are_ PCI devices anyway? That's the "optional" that Stefano
+> >>>>>>> was suggesting, aiui.
+> >>>>>> 
+> >>>>>> I agree in this case the parameter could be optional and only required if not PCI device is assigned directly in the guest configuration.
+> >>>>> 
+> >>>>> Where will the ECAM region(s) appear on the guest physmap?
+> >>>>> 
+> >>>>> Are you going to re-use the same locations as on the physical
+> >>>>> hardware, or will they appear somewhere else?
+> >>>> 
+> >>>> We will add some new definitions for the ECAM regions in the guest physmap declared in xen (include/asm-arm/config.h)
+> >>> 
+> >>> I think I'm confused, but that file doesn't contain anything related
+> >>> to the guest physmap, that's the Xen virtual memory layout on Arm
+> >>> AFAICT?
+> >>> 
+> >>> Does this somehow relate to the physical memory map exposed to guests
+> >>> on Arm?
+> >> 
+> >> Yes it does.
+> >> We will add new definitions there related to VPCI to reserve some areas for the VPCI ECAM and the IOMEM areas.
+> > 
+> > Yes, that's completely fine and is what's done on x86, but again I
+> > feel like I'm lost here, this is the Xen virtual memory map, how does
+> > this relate to the guest physical memory map?
+> 
+> Sorry my bad, we will add values in include/public/arch-arm.h, wrong header :-)
 
-I might be easier to start by just supporting devices that have MSI
-(or MSI-X) and then move to legacy interrupts if required?
+Oh right, now I see it :).
 
-You should have most of the pieces you require already implemented
-since that's what x86 uses, and hence could reuse almost all of it?
+Do you really need to specify the ECAM and MMIO regions there?
 
-IIRC Julien even said that Arm was likely to require much less traps
-than x86 for accesses to MSI and MSI-X since you could allow untrusted
-guests to write directly to the registers as there's another piece of
-hardware that would already translate the interrupts?
-
-I think it's fine to use this workaround while you don't have MSI
-support in order to start testing and upstreaming stuff, but maybe
-that shouldn't be committed?
+Wouldn't it be enough to specify the ECAM regions on the DT or the
+ACPI MCFG table and get the MMIO regions directly from the BARs of the
+devices?
 
 Roger.
 
