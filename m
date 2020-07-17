@@ -2,51 +2,151 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 427F022349D
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jul 2020 08:33:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11A992234FB
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jul 2020 08:54:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jwJvo-0005Az-BL; Fri, 17 Jul 2020 06:33:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jwKFn-0006xN-Ah; Fri, 17 Jul 2020 06:53:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sKPa=A4=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jwJvn-0005Au-6s
- for xen-devel@lists.xenproject.org; Fri, 17 Jul 2020 06:33:15 +0000
-X-Inumbo-ID: 62b2fb98-c7f7-11ea-9592-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 62b2fb98-c7f7-11ea-9592-12813bfff9fa;
- Fri, 17 Jul 2020 06:33:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To:Sender:
- Reply-To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bxvLCeawTEaXq6BucfhAqFe9/AJyJBpM+VPshB4VtEc=; b=LXgEOGupBRF6ffXBcdD9D2oESi
- VefcDhv4aPyHiqRomHCXzbITutMyP35UCVlmFv73Ma1NMVSf45V89jtoJ/jxTNtm4y0tPm0pFF0Os
- dOe6cYced8aTaMYUAyrS9w1IeBz0r0baYbbzcsYxuZG9cBdvHE2tTReursZkEu6HC5eI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jwJvj-0005rh-6d; Fri, 17 Jul 2020 06:33:11 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jwJvi-0005Sa-V8; Fri, 17 Jul 2020 06:33:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jwJvi-0008Dl-UR; Fri, 17 Jul 2020 06:33:10 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm
-Message-Id: <E1jwJvi-0008Dl-UR@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 17 Jul 2020 06:33:10 +0000
+ <SRS0=zdYj=A4=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1jwKFl-0006xI-GD
+ for xen-devel@lists.xenproject.org; Fri, 17 Jul 2020 06:53:53 +0000
+X-Inumbo-ID: 45858be6-c7fa-11ea-bb8b-bc764e2007e4
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe1f::620])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 45858be6-c7fa-11ea-bb8b-bc764e2007e4;
+ Fri, 17 Jul 2020 06:53:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5tGjbL4BLvi6OT1NHsZmin8IeeIs4cu9m/IrBJSOa8o=;
+ b=VBZZuqJfE5p2LEa+J5LXsiZZr06WPnVCrOP8Ss7U9RHuF4jXG3xssQ7b3LW5gob40dCqUqjMobHzh9ywRwzOgn+sJ8QHYQj0C87QgFHZ5rkml6NGuPLGloUBzbG3VxSl+s6KUZ/pHz97w7by19pULnF7tvz3c+iiUu3Zw/QBpEo=
+Received: from DB6PR07CA0083.eurprd07.prod.outlook.com (2603:10a6:6:2b::21) by
+ VI1PR08MB3309.eurprd08.prod.outlook.com (2603:10a6:803:41::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3174.20; Fri, 17 Jul 2020 06:53:49 +0000
+Received: from DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:6:2b:cafe::b4) by DB6PR07CA0083.outlook.office365.com
+ (2603:10a6:6:2b::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.10 via Frontend
+ Transport; Fri, 17 Jul 2020 06:53:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
+ dmarc=bestguesspass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT025.mail.protection.outlook.com (10.152.20.104) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3195.18 via Frontend Transport; Fri, 17 Jul 2020 06:53:48 +0000
+Received: ("Tessian outbound 73b502bf693a:v62");
+ Fri, 17 Jul 2020 06:53:48 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 368887eb5e22a41f
+X-CR-MTA-TID: 64aa7808
+Received: from 897e10ff5d24.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 1CF4385D-D921-473D-9A01-BCC45E049945.1; 
+ Fri, 17 Jul 2020 06:53:43 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 897e10ff5d24.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 17 Jul 2020 06:53:43 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EfLJQn+cgM6fL/VMJeeWlrTm3jrNIwPA+wyQKrDRwxJ/bvCFwjSZwXDJhwI4km60n9k7BvBkCBvgbxHzK8amfKe/MWTwgAAmHmeD0DjT08rEjcWXLENBXmmcA2gtvGBJxl4bh9KyIvaC8z0CMMJ/XCfV5TfzwXRT9EUAPMF8AXtnm5SrjQrJscHVoTRMkC9EdN5XmXcaPYFQ1+HCRQ2ThWrkD2ngji+0iTO4sElasa1ptKgbnQprSn/UuGXguHHMiygaHg4Zc/lwPNYrSxpOJ6RhYrUjW6raPWbwSof8ns7cK4w6Bxz2c9CCpsjKEgbpP01IHx/prg8p9kdesbTSQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5tGjbL4BLvi6OT1NHsZmin8IeeIs4cu9m/IrBJSOa8o=;
+ b=RkDmYge4uA6UuPsJf6ul1YwhNX1Pk8J/59t0b0pYcBc+XnJzTvqiu2NhlpUrOxprqKVf6EMCk32iNNvJEQLsbpVWNjC2XkVG4pFGFnBph3heYURbUb1xq9BcqnLnrPRS5yCU7IEfopYTITz8cY2J5litAX+7oGEZFOzqYuL9ar/HWWydWbbId7STg2uqenKxJlEl3EbN0re3SEvAQFp+rzApzHBQ8gzl0GZtlDPldU8BmAOb+9zm3hkSWBoIQc6pWFSN0a8wnmjeAR3UX0NtkN1wuJNA6bM1rVonmhTyCJp9yIHs8vktcrQUDp1TyjoAW3wYRZ1S9A0tiUsxFsD57g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5tGjbL4BLvi6OT1NHsZmin8IeeIs4cu9m/IrBJSOa8o=;
+ b=VBZZuqJfE5p2LEa+J5LXsiZZr06WPnVCrOP8Ss7U9RHuF4jXG3xssQ7b3LW5gob40dCqUqjMobHzh9ywRwzOgn+sJ8QHYQj0C87QgFHZ5rkml6NGuPLGloUBzbG3VxSl+s6KUZ/pHz97w7by19pULnF7tvz3c+iiUu3Zw/QBpEo=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DBBPR08MB4773.eurprd08.prod.outlook.com (2603:10a6:10:d9::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.17; Fri, 17 Jul
+ 2020 06:53:41 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::4001:43ad:d113:46a8]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::4001:43ad:d113:46a8%5]) with mapi id 15.20.3174.028; Fri, 17 Jul 2020
+ 06:53:41 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: RFC: PCI devices passthrough on Arm design proposal
+Thread-Topic: RFC: PCI devices passthrough on Arm design proposal
+Thread-Index: AQHWW4kYTVU0hTDyYEitKlUuU5vZlKkKf2uAgAACLICAAC0rgIAAqC0A
+Date: Fri, 17 Jul 2020 06:53:41 +0000
+Message-ID: <BB4645DF-A040-4912-AC35-C98105917FD5@arm.com>
+References: <3F6E40FB-79C5-4AE8-81CA-E16CA37BB298@arm.com>
+ <BD475825-10F6-4538-8294-931E370A602C@arm.com>
+ <E9CBAA57-5EF3-47F9-8A40-F5D7816DB2A4@arm.com>
+ <alpine.DEB.2.21.2007161258160.3886@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2007161258160.3886@sstabellini-ThinkPad-T480s>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [2a01:e0a:13:6f10:52:283b:b28d:2112]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: deed8aa2-2e6b-467b-b774-08d82a1e287b
+x-ms-traffictypediagnostic: DBBPR08MB4773:|VI1PR08MB3309:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS: <VI1PR08MB3309D0D4D4052DA35AD1B5D89D7C0@VI1PR08MB3309.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: vTb2jXJgcQbaMcZJlukUbpedz+SOqnApdNlyecUfF28181IKoNrNs1Vff7v9po09kw/esY13Z/Z/r2qMZjHDBBe5gPfV/qVZno2XCy+pV7SXqkwYGwbHn3m9hC3Mk4tC8EkdPf0V84dEx1xOL181JWfSKXRGh4XMiEdomm7qhCbN9vkEZMm8j2dm2ZKuz8680R+jUfOB6DeOdUwNoBBzUkAXJs1o3M+EWHEY0ZGT9z60rZ2D/ZHzd2oV98+s6LqAlTLSwdeZpRZO7UHinjrUyUr/0vgbIcjePPRX6F8HID2TrI68eA9xHqlayw6ytnmZW7CFcbpgyAgrEXY+YcFzKQ==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DB7PR08MB3689.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE; SFTY:;
+ SFS:(4636009)(346002)(396003)(366004)(39860400002)(136003)(376002)(86362001)(71200400001)(2616005)(4326008)(54906003)(76116006)(91956017)(66556008)(66946007)(64756008)(66476007)(36756003)(33656002)(66446008)(83380400001)(8676002)(6486002)(186003)(8936002)(2906002)(6506007)(53546011)(316002)(478600001)(6512007)(5660300002)(30864003)(6916009);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: jGZKNHEzl+ZN/biUXsdo1zP01g/QEBDVcnNhMENj76y7+m6q/uXYOy46VFvv4SOES1HvverOoJkjyMhBmVbxFUFBHAI0zySMB9Fhx5e0OnBzf0TcvG9copAdGnLuyHxt444Xku8Qr9o/JpvAqjqd9m4AlYqrUouQst/qI5BRxrfsTbKSrUdBTi9cEESwbIz3oWvbH0YBTLFuX2LSSsqtFr+QXEHbij1t+bUC3oWyG8SR7lO6OjQVZ9Nhktlm2GXWYPC0xbJuwPbqYIsXP/IeE1GUpwnSN8dgHgZ5WZtSJJpHY+NcFmSDePLYynYSonfY+F2QXn/P2Zfby5Vdbvu4hUU8DyQO2LgOJBgK0i+VAWC2flr6s+/ZgOxGAtgXs+YxPrdRW3jt+iU8S7IlsyJYRgaqJ8TpJJx4/wjgaMI2BOIfB2ZeScC5mcmCP5v4o11Uzb6xNJ2/b5OUd55OBztmyzCJQDCwkbPPtEa+ByKoYN5pxoNRQUgfwNq7AQB7CToRQVrYHQ+e7sWqH8l2BvleUP1VfThxsox11Uvo+Is/2ak=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <0241A1D24169AB429BF91B83FD172ADA@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4773
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
+ PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE; SFTY:;
+ SFS:(4636009)(396003)(136003)(39850400004)(346002)(376002)(46966005)(6486002)(83380400001)(356005)(53546011)(336012)(82310400002)(6506007)(6862004)(2906002)(82740400003)(81166007)(6512007)(5660300002)(70586007)(70206006)(47076004)(33656002)(107886003)(8676002)(186003)(54906003)(4326008)(26005)(86362001)(36756003)(8936002)(30864003)(316002)(2616005)(478600001);
+ DIR:OUT; SFP:1101; 
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 9775105a-7c39-46bf-5332-08d82a1e2400
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: djzHL21QIZ4fj7HRGrMIwzXMX5MccOYgH5kleobRYnJ0F/oaGm6VMQR6qgIyjPmaW4Zuts6QFnLVaNRc80JZCVC2QqQ9GhyeQmqgXUFvQ92vfmiVVtpreIl98bZbGBL1IXzsOw1OrtXURFcaDAH+qkUGR5+8SKpd2JAc8Jj2ZIIX4PkCeGKvWEEZ+eun4AXk2vu89BsEtRH3FrzHwWFtLHf1vsFYtL09vDoSpLV4UOPeJezT6ZcgxLrYsU3pD6muIMjYFgZBNSn9WW8onCRXM1TwglTkAfyAa7uiFO+Nb8MfiyYawzce5P2sRDkrvBmhzgKnA5rc8kkcpXF7bNacBEena0/q4Up9D7DiHSTfagiQ5WzuDP56b0PMEO5MjJV3mjRfXSp6icV2teQAJM7dlg==
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2020 06:53:48.9427 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: deed8aa2-2e6b-467b-b774-08d82a1e287b
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
+ Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3309
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,239 +157,216 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ nd <nd@arm.com>, Rahul Singh <Rahul.Singh@arm.com>,
+ Julien Grall <julien.grall.oss@gmail.com>,
+ =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-xl-qemuu-debianhvm-i386-xsm
-testid debian-hvm-install
-
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  da278d58a092bfcc4e36f1e274229c1468dea731
-  Bug not present: 23accdf162dcccb9fec9585a64ad01a87b13da5c
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/151958/
-
-
-  commit da278d58a092bfcc4e36f1e274229c1468dea731
-  Author: Philippe Mathieu-Daudé <philmd@redhat.com>
-  Date:   Fri May 8 12:02:22 2020 +0200
-  
-      accel: Move Xen accelerator code under accel/xen/
-      
-      This code is not related to hardware emulation.
-      Move it under accel/ with the other hypervisors.
-      
-      Reviewed-by: Paul Durrant <paul@xen.org>
-      Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-      Message-Id: <20200508100222.7112-1-philmd@redhat.com>
-      Reviewed-by: Juan Quintela <quintela@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-i386-xsm.debian-hvm-install.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-i386-xsm.debian-hvm-install --summary-out=tmp/151958.bisection-summary --basis-template=151065 --blessings=real,real-bisect qemu-mainline test-amd64-i386-xl-qemuu-debianhvm-i386-xsm debian-hvm-install
-Searching for failure / basis pass:
- 151934 fail [host=albana1] / 151065 [host=huxelrebe1] 151047 [host=albana0] 150970 [host=huxelrebe0] 150930 [host=elbling1] 150916 [host=elbling0] 150895 [host=debina0] 150831 [host=chardonnay0] 150694 [host=debina1] 150631 [host=pinot0] 150608 [host=fiano1] 150593 ok.
-Failure / basis pass flights: 151934 / 150593
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c7195b9ec3c5f8f40119c96ac4a0ab1e8cebe9dc 3c659044118e34603161457db9934a34f816d78b 8746309137ba470d1b2e8f5ce86ac228625db940 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b 4ec2a1f53e8aaa22924614b64dde97321126943e 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3-c7195b9ec3c5f8f40119c96ac4a0ab1e8cebe9dc git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db99\
- 34a34f816d78b-3c659044118e34603161457db9934a34f816d78b git://git.qemu.org/qemu.git#4ec2a1f53e8aaa22924614b64dde97321126943e-8746309137ba470d1b2e8f5ce86ac228625db940 git://xenbits.xen.org/osstest/seabios.git#2e3de6253422112ae43e608661ba94ea6b345694-88ab0c15525ced2eefe39220742efe4769089ad8 git://xenbits.xen.org/xen.git#1497e78068421d83956f8e82fb6e1bf1fc3b1199-165f3afbfc3db70fcfdccad07085cde0a03c858b
-From git://cache:9419/git://xenbits.xen.org/osstest/seabios
-   88ab0c1..6ada228  xen-tested-master -> origin/xen-tested-master
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Loaded 55650 nodes in revision graph
-Searching for test results:
- 150585 [host=pinot1]
- 150593 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b 4ec2a1f53e8aaa22924614b64dde97321126943e 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
- 150631 [host=pinot0]
- 150608 [host=fiano1]
- 150694 [host=debina1]
- 150831 [host=chardonnay0]
- 150909 []
- 150930 [host=elbling1]
- 150916 [host=elbling0]
- 150895 [host=debina0]
- 150899 []
- 150970 [host=huxelrebe0]
- 151047 [host=albana0]
- 151101 fail irrelevant
- 151065 [host=huxelrebe1]
- 151149 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9af1064995d479df92e399a682ba7e4b2fc78415 3c659044118e34603161457db9934a34f816d78b 7d3660e79830a069f1848bb4fa1cdf8f666424fb 2e3de6253422112ae43e608661ba94ea6b345694 b91825f628c9a62cf2a3a0d972ea81484a8b7fce
- 151221 fail irrelevant
- 151175 fail irrelevant
- 151241 fail irrelevant
- 151286 fail irrelevant
- 151269 fail irrelevant
- 151328 fail irrelevant
- 151304 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 322969adf1fb3d6cfbd613f35121315715aff2ed 3c659044118e34603161457db9934a34f816d78b 171199f56f5f9bdf1e5d670d09ef1351d8f01bae 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
- 151377 fail irrelevant
- 151353 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 1a992030522622c42aa063788b3276789c56c1e1 3c659044118e34603161457db9934a34f816d78b d4b78317b7cf8c0c635b70086503813f79ff21ec 2e3de6253422112ae43e608661ba94ea6b345694 fde76f895d0aa817a1207d844d793239c6639bc6
- 151399 fail irrelevant
- 151414 fail irrelevant
- 151435 fail irrelevant
- 151459 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 0f01cec52f4794777feb067e4fa0bfcedfdc124e 3c659044118e34603161457db9934a34f816d78b e7651153a8801dad6805d450ea8bef9b46c1adf5 88ab0c15525ced2eefe39220742efe4769089ad8 88cfd062e8318dfeb67c7d2eb50b6cd224b0738a
- 151471 fail irrelevant
- 151485 fail irrelevant
- 151500 fail irrelevant
- 151518 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 00217f1919270007d7a911f89b32e39b9dcaa907 3c659044118e34603161457db9934a34f816d78b fc1bff958998910ec8d25db86cd2f53ff125f7ab 88ab0c15525ced2eefe39220742efe4769089ad8 23ca7ec0ba620db52a646d80e22f9703a6589f66
- 151547 fail irrelevant
- 151598 fail irrelevant
- 151577 fail irrelevant
- 151622 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b 7b7515702012219410802a168ae4aa45b72a44df 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151656 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151634 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151645 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151669 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151685 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151704 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 627d1d6693b0594d257dbe1a3363a8d4bd4d8307 3c659044118e34603161457db9934a34f816d78b eb6490f544388dd24c0d054a96dd304bc7284450 88ab0c15525ced2eefe39220742efe4769089ad8 be63d9d47f571a60d70f8fb630c03871312d9655
- 151778 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b aff2caf6b3fbab1062e117a47b66d27f7fd2f272 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151721 fail irrelevant
- 151763 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 48f22ad04ead83e61b4b35871ec6f6109779b791 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151744 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 8796c64ecdfd34be394ea277aaaaa53df0c76996 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151804 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 45db94cc90c286a9965a285ba19450f448760a09 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151816 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bdafda8c457eb90c65f37026589b54258300f05c 3c659044118e34603161457db9934a34f816d78b 45db94cc90c286a9965a285ba19450f448760a09 88ab0c15525ced2eefe39220742efe4769089ad8 3fdc211b01b29f252166937238efe02d15cb5780
- 151833 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b 827937158b72ce2265841ff528bba3c44a1bfbc8 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151909 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ff7c838d09224dd4e4c9b5b93152d8db1b19740 3c659044118e34603161457db9934a34f816d78b 86e8c353f705f14f2f2fd7a6195cefa431aa24d9 2e3de6253422112ae43e608661ba94ea6b345694 058023b343d4e366864831db46e9b438e9e3a178
- 151855 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b d34498309cff7560ac90c422c56e3137e6a64b19 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151841 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b 2033cc6efa98b831d7839e367aa7d5aa74d0750f 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151925 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b af509738f8e4400c26d321abeac924efb04fbfa0 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151849 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f45e3a4afa65a45ea1a956a7c5e7410ff40190d1 3c659044118e34603161457db9934a34f816d78b d34498309cff7560ac90c422c56e3137e6a64b19 88ab0c15525ced2eefe39220742efe4769089ad8 02d69864b51a4302a148c28d6d391238a6778b4b
- 151917 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bb78cfbec07eda45118b630a09b0af549b43a135 3c659044118e34603161457db9934a34f816d78b fe0fe4735e798578097758781166cc221319b93d 2e3de6253422112ae43e608661ba94ea6b345694 d9f58cd54fe2f05e1f05e2fe254684bd1840de8e
- 151901 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b 4ec2a1f53e8aaa22924614b64dde97321126943e 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
- 151911 blocked c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b 6345d7e2aeb6f7bbaa9c1e7e94e21fccf9453c70 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
- 151902 fail irrelevant
- 151874 fail irrelevant
- 151895 fail irrelevant
- 151904 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3ee4f6cb360a877d171f2f9bb76b0d46d2cfa985 3c659044118e34603161457db9934a34f816d78b 9f1f264edbdf5516d6f208497310b3eedbc7b74c 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
- 151920 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b 6bb228190ef0b45669d285114cf8a280c55f4b39 2e3de6253422112ae43e608661ba94ea6b345694 ad33a573c009d72466432b41ba0591c64e819c19
- 151912 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6ff7c838d09224dd4e4c9b5b93152d8db1b19740 3c659044118e34603161457db9934a34f816d78b 49ee11555262a256afec592dfed7c5902d5eefd2 2e3de6253422112ae43e608661ba94ea6b345694 726c78d14dfe6ec76f5e4c7756821a91f0a04b34
- 151918 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 250b1da35d579f42319af234f36207902ca4baa4 2e3de6253422112ae43e608661ba94ea6b345694 dde6174ada5280cd9a6396e3b12606360a0d29a3
- 151905 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e1d24410da356731da70b3334f86343e11e207d2 3c659044118e34603161457db9934a34f816d78b 470dd165d152ff7ceac61c7b71c2b89220b3aad7 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151906 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 567bc4b4ae8a975791382dd30ac413bc0d3ce88c 3c659044118e34603161457db9934a34f816d78b eea8f5df4ecc607d64f091b8d916fcc11a697541 2e3de6253422112ae43e608661ba94ea6b345694 2995d0afdf2d3fb44d07eada088db3613741db1e
- 151914 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 256c4470f86e53661c070f8c64a1052e975f9ef0 3c659044118e34603161457db9934a34f816d78b c920fdba39480989cb5f1af3cc63acccef021b54 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
- 151913 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8035edbe12f0f2a58e8fa9b06d05c8ee1c69ffae 3c659044118e34603161457db9934a34f816d78b 5d2f557b47dfbf8f23277a5bdd8473d4607c681a 2e3de6253422112ae43e608661ba94ea6b345694 51ca66c37371b10b378513af126646de22eddb17
- 151919 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 71b04329c4f7d5824a289ca5225e1883a278cf3b 2e3de6253422112ae43e608661ba94ea6b345694 e181db8ba4e0797b8f9b55996adfa71ffb5b4081
- 151931 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b b889212973dabee119a1ab21326a27fc51b88d6d 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151915 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8035edbe12f0f2a58e8fa9b06d05c8ee1c69ffae 3c659044118e34603161457db9934a34f816d78b 7d2410cea154bf915fb30179ebda3b17ac36e70e 2e3de6253422112ae43e608661ba94ea6b345694 780aba2779b834f19b2a6f0dcdea0e7e0b5e1622
- 151924 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ca407c7246bf405da6d9b1b9d93e5e7f17b4b1f9 3c659044118e34603161457db9934a34f816d78b 98d59d5dd8b662ba8ec7c522faa9b88823389711 2e3de6253422112ae43e608661ba94ea6b345694 dde6174ada5280cd9a6396e3b12606360a0d29a3
- 151928 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cde194be8d43ee642db719b4761889f46dd80f27 3c659044118e34603161457db9934a34f816d78b 80bde69353924d99e2a7f5ac6be0ab4cf489d33c 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151949 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b da278d58a092bfcc4e36f1e274229c1468dea731 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151929 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b 0d48b436327955c69e2eb53f88aba9aa1e0dbaa0 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151940 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b aaacf1c15a225ffeb1ff066b78e211594b3a5053 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151933 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b 4ec2a1f53e8aaa22924614b64dde97321126943e 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
- 151936 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 256c4470f86e53661c070f8c64a1052e975f9ef0 3c659044118e34603161457db9934a34f816d78b c920fdba39480989cb5f1af3cc63acccef021b54 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
- 151938 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b da278d58a092bfcc4e36f1e274229c1468dea731 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151941 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b 73b994f6d74ec00a1d78daf4145096ff9f0e2982 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151948 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b 23accdf162dcccb9fec9585a64ad01a87b13da5c 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151943 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b d6048bfd12e24a0980ba2040cfaa2b101df3fa16 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151934 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c7195b9ec3c5f8f40119c96ac4a0ab1e8cebe9dc 3c659044118e34603161457db9934a34f816d78b 8746309137ba470d1b2e8f5ce86ac228625db940 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
- 151950 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 568eee7cf319fa95183c8d3b5e8dcf6e078ab8b3 3c659044118e34603161457db9934a34f816d78b 4ec2a1f53e8aaa22924614b64dde97321126943e 2e3de6253422112ae43e608661ba94ea6b345694 1497e78068421d83956f8e82fb6e1bf1fc3b1199
- 151951 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 c7195b9ec3c5f8f40119c96ac4a0ab1e8cebe9dc 3c659044118e34603161457db9934a34f816d78b 8746309137ba470d1b2e8f5ce86ac228625db940 88ab0c15525ced2eefe39220742efe4769089ad8 165f3afbfc3db70fcfdccad07085cde0a03c858b
- 151953 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b 23accdf162dcccb9fec9585a64ad01a87b13da5c 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151954 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b da278d58a092bfcc4e36f1e274229c1468dea731 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151955 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b 23accdf162dcccb9fec9585a64ad01a87b13da5c 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
- 151958 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b da278d58a092bfcc4e36f1e274229c1468dea731 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
-Searching for interesting versions
- Result found: flight 150593 (pass), for basis pass
- Result found: flight 151934 (fail), for basis failure (at ancestor ~1)
- Repro found: flight 151950 (pass), for basis pass
- Repro found: flight 151951 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 14c7ed8b51f60097ad771277da69f74b22a7a759 3c659044118e34603161457db9934a34f816d78b 23accdf162dcccb9fec9585a64ad01a87b13da5c 2e3de6253422112ae43e608661ba94ea6b345694 6a49b9a7920c82015381740905582b666160d955
-No revisions left to test, checking graph state.
- Result found: flight 151948 (pass), for last pass
- Result found: flight 151949 (fail), for first failure
- Repro found: flight 151953 (pass), for last pass
- Repro found: flight 151954 (fail), for first failure
- Repro found: flight 151955 (pass), for last pass
- Repro found: flight 151958 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  da278d58a092bfcc4e36f1e274229c1468dea731
-  Bug not present: 23accdf162dcccb9fec9585a64ad01a87b13da5c
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/151958/
-
-
-  commit da278d58a092bfcc4e36f1e274229c1468dea731
-  Author: Philippe Mathieu-Daudé <philmd@redhat.com>
-  Date:   Fri May 8 12:02:22 2020 +0200
-  
-      accel: Move Xen accelerator code under accel/xen/
-      
-      This code is not related to hardware emulation.
-      Move it under accel/ with the other hypervisors.
-      
-      Reviewed-by: Paul Durrant <paul@xen.org>
-      Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-      Message-Id: <20200508100222.7112-1-philmd@redhat.com>
-      Reviewed-by: Juan Quintela <quintela@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-dot: graph is too large for cairo-renderer bitmaps. Scaling by 0.487169 to fit
-pnmtopng: 206 colors found
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-i386-xl-qemuu-debianhvm-i386-xsm.debian-hvm-install.{dot,ps,png,html,svg}.
-----------------------------------------
-151958: tolerable ALL FAIL
-
-flight 151958 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151958/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 10 debian-hvm-install fail baseline untested
-
-
-jobs:
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+DQoNCj4gT24gMTYgSnVsIDIwMjAsIGF0IDIyOjUxLCBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFi
+ZWxsaW5pQGtlcm5lbC5vcmc+IHdyb3RlOg0KPiANCj4gT24gVGh1LCAxNiBKdWwgMjAyMCwgUmFo
+dWwgU2luZ2ggd3JvdGU6DQo+PiBIZWxsbyBBbGwsDQo+PiANCj4+IEZvbGxvd2luZyB1cCBvbiBk
+aXNjdXNzaW9uIG9uIFBDSSBQYXNzdGhyb3VnaCBzdXBwb3J0IG9uIEFSTSB0aGF0IHdlIGhhZCBh
+dCB0aGUgWEVOIHN1bW1pdCwgd2UgYXJlIHN1Ym1pdHRpbmcgYSBSZXZpZXcgRm9yIENvbW1lbnQg
+YW5kIGEgZGVzaWduIHByb3Bvc2FsIGZvciBQQ0kgcGFzc3Rocm91Z2ggc3VwcG9ydCBvbiBBUk0u
+IEZlZWwgZnJlZSB0byBnaXZlIHlvdXIgZmVlZGJhY2suDQo+PiANCj4+IFRoZSBmb2xsb3dpbmdz
+IGRlc2NyaWJlIHRoZSBoaWdoLWxldmVsIGRlc2lnbiBwcm9wb3NhbCBvZiB0aGUgUENJIHBhc3N0
+aHJvdWdoIHN1cHBvcnQgYW5kIGhvdyB0aGUgZGlmZmVyZW50IG1vZHVsZXMgd2l0aGluIHRoZSBz
+eXN0ZW0gaW50ZXJhY3RzIHdpdGggZWFjaCBvdGhlciB0byBhc3NpZ24gYSBwYXJ0aWN1bGFyIFBD
+SSBkZXZpY2UgdG8gdGhlIGd1ZXN0Lg0KPiANCj4gSSB0aGluayB0aGUgcHJvcG9zYWwgaXMgZ29v
+ZCBhbmQgSSBvbmx5IGhhdmUgYSBjb3VwbGUgb2YgdGhvdWdodHMgdG8NCj4gc2hhcmUgYmVsb3cu
+DQo+IA0KPiANCj4+ICMgVGl0bGU6DQo+PiANCj4+IFBDSSBkZXZpY2VzIHBhc3N0aHJvdWdoIG9u
+IEFybSBkZXNpZ24gcHJvcG9zYWwNCj4+IA0KPj4gIyBQcm9ibGVtIHN0YXRlbWVudDoNCj4+IA0K
+Pj4gT24gQVJNIHRoZXJlIGluIG5vIHN1cHBvcnQgdG8gYXNzaWduIGEgUENJIGRldmljZSB0byBh
+IGd1ZXN0LiBQQ0kgZGV2aWNlIHBhc3N0aHJvdWdoIGNhcGFiaWxpdHkgYWxsb3dzIGd1ZXN0cyB0
+byBoYXZlIGZ1bGwgYWNjZXNzIHRvIHNvbWUgUENJIGRldmljZXMuIFBDSSBkZXZpY2UgcGFzc3Ro
+cm91Z2ggYWxsb3dzIFBDSSBkZXZpY2VzIHRvIGFwcGVhciBhbmQgYmVoYXZlIGFzIGlmIHRoZXkg
+d2VyZSBwaHlzaWNhbGx5IGF0dGFjaGVkIHRvIHRoZSBndWVzdCBvcGVyYXRpbmcgc3lzdGVtIGFu
+ZCBwcm92aWRlIGZ1bGwgaXNvbGF0aW9uIG9mIHRoZSBQQ0kgZGV2aWNlcy4NCj4+IA0KPj4gR29h
+bCBvZiB0aGlzIHdvcmsgaXMgdG8gYWxzbyBzdXBwb3J0IERvbTBMZXNzIGNvbmZpZ3VyYXRpb24g
+c28gdGhlIFBDSSBiYWNrZW5kL2Zyb250ZW5kIGRyaXZlcnMgdXNlZCBvbiB4ODYgc2hhbGwgbm90
+IGJlIHVzZWQgb24gQXJtLiBJdCB3aWxsIHVzZSB0aGUgZXhpc3RpbmcgVlBDSSBjb25jZXB0IGZy
+b20gWDg2IGFuZCBpbXBsZW1lbnQgdGhlIHZpcnR1YWwgUENJIGJ1cyB0aHJvdWdoIElPIGVtdWxh
+dGlvbuKAiyBzdWNoIHRoYXQgb25seSBhc3NpZ25lZCBkZXZpY2VzIGFyZSB2aXNpYmxl4oCLIHRv
+IHRoZSBndWVzdCBhbmQgZ3Vlc3QgY2FuIHVzZSB0aGUgc3RhbmRhcmQgUENJIGRyaXZlci4NCj4+
+IA0KPj4gT25seSBEb20wIGFuZCBYZW4gd2lsbCBoYXZlIGFjY2VzcyB0byB0aGUgcmVhbCBQQ0kg
+YnVzLOKAiyBndWVzdCB3aWxsIGhhdmUgYSBkaXJlY3QgYWNjZXNzIHRvIHRoZSBhc3NpZ25lZCBk
+ZXZpY2UgaXRzZWxm4oCLLiBJT01FTSBtZW1vcnkgd2lsbCBiZSBtYXBwZWQgdG8gdGhlIGd1ZXN0
+IOKAi2FuZCBpbnRlcnJ1cHQgd2lsbCBiZSByZWRpcmVjdGVkIHRvIHRoZSBndWVzdC4gU01NVSBo
+YXMgdG8gYmUgY29uZmlndXJlZCBjb3JyZWN0bHkgdG8gaGF2ZSBETUEgdHJhbnNhY3Rpb24uDQo+
+PiANCj4+ICMjIEN1cnJlbnQgc3RhdGU64oCvRHJhZnQgdmVyc2lvbg0KPj4gDQo+PiAjIFByb3Bv
+c2VyKHMpOiBSYWh1bCBTaW5naCwgQmVydHJhbmQgTWFycXVpcw0KPj4gDQo+PiAjIFByb3Bvc2Fs
+Og0KPj4gDQo+PiBUaGlzIHNlY3Rpb24gd2lsbCBkZXNjcmliZSB0aGUgZGlmZmVyZW50IHN1YnN5
+c3RlbSB0byBzdXBwb3J0IHRoZSBQQ0kgZGV2aWNlIHBhc3N0aHJvdWdoIGFuZCBob3cgdGhlc2Ug
+c3Vic3lzdGVtcyBpbnRlcmFjdCB3aXRoIGVhY2ggb3RoZXIgdG8gYXNzaWduIGEgZGV2aWNlIHRv
+IHRoZSBndWVzdC4NCj4+IA0KPj4gIyBQQ0kgVGVybWlub2xvZ3k6DQo+PiANCj4+IEhvc3QgQnJp
+ZGdlOiBIb3N0IGJyaWRnZSBhbGxvd3MgdGhlIFBDSSBkZXZpY2VzIHRvIHRhbGsgdG8gdGhlIHJl
+c3Qgb2YgdGhlIGNvbXB1dGVyLiAgDQo+PiBFQ0FNOiBFQ0FNIChFbmhhbmNlZCBDb25maWd1cmF0
+aW9uIEFjY2VzcyBNZWNoYW5pc20pIGlzIGEgbWVjaGFuaXNtIGRldmVsb3BlZCB0byBhbGxvdyBQ
+Q0llIHRvIGFjY2VzcyBjb25maWd1cmF0aW9uIHNwYWNlLiBUaGUgc3BhY2UgYXZhaWxhYmxlIHBl
+ciBmdW5jdGlvbiBpcyA0S0IuDQo+PiANCj4+ICMgRGlzY292ZXJpbmcgUENJIEhvc3QgQnJpZGdl
+IGluIFhFTjoNCj4+IA0KPj4gSW4gb3JkZXIgdG8gc3VwcG9ydCB0aGUgUENJIHBhc3N0aHJvdWdo
+IFhFTiBzaG91bGQgYmUgYXdhcmUgb2YgYWxsIHRoZSBQQ0kgaG9zdCBicmlkZ2VzIGF2YWlsYWJs
+ZSBvbiB0aGUgc3lzdGVtIGFuZCBzaG91bGQgYmUgYWJsZSB0byBhY2Nlc3MgdGhlIFBDSSBjb25m
+aWd1cmF0aW9uIHNwYWNlLiBFQ0FNIGNvbmZpZ3VyYXRpb24gYWNjZXNzIGlzIHN1cHBvcnRlZCBh
+cyBvZiBub3cuIFhFTiBkdXJpbmcgYm9vdCB3aWxsIHJlYWQgdGhlIFBDSSBkZXZpY2UgdHJlZSBu
+b2RlIOKAnHJlZ+KAnSBwcm9wZXJ0eSBhbmQgd2lsbCBtYXAgdGhlIEVDQU0gc3BhY2UgdG8gdGhl
+IFhFTiBtZW1vcnkgdXNpbmcgdGhlIOKAnGlvcmVtYXBfbm9jYWNoZSAoKeKAnSBmdW5jdGlvbi4N
+Cj4+IA0KPj4gSWYgdGhlcmUgYXJlIG1vcmUgdGhhbiBvbmUgc2VnbWVudCBvbiB0aGUgc3lzdGVt
+LCBYRU4gd2lsbCByZWFkIHRoZSDigJxsaW51eCwgcGNpLWRvbWFpbuKAnSBwcm9wZXJ0eSBmcm9t
+IHRoZSBkZXZpY2UgdHJlZSBub2RlIGFuZCBjb25maWd1cmUgIHRoZSBob3N0IGJyaWRnZSBzZWdt
+ZW50IG51bWJlciBhY2NvcmRpbmdseS4gQWxsIHRoZSBQQ0kgZGV2aWNlIHRyZWUgbm9kZXMgc2hv
+dWxkIGhhdmUgdGhlIOKAnGxpbnV4LHBjaS1kb21haW7igJ0gcHJvcGVydHkgc28gdGhhdCB0aGVy
+ZSB3aWxsIGJlIG5vIGNvbmZsaWN0cy4gRHVyaW5nIGhhcmR3YXJlIGRvbWFpbiBib290IExpbnV4
+IHdpbGwgYWxzbyB1c2UgdGhlIHNhbWUg4oCcbGludXgscGNpLWRvbWFpbuKAnSBwcm9wZXJ0eSBh
+bmQgYXNzaWduIHRoZSBkb21haW4gbnVtYmVyIHRvIHRoZSBob3N0IGJyaWRnZS4NCj4+IA0KPj4g
+V2hlbiBEb20wIHRyaWVzIHRvIGFjY2VzcyB0aGUgUENJIGNvbmZpZyBzcGFjZSBvZiB0aGUgZGV2
+aWNlLCBYRU4gd2lsbCBmaW5kIHRoZSBjb3JyZXNwb25kaW5nIGhvc3QgYnJpZGdlIGJhc2VkIG9u
+IHNlZ21lbnQgbnVtYmVyIGFuZCBhY2Nlc3MgdGhlIGNvcnJlc3BvbmRpbmcgY29uZmlnIHNwYWNl
+IGFzc2lnbmVkIHRvIHRoYXQgYnJpZGdlLg0KPj4gDQo+PiBMaW1pdGF0aW9uOg0KPj4gKiBPbmx5
+IFBDSSBFQ0FNIGNvbmZpZ3VyYXRpb24gc3BhY2UgYWNjZXNzIGlzIHN1cHBvcnRlZC4NCj4+ICog
+RGV2aWNlIHRyZWUgYmluZGluZyBpcyBzdXBwb3J0ZWQgYXMgb2Ygbm93LCBBQ1BJIGlzIG5vdCBz
+dXBwb3J0ZWQuDQo+PiAqIE5lZWQgdG8gcG9ydCB0aGUgUENJIGhvc3QgYnJpZGdlIGFjY2VzcyBj
+b2RlIHRvIFhFTiB0byBhY2Nlc3MgdGhlIGNvbmZpZ3VyYXRpb24gc3BhY2UgKGdlbmVyaWMgb25l
+IHdvcmtzIGJ1dCBsb3RzIG9mIHBsYXRmb3JtcyB3aWxsIHJlcXVpcmVkIHNvbWUgc3BlY2lmaWMg
+Y29kZSBvciBxdWlya3MpLg0KPj4gDQo+PiAjIERpc2NvdmVyaW5nIFBDSSBkZXZpY2VzOg0KPj4g
+DQo+PiBQQ0ktUENJZSBlbnVtZXJhdGlvbiBpcyBhIHByb2Nlc3Mgb2YgZGV0ZWN0aW5nIGRldmlj
+ZXMgY29ubmVjdGVkIHRvIGl0cyBob3N0LiBJdCBpcyB0aGUgcmVzcG9uc2liaWxpdHkgb2YgdGhl
+IGhhcmR3YXJlIGRvbWFpbiBvciBib290IGZpcm13YXJlIHRvIGRvIHRoZSBQQ0kgZW51bWVyYXRp
+b24gYW5kIGNvbmZpZ3VyZSB0aGUgQkFSLCBQQ0kgY2FwYWJpbGl0aWVzLCBhbmQgTVNJL01TSS1Y
+IGNvbmZpZ3VyYXRpb24uDQo+PiANCj4+IFBDSS1QQ0llIGVudW1lcmF0aW9uIGluIFhFTiBpcyBu
+b3QgZmVhc2libGUgZm9yIHRoZSBjb25maWd1cmF0aW9uIHBhcnQgYXMgaXQgd291bGQgcmVxdWly
+ZSBhIGxvdCBvZiBjb2RlIGluc2lkZSBYZW4gd2hpY2ggd291bGQgcmVxdWlyZSBhIGxvdCBvZiBt
+YWludGVuYW5jZS4gQWRkZWQgdG8gdGhpcyBtYW55IHBsYXRmb3JtcyByZXF1aXJlIHNvbWUgcXVp
+cmtzIGluIHRoYXQgcGFydCBvZiB0aGUgUENJIGNvZGUgd2hpY2ggd291bGQgZ3JlYXRseSBpbXBy
+b3ZlIFhlbiBjb21wbGV4aXR5LiBPbmNlIGhhcmR3YXJlIGRvbWFpbiBlbnVtZXJhdGVzIHRoZSBk
+ZXZpY2UgdGhlbiBpdCB3aWxsIGNvbW11bmljYXRlIHRvIFhFTiB2aWEgdGhlIGJlbG93IGh5cGVy
+Y2FsbC4NCj4+IA0KPj4gI2RlZmluZSBQSFlTREVWT1BfcGNpX2RldmljZV9hZGQgICAgICAgIDI1
+DQo+PiBzdHJ1Y3QgcGh5c2Rldl9wY2lfZGV2aWNlX2FkZCB7DQo+PiAgICB1aW50MTZfdCBzZWc7
+DQo+PiAgICB1aW50OF90IGJ1czsNCj4+ICAgIHVpbnQ4X3QgZGV2Zm47DQo+PiAgICB1aW50MzJf
+dCBmbGFnczsNCj4+ICAgIHN0cnVjdCB7DQo+PiAgICAJdWludDhfdCBidXM7DQo+PiAgICAJdWlu
+dDhfdCBkZXZmbjsNCj4+ICAgIH0gcGh5c2ZuOw0KPj4gICAgLyoNCj4+ICAgICogT3B0aW9uYWwg
+cGFyYW1ldGVycyBhcnJheS4NCj4+ICAgICogRmlyc3QgZWxlbWVudCAoWzBdKSBpcyBQWE0gZG9t
+YWluIGFzc29jaWF0ZWQgd2l0aCB0aGUgZGV2aWNlIChpZiAqIFhFTl9QQ0lfREVWX1BYTSBpcyBz
+ZXQpDQo+PiAgICAqLw0KPj4gICAgdWludDMyX3Qgb3B0YXJyW1hFTl9GTEVYX0FSUkFZX0RJTV07
+DQo+PiAgICB9Ow0KPj4gDQo+PiBBcyB0aGUgaHlwZXJjYWxsIGFyZ3VtZW50IGhhcyB0aGUgUENJ
+IHNlZ21lbnQgbnVtYmVyLCBYRU4gd2lsbCBhY2Nlc3MgdGhlIFBDSSBjb25maWcgc3BhY2UgYmFz
+ZWQgb24gdGhpcyBzZWdtZW50IG51bWJlciBhbmQgZmluZCB0aGUgaG9zdC1icmlkZ2UgY29ycmVz
+cG9uZGluZyB0byB0aGlzIHNlZ21lbnQgbnVtYmVyLiBBdCB0aGlzIHN0YWdlIGhvc3QgYnJpZGdl
+IGlzIGZ1bGx5IGluaXRpYWxpemVkIHNvIHRoZXJlIHdpbGwgYmUgbm8gaXNzdWUgdG8gYWNjZXNz
+IHRoZSBjb25maWcgc3BhY2UuDQo+PiANCj4+IFhFTiB3aWxsIGFkZCB0aGUgUENJIGRldmljZXMg
+aW4gdGhlIGxpbmtlZCBsaXN0IG1haW50YWluIGluIFhFTiB1c2luZyB0aGUgZnVuY3Rpb24gcGNp
+X2FkZF9kZXZpY2UoKS4gWEVOIHdpbGwgYmUgYXdhcmUgb2YgYWxsIHRoZSBQQ0kgZGV2aWNlcyBv
+biB0aGUgc3lzdGVtIGFuZCBhbGwgdGhlIGRldmljZSB3aWxsIGJlIGFkZGVkIHRvIHRoZSBoYXJk
+d2FyZSBkb21haW4uDQo+PiANCj4+IExpbWl0YXRpb25zOg0KPj4gKiBXaGVuIFBDSSBkZXZpY2Vz
+IGFyZSBhZGRlZCB0byBYRU4sIE1TSSBjYXBhYmlsaXR5IGlzIG5vdCBpbml0aWFsaXplZCBpbnNp
+ZGUgWEVOIGFuZCBub3Qgc3VwcG9ydGVkIGFzIG9mIG5vdy4NCj4+ICogQUNTIGNhcGFiaWxpdHkg
+aXMgZGlzYWJsZSBmb3IgQVJNIGFzIG9mIG5vdyBhcyBhZnRlciBlbmFibGluZyBpdCBkZXZpY2Vz
+IGFyZSBub3QgYWNjZXNzaWJsZS4NCj4+ICogRG9tMExlc3MgaW1wbGVtZW50YXRpb24gd2lsbCBy
+ZXF1aXJlIHRvIGhhdmUgdGhlIGNhcGFjaXR5IGluc2lkZSBYZW4gdG8gZGlzY292ZXIgdGhlIFBD
+SSBkZXZpY2VzICh3aXRob3V0IGRlcGVuZGluZyBvbiBEb20wIHRvIGRlY2xhcmUgdGhlbSB0byBY
+ZW4pLg0KPiANCj4gSSB0aGluayBpdCBpcyBmaW5lIHRvIGFzc3VtZSB0aGF0IGZvciBkb20wbGVz
+cyB0aGUgImZpcm13YXJlIiBoYXMgdGFrZW4NCj4gY2FyZSBvZiBzZXR0aW5nIHVwIHRoZSBCQVJz
+IGNvcnJlY3RseS4gU3RhcnRpbmcgd2l0aCB0aGF0IGFzc3VtcHRpb24sIGl0DQo+IGxvb2tzIGxp
+a2UgaXQgc2hvdWxkIGJlICJlYXN5IiB0byB3YWxrIHRoZSBQQ0kgdG9wb2xvZ3kgaW4gWGVuIHdo
+ZW4vaWYNCj4gdGhlcmUgaXMgbm8gZG9tMD8NCg0KWWVzIGFzIHdlIGRpc2N1c3NlZCBkdXJpbmcg
+dGhlIGRlc2lnbiBzZXNzaW9uLCB3ZSBjdXJyZW50bHkgdGhpbmsgdGhhdCBpdCBpcyB0aGUgd2F5
+IHRvIGdvLg0KV2UgYXJlIGZvciBub3cgcmVseWluZyBvbiBEb20wIHRvIGdldCB0aGUgbGlzdCBv
+ZiBQQ0kgZGV2aWNlcyBidXQgdGhpcyBpcyBkZWZpbml0ZWx5IHRoZSBzdHJhdGVneSB3ZSB3b3Vs
+ZCBsaWtlIHRvIHVzZSB0byBoYXZlIERvbTAgc3VwcG9ydC4NCklmIHRoaXMgaXMgd29ya2luZyB3
+ZWxsLCBJIGV2ZW4gdGhpbmsgd2UgY291bGQgZ2V0IHJpZCBvZiB0aGUgaHlwZXJjYWxsIGFsbCB0
+b2dldGhlci4NCg0KPiANCj4gDQo+PiAjIEVuYWJsZSB0aGUgZXhpc3RpbmcgeDg2IHZpcnR1YWwg
+UENJIHN1cHBvcnQgZm9yIEFSTToNCj4+IA0KPj4gVGhlIGV4aXN0aW5nIFZQQ0kgc3VwcG9ydCBh
+dmFpbGFibGUgZm9yIFg4NiBpcyBhZGFwdGVkIGZvciBBcm0uIFdoZW4gdGhlIGRldmljZSBpcyBh
+ZGRlZCB0byBYRU4gdmlhIHRoZSBoeXBlciBjYWxsIOKAnFBIWVNERVZPUF9wY2lfZGV2aWNlX2Fk
+ZOKAnSwgVlBDSSBoYW5kbGVyIGZvciB0aGUgY29uZmlnIHNwYWNlIGFjY2VzcyBpcyBhZGRlZCB0
+byB0aGUgUENJIGRldmljZSB0byBlbXVsYXRlIHRoZSBQQ0kgZGV2aWNlcy4NCj4+IA0KPj4gQSBN
+TUlPIHRyYXAgaGFuZGxlciBmb3IgdGhlIFBDSSBFQ0FNIHNwYWNlIGlzIHJlZ2lzdGVyZWQgaW4g
+WEVOIHNvIHRoYXQgd2hlbiBndWVzdCBpcyB0cnlpbmcgdG8gYWNjZXNzIHRoZSBQQ0kgY29uZmln
+IHNwYWNlLCBYRU4gd2lsbCB0cmFwIHRoZSBhY2Nlc3MgYW5kIGVtdWxhdGUgcmVhZC93cml0ZSB1
+c2luZyB0aGUgVlBDSSBhbmQgbm90IHRoZSByZWFsIFBDSSBoYXJkd2FyZS4NCj4+IA0KPj4gTGlt
+aXRhdGlvbjoNCj4+ICogTm8gaGFuZGxlciBpcyByZWdpc3RlciBmb3IgdGhlIE1TSSBjb25maWd1
+cmF0aW9uLg0KPj4gKiBPbmx5IGxlZ2FjeSBpbnRlcnJ1cHQgaXMgc3VwcG9ydGVkIGFuZCB0ZXN0
+ZWQgYXMgb2Ygbm93LCBNU0kgaXMgbm90IGltcGxlbWVudGVkIGFuZCB0ZXN0ZWQuICANCj4+IA0K
+Pj4gIyBBc3NpZ24gdGhlIGRldmljZSB0byB0aGUgZ3Vlc3Q6DQo+PiANCj4+IEFzc2lnbiB0aGUg
+UENJIGRldmljZSBmcm9tIHRoZSBoYXJkd2FyZSBkb21haW4gdG8gdGhlIGd1ZXN0IGlzIGRvbmUg
+dXNpbmcgdGhlIGJlbG93IGd1ZXN0IGNvbmZpZyBvcHRpb24uIFdoZW4geGwgdG9vbCBjcmVhdGUg
+dGhlIGRvbWFpbiwgUENJIGRldmljZXMgd2lsbCBiZSBhc3NpZ25lZCB0byB0aGUgZ3Vlc3QgVlBD
+SSBidXMuDQo+PiAJcGNpPVsgIlBDSV9TUEVDX1NUUklORyIsICJQQ0lfU1BFQ19TVFJJTkciLCAu
+Li5dDQo+PiANCj4+IEd1ZXN0IHdpbGwgYmUgb25seSBhYmxlIHRvIGFjY2VzcyB0aGUgYXNzaWdu
+ZWQgZGV2aWNlcyBhbmQgc2VlIHRoZSBicmlkZ2VzLiBHdWVzdCB3aWxsIG5vdCBiZSBhYmxlIHRv
+IGFjY2VzcyBvciBzZWUgdGhlIGRldmljZXMgdGhhdCBhcmUgbm8gYXNzaWduZWQgdG8gaGltLg0K
+Pj4gDQo+PiBMaW1pdGF0aW9uOg0KPj4gKiBBcyBvZiBub3cgYWxsIHRoZSBicmlkZ2VzIGluIHRo
+ZSBQQ0kgYnVzIGFyZSBzZWVuIGJ5IHRoZSBndWVzdCBvbiB0aGUgVlBDSSBidXMuDQo+IA0KPiBX
+ZSBuZWVkIHRvIGNvbWUgdXAgd2l0aCBzb21ldGhpbmcgc2ltaWxhciBmb3IgZG9tMGxlc3MgdG9v
+LiBJdCBjb3VsZCBiZQ0KPiBleGFjdGx5IHRoZSBzYW1lIHRoaW5nIChhIGxpc3Qgb2YgQkRGcyBh
+cyBzdHJpbmdzIGFzIGEgZGV2aWNlIHRyZWUNCj4gcHJvcGVydHkpIG9yIHNvbWV0aGluZyBlbHNl
+IGlmIHdlIGNhbiBjb21lIHVwIHdpdGggYSBiZXR0ZXIgaWRlYS4NCg0KRnVsbHkgYWdyZWUuDQpN
+YXliZSBhIHRyZWUgdG9wb2xvZ3kgY291bGQgYWxsb3cgbW9yZSBwb3NzaWJpbGl0aWVzIChsaWtl
+IGdpdmluZyBCQVIgdmFsdWVzKSBpbiB0aGUgZnV0dXJlLg0KPiANCj4gDQo+PiAjIEVtdWxhdGVk
+IFBDSSBkZXZpY2UgdHJlZSBub2RlIGluIGxpYnhsOg0KPj4gDQo+PiBMaWJ4bCBpcyBjcmVhdGlu
+ZyBhIHZpcnR1YWwgUENJIGRldmljZSB0cmVlIG5vZGUgaW4gdGhlIGRldmljZSB0cmVlIHRvIGVu
+YWJsZSB0aGUgZ3Vlc3QgT1MgdG8gZGlzY292ZXIgdGhlIHZpcnR1YWwgUENJIGR1cmluZyBndWVz
+dCBib290LiBXZSBpbnRyb2R1Y2VkIHRoZSBuZXcgY29uZmlnIG9wdGlvbiBbdnBjaT0icGNpX2Vj
+YW0iXSBmb3IgZ3Vlc3RzLiBXaGVuIHRoaXMgY29uZmlnIG9wdGlvbiBpcyBlbmFibGVkIGluIGEg
+Z3Vlc3QgY29uZmlndXJhdGlvbiwgYSBQQ0kgZGV2aWNlIHRyZWUgbm9kZSB3aWxsIGJlIGNyZWF0
+ZWQgaW4gdGhlIGd1ZXN0IGRldmljZSB0cmVlLg0KPj4gDQo+PiBBIG5ldyBhcmVhIGhhcyBiZWVu
+IHJlc2VydmVkIGluIHRoZSBhcm0gZ3Vlc3QgcGh5c2ljYWwgbWFwIGF0IHdoaWNoIHRoZSBWUENJ
+IGJ1cyBpcyBkZWNsYXJlZCBpbiB0aGUgZGV2aWNlIHRyZWUgKHJlZyBhbmQgcmFuZ2VzIHBhcmFt
+ZXRlcnMgb2YgdGhlIG5vZGUpLiBBIHRyYXAgaGFuZGxlciBmb3IgdGhlIFBDSSBFQ0FNIGFjY2Vz
+cyBmcm9tIGd1ZXN0IGhhcyBiZWVuIHJlZ2lzdGVyZWQgYXQgdGhlIGRlZmluZWQgYWRkcmVzcyBh
+bmQgcmVkaXJlY3RzIHJlcXVlc3RzIHRvIHRoZSBWUENJIGRyaXZlciBpbiBYZW4uDQo+PiANCj4+
+IExpbWl0YXRpb246DQo+PiAqIE9ubHkgb25lIFBDSSBkZXZpY2UgdHJlZSBub2RlIGlzIHN1cHBv
+cnRlZCBhcyBvZiBub3cuDQo+IA0KPiBJIHRoaW5rIHZwY2k9InBjaV9lY2FtIiBzaG91bGQgYmUg
+b3B0aW9uYWw6IGlmIHBjaT1bICJQQ0lfU1BFQ19TVFJJTkciLA0KPiAuLi5dIGlzIHNwZWNpZmlm
+ZWQsIHRoZW4gdnBjaT0icGNpX2VjYW0iIGlzIGltcGxpZWQuDQo+IA0KPiB2cGNpPSJwY2lfZWNh
+bSIgaXMgb25seSB1c2VmdWwgb25lIGRheSBpbiB0aGUgZnV0dXJlIHdoZW4gd2Ugd2FudCB0byBi
+ZQ0KPiBhYmxlIHRvIGVtdWxhdGUgb3RoZXIgbm9uLWVjYW0gaG9zdCBicmlkZ2VzLiBGb3Igbm93
+IHdlIGNvdWxkIGV2ZW4gc2tpcA0KPiBpdC4NCg0KVGhpcyB3b3VsZCBjcmVhdGUgYSBwcm9ibGVt
+IGlmIHhsIGlzIHVzZWQgdG8gYWRkIGEgUENJIGRldmljZSBhcyB3ZSBuZWVkIHRoZSBQQ0kgbm9k
+ZSB0byBiZSBpbiB0aGUgRFRCIHdoZW4gdGhlIGd1ZXN0IGlzIGNyZWF0ZWQuDQpJIGFncmVlIHRo
+aXMgaXMgbm90IG5lZWRlZCBidXQgcmVtb3ZpbmcgaXQgbWlnaHQgY3JlYXRlIG1vcmUgY29tcGxl
+eGl0eSBpbiB0aGUgY29kZS4NCg0KQmVydHJhbmQNCg0KPiANCj4gDQo+PiBCQVIgdmFsdWUgYW5k
+IElPTUVNIG1hcHBpbmc6DQo+PiANCj4+IExpbnV4IGd1ZXN0IHdpbGwgZG8gdGhlIFBDSSBlbnVt
+ZXJhdGlvbiBiYXNlZCBvbiB0aGUgYXJlYSByZXNlcnZlZCBmb3IgRUNBTSBhbmQgSU9NRU0gcmFu
+Z2VzIGluIHRoZSBWUENJIGRldmljZSB0cmVlIG5vZGUuIE9uY2UgUENJCWRldmljZSBpcyBhc3Np
+Z25lZCB0byB0aGUgZ3Vlc3QsIFhFTiB3aWxsIG1hcCB0aGUgZ3Vlc3QgUENJIElPTUVNIHJlZ2lv
+biB0byB0aGUgcmVhbCBwaHlzaWNhbCBJT01FTSByZWdpb24gb25seSBmb3IgdGhlIGFzc2lnbmVk
+IGRldmljZXMuDQo+PiANCj4+IEFzIG9mIG5vdyB3ZSBoYXZlIG5vdCBtb2RpZmllZCB0aGUgZXhp
+c3RpbmcgVlBDSSBjb2RlIHRvIG1hcCB0aGUgZ3Vlc3QgUENJIElPTUVNIHJlZ2lvbiB0byB0aGUg
+cmVhbCBwaHlzaWNhbCBJT01FTSByZWdpb24uIFdlIHVzZWQgdGhlIGV4aXN0aW5nIGd1ZXN0IOKA
+nGlvbWVt4oCdIGNvbmZpZyBvcHRpb24gdG8gbWFwIHRoZSByZWdpb24uDQo+PiBGb3IgZXhhbXBs
+ZToNCj4+IAlHdWVzdCByZXNlcnZlZCBJT01FTSByZWdpb246ICAweDA0MDIwMDAwDQo+PiAgICAJ
+UmVhbCBwaHlzaWNhbCBJT01FTSByZWdpb246MHg1MDAwMDAwMA0KPj4gICAgCUlPTUVNIHNpemU6
+MTI4TUINCj4+ICAgIAlpb21lbSBjb25maWcgd2lsbCBiZTogICBpb21lbSA9IFsiMHg1MDAwMCww
+eDgwMDBAMHg0MDIwIl0NCj4+IA0KPj4gVGhlcmUgaXMgbm8gbmVlZCB0byBtYXAgdGhlIEVDQU0g
+c3BhY2UgYXMgWEVOIGFscmVhZHkgaGF2ZSBhY2Nlc3MgdG8gdGhlIEVDQU0gc3BhY2UgYW5kIFhF
+TiB3aWxsIHRyYXAgRUNBTSBhY2Nlc3NlcyBmcm9tIHRoZSBndWVzdCBhbmQgd2lsbCBwZXJmb3Jt
+IHJlYWQvd3JpdGUgb24gdGhlIFZQQ0kgYnVzLg0KPj4gDQo+PiBJT01FTSBhY2Nlc3Mgd2lsbCBu
+b3QgYmUgdHJhcHBlZCBhbmQgdGhlIGd1ZXN0IHdpbGwgZGlyZWN0bHkgYWNjZXNzIHRoZSBJT01F
+TSByZWdpb24gb2YgdGhlIGFzc2lnbmVkIGRldmljZSB2aWEgc3RhZ2UtMiB0cmFuc2xhdGlvbi4N
+Cj4+IA0KPj4gSW4gdGhlIHNhbWUsIHdlIG1hcHBlZCB0aGUgYXNzaWduZWQgZGV2aWNlcyBJUlEg
+dG8gdGhlIGd1ZXN0IHVzaW5nIGJlbG93IGNvbmZpZyBvcHRpb25zLg0KPj4gCWlycXM9IFsgTlVN
+QkVSLCBOVU1CRVIsIC4uLl0NCj4+IA0KPj4gTGltaXRhdGlvbjoNCj4+ICogTmVlZCB0byBhdm9p
+ZCB0aGUg4oCcaW9tZW3igJ0gYW5kIOKAnGlyceKAnSBndWVzdCBjb25maWcgb3B0aW9ucyBhbmQg
+bWFwIHRoZSBJT01FTSByZWdpb24gYW5kIElSUSBhdCB0aGUgc2FtZSB0aW1lIHdoZW4gZGV2aWNl
+IGlzIGFzc2lnbmVkIHRvIHRoZSBndWVzdCB1c2luZyB0aGUg4oCccGNp4oCdIGd1ZXN0IGNvbmZp
+ZyBvcHRpb25zIHdoZW4geGwgY3JlYXRlcyB0aGUgZG9tYWluLg0KPj4gKiBFbXVsYXRlZCBCQVIg
+dmFsdWVzIG9uIHRoZSBWUENJIGJ1cyBzaG91bGQgcmVmbGVjdCB0aGUgSU9NRU0gbWFwcGVkIGFk
+ZHJlc3MuDQo+PiAqIFg4NiBtYXBwaW5nIGNvZGUgc2hvdWxkIGJlIHBvcnRlZCBvbiBBcm0gc28g
+dGhhdCB0aGUgc3RhZ2UtMiB0cmFuc2xhdGlvbiBpcyBhZGFwdGVkIHdoZW4gdGhlIGd1ZXN0IGlz
+IGRvaW5nIGEgbW9kaWZpY2F0aW9uIG9mIHRoZSBCQVIgcmVnaXN0ZXJzIHZhbHVlcyAodG8gbWFw
+IHRoZSBhZGRyZXNzIHJlcXVlc3RlZCBieSB0aGUgZ3Vlc3QgZm9yIGEgc3BlY2lmaWMgSU9NRU0g
+dG8gdGhlIGFkZHJlc3MgYWN0dWFsbHkgY29udGFpbmVkIGluIHRoZSByZWFsIEJBUiByZWdpc3Rl
+ciBvZiB0aGUgY29ycmVzcG9uZGluZyBkZXZpY2UpLg0KPj4gDQo+PiAjIFNNTVUgY29uZmlndXJh
+dGlvbiBmb3IgZ3Vlc3Q6DQo+PiANCj4+IFdoZW4gYXNzaWduaW5nIFBDSSBkZXZpY2VzIHRvIGEg
+Z3Vlc3QsIHRoZSBTTU1VIGNvbmZpZ3VyYXRpb24gc2hvdWxkIGJlIHVwZGF0ZWQgdG8gcmVtb3Zl
+IGFjY2VzcyB0byB0aGUgaGFyZHdhcmUgZG9tYWluIG1lbW9yeSBhbmQgYWRkDQo+PiBjb25maWd1
+cmF0aW9uIHRvIGhhdmUgYWNjZXNzIHRvIHRoZSBndWVzdCBtZW1vcnkgd2l0aCB0aGUgcHJvcGVy
+IGFkZHJlc3MgdHJhbnNsYXRpb24gc28gdGhhdCB0aGUgZGV2aWNlIGNhbiBkbyBETUEgb3BlcmF0
+aW9ucyBmcm9tIGFuZCB0byB0aGUgZ3Vlc3QgbWVtb3J5IG9ubHkuDQo+PiANCj4+ICMgTVNJL01T
+SS1YIHN1cHBvcnQ6DQo+PiBOb3QgaW1wbGVtZW50IGFuZCB0ZXN0ZWQgYXMgb2Ygbm93Lg0KPj4g
+DQo+PiAjIElUUyBzdXBwb3J0Og0KPj4gTm90IGltcGxlbWVudCBhbmQgdGVzdGVkIGFzIG9mIG5v
+dy4NCg0K
 
