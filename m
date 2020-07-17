@@ -2,71 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF39D223755
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jul 2020 10:49:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50FCF223829
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jul 2020 11:23:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jwM2D-0000ta-4s; Fri, 17 Jul 2020 08:48:01 +0000
+	id 1jwMZR-0004Va-P2; Fri, 17 Jul 2020 09:22:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T3hc=A4=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1jwM2B-0000tG-Tf
- for xen-devel@lists.xenproject.org; Fri, 17 Jul 2020 08:47:59 +0000
-X-Inumbo-ID: 36bebfa0-c80a-11ea-bb8b-bc764e2007e4
-Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/fKj=A4=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jwMZP-0004VV-Mx
+ for xen-devel@lists.xenproject.org; Fri, 17 Jul 2020 09:22:19 +0000
+X-Inumbo-ID: 02fbc2a8-c80f-11ea-bca7-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 36bebfa0-c80a-11ea-bb8b-bc764e2007e4;
- Fri, 17 Jul 2020 08:47:58 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id y13so5601175lfe.9
- for <xen-devel@lists.xenproject.org>; Fri, 17 Jul 2020 01:47:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=+cjpQErgu64AMMblDNbZsWCTAraG+7PnGSTM25MPtPo=;
- b=nVUOUvlK1FjIf3AHNf/KHr9I2WXBkPAeHkzaHbmHK/41R7p9uNUdE68mJXuH/MSlih
- 7i4AK4LQFYq1vhuASxj7R5q/JAgQvV8ED06Uqqa22dPo7IiBpBfG0BgUxtUdnkPE09DZ
- fvvnCoGMq+EQoWbivLoZaECDO43TBCdaFrsee6fqpMEgTGH+HilolNe5In0SQIW604ZO
- XSavuiaNvRQ9e4scaqrnjlOjCvH8FLFHyBywICiKsF9UamDCbyblgsutwf39B1WReZlF
- bslVHAwxyGv1IA4q1iKLVetJa302gib5+j4zy2qAcxRUGVj6X4rV+95yalX0U5rdqzPv
- E4SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=+cjpQErgu64AMMblDNbZsWCTAraG+7PnGSTM25MPtPo=;
- b=ILv+tZYbLwf+t4gad+gpU1f1yVMzwHPI79wUy2fATDKz4ElNzYyBJUPuHsntWkNoMx
- FJevksm/gm7zbezVDaGuajiLvonwHEgUbFN8f72467LCJHuA7NHaEQrSCozo9pQns5tH
- EfXA6GWoKpeiYD0Jm2GZ8SSiNi9SwxppNNtLgUvCATIXl8OUC2a2LVkU08SAhVLAclaG
- nEqi6DyvAy2IowojvpkJhvBVEh4DgHnjPzUva1ACSOwjOcHKNix9ysbNBLFlcvPGSHTh
- iqnjefW+gjE2N7ZqGXoOC71CQy1jqY7EnMTho1usG+HiP6gH7aYAHD7T633Rb42yqPFb
- /o9A==
-X-Gm-Message-State: AOAM530t1edKkRerApJJGpXbBPVhBJeTxp9PxrW5QkcQUoEwVYX2pVN/
- mrox/+IJIlZSWIfOLo7wmiI=
-X-Google-Smtp-Source: ABdhPJxHrjs4ruDWsJIEWsI2FyFYHbirRkItJqAOiGnkUrjeog0tvOHSrsQJbkXW7sGyHWccAPEwtg==
-X-Received: by 2002:ac2:51a1:: with SMTP id f1mr4219703lfk.173.1594975677602; 
- Fri, 17 Jul 2020 01:47:57 -0700 (PDT)
-Received: from [192.168.10.4] ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id l12sm1531346ljj.43.2020.07.17.01.47.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jul 2020 01:47:56 -0700 (PDT)
-Subject: Re: RFC: PCI devices passthrough on Arm design proposal
-To: Jan Beulich <jbeulich@suse.com>, Rahul Singh <Rahul.Singh@arm.com>
-References: <3F6E40FB-79C5-4AE8-81CA-E16CA37BB298@arm.com>
- <BD475825-10F6-4538-8294-931E370A602C@arm.com>
- <E9CBAA57-5EF3-47F9-8A40-F5D7816DB2A4@arm.com>
- <a50c714c-1642-0354-3f19-5a6f7278d8aa@suse.com>
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-Message-ID: <6b4cadff-ffdc-848a-2b57-be55f61f5bc7@gmail.com>
-Date: Fri, 17 Jul 2020 11:47:55 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 02fbc2a8-c80f-11ea-bca7-bc764e2007e4;
+ Fri, 17 Jul 2020 09:22:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ddxKEY0lA45qy6ua1yonzSg5nBItlF+1Mxkg7U80taU=; b=PnhcnAj+NTVKjS50m7Lkh0QySj
+ JrfvrTYunAZcdtBY4BEYsw9kbsRc5wPSCdBOIFxQ0nY3wIkm49Y9FSj4dHHDLKNXsAOIUhLaFaP87
+ DndTHpOe2a7DhNzHjcLoAeZXocSBqFMbG25IGvLBBYIy1Ag/ON3p9J5k8ipTAXWcaRbk=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jwMZM-0001RK-Pc; Fri, 17 Jul 2020 09:22:16 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jwMZM-0002Mb-GU; Fri, 17 Jul 2020 09:22:16 +0000
+Subject: Re: [PATCH 1/2] common: map_vcpu_info() cosmetics
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien.grall.oss@gmail.com>
+References: <fef45e49-bcb4-dc11-8f7f-b2f5e4bf1a73@suse.com>
+ <2a0341c7-3836-a8c0-9516-b6a08e2720ec@suse.com>
+ <20200716114128.GO7191@Air-de-Roger>
+ <03a4d446-c26b-f171-57fd-a1eb13dad6c0@suse.com>
+ <20200716144219.GQ7191@Air-de-Roger>
+ <d64ee03f-4663-39ce-fd72-5702029e0182@suse.com>
+ <CAJ=z9a2gCm7LNOpJUO4nbwUExmtd8KH2TBvt4VXCaqiAeXuCcg@mail.gmail.com>
+ <7b9dc9b2-e117-6bbb-05a7-e82c4529e5e7@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <be5e1706-55de-e7b7-c302-5440f4c321a8@xen.org>
+Date: Fri, 17 Jul 2020 10:22:14 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <a50c714c-1642-0354-3f19-5a6f7278d8aa@suse.com>
+In-Reply-To: <7b9dc9b2-e117-6bbb-05a7-e82c4529e5e7@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,90 +67,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, nd <nd@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall.oss@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
-On 7/17/20 11:10 AM, Jan Beulich wrote:
-> On 16.07.2020 19:10, Rahul Singh wrote:
->> # Discovering PCI devices:
->>
->> PCI-PCIe enumeration is a process of detecting devices connected to its host. It is the responsibility of the hardware domain or boot firmware to do the PCI enumeration and configure the BAR, PCI capabilities, and MSI/MSI-X configuration.
->>
->> PCI-PCIe enumeration in XEN is not feasible for the configuration part as it would require a lot of code inside Xen which would require a lot of maintenance. Added to this many platforms require some quirks in that part of the PCI code which would greatly improve Xen complexity. Once hardware domain enumerates the device then it will communicate to XEN via the below hypercall.
->>
->> #define PHYSDEVOP_pci_device_add        25
->> struct physdev_pci_device_add {
->>      uint16_t seg;
->>      uint8_t bus;
->>      uint8_t devfn;
->>      uint32_t flags;
->>      struct {
->>      	uint8_t bus;
->>      	uint8_t devfn;
->>      } physfn;
->>      /*
->>      * Optional parameters array.
->>      * First element ([0]) is PXM domain associated with the device (if * XEN_PCI_DEV_PXM is set)
->>      */
->>      uint32_t optarr[XEN_FLEX_ARRAY_DIM];
->>      };
->>
->> As the hypercall argument has the PCI segment number, XEN will access the PCI config space based on this segment number and find the host-bridge corresponding to this segment number. At this stage host bridge is fully initialized so there will be no issue to access the config space.
->>
->> XEN will add the PCI devices in the linked list maintain in XEN using the function pci_add_device(). XEN will be aware of all the PCI devices on the system and all the device will be added to the hardware domain.
-> Have you had any thoughts about Dom0 re-arranging the bus numbering?
-> This is, afaict, a still open issue on x86 as well.
 
-This can get even trickier as we may have PCI enumerated at boot time
-
-by the firmware and then Dom0 may perform the enumeration differently.
-
-So, Xen needs to be aware of what is going to be used as the source of the
-
-enumeration data and be ready to re-build its internal structures in order
-
-to be aligned with that entity: e.g. compare Dom0 and Dom0less use-cases
-
->
->> Limitations:
->> * When PCI devices are added to XEN, MSI capability is not initialized inside XEN and not supported as of now.
-> I think this is a pretty severe limitation, as modern devices tend to
-> not support pin based interrupts anymore.
->
->> # Emulated PCI device tree node in libxl:
+On 17/07/2020 09:16, Jan Beulich wrote:
+> On 16.07.2020 18:17, Julien Grall wrote:
+>> On Thu, 16 Jul 2020, 17:01 Jan Beulich, <jbeulich@suse.com> wrote:
 >>
->> Libxl is creating a virtual PCI device tree node in the device tree to enable the guest OS to discover the virtual PCI during guest boot. We introduced the new config option [vpci="pci_ecam"] for guests. When this config option is enabled in a guest configuration, a PCI device tree node will be created in the guest device tree.
-> I support Stefano's suggestion for this to be an optional thing, i.e.
-> there to be no need for it when there are PCI devices assigned to the
-> guest anyway. I also wonder about the pci_ prefix here - isn't
-> vpci="ecam" as unambiguous?
->
->> A new area has been reserved in the arm guest physical map at which the VPCI bus is declared in the device tree (reg and ranges parameters of the node). A trap handler for the PCI ECAM access from guest has been registered at the defined address and redirects requests to the VPCI driver in Xen.
+>>> On 16.07.2020 16:42, Roger Pau Monné wrote:
+>>>> On Thu, Jul 16, 2020 at 01:48:51PM +0200, Jan Beulich wrote:
+>>>>> On 16.07.2020 13:41, Roger Pau Monné wrote:
+>>>>>> On Wed, Jul 15, 2020 at 12:15:10PM +0200, Jan Beulich wrote:
+>>>>>>> Use ENXIO instead of EINVAL to cover the two cases of the address not
+>>>>>>> satisfying the requirements. This will make an issue here better stand
+>>>>>>> out at the call site.
+>>>>>>
+>>>>>> Not sure whether I would use EFAULT instead of ENXIO, as the
+>>>>>> description of it is 'bad address' which seems more inline with the
+>>>>>> error that we are trying to report.
+>>>>>
+>>>>> The address isn't bad in the sense of causing a fault, it's just
+>>>>> that we elect to not allow it. Hence I don't think EFAULT is
+>>>>> suitable. I'm open to replacement suggestions for ENXIO, though.
+>>>>
+>>>> Well, using an address that's not properly aligned to the requirements
+>>>> of an interface would cause a fault? (in this case it's a software
+>>>> interface, but the concept applies equally).
+>>>
+>>> Not necessarily, see x86'es behavior. Also even on strict arches
 >>
->> Limitation:
->> * Only one PCI device tree node is supported as of now.
+>> it is typically possible to cover for the misalignment by using
+>>> suitable instructions; it's still an implementation choice to not
+>>> do so.
 >>
->> BAR value and IOMEM mapping:
 >>
->> Linux guest will do the PCI enumeration based on the area reserved for ECAM and IOMEM ranges in the VPCI device tree node. Once PCI	device is assigned to the guest, XEN will map the guest PCI IOMEM region to the real physical IOMEM region only for the assigned devices.
+>> I am not sure about your argument here... Yes it might be possible, but at
+>> what cost?
+> 
+> The cost is what influences the decision whether to support it. Nevertheless
+> it remains an implementation decision rather than a hardware imposed
+> restriction, and hence I don't consider -EFAULT suitable here.
+> 
+>>>> Anyway, not something worth arguing about I think, so unless someone
+>>>> else disagrees I'm fine with using ENXIO.
+>>>
+>>> Good, thanks.
+>>>
 >>
->> As of now we have not modified the existing VPCI code to map the guest PCI IOMEM region to the real physical IOMEM region. We used the existing guest “iomem” config option to map the region.
->> For example:
->> 	Guest reserved IOMEM region:  0x04020000
->>      	Real physical IOMEM region:0x50000000
->>      	IOMEM size:128MB
->>      	iomem config will be:   iomem = ["0x50000,0x8000@0x4020"]
-> This surely is planned to go away before the code hits upstream? The
-> ranges really should be read out of the BARs, as I see the
-> "limitations" section further down suggests, but it's not clear
-> whether "limitations" are items that you plan to take care of before
-> submitting your code for review.
->
-> Jan
->
+>> -EFAULT can be described as "Bad address". I think it makes more sense than
+>> -ENXIO here even if it may not strictly result to a fault on some arch.
+> 
+> As said - I don't consider EFAULT applicable here;
+
+AFAICT, you don't consider it because you think that using the address 
+means it will always lead to a fault. However, this is just a strict 
+interpretation of the error code. A less strict interpretation is it 
+could be used for any address that is considered to be invalid.
+
+-ENXIO makes less sense because the address exists. To re-use your 
+argument, this is just an implementation details.
+
+> I also consider EINVAL
+> as too generic. I'll be happy to see replacement suggestions for my ENXIO
+> choice, but obviously I'm not overly happy to see options re-suggested
+> which I did already say I've ruled out.
+
+I think I am allowed to express my opinion even if it means this was 
+already said... However, I should have been clearer and say that I agree 
+with Roger's suggestion about -EFAULT.
+
+Cheers,
+
+-- 
+Julien Grall
 
