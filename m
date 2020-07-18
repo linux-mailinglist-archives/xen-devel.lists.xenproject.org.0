@@ -2,61 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41D30224D7F
-	for <lists+xen-devel@lfdr.de>; Sat, 18 Jul 2020 20:21:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAFCD224D80
+	for <lists+xen-devel@lfdr.de>; Sat, 18 Jul 2020 20:21:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jwrT0-0003Ee-OB; Sat, 18 Jul 2020 18:21:46 +0000
+	id 1jwrT6-0003Fh-1Y; Sat, 18 Jul 2020 18:21:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+0x8=A5=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1jwrSz-0003EY-Ri
- for xen-devel@lists.xenproject.org; Sat, 18 Jul 2020 18:21:45 +0000
-X-Inumbo-ID: 89008842-c923-11ea-bb8b-bc764e2007e4
-Received: from hera.aquilenet.fr (unknown [2a0c:e300::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=++/D=A5=xen.org=tim@srs-us1.protection.inumbo.net>)
+ id 1jwrT4-0003EY-Qf
+ for xen-devel@lists.xenproject.org; Sat, 18 Jul 2020 18:21:50 +0000
+X-Inumbo-ID: 8acb993c-c923-11ea-b7bb-bc764e2007e4
+Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 89008842-c923-11ea-bb8b-bc764e2007e4;
- Sat, 18 Jul 2020 18:21:45 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id 640521F66;
- Sat, 18 Jul 2020 20:21:44 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id uaEEI_3M08tS; Sat, 18 Jul 2020 20:21:43 +0200 (CEST)
-Received: from function (unknown [IPv6:2a01:cb19:956:1b00:9eb6:d0ff:fe88:c3c7])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id 91BA71E09;
- Sat, 18 Jul 2020 20:21:43 +0200 (CEST)
-Received: from samy by function with local (Exim 4.94)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1jwrSw-009BHR-Hz; Sat, 18 Jul 2020 20:21:42 +0200
-Date: Sat, 18 Jul 2020 20:21:42 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: incoming+61544a64d0c2dc4555813e58f3810dd7@incoming.gitlab.com,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 08/12] tools: move libxenctrl below tools/libs
-Message-ID: <20200718182142.fgxmhayj6hxp26h2@function>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- incoming+61544a64d0c2dc4555813e58f3810dd7@incoming.gitlab.com,
- xen-devel@lists.xenproject.org, xen-devel@dornerworks.com,
- ian.jackson@eu.citrix.com, Juergen Gross <jgross@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20200715162511.5941-1-ian.jackson@eu.citrix.com>
- <20200715162511.5941-10-ian.jackson@eu.citrix.com>
+ id 8acb993c-c923-11ea-b7bb-bc764e2007e4;
+ Sat, 18 Jul 2020 18:21:48 +0000 (UTC)
+Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.3 (FreeBSD))
+ (envelope-from <tim@xen.org>)
+ id 1jwrT1-000CpL-IE; Sat, 18 Jul 2020 18:21:47 +0000
+Date: Sat, 18 Jul 2020 19:21:47 +0100
+From: Tim Deegan <tim@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 0/5] x86: mostly shadow related XSA-319 follow-up
+Message-ID: <20200718182147.GB48915@deinos.phlegethon.org>
+References: <a4dc8db4-0388-a922-838e-42c6f4635639@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20200715162511.5941-10-ian.jackson@eu.citrix.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+In-Reply-To: <a4dc8db4-0388-a922-838e-42c6f4635639@suse.com>
+User-Agent: Mutt/1.11.1 (2018-12-01)
+X-SA-Known-Good: Yes
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: tim@xen.org
+X-SA-Exim-Scanned: No (on deinos.phlegethon.org);
+ SAEximRunCond expanded to false
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,34 +47,26 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@dornerworks.com, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- ian.jackson@eu.citrix.com, George Dunlap <george.dunlap@citrix.com>,
- Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Jan Beulich <jbeulich@suse.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ian Jackson, le mer. 15 juil. 2020 17:25:07 +0100, a ecrit:
-> From: Juergen Gross <jgross@suse.com>
+At 11:56 +0200 on 15 Jul (1594814214), Jan Beulich wrote:
+> This in particular goes a few small steps further towards proper
+> !HVM and !PV config handling (i.e. no carrying of unnecessary
+> baggage).
 > 
-> Today tools/libxc needs to be built after tools/libs as libxenctrl is
-> depending on some libraries in tools/libs. This in turn blocks moving
-> other libraries depending on libxenctrl below tools/libs.
-> 
-> So carve out libxenctrl from tools/libxc and move it into
-> tools/libs/ctrl.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> 1: x86/shadow: dirty VRAM tracking is needed for HVM only
+> 2: x86/shadow: shadow_table[] needs only one entry for PV-only configs
+> 3: x86/PV: drop a few misleading paging_mode_refcounts() checks
+> 4: x86/shadow: have just a single instance of sh_set_toplevel_shadow()
+> 5: x86/shadow: l3table[] and gl3e[] are HVM only
 
->  stubdom/Makefile                              | 29 +++++-
->  stubdom/mini-os.mk                            |  2 +-
+I sent a question on #5 separatly; otherwise these all seem good to
+me, thank you!
 
-For that part,
-
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Acked-by: Tim Deegan <tim@xen.org>
 
