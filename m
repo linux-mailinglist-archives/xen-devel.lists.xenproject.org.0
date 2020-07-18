@@ -2,55 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02B7A22480D
-	for <lists+xen-devel@lfdr.de>; Sat, 18 Jul 2020 04:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A3A7224850
+	for <lists+xen-devel@lfdr.de>; Sat, 18 Jul 2020 05:32:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jwchC-0005do-64; Sat, 18 Jul 2020 02:35:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OolH=A5=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jwchB-0005dj-27
- for xen-devel@lists.xenproject.org; Sat, 18 Jul 2020 02:35:25 +0000
-X-Inumbo-ID: 53ea0bd0-c89f-11ea-96e2-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 53ea0bd0-c89f-11ea-96e2-12813bfff9fa;
- Sat, 18 Jul 2020 02:35:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=6YZ4PaY/GwDYgB99Nzvrdl5h7M7Lmm100ZAnzVhqeqY=; b=BHqwHAPywpyNr6kuVj2+Ds7yO
- hABhqOvVhSlrM1IgVH2H3Pks1/c2IFa2YayS5RzgVWsdYRuQnm0shmKvE5Ky5qiBPGtFvLIMuBVg6
- 30xQlFkEmGv6cGBKOoEQrOgjlmmgPlKra9hw24gTVERu/WiI6VO1vbpqw9phgPaBMZQ6M=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jwch7-0000T9-6n; Sat, 18 Jul 2020 02:35:21 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jwch6-0004BI-SY; Sat, 18 Jul 2020 02:35:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jwch6-000589-Ru; Sat, 18 Jul 2020 02:35:20 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-151972-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jwdZX-0002Cy-K1; Sat, 18 Jul 2020 03:31:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7JXE=A5=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1jwdZW-0002Ct-54
+ for xen-devel@lists.xen.org; Sat, 18 Jul 2020 03:31:34 +0000
+X-Inumbo-ID: 2cda321a-c8a7-11ea-b7bb-bc764e2007e4
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2cda321a-c8a7-11ea-b7bb-bc764e2007e4;
+ Sat, 18 Jul 2020 03:31:33 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 06I3VLlr088879
+ (version=TLSv1.2 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
+ Fri, 17 Jul 2020 23:31:27 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 06I3VLqL088878;
+ Fri, 17 Jul 2020 20:31:21 -0700 (PDT) (envelope-from ehem)
+Date: Fri, 17 Jul 2020 20:31:21 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: xen-devel@lists.xen.org
+Subject: [PATCH 1/2] Partially revert "Cross-compilation fixes."
+Message-ID: <20200718033121.GA88869@mattapan.m5p.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 151972: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=6ff53d2a13740e39dea110d6b3509c156c659586
-X-Osstest-Versions-That: ovmf=21a23e6966c2eb597a8db98d6837a4c01b3cad4a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 18 Jul 2020 02:35:20 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+ autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,59 +46,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: ian.jackson@eu.citrix.com, christian.lindig@citrix.com, wl@xen.org,
+ dave@recoil.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 151972 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/151972/
+This partially reverts commit 16504669c5cbb8b195d20412aadc838da5c428f7.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 6ff53d2a13740e39dea110d6b3509c156c659586
-baseline version:
- ovmf                 21a23e6966c2eb597a8db98d6837a4c01b3cad4a
+Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+---
+Doesn't look like much of 16504669c5cbb8b195d20412aadc838da5c428f7
+actually remains due to passage of time.
 
-Last test of basis   151959  2020-07-17 05:19:56 Z    0 days
-Testing same since   151972  2020-07-17 16:51:16 Z    0 days    1 attempts
+Of the 3, both Python and pygrub appear to mostly be building just fine
+cross-compiling.  The OCAML portion is being troublesome, this is going
+to cause bug reports elsewhere soon.  The OCAML portion though can
+already be disabled by setting OCAML_TOOLS=n and shouldn't have this
+extra form of disabling.
+---
+ tools/Makefile | 3 ---
+ 1 file changed, 3 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jian J Wang <jian.j.wang@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+diff --git a/tools/Makefile b/tools/Makefile
+index 7b1f6c4d28..930a533724 100644
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -40,12 +40,9 @@ SUBDIRS-$(CONFIG_X86) += debugger/gdbsx
+ SUBDIRS-$(CONFIG_X86) += debugger/kdd
+ SUBDIRS-$(CONFIG_TESTS) += tests
+ 
+-# These don't cross-compile
+-ifeq ($(XEN_COMPILE_ARCH),$(XEN_TARGET_ARCH))
+ SUBDIRS-y += python
+ SUBDIRS-y += pygrub
+ SUBDIRS-$(OCAML_TOOLS) += ocaml
+-endif
+ 
+ ifeq ($(CONFIG_RUMP),y)
+ SUBDIRS-y := libs libxc xenstore
+-- 
+2.20.1
 
 
-Pushing revision :
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   21a23e6966..6ff53d2a13  6ff53d2a13740e39dea110d6b3509c156c659586 -> xen-tested-master
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
