@@ -2,56 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1DC9224D7B
-	for <lists+xen-devel@lfdr.de>; Sat, 18 Jul 2020 20:19:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C57F224D7E
+	for <lists+xen-devel@lfdr.de>; Sat, 18 Jul 2020 20:20:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jwrQI-0002Kx-00; Sat, 18 Jul 2020 18:18:58 +0000
+	id 1jwrRx-00038Z-C5; Sat, 18 Jul 2020 18:20:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+0x8=A5=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
- id 1jwrQG-0002Ka-6j
- for xen-devel@lists.xenproject.org; Sat, 18 Jul 2020 18:18:56 +0000
-X-Inumbo-ID: 23d12cb0-c923-11ea-bb8b-bc764e2007e4
-Received: from hera.aquilenet.fr (unknown [2a0c:e300::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=++/D=A5=xen.org=tim@srs-us1.protection.inumbo.net>)
+ id 1jwrRv-00038R-UD
+ for xen-devel@lists.xenproject.org; Sat, 18 Jul 2020 18:20:39 +0000
+X-Inumbo-ID: 619f2510-c923-11ea-b7bb-bc764e2007e4
+Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 23d12cb0-c923-11ea-bb8b-bc764e2007e4;
- Sat, 18 Jul 2020 18:18:55 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id C768B2939;
- Sat, 18 Jul 2020 20:18:54 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 7D08i3-8rTd8; Sat, 18 Jul 2020 20:18:54 +0200 (CEST)
-Received: from function.home (unknown
- [IPv6:2a01:cb19:956:1b00:9eb6:d0ff:fe88:c3c7])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id 12AAC1A5D;
- Sat, 18 Jul 2020 20:18:54 +0200 (CEST)
-Received: from samy by function.home with local (Exim 4.94)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1jwrQD-009BGv-5H; Sat, 18 Jul 2020 20:18:53 +0200
-Date: Sat, 18 Jul 2020 20:18:53 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: incoming+61544a64d0c2dc4555813e58f3810dd7@incoming.gitlab.com,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 01/12] stubdom: add stubdom/mini-os.mk for Xen paths used
- by Mini-OS
-Message-ID: <20200718181853.t4zkpvnngrfcs2r4@function>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- incoming+61544a64d0c2dc4555813e58f3810dd7@incoming.gitlab.com,
- xen-devel@lists.xenproject.org, ian.jackson@eu.citrix.com,
- Juergen Gross <jgross@suse.com>
-References: <20200715162511.5941-1-ian.jackson@eu.citrix.com>
- <20200715162511.5941-3-ian.jackson@eu.citrix.com>
+ id 619f2510-c923-11ea-b7bb-bc764e2007e4;
+ Sat, 18 Jul 2020 18:20:39 +0000 (UTC)
+Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.3 (FreeBSD))
+ (envelope-from <tim@xen.org>)
+ id 1jwrRt-000Cou-3S; Sat, 18 Jul 2020 18:20:37 +0000
+Date: Sat, 18 Jul 2020 19:20:37 +0100
+From: Tim Deegan <tim@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 5/5] x86/shadow: l3table[] and gl3e[] are HVM only
+Message-ID: <20200718182037.GA48915@deinos.phlegethon.org>
+References: <a4dc8db4-0388-a922-838e-42c6f4635639@suse.com>
+ <a3b9b496-e860-e657-2afc-c0658871fa3f@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200715162511.5941-3-ian.jackson@eu.citrix.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+In-Reply-To: <a3b9b496-e860-e657-2afc-c0658871fa3f@suse.com>
+User-Agent: Mutt/1.11.1 (2018-12-01)
+X-SA-Known-Good: Yes
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: tim@xen.org
+X-SA-Exim-Scanned: No (on deinos.phlegethon.org);
+ SAEximRunCond expanded to false
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +48,29 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, ian.jackson@eu.citrix.com
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ian Jackson, le mer. 15 juil. 2020 17:25:00 +0100, a ecrit:
-> From: Juergen Gross <jgross@suse.com>
+At 12:00 +0200 on 15 Jul (1594814409), Jan Beulich wrote:
+> ... by the very fact that they're 3-level specific, while PV always gets
+> run in 4-level mode. This requires adding some seemingly redundant
+> #ifdef-s - some of them will be possible to drop again once 2- and
+> 3-level guest code doesn't get built anymore in !HVM configs, but I'm
+> afraid there's still quite a bit of disentangling work to be done to
+> make this possible.
 > 
-> stubdom/mini-os.mk should contain paths used by Mini-OS when built as
-> stubdom.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Looks good.  It seems like the new code for '3-level non-HVM' in
+guest-walks ought to have some sort of assert-unreachable in them too
+- or is there a reason to to?
 
-> ---
->  stubdom/mini-os.mk | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->  create mode 100644 stubdom/mini-os.mk
-> 
-> diff --git a/stubdom/mini-os.mk b/stubdom/mini-os.mk
-> new file mode 100644
-> index 0000000000..32528bb91f
-> --- /dev/null
-> +++ b/stubdom/mini-os.mk
-> @@ -0,0 +1,17 @@
-> +# Included by Mini-OS stubdom builds to set variables depending on Xen
-> +# internal paths.
-> +#
-> +# Input variables are:
-> +# XEN_ROOT
-> +# MINIOS_TARGET_ARCH
-> +
-> +XENSTORE_CPPFLAGS = -isystem $(XEN_ROOT)/tools/xenstore/include
-> +TOOLCORE_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toolcore
-> +TOOLLOG_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/toollog
-> +EVTCHN_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/evtchn
-> +GNTTAB_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab
-> +CALL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call
-> +FOREIGNMEMORY_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory
-> +DEVICEMODEL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel
-> +CTRL_PATH = $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)
-> +GUEST_PATH = $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)
-> -- 
-> 2.20.1
-> 
+Cheers,
 
--- 
-Samuel
- Créer une hiérarchie supplementaire pour remedier à un problème (?) de
- dispersion est d'une logique digne des Shadocks.
- * BT in: Guide du Cabaliste Usenet - La Cabale vote oui (les Shadocks aussi) *
+Tim.
+
 
