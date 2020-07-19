@@ -2,61 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FE51224E93
-	for <lists+xen-devel@lfdr.de>; Sun, 19 Jul 2020 03:51:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1121F224E97
+	for <lists+xen-devel@lfdr.de>; Sun, 19 Jul 2020 04:00:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jwyTK-0000Ef-6N; Sun, 19 Jul 2020 01:50:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jwycN-0000WA-68; Sun, 19 Jul 2020 01:59:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DOXs=A6=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jwyTI-0000EZ-Rn
- for xen-devel@lists.xenproject.org; Sun, 19 Jul 2020 01:50:32 +0000
-X-Inumbo-ID: 3a5d080c-c962-11ea-b7bb-bc764e2007e4
+ id 1jwycL-0000W5-Tk
+ for xen-devel@lists.xenproject.org; Sun, 19 Jul 2020 01:59:53 +0000
+X-Inumbo-ID: 88c54e5e-c963-11ea-9804-12813bfff9fa
 Received: from userp2130.oracle.com (unknown [156.151.31.86])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3a5d080c-c962-11ea-b7bb-bc764e2007e4;
- Sun, 19 Jul 2020 01:50:31 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 88c54e5e-c963-11ea-9804-12813bfff9fa;
+ Sun, 19 Jul 2020 01:59:52 +0000 (UTC)
 Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06J1gVUj104805;
- Sun, 19 Jul 2020 01:49:54 GMT
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06J1xYxZ127625;
+ Sun, 19 Jul 2020 01:59:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=EaYL3Q9q6QNFTsvFEQW1LskL6r73jcbI3lEAanfcPTk=;
- b=E2fwWQu2Q5dkhtuwVH5Y2Z2unfGCUoCMV6BXjJKvXnmibNWZcABC11FQYejv+oyjHLBN
- vrCAM6xBhwmK0c4Eo5V/E3ai6h9XLmBBywUUBX9U1y6dkiPLqgXW6uJqCFiQTZ7q7/wJ
- sLuE1aPoSPEL2prhFotkVJZFdjR/zINp5hdp0h7a7UNAvVPR6lS+Cxxs0T/bxiaBtpbc
- lbuJaZH2oyM8kOSWfMQlBZRnQodmyksJRBR3rKOvs1jfKcvjcYGhsgMh3fcJMcmOq1mH
- G7bLP72vcVlBMIUipDMLYu4iNnu21ffwfzh9zrFCro+tL5JubkUUXrDQtZ85qOvxs2Qr Ow== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2130.oracle.com with ESMTP id 32brgr258a-1
+ bh=f7OFTiNijTKWVwpU9cqPB4oaEZccBuJ7BYyIc/fNeCU=;
+ b=HvKtPjmLuioiOgn8JAnm/l1msmBm1vWWhlNhO3omxy4cQCWKQmNB2eH4nK28FEEZvyPp
+ GkPLQg5OIOClBiv09k7Z4GI7EsNbtTGpCsCdaSGa5ANHX995gwAOR6pJbz0y6uSgImWL
+ yWh611XojpPHJ1TNlITD3azJ65G27e5FRPYoAZgrP6JfGTLsqU7Ais2y99DUKD2ynbZU
+ 0CtCqY8MlYPK8vM+PJr+paTCOtA/GfhGBNg27dHPBLFQSKSuCyjoQY6KXUptfxB1NI42
+ S155C5YZ5/sases25GWMnmkYDDdGaNTQH7fzQ6Z2w6tYzQQt3Rc8TnwUdW8ocX/dzYm8 Bw== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2130.oracle.com with ESMTP id 32brgr25kk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Sun, 19 Jul 2020 01:49:54 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06J1loiU070561;
- Sun, 19 Jul 2020 01:47:54 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by aserp3030.oracle.com with ESMTP id 32canj2wcp-1
+ Sun, 19 Jul 2020 01:59:39 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06J1w2li152820;
+ Sun, 19 Jul 2020 01:59:39 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by userp3020.oracle.com with ESMTP id 32cbq74ys6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sun, 19 Jul 2020 01:47:54 +0000
-Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 06J1lAXW028549;
- Sun, 19 Jul 2020 01:47:14 GMT
+ Sun, 19 Jul 2020 01:59:39 +0000
+Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 06J1xa6G011053;
+ Sun, 19 Jul 2020 01:59:37 GMT
 Received: from [10.39.198.189] (/10.39.198.189)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Sun, 19 Jul 2020 01:47:09 +0000
-Subject: Re: [PATCH v2 01/11] xen/manage: keep track of the on-going suspend
- mode
-To: Anchal Agarwal <anchalag@amazon.com>
-References: <cover.1593665947.git.anchalag@amazon.com>
- <20200702182136.GA3511@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <50298859-0d0e-6eb0-029b-30df2a4ecd63@oracle.com>
- <20200715204943.GB17938@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <0ca3c501-e69a-d2c9-a24c-f83afd4bdb8c@oracle.com>
- <20200717191009.GA3387@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ with ESMTP ; Sat, 18 Jul 2020 18:59:36 -0700
+Subject: Re: [PATCH -next] x86/xen: Convert to DEFINE_SHOW_ATTRIBUTE
+To: Qinglang Miao <miaoqinglang@huawei.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Juergen Gross <jgross@suse.com>, Chen-Yu Tsai <wens@csie.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20200716090641.14184-1-miaoqinglang@huawei.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
@@ -101,30 +100,30 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <5464f384-d4b4-73f0-d39e-60ba9800d804@oracle.com>
-Date: Sat, 18 Jul 2020 21:47:04 -0400
+Message-ID: <a75ff99a-bb2e-6470-6c47-e7089c0fc8b4@oracle.com>
+Date: Sat, 18 Jul 2020 21:59:34 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200717191009.GA3387@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+In-Reply-To: <20200716090641.14184-1-miaoqinglang@huawei.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9686
  signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=100
- suspectscore=0 malwarescore=0
- phishscore=0 spamscore=100 mlxscore=100 bulkscore=0 adultscore=0
- mlxlogscore=-1000 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2007190011
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ adultscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 mlxscore=0 phishscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2007190012
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9686
  signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=100
- malwarescore=0 bulkscore=0
- spamscore=100 impostorscore=0 suspectscore=0 adultscore=0 clxscore=1015
- mlxlogscore=-1000 priorityscore=1501 phishscore=0 lowpriorityscore=0
- mlxscore=100 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2007190010
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ bulkscore=0 spamscore=0
+ impostorscore=0 suspectscore=0 adultscore=0 clxscore=1011 mlxlogscore=999
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2007190012
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,145 +134,19 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: eduval@amazon.com, len.brown@intel.com, peterz@infradead.org,
- benh@kernel.crashing.org, x86@kernel.org, linux-mm@kvack.org, pavel@ucw.cz,
- hpa@zytor.com, sstabellini@kernel.org, kamatam@amazon.com, mingo@redhat.com,
- xen-devel@lists.xenproject.org, sblbir@amazon.com, axboe@kernel.dk,
- konrad.wilk@oracle.com, bp@alien8.de, tglx@linutronix.de, jgross@suse.com,
- netdev@vger.kernel.org, linux-pm@vger.kernel.org, rjw@rjwysocki.net,
- linux-kernel@vger.kernel.org, vkuznets@redhat.com, davem@davemloft.net,
- dwmw@amazon.co.uk, roger.pau@citrix.com
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-(Roger, question for you at the very end)
-
-On 7/17/20 3:10 PM, Anchal Agarwal wrote:
-> On Wed, Jul 15, 2020 at 05:18:08PM -0400, Boris Ostrovsky wrote:
->> CAUTION: This email originated from outside of the organization. Do no=
-t click links or open attachments unless you can confirm the sender and k=
-now the content is safe.
->>
->>
->>
->> On 7/15/20 4:49 PM, Anchal Agarwal wrote:
->>> On Mon, Jul 13, 2020 at 11:52:01AM -0400, Boris Ostrovsky wrote:
->>>> CAUTION: This email originated from outside of the organization. Do =
-not click links or open attachments unless you can confirm the sender and=
- know the content is safe.
->>>>
->>>>
->>>>
->>>> On 7/2/20 2:21 PM, Anchal Agarwal wrote:
->>>>> +
->>>>> +bool xen_is_xen_suspend(void)
->>>> Weren't you going to call this pv suspend? (And also --- is this sus=
-pend
->>>> or hibernation? Your commit messages and cover letter talk about fix=
-ing
->>>> hibernation).
->>>>
->>>>
->>> This is for hibernation is for pvhvm/hvm/pv-on-hvm guests as you may =
-call it.
->>> The method is just there to check if "xen suspend" is in progress.
->>> I do not see "xen_suspend" differentiating between pv or hvm
->>> domain until later in the code hence, I abstracted it to xen_is_xen_s=
-uspend.
->>
->> I meant "pv suspend" in the sense that this is paravirtual suspend, no=
-t
->> suspend for paravirtual guests. Just like pv drivers are for both pv a=
-nd
->> hvm guests.
->>
->>
->> And then --- should it be pv suspend or pv hibernation?
->>
->>
-> Ok so I think I am lot confused by this question. Here is what this
-> function for, function xen_is_xen_suspend() just tells us whether=20
-> the guest is in "SHUTDOWN_SUSPEND" state or not. This check is needed
-> for correct invocation of syscore_ops callbacks registered for guest's
-> hibernation and for xenbus to invoke respective callbacks[suspend/resum=
-e
-> vs freeze/thaw/restore].
-> Since "shutting_down" state is defined static and is not directly avail=
-able
-> to other parts of the code, the function solves the purpose.
+On 7/16/20 5:06 AM, Qinglang Miao wrote:
+> From: Chen Huang <chenhuang5@huawei.com>
 >
-> I am having hard time understanding why this should be called pv
-> suspend/hibernation unless you are suggesting something else?
-> Am I missing your point here?=20
+> Use DEFINE_SHOW_ATTRIBUTE macro to simplify the code.
+>
+> Signed-off-by: Chen Huang <chenhuang5@huawei.com>
 
 
-
-I think I understand now what you are trying to say --- it's whether we
-are going to use xen_suspend() routine, right? If that's the case then
-sure, you can use "xen_suspend" term. (I'd probably still change
-xen_is_xen_suspend() to is_xen_suspend())
-
-
->>>>> +{
->>>>> +     return suspend_mode =3D=3D XEN_SUSPEND;
->>>>> +}
->>>>> +
->>>> +static int xen_setup_pm_notifier(void)
->>>> +{
->>>> +     if (!xen_hvm_domain())
->>>> +             return -ENODEV;
->>>>
->>>> I forgot --- what did we decide about non-x86 (i.e. ARM)?
->>> It would be great to support that however, its  out of
->>> scope for this patch set.
->>> I=E2=80=99ll be happy to discuss it separately.
->>
->> I wasn't implying that this *should* work on ARM but rather whether th=
-is
->> will break ARM somehow (because xen_hvm_domain() is true there).
->>
->>
-> Ok makes sense. TBH, I haven't tested this part of code on ARM and the =
-series
-> was only support x86 guests hibernation.
-> Moreover, this notifier is there to distinguish between 2 PM
-> events PM SUSPEND and PM hibernation. Now since we only care about PM
-> HIBERNATION I may just remove this code and rely on "SHUTDOWN_SUSPEND" =
-state.
-> However, I may have to fix other patches in the series where this check=
- may
-> appear and cater it only for x86 right?
-
-
-I don't know what would happen if ARM guest tries to handle hibernation
-callbacks. The only ones that you are introducing are in block and net
-fronts and that's arch-independent.
-
-
-You do add a bunch of x86-specific code though (syscore ops), would
-something similar be needed for ARM?
-
-
->>>> And PVH dom0.
->>> That's another good use case to make it work with however, I still
->>> think that should be tested/worked upon separately as the feature its=
-elf
->>> (PVH Dom0) is very new.
->>
->> Same question here --- will this break PVH dom0?
->>
-> I haven't tested it as a part of this series. Is that a blocker here?
-
-
-I suspect dom0 will not do well now as far as hibernation goes, in which
-case you are not breaking anything.
-
-
-Roger?
-
-
--boris
-
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
 
 
