@@ -2,54 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE4A522619A
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 16:08:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C91A22629C
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 16:54:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxWRj-0004vT-Er; Mon, 20 Jul 2020 14:07:11 +0000
+	id 1jxXBD-0000b9-Dn; Mon, 20 Jul 2020 14:54:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wjZm=A7=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jxWRh-0004v7-TL
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 14:07:09 +0000
-X-Inumbo-ID: 497e73c6-ca92-11ea-8494-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=pLMr=A7=gmail.com=alejandro.gonzalez.correo@srs-us1.protection.inumbo.net>)
+ id 1jxXBB-0000b4-5o
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 14:54:09 +0000
+X-Inumbo-ID: dd112ba0-ca98-11ea-849c-bc764e2007e4
+Received: from mail-ot1-x344.google.com (unknown [2607:f8b0:4864:20::344])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 497e73c6-ca92-11ea-8494-bc764e2007e4;
- Mon, 20 Jul 2020 14:07:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Ezi5X1KWTHKJzPwcY30nxBgiKQFsZjCPZ4Kpb4ZZ+KA=; b=vx+ejDTm/hN1oC+y7WvxpI9ZR
- q7LrZtvT+jrAnyVCVkbCNUHJlFRoQjuU3sdXEFYPp8EDkpFVRvhELMcN9p+XLSZSTiUY5ZjFqVN7u
- lNa11aVEAuouQT+Ox1iZLXKEYajAowGrWAO8A1VSv0SlZXDIjQj/Fb2Ed3fk+dLsFJRzE=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jxWRb-0007X9-Cc; Mon, 20 Jul 2020 14:07:03 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jxWRa-0006Qt-Tk; Mon, 20 Jul 2020 14:07:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jxWRa-0002aI-Sx; Mon, 20 Jul 2020 14:07:02 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152037-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id dd112ba0-ca98-11ea-849c-bc764e2007e4;
+ Mon, 20 Jul 2020 14:54:08 +0000 (UTC)
+Received: by mail-ot1-x344.google.com with SMTP id c25so12402181otf.7
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Jul 2020 07:54:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=QBB9o1cZ8g3+RFyyMGo7jZrS0UDti7SFSFebEliZB+c=;
+ b=YMEZ+gm32iwx0IJ8U54KGaXMO1AcwsDDqSUrpGVbA00LcDQeSK319XcgPAxzC1aXLk
+ 0OgrQiN+RUJDWb0KRZyJXtfwC1w0DGzcLjb2EJQdNO5IvoWmpEKBopWWMt4ngswGUE1r
+ YtrVisRRnOTPPQ8FE+2to8E6BVw4J5icGcORPpP6T3+8TLDkvysWWkbLa2k2wHUH1T1u
+ Uok+VudT0FgpmkUn87b1TIkvT0YeG8zlp2+uJOWZRB7o2IdhlA2/rFVqHocnKOAddlWI
+ JIRkK0jJnINEs0RBTibFNdOxgzNu4iTGBQicPQh+zSHDHFbz9lBhKhOcnH0S5/QMyiAC
+ b+xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=QBB9o1cZ8g3+RFyyMGo7jZrS0UDti7SFSFebEliZB+c=;
+ b=P/vXOK2Rd0iwD3qVTxI3fZGcCCumCwAdMclP5THJEVBmj4OqpRCiAl4yfImdsmR9tm
+ /xaKssT+wSjgX6trey0IjR1+ev4j/nUjnSSPnCiU3cJMBAqz53yVk4zE+sp2bpquSZqO
+ U51Xls2DFy4BZJNYvsSYe4IFB8mFJfuyE3JmvwkI67L+C+/tR8ZnzkHESEgGDXHIrDk0
+ nLl4WffK/H+86T1SvWLk0F+Vx/9eh2wX5PCu8JQyz2j/faRp/Ra/p0E08ibOoLiraduS
+ 0Fj5vOlz/9EYDutpjxtLSIb5AP+IzKn4oLZ2T3yww79MHm6RUc8j2Ub/62xI4rC4rSUs
+ qjCg==
+X-Gm-Message-State: AOAM533kqH3j2LjlGNHhSuhrnxreutez4xae8NDhzD/INJa/lTDCVn+P
+ 3U/i7SiVKf5VudDsV14mYQqmuYKwGy6sXslcfjST1IrK
+X-Google-Smtp-Source: ABdhPJxqN5+nJ5pRQByNhQP7e17jnpQoeVfh5alWWX8XxaUd0ZCpgHJh8WXx06COjx/Ssm8r60iZVp+UbhSzwhndwNI=
+X-Received: by 2002:a9d:640b:: with SMTP id h11mr20925612otl.92.1595256847440; 
+ Mon, 20 Jul 2020 07:54:07 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 152037: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=3d9d66ad760b67bfdfb5b4b8e9b34f6af6c45935
-X-Osstest-Versions-That: ovmf=3d8327496762b4f2a54c9bafd7a214314ec28e9e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 20 Jul 2020 14:07:02 +0000
+From: Alejandro <alejandro.gonzalez.correo@gmail.com>
+Date: Mon, 20 Jul 2020 16:53:56 +0200
+Message-ID: <CA+wirGqXMoRkS-aJmfFLipUv8SdY5LKV1aMrF0yKRJQaMvzs6Q@mail.gmail.com>
+Subject: dom0 LInux 5.8-rc5 kernel failing to initialize cooling maps for
+ Allwinner H6 SoC
+To: xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,54 +65,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152037 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152037/
+Hello all.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 3d9d66ad760b67bfdfb5b4b8e9b34f6af6c45935
-baseline version:
- ovmf                 3d8327496762b4f2a54c9bafd7a214314ec28e9e
+I'm new to this community, and firstly I'd like to thank you all for
+your efforts on supporting Xen in ARM devices.
 
-Last test of basis   151982  2020-07-18 02:36:30 Z    2 days
-Testing same since   152037  2020-07-20 07:09:58 Z    0 days    1 attempts
+I'm trying Xen 4.13.1 in a Allwinner H6 SoC (more precisely a Pine H64
+model B, with a ARM Cortex-A53 CPU).
+I managed to get a dom0 Linux 5.8-rc5 kernel running fine, unpatched,
+and I'm using the upstream device tree for
+my board. However, the dom0 kernel has trouble when reading some DT
+nodes that are related to the CPUs, and
+it can't initialize the thermal subsystem properly, which is a kind of
+showstopper for me, because I'm concerned
+that letting the CPU run at the maximum frequency without watching out
+its temperature may cause overheating.
+The relevant kernel messages are:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Shenglei Zhang <shenglei.zhang@intel.com>
+[  +0.001959] sun50i-cpufreq-nvmem: probe of sun50i-cpufreq-nvmem
+failed with error -2
+...
+[  +0.003053] hw perfevents: failed to parse interrupt-affinity[0] for pmu
+[  +0.000043] hw perfevents: /pmu: failed to register PMU devices!
+[  +0.000037] armv8-pmu: probe of pmu failed with error -22
+...
+[  +0.000163] OF: /thermal-zones/cpu-thermal/cooling-maps/map0: could
+not find phandle
+[  +0.000063] thermal_sys: failed to build thermal zone cpu-thermal: -22
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+I've searched for issues, code or commits that may be related for this
+issue. The most relevant things I found are:
 
+- A patch that blacklists the A53 PMU:
+https://patchwork.kernel.org/patch/10899881/
+- The handle_node function in xen/arch/arm/domain_build.c:
+https://github.com/xen-project/xen/blob/master/xen/arch/arm/domain_build.c#L1427
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I've thought about removing "/cpus" from the skip_matches array in the
+handle_node function, but I'm not sure
+that would be a good fix.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   3d83274967..3d9d66ad76  3d9d66ad760b67bfdfb5b4b8e9b34f6af6c45935 -> xen-tested-master
+I'd appreciate any tips for fixing this issue. Don't hesitate to
+contact me back if you need any more information
+about the problem.
 
