@@ -2,58 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07CE42260B9
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 15:23:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA5C92260D0
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 15:24:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxVkU-00012K-VT; Mon, 20 Jul 2020 13:22:30 +0000
+	id 1jxVmG-000191-CE; Mon, 20 Jul 2020 13:24:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UosC=A7=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jxVkT-00011o-H3
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 13:22:29 +0000
-X-Inumbo-ID: 0e2f93c9-ca8c-11ea-848e-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=wjZm=A7=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jxVmE-00018v-V1
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 13:24:18 +0000
+X-Inumbo-ID: 50057cf4-ca8c-11ea-848e-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0e2f93c9-ca8c-11ea-848e-bc764e2007e4;
- Mon, 20 Jul 2020 13:22:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595251348;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=rWX7UgQLWphzCpDeE9TH91eyyN4ef7p3oiKbTx8bXGQ=;
- b=EPz9JdkPznULBDIRL1KZ8SndXh3QlflXtdu4uoG509t7Sxg0iqfQS3ys
- auJIse6qVU5TMjd3jIL2XKiNR9IKC0rmlTr8drfgDJ3dNnwGyPGhwKV2b
- dB6V1cJ9O4Gc1DhMzGojAoP9geufdhwofKBlMao8wZjmSNl1BqvfQegMp A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: JSc1KxCDMqwgE350jYVkc/thdFnuFjAul1kIhutLHrFGFEDANkexuSOA36gQXjddgIDy0KW4Qf
- XcmQzqw6iz0blI6b0dZYR3gxZK5HcOdY1G0FbNBP/7jEUqfz0vv3J5SEfXWZKFq8ytyhYpeh8t
- ha8iTqLjkQ0hC9Y/7omqNNQ+cwlvQ2p/4xgkpSBIcWFBkCVdlkUqGDXlywxgrDr0psZtvmzCpA
- raNj+4vvEpmOGoK+M0SAgXwQsgnhzrWNk047SNaw3GW8PFX8TKaHmmpTVk9yB/Hds1mGe6Qnl8
- uAE=
-X-SBRS: 2.7
-X-MesageID: 23077979
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,375,1589256000"; d="scan'208";a="23077979"
-Date: Mon, 20 Jul 2020 15:22:19 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] x86: guard against port I/O overlapping the RTC/CMOS range
-Message-ID: <20200720132219.GL7191@Air-de-Roger>
-References: <38c73e17-30b8-27b4-bc7c-e6ef7817fa1e@suse.com>
- <20200720105213.GI7191@Air-de-Roger>
- <c82b9985-fd4e-fbd6-afe1-7bdbf395d426@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+ id 50057cf4-ca8c-11ea-848e-bc764e2007e4;
+ Mon, 20 Jul 2020 13:24:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Q/xJWot8dH7yudlJSL5d+YcAy/hTlrUXhilxlbQTqU8=; b=4hTuOG9WJq8zyof+jS8W5fVQr
+ xT//tY23ia9RcCUb9SaBgfXZQY4Tq5laEvEjWo2Jy093dYlw1m0LzPDzqDam2NWLhUlvuaMx+qkwU
+ RbB0Al8SUwmdqNmPvhFhIxCYTZ6IvCdB3FX/z/kyM93cghSp+8/pm8oPRLNul/zRrar5Y=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jxVmD-0006YF-31; Mon, 20 Jul 2020 13:24:17 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jxVmC-000360-EN; Mon, 20 Jul 2020 13:24:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jxVmC-0005DX-Di; Mon, 20 Jul 2020 13:24:16 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152041-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c82b9985-fd4e-fbd6-afe1-7bdbf395d426@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 152041: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=8c4532f19d6925538fb0c938f7de9a97da8c5c3b
+X-Osstest-Versions-That: xen=fb024b779336a0f73b3aee885b2ce082e812881f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 20 Jul 2020 13:24:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,82 +65,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Jul 20, 2020 at 01:58:40PM +0200, Jan Beulich wrote:
-> On 20.07.2020 12:52, Roger Pau Monné wrote:
-> > On Fri, Jul 17, 2020 at 03:10:43PM +0200, Jan Beulich wrote:
-> >> Since we intercept RTC/CMOS port accesses, let's do so consistently in
-> >> all cases, i.e. also for e.g. a dword access to [006E,0071]. To avoid
-> >> the risk of unintended impact on Dom0 code actually doing so (despite
-> >> the belief that none ought to exist), also extend
-> >> guest_io_{read,write}() to decompose accesses where some ports are
-> >> allowed to be directly accessed and some aren't.
-> > 
-> > Wouldn't the same apply to displaced accesses to port 0xcf8?
-> 
-> No, CF8 is special - partial accesses have no meaning as to the
-> index selection for subsequent CFC accesses. Or else CF9
-> couldn't be a standalone port with entirely different
-> functionality..
+flight 152041 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152041/
 
-Right:
+Failures :-/ but no regressions.
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-See below.
+version targeted for testing:
+ xen                  8c4532f19d6925538fb0c938f7de9a97da8c5c3b
+baseline version:
+ xen                  fb024b779336a0f73b3aee885b2ce082e812881f
 
-> >> @@ -373,25 +384,31 @@ static int read_io(unsigned int port, un
-> >>      return X86EMUL_OKAY;
-> >>  }
-> >>  
-> >> +static void _guest_io_write(unsigned int port, unsigned int bytes,
-> >> +                            uint32_t data)
-> > 
-> > There's nothing guest specific about this function I think? If so you
-> > could drop the _guest_ prefix and just name it io_write?
-> 
-> Hmm, when choosing the name I decided that (a) it's a helper of
-> the other function and (b) it's still guest driven data that we
-> output.
+Last test of basis   151970  2020-07-17 16:00:26 Z    2 days
+Testing same since   152041  2020-07-20 11:00:34 Z    0 days    1 attempts
 
-Well, the fact that it's guest driven data shouldn't matter much,
-because there are no guest-specific checks in the function anyway - it
-might as well be used for non-guest driven data AFAICT? (even if it's
-not the case ATM).
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Michal Leszczynski <michal.leszczynski@cert.pl>
 
-It's likely that if I have to change code here in the future I will
-drop such prefix, but the change is correct regardless of the naming,
-so I'm not going to insist.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-> >> +{
-> >> +    switch ( bytes )
-> >> +    {
-> >> +    case 1:
-> >> +        outb((uint8_t)data, port);
-> >> +        if ( amd_acpi_c1e_quirk )
-> >> +            amd_check_disable_c1e(port, (uint8_t)data);
-> >> +        break;
-> >> +    case 2:
-> >> +        outw((uint16_t)data, port);
-> >> +        break;
-> >> +    case 4:
-> >> +        outl(data, port);
-> >> +        break;
-> >> +    }
-> > 
-> > Newlines after break statements would be nice, and maybe add a
-> > default: ASSERT_UNREACHABLE() case to be on the safe side?
-> 
-> Well, yes, I guess I should. But then if I edit this moved code,
-> I guess I'll also get rid of the stray casts.
 
-Was going to also ask for that, but I assumed there might we some
-value in making the truncations explicit here. Feel free to drop those
-also if you end up making the above adjustments.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Thanks, Roger.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   fb024b7793..8c4532f19d  8c4532f19d6925538fb0c938f7de9a97da8c5c3b -> smoke
 
