@@ -2,61 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C079D226838
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 18:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D2F22687C
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 18:21:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxYTj-0008Do-Jg; Mon, 20 Jul 2020 16:17:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jxYWz-0000as-7C; Mon, 20 Jul 2020 16:20:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Eely=A7=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jxYTi-0008Dj-0p
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 16:17:22 +0000
-X-Inumbo-ID: 7b5816f6-caa4-11ea-9fcf-12813bfff9fa
+ id 1jxYWx-0000an-IJ
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 16:20:43 +0000
+X-Inumbo-ID: f54ee9c6-caa4-11ea-84a5-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7b5816f6-caa4-11ea-9fcf-12813bfff9fa;
- Mon, 20 Jul 2020 16:17:18 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f54ee9c6-caa4-11ea-84a5-bc764e2007e4;
+ Mon, 20 Jul 2020 16:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender:Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=V4D91uulccwgXlZcaSMMNZR4kQIiJ11ee8tCH+aVQA0=; b=f5fs/yDPjLV8VPCJh1aduaAyNm
- juEd0EfPJnTEX9ki2purXTT70IQ8MUAXqzOSAbhD3Yhj+Tx5e3k7B31tQ+XbRZC+K2aUDxYZiHs3m
- Dc2NV7V3LD9R6O7l1cChuIMZr8rTnxNCKe25MmmUvedXRiLTbZFI+qLbEwkIWFhV2HOo=;
+ bh=Ony7tRUDmnp2M52H4Ead1BQvn2JkncG8N5OVB64bMsY=; b=HOKayEJ1n057vGkk1yfnFbgCPP
+ oowFgCkZRD+PT0r4IUz6MpShYfuIRqyLEQpZQWdIiOelj+Wd37Ti1h1VJE0hW6/7+hgxWuVvLJFhl
+ UKampjDMDUiXG1MmIByyVn9YMllfQ2QoY2ihshFTcHSm5RDkAe5f2mpTRFVRP6vmTgxg=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1jxYTd-0002Jp-W2; Mon, 20 Jul 2020 16:17:17 +0000
+ id 1jxYWv-0002N1-Uk; Mon, 20 Jul 2020 16:20:41 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1jxYTd-0005cd-NS; Mon, 20 Jul 2020 16:17:17 +0000
-Subject: Re: [PATCH 4/8] Arm: prune #include-s needed by domain.h
-From: Julien Grall <julien@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
+ id 1jxYWv-0005lr-NQ; Mon, 20 Jul 2020 16:20:41 +0000
+Subject: Re: [PATCH 5/8] bitmap: move to/from xenctl_bitmap conversion helpers
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <3375cacd-d3b7-9f06-44a7-4b684b6a77d6@suse.com>
- <150525bb-1c48-c331-3212-eff18bc4c13d@suse.com>
- <d836dc7f-017b-5048-02de-d1cb291fbc3b@xen.org>
- <931149db-2daf-6d72-0330-c938b5084eb6@suse.com>
- <2cc66fdb-1da2-16cd-717a-3248d136821c@xen.org>
- <66a90945-0d3e-beee-4128-bfc3a06a7cf2@suse.com>
- <765f976a-e52d-d3e5-4481-32aaffb66db1@xen.org>
-Message-ID: <c9ed723d-82ec-2fa9-a098-e67811809d61@xen.org>
-Date: Mon, 20 Jul 2020 17:17:16 +0100
+ <5835147f-8428-1d74-7d6e-bbb5522289c7@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <fef25c94-a3ce-c17e-966c-a7e479566fc5@xen.org>
+Date: Mon, 20 Jul 2020 17:20:39 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
  Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <765f976a-e52d-d3e5-4481-32aaffb66db1@xen.org>
+In-Reply-To: <5835147f-8428-1d74-7d6e-bbb5522289c7@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,62 +62,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Hi Jan,
 
-
-On 20/07/2020 16:15, Julien Grall wrote:
-> Hi Jan,
+On 15/07/2020 11:40, Jan Beulich wrote:
+> A subsequent change will exclude domctl.c from getting built for a
+> particular configuration, yet the two functions get used from elsewhere.
 > 
-> On 20/07/2020 12:28, Jan Beulich wrote:
->> On 20.07.2020 11:09, Julien Grall wrote:
->>>
->>>
->>> On 20/07/2020 09:17, Jan Beulich wrote:
->>>> On 17.07.2020 16:44, Julien Grall wrote:
->>>>> On 15/07/2020 11:39, Jan Beulich wrote:
->>>>>> --- a/xen/include/asm-arm/domain.h
->>>>>> +++ b/xen/include/asm-arm/domain.h
->>>>>> @@ -2,7 +2,7 @@
->>>>>>     #define __ASM_DOMAIN_H__
->>>>>>     #include <xen/cache.h>
->>>>>> -#include <xen/sched.h>
->>>>>> +#include <xen/timer.h>
->>>>>>     #include <asm/page.h>
->>>>>>     #include <asm/p2m.h>
->>>>>>     #include <asm/vfp.h>
->>>>>> @@ -11,8 +11,6 @@
->>>>>>     #include <asm/vgic.h>
->>>>>>     #include <asm/vpl011.h>
->>>>>>     #include <public/hvm/params.h>
->>>>>> -#include <xen/serial.h>
->>>>>
->>>>> While we don't need the rbtree.h, we technically need serial.h for 
->>>>> using
->>>>> vuart_info.
->>>>
->>>> The only reference to it is
->>>>
->>>>           const struct vuart_info     *info;
->>>>
->>>> which doesn't require a definition nor even a forward declaration
->>>> of struct vuart_info. It should just be source files instantiating
->>>> a struct or de-referencing pointers to one that actually need to
->>>> see the full declaration.
->>>
->>> Ah yes. I got confused because you introduced a forward declaration of
->>> struct vcpu. But this is because you need it to declare the function
->>> prototype.
->>
->> As a result - are you happy for the change to go in with Stefano's
->> ack then?
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Yes. Sorry I should have been clearer in my previous answer.
+> --- a/xen/common/bitmap.c
+> +++ b/xen/common/bitmap.c
+> @@ -9,6 +9,9 @@
+>   #include <xen/errno.h>
+>   #include <xen/bitmap.h>
+>   #include <xen/bitops.h>
+> +#include <xen/cpumask.h>
+> +#include <xen/domain.h>
 
-I have committed now.
+The inclusion of xen/domain.h in common/bitmap.c seems a bit odd to me. 
+Would it make sense to move the prototype of 
+bitmap_to_xenctl_bitmap()/xenctl_bitmap_to_bitmap() to bitmap.h?
 
 Cheers,
 
