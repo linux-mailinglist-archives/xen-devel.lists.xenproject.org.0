@@ -2,42 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 792AB225A8E
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 10:56:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76D89225AA4
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 11:01:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxRa2-0001Dj-Eh; Mon, 20 Jul 2020 08:55:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WIjz=A7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jxRa0-0001Db-Qs
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 08:55:24 +0000
-X-Inumbo-ID: bf0251c0-ca66-11ea-9f71-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bf0251c0-ca66-11ea-9f71-12813bfff9fa;
- Mon, 20 Jul 2020 08:55:23 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 95AE0B145;
- Mon, 20 Jul 2020 08:55:28 +0000 (UTC)
-Subject: Re: [PATCH 5/5] x86/shadow: l3table[] and gl3e[] are HVM only
-To: Tim Deegan <tim@xen.org>
-References: <a4dc8db4-0388-a922-838e-42c6f4635639@suse.com>
- <a3b9b496-e860-e657-2afc-c0658871fa3f@suse.com>
- <20200718182037.GA48915@deinos.phlegethon.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1baa0d50-86a4-b0ba-d43a-ad0c0446b54b@suse.com>
-Date: Mon, 20 Jul 2020 10:55:21 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 1jxRfB-00029r-9w; Mon, 20 Jul 2020 09:00:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ezcM=A7=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jxRf9-00029l-7t
+ for xen-devel@lists.xen.org; Mon, 20 Jul 2020 09:00:43 +0000
+X-Inumbo-ID: 7d008372-ca67-11ea-847e-bc764e2007e4
+Received: from mail-ej1-x631.google.com (unknown [2a00:1450:4864:20::631])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7d008372-ca67-11ea-847e-bc764e2007e4;
+ Mon, 20 Jul 2020 09:00:42 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id br7so17236837ejb.5
+ for <xen-devel@lists.xen.org>; Mon, 20 Jul 2020 02:00:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=hbOqN9Eu9KHRkwvTw7eiGMP6+MkBBOekO76C1WlkNjs=;
+ b=X11Y3aq7H7u954nX2xKi81ziIpcT8yrbyM7ttyu+gXlFvRd4etDcEqMO7eLYhsPxLX
+ ZF4ZgCNdeua7Tgr6Pu1tPF8vn00gZvTz9rJRqifo/ah7fD6W8S7A6a1vOfgbnTy8K43X
+ xWQNkoZxASc5QabNtAPV1qk2qyhMSjuQJlhTwWm8oc9J5E4Ab19P8nTJBWRcJiocx4o7
+ advOFkApsDvQJEtZlL7sb9PdWy8iuF3TFzB+X6qL0HVprdgGvqevmLjRXKOWnhX/IOvz
+ gB4bl4lXp7C+xI0lp94eClgruW5KV1iZn7BGRQuZyOhM8OPYAHNqcYRAk31SCrOUabcy
+ Vf/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=hbOqN9Eu9KHRkwvTw7eiGMP6+MkBBOekO76C1WlkNjs=;
+ b=Dt6jRM1xehaQDAvtabvsXteFE+OcDT626PfQDiNRN5vfZxPXL36PidobALLUe/h/Q5
+ 6YX97w3KZt2ubTDElFqwn0ydd7jN0G0ljv/ribAh345InH3pxGvOPgw8bz881HiDX+zx
+ sEsgm9kVldtzUP+UYAVQBEAxh1BiEFIpGkIbZ561obiCFO4sFjUTf88FVIjigJMiERFY
+ CXEFxEZknIj42teEJE7fEK2jVPJwXgyEbgxRf8Fkekfvo9E6wJVIYRDsioUjvmit7Q1M
+ HzwVEEaGiIKNJq0a5NAd4nUJit3cZgoi8PQhx609R2IpkD4pZxiZKUHO3KzIzAeMiMpR
+ MCow==
+X-Gm-Message-State: AOAM531yLoHshHfvyJhsLqB8RusWqtDpeBvUfcKK2MzosZy4sEEdxhjo
+ 2jpYIVl6RLQzxIVD+ffaH0s=
+X-Google-Smtp-Source: ABdhPJz6estHlZJ//fvF/dNmWSvvGwzecLIizhvwYek7CsHCq+opErEAEddkETaBkxEJEpsp2LFI1g==
+X-Received: by 2002:a17:906:191a:: with SMTP id
+ a26mr20579085eje.315.1595235641169; 
+ Mon, 20 Jul 2020 02:00:41 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-226.amazon.com. [54.240.197.226])
+ by smtp.gmail.com with ESMTPSA id m6sm14097990ejq.85.2020.07.20.02.00.39
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 20 Jul 2020 02:00:40 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Christian Lindig'" <christian.lindig@citrix.com>,
+ "'Elliott Mitchell'" <ehem+xen@m5p.com>, <xen-devel@lists.xen.org>
+References: <20200718033242.GB88869@mattapan.m5p.com>
+ <1595234320493.39632@citrix.com>
+In-Reply-To: <1595234320493.39632@citrix.com>
+Subject: RE: [PATCH 2/2] tools/ocaml: Default to useful build output
+Date: Mon, 20 Jul 2020 10:00:38 +0100
+Message-ID: <000d01d65e74$3deda4d0$b9c8ee70$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20200718182037.GA48915@deinos.phlegethon.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain;
+	charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKVcH3Jn67g37z/wcsWrRp91TLbtgHVzaUjp4NWtpA=
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,39 +80,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Reply-To: paul@xen.org
+Cc: 'Ian Jackson' <Ian.Jackson@citrix.com>,
+ 'Edwin Torok' <edvin.torok@citrix.com>, wl@xen.org, dave@recoil.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 18.07.2020 20:20, Tim Deegan wrote:
-> At 12:00 +0200 on 15 Jul (1594814409), Jan Beulich wrote:
->> ... by the very fact that they're 3-level specific, while PV always gets
->> run in 4-level mode. This requires adding some seemingly redundant
->> #ifdef-s - some of them will be possible to drop again once 2- and
->> 3-level guest code doesn't get built anymore in !HVM configs, but I'm
->> afraid there's still quite a bit of disentangling work to be done to
->> make this possible.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Christian Lindig
+> Sent: 20 July 2020 09:39
+> To: Elliott Mitchell <ehem+xen@m5p.com>; xen-devel@lists.xen.org
+> Cc: Ian Jackson <Ian.Jackson@citrix.com>; Edwin Torok <edvin.torok@citrix.com>; wl@xen.org;
+> dave@recoil.org
+> Subject: Re: [PATCH 2/2] tools/ocaml: Default to useful build output
 > 
-> Looks good.  It seems like the new code for '3-level non-HVM' in
-> guest-walks ought to have some sort of assert-unreachable in them too
-> - or is there a reason to to?
+> 
+> 
+> > Time for a bit of controversy.
+> 
+> OCaml outside Xen has moved to a different model of building based on dune which is fast, declarative
+> and reliable. The OCaml xenstore is stagnating because nobody with OCaml experience wants to touch it
+> anymore.
 
-You mean this piece of code
+It is still the default. Would you suggest that we change this and make C xenstored the default for 4.15, deprecating oxenstored
+with a view to subsequently purging it from the tree in the 4.16 dev cycle?
 
-+#elif !defined(CONFIG_HVM)
-+    (void)root_gfn;
-+    memset(gw, 0, sizeof(*gw));
-+    return false;
-+#else /* PAE */
+  Paul
 
-If so - sure, ASSERT_UNREACHABLE() could be added there. It simply
-didn't occur to me. I take it your ack for the entire series holds
-here with this addition.
+> It would be beneficial for the health of the OCaml xenstore to split it out such that it
+> could be worked on independently. You might argue that Make is still appropriate for building OCaml
+> projects but the OCaml community has moved through several build systems, starting from Make, and
+> learned the hard way that this is not an easy problem. After years of more-or-less successful build
+> system the consensus is that dune is right one and it has resulted in combination with the Opam
+> package manager the ecosystem to flourish. Alternatively, it would be possible to move OCaml xenstore
+> to dune within the Xen tree but it would create a dependency on it.
+> 
+> -- C
 
-Jan
+
 
