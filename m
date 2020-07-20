@@ -2,52 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC42E2259FC
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 10:26:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74BF4225A33
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 10:39:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxR7f-0006ec-DJ; Mon, 20 Jul 2020 08:26:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jxRKH-0007g7-K1; Mon, 20 Jul 2020 08:39:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TdB1=A7=citrix.com=christian.lindig@srs-us1.protection.inumbo.net>)
- id 1jxR7d-0006eR-Fb
- for xen-devel@lists.xen.org; Mon, 20 Jul 2020 08:26:05 +0000
-X-Inumbo-ID: a60c8a4a-ca62-11ea-98f0-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a60c8a4a-ca62-11ea-98f0-12813bfff9fa;
- Mon, 20 Jul 2020 08:26:03 +0000 (UTC)
+ id 1jxRKF-0007g2-Ph
+ for xen-devel@lists.xen.org; Mon, 20 Jul 2020 08:39:07 +0000
+X-Inumbo-ID: 78daeed4-ca64-11ea-b7bb-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 78daeed4-ca64-11ea-b7bb-bc764e2007e4;
+ Mon, 20 Jul 2020 08:39:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595233563;
+ d=citrix.com; s=securemail; t=1595234348;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=guNi4ozQsd81IcNwzgCs24VYy4hVc9xWBLSEsepPGAw=;
- b=VCSNM1eLchfnWRzSpjaWeGW3K9YmHcz1qMeDhYJO24h7N1fOfEdTfYUv
- 1w/3slnbhgNu6uSU/VXhp0IebDdsuvYdFb3FauLVumHKND6ajYlTt0pP9
- 94fW2NwYyeYf6aQHXsi8Y+uQ+qYdjTqCIZ3qiz+nf2UbpNCTuIRd3OoUM A=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ bh=ZJ2relG/T/voq29vQ/pBa6hwLPIx7xF5qelCiLq7CkA=;
+ b=VYrjWjRseTwKSHutgOHKltHPs/qJ4kGWvtY3WQzIRiO/1SNMqiBEzq4a
+ RyspP8+iizRhynfVJgHAHLP8W093V/7j6XD5wwFn1gp90XGWUzGx+1ekS
+ 8L0aRQzr504S7lya2om8uG2sP5Yfkjf336aBuSFDyleGryYAZjaOSLOfK E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: Su7dpSSVRAR/UfzOeBg1WbNzJuw6nJzBsmnvhCxsuU+bizGeoACTzsP1bpNb89Ofx72pMP+hi1
- qdpg+WDo2DOuk0KaFWALa6yn6PMvCfx79q53+1Go7AOyLFn/uqCedGCIRYpS6gTlzpaUpngz13
- tOPpa6g3cj99fVH9L432HMrH80+3m6xJL3WSK8LZJ0KOHzTsZ6fQNZ+51nKixpc2KAKKwyb9nq
- 6y1osa5XAGimHlsL/rh8doiAlY1zolagx4jfW9q8xoYx4IQuqk5c0DXmsjEFJQQOgn9Mcx31Ct
- IkI=
+IronPort-SDR: YCz2V4wlFImdGbXhZA4JfiqRPt2c6cTIQAlD3kvWFtF9ReQGom9KCXD8j41if8SK4OKG8v9s13
+ SbD1QOp2y7SV2K8D0OHzS7QfdwtZAaXYnYtOIwODV1O+bDZDyWhTDR6c7zohjwCeYplLmAeXvt
+ lL+SC8hx9N+TK5N2J2A4fAnnCSpAO8q/zo8CPwRBplv413oFX357zJl+xvOWHcpxk9LrzbAHAC
+ 9xl1/wSEDQ1mGMpiNgd3vDbw7oe0wiRuzt1OI7Raw/pJZYSr5pUMfpYaJAuJ0Ud6A1oN8iYi9t
+ yFI=
 X-SBRS: 2.7
-X-MesageID: 22925651
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 22733367
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,374,1589256000"; d="scan'208";a="22925651"
+X-IronPort-AV: E=Sophos;i="5.75,374,1589256000"; d="scan'208";a="22733367"
 From: Christian Lindig <christian.lindig@citrix.com>
 To: Elliott Mitchell <ehem+xen@m5p.com>, "xen-devel@lists.xen.org"
  <xen-devel@lists.xen.org>
 Subject: Re: [PATCH 2/2] tools/ocaml: Default to useful build output
 Thread-Topic: [PATCH 2/2] tools/ocaml: Default to useful build output
-Thread-Index: AQHWXLQfZqk/9n2Ez0iUq9XU56BN2qkQJVSq
-Date: Mon, 20 Jul 2020 08:25:59 +0000
-Message-ID: <1595233559536.460@citrix.com>
+Thread-Index: AQHWXLQfZqk/9n2Ez0iUq9XU56BN2qkQJXHN
+Date: Mon, 20 Jul 2020 08:38:40 +0000
+Message-ID: <1595234320493.39632@citrix.com>
 References: <20200718033242.GB88869@mattapan.m5p.com>
 In-Reply-To: <20200718033242.GB88869@mattapan.m5p.com>
 Accept-Language: en-GB, en-US
@@ -68,76 +67,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <Ian.Jackson@citrix.com>, "wl@xen.org" <wl@xen.org>,
- "dave@recoil.org" <dave@recoil.org>
+Cc: Ian Jackson <Ian.Jackson@citrix.com>, Edwin Torok <edvin.torok@citrix.com>,
+ "wl@xen.org" <wl@xen.org>, "dave@recoil.org" <dave@recoil.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 =0A=
-________________________________________=0A=
-From: Elliott Mitchell <ehem+xen@m5p.com>=0A=
-Sent: 18 July 2020 04:32=0A=
-To: xen-devel@lists.xen.org=0A=
-Cc: Ian Jackson; wl@xen.org; Christian Lindig; dave@recoil.org=0A=
-Subject: [PATCH 2/2] tools/ocaml: Default to useful build output=0A=
 =0A=
-While hiding details of build output looks pretty to some, defaulting to=0A=
-doing so deviates from the rest of Xen.  Switch the OCAML tools to match=0A=
-everything else.=0A=
+> Time for a bit of controversy.=0A=
 =0A=
-Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>=0A=
----=0A=
+OCaml outside Xen has moved to a different model of building based on dune =
+which is fast, declarative and reliable. The OCaml xenstore is stagnating b=
+ecause nobody with OCaml experience wants to touch it anymore. It would be =
+beneficial for the health of the OCaml xenstore to split it out such that i=
+t could be worked on independently. You might argue that Make is still appr=
+opriate for building OCaml projects but the OCaml community has moved throu=
+gh several build systems, starting from Make, and learned the hard way that=
+ this is not an easy problem. After years of more-or-less successful build =
+system the consensus is that dune is right one and it has resulted in combi=
+nation with the Opam package manager the ecosystem to flourish. Alternative=
+ly, it would be possible to move OCaml xenstore to dune within the Xen tree=
+ but it would create a dependency on it.=0A=
 =0A=
-Time for a bit of controversy.=0A=
-=0A=
-Presently the OCAML tools build mismatches the rest of the Xen build.=0A=
-My choice is to default to verbose output.  While some may like beauty=0A=
-in their build output, function is far more important.=0A=
-=0A=
-If someone wants to take on the task of making Xen's build output=0A=
-consistently beatiful, invite them to do so.  Then call the police and=0A=
-tell them you're being robbed.=0A=
----=0A=
- tools/ocaml/Makefile.rules | 19 +++++++++++--------=0A=
- 1 file changed, 11 insertions(+), 8 deletions(-)=0A=
-=0A=
-diff --git a/tools/ocaml/Makefile.rules b/tools/ocaml/Makefile.rules=0A=
-index a893c42b43..abfbc64ce0 100644=0A=
---- a/tools/ocaml/Makefile.rules=0A=
-+++ b/tools/ocaml/Makefile.rules=0A=
-@@ -1,17 +1,20 @@=0A=
- ifdef V=0A=
--  ifeq ("$(origin V)", "command line")=0A=
--    BUILD_VERBOSE =3D $(V)=0A=
--  endif=0A=
-+       ifeq ("$(origin V)", "command line")=0A=
-+               BUILD_VERBOSE =3D $(V)=0A=
-+       endif=0A=
-+else=0A=
-+       V :=3D 1=0A=
-+       BUILD_VERBOSE :=3D 1=0A=
- endif=0A=
- ifndef BUILD_VERBOSE=0A=
--  BUILD_VERBOSE =3D 0=0A=
-+       BUILD_VERBOSE :=3D 0=0A=
- endif=0A=
- ifeq ($(BUILD_VERBOSE),1)=0A=
--  E =3D @true=0A=
--  Q =3D=0A=
-+       E :=3D @true=0A=
-+       Q :=3D=0A=
- else=0A=
--  E =3D @echo=0A=
--  Q =3D @=0A=
-+       E :=3D @echo=0A=
-+       Q :=3D @=0A=
- endif=0A=
-=0A=
- .NOTPARALLEL:=0A=
---=0A=
-2.20.1=0A=
-=0A=
--- =0A=
-Acked-by: Christian Lindig <christian.lindig@citrix.com>=0A=
-=0A=
+-- C=0A=
 
