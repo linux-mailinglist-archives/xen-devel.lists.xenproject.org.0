@@ -2,61 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74BF4225A33
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 10:39:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD7AD225A4A
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 10:45:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxRKH-0007g7-K1; Mon, 20 Jul 2020 08:39:09 +0000
+	id 1jxRQB-0008VJ-AO; Mon, 20 Jul 2020 08:45:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TdB1=A7=citrix.com=christian.lindig@srs-us1.protection.inumbo.net>)
- id 1jxRKF-0007g2-Ph
- for xen-devel@lists.xen.org; Mon, 20 Jul 2020 08:39:07 +0000
-X-Inumbo-ID: 78daeed4-ca64-11ea-b7bb-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=UosC=A7=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jxRQA-0008VD-B2
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 08:45:14 +0000
+X-Inumbo-ID: 532b2388-ca65-11ea-8496-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 78daeed4-ca64-11ea-b7bb-bc764e2007e4;
- Mon, 20 Jul 2020 08:39:06 +0000 (UTC)
+ id 532b2388-ca65-11ea-8496-bc764e2007e4;
+ Mon, 20 Jul 2020 08:45:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595234348;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=ZJ2relG/T/voq29vQ/pBa6hwLPIx7xF5qelCiLq7CkA=;
- b=VYrjWjRseTwKSHutgOHKltHPs/qJ4kGWvtY3WQzIRiO/1SNMqiBEzq4a
- RyspP8+iizRhynfVJgHAHLP8W093V/7j6XD5wwFn1gp90XGWUzGx+1ekS
- 8L0aRQzr504S7lya2om8uG2sP5Yfkjf336aBuSFDyleGryYAZjaOSLOfK E=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1595234712;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=PbeuKBiVc1w7ssIV3A/JAuBmHVDgu/hAvFTol+2DZ/k=;
+ b=ewNm4LQLtUE+xEVKWn3Hn4/tNr02k2DFTntOmq/JqpIgGB5dn+rZGOSk
+ fIUXB+1LORtWu/DRw8alclNIWzBLlEovlBTrl4xZjqQJ/Az718D36UgCu
+ C1gENvlUdQAqtnaBBeoB7fPbrz8myfL3lj9syGwUmDPHt/Xxo5kfHn3VZ g=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: YCz2V4wlFImdGbXhZA4JfiqRPt2c6cTIQAlD3kvWFtF9ReQGom9KCXD8j41if8SK4OKG8v9s13
- SbD1QOp2y7SV2K8D0OHzS7QfdwtZAaXYnYtOIwODV1O+bDZDyWhTDR6c7zohjwCeYplLmAeXvt
- lL+SC8hx9N+TK5N2J2A4fAnnCSpAO8q/zo8CPwRBplv413oFX357zJl+xvOWHcpxk9LrzbAHAC
- 9xl1/wSEDQ1mGMpiNgd3vDbw7oe0wiRuzt1OI7Raw/pJZYSr5pUMfpYaJAuJ0Ud6A1oN8iYi9t
- yFI=
+IronPort-SDR: mT/1Pu38k6EbUUh1OWyaUzNO0NSdqkEjarumAdty/HboMThPar3UlfVr6nGqT8BimzAU0/E80n
+ RkJRoinWm3+toV2QAecv5r54uBfjm42/1udGIPI2zDdOqN55vBA0AGPxpQSSKYGLGRC+h3/QAE
+ u9KNzerX1jGtWX73FiaoY6Kdeeebher7QPA45oP7SpV4lRYbZaMOz81gmphXTIuFKyd6ML7tMd
+ jh5WR4H8QFO46Mp6OjDjEEEgEGXOudRZTAf+55qZu8AoZQUFR/5adNxAfg2X17cPaxuNEXwagM
+ Us0=
 X-SBRS: 2.7
-X-MesageID: 22733367
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 23062239
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,374,1589256000"; d="scan'208";a="22733367"
-From: Christian Lindig <christian.lindig@citrix.com>
-To: Elliott Mitchell <ehem+xen@m5p.com>, "xen-devel@lists.xen.org"
- <xen-devel@lists.xen.org>
-Subject: Re: [PATCH 2/2] tools/ocaml: Default to useful build output
-Thread-Topic: [PATCH 2/2] tools/ocaml: Default to useful build output
-Thread-Index: AQHWXLQfZqk/9n2Ez0iUq9XU56BN2qkQJXHN
-Date: Mon, 20 Jul 2020 08:38:40 +0000
-Message-ID: <1595234320493.39632@citrix.com>
-References: <20200718033242.GB88869@mattapan.m5p.com>
-In-Reply-To: <20200718033242.GB88869@mattapan.m5p.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-IronPort-AV: E=Sophos;i="5.75,374,1589256000"; d="scan'208";a="23062239"
+Date: Mon, 20 Jul 2020 10:45:05 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: Re: RFC: PCI devices passthrough on Arm design proposal
+Message-ID: <20200720084505.GD7191@Air-de-Roger>
+References: <3F6E40FB-79C5-4AE8-81CA-E16CA37BB298@arm.com>
+ <BD475825-10F6-4538-8294-931E370A602C@arm.com>
+ <E9CBAA57-5EF3-47F9-8A40-F5D7816DB2A4@arm.com>
+ <20200717111644.GS7191@Air-de-Roger>
+ <3B8A1B9D-A101-4937-AC42-4F62BE7E677C@arm.com>
+ <20200717143120.GT7191@Air-de-Roger>
+ <8AF78FF1-C389-44D8-896B-B95C1A0560E2@arm.com>
+ <20200717155525.GY7191@Air-de-Roger>
+ <C150EBE5-5687-4C7D-9EDB-5E4B52782A45@arm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <C150EBE5-5687-4C7D-9EDB-5E4B52782A45@arm.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,27 +70,154 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <Ian.Jackson@citrix.com>, Edwin Torok <edvin.torok@citrix.com>,
- "wl@xen.org" <wl@xen.org>, "dave@recoil.org" <dave@recoil.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ nd <nd@arm.com>, Rahul Singh <Rahul.Singh@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall.oss@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-=0A=
-=0A=
-> Time for a bit of controversy.=0A=
-=0A=
-OCaml outside Xen has moved to a different model of building based on dune =
-which is fast, declarative and reliable. The OCaml xenstore is stagnating b=
-ecause nobody with OCaml experience wants to touch it anymore. It would be =
-beneficial for the health of the OCaml xenstore to split it out such that i=
-t could be worked on independently. You might argue that Make is still appr=
-opriate for building OCaml projects but the OCaml community has moved throu=
-gh several build systems, starting from Make, and learned the hard way that=
- this is not an easy problem. After years of more-or-less successful build =
-system the consensus is that dune is right one and it has resulted in combi=
-nation with the Opam package manager the ecosystem to flourish. Alternative=
-ly, it would be possible to move OCaml xenstore to dune within the Xen tree=
- but it would create a dependency on it.=0A=
-=0A=
--- C=0A=
+On Sat, Jul 18, 2020 at 09:49:43AM +0000, Bertrand Marquis wrote:
+> 
+> 
+> > On 17 Jul 2020, at 17:55, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> > 
+> > On Fri, Jul 17, 2020 at 03:21:57PM +0000, Bertrand Marquis wrote:
+> >>> On 17 Jul 2020, at 16:31, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> >>> On Fri, Jul 17, 2020 at 01:22:19PM +0000, Bertrand Marquis wrote:
+> >>>>> On 17 Jul 2020, at 13:16, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> >>>>>> # Emulated PCI device tree node in libxl:
+> >>>>>> 
+> >>>>>> Libxl is creating a virtual PCI device tree node in the device tree
+> >>>>>> to enable the guest OS to discover the virtual PCI during guest
+> >>>>>> boot. We introduced the new config option [vpci="pci_ecam"] for
+> >>>>>> guests. When this config option is enabled in a guest configuration,
+> >>>>>> a PCI device tree node will be created in the guest device tree.
+> >>>>>> 
+> >>>>>> A new area has been reserved in the arm guest physical map at which
+> >>>>>> the VPCI bus is declared in the device tree (reg and ranges
+> >>>>>> parameters of the node). A trap handler for the PCI ECAM access from
+> >>>>>> guest has been registered at the defined address and redirects
+> >>>>>> requests to the VPCI driver in Xen.
+> >>>>> 
+> >>>>> Can't you deduce the requirement of such DT node based on the presence
+> >>>>> of a 'pci=' option in the same config file?
+> >>>>> 
+> >>>>> Also I wouldn't discard that in the future you might want to use
+> >>>>> different emulators for different devices, so it might be helpful to
+> >>>>> introduce something like:
+> >>>>> 
+> >>>>> pci = [ '08:00.0,backend=vpci', '09:00.0,backend=xenpt', '0a:00.0,backend=qemu', ... ]
+> >>>>> 
+> >>>>> For the time being Arm will require backend=vpci for all the passed
+> >>>>> through devices, but I wouldn't rule out this changing in the future.
+> >>>> 
+> >>>> We need it for the case where no device is declared in the config file and the user
+> >>>> wants to add devices using xl later. In this case we must have the DT node for it
+> >>>> to work. 
+> >>> 
+> >>> There's a passthrough xl.cfg option for that already, so that if you
+> >>> don't want to add any PCI passthrough devices at creation time but
+> >>> rather hotplug them you can set:
+> >>> 
+> >>> passthrough=enabled
+> >>> 
+> >>> And it should setup the domain to be prepared to support hot
+> >>> passthrough, including the IOMMU [0].
+> >> 
+> >> Isn’t this option covering more then PCI passthrough ?
+> >> 
+> >> Lots of Arm platform do not have a PCI bus at all, so for those
+> >> creating a VPCI bus would be pointless. But you might need to
+> >> activate this to pass devices which are not on the PCI bus.
+> > 
+> > Well, you can check whether the host has PCI support and decide
+> > whether to attach a virtual PCI bus to the guest or not?
+> > 
+> > Setting passthrough=enabled should prepare the guest to handle
+> > passthrough, in whatever form is supported by the host IMO.
+> 
+> True, we could just say that we create a PCI bus if the host has one and
+> passthrough is activated.
+> But with virtual device point, we might even need one on guest without
+> PCI support on the hardware :-)
+
+Sure, but at that point you might want to consider unconditionally
+adding an emulated PCI bus to guests anyway.
+
+You will always have time to add new options to xl, but I would start
+by trying to make use of the existing ones.
+
+Are you planning to add the logic in Xen to enable hot-plug of devices
+right away?
+
+If the implementation hasn't been considered yet I wouldn't mind
+leaving all this for later and just focusing on non-hotplug
+passthrough using pci = [ ... ] for the time being.
+
+> > 
+> >>>>>> Limitation:
+> >>>>>> * Need to avoid the “iomem” and “irq” guest config
+> >>>>>> options and map the IOMEM region and IRQ at the same time when
+> >>>>>> device is assigned to the guest using the “pci” guest config options
+> >>>>>> when xl creates the domain.
+> >>>>>> * Emulated BAR values on the VPCI bus should reflect the IOMEM mapped
+> >>>>>> address.
+> >>>>> 
+> >>>>> It was my understanding that you would identity map the BAR into the
+> >>>>> domU stage-2 translation, and that changes by the guest won't be
+> >>>>> allowed.
+> >>>> 
+> >>>> In fact this is not possible to do and we have to remap at a different address
+> >>>> because the guest physical mapping is fixed by Xen on Arm so we must follow
+> >>>> the same design otherwise this would only work if the BARs are pointing to an
+> >>>> address unused and on Juno this is for example conflicting with the guest
+> >>>> RAM address.
+> >>> 
+> >>> This was not clear from my reading of the document, could you please
+> >>> clarify on the next version that the guest physical memory map is
+> >>> always the same, and that BARs from PCI devices cannot be identity
+> >>> mapped to the stage-2 translation and instead are relocated somewhere
+> >>> else?
+> >> 
+> >> We will.
+> >> 
+> >>> 
+> >>> I'm then confused about what you do with bridge windows, do you also
+> >>> trap and adjust them to report a different IOMEM region?
+> >> 
+> >> Yes this is what we will have to do so that the regions reflect the VPCI mappings
+> >> and not the hardware one.
+> >> 
+> >>> 
+> >>> Above you mentioned that read-only access was given to bridge
+> >>> registers, but I guess some are also emulated in order to report
+> >>> matching IOMEM regions?
+> >> 
+> >> yes that’s exact. We will clear this in the next version.
+> > 
+> > If you have to go this route for domUs, it might be easier to just
+> > fake a PCI host bridge and place all the devices there even with
+> > different SBDF addresses. Having to replicate all the bridges on the
+> > physical PCI bus and fixing up it's MMIO windows seems much more
+> > complicated than just faking/emulating a single bridge?
+> 
+> That’s definitely something we have to dig more on. The whole problematic
+> of PCI enumeration and BAR value assignation in Xen might be pushed to
+> either Dom0 or the firmware but we might in fact find ourself with exactly the
+> same problem on the VPCI bus.
+
+Not really, in order for Xen to do passthrough to a guest it must know
+the SBDF of a device, the resources it's using and the memory map of
+the guest, or else passthrough can't be done.
+
+At that point Xen has the whole picture and can decide where the
+resources of the device should appear on the stage-2 translation, and
+hence the IOMEM windows required on the bridge(s).
+
+What I'm trying to say is that I'm not convinced that exposing all the
+host PCI bridges with adjusted IOMEM windows is easier than just
+completely faking (and emulating) a PCI bridge inside of Xen.
+
+Roger.
 
