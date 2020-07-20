@@ -2,63 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 501C8226A06
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 18:32:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 990B7226C8D
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 18:59:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxYiA-0001cv-Tp; Mon, 20 Jul 2020 16:32:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jxZ85-0003Zc-Cl; Mon, 20 Jul 2020 16:59:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2q/L=A7=gmail.com=jaromir.dolecek@srs-us1.protection.inumbo.net>)
- id 1jxYiA-0001cq-1m
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 16:32:18 +0000
-X-Inumbo-ID: 9338a892-caa6-11ea-84a5-bc764e2007e4
-Received: from mail-vs1-xe2f.google.com (unknown [2607:f8b0:4864:20::e2f])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9338a892-caa6-11ea-84a5-bc764e2007e4;
- Mon, 20 Jul 2020 16:32:17 +0000 (UTC)
-Received: by mail-vs1-xe2f.google.com with SMTP id q15so8821596vso.9
- for <xen-devel@lists.xenproject.org>; Mon, 20 Jul 2020 09:32:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=wfkWNTGr7rI1M7TmzCRQ5/XZvg9x2RK3EJGaSSXIjwc=;
- b=h2CVDI0UrkjbNx6BHtZc+AfRHn3d9eD0t5LW0+BGdlDxgqZHXxkr5jJm/mcmoy5BlB
- E34N+LkXAZ3/o1/gaFc3NRDprxrhAKUC/pfQcnJh/OVcpdYsxopA5LZnRccVH7792mKu
- Yp1srZGmaM3BrHfXywBZXR6CFicSOvdsfwfyGCq3gBHBo+EpBiSIzk4cfdsTBWn1fXek
- YufuZbup7NQbwnQwX/Vgm8VDAcwU47naeaB6p2pGp1PDGj8lKyhnB94vNv2adLUT7HEN
- wL0jiIzZ4b/SsCOks4G/OMh42oxxLDhqLAo6j0EH97CfYbvKQwFoDF3SCIXa0QONp4Lo
- TbSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=wfkWNTGr7rI1M7TmzCRQ5/XZvg9x2RK3EJGaSSXIjwc=;
- b=jwZqyvbbK9ZaJvxWPFJZL/JYE1rwC8r/bhxv97LeAz/QXIxgJgL85sU+3Hy5BAhQ76
- GZh5cCCHo08zgqJMchu6r7SNAKS2k/8xY+8MuRCkArboLyUDWgX033QEHj1ySUJnr3ik
- Kaq9mrMl8BS09NAiyZ/HFx+Bh0Usg9ged+e7qz20zSNfTdNJiBQg9G8t+Ddyyk0fVj9N
- Cwp4NLu/jGXbMUq9Zy+oBmkzAvUXqWvrkw18BKoobXy736pZZur/aFREHtscpKidJrSw
- yN1kbati50ujx2g1QjItKTu6Dfr1WWK7n8qNcRZvD1Lhy683x4Q86X8I1tiGawGq3R8e
- ZVlQ==
-X-Gm-Message-State: AOAM532vnq7rRKFf49nQfR88HNBBHurL7zZRKbghDcUl2wld5014Ho0a
- H9i7vVntMXb0/ystT5TJHCBFArp9IxO2fPRHi5c=
-X-Google-Smtp-Source: ABdhPJzOTheOnAr0eEUHM/ZlqAgCvRlFJEanTPVC07ExvSJ9ujL0f6oBlRqxMnmovrezxud2+gVAJmf57TMm/uofcvg=
-X-Received: by 2002:a05:6102:3188:: with SMTP id
- c8mr17832075vsh.61.1595262736913; 
- Mon, 20 Jul 2020 09:32:16 -0700 (PDT)
+ <SRS0=gz2F=A7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jxZ83-0003ZX-Mi
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 16:59:03 +0000
+X-Inumbo-ID: 4f39d1f8-caaa-11ea-9fe1-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4f39d1f8-caaa-11ea-9fe1-12813bfff9fa;
+ Mon, 20 Jul 2020 16:59:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595264343;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=CwfgH+SVS7p5qhpGDrc3g/YyX6iBPChRKZUui8AeAvo=;
+ b=aPpdi1MR/XZISNACKIqMZguDGPr1GKwhtzk5Ynq8UfQq9JclKqqONTQA
+ h16mGASifodnSqWubz2UpcLjmIXBF1HdiS1vSv73ZRhfJJY90EKmfSYmA
+ 5r55a9Au9srK+GHgFDicoMuE8cNlFc1yjQSXKzHjl+foE3RAysigEWoXv c=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: OAp5d3Yvfz4GcMFx61wDzJy+QB4s9MoSlndlhDqXgfPhZ2JSJSpa/+j2eBdFRIOY0tlUdpUlCa
+ 6EOlnhxCcFQVxjr2OWAy9/QhDJ0fuEwBTiJ2NdVcSJpwmVXkgVcIFfh4j+OEe8AyPqTqDxo5Pj
+ aUgB85aEtsmJMfaeNC2dDwoqqapnUqbY3alH0yBz3LzZmvIzOjGa66p3ii4IzPh1uY/GapmRtW
+ o2IHZ/6234bjgKY+IuUMhVvdX3PVcQ9It8vb2yyMcWg2lu9W0nWUrtRFDAllrpD2mcy8QtpBHZ
+ qN0=
+X-SBRS: 2.7
+X-MesageID: 23105255
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,375,1589256000"; d="scan'208,223";a="23105255"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] docs: Replace non-UTF-8 character in hypfs-paths.pandoc
+Date: Mon, 20 Jul 2020 17:58:33 +0100
+Message-ID: <20200720165833.14209-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <CAMnsW5542gmBLpKBsW5pnm=2VXmaDVHzg=OXXvBdu1BsYLdDvQ@mail.gmail.com>
- <20200720070010.GC7191@Air-de-Roger>
- <0a389f69-2c6b-e564-c6b5-c8f09ed66de0@suse.com>
-In-Reply-To: <0a389f69-2c6b-e564-c6b5-c8f09ed66de0@suse.com>
-From: =?UTF-8?B?SmFyb23DrXIgRG9sZcSNZWs=?= <jaromir.dolecek@gmail.com>
-Date: Mon, 20 Jul 2020 18:32:06 +0200
-Message-ID: <CAMnsW55Cnw54_P=_Np4h1siaCPgDjwRFGQ_pUAJEkLELTSEW+Q@mail.gmail.com>
-Subject: Re: Advice for implementing MSI-X support on NetBSD Xen 4.11?
-To: Jan Beulich <jbeulich@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,45 +59,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Le lun. 20 juil. 2020 =C3=A0 09:00, Roger Pau Monn=C3=A9 <roger.pau@citrix.=
-com> a =C3=A9crit :
-> You need to set entry_nr and table_base.
+From the docs cronjob on xenbits:
 
-Yes, I do that. I use the table_base set to what would be written to
-the register for "native".
+  /usr/bin/pandoc --number-sections --toc --standalone misc/hypfs-paths.pandoc --output html/misc/hypfs-paths.html
+  pandoc: Cannot decode byte '\x92': Data.Text.Internal.Encoding.decodeUtf8: Invalid UTF-8 stream
+  make: *** [Makefile:236: html/misc/hypfs-paths.html] Error 1
 
-> Are you enabling the capability and unmasking the interrupt in the
-> MSI-X table?
+Fixes: 5a4a411bde4 ("docs: specify stability of hypfs path documentation")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Juergen Gross <jgross@suse.com>
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+---
+ docs/misc/hypfs-paths.pandoc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yes, I'm doing that.
+diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pandoc
+index 81d70bb80c..dddb592bc5 100644
+--- a/docs/misc/hypfs-paths.pandoc
++++ b/docs/misc/hypfs-paths.pandoc
+@@ -74,7 +74,7 @@ you write finds a path present, it can rely on behavior in future versions of
+ the hypervisors, and in different configurations.  Specifically:
+ 
+ 1. Conditions under which paths are used may be extended, restricted, or
+-   removed.  For example, a path that’s always available only on ARM systems
++   removed.  For example, a path that's always available only on ARM systems
+    may become available on x86; or a path available on both systems may be
+    restricted to only appearing on ARM systems.  Paths may also disappear
+    entirely.
+-- 
+2.11.0
 
-> There are also the Xen debug keys which can be helpful, take a look at
-> 'i' and 'M'.
-
-OK, I'll check that.
-
-Le lun. 20 juil. 2020 =C3=A0 10:47, Jan Beulich <jbeulich@suse.com> a =C3=
-=A9crit :
-> Is this effort for PV or PVH? If the former, I don't think Dom0 is
-> supposed to write directly to any of these structures. This is all
-> intended to be hypercall based, despite us intercepting and trying
-> to emulate direct accesses.
->
-> Jarom=C3=ADr - are you making use of PHYSDEVOP_prepare_msix?
-
-It's PV for now. I already skip the step to actually write the table
-vectors when setting this up, same as I do for MSI. I still write the
-registers to enable MSI-X.
-
-I was not aware of PHYSDEVOP_prepare_msix, I did not notice it when
-looking on what Linux kernel does - I'll check it.
-
-Thanks.
-
-Jaromir
 
