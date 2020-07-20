@@ -2,58 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F37AE226D70
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 19:46:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8F6F226D7F
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 19:48:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxZrC-00008Q-EC; Mon, 20 Jul 2020 17:45:42 +0000
+	id 1jxZtb-0000Gl-SD; Mon, 20 Jul 2020 17:48:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gz2F=A7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jxZrA-00008K-Jx
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 17:45:40 +0000
-X-Inumbo-ID: d2be73e9-cab0-11ea-84ad-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Eely=A7=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jxZtb-0000Gg-7G
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 17:48:11 +0000
+X-Inumbo-ID: 2d2e0eb0-cab1-11ea-84ad-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d2be73e9-cab0-11ea-84ad-bc764e2007e4;
- Mon, 20 Jul 2020 17:45:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595267140;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=J/7Onn3GuDlUNA0Iy0qUui8mUX7sy04p5t+kCtGbrTE=;
- b=DxshoKnXMEfzd+NuZvkUU6iPAIdJxr9dSyg7xHMDcdHWdDaAJXPk1L1C
- zdQk9O7qQt5D6wQavETVugPtucJQ8RjaXZjX1HkocTIZE39rTyJtfm2pS
- hqFMbeVmc0nnHlW96rO8xPVjevp9lSVABGYDfLgDtKONsRJHUMYakhBcE M=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 2lqrqTiqghNNiw1IFkaWVeL/esvQ/II7RuDvyAHmDfGNrtHh7A7JQ+BfCB3m9QNOuMhRv+QWfJ
- m8XDUZHbs+Vm8ZtQLRnACBt/iOlfX5YPk9R5GozPYRN9r7IUwNYqpHvFnon38161Ph9Om7bOdd
- 20/oYi3ePNUBFnn64rr/O+hK8VtFNSse+/FwPINdqO3R7JjHpDkik6U9gqppg041MX5bzxr2im
- Srx9iBhrI2yWaQX85+eiks1W0Xcl1JkBYz0fftRDe2cFJ161RdZuLIHwUpqHu4/fW6s2gsswBz
- nAc=
-X-SBRS: 2.7
-X-MesageID: 23109873
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,375,1589256000"; d="scan'208";a="23109873"
+ id 2d2e0eb0-cab1-11ea-84ad-bc764e2007e4;
+ Mon, 20 Jul 2020 17:48:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=I1vOqkTQHp54/DiklsAqjbZ1wXq/tOMFHzPhPDEN418=; b=AckKINPz56Fc7aKYqpNvvnmZNb
+ 8AzGV20m0DcHEwiSEnKscO6A4BHuX81q6CI0RMtMa7D4LzE1YMcNTlWTrIysSqXYng8mWeY8uttUJ
+ PirYVrKfd05yhEWayXj4uXkC0lxHYQolrUJrpiHJrVctAhkBDEMLSPUaRU7JKERaOeY8=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jxZtW-0004EI-JU; Mon, 20 Jul 2020 17:48:06 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jxZtW-0005va-97; Mon, 20 Jul 2020 17:48:06 +0000
 Subject: Re: [PATCH] SUPPORT.md: Spell correctly Experimental
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20200720173635.1571-1-julien@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <4cc580c5-146f-6f83-bd91-a798763c261b@citrix.com>
-Date: Mon, 20 Jul 2020 18:45:33 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <4cc580c5-146f-6f83-bd91-a798763c261b@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <627851f2-d28e-5c3b-6f1f-882e9eb02ed4@xen.org>
+Date: Mon, 20 Jul 2020 18:48:03 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200720173635.1571-1-julien@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <4cc580c5-146f-6f83-bd91-a798763c261b@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,15 +68,25 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20/07/2020 18:36, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
->
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Although I'd suggest the subject be changed rearranged to "Spell
-Experimentally correctly".
+On 20/07/2020 18:45, Andrew Cooper wrote:
+> On 20/07/2020 18:36, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> Although I'd suggest the subject be changed rearranged to "Spell
+> Experimentally correctly".
 
-~Andrew
+Did you intend to write "Experimental" rather than "Experimentally"?
+
+Other than that, I will fix it on commit.
+
+Cheers,
+
+-- 
+Julien Grall
 
