@@ -2,59 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B05C225BE3
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 11:41:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04AA0225C8C
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 12:20:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxSHu-0006Ai-EU; Mon, 20 Jul 2020 09:40:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Eely=A7=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jxSHt-0006AZ-0p
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 09:40:45 +0000
-X-Inumbo-ID: 14e0ce7c-ca6d-11ea-9f74-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 14e0ce7c-ca6d-11ea-9f74-12813bfff9fa;
- Mon, 20 Jul 2020 09:40:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7jekAShMJES6zG0w+MwjXR5yipns1iTsnrBv9YJulBY=; b=2S36o/82rdqdAQkC2GUmoowq2T
- RTUVseoPXt8k4laC8e8yC6bKY9b8T/4eBRtD/6uzMzs2SO69RoYezYEu20fchy+R42/VBp608H8cg
- dimP44SIuGL3nl3W0SoFFNIXflnJb7fKCL00/5UJjxyXEqyXoDi/q9DGFXQfUhqCoo40=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jxSHq-0001oO-HZ; Mon, 20 Jul 2020 09:40:42 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jxSHq-0007kB-Al; Mon, 20 Jul 2020 09:40:42 +0000
-Subject: Re: Virtio in Xen on Arm (based on IOREQ concept)
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Oleksandr <olekstysh@gmail.com>
-References: <CAPD2p-nthLq5NaU32u8pVaa-ub=a9-LOPenupntTYdS-cu31jQ@mail.gmail.com>
- <20200717150039.GV7191@Air-de-Roger>
- <8f4e0c0d-b3d4-9dd3-ce20-639539321968@gmail.com>
- <20200720091722.GF7191@Air-de-Roger>
-From: Julien Grall <julien@xen.org>
-Message-ID: <10eaec62-2c48-52ae-d113-1681c87e3d59@xen.org>
-Date: Mon, 20 Jul 2020 10:40:40 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+	id 1jxStF-0000W2-H1; Mon, 20 Jul 2020 10:19:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vvUF=A7=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1jxStE-0000Vu-0p
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 10:19:20 +0000
+X-Inumbo-ID: 7842e66d-ca72-11ea-8487-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7842e66d-ca72-11ea-8487-bc764e2007e4;
+ Mon, 20 Jul 2020 10:19:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595240359;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=g1USrYgf6iLGRJ6Y6JipbkWFUsP6pUvHuvebTM15GUc=;
+ b=X8+9YoonqynbTyWJ2BhWdTHmCnAb0yGMXXtzomFTsSM/dMUd7R7zUaNQ
+ iQ5A2cKLe4tpiv9/HzN6r0RbOmD4axhVc739+3Fohf5flvSCj8wcdPuVs
+ xnJdP4/7E4R/eFxkiGuDiesidsue3wPqT6rUpCGn8sAOOsCZMKbrRlIz+ 0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: tA6PgaaShCYl/opkuLCMopA0zOujg7/WOsTNlI5gz8CDya78f96EjEooevZOkIZ50w+WYPFsvw
+ dCaJzcrfb4Xwu+XskMndHoSfF/E3GXd3cJMbVF2S4l4q+nbnQXzFEkRzrAVLQNErQ2jGCHg1Li
+ NpbAvc01eJu/ZrFeY2mMnDnJG9ar7ZKHboag2zt6dw3ftDzZ3NqZRMhCL4pyd/0FQgJ54oyBie
+ vV+sGm+tTqwvC2mXHG60dLzG33d3D34RYkcWf0K3GGFcoh+VVL+kXjlB1rua2YfX+MU3z/6JVS
+ jiU=
+X-SBRS: 2.7
+X-MesageID: 22739368
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,374,1589256000"; d="scan'208";a="22739368"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [PATCH v2] docs: specify stability of hypfs path documentation
+Thread-Topic: [PATCH v2] docs: specify stability of hypfs path documentation
+Thread-Index: AQHWWR59fvtpmEuro06JsoMrFTmX86kFdV+AgAMhtYCAAUgfAIAABYeAgAAO0gCAAALcAIAALlYAgAAD6oCABgIDAA==
+Date: Mon, 20 Jul 2020 10:19:14 +0000
+Message-ID: <041963E3-304B-4F1D-BCA0-387057DFC7FE@citrix.com>
+References: <20200713140338.16172-1-jgross@suse.com>
+ <8a96b1b9-cbcb-557a-5b82-661bbe40fe25@suse.com>
+ <68F727A8-29B8-4846-8BE9-BD4F6E0DC60D@citrix.com>
+ <9f5e86cc-4f64-982b-d84b-1de6b2739a2b@suse.com>
+ <4c681c7c-be69-7e1a-4cd9-c9e05fe85372@suse.com>
+ <2567da9b-be43-3f0d-e213-562b5454f4b7@suse.com>
+ <757f5f78-6ec9-c740-18bf-a01105d552d7@suse.com>
+ <A8D7C0A3-BA48-40F2-B290-C73BC1CDEBD1@citrix.com>
+ <fd8902f6-0172-2f1f-aae8-fec096d4bff5@suse.com>
+In-Reply-To: <fd8902f6-0172-2f1f-aae8-fec096d4bff5@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FFD6D947570B684886038B11B1833383@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <20200720091722.GF7191@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,92 +77,75 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Artem Mygaiev <joculator@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>,
+ "open list:X86" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-
-On 20/07/2020 10:17, Roger Pau Monné wrote:
-> On Fri, Jul 17, 2020 at 09:34:14PM +0300, Oleksandr wrote:
->> On 17.07.20 18:00, Roger Pau Monné wrote:
->>> On Fri, Jul 17, 2020 at 05:11:02PM +0300, Oleksandr Tyshchenko wrote:
->>>> requires
->>>> some implementation to forward guest MMIO access to a device model. And as
->>>> it
->>>> turned out the Xen on x86 contains most of the pieces to be able to use that
->>>> transport (via existing IOREQ concept). Julien has already done a big amount
->>>> of work in his PoC (xen/arm: Add support for Guest IO forwarding to a
->>>> device emulator).
->>>> Using that code as a base we managed to create a completely functional PoC
->>>> with DomU
->>>> running on virtio block device instead of a traditional Xen PV driver
->>>> without
->>>> modifications to DomU Linux. Our work is mostly about rebasing Julien's
->>>> code on the actual
->>>> codebase (Xen 4.14-rc4), various tweeks to be able to run emulator
->>>> (virtio-disk backend)
->>>> in other than Dom0 domain (in our system we have thin Dom0 and keep all
->>>> backends
->>>> in driver domain),
->>> How do you handle this use-case? Are you using grants in the VirtIO
->>> ring, or rather allowing the driver domain to map all the guest memory
->>> and then placing gfn on the ring like it's commonly done with VirtIO?
->>
->> Second option. Xen grants are not used at all as well as event channel and
->> Xenbus. That allows us to have guest
->>
->> *unmodified* which one of the main goals. Yes, this may sound (or even
->> sounds) non-secure, but backend which runs in driver domain is allowed to
->> map all guest memory.
-> 
-> Supporting unmodified guests is certainly a fine goal, but I don't
-> think it's incompatible with also trying to expand the spec in
-> parallel in order to support grants in a negotiated way (see below).
-> 
-> That way you could (long term) regain some of the lost security.
-
-FWIW, Xen is not the only hypervisor/community interested in creating 
-"less privileged" backend.
-
-> 
->>> Do you have any plans to try to upstream a modification to the VirtIO
->>> spec so that grants (ie: abstract references to memory addresses) can
->>> be used on the VirtIO ring?
->>
->> But VirtIO spec hasn't been modified as well as VirtIO infrastructure in the
->> guest. Nothing to upsteam)
-> 
-> OK, so there's no intention to add grants (or a similar interface) to
-> the spec?
-> 
-> I understand that you want to support unmodified VirtIO frontends, but
-> I also think that long term frontends could negotiate with backends on
-> the usage of grants in the shared ring, like any other VirtIO feature
-> negotiated between the frontend and the backend.
-> 
-> This of course needs to be on the spec first before we can start
-> implementing it, and hence my question whether a modification to the
-> spec in order to add grants has been considered.
-The problem is not really the specification but the adoption in the 
-ecosystem. A protocol based on grant-tables would mostly only be used by 
-Xen therefore:
-    - It may be difficult to convince a proprietary OS vendor to invest 
-resource on implementing the protocol
-    - It would be more difficult to move in/out of Xen ecosystem.
-
-Both, may slow the adoption of Xen in some areas.
-
-If one is interested in security, then it would be better to work with 
-the other interested parties. I think it would be possible to use a 
-virtual IOMMU for this purpose.
-
-Cheers,
-
--- 
-Julien Grall
+DQoNCj4gT24gSnVsIDE2LCAyMDIwLCBhdCAzOjM0IFBNLCBKw7xyZ2VuIEdyb8OfIDxqZ3Jvc3NA
+c3VzZS5jb20+IHdyb3RlOg0KPiANCj4gT24gMTYuMDcuMjAgMTY6MjAsIEdlb3JnZSBEdW5sYXAg
+d3JvdGU6DQo+Pj4gT24gSnVsIDE2LCAyMDIwLCBhdCAxMjozNCBQTSwgSsO8cmdlbiBHcm/DnyA8
+amdyb3NzQHN1c2UuY29tPiB3cm90ZToNCj4+PiANCj4+PiBPbiAxNi4wNy4yMCAxMzoyNCwgSmFu
+IEJldWxpY2ggd3JvdGU6DQo+Pj4+IE9uIDE2LjA3LjIwMjAgMTI6MzEsIErDvHJnZW4gR3Jvw58g
+d3JvdGU6DQo+Pj4+PiBPbiAxNi4wNy4yMCAxMjoxMSwgSmFuIEJldWxpY2ggd3JvdGU6DQo+Pj4+
+Pj4gT24gMTUuMDcuMjAyMCAxNjozNywgR2VvcmdlIER1bmxhcCB3cm90ZToNCj4+Pj4+Pj4gSVQg
+c291bmRzIGxpa2UgeW914oCZcmUgc2F5aW5nOg0KPj4+Pj4+PiANCj4+Pj4+Pj4gMS4gUGF0aHMg
+bGlzdGVkIHdpdGhvdXQgY29uZGl0aW9ucyB3aWxsIGFsd2F5cyBiZSBhdmFpbGFibGUNCj4+Pj4+
+Pj4gDQo+Pj4+Pj4+IDIuIFBhdGhzIGxpc3RlZCB3aXRoIGNvbmRpdGlvbnMgbWF5IGJlIGV4dGVu
+ZGVkOiBpLmUuLCBhIG5vZGUgY3VycmVudGx5IGxpc3RlZCBhcyBQViBtaWdodCBhbHNvIGJlY29t
+ZSBhdmFpbGFibGUgZm9yIEhWTSBndWVzdHMNCj4+Pj4+Pj4gDQo+Pj4+Pj4+IDMuIFBhdGhzIGxp
+c3RlZCB3aXRoIGNvbmRpdGlvbnMgbWlnaHQgaGF2ZSB0aG9zZSBjb25kaXRpb25zIHJlZHVjZWQs
+IGJ1dCB3aWxsIG5ldmVyIGVudGlyZWx5IGRpc2FwcGVhci4gIFNvIHNvbWV0aGluZyBjdXJyZW50
+bHkgbGlzdGVkIGFzIFBWIG1pZ2h0IGJlIHJlZHVjZWQgdG8gQ09ORklHX0hBU19GT08sIGJ1dCB3
+b27igJl0IGJlIGNvbXBsZXRlbHkgcmVtb3ZlZC4NCj4+Pj4+Pj4gDQo+Pj4+Pj4+IElzIHRoYXQg
+d2hhdCB5b3UgbWVhbnQ/DQo+Pj4+Pj4gDQo+Pj4+Pj4gSSBzZWUgSsO8cmdlbiByZXBsaWVkICJ5
+ZXMiIHRvIHRoaXMsIGJ1dCBJJ20gbm90IHN1cmUgYWJvdXQgMS4NCj4+Pj4+PiBhYm92ZTogSSB0
+aGluayBpdCdzIHF1aXRlIHJlYXNvbmFibGUgdG8gZXhwZWN0IHRoYXQgcGF0aHMgd2l0aG91dA0K
+Pj4+Pj4+IGNvbmRpdGlvbiBtYXkgZ2FpbiBhIGNvbmRpdGlvbi4gSnVzdCBsaWtlIHBhdGhzIG5v
+dyBoYXZpbmcgYQ0KPj4+Pj4+IGNvbmRpdGlvbiBhbmQgKHBlcmhhcHMgdGVtcG9yYXJpbHkpIGxv
+c2luZyBpdCBzaG91bGRuJ3QgYWxsIG9mDQo+Pj4+Pj4gdGhlIHN1ZGRlbiBiZWNvbWUgImFsd2F5
+cyBhdmFpbGFibGUiIHdoZW4gdGhleSB3ZXJlbid0IG1lYW50IHRvDQo+Pj4+Pj4gYmUuDQo+Pj4+
+Pj4gDQo+Pj4+Pj4gQXMgZmFyIGEgMy4gZ29lcywgSSdtIGFsc28gdW5zdXJlIGluIGhvdyBmYXIg
+dGhpcyBpcyBhbnkgYmV0dGVyDQo+Pj4+Pj4gc3RhYmlsaXR5IHdpc2UgKGZyb20gYSBjb25zdW1l
+ciBwb3YpIHRoYW4gYWxsb3dpbmcgcGF0aHMgdG8NCj4+Pj4+PiBlbnRpcmVseSBkaXNhcHBlYXIu
+DQo+Pj4+PiANCj4+Pj4+IFRoZSBpZGVhIGlzIHRoYXQgYW55IHVzZXIgdG9vbCB1c2luZyBoeXBm
+cyBjYW4gcmVseSBvbiBwYXRocyB1bmRlciAxIHRvDQo+Pj4+PiBleGlzdCwgd2hpbGUgdGhlIG9u
+ZXMgdW5kZXIgMyBtaWdodCBub3QgYmUgdGhlcmUgZHVlIHRvIHRoZSBoeXBlcnZpc29yDQo+Pj4+
+PiBjb25maWcgb3IgdGhlIHVzZWQgc3lzdGVtLg0KPj4+Pj4gDQo+Pj4+PiBBIHBhdGggbm90IGJl
+aW5nIGFsbG93ZWQgdG8gZW50aXJlbHkgZGlzYXBwZWFyIGVuc3VyZXMgdGhhdCBpdCByZW1haW5z
+DQo+Pj4+PiBpbiB0aGUgZG9jdW1lbnRhdGlvbiwgc28gdGhlIHNhbWUgcGF0aCBjYW4ndCBiZSBy
+ZXVzZWQgZm9yIHNvbWV0aGluZw0KPj4+Pj4gZGlmZmVyZW50IGluIGZ1dHVyZS4NCj4+Pj4gQW5k
+IHRoZW4gaG93IGRvIHlvdSBkZWFsIHdpdGggYSBjb25kaXRpb24gZ2V0dGluZyBkcm9wcGVkLCBh
+bmQNCj4+Pj4gbGF0ZXIgd2FudGluZyB0byBnZXQgcmUtYWRkZWQ/IERvIHdlIG5lZWQgYSBwbGFj
+ZWhvbGRlciBjb25kaXRpb24NCj4+Pj4gbGlrZSBbQUxXQVlTXSBvciBbVFJVRV0/DQo+Pj4gDQo+
+Pj4gRHJvcHBpbmcgYSBjb25kaXRpb24gaGFzIHRvIGJlIGNvbnNpZGVyZWQgdmVyeSBjYXJlZnVs
+bHksIHNhbWUgYXMNCj4+PiBpbnRyb2R1Y2luZyBhIG5ldyBwYXRoIHdpdGhvdXQgYW55IGNvbmRp
+dGlvbi4NCj4+PiANCj4+PiBJbiB3b3JzdCBjYXNlIHlvdSBjYW4gc3RpbGwgZ28gd2l0aCBbQ09O
+RklHX0hZUEZTXS4NCj4+IENvdWxkbuKAmXQgd2UganVzdCBoYXZlIGEgc2VjdGlvbiBvZiB0aGUg
+ZG9jdW1lbnQgZm9yIGRlYWQgcGF0aHMgdGhhdCBhcmVu4oCZdCBhbGxvd2VkIHRvIGJlIHVzZWQ/
+DQo+PiBBbHRlcm5hdGVseSwgd2UgY291bGQgaGF2ZSBhIHRhZyBmb3IgZW50cmllcyB3ZSBkb27i
+gJl0IHdhbnQgdXNlZCBhbnltb3JlOyBbREVBRF0gb3IgW09CU09MRVRFXSBtYXliZT8gW0RFRlVO
+Q1RdPyBbUkVNT1ZFRF0/DQo+PiBTbyBJIHRoaW5rIEnigJlkIHdyaXRlIGEgc2VwYXJhdGUgc2Vj
+dGlvbiwgbGlrZSB0aGlzOg0KPj4gfn4NCj4+ICMgU3RhYmlsaXR5DQo+PiBQYXRoICpwcmVzZW5j
+ZSogaXMgbm90IHN0YWJsZSwgYnV0IHBhdGggKm1lYW5pbmcqIGlzIGFsd2F5cyBzdGFibGU6IGlm
+IGEgdG9vbCB5b3Ugd3JpdGUgZmluZHMgYSBwYXRoIHByZXNlbnQsIGl0IGNhbiByZWx5IG9uIGJl
+aGF2aW9yIGluIGZ1dHVyZSB2ZXJzaW9ucyBvZiB0aGUgaHlwZXJ2aXNvcnMsIGFuZCBpbiBkaWZm
+ZXJlbnQgY29uZmlndXJhdGlvbnMuICBTcGVjaWZpY2FsbHk6DQo+PiAxLiBDb25kaXRpb25zIHVu
+ZGVyIHdoaWNoIHBhdGhzIGFyZSB1c2VkIG1heSBiZSBleHRlbmRlZCwgcmVzdHJpY3RlZCwgb3Ig
+cmVtb3ZlZC4gIEZvciBleGFtcGxlLCBhIHBhdGggdGhhdOKAmXMgYWx3YXlzIGF2YWlsYWJsZSBv
+bmx5IG9uIEFSTSBzeXN0ZW1zIG1heSBiZWNvbWUgYXZhaWxhYmxlIG9uIHg4Njsgb3IgYSBwYXRo
+IGF2YWlsYWJsZSBvbiBib3RoIHN5c3RlbXMgbWF5IGJlIHJlc3RyaWN0ZWQgdG8gb25seSBhcHBl
+YXJpbmcgb24gQVJNIHN5c3RlbXMuICBQYXRocyBtYXkgYWxzbyBkaXNhcHBlYXIgZW50aXJlbHku
+DQo+PiAyLiBIb3dldmVyLCB0aGUgbWVhbmluZyBvZiBhIHBhdGggd2lsbCBuZXZlciBjaGFuZ2Uu
+ICBJZiBhIHBhdGggaXMgcHJlc2VudCwgaXQgd2lsbCBhbHdheXMgaGF2ZSBleGFjdGx5IHRoZSBt
+ZWFuaW5nIHRoYXQgaXQgYWx3YXlzIGhhZC4gIEluIG9yZGVyIHRvIG1haW50YWluIHRoaXMsIHJl
+bW92ZWQgcGF0aHMgc2hvdWxkIGJlIHJldGFpbmVkIHdpdGggdGhlIHRhZyBbUkVNT1ZFRF0uICBU
+aGUgcGF0aCBtYXkgYmUgcmVzdG9yZWQgKm9ubHkqIGlmIHRoZSByZXN0b3JlZCB2ZXJzaW9uIG9m
+IHRoZSBwYXRoIGlzIGNvbXBhdGlibGUgd2l0aCB0aGUgcHJldmlvdXMgZnVuY3Rpb25hbGl0eS4N
+Cj4+IH5+fg0KPj4gVGhvdWdodHM/DQo+IA0KPiBXb3VsZCB3b3JrIGZvciBtZSwgdG9vLg0KDQpT
+byB3aG9zZSBjb3VydCBpcyB0aGUgYmFsbCBpbiBub3c/ICBBcmUgeW91IGdvaW5nIHRvIHNlbmQg
+YW5vdGhlciBwYXRjaCwgb3Igd291bGQgeW91IHByZWZlciBJIGRvIGl0Pw0KDQogLUdlb3JnZQ==
 
