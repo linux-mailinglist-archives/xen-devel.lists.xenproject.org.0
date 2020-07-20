@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2896225A4C
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 10:47:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 792AB225A8E
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 10:56:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxRSf-0000Cj-7Q; Mon, 20 Jul 2020 08:47:49 +0000
+	id 1jxRa2-0001Dj-Eh; Mon, 20 Jul 2020 08:55:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WIjz=A7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jxRSd-0000CU-MR
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 08:47:47 +0000
-X-Inumbo-ID: ae851bda-ca65-11ea-98f2-12813bfff9fa
+ id 1jxRa0-0001Db-Qs
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 08:55:24 +0000
+X-Inumbo-ID: bf0251c0-ca66-11ea-9f71-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ae851bda-ca65-11ea-98f2-12813bfff9fa;
- Mon, 20 Jul 2020 08:47:46 +0000 (UTC)
+ id bf0251c0-ca66-11ea-9f71-12813bfff9fa;
+ Mon, 20 Jul 2020 08:55:23 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 72FE2ADC2;
- Mon, 20 Jul 2020 08:47:51 +0000 (UTC)
-Subject: Re: Advice for implementing MSI-X support on NetBSD Xen 4.11?
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- =?UTF-8?B?SmFyb23DrXIgRG9sZcSNZWs=?= <jaromir.dolecek@gmail.com>
-References: <CAMnsW5542gmBLpKBsW5pnm=2VXmaDVHzg=OXXvBdu1BsYLdDvQ@mail.gmail.com>
- <20200720070010.GC7191@Air-de-Roger>
+ by mx2.suse.de (Postfix) with ESMTP id 95AE0B145;
+ Mon, 20 Jul 2020 08:55:28 +0000 (UTC)
+Subject: Re: [PATCH 5/5] x86/shadow: l3table[] and gl3e[] are HVM only
+To: Tim Deegan <tim@xen.org>
+References: <a4dc8db4-0388-a922-838e-42c6f4635639@suse.com>
+ <a3b9b496-e860-e657-2afc-c0658871fa3f@suse.com>
+ <20200718182037.GA48915@deinos.phlegethon.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0a389f69-2c6b-e564-c6b5-c8f09ed66de0@suse.com>
-Date: Mon, 20 Jul 2020 10:47:44 +0200
+Message-ID: <1baa0d50-86a4-b0ba-d43a-ad0c0446b54b@suse.com>
+Date: Mon, 20 Jul 2020 10:55:21 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200720070010.GC7191@Air-de-Roger>
+In-Reply-To: <20200718182037.GA48915@deinos.phlegethon.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,42 +48,39 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.07.2020 09:00, Roger Pau Monné wrote:
-> On Sun, Jul 19, 2020 at 05:54:28PM +0200, Jaromír Doleček wrote:
->> I've implemented support for using MSI under NetBSD Dom0 with 4.11.
->> This works well.
+On 18.07.2020 20:20, Tim Deegan wrote:
+> At 12:00 +0200 on 15 Jul (1594814409), Jan Beulich wrote:
+>> ... by the very fact that they're 3-level specific, while PV always gets
+>> run in 4-level mode. This requires adding some seemingly redundant
+>> #ifdef-s - some of them will be possible to drop again once 2- and
+>> 3-level guest code doesn't get built anymore in !HVM configs, but I'm
+>> afraid there's still quite a bit of disentangling work to be done to
+>> make this possible.
 >>
->> I have some trouble now with getting MSI-X work under Xen.
->> PHYSDEVOP_map_pirq hypercall succeeds just as well as for MSI, but
->> interrupts don't seem to get delivered.
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> How are you filling physdev_map_pirq for MSI-X?
-> 
-> You need to set entry_nr and table_base.
-> 
->> MSI-X interrupts work with NetBSD for the same devices when booted
->> natively, without Xen.
->>
->> Can you give me some advice on where to start looking to get this
->> working? Is there perhaps something special to be done within the PCI
->> subsystem to allow Xen to take over?
-> 
-> Are you enabling the capability and unmasking the interrupt in the
-> MSI-X table?
-> 
-> IIRC the OS also needs to unmask the entry in the MSI-X table in MMIO
-> space, as done natively.
+> Looks good.  It seems like the new code for '3-level non-HVM' in
+> guest-walks ought to have some sort of assert-unreachable in them too
+> - or is there a reason to to?
 
-Is this effort for PV or PVH? If the former, I don't think Dom0 is
-supposed to write directly to any of these structures. This is all
-intended to be hypercall based, despite us intercepting and trying
-to emulate direct accesses.
+You mean this piece of code
 
-Jaromír - are you making use of PHYSDEVOP_prepare_msix?
++#elif !defined(CONFIG_HVM)
++    (void)root_gfn;
++    memset(gw, 0, sizeof(*gw));
++    return false;
++#else /* PAE */
+
+If so - sure, ASSERT_UNREACHABLE() could be added there. It simply
+didn't occur to me. I take it your ack for the entire series holds
+here with this addition.
 
 Jan
 
