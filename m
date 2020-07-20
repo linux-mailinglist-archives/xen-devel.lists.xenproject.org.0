@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C91A22629C
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 16:54:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EDF22262EF
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 17:05:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxXBD-0000b9-Dn; Mon, 20 Jul 2020 14:54:11 +0000
+	id 1jxXLl-0001Wy-FG; Mon, 20 Jul 2020 15:05:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pLMr=A7=gmail.com=alejandro.gonzalez.correo@srs-us1.protection.inumbo.net>)
- id 1jxXBB-0000b4-5o
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 14:54:09 +0000
-X-Inumbo-ID: dd112ba0-ca98-11ea-849c-bc764e2007e4
-Received: from mail-ot1-x344.google.com (unknown [2607:f8b0:4864:20::344])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Eely=A7=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jxXLk-0001Wt-LO
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 15:05:04 +0000
+X-Inumbo-ID: 63db1438-ca9a-11ea-849d-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dd112ba0-ca98-11ea-849c-bc764e2007e4;
- Mon, 20 Jul 2020 14:54:08 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id c25so12402181otf.7
- for <xen-devel@lists.xenproject.org>; Mon, 20 Jul 2020 07:54:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=QBB9o1cZ8g3+RFyyMGo7jZrS0UDti7SFSFebEliZB+c=;
- b=YMEZ+gm32iwx0IJ8U54KGaXMO1AcwsDDqSUrpGVbA00LcDQeSK319XcgPAxzC1aXLk
- 0OgrQiN+RUJDWb0KRZyJXtfwC1w0DGzcLjb2EJQdNO5IvoWmpEKBopWWMt4ngswGUE1r
- YtrVisRRnOTPPQ8FE+2to8E6BVw4J5icGcORPpP6T3+8TLDkvysWWkbLa2k2wHUH1T1u
- Uok+VudT0FgpmkUn87b1TIkvT0YeG8zlp2+uJOWZRB7o2IdhlA2/rFVqHocnKOAddlWI
- JIRkK0jJnINEs0RBTibFNdOxgzNu4iTGBQicPQh+zSHDHFbz9lBhKhOcnH0S5/QMyiAC
- b+xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=QBB9o1cZ8g3+RFyyMGo7jZrS0UDti7SFSFebEliZB+c=;
- b=P/vXOK2Rd0iwD3qVTxI3fZGcCCumCwAdMclP5THJEVBmj4OqpRCiAl4yfImdsmR9tm
- /xaKssT+wSjgX6trey0IjR1+ev4j/nUjnSSPnCiU3cJMBAqz53yVk4zE+sp2bpquSZqO
- U51Xls2DFy4BZJNYvsSYe4IFB8mFJfuyE3JmvwkI67L+C+/tR8ZnzkHESEgGDXHIrDk0
- nLl4WffK/H+86T1SvWLk0F+Vx/9eh2wX5PCu8JQyz2j/faRp/Ra/p0E08ibOoLiraduS
- 0Fj5vOlz/9EYDutpjxtLSIb5AP+IzKn4oLZ2T3yww79MHm6RUc8j2Ub/62xI4rC4rSUs
- qjCg==
-X-Gm-Message-State: AOAM533kqH3j2LjlGNHhSuhrnxreutez4xae8NDhzD/INJa/lTDCVn+P
- 3U/i7SiVKf5VudDsV14mYQqmuYKwGy6sXslcfjST1IrK
-X-Google-Smtp-Source: ABdhPJxqN5+nJ5pRQByNhQP7e17jnpQoeVfh5alWWX8XxaUd0ZCpgHJh8WXx06COjx/Ssm8r60iZVp+UbhSzwhndwNI=
-X-Received: by 2002:a9d:640b:: with SMTP id h11mr20925612otl.92.1595256847440; 
- Mon, 20 Jul 2020 07:54:07 -0700 (PDT)
+ id 63db1438-ca9a-11ea-849d-bc764e2007e4;
+ Mon, 20 Jul 2020 15:05:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=sXjziw0/SXeIJ1COJ+9Lak3CJRjc5LGSwcGlCIPp4QA=; b=MGBjdM8z9ubDR46+dZlEoTJT0o
+ T1YzcPl3U7gU/J1wfxR6Rqh6czEyWW5lBbdgf9viJXdSYp4sIlikJue70ZbhTIPHrb1xhk/w56XQt
+ lxEYuuZtkKqQhkfVvGKgdJpiGHL/KWgXvFk8rvQCQdska8J+t7i6d2iBdMTJ12L+614w=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jxXLh-0000IZ-55; Mon, 20 Jul 2020 15:05:01 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jxXLg-00024o-UI; Mon, 20 Jul 2020 15:05:01 +0000
+Subject: Re: Proposal: rename xen.git#master (to #trunk, perhaps)
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Ian Jackson <ian.jackson@citrix.com>
+References: <24307.31637.214096.240023@mariner.uk.xensource.com>
+ <alpine.DEB.2.21.2006241033210.8121@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <077b1dfa-bcc5-76bc-47f1-1a2bc207cece@xen.org>
+Date: Mon, 20 Jul 2020 16:04:59 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-From: Alejandro <alejandro.gonzalez.correo@gmail.com>
-Date: Mon, 20 Jul 2020 16:53:56 +0200
-Message-ID: <CA+wirGqXMoRkS-aJmfFLipUv8SdY5LKV1aMrF0yKRJQaMvzs6Q@mail.gmail.com>
-Subject: dom0 LInux 5.8-rc5 kernel failing to initialize cooling maps for
- Allwinner H6 SoC
-To: xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <alpine.DEB.2.21.2006241033210.8121@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,50 +62,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, committers@xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hello all.
+Hi,
 
-I'm new to this community, and firstly I'd like to thank you all for
-your efforts on supporting Xen in ARM devices.
+On 24/06/2020 18:38, Stefano Stabellini wrote:
+> On Wed, 24 Jun 2020, Ian Jackson wrote:
+>> I think it would be a good idea to rename this branch name.  This name
+>> has unfortunate associations[1], even if it can be argued[2] that the
+>> etymology is not as bad as in some uses of the word.
+>>
+>> This is relativity straightforward on a technical level and will
+>> involve a minimum of inconvenience.  Since only osstest ever pushes to
+>> xen.git#master, we could easily make a new branch name and also keep
+>> #master for compatibility as long as we like.
+>>
+>> The effects[1] would be:
+>>
+>> Users who did "git clone https://xenbits.xen.org/git-http/xen.git""
+>> would find themselves on a branch called "trunk" which tracked
+>> "origin/trunk", by default.  (Some users with old versions of git
+>> using old protocols would still end up on "master".)
+>>
+>> Everyone who currently tracks "master" would be able to switch to
+>> tracking "trunk" at their leisure.
+>>
+>> Presumably at some future point (a year or two from now, say) we would
+>> abolish the name "master".
+>>
+>> Comments ?  In particular, comments on:
+>>
+>> 1. What the new branch name should be called.  Suggestions I have seen
+>> include "trunk" and "main".  I suggest "trunk" because this was used
+>> by SVN, CVS, RCS, CSSC (and therefore probably SCCS) for this same
+>> purpose.
+> 
+> Github seems to be about to make a similar change. I wonder if we should
+> wait just a couple of weeks to see what name they are going to choose.
 
-I'm trying Xen 4.13.1 in a Allwinner H6 SoC (more precisely a Pine H64
-model B, with a ARM Cortex-A53 CPU).
-I managed to get a dom0 Linux 5.8-rc5 kernel running fine, unpatched,
-and I'm using the upstream device tree for
-my board. However, the dom0 kernel has trouble when reading some DT
-nodes that are related to the CPUs, and
-it can't initialize the thermal subsystem properly, which is a kind of
-showstopper for me, because I'm concerned
-that letting the CPU run at the maximum frequency without watching out
-its temperature may cause overheating.
-The relevant kernel messages are:
+I have just tried to create a new repo on github. It looks like the 
+default is still 'master' so far.
 
-[  +0.001959] sun50i-cpufreq-nvmem: probe of sun50i-cpufreq-nvmem
-failed with error -2
-...
-[  +0.003053] hw perfevents: failed to parse interrupt-affinity[0] for pmu
-[  +0.000043] hw perfevents: /pmu: failed to register PMU devices!
-[  +0.000037] armv8-pmu: probe of pmu failed with error -22
-...
-[  +0.000163] OF: /thermal-zones/cpu-thermal/cooling-maps/map0: could
-not find phandle
-[  +0.000063] thermal_sys: failed to build thermal zone cpu-thermal: -22
+> 
+> https://www.theregister.com/2020/06/15/github_replaces_master_with_main/
+> 
+> 
+> Of course I don't particulalry care one way or the other, but it would
+> be good if we end up using the same name as everybody else. It is not
+> that we have to choose the name Github is going to choose, but their
+> user base is massive -- whatever they are going to pick is very likely
+> going to stick.
 
-I've searched for issues, code or commits that may be related for this
-issue. The most relevant things I found are:
++1
 
-- A patch that blacklists the A53 PMU:
-https://patchwork.kernel.org/patch/10899881/
-- The handle_node function in xen/arch/arm/domain_build.c:
-https://github.com/xen-project/xen/blob/master/xen/arch/arm/domain_build.c#L1427
+Cheers,
 
-I've thought about removing "/cpus" from the skip_matches array in the
-handle_node function, but I'm not sure
-that would be a good fix.
-
-I'd appreciate any tips for fixing this issue. Don't hesitate to
-contact me back if you need any more information
-about the problem.
+-- 
+Julien Grall
 
