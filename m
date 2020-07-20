@@ -2,55 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15D2F22687C
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 18:21:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D561D226923
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jul 2020 18:27:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxYWz-0000as-7C; Mon, 20 Jul 2020 16:20:45 +0000
+	id 1jxYd9-0000nb-1t; Mon, 20 Jul 2020 16:27:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Eely=A7=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jxYWx-0000an-IJ
- for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 16:20:43 +0000
-X-Inumbo-ID: f54ee9c6-caa4-11ea-84a5-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=WIjz=A7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jxYd7-0000nW-O6
+ for xen-devel@lists.xenproject.org; Mon, 20 Jul 2020 16:27:05 +0000
+X-Inumbo-ID: d8c650fe-caa5-11ea-84a5-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f54ee9c6-caa4-11ea-84a5-bc764e2007e4;
- Mon, 20 Jul 2020 16:20:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Ony7tRUDmnp2M52H4Ead1BQvn2JkncG8N5OVB64bMsY=; b=HOKayEJ1n057vGkk1yfnFbgCPP
- oowFgCkZRD+PT0r4IUz6MpShYfuIRqyLEQpZQWdIiOelj+Wd37Ti1h1VJE0hW6/7+hgxWuVvLJFhl
- UKampjDMDUiXG1MmIByyVn9YMllfQ2QoY2ihshFTcHSm5RDkAe5f2mpTRFVRP6vmTgxg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jxYWv-0002N1-Uk; Mon, 20 Jul 2020 16:20:41 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jxYWv-0005lr-NQ; Mon, 20 Jul 2020 16:20:41 +0000
-Subject: Re: [PATCH 5/8] bitmap: move to/from xenctl_bitmap conversion helpers
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <3375cacd-d3b7-9f06-44a7-4b684b6a77d6@suse.com>
- <5835147f-8428-1d74-7d6e-bbb5522289c7@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <fef25c94-a3ce-c17e-966c-a7e479566fc5@xen.org>
-Date: Mon, 20 Jul 2020 17:20:39 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+ id d8c650fe-caa5-11ea-84a5-bc764e2007e4;
+ Mon, 20 Jul 2020 16:27:04 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 515B8B662;
+ Mon, 20 Jul 2020 16:27:10 +0000 (UTC)
+Subject: Re: [PATCH v3 1/2] x86: restore pv_rtc_handler() invocation
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <5426dd6f-50cd-dc23-5c6b-0ab631d98d38@suse.com>
+ <7dd4b668-06ca-807a-9cc1-77430b2376a8@suse.com>
+ <20200715121347.GY7191@Air-de-Roger>
+ <2b9de0fd-5973-ed66-868c-ffadca83edf3@suse.com>
+ <20200715133217.GZ7191@Air-de-Roger>
+ <cd08f928-2be9-314b-56e6-bb414247caff@suse.com>
+ <20200715145144.GA7191@Air-de-Roger>
+ <ff1926c7-cc21-03ad-1dff-53c703450151@suse.com>
+ <01509d7d-4cf3-7f3f-4aa1-eaa3b1d3b95b@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e15eb2d0-800f-4fbd-6d58-8bceb408593f@suse.com>
+Date: Mon, 20 Jul 2020 18:27:02 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <5835147f-8428-1d74-7d6e-bbb5522289c7@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <01509d7d-4cf3-7f3f-4aa1-eaa3b1d3b95b@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -62,36 +53,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Ian Jackson <ian.jackson@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
-
-On 15/07/2020 11:40, Jan Beulich wrote:
-> A subsequent change will exclude domctl.c from getting built for a
-> particular configuration, yet the two functions get used from elsewhere.
+On 20.07.2020 17:28, Andrew Cooper wrote:
+> On 16/07/2020 11:06, Jan Beulich wrote:
+>> ACCESS_ONCE() guarantees single access, but doesn't guarantee that
+>> the compiler wouldn't split this single access into multiple insns.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ACCESS_ONCE() does guarantee single accesses for any natural integer size.
 > 
-> --- a/xen/common/bitmap.c
-> +++ b/xen/common/bitmap.c
-> @@ -9,6 +9,9 @@
->   #include <xen/errno.h>
->   #include <xen/bitmap.h>
->   #include <xen/bitops.h>
-> +#include <xen/cpumask.h>
-> +#include <xen/domain.h>
+> There is a section about this specifically in Linux's
+> memory-barriers.txt, and this isn't the first time I've pointed it out...
 
-The inclusion of xen/domain.h in common/bitmap.c seems a bit odd to me. 
-Would it make sense to move the prototype of 
-bitmap_to_xenctl_bitmap()/xenctl_bitmap_to_bitmap() to bitmap.h?
+There indeed is text stating this, but I can't find any word on
+why they believe this is the case. My understanding of volatile
+is that it guarantees no more (and also no less) accesses to
+any single storage location than indicated by the source. But
+it doesn't prevent "tearing" of accesses. And really, how could
+it, considering that volatile can also be applied to types that
+aren't basic ones, and hence in particular to ones that can't
+possibly be accessed by a single insn?
 
-Cheers,
+I'd be glad to see you point out the aspect I'm missing here.
 
--- 
-Julien Grall
+Jan
 
