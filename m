@@ -2,76 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B19682280BD
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 15:15:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BE7F2280D4
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 15:22:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxs6J-00051l-Fm; Tue, 21 Jul 2020 13:14:31 +0000
+	id 1jxsE6-0005tH-Fr; Tue, 21 Jul 2020 13:22:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JDR4=BA=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jxs6H-00051g-AZ
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 13:14:29 +0000
-X-Inumbo-ID: 1aa4952c-cb54-11ea-8510-bc764e2007e4
-Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8Oq7=BA=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jxsE4-0005tC-PH
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 13:22:32 +0000
+X-Inumbo-ID: 3b582cba-cb55-11ea-8515-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1aa4952c-cb54-11ea-8510-bc764e2007e4;
- Tue, 21 Jul 2020 13:14:27 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id b6so21141522wrs.11
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 06:14:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=Oe3hdXJ/7JYTMaU8YwiS32I4gQHoup1kwePMxKDuzqc=;
- b=gSQeeNWxkmrCIaXDf8RlIdEkg3RuheSVYJGZvZUUOcE9V9+ng6of0buRkiKBjxdHT1
- q9FtejgTgeL/ogpC+YbS16YnhAEbJAz0ZhZ4ZSu1E89ovlbD2xC6IJwHtoOZ/BPT89rX
- PO+KQs6tjFFnrJR9vUUCleIjsiEjHp44l2lvQQZ3OK49JS/G/nIOOsxtpB5YuzX34njd
- 8HahN/i3+DiUNm927YfGaQjwn98aRPAhBkcf8ZIUtokp7O+7tTR3DT72SivcTWpPKlHK
- VzuipiWHkfSYC+LXu8LnnDw9nlqCX7sds1+zeprbp/yJcj31uK8zxrjxW72hsMmbvaSm
- 5rVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :thread-index:content-language;
- bh=Oe3hdXJ/7JYTMaU8YwiS32I4gQHoup1kwePMxKDuzqc=;
- b=dV5PEHbjHfkTiEO8oSFsCSIFH6EE/R1r77P1hRam1nJxRWJaJO3jWMXxUDHB7hJN1z
- Qwm7Dgh2MnbAVXwGZUhRzmtu9+5IuVsSqV3OPpR4DmZ0svD3RERCMWg5Dyb4ivEzhoea
- AEfaJyu3NZT9m2kZvqXlu6d2FP8+vGgnKKEg/o1Qso82wNqUJJPTD7WC3yZkVTq6Fipo
- RNEwUC0aGDXQyeaYFVjHqkd3bWyUgJbcIh1I7FMNsj9SQ1QEXo8rlGf77izkKhv9Jwh3
- GmUoC1B1TxIZYT4w9jydjKAyJYu0ufcKAJZhzNxa5rjR5UjUkTuJBR+1wwVfIJ4YjJrb
- I5lg==
-X-Gm-Message-State: AOAM531e7gI+0TJ1UGbYhKfSVUx9kTS+ftp6vtnSs5cGLJeaSeF08ixr
- mBS6nIboDSmTRsbsi13smsY=
-X-Google-Smtp-Source: ABdhPJyxLQ+dyHO3WYqONEWDuQLNHOB4CU/sS93NdZMDlnMqbXntGQWDyVCkJsuLp4W04LU4WabMqg==
-X-Received: by 2002:adf:f3cb:: with SMTP id g11mr9131227wrp.268.1595337266926; 
- Tue, 21 Jul 2020 06:14:26 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-233.amazon.com. [54.240.197.233])
- by smtp.gmail.com with ESMTPSA id l15sm36325555wro.33.2020.07.21.06.14.25
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 21 Jul 2020 06:14:25 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
-References: <20200701090210.GN735@Air-de-Roger>
- <f89a158a-416e-1939-597a-075ff97f2b02@suse.com>
- <af13fa01-db36-784d-dfaf-b9905defc7fd@citrix.com>
- <007a01d65363$9ab7c1d0$d0274570$@xen.org> <20200706083131.GA735@Air-de-Roger>
- <007c01d65373$ad3c4140$07b4c3c0$@xen.org>
- <20200721115327.GO7191@Air-de-Roger>
-In-Reply-To: <20200721115327.GO7191@Air-de-Roger>
-Subject: RE: vPT rework (and timer mode)
-Date: Tue, 21 Jul 2020 14:14:24 +0100
-Message-ID: <004801d65f60$db70f300$9252d900$@xen.org>
+ id 3b582cba-cb55-11ea-8515-bc764e2007e4;
+ Tue, 21 Jul 2020 13:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=J42ay2v2PlHuRzncOzUEnEmIxuRBBDaDZG2DhQxBNDM=; b=wS2jJ5E9CauENOggMRU8UwFAw3
+ BlZT+C6W1sAI3g+c8m2LqqlMpXoIHfHnOK3J/IUXBL+ej9lI1JNBik6uz71JVALjYrfAw+QHjNcA/
+ bwChoPEj/8mQbD4GPpCRoZF/x1lres2XBeyH4BAmKKF1kXffz8FzXxjg01BbRik/hT/o=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jxsE2-0006tn-V2; Tue, 21 Jul 2020 13:22:30 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jxsE2-0001Cc-Mu; Tue, 21 Jul 2020 13:22:30 +0000
+Subject: Re: Virtio in Xen on Arm (based on IOREQ concept)
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr <olekstysh@gmail.com>
+References: <CAPD2p-nthLq5NaU32u8pVaa-ub=a9-LOPenupntTYdS-cu31jQ@mail.gmail.com>
+ <20200717150039.GV7191@Air-de-Roger>
+ <8f4e0c0d-b3d4-9dd3-ce20-639539321968@gmail.com>
+ <alpine.DEB.2.21.2007201326060.32544@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <56e512af-993b-1364-be56-fc4be5d88519@xen.org>
+Date: Tue, 21 Jul 2020 14:22:28 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQG+XT3UL7mtyhdM6X8x294LjZ1FmQGlQU2IApzoD8QCa8XKyQFu21K2ALaG9p4BeJJRUajvp4nQ
-Content-Language: en-gb
+In-Reply-To: <alpine.DEB.2.21.2007201326060.32544@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,152 +64,101 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Igor Druzhinin' <igor.druzhinin@citrix.com>, 'Wei Liu' <wl@xen.org>,
- 'Jan Beulich' <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ Andre Przywara <andre.przywara@arm.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ alex.bennee@linaro.org, Artem Mygaiev <joculator@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> Sent: 21 July 2020 12:53
-> To: paul@xen.org
-> Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'Jan Beulich' =
-<jbeulich@suse.com>; xen-
-> devel@lists.xenproject.org; 'Wei Liu' <wl@xen.org>; Igor Druzhinin =
-<igor.druzhinin@citrix.com>
-> Subject: Re: vPT rework (and timer mode)
->=20
-> On Mon, Jul 06, 2020 at 09:58:53AM +0100, Paul Durrant wrote:
-> > > -----Original Message-----
-> > > From: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> > > Sent: 06 July 2020 09:32
-> > > To: paul@xen.org
-> > > Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'Jan Beulich' =
-<jbeulich@suse.com>; xen-
-> > > devel@lists.xenproject.org; 'Wei Liu' <wl@xen.org>
-> > > Subject: Re: vPT rework (and timer mode)
-> > >
-> > > On Mon, Jul 06, 2020 at 08:03:50AM +0100, Paul Durrant wrote:
-> > > > > -----Original Message-----
-> > > > > From: Andrew Cooper <andrew.cooper3@citrix.com>
-> > > > > Sent: 03 July 2020 16:03
-> > > > > To: Jan Beulich <jbeulich@suse.com>; Roger Pau Monn=C3=A9 =
-<roger.pau@citrix.com>
-> > > > > Cc: xen-devel@lists.xenproject.org; Wei Liu <wl@xen.org>; Paul =
-Durrant <paul@xen.org>
-> > > > > Subject: Re: vPT rework (and timer mode)
-> > > > >
-> > > > > On 03/07/2020 15:50, Jan Beulich wrote:
-> > > > > > On 01.07.2020 11:02, Roger Pau Monn=C3=A9 wrote:
-> > > > > >> It's my understanding that the purpose of pt_update_irq and
-> > > > > >> pt_intr_post is to attempt to implement the "delay for =
-missed ticks"
-> > > > > >> mode, where Xen will accumulate timer interrupts if they =
-cannot be
-> > > > > >> injected. As shown by the patch above, this is all broken =
-when the
-> > > > > >> timer is added to a vCPU (pt->vcpu) different than the =
-actual target
-> > > > > >> vCPU where the interrupt gets delivered (note this can also =
-be a list
-> > > > > >> of vCPUs if routed from the IO-APIC using Fixed mode).
-> > > > > >>
-> > > > > >> I'm at lost at how to fix this so that virtual timers work =
-properly
-> > > > > >> and we also keep the "delay for missed ticks" mode without =
-doing a
-> > > > > >> massive rework and somehow keeping track of where injected =
-interrupts
-> > > > > >> originated, which seems an overly complicated solution.
-> > > > > >>
-> > > > > >> My proposal hence would be to completely remove the =
-timer_mode, and
-> > > > > >> just treat virtual timer interrupts as other interrupts, =
-ie: they will
-> > > > > >> be injected from the callback (pt_timer_fn) and the vCPU(s) =
-would be
-> > > > > >> kicked. Whether interrupts would get lost (ie: injected =
-when a
-> > > > > >> previous one is still pending) depends on the contention on =
-the
-> > > > > >> system. I'm not aware of any current OS that uses timer =
-interrupts as
-> > > > > >> a way to track time. I think current OSes know the =
-differences between
-> > > > > >> a timer counter and an event timer, and will use them =
-appropriately.
-> > > > > > Fundamentally - why not, the more that this promises to be a
-> > > > > > simplification. The question we need to answer up front is =
-whether
-> > > > > > we're happy to possibly break old OSes (presumably ones =
-no-one
-> > > > > > ought to be using anymore these days, due to their support =
-life
-> > > > > > cycles long having ended).
-> > > > >
-> > > > > The various timer modes were all compatibility, and IIRC, =
-mostly for
-> > > > > Windows XP and older which told time by counting the number of =
-timer
-> > > > > interrupts.
-> > > > >
-> > > > > Paul - you might remember better than me?
-> > > >
-> > > > I think it is only quite recently that Windows has started =
-favouring enlightened time sources
-> rather
-> > > than counting ticks but an admin may still turn all the viridian =
-enlightenments off so just
-> dropping
-> > > ticks will probably still cause time to drift backwards.
-> > >
-> > > Even when not using the viridian enlightenments, Windows should =
-rely
-> > > on emulated time counters (or the TSC) rather than counting ticks?
-> >
-> > Microsoft implementations... sensible... two different things.
-> >
-> > >
-> > > I guess I could give it a try with one of the emulated Windows =
-versions
-> > > that we test on osstest.
-> > >
-> >
-> > Pick an old-ish version. I think osstest has copy of Windows 7.
->=20
-> Tried on Windows 7 (with viridian disabled) setting
-> timer_mode=3D"one_missed_tick_pending" and limiting the capacity of =
-the
-> domain to 1 (1% CPU utilization) in order to start missing ticks, and
-> the clock does indeed start lagging behind.
->=20
-> When not using one_missed_tick_pending mode and limiting the capacity
-> to 1 the clock also lags a bit (I guess with 1% CPU utilization
-> delayed ticks accumulate too much), but the clock doesn't seem to be
-> skewed that much.
->=20
-> Both modes will catch up at some point, I assume Windows does sync =
-time
-> periodically with the wallclock, but I don't think we want to resort
-> to that.
->=20
+(+ Andree for the vGIC).
 
-IIRC it normally syncs once an hour or thereabouts. PV drivers will =
-force a re-sync every 10 mins if they are installed.
+Hi Stefano,
 
-> I will draft a plan about how to proceed in order to fix the emulated
-> timers event delivery while keeping the accumulated ticks mode and
-> send it to the list, as I would like to fix this.
+On 20/07/2020 21:38, Stefano Stabellini wrote:
+> On Fri, 17 Jul 2020, Oleksandr wrote:
+>>>> *A few word about solution:*
+>>>> As it was mentioned at [1], in order to implement virtio-mmio Xen on Arm
+>>> Any plans for virtio-pci? Arm seems to be moving to the PCI bus, and
+>>> it would be very interesting from a x86 PoV, as I don't think
+>>> virtio-mmio is something that you can easily use on x86 (or even use
+>>> at all).
+>>
+>> Being honest I didn't consider virtio-pci so far. Julien's PoC (we are based
+>> on) provides support for the virtio-mmio transport
+>>
+>> which is enough to start working around VirtIO and is not as complex as
+>> virtio-pci. But it doesn't mean there is no way for virtio-pci in Xen.
+>>
+>> I think, this could be added in next steps. But the nearest target is
+>> virtio-mmio approach (of course if the community agrees on that).
 
-Ok.
+> Aside from complexity and easy-of-development, are there any other
+> architectural reasons for using virtio-mmio?
+
+ From the hypervisor PoV, the main/only difference between virtio-mmio 
+and virtio-pci is that in the latter we need to forward PCI config space 
+access to the device emulator. IOW, we would need to add support for 
+vPCI. This shouldn't require much more work, but I didn't want to invest 
+on it for PoC.
+
+Long term, I don't think we should tie Xen to any of the virtio 
+protocol. We just need to offer facilities so users can be build easily 
+virtio backend for Xen.
+
+> 
+> I am not asking because I intend to suggest to do something different
+> (virtio-mmio is fine as far as I can tell.) I am asking because recently
+> there was a virtio-pci/virtio-mmio discussion recently in Linaro and I
+> would like to understand if there are any implications from a Xen point
+> of view that I don't yet know.
+
+virtio-mmio is going to require more work in the toolstack because we 
+would need to do the memory/interrupts allocation ourself. In the case 
+of virtio-pci, we only need to pass a range of memory/interrupts to the 
+guest and let him decide the allocation.
+
+Regarding virtio-pci vs virtio-mmio:
+      - flexibility: virtio-mmio is a good fit when you know all your 
+devices at boot. If you want to hotplug disk/network, then virtio-pci is 
+going to be a better fit.
+      - interrupts: I would expect each virtio-mmio device to have its 
+own SPI interrupts. In the case of virtio-pci, then legacy interrupts 
+would be shared between all the PCI devices on the same host controller. 
+This could possibly lead to performance issue if you have many devices. 
+So for virtio-pci, we should consider MSIs.
+
+> 
+> For instance, what's your take on notifications with virtio-mmio? How
+> are they modelled today?
+
+The backend will notify the frontend using an SPI. The other way around 
+(frontend -> backend) is based on an MMIO write.
+
+We have an interface to allow the backend to control whether the 
+interrupt level (i.e. low, high). However, the "old" vGIC doesn't handle 
+properly level interrupts. So we would end up to treat level interrupts 
+as edge.
+
+Technically, the problem is already existing with HW interrupts, but the 
+HW should fire it again if the interrupt line is still asserted. Another 
+issue is the interrupt may fire even if the interrupt line was 
+deasserted (IIRC this caused some interesting problem with the Arch timer).
+
+I am a bit concerned that the issue will be more proeminent for virtual 
+interrupts. I know that we have some gross hack in the vpl011 to handle 
+a level interrupts. So maybe it is time to switch to the new vGIC?
+
+> Are they good enough or do we need MSIs?
+
+I am not sure whether virtio-mmio supports MSIs. However for virtio-pci, 
+MSIs is going to be useful to improve performance. This may mean to 
+expose an ITS, so we would need to add support for guest.
 
 Cheers,
 
-  Paul
-
->=20
-> Roger.
-
+-- 
+Julien Grall
 
