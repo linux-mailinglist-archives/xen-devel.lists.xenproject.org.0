@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E263C228874
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BC48228871
 	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 20:42:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxxDv-00024h-25; Tue, 21 Jul 2020 18:42:43 +0000
+	id 1jxxDz-00026f-Dn; Tue, 21 Jul 2020 18:42:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8efX=BA=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jxxDt-0001xV-Mo
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 18:42:41 +0000
-X-Inumbo-ID: e7f1f12a-cb81-11ea-85a2-bc764e2007e4
+ id 1jxxDy-0001xV-N5
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 18:42:46 +0000
+X-Inumbo-ID: e926bf38-cb81-11ea-85a2-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7f1f12a-cb81-11ea-85a2-bc764e2007e4;
+ id e926bf38-cb81-11ea-85a2-bc764e2007e4;
  Tue, 21 Jul 2020 18:42:21 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jxxDY-0001u7-F0; Tue, 21 Jul 2020 19:42:20 +0100
+ id 1jxxDY-0001u7-Nz; Tue, 21 Jul 2020 19:42:20 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 05/14] sg-report-flight: Use WITH to use best index
- use for $flightsq
-Date: Tue, 21 Jul 2020 19:41:56 +0100
-Message-Id: <20200721184205.15232-6-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 06/14] sg-report-flight: Use WITH clause to use index
+ for $anypassq
+Date: Tue, 21 Jul 2020 19:41:57 +0100
+Message-Id: <20200721184205.15232-7-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
 References: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
@@ -48,181 +48,91 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-While we're here, convert this EXISTS subquery to a JOIN.
-
-Perf: runtime of my test case now ~200-300s.
+Perf: runtime of my test case now ~11s
 
 Example query before (from the Perl DBI trace):
 
-      SELECT * FROM (
-        SELECT DISTINCT flight, blessing
-             FROM flights
-             JOIN runvars r1 USING (flight)
-
+        SELECT * FROM flights JOIN steps USING (flight)
             WHERE (branch='xen-unstable')
+              AND job=? and testid=? and status='pass'
               AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
-                  AND EXISTS (SELECT 1
-                            FROM jobs
-                           WHERE jobs.flight = flights.flight
-                             AND jobs.job = ?)
-
-              AND r1.name LIKE 'built_revision_%'
-              AND r1.name = ?
-              AND r1.val= ?
-
-            ORDER BY flight DESC
-            LIMIT 1000
-      ) AS sub
-      ORDER BY blessing ASC, flight DESC
-
-With bind variables:
-
-     "test-armhf-armhf-libvirt"
-     'built_revision_xen'
-     '165f3afbfc3db70fcfdccad07085cde0a03c858b'
+            LIMIT 1
 
 After:
 
-      WITH sub AS (
-        SELECT DISTINCT flight, blessing
-             FROM flights
-             JOIN runvars r1 USING (flight)
-
+        WITH s AS
+        (
+        SELECT * FROM steps
+         WHERE job=? and testid=? and status='pass'
+        )
+        SELECT * FROM flights JOIN s USING (flight)
             WHERE (branch='xen-unstable')
               AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
-              AND r1.name LIKE 'built_revision_%'
-              AND r1.name = ?
-              AND r1.val= ?
+            LIMIT 1
 
-            ORDER BY flight DESC
-            LIMIT 1000
-      )
-      SELECT *
-        FROM sub
-        JOIN jobs USING (flight)
+In both cases with bind vars:
 
-       WHERE (1=1)
-                  AND jobs.job = ?
-
-      ORDER BY blessing ASC, flight DESC
-
-With bind variables:
-
-    'built_revision_xen'
-    '165f3afbfc3db70fcfdccad07085cde0a03c858b'
-    "test-armhf-armhf-libvirt"
+   "test-amd64-i386-xl-pvshim"
+   "guest-start"
 
 Diff to the query:
 
--      SELECT * FROM (
-+      WITH sub AS (
-         SELECT DISTINCT flight, blessing
-              FROM flights
-              JOIN runvars r1 USING (flight)
-
+-        SELECT * FROM flights JOIN steps USING (flight)
++        WITH s AS
++        (
++        SELECT * FROM steps
++         WHERE job=? and testid=? and status='pass'
++        )
++        SELECT * FROM flights JOIN s USING (flight)
              WHERE (branch='xen-unstable')
+-              AND job=? and testid=? and status='pass'
                AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
--                  AND EXISTS (SELECT 1
--                            FROM jobs
--                           WHERE jobs.flight = flights.flight
--                             AND jobs.job = ?)
--
-               AND r1.name LIKE 'built_revision_%'
-               AND r1.name = ?
-               AND r1.val= ?
-
-             ORDER BY flight DESC
-             LIMIT 1000
--      ) AS sub
-+      )
-+      SELECT *
-+        FROM sub
-+        JOIN jobs USING (flight)
-+
-+       WHERE (1=1)
-+                  AND jobs.job = ?
-+
-       ORDER BY blessing ASC, flight DESC
+             LIMIT 1
 
 CC: George Dunlap <George.Dunlap@citrix.com>
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-flight | 39 ++++++++++++++++++++++++---------------
- 1 file changed, 24 insertions(+), 15 deletions(-)
+ schema/steps-job-index.sql |  2 +-
+ sg-report-flight           | 14 ++++++++++++--
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
+diff --git a/schema/steps-job-index.sql b/schema/steps-job-index.sql
+index 07dc5a30..2c33af72 100644
+--- a/schema/steps-job-index.sql
++++ b/schema/steps-job-index.sql
+@@ -1,4 +1,4 @@
+--- ##OSSTEST## 006 Preparatory
++-- ##OSSTEST## 006 Needed
+ --
+ -- This index helps sg-report-flight find if a test ever passed.
+ 
 diff --git a/sg-report-flight b/sg-report-flight
-index 61aec7a8..b5398573 100755
+index b5398573..b8d948da 100755
 --- a/sg-report-flight
 +++ b/sg-report-flight
-@@ -180,18 +180,6 @@ END
-         return undef;
-     }
+@@ -849,10 +849,20 @@ sub justifyfailures ($;$) {
  
--    my @flightsq_params;
--    my $flightsq_jobcond='(1=1)';
--    if (defined $job) {
--	push @flightsq_params, $job;
--	$flightsq_jobcond = <<END;
--                  AND EXISTS (SELECT 1
--			    FROM jobs
--			   WHERE jobs.flight = flights.flight
--			     AND jobs.job = ?)
--END
--    }
--
-     # We build a slightly complicated query to find possibly-relevant
-     # flights.  A "possibly-relevant" flight is one which the main
-     # flight categorisation algorithm below (the loop over $tflight)
-@@ -220,6 +208,7 @@ END
-     # still execute the full job-specific recursive examination, for
-     # each possibly-relevant flight - that's the $tflight loop body.
+     my @failures= values %{ $fi->{Failures} };
  
-+    my @flightsq_params;
-     my $runvars_joins = '';
-     my $runvars_conds = '';
-     my $ri=0;
-@@ -247,18 +236,38 @@ END
-       }
-     }
- 
-+    my $flightsq_jobs_join = '';
-+    my $flightsq_jobcond = '';
-+    if (defined $job) {
-+	push @flightsq_params, $job;
-+	$flightsq_jobs_join = <<END;
-+        JOIN jobs USING (flight)
-+END
-+	$flightsq_jobcond = <<END;
-+                  AND jobs.job = ?
-+END
-+    }
-+
-+    # In psql 9.6 this WITH clause makes postgresql do the flights
-+    # query first.  This is good because our built revision index finds
-+    # relevant flights very quickly.  Without this, postgresql seems
-+    # to like to scan the jobs table.
-     my $flightsq= <<END;
--      SELECT * FROM (
-+      WITH sub AS (
-         SELECT DISTINCT flight, blessing
-              FROM flights
- $runvars_joins
++    # In psql 9.6 this WITH clause makes postgresql do the steps query
++    # first.  This is good because if this test never passed we can
++    # determine that really quickly using the new index, without
++    # having to scan the flights table.  (If the test passed we will
++    # probably not have to look at many flights to find one, so in
++    # that case this is not much worse.)
+     my $anypassq= <<END;
+-        SELECT * FROM flights JOIN steps USING (flight)
++        WITH s AS
++        (
++        SELECT * FROM steps
++         WHERE job=? and testid=? and status='pass'
++        )
++        SELECT * FROM flights JOIN s USING (flight)
              WHERE $branches_cond_q
+-              AND job=? and testid=? and status='pass'
                AND $blessingscond
--$flightsq_jobcond
- $runvars_conds
-             ORDER BY flight DESC
-             LIMIT 1000
--      ) AS sub
-+      )
-+      SELECT *
-+        FROM sub
-+$flightsq_jobs_join
-+       WHERE (1=1)
-+$flightsq_jobcond
-       ORDER BY blessing ASC, flight DESC
+             LIMIT 1
  END
-     $flightsq= db_prepare($flightsq);
 -- 
 2.20.1
 
