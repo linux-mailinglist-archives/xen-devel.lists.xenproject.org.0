@@ -2,43 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FE56227FE4
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 14:25:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F91C227FEA
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 14:27:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxrKK-0008Pj-Sd; Tue, 21 Jul 2020 12:24:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d7zm=BA=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jxrKI-0008Pd-Vg
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 12:24:55 +0000
-X-Inumbo-ID: 2da11378-cb4d-11ea-a0ac-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2da11378-cb4d-11ea-a0ac-12813bfff9fa;
- Tue, 21 Jul 2020 12:24:53 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 22E6BB947;
- Tue, 21 Jul 2020 12:24:59 +0000 (UTC)
-Subject: Re: [PATCH v2] mini-os: don't hard-wire xen internal paths
-To: Wei Liu <wl@xen.org>, Samuel Thibault <samuel.thibault@ens-lyon.org>,
- minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-References: <20200713084230.18177-1-jgross@suse.com>
- <20200718181827.7jrs5ilutt3jzp4i@function>
- <20200721122122.ypuumlnwn4djwevw@liuwe-devbox-debian-v2>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <3f8f2da2-552c-c651-5744-dfa01bd9821c@suse.com>
-Date: Tue, 21 Jul 2020 14:24:51 +0200
+	id 1jxrLz-00005o-AF; Tue, 21 Jul 2020 12:26:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bQ5W=BA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jxrLx-00005i-K6
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 12:26:37 +0000
+X-Inumbo-ID: 6b6e5238-cb4d-11ea-850b-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6b6e5238-cb4d-11ea-850b-bc764e2007e4;
+ Tue, 21 Jul 2020 12:26:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595334396;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=+bTnkqjqrHPNyCrpDXVqs8mLvK7TcjZqSh+/Vw4wTqA=;
+ b=XJPKZebmX9juLlohGLWNRVB2K0gO7OeQykHacLyds0Fl5+CJP/CeWnvq
+ I1WbXkhRoXBaHdj1I0XIVXTxPWHon8Ggg7IOCCZW2nrOFWEBdPJelq5EA
+ RWQR7auoyb2cmU3IXaxJnogr8oZK1FPfrJdYDToF9yW1kUkRuHvTB/WCs k=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: j4o6ulCCUFkkjEKHlstF7yy7CzgW0jl0cxriiYjKjK7oj52QcFB1qgv9nW/ABvuml/d3fr16OI
+ BhyCn0f18lldNLoyskFBr072jEA2mFaGiykhobLnRVXBWaRXNtzETIZIUafmsWf1ECNq3L6hYX
+ 9jq7o51ZrfvcfynwXnSbM4+lZ1UPlQHe1rCJ6aHzDfknaAwf2vf0vS9MkGjSk1k6M1dFze0sML
+ mYD9P8IwECnvEaEW46Mq2YTVbWEbcDWrQsPV/IjI5d1HVvOFCL5SHHyc8PaGvG1ES4m/apFsga
+ Itw=
+X-SBRS: 2.7
+X-MesageID: 23162858
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,378,1589256000"; d="scan'208";a="23162858"
+Subject: Re: [PATCH] tools/xen-cpuid: use dashes consistently in feature names
+To: Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>
+References: <2bd92eaf-a29d-3fbf-e505-af118937cdda@suse.com>
+ <20200721121600.vdglmcv3m74qfnhw@liuwe-devbox-debian-v2>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <1c9369f4-1e89-ce44-dd39-94548b134ad0@citrix.com>
+Date: Tue, 21 Jul 2020 13:26:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200721122122.ypuumlnwn4djwevw@liuwe-devbox-debian-v2>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+In-Reply-To: <20200721121600.vdglmcv3m74qfnhw@liuwe-devbox-debian-v2>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,28 +65,18 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21.07.20 14:21, Wei Liu wrote:
-> On Sat, Jul 18, 2020 at 08:18:27PM +0200, Samuel Thibault wrote:
->> Juergen Gross, le lun. 13 juil. 2020 10:42:30 +0200, a ecrit:
->>> Mini-OS shouldn't use Xen internal paths for building. Import the
->>> needed paths from Xen and fall back to the current values only if
->>> the import was not possible.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
+On 21/07/2020 13:16, Wei Liu wrote:
+> On Tue, Jul 21, 2020 at 02:04:59PM +0200, Jan Beulich wrote:
+>> We've grown to a mix of dashes and underscores - switch to consistent
+>> naming in the hope that future additions will play by this.
 >>
->> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-> 
-> Unfortunately this doesn't apply to staging.
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Acked-by: Wei Liu <wl@xen.org>
 
-Since when does mini-os.git have a staging branch?
-
-> Juergen, can you rebase?
-
-To what?
-
-
-Juergen
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
