@@ -2,64 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54006229151
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 08:52:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64AE122926F
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 09:43:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jy8bz-00081f-MB; Wed, 22 Jul 2020 06:52:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oDH3=BB=canonical.com=andrea.righi@srs-us1.protection.inumbo.net>)
- id 1jy8by-00081a-8s
- for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 06:52:18 +0000
-X-Inumbo-ID: e17134c4-cbe7-11ea-a183-12813bfff9fa
-Received: from youngberry.canonical.com (unknown [91.189.89.112])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e17134c4-cbe7-11ea-a183-12813bfff9fa;
- Wed, 22 Jul 2020 06:52:17 +0000 (UTC)
-Received: from mail-wr1-f70.google.com ([209.85.221.70])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <andrea.righi@canonical.com>) id 1jy8bw-0005y6-F8
- for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 06:52:16 +0000
-Received: by mail-wr1-f70.google.com with SMTP id z1so240511wrn.18
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 23:52:16 -0700 (PDT)
+	id 1jy9ON-0003ng-NF; Wed, 22 Jul 2020 07:42:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=G4i8=BA=vmm.dev=o8@srs-us1.protection.inumbo.net>)
+ id 1jxut4-0005hS-B8
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 16:13:02 +0000
+X-Inumbo-ID: 0cac372c-cb6d-11ea-856d-bc764e2007e4
+Received: from mail-pl1-x641.google.com (unknown [2607:f8b0:4864:20::641])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0cac372c-cb6d-11ea-856d-bc764e2007e4;
+ Tue, 21 Jul 2020 16:13:01 +0000 (UTC)
+Received: by mail-pl1-x641.google.com with SMTP id l6so10454565plt.7
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 09:13:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmm.dev; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wDitsdDHDoETDTxDKluPrWhU2D8DE6u8BnPSmRmrGh4=;
+ b=fy7L/4Re2TIFmm12k2i3bXju6ZZlkbEA1354CbMIGv3i6xktgqXThaI1n9+yLvVeEO
+ C6XotX0xy43lCHKadVKvJu6as164ENvY1aZYC+Yyk6hrIbMWtMK5qbbY/oAzlC1QJc/Q
+ 8TrLwbEZwu3d5Il0QNTGzHqDr1Wi7ruxTjCJbyOBHnxKClmMl1qVy2GQASFp3s9u8YP4
+ VSo4vbTiSmKkp48DBE9pCIvmYDvC2JPmk5mrF9XSkbyYnR9veMcyfz8PlL4ZXKXSqov7
+ yfHhV8BL0GsYeU64KxJy8smQviZ1pKkO7sM+BGXTVcqsJVnmyRO6wSLGb235TJ1J3hxc
+ UCEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition;
- bh=uhBXqoms6Y2BJ+DRWgv1UXrLfuoV1AP2/YI2uOM0BIc=;
- b=VKuZA0gLSArZIZzP65NX/w+lRZXLiqbqUeLxvLOCQDaCsBoQNLjmwjEWDVk2gjatcG
- 055x5H0Kj4+ERMlm+KInqvSZvTUSrxwyE6UhON9MaDugEHAVhyvLMXmepX2yTsZGxA3n
- U9yJufnHOw81xq40AFH+svD9gGgBB27SU/5vSjnJMB2WSzMO8Q0zASq5vv8cJ47TBIuR
- TygCY+zlGvhfpIov1eFmUojAj8hKdHB3Yzm4ge5iToxvaydpFgKz1Esh1rmrJ+QMN+kj
- Cc1AxqiyeVcWY5C9jdBR/4njZrJYtZZIYPSugpvCC/iI0FUXwZR3auWNYdmOBdwIjsGo
- xdGg==
-X-Gm-Message-State: AOAM532SHylvegz0dr1zLXEpE2wJSq8VmlSNQWFLhehuAVxj5ja8Q18m
- 39bN/SzkkzhIBzfEKvMC60cVnhaHbAz4cAK59xmPZDzwMpZyOSvqRxyjI0GIZ25GVR7OswUQREw
- ijsOJqq9v96xn1Hasc9wNQ+SZMUqtmBLo0NlK7bk6SNye
-X-Received: by 2002:a7b:c05a:: with SMTP id u26mr1897720wmc.73.1595400733676; 
- Tue, 21 Jul 2020 23:52:13 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyhC1gnk9TlQyUIEJ3tOszObyW4FaQs/e6/6fGBY61IX5lMt1lAPzd6jSpjxL2aHTCAHJKvaQ==
-X-Received: by 2002:a7b:c05a:: with SMTP id u26mr1897700wmc.73.1595400733297; 
- Tue, 21 Jul 2020 23:52:13 -0700 (PDT)
-Received: from localhost (host-87-11-131-192.retail.telecomitalia.it.
- [87.11.131.192])
- by smtp.gmail.com with ESMTPSA id g70sm2426599wmg.24.2020.07.21.23.52.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2020 23:52:12 -0700 (PDT)
-Date: Wed, 22 Jul 2020 08:52:11 +0200
-From: Andrea Righi <andrea.righi@canonical.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] xen-netfront: fix potential deadlock in xennet_remove()
-Message-ID: <20200722065211.GA841369@xps-13>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wDitsdDHDoETDTxDKluPrWhU2D8DE6u8BnPSmRmrGh4=;
+ b=mgAoC4zhQtSLjy6vq3PzpF4LEO7OHGbCH4dHDffbiBlRKB9U6/WCuESxKDtcz6axVX
+ b2C9twM0aN/sdrF/qGANdX/5Myoo9S8cCN7XyvunGMcLLONdcP/QUaEk6pcJSP39P4Vd
+ tQ6qgM23kUdS0iu0qdFqRjtzamg7VnoaS+t9HUZ+yOoaPOAtP8iQkqU0iazzKNLQ9YST
+ lBW/cRyhAaxvQ9/bgOqjsqp3JUTPht8Z8hHlQTBOlafrff0pJNoP6MELRm+VpGDhNj0N
+ 5+RsdSj5BeE1vrepo8fvuJkjhi+j/vU6jQHQdS9WxYUvTfczcoG445Gt+CEfijoJmm7X
+ gVjw==
+X-Gm-Message-State: AOAM530y+GIBAsdjEsDQmBJso0/6e16hnk1G0xFbTq/MH06OO3Os8vgE
+ eLw3RP+Fu9TbuxtzlfARG1qagw==
+X-Google-Smtp-Source: ABdhPJz/4Rls+u9+PMZSs3OFi3HIkImvb038W2RxX4ZvHHXgVr6fOs32UJtvHWbBcLF6bDLtkM4tvg==
+X-Received: by 2002:a17:902:8ecb:: with SMTP id
+ x11mr17341190plo.123.1595347980879; 
+ Tue, 21 Jul 2020 09:13:00 -0700 (PDT)
+Received: from ip-172-31-28-103.ap-northeast-1.compute.internal
+ (ec2-18-183-109-148.ap-northeast-1.compute.amazonaws.com. [18.183.109.148])
+ by smtp.gmail.com with ESMTPSA id y80sm20467763pfb.165.2020.07.21.09.12.57
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 21 Jul 2020 09:13:00 -0700 (PDT)
+From: Hayato Ohhashi <o8@vmm.dev>
+To: tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	x86@kernel.org
+Subject: [PATCH] x86/xen/time: set the X86_FEATURE_TSC_KNOWN_FREQ flag in
+ xen_tsc_khz()
+Date: Tue, 21 Jul 2020 16:12:31 +0000
+Message-Id: <20200721161231.6019-1-o8@vmm.dev>
+X-Mailer: git-send-email 2.23.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 22 Jul 2020 07:42:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,149 +75,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
+Cc: jgross@suse.com, Hayato Ohhashi <o8@vmm.dev>, sstabellini@kernel.org,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ boris.ostrovsky@oracle.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-There's a potential race in xennet_remove(); this is what the driver is
-doing upon unregistering a network device:
+If the TSC frequency is known from the pvclock page,
+the TSC frequency does not need to be recalibrated.
+We can avoid recalibration by setting X86_FEATURE_TSC_KNOWN_FREQ.
 
-  1. state = read bus state
-  2. if state is not "Closed":
-  3.    request to set state to "Closing"
-  4.    wait for state to be set to "Closing"
-  5.    request to set state to "Closed"
-  6.    wait for state to be set to "Closed"
-
-If the state changes to "Closed" immediately after step 1 we are stuck
-forever in step 4, because the state will never go back from "Closed" to
-"Closing".
-
-Make sure to check also for state == "Closed" in step 4 to prevent the
-deadlock.
-
-Also add a 5 sec timeout any time we wait for the bus state to change,
-to avoid getting stuck forever in wait_event() and add a debug message
-to help tracking down potential similar issues.
-
-Signed-off-by: Andrea Righi <andrea.righi@canonical.com>
+Signed-off-by: Hayato Ohhashi <o8@vmm.dev>
 ---
- drivers/net/xen-netfront.c | 79 +++++++++++++++++++++++++++-----------
- 1 file changed, 57 insertions(+), 22 deletions(-)
+ arch/x86/xen/time.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
-index 482c6c8b0fb7..e09caba93dd9 100644
---- a/drivers/net/xen-netfront.c
-+++ b/drivers/net/xen-netfront.c
-@@ -63,6 +63,8 @@ module_param_named(max_queues, xennet_max_queues, uint, 0644);
- MODULE_PARM_DESC(max_queues,
- 		 "Maximum number of queues per virtual interface");
+diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
+index c8897aad13cd..91f5b330dcc6 100644
+--- a/arch/x86/xen/time.c
++++ b/arch/x86/xen/time.c
+@@ -39,6 +39,7 @@ static unsigned long xen_tsc_khz(void)
+ 	struct pvclock_vcpu_time_info *info =
+ 		&HYPERVISOR_shared_info->vcpu_info[0].time;
  
-+#define XENNET_TIMEOUT  (5 * HZ)
-+
- static const struct ethtool_ops xennet_ethtool_ops;
++	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
+ 	return pvclock_tsc_khz(info);
+ }
  
- struct netfront_cb {
-@@ -1334,12 +1336,20 @@ static struct net_device *xennet_create_dev(struct xenbus_device *dev)
- 
- 	netif_carrier_off(netdev);
- 
--	xenbus_switch_state(dev, XenbusStateInitialising);
--	wait_event(module_wq,
--		   xenbus_read_driver_state(dev->otherend) !=
--		   XenbusStateClosed &&
--		   xenbus_read_driver_state(dev->otherend) !=
--		   XenbusStateUnknown);
-+	do {
-+		dev_dbg(&dev->dev,
-+			"%s: switching to XenbusStateInitialising\n",
-+			dev->nodename);
-+		xenbus_switch_state(dev, XenbusStateInitialising);
-+		err = wait_event_timeout(module_wq,
-+				 xenbus_read_driver_state(dev->otherend) !=
-+				 XenbusStateClosed &&
-+				 xenbus_read_driver_state(dev->otherend) !=
-+				 XenbusStateUnknown, XENNET_TIMEOUT);
-+		dev_dbg(&dev->dev, "%s: state = %d\n", dev->nodename,
-+			xenbus_read_driver_state(dev->otherend));
-+	} while (!err);
-+
- 	return netdev;
- 
-  exit:
-@@ -2139,28 +2149,53 @@ static const struct attribute_group xennet_dev_group = {
- };
- #endif /* CONFIG_SYSFS */
- 
--static int xennet_remove(struct xenbus_device *dev)
-+static void xennet_bus_close(struct xenbus_device *dev)
- {
--	struct netfront_info *info = dev_get_drvdata(&dev->dev);
--
--	dev_dbg(&dev->dev, "%s\n", dev->nodename);
-+	int ret;
- 
--	if (xenbus_read_driver_state(dev->otherend) != XenbusStateClosed) {
-+	if (xenbus_read_driver_state(dev->otherend) == XenbusStateClosed)
-+		return;
-+	do {
-+		dev_dbg(&dev->dev, "%s: switching to XenbusStateClosing\n",
-+			dev->nodename);
- 		xenbus_switch_state(dev, XenbusStateClosing);
--		wait_event(module_wq,
--			   xenbus_read_driver_state(dev->otherend) ==
--			   XenbusStateClosing ||
--			   xenbus_read_driver_state(dev->otherend) ==
--			   XenbusStateUnknown);
-+		ret = wait_event_timeout(module_wq,
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateClosing ||
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateClosed ||
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateUnknown,
-+				   XENNET_TIMEOUT);
-+		dev_dbg(&dev->dev, "%s: state = %d\n", dev->nodename,
-+			xenbus_read_driver_state(dev->otherend));
-+	} while (!ret);
-+
-+	if (xenbus_read_driver_state(dev->otherend) == XenbusStateClosed)
-+		return;
- 
-+	do {
-+		dev_dbg(&dev->dev, "%s: switching to XenbusStateClosed\n",
-+			dev->nodename);
- 		xenbus_switch_state(dev, XenbusStateClosed);
--		wait_event(module_wq,
--			   xenbus_read_driver_state(dev->otherend) ==
--			   XenbusStateClosed ||
--			   xenbus_read_driver_state(dev->otherend) ==
--			   XenbusStateUnknown);
--	}
-+		ret = wait_event_timeout(module_wq,
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateClosed ||
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateUnknown,
-+				   XENNET_TIMEOUT);
-+		dev_dbg(&dev->dev, "%s: state = %d\n", dev->nodename,
-+			xenbus_read_driver_state(dev->otherend));
-+	} while (!ret);
-+}
-+
-+static int xennet_remove(struct xenbus_device *dev)
-+{
-+	struct netfront_info *info = dev_get_drvdata(&dev->dev);
-+
-+	dev_dbg(&dev->dev, "%s\n", dev->nodename);
- 
-+	xennet_bus_close(dev);
- 	xennet_disconnect_backend(info);
- 
- 	if (info->netdev->reg_state == NETREG_REGISTERED)
 -- 
-2.25.1
+2.23.3
 
 
