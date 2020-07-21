@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFB2E228873
+	by mail.lfdr.de (Postfix) with ESMTPS id 263E422886F
 	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 20:42:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxxDl-00020c-9M; Tue, 21 Jul 2020 18:42:33 +0000
+	id 1jxxDp-00022F-M8; Tue, 21 Jul 2020 18:42:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8efX=BA=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jxxDj-0001xV-MS
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 18:42:31 +0000
-X-Inumbo-ID: e7f1f129-cb81-11ea-85a2-bc764e2007e4
+ id 1jxxDo-0001xV-MZ
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 18:42:36 +0000
+X-Inumbo-ID: e8d90018-cb81-11ea-85a2-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7f1f129-cb81-11ea-85a2-bc764e2007e4;
- Tue, 21 Jul 2020 18:42:20 +0000 (UTC)
+ id e8d90018-cb81-11ea-85a2-bc764e2007e4;
+ Tue, 21 Jul 2020 18:42:21 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jxxDX-0001u7-TP; Tue, 21 Jul 2020 19:42:19 +0100
+ id 1jxxDY-0001u7-6O; Tue, 21 Jul 2020 19:42:20 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 03/14] schema: Provide indices for sg-report-flight
-Date: Tue, 21 Jul 2020 19:41:54 +0100
-Message-Id: <20200721184205.15232-4-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 04/14] sg-report-flight: Ask the db for flights of
+ interest
+Date: Tue, 21 Jul 2020 19:41:55 +0100
+Message-Id: <20200721184205.15232-5-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
 References: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
@@ -47,83 +48,189 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-These indexes allow very fast lookup of "relevant" flights eg when
-trying to justify failures.
+Specifically, we narrow the initial query to flights which have at
+least some job with the built_revision_foo we are looking for.
 
-In my ad-hoc test case, these indices (along with the subsequent
-changes to sg-report-flight and Executive.pm, reduce the runtime of
-sg-report-flight from 2-3ks (unacceptably long!) to as little as
-5-7s seconds - a speedup of about 500x.
+This condition is strictly broader than that implemented inside the
+flight search loop, so there is no functional change.
 
-(Getting the database snapshot may take a while first, but deploying
-this code should help with that too by reducing long-running
-transactions.  Quoted perf timings are from snapshot acquisition.)
+Perf: runtime of my test case now ~300s-500s.
 
-Without these new indexes there may be a performance change from the
-query changes.  I haven't benchmarked this so I am setting the schema
-updates to be Preparatory/Needed (ie, "Schema first" as
-schema/README.updates has it), to say that the index should be created
-before the new code is deployed.
+Example query before (from the Perl DBI trace):
 
-Testing: I have tested this series by creating experimental indices
-"trial_..." in the actual production instance.  (Transactional DDL was
-very helpful with this.)  I have verified with \d that schema update
-instructions in this commit generate indexes which are equivalent to
-the trial indices.
+      SELECT * FROM (
+        SELECT flight, blessing FROM flights
+            WHERE (branch='xen-unstable')
+              AND                   EXISTS (SELECT 1
+                            FROM jobs
+                           WHERE jobs.flight = flights.flight
+                             AND jobs.job = ?)
 
-Deployment: AFter these schema updates are applied, the trial indices
-are redundant duplicates and should be deleted.
+              AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
+            ORDER BY flight DESC
+            LIMIT 1000
+      ) AS sub
+      ORDER BY blessing ASC, flight DESC
+
+With these bind variables:
+
+    "test-armhf-armhf-libvirt"
+
+After:
+
+      SELECT * FROM (
+        SELECT DISTINCT flight, blessing
+             FROM flights
+             JOIN runvars r1 USING (flight)
+
+            WHERE (branch='xen-unstable')
+              AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
+                  AND EXISTS (SELECT 1
+                            FROM jobs
+                           WHERE jobs.flight = flights.flight
+                             AND jobs.job = ?)
+
+              AND r1.name LIKE 'built_revision_%'
+              AND r1.name = ?
+              AND r1.val= ?
+
+            ORDER BY flight DESC
+            LIMIT 1000
+      ) AS sub
+      ORDER BY blessing ASC, flight DESC
+
+With these bind variables:
+
+      "test-armhf-armhf-libvirt"
+      'built_revision_xen'
+      '165f3afbfc3db70fcfdccad07085cde0a03c858b'
+
+Diff to the query:
+
+      SELECT * FROM (
+-        SELECT flight, blessing FROM flights
++        SELECT DISTINCT flight, blessing
++             FROM flights
++             JOIN runvars r1 USING (flight)
++
+             WHERE (branch='xen-unstable')
++              AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
+               AND                   EXISTS (SELECT 1
+                             FROM jobs
+                            WHERE jobs.flight = flights.flight
+                              AND jobs.job = ?)
+
+-              AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
++              AND r1.name LIKE 'built_revision_%'
++              AND r1.name = ?
++              AND r1.val= ?
++
+             ORDER BY flight DESC
+             LIMIT 1000
+       ) AS sub
 
 CC: George Dunlap <George.Dunlap@citrix.com>
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- schema/runvars-built-index.sql    | 7 +++++++
- schema/runvars-revision-index.sql | 7 +++++++
- schema/steps-job-index.sql        | 7 +++++++
- 3 files changed, 21 insertions(+)
- create mode 100644 schema/runvars-built-index.sql
- create mode 100644 schema/runvars-revision-index.sql
- create mode 100644 schema/steps-job-index.sql
+ schema/runvars-built-index.sql |  2 +-
+ sg-report-flight               | 64 ++++++++++++++++++++++++++++++++--
+ 2 files changed, 62 insertions(+), 4 deletions(-)
 
 diff --git a/schema/runvars-built-index.sql b/schema/runvars-built-index.sql
-new file mode 100644
-index 00000000..94f85ed8
---- /dev/null
+index 94f85ed8..8582227e 100644
+--- a/schema/runvars-built-index.sql
 +++ b/schema/runvars-built-index.sql
-@@ -0,0 +1,7 @@
-+-- ##OSSTEST## 007 Preparatory
-+--
-+-- This index helps sg-report-flight find relevant flights.
+@@ -1,4 +1,4 @@
+--- ##OSSTEST## 007 Preparatory
++-- ##OSSTEST## 007 Needed
+ --
+ -- This index helps sg-report-flight find relevant flights.
+ 
+diff --git a/sg-report-flight b/sg-report-flight
+index 70def778..61aec7a8 100755
+--- a/sg-report-flight
++++ b/sg-report-flight
+@@ -185,19 +185,77 @@ END
+     if (defined $job) {
+ 	push @flightsq_params, $job;
+ 	$flightsq_jobcond = <<END;
+-                  EXISTS (SELECT 1
++                  AND EXISTS (SELECT 1
+ 			    FROM jobs
+ 			   WHERE jobs.flight = flights.flight
+ 			     AND jobs.job = ?)
+ END
+     }
+ 
++    # We build a slightly complicated query to find possibly-relevant
++    # flights.  A "possibly-relevant" flight is one which the main
++    # flight categorisation algorithm below (the loop over $tflight)
++    # *might* decide is of interest.
++    #
++    # That algorithm produces a table of which revision(s) of what
++    # %specver trees the build jobs for the relevant test job used.
++    # And then it insists (amongst other things) that for each such
++    # tree the revision in question appears.
++    #
++    # It only looks at build jobs within the flight.  So any flight
++    # that the main algorithm finds interesting will have *some* job
++    # (in the same flight) mentioning that revision in a built
++    # revision runvar.  So we can search the runvars table by its
++    # index on the revision.
++    #
++    # So we look for flights that have an appropriate entry in runvars
++    # for each %specver tree.  We can do this by joining the runvar
++    # table once for each tree.
++    #
++    # The "osstest" tree is handled specially. as ever.  (We use
++    # "r$ri" there too for orthogonality of the code, not because
++    # there could be multiple specifiations for the osstest revision.)
++    #
++    # This complex query is an optimisation: for correctness, we must
++    # still execute the full job-specific recursive examination, for
++    # each possibly-relevant flight - that's the $tflight loop body.
 +
-+CREATE INDEX runvars_built_revision_idx
-+    ON runvars (val)
-+ WHERE name LIKE 'built_revision_%';
-diff --git a/schema/runvars-revision-index.sql b/schema/runvars-revision-index.sql
-new file mode 100644
-index 00000000..a2e3be13
---- /dev/null
-+++ b/schema/runvars-revision-index.sql
-@@ -0,0 +1,7 @@
-+-- ##OSSTEST## 008 Preparatory
-+--
-+-- This index helps Executive::report__find_test find relevant flights.
++    my $runvars_joins = '';
++    my $runvars_conds = '';
++    my $ri=0;
++    foreach my $tree (sort keys %{ $specver{$thisthat} }) {
++      $ri++;
++      if ($tree ne 'osstest') {
++	  $runvars_joins .= <<END;
++             JOIN runvars r$ri USING (flight)
++END
++	  $runvars_conds .= <<END;
++              AND r$ri.name LIKE 'built_revision_%' 
++              AND r$ri.name = ?
++              AND r$ri.val= ?
++END
++	  push @flightsq_params, "built_revision_$tree",
++	                     $specver{$thisthat}{$tree};
++      } else {
++	  $runvars_joins .= <<END;
++             JOIN flights_harness_touched r$ri USING (flight)
++END
++	  $runvars_conds .= <<END;
++              AND r$ri.harness= ?
++END
++	  push @flightsq_params, $specver{$thisthat}{$tree};
++      }
++    }
 +
-+CREATE INDEX runvars_revision_idx
-+    ON runvars (val)
-+ WHERE name LIKE 'revision_%';
-diff --git a/schema/steps-job-index.sql b/schema/steps-job-index.sql
-new file mode 100644
-index 00000000..07dc5a30
---- /dev/null
-+++ b/schema/steps-job-index.sql
-@@ -0,0 +1,7 @@
-+-- ##OSSTEST## 006 Preparatory
-+--
-+-- This index helps sg-report-flight find if a test ever passed.
-+
-+CREATE INDEX steps_job_testid_status_idx
-+    ON steps (job, testid, status);
-+
+     my $flightsq= <<END;
+       SELECT * FROM (
+-        SELECT flight, blessing FROM flights
++        SELECT DISTINCT flight, blessing
++             FROM flights
++$runvars_joins
+             WHERE $branches_cond_q
+-              AND $flightsq_jobcond
+               AND $blessingscond
++$flightsq_jobcond
++$runvars_conds
+             ORDER BY flight DESC
+             LIMIT 1000
+       ) AS sub
 -- 
 2.20.1
 
