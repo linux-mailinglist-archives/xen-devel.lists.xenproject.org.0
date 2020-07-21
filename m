@@ -2,60 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B27BD227D94
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 12:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC1DB227DA9
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 12:52:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxppF-0006Oy-G2; Tue, 21 Jul 2020 10:48:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jxpsr-0007Fk-29; Tue, 21 Jul 2020 10:52:29 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bQ5W=BA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jxppE-0006Om-75
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 10:48:44 +0000
-X-Inumbo-ID: be8cb544-cb3f-11ea-84fe-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id be8cb544-cb3f-11ea-84fe-bc764e2007e4;
- Tue, 21 Jul 2020 10:48:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595328523;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=3ywLeEALQmD5NhJJhQcrRZ+F98L1q2WMC48nDha1bEY=;
- b=G8IRhU/GzPTRu91f2ArVYqQPeMbDiJTRki/nLGnIeMejd5288wbtChOj
- JBJ0NjeiqiYWoTCmQO+QrsEvpCQWivszblbAg/NxTbF0n9W3cPVsjl28p
- 5FsmT6KY6VkGw7FLHK8WztqEyus76gCI1zAu3w7SiFlUx6wl8tN7S87pJ M=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: ua7mRwwo6CF/45BXMHHXbgPmIzdB7E4l5kEA34Ags5K21AYSkZ6+5RCSqiIVy3wiIs8NO40bXC
- 7IKq47Lz6i8y1sZc07xf5XZMtuwtPykn7TidKEWn8sgfEYYlCuPe6mXx4xgwCRvTN0WkGlmYLL
- 4MG6PAOCGpRmX2EHG/Q32208IibQCbvYRKWYLUaA33hZFiX4LBmd1vUqpFlSHUmORDo4ycCL4y
- ywRAVx5gQ7DjckuJI2PStlImf+O4lcLlRGgzaH7iSfGuLyLbrOuSWKcmGAy8+lAVBQymBpRrto
- wfE=
-X-SBRS: 2.7
-X-MesageID: 23156518
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,378,1589256000"; d="scan'208";a="23156518"
-Subject: Re: [PATCH] x86emul: support AVX512_VP2INTERSECT insns
-To: Jan Beulich <jbeulich@suse.com>
-References: <08083899-7348-63d2-1f28-0932e2295d64@suse.com>
- <120bdf92-15b6-3616-5cdb-75b9c38155d4@citrix.com>
- <98c74f0a-86d0-41d2-2aa3-f6b2c3e5ed68@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <772177be-eaff-bd2d-b6f4-676359166275@citrix.com>
-Date: Tue, 21 Jul 2020 11:48:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <SRS0=UXjz=BA=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1jxpsp-0007Ff-LH
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 10:52:27 +0000
+X-Inumbo-ID: 431ae326-cb40-11ea-a09d-12813bfff9fa
+Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 431ae326-cb40-11ea-a09d-12813bfff9fa;
+ Tue, 21 Jul 2020 10:52:25 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id o11so20731861wrv.9
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 03:52:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=LOBSvIoSTI/YyYbDBxuuGau4sSa1XnEal6omX4ja83c=;
+ b=JZaRrY+bK2jVEEOLlVzgVQ+0jUknwC4ZLQ3VtXhnQhYM4ogDYwBAk9mObVpPyG1fHH
+ 8uPe7loLxQgLh6AjchPkhdBcQNmiH8phNeGcdZ9CZtSBlXSmaRmOR5P1yBlbrb2Iivj4
+ IYcft4cn95g++WTNols0Ye+A8+wjZmAVHOfVSfILgBmbDw/oDHzyPakNZVcyU9Hai3vs
+ qc9sPwwb6lciinIK9Vn1pn0AOMkgWd+BTaCzFepXKZqAVWA/liEQB55ieJXT4EW7PIGD
+ dCI8XzMRGNy6KNjS9uGD68nOj4E3OjtA9RnTB9+0WHW55tPDBq87bFjXlZmzDq9/HlHi
+ ImbA==
+X-Gm-Message-State: AOAM533Z3Y/zzOVXzlHNcp/vNCmSNJcXD8rM3R8oisVBw9/e/jV9Ae1Y
+ g/btGRIbcpjmaDE8/zoASjI=
+X-Google-Smtp-Source: ABdhPJydJzMphHAlzgjG4pRy5BGHruDzDy8FswiCqxvPTxmVlSk3arvzeJzOkmy9b9KbKNZasD6kZw==
+X-Received: by 2002:adf:fc45:: with SMTP id e5mr14506576wrs.226.1595328744934; 
+ Tue, 21 Jul 2020 03:52:24 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id g3sm42002405wrb.59.2020.07.21.03.52.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2020 03:52:24 -0700 (PDT)
+Date: Tue, 21 Jul 2020 10:52:23 +0000
+From: Wei Liu <wl@xen.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v4 10/10] tools/proctrace: add proctrace tool
+Message-ID: <20200721105223.ao3mlpabk77vufh6@liuwe-devbox-debian-v2>
+References: <cover.1593519420.git.michal.leszczynski@cert.pl>
+ <0ab003238e4e666d3847024b8917dbc11c40fecb.1593519420.git.michal.leszczynski@cert.pl>
+ <241285fc-f8be-575f-8b2a-f5aa44b77d47@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <98c74f0a-86d0-41d2-2aa3-f6b2c3e5ed68@suse.com>
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <241285fc-f8be-575f-8b2a-f5aa44b77d47@citrix.com>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,37 +66,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: tamas.lengyel@intel.com, Wei Liu <wl@xen.org>,
+ =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, luwei.kang@intel.com,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21/07/2020 11:47, Jan Beulich wrote:
-> On 21.07.2020 12:32, Andrew Cooper wrote:
->> On 21/07/2020 11:23, Jan Beulich wrote:
->>> --- a/tools/misc/xen-cpuid.c
->>> +++ b/tools/misc/xen-cpuid.c
->>> @@ -160,7 +160,7 @@ static const char *const str_7d0[32] =
->>>      [ 2] = "avx512_4vnniw", [ 3] = "avx512_4fmaps",
->>>      [ 4] = "fsrm",
->>>  
->>> -    /*  8 */                [ 9] = "srbds-ctrl",
->>> +    [ 8] = "avx512_vp2intersect", [ 9] = "srbds-ctrl",
->>>      [10] = "md-clear",
->>>      /* 12 */                [13] = "tsx-force-abort",
->>>      [14] = "serialize",
->> Are we using underscores or dashes?Â  I realise its is already
->> inconsistent, but this is a debugging tool only, and we can change our
->> minds.
-> I've switched this one to use a dash.
+On Thu, Jul 02, 2020 at 04:10:57PM +0100, Andrew Cooper wrote:
+[...]
+> 
+> > +#include <stdlib.h>
+> > +#include <stdio.h>
+> > +#include <sys/mman.h>
+> > +#include <signal.h>
+> > +
+> > +#include <xenctrl.h>
+> > +#include <xen/xen.h>
+> > +#include <xenforeignmemory.h>
+> > +
+> > +#define BUF_SIZE (16384 * XC_PAGE_SIZE)
+> 
+> This hardcodes the size of the buffer which is configurable per VM. 
+> Mapping the buffer fails when it is smaller than this.
+> 
+> It appears there is still outstanding bug from the acquire_resource work
+> which never got fixed.  The guest_handle_is_null(xmar.frame_list) path
+> in Xen is supposed to report the size of the resource, not the size of
+> Xen's local buffer, so userspace can ask "how large is this resource".
+> 
+> I'll try and find some time to fix this and arrange for backports, but
+> the current behaviour is nonsense, and problematic for new users.
 
-Ok.Â  Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I can't quite figure out if this is a blocking comment of this tool to
+be accepted. Can you clarify?
 
-> Want me to also switch others (in a separate patch)?
+Wei.
 
-Probably best, yes.
-
-Thanks,
-
-~Andrew
+> 
+> ~Andrew
 
