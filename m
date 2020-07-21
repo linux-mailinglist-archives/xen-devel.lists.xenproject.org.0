@@ -2,37 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9CBA2288BE
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 21:07:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E868522890E
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 21:23:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxxbH-0004ap-2Q; Tue, 21 Jul 2020 19:06:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jxxqE-0006ZY-DR; Tue, 21 Jul 2020 19:22:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8efX=BA=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jxxbF-0004aT-GF
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 19:06:49 +0000
-X-Inumbo-ID: 51f94f28-cb85-11ea-85a6-bc764e2007e4
-Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 51f94f28-cb85-11ea-85a6-bc764e2007e4;
- Tue, 21 Jul 2020 19:06:45 +0000 (UTC)
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
- (return-path ijackson@chiark.greenend.org.uk)
- id 1jxxDb-0001u7-6c; Tue, 21 Jul 2020 19:42:23 +0100
-From: Ian Jackson <ian.jackson@eu.citrix.com>
-To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 14/14] duration_estimator: Move duration query loop
- into database
-Date: Tue, 21 Jul 2020 19:42:05 +0100
-Message-Id: <20200721184205.15232-15-ian.jackson@eu.citrix.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
-References: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
-MIME-Version: 1.0
+ <SRS0=tByU=BA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jxxqC-0006ZE-UH
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 19:22:16 +0000
+X-Inumbo-ID: 79568264-cb87-11ea-a12b-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 79568264-cb87-11ea-a12b-12813bfff9fa;
+ Tue, 21 Jul 2020 19:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dSHfSqEz24zvUFmAywOle41TbLdc1AXmqoJ8Lsgd/U8=; b=CAKA3AeDoC932aYM81OfCKYwC
+ qb4OqVls3PJS2UN1rfAngxbDWUCwzy80SAzdXxbasgzujwCfE+mGpfHvSTkV9NE0vY0m9AlWwyQpa
+ c1jyCwEEQ0znM09rRgjVMb7Az4Zf4nrIPtjCe/DCA/jNaNrZn6/wBP4PnDVAkOIMnAU9s=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jxxq6-0006ds-B0; Tue, 21 Jul 2020 19:22:10 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jxxq5-0003Gb-Vi; Tue, 21 Jul 2020 19:22:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jxxq5-00032B-V3; Tue, 21 Jul 2020 19:22:09 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152077-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 152077: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=f3885e8c3ceaef101e466466e879e97103ecce18
+X-Osstest-Versions-That: xen=057cfa258ca554013178c5aaf6f80db47fb184fc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 21 Jul 2020 19:22:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,343 +66,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Stuff the two queries together: we use the firsty query as a WITH
-clause.  This is significantly faster, perhaps because the query
-optimiser does a better job but probably just because it saves on
-round trips.
+flight 152077 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152077/
 
-No functional change.
+Failures :-/ but no regressions.
 
-Perf: subjectively this seemed to help when the cache was cold.  Now I
-have a warm cache and it doesn't seem to make much difference.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Perf: runtime of my test case now ~5-7s.
+version targeted for testing:
+ xen                  f3885e8c3ceaef101e466466e879e97103ecce18
+baseline version:
+ xen                  057cfa258ca554013178c5aaf6f80db47fb184fc
 
-Example queries before (from the debugging output):
+Last test of basis   152074  2020-07-21 13:00:38 Z    0 days
+Testing same since   152077  2020-07-21 16:02:01 Z    0 days    1 attempts
 
- Query A part I:
+------------------------------------------------------------
+People who touched revisions under test:
+  Christian Lindig <christian.lindig@citrix.com>
+  Elliott Mitchell <ehem+xen@m5p.com>
+  Wei Liu <wl@xen.org>
 
-            SELECT f.flight AS flight,
-                   j.job AS job,
-                   f.started AS started,
-                   j.status AS status
-                     FROM flights f
-                     JOIN jobs j USING (flight)
-                     JOIN runvars r
-                             ON  f.flight=r.flight
-                            AND  r.name=?
-                    WHERE  j.job=r.job
-                      AND  f.blessing=?
-                      AND  f.branch=?
-                      AND  j.job=?
-                      AND  r.val=?
-                      AND  (j.status='pass' OR j.status='fail'
-                           OR j.status='truncated'!)
-                      AND  f.started IS NOT NULL
-                      AND  f.started >= ?
-                 ORDER BY f.started DESC
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
- With bind variables:
-     "test-amd64-i386-xl-pvshim"
-     "guest-start"
 
- Query B part I:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-            SELECT f.flight AS flight,
-                   s.job AS job,
-                   NULL as started,
-                   NULL as status,
-                   max(s.finished) AS max_finished
-                      FROM steps s JOIN flights f
-                        ON s.flight=f.flight
-                     WHERE s.job=? AND f.blessing=? AND f.branch=?
-                       AND s.finished IS NOT NULL
-                       AND f.started IS NOT NULL
-                       AND f.started >= ?
-                     GROUP BY f.flight, s.job
-                     ORDER BY max_finished DESC
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
- With bind variables:
-    "test-armhf-armhf-libvirt"
-    'real'
-    "xen-unstable"
-    1594144469
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
- Query common part II:
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-        WITH tsteps AS
-        (
-            SELECT *
-              FROM steps
-             WHERE flight=? AND job=?
-        )
-        , tsteps2 AS
-        (
-            SELECT *
-              FROM tsteps
-             WHERE finished <=
-                     (SELECT finished
-                        FROM tsteps
-                       WHERE tsteps.testid = ?)
-        )
-        SELECT (
-            SELECT max(finished)-min(started)
-              FROM tsteps2
-          ) - (
-            SELECT sum(finished-started)
-              FROM tsteps2
-             WHERE step = 'ts-hosts-allocate'
-          )
-                AS duration
 
- With bind variables from previous query, eg:
-     152045
-     "test-armhf-armhf-libvirt"
-     "guest-start.2"
+Pushing revision :
 
-After:
-
- Query A (combined):
-
-            WITH f AS (
-            SELECT f.flight AS flight,
-                   j.job AS job,
-                   f.started AS started,
-                   j.status AS status
-                     FROM flights f
-                     JOIN jobs j USING (flight)
-                     JOIN runvars r
-                             ON  f.flight=r.flight
-                            AND  r.name=?
-                    WHERE  j.job=r.job
-                      AND  f.blessing=?
-                      AND  f.branch=?
-                      AND  j.job=?
-                      AND  r.val=?
-                      AND  (j.status='pass' OR j.status='fail'
-                           OR j.status='truncated'!)
-                      AND  f.started IS NOT NULL
-                      AND  f.started >= ?
-                 ORDER BY f.started DESC
-
-            )
-            SELECT flight, max_finished, job, started, status,
-            (
-        WITH tsteps AS
-        (
-            SELECT *
-              FROM steps
-             WHERE flight=f.flight AND job=f.job
-        )
-        , tsteps2 AS
-        (
-            SELECT *
-              FROM tsteps
-             WHERE finished <=
-                     (SELECT finished
-                        FROM tsteps
-                       WHERE tsteps.testid = ?)
-        )
-        SELECT (
-            SELECT max(finished)-min(started)
-              FROM tsteps2
-          ) - (
-            SELECT sum(finished-started)
-              FROM tsteps2
-             WHERE step = 'ts-hosts-allocate'
-          )
-                AS duration
-
-            ) FROM f
-
- Query B (combined):
-
-            WITH f AS (
-            SELECT f.flight AS flight,
-                   s.job AS job,
-                   NULL as started,
-                   NULL as status,
-                   max(s.finished) AS max_finished
-                      FROM steps s JOIN flights f
-                        ON s.flight=f.flight
-                     WHERE s.job=? AND f.blessing=? AND f.branch=?
-                       AND s.finished IS NOT NULL
-                       AND f.started IS NOT NULL
-                       AND f.started >= ?
-                     GROUP BY f.flight, s.job
-                     ORDER BY max_finished DESC
-
-            )
-            SELECT flight, max_finished, job, started, status,
-            (
-        WITH tsteps AS
-        (
-            SELECT *
-              FROM steps
-             WHERE flight=f.flight AND job=f.job
-        )
-        , tsteps2 AS
-        (
-            SELECT *
-              FROM tsteps
-             WHERE finished <=
-                     (SELECT finished
-                        FROM tsteps
-                       WHERE tsteps.testid = ?)
-        )
-        SELECT (
-            SELECT max(finished)-min(started)
-              FROM tsteps2
-          ) - (
-            SELECT sum(finished-started)
-              FROM tsteps2
-             WHERE step = 'ts-hosts-allocate'
-          )
-                AS duration
-
-            ) FROM f
-
-Diff for query A:
-
-@@ -1,3 +1,4 @@
-+            WITH f AS (
-             SELECT f.flight AS flight,
-                    j.job AS job,
-                    f.started AS started,
-@@ -18,11 +19,14 @@
-                       AND  f.started >= ?
-                  ORDER BY f.started DESC
-
-+            )
-+            SELECT flight, max_finished, job, started, status,
-+            (
-        WITH tsteps AS
-         (
-             SELECT *
-               FROM steps
--             WHERE flight=? AND job=?
-+             WHERE flight=f.flight AND job=f.job
-         )
-         , tsteps2 AS
-         (
-@@ -42,3 +46,5 @@
-              WHERE step = 'ts-hosts-allocate'
-           )
-                 AS duration
-+
-+            ) FROM f
-
-Diff for query B:
-
-@@ -1,3 +1,4 @@
-+            WITH f AS (
-             SELECT f.flight AS flight,
-                    s.job AS job,
-                    NULL as started,
-@@ -12,11 +13,14 @@
-                      GROUP BY f.flight, s.job
-                      ORDER BY max_finished DESC
-
-+            )
-+            SELECT flight, max_finished, job, started, status,
-+            (
-         WITH tsteps AS
-         (
-             SELECT *
-               FROM steps
--             WHERE flight=? AND job=?
-+             WHERE flight=f.flight AND job=f.job
-         )
-         , tsteps2 AS
-         (
-@@ -36,3 +40,5 @@
-              WHERE step = 'ts-hosts-allocate'
-           )
-                 AS duration
-+
-+            ) FROM f
-
-CC: George Dunlap <George.Dunlap@citrix.com>
-Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
----
- Osstest/Executive.pm | 31 ++++++++++++++++++++-----------
- 1 file changed, 20 insertions(+), 11 deletions(-)
-
-diff --git a/Osstest/Executive.pm b/Osstest/Executive.pm
-index 621153ee..66c93ab9 100644
---- a/Osstest/Executive.pm
-+++ b/Osstest/Executive.pm
-@@ -1192,7 +1192,7 @@ END
-         (
-             SELECT *
-               FROM steps
--             WHERE flight=? AND job=?
-+             WHERE flight=f.flight AND job=f.job
-         )
- END_ALWAYS
-         , tsteps2 AS
-@@ -1216,9 +1216,20 @@ END_UPTOINCL
-                 AS duration
- END_ALWAYS
- 	
--    my $recentflights_q= $dbh_tests->prepare($recentflights_qtxt);
--    my $duration_anyref_q= $dbh_tests->prepare($duration_anyref_qtxt);
--    my $duration_duration_q = $dbh_tests->prepare($duration_duration_qtxt);
-+    my $prepare_combi = sub {
-+	db_prepare(<<END);
-+            WITH f AS (
-+$_[0]
-+            )
-+            SELECT flight, max_finished, job, started, status,
-+            (
-+$duration_duration_qtxt
-+            ) FROM f
-+END
-+    };
-+
-+    my $recentflights_q= $prepare_combi->($recentflights_qtxt);
-+    my $duration_anyref_q= $prepare_combi->($duration_anyref_qtxt);
- 
-     return sub {
-         my ($job, $hostidname, $onhost, $uptoincl_testid) = @_;
-@@ -1239,14 +1250,16 @@ END_ALWAYS
-                                       $branch,
-                                       $job,
-                                       $onhost,
--                                      $limit);
-+                                      $limit,
-+				      @x_params);
-             $refs= $recentflights_q->fetchall_arrayref({});
-             $recentflights_q->finish();
-             $dbg->("SAME-HOST GOT ".scalar(@$refs));
-         }
- 
-         if (!@$refs) {
--            $duration_anyref_q->execute($job, $blessing, $branch, $limit);
-+            $duration_anyref_q->execute($job, $blessing, $branch, $limit,
-+					@x_params);
-             $refs= $duration_anyref_q->fetchall_arrayref({});
-             $duration_anyref_q->finish();
-             $dbg->("ANY-HOST GOT ".scalar(@$refs));
-@@ -1259,11 +1272,7 @@ END_ALWAYS
- 
-         my $duration_max= 0;
-         foreach my $ref (@$refs) {
--	    my @d_d_args = ($ref->{flight}, $job);
--	    push @d_d_args, @x_params;
--            $duration_duration_q->execute(@d_d_args);
--            my ($duration) = $duration_duration_q->fetchrow_array();
--            $duration_duration_q->finish();
-+            my ($duration) = $ref->{duration};
-             if ($duration) {
-                 $dbg->("REF $ref->{flight} DURATION $duration ".
- 		       ($ref->{status} // ''));
--- 
-2.20.1
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   057cfa258c..f3885e8c3c  f3885e8c3ceaef101e466466e879e97103ecce18 -> smoke
 
