@@ -2,94 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACE942286C3
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 19:04:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC093228739
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 19:23:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxvgm-0001gF-0n; Tue, 21 Jul 2020 17:04:24 +0000
+	id 1jxvyQ-0003MU-R7; Tue, 21 Jul 2020 17:22:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H3aL=BA=arm.com=andre.przywara@srs-us1.protection.inumbo.net>)
- id 1jxvgk-0001gA-Al
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 17:04:22 +0000
-X-Inumbo-ID: 380153ba-cb74-11ea-a10a-12813bfff9fa
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 380153ba-cb74-11ea-a10a-12813bfff9fa;
- Tue, 21 Jul 2020 17:04:20 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 252EA1045;
- Tue, 21 Jul 2020 10:04:20 -0700 (PDT)
-Received: from [192.168.2.22] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DFD3A3F66E;
- Tue, 21 Jul 2020 10:04:18 -0700 (PDT)
-Subject: Re: Virtio in Xen on Arm (based on IOREQ concept)
-To: Oleksandr <olekstysh@gmail.com>, Julien Grall <julien@xen.org>
-References: <CAPD2p-nthLq5NaU32u8pVaa-ub=a9-LOPenupntTYdS-cu31jQ@mail.gmail.com>
- <20200717150039.GV7191@Air-de-Roger>
- <8f4e0c0d-b3d4-9dd3-ce20-639539321968@gmail.com>
- <alpine.DEB.2.21.2007201326060.32544@sstabellini-ThinkPad-T480s>
- <4454c70e-47fa-46e8-90bf-1904b11318b1@gmail.com>
- <048c27bf-a9ab-054c-8955-6e75fb6c6ea5@xen.org>
- <2c249585-aaba-1065-95df-be772861e9a8@arm.com>
- <e44d6826-643f-77c6-a821-77dc0abf4cbc@gmail.com>
- <1811dd15-4009-f78c-674c-177709cf2a22@arm.com>
- <e7bbc9d6-648e-4d2a-e981-15743a628b1f@gmail.com>
-From: =?UTF-8?Q?Andr=c3=a9_Przywara?= <andre.przywara@arm.com>
-Autocrypt: addr=andre.przywara@arm.com; prefer-encrypt=mutual; keydata=
- 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
- i4aIXCH3Wv6K
-Organization: ARM Ltd.
-Message-ID: <b5faad02-34a5-eb58-1da9-f7852a817281@arm.com>
-Date: Tue, 21 Jul 2020 18:02:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <SRS0=bQ5W=BA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jxvyP-0003MP-HE
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 17:22:37 +0000
+X-Inumbo-ID: c48d8004-cb76-11ea-a110-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c48d8004-cb76-11ea-a110-12813bfff9fa;
+ Tue, 21 Jul 2020 17:22:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595352155;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=U9TFSiMPyXpVYVZMejGmia8JMd9i23k5xSQc2PVJ5+Q=;
+ b=QeLcFQZen2EDU7lLxnAUVZa7d4JkphtLpPoA+prKL0Ng6V1nAEOk0ecm
+ FaAhNA34xl0HIuGBAXxSswHqnYySXojnXH5mc1htWx789zHown9TVKJrp
+ LHY8lOFN/Dx+xHkrtCvVsrjtJ/spIFbUhssBo1Pp14F/m0et/eP/nMHGh Y=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 4JDADQ/sytG4ozsWr7yIeK7GkrOMB6CevNqwqE5rav/DcjQYI9gvEU6aoeAvqmntPFkur9u+bH
+ ma409rlwRPmVD7noc2pT5LTeslcZOWqOhBjrg55k0/YYu1m+3VvWlIE2waX1PFrJ9I8pclf+zq
+ z9nRcXDFZP6Yq9zxciOo26Tupvv8+AlgaEZg9xMYVQTdo5YfDD0ds60rI1B+8U6V7AxIg5otQk
+ Wb4FkN8VeWkx+bE6mlPRF9UD0+SDVafoRZu1tSsRjPZSgHu1GbhDEEqxe4pFkNPp6/OY7aGlQM
+ 5WQ=
+X-SBRS: 2.7
+X-MesageID: 23065430
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,379,1589256000"; d="scan'208";a="23065430"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/svm: Fold nsvm_{wr, rd}msr() into svm_msr_{read,
+ write}_intercept()
+Date: Tue, 21 Jul 2020 18:22:08 +0100
+Message-ID: <20200721172208.12176-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <e7bbc9d6-648e-4d2a-e981-15743a628b1f@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -101,101 +60,252 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- alex.bennee@linaro.org, Artem Mygaiev <joculator@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21/07/2020 17:09, Oleksandr wrote:
-> 
-> On 21.07.20 17:58, André Przywara wrote:
->> On 21/07/2020 15:52, Oleksandr wrote:
->>> On 21.07.20 17:32, André Przywara wrote:
->>>> On 21/07/2020 14:43, Julien Grall wrote:
->>> Hello Andre, Julien
->>>
->>>
->>>>> (+ Andre)
->>>>>
->>>>> Hi Oleksandr,
->>>>>
->>>>> On 21/07/2020 13:26, Oleksandr wrote:
->>>>>> On 20.07.20 23:38, Stefano Stabellini wrote:
->>>>>>> For instance, what's your take on notifications with virtio-mmio?
->>>>>>> How
->>>>>>> are they modelled today? Are they good enough or do we need MSIs?
->>>>>> Notifications are sent from device (backend) to the driver (frontend)
->>>>>> using interrupts. Additional DM function was introduced for that
->>>>>> purpose xendevicemodel_set_irq_level() which results in
->>>>>> vgic_inject_irq() call.
->>>>>>
->>>>>> Currently, if device wants to notify a driver it should trigger the
->>>>>> interrupt by calling that function twice (high level at first, then
->>>>>> low level).
->>>>> This doesn't look right to me. Assuming the interrupt is trigger when
->>>>> the line is high-level, the backend should only issue the hypercall
->>>>> once
->>>>> to set the level to high. Once the guest has finish to process all the
->>>>> notifications the backend would then call the hypercall to lower the
->>>>> interrupt line.
->>>>>
->>>>> This means the interrupts should keep firing as long as the interrupt
->>>>> line is high.
->>>>>
->>>>> It is quite possible that I took some shortcut when implementing the
->>>>> hypercall, so this should be corrected before anyone start to rely on
->>>>> it.
->>>> So I think the key question is: are virtio interrupts level or edge
->>>> triggered? Both QEMU and kvmtool advertise virtio-mmio interrupts as
->>>> edge-triggered.
->>>>   From skimming through the virtio spec I can't find any explicit
->>>> mentioning of the type of IRQ, but the usage of MSIs indeed hints at
->>>> using an edge property. Apparently reading the PCI ISR status register
->>>> clears it, which again sounds like edge. For virtio-mmio the driver
->>>> needs to explicitly clear the interrupt status register, which again
->>>> says: edge (as it's not the device clearing the status).
->>>>
->>>> So the device should just notify the driver once, which would cause one
->>>> vgic_inject_irq() call. It would be then up to the driver to clear up
->>>> that status, by reading PCI ISR status or writing to virtio-mmio's
->>>> interrupt-acknowledge register.
->>>>
->>>> Does that make sense?
->>> When implementing Xen backend, I didn't have an already working example
->>> so only guessed. I looked how kvmtool behaved when actually triggering
->>> the interrupt on Arm [1].
->>>
->>> Taking into the account that Xen PoC on Arm advertises [2] the same irq
->>> type (TYPE_EDGE_RISING) as kvmtool [3] I decided to follow the model of
->>> triggering an interrupt. Could you please explain, is this wrong?
->> Yes, kvmtool does a double call needlessly (on x86, ppc and arm, mips is
->> correct).
->> I just chased it down in the kernel, a KVM_IRQ_LINE ioctl with level=low
->> is ignored when the target IRQ is configured as edge (which it is,
->> because the DT says so), check vgic_validate_injection() in the kernel.
->>
->> So you should only ever need one call to set the line "high" (actually:
->> trigger the edge pulse).
-> 
-> Got it, thanks for the explanation. Have just removed an extra action
-> (setting low level) and checked.
-> 
+... to simplify the default cases.
 
-Just for the records: the KVM API documentation explicitly mentions:
-"Note that edge-triggered interrupts require the level to be set to 1
-and then back to 0." So kvmtool is just following the book.
+There are multiple errors with the handling of these three MSRs, but they are
+deliberately not addressed this point.
 
-Setting it to 0 still does nothing *on ARM*, and the x86 IRQ code is far
-to convoluted to easily judge what's really happening here. For MSIs at
-least it's equally ignored.
+This removes the dance converting -1/0/1 into X86EMUL_*, allowing for the
+removal of the 'ret' variable.
 
-So I guess a clean implementation in Xen does not need two calls, but
-some folks with understanding of x86 IRQ handling in Xen should confirm.
+While cleaning this up, drop the gdprintk()'s for #GP conditions, and the
+'result' variable from svm_msr_write_intercept() is it is never modified.
 
-Cheers,
-Andre.
+No functional change.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/hvm/svm/nestedsvm.c        | 77 ---------------------------------
+ xen/arch/x86/hvm/svm/svm.c              | 46 +++++++++++++-------
+ xen/include/asm-x86/hvm/svm/nestedsvm.h |  4 --
+ 3 files changed, 31 insertions(+), 96 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+index 11dc9c089c..a193d9de45 100644
+--- a/xen/arch/x86/hvm/svm/nestedsvm.c
++++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+@@ -47,22 +47,6 @@ nestedsvm_vcpu_stgi(struct vcpu *v)
+     local_event_delivery_enable(); /* unmask events for PV drivers */
+ }
+ 
+-static int
+-nestedsvm_vmcb_isvalid(struct vcpu *v, uint64_t vmcxaddr)
+-{
+-    /* Address must be 4k aligned */
+-    if ( (vmcxaddr & ~PAGE_MASK) != 0 )
+-        return 0;
+-
+-    /* Maximum valid physical address.
+-     * See AMD BKDG for HSAVE_PA MSR.
+-     */
+-    if ( vmcxaddr > 0xfd00000000ULL )
+-        return 0;
+-
+-    return 1;
+-}
+-
+ int nestedsvm_vmcb_map(struct vcpu *v, uint64_t vmcbaddr)
+ {
+     struct nestedvcpu *nv = &vcpu_nestedhvm(v);
+@@ -1263,67 +1247,6 @@ enum hvm_intblk nsvm_intr_blocked(struct vcpu *v)
+     return hvm_intblk_none;
+ }
+ 
+-/* MSR handling */
+-int nsvm_rdmsr(struct vcpu *v, unsigned int msr, uint64_t *msr_content)
+-{
+-    struct nestedsvm *svm = &vcpu_nestedsvm(v);
+-    int ret = 1;
+-
+-    *msr_content = 0;
+-
+-    switch (msr) {
+-    case MSR_K8_VM_CR:
+-        break;
+-    case MSR_K8_VM_HSAVE_PA:
+-        *msr_content = svm->ns_msr_hsavepa;
+-        break;
+-    case MSR_AMD64_TSC_RATIO:
+-        *msr_content = svm->ns_tscratio;
+-        break;
+-    default:
+-        ret = 0;
+-        break;
+-    }
+-
+-    return ret;
+-}
+-
+-int nsvm_wrmsr(struct vcpu *v, unsigned int msr, uint64_t msr_content)
+-{
+-    int ret = 1;
+-    struct nestedsvm *svm = &vcpu_nestedsvm(v);
+-
+-    switch (msr) {
+-    case MSR_K8_VM_CR:
+-        /* ignore write. handle all bits as read-only. */
+-        break;
+-    case MSR_K8_VM_HSAVE_PA:
+-        if (!nestedsvm_vmcb_isvalid(v, msr_content)) {
+-            gdprintk(XENLOG_ERR,
+-                "MSR_K8_VM_HSAVE_PA value invalid %#"PRIx64"\n", msr_content);
+-            ret = -1; /* inject #GP */
+-            break;
+-        }
+-        svm->ns_msr_hsavepa = msr_content;
+-        break;
+-    case MSR_AMD64_TSC_RATIO:
+-        if ((msr_content & ~TSC_RATIO_RSVD_BITS) != msr_content) {
+-            gdprintk(XENLOG_ERR,
+-                "reserved bits set in MSR_AMD64_TSC_RATIO %#"PRIx64"\n",
+-                msr_content);
+-            ret = -1; /* inject #GP */
+-            break;
+-        }
+-        svm->ns_tscratio = msr_content;
+-        break;
+-    default:
+-        ret = 0;
+-        break;
+-    }
+-
+-    return ret;
+-}
+-
+ /* VMEXIT emulation */
+ void
+ nestedsvm_vmexit_defer(struct vcpu *v,
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 4eb41792e2..bbe73744b8 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -1788,10 +1788,10 @@ static void svm_dr_access(struct vcpu *v, struct cpu_user_regs *regs)
+ 
+ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+ {
+-    int ret;
+     struct vcpu *v = current;
+     const struct domain *d = v->domain;
+     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
++    const struct nestedsvm *nsvm = &vcpu_nestedsvm(v);
+ 
+     switch ( msr )
+     {
+@@ -1914,6 +1914,18 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+             goto gpf;
+         break;
+ 
++    case MSR_K8_VM_CR:
++        *msr_content = 0;
++        break;
++
++    case MSR_K8_VM_HSAVE_PA:
++        *msr_content = nsvm->ns_msr_hsavepa;
++        break;
++
++    case MSR_AMD64_TSC_RATIO:
++        *msr_content = nsvm->ns_tscratio;
++        break;
++
+     case MSR_AMD_OSVW_ID_LENGTH:
+     case MSR_AMD_OSVW_STATUS:
+         if ( !d->arch.cpuid->extd.osvw )
+@@ -1922,12 +1934,6 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+         break;
+ 
+     default:
+-        ret = nsvm_rdmsr(v, msr, msr_content);
+-        if ( ret < 0 )
+-            goto gpf;
+-        else if ( ret )
+-            break;
+-
+         if ( rdmsr_safe(msr, *msr_content) == 0 )
+             break;
+ 
+@@ -1956,10 +1962,10 @@ static int svm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+ 
+ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+ {
+-    int ret, result = X86EMUL_OKAY;
+     struct vcpu *v = current;
+     struct domain *d = v->domain;
+     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
++    struct nestedsvm *nsvm = &vcpu_nestedsvm(v);
+ 
+     switch ( msr )
+     {
+@@ -2085,6 +2091,22 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+             goto gpf;
+         break;
+ 
++    case MSR_K8_VM_CR:
++        /* ignore write. handle all bits as read-only. */
++        break;
++
++    case MSR_K8_VM_HSAVE_PA:
++        if ( (msr_content & ~PAGE_MASK) || msr_content > 0xfd00000000ULL )
++            goto gpf;
++        nsvm->ns_msr_hsavepa = msr_content;
++        break;
++
++    case MSR_AMD64_TSC_RATIO:
++        if ( msr_content & TSC_RATIO_RSVD_BITS )
++            goto gpf;
++        nsvm->ns_tscratio = msr_content;
++        break;
++
+     case MSR_IA32_MCx_MISC(4): /* Threshold register */
+     case MSR_F10_MC4_MISC1 ... MSR_F10_MC4_MISC3:
+         /*
+@@ -2102,12 +2124,6 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+         break;
+ 
+     default:
+-        ret = nsvm_wrmsr(v, msr, msr_content);
+-        if ( ret < 0 )
+-            goto gpf;
+-        else if ( ret )
+-            break;
+-
+         /* Match up with the RDMSR side; ultimately this should go away. */
+         if ( rdmsr_safe(msr, msr_content) == 0 )
+             break;
+@@ -2115,7 +2131,7 @@ static int svm_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+         goto gpf;
+     }
+ 
+-    return result;
++    return X86EMUL_OKAY;
+ 
+  gpf:
+     return X86EMUL_EXCEPTION;
+diff --git a/xen/include/asm-x86/hvm/svm/nestedsvm.h b/xen/include/asm-x86/hvm/svm/nestedsvm.h
+index 31fb4bfeb4..0873698457 100644
+--- a/xen/include/asm-x86/hvm/svm/nestedsvm.h
++++ b/xen/include/asm-x86/hvm/svm/nestedsvm.h
+@@ -118,10 +118,6 @@ bool_t nsvm_vmcb_guest_intercepts_event(
+ bool_t nsvm_vmcb_hap_enabled(struct vcpu *v);
+ enum hvm_intblk nsvm_intr_blocked(struct vcpu *v);
+ 
+-/* MSRs */
+-int nsvm_rdmsr(struct vcpu *v, unsigned int msr, uint64_t *msr_content);
+-int nsvm_wrmsr(struct vcpu *v, unsigned int msr, uint64_t msr_content);
+-
+ /* Interrupts, vGIF */
+ void svm_vmexit_do_clgi(struct cpu_user_regs *regs, struct vcpu *v);
+ void svm_vmexit_do_stgi(struct cpu_user_regs *regs, struct vcpu *v);
+-- 
+2.11.0
+
 
