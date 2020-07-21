@@ -2,62 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81858228028
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 14:42:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5A2822802B
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 14:43:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxrbV-0002AW-9I; Tue, 21 Jul 2020 12:42:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jxrcO-0002HV-N8; Tue, 21 Jul 2020 12:43:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UXjz=BA=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jxrbU-0002AR-4q
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 12:42:40 +0000
-X-Inumbo-ID: a81425da-cb4f-11ea-a0ae-12813bfff9fa
-Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a81425da-cb4f-11ea-a0ae-12813bfff9fa;
- Tue, 21 Jul 2020 12:42:37 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id w3so2717337wmi.4;
- Tue, 21 Jul 2020 05:42:37 -0700 (PDT)
+ <SRS0=FhFK=BA=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1jxrcM-0002HN-PB
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 12:43:34 +0000
+X-Inumbo-ID: c89278a3-cb4f-11ea-850b-bc764e2007e4
+Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c89278a3-cb4f-11ea-850b-bc764e2007e4;
+ Tue, 21 Jul 2020 12:43:33 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id 140so1196643lfi.5
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 05:43:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=3mR0ctUuSSRgosKIoD17ZxqHuQMrC4nwz7Ef6VXJ+nQ=;
+ b=rdXf+svpvwuEI/CuJCw3nI6LayiudL8PqiyAzywoyvWk7gFlJ7v1EfZjvL601y+X3Z
+ 0wwpVilMMry5KWmNrav1utFP0DPO9kDoSk2ETYe0DpN85HYO1F1LGKsRPAJ5w5c4kbTF
+ 8AID2hZykKOBl/UlHAotkH5jqkiAHnM0lFGPnCpVeh3bTmoeuA0NkHLbmbpL/rOHOtIm
+ n40BIxe8UmVWoyC0CREq532tUc/a7Pe7sK50b2yLwz7kfvei+FwDSfJtQc5qmAK1rKk3
+ frgalfpVtXWMelLRds4J0IZFdoDJIh/XGboeQtvWP5dyib2FdA0T2/hSkpWKv5EeDdg5
+ yCbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=tELJWANfqx4mlHBXTpXLWhk9GZg3z4LZLshklfe6VAQ=;
- b=Cp1vjdAsUVVDpjtVKHpUGBe4r/3z59eFIqn5WpGDzZOVy3rAQ5oI4DwqFrsPwoVByD
- svVEzmE4AT+2q56oMyVMYiqdUSpr1m5m3xqrt5BxaznpgGuAgHwZtHeG3YXFnWKf5+2L
- DreUH5L4OBpOmGgX8Is1fRCc0BUIr3D0xzwPFI9IauZ4qa8Tr7MN4C4JxWxuDV32+mZj
- p6QdUCVT6s/vivE2zBAUkS+bumazk1zUQxO/mUUAf3YgllDSxLJlLaOtNjrbJdxymK1D
- qCr2pbblpH6oXw1taiVVxHAIhhmInjDRcj0YJNo1yCj1HkGxmPCD0PJ6SW3SWoTNM+jl
- QKyw==
-X-Gm-Message-State: AOAM530NLl0g+stKhvWx82gOvLRFTdbpuvzNwY5MOtOrFmFIiIHNBcw2
- 8urQy1b/CcruULTefItveZY=
-X-Google-Smtp-Source: ABdhPJysXW0HJF3DUf8MVNwlk735cjCrddyvm8JU58tgCSG0CcXRlr232Icr/zmIqv6CUSFjbNtfuA==
-X-Received: by 2002:a1c:7ecb:: with SMTP id z194mr3552455wmc.12.1595335356790; 
- Tue, 21 Jul 2020 05:42:36 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id y6sm37664262wrr.74.2020.07.21.05.42.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2020 05:42:36 -0700 (PDT)
-Date: Tue, 21 Jul 2020 12:42:34 +0000
-From: Wei Liu <wl@xen.org>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: [PATCH v2] mini-os: don't hard-wire xen internal paths
-Message-ID: <20200721124234.y2ly2xgxmqwhobdv@liuwe-devbox-debian-v2>
-References: <20200713084230.18177-1-jgross@suse.com>
- <20200718181827.7jrs5ilutt3jzp4i@function>
- <20200721122122.ypuumlnwn4djwevw@liuwe-devbox-debian-v2>
- <3f8f2da2-552c-c651-5744-dfa01bd9821c@suse.com>
- <20200721123940.blw3njlbpzbd5iia@liuwe-devbox-debian-v2>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=3mR0ctUuSSRgosKIoD17ZxqHuQMrC4nwz7Ef6VXJ+nQ=;
+ b=N1q0ZSgA3LqNkqq1Z87gIijxIdsJdRw13yA3oZj8sC8iwuyCWWXCdZKXeCfg2L3yW3
+ H9z1nJ8ATFFuERxOSQl0UNLQQgG9fTeU67vXjXWKsyDtZ12s5IjPKcn+pT2clO6ndsH5
+ lRdf9ZAC8qlkJiMt+TRFjB86hWTYTEDUSF7ibcgK/LF8m7hUMj/TtWMt/at+dQhc+sb7
+ KZwNyXYX0jd+ah//05sImi8oFR2bUfgoTMQUzfajFFc90p5cY4vd3Yw8LhMX0V+3gDnp
+ GUf3iXc2lJ5L2UZSNl3WtLJ9/3LfcC+yux0rLvB5yARZMTlOBxoFZv+SBMJGOi2Lfb1I
+ SGQw==
+X-Gm-Message-State: AOAM533z3e/Ec1LA3DIOyPXE+4YyMmoxaXDIDTLvEdFZ0K18OYi9ezUl
+ oDidILxP6U7jfpuESc0/hGE=
+X-Google-Smtp-Source: ABdhPJw6gLy02g+vtXhYCE9nq1p1RuFoMhPZvd+pKzSKLl1LuveCY5q0ATbhB5AaQfAMeQcHZdDOhA==
+X-Received: by 2002:a19:7404:: with SMTP id v4mr13412036lfe.93.1595335412068; 
+ Tue, 21 Jul 2020 05:43:32 -0700 (PDT)
+Received: from [192.168.1.2] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id q3sm4382632ljm.22.2020.07.21.05.43.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Jul 2020 05:43:31 -0700 (PDT)
+Subject: Re: Virtio in Xen on Arm (based on IOREQ concept)
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <CAPD2p-nthLq5NaU32u8pVaa-ub=a9-LOPenupntTYdS-cu31jQ@mail.gmail.com>
+ <20200717150039.GV7191@Air-de-Roger>
+ <8f4e0c0d-b3d4-9dd3-ce20-639539321968@gmail.com>
+ <20200720091722.GF7191@Air-de-Roger>
+ <be3fc8de-5582-8fd0-52cd-0cbfbfa96859@gmail.com>
+ <20200720110950.GJ7191@Air-de-Roger>
+ <alpine.DEB.2.21.2007201330070.32544@sstabellini-ThinkPad-T480s>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <7f3a558f-e539-17bb-c8da-2d95d5578221@gmail.com>
+Date: Tue, 21 Jul 2020 15:43:30 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2007201330070.32544@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200721123940.blw3njlbpzbd5iia@liuwe-devbox-debian-v2>
-User-Agent: NeoMutt/20180716
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,36 +81,88 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: minios-devel@lists.xenproject.org,
- Samuel Thibault <samuel.thibault@ens-lyon.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>,
+ Artem Mygaiev <joculator@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jul 21, 2020 at 12:39:40PM +0000, Wei Liu wrote:
-> On Tue, Jul 21, 2020 at 02:24:51PM +0200, Jürgen Groß wrote:
-> > On 21.07.20 14:21, Wei Liu wrote:
-> > > On Sat, Jul 18, 2020 at 08:18:27PM +0200, Samuel Thibault wrote:
-> > > > Juergen Gross, le lun. 13 juil. 2020 10:42:30 +0200, a ecrit:
-> > > > > Mini-OS shouldn't use Xen internal paths for building. Import the
-> > > > > needed paths from Xen and fall back to the current values only if
-> > > > > the import was not possible.
-> > > > > 
-> > > > > Signed-off-by: Juergen Gross <jgross@suse.com>
-> > > > 
-> > > > Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-> > > 
-> > > Unfortunately this doesn't apply to staging.
-> > 
-> > Since when does mini-os.git have a staging branch?
-> > 
-> > > Juergen, can you rebase?
-> > 
-> > To what?
-> 
-> Urgh, my bad! I thought this was a patch for xen.git. :-p
 
-Applied to mini-os.git.
+On 20.07.20 23:40, Stefano Stabellini wrote:
 
-Wei.
+Hello Stefano
+
+> On Mon, 20 Jul 2020, Roger Pau MonnÃ© wrote:
+>> On Mon, Jul 20, 2020 at 01:56:51PM +0300, Oleksandr wrote:
+>>> On 20.07.20 12:17, Roger Pau MonnÃ© wrote:
+>>>> On Fri, Jul 17, 2020 at 09:34:14PM +0300, Oleksandr wrote:
+>>>>> On 17.07.20 18:00, Roger Pau MonnÃ© wrote:
+>>>>>> On Fri, Jul 17, 2020 at 05:11:02PM +0300, Oleksandr Tyshchenko wrote:
+>>>>> The other reasons are:
+>>>>>
+>>>>> 1. Automation. With current backend implementation we don't need to pause
+>>>>> guest right after creating it, then go to the driver domain and spawn
+>>>>> backend and
+>>>>>
+>>>>> after that go back to the dom0 and unpause the guest.
+>>>> xl devd should be capable of handling this for you on the driver
+>>>> domain.
+>>>>
+>>>>> 2. Ability to detect when guest with involved frontend has gone away and
+>>>>> properly release resource (guest destroy/reboot).
+>>>>>
+>>>>> 3. Ability to (re)connect to the newly created guest with involved frontend
+>>>>> (guest create/reboot).
+>>>>>
+>>>>> 4. What is more that having Xenstore support the backend is able to detect
+>>>>> the dom_id it runs into and the guest dom_id, there is no need pass them via
+>>>>> command line.
+>>>>>
+>>>>>
+>>>>> I will be happy to explain in details after publishing backend code).
+>>>> As I'm not the one doing the work I certainly won't stop you from
+>>>> using xenstore on the backend. I would certainly prefer if the backend
+>>>> gets all the information it needs from the command line so that the
+>>>> configuration data is completely agnostic to the transport layer used
+>>>> to convey it.
+>>>>
+>>>> Thanks, Roger.
+>>> Thank you for pointing another possible way. I feel I need to investigate
+>>> what is the "xl devd" (+ Argo?) and how it works. If it is able to provide
+>>> backend with
+>> That's what x86 at least uses to manage backends on driver domains: xl
+>> devd will for example launch the QEMU instance required to handle a
+>> Xen PV disk backend in user-space.
+>>
+>> Note that there's currently no support for Argo or any communication
+>> channel different than xenstore, but I think it would be cleaner to
+>> place the fetching of data from xenstore in xl devd and just pass
+>> those as command line arguments to the VirtIO backend if possible. I
+>> would prefer the VirtIO backend to be fully decoupled from xenstore.
+>>
+>> Note that for a backend running on dom0 there would be no need to
+>> pass any data on xenstore, as the backend would be launched directly
+>> from xl with the appropriate command line arguments.
+> If I can paraphrase Roger's point, I think we all agree that xenstore is
+> very convenient to use and great to get something up and running
+> quickly. But it has several limitations, so it would be fantastic if we
+> could kill two birds with one stone and find a way to deploy the system
+> without xenstore, given that with virtio it is not actually needed if not
+> for very limited initial configurations. It would certainly be a big
+> win. However, it is fair to say that the xenstore alternative, whatever
+> that might be, needs work.
+
+Well, why actually not?
+
+For example, the idea "to place the fetching of data from xenstore in xl 
+devd and just pass
+those as command line arguments to the VirtIO backend if possible" 
+sounds fine to me. But this needs an additional investigation.
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
