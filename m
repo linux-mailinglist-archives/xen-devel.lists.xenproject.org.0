@@ -2,55 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEA6D227941
+	by mail.lfdr.de (Postfix) with ESMTPS id 435AD227940
 	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 09:09:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxmOl-0002sc-ID; Tue, 21 Jul 2020 07:09:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jxmP5-0002ud-0c; Tue, 21 Jul 2020 07:09:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tByU=BA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jxmOj-0002sI-Fx
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 07:09:09 +0000
-X-Inumbo-ID: 0e67a0ca-cb21-11ea-a08a-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0e67a0ca-cb21-11ea-a08a-12813bfff9fa;
- Tue, 21 Jul 2020 07:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=LiUN3/0udrFNW6f+LPagfn1VM+6YUkVoN89sqRuCPUs=; b=bQaX548DXBy15oaUnk58J93rL
- SMY+xFpaSwfvfogkhGoGAn0bWeHmk8Lva+Gg8TA364guHLcwtoCjNqAHGzPOp1xTS+n+nbXfPcXsg
- kSIaRmpKMH0bQ7/bO7cIFlUYE7RAHpLan3C86+LDg0PbVpEmNCpyH4FnWxBp+XkTSNLNs=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jxmOc-0006t3-6q; Tue, 21 Jul 2020 07:09:02 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jxmOb-0000IR-HL; Tue, 21 Jul 2020 07:09:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jxmOb-0001c0-Ge; Tue, 21 Jul 2020 07:09:01 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152048-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=JDR4=BA=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jxmP3-0002uT-VW
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 07:09:30 +0000
+X-Inumbo-ID: 1de5cd89-cb21-11ea-84f2-bc764e2007e4
+Received: from mail-wm1-x32b.google.com (unknown [2a00:1450:4864:20::32b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1de5cd89-cb21-11ea-84f2-bc764e2007e4;
+ Tue, 21 Jul 2020 07:09:28 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id f18so1762934wml.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 00:09:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=HzrjnWe/4mTstvWu1GALcbzpv4WHCbnOVotodTJVkCM=;
+ b=WwbLMiyjAj5o7tOzLMsEG7Icofdsxm5YgoUf0FNdCOz7n+IkFEhZ5qO6BSo7dBJwpH
+ nf+j7NlAPlLV3dyFhiOPvBR96OMoUREx8wGe09Q1wtNvJHcT+UmlhDwxKRoepNgyuyh4
+ 7A5vnGBy6gvHqtcZMdCaOV6e0wTCxcDTyKST5pqQ+kpKgdmMlydKIHoFNS/B3Ms41Az5
+ 4r1H4f4uFjbDak9fbYUl0knIrYTyAbm7WXPmucKrb+OldzHAHpBJH6lcmTS2veE6uX38
+ 67F7/HDjpmOFer2UymyMdJNVYFmOKdtP9vHsajbtqUmMvWBL0LElJ9TMi7ZuAHvztgFc
+ SPkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=HzrjnWe/4mTstvWu1GALcbzpv4WHCbnOVotodTJVkCM=;
+ b=YtQv7+Un+2AvZm/dx9A4Z16tyBAT6BQ7u9KJWwGJxvfcyKUzkd/9yaZWKvHVgJArSl
+ e+ZrRMZ9hMAVmwskISYtBcWRLRQ4gkpNXacV/7SgIokLvzzRu6tT2AR8xoqP3qWWWfXV
+ SF8uY+gHojRDJ3fDaUBXkABJdFPxmPzqIpgrnMZDNTXEs30+zSC7iY2bqW7yr11SwxWZ
+ iHMg/wjTzDzEt45A11Ea5+bRSCbZWTWULo1wmnlOTfa4sB4Wb4JsErpL0VRSC/R6wU3G
+ CyfRzhpFpH4imqSd8o050i89G1Wq0Pemekd8l0GL2UMoVLJ1WzHnaWpZBxgXe2tzw978
+ SmPg==
+X-Gm-Message-State: AOAM5307IfdV7ldZ9ix52BAvMeyP7xFJdL3SvREPZJwqnraTEMUNxu4B
+ HrrkoianJgpJ6A8NAJvDZ90=
+X-Google-Smtp-Source: ABdhPJzIVeblSd0ad0JtzAaGVDQgtGzIwl6Al+M/ZW2KRDoZO7m2p7OjNuYzfdX5DzV7vuNzGekxwQ==
+X-Received: by 2002:a1c:9c0b:: with SMTP id f11mr2640108wme.0.1595315368039;
+ Tue, 21 Jul 2020 00:09:28 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-235.amazon.com. [54.240.197.235])
+ by smtp.gmail.com with ESMTPSA id y16sm37353587wro.71.2020.07.21.00.09.26
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 21 Jul 2020 00:09:27 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'Julien Grall'" <julien@xen.org>, <xen-devel@lists.xenproject.org>
+References: <20200720173635.1571-1-julien@xen.org>
+ <4cc580c5-146f-6f83-bd91-a798763c261b@citrix.com>
+ <627851f2-d28e-5c3b-6f1f-882e9eb02ed4@xen.org>
+ <aae69fa5-4aee-781d-2f52-291d8fa948bd@citrix.com>
+In-Reply-To: <aae69fa5-4aee-781d-2f52-291d8fa948bd@citrix.com>
+Subject: RE: [PATCH] SUPPORT.md: Spell correctly Experimental
+Date: Tue, 21 Jul 2020 08:09:26 +0100
+Message-ID: <003801d65f2d$df17bc10$9d473430$@xen.org>
 MIME-Version: 1.0
-Subject: [ovmf test] 152048: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=cb38ace647231076acfc0c5bdd21d3aff43e4f83
-X-Osstest-Versions-That: ovmf=3d9d66ad760b67bfdfb5b4b8e9b34f6af6c45935
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 21 Jul 2020 07:09:01 +0000
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQIJA8r+zryR5zyBmuKSqGVsBFT/MgKv6aA7Adqhqd8Burtywah6KbBQ
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,57 +81,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
+ 'Julien Grall' <jgrall@amazon.com>, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152048 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152048/
+> -----Original Message-----
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> Sent: 20 July 2020 18:49
+> To: Julien Grall <julien@xen.org>; xen-devel@lists.xenproject.org
+> Cc: paul@xen.org; Julien Grall <jgrall@amazon.com>; George Dunlap <george.dunlap@citrix.com>; Ian
+> Jackson <ian.jackson@eu.citrix.com>; Jan Beulich <jbeulich@suse.com>; Stefano Stabellini
+> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>
+> Subject: Re: [PATCH] SUPPORT.md: Spell correctly Experimental
+> 
+> On 20/07/2020 18:48, Julien Grall wrote:
+> >
+> > On 20/07/2020 18:45, Andrew Cooper wrote:
+> >> On 20/07/2020 18:36, Julien Grall wrote:
+> >>> From: Julien Grall <jgrall@amazon.com>
+> >>>
+> >>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> >>
+> >> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >>
+> >> Although I'd suggest the subject be changed rearranged to "Spell
+> >> Experimentally correctly".
+> >
+> > Did you intend to write "Experimental" rather than "Experimentally"?
+> 
+> Erm, yes :)
+> 
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 cb38ace647231076acfc0c5bdd21d3aff43e4f83
-baseline version:
- ovmf                 3d9d66ad760b67bfdfb5b4b8e9b34f6af6c45935
+Since this is a small docs change...
 
-Last test of basis   152037  2020-07-20 07:09:58 Z    0 days
-Testing same since   152048  2020-07-20 15:10:26 Z    0 days    1 attempts
+Release-acked-by: Paul Durrant <paul@xen.org>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  KrishnadasX Veliyathuparambil Prakashan <krishnadasx.veliyathuparambil.prakashan@intel.com>
+...and please commit to staging-4.14 a.s.a.p.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   3d9d66ad76..cb38ace647  cb38ace647231076acfc0c5bdd21d3aff43e4f83 -> xen-tested-master
 
