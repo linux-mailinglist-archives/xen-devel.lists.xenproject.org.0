@@ -2,55 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACADB227FEC
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 14:27:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A06A9227FF2
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 14:32:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxrMA-00006W-K4; Tue, 21 Jul 2020 12:26:50 +0000
+	id 1jxrR4-00017X-Mz; Tue, 21 Jul 2020 12:31:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UXjz=BA=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jxrM9-00006K-4x
- for xen-devel@lists.xen.org; Tue, 21 Jul 2020 12:26:49 +0000
-X-Inumbo-ID: 722ee146-cb4d-11ea-850b-bc764e2007e4
-Received: from mail-wr1-f65.google.com (unknown [209.85.221.65])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8Oq7=BA=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jxrR2-00017S-OJ
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 12:31:52 +0000
+X-Inumbo-ID: 27787102-cb4e-11ea-850b-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 722ee146-cb4d-11ea-850b-bc764e2007e4;
- Tue, 21 Jul 2020 12:26:48 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id r12so20915771wrj.13
- for <xen-devel@lists.xen.org>; Tue, 21 Jul 2020 05:26:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=atZwIHpY/sgLajW2nfxSRAQzRfTgPG8P0iRMDyO5FOA=;
- b=TUFtV7VtGyCz2kZwOlC6nsuwma5lYG/5a9E9lfC7vJsfuZE6/toFTEc8rbsedagLIW
- fY5FBzBAsdzaMsWPOmNI93sfxl/DDNYIOszAWjd/lC30ivxjRbHFPVk0rJ3jaQ06/N6g
- ho7SPDHV7A3ZHeWt0ypWNJvKtuZho1HYie64QBhFZow6ADwh7fABkysG6517UJeiQaZw
- Yml6AaY3Z/JDaIpClKqdcCTyrpaaj2snT3bI2Vc7sNWnsU3TE/odsebUBud7WkWds0rF
- y+1DmNP7RfOK1n2orHzBak3Ra+9f5ytHfBH+zSwh5/TC/zDy8XMnD3jtgm1zUAZHLXN+
- dKTg==
-X-Gm-Message-State: AOAM531T8tR0iyx4h831xCua3CDNK2/SXwNdNnGLw2gmTByf5uonhMQz
- QHot5SCoIBx00KpkSeBqxbI=
-X-Google-Smtp-Source: ABdhPJyIgHV0sGwD2jTmshExbYkeQJPANEAT6pilLxmZTT0bGH2L2e+r1gwDG/PuEyaauqQM/CeJ6w==
-X-Received: by 2002:adf:f542:: with SMTP id j2mr26558225wrp.61.1595334407315; 
- Tue, 21 Jul 2020 05:26:47 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id u10sm3156403wml.29.2020.07.21.05.26.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2020 05:26:46 -0700 (PDT)
-Date: Tue, 21 Jul 2020 12:26:45 +0000
-From: Wei Liu <wl@xen.org>
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Subject: Re: [PATCH 1/2] Partially revert "Cross-compilation fixes."
-Message-ID: <20200721122645.qcens4lqq5vcnmz4@liuwe-devbox-debian-v2>
-References: <20200718033121.GA88869@mattapan.m5p.com>
+ id 27787102-cb4e-11ea-850b-bc764e2007e4;
+ Tue, 21 Jul 2020 12:31:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=pThINDEi4USEYZjLqHdBiARtlHIpPF8j4miktMKagvs=; b=5AJSDYVVkPu49P5yJVRd1Whxoq
+ SA3vOwrUhaDlkA1tq298ipQSNBfNYBZIqGft4ENptT/QSEQd9vmtpPDCgDHBowbqPX/udx+COXCLn
+ YjkLykQoFnMlhm2jT/rcrHa1NXrFBUkLKdTB2tdlEUPMQY8Q3q0XgWhNF1z6J/azV+6E=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jxrR0-0005q8-Kr; Tue, 21 Jul 2020 12:31:50 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jxrR0-0005gj-AE; Tue, 21 Jul 2020 12:31:50 +0000
+Subject: Re: Virtio in Xen on Arm (based on IOREQ concept)
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <CAPD2p-nthLq5NaU32u8pVaa-ub=a9-LOPenupntTYdS-cu31jQ@mail.gmail.com>
+ <20200717150039.GV7191@Air-de-Roger>
+ <8f4e0c0d-b3d4-9dd3-ce20-639539321968@gmail.com>
+ <20200720091722.GF7191@Air-de-Roger>
+ <10eaec62-2c48-52ae-d113-1681c87e3d59@xen.org>
+ <20200720102023.GH7191@Air-de-Roger>
+ <alpine.DEB.2.21.2007201322060.32544@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <390f3a67-5ca5-d9bd-f13a-2c5920bad45a@xen.org>
+Date: Tue, 21 Jul 2020 13:31:48 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200718033121.GA88869@mattapan.m5p.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <alpine.DEB.2.21.2007201322060.32544@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,71 +67,89 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: dave@recoil.org, ian.jackson@eu.citrix.com, christian.lindig@citrix.com,
- wl@xen.org, xen-devel@lists.xen.org
+Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Oleksandr <olekstysh@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, alex.bennee@linaro.org,
+ Artem Mygaiev <joculator@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jul 17, 2020 at 08:31:21PM -0700, Elliott Mitchell wrote:
-> This partially reverts commit 16504669c5cbb8b195d20412aadc838da5c428f7.
+Hi Stefano,
 
-Ok, so this commit is really old.
-
+On 20/07/2020 21:37, Stefano Stabellini wrote:
+> On Mon, 20 Jul 2020, Roger Pau Monné wrote:
+>> On Mon, Jul 20, 2020 at 10:40:40AM +0100, Julien Grall wrote:
+>>>
+>>>
+>>> On 20/07/2020 10:17, Roger Pau Monné wrote:
+>>>> On Fri, Jul 17, 2020 at 09:34:14PM +0300, Oleksandr wrote:
+>>>>> On 17.07.20 18:00, Roger Pau Monné wrote:
+>>>>>> On Fri, Jul 17, 2020 at 05:11:02PM +0300, Oleksandr Tyshchenko wrote:
+>>>>>> Do you have any plans to try to upstream a modification to the VirtIO
+>>>>>> spec so that grants (ie: abstract references to memory addresses) can
+>>>>>> be used on the VirtIO ring?
+>>>>>
+>>>>> But VirtIO spec hasn't been modified as well as VirtIO infrastructure in the
+>>>>> guest. Nothing to upsteam)
+>>>>
+>>>> OK, so there's no intention to add grants (or a similar interface) to
+>>>> the spec?
+>>>>
+>>>> I understand that you want to support unmodified VirtIO frontends, but
+>>>> I also think that long term frontends could negotiate with backends on
+>>>> the usage of grants in the shared ring, like any other VirtIO feature
+>>>> negotiated between the frontend and the backend.
+>>>>
+>>>> This of course needs to be on the spec first before we can start
+>>>> implementing it, and hence my question whether a modification to the
+>>>> spec in order to add grants has been considered.
+>>> The problem is not really the specification but the adoption in the
+>>> ecosystem. A protocol based on grant-tables would mostly only be used by Xen
+>>> therefore:
+>>>     - It may be difficult to convince a proprietary OS vendor to invest
+>>> resource on implementing the protocol
+>>>     - It would be more difficult to move in/out of Xen ecosystem.
+>>>
+>>> Both, may slow the adoption of Xen in some areas.
+>>
+>> Right, just to be clear my suggestion wasn't to force the usage of
+>> grants, but whether adding something along this lines was in the
+>> roadmap, see below.
+>>
+>>> If one is interested in security, then it would be better to work with the
+>>> other interested parties. I think it would be possible to use a virtual
+>>> IOMMU for this purpose.
+>>
+>> Yes, I've also heard rumors about using the (I assume VirtIO) IOMMU in
+>> order to protect what backends can map. This seems like a fine idea,
+>> and would allow us to gain the lost security without having to do the
+>> whole work ourselves.
+>>
+>> Do you know if there's anything published about this? I'm curious
+>> about how and where in the system the VirtIO IOMMU is/should be
+>> implemented.
 > 
-> Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
-> ---
-> Doesn't look like much of 16504669c5cbb8b195d20412aadc838da5c428f7
-> actually remains due to passage of time.
-> 
-> Of the 3, both Python and pygrub appear to mostly be building just fine
-> cross-compiling.  The OCAML portion is being troublesome, this is going
-> to cause bug reports elsewhere soon.  The OCAML portion though can
-> already be disabled by setting OCAML_TOOLS=n and shouldn't have this
-> extra form of disabling.
-
-The reasoning here is fine by me. And it should be part of the commit
-message.
-
-I would like to also add "tools: prefix to the subject line:
-
-  tools: Partially revert "Cross-compilation fixes."
-
-If you agree with these changes, no action is required from you. I can
-handle everything while committing.
-
-Wei.
-
-> ---
->  tools/Makefile | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/tools/Makefile b/tools/Makefile
-> index 7b1f6c4d28..930a533724 100644
-> --- a/tools/Makefile
-> +++ b/tools/Makefile
-> @@ -40,12 +40,9 @@ SUBDIRS-$(CONFIG_X86) += debugger/gdbsx
->  SUBDIRS-$(CONFIG_X86) += debugger/kdd
->  SUBDIRS-$(CONFIG_TESTS) += tests
->  
-> -# These don't cross-compile
-> -ifeq ($(XEN_COMPILE_ARCH),$(XEN_TARGET_ARCH))
->  SUBDIRS-y += python
->  SUBDIRS-y += pygrub
->  SUBDIRS-$(OCAML_TOOLS) += ocaml
-> -endif
->  
->  ifeq ($(CONFIG_RUMP),y)
->  SUBDIRS-y := libs libxc xenstore
-> -- 
-> 2.20.1
-> 
-> 
-> 
-> -- 
-> (\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
->  \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
->   \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-> 8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+> Not yet (as far as I know), but we have just started some discussons on
+> this topic within Linaro.
 > 
 > 
+> You should also be aware that there is another proposal based on
+> pre-shared-memory and memcpys to solve the virtio security issue:
+> 
+> https://marc.info/?l=linux-kernel&m=158807398403549
+> 
+> It would be certainly slower than the "virtio IOMMU" solution but it
+> would take far less time to develop and could work as a short-term
+> stop-gap.
+
+I don't think I agree with this blank statement. In the case of "virtio 
+IOMMU", you would need to potentially map/unmap pages every request 
+which would result to a lot of back and forth to the hypervisor.
+
+So it may turn out that pre-shared-memory may be faster on some setup.
+
+Cheers,
+
+-- 
+Julien Grall
 
