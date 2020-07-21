@@ -2,77 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE112284FD
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 18:10:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91759228519
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 18:14:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxupq-0004ua-Bh; Tue, 21 Jul 2020 16:09:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jxuuF-0005jG-0r; Tue, 21 Jul 2020 16:14:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FhFK=BA=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1jxupn-0004uV-VS
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 16:09:40 +0000
-X-Inumbo-ID: 936607ef-cb6c-11ea-856b-bc764e2007e4
-Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 936607ef-cb6c-11ea-856b-bc764e2007e4;
- Tue, 21 Jul 2020 16:09:38 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id r19so24598501ljn.12
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 09:09:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=lWQom+B3YtchGFEgygjEdlRRiIvq78MqoOwISWJ7CTc=;
- b=Fdyxv1+usZFnher7O4ZpbX7ZMj+sVeKhNalikZdeK9IpRZylW0vlzKJm8664Ky9woq
- wuLDKJ2wLD6E9I1leXUfv8mjzViYE2oahWuOi1AmxLPNk2c8uWaAfXOct81sM98ijigX
- w0BquUi3Bl2Q6DaxiakuoT+453xT4F7Zo0bZ4PGuWOZ1mcI+zQdyyPxtfY94LBP7OvPL
- kgGCq6N4tqx1vsN74iF20fqvD6oMch/1lpBd5dBPAXhsAVLBEY07imU8WVZKCoegtmpY
- bF8Sd0uk2f7WW4IdKI3uGeIj1gfhJdhNUvkL0p9zWBReIwU/rd0nkp5LY8OzZGuzoaSX
- zDkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=lWQom+B3YtchGFEgygjEdlRRiIvq78MqoOwISWJ7CTc=;
- b=UNI9lIiRo9X4UENu8D1+C8ne/XMwpH8Y8Rh6jRwQ82p3C8Dx5L4HWLyfujHZ63Iw9h
- 2ivKpX4fpqDNdduK0xvC4DZ+GwK1AOaj4bN+KE0f6c0APPhS7S/u9O4LCVm4lcgvoZjd
- u/BWXTPpW1aurO4fqWvU2rAYnMEk8BpMKjxj09jioShuyeHjkOEFk+G5XL7BwkEvLQJB
- bN/8+YM3t+v/B6yniNGv3x1jYPgLjHWEQ7FmXVJp/3zfJzptpy0+Vyx3759yadfJhKp0
- Rm7bxuLgE+sISqWjaKUU3n6r2hhhdTkxoXVEsnHLtz33S3jPpPvn63bgRfiF2w7n70FB
- MwzQ==
-X-Gm-Message-State: AOAM530KkWavB/pK1JMjmJppCdF27YPLcQTdZAVlhqJc/BwTt7El/guH
- jA8HmoMeA0yFZUNrQ7yivhU=
-X-Google-Smtp-Source: ABdhPJzFbjSZXGlgCPNabTWcMPAgK37S3srZJxHj5+jkWwnpAb23e33U4K0OXf3Sg3URv46BEzah1A==
-X-Received: by 2002:a2e:b5b7:: with SMTP id f23mr11764896ljn.380.1595347777269; 
- Tue, 21 Jul 2020 09:09:37 -0700 (PDT)
-Received: from [192.168.1.2] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id l14sm5450304lfj.13.2020.07.21.09.09.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jul 2020 09:09:36 -0700 (PDT)
+ <SRS0=Eoy0=BA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jxuuD-0005iW-EV
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 16:14:13 +0000
+X-Inumbo-ID: 35b4c1fd-cb6d-11ea-a104-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 35b4c1fd-cb6d-11ea-a104-12813bfff9fa;
+ Tue, 21 Jul 2020 16:14:11 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1974E2073A;
+ Tue, 21 Jul 2020 16:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595348050;
+ bh=o37mSLsBpei9M8OpR/mn+lg5+r6LO58MP71JMJFXW8s=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=uuwy9Q+0XIt3ZFQPA9Km5xNRxjFNYWzh+GQf6rJ86Z+l/OJSlu+zm9X2c/cpEjv/8
+ 9NcNUtS5cqJwNwr7XE1+l2E99TheM8EPjSJgSeN7R4MgndB/LOUuGEVv1bkGCJbFev
+ 4Lb0BLrByLIrpNaPqTxabblrQMk+8eFNvF4TdABg=
+Date: Tue, 21 Jul 2020 09:14:08 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
 Subject: Re: Virtio in Xen on Arm (based on IOREQ concept)
-To: =?UTF-8?Q?Andr=c3=a9_Przywara?= <andre.przywara@arm.com>,
- Julien Grall <julien@xen.org>
+In-Reply-To: <87mu3tufhn.fsf@linaro.org>
+Message-ID: <alpine.DEB.2.21.2007210901480.32544@sstabellini-ThinkPad-T480s>
 References: <CAPD2p-nthLq5NaU32u8pVaa-ub=a9-LOPenupntTYdS-cu31jQ@mail.gmail.com>
  <20200717150039.GV7191@Air-de-Roger>
  <8f4e0c0d-b3d4-9dd3-ce20-639539321968@gmail.com>
- <alpine.DEB.2.21.2007201326060.32544@sstabellini-ThinkPad-T480s>
- <4454c70e-47fa-46e8-90bf-1904b11318b1@gmail.com>
- <048c27bf-a9ab-054c-8955-6e75fb6c6ea5@xen.org>
- <2c249585-aaba-1065-95df-be772861e9a8@arm.com>
- <e44d6826-643f-77c6-a821-77dc0abf4cbc@gmail.com>
- <1811dd15-4009-f78c-674c-177709cf2a22@arm.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <e7bbc9d6-648e-4d2a-e981-15743a628b1f@gmail.com>
-Date: Tue, 21 Jul 2020 19:09:30 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <20200720091722.GF7191@Air-de-Roger>
+ <10eaec62-2c48-52ae-d113-1681c87e3d59@xen.org>
+ <20200720102023.GH7191@Air-de-Roger>
+ <alpine.DEB.2.21.2007201322060.32544@sstabellini-ThinkPad-T480s>
+ <390f3a67-5ca5-d9bd-f13a-2c5920bad45a@xen.org> <87mu3tufhn.fsf@linaro.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <1811dd15-4009-f78c-674c-177709cf2a22@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: multipart/mixed; boundary="8323329-76670381-1595348050=:32544"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,90 +59,133 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Oleksandr Andrushchenko <andr2000@gmail.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Oleksandr <olekstysh@gmail.com>,
  xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- alex.bennee@linaro.org, Artem Mygaiev <joculator@gmail.com>
+ Artem Mygaiev <joculator@gmail.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 21.07.20 17:58, André Przywara wrote:
-> On 21/07/2020 15:52, Oleksandr wrote:
->> On 21.07.20 17:32, André Przywara wrote:
->>> On 21/07/2020 14:43, Julien Grall wrote:
->> Hello Andre, Julien
->>
->>
->>>> (+ Andre)
->>>>
->>>> Hi Oleksandr,
->>>>
->>>> On 21/07/2020 13:26, Oleksandr wrote:
->>>>> On 20.07.20 23:38, Stefano Stabellini wrote:
->>>>>> For instance, what's your take on notifications with virtio-mmio? How
->>>>>> are they modelled today? Are they good enough or do we need MSIs?
->>>>> Notifications are sent from device (backend) to the driver (frontend)
->>>>> using interrupts. Additional DM function was introduced for that
->>>>> purpose xendevicemodel_set_irq_level() which results in
->>>>> vgic_inject_irq() call.
->>>>>
->>>>> Currently, if device wants to notify a driver it should trigger the
->>>>> interrupt by calling that function twice (high level at first, then
->>>>> low level).
->>>> This doesn't look right to me. Assuming the interrupt is trigger when
->>>> the line is high-level, the backend should only issue the hypercall once
->>>> to set the level to high. Once the guest has finish to process all the
->>>> notifications the backend would then call the hypercall to lower the
->>>> interrupt line.
->>>>
->>>> This means the interrupts should keep firing as long as the interrupt
->>>> line is high.
->>>>
->>>> It is quite possible that I took some shortcut when implementing the
->>>> hypercall, so this should be corrected before anyone start to rely on
->>>> it.
->>> So I think the key question is: are virtio interrupts level or edge
->>> triggered? Both QEMU and kvmtool advertise virtio-mmio interrupts as
->>> edge-triggered.
->>>   From skimming through the virtio spec I can't find any explicit
->>> mentioning of the type of IRQ, but the usage of MSIs indeed hints at
->>> using an edge property. Apparently reading the PCI ISR status register
->>> clears it, which again sounds like edge. For virtio-mmio the driver
->>> needs to explicitly clear the interrupt status register, which again
->>> says: edge (as it's not the device clearing the status).
->>>
->>> So the device should just notify the driver once, which would cause one
->>> vgic_inject_irq() call. It would be then up to the driver to clear up
->>> that status, by reading PCI ISR status or writing to virtio-mmio's
->>> interrupt-acknowledge register.
->>>
->>> Does that make sense?
->> When implementing Xen backend, I didn't have an already working example
->> so only guessed. I looked how kvmtool behaved when actually triggering
->> the interrupt on Arm [1].
->>
->> Taking into the account that Xen PoC on Arm advertises [2] the same irq
->> type (TYPE_EDGE_RISING) as kvmtool [3] I decided to follow the model of
->> triggering an interrupt. Could you please explain, is this wrong?
-> Yes, kvmtool does a double call needlessly (on x86, ppc and arm, mips is
-> correct).
-> I just chased it down in the kernel, a KVM_IRQ_LINE ioctl with level=low
-> is ignored when the target IRQ is configured as edge (which it is,
-> because the DT says so), check vgic_validate_injection() in the kernel.
->
-> So you should only ever need one call to set the line "high" (actually:
-> trigger the edge pulse).
+--8323329-76670381-1595348050=:32544
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Got it, thanks for the explanation. Have just removed an extra action 
-(setting low level) and checked.
+On Tue, 21 Jul 2020, Alex Bennée wrote:
+> Julien Grall <julien@xen.org> writes:
+> 
+> > Hi Stefano,
+> >
+> > On 20/07/2020 21:37, Stefano Stabellini wrote:
+> >> On Mon, 20 Jul 2020, Roger Pau Monné wrote:
+> >>> On Mon, Jul 20, 2020 at 10:40:40AM +0100, Julien Grall wrote:
+> >>>>
+> >>>>
+> >>>> On 20/07/2020 10:17, Roger Pau Monné wrote:
+> >>>>> On Fri, Jul 17, 2020 at 09:34:14PM +0300, Oleksandr wrote:
+> >>>>>> On 17.07.20 18:00, Roger Pau Monné wrote:
+> >>>>>>> On Fri, Jul 17, 2020 at 05:11:02PM +0300, Oleksandr Tyshchenko wrote:
+> >>>>>>> Do you have any plans to try to upstream a modification to the VirtIO
+> >>>>>>> spec so that grants (ie: abstract references to memory addresses) can
+> >>>>>>> be used on the VirtIO ring?
+> >>>>>>
+> >>>>>> But VirtIO spec hasn't been modified as well as VirtIO infrastructure in the
+> >>>>>> guest. Nothing to upsteam)
+> >>>>>
+> >>>>> OK, so there's no intention to add grants (or a similar interface) to
+> >>>>> the spec?
+> >>>>>
+> >>>>> I understand that you want to support unmodified VirtIO frontends, but
+> >>>>> I also think that long term frontends could negotiate with backends on
+> >>>>> the usage of grants in the shared ring, like any other VirtIO feature
+> >>>>> negotiated between the frontend and the backend.
+> >>>>>
+> >>>>> This of course needs to be on the spec first before we can start
+> >>>>> implementing it, and hence my question whether a modification to the
+> >>>>> spec in order to add grants has been considered.
+> >>>> The problem is not really the specification but the adoption in the
+> >>>> ecosystem. A protocol based on grant-tables would mostly only be used by Xen
+> >>>> therefore:
+> >>>>     - It may be difficult to convince a proprietary OS vendor to invest
+> >>>> resource on implementing the protocol
+> >>>>     - It would be more difficult to move in/out of Xen ecosystem.
+> >>>>
+> >>>> Both, may slow the adoption of Xen in some areas.
+> >>>
+> >>> Right, just to be clear my suggestion wasn't to force the usage of
+> >>> grants, but whether adding something along this lines was in the
+> >>> roadmap, see below.
+> >>>
+> >>>> If one is interested in security, then it would be better to work with the
+> >>>> other interested parties. I think it would be possible to use a virtual
+> >>>> IOMMU for this purpose.
+> >>>
+> >>> Yes, I've also heard rumors about using the (I assume VirtIO) IOMMU in
+> >>> order to protect what backends can map. This seems like a fine idea,
+> >>> and would allow us to gain the lost security without having to do the
+> >>> whole work ourselves.
+> >>>
+> >>> Do you know if there's anything published about this? I'm curious
+> >>> about how and where in the system the VirtIO IOMMU is/should be
+> >>> implemented.
+> >> 
+> >> Not yet (as far as I know), but we have just started some discussons on
+> >> this topic within Linaro.
+> >> 
+> >> 
+> >> You should also be aware that there is another proposal based on
+> >> pre-shared-memory and memcpys to solve the virtio security issue:
+> >> 
+> >> https://marc.info/?l=linux-kernel&m=158807398403549
+> >> 
+> >> It would be certainly slower than the "virtio IOMMU" solution but it
+> >> would take far less time to develop and could work as a short-term
+> >> stop-gap.
+> >
+> > I don't think I agree with this blank statement. In the case of "virtio 
+> > IOMMU", you would need to potentially map/unmap pages every request 
+> > which would result to a lot of back and forth to the hypervisor.
+
+Yes, that's true.
 
 
--- 
-Regards,
+> Can a virtio-iommu just set bounds when a device is initialised as to
+> where memory will be in the kernel address space?
 
-Oleksandr Tyshchenko
+First let me premise to avoid possible miscommunication that what Julien
+and I are calling "virtio IOMMU" is not an existing virtio-iommu driver
+of some sort, but an idea for a cross-domain virtual IOMMU for the sake
+of the frontends to explicitly permit memory to be accessed by the
+backends. Hopefully it was clear already but better be sure :-)
 
+
+If you are asking whether it would be possible to use the virtual IOMMU
+just to setup memory at startup time, then it certainly could, but
+effectively we would end up with one of the following scenarios:
+
+1) one pre-shared bounce buffer
+Effectively the same as https://marc.info/?l=linux-kernel&m=158807398403549
+still requires memcpys
+could still be nicer than Qualcomm's proposal because easier to
+configure?
+
+2) all domU memory allowed access to the backend
+Not actually any more secure than placing the backends in dom0
+
+
+Otherwise we need the dynamic maps/unmaps.
+
+For completeness, if we could write the whole software stack from
+scratch, it would also be possible to architect a protocol (like
+virtio-net) and the software stack above it to always allocate memory
+from a given buffer (the pre-shared buffer), hence greatly reducing the
+amount of required memcpys, maybe even down to zero. In reality, most
+interfaces in Linux and POSIX userspace expect the application to be the
+one providing the buffer, hence they would require memcpys in the kernel
+to move data between the user-provided buffers and the pre-shared buffers.
+--8323329-76670381-1595348050=:32544--
 
