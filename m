@@ -2,75 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5A2822802B
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 14:43:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B19682280BD
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jul 2020 15:15:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jxrcO-0002HV-N8; Tue, 21 Jul 2020 12:43:36 +0000
+	id 1jxs6J-00051l-Fm; Tue, 21 Jul 2020 13:14:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FhFK=BA=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1jxrcM-0002HN-PB
- for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 12:43:34 +0000
-X-Inumbo-ID: c89278a3-cb4f-11ea-850b-bc764e2007e4
-Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
+ <SRS0=JDR4=BA=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jxs6H-00051g-AZ
+ for xen-devel@lists.xenproject.org; Tue, 21 Jul 2020 13:14:29 +0000
+X-Inumbo-ID: 1aa4952c-cb54-11ea-8510-bc764e2007e4
+Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c89278a3-cb4f-11ea-850b-bc764e2007e4;
- Tue, 21 Jul 2020 12:43:33 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id 140so1196643lfi.5
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 05:43:33 -0700 (PDT)
+ id 1aa4952c-cb54-11ea-8510-bc764e2007e4;
+ Tue, 21 Jul 2020 13:14:27 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id b6so21141522wrs.11
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Jul 2020 06:14:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=3mR0ctUuSSRgosKIoD17ZxqHuQMrC4nwz7Ef6VXJ+nQ=;
- b=rdXf+svpvwuEI/CuJCw3nI6LayiudL8PqiyAzywoyvWk7gFlJ7v1EfZjvL601y+X3Z
- 0wwpVilMMry5KWmNrav1utFP0DPO9kDoSk2ETYe0DpN85HYO1F1LGKsRPAJ5w5c4kbTF
- 8AID2hZykKOBl/UlHAotkH5jqkiAHnM0lFGPnCpVeh3bTmoeuA0NkHLbmbpL/rOHOtIm
- n40BIxe8UmVWoyC0CREq532tUc/a7Pe7sK50b2yLwz7kfvei+FwDSfJtQc5qmAK1rKk3
- frgalfpVtXWMelLRds4J0IZFdoDJIh/XGboeQtvWP5dyib2FdA0T2/hSkpWKv5EeDdg5
- yCbw==
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=Oe3hdXJ/7JYTMaU8YwiS32I4gQHoup1kwePMxKDuzqc=;
+ b=gSQeeNWxkmrCIaXDf8RlIdEkg3RuheSVYJGZvZUUOcE9V9+ng6of0buRkiKBjxdHT1
+ q9FtejgTgeL/ogpC+YbS16YnhAEbJAz0ZhZ4ZSu1E89ovlbD2xC6IJwHtoOZ/BPT89rX
+ PO+KQs6tjFFnrJR9vUUCleIjsiEjHp44l2lvQQZ3OK49JS/G/nIOOsxtpB5YuzX34njd
+ 8HahN/i3+DiUNm927YfGaQjwn98aRPAhBkcf8ZIUtokp7O+7tTR3DT72SivcTWpPKlHK
+ VzuipiWHkfSYC+LXu8LnnDw9nlqCX7sds1+zeprbp/yJcj31uK8zxrjxW72hsMmbvaSm
+ 5rVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=3mR0ctUuSSRgosKIoD17ZxqHuQMrC4nwz7Ef6VXJ+nQ=;
- b=N1q0ZSgA3LqNkqq1Z87gIijxIdsJdRw13yA3oZj8sC8iwuyCWWXCdZKXeCfg2L3yW3
- H9z1nJ8ATFFuERxOSQl0UNLQQgG9fTeU67vXjXWKsyDtZ12s5IjPKcn+pT2clO6ndsH5
- lRdf9ZAC8qlkJiMt+TRFjB86hWTYTEDUSF7ibcgK/LF8m7hUMj/TtWMt/at+dQhc+sb7
- KZwNyXYX0jd+ah//05sImi8oFR2bUfgoTMQUzfajFFc90p5cY4vd3Yw8LhMX0V+3gDnp
- GUf3iXc2lJ5L2UZSNl3WtLJ9/3LfcC+yux0rLvB5yARZMTlOBxoFZv+SBMJGOi2Lfb1I
- SGQw==
-X-Gm-Message-State: AOAM533z3e/Ec1LA3DIOyPXE+4YyMmoxaXDIDTLvEdFZ0K18OYi9ezUl
- oDidILxP6U7jfpuESc0/hGE=
-X-Google-Smtp-Source: ABdhPJw6gLy02g+vtXhYCE9nq1p1RuFoMhPZvd+pKzSKLl1LuveCY5q0ATbhB5AaQfAMeQcHZdDOhA==
-X-Received: by 2002:a19:7404:: with SMTP id v4mr13412036lfe.93.1595335412068; 
- Tue, 21 Jul 2020 05:43:32 -0700 (PDT)
-Received: from [192.168.1.2] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id q3sm4382632ljm.22.2020.07.21.05.43.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jul 2020 05:43:31 -0700 (PDT)
-Subject: Re: Virtio in Xen on Arm (based on IOREQ concept)
-To: Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <CAPD2p-nthLq5NaU32u8pVaa-ub=a9-LOPenupntTYdS-cu31jQ@mail.gmail.com>
- <20200717150039.GV7191@Air-de-Roger>
- <8f4e0c0d-b3d4-9dd3-ce20-639539321968@gmail.com>
- <20200720091722.GF7191@Air-de-Roger>
- <be3fc8de-5582-8fd0-52cd-0cbfbfa96859@gmail.com>
- <20200720110950.GJ7191@Air-de-Roger>
- <alpine.DEB.2.21.2007201330070.32544@sstabellini-ThinkPad-T480s>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <7f3a558f-e539-17bb-c8da-2d95d5578221@gmail.com>
-Date: Tue, 21 Jul 2020 15:43:30 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=Oe3hdXJ/7JYTMaU8YwiS32I4gQHoup1kwePMxKDuzqc=;
+ b=dV5PEHbjHfkTiEO8oSFsCSIFH6EE/R1r77P1hRam1nJxRWJaJO3jWMXxUDHB7hJN1z
+ Qwm7Dgh2MnbAVXwGZUhRzmtu9+5IuVsSqV3OPpR4DmZ0svD3RERCMWg5Dyb4ivEzhoea
+ AEfaJyu3NZT9m2kZvqXlu6d2FP8+vGgnKKEg/o1Qso82wNqUJJPTD7WC3yZkVTq6Fipo
+ RNEwUC0aGDXQyeaYFVjHqkd3bWyUgJbcIh1I7FMNsj9SQ1QEXo8rlGf77izkKhv9Jwh3
+ GmUoC1B1TxIZYT4w9jydjKAyJYu0ufcKAJZhzNxa5rjR5UjUkTuJBR+1wwVfIJ4YjJrb
+ I5lg==
+X-Gm-Message-State: AOAM531e7gI+0TJ1UGbYhKfSVUx9kTS+ftp6vtnSs5cGLJeaSeF08ixr
+ mBS6nIboDSmTRsbsi13smsY=
+X-Google-Smtp-Source: ABdhPJyxLQ+dyHO3WYqONEWDuQLNHOB4CU/sS93NdZMDlnMqbXntGQWDyVCkJsuLp4W04LU4WabMqg==
+X-Received: by 2002:adf:f3cb:: with SMTP id g11mr9131227wrp.268.1595337266926; 
+ Tue, 21 Jul 2020 06:14:26 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-233.amazon.com. [54.240.197.233])
+ by smtp.gmail.com with ESMTPSA id l15sm36325555wro.33.2020.07.21.06.14.25
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 21 Jul 2020 06:14:25 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+References: <20200701090210.GN735@Air-de-Roger>
+ <f89a158a-416e-1939-597a-075ff97f2b02@suse.com>
+ <af13fa01-db36-784d-dfaf-b9905defc7fd@citrix.com>
+ <007a01d65363$9ab7c1d0$d0274570$@xen.org> <20200706083131.GA735@Air-de-Roger>
+ <007c01d65373$ad3c4140$07b4c3c0$@xen.org>
+ <20200721115327.GO7191@Air-de-Roger>
+In-Reply-To: <20200721115327.GO7191@Air-de-Roger>
+Subject: RE: vPT rework (and timer mode)
+Date: Tue, 21 Jul 2020 14:14:24 +0100
+Message-ID: <004801d65f60$db70f300$9252d900$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2007201330070.32544@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQG+XT3UL7mtyhdM6X8x294LjZ1FmQGlQU2IApzoD8QCa8XKyQFu21K2ALaG9p4BeJJRUajvp4nQ
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,88 +82,152 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>,
- Artem Mygaiev <joculator@gmail.com>
+Reply-To: paul@xen.org
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Igor Druzhinin' <igor.druzhinin@citrix.com>, 'Wei Liu' <wl@xen.org>,
+ 'Jan Beulich' <jbeulich@suse.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+> -----Original Message-----
+> From: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> Sent: 21 July 2020 12:53
+> To: paul@xen.org
+> Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'Jan Beulich' =
+<jbeulich@suse.com>; xen-
+> devel@lists.xenproject.org; 'Wei Liu' <wl@xen.org>; Igor Druzhinin =
+<igor.druzhinin@citrix.com>
+> Subject: Re: vPT rework (and timer mode)
+>=20
+> On Mon, Jul 06, 2020 at 09:58:53AM +0100, Paul Durrant wrote:
+> > > -----Original Message-----
+> > > From: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> > > Sent: 06 July 2020 09:32
+> > > To: paul@xen.org
+> > > Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'Jan Beulich' =
+<jbeulich@suse.com>; xen-
+> > > devel@lists.xenproject.org; 'Wei Liu' <wl@xen.org>
+> > > Subject: Re: vPT rework (and timer mode)
+> > >
+> > > On Mon, Jul 06, 2020 at 08:03:50AM +0100, Paul Durrant wrote:
+> > > > > -----Original Message-----
+> > > > > From: Andrew Cooper <andrew.cooper3@citrix.com>
+> > > > > Sent: 03 July 2020 16:03
+> > > > > To: Jan Beulich <jbeulich@suse.com>; Roger Pau Monn=C3=A9 =
+<roger.pau@citrix.com>
+> > > > > Cc: xen-devel@lists.xenproject.org; Wei Liu <wl@xen.org>; Paul =
+Durrant <paul@xen.org>
+> > > > > Subject: Re: vPT rework (and timer mode)
+> > > > >
+> > > > > On 03/07/2020 15:50, Jan Beulich wrote:
+> > > > > > On 01.07.2020 11:02, Roger Pau Monn=C3=A9 wrote:
+> > > > > >> It's my understanding that the purpose of pt_update_irq and
+> > > > > >> pt_intr_post is to attempt to implement the "delay for =
+missed ticks"
+> > > > > >> mode, where Xen will accumulate timer interrupts if they =
+cannot be
+> > > > > >> injected. As shown by the patch above, this is all broken =
+when the
+> > > > > >> timer is added to a vCPU (pt->vcpu) different than the =
+actual target
+> > > > > >> vCPU where the interrupt gets delivered (note this can also =
+be a list
+> > > > > >> of vCPUs if routed from the IO-APIC using Fixed mode).
+> > > > > >>
+> > > > > >> I'm at lost at how to fix this so that virtual timers work =
+properly
+> > > > > >> and we also keep the "delay for missed ticks" mode without =
+doing a
+> > > > > >> massive rework and somehow keeping track of where injected =
+interrupts
+> > > > > >> originated, which seems an overly complicated solution.
+> > > > > >>
+> > > > > >> My proposal hence would be to completely remove the =
+timer_mode, and
+> > > > > >> just treat virtual timer interrupts as other interrupts, =
+ie: they will
+> > > > > >> be injected from the callback (pt_timer_fn) and the vCPU(s) =
+would be
+> > > > > >> kicked. Whether interrupts would get lost (ie: injected =
+when a
+> > > > > >> previous one is still pending) depends on the contention on =
+the
+> > > > > >> system. I'm not aware of any current OS that uses timer =
+interrupts as
+> > > > > >> a way to track time. I think current OSes know the =
+differences between
+> > > > > >> a timer counter and an event timer, and will use them =
+appropriately.
+> > > > > > Fundamentally - why not, the more that this promises to be a
+> > > > > > simplification. The question we need to answer up front is =
+whether
+> > > > > > we're happy to possibly break old OSes (presumably ones =
+no-one
+> > > > > > ought to be using anymore these days, due to their support =
+life
+> > > > > > cycles long having ended).
+> > > > >
+> > > > > The various timer modes were all compatibility, and IIRC, =
+mostly for
+> > > > > Windows XP and older which told time by counting the number of =
+timer
+> > > > > interrupts.
+> > > > >
+> > > > > Paul - you might remember better than me?
+> > > >
+> > > > I think it is only quite recently that Windows has started =
+favouring enlightened time sources
+> rather
+> > > than counting ticks but an admin may still turn all the viridian =
+enlightenments off so just
+> dropping
+> > > ticks will probably still cause time to drift backwards.
+> > >
+> > > Even when not using the viridian enlightenments, Windows should =
+rely
+> > > on emulated time counters (or the TSC) rather than counting ticks?
+> >
+> > Microsoft implementations... sensible... two different things.
+> >
+> > >
+> > > I guess I could give it a try with one of the emulated Windows =
+versions
+> > > that we test on osstest.
+> > >
+> >
+> > Pick an old-ish version. I think osstest has copy of Windows 7.
+>=20
+> Tried on Windows 7 (with viridian disabled) setting
+> timer_mode=3D"one_missed_tick_pending" and limiting the capacity of =
+the
+> domain to 1 (1% CPU utilization) in order to start missing ticks, and
+> the clock does indeed start lagging behind.
+>=20
+> When not using one_missed_tick_pending mode and limiting the capacity
+> to 1 the clock also lags a bit (I guess with 1% CPU utilization
+> delayed ticks accumulate too much), but the clock doesn't seem to be
+> skewed that much.
+>=20
+> Both modes will catch up at some point, I assume Windows does sync =
+time
+> periodically with the wallclock, but I don't think we want to resort
+> to that.
+>=20
 
-On 20.07.20 23:40, Stefano Stabellini wrote:
+IIRC it normally syncs once an hour or thereabouts. PV drivers will =
+force a re-sync every 10 mins if they are installed.
 
-Hello Stefano
+> I will draft a plan about how to proceed in order to fix the emulated
+> timers event delivery while keeping the accumulated ticks mode and
+> send it to the list, as I would like to fix this.
 
-> On Mon, 20 Jul 2020, Roger Pau Monné wrote:
->> On Mon, Jul 20, 2020 at 01:56:51PM +0300, Oleksandr wrote:
->>> On 20.07.20 12:17, Roger Pau Monné wrote:
->>>> On Fri, Jul 17, 2020 at 09:34:14PM +0300, Oleksandr wrote:
->>>>> On 17.07.20 18:00, Roger Pau Monné wrote:
->>>>>> On Fri, Jul 17, 2020 at 05:11:02PM +0300, Oleksandr Tyshchenko wrote:
->>>>> The other reasons are:
->>>>>
->>>>> 1. Automation. With current backend implementation we don't need to pause
->>>>> guest right after creating it, then go to the driver domain and spawn
->>>>> backend and
->>>>>
->>>>> after that go back to the dom0 and unpause the guest.
->>>> xl devd should be capable of handling this for you on the driver
->>>> domain.
->>>>
->>>>> 2. Ability to detect when guest with involved frontend has gone away and
->>>>> properly release resource (guest destroy/reboot).
->>>>>
->>>>> 3. Ability to (re)connect to the newly created guest with involved frontend
->>>>> (guest create/reboot).
->>>>>
->>>>> 4. What is more that having Xenstore support the backend is able to detect
->>>>> the dom_id it runs into and the guest dom_id, there is no need pass them via
->>>>> command line.
->>>>>
->>>>>
->>>>> I will be happy to explain in details after publishing backend code).
->>>> As I'm not the one doing the work I certainly won't stop you from
->>>> using xenstore on the backend. I would certainly prefer if the backend
->>>> gets all the information it needs from the command line so that the
->>>> configuration data is completely agnostic to the transport layer used
->>>> to convey it.
->>>>
->>>> Thanks, Roger.
->>> Thank you for pointing another possible way. I feel I need to investigate
->>> what is the "xl devd" (+ Argo?) and how it works. If it is able to provide
->>> backend with
->> That's what x86 at least uses to manage backends on driver domains: xl
->> devd will for example launch the QEMU instance required to handle a
->> Xen PV disk backend in user-space.
->>
->> Note that there's currently no support for Argo or any communication
->> channel different than xenstore, but I think it would be cleaner to
->> place the fetching of data from xenstore in xl devd and just pass
->> those as command line arguments to the VirtIO backend if possible. I
->> would prefer the VirtIO backend to be fully decoupled from xenstore.
->>
->> Note that for a backend running on dom0 there would be no need to
->> pass any data on xenstore, as the backend would be launched directly
->> from xl with the appropriate command line arguments.
-> If I can paraphrase Roger's point, I think we all agree that xenstore is
-> very convenient to use and great to get something up and running
-> quickly. But it has several limitations, so it would be fantastic if we
-> could kill two birds with one stone and find a way to deploy the system
-> without xenstore, given that with virtio it is not actually needed if not
-> for very limited initial configurations. It would certainly be a big
-> win. However, it is fair to say that the xenstore alternative, whatever
-> that might be, needs work.
+Ok.
 
-Well, why actually not?
+Cheers,
 
-For example, the idea "to place the fetching of data from xenstore in xl 
-devd and just pass
-those as command line arguments to the VirtIO backend if possible" 
-sounds fine to me. But this needs an additional investigation.
+  Paul
 
--- 
-Regards,
-
-Oleksandr Tyshchenko
+>=20
+> Roger.
 
 
