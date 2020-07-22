@@ -2,66 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC75E22936F
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 10:28:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F05322939A
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 10:34:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyA6Z-0007yQ-8n; Wed, 22 Jul 2020 08:27:59 +0000
+	id 1jyACh-0000PC-Vr; Wed, 22 Jul 2020 08:34:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bhkO=BB=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jyA6X-0007xa-0w
- for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 08:27:57 +0000
-X-Inumbo-ID: 3dc8f07e-cbf5-11ea-8620-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mY6V=BB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jyACh-0000P7-4D
+ for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 08:34:19 +0000
+X-Inumbo-ID: 21c44422-cbf6-11ea-8620-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3dc8f07e-cbf5-11ea-8620-bc764e2007e4;
- Wed, 22 Jul 2020 08:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595406476;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=FN40+KHzDRqn99k21tmlYB+H9TCBGBR1w3tvJcN9Tgs=;
- b=cYGQklK5OJcdqGfhVG/S/3cufajSRbOFRUfQQLa3TCpzos4ukgypGEBn
- Eg1L30ggqyBKuSKpzlhqE//n0ii5AgdcqF+pJBVd5SRYPzD7JuxukI+78
- HCQIezx4M+cWLF4AfkwJ2AiwIcsWAOnwqh2ec3qVNTRjI8INjRN/z8JEr s=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: mlqzl0cWqd5gabQyWtfyst+GqUDqk2plDTUvwmrYJ8XALOOL3c4pwsZ14wIgTuqSOrWdAsqabU
- U3z4rBnJN46Le58mC9XaMMoAN3S3s0bqLbgiivLfDLVwkpF/RX2WQDULvW4T8zVE5XCVH++AU3
- OUWlO6ngvCzlLeLZixzTsry09fylayuaS5boFcXYZna62kTmuNMGKttp0dIuWif7hkABJgwyxK
- ikPkcGIF9TKekbeq9FWw+LIYJMaFgyhyMnNs+N/qmuLzuxVJUkXnzCjftz5DjOIOBeOWFolL+4
- yw4=
-X-SBRS: 2.7
-X-MesageID: 22916032
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,381,1589256000"; d="scan'208";a="22916032"
-Date: Wed, 22 Jul 2020 10:27:46 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anchal Agarwal <anchalag@amazon.com>
-Subject: Re: [PATCH v2 01/11] xen/manage: keep track of the on-going suspend
- mode
-Message-ID: <20200722082746.GS7191@Air-de-Roger>
-References: <20200702182136.GA3511@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <50298859-0d0e-6eb0-029b-30df2a4ecd63@oracle.com>
- <20200715204943.GB17938@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <0ca3c501-e69a-d2c9-a24c-f83afd4bdb8c@oracle.com>
- <20200717191009.GA3387@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <5464f384-d4b4-73f0-d39e-60ba9800d804@oracle.com>
- <20200720093705.GG7191@Air-de-Roger>
- <20200721001736.GB19610@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200721083018.GM7191@Air-de-Roger>
- <20200721195509.GA14682@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ id 21c44422-cbf6-11ea-8620-bc764e2007e4;
+ Wed, 22 Jul 2020 08:34:18 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A6FB2AD4A;
+ Wed, 22 Jul 2020 08:34:24 +0000 (UTC)
+Subject: Re: [xen-unstable test] 152067: regressions - trouble:
+ fail/pass/starved
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org
+References: <osstest-152067-mainreport@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <62b87ab7-1f1e-0ef8-0ff7-3b6fb55837dd@suse.com>
+Date: Wed, 22 Jul 2020 10:34:18 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200721195509.GA14682@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <osstest-152067-mainreport@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,118 +47,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: eduval@amazon.com, len.brown@intel.com, peterz@infradead.org,
- benh@kernel.crashing.org, x86@kernel.org, linux-mm@kvack.org, pavel@ucw.cz,
- hpa@zytor.com, tglx@linutronix.de, sstabellini@kernel.org, kamatam@amazon.com,
- marmarek@invisiblethingslab.com, mingo@redhat.com,
- xen-devel@lists.xenproject.org, sblbir@amazon.com, axboe@kernel.dk,
- konrad.wilk@oracle.com, bp@alien8.de,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, jgross@suse.com,
- netdev@vger.kernel.org, linux-pm@vger.kernel.org, rjw@rjwysocki.net,
- linux-kernel@vger.kernel.org, vkuznets@redhat.com, davem@davemloft.net,
- dwmw@amazon.co.uk
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jul 21, 2020 at 07:55:09PM +0000, Anchal Agarwal wrote:
-> On Tue, Jul 21, 2020 at 10:30:18AM +0200, Roger Pau Monné wrote:
-> > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > 
-> > 
-> > 
-> > Marek: I'm adding you in case you could be able to give this a try and
-> > make sure it doesn't break suspend for dom0.
-> > 
-> > On Tue, Jul 21, 2020 at 12:17:36AM +0000, Anchal Agarwal wrote:
-> > > On Mon, Jul 20, 2020 at 11:37:05AM +0200, Roger Pau Monné wrote:
-> > > > CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > > >
-> > > >
-> > > >
-> > > > On Sat, Jul 18, 2020 at 09:47:04PM -0400, Boris Ostrovsky wrote:
-> > > > > (Roger, question for you at the very end)
-> > > > >
-> > > > > On 7/17/20 3:10 PM, Anchal Agarwal wrote:
-> > > > > > On Wed, Jul 15, 2020 at 05:18:08PM -0400, Boris Ostrovsky wrote:
-> > > > > >> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > > > > >>
-> > > > > >>
-> > > > > >>
-> > > > > >> On 7/15/20 4:49 PM, Anchal Agarwal wrote:
-> > > > > >>> On Mon, Jul 13, 2020 at 11:52:01AM -0400, Boris Ostrovsky wrote:
-> > > > > >>>> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
-> > > > > >>>>
-> > > > > >>>>
-> > > > > >>>>
-> > > > > >>>> On 7/2/20 2:21 PM, Anchal Agarwal wrote:
-> > > > > >>>> And PVH dom0.
-> > > > > >>> That's another good use case to make it work with however, I still
-> > > > > >>> think that should be tested/worked upon separately as the feature itself
-> > > > > >>> (PVH Dom0) is very new.
-> > > > > >>
-> > > > > >> Same question here --- will this break PVH dom0?
-> > > > > >>
-> > > > > > I haven't tested it as a part of this series. Is that a blocker here?
-> > > > >
-> > > > >
-> > > > > I suspect dom0 will not do well now as far as hibernation goes, in which
-> > > > > case you are not breaking anything.
-> > > > >
-> > > > >
-> > > > > Roger?
-> > > >
-> > > > I sadly don't have any box ATM that supports hibernation where I
-> > > > could test it. We have hibernation support for PV dom0, so while I
-> > > > haven't done anything specific to support or test hibernation on PVH
-> > > > dom0 I would at least aim to not make this any worse, and hence the
-> > > > check should at least also fail for a PVH dom0?
-> > > >
-> > > > if (!xen_hvm_domain() || xen_initial_domain())
-> > > >     return -ENODEV;
-> > > >
-> > > > Ie: none of this should be applied to a PVH dom0, as it doesn't have
-> > > > PV devices and hence should follow the bare metal device suspend.
-> > > >
-> > > So from what I understand you meant for any guest running on pvh dom0 should not
-> > > hibernate if hibernation is triggered from within the guest or should they?
-> > 
-> > Er no to both I think. What I meant is that a PVH dom0 should be able
-> > to properly suspend, and we should make sure this work doesn't make
-> > this any harder (or breaks it if it's currently working).
-> > 
-> > Or at least that's how I understood the question raised by Boris.
-> > 
-> > You are adding code to the generic suspend path that's also used by dom0
-> > in order to perform bare metal suspension. This is fine now for a PV
-> > dom0 because the code is gated on xen_hvm_domain, but you should also
-> > take into account that a PVH dom0 is considered a HVM domain, and
-> > hence will get the notifier registered.
-> >
-> Ok that makes sense now. This is good to be safe, but my patch series is only to
-> support domU hibernation, so I am not sure if this will affect pvh dom0.
-> However, since I do not have a good way of testing sure I will add the check.
+On 22.07.2020 02:37, osstest service owner wrote:
+> flight 152067 xen-unstable real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/152067/
 > 
-> Moreover, in Patch-0004, I do register suspend/resume syscore_ops specifically for domU
-> hibernation only if its xen_hvm_domain.
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-amd64-amd64-dom0pvh-xl-intel 18 guest-localmigrate/x10 fail REGR. vs. 152045
 
-So if the hooks are only registered for domU, do you still need this
-xen_hvm_domain check here?
+Jul 21 16:20:58.985209 [  530.412043] libxl-save-help: page allocation failure: order:4, mode:0x60c0c0(GFP_KERNEL|__GFP_COMP|__GFP_ZERO), nodemask=(null)
 
-I have to admit I'm not familiar with Linux PM suspend.
+My first reaction to this would be to ask if Dom0 was given too little
+memory here. Or of course there could be a memory leak somewhere. But
+the system isn't entirely out of memory (about 7Mb left), so perhaps
+the "order:4" aspect here also plays a meaningful role. Hence ...
 
-> I don't see any reason that should not
-> be registered for domU's running on pvh dom0.
+Jul 21 16:21:00.390810 [  530.412448] Call Trace:
+Jul 21 16:21:00.402721 [  530.412499]  dump_stack+0x72/0x8c
+Jul 21 16:21:00.402801 [  530.412541]  warn_alloc.cold.140+0x68/0xe8
+Jul 21 16:21:00.402841 [  530.412585]  __alloc_pages_slowpath+0xc73/0xcb0
+Jul 21 16:21:00.414737 [  530.412640]  ? __do_page_fault+0x249/0x4d0
+Jul 21 16:21:00.414786 [  530.412681]  __alloc_pages_nodemask+0x235/0x250
+Jul 21 16:21:00.426555 [  530.412734]  kmalloc_order+0x13/0x60
+Jul 21 16:21:00.426619 [  530.412774]  kmalloc_order_trace+0x18/0xa0
+Jul 21 16:21:00.426671 [  530.412816]  alloc_empty_pages.isra.15+0x24/0x60
+Jul 21 16:21:00.438447 [  530.412867]  privcmd_ioctl_mmap_batch.isra.18+0x303/0x320
+Jul 21 16:21:00.438507 [  530.412918]  ? vmacache_find+0xb0/0xb0
+Jul 21 16:21:00.450475 [  530.412957]  privcmd_ioctl+0x253/0xa9b
 
-To be clear: it should be registered for all HVM domUs, regardless of
-whether they are running on a PV or a PVH dom0. My intention was never
-to suggest otherwise. It should be enabled for all HVM domUs, but
-shouldn't be enabled for HVM dom0.
+... perhaps we ought to consider re-working this code path to avoid
+order > 0 allocations (may be as simple as switching to vmalloc(),
+but I say this without having looked at the code).
 
-> Those suspend/resume callbacks will
-> only be invoked in case hibernation and will be skipped if generic suspend path
-> is in progress. Do you see any issue with that?
-
-No, I think it's fine.
-
-Roger.
+Jan
 
