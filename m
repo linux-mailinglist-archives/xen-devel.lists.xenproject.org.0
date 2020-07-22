@@ -2,60 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2020B229698
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 12:48:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4067B2296BC
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 12:56:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyCHU-0004m3-HM; Wed, 22 Jul 2020 10:47:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=u0rb=BB=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jyCHS-0004ly-Dt
- for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 10:47:22 +0000
-X-Inumbo-ID: b88720ca-cc08-11ea-a191-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b88720ca-cc08-11ea-a191-12813bfff9fa;
- Wed, 22 Jul 2020 10:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KWDTHJr/LCAySk1UJbZ6Tw3X9tpPHj2uVJa31UaiGwU=; b=UAtgZviP4Or09t1X38/hHvf4eL
- r3xB8BbMaWtLE6uC46z+4b45e70Mf4vvmEdVvMkZZY95JudYQZth3COc9O9+ycHrinuXPfpwzygr+
- 1j0ae2n+IKPbJ0oI4SiHiMIX63CSGxKLbypFk1cxHW/lkDKt4hTwQ9gbuyE1ByRhSjy8=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jyCHQ-00043g-Et; Wed, 22 Jul 2020 10:47:20 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jyCHQ-0006zu-2z; Wed, 22 Jul 2020 10:47:20 +0000
-Subject: Re: Virtio in Xen on Arm (based on IOREQ concept)
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <CAPD2p-nthLq5NaU32u8pVaa-ub=a9-LOPenupntTYdS-cu31jQ@mail.gmail.com>
- <20200717150039.GV7191@Air-de-Roger>
- <8f4e0c0d-b3d4-9dd3-ce20-639539321968@gmail.com>
- <3dcab37d-0d60-f1cc-1d59-b5497f0fa95f@xen.org>
- <b6cf0931-c31e-b03b-3995-688536de391a@gmail.com>
- <05acce61-5b29-76f7-5664-3438361caf82@xen.org>
- <20200722082115.GR7191@Air-de-Roger>
-From: Julien Grall <julien@xen.org>
-Message-ID: <f3c54a7e-4352-7591-73c2-14215bd3ad34@xen.org>
-Date: Wed, 22 Jul 2020 11:47:18 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+	id 1jyCPg-0005fa-CE; Wed, 22 Jul 2020 10:55:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dvI5=BB=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jyCPe-0005fU-3R
+ for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 10:55:50 +0000
+X-Inumbo-ID: e67e2f90-cc09-11ea-862a-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e67e2f90-cc09-11ea-862a-bc764e2007e4;
+ Wed, 22 Jul 2020 10:55:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595415348;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=x2el/5EGZvCwoyblN7Bu8AExlZvxktoPFUqYFtbqQWM=;
+ b=g9Yg3LN8P79EzLPaOfx1H1BWDuEj0pi6HnMVKh9IueAhEKKrlBAOM1v2
+ qw+b8cRsfociAi6A8Ggxqhhg2VmpnZsUx+388rxVWNyVRlMLxxxtYuUgR
+ ipdFBe13YI66lNQQtsPQ830TE5tELSg1ZxcF8KjB001LKdr4EqMEwAmaK A=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 4wrEHuZaELtgtMyor6/YShnhaRx1zPs+IMD2f1mUljS5Lph4bmbVAdzaKKbfaFBKaqQphSSVv9
+ QB9wff8/6J4G1lh7QB7rDCKv/Dbpm7V2p2I3Or9xmVNiGd1XSrQlV3Nih1z62tSjxjsHx9v3fA
+ ibCQ2zIdP4O5JXrgnaEYJFLpzVN+12R15gVAfCKXiD77XPsfBZtEo+yEQlU1eAYpp/fKAusarb
+ LRhw6uV1wazzj0jM0h2NnJDaCzkxvFSkut2XiV27oqh1Ls1pefU1RSuQ+7Zz++YhhXqn+6WNAg
+ gxw=
+X-SBRS: 2.7
+X-MesageID: 23120953
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,381,1589256000"; d="scan'208";a="23120953"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/msr: Unify the real {rd, wr}msr() paths in guest_{rd,
+ wr}msr()
+Date: Wed, 22 Jul 2020 11:55:29 +0100
+Message-ID: <20200722105529.12177-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200722082115.GR7191@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -67,134 +59,146 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Oleksandr <olekstysh@gmail.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Artem Mygaiev <joculator@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Roger,
+Both the read and write side have commonalities which can be abstracted away.
+This also allows for additional safety in release builds, and slightly more
+helpful diagnostics in debug builds.
 
-On 22/07/2020 09:21, Roger Pau Monné wrote:
-> On Tue, Jul 21, 2020 at 10:12:40PM +0100, Julien Grall wrote:
->> Hi Oleksandr,
->>
->> On 21/07/2020 19:16, Oleksandr wrote:
->>>
->>> On 21.07.20 17:27, Julien Grall wrote:
->>>> On a similar topic, I am a bit surprised you didn't encounter memory
->>>> exhaustion when trying to use virtio. Because on how Linux currently
->>>> works (see XSA-300), the backend domain as to have a least as much
->>>> RAM as the domain it serves. For instance, you have serve two
->>>> domains with 1GB of RAM each, then your backend would need at least
->>>> 2GB + some for its own purpose.
->>>>
->>>> This probably wants to be resolved by allowing foreign mapping to be
->>>> "paging" out as you would for memory assigned to a userspace.
->>>
->>> Didn't notice the last sentence initially. Could you please explain your
->>> idea in detail if possible. Does it mean if implemented it would be
->>> feasible to map all guest memory regardless of how much memory the guest
->>> has?
->>>
->>> Avoiding map/unmap memory each guest request would allow us to have
->>> better performance (of course with taking care of the fact that guest
->>> memory layout could be changed)...
->>
->> I will explain that below. Before let me comment on KVM first.
->>
->>> Actually what I understand looking at kvmtool is the fact it does not
->>> map/unmap memory dynamically, just calculate virt addresses according to
->>> the gfn provided.
->>
->> The memory management between KVM and Xen is quite different. In the case of
->> KVM, the guest RAM is effectively memory from the userspace (allocated via
->> mmap) and then shared with the guest.
->>
->>  From the userspace PoV, the guest memory will always be accessible from the
->> same virtual region. However, behind the scene, the pages may not always
->> reside in memory. They are basically managed the same way as "normal"
->> userspace memory.
->>
->> In the case of Xen, we are basically stealing a guest physical page
->> allocated via kmalloc() and provide no facilities for Linux to reclaim the
->> page if it needs to do it before the userspace decide to unmap the foreign
->> mapping.
->>
->> I think it would be good to handle the foreing mapping the same way as
->> userspace memory. By that I mean, that Linux could reclaim the physical page
->> used by the foreing mapping if it needs to.
->>
->> The process for reclaiming the page would look like:
->>      1) Unmap the foreign page
->>      2) Ballon in the backend domain physical address used by the foreing
->> mapping (allocate the page in the physmap)
->>
->> The next time the userspace is trying to access the foreign page, Linux will
->> receive a data abort that would result to:
->>      1) Allocate a backend domain physical page
->>      2) Balloon out the physical address (remove the page from the physmap)
->>      3) Map the foreing mapping at the new guest physical address
->>      4) Map the guest physical page in the userspace address space
-> 
-> This is going to shatter all the super pages in the stage-2
-> translation.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
-Yes, but this is nothing really new as ballooning would result to 
-(AFAICT) the same behavior on Linux.
+I'm not a massive fan of the global scope want_rdmsr_safe boolean, but I can't
+think of a reasonable way to fix it without starting to use other
+flexibiltiies offered to us by C99.  (And to preempt the other question, an
+extra set of braces makes extremely confusing to read logic.)
+---
+ xen/arch/x86/msr.c | 54 ++++++++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 42 insertions(+), 12 deletions(-)
 
-> 
->> With this approach, we should be able to have backend domain that can handle
->> frontend domain without require a lot of memory.
-> 
-> Linux on x86 has the option to use empty hotplug memory ranges to map
-> foreign memory: the balloon driver hotplugs an unpopulated physical
-> memory range that's not made available to the OS free memory allocator
-> and it's just used as scratch space to map foreign memory. Not sure
-> whether Arm has something similar, or if it could be implemented.
-
-We already discussed that last year :). This was attempted in the past 
-(I was still at Citrix) and indefinitely paused for Arm.
-
-/proc/iomem can be incomplete on Linux if we didn't load a driver for 
-all the devices. This means that Linux doesn't have the full view of 
-what is physical range is freed.
-
-Additionally, in the case of Dom0, all the regions corresponding to the 
-host RAM are unusable when using the SMMU. This is because we would do 
-1:1 mapping for the foreign mapping as well.
-
-It might be possible to take advantage of the direct mapping property if 
-Linux do some bookeeping. Although, this wouldn't work for 32-bit Dom0 
-using short page tables (e.g some version of Debian does) as it may not 
-be able to access all the host RAM. Whether we still care about is a 
-different situation :).
-
-For all the other domains, I think we would want the toolstack to 
-provide a region that can be safely used for foreign mapping (similar to 
-what we already do for the grant-table).
-
-> 
-> You can still use the map-on-fault behaviour as above, but I would
-> recommend that you try to limit the number of hypercalls issued.
-> Having to issue a single hypercall for each page fault it's going to
-> be slow, so I would instead use mmap batch to map the hole range in
-> unpopulated physical memory and then the OS fault handler just needs to
-> fill the page tables with the corresponding address.
-IIUC your proposal, you are assuming that you will have enough free 
-space in the physical address space to map the foreign mapping.
-
-However that amount of free space is not unlimited and may be quite 
-small (see above). It would be fairly easy to exhaust it given that a 
-userspace application can map many times the same guest physical address.
-
-So I still think we need to be able to allow Linux to swap a foreign 
-page with another page.
-
-Cheers,
-
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index 22f921cc71..68f3aadeab 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -154,6 +154,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+     const struct cpuid_policy *cp = d->arch.cpuid;
+     const struct msr_policy *mp = d->arch.msr;
+     const struct vcpu_msrs *msrs = v->arch.msrs;
++    bool want_rdmsr_safe = false;
+     int ret = X86EMUL_OKAY;
+ 
+     switch ( msr )
+@@ -204,10 +205,9 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+          */
+         if ( !(cp->x86_vendor & (X86_VENDOR_INTEL | X86_VENDOR_AMD)) ||
+              !(boot_cpu_data.x86_vendor &
+-               (X86_VENDOR_INTEL | X86_VENDOR_AMD)) ||
+-             rdmsr_safe(MSR_AMD_PATCHLEVEL, *val) )
++               (X86_VENDOR_INTEL | X86_VENDOR_AMD)) )
+             goto gp_fault;
+-        break;
++        goto read_from_hw_safe;
+ 
+     case MSR_SPEC_CTRL:
+         if ( !cp->feat.ibrsb )
+@@ -278,7 +278,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+          */
+ #ifdef CONFIG_HVM
+         if ( v == current && is_hvm_domain(d) && v->arch.hvm.flag_dr_dirty )
+-            rdmsrl(msr, *val);
++            goto read_from_hw;
+         else
+ #endif
+             *val = msrs->dr_mask[
+@@ -303,6 +303,23 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+ 
+     return ret;
+ 
++ read_from_hw_safe:
++    want_rdmsr_safe = true;
++ read_from_hw:
++    if ( !rdmsr_safe(msr, *val) )
++        return X86EMUL_OKAY;
++
++    /*
++     * Paths which didn't want rdmsr_safe() and get here took a #GP fault.
++     * Something is broken with the above logic, so make it obvious in debug
++     * builds, and fail safe by handing #GP back to guests in release builds.
++     */
++    if ( !want_rdmsr_safe )
++    {
++        gprintk(XENLOG_ERR, "Bad rdmsr %#x\n", msr);
++        ASSERT_UNREACHABLE();
++    }
++
+  gp_fault:
+     return X86EMUL_EXCEPTION;
+ }
+@@ -402,9 +419,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+         if ( val & ~PRED_CMD_IBPB )
+             goto gp_fault; /* Rsvd bit set? */
+ 
+-        if ( v == curr )
+-            wrmsrl(MSR_PRED_CMD, val);
+-        break;
++        goto maybe_write_to_hw;
+ 
+     case MSR_FLUSH_CMD:
+         if ( !cp->feat.l1d_flush )
+@@ -413,9 +428,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+         if ( val & ~FLUSH_CMD_L1D )
+             goto gp_fault; /* Rsvd bit set? */
+ 
+-        if ( v == curr )
+-            wrmsrl(MSR_FLUSH_CMD, val);
+-        break;
++        goto maybe_write_to_hw;
+ 
+     case MSR_INTEL_MISC_FEATURES_ENABLES:
+     {
+@@ -493,8 +506,8 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+                                ? 0 : (msr - MSR_AMD64_DR1_ADDRESS_MASK + 1),
+                                ARRAY_SIZE(msrs->dr_mask))] = val;
+ 
+-        if ( v == curr && (curr->arch.dr7 & DR7_ACTIVE_MASK) )
+-            wrmsrl(msr, val);
++        if ( curr->arch.dr7 & DR7_ACTIVE_MASK )
++            goto maybe_write_to_hw;
+         break;
+ 
+     default:
+@@ -509,6 +522,23 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+ 
+     return ret;
+ 
++ maybe_write_to_hw:
++    /*
++     * All paths potentially updating a value in hardware need to check
++     * whether the call is in current context or not, so the logic is
++     * implemented here.  Remote context need do nothing more.
++     */
++    if ( v != curr || !wrmsr_safe(msr, val) )
++        return X86EMUL_OKAY;
++
++    /*
++     * Paths which end up here took a #GP fault in wrmsr_safe().  Something is
++     * broken with the logic above, so make it obvious in debug builds, and
++     * fail safe by handing #GP back to the guests in release builds.
++     */
++    gprintk(XENLOG_ERR, "Bad wrmsr %#x val %016"PRIx64"\n", msr, val);
++    ASSERT_UNREACHABLE();
++
+  gp_fault:
+     return X86EMUL_EXCEPTION;
+ }
 -- 
-Julien Grall
+2.11.0
+
 
