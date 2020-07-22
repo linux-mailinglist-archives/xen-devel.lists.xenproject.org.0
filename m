@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 163C5229D8C
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 18:53:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 759B3229D95
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 18:56:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyHzQ-00058H-Tf; Wed, 22 Jul 2020 16:53:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jyI22-0005EX-CM; Wed, 22 Jul 2020 16:55:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=u0rb=BB=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jyHzO-00058B-Tq
- for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 16:53:06 +0000
-X-Inumbo-ID: cfeed6d0-cc3b-11ea-a1e5-12813bfff9fa
+ (envelope-from <SRS0=gpyo=BB=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1jyI20-0005EM-Q0
+ for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 16:55:48 +0000
+X-Inumbo-ID: 302a6353-cc3c-11ea-8684-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cfeed6d0-cc3b-11ea-a1e5-12813bfff9fa;
- Wed, 22 Jul 2020 16:53:05 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 302a6353-cc3c-11ea-8684-bc764e2007e4;
+ Wed, 22 Jul 2020 16:55:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=kFC2CwkBpCIOOYAIewqEA21Bqic7EPnr09gGzUQ+zKo=; b=zh5b3Eh5H7mVm64GK0S+/nExUZ
- p0SoLxv6JEug33D7AnCmJEEZOX7eefsqbVkOS8bZl8Mo+HFfZcMvmhnsJnVHhOG5dgpL6bOTHBe//
- T0rmURRS5NwqSU//5+82AKQ60uNCEDS3yRzQpfRl3QsmmH2DnZ2KhJYYHCV4pffpUR5s=;
+ bh=7N5eoqmd8x29AALJwHhphkKTisEuPHoh/xOtLC76bNk=; b=Sd0eE7QgxJa+9V+Ngzopu2WtWI
+ HVgHlv0NtOIh0UvC65AUZ8AZE+lnDq0H+OLtBl7HliSLW8iBGmdFh2/tGIVaJRby3U8si8PxWe/Dz
+ /H/sxsFJ6ScnWDiNeNhug7S58Au4A/FJilADAXJOOmUWH2O4FXwCWTzgkLqAFRRh9TgU=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jyHzM-0003r7-Pe; Wed, 22 Jul 2020 16:53:04 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=ufe34d9ed68d054.ant.amazon.com)
+ (envelope-from <paul@xen.org>)
+ id 1jyI1z-0003tc-Bw; Wed, 22 Jul 2020 16:55:47 +0000
+Received: from host86-143-223-30.range86-143.btcentralplus.com
+ ([86.143.223.30] helo=CBG-R90WXYV0.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jyHzM-0007vp-Cq; Wed, 22 Jul 2020 16:53:04 +0000
-From: Julien Grall <julien@xen.org>
+ (envelope-from <paul@xen.org>)
+ id 1jyI1z-0000tn-3D; Wed, 22 Jul 2020 16:55:47 +0000
+From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH] xen/x86: irq: Avoid a TOCTOU race in pirq_spin_lock_irq_desc()
-Date: Wed, 22 Jul 2020 17:53:00 +0100
-Message-Id: <20200722165300.22655-1-julien@xen.org>
+Subject: [PATCH-for-4.14] SUPPORT.md: Set version and release/support dates
+Date: Wed, 22 Jul 2020 17:55:44 +0100
+Message-Id: <20200722165544.557-1-paul@xen.org>
 X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -54,39 +53,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: julien@xen.org, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Julien Grall <jgrall@amazon.com>
+From: Paul Durrant <pdurrant@amazon.com>
 
-Even if we assigned pirq->arch.irq to a variable, a compile is still
-allowed to read pirq->arch.irq multiple time. This means that the value
-checked may be different from the value used to get the desc.
-
-Force the compiler to only do one read access by using read_atomic().
-
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
- xen/arch/x86/irq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Wei Liu <wl@xen.org>
 
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index a69937c840b9..25f2eb611692 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
+Obviously this has my implicit Release-acked-by and is to be committed to
+the staging-4.14 branch only.
+---
+ SUPPORT.md | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/SUPPORT.md b/SUPPORT.md
+index efbcb26ddf..88a182ac31 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -9,10 +9,10 @@ for the definitions of the support status levels etc.
  
-     for ( ; ; )
-     {
--        int irq = pirq->arch.irq;
-+        int irq = read_atomic(&pirq->arch.irq);
+ # Release Support
  
-         if ( irq <= 0 )
-             return NULL;
+-    Xen-Version: 4.14-rc
+-    Initial-Release: n/a
+-    Supported-Until: TBD
+-    Security-Support-Until: Unreleased - not yet security-supported
++    Xen-Version: 4.14
++    Initial-Release: 2020-07-24
++    Supported-Until: 2022-01-24
++    Security-Support-Until: 2023-07-24
+ 
+ Release Notes
+ : <a href="https://wiki.xenproject.org/wiki/Xen_Project_4.14_Release_Notes">RN</a>
 -- 
 2.17.1
 
