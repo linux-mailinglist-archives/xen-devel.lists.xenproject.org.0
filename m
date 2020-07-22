@@ -2,52 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71A36229AF1
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 17:05:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07DB9229B12
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 17:11:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyGIH-000307-5h; Wed, 22 Jul 2020 15:04:29 +0000
+	id 1jyGP4-0003rE-Ur; Wed, 22 Jul 2020 15:11:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bhkO=BB=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jyGIF-000302-I8
- for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 15:04:27 +0000
-X-Inumbo-ID: a21124d4-cc2c-11ea-8671-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=yOZ1=BB=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jyGP3-0003r9-PV
+ for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 15:11:29 +0000
+X-Inumbo-ID: 9dcf9940-cc2d-11ea-8676-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a21124d4-cc2c-11ea-8671-bc764e2007e4;
- Wed, 22 Jul 2020 15:04:26 +0000 (UTC)
+ id 9dcf9940-cc2d-11ea-8676-bc764e2007e4;
+ Wed, 22 Jul 2020 15:11:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595430266;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=AAYgqcoBKRpjicWNLL2x+rmBBqlt7sp1c23H5SA5FRk=;
- b=f2M26DEInanHhYAt3ubGTjox4TUTONeQ0pSNgd1K5UMBt1HaOG1E+dqw
- MM34vZ74lD915uMU1ddOy/aFlwpZwiOi3inplUJgp0PVPyhUrvpRziZLh
- BsNyfV8d038P9XZge/E4UGRi54wCDv/u9n9hhDGJh3yVkad/WbWDjGoGz U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1595430688;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:cc:subject:in-reply-to:references;
+ bh=ApPNVIIi5mcIkCo9tTSbg8wZ838gPku5lyHiuYPRiV4=;
+ b=cuwEJzRCUVQebf5vYq/ObW0zjfGiyID9ftgBJBk+To0iCO0XDKqRMJNb
+ 0a4IS5Au4wQaqv1iJqeVbBwp3jQBi87/+xV5UPrkW+O4EUD3aANCcF3L7
+ +hr4Ti3iKZquPjT8ZxD0AI4m7AafHa83fCDHUaCmggfycYjNVw04zazIQ I=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: QBJIqwwCAVxw12ZjB8qq92pHnmk5JxWTpQj34ml8uEHJVbUTebKP6FIEjDzyDHTc5XYf12bxsc
- L/9WK684fTimt3fuRogTaVFvwjdzDJeZUKYLY1JoyNNz5zQ3nAuwzHQ/D06Kkk33FBPCHqUjYy
- h2EB9umLWtYRjwRZFRmzCdOKsDw68QoBwi6eTuRKw1zBJg1qFd7JcQZkLb1ub5jeBBFoMVcbzX
- kvVFQ0+e0nwctdF3tXYfCJbzKJyZhSlQ6rpemWFDQM/+HoSKviN99+1dq8pZQMcUAQvgX6nDYi
- VuQ=
+IronPort-SDR: cqWSG2edpto00/Jn2KSkPDTAiXbG3k6vl/BYC5HTRj9tBT7KFKoFL+l1djBl0I1lmH3n1OYvLC
+ pFjueJ/swG9+YFXbUXyJ/3u52MT11Kg0s7BpMPclDtjahyEo10g/d2R+gN4mKsEpCtb3D+K2dO
+ I6D9veTFA/H4639RRd7iK6YehtLk6YlNAuYliJkCKYFN8opz7gRgzUcQpXRFHapgl4iCTzDge6
+ PVWcil4NYhoXYJ/K9IiH/DO2rhs5IPD2f3dQxm5XKhEze29GRopZwi1AvcAlY33PEuM70U5QRf
+ Tvo=
 X-SBRS: 2.7
-X-MesageID: 22950706
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 23281383
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,383,1589256000"; d="scan'208";a="22950706"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [osstest PATCH] dom0pvh: assign 1GB of memory to PVH dom0
-Date: Wed, 22 Jul 2020 17:04:16 +0200
-Message-ID: <20200722150416.36426-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.27.0
+X-IronPort-AV: E=Sophos;i="5.75,383,1589256000"; d="scan'208";a="23281383"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: 8bit
+Message-ID: <24344.22297.957336.615021@mariner.uk.xensource.com>
+Date: Wed, 22 Jul 2020 16:11:21 +0100
+To: Roger Pau Monne <roger.pau@citrix.com>
+Subject: Re: [osstest PATCH] dom0pvh: assign 1GB of memory to PVH dom0
+In-Reply-To: <20200722150416.36426-1-roger.pau@citrix.com>
+References: <20200722150416.36426-1-roger.pau@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,47 +60,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: ian.jackson@eu.citrix.com, Roger Pau Monne <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Current tests use 512MB of memory for dom0, but that's too low for a
-PVH dom0 on some hosts and will cause errors because memory is
-ballooned out in order to obtain physical memory ranges to map foreign
-pages.
+Roger Pau Monne writes ("[osstest PATCH] dom0pvh: assign 1GB of memory to PVH dom0"):
+> Current tests use 512MB of memory for dom0, but that's too low for a
+> PVH dom0 on some hosts and will cause errors because memory is
+> ballooned out in order to obtain physical memory ranges to map foreign
+> pages.
+> 
+> Using ballooned out pages for foreign mappings also doesn't seem to
+> work properly with the current Linux kernel version, so increase the
+> memory assigned to dom0 to 1GB for PVH dom0 tests. We should see about
+> reverting this when using ballooned pages is fixed.
+> 
+> The runvar diff is:
+> 
+> +test-amd64-amd64-dom0pvh-xl-amd   dom0_mem 1024
+> +test-amd64-amd64-dom0pvh-xl-intel dom0_mem 1024
+> 
+> I've done a repro of the failed test on elbling0 with dom0_mem set to
+> 1GB and it seems to prevent the issue, the flight is 152111.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Using ballooned out pages for foreign mappings also doesn't seem to
-work properly with the current Linux kernel version, so increase the
-memory assigned to dom0 to 1GB for PVH dom0 tests. We should see about
-reverting this when using ballooned pages is fixed.
+Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-The runvar diff is:
+And queued.
 
-+test-amd64-amd64-dom0pvh-xl-amd   dom0_mem 1024
-+test-amd64-amd64-dom0pvh-xl-intel dom0_mem 1024
-
-I've done a repro of the failed test on elbling0 with dom0_mem set to
-1GB and it seems to prevent the issue, the flight is 152111.
-
-Signed-off-by: Roger Pau MonnÃ© <roger.pau@citrix.com>
----
- make-flight | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/make-flight b/make-flight
-index b8942c1c..85559c68 100755
---- a/make-flight
-+++ b/make-flight
-@@ -903,7 +903,7 @@ test_matrix_do_one () {
-       job_create_test test-$xenarch$kern-$dom0arch-dom0pvh-xl-$cpuvendor \
-                 test-debian xl $xenarch $dom0arch $debian_runvars \
-                 all_hostflags=$most_hostflags,hvm-$cpuvendor,iommu \
--                xen_boot_append='dom0=pvh,verbose'
-+                xen_boot_append='dom0=pvh,verbose' dom0_mem=1024
- 
-     done
- 
--- 
-2.27.0
-
+Ian.
 
