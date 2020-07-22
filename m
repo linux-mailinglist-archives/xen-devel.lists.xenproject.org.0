@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B7FA2299AB
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 16:04:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B9D72299C6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 16:06:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyFLN-000614-Vj; Wed, 22 Jul 2020 14:03:37 +0000
+	id 1jyFOB-000687-Ev; Wed, 22 Jul 2020 14:06:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yOZ1=BB=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jyFLM-00060z-9Q
- for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 14:03:36 +0000
-X-Inumbo-ID: 21161d39-cc24-11ea-865f-bc764e2007e4
+ id 1jyFOA-000682-D7
+ for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 14:06:30 +0000
+X-Inumbo-ID: 8980ed31-cc24-11ea-8662-bc764e2007e4
 Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 21161d39-cc24-11ea-865f-bc764e2007e4;
- Wed, 22 Jul 2020 14:03:35 +0000 (UTC)
+ id 8980ed31-cc24-11ea-8662-bc764e2007e4;
+ Wed, 22 Jul 2020 14:06:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595426616;
+ d=citrix.com; s=securemail; t=1595426790;
  h=from:mime-version:content-transfer-encoding:message-id:
  date:to:cc:subject:in-reply-to:references;
- bh=RoY830mZQUlGRogyZSkEZerSmwZ3DbZmjbLDb8s4x/A=;
- b=KWxlmMW6tHQ/EzdJ7nkhd5R07xzxYOeKIDixlD5lzlk/Hmj+EmvVe4Et
- uZ+KX1wHGT1GVluzrRMPG53M/PabzzqqMO2DHTqlT3EGbOzxNLLkUuJvd
- znVo1Kw7IwhfNEgvTZAXcBgPcJKH7Vfg/8clNznMOWw3KDf+NII8m7P8h c=;
+ bh=guJF1F+4rB+qPBfIVu2s2bC2RICGjU9i+5xaE5Cxt7Y=;
+ b=IsCAeyIg21ASFDmf3lR5iH7M0JKWJtTNv80IZEkSNlysmhjMGpXuTW2d
+ 5yjsA7Lqg/WiG3BnaWj43+jJkcqawHNBw/uu+YEZks9opiZK3ppW/hyRy
+ qJUBUqvFMuFxfdPBFliFQ5zfHFa5GPmgUc3Ke4Mp5LH+zCqiDi4c68+1P A=;
 Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: LDmwW1axsGR/U/YiRxozgv66iZwJOmkzlfxs2AorzEl66aTvDhzBSSume0gTtRS6lbxh8CO197
- kkNAQEPBdhrYf4MWBQC4VJROfDjRlUdype5BOWFzPwEw36HO+QFuB4LP02kh1KmhA1LcOtKbAJ
- 1uNs82T/O8+/Ol3tG9hIWd+JmgY9oShblK2s5iMRDC56bOrRrHx4WokGS7MZdL+ebSj8UdOins
- 3c+cjBkw8jFSTMUXSv5hvv2oreWAoi4KDADYL0sth+lPKVtERxc9VnerfjLpvlzBqF2yP7c+2T
- Tog=
+IronPort-SDR: kCbtd7R0hAsXKJ6IpOtosQ9p/g76VluJOGu0DdK/lXBejCl+tEYxya64RFUCiRI0AqmRrjh0I2
+ kVbpA63cLKEoJcKnZAkY4jnC451b4E8N7wEstqebmCOGFo3ZYZHOLWKGl3EvEfKw2dpG08YuEH
+ UQqOHOne28GFwQg57yUWCCHgKc7C3n28RObBOPbOEeODTeO7HbDXPCRtC1YGdRS5+AdlAClLqy
+ 4R83/Ja9CmI+KuQkAh7hErii5EarIuFQLokQjLuPu0A9e2HmPqf5f5OqyBSDV5NpjjX5JSG+cA
+ sWs=
 X-SBRS: 2.7
-X-MesageID: 22960915
+X-MesageID: 22961238
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,383,1589256000"; d="scan'208";a="22960915"
+X-IronPort-AV: E=Sophos;i="5.75,383,1589256000"; d="scan'208";a="22961238"
 From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-ID: <24344.18220.286848.935081@mariner.uk.xensource.com>
-Date: Wed, 22 Jul 2020 15:03:24 +0100
+Message-ID: <24344.18400.375008.553022@mariner.uk.xensource.com>
+Date: Wed, 22 Jul 2020 15:06:24 +0100
 To: George Dunlap <George.Dunlap@citrix.com>
-Subject: Re: [OSSTEST PATCH 04/14] sg-report-flight: Ask the db for flights of
- interest
-In-Reply-To: <3966AFCB-7B7B-45BE-A3F1-7E04943EEEFA@citrix.com>
+Subject: Re: [OSSTEST PATCH 05/14] sg-report-flight: Use WITH to use best
+ index use for $flightsq
+In-Reply-To: <12D6C675-582D-467A-A882-B779652AF635@citrix.com>
 References: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
- <20200721184205.15232-5-ian.jackson@eu.citrix.com>
- <3966AFCB-7B7B-45BE-A3F1-7E04943EEEFA@citrix.com>
+ <20200721184205.15232-6-ian.jackson@eu.citrix.com>
+ <12D6C675-582D-467A-A882-B779652AF635@citrix.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -63,61 +63,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <Ian.Jackson@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-George Dunlap writes ("Re: [OSSTEST PATCH 04/14] sg-report-flight: Ask the db for flights of interest"):
-> > On Jul 21, 2020, at 7:41 PM, Ian Jackson <ian.jackson@eu.citrix.com> wrote:
-> > Example query before (from the Perl DBI trace):
-> > 
-> >      SELECT * FROM (
-> >        SELECT flight, blessing FROM flights
-...
-> >              AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
-...
-> But why are we selecting ‘blessing’ from these, if we’ve specified that blessing = “real”? Isn’t that redundant?
-
-That condition is programmatically constructed.  Sometimes it will ask
-for multiple different blessings and then it wants to know which.
-
+George Dunlap writes ("Re: [OSSTEST PATCH 05/14] sg-report-flight: Use WITH to use best index use for $flightsq"):
+> On Jul 21, 2020, at 7:41 PM, Ian Jackson <ian.jackson@eu.citrix.com> wrote:
 > > After:
+> >      WITH sub AS (
+> >        SELECT DISTINCT flight, blessing
+> >             FROM flights
+> >             JOIN runvars r1 USING (flight)
+> > 
+> >            WHERE (branch='xen-unstable')
+> >              AND ( (TRUE AND flight <= 151903) AND (blessing='real') )
+> >              AND r1.name LIKE 'built_revision_%'
+> >              AND r1.name = ?
+> >              AND r1.val= ?
+> > 
+> >            ORDER BY flight DESC
+> >            LIMIT 1000
+> >      )
+> >      SELECT *
+> >        FROM sub
+> >        JOIN jobs USING (flight)
+> > 
+> >       WHERE (1=1)
+> >                  AND jobs.job = ?
+> > 
+> >      ORDER BY blessing ASC, flight DESC
+> 
+> I was wondering if it would be useful converting this to a join would be useful. :-)
 ...
-> So this says:
-> 
-> Find me the most 1000 recent flights
-> Where:
->   branch is “xen-unstable”
->   flight <= 15903
->   blessing is “real”
->   One of its jobs is $job
->   It has a runvar matching given $name and $val
-> 
-> And of course it uses the ’name LIKE ‘built_revision_%’ index.
+> The main thing I see here is that there’s nothing *in the query*
+> that guarantees you won’t get multiple flights if there are multiple
+> jobs for that flight whose ‘job’ value; but given the naming scheme
+> so far, I’m guessing job is unique…?  As long as there’s something
+> else preventing duplication I think it’s fine.
 
-Yes.
+(flight,job) is the primary key for the jobs table.
 
-> Still don’t understand the ’TRUE AND’ and ‘AS sub’ bits, but it
-> looks to me like it’s substantially the same query, with additional
-> $name = $val runvar restriction.
-
-That's my intent, ytes.
-
-> And given that you say, "This condition is strictly broader than
-> that implemented inside the flight search loop”, I take it that it’s
-> again mainly to take advantage of the new index?
-
-Right.  The previous approach was "iterate over recent flights,
-figure out precisely what they built, and decide if they meet the
-(complex) requirements".
-
-Now we only iterate over a subset of recent flights: those which have
-at least one such runvar.  The big commennt is meant to be a
-demonstration that the "(complex) requirements" are a narrower
-condition than the new condition on the initial flights query.
-
-So I think the result is that it will look deeper into history, and be
-faster, but not otherwise change its beaviour.
+I can probably produce a schema dump if that would make reading this
+stuff easier.
 
 Ian.
 
