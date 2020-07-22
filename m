@@ -2,67 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B44122987D
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 14:49:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD197229993
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jul 2020 15:51:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyEA5-0007Xk-Tq; Wed, 22 Jul 2020 12:47:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jyF8C-0004HG-K0; Wed, 22 Jul 2020 13:50:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0IpC=BB=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jyEA4-0007Xf-BB
- for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 12:47:52 +0000
-X-Inumbo-ID: 8d794ed8-cc19-11ea-a1a0-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8d794ed8-cc19-11ea-a1a0-12813bfff9fa;
- Wed, 22 Jul 2020 12:47:51 +0000 (UTC)
+ <SRS0=yOZ1=BB=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jyF8B-0004HB-4O
+ for xen-devel@lists.xenproject.org; Wed, 22 Jul 2020 13:49:59 +0000
+X-Inumbo-ID: 39f47586-cc22-11ea-8656-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 39f47586-cc22-11ea-8656-bc764e2007e4;
+ Wed, 22 Jul 2020 13:49:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595422071;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=iXF3Nsj4JvxpIT4ZVYF2qgyPJ+WsQnz7naW3sYFT1p0=;
- b=KSRwySH8jouPjtXV5j0TSIpiae6QDmwAH9F6HOqo+gTvW+9XwSEs/NkK
- lZ/Xq0LwWU5j3vyC8YDMjRSlZ71W1KoZh46JF2z/d/1SPu96XBtuore3T
- ghui1DVgJAHrTekrDt9neP5piXSVGYWhKNV7gdrtAgbSzZKs7nPHiFJCQ Y=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1595425797;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:cc:subject:in-reply-to:references;
+ bh=qJsAsTIlOWPMJ2E3fyLul1sYHDh13bYAVNY5PRBa3Fs=;
+ b=AWhl+d89WKRpT6Ab0zHBP6qwO75Edyxf8pHxge46ZXNEyzcAJ0zzMsC3
+ en18AU9aaMhkpwVc2uxlAv3fnqSXMNtbSVreTF3a4A6Xv75BWB9CktaG6
+ CM81VUkwi1xP7C6FG4zMpx2tEpputKn/an9TzvFxh6ELVLO/EFixcW1Pi c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: QuNFg5IDhwSM4Fm4v5++nQSUz5awR7wWVkEXIacXNyJgGN/aImaFdFG0c4s9UrWDnB0ffmtg8z
- dQ9NDbVLVu2C8yFHbUhTBQ6TLWDxdfU2G4PL1aGPhpYGa+7mlwEIqixPrbmDJ3KPljMaHN/XTB
- ScROH88yerC5Z4wGMT2zLIxS+dJQ52JlIFzlfcxDWoqK3qwFjQPmQEx6UGGWx6fRa6gFBoncAV
- VPp0vALMVog9QrrHUgK1bnWqy/CVv9YOaPq5uV8Lp/j/zRKw6C5YBcoQywp2yeBwRpcE2y4lEM
- 8wI=
+IronPort-SDR: ipHFvHi5QGu2VadyFS6Fyf4ZelRNo3p2OSndFaUhQiEatTRftXeMQdhJiOflKEh76lRNMFxMhg
+ MJOcnAPKn0n0Puf+fTY5eUqPCYPYGTaw8vFfV4Uc/gLDMbPhbmmwWySX4V9arhXcZzca9SHOWd
+ jibS2bJB64MTRWZ3ohS0kQekQfP60xneokZRWqbqlB/lb9QuFQdQ/RjXTtV91y+F1+YypeQj/R
+ zTC/m7edZFQ4Nt9R4PJR/FT1a5NBPpfmwKQPN9NLjXn8zJ97UlkAv3Rhb+cwPPzVVJkoG1gIeO
+ k/c=
 X-SBRS: 2.7
-X-MesageID: 23128803
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 23801730
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,381,1589256000"; d="scan'208";a="23128803"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Ian Jackson <Ian.Jackson@citrix.com>
-Subject: Re: [OSSTEST PATCH 05/14] sg-report-flight: Use WITH to use best
- index use for $flightsq
-Thread-Topic: [OSSTEST PATCH 05/14] sg-report-flight: Use WITH to use best
- index use for $flightsq
-Thread-Index: AQHWX46t5LGxeS+LX0KNSBltVaDWxqkTa/WA
-Date: Wed, 22 Jul 2020 12:47:47 +0000
-Message-ID: <12D6C675-582D-467A-A882-B779652AF635@citrix.com>
-References: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
- <20200721184205.15232-6-ian.jackson@eu.citrix.com>
-In-Reply-To: <20200721184205.15232-6-ian.jackson@eu.citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <CED72C3E85B75C47BFF6E173743CC6BB@citrix.com>
-Content-Transfer-Encoding: base64
+X-IronPort-AV: E=Sophos;i="5.75,383,1589256000"; d="scan'208";a="23801730"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID: <24344.17407.490315.888745@mariner.uk.xensource.com>
+Date: Wed, 22 Jul 2020 14:49:51 +0100
+To: George Dunlap <George.Dunlap@citrix.com>
+Subject: Re: [OSSTEST PATCH 08/14] Executive: Use index for report__find_test
+In-Reply-To: <3ACBEEA3-C17D-48AE-8AE5-52C9D92C8C46@citrix.com>
+References: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
+ <20200721184205.15232-9-ian.jackson@eu.citrix.com>
+ <3ACBEEA3-C17D-48AE-8AE5-52C9D92C8C46@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,45 +66,71 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gSnVsIDIxLCAyMDIwLCBhdCA3OjQxIFBNLCBJYW4gSmFja3NvbiA8aWFuLmphY2tz
-b25AZXUuY2l0cml4LmNvbT4gd3JvdGU6DQo+IA0KPiBXaGlsZSB3ZSdyZSBoZXJlLCBjb252ZXJ0
-IHRoaXMgRVhJU1RTIHN1YnF1ZXJ5IHRvIGEgSk9JTi4NCj4gDQo+IFBlcmY6IHJ1bnRpbWUgb2Yg
-bXkgdGVzdCBjYXNlIG5vdyB+MjAwLTMwMHMuDQo+IA0KPiBFeGFtcGxlIHF1ZXJ5IGJlZm9yZSAo
-ZnJvbSB0aGUgUGVybCBEQkkgdHJhY2UpOg0KPiANCj4gICAgICBTRUxFQ1QgKiBGUk9NICgNCj4g
-ICAgICAgIFNFTEVDVCBESVNUSU5DVCBmbGlnaHQsIGJsZXNzaW5nDQo+ICAgICAgICAgICAgIEZS
-T00gZmxpZ2h0cw0KPiAgICAgICAgICAgICBKT0lOIHJ1bnZhcnMgcjEgVVNJTkcgKGZsaWdodCkN
-Cj4gDQo+ICAgICAgICAgICAgV0hFUkUgKGJyYW5jaD0neGVuLXVuc3RhYmxlJykNCj4gICAgICAg
-ICAgICAgIEFORCAoIChUUlVFIEFORCBmbGlnaHQgPD0gMTUxOTAzKSBBTkQgKGJsZXNzaW5nPSdy
-ZWFsJykgKQ0KPiAgICAgICAgICAgICAgICAgIEFORCBFWElTVFMgKFNFTEVDVCAxDQo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIEZST00gam9icw0KPiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIFdIRVJFIGpvYnMuZmxpZ2h0ID0gZmxpZ2h0cy5mbGlnaHQNCj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIEFORCBqb2JzLmpvYiA9ID8pDQo+IA0KPiAgICAgICAgICAgICAgQU5EIHIx
-Lm5hbWUgTElLRSAnYnVpbHRfcmV2aXNpb25fJScNCj4gICAgICAgICAgICAgIEFORCByMS5uYW1l
-ID0gPw0KPiAgICAgICAgICAgICAgQU5EIHIxLnZhbD0gPw0KPiANCj4gICAgICAgICAgICBPUkRF
-UiBCWSBmbGlnaHQgREVTQw0KPiAgICAgICAgICAgIExJTUlUIDEwMDANCj4gICAgICApIEFTIHN1
-Yg0KPiAgICAgIE9SREVSIEJZIGJsZXNzaW5nIEFTQywgZmxpZ2h0IERFU0MNCj4gDQo+IFdpdGgg
-YmluZCB2YXJpYWJsZXM6DQo+IA0KPiAgICAgInRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCINCj4g
-ICAgICdidWlsdF9yZXZpc2lvbl94ZW4nDQo+ICAgICAnMTY1ZjNhZmJmYzNkYjcwZmNmZGNjYWQw
-NzA4NWNkZTBhMDNjODU4YicNCj4gDQo+IEFmdGVyOg0KPiANCj4gICAgICBXSVRIIHN1YiBBUyAo
-DQo+ICAgICAgICBTRUxFQ1QgRElTVElOQ1QgZmxpZ2h0LCBibGVzc2luZw0KPiAgICAgICAgICAg
-ICBGUk9NIGZsaWdodHMNCj4gICAgICAgICAgICAgSk9JTiBydW52YXJzIHIxIFVTSU5HIChmbGln
-aHQpDQo+IA0KPiAgICAgICAgICAgIFdIRVJFIChicmFuY2g9J3hlbi11bnN0YWJsZScpDQo+ICAg
-ICAgICAgICAgICBBTkQgKCAoVFJVRSBBTkQgZmxpZ2h0IDw9IDE1MTkwMykgQU5EIChibGVzc2lu
-Zz0ncmVhbCcpICkNCj4gICAgICAgICAgICAgIEFORCByMS5uYW1lIExJS0UgJ2J1aWx0X3Jldmlz
-aW9uXyUnDQo+ICAgICAgICAgICAgICBBTkQgcjEubmFtZSA9ID8NCj4gICAgICAgICAgICAgIEFO
-RCByMS52YWw9ID8NCj4gDQo+ICAgICAgICAgICAgT1JERVIgQlkgZmxpZ2h0IERFU0MNCj4gICAg
-ICAgICAgICBMSU1JVCAxMDAwDQo+ICAgICAgKQ0KPiAgICAgIFNFTEVDVCAqDQo+ICAgICAgICBG
-Uk9NIHN1Yg0KPiAgICAgICAgSk9JTiBqb2JzIFVTSU5HIChmbGlnaHQpDQo+IA0KPiAgICAgICBX
-SEVSRSAoMT0xKQ0KPiAgICAgICAgICAgICAgICAgIEFORCBqb2JzLmpvYiA9ID8NCj4gDQo+ICAg
-ICAgT1JERVIgQlkgYmxlc3NpbmcgQVNDLCBmbGlnaHQgREVTQw0KDQpJIHdhcyB3b25kZXJpbmcg
-aWYgaXQgd291bGQgYmUgdXNlZnVsIGNvbnZlcnRpbmcgdGhpcyB0byBhIGpvaW4gd291bGQgYmUg
-dXNlZnVsLiA6LSkNCg0KQWdhaW4sIG5vdCBzdXJlIHdoYXQgdGhlIOKAnCgxPTEpIEFOROKAnSBi
-aXQgaXMgZm9yOyBzb21ldGhpbmcgdG8gcG9rZSB0aGUgcXVlcnkgcGxhbm5lciBzb21laG93Pw0K
-DQpUaGUgbWFpbiB0aGluZyBJIHNlZSBoZXJlIGlzIHRoYXQgdGhlcmXigJlzIG5vdGhpbmcgKmlu
-IHRoZSBxdWVyeSogdGhhdCBndWFyYW50ZWVzIHlvdSB3b27igJl0IGdldCBtdWx0aXBsZSBmbGln
-aHRzIGlmIHRoZXJlIGFyZSBtdWx0aXBsZSBqb2JzIGZvciB0aGF0IGZsaWdodCB3aG9zZSDigJhq
-b2LigJkgdmFsdWU7IGJ1dCBnaXZlbiB0aGUgbmFtaW5nIHNjaGVtZSBzbyBmYXIsIEnigJltIGd1
-ZXNzaW5nIGpvYiBpcyB1bmlxdWXigKY/ICBBcyBsb25nIGFzIHRoZXJl4oCZcyBzb21ldGhpbmcg
-ZWxzZSBwcmV2ZW50aW5nIGR1cGxpY2F0aW9uIEkgdGhpbmsgaXTigJlzIGZpbmUuDQoNCiAtR2Vv
-cmdlDQoNCg==
+George Dunlap writes ("Re: [OSSTEST PATCH 08/14] Executive: Use index for report__find_test"):
+> > On Jul 21, 2020, at 7:41 PM, Ian Jackson <ian.jackson@eu.citrix.com> wrote:
+> > Example query before (from the Perl DBI trace):
+...
+> So this says:
+> 
+> Get me all the columns
+> for the highest-numbered flight
+> Where:
+>   There is at least one runvar for that flight has the specified $name and $value
+>   And the job is *not* like build-%-prev or build-%-freebsd
+>   The flight number (?) is <= 151903, and blessing = real
+>   For the specified $branch
+
+Yes.
+
+> What’s the “TRUE and flight <= 151903” for?
+
+These queries are programmetically constructed.  In this case, the
+flight condition is not always there.  My test case had a
+--max-flight=151903 on the command line: this is a debugging option.
+It avoids newly added stuff in the db confusing me and generally
+disturbing things.  This is implemented with a condition variable
+which contains either "" or "and flight <= 151903".  Doing it this way
+simplifies the generation code.
+
+> And this says (effectively)
+> 
+> Get me <flight, started, blessing, branch, intended>
+> From the highest-numbered flight
+> Where
+>   That flight has a runvar with specified name and value
+>   The job *doesn’t* look like “build-%-prev” or “build-%-freebsd”
+>   flight & blessing as appropriate
+>   branch as specified.
+
+I think so, yes.
+
+> Isn’t the r.flight = f.flight redundant if we’re joining on flight?
+
+Indeed it is.  I guess I can add a patch at theend to delete that.
+
+> Also, in spite of the paragraph attempting to explain it, I’m afraid
+> I don’t understand what the “AS sub WHERE TRUE” is for.
+
+The reason for the subquery is not evident in the SQL.  It's because
+of the Perl code which generates this query.  The same code is used to
+generate queries that start with things like
+   SELECT * ...
+   SELECT COUNT(*) AS count ...
+The perl code gets told "*" or "COUNT(*) AS count".  The call sites
+that pass "*" expect to see fields from flights.  It would be
+possible to change "*" to the explicit field list everywhere, but
+it was much easier to do it this way.
+
+(The WHERE TRUE is another one of these stubs where a condition might
+appear.)
+
+> But it looks like the new query should do the same thing as the old
+> query, assuming that the columns from the subquery are all the
+> columns that you need in the correct order.
+
+The subquery columns are precisely the columns currently existing in
+he flights table.
+
+Thanks,
+Ian.
 
