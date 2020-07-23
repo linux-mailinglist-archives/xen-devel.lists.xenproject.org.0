@@ -2,61 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D3C422B1B5
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 16:44:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7AA522B231
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 17:10:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jycRK-0007tq-Hv; Thu, 23 Jul 2020 14:43:18 +0000
+	id 1jycrG-00024Q-Tx; Thu, 23 Jul 2020 15:10:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xWck=BC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jycRJ-0007tl-RY
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 14:43:17 +0000
-X-Inumbo-ID: d7ef76d4-ccf2-11ea-a2ba-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tIQT=BC=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jycrF-00020S-Sw
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 15:10:05 +0000
+X-Inumbo-ID: 963d197c-ccf6-11ea-a2bc-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d7ef76d4-ccf2-11ea-a2ba-12813bfff9fa;
- Thu, 23 Jul 2020 14:43:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595515397;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=LX+ZlWCtBd1t9rdykL+lY+9RmrIAo5grgz9ZfVL9Epw=;
- b=cCWFbMrKIY7CauV500lkQigoEOypyazGsssRmTl2PyFIagqgjnirRGsN
- WfYz/6nzM9qNH9Y26b63thlDcBErqLh3Z/nxoovIY4SPRJfF6mLJOa7c4
- TXro6UqQQcn96iXZm019rKQ/zPJGALNGdy5WYMoLf3vGB21SRLghAv8V6 o=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: SAiegcltMIL9ydSkPEo7wUhAqyySwFguryX74FJRFwvQqEhn+wu9sR207uvhGU6SiDdQdIWb0Y
- 8XyVNW3Fq7Iee4vXkP+3WNIAIOiWKX4emhDDLoREs4DgyIbRFTL45GCYNqFZHoUdgL9uZf32sD
- S81l6wCmyddCESFHLHEt4qgMLTq9hzzKervYWVN5ZTli0KXf9zzKnJw+8j7PlxHRzB38EqQhVS
- Ju9icWXj5mIDdOGMqDgCEp6m5F3ge67ZXBQJQPMgpigEjAYnVDnoa7FmHsiT9MDhFtMM5sZ9+e
- +w4=
-X-SBRS: 2.7
-X-MesageID: 23242506
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,386,1589256000"; d="scan'208";a="23242506"
-Subject: Re: [PATCH] x86/S3: put data segment registers into known state upon
- resume
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <3cad2798-1a01-7d5e-ea55-ddb9ba6388d9@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <6343ad61-246f-fefd-cd12-d260807e82f0@citrix.com>
-Date: Thu, 23 Jul 2020 15:40:47 +0100
+ id 963d197c-ccf6-11ea-a2bc-12813bfff9fa;
+ Thu, 23 Jul 2020 15:10:04 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 050F5AE91;
+ Thu, 23 Jul 2020 15:10:12 +0000 (UTC)
+Subject: Re: [PATCH 3/3] memory: introduce an option to force onlining of
+ hotplug memory
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ David Hildenbrand <david@redhat.com>
+References: <20200723084523.42109-1-roger.pau@citrix.com>
+ <20200723084523.42109-4-roger.pau@citrix.com>
+ <21490d49-b2cf-a398-0609-8010bdb0b004@redhat.com>
+ <20200723122300.GD7191@Air-de-Roger>
+ <e94d9556-f615-bbe2-07d2-08958969ee5f@redhat.com>
+ <20200723135930.GH7191@Air-de-Roger>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <82b131f4-8f50-cd49-65cf-9a87d51b5555@suse.com>
+Date: Thu, 23 Jul 2020 17:10:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <3cad2798-1a01-7d5e-ea55-ddb9ba6388d9@suse.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20200723135930.GH7191@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,65 +53,101 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "M. Vefa Bicakci" <m.v.b@runbox.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Andrew Morton <akpm@linux-foundation.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20/07/2020 16:20, Jan Beulich wrote:
-> wakeup_32 sets %ds and %es to BOOT_DS, while leaving %fs at what
-> wakeup_start did set it to, and %gs at whatever BIOS did load into it.
-> All of this may end up confusing the first load_segments() to run on
-> the BSP after resume, in particular allowing a non-nul selector value
-> to be left in %fs.
->
-> Alongside %ss, also put all other data segment registers into the same
-> state that the boot and CPU bringup paths put them in.
->
-> Reported-by: M. Vefa Bicakci <m.v.b@runbox.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> --- a/xen/arch/x86/acpi/wakeup_prot.S
-> +++ b/xen/arch/x86/acpi/wakeup_prot.S
-> @@ -52,6 +52,16 @@ ENTRY(s3_resume)
->          mov     %eax, %ss
->          mov     saved_rsp(%rip), %rsp
->  
-> +        /*
-> +         * Also put other segment registers into known state, like would
-> +         * be done on the boot path. This is in particular necessary for
-> +         * the first load_segments() to work as intended.
-> +         */
+On 23.07.20 15:59, Roger Pau Monné wrote:
+> On Thu, Jul 23, 2020 at 03:22:49PM +0200, David Hildenbrand wrote:
+>> On 23.07.20 14:23, Roger Pau Monné wrote:
+>>> On Thu, Jul 23, 2020 at 01:37:03PM +0200, David Hildenbrand wrote:
+>>>> On 23.07.20 10:45, Roger Pau Monne wrote:
+>>>>> Add an extra option to add_memory_resource that overrides the memory
+>>>>> hotplug online behavior in order to force onlining of memory from
+>>>>> add_memory_resource unconditionally.
+>>>>>
+>>>>> This is required for the Xen balloon driver, that must run the
+>>>>> online page callback in order to correctly process the newly added
+>>>>> memory region, note this is an unpopulated region that is used by Linux
+>>>>> to either hotplug RAM or to map foreign pages from other domains, and
+>>>>> hence memory hotplug when running on Xen can be used even without the
+>>>>> user explicitly requesting it, as part of the normal operations of the
+>>>>> OS when attempting to map memory from a different domain.
+>>>>>
+>>>>> Setting a different default value of memhp_default_online_type when
+>>>>> attaching the balloon driver is not a robust solution, as the user (or
+>>>>> distro init scripts) could still change it and thus break the Xen
+>>>>> balloon driver.
+>>>>
+>>>> I think we discussed this a couple of times before (even triggered by my
+>>>> request), and this is responsibility of user space to configure. Usually
+>>>> distros have udev rules to online memory automatically. Especially, user
+>>>> space should eb able to configure *how* to online memory.
+>>>
+>>> Note (as per the commit message) that in the specific case I'm
+>>> referring to the memory hotplugged by the Xen balloon driver will be
+>>> an unpopulated range to be used internally by certain Xen subsystems,
+>>> like the xen-blkback or the privcmd drivers. The addition of such
+>>> blocks of (unpopulated) memory can happen without the user explicitly
+>>> requesting it, and hence not even aware such hotplug process is taking
+>>> place. To be clear: no actual RAM will be added to the system.
+>>
+>> Okay, but there is also the case where XEN will actually hotplug memory
+>> using this same handler IIRC (at least I've read papers about it). Both
+>> are using the same handler, correct?
+> 
+> Yes, it's used by this dual purpose, which I have to admit I don't
+> like that much either.
+> 
+> One set of pages should be clearly used for RAM memory hotplug, and
+> the other to map foreign pages that are not related to memory hotplug,
+> it's just that we happen to need a physical region with backing struct
+> pages.
+> 
+>>>
+>>>> It's the admin/distro responsibility to configure this properly. In case
+>>>> this doesn't happen (or as you say, users change it), bad luck.
+>>>>
+>>>> E.g., virtio-mem takes care to not add more memory in case it is not
+>>>> getting onlined. I remember hyper-v has similar code to at least wait a
+>>>> bit for memory to get onlined.
+>>>
+>>> I don't think VirtIO or Hyper-V use the hotplug system in the same way
+>>> as Xen, as said this is done to add unpopulated memory regions that
+>>> will be used to map foreign memory (from other domains) by Xen drivers
+>>> on the system.
+>>
+>> Indeed, if the memory is never exposed to the buddy (and all you need is
+>> struct pages +  a kernel virtual mapping), I wonder if
+>> memremap/ZONE_DEVICE is what you want?
+> 
+> I'm certainly not familiar with the Linux memory subsystem, but if
+> that gets us a backing struct page and a kernel mapping then I would
+> say yes.
+> 
+>> Then you won't have user-visible
+>> memory blocks created with unclear online semantics, partially involving
+>> the buddy.
+> 
+> Seems like a fine solution.
+> 
+> Juergen: would you be OK to use a separate page-list for
+> alloc_xenballooned_pages on HVM/PVH using the logic described by
+> David?
+> 
+> I guess I would leave PV as-is, since it already has this reserved
+> region to map foreign pages.
 
-I don't think the comment is helpful, not least because it refers to a
-broken behaviour in load_segemnts() which is soon going to change anyway.
+I would really like a common solution, especially as it would enable
+pv driver domains to use that feature, too.
 
-We've literally just loaded the GDT, at which point reloading all
-segments *is* the expected thing to do.
+And finding a region for this memory zone in PVH dom0 should be common
+with PV dom0 after all. We don't want to collide with either PCI space
+or hotplug memory.
 
-I'd recommend that the diff be simply:
 
-diff --git a/xen/arch/x86/acpi/wakeup_prot.S
-b/xen/arch/x86/acpi/wakeup_prot.S
-index dcc7e2327d..a2c41c4f3f 100644
---- a/xen/arch/x86/acpi/wakeup_prot.S
-+++ b/xen/arch/x86/acpi/wakeup_prot.S
-@@ -49,6 +49,10 @@ ENTRY(s3_resume)
-         mov     %rax, %cr0
- 
-         mov     $__HYPERVISOR_DS64, %eax
-+        mov     %eax, %ds
-+        mov     %eax, %es
-+        mov     %eax, %fs
-+        mov     %eax, %gs
-         mov     %eax, %ss
-         mov     saved_rsp(%rip), %rsp
- 
-
-It is a shame that the CR0 load breaks up the obvious connection with
-lgdt, but IIRC, that was a consequence of how the code was laid out
-previously.
-
-Preferably with the above diff, Reviewed-by: Andrew Cooper
-<andrew.cooper3@citrix.com>
+Juergen
 
