@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 513C222AD00
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 12:52:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAFC022AD01
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 12:52:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyYpO-00017L-Fz; Thu, 23 Jul 2020 10:51:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jyYpn-0001AV-Sv; Thu, 23 Jul 2020 10:52:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jyYpM-00017D-V8
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 10:51:52 +0000
-X-Inumbo-ID: 82f20e01-ccd2-11ea-a278-12813bfff9fa
+ id 1jyYpl-0001AL-Of
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 10:52:17 +0000
+X-Inumbo-ID: 92811fc8-ccd2-11ea-86ee-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 82f20e01-ccd2-11ea-a278-12813bfff9fa;
- Thu, 23 Jul 2020 10:51:52 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 92811fc8-ccd2-11ea-86ee-bc764e2007e4;
+ Thu, 23 Jul 2020 10:52:16 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 50C07AF2D;
- Thu, 23 Jul 2020 10:51:59 +0000 (UTC)
-Subject: [PATCH 1/2] lockprof: don't leave locks uninitialized upon allocation
- failure
+ by mx2.suse.de (Postfix) with ESMTP id C752CAE69;
+ Thu, 23 Jul 2020 10:52:23 +0000 (UTC)
+Subject: [PATCH 2/2] lockprof: don't pass name into registration function
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <47f5478d-2f46-656c-0882-121aebc77f39@suse.com>
-Message-ID: <7c4f50ce-6212-2f16-c9c5-c9af450b10ba@suse.com>
-Date: Thu, 23 Jul 2020 12:51:53 +0200
+Message-ID: <d8eab983-9377-a519-3be8-6ef83fa96516@suse.com>
+Date: Thu, 23 Jul 2020 12:52:17 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -54,34 +52,120 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Even if a specific struct lock_profile instance can't be allocated, the
-lock itself should still be functional. As this isn't a production use
-feature, also log a message in the event that the profiling struct can't
-be allocated.
+The type uniquely identifies the associated name, hence the name fields
+can be statically initialized.
 
-Fixes: d98feda5c756 ("Make lock profiling usable again")
+Also constify not just the involved struct field, but also struct
+lock_profile's. Rather than specifying lock_profile_ancs[]' dimension at
+definition time, add a suitable build time check, such that at least
+missing tail additions to the initializer can be spotted easily.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -392,7 +392,7 @@ struct domain *domain_create(domid_t dom
+         d->max_vcpus = config->max_vcpus;
+     }
+ 
+-    lock_profile_register_struct(LOCKPROF_TYPE_PERDOM, d, domid, "Domain");
++    lock_profile_register_struct(LOCKPROF_TYPE_PERDOM, d, domid);
+ 
+     if ( (err = xsm_alloc_security_domain(d)) != 0 )
+         goto fail;
+--- a/xen/common/spinlock.c
++++ b/xen/common/spinlock.c
+@@ -338,7 +338,7 @@ void _spin_unlock_recursive(spinlock_t *
+ 
+ struct lock_profile_anc {
+     struct lock_profile_qhead *head_q;   /* first head of this type */
+-    char                      *name;     /* descriptive string for print */
++    const char                *name;     /* descriptive string for print */
+ };
+ 
+ typedef void lock_profile_subfunc(
+@@ -348,7 +348,10 @@ extern struct lock_profile *__lock_profi
+ extern struct lock_profile *__lock_profile_end;
+ 
+ static s_time_t lock_profile_start;
+-static struct lock_profile_anc lock_profile_ancs[LOCKPROF_TYPE_N];
++static struct lock_profile_anc lock_profile_ancs[] = {
++    [LOCKPROF_TYPE_GLOBAL] = { .name = "Global" },
++    [LOCKPROF_TYPE_PERDOM] = { .name = "Domain" },
++};
+ static struct lock_profile_qhead lock_profile_glb_q;
+ static spinlock_t lock_profile_lock = SPIN_LOCK_UNLOCKED;
+ 
+@@ -473,13 +476,12 @@ int spinlock_profile_control(struct xen_
+ }
+ 
+ void _lock_profile_register_struct(
+-    int32_t type, struct lock_profile_qhead *qhead, int32_t idx, char *name)
++    int32_t type, struct lock_profile_qhead *qhead, int32_t idx)
+ {
+     qhead->idx = idx;
+     spin_lock(&lock_profile_lock);
+     qhead->head_q = lock_profile_ancs[type].head_q;
+     lock_profile_ancs[type].head_q = qhead;
+-    lock_profile_ancs[type].name = name;
+     spin_unlock(&lock_profile_lock);
+ }
+ 
+@@ -504,6 +506,8 @@ static int __init lock_prof_init(void)
+ {
+     struct lock_profile **q;
+ 
++    BUILD_BUG_ON(ARRAY_SIZE(lock_profile_ancs) != LOCKPROF_TYPE_N);
++
+     for ( q = &__lock_profile_start; q < &__lock_profile_end; q++ )
+     {
+         (*q)->next = lock_profile_glb_q.elem_q;
+@@ -511,9 +515,8 @@ static int __init lock_prof_init(void)
+         (*q)->lock->profile = *q;
+     }
+ 
+-    _lock_profile_register_struct(
+-        LOCKPROF_TYPE_GLOBAL, &lock_profile_glb_q,
+-        0, "Global lock");
++    _lock_profile_register_struct(LOCKPROF_TYPE_GLOBAL,
++                                  &lock_profile_glb_q, 0);
+ 
+     return 0;
+ }
 --- a/xen/include/xen/spinlock.h
 +++ b/xen/include/xen/spinlock.h
-@@ -103,10 +103,16 @@ struct lock_profile_qhead {
-     do {                                                                      \
-         struct lock_profile *prof;                                            \
-         prof = xzalloc(struct lock_profile);                                  \
--        if (!prof) break;                                                     \
-+        (s)->l = (spinlock_t)_SPIN_LOCK_UNLOCKED(prof);                       \
-+        if ( !prof )                                                          \
-+        {                                                                     \
-+            printk(XENLOG_WARNING                                             \
-+                   "lock profiling unavailable for %p(%d)'s " #l "\n",        \
-+                   s, (s)->profile_head.idx);                                 \
-+            break;                                                            \
-+        }                                                                     \
-         prof->name = #l;                                                      \
-         prof->lock = &(s)->l;                                                 \
--        (s)->l = (spinlock_t)_SPIN_LOCK_UNLOCKED(prof);                       \
-         prof->next = (s)->profile_head.elem_q;                                \
-         (s)->profile_head.elem_q = prof;                                      \
+@@ -72,7 +72,7 @@ struct spinlock;
+ 
+ struct lock_profile {
+     struct lock_profile *next;       /* forward link */
+-    char                *name;       /* lock name */
++    const char          *name;       /* lock name */
+     struct spinlock     *lock;       /* the lock itself */
+     u64                 lock_cnt;    /* # of complete locking ops */
+     u64                 block_cnt;   /* # of complete wait for lock */
+@@ -118,11 +118,11 @@ struct lock_profile_qhead {
      } while(0)
+ 
+ void _lock_profile_register_struct(
+-    int32_t, struct lock_profile_qhead *, int32_t, char *);
++    int32_t, struct lock_profile_qhead *, int32_t);
+ void _lock_profile_deregister_struct(int32_t, struct lock_profile_qhead *);
+ 
+-#define lock_profile_register_struct(type, ptr, idx, print)                   \
+-    _lock_profile_register_struct(type, &((ptr)->profile_head), idx, print)
++#define lock_profile_register_struct(type, ptr, idx)                          \
++    _lock_profile_register_struct(type, &((ptr)->profile_head), idx)
+ #define lock_profile_deregister_struct(type, ptr)                             \
+     _lock_profile_deregister_struct(type, &((ptr)->profile_head))
+ 
+@@ -138,7 +138,7 @@ struct lock_profile_qhead { };
+ #define DEFINE_SPINLOCK(l) spinlock_t l = SPIN_LOCK_UNLOCKED
+ 
+ #define spin_lock_init_prof(s, l) spin_lock_init(&((s)->l))
+-#define lock_profile_register_struct(type, ptr, idx, print)
++#define lock_profile_register_struct(type, ptr, idx)
+ #define lock_profile_deregister_struct(type, ptr)
+ #define spinlock_profile_printall(key)
+ 
 
 
