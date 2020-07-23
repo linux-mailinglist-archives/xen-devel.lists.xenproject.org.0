@@ -2,44 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B59C522ABF6
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 11:52:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3612D22AC25
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 12:08:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyXtN-0003xG-Nq; Thu, 23 Jul 2020 09:51:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jyY8i-00054S-9Q; Thu, 23 Jul 2020 10:07:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j4k2=BC=h08.hostsharing.net=foo00@srs-us1.protection.inumbo.net>)
- id 1jyXtM-0003xB-7a
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 09:51:56 +0000
-X-Inumbo-ID: 2354592e-ccca-11ea-86eb-bc764e2007e4
-Received: from bmailout1.hostsharing.net (unknown [83.223.95.100])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2354592e-ccca-11ea-86eb-bc764e2007e4;
- Thu, 23 Jul 2020 09:51:54 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net
- [IPv6:2a01:37:1000::53df:5f1c:0])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "*.hostsharing.net",
- Issuer "COMODO RSA Domain Validation Secure Server CA" (not verified))
- by bmailout1.hostsharing.net (Postfix) with ESMTPS id AF329300011A0;
- Thu, 23 Jul 2020 11:51:52 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id 68E6B36272; Thu, 23 Jul 2020 11:51:52 +0200 (CEST)
-Date: Thu, 23 Jul 2020 11:51:52 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: kernel test robot <lkp@intel.com>
-Subject: Re: [PCI] 3233e41d3e:
- WARNING:at_drivers/pci/pci.c:#pci_reset_hotplug_slot
-Message-ID: <20200723095152.nf3fmfzrjlpoi35h@wunner.de>
-References: <908047f7699d9de9ec2efd6b79aa752d73dab4b6.1595329748.git.lukas@wunner.de>
- <20200723091305.GJ19262@shao2-debian>
+ <SRS0=0L1b=BC=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jyY8g-00054N-I8
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 10:07:46 +0000
+X-Inumbo-ID: 59a5baac-cccc-11ea-a271-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 59a5baac-cccc-11ea-a271-12813bfff9fa;
+ Thu, 23 Jul 2020 10:07:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595498865;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=bQJiS9xFZUELYjfJnG1ICjedNSkJwEqRKFaBuZQt8Ak=;
+ b=A+JIpyKjrqlsK3lo4UtO1jvKoh3tbDID3TqQoOqaYuhvW5SG6WDN26Cq
+ FSqmLsss4hVW5bstZhYNSG3e86XrWl9BNuLfW2Rowb+wIFwPPAXQCiXaB
+ ryyEr9S7OT1FK8bVqepayZKxlPSVXefQxbREOBpgypg8Doao2bUwKPlm9 8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: bZFXF6/WNJHCKqecgfm07qSYmr8C11I5LCeQYAmB2J6ejGf2BxnVqGad3IzBVSMT2qM/6xk2pb
+ ZDtL6w5ZgkxccLhh7102R3+00n3DJpxz/5cS69zB4Mifr9LHVimxAlJaYuL2ZbTves9JGhmgfS
+ hyY/zIBp7MqmE8LrRrMlRqmGJTRZ3yjVjnF22OwOCh8q7Mq/1ZszDTFU6HCnsfegVmI365A9Ci
+ U8r8fC4kSdAqXQxnwYnpxOJWlj1y9sOn9zwWntIiUVEgJ3GagxBo2m1PoklSQqSPyxGf52wFWx
+ /GY=
+X-SBRS: 2.7
+X-MesageID: 23357104
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,386,1589256000"; d="scan'208";a="23357104"
+Date: Thu, 23 Jul 2020 12:07:27 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/vmce: Dispatch vmce_{rd,wr}msr() from
+ guest_{rd,wr}msr()
+Message-ID: <20200723100727.GA7191@Air-de-Roger>
+References: <20200722101809.8389-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200723091305.GJ19262@shao2-debian>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200722101809.8389-1-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,45 +64,139 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Derek Chickles <dchickles@marvell.com>,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, linux-pci@vger.kernel.org,
- Satanand Burla <sburla@marvell.com>, Cornelia Huck <cohuck@redhat.com>,
- LKML <linux-kernel@vger.kernel.org>, Felix Manlunas <fmanlunas@marvell.com>,
- Keith Busch <kbusch@kernel.org>, Alex Williamson <alex.williamson@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Govinda Tatti <govinda.tatti@oracle.com>, lkp@lists.01.org,
- Rick Farrington <ricardo.farrington@cavium.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Michael Haeuptle <michael.haeuptle@hpe.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Ian May <ian.may@canonical.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Jul 23, 2020 at 05:13:06PM +0800, kernel test robot wrote:
-> FYI, we noticed the following commit (built with gcc-9):
-[...]
-> commit: 3233e41d3e8ebcd44e92da47ffed97fd49b84278 ("[PATCH] PCI: pciehp: Fix AB-BA deadlock between reset_lock and device_lock")
-[...]
-> caused below changes (please refer to attached dmesg/kmsg for entire log/backtrace):
-> [    0.971752] WARNING: CPU: 0 PID: 1 at drivers/pci/pci.c:4905 pci_reset_hotplug_slot+0x70/0x80
+On Wed, Jul 22, 2020 at 11:18:09AM +0100, Andrew Cooper wrote:
+> ... rather than from the default clauses of the PV and HVM MSR handlers.
+> 
+> This means that we no longer take the vmce lock for any unknown MSR, and
+> accesses to architectural MCE banks outside of the subset implemented for the
+> guest no longer fall further through the unknown MSR path.
+> 
+> With the vmce calls removed, the hvm alternative_call()'s expression can be
+> simplified substantially.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Thank you, trusty robot.
+LGTM, I just have one question below regarding the ranges.
 
-I botched the call to lockdep_assert_held_write(), it should have been
-conditional on "if (probe)".
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Happy to respin the patch, but I'd like to hear opinions on the locking
-issues surrounding xen and octeon (and the patch in general).
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/hvm/hvm.c         | 16 ++--------------
+>  xen/arch/x86/msr.c             | 16 ++++++++++++++++
+>  xen/arch/x86/pv/emul-priv-op.c | 15 ---------------
+>  3 files changed, 18 insertions(+), 29 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 5bb47583b3..a9d1685549 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -3560,13 +3560,7 @@ int hvm_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
+>           break;
+>  
+>      default:
+> -        if ( (ret = vmce_rdmsr(msr, msr_content)) < 0 )
+> -            goto gp_fault;
+> -        /* If ret == 0 then this is not an MCE MSR, see other MSRs. */
+> -        ret = ((ret == 0)
+> -               ? alternative_call(hvm_funcs.msr_read_intercept,
+> -                                  msr, msr_content)
+> -               : X86EMUL_OKAY);
+> +        ret = alternative_call(hvm_funcs.msr_read_intercept, msr, msr_content);
+>          break;
+>      }
+>  
+> @@ -3696,13 +3690,7 @@ int hvm_msr_write_intercept(unsigned int msr, uint64_t msr_content,
+>          break;
+>  
+>      default:
+> -        if ( (ret = vmce_wrmsr(msr, msr_content)) < 0 )
+> -            goto gp_fault;
+> -        /* If ret == 0 then this is not an MCE MSR, see other MSRs. */
+> -        ret = ((ret == 0)
+> -               ? alternative_call(hvm_funcs.msr_write_intercept,
+> -                                  msr, msr_content)
+> -               : X86EMUL_OKAY);
+> +        ret = alternative_call(hvm_funcs.msr_write_intercept, msr, msr_content);
+>          break;
+>      }
+>  
+> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+> index 22f921cc71..ca4307e19f 100644
+> --- a/xen/arch/x86/msr.c
+> +++ b/xen/arch/x86/msr.c
+> @@ -227,6 +227,14 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+>          *val = msrs->misc_features_enables.raw;
+>          break;
+>  
+> +    case MSR_IA32_MCG_CAP     ... MSR_IA32_MCG_CTL:      /* 0x179 -> 0x17b */
+> +    case MSR_IA32_MCx_CTL2(0) ... MSR_IA32_MCx_CTL2(31): /* 0x280 -> 0x29f */
+> +    case MSR_IA32_MCx_CTL(0)  ... MSR_IA32_MCx_MISC(31): /* 0x400 -> 0x47f */
 
-In particular, would a solution be entertained wherein the pci_dev is
-reset by the PCI core after driver unbinding, contingent on a flag which
-is set by a PCI driver to indicate that the pci_dev is returned to the
-core in an unclean state?
+Where do you get the ranges from 0 to 31? It seems like the count
+field in the CAP register is 8 bits, which could allow for up to 256
+banks?
 
-Also, why does xen require a device reset on bind?
+I'm quite sure this would then overlap with other MSRs?
 
-Thanks!
+> +    case MSR_IA32_MCG_EXT_CTL:                           /* 0x4d0 */
+> +        if ( vmce_rdmsr(msr, val) < 0 )
+> +            goto gp_fault;
+> +        break;
+> +
+>      case MSR_X2APIC_FIRST ... MSR_X2APIC_LAST:
+>          if ( !is_hvm_domain(d) || v != curr )
+>              goto gp_fault;
+> @@ -436,6 +444,14 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+>          break;
+>      }
+>  
+> +    case MSR_IA32_MCG_CAP     ... MSR_IA32_MCG_CTL:      /* 0x179 -> 0x17b */
+> +    case MSR_IA32_MCx_CTL2(0) ... MSR_IA32_MCx_CTL2(31): /* 0x280 -> 0x29f */
+> +    case MSR_IA32_MCx_CTL(0)  ... MSR_IA32_MCx_MISC(31): /* 0x400 -> 0x47f */
+> +    case MSR_IA32_MCG_EXT_CTL:                           /* 0x4d0 */
+> +        if ( vmce_wrmsr(msr, val) < 0 )
+> +            goto gp_fault;
+> +        break;
+> +
+>      case MSR_X2APIC_FIRST ... MSR_X2APIC_LAST:
+>          if ( !is_hvm_domain(d) || v != curr )
+>              goto gp_fault;
+> diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+> index 254da2b849..f14552cb4b 100644
+> --- a/xen/arch/x86/pv/emul-priv-op.c
+> +++ b/xen/arch/x86/pv/emul-priv-op.c
+> @@ -855,8 +855,6 @@ static int read_msr(unsigned int reg, uint64_t *val,
+>  
+>      switch ( reg )
+>      {
+> -        int rc;
+> -
+>      case MSR_FS_BASE:
+>          if ( is_pv_32bit_domain(currd) )
+>              break;
+> @@ -955,12 +953,6 @@ static int read_msr(unsigned int reg, uint64_t *val,
+>          }
+>          /* fall through */
+>      default:
+> -        rc = vmce_rdmsr(reg, val);
+> -        if ( rc < 0 )
+> -            break;
+> -        if ( rc )
+> -            return X86EMUL_OKAY;
+> -        /* fall through */
+>      normal:
 
-Lukas
+We could remove the 'normal' label and just use the default one
+instead.
+
+Thanks, Roger.
 
