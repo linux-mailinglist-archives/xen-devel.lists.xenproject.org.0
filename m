@@ -2,46 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A438D22B0D0
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 15:53:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65C5C22B0D1
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 15:54:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jybes-00033t-FG; Thu, 23 Jul 2020 13:53:14 +0000
+	id 1jybgK-00039k-Rw; Thu, 23 Jul 2020 13:54:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tIQT=BC=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jybeq-00033o-Ai
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 13:53:12 +0000
-X-Inumbo-ID: d84ee436-cceb-11ea-871b-bc764e2007e4
+ (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jybgJ-00039f-QY
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 13:54:43 +0000
+X-Inumbo-ID: 0e4275fb-ccec-11ea-871b-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d84ee436-cceb-11ea-871b-bc764e2007e4;
- Thu, 23 Jul 2020 13:53:11 +0000 (UTC)
+ id 0e4275fb-ccec-11ea-871b-bc764e2007e4;
+ Thu, 23 Jul 2020 13:54:42 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 66E13AB3D;
- Thu, 23 Jul 2020 13:53:18 +0000 (UTC)
-Subject: Re: [PATCH 3/3] memory: introduce an option to force onlining of
- hotplug memory
-To: David Hildenbrand <david@redhat.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200723084523.42109-1-roger.pau@citrix.com>
- <20200723084523.42109-4-roger.pau@citrix.com>
- <21490d49-b2cf-a398-0609-8010bdb0b004@redhat.com>
- <20200723122300.GD7191@Air-de-Roger>
- <e94d9556-f615-bbe2-07d2-08958969ee5f@redhat.com>
- <429c2889-93c2-23b3-ba1e-da56e3a76ba4@redhat.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <de0b17e6-6cb1-211b-bc40-e34f4e1b30d0@suse.com>
-Date: Thu, 23 Jul 2020 15:53:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id 09757AB3D;
+ Thu, 23 Jul 2020 13:54:50 +0000 (UTC)
+Subject: Re: [PATCH] xen/x86: irq: Avoid a TOCTOU race in
+ pirq_spin_lock_irq_desc()
+To: Julien Grall <julien@xen.org>
+References: <20200722165300.22655-1-julien@xen.org>
+ <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
+ <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d3ba0dad-63db-06ad-ff3f-f90fe8649845@suse.com>
+Date: Thu, 23 Jul 2020 15:54:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <429c2889-93c2-23b3-ba1e-da56e3a76ba4@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,81 +48,105 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Andrew Morton <akpm@linux-foundation.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23.07.20 15:47, David Hildenbrand wrote:
-> On 23.07.20 15:22, David Hildenbrand wrote:
->> On 23.07.20 14:23, Roger Pau Monné wrote:
->>> On Thu, Jul 23, 2020 at 01:37:03PM +0200, David Hildenbrand wrote:
->>>> On 23.07.20 10:45, Roger Pau Monne wrote:
->>>>> Add an extra option to add_memory_resource that overrides the memory
->>>>> hotplug online behavior in order to force onlining of memory from
->>>>> add_memory_resource unconditionally.
->>>>>
->>>>> This is required for the Xen balloon driver, that must run the
->>>>> online page callback in order to correctly process the newly added
->>>>> memory region, note this is an unpopulated region that is used by Linux
->>>>> to either hotplug RAM or to map foreign pages from other domains, and
->>>>> hence memory hotplug when running on Xen can be used even without the
->>>>> user explicitly requesting it, as part of the normal operations of the
->>>>> OS when attempting to map memory from a different domain.
->>>>>
->>>>> Setting a different default value of memhp_default_online_type when
->>>>> attaching the balloon driver is not a robust solution, as the user (or
->>>>> distro init scripts) could still change it and thus break the Xen
->>>>> balloon driver.
->>>>
->>>> I think we discussed this a couple of times before (even triggered by my
->>>> request), and this is responsibility of user space to configure. Usually
->>>> distros have udev rules to online memory automatically. Especially, user
->>>> space should eb able to configure *how* to online memory.
->>>
->>> Note (as per the commit message) that in the specific case I'm
->>> referring to the memory hotplugged by the Xen balloon driver will be
->>> an unpopulated range to be used internally by certain Xen subsystems,
->>> like the xen-blkback or the privcmd drivers. The addition of such
->>> blocks of (unpopulated) memory can happen without the user explicitly
->>> requesting it, and hence not even aware such hotplug process is taking
->>> place. To be clear: no actual RAM will be added to the system.
+On 23.07.2020 15:22, Julien Grall wrote:
+> On 23/07/2020 12:23, Jan Beulich wrote:
+>> On 22.07.2020 18:53, Julien Grall wrote:
+>>> --- a/xen/arch/x86/irq.c
+>>> +++ b/xen/arch/x86/irq.c
+>>> @@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
+>>>   
+>>>       for ( ; ; )
+>>>       {
+>>> -        int irq = pirq->arch.irq;
+>>> +        int irq = read_atomic(&pirq->arch.irq);
 >>
->> Okay, but there is also the case where XEN will actually hotplug memory
->> using this same handler IIRC (at least I've read papers about it). Both
->> are using the same handler, correct?
->>
->>>
->>>> It's the admin/distro responsibility to configure this properly. In case
->>>> this doesn't happen (or as you say, users change it), bad luck.
->>>>
->>>> E.g., virtio-mem takes care to not add more memory in case it is not
->>>> getting onlined. I remember hyper-v has similar code to at least wait a
->>>> bit for memory to get onlined.
->>>
->>> I don't think VirtIO or Hyper-V use the hotplug system in the same way
->>> as Xen, as said this is done to add unpopulated memory regions that
->>> will be used to map foreign memory (from other domains) by Xen drivers
->>> on the system.
->>
->> Indeed, if the memory is never exposed to the buddy (and all you need is
->> struct pages +  a kernel virtual mapping), I wonder if
->> memremap/ZONE_DEVICE is what you want? Then you won't have user-visible
->> memory blocks created with unclear online semantics, partially involving
->> the buddy.
+>> There we go - I'd be fine this way, but I'm pretty sure Andrew
+>> would want this to be ACCESS_ONCE(). So I guess now is the time
+>> to settle which one to prefer in new code (or which criteria
+>> there are to prefer one over the other).
 > 
-> And just a note that there is also DCSS on s390x / z/VM which allows to
-> map segments into the VM physical address space (e.g., you can share
-> segments between VMs). They don't need any memmap (struct page) for that
-> memory, though. All they do is create the identity mapping in the kernel
-> virtual address space manually. Not sure what the exact requirements on
-> the XEN side are. I assume you need a memmap for this memory.
+> I would prefer if we have a single way to force the compiler to do a 
+> single access (read/write).
 
-We need to be able to do I/O with that memory via normal drivers and we
-need to be able to map it, both from user land and from the kernel.
+Ideally yes. I'm unconvinced though that either construct fits all
+needs (for {read,write}_atomic() there may be reasons why the
+compiler is allowed to produce multiple generated code instances
+from a single source instance, while for *_ONCE() the compiler may
+be allowed to split the access into pieces (as can be easily seen
+for an access to a uint64_t variable on 32-bit x86 at least, and
+by deduction I then can't see why it shouldn't be allowed to use
+byte-wise accesses).
 
+> The existing implementation of ACCESS_ONCE() can only work on scalar 
+> type. The implementation is based on a Linux, although we have an extra 
+> check. Looking through the Linux history, it looks like it is not 
+> possible to make ACCESS_ONCE() work with non-scalar types:
+> 
+>      ACCESS_ONCE does not work reliably on non-scalar types. For
+>      example gcc 4.6 and 4.7 might remove the volatile tag for such
+>      accesses during the SRA (scalar replacement of aggregates) step
+>      https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145)
+> 
+> I understand that our implementation of read_atomic(), write_atomic() 
+> would lead to less optimized code.
 
-Juergen
+I.e. you see ways for the compiler to be more clever than using
+a single "move" instruction for a single move? Or are you referring
+to insn scheduling by the compiler (which my gut feeling would say
+is impacted as much by an asm volatile() as by accessing a volatile
+object).
+
+> So maybe we want to import 
+> READ_ONCE() and WRITE_ONCE() from Linux?
+
+So far I was under the impression that our ACCESS_ONCE() is the
+result of folding (older) Linux'es READ_ONCE() and WRITE_ONCE()
+into a single construct.
+
+> As a side note, I have seen suggestion only (see [1]) which suggest that 
+> they those helpers wouldn't be portable:
+> 
+> "One relatively unimportant misunderstanding is due to the fact that the 
+> standard only talks about accesses to volatile objects. It does not talk 
+> about accesses via volatile qualified pointers. Some programmers believe 
+> that using a pointer-to-volatile should be handled as though it pointed 
+> to a volatile object. That is not guaranteed by the standard and is 
+> therefore not portable. However, this is relatively unimportant because 
+> gcc does in fact treat a pointer-to-volatile as though it pointed to a 
+> volatile object."
+> 
+> I would assume that the use is OK on CLang and GCC given that Linux has 
+> been using it.
+
+Then again your change here is exactly to drop such assumptions of
+ours on compiler behavior.
+
+>> And this is of course besides the fact that I think we have many
+>> more instances where guaranteeing a single access would be
+>> needed, if we're afraid of the described permitted compiler
+>> behavior. Which then makes me wonder if this is really something
+>> we should fix one by one, rather than by at least larger scope
+>> audits (in order to not suggest "throughout the code base").
+> 
+> It depends how much the contributor can invest on chasing the rest of 
+> the issues. The larger the scope is, the less likely you will find 
+> someone that has bandwith to allocate for fixing it completely.
+
+I certainly understand that.
+
+> If the scope is "a field", then I think it is a reasonable suggesting.
+> 
+> In this case, I had a look at arch.irq and wasn't able to spot other 
+> potential issue.
+
+That's good to know, and may be worth mentioning - if not in the
+description, then maybe in a post-commit-message remark?
+
+Jan
 
