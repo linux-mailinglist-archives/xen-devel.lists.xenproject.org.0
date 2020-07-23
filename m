@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D287A22B2F1
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 17:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B580422B2F9
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 17:52:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jydVM-0007ME-Dk; Thu, 23 Jul 2020 15:51:32 +0000
+	id 1jydVt-0007SQ-ND; Thu, 23 Jul 2020 15:52:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jydVK-0007M0-E0
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 15:51:30 +0000
-X-Inumbo-ID: 5ea71ba8-ccfc-11ea-873e-bc764e2007e4
+ id 1jydVs-0007SA-5o
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 15:52:04 +0000
+X-Inumbo-ID: 735f8c54-ccfc-11ea-873e-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5ea71ba8-ccfc-11ea-873e-bc764e2007e4;
- Thu, 23 Jul 2020 15:51:29 +0000 (UTC)
+ id 735f8c54-ccfc-11ea-873e-bc764e2007e4;
+ Thu, 23 Jul 2020 15:52:03 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 18490AC83;
- Thu, 23 Jul 2020 15:51:37 +0000 (UTC)
-Subject: [PATCH v3 7/8] flask: drop dead compat translation code
+ by mx2.suse.de (Postfix) with ESMTP id 8E4E5AC83;
+ Thu, 23 Jul 2020 15:52:10 +0000 (UTC)
+Subject: [PATCH v3 8/8] x86: only generate compat headers actually needed
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <adb0fe93-c251-b84a-a357-936029af0e9c@suse.com>
-Message-ID: <533889b9-7cbc-2df4-f308-861536902689@suse.com>
-Date: Thu, 23 Jul 2020 17:51:30 +0200
+Message-ID: <b790dde5-821f-cecf-b542-10bf5a9179d8@suse.com>
+Date: Thu, 23 Jul 2020 17:52:04 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -48,46 +48,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>
+ Ian Jackson <ian.jackson@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Translation macros aren't used (and hence needed) at all (or else a
-devicetree_label entry would have been missing), and userlist has been
-removed quite some time ago.
-
-No functional change.
+As was already the case for XSM/Flask, avoid generating compat headers
+when they're not going to be needed. To address resulting build issues
+- move compat/hvm/dm_op.h inclusion to the only source file needing it,
+- add a little bit of #ifdef-ary.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Alternatively we could consistently drop conditionals (except for per-
+arch cases perhaps).
 
---- a/xen/include/xlat.lst
-+++ b/xen/include/xlat.lst
-@@ -171,14 +171,11 @@
- ?	xenoprof_init			xenoprof.h
- ?	xenoprof_passive		xenoprof.h
- ?	flask_access			xsm/flask_op.h
--!	flask_boolean			xsm/flask_op.h
- ?	flask_cache_stats		xsm/flask_op.h
- ?	flask_hash_stats		xsm/flask_op.h
--!	flask_load			xsm/flask_op.h
- ?	flask_ocontext			xsm/flask_op.h
- ?	flask_peersid			xsm/flask_op.h
- ?	flask_relabel			xsm/flask_op.h
- ?	flask_setavc_threshold		xsm/flask_op.h
- ?	flask_setenforce		xsm/flask_op.h
--!	flask_sid_context		xsm/flask_op.h
- ?	flask_transition		xsm/flask_op.h
---- a/xen/xsm/flask/flask_op.c
-+++ b/xen/xsm/flask/flask_op.c
-@@ -790,8 +790,6 @@ CHECK_flask_transition;
- #define xen_flask_load compat_flask_load
- #define flask_security_load compat_security_load
+--- a/xen/arch/x86/hvm/dm.c
++++ b/xen/arch/x86/hvm/dm.c
+@@ -717,6 +717,8 @@ static int dm_op(const struct dmop_args
+     return rc;
+ }
  
--#define xen_flask_userlist compat_flask_userlist
++#include <compat/hvm/dm_op.h>
++
+ CHECK_dm_op_create_ioreq_server;
+ CHECK_dm_op_get_ioreq_server_info;
+ CHECK_dm_op_ioreq_server_range;
+--- a/xen/common/compat/domain.c
++++ b/xen/common/compat/domain.c
+@@ -11,7 +11,6 @@ EMIT_FILE;
+ #include <xen/guest_access.h>
+ #include <xen/hypercall.h>
+ #include <compat/vcpu.h>
+-#include <compat/hvm/hvm_vcpu.h>
+ 
+ #define xen_vcpu_set_periodic_timer vcpu_set_periodic_timer
+ CHECK_vcpu_set_periodic_timer;
+@@ -25,6 +24,10 @@ CHECK_SIZE_(struct, vcpu_info);
+ CHECK_vcpu_register_vcpu_info;
+ #undef xen_vcpu_register_vcpu_info
+ 
++#ifdef CONFIG_HVM
++
++#include <compat/hvm/hvm_vcpu.h>
++
+ #define xen_vcpu_hvm_context vcpu_hvm_context
+ #define xen_vcpu_hvm_x86_32 vcpu_hvm_x86_32
+ #define xen_vcpu_hvm_x86_64 vcpu_hvm_x86_64
+@@ -33,6 +36,8 @@ CHECK_vcpu_hvm_context;
+ #undef xen_vcpu_hvm_x86_32
+ #undef xen_vcpu_hvm_context
+ 
++#endif
++
+ int compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     struct domain *d = current->domain;
+@@ -49,6 +54,7 @@ int compat_vcpu_op(int cmd, unsigned int
+         if ( v->vcpu_info == &dummy_vcpu_info )
+             return -EINVAL;
+ 
++#ifdef CONFIG_HVM
+         if ( is_hvm_vcpu(v) )
+         {
+             struct vcpu_hvm_context ctxt;
+@@ -61,6 +67,7 @@ int compat_vcpu_op(int cmd, unsigned int
+             domain_unlock(d);
+         }
+         else
++#endif
+         {
+             struct compat_vcpu_guest_context *ctxt;
+ 
+--- a/xen/include/Makefile
++++ b/xen/include/Makefile
+@@ -3,32 +3,34 @@ ifneq ($(CONFIG_COMPAT),)
+ compat-arch-$(CONFIG_X86) := x86_32
+ 
+ headers-y := \
+-    compat/argo.h \
+-    compat/callback.h \
++    compat/arch-$(compat-arch-y).h \
+     compat/elfnote.h \
+     compat/event_channel.h \
+     compat/features.h \
+-    compat/grant_table.h \
+-    compat/hypfs.h \
+-    compat/kexec.h \
+     compat/memory.h \
+     compat/nmi.h \
+     compat/physdev.h \
+     compat/platform.h \
++    compat/pmu.h \
+     compat/sched.h \
+-    compat/trace.h \
+     compat/vcpu.h \
+     compat/version.h \
+     compat/xen.h \
+-    compat/xenoprof.h
++    compat/xlat.h
+ headers-$(CONFIG_X86)     += compat/arch-x86/pmu.h
+ headers-$(CONFIG_X86)     += compat/arch-x86/xen-mca.h
+ headers-$(CONFIG_X86)     += compat/arch-x86/xen.h
+ headers-$(CONFIG_X86)     += compat/arch-x86/xen-$(compat-arch-y).h
+-headers-$(CONFIG_X86)     += compat/hvm/dm_op.h
+-headers-$(CONFIG_X86)     += compat/hvm/hvm_op.h
+-headers-$(CONFIG_X86)     += compat/hvm/hvm_vcpu.h
+-headers-y                 += compat/arch-$(compat-arch-y).h compat/pmu.h compat/xlat.h
++headers-$(CONFIG_ARGO)    += compat/argo.h
++headers-$(CONFIG_PV)      += compat/callback.h
++headers-$(CONFIG_GRANT_TABLE) += compat/grant_table.h
++headers-$(CONFIG_HVM)     += compat/hvm/dm_op.h
++headers-$(CONFIG_HVM)     += compat/hvm/hvm_op.h
++headers-$(CONFIG_HVM)     += compat/hvm/hvm_vcpu.h
++headers-$(CONFIG_HYPFS)   += compat/hypfs.h
++headers-$(CONFIG_KEXEC)   += compat/kexec.h
++headers-$(CONFIG_TRACEBUFFER) += compat/trace.h
++headers-$(CONFIG_XENOPROF) += compat/xenoprof.h
+ headers-$(CONFIG_XSM_FLASK) += compat/xsm/flask_op.h
+ 
+ cppflags-y                := -include public/xen-compat.h -DXEN_GENERATING_COMPAT_HEADERS
+--- a/xen/include/xen/hypercall.h
++++ b/xen/include/xen/hypercall.h
+@@ -216,8 +216,6 @@ extern long compat_argo_op(
+     unsigned long arg4);
+ #endif
+ 
+-#include <compat/hvm/dm_op.h>
 -
- #define xen_flask_sid_context compat_flask_sid_context
- #define flask_security_context compat_security_context
- #define flask_security_sid compat_security_sid
+ extern int
+ compat_dm_op(
+     domid_t domid,
 
 
