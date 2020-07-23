@@ -2,45 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82E8C22B063
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 15:21:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 065A122B065
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 15:22:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jyb9e-0007rC-Vz; Thu, 23 Jul 2020 13:20:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jybB9-0007zk-Bp; Thu, 23 Jul 2020 13:22:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tIQT=BC=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jyb9e-0007r7-2p
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 13:20:58 +0000
-X-Inumbo-ID: 56d28a43-cce7-11ea-870b-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 56d28a43-cce7-11ea-870b-bc764e2007e4;
- Thu, 23 Jul 2020 13:20:57 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4352AAB55;
- Thu, 23 Jul 2020 13:21:04 +0000 (UTC)
-Subject: Re: [PATCH 3/3] memory: introduce an option to force onlining of
- hotplug memory
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200723084523.42109-1-roger.pau@citrix.com>
- <20200723084523.42109-4-roger.pau@citrix.com>
- <21490d49-b2cf-a398-0609-8010bdb0b004@redhat.com>
- <20200723122300.GD7191@Air-de-Roger>
- <404ea76f-c3d8-dbc5-432d-08d84a17f2d7@suse.com>
- <20200723130831.GE7191@Air-de-Roger>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <76640b3e-f46c-80d5-7714-aa3b731276ab@suse.com>
-Date: Thu, 23 Jul 2020 15:20:55 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ (envelope-from <SRS0=1OPV=BC=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jybB7-0007za-H6
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 13:22:29 +0000
+X-Inumbo-ID: 8df58aec-cce7-11ea-a294-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8df58aec-cce7-11ea-a294-12813bfff9fa;
+ Thu, 23 Jul 2020 13:22:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zFAxGj7t0naFq8V00wiOTIEgSTg9FjQdClBP/9y0MLA=; b=ledAvmMe5HcHyt7CasvjnvTK/o
+ VMHBNaqvcyBPNGlq/d0ou4c00X2b1pUrx9IoZ3vq9D52WBGiWGh8n6eV9h/POTPpq0G0nFSYFyGzu
+ lPdQSy5m3+JilZDdfwQOq76uqvNgrzRU5YkXeB9HXHd1w4qmWMIxZSkIwBJk4l5OGRsU=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jybB4-0008Ca-Mi; Thu, 23 Jul 2020 13:22:26 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jybB4-0007JB-F3; Thu, 23 Jul 2020 13:22:26 +0000
+Subject: Re: [PATCH] xen/x86: irq: Avoid a TOCTOU race in
+ pirq_spin_lock_irq_desc()
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200722165300.22655-1-julien@xen.org>
+ <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
+Date: Thu, 23 Jul 2020 14:22:22 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200723130831.GE7191@Air-de-Roger>
+In-Reply-To: <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,100 +63,88 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Andrew Morton <akpm@linux-foundation.org>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23.07.20 15:08, Roger Pau Monné wrote:
-> On Thu, Jul 23, 2020 at 02:28:13PM +0200, Jürgen Groß wrote:
->> On 23.07.20 14:23, Roger Pau Monné wrote:
->>> On Thu, Jul 23, 2020 at 01:37:03PM +0200, David Hildenbrand wrote:
->>>> On 23.07.20 10:45, Roger Pau Monne wrote:
->>>>> Add an extra option to add_memory_resource that overrides the memory
->>>>> hotplug online behavior in order to force onlining of memory from
->>>>> add_memory_resource unconditionally.
->>>>>
->>>>> This is required for the Xen balloon driver, that must run the
->>>>> online page callback in order to correctly process the newly added
->>>>> memory region, note this is an unpopulated region that is used by Linux
->>>>> to either hotplug RAM or to map foreign pages from other domains, and
->>>>> hence memory hotplug when running on Xen can be used even without the
->>>>> user explicitly requesting it, as part of the normal operations of the
->>>>> OS when attempting to map memory from a different domain.
->>>>>
->>>>> Setting a different default value of memhp_default_online_type when
->>>>> attaching the balloon driver is not a robust solution, as the user (or
->>>>> distro init scripts) could still change it and thus break the Xen
->>>>> balloon driver.
->>>>
->>>> I think we discussed this a couple of times before (even triggered by my
->>>> request), and this is responsibility of user space to configure. Usually
->>>> distros have udev rules to online memory automatically. Especially, user
->>>> space should eb able to configure *how* to online memory.
->>>
->>> Note (as per the commit message) that in the specific case I'm
->>> referring to the memory hotplugged by the Xen balloon driver will be
->>> an unpopulated range to be used internally by certain Xen subsystems,
->>> like the xen-blkback or the privcmd drivers. The addition of such
->>> blocks of (unpopulated) memory can happen without the user explicitly
->>> requesting it, and hence not even aware such hotplug process is taking
->>> place. To be clear: no actual RAM will be added to the system.
->>>
->>> Failure to online such blocks using the Xen specific online handler
->>> (which does not handle back the memory to the allocator in any way)
->>> will result in the system getting stuck and malfunctioning.
->>>
->>>> It's the admin/distro responsibility to configure this properly. In case
->>>> this doesn't happen (or as you say, users change it), bad luck.
->>>>
->>>> E.g., virtio-mem takes care to not add more memory in case it is not
->>>> getting onlined. I remember hyper-v has similar code to at least wait a
->>>> bit for memory to get onlined.
->>>
->>> I don't think VirtIO or Hyper-V use the hotplug system in the same way
->>> as Xen, as said this is done to add unpopulated memory regions that
->>> will be used to map foreign memory (from other domains) by Xen drivers
->>> on the system.
->>>
->>> Maybe this should somehow use a different mechanism to hotplug such
->>> empty memory blocks? I don't mind doing this differently, but I would
->>> need some pointers. Allowing user-space to change a (seemingly
->>> unrelated) parameter and as a result produce failures on Xen drivers
->>> is not an acceptable solution IMO.
->>
->> Maybe we can use the same approach as Xen PV-domains: pre-allocate a
->> region in the memory map to be used for mapping foreign pages. For the
->> kernel it will look like pre-ballooned memory, so it will create struct
->> page for the region (which is what we are after), but it won't give the
->> memory to the allocator.
+Hi Jan,
+
+On 23/07/2020 12:23, Jan Beulich wrote:
+> On 22.07.2020 18:53, Julien Grall wrote:
+>> --- a/xen/arch/x86/irq.c
+>> +++ b/xen/arch/x86/irq.c
+>> @@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
+>>   
+>>       for ( ; ; )
+>>       {
+>> -        int irq = pirq->arch.irq;
+>> +        int irq = read_atomic(&pirq->arch.irq);
 > 
-> IMO using something similar to memory hotplug would give us more
-> flexibility, and TBH the logic is already there in the balloon driver.
-> It seems quite wasteful to allocate such region(s) beforehand for all
-> domains, even when most of them won't end up using foreign mappings at
-> all.
+> There we go - I'd be fine this way, but I'm pretty sure Andrew
+> would want this to be ACCESS_ONCE(). So I guess now is the time
+> to settle which one to prefer in new code (or which criteria
+> there are to prefer one over the other).
 
-We can do it for dom0 only per default, and add a boot parameter e.g.
-for driver domains.
+I would prefer if we have a single way to force the compiler to do a 
+single access (read/write).
 
-And the logic is already there (just pv-only right now).
+The existing implementation of ACCESS_ONCE() can only work on scalar 
+type. The implementation is based on a Linux, although we have an extra 
+check. Looking through the Linux history, it looks like it is not 
+possible to make ACCESS_ONCE() work with non-scalar types:
 
-> 
-> Anyway, I'm going to take a look at how to do that, I guess it's going
-> to involve playing with the memory map and reserving some space.
+     ACCESS_ONCE does not work reliably on non-scalar types. For
+     example gcc 4.6 and 4.7 might remove the volatile tag for such
+     accesses during the SRA (scalar replacement of aggregates) step
+     https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145)
 
-Look at arch/x86/xen/setup.c (xen_add_extra_mem() and its usage).
+I understand that our implementation of read_atomic(), write_atomic() 
+would lead to less optimized code. So maybe we want to import 
+READ_ONCE() and WRITE_ONCE() from Linux?
 
-> 
-> I suggest we should remove the Xen balloon hotplug logic, as it's not
-> working properly and we don't have a plan to fix it.
+As a side note, I have seen suggestion only (see [1]) which suggest that 
+they those helpers wouldn't be portable:
 
-I have used memory hotplug successfully not very long ago.
+"One relatively unimportant misunderstanding is due to the fact that the 
+standard only talks about accesses to volatile objects. It does not talk 
+about accesses via volatile qualified pointers. Some programmers believe 
+that using a pointer-to-volatile should be handled as though it pointed 
+to a volatile object. That is not guaranteed by the standard and is 
+therefore not portable. However, this is relatively unimportant because 
+gcc does in fact treat a pointer-to-volatile as though it pointed to a 
+volatile object."
+
+I would assume that the use is OK on CLang and GCC given that Linux has 
+been using it.
 
 
-Juergen
+> And this is of course besides the fact that I think we have many
+> more instances where guaranteeing a single access would be
+> needed, if we're afraid of the described permitted compiler
+> behavior. Which then makes me wonder if this is really something
+> we should fix one by one, rather than by at least larger scope
+> audits (in order to not suggest "throughout the code base").
+
+It depends how much the contributor can invest on chasing the rest of 
+the issues. The larger the scope is, the less likely you will find 
+someone that has bandwith to allocate for fixing it completely.
+
+If the scope is "a field", then I think it is a reasonable suggesting.
+
+In this case, I had a look at arch.irq and wasn't able to spot other 
+potential issue.
+
+> As a minor remark, unless you've observed problematic behavior,
+> would you mind adding "potential" or "theoretical" to the title?
+
+I am not aware of any issues with compiler so far. So I can add 
+"potential" in the title.
+
+Cheers,
+
+[1] https://www.airs.com/blog/archives/154
+
+-- 
+Julien Grall
 
