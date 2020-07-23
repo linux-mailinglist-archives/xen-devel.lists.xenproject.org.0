@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBDF922BA3C
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 01:39:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB93222BA3F
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 01:40:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jykoF-00009Q-5z; Thu, 23 Jul 2020 23:39:31 +0000
+	id 1jykog-0000Dp-FM; Thu, 23 Jul 2020 23:39:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lw2b=BC=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jykoD-00009H-KT
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 23:39:29 +0000
-X-Inumbo-ID: bfcb75bc-cd3d-11ea-a33b-12813bfff9fa
+ id 1jykof-0000De-Ab
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 23:39:57 +0000
+X-Inumbo-ID: d0790ea6-cd3d-11ea-a33b-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bfcb75bc-cd3d-11ea-a33b-12813bfff9fa;
- Thu, 23 Jul 2020 23:39:28 +0000 (UTC)
+ id d0790ea6-cd3d-11ea-a33b-12813bfff9fa;
+ Thu, 23 Jul 2020 23:39:56 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8FF6620792;
- Thu, 23 Jul 2020 23:39:27 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 950BC20792;
+ Thu, 23 Jul 2020 23:39:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595547568;
- bh=cAqQC1Bd1Kq2j6xPZw8MrEA6cv9mnxdr8LxnNeVKD2E=;
+ s=default; t=1595547596;
+ bh=6tkuzd/fjE4rkfP55cgq1G31SwOvw0pZNn+D7K/FYu8=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=RzMZe1Pv0ch1VNNGnmSLcKbuOpZp2rp9DN4WDwzhD9e6NR9bgf00Z4tsx+myOdS+h
- l3/0+Nmx8ToCRqSr7qLlMZ2tpQ3WSgMkjX7s1N9zeUjQMdlB3Lpj4aXHNljik1pdhy
- MetaJYcLY76yZjZC/XmcLK7/JFSKvVIaOv7kLJ/Q=
-Date: Thu, 23 Jul 2020 16:39:27 -0700 (PDT)
+ b=CWQwP5GhYLm4j9gqFpZzSEXnmbXfNfFKtfZG+F2Ia4ZRu8FezWsYHSQgVOZwa19tl
+ CViPyp0o6j1gXF9lFtViLAFEK6g9uVb6TFYfNM5C0hGsU9PqZvobsOhRjqXVf959/G
+ oBP6ZzaDzAMpbkpN7xQzn1ta5j/FPGgApA7AEI+g=
+Date: Thu, 23 Jul 2020 16:39:55 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Rahul Singh <rahul.singh@arm.com>
-Subject: Re: [RFC PATCH v1 3/4] xen/arm: Enable the existing x86 virtual PCI
- support for ARM.
-In-Reply-To: <c719ed8e92720d0b470a130c1264f8296dac32ac.1595511416.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2007231351350.17562@sstabellini-ThinkPad-T480s>
+Subject: Re: [RFC PATCH v1 4/4] arm/libxl: Emulated PCI device tree node in
+ libxl
+In-Reply-To: <23346b24762467bd246b91b05f7b0fc1719282f6.1595511416.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2007231505170.17562@sstabellini-ThinkPad-T480s>
 References: <cover.1595511416.git.rahul.singh@arm.com>
- <c719ed8e92720d0b470a130c1264f8296dac32ac.1595511416.git.rahul.singh@arm.com>
+ <23346b24762467bd246b91b05f7b0fc1719282f6.1595511416.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1315544770-1595537720=:17562"
-Content-ID: <alpine.DEB.2.21.2007231440080.17562@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,301 +55,327 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Paul Durrant <paul@xen.org>, andrew.cooper3@citrix.com,
- Bertrand.Marquis@arm.com, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Bertrand.Marquis@arm.com, Anthony PERARD <anthony.perard@citrix.com>,
  xen-devel@lists.xenproject.org, nd@arm.com,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, roger.pau@citrix.com
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1315544770-1595537720=:17562
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2007231440081.17562@sstabellini-ThinkPad-T480s>
-
 On Thu, 23 Jul 2020, Rahul Singh wrote:
-> The existing VPCI support available for X86 is adapted for Arm.
-> When the device is added to XEN via the hyper call
-> “PHYSDEVOP_pci_device_add”, VPCI handler for the config space
-> access is added to the PCI device to emulate the PCI devices.
+> libxl will create an emulated PCI device tree node in the
+> device tree to enable the guest OS to discover the virtual
+> PCI during guest boot.
 > 
-> A MMIO trap handler for the PCI ECAM space is registered in XEN
-> so that when guest is trying to access the PCI config space,XEN
-> will trap the access and emulate read/write using the VPCI and
-> not the real PCI hardware.
+> We introduced the new config option [vpci="ecam"] for guests.
+> When this config option is enabled in a guest configuration,
+> a PCI device tree node will be created in the guest device tree.
 > 
-> VPCI MSI support is disable for ARM as it is not tested on ARM.
+> A new area has been reserved in the arm guest physical map at
+> which the VPCI bus is declared in the device tree (reg and ranges
+> parameters of the node).
 > 
-> Change-Id: I5501db2781f8064640403fecce53713091cd9ab4
+> Change-Id: I47d39cbe8184de2226f174644df9790ecc610ccd
 
 Same question
 
 
 > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 > ---
->  xen/arch/arm/Makefile         |   1 +
->  xen/arch/arm/domain.c         |   4 ++
->  xen/arch/arm/vpci.c           | 102 ++++++++++++++++++++++++++++++++++
->  xen/arch/arm/vpci.h           |  37 ++++++++++++
->  xen/drivers/passthrough/pci.c |   7 +++
->  xen/include/asm-arm/domain.h  |   5 ++
->  xen/include/public/arch-arm.h |   4 ++
->  7 files changed, 160 insertions(+)
->  create mode 100644 xen/arch/arm/vpci.c
->  create mode 100644 xen/arch/arm/vpci.h
+>  tools/libxl/libxl_arm.c       | 200 ++++++++++++++++++++++++++++++++++
+>  tools/libxl/libxl_types.idl   |   6 +
+>  tools/xl/xl_parse.c           |   7 ++
+>  xen/include/public/arch-arm.h |  28 +++++
+>  4 files changed, 241 insertions(+)
 > 
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 345cb83eed..5a23ec5cc0 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -7,6 +7,7 @@ obj-y += platforms/
->  endif
->  obj-$(CONFIG_TEE) += tee/
->  obj-$(CONFIG_ARM_PCI) += pci/
-> +obj-$(CONFIG_HAS_VPCI) += vpci.o
+> diff --git a/tools/libxl/libxl_arm.c b/tools/libxl/libxl_arm.c
+> index 34f8a29056..84568e9dc9 100644
+> --- a/tools/libxl/libxl_arm.c
+> +++ b/tools/libxl/libxl_arm.c
+> @@ -268,6 +268,130 @@ static int fdt_property_regs(libxl__gc *gc, void *fdt,
+>      return fdt_property(fdt, "reg", regs, sizeof(regs));
+>  }
 >  
->  obj-$(CONFIG_HAS_ALTERNATIVE) += alternative.o
->  obj-y += bootfdt.init.o
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 31169326b2..23098ffd02 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -39,6 +39,7 @@
->  #include <asm/vtimer.h>
->  
->  #include "vuart.h"
-> +#include "vpci.h"
->  
->  DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
->  
-> @@ -747,6 +748,9 @@ int arch_domain_create(struct domain *d,
->      if ( is_hardware_domain(d) && (rc = domain_vuart_init(d)) )
->          goto fail;
->  
-> +    if ( (rc = domain_vpci_init(d)) != 0 )
-> +        goto fail;
-> +
->      return 0;
->  
->  fail:
-> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-> new file mode 100644
-> index 0000000000..49e473ab0d
-> --- /dev/null
-> +++ b/xen/arch/arm/vpci.c
-> @@ -0,0 +1,102 @@
-> +/*
-> + * xen/arch/arm/vpci.c
-> + * Copyright (c) 2020 Arm Ltd.
-> + *
-> + * Based on arch/x86/hvm/io.c
-> + * Copyright (c) 2004, Intel Corporation.
-> + * Copyright (c) 2005, International Business Machines Corporation.
-> + * Copyright (c) 2008, Citrix Systems, Inc.
-> + *
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License as published by
-> + * the Free Software Foundation; either version 2 of the License, or
-> + * (at your option) any later version.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + */
-> +#include <xen/sched.h>
-> +#include <asm/mmio.h>
-> +
-> +/* Do some sanity checks. */
-> +static bool vpci_mmio_access_allowed(unsigned int reg, unsigned int len)
+> +static int fdt_property_vpci_bus_range(libxl__gc *gc, void *fdt,
+> +        unsigned num_cells, ...)
 > +{
-> +    /* Check access size. */
-> +    if ( len != 1 && len != 2 && len != 4 && len != 8 )
-> +        return false;
+> +    uint32_t bus_range[num_cells];
+> +    be32 *cells = &bus_range[0];
+> +    int i;
+> +    va_list ap;
+> +    uint32_t arg;
 > +
-> +    /* Check that access is size aligned. */
-> +    if ( (reg & (len - 1)) )
-> +        return false;
-> +
-> +    return true;
-> +}
-> +
-> +static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
-> +        register_t *r, void *priv)
-> +{
-> +    unsigned int reg;
-> +    pci_sbdf_t sbdf;
-> +    uint32_t data = 0;
-> +    unsigned int size = 1U << info->dabt.size;
-> +
-> +    sbdf.bdf = (((info->gpa) & 0x0ffff000) >> 12);
-> +    reg = (((info->gpa) & 0x00000ffc) | (info->gpa & 3));
-> +
-> +    if ( !vpci_mmio_access_allowed(reg, size) )
-> +        return 1;
-> +
-> +    data = vpci_read(sbdf, reg, size);
-> +
-> +    memcpy(r, &data, size);
-> +
-> +    return 1;
-> +}
-> +
-> +static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
-> +        register_t r, void *priv)
-> +{
-> +    unsigned int reg;
-> +    pci_sbdf_t sbdf;
-> +    uint32_t data = r;
-> +    unsigned int size = 1U << info->dabt.size;
-> +
-> +    sbdf.bdf = (((info->gpa) & 0x0ffff000) >> 12);
-> +    reg = (((info->gpa) & 0x00000ffc) | (info->gpa & 3));
-> +
-> +    if ( !vpci_mmio_access_allowed(reg, size) )
-> +        return 1;
-> +
-> +    vpci_write(sbdf, reg, size, data);
-> +
-> +    return 1;
-> +}
-
-I wonder if we could share vpci_mmcfg_read/write. Again, it is OK if we
-can't, or if it is not worth the effort. just want to make sure we
-thought about it :-)
-
-
-> +static const struct mmio_handler_ops vpci_mmio_handler = {
-> +    .read  = vpci_mmio_read,
-> +    .write = vpci_mmio_write,
-> +};
-> +
-> +int domain_vpci_init(struct domain *d)
-> +{
-> +    if ( !has_vpci(d) || is_hardware_domain(d) )
-> +        return 0;
-> +
-> +    register_mmio_handler(d, &vpci_mmio_handler,
-> +            GUEST_VPCI_ECAM_BASE,GUEST_VPCI_ECAM_SIZE,NULL);
-> +
-> +    return 0;
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> +
-> diff --git a/xen/arch/arm/vpci.h b/xen/arch/arm/vpci.h
-> new file mode 100644
-> index 0000000000..20dce1f4c4
-> --- /dev/null
-> +++ b/xen/arch/arm/vpci.h
-> @@ -0,0 +1,37 @@
-> +/*
-> + * xen/arch/arm/vpci.h
-> + * Copyright (c) 2020 Arm Ltd.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License as published by
-> + * the Free Software Foundation; either version 2 of the License, or
-> + * (at your option) any later version.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + */
-> +
-> +#ifndef __ARCH_ARM_VPCI_H__
-> +#define __ARCH_ARM_VPCI_H__
-> +
-> +#ifdef CONFIG_HAS_VPCI
-> +int domain_vpci_init(struct domain *d);
-> +#else
-> +static inline int domain_vpci_init(struct domain *d)
-> +{
-> +    return 0;
-> +}
-> +#endif
-> +
-> +#endif /* __ARCH_ARM_VPCI_H__ */
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 5846978890..28511eb641 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -804,6 +804,13 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->      else
->          iommu_enable_device(pdev);
->  
-> +#ifdef CONFIG_ARM
-> +    ret = vpci_add_handlers(pdev);
-> +    if ( ret ) {
-> +        printk(XENLOG_ERR "setup of vPCI for failed: %d\n",ret);
-> +        goto out;
+> +    va_start(ap, num_cells);
+> +    for (i = 0 ; i < num_cells; i++) {
+> +        arg = va_arg(ap, uint32_t);
+> +        set_cell(&cells, 1, arg);
 > +    }
-> +#endif
->      pci_enable_acs(pdev);
+> +    va_end(ap);
+> +
+> +    return fdt_property(fdt, "bus-range", bus_range, sizeof(bus_range));
+> +}
+> +
+> +static int fdt_property_vpci_interrupt_map_mask(libxl__gc *gc, void *fdt,
+> +        unsigned num_cells, ...)
+> +{
+> +    uint32_t interrupt_map_mask[num_cells];
+> +    be32 *cells = &interrupt_map_mask[0];
+> +    int i;
+> +    va_list ap;
+> +    uint32_t arg;
+> +
+> +    va_start(ap, num_cells);
+> +    for (i = 0 ; i < num_cells; i++) {
+> +        arg = va_arg(ap, uint32_t);
+> +        set_cell(&cells, 1, arg);
+> +    }
+> +    va_end(ap);
+> +
+> +    return fdt_property(fdt, "interrupt-map-mask", interrupt_map_mask,
+> +                                sizeof(interrupt_map_mask));
+> +}
+> +
+> +static int fdt_property_vpci_ranges(libxl__gc *gc, void *fdt,
+> +        unsigned vpci_addr_cells,
+> +        unsigned cpu_addr_cells,
+> +        unsigned vpci_size_cells,
+> +        unsigned num_regs, ...)
+> +{
+> +    uint32_t regs[num_regs*(vpci_addr_cells+cpu_addr_cells+vpci_size_cells)];
+> +    be32 *cells = &regs[0];
+> +    int i;
+> +    va_list ap;
+> +    uint64_t arg;
+> +
+> +    va_start(ap, num_regs);
+> +    for (i = 0 ; i < num_regs; i++) {
+> +        /* Set the memory bit field */
+> +        arg = va_arg(ap, uint64_t);
+> +        set_cell(&cells, 1, arg);
+> +
+> +        /* Set the vpci bus address */
+> +        arg = vpci_addr_cells ? va_arg(ap, uint64_t) : 0;
+> +        set_cell(&cells, 2 , arg);
+> +
+> +        /* Set the cpu bus address where vpci address is mapped */
+> +        arg = cpu_addr_cells ? va_arg(ap, uint64_t) : 0;
+> +        set_cell(&cells, cpu_addr_cells, arg);
+> +
+> +        /* Set the vpci size requested */
+> +        arg = vpci_size_cells ? va_arg(ap, uint64_t) : 0;
+> +        set_cell(&cells, vpci_size_cells,arg);
+> +    }
+> +    va_end(ap);
+> +
+> +    return fdt_property(fdt, "ranges", regs, sizeof(regs));
+> +}
+> +
+> +static int fdt_property_vpci_interrupt_map(libxl__gc *gc, void *fdt,
+> +        unsigned child_unit_addr_cells,
+> +        unsigned child_interrupt_specifier_cells,
+> +        unsigned parent_unit_addr_cells,
+> +        unsigned parent_interrupt_specifier_cells,
+> +        unsigned num_regs, ...)
+> +{
+> +    uint32_t interrupt_map[num_regs * (child_unit_addr_cells +
+> +            child_interrupt_specifier_cells + parent_unit_addr_cells
+> +            + parent_interrupt_specifier_cells + 1)];
+> +    be32 *cells = &interrupt_map[0];
+> +    int i,j;
+> +    va_list ap;
+> +    uint64_t arg;
+> +
+> +    va_start(ap, num_regs);
+> +    for (i = 0 ; i < num_regs; i++) {
+> +        /* Set the child unit address*/
+> +        for (j = 0 ; j < child_unit_addr_cells; j++) {
+> +            arg = va_arg(ap, uint32_t);
+> +            set_cell(&cells, 1 , arg);
+> +        }
+> +
+> +        /* Set the child interrupt specifier*/
+> +        for (j = 0 ; j < child_interrupt_specifier_cells ; j++) {
+> +            arg = va_arg(ap, uint32_t);
+> +            set_cell(&cells, 1 , arg);
+> +        }
+> +
+> +        /* Set the interrupt-parent*/
+> +        set_cell(&cells, 1 , GUEST_PHANDLE_GIC);
+> +
+> +        /* Set the parent unit address*/
+> +        for (j = 0 ; j < parent_unit_addr_cells; j++) {
+> +            arg = va_arg(ap, uint32_t);
+> +            set_cell(&cells, 1 , arg);
+> +        }
+> +
+> +        /* Set the parent interrupt specifier*/
+> +        for (j = 0 ; j < parent_interrupt_specifier_cells; j++) {
+> +            arg = va_arg(ap, uint32_t);
+> +            set_cell(&cells, 1 , arg);
+> +        }
+> +    }
+> +    va_end(ap);
+> +
+> +    return fdt_property(fdt, "interrupt-map", interrupt_map,
+> +                                sizeof(interrupt_map));
+> +}
+> +
+>  static int make_root_properties(libxl__gc *gc,
+>                                  const libxl_version_info *vers,
+>                                  void *fdt)
+> @@ -659,6 +783,79 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
+>      return 0;
+>  }
 >  
->  out:
-> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
-> index 4e2f582006..ad70610226 100644
-> --- a/xen/include/asm-arm/domain.h
-> +++ b/xen/include/asm-arm/domain.h
-> @@ -34,6 +34,11 @@ enum domain_type {
->  /* The hardware domain has always its memory direct mapped. */
->  #define is_domain_direct_mapped(d) ((d) == hardware_domain)
->  
-> +/* For X86 VPCI is enabled and tested for PVH DOM0 only but
-> + * for ARM we enable support VPCI for guest domain also.
-> + */
-> +#define has_vpci(d) (true)
+> +static int make_vpci_node(libxl__gc *gc, void *fdt,
+> +        const struct arch_info *ainfo,
+> +        struct xc_dom_image *dom)
+> +{
+> +    int res;
+> +    const uint64_t vpci_ecam_base = GUEST_VPCI_ECAM_BASE;
+> +    const uint64_t vpci_ecam_size = GUEST_VPCI_ECAM_SIZE;
+> +    const char *name = GCSPRINTF("pcie@%"PRIx64, vpci_ecam_base);
+> +
+> +    res = fdt_begin_node(fdt, name);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_compat(gc, fdt, 1, "pci-host-ecam-generic");
+> +    if (res) return res;
+> +
+> +    res = fdt_property_string(fdt, "device_type", "pci");
+> +    if (res) return res;
+> +
+> +    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
+> +            GUEST_ROOT_SIZE_CELLS, 1, vpci_ecam_base, vpci_ecam_size);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_vpci_bus_range(gc, fdt, 2, 0,255);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_cell(fdt, "linux,pci-domain", 0);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_cell(fdt, "#address-cells", 3);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_cell(fdt, "#size-cells", 2);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_cell(fdt, "#interrupt-cells", 1);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_string(fdt, "status", "okay");
+> +    if (res) return res;
+> +
+> +    res = fdt_property_vpci_ranges(gc, fdt, GUEST_PCI_ADDRESS_CELLS,
+> +        GUEST_ROOT_ADDRESS_CELLS, GUEST_PCI_SIZE_CELLS,
+> +        3,
+> +        GUEST_VPCI_ADDR_TYPE_MEM, GUEST_VPCI_MEM_PCI_ADDR,
+> +        GUEST_VPCI_MEM_CPU_ADDR, GUEST_VPCI_MEM_SIZE,
+> +        GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM, GUEST_VPCI_PREFETCH_MEM_PCI_ADDR,
+> +        GUEST_VPCI_PREFETCH_MEM_CPU_ADDR, GUEST_VPCI_PREFETCH_MEM_SIZE,
+> +        GUEST_VPCI_ADDR_TYPE_IO, GUEST_VPCI_IO_PCI_ADDR,
+> +        GUEST_VPCI_IO_CPU_ADDR, GUEST_VPCI_IO_SIZE);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_vpci_interrupt_map_mask(gc, fdt, 4, 0, 0, 0, 7);
 
-As mentioned we could make this configurabled based on the presence of
-pci=[] or something similar in device tree for dom0less guests.
+it would make sense to separate out child_unit_addr_cells and
+child_interrupt_specifier_cells here like we do below with
+fdt_property_vpci_interrupt_map
 
 
+> +    if (res) return res;
+> +
+> +    /*
+> +     * Legacy interrupt is forced and assigned to the guest.
+> +     * This will be removed once we have implementation for MSI support.
+> +     *
+> +     */
+> +    res = fdt_property_vpci_interrupt_map(gc, fdt, 3, 1, 0, 3,
+> +            4,
+> +            0, 0, 0, 1, 0, 136, DT_IRQ_TYPE_LEVEL_HIGH,
+> +            0, 0, 0, 2, 0, 137, DT_IRQ_TYPE_LEVEL_HIGH,
+> +            0, 0, 0, 3, 0, 138, DT_IRQ_TYPE_LEVEL_HIGH,
+> +            0, 0, 0, 4, 0, 139, DT_IRQ_TYPE_LEVEL_HIGH);
 
->  struct vtimer {
->      struct vcpu *v;
->      int irq;
+The 4 interrupt allocated for this need to be defined in
+xen/include/public/arch-arm.h as well. Also, why would we want to get
+rid of the legacy interrupts completely? It would be possible to still
+find device or software that rely on them.
+
+
+> +    if (res) return res;
+> +
+> +    res = fdt_end_node(fdt);
+> +    if (res) return res;
+> +
+> +    return 0;
+> +}
+> +
+>  static const struct arch_info *get_arch_info(libxl__gc *gc,
+>                                               const struct xc_dom_image *dom)
+>  {
+
+[...]
+
+
 > diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-> index c365b1b39e..7364a07362 100644
+> index 7364a07362..4e19c62948 100644
 > --- a/xen/include/public/arch-arm.h
 > +++ b/xen/include/public/arch-arm.h
-> @@ -422,6 +422,10 @@ typedef uint64_t xen_callback_t;
->  #define GUEST_PL011_BASE    xen_mk_ullong(0x22000000)
->  #define GUEST_PL011_SIZE    xen_mk_ullong(0x00001000)
+> @@ -426,6 +426,34 @@ typedef uint64_t xen_callback_t;
+>  #define GUEST_VPCI_ECAM_BASE    xen_mk_ullong(0x10000000)
+>  #define GUEST_VPCI_ECAM_SIZE    xen_mk_ullong(0x10000000)
 >  
-> +/* VPCI ECAM mappings */
-> +#define GUEST_VPCI_ECAM_BASE    xen_mk_ullong(0x10000000)
-> +#define GUEST_VPCI_ECAM_SIZE    xen_mk_ullong(0x10000000)
+> +#define GUEST_PCI_ADDRESS_CELLS 3
+> +#define GUEST_PCI_SIZE_CELLS 2
+> +
+> +/* PCI-PCIe memory space types */
+> +#define GUEST_VPCI_ADDR_TYPE_PREFETCH_MEM xen_mk_ullong(0x42000000)
+> +#define GUEST_VPCI_ADDR_TYPE_MEM          xen_mk_ullong(0x02000000)
+> +#define GUEST_VPCI_ADDR_TYPE_IO           xen_mk_ullong(0x01000000)
+> +
+> +/* Guest PCI-PCIe memory space where config space and BAR will be available.*/
+> +#define GUEST_VPCI_PREFETCH_MEM_CPU_ADDR  xen_mk_ullong(0x4000000000)
 
-Is 256MB in size part of the ECAM standard?
+It looks like it could conflict with GUEST_RAM1_BASE+GUEST_RAM1_SIZE?
 
 
+> +#define GUEST_VPCI_MEM_CPU_ADDR           xen_mk_ullong(0x04020000)
+> +#define GUEST_VPCI_IO_CPU_ADDR            xen_mk_ullong(0xC0200800)
+
+0xC0200800 looks like it could conflict with
+GUEST_RAM0_BASE+GUEST_RAM0_SIZE?
+
+
+> +/*
+> + * This is hardcoded values for the real PCI physical addresses.
+> + * This will be removed once we read the real PCI-PCIe physical
+> + * addresses form the config space and map to the guest memory map
+> + * when assigning the device to guest via VPCI.
+> + *
+> + */
+> +#define GUEST_VPCI_PREFETCH_MEM_PCI_ADDR  xen_mk_ullong(0x4000000000)
+> +#define GUEST_VPCI_MEM_PCI_ADDR           xen_mk_ullong(0x50000000)
+> +#define GUEST_VPCI_IO_PCI_ADDR            xen_mk_ullong(0x00000000)
+> +
+> +#define GUEST_VPCI_PREFETCH_MEM_SIZE      xen_mk_ullong(0x100000000)
+> +#define GUEST_VPCI_MEM_SIZE               xen_mk_ullong(0x08000000)
+
+How did you chose these sizes? GUEST_VPCI_MEM_SIZE and/or
+GUEST_VPCI_PREFETCH_MEM_SIZE are supposed to potentially cover all the
+PCI BARs, including potential future hotplug devices, right?
+
+If so, maybe we need to increase GUEST_VPCI_MEM_SIZE to a couple of GB
+and GUEST_VPCI_PREFETCH_MEM_SIZE to even more?
+
+
+
+
+> +#define GUEST_VPCI_IO_SIZE                xen_mk_ullong(0x00800000)
+> +
 >  /*
 >   * 16MB == 4096 pages reserved for guest to use as a region to map its
 >   * grant table in.
-> -- 
-> 2.17.1
-> 
---8323329-1315544770-1595537720=:17562--
 
