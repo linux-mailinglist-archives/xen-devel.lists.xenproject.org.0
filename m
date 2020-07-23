@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 973C222B2EF
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 17:51:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D287A22B2F1
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 17:51:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jydUo-0007BN-Vv; Thu, 23 Jul 2020 15:50:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jydVM-0007ME-Dk; Thu, 23 Jul 2020 15:51:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9kJt=BC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jydUn-0007BA-FD
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 15:50:57 +0000
-X-Inumbo-ID: 4b788902-ccfc-11ea-a2c7-12813bfff9fa
+ id 1jydVK-0007M0-E0
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 15:51:30 +0000
+X-Inumbo-ID: 5ea71ba8-ccfc-11ea-873e-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4b788902-ccfc-11ea-a2c7-12813bfff9fa;
- Thu, 23 Jul 2020 15:50:56 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5ea71ba8-ccfc-11ea-873e-bc764e2007e4;
+ Thu, 23 Jul 2020 15:51:29 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9A323AC83;
- Thu, 23 Jul 2020 15:51:03 +0000 (UTC)
-Subject: [PATCH v3 6/8] x86: generalize padding field handling
+ by mx2.suse.de (Postfix) with ESMTP id 18490AC83;
+ Thu, 23 Jul 2020 15:51:37 +0000 (UTC)
+Subject: [PATCH v3 7/8] flask: drop dead compat translation code
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <adb0fe93-c251-b84a-a357-936029af0e9c@suse.com>
-Message-ID: <abc2fc97-32be-8886-902e-d6d6e8bab87f@suse.com>
-Date: Thu, 23 Jul 2020 17:50:57 +0200
+Message-ID: <533889b9-7cbc-2df4-f308-861536902689@suse.com>
+Date: Thu, 23 Jul 2020 17:51:30 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -53,78 +52,42 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The original intention was to ignore padding fields, but the pattern
-matched only ones whose names started with an underscore. Also match
-fields whose names are in line with the C spec by not having a leading
-underscore. (Note that the leading ^ in the sed regexps was pointless
-and hence get dropped.)
+Translation macros aren't used (and hence needed) at all (or else a
+devicetree_label entry would have been missing), and userlist has been
+removed quite some time ago.
 
-This requires adjusting some vNUMA macros, to avoid triggering
-"enumeration value ... not handled in switch" warnings, which - due to
--Werror - would cause the build to fail. (I have to admit that I find
-these padding fields odd, when translation of the containing structure
-is needed anyway.)
+No functional change.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
----
-While for translation macros skipping padding fields pretty surely is a
-reasonable thing to do, we may want to consider not ignoring them when
-generating checking macros.
 
---- a/xen/common/compat/memory.c
-+++ b/xen/common/compat/memory.c
-@@ -354,10 +354,13 @@ int compat_memory_op(unsigned int cmd, X
-                 return -EFAULT;
+--- a/xen/include/xlat.lst
++++ b/xen/include/xlat.lst
+@@ -171,14 +171,11 @@
+ ?	xenoprof_init			xenoprof.h
+ ?	xenoprof_passive		xenoprof.h
+ ?	flask_access			xsm/flask_op.h
+-!	flask_boolean			xsm/flask_op.h
+ ?	flask_cache_stats		xsm/flask_op.h
+ ?	flask_hash_stats		xsm/flask_op.h
+-!	flask_load			xsm/flask_op.h
+ ?	flask_ocontext			xsm/flask_op.h
+ ?	flask_peersid			xsm/flask_op.h
+ ?	flask_relabel			xsm/flask_op.h
+ ?	flask_setavc_threshold		xsm/flask_op.h
+ ?	flask_setenforce		xsm/flask_op.h
+-!	flask_sid_context		xsm/flask_op.h
+ ?	flask_transition		xsm/flask_op.h
+--- a/xen/xsm/flask/flask_op.c
++++ b/xen/xsm/flask/flask_op.c
+@@ -790,8 +790,6 @@ CHECK_flask_transition;
+ #define xen_flask_load compat_flask_load
+ #define flask_security_load compat_security_load
  
- #define XLAT_vnuma_topology_info_HNDL_vdistance_h(_d_, _s_)		\
-+            case XLAT_vnuma_topology_info_vdistance_pad:                \
-             guest_from_compat_handle((_d_)->vdistance.h, (_s_)->vdistance.h)
- #define XLAT_vnuma_topology_info_HNDL_vcpu_to_vnode_h(_d_, _s_)		\
-+            case XLAT_vnuma_topology_info_vcpu_to_vnode_pad:            \
-             guest_from_compat_handle((_d_)->vcpu_to_vnode.h, (_s_)->vcpu_to_vnode.h)
- #define XLAT_vnuma_topology_info_HNDL_vmemrange_h(_d_, _s_)		\
-+            case XLAT_vnuma_topology_info_vmemrange_pad:                \
-             guest_from_compat_handle((_d_)->vmemrange.h, (_s_)->vmemrange.h)
- 
-             XLAT_vnuma_topology_info(nat.vnuma, &cmp.vnuma);
---- a/xen/tools/get-fields.sh
-+++ b/xen/tools/get-fields.sh
-@@ -218,7 +218,7 @@ for line in sys.stdin.readlines():
- 				fi
- 				;;
- 			[\,\;])
--				if [ $level = 2 -a -n "$(echo $id | $SED 's,^_pad[[:digit:]]*,,')" ]
-+				if [ $level = 2 -a -n "$(echo $id | $SED 's,_\?pad[[:digit:]]*,,')" ]
- 				then
- 					if [ $kind = union ]
- 					then
-@@ -347,7 +347,7 @@ build_body ()
- 			fi
- 			;;
- 		[\,\;])
--			if [ $level = 2 -a -n "$(echo $id | $SED 's,^_pad[[:digit:]]*,,')" ]
-+			if [ $level = 2 -a -n "$(echo $id | $SED 's,_\?pad[[:digit:]]*,,')" ]
- 			then
- 				if [ -z "$array" -a -z "$array_type" ]
- 				then
-@@ -437,7 +437,7 @@ check_field ()
- 				id=$token
- 				;;
- 			[\,\;])
--				if [ $level = 2 -a -n "$(echo $id | $SED 's,^_pad[[:digit:]]*,,')" ]
-+				if [ $level = 2 -a -n "$(echo $id | $SED 's,_\?pad[[:digit:]]*,,')" ]
- 				then
- 					check_field $1 $2 $3.$id "$fields"
- 					test "$token" != ";" || fields= id=
-@@ -491,7 +491,7 @@ build_check ()
- 			test $level != 2 -o $arrlvl != 1 || id=$token
- 			;;
- 		[\,\;])
--			if [ $level = 2 -a -n "$(echo $id | $SED 's,^_pad[[:digit:]]*,,')" ]
-+			if [ $level = 2 -a -n "$(echo $id | $SED 's,_\?pad[[:digit:]]*,,')" ]
- 			then
- 				check_field $kind $1 $id "$fields"
- 				test "$token" != ";" || fields= id=
+-#define xen_flask_userlist compat_flask_userlist
+-
+ #define xen_flask_sid_context compat_flask_sid_context
+ #define flask_security_context compat_security_context
+ #define flask_security_sid compat_security_sid
 
 
