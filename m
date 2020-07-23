@@ -2,60 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15ECC22B0E0
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 15:59:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F23822B0E2
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jul 2020 16:00:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jybl5-0003LF-H0; Thu, 23 Jul 2020 13:59:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jyblU-0003jv-SL; Thu, 23 Jul 2020 14:00:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0L1b=BC=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jybl4-0003LA-LS
- for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 13:59:38 +0000
-X-Inumbo-ID: be96f5d2-ccec-11ea-871b-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id be96f5d2-ccec-11ea-871b-bc764e2007e4;
- Thu, 23 Jul 2020 13:59:37 +0000 (UTC)
+ <SRS0=xWck=BC=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jyblT-0003eT-5G
+ for xen-devel@lists.xenproject.org; Thu, 23 Jul 2020 14:00:03 +0000
+X-Inumbo-ID: cd1a5f4a-ccec-11ea-a2a8-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cd1a5f4a-ccec-11ea-a2a8-12813bfff9fa;
+ Thu, 23 Jul 2020 14:00:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595512777;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=G5fMAF6Ssv/d5LldYw6d7YvCx0QLDX1OATdOT3g5954=;
- b=g6B56hVetjZwz0rUwOnELoe7THEtXKxWmQr6PRIqCds0lPHmPPJkH3E1
- Jxmy0nsjd8IAIISHnlB7pTpAYHiCLPEadkrnRlQDVmG1GNc5jKHEge4KM
- zupGHaoEF2TrquZl5glBdpX81nYHDAA9UIOz4LTEzPoA/76riOToDDik7 c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1595512802;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=tUxcXp+XsAThP5KE63cViOLa120K/x7jswjVAvp32SA=;
+ b=EPKF1zInyHNAO4iRyB1mWDdznjEy7/5C2jbKwNCIQz8drG2Ux/hHAEoc
+ OdhpzGXiH2CFIJAkV+Z0NtWCMXNgDvgpsVmMRhOqdmybWv0JQRFGJXRzo
+ h9CsPTeL8Zcu8N5daWOtyJy4XGO9OcuvAAbtr2kDr3nmk68jgMwilS6ih k=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: FzLhbB64z51wD52/8mlF2q7KYHAB/SzggPhRBoNTO3bKquEZzRNlMWzeg+d6qkIRFXnEM8wCQn
- I8ZVldIoD7vjg1o4XWJv7lCKqcDmh4ey62417HFSjfrORAmoH7KO8ql4RRRNqD26tBGpEgh4Xm
- 4qZ++TwHeTlgHbCc8HsVqPpbmG9+/D0m9Kz4xeXkCr+8ClNSrV9FP3Ohl3Yq8LTJWxBVc/e4yw
- KbHE+hEoCTrkPnGZ+OPXceMgdwvBw289PxG1Fn18sfFFMuj4f/MmLdi1R8gVDd0k7mTOFAYSLz
- XCc=
+IronPort-SDR: +QVIcrGkzDbY1sC1JXGCJhALYgzzGqzN1o4PQCMi4Sf16hIF/SFhWylvazzkbu5Yt0pGABQiua
+ acRDUA/6J2viG8z1rTsmk4aQ0I4EWAYja/7p9s8UKTMg4/OSZW32lg688RDD/3MCJw2iQJpnbJ
+ D6+wnRqNU20jCo5Le9/piLYvZ7A+D7JIkouwmCalDGqwf7BUthM4i2DXAlDgWGBeiDs/5DMP4P
+ rnw2OGcJwGV0uG5/zqnAdN8AB1pbcRRkdc1DL8SZdQVg5RT1gT+V+hCVWGcEX3cYCU3ofJP605
+ Sc8=
 X-SBRS: 2.7
-X-MesageID: 23370256
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 23040644
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,386,1589256000"; d="scan'208";a="23370256"
-Date: Thu, 23 Jul 2020 15:59:30 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: David Hildenbrand <david@redhat.com>
-Subject: Re: [PATCH 3/3] memory: introduce an option to force onlining of
- hotplug memory
-Message-ID: <20200723135930.GH7191@Air-de-Roger>
-References: <20200723084523.42109-1-roger.pau@citrix.com>
- <20200723084523.42109-4-roger.pau@citrix.com>
- <21490d49-b2cf-a398-0609-8010bdb0b004@redhat.com>
- <20200723122300.GD7191@Air-de-Roger>
- <e94d9556-f615-bbe2-07d2-08958969ee5f@redhat.com>
+X-IronPort-AV: E=Sophos;i="5.75,386,1589256000"; d="scan'208";a="23040644"
+Subject: Re: [PATCH] xen/x86: irq: Avoid a TOCTOU race in
+ pirq_spin_lock_irq_desc()
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+References: <20200722165300.22655-1-julien@xen.org>
+ <c9863243-0b5e-521f-80b8-bc5673f895a6@suse.com>
+ <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <bb25c46f-0670-889e-db0b-3031291db640@citrix.com>
+Date: Thu, 23 Jul 2020 14:59:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <5bd56ef4-8bf5-3308-b7db-71e41ac45918@xen.org>
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e94d9556-f615-bbe2-07d2-08958969ee5f@redhat.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -67,93 +68,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Andrew Morton <akpm@linux-foundation.org>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>, Wei
+ Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Jul 23, 2020 at 03:22:49PM +0200, David Hildenbrand wrote:
-> On 23.07.20 14:23, Roger Pau Monné wrote:
-> > On Thu, Jul 23, 2020 at 01:37:03PM +0200, David Hildenbrand wrote:
-> >> On 23.07.20 10:45, Roger Pau Monne wrote:
-> >>> Add an extra option to add_memory_resource that overrides the memory
-> >>> hotplug online behavior in order to force onlining of memory from
-> >>> add_memory_resource unconditionally.
-> >>>
-> >>> This is required for the Xen balloon driver, that must run the
-> >>> online page callback in order to correctly process the newly added
-> >>> memory region, note this is an unpopulated region that is used by Linux
-> >>> to either hotplug RAM or to map foreign pages from other domains, and
-> >>> hence memory hotplug when running on Xen can be used even without the
-> >>> user explicitly requesting it, as part of the normal operations of the
-> >>> OS when attempting to map memory from a different domain.
-> >>>
-> >>> Setting a different default value of memhp_default_online_type when
-> >>> attaching the balloon driver is not a robust solution, as the user (or
-> >>> distro init scripts) could still change it and thus break the Xen
-> >>> balloon driver.
-> >>
-> >> I think we discussed this a couple of times before (even triggered by my
-> >> request), and this is responsibility of user space to configure. Usually
-> >> distros have udev rules to online memory automatically. Especially, user
-> >> space should eb able to configure *how* to online memory.
-> > 
-> > Note (as per the commit message) that in the specific case I'm
-> > referring to the memory hotplugged by the Xen balloon driver will be
-> > an unpopulated range to be used internally by certain Xen subsystems,
-> > like the xen-blkback or the privcmd drivers. The addition of such
-> > blocks of (unpopulated) memory can happen without the user explicitly
-> > requesting it, and hence not even aware such hotplug process is taking
-> > place. To be clear: no actual RAM will be added to the system.
-> 
-> Okay, but there is also the case where XEN will actually hotplug memory
-> using this same handler IIRC (at least I've read papers about it). Both
-> are using the same handler, correct?
+On 23/07/2020 14:22, Julien Grall wrote:
+> Hi Jan,
+>
+> On 23/07/2020 12:23, Jan Beulich wrote:
+>> On 22.07.2020 18:53, Julien Grall wrote:
+>>> --- a/xen/arch/x86/irq.c
+>>> +++ b/xen/arch/x86/irq.c
+>>> @@ -1187,7 +1187,7 @@ struct irq_desc *pirq_spin_lock_irq_desc(
+>>>         for ( ; ; )
+>>>       {
+>>> -        int irq = pirq->arch.irq;
+>>> +        int irq = read_atomic(&pirq->arch.irq);
+>>
+>> There we go - I'd be fine this way, but I'm pretty sure Andrew
+>> would want this to be ACCESS_ONCE(). So I guess now is the time
+>> to settle which one to prefer in new code (or which criteria
+>> there are to prefer one over the other).
+>
+> I would prefer if we have a single way to force the compiler to do a
+> single access (read/write).
 
-Yes, it's used by this dual purpose, which I have to admit I don't
-like that much either.
+Unlikely to happen, I'd expect.
 
-One set of pages should be clearly used for RAM memory hotplug, and
-the other to map foreign pages that are not related to memory hotplug,
-it's just that we happen to need a physical region with backing struct
-pages.
+But I would really like to get rid of (or at least rename)
+read_atomic()/write_atomic() specifically because they've got nothing to
+do with atomic_t's and the set of functionality who's namespace they share.
 
-> > 
-> >> It's the admin/distro responsibility to configure this properly. In case
-> >> this doesn't happen (or as you say, users change it), bad luck.
-> >>
-> >> E.g., virtio-mem takes care to not add more memory in case it is not
-> >> getting onlined. I remember hyper-v has similar code to at least wait a
-> >> bit for memory to get onlined.
-> > 
-> > I don't think VirtIO or Hyper-V use the hotplug system in the same way
-> > as Xen, as said this is done to add unpopulated memory regions that
-> > will be used to map foreign memory (from other domains) by Xen drivers
-> > on the system.
-> 
-> Indeed, if the memory is never exposed to the buddy (and all you need is
-> struct pages +  a kernel virtual mapping), I wonder if
-> memremap/ZONE_DEVICE is what you want?
+>
+> The existing implementation of ACCESS_ONCE() can only work on scalar
+> type. The implementation is based on a Linux, although we have an
+> extra check. Looking through the Linux history, it looks like it is
+> not possible to make ACCESS_ONCE() work with non-scalar types:
+>
+>     ACCESS_ONCE does not work reliably on non-scalar types. For
+>     example gcc 4.6 and 4.7 might remove the volatile tag for such
+>     accesses during the SRA (scalar replacement of aggregates) step
+>     https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58145)
+>
+> I understand that our implementation of read_atomic(), write_atomic()
+> would lead to less optimized code.
 
-I'm certainly not familiar with the Linux memory subsystem, but if
-that gets us a backing struct page and a kernel mapping then I would
-say yes.
+There are cases where read_atomic()/write_atomic() prevent optimisations
+which ACCESS_ONCE() would allow, but it is only for code of the form:
 
-> Then you won't have user-visible
-> memory blocks created with unclear online semantics, partially involving
-> the buddy.
+ACCESS_ONCE(ptr) |= val;
 
-Seems like a fine solution.
+Which a sufficiently clever compiler could convert to a single `or $val,
+ptr` instruction on x86, while read_atomic()/write_atomic() would force
+it to be `mov ptr, %reg; or $val, %reg; mov %reg, ptr`.
 
-Juergen: would you be OK to use a separate page-list for
-alloc_xenballooned_pages on HVM/PVH using the logic described by
-David?
+That said - your note about GCC treating the pointed-to object as
+volatile probably means it won't make the above optimisation, even
+though it would be appropriate to do so.
 
-I guess I would leave PV as-is, since it already has this reserved
-region to map foreign pages.
+> So maybe we want to import READ_ONCE() and WRITE_ONCE() from Linux?
 
-Thanks, Roger.
+There is no point.  Linux has taken a massive detour through wildly
+different READ/WRITE_ONCE() functions (to fix the above GCC bugs), and
+are now back to something very similar to ACCESS_ONCE().
+
+~Andrew
 
