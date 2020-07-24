@@ -2,52 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09B9322CB64
+	by mail.lfdr.de (Postfix) with ESMTPS id 102A522CB65
 	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 18:46:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jz0qJ-0001CS-Vu; Fri, 24 Jul 2020 16:46:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jz0qJ-0001C6-K4; Fri, 24 Jul 2020 16:46:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yL+a=BD=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1jz0qI-00015d-EB
- for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 16:46:42 +0000
-X-Inumbo-ID: 3b709e24-cdcd-11ea-a42a-12813bfff9fa
+ id 1jz0qH-00015t-SI
+ for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 16:46:41 +0000
+X-Inumbo-ID: 3bc132a8-cdcd-11ea-8855-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3b709e24-cdcd-11ea-a42a-12813bfff9fa;
- Fri, 24 Jul 2020 16:46:33 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3bc132a8-cdcd-11ea-8855-bc764e2007e4;
+ Fri, 24 Jul 2020 16:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
+ In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hPWM6csyUMwffzj4JmSc+ReN9q/RGN5MRKt+OXyzDgc=; b=WI+SOeayTYJXOwV1a/7osUm/8r
- myWTAuywvxg+Fsj/nEulRnchp+XY5sMNkLIEY7SO/zRq4PL5Gi+uIovYKpcZDDXLmEk6A0mJtU5d7
- IZG/kgLgl7uA3xNhej/ePuX0tfhUCU/yG8Wn0LxB2p8//kPHJCkHTkyU1xsQMZj+y/I8=;
+ bh=H2uqJkwBIHNcPC9n5mPbNITBzlMI1bcGzPfXQlHr/2Q=; b=myW6af7AGCR6JlaXt0pQ5VLzmL
+ iSGR873513AZ/o71AaEhr3uit+/VpAo1rgTSVd2aVTmL3LTPyXDV4OlxDasbHwGuLFgNuUo/Sp5xT
+ 4sIbY3Jv5b4X+ez57kz+SDnWecTLi6aouKDiWKLYmx8CNgbi9vCNJgo573SoB9Z+WJ3s=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1jz0q8-00054i-9D; Fri, 24 Jul 2020 16:46:32 +0000
+ id 1jz0q9-00054p-8e; Fri, 24 Jul 2020 16:46:33 +0000
 Received: from host86-143-223-30.range86-143.btcentralplus.com
  ([86.143.223.30] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1jz0q8-0006WL-0C; Fri, 24 Jul 2020 16:46:32 +0000
+ id 1jz0q9-0006WL-11; Fri, 24 Jul 2020 16:46:33 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 5/6] iommu: remove the share_p2m operation
-Date: Fri, 24 Jul 2020 17:46:18 +0100
-Message-Id: <20200724164619.1245-6-paul@xen.org>
+Subject: [PATCH 6/6] iommu: stop calling IOMMU page tables 'p2m tables'
+Date: Fri, 24 Jul 2020 17:46:19 +0100
+Message-Id: <20200724164619.1245-7-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200724164619.1245-1-paul@xen.org>
 References: <20200724164619.1245-1-paul@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -59,187 +57,209 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <pdurrant@amazon.com>, Kevin Tian <kevin.tian@intel.com>,
+ Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-Sharing of HAP tables is VT-d specific so the operation is never defined for
-AMD IOMMU. There's also no need to pro-actively set vtd.pgd_maddr when using
-shared EPT as it is straightforward to simply define a helper function to
-return the appropriate value in the shared and non-shared cases.
+It's confusing and not consistent with the terminology introduced with 'dfn_t'.
+Just call them IOMMU page tables.
+
+Also remove a pointless check of the 'acpi_drhd_units' list in
+vtd_dump_page_table_level(). If the list is empty then IOMMU mappings would
+not have been enabled for the domain in the first place.
+
+NOTE: There's also a bit of cosmetic clean-up in iommu_dump_page_tables()
+      to make use of %pd.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
 Cc: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>
-Cc: Wei Liu <wl@xen.org>
-Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+Cc: Paul Durrant <paul@xen.org>
 Cc: Kevin Tian <kevin.tian@intel.com>
 ---
- xen/arch/x86/mm/p2m.c               |  3 --
- xen/drivers/passthrough/iommu.c     |  8 -----
- xen/drivers/passthrough/vtd/iommu.c | 55 ++++++++++++++---------------
- xen/include/xen/iommu.h             |  3 --
- 4 files changed, 27 insertions(+), 42 deletions(-)
+ xen/drivers/passthrough/amd/pci_amd_iommu.c | 16 +++++++-------
+ xen/drivers/passthrough/iommu.c             | 12 +++++------
+ xen/drivers/passthrough/vtd/iommu.c         | 24 +++++++++------------
+ xen/include/xen/iommu.h                     |  2 +-
+ 4 files changed, 25 insertions(+), 29 deletions(-)
 
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index c5f52a4118..95b5055648 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -726,9 +726,6 @@ int p2m_alloc_table(struct p2m_domain *p2m)
+diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+index fd9b1e7bd5..112bd3eb37 100644
+--- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
++++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+@@ -499,8 +499,8 @@ static int amd_iommu_group_id(u16 seg, u8 bus, u8 devfn)
  
-     p2m->phys_table = pagetable_from_mfn(top_mfn);
+ #include <asm/io_apic.h>
  
--    if ( hap_enabled(d) )
--        iommu_share_p2m_table(d);
--
-     p2m_unlock(p2m);
-     return 0;
+-static void amd_dump_p2m_table_level(struct page_info* pg, int level, 
+-                                     paddr_t gpa, int indent)
++static void amd_dump_page_table_level(struct page_info* pg, int level,
++                                      paddr_t gpa, int indent)
+ {
+     paddr_t address;
+     struct amd_iommu_pte *table_vaddr;
+@@ -537,7 +537,7 @@ static void amd_dump_p2m_table_level(struct page_info* pg, int level,
+ 
+         address = gpa + amd_offset_level_address(index, level);
+         if ( pde->next_level >= 1 )
+-            amd_dump_p2m_table_level(
++            amd_dump_page_table_level(
+                 mfn_to_page(_mfn(pde->mfn)), pde->next_level,
+                 address, indent + 1);
+         else
+@@ -550,16 +550,16 @@ static void amd_dump_p2m_table_level(struct page_info* pg, int level,
+     unmap_domain_page(table_vaddr);
  }
+ 
+-static void amd_dump_p2m_table(struct domain *d)
++static void amd_dump_page_tables(struct domain *d)
+ {
+     const struct domain_iommu *hd = dom_iommu(d);
+ 
+     if ( !hd->arch.amd_iommu.root_table )
+         return;
+ 
+-    printk("p2m table has %d levels\n", hd->arch.amd_iommu.paging_mode);
+-    amd_dump_p2m_table_level(hd->arch.amd_iommu.root_table,
+-                             hd->arch.amd_iommu.paging_mode, 0, 0);
++    printk("table has %d levels\n", hd->arch.amd_iommu.paging_mode);
++    amd_dump_page_table_level(hd->arch.amd_iommu.root_table,
++                              hd->arch.amd_iommu.paging_mode, 0, 0);
+ }
+ 
+ static const struct iommu_ops __initconstrel _iommu_ops = {
+@@ -586,7 +586,7 @@ static const struct iommu_ops __initconstrel _iommu_ops = {
+     .suspend = amd_iommu_suspend,
+     .resume = amd_iommu_resume,
+     .crash_shutdown = amd_iommu_crash_shutdown,
+-    .dump_p2m_table = amd_dump_p2m_table,
++    .dump_page_tables = amd_dump_page_tables,
+ };
+ 
+ static const struct iommu_init_ops __initconstrel _iommu_init_ops = {
 diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-index f32d8e25a8..6a3803ff2c 100644
+index 6a3803ff2c..5bc190bf98 100644
 --- a/xen/drivers/passthrough/iommu.c
 +++ b/xen/drivers/passthrough/iommu.c
-@@ -478,14 +478,6 @@ int iommu_do_domctl(
-     return ret;
+@@ -22,7 +22,7 @@
+ #include <xen/keyhandler.h>
+ #include <xsm/xsm.h>
+ 
+-static void iommu_dump_p2m_table(unsigned char key);
++static void iommu_dump_page_tables(unsigned char key);
+ 
+ unsigned int __read_mostly iommu_dev_iotlb_timeout = 1000;
+ integer_param("iommu_dev_iotlb_timeout", iommu_dev_iotlb_timeout);
+@@ -212,7 +212,7 @@ void __hwdom_init iommu_hwdom_init(struct domain *d)
+     if ( !is_iommu_enabled(d) )
+         return;
+ 
+-    register_keyhandler('o', &iommu_dump_p2m_table, "dump iommu p2m table", 0);
++    register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
+ 
+     hd->platform_ops->hwdom_init(d);
+ }
+@@ -513,7 +513,7 @@ bool_t iommu_has_feature(struct domain *d, enum iommu_feature feature)
+     return is_iommu_enabled(d) && test_bit(feature, dom_iommu(d)->features);
  }
  
--void iommu_share_p2m_table(struct domain* d)
--{
--    ASSERT(hap_enabled(d));
--
--    if ( iommu_use_hap_pt(d) )
--        iommu_get_ops()->share_p2m(d);
--}
--
- void iommu_crash_shutdown(void)
+-static void iommu_dump_p2m_table(unsigned char key)
++static void iommu_dump_page_tables(unsigned char key)
  {
-     if ( !iommu_crash_disable )
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index 149d7122c3..d09ca3fb3d 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -313,6 +313,26 @@ static u64 addr_to_dma_page_maddr(struct domain *domain, u64 addr, int alloc)
-     return pte_maddr;
- }
+     struct domain *d;
+     const struct iommu_ops *ops;
+@@ -535,12 +535,12 @@ static void iommu_dump_p2m_table(unsigned char key)
  
-+static u64 domain_pgd_maddr(struct domain *d)
-+{
-+    struct domain_iommu *hd = dom_iommu(d);
-+
-+    ASSERT(spin_is_locked(&hd->arch.mapping_lock));
-+
-+    if ( iommu_use_hap_pt(d) )
-+    {
-+        mfn_t pgd_mfn =
-+            pagetable_get_mfn(p2m_get_pagetable(p2m_get_hostp2m(d)));
-+
-+        return pagetable_get_paddr(pagetable_from_mfn(pgd_mfn));
-+    }
-+
-+    if ( !hd->arch.vtd.pgd_maddr )
-+        addr_to_dma_page_maddr(d, 0, 1);
-+
-+    return hd->arch.vtd.pgd_maddr;
-+}
-+
- static void iommu_flush_write_buffer(struct vtd_iommu *iommu)
- {
-     u32 val;
-@@ -1347,22 +1367,17 @@ int domain_context_mapping_one(
-     {
-         spin_lock(&hd->arch.mapping_lock);
- 
--        /* Ensure we have pagetables allocated down to leaf PTE. */
--        if ( hd->arch.vtd.pgd_maddr == 0 )
-+        pgd_maddr = domain_pgd_maddr(domain);
-+        if ( !pgd_maddr )
+         if ( iommu_use_hap_pt(d) )
          {
--            addr_to_dma_page_maddr(domain, 0, 1);
--            if ( hd->arch.vtd.pgd_maddr == 0 )
--            {
--            nomem:
--                spin_unlock(&hd->arch.mapping_lock);
--                spin_unlock(&iommu->lock);
--                unmap_vtd_domain_page(context_entries);
--                return -ENOMEM;
--            }
-+        nomem:
-+            spin_unlock(&hd->arch.mapping_lock);
-+            spin_unlock(&iommu->lock);
-+            unmap_vtd_domain_page(context_entries);
-+            return -ENOMEM;
+-            printk("\ndomain%d IOMMU p2m table shared with MMU: \n", d->domain_id);
++            printk("%pd: IOMMU page tables shared with MMU\n", d);
+             continue;
          }
  
-         /* Skip top levels of page tables for 2- and 3-level DRHDs. */
--        pgd_maddr = hd->arch.vtd.pgd_maddr;
-         for ( agaw = level_to_agaw(4);
-               agaw != level_to_agaw(iommu->nr_pt_levels);
-               agaw-- )
-@@ -1727,9 +1742,6 @@ static void iommu_domain_teardown(struct domain *d)
+-        printk("\ndomain%d IOMMU p2m table: \n", d->domain_id);
+-        ops->dump_p2m_table(d);
++        printk("%pd: IOMMU page tables: \n", d);
++        ops->dump_page_tables(d);
+     }
  
-     ASSERT(is_iommu_enabled(d));
+     rcu_read_unlock(&domlist_read_lock);
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index d09ca3fb3d..82d7eb6224 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -2545,8 +2545,8 @@ static void vtd_resume(void)
+     }
+ }
  
--    if ( iommu_use_hap_pt(d) )
+-static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa, 
+-                                     int indent)
++static void vtd_dump_page_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
++                                      int indent)
+ {
+     paddr_t address;
+     int i;
+@@ -2575,8 +2575,8 @@ static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
+ 
+         address = gpa + offset_level_address(i, level);
+         if ( next_level >= 1 ) 
+-            vtd_dump_p2m_table_level(dma_pte_addr(*pte), next_level, 
+-                                     address, indent + 1);
++            vtd_dump_page_table_level(dma_pte_addr(*pte), next_level,
++                                      address, indent + 1);
+         else
+             printk("%*sdfn: %08lx mfn: %08lx\n",
+                    indent, "",
+@@ -2587,17 +2587,13 @@ static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
+     unmap_vtd_domain_page(pt_vaddr);
+ }
+ 
+-static void vtd_dump_p2m_table(struct domain *d)
++static void vtd_dump_page_tables(struct domain *d)
+ {
+-    const struct domain_iommu *hd;
++    const struct domain_iommu *hd = dom_iommu(d);
+ 
+-    if ( list_empty(&acpi_drhd_units) )
 -        return;
 -
-     hd->arch.vtd.pgd_maddr = 0;
+-    hd = dom_iommu(d);
+-    printk("p2m table has %d levels\n", agaw_to_level(hd->arch.vtd.agaw));
+-    vtd_dump_p2m_table_level(hd->arch.vtd.pgd_maddr,
+-                             agaw_to_level(hd->arch.vtd.agaw), 0, 0);
++    printk("table has %d levels\n", agaw_to_level(hd->arch.vtd.agaw));
++    vtd_dump_page_table_level(hd->arch.vtd.pgd_maddr,
++                              agaw_to_level(hd->arch.vtd.agaw), 0, 0);
  }
  
-@@ -1821,18 +1833,6 @@ static int __init vtd_ept_page_compatible(struct vtd_iommu *iommu)
-            (ept_has_1gb(ept_cap) && opt_hap_1gb) <= cap_sps_1gb(vtd_cap);
- }
- 
--/*
-- * set VT-d page table directory to EPT table if allowed
-- */
--static void iommu_set_pgd(struct domain *d)
--{
--    mfn_t pgd_mfn;
--
--    pgd_mfn = pagetable_get_mfn(p2m_get_pagetable(p2m_get_hostp2m(d)));
--    dom_iommu(d)->arch.vtd.pgd_maddr =
--        pagetable_get_paddr(pagetable_from_mfn(pgd_mfn));
--}
--
- static int rmrr_identity_mapping(struct domain *d, bool_t map,
-                                  const struct acpi_rmrr_unit *rmrr,
-                                  u32 flag)
-@@ -2682,7 +2682,6 @@ static struct iommu_ops __initdata vtd_ops = {
-     .adjust_irq_affinities = adjust_vtd_irq_affinities,
-     .suspend = vtd_suspend,
-     .resume = vtd_resume,
--    .share_p2m = iommu_set_pgd,
-     .crash_shutdown = vtd_crash_shutdown,
+ static int __init intel_iommu_quarantine_init(struct domain *d)
+@@ -2686,7 +2682,7 @@ static struct iommu_ops __initdata vtd_ops = {
      .iotlb_flush = iommu_flush_iotlb_pages,
      .iotlb_flush_all = iommu_flush_iotlb_all,
+     .get_reserved_device_memory = intel_iommu_get_reserved_device_memory,
+-    .dump_p2m_table = vtd_dump_p2m_table,
++    .dump_page_tables = vtd_dump_page_tables,
+ };
+ 
+ const struct iommu_init_ops __initconstrel intel_iommu_init_ops = {
 diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index ec639ba128..cc122fd10b 100644
+index cc122fd10b..804b283c1b 100644
 --- a/xen/include/xen/iommu.h
 +++ b/xen/include/xen/iommu.h
-@@ -266,7 +266,6 @@ struct iommu_ops {
+@@ -272,7 +272,7 @@ struct iommu_ops {
+                                     unsigned int flush_flags);
+     int __must_check (*iotlb_flush_all)(struct domain *d);
+     int (*get_reserved_device_memory)(iommu_grdm_t *, void *);
+-    void (*dump_p2m_table)(struct domain *d);
++    void (*dump_page_tables)(struct domain *d);
  
-     int __must_check (*suspend)(void);
-     void (*resume)(void);
--    void (*share_p2m)(struct domain *d);
-     void (*crash_shutdown)(void);
-     int __must_check (*iotlb_flush)(struct domain *d, dfn_t dfn,
-                                     unsigned int page_count,
-@@ -343,8 +342,6 @@ void iommu_resume(void);
- void iommu_crash_shutdown(void);
- int iommu_get_reserved_device_memory(iommu_grdm_t *, void *);
- 
--void iommu_share_p2m_table(struct domain *d);
--
- #ifdef CONFIG_HAS_PCI
- int iommu_do_pci_domctl(struct xen_domctl *, struct domain *d,
-                         XEN_GUEST_HANDLE_PARAM(xen_domctl_t));
+ #ifdef CONFIG_HAS_DEVICE_TREE
+     /*
 -- 
 2.20.1
 
