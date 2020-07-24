@@ -2,59 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2263D22C112
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 10:45:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D415622C18F
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 10:59:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jytJt-0003K1-W1; Fri, 24 Jul 2020 08:44:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5T8C=BD=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jytJs-0003Jw-EN
- for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 08:44:44 +0000
-X-Inumbo-ID: ebc137a0-cd89-11ea-a38a-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ebc137a0-cd89-11ea-a38a-12813bfff9fa;
- Fri, 24 Jul 2020 08:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rFult8kINdISWKMBrnxAFULL5bxrr1mijKyLzJ7ocFg=; b=R4IjjJOQFwmBtPH0tc7FMbKbPd
- t5GF+vGNel7pnhaM0u8IEVpT2izJ934/bjkffC/F3eRrF2PZ0tdXX5jtu2WlCMXJvS+N82+XZ+eqr
- GB98GyP8No8uQ7OLq1VZxzWuAtUp3ON6iZqSrVpt872nMQ3UcbkBjlPXQfZS6Dc0I3jc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jytJp-0002gX-3s; Fri, 24 Jul 2020 08:44:41 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jytJo-0006i3-Pm; Fri, 24 Jul 2020 08:44:40 +0000
-Subject: Re: [RFC PATCH v1 1/4] arm/pci: PCI setup and PCI host bridge
- discovery within XEN on ARM.
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Rahul Singh <rahul.singh@arm.com>
-References: <cover.1595511416.git.rahul.singh@arm.com>
- <64ebd4ef614b36a5844c52426a4a6a4a23b1f087.1595511416.git.rahul.singh@arm.com>
- <alpine.DEB.2.21.2007231055230.17562@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <9f09ff42-a930-e4e3-d1c8-612ad03698ae@xen.org>
-Date: Fri, 24 Jul 2020 09:44:38 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+	id 1jytXx-0004Nq-6Q; Fri, 24 Jul 2020 08:59:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QctF=BD=canonical.com=andrea.righi@srs-us1.protection.inumbo.net>)
+ id 1jytXv-0004Nj-9k
+ for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 08:59:15 +0000
+X-Inumbo-ID: f2665624-cd8b-11ea-87e7-bc764e2007e4
+Received: from youngberry.canonical.com (unknown [91.189.89.112])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f2665624-cd8b-11ea-87e7-bc764e2007e4;
+ Fri, 24 Jul 2020 08:59:14 +0000 (UTC)
+Received: from mail-ej1-f72.google.com ([209.85.218.72])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <andrea.righi@canonical.com>) id 1jytXt-0003cC-Ig
+ for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 08:59:13 +0000
+Received: by mail-ej1-f72.google.com with SMTP id q11so3434066eja.3
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Jul 2020 01:59:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=Hjub13SPe2wEgoDjP8LKlCX8Yl7alX0oGHdU3qzYDPM=;
+ b=n/3zDNavFBwyidp5mK9uTIUnZfbHeSKJP4k6Md3Q+MmdkMWQ8FQ2ZbQoZ9SwA3NWvc
+ EqtOXntSZ9x4rmez3Jw1+S/UWUPdrNW3an2O+mEV7odoE4wZzNDZ+X3zGsXQmmSSDML1
+ HUBGuHZ3Fqz6BZLdd1A6yR6oULhBm5YpLuYv6THiBFs3tEbC56nM9xQSbfZHFkQzeDE9
+ 1CgAPQu5Aj+br1BdM0coAM1wKpocTKt3vQliydYhLgPhghicxYr0ml5+PJVXD7Ra6R+b
+ oEITKCk0MfjzDcbkG4/CQsqTHla7AATJ0QGL0fxnsCRipvNErj59Y9tCgRj7LjHJ5V+B
+ 5RMA==
+X-Gm-Message-State: AOAM533Jplrd6i3wjxEFqCFSpPFrzyDmGHKm3O5F+UGrSbqV2R4/TW6V
+ TT6zn2/vYZUAZlbukFS4W+OF336yydgi6S0D8iQrD8GmW/yDuwKIAxjJ3bdKF0D56zJkyB+q1oA
+ daE2tgRMNZdk22OWl4WIN+q9UkHsrmHS/IkoEACie2jlV
+X-Received: by 2002:a17:906:c40d:: with SMTP id
+ u13mr8037436ejz.519.1595581152669; 
+ Fri, 24 Jul 2020 01:59:12 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyLghkjxyAHSXRSJUM7yxIeHsXsl1Sx8URoFGpqj60bEA7IlZyIWZIUznr715CpupWlbmdO2A==
+X-Received: by 2002:a17:906:c40d:: with SMTP id
+ u13mr8037418ejz.519.1595581152278; 
+ Fri, 24 Jul 2020 01:59:12 -0700 (PDT)
+Received: from localhost (host-87-11-131-192.retail.telecomitalia.it.
+ [87.11.131.192])
+ by smtp.gmail.com with ESMTPSA id y22sm302547edl.84.2020.07.24.01.59.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jul 2020 01:59:11 -0700 (PDT)
+Date: Fri, 24 Jul 2020 10:59:10 +0200
+From: Andrea Righi <andrea.righi@canonical.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2] xen-netfront: fix potential deadlock in xennet_remove()
+Message-ID: <20200724085910.GA1043801@xps-13>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2007231055230.17562@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,47 +71,136 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: andrew.cooper3@citrix.com, Bertrand.Marquis@arm.com, jbeulich@suse.com,
- xen-devel@lists.xenproject.org, nd@arm.com,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, roger.pau@citrix.com
+Cc: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+There's a potential race in xennet_remove(); this is what the driver is
+doing upon unregistering a network device:
 
-On 24/07/2020 00:38, Stefano Stabellini wrote:
->> +    bridge->dt_node = dev;
->> +    bridge->sysdata = cfg;
->> +    bridge->ops = &ops->pci_ops;
->> +
->> +    if( !dt_property_read_u32(dev, "linux,pci-domain", &segment) )
->> +    {
->> +        printk(XENLOG_ERR "\"linux,pci-domain\" property in not available in DT\n");
->> +        return -ENODEV;
->> +    }
->> +
->> +    bridge->segment = (u16)segment;
-> 
-> My understanding is that a Linux pci-domain doesn't correspond exactly
-> to a PCI segment. See for instance:
-> 
-> https://lists.gnu.org/archive/html/qemu-devel/2018-04/msg03885.html
-> 
-> Do we need to care about the difference? If we mean pci-domain here,
-> should we just call them as such instead of calling them "segments" in
-> Xen (if they are not segments)?
+  1. state = read bus state
+  2. if state is not "Closed":
+  3.    request to set state to "Closing"
+  4.    wait for state to be set to "Closing"
+  5.    request to set state to "Closed"
+  6.    wait for state to be set to "Closed"
 
-So we definitely need a segment number in hand because this is what the 
-admin will use to assign a PCI device to a guest.
+If the state changes to "Closed" immediately after step 1 we are stuck
+forever in step 4, because the state will never go back from "Closed" to
+"Closing".
 
-The segment number is just a value defined by the software. So as long 
-as Linux and Xen agrees with the number, then we should be ok.
+Make sure to check also for state == "Closed" in step 4 to prevent the
+deadlock.
 
-Looking at the code, I think Linux is using 'segment' as 'domain'. So 
-they should be interchangeably. I am not sure what other OS does though.
+Also add a 5 sec timeout any time we wait for the bus state to change,
+to avoid getting stuck forever in wait_event().
 
-Cheers,
+Signed-off-by: Andrea Righi <andrea.righi@canonical.com>
+---
+Changes in v2:
+ - remove all dev_dbg() calls (as suggested by David Miller)
 
+ drivers/net/xen-netfront.c | 64 +++++++++++++++++++++++++-------------
+ 1 file changed, 42 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index 482c6c8b0fb7..88280057e032 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -63,6 +63,8 @@ module_param_named(max_queues, xennet_max_queues, uint, 0644);
+ MODULE_PARM_DESC(max_queues,
+ 		 "Maximum number of queues per virtual interface");
+ 
++#define XENNET_TIMEOUT  (5 * HZ)
++
+ static const struct ethtool_ops xennet_ethtool_ops;
+ 
+ struct netfront_cb {
+@@ -1334,12 +1336,15 @@ static struct net_device *xennet_create_dev(struct xenbus_device *dev)
+ 
+ 	netif_carrier_off(netdev);
+ 
+-	xenbus_switch_state(dev, XenbusStateInitialising);
+-	wait_event(module_wq,
+-		   xenbus_read_driver_state(dev->otherend) !=
+-		   XenbusStateClosed &&
+-		   xenbus_read_driver_state(dev->otherend) !=
+-		   XenbusStateUnknown);
++	do {
++		xenbus_switch_state(dev, XenbusStateInitialising);
++		err = wait_event_timeout(module_wq,
++				 xenbus_read_driver_state(dev->otherend) !=
++				 XenbusStateClosed &&
++				 xenbus_read_driver_state(dev->otherend) !=
++				 XenbusStateUnknown, XENNET_TIMEOUT);
++	} while (!err);
++
+ 	return netdev;
+ 
+  exit:
+@@ -2139,28 +2144,43 @@ static const struct attribute_group xennet_dev_group = {
+ };
+ #endif /* CONFIG_SYSFS */
+ 
+-static int xennet_remove(struct xenbus_device *dev)
++static void xennet_bus_close(struct xenbus_device *dev)
+ {
+-	struct netfront_info *info = dev_get_drvdata(&dev->dev);
+-
+-	dev_dbg(&dev->dev, "%s\n", dev->nodename);
++	int ret;
+ 
+-	if (xenbus_read_driver_state(dev->otherend) != XenbusStateClosed) {
++	if (xenbus_read_driver_state(dev->otherend) == XenbusStateClosed)
++		return;
++	do {
+ 		xenbus_switch_state(dev, XenbusStateClosing);
+-		wait_event(module_wq,
+-			   xenbus_read_driver_state(dev->otherend) ==
+-			   XenbusStateClosing ||
+-			   xenbus_read_driver_state(dev->otherend) ==
+-			   XenbusStateUnknown);
++		ret = wait_event_timeout(module_wq,
++				   xenbus_read_driver_state(dev->otherend) ==
++				   XenbusStateClosing ||
++				   xenbus_read_driver_state(dev->otherend) ==
++				   XenbusStateClosed ||
++				   xenbus_read_driver_state(dev->otherend) ==
++				   XenbusStateUnknown,
++				   XENNET_TIMEOUT);
++	} while (!ret);
++
++	if (xenbus_read_driver_state(dev->otherend) == XenbusStateClosed)
++		return;
+ 
++	do {
+ 		xenbus_switch_state(dev, XenbusStateClosed);
+-		wait_event(module_wq,
+-			   xenbus_read_driver_state(dev->otherend) ==
+-			   XenbusStateClosed ||
+-			   xenbus_read_driver_state(dev->otherend) ==
+-			   XenbusStateUnknown);
+-	}
++		ret = wait_event_timeout(module_wq,
++				   xenbus_read_driver_state(dev->otherend) ==
++				   XenbusStateClosed ||
++				   xenbus_read_driver_state(dev->otherend) ==
++				   XenbusStateUnknown,
++				   XENNET_TIMEOUT);
++	} while (!ret);
++}
++
++static int xennet_remove(struct xenbus_device *dev)
++{
++	struct netfront_info *info = dev_get_drvdata(&dev->dev);
+ 
++	xennet_bus_close(dev);
+ 	xennet_disconnect_backend(info);
+ 
+ 	if (info->netdev->reg_state == NETREG_REGISTERED)
 -- 
-Julien Grall
+2.25.1
+
 
