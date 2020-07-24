@@ -2,43 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C3DD22C9AB
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 18:02:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2BE722C9AA
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 18:02:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jz08g-0005FP-Ms; Fri, 24 Jul 2020 16:01:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jz08q-0005G5-Bs; Fri, 24 Jul 2020 16:01:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yKVY=BD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jz08f-0005FK-F5
- for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 16:01:37 +0000
-X-Inumbo-ID: f3981d4e-cdc6-11ea-883d-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f3981d4e-cdc6-11ea-883d-bc764e2007e4;
- Fri, 24 Jul 2020 16:01:36 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 19FB5B128;
- Fri, 24 Jul 2020 16:01:44 +0000 (UTC)
-Subject: Re: [RFC PATCH v1 1/4] arm/pci: PCI setup and PCI host bridge
- discovery within XEN on ARM.
-To: Julien Grall <julien@xen.org>
-References: <cover.1595511416.git.rahul.singh@arm.com>
- <64ebd4ef614b36a5844c52426a4a6a4a23b1f087.1595511416.git.rahul.singh@arm.com>
- <20200724144404.GJ7191@Air-de-Roger>
- <0c53b2cb-47e9-f34e-8922-7095669175be@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <980fc583-edb6-b536-f211-f6b8ea6d21a7@suse.com>
-Date: Fri, 24 Jul 2020 18:01:37 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <0c53b2cb-47e9-f34e-8922-7095669175be@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+ (envelope-from <SRS0=yL+a=BD=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1jz08p-0005FZ-CT
+ for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 16:01:47 +0000
+X-Inumbo-ID: f5fea95e-cdc6-11ea-a425-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f5fea95e-cdc6-11ea-a425-12813bfff9fa;
+ Fri, 24 Jul 2020 16:01:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Reply-To:Message-Id:Date:Subject:To:From:Sender:Cc:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ogZM8im0PZvP/3uvGK3JZM+THCjPOOJBt/a9OxuGozA=; b=tyTtdn8czpvLvCjKwcGfOxzmdD
+ toJMPxtzfRirgIXANsEagw43ef26JzgPmM0+3y6QWe6+t/0HfqD2zGTSTblwWt/dyNYAjKvwRPibI
+ NIHPHNAWd0N9BNw33BztOKU1vtwH6EUqoFL5gRbbSstZOp77gMLDf93Yd9D84INQYR4U=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1jz08i-00046f-58; Fri, 24 Jul 2020 16:01:40 +0000
+Received: from host86-143-223-30.range86-143.btcentralplus.com
+ ([86.143.223.30] helo=CBG-R90WXYV0.home)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1jz08h-0003kp-Su; Fri, 24 Jul 2020 16:01:40 +0000
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org,
+ xen-announce@lists.xenproject.org
+Subject: [ANNOUNCEMENT] Xen 4.14 is released
+Date: Fri, 24 Jul 2020 17:01:38 +0100
+Message-Id: <20200724160138.129-1-paul@xen.org>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,40 +55,40 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Rahul Singh <rahul.singh@arm.com>, Bertrand.Marquis@arm.com,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- nd@arm.com, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Reply-To: xen-devel@lists.xenproject.org, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.07.2020 17:15, Julien Grall wrote:
-> On 24/07/2020 15:44, Roger Pau Monné wrote:
->>> +
->>> +    struct pci_host_bridge *bridge = pci_find_host_bridge(sbdf.seg, sbdf.bus);
->>> +
->>> +    if ( unlikely(!bridge) )
->>> +    {
->>> +        printk(XENLOG_ERR "Unable to find bridge for "PRI_pci"\n",
->>> +                sbdf.seg, sbdf.bus, sbdf.dev, sbdf.fn);
->>
->> I had a patch to add a custom modifier to out printf format in
->> order to handle pci_sbdf_t natively:
->>
->> https://patchew.org/Xen/20190822065132.48200-1-roger.pau@citrix.com/
->>
->> It missed maintainers Acks and was never committed. Since you are
->> doing a bunch of work here, and likely adding a lot of SBDF related
->> prints, feel free to import the modifier (%pp) and use in your code
->> (do not attempt to switch existing users, or it's likely to get
->> stuck again).
-> 
-> I forgot about this patch :/. It would be good to revive it. Which acks 
-> are you missing?
+Dear community members,
 
-It wasn't so much missing acks, but a controversy. And that not so much
-about switching existing users, but whether to indeed derive this from
-%p (which I continue to consider inefficient).
+I'm pleased to announce that Xen 4.14.0 is released.
 
-Jan
+Please find the tarball and its signature at:
+
+  https://downloads.xenproject.org/release/xen/4.14.0
+
+Git checkout and build instructions can be found at:
+
+  https://wiki.xenproject.org/wiki/Xen_Project_4.14_Release_Notes#Build_Requirements
+
+Release notes can be found at:
+
+  https://wiki.xenproject.org/wiki/Xen_Project_4.14_Release_Notes
+
+A summary for 4.14 release documents can be found at:
+
+  https://wiki.xenproject.org/wiki/Category:Xen_4.14
+
+Technical blog post for 4.14 can be found at:
+
+  https://xenproject.org/2020/07/24/xen-project-hypervisor-version-4-14-brings-added-security-and-performance
+
+Thanks everyone who contributed to this release. This release would
+not have happened without all the awesome contributions from the Xen
+community around the globe.
+
+Regards,
+
+Paul Durrant (on behalf of the Xen Project Hypervisor team)
+
 
