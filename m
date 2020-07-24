@@ -2,61 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 796BD22CC35
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 19:30:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B32EC22CC51
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 19:40:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jz1Vl-0006kB-9L; Fri, 24 Jul 2020 17:29:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jz1fk-0007nl-DT; Fri, 24 Jul 2020 17:39:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tno1=BD=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jz1Vj-0006k6-JS
- for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 17:29:31 +0000
-X-Inumbo-ID: 3af8e950-cdd3-11ea-a43f-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3af8e950-cdd3-11ea-a43f-12813bfff9fa;
- Fri, 24 Jul 2020 17:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595611770;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=NmRU0UDMj5uQajIy/P97l/8BR5JPklmtkyXUqGedd7k=;
- b=KqY+NzLCJmhv0YoHglIPyzxMfbGvhvqiVt2DQ1nO5U53zRu7I7D1c0Sn
- 3KRj1OitMs7kmkfk9ZXN/CDAfw7FPmpPntuU4APdQIzk5w1+UOXuMzvCs
- /cWEI7hTw2nPcjQhRZyG4Qae0nD83eMBdEn99TlbCnmsbGoeFwSGyiHK7 I=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: P+1tZ3uyva1MANEdhZoHbbY03bv6p5w1KtyPxJAnrhHlJBZT+0FR8cLa6Z79CE6THTBkRlsiXP
- pA6bi53OidV6AenxjkFugn7oJMGqO9hhN4tDe9g7/DauQqRoxlvD+9jhx7O9Y/7x8xgRzxI7YM
- eYIiofx7oOL6J2hfT3TL5Mo2qRzYacDEr3c9yI2OtxGmrJZ8pSqpEqCSzt1aO+v0aq0FrkZN93
- DdQg6HEQWwdpSgqdqKoMa1ks6mEHp3MUemORGT1YMfk70zw1oDW1F3ub5vClnSmQjjxjMB4jSL
- 8Aw=
-X-SBRS: 2.7
-X-MesageID: 23474787
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,391,1589256000"; d="scan'208";a="23474787"
-Subject: Re: [PATCH 1/6] x86/iommu: re-arrange arch_iommu to separate common
- fields...
-To: Paul Durrant <paul@xen.org>, <xen-devel@lists.xenproject.org>
-References: <20200724164619.1245-1-paul@xen.org>
- <20200724164619.1245-2-paul@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <68b40fdc-e578-7005-aa6e-499c6f04589c@citrix.com>
-Date: Fri, 24 Jul 2020 18:29:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <SRS0=ulAu=BD=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
+ id 1jz1fj-0007ng-D9
+ for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 17:39:51 +0000
+X-Inumbo-ID: ac5af1e6-cdd4-11ea-8867-bc764e2007e4
+Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ac5af1e6-cdd4-11ea-8867-bc764e2007e4;
+ Fri, 24 Jul 2020 17:39:50 +0000 (UTC)
+Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
+ by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
+ (return-path ijackson@chiark.greenend.org.uk)
+ id 1jz1Op-00021j-0g; Fri, 24 Jul 2020 18:22:23 +0100
+From: Ian Jackson <ian.jackson@eu.citrix.com>
+To: xen-devel@lists.xenproject.org
+Subject: [OSSTEST PATCH 10/11] sg-report-host-history: Drop a redundznt AND
+ clause
+Date: Fri, 24 Jul 2020 18:22:15 +0100
+Message-Id: <20200724172216.28204-11-ian.jackson@eu.citrix.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200724172216.28204-1-ian.jackson@eu.citrix.com>
+References: <20200724172216.28204-1-ian.jackson@eu.citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <20200724164619.1245-2-paul@xen.org>
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,62 +43,39 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <pdurrant@amazon.com>,
- Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>,
- Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24/07/2020 17:46, Paul Durrant wrote:
-> diff --git a/xen/include/asm-x86/iommu.h b/xen/include/asm-x86/iommu.h
-> index 6c9d5e5632..a7add5208c 100644
-> --- a/xen/include/asm-x86/iommu.h
-> +++ b/xen/include/asm-x86/iommu.h
-> @@ -45,16 +45,23 @@ typedef uint64_t daddr_t;
->  
->  struct arch_iommu
->  {
-> -    u64 pgd_maddr;                 /* io page directory machine address */
-> -    spinlock_t mapping_lock;            /* io page table lock */
-> -    int agaw;     /* adjusted guest address width, 0 is level 2 30-bit */
-> -    u64 iommu_bitmap;              /* bitmap of iommu(s) that the domain uses */
-> -    struct list_head mapped_rmrrs;
-> -
-> -    /* amd iommu support */
-> -    int paging_mode;
-> -    struct page_info *root_table;
-> -    struct guest_iommu *g_iommu;
-> +    spinlock_t mapping_lock; /* io page table lock */
-> +
-> +    union {
-> +        /* Intel VT-d */
-> +        struct {
-> +            u64 pgd_maddr; /* io page directory machine address */
-> +            int agaw; /* adjusted guest address width, 0 is level 2 30-bit */
-> +            u64 iommu_bitmap; /* bitmap of iommu(s) that the domain uses */
-> +            struct list_head mapped_rmrrs;
-> +        } vtd;
-> +        /* AMD IOMMU */
-> +        struct {
-> +            int paging_mode;
-> +            struct page_info *root_table;
-> +            struct guest_iommu *g_iommu;
-> +        } amd_iommu;
-> +    };
+This condition is the same as $flightcond.  (This has no effect on the
+db performance since the query planner figures it out, but it is
+confusing.)
 
-The naming split here is weird.
+Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+---
+ sg-report-host-history | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Ideally we'd have struct {vtd,amd}_iommu in appropriate headers, and
-this would be simply
+diff --git a/sg-report-host-history b/sg-report-host-history
+index 1f5c14e1..787f7c5b 100755
+--- a/sg-report-host-history
++++ b/sg-report-host-history
+@@ -175,13 +175,12 @@ sub mainquery ($) {
+ 	   AND val = ?
+ 	   AND $flightcond
+            AND $restrictflight_cond
+-           AND flight > ?
+ 	 ORDER BY flight DESC
+          LIMIT $limit * 2
+ END
+ 
+     print DEBUG "MAINQUERY $host...\n";
+-    $runvarq->execute($host, $minflight);
++    $runvarq->execute($host);
+ 
+     $hosts{$host} = $runvarq->fetchall_arrayref({});
+     print DEBUG "MAINQUERY $host got ".(scalar @{ $hosts{$host} })."\n";
+-- 
+2.20.1
 
-union {
-    struct vtd_iommu vtd;
-    struct amd_iommu amd;
-};
-
-If this isn't trivial to arrange, can we at least s/amd_iommu/amd/ here ?
-
-~Andrew
 
