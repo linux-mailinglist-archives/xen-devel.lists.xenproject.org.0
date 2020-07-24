@@ -2,57 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99DDA22C06E
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 10:06:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CAA622C08B
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 10:20:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jysi7-0007r7-7g; Fri, 24 Jul 2020 08:05:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jysvT-0000Ts-Ik; Fri, 24 Jul 2020 08:19:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5T8C=BD=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jysi5-0007r2-05
- for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 08:05:41 +0000
-X-Inumbo-ID: 76d730c0-cd84-11ea-87e3-bc764e2007e4
+ id 1jysvS-0000Tn-Oe
+ for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 08:19:30 +0000
+X-Inumbo-ID: 65961266-cd86-11ea-a385-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 76d730c0-cd84-11ea-87e3-bc764e2007e4;
- Fri, 24 Jul 2020 08:05:40 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 65961266-cd86-11ea-a385-12813bfff9fa;
+ Fri, 24 Jul 2020 08:19:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=vcUV31aYWSnGqtJsv8ngKgDlhVy7UxTBkS6YqKCatO0=; b=oHxYO686RrCgocwjyUKm7iXB5T
- ozdWmM1YCH73Kdumnwg+zraJaMMXobUzzGGf9ITPriq6Neal0M2diOr/wXULr1IbLpXuPv7NvFA8l
- 56WrnK60iz73RakqPbvmD4084YVDsnCsrzJEc/FYMv6zusZjHVeKqyMp/xvUgTxlFjnk=;
+ bh=FD2SS3S2FDkaZ6K3eYR6kq0HNXGyx8F4P+Y2NNCtnSc=; b=12axmA7CygjE1kLIFcRx9baOqV
+ sUIlfwcE8BPR/6UH+6ERxEFlyk3G0MNIyA2mXQ9+jzCokrGhhlFEEbwPHd/rGgE8iEmaU7NhNBu4v
+ OKHfd+VM6yDbVhXW6s2GRsBHLu6B5Wu6bB6+i33UaRiYAf+5dXzI795glc/lUvL87PZs=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1jysi3-0001te-KC; Fri, 24 Jul 2020 08:05:39 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ id 1jysvR-0002BN-DX; Fri, 24 Jul 2020 08:19:29 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1jysi3-00048c-Bo; Fri, 24 Jul 2020 08:05:39 +0000
-Subject: Re: [RFC PATCH v1 1/4] arm/pci: PCI setup and PCI host bridge
- discovery within XEN on ARM.
+ id 1jysvR-0004xX-4B; Fri, 24 Jul 2020 08:19:29 +0000
+Subject: Re: [RFC PATCH v1 2/4] xen/arm: Discovering PCI devices and add the
+ PCI devices in XEN.
 To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Rahul Singh <rahul.singh@arm.com>
 References: <cover.1595511416.git.rahul.singh@arm.com>
- <64ebd4ef614b36a5844c52426a4a6a4a23b1f087.1595511416.git.rahul.singh@arm.com>
- <alpine.DEB.2.21.2007231055230.17562@sstabellini-ThinkPad-T480s>
- <3ee41590-e8ca-84d6-3010-6e5dffe91df0@epam.com>
+ <666df0147054dda8af13ae74a89be44c69984295.1595511416.git.rahul.singh@arm.com>
+ <alpine.DEB.2.21.2007231337140.17562@sstabellini-ThinkPad-T480s>
+ <81cad0cd-731d-e1d5-cacd-d64f2c0781b6@epam.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <276d6b48-8cd7-7fb1-1d76-15cb6a95cad9@xen.org>
-Date: Fri, 24 Jul 2020 09:05:36 +0100
+Message-ID: <fb602a20-c7c8-d009-0f8c-d9730a6e4ddc@xen.org>
+Date: Fri, 24 Jul 2020 09:19:26 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
  Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <3ee41590-e8ca-84d6-3010-6e5dffe91df0@epam.com>
+In-Reply-To: <81cad0cd-731d-e1d5-cacd-d64f2c0781b6@epam.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -77,39 +78,113 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 Hi,
 
-On 24/07/2020 08:03, Oleksandr Andrushchenko wrote:
->>> diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
->>> new file mode 100644
->>> index 0000000000..c53ef58336
->>> --- /dev/null
->>> +++ b/xen/arch/arm/pci/pci-access.c
->>> @@ -0,0 +1,101 @@
->>> +/*
->>> + * Copyright (C) 2020 Arm Ltd.
-> I think SPDX will fit better in any new code.
-
-While I would love to use SPDX in Xen, there was some push back in the 
-past to use it. So the new code should use the full-blown copyright 
-until there is an agreement to use it.
-
+On 24/07/2020 08:14, Oleksandr Andrushchenko wrote:
+> 
+> On 7/23/20 11:44 PM, Stefano Stabellini wrote:
+>> On Thu, 23 Jul 2020, Rahul Singh wrote:
+>>> Hardware domain is in charge of doing the PCI enumeration and will
+>>> discover the PCI devices and then will communicate to XEN via hyper
+>>> call PHYSDEVOP_pci_device_add to add the PCI devices in XEN.
+>>>
+>>> Change-Id: Ie87e19741689503b4b62da911c8dc2ee318584ac
+>> Same question about Change-Id
 >>
->>> +    list_add_tail(&bridge->node, &pci_host_bridges);
->> It looks like &pci_host_bridges should be an ordered list, ordered by
->> segment number?
+>>
+>>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+>>> ---
+>>>    xen/arch/arm/physdev.c | 42 +++++++++++++++++++++++++++++++++++++++---
+>>>    1 file changed, 39 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/physdev.c b/xen/arch/arm/physdev.c
+>>> index e91355fe22..274720f98a 100644
+>>> --- a/xen/arch/arm/physdev.c
+>>> +++ b/xen/arch/arm/physdev.c
+>>> @@ -9,12 +9,48 @@
+>>>    #include <xen/errno.h>
+>>>    #include <xen/sched.h>
+>>>    #include <asm/hypercall.h>
+>>> -
+>>> +#include <xen/guest_access.h>
+>>> +#include <xsm/xsm.h>
+>>>    
+>>>    int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>>    {
+>>> -    gdprintk(XENLOG_DEBUG, "PHYSDEVOP cmd=%d: not implemented\n", cmd);
+>>> -    return -ENOSYS;
+>>> +    int ret = 0;
+>>> +
+>>> +    switch ( cmd )
+>>> +    {
+>>> +#ifdef CONFIG_HAS_PCI
 > 
-> Why? Do you expect bridge access in some specific order so ordered
+> In the cover letter you were saying "we are not enabling the HAS_PCI and HAS_VPCI flags for ARM".
 > 
-> list will make it faster?
+> Is this still valid?
+> 
+>>> +        case PHYSDEVOP_pci_device_add:
+>>> +            {
+>>> +                struct physdev_pci_device_add add;
+>>> +                struct pci_dev_info pdev_info;
+>>> +                nodeid_t node = NUMA_NO_NODE;
+>>> +
+>>> +                ret = -EFAULT;
+>>> +                if ( copy_from_guest(&add, arg, 1) != 0 )
+>>> +                    break;
+>>> +
+>>> +                pdev_info.is_extfn = !!(add.flags & XEN_PCI_DEV_EXTFN);
+>>> +                if ( add.flags & XEN_PCI_DEV_VIRTFN )
+>>> +                {
+>>> +                    pdev_info.is_virtfn = 1;
+>>> +                    pdev_info.physfn.bus = add.physfn.bus;
+>>> +                    pdev_info.physfn.devfn = add.physfn.devfn;
+>>> +                }
+>>> +                else
+>>> +                    pdev_info.is_virtfn = 0;
+>>> +
+>>> +                ret = pci_add_device(add.seg, add.bus, add.devfn,
+>>> +                                &pdev_info, node);
+>>> +
+>>> +                break;
+>>> +            }
+>>> +#endif
+>>> +        default:
+>>> +            gdprintk(XENLOG_DEBUG, "PHYSDEVOP cmd=%d: not implemented\n", cmd);
+>>> +            ret = -ENOSYS;
+>>> +    }
+>> I think we should make the implementation common between arm and x86 by
+>> creating xen/common/physdev.c:do_physdev_op as a shared entry point for
+>> PHYSDEVOP hypercalls implementations. See for instance:
+>>
+>> xen/common/sysctl.c:do_sysctl
+>>
+>> and
+>>
+>> xen/arch/arm/sysctl.c:arch_do_sysctl
+>> xen/arch/x86/sysctl.c:arch_do_sysctl
+>>
+>>
+>> Jan, Andrew, Roger, any opinions?
+>>
+>>
+> I think we can also have a look at [1] by Julien. That implementation,
+> 
+> IMO, had some thoughts on making Arm/x86 code common where possible
 
-Access to the configure space will be pretty random. So I don't think 
-ordering the list will make anything better.
+There are some ideas on how I would like to see the split, although they 
+need some cleanup. :)
 
-However, looking up for the bridge for every config spec access is 
-pretty slow. When I was working on the PCI passthrough, I wanted to look 
-whether it would be possible to have a pointer to the PCI host bridge 
-passed in argument to the helpers (rather than the segment).
+In particular, I was expecting some preparatory work to get the existing 
+PCI code non-x86 specific.
+
+Regarding the hypercall Stefano mentionned, I think it should be 
+possible to make it common if we abstract the NUMA node lookup part.
 
 Cheers,
+
+> 
+> 
+> [1] https://xenbits.xen.org/gitweb/?p=people/julieng/xen-unstable.git;a=shortlog;h=refs/heads/dev-pci
+> 
 
 -- 
 Julien Grall
