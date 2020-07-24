@@ -2,61 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E406C22CDE6
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 20:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B5F22CE29
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 20:51:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jz2ao-0005ov-K9; Fri, 24 Jul 2020 18:38:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jz2la-0006qU-KI; Fri, 24 Jul 2020 18:49:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tno1=BD=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jz2an-0005oq-5e
- for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 18:38:49 +0000
-X-Inumbo-ID: e9326844-cddc-11ea-a45b-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e9326844-cddc-11ea-a45b-12813bfff9fa;
- Fri, 24 Jul 2020 18:38:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595615929;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=dWbvvceeGY6NXTorz9bY+257l+AXrmrOXmHvAQHxPp4=;
- b=fAy6BtvpIN6Ya4jJ0GCsvAXtxRPrzjfoovrZN+ef3lMXHWoXgQ7ku2ao
- Xo5CDq2L8ExOFc/FGVhEZFO9KxNh2XNfoLd9O8ClI8aUcBFKdtf/V8vZT
- IfszN9S9arPAEHJWUW2EjO3VkPAnoL8zUySbLgWIH6Pyv/leV0SYEgGi1 k=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 469q0NSn0Eu98I/dW2JBXyLmvtMHRolRQzuWQZhbHzrB9Q8xLtF2kQ3iR0tSdf+Prhz4iGonyX
- VIIxOnt604Heggj9CKOH4NF08eCv+Jh2htHVgWGX3LPLHKIOkA7JJBg4mDzCDu1OTC2OnqdVUc
- WNdoRgXKVZjKoG/icQzHm1X0Q2iHxRKM+K9fZFU4aZWY7Adk9rs8ocVhzcFlhJJUgM26bEZumV
- op2zehAkJnLkSIBfB/G4+cMOCoT3YjMAJMV86/20p1eJcecfJ80mUXXaHhE9Yi7ungKmWX/Nmy
- jkQ=
-X-SBRS: 2.7
-X-MesageID: 23148207
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,391,1589256000"; d="scan'208";a="23148207"
-Subject: Re: [PATCH 3/6] iommu: remove iommu_lookup_page() and the
- lookup_page() method...
-To: Paul Durrant <paul@xen.org>, <xen-devel@lists.xenproject.org>
+ <SRS0=G3qI=BD=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jz2la-0006qP-38
+ for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 18:49:58 +0000
+X-Inumbo-ID: 77e24978-cdde-11ea-887c-bc764e2007e4
+Received: from mail-wm1-x329.google.com (unknown [2a00:1450:4864:20::329])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 77e24978-cdde-11ea-887c-bc764e2007e4;
+ Fri, 24 Jul 2020 18:49:57 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id j18so8776008wmi.3
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Jul 2020 11:49:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=aEuOAjCsOg+5EH37QI7YpqublmeICj17qtr5o/5tYvs=;
+ b=D41lDghna6EFpjpSo6IKrp2GiGfk9FXZe4IkDsFcHTVqD2nufp8/y1U0d35hiFZ3b0
+ bv0wecl+2K7NiTqi4wIZavzOAsgBY+N+zhH/nscSiEGCiwICTs/XlZq64XdDKak6XYBH
+ LYTVzgZAhM45FmyvfKbKGFeR6rPUXa+xYl0jJf1x9X+xPV8dZgu6D1g9ojqET8vETn5q
+ AiC+X1ZEgNY/qQLnjgcmuaJSFFoM+JTRFtqVIqZIhxY1g8iodqaqGv+3ni7tI3NoaPIg
+ BLPBe5OyZtAf7q8j5M13rijsJ66afAwGVSZmvDhAPkPkSC4YoA+BIA3eWVEfiNOMmrTw
+ NuHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=aEuOAjCsOg+5EH37QI7YpqublmeICj17qtr5o/5tYvs=;
+ b=WC3dPjc6MDoIoQ7rmRA4bOy+VLyoQe2Qyx+xlFaa4GOVycKjBhZkZ/GEhjx5zp7wzL
+ Djo9OEOGrg2nZEO1PLBvLIzpkwHvrCOxtD4yilv7mL4eaxMN68ZoC7Pxb5YKIAsMJqrQ
+ 9kkhf1s/FhuCzM3FN/Pdvs4C2L/2f/R893NtSLFxK+3noiEJn6qNHKuDRBuFIMsfsZnR
+ ugqouTdQNjam8dwuwm+jpIgrwP4K/O+WpsxLw3C90J42Sekhl4JOJ/UHibw1d8gKka/N
+ EMI45XwKmsuRIeGJTv8kswH5vsyLYEXMdmcjhp6RsX9DRs53y6UZ2ic0/MJdduTR6n33
+ pXEA==
+X-Gm-Message-State: AOAM530MifB9OwwxCdSFwcrfN8IK09GwXJx6aMWE1r5Y3sJqPXgzUJJY
+ vShagKwZ+Zf9/hZsDFCwsg8=
+X-Google-Smtp-Source: ABdhPJwUjVL6IGzkkmf9Ut12goObcz/rSnARE8BHFXwwq4BFYxlWcxBVD4/7u0jyAg4zt7+lbXQhmA==
+X-Received: by 2002:a7b:cbc5:: with SMTP id n5mr9847043wmi.95.1595616596228;
+ Fri, 24 Jul 2020 11:49:56 -0700 (PDT)
+Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:10dd:8439:6158:5aba])
+ by smtp.gmail.com with ESMTPSA id g16sm2165821wrs.88.2020.07.24.11.49.55
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 24 Jul 2020 11:49:55 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ <xen-devel@lists.xenproject.org>
 References: <20200724164619.1245-1-paul@xen.org>
- <20200724164619.1245-4-paul@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <c47710e1-fcb6-3b5d-ff6a-d237a4149b3b@citrix.com>
-Date: Fri, 24 Jul 2020 19:38:43 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <20200724164619.1245-2-paul@xen.org>
+ <68b40fdc-e578-7005-aa6e-499c6f04589c@citrix.com>
+In-Reply-To: <68b40fdc-e578-7005-aa6e-499c6f04589c@citrix.com>
+Subject: RE: [PATCH 1/6] x86/iommu: re-arrange arch_iommu to separate common
+ fields...
+Date: Fri, 24 Jul 2020 19:49:55 +0100
+Message-ID: <000001d661eb$392e1ae0$ab8a50a0$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20200724164619.1245-4-paul@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJEvXWV1fglpFS8p501Sb8VALJosQK2TIaJAcTpbVioFoErYA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,28 +80,92 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <pdurrant@amazon.com>, Kevin Tian <kevin.tian@intel.com>,
- Jan Beulich <jbeulich@suse.com>
+Reply-To: paul@xen.org
+Cc: 'Kevin Tian' <kevin.tian@intel.com>, 'Wei Liu' <wl@xen.org>,
+ 'Paul Durrant' <pdurrant@amazon.com>,
+ 'Lukasz Hawrylko' <lukasz.hawrylko@linux.intel.com>,
+ 'Jan Beulich' <jbeulich@suse.com>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24/07/2020 17:46, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
->
-> ... from iommu_ops.
->
-> This patch is essentially a reversion of dd93d54f "vtd: add lookup_page method
-> to iommu_ops". The code was intended to be used by a patch that has long-
-> since been abandoned. Therefore it is dead code and can be removed.
+> -----Original Message-----
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> Sent: 24 July 2020 18:29
+> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
+> Cc: Paul Durrant <pdurrant@amazon.com>; Lukasz Hawrylko =
+<lukasz.hawrylko@linux.intel.com>; Jan Beulich
+> <jbeulich@suse.com>; Wei Liu <wl@xen.org>; Roger Pau Monn=C3=A9 =
+<roger.pau@citrix.com>; Kevin Tian
+> <kevin.tian@intel.com>
+> Subject: Re: [PATCH 1/6] x86/iommu: re-arrange arch_iommu to separate =
+common fields...
+>=20
+> On 24/07/2020 17:46, Paul Durrant wrote:
+> > diff --git a/xen/include/asm-x86/iommu.h =
+b/xen/include/asm-x86/iommu.h
+> > index 6c9d5e5632..a7add5208c 100644
+> > --- a/xen/include/asm-x86/iommu.h
+> > +++ b/xen/include/asm-x86/iommu.h
+> > @@ -45,16 +45,23 @@ typedef uint64_t daddr_t;
+> >
+> >  struct arch_iommu
+> >  {
+> > -    u64 pgd_maddr;                 /* io page directory machine =
+address */
+> > -    spinlock_t mapping_lock;            /* io page table lock */
+> > -    int agaw;     /* adjusted guest address width, 0 is level 2 =
+30-bit */
+> > -    u64 iommu_bitmap;              /* bitmap of iommu(s) that the =
+domain uses */
+> > -    struct list_head mapped_rmrrs;
+> > -
+> > -    /* amd iommu support */
+> > -    int paging_mode;
+> > -    struct page_info *root_table;
+> > -    struct guest_iommu *g_iommu;
+> > +    spinlock_t mapping_lock; /* io page table lock */
+> > +
+> > +    union {
+> > +        /* Intel VT-d */
+> > +        struct {
+> > +            u64 pgd_maddr; /* io page directory machine address */
+> > +            int agaw; /* adjusted guest address width, 0 is level 2 =
+30-bit */
+> > +            u64 iommu_bitmap; /* bitmap of iommu(s) that the domain =
+uses */
+> > +            struct list_head mapped_rmrrs;
+> > +        } vtd;
+> > +        /* AMD IOMMU */
+> > +        struct {
+> > +            int paging_mode;
+> > +            struct page_info *root_table;
+> > +            struct guest_iommu *g_iommu;
+> > +        } amd_iommu;
+> > +    };
+>=20
+> The naming split here is weird.
+>=20
+> Ideally we'd have struct {vtd,amd}_iommu in appropriate headers, and
+> this would be simply
+>=20
+> union {
+>     struct vtd_iommu vtd;
+>     struct amd_iommu amd;
+> };
+>=20
+> If this isn't trivial to arrange, can we at least s/amd_iommu/amd/ =
+here ?
 
-And by this, you mean the work that you only partial unstreamed, with
-the remainder of the feature still very much in use by XenServer?
+I was in two minds. I tried to look for a TLA for the AMD IOMMU and =
+'amd' seemed a little too non-descript. I don't really mind though if =
+there's a strong preference to shorted it.
+I can certainly try moving the struct definitions into the =
+implementation headers.
 
-Please don't go breaking in-use things, simply because we're fixing
-Xen's IOMMU mess once large XSA at a time...
+  Paul
 
-As far as I can tell, this patch doesn't interact with any others in the
-series.
+>=20
+> ~Andrew
 
-~Andrew
 
