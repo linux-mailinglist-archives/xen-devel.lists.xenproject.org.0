@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32EC22CC51
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 19:40:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B614122CC4F
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jul 2020 19:40:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jz1fk-0007nl-DT; Fri, 24 Jul 2020 17:39:52 +0000
+	id 1jz1fz-0008S3-My; Fri, 24 Jul 2020 17:40:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ulAu=BD=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1jz1fj-0007ng-D9
- for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 17:39:51 +0000
-X-Inumbo-ID: ac5af1e6-cdd4-11ea-8867-bc764e2007e4
+ id 1jz1fy-0008OM-Pa
+ for xen-devel@lists.xenproject.org; Fri, 24 Jul 2020 17:40:06 +0000
+X-Inumbo-ID: b5d650e5-cdd4-11ea-886a-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ac5af1e6-cdd4-11ea-8867-bc764e2007e4;
- Fri, 24 Jul 2020 17:39:50 +0000 (UTC)
+ id b5d650e5-cdd4-11ea-886a-bc764e2007e4;
+ Fri, 24 Jul 2020 17:40:06 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1jz1Op-00021j-0g; Fri, 24 Jul 2020 18:22:23 +0100
+ id 1jz1Op-00021j-A9; Fri, 24 Jul 2020 18:22:23 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH 10/11] sg-report-host-history: Drop a redundznt AND
- clause
-Date: Fri, 24 Jul 2020 18:22:15 +0100
-Message-Id: <20200724172216.28204-11-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH 11/11] sg-report-host-history: Fork
+Date: Fri, 24 Jul 2020 18:22:16 +0100
+Message-Id: <20200724172216.28204-12-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200724172216.28204-1-ian.jackson@eu.citrix.com>
 References: <20200724172216.28204-1-ian.jackson@eu.citrix.com>
@@ -47,34 +46,86 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This condition is the same as $flightcond.  (This has no effect on the
-db performance since the query planner figures it out, but it is
-confusing.)
+Run each host's report in a separate child.  This is considerably
+faster.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-host-history | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sg-report-host-history | 47 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 40 insertions(+), 7 deletions(-)
 
 diff --git a/sg-report-host-history b/sg-report-host-history
-index 1f5c14e1..787f7c5b 100755
+index 787f7c5b..d8e19127 100755
 --- a/sg-report-host-history
 +++ b/sg-report-host-history
-@@ -175,13 +175,12 @@ sub mainquery ($) {
- 	   AND val = ?
- 	   AND $flightcond
-            AND $restrictflight_cond
--           AND flight > ?
- 	 ORDER BY flight DESC
-          LIMIT $limit * 2
- END
+@@ -34,6 +34,7 @@ our $flightlimit;
+ our $htmlout = ".";
+ our $read_existing=1;
+ our $doinstall=1;
++our $maxjobs=10;
+ our @blessings;
  
-     print DEBUG "MAINQUERY $host...\n";
--    $runvarq->execute($host, $minflight);
-+    $runvarq->execute($host);
+ open DEBUG, ">/dev/null";
+@@ -44,7 +45,7 @@ csreadconfig();
+ while (@ARGV && $ARGV[0] =~ m/^-/) {
+     $_= shift @ARGV;
+     last if m/^--?$/;
+-    if (m/^--(limit)\=([1-9]\d*)$/) {
++    if (m/^--(limit|maxjobs)\=([1-9]\d*)$/) {
+         $$1= $2;
+     } elsif (m/^--time-limit\=([1-9]\d*)$/) {
+         $timelimit= $1;
+@@ -468,12 +469,44 @@ db_retry($dbh_tests, [], sub {
+     computeflightsrange();
+ });
  
-     $hosts{$host} = $runvarq->fetchall_arrayref({});
-     print DEBUG "MAINQUERY $host got ".(scalar @{ $hosts{$host} })."\n";
++undef $dbh_tests;
++
++our %children;
++our $worst = 0;
++
++sub wait_for_max_children ($) {
++    my ($lim) = @_;
++    while (keys(%children) > $lim) {
++	$!=0; $?=0; my $got = wait;
++	die "$! $got $?" unless exists $children{$got};
++	my $host = $children{$got};
++	delete $children{$got};
++	$worst = $? if $? > $worst;
++	if ($?) {
++	    print STDERR "sg-report-flight[: [$got] failed for $host: $?\n";
++	} else {
++	    print DEBUG "REAPED [$got] $host\n";
++	}
++    }
++}
++
+ foreach my $host (sort keys %hosts) {
+-    read_existing_logs($host);
+-    db_retry($dbh_tests, [], sub {
+-        mainquery($host);
+-	reporthost $host;
+-    });
++    wait_for_max_children($maxjobs);
++
++    my $pid = fork // die $!;
++    if (!$pid) {
++	opendb_tests();
++	read_existing_logs($host);
++	db_retry($dbh_tests, [], sub {
++            mainquery($host);
++	    reporthost $host;
++	});
++	print DEBUG "JQ CACHE ".($jqtotal-$jqcachemisses)." / $jqtotal\n";
++	exit(0);
++    }
++    print DEBUG "SPAWNED [$pid] $host\n";
++    $children{$pid} = $host;
+ }
+ 
+-print DEBUG "JQ CACHE ".($jqtotal-$jqcachemisses)." / $jqtotal\n";
++wait_for_max_children(0);
++exit $worst;
 -- 
 2.20.1
 
