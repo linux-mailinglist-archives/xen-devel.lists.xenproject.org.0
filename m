@@ -2,40 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69DDD22DD59
-	for <lists+xen-devel@lfdr.de>; Sun, 26 Jul 2020 10:51:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 442A122DDE8
+	for <lists+xen-devel@lfdr.de>; Sun, 26 Jul 2020 12:09:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jzcMZ-0002o2-HY; Sun, 26 Jul 2020 08:50:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=00Q8=BF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jzcMY-0002nw-28
- for xen-devel@lists.xenproject.org; Sun, 26 Jul 2020 08:50:30 +0000
-X-Inumbo-ID: 0df4d18a-cf1d-11ea-8a03-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0df4d18a-cf1d-11ea-8a03-bc764e2007e4;
- Sun, 26 Jul 2020 08:50:28 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 63ACDAC79;
- Sun, 26 Jul 2020 08:50:37 +0000 (UTC)
-Subject: Re: [PATCH 5/6] iommu: remove the share_p2m operation
-To: Paul Durrant <paul@xen.org>
-References: <20200724164619.1245-1-paul@xen.org>
- <20200724164619.1245-6-paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d005885d-d983-7328-ee36-efd6032e8c96@suse.com>
-Date: Sun, 26 Jul 2020 10:50:25 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 1jzdZk-0000TL-Jw; Sun, 26 Jul 2020 10:08:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=s9Qx=BF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jzdZi-0000TG-Tf
+ for xen-devel@lists.xenproject.org; Sun, 26 Jul 2020 10:08:10 +0000
+X-Inumbo-ID: e6ade39a-cf27-11ea-a662-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e6ade39a-cf27-11ea-a662-12813bfff9fa;
+ Sun, 26 Jul 2020 10:08:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Fex71lD3WIoXQPwtI8bVa4JLDSOOr8KNmZO3Qv7nof0=; b=GoOWbPtJU8gb2W/620RJyedg/
+ ofRnGncp1Czi7BPmDpN/ikhDTwdEbaYWjMhwqkwJDrnqzRrw5bQVpTO182Hbig68hqt1iuGQz/sLB
+ o/s6ULMgKPIbJUWYFEiHRpGKgbxnG270FQ9HFMevtrs3mvfcQrySeSyIpoFWlpKPJPQe8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jzdZe-0004JC-Hv; Sun, 26 Jul 2020 10:08:06 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jzdZe-00058p-AY; Sun, 26 Jul 2020 10:08:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jzdZe-0006pg-9s; Sun, 26 Jul 2020 10:08:06 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152213-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200724164619.1245-6-paul@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-coverity test] 152213: all pass - PUSHED
+X-Osstest-Versions-This: xen=0562cbc14cf02b8188b9f1f37f39a4886776ce7c
+X-Osstest-Versions-That: xen=f3885e8c3ceaef101e466466e879e97103ecce18
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 26 Jul 2020 10:08:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,76 +61,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.07.2020 18:46, Paul Durrant wrote:
-> --- a/xen/drivers/passthrough/vtd/iommu.c
-> +++ b/xen/drivers/passthrough/vtd/iommu.c
-> @@ -313,6 +313,26 @@ static u64 addr_to_dma_page_maddr(struct domain *domain, u64 addr, int alloc)
->      return pte_maddr;
->  }
->  
-> +static u64 domain_pgd_maddr(struct domain *d)
+flight 152213 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152213/
 
-uint64_t please.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  0562cbc14cf02b8188b9f1f37f39a4886776ce7c
+baseline version:
+ xen                  f3885e8c3ceaef101e466466e879e97103ecce18
 
-> +{
-> +    struct domain_iommu *hd = dom_iommu(d);
-> +
-> +    ASSERT(spin_is_locked(&hd->arch.mapping_lock));
-> +
-> +    if ( iommu_use_hap_pt(d) )
-> +    {
-> +        mfn_t pgd_mfn =
-> +            pagetable_get_mfn(p2m_get_pagetable(p2m_get_hostp2m(d)));
-> +
-> +        return pagetable_get_paddr(pagetable_from_mfn(pgd_mfn));
-> +    }
-> +
-> +    if ( !hd->arch.vtd.pgd_maddr )
-> +        addr_to_dma_page_maddr(d, 0, 1);
-> +
-> +    return hd->arch.vtd.pgd_maddr;
-> +}
-> +
->  static void iommu_flush_write_buffer(struct vtd_iommu *iommu)
->  {
->      u32 val;
-> @@ -1347,22 +1367,17 @@ int domain_context_mapping_one(
->      {
->          spin_lock(&hd->arch.mapping_lock);
->  
-> -        /* Ensure we have pagetables allocated down to leaf PTE. */
-> -        if ( hd->arch.vtd.pgd_maddr == 0 )
-> +        pgd_maddr = domain_pgd_maddr(domain);
-> +        if ( !pgd_maddr )
->          {
-> -            addr_to_dma_page_maddr(domain, 0, 1);
-> -            if ( hd->arch.vtd.pgd_maddr == 0 )
-> -            {
-> -            nomem:
-> -                spin_unlock(&hd->arch.mapping_lock);
-> -                spin_unlock(&iommu->lock);
-> -                unmap_vtd_domain_page(context_entries);
-> -                return -ENOMEM;
-> -            }
-> +        nomem:
-> +            spin_unlock(&hd->arch.mapping_lock);
-> +            spin_unlock(&iommu->lock);
-> +            unmap_vtd_domain_page(context_entries);
-> +            return -ENOMEM;
->          }
+Last test of basis   152103  2020-07-22 09:24:23 Z    4 days
+Testing same since   152213  2020-07-26 09:18:31 Z    0 days    1 attempts
 
-This renders all calls bogus in shared mode - the function, if
-it ended up getting called nevertheless, would then still alloc
-the root table. Therefore I'd like to suggest that at least all
-its callers get an explicit check. That's really just
-dma_pte_clear_one() as it looks.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
 
-Jan
+jobs:
+ coverity-amd64                                               pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   f3885e8c3c..0562cbc14c  0562cbc14cf02b8188b9f1f37f39a4886776ce7c -> coverity-tested/smoke
 
