@@ -2,46 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C06322DC63
-	for <lists+xen-devel@lfdr.de>; Sun, 26 Jul 2020 09:01:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8FB222DD2C
+	for <lists+xen-devel@lfdr.de>; Sun, 26 Jul 2020 10:14:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jzaeq-0000nK-Ry; Sun, 26 Jul 2020 07:01:16 +0000
+	id 1jzbn1-0007bj-L7; Sun, 26 Jul 2020 08:13:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=00Q8=BF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jzaeq-0000nF-Al
- for xen-devel@lists.xenproject.org; Sun, 26 Jul 2020 07:01:16 +0000
-X-Inumbo-ID: cbcdf304-cf0d-11ea-89fc-bc764e2007e4
+ id 1jzbmz-0007be-Oq
+ for xen-devel@lists.xenproject.org; Sun, 26 Jul 2020 08:13:45 +0000
+X-Inumbo-ID: ec50ce6c-cf17-11ea-89ff-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cbcdf304-cf0d-11ea-89fc-bc764e2007e4;
- Sun, 26 Jul 2020 07:01:15 +0000 (UTC)
+ id ec50ce6c-cf17-11ea-89ff-bc764e2007e4;
+ Sun, 26 Jul 2020 08:13:44 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D1BDAAAC5;
- Sun, 26 Jul 2020 07:01:23 +0000 (UTC)
-Subject: Re: [RFC PATCH v1 1/4] arm/pci: PCI setup and PCI host bridge
- discovery within XEN on ARM.
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall.oss@gmail.com>
-References: <cover.1595511416.git.rahul.singh@arm.com>
- <64ebd4ef614b36a5844c52426a4a6a4a23b1f087.1595511416.git.rahul.singh@arm.com>
- <alpine.DEB.2.21.2007231055230.17562@sstabellini-ThinkPad-T480s>
- <9f09ff42-a930-e4e3-d1c8-612ad03698ae@xen.org>
- <alpine.DEB.2.21.2007241036460.17562@sstabellini-ThinkPad-T480s>
- <40582d63-49c7-4a51-b35b-8248dfa34b66@xen.org>
- <alpine.DEB.2.21.2007241127480.17562@sstabellini-ThinkPad-T480s>
- <CAJ=z9a3dXSnEBvhkHkZzV9URAGqSfdtJ1Lc838h_ViAWG3ZO4g@mail.gmail.com>
- <alpine.DEB.2.21.2007241353450.17562@sstabellini-ThinkPad-T480s>
+ by mx2.suse.de (Postfix) with ESMTP id 723D3AC52;
+ Sun, 26 Jul 2020 08:13:53 +0000 (UTC)
+Subject: Re: [PATCH 1/6] x86/iommu: re-arrange arch_iommu to separate common
+ fields...
+To: paul@xen.org
+References: <20200724164619.1245-1-paul@xen.org>
+ <20200724164619.1245-2-paul@xen.org>
+ <68b40fdc-e578-7005-aa6e-499c6f04589c@citrix.com>
+ <000001d661eb$392e1ae0$ab8a50a0$@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <68a6a292-d299-aafa-3b38-4f63b1107c6b@suse.com>
-Date: Sun, 26 Jul 2020 09:01:08 +0200
+Message-ID: <63ed6df0-e456-48cd-6df0-601600871226@suse.com>
+Date: Sun, 26 Jul 2020 10:13:37 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2007241353450.17562@sstabellini-ThinkPad-T480s>
+In-Reply-To: <000001d661eb$392e1ae0$ab8a50a0$@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -55,65 +49,76 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Rahul Singh <rahul.singh@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: 'Kevin Tian' <kevin.tian@intel.com>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Paul Durrant' <pdurrant@amazon.com>,
+ 'Lukasz Hawrylko' <lukasz.hawrylko@linux.intel.com>,
+ xen-devel@lists.xenproject.org,
+ =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25.07.2020 01:46, Stefano Stabellini wrote:
-> On Fri, 24 Jul 2020, Julien Grall wrote:
->> On Fri, 24 Jul 2020 at 19:32, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>> If they are not equal, then I fail to see why it would be useful to have this
->>>> value in Xen.
+On 24.07.2020 20:49, Paul Durrant wrote:
+>> From: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Sent: 24 July 2020 18:29
+>>
+>> On 24/07/2020 17:46, Paul Durrant wrote:
+>>> diff --git a/xen/include/asm-x86/iommu.h b/xen/include/asm-x86/iommu.h
+>>> index 6c9d5e5632..a7add5208c 100644
+>>> --- a/xen/include/asm-x86/iommu.h
+>>> +++ b/xen/include/asm-x86/iommu.h
+>>> @@ -45,16 +45,23 @@ typedef uint64_t daddr_t;
 >>>
->>> I think that's because the domain is actually more convenient to use
->>> because a segment can span multiple PCI host bridges. So my
->>> understanding is that a segment alone is not sufficient to identify a
->>> host bridge. From a software implementation point of view it would be
->>> better to use domains.
+>>>  struct arch_iommu
+>>>  {
+>>> -    u64 pgd_maddr;                 /* io page directory machine address */
+>>> -    spinlock_t mapping_lock;            /* io page table lock */
+>>> -    int agaw;     /* adjusted guest address width, 0 is level 2 30-bit */
+>>> -    u64 iommu_bitmap;              /* bitmap of iommu(s) that the domain uses */
+>>> -    struct list_head mapped_rmrrs;
+>>> -
+>>> -    /* amd iommu support */
+>>> -    int paging_mode;
+>>> -    struct page_info *root_table;
+>>> -    struct guest_iommu *g_iommu;
+>>> +    spinlock_t mapping_lock; /* io page table lock */
+>>> +
+>>> +    union {
+>>> +        /* Intel VT-d */
+>>> +        struct {
+>>> +            u64 pgd_maddr; /* io page directory machine address */
+>>> +            int agaw; /* adjusted guest address width, 0 is level 2 30-bit */
+>>> +            u64 iommu_bitmap; /* bitmap of iommu(s) that the domain uses */
+>>> +            struct list_head mapped_rmrrs;
+>>> +        } vtd;
+>>> +        /* AMD IOMMU */
+>>> +        struct {
+>>> +            int paging_mode;
+>>> +            struct page_info *root_table;
+>>> +            struct guest_iommu *g_iommu;
+>>> +        } amd_iommu;
+>>> +    };
 >>
->> AFAICT, this would be a matter of one check vs two checks in Xen :).
->> But... looking at Linux, they will also use domain == segment for ACPI
->> (see [1]). So, I think, they still have to use (domain, bus) to do the lookup.
+>> The naming split here is weird.
 >>
->>>> In which case, we need to use PHYSDEVOP_pci_mmcfg_reserved so
->>>> Dom0 and Xen can synchronize on the segment number.
->>>
->>> I was hoping we could write down the assumption somewhere that for the
->>> cases we care about domain == segment, and error out if it is not the
->>> case.
+>> Ideally we'd have struct {vtd,amd}_iommu in appropriate headers, and
+>> this would be simply
 >>
->> Given that we have only the domain in hand, how would you enforce that?
+>> union {
+>>     struct vtd_iommu vtd;
+>>     struct amd_iommu amd;
+>> };
 >>
->> >From this discussion, it also looks like there is a mismatch between the
->> implementation and the understanding on QEMU devel. So I am a bit
->> concerned that this is not stable and may change in future Linux version.
->>
->> IOW, we are know tying Xen to Linux. So could we implement
->> PHYSDEVOP_pci_mmcfg_reserved *or* introduce a new property that
->> really represent the segment?
+>> If this isn't trivial to arrange, can we at least s/amd_iommu/amd/ here ?
 > 
-> I don't think we are tying Xen to Linux. Rob has already said that
-> linux,pci-domain is basically a generic device tree property. And if we
-> look at https://www.devicetree.org/open-firmware/bindings/pci/pci2_1.pdf
-> "PCI domain" is described and seems to match the Linux definition.
-> 
-> I do think we need to understand the definitions and the differences.
-> Reading online [1][2] it looks like a Linux PCI domain matches a "PCI
-> Segment Group Number" in PCI Express which is probably why Linux is
-> making the assumption that it is making.
+> I was in two minds. I tried to look for a TLA for the AMD IOMMU and 'amd' seemed a little too non-descript. I don't really mind though if there's a strong preference to shorted it.
 
-If I may, I'd like to put the question a little differently, in the hope
-for me to understand the actual issue here: On the x86 side, by way of
-using ACPI, Linux and Xen "naturally" agree on segment numbering (as far
-as normal devices go; Intel's Volume Management Device concept still
-needs accommodating so that it would work with Xen). This includes the
-multiple host bridges case then naturally. How is the Device Tree model
-different from ACPI?
++1 for shortening in some way. Even amd_vi would already be better imo,
+albeit I'm with Andrew and would think just amd is fine here (and
+matches how things are in the file system structure).
+
+While at it, may I ask that you also switch the plain "int" fields to
+"unsigned int" - I think that's doable for both of them.
 
 Jan
 
