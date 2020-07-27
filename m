@@ -2,61 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 273D622ED42
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 15:27:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3474E22ED41
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 15:27:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k039R-0001Vu-VM; Mon, 27 Jul 2020 13:26:45 +0000
+	id 1k039X-0001WL-8o; Mon, 27 Jul 2020 13:26:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KGXS=BG=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1k039Q-0001Vb-Dz
- for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 13:26:44 +0000
-X-Inumbo-ID: cde0e7a1-d00c-11ea-8abe-bc764e2007e4
-Received: from mail-qk1-x72a.google.com (unknown [2607:f8b0:4864:20::72a])
+ id 1k039V-0001Vb-E5
+ for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 13:26:49 +0000
+X-Inumbo-ID: cf386830-d00c-11ea-8abe-bc764e2007e4
+Received: from mail-qk1-x736.google.com (unknown [2607:f8b0:4864:20::736])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cde0e7a1-d00c-11ea-8abe-bc764e2007e4;
- Mon, 27 Jul 2020 13:26:40 +0000 (UTC)
-Received: by mail-qk1-x72a.google.com with SMTP id l23so15195448qkk.0
- for <xen-devel@lists.xenproject.org>; Mon, 27 Jul 2020 06:26:40 -0700 (PDT)
+ id cf386830-d00c-11ea-8abe-bc764e2007e4;
+ Mon, 27 Jul 2020 13:26:42 +0000 (UTC)
+Received: by mail-qk1-x736.google.com with SMTP id l6so15157261qkc.6
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jul 2020 06:26:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :in-reply-to:references;
- bh=KaMEYjlDG3HM6TfMMDf5x6QCTVdKePy2b/fpNHgqtT4=;
- b=AoNJiUMrGU1/zEcVI7rNtQsygstiui6pLZ/O79Gk45wErhqsFyZeXorPFU8EsqyGWv
- p3dmphPgk/gPAsY70nwA+zdMiOy36q17JfiR9hys2QwDiD1/WczxcuVHy1eg0ZZwTODP
- uKpv+ItSTW7lX1qDUMQYI0/s6Mkjp4XJTnmLr1EmfFLnTLTbMuJVzFbjx4KaR0iWlNWl
- 4dIPZWNhU03R7Fdj3emaHVlvP60qgEeNPjsStugzCN6ZkvksBHD7yQJRKL730/oVuzvr
- 99Rswo1yVL7OYds1gt68gcDN0aQ1dIRL6sQMNHZ4l1KO7/D5NdsF9Iq5ehHsyo7Luqk2
- gFYg==
+ bh=CV8gyjU9PwIWw8K/PGrpSXQm3oWpb9KSiaV2uQ4454U=;
+ b=lay2kK3CCt51wkbTIp8LTo2lZhzDQnuSNFU+0RWOUNzK9LMgcSIkudUrTf9IAiY1GA
+ fM9vgNgJkZRjrBny0DX0qd/5qTR2n9PkCKhfmzcBXazOhD12PgaaH4vzE/WYn2dWIGHf
+ PFB3TsoOP5ItV+VnAZdkmyXToxDIHYFgdGZOQaSHWlyXNkyg+IPjqJbg1JrL6MC1qA+o
+ vUEsEkGE2QX1o6s2XCuCNL3tRCABo8VQmN92QcqZwYjpM3Jn6WzYZTYrXpCuAS+Dhg5G
+ ZWjwfdYxKZHXD9hQukmZTvdQyOWf7HzFNcc26yEN0c+5ozfQcc2Vrloo9WXSYz3G0CEG
+ ztLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:in-reply-to:references;
- bh=KaMEYjlDG3HM6TfMMDf5x6QCTVdKePy2b/fpNHgqtT4=;
- b=A66FOtJ0mLQkqX1iU1mRXDQfn0ow25f/8tvWykOzalaQx6t5R/05lnTYmQuBQePKIK
- Fzrdvc1/Rx9sU3aXUXYqxiYieuCXtMdeHYNmD6DUUri/J9o5M+6M6D1oEYUtLWgFrAkg
- 5nkBRZLyMM9D08xbaXetiyoyI/EeQUURbYyChB7vb3X3fs/0NGqcTDXTfv/43WrcvtpT
- 4N8EAld5Jwr7R0IEG1cbvq+a0+VVftqIJxQYyp5myazoab8FhdjrXCt8yKzjKaHBsga/
- BGqmCuw4X8VyF6eo4l+3ltnmbqQimmF6OxiqBTYRp/1655qe8WHF+aYVV1c1AoLJFcNM
- 5LPw==
-X-Gm-Message-State: AOAM530JEJ6Mc+r5rLur5H/d59hBuwi7Xke9ia8sIxxrI7xOUK/WbZBb
- AzUNJ/ETn7cZomdcGNLQjuZ9Cw2CBgA=
-X-Google-Smtp-Source: ABdhPJwh5q3SSQneLjUt5N34KQd0L5ewFAMB6FFOFYJbRJ4Fv2ddzOGdKpRH9TNoBLqx2vdusuMLTg==
-X-Received: by 2002:a05:620a:153c:: with SMTP id
- n28mr9178029qkk.285.1595856399792; 
- Mon, 27 Jul 2020 06:26:39 -0700 (PDT)
+ bh=CV8gyjU9PwIWw8K/PGrpSXQm3oWpb9KSiaV2uQ4454U=;
+ b=lE3xe9zvjYEXFEgF6iYmbaL68UoRbgUmA9tB50YS5OrVwCNDezBu4nHN4cfK4U0ANQ
+ hBgcdEeJlXt4emztcdL5NopXprtgpA6ol42EpB6TFofksX7YcSwmXfaF4WhSnp8PCxC0
+ AS8HGn6Z5Em6RplgWcPb4g/zaUWIEbf0UAknQeUBoxWoSYhTTj3sYTsBOo9pw/4OlArN
+ t/zsplJNSo4ZRu4O2eLDspnrLa0KKOOy/UMyGL/iMNplXCjetq4seKYkHfqCNRzJFtCR
+ OyJKJ5eZLIqRHkZBAiC6nq2KWE0XJ7Hg6Peu554G0w1QGRzBSJKQRfsM8NOjrheCqx9I
+ dPUg==
+X-Gm-Message-State: AOAM530ebiFQYTrPV5PHbph8c0/rh5kiQ2dKJ+FwnDR6eViXEnw1D/6m
+ UWHGnnH5cfm1BJyyBYGZqPrWA8P/n6Q=
+X-Google-Smtp-Source: ABdhPJwHEgYH4RxJ65dlOvT3skSegMWUJKq1BEmSOXGP8QWPnZMs5dxi3yTrOWud3p4+upZklo4niA==
+X-Received: by 2002:a37:a503:: with SMTP id o3mr22160178qke.162.1595856401512; 
+ Mon, 27 Jul 2020 06:26:41 -0700 (PDT)
 Received: from six.lan (cpe-67-241-56-252.twcny.res.rr.com. [67.241.56.252])
- by smtp.gmail.com with ESMTPSA id t8sm11828003qtc.50.2020.07.27.06.26.38
+ by smtp.gmail.com with ESMTPSA id t8sm11828003qtc.50.2020.07.27.06.26.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jul 2020 06:26:38 -0700 (PDT)
+ Mon, 27 Jul 2020 06:26:40 -0700 (PDT)
 From: Nick Rosbrook <rosbrookn@gmail.com>
 X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
 To: xen-devel@lists.xenproject.org
-Subject: [RFC PATCH 1/2] libxl: add Function class to IDL
-Date: Mon, 27 Jul 2020 09:26:32 -0400
-Message-Id: <7e1774dffe69c702f738566abeb04a3a9d29e21b.1595854292.git.rosbrookn@ainfosec.com>
+Subject: [RFC PATCH 2/2] libxl: prototype libxl_device_nic_add/remove with IDL
+Date: Mon, 27 Jul 2020 09:26:33 -0400
+Message-Id: <b7313e96b6865bb13b221720a437c6e2ac57140c.1595854292.git.rosbrookn@ainfosec.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1595854292.git.rosbrookn@ainfosec.com>
 References: <cover.1595854292.git.rosbrookn@ainfosec.com>
@@ -79,126 +78,54 @@ Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Add a Function and CtxFunction classes to idl.py to allow generator
-scripts to generate wrappers which are repetitive and straight forward
-when doing so by hand. Examples of such functions are the
-device_add/remove functions.
-
-To start, a Function has attributes for namespace, name, parameters,
-return type, and an indication if the return value should be interpreted as
-a status code. The CtxFunction class extends this by indicating that a
-libxl_ctx is a required parmeter, and can optionally be an async
-function.
-
-Also, add logic to idl.parse to return the list of functions found in an
-IDL file. For now, have users of idl.py -- i.e. libxl/gentypes.py and
-golang/xenlight/gengotypes.py -- ignore the list of functions returned.
+Add a DeviceFunction class and describe prototypes for
+libxl_device_nic_add/remove in libxl_types.idl.
 
 Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
+--
+This is mostly to serve as an example of how the first patch would be
+used for function support in the IDL.
 ---
- tools/golang/xenlight/gengotypes.py |  2 +-
- tools/libxl/gentypes.py             |  2 +-
- tools/libxl/idl.py                  | 46 ++++++++++++++++++++++++++++-
- 3 files changed, 47 insertions(+), 3 deletions(-)
+ tools/libxl/idl.py          | 8 ++++++++
+ tools/libxl/libxl_types.idl | 6 ++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/tools/golang/xenlight/gengotypes.py b/tools/golang/xenlight/gengotypes.py
-index 557fecd07b..bd3663c9ea 100644
---- a/tools/golang/xenlight/gengotypes.py
-+++ b/tools/golang/xenlight/gengotypes.py
-@@ -718,7 +718,7 @@ def xenlight_golang_fmt_name(name, exported = True):
- if __name__ == '__main__':
-     idlname = sys.argv[1]
- 
--    (builtins, types) = idl.parse(idlname)
-+    (builtins, types, _) = idl.parse(idlname)
- 
-     for b in builtins:
-         name = b.typename
-diff --git a/tools/libxl/gentypes.py b/tools/libxl/gentypes.py
-index 9a45e45acc..ac7306f3f7 100644
---- a/tools/libxl/gentypes.py
-+++ b/tools/libxl/gentypes.py
-@@ -592,7 +592,7 @@ if __name__ == '__main__':
- 
-     (_, idlname, header, header_private, header_json, impl) = sys.argv
- 
--    (builtins,types) = idl.parse(idlname)
-+    (builtins,types,_) = idl.parse(idlname)
- 
-     print("outputting libxl type definitions to %s" % header)
- 
 diff --git a/tools/libxl/idl.py b/tools/libxl/idl.py
-index d7367503b4..1839871f86 100644
+index 1839871f86..15085af8c7 100644
 --- a/tools/libxl/idl.py
 +++ b/tools/libxl/idl.py
-@@ -347,6 +347,45 @@ class OrderedDict(dict):
-     def ordered_items(self):
-         return [(x,self[x]) for x in self.__ordered]
+@@ -386,6 +386,14 @@ class CtxFunction(Function):
  
-+class Function(object):
-+    """
-+    A general description of a function signature.
+         Function.__init__(self, name, params, return_type, return_is_status)
+ 
++class DeviceFunction(CtxFunction):
++    """ A function that modifies a device. """
++    def __init__(self, name=None, device_param=None):
++        params = [ ("domid", uint32), device_param ]
 +
-+    Attributes:
-+      name (str): name of the function, excluding namespace.
-+      params (list of (str,Type)): list of function parameters.
-+      return_type (Type): the Type (if any), returned by the function.
-+      return_is_status (bool): Indicates that the return value should be
-+                               interpreted as an error/status code.
-+    """
-+    def __init__(self, name=None, params=None, return_type=None,
-+                 return_is_status=False, namespace=None):
-+
-+        if namespace is None:
-+            self.namespace = _get_default_namespace()
-+        else:
-+            self.namespace = namespace
-+
-+        self.name = self.namespace + name
-+        self.params = params
-+        self.return_type = return_type
-+        self.return_is_status = return_is_status
-+
-+class CtxFunction(Function):
-+    """
-+    A function that requires a libxl_ctx.
-+
-+    Attributes:
-+      is_asyncop (bool): indicates that the function accepts a
-+                         libxl_asyncop_how parameter.
-+    """
-+    def __init__(self, name=None, params=None, return_type=None,
-+                 return_is_status=False, is_asyncop=False):
-+
-+        self.is_asyncop = is_asyncop
-+
-+        Function.__init__(self, name, params, return_type, return_is_status)
++        CtxFunction.__init__(self, name=name, params=params, return_type=integer,
++                             return_is_status=True, is_asyncop=True)
 +
  def parse(f):
      print("Parsing %s" % f, file=sys.stderr)
  
-@@ -358,6 +397,10 @@ def parse(f):
-             globs[n] = t
-         elif isinstance(t,type(object)) and issubclass(t, Type):
-             globs[n] = t
-+        elif isinstance(t, Function):
-+            globs[n] = t
-+        elif isinstance(t,type(object)) and issubclass(t, Function):
-+            globs[n] = t
-         elif n in ['PASS_BY_REFERENCE', 'PASS_BY_VALUE',
-                    'DIR_NONE', 'DIR_IN', 'DIR_OUT', 'DIR_BOTH',
-                    'namespace', 'hidden']:
-@@ -370,8 +413,9 @@ def parse(f):
-                           % (e.lineno, f, e.text))
+diff --git a/tools/libxl/libxl_types.idl b/tools/libxl/libxl_types.idl
+index 9d3f05f399..22ba93ee4b 100644
+--- a/tools/libxl/libxl_types.idl
++++ b/tools/libxl/libxl_types.idl
+@@ -769,6 +769,12 @@ libxl_device_nic = Struct("device_nic", [
+     ("colo_checkpoint_port", string)
+     ])
  
-     types = [t for t in locs.ordered_values() if isinstance(t,Type)]
-+    funcs = [f for f in locs.ordered_values() if isinstance(f,Function)]
- 
-     builtins = [t for t in types if isinstance(t,Builtin)]
-     types = [t for t in types if not isinstance(t,Builtin)]
- 
--    return (builtins,types)
-+    return (builtins,types,funcs)
++libxl_device_nic_add = DeviceFunction("device_nic_add",
++    ("nic", libxl_device_nic))
++
++libxl_device_nic_remove = DeviceFunction("device_nic_remove",
++    ("nic", libxl_device_nic))
++
+ libxl_device_pci = Struct("device_pci", [
+     ("func",      uint8),
+     ("dev",       uint8),
 -- 
 2.17.1
 
