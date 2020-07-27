@@ -2,136 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0179A22FBE8
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 00:10:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77A3122FBE7
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 00:10:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0BJG-000818-WD; Mon, 27 Jul 2020 22:09:27 +0000
+	id 1k0BJd-00081l-9I; Mon, 27 Jul 2020 22:09:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i/KF=BG=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1k0BJF-000813-Rh
- for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 22:09:25 +0000
-X-Inumbo-ID: d3f943d3-d055-11ea-8b02-bc764e2007e4
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RNOj=BG=yujala.com=srini@srs-us1.protection.inumbo.net>)
+ id 1k0BJb-00081d-KT
+ for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 22:09:47 +0000
+X-Inumbo-ID: e14ad000-d055-11ea-8b02-bc764e2007e4
+Received: from gproxy7-pub.mail.unifiedlayer.com (unknown [70.40.196.235])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d3f943d3-d055-11ea-8b02-bc764e2007e4;
- Mon, 27 Jul 2020 22:09:24 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06RM7nDB101336;
- Mon, 27 Jul 2020 22:08:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=oo4gy89JKS9v8t35Nn6iznW8h1M/3xDxBEt5v+lIvxo=;
- b=PHWvHwOUu44Kh7cWpT4r1cQmFcCVxnyU/IxbHndgtBYNQAGWpKTVGBCeFHx+ZKijYp1X
- ekdd+ur5jb5mf2iEQBBzEYbcgpUhPJMXp/I2Vd9p5gn7SPycHk9YHEou+DTrS0SK0WZw
- lQ8EW71zDHbcOJ9irK8S2NCua+Pdiev/k//apBqMiES1mgKzNUffewR81rUEnNrQ4j77
- VI24QKUhF0S3ZRx4I56XFNt2AXjm35lSAcVcc6hUtZ5nUxHOn8UWJXbienGHBu5Z4kNi
- wc6Vya6F+uWwL2bzjNsZXk+JpP/niEn6eeBFaItkQOD7crhwYhBCF4ZqsNVyiP/ROBAL Qw== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2120.oracle.com with ESMTP id 32hu1jc4s7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 27 Jul 2020 22:08:53 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06RM8RHr100084;
- Mon, 27 Jul 2020 22:08:52 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 32hu5rw25n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 27 Jul 2020 22:08:52 +0000
-Received: from abhmp0001.oracle.com (abhmp0001.oracle.com [141.146.116.7])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 06RM8afa004764;
- Mon, 27 Jul 2020 22:08:36 GMT
-Received: from [10.39.225.118] (/10.39.225.118)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 27 Jul 2020 15:08:35 -0700
-Subject: Re: [PATCH v2 01/11] xen/manage: keep track of the on-going suspend
- mode
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Anchal Agarwal <anchalag@amazon.com>
-References: <50298859-0d0e-6eb0-029b-30df2a4ecd63@oracle.com>
- <20200715204943.GB17938@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <0ca3c501-e69a-d2c9-a24c-f83afd4bdb8c@oracle.com>
- <20200717191009.GA3387@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <5464f384-d4b4-73f0-d39e-60ba9800d804@oracle.com>
- <20200721000348.GA19610@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <408d3ce9-2510-2950-d28d-fdfe8ee41a54@oracle.com>
- <alpine.DEB.2.21.2007211640500.17562@sstabellini-ThinkPad-T480s>
- <20200722180229.GA32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <alpine.DEB.2.21.2007221645430.17562@sstabellini-ThinkPad-T480s>
- <20200723225745.GB32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <alpine.DEB.2.21.2007241431280.17562@sstabellini-ThinkPad-T480s>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
- 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
- Jg6OxFYd01z+a+oL
-Message-ID: <66a9b838-70ed-0807-9260-f2c31343a081@oracle.com>
-Date: Mon, 27 Jul 2020 18:08:29 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id e14ad000-d055-11ea-8b02-bc764e2007e4;
+ Mon, 27 Jul 2020 22:09:46 +0000 (UTC)
+Received: from cmgw11.unifiedlayer.com (unknown [10.9.0.11])
+ by gproxy7.mail.unifiedlayer.com (Postfix) with ESMTP id 67DDA215D8C
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jul 2020 16:09:45 -0600 (MDT)
+Received: from md-71.webhostbox.net ([204.11.58.143]) by cmsmtp with ESMTP
+ id 0BJYkbcGVpSV40BJZk586l; Mon, 27 Jul 2020 16:09:45 -0600
+X-Authority-Reason: nr=8
+X-Authority-Analysis: v=2.3 cv=GKEm7NFK c=1 sm=1 tr=0
+ a=yS0qNmEK8ed8yKyeR8R6rg==:117 a=yS0qNmEK8ed8yKyeR8R6rg==:17
+ a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=8nJEP1OIZ-IA:10:nop_charset_1
+ a=_RQrkK6FrEwA:10:nop_rcvd_month_year
+ a=o-A10e_uY_YA:10:endurance_base64_authed_username_1 a=V_Ht6SivflJ7o7_gc2UA:9
+ a=wPNLvfGTeEIA:10:nop_charset_2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=yujala.com; 
+ s=default;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:In-Reply-To:References:To:From:Sender:Reply-To:Cc:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=3SgGnnpZgltvxZCcexkSDs/YgGLWO8vqovnNKlIbfL8=; b=SFQ1ltdqB3XdNshHcGUlTKj0UC
+ TAZ4OVnsq9iZ62JfL+M9C+vZMcKaSTSAFO4vrTTRzuaPX2pqjZooHpP/e0IwRF/dAg1VkaDLZBASg
+ 7Fz+o2lZRnmZ/99+vlB71GjlUo/wi13EyWWeiyb1/dwPSIzCnPoMA1y/S6Yt6erS7ck0uywlAhMtQ
+ OWbeGCHXEBoUgm0Y9MR3Gtk7htgV2fMplZM7ZEG4XYHASD8JJSyc4cIjRTmTA5IQIMapJIEEAnmZG
+ QFwBV34U4texTVXgpl6q2hBEtAgeqTwRIhogxuUPeabQr3yZSYnFLJmQSY+5WNeXrkzNu5VWkW0qe
+ pEPD0hww==;
+Received: from 162-231-240-210.lightspeed.sntcca.sbcglobal.net
+ ([162.231.240.210]:56562 helo=SRINIASUSLAPTOP)
+ by md-71.webhostbox.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <srini@yujala.com>)
+ id 1k0BJY-001dcD-9H; Mon, 27 Jul 2020 22:09:44 +0000
+From: "Srinivas Bangalore" <srini@yujala.com>
+To: "'Julien Grall'" <julien@xen.org>, <xen-devel@lists.xenproject.org>,
+ "'Christopher Clark'" <christopher.w.clark@gmail.com>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>
+References: <002801d66051$90fe2300$b2fa6900$@yujala.com>
+ <9736680b-1c81-652b-552b-4103341bad50@xen.org>
+ <000001d661cb$45cdaa10$d168fe30$@yujala.com>
+ <5f985a6a-1bd6-9e68-f35f-b0b665688cee@xen.org>
+In-Reply-To: <5f985a6a-1bd6-9e68-f35f-b0b665688cee@xen.org>
+Subject: RE: Porting Xen to Jetson Nano
+Date: Mon, 27 Jul 2020 15:09:42 -0700
+Message-ID: <002901d66462$a1dff530$e59fdf90$@yujala.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2007241431280.17562@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain;
+	charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9695
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- adultscore=0 bulkscore=0
- malwarescore=0 mlxscore=0 spamscore=0 mlxlogscore=999 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2007270148
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9695
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
- mlxlogscore=999
- malwarescore=0 impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0
- suspectscore=0 bulkscore=0 mlxscore=0 lowpriorityscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2007270148
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-us
+Thread-Index: AQIl7jaf5+ZLFToUYJ/P44Ycp83hwAFkmiVWAaCz0KsBnyrDOahXwpMQ
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - md-71.webhostbox.net
+X-AntiAbuse: Original Domain - lists.xenproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - yujala.com
+X-BWhitelist: no
+X-Source-IP: 162.231.240.210
+X-Source-L: No
+X-Exim-ID: 1k0BJY-001dcD-9H
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 162-231-240-210.lightspeed.sntcca.sbcglobal.net
+ (SRINIASUSLAPTOP) [162.231.240.210]:56562
+X-Source-Auth: srini@yujala.com
+X-Email-Count: 1
+X-Source-Cap: c3JpbmlxbGw7c3JpbmlxbGw7bWQtNzEud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,40 +97,177 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: eduval@amazon.com, len.brown@intel.com, peterz@infradead.org,
- benh@kernel.crashing.org, x86@kernel.org, linux-mm@kvack.org, pavel@ucw.cz,
- hpa@zytor.com, kamatam@amazon.com, mingo@redhat.com,
- xen-devel@lists.xenproject.org, sblbir@amazon.com, axboe@kernel.dk,
- konrad.wilk@oracle.com, bp@alien8.de, tglx@linutronix.de, jgross@suse.com,
- netdev@vger.kernel.org, linux-pm@vger.kernel.org, rjw@rjwysocki.net,
- linux-kernel@vger.kernel.org, vkuznets@redhat.com, davem@davemloft.net,
- dwmw@amazon.co.uk, roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 7/24/20 7:01 PM, Stefano Stabellini wrote:
-> Yes, it does, thank you. I'd rather not introduce unknown regressions s=
-o
-> I would recommend to add an arch-specific check on registering
-> freeze/thaw/restore handlers. Maybe something like the following:
->
-> #ifdef CONFIG_X86
->     .freeze =3D blkfront_freeze,
->     .thaw =3D blkfront_restore,
->     .restore =3D blkfront_restore
-> #endif
->
->
-> maybe Boris has a better suggestion on how to do it
+Hi,
 
 
-An alternative might be to still install pm notifier in
-drivers/xen/manage.c (I think as result of latest discussions we decided
-we won't need it) and return -ENOTSUPP for ARM for
-PM_HIBERNATION_PREPARE and friends. Would that work?
+On 24/07/2020 16:01, Srinivas Bangalore wrote:
+> Hi Julien,
 
+Hello,
 
--boris
+>=20
+> Thanks for the tips. Comments inline...
+
+I struggled to find your comment inline as your e-mail client doesn't =
+quote
+my answer. Please configure your e-mail client to use some form of =
+quoting
+(the usual is '>').
+
+[<SB>] Done! Sorry about that.
+
+> Here's the output, truncated since it goes into an infinite loop=20
+> printing the same info:
+> [..]
+> (XEN) Allocating 1:1 mappings totalling 128MB for dom0:
+> (XEN) BANK[0] 0x00000088000000-0x00000090000000 (128MB)
+> (XEN) Grant table range: 0x000000fec00000-0x000000fec68000
+> (XEN) Loading zImage from 00000000e1000000 to
+> 0000000088080000-000000008a23c808
+> (XEN) Allocating PPI 16 for event channel interrupt
+> (XEN) Loading dom0 DTB to 0x000000008fe00000-0x000000008fe34444
+> (XEN) Scrubbing Free RAM on 1 nodes using 4 CPUs
+> (XEN) ........done.
+> (XEN) Initial low memory virq threshold set at 0x4000 pages.
+> (XEN) Std. Loglevel: All
+> (XEN) Guest Loglevel: All
+> (XEN) ***************************************************
+> (XEN) WARNING: CONSOLE OUTPUT IS SYNCHRONOUS
+> (XEN) This option is intended to aid debugging of Xen by ensuring
+> (XEN) that all output is synchronously delivered on the serial line.
+> (XEN) However it can introduce SIGNIFICANT latencies and affect
+> (XEN) timekeeping. It is NOT recommended for production use!
+> (XEN) ***************************************************
+> (XEN) 3... 2... 1...
+> (XEN) *** Serial input -> DOM0 (type 'CTRL-a' three times to switch=20
+> input to
+> Xen)
+> (XEN) Freed 296kB init memory.
+> (XEN) dom0 IPA 0x0000000088080000
+> (XEN) P2M @ 0000000803fc3d40 mfn:0x17f0f5
+> (XEN) 0TH[0x0] =3D 0x004000017f0f377f
+> (XEN) 1ST[0x2] =3D 0x02c00000800006fd
+> (XEN) Mem access check
+> (XEN) dom0 IPA 0x0000000088080000
+> (XEN) P2M @ 0000000803fc3d40 mfn:0x17f0f5
+> (XEN) 0TH[0x0] =3D 0x004000017f0f377f
+> (XEN) 1ST[0x2] =3D 0x02c00000800006fd
+> (XEN) Mem access check
+
+The instruction abort issue looks normal as the mapping is marked as
+non-executable.
+
+Looking at the rest of bits, bits 55:58 indicates the type of mapping =
+used.
+The value suggest the mapping has been considered to be used
+p2m_mmio_direct_c (RW cacheable MMIO). This looks wrong to me because =
+RAM
+should be mapped using p2m_ram_rw.
+
+Looking at your DT, it looks like the region is marked as reserved. On =
+Xen
+4.8, reserved-memory region are not correctly handled (IIRC this was =
+only
+fixed in Xen 4.13). This should be possible to confirm by enable
+CONFIG_DEVICE_TREE_DEBUG in your .config.
+
+The option will debug more information about the mapping to dom0 on your
+console.
+
+However, given you are using an old release, you are at risk at keep =
+finding
+bugs that have been resolved in more recent releases. It would probably
+better if you switch to Xen 4.14 and report any bug you can find there.
+
+[<SB>] OK, I started porting the patch series to 4.14, but it is =
+definitely
+not straightforward ;) Will take some time to do this. BTW, I was =
+looking at
+xen/arch/arm/Rules.mk in 4.14 and it is blank. The previous releases had
+some board-specific stuff in this file - esp the EARLY_PRINTK =
+definitions.
+Has this changed in 4.14?=20
+=20
+>=20
+> [..]
+>=20
+> I added the printk for 'Mem access check' inside the 'case =
+FSC_FLT_PERM'
+of
+> the switch (fsc) code following the lookup. That's what you see in the
+> output above.
+> So it does seem like there's a memory access fault somehow.
+>  =20
+>>
+>> (XEN)=A0 HPFAR_EL2: 0000000000000000
+>>
+>> (XEN)=A0=A0=A0 FAR_EL2: 00000000a0080000
+>>
+>> (XEN)
+>>
+>> (XEN) Guest stack trace from sp=3D0:
+>>
+>> (XEN)=A0=A0 Failed to convert stack to physical address
+>=20
+> [...]
+>=20
+>> It seems the DOM0 kernel did not get added to the task list=85.
+>=20
+>   From a look at the dump, dom0 vCPU0 has been scheduled and running =
+on
+> pCPU0.
+>=20
+>>
+>> Boot args for Xen and Dom0 are here:
+>> (XEN) Checking for initrd in /chosen
+>>
+>> (XEN) linux,initrd limits invalid: 0000000084100000 >=3D
+>> 0000000084100000
+>>
+>> (XEN) RAM: 0000000080000000 - 00000000fedfffff
+>>
+>> (XEN) RAM: 0000000100000000 - 000000017f1fffff
+>>
+>> (XEN)
+>>
+>> (XEN) MODULE[0]: 00000000fc7f8000 - 00000000fc82d000 Device Tree
+>>
+>> (XEN) MODULE[1]: 00000000e1000000 - 00000000e31bc808 Kernel
+>> console=3Dhvc0 earlyprintk=3Dxen earlycon=3Dxen rootfstype=3Dext4 rw =
+rootwait
+>> root=3D/dev/mmcblk0p1 rdinit=3D/sbin/init
+>=20
+> You want to use earlycon=3Dxenboot here.
+>=20
+>>
+>> (XEN)=A0 RESVD[0]: 0000000080000000 - 0000000080020000
+>>
+>> (XEN)=A0 RESVD[1]: 00000000e3500000 - 00000000e3535000
+>>
+>> (XEN)=A0 RESVD[2]: 00000000fc7f8000 - 00000000fc82d000
+>>
+>> (XEN)
+>>
+>> (XEN) Command line: console=3Ddtuart earlyprintk=3Dxen
+>> earlycon=3Duart8250,mmio32,0x70006000 sync_console dom0_mem=3D512M
+>> log_lvl=3Dall guest_loglvl=3Dall console_to_ring
+>=20
+> FWIW, earlyprintk and earlycon are not understood by Xen. They are =
+only
+> useful for Dom0.
+>=20
+> BTW, to Christopher's point, the dtb did have some issues. I had to =
+hack
+the
+> 'interrupt-controller' node to get the GICv2 working.
+> I have attached the .dts file that I'm using.
+[<SB>]=20
+
+Regards,
+Srini
 
 
 
