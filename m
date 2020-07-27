@@ -2,54 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35FC122EC75
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 14:46:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D0422ED40
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 15:27:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k02Vt-0006XI-AI; Mon, 27 Jul 2020 12:45:53 +0000
+	id 1k039M-0001Vg-Lx; Mon, 27 Jul 2020 13:26:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wM/5=BG=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1k02Vr-0006XD-Cy
- for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 12:45:51 +0000
-X-Inumbo-ID: 18f499af-d007-11ea-8ab2-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KGXS=BG=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1k039L-0001Vb-IK
+ for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 13:26:39 +0000
+X-Inumbo-ID: cd299500-d00c-11ea-8abe-bc764e2007e4
+Received: from mail-qk1-x742.google.com (unknown [2607:f8b0:4864:20::742])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 18f499af-d007-11ea-8ab2-bc764e2007e4;
- Mon, 27 Jul 2020 12:45:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=dUPhyrbRxZ9/iZmX05oh+qy6eFjaF0RYmj/4gpOnY9s=; b=lvSwyKcqkWIendRUb6sDmF4lJL
- YtKwNxqQ+kuzzSjnsoMLK6Ffjg6SNXPq7bwEV7G1O2zH1Q4+/PI756sW8Zi5JjN/jS28PUPr2uVs3
- KvTihwkVdSIvjDMUZIYWaPIcqgYwq+0LUhUDWQbJSOM+05iQJwbupfj78qLCkK0ufE4g=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1k02Vp-0007gT-PY; Mon, 27 Jul 2020 12:45:49 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=edge-cache-102.e-fra50.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1k02Vp-0005Sy-EH; Mon, 27 Jul 2020 12:45:49 +0000
-Message-ID: <0c421dee1729295eb8504ee81abbc8e57f220b12.camel@xen.org>
-Subject: Re: [PATCH v7 09/15] efi: use new page table APIs in copy_mapping
-From: Hongyan Xia <hx242@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Date: Mon, 27 Jul 2020 13:45:47 +0100
-In-Reply-To: <bfe28c9c-af4e-96c2-9e6c-354a5bf626d8@suse.com>
-References: <cover.1590750232.git.hongyxia@amazon.com>
- <0259b645c81ecc3879240e30760b0e7641a2b602.1590750232.git.hongyxia@amazon.com>
- <bfe28c9c-af4e-96c2-9e6c-354a5bf626d8@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ id cd299500-d00c-11ea-8abe-bc764e2007e4;
+ Mon, 27 Jul 2020 13:26:38 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id e13so15155744qkg.5
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jul 2020 06:26:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=Kx49vDFEnCjpI9bgQaIAKZwKthm3TcnrdPiQQLY4D+g=;
+ b=Fjpay9uk88OzlbDiI4XZj29nQRdpswTCUxSE5QdvPFokrh9SFKNDQMiK6u+vyo9wdQ
+ swXZx57LaMMCFUyHaoIXSNvXfUyOA5c85IixL7WdwtZg6h+Z6Z2nxHe4/iokGGMriV5+
+ spt+rRmwVhWD8wTYJHxSveQcCE+uWEn5WXG1Tzp63lZAS3oUIFT7tMdgKMLNABgUt0kZ
+ Sr0gJdffacM8dR7FA43XVFF6YlzFsoQ3LHLifWEChq6mMMiqXsRk78tvN0ShZbuX14wU
+ N+E9KT3WeYN+d2UAm9EW395tn6hkZWEDUMMfHN532cTnh0eXEw2sxLPXUJyxcE0jIBAn
+ XVsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Kx49vDFEnCjpI9bgQaIAKZwKthm3TcnrdPiQQLY4D+g=;
+ b=Nx3p+rfgv0Yb51sx6kPO5Uo2XTUKPr5zk5DLx7MkAMWuil6xS/4jX1sktKj71iQFIF
+ 6tRF3NjH0S/+f0onf4w59TTR5TkEzuvWksaI9xdg3cUv0pjOqStspPVeDSglwv/Q3V8R
+ KxDw81NQV3cgticUyEmZ4Wf6E9z2a0p9RCVSrLYxAHJnkCea+TXOAVUtMivGZoGUTAr7
+ z/q+5r1zwSZPr7aAmrsIvr5+ubsV2/b+BTEEdAPrZKZ5yvmCl96WjKF8/8PmVF4J2p3l
+ ptS5m50ZDMM84NLgru9o0f+EGN19QwzRL2eYltXr2Ab6HcIBoavdCpVS+D3zID+1uz+R
+ nepw==
+X-Gm-Message-State: AOAM533hcZrMlp/8JAls0x1IqHZLXV8Dez3A0I5+6XUOBRrENnaWszhx
+ 90Ry3hY30NoynYDDDjQzNQuV5Xo05OY=
+X-Google-Smtp-Source: ABdhPJxGoSMrCEdz6hfZkFVRol1BJDahKxEfx9VpH4C9sQeIhlzkV19UDfnTzYgRfFKQbtFZt3/n9Q==
+X-Received: by 2002:a37:5bc3:: with SMTP id
+ p186mr23556116qkb.401.1595856397970; 
+ Mon, 27 Jul 2020 06:26:37 -0700 (PDT)
+Received: from six.lan (cpe-67-241-56-252.twcny.res.rr.com. [67.241.56.252])
+ by smtp.gmail.com with ESMTPSA id t8sm11828003qtc.50.2020.07.27.06.26.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jul 2020 06:26:36 -0700 (PDT)
+From: Nick Rosbrook <rosbrookn@gmail.com>
+X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
+To: xen-devel@lists.xenproject.org
+Subject: [RFC PATCH 0/2] add function support to IDL
+Date: Mon, 27 Jul 2020 09:26:31 -0400
+Message-Id: <cover.1595854292.git.rosbrookn@ainfosec.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +66,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, julien@xen.org
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, george.dunlap@citrix.com,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, 2020-07-14 at 14:42 +0200, Jan Beulich wrote:
-> On 29.05.2020 13:11, Hongyan Xia wrote:
-> > From: Wei Liu <wei.liu2@citrix.com>
-> > 
-> > After inspection ARM doesn't have alloc_xen_pagetable so this
-> > function
-> > is x86 only, which means it is safe for us to change.
-> 
-> Well, it sits inside a "#ifndef CONFIG_ARM" section.
-> 
-> > @@ -1442,29 +1443,42 @@ static __init void copy_mapping(unsigned
-> > long mfn, unsigned long end,
-> >                                                   unsigned long
-> > emfn))
-> >  {
-> >      unsigned long next;
-> > +    l3_pgentry_t *l3src = NULL, *l3dst = NULL;
-> >  
-> >      for ( ; mfn < end; mfn = next )
-> >      {
-> >          l4_pgentry_t l4e = efi_l4_pgtable[l4_table_offset(mfn <<
-> > PAGE_SHIFT)];
-> > -        l3_pgentry_t *l3src, *l3dst;
-> >          unsigned long va = (unsigned long)mfn_to_virt(mfn);
-> >  
-> > +        if ( !((mfn << PAGE_SHIFT) & ((1UL << L4_PAGETABLE_SHIFT)
-> > - 1)) )
-> 
-> To be in line with ...
-> 
-> > +        {
-> > +            UNMAP_DOMAIN_PAGE(l3src);
-> > +            UNMAP_DOMAIN_PAGE(l3dst);
-> > +        }
-> >          next = mfn + (1UL << (L3_PAGETABLE_SHIFT - PAGE_SHIFT));
-> 
-> ... this, please avoid the left shift of mfn in the if(). Judgingfrom
+At a Xen Summit design session for the golang bindings (see [1]), we
+agreed that it would be beneficial to expand the libxl IDL with function
+support. In addition to benefiting libxl itself, this would allow other
+language bindings to easily generate function wrappers.
 
-What do you mean by "in line" here? It does not look to me that "next
-=" can be easily squashed into the if() condition.
+These RFC patches outline a potential strategy for accomplishing this
+goal. The first patch adds the Function and CtxFunction classes to
+libxl/idl.py, introducing the idea of functions to the IDL. The second
+patch adds a DeviceFunction class and adds some sample definitions to
+libxl/libxl_types.idl for example purposes.
 
-Hongyan
+[1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg00964.html
+
+Nick Rosbrook (2):
+  libxl: add Function class to IDL
+  libxl: prototype libxl_device_nic_add/remove with IDL
+
+ tools/golang/xenlight/gengotypes.py |  2 +-
+ tools/libxl/gentypes.py             |  2 +-
+ tools/libxl/idl.py                  | 54 ++++++++++++++++++++++++++++-
+ tools/libxl/libxl_types.idl         |  6 ++++
+ 4 files changed, 61 insertions(+), 3 deletions(-)
+
+-- 
+2.17.1
 
 
