@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1696F22F02F
+	by mail.lfdr.de (Postfix) with ESMTPS id B025D22F031
 	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 16:22:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k041F-000766-AG; Mon, 27 Jul 2020 14:22:21 +0000
+	id 1k041K-00077x-ML; Mon, 27 Jul 2020 14:22:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wM/5=BG=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1k041D-00075u-Pm
- for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 14:22:19 +0000
-X-Inumbo-ID: 930a170d-d014-11ea-a7d9-12813bfff9fa
+ id 1k041I-00075u-OI
+ for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 14:22:24 +0000
+X-Inumbo-ID: 94bb3e8c-d014-11ea-a7d9-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 930a170d-d014-11ea-a7d9-12813bfff9fa;
- Mon, 27 Jul 2020 14:22:18 +0000 (UTC)
+ id 94bb3e8c-d014-11ea-a7d9-12813bfff9fa;
+ Mon, 27 Jul 2020 14:22:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
  Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=d2dy+O8HMS2n5aYbf6tbA9h3T1JBERn3K5gYW9x8m4c=; b=tzYtqK51jVjeJbI/PqrQpGv6f5
- UYzSv7pwygTT35iG/5CeZTZHyKIptE9fQU/oeoogDQjmBnbqIS5hegfEQO0j3b7aQedxesOW2W+wo
- 03bDsDS7BwxR/QcvPLqtvm0zyEn7VQB9RI4JbGl+lJz2YFrnimT+H/EPiZPyyeRzD76o=;
+ bh=BqJIywzpGYOOk00xzU2J1b4Z+JiGyqnjXWw3J7dS0fY=; b=rS7WFKLQNzKO+aHcR6aQGvADsm
+ DT8CtwbAgC95miE7A08kZKob3pG6Rd6X44F8HkOOpjXhGuoHXf85gJwb23byhcUqkE1Nbv8pfmOhg
+ gS7zo368UpRU5XhOX/366+oB2vECNywbsCjjG8iWh8CP4v9s5wEkPq9+paVBkYSBqiYY=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <hx242@xen.org>)
- id 1k041C-0001Mj-CH; Mon, 27 Jul 2020 14:22:18 +0000
+ id 1k041D-0001NK-RB; Mon, 27 Jul 2020 14:22:19 +0000
 Received: from 54-240-197-233.amazon.com ([54.240.197.233]
  helo=u1bbd043a57dd5a.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <hx242@xen.org>)
- id 1k041C-0002w6-1i; Mon, 27 Jul 2020 14:22:18 +0000
+ id 1k041D-0002w6-GJ; Mon, 27 Jul 2020 14:22:19 +0000
 From: Hongyan Xia <hx242@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v8 01/15] x86/mm: map_pages_to_xen would better have one exit
- path
-Date: Mon, 27 Jul 2020 15:21:51 +0100
-Message-Id: <45a087b2be2f04567af99c630a0bed6500785463.1595857947.git.hongyxia@amazon.com>
+Subject: [PATCH v8 02/15] x86/mm: make sure there is one exit path for
+ modify_xen_mappings
+Date: Mon, 27 Jul 2020 15:21:52 +0100
+Message-Id: <8864d7e68842dc68090bfa5b0b50253d0eb695d8.1595857947.git.hongyxia@amazon.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1595857947.git.hongyxia@amazon.com>
 References: <cover.1595857947.git.hongyxia@amazon.com>
@@ -67,10 +67,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Wei Liu <wei.liu2@citrix.com>
 
-We will soon rewrite the function to handle dynamically mapping and
-unmapping of page tables. Since dynamic mappings may map and unmap pages
-in different iterations of the while loop, we need to lift pl3e out of
-the loop.
+We will soon need to handle dynamically mapping / unmapping page
+tables in the said function. Since dynamic mappings may map and unmap
+pl3e in different iterations, lift pl3e out of the loop.
 
 No functional change.
 
@@ -82,82 +81,61 @@ Changed since v4:
 - drop the end_of_loop goto label.
 
 Changed since v3:
-- remove asserts on rc since rc never gets changed to anything else.
-- reword commit message.
+- remove asserts on rc since it never gets changed to anything else.
 ---
- xen/arch/x86/mm.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ xen/arch/x86/mm.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 82bc676553..0ade9b3917 100644
+index 0ade9b3917..7a11d022c9 100644
 --- a/xen/arch/x86/mm.c
 +++ b/xen/arch/x86/mm.c
-@@ -5085,9 +5085,11 @@ int map_pages_to_xen(
-     unsigned int flags)
+@@ -5474,10 +5474,12 @@ int populate_pt_range(unsigned long virt, unsigned long nr_mfns)
+ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
  {
      bool locking = system_state > SYS_STATE_boot;
-+    l3_pgentry_t *pl3e, ol3e;
-     l2_pgentry_t *pl2e, ol2e;
-     l1_pgentry_t *pl1e, ol1e;
++    l3_pgentry_t *pl3e;
+     l2_pgentry_t *pl2e;
+     l1_pgentry_t *pl1e;
      unsigned int  i;
+     unsigned long v = s;
 +    int rc = -ENOMEM;
  
- #define flush_flags(oldf) do {                 \
-     unsigned int o_ = (oldf);                  \
-@@ -5105,10 +5107,11 @@ int map_pages_to_xen(
+     /* Set of valid PTE bits which may be altered. */
+ #define FLAGS_MASK (_PAGE_NX|_PAGE_DIRTY|_PAGE_ACCESSED|_PAGE_RW|_PAGE_PRESENT)
+@@ -5488,7 +5490,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
  
-     while ( nr_mfns != 0 )
+     while ( v < e )
      {
--        l3_pgentry_t ol3e, *pl3e = virt_to_xen_l3e(virt);
-+        pl3e = virt_to_xen_l3e(virt);
+-        l3_pgentry_t *pl3e = virt_to_xen_l3e(v);
++        pl3e = virt_to_xen_l3e(v);
  
-         if ( !pl3e )
--            return -ENOMEM;
-+            goto out;
-+
-         ol3e = *pl3e;
- 
-         if ( cpu_has_page1gb &&
-@@ -5198,7 +5201,7 @@ int map_pages_to_xen(
- 
+         if ( !pl3e || !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) )
+         {
+@@ -5521,7 +5523,8 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+             /* PAGE1GB: shatter the superpage and fall through. */
              l2t = alloc_xen_pagetable();
-             if ( l2t == NULL )
+             if ( !l2t )
 -                return -ENOMEM;
 +                goto out;
- 
++
              for ( i = 0; i < L2_PAGETABLE_ENTRIES; i++ )
                  l2e_write(l2t + i,
-@@ -5227,7 +5230,7 @@ int map_pages_to_xen(
- 
-         pl2e = virt_to_xen_l2e(virt);
-         if ( !pl2e )
--            return -ENOMEM;
-+            goto out;
- 
-         if ( ((((virt >> PAGE_SHIFT) | mfn_x(mfn)) &
-                ((1u << PAGETABLE_ORDER) - 1)) == 0) &&
-@@ -5271,7 +5274,7 @@ int map_pages_to_xen(
-             {
-                 pl1e = virt_to_xen_l1e(virt);
-                 if ( pl1e == NULL )
--                    return -ENOMEM;
-+                    goto out;
-             }
-             else if ( l2e_get_flags(*pl2e) & _PAGE_PSE )
-             {
-@@ -5299,7 +5302,7 @@ int map_pages_to_xen(
- 
+                           l2e_from_pfn(l3e_get_pfn(*pl3e) +
+@@ -5578,7 +5581,8 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+                 /* PSE: shatter the superpage and try again. */
                  l1t = alloc_xen_pagetable();
-                 if ( l1t == NULL )
+                 if ( !l1t )
 -                    return -ENOMEM;
 +                    goto out;
- 
++
                  for ( i = 0; i < L1_PAGETABLE_ENTRIES; i++ )
                      l1e_write(&l1t[i],
-@@ -5445,7 +5448,10 @@ int map_pages_to_xen(
+                               l1e_from_pfn(l2e_get_pfn(*pl2e) + i,
+@@ -5711,7 +5715,10 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+     flush_area(NULL, FLUSH_TLB_GLOBAL);
  
- #undef flush_flags
- 
+ #undef FLAGS_MASK
 -    return 0;
 +    rc = 0;
 +
@@ -165,7 +143,7 @@ index 82bc676553..0ade9b3917 100644
 +    return rc;
  }
  
- int populate_pt_range(unsigned long virt, unsigned long nr_mfns)
+ #undef flush_area
 -- 
 2.16.6
 
