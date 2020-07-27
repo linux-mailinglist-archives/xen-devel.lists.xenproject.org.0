@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48C1922FD0D
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 01:25:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6253B22FD0F
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 01:25:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0CU8-0006RK-MR; Mon, 27 Jul 2020 23:24:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k0CUN-0006U2-4G; Mon, 27 Jul 2020 23:24:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tQrV=BG=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1k0CU7-0006R9-81
- for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 23:24:43 +0000
-X-Inumbo-ID: 5864b8a4-d060-11ea-8b07-bc764e2007e4
+ id 1k0CUM-0006Tt-J9
+ for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 23:24:58 +0000
+X-Inumbo-ID: 627a5de4-d060-11ea-a817-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5864b8a4-d060-11ea-8b07-bc764e2007e4;
- Mon, 27 Jul 2020 23:24:42 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 627a5de4-d060-11ea-a817-12813bfff9fa;
+ Mon, 27 Jul 2020 23:24:58 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A782621D95;
- Mon, 27 Jul 2020 23:24:39 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 91BF8208E4;
+ Mon, 27 Jul 2020 23:24:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595892280;
- bh=Ezm59BrI2xzB7EIKgvwFqNMC5HrCH6WKJKXNUOGexwc=;
+ s=default; t=1595892297;
+ bh=U+chRqPGR8rJrwHBA7q6Oj2Gm8e0BLsd3/ugWeyaAfw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BGSteS5ITVEMj0WODuAdwdhV7JIHEQjhjWxb1V5OQkPrbIxEhBZXcMKhTVmGr0BQR
- LLGeqFAqXIDKf/51dLNZxbsDhdrY4c44vldmcDXlYPvklli2H9j+GvanZ1QMFIdV02
- an1X3o2X9Shw8xFMxuk6/N7x67eCYaLOSx40Tlow=
+ b=aS9gm9q4YI0vvOm1tahQfiVySX+ojIgDSCMi/Ps3Y3MfwKdOSXRIMeZQFV+DyHLkM
+ j8AxaqcvwXpv6C83Nz8W2pGQTXHsFVjHRehksxxWZt2BNFUnMk3UPyECnb0dXgETzM
+ xa2vSqTx5xlfqyAQKiDtydLidOpXcDLMN5C0mQ34=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 15/17] xen-netfront: fix potential deadlock in
+Subject: [PATCH AUTOSEL 4.19 10/10] xen-netfront: fix potential deadlock in
  xennet_remove()
-Date: Mon, 27 Jul 2020 19:24:18 -0400
-Message-Id: <20200727232420.717684-15-sashal@kernel.org>
+Date: Mon, 27 Jul 2020 19:24:43 -0400
+Message-Id: <20200727232443.718000-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200727232420.717684-1-sashal@kernel.org>
-References: <20200727232420.717684-1-sashal@kernel.org>
+In-Reply-To: <20200727232443.718000-1-sashal@kernel.org>
+References: <20200727232443.718000-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -93,7 +94,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 42 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
-index 482c6c8b0fb7e..88280057e0321 100644
+index 6b4675a9494b2..c8e84276e6397 100644
 --- a/drivers/net/xen-netfront.c
 +++ b/drivers/net/xen-netfront.c
 @@ -63,6 +63,8 @@ module_param_named(max_queues, xennet_max_queues, uint, 0644);
@@ -105,7 +106,7 @@ index 482c6c8b0fb7e..88280057e0321 100644
  static const struct ethtool_ops xennet_ethtool_ops;
  
  struct netfront_cb {
-@@ -1334,12 +1336,15 @@ static struct net_device *xennet_create_dev(struct xenbus_device *dev)
+@@ -1337,12 +1339,15 @@ static struct net_device *xennet_create_dev(struct xenbus_device *dev)
  
  	netif_carrier_off(netdev);
  
@@ -127,7 +128,7 @@ index 482c6c8b0fb7e..88280057e0321 100644
  	return netdev;
  
   exit:
-@@ -2139,28 +2144,43 @@ static const struct attribute_group xennet_dev_group = {
+@@ -2142,28 +2147,43 @@ static const struct attribute_group xennet_dev_group = {
  };
  #endif /* CONFIG_SYSFS */
  
