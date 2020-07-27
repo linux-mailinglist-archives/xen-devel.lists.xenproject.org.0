@@ -2,66 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C8E422F46F
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 18:16:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7833022F5A4
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 18:45:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k05mx-0002Wj-JI; Mon, 27 Jul 2020 16:15:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k06FN-00055P-Ae; Mon, 27 Jul 2020 16:45:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qU+V=BG=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1k05mv-0002We-JU
- for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 16:15:41 +0000
-X-Inumbo-ID: 69a87e66-d024-11ea-8ad3-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 69a87e66-d024-11ea-8ad3-bc764e2007e4;
- Mon, 27 Jul 2020 16:15:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595866540;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=xYD4y5LZG9bWdcQ4wHI/ketk1UinKIDQYh7dblPQgaA=;
- b=C8RUSahkYSYgC97mQceqxK9fTE1yGhXATjmDiLk7IK3DDpsmqFFf8klt
- kB/CLNdMWtsPIBv1hMMKHbmur/N4Ixtt/YldT9QhsmeQzturpNDAYh7Sa
- Crn/SzbW+PF2D7Eh9BpazcbwvePb8sqrCyB6vvn3xhpSjoFBWsRVv0D9K E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: blYReVZ7jcnzuKuWDXWEqtriAH915lGvknKJaAFw2SYEgAHHaU9vrLn3JpnHPh1nWnF8SL+2gU
- yG87+gTaiEVUjfcBQMX0NZVWBuYM0vY4fYv/TodITVtcn+8RWZe2YWUF7nX3ghf6tToa5EawIa
- ZzERfsyABbIYxxYpouSgQCW9czUmi9o2IH7qIMHDQcZ55y0SUbt9irfzBYza0MkpgDSqxJb8mP
- ba7GuQFSSOj7y/6EX9nvgTZyybCm6TyTb17z1aaCxw1DEmzkcq9OUeBKfwrxqoboopkc84IIuR
- Iu4=
-X-SBRS: 2.7
-X-MesageID: 23463965
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,402,1589256000"; d="scan'208";a="23463965"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Ian Jackson <Ian.Jackson@citrix.com>
-Subject: Re: [OSSTEST PATCH 06/14] sg-report-flight: Use WITH clause to use
- index for $anypassq
-Thread-Topic: [OSSTEST PATCH 06/14] sg-report-flight: Use WITH clause to use
- index for $anypassq
-Thread-Index: AQHWX46tFgmYVwZS+kmF2kdEj3oAf6kbga0A
-Date: Mon, 27 Jul 2020 16:15:36 +0000
-Message-ID: <E1356BFA-1FDF-42B8-A4E1-47C45F93D036@citrix.com>
-References: <20200721184205.15232-1-ian.jackson@eu.citrix.com>
- <20200721184205.15232-7-ian.jackson@eu.citrix.com>
-In-Reply-To: <20200721184205.15232-7-ian.jackson@eu.citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <8654226DEB495D4D95881F479438D734@citrix.com>
-Content-Transfer-Encoding: quoted-printable
+ <SRS0=9AKR=BG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k06FL-00054e-Qp
+ for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 16:45:03 +0000
+X-Inumbo-ID: 7f87c83c-d028-11ea-a7a9-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7f87c83c-d028-11ea-a7a9-12813bfff9fa;
+ Mon, 27 Jul 2020 16:44:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZNBlxwVkXZXBH+3CIWjTWMWNCjesxg0BvSNCjSNHnyE=; b=3LeWfDwJEq7Bh3FRqpA7kYBeg
+ jyB41hDL19I50WeQNi6E/iP8pVbWPFDh8xID/gjqDQiFzZOV8zXxNbe4yZGo+qmsM1gs2Gyehu+RE
+ VTM9j0R70SZ+ec2O1TFz6Zd95P9cEGPYcoyqgFxR+YkQWrU3s5ibBayQYFAsHg5h/qp+E=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k06FC-0004u4-81; Mon, 27 Jul 2020 16:44:54 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k06FB-0000Ib-U2; Mon, 27 Jul 2020 16:44:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k06FB-0005bk-TO; Mon, 27 Jul 2020 16:44:53 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152235-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 152235: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=c27a184225eab54d20435c8cab5ad0ef384dc2c0
+X-Osstest-Versions-That: xen=0562cbc14cf02b8188b9f1f37f39a4886776ce7c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 27 Jul 2020 16:44:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,93 +66,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+flight 152235 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152235/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  c27a184225eab54d20435c8cab5ad0ef384dc2c0
+baseline version:
+ xen                  0562cbc14cf02b8188b9f1f37f39a4886776ce7c
+
+Last test of basis   152180  2020-07-24 15:02:33 Z    3 days
+Testing same since   152235  2020-07-27 14:10:29 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-> On Jul 21, 2020, at 7:41 PM, Ian Jackson <ian.jackson@eu.citrix.com> wrot=
-e:
->=20
-> Perf: runtime of my test case now ~11s
->=20
-> Example query before (from the Perl DBI trace):
->=20
->        SELECT * FROM flights JOIN steps USING (flight)
->            WHERE (branch=3D'xen-unstable')
->              AND job=3D? and testid=3D? and status=3D'pass'
->              AND ( (TRUE AND flight <=3D 151903) AND (blessing=3D'real') =
-)
->            LIMIT 1
->=20
-> After:
->=20
->        WITH s AS
->        (
->        SELECT * FROM steps
->         WHERE job=3D? and testid=3D? and status=3D'pass'
->        )
->        SELECT * FROM flights JOIN s USING (flight)
->            WHERE (branch=3D'xen-unstable')
->              AND ( (TRUE AND flight <=3D 151903) AND (blessing=3D'real') =
-)
->            LIMIT 1
->=20
-> In both cases with bind vars:
->=20
->   "test-amd64-i386-xl-pvshim"
->   "guest-start"
->=20
-> Diff to the query:
->=20
-> -        SELECT * FROM flights JOIN steps USING (flight)
-> +        WITH s AS
-> +        (
-> +        SELECT * FROM steps
-> +         WHERE job=3D? and testid=3D? and status=3D'pass'
-> +        )
-> +        SELECT * FROM flights JOIN s USING (flight)
->             WHERE (branch=3D'xen-unstable')
-> -              AND job=3D? and testid=3D? and status=3D'pass'
->               AND ( (TRUE AND flight <=3D 151903) AND (blessing=3D'real')=
- )
->             LIMIT 1
->=20
-> CC: George Dunlap <George.Dunlap@citrix.com>
-> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-> ---
-> schema/steps-job-index.sql |  2 +-
-> sg-report-flight           | 14 ++++++++++++--
-> 2 files changed, 13 insertions(+), 3 deletions(-)
->=20
-> diff --git a/schema/steps-job-index.sql b/schema/steps-job-index.sql
-> index 07dc5a30..2c33af72 100644
-> --- a/schema/steps-job-index.sql
-> +++ b/schema/steps-job-index.sql
-> @@ -1,4 +1,4 @@
-> --- ##OSSTEST## 006 Preparatory
-> +-- ##OSSTEST## 006 Needed
-> --
-> -- This index helps sg-report-flight find if a test ever passed.
->=20
-> diff --git a/sg-report-flight b/sg-report-flight
-> index b5398573..b8d948da 100755
-> --- a/sg-report-flight
-> +++ b/sg-report-flight
-> @@ -849,10 +849,20 @@ sub justifyfailures ($;$) {
->=20
->     my @failures=3D values %{ $fi->{Failures} };
->=20
-> +    # In psql 9.6 this WITH clause makes postgresql do the steps query
-> +    # first.  This is good because if this test never passed we can
-> +    # determine that really quickly using the new index, without
-> +    # having to scan the flights table.  (If the test passed we will
-> +    # probably not have to look at many flights to find one, so in
-> +    # that case this is not much worse.)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Seems a bit weird, but OK.  The SQL looks the same, so:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Reviewed-by: George Dunlap <george.dunlap@citrix.com>
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   0562cbc14c..c27a184225  c27a184225eab54d20435c8cab5ad0ef384dc2c0 -> smoke
 
