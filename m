@@ -2,52 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F029122F272
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 16:40:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 483F922F1FE
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jul 2020 16:37:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k04ID-0000eA-3g; Mon, 27 Jul 2020 14:39:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wM/5=BG=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1k04IC-0000dz-0t
- for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 14:39:52 +0000
-X-Inumbo-ID: 06c48874-d017-11ea-a7dc-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 06c48874-d017-11ea-a7dc-12813bfff9fa;
- Mon, 27 Jul 2020 14:39:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ky65fKbvqZ7A8L5Gk8ErEdsQ2qdgoYphiYBmd6L4iJg=; b=DVityTAwQyVGVd1B7Zqmo7qwz0
- vevx4Ecb6lvT+slCDPePZ0AhFfzNmvQOEyGc77ehhHQM/d0F6+xt3YgPwihcyWRboZ9N9bpyXrDg3
- NdHVJvlhalWof5smlhW08eCrKeI7PUxMmDjryzY5ypRY9/zl2nrZfWOnndl+WcofOeas=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1k04IA-0001kl-1W; Mon, 27 Jul 2020 14:39:50 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=u1bbd043a57dd5a.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1k041W-0002w6-H1; Mon, 27 Jul 2020 14:22:38 +0000
-From: Hongyan Xia <hx242@xen.org>
+	id 1k04EU-0000VE-Av; Mon, 27 Jul 2020 14:36:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iIX7=BG=whatever-company.com=a.perdaens@srs-us1.protection.inumbo.net>)
+ id 1k04ET-0000V5-4Y
+ for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 14:36:01 +0000
+X-Inumbo-ID: 7d144f24-d016-11ea-8ac7-bc764e2007e4
+Received: from mail-wr1-x433.google.com (unknown [2a00:1450:4864:20::433])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7d144f24-d016-11ea-8ac7-bc764e2007e4;
+ Mon, 27 Jul 2020 14:36:00 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id l2so4577579wrc.7
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Jul 2020 07:35:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=elium.com; s=google;
+ h=from:content-transfer-encoding:mime-version:subject:message-id:date
+ :to; bh=w3mAClGwbtL4eYyuh3YjOyz5SaSi3M232OPbxlO7Kvg=;
+ b=kT72GXLm2QqoL/vDo+BLIyBKHBSxH1/IxHn9AYUELKo9gaNGI73Xyxavmlk+lz8K8P
+ W667GDaOvzg3Qs5qc7JOnGWhqzETUk3J1fUcFEoAFAUJehbKLNDfxnlOjAcZduqMqriu
+ vjAQCeB1sQi2VJMRiWGQyt2Hp6qBzFvMI6hPhXqGSCKe8OU1R9uzrbat71uTlfpDc4BR
+ RxrSEF+fHps0mMA0rK3PvwVLzqrkox8gqtlWfkqn/MHbSEzB8aDwEbj397tHNyr2OZbP
+ ehcpum0fA4GEYnrWGICcD6vs25ChDjP10ZlEaxG2XNSc7p/4LdL3bxA13YUmdeTQm2TM
+ swgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:content-transfer-encoding:mime-version
+ :subject:message-id:date:to;
+ bh=w3mAClGwbtL4eYyuh3YjOyz5SaSi3M232OPbxlO7Kvg=;
+ b=smqvysUWr7cYz3oq0GOhxjNi4/nyNvFfdZyfosejGeDM44y7Zh7j4gkaajWU/+RFyx
+ VgPF75D5wgOfQv5sYCfvBFheirhIiW1bpr9uW9O5+UzlHSliQy1pJ4h4O0f1KPXCf7dA
+ i8qzZ5UXh/IgI1/7fds6Y4XP4KMf/8etz7rMp8xVWzLckJF3LVXD72ai3UOmbQfBePel
+ yMlHtk37vXtaZx/d2malL7he0prNk14HoaHluKrdvAgkeGGFUyqV2r50EBZtT9TBFf36
+ k1FOxFqkrFf6FVnxpk/Vq6vGoIoQpG8PI603XHC9ylimlWwUeTtffJUI6oqjQiITIbgb
+ TmUA==
+X-Gm-Message-State: AOAM533ZrXyAKZq2AbCj9ORwe3dfZn0gzS+yDHAsBRCoXn+CKfxqdOz7
+ OMYmbhxU3Lk7fypE4BpCKJNP76E5PoI=
+X-Google-Smtp-Source: ABdhPJxzLq5vJ7Jr1p6TwHVhtJA6qMvI6HL5i6AkAOwIuNEE+vwZA/I8Y7J8RL3SimpZcOyBqWvOfQ==
+X-Received: by 2002:a5d:6990:: with SMTP id g16mr20072972wru.131.1595860558537; 
+ Mon, 27 Jul 2020 07:35:58 -0700 (PDT)
+Received: from [10.192.1.211] ([37.19.15.130])
+ by smtp.gmail.com with ESMTPSA id f9sm12631505wru.47.2020.07.27.07.35.57
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 27 Jul 2020 07:35:58 -0700 (PDT)
+From: Antoine Perdaens <a.perdaens@elium.com>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
+Subject: qdisk error with rbd
+Message-Id: <81E74684-4758-4647-BCE5-8C881067ABC9@elium.com>
+Date: Mon, 27 Jul 2020 16:35:56 +0200
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v8 15/15] x86/mm: drop _new suffix for page table APIs
-Date: Mon, 27 Jul 2020 15:22:05 +0100
-Message-Id: <5ee357f27bb604305dca480fecb8b56e9de5d8d3.1595857947.git.hongyxia@amazon.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <cover.1595857947.git.hongyxia@amazon.com>
-References: <cover.1595857947.git.hongyxia@amazon.com>
-In-Reply-To: <cover.1595857947.git.hongyxia@amazon.com>
-References: <cover.1595857947.git.hongyxia@amazon.com>
+X-Mailer: Apple Mail (2.3608.80.23.2.2)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,275 +70,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, jgrall@amazon.com,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Wei Liu <wei.liu2@citrix.com>
+Hello all,
 
-No functional change.
+Our current setup is based on Xen 4.11 + Qemu 3.1 with rbd disks, an =
+example of a disk that works : =
+"vdev=3Dxvda1,backendtype=3Dqdisk,target=3Drbd:rbd-pool/disk-02-root:id=3D=
+rbd=E2=80=9D.
 
-Signed-off-by: Wei Liu <wei.liu2@citrix.com>
-Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/x86/mm.c        | 44 ++++++++++++++++++++++----------------------
- xen/arch/x86/smpboot.c   |  6 +++---
- xen/arch/x86/x86_64/mm.c |  2 +-
- xen/include/asm-x86/mm.h |  4 ++--
- 4 files changed, 28 insertions(+), 28 deletions(-)
+The same setup with Qemu 5.0 gives this error in /var/log/xen/qemu-dm-* =
+: "qemu-system-i386: failed to create 'qdisk' device '51713': failed to =
+create drive: Could not open 'rbd:rbd-pool/disk-02-root:id=3Drbd': No =
+such file or directory=E2=80=9D
 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 8348f6329f..465a5bf0df 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -356,7 +356,7 @@ void __init arch_init_memory(void)
-             ASSERT(root_pgt_pv_xen_slots < ROOT_PAGETABLE_PV_XEN_SLOTS);
-             if ( l4_table_offset(split_va) == l4_table_offset(split_va - 1) )
-             {
--                mfn_t l3mfn = alloc_xen_pagetable_new();
-+                mfn_t l3mfn = alloc_xen_pagetable();
- 
-                 if ( !mfn_eq(l3mfn, INVALID_MFN) )
-                 {
-@@ -4931,7 +4931,7 @@ int mmcfg_intercept_write(
-  * them. The caller must check whether the allocation has succeeded, and only
-  * pass valid MFNs to map_domain_page().
-  */
--mfn_t alloc_xen_pagetable_new(void)
-+mfn_t alloc_xen_pagetable(void)
- {
-     if ( system_state != SYS_STATE_early_boot )
-     {
-@@ -4945,7 +4945,7 @@ mfn_t alloc_xen_pagetable_new(void)
- }
- 
- /* mfn can be INVALID_MFN */
--void free_xen_pagetable_new(mfn_t mfn)
-+void free_xen_pagetable(mfn_t mfn)
- {
-     if ( system_state != SYS_STATE_early_boot && !mfn_eq(mfn, INVALID_MFN) )
-         free_domheap_page(mfn_to_page(mfn));
-@@ -4953,7 +4953,7 @@ void free_xen_pagetable_new(mfn_t mfn)
- 
- void *alloc_map_clear_xen_pt(mfn_t *pmfn)
- {
--    mfn_t mfn = alloc_xen_pagetable_new();
-+    mfn_t mfn = alloc_xen_pagetable();
-     void *ret;
- 
-     if ( mfn_eq(mfn, INVALID_MFN) )
-@@ -4999,7 +4999,7 @@ static l3_pgentry_t *virt_to_xen_l3e(unsigned long v)
-         }
-         if ( locking )
-             spin_unlock(&map_pgdir_lock);
--        free_xen_pagetable_new(l3mfn);
-+        free_xen_pagetable(l3mfn);
-     }
- 
-     return map_l3t_from_l4e(*pl4e) + l3_table_offset(v);
-@@ -5034,7 +5034,7 @@ static l2_pgentry_t *virt_to_xen_l2e(unsigned long v)
-         }
-         if ( locking )
-             spin_unlock(&map_pgdir_lock);
--        free_xen_pagetable_new(l2mfn);
-+        free_xen_pagetable(l2mfn);
-     }
- 
-     BUG_ON(l3e_get_flags(*pl3e) & _PAGE_PSE);
-@@ -5073,7 +5073,7 @@ l1_pgentry_t *virt_to_xen_l1e(unsigned long v)
-         }
-         if ( locking )
-             spin_unlock(&map_pgdir_lock);
--        free_xen_pagetable_new(l1mfn);
-+        free_xen_pagetable(l1mfn);
-     }
- 
-     BUG_ON(l2e_get_flags(*pl2e) & _PAGE_PSE);
-@@ -5182,10 +5182,10 @@ int map_pages_to_xen(
-                         ol2e = l2t[i];
-                         if ( (l2e_get_flags(ol2e) & _PAGE_PRESENT) &&
-                              !(l2e_get_flags(ol2e) & _PAGE_PSE) )
--                            free_xen_pagetable_new(l2e_get_mfn(ol2e));
-+                            free_xen_pagetable(l2e_get_mfn(ol2e));
-                     }
-                     unmap_domain_page(l2t);
--                    free_xen_pagetable_new(l3e_get_mfn(ol3e));
-+                    free_xen_pagetable(l3e_get_mfn(ol3e));
-                 }
-             }
- 
-@@ -5224,7 +5224,7 @@ int map_pages_to_xen(
-                 continue;
-             }
- 
--            l2mfn = alloc_xen_pagetable_new();
-+            l2mfn = alloc_xen_pagetable();
-             if ( mfn_eq(l2mfn, INVALID_MFN) )
-                 goto out;
- 
-@@ -5252,7 +5252,7 @@ int map_pages_to_xen(
-                 spin_unlock(&map_pgdir_lock);
-             flush_area(virt, flush_flags);
- 
--            free_xen_pagetable_new(l2mfn);
-+            free_xen_pagetable(l2mfn);
-         }
- 
-         pl2e = virt_to_xen_l2e(virt);
-@@ -5286,7 +5286,7 @@ int map_pages_to_xen(
-                         flush_flags(l1e_get_flags(l1t[i]));
-                     flush_area(virt, flush_flags);
-                     unmap_domain_page(l1t);
--                    free_xen_pagetable_new(l2e_get_mfn(ol2e));
-+                    free_xen_pagetable(l2e_get_mfn(ol2e));
-                 }
-             }
- 
-@@ -5331,7 +5331,7 @@ int map_pages_to_xen(
-                     goto check_l3;
-                 }
- 
--                l1mfn = alloc_xen_pagetable_new();
-+                l1mfn = alloc_xen_pagetable();
-                 if ( mfn_eq(l1mfn, INVALID_MFN) )
-                     goto out;
- 
-@@ -5358,7 +5358,7 @@ int map_pages_to_xen(
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(virt, flush_flags);
- 
--                free_xen_pagetable_new(l1mfn);
-+                free_xen_pagetable(l1mfn);
-             }
- 
-             pl1e  = map_l1t_from_l2e(*pl2e) + l1_table_offset(virt);
-@@ -5424,7 +5424,7 @@ int map_pages_to_xen(
-                     flush_area(virt - PAGE_SIZE,
-                                FLUSH_TLB_GLOBAL |
-                                FLUSH_ORDER(PAGETABLE_ORDER));
--                    free_xen_pagetable_new(l2e_get_mfn(ol2e));
-+                    free_xen_pagetable(l2e_get_mfn(ol2e));
-                 }
-                 else if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-@@ -5475,7 +5475,7 @@ int map_pages_to_xen(
-                 flush_area(virt - PAGE_SIZE,
-                            FLUSH_TLB_GLOBAL |
-                            FLUSH_ORDER(2*PAGETABLE_ORDER));
--                free_xen_pagetable_new(l3e_get_mfn(ol3e));
-+                free_xen_pagetable(l3e_get_mfn(ol3e));
-             }
-             else if ( locking )
-                 spin_unlock(&map_pgdir_lock);
-@@ -5564,7 +5564,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             }
- 
-             /* PAGE1GB: shatter the superpage and fall through. */
--            l2mfn = alloc_xen_pagetable_new();
-+            l2mfn = alloc_xen_pagetable();
-             if ( mfn_eq(l2mfn, INVALID_MFN) )
-                 goto out;
- 
-@@ -5588,7 +5588,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             if ( locking )
-                 spin_unlock(&map_pgdir_lock);
- 
--            free_xen_pagetable_new(l2mfn);
-+            free_xen_pagetable(l2mfn);
-         }
- 
-         /*
-@@ -5624,7 +5624,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             {
-                 l1_pgentry_t *l1t;
-                 /* PSE: shatter the superpage and try again. */
--                mfn_t l1mfn = alloc_xen_pagetable_new();
-+                mfn_t l1mfn = alloc_xen_pagetable();
- 
-                 if ( mfn_eq(l1mfn, INVALID_MFN) )
-                     goto out;
-@@ -5648,7 +5648,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
- 
--                free_xen_pagetable_new(l1mfn);
-+                free_xen_pagetable(l1mfn);
-             }
-         }
-         else
-@@ -5715,7 +5715,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
--                free_xen_pagetable_new(l1mfn);
-+                free_xen_pagetable(l1mfn);
-             }
-             else if ( locking )
-                 spin_unlock(&map_pgdir_lock);
-@@ -5760,7 +5760,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
--                free_xen_pagetable_new(l2mfn);
-+                free_xen_pagetable(l2mfn);
-             }
-             else if ( locking )
-                 spin_unlock(&map_pgdir_lock);
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index f431f526da..a01412a986 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -902,15 +902,15 @@ static void cleanup_cpu_root_pgt(unsigned int cpu)
-                     continue;
- 
-                 ASSERT(!(l2e_get_flags(l2t[i2]) & _PAGE_PSE));
--                free_xen_pagetable_new(l2e_get_mfn(l2t[i2]));
-+                free_xen_pagetable(l2e_get_mfn(l2t[i2]));
-             }
- 
-             unmap_domain_page(l2t);
--            free_xen_pagetable_new(l2mfn);
-+            free_xen_pagetable(l2mfn);
-         }
- 
-         unmap_domain_page(l3t);
--        free_xen_pagetable_new(l3mfn);
-+        free_xen_pagetable(l3mfn);
-     }
- 
-     free_xenheap_page(rpt);
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index 640f561faf..74c0bbb4aa 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -622,7 +622,7 @@ void __init paging_init(void)
-     UNMAP_DOMAIN_PAGE(l3_ro_mpt);
- 
-     /* Create user-accessible L2 directory to map the MPT for compat guests. */
--    mfn = alloc_xen_pagetable_new();
-+    mfn = alloc_xen_pagetable();
-     if ( mfn_eq(mfn, INVALID_MFN) )
-         goto nomem;
-     compat_idle_pg_table_l2 = map_domain_page_global(mfn);
-diff --git a/xen/include/asm-x86/mm.h b/xen/include/asm-x86/mm.h
-index 1bd8198133..908d67664d 100644
---- a/xen/include/asm-x86/mm.h
-+++ b/xen/include/asm-x86/mm.h
-@@ -582,8 +582,8 @@ int vcpu_destroy_pagetables(struct vcpu *);
- void *do_page_walk(struct vcpu *v, unsigned long addr);
- 
- /* Allocator functions for Xen pagetables. */
--mfn_t alloc_xen_pagetable_new(void);
--void free_xen_pagetable_new(mfn_t mfn);
-+mfn_t alloc_xen_pagetable(void);
-+void free_xen_pagetable(mfn_t mfn);
- void *alloc_map_clear_xen_pt(mfn_t *pmfn);
- 
- l1_pgentry_t *virt_to_xen_l1e(unsigned long v);
--- 
-2.16.6
 
+Looking at the source in xen-block.c it looks like the driver is forced =
+to =E2=80=9Cfile=E2=80=9D which wouldn=E2=80=99t work for other type of =
+block devices.
+
+It looks like a regression with the xen-disk introduction.
+
+Regards,
+Antoine=
 
