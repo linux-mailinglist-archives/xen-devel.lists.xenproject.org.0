@@ -2,48 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09D9F23044B
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 09:41:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94D8623045D
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 09:44:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0KF5-0000ij-O8; Tue, 28 Jul 2020 07:41:43 +0000
+	id 1k0KH7-0000qp-5C; Tue, 28 Jul 2020 07:43:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QMc3=BH=3mdeb.com=norbert.kaminski@srs-us1.protection.inumbo.net>)
- id 1k0KF4-0000ie-75
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 07:41:42 +0000
-X-Inumbo-ID: c5f41410-d0a5-11ea-a869-12813bfff9fa
-Received: from 7.mo179.mail-out.ovh.net (unknown [46.105.61.94])
+ <SRS0=E6Nk=BH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k0KH5-0000qj-QN
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 07:43:47 +0000
+X-Inumbo-ID: 10f23262-d0a6-11ea-a869-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c5f41410-d0a5-11ea-a869-12813bfff9fa;
- Tue, 28 Jul 2020 07:41:40 +0000 (UTC)
-Received: from player770.ha.ovh.net (unknown [10.108.57.53])
- by mo179.mail-out.ovh.net (Postfix) with ESMTP id E617E16FF90
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jul 2020 09:41:38 +0200 (CEST)
-Received: from 3mdeb.com (85-222-117-222.dynamic.chello.pl [85.222.117.222])
- (Authenticated sender: norbert.kaminski@3mdeb.com)
- by player770.ha.ovh.net (Postfix) with ESMTPSA id 8B15E14D53567;
- Tue, 28 Jul 2020 07:41:33 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-95G001336571aa-5fee-4d5d-b215-046d926df4aa,44753483405F3E1C42F8196D1C7200706683A5BB)
- smtp.auth=norbert.kaminski@3mdeb.com
-From: Norbert Kaminski <norbert.kaminski@3mdeb.com>
-To: xen-devel@lists.xenproject.org
-Subject: fwupd support under Xen - firmware updates with the UEFI capsule
-Message-ID: <497f1524-b57e-0ea1-5899-62f677bfae91@3mdeb.com>
-Date: Tue, 28 Jul 2020 09:41:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 10f23262-d0a6-11ea-a869-12813bfff9fa;
+ Tue, 28 Jul 2020 07:43:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=NBZTdmWETaCOFvSUHTYVlekY/B/J45eAYazUHxCMR1E=; b=PXYv9GzxnoQqZOYMr3LZPsgRS
+ UKtUb7WeGeSjGxhcfRydBfKwiRltdaY5YpvCgFnShmtn8LW43ruqG8E5eKmR6I8ZeSu18FtkSY+zR
+ zCnNsWFoOTaF6t2G4jgvKEvYEAAxTR81K8nAggPMfRoQme9lK8Vm93F4YnBk5LIUhJz4U=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0KH2-0001A9-WF; Tue, 28 Jul 2020 07:43:45 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0KH2-0003O1-JV; Tue, 28 Jul 2020 07:43:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0KH2-0003XO-Iu; Tue, 28 Jul 2020 07:43:44 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152247-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="------------178149245AA07C14C2986652"
-Content-Language: en-US
-X-Ovh-Tracer-Id: 15470427670647445866
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduiedriedugdduvdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvuffkffgfgggtsegrtderredtfeejnecuhfhrohhmpefpohhrsggvrhhtucfmrghmihhnshhkihcuoehnohhrsggvrhhtrdhkrghmihhnshhkihesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnheptedtheejgeeileektedvteefhfduffdtgefggfejgeeufffhudehtdevieelfeefnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhdpghhithhhuhgsrdgtohhmpdefmhguvggsrdgtohhmnecukfhppedtrddtrddtrddtpdekhedrvddvvddruddujedrvddvvdenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrhejjedtrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepnhhorhgsvghrthdrkhgrmhhinhhskhhiseefmhguvggsrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
+Subject: [libvirt test] 152247: regressions - FAIL
+X-Osstest-Failures: libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=a34fab5399c0ef84051af8ce2d8881243fa01f1b
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 28 Jul 2020 07:43:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,261 +79,129 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: andrew.cooper3@citrix.com, Maciej Pijanowski <maciej.pijanowski@3mdeb.com>,
- piotr.krol@3mdeb.com, marmarek@invisiblethingslab.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
---------------178149245AA07C14C2986652
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+flight 152247 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152247/
 
-Hello all,
+Regressions :-(
 
-I'm trying to add support for the firmware updates with the UEFI capsule in
-Qubes OS. I've got the troubles with reading ESRT (EFI System Resource 
-Table)
-in the dom0, which is based on the EFI memory map. The EFI_MEMMAP is not
-enabled despite the loaded drivers (CONFIG_EFI, CONFIG_EFI_ESRT) and kernel
-cmdline parameters (add_efi_memmap):
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-```
-[    3.451249] efi: EFI_MEMMAP is not enabled.
-```
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
 
-The fwupd bases on the ESRT entries, which provide the system firmware 
-GUID.
-The GUID is checked using LVFS metadata, which contains information 
-about updates.
-When efi_memmap is not enabled, there are no ESRT entries in the sysfs, 
-and fwupd
-has no information about the system firmware GUID.  It is therefore not 
-possible to
-check whether updates are available for the BIOS.
+version targeted for testing:
+ libvirt              a34fab5399c0ef84051af8ce2d8881243fa01f1b
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-This is how the ESRT entries looks in the Ubuntu:
+Last test of basis   151777  2020-07-10 04:19:19 Z   18 days
+Failing since        151818  2020-07-11 04:18:52 Z   17 days   18 attempts
+Testing same since   152247  2020-07-28 04:18:55 Z    0 days    1 attempts
 
-```
-ubuntu@ubuntu:/sys/firmware/efi/esrt$ ll
-total 0
-drwxr-xr-x 3 root root    0 Jul 27 13:14 ./
-drwxr-xr-x 6 root root    0 Jul 27 13:13 ../
-drwxr-xr-x 3 root root    0 Jul 27 13:17 entries/
--r-------- 1 root root 4096 Jul 27 13:17 fw_resource_count
--r-------- 1 root root 4096 Jul 27 13:17 fw_resource_count_max
--r-------- 1 root root 4096 Jul 27 13:17 fw_resource_version
-ubuntu@ubuntu:/sys/firmware/efi/esrt/entries/entry0$ ll
-total 0
-drwxr-xr-x 2 root root    0 Jul 27 13:17 ./
-drwxr-xr-x 3 root root    0 Jul 27 13:17 ../
--r-------- 1 root root 4096 Jul 27 13:17 capsule_flags
--r-------- 1 root root 4096 Jul 27 13:17 fw_class
--r-------- 1 root root 4096 Jul 27 13:17 fw_type
--r-------- 1 root root 4096 Jul 27 13:17 fw_version
--r-------- 1 root root 4096 Jul 27 13:17 last_attempt_status
--r-------- 1 root root 4096 Jul 27 13:17 last_attempt_version
--r-------- 1 root root 4096 Jul 27 13:17 lowest_supported_fw_version
-ubuntu@ubuntu:/sys/firmware/efi/esrt/entries/entry0$ sudo cat fw_class
-34578c72-11dc-4378-bc7f-b643866f598c
-```
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Weblate <noreply@weblate.org>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
 
-This is the source code of the ESRT driver, which provides those 
-directories:
-
-https://gitlab.com/cki-project/kernel-ark/-/blob/os-build/drivers/firmware/efi/esrt.c 
-
-
-EFI_MEMMAP dependency is in the 248th line:
-
-https://gitlab.com/cki-project/kernel-ark/-/blob/os-build/drivers/firmware/efi/esrt.c#L248
-
-I need to pass ESRT to the dom0. What would be the best way to do that?
-
-Ps. Marek Marczykowski-Górecki (Qubes /Project lead) /found some more 
-information,
-where the problem lays:
-
-/EFI_MEMMAP is not enabled on EFI_PARAVIRT (which I believe is the case 
-on Xen dom0):/
-
-/https://github.com/torvalds/linux/blob/92ed301919932f777713b9172e525674157e983d/drivers/firmware/efi/memmap.c#L110/
-
-/My reading the source code says the Xen side to extract this info 
-exists, but
-Linux doesn't use it specifically, EFI config table address is get here:/
-
-/https://github.com/torvalds/linux/blob/master/arch/x86/xen/efi.c#L56-L63/
-
-/But then nothing uses efi_systab_xen.tables.
-efi_config_parse_tables() function should be called on those addresses:
-/
-
-/https://github.com/torvalds/linux/blob/master/drivers/firmware/efi/efi.c#L542
-/
-
-/But I don't think it is called in PV dom0 boot path (not fully sure 
-about that yet)./
-
-
-Best Regards,
-Norbert Kamiński
-Junior Embedded Systems Engineer
-GPG key ID: 9E9F90AFE10F466A
-3mdeb.com
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
---------------178149245AA07C14C2986652
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-<html>
-  <head>
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hello all,
-      <br>
-      <br>
-      I'm trying to add support for the firmware updates with the UEFI
-      capsule in
-      <br>
-      Qubes OS. I've got the troubles with reading ESRT (EFI System
-      Resource Table)
-      <br>
-      in the dom0, which is based on the EFI memory map. The EFI_MEMMAP
-      is not
-      <br>
-      enabled despite the loaded drivers (CONFIG_EFI, CONFIG_EFI_ESRT)
-      and kernel
-      <br>
-      cmdline parameters (add_efi_memmap):
-      <br>
-      <br>
-      ```
-      <br>
-      [    3.451249] efi: EFI_MEMMAP is not enabled.
-      <br>
-      ```
-      <br>
-      <br>
-      The fwupd bases on the ESRT entries, which provide the system
-      firmware GUID.
-      <br>
-      The GUID is checked using LVFS metadata, which contains
-      information about updates.
-      <br>
-      When efi_memmap is not enabled, there are no ESRT entries in the
-      sysfs, and fwupd
-      <br>
-      has no information about the system firmware GUID.  It is
-      therefore not possible to
-      <br>
-      check whether updates are available for the BIOS.
-      <br>
-      <br>
-      This is how the ESRT entries looks in the Ubuntu:
-      <br>
-      <br>
-      ```
-      <br>
-      ubuntu@ubuntu:/sys/firmware/efi/esrt$ ll
-      <br>
-      total 0
-      <br>
-      drwxr-xr-x 3 root root    0 Jul 27 13:14 ./
-      <br>
-      drwxr-xr-x 6 root root    0 Jul 27 13:13 ../
-      <br>
-      drwxr-xr-x 3 root root    0 Jul 27 13:17 entries/
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 fw_resource_count
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 fw_resource_count_max
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 fw_resource_version
-      <br>
-      ubuntu@ubuntu:/sys/firmware/efi/esrt/entries/entry0$ ll
-      <br>
-      total 0
-      <br>
-      drwxr-xr-x 2 root root    0 Jul 27 13:17 ./
-      <br>
-      drwxr-xr-x 3 root root    0 Jul 27 13:17 ../
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 capsule_flags
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 fw_class
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 fw_type
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 fw_version
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 last_attempt_status
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17 last_attempt_version
-      <br>
-      -r-------- 1 root root 4096 Jul 27 13:17
-      lowest_supported_fw_version
-      <br>
-      ubuntu@ubuntu:/sys/firmware/efi/esrt/entries/entry0$ sudo cat
-      fw_class
-      <br>
-      34578c72-11dc-4378-bc7f-b643866f598c
-      <br>
-      ```
-      <br>
-      <br>
-      This is the source code of the ESRT driver, which provides those
-      directories:
-      <br>
-      <br>
-      <a class="moz-txt-link-freetext"
-href="https://gitlab.com/cki-project/kernel-ark/-/blob/os-build/drivers/firmware/efi/esrt.c">https://gitlab.com/cki-project/kernel-ark/-/blob/os-build/drivers/firmware/efi/esrt.c</a>
-      <br>
-      <br>
-      EFI_MEMMAP dependency is in the 248th line:
-      <br>
-      <br>
-      <a class="moz-txt-link-freetext"
-href="https://gitlab.com/cki-project/kernel-ark/-/blob/os-build/drivers/firmware/efi/esrt.c#L248">https://gitlab.com/cki-project/kernel-ark/-/blob/os-build/drivers/firmware/efi/esrt.c#L248</a></p>
-    <p>I need to pass ESRT to the dom0. What would be the best way to do
-      that?</p>
-    <p>Ps. Marek Marczykowski-Górecki (Qubes <em class="role
-        half-bottom">Project lead) </em><span class="role half-bottom"></span><span
-        class="role half-bottom">found some more information,<br>
-        where the problem lays:</span></p>
-    <p><em class="role half-bottom">EFI_MEMMAP is not enabled on
-        EFI_PARAVIRT (which I believe is the case on Xen dom0):</em></p>
-    <p><em class="role half-bottom"><a class="moz-txt-link-freetext" href="https://github.com/torvalds/linux/blob/92ed301919932f777713b9172e525674157e983d/drivers/firmware/efi/memmap.c#L110">https://github.com/torvalds/linux/blob/92ed301919932f777713b9172e525674157e983d/drivers/firmware/efi/memmap.c#L110</a></em></p>
-    <p><em class="role half-bottom">My reading the source code says the
-        Xen side to extract this info exists, but <br>
-        Linux doesn't use it specifically, EFI config table address is
-        get here:</em></p>
-    <p><em class="role half-bottom"><a class="moz-txt-link-freetext" href="https://github.com/torvalds/linux/blob/master/arch/x86/xen/efi.c#L56-L63">https://github.com/torvalds/linux/blob/master/arch/x86/xen/efi.c#L56-L63</a></em></p>
-    <p><em class="role half-bottom">But then nothing uses
-        efi_systab_xen.tables. <br>
-        efi_config_parse_tables() function should be called on those
-        addresses: <br>
-      </em></p>
-    <p><em class="role half-bottom"><a class="moz-txt-link-freetext" href="https://github.com/torvalds/linux/blob/master/drivers/firmware/efi/efi.c#L542">https://github.com/torvalds/linux/blob/master/drivers/firmware/efi/efi.c#L542</a><br>
-      </em></p>
-    <p><em class="role half-bottom">But I don't think it is called in PV
-        dom0 boot path (not fully sure about that yet).</em></p>
-    <p><br>
-      Best Regards,
-      <br>
-      Norbert Kamiński
-      <br>
-      Junior Embedded Systems Engineer
-      <br>
-      GPG key ID: 9E9F90AFE10F466A
-      <br>
-      3mdeb.com
-    </p>
-  </body>
-</html>
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---------------178149245AA07C14C2986652--
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2956 lines long.)
 
