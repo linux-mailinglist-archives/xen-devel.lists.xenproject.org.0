@@ -2,74 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CECBA23075A
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:10:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C4ED23075D
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:12:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0MY8-0006Uf-2H; Tue, 28 Jul 2020 10:09:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YMeI=BH=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1k0MY6-0006Ua-Ui
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:09:30 +0000
-X-Inumbo-ID: 6d1286f0-d0ba-11ea-8b26-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 6d1286f0-d0ba-11ea-8b26-bc764e2007e4;
- Tue, 28 Jul 2020 10:09:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1595930969;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BhUW9ESioUiSA1BxCHyRzLsoe5bVOy2Ifgl37qfIfW8=;
- b=NtZplSVJwZ7F5rq1xoMDzu8GtJNtYQ9kJJQ6xtpmGyQmEnFTt8LXSxRU+RyYLFxdPDHZy/
- 7xULRLR9URQU+kbIuSaf0zbV8bn/W8WIgaNh7BZOliVdSHaLMODlR0H0lQguE3OObM2ebL
- MTiZKb9vrSkvtAvxJcq6jKRkzojzDjY=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-483-EGscLMuqPqqiQS7NiaRsog-1; Tue, 28 Jul 2020 06:09:28 -0400
-X-MC-Unique: EGscLMuqPqqiQS7NiaRsog-1
-Received: by mail-wm1-f70.google.com with SMTP id l5so8686845wml.7
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jul 2020 03:09:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=BhUW9ESioUiSA1BxCHyRzLsoe5bVOy2Ifgl37qfIfW8=;
- b=rScWMQTxXXShHykeXVJ2wm7lOCm9s+y1pPSGef4+d50WZFOg4WkGbtBFBPYH064s9l
- GXhkPrsQGUzNSJGTHDQIGMMW2fjaXhjkaQlZLpX+Sr+gYnJKx03hr4Iggg7aW4HhNqCy
- YaWLEzJc4TglL3z5Jr08mBN3RBh6tb+cN+9kQytK98H90VRCElrjiaUfUYIHhIspp3Tw
- 9jY2zkbQLcE5VKRCefD5lAek2dc2nipL3j/zfpBqpR5qIkU0+RwcdjjX+kYSEwEqj2WA
- csOaD3iMZcIWLFTl0oLtufTZE7PalfmLz8aJyw0BOAGYHrJ3Qej4RwfInjQ/SP7iJ6w2
- 2DLQ==
-X-Gm-Message-State: AOAM533KblaNqPu9Ydb39I+f6pBE1fDonaOqE3xhPgwRmtFV0X+Wehe5
- AWgeW1KcHPCbYKnntkrsgIVMC7uxlQHQCrfNK/D0VZhazpU3wuyCTaFT2bNYSiPztkPQkDzKWRy
- B56RkYzGi5Cdb9u3iCnu6BuTEdZY=
-X-Received: by 2002:a7b:cc12:: with SMTP id f18mr3138781wmh.129.1595930967269; 
- Tue, 28 Jul 2020 03:09:27 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyBky3N1fiOwAUAbRDwFfDOzU+3zWFKcPh/zvwPQji/U4MbFglqtL0NILX0yFEK52pUUrByrA==
-X-Received: by 2002:a7b:cc12:: with SMTP id f18mr3138766wmh.129.1595930967114; 
- Tue, 28 Jul 2020 03:09:27 -0700 (PDT)
-Received: from localhost.localdomain (214.red-88-21-68.staticip.rima-tde.net.
- [88.21.68.214])
- by smtp.gmail.com with ESMTPSA id t202sm3475876wmt.20.2020.07.28.03.09.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2020 03:09:26 -0700 (PDT)
-From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
-To: qemu-devel@nongnu.org
-Subject: [PATCH-for-5.1] accel/xen: Fix xen_enabled() behavior on
- target-agnostic objects
-Date: Tue, 28 Jul 2020 12:09:25 +0200
-Message-Id: <20200728100925.10454-1-philmd@redhat.com>
-X-Mailer: git-send-email 2.21.3
+	id 1k0Mak-0007GD-LD; Tue, 28 Jul 2020 10:12:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Z9cF=BH=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1k0Mai-0007G8-P7
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:12:12 +0000
+X-Inumbo-ID: cc88db48-d0ba-11ea-a88d-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cc88db48-d0ba-11ea-a88d-12813bfff9fa;
+ Tue, 28 Jul 2020 10:12:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595931130;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=wvjaajopii/5qeiGlm4RMJFm4dux7qZNErym3qfGlD8=;
+ b=Ki3tUUWW01Sc9FwU9YedVkfo+hiVH6VBv+7Sp8mxEsd5P6F0X9d7mHZX
+ BPlEhIklVl6wRtVuKR1rwPGWZE09avPQS3ApQpxPqE0BpBhsam1+iv8Mz
+ bJGFJDggyVlRyJfFbUMcTXlcg8YsU7PwXF4IYExVcXu5N78qckRT/t/bR c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 9I0ZK56lX5DAzvZBQ8nzAh1NdX72NXPvnCcCoMj/FW6k3qYdDzLEF6Khr4an8wlkPhXKBueraU
+ 1WivZlftNwz9V0F9fGl9PW9NwKXbgoXNoZihQeAH/Bx/7ME/Lp42J8+MfJaq7/nEPvaFi2t4N+
+ R1gMWQfv59G6GIeyLvge4MjQIVrazi7nL6OujHP0oZ5Qve1zgdw6yhtq3pHSUmjzz9oFxhKndH
+ I/fIOMPmU3lCch/ia1eYEgHvhdSH0OXhirHiPXhP/drLVh9xcgmWcRyv0mTzvjMS5eodVXDCOm
+ H54=
+X-SBRS: 2.7
+X-MesageID: 23344363
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23344363"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Julien Grall <julien@xen.org>
+Subject: Re: [[XSATOOL]] repo: Add missing spaces in the configure cmdline for
+ "xentools"
+Thread-Topic: [[XSATOOL]] repo: Add missing spaces in the configure cmdline
+ for "xentools"
+Thread-Index: AQHWZC+x8Lr8eJ8LdEOQDs5vOcX3hKkcpTEA
+Date: Tue, 28 Jul 2020 10:12:06 +0000
+Message-ID: <7AA2EA3C-EE42-4D3A-B266-03D38C25A6DB@citrix.com>
+References: <20200727160415.717-1-julien@xen.org>
+ <0299389e-bb24-6ec9-9fb4-18cc7c4ec181@xen.org>
+In-Reply-To: <0299389e-bb24-6ec9-9fb4-18cc7c4ec181@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <700AE54022947B42AD1FFFF141FFD307@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8;
-	text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,71 +73,21 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Paul Durrant <pdurrant@amazon.com>, xen-devel@lists.xenproject.org,
- Anthony Perard <anthony.perard@citrix.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien
+ Grall <jgrall@amazon.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-CONFIG_XEN is generated by configure and stored in "config-target.h",
-which is (obviously) only include for target-specific objects.
-This is a problem for target-agnostic objects as CONFIG_XEN is never
-defined and xen_enabled() is always inlined as 'false'.
-
-Fix by following the KVM schema, defining CONFIG_XEN_IS_POSSIBLE
-when we don't know to force the call of the non-inlined function,
-returning the xen_allowed boolean.
-
-Fixes: da278d58a092 ("accel: Move Xen accelerator code under accel/xen/")
-Reported-by: Paul Durrant <pdurrant@amazon.com>
-Suggested-by: Peter Maydell <peter.maydell@linaro.org>
-Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
----
- include/sysemu/xen.h | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/include/sysemu/xen.h b/include/sysemu/xen.h
-index 1ca292715e..385a1fa2bf 100644
---- a/include/sysemu/xen.h
-+++ b/include/sysemu/xen.h
-@@ -8,7 +8,15 @@
- #ifndef SYSEMU_XEN_H
- #define SYSEMU_XEN_H
- 
--#ifdef CONFIG_XEN
-+#ifdef NEED_CPU_H
-+# ifdef CONFIG_XEN
-+#  define CONFIG_XEN_IS_POSSIBLE
-+# endif
-+#else
-+# define CONFIG_XEN_IS_POSSIBLE
-+#endif
-+
-+#ifdef CONFIG_XEN_IS_POSSIBLE
- 
- bool xen_enabled(void);
- 
-@@ -18,7 +26,7 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
-                    struct MemoryRegion *mr, Error **errp);
- #endif
- 
--#else /* !CONFIG_XEN */
-+#else /* !CONFIG_XEN_IS_POSSIBLE */
- 
- #define xen_enabled() 0
- #ifndef CONFIG_USER_ONLY
-@@ -33,6 +41,6 @@ static inline void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
- }
- #endif
- 
--#endif /* CONFIG_XEN */
-+#endif /* CONFIG_XEN_IS_POSSIBLE */
- 
- #endif
--- 
-2.21.3
-
+DQoNCj4gT24gSnVsIDI3LCAyMDIwLCBhdCA1OjA0IFBNLCBKdWxpZW4gR3JhbGwgPGp1bGllbkB4
+ZW4ub3JnPiB3cm90ZToNCj4gDQo+IEhtbW0gSSBmb3Jnb3QgdG8gQ0MgR2VvcmdlLiBTb3JyeSBm
+b3IgdGhhdC4NCj4gDQo+IE9uIDI3LzA3LzIwMjAgMTc6MDQsIEp1bGllbiBHcmFsbCB3cm90ZToN
+Cj4+IEZyb206IEp1bGllbiBHcmFsbCA8amdyYWxsQGFtYXpvbi5jb20+DQo+PiBUaGUgb3BlcmF0
+b3IgKyB3aWxsIGp1c3QgY29uY2F0ZW5hdGUgdHdvIHN0cmluZ3MuIEFzIHRoZSByZXN1bHQsIHRo
+ZQ0KPj4gY29uZmlndXJlIGNtZGxpbmUgZm9yICJ4ZW50b29scyIgd2lsbCBsb29rIGxpa2U6DQo+
+PiAuL2NvbmZpZ3VyZSAtLWRpc2FibGUtc3R1YmRvbSAtLWRpc2FibGUtcWVtdS10cmFkaXRpb25h
+bC0td2l0aC1zeXN0ZW0tcWVtdT0vYmluL2ZhbHNlIC0td2l0aC1zeXN0ZW0tc2VhYmlvcz0vYmlu
+L2ZhbHNlLS1kaXNhYmxlLW92bWYNCj4+IFRoaXMgY2FuIGJlIGF2b2lkZWQgYnkgZXhwbGljaXRl
+bHkgYWRkaW5nIHRoZSBzcGFjZXMuDQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWxpZW4gR3JhbGwgPGpn
+cmFsbEBhbWF6b24uY29tPg0KDQpPb3BzIOKAlCB0aGFua3MuDQoNClJldmlld2VkLWJ5OiBHZW9y
+Z2UgRHVubGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+DQoNCg==
 
