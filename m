@@ -2,56 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3360230C33
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 16:14:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75186230C70
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 16:30:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0QNS-0003sa-Ds; Tue, 28 Jul 2020 14:14:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k0Qc6-0004rU-Px; Tue, 28 Jul 2020 14:29:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=K5Bo=BH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k0QNR-0003sV-C2
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 14:14:45 +0000
-X-Inumbo-ID: af3fc6b0-d0dc-11ea-a8f3-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id af3fc6b0-d0dc-11ea-a8f3-12813bfff9fa;
- Tue, 28 Jul 2020 14:14:44 +0000 (UTC)
+ id 1k0Qc4-0004rP-PK
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 14:29:52 +0000
+X-Inumbo-ID: cbc8e030-d0de-11ea-8b6c-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cbc8e030-d0de-11ea-8b6c-bc764e2007e4;
+ Tue, 28 Jul 2020 14:29:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595945684;
+ d=citrix.com; s=securemail; t=1595946591;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=tKXRMwykMcTyq4Ew5Chd2SfSrSaptAYVUdFD9NU8Aog=;
- b=iRFGd4FkIvVk/DVnmBFVaUo/ZQlQ5EuNDY0HGmommHhLzbmn8o1ugofV
- 1vjSTZYYTK9UMOQbSfIw/cO7z2GFLcXhSQ1sP8zhMtuPKCjIcIiAoQ94h
- 0WwLLiQQZUBoksFyJbUYKvrRndL1Ivzs4vptQ+u6Oa1KVd1ehUCNQnAae s=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ bh=DU53sn8unujLT4cYR/KYPEYMCvZlJOKY+lGGmICstp0=;
+ b=b6KapncVTPjXGaYJHeBGh4sRycbIMQwEcMvHBQHulsJXy0IsrWXYYAA0
+ wgv9puwRj7Oio4aI9g8jOHqqNE2vR2xQfQL0ayM0X1HblnIl+pXbWqb3+
+ MBxLsB4yOsZYMI8hhHJVePcYIuYuZmpfiRKe1ePyzM8VAOTKaDZC+kMar w=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: q+PyR+OGHB9jSQO8KUsBg9ErfHhN9hgSOlYrykfR0Emt8JWehlWGE7BLCY9oR8Kxz9Km5E6ZQB
- o0mcEBhBX8nPx6DBgHVQMlR7KkCd1TGuZmjIAlZXZTHT65ZQmya9A8pgxEdNp+S7BMITBEpxfQ
- cGgi5X3ZhK4wNmEYlkNqVEz/ZJgz6WA4jLKzTKiqDyTwcuc26F0Vb5wM1DAWZOxeSYtCzjmA6y
- lIPBLIcHsZUNzLg10yOE/Ukc2Lc1oT91LLYZxC6LvPyQLRWq+XLLvH0s2mBEKY3ePUq6mz4fGP
- k/s=
+IronPort-SDR: 4qN49BupJCa7Xl6rlLMnQJWTmnds5IOcajG79uEVeOJwNtrb85pQZt0FQmHndZnOCafupHIn2S
+ y9zh08NWGema4O6Aizuf6zFaT56IzgF+LFJJ4erpkuFr2DD+aJ2kP0J2Ok73fCNLrSBa6O6Ziw
+ 9bDii9LF1UfE71u2ykVRwjcbat1NuT7LFoDV2xWpupn4+3jeK/GQw30c3Byd+OF8G5D00DWD8+
+ vqLUCjmmjyqQqE7AvfWP0iVGLIKybZp9TYNEhwXhthh0R1rvlQBLGOwL01T8trixc7SXYyqJ2A
+ OdI=
 X-SBRS: 2.7
-X-MesageID: 23540281
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 23366191
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23540281"
-Subject: Re: [PATCH 5/5] tools/foreignmem: Support querying the size of a
- resource
-To: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20200728113712.22966-1-andrew.cooper3@citrix.com>
- <20200728113712.22966-6-andrew.cooper3@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23366191"
+Subject: Re: [PATCH 2/4] x86: reduce CET-SS related #ifdef-ary
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <58b9211a-f6dd-85da-d0bd-c927ac537a5d@suse.com>
+ <58615a18-7f81-c000-d499-1a49f4752879@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <ed045b42-55aa-7b63-fda9-ff7788e03ff9@citrix.com>
-Date: Tue, 28 Jul 2020 15:14:39 +0100
+Message-ID: <5abaf9e1-c7ba-a58c-d735-47430013eb65@citrix.com>
+Date: Tue, 28 Jul 2020 15:29:46 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200728113712.22966-6-andrew.cooper3@citrix.com>
+In-Reply-To: <58615a18-7f81-c000-d499-1a49f4752879@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
@@ -67,70 +66,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <Ian.Jackson@citrix.com>,
- =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
- Hubert Jasudowicz <hubert.jasudowicz@cert.pl>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28/07/2020 12:37, Andrew Cooper wrote:
-> With the Xen side of this interface fixed to return real sizes, userspace
-> needs to be able to make the query.
+On 15/07/2020 11:48, Jan Beulich wrote:
+> Commit b586a81b7a90 ("x86/CET: Fix build following c/s 43b98e7190") had
+> to introduce a number of #ifdef-s to make the build work with older tool
+> chains. Introduce an assembler macro covering for tool chains not
+> knowing of CET-SS, allowing some conditionals where just SETSSBSY is the
+> problem to be dropped again.
 >
-> Introduce xenforeignmemory_resource_size() for the purpose, bumping the
-> library minor version and providing compatiblity for the non-Linux builds.
+> No change to generated code.
+
+
+
 >
-> Its not possible to reuse the IOCTL_PRIVCMD_MMAP_RESOURCE infrastructure,
-> because it depends on having already mmap()'d a suitably sized region before
-> it will make an XENMEM_acquire_resource hypercall to Xen.
->
-> Instead, open a xencall handle and make an XENMEM_acquire_resource hypercall
-> directly.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> CC: Ian Jackson <Ian.Jackson@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Paul Durrant <paul@xen.org>
-> CC: Michał Leszczyński <michal.leszczynski@cert.pl>
-> CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+> Now that I've done this I'm not longer sure which direction is better to
+> follow: On one hand this introduces dead code (even if just NOPs) into
+> CET-SS-disabled builds. Otoh this is a step towards breaking the tool
+> chain version dependency of the feature.
 
-I've folded:
+The toolchain dependency can't be broken, because of incssp and wrss in C.
 
-diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 5ed5664bf7..b8ccf03ea9 100644
---- a/tools/Rules.mk
-+++ b/tools/Rules.mk
-@@ -123,7 +123,7 @@ LDLIBS_libxencall = $(SHDEPS_libxencall)
-$(XEN_LIBXENCALL)/libxencall$(libextens
- SHLIB_libxencall  = $(SHDEPS_libxencall) -Wl,-rpath-link=$(XEN_LIBXENCALL)
- 
- CFLAGS_libxenforeignmemory = -I$(XEN_LIBXENFOREIGNMEMORY)/include
-$(CFLAGS_xeninclude)
--SHDEPS_libxenforeignmemory = $(SHLIB_libxentoolcore)
-+SHDEPS_libxenforeignmemory = $(SHLIB_libxentoolcore) $(SHDEPS_libxencall)
- LDLIBS_libxenforeignmemory = $(SHDEPS_libxenforeignmemory)
-$(XEN_LIBXENFOREIGNMEMORY)/libxenforeignmemory$(libextension)
- SHLIB_libxenforeignmemory  = $(SHDEPS_libxenforeignmemory)
--Wl,-rpath-link=$(XEN_LIBXENFOREIGNMEMORY)
- 
-diff --git a/tools/libs/foreignmemory/Makefile
-b/tools/libs/foreignmemory/Makefile
-index 8e07f92c59..f3a61e27c7 100644
---- a/tools/libs/foreignmemory/Makefile
-+++ b/tools/libs/foreignmemory/Makefile
-@@ -4,7 +4,7 @@ include $(XEN_ROOT)/tools/Rules.mk
- MAJOR    = 1
- MINOR    = 4
- LIBNAME  := foreignmemory
--USELIBS  := toollog toolcore
-+USELIBS  := toollog toolcore call
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
+There is 0 value and added complexity to trying to partially support
+legacy toolchains.  Furthermore, this adds a pile of nops into builds
+which have specifically opted out of CONFIG_XEN_SHSTK, which isn't ideal
+for embedded usecases.
 
-to fix the build in certain containers.
+As a consequence, I think its better to keep things consistent with how
+they are now.
+
+One thing I already considered was to make cpu_has_xen_shstk return
+false for !CONFIG_XEN_SHSTK, which subsumes at least one hunk in this
+change.
+
+> --- a/xen/arch/x86/x86_64/compat/entry.S
+> +++ b/xen/arch/x86/x86_64/compat/entry.S
+> @@ -198,9 +198,7 @@ ENTRY(cr4_pv32_restore)
+>  
+>  /* See lstar_enter for entry register state. */
+>  ENTRY(cstar_enter)
+> -#ifdef CONFIG_XEN_SHSTK
+>          ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
+> -#endif
+
+I can't currently think of any option better than leaving these ifdef's
+in place, other than perhaps
+
+#ifdef CONFIG_XEN_SHSTK
+# define MAYBE_SETSSBSY ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
+#else
+# define MAYBE_SETSSBSY
+#endif
+
+and I don't like it much.
+
+The think is that everything present there is semantically relevant
+information, and dropping it makes the code worse rather than better.
 
 ~Andrew
 
