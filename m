@@ -2,65 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DA3E23057A
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 10:34:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3D69230589
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 10:37:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0L3w-0006Hg-VS; Tue, 28 Jul 2020 08:34:16 +0000
+	id 1k0L6a-0006RJ-DK; Tue, 28 Jul 2020 08:37:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uMAr=BH=amazon.com=prvs=4712fd9bf=elnikety@srs-us1.protection.inumbo.net>)
- id 1k0L3v-0006HU-9g
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 08:34:15 +0000
-X-Inumbo-ID: 1e8022ca-d0ad-11ea-a87c-12813bfff9fa
-Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
+ <SRS0=ZWt7=BH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1k0L6Y-0006RE-8O
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 08:36:58 +0000
+X-Inumbo-ID: 7e847996-d0ad-11ea-a87d-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1e8022ca-d0ad-11ea-a87c-12813bfff9fa;
- Tue, 28 Jul 2020 08:34:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1595925255; x=1627461255;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=QXuCPaBFwD3FLj/A53XcKjEkryN9839jPfi9Dd1Dorg=;
- b=UkyvHY+/7y2zpkdz9P4UlnlgNkdASBcStysxA4W94GCPFIGiIYleVE2G
- 5n3O0bUtlm4yQFSqAoEWoaVm9d1jBtIXzXEmtIIM3uURQlrLMXRnGshHB
- wl9G2XSHmeqdHVHmveWEOr+RbQBMQDaeolrh/fbe/b+ehzciW3kyenEYl 4=;
-IronPort-SDR: 6DXbhNr046JubuV4KDNdBBx9GeCIZWksuRWojQ0/uWt1YYY3eVg54fY5aVdWaznDzJdghaWPUj
- M8/aQ3cW5CIQ==
-X-IronPort-AV: E=Sophos;i="5.75,405,1589241600"; d="scan'208";a="44424179"
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com) ([10.43.8.2])
- by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
- 28 Jul 2020 08:34:14 +0000
-Received: from EX13MTAUEA002.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
- by email-inbound-relay-2c-c6afef2e.us-west-2.amazon.com (Postfix) with ESMTPS
- id DC4BDA2683; Tue, 28 Jul 2020 08:34:12 +0000 (UTC)
-Received: from EX13D32EUB001.ant.amazon.com (10.43.166.125) by
- EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 28 Jul 2020 08:34:12 +0000
-Received: from EX13MTAUEA001.ant.amazon.com (10.43.61.82) by
- EX13D32EUB001.ant.amazon.com (10.43.166.125) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 28 Jul 2020 08:34:10 +0000
-Received: from dev-dsk-elnikety-1b-cd63f796.eu-west-1.amazon.com (10.15.63.96)
- by mail-relay.amazon.com (10.43.61.243) with Microsoft SMTP Server id
- 15.0.1497.2 via Frontend Transport; Tue, 28 Jul 2020 08:34:10 +0000
-Received: by dev-dsk-elnikety-1b-cd63f796.eu-west-1.amazon.com (Postfix,
- from userid 6438462)
- id 510FFA0139; Tue, 28 Jul 2020 08:34:10 +0000 (UTC)
-From: Eslam Elnikety <elnikety@amazon.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/vhpet: Fix type size in timer_int_route_valid
-Date: Tue, 28 Jul 2020 08:33:57 +0000
-Message-ID: <20200728083357.77999-1-elnikety@amazon.com>
-X-Mailer: git-send-email 2.16.6
+ id 7e847996-d0ad-11ea-a87d-12813bfff9fa;
+ Tue, 28 Jul 2020 08:36:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595925416;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Wt+2Rk35DFsivT+PLFZ3saMbD9lTBuqwKxEAHavAZuY=;
+ b=iUPdUzqqDVpvJNZfyxLd57jeG5fE+9oN2+00Y6DO8tZ+/QFss8lTDcV8
+ zJA75F4UFOEipTxXIciydcGvn5Z4pKjudXHahaIPT+oYQJkdfUcE9htjq
+ 944CgToN7mkHNn9u1BIkJmebA5MExBoYGmqCdp98m1mEWw7ppDVuU7kzG o=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 0RJBp9F2bSyi1xbHsn216+P/WXCsxqXqn75hjXrC2Ufa+TSCdT/qbopDLbeouxi7+80fFIoQ3H
+ PdPNQtcl6sGFrYrPxGRyHxJXQUi80hgmIu5J4jhAzE/3jh+sxheShwvfw+GKPRU+p5xirb22FB
+ qYrT84PzYRALE+kXc5qmGYeeFsYbeNr3EMM16Hf4KiiN0vIPjRLPhydeokA8UOjipG4MXLF6xH
+ OkjevtsFDvh+qUsxz+ol3RKoyYEGjM7gXVltt3VWp3Cz+kCtQEIQP8FexrhmLps/PXN5nUIFLr
+ iBU=
+X-SBRS: 2.7
+X-MesageID: 24191433
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,405,1589256000"; d="scan'208";a="24191433"
+Date: Tue, 28 Jul 2020 10:36:49 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 2/4] x86: reduce CET-SS related #ifdef-ary
+Message-ID: <20200728083649.GX7191@Air-de-Roger>
+References: <58b9211a-f6dd-85da-d0bd-c927ac537a5d@suse.com>
+ <58615a18-7f81-c000-d499-1a49f4752879@suse.com>
+ <20200727150002.GS7191@Air-de-Roger>
+ <d2a33851-10b3-a1c7-646a-96a0b5783923@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Precedence: Bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d2a33851-10b3-a1c7-646a-96a0b5783923@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -68,38 +66,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Eslam Elnikety <elnikety@amazon.com>, Paul Durrant <pdurrant@amazon.co.uk>,
- Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The macro timer_int_route_cap evalutes to a 64 bit value. Extend the
-size of left side of timer_int_route_valid to match.
+On Mon, Jul 27, 2020 at 09:50:23PM +0200, Jan Beulich wrote:
+> On 27.07.2020 17:00, Roger Pau Monné wrote:
+> > On Wed, Jul 15, 2020 at 12:48:46PM +0200, Jan Beulich wrote:
+> > Should the setssbsy be quoted, or it doesn't matter? I'm asking
+> > because the same construction used by CLAC/STAC doesn't quote the
+> > instruction.
+> 
+> I actually thought we consistently quote these. It doesn't matter
+> as long as it's a single word. Quoting becomes necessary when
+> there are e.g. blanks involved, which happens for insns with
+> operands.
 
-This bug was discovered and resolved using Coverity Static Analysis
-Security Testing (SAST) by Synopsys, Inc.
+Could you quote the usages in patch 1 please then in order to be
+consistent?
 
-Signed-off-by: Eslam Elnikety <elnikety@amazon.com>
----
- xen/arch/x86/hvm/hpet.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
-index ca94e8b453..9afe6e6760 100644
---- a/xen/arch/x86/hvm/hpet.c
-+++ b/xen/arch/x86/hvm/hpet.c
-@@ -66,7 +66,7 @@
-     MASK_EXTR(timer_config(h, n), HPET_TN_INT_ROUTE_CAP)
- 
- #define timer_int_route_valid(h, n) \
--    ((1u << timer_int_route(h, n)) & timer_int_route_cap(h, n))
-+    ((1ULL << timer_int_route(h, n)) & timer_int_route_cap(h, n))
- 
- static inline uint64_t hpet_read_maincounter(HPETState *h, uint64_t guest_time)
- {
--- 
-2.16.6
-
+Thanks, Roger.
 
