@@ -2,54 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3094231227
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 21:06:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85CD5231255
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 21:18:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0Uvd-0004sO-PH; Tue, 28 Jul 2020 19:06:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E6Nk=BH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k0Uvc-0004ru-CY
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 19:06:20 +0000
-X-Inumbo-ID: 684c2450-d105-11ea-8bc5-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 684c2450-d105-11ea-8bc5-bc764e2007e4;
- Tue, 28 Jul 2020 19:06:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SevM+Kb/9xdcYyv8Q9okAtHdHJzc6pVZHKi34+wU4To=; b=wgxpDfbarAnad4Zhq6rtVtVOW
- 9yiogJicCcdRbQkRAii1SGMDGa9QXvKVwmE5C0aBi4MM1FvxRua/TGuCn0gbuzcOI9D5fpRnnnNOA
- Az8OB9RRLCHgwHP+7t96P4N0VEGZKXsIkkN9o66wEhXBk0N1XBFdTcOLnqyWCshJZTQgw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k0UvV-00089n-T6; Tue, 28 Jul 2020 19:06:13 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k0UvV-0004yI-Ib; Tue, 28 Jul 2020 19:06:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k0UvV-0002EM-Ht; Tue, 28 Jul 2020 19:06:13 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152261-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1k0V7H-0005rS-2A; Tue, 28 Jul 2020 19:18:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qgq5=BH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k0V7F-0005rN-MB
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 19:18:21 +0000
+X-Inumbo-ID: 185f6824-d107-11ea-a92c-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 185f6824-d107-11ea-a92c-12813bfff9fa;
+ Tue, 28 Jul 2020 19:18:19 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id ED9ADAD5B;
+ Tue, 28 Jul 2020 19:18:29 +0000 (UTC)
+Subject: Re: [PATCH 1/4] x86: replace __ASM_{CL,ST}AC
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <58b9211a-f6dd-85da-d0bd-c927ac537a5d@suse.com>
+ <fc8e042e-fef8-ac38-34d8-16b13e4b0135@suse.com>
+ <ea6eeb6d-7af2-97cb-4c11-6e0a81755961@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <9083209c-a5b5-2238-0453-31a730705365@suse.com>
+Date: Tue, 28 Jul 2020 21:18:15 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [ovmf test] 152261: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=3887820e5fecdb9e948f88eb4e92298f6c3dd86f
-X-Osstest-Versions-That: ovmf=ffde22468e2f0e93b51f97b801e6c7a181088c61
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 28 Jul 2020 19:06:13 +0000
+In-Reply-To: <ea6eeb6d-7af2-97cb-4c11-6e0a81755961@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +48,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152261 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152261/
+On 28.07.2020 15:55, Andrew Cooper wrote:
+> On 15/07/2020 11:48, Jan Beulich wrote:
+>> --- a/xen/arch/x86/arch.mk
+>> +++ b/xen/arch/x86/arch.mk
+>> @@ -20,6 +20,7 @@ $(call as-option-add,CFLAGS,CC,"rdrand %
+>>   $(call as-option-add,CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
+>>   $(call as-option-add,CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
+>>   $(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
+>> +$(call as-option-add,CFLAGS,CC,"clac",-DHAVE_AS_CLAC_STAC)
+> 
+> Kconfig please, rather than extending this legacy section.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 3887820e5fecdb9e948f88eb4e92298f6c3dd86f
-baseline version:
- ovmf                 ffde22468e2f0e93b51f97b801e6c7a181088c61
+Did you forget for a moment that we're still to discuss this use of
+Kconfig before we extend it to further instances? I'm pretty sure I
+gave an ack to one of the respective changes of yours only on the
+condition that we'd sort out whether this is indeed the way forward,
+without a preset outcome (and without reasoning like "let's do it
+because Linux does so").
 
-Last test of basis   152249  2020-07-28 07:04:39 Z    0 days
-Testing same since   152261  2020-07-28 12:10:07 Z    0 days    1 attempts
+> That said, surely stac/clac support is old enough for us to start using
+> unconditionally?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Qi Zhang <qi1.zhang@intel.com>
-  Zhang, Qi <qi1.zhang@intel.com>
+Can't check right now, but I'm sure I wouldn't have introduced the
+construct if we could rely on all supported tool chains to have
+support for them.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+> Could we see about sorting a reasonable minimum toolchain version,
+> before we churn all the logic to deal with obsolete toolchains?
 
+Who's "we" here? I see you keep proposing this every once in a
+while, but I don't see who's going to do the work. The main reason
+why, while I agree we should bump the base line, I don't see myself
+do this is because I don't see any even just half way clear
+criteria by which to decide what the new level is supposed to be.
+Once again I don't think "let's follow what Linux does" is a
+suitable approach.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Additionally I fear that with raising the tool chain base line,
+people may start considering to raise other minimum versions.
+While I'm personally quite fine building my own binutils and gcc
+(and maybe a few other pieces), I don't fancy having to rebuild,
+say, coreutils just to be able to build Xen.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Maybe a topic for the next community call, which isn't too far
+out?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   ffde22468e..3887820e5f  3887820e5fecdb9e948f88eb4e92298f6c3dd86f -> xen-tested-master
+Jan
 
