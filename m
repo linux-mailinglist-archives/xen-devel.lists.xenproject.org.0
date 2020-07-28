@@ -2,70 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A369C230647
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 11:15:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF392230650
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 11:18:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0LhD-0001X0-SP; Tue, 28 Jul 2020 09:14:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uMAr=BH=amazon.com=prvs=4712fd9bf=elnikety@srs-us1.protection.inumbo.net>)
- id 1k0LhC-0001Wv-Rc
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 09:14:50 +0000
-X-Inumbo-ID: c9f58a50-d0b2-11ea-a884-12813bfff9fa
-Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c9f58a50-d0b2-11ea-a884-12813bfff9fa;
- Tue, 28 Jul 2020 09:14:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1595927691; x=1627463691;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=Uqe1Nay8XvAbyfPor+W0T3vBFrSJIFtN50u7uH/H0rQ=;
- b=KkhuP+tnt+Xu6IrW6T1qe4tEXIifQ/BvVTFgD+YskVJNwajek4ORH9fc
- n8+9hsLLxzvOwPtMHjhDDBqpUUUCId0a6TLAxZGBAAN6nZe7NzQEvN48v
- VFq3sjkh7+7swqQAeACSXI7tHft9KpFq+f5epwzapiPq6fNwQn1uotEkh M=;
-IronPort-SDR: LkAw6DeIXCnTl+/nN/x9qovTJgrP9wZhL7wa400RWEp3jNbs9kCtOjLhEzgkPV2dW4NxSuAaej
- wOFLOdgbskVg==
-X-IronPort-AV: E=Sophos;i="5.75,405,1589241600"; d="scan'208";a="44605149"
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-1e-303d0b0e.us-east-1.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
- 28 Jul 2020 09:14:50 +0000
-Received: from EX13MTAUEA002.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
- by email-inbound-relay-1e-303d0b0e.us-east-1.amazon.com (Postfix) with ESMTPS
- id E8525A21B1; Tue, 28 Jul 2020 09:14:47 +0000 (UTC)
-Received: from EX13D03EUA002.ant.amazon.com (10.43.165.166) by
- EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 28 Jul 2020 09:14:46 +0000
-Received: from a483e73f63b0.ant.amazon.com (10.43.160.48) by
- EX13D03EUA002.ant.amazon.com (10.43.165.166) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 28 Jul 2020 09:14:43 +0000
-Subject: Re: [PATCH] x86/vhpet: Fix type size in timer_int_route_valid
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Eslam Elnikety
- <elnikety@amazon.com>
-References: <20200728083357.77999-1-elnikety@amazon.com>
- <20200728085815.GY7191@Air-de-Roger>
-From: Eslam Elnikety <elnikety@amazon.com>
-Message-ID: <8c2a7d95-c830-485c-05c2-980994806425@amazon.com>
-Date: Tue, 28 Jul 2020 11:14:38 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.9.0
+	id 1k0Lkp-0001gM-D3; Tue, 28 Jul 2020 09:18:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=139A=BH=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1k0Lko-0001gH-7i
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 09:18:34 +0000
+X-Inumbo-ID: 4f0e0640-d0b3-11ea-8b1d-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4f0e0640-d0b3-11ea-8b1d-bc764e2007e4;
+ Tue, 28 Jul 2020 09:18:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=sjv/L6hz1YrCvxTOhpyWiGw3pyQEgsy/LiJEyUnsD/U=; b=FU0HNTN1iUoJ8yy8ZzYwTC6Ap7
+ 8/izMpkwkHS/Ft1mujCVI/UNMGzrPP8FtbfQ78o312H8gUmgiScz0nFl8EOiYy2nueAS2V2bzPZhg
+ KW6vUC45EVTYIwfgxrzXnXwG6kPbI2lNUMKoHHAoVs0oAusn5SFauRpixnrvxFsjKgTU=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1k0Lkm-0003hk-5S; Tue, 28 Jul 2020 09:18:32 +0000
+Received: from host86-143-223-30.range86-143.btcentralplus.com
+ ([86.143.223.30] helo=u2f063a87eabd5f.home)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1k0Lkl-0007du-SK; Tue, 28 Jul 2020 09:18:32 +0000
+From: Paul Durrant <paul@xen.org>
+To: qemu-devel@nongnu.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] configure: define CONFIG_XEN when Xen is enabled
+Date: Tue, 28 Jul 2020 10:18:28 +0100
+Message-Id: <20200728091828.21702-1-paul@xen.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20200728085815.GY7191@Air-de-Roger>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.43.160.48]
-X-ClientProxiedBy: EX13D16UWB004.ant.amazon.com (10.43.161.170) To
- EX13D03EUA002.ant.amazon.com (10.43.165.166)
-Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -73,36 +57,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.co.uk>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ Paul Durrant <pdurrant@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+ Laurent Vivier <laurent@vivier.eu>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Roger,
+From: Paul Durrant <pdurrant@amazon.com>
 
-On 28.07.20 10:58, Roger Pau Monné wrote:
-> On Tue, Jul 28, 2020 at 08:33:57AM +0000, Eslam Elnikety wrote:
->> The macro timer_int_route_cap evalutes to a 64 bit value. Extend the
->> size of left side of timer_int_route_valid to match.
-> 
-> I'm very dull with this things, so forgive me.
-> 
-> Isn't the left side just promoted to an unsigned 64bit value?
-> 
-> Also timer_int_route will strictly be <= 31, which makes the shift
-> safe?
+The recent commit da278d58a092 "accel: Move Xen accelerator code under
+accel/xen/" introduced a subtle semantic change, making xen_enabled() always
+return false unless CONFIG_XEN is defined prior to inclusion of sysemu/xen.h,
+which appears to be the normal case. This causes various use-cases of QEMU
+with Xen to break.
 
-This is all true. The size mismatch is indeed benign. The patch is only 
-for code sanity.
+This patch makes sure that CONFIG_XEN is defined if --enable-xen is passed
+to configure.
 
-> 
-> I'm not opposed to switching to use unsigned long, but I think I'm not
-> understanding the issue.
-> 
-> Thanks, Roger.
-> 
+Fixes: da278d58a092 ("accel: Move Xen accelerator code under accel/xen/")
+Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+---
+Cc: "Philippe Mathieu-Daudé" <philmd@redhat.com>
+Cc: Laurent Vivier <laurent@vivier.eu>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>
+---
+ configure | 1 +
+ 1 file changed, 1 insertion(+)
 
-Regards,
-Eslam
+diff --git a/configure b/configure
+index 2acc4d1465..f1b9d129fd 100755
+--- a/configure
++++ b/configure
+@@ -7434,6 +7434,7 @@ if test "$virglrenderer" = "yes" ; then
+   echo "VIRGL_LIBS=$virgl_libs" >> $config_host_mak
+ fi
+ if test "$xen" = "yes" ; then
++  echo "CONFIG_XEN=y" >> $config_host_mak
+   echo "CONFIG_XEN_BACKEND=y" >> $config_host_mak
+   echo "CONFIG_XEN_CTRL_INTERFACE_VERSION=$xen_ctrl_version" >> $config_host_mak
+ fi
+-- 
+2.20.1
+
 
