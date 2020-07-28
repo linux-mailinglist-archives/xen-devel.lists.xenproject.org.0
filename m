@@ -2,57 +2,94 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAF8F2310A6
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 19:13:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E81A2310B8
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 19:18:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0T9u-00036U-Ta; Tue, 28 Jul 2020 17:12:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k0TF4-0003IT-Ih; Tue, 28 Jul 2020 17:18:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TSwU=BH=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k0T9t-00036P-DW
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 17:12:57 +0000
-X-Inumbo-ID: 947c6acc-d0f5-11ea-8ba3-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 947c6acc-d0f5-11ea-8ba3-bc764e2007e4;
- Tue, 28 Jul 2020 17:12:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gAxUDflyYD2Qz0uZDypM7APCGN6LsjUhjSUSWoYLPcY=; b=U8RJ5NSwZQ8iU78q1Zh5y2VxyZ
- KLqWvDt3ijkmQpa/cyxyk4D4lH1X6HTzXUZ8buyclAQa4oFopGO7GizuG8UlZlYXhKf06aO3+jWxW
- L5i2sFLebxgLmSaQiTOm/ba8eK8Vj7kcWqyUDl3TI1/IWRsEE2Nm52OaedKFXHgUc09g=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k0T9m-0005gL-AT; Tue, 28 Jul 2020 17:12:50 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k0T9l-0004gC-Us; Tue, 28 Jul 2020 17:12:50 +0000
-Subject: Re: [PATCH v3 4/4] xen: add helpers to allocate unpopulated memory
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200727091342.52325-1-roger.pau@citrix.com>
- <20200727091342.52325-5-roger.pau@citrix.com>
- <b5460659-88a5-c2aa-c339-815d5618bcb5@xen.org>
- <20200728165919.GA7191@Air-de-Roger>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b1732413-0bd0-6f58-6324-37497347ce5b@xen.org>
-Date: Tue, 28 Jul 2020 18:12:46 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+ (envelope-from <SRS0=UTyt=BH=yujala.com=srini@srs-us1.protection.inumbo.net>)
+ id 1k0TF3-0003IO-6X
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 17:18:17 +0000
+X-Inumbo-ID: 52a5df10-d0f6-11ea-a91d-12813bfff9fa
+Received: from gproxy8-pub.mail.unifiedlayer.com (unknown [67.222.33.93])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 52a5df10-d0f6-11ea-a91d-12813bfff9fa;
+ Tue, 28 Jul 2020 17:18:15 +0000 (UTC)
+Received: from cmgw12.unifiedlayer.com (unknown [10.9.0.12])
+ by gproxy8.mail.unifiedlayer.com (Postfix) with ESMTP id 0EBD01AB207
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jul 2020 11:18:13 -0600 (MDT)
+Received: from md-71.webhostbox.net ([204.11.58.143]) by cmsmtp with ESMTP
+ id 0TEykTrfGWYdh0TEykGdC9; Tue, 28 Jul 2020 11:18:13 -0600
+X-Authority-Reason: nr=8
+X-Authority-Analysis: v=2.3 cv=XYinMrx5 c=1 sm=1 tr=0
+ a=yS0qNmEK8ed8yKyeR8R6rg==:117 a=yS0qNmEK8ed8yKyeR8R6rg==:17
+ a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=IkcTkHD0fZMA:10:nop_charset_1
+ a=_RQrkK6FrEwA:10:nop_rcvd_month_year
+ a=o-A10e_uY_YA:10:endurance_base64_authed_username_1 a=Dvu1CkYPihaQVThZ2xYA:9
+ a=QEXdDO2ut3YA:10:nop_charset_2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=yujala.com; 
+ s=default;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:In-Reply-To:References:To:From:Sender:Reply-To:Cc:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=nr81cWo7PvcaFT6hx2wfxGYolQs3JoHlEmFOEpv77N4=; b=jQiatLthwg2MqmuAaQCDa1M2yW
+ QqN2t95kN9qnxxBKxgxWNi8MMopBhpbV1Tm0XMEl9LH04ofVMGauzXDNhQkeBJWaXYOqG40zNa9/c
+ f15qj0iGot6jA45Mb765IottS9uJwLMoO6stf/+qsrPF+t7h+dPKYHWxYYRRondDT9zsNMyF8tqPv
+ 9Rp48vrchjI+0ZgSqa5HXHstfwvCTvX4m388qRjMIzZAsTW61kwPILJCDLlcf2Jqvbx7C24J9ONDy
+ 8AsO+8hsuoKUqoGq1rUO2cVujY5U34KA/p/vTOzLNNY8tkafpMZSTB2KBG2FwE1HhG14akCpcHd9a
+ QKefgG3g==;
+Received: from 162-231-240-210.lightspeed.sntcca.sbcglobal.net
+ ([162.231.240.210]:57263 helo=SRINIASUSLAPTOP)
+ by md-71.webhostbox.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <srini@yujala.com>)
+ id 1k0TEx-003F2G-V5; Tue, 28 Jul 2020 17:18:12 +0000
+From: "Srinivas Bangalore" <srini@yujala.com>
+To: "'Julien Grall'" <julien@xen.org>, <xen-devel@lists.xenproject.org>,
+ "'Christopher Clark'" <christopher.w.clark@gmail.com>,
+ "'Stefano Stabellini'" <sstabellini@kernel.org>
+References: <002801d66051$90fe2300$b2fa6900$@yujala.com>
+ <9736680b-1c81-652b-552b-4103341bad50@xen.org>
+ <000001d661cb$45cdaa10$d168fe30$@yujala.com>
+ <5f985a6a-1bd6-9e68-f35f-b0b665688cee@xen.org>
+ <002901d66462$a1dff530$e59fdf90$@yujala.com>
+ <f8de3b17-d8bd-884d-a37f-6e6d58bcab8c@xen.org>
+In-Reply-To: <f8de3b17-d8bd-884d-a37f-6e6d58bcab8c@xen.org>
+Subject: RE: Porting Xen to Jetson Nano
+Date: Tue, 28 Jul 2020 10:18:11 -0700
+Message-ID: <003501d66503$125388e0$36fa9aa0$@yujala.com>
 MIME-Version: 1.0
-In-Reply-To: <20200728165919.GA7191@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-us
+Thread-Index: AQIl7jaf5+ZLFToUYJ/P44Ycp83hwAFkmiVWAaCz0KsBnyrDOQIUsjAOAt+hgOCoMWHSIA==
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - md-71.webhostbox.net
+X-AntiAbuse: Original Domain - lists.xenproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - yujala.com
+X-BWhitelist: no
+X-Source-IP: 162.231.240.210
+X-Source-L: No
+X-Exim-ID: 1k0TEx-003F2G-V5
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 162-231-240-210.lightspeed.sntcca.sbcglobal.net
+ (SRINIASUSLAPTOP) [162.231.240.210]:57263
+X-Source-Auth: srini@yujala.com
+X-Email-Count: 1
+X-Source-Cap: c3JpbmlxbGw7c3JpbmlxbGw7bWQtNzEud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,72 +100,39 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>, Yan Yankovskyi <yyankovskyi@gmail.com>,
- David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Michal Hocko <mhocko@kernel.org>,
- linux-mm@kvack.org, Daniel Vetter <daniel@ffwll.ch>,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Roger,
+> I struggled to find your comment inline as your e-mail client doesn't=20
+> quote my answer. Please configure your e-mail client to use some form=20
+> of quoting (the usual is '>').
+>=20
+> [<SB>] Done! Sorry about that.
 
-On 28/07/2020 17:59, Roger Pau Monné wrote:
-> On Tue, Jul 28, 2020 at 05:48:23PM +0100, Julien Grall wrote:
->> Hi,
->>
->> On 27/07/2020 10:13, Roger Pau Monne wrote:
->>> To be used in order to create foreign mappings. This is based on the
->>> ZONE_DEVICE facility which is used by persistent memory devices in
->>> order to create struct pages and kernel virtual mappings for the IOMEM
->>> areas of such devices. Note that on kernels without support for
->>> ZONE_DEVICE Xen will fallback to use ballooned pages in order to
->>> create foreign mappings.
->>>
->>> The newly added helpers use the same parameters as the existing
->>> {alloc/free}_xenballooned_pages functions, which allows for in-place
->>> replacement of the callers. Once a memory region has been added to be
->>> used as scratch mapping space it will no longer be released, and pages
->>> returned are kept in a linked list. This allows to have a buffer of
->>> pages and prevents resorting to frequent additions and removals of
->>> regions.
->>>
->>> If enabled (because ZONE_DEVICE is supported) the usage of the new
->>> functionality untangles Xen balloon and RAM hotplug from the usage of
->>> unpopulated physical memory ranges to map foreign pages, which is the
->>> correct thing to do in order to avoid mappings of foreign pages depend
->>> on memory hotplug.
->> I think this is going to break Dom0 on Arm if the kernel has been built with
->> hotplug. This is because you may end up to re-use region that will be used
->> for the 1:1 mapping of a foreign map.
->>
->> Note that I don't know whether hotplug has been tested on Xen on Arm yet. So
->> it might be possible to be already broken.
->>
->> Meanwhile, my suggestion would be to make the use of hotplug in the balloon
->> code conditional (maybe using CONFIG_ARM64 and CONFIG_ARM)?
-> 
-> Right, this feature (allocation of unpopulated memory separated from
-> the balloon driver) is currently gated on CONFIG_ZONE_DEVICE, which I
-> think could be used on Arm.
-> 
-> IMO the right solution seems to be to subtract the physical memory
-> regions that can be used for the identity mappings of foreign pages
-> (all RAM on the system AFAICT) from iomem_resource, as that would make
-> this and the memory hotplug done in the balloon driver safe?
+Thanks this is a good start. Unfortunately, it doesn't fully help it =
+when you have a reply split accross multiple line. This is become more =
+proeminent after a few back and forth. Which e-mail client are you =
+using?
 
-Dom0 doesn't know the regions used for the identity mappings as this is 
-only managed by Xen. So there is nothing you can really do here.
+[<SB>] I'm using Microsoft Outlook
 
-But don't you have the same issue on x86 with "magic pages"?
+> [<SB>] OK, I started porting the patch series to 4.14, but it is=20
+> definitely not straightforward ;) Will take some time to do this. BTW, =
 
-Cheers,
+> I was looking at xen/arch/arm/Rules.mk in 4.14 and it is blank. The=20
+> previous releases had some board-specific stuff in this file - esp the =
+EARLY_PRINTK definitions.
+> Has this changed in 4.14?
 
--- 
-Julien Grall
+earlyprintk can now be configured using Kconfig. This should be easier =
+to configure as you can do it the same way as you would for other =
+options.
+
+[<SB>] Thanks. Yes, I noticed this change. I'm working on applying the =
+patches and will get back with an update in a day or two.
+
+Thanks,
+Srini
+
+
 
