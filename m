@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 624DD2308DB
+	by mail.lfdr.de (Postfix) with ESMTPS id 580C32308DA
 	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 13:37:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0NvP-0006Cs-RT; Tue, 28 Jul 2020 11:37:39 +0000
+	id 1k0NvL-0006C1-7B; Tue, 28 Jul 2020 11:37:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=K5Bo=BH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k0NvO-0006Br-Bq
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 11:37:38 +0000
-X-Inumbo-ID: ba239a7c-d0c6-11ea-8b28-bc764e2007e4
+ id 1k0NvJ-0006Br-G5
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 11:37:33 +0000
+X-Inumbo-ID: b8e18ad4-d0c6-11ea-8b28-bc764e2007e4
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ba239a7c-d0c6-11ea-8b28-bc764e2007e4;
- Tue, 28 Jul 2020 11:37:33 +0000 (UTC)
+ id b8e18ad4-d0c6-11ea-8b28-bc764e2007e4;
+ Tue, 28 Jul 2020 11:37:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595936254;
+ d=citrix.com; s=securemail; t=1595936253;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IUokeGrxEyJUToEgizkOaWgPFondXajxhHjfPToParY=;
- b=Z3jQOnKbywGACgi4shJBcoRDnBmKektgKvqVOnkg0nMDWCUG/AiQ8O90
- Eac1cIbL4jO5+vgS9xUWKtfyFOu2oAn7A0p/q3DzrUZeGWta8lGis/XwC
- OixhgnQEdQYykr22DHMvrCwvccPxzMOS/OEygz9H1CSeho9xv+9Zh74Bi U=;
+ bh=hLRKErlmwe4NVS9+YaW7c8jBL06IM4hgS3F+Z8g4rWY=;
+ b=HZNfHV1mwLDlauzLWmUJKA5XZhlwyFlS9owkEwXwzO8hd9Fv7NKocNck
+ chbTN+2ZzJfnbbaKWcIO4iYAd/DOCTV2T36fcMppE+hHUfshJS3sZlfJF
+ kD1iurYe0m35l9GhRNAHAV17V+W+dtKNN5Lb4P4E/D0uVSsL113NyVX3c s=;
 Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: UY50K4X8eCfaARt6jfYigiGMp9wttQgys0GM6l06PUGOhv67KMyifBt5Koa2iVXe8HR7jZv58K
- iw/MPZgVj6r5wH237feE/FViWjXNfb9AAijjir4IgJG0JoTntdN3Xu5an9aB5H19hG96PIdVhW
- U4MDbxOvVeSQXN+sFHc36FF48NO0q26LJpN8vyvRhNA94RuiM8YhlWX0dpfyCK3+f81TS/imjS
- /ko1vmsr22NxCsI8MksVJdlCQnvitfS6O6O9C/yG/rYVjW/Z5nSMEJoJX6Ycc49nAGqFNQfyFr
- Alc=
+IronPort-SDR: wkiniwnR8YeCE2n7IgGkdtyN/iNg7wK2C/34nL3lEyhS9OFHgUrvsEX3usdR+sM70PAJ/iRaiI
+ EymaPtsnlwm3M8kzBbowTG9KbqS+F7OBNRlM5UQF13mso1MLzwOCytn1b35heDGL2ejhRFjISm
+ 8IfRqWq4XH7SHoQqBM5Ih5WSb4NO4l991xaBIpIlYY9ZQpiKkIBc1BRuZUen6ilHoMsg0PuFCn
+ t/AVz+o0hGJ9TrS2VEZY4CttZo2t1Xxw01+6bYfu/5SgeAvXSnJnQPHq7p9+dV44I+kLhYWxhV
+ JT0=
 X-SBRS: 2.7
-X-MesageID: 23330308
+X-MesageID: 23330303
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23330308"
+X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23330303"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 4/5] xen/memory: Fix acquire_resource size semantics
-Date: Tue, 28 Jul 2020 12:37:10 +0100
-Message-ID: <20200728113712.22966-5-andrew.cooper3@citrix.com>
+Subject: [PATCH 5/5] tools/foreignmem: Support querying the size of a resource
+Date: Tue, 28 Jul 2020 12:37:11 +0100
+Message-ID: <20200728113712.22966-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200728113712.22966-1-andrew.cooper3@citrix.com>
 References: <20200728113712.22966-1-andrew.cooper3@citrix.com>
@@ -60,290 +60,238 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>, Jan
- Beulich <JBeulich@suse.com>,
+Cc: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
- Ian Jackson <ian.jackson@citrix.com>
+ Ian Jackson <Ian.Jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Calling XENMEM_acquire_resource with a NULL frame_list is a request for the
-size of the resource, but the returned 32 is bogus.
+With the Xen side of this interface fixed to return real sizes, userspace
+needs to be able to make the query.
 
-If someone tries to follow it for XENMEM_resource_ioreq_server, the acquire
-call will fail as IOREQ servers currently top out at 2 frames, and it is only
-half the size of the default grant table limit for guests.
+Introduce xenforeignmemory_resource_size() for the purpose, bumping the
+library minor version and providing compatiblity for the non-Linux builds.
 
-Also, no users actually request a resource size, because it was never wired up
-in the sole implemenation of resource aquisition in Linux.
+Its not possible to reuse the IOCTL_PRIVCMD_MMAP_RESOURCE infrastructure,
+because it depends on having already mmap()'d a suitably sized region before
+it will make an XENMEM_acquire_resource hypercall to Xen.
 
-Introduce a new resource_max_frames() to calculate the size of a resource, and
-implement it the IOREQ and grant subsystems.
-
-It is impossible to guarentee that a mapping call following a successful size
-call will succedd (e.g. The target IOREQ server gets destroyed, or the domain
-switches from grant v2 to v1).  Document the restriction, and use the
-flexibility to simplify the paths to be lockless.
+Instead, open a xencall handle and make an XENMEM_acquire_resource hypercall
+directly.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-CC: George Dunlap <George.Dunlap@eu.citrix.com>
-CC: Ian Jackson <ian.jackson@citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Ian Jackson <Ian.Jackson@citrix.com>
 CC: Wei Liu <wl@xen.org>
-CC: Julien Grall <julien@xen.org>
 CC: Paul Durrant <paul@xen.org>
 CC: Michał Leszczyński <michal.leszczynski@cert.pl>
 CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
 ---
- xen/arch/x86/mm.c             | 20 ++++++++++++++++
- xen/common/grant_table.c      | 19 +++++++++++++++
- xen/common/memory.c           | 55 +++++++++++++++++++++++++++++++++----------
- xen/include/asm-x86/mm.h      |  3 +++
- xen/include/public/memory.h   | 16 +++++++++----
- xen/include/xen/grant_table.h |  8 +++++++
- xen/include/xen/mm.h          |  6 +++++
- 7 files changed, 110 insertions(+), 17 deletions(-)
+ tools/libs/foreignmemory/Makefile                  |  2 +-
+ tools/libs/foreignmemory/core.c                    | 14 +++++++++
+ .../libs/foreignmemory/include/xenforeignmemory.h  | 15 ++++++++++
+ tools/libs/foreignmemory/libxenforeignmemory.map   |  4 +++
+ tools/libs/foreignmemory/linux.c                   | 35 ++++++++++++++++++++++
+ tools/libs/foreignmemory/private.h                 | 14 +++++++++
+ 6 files changed, 83 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 82bc676553..f73a90a2ab 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -4600,6 +4600,26 @@ int xenmem_add_to_physmap_one(
+diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
+index 28f1bddc96..8e07f92c59 100644
+--- a/tools/libs/foreignmemory/Makefile
++++ b/tools/libs/foreignmemory/Makefile
+@@ -2,7 +2,7 @@ XEN_ROOT = $(CURDIR)/../../..
+ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR    = 1
+-MINOR    = 3
++MINOR    = 4
+ LIBNAME  := foreignmemory
+ USELIBS  := toollog toolcore
+ 
+diff --git a/tools/libs/foreignmemory/core.c b/tools/libs/foreignmemory/core.c
+index 63f12e2450..5d95c59c48 100644
+--- a/tools/libs/foreignmemory/core.c
++++ b/tools/libs/foreignmemory/core.c
+@@ -53,6 +53,10 @@ xenforeignmemory_handle *xenforeignmemory_open(xentoollog_logger *logger,
+         if (!fmem->logger) goto err;
+     }
+ 
++    fmem->xcall = xencall_open(fmem->logger, 0);
++    if ( !fmem->xcall )
++        goto err;
++
+     rc = osdep_xenforeignmemory_open(fmem);
+     if ( rc  < 0 ) goto err;
+ 
+@@ -61,6 +65,7 @@ xenforeignmemory_handle *xenforeignmemory_open(xentoollog_logger *logger,
+ err:
+     xentoolcore__deregister_active_handle(&fmem->tc_ah);
+     osdep_xenforeignmemory_close(fmem);
++    xencall_close(fmem->xcall);
+     xtl_logger_destroy(fmem->logger_tofree);
+     free(fmem);
+     return NULL;
+@@ -75,6 +80,7 @@ int xenforeignmemory_close(xenforeignmemory_handle *fmem)
+ 
+     xentoolcore__deregister_active_handle(&fmem->tc_ah);
+     rc = osdep_xenforeignmemory_close(fmem);
++    xencall_close(fmem->xcall);
+     xtl_logger_destroy(fmem->logger_tofree);
+     free(fmem);
+     return rc;
+@@ -188,6 +194,14 @@ int xenforeignmemory_unmap_resource(
      return rc;
  }
  
-+unsigned int arch_resource_max_frames(
-+    struct domain *d, unsigned int type, unsigned int id)
++int xenforeignmemory_resource_size(
++    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
++    unsigned int id, unsigned long *nr_frames)
 +{
-+    unsigned int nr = 0;
-+
-+    switch ( type )
-+    {
-+#ifdef CONFIG_HVM
-+    case XENMEM_resource_ioreq_server:
-+        if ( !is_hvm_domain(d) )
-+            break;
-+        /* One frame for the buf-ioreq ring, and one frame per 128 vcpus. */
-+        nr = 1 + DIV_ROUND_UP(d->max_vcpus * sizeof(struct ioreq), PAGE_SIZE);
-+        break;
-+#endif
-+    }
-+
-+    return nr;
++    return osdep_xenforeignmemory_resource_size(fmem, domid, type,
++                                                id, nr_frames);
 +}
 +
- int arch_acquire_resource(struct domain *d, unsigned int type,
-                           unsigned int id, unsigned long frame,
-                           unsigned int nr_frames, xen_pfn_t mfn_list[])
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index 122d1e7596..0962fc7169 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -4013,6 +4013,25 @@ static int gnttab_get_shared_frame_mfn(struct domain *d,
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/tools/libs/foreignmemory/include/xenforeignmemory.h b/tools/libs/foreignmemory/include/xenforeignmemory.h
+index d594be8df0..1ba2f5316b 100644
+--- a/tools/libs/foreignmemory/include/xenforeignmemory.h
++++ b/tools/libs/foreignmemory/include/xenforeignmemory.h
+@@ -179,6 +179,21 @@ xenforeignmemory_resource_handle *xenforeignmemory_map_resource(
+ int xenforeignmemory_unmap_resource(
+     xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres);
+ 
++/**
++ * Determine the maximum size of a specific resource.
++ *
++ * @parm fmem handle to the open foreignmemory interface
++ * @parm domid the domain id
++ * @parm type the resource type
++ * @parm id the type-specific resource identifier
++ *
++ * Return 0 on success and fills in *nr_frames.  Sets errno and return -1 on
++ * error.
++ */
++int xenforeignmemory_resource_size(
++    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
++    unsigned int id, unsigned long *nr_frames);
++
+ #endif
+ 
+ /*
+diff --git a/tools/libs/foreignmemory/libxenforeignmemory.map b/tools/libs/foreignmemory/libxenforeignmemory.map
+index d5323c87d9..8aca341b99 100644
+--- a/tools/libs/foreignmemory/libxenforeignmemory.map
++++ b/tools/libs/foreignmemory/libxenforeignmemory.map
+@@ -19,3 +19,7 @@ VERS_1.3 {
+ 		xenforeignmemory_map_resource;
+ 		xenforeignmemory_unmap_resource;
+ } VERS_1.2;
++VERS_1.4 {
++	global:
++		xenforeignmemory_resource_size;
++} VERS_1.3;
+diff --git a/tools/libs/foreignmemory/linux.c b/tools/libs/foreignmemory/linux.c
+index 8daa5828e3..67e0ca1e83 100644
+--- a/tools/libs/foreignmemory/linux.c
++++ b/tools/libs/foreignmemory/linux.c
+@@ -28,6 +28,8 @@
+ 
+ #include "private.h"
+ 
++#include <xen/memory.h>
++
+ #define ROUNDUP(_x,_w) (((unsigned long)(_x)+(1UL<<(_w))-1) & ~((1UL<<(_w))-1))
+ 
+ #ifndef O_CLOEXEC
+@@ -340,6 +342,39 @@ int osdep_xenforeignmemory_map_resource(
      return 0;
  }
  
-+unsigned int gnttab_resource_max_frames(struct domain *d, unsigned int id)
++int osdep_xenforeignmemory_resource_size(
++    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
++    unsigned int id, unsigned long *nr_frames)
 +{
-+    unsigned int nr = 0;
++    int rc;
++    struct xen_mem_acquire_resource *xmar =
++        xencall_alloc_buffer(fmem->xcall, sizeof(*xmar));
 +
-+    /* Don't need the grant lock.  This limit is fixed at domain create time. */
-+    switch ( id )
++    if ( !xmar )
 +    {
-+    case XENMEM_resource_grant_table_id_shared:
-+        nr = d->grant_table->max_grant_frames;
-+        break;
-+
-+    case XENMEM_resource_grant_table_id_status:
-+        nr = grant_to_status_frames(d->grant_table->max_grant_frames);
-+        break;
++        PERROR("Could not bounce memory for acquire_resource hypercall");
++        return -1;
 +    }
 +
-+    return nr;
++    *xmar = (struct xen_mem_acquire_resource){
++        .domid = domid,
++        .type = type,
++        .id = id,
++    };
++
++    rc = xencall2(fmem->xcall, __HYPERVISOR_memory_op,
++                  XENMEM_acquire_resource, (uintptr_t)xmar);
++    if ( rc )
++        goto out;
++
++    *nr_frames = xmar->nr_frames;
++
++ out:
++    xencall_free_buffer(fmem->xcall, xmar);
++
++    return rc;
 +}
 +
- int gnttab_acquire_resource(
-     struct domain *d, unsigned int id, unsigned long frame,
-     unsigned int nr_frames, xen_pfn_t mfn_list[])
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index dc3a7248e3..21edabf9cc 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1007,6 +1007,26 @@ static long xatp_permission_check(struct domain *d, unsigned int space)
-     return xsm_add_to_physmap(XSM_TARGET, current->domain, d);
- }
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/tools/libs/foreignmemory/private.h b/tools/libs/foreignmemory/private.h
+index 8f1bf081ed..1a6b685f45 100644
+--- a/tools/libs/foreignmemory/private.h
++++ b/tools/libs/foreignmemory/private.h
+@@ -4,6 +4,7 @@
+ #include <xentoollog.h>
  
-+/*
-+ * Return 0 on any kind of error.  Caller converts to -EINVAL.
-+ *
-+ * All nonzero values should be repeatable (i.e. derived from some fixed
-+ * proerty of the domain), and describe the full resource (i.e. mapping the
-+ * result of this call will be the entire resource).
-+ */
-+static unsigned int resource_max_frames(struct domain *d,
-+                                        unsigned int type, unsigned int id)
-+{
-+    switch ( type )
-+    {
-+    case XENMEM_resource_grant_table:
-+        return gnttab_resource_max_frames(d, id);
-+
-+    default:
-+        return arch_resource_max_frames(d, type, id);
-+    }
-+}
-+
- static int acquire_resource(
-     XEN_GUEST_HANDLE_PARAM(xen_mem_acquire_resource_t) arg)
+ #include <xenforeignmemory.h>
++#include <xencall.h>
+ 
+ #include <xentoolcore_internal.h>
+ 
+@@ -20,6 +21,7 @@
+ 
+ struct xenforeignmemory_handle {
+     xentoollog_logger *logger, *logger_tofree;
++    xencall_handle *xcall;
+     unsigned flags;
+     int fd;
+     Xentoolcore__Active_Handle tc_ah;
+@@ -74,6 +76,15 @@ static inline int osdep_xenforeignmemory_unmap_resource(
  {
-@@ -1018,6 +1038,7 @@ static int acquire_resource(
-      * use-cases then per-CPU arrays or heap allocations may be required.
-      */
-     xen_pfn_t mfn_list[32];
-+    unsigned int max_frames;
-     int rc;
- 
-     if ( copy_from_guest(&xmar, arg, 1) )
-@@ -1026,19 +1047,6 @@ static int acquire_resource(
-     if ( xmar.pad != 0 )
-         return -EINVAL;
- 
--    if ( guest_handle_is_null(xmar.frame_list) )
--    {
--        if ( xmar.nr_frames )
--            return -EINVAL;
--
--        xmar.nr_frames = ARRAY_SIZE(mfn_list);
--
--        if ( __copy_field_to_guest(arg, &xmar, nr_frames) )
--            return -EFAULT;
--
--        return 0;
--    }
--
-     if ( xmar.nr_frames > ARRAY_SIZE(mfn_list) )
-         return -E2BIG;
- 
-@@ -1050,6 +1058,27 @@ static int acquire_resource(
-     if ( rc )
-         goto out;
- 
-+    max_frames = resource_max_frames(d, xmar.type, xmar.id);
-+
-+    rc = -EINVAL;
-+    if ( !max_frames )
-+        goto out;
-+
-+    if ( guest_handle_is_null(xmar.frame_list) )
-+    {
-+        if ( xmar.nr_frames )
-+            goto out;
-+
-+        xmar.nr_frames = max_frames;
-+
-+        rc = -EFAULT;
-+        if ( __copy_field_to_guest(arg, &xmar, nr_frames) )
-+            goto out;
-+
-+        rc = 0;
-+        goto out;
-+    }
-+
-     switch ( xmar.type )
-     {
-     case XENMEM_resource_grant_table:
-diff --git a/xen/include/asm-x86/mm.h b/xen/include/asm-x86/mm.h
-index 7e74996053..b0caf372a8 100644
---- a/xen/include/asm-x86/mm.h
-+++ b/xen/include/asm-x86/mm.h
-@@ -649,6 +649,9 @@ static inline bool arch_mfn_in_directmap(unsigned long mfn)
-     return mfn <= (virt_to_mfn(eva - 1) + 1);
+     return 0;
  }
- 
-+unsigned int arch_resource_max_frames(struct domain *d,
-+                                      unsigned int type, unsigned int id);
 +
- int arch_acquire_resource(struct domain *d, unsigned int type,
-                           unsigned int id, unsigned long frame,
-                           unsigned int nr_frames, xen_pfn_t mfn_list[]);
-diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
-index 21057ed78e..cea88cf40c 100644
---- a/xen/include/public/memory.h
-+++ b/xen/include/public/memory.h
-@@ -639,10 +639,18 @@ struct xen_mem_acquire_resource {
- #define XENMEM_resource_grant_table_id_status 1
- 
-     /*
--     * IN/OUT - As an IN parameter number of frames of the resource
--     *          to be mapped. However, if the specified value is 0 and
--     *          frame_list is NULL then this field will be set to the
--     *          maximum value supported by the implementation on return.
-+     * IN/OUT
-+     *
-+     * As an IN parameter number of frames of the resource to be mapped.
-+     *
-+     * When frame_list is NULL and nr_frames is 0, this is interpreted as a
-+     * request for the size of the resource, which shall be returned in the
-+     * nr_frames field.
-+     *
-+     * The size of a resource will never be zero, but a nonzero result doesn't
-+     * guarentee that a subsequent mapping request will be successful.  There
-+     * are further type/id specific constraints which may change between the
-+     * two calls.
-      */
-     uint32_t nr_frames;
-     uint32_t pad;
-diff --git a/xen/include/xen/grant_table.h b/xen/include/xen/grant_table.h
-index 5a2c75b880..bae4d79623 100644
---- a/xen/include/xen/grant_table.h
-+++ b/xen/include/xen/grant_table.h
-@@ -57,6 +57,8 @@ int mem_sharing_gref_to_gfn(struct grant_table *gt, grant_ref_t ref,
- int gnttab_map_frame(struct domain *d, unsigned long idx, gfn_t gfn,
-                      mfn_t *mfn);
- 
-+unsigned int gnttab_resource_max_frames(struct domain *d, unsigned int id);
-+
- int gnttab_acquire_resource(
-     struct domain *d, unsigned int id, unsigned long frame,
-     unsigned int nr_frames, xen_pfn_t mfn_list[]);
-@@ -93,6 +95,12 @@ static inline int gnttab_map_frame(struct domain *d, unsigned long idx,
-     return -EINVAL;
- }
- 
-+static inline unsigned int gnttab_resource_max_frames(
-+    struct domain *d, unsigned int id)
++static inline int osdep_xenforeignmemory_resource_size(
++    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
++    unsigned int id, unsigned long *nr_frames)
 +{
-+    return 0;
++    errno = EOPNOTSUPP;
++    return -1;
 +}
 +
- static inline int gnttab_acquire_resource(
-     struct domain *d, unsigned int id, unsigned long frame,
-     unsigned int nr_frames, xen_pfn_t mfn_list[])
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 1b2c1f6b32..c184dc1db1 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -686,6 +686,12 @@ static inline void put_page_alloc_ref(struct page_info *page)
- }
+ #else
+ int osdep_xenforeignmemory_restrict(xenforeignmemory_handle *fmem,
+                                     domid_t domid);
+@@ -81,6 +92,9 @@ int osdep_xenforeignmemory_map_resource(
+     xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres);
+ int osdep_xenforeignmemory_unmap_resource(
+     xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres);
++int osdep_xenforeignmemory_resource_size(
++    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
++    unsigned int id, unsigned long *nr_frames);
+ #endif
  
- #ifndef CONFIG_ARCH_ACQUIRE_RESOURCE
-+static inline unsigned int arch_resource_max_frames(
-+    struct domain *d, unsigned int type, unsigned int id)
-+{
-+    return 0;
-+}
-+
- static inline int arch_acquire_resource(
-     struct domain *d, unsigned int type, unsigned int id, unsigned long frame,
-     unsigned int nr_frames, xen_pfn_t mfn_list[])
+ #define PERROR(_f...) \
 -- 
 2.11.0
 
