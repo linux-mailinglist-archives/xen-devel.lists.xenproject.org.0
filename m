@@ -2,58 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43A9C230683
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 11:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34CE8230685
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 11:27:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0LsC-0002Y7-71; Tue, 28 Jul 2020 09:26:12 +0000
+	id 1k0LtH-0002cT-Hp; Tue, 28 Jul 2020 09:27:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K5Bo=BH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k0LsA-0002Y2-Fe
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 09:26:10 +0000
-X-Inumbo-ID: 5e1447f2-d0b4-11ea-8b20-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=iaET=BH=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
+ id 1k0LtG-0002cN-QH
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 09:27:18 +0000
+X-Inumbo-ID: 87b73d30-d0b4-11ea-8b20-bc764e2007e4
+Received: from mail-oi1-x241.google.com (unknown [2607:f8b0:4864:20::241])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5e1447f2-d0b4-11ea-8b20-bc764e2007e4;
- Tue, 28 Jul 2020 09:26:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595928368;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=JtQqa/GSc1fAEqGRuQBN4Er6GGqRLBpKt2Wq0dwMWvU=;
- b=UURj25CLdlyZbCh4A6nAogS38q7qWrDwjiK+eBqGCJTxbTLHvyo5Hxjp
- xXhRxJhjn02FFIXLHSwVUvZ+GH7u+wLW80lVVhIMpqXSBHsXnrm4dytX9
- RAXdGqdFuY8DdoCcMRNtjb5vxXf6ktmE5fdBZ4Qh9iS8W83w4THS/75rY w=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: Qb2MkFE+yO0eWbn4GnRskLe0dbzK2qXnHanbNaPZjeAtAh9/bs+u7PJljIsAxnQ/xKp+CamAAx
- xmdCbnyk+F5y4zDNrO1AbG/IpDo7Un/3A5PU8e29sCgbr35HKvC4Ja8En/ysBYk/tC2wQhDm56
- 5Wh2htKYdILqbD+UZocK0VzDwNkJMrNwzpQ1T2UpiJc9o3+SGNYaBc6Jwdpj6GEO1Imjb1TScP
- U2hEKZ8HK7kt+nbp1px9/w19db/vxHp3UU3LVQNXZcIR98JAG8uoAOdW51wetoloF54UWQG63D
- V+A=
-X-SBRS: 2.7
-X-MesageID: 23663992
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,405,1589256000"; d="scan'208";a="23663992"
-Subject: Re: [PATCH] x86/vhpet: Fix type size in timer_int_route_valid
-To: Eslam Elnikety <elnikety@amazon.com>, <xen-devel@lists.xenproject.org>
-References: <20200728083357.77999-1-elnikety@amazon.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a55fba45-a008-059e-ea8c-b7300e2e8b7d@citrix.com>
-Date: Tue, 28 Jul 2020 10:26:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 87b73d30-d0b4-11ea-8b20-bc764e2007e4;
+ Tue, 28 Jul 2020 09:27:17 +0000 (UTC)
+Received: by mail-oi1-x241.google.com with SMTP id u63so5140777oie.5
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jul 2020 02:27:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=0jlqF1vNQDLT4jtpLs7LnhRZhztTYxX9+FwYb5e1cXw=;
+ b=eRqUuFEncWn7FuFUnXBers8AJ9XN0eRqhILUyjbnliu64xB8yyByOZvCMI8cIVmplA
+ ym5Oxrcg+dSpxd2RBRjREgyV/ymKJDz8B4vMzGuXGq3h5dIOW0dUitokRqDa9tEBn+Sj
+ Zag69kqe1yR3RsBzVRNoHcGdu9bU7JANw0ruGcMwpI7Z0oL0IEXLyGn+XzCt2qEFHn9t
+ MOmppHvcvytbbG3ruItt/Tone39XjHwj5rIRgK+PHa+G0cjBsGDrx57lgtIob0Zr/z+m
+ k2T5DMBv0uxS2s1jdwvMvoC90YECmFkKNcebLbdwSdUuA7PrFdI6hOhdbPO3KdnlCFxJ
+ y8Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=0jlqF1vNQDLT4jtpLs7LnhRZhztTYxX9+FwYb5e1cXw=;
+ b=Zrx806uwfvhymbfnl4xsBrHAhe2RZscjxBYi6x7pl52foNrEUXBNSe/kFN6KZWPnYV
+ i8TCjAyEUAHDREw8uvyvCHoi+KrzBQQriZDQIOL4PSDeJAoztJeQnd4LbtKL2xjvDuD9
+ SqGuaH8mIHslO76XMzZCUXDoP4G+iuCnCYFyW+OGVneF1kcqtC4YvRxlInWt2YtXqSAg
+ qU/GtyjQo+XbBPr/IWUK3dmqlMvg0lVdIp4hTa/4x+hTR7KlZitPs/RVQst5DNrzNx2W
+ wJUqVh6ru9UVlEynncvHvt1+T9apAKWLsQ8pkxXjRxJAjmzDYuU9AnHgQT5nOj6Tv0dP
+ TKTw==
+X-Gm-Message-State: AOAM533EV9qsWGrYUKfLlfH6C3ZS9jOdt1Xu0FpzSqGDOjTp4dynakHp
+ WFnJhIqqQBd5lsSK3hgpWuxW30PzZXhuFktkM2f7Dg==
+X-Google-Smtp-Source: ABdhPJx7pJQRRKQTwke8VyQeZ02E0pIOiXvGYB2MeLNmSe8kmmcIflbUUPw95KHqQOILTAurpITPfgKIJUh6zSV6dIo=
+X-Received: by 2002:aca:4a96:: with SMTP id x144mr2689821oia.163.1595928437503; 
+ Tue, 28 Jul 2020 02:27:17 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200728083357.77999-1-elnikety@amazon.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+References: <20200728091828.21702-1-paul@xen.org>
+In-Reply-To: <20200728091828.21702-1-paul@xen.org>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Tue, 28 Jul 2020 10:27:06 +0100
+Message-ID: <CAFEAcA_wKTFWk9Uk5HMabqfa6QkkTAdzBotmnrA_EH1BR4XjYg@mail.gmail.com>
+Subject: Re: [PATCH] configure: define CONFIG_XEN when Xen is enabled
+To: Paul Durrant <paul@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,73 +66,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Paul Durrant <pdurrant@amazon.co.uk>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Paul Durrant <pdurrant@amazon.com>, QEMU Developers <qemu-devel@nongnu.org>,
+ Laurent Vivier <laurent@vivier.eu>, Anthony Perard <anthony.perard@citrix.com>,
+ "open list:X86" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28/07/2020 09:33, Eslam Elnikety wrote:
-> The macro timer_int_route_cap evalutes to a 64 bit value. Extend the
-> size of left side of timer_int_route_valid to match.
+On Tue, 28 Jul 2020 at 10:19, Paul Durrant <paul@xen.org> wrote:
 >
-> This bug was discovered and resolved using Coverity Static Analysis
-> Security Testing (SAST) by Synopsys, Inc.
+> From: Paul Durrant <pdurrant@amazon.com>
 >
-> Signed-off-by: Eslam Elnikety <elnikety@amazon.com>
+> The recent commit da278d58a092 "accel: Move Xen accelerator code under
+> accel/xen/" introduced a subtle semantic change, making xen_enabled() alw=
+ays
+> return false unless CONFIG_XEN is defined prior to inclusion of sysemu/xe=
+n.h,
+> which appears to be the normal case. This causes various use-cases of QEM=
+U
+> with Xen to break.
+>
+> This patch makes sure that CONFIG_XEN is defined if --enable-xen is passe=
+d
+> to configure.
+>
+> Fixes: da278d58a092 ("accel: Move Xen accelerator code under accel/xen/")
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 > ---
->  xen/arch/x86/hvm/hpet.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Cc: "Philippe Mathieu-Daud=C3=A9" <philmd@redhat.com>
+> Cc: Laurent Vivier <laurent@vivier.eu>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Anthony Perard <anthony.perard@citrix.com>
+> ---
+>  configure | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
-> index ca94e8b453..9afe6e6760 100644
-> --- a/xen/arch/x86/hvm/hpet.c
-> +++ b/xen/arch/x86/hvm/hpet.c
-> @@ -66,7 +66,7 @@
->      MASK_EXTR(timer_config(h, n), HPET_TN_INT_ROUTE_CAP)
->  
->  #define timer_int_route_valid(h, n) \
-> -    ((1u << timer_int_route(h, n)) & timer_int_route_cap(h, n))
-> +    ((1ULL << timer_int_route(h, n)) & timer_int_route_cap(h, n))
->  
->  static inline uint64_t hpet_read_maincounter(HPETState *h, uint64_t guest_time)
->  {
+> diff --git a/configure b/configure
+> index 2acc4d1465..f1b9d129fd 100755
+> --- a/configure
+> +++ b/configure
+> @@ -7434,6 +7434,7 @@ if test "$virglrenderer" =3D "yes" ; then
+>    echo "VIRGL_LIBS=3D$virgl_libs" >> $config_host_mak
+>  fi
+>  if test "$xen" =3D "yes" ; then
+> +  echo "CONFIG_XEN=3Dy" >> $config_host_mak
+>    echo "CONFIG_XEN_BACKEND=3Dy" >> $config_host_mak
+>    echo "CONFIG_XEN_CTRL_INTERFACE_VERSION=3D$xen_ctrl_version" >> $confi=
+g_host_mak
+>  fi
 
-Does this work?
+Configure already defines CONFIG_XEN as a target-specific
+config define in config-target.mak for the specific targets
+that Xen will work for (ie if you build --enable-xen for
+x86_64-softmmu and ppc64-softmmu then CONFIG_XEN is set for
+the former and not the latter). This patch makes it a
+build-wide config setting by putting it in config-host.mak.
 
-diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
-index ca94e8b453..638f6174de 100644
---- a/xen/arch/x86/hvm/hpet.c
-+++ b/xen/arch/x86/hvm/hpet.c
-@@ -62,8 +62,7 @@
- 
- #define timer_int_route(h, n)    MASK_EXTR(timer_config(h, n),
-HPET_TN_ROUTE)
- 
--#define timer_int_route_cap(h, n) \
--    MASK_EXTR(timer_config(h, n), HPET_TN_INT_ROUTE_CAP)
-+#define timer_int_route_cap(h, n) (h)->hpet.timers[(n)].route
- 
- #define timer_int_route_valid(h, n) \
-     ((1u << timer_int_route(h, n)) & timer_int_route_cap(h, n))
-diff --git a/xen/include/asm-x86/hvm/vpt.h b/xen/include/asm-x86/hvm/vpt.h
-index f0e0eaec83..a41fc443cc 100644
---- a/xen/include/asm-x86/hvm/vpt.h
-+++ b/xen/include/asm-x86/hvm/vpt.h
-@@ -73,7 +73,13 @@ struct hpet_registers {
-     uint64_t isr;               /* interrupt status reg */
-     uint64_t mc64;              /* main counter */
-     struct {                    /* timers */
--        uint64_t config;        /* configuration/cap */
-+        union {
-+            uint64_t config;    /* configuration/cap */
-+            struct {
-+                uint32_t _;
-+                uint32_t route;
-+            };
-+        };
-         uint64_t cmp;           /* comparator */
-         uint64_t fsb;           /* FSB route, not supported now */
-     } timers[HPET_TIMER_NUM];
+We should figure out which of those two is correct and do
+just one of them, not do both at the same time.
 
+Since CONFIG_HAX, CONFIG_KVM and other accelerator-type
+config defines are also per-target, I suspect that the
+correct fix for this bug is not in configure but elsewhere.
+
+thanks
+-- PMM
 
