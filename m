@@ -2,57 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EE2A23078F
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:22:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76AB22307D0
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:40:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0MkG-0008R5-Cb; Tue, 28 Jul 2020 10:22:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TSwU=BH=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k0MkF-0008R0-5g
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:22:03 +0000
-X-Inumbo-ID: 2d462e76-d0bc-11ea-a891-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2d462e76-d0bc-11ea-a891-12813bfff9fa;
- Tue, 28 Jul 2020 10:22:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SyFuU7+M8MVwPeAkKMNBGwL2tvYp7N5iAJ2NgFRHDPo=; b=gJ3h4Z26GKcwX1YndiawYvz7gL
- vAtfb5oJmFNfw3y/x78SKY3W0qX7tVjHCIpT+wi5czZCnyNnt9jLCLzTZP4gK+uLz4aE81NLcTilx
- ORkeHg7rXgUFbKqeS/f7gMLMyq4Y4pQERb8Jc3Z/H2p+zkk0SS11Jab1oHSmuvK7fSwI=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k0Mk9-00057a-8g; Tue, 28 Jul 2020 10:21:57 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k0Mk9-0002gt-0D; Tue, 28 Jul 2020 10:21:57 +0000
-Subject: Re: [PATCH] public/domctl: Fix the struct xen_domctl ABI in 32bit
- builds
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20200728101529.13753-1-andrew.cooper3@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <7ecab0e1-b218-cff0-f2dd-a5f81c5afaeb@xen.org>
-Date: Tue, 28 Jul 2020 11:21:54 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.10.0
+	id 1k0N17-00012P-UM; Tue, 28 Jul 2020 10:39:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ae7q=BH=gmail.com=alejandro.gonzalez.correo@srs-us1.protection.inumbo.net>)
+ id 1k0N16-00011t-Dn
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:39:28 +0000
+X-Inumbo-ID: 9c0495c6-d0be-11ea-8b26-bc764e2007e4
+Received: from mail-oi1-x243.google.com (unknown [2607:f8b0:4864:20::243])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9c0495c6-d0be-11ea-8b26-bc764e2007e4;
+ Tue, 28 Jul 2020 10:39:27 +0000 (UTC)
+Received: by mail-oi1-x243.google.com with SMTP id w17so17035004oie.6
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jul 2020 03:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=F/Ok6kXKD7ZtkHsiCRqYn+tABQDkmCdFMgWtmQnzruE=;
+ b=eQpT/2ug3/kbEtXJOQ7V5qGPweHBgcxFFc7N00o3Rpa9ON4x1LK9VN2xCpFMuJZWfM
+ 5K5/A6HJmFxKYIwHA0c0+pJShojFAUa26adaGlNLTJBcwPebOfHm6KAX0wmT1Ny/Irhs
+ 6/UINtNGAnLal1iDkijIW8dslyV/JTtVtWd3AplR78s0j/eLA3xoFA2uxb3KPvhBRD7W
+ mPQsB49HZL4g8w6hQEL2wFl6QJQ4Tv0wTPxCproOHcBdwigtYu+ZHsI79mxxT8OPbSYO
+ D36See2l5Ykrb+t83SP+5ou+EXUTDLrWnfAZOw/sdLC21yySCI2QVxN7PsOST1lD1jNg
+ gGkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=F/Ok6kXKD7ZtkHsiCRqYn+tABQDkmCdFMgWtmQnzruE=;
+ b=I0Pb8e/e85Z20arQ8KHlMBSx8s8NiyamrxvP5XOlqnB9mp8lAXknij1jegJ3a7qwWJ
+ 2nsCq7x7Az9a3T3jXhmzO704hGW1wJLCgiZCY1Gnydu1V+yFEuQJMwho7sLNxOakErWO
+ O9JoJv8RAcWWP+hxVoLExE9Jihpzv8lqvn61heRIX8CFVc2xqOGBpv+ZAVIKju/g1MPd
+ T7IViCqAbxUnYV7tzkzcngQ56pYSiQeGuceL0T553rGl/NI/1QvH3rV0eNY4cphkiPYq
+ YPmkgyzme6zv2exPLHddbYYddW+27pKDIXlejkYVDvRD+St4j4taqNBnYGJYPO5fbFFJ
+ fR5A==
+X-Gm-Message-State: AOAM533c0ubhoDJbg2PLA9sy3HWECcg+j63uhTLRK/zjpABCwzh3GLFv
+ oe/Ea6qL6xwjWKm1J4pr4NsWD8kxDqZHioIXImU=
+X-Google-Smtp-Source: ABdhPJx9Jr+sG7cAAE0/zaQ15n0JwVIsrHMvEFSnuFvRl87JtK6CVw3FRDNn5yNZCc42ywq7qCcC28BN1ePQM1o+Wo0=
+X-Received: by 2002:a05:6808:3b8:: with SMTP id
+ n24mr2807719oie.84.1595932766515; 
+ Tue, 28 Jul 2020 03:39:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200728101529.13753-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <CA+wirGqXMoRkS-aJmfFLipUv8SdY5LKV1aMrF0yKRJQaMvzs6Q@mail.gmail.com>
+ <1c5cee83-295e-cc02-d018-b53ddc6e3590@xen.org>
+ <CA+wirGpFvLBzYRBaq8yspJj8j9-yoLwN88bt079qM5yqPTwtcA@mail.gmail.com>
+ <02b630bd-22e0-afde-6784-be068d0948ae@arm.com>
+In-Reply-To: <02b630bd-22e0-afde-6784-be068d0948ae@arm.com>
+From: Alejandro <alejandro.gonzalez.correo@gmail.com>
+Date: Tue, 28 Jul 2020 12:39:14 +0200
+Message-ID: <CA+wirGoG+im2mwb2ye6j4MpcVtfQ-prhhmVgdBTosus7hjeu=w@mail.gmail.com>
+Subject: Re: dom0 LInux 5.8-rc5 kernel failing to initialize cooling maps for
+ Allwinner H6 SoC
+To: =?UTF-8?Q?Andr=C3=A9_Przywara?= <andre.przywara@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,31 +71,77 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>,
- Ian Jackson <ian.jackson@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Andrew,
+Hello,
 
-On 28/07/2020 11:15, Andrew Cooper wrote:
-> The Xen domctl ABI currently relies on the union containing a field with
-> alignment of 8.
-> 
-> 32bit projects which only copy the used subset of functionality end up with an
-> ABI breakage if they don't have at least one uint64_aligned_t field copied.
-> 
-> Insert explicit padding, and some build assertions to ensure it never changes
-> moving forwards.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+El dom., 26 jul. 2020 a las 22:25, Andr=C3=A9 Przywara
+(<andre.przywara@arm.com>) escribi=C3=B3:
+> So this was actually my first thought: The firmware (U-Boot SPL) sets up
+> some basic CPU frequency (888 MHz for H6 [1]), which is known to never
+> overheat the chip, even under full load. So any concern from your side
+> about the board or SoC overheating could be dismissed, with the current
+> mainline code, at least. However you lose the full speed, by quite a
+> margin on the H6 (on the A64 it's only 816 vs 1200(ish) MHz).
+> However, without the clock entries in the CPU node, the frequency would
+> never be changed by Dom0 anyway (nor by Xen, which doesn't even know how
+> to do this).
+> So from a practical point of view: unless you hack Xen to pass on more
+> cpu node properties, you are stuck at 888 MHz anyway, and don't need to
+> worry about overheating.
+Thank you. Knowing that at least it won't overheat is a relief. But
+the performance definitely suffers from the current situation, and
+quite a bit. I'm thinking about using KVM instead: even if it does
+less paravirtualization of guests, I'm sure that the ability to use
+the maximum frequency of the CPU would offset the additional overhead,
+and in general offer better performance. But with KVM I lose the
+ability to have individual domU's dedicated to some device driver,
+which is a nice thing to have from a security standpoint.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+> Now if you would pass on the CPU clock frequency control to Dom0, you
+> run into more issues: the Linux governors would probably try to setup
+> both frequency and voltage based on load, BUT this would be Dom0's bogus
+> perception of the actual system load. Even with pinned Dom0 vCPUs, a
+> busy system might spend most of its CPU time in DomU VCPUs, which
+> probably makes it look mostly idle in Dom0. Using a fixed governor
+> (performance) would avoid this, at the cost of running full speed all of
+> the time, probably needlessly.
+>
+> So fixing the CPU clocking issue is more complex and requires more
+> ground work in Xen first, probably involving some enlightenend Dom0
+> drivers as well. I didn't follow latest developments in this area, nor
+> do I remember x86's answer to this, but it's not something easy, I would
+> presume.
+I understand, thanks :). I know that recent Intel CPUs (from Sandy
+Bridge onwards) use P-states to manage frequencies, and even have a
+mode of operation that lets the CPU select the P-states by itself. On
+older processors, Xen can probably rely on ACPI data to do the
+frequency scaling. But the most similar "standard thing" that my board
+has, a AR100 coprocessor that with the (work in progress) Crust
+firmware can be used with SCMI, doesn't even seem to support the use
+case of changing CPU frequency... and SCMI is the most promising
+approach for adding DVFS support in Xen for ARM, according to this
+previous work: https://www.slideshare.net/xen_com_mgr/xpdds18-cpufreq-in-xe=
+n-on-arm-oleksandr-tyshchenko-epam-systems
 
-Cheers,
+> Alejandro: can you try to measure the actual CPU frequency in Dom0?
+> Maybe some easy benchmark? "mhz" from lmbench does a great job in
+> telling you the actual frequency, just by clever measurement. But any
+> other CPU bound benchmark would do, if you compare bare metal Linux vs.
+> Dom0.
+I have measured the CPU frequency in Dom0 using lmbench several times
+and it seems to be stuck at 888 MHz, the frequency set by U-Boot.
+Overall, the system feels more sluggish than when using bare Linux,
+too. It doesn't matter if I apply the "hacky fix" I mentioned before
+or not.
 
--- 
-Julien Grall
+> Also, does cpufreq come up in Dom0 at all? Can you select governors and
+> frequencies?
+It doesn't come up, and no sysfs entries are created for cpufreq. With
+the "fix", the kernel prints an error message complaining that it
+couldn't probe cpufreq-dt, but it still doesn't come up, and sysfs
+entries for cpufreq aren't created either.
 
