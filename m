@@ -2,61 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7B31230E7F
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 17:54:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BCBE231015
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 18:49:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0Rvu-00040J-4I; Tue, 28 Jul 2020 15:54:26 +0000
+	id 1k0SmJ-0000Ou-68; Tue, 28 Jul 2020 16:48:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K5Bo=BH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k0Rvt-00040D-Lc
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 15:54:25 +0000
-X-Inumbo-ID: 9b42dfcc-d0ea-11ea-8b89-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TSwU=BH=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k0SmH-0000Op-L5
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 16:48:33 +0000
+X-Inumbo-ID: 2be86eaa-d0f2-11ea-8ba1-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b42dfcc-d0ea-11ea-8b89-bc764e2007e4;
- Tue, 28 Jul 2020 15:54:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595951664;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=3RqD1ZWNAXPqA1HlEKynr4F4GCWiwQSbeP3zx33qDi4=;
- b=b1GLf4BxfAhCUAlSyjQGDuAg1TKi/iawApxbZS8wQgGXC9SmJdYODCjg
- 4yDqMZ73kPUar6ZBO56ONUBFWHo8jVZO8CNTd9h9MYzhV1R0BXAY9BKMm
- s8Vbm1RiT8eapTGr5U8BTkp39Ytrks3wTd6JJZWcGHQFZNh1kYY49aXTZ o=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: fNUJfxBsaAtfnz8WwdLmKRjJy4+x5tliyGcJyedIBFbzqOIKLKwIVZD9b285TXQU2XXIL5adQJ
- owlFaLNCsN0hZcHd2uXpPb9AQzZhGpnjCEbK5HtTxM+TY3ps8A14yxPAbqBQ/svf0CLb5BDSOR
- A3W+KSbgRpTDUe7Nd8BgsaGGyYuZ9Wo60anePXdIihv5QTPUS956Oa9LpOjmRkoM3LDQgWz+Do
- JiOye1H0/4exIvUVgiMWsmrqx6JrqN/3QAEn+8rYvhTygr+oyJXK/vTL3pmnpcTpInS26PqCv2
- hko=
-X-SBRS: 2.7
-X-MesageID: 23551922
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23551922"
-Subject: Re: [PATCH] x86/hvm: Clean up track_dirty_vram() calltree
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200722151548.4000-1-andrew.cooper3@citrix.com>
- <07ecb7dd-c823-0c6a-2bcd-7fc22471af7a@suse.com>
- <822f6c64-0e63-1199-63b0-f27449fd79c6@citrix.com>
- <635385e7-81f4-138a-f8ba-269a6d2c7ddb@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <9831be29-93e6-d7af-b42a-49cd6766dcc9@citrix.com>
-Date: Tue, 28 Jul 2020 16:54:09 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 2be86eaa-d0f2-11ea-8ba1-bc764e2007e4;
+ Tue, 28 Jul 2020 16:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=W/q3EC2xp/1uSlfzKWEodtbt8+Hkh9fk7Ot5gVkNxDI=; b=0EjygVLrDEeM7fxzEKp2ZCZfyW
+ cCJP1O+If5bhP4xNNzbCXDP+PxlwyNtosVREbzqftCtJMDJxbBiLcvc4YspOaTvnKcrrHu2hK0nTJ
+ 1oEy0V5ch4ZjpSEb84qfhoA5KsAiF8/udmsoizbh1NJwVVwacNWHhuOak4ho4Awlprt8=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k0SmB-00059l-9Z; Tue, 28 Jul 2020 16:48:27 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k0SmA-0007yB-V2; Tue, 28 Jul 2020 16:48:27 +0000
+Subject: Re: [PATCH v3 4/4] xen: add helpers to allocate unpopulated memory
+To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
+References: <20200727091342.52325-1-roger.pau@citrix.com>
+ <20200727091342.52325-5-roger.pau@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <b5460659-88a5-c2aa-c339-815d5618bcb5@xen.org>
+Date: Tue, 28 Jul 2020 17:48:23 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <635385e7-81f4-138a-f8ba-269a6d2c7ddb@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200727091342.52325-5-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,63 +61,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Tim Deegan <tim@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ David Airlie <airlied@linux.ie>, Yan Yankovskyi <yyankovskyi@gmail.com>,
+ David Hildenbrand <david@redhat.com>, dri-devel@lists.freedesktop.org,
+ Michal Hocko <mhocko@kernel.org>, linux-mm@kvack.org,
+ Daniel Vetter <daniel@ffwll.ch>, xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23/07/2020 11:25, Jan Beulich wrote:
-> On 23.07.2020 11:40, Andrew Cooper wrote:
->> On 22/07/2020 17:13, Jan Beulich wrote:
->>> On 22.07.2020 17:15, Andrew Cooper wrote:
->>>>  * Rename nr to nr_frames.  A plain 'nr' is confusing to follow in the the
->>>>    lower levels.
->>>>  * Use DIV_ROUND_UP() rather than opencoding it in several different ways
->>>>  * The hypercall input is capped at uint32_t, so there is no need for
->>>>    nr_frames to be unsigned long in the lower levels.
->>>>
->>>> No functional change.
->>>>
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> I'd like to note though that ...
->>>
->>>> --- a/xen/arch/x86/mm/hap/hap.c
->>>> +++ b/xen/arch/x86/mm/hap/hap.c
->>>> @@ -58,16 +58,16 @@
->>>>  
->>>>  int hap_track_dirty_vram(struct domain *d,
->>>>                           unsigned long begin_pfn,
->>>> -                         unsigned long nr,
->>>> +                         unsigned int nr_frames,
->>>>                           XEN_GUEST_HANDLE(void) guest_dirty_bitmap)
->>>>  {
->>>>      long rc = 0;
->>>>      struct sh_dirty_vram *dirty_vram;
->>>>      uint8_t *dirty_bitmap = NULL;
->>>>  
->>>> -    if ( nr )
->>>> +    if ( nr_frames )
->>>>      {
->>>> -        int size = (nr + BITS_PER_BYTE - 1) / BITS_PER_BYTE;
->>>> +        unsigned int size = DIV_ROUND_UP(nr_frames, BITS_PER_BYTE);
->>> ... with the change from long to int this construct will now no
->>> longer be correct for the (admittedly absurd) case of a hypercall
->>> input in the range of [0xfffffff9,0xffffffff]. We now fully
->>> depend on this getting properly rejected at the top level hypercall
->>> handler (which limits to 1Gb worth of tracked space).
->> I don't see how this makes any difference at all.
->>
->> Exactly the same would be true in the old code for an input in the range
->> [0xfffffffffffffff9,0xffffffffffffffff], where the aspect which protects
->> you is the fact that the hypercall ABI truncates to 32 bits.
-> Exactly: The hypercall ABI won't change. The GB(1) check up the call
-> tree may go away, without the then arising issue being noticed.
+Hi,
 
-The ABI is equally as like to change as the 1G limit.  Either both
-issues will be fixed (and almost certainly together), or neither will
-change forever more.
+On 27/07/2020 10:13, Roger Pau Monne wrote:
+> To be used in order to create foreign mappings. This is based on the
+> ZONE_DEVICE facility which is used by persistent memory devices in
+> order to create struct pages and kernel virtual mappings for the IOMEM
+> areas of such devices. Note that on kernels without support for
+> ZONE_DEVICE Xen will fallback to use ballooned pages in order to
+> create foreign mappings.
+> 
+> The newly added helpers use the same parameters as the existing
+> {alloc/free}_xenballooned_pages functions, which allows for in-place
+> replacement of the callers. Once a memory region has been added to be
+> used as scratch mapping space it will no longer be released, and pages
+> returned are kept in a linked list. This allows to have a buffer of
+> pages and prevents resorting to frequent additions and removals of
+> regions.
+> 
+> If enabled (because ZONE_DEVICE is supported) the usage of the new
+> functionality untangles Xen balloon and RAM hotplug from the usage of
+> unpopulated physical memory ranges to map foreign pages, which is the
+> correct thing to do in order to avoid mappings of foreign pages depend
+> on memory hotplug.
+I think this is going to break Dom0 on Arm if the kernel has been built 
+with hotplug. This is because you may end up to re-use region that will 
+be used for the 1:1 mapping of a foreign map.
 
-~Andrew
+Note that I don't know whether hotplug has been tested on Xen on Arm 
+yet. So it might be possible to be already broken.
+
+Meanwhile, my suggestion would be to make the use of hotplug in the 
+balloon code conditional (maybe using CONFIG_ARM64 and CONFIG_ARM)?
+
+Cheers,
+
+-- 
+Julien Grall
 
