@@ -2,67 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C4ED23075D
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:12:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 333AB230764
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:14:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0Mak-0007GD-LD; Tue, 28 Jul 2020 10:12:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k0McK-0007OJ-0Q; Tue, 28 Jul 2020 10:13:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z9cF=BH=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1k0Mai-0007G8-P7
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:12:12 +0000
-X-Inumbo-ID: cc88db48-d0ba-11ea-a88d-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc88db48-d0ba-11ea-a88d-12813bfff9fa;
- Tue, 28 Jul 2020 10:12:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595931130;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=wvjaajopii/5qeiGlm4RMJFm4dux7qZNErym3qfGlD8=;
- b=Ki3tUUWW01Sc9FwU9YedVkfo+hiVH6VBv+7Sp8mxEsd5P6F0X9d7mHZX
- BPlEhIklVl6wRtVuKR1rwPGWZE09avPQS3ApQpxPqE0BpBhsam1+iv8Mz
- bJGFJDggyVlRyJfFbUMcTXlcg8YsU7PwXF4IYExVcXu5N78qckRT/t/bR c=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 9I0ZK56lX5DAzvZBQ8nzAh1NdX72NXPvnCcCoMj/FW6k3qYdDzLEF6Khr4an8wlkPhXKBueraU
- 1WivZlftNwz9V0F9fGl9PW9NwKXbgoXNoZihQeAH/Bx/7ME/Lp42J8+MfJaq7/nEPvaFi2t4N+
- R1gMWQfv59G6GIeyLvge4MjQIVrazi7nL6OujHP0oZ5Qve1zgdw6yhtq3pHSUmjzz9oFxhKndH
- I/fIOMPmU3lCch/ia1eYEgHvhdSH0OXhirHiPXhP/drLVh9xcgmWcRyv0mTzvjMS5eodVXDCOm
- H54=
-X-SBRS: 2.7
-X-MesageID: 23344363
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23344363"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [[XSATOOL]] repo: Add missing spaces in the configure cmdline for
- "xentools"
-Thread-Topic: [[XSATOOL]] repo: Add missing spaces in the configure cmdline
- for "xentools"
-Thread-Index: AQHWZC+x8Lr8eJ8LdEOQDs5vOcX3hKkcpTEA
-Date: Tue, 28 Jul 2020 10:12:06 +0000
-Message-ID: <7AA2EA3C-EE42-4D3A-B266-03D38C25A6DB@citrix.com>
-References: <20200727160415.717-1-julien@xen.org>
- <0299389e-bb24-6ec9-9fb4-18cc7c4ec181@xen.org>
-In-Reply-To: <0299389e-bb24-6ec9-9fb4-18cc7c4ec181@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <700AE54022947B42AD1FFFF141FFD307@citrix.com>
-Content-Transfer-Encoding: base64
+ <SRS0=iaET=BH=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
+ id 1k0McI-0007OD-2d
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:13:50 +0000
+X-Inumbo-ID: 07944953-d0bb-11ea-8b26-bc764e2007e4
+Received: from mail-oi1-x241.google.com (unknown [2607:f8b0:4864:20::241])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 07944953-d0bb-11ea-8b26-bc764e2007e4;
+ Tue, 28 Jul 2020 10:13:49 +0000 (UTC)
+Received: by mail-oi1-x241.google.com with SMTP id y22so16949000oie.8
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jul 2020 03:13:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=dIGitEZzrPfalnnDRusGe28l2o0rf72O/DvG7N9N97E=;
+ b=b0fbrVc8hmErEmlFhfL5lTeN9t7A3Y/NNz9ll10zrA+Rqr6Rm33Pceg/B5+x4mmt+Y
+ EHGT2F4txMqMn5Sf4UTpq5A8nt+UJzjmVOCu/z27+epYaa4ProLwm0ttSKIaoJs+DyFT
+ kbBZaFP9pyzsVLI3NPiAiLTCcqYJLlo/x+kQN/FH3/+MecdNkLz/QaRHqm59CAmkkUw7
+ Fo047mxpm3vj+qaoPjxhWJAImYZE7NgWvBMvxu9MGwD4gzoA4He7ZYSPm00pw72HgX4j
+ S/IxVEn9Fb+dRcB5NKxPulhl/XnafW/kclyefM+2AjouvvckBIyGc1R5Ns8RovWh6du0
+ hyEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=dIGitEZzrPfalnnDRusGe28l2o0rf72O/DvG7N9N97E=;
+ b=E4+jIZ2KMBnql5MwQS+U4JE/Re2r4B7c23NDMDzxz3OOQuVX85hAR5UcBZqi+kyUc1
+ OQSrJ+MP1FoxV3XLGAJ/IfTrfKrKLX9QKrYQg7tZBB7KIv0NyS+1ZybX1k7xPQWFz8HY
+ Qz9yQnXT13feosNhcB5+d3TT7On1hHpCCEoimKNJcuTUq/umuo0lC6wIoB0eRWWexU9y
+ WmXjVKfupOPUQBeZD0rgjBTqZEcRlNxk+I1brIu88p61uXhwHz2dVXEVRrjT4USYqlAo
+ 6btRUIV0vcMG/QvcTnAMK3B6dFZtlnnjrkOvEraboWThA4xPxhGXAi2RIIc5yupBaFkA
+ N0zw==
+X-Gm-Message-State: AOAM5323rjuf+tfzdS3f2mCt1dPpZU6P0mNJLCdVvucrStO9WAO/1Cv2
+ 5Lt1TdvBVc7XD0tW/O+biu9vTsxYSfOETHzBrjBblw==
+X-Google-Smtp-Source: ABdhPJzFJC22rWeZ4x/tjI2G7ahXjg4PWDt64qOjlCb0r7cf4shJQj8p9wDx5Yd4f0r/+JUpZ9r5PzneOkT/HQbrL8w=
+X-Received: by 2002:aca:4a96:: with SMTP id x144mr2814958oia.163.1595931229010; 
+ Tue, 28 Jul 2020 03:13:49 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200728091828.21702-1-paul@xen.org>
+ <CAFEAcA_wKTFWk9Uk5HMabqfa6QkkTAdzBotmnrA_EH1BR4XjYg@mail.gmail.com>
+ <32ad0742-bff2-1fbc-2f7a-d078980eb171@redhat.com>
+ <CAFEAcA84fH3aGpbrJoA6S3qJ-FjD3NZMoj0G7jqvRneH_pS6=A@mail.gmail.com>
+ <a09853d3-5c27-893f-54ed-63dc461bfacb@redhat.com>
+ <ee8374bd-1257-1d29-6800-3902426b1a0b@redhat.com>
+In-Reply-To: <ee8374bd-1257-1d29-6800-3902426b1a0b@redhat.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Tue, 28 Jul 2020 11:13:38 +0100
+Message-ID: <CAFEAcA9zp48p64mPxR4_NyLDdYxjtEkKE_xQz_4D+Uau7HTE3A@mail.gmail.com>
+Subject: Re: [PATCH] configure: define CONFIG_XEN when Xen is enabled
+To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,21 +71,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien
- Grall <jgrall@amazon.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Paul Durrant <pdurrant@amazon.com>, QEMU Developers <qemu-devel@nongnu.org>,
+ Laurent Vivier <laurent@vivier.eu>,
+ "open list:X86" <xen-devel@lists.xenproject.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gSnVsIDI3LCAyMDIwLCBhdCA1OjA0IFBNLCBKdWxpZW4gR3JhbGwgPGp1bGllbkB4
-ZW4ub3JnPiB3cm90ZToNCj4gDQo+IEhtbW0gSSBmb3Jnb3QgdG8gQ0MgR2VvcmdlLiBTb3JyeSBm
-b3IgdGhhdC4NCj4gDQo+IE9uIDI3LzA3LzIwMjAgMTc6MDQsIEp1bGllbiBHcmFsbCB3cm90ZToN
-Cj4+IEZyb206IEp1bGllbiBHcmFsbCA8amdyYWxsQGFtYXpvbi5jb20+DQo+PiBUaGUgb3BlcmF0
-b3IgKyB3aWxsIGp1c3QgY29uY2F0ZW5hdGUgdHdvIHN0cmluZ3MuIEFzIHRoZSByZXN1bHQsIHRo
-ZQ0KPj4gY29uZmlndXJlIGNtZGxpbmUgZm9yICJ4ZW50b29scyIgd2lsbCBsb29rIGxpa2U6DQo+
-PiAuL2NvbmZpZ3VyZSAtLWRpc2FibGUtc3R1YmRvbSAtLWRpc2FibGUtcWVtdS10cmFkaXRpb25h
-bC0td2l0aC1zeXN0ZW0tcWVtdT0vYmluL2ZhbHNlIC0td2l0aC1zeXN0ZW0tc2VhYmlvcz0vYmlu
-L2ZhbHNlLS1kaXNhYmxlLW92bWYNCj4+IFRoaXMgY2FuIGJlIGF2b2lkZWQgYnkgZXhwbGljaXRl
-bHkgYWRkaW5nIHRoZSBzcGFjZXMuDQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWxpZW4gR3JhbGwgPGpn
-cmFsbEBhbWF6b24uY29tPg0KDQpPb3BzIOKAlCB0aGFua3MuDQoNClJldmlld2VkLWJ5OiBHZW9y
-Z2UgRHVubGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+DQoNCg==
+On Tue, 28 Jul 2020 at 11:00, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
+m> wrote:
+> Apparently kvm_enabled() checks CONFIG_KVM_IS_POSSIBLE instead
+> of CONFIG_KVM, I suppose to bypass this limitation (from osdep.h):
+>
+>  21 #ifdef NEED_CPU_H
+>  22 # ifdef CONFIG_KVM
+>  24 #  define CONFIG_KVM_IS_POSSIBLE
+>  25 # endif
+>  26 #else
+>  27 # define CONFIG_KVM_IS_POSSIBLE
+>  28 #endif
+>  29
+>  30 #ifdef CONFIG_KVM_IS_POSSIBLE
+>     ...
+
+Interesting. We don't have CONFIG_WHPX_IS_POSSIBLE,
+CONFIG_HVF_IS_POSSIBLE, etc -- also bugs, or do we avoid
+them by happening not to check whpx_enabled(), hvf_enabled(),
+etc in obj-common-compiled source files?
+
+thanks
+-- PMM
 
