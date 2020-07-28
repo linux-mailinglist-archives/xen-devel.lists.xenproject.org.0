@@ -2,50 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A572822FD1C
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 01:25:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEAA622FE4F
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 02:07:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0CUw-0006e1-0a; Mon, 27 Jul 2020 23:25:34 +0000
+	id 1k0D8X-0002Os-Bx; Tue, 28 Jul 2020 00:06:29 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tQrV=BG=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1k0CUu-0006dX-Nm
- for xen-devel@lists.xenproject.org; Mon, 27 Jul 2020 23:25:32 +0000
-X-Inumbo-ID: 76d5e704-d060-11ea-a818-12813bfff9fa
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=o87v=BH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k0D8V-0002On-Se
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 00:06:27 +0000
+X-Inumbo-ID: 2e1a2790-d066-11ea-a827-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 76d5e704-d060-11ea-a818-12813bfff9fa;
- Mon, 27 Jul 2020 23:25:32 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B372720A8B;
- Mon, 27 Jul 2020 23:25:30 +0000 (UTC)
+ id 2e1a2790-d066-11ea-a827-12813bfff9fa;
+ Tue, 28 Jul 2020 00:06:27 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E4A062065E;
+ Tue, 28 Jul 2020 00:06:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595892331;
- bh=putxGiY+5IfGT6KOGyXiieruCr/zyJjCepA4Vq/teIA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OnSEb1WZ7bOR66Ehsu0+OAUn/cBdOk2yvp3MnPEUcSxYO8rflUEn8QAEDnt7H43UA
- 7HOO7KBmGdfgVTnCo1MCxxNKWsGWGtfJ8P9JfHQ2RsdpNehH8SI/B2wbwDFfx0nE1H
- cCcqNBKu6S2tuaFt+XZVbee7rEVhchk7axJwI15Y=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 4/4] xen-netfront: fix potential deadlock in
- xennet_remove()
-Date: Mon, 27 Jul 2020 19:25:25 -0400
-Message-Id: <20200727232525.718372-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200727232525.718372-1-sashal@kernel.org>
-References: <20200727232525.718372-1-sashal@kernel.org>
+ s=default; t=1595894786;
+ bh=60CfqE119VTISR+XRxABpy6bfc54aN9vJfrZcfzKuKo=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=KJJY3b90Tmo4mo/0HAGTcpHESMRuv8Z9SISkeIc7MBzFRivg4Q9NjgP5+1wRmYKj1
+ MQ+/kt+yoe8bUKSG7OYWMnSJC4l1slFlYE06XHwI8Aw3w8z3LFXfjG6lvMp7Hki25u
+ N+UjFutMyOqhHktd/9yWNgqkCmqW0C/SPRwVjs3Y=
+Date: Mon, 27 Jul 2020 17:06:25 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [RFC PATCH v1 1/4] arm/pci: PCI setup and PCI host bridge
+ discovery within XEN on ARM.
+In-Reply-To: <20200727110648.GQ7191@Air-de-Roger>
+Message-ID: <alpine.DEB.2.21.2007271411000.27071@sstabellini-ThinkPad-T480s>
+References: <cover.1595511416.git.rahul.singh@arm.com>
+ <64ebd4ef614b36a5844c52426a4a6a4a23b1f087.1595511416.git.rahul.singh@arm.com>
+ <alpine.DEB.2.21.2007231055230.17562@sstabellini-ThinkPad-T480s>
+ <9f09ff42-a930-e4e3-d1c8-612ad03698ae@xen.org>
+ <alpine.DEB.2.21.2007241036460.17562@sstabellini-ThinkPad-T480s>
+ <40582d63-49c7-4a51-b35b-8248dfa34b66@xen.org>
+ <alpine.DEB.2.21.2007241127480.17562@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a3dXSnEBvhkHkZzV9URAGqSfdtJ1Lc838h_ViAWG3ZO4g@mail.gmail.com>
+ <alpine.DEB.2.21.2007241353450.17562@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a1RWXq3EN5DC=_279yzdsq3M0nw6+CZtKD00yBzKomcaw@mail.gmail.com>
+ <20200727110648.GQ7191@Air-de-Roger>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-292516064-1595884364=:27071"
+Content-ID: <alpine.DEB.2.21.2007271414160.27071@sstabellini-ThinkPad-T480s>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,139 +64,98 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Andrea Righi <andrea.righi@canonical.com>,
- netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
- xen-devel@lists.xenproject.org
+Cc: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Rahul Singh <rahul.singh@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Julien Grall <julien.grall.oss@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Andrea Righi <andrea.righi@canonical.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-[ Upstream commit c2c633106453611be07821f53dff9e93a9d1c3f0 ]
+--8323329-292516064-1595884364=:27071
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2007271414161.27071@sstabellini-ThinkPad-T480s>
 
-There's a potential race in xennet_remove(); this is what the driver is
-doing upon unregistering a network device:
+On Mon, 27 Jul 2020, Roger Pau Monné wrote:
+> On Sat, Jul 25, 2020 at 10:59:50AM +0100, Julien Grall wrote:
+> > On Sat, 25 Jul 2020 at 00:46, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > >
+> > > On Fri, 24 Jul 2020, Julien Grall wrote:
+> > > > On Fri, 24 Jul 2020 at 19:32, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > > > > > If they are not equal, then I fail to see why it would be useful to have this
+> > > > > > value in Xen.
+> > > > >
+> > > > > I think that's because the domain is actually more convenient to use
+> > > > > because a segment can span multiple PCI host bridges. So my
+> > > > > understanding is that a segment alone is not sufficient to identify a
+> > > > > host bridge. From a software implementation point of view it would be
+> > > > > better to use domains.
+> > > >
+> > > > AFAICT, this would be a matter of one check vs two checks in Xen :).
+> > > > But... looking at Linux, they will also use domain == segment for ACPI
+> > > > (see [1]). So, I think, they still have to use (domain, bus) to do the lookup.
+> 
+> You have to use the (segment, bus) tuple when doing a lookup because
+> MMCFG regions on ACPI are defined for a segment and a bus range, you
+> can have a MMCFG region that covers segment 0 bus [0, 20) and another
+> MMCFG region that covers segment 0 bus [20, 255], and those will use
+> different addresses in the MMIO space.
 
-  1. state = read bus state
-  2. if state is not "Closed":
-  3.    request to set state to "Closing"
-  4.    wait for state to be set to "Closing"
-  5.    request to set state to "Closed"
-  6.    wait for state to be set to "Closed"
+Thanks for the clarification!
 
-If the state changes to "Closed" immediately after step 1 we are stuck
-forever in step 4, because the state will never go back from "Closed" to
-"Closing".
 
-Make sure to check also for state == "Closed" in step 4 to prevent the
-deadlock.
+> > > > > > In which case, we need to use PHYSDEVOP_pci_mmcfg_reserved so
+> > > > > > Dom0 and Xen can synchronize on the segment number.
+> > > > >
+> > > > > I was hoping we could write down the assumption somewhere that for the
+> > > > > cases we care about domain == segment, and error out if it is not the
+> > > > > case.
+> > > >
+> > > > Given that we have only the domain in hand, how would you enforce that?
+> > > >
+> > > > >From this discussion, it also looks like there is a mismatch between the
+> > > > implementation and the understanding on QEMU devel. So I am a bit
+> > > > concerned that this is not stable and may change in future Linux version.
+> > > >
+> > > > IOW, we are know tying Xen to Linux. So could we implement
+> > > > PHYSDEVOP_pci_mmcfg_reserved *or* introduce a new property that
+> > > > really represent the segment?
+> > >
+> > > I don't think we are tying Xen to Linux. Rob has already said that
+> > > linux,pci-domain is basically a generic device tree property.
+> > 
+> > My concern is not so much the name of the property, but the definition of it.
+> > 
+> > AFAICT, from this thread there can be two interpretation:
+> >       - domain == segment
+> >       - domain == (segment, bus)
+> 
+> I think domain is just an alias for segment, the difference seems to
+> be that when using DT all bridges get a different segment (or domain)
+> number, and thus you will always end up starting numbering at bus 0
+> for each bridge?
+>
+> Ideally you would need a way to specify the segment and start/end bus
+> numbers of each bridge, if not you cannot match what ACPI does. Albeit
+> it might be fine as long as the OS and Xen agree on the segments and
+> bus numbers that belong to each bridge (and thus each ECAM region).
 
-Also add a 5 sec timeout any time we wait for the bus state to change,
-to avoid getting stuck forever in wait_event().
+That is what I thought and it is why I was asking to clarify the naming
+and/or writing a document to explain the assumptions, if any.
 
-Signed-off-by: Andrea Righi <andrea.righi@canonical.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/xen-netfront.c | 64 +++++++++++++++++++++++++-------------
- 1 file changed, 42 insertions(+), 22 deletions(-)
+Then after Julien's email I followed up in the Linux codebase and
+clearly there is a different assumption baked in the Linux kernel for
+architectures that have CONFIG_PCI_DOMAINS enabled (including ARM64).
 
-diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
-index 02b6a6c108400..7d4c0c46a889d 100644
---- a/drivers/net/xen-netfront.c
-+++ b/drivers/net/xen-netfront.c
-@@ -62,6 +62,8 @@ module_param_named(max_queues, xennet_max_queues, uint, 0644);
- MODULE_PARM_DESC(max_queues,
- 		 "Maximum number of queues per virtual interface");
- 
-+#define XENNET_TIMEOUT  (5 * HZ)
-+
- static const struct ethtool_ops xennet_ethtool_ops;
- 
- struct netfront_cb {
-@@ -1349,12 +1351,15 @@ static struct net_device *xennet_create_dev(struct xenbus_device *dev)
- 
- 	netif_carrier_off(netdev);
- 
--	xenbus_switch_state(dev, XenbusStateInitialising);
--	wait_event(module_wq,
--		   xenbus_read_driver_state(dev->otherend) !=
--		   XenbusStateClosed &&
--		   xenbus_read_driver_state(dev->otherend) !=
--		   XenbusStateUnknown);
-+	do {
-+		xenbus_switch_state(dev, XenbusStateInitialising);
-+		err = wait_event_timeout(module_wq,
-+				 xenbus_read_driver_state(dev->otherend) !=
-+				 XenbusStateClosed &&
-+				 xenbus_read_driver_state(dev->otherend) !=
-+				 XenbusStateUnknown, XENNET_TIMEOUT);
-+	} while (!err);
-+
- 	return netdev;
- 
-  exit:
-@@ -2166,28 +2171,43 @@ static const struct attribute_group xennet_dev_group = {
- };
- #endif /* CONFIG_SYSFS */
- 
--static int xennet_remove(struct xenbus_device *dev)
-+static void xennet_bus_close(struct xenbus_device *dev)
- {
--	struct netfront_info *info = dev_get_drvdata(&dev->dev);
--
--	dev_dbg(&dev->dev, "%s\n", dev->nodename);
-+	int ret;
- 
--	if (xenbus_read_driver_state(dev->otherend) != XenbusStateClosed) {
-+	if (xenbus_read_driver_state(dev->otherend) == XenbusStateClosed)
-+		return;
-+	do {
- 		xenbus_switch_state(dev, XenbusStateClosing);
--		wait_event(module_wq,
--			   xenbus_read_driver_state(dev->otherend) ==
--			   XenbusStateClosing ||
--			   xenbus_read_driver_state(dev->otherend) ==
--			   XenbusStateUnknown);
-+		ret = wait_event_timeout(module_wq,
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateClosing ||
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateClosed ||
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateUnknown,
-+				   XENNET_TIMEOUT);
-+	} while (!ret);
-+
-+	if (xenbus_read_driver_state(dev->otherend) == XenbusStateClosed)
-+		return;
- 
-+	do {
- 		xenbus_switch_state(dev, XenbusStateClosed);
--		wait_event(module_wq,
--			   xenbus_read_driver_state(dev->otherend) ==
--			   XenbusStateClosed ||
--			   xenbus_read_driver_state(dev->otherend) ==
--			   XenbusStateUnknown);
--	}
-+		ret = wait_event_timeout(module_wq,
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateClosed ||
-+				   xenbus_read_driver_state(dev->otherend) ==
-+				   XenbusStateUnknown,
-+				   XENNET_TIMEOUT);
-+	} while (!ret);
-+}
-+
-+static int xennet_remove(struct xenbus_device *dev)
-+{
-+	struct netfront_info *info = dev_get_drvdata(&dev->dev);
- 
-+	xennet_bus_close(dev);
- 	xennet_disconnect_backend(info);
- 
- 	if (info->netdev->reg_state == NETREG_REGISTERED)
--- 
-2.25.1
-
+The assumption is that segment == domain == unique host bridge. It
+looks like it is coming from IEEE Std 1275-1994 but I am not certain.
+In fact, it seems that ACPI MCFG and IEEE Std 1275-1994 don't exactly
+match. So I am starting to think that domain == segment for IEEE Std
+1275-1994 compliant device tree based systems.
+--8323329-292516064-1595884364=:27071--
 
