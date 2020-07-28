@@ -2,60 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CA9D231115
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 19:44:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D70D1231123
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 19:52:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0Tea-0005pj-5j; Tue, 28 Jul 2020 17:44:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZWt7=BH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k0TeY-0005pb-LW
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 17:44:38 +0000
-X-Inumbo-ID: 00367fb1-d0fa-11ea-8ba9-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 00367fb1-d0fa-11ea-8ba9-bc764e2007e4;
- Tue, 28 Jul 2020 17:44:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595958276;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=eHsq7Ta01QmeqnE9DLs8/mBiesJkCYGnL9YfXoA2X4o=;
- b=M2SZYfC1S2F3VwzhijMO/hp4VzBPNWYLjr/k4I7wPT7ORCo3nuZeNfQt
- eSdfuAxw3h+3efb/cGgmDomWUvjJFEJCfsN053Xv80JU2I5aAK6UNbVcg
- 3q6rLunKURQ4W25aOxEwYCw0V3CDvr66XN8yRLBLuwi/AXkv76zKKYk3u 8=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 2RdrO/AnzZYrb9zj19qTPY0bAooeEOHP1ELFiUghgXaTqNYu/IsfAaeOofDt0adaNBw2Xa0AC6
- t6lHyuGC5gkUWy/N7rzG8yB31qUpk6aKp4puI4SGJ8w7qoXEtqg8F+J/doKRdiBkCkcVvIxcwR
- q9J9cBAZhRCwaqR6vQaMZgUwvDwO9y4NebuTt/KmXt2MRQWqepK8FGyJefexjYCWZrVGObAaI8
- Yw/nTGNLt85irvc409hapDt3JL5ro6jwcrTY4qUVugZVoEP/hHQ79mpfhww2W8LLw7sXFLWMwl
- r/U=
-X-SBRS: 2.7
-X-MesageID: 23704211
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23704211"
-Date: Tue, 28 Jul 2020 19:44:29 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v3 4/4] xen: add helpers to allocate unpopulated memory
-Message-ID: <20200728174429.GC7191@Air-de-Roger>
-References: <20200727091342.52325-1-roger.pau@citrix.com>
- <20200727091342.52325-5-roger.pau@citrix.com>
- <b5460659-88a5-c2aa-c339-815d5618bcb5@xen.org>
- <20200728165919.GA7191@Air-de-Roger>
- <b1732413-0bd0-6f58-6324-37497347ce5b@xen.org>
+	id 1k0Tle-0006hX-Uk; Tue, 28 Jul 2020 17:51:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qgq5=BH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k0Tle-0006hS-3L
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 17:51:58 +0000
+X-Inumbo-ID: 077d85ce-d0fb-11ea-a91f-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 077d85ce-d0fb-11ea-a91f-12813bfff9fa;
+ Tue, 28 Jul 2020 17:51:57 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AE6A2AC50;
+ Tue, 28 Jul 2020 17:52:07 +0000 (UTC)
+Subject: Re: [PATCH] x86/vhpet: Fix type size in timer_int_route_valid
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Eslam Elnikety <elnikety@amazon.com>
+References: <20200728083357.77999-1-elnikety@amazon.com>
+ <a55fba45-a008-059e-ea8c-b7300e2e8b7d@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <278f0f31-619b-a392-6627-e75e65d0d14f@suse.com>
+Date: Tue, 28 Jul 2020 19:51:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <a55fba45-a008-059e-ea8c-b7300e2e8b7d@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b1732413-0bd0-6f58-6324-37497347ce5b@xen.org>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,75 +48,52 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Oleksandr
- Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>, Yan Yankovskyi <yyankovskyi@gmail.com>,
- David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Michal Hocko <mhocko@kernel.org>,
- linux-mm@kvack.org, Daniel Vetter <daniel@ffwll.ch>,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Dan Williams <dan.j.williams@intel.com>, Dan
- Carpenter <dan.carpenter@oracle.com>
+Cc: xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <pdurrant@amazon.co.uk>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jul 28, 2020 at 06:12:46PM +0100, Julien Grall wrote:
-> Hi Roger,
+On 28.07.2020 11:26, Andrew Cooper wrote:
+> Does this work?
 > 
-> On 28/07/2020 17:59, Roger Pau Monné wrote:
-> > On Tue, Jul 28, 2020 at 05:48:23PM +0100, Julien Grall wrote:
-> > > Hi,
-> > > 
-> > > On 27/07/2020 10:13, Roger Pau Monne wrote:
-> > > > To be used in order to create foreign mappings. This is based on the
-> > > > ZONE_DEVICE facility which is used by persistent memory devices in
-> > > > order to create struct pages and kernel virtual mappings for the IOMEM
-> > > > areas of such devices. Note that on kernels without support for
-> > > > ZONE_DEVICE Xen will fallback to use ballooned pages in order to
-> > > > create foreign mappings.
-> > > > 
-> > > > The newly added helpers use the same parameters as the existing
-> > > > {alloc/free}_xenballooned_pages functions, which allows for in-place
-> > > > replacement of the callers. Once a memory region has been added to be
-> > > > used as scratch mapping space it will no longer be released, and pages
-> > > > returned are kept in a linked list. This allows to have a buffer of
-> > > > pages and prevents resorting to frequent additions and removals of
-> > > > regions.
-> > > > 
-> > > > If enabled (because ZONE_DEVICE is supported) the usage of the new
-> > > > functionality untangles Xen balloon and RAM hotplug from the usage of
-> > > > unpopulated physical memory ranges to map foreign pages, which is the
-> > > > correct thing to do in order to avoid mappings of foreign pages depend
-> > > > on memory hotplug.
-> > > I think this is going to break Dom0 on Arm if the kernel has been built with
-> > > hotplug. This is because you may end up to re-use region that will be used
-> > > for the 1:1 mapping of a foreign map.
-> > > 
-> > > Note that I don't know whether hotplug has been tested on Xen on Arm yet. So
-> > > it might be possible to be already broken.
-> > > 
-> > > Meanwhile, my suggestion would be to make the use of hotplug in the balloon
-> > > code conditional (maybe using CONFIG_ARM64 and CONFIG_ARM)?
-> > 
-> > Right, this feature (allocation of unpopulated memory separated from
-> > the balloon driver) is currently gated on CONFIG_ZONE_DEVICE, which I
-> > think could be used on Arm.
-> > 
-> > IMO the right solution seems to be to subtract the physical memory
-> > regions that can be used for the identity mappings of foreign pages
-> > (all RAM on the system AFAICT) from iomem_resource, as that would make
-> > this and the memory hotplug done in the balloon driver safe?
-> 
-> Dom0 doesn't know the regions used for the identity mappings as this is only
-> managed by Xen. So there is nothing you can really do here.
+> diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
+> index ca94e8b453..638f6174de 100644
+> --- a/xen/arch/x86/hvm/hpet.c
+> +++ b/xen/arch/x86/hvm/hpet.c
+> @@ -62,8 +62,7 @@
+>   
+>   #define timer_int_route(h, n)    MASK_EXTR(timer_config(h, n),
+> HPET_TN_ROUTE)
+>   
+> -#define timer_int_route_cap(h, n) \
+> -    MASK_EXTR(timer_config(h, n), HPET_TN_INT_ROUTE_CAP)
+> +#define timer_int_route_cap(h, n) (h)->hpet.timers[(n)].route
 
-OK, I will add the guards to prevent this being built on Arm.
+Seeing that this is likely the route taken here, and hence to avoid
+an extra round trip, two remarks: Here I see no need for the
+parentheses inside the square brackets.
 
-> But don't you have the same issue on x86 with "magic pages"?
+> diff --git a/xen/include/asm-x86/hvm/vpt.h b/xen/include/asm-x86/hvm/vpt.h
+> index f0e0eaec83..a41fc443cc 100644
+> --- a/xen/include/asm-x86/hvm/vpt.h
+> +++ b/xen/include/asm-x86/hvm/vpt.h
+> @@ -73,7 +73,13 @@ struct hpet_registers {
+>       uint64_t isr;               /* interrupt status reg */
+>       uint64_t mc64;              /* main counter */
+>       struct {                    /* timers */
+> -        uint64_t config;        /* configuration/cap */
+> +        union {
+> +            uint64_t config;    /* configuration/cap */
+> +            struct {
+> +                uint32_t _;
+> +                uint32_t route;
+> +            };
+> +        };
 
-Those are marked as reserved on the memory map, and hence I would
-expect them to never end up in iomem_resource.
+So long as there are no static initializers for this construct
+that would then suffer the old-gcc problem, this is of course a
+fine arrangement to make.
 
-Thanks, Roger.
+Jan
 
