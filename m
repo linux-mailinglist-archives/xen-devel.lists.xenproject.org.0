@@ -2,70 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9636F231572
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jul 2020 00:17:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA2F1231576
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jul 2020 00:19:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0Xu1-0004Tm-Jm; Tue, 28 Jul 2020 22:16:53 +0000
+	id 1k0XwC-0004bR-1x; Tue, 28 Jul 2020 22:19:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bBlf=BH=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1k0Xu0-0004Th-SY
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 22:16:53 +0000
-X-Inumbo-ID: 093b26a8-d120-11ea-8be7-bc764e2007e4
-Received: from wout3-smtp.messagingengine.com (unknown [64.147.123.19])
+ <SRS0=E6Nk=BH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k0XwA-0004bL-EE
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 22:19:06 +0000
+X-Inumbo-ID: 590ad700-d120-11ea-8be7-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 093b26a8-d120-11ea-8be7-bc764e2007e4;
- Tue, 28 Jul 2020 22:16:51 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 522667F8;
- Tue, 28 Jul 2020 18:16:50 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Tue, 28 Jul 2020 18:16:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=NJE5iT
- bRAUSREXOKgGh/V5hHtyKpPpr+YxsVQQIVXfw=; b=VAwexPhjsAYtJl+3RV8sxf
- W6L9ExR0YsPrABe6GY4zkf0pT2fj3NKMCPldVBVjlCXuamZ49UTrau8n5fwu3OFn
- HT0WIs+4KKd6bzYkwk9QmjN2U4rIvTjBavaoMXsqoouI02FkQDZYwo2c/4SmKql6
- MOWIDi4Q3fdcet40QZNj8IHaBEkRForUlhLR2cckRLoBsLxGtPitfgB1ztyzUa/n
- nBy+qf9PoFUz0F8kTDh3g/ZeP+eHGkZb8A4vHoFjPi/Wi8RrVV+YRHXy+fC6Qvfg
- JZntbHlpdbMNN5n7gcWAjb+bskOOl/oMFqfhdSfEY0lCbxhEVVaKttrvOi5lHPMg
- ==
-X-ME-Sender: <xms:0aMgX_rxB4W3dg_swZGOt22JfWo-RoilDBPkmS_za_1U19oZ9Y3tDA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrieefgddtjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
- ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
- hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteevffei
- gffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecukfhppeelud
- drieehrdefgedrfeefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
- lhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
- homh
-X-ME-Proxy: <xmx:0aMgX5q_Nu4lUOz7HRbxefy9MKBiwyFesYjYoCYglKnesYM0KKpZFw>
- <xmx:0aMgX8NIzMIwLIBwnUU9TloPGpTNPfvylJIaX1rEuusyTEuncQS0mQ>
- <xmx:0aMgXy6ZAe0KL6Y8anKJdFLOYwSQZYBxEUfhn8pueXnA8RoYjZL-Aw>
- <xmx:0aMgX0RcVVylnKxWO8Jv56uzckTjdin5-cQ8Fjfnyj7aMmcPq80crQ>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 379513280060;
- Tue, 28 Jul 2020 18:16:48 -0400 (EDT)
-Date: Wed, 29 Jul 2020 00:16:45 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: fwupd support under Xen - firmware updates with the UEFI capsule
-Message-ID: <20200728221645.GO1626@mail-itl>
-References: <497f1524-b57e-0ea1-5899-62f677bfae91@3mdeb.com>
- <39be665c-b6c8-23e3-b18b-d38cfe5c1286@suse.com>
- <bbe85f76-0999-1150-3d48-c7f9e1796dac@citrix.com>
+ id 590ad700-d120-11ea-8be7-bc764e2007e4;
+ Tue, 28 Jul 2020 22:19:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=FbFIRNa7iDXbVzHBgt08hGgncB4rnfJyV7mrkrO/Nms=; b=x/lkqFw4UjbJ4SnyHYaBb6YEP
+ zMQiMdu3dLDNny/epVtg/woGTeNe3lEvfTApFhppfLo9aF4JpAcEAnzuQl0yvr7FqUGa6eTvZAfNd
+ +D72I5pM2CkeCqXco8PKKB6oIZ/xbkXy1KQ08+xcqW+/RtAKhV0BTA96bMX9q/pzAZdCo=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0Xw8-0003nH-SA; Tue, 28 Jul 2020 22:19:04 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0Xw8-0001JA-Ff; Tue, 28 Jul 2020 22:19:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0Xw8-0000cl-F4; Tue, 28 Jul 2020 22:19:04 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152269-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="QxN5xOWGsmh5a4wb"
-Content-Disposition: inline
-In-Reply-To: <bbe85f76-0999-1150-3d48-c7f9e1796dac@citrix.com>
+Subject: [xen-unstable-smoke test] 152269: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=b071ec25e85c4aacf3da59e5258cda0b1c4df45d
+X-Osstest-Versions-That: xen=c27a184225eab54d20435c8cab5ad0ef384dc2c0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 28 Jul 2020 22:19:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,133 +65,68 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: piotr.krol@3mdeb.com, xen-devel@lists.xenproject.org,
- Maciej Pijanowski <maciej.pijanowski@3mdeb.com>,
- Jan Beulich <jbeulich@suse.com>, Norbert Kaminski <norbert.kaminski@3mdeb.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+flight 152269 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152269/
 
---QxN5xOWGsmh5a4wb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: fwupd support under Xen - firmware updates with the UEFI capsule
+Failures :-/ but no regressions.
 
-On Tue, Jul 28, 2020 at 10:01:33PM +0100, Andrew Cooper wrote:
-> On 28/07/2020 21:00, Jan Beulich wrote:
-> > On 28.07.2020 09:41, Norbert Kaminski wrote:
-> >> I'm trying to add support for the firmware updates with the UEFI
-> >> capsule in
-> >> Qubes OS. I've got the troubles with reading ESRT (EFI System
-> >> Resource Table)
-> >> in the dom0, which is based on the EFI memory map. The EFI_MEMMAP is n=
-ot
-> >> enabled despite the loaded drivers (CONFIG_EFI, CONFIG_EFI_ESRT) and
-> >> kernel
-> >> cmdline parameters (add_efi_memmap):
-> >>
-> >> ```
-> >> [=C2=A0=C2=A0=C2=A0 3.451249] efi: EFI_MEMMAP is not enabled.
-> >> ```
-> >
-> > It is, according to my understanding, a layering violation to expose
-> > the EFI memory map to Dom0. It's not supposed to make use of this
-> > information in any way. Hence any functionality depending on its use
-> > also needs to be implemented in the hypervisor, with Dom0 making a
-> > suitable hypercall to access this functionality. (And I find it
-> > quite natural to expect that Xen gets involved in an update of the
-> > firmware of a system.)
->=20
-> ERST is a table (read only by the looks of things) which is a catalogue
-> of various bits of firmware in the system, including GUIDs for
-> identification, and version information.
->=20
-> It is the kind of data which the hardware domain should have access to,
-> and AFAICT, behaves just like a static ACPI table.
->=20
-> Presumably it wants to an E820 reserved region so dom0 gets indent
-> access, and something in the EFI subsystem needs extending to pass the
-> ERST address to dom0.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-I think most (if not all) pieces in Xen are already there - there is
-XENPF_firmware_info with XEN_EFW_EFI_INFO + XEN_FW_EFI_CONFIG_TABLE
-that gives address of the EFI config table. Linux saves it in
-efi_systab_xen.tables (arch/x86/xen/efi.c:xen_efi_probe().
-I haven't figured out yet if it does anything with that information, but
-the content of /sys/firmware/efi/systab suggests it does.
+version targeted for testing:
+ xen                  b071ec25e85c4aacf3da59e5258cda0b1c4df45d
+baseline version:
+ xen                  c27a184225eab54d20435c8cab5ad0ef384dc2c0
 
-It seems ESRT driver in Linux uses memmap just for some sanity checks
-(if the ESRT points at memory with EFI_MEMORY_RUNTIME and appropriate
-type). Perhaps the check (if really necessary) can be added to Xen and
-in case of dom0 simply skipped in Linux.
+Last test of basis   152235  2020-07-27 14:10:29 Z    1 days
+Testing same since   152269  2020-07-28 19:05:32 Z    0 days    1 attempts
 
-Norbert, if you're brave enough ;) I would suggests trying the (Linux)
-patch below:
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Julien Grall <julien.grall@arm.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
 
------8<-----
-diff --git a/drivers/firmware/efi/esrt.c b/drivers/firmware/efi/esrt.c
-index e3d692696583..a2a5ccbb00a8 100644
---- a/drivers/firmware/efi/esrt.c
-+++ b/drivers/firmware/efi/esrt.c
-@@ -245,13 +245,14 @@ void __init efi_esrt_init(void)
- 	int rc;
- 	phys_addr_t end;
-=20
--	if (!efi_enabled(EFI_MEMMAP))
-+	if (!efi_enabled(EFI_MEMMAP) && !efi_enabled(EFI_PARAVIRT))
- 		return;
-=20
- 	pr_debug("esrt-init: loading.\n");
- 	if (!esrt_table_exists())
- 		return;
-=20
-+	if (!efi_enabled(EFI_PARAVIRT)) {
- 	rc =3D efi_mem_desc_lookup(efi.esrt, &md);
- 	if (rc < 0 ||
- 	    (!(md.attribute & EFI_MEMORY_RUNTIME) &&
-@@ -276,6 +277,7 @@ void __init efi_esrt_init(void)
- 		       size, max);
- 		return;
- 	}
-+	}
-=20
- 	va =3D early_memremap(efi.esrt, size);
- 	if (!va) {
-@@ -331,7 +333,8 @@ void __init efi_esrt_init(void)
-=20
- 	end =3D esrt_data + size;
- 	pr_info("Reserving ESRT space from %pa to %pa.\n", &esrt_data, &end);
--	if (md.type =3D=3D EFI_BOOT_SERVICES_DATA)
-+
-+	if (!efi_enabled(EFI_PARAVIRT) && md.type =3D=3D EFI_BOOT_SERVICES_DATA)
- 		efi_mem_reserve(esrt_data, esrt_data_size);
-=20
- 	pr_debug("esrt-init: loaded.\n");
-----8<-----
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---QxN5xOWGsmh5a4wb
-Content-Type: application/pgp-signature; name="signature.asc"
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
------BEGIN PGP SIGNATURE-----
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl8go80ACgkQ24/THMrX
-1yxHfgf/Vba4UEFX2tdHVYoNTsDpl0iM6Z3iYuX8dpbhaZoTUIjEJNmxPIW9xh3t
-kmMbaCSh4ovvwKI1ltbwoayclM+k1IFc655whzcM9NZLVF2mSsYbOPzK8K7348Um
-miSjjv5fkB+dRlXg68FZPGQpKnXDa8oR3UoVUNCG0B1ezfY7gVA92TdempMgp7C2
-hBaHulUhcNT7bAc0+NBpO+kvGcO0yQnCB29LI0V9RDmyP0oyhdZ6bbtWuTnpDv/W
-YIhxMiN0Qqyq1rFKdYaX4lrnJes0PQDupJhLFTZQjY57l9U8h7nBeJosep1C1SvS
-LYPnAOw+IFXjfTzixD9zv0iU7QZ/bQ==
-=2EKX
------END PGP SIGNATURE-----
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---QxN5xOWGsmh5a4wb--
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   c27a184225..b071ec25e8  b071ec25e85c4aacf3da59e5258cda0b1c4df45d -> smoke
 
