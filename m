@@ -2,68 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76AB22307D0
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A324C230867
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 13:10:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0N17-00012P-UM; Tue, 28 Jul 2020 10:39:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k0NUE-0003at-CL; Tue, 28 Jul 2020 11:09:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ae7q=BH=gmail.com=alejandro.gonzalez.correo@srs-us1.protection.inumbo.net>)
- id 1k0N16-00011t-Dn
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:39:28 +0000
-X-Inumbo-ID: 9c0495c6-d0be-11ea-8b26-bc764e2007e4
-Received: from mail-oi1-x243.google.com (unknown [2607:f8b0:4864:20::243])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9c0495c6-d0be-11ea-8b26-bc764e2007e4;
- Tue, 28 Jul 2020 10:39:27 +0000 (UTC)
-Received: by mail-oi1-x243.google.com with SMTP id w17so17035004oie.6
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jul 2020 03:39:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=F/Ok6kXKD7ZtkHsiCRqYn+tABQDkmCdFMgWtmQnzruE=;
- b=eQpT/2ug3/kbEtXJOQ7V5qGPweHBgcxFFc7N00o3Rpa9ON4x1LK9VN2xCpFMuJZWfM
- 5K5/A6HJmFxKYIwHA0c0+pJShojFAUa26adaGlNLTJBcwPebOfHm6KAX0wmT1Ny/Irhs
- 6/UINtNGAnLal1iDkijIW8dslyV/JTtVtWd3AplR78s0j/eLA3xoFA2uxb3KPvhBRD7W
- mPQsB49HZL4g8w6hQEL2wFl6QJQ4Tv0wTPxCproOHcBdwigtYu+ZHsI79mxxT8OPbSYO
- D36See2l5Ykrb+t83SP+5ou+EXUTDLrWnfAZOw/sdLC21yySCI2QVxN7PsOST1lD1jNg
- gGkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=F/Ok6kXKD7ZtkHsiCRqYn+tABQDkmCdFMgWtmQnzruE=;
- b=I0Pb8e/e85Z20arQ8KHlMBSx8s8NiyamrxvP5XOlqnB9mp8lAXknij1jegJ3a7qwWJ
- 2nsCq7x7Az9a3T3jXhmzO704hGW1wJLCgiZCY1Gnydu1V+yFEuQJMwho7sLNxOakErWO
- O9JoJv8RAcWWP+hxVoLExE9Jihpzv8lqvn61heRIX8CFVc2xqOGBpv+ZAVIKju/g1MPd
- T7IViCqAbxUnYV7tzkzcngQ56pYSiQeGuceL0T553rGl/NI/1QvH3rV0eNY4cphkiPYq
- YPmkgyzme6zv2exPLHddbYYddW+27pKDIXlejkYVDvRD+St4j4taqNBnYGJYPO5fbFFJ
- fR5A==
-X-Gm-Message-State: AOAM533c0ubhoDJbg2PLA9sy3HWECcg+j63uhTLRK/zjpABCwzh3GLFv
- oe/Ea6qL6xwjWKm1J4pr4NsWD8kxDqZHioIXImU=
-X-Google-Smtp-Source: ABdhPJx9Jr+sG7cAAE0/zaQ15n0JwVIsrHMvEFSnuFvRl87JtK6CVw3FRDNn5yNZCc42ywq7qCcC28BN1ePQM1o+Wo0=
-X-Received: by 2002:a05:6808:3b8:: with SMTP id
- n24mr2807719oie.84.1595932766515; 
- Tue, 28 Jul 2020 03:39:26 -0700 (PDT)
+ <SRS0=uMAr=BH=amazon.com=prvs=4712fd9bf=elnikety@srs-us1.protection.inumbo.net>)
+ id 1k0NUD-0003ao-Nm
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 11:09:33 +0000
+X-Inumbo-ID: d036db5c-d0c2-11ea-a8a0-12813bfff9fa
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d036db5c-d0c2-11ea-a8a0-12813bfff9fa;
+ Tue, 28 Jul 2020 11:09:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1595934572; x=1627470572;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=3Requ7kIPFVQtzR1jFatrXyBIb7TnieU1eKfFKFEi2Y=;
+ b=mAie5v7UlX+RWi45EdTAqrIOaaX0AdGC6xcw5ZSOcZ2EaK3+OXRlTMF3
+ EfSBnaccobsg3vlSnHLaUnXwCvKcBr+Yrr42O85ygDuuYQLPfFcNpxq+F
+ 79RLxaxl3FlTjtGX03vXj5bag4GVvG59sx72Mq9rbNvtP8yUmXp+Jn3I3 Q=;
+IronPort-SDR: TxpgzrKoVN4IKCnHDU0jgqi0jdFjgJEyuTLyxPTtGoXoAEvXnXiN4TzJIywZV/NEkO2Pnm8f/H
+ Pah0glIPdQfw==
+X-IronPort-AV: E=Sophos;i="5.75,406,1589241600"; d="scan'208";a="63548064"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2c-2225282c.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
+ 28 Jul 2020 11:09:30 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+ by email-inbound-relay-2c-2225282c.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 3561BA1DD9; Tue, 28 Jul 2020 11:09:30 +0000 (UTC)
+Received: from EX13D03EUA002.ant.amazon.com (10.43.165.166) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 28 Jul 2020 11:09:29 +0000
+Received: from a483e73f63b0.ant.amazon.com (10.43.162.73) by
+ EX13D03EUA002.ant.amazon.com (10.43.165.166) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 28 Jul 2020 11:09:25 +0000
+Subject: Re: [PATCH] x86/vhpet: Fix type size in timer_int_route_valid
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Eslam Elnikety
+ <elnikety@amazon.com>, <xen-devel@lists.xenproject.org>
+References: <20200728083357.77999-1-elnikety@amazon.com>
+ <a55fba45-a008-059e-ea8c-b7300e2e8b7d@citrix.com>
+From: Eslam Elnikety <elnikety@amazon.com>
+Message-ID: <09b2f75d-13d7-8f53-54a1-6f10ecd7b6e2@amazon.com>
+Date: Tue, 28 Jul 2020 13:09:21 +0200
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <CA+wirGqXMoRkS-aJmfFLipUv8SdY5LKV1aMrF0yKRJQaMvzs6Q@mail.gmail.com>
- <1c5cee83-295e-cc02-d018-b53ddc6e3590@xen.org>
- <CA+wirGpFvLBzYRBaq8yspJj8j9-yoLwN88bt079qM5yqPTwtcA@mail.gmail.com>
- <02b630bd-22e0-afde-6784-be068d0948ae@arm.com>
-In-Reply-To: <02b630bd-22e0-afde-6784-be068d0948ae@arm.com>
-From: Alejandro <alejandro.gonzalez.correo@gmail.com>
-Date: Tue, 28 Jul 2020 12:39:14 +0200
-Message-ID: <CA+wirGoG+im2mwb2ye6j4MpcVtfQ-prhhmVgdBTosus7hjeu=w@mail.gmail.com>
-Subject: Re: dom0 LInux 5.8-rc5 kernel failing to initialize cooling maps for
- Allwinner H6 SoC
-To: =?UTF-8?Q?Andr=C3=A9_Przywara?= <andre.przywara@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <a55fba45-a008-059e-ea8c-b7300e2e8b7d@citrix.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.43.162.73]
+X-ClientProxiedBy: EX13D42UWB004.ant.amazon.com (10.43.161.99) To
+ EX13D03EUA002.ant.amazon.com (10.43.165.166)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -71,77 +73,79 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Paul Durrant <pdurrant@amazon.co.uk>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hello,
+On 28.07.20 11:26, Andrew Cooper wrote:
+> On 28/07/2020 09:33, Eslam Elnikety wrote:
+>> The macro timer_int_route_cap evalutes to a 64 bit value. Extend the
+>> size of left side of timer_int_route_valid to match.
+>>
+>> This bug was discovered and resolved using Coverity Static Analysis
+>> Security Testing (SAST) by Synopsys, Inc.
+>>
+>> Signed-off-by: Eslam Elnikety <elnikety@amazon.com>
+>> ---
+>>   xen/arch/x86/hvm/hpet.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
+>> index ca94e8b453..9afe6e6760 100644
+>> --- a/xen/arch/x86/hvm/hpet.c
+>> +++ b/xen/arch/x86/hvm/hpet.c
+>> @@ -66,7 +66,7 @@
+>>       MASK_EXTR(timer_config(h, n), HPET_TN_INT_ROUTE_CAP)
+>>   
+>>   #define timer_int_route_valid(h, n) \
+>> -    ((1u << timer_int_route(h, n)) & timer_int_route_cap(h, n))
+>> +    ((1ULL << timer_int_route(h, n)) & timer_int_route_cap(h, n))
+>>   
+>>   static inline uint64_t hpet_read_maincounter(HPETState *h, uint64_t guest_time)
+>>   {
+> 
+> Does this work?
 
-El dom., 26 jul. 2020 a las 22:25, Andr=C3=A9 Przywara
-(<andre.przywara@arm.com>) escribi=C3=B3:
-> So this was actually my first thought: The firmware (U-Boot SPL) sets up
-> some basic CPU frequency (888 MHz for H6 [1]), which is known to never
-> overheat the chip, even under full load. So any concern from your side
-> about the board or SoC overheating could be dismissed, with the current
-> mainline code, at least. However you lose the full speed, by quite a
-> margin on the H6 (on the A64 it's only 816 vs 1200(ish) MHz).
-> However, without the clock entries in the CPU node, the frequency would
-> never be changed by Dom0 anyway (nor by Xen, which doesn't even know how
-> to do this).
-> So from a practical point of view: unless you hack Xen to pass on more
-> cpu node properties, you are stuck at 888 MHz anyway, and don't need to
-> worry about overheating.
-Thank you. Knowing that at least it won't overheat is a relief. But
-the performance definitely suffers from the current situation, and
-quite a bit. I'm thinking about using KVM instead: even if it does
-less paravirtualization of guests, I'm sure that the ability to use
-the maximum frequency of the CPU would offset the additional overhead,
-and in general offer better performance. But with KVM I lose the
-ability to have individual domU's dedicated to some device driver,
-which is a nice thing to have from a security standpoint.
+Yes! This is better than my fix (and I like that it clarifies the route 
+part of the config. Will you sign-off and send a patch?
 
-> Now if you would pass on the CPU clock frequency control to Dom0, you
-> run into more issues: the Linux governors would probably try to setup
-> both frequency and voltage based on load, BUT this would be Dom0's bogus
-> perception of the actual system load. Even with pinned Dom0 vCPUs, a
-> busy system might spend most of its CPU time in DomU VCPUs, which
-> probably makes it look mostly idle in Dom0. Using a fixed governor
-> (performance) would avoid this, at the cost of running full speed all of
-> the time, probably needlessly.
->
-> So fixing the CPU clocking issue is more complex and requires more
-> ground work in Xen first, probably involving some enlightenend Dom0
-> drivers as well. I didn't follow latest developments in this area, nor
-> do I remember x86's answer to this, but it's not something easy, I would
-> presume.
-I understand, thanks :). I know that recent Intel CPUs (from Sandy
-Bridge onwards) use P-states to manage frequencies, and even have a
-mode of operation that lets the CPU select the P-states by itself. On
-older processors, Xen can probably rely on ACPI data to do the
-frequency scaling. But the most similar "standard thing" that my board
-has, a AR100 coprocessor that with the (work in progress) Crust
-firmware can be used with SCMI, doesn't even seem to support the use
-case of changing CPU frequency... and SCMI is the most promising
-approach for adding DVFS support in Xen for ARM, according to this
-previous work: https://www.slideshare.net/xen_com_mgr/xpdds18-cpufreq-in-xe=
-n-on-arm-oleksandr-tyshchenko-epam-systems
+> 
+> diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
+> index ca94e8b453..638f6174de 100644
+> --- a/xen/arch/x86/hvm/hpet.c
+> +++ b/xen/arch/x86/hvm/hpet.c
+> @@ -62,8 +62,7 @@
+>   
+>   #define timer_int_route(h, n)    MASK_EXTR(timer_config(h, n),
+> HPET_TN_ROUTE)
+>   
+> -#define timer_int_route_cap(h, n) \
+> -    MASK_EXTR(timer_config(h, n), HPET_TN_INT_ROUTE_CAP)
+> +#define timer_int_route_cap(h, n) (h)->hpet.timers[(n)].route
+>   
+>   #define timer_int_route_valid(h, n) \
+>       ((1u << timer_int_route(h, n)) & timer_int_route_cap(h, n))
+> diff --git a/xen/include/asm-x86/hvm/vpt.h b/xen/include/asm-x86/hvm/vpt.h
+> index f0e0eaec83..a41fc443cc 100644
+> --- a/xen/include/asm-x86/hvm/vpt.h
+> +++ b/xen/include/asm-x86/hvm/vpt.h
+> @@ -73,7 +73,13 @@ struct hpet_registers {
+>       uint64_t isr;               /* interrupt status reg */
+>       uint64_t mc64;              /* main counter */
+>       struct {                    /* timers */
+> -        uint64_t config;        /* configuration/cap */
+> +        union {
+> +            uint64_t config;    /* configuration/cap */
+> +            struct {
+> +                uint32_t _;
+> +                uint32_t route;
+> +            };
+> +        };
+>           uint64_t cmp;           /* comparator */
+>           uint64_t fsb;           /* FSB route, not supported now */
+>       } timers[HPET_TIMER_NUM];
+> 
+> 
 
-> Alejandro: can you try to measure the actual CPU frequency in Dom0?
-> Maybe some easy benchmark? "mhz" from lmbench does a great job in
-> telling you the actual frequency, just by clever measurement. But any
-> other CPU bound benchmark would do, if you compare bare metal Linux vs.
-> Dom0.
-I have measured the CPU frequency in Dom0 using lmbench several times
-and it seems to be stuck at 888 MHz, the frequency set by U-Boot.
-Overall, the system feels more sluggish than when using bare Linux,
-too. It doesn't matter if I apply the "hacky fix" I mentioned before
-or not.
-
-> Also, does cpufreq come up in Dom0 at all? Can you select governors and
-> frequencies?
-It doesn't come up, and no sysfs entries are created for cpufreq. With
-the "fix", the kernel prints an error message complaining that it
-couldn't probe cpufreq-dt, but it still doesn't come up, and sysfs
-entries for cpufreq aren't created either.
 
