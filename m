@@ -2,54 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FB3B230915
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 13:43:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66686230996
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 14:08:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0O0O-0007ZP-Qn; Tue, 28 Jul 2020 11:42:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k0OP7-00014D-Cj; Tue, 28 Jul 2020 12:08:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZWt7=BH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k0O0N-0007ZK-2W
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 11:42:47 +0000
-X-Inumbo-ID: 73fd8c0b-d0c7-11ea-8b28-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 73fd8c0b-d0c7-11ea-8b28-bc764e2007e4;
- Tue, 28 Jul 2020 11:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595936566;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=iwLhOsjZtYhl+WFa5BUY/82Z8FbB6FQLSph99aT8EGw=;
- b=BixnbRswkYIbU65CmkXJxMolgQMy1yusl99uG/1f9Tn4MIamnnF3sVRi
- YKppZ/ffq1PWUKcKKaKAT095A9+xJW+8pxWMT+bfa/7/jxA2GDcqbSWfo
- obu6mSQjCldJrZwaVS100/N/0Q3/YveWmgf9ohhvopIunKfNHPFlD8tcO c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: eST4pcblEO9C4zMoJzXs8FUL90X3L5/U0rACoVj/dtaz69BM1mQPX91USa/YLWbf/s5kkvs3z3
- QoxfVkTFF9gEtfVjJ2yybcqAH46FK8ACLdf97hJ6Hifthnze4ZxYG9Nc41FuSq47pXZeBrwobb
- TZ9GbHrh1h//0/sZC1rIdcSLxLAhbUvoZpFO4DAN7DuYKGEmcrKTu+MzROy8YleM2D0DxUYTLp
- s4j/3TQR8RoAyxfz2785glGSM5s8yBtxv6NnlJwLCUT3EhorCmMCbHdUMduNkBYU4PVBX7wQYr
- O9w=
-X-SBRS: 2.7
-X-MesageID: 23666671
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23666671"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <linux-kernel@vger.kernel.org>
-Subject: [PATCH] xen/balloon: add header guard
-Date: Tue, 28 Jul 2020 13:42:35 +0200
-Message-ID: <20200728114235.58619-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200727091342.52325-5-roger.pau@citrix.com>
-References: <20200727091342.52325-5-roger.pau@citrix.com>
-MIME-Version: 1.0
+ <SRS0=E6Nk=BH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k0OP5-000148-9g
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 12:08:19 +0000
+X-Inumbo-ID: 0546bfbc-d0cb-11ea-a8b6-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0546bfbc-d0cb-11ea-a8b6-12813bfff9fa;
+ Tue, 28 Jul 2020 12:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4GykV/FJJCAbwWOJk4uwAGIo6lKI+SKaL3E2nrR5CLU=; b=KkutKignzh1EEWFGziafmnX2Q
+ 3scXDH28T6wpDP2284xNFSjlqlLCwJWSK9Rs8gHrsU4Lwzm7rUWffMv8VbMTa29ZulcE60nm4qeIb
+ ZiPaWFdaCIckF9Xe1cdgvp2XkH2C+7+Sts6RqQOLRjool5Xv+kTmBUypfEStTK8deaHj0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0OP2-0007Jw-MH; Tue, 28 Jul 2020 12:08:16 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0OP2-0001za-Aq; Tue, 28 Jul 2020 12:08:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k0OP2-0003hs-A5; Tue, 28 Jul 2020 12:08:16 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152249-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 152249: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=ffde22468e2f0e93b51f97b801e6c7a181088c61
+X-Osstest-Versions-That: ovmf=a44f558a84c67cd88b8215d4c076123cf58438f4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 28 Jul 2020 12:08:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,48 +61,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In order to protect against the header being included multiple times
-on the same compilation unit.
+flight 152249 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152249/
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org
----
-This is required as a pre-patch to use ZONE_DEVICE, or else the
-fallback of including the balloon header might not work properly.
----
- include/xen/balloon.h | 4 ++++
- 1 file changed, 4 insertions(+)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ffde22468e2f0e93b51f97b801e6c7a181088c61
+baseline version:
+ ovmf                 a44f558a84c67cd88b8215d4c076123cf58438f4
 
-diff --git a/include/xen/balloon.h b/include/xen/balloon.h
-index 6fb95aa19405..6dbdb0b3fd03 100644
---- a/include/xen/balloon.h
-+++ b/include/xen/balloon.h
-@@ -2,6 +2,8 @@
- /******************************************************************************
-  * Xen balloon functionality
-  */
-+#ifndef _XEN_BALLOON_H
-+#define _XEN_BALLOON_H
- 
- #define RETRY_UNLIMITED	0
- 
-@@ -34,3 +36,5 @@ static inline void xen_balloon_init(void)
- {
- }
- #endif
-+
-+#endif	/* _XEN_BALLOON_H */
--- 
-2.27.0
+Last test of basis   152244  2020-07-28 00:40:52 Z    0 days
+Testing same since   152249  2020-07-28 07:04:39 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Guomin Jiang <guomin.jiang@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Michael Kubacki <michael.a.kubacki@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   a44f558a84..ffde22468e  ffde22468e2f0e93b51f97b801e6c7a181088c61 -> xen-tested-master
 
