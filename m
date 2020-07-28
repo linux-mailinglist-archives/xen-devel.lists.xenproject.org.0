@@ -2,53 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C04D2305F2
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 10:59:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DDEC230623
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 11:08:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0LRR-0008C0-7O; Tue, 28 Jul 2020 08:58:33 +0000
+	id 1k0LZg-0000f8-2I; Tue, 28 Jul 2020 09:07:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZWt7=BH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k0LRQ-0008Bv-Kc
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 08:58:32 +0000
-X-Inumbo-ID: 822dafce-d0b0-11ea-8b1b-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ id 1k0LZe-0000f3-Ea
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 09:07:02 +0000
+X-Inumbo-ID: b25e04ae-d0b1-11ea-8b1c-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 822dafce-d0b0-11ea-8b1b-bc764e2007e4;
- Tue, 28 Jul 2020 08:58:31 +0000 (UTC)
+ id b25e04ae-d0b1-11ea-8b1c-bc764e2007e4;
+ Tue, 28 Jul 2020 09:07:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595926710;
+ d=citrix.com; s=securemail; t=1595927221;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=sUvuB+SQAcx3A3Ddb7pG9ZwS7HsLQy3Nggy8p7965gE=;
- b=TGaisiGi0ePOPNkXq/Jj2AzhT8vFjD84xrrlU0IjrYhthTVj2Mwv7TOA
- YCJq0adrJsExUhApIzhFk+AH3EHM9FnSQDJRVfOPfX/YqwBkjuNR8E91t
- LX8KezvnjWTXIS4FEiT7UhvAHKFFahrWP0lxuIRQVcxiitNEn5x0MgJXP s=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=PBb4O1ZjcnYgIxh0EQAN7soMcQ53JITdPUUJn86Y/z4=;
+ b=Tb/YRNURN0atgUV8ELQ0XNP6lHTZb9B0UcdoxGOdBJ/vME8N2RmQEj7T
+ zK6NtJrOEoU8jE7aSFunpHGGkWH6eE/cgTZNHH3oblCSGqXuSboS49p+g
+ FdxnZqQ6wznpufjJuHuFFgNgmO3b5niALvAj5XCPDZWSKc4GZdMLOweVq g=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: /bZkDnZuXjo0SWY7PwnfnFfGpru2vPR112n/AkE305ku0uelirJMTzl1CNgdCMVtSFeIrfCMas
- 1tFUaiYgODKpcIbW7ltXyvR/Ie4ojvYaRMvJwT1r2pJ2TtTags9CgqoKPUVqd8Y9Y09tNKDRg9
- LMZHN6Ge9XQCD8ckxOmixPSKMBSZg3hBNJ4vfWIRUORJRDhU18AcJAtoLSak+lKW9skwRbCea+
- QcHDVfT4eKoODdhezggYh6X+mYxb4dNIHNbT0gR1jrsne4mJ0ce+U9XnpDfcXprbf+Xv4RakOq
- dwA=
+IronPort-SDR: uTmgI8PxOzjXzTKFv/wuH25kCpkMuPEwq+7BWgPZv2kPlz8v6EpZPXhdFEz2dNXOmtaPEzonHB
+ DCqEQ+nr//gDEkJQQkWdv5HeExG4xCv+cPStmbGxdX6oY7kLO/wx94zJtSzt1e18eM0iTb/+CJ
+ CCVBwOV1uUQL77JM6ap2ZVHm4vhtZX8xhWPV8WtaKVYcRVeykIdBOWJLRbMRs3meBxi4EygrUB
+ wetHtNoxdoHKPRp0MLQDcOMEp5Gr2o2wXG3wvww6WsdwtU5AnVQP3uzqFsoVXyjW2CLC34QUYs
+ jQ4=
 X-SBRS: 2.7
-X-MesageID: 23515422
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 23658075
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,405,1589256000"; d="scan'208";a="23515422"
-Date: Tue, 28 Jul 2020 10:58:15 +0200
+X-IronPort-AV: E=Sophos;i="5.75,405,1589256000"; d="scan'208";a="23658075"
+Date: Tue, 28 Jul 2020 11:06:54 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Eslam Elnikety <elnikety@amazon.com>
-Subject: Re: [PATCH] x86/vhpet: Fix type size in timer_int_route_valid
-Message-ID: <20200728085815.GY7191@Air-de-Roger>
-References: <20200728083357.77999-1-elnikety@amazon.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 1/4] x86: replace __ASM_{CL,ST}AC
+Message-ID: <20200728090618.GZ7191@Air-de-Roger>
+References: <58b9211a-f6dd-85da-d0bd-c927ac537a5d@suse.com>
+ <fc8e042e-fef8-ac38-34d8-16b13e4b0135@suse.com>
+ <20200727145526.GR7191@Air-de-Roger>
+ <b29e4b17-8ec2-a0db-8426-94393e9eb2c0@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <20200728083357.77999-1-elnikety@amazon.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b29e4b17-8ec2-a0db-8426-94393e9eb2c0@suse.com>
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -61,25 +65,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Paul Durrant <pdurrant@amazon.co.uk>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Jul 28, 2020 at 08:33:57AM +0000, Eslam Elnikety wrote:
-> The macro timer_int_route_cap evalutes to a 64 bit value. Extend the
-> size of left side of timer_int_route_valid to match.
+On Mon, Jul 27, 2020 at 09:47:52PM +0200, Jan Beulich wrote:
+> On 27.07.2020 16:55, Roger Pau Monné wrote:
+> > On Wed, Jul 15, 2020 at 12:48:14PM +0200, Jan Beulich wrote:
+> > > --- /dev/null
+> > > +++ b/xen/include/asm-x86/asm-defns.h
+> > 
+> > Maybe this could be asm-insn.h or a different name? I find it
+> > confusing to have asm-defns.h and an asm_defs.h.
+> 
+> While indeed I anticipated a reply to this effect, I don't consider
+> asm-insn.h or asm-macros.h suitable: We don't want to limit this
+> header to a more narrow purpose than "all sorts of definition", I
+> don't think. Hence I chose that name despite its similarity to the
+> C header's one.
 
-I'm very dull with this things, so forgive me.
+I think it's confusing, but I also think the whole magic we do with
+asm includes is already confusing (me), so if you and Andrew agree
+this is the best name I'm certainly fine with it. FWIW:
 
-Isn't the left side just promoted to an unsigned 64bit value?
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Also timer_int_route will strictly be <= 31, which makes the shift
-safe?
-
-I'm not opposed to switching to use unsigned long, but I think I'm not
-understanding the issue.
+Please quote the clac/stac instructions in order to match the other
+usages of ALTERNATIVE.
 
 Thanks, Roger.
 
