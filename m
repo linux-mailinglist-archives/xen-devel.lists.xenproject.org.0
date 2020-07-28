@@ -2,52 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BCBE231015
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 18:49:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98844231035
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 18:57:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0SmJ-0000Ou-68; Tue, 28 Jul 2020 16:48:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k0SuK-0001GS-1V; Tue, 28 Jul 2020 16:56:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TSwU=BH=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k0SmH-0000Op-L5
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 16:48:33 +0000
-X-Inumbo-ID: 2be86eaa-d0f2-11ea-8ba1-bc764e2007e4
+ id 1k0SuI-0001GN-UP
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 16:56:50 +0000
+X-Inumbo-ID: 53fa5c9a-d0f3-11ea-a91b-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2be86eaa-d0f2-11ea-8ba1-bc764e2007e4;
- Tue, 28 Jul 2020 16:48:32 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 53fa5c9a-d0f3-11ea-a91b-12813bfff9fa;
+ Tue, 28 Jul 2020 16:56:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=W/q3EC2xp/1uSlfzKWEodtbt8+Hkh9fk7Ot5gVkNxDI=; b=0EjygVLrDEeM7fxzEKp2ZCZfyW
- cCJP1O+If5bhP4xNNzbCXDP+PxlwyNtosVREbzqftCtJMDJxbBiLcvc4YspOaTvnKcrrHu2hK0nTJ
- 1oEy0V5ch4ZjpSEb84qfhoA5KsAiF8/udmsoizbh1NJwVVwacNWHhuOak4ho4Awlprt8=;
+ bh=Ne/5f8Dz1USlmrgYJGbkJHI1b0murad2BfKI+443u80=; b=4mxGsr4g8PgshJvwRUqY4v41Rn
+ vtqGxEUykkes1fa/mEJ+5CksVi/mwLFb9sgcA38ZVZqlFmLUPeo9rdByOAImeMwliEw1ar/ZV48Cz
+ 1TfekSsNNetD/kHvz4WjWI8EjivFN2iaJAEXhxo//xXgNQQk5mf/r0XBLezc3eygaHDY=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1k0SmB-00059l-9Z; Tue, 28 Jul 2020 16:48:27 +0000
+ id 1k0SuG-0005KQ-MG; Tue, 28 Jul 2020 16:56:48 +0000
 Received: from 54-240-197-239.amazon.com ([54.240.197.239]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1k0SmA-0007yB-V2; Tue, 28 Jul 2020 16:48:27 +0000
-Subject: Re: [PATCH v3 4/4] xen: add helpers to allocate unpopulated memory
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-References: <20200727091342.52325-1-roger.pau@citrix.com>
- <20200727091342.52325-5-roger.pau@citrix.com>
+ id 1k0SuG-0003el-EZ; Tue, 28 Jul 2020 16:56:48 +0000
+Subject: Re: Porting Xen to Jetson Nano
+To: Srinivas Bangalore <srini@yujala.com>, xen-devel@lists.xenproject.org,
+ 'Christopher Clark' <christopher.w.clark@gmail.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>
+References: <002801d66051$90fe2300$b2fa6900$@yujala.com>
+ <9736680b-1c81-652b-552b-4103341bad50@xen.org>
+ <000001d661cb$45cdaa10$d168fe30$@yujala.com>
+ <5f985a6a-1bd6-9e68-f35f-b0b665688cee@xen.org>
+ <002901d66462$a1dff530$e59fdf90$@yujala.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <b5460659-88a5-c2aa-c339-815d5618bcb5@xen.org>
-Date: Tue, 28 Jul 2020 17:48:23 +0100
+Message-ID: <f8de3b17-d8bd-884d-a37f-6e6d58bcab8c@xen.org>
+Date: Tue, 28 Jul 2020 17:56:46 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
  Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200727091342.52325-5-roger.pau@citrix.com>
+In-Reply-To: <002901d66462$a1dff530$e59fdf90$@yujala.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -61,51 +67,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>, Yan Yankovskyi <yyankovskyi@gmail.com>,
- David Hildenbrand <david@redhat.com>, dri-devel@lists.freedesktop.org,
- Michal Hocko <mhocko@kernel.org>, linux-mm@kvack.org,
- Daniel Vetter <daniel@ffwll.ch>, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
 
-On 27/07/2020 10:13, Roger Pau Monne wrote:
-> To be used in order to create foreign mappings. This is based on the
-> ZONE_DEVICE facility which is used by persistent memory devices in
-> order to create struct pages and kernel virtual mappings for the IOMEM
-> areas of such devices. Note that on kernels without support for
-> ZONE_DEVICE Xen will fallback to use ballooned pages in order to
-> create foreign mappings.
+
+On 27/07/2020 23:09, Srinivas Bangalore wrote:
+> Hi,
 > 
-> The newly added helpers use the same parameters as the existing
-> {alloc/free}_xenballooned_pages functions, which allows for in-place
-> replacement of the callers. Once a memory region has been added to be
-> used as scratch mapping space it will no longer be released, and pages
-> returned are kept in a linked list. This allows to have a buffer of
-> pages and prevents resorting to frequent additions and removals of
-> regions.
 > 
-> If enabled (because ZONE_DEVICE is supported) the usage of the new
-> functionality untangles Xen balloon and RAM hotplug from the usage of
-> unpopulated physical memory ranges to map foreign pages, which is the
-> correct thing to do in order to avoid mappings of foreign pages depend
-> on memory hotplug.
-I think this is going to break Dom0 on Arm if the kernel has been built 
-with hotplug. This is because you may end up to re-use region that will 
-be used for the 1:1 mapping of a foreign map.
+> On 24/07/2020 16:01, Srinivas Bangalore wrote:
+>> Hi Julien,
+> 
+> Hello,
+> 
+>>
+>> Thanks for the tips. Comments inline...
+> 
+> I struggled to find your comment inline as your e-mail client doesn't quote
+> my answer. Please configure your e-mail client to use some form of quoting
+> (the usual is '>').
+> 
+> [<SB>] Done! Sorry about that.
 
-Note that I don't know whether hotplug has been tested on Xen on Arm 
-yet. So it might be possible to be already broken.
+Thanks this is a good start. Unfortunately, it doesn't fully help it 
+when you have a reply split accross multiple line. This is become more 
+proeminent after a few back and forth. Which e-mail client are you using?
 
-Meanwhile, my suggestion would be to make the use of hotplug in the 
-balloon code conditional (maybe using CONFIG_ARM64 and CONFIG_ARM)?
+> [<SB>] OK, I started porting the patch series to 4.14, but it is definitely
+> not straightforward ;) Will take some time to do this. BTW, I was looking at
+> xen/arch/arm/Rules.mk in 4.14 and it is blank. The previous releases had
+> some board-specific stuff in this file - esp the EARLY_PRINTK definitions.
+> Has this changed in 4.14?
+
+earlyprintk can now be configured using Kconfig. This should be easier 
+to configure as you can do it the same way as you would for other options.
 
 Cheers,
 
