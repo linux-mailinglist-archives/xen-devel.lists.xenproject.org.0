@@ -2,50 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BE99230774
+	by mail.lfdr.de (Postfix) with ESMTPS id C6E0D230775
 	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:16:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0MeT-0007Vm-Mn; Tue, 28 Jul 2020 10:16:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k0MeQ-0007VW-EC; Tue, 28 Jul 2020 10:16:02 +0000
+Resent-Date: Tue, 28 Jul 2020 10:16:02 +0000
+Resent-Message-Id: <E1k0MeQ-0007VW-EC@lists.xenproject.org>
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K5Bo=BH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k0MeS-0007Vg-L0
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:16:04 +0000
-X-Inumbo-ID: 571de7da-d0bb-11ea-8b26-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 571de7da-d0bb-11ea-8b26-bc764e2007e4;
- Tue, 28 Jul 2020 10:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1595931363;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=eResLKENKrnBvZCEPNYPX+GbqgM/48vwzyRSj+mBaw8=;
- b=D7ulHQGTbCsO0jZGFZcVzJtrsQ0xtyQQo58EGu8tBqteqKK/O9o5Wgi2
- eP2loA9WxmHkxgBzJmmbOxqIXcvC+tNGXrKTRJ1vEjmYw16NS9yphTf9q
- Xagk3ZV4xNBuaQe7RxV0e+fCa1QJ6AOw0yIrgY4K5B9oY+/7f602j/TpA o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: 4jNe9HkyjwpDKXp9aDdQaicuN+zhaneZt6IDT4vGSS6Cmm5gSPaOg2DU4IieG74IfRsJsoMo7+
- dfDFv7uAHOBpd9gLh1Ql5WF96i95uKqYtscNhkuvppfR3jxX39ZH9YfYf6IXuF1tTVsoO37l2k
- 0GxlWl8LYZ8i7GgPsoWH2ovGhe8SnUFXtgfwebiYeo2JvgQMJuQevIRYd9PEZrk528A79EHNq2
- kh4g68we4OUzBz6aujwRX4aIlDlEJGTekepNg3mdFY6iDlNzyGe5YAdR6ltYZaNA9MKbkPEQYm
- gWw=
-X-SBRS: 2.7
-X-MesageID: 23344596
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23344596"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] public/domctl: Fix the struct xen_domctl ABI in 32bit builds
-Date: Tue, 28 Jul 2020 11:15:29 +0100
-Message-ID: <20200728101529.13753-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+ <SRS0=PPGR=BH=patchew.org=no-reply@srs-us1.protection.inumbo.net>)
+ id 1k0MeP-0007VN-Co
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:16:01 +0000
+X-Inumbo-ID: 50a8014c-d0bb-11ea-a88e-12813bfff9fa
+Received: from sender4-of-o57.zoho.com (unknown [136.143.188.57])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 50a8014c-d0bb-11ea-a88e-12813bfff9fa;
+ Tue, 28 Jul 2020 10:15:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1595931335; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=gnWIF8tKZ21krMd4CyQBMHsJ3sp85Sky3fozkOqX5IPzKyBFRAFN4rxWCfiakbA6G45qPkZAwrZOz4upub/0uCCFmGZcu5nHmwAxV9pMG40T3A/gSCtnMmRrBf6DWmf/6CJMkLtYoKINksSQr1ZKVnUhPQNsRBZ++IQ2/jDeuhQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1595931335;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:Reply-To:Subject:To;
+ bh=IAuw8LyCXyP8m3ZRiPRN7vC6Q+SkTb4+JXRWw49XNSE=; 
+ b=WazofzMan9KjIol6ttc45TjVf67qSJcZykkSH3/ux052HxGznA0IiMJOZtLIC4uZmF+dpbKjrLWdjiKtMKFM8gB5j7OsyBjnjSl2cM0FFe8Sq/PjLnsGZqoRptJ4x1/cxxVEzrYNH90gv+Sqi1BReUG5e/NU9bk+atiae6QTF2g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ spf=pass  smtp.mailfrom=no-reply@patchew.org;
+ dmarc=pass header.from=<no-reply@patchew.org>
+ header.from=<no-reply@patchew.org>
+Received: from [172.17.0.3] (23.253.156.214 [23.253.156.214]) by
+ mx.zohomail.com with SMTPS id 1595931333107699.9161531048355;
+ Tue, 28 Jul 2020 03:15:33 -0700 (PDT)
+Subject: Re: [PATCH-for-5.1] accel/xen: Fix xen_enabled() behavior on
+ target-agnostic objects
+Message-ID: <159593133240.22228.17592220013997022688@66eaa9a8a123>
+In-Reply-To: <20200728100925.10454-1-philmd@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Resent-From: 
+From: no-reply@patchew.org
+To: philmd@redhat.com
+Date: Tue, 28 Jul 2020 03:15:33 -0700 (PDT)
+X-ZohoMailClient: External
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,72 +58,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan
- Beulich <JBeulich@suse.com>, Ian Jackson <ian.jackson@citrix.com>
+Reply-To: qemu-devel@nongnu.org
+Cc: peter.maydell@linaro.org, sstabellini@kernel.org, paul@xen.org,
+ pdurrant@amazon.com, qemu-devel@nongnu.org, pbonzini@redhat.com,
+ anthony.perard@citrix.com, xen-devel@lists.xenproject.org, philmd@redhat.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The Xen domctl ABI currently relies on the union containing a field with
-alignment of 8.
-
-32bit projects which only copy the used subset of functionality end up with an
-ABI breakage if they don't have at least one uint64_aligned_t field copied.
-
-Insert explicit padding, and some build assertions to ensure it never changes
-moving forwards.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: George Dunlap <George.Dunlap@eu.citrix.com>
-CC: Ian Jackson <ian.jackson@citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Wei Liu <wl@xen.org>
-CC: Julien Grall <julien@xen.org>
-
-Further proof that C isn't an appropriate way to desribe an ABI...
----
- xen/common/domctl.c         | 8 ++++++++
- xen/include/public/domctl.h | 1 +
- 2 files changed, 9 insertions(+)
-
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index a69b3b59a8..20ef8399bd 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -959,6 +959,14 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-     return ret;
- }
- 
-+static void __init __maybe_unused build_assertions(void)
-+{
-+    struct xen_domctl d;
-+
-+    BUILD_BUG_ON(sizeof(d) != 16 /* header */ + 128 /* union */);
-+    BUILD_BUG_ON(offsetof(typeof(d), u) != 16);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 59bdc28c89..9464a9058a 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1222,6 +1222,7 @@ struct xen_domctl {
- #define XEN_DOMCTL_gdbsx_domstatus             1003
-     uint32_t interface_version; /* XEN_DOMCTL_INTERFACE_VERSION */
-     domid_t  domain;
-+    uint16_t _pad[3];
-     union {
-         struct xen_domctl_createdomain      createdomain;
-         struct xen_domctl_getdomaininfo     getdomaininfo;
--- 
-2.11.0
-
+UGF0Y2hldyBVUkw6IGh0dHBzOi8vcGF0Y2hldy5vcmcvUUVNVS8yMDIwMDcyODEwMDkyNS4xMDQ1
+NC0xLXBoaWxtZEByZWRoYXQuY29tLwoKCgpIaSwKClRoaXMgc2VyaWVzIGZhaWxlZCB0aGUgZG9j
+a2VyLXF1aWNrQGNlbnRvczcgYnVpbGQgdGVzdC4gUGxlYXNlIGZpbmQgdGhlIHRlc3RpbmcgY29t
+bWFuZHMgYW5kCnRoZWlyIG91dHB1dCBiZWxvdy4gSWYgeW91IGhhdmUgRG9ja2VyIGluc3RhbGxl
+ZCwgeW91IGNhbiBwcm9iYWJseSByZXByb2R1Y2UgaXQKbG9jYWxseS4KCj09PSBURVNUIFNDUklQ
+VCBCRUdJTiA9PT0KIyEvYmluL2Jhc2gKbWFrZSBkb2NrZXItaW1hZ2UtY2VudG9zNyBWPTEgTkVU
+V09SSz0xCnRpbWUgbWFrZSBkb2NrZXItdGVzdC1xdWlja0BjZW50b3M3IFNIT1dfRU5WPTEgSj0x
+NCBORVRXT1JLPTEKPT09IFRFU1QgU0NSSVBUIEVORCA9PT0KCgoKClRoZSBmdWxsIGxvZyBpcyBh
+dmFpbGFibGUgYXQKaHR0cDovL3BhdGNoZXcub3JnL2xvZ3MvMjAyMDA3MjgxMDA5MjUuMTA0NTQt
+MS1waGlsbWRAcmVkaGF0LmNvbS90ZXN0aW5nLmRvY2tlci1xdWlja0BjZW50b3M3Lz90eXBlPW1l
+c3NhZ2UuCi0tLQpFbWFpbCBnZW5lcmF0ZWQgYXV0b21hdGljYWxseSBieSBQYXRjaGV3IFtodHRw
+czovL3BhdGNoZXcub3JnL10uClBsZWFzZSBzZW5kIHlvdXIgZmVlZGJhY2sgdG8gcGF0Y2hldy1k
+ZXZlbEByZWRoYXQuY29t
 
