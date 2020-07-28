@@ -2,65 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 333AB230764
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:14:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE99230774
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jul 2020 12:16:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0McK-0007OJ-0Q; Tue, 28 Jul 2020 10:13:52 +0000
+	id 1k0MeT-0007Vm-Mn; Tue, 28 Jul 2020 10:16:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iaET=BH=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
- id 1k0McI-0007OD-2d
- for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:13:50 +0000
-X-Inumbo-ID: 07944953-d0bb-11ea-8b26-bc764e2007e4
-Received: from mail-oi1-x241.google.com (unknown [2607:f8b0:4864:20::241])
+ <SRS0=K5Bo=BH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k0MeS-0007Vg-L0
+ for xen-devel@lists.xenproject.org; Tue, 28 Jul 2020 10:16:04 +0000
+X-Inumbo-ID: 571de7da-d0bb-11ea-8b26-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 07944953-d0bb-11ea-8b26-bc764e2007e4;
- Tue, 28 Jul 2020 10:13:49 +0000 (UTC)
-Received: by mail-oi1-x241.google.com with SMTP id y22so16949000oie.8
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jul 2020 03:13:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=dIGitEZzrPfalnnDRusGe28l2o0rf72O/DvG7N9N97E=;
- b=b0fbrVc8hmErEmlFhfL5lTeN9t7A3Y/NNz9ll10zrA+Rqr6Rm33Pceg/B5+x4mmt+Y
- EHGT2F4txMqMn5Sf4UTpq5A8nt+UJzjmVOCu/z27+epYaa4ProLwm0ttSKIaoJs+DyFT
- kbBZaFP9pyzsVLI3NPiAiLTCcqYJLlo/x+kQN/FH3/+MecdNkLz/QaRHqm59CAmkkUw7
- Fo047mxpm3vj+qaoPjxhWJAImYZE7NgWvBMvxu9MGwD4gzoA4He7ZYSPm00pw72HgX4j
- S/IxVEn9Fb+dRcB5NKxPulhl/XnafW/kclyefM+2AjouvvckBIyGc1R5Ns8RovWh6du0
- hyEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=dIGitEZzrPfalnnDRusGe28l2o0rf72O/DvG7N9N97E=;
- b=E4+jIZ2KMBnql5MwQS+U4JE/Re2r4B7c23NDMDzxz3OOQuVX85hAR5UcBZqi+kyUc1
- OQSrJ+MP1FoxV3XLGAJ/IfTrfKrKLX9QKrYQg7tZBB7KIv0NyS+1ZybX1k7xPQWFz8HY
- Qz9yQnXT13feosNhcB5+d3TT7On1hHpCCEoimKNJcuTUq/umuo0lC6wIoB0eRWWexU9y
- WmXjVKfupOPUQBeZD0rgjBTqZEcRlNxk+I1brIu88p61uXhwHz2dVXEVRrjT4USYqlAo
- 6btRUIV0vcMG/QvcTnAMK3B6dFZtlnnjrkOvEraboWThA4xPxhGXAi2RIIc5yupBaFkA
- N0zw==
-X-Gm-Message-State: AOAM5323rjuf+tfzdS3f2mCt1dPpZU6P0mNJLCdVvucrStO9WAO/1Cv2
- 5Lt1TdvBVc7XD0tW/O+biu9vTsxYSfOETHzBrjBblw==
-X-Google-Smtp-Source: ABdhPJzFJC22rWeZ4x/tjI2G7ahXjg4PWDt64qOjlCb0r7cf4shJQj8p9wDx5Yd4f0r/+JUpZ9r5PzneOkT/HQbrL8w=
-X-Received: by 2002:aca:4a96:: with SMTP id x144mr2814958oia.163.1595931229010; 
- Tue, 28 Jul 2020 03:13:49 -0700 (PDT)
+ id 571de7da-d0bb-11ea-8b26-bc764e2007e4;
+ Tue, 28 Jul 2020 10:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1595931363;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=eResLKENKrnBvZCEPNYPX+GbqgM/48vwzyRSj+mBaw8=;
+ b=D7ulHQGTbCsO0jZGFZcVzJtrsQ0xtyQQo58EGu8tBqteqKK/O9o5Wgi2
+ eP2loA9WxmHkxgBzJmmbOxqIXcvC+tNGXrKTRJ1vEjmYw16NS9yphTf9q
+ Xagk3ZV4xNBuaQe7RxV0e+fCa1QJ6AOw0yIrgY4K5B9oY+/7f602j/TpA o=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 4jNe9HkyjwpDKXp9aDdQaicuN+zhaneZt6IDT4vGSS6Cmm5gSPaOg2DU4IieG74IfRsJsoMo7+
+ dfDFv7uAHOBpd9gLh1Ql5WF96i95uKqYtscNhkuvppfR3jxX39ZH9YfYf6IXuF1tTVsoO37l2k
+ 0GxlWl8LYZ8i7GgPsoWH2ovGhe8SnUFXtgfwebiYeo2JvgQMJuQevIRYd9PEZrk528A79EHNq2
+ kh4g68we4OUzBz6aujwRX4aIlDlEJGTekepNg3mdFY6iDlNzyGe5YAdR6ltYZaNA9MKbkPEQYm
+ gWw=
+X-SBRS: 2.7
+X-MesageID: 23344596
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,406,1589256000"; d="scan'208";a="23344596"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] public/domctl: Fix the struct xen_domctl ABI in 32bit builds
+Date: Tue, 28 Jul 2020 11:15:29 +0100
+Message-ID: <20200728101529.13753-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <20200728091828.21702-1-paul@xen.org>
- <CAFEAcA_wKTFWk9Uk5HMabqfa6QkkTAdzBotmnrA_EH1BR4XjYg@mail.gmail.com>
- <32ad0742-bff2-1fbc-2f7a-d078980eb171@redhat.com>
- <CAFEAcA84fH3aGpbrJoA6S3qJ-FjD3NZMoj0G7jqvRneH_pS6=A@mail.gmail.com>
- <a09853d3-5c27-893f-54ed-63dc461bfacb@redhat.com>
- <ee8374bd-1257-1d29-6800-3902426b1a0b@redhat.com>
-In-Reply-To: <ee8374bd-1257-1d29-6800-3902426b1a0b@redhat.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Tue, 28 Jul 2020 11:13:38 +0100
-Message-ID: <CAFEAcA9zp48p64mPxR4_NyLDdYxjtEkKE_xQz_4D+Uau7HTE3A@mail.gmail.com>
-Subject: Re: [PATCH] configure: define CONFIG_XEN when Xen is enabled
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,36 +56,72 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Paul Durrant <pdurrant@amazon.com>, QEMU Developers <qemu-devel@nongnu.org>,
- Laurent Vivier <laurent@vivier.eu>,
- "open list:X86" <xen-devel@lists.xenproject.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Paolo Bonzini <pbonzini@redhat.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan
+ Beulich <JBeulich@suse.com>, Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, 28 Jul 2020 at 11:00, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
-m> wrote:
-> Apparently kvm_enabled() checks CONFIG_KVM_IS_POSSIBLE instead
-> of CONFIG_KVM, I suppose to bypass this limitation (from osdep.h):
->
->  21 #ifdef NEED_CPU_H
->  22 # ifdef CONFIG_KVM
->  24 #  define CONFIG_KVM_IS_POSSIBLE
->  25 # endif
->  26 #else
->  27 # define CONFIG_KVM_IS_POSSIBLE
->  28 #endif
->  29
->  30 #ifdef CONFIG_KVM_IS_POSSIBLE
->     ...
+The Xen domctl ABI currently relies on the union containing a field with
+alignment of 8.
 
-Interesting. We don't have CONFIG_WHPX_IS_POSSIBLE,
-CONFIG_HVF_IS_POSSIBLE, etc -- also bugs, or do we avoid
-them by happening not to check whpx_enabled(), hvf_enabled(),
-etc in obj-common-compiled source files?
+32bit projects which only copy the used subset of functionality end up with an
+ABI breakage if they don't have at least one uint64_aligned_t field copied.
 
-thanks
--- PMM
+Insert explicit padding, and some build assertions to ensure it never changes
+moving forwards.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+
+Further proof that C isn't an appropriate way to desribe an ABI...
+---
+ xen/common/domctl.c         | 8 ++++++++
+ xen/include/public/domctl.h | 1 +
+ 2 files changed, 9 insertions(+)
+
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index a69b3b59a8..20ef8399bd 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -959,6 +959,14 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+     return ret;
+ }
+ 
++static void __init __maybe_unused build_assertions(void)
++{
++    struct xen_domctl d;
++
++    BUILD_BUG_ON(sizeof(d) != 16 /* header */ + 128 /* union */);
++    BUILD_BUG_ON(offsetof(typeof(d), u) != 16);
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index 59bdc28c89..9464a9058a 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -1222,6 +1222,7 @@ struct xen_domctl {
+ #define XEN_DOMCTL_gdbsx_domstatus             1003
+     uint32_t interface_version; /* XEN_DOMCTL_INTERFACE_VERSION */
+     domid_t  domain;
++    uint16_t _pad[3];
+     union {
+         struct xen_domctl_createdomain      createdomain;
+         struct xen_domctl_getdomaininfo     getdomaininfo;
+-- 
+2.11.0
+
 
