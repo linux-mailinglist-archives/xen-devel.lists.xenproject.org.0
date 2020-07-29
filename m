@@ -2,59 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDA41232792
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 00:24:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B986723281A
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 01:31:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0uTL-0004K7-9R; Wed, 29 Jul 2020 22:22:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ULCb=BI=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k0uTK-0004Jn-Co
- for xen-devel@lists.xenproject.org; Wed, 29 Jul 2020 22:22:50 +0000
-X-Inumbo-ID: 0567a374-d1ea-11ea-aa70-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0567a374-d1ea-11ea-aa70-12813bfff9fa;
- Wed, 29 Jul 2020 22:22:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uLB57gA70g4VsS8jO2JHgLPLNf/F4lTgzr5CnoT1z20=; b=x4AqcX+fRMO6iASxR02bG53n/
- AMfqIaX5VESiXMCrxeuF8G3lRXtKxP+FgDUeGPkNMLJZ+QW/OLHvnigGK9dvm5h63JmA2awNqDQv6
- 8iNqJelqZaEbEy4FyMezIIrW0HVHEdtC70LMnhGc35BJqE6XKGq7adNbP4nf093lt1V9A=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k0uTC-0003nB-Bh; Wed, 29 Jul 2020 22:22:42 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k0uTC-0006AL-1i; Wed, 29 Jul 2020 22:22:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k0uTC-0007x3-0y; Wed, 29 Jul 2020 22:22:42 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152288-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1k0vWI-000114-Hl; Wed, 29 Jul 2020 23:29:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1ssD=BI=runbox.com=m.v.b@srs-us1.protection.inumbo.net>)
+ id 1k0vWH-00010z-4a
+ for xen-devel@lists.xenproject.org; Wed, 29 Jul 2020 23:29:57 +0000
+X-Inumbo-ID: 64f84574-d1f3-11ea-8cfa-bc764e2007e4
+Received: from aibo.runbox.com (unknown [91.220.196.211])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 64f84574-d1f3-11ea-8cfa-bc764e2007e4;
+ Wed, 29 Jul 2020 23:29:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com; 
+ s=selector2;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+ bh=rISNQPH3HYP5FNkch553OTLzMMgKtfy1SUBnSvFHBcA=; b=gELl8Sj7dSWfhwEdBrc7g+F2AK
+ ++6Vjd0/7jXRGM7shd4FlEq9oEjxT9hKTkOb0xJnRSeXIn53MFgtW+/yM19wysR4PUFnkdUr/Js2E
+ PXBO7Ze1Vnn9vTdUxfkpV7qs5yjN8B1G6E7JCCYtucSoTmtzD4yXLOb3M+VaMHNwO11oZiDtAWmHC
+ eGBIiV4ng0x5uNcLs+WmdCXXKwLrmjSnNfkiFuqXmlK+BB8ag1YTnWWtBZhaFh6CsRULoi7L85Rq4
+ gmTC/OLBxTmLk0znM+ORUvhSw9mHpb9T4IDtt4eVzHiyg83mtWzp9o4hOknfsk06IRkPFTg2TIwqG
+ a7CDLftw==;
+Received: from [10.9.9.73] (helo=submission02.runbox)
+ by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+ (envelope-from <m.v.b@runbox.com>)
+ id 1k0vW2-0004IW-Uj; Thu, 30 Jul 2020 01:29:43 +0200
+Received: by submission02.runbox with esmtpsa [Authenticated alias (536975)]
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
+ id 1k0vVm-00053U-Ap; Thu, 30 Jul 2020 01:29:26 +0200
+Subject: Re: [PATCH] x86/S3: put data segment registers into known state upon
+ resume
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+References: <3cad2798-1a01-7d5e-ea55-ddb9ba6388d9@suse.com>
+ <6343ad61-246f-fefd-cd12-d260807e82f0@citrix.com>
+ <c726cdc7-271b-0ea7-4056-8ab86686282e@suse.com>
+ <e61e34c4-38dd-d201-8035-ead79a7595c2@citrix.com>
+From: "M. Vefa Bicakci" <m.v.b@runbox.com>
+Message-ID: <072d2566-8640-2bf6-d660-2eeb019c8a08@runbox.com>
+Date: Thu, 30 Jul 2020 02:29:23 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.0.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 152288: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
- xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=64219fa179c3e48adad12bfce3f6b3f1596cccbf
-X-Osstest-Versions-That: xen=b071ec25e85c4aacf3da59e5258cda0b1c4df45d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 29 Jul 2020 22:22:42 +0000
+In-Reply-To: <e61e34c4-38dd-d201-8035-ead79a7595c2@citrix.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,77 +62,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152288 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152288/
+On 7/23/20 7:00 PM, Andrew Cooper wrote:
+> On 23/07/2020 16:19, Jan Beulich wrote:
+>> On 23.07.2020 16:40, Andrew Cooper wrote:
+>>> On 20/07/2020 16:20, Jan Beulich wrote:
+>>>> wakeup_32 sets %ds and %es to BOOT_DS, while leaving %fs at what
+>>>> wakeup_start did set it to, and %gs at whatever BIOS did load into it.
+>>>> All of this may end up confusing the first load_segments() to run on
+>>>> the BSP after resume, in particular allowing a non-nul selector value
+>>>> to be left in %fs.
+>>>>
+>>>> Alongside %ss, also put all other data segment registers into the same
+>>>> state that the boot and CPU bringup paths put them in.
+>>>>
+>>>> Reported-by: M. Vefa Bicakci <m.v.b@runbox.com>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>
+>>>> --- a/xen/arch/x86/acpi/wakeup_prot.S
+>>>> +++ b/xen/arch/x86/acpi/wakeup_prot.S
+>>>> @@ -52,6 +52,16 @@ ENTRY(s3_resume)
+>>>>           mov     %eax, %ss
+>>>>           mov     saved_rsp(%rip), %rsp
+>>>>   
+>>>> +        /*
+>>>> +         * Also put other segment registers into known state, like would
+>>>> +         * be done on the boot path. This is in particular necessary for
+>>>> +         * the first load_segments() to work as intended.
+>>>> +         */
+>>> I don't think the comment is helpful, not least because it refers to a
+>>> broken behaviour in load_segemnts() which is soon going to change anyway.
+>> Well, I can drop it. I merely thought I'd be nice and comment my
+>> code once in a while (and the comment could be dropped / adjusted
+>> when load_segments() changes)...
+>>
+>>> We've literally just loaded the GDT, at which point reloading all
+>>> segments *is* the expected thing to do.
+>> In a way, unless some/all are assumed to already hold a nul selector.
+>>
+>>> I'd recommend that the diff be simply:
+>>>
+>>> diff --git a/xen/arch/x86/acpi/wakeup_prot.S
+>>> b/xen/arch/x86/acpi/wakeup_prot.S
+>>> index dcc7e2327d..a2c41c4f3f 100644
+>>> --- a/xen/arch/x86/acpi/wakeup_prot.S
+>>> +++ b/xen/arch/x86/acpi/wakeup_prot.S
+>>> @@ -49,6 +49,10 @@ ENTRY(s3_resume)
+>>>  †††††††† mov†††† %rax, %cr0
+>>>   
+>>>  †††††††† mov†††† $__HYPERVISOR_DS64, %eax
+>>> +††††††† mov†††† %eax, %ds
+>>> +††††††† mov†††† %eax, %es
+>>> +††††††† mov†††† %eax, %fs
+>>> +††††††† mov†††† %eax, %gs
+>>>  †††††††† mov†††† %eax, %ss
+>>>  †††††††† mov†††† saved_rsp(%rip), %rsp
+>> So I had specifically elected to not put the addition there, to make
+>> sure the stack would get established first. But seeing both Roger
+>> and you ask me to do otherwise - well, so be it then.
+> 
+> There is no IDT.† Any fault is will be triple, irrespective of the exact
+> code layout.
+> 
+> This sequence actually matches what we have in __high_start().
+> 
+> I don't think it is wise to write code which presumes that
+> __HYPERVISOR_DS64 is 0 (it happens to be, but could easily be 0xe010 as
+> well), or that the trampoline has fixed behaviours for the segments.
 
-Regressions :-(
+Hello Jan and Andrew,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm       7 xen-boot                 fail REGR. vs. 152269
+Is there anything I can do to help with the delivery/merging of this patch?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+If it would help, I can prepare and publish a patch according to Andrew's
+comments. Given that the patch is not my work though, I assume that it
+would be appropriate for me credit both of you in the commit message and
+add a Signed-off-by tag in the commit message for each of you.
 
-version targeted for testing:
- xen                  64219fa179c3e48adad12bfce3f6b3f1596cccbf
-baseline version:
- xen                  b071ec25e85c4aacf3da59e5258cda0b1c4df45d
-
-Last test of basis   152269  2020-07-28 19:05:32 Z    1 days
-Testing same since   152288  2020-07-29 19:01:00 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Fam Zheng <famzheng@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 64219fa179c3e48adad12bfce3f6b3f1596cccbf
-Author: Fam Zheng <famzheng@amazon.com>
-Date:   Wed Jul 29 18:51:45 2020 +0100
-
-    x86/cpuid: Fix APIC bit clearing
-    
-    The bug is obvious here, other places in this function used
-    "cpufeat_mask" correctly.
-    
-    Fixed: b648feff8ea2 ("xen/x86: Improvements to in-hypervisor cpuid sanity checks")
-    Signed-off-by: Fam Zheng <famzheng@amazon.com>
-    Reviewed-by: Roger Pau Monn√© <roger.pau@citrix.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-(qemu changes not included)
+Vefa
 
