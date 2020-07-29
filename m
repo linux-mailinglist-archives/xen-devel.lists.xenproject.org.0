@@ -2,58 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98C5D232451
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jul 2020 20:05:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58D862324BD
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jul 2020 20:36:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0qRn-0007Az-MP; Wed, 29 Jul 2020 18:04:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XnVs=BI=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k0qRl-0007Au-Rf
- for xen-devel@lists.xenproject.org; Wed, 29 Jul 2020 18:04:57 +0000
-X-Inumbo-ID: 0270771e-d1c6-11ea-8cae-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0270771e-d1c6-11ea-8cae-bc764e2007e4;
- Wed, 29 Jul 2020 18:04:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596045896;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=w3Dz5LvumULsclC6LqmSvlT/fw+wPczVA22E2m8zbZI=;
- b=JtNMggkT2UhtkN3k37rVYINb/mUvIBFYIkeLQahgNcn3lceL7JPuTSss
- oNsQwtBMJsLqJ3A1R92ukbuHc3LL/HULGlri8Ea1hqExj+fT5P9gXVEvR
- WfVCsu1Sr9rnpMJZvOjmG6JvIkyXLrMsmXT4GdNeZMj86E+wmuvOo3Oyg Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: qsmU7kjoJyvZ0VhlRx6UHpYF/AIwuLltpHQ0hQhIP9cV3OfCPgWLSxfW9T5FXrNkUeS4vkFK9n
- kAUVOFh/1CBT5GhLfVXkuF5KpIKPZy2nbjfsMXYbdVPHfIMvH8Jj/15FkocEOioXKhFzQLcSNo
- GaUtVqEq1Zwv4eKQhx0xZFhaH9gcO/55JFbSZlK6MVq4VHjqffaMxaeGXUqQTm26v76DK6nbEx
- GeNil7uVgnB2iq0TqYrdzkfrGXTuNQw38yzvXHEc0h6BA879PFXirx9ppXar933PAfOTCZ52KK
- Nas=
-X-SBRS: 2.7
-X-MesageID: 23661488
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,411,1589256000"; d="scan'208";a="23661488"
-Subject: Re: [PATCH] x86/cpuid: Fix APIC bit clearing
-To: <fam@euphon.net>, <xen-devel@lists.xenproject.org>
-References: <20200729163341.5662-1-fam@euphon.net>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <693e5bfd-b9ce-fb78-5044-4df0b22f93da@citrix.com>
-Date: Wed, 29 Jul 2020 19:04:52 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	id 1k0quy-0001HY-4O; Wed, 29 Jul 2020 18:35:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TMQ+=BI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k0quw-0001HT-TZ
+ for xen-devel@lists.xenproject.org; Wed, 29 Jul 2020 18:35:06 +0000
+X-Inumbo-ID: 38aac114-d1ca-11ea-aa3e-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 38aac114-d1ca-11ea-aa3e-12813bfff9fa;
+ Wed, 29 Jul 2020 18:35:05 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B9339B1CB;
+ Wed, 29 Jul 2020 18:35:16 +0000 (UTC)
+Subject: Re: fwupd support under Xen - firmware updates with the UEFI capsule
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <497f1524-b57e-0ea1-5899-62f677bfae91@3mdeb.com>
+ <39be665c-b6c8-23e3-b18b-d38cfe5c1286@suse.com>
+ <bbe85f76-0999-1150-3d48-c7f9e1796dac@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <7d2de308-774c-9ffe-de1a-3ca3caaeda8c@suse.com>
+Date: Wed, 29 Jul 2020 20:35:07 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200729163341.5662-1-fam@euphon.net>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <bbe85f76-0999-1150-3d48-c7f9e1796dac@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,44 +48,55 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: famzheng@amazon.com, Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, marmarek@invisiblethingslab.com,
+ Maciej Pijanowski <maciej.pijanowski@3mdeb.com>, piotr.krol@3mdeb.com,
+ Norbert Kaminski <norbert.kaminski@3mdeb.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 29/07/2020 17:33, fam@euphon.net wrote:
-> From: Fam Zheng <famzheng@amazon.com>
->
-> The bug is obvious here, other places in this function used
-> "cpufeat_mask" correctly.
->
-> Signed-off-by: Fam Zheng <famzheng@amazon.com>
-> Fixes: 46df8a65 ("x86/cpuid: Effectively remove pv_cpuid() and hvm_cpuid()")
-> ---
->  xen/arch/x86/cpuid.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-> index 6a4a787b68..63a03ef1e5 100644
-> --- a/xen/arch/x86/cpuid.c
-> +++ b/xen/arch/x86/cpuid.c
-> @@ -1057,7 +1057,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
->          {
->              /* Fast-forward MSR_APIC_BASE.EN. */
->              if ( vlapic_hw_disabled(vcpu_vlapic(v)) )
-> -                res->d &= ~cpufeat_bit(X86_FEATURE_APIC);
-> +                res->d &= ~cpufeat_mask(X86_FEATURE_APIC);
->  
->              /*
->               * PSE36 is not supported in shadow mode.  This bit should be
+On 28.07.2020 23:01, Andrew Cooper wrote:
+> On 28/07/2020 21:00, Jan Beulich wrote:
+>> On 28.07.2020 09:41, Norbert Kaminski wrote:
+>>> I'm trying to add support for the firmware updates with the UEFI
+>>> capsule in
+>>> Qubes OS. I've got the troubles with reading ESRT (EFI System
+>>> Resource Table)
+>>> in the dom0, which is based on the EFI memory map. The EFI_MEMMAP is not
+>>> enabled despite the loaded drivers (CONFIG_EFI, CONFIG_EFI_ESRT) and
+>>> kernel
+>>> cmdline parameters (add_efi_memmap):
+>>>
+>>> ```
+>>> [    3.451249] efi: EFI_MEMMAP is not enabled.
+>>> ```
+>>
+>> It is, according to my understanding, a layering violation to expose
+>> the EFI memory map to Dom0. It's not supposed to make use of this
+>> information in any way. Hence any functionality depending on its use
+>> also needs to be implemented in the hypervisor, with Dom0 making a
+>> suitable hypercall to access this functionality. (And I find it
+>> quite natural to expect that Xen gets involved in an update of the
+>> firmware of a system.)
+> 
+> ERST is a table (read only by the looks of things) which is a catalogue
+> of various bits of firmware in the system, including GUIDs for
+> identification, and version information.
+> 
+> It is the kind of data which the hardware domain should have access to,
+> and AFAICT, behaves just like a static ACPI table.
 
-Oops.  Good spot.
+I'm unaware of us hiding this table, so Dom0 has access.
 
-However, the Fixes you identify was just code movement.  The bug was
-actually introduced in b648feff8ea2c9bff250b4b262704fb100b1f9cf two
-years earlier.
+> Presumably it wants to an E820 reserved region so dom0 gets indent
+> access, and something in the EFI subsystem needs extending to pass the
+> ERST address to dom0.
 
-I've tweaked the Fixes line and committed.
+I'm afraid the beginning of this sentence is such that I can't guess
+what exactly you mean. As per above - I don't see why Dom0 wouldn't
+have access to ERST. What it doesn't (and shouldn't) have access to is
+the raw EFI memory map (there's no E820 map there). There is a way
+for Dom0 to get at some "cooked" memory map (XENMEM_machine_memory_map),
+but of course in a r/o fashion only.
 
-~Andrew
+Jan
 
