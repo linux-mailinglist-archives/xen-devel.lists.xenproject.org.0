@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A710233468
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 16:29:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE75C233464
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 16:29:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k19Z3-0005TD-GJ; Thu, 30 Jul 2020 14:29:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k19Yz-0005R6-7M; Thu, 30 Jul 2020 14:29:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B5Vg=BJ=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k19Z2-0005Pz-6b
- for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 14:29:44 +0000
-X-Inumbo-ID: 1626275a-d271-11ea-8d70-bc764e2007e4
+ id 1k19Yx-0005Q0-FI
+ for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 14:29:39 +0000
+X-Inumbo-ID: 174a6568-d271-11ea-aad0-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1626275a-d271-11ea-8d70-bc764e2007e4;
- Thu, 30 Jul 2020 14:29:34 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 174a6568-d271-11ea-aad0-12813bfff9fa;
+ Thu, 30 Jul 2020 14:29:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
  In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=c4JuIE359pliqogW7rVMUNX38I11naurubgFqG5WTDA=; b=b5pisPLstVNPcTdy2IIghU9Cp/
- kcjpyKxG8xz4JoI97ysXo3CY/tMbGjdZxvMIR6GMkWMwd+/LiRCQPGdl/tHrlFbHsYLEZ6s5AqilC
- kImi4L3BnNsSmmRmW422BhsdUKMW57lAzVexK1I4RDB31HYgK+g1g43BoPRawuKBolFQ=;
+ bh=OjYigD2p3SvkFolBbmgzZMPONZM8wJufvetu1fVmKFs=; b=NkIuc7H3PZvo7MGh/0RvFlqBl6
+ 4eX+/X6ZsHAecwbN1/dj5MtmcuJc78NKE6KYGXETUGm9BvG99rN/9UeQutdKyMrvjSnv6x2Tk/Db6
+ h5+wChq4/HbVMZTs9JuYgjL8wd3B/RzXN5BvkpFESizoMmZoRxlP9TrfZHpD/6HeqTo4=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k19Ys-0002OK-8c; Thu, 30 Jul 2020 14:29:34 +0000
+ id 1k19Ys-0002OW-Sk; Thu, 30 Jul 2020 14:29:34 +0000
 Received: from host86-143-223-30.range86-143.btcentralplus.com
  ([86.143.223.30] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k19Ys-0005aN-1H; Thu, 30 Jul 2020 14:29:34 +0000
+ id 1k19Ys-0005aN-Lx; Thu, 30 Jul 2020 14:29:34 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2 04/10] x86/iommu: convert AMD IOMMU code to use new page
- table allocator
-Date: Thu, 30 Jul 2020 15:29:20 +0100
-Message-Id: <20200730142926.6051-5-paul@xen.org>
+Subject: [PATCH v2 05/10] iommu: remove unused iommu_ops method and tasklet
+Date: Thu, 30 Jul 2020 15:29:21 +0100
+Message-Id: <20200730142926.6051-6-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200730142926.6051-1-paul@xen.org>
 References: <20200730142926.6051-1-paul@xen.org>
@@ -58,253 +58,97 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <pdurrant@amazon.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <pdurrant@amazon.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-This patch converts the AMD IOMMU code to use the new page table allocator
-function. This allows all the free-ing code to be removed (since it is now
-handled by the general x86 code) which reduces TLB and cache thrashing as well
-as shortening the code.
+The VT-d and AMD IOMMU both use the general x86 IOMMU page table allocator
+and ARM always shares page tables with CPU. Hence there is no need to retain
+the free_page_table() method or the tasklet which invokes it.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
 Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
 
 v2:
   - New in v2 (split from "add common page-table allocator")
 ---
- xen/drivers/passthrough/amd/iommu.h         | 18 +----
- xen/drivers/passthrough/amd/iommu_map.c     | 10 +--
- xen/drivers/passthrough/amd/pci_amd_iommu.c | 75 +++------------------
- 3 files changed, 16 insertions(+), 87 deletions(-)
+ xen/drivers/passthrough/iommu.c | 25 -------------------------
+ xen/include/xen/iommu.h         |  2 --
+ 2 files changed, 27 deletions(-)
 
-diff --git a/xen/drivers/passthrough/amd/iommu.h b/xen/drivers/passthrough/amd/iommu.h
-index 3489c2a015..e2d174f3b4 100644
---- a/xen/drivers/passthrough/amd/iommu.h
-+++ b/xen/drivers/passthrough/amd/iommu.h
-@@ -226,7 +226,7 @@ int __must_check amd_iommu_map_page(struct domain *d, dfn_t dfn,
-                                     unsigned int *flush_flags);
- int __must_check amd_iommu_unmap_page(struct domain *d, dfn_t dfn,
-                                       unsigned int *flush_flags);
--int __must_check amd_iommu_alloc_root(struct domain_iommu *hd);
-+int __must_check amd_iommu_alloc_root(struct domain *d);
- int amd_iommu_reserve_domain_unity_map(struct domain *domain,
-                                        paddr_t phys_addr, unsigned long size,
-                                        int iw, int ir);
-@@ -356,22 +356,6 @@ static inline int amd_iommu_get_paging_mode(unsigned long max_frames)
-     return level;
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index 2b1db8022c..660dc5deb2 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -49,10 +49,6 @@ bool_t __read_mostly amd_iommu_perdev_intremap = 1;
+ 
+ DEFINE_PER_CPU(bool_t, iommu_dont_flush_iotlb);
+ 
+-DEFINE_SPINLOCK(iommu_pt_cleanup_lock);
+-PAGE_LIST_HEAD(iommu_pt_cleanup_list);
+-static struct tasklet iommu_pt_cleanup_tasklet;
+-
+ static int __init parse_iommu_param(const char *s)
+ {
+     const char *ss;
+@@ -226,9 +222,6 @@ static void iommu_teardown(struct domain *d)
+     struct domain_iommu *hd = dom_iommu(d);
+ 
+     iommu_vcall(hd->platform_ops, teardown, d);
+-
+-    if ( hd->platform_ops->free_page_table )
+-        tasklet_schedule(&iommu_pt_cleanup_tasklet);
  }
  
--static inline struct page_info *alloc_amd_iommu_pgtable(void)
--{
--    struct page_info *pg = alloc_domheap_page(NULL, 0);
--
--    if ( pg )
--        clear_domain_page(page_to_mfn(pg));
--
--    return pg;
--}
--
--static inline void free_amd_iommu_pgtable(struct page_info *pg)
--{
--    if ( pg )
--        free_domheap_page(pg);
--}
--
- static inline void *__alloc_amd_iommu_tables(unsigned int order)
- {
-     return alloc_xenheap_pages(order, 0);
-diff --git a/xen/drivers/passthrough/amd/iommu_map.c b/xen/drivers/passthrough/amd/iommu_map.c
-index 47b4472e8a..54b991294a 100644
---- a/xen/drivers/passthrough/amd/iommu_map.c
-+++ b/xen/drivers/passthrough/amd/iommu_map.c
-@@ -217,7 +217,7 @@ static int iommu_pde_from_dfn(struct domain *d, unsigned long dfn,
-             mfn = next_table_mfn;
- 
-             /* allocate lower level page table */
--            table = alloc_amd_iommu_pgtable();
-+            table = iommu_alloc_pgtable(d);
-             if ( table == NULL )
-             {
-                 AMD_IOMMU_DEBUG("Cannot allocate I/O page table\n");
-@@ -248,7 +248,7 @@ static int iommu_pde_from_dfn(struct domain *d, unsigned long dfn,
- 
-             if ( next_table_mfn == 0 )
-             {
--                table = alloc_amd_iommu_pgtable();
-+                table = iommu_alloc_pgtable(d);
-                 if ( table == NULL )
-                 {
-                     AMD_IOMMU_DEBUG("Cannot allocate I/O page table\n");
-@@ -286,7 +286,7 @@ int amd_iommu_map_page(struct domain *d, dfn_t dfn, mfn_t mfn,
- 
-     spin_lock(&hd->arch.mapping_lock);
- 
--    rc = amd_iommu_alloc_root(hd);
-+    rc = amd_iommu_alloc_root(d);
-     if ( rc )
-     {
-         spin_unlock(&hd->arch.mapping_lock);
-@@ -458,7 +458,7 @@ int __init amd_iommu_quarantine_init(struct domain *d)
- 
-     spin_lock(&hd->arch.mapping_lock);
- 
--    hd->arch.amd.root_table = alloc_amd_iommu_pgtable();
-+    hd->arch.amd.root_table = iommu_alloc_pgtable(d);
-     if ( !hd->arch.amd.root_table )
-         goto out;
- 
-@@ -473,7 +473,7 @@ int __init amd_iommu_quarantine_init(struct domain *d)
-          * page table pages, and the resulting allocations are always
-          * zeroed.
-          */
--        pg = alloc_amd_iommu_pgtable();
-+        pg = iommu_alloc_pgtable(d);
-         if ( !pg )
-             break;
- 
-diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-index c27bfbd48e..d79668f948 100644
---- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-+++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-@@ -205,11 +205,13 @@ static int iov_enable_xt(void)
-     return 0;
+ void iommu_domain_destroy(struct domain *d)
+@@ -368,23 +361,6 @@ int iommu_lookup_page(struct domain *d, dfn_t dfn, mfn_t *mfn,
+     return iommu_call(hd->platform_ops, lookup_page, d, dfn, mfn, flags);
  }
  
--int amd_iommu_alloc_root(struct domain_iommu *hd)
-+int amd_iommu_alloc_root(struct domain *d)
+-static void iommu_free_pagetables(void *unused)
+-{
+-    do {
+-        struct page_info *pg;
+-
+-        spin_lock(&iommu_pt_cleanup_lock);
+-        pg = page_list_remove_head(&iommu_pt_cleanup_list);
+-        spin_unlock(&iommu_pt_cleanup_lock);
+-        if ( !pg )
+-            return;
+-        iommu_vcall(iommu_get_ops(), free_page_table, pg);
+-    } while ( !softirq_pending(smp_processor_id()) );
+-
+-    tasklet_schedule_on_cpu(&iommu_pt_cleanup_tasklet,
+-                            cpumask_cycle(smp_processor_id(), &cpu_online_map));
+-}
+-
+ int iommu_iotlb_flush(struct domain *d, dfn_t dfn, unsigned int page_count,
+                       unsigned int flush_flags)
  {
-+    struct domain_iommu *hd = dom_iommu(d);
-+
-     if ( unlikely(!hd->arch.amd.root_table) )
-     {
--        hd->arch.amd.root_table = alloc_amd_iommu_pgtable();
-+        hd->arch.amd.root_table = iommu_alloc_pgtable(d);
-         if ( !hd->arch.amd.root_table )
-             return -ENOMEM;
+@@ -508,7 +484,6 @@ int __init iommu_setup(void)
+ #ifndef iommu_intremap
+         printk("Interrupt remapping %sabled\n", iommu_intremap ? "en" : "dis");
+ #endif
+-        tasklet_init(&iommu_pt_cleanup_tasklet, iommu_free_pagetables, NULL);
      }
-@@ -217,12 +219,13 @@ int amd_iommu_alloc_root(struct domain_iommu *hd)
-     return 0;
- }
- 
--static int __must_check allocate_domain_resources(struct domain_iommu *hd)
-+static int __must_check allocate_domain_resources(struct domain *d)
- {
-+    struct domain_iommu *hd = dom_iommu(d);
-     int rc;
- 
-     spin_lock(&hd->arch.mapping_lock);
--    rc = amd_iommu_alloc_root(hd);
-+    rc = amd_iommu_alloc_root(d);
-     spin_unlock(&hd->arch.mapping_lock);
  
      return rc;
-@@ -254,7 +257,7 @@ static void __hwdom_init amd_iommu_hwdom_init(struct domain *d)
- {
-     const struct amd_iommu *iommu;
+diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+index 3272874958..1831dc66b0 100644
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -263,8 +263,6 @@ struct iommu_ops {
+     int __must_check (*lookup_page)(struct domain *d, dfn_t dfn, mfn_t *mfn,
+                                     unsigned int *flags);
  
--    if ( allocate_domain_resources(dom_iommu(d)) )
-+    if ( allocate_domain_resources(d) )
-         BUG();
- 
-     for_each_amd_iommu ( iommu )
-@@ -323,7 +326,6 @@ static int reassign_device(struct domain *source, struct domain *target,
- {
-     struct amd_iommu *iommu;
-     int bdf, rc;
--    struct domain_iommu *t = dom_iommu(target);
- 
-     bdf = PCI_BDF2(pdev->bus, pdev->devfn);
-     iommu = find_iommu_for_device(pdev->seg, bdf);
-@@ -344,7 +346,7 @@ static int reassign_device(struct domain *source, struct domain *target,
-         pdev->domain = target;
-     }
- 
--    rc = allocate_domain_resources(t);
-+    rc = allocate_domain_resources(target);
-     if ( rc )
-         return rc;
- 
-@@ -376,65 +378,9 @@ static int amd_iommu_assign_device(struct domain *d, u8 devfn,
-     return reassign_device(pdev->domain, d, devfn, pdev);
- }
- 
--static void deallocate_next_page_table(struct page_info *pg, int level)
--{
--    PFN_ORDER(pg) = level;
--    spin_lock(&iommu_pt_cleanup_lock);
--    page_list_add_tail(pg, &iommu_pt_cleanup_list);
--    spin_unlock(&iommu_pt_cleanup_lock);
--}
+-    void (*free_page_table)(struct page_info *);
 -
--static void deallocate_page_table(struct page_info *pg)
--{
--    struct amd_iommu_pte *table_vaddr;
--    unsigned int index, level = PFN_ORDER(pg);
--
--    PFN_ORDER(pg) = 0;
--
--    if ( level <= 1 )
--    {
--        free_amd_iommu_pgtable(pg);
--        return;
--    }
--
--    table_vaddr = __map_domain_page(pg);
--
--    for ( index = 0; index < PTE_PER_TABLE_SIZE; index++ )
--    {
--        struct amd_iommu_pte *pde = &table_vaddr[index];
--
--        if ( pde->mfn && pde->next_level && pde->pr )
--        {
--            /* We do not support skip levels yet */
--            ASSERT(pde->next_level == level - 1);
--            deallocate_next_page_table(mfn_to_page(_mfn(pde->mfn)),
--                                       pde->next_level);
--        }
--    }
--
--    unmap_domain_page(table_vaddr);
--    free_amd_iommu_pgtable(pg);
--}
--
--static void deallocate_iommu_page_tables(struct domain *d)
--{
--    struct domain_iommu *hd = dom_iommu(d);
--
--    spin_lock(&hd->arch.mapping_lock);
--    if ( hd->arch.amd.root_table )
--    {
--        deallocate_next_page_table(hd->arch.amd.root_table,
--                                   hd->arch.amd.paging_mode);
--        hd->arch.amd.root_table = NULL;
--    }
--    spin_unlock(&hd->arch.mapping_lock);
--}
--
--
- static void amd_iommu_domain_destroy(struct domain *d)
- {
--    deallocate_iommu_page_tables(d);
--    amd_iommu_flush_all_pages(d);
-+    dom_iommu(d)->arch.amd.root_table = NULL;
- }
- 
- static int amd_iommu_add_device(u8 devfn, struct pci_dev *pdev)
-@@ -620,7 +566,6 @@ static const struct iommu_ops __initconstrel _iommu_ops = {
-     .unmap_page = amd_iommu_unmap_page,
-     .iotlb_flush = amd_iommu_flush_iotlb_pages,
-     .iotlb_flush_all = amd_iommu_flush_iotlb_all,
--    .free_page_table = deallocate_page_table,
-     .reassign_device = reassign_device,
-     .get_device_group_id = amd_iommu_group_id,
-     .enable_x2apic = iov_enable_xt,
+ #ifdef CONFIG_X86
+     int (*enable_x2apic)(void);
+     void (*disable_x2apic)(void);
 -- 
 2.20.1
 
