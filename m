@@ -2,63 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8137923395E
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 21:53:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74630233973
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 22:01:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1EcA-00051D-Eg; Thu, 30 Jul 2020 19:53:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HZLI=BJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k1Ec9-000516-0i
- for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 19:53:17 +0000
-X-Inumbo-ID: 4e29fdaa-d29e-11ea-ab1a-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4e29fdaa-d29e-11ea-ab1a-12813bfff9fa;
- Thu, 30 Jul 2020 19:53:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596138794;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=wf+fhMOVf1vvOkTyouZrdEt+26wjL/aBc/DrRpUDK0Y=;
- b=SYnhJ+ltlbHuyml+l2f+lUg5RFJOTpIyuDlNqIm+D/ZnNbThxxQ+xGgr
- f7iwbKzHnb+hWUyK7hg7UE/+jrrtuEAYF2KfKDdb3IYKAWGRa0DfB5H34
- EVTg9Jy87L7PJJ8p1y2j2P+H/laGCHZDcJPSR8gZMfnf0b9LMCmO76IbW I=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: nqnJxs+Xpx7NxZTh8AWiEtTmjTO27dOHGkZygQHHS0P+9CUccpL9tymdiTLvS2RxAmEKPWgHwW
- OR/ZZyOWQcfS1V13EAlyEiEJK6mqkNB3xNckX4+oOkqJQaKMXFduBL5YCOenhpW8UvlIWH/wOs
- XauWjqJ6VY3BQxDBtZfKN0FXVIQTyBejEbTWIBnmsKf0vzBaqWI3Ut0LwQUtbYBgTOQNuX62j/
- PtbyKXmyF4iQ6TZkWNCMa6A0oi6sM5T/sGvKjdH6V7hexG5BYffX5yMX5IwnIz8QIWxvUJA4uy
- Iek=
-X-SBRS: 2.7
-X-MesageID: 23761758
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,415,1589256000"; d="scan'208";a="23761758"
+	id 1k1EjT-0005x0-AZ; Thu, 30 Jul 2020 20:00:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=IK5u=BJ=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k1EjS-0005wu-2y
+ for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 20:00:50 +0000
+X-Inumbo-ID: 5c86ad53-d29f-11ea-8dc7-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5c86ad53-d29f-11ea-8dc7-bc764e2007e4;
+ Thu, 30 Jul 2020 20:00:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=XOqBVUmSR6XbSqoKdv8Ee7IMVjkKW34Rs6RR9l/DbA0=; b=ASlhrZb4/vPTrI14J0edpJ4rPN
+ gQupt3Wm6+qomnQ8/T36AAYCfR9H09QDwkS3v68uHdJgqBiTdhrcNyJW3lOwMOaqwmag/RdpwnbS2
+ vmqCQK/6qgmIsx9wnV99JKc1cLYRNMaK7DieTVHzfi0nQgpqUIyjo57yKiigaawxOXOE=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k1EjL-0001fi-E3; Thu, 30 Jul 2020 20:00:43 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k1EjL-0004yG-5k; Thu, 30 Jul 2020 20:00:43 +0000
 Subject: Re: [PATCH 4/5] xen/memory: Fix acquire_resource size semantics
-To: Julien Grall <julien@xen.org>, <paul@xen.org>, 'Xen-devel'
- <xen-devel@lists.xenproject.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, paul@xen.org,
+ 'Xen-devel' <xen-devel@lists.xenproject.org>
 References: <20200728113712.22966-1-andrew.cooper3@citrix.com>
  <20200728113712.22966-5-andrew.cooper3@citrix.com>
  <002b01d6664b$c7eb5f40$57c21dc0$@xen.org>
- <d0c00a30-2f72-036e-d574-a82e96ea79ea@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <7b7aae0d-35d8-8bfa-7352-8e3c58873964@citrix.com>
-Date: Thu, 30 Jul 2020 20:53:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <474ff131-83d8-deff-4e3a-32392ea092b3@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <5c7d67c3-4731-caf0-cbe5-3849cd07bf98@xen.org>
+Date: Thu, 30 Jul 2020 21:00:40 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <d0c00a30-2f72-036e-d574-a82e96ea79ea@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <474ff131-83d8-deff-4e3a-32392ea092b3@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,61 +73,20 @@ Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 30/07/2020 13:54, Julien Grall wrote:
-> Hi Paul,
->
+Hi Andrew,
+
+On 30/07/2020 20:46, Andrew Cooper wrote:
 > On 30/07/2020 09:31, Paul Durrant wrote:
->>> diff --git a/xen/common/memory.c b/xen/common/memory.c
->>> index dc3a7248e3..21edabf9cc 100644
->>> --- a/xen/common/memory.c
->>> +++ b/xen/common/memory.c
->>> @@ -1007,6 +1007,26 @@ static long xatp_permission_check(struct
->>> domain *d, unsigned int space)
->>>       return xsm_add_to_physmap(XSM_TARGET, current->domain, d);
->>>   }
->>>
->>> +/*
->>> + * Return 0 on any kind of error.  Caller converts to -EINVAL.
->>> + *
->>> + * All nonzero values should be repeatable (i.e. derived from some
->>> fixed
->>> + * proerty of the domain), and describe the full resource (i.e.
->>> mapping the
->>
->> s/property/property
->>
->>> + * result of this call will be the entire resource).
->>
->> This precludes dynamically adding a resource to a running domain. Do
->> we really want to bake in that restriction?
->
-> AFAICT, this restriction is not documented in the ABI. In particular,
-> it is written:
->
-> "
-> The size of a resource will never be zero, but a nonzero result doesn't
-> guarentee that a subsequent mapping request will be successful.  There
-> are further type/id specific constraints which may change between the
-> two calls.
-> "
->
-> So I think a domain couldn't rely on this behavior. Although, it might
-> be good to clarify in the comment on top of resource_max_frames that
-> this an implementation decision and not part of the ABI.
+> In between these two hypercalls from the utility, the guest can do a
+> v1=>v2 or v2=>v1 switch and make the resource spontaneously appear or
+> disappear.
 
-There are two aspects here.
+This can only happen on platform where grant-table v2 is enabled. Where 
+this is not enabled (e.g Arm), then I think we want to return 0 as there 
+is nothing to map.
 
-First, yes - I deliberately didn't state it in the ABI, just in case we
-might want to use it in the future.  I could theoretically foresee using
--EBUSY for the purpose.
+Cheers,
 
-That said however, we are currently deliberately taking dynamic
-resources out of Xen, because they've proved to be unnecessary in
-practice and a fertile source of complexity and security bugs.
-
-I don't foresee accepting new dynamic resources, but that's not to say
-that someone can't theoretically come up with a sufficiently compelling
-counterexample.
-
-~Andrew
+-- 
+Julien Grall
 
