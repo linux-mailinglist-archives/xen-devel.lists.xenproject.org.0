@@ -2,58 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 875E923283C
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 01:39:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1EF4232987
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 03:28:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k0vfJ-0001zb-NF; Wed, 29 Jul 2020 23:39:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1ssD=BI=runbox.com=m.v.b@srs-us1.protection.inumbo.net>)
- id 1k0vfH-0001zU-9n
- for xen-devel@lists.xenproject.org; Wed, 29 Jul 2020 23:39:15 +0000
-X-Inumbo-ID: b2189dda-d1f4-11ea-8cfa-bc764e2007e4
-Received: from aibo.runbox.com (unknown [91.220.196.211])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b2189dda-d1f4-11ea-8cfa-bc764e2007e4;
- Wed, 29 Jul 2020 23:39:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com; 
- s=selector2;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
- bh=ryw1KN8G6h/++LeW6jPFPZaW48ovXavii2BR1FFNXKI=; b=FPowg7Di5qDZCGTgKJv0O15P14
- MEiCJNiet/vWmBU9fEZyTS3psaPzs43NLu9lME8G6p2+XvrkFuXUgaEcvuJ0fgipQFu0r+yqxN/7b
- p43sESKGo2tcg2Pbuds0IoF7k+Y4lyN2EME7Cz49wW1yBi4azCzRVjuh4+yBX95UAeIE9eeH/a3Cw
- cKtwtA2sYU/nVQsqPvvJNN+4zuJtIpM/h4IvWv+//uOqpJ33oPeZloP2rMRVu5dV/X/QrPA6lTBJM
- 0o2ZgMiTACk5mcMEzG65a3dPzZB0Fhb8O8KbAFOxG9n/eGEyWS0NdmLKHXsOUqSxTfHq6tk6x3tNq
- ajSdHVfQ==;
-Received: from [10.9.9.73] (helo=submission02.runbox)
- by mailtransmit02.runbox with esmtp (Exim 4.86_2)
- (envelope-from <m.v.b@runbox.com>)
- id 1k0vf4-0007Wm-PR; Thu, 30 Jul 2020 01:39:02 +0200
-Received: by submission02.runbox with esmtpsa [Authenticated alias (536975)]
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
- id 1k0vew-0006HT-In; Thu, 30 Jul 2020 01:38:54 +0200
-Subject: Re: [PATCH] x86/S3: put data segment registers into known state upon
- resume
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
-References: <3cad2798-1a01-7d5e-ea55-ddb9ba6388d9@suse.com>
- <6343ad61-246f-fefd-cd12-d260807e82f0@citrix.com>
- <c726cdc7-271b-0ea7-4056-8ab86686282e@suse.com>
- <e61e34c4-38dd-d201-8035-ead79a7595c2@citrix.com>
- <072d2566-8640-2bf6-d660-2eeb019c8a08@runbox.com>
- <de1f03ff-6740-d9da-8cc6-e2dd4fea3c68@citrix.com>
-From: "M. Vefa Bicakci" <m.v.b@runbox.com>
-Message-ID: <b9bae032-cdbe-de26-e8c1-1980bce175d3@runbox.com>
-Date: Thu, 30 Jul 2020 02:38:52 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.0.1
+	id 1k0xLs-0004E7-SZ; Thu, 30 Jul 2020 01:27:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fgvr=BJ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k0xLr-0004E2-7u
+ for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 01:27:19 +0000
+X-Inumbo-ID: ce7c3fb8-d203-11ea-aa93-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ce7c3fb8-d203-11ea-aa93-12813bfff9fa;
+ Thu, 30 Jul 2020 01:27:18 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 56FB52072A;
+ Thu, 30 Jul 2020 01:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1596072437;
+ bh=c4k4NdZHECgYEpdRMVrdYhI1v6rcVuDTAhUtbursfNM=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=jIoEgXuQpC4q/wnQ6PRHRYtBYUJN0HpShJlFNeJj21J28KBNpT5dgyw9v3L4iB0FM
+ E8s2O5L08S0PyZyE4jf03HNXEy0Q2O2bwtyXN8RoTtFJyVsiWBVXr3naRInjpMSuFU
+ RVNbyomgLzJNX/W9V7e85EVsxKOZbuafwcwRG+ek=
+Date: Wed, 29 Jul 2020 18:27:16 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: srini@yujala.com
+Subject: Re: Porting Xen to Jetson Nano
+In-Reply-To: <67c102642b0932d88ab2f70e96742ef0@yujala.com>
+Message-ID: <alpine.DEB.2.21.2007291756380.1767@sstabellini-ThinkPad-T480s>
+References: <002801d66051$90fe2300$b2fa6900$@yujala.com>
+ <9736680b-1c81-652b-552b-4103341bad50@xen.org>
+ <000001d661cb$45cdaa10$d168fe30$@yujala.com>
+ <5f985a6a-1bd6-9e68-f35f-b0b665688cee@xen.org>
+ <67c102642b0932d88ab2f70e96742ef0@yujala.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <de1f03ff-6740-d9da-8cc6-e2dd4fea3c68@citrix.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,96 +56,205 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>,
+ 'Christopher Clark' <christopher.w.clark@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 7/30/20 2:31 AM, Andrew Cooper wrote:
-> On 30/07/2020 00:29, M. Vefa Bicakci wrote:
->> On 7/23/20 7:00 PM, Andrew Cooper wrote:
->>> On 23/07/2020 16:19, Jan Beulich wrote:
->>>> On 23.07.2020 16:40, Andrew Cooper wrote:
->>>>> On 20/07/2020 16:20, Jan Beulich wrote:
->>>>>> wakeup_32 sets %ds and %es to BOOT_DS, while leaving %fs at what
->>>>>> wakeup_start did set it to, and %gs at whatever BIOS did load into
->>>>>> it.
->>>>>> All of this may end up confusing the first load_segments() to run on
->>>>>> the BSP after resume, in particular allowing a non-nul selector value
->>>>>> to be left in %fs.
->>>>>>
->>>>>> Alongside %ss, also put all other data segment registers into the
->>>>>> same
->>>>>> state that the boot and CPU bringup paths put them in.
->>>>>>
->>>>>> Reported-by: M. Vefa Bicakci <m.v.b@runbox.com>
->>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>
->>>>>> --- a/xen/arch/x86/acpi/wakeup_prot.S
->>>>>> +++ b/xen/arch/x86/acpi/wakeup_prot.S
->>>>>> @@ -52,6 +52,16 @@ ENTRY(s3_resume)
->>>>>>            mov     %eax, %ss
->>>>>>            mov     saved_rsp(%rip), %rsp
->>>>>>    +        /*
->>>>>> +         * Also put other segment registers into known state,
->>>>>> like would
->>>>>> +         * be done on the boot path. This is in particular
->>>>>> necessary for
->>>>>> +         * the first load_segments() to work as intended.
->>>>>> +         */
->>>>> I don't think the comment is helpful, not least because it refers to a
->>>>> broken behaviour in load_segemnts() which is soon going to change
->>>>> anyway.
->>>> Well, I can drop it. I merely thought I'd be nice and comment my
->>>> code once in a while (and the comment could be dropped / adjusted
->>>> when load_segments() changes)...
->>>>
->>>>> We've literally just loaded the GDT, at which point reloading all
->>>>> segments *is* the expected thing to do.
->>>> In a way, unless some/all are assumed to already hold a nul selector.
->>>>
->>>>> I'd recommend that the diff be simply:
->>>>>
->>>>> diff --git a/xen/arch/x86/acpi/wakeup_prot.S
->>>>> b/xen/arch/x86/acpi/wakeup_prot.S
->>>>> index dcc7e2327d..a2c41c4f3f 100644
->>>>> --- a/xen/arch/x86/acpi/wakeup_prot.S
->>>>> +++ b/xen/arch/x86/acpi/wakeup_prot.S
->>>>> @@ -49,6 +49,10 @@ ENTRY(s3_resume)
->>>>>            mov     %rax, %cr0
->>>>>              mov     $__HYPERVISOR_DS64, %eax
->>>>> +        mov     %eax, %ds
->>>>> +        mov     %eax, %es
->>>>> +        mov     %eax, %fs
->>>>> +        mov     %eax, %gs
->>>>>            mov     %eax, %ss
->>>>>            mov     saved_rsp(%rip), %rsp
->>>> So I had specifically elected to not put the addition there, to make
->>>> sure the stack would get established first. But seeing both Roger
->>>> and you ask me to do otherwise - well, so be it then.
->>>
->>> There is no IDT.  Any fault is will be triple, irrespective of the exact
->>> code layout.
->>>
->>> This sequence actually matches what we have in __high_start().
->>>
->>> I don't think it is wise to write code which presumes that
->>> __HYPERVISOR_DS64 is 0 (it happens to be, but could easily be 0xe010 as
->>> well), or that the trampoline has fixed behaviours for the segments.
->>
->> Hello Jan and Andrew,
->>
->> Is there anything I can do to help with the delivery/merging of this
->> patch?
+On Wed, 29 Jul 2020, srini@yujala.com wrote:
+> Hi Julien,
 > 
-> It was committed last Friday.
-> 
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=55f8c389d4348cc517946fdcb10794112458e81e
-> 
-> I presume Jan will backport it to stable trees when he's not OoO.
+> On 2020-07-24 17:25, Julien Grall wrote:
+> > On 24/07/2020 16:01, Srinivas Bangalore wrote:
+> > 
+> > I struggled to find your comment inline as your e-mail client doesn't
+> > quote my answer. Please configure your e-mail client to use some form
+> > of quoting (the usual is '>').
+> > 
+> > 
+> I have switched to a web-based email client, so I hope this is better now.
 
-Great -- thanks! (And sorry for not checking the git tree prior to
-sending my e-mail.)
+Seems better, thank you
 
-Vefa
+
+> > > (XEN) Freed 296kB init memory.
+> > > (XEN) dom0 IPA 0x0000000088080000
+> > > (XEN) P2M @ 0000000803fc3d40 mfn:0x17f0f5
+> > > (XEN) 0TH[0x0] = 0x004000017f0f377f
+> > > (XEN) 1ST[0x2] = 0x02c00000800006fd
+> > > (XEN) Mem access check
+> > > (XEN) dom0 IPA 0x0000000088080000
+> > > (XEN) P2M @ 0000000803fc3d40 mfn:0x17f0f5
+> > > (XEN) 0TH[0x0] = 0x004000017f0f377f
+> > > (XEN) 1ST[0x2] = 0x02c00000800006fd
+> > > (XEN) Mem access check
+> > 
+> > The instruction abort issue looks normal as the mapping is marked as
+> > non-executable.
+> > 
+> > Looking at the rest of bits, bits 55:58 indicates the type of mapping
+> > used. The value suggest the mapping has been considered to be used
+> > p2m_mmio_direct_c (RW cacheable MMIO). This looks wrong to me because
+> > RAM should be mapped using p2m_ram_rw.
+> > 
+> > Looking at your DT, it looks like the region is marked as reserved. On
+> > Xen 4.8, reserved-memory region are not correctly handled (IIRC this
+> > was only fixed in Xen 4.13). This should be possible to confirm by
+> > enable CONFIG_DEVICE_TREE_DEBUG in your .config.
+> > 
+> > The option will debug more information about the mapping to dom0 on
+> > your console.
+> > 
+> > However, given you are using an old release, you are at risk at keep
+> > finding bugs that have been resolved in more recent releases. It would
+> > probably better if you switch to Xen 4.14 and report any bug you can
+> > find there.
+> > 
+> Ok. I applied to patch series to 4.14. Enabled EARLY_PRINTK, CONFIG_DEBUG and
+> DEVICE_TREE_DEBUG.
+> Here's the log...
+> 
+> ## Flattened Device Tree blob at e3500000
+>    Booting using the fdt blob at 0xe3500000
+>    reserving fdt memory region: addr=80000000 size=20000
+>    reserving fdt memory region: addr=e3500000 size=35000
+>    Loading Device Tree to 00000000fc7f8000, end 00000000fc82ffff ... OK
+> 
+> Starting kernel ...
+> 
+> - UART enabled -
+> - Boot CPU booting -
+> - Current EL 00000008 -
+> - Initialize CPU -
+> - Turning on paging -
+> - Zero BSS -
+> - Ready -
+> (XEN) Invalid size for reg
+> (XEN) fdt: node `reserved-memory': parsing failed
+> (XEN)
+> (XEN) MODULE[0]: 00000000e0000000 - 00000000e014b0c8 Xen
+> (XEN) MODULE[1]: 00000000fc7f8000 - 00000000fc82d000 Device Tree
+> (XEN)  RESVD[0]: 0000000080000000 - 0000000080020000
+> (XEN)  RESVD[1]: 00000000e3500000 - 00000000e3535000
+> (XEN)  RESVD[2]: 00000000fc7f8000 - 00000000fc82d000
+> (XEN)  RESVD[3]: 0000000040001000 - 000000004003ffff
+> (XEN)  RESVD[4]: 00000000b0000000 - 00000000b01fffff
+> (XEN)
+> (XEN)
+> (XEN) Command line: console=dtuart sync_console dom0_mem=128M loglvl=debug
+> guest_loglvl=debug console_to_ring
+> (XEN) Xen BUG at page_alloc.c:398
+> (XEN) ----[ Xen-4.14.0  arm64  debug=y   Not tainted ]----
+> (XEN) CPU:    0
+> (XEN) PC:     00000000002b7b90 alloc_boot_pages+0x38/0x9c
+> (XEN) LR:     00000000002cda04
+> (XEN) SP:     0000000000307d40
+> (XEN) CPSR:   a00003c9 MODE:64-bit EL2h (Hypervisor, handler)
+> (XEN)      X0: 000fc80000002000  X1: 0000000000002000  X2: 0000000000000000
+> (XEN)      X3: 000fffffffffffff  X4: ffffffffffffffff  X5: 0000000000000000
+> (XEN)      X6: 0000000000307df0  X7: 0000000000000003  X8: 0000000000000008
+> (XEN)      X9: fffffffffffffffb X10: 0101010101010101 X11: 0000000000000007
+> (XEN)     X12: 0000000000000004 X13: ffffffffffffffff X14: ffffffffff000000
+> (XEN)     X15: ffffffffffffffff X16: 0000000000000000 X17: 0000000000000000
+> (XEN)     X18: 00000000fc834dd0 X19: 00000000002b5000 X20: 00000000fc7f8000
+> (XEN)     X21: 00000000fc7f8000 X22: 0000000000000000 X23: fc80000000000038
+> (XEN)     X24: 00000000fed9de28 X25: ffffffffffffffff X26: fc80000002000000
+> (XEN)     X27: 0000000002000000 X28: 0000000000000000  FP: 0000000000307d40
+> (XEN)
+> (XEN)   VTCR_EL2: 80000000
+> (XEN)  VTTBR_EL2: 0000000000000000
+> (XEN)
+> (XEN)  SCTLR_EL2: 30cd183d
+> (XEN)    HCR_EL2: 0000000000000038
+> (XEN)  TTBR0_EL2: 00000000e0145000
+> (XEN)
+> (XEN)    ESR_EL2: f2000001
+> (XEN)  HPFAR_EL2: 0000000000000000
+> (XEN)    FAR_EL2: 0000000000000000
+> (XEN)
+> (XEN) Xen stack trace from sp=0000000000307d40:
+> (XEN)    0000000000307df0 00000000002cf114 0000000000000000 0000000000307d68
+> (XEN)    00000000fc7f8000 00000000002ceeb0 0000000000400000 00676e69725f6f74
+> (XEN)    ffffffffffffffff 0000000000000000 0000000000000000 0000000000307df0
+> (XEN)    0000000000307df0 00000000002cef58 000000003fffffff 00000000fc7f8000
+> (XEN)    00000000fc7f8000 000fc80000002000 0000000000400000 0080000000000000
+> (XEN)    0000000000000000 000000000003ffff 00000000fc831170 00000000002001b8
+> (XEN)    00000000e0000000 00000000dfe00000 00000000fc7f8000 0000000000000000
+> (XEN)    0000000000400000 00000000fed9de28 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000400 0000000000000000 0000000000035000
+> (XEN)    00000000fc7f8000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000300000000 0000000000000000 00000040ffffffff
+> (XEN)    00000000ffffffff 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) Xen call trace:
+> (XEN)    [<00000000002b7b90>] alloc_boot_pages+0x38/0x9c (PC)
+> (XEN)    [<00000000002cda04>] setup_frametable_mappings+0xb4/0x310 (LR)
+> (XEN)    [<00000000002cf114>] start_xen+0x3a0/0xc48
+> (XEN)    [<00000000002001b8>] arm64/head.o#primary_switched+0x10/0x30
+> (XEN)
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) Xen BUG at page_alloc.c:398
+> (XEN) ****************************************
+> (XEN)
+> (XEN) Reboot in five seconds...
+> 
+> There seems to be a problem with the DT in the 'reserved-memory' node.  I
+> commented out the fb0-carveout, fb1-carveout sections, recompiled and tried to
+> boot again.
+
+Yes, those reserved-memory nodes won't work correctly with Xen
+unfortunately: they either use "size" instead of "reg" (vpr-carveout) or
+they specify "no-map". Only regular "reg" reserved memory regions
+without "no-map" are properly parsed by Xen at the moment.
+
+
+
+> This time the log shows the device tree messages (see attached log
+> file), but Xen fails at this point...
+> 
+> (XEN) Allocating PPI 16 for event channel interrupt
+> (XEN) Create hypervisor node
+> (XEN) Create PSCI node
+> (XEN) Create cpus node
+> (XEN) Create cpu@0 (logical CPUID: 0) node
+> (XEN) Create cpu@1 (logical CPUID: 1) node
+> (XEN) Create cpu@2 (logical CPUID: 2) node
+> (XEN) Create cpu@3 (logical CPUID: 3) node
+> (XEN) Create memory node (reg size 4, nr cells 4)
+> (XEN)   Bank 0: 0xe8000000->0xf0000000
+> (XEN) Create memory node (reg size 4, nr cells 8)
+> (XEN)   Bank 0: 0x40001000->0x40040000
+> (XEN)   Bank 1: 0xb0000000->0xb0200000
+> (XEN) Loading zImage from 00000000e1000000 to
+> 00000000e8080000-00000000ea23c808
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) Unable to copy the kernel in the hwdom memory
+> (XEN) ****************************************
+> (XEN)
+> 
+> Device tree and log file attached. Is there an issue with the DT? Any pointers
+> on where I should be looking next?
+
+Is it possible that the kernel image was loaded on a memory area not
+recognized as ram?
+
+So xen/arch/arm/guestcopy.c:translate_get_page fails the check
+p2m_is_ram?
+
+That would happen for instance if a device or special node is also
+covering that address range.
 
