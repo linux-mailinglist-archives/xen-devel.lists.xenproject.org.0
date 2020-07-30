@@ -2,58 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC5392337B9
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 19:34:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 640E62337BA
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 19:34:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1CRZ-0006O7-9J; Thu, 30 Jul 2020 17:34:13 +0000
+	id 1k1CRn-0006PZ-IW; Thu, 30 Jul 2020 17:34:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6uMI=BJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k1CRY-0006O2-4f
- for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 17:34:12 +0000
-X-Inumbo-ID: e0e12c72-d28a-11ea-8daf-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=HZLI=BJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k1CRm-0006PQ-8U
+ for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 17:34:26 +0000
+X-Inumbo-ID: e8d54436-d28a-11ea-8daf-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e0e12c72-d28a-11ea-8daf-bc764e2007e4;
- Thu, 30 Jul 2020 17:34:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=IVizL9gpH7l4myFkI+VBAU8IzMqC/suIBBpMBO1XRdw=; b=Ksj9w9wFS2LX1rW76QuGapTEY
- jJIjHilJQeU82KKOSjnKFBZrCqS3g4IURpg8j1E7rAq4ubK1R0ir0z8KSfS3n473hkQJxd4TaaoGM
- Hc5cM1VFZzDWwLoENUXJijxeuvbnELVQnZuHnSLG82G+CcNfHk5bYS4ueo+venP6I73AQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k1CRW-0006m5-M3; Thu, 30 Jul 2020 17:34:10 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k1CRW-0006ix-Bp; Thu, 30 Jul 2020 17:34:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k1CRW-00043O-8g; Thu, 30 Jul 2020 17:34:10 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152305-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id e8d54436-d28a-11ea-8daf-bc764e2007e4;
+ Thu, 30 Jul 2020 17:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596130465;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=VTbuZSogmwTOJfRNbt0lBzRJjNPsdpDQGD6VXlfSoxU=;
+ b=U9VH3cg2br43bdg/Q+klm3DDrNajNxMH4vI7FZXi4Ceiw/a/qGceRQCb
+ Q4D+aEM4FZrUtVNar+so/sNc11rb3yVy+mK7r2X2upgTnWZv+UUnI94+T
+ lsoODnrXUrPsnj8vBpJuz5EdrY1OoYhiEOrf6QfcpwrHMdeHum02A1bxF o=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Xpr0JyzLJ3ItxrMuYNa8xQQBN+kmVldopfurADO8obZ6+x5Z5KehHHHDxJ7YFJYugJ248FQxDu
+ 1DGLfQ2mN6uloG+vTOJrtdUT35derC9A1wHSOpUmOI3SWNwpDt+jjE9HkqvEGh10Bdv9HmOxYe
+ Os45/KR0Z5OP7HMTewI2cY9vcBzpc8JhEOl3RLFswapGsV8+QSEOcG6jFtvm/ibjZpOI5N/Nbw
+ sxLOxDceDuDdCQNyjF2ZncWfhuoT5nn3Lf46yWql9ndp7pJ7DMpLs/JB2UGFq73GiT9Mh7UJHj
+ tSY=
+X-SBRS: 2.7
+X-MesageID: 23582494
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,415,1589256000"; d="scan'208";a="23582494"
+Subject: Re: [PATCH 1/5] xen/memory: Introduce CONFIG_ARCH_ACQUIRE_RESOURCE
+To: <paul@xen.org>, 'Xen-devel' <xen-devel@lists.xenproject.org>
+References: <20200728113712.22966-1-andrew.cooper3@citrix.com>
+ <20200728113712.22966-2-andrew.cooper3@citrix.com>
+ <002601d66647$ca8567e0$5f9037a0$@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <33a10589-6890-b653-d8c2-7eb19a5e4929@citrix.com>
+Date: Thu, 30 Jul 2020 18:34:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 152305: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
- xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=64219fa179c3e48adad12bfce3f6b3f1596cccbf
-X-Osstest-Versions-That: xen=b071ec25e85c4aacf3da59e5258cda0b1c4df45d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 30 Jul 2020 17:34:10 +0000
+In-Reply-To: <002601d66647$ca8567e0$5f9037a0$@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,77 +66,76 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: 'Stefano
+ Stabellini' <sstabellini@kernel.org>, 'Julien Grall' <julien@xen.org>,
+ 'Wei Liu' <wl@xen.org>,
+ =?UTF-8?B?J01pY2hhxYIgTGVzemN6ecWEc2tpJw==?= <michal.leszczynski@cert.pl>,
+ 'Jan Beulich' <JBeulich@suse.com>,
+ 'Hubert Jasudowicz' <hubert.jasudowicz@cert.pl>,
+ 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152305 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152305/
+On 30/07/2020 09:02, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Sent: 28 July 2020 12:37
+>> To: Xen-devel <xen-devel@lists.xenproject.org>
+>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Jan Beulich <JBeulich@suse.com>; Wei Liu <wl@xen.org>;
+>> Roger Pau Monné <roger.pau@citrix.com>; Stefano Stabellini <sstabellini@kernel.org>; Julien Grall
+>> <julien@xen.org>; Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Paul Durrant <paul@xen.org>; Michał
+>> Leszczyński <michal.leszczynski@cert.pl>; Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+>> Subject: [PATCH 1/5] xen/memory: Introduce CONFIG_ARCH_ACQUIRE_RESOURCE
+>>
+>> New architectures shouldn't be forced to implement no-op stubs for unused
+>> functionality.
+>>
+>> Introduce CONFIG_ARCH_ACQUIRE_RESOURCE which can be opted in to, and provide
+>> compatibility logic in xen/mm.h
+>>
+>> No functional change.
+> Code-wise, it looks fine, so...
+>
+> Reviewed-by: Paul Durrant <paul@xen.org>
 
-Regressions :-(
+Thanks,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm       7 xen-boot                 fail REGR. vs. 152269
+>
+> ...but ...
+>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Wei Liu <wl@xen.org>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Julien Grall <julien@xen.org>
+>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>> CC: Paul Durrant <paul@xen.org>
+>> CC: Michał Leszczyński <michal.leszczynski@cert.pl>
+>> CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+>> ---
+>>  xen/arch/x86/Kconfig     | 1 +
+>>  xen/common/Kconfig       | 3 +++
+>>  xen/include/asm-arm/mm.h | 8 --------
+>>  xen/include/xen/mm.h     | 9 +++++++++
+>>  4 files changed, 13 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+>> index a636a4bb1e..e7644a0a9d 100644
+>> --- a/xen/arch/x86/Kconfig
+>> +++ b/xen/arch/x86/Kconfig
+>> @@ -6,6 +6,7 @@ config X86
+>>  	select ACPI
+>>  	select ACPI_LEGACY_TABLES_LOOKUP
+>>  	select ARCH_SUPPORTS_INT128
+>> +	select ARCH_ACQUIRE_RESOURCE
+> ... I do wonder whether 'HAS_ACQUIRE_RESOURCE' is a better and more descriptive name.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+We don't have a coherent policy for how to categorise these things.  I
+can change the name if you insist, but I'm not sure it makes a useful
+difference.
 
-version targeted for testing:
- xen                  64219fa179c3e48adad12bfce3f6b3f1596cccbf
-baseline version:
- xen                  b071ec25e85c4aacf3da59e5258cda0b1c4df45d
-
-Last test of basis   152269  2020-07-28 19:05:32 Z    1 days
-Testing same since   152288  2020-07-29 19:01:00 Z    0 days    5 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Fam Zheng <famzheng@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 64219fa179c3e48adad12bfce3f6b3f1596cccbf
-Author: Fam Zheng <famzheng@amazon.com>
-Date:   Wed Jul 29 18:51:45 2020 +0100
-
-    x86/cpuid: Fix APIC bit clearing
-    
-    The bug is obvious here, other places in this function used
-    "cpufeat_mask" correctly.
-    
-    Fixed: b648feff8ea2 ("xen/x86: Improvements to in-hypervisor cpuid sanity checks")
-    Signed-off-by: Fam Zheng <famzheng@amazon.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-(qemu changes not included)
+~Andrew
 
