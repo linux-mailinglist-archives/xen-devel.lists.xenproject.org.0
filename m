@@ -2,52 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4586423394B
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 21:49:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8137923395E
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 21:53:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1EYD-0003t9-T9; Thu, 30 Jul 2020 19:49:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=B5Vg=BJ=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k1EYC-0003p9-39
- for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 19:49:12 +0000
-X-Inumbo-ID: b84e38bf-d29d-11ea-8dc5-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b84e38bf-d29d-11ea-8dc5-bc764e2007e4;
- Thu, 30 Jul 2020 19:49:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=TpRalkvkG38JtEdNhqPS3RNesiK5+8RoUBFVAeIBPhI=; b=WxT0hE7RoSokynNV8k06V/6cIF
- S9AOZWhblGoHd0merPmft9QPFy+61K5AEobk0g62atYnIFOBmhuWDaKghbpAWAsDxsmfUkCvLBhVw
- yI/yopP+8i7mzveNfASh1hdVRPFI9Wk76GZspJrgeCe74/W/u9Z07YMDel06MBn3onCA=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k1EY4-0001L6-2O; Thu, 30 Jul 2020 19:49:04 +0000
-Received: from host86-143-223-30.range86-143.btcentralplus.com
- ([86.143.223.30] helo=u2f063a87eabd5f.home)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k1EY3-0004CS-Qi; Thu, 30 Jul 2020 19:49:04 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH 4/4] tools/hotplug: modify set_mtu() to inform the frontend
- via xenstore
-Date: Thu, 30 Jul 2020 20:48:58 +0100
-Message-Id: <20200730194858.28523-5-paul@xen.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200730194858.28523-1-paul@xen.org>
-References: <20200730194858.28523-1-paul@xen.org>
+	id 1k1EcA-00051D-Eg; Thu, 30 Jul 2020 19:53:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HZLI=BJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k1Ec9-000516-0i
+ for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 19:53:17 +0000
+X-Inumbo-ID: 4e29fdaa-d29e-11ea-ab1a-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4e29fdaa-d29e-11ea-ab1a-12813bfff9fa;
+ Thu, 30 Jul 2020 19:53:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596138794;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=wf+fhMOVf1vvOkTyouZrdEt+26wjL/aBc/DrRpUDK0Y=;
+ b=SYnhJ+ltlbHuyml+l2f+lUg5RFJOTpIyuDlNqIm+D/ZnNbThxxQ+xGgr
+ f7iwbKzHnb+hWUyK7hg7UE/+jrrtuEAYF2KfKDdb3IYKAWGRa0DfB5H34
+ EVTg9Jy87L7PJJ8p1y2j2P+H/laGCHZDcJPSR8gZMfnf0b9LMCmO76IbW I=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: nqnJxs+Xpx7NxZTh8AWiEtTmjTO27dOHGkZygQHHS0P+9CUccpL9tymdiTLvS2RxAmEKPWgHwW
+ OR/ZZyOWQcfS1V13EAlyEiEJK6mqkNB3xNckX4+oOkqJQaKMXFduBL5YCOenhpW8UvlIWH/wOs
+ XauWjqJ6VY3BQxDBtZfKN0FXVIQTyBejEbTWIBnmsKf0vzBaqWI3Ut0LwQUtbYBgTOQNuX62j/
+ PtbyKXmyF4iQ6TZkWNCMa6A0oi6sM5T/sGvKjdH6V7hexG5BYffX5yMX5IwnIz8QIWxvUJA4uy
+ Iek=
+X-SBRS: 2.7
+X-MesageID: 23761758
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,415,1589256000"; d="scan'208";a="23761758"
+Subject: Re: [PATCH 4/5] xen/memory: Fix acquire_resource size semantics
+To: Julien Grall <julien@xen.org>, <paul@xen.org>, 'Xen-devel'
+ <xen-devel@lists.xenproject.org>
+References: <20200728113712.22966-1-andrew.cooper3@citrix.com>
+ <20200728113712.22966-5-andrew.cooper3@citrix.com>
+ <002b01d6664b$c7eb5f40$57c21dc0$@xen.org>
+ <d0c00a30-2f72-036e-d574-a82e96ea79ea@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <7b7aae0d-35d8-8bfa-7352-8e3c58873964@citrix.com>
+Date: Thu, 30 Jul 2020 20:53:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <d0c00a30-2f72-036e-d574-a82e96ea79ea@xen.org>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,70 +69,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Hubert Jasudowicz' <hubert.jasudowicz@cert.pl>, 'Wei Liu' <wl@xen.org>,
+ 'Konrad Rzeszutek Wilk' <konrad.wilk@oracle.com>,
+ 'George Dunlap' <George.Dunlap@eu.citrix.com>,
+ =?UTF-8?B?J01pY2hhxYIgTGVzemN6ecWEc2tpJw==?= <michal.leszczynski@cert.pl>,
+ 'Jan Beulich' <JBeulich@suse.com>, 'Ian Jackson' <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Paul Durrant <pdurrant@amazon.com>
+On 30/07/2020 13:54, Julien Grall wrote:
+> Hi Paul,
+>
+> On 30/07/2020 09:31, Paul Durrant wrote:
+>>> diff --git a/xen/common/memory.c b/xen/common/memory.c
+>>> index dc3a7248e3..21edabf9cc 100644
+>>> --- a/xen/common/memory.c
+>>> +++ b/xen/common/memory.c
+>>> @@ -1007,6 +1007,26 @@ static long xatp_permission_check(struct
+>>> domain *d, unsigned int space)
+>>>       return xsm_add_to_physmap(XSM_TARGET, current->domain, d);
+>>>   }
+>>>
+>>> +/*
+>>> + * Return 0 on any kind of error.  Caller converts to -EINVAL.
+>>> + *
+>>> + * All nonzero values should be repeatable (i.e. derived from some
+>>> fixed
+>>> + * proerty of the domain), and describe the full resource (i.e.
+>>> mapping the
+>>
+>> s/property/property
+>>
+>>> + * result of this call will be the entire resource).
+>>
+>> This precludes dynamically adding a resource to a running domain. Do
+>> we really want to bake in that restriction?
+>
+> AFAICT, this restriction is not documented in the ABI. In particular,
+> it is written:
+>
+> "
+> The size of a resource will never be zero, but a nonzero result doesn't
+> guarentee that a subsequent mapping request will be successful.  There
+> are further type/id specific constraints which may change between the
+> two calls.
+> "
+>
+> So I think a domain couldn't rely on this behavior. Although, it might
+> be good to clarify in the comment on top of resource_max_frames that
+> this an implementation decision and not part of the ABI.
 
-set_mtu() currently sets the backend vif MTU but does not inform the frontend
-what it is. This patch adds code to write the MTU into a xenstore node. See
-netif.h for a specification of the node.
+There are two aspects here.
 
-NOTE: There is also a small modification replacing '$mtu' with '${mtu}'
-      for style consistency.
+First, yes - I deliberately didn't state it in the ABI, just in case we
+might want to use it in the future.  I could theoretically foresee using
+-EBUSY for the purpose.
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
----
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Cc: Wei Liu <wl@xen.org>
----
- tools/hotplug/Linux/vif-bridge            |  2 +-
- tools/hotplug/Linux/xen-network-common.sh | 14 +++++++++++++-
- 2 files changed, 14 insertions(+), 2 deletions(-)
+That said however, we are currently deliberately taking dynamic
+resources out of Xen, because they've proved to be unnecessary in
+practice and a fertile source of complexity and security bugs.
 
-diff --git a/tools/hotplug/Linux/vif-bridge b/tools/hotplug/Linux/vif-bridge
-index e1d7c49788..b99cc82a21 100644
---- a/tools/hotplug/Linux/vif-bridge
-+++ b/tools/hotplug/Linux/vif-bridge
-@@ -81,7 +81,7 @@ case "$command" in
-         ;&
-     online)
-         setup_virtual_bridge_port "$dev"
--        set_mtu "$bridge" "$dev"
-+        set_mtu "$bridge" "$dev" "$type_if"
-         add_to_bridge "$bridge" "$dev"
-         ;;
-     remove)
-diff --git a/tools/hotplug/Linux/xen-network-common.sh b/tools/hotplug/Linux/xen-network-common.sh
-index 37e71cfa9c..24fc42d9cf 100644
---- a/tools/hotplug/Linux/xen-network-common.sh
-+++ b/tools/hotplug/Linux/xen-network-common.sh
-@@ -164,9 +164,21 @@ remove_from_bridge () {
- set_mtu () {
-     local bridge=$1
-     local dev=$2
-+    local type_if=$3
-+
-     mtu="`ip link show dev ${bridge}| awk '/mtu/ { print $5 }'`"
-     if [ -n "$mtu" ] && [ "$mtu" -gt 0 ]
-     then
--            ip link set dev ${dev} mtu $mtu || :
-+            ip link set dev ${dev} mtu ${mtu} || :
-+    fi
-+
-+    if [ ${type_if} = vif ]
-+    then
-+       dev_=${dev#vif}
-+       domid=${dev_%.*}
-+       devid=${dev_#*.}
-+
-+       XENBUS_PATH="/local/domain/$domid/device/vif/$devid"
-+       xenstore_write "$XENBUS_PATH/mtu" ${mtu}
-     fi
- }
--- 
-2.20.1
+I don't foresee accepting new dynamic resources, but that's not to say
+that someone can't theoretically come up with a sufficiently compelling
+counterexample.
 
+~Andrew
 
