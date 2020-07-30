@@ -2,52 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7084F23349F
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 16:40:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F9A233533
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jul 2020 17:19:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k19it-0007AY-D3; Thu, 30 Jul 2020 14:39:55 +0000
+	id 1k1AJW-00026G-J3; Thu, 30 Jul 2020 15:17:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=B5Vg=BJ=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k19is-0007AT-1j
- for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 14:39:54 +0000
-X-Inumbo-ID: 874026c2-d272-11ea-aad6-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uTMv=BJ=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1k1AJV-00026B-Px
+ for xen-devel@lists.xenproject.org; Thu, 30 Jul 2020 15:17:45 +0000
+X-Inumbo-ID: d016cc02-d277-11ea-aade-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 874026c2-d272-11ea-aad6-12813bfff9fa;
- Thu, 30 Jul 2020 14:39:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zIlKdkXsPhIQfdArjrBSxAJXwBuXmUMve699NvtwDOs=; b=oJD4lGR9uCFCfa9uc9Iv/KrlCc
- EcN1KOvdPZUHCDHxG0ja40qtUKbz7b72rUCfBJu5AGKovdpKH4amzjKyBlHuhTbOKX+awj+COhqA0
- fU3kdY5f/IGu9eqRAVDr1jNUXT1tvONehSklE0irPxxH8F3pAzWqQ1oOoqnCt/IBwpGg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k19io-0002df-RK; Thu, 30 Jul 2020 14:39:50 +0000
-Received: from host86-143-223-30.range86-143.btcentralplus.com
- ([86.143.223.30] helo=u2f063a87eabd5f.home)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k19Yy-0005aN-Bd; Thu, 30 Jul 2020 14:29:40 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2 10/10] iommu: stop calling IOMMU page tables 'p2m tables'
-Date: Thu, 30 Jul 2020 15:29:26 +0100
-Message-Id: <20200730142926.6051-11-paul@xen.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200730142926.6051-1-paul@xen.org>
-References: <20200730142926.6051-1-paul@xen.org>
+ id d016cc02-d277-11ea-aade-12813bfff9fa;
+ Thu, 30 Jul 2020 15:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596122263;
+ h=from:to:cc:subject:date:message-id:content-id:
+ content-transfer-encoding:mime-version;
+ bh=2UWeugfy3yHZRI0/TOl8DyLMdDVKj2LrqM1+xVgFZJE=;
+ b=Z7qQPXPl+rAueJJdI3NXAYHm8S2GAoMzvQPh9ogmiHPc1s1ZOOclkAcN
+ XabuSMEIA8D0ggCO7SkgNf2w3xRAekk5QPob0IIuX9y7EmJZTLzjr8WX0
+ grJvjYJmcNZKEsxtk5IA7BKN/tSdC7EWEpOScv8vmVQcC49DRaS9tn1zg I=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 7IrFBHSHhHcwoKZqdN/1wSRELn98nkgt3SEYN4mcF8nYCibAqhEh105GCcOReM1vha7AOBYCnf
+ QrgT05hen46j6GkVakLVvp7lO2HELCJvSFO9aA6n8UiOooH3U3axY/ek7jv08wgITU30VbZmxy
+ PEHbG2UYh/TVIBbJBJ7j3Lo9Ny8NzGJwca7R0GD5+Sk+u16gofwLpNisSaBpuy6qMc8+HOUE9e
+ Kj4glk1r6xqEtk1gRp92JI9AmVP0LwWBae5IBv9XINQP72camv573Gfry3X+9wUhwFw6OCPRnL
+ Wsg=
+X-SBRS: 2.7
+X-MesageID: 23543145
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,414,1589256000"; d="scan'208";a="23543145"
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>, "intel-xen@intel.com"
+ <intel-xen@intel.com>, "daniel.kiper@oracle.com" <daniel.kiper@oracle.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, Sergey Dyasli
+ <sergey.dyasli@citrix.com>, Christopher Clark
+ <christopher.w.clark@gmail.com>, Rich Persaud <persaur@gmail.com>, "Kevin
+ Pearson" <kevin.pearson@ortmanconsulting.com>, Juergen Gross
+ <jgross@suse.com>, Paul Durrant <pdurrant@amazon.com>, "Ji, John"
+ <john.ji@intel.com>, "Natarajan, Janakarajan" <jnataraj@amd.com>,
+ "edgar.iglesias@xilinx.com" <edgar.iglesias@xilinx.com>,
+ "robin.randhawa@arm.com" <robin.randhawa@arm.com>, Artem Mygaiev
+ <Artem_Mygaiev@epam.com>, Matt Spencer <Matt.Spencer@arm.com>,
+ "anastassios.nanos@onapp.com" <anastassios.nanos@onapp.com>, "Stewart
+ Hildebrand" <Stewart.Hildebrand@dornerworks.com>, Volodymyr Babchuk
+ <volodymyr_babchuk@epam.com>, "mirela.simonovic@aggios.com"
+ <mirela.simonovic@aggios.com>, Jarvis Roach <Jarvis.Roach@dornerworks.com>,
+ Jeff Kubascik <Jeff.Kubascik@dornerworks.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Ian Jackson
+ <Ian.Jackson@citrix.com>, Rian Quinn <rianquinn@gmail.com>, "Daniel P. Smith"
+ <dpsmith@apertussolutions.com>,
+ =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLRG91ZyBHb2xkc3RlaW4=?=
+ <cardoe@cardoe.com>, George Dunlap <George.Dunlap@citrix.com>, "David
+ Woodhouse" <dwmw@amazon.co.uk>,
+ =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLQW1pdCBTaGFo?= <amit@infradead.org>,
+ =?utf-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLVmFyYWQgR2F1dGFt?=
+ <varadgautam@gmail.com>, Brian Woods <brian.woods@xilinx.com>, Robert Townley
+ <rob.townley@gmail.com>, Bobby Eshleman <bobby.eshleman@gmail.com>, "Olivier
+ Lambert" <olivier.lambert@vates.fr>, Andrew Cooper
+ <Andrew.Cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: RESCHEDULED Call for agenda items for Community Call, August 13 @
+ 15:00 UTC
+Thread-Topic: RESCHEDULED Call for agenda items for Community Call, August 13
+ @ 15:00 UTC
+Thread-Index: AQHWZoSNRscNI50zO02VynkLplKjzQ==
+Date: Thu, 30 Jul 2020 15:17:35 +0000
+Message-ID: <1E023F6E-0E3C-4CD5-A074-7BF62635E123@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3608.80.23.2.2)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <1FB6EE734F640240A5CF592535F87624@citrix.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,231 +97,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <pdurrant@amazon.com>, Kevin Tian <kevin.tian@intel.com>,
- Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
+Cc: "open list:X86" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Paul Durrant <pdurrant@amazon.com>
-
-It's confusing and not consistent with the terminology introduced with 'dfn_t'.
-Just call them IOMMU page tables.
-
-Also remove a pointless check of the 'acpi_drhd_units' list in
-vtd_dump_page_table_level(). If the list is empty then IOMMU mappings would
-not have been enabled for the domain in the first place.
-
-NOTE: All calls to printk() have also been removed from
-      iommu_dump_page_tables(); the implementation specific code is now
-      responsible for all output.
-      The check for the global 'iommu_enabled' has also been replaced by an
-      ASSERT since iommu_dump_page_tables() is not registered as a key handler
-      unless IOMMU mappings are enabled.
-
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
----
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Paul Durrant <paul@xen.org>
-Cc: Kevin Tian <kevin.tian@intel.com>
-
-v2:
- - Moved all output into implementation specific code
----
- xen/drivers/passthrough/amd/pci_amd_iommu.c | 16 ++++++-------
- xen/drivers/passthrough/iommu.c             | 21 ++++-------------
- xen/drivers/passthrough/vtd/iommu.c         | 26 +++++++++++----------
- xen/include/xen/iommu.h                     |  2 +-
- 4 files changed, 28 insertions(+), 37 deletions(-)
-
-diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-index d79668f948..b3e95cf18e 100644
---- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-+++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-@@ -491,8 +491,8 @@ static int amd_iommu_group_id(u16 seg, u8 bus, u8 devfn)
- 
- #include <asm/io_apic.h>
- 
--static void amd_dump_p2m_table_level(struct page_info* pg, int level, 
--                                     paddr_t gpa, int indent)
-+static void amd_dump_page_table_level(struct page_info* pg, int level,
-+                                      paddr_t gpa, int indent)
- {
-     paddr_t address;
-     struct amd_iommu_pte *table_vaddr;
-@@ -529,7 +529,7 @@ static void amd_dump_p2m_table_level(struct page_info* pg, int level,
- 
-         address = gpa + amd_offset_level_address(index, level);
-         if ( pde->next_level >= 1 )
--            amd_dump_p2m_table_level(
-+            amd_dump_page_table_level(
-                 mfn_to_page(_mfn(pde->mfn)), pde->next_level,
-                 address, indent + 1);
-         else
-@@ -542,16 +542,16 @@ static void amd_dump_p2m_table_level(struct page_info* pg, int level,
-     unmap_domain_page(table_vaddr);
- }
- 
--static void amd_dump_p2m_table(struct domain *d)
-+static void amd_dump_page_tables(struct domain *d)
- {
-     const struct domain_iommu *hd = dom_iommu(d);
- 
-     if ( !hd->arch.amd.root_table )
-         return;
- 
--    printk("p2m table has %d levels\n", hd->arch.amd.paging_mode);
--    amd_dump_p2m_table_level(hd->arch.amd.root_table,
--                             hd->arch.amd.paging_mode, 0, 0);
-+    printk("AMD IOMMU table has %d levels\n", hd->arch.amd.paging_mode);
-+    amd_dump_page_table_level(hd->arch.amd.root_table,
-+                              hd->arch.amd.paging_mode, 0, 0);
- }
- 
- static const struct iommu_ops __initconstrel _iommu_ops = {
-@@ -578,7 +578,7 @@ static const struct iommu_ops __initconstrel _iommu_ops = {
-     .suspend = amd_iommu_suspend,
-     .resume = amd_iommu_resume,
-     .crash_shutdown = amd_iommu_crash_shutdown,
--    .dump_p2m_table = amd_dump_p2m_table,
-+    .dump_page_tables = amd_dump_page_tables,
- };
- 
- static const struct iommu_init_ops __initconstrel _iommu_init_ops = {
-diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-index 7464f10d1c..0f468379e1 100644
---- a/xen/drivers/passthrough/iommu.c
-+++ b/xen/drivers/passthrough/iommu.c
-@@ -22,7 +22,7 @@
- #include <xen/keyhandler.h>
- #include <xsm/xsm.h>
- 
--static void iommu_dump_p2m_table(unsigned char key);
-+static void iommu_dump_page_tables(unsigned char key);
- 
- unsigned int __read_mostly iommu_dev_iotlb_timeout = 1000;
- integer_param("iommu_dev_iotlb_timeout", iommu_dev_iotlb_timeout);
-@@ -212,7 +212,7 @@ void __hwdom_init iommu_hwdom_init(struct domain *d)
-     if ( !is_iommu_enabled(d) )
-         return;
- 
--    register_keyhandler('o', &iommu_dump_p2m_table, "dump iommu p2m table", 0);
-+    register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
- 
-     hd->platform_ops->hwdom_init(d);
- }
-@@ -533,16 +533,12 @@ bool_t iommu_has_feature(struct domain *d, enum iommu_feature feature)
-     return is_iommu_enabled(d) && test_bit(feature, dom_iommu(d)->features);
- }
- 
--static void iommu_dump_p2m_table(unsigned char key)
-+static void iommu_dump_page_tables(unsigned char key)
- {
-     struct domain *d;
-     const struct iommu_ops *ops;
- 
--    if ( !iommu_enabled )
--    {
--        printk("IOMMU not enabled!\n");
--        return;
--    }
-+    ASSERT(iommu_enabled);
- 
-     ops = iommu_get_ops();
- 
-@@ -553,14 +549,7 @@ static void iommu_dump_p2m_table(unsigned char key)
-         if ( is_hardware_domain(d) || !is_iommu_enabled(d) )
-             continue;
- 
--        if ( iommu_use_hap_pt(d) )
--        {
--            printk("\ndomain%d IOMMU p2m table shared with MMU: \n", d->domain_id);
--            continue;
--        }
--
--        printk("\ndomain%d IOMMU p2m table: \n", d->domain_id);
--        ops->dump_p2m_table(d);
-+        ops->dump_page_tables(d);
-     }
- 
-     rcu_read_unlock(&domlist_read_lock);
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index a532d9e88c..f8da4fe0e7 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -2582,8 +2582,8 @@ static void vtd_resume(void)
-     }
- }
- 
--static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa, 
--                                     int indent)
-+static void vtd_dump_page_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
-+                                      int indent)
- {
-     paddr_t address;
-     int i;
-@@ -2612,8 +2612,8 @@ static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
- 
-         address = gpa + offset_level_address(i, level);
-         if ( next_level >= 1 ) 
--            vtd_dump_p2m_table_level(dma_pte_addr(*pte), next_level, 
--                                     address, indent + 1);
-+            vtd_dump_page_table_level(dma_pte_addr(*pte), next_level,
-+                                      address, indent + 1);
-         else
-             printk("%*sdfn: %08lx mfn: %08lx\n",
-                    indent, "",
-@@ -2624,17 +2624,19 @@ static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
-     unmap_vtd_domain_page(pt_vaddr);
- }
- 
--static void vtd_dump_p2m_table(struct domain *d)
-+static void vtd_dump_page_tables(struct domain *d)
- {
--    const struct domain_iommu *hd;
-+    const struct domain_iommu *hd = dom_iommu(d);
- 
--    if ( list_empty(&acpi_drhd_units) )
-+    if ( iommu_use_hap_pt(d) )
-+    {
-+        printk("VT-D sharing EPT table\n");
-         return;
-+    }
- 
--    hd = dom_iommu(d);
--    printk("p2m table has %d levels\n", agaw_to_level(hd->arch.vtd.agaw));
--    vtd_dump_p2m_table_level(hd->arch.vtd.pgd_maddr,
--                             agaw_to_level(hd->arch.vtd.agaw), 0, 0);
-+    printk("VT-D table has %d levels\n", agaw_to_level(hd->arch.vtd.agaw));
-+    vtd_dump_page_table_level(hd->arch.vtd.pgd_maddr,
-+                              agaw_to_level(hd->arch.vtd.agaw), 0, 0);
- }
- 
- static int __init intel_iommu_quarantine_init(struct domain *d)
-@@ -2734,7 +2736,7 @@ static struct iommu_ops __initdata vtd_ops = {
-     .iotlb_flush = iommu_flush_iotlb_pages,
-     .iotlb_flush_all = iommu_flush_iotlb_all,
-     .get_reserved_device_memory = intel_iommu_get_reserved_device_memory,
--    .dump_p2m_table = vtd_dump_p2m_table,
-+    .dump_page_tables = vtd_dump_page_tables,
- };
- 
- const struct iommu_init_ops __initconstrel intel_iommu_init_ops = {
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 1f25d2082f..23e884f54b 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -277,7 +277,7 @@ struct iommu_ops {
-                                     unsigned int flush_flags);
-     int __must_check (*iotlb_flush_all)(struct domain *d);
-     int (*get_reserved_device_memory)(iommu_grdm_t *, void *);
--    void (*dump_p2m_table)(struct domain *d);
-+    void (*dump_page_tables)(struct domain *d);
- 
- #ifdef CONFIG_HAS_DEVICE_TREE
-     /*
--- 
-2.20.1
-
+SGV5IGFsbCwNCg0KVGhlIGNvbW11bml0eSBjYWxsIGlzIHNjaGVkdWxlZCBmb3IgbmV4dCB3ZWVr
+LCA2IEF1Z3VzdC4gIEksIGhvd2V2ZXIsIHdpbGwgYmUgb24gUFRPIHRoYXQgd2VlazsgSSBwcm9w
+b3NlIHJlc2NoZWR1bGluZyBpdCBmb3IgdGhlIGZvbGxvd2luZyB3ZWVrLCAxMyBBdWd1c3QsIGF0
+IHRoZSBzYW1lIHRpbWUuDQoNClRoZSBwcm9wb3NlZCBhZ2VuZGEgaXMgaW4gWlpaIGFuZCB5b3Ug
+Y2FuIGVkaXQgdG8gYWRkIGl0ZW1zLiAgQWx0ZXJuYXRpdmVseSwgeW91IGNhbiByZXBseSB0byB0
+aGlzIG1haWwgZGlyZWN0bHkuDQoNCkFnZW5kYSBpdGVtcyBhcHByZWNpYXRlZCBhIGZldyBkYXlz
+IGJlZm9yZSB0aGUgY2FsbDogcGxlYXNlIHB1dCB5b3VyIG5hbWUgYmVzaWRlcyBpdGVtcyBpZiB5
+b3UgZWRpdCB0aGUgZG9jdW1lbnQuDQoNCk5vdGUgdGhlIGZvbGxvd2luZyBhZG1pbmlzdHJhdGl2
+ZSBjb252ZW50aW9ucyBmb3IgdGhlIGNhbGw6DQoqIFVubGVzcywgYWdyZWVkIGluIHRoZSBwZXJ2
+aW91cyBtZWV0aW5nIG90aGVyd2lzZSwgdGhlIGNhbGwgaXMgb24gdGhlIDFzdCBUaHVyc2RheSBv
+ZiBlYWNoIG1vbnRoIGF0IDE2MDAgQnJpdGlzaCBUaW1lIChlaXRoZXIgR01UIG9yIEJTVCkNCiog
+SSB1c3VhbGx5IHNlbmQgb3V0IGEgbWVldGluZyByZW1pbmRlciBhIGZldyBkYXlzIGJlZm9yZSB3
+aXRoIGEgcHJvdmlzaW9uYWwgYWdlbmRhDQoNCiogSWYgeW91IHdhbnQgdG8gYmUgQ0MnZWQgcGxl
+YXNlIGFkZCBvciByZW1vdmUgeW91cnNlbGYgZnJvbSB0aGUgc2lnbi11cC1zaGVldCBhdCBodHRw
+czovL2NyeXB0cGFkLmZyL3BhZC8jLzIvcGFkL2VkaXQvRDl2R3ppaFB4eEFPZTZSRlB6MHNSQ2Yr
+Lw0KDQpCZXN0IFJlZ2FyZHMNCkdlb3JnZQ0KDQoNCg0KPT0gRGlhbC1pbiBJbmZvcm1hdGlvbiA9
+PQ0KIyMgTWVldGluZyB0aW1lDQoxNTowMCAtIDE2OjAwIFVUQyAoZHVyaW5nIEJTVCkNCkZ1cnRo
+ZXIgSW50ZXJuYXRpb25hbCBtZWV0aW5nIHRpbWVzOiBodHRwczovL3d3dy50aW1lYW5kZGF0ZS5j
+b20vd29ybGRjbG9jay9tZWV0aW5nZGV0YWlscy5odG1sP3llYXI9MjAyMCZtb250aD01JmRheT03
+JmhvdXI9MTUmbWluPTAmc2VjPTAmcDE9MTIzNCZwMj0zNyZwMz0yMjQmcDQ9MTc5DQoNCg0KIyMg
+RGlhbCBpbiBkZXRhaWxzDQpXZWI6IGh0dHBzOi8vd3d3LmdvdG9tZWV0Lm1lL0dlb3JnZUR1bmxh
+cA0KDQpZb3UgY2FuIGFsc28gZGlhbCBpbiB1c2luZyB5b3VyIHBob25lLg0KQWNjZXNzIENvZGU6
+IDE2OC02ODItMTA5DQoNCkNoaW5hIChUb2xsIEZyZWUpOiA0MDA4IDgxMTA4NA0KR2VybWFueTog
+KzQ5IDY5MiA1NzM2IDczMTcNClBvbGFuZCAoVG9sbCBGcmVlKTogMDAgODAwIDExMjQ3NTkNClVr
+cmFpbmUgKFRvbGwgRnJlZSk6IDAgODAwIDUwIDE3MzMNClVuaXRlZCBLaW5nZG9tOiArNDQgMzMw
+IDIyMSAwMDg4DQpVbml0ZWQgU3RhdGVzOiArMSAoNTcxKSAzMTctMzEyOQ0KU3BhaW46ICszNCA5
+MzIgNzUgMjAwNA0KDQoNCk1vcmUgcGhvbmUgbnVtYmVycw0KQXVzdHJhbGlhOiArNjEgMiA5MDg3
+IDM2MDQNCkF1c3RyaWE6ICs0MyA3IDIwODEgNTQyNw0KQXJnZW50aW5hIChUb2xsIEZyZWUpOiAw
+IDgwMCA0NDQgMzM3NQ0KQmFocmFpbiAoVG9sbCBGcmVlKTogODAwIDgxIDExMQ0KQmVsYXJ1cyAo
+VG9sbCBGcmVlKTogOCA4MjAgMDAxMSAwNDAwDQpCZWxnaXVtOiArMzIgMjggOTMgNzAxOA0KQnJh
+emlsIChUb2xsIEZyZWUpOiAwIDgwMCAwNDcgNDkwNg0KQnVsZ2FyaWEgKFRvbGwgRnJlZSk6IDAw
+ODAwIDEyMCA0NDE3DQpDYW5hZGE6ICsxICg2NDcpIDQ5Ny05MzkxDQpDaGlsZSAoVG9sbCBGcmVl
+KTogODAwIDM5NSAxNTANCkNvbG9tYmlhIChUb2xsIEZyZWUpOiAwMSA4MDAgNTE4IDQ0ODMNCkN6
+ZWNoIFJlcHVibGljIChUb2xsIEZyZWUpOiA4MDAgNTAwNDQ4DQpEZW5tYXJrOiArNDUgMzIgNzIg
+MDMgODINCkZpbmxhbmQ6ICszNTggOTIzIDE3IDA1NjgNCkZyYW5jZTogKzMzIDE3MCA5NTAgNTk0
+DQpHcmVlY2UgKFRvbGwgRnJlZSk6IDAwIDgwMCA0NDE0IDM4MzgNCkhvbmcgS29uZyAoVG9sbCBG
+cmVlKTogMzA3MTMxNjk5MDYtODg2LTk2NQ0KSHVuZ2FyeSAoVG9sbCBGcmVlKTogKDA2KSA4MCA5
+ODYgMjU1DQpJY2VsYW5kIChUb2xsIEZyZWUpOiA4MDAgNzIwNA0KSW5kaWEgKFRvbGwgRnJlZSk6
+IDE4MDAyNjY5MjcyDQpJbmRvbmVzaWEgKFRvbGwgRnJlZSk6IDAwNyA4MDMgMDIwIDUzNzUNCkly
+ZWxhbmQ6ICszNTMgMTUgMzYwIDcyOA0KSXNyYWVsIChUb2xsIEZyZWUpOiAxIDgwOSA0NTQgODMw
+DQpJdGFseTogKzM5IDAgMjQ3IDkyIDEzIDAxDQpKYXBhbiAoVG9sbCBGcmVlKTogMCAxMjAgNjYz
+IDgwMA0KS29yZWEsIFJlcHVibGljIG9mIChUb2xsIEZyZWUpOiAwMDc5OCAxNCAyMDcgNDkxNA0K
+THV4ZW1ib3VyZyAoVG9sbCBGcmVlKTogODAwIDg1MTU4DQpNYWxheXNpYSAoVG9sbCBGcmVlKTog
+MSA4MDAgODEgNjg1NA0KTWV4aWNvIChUb2xsIEZyZWUpOiAwMSA4MDAgNTIyIDExMzMNCk5ldGhl
+cmxhbmRzOiArMzEgMjA3IDk0MSAzNzcNCk5ldyBaZWFsYW5kOiArNjQgOSAyODAgNjMwMg0KTm9y
+d2F5OiArNDcgMjEgOTMgMzcgNTENClBhbmFtYSAoVG9sbCBGcmVlKTogMDAgODAwIDIyNiA3OTI4
+DQpQZXJ1IChUb2xsIEZyZWUpOiAwIDgwMCA3NzAyMw0KUGhpbGlwcGluZXMgKFRvbGwgRnJlZSk6
+IDEgODAwIDExMTAgMTY2MQ0KUG9ydHVnYWwgKFRvbGwgRnJlZSk6IDgwMCA4MTkgNTc1DQpSb21h
+bmlhIChUb2xsIEZyZWUpOiAwIDgwMCA0MTAgMDI5DQpSdXNzaWFuIEZlZGVyYXRpb24gKFRvbGwg
+RnJlZSk6IDggODAwIDEwMCA2MjAzDQpTYXVkaSBBcmFiaWEgKFRvbGwgRnJlZSk6IDgwMCA4NDQg
+MzYzMw0KU2luZ2Fwb3JlIChUb2xsIEZyZWUpOiAxODAwNzIzMTMyMw0KU291dGggQWZyaWNhIChU
+b2xsIEZyZWUpOiAwIDgwMCA1NTUgNDQ3DQpTd2VkZW46ICs0NiA4NTMgNTI3IDgyNw0KU3dpdHpl
+cmxhbmQ6ICs0MSAyMjUgNDU5OSA3OA0KVGFpd2FuIChUb2xsIEZyZWUpOiAwIDgwMCA2NjYgODU0
+DQpUaGFpbGFuZCAoVG9sbCBGcmVlKTogMDAxIDgwMCAwMTEgMDIzDQpUdXJrZXkgKFRvbGwgRnJl
+ZSk6IDAwIDgwMCA0NDg4IDIzNjgzDQpVbml0ZWQgQXJhYiBFbWlyYXRlcyAoVG9sbCBGcmVlKTog
+ODAwIDA0NCA0MDQzOQ0KVXJ1Z3VheSAoVG9sbCBGcmVlKTogMDAwNCAwMTkgMTAxOA0KVmlldCBO
+YW0gKFRvbGwgRnJlZSk6IDEyMiA4MCA0ODENCuKAi+KAi+KAi+KAi+KAi+KAi+KAiw0KDQpGaXJz
+dCBHb1RvTWVldGluZz8gTGV0J3MgZG8gYSBxdWljayBzeXN0ZW0gY2hlY2s6DQoNCmh0dHBzOi8v
+bGluay5nb3RvbWVldGluZy5jb20vc3lzdGVtLWNoZWNrDQo=
 
