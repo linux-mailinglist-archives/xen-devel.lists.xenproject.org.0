@@ -2,78 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6E28234742
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 15:59:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E77F23473D
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 15:57:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1VZe-0000s2-Lw; Fri, 31 Jul 2020 13:59:50 +0000
+	id 1k1VXC-0000jG-8V; Fri, 31 Jul 2020 13:57:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fae6=BK=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1k1VZc-0000rw-OX
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 13:59:48 +0000
-X-Inumbo-ID: 177957e0-d336-11ea-8e40-bc764e2007e4
-Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
+ <SRS0=xDYK=BK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1k1VXA-0000jB-N3
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 13:57:16 +0000
+X-Inumbo-ID: bd0c082a-d335-11ea-8e40-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 177957e0-d336-11ea-8e40-bc764e2007e4;
- Fri, 31 Jul 2020 13:59:46 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id 184so9351716wmb.0
- for <xen-devel@lists.xenproject.org>; Fri, 31 Jul 2020 06:59:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=YrGJFmvM9W3vLd6xyCKqsjUN4BdSFENjQYcqnSOmoT8=;
- b=FxOrwDbDDbzual7ruPoViixfSNLKMiSu3pyFMNc8qm05hI6NhmzIzABAQY6DxAH1gR
- LPbGqNJeoUvh/S+6ZpChyJF7tC1Ecx/suTy5EEOl+kJWqC2W+nXzZpuucv+0wN0V+GWq
- HpTcdcQBP2a7gN+P/+bmXAYJLXQTnqQfqY/cfplyhAOdPrHvg9GaoAP+FbCksZCJsNRk
- iA7lDcRqsG5gmKxaIlR6F7fjvYq8mtVEnEEKnuqTVJnWfKhlPna/oWmFkPTYmy2dfwLL
- sZbWS+mHX5RxH57R6k+TwnF+7TNmpehxwrYH+Lb7m7UA0fn8p5mju+2eVrUh2k8orIqt
- aXkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=YrGJFmvM9W3vLd6xyCKqsjUN4BdSFENjQYcqnSOmoT8=;
- b=HUtZccvryA0+CHi/+Q4Bj+MOdOxFo+Wu5vIDNzvNQVC2rBDVGZyILXbAIscskxjzS5
- 66En2fglJd+e07miCIgaxq59wZ3OsXZz17rRkKvb8PXAp2wPjwFkzT2y+p1rAQJsGwRn
- qXPXPWXmTlsemk6jggDJqnmse3DKMJlaNfhLOD96uoJ5TB3OvfvhsPkOHJQUiQuQIWlf
- RwKCMtZ3pyu44pX+R9kKGEnBZt1ttjZmzvVTNC4sOLVRMQLW3YV1daFCNYGctBTzSza0
- ABxUfkH5OGNkOGlDCpWLy7Ocm6TayF/tEkuJGgKxY6lzaHxBtrqXrz++xnszcyP9D4Vj
- qYLg==
-X-Gm-Message-State: AOAM530Xrs+Etu+V90bZwHXHiTpjTSANYU5jBl7NxlFr0hRCfFmJtl6x
- Ir9A15Pu+A8GKys/kIRL0tY=
-X-Google-Smtp-Source: ABdhPJyMcWgvjVv666IE1Ji5VhV6mo67kEyfu+uhXPQwWV/ia/AbTcouC/ErnMNd6UWDX0LNrFLPRg==
-X-Received: by 2002:a05:600c:230e:: with SMTP id
- 14mr3831247wmo.3.1596203986036; 
- Fri, 31 Jul 2020 06:59:46 -0700 (PDT)
-Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id b2sm11652468wmj.47.2020.07.31.06.59.45
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 31 Jul 2020 06:59:45 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: <paul@xen.org>,
-	"'Jan Beulich'" <jbeulich@suse.com>
-References: <20200731123926.28970-1-paul@xen.org>
- <20200731123926.28970-3-paul@xen.org>
- <a4856c33-8bb0-4afa-cc71-3af4c229bc27@suse.com>
- <004501d6673b$9adffbf0$d09ff3d0$@xen.org>
- <84cdd5b8-5149-a240-8bad-be8d67dca0d8@suse.com>
- <004601d66740$9661ad80$c3250880$@xen.org>
-In-Reply-To: <004601d66740$9661ad80$c3250880$@xen.org>
-Subject: RE: [PATCH v2 2/2] x86/hvm: simplify 'mmio_direct' check in
- epte_get_entry_emt()
-Date: Fri, 31 Jul 2020 14:54:33 +0100
-Message-ID: <004701d66742$1ef678a0$5ce369e0$@xen.org>
+ id bd0c082a-d335-11ea-8e40-bc764e2007e4;
+ Fri, 31 Jul 2020 13:57:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596203834;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=4RzrWCIV0sUMk4OmbfP6TdBvcG7aq4SBkVZTyZG5USU=;
+ b=Q5H57N2ZEVe6LNKZ2CASsOOKQxm3IuX7iKfMcqKLkX30DTvFguNuQtWv
+ U0KHpOExVrD6bmOldKnUXzVQ71tM48RfKoR5K75hiTdWNouthFuyG9Nhy
+ RY0RzE0X1eutPJHQRlYA1gCSkZg60ebkT5rkg8XVhQ+TLReGL8HHz8bGV 0=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: lYBgwtNojffg8me2tMYK+TdIMt1R4Rw6s59L1lDEjqqTWz/4HQKl0oH+SQeud8JvLkUYS2Syu7
+ 04r9Fk/Kf8alVC83vQ9SWQ0rDeRB/TtuER1MzlBLXna48iStRkgUuZDGTfNxzW5krS+FXarJQG
+ G68OvhHq627BjqLYHfx6Sjvr6z68jW2RuEuCeD1kzYvyxZDGFN9YNsOytEny31c7ktaq6XBoae
+ XZIdiG96syJuhd8ZD6JM3OBohhKWQ9YCtlEmb4Q91zCk0dtE/Z4CISJ7mfuZqAa/O2OaA+N9Cj
+ JU0=
+X-SBRS: 3.7
+X-MesageID: 23810834
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,418,1589256000"; d="scan'208";a="23810834"
+Date: Fri, 31 Jul 2020 15:56:56 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] x86/vmx: reorder code in vmx_deliver_posted_intr
+Message-ID: <20200731135656.GB88772@Air-de-Roger>
+References: <20200730140309.59916-1-roger.pau@citrix.com>
+ <505b30dc-e504-918e-e676-70d856b76899@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQLlfQu00pWfsofZfQkBPK3LKKgwygFbp5BqArgsBgQC0uj+iQMLOy2gApabDZmmn0USEA==
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <505b30dc-e504-918e-e676-70d856b76899@suse.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,79 +63,74 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org, 'Paul Durrant' <pdurrant@amazon.com>,
- =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
- 'Wei Liu' <wl@xen.org>, 'Andrew Cooper' <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Kevin Tian <kevin.tian@intel.com>,
+ Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Paul Durrant <xadimgnik@gmail.com>
-> Sent: 31 July 2020 14:44
-> To: 'Jan Beulich' <jbeulich@suse.com>
-> Cc: xen-devel@lists.xenproject.org; 'Paul Durrant' =
-<pdurrant@amazon.com>; 'Andrew Cooper'
-> <andrew.cooper3@citrix.com>; 'Wei Liu' <wl@xen.org>; 'Roger Pau =
-Monn=C3=A9' <roger.pau@citrix.com>
-> Subject: RE: [PATCH v2 2/2] x86/hvm: simplify 'mmio_direct' check in =
-epte_get_entry_emt()
->=20
-> > -----Original Message-----
-> > From: Jan Beulich <jbeulich@suse.com>
-> > Sent: 31 July 2020 14:41
-> > To: paul@xen.org
-> > Cc: xen-devel@lists.xenproject.org; 'Paul Durrant' =
-<pdurrant@amazon.com>; 'Andrew Cooper'
-> > <andrew.cooper3@citrix.com>; 'Wei Liu' <wl@xen.org>; 'Roger Pau =
-Monn=C3=A9' <roger.pau@citrix.com>
-> > Subject: Re: [PATCH v2 2/2] x86/hvm: simplify 'mmio_direct' check in =
-epte_get_entry_emt()
-> >
-> > On 31.07.2020 15:07, Paul Durrant wrote:
-> > >> -----Original Message-----
-> > >> From: Jan Beulich <jbeulich@suse.com>
-> > >> Sent: 31 July 2020 13:58
-> > >> To: Paul Durrant <paul@xen.org>
-> > >> Cc: xen-devel@lists.xenproject.org; Paul Durrant =
-<pdurrant@amazon.com>; Andrew Cooper
-> > >> <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>; Roger Pau =
-Monn=C3=A9 <roger.pau@citrix.com>
-> > >> Subject: Re: [PATCH v2 2/2] x86/hvm: simplify 'mmio_direct' check =
-in epte_get_entry_emt()
-> > >>
-> > >> On 31.07.2020 14:39, Paul Durrant wrote:
-> > >>> From: Paul Durrant <pdurrant@amazon.com>
-> > >>>
-> > >>> Re-factor the code to take advantage of the fact that the APIC =
-access page is
-> > >>> a 'special' page.
-> > >>
-> > >> Hmm, that's going quite as far as I was thinking to go: In
-> > >> particular, you leave in place the set_mmio_p2m_entry() use
-> > >> in vmx_alloc_vlapic_mapping(). With that replaced, the
-> > >> re-ordering in epte_get_entry_emt() that you do shouldn't
-> > >> be necessary; you'd simple drop the checking of the
-> > >> specific MFN.
-> > >
-> > > Ok, it still needs to go in the p2m though so are you suggesting
-> > > just calling p2m_set_entry() directly?
-> >
-> > Yes, if this works. The main question really is whether there are
-> > any hidden assumptions elsewhere that this page gets mapped as an
-> > MMIO one.
-> >
->=20
-> Actually, it occurs to me that logdirty is going to be an issue if I =
-use p2m_ram_rw. If I'm not going
-> to use p2m_mmio_direct then do you have another suggestion?
->=20
+On Fri, Jul 31, 2020 at 03:05:52PM +0200, Jan Beulich wrote:
+> On 30.07.2020 16:03, Roger Pau Monne wrote:
+> > Remove the unneeded else branch, which allows to reduce the
+> > indentation of a larger block of code, while making the flow of the
+> > function more obvious.
+> > 
+> > No functional change intended.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> One minor request (could likely be taken care of while
+> committing):
+> 
+> > @@ -2014,41 +2016,36 @@ static void vmx_deliver_posted_intr(struct vcpu *v, u8 vector)
+> >           * VMEntry as it used to be.
+> >           */
+> >          pi_set_on(&v->arch.hvm.vmx.pi_desc);
+> > +        vcpu_kick(v);
+> > +        return;
+> >      }
+> > -    else
+> > -    {
+> > -        struct pi_desc old, new, prev;
+> >  
+> > -        prev.control = v->arch.hvm.vmx.pi_desc.control;
+> > +    prev.control = v->arch.hvm.vmx.pi_desc.control;
+> >  
+> > -        do {
+> > -            /*
+> > -             * Currently, we don't support urgent interrupt, all
+> > -             * interrupts are recognized as non-urgent interrupt,
+> > -             * Besides that, if 'ON' is already set, no need to
+> > -             * sent posted-interrupts notification event as well,
+> > -             * according to hardware behavior.
+> > -             */
+> > -            if ( pi_test_sn(&prev) || pi_test_on(&prev) )
+> > -            {
+> > -                vcpu_kick(v);
+> > -                return;
+> > -            }
+> > -
+> > -            old.control = v->arch.hvm.vmx.pi_desc.control &
+> > -                          ~((1 << POSTED_INTR_ON) | (1 << POSTED_INTR_SN));
+> > -            new.control = v->arch.hvm.vmx.pi_desc.control |
+> > -                          (1 << POSTED_INTR_ON);
+> > +    do {
+> > +        /*
+> > +         * Currently, we don't support urgent interrupt, all
+> > +         * interrupts are recognized as non-urgent interrupt,
+> > +         * Besides that, if 'ON' is already set, no need to
+> > +         * sent posted-interrupts notification event as well,
+> > +         * according to hardware behavior.
+> > +         */
+> 
+> Would be nice to s/sent/send/ here as you move it (maybe also
+> remove the plural from "posted-interrupts") and - if possible -
+> re-flow for the now increased space on the right side.
 
-Looking further I'm uneasy to move away from setting that APIC access =
-page to anything other than mmio_direct so I'd rather leave the VMX code =
-alone and re-order things here.
+Oh, sure, I should have realized myself. Feel free to adjust at commit
+if you don't mind. I would also adjust 'non-urgent interrupts'.
 
-  Paul
-
-
+Thanks, Roger.
 
