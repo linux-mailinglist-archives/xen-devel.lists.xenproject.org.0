@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 873E92345EF
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:39:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4AD02345F0
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:39:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1UJy-0007T5-7r; Fri, 31 Jul 2020 12:39:34 +0000
+	id 1k1UK2-0007US-Ft; Fri, 31 Jul 2020 12:39:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S/xS=BK=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k1UJw-0007SZ-4K
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:39:32 +0000
-X-Inumbo-ID: e13c6308-d32a-11ea-abab-12813bfff9fa
+ id 1k1UK1-0007SZ-2z
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:39:37 +0000
+X-Inumbo-ID: e20d8a00-d32a-11ea-abab-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e13c6308-d32a-11ea-abab-12813bfff9fa;
- Fri, 31 Jul 2020 12:39:31 +0000 (UTC)
+ id e20d8a00-d32a-11ea-abab-12813bfff9fa;
+ Fri, 31 Jul 2020 12:39:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=z2IY39FopPNWgEDc6LGpyAvx8fgxPmSJFUs3X+CwziI=; b=QgyL/2yvdHMIT/RvS5+x0seXrH
- jkEXLIHDeIgKtoc0gHI/Lx4mj+nsTsK3PZw4CkHP6Ih56vM5Q/RL6YROl6omiQfgGa6Dsein+2gEa
- 9JtcTfIFllo6Xi0HJO8qh74OYSyMsN6aEqoiN1ISiyULsP0eN8bL2O1atcQePU9E0HHY=;
+ bh=33WYKKwbqm7tyWR7ZQeAbyiugZFV+VQYG8o2+fd9T2E=; b=AT7z8AETk7fkVZqKS7UO+hsCJU
+ fzOgU5vqC5I6LkYpnZZnMSBHqHXb1wseDoos04sKdndp/JBUMB/D02qz9ZCZIsjMBJBaBog5LvWzE
+ dnkSGk/CJrGcfCUyrrtd3iUoaHhbTfS9G3C5eL3zKBx7Ni37p05obmM0coNgCHuJGNS8=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k1UJu-0001A8-Gz; Fri, 31 Jul 2020 12:39:30 +0000
+ id 1k1UJv-0001AE-Ey; Fri, 31 Jul 2020 12:39:31 +0000
 Received: from host86-143-223-30.range86-143.btcentralplus.com
  ([86.143.223.30] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k1UJu-0007EP-9l; Fri, 31 Jul 2020 12:39:30 +0000
+ id 1k1UJv-0007EP-7I; Fri, 31 Jul 2020 12:39:31 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2 1/2] x86/hvm: set 'ipat' in EPT for special pages
-Date: Fri, 31 Jul 2020 13:39:25 +0100
-Message-Id: <20200731123926.28970-2-paul@xen.org>
+Subject: [PATCH v2 2/2] x86/hvm: simplify 'mmio_direct' check in
+ epte_get_entry_emt()
+Date: Fri, 31 Jul 2020 13:39:26 +0100
+Message-Id: <20200731123926.28970-3-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200731123926.28970-1-paul@xen.org>
 References: <20200731123926.28970-1-paul@xen.org>
@@ -68,49 +69,58 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-All non-MMIO ranges (i.e those not mapping real device MMIO regions) that
-map valid MFNs are normally marked MTRR_TYPE_WRBACK and 'ipat' is set. Hence
-when PV drivers running in a guest populate the BAR space of the Xen Platform
-PCI Device with pages such as the Shared Info page or Grant Table pages,
-accesses to these pages will be cachable.
+Re-factor the code to take advantage of the fact that the APIC access page is
+a 'special' page.
 
-However, should IOMMU mappings be enabled be enabled for the guest then these
-accesses become uncachable. This has a substantial negative effect on I/O
-throughput of PV devices. Arguably PV drivers should bot be using BAR space to
-host the Shared Info and Grant Table pages but it is currently commonplace for
-them to do this and so this problem needs mitigation. Hence this patch makes
-sure the 'ipat' bit is set for any special page regardless of where in GFN
-space it is mapped.
-
-NOTE: Clearly this mitigation only applies to Intel EPT. It is not obvious
-      that there is any similar mitigation possible for AMD NPT. Downstreams
-      such as Citrix XenServer have been carrying a patch similar to this for
-      several releases though.
-
+Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
+Cc: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Wei Liu <wl@xen.org>
 Cc: "Roger Pau Monné" <roger.pau@citrix.com>
 ---
- xen/arch/x86/hvm/mtrr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ xen/arch/x86/hvm/mtrr.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
 diff --git a/xen/arch/x86/hvm/mtrr.c b/xen/arch/x86/hvm/mtrr.c
-index 511c3be1c8..3ad813ed15 100644
+index 3ad813ed15..0992f05e8f 100644
 --- a/xen/arch/x86/hvm/mtrr.c
 +++ b/xen/arch/x86/hvm/mtrr.c
-@@ -830,7 +830,8 @@ int epte_get_entry_emt(struct domain *d, unsigned long gfn, mfn_t mfn,
+@@ -814,29 +814,22 @@ int epte_get_entry_emt(struct domain *d, unsigned long gfn, mfn_t mfn,
+         return -1;
+     }
+ 
+-    if ( direct_mmio )
+-    {
+-        if ( (mfn_x(mfn) ^ mfn_x(d->arch.hvm.vmx.apic_access_mfn)) >> order )
+-            return MTRR_TYPE_UNCACHABLE;
+-        if ( order )
+-            return -1;
+-        *ipat = 1;
+-        return MTRR_TYPE_WRBACK;
+-    }
+-
+     if ( !mfn_valid(mfn) )
+     {
+         *ipat = 1;
          return MTRR_TYPE_UNCACHABLE;
      }
  
--    if ( !is_iommu_enabled(d) && !cache_flush_permitted(d) )
-+    if ( (!is_iommu_enabled(d) && !cache_flush_permitted(d)) ||
-+         is_special_page(mfn_to_page(mfn)) )
+-    if ( (!is_iommu_enabled(d) && !cache_flush_permitted(d)) ||
++    if ( (!direct_mmio && !is_iommu_enabled(d) && !cache_flush_permitted(d)) ||
+          is_special_page(mfn_to_page(mfn)) )
      {
          *ipat = 1;
          return MTRR_TYPE_WRBACK;
+     }
+ 
++    if ( direct_mmio )
++        return MTRR_TYPE_UNCACHABLE;
++
+     gmtrr_mtype = hvm_get_mem_pinned_cacheattr(d, _gfn(gfn), order);
+     if ( gmtrr_mtype >= 0 )
+     {
 -- 
 2.20.1
 
