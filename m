@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF145234507
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4F5B234504
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:01:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Tiu-0001Uc-LW; Fri, 31 Jul 2020 12:01:16 +0000
+	id 1k1TiV-0001M3-Fz; Fri, 31 Jul 2020 12:00:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nr0X=BK=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1k1Tit-0001R9-Mw
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:01:15 +0000
-X-Inumbo-ID: 88960e84-d325-11ea-8e2b-bc764e2007e4
+ id 1k1TiU-0001Jk-KF
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:00:50 +0000
+X-Inumbo-ID: 78ce6d3e-d325-11ea-8e2b-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 88960e84-d325-11ea-8e2b-bc764e2007e4;
- Fri, 31 Jul 2020 12:01:15 +0000 (UTC)
+ id 78ce6d3e-d325-11ea-8e2b-bc764e2007e4;
+ Fri, 31 Jul 2020 12:00:48 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1k1TMt-0001W4-GK; Fri, 31 Jul 2020 12:38:31 +0100
+ id 1k1TMt-0001W4-O5; Fri, 31 Jul 2020 12:38:31 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH v2 14/41] duration_estimator: Introduce some _qtxt
- variables
-Date: Fri, 31 Jul 2020 12:37:53 +0100
-Message-Id: <20200731113820.5765-15-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH v2 15/41] duration_estimator: Explicitly provide null
+ in general host q
+Date: Fri, 31 Jul 2020 12:37:54 +0100
+Message-Id: <20200731113820.5765-16-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
 References: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
@@ -47,44 +47,33 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-No functional change.
+Our spec. says we return nulls for started and status if we don't find
+a job matching the host spec.
+
+The way this works right now is that we look up the nonexistent
+entries in $refs->[0].  This is not really brilliant and is going to
+be troublesome as we continue to refactor.
+
+Provide these values explicitly.  No functional change.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- Osstest/Executive.pm | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ Osstest/Executive.pm | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/Osstest/Executive.pm b/Osstest/Executive.pm
-index f528edd0..4cb22cc9 100644
+index 4cb22cc9..d45d6557 100644
 --- a/Osstest/Executive.pm
 +++ b/Osstest/Executive.pm
-@@ -1146,7 +1146,7 @@ sub duration_estimator ($$;$$) {
-     if ($will_uptoincl_testid) {
- 	$or_status_truncated = "OR j.status='truncated'!";
-     }
--    my $recentflights_q= $dbh_tests->prepare(<<END);
-+    my $recentflights_qtxt= <<END;
-             SELECT f.flight AS flight,
- 		   f.started AS started,
-                    j.status AS status
-@@ -1167,7 +1167,7 @@ sub duration_estimator ($$;$$) {
-                  ORDER BY f.started DESC
- END
+@@ -1169,6 +1169,8 @@ END
  
--    my $duration_anyref_q= $dbh_tests->prepare(<<END);
-+    my $duration_anyref_qtxt= <<END;
+     my $duration_anyref_qtxt= <<END;
              SELECT f.flight AS flight,
++                   NULL as started,
++                   NULL as status,
                     max(s.finished) AS max_finished
  		      FROM steps s JOIN flights f
-@@ -1212,6 +1212,8 @@ END_UPTOINCL
-                 AS duration
- END_ALWAYS
- 	
-+    my $recentflights_q= $dbh_tests->prepare($recentflights_qtxt);
-+    my $duration_anyref_q= $dbh_tests->prepare($duration_anyref_qtxt);
-     my $duration_duration_q = $dbh_tests->prepare($duration_duration_qtxt);
- 
-     return sub {
+ 		        ON s.flight=f.flight
 -- 
 2.20.1
 
