@@ -2,36 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A23E62344DE
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 13:56:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1252344B1
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 13:42:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Tdn-0008RS-7U; Fri, 31 Jul 2020 11:55:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nr0X=BK=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1k1Tdl-0008RD-O1
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 11:55:57 +0000
-X-Inumbo-ID: caff2b44-d324-11ea-8e29-bc764e2007e4
-Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id caff2b44-d324-11ea-8e29-bc764e2007e4;
- Fri, 31 Jul 2020 11:55:57 +0000 (UTC)
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
- (return-path ijackson@chiark.greenend.org.uk)
- id 1k1TN1-0001W4-JE; Fri, 31 Jul 2020 12:38:39 +0100
-From: Ian Jackson <ian.jackson@eu.citrix.com>
-To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH v2 30/41] sg-report-host-history: Fork
-Date: Fri, 31 Jul 2020 12:38:09 +0100
-Message-Id: <20200731113820.5765-31-ian.jackson@eu.citrix.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
-References: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
+	id 1k1TQC-0007Jw-0h; Fri, 31 Jul 2020 11:41:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=S17i=BK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k1TQA-0007Jj-Uh
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 11:41:54 +0000
+X-Inumbo-ID: d45e36fa-d322-11ea-aba1-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d45e36fa-d322-11ea-aba1-12813bfff9fa;
+ Fri, 31 Jul 2020 11:41:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0FA76B6A4;
+ Fri, 31 Jul 2020 11:42:06 +0000 (UTC)
+Subject: Re: [RESEND][PATCH v2 7/7] xen/guest_access: Fix coding style in
+ xen/guest_access.h
+To: Julien Grall <julien@xen.org>
+References: <20200730181827.1670-1-julien@xen.org>
+ <20200730181827.1670-8-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3bafb97f-45a3-7203-3e73-37e73c453de6@suse.com>
+Date: Fri, 31 Jul 2020 13:41:52 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200730181827.1670-8-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,91 +48,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Run each host's report in a separate child.  This is considerably
-faster.
+On 30.07.2020 20:18, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+>     * Add space before and after operator
+>     * Align \
+>     * Format comments
 
-Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
----
- sg-report-host-history | 47 +++++++++++++++++++++++++++++++++++-------
- 1 file changed, 40 insertions(+), 7 deletions(-)
+How about also
 
-diff --git a/sg-report-host-history b/sg-report-host-history
-index f4352fc3..dc694ebe 100755
---- a/sg-report-host-history
-+++ b/sg-report-host-history
-@@ -34,6 +34,7 @@ our $flightlimit;
- our $htmlout = ".";
- our $read_existing=1;
- our $doinstall=1;
-+our $maxjobs=10;
- our @blessings;
- 
- open DEBUG, ">/dev/null";
-@@ -44,7 +45,7 @@ csreadconfig();
- while (@ARGV && $ARGV[0] =~ m/^-/) {
-     $_= shift @ARGV;
-     last if m/^--?$/;
--    if (m/^--(limit)\=([1-9]\d*)$/) {
-+    if (m/^--(limit|maxjobs)\=([1-9]\d*)$/) {
-         $$1= $2;
-     } elsif (m/^--time-limit\=([1-9]\d*)$/) {
-         $timelimit= $1;
-@@ -469,12 +470,44 @@ db_retry($dbh_tests, [], sub {
-     computeflightsrange();
- });
- 
-+undef $dbh_tests;
-+
-+our %children;
-+our $worst = 0;
-+
-+sub wait_for_max_children ($) {
-+    my ($lim) = @_;
-+    while (keys(%children) > $lim) {
-+	$!=0; $?=0; my $got = wait;
-+	die "$! $got $?" unless exists $children{$got};
-+	my $host = $children{$got};
-+	delete $children{$got};
-+	$worst = $? if $? > $worst;
-+	if ($?) {
-+	    print STDERR "sg-report-flight[: [$got] failed for $host: $?\n";
-+	} else {
-+	    print DEBUG "REAPED [$got] $host\n";
-+	}
-+    }
-+}
-+
- foreach my $host (sort keys %hosts) {
--    read_existing_logs($host);
--    db_retry($dbh_tests, [], sub {
--        mainquery($host);
--	reporthost $host;
--    });
-+    wait_for_max_children($maxjobs);
-+
-+    my $pid = fork // die $!;
-+    if (!$pid) {
-+	opendb_tests();
-+	read_existing_logs($host);
-+	db_retry($dbh_tests, [], sub {
-+            mainquery($host);
-+	    reporthost $host;
-+	});
-+	print DEBUG "JQ CACHE ".($jqtotal-$jqcachemisses)." / $jqtotal\n";
-+	exit(0);
-+    }
-+    print DEBUG "SPAWNED [$pid] $host\n";
-+    $children{$pid} = $host;
- }
- 
--print DEBUG "JQ CACHE ".($jqtotal-$jqcachemisses)." / $jqtotal\n";
-+wait_for_max_children(0);
-+exit $worst;
--- 
-2.20.1
+    * remove/replace leading underscores
 
+?
+
+Jan
 
