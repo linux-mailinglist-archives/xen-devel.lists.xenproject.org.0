@@ -2,54 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CDF23479A
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 16:17:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2BDF2347A4
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 16:21:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Vqs-0002y6-BY; Fri, 31 Jul 2020 14:17:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k1Vub-0003qs-Sm; Fri, 31 Jul 2020 14:21:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GLoN=BK=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1k1Vqr-0002xy-Cy
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 14:17:37 +0000
-X-Inumbo-ID: 95360a0a-d338-11ea-abbe-12813bfff9fa
+ id 1k1Vua-0003qM-7L
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 14:21:28 +0000
+X-Inumbo-ID: 1e777d76-d339-11ea-8e4a-bc764e2007e4
 Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 95360a0a-d338-11ea-abbe-12813bfff9fa;
- Fri, 31 Jul 2020 14:17:36 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1e777d76-d339-11ea-8e4a-bc764e2007e4;
+ Fri, 31 Jul 2020 14:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596205056;
+ d=citrix.com; s=securemail; t=1596205286;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=QyIFJ9+6z5aSNXWn+RiFboyvev1mE5/Mf7OMP9avnX8=;
- b=K8nlNmVpep2lj64s/CQhioCh9wLig7dnoqjbnWmWkcFijka6B3X/noAW
- 9KJL0skHeXUjQWl6nTaHfxf6xIXCSQeitfefsXiRNFMaJKMyof6dLvFuE
- RcOLQC0ySMb2PUMuwzpaHllV2YJzEc1tmet54i6hiyjj9Fx8lntpe2Fyz U=;
+ bh=SafftgoayHAnHb15nG5Edak7dqbBFqff/CHbv1T2iLs=;
+ b=hCDIny1mvTK3tzkElUyNVk9K3iTlf0H7JIUT7zYwrUqSOw5/h29lPCjL
+ ZgvEu8xnHbuehv0E47Xv5I5Dmq4wGuRSSzDEB36nAe32Br5fOXj1Diexz
+ YsOiaSmXkzMDida4iSQ5nHxXEQrwg5Nq6F8WlvDHN6X2gCcnXLMvy7Klu 8=;
 Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 1xKBZ4gKgD9gFH+1jHFxj73g8j/n9jStd65somPgvlCJWF5ZpVGjwvj2AX8LiFkxpvbqy10M/b
- eGdEFkM1NclGEKVAy1L9Cmnrj8U992a20cu9DiFHU67o7ayMgEgRteqmNXl7XGT/wV14oLcY8v
- utx8borbU9COM8qusOzO5daCp+SKUDUq1swT2Frh4mhsIskaSTiamGarDvWTl1cRGDq33bFQ5A
- 3MancGKCCmQ8lieqnqR6mEfzab5mfUqCTMlesN++XBRO17ftUmVH9+s5GqvtCtyyCyVrOyypVE
- aH8=
+IronPort-SDR: rsUxuyQPNnXVk7MgZUD3od0Dw/CdEDO2LVUhHiV7bWM5rSRasc2Dla3iAP83zsmiJcYV259hyb
+ Yxm9HB0H1g0+n3f7n+YsGtshAJzzF8aVWFjAvz8CSjO2VK5+uhoJ26jQ+EcrZotbloX96zmemH
+ /x+EKBEsb3qa3gcsiZtf+BEzkIf8eOL5CVVVG8jX9/XoTJurU+HKxCYfdJSNgR5jbrSj8cu5vc
+ aDdWJEE3QYgbe/kG1TDAdH8npKlUbuR3CXwIwqpJ0bTMbRSreEHnGUebeYgi+5mlb+ijJ5bAxH
+ My8=
 X-SBRS: 3.7
-X-MesageID: 24508538
+X-MesageID: 24508979
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,418,1589256000"; d="scan'208";a="24508538"
+X-IronPort-AV: E=Sophos;i="5.75,418,1589256000"; d="scan'208";a="24508979"
 From: George Dunlap <George.Dunlap@citrix.com>
 To: Ian Jackson <Ian.Jackson@citrix.com>
-Subject: Re: [OSSTEST PATCH v2 19/41] Executive: Drop redundant AND clause
-Thread-Topic: [OSSTEST PATCH v2 19/41] Executive: Drop redundant AND clause
-Thread-Index: AQHWZzGIiXhuM2ONcUuWJjbNKhR3S6khmr+A
-Date: Fri, 31 Jul 2020 14:17:33 +0000
-Message-ID: <6745953F-B208-49CF-BEA2-0956CC30891E@citrix.com>
+Subject: Re: [OSSTEST PATCH v2 07/41] schema: Provide indices for
+ sg-report-flight
+Thread-Topic: [OSSTEST PATCH v2 07/41] schema: Provide indices for
+ sg-report-flight
+Thread-Index: AQHWZy8fK8s8vZ3fmUmSnUsHUP7xn6khm9aA
+Date: Fri, 31 Jul 2020 14:21:23 +0000
+Message-ID: <05461545-D39A-4B98-BC27-3560C367FE25@citrix.com>
 References: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
- <20200731113820.5765-20-ian.jackson@eu.citrix.com>
-In-Reply-To: <20200731113820.5765-20-ian.jackson@eu.citrix.com>
+ <20200731113820.5765-8-ian.jackson@eu.citrix.com>
+In-Reply-To: <20200731113820.5765-8-ian.jackson@eu.citrix.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -58,7 +59,7 @@ x-mailer: Apple Mail (2.3608.80.23.2.2)
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1C793E6989D8B64D921AB80437CD3BD8@citrix.com>
+Content-ID: <51CFC83B5620394FAEF50EE1006261FC@citrix.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -80,16 +81,38 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 > On Jul 31, 2020, at 12:37 PM, Ian Jackson <ian.jackson@eu.citrix.com> wro=
 te:
 >=20
-> In "Executive: Use index for report__find_test" we changed an EXISTS
-> subquery into a JOIN.
+> These indexes allow very fast lookup of "relevant" flights eg when
+> trying to justify failures.
 >=20
-> Now, the condition r.flight=3Df.flight is redundant because this is the
-> join column (from USING).
+> In my ad-hoc test case, these indices (along with the subsequent
+> changes to sg-report-flight and Executive.pm, reduce the runtime of
+> sg-report-flight from 2-3ks (unacceptably long!) to as little as
+> 5-7s seconds - a speedup of about 500x.
 >=20
-> No functional change.
+> (Getting the database snapshot may take a while first, but deploying
+> this code should help with that too by reducing long-running
+> transactions.  Quoted perf timings are from snapshot acquisition.)
+>=20
+> Without these new indexes there may be a performance change from the
+> query changes.  I haven't benchmarked this so I am setting the schema
+> updates to be Preparatory/Needed (ie, "Schema first" as
+> schema/README.updates has it), to say that the index should be created
+> before the new code is deployed.
+>=20
+> Testing: I have tested this series by creating experimental indices
+> "trial_..." in the actual production instance.  (Transactional DDL was
+> very helpful with this.)  I have verified with \d that schema update
+> instructions in this commit generate indexes which are equivalent to
+> the trial indices.
+>=20
+> Deployment: AFter these schema updates are applied, the trial indices
+> are redundant duplicates and should be deleted.
 >=20
 > CC: George Dunlap <George.Dunlap@citrix.com>
 > Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+
+I have no idea if building an index on a LIKE is a good idea or not, but it=
+ certainly seems to be useful, so:
 
 Reviewed-by: George Dunlap <george.dunlap@citrix.com>
 
