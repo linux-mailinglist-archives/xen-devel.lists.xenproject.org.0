@@ -2,53 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72950234DDD
-	for <lists+xen-devel@lfdr.de>; Sat,  1 Aug 2020 01:04:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44AF3234E42
+	for <lists+xen-devel@lfdr.de>; Sat,  1 Aug 2020 01:13:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1e41-00083e-Tx; Fri, 31 Jul 2020 23:03:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k1eD7-0000c8-Rm; Fri, 31 Jul 2020 23:13:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F22U=BK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k1e41-00083Z-45
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 23:03:45 +0000
-X-Inumbo-ID: 14f3bcd0-d382-11ea-8eb6-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 14f3bcd0-d382-11ea-8eb6-bc764e2007e4;
- Fri, 31 Jul 2020 23:03:44 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 437282072A;
- Fri, 31 Jul 2020 23:03:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596236623;
- bh=MRghBlBbcTjwoN4MJ43/JXA2Ns4QiM5984Rn2Ro3UIM=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=uUgqb4+eUZ4dXFmm9gz2orey5biYf0ntD7LlSJIVkK2RteFj5uP7xBGB7sCWbXcMr
- uQwbHKUx1D9zUkiKfQDKW8Gn+dEjr0N9xecE66Olrw/OZm5yOAa0mHodggFw5L3JBL
- r//1MYknjKm3gQFtW32oYwqg6qfbL31/FSitBwbI=
-Date: Fri, 31 Jul 2020 16:03:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: [PATCH v2] xen/arm: Convert runstate address during hypcall
-In-Reply-To: <E39531EE-0265-4387-813D-22A57CD3F67B@arm.com>
-Message-ID: <alpine.DEB.2.21.2007310935350.1767@sstabellini-ThinkPad-T480s>
-References: <4647a019c7b42d40d3c2f5b0a3685954bea7f982.1595948219.git.bertrand.marquis@arm.com>
- <8d2d7f03-450c-d50c-630b-8608c6d42bb9@suse.com>
- <FCAB700B-4617-4323-BE1E-B80DDA1806C1@arm.com>
- <1b046f2c-05c8-9276-a91e-fd55ec098bed@suse.com>
- <alpine.DEB.2.21.2007291356060.1767@sstabellini-ThinkPad-T480s>
- <1a8bbcc7-9d0c-9669-db7b-e837af279027@suse.com>
- <73c8ade5-36a3-cc13-80b6-bda89e175cbb@xen.org>
- <6066b507-f956-8e7a-89f3-b21428b66d65@suse.com>
- <E39531EE-0265-4387-813D-22A57CD3F67B@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=OD0g=BK=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k1eD6-0000c3-4i
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 23:13:08 +0000
+X-Inumbo-ID: 63cffb92-d383-11ea-ac77-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 63cffb92-d383-11ea-ac77-12813bfff9fa;
+ Fri, 31 Jul 2020 23:13:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=E4WZTqzlQhzJ39fm6XvagUAWoeCTOvuInmu5C+e+is0=; b=p0u8wB7dTcmJwAZF+8lIe5rYw
+ gyI+xRWO1Ox7tVd/eVXC86QYLPac4OEBNQjNzk8qOwXoz6iE2qY1bbSdte7iYZiQrFvc4Up5iFOMS
+ mCzTvRMfq97e8HqpX1QZ9IQUVRHJjkn0kp8Yx1LRAA1BILBO0KWzlqLs933KvCCGy/+Os=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1eD3-0006iY-4P; Fri, 31 Jul 2020 23:13:05 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1eD2-0000Mb-Ma; Fri, 31 Jul 2020 23:13:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1eD2-0007vC-Kj; Fri, 31 Jul 2020 23:13:04 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152334-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 152334: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=81fd0d3ca4b2cd309403c6e8da662c325dd35750
+X-Osstest-Versions-That: xen=a85f67b2658ed8032586b3a3e7cd78814d20aa4b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 31 Jul 2020 23:13:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,101 +66,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, 31 Jul 2020, Bertrand Marquis wrote:
-> > On 31 Jul 2020, at 12:18, Jan Beulich <jbeulich@suse.com> wrote:
-> > 
-> > On 31.07.2020 12:12, Julien Grall wrote:
-> >> On 31/07/2020 07:39, Jan Beulich wrote:
-> >>> We're fixing other issues without breaking the ABI. Where's the
-> >>> problem of backporting the kernel side change (which I anticipate
-> >>> to not be overly involved)?
-> >> This means you can't take advantage of the runstage on existing Linux 
-> >> without any modification.
-> >> 
-> >>> If the plan remains to be to make an ABI breaking change,
-> >> 
-> >> For a theoritical PoV, this is a ABI breakage. However, I fail to see 
-> >> how the restrictions added would affect OSes at least on Arm.
-> > 
-> > "OSes" covering what? Just Linux?
-> > 
-> >> In particular, you can't change the VA -> PA on Arm without going 
-> >> through an invalid mapping. So I wouldn't expect this to happen for the 
-> >> runstate.
-> >> 
-> >> The only part that *may* be an issue is if the guest is registering the 
-> >> runstate with an initially invalid VA. Although, I have yet to see that 
-> >> in practice. Maybe you know?
-> > 
-> > I'm unaware of any such use, but this means close to nothing.
-> > 
-> >>> then I
-> >>> think this will need an explicit vote.
-> >> 
-> >> I was under the impression that the two Arm maintainers (Stefano and I) 
-> >> already agreed with the approach here. Therefore, given the ABI breakage 
-> >> is only affecting Arm, why would we need a vote?
-> > 
-> > The problem here is of conceptual nature: You're planning to
-> > make the behavior of a common hypercall diverge between
-> > architectures, and in a retroactive fashion. Imo that's nothing
-> > we should do even for new hypercalls, if _at all_ avoidable. If
-> > we allow this here, we'll have a precedent that people later
-> > may (and based on my experience will, sooner or later) reference,
-> > to get their own change justified.
+flight 152334 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152334/
 
-Please let's avoid "slippery slope" arguments
-(https://en.wikipedia.org/wiki/Slippery_slope)
+Failures :-/ but no regressions.
 
-We shouldn't consider this instance as the first in a long series of bad
-decisions on hypercall compatibility. Each new case, if there will be
-any, will have to be considered based on its own merits. Also, let's
-keep in mind that there have been no other cases in the last 8 years. (I
-would like to repeat my support for hypercall ABI compatibility.)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  81fd0d3ca4b2cd309403c6e8da662c325dd35750
+baseline version:
+ xen                  a85f67b2658ed8032586b3a3e7cd78814d20aa4b
+
+Last test of basis   152327  2020-07-31 15:02:14 Z    0 days
+Testing same since   152334  2020-07-31 20:01:29 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Olaf Hering <olaf@aepfle.de>
+  Paul Durrant <pdurrant@amazon.com>
+  Tim Deegan <tim@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-I would also kindly ask not to put the discussion on a "conceptual"
-level: there is no way to fix all guests and also keep compatibility.
-From a conceptual point of view, it is already game over :-)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> After a discussion with Jan, he is proposing to have a guest config setting to
-> turn on or off the translation of the address during the hypercall and add a
-> global Xen command line parameter to set the global default behaviour. 
-> With this was done on arm could be done on x86 and the current behaviour
-> would be kept by default but possible to modify by configuration.
-> 
-> @Jan: please correct me if i said something wrong
-> @others: what is your view on this solution ?
+Pushing revision :
 
-Having options to turn on or off the new behavior could be good-to-have
-if we find a guest that actually requires the old behavior. Today we
-don't know of any such cases. We have strong reasons to believe that
-there aren't any on ARM (see Julien's explanation in regards to the
-temporary invalid mappings.) In fact, it is one of the factors that led
-us to think this patch is the right approach.
-
-That said, I am also OK with adding such a parameter now, but we need to
-choose the default value carefully.
-
-
-We need the new behavior as default on ARM because we need the fix to
-work for all guests. I don't think we want to explain how you always
-need to set config_foobar otherwise things don't work. It has to work
-out of the box.
-
-It would be nice if we had the same default on x86 too, although I
-understand if Jan and Andrew don't want to make the same change on x86,
-at least initially.
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   a85f67b265..81fd0d3ca4  81fd0d3ca4b2cd309403c6e8da662c325dd35750 -> smoke
 
