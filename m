@@ -2,47 +2,101 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0977233CD4
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 03:18:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 573FB233D31
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 04:27:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Jgu-0000CC-Ch; Fri, 31 Jul 2020 01:18:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k1KkS-0006Lv-Fk; Fri, 31 Jul 2020 02:26:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F22U=BK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k1Jgt-0000C6-2E
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 01:18:31 +0000
-X-Inumbo-ID: be408bae-d2cb-11ea-ab62-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id be408bae-d2cb-11ea-ab62-12813bfff9fa;
- Fri, 31 Jul 2020 01:18:30 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 63562208E4;
- Fri, 31 Jul 2020 01:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596158309;
- bh=NkC+gVIfv+TVu+bSb9zrp8Mjd4JMr0fGQvlKvKQx2R0=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=s3cpMjRuDvkxuTue7PxQlzfcYpp7TsZJLRhH4xlHhU4sY4AnN41z0BYskKWlc+6qO
- vCLUvrjjK63nFexHO2dp57N7smEMtD1oFUa27FN2dbTE3Q6J/Ld78WwqcY+pqLxT46
- BSJbuHvoA/ppA2cTV3hPS5FIkZXxPylkPltNUFvM=
-Date: Thu, 30 Jul 2020 18:18:28 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v3] xen/arm: Convert runstate address during hypcall
-In-Reply-To: <f48f81d5-589e-3f75-1044-583114bf497e@xen.org>
-Message-ID: <alpine.DEB.2.21.2007301422030.1767@sstabellini-ThinkPad-T480s>
-References: <3911d221ce9ed73611b93aa437b9ca227d6aa201.1596099067.git.bertrand.marquis@arm.com>
- <f48f81d5-589e-3f75-1044-583114bf497e@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=OD0g=BK=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k1KkR-0006Lq-EE
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 02:26:15 +0000
+X-Inumbo-ID: 3404a268-d2d5-11ea-8e01-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3404a268-d2d5-11ea-8e01-bc764e2007e4;
+ Fri, 31 Jul 2020 02:26:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=cY8ARxQbXgQIUX8MY4YfFvTH52di5SNVumDbM90hvX8=; b=k9d4xuo08sY60uJrNgQUQ9yFT
+ i5324DoV9Um6RMg3mJkvK5Ab60LIGX0azJ3kz9nD8v3EzIZ+Cg3zScQ/nDFx+W3Rl6g8YInq6ahd3
+ sL5f5AIQ5JJRR42xiGF/dWMyMSulLgARYMAOtWlfnpXaZTtrStQWCxRPEZIg1+5bGIqpc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1KkO-0003Uw-K8; Fri, 31 Jul 2020 02:26:12 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1KkO-0001gx-8j; Fri, 31 Jul 2020 02:26:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1KkO-0005sw-89; Fri, 31 Jul 2020 02:26:12 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152303-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [linux-linus test] 152303: regressions - FAIL
+X-Osstest-Failures: linux-linus:build-arm64-pvops:kernel-build:fail:regression
+ linux-linus:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+ linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+ linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+ linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: linux=83bdc7275e6206f560d247be856bceba3e1ed8f2
+X-Osstest-Versions-That: linux=6ba1b005ffc388c2aeaddae20da29e4810dea298
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 31 Jul 2020 02:26:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,334 +107,224 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org, nd@arm.com,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 30 Jul 2020, Julien Grall wrote:
-> Hi Bertrand,
-> 
-> To avoid extra work on your side, I would recommend to wait a bit before
-> sending a new version. It would be good to at least settle the conversation in
-> v2 regarding the approach taken.
-> 
-> On 30/07/2020 11:24, Bertrand Marquis wrote:
-> > At the moment on Arm, a Linux guest running with KTPI enabled will
-> > cause the following error when a context switch happens in user mode:
-> > (XEN) p2m.c:1890: d1v0: Failed to walk page-table va 0xffffff837ebe0cd0
-> > 
-> > The error is caused by the virtual address for the runstate area
-> > registered by the guest only being accessible when the guest is running
-> > in kernel space when KPTI is enabled.
-> > 
-> > To solve this issue, this patch is doing the translation from virtual
-> > address to physical address during the hypercall and mapping the
-> > required pages using vmap. This is removing the conversion from virtual
-> > to physical address during the context switch which is solving the
-> > problem with KPTI.
-> 
-> To echo what Jan said on the previous version, this is a change in a stable
-> ABI and therefore may break existing guest. FAOD, I agree in principle with
-> the idea. However, we want to explain why breaking the ABI is the *only*
-> viable solution.
-> 
-> From my understanding, it is not possible to fix without an ABI breakage
-> because the hypervisor doesn't know when the guest will switch back from
-> userspace to kernel space. The risk is the information provided by the
-> runstate wouldn't contain accurate information and could affect how the guest
-> handle stolen time.
-> 
-> Additionally there are a few issues with the current interface:
->    1) It is assuming the virtual address cannot be re-used by the userspace.
-> Thanksfully Linux have a split address space. But this may change with KPTI in
-> place.
->    2) When update the page-tables, the guest has to go through an invalid
-> mapping. So the translation may fail at any point.
-> 
-> IOW, the existing interface can lead to random memory corruption and
-> inacurracy of the stolen time.
-> 
-> > 
-> > This is done only on arm architecture, the behaviour on x86 is not
-> > modified by this patch and the address conversion is done as before
-> > during each context switch.
-> > 
-> > This is introducing several limitations in comparison to the previous
-> > behaviour (on arm only):
-> > - if the guest is remapping the area at a different physical address Xen
-> > will continue to update the area at the previous physical address. As
-> > the area is in kernel space and usually defined as a global variable this
-> > is something which is believed not to happen. If this is required by a
-> > guest, it will have to call the hypercall with the new area (even if it
-> > is at the same virtual address).
-> > - the area needs to be mapped during the hypercall. For the same reasons
-> > as for the previous case, even if the area is registered for a different
-> > vcpu. It is believed that registering an area using a virtual address
-> > unmapped is not something done.
-> 
-> This is not clear whether the virtual address refer to the current vCPU or the
-> vCPU you register the runstate for. From the past discussion, I think you
-> refer to the former. It would be good to clarify.
-> 
-> Additionally, all the new restrictions should be documented in the public
-> interface. So an OS developper can find the differences between the
-> architectures.
+flight 152303 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152303/
 
-Just to paraphrase what Julien wrote, it would be good to improve the
-commit message with the points suggested and also write a note in the
-header file about the changes to the interface.
+Regressions :-(
 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-pvops             6 kernel-build             fail REGR. vs. 152287
 
-> To answer Jan's concern, we certainly don't know all the guest OSes existing,
-> however we also need to balance the benefit for a large majority of the users.
-> 
-> From previous discussion, the current approach was deemed to be acceptable on
-> Arm and, AFAICT, also x86 (see [1]).
->
-> TBH, I would rather see the approach to be common. For that, we would an
-> agreement from Andrew and Jan in the approach here. Meanwhile, I think this is
-> the best approach to address the concern from Arm users.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 152287
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 152287
+ test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 152287
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 152287
+ test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat    fail  like 152287
+ test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop             fail like 152287
+ test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 152287
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 152287
+ test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 152287
+ test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
+ test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
+ test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
 
-+1
+version targeted for testing:
+ linux                83bdc7275e6206f560d247be856bceba3e1ed8f2
+baseline version:
+ linux                6ba1b005ffc388c2aeaddae20da29e4810dea298
 
+Last test of basis   152287  2020-07-29 17:11:28 Z    1 days
+Testing same since   152303  2020-07-30 11:09:02 Z    0 days    1 attempts
 
-> > inline functions in headers could not be used as the architecture
-> > domain.h is included before the global domain.h making it impossible
-> > to use the struct vcpu inside the architecture header.
-> > This should not have any performance impact as the hypercall is only
-> > called once per vcpu usually.
-> > 
-> > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> > 
-> > ---
-> >    Changes in v2
-> >      - use vmap to map the pages during the hypercall.
-> >      - reintroduce initial copy during hypercall.
-> > 
-> >    Changes in v3
-> >      - Fix Coding style
-> >      - Fix vaddr printing on arm32
-> >      - use write_atomic to modify state_entry_time update bit (only
-> >      in guest structure as the bit is not used inside Xen copy)
-> > 
-> > ---
-> >   xen/arch/arm/domain.c        | 161 ++++++++++++++++++++++++++++++-----
-> >   xen/arch/x86/domain.c        |  29 ++++++-
-> >   xen/arch/x86/x86_64/domain.c |   4 +-
-> >   xen/common/domain.c          |  19 ++---
-> >   xen/include/asm-arm/domain.h |   9 ++
-> >   xen/include/asm-x86/domain.h |  16 ++++
-> >   xen/include/xen/domain.h     |   5 ++
-> >   xen/include/xen/sched.h      |  16 +---
-> >   8 files changed, 206 insertions(+), 53 deletions(-)
-> > 
-> > diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> > index 31169326b2..8b36946017 100644
-> > --- a/xen/arch/arm/domain.c
-> > +++ b/xen/arch/arm/domain.c
-> > @@ -19,6 +19,7 @@
-> >   #include <xen/sched.h>
-> >   #include <xen/softirq.h>
-> >   #include <xen/wait.h>
-> > +#include <xen/vmap.h>
-> >     #include <asm/alternative.h>
-> >   #include <asm/cpuerrata.h>
-> > @@ -275,36 +276,156 @@ static void ctxt_switch_to(struct vcpu *n)
-> >       virt_timer_restore(n);
-> >   }
-> >   -/* Update per-VCPU guest runstate shared memory area (if registered). */
-> > -static void update_runstate_area(struct vcpu *v)
-> > +static void cleanup_runstate_vcpu_locked(struct vcpu *v)
-> >   {
-> > -    void __user *guest_handle = NULL;
-> > +    if ( v->arch.runstate_guest )
-> > +    {
-> > +        vunmap((void *)((unsigned long)v->arch.runstate_guest &
-> > PAGE_MASK));
-> > +
-> > +        put_page(v->arch.runstate_guest_page[0]);
-> > +
-> > +        if ( v->arch.runstate_guest_page[1] )
-> > +            put_page(v->arch.runstate_guest_page[1]);
-> > +
-> > +        v->arch.runstate_guest = NULL;
-> > +    }
-> > +}
-> > +
-> > +void arch_vcpu_cleanup_runstate(struct vcpu *v)
-> > +{
-> > +    spin_lock(&v->arch.runstate_guest_lock);
-> > +
-> > +    cleanup_runstate_vcpu_locked(v);
-> > +
-> > +    spin_unlock(&v->arch.runstate_guest_lock);
-> > +}
-> > +
-> > +static int setup_runstate_vcpu_locked(struct vcpu *v, vaddr_t vaddr)
-> > +{
-> > +    unsigned int offset;
-> > +    mfn_t mfn[2];
-> > +    struct page_info *page;
-> > +    unsigned int numpages;
-> >       struct vcpu_runstate_info runstate;
-> > +    void *p;
-> >   -    if ( guest_handle_is_null(runstate_guest(v)) )
-> > -        return;
-> > +    /* user can pass a NULL address to unregister a previous area */
-> > +    if ( vaddr == 0 )
-> > +        return 0;
-> > +
-> > +    offset = vaddr & ~PAGE_MASK;
-> > +
-> > +    /* provided address must be aligned to a 64bit */
-> > +    if ( offset % alignof(struct vcpu_runstate_info) )
-> 
-> This new restriction wants to be explained in the commit message and public
-> header.
-> 
-> > +    {
-> > +        gprintk(XENLOG_WARNING, "Cannot map runstate pointer at
-> > 0x%"PRIvaddr
-> > +                ": Invalid offset\n", vaddr);
-> 
-> We usually enforce 80 character per lines except for format string. So it is
-> easier to grep them in the code.
-> 
-> > +        return -EINVAL;
-> > +    }
-> > +
-> > +    page = get_page_from_gva(v, vaddr, GV2M_WRITE);
-> > +    if ( !page )
-> > +    {
-> > +        gprintk(XENLOG_WARNING, "Cannot map runstate pointer at
-> > 0x%"PRIvaddr
-> > +                ": Page is not mapped\n", vaddr);
-> > +        return -EINVAL;
-> > +    }
-> > +
-> > +    mfn[0] = page_to_mfn(page);
-> > +    v->arch.runstate_guest_page[0] = page;
-> > +
-> > +    if ( offset > (PAGE_SIZE - sizeof(struct vcpu_runstate_info)) )
-> > +    {
-> > +        /* guest area is crossing pages */
-> > +        page = get_page_from_gva(v, vaddr + PAGE_SIZE, GV2M_WRITE);
-> > +        if ( !page )
-> > +        {
-> > +            put_page(v->arch.runstate_guest_page[0]);
-> > +            gprintk(XENLOG_WARNING,
-> > +                    "Cannot map runstate pointer at 0x%"PRIvaddr
-> > +                    ": 2nd Page is not mapped\n", vaddr);
-> > +            return -EINVAL;
-> > +        }
-> > +        mfn[1] = page_to_mfn(page);
-> > +        v->arch.runstate_guest_page[1] = page;
-> > +        numpages = 2;
-> > +    }
-> > +    else
-> > +    {
-> > +        v->arch.runstate_guest_page[1] = NULL;
-> > +        numpages = 1;
-> > +    }
-> >   -    memcpy(&runstate, &v->runstate, sizeof(runstate));
-> > +    p = vmap(mfn, numpages);
-> > +    if ( !p )
-> > +    {
-> > +        put_page(v->arch.runstate_guest_page[0]);
-> > +        if ( numpages == 2 )
-> > +            put_page(v->arch.runstate_guest_page[1]);
-> >   -    if ( VM_ASSIST(v->domain, runstate_update_flag) )
-> > +        gprintk(XENLOG_WARNING, "Cannot map runstate pointer at
-> > 0x%"PRIvaddr
-> > +                ": vmap error\n", vaddr);
-> > +        return -EINVAL;
-> > +    }
-> > +
-> > +    v->arch.runstate_guest = p + offset;
-> > +
-> > +    if (v == current)
-> > +        memcpy(v->arch.runstate_guest, &v->runstate, sizeof(v->runstate));
-> > +    else
-> >       {
-> > -        guest_handle = &v->runstate_guest.p->state_entry_time + 1;
-> > -        guest_handle--;
-> > -        runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
-> > -        __raw_copy_to_guest(guest_handle,
-> > -                            (void *)(&runstate.state_entry_time + 1) - 1,
-> > 1);
-> > -        smp_wmb();
-> > +        vcpu_runstate_get(v, &runstate);
-> > +        memcpy(v->arch.runstate_guest, &runstate, sizeof(v->runstate));
-> >       }
-> >   -    __copy_to_guest(runstate_guest(v), &runstate, 1);
-> > +    return 0;
-> > +}
-> > +
-> > +int arch_vcpu_setup_runstate(struct vcpu *v,
-> > +                             struct vcpu_register_runstate_memory_area
-> > area)
-> > +{
-> > +    int rc;
-> > +
-> > +    spin_lock(&v->arch.runstate_guest_lock);
-> > +
-> > +    /* cleanup if we are recalled */
-> > +    cleanup_runstate_vcpu_locked(v);
-> > +
-> > +    rc = setup_runstate_vcpu_locked(v, (vaddr_t)area.addr.v);
-> > +
-> > +    spin_unlock(&v->arch.runstate_guest_lock);
-> >   -    if ( guest_handle )
-> > +    return rc;
-> > +}
-> > +
-> > +
-> > +/* Update per-VCPU guest runstate shared memory area (if registered). */
-> > +static void update_runstate_area(struct vcpu *v)
-> > +{
-> > +    spin_lock(&v->arch.runstate_guest_lock);
-> > +
-> > +    if ( v->arch.runstate_guest )
-> >       {
-> > -        runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
-> > -        smp_wmb();
-> > -        __raw_copy_to_guest(guest_handle,
-> > -                            (void *)(&runstate.state_entry_time + 1) - 1,
-> > 1);
-> > +        if ( VM_ASSIST(v->domain, runstate_update_flag) )
-> > +        {
-> > +            v->runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
-> > +            write_atomic(&(v->arch.runstate_guest->state_entry_time),
-> > +                    v->runstate.state_entry_time);
-> 
-> NIT: You want to indent v-> at the same level as the argument from the first
-> line.
-> 
-> Also, I think you are missing a smp_wmb() here.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ben Skeggs <bskeggs@redhat.com>
+  Ben Skeggs <skeggsb@gmail.com>
+  Biju Das <biju.das.jz@bp.renesas.com>
+  Christoph Hellwig <hch@lst.de>
+  Daniel Vetter <daniel.vetter@ffwll.ch>
+  Dave Airlie <airlied@redhat.com>
+  Dominique Martinet <asmadeus@codewreck.org>
+  Douglas Anderson <dianders@chromium.org>
+  Guido Günther <agx@sigxcpu.org>
+  Jitao Shi <jitao.shi@mediatek.com>
+  Laurentiu Palcu <laurentiu.palcu@nxp.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Linus Walleij <linus.walleij@linaro.org>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Paul Cercueil <paul@crapouillou.net>
+  Paul Moore <paul@paul-moore.com>
+  Sam Ravnborg <sam@ravnborg.org>
+  Stephan Gerhold <stephan@gerhold.net>
+  Steve Cohen <cohens@codeaurora.org>
+  Thomas Zimmermann <tzimmermann@suse.de>
+  Vinod Koul <vkoul@kernel.org> # tested on DragonBoard 410c
+  Wang Hai <wanghai38@huawei.com>
+  Willy Tarreau <w@1wt.eu>
 
-I just wanted to add that I reviewed the patch and aside from the
-smp_wmb (and the couple of code style NITs), there is no other issue in
-the patch that I could find. No further comments from my side.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            fail    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-> > +        }
-> > +
-> > +        memcpy(v->arch.runstate_guest, &v->runstate, sizeof(v->runstate));
-> > +
-> > +        if ( VM_ASSIST(v->domain, runstate_update_flag) )
-> > +        {
-> > +            /* copy must be done before switching the bit */
-> > +            smp_wmb();
-> > +            v->runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
-> > +            write_atomic(&(v->arch.runstate_guest->state_entry_time),
-> > +                    v->runstate.state_entry_time);
-> 
-> Same remark for the indentation.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 546 lines long.)
 
