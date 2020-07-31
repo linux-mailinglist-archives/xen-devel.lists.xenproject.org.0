@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79A06234580
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:13:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CCFE234501
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:00:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Tu4-00048N-GD; Fri, 31 Jul 2020 12:12:48 +0000
+	id 1k1TiR-0001KY-76; Fri, 31 Jul 2020 12:00:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nr0X=BK=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1k1Tu3-000489-Db
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:12:47 +0000
-X-Inumbo-ID: 24dc3ab0-d327-11ea-8e2c-bc764e2007e4
+ id 1k1TiP-0001Jk-Jv
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:00:45 +0000
+X-Inumbo-ID: 76268c7e-d325-11ea-8e2b-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 24dc3ab0-d327-11ea-8e2c-bc764e2007e4;
- Fri, 31 Jul 2020 12:12:46 +0000 (UTC)
+ id 76268c7e-d325-11ea-8e2b-bc764e2007e4;
+ Fri, 31 Jul 2020 12:00:44 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1k1TN3-0001W4-Pd; Fri, 31 Jul 2020 12:38:41 +0100
+ id 1k1TN4-0001W4-8W; Fri, 31 Jul 2020 12:38:42 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH v2 36/41] cs-bisection-step: Use db_prepare a few
- times instead of ->do
-Date: Fri, 31 Jul 2020 12:38:15 +0100
-Message-Id: <20200731113820.5765-37-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH v2 37/41] cs-bisection-step: temporary table: Insert
+ only rows we care about
+Date: Fri, 31 Jul 2020 12:38:16 +0100
+Message-Id: <20200731113820.5765-38-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
 References: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
@@ -47,50 +47,47 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-With $dbh_tests->do(...), we can only get a debug trace of the queries
-by using DBI_TRACE which produces voluminous output.  Using our own
-db_prepare invokes our own debugging.
+Every use of this table has a WHERE or ON which invokes at least one
+of these conditions.  So put only those rows into the table.
 
-No functional change.
+This provides a significant speedup (which I haven't properly
+measured).
+
+No overall functional change.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
 v2: New patch.
 ---
- cs-bisection-step | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ cs-bisection-step | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/cs-bisection-step b/cs-bisection-step
-index ba0c6424..1c165b78 100755
+index 1c165b78..718c87b0 100755
 --- a/cs-bisection-step
 +++ b/cs-bisection-step
-@@ -197,7 +197,7 @@ END
- END
-     };
- 
--    $dbh_tests->do(<<END, {});
-+    db_prepare(<<END)->execute();
-           CREATE TEMP TABLE tmp_build_info (
-               use varchar NOT NULL,
-               name varchar NOT NULL,
-@@ -206,7 +206,7 @@ END
-               )
- END
- 
--        $dbh_tests->do(<<END, {}, $job, $flight);
-+    db_prepare(<<END)->execute($job, $flight);
+@@ -219,7 +219,9 @@ END
      
-         INSERT INTO tmp_build_info
-         SELECT t.name AS use,
-@@ -230,7 +230,7 @@ END
-                                END)
+            WHERE t.job = ?
+ 	     AND t.flight = ?
+-	     AND t.name LIKE '%buildjob'
++	     AND t.name LIKE '%buildjob' AND
++(@{ $qtxt_common_rev_ok->('b') } OR
++ @{ $qtxt_common_tree_ok->('b') })
+ 	     AND b.flight = (CASE WHEN t.val NOT LIKE '%.%'
+                                   THEN t.flight
+                                   ELSE cast(split_part(t.val, '.', 1) AS int)
+@@ -239,7 +241,9 @@ END
+ 	           job  AS job
+ 	      FROM runvars
+ 	     WHERE job = ?
+-	       AND flight = ?
++	       AND flight = ? AND
++(@{ $qtxt_common_rev_ok->('runvars') } OR
++ @{ $qtxt_common_tree_ok->('runvars') })
  END
  
--    $dbh_tests->do(<<END, {}, $job, $flight);
-+    db_prepare(<<END)->execute($job, $flight);
- 
-         INSERT INTO tmp_build_info
- 	    SELECT ''   AS use,
+     my $qtxt_common_results = <<END;
 -- 
 2.20.1
 
