@@ -2,61 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73B2C2348C9
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 17:59:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5C3F234912
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 18:19:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1XR4-0005Fq-Qe; Fri, 31 Jul 2020 15:59:06 +0000
+	id 1k1XkE-0007Xq-IF; Fri, 31 Jul 2020 16:18:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oG5j=BK=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k1XR3-0005Fl-BT
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 15:59:05 +0000
-X-Inumbo-ID: c1d34971-d346-11ea-8e65-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=F22U=BK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k1XkD-0007Xl-CK
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 16:18:53 +0000
+X-Inumbo-ID: 8613ed60-d349-11ea-8e66-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c1d34971-d346-11ea-8e65-bc764e2007e4;
- Fri, 31 Jul 2020 15:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596211144;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=Rj+yjfDtynwRGMOHPflgAH/QmhH8AaC6v2zvrjV9jC4=;
- b=bHfMGwGaPBg67AlLgwqL2dIRgGW6G+xyrNFIZOZCufPzz+t50Qt65qhG
- +yE8raeKBKr8T6MUeViXZEQkeCG3volPr4w69S0cD17lt2hshEpWzlW35
- p2NAe+mAbzl6mJ5zgegwwoo/zs6jYnMaebFclFjQQgP7GyklwMpjD9NaM o=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: lB2fu8k/XhNyde5cP8VBfCws3qdrOrigCS6I7rjMSRU5/MJg5cb9rheJTikGicG0tVE0NKrEbp
- hJm2qu5I6WLMMWzRU1OJILI//ixFAmNFdlfhYhmZgEjewWIJq+FgeVnEnJAa2kQSKWbo0R/2JY
- q4GjH1Yynx6O3vJho8bvubYbzPKaHYmrUsOT6xXaHv4my+gHWRyB1E54Sv57TD98QEvsOhVcOa
- PCVYUU2zIP5Lt/8RD+CqTqDrAnajIzYBVdHspHQdxQhH1bN1OUGDfagSRu+Pl/81qcDB/DeVhJ
- 1Ms=
-X-SBRS: 3.7
-X-MesageID: 23963620
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,418,1589256000"; d="scan'208";a="23963620"
-Subject: Re: Ping: [PATCH v2] x86emul: avoid assembler warning about .type not
- taking effect in test harness
-To: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <42875d48-10e4-cc88-70ac-8979fea2493c@suse.com>
- <bf92faf4-b323-d4be-ca31-5e065c576b9a@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <6178d558-1826-120d-51fd-4daee8712fa8@citrix.com>
-Date: Fri, 31 Jul 2020 16:59:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 8613ed60-d349-11ea-8e66-bc764e2007e4;
+ Fri, 31 Jul 2020 16:18:52 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id BF86522B3F;
+ Fri, 31 Jul 2020 16:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1596212332;
+ bh=wGcVS68wxyzd53wI3zCnPCufYyT7AXC3KRChuAG9S88=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=GRD67L9XqoJZFQ9gPcQwYZxo7jiVioPpnDygvv/5xQUDtmAP4vJlb70r83pFf0wK4
+ CfZKmShJgoNRJLtBdkhRYCYdD+f1IhnQVMW2R/RkwWVFWCJ5q8aSH9hwrHq3A7jylC
+ vU8Kp282ex1WsDdBRwtair4LDusvBHbR9l8688PE=
+Date: Fri, 31 Jul 2020 09:18:51 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: George Dunlap <George.Dunlap@citrix.com>
+Subject: Re: kernel-doc and xen.git
+In-Reply-To: <F09D32F7-4826-421B-99A6-3E94756FFCEF@citrix.com>
+Message-ID: <alpine.DEB.2.21.2007310918360.1767@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2007291644330.1767@sstabellini-ThinkPad-T480s>
+ <9421ec73-1ec0-844f-0014-bd5a36a4036f@suse.com>
+ <F09D32F7-4826-421B-99A6-3E94756FFCEF@citrix.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <bf92faf4-b323-d4be-ca31-5e065c576b9a@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: multipart/mixed; boundary="8323329-1155002912-1596212332=:1767"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,19 +53,71 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31/07/2020 15:54, Jan Beulich wrote:
-> On 14.07.2020 10:06, Jan Beulich wrote:
->> gcc re-orders top level blocks by default when optimizing. This
->> re-ordering results in all our .type directives to get emitted to the
->> assembly file first, followed by gcc's. The assembler warns about
->> attempts to change the type of a symbol when it was already set (and
->> when there's no intervening setting to "notype").
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+--8323329-1155002912-1596212332=:1767
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Fri, 31 Jul 2020, George Dunlap wrote:
+> > On Jul 31, 2020, at 12:29 PM, Jan Beulich <jbeulich@suse.com> wrote:
+> > 
+> > On 30.07.2020 03:27, Stefano Stabellini wrote:
+> >> Hi all,
+> >> 
+> >> I would like to ask for your feedback on the adoption of the kernel-doc
+> >> format for in-code comments.
+> >> 
+> >> In the FuSa SIG we have started looking into FuSa documents for Xen. One
+> >> of the things we are investigating are ways to link these documents to
+> >> in-code comments in xen.git and vice versa.
+> >> 
+> >> In this context, Andrew Cooper suggested to have a look at "kernel-doc"
+> >> [1] during one of the virtual beer sessions at the last Xen Summit.
+> >> 
+> >> I did give a look at kernel-doc and it is very promising. kernel-doc is
+> >> a script that can generate nice rst text documents from in-code
+> >> comments. (The generated rst files can then be used as input for sphinx
+> >> to generate html docs.) The comment syntax [2] is simple and similar to
+> >> Doxygen:
+> >> 
+> >>    /**
+> >>     * function_name() - Brief description of function.
+> >>     * @arg1: Describe the first argument.
+> >>     * @arg2: Describe the second argument.
+> >>     *        One can provide multiple line descriptions
+> >>     *        for arguments.
+> >>     */
+> >> 
+> >> kernel-doc is actually better than Doxygen because it is a much simpler
+> >> tool, one we could customize to our needs and with predictable output.
+> >> Specifically, we could add the tagging, numbering, and referencing
+> >> required by FuSa requirement documents.
+> >> 
+> >> I would like your feedback on whether it would be good to start
+> >> converting xen.git in-code comments to the kernel-doc format so that
+> >> proper documents can be generated out of them. One day we could import
+> >> kernel-doc into xen.git/scripts and use it to generate a set of html
+> >> documents via sphinx.
+> > 
+> > How far is this intended to go? The example is description of a
+> > function's parameters, which is definitely fine (albeit I wonder
+> > if there's a hidden implication then that _all_ functions
+> > whatsoever are supposed to gain such comments). But the text just
+> > says much more generally "in-code comments", which could mean all
+> > of them. I'd consider the latter as likely going too far.
+> 
+> I took him to mean comments in the code at the moment, which describe some interface, but aren’t in kernel-doc format.  Naturally we wouldn’t want *all* comments to be stuffed into a document somewhere.
+
++1
+--8323329-1155002912-1596212332=:1767--
 
