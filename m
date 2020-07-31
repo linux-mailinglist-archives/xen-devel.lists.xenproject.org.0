@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 427DE233CD1
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 03:16:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0977233CD4
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 03:18:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Jey-0008RF-Rz; Fri, 31 Jul 2020 01:16:32 +0000
+	id 1k1Jgu-0000CC-Ch; Fri, 31 Jul 2020 01:18:32 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F22U=BK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k1Jex-0008R4-CO
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 01:16:31 +0000
-X-Inumbo-ID: 76c934f6-d2cb-11ea-ab62-12813bfff9fa
+ id 1k1Jgt-0000C6-2E
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 01:18:31 +0000
+X-Inumbo-ID: be408bae-d2cb-11ea-ab62-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 76c934f6-d2cb-11ea-ab62-12813bfff9fa;
- Fri, 31 Jul 2020 01:16:30 +0000 (UTC)
+ id be408bae-d2cb-11ea-ab62-12813bfff9fa;
+ Fri, 31 Jul 2020 01:18:30 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A10AC208E4;
- Fri, 31 Jul 2020 01:16:29 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 63562208E4;
+ Fri, 31 Jul 2020 01:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596158189;
- bh=oQnDEu+vx9knS9OTqiu3fPGLwbvblGwGetKQP0J6G4U=;
+ s=default; t=1596158309;
+ bh=NkC+gVIfv+TVu+bSb9zrp8Mjd4JMr0fGQvlKvKQx2R0=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=f2OWWMyknAxPzQgwAzEXK5myl9fNMuw6eVOFGvRKygAr9RXWMbDoLW/6ZVdm1wALC
- t7xKBJtuwVYJ4e7yizrIoGI2SptfwLuN5UN3No6hvZdX8W+M0eUOvoGCLbxKAnILxZ
- QFXL9L73I68O2lORjwatHMsZgCOZtqK9wpg9+Mjc=
-Date: Thu, 30 Jul 2020 18:16:29 -0700 (PDT)
+ b=s3cpMjRuDvkxuTue7PxQlzfcYpp7TsZJLRhH4xlHhU4sY4AnN41z0BYskKWlc+6qO
+ vCLUvrjjK63nFexHO2dp57N7smEMtD1oFUa27FN2dbTE3Q6J/Ld78WwqcY+pqLxT46
+ BSJbuHvoA/ppA2cTV3hPS5FIkZXxPylkPltNUFvM=
+Date: Thu, 30 Jul 2020 18:18:28 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: srini@yujala.com
-Subject: Re: Porting Xen to Jetson Nano
-In-Reply-To: <bd49b460d390cd547ea0ca77e5a20f2d@yujala.com>
-Message-ID: <alpine.DEB.2.21.2007301303340.1767@sstabellini-ThinkPad-T480s>
-References: <002801d66051$90fe2300$b2fa6900$@yujala.com>
- <9736680b-1c81-652b-552b-4103341bad50@xen.org>
- <000001d661cb$45cdaa10$d168fe30$@yujala.com>
- <5f985a6a-1bd6-9e68-f35f-b0b665688cee@xen.org>
- <67c102642b0932d88ab2f70e96742ef0@yujala.com>
- <alpine.DEB.2.21.2007291756380.1767@sstabellini-ThinkPad-T480s>
- <bd49b460d390cd547ea0ca77e5a20f2d@yujala.com>
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v3] xen/arm: Convert runstate address during hypcall
+In-Reply-To: <f48f81d5-589e-3f75-1044-583114bf497e@xen.org>
+Message-ID: <alpine.DEB.2.21.2007301422030.1767@sstabellini-ThinkPad-T480s>
+References: <3911d221ce9ed73611b93aa437b9ca227d6aa201.1596099067.git.bertrand.marquis@arm.com>
+ <f48f81d5-589e-3f75-1044-583114bf497e@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -58,272 +53,334 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>,
- 'Christopher Clark' <christopher.w.clark@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, nd@arm.com,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, 30 Jul 2020, srini@yujala.com wrote:
-> On 2020-07-30 01:27, Stefano Stabellini wrote:
-> > On Wed, 29 Jul 2020, srini@yujala.com wrote:
-> > > Hi Julien,
-> > > 
-> > > On 2020-07-24 17:25, Julien Grall wrote:
-> > > > On 24/07/2020 16:01, Srinivas Bangalore wrote:
-> > > >
-> > > > I struggled to find your comment inline as your e-mail client doesn't
-> > > > quote my answer. Please configure your e-mail client to use some form
-> > > > of quoting (the usual is '>').
-> > > >
-> > > >
-> > > I have switched to a web-based email client, so I hope this is better now.
-> > 
-> > Seems better, thank you
-> > 
-> > 
-> > > > > (XEN) Freed 296kB init memory.
-> > > > > (XEN) dom0 IPA 0x0000000088080000
-> > > > > (XEN) P2M @ 0000000803fc3d40 mfn:0x17f0f5
-> > > > > (XEN) 0TH[0x0] = 0x004000017f0f377f
-> > > > > (XEN) 1ST[0x2] = 0x02c00000800006fd
-> > > > > (XEN) Mem access check
-> > > > > (XEN) dom0 IPA 0x0000000088080000
-> > > > > (XEN) P2M @ 0000000803fc3d40 mfn:0x17f0f5
-> > > > > (XEN) 0TH[0x0] = 0x004000017f0f377f
-> > > > > (XEN) 1ST[0x2] = 0x02c00000800006fd
-> > > > > (XEN) Mem access check
-> > > >
-> > > > The instruction abort issue looks normal as the mapping is marked as
-> > > > non-executable.
-> > > >
-> > > > Looking at the rest of bits, bits 55:58 indicates the type of mapping
-> > > > used. The value suggest the mapping has been considered to be used
-> > > > p2m_mmio_direct_c (RW cacheable MMIO). This looks wrong to me because
-> > > > RAM should be mapped using p2m_ram_rw.
-> > > >
-> > > > Looking at your DT, it looks like the region is marked as reserved. On
-> > > > Xen 4.8, reserved-memory region are not correctly handled (IIRC this
-> > > > was only fixed in Xen 4.13). This should be possible to confirm by
-> > > > enable CONFIG_DEVICE_TREE_DEBUG in your .config.
-> > > >
-> > > > The option will debug more information about the mapping to dom0 on
-> > > > your console.
-> > > >
-> > > > However, given you are using an old release, you are at risk at keep
-> > > > finding bugs that have been resolved in more recent releases. It would
-> > > > probably better if you switch to Xen 4.14 and report any bug you can
-> > > > find there.
-> > > >
-> > > Ok. I applied to patch series to 4.14. Enabled EARLY_PRINTK, CONFIG_DEBUG
-> > > and
-> > > DEVICE_TREE_DEBUG.
-> > > Here's the log...
-> > > 
-> > > ## Flattened Device Tree blob at e3500000
-> > >    Booting using the fdt blob at 0xe3500000
-> > >    reserving fdt memory region: addr=80000000 size=20000
-> > >    reserving fdt memory region: addr=e3500000 size=35000
-> > >    Loading Device Tree to 00000000fc7f8000, end 00000000fc82ffff ... OK
-> > > 
-> > > Starting kernel ...
-> > > 
-> > > - UART enabled -
-> > > - Boot CPU booting -
-> > > - Current EL 00000008 -
-> > > - Initialize CPU -
-> > > - Turning on paging -
-> > > - Zero BSS -
-> > > - Ready -
-> > > (XEN) Invalid size for reg
-> > > (XEN) fdt: node `reserved-memory': parsing failed
-> > > (XEN)
-> > > (XEN) MODULE[0]: 00000000e0000000 - 00000000e014b0c8 Xen
-> > > (XEN) MODULE[1]: 00000000fc7f8000 - 00000000fc82d000 Device Tree
-> > > (XEN)  RESVD[0]: 0000000080000000 - 0000000080020000
-> > > (XEN)  RESVD[1]: 00000000e3500000 - 00000000e3535000
-> > > (XEN)  RESVD[2]: 00000000fc7f8000 - 00000000fc82d000
-> > > (XEN)  RESVD[3]: 0000000040001000 - 000000004003ffff
-> > > (XEN)  RESVD[4]: 00000000b0000000 - 00000000b01fffff
-> > > (XEN)
-> > > (XEN)
-> > > (XEN) Command line: console=dtuart sync_console dom0_mem=128M loglvl=debug
-> > > guest_loglvl=debug console_to_ring
-> > > (XEN) Xen BUG at page_alloc.c:398
-> > > (XEN) ----[ Xen-4.14.0  arm64  debug=y   Not tainted ]----
-> > > (XEN) CPU:    0
-> > > (XEN) PC:     00000000002b7b90 alloc_boot_pages+0x38/0x9c
-> > > (XEN) LR:     00000000002cda04
-> > > (XEN) SP:     0000000000307d40
-> > > (XEN) CPSR:   a00003c9 MODE:64-bit EL2h (Hypervisor, handler)
-> > > (XEN)      X0: 000fc80000002000  X1: 0000000000002000  X2:
-> > > 0000000000000000
-> > > (XEN)      X3: 000fffffffffffff  X4: ffffffffffffffff  X5:
-> > > 0000000000000000
-> > > (XEN)      X6: 0000000000307df0  X7: 0000000000000003  X8:
-> > > 0000000000000008
-> > > (XEN)      X9: fffffffffffffffb X10: 0101010101010101 X11:
-> > > 0000000000000007
-> > > (XEN)     X12: 0000000000000004 X13: ffffffffffffffff X14:
-> > > ffffffffff000000
-> > > (XEN)     X15: ffffffffffffffff X16: 0000000000000000 X17:
-> > > 0000000000000000
-> > > (XEN)     X18: 00000000fc834dd0 X19: 00000000002b5000 X20:
-> > > 00000000fc7f8000
-> > > (XEN)     X21: 00000000fc7f8000 X22: 0000000000000000 X23:
-> > > fc80000000000038
-> > > (XEN)     X24: 00000000fed9de28 X25: ffffffffffffffff X26:
-> > > fc80000002000000
-> > > (XEN)     X27: 0000000002000000 X28: 0000000000000000  FP:
-> > > 0000000000307d40
-> > > (XEN)
-> > > (XEN)   VTCR_EL2: 80000000
-> > > (XEN)  VTTBR_EL2: 0000000000000000
-> > > (XEN)
-> > > (XEN)  SCTLR_EL2: 30cd183d
-> > > (XEN)    HCR_EL2: 0000000000000038
-> > > (XEN)  TTBR0_EL2: 00000000e0145000
-> > > (XEN)
-> > > (XEN)    ESR_EL2: f2000001
-> > > (XEN)  HPFAR_EL2: 0000000000000000
-> > > (XEN)    FAR_EL2: 0000000000000000
-> > > (XEN)
-> > > (XEN) Xen stack trace from sp=0000000000307d40:
-> > > (XEN)    0000000000307df0 00000000002cf114 0000000000000000
-> > > 0000000000307d68
-> > > (XEN)    00000000fc7f8000 00000000002ceeb0 0000000000400000
-> > > 00676e69725f6f74
-> > > (XEN)    ffffffffffffffff 0000000000000000 0000000000000000
-> > > 0000000000307df0
-> > > (XEN)    0000000000307df0 00000000002cef58 000000003fffffff
-> > > 00000000fc7f8000
-> > > (XEN)    00000000fc7f8000 000fc80000002000 0000000000400000
-> > > 0080000000000000
-> > > (XEN)    0000000000000000 000000000003ffff 00000000fc831170
-> > > 00000000002001b8
-> > > (XEN)    00000000e0000000 00000000dfe00000 00000000fc7f8000
-> > > 0000000000000000
-> > > (XEN)    0000000000400000 00000000fed9de28 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000400 0000000000000000
-> > > 0000000000035000
-> > > (XEN)    00000000fc7f8000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000300000000 0000000000000000
-> > > 00000040ffffffff
-> > > (XEN)    00000000ffffffff 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN)    0000000000000000 0000000000000000 0000000000000000
-> > > 0000000000000000
-> > > (XEN) Xen call trace:
-> > > (XEN)    [<00000000002b7b90>] alloc_boot_pages+0x38/0x9c (PC)
-> > > (XEN)    [<00000000002cda04>] setup_frametable_mappings+0xb4/0x310 (LR)
-> > > (XEN)    [<00000000002cf114>] start_xen+0x3a0/0xc48
-> > > (XEN)    [<00000000002001b8>] arm64/head.o#primary_switched+0x10/0x30
-> > > (XEN)
-> > > (XEN)
-> > > (XEN) ****************************************
-> > > (XEN) Panic on CPU 0:
-> > > (XEN) Xen BUG at page_alloc.c:398
-> > > (XEN) ****************************************
-> > > (XEN)
-> > > (XEN) Reboot in five seconds...
-> > > 
-> > > There seems to be a problem with the DT in the 'reserved-memory' node.  I
-> > > commented out the fb0-carveout, fb1-carveout sections, recompiled and
-> > > tried to
-> > > boot again.
-> > 
-> > Yes, those reserved-memory nodes won't work correctly with Xen
-> > unfortunately: they either use "size" instead of "reg" (vpr-carveout) or
-> > they specify "no-map". Only regular "reg" reserved memory regions
-> > without "no-map" are properly parsed by Xen at the moment.
-> > 
-> > 
+On Thu, 30 Jul 2020, Julien Grall wrote:
+> Hi Bertrand,
 > 
-> I'll try to modify the nodes that use 'size and replace with 'reg'.
+> To avoid extra work on your side, I would recommend to wait a bit before
+> sending a new version. It would be good to at least settle the conversation in
+> v2 regarding the approach taken.
+> 
+> On 30/07/2020 11:24, Bertrand Marquis wrote:
+> > At the moment on Arm, a Linux guest running with KTPI enabled will
+> > cause the following error when a context switch happens in user mode:
+> > (XEN) p2m.c:1890: d1v0: Failed to walk page-table va 0xffffff837ebe0cd0
+> > 
+> > The error is caused by the virtual address for the runstate area
+> > registered by the guest only being accessible when the guest is running
+> > in kernel space when KPTI is enabled.
+> > 
+> > To solve this issue, this patch is doing the translation from virtual
+> > address to physical address during the hypercall and mapping the
+> > required pages using vmap. This is removing the conversion from virtual
+> > to physical address during the context switch which is solving the
+> > problem with KPTI.
+> 
+> To echo what Jan said on the previous version, this is a change in a stable
+> ABI and therefore may break existing guest. FAOD, I agree in principle with
+> the idea. However, we want to explain why breaking the ABI is the *only*
+> viable solution.
+> 
+> From my understanding, it is not possible to fix without an ABI breakage
+> because the hypervisor doesn't know when the guest will switch back from
+> userspace to kernel space. The risk is the information provided by the
+> runstate wouldn't contain accurate information and could affect how the guest
+> handle stolen time.
+> 
+> Additionally there are a few issues with the current interface:
+>    1) It is assuming the virtual address cannot be re-used by the userspace.
+> Thanksfully Linux have a split address space. But this may change with KPTI in
+> place.
+>    2) When update the page-tables, the guest has to go through an invalid
+> mapping. So the translation may fail at any point.
+> 
+> IOW, the existing interface can lead to random memory corruption and
+> inacurracy of the stolen time.
 > 
 > > 
-> > > This time the log shows the device tree messages (see attached log
-> > > file), but Xen fails at this point...
-> > > 
-> > > (XEN) Allocating PPI 16 for event channel interrupt
-> > > (XEN) Create hypervisor node
-> > > (XEN) Create PSCI node
-> > > (XEN) Create cpus node
-> > > (XEN) Create cpu@0 (logical CPUID: 0) node
-> > > (XEN) Create cpu@1 (logical CPUID: 1) node
-> > > (XEN) Create cpu@2 (logical CPUID: 2) node
-> > > (XEN) Create cpu@3 (logical CPUID: 3) node
-> > > (XEN) Create memory node (reg size 4, nr cells 4)
-> > > (XEN)   Bank 0: 0xe8000000->0xf0000000
-> > > (XEN) Create memory node (reg size 4, nr cells 8)
-> > > (XEN)   Bank 0: 0x40001000->0x40040000
-> > > (XEN)   Bank 1: 0xb0000000->0xb0200000
-> > > (XEN) Loading zImage from 00000000e1000000 to
-> > > 00000000e8080000-00000000ea23c808
-> > > (XEN)
-> > > (XEN) ****************************************
-> > > (XEN) Panic on CPU 0:
-> > > (XEN) Unable to copy the kernel in the hwdom memory
-> > > (XEN) ****************************************
-> > > (XEN)
-> > > 
-> > > Device tree and log file attached. Is there an issue with the DT? Any
-> > > pointers
-> > > on where I should be looking next?
+> > This is done only on arm architecture, the behaviour on x86 is not
+> > modified by this patch and the address conversion is done as before
+> > during each context switch.
 > > 
-> > Is it possible that the kernel image was loaded on a memory area not
-> > recognized as ram?
-> > 
-> > So xen/arch/arm/guestcopy.c:translate_get_page fails the check
-> > p2m_is_ram?
-> > 
-> The failure happens before p2m_is_ram is called.
-> This line:
-> page = get_page_from_gfn(info.gpa.d, paddr_to_pfn(addr), &p2mt, P2M_ALLOC);
+> > This is introducing several limitations in comparison to the previous
+> > behaviour (on arm only):
+> > - if the guest is remapping the area at a different physical address Xen
+> > will continue to update the area at the previous physical address. As
+> > the area is in kernel space and usually defined as a global variable this
+> > is something which is believed not to happen. If this is required by a
+> > guest, it will have to call the hypercall with the new area (even if it
+> > is at the same virtual address).
+> > - the area needs to be mapped during the hypercall. For the same reasons
+> > as for the previous case, even if the area is registered for a different
+> > vcpu. It is believed that registering an area using a virtual address
+> > unmapped is not something done.
 > 
-> returns a NULL pointer.
-
-Could you add a couple of printks to know exactly where it fails inside
-get_page_from_gfn? I imagine it would be somewhere in
-xen/arch/arm/p2m.c:p2m_get_page_from_gfn ?
-
-
-> > That would happen for instance if a device or special node is also
-> > covering that address range.
+> This is not clear whether the virtual address refer to the current vCPU or the
+> vCPU you register the runstate for. From the past discussion, I think you
+> refer to the former. It would be good to clarify.
 > 
-> Is there a way to check such conflicts?
+> Additionally, all the new restrictions should be documented in the public
+> interface. So an OS developper can find the differences between the
+> architectures.
 
-Nothing automatic. I went through the DTS manually and couldn't spot
-any conflicts unfortunately.
+Just to paraphrase what Julien wrote, it would be good to improve the
+commit message with the points suggested and also write a note in the
+header file about the changes to the interface.
 
 
-On a different note, I noticed that you gave 128MB to Dom0 which is not
-much; I am saying that because sometimes when you don't give enough
-memory to dom0 you get similar errors. Note that it doesn't look like
-this is the source of the issue we are seeing here, but I thought it is
-worth mentioning.
+> To answer Jan's concern, we certainly don't know all the guest OSes existing,
+> however we also need to balance the benefit for a large majority of the users.
+> 
+> From previous discussion, the current approach was deemed to be acceptable on
+> Arm and, AFAICT, also x86 (see [1]).
+>
+> TBH, I would rather see the approach to be common. For that, we would an
+> agreement from Andrew and Jan in the approach here. Meanwhile, I think this is
+> the best approach to address the concern from Arm users.
 
-Also to help with debugging, you might want to use an Image for Dom0,
-rather than a zImage, just to eliminate another potential source of
-issues.
++1
+
+
+> > inline functions in headers could not be used as the architecture
+> > domain.h is included before the global domain.h making it impossible
+> > to use the struct vcpu inside the architecture header.
+> > This should not have any performance impact as the hypercall is only
+> > called once per vcpu usually.
+> > 
+> > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> > 
+> > ---
+> >    Changes in v2
+> >      - use vmap to map the pages during the hypercall.
+> >      - reintroduce initial copy during hypercall.
+> > 
+> >    Changes in v3
+> >      - Fix Coding style
+> >      - Fix vaddr printing on arm32
+> >      - use write_atomic to modify state_entry_time update bit (only
+> >      in guest structure as the bit is not used inside Xen copy)
+> > 
+> > ---
+> >   xen/arch/arm/domain.c        | 161 ++++++++++++++++++++++++++++++-----
+> >   xen/arch/x86/domain.c        |  29 ++++++-
+> >   xen/arch/x86/x86_64/domain.c |   4 +-
+> >   xen/common/domain.c          |  19 ++---
+> >   xen/include/asm-arm/domain.h |   9 ++
+> >   xen/include/asm-x86/domain.h |  16 ++++
+> >   xen/include/xen/domain.h     |   5 ++
+> >   xen/include/xen/sched.h      |  16 +---
+> >   8 files changed, 206 insertions(+), 53 deletions(-)
+> > 
+> > diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> > index 31169326b2..8b36946017 100644
+> > --- a/xen/arch/arm/domain.c
+> > +++ b/xen/arch/arm/domain.c
+> > @@ -19,6 +19,7 @@
+> >   #include <xen/sched.h>
+> >   #include <xen/softirq.h>
+> >   #include <xen/wait.h>
+> > +#include <xen/vmap.h>
+> >     #include <asm/alternative.h>
+> >   #include <asm/cpuerrata.h>
+> > @@ -275,36 +276,156 @@ static void ctxt_switch_to(struct vcpu *n)
+> >       virt_timer_restore(n);
+> >   }
+> >   -/* Update per-VCPU guest runstate shared memory area (if registered). */
+> > -static void update_runstate_area(struct vcpu *v)
+> > +static void cleanup_runstate_vcpu_locked(struct vcpu *v)
+> >   {
+> > -    void __user *guest_handle = NULL;
+> > +    if ( v->arch.runstate_guest )
+> > +    {
+> > +        vunmap((void *)((unsigned long)v->arch.runstate_guest &
+> > PAGE_MASK));
+> > +
+> > +        put_page(v->arch.runstate_guest_page[0]);
+> > +
+> > +        if ( v->arch.runstate_guest_page[1] )
+> > +            put_page(v->arch.runstate_guest_page[1]);
+> > +
+> > +        v->arch.runstate_guest = NULL;
+> > +    }
+> > +}
+> > +
+> > +void arch_vcpu_cleanup_runstate(struct vcpu *v)
+> > +{
+> > +    spin_lock(&v->arch.runstate_guest_lock);
+> > +
+> > +    cleanup_runstate_vcpu_locked(v);
+> > +
+> > +    spin_unlock(&v->arch.runstate_guest_lock);
+> > +}
+> > +
+> > +static int setup_runstate_vcpu_locked(struct vcpu *v, vaddr_t vaddr)
+> > +{
+> > +    unsigned int offset;
+> > +    mfn_t mfn[2];
+> > +    struct page_info *page;
+> > +    unsigned int numpages;
+> >       struct vcpu_runstate_info runstate;
+> > +    void *p;
+> >   -    if ( guest_handle_is_null(runstate_guest(v)) )
+> > -        return;
+> > +    /* user can pass a NULL address to unregister a previous area */
+> > +    if ( vaddr == 0 )
+> > +        return 0;
+> > +
+> > +    offset = vaddr & ~PAGE_MASK;
+> > +
+> > +    /* provided address must be aligned to a 64bit */
+> > +    if ( offset % alignof(struct vcpu_runstate_info) )
+> 
+> This new restriction wants to be explained in the commit message and public
+> header.
+> 
+> > +    {
+> > +        gprintk(XENLOG_WARNING, "Cannot map runstate pointer at
+> > 0x%"PRIvaddr
+> > +                ": Invalid offset\n", vaddr);
+> 
+> We usually enforce 80 character per lines except for format string. So it is
+> easier to grep them in the code.
+> 
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    page = get_page_from_gva(v, vaddr, GV2M_WRITE);
+> > +    if ( !page )
+> > +    {
+> > +        gprintk(XENLOG_WARNING, "Cannot map runstate pointer at
+> > 0x%"PRIvaddr
+> > +                ": Page is not mapped\n", vaddr);
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    mfn[0] = page_to_mfn(page);
+> > +    v->arch.runstate_guest_page[0] = page;
+> > +
+> > +    if ( offset > (PAGE_SIZE - sizeof(struct vcpu_runstate_info)) )
+> > +    {
+> > +        /* guest area is crossing pages */
+> > +        page = get_page_from_gva(v, vaddr + PAGE_SIZE, GV2M_WRITE);
+> > +        if ( !page )
+> > +        {
+> > +            put_page(v->arch.runstate_guest_page[0]);
+> > +            gprintk(XENLOG_WARNING,
+> > +                    "Cannot map runstate pointer at 0x%"PRIvaddr
+> > +                    ": 2nd Page is not mapped\n", vaddr);
+> > +            return -EINVAL;
+> > +        }
+> > +        mfn[1] = page_to_mfn(page);
+> > +        v->arch.runstate_guest_page[1] = page;
+> > +        numpages = 2;
+> > +    }
+> > +    else
+> > +    {
+> > +        v->arch.runstate_guest_page[1] = NULL;
+> > +        numpages = 1;
+> > +    }
+> >   -    memcpy(&runstate, &v->runstate, sizeof(runstate));
+> > +    p = vmap(mfn, numpages);
+> > +    if ( !p )
+> > +    {
+> > +        put_page(v->arch.runstate_guest_page[0]);
+> > +        if ( numpages == 2 )
+> > +            put_page(v->arch.runstate_guest_page[1]);
+> >   -    if ( VM_ASSIST(v->domain, runstate_update_flag) )
+> > +        gprintk(XENLOG_WARNING, "Cannot map runstate pointer at
+> > 0x%"PRIvaddr
+> > +                ": vmap error\n", vaddr);
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    v->arch.runstate_guest = p + offset;
+> > +
+> > +    if (v == current)
+> > +        memcpy(v->arch.runstate_guest, &v->runstate, sizeof(v->runstate));
+> > +    else
+> >       {
+> > -        guest_handle = &v->runstate_guest.p->state_entry_time + 1;
+> > -        guest_handle--;
+> > -        runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
+> > -        __raw_copy_to_guest(guest_handle,
+> > -                            (void *)(&runstate.state_entry_time + 1) - 1,
+> > 1);
+> > -        smp_wmb();
+> > +        vcpu_runstate_get(v, &runstate);
+> > +        memcpy(v->arch.runstate_guest, &runstate, sizeof(v->runstate));
+> >       }
+> >   -    __copy_to_guest(runstate_guest(v), &runstate, 1);
+> > +    return 0;
+> > +}
+> > +
+> > +int arch_vcpu_setup_runstate(struct vcpu *v,
+> > +                             struct vcpu_register_runstate_memory_area
+> > area)
+> > +{
+> > +    int rc;
+> > +
+> > +    spin_lock(&v->arch.runstate_guest_lock);
+> > +
+> > +    /* cleanup if we are recalled */
+> > +    cleanup_runstate_vcpu_locked(v);
+> > +
+> > +    rc = setup_runstate_vcpu_locked(v, (vaddr_t)area.addr.v);
+> > +
+> > +    spin_unlock(&v->arch.runstate_guest_lock);
+> >   -    if ( guest_handle )
+> > +    return rc;
+> > +}
+> > +
+> > +
+> > +/* Update per-VCPU guest runstate shared memory area (if registered). */
+> > +static void update_runstate_area(struct vcpu *v)
+> > +{
+> > +    spin_lock(&v->arch.runstate_guest_lock);
+> > +
+> > +    if ( v->arch.runstate_guest )
+> >       {
+> > -        runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
+> > -        smp_wmb();
+> > -        __raw_copy_to_guest(guest_handle,
+> > -                            (void *)(&runstate.state_entry_time + 1) - 1,
+> > 1);
+> > +        if ( VM_ASSIST(v->domain, runstate_update_flag) )
+> > +        {
+> > +            v->runstate.state_entry_time |= XEN_RUNSTATE_UPDATE;
+> > +            write_atomic(&(v->arch.runstate_guest->state_entry_time),
+> > +                    v->runstate.state_entry_time);
+> 
+> NIT: You want to indent v-> at the same level as the argument from the first
+> line.
+> 
+> Also, I think you are missing a smp_wmb() here.
+
+I just wanted to add that I reviewed the patch and aside from the
+smp_wmb (and the couple of code style NITs), there is no other issue in
+the patch that I could find. No further comments from my side.
+
+
+> > +        }
+> > +
+> > +        memcpy(v->arch.runstate_guest, &v->runstate, sizeof(v->runstate));
+> > +
+> > +        if ( VM_ASSIST(v->domain, runstate_update_flag) )
+> > +        {
+> > +            /* copy must be done before switching the bit */
+> > +            smp_wmb();
+> > +            v->runstate.state_entry_time &= ~XEN_RUNSTATE_UPDATE;
+> > +            write_atomic(&(v->arch.runstate_guest->state_entry_time),
+> > +                    v->runstate.state_entry_time);
+> 
+> Same remark for the indentation.
 
