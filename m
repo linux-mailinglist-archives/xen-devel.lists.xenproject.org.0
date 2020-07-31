@@ -2,64 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EB372340ED
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 10:13:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D410234151
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 10:39:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Q9s-0003eY-Bf; Fri, 31 Jul 2020 08:12:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k1QZ9-0005UD-Cg; Fri, 31 Jul 2020 08:38:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xDYK=BK=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1k1Q9r-0003eT-2z
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 08:12:51 +0000
-X-Inumbo-ID: 9fbc8842-d305-11ea-8e14-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9fbc8842-d305-11ea-8e14-bc764e2007e4;
- Fri, 31 Jul 2020 08:12:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596183170;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=orBigK7HqKlYuFLBbF5hlm/uG7lMoFm/YSH2dLvDWT8=;
- b=SqNv6IY3Gk+K1hVuwa3SWi532gWiBXAnNLZE35rs9sJpGrqoC0PAsQPu
- G8R7kGHfcBdp4btagUnGh2dxFBNg4g9g3Q56Xmc6n2vrDJ+iCWATm3xDS
- xEl+AxXP6lYmbzvzd7t78qMvUoMtByg5y/QsRr0rZWgDIcZHBESRQPXDy k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: aTKWflshIQYZiRGFowlSt8uYZHLOxGIFHVqPkTgbEUeY+d3imjLlTXY30yyXRe4XQ6PzRuNy4t
- H4N7Rr+bgVtqyPVEcJ2CmvItFwmC/jdKykQQaNd5jjdeIKxi2Pi2Qgx6ZzbgUNoEtgzkPVc1Xo
- 4swGR/UCLnC7Xno15vG4gC+nOM8JaXVxe6gna3a/7Fh8H/rpU2nsUxyVk9Y/WDFzXtxqwzckjN
- SFvPj98a4cTjnuyuurE96iqeQWhrbYEaJxD1Y4MMCHiOgUOLwd4aa4ZfAvkL4ijMajV4gHXKsv
- uhs=
-X-SBRS: 2.7
-X-MesageID: 24486609
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,417,1589256000"; d="scan'208";a="24486609"
-Date: Fri, 31 Jul 2020 10:12:40 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 1/4] x86: replace __ASM_{CL,ST}AC
-Message-ID: <20200731081240.GA88772@Air-de-Roger>
-References: <58b9211a-f6dd-85da-d0bd-c927ac537a5d@suse.com>
- <fc8e042e-fef8-ac38-34d8-16b13e4b0135@suse.com>
- <20200727145526.GR7191@Air-de-Roger>
- <b29e4b17-8ec2-a0db-8426-94393e9eb2c0@suse.com>
- <20200728090618.GZ7191@Air-de-Roger>
- <32c79b37-a93c-7a72-7c0f-753cf603adfb@suse.com>
+ <SRS0=ALHA=BK=amazon.com=prvs=474dac838=elnikety@srs-us1.protection.inumbo.net>)
+ id 1k1QZ7-0005U8-PO
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 08:38:57 +0000
+X-Inumbo-ID: 45955296-d309-11ea-ab8f-12813bfff9fa
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 45955296-d309-11ea-ab8f-12813bfff9fa;
+ Fri, 31 Jul 2020 08:38:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1596184737; x=1627720737;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=dbgp+mgGDpt6s0BH/lBjYcctpiFZ1oBJvtaGhj7elSI=;
+ b=WZrgQmAUBRdsroZSebACoVCI9cGqtIxCh2Hl2qDt3a5UOAcqLX+GDt8r
+ aAK8DaT4aETZOuI6nLdz39ByiFCdoBsN55NugdE/txTAFRG5ldq8SaneF
+ dknELemtUy+gD3VgncuTcERd6MU61VyW74ciH92lWx7d37iXMT+VK7e8g I=;
+IronPort-SDR: eQz03h9VQxdct/SIk99QwxVxrYimMz/qsRmT86awONPy6YNdnUf0k1u+h8BUru/kbOYbc7wZGO
+ Y3GKuMEcscpQ==
+X-IronPort-AV: E=Sophos;i="5.75,417,1589241600"; d="scan'208";a="64481883"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-1d-f273de60.us-east-1.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
+ 31 Jul 2020 08:38:51 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
+ by email-inbound-relay-1d-f273de60.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 01285A216B; Fri, 31 Jul 2020 08:38:49 +0000 (UTC)
+Received: from EX13D03EUA002.ant.amazon.com (10.43.165.166) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 31 Jul 2020 08:38:49 +0000
+Received: from a483e73f63b0.ant.amazon.com (10.43.161.203) by
+ EX13D03EUA002.ant.amazon.com (10.43.165.166) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 31 Jul 2020 08:38:45 +0000
+Subject: Re: [PATCH] x86/vhpet: Fix type size in timer_int_route_valid
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Eslam Elnikety <elnikety@amazon.com>
+References: <20200728083357.77999-1-elnikety@amazon.com>
+ <a55fba45-a008-059e-ea8c-b7300e2e8b7d@citrix.com>
+ <278f0f31-619b-a392-6627-e75e65d0d14f@suse.com>
+From: Eslam Elnikety <elnikety@amazon.com>
+Message-ID: <076df48e-0010-bb8d-891f-dc89aa4b9439@amazon.com>
+Date: Fri, 31 Jul 2020 10:38:40 +0200
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+In-Reply-To: <278f0f31-619b-a392-6627-e75e65d0d14f@suse.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <32c79b37-a93c-7a72-7c0f-753cf603adfb@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+X-Originating-IP: [10.43.161.203]
+X-ClientProxiedBy: EX13D37UWA003.ant.amazon.com (10.43.160.25) To
+ EX13D03EUA002.ant.amazon.com (10.43.165.166)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -67,49 +74,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.co.uk>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Jul 31, 2020 at 10:05:07AM +0200, Jan Beulich wrote:
-> On 28.07.2020 11:06, Roger Pau Monné wrote:
-> > On Mon, Jul 27, 2020 at 09:47:52PM +0200, Jan Beulich wrote:
-> >> On 27.07.2020 16:55, Roger Pau Monné wrote:
-> >>> On Wed, Jul 15, 2020 at 12:48:14PM +0200, Jan Beulich wrote:
-> >>>> --- /dev/null
-> >>>> +++ b/xen/include/asm-x86/asm-defns.h
-> >>>
-> >>> Maybe this could be asm-insn.h or a different name? I find it
-> >>> confusing to have asm-defns.h and an asm_defs.h.
-> >>
-> >> While indeed I anticipated a reply to this effect, I don't consider
-> >> asm-insn.h or asm-macros.h suitable: We don't want to limit this
-> >> header to a more narrow purpose than "all sorts of definition", I
-> >> don't think. Hence I chose that name despite its similarity to the
-> >> C header's one.
-> > 
-> > I think it's confusing, but I also think the whole magic we do with
-> > asm includes is already confusing (me), so if you and Andrew agree
-> > this is the best name I'm certainly fine with it. FWIW:
-> > 
-> > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> > 
-> > Please quote the clac/stac instructions in order to match the other
-> > usages of ALTERNATIVE.
+On 28.07.20 19:51, Jan Beulich wrote:
+> On 28.07.2020 11:26, Andrew Cooper wrote:
+>> Does this work?
+>>
+>> diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
+>> index ca94e8b453..638f6174de 100644
+>> --- a/xen/arch/x86/hvm/hpet.c
+>> +++ b/xen/arch/x86/hvm/hpet.c
+>> @@ -62,8 +62,7 @@
+>>   #define timer_int_route(h, n)    MASK_EXTR(timer_config(h, n),
+>> HPET_TN_ROUTE)
+>> -#define timer_int_route_cap(h, n) \
+>> -    MASK_EXTR(timer_config(h, n), HPET_TN_INT_ROUTE_CAP)
+>> +#define timer_int_route_cap(h, n) (h)->hpet.timers[(n)].route
 > 
-> We're not consistently quoting when there's just a single word, see
-> in particular spec_ctrl_asm.h. And thinking about it again I also
-> don't see why we would want or need to enforce quotation when none
-> is needed. Therefore both here and in patch 2 I'll keep (or make,
-> when I touch a line anyway) things consistently unquoted where no
-> quotes are needed. Please let me know if your R-b holds without the
-> requested adjustment.
+> Seeing that this is likely the route taken here, and hence to avoid
+> an extra round trip, two remarks: Here I see no need for the
+> parentheses inside the square brackets.
+> 
 
-Yes, I'm fine as long as we are consistent with quoting of single word
-instructions. Ideally I would like that we quote both single and multi
-word for consistency, but you are the one doing the work so I'm not
-going to oppose to not quoting single words.
+Will take of this in v2.
 
-Thanks, Roger.
+>> diff --git a/xen/include/asm-x86/hvm/vpt.h 
+>> b/xen/include/asm-x86/hvm/vpt.h
+>> index f0e0eaec83..a41fc443cc 100644
+>> --- a/xen/include/asm-x86/hvm/vpt.h
+>> +++ b/xen/include/asm-x86/hvm/vpt.h
+>> @@ -73,7 +73,13 @@ struct hpet_registers {
+>>       uint64_t isr;               /* interrupt status reg */
+>>       uint64_t mc64;              /* main counter */
+>>       struct {                    /* timers */
+>> -        uint64_t config;        /* configuration/cap */
+>> +        union {
+>> +            uint64_t config;    /* configuration/cap */
+>> +            struct {
+>> +                uint32_t _;
+>> +                uint32_t route;
+>> +            };
+>> +        };
+> 
+> So long as there are no static initializers for this construct
+> that would then suffer the old-gcc problem, this is of course a
+> fine arrangement to make.
+> 
+
+I have to admit that I have no clue what the "old-gcc" problem is. I am 
+curious, and I would appreciate pointers to figure out if/how to 
+resolve. Is that an old, existing problem? Or a problem that was present 
+in older versions of gcc? If the latter, is that a gcc version that we 
+still care about? Thanks, Jan.
+
+-- Eslam
+
+> Jan
+> 
+
 
