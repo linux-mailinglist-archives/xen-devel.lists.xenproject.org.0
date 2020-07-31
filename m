@@ -2,58 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2281A234477
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 13:21:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93CCA234479
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 13:22:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1T6J-0004HE-PP; Fri, 31 Jul 2020 11:21:23 +0000
+	id 1k1T77-0004Kv-5I; Fri, 31 Jul 2020 11:22:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oG5j=BK=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k1T6I-0004H9-Ot
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 11:21:22 +0000
-X-Inumbo-ID: f5d6ab58-d31f-11ea-8e24-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=OD0g=BK=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k1T76-0004K9-8v
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 11:22:12 +0000
+X-Inumbo-ID: 106b08ec-d320-11ea-8e24-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f5d6ab58-d31f-11ea-8e24-bc764e2007e4;
- Fri, 31 Jul 2020 11:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596194481;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=+P1KIq/6Ywxtu4pyKU6IAI26bhhPg71MBoPm2a6aTl4=;
- b=XDsBhj0D5p64Qfq8zOAY+o0ThNqjLavS8XD0YpO5JfJ30/Ed8rxfZdFY
- OnZsNunxIhCHL+KQiP2/T7gZVKb0tL0lbrjgK2zE9sJggEVG7Kt4YqkhV
- J97RLrItIVg5cTSfS3A9n9Nw0SKhMKSH2816ZSa3N6X1O/Jj/d6mBUCw0 g=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: uphDXr02WgtTe1GvOXKeVMjNOgwYLd2gH0NC1Vc5TBbEzCsHctGsV4rui27Z52AJGMyC+pNrsq
- MDorvIzNOkt6vWz/pU11LWx+qXRG2M/2ypVSHxCckwRAXWgU96MGgZwZw3i5p4EN8Xcvdl5Odg
- 1cD+89pcZcjv18Gr9n1Srx279TCT6mM8mddPFbghyrsRrLtKGrj6dE6euuhSyWCszb7h+Rjtxm
- ttha+qKUtaJc8UeffoVnTxbqruQ1INNAKCK+QBs3OpgYOBHCKPEJ5zN65CgWgoCAOO0lxl5xym
- a4g=
-X-SBRS: 3.7
-X-MesageID: 23633986
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,418,1589256000"; d="scan'208";a="23633986"
-Subject: Re: [PATCH] x86/hvm: set 'ipat' in EPT for special pages
-To: Paul Durrant <paul@xen.org>, <xen-devel@lists.xenproject.org>
-References: <20200731104644.20906-1-paul@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <dba8c4c4-dfdd-9935-2d59-7bcee7615361@citrix.com>
-Date: Fri, 31 Jul 2020 12:21:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200731104644.20906-1-paul@xen.org>
-Content-Type: text/plain; charset="utf-8"
+ id 106b08ec-d320-11ea-8e24-bc764e2007e4;
+ Fri, 31 Jul 2020 11:22:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Ap/7AY2WC4LRe14wSyQ8HpMEhPyBDf0CYwEZHiRq8KQ=; b=sUNwSlFPTrEqNDIhqVVS5z/xe
+ wnOwL9o9yHKK6yTEBZXetbvmjtFPoMLrndTPYeLFAYfqVA2mgUkTMK6kDuN1pDvo4RUwvMCyH2977
+ GJ9Z9aVOGR/l0KgKptY/1eSRJgnZXDNEHl9di9NtoKYJ+dwBsCDi4bwyWuzUh19ZioZV0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1T6z-0007p8-58; Fri, 31 Jul 2020 11:22:05 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1T6y-0001vx-N6; Fri, 31 Jul 2020 11:22:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k1T6y-0006ga-MK; Fri, 31 Jul 2020 11:22:04 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152317-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+MIME-Version: 1.0
+Subject: [libvirt test] 152317: regressions - FAIL
+X-Osstest-Failures: libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=f7f5b86be25d27915cc67a8b84fa9a2589df4ab8
+X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 31 Jul 2020 11:22:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,46 +78,134 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <pdurrant@amazon.com>, Wei
- Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31/07/2020 11:46, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
->
-> All non-MMIO ranges (i.e those not mapping real device MMIO regions) that
-> map valid MFNs are normally marked MTRR_TYPE_WRBACK and 'ipat' is set. Hence
-> when PV drivers running in a guest populate the BAR space of the Xen Platform
-> PCI Device with pages such as the Shared Info page or Grant Table pages,
-> accesses to these pages will be cachable.
->
-> However, should IOMMU mappings be enabled be enabled for the guest then these
-> accesses become uncachable. This has a substantial negative effect on I/O
-> throughput of PV devices. Arguably PV drivers should bot be using BAR space to
-> host the Shared Info and Grant Table pages but it is currently commonplace for
-> them to do this and so this problem needs mitigation. Hence this patch makes
-> sure the 'ipat' bit is set for any special page regardless of where in GFN
-> space it is mapped.
->
-> NOTE: Clearly this mitigation only applies to Intel EPT. It is not obvious
->       that there is any similar mitigation possible for AMD NPT. Downstreams
->       such as Citrix XenServer have been carrying a patch similar to this for
->       several releases though.
+flight 152317 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152317/
 
-https://github.com/xenserver/xen.pg/blob/XS-8.2.x/master/xen-override-caching-cp-26562.patch
+Regressions :-(
 
-(Yay for internal ticket references escaping into the wild.)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+
+version targeted for testing:
+ libvirt              f7f5b86be25d27915cc67a8b84fa9a2589df4ab8
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z   21 days
+Failing since        151818  2020-07-11 04:18:52 Z   20 days   21 attempts
+Testing same since   152317  2020-07-31 04:19:03 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Weblate <noreply@weblate.org>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
-However, it is very important to be aware that this is just papering
-over the problem, and it will cease to function as soon as we get MKTME
-support.  When we hit that point, iPAT cannot be used, as it will cause
-data corruption in guests.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-The only correct way to fix this is to not (mis)use BAR space for RAM
-mappings.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-~Andrew
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 3102 lines long.)
 
