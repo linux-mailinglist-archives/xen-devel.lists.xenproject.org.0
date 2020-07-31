@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F3E234510
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:02:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6189234506
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:01:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Tjk-00022R-Ud; Fri, 31 Jul 2020 12:02:08 +0000
+	id 1k1Tis-0001TI-Bv; Fri, 31 Jul 2020 12:01:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nr0X=BK=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1k1Tjk-000224-5W
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:02:08 +0000
-X-Inumbo-ID: a796ee7b-d325-11ea-8e2b-bc764e2007e4
+ id 1k1Tiq-0001R9-36
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:01:12 +0000
+X-Inumbo-ID: 8663f32e-d325-11ea-8e2b-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a796ee7b-d325-11ea-8e2b-bc764e2007e4;
- Fri, 31 Jul 2020 12:02:07 +0000 (UTC)
+ id 8663f32e-d325-11ea-8e2b-bc764e2007e4;
+ Fri, 31 Jul 2020 12:01:11 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1k1TMs-0001W4-9R; Fri, 31 Jul 2020 12:38:30 +0100
+ id 1k1TMs-0001W4-Th; Fri, 31 Jul 2020 12:38:31 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH v2 11/41] sg-report-flight: Use the job row from the
- intitial query
-Date: Fri, 31 Jul 2020 12:37:50 +0100
-Message-Id: <20200731113820.5765-12-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH v2 13/41] duration_estimator: Ignore truncated jobs
+ unless we know the step
+Date: Fri, 31 Jul 2020 12:37:52 +0100
+Message-Id: <20200731113820.5765-14-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
 References: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
@@ -47,59 +47,47 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-$jcheckq is redundant: we looked this up right at the start.
+If we are looking for a particular step then we will ignore jobs
+without that step, so any job which was truncated before it will be
+ignored.
 
-This is not expected to speed things up very much, but it makes things
-somewhat cleaner and clearer.
+Otherwise we are looking for the whole job duration and a truncated
+job is not a good representative.
+
+This is a bugfix (to duration estimation), not a performance
+improvement like the preceding and subsequent changes.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- sg-report-flight | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ Osstest/Executive.pm | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sg-report-flight b/sg-report-flight
-index d218b24e..cb6b8174 100755
---- a/sg-report-flight
-+++ b/sg-report-flight
-@@ -160,10 +160,6 @@ sub findaflight ($$$$$) {
-         return undef;
-     }
+diff --git a/Osstest/Executive.pm b/Osstest/Executive.pm
+index 9208d8af..f528edd0 100644
+--- a/Osstest/Executive.pm
++++ b/Osstest/Executive.pm
+@@ -1142,6 +1142,10 @@ sub duration_estimator ($$;$$) {
+     # estimated (and only jobs which contained that step will be
+     # considered).
  
--    my $jcheckq= db_prepare(<<END);
--        SELECT status FROM jobs WHERE flight=? AND job=?
--END
--
-     my $checkq= db_prepare(<<END);
-         SELECT status FROM steps WHERE flight=? AND job=? AND testid=?
-                                    AND status!='skip'
-@@ -263,7 +259,7 @@ $runvars_conds
-             ORDER BY flight DESC
-             LIMIT 1000
-       )
--      SELECT *
-+      SELECT flight, jobs.status
-         FROM sub
- $flightsq_jobs_join
-        WHERE (1=1)
-@@ -304,7 +300,7 @@ END
-                 WHERE flight=?
- END
- 
--    while (my ($tflight) = $flightsq->fetchrow_array) {
-+    while (my ($tflight, $tjstatus) = $flightsq->fetchrow_array) {
- 	# Recurse from the starting flight looking for relevant build
- 	# jobs.  We start with all jobs in $tflight, and for each job
- 	# we also process any other jobs it refers to in *buildjob runvars.
-@@ -407,8 +403,7 @@ END
-             $checkq->execute($tflight, $job, $testid);
-             ($chkst) = $checkq->fetchrow_array();
- 	    if (!defined $chkst) {
--		$jcheckq->execute($tflight, $job);
--		my ($jchkst) = $jcheckq->fetchrow_array();
-+		my $jchkst = $tflight->{status};
- 		$chkst = $jchkst if $jchkst eq 'starved';
- 	    }
-         }
++    my $or_status_truncated = '';
++    if ($will_uptoincl_testid) {
++	$or_status_truncated = "OR j.status='truncated'!";
++    }
+     my $recentflights_q= $dbh_tests->prepare(<<END);
+             SELECT f.flight AS flight,
+ 		   f.started AS started,
+@@ -1156,8 +1160,8 @@ sub duration_estimator ($$;$$) {
+                       AND  f.branch=?
+                       AND  j.job=?
+                       AND  r.val=?
+-		      AND  (j.status='pass' OR j.status='fail' OR
+-                            j.status='truncated')
++		      AND  (j.status='pass' OR j.status='fail'
++                           $or_status_truncated)
+                       AND  f.started IS NOT NULL
+                       AND  f.started >= ?
+                  ORDER BY f.started DESC
 -- 
 2.20.1
 
