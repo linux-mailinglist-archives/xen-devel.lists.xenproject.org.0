@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6189234506
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:01:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF145234507
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 14:01:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Tis-0001TI-Bv; Fri, 31 Jul 2020 12:01:14 +0000
+	id 1k1Tiu-0001Uc-LW; Fri, 31 Jul 2020 12:01:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nr0X=BK=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
- id 1k1Tiq-0001R9-36
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:01:12 +0000
-X-Inumbo-ID: 8663f32e-d325-11ea-8e2b-bc764e2007e4
+ id 1k1Tit-0001R9-Mw
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 12:01:15 +0000
+X-Inumbo-ID: 88960e84-d325-11ea-8e2b-bc764e2007e4
 Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8663f32e-d325-11ea-8e2b-bc764e2007e4;
- Fri, 31 Jul 2020 12:01:11 +0000 (UTC)
+ id 88960e84-d325-11ea-8e2b-bc764e2007e4;
+ Fri, 31 Jul 2020 12:01:15 +0000 (UTC)
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
  (return-path ijackson@chiark.greenend.org.uk)
- id 1k1TMs-0001W4-Th; Fri, 31 Jul 2020 12:38:31 +0100
+ id 1k1TMt-0001W4-GK; Fri, 31 Jul 2020 12:38:31 +0100
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: xen-devel@lists.xenproject.org
-Subject: [OSSTEST PATCH v2 13/41] duration_estimator: Ignore truncated jobs
- unless we know the step
-Date: Fri, 31 Jul 2020 12:37:52 +0100
-Message-Id: <20200731113820.5765-14-ian.jackson@eu.citrix.com>
+Subject: [OSSTEST PATCH v2 14/41] duration_estimator: Introduce some _qtxt
+ variables
+Date: Fri, 31 Jul 2020 12:37:53 +0100
+Message-Id: <20200731113820.5765-15-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
 References: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
@@ -47,47 +47,44 @@ Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-If we are looking for a particular step then we will ignore jobs
-without that step, so any job which was truncated before it will be
-ignored.
-
-Otherwise we are looking for the whole job duration and a truncated
-job is not a good representative.
-
-This is a bugfix (to duration estimation), not a performance
-improvement like the preceding and subsequent changes.
+No functional change.
 
 Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
- Osstest/Executive.pm | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ Osstest/Executive.pm | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/Osstest/Executive.pm b/Osstest/Executive.pm
-index 9208d8af..f528edd0 100644
+index f528edd0..4cb22cc9 100644
 --- a/Osstest/Executive.pm
 +++ b/Osstest/Executive.pm
-@@ -1142,6 +1142,10 @@ sub duration_estimator ($$;$$) {
-     # estimated (and only jobs which contained that step will be
-     # considered).
- 
-+    my $or_status_truncated = '';
-+    if ($will_uptoincl_testid) {
-+	$or_status_truncated = "OR j.status='truncated'!";
-+    }
-     my $recentflights_q= $dbh_tests->prepare(<<END);
+@@ -1146,7 +1146,7 @@ sub duration_estimator ($$;$$) {
+     if ($will_uptoincl_testid) {
+ 	$or_status_truncated = "OR j.status='truncated'!";
+     }
+-    my $recentflights_q= $dbh_tests->prepare(<<END);
++    my $recentflights_qtxt= <<END;
              SELECT f.flight AS flight,
  		   f.started AS started,
-@@ -1156,8 +1160,8 @@ sub duration_estimator ($$;$$) {
-                       AND  f.branch=?
-                       AND  j.job=?
-                       AND  r.val=?
--		      AND  (j.status='pass' OR j.status='fail' OR
--                            j.status='truncated')
-+		      AND  (j.status='pass' OR j.status='fail'
-+                           $or_status_truncated)
-                       AND  f.started IS NOT NULL
-                       AND  f.started >= ?
+                    j.status AS status
+@@ -1167,7 +1167,7 @@ sub duration_estimator ($$;$$) {
                   ORDER BY f.started DESC
+ END
+ 
+-    my $duration_anyref_q= $dbh_tests->prepare(<<END);
++    my $duration_anyref_qtxt= <<END;
+             SELECT f.flight AS flight,
+                    max(s.finished) AS max_finished
+ 		      FROM steps s JOIN flights f
+@@ -1212,6 +1212,8 @@ END_UPTOINCL
+                 AS duration
+ END_ALWAYS
+ 	
++    my $recentflights_q= $dbh_tests->prepare($recentflights_qtxt);
++    my $duration_anyref_q= $dbh_tests->prepare($duration_anyref_qtxt);
+     my $duration_duration_q = $dbh_tests->prepare($duration_duration_qtxt);
+ 
+     return sub {
 -- 
 2.20.1
 
