@@ -2,66 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2BDF2347A4
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 16:21:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57A352347B3
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jul 2020 16:25:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k1Vub-0003qs-Sm; Fri, 31 Jul 2020 14:21:29 +0000
+	id 1k1VyQ-00041r-J1; Fri, 31 Jul 2020 14:25:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GLoN=BK=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1k1Vua-0003qM-7L
- for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 14:21:28 +0000
-X-Inumbo-ID: 1e777d76-d339-11ea-8e4a-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=7AOU=BK=gmail.com=rjwysocki@srs-us1.protection.inumbo.net>)
+ id 1k1VyP-00041l-62
+ for xen-devel@lists.xenproject.org; Fri, 31 Jul 2020 14:25:25 +0000
+X-Inumbo-ID: abda3475-d339-11ea-8e4a-bc764e2007e4
+Received: from mail-oi1-f193.google.com (unknown [209.85.167.193])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1e777d76-d339-11ea-8e4a-bc764e2007e4;
- Fri, 31 Jul 2020 14:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596205286;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=SafftgoayHAnHb15nG5Edak7dqbBFqff/CHbv1T2iLs=;
- b=hCDIny1mvTK3tzkElUyNVk9K3iTlf0H7JIUT7zYwrUqSOw5/h29lPCjL
- ZgvEu8xnHbuehv0E47Xv5I5Dmq4wGuRSSzDEB36nAe32Br5fOXj1Diexz
- YsOiaSmXkzMDida4iSQ5nHxXEQrwg5Nq6F8WlvDHN6X2gCcnXLMvy7Klu 8=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: rsUxuyQPNnXVk7MgZUD3od0Dw/CdEDO2LVUhHiV7bWM5rSRasc2Dla3iAP83zsmiJcYV259hyb
- Yxm9HB0H1g0+n3f7n+YsGtshAJzzF8aVWFjAvz8CSjO2VK5+uhoJ26jQ+EcrZotbloX96zmemH
- /x+EKBEsb3qa3gcsiZtf+BEzkIf8eOL5CVVVG8jX9/XoTJurU+HKxCYfdJSNgR5jbrSj8cu5vc
- aDdWJEE3QYgbe/kG1TDAdH8npKlUbuR3CXwIwqpJ0bTMbRSreEHnGUebeYgi+5mlb+ijJ5bAxH
- My8=
-X-SBRS: 3.7
-X-MesageID: 24508979
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,418,1589256000"; d="scan'208";a="24508979"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Ian Jackson <Ian.Jackson@citrix.com>
-Subject: Re: [OSSTEST PATCH v2 07/41] schema: Provide indices for
- sg-report-flight
-Thread-Topic: [OSSTEST PATCH v2 07/41] schema: Provide indices for
- sg-report-flight
-Thread-Index: AQHWZy8fK8s8vZ3fmUmSnUsHUP7xn6khm9aA
-Date: Fri, 31 Jul 2020 14:21:23 +0000
-Message-ID: <05461545-D39A-4B98-BC27-3560C367FE25@citrix.com>
-References: <20200731113820.5765-1-ian.jackson@eu.citrix.com>
- <20200731113820.5765-8-ian.jackson@eu.citrix.com>
-In-Reply-To: <20200731113820.5765-8-ian.jackson@eu.citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.80.23.2.2)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <51CFC83B5620394FAEF50EE1006261FC@citrix.com>
-Content-Transfer-Encoding: quoted-printable
+ id abda3475-d339-11ea-8e4a-bc764e2007e4;
+ Fri, 31 Jul 2020 14:25:24 +0000 (UTC)
+Received: by mail-oi1-f193.google.com with SMTP id e6so6627473oii.4
+ for <xen-devel@lists.xenproject.org>; Fri, 31 Jul 2020 07:25:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LUq1ijDD9SyO2ufTXKPW9//vrm+uL0JQvV8OQ7tDtyA=;
+ b=pLnw3WxW6FrK4QQGOgLG+9xHM1D6GN0ldJ0iGIAeulZbMBM0uHOzcTMagxg/H8fAO4
+ tW5YuAFhcW2TMHyiEsU/zmrntdTOzAYw2Sc2qtT1W6xU0AZUPWa+hifPtynqcPO9u1ec
+ KiN42KGd2iGlkwSYN5FQf6NRI1bxWQ6WKsjNhvs9K65ZmkX1jES87xsrouVRHTjJJukl
+ kbuV8AvYgsZcVFl2eDRfLeRCMzoWrHV62lfL17ASNAgY/wtTgvjT0IWFqS6/qF7gdyU8
+ XgNNKcubet3B0TQd0cM91bHhMhC9Tx8/qSwP8Uz4WBNXksR23cofCttcCo0bfofs8q6B
+ 4E/Q==
+X-Gm-Message-State: AOAM531BNEyH3M2OcY9HeGZKW0ImeE8GDk5/zBqeG9rE5iezMtekA9rz
+ Jzv9dktsWtlCE4T6ThAHLOBp2AvqTUPe+jH4RuA=
+X-Google-Smtp-Source: ABdhPJwXQdnG1otKOfzVxyL9Pv5KPx5Dv3MAzyWKLAJcQfKXU/RGMyj9PAedIsxXvXnE+QB4qD60adxhPMBESDi6fDY=
+X-Received: by 2002:aca:a88e:: with SMTP id r136mr3259373oie.110.1596205523967; 
+ Fri, 31 Jul 2020 07:25:23 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200717191009.GA3387@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <5464f384-d4b4-73f0-d39e-60ba9800d804@oracle.com>
+ <20200721000348.GA19610@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <408d3ce9-2510-2950-d28d-fdfe8ee41a54@oracle.com>
+ <alpine.DEB.2.21.2007211640500.17562@sstabellini-ThinkPad-T480s>
+ <20200722180229.GA32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <alpine.DEB.2.21.2007221645430.17562@sstabellini-ThinkPad-T480s>
+ <20200723225745.GB32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <alpine.DEB.2.21.2007241431280.17562@sstabellini-ThinkPad-T480s>
+ <66a9b838-70ed-0807-9260-f2c31343a081@oracle.com>
+ <20200730230634.GA17221@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <53b577a3-6af9-5587-7e47-485be38b3653@oracle.com>
+In-Reply-To: <53b577a3-6af9-5587-7e47-485be38b3653@oracle.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 31 Jul 2020 16:25:12 +0200
+Message-ID: <CAJZ5v0j2kqgEfbiQchiA_USwGKC-UFkn2J3bUU2xCWU=+1p9Mw@mail.gmail.com>
+Subject: Re: [PATCH v2 01/11] xen/manage: keep track of the on-going suspend
+ mode
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,48 +67,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: the arch/x86 maintainers <x86@kernel.org>, Len Brown <len.brown@intel.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Memory Management List <linux-mm@kvack.org>, Pavel Machek <pavel@ucw.cz>,
+ "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Eduardo Valentin <eduval@amazon.com>, Ingo Molnar <mingo@redhat.com>,
+ xen-devel@lists.xenproject.org, "Singh, Balbir" <sblbir@amazon.com>,
+ Jens Axboe <axboe@kernel.dk>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Anchal Agarwal <anchalag@amazon.com>, Borislav Petkov <bp@alien8.de>,
+ Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
+ netdev <netdev@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, "Kamata,
+ Munehisa" <kamatam@amazon.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+ David Miller <davem@davemloft.net>, David Woodhouse <dwmw@amazon.co.uk>,
+ roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Fri, Jul 31, 2020 at 4:14 PM Boris Ostrovsky
+<boris.ostrovsky@oracle.com> wrote:
+>
+> On 7/30/20 7:06 PM, Anchal Agarwal wrote:
+> > On Mon, Jul 27, 2020 at 06:08:29PM -0400, Boris Ostrovsky wrote:
+> >> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> >>
+> >>
+> >>
+> >> On 7/24/20 7:01 PM, Stefano Stabellini wrote:
+> >>> Yes, it does, thank you. I'd rather not introduce unknown regressions so
+> >>> I would recommend to add an arch-specific check on registering
+> >>> freeze/thaw/restore handlers. Maybe something like the following:
+> >>>
+> >>> #ifdef CONFIG_X86
+> >>>     .freeze = blkfront_freeze,
+> >>>     .thaw = blkfront_restore,
+> >>>     .restore = blkfront_restore
+> >>> #endif
+> >>>
+> >>>
+> >>> maybe Boris has a better suggestion on how to do it
+> >>
+> >> An alternative might be to still install pm notifier in
+> >> drivers/xen/manage.c (I think as result of latest discussions we decided
+> >> we won't need it) and return -ENOTSUPP for ARM for
+> >> PM_HIBERNATION_PREPARE and friends. Would that work?
+> >>
+> > I think the question here is for registering driver specific freeze/thaw/restore
+> > callbacks for x86 only. I have dropped the pm_notifier in the v3 still pending
+> > testing. So I think just registering driver specific callbacks for x86 only is a
+> > good option. What do you think?
+>
+>
+> I suggested using the notifier under assumption that if it returns an
+> error then that will prevent callbacks to be called because hibernation
+> will be effectively disabled.
 
-
-> On Jul 31, 2020, at 12:37 PM, Ian Jackson <ian.jackson@eu.citrix.com> wro=
-te:
->=20
-> These indexes allow very fast lookup of "relevant" flights eg when
-> trying to justify failures.
->=20
-> In my ad-hoc test case, these indices (along with the subsequent
-> changes to sg-report-flight and Executive.pm, reduce the runtime of
-> sg-report-flight from 2-3ks (unacceptably long!) to as little as
-> 5-7s seconds - a speedup of about 500x.
->=20
-> (Getting the database snapshot may take a while first, but deploying
-> this code should help with that too by reducing long-running
-> transactions.  Quoted perf timings are from snapshot acquisition.)
->=20
-> Without these new indexes there may be a performance change from the
-> query changes.  I haven't benchmarked this so I am setting the schema
-> updates to be Preparatory/Needed (ie, "Schema first" as
-> schema/README.updates has it), to say that the index should be created
-> before the new code is deployed.
->=20
-> Testing: I have tested this series by creating experimental indices
-> "trial_..." in the actual production instance.  (Transactional DDL was
-> very helpful with this.)  I have verified with \d that schema update
-> instructions in this commit generate indexes which are equivalent to
-> the trial indices.
->=20
-> Deployment: AFter these schema updates are applied, the trial indices
-> are redundant duplicates and should be deleted.
->=20
-> CC: George Dunlap <George.Dunlap@citrix.com>
-> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-I have no idea if building an index on a LIKE is a good idea or not, but it=
- certainly seems to be useful, so:
-
-Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
+That's correct.
 
