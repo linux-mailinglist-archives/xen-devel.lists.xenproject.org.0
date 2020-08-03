@@ -2,62 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 761C423AADB
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 18:47:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC7B23AAF0
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 18:53:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2dcb-0007xS-83; Mon, 03 Aug 2020 16:47:33 +0000
+	id 1k2dhz-0000Ml-Tr; Mon, 03 Aug 2020 16:53:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rARX=BN=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
- id 1k2dcZ-0007xN-G5
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 16:47:31 +0000
-X-Inumbo-ID: 05710384-d5a9-11ea-90ad-bc764e2007e4
-Received: from mail-ot1-x344.google.com (unknown [2607:f8b0:4864:20::344])
+ <SRS0=Dd1b=BN=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1k2dhy-0000Lq-Bq
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 16:53:06 +0000
+X-Inumbo-ID: cc940268-d5a9-11ea-90ad-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05710384-d5a9-11ea-90ad-bc764e2007e4;
- Mon, 03 Aug 2020 16:47:30 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id h16so8330682oti.7
- for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 09:47:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Usm/6h7N16x/wxM5TKQj5tj8P/i4BtTOOcp5csWYt4E=;
- b=Jtau3XcM89LL3xC7TEe3GAnS7qK4+9cw0OpAxEnX7eHGqhKSVKHxv0ZFe1n4UocDiA
- mW0JPWncTOEo2yO35nkxh4aFn+zGw2+aA4W/ReCP+h2fpz95V0mGkSoe9+AGG6RNt4ch
- Jwreu92lFF2+ySGmCXMOAecee4CVLUmQkNR1yDr1NqMMb3Fg6XX4+bmy2fH+dTx1wY+v
- TzPBygU05qkqPaKHH/lHj1kz20jXTapGgQ0iNov7HTY+sv7HLw7LbiCaMPlXdU4dPNK+
- ZloEswYISPKAZjCx7GJJBFVR6+KTg8gK9eNt3s8ELOQq+2DbPNembJz0OX6ZR/Lit81t
- zS3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Usm/6h7N16x/wxM5TKQj5tj8P/i4BtTOOcp5csWYt4E=;
- b=ZUR4hnhTcctoRDGoIXe5BJmpB0DlM+kN1pIsPG1+S63PQgJnlmYjM+Fr9SxoaUKwVC
- qB0kRS26s2aEJidnt96b+F4SXP0oAu7GcmZkWed487Db1/lRGXv5EbtnqH2u91VlhZL3
- Rzj19wv8yUEFIL4Aw+Kwj7FUAxG2VSQO1BMdKLnjz/VMD8fG4fsIz0Nj0vDMZ1+Rzsqp
- CiKk29NOKjNuXHx04qPW9FQCF/K0NfxnYbbObfU7p4lXesOwVPF5Yi6cHoXkH2maNgOP
- 7+s9EjEpRJnnwHNMTAaxVOqCSirnrMp9R/M6bNiWrJ+c40MMLft/wkhRomVi0q/9DQzW
- XGfQ==
-X-Gm-Message-State: AOAM531EI3mb3HIuVm4j2un2xfmWccFyV4dzpapOKuee5zA4WHe68PVo
- m354Y7cs9kq0tV/DCDhNu8jD7jxtTuKLAchm0I+m/w==
-X-Google-Smtp-Source: ABdhPJwL8bSuuMVu8QUpkQn41wKe+w9UJyQ8uUsj7OLcjzkDx+JlDczU0zS8LbPssRy+Hp1/anGlBwmjDitZlITg0E4=
-X-Received: by 2002:a9d:39c2:: with SMTP id y60mr14280078otb.91.1596473250307; 
- Mon, 03 Aug 2020 09:47:30 -0700 (PDT)
+ id cc940268-d5a9-11ea-90ad-bc764e2007e4;
+ Mon, 03 Aug 2020 16:53:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596473585;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qUEzT/sythxNJ9sGpLp+qH5wmPU56dvfrIxZ3Qy2z3c=;
+ b=BqeI4v5NTx3zl8AJtVKibCRO6SAhloXxc9MMwcmN9Qy5G4Hszyj5bpQj
+ ni947T/JFWJQ7TqDzVZ02wRunpXZttuTvrKk+eKyObDDFJLYnhgYhAoJx
+ Ngw6EfBC7IUzIy7Tmi/qZPk6U3g6+rnzr7hN9VD6fQGzw3HPX7M4Fj5IR E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: Hs8xDfMQ8nyk+/4NscBbN7hK37UarIUXmgFSJxkAi2tcwAHYMYp0cMsfQwhouMF5pAnfi1xWv1
+ dOG1ygyAZdGvaL5BcbMAeVBkVY3OqVTXE5R+/r6tP19JlyXRUPvBT0E8HZSHdCLXMMpAyHBhYu
+ 6GaPljbE5m3QcoAlEmh66MNNzO2R5dD99GvpB000qX0zt3k/e3XveVApjzhwMOL1ahkOeLwh4i
+ fAbtOfz7Xo741x4nrVNSn0S1RaIR1shXFDHO9GbHMZ8nAzoerHiXpZB2RIoVzXfCmAVCLRa8Ah
+ 6Hc=
+X-SBRS: 3.7
+X-MesageID: 23750296
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,430,1589256000"; d="scan'208";a="23750296"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <qemu-devel@nongnu.org>
+Subject: [PULL 0/1] xen queue 2020-08-03
+Date: Mon, 3 Aug 2020 17:52:50 +0100
+Message-ID: <20200803165251.907213-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <20200728100925.10454-1-philmd@redhat.com>
- <20200803163515.GD2866@perard.uk.xensource.com>
-In-Reply-To: <20200803163515.GD2866@perard.uk.xensource.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Mon, 3 Aug 2020 17:47:19 +0100
-Message-ID: <CAFEAcA9a-7uXwS2TcCH7nNGb0QAPaBu5sA=Ncox4c+6yMxe61Q@mail.gmail.com>
-Subject: Re: [PATCH-for-5.1] accel/xen: Fix xen_enabled() behavior on
- target-agnostic objects
-To: Anthony PERARD <anthony.perard@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,39 +58,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Paul Durrant <pdurrant@amazon.com>, QEMU Developers <qemu-devel@nongnu.org>,
- "open list:X86" <xen-devel@lists.xenproject.org>,
- Paolo Bonzini <pbonzini@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Peter Maydell <peter.maydell@linaro.org>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, 3 Aug 2020 at 17:35, Anthony PERARD <anthony.perard@citrix.com> wro=
-te:
->
-> On Tue, Jul 28, 2020 at 12:09:25PM +0200, Philippe Mathieu-Daud=C3=A9 wro=
-te:
-> > CONFIG_XEN is generated by configure and stored in "config-target.h",
-> > which is (obviously) only include for target-specific objects.
-> > This is a problem for target-agnostic objects as CONFIG_XEN is never
-> > defined and xen_enabled() is always inlined as 'false'.
-> >
-> > Fix by following the KVM schema, defining CONFIG_XEN_IS_POSSIBLE
-> > when we don't know to force the call of the non-inlined function,
-> > returning the xen_allowed boolean.
-> >
-> > Fixes: da278d58a092 ("accel: Move Xen accelerator code under accel/xen/=
-")
-> > Reported-by: Paul Durrant <pdurrant@amazon.com>
-> > Suggested-by: Peter Maydell <peter.maydell@linaro.org>
-> > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
->
-> Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+The following changes since commit 45a150aa2b3492acf6691c7bdbeb25a8545d8345:
 
-Note that rc3 is tomorrow so if you want this in 5.1 it would
-be a good idea to send a pullreq with it today...
+  Merge remote-tracking branch 'remotes/ericb/tags/pull-bitmaps-2020-08-03' into staging (2020-08-03 15:13:49 +0100)
 
-thanks
--- PMM
+are available in the Git repository at:
+
+  https://xenbits.xen.org/git-http/people/aperard/qemu-dm.git tags/pull-xen-20200803
+
+for you to fetch changes up to b3fcc98f391e9a60a369d825333b852871cf67b0:
+
+  accel/xen: Fix xen_enabled() behavior on target-agnostic objects (2020-08-03 17:39:38 +0100)
+
+----------------------------------------------------------------
+xen patches
+
+bug fix
+
+----------------------------------------------------------------
+Philippe Mathieu-Daudé (1):
+      accel/xen: Fix xen_enabled() behavior on target-agnostic objects
+
+ include/sysemu/xen.h | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
