@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB2723A9F0
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 17:54:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBAB223AA02
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 17:59:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2cm7-0002QP-3y; Mon, 03 Aug 2020 15:53:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k2crb-0002bl-Pf; Mon, 03 Aug 2020 15:58:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uwFZ=BN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k2cm5-0002QK-6g
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 15:53:17 +0000
-X-Inumbo-ID: 70fc0b2e-d5a1-11ea-af4f-12813bfff9fa
+ id 1k2cra-0002bg-8q
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 15:58:58 +0000
+X-Inumbo-ID: 3c6f5180-d5a2-11ea-90a4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 70fc0b2e-d5a1-11ea-af4f-12813bfff9fa;
- Mon, 03 Aug 2020 15:53:15 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3c6f5180-d5a2-11ea-90a4-bc764e2007e4;
+ Mon, 03 Aug 2020 15:58:56 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ED53EB02A;
- Mon,  3 Aug 2020 15:53:29 +0000 (UTC)
-Subject: Re: [PATCH v3 01/11] x86/iommu: re-arrange arch_iommu to separate
- common fields...
+ by mx2.suse.de (Postfix) with ESMTP id 50FA3B16E;
+ Mon,  3 Aug 2020 15:59:11 +0000 (UTC)
+Subject: Re: [PATCH v3 02/11] x86/iommu: add common page-table allocator
 To: Paul Durrant <paul@xen.org>
 References: <20200803122914.2259-1-paul@xen.org>
- <20200803122914.2259-2-paul@xen.org>
+ <20200803122914.2259-3-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2a5a0a65-81aa-2c1f-c98a-5e6fd54ba3df@suse.com>
-Date: Mon, 3 Aug 2020 17:53:13 +0200
+Message-ID: <1bc6fcbe-534a-b056-7744-e96eb4f09757@suse.com>
+Date: Mon, 3 Aug 2020 17:58:54 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200803122914.2259-2-paul@xen.org>
+In-Reply-To: <20200803122914.2259-3-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,53 +46,94 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
- Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>,
- xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 03.08.2020 14:29, Paul Durrant wrote:
 > From: Paul Durrant <pdurrant@amazon.com>
 > 
-> ... from those specific to VT-d or AMD IOMMU, and put the latter in a union.
+> Instead of having separate page table allocation functions in VT-d and AMD
+> IOMMU code, we could use a common allocation function in the general x86 code.
 > 
-> There is no functional change in this patch, although the initialization of
-> the 'mapped_rmrrs' list occurs slightly later in iommu_domain_init() since
-> it is now done (correctly) in VT-d specific code rather than in general x86
-> code.
-> 
-> NOTE: I have not combined the AMD IOMMU 'root_table' and VT-d 'pgd_maddr'
->       fields even though they perform essentially the same function. The
->       concept of 'root table' in the VT-d code is different from that in the
->       AMD code so attempting to use a common name will probably only serve
->       to confuse the reader.
+> This patch adds a new allocation function, iommu_alloc_pgtable(), for this
+> purpose. The function adds the page table pages to a list. The pages in this
+> list are then freed by iommu_free_pgtables(), which is called by
+> domain_relinquish_resources() after PCI devices have been de-assigned.
 > 
 > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-with a remark (can be taken care of while committing if no other
-need for a v4 arises):
-
-> @@ -598,11 +600,12 @@ static void amd_dump_p2m_table(struct domain *d)
->  {
->      const struct domain_iommu *hd = dom_iommu(d);
+> ---
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Wei Liu <wl@xen.org>
+> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> 
+> v2:
+>  - This is split out from a larger patch of the same name in v1
+> ---
+>  xen/arch/x86/domain.c               |  9 +++++-
+>  xen/drivers/passthrough/x86/iommu.c | 50 +++++++++++++++++++++++++++++
+>  xen/include/asm-x86/iommu.h         |  7 ++++
+>  3 files changed, 65 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index f8084dc9e3..d1ecc7b83b 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -2153,7 +2153,8 @@ int domain_relinquish_resources(struct domain *d)
+>          d->arch.rel_priv = PROG_ ## x; /* Fallthrough */ case PROG_ ## x
 >  
-> -    if ( !hd->arch.root_table )
-> +    if ( !hd->arch.amd.root_table )
+>          enum {
+> -            PROG_paging = 1,
+> +            PROG_iommu_pagetables = 1,
+> +            PROG_paging,
+>              PROG_vcpu_pagetables,
+>              PROG_shared,
+>              PROG_xen,
+
+Is there a particular reason to make this new item the very first
+one?
+
+> @@ -257,6 +260,53 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
 >          return;
+>  }
 >  
-> -    printk("p2m table has %d levels\n", hd->arch.paging_mode);
-> -    amd_dump_p2m_table_level(hd->arch.root_table, hd->arch.paging_mode, 0, 0);
-> +    printk("p2m table has %d levels\n", hd->arch.amd.paging_mode);
-> +    amd_dump_p2m_table_level(hd->arch.amd.root_table,
-> +                             hd->arch.amd.paging_mode, 0, 0);
+> +int iommu_free_pgtables(struct domain *d)
+> +{
+> +    struct domain_iommu *hd = dom_iommu(d);
+> +    struct page_info *pg;
+> +
+> +    while ( (pg = page_list_remove_head(&hd->arch.pgtables.list)) )
+> +    {
+> +        free_domheap_page(pg);
+> +
+> +        if ( general_preempt_check() )
+> +            return -ERESTART;
 
-At least where you touch the format string anyway, converting %d
-to %u where you converted fron plain int to unsigned int would be
-nice.
+Perhaps better only check once every so many pages?
+
+> +struct page_info *iommu_alloc_pgtable(struct domain *d)
+> +{
+> +    struct domain_iommu *hd = dom_iommu(d);
+> +    unsigned int memflags = 0;
+> +    struct page_info *pg;
+> +    void *p;
+> +
+> +#ifdef CONFIG_NUMA
+> +    if (hd->node != NUMA_NO_NODE)
+
+Missing blanks inside parentheses.
+
+> @@ -131,6 +135,9 @@ int pi_update_irte(const struct pi_desc *pi_desc, const struct pirq *pirq,
+>          iommu_vcall(ops, sync_cache, addr, size);       \
+>  })
+>  
+> +int __must_check iommu_free_pgtables(struct domain *d);
+> +struct page_info * __must_check iommu_alloc_pgtable(struct domain *d);
+
+Commonly we put a blank on the left side of *, but none to its right.
 
 Jan
 
