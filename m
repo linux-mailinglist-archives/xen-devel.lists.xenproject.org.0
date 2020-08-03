@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBAB223AA02
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 17:59:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB41D23AA20
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 18:04:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2crb-0002bl-Pf; Mon, 03 Aug 2020 15:58:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k2cwU-0003yH-DH; Mon, 03 Aug 2020 16:04:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uwFZ=BN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k2cra-0002bg-8q
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 15:58:58 +0000
-X-Inumbo-ID: 3c6f5180-d5a2-11ea-90a4-bc764e2007e4
+ id 1k2cwS-0003yC-Gx
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 16:04:00 +0000
+X-Inumbo-ID: f0d9ae5e-d5a2-11ea-af51-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3c6f5180-d5a2-11ea-90a4-bc764e2007e4;
- Mon, 03 Aug 2020 15:58:56 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f0d9ae5e-d5a2-11ea-af51-12813bfff9fa;
+ Mon, 03 Aug 2020 16:03:59 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 50FA3B16E;
- Mon,  3 Aug 2020 15:59:11 +0000 (UTC)
-Subject: Re: [PATCH v3 02/11] x86/iommu: add common page-table allocator
+ by mx2.suse.de (Postfix) with ESMTP id 07DB4B6D5;
+ Mon,  3 Aug 2020 16:04:14 +0000 (UTC)
+Subject: Re: [PATCH v3 03/11] x86/iommu: convert VT-d code to use new page
+ table allocator
 To: Paul Durrant <paul@xen.org>
 References: <20200803122914.2259-1-paul@xen.org>
- <20200803122914.2259-3-paul@xen.org>
+ <20200803122914.2259-4-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1bc6fcbe-534a-b056-7744-e96eb4f09757@suse.com>
-Date: Mon, 3 Aug 2020 17:58:54 +0200
+Message-ID: <0eda3f54-63ce-2694-ba3b-2a0c67826098@suse.com>
+Date: Mon, 3 Aug 2020 18:03:57 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200803122914.2259-3-paul@xen.org>
+In-Reply-To: <20200803122914.2259-4-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,93 +49,30 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+ Kevin Tian <kevin.tian@intel.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 03.08.2020 14:29, Paul Durrant wrote:
 > From: Paul Durrant <pdurrant@amazon.com>
 > 
-> Instead of having separate page table allocation functions in VT-d and AMD
-> IOMMU code, we could use a common allocation function in the general x86 code.
+> This patch converts the VT-d code to use the new IOMMU page table allocator
+> function. This allows all the free-ing code to be removed (since it is now
+> handled by the general x86 code) which reduces TLB and cache thrashing as well
+> as shortening the code.
 > 
-> This patch adds a new allocation function, iommu_alloc_pgtable(), for this
-> purpose. The function adds the page table pages to a list. The pages in this
-> list are then freed by iommu_free_pgtables(), which is called by
-> domain_relinquish_resources() after PCI devices have been de-assigned.
+> The scope of the mapping_lock in intel_iommu_quarantine_init() has also been
+> increased slightly; it should have always covered accesses to
+> 'arch.vtd.pgd_maddr'.
+
+I think I disagree here (this is __init code and hence there's no
+risk of races), but anyway (as it doesn't hurt) ...
+
+> NOTE: The common IOMMU needs a slight modification to avoid scheduling the
+>       cleanup tasklet if the free_page_table() method is not present (since
+>       the tasklet will unconditionally call it).
 > 
 > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-> ---
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: Wei Liu <wl@xen.org>
-> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> 
-> v2:
->  - This is split out from a larger patch of the same name in v1
-> ---
->  xen/arch/x86/domain.c               |  9 +++++-
->  xen/drivers/passthrough/x86/iommu.c | 50 +++++++++++++++++++++++++++++
->  xen/include/asm-x86/iommu.h         |  7 ++++
->  3 files changed, 65 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> index f8084dc9e3..d1ecc7b83b 100644
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -2153,7 +2153,8 @@ int domain_relinquish_resources(struct domain *d)
->          d->arch.rel_priv = PROG_ ## x; /* Fallthrough */ case PROG_ ## x
->  
->          enum {
-> -            PROG_paging = 1,
-> +            PROG_iommu_pagetables = 1,
-> +            PROG_paging,
->              PROG_vcpu_pagetables,
->              PROG_shared,
->              PROG_xen,
 
-Is there a particular reason to make this new item the very first
-one?
-
-> @@ -257,6 +260,53 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
->          return;
->  }
->  
-> +int iommu_free_pgtables(struct domain *d)
-> +{
-> +    struct domain_iommu *hd = dom_iommu(d);
-> +    struct page_info *pg;
-> +
-> +    while ( (pg = page_list_remove_head(&hd->arch.pgtables.list)) )
-> +    {
-> +        free_domheap_page(pg);
-> +
-> +        if ( general_preempt_check() )
-> +            return -ERESTART;
-
-Perhaps better only check once every so many pages?
-
-> +struct page_info *iommu_alloc_pgtable(struct domain *d)
-> +{
-> +    struct domain_iommu *hd = dom_iommu(d);
-> +    unsigned int memflags = 0;
-> +    struct page_info *pg;
-> +    void *p;
-> +
-> +#ifdef CONFIG_NUMA
-> +    if (hd->node != NUMA_NO_NODE)
-
-Missing blanks inside parentheses.
-
-> @@ -131,6 +135,9 @@ int pi_update_irte(const struct pi_desc *pi_desc, const struct pirq *pirq,
->          iommu_vcall(ops, sync_cache, addr, size);       \
->  })
->  
-> +int __must_check iommu_free_pgtables(struct domain *d);
-> +struct page_info * __must_check iommu_alloc_pgtable(struct domain *d);
-
-Commonly we put a blank on the left side of *, but none to its right.
-
-Jan
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
