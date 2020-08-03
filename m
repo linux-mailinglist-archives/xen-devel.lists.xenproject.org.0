@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CD0823AC5F
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 20:31:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F7923AC6A
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 20:33:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2fEn-0001Z5-Q3; Mon, 03 Aug 2020 18:31:05 +0000
+	id 1k2fH1-0001t4-RD; Mon, 03 Aug 2020 18:33:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XyPB=BN=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k2f6k-0008F4-8O
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 18:22:46 +0000
-X-Inumbo-ID: 377cf859-d5b6-11ea-90c4-bc764e2007e4
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
+ <SRS0=rARX=BN=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
+ id 1k2fH0-0001su-QQ
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 18:33:22 +0000
+X-Inumbo-ID: cf10efa2-d5b7-11ea-90c7-bc764e2007e4
+Received: from mail-oi1-x233.google.com (unknown [2607:f8b0:4864:20::233])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 377cf859-d5b6-11ea-90c4-bc764e2007e4;
- Mon, 03 Aug 2020 18:21:58 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id m15so20303516lfp.7
- for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 11:21:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=1DZeLDeQLAW3wDtg4nsTIUzMiSJtyCyrnnqQeeQIfZc=;
- b=l5r/G7XizMtl4Jo6THLgp7+OQ05dU8uylAR5kvt92eMz9hNK9Wx9iJfWx1sOkeXew/
- dDdjL8kxdVKO/5J/ePv2UXhqUvgsMh92fR2c8HAexuAQ7HwpD5cM3l1R+bG+WidbLDQF
- a+2b7FLpvBsZl4fYu4Pzb41NLeN2NrwTjfDvaWlZ8vaBkSthTZNZodBHuO/vxcGDIRaP
- 9ZwEtQYArHZvgwpAkrLFip40/rvpfJvmuceHnh4u/ceo0ASjfq/4jQh0AvZis+PktZt1
- 3i5tnB0Y89SS1+fRHFdv8sw30HZoBCEh5KnE9XCYEMMBdwfkJOyy6wF+tY/bMqnoy9L6
- 1b9w==
+ id cf10efa2-d5b7-11ea-90c7-bc764e2007e4;
+ Mon, 03 Aug 2020 18:33:21 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id u24so24231644oiv.7
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 11:33:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=tOj98KWxZfo7k/msteoXOzG655QSkI9RWTBbZ2s3YRY=;
+ b=y6oM0HuwhNOMHv3CswCjVXigw95CYKCpxWHCggL8OoQcJxkeRNg5xNgVFZVuTHJtBY
+ VKkSC2Ccj0FUCS6t6LXUsSCAx1vUsWEglUkfIyKR4Ga7GWYIJLf99ebsMsEH51vWT4Ho
+ 93jG8A0FX96zCtfWEG5lE90T5hkdeVnuuMn3Gfy0RewfCgOF64kg5QMkVjZjCde5S+0g
+ /08gtE0Pc5ovCteqftn3ITAT5KAc9aY3NYcgtW5dw6AKFcj2hd/GSDJjrvskWQWPijY8
+ SmPTw4J0HNsDeydm1xgIt9NSu+OuG8LILxr06BEKqRzHSjpKA9Xg7rMiL9uxzM3K+Dll
+ KICA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=1DZeLDeQLAW3wDtg4nsTIUzMiSJtyCyrnnqQeeQIfZc=;
- b=cLLPGX9hryIFtHJyeyAvpiVU2hCuNQZPNeEFbI4K0Ydo7SjKSghdLa+n6VaQqFTxYt
- 4cJotnvCiQNprB9bI1R/osUVRXc/8SnbLWALq4jIM4y5FbSakJjJRCyDlrzNWtNwn6bY
- OeCzW+NDmWbN0uFOT08Y9XDS3HIfiRlqIsppkC0bW1h/qnOt2LzUi231WaUFHvoVD4hB
- wQpP6xLyCvOHaUWVFPqRNAiuao1hGDABLNVtGrWeipwWlhm55xgcTodwiTcFS/4pvKGH
- ePthIijfwYcaBlIj9crynQJojQB2vqpDITtN8yAd0eSWQjiQf1/mW+y7nnNylAAK/SeZ
- cd4w==
-X-Gm-Message-State: AOAM531JOnCLJOL448rqK6w2cn+k/A1XvKTNMFGHLGqXh0bnvAXQG1vn
- vVC5Y8ZLdmbP+pQdfcEyEOTk5hSzR4g=
-X-Google-Smtp-Source: ABdhPJytiiD7l56b7Vm/NaSQXoaXOLDxnIvoSE8ZvLGZHZEUatUZoCFu/Kmqn5PTbDoeaT2KzUFD3A==
-X-Received: by 2002:ac2:598f:: with SMTP id w15mr9054121lfn.216.1596478917357; 
- Mon, 03 Aug 2020 11:21:57 -0700 (PDT)
-Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id h18sm4486730ljk.7.2020.08.03.11.21.56
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 03 Aug 2020 11:21:56 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Subject: [RFC PATCH V1 12/12] libxl: Fix duplicate memory node in DT
-Date: Mon,  3 Aug 2020 21:21:28 +0300
-Message-Id: <1596478888-23030-13-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=tOj98KWxZfo7k/msteoXOzG655QSkI9RWTBbZ2s3YRY=;
+ b=hCakJP99OoxAAbj6cHYsuOc0lq9eOOM+G7RopDD0Q90bQoR2pVNQOOl1wxUxEOyhNK
+ r9r9DZ+xkmkrGiagPm8NyiZ8X07tYf5KpJYf8LR7Inruie2V7yTRU3pRkrVqRzre385P
+ JQNGiln7Zes5a3iIwS4rbcCXb1a40l9EcN9B7BU/lTsL6ApaEdvjBdCQw+cZWpq7e6U7
+ MfZuYeXKAC4QKvNVBclTEYTKOEztMgPfq5DcFXkhzH3feTS4vGhSxh7mA8cMUKPY49gC
+ BbWiqYC/XVubFcdKhjUsb8ixQQ4LknM+VLmmv60KOSJcdTt0LlU8DGUftafUV67oGqvo
+ 3yyg==
+X-Gm-Message-State: AOAM5314eZLTBQ+R4z+islAiIwX6/bNnUHu7cyIpVmMbweNJZWW7gqKO
+ M0Rqc0l1nXvUnbRCgMHwvAUq8+LDQhnqv67MnejV8g==
+X-Google-Smtp-Source: ABdhPJykw6QlTCz5UZlKQ6UvLdnZmhQqKuAQH/eDVsm1AFm/IR10na8Eavap0iKbcegmHSN7XTnjydq+nvN4QSaJRgQ=
+X-Received: by 2002:aca:50c4:: with SMTP id e187mr553874oib.146.1596479601455; 
+ Mon, 03 Aug 2020 11:33:21 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200803165251.907213-1-anthony.perard@citrix.com>
+In-Reply-To: <20200803165251.907213-1-anthony.perard@citrix.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Mon, 3 Aug 2020 19:33:10 +0100
+Message-ID: <CAFEAcA-L5Qgoq5xN426DrFQG2W2CDQ+e=0Lc6hzmUxjJDrAueg@mail.gmail.com>
+Subject: Re: [PULL 0/1] xen queue 2020-08-03
+To: Anthony PERARD <anthony.perard@citrix.com>, 
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,43 +67,77 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Anthony PERARD <anthony.perard@citrix.com>
+Cc: "open list:X86" <xen-devel@lists.xenproject.org>,
+ QEMU Developers <qemu-devel@nongnu.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On Mon, 3 Aug 2020 at 17:53, Anthony PERARD <anthony.perard@citrix.com> wro=
+te:
+> ----------------------------------------------------------------
+> xen patches
+>
+> bug fix
+>
+> ----------------------------------------------------------------
+> Philippe Mathieu-Daud=C3=A9 (1):
+>       accel/xen: Fix xen_enabled() behavior on target-agnostic objects
 
-When two or more VirtIO devices are passed to DomU the
-following message is observed:
-OF: Duplicate name in base, renamed to "virtio#1"
+This fails to compile, all hosts :-(
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
- tools/libxl/libxl_arm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+  LINK    avr-softmmu/qemu-system-avr
+../migration/savevm.o: In function `qemu_loadvm_section_start_full':
+/home/petmay01/linaro/qemu-for-merges/migration/savevm.c:2320:
+undefined reference to `xen_enabled'
+collect2: error: ld returned 1 exit status
+[ditto other softmmu link attempts]
 
-diff --git a/tools/libxl/libxl_arm.c b/tools/libxl/libxl_arm.c
-index a68fb14..9671a44 100644
---- a/tools/libxl/libxl_arm.c
-+++ b/tools/libxl/libxl_arm.c
-@@ -710,9 +710,11 @@ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
- {
-     int res;
-     gic_interrupt intr;
-+    /* Placeholder for virtio@ + a 64-bit number + \0 */
-+    char buf[24];
- 
--    /* XXX: Add address in the node name */
--    res = fdt_begin_node(fdt, "virtio");
-+    snprintf(buf, sizeof(buf), "virtio@%"PRIx64, base);
-+    res = fdt_begin_node(fdt, buf);
-     if (res) return res;
- 
-     res = fdt_property_compat(gc, fdt, 1, "virtio,mmio");
--- 
-2.7.4
+Similar but different on OSX:
 
+  LINK    aarch64-softmmu/qemu-system-aarch64
+Undefined symbols for architecture x86_64:
+  "_xen_enabled", referenced from:
+      _msix_is_masked in msix.o
+      _msix_write_config in msix.o
+      _msix_handle_mask_update in msix.o
+      _msix_init in msix.o
+      _msix_notify in msix.o
+      _msix_reset in msix.o
+      _msix_set_vector_notifiers in msix.o
+      ...
+ld: symbol(s) not found for architecture x86_64
+
+Fails in all the BSD VM builds as well, so I don't think this
+is related to incremental vs from-clean builds.
+
+I think the failure here is only on builds where
+CONFIG_XEN is not set by configure (which for my merge
+build setup appears to be all of them, I think).
+In that case when we build a target-agnostic object
+it gets an external reference to the xen_enabled()
+function, but because Xen is disabled we don't compile
+accel/xen/ and so there is no actual implementation of
+the function in the link.
+
+This doesn't happen for KVM because there the
+CONFIG_KVM_IS_POSSIBLE version of kvm_enabled()
+is a #define:
+#define kvm_enabled()           (kvm_allowed)
+and we provide both the "real" version of the
+'bool kvm_allowed' in accel/kvm/kvm-all.c and also
+the stub version in accel/stubs/kvm-stub.c which will
+be used in configurations thta don't build accel/kvm.
+
+I think then that the fix for this build failure is to
+either:
+ (1) add a stub version of xen_allowed() to accel/stubs/xen-stub.c
+     (which would always return false)
+
+ (2) follow KVM more closely, and have xen_allowed() be
+     a #define to (xen_allowed), with a (non-static)
+     bool xen_allowed in accel/xen/xen-all.c and another
+     one in accel/stubs/xen-stub.c
+
+thanks
+-- PMM
 
