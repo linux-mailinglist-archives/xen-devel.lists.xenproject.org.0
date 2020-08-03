@@ -2,52 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7269923A69E
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 14:49:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F0E023A757
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 15:18:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2ZuQ-0001oi-9B; Mon, 03 Aug 2020 12:49:42 +0000
+	id 1k2aM0-0004nn-JZ; Mon, 03 Aug 2020 13:18:12 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rQjY=BN=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k2ZuO-0001oY-Mk
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 12:49:40 +0000
-X-Inumbo-ID: cb1d6432-d587-11ea-af2b-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=uwFZ=BN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k2aLy-0004ni-SC
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 13:18:10 +0000
+X-Inumbo-ID: c67f5a8a-d58b-11ea-af2f-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cb1d6432-d587-11ea-af2b-12813bfff9fa;
- Mon, 03 Aug 2020 12:49:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=TpRalkvkG38JtEdNhqPS3RNesiK5+8RoUBFVAeIBPhI=; b=HcGqnvkm6tlHw+zgLd1/kNuEYB
- SI5YhlrENiOZLAl0wm0EdzhX20S1VZ6gneUaKlARLRWqKGPwR+O1EyytYJsk7B4B/k72q6HWW4Kwl
- p4ziJymIfIxP8eBjRnxqLZgmRsjlPmUeAIgof9xUH1woX0+s4wTwoGCsa+8ouZR9STsQ=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k2ZuN-0000xA-0f; Mon, 03 Aug 2020 12:49:39 +0000
-Received: from host86-143-223-30.range86-143.btcentralplus.com
- ([86.143.223.30] helo=u2f063a87eabd5f.home)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k2ZuM-0002Mv-PT; Mon, 03 Aug 2020 12:49:38 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the frontend
- via xenstore
-Date: Mon,  3 Aug 2020 13:49:31 +0100
-Message-Id: <20200803124931.2678-5-paul@xen.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200803124931.2678-1-paul@xen.org>
-References: <20200803124931.2678-1-paul@xen.org>
+ id c67f5a8a-d58b-11ea-af2f-12813bfff9fa;
+ Mon, 03 Aug 2020 13:18:10 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 77287ADDF;
+ Mon,  3 Aug 2020 13:18:24 +0000 (UTC)
+Subject: Re: RESCHEDULED Call for agenda items for Community Call, August 13 @
+ 15:00 UTC
+From: Jan Beulich <jbeulich@suse.com>
+To: George Dunlap <George.Dunlap@citrix.com>
+References: <1E023F6E-0E3C-4CD5-A074-7BF62635E123@citrix.com>
+ <40615946-FF55-48DB-91FB-58DD603FDD69@citrix.com>
+ <9bfef1bf-31a7-1c95-60fa-2ca665942fda@suse.com>
+ <047B12C2-71AA-459F-853C-DF1CD040D6C1@citrix.com>
+ <37d5e973-7645-d4eb-7bd6-f8d3226d7cb5@suse.com>
+Message-ID: <b72f7526-4874-b29b-39d3-913b2b62799b@suse.com>
+Date: Mon, 3 Aug 2020 15:18:08 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
+In-Reply-To: <37d5e973-7645-d4eb-7bd6-f8d3226d7cb5@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -59,70 +51,39 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Paul Durrant <pdurrant@amazon.com>
+On 31.07.2020 14:35, Jan Beulich wrote:
+> On 31.07.2020 14:27, George Dunlap wrote:
+>>> On Jul 31, 2020, at 1:25 PM, Jan Beulich <jbeulich@suse.com> wrote:
+>>> On 30.07.2020 17:41, George Dunlap wrote:
+>>>>> On Jul 30, 2020, at 4:17 PM, George Dunlap <George.Dunlap@citrix.com> wrote:
+>>>>>
+>>>>> Hey all,
+>>>>>
+>>>>> The community call is scheduled for next week, 6 August.  I, however, will be on PTO that week; I propose rescheduling it for the following week, 13 August, at the same time.
+>>>>>
+>>>>> The proposed agenda is in ZZZ and you can edit to add items.  Alternatively, you can reply to this mail directly.
+>>>>
+>>>> Sorry, in all my manual templating I seem to have missed this one.  Here’s the URL:
+>>>>
+>>>> https://cryptpad.fr/pad/#/3/pad/edit/9c58993a08fe97451f0a5b6c8bb906b1/
+>>>
+>>> I get "This link does not give you access to the document". Maybe a
+>>> permissions problem? I've meant to add a "minimum toolchain versions"
+>>> topic ...
+>>
+>> Try this one?
+>>
+>> https://cryptpad.fr/pad/#/2/pad/edit/VlLdjiw7iBm0R-efOMyCY+Ks/
+> 
+> Ah yes, this one works. Thanks.
 
-set_mtu() currently sets the backend vif MTU but does not inform the frontend
-what it is. This patch adds code to write the MTU into a xenstore node. See
-netif.h for a specification of the node.
+And over the weekend I realized that the week of the 13th I'm going to be
+on PTO, so very likely won't be able to make the call. Not sure what to
+suggest you do with the topic ...
 
-NOTE: There is also a small modification replacing '$mtu' with '${mtu}'
-      for style consistency.
-
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
----
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Cc: Wei Liu <wl@xen.org>
----
- tools/hotplug/Linux/vif-bridge            |  2 +-
- tools/hotplug/Linux/xen-network-common.sh | 14 +++++++++++++-
- 2 files changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/tools/hotplug/Linux/vif-bridge b/tools/hotplug/Linux/vif-bridge
-index e1d7c49788..b99cc82a21 100644
---- a/tools/hotplug/Linux/vif-bridge
-+++ b/tools/hotplug/Linux/vif-bridge
-@@ -81,7 +81,7 @@ case "$command" in
-         ;&
-     online)
-         setup_virtual_bridge_port "$dev"
--        set_mtu "$bridge" "$dev"
-+        set_mtu "$bridge" "$dev" "$type_if"
-         add_to_bridge "$bridge" "$dev"
-         ;;
-     remove)
-diff --git a/tools/hotplug/Linux/xen-network-common.sh b/tools/hotplug/Linux/xen-network-common.sh
-index 37e71cfa9c..24fc42d9cf 100644
---- a/tools/hotplug/Linux/xen-network-common.sh
-+++ b/tools/hotplug/Linux/xen-network-common.sh
-@@ -164,9 +164,21 @@ remove_from_bridge () {
- set_mtu () {
-     local bridge=$1
-     local dev=$2
-+    local type_if=$3
-+
-     mtu="`ip link show dev ${bridge}| awk '/mtu/ { print $5 }'`"
-     if [ -n "$mtu" ] && [ "$mtu" -gt 0 ]
-     then
--            ip link set dev ${dev} mtu $mtu || :
-+            ip link set dev ${dev} mtu ${mtu} || :
-+    fi
-+
-+    if [ ${type_if} = vif ]
-+    then
-+       dev_=${dev#vif}
-+       domid=${dev_%.*}
-+       devid=${dev_#*.}
-+
-+       XENBUS_PATH="/local/domain/$domid/device/vif/$devid"
-+       xenstore_write "$XENBUS_PATH/mtu" ${mtu}
-     fi
- }
--- 
-2.20.1
-
+Jan
 
