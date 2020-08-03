@@ -2,59 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A654B23AC45
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C4E23AC44
 	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 20:22:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2f6N-0008P2-4Z; Mon, 03 Aug 2020 18:22:23 +0000
+	id 1k2f6R-0008Rt-Ez; Mon, 03 Aug 2020 18:22:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XyPB=BN=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k2f6L-0008F4-7V
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 18:22:21 +0000
-X-Inumbo-ID: 34593e8e-d5b6-11ea-90c4-bc764e2007e4
-Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ id 1k2f6Q-0008F4-7l
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 18:22:26 +0000
+X-Inumbo-ID: 34f13356-d5b6-11ea-90c4-bc764e2007e4
+Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 34593e8e-d5b6-11ea-90c4-bc764e2007e4;
- Mon, 03 Aug 2020 18:21:53 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id d2so15343777lfj.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 11:21:53 -0700 (PDT)
+ id 34f13356-d5b6-11ea-90c4-bc764e2007e4;
+ Mon, 03 Aug 2020 18:21:54 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id x24so3651859lfe.11
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 11:21:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=81P0Yc4v6ZyioiYpKUcR0ZeC9nLn0E/s9OZDx4+Xc7c=;
- b=NRXK/Eep0Wp1l3ih8IjXSdhoX84+x4SxXAZnDjEc2HgGLPVFXjpD3VHiS9QGzhpqQN
- afIsSh1llgIKPdo5p+Pl9UD9MwJAbPYOShphK491g+ofAXERik6ynfXHeDX940X2Ny/e
- dSd3Sw76daOwNXKGFkaCVTn27xZT6NKXWXhPqq6/THS0Lv/p5wkivy+O3tmFeCP3GUxq
- tq86cBHGOSCI1OXhKfJznyGzsnLQHturZB72B9x0if6ZOVSx5D86Kf9MQNxJ9rWjgTRQ
- /JG3k1b//DzA9iUXyoBIypIwUAvapNyPnxvhfpkOpPCb6fjALE1BFmDO8x6u5GMC/yk4
- bU2Q==
+ bh=1oSrmefLumOTqH6DfN/w0NjDRHD49Q9D8VghKe2JYu8=;
+ b=V//h+OxqeiTG5OZxMtbFbmVHdAJskjcYsEd2xBVHcfS3K60z84ELVyvw9UsE2OTKoV
+ UGXy+Lkr2/oNp+UXmgZTECJ9QucYCQc7vn0fYfk8wB8WrfvyFeeM0qCFPuLvyonPNYbM
+ 2aR6pdbUjRTh9dJ3By/wPCTtqD49tMntucBW3z8MfI33eAhL36GKjOw+NAyBmmQr/4Tn
+ 0LfDyEag75/lUkYqunp4lJlPfXoQtAyOBzyL/qIBtzj/OggwyILcXnTdnHy2sg7THa+o
+ sIfQcR+jow8oa6VJg//vmD5oY+75hRDzyu7zKKxmXPzNk6iVuVQGY6lAS3bILycYEDoP
+ 5vEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=81P0Yc4v6ZyioiYpKUcR0ZeC9nLn0E/s9OZDx4+Xc7c=;
- b=jKauXWAfXoSiVuNKyBIiGIghogNuFhTyzaRHA6s47Xelh+ZsSC8mbCdsUv1YSo8Ub8
- IE300Njd3zLvBRmYfZRNX0x/JE5A1nNmwpYF+Ej1BrodS/ektpsPzHhAO/yOkEkI6p2R
- x5K6g7k/JYQ0DaGtRHMBWekMLjbMG+O99XQDzHapxRN1TnQ5JGjwjC0eVP09MJkZwn+O
- qOAtzSu2NUQgePQMGSM0clhkMqRn1JleKxe2D30ExkvOt4fBY9NQu+rzYdNhrjVZ1q3X
- g6AjtaEDJPKiXSklHS9UQzxSCyHO238rhH0McmIft3kpERd5puOH4nq22G9SoXOemY18
- iAMQ==
-X-Gm-Message-State: AOAM530MuXpEb4/v1l6W3wBPBVMVrOss9sQO6lxA5B4z2zyFGJEwa8PY
- 2FVglOusfN8KE/R+031GTR0CkLTwDs8=
-X-Google-Smtp-Source: ABdhPJwB9MeBGy/n2L9LbiCW8INF2cJ2XhF0qsz3n8TE1nbBrC5AGBbU+X5NCnGLXt/qAJfCnWS8oQ==
-X-Received: by 2002:a19:c653:: with SMTP id w80mr9132168lff.167.1596478912037; 
- Mon, 03 Aug 2020 11:21:52 -0700 (PDT)
+ bh=1oSrmefLumOTqH6DfN/w0NjDRHD49Q9D8VghKe2JYu8=;
+ b=Ap8qk2zJAKDGYOsOA33qUDPF+y3qEJBjMll6fcRqcB2nXoOp/Sy15w7Vfo9mN2yiy9
+ FB1raKhXu5UZoZkFs2qqQQxj+1QM1rP5AYKySnYzyzKneX5yaQaYueHvbhS3Kot2sGZA
+ mA3+WyyDULzK+ERK5JP6QXeZI7x0wQsQEtmrK4aj8W1pfqqM6qQCouYUHrqT2b8VeTgI
+ 19VFlv89yzu0Ws/sFn+wYoXWyJ/iAdMMCeXzi/mIRb2fR6NqffSXLnfZ7pLpv3skb9Kq
+ ifsqF+udmHgmxzcyTpa1TOdUH1/MAzcueJOmdbslJyA0vDpTv51j+W7gzhIqv/thSRsk
+ GV6g==
+X-Gm-Message-State: AOAM531hvV8mNb3fZaoSUYDQR321Fse+2d5mjpc4DYHEPn0Gmt+LRuPI
+ THVS6SDnD0LwpPVPXnaMbp1El/imALs=
+X-Google-Smtp-Source: ABdhPJxm4yfX8MSfwMtCdpABV1bvZqTlKWi27x2GrGHTMWtxZu4TK/T5zajR7U42CXNf3f6RN1w07Q==
+X-Received: by 2002:a19:418a:: with SMTP id o132mr9319096lfa.63.1596478913112; 
+ Mon, 03 Aug 2020 11:21:53 -0700 (PDT)
 Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id h18sm4486730ljk.7.2020.08.03.11.21.50
+ by smtp.gmail.com with ESMTPSA id h18sm4486730ljk.7.2020.08.03.11.21.52
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 03 Aug 2020 11:21:51 -0700 (PDT)
+ Mon, 03 Aug 2020 11:21:52 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [RFC PATCH V1 07/12] A collection of tweaks to be able to run
- emulator in driver domain
-Date: Mon,  3 Aug 2020 21:21:23 +0300
-Message-Id: <1596478888-23030-8-git-send-email-olekstysh@gmail.com>
+Subject: [RFC PATCH V1 08/12] xen/arm: Invalidate qemu mapcache on
+ XENMEM_decrease_reservation
+Date: Mon,  3 Aug 2020 21:21:24 +0300
+Message-Id: <1596478888-23030-9-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
@@ -73,180 +73,111 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jan Beulich <jbeulich@suse.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+ Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Trying to run emulator in driver domain I ran into various issues
-mostly policy-related. So this patch tries to resolve all them
-plobably in a hackish way. I would like to get feedback how
-to implement them properly as having an emulator in driver domain
-is a completely valid use-case.
+Borrow x86's logic to invalidate qemu mapcache.
+
+TODO: Move send_invalidate_req() to common code (ioreq.c?).
 
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
- xen/common/domain.c        | 15 +++++++++++++++
- xen/common/domctl.c        |  8 +++++++-
- xen/common/event_channel.c | 14 ++++++++++++--
- xen/common/memory.c        |  6 ++++++
- xen/include/xsm/dummy.h    | 16 +++++++++++++---
- 5 files changed, 53 insertions(+), 6 deletions(-)
+ xen/arch/arm/ioreq.c            | 14 ++++++++++++++
+ xen/arch/arm/traps.c            |  6 ++++++
+ xen/common/memory.c             |  6 ++++++
+ xen/include/asm-arm/domain.h    |  2 ++
+ xen/include/asm-arm/hvm/ioreq.h |  2 ++
+ 5 files changed, 30 insertions(+)
 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index e9be05f..5c9fef2 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -695,6 +695,7 @@ int domain_kill(struct domain *d)
- {
-     int rc = 0;
-     struct vcpu *v;
-+    struct domain *td;
- 
-     if ( d == current->domain )
-         return -EINVAL;
-@@ -733,6 +734,20 @@ int domain_kill(struct domain *d)
-          * have to be put before we call put_domain. */
-         vm_event_cleanup(d);
-         put_domain(d);
-+        /*
-+         * XEN_DOMCTL_set_target implementation holds reference on
-+         * target domain which doesn't allow to completely destroy it.
-+         * Check if the reference are hold by someone and drop it
-+         * when destroying target domain.
-+         */
-+        for_each_domain ( td ) {
-+            if ( td->target == d ) {
-+                td->target = NULL;
-+                put_domain(d);
-+                break;
-+            }
-+        }
-+
-         send_global_virq(VIRQ_DOM_EXC);
-         /* fallthrough */
-     case DOMDYING_dead:
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index a69b3b5..079c7b0 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -871,6 +871,12 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-         if ( (d == e) || (d->target != NULL) )
-         {
-             put_domain(e);
-+            /*
-+             * Be a little bit more polite here, looks like the emulator
-+             * has just been restarted.
-+             */
-+            if ( d->target == e )
-+                ret = 0;
-             break;
-         }
- 
-@@ -883,7 +889,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-             break;
-         }
- 
--        /* Hold reference on @e until we destroy @d. */
-+        /* Hold reference on @e until we destroy either @d or @e */
-         d->target = e;
-         break;
-     }
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index a8d182b5..2aa497a 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -235,7 +235,12 @@ static long evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
-         ERROR_EXIT_DOM(port, d);
-     chn = evtchn_from_port(d, port);
- 
--    rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
-+    /*
-+     * XXX: XSM_TARGET is not functional for emulator running in driver domain.
-+     * See xsm_default_action for details. Probably XSM_DM_PRIV could work,
-+     * but there is a risk to break other users.
-+     */
-+    rc = xsm_evtchn_unbound(XSM_HOOK, d, chn, alloc->remote_dom);
-     if ( rc )
-         goto out;
- 
-@@ -1218,7 +1223,12 @@ int alloc_unbound_xen_event_channel(
-     port = rc;
-     chn = evtchn_from_port(ld, port);
- 
--    rc = xsm_evtchn_unbound(XSM_TARGET, ld, chn, remote_domid);
-+    /*
-+     * XXX: XSM_TARGET is not functional for emulator running in driver domain.
-+     * See xsm_default_action for details. Probably XSM_DM_PRIV could work,
-+     * but there is a risk to break other users.
-+     */
-+    rc = xsm_evtchn_unbound(XSM_HOOK, ld, chn, remote_domid);
-     if ( rc )
-         goto out;
- 
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index 0000477..8b306f6 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1153,12 +1153,18 @@ static int acquire_resource(
-         unsigned int i;
- 
-         /*
-+         * XXX: Ugly hack for now to let emulator running in driver domain
-+         * to succeeded in acquiring resource.
-+         */
-+#if 0
-+        /*
-          * FIXME: Until foreign pages inserted into the P2M are properly
-          *        reference counted, it is unsafe to allow mapping of
-          *        resource pages unless the caller is the hardware domain.
-          */
-         if ( !is_hardware_domain(currd) )
-             return -EACCES;
-+#endif
- 
-         if ( copy_from_guest(gfn_list, xmar.frame_list, xmar.nr_frames) )
-             rc = -EFAULT;
-diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-index 317455a..c0813c0 100644
---- a/xen/include/xsm/dummy.h
-+++ b/xen/include/xsm/dummy.h
-@@ -139,13 +139,23 @@ static XSM_INLINE int xsm_domctl(XSM_DEFAULT_ARG struct domain *d, int cmd)
-     XSM_ASSERT_ACTION(XSM_OTHER);
-     switch ( cmd )
-     {
-+    /*
-+     * XXX: Emulator running in driver domain tries to get vcpus num.
-+     * Probably we could avoid that change by modifying emulator to not use
-+     * domctl for getting vcpus num.
-+     */
-+    case XEN_DOMCTL_getdomaininfo:
-+    /*
-+     * XXX: XSM_DM_PRIV is not functional for emulator running in driver domain
-+     * without setting a target in advance. See xsm_default_action for details.
-+     */
-+    case XEN_DOMCTL_set_target:
-+        return xsm_default_action(XSM_HOOK, current->domain, d);
-     case XEN_DOMCTL_ioport_mapping:
-     case XEN_DOMCTL_memory_mapping:
-     case XEN_DOMCTL_bind_pt_irq:
-     case XEN_DOMCTL_unbind_pt_irq:
-         return xsm_default_action(XSM_DM_PRIV, current->domain, d);
--    case XEN_DOMCTL_getdomaininfo:
--        return xsm_default_action(XSM_XS_PRIV, current->domain, d);
-     default:
-         return xsm_default_action(XSM_PRIV, current->domain, d);
-     }
-@@ -275,7 +285,7 @@ static XSM_INLINE int xsm_claim_pages(XSM_DEFAULT_ARG struct domain *d)
- static XSM_INLINE int xsm_evtchn_unbound(XSM_DEFAULT_ARG struct domain *d, struct evtchn *chn,
-                                          domid_t id2)
- {
--    XSM_ASSERT_ACTION(XSM_TARGET);
-+    XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
+diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+index a9cc839..8f60c41 100644
+--- a/xen/arch/arm/ioreq.c
++++ b/xen/arch/arm/ioreq.c
+@@ -75,6 +75,20 @@ bool handle_mmio(void)
+     return true;
  }
  
++/* Ask ioemu mapcache to invalidate mappings. */
++void send_invalidate_req(void)
++{
++    ioreq_t p = {
++        .type = IOREQ_TYPE_INVALIDATE,
++        .size = 4,
++        .dir = IOREQ_WRITE,
++        .data = ~0UL, /* flush all */
++    };
++
++    if ( hvm_broadcast_ioreq(&p, false) != 0 )
++        gprintk(XENLOG_ERR, "Unsuccessful map-cache invalidate\n");
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 4cdf098..ea472d1 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -1490,6 +1490,12 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
+     /* Ensure the hypercall trap instruction is re-executed. */
+     if ( current->hcall_preempted )
+         regs->pc -= 4;  /* re-execute 'hvc #XEN_HYPERCALL_TAG' */
++
++#ifdef CONFIG_IOREQ_SERVER
++    if ( unlikely(current->domain->arch.hvm.qemu_mapcache_invalidate) &&
++         test_and_clear_bool(current->domain->arch.hvm.qemu_mapcache_invalidate) )
++        send_invalidate_req();
++#endif
+ }
+ 
+ void arch_hypercall_tasklet_result(struct vcpu *v, long res)
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index 8b306f6..8d9f0a8 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1652,6 +1652,12 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         break;
+     }
+ 
++    /* x86 already sets the flag in hvm_memory_op() */
++#if defined(CONFIG_ARM64) && defined(CONFIG_IOREQ_SERVER)
++    if ( op == XENMEM_decrease_reservation )
++        curr_d->arch.hvm.qemu_mapcache_invalidate = true;
++#endif
++
+     return rc;
+ }
+ 
+diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
+index e060b0a..0db8bb4 100644
+--- a/xen/include/asm-arm/domain.h
++++ b/xen/include/asm-arm/domain.h
+@@ -69,6 +69,8 @@ struct hvm_domain
+         spinlock_t              lock;
+         struct hvm_ioreq_server *server[MAX_NR_IOREQ_SERVERS];
+     } ioreq_server;
++
++    bool_t qemu_mapcache_invalidate;
+ };
+ 
+ #ifdef CONFIG_ARM_64
+diff --git a/xen/include/asm-arm/hvm/ioreq.h b/xen/include/asm-arm/hvm/ioreq.h
+index 83a560c..392ce64 100644
+--- a/xen/include/asm-arm/hvm/ioreq.h
++++ b/xen/include/asm-arm/hvm/ioreq.h
+@@ -90,6 +90,8 @@ static inline void arch_hvm_ioreq_destroy(struct domain *d)
+ #define IOREQ_IO_UNHANDLED   IO_UNHANDLED
+ #define IOREQ_IO_RETRY       IO_RETRY
+ 
++void send_invalidate_req(void);
++
+ #endif /* __ASM_X86_HVM_IOREQ_H__ */
+ 
+ /*
 -- 
 2.7.4
 
