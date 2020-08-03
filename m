@@ -2,58 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92D5F23AC40
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 20:22:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A654B23AC45
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 20:22:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2f6H-0008Mg-Sj; Mon, 03 Aug 2020 18:22:17 +0000
+	id 1k2f6N-0008P2-4Z; Mon, 03 Aug 2020 18:22:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XyPB=BN=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k2f6G-0008F4-7C
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 18:22:16 +0000
-X-Inumbo-ID: 33932a00-d5b6-11ea-90c4-bc764e2007e4
+ id 1k2f6L-0008F4-7V
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 18:22:21 +0000
+X-Inumbo-ID: 34593e8e-d5b6-11ea-90c4-bc764e2007e4
 Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 33932a00-d5b6-11ea-90c4-bc764e2007e4;
- Mon, 03 Aug 2020 18:21:52 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id x24so3651785lfe.11
- for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 11:21:52 -0700 (PDT)
+ id 34593e8e-d5b6-11ea-90c4-bc764e2007e4;
+ Mon, 03 Aug 2020 18:21:53 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id d2so15343777lfj.1
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 11:21:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=KJwl2Gf8Kc5S6/JKnP2lqwji4gRYsqHMXGwGJUsp3PA=;
- b=HYJEXbGiDpX09e/7tZjQdogZIcJH4gMNC09XuyfFLcrQThKzJ7c6ZFJCl2riNdhQHn
- N0zLR59eCnQ48byQmeEticc8+PAD0yhFJJGO6IXTqOkC/kFxBGf8zuKAGiT9BDnofh+L
- Ze/ZNeonVO5rP7j6/vDr6T5/wJd35ZREnwHf6AWZD8kDX9FS3rZoOyFbtM+3BM/4SBxi
- 5lottYR/7hNls0wK9wO/RtKoCc5JrHbiULIfTo72r1rS3n+lXW+BsCKRtGINM3emRq1K
- +nJ7h1sWOFTi+IBjAeZoQ4sh+1LGtWIN6fXQgH1k9sIoCzqBO0FPRMY9X4ll1/RNWz82
- nKxQ==
+ bh=81P0Yc4v6ZyioiYpKUcR0ZeC9nLn0E/s9OZDx4+Xc7c=;
+ b=NRXK/Eep0Wp1l3ih8IjXSdhoX84+x4SxXAZnDjEc2HgGLPVFXjpD3VHiS9QGzhpqQN
+ afIsSh1llgIKPdo5p+Pl9UD9MwJAbPYOShphK491g+ofAXERik6ynfXHeDX940X2Ny/e
+ dSd3Sw76daOwNXKGFkaCVTn27xZT6NKXWXhPqq6/THS0Lv/p5wkivy+O3tmFeCP3GUxq
+ tq86cBHGOSCI1OXhKfJznyGzsnLQHturZB72B9x0if6ZOVSx5D86Kf9MQNxJ9rWjgTRQ
+ /JG3k1b//DzA9iUXyoBIypIwUAvapNyPnxvhfpkOpPCb6fjALE1BFmDO8x6u5GMC/yk4
+ bU2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=KJwl2Gf8Kc5S6/JKnP2lqwji4gRYsqHMXGwGJUsp3PA=;
- b=IUFu/dTEY5LkOYxAQx0EFwdVtskyv2cSXpFwqizsU1zL5E6P78BAbuJQbsgfTUSRFr
- gOjsGw+pHfx7d2WuogdYV2TDW9LmJaNGSUKUtDrkurV7Ft03H0qMbwk5iNT6iDthQui1
- pVkadhh1YsDIks1bi+f1F/N/k5gf8RT8uNMSx4UjfX+D/TgiMrRsk38mLNAMoc3G2tJZ
- W+vSW6zWKa+a8Y2YX4/nRne7jOfDKW+hLEP96kD0tZyskatcU+pOpm/SJ5he77Xhg6Bj
- PfDpJQGQnCYpMUAzgmVZwon1rdu371NZx1eF5smC7571LhtXRJ3bNtquxGV8XdzwYVKz
- NvZw==
-X-Gm-Message-State: AOAM531mY97voCksnP1D1/ZhtYb/+6L2vGh28gX24uUG0Ek/YH1a96Ar
- fF6/7/ReBJ7I8ANEcTcsyJRVU3KDkTg=
-X-Google-Smtp-Source: ABdhPJz/K3XOJPdOW03K8F5ra2FDgmd10m+rY5j09JeC8qbFsgW0FOwPYAJfoEjxaSi+C7e6N/cx0w==
-X-Received: by 2002:ac2:4c33:: with SMTP id u19mr9422767lfq.154.1596478910795; 
- Mon, 03 Aug 2020 11:21:50 -0700 (PDT)
+ bh=81P0Yc4v6ZyioiYpKUcR0ZeC9nLn0E/s9OZDx4+Xc7c=;
+ b=jKauXWAfXoSiVuNKyBIiGIghogNuFhTyzaRHA6s47Xelh+ZsSC8mbCdsUv1YSo8Ub8
+ IE300Njd3zLvBRmYfZRNX0x/JE5A1nNmwpYF+Ej1BrodS/ektpsPzHhAO/yOkEkI6p2R
+ x5K6g7k/JYQ0DaGtRHMBWekMLjbMG+O99XQDzHapxRN1TnQ5JGjwjC0eVP09MJkZwn+O
+ qOAtzSu2NUQgePQMGSM0clhkMqRn1JleKxe2D30ExkvOt4fBY9NQu+rzYdNhrjVZ1q3X
+ g6AjtaEDJPKiXSklHS9UQzxSCyHO238rhH0McmIft3kpERd5puOH4nq22G9SoXOemY18
+ iAMQ==
+X-Gm-Message-State: AOAM530MuXpEb4/v1l6W3wBPBVMVrOss9sQO6lxA5B4z2zyFGJEwa8PY
+ 2FVglOusfN8KE/R+031GTR0CkLTwDs8=
+X-Google-Smtp-Source: ABdhPJwB9MeBGy/n2L9LbiCW8INF2cJ2XhF0qsz3n8TE1nbBrC5AGBbU+X5NCnGLXt/qAJfCnWS8oQ==
+X-Received: by 2002:a19:c653:: with SMTP id w80mr9132168lff.167.1596478912037; 
+ Mon, 03 Aug 2020 11:21:52 -0700 (PDT)
 Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id h18sm4486730ljk.7.2020.08.03.11.21.49
+ by smtp.gmail.com with ESMTPSA id h18sm4486730ljk.7.2020.08.03.11.21.50
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 03 Aug 2020 11:21:50 -0700 (PDT)
+ Mon, 03 Aug 2020 11:21:51 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [RFC PATCH V1 06/12] libxl: Introduce basic virtio-mmio support on Arm
-Date: Mon,  3 Aug 2020 21:21:22 +0300
-Message-Id: <1596478888-23030-7-git-send-email-olekstysh@gmail.com>
+Subject: [RFC PATCH V1 07/12] A collection of tweaks to be able to run
+ emulator in driver domain
+Date: Mon,  3 Aug 2020 21:21:23 +0300
+Message-Id: <1596478888-23030-8-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
@@ -68,128 +69,184 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>,
- Anthony PERARD <anthony.perard@citrix.com>
+ Jan Beulich <jbeulich@suse.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-This patch creates specific device node in the Guest device-tree
-with allocated MMIO range and SPI interrupt if specific 'virtio'
-property is present in domain config.
+Trying to run emulator in driver domain I ran into various issues
+mostly policy-related. So this patch tries to resolve all them
+plobably in a hackish way. I would like to get feedback how
+to implement them properly as having an emulator in driver domain
+is a completely valid use-case.
 
-Please note, this patch breaks device passthrough use-case which
-will be fixed in one of the follow-up patches.
-
-Please note, this is a split/cleanup of Julien's PoC:
-"Add support for Guest IO forwarding to a device emulator"
-
-Signed-off-by: Julien Grall <julien.grall@arm.com>
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
- tools/libxl/libxl_arm.c     | 39 +++++++++++++++++++++++++++++++++++++++
- tools/libxl/libxl_types.idl |  1 +
- tools/xl/xl_parse.c         |  1 +
- 3 files changed, 41 insertions(+)
+ xen/common/domain.c        | 15 +++++++++++++++
+ xen/common/domctl.c        |  8 +++++++-
+ xen/common/event_channel.c | 14 ++++++++++++--
+ xen/common/memory.c        |  6 ++++++
+ xen/include/xsm/dummy.h    | 16 +++++++++++++---
+ 5 files changed, 53 insertions(+), 6 deletions(-)
 
-diff --git a/tools/libxl/libxl_arm.c b/tools/libxl/libxl_arm.c
-index 34f8a29..620b499 100644
---- a/tools/libxl/libxl_arm.c
-+++ b/tools/libxl/libxl_arm.c
-@@ -68,6 +68,10 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-             nr_spis = spi + 1;
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index e9be05f..5c9fef2 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -695,6 +695,7 @@ int domain_kill(struct domain *d)
+ {
+     int rc = 0;
+     struct vcpu *v;
++    struct domain *td;
+ 
+     if ( d == current->domain )
+         return -EINVAL;
+@@ -733,6 +734,20 @@ int domain_kill(struct domain *d)
+          * have to be put before we call put_domain. */
+         vm_event_cleanup(d);
+         put_domain(d);
++        /*
++         * XEN_DOMCTL_set_target implementation holds reference on
++         * target domain which doesn't allow to completely destroy it.
++         * Check if the reference are hold by someone and drop it
++         * when destroying target domain.
++         */
++        for_each_domain ( td ) {
++            if ( td->target == d ) {
++                td->target = NULL;
++                put_domain(d);
++                break;
++            }
++        }
++
+         send_global_virq(VIRQ_DOM_EXC);
+         /* fallthrough */
+     case DOMDYING_dead:
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index a69b3b5..079c7b0 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -871,6 +871,12 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+         if ( (d == e) || (d->target != NULL) )
+         {
+             put_domain(e);
++            /*
++             * Be a little bit more polite here, looks like the emulator
++             * has just been restarted.
++             */
++            if ( d->target == e )
++                ret = 0;
+             break;
+         }
+ 
+@@ -883,7 +889,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+             break;
+         }
+ 
+-        /* Hold reference on @e until we destroy @d. */
++        /* Hold reference on @e until we destroy either @d or @e */
+         d->target = e;
+         break;
      }
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index a8d182b5..2aa497a 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -235,7 +235,12 @@ static long evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+         ERROR_EXIT_DOM(port, d);
+     chn = evtchn_from_port(d, port);
  
-+
-+    /* XXX: Handle properly virtio */
-+    nr_spis = 1;
-+
-     LOG(DEBUG, "Configure the domain");
+-    rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
++    /*
++     * XXX: XSM_TARGET is not functional for emulator running in driver domain.
++     * See xsm_default_action for details. Probably XSM_DM_PRIV could work,
++     * but there is a risk to break other users.
++     */
++    rc = xsm_evtchn_unbound(XSM_HOOK, d, chn, alloc->remote_dom);
+     if ( rc )
+         goto out;
  
-     config->arch.nr_spis = nr_spis;
-@@ -659,6 +663,37 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
-     return 0;
+@@ -1218,7 +1223,12 @@ int alloc_unbound_xen_event_channel(
+     port = rc;
+     chn = evtchn_from_port(ld, port);
+ 
+-    rc = xsm_evtchn_unbound(XSM_TARGET, ld, chn, remote_domid);
++    /*
++     * XXX: XSM_TARGET is not functional for emulator running in driver domain.
++     * See xsm_default_action for details. Probably XSM_DM_PRIV could work,
++     * but there is a risk to break other users.
++     */
++    rc = xsm_evtchn_unbound(XSM_HOOK, ld, chn, remote_domid);
+     if ( rc )
+         goto out;
+ 
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index 0000477..8b306f6 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1153,12 +1153,18 @@ static int acquire_resource(
+         unsigned int i;
+ 
+         /*
++         * XXX: Ugly hack for now to let emulator running in driver domain
++         * to succeeded in acquiring resource.
++         */
++#if 0
++        /*
+          * FIXME: Until foreign pages inserted into the P2M are properly
+          *        reference counted, it is unsafe to allow mapping of
+          *        resource pages unless the caller is the hardware domain.
+          */
+         if ( !is_hardware_domain(currd) )
+             return -EACCES;
++#endif
+ 
+         if ( copy_from_guest(gfn_list, xmar.frame_list, xmar.nr_frames) )
+             rc = -EFAULT;
+diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+index 317455a..c0813c0 100644
+--- a/xen/include/xsm/dummy.h
++++ b/xen/include/xsm/dummy.h
+@@ -139,13 +139,23 @@ static XSM_INLINE int xsm_domctl(XSM_DEFAULT_ARG struct domain *d, int cmd)
+     XSM_ASSERT_ACTION(XSM_OTHER);
+     switch ( cmd )
+     {
++    /*
++     * XXX: Emulator running in driver domain tries to get vcpus num.
++     * Probably we could avoid that change by modifying emulator to not use
++     * domctl for getting vcpus num.
++     */
++    case XEN_DOMCTL_getdomaininfo:
++    /*
++     * XXX: XSM_DM_PRIV is not functional for emulator running in driver domain
++     * without setting a target in advance. See xsm_default_action for details.
++     */
++    case XEN_DOMCTL_set_target:
++        return xsm_default_action(XSM_HOOK, current->domain, d);
+     case XEN_DOMCTL_ioport_mapping:
+     case XEN_DOMCTL_memory_mapping:
+     case XEN_DOMCTL_bind_pt_irq:
+     case XEN_DOMCTL_unbind_pt_irq:
+         return xsm_default_action(XSM_DM_PRIV, current->domain, d);
+-    case XEN_DOMCTL_getdomaininfo:
+-        return xsm_default_action(XSM_XS_PRIV, current->domain, d);
+     default:
+         return xsm_default_action(XSM_PRIV, current->domain, d);
+     }
+@@ -275,7 +285,7 @@ static XSM_INLINE int xsm_claim_pages(XSM_DEFAULT_ARG struct domain *d)
+ static XSM_INLINE int xsm_evtchn_unbound(XSM_DEFAULT_ARG struct domain *d, struct evtchn *chn,
+                                          domid_t id2)
+ {
+-    XSM_ASSERT_ACTION(XSM_TARGET);
++    XSM_ASSERT_ACTION(XSM_HOOK);
+     return xsm_default_action(action, current->domain, d);
  }
  
-+#define GUEST_VIRTIO_MMIO_BASE  xen_mk_ullong(0x02000000)
-+#define GUEST_VIRTIO_MMIO_SIZE  xen_mk_ullong(0x200)
-+#define GUEST_VIRTIO_MMIO_SPI   33
-+
-+static int make_virtio_mmio_node(libxl__gc *gc, void *fdt)
-+{
-+    int res;
-+    gic_interrupt intr;
-+
-+    /* XXX: Add address in the node name */
-+    res = fdt_begin_node(fdt, "virtio");
-+    if (res) return res;
-+
-+    res = fdt_property_compat(gc, fdt, 1, "virtio,mmio");
-+    if (res) return res;
-+
-+    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-+                            1, GUEST_VIRTIO_MMIO_BASE, GUEST_VIRTIO_MMIO_SIZE);
-+    if (res) return res;
-+
-+    set_interrupt(intr, GUEST_VIRTIO_MMIO_SPI, 0xf, DT_IRQ_TYPE_EDGE_RISING);
-+    res = fdt_property_interrupts(gc, fdt, &intr, 1);
-+    if (res) return res;
-+
-+    res = fdt_end_node(fdt);
-+    if (res) return res;
-+
-+    return 0;
-+
-+}
-+
- static const struct arch_info *get_arch_info(libxl__gc *gc,
-                                              const struct xc_dom_image *dom)
- {
-@@ -962,6 +997,9 @@ next_resize:
-         if (info->tee == LIBXL_TEE_TYPE_OPTEE)
-             FDT( make_optee_node(gc, fdt) );
- 
-+        if (libxl_defbool_val(info->arch_arm.virtio))
-+            FDT( make_virtio_mmio_node(gc, fdt) );
-+
-         if (pfdt)
-             FDT( copy_partial_fdt(gc, fdt, pfdt) );
- 
-@@ -1179,6 +1217,7 @@ void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
- {
-     /* ACPI is disabled by default */
-     libxl_defbool_setdefault(&b_info->acpi, false);
-+    libxl_defbool_setdefault(&b_info->arch_arm.virtio, false);
- 
-     if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
-         return;
-diff --git a/tools/libxl/libxl_types.idl b/tools/libxl/libxl_types.idl
-index 9d3f05f..b054bf9 100644
---- a/tools/libxl/libxl_types.idl
-+++ b/tools/libxl/libxl_types.idl
-@@ -639,6 +639,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
- 
- 
-     ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
-+                               ("virtio", libxl_defbool),
-                                ("vuart", libxl_vuart_type),
-                               ])),
-     # Alternate p2m is not bound to any architecture or guest type, as it is
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 61b4ef7..b8306aa 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2579,6 +2579,7 @@ skip_usbdev:
-     }
- 
-     xlu_cfg_get_defbool(config, "dm_restrict", &b_info->dm_restrict, 0);
-+    xlu_cfg_get_defbool(config, "virtio", &b_info->arch_arm.virtio, 0);
- 
-     if (c_info->type == LIBXL_DOMAIN_TYPE_HVM) {
-         if (!xlu_cfg_get_string (config, "vga", &buf, 0)) {
 -- 
 2.7.4
 
