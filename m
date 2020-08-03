@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08F5C23A59C
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 14:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF88923A4CF
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 14:30:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2Zkw-0000nH-Nu; Mon, 03 Aug 2020 12:39:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rQjY=BN=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k2Zkv-0000nC-6m
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 12:39:53 +0000
-X-Inumbo-ID: 6cf15a90-d586-11ea-af2a-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6cf15a90-d586-11ea-af2a-12813bfff9fa;
- Mon, 03 Aug 2020 12:39:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zIlKdkXsPhIQfdArjrBSxAJXwBuXmUMve699NvtwDOs=; b=6Na79cBn+4zynf6IKqEcHmKPa0
- zN4K+x1W/BcDu3R841FiDdznkQLjJG3FY19r10fSkT0SZyUotyxyetz8bbvlnFGNJFvPUnKUNsbWa
- exwKFLLFcJXhKMsvM8X636ZP3wkDrCtkH+8uyM1GY2d5XFC1GYRqKMYPSssSw+xjCRbk=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k2Zks-0000ix-3i; Mon, 03 Aug 2020 12:39:50 +0000
-Received: from host86-143-223-30.range86-143.btcentralplus.com
- ([86.143.223.30] helo=u2f063a87eabd5f.home)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1k2Zar-0000zk-3z; Mon, 03 Aug 2020 12:29:29 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v3 11/11] iommu: stop calling IOMMU page tables 'p2m tables'
-Date: Mon,  3 Aug 2020 13:29:14 +0100
-Message-Id: <20200803122914.2259-12-paul@xen.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200803122914.2259-1-paul@xen.org>
-References: <20200803122914.2259-1-paul@xen.org>
+	id 1k2Zbv-00007x-LP; Mon, 03 Aug 2020 12:30:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jPY3=BN=3mdeb.com=norbert.kaminski@srs-us1.protection.inumbo.net>)
+ id 1k2Zbt-00007R-IF
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 12:30:33 +0000
+X-Inumbo-ID: 1eb3501e-d585-11ea-908e-bc764e2007e4
+Received: from 4.mo2.mail-out.ovh.net (unknown [87.98.172.75])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1eb3501e-d585-11ea-908e-bc764e2007e4;
+ Mon, 03 Aug 2020 12:30:31 +0000 (UTC)
+Received: from player796.ha.ovh.net (unknown [10.108.57.50])
+ by mo2.mail-out.ovh.net (Postfix) with ESMTP id 7CBEA1DE840
+ for <xen-devel@lists.xenproject.org>; Mon,  3 Aug 2020 14:30:24 +0200 (CEST)
+Received: from RCM-web4.webmail.mail.ovh.net (85-222-117-222.dynamic.chello.pl
+ [85.222.117.222]) (Authenticated sender: norbert.kaminski@3mdeb.com)
+ by player796.ha.ovh.net (Postfix) with ESMTPSA id 9F70714E43909;
+ Mon,  3 Aug 2020 12:30:18 +0000 (UTC)
 MIME-Version: 1.0
+Date: Mon, 03 Aug 2020 14:30:18 +0200
+From: norbert.kaminski@3mdeb.com
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Subject: Re: fwupd support under Xen - firmware updates with the UEFI capsule
+In-Reply-To: <20200728221645.GO1626@mail-itl>
+References: <497f1524-b57e-0ea1-5899-62f677bfae91@3mdeb.com>
+ <39be665c-b6c8-23e3-b18b-d38cfe5c1286@suse.com>
+ <bbe85f76-0999-1150-3d48-c7f9e1796dac@citrix.com>
+ <20200728221645.GO1626@mail-itl>
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <82c27cf6dd6dfac3fb5ce38b335fa997@3mdeb.com>
+X-Sender: norbert.kaminski@3mdeb.com
+X-Originating-IP: 85.222.117.222
+X-Webmail-UserID: norbert.kaminski@3mdeb.com
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 243194383087999326
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduiedrjeeggdehfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeggfffhvffujghffgfkgihitgfgsehtkehjtddtreejnecuhfhrohhmpehnohhrsggvrhhtrdhkrghmihhnshhkihesfehmuggvsgdrtghomhenucggtffrrghtthgvrhhnpeevgffgfeffteeivdetffekkeefueevjeejvddvfedtfffhtdeikeffuedvveetgeenucffohhmrghinhepfehmuggvsgdrtghomhenucfkpheptddrtddrtddrtddpkeehrddvvddvrdduudejrddvvddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeeliedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehnohhrsggvrhhtrdhkrghmihhnshhkihesfehmuggvsgdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,231 +58,114 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <pdurrant@amazon.com>, Kevin Tian <kevin.tian@intel.com>,
- Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Maciej Pijanowski <maciej.pijanowski@3mdeb.com>, piotr.krol@3mdeb.com,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Paul Durrant <pdurrant@amazon.com>
+On 29.07.2020 00:16, Marek Marczykowski-Górecki wrote:
+> On Tue, Jul 28, 2020 at 10:01:33PM +0100, Andrew Cooper wrote:
+>> On 28/07/2020 21:00, Jan Beulich wrote:
+>> > On 28.07.2020 09:41, Norbert Kaminski wrote:
+>> >> I'm trying to add support for the firmware updates with the UEFI
+>> >> capsule in
+>> >> Qubes OS. I've got the troubles with reading ESRT (EFI System
+>> >> Resource Table)
+>> >> in the dom0, which is based on the EFI memory map. The EFI_MEMMAP is not
+>> >> enabled despite the loaded drivers (CONFIG_EFI, CONFIG_EFI_ESRT) and
+>> >> kernel
+>> >> cmdline parameters (add_efi_memmap):
+>> >>
+>> >> ```
+>> >> [    3.451249] efi: EFI_MEMMAP is not enabled.
+>> >> ```
+>> >
+>> > It is, according to my understanding, a layering violation to expose
+>> > the EFI memory map to Dom0. It's not supposed to make use of this
+>> > information in any way. Hence any functionality depending on its use
+>> > also needs to be implemented in the hypervisor, with Dom0 making a
+>> > suitable hypercall to access this functionality. (And I find it
+>> > quite natural to expect that Xen gets involved in an update of the
+>> > firmware of a system.)
+>> 
+>> ERST is a table (read only by the looks of things) which is a 
+>> catalogue
+>> of various bits of firmware in the system, including GUIDs for
+>> identification, and version information.
+>> 
+>> It is the kind of data which the hardware domain should have access 
+>> to,
+>> and AFAICT, behaves just like a static ACPI table.
+>> 
+>> Presumably it wants to an E820 reserved region so dom0 gets indent
+>> access, and something in the EFI subsystem needs extending to pass the
+>> ERST address to dom0.
+> 
+> I think most (if not all) pieces in Xen are already there - there is
+> XENPF_firmware_info with XEN_EFW_EFI_INFO + XEN_FW_EFI_CONFIG_TABLE
+> that gives address of the EFI config table. Linux saves it in
+> efi_systab_xen.tables (arch/x86/xen/efi.c:xen_efi_probe().
+> I haven't figured out yet if it does anything with that information, 
+> but
+> the content of /sys/firmware/efi/systab suggests it does.
+> 
+> It seems ESRT driver in Linux uses memmap just for some sanity checks
+> (if the ESRT points at memory with EFI_MEMORY_RUNTIME and appropriate
+> type). Perhaps the check (if really necessary) can be added to Xen and
+> in case of dom0 simply skipped in Linux.
+> 
+> Norbert, if you're brave enough ;) I would suggests trying the (Linux)
+> patch below:
+> 
+> -----8<-----
+> diff --git a/drivers/firmware/efi/esrt.c b/drivers/firmware/efi/esrt.c
+> index e3d692696583..a2a5ccbb00a8 100644
+> --- a/drivers/firmware/efi/esrt.c
+> +++ b/drivers/firmware/efi/esrt.c
+> @@ -245,13 +245,14 @@ void __init efi_esrt_init(void)
+>  	int rc;
+>  	phys_addr_t end;
+> 
+> -	if (!efi_enabled(EFI_MEMMAP))
+> +	if (!efi_enabled(EFI_MEMMAP) && !efi_enabled(EFI_PARAVIRT))
+>  		return;
+> 
+>  	pr_debug("esrt-init: loading.\n");
+>  	if (!esrt_table_exists())
+>  		return;
+> 
+> +	if (!efi_enabled(EFI_PARAVIRT)) {
+>  	rc = efi_mem_desc_lookup(efi.esrt, &md);
+>  	if (rc < 0 ||
+>  	    (!(md.attribute & EFI_MEMORY_RUNTIME) &&
+> @@ -276,6 +277,7 @@ void __init efi_esrt_init(void)
+>  		       size, max);
+>  		return;
+>  	}
+> +	}
+> 
+>  	va = early_memremap(efi.esrt, size);
+>  	if (!va) {
+> @@ -331,7 +333,8 @@ void __init efi_esrt_init(void)
+> 
+>  	end = esrt_data + size;
+>  	pr_info("Reserving ESRT space from %pa to %pa.\n", &esrt_data, &end);
+> -	if (md.type == EFI_BOOT_SERVICES_DATA)
+> +
+> +	if (!efi_enabled(EFI_PARAVIRT) && md.type == EFI_BOOT_SERVICES_DATA)
+>  		efi_mem_reserve(esrt_data, esrt_data_size);
+> 
+>  	pr_debug("esrt-init: loaded.\n");
+> ----8<-----
+I've built the kernel with your patch. Unfortunately it doesn't bring 
+expected
+sysfs directories. We still need some changes here.
 
-It's confusing and not consistent with the terminology introduced with 'dfn_t'.
-Just call them IOMMU page tables.
-
-Also remove a pointless check of the 'acpi_drhd_units' list in
-vtd_dump_page_table_level(). If the list is empty then IOMMU mappings would
-not have been enabled for the domain in the first place.
-
-NOTE: All calls to printk() have also been removed from
-      iommu_dump_page_tables(); the implementation specific code is now
-      responsible for all output.
-      The check for the global 'iommu_enabled' has also been replaced by an
-      ASSERT since iommu_dump_page_tables() is not registered as a key handler
-      unless IOMMU mappings are enabled.
-
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Paul Durrant <paul@xen.org>
-Cc: Kevin Tian <kevin.tian@intel.com>
-
-v2:
- - Moved all output into implementation specific code
----
- xen/drivers/passthrough/amd/pci_amd_iommu.c | 16 ++++++-------
- xen/drivers/passthrough/iommu.c             | 21 ++++-------------
- xen/drivers/passthrough/vtd/iommu.c         | 26 +++++++++++----------
- xen/include/xen/iommu.h                     |  2 +-
- 4 files changed, 28 insertions(+), 37 deletions(-)
-
-diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-index d79668f948..b3e95cf18e 100644
---- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-+++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-@@ -491,8 +491,8 @@ static int amd_iommu_group_id(u16 seg, u8 bus, u8 devfn)
- 
- #include <asm/io_apic.h>
- 
--static void amd_dump_p2m_table_level(struct page_info* pg, int level, 
--                                     paddr_t gpa, int indent)
-+static void amd_dump_page_table_level(struct page_info* pg, int level,
-+                                      paddr_t gpa, int indent)
- {
-     paddr_t address;
-     struct amd_iommu_pte *table_vaddr;
-@@ -529,7 +529,7 @@ static void amd_dump_p2m_table_level(struct page_info* pg, int level,
- 
-         address = gpa + amd_offset_level_address(index, level);
-         if ( pde->next_level >= 1 )
--            amd_dump_p2m_table_level(
-+            amd_dump_page_table_level(
-                 mfn_to_page(_mfn(pde->mfn)), pde->next_level,
-                 address, indent + 1);
-         else
-@@ -542,16 +542,16 @@ static void amd_dump_p2m_table_level(struct page_info* pg, int level,
-     unmap_domain_page(table_vaddr);
- }
- 
--static void amd_dump_p2m_table(struct domain *d)
-+static void amd_dump_page_tables(struct domain *d)
- {
-     const struct domain_iommu *hd = dom_iommu(d);
- 
-     if ( !hd->arch.amd.root_table )
-         return;
- 
--    printk("p2m table has %d levels\n", hd->arch.amd.paging_mode);
--    amd_dump_p2m_table_level(hd->arch.amd.root_table,
--                             hd->arch.amd.paging_mode, 0, 0);
-+    printk("AMD IOMMU table has %d levels\n", hd->arch.amd.paging_mode);
-+    amd_dump_page_table_level(hd->arch.amd.root_table,
-+                              hd->arch.amd.paging_mode, 0, 0);
- }
- 
- static const struct iommu_ops __initconstrel _iommu_ops = {
-@@ -578,7 +578,7 @@ static const struct iommu_ops __initconstrel _iommu_ops = {
-     .suspend = amd_iommu_suspend,
-     .resume = amd_iommu_resume,
-     .crash_shutdown = amd_iommu_crash_shutdown,
--    .dump_p2m_table = amd_dump_p2m_table,
-+    .dump_page_tables = amd_dump_page_tables,
- };
- 
- static const struct iommu_init_ops __initconstrel _iommu_init_ops = {
-diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-index 7464f10d1c..0f468379e1 100644
---- a/xen/drivers/passthrough/iommu.c
-+++ b/xen/drivers/passthrough/iommu.c
-@@ -22,7 +22,7 @@
- #include <xen/keyhandler.h>
- #include <xsm/xsm.h>
- 
--static void iommu_dump_p2m_table(unsigned char key);
-+static void iommu_dump_page_tables(unsigned char key);
- 
- unsigned int __read_mostly iommu_dev_iotlb_timeout = 1000;
- integer_param("iommu_dev_iotlb_timeout", iommu_dev_iotlb_timeout);
-@@ -212,7 +212,7 @@ void __hwdom_init iommu_hwdom_init(struct domain *d)
-     if ( !is_iommu_enabled(d) )
-         return;
- 
--    register_keyhandler('o', &iommu_dump_p2m_table, "dump iommu p2m table", 0);
-+    register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
- 
-     hd->platform_ops->hwdom_init(d);
- }
-@@ -533,16 +533,12 @@ bool_t iommu_has_feature(struct domain *d, enum iommu_feature feature)
-     return is_iommu_enabled(d) && test_bit(feature, dom_iommu(d)->features);
- }
- 
--static void iommu_dump_p2m_table(unsigned char key)
-+static void iommu_dump_page_tables(unsigned char key)
- {
-     struct domain *d;
-     const struct iommu_ops *ops;
- 
--    if ( !iommu_enabled )
--    {
--        printk("IOMMU not enabled!\n");
--        return;
--    }
-+    ASSERT(iommu_enabled);
- 
-     ops = iommu_get_ops();
- 
-@@ -553,14 +549,7 @@ static void iommu_dump_p2m_table(unsigned char key)
-         if ( is_hardware_domain(d) || !is_iommu_enabled(d) )
-             continue;
- 
--        if ( iommu_use_hap_pt(d) )
--        {
--            printk("\ndomain%d IOMMU p2m table shared with MMU: \n", d->domain_id);
--            continue;
--        }
--
--        printk("\ndomain%d IOMMU p2m table: \n", d->domain_id);
--        ops->dump_p2m_table(d);
-+        ops->dump_page_tables(d);
-     }
- 
-     rcu_read_unlock(&domlist_read_lock);
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index a532d9e88c..f8da4fe0e7 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -2582,8 +2582,8 @@ static void vtd_resume(void)
-     }
- }
- 
--static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa, 
--                                     int indent)
-+static void vtd_dump_page_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
-+                                      int indent)
- {
-     paddr_t address;
-     int i;
-@@ -2612,8 +2612,8 @@ static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
- 
-         address = gpa + offset_level_address(i, level);
-         if ( next_level >= 1 ) 
--            vtd_dump_p2m_table_level(dma_pte_addr(*pte), next_level, 
--                                     address, indent + 1);
-+            vtd_dump_page_table_level(dma_pte_addr(*pte), next_level,
-+                                      address, indent + 1);
-         else
-             printk("%*sdfn: %08lx mfn: %08lx\n",
-                    indent, "",
-@@ -2624,17 +2624,19 @@ static void vtd_dump_p2m_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
-     unmap_vtd_domain_page(pt_vaddr);
- }
- 
--static void vtd_dump_p2m_table(struct domain *d)
-+static void vtd_dump_page_tables(struct domain *d)
- {
--    const struct domain_iommu *hd;
-+    const struct domain_iommu *hd = dom_iommu(d);
- 
--    if ( list_empty(&acpi_drhd_units) )
-+    if ( iommu_use_hap_pt(d) )
-+    {
-+        printk("VT-D sharing EPT table\n");
-         return;
-+    }
- 
--    hd = dom_iommu(d);
--    printk("p2m table has %d levels\n", agaw_to_level(hd->arch.vtd.agaw));
--    vtd_dump_p2m_table_level(hd->arch.vtd.pgd_maddr,
--                             agaw_to_level(hd->arch.vtd.agaw), 0, 0);
-+    printk("VT-D table has %d levels\n", agaw_to_level(hd->arch.vtd.agaw));
-+    vtd_dump_page_table_level(hd->arch.vtd.pgd_maddr,
-+                              agaw_to_level(hd->arch.vtd.agaw), 0, 0);
- }
- 
- static int __init intel_iommu_quarantine_init(struct domain *d)
-@@ -2734,7 +2736,7 @@ static struct iommu_ops __initdata vtd_ops = {
-     .iotlb_flush = iommu_flush_iotlb_pages,
-     .iotlb_flush_all = iommu_flush_iotlb_all,
-     .get_reserved_device_memory = intel_iommu_get_reserved_device_memory,
--    .dump_p2m_table = vtd_dump_p2m_table,
-+    .dump_page_tables = vtd_dump_page_tables,
- };
- 
- const struct iommu_init_ops __initconstrel intel_iommu_init_ops = {
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 1f25d2082f..23e884f54b 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -277,7 +277,7 @@ struct iommu_ops {
-                                     unsigned int flush_flags);
-     int __must_check (*iotlb_flush_all)(struct domain *d);
-     int (*get_reserved_device_memory)(iommu_grdm_t *, void *);
--    void (*dump_p2m_table)(struct domain *d);
-+    void (*dump_page_tables)(struct domain *d);
- 
- #ifdef CONFIG_HAS_DEVICE_TREE
-     /*
--- 
-2.20.1
-
+Best Regards,
+Norbert Kamiński
+Embedded Systems Engineer
+GPG key ID: 9E9F90AFE10F466A
+3mdeb.com
 
