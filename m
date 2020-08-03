@@ -2,59 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF21723AC46
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 20:22:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D5F23AC40
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Aug 2020 20:22:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2f6C-0008KM-Ez; Mon, 03 Aug 2020 18:22:12 +0000
+	id 1k2f6H-0008Mg-Sj; Mon, 03 Aug 2020 18:22:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XyPB=BN=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k2f6B-0008F4-6y
- for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 18:22:11 +0000
-X-Inumbo-ID: 32a454ae-d5b6-11ea-90c4-bc764e2007e4
-Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
+ id 1k2f6G-0008F4-7C
+ for xen-devel@lists.xenproject.org; Mon, 03 Aug 2020 18:22:16 +0000
+X-Inumbo-ID: 33932a00-d5b6-11ea-90c4-bc764e2007e4
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 32a454ae-d5b6-11ea-90c4-bc764e2007e4;
- Mon, 03 Aug 2020 18:21:51 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id x24so3651762lfe.11
- for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 11:21:51 -0700 (PDT)
+ id 33932a00-d5b6-11ea-90c4-bc764e2007e4;
+ Mon, 03 Aug 2020 18:21:52 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id x24so3651785lfe.11
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Aug 2020 11:21:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=Mv84D4r2aumLFDv8lYRdBY/1g2sPieE7HeRa3w7RXVY=;
- b=PwJL8Ike+kIqVKmPv4Lw2iCjl0WHNL82j9B4uw9RwQQEO5EPmdiNiZqnuVtuBwWlEU
- Uosmt7kiLnfykZF/8NIzgiZBAu7LpgIadpcmhPbJg0Gda7UiU3wrkRWMUiPhuigx2vjs
- fgx7t8JQD1tYHx8TrRIqw54NcswwDk3NZH2aaOIElQVwKq8Sp1z39JU7Qzq1lGjaycPQ
- 3JPYcILbPRH9HhLPT1g3c5iDQH0ALiaBrmpQjlIu9Wx4LIco6LrI8KyePWraS4d8iXFo
- xKXCUm2X4VOAG7sjndU9Ltob7TYxUELO/oTbvE8jO4tQKeaiRJV1i2S7uM3hadfJ41OD
- /Adg==
+ bh=KJwl2Gf8Kc5S6/JKnP2lqwji4gRYsqHMXGwGJUsp3PA=;
+ b=HYJEXbGiDpX09e/7tZjQdogZIcJH4gMNC09XuyfFLcrQThKzJ7c6ZFJCl2riNdhQHn
+ N0zLR59eCnQ48byQmeEticc8+PAD0yhFJJGO6IXTqOkC/kFxBGf8zuKAGiT9BDnofh+L
+ Ze/ZNeonVO5rP7j6/vDr6T5/wJd35ZREnwHf6AWZD8kDX9FS3rZoOyFbtM+3BM/4SBxi
+ 5lottYR/7hNls0wK9wO/RtKoCc5JrHbiULIfTo72r1rS3n+lXW+BsCKRtGINM3emRq1K
+ +nJ7h1sWOFTi+IBjAeZoQ4sh+1LGtWIN6fXQgH1k9sIoCzqBO0FPRMY9X4ll1/RNWz82
+ nKxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=Mv84D4r2aumLFDv8lYRdBY/1g2sPieE7HeRa3w7RXVY=;
- b=bRtwMgOxh4WG0Och3XYnuo9a8HbECJPjODlL4vgeiA8OPvjGxQRlxnY0dyNlY76Lnu
- Ri3Fcxzi9NRK+aBhcZP7XUJneuwfTVCOfevr14Z0kyXyp2gCz5hHIG+DanW5gKGKM3jg
- D5JybWIirvyFOSbAiUdvLdeZLAp4vxWmwDwqBUx8SpbtOjD7dybrLqLFM4C1MFuFFYtz
- zx2hUKko1l8qMV2WK/+14//YVZc6lgj7Kt3Pybb+ImyYSJxoWoQp4EHSNuvd2C87sd/f
- q/ZWICF1+IQfVKHBoxL3arpX8scBzDLS5A2w9932rPsdnexeeYOeApJE0FghDWFh/3FH
- WQbA==
-X-Gm-Message-State: AOAM5339k+3/wRdXQJnSSEFVEK703B1xdjS436qxBPWB70sIVA2Mx2rv
- ldDaE+AdVs/EN/YWKfx+0xvkDiWQvCI=
-X-Google-Smtp-Source: ABdhPJxXWm0JBPyiKEZvceaAoqdJzrLR6fTtwnaGCqNa5E12FxcPBl8d3bee+TF2QDKbf03LyNkhCA==
-X-Received: by 2002:a19:c806:: with SMTP id y6mr2705506lff.156.1596478909751; 
- Mon, 03 Aug 2020 11:21:49 -0700 (PDT)
+ bh=KJwl2Gf8Kc5S6/JKnP2lqwji4gRYsqHMXGwGJUsp3PA=;
+ b=IUFu/dTEY5LkOYxAQx0EFwdVtskyv2cSXpFwqizsU1zL5E6P78BAbuJQbsgfTUSRFr
+ gOjsGw+pHfx7d2WuogdYV2TDW9LmJaNGSUKUtDrkurV7Ft03H0qMbwk5iNT6iDthQui1
+ pVkadhh1YsDIks1bi+f1F/N/k5gf8RT8uNMSx4UjfX+D/TgiMrRsk38mLNAMoc3G2tJZ
+ W+vSW6zWKa+a8Y2YX4/nRne7jOfDKW+hLEP96kD0tZyskatcU+pOpm/SJ5he77Xhg6Bj
+ PfDpJQGQnCYpMUAzgmVZwon1rdu371NZx1eF5smC7571LhtXRJ3bNtquxGV8XdzwYVKz
+ NvZw==
+X-Gm-Message-State: AOAM531mY97voCksnP1D1/ZhtYb/+6L2vGh28gX24uUG0Ek/YH1a96Ar
+ fF6/7/ReBJ7I8ANEcTcsyJRVU3KDkTg=
+X-Google-Smtp-Source: ABdhPJz/K3XOJPdOW03K8F5ra2FDgmd10m+rY5j09JeC8qbFsgW0FOwPYAJfoEjxaSi+C7e6N/cx0w==
+X-Received: by 2002:ac2:4c33:: with SMTP id u19mr9422767lfq.154.1596478910795; 
+ Mon, 03 Aug 2020 11:21:50 -0700 (PDT)
 Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id h18sm4486730ljk.7.2020.08.03.11.21.48
+ by smtp.gmail.com with ESMTPSA id h18sm4486730ljk.7.2020.08.03.11.21.49
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 03 Aug 2020 11:21:49 -0700 (PDT)
+ Mon, 03 Aug 2020 11:21:50 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
-Subject: [RFC PATCH V1 05/12] hvm/dm: Introduce xendevicemodel_set_irq_level
- DM op
-Date: Mon,  3 Aug 2020 21:21:21 +0300
-Message-Id: <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
+Subject: [RFC PATCH V1 06/12] libxl: Introduce basic virtio-mmio support on Arm
+Date: Mon,  3 Aug 2020 21:21:22 +0300
+Message-Id: <1596478888-23030-7-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
@@ -69,21 +68,21 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ Julien Grall <julien.grall@arm.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-This patch adds ability to the device emulator to notify otherend
-(some entity running in the guest) using a SPI and implements Arm
-specific bits for it. Proposed interface allows emulator to set
-the logical level of a one of a domain's IRQ lines.
+This patch creates specific device node in the Guest device-tree
+with allocated MMIO range and SPI interrupt if specific 'virtio'
+property is present in domain config.
+
+Please note, this patch breaks device passthrough use-case which
+will be fixed in one of the follow-up patches.
 
 Please note, this is a split/cleanup of Julien's PoC:
 "Add support for Guest IO forwarding to a device emulator"
@@ -91,148 +90,106 @@ Please note, this is a split/cleanup of Julien's PoC:
 Signed-off-by: Julien Grall <julien.grall@arm.com>
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
- tools/libs/devicemodel/core.c                   | 18 ++++++++++++++++++
- tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
- tools/libs/devicemodel/libxendevicemodel.map    |  1 +
- xen/arch/arm/dm.c                               | 22 +++++++++++++++++++++-
- xen/common/hvm/dm.c                             |  1 +
- xen/include/public/hvm/dm_op.h                  | 15 +++++++++++++++
- 6 files changed, 60 insertions(+), 1 deletion(-)
+ tools/libxl/libxl_arm.c     | 39 +++++++++++++++++++++++++++++++++++++++
+ tools/libxl/libxl_types.idl |  1 +
+ tools/xl/xl_parse.c         |  1 +
+ 3 files changed, 41 insertions(+)
 
-diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
-index 4d40639..30bd79f 100644
---- a/tools/libs/devicemodel/core.c
-+++ b/tools/libs/devicemodel/core.c
-@@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
-     return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
+diff --git a/tools/libxl/libxl_arm.c b/tools/libxl/libxl_arm.c
+index 34f8a29..620b499 100644
+--- a/tools/libxl/libxl_arm.c
++++ b/tools/libxl/libxl_arm.c
+@@ -68,6 +68,10 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+             nr_spis = spi + 1;
+     }
+ 
++
++    /* XXX: Handle properly virtio */
++    nr_spis = 1;
++
+     LOG(DEBUG, "Configure the domain");
+ 
+     config->arch.nr_spis = nr_spis;
+@@ -659,6 +663,37 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
+     return 0;
  }
  
-+int xendevicemodel_set_irq_level(
-+    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
-+    unsigned int level)
++#define GUEST_VIRTIO_MMIO_BASE  xen_mk_ullong(0x02000000)
++#define GUEST_VIRTIO_MMIO_SIZE  xen_mk_ullong(0x200)
++#define GUEST_VIRTIO_MMIO_SPI   33
++
++static int make_virtio_mmio_node(libxl__gc *gc, void *fdt)
 +{
-+    struct xen_dm_op op;
-+    struct xen_dm_op_set_irq_level *data;
++    int res;
++    gic_interrupt intr;
 +
-+    memset(&op, 0, sizeof(op));
++    /* XXX: Add address in the node name */
++    res = fdt_begin_node(fdt, "virtio");
++    if (res) return res;
 +
-+    op.op = XEN_DMOP_set_irq_level;
-+    data = &op.u.set_irq_level;
++    res = fdt_property_compat(gc, fdt, 1, "virtio,mmio");
++    if (res) return res;
 +
-+    data->irq = irq;
-+    data->level = level;
++    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++                            1, GUEST_VIRTIO_MMIO_BASE, GUEST_VIRTIO_MMIO_SIZE);
++    if (res) return res;
 +
-+    return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
++    set_interrupt(intr, GUEST_VIRTIO_MMIO_SPI, 0xf, DT_IRQ_TYPE_EDGE_RISING);
++    res = fdt_property_interrupts(gc, fdt, &intr, 1);
++    if (res) return res;
++
++    res = fdt_end_node(fdt);
++    if (res) return res;
++
++    return 0;
++
 +}
 +
- int xendevicemodel_set_pci_link_route(
-     xendevicemodel_handle *dmod, domid_t domid, uint8_t link, uint8_t irq)
+ static const struct arch_info *get_arch_info(libxl__gc *gc,
+                                              const struct xc_dom_image *dom)
  {
-diff --git a/tools/libs/devicemodel/include/xendevicemodel.h b/tools/libs/devicemodel/include/xendevicemodel.h
-index e877f5c..c06b3c8 100644
---- a/tools/libs/devicemodel/include/xendevicemodel.h
-+++ b/tools/libs/devicemodel/include/xendevicemodel.h
-@@ -209,6 +209,10 @@ int xendevicemodel_set_isa_irq_level(
-     xendevicemodel_handle *dmod, domid_t domid, uint8_t irq,
-     unsigned int level);
+@@ -962,6 +997,9 @@ next_resize:
+         if (info->tee == LIBXL_TEE_TYPE_OPTEE)
+             FDT( make_optee_node(gc, fdt) );
  
-+int xendevicemodel_set_irq_level(
-+    xendevicemodel_handle *dmod, domid_t domid, unsigned int irq,
-+    unsigned int level);
++        if (libxl_defbool_val(info->arch_arm.virtio))
++            FDT( make_virtio_mmio_node(gc, fdt) );
 +
- /**
-  * This function maps a PCI INTx line to a an IRQ line.
-  *
-diff --git a/tools/libs/devicemodel/libxendevicemodel.map b/tools/libs/devicemodel/libxendevicemodel.map
-index 561c62d..a0c3012 100644
---- a/tools/libs/devicemodel/libxendevicemodel.map
-+++ b/tools/libs/devicemodel/libxendevicemodel.map
-@@ -32,6 +32,7 @@ VERS_1.2 {
- 	global:
- 		xendevicemodel_relocate_memory;
- 		xendevicemodel_pin_memory_cacheattr;
-+		xendevicemodel_set_irq_level;
- } VERS_1.1;
+         if (pfdt)
+             FDT( copy_partial_fdt(gc, fdt, pfdt) );
  
- VERS_1.3 {
-diff --git a/xen/arch/arm/dm.c b/xen/arch/arm/dm.c
-index 2437099..8431805 100644
---- a/xen/arch/arm/dm.c
-+++ b/xen/arch/arm/dm.c
-@@ -20,7 +20,27 @@
- int arch_dm_op(struct xen_dm_op *op, struct domain *d,
-                const struct dmop_args *op_args, bool *const_op)
+@@ -1179,6 +1217,7 @@ void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
  {
--    return -EOPNOTSUPP;
-+    int rc;
-+
-+    switch ( op->op )
-+    {
-+    case XEN_DMOP_set_irq_level:
-+    {
-+        const struct xen_dm_op_set_irq_level *data =
-+            &op->u.set_irq_level;
-+
-+        /* XXX: Handle check */
-+        vgic_inject_irq(d, NULL, data->irq, data->level);
-+        rc = 0;
-+        break;
-+    }
-+
-+    default:
-+        rc = -EOPNOTSUPP;
-+        break;
-+    }
-+
-+    return rc;
- }
+     /* ACPI is disabled by default */
+     libxl_defbool_setdefault(&b_info->acpi, false);
++    libxl_defbool_setdefault(&b_info->arch_arm.virtio, false);
  
- /*
-diff --git a/xen/common/hvm/dm.c b/xen/common/hvm/dm.c
-index 09e9542..e2e1250 100644
---- a/xen/common/hvm/dm.c
-+++ b/xen/common/hvm/dm.c
-@@ -47,6 +47,7 @@ static int dm_op(const struct dmop_args *op_args)
-         [XEN_DMOP_remote_shutdown]                  = sizeof(struct xen_dm_op_remote_shutdown),
-         [XEN_DMOP_relocate_memory]                  = sizeof(struct xen_dm_op_relocate_memory),
-         [XEN_DMOP_pin_memory_cacheattr]             = sizeof(struct xen_dm_op_pin_memory_cacheattr),
-+        [XEN_DMOP_set_irq_level]                    = sizeof(struct xen_dm_op_set_irq_level),
-     };
+     if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
+         return;
+diff --git a/tools/libxl/libxl_types.idl b/tools/libxl/libxl_types.idl
+index 9d3f05f..b054bf9 100644
+--- a/tools/libxl/libxl_types.idl
++++ b/tools/libxl/libxl_types.idl
+@@ -639,6 +639,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
  
-     rc = rcu_lock_remote_domain_by_id(op_args->domid, &d);
-diff --git a/xen/include/public/hvm/dm_op.h b/xen/include/public/hvm/dm_op.h
-index fd00e9d..c45d29e 100644
---- a/xen/include/public/hvm/dm_op.h
-+++ b/xen/include/public/hvm/dm_op.h
-@@ -417,6 +417,20 @@ struct xen_dm_op_pin_memory_cacheattr {
-     uint32_t pad;
- };
  
-+/*
-+ * XEN_DMOP_set_irq_level: Set the logical level of a one of a domain's
-+ *                         IRQ lines.
-+ * XXX Handle PPIs.
-+ */
-+#define XEN_DMOP_set_irq_level 19
-+
-+struct xen_dm_op_set_irq_level {
-+    uint32_t irq;
-+    /* IN - Level: 0 -> deasserted, 1 -> asserted */
-+    uint8_t  level;
-+};
-+
-+
- struct xen_dm_op {
-     uint32_t op;
-     uint32_t pad;
-@@ -430,6 +444,7 @@ struct xen_dm_op {
-         struct xen_dm_op_track_dirty_vram track_dirty_vram;
-         struct xen_dm_op_set_pci_intx_level set_pci_intx_level;
-         struct xen_dm_op_set_isa_irq_level set_isa_irq_level;
-+        struct xen_dm_op_set_irq_level set_irq_level;
-         struct xen_dm_op_set_pci_link_route set_pci_link_route;
-         struct xen_dm_op_modified_memory modified_memory;
-         struct xen_dm_op_set_mem_type set_mem_type;
+     ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
++                               ("virtio", libxl_defbool),
+                                ("vuart", libxl_vuart_type),
+                               ])),
+     # Alternate p2m is not bound to any architecture or guest type, as it is
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index 61b4ef7..b8306aa 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -2579,6 +2579,7 @@ skip_usbdev:
+     }
+ 
+     xlu_cfg_get_defbool(config, "dm_restrict", &b_info->dm_restrict, 0);
++    xlu_cfg_get_defbool(config, "virtio", &b_info->arch_arm.virtio, 0);
+ 
+     if (c_info->type == LIBXL_DOMAIN_TYPE_HVM) {
+         if (!xlu_cfg_get_string (config, "vga", &buf, 0)) {
 -- 
 2.7.4
 
