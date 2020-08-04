@@ -2,42 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56A9223BD8D
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 17:51:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C748123BD95
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 17:53:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2zDF-0004kU-B2; Tue, 04 Aug 2020 15:50:49 +0000
+	id 1k2zFJ-0004xQ-S8; Tue, 04 Aug 2020 15:52:57 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xzDE=BO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k2zDE-0004kJ-Ln
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 15:50:48 +0000
-X-Inumbo-ID: e3b9ef3c-a254-46b5-bbbd-726a425dbd82
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gGWh=BO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k2zFI-0004xL-H9
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 15:52:56 +0000
+X-Inumbo-ID: be60f59d-d5b7-44c7-bc9e-de44d9d9656c
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e3b9ef3c-a254-46b5-bbbd-726a425dbd82;
- Tue, 04 Aug 2020 15:50:46 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DE8FEAE9D;
- Tue,  4 Aug 2020 15:51:01 +0000 (UTC)
-Subject: Re: [PATCH] x86emul: further FPU env testing relaxation for AMD-like
- CPUs
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <b2667393-0196-30de-86e9-b7a6145ed03d@suse.com>
- <91e628c6-cbbc-2023-51be-674de4901704@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <84af154e-c2b9-a6da-f8ee-8acafdd02dff@suse.com>
-Date: Tue, 4 Aug 2020 17:50:45 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id be60f59d-d5b7-44c7-bc9e-de44d9d9656c;
+ Tue, 04 Aug 2020 15:52:55 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D16492177B;
+ Tue,  4 Aug 2020 15:52:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1596556375;
+ bh=tDpIkWuSdpodqGPQDWIFOE7o7/wTSGZ0oJmR6Sz9Ia0=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=OI3MDkvGqDpsgTM5w7jN/tiL+atoldmOEjEfCWS7pHTnC2Uy1MY0J813NPeuSI6rz
+ xhvQyEAAalWPyUsZx6E0SeXw3RI4fmv3s0L+a9GjazjECiPEKRU1BLI8ztJSblepe0
+ uakSz5POYLuNJqFDfji1qYcISOWDiO6oPuAcHGYI=
+Date: Tue, 4 Aug 2020 08:52:54 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>
+Subject: Re: [PATCH v3 00/11] fix swiotlb-xen for RPi4
+In-Reply-To: <8413f3e2-0bbf-efa3-1a8a-2ae05b1d07c8@suse.com>
+Message-ID: <alpine.DEB.2.21.2008040852460.5748@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2007101521290.4124@sstabellini-ThinkPad-T480s>
+ <8413f3e2-0bbf-efa3-1a8a-2ae05b1d07c8@suse.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <91e628c6-cbbc-2023-51be-674de4901704@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323329-1376642103-1596556375=:5748"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,51 +53,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, konrad.wilk@oracle.com,
+ roman@zededa.com, linux-kernel@vger.kernel.org, hch@infradead.org,
+ tamas@tklengyel.com, xen-devel@lists.xenproject.org,
+ boris.ostrovsky@oracle.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04.08.2020 16:46, Andrew Cooper wrote:
-> On 04/08/2020 10:36, Jan Beulich wrote:
->> See the code comment that's being extended. Additionally a few more
->> zap_fpsel() invocations are needed - whenever we stored state after
->> there potentially having been a context switch behind our backs.
->>
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1376642103-1596556375=:5748
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Tue, 4 Aug 2020, Jürgen Groß wrote:
+> On 11.07.20 00:34, Stefano Stabellini wrote:
+> > Hi all,
+> > 
+> > This series is a collection of fixes to get Linux running on the RPi4 as
+> > dom0. Conceptually there are only two significant changes:
+> > 
+> > - make sure not to call virt_to_page on vmalloc virt addresses (patch
+> >    #1)
+> > - use phys_to_dma and dma_to_phys to translate phys to/from dma
+> >    addresses (all other patches)
+> > 
+> > 
+> > I addressed all comments by Christoph to v2 of the series except from
+> > the one about merging the precursor "add struct device *" patches. I can
+> > always merge them together at any time as needed.
+> > 
+> > 
+> > Boris gave his Reviewed-by to the whole series v2. I added his
+> > Reviewed-by to all patches, including the ones with small cosmetic
+> > fixes, except for patch #8 #9 #10 because they are either new or changed
+> > significantly in this version of the series.
+> > 
+> > I retained Roman and Corey's Tested-by.
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Series pushed to: xen/tip.git for-linus-5.9
 
-Thanks.
-
->> --- a/tools/tests/x86_emulator/test_x86_emulator.c
->> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
->> @@ -752,6 +752,13 @@ static struct x86_emulate_ops emulops =
->>   * 64-bit OSes may not (be able to) properly restore the two selectors in
->>   * the FPU environment. Zap them so that memcmp() on two saved images will
->>   * work regardless of whether a context switch occurred in the middle.
->> + *
->> + * Additionally on AMD-like CPUs FDP/FIP/FOP may get lost across context
->> + * switches, when there's no unmasked pending FP exception: With
-> 
-> I think you want a full stop rather than a colon, and ...
-
-I'd prefer to stick to the colon here, while ...
-
->> + * CPUID[80000008].EBX[2] clear, the fields don't get written/read by
->> + * {F,}XSAVE / {F,}XRSTOR, which OSes often compensate for by invoking an
->> + * insn forcing the fields to gain a deterministic value. Whereas with said
-> 
-> ... a comma here rather than a full stop.
-> 
-> Having "whereas" at the beginning of a sentence like this is weird,
-> given that you're contrasting the behaviour of the CPUID bit.
-> 
-> Also, the more usual CPUID syntax would be CPUID.0x80000008.EBX[2].
-
-... I've adjusted these.
-
-Jan
+Fantastic, thank you!
+--8323329-1376642103-1596556375=:5748--
 
