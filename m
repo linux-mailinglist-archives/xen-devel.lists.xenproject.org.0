@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C5EC23C22E
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 01:23:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 311A123C22B
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 01:23:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k36GS-0001gK-Vq; Tue, 04 Aug 2020 23:22:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k36GY-0001ge-7l; Tue, 04 Aug 2020 23:22:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gGWh=BO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k36GR-0001g1-4O
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 23:22:35 +0000
-X-Inumbo-ID: 21acce81-2bec-40b8-baa3-a7af217f98a2
+ id 1k36GW-0001gY-9b
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 23:22:40 +0000
+X-Inumbo-ID: 2af5228c-9e89-43d0-81ed-fff943d236dd
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 21acce81-2bec-40b8-baa3-a7af217f98a2;
- Tue, 04 Aug 2020 23:22:33 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2af5228c-9e89-43d0-81ed-fff943d236dd;
+ Tue, 04 Aug 2020 23:22:39 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8424C20842;
- Tue,  4 Aug 2020 23:22:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id AF0A82073E;
+ Tue,  4 Aug 2020 23:22:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596583353;
- bh=+541hY4oQwMDk7KvaXCUPFlpnBiTi3iZNAh1Io4ZNyo=;
+ s=default; t=1596583359;
+ bh=O5lobv7IQQbkINSkzdl2ELQpbr6+hMPYTclAIKLSEKA=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=uZeXslBW7+BXNpDxNO/2AX4Z6qXOe+X9eufVXoyyRp/5mzUw5CaHbqkiGamhT6D3K
- dhYY9rE2tItHGkQiiryDjtrMhGv2zJLlJKHil8nnwj8MVwjfLEDUrtevakblWSKFuP
- uILaSDMKeIKDjibKGP7qbUTcP/QN+qfQXGOB4HQc=
-Date: Tue, 4 Aug 2020 16:22:32 -0700 (PDT)
+ b=zGTQeKo6Z2x/OUqg4XVeqCGyRyc2VYjG6V1g9d8FzHjNnLSV6GyUA5xMyXEnBL4VV
+ zT6gM1WiKUT7K/I4v48HMnpylxptw/IVekdr1MsuwyDxWvQuo5L1P/JbNg9/sM6e33
+ INISlgG3pZ7iv5SKdOgdMgX0RLKAV3j4IBXS1dFk=
+Date: Tue, 4 Aug 2020 16:22:38 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
- IOREQ/DM features
-In-Reply-To: <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.21.2008041327110.5748@sstabellini-ThinkPad-T480s>
+Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
+ xendevicemodel_set_irq_level DM op
+In-Reply-To: <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -60,315 +59,184 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  George Dunlap <george.dunlap@citrix.com>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
  Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
 > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> This patch makes possible to forward Guest MMIO accesses
-> to a device emulator on Arm and enables that support for
-> Arm64.
-> 
-> Also update XSM code a bit to let DM op be used on Arm.
-> New arch DM op will be introduced in the follow-up patch.
-> 
-> Please note, at the moment build on Arm32 is broken
-> (see cmpxchg usage in hvm_send_buffered_ioreq()) if someone
-
-Speaking of buffered_ioreq, if I recall correctly, they were only used
-for VGA-related things on x86. It looks like it is still true.
-
-If so, do we need it on ARM? Note that I don't think we can get rid of
-it from the interface as it is baked into ioreq, but it might be
-possible to have a dummy implementation on ARM. Or maybe not: looking at
-xen/common/hvm/ioreq.c it looks like it would be difficult to
-disentangle bufioreq stuff from the rest of the code.
-
-
-> wants to enable CONFIG_IOREQ_SERVER due to the lack of
-> cmpxchg_64 support on Arm32.
+> This patch adds ability to the device emulator to notify otherend
+> (some entity running in the guest) using a SPI and implements Arm
+> specific bits for it. Proposed interface allows emulator to set
+> the logical level of a one of a domain's IRQ lines.
 > 
 > Please note, this is a split/cleanup of Julien's PoC:
 > "Add support for Guest IO forwarding to a device emulator"
 > 
 > Signed-off-by: Julien Grall <julien.grall@arm.com>
 > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+>  tools/libs/devicemodel/core.c                   | 18 ++++++++++++++++++
+>  tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
+>  tools/libs/devicemodel/libxendevicemodel.map    |  1 +
+>  xen/arch/arm/dm.c                               | 22 +++++++++++++++++++++-
+>  xen/common/hvm/dm.c                             |  1 +
+>  xen/include/public/hvm/dm_op.h                  | 15 +++++++++++++++
+>  6 files changed, 60 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
+> index 4d40639..30bd79f 100644
+> --- a/tools/libs/devicemodel/core.c
+> +++ b/tools/libs/devicemodel/core.c
+> @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
+>      return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
+>  }
+>  
+> +int xendevicemodel_set_irq_level(
+> +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
+> +    unsigned int level)
 
-[...]
+It is a pity that having xen_dm_op_set_pci_intx_level and
+xen_dm_op_set_isa_irq_level already we need to add a third one, but from
+the names alone I don't think we can reuse either of them.
+
+It is very similar to set_isa_irq_level. We could almost rename
+xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
+better, just add an alias to it so that xendevicemodel_set_irq_level is
+implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
+not sure if it is worth doing it though. Any other opinions?
 
 
-> @@ -2275,6 +2282,16 @@ static void check_for_vcpu_work(void)
->   */
->  void leave_hypervisor_to_guest(void)
+But I think we should plan for not needing two calls (one to set level
+to 1, and one to set it to 0):
+https://marc.info/?l=xen-devel&m=159535112027405
+
+
+> +{
+> +    struct xen_dm_op op;
+> +    struct xen_dm_op_set_irq_level *data;
+> +
+> +    memset(&op, 0, sizeof(op));
+> +
+> +    op.op = XEN_DMOP_set_irq_level;
+> +    data = &op.u.set_irq_level;
+> +
+> +    data->irq = irq;
+> +    data->level = level;
+> +
+> +    return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
+> +}
+> +
+>  int xendevicemodel_set_pci_link_route(
+>      xendevicemodel_handle *dmod, domid_t domid, uint8_t link, uint8_t irq)
 >  {
-> +#ifdef CONFIG_IOREQ_SERVER
-> +    /*
-> +     * XXX: Check the return. Shall we call that in
-> +     * continue_running and context_switch instead?
-> +     * The benefits would be to avoid calling
-> +     * handle_hvm_io_completion on every return.
-> +     */
-
-Yeah, that could be a simple and good optimization
-
-
-> +    local_irq_enable();
-> +    handle_hvm_io_completion(current);
-> +#endif
->      local_irq_disable();
+> diff --git a/tools/libs/devicemodel/include/xendevicemodel.h b/tools/libs/devicemodel/include/xendevicemodel.h
+> index e877f5c..c06b3c8 100644
+> --- a/tools/libs/devicemodel/include/xendevicemodel.h
+> +++ b/tools/libs/devicemodel/include/xendevicemodel.h
+> @@ -209,6 +209,10 @@ int xendevicemodel_set_isa_irq_level(
+>      xendevicemodel_handle *dmod, domid_t domid, uint8_t irq,
+>      unsigned int level);
 >  
->      check_for_vcpu_work();
-> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
-> index 4e2f582..e060b0a 100644
-> --- a/xen/include/asm-arm/domain.h
-> +++ b/xen/include/asm-arm/domain.h
-> @@ -11,12 +11,64 @@
->  #include <asm/vgic.h>
->  #include <asm/vpl011.h>
->  #include <public/hvm/params.h>
-> +#include <public/hvm/dm_op.h>
-> +#include <public/hvm/ioreq.h>
->  #include <xen/serial.h>
->  #include <xen/rbtree.h>
+> +int xendevicemodel_set_irq_level(
+> +    xendevicemodel_handle *dmod, domid_t domid, unsigned int irq,
+> +    unsigned int level);
+> +
+>  /**
+>   * This function maps a PCI INTx line to a an IRQ line.
+>   *
+> diff --git a/tools/libs/devicemodel/libxendevicemodel.map b/tools/libs/devicemodel/libxendevicemodel.map
+> index 561c62d..a0c3012 100644
+> --- a/tools/libs/devicemodel/libxendevicemodel.map
+> +++ b/tools/libs/devicemodel/libxendevicemodel.map
+> @@ -32,6 +32,7 @@ VERS_1.2 {
+>  	global:
+>  		xendevicemodel_relocate_memory;
+>  		xendevicemodel_pin_memory_cacheattr;
+> +		xendevicemodel_set_irq_level;
+>  } VERS_1.1;
 >  
-> +struct hvm_ioreq_page {
-> +    gfn_t gfn;
-> +    struct page_info *page;
-> +    void *va;
-> +};
-> +
-> +struct hvm_ioreq_vcpu {
-> +    struct list_head list_entry;
-> +    struct vcpu      *vcpu;
-> +    evtchn_port_t    ioreq_evtchn;
-> +    bool             pending;
-> +};
-> +
-> +#define NR_IO_RANGE_TYPES (XEN_DMOP_IO_RANGE_PCI + 1)
-> +#define MAX_NR_IO_RANGES  256
-> +
-> +#define MAX_NR_IOREQ_SERVERS 8
-> +#define DEFAULT_IOSERVID 0
-> +
-> +struct hvm_ioreq_server {
-> +    struct domain          *target, *emulator;
-> +
-> +    /* Lock to serialize toolstack modifications */
-> +    spinlock_t             lock;
-> +
-> +    struct hvm_ioreq_page  ioreq;
-> +    struct list_head       ioreq_vcpu_list;
-> +    struct hvm_ioreq_page  bufioreq;
-> +
-> +    /* Lock to serialize access to buffered ioreq ring */
-> +    spinlock_t             bufioreq_lock;
-> +    evtchn_port_t          bufioreq_evtchn;
-> +    struct rangeset        *range[NR_IO_RANGE_TYPES];
-> +    bool                   enabled;
-> +    uint8_t                bufioreq_handling;
-> +};
-> +
->  struct hvm_domain
+>  VERS_1.3 {
+> diff --git a/xen/arch/arm/dm.c b/xen/arch/arm/dm.c
+> index 2437099..8431805 100644
+> --- a/xen/arch/arm/dm.c
+> +++ b/xen/arch/arm/dm.c
+> @@ -20,7 +20,27 @@
+>  int arch_dm_op(struct xen_dm_op *op, struct domain *d,
+>                 const struct dmop_args *op_args, bool *const_op)
 >  {
->      uint64_t              params[HVM_NR_PARAMS];
-> +
-> +    /* Guest page range used for non-default ioreq servers */
-> +    struct {
-> +        unsigned long base;
-> +        unsigned long mask;
-> +        unsigned long legacy_mask; /* indexed by HVM param number */
-> +    } ioreq_gfn;
-> +
-> +    /* Lock protects all other values in the sub-struct and the default */
-> +    struct {
-> +        spinlock_t              lock;
-> +        struct hvm_ioreq_server *server[MAX_NR_IOREQ_SERVERS];
-> +    } ioreq_server;
->  };
->  
->  #ifdef CONFIG_ARM_64
-> @@ -93,6 +145,29 @@ struct arch_domain
->  #endif
->  }  __cacheline_aligned;
->  
-> +enum hvm_io_completion {
-> +    HVMIO_no_completion,
-> +    HVMIO_mmio_completion,
-> +    HVMIO_pio_completion,
-> +    HVMIO_realmode_completion
-
-realmode is an x86-ism (as pio), I wonder if we could get rid of it on ARM
-
-
-> +};
-> +
-> +struct hvm_vcpu_io {
-> +    /* I/O request in flight to device model. */
-> +    enum hvm_io_completion io_completion;
-> +    ioreq_t                io_req;
-> +
-> +    /*
-> +     * HVM emulation:
-> +     *  Linear address @mmio_gla maps to MMIO physical frame @mmio_gpfn.
-> +     *  The latter is known to be an MMIO frame (not RAM).
-> +     *  This translation is only valid for accesses as per @mmio_access.
-> +     */
-> +    struct npfec        mmio_access;
-> +    unsigned long       mmio_gla;
-> +    unsigned long       mmio_gpfn;
-> +};
-> +
->  struct arch_vcpu
->  {
->      struct {
-> @@ -206,6 +281,11 @@ struct arch_vcpu
->       */
->      bool need_flush_to_ram;
->  
-> +    struct hvm_vcpu
-> +    {
-> +        struct hvm_vcpu_io hvm_io;
-> +    } hvm;
-> +
->  }  __cacheline_aligned;
->  
->  void vcpu_show_execution_state(struct vcpu *);
-> diff --git a/xen/include/asm-arm/hvm/ioreq.h b/xen/include/asm-arm/hvm/ioreq.h
-> new file mode 100644
-> index 0000000..83a560c
-> --- /dev/null
-> +++ b/xen/include/asm-arm/hvm/ioreq.h
-> @@ -0,0 +1,103 @@
-> +/*
-> + * hvm.h: Hardware virtual machine assist interface definitions.
-> + *
-> + * Copyright (c) 2016 Citrix Systems Inc.
-> + * Copyright (c) 2019 Arm ltd.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#ifndef __ASM_ARM_HVM_IOREQ_H__
-> +#define __ASM_ARM_HVM_IOREQ_H__
-> +
-> +#include <public/hvm/ioreq.h>
-> +#include <public/hvm/dm_op.h>
-> +
-> +#define has_vpci(d) (false)
-> +
-> +bool handle_mmio(void);
-> +
-> +static inline bool handle_pio(uint16_t port, unsigned int size, int dir)
-> +{
-> +    /* XXX */
-> +    BUG();
-> +    return true;
-> +}
-> +
-> +static inline paddr_t hvm_mmio_first_byte(const ioreq_t *p)
-> +{
-> +    return p->addr;
-> +}
-> +
-> +static inline paddr_t hvm_mmio_last_byte(const ioreq_t *p)
-> +{
-> +    unsigned long size = p->size;
-> +
-> +    return p->addr + size - 1;
-> +}
-> +
-> +struct hvm_ioreq_server;
-> +
-> +static inline int p2m_set_ioreq_server(struct domain *d,
-> +                                       unsigned int flags,
-> +                                       struct hvm_ioreq_server *s)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +
-> +static inline void msix_write_completion(struct vcpu *v)
-> +{
-> +}
-> +
-> +static inline void handle_realmode_completion(void)
-> +{
-> +    ASSERT_UNREACHABLE();
-> +}
-> +
-> +static inline void paging_mark_pfn_dirty(struct domain *d, pfn_t pfn)
-> +{
-> +}
-> +
-> +static inline void hvm_get_ioreq_server_range_type(struct domain *d,
-> +                                                   ioreq_t *p,
-> +                                                   uint8_t *type,
-> +                                                   uint64_t *addr)
-> +{
-> +    *type = (p->type == IOREQ_TYPE_PIO) ?
-> +             XEN_DMOP_IO_RANGE_PORT : XEN_DMOP_IO_RANGE_MEMORY;
-> +    *addr = p->addr;
-> +}
-> +
-> +static inline void arch_hvm_ioreq_init(struct domain *d)
-> +{
-> +}
-> +
-> +static inline void arch_hvm_ioreq_destroy(struct domain *d)
-> +{
-> +}
-> +
-> +#define IOREQ_IO_HANDLED     IO_HANDLED
-> +#define IOREQ_IO_UNHANDLED   IO_UNHANDLED
-> +#define IOREQ_IO_RETRY       IO_RETRY
-> +
-> +#endif /* __ASM_X86_HVM_IOREQ_H__ */
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
-> index 5fdb6e8..5823f11 100644
-> --- a/xen/include/asm-arm/p2m.h
-> +++ b/xen/include/asm-arm/p2m.h
-> @@ -385,10 +385,11 @@ static inline int set_foreign_p2m_entry(struct domain *d, unsigned long gfn,
->                                          mfn_t mfn)
->  {
->      /*
-> -     * NOTE: If this is implemented then proper reference counting of
-> -     *       foreign entries will need to be implemented.
-> +     * XXX: handle properly reference. It looks like the page may not always
-> +     * belong to d.
-
-Just as a reference, and without taking away anything from the comment,
-I think that QEMU is doing its own internal reference counting for these
-mappings.
-
-
->       */
 > -    return -EOPNOTSUPP;
+> +    int rc;
 > +
-> +    return guest_physmap_add_entry(d, _gfn(gfn), mfn, 0, p2m_ram_rw);
+> +    switch ( op->op )
+> +    {
+> +    case XEN_DMOP_set_irq_level:
+> +    {
+> +        const struct xen_dm_op_set_irq_level *data =
+> +            &op->u.set_irq_level;
+> +
+> +        /* XXX: Handle check */
+> +        vgic_inject_irq(d, NULL, data->irq, data->level);
+> +        rc = 0;
+> +        break;
+> +    }
+> +
+> +    default:
+> +        rc = -EOPNOTSUPP;
+> +        break;
+> +    }
+> +
+> +    return rc;
 >  }
 >  
 >  /*
-
+> diff --git a/xen/common/hvm/dm.c b/xen/common/hvm/dm.c
+> index 09e9542..e2e1250 100644
+> --- a/xen/common/hvm/dm.c
+> +++ b/xen/common/hvm/dm.c
+> @@ -47,6 +47,7 @@ static int dm_op(const struct dmop_args *op_args)
+>          [XEN_DMOP_remote_shutdown]                  = sizeof(struct xen_dm_op_remote_shutdown),
+>          [XEN_DMOP_relocate_memory]                  = sizeof(struct xen_dm_op_relocate_memory),
+>          [XEN_DMOP_pin_memory_cacheattr]             = sizeof(struct xen_dm_op_pin_memory_cacheattr),
+> +        [XEN_DMOP_set_irq_level]                    = sizeof(struct xen_dm_op_set_irq_level),
+>      };
+>  
+>      rc = rcu_lock_remote_domain_by_id(op_args->domid, &d);
+> diff --git a/xen/include/public/hvm/dm_op.h b/xen/include/public/hvm/dm_op.h
+> index fd00e9d..c45d29e 100644
+> --- a/xen/include/public/hvm/dm_op.h
+> +++ b/xen/include/public/hvm/dm_op.h
+> @@ -417,6 +417,20 @@ struct xen_dm_op_pin_memory_cacheattr {
+>      uint32_t pad;
+>  };
+>  
+> +/*
+> + * XEN_DMOP_set_irq_level: Set the logical level of a one of a domain's
+> + *                         IRQ lines.
+> + * XXX Handle PPIs.
+> + */
+> +#define XEN_DMOP_set_irq_level 19
+> +
+> +struct xen_dm_op_set_irq_level {
+> +    uint32_t irq;
+> +    /* IN - Level: 0 -> deasserted, 1 -> asserted */
+> +    uint8_t  level;
+> +};
+> +
+> +
+>  struct xen_dm_op {
+>      uint32_t op;
+>      uint32_t pad;
+> @@ -430,6 +444,7 @@ struct xen_dm_op {
+>          struct xen_dm_op_track_dirty_vram track_dirty_vram;
+>          struct xen_dm_op_set_pci_intx_level set_pci_intx_level;
+>          struct xen_dm_op_set_isa_irq_level set_isa_irq_level;
+> +        struct xen_dm_op_set_irq_level set_irq_level;
+>          struct xen_dm_op_set_pci_link_route set_pci_link_route;
+>          struct xen_dm_op_modified_memory modified_memory;
+>          struct xen_dm_op_set_mem_type set_mem_type;
+> -- 
+> 2.7.4
+> 
 
