@@ -2,54 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9454423B5BB
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 09:29:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D5A923B5DC
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 09:39:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2rN5-0006wR-B6; Tue, 04 Aug 2020 07:28:27 +0000
+	id 1k2rX1-0007tp-DJ; Tue, 04 Aug 2020 07:38:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+oob=BO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k2rN3-0006wM-Vh
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 07:28:26 +0000
-X-Inumbo-ID: 14a89ea4-d624-11ea-9132-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xzDE=BO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k2rX0-0007tk-O1
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 07:38:42 +0000
+X-Inumbo-ID: 843e2eb8-d625-11ea-9134-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 14a89ea4-d624-11ea-9132-bc764e2007e4;
- Tue, 04 Aug 2020 07:28:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=OY7KqXJVEEPd3PhvurotlkLEXq19d1PnZbKTnp/8Wfw=; b=cULzcIH5CV51chkHHq+whPEnd
- AWBsbLj8kuIlf+mx5ioT05NX5oLT7rlI+0wcOqA3EokdyTOR6YHDUSQe70M1k7auMrsScwbBUjHgg
- eoccp98g80uczTkUezrSw3GGjnN+MYa9YCek/24oUZsgNbVzHGNnaK6/kz5UhnmpuJm64=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k2rN1-0007cY-AS; Tue, 04 Aug 2020 07:28:23 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k2rN0-00057i-O7; Tue, 04 Aug 2020 07:28:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k2rN0-00018T-Na; Tue, 04 Aug 2020 07:28:22 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152422-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 843e2eb8-d625-11ea-9134-bc764e2007e4;
+ Tue, 04 Aug 2020 07:38:41 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 563F9ACB7;
+ Tue,  4 Aug 2020 07:38:56 +0000 (UTC)
+Subject: Re: [PATCH 00/10] x86emul: full coverage mem access / write testing
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <97ca3d9c-7540-c7b1-cf84-34c75c9127df@suse.com>
+ <60a128e9-0480-a753-4aa8-177c270d09f4@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f86770d9-74fc-b125-5f48-ce36ec6b5ac9@suse.com>
+Date: Tue, 4 Aug 2020 09:38:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Subject: [ovmf test] 152422: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=bbb8a818583853ec4bb7804e78ed1d304b709d33
-X-Osstest-Versions-That: ovmf=e557442e3f7ec7bee2d886978bbd259c6d68c75a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 04 Aug 2020 07:28:22 +0000
+In-Reply-To: <60a128e9-0480-a753-4aa8-177c270d09f4@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +46,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152422 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152422/
+On 03.08.2020 18:40, Andrew Cooper wrote:
+> On 03/08/2020 15:47, Jan Beulich wrote:
+>> ... and a few fixes resulting from this work. This completes what
+>> was started for legacy encoded GPR insns in a rush before 4.14.
+>>
+>> There's one thing I'm still planning on top of both this and the
+>> EVEX-disp8 checking: For all encodings we produce via general
+>> logic (and in particular without involvement of any assembler) I'd
+>> like to add a kind of logging mechanism, the output of which could
+>> be fed to gas and then some disassembler, to allow verification
+>> that the produced encodings are actually valid ones. See e.g. the
+>> first patch here or commit 5f55389d6960 - the problems addressed
+>> there could have been caught earlier if the generated encodings
+>> could be easily disassembled. What's not clear to me here is
+>> whether this is deemed generally useful, or whether I should make
+>> this a private addition of mine.
+> 
+> Seems fine to me.
+> 
+> I have encountered a failure on AMD Naples which I doubt is related to
+> this series, but is blocking testing on some of the content here.
+> 
+> Testing fnstenv 4(%ecx)...              failed!
+> 
+> AMD Fam17 does have the fcs/fds save-as-zero logic which is still not
+> wired up anywhere in Xen, which seems like the most likely candidate
+> here (without having investigated the issue at all yet).
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 bbb8a818583853ec4bb7804e78ed1d304b709d33
-baseline version:
- ovmf                 e557442e3f7ec7bee2d886978bbd259c6d68c75a
+FIP/FOP/FDP are lost over a context switch in Linux here, as it
+seems. No idea yet why a context switch would happen this
+reliably on Fam17, but not on Fam15 (where I'd expect the behavior
+to be the same as long as there's no unmasked exception).
 
-Last test of basis   152367  2020-08-01 20:49:35 Z    2 days
-Testing same since   152422  2020-08-03 12:09:55 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Pete Batard <pete@akeo.ie>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   e557442e3f..bbb8a81858  bbb8a818583853ec4bb7804e78ed1d304b709d33 -> xen-tested-master
+Jan
 
