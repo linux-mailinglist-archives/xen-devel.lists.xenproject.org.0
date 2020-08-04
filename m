@@ -2,49 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2476F23B515
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 08:40:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 300BA23B516
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 08:40:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2qby-0002Xl-7T; Tue, 04 Aug 2020 06:39:46 +0000
+	id 1k2qcM-0003Dy-HC; Tue, 04 Aug 2020 06:40:10 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iF6a=BO=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k2qbw-0002Xg-8I
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 06:39:44 +0000
-X-Inumbo-ID: 4722aedb-d61d-11ea-b00d-12813bfff9fa
+ (envelope-from <SRS0=xzDE=BO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k2qcL-0003Dr-7T
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 06:40:09 +0000
+X-Inumbo-ID: 5673ca0e-d61d-11ea-b00d-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4722aedb-d61d-11ea-b00d-12813bfff9fa;
- Tue, 04 Aug 2020 06:39:43 +0000 (UTC)
+ id 5673ca0e-d61d-11ea-b00d-12813bfff9fa;
+ Tue, 04 Aug 2020 06:40:08 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2CA57AC20;
- Tue,  4 Aug 2020 06:39:58 +0000 (UTC)
-Subject: Re: [PATCH 2/6] drm/xen-front: Fix misused IS_ERR_OR_NULL checks
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>
-References: <20200731125109.18666-1-andr2000@gmail.com>
- <20200731125109.18666-3-andr2000@gmail.com>
- <6d719ab2-d9f6-2c3c-8979-b12a4d10b96d@suse.com>
- <0ed5082f-0280-16c0-7410-f6a90262bcee@epam.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <1ae2e8b4-eea3-e68b-2897-5e376a688881@suse.com>
-Date: Tue, 4 Aug 2020 08:39:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by mx2.suse.de (Postfix) with ESMTP id 8B7DFAC7D;
+ Tue,  4 Aug 2020 06:40:23 +0000 (UTC)
+Subject: Re: [PATCH 03/10] x86emul: extend decoding / mem access testing to
+ MMX / SSE insns
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <97ca3d9c-7540-c7b1-cf84-34c75c9127df@suse.com>
+ <197bf5e9-5246-abfb-3870-6ca3dbaee152@suse.com>
+ <b8411bcf-f678-2e35-467a-6a0753d33461@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <291ff1f5-a999-b337-c704-f9a7d0754ddf@suse.com>
+Date: Tue, 4 Aug 2020 08:40:04 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <0ed5082f-0280-16c0-7410-f6a90262bcee@epam.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <b8411bcf-f678-2e35-467a-6a0753d33461@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,48 +49,26 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "dan.carpenter@oracle.com" <dan.carpenter@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04.08.20 08:35, Oleksandr Andrushchenko wrote:
-> 
-> On 8/4/20 9:12 AM, Jürgen Groß wrote:
->> On 31.07.20 14:51, Oleksandr Andrushchenko wrote:
->>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>
->>> The patch c575b7eeb89f: "drm/xen-front: Add support for Xen PV
->>> display frontend" from Apr 3, 2018, leads to the following static
->>> checker warning:
->>>
->>>      drivers/gpu/drm/xen/xen_drm_front_gem.c:140 xen_drm_front_gem_create()
->>>      warn: passing zero to 'ERR_CAST'
->>>
->>> drivers/gpu/drm/xen/xen_drm_front_gem.c
->>>      133  struct drm_gem_object *xen_drm_front_gem_create(struct drm_device *dev,
->>>      134                                                  size_t size)
->>>      135  {
->>>      136          struct xen_gem_object *xen_obj;
->>>      137
->>>      138          xen_obj = gem_create(dev, size);
->>>      139          if (IS_ERR_OR_NULL(xen_obj))
->>>      140                  return ERR_CAST(xen_obj);
->>>
->>> Fix this and the rest of misused places with IS_ERR_OR_NULL in the
->>> driver.
->>>
->>> Fixes:  c575b7eeb89f: "drm/xen-front: Add support for Xen PV display frontend"
+On 03.08.2020 18:42, Andrew Cooper wrote:
+> On 03/08/2020 15:50, Jan Beulich wrote:
+>> IOW just legacy encoded ones. For 3dNow! just one example is used, as
+>> they're all similar in nature both encoding- and operand-wise.
 >>
->> Again forgot to Cc stable?
+>> Adjust a slightly misleading (but not wrong) memcpy() invocation, as
+>> noticed while further cloning that code.
 > 
-> I was just not sure if these minor fixes need to go the stable, but I will add
+> I don't see any adjustment, in this or later patches.
+> 
+> Is the comment stale?
 
-I'm fine both ways.
+Indeed it is, thanks for noticing. That change we merged back into
+the patch that has already gone in (and afaict now it was a memset(),
+not a memcpy()).
 
-Its just a reflex when I'm seeing a Fixes: tag but no Cc: stable. :-)
-
-
-Juergen
+Jan
 
