@@ -2,50 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A534923B7A4
+	by mail.lfdr.de (Postfix) with ESMTPS id CAA8323B7A5
 	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 11:26:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2tDN-0001sk-87; Tue, 04 Aug 2020 09:26:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k2tDP-0001sz-GQ; Tue, 04 Aug 2020 09:26:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FaF5=BO=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1k2tDM-0001sf-DF
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 09:26:32 +0000
-X-Inumbo-ID: 86032adc-4d69-477a-a118-c0ab5446eb94
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 86032adc-4d69-477a-a118-c0ab5446eb94;
- Tue, 04 Aug 2020 09:26:31 +0000 (UTC)
+ id 1k2tDO-0001sq-72
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 09:26:34 +0000
+X-Inumbo-ID: 95bd8dc8-d634-11ea-913d-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 95bd8dc8-d634-11ea-913d-bc764e2007e4;
+ Tue, 04 Aug 2020 09:26:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596533191;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=BGtV4buQLSV4kVsmhw15UWdyjLxZS1wmHPQnT8rh4jE=;
- b=L9k1eWw6zNvMJQh+TF0r5ZQwzsL/avFvCL7k2NSLVa76x4vzhdjj52+u
- 3hv1dfAXJGC8zeBjVt1EJkjy+TrYTTxccAKPweJyFUluAUJYHz4zayVyA
- tKRhmWYWLeeVSmLRgexqzu1j7wDF375vd+IAMbpzTz39DrK/FAehW2Yaq Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1596533193;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=q3ReqT69K9XKGGN+e8ZybiqO+/keDcz0thRqBcGSR3M=;
+ b=SPB5k+Bhaw6JKzIojmQekE7L76rVDNoAbAPHQ61jksNJlb3zAkfbEBtP
+ WGtemK6cDprR+IK5/vZqYwGURx59fFougDPKqHewAGZY8a8W80GQTEUFC
+ FgyJ7HFDiJxwH4xhlaQK7u+KT6U3GpUZXvnTHrsSh50LJ4DW83ZYru2iT I=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 186U1PMTFN/6mFC++GOTqG77LsGWlYBb5SaonSm0/OhiP55JNb3TbJV9WIGWBcsA2EzDXE7EcR
- ZKeELt/7IBjcwB48D0IjIvy36wydjXxWJ8gmdCvuvT4fVCoPp5hu8e8YQgle6nIdF33xB9aiVQ
- g6t2T5HRpE8QYtyX/Xjo7oVrXl8aEoC/5BIYIQOdsatvvlVU9QsNo4+3UaLQhA3GerGUMlI0iz
- QVd/rm+VE6TwOGp2eoHUD8km/jI2Ed8Lz77C4ri2Rbrv8cFG3zrZjA44Pt8vQTHO420qV5AJzr
- se4=
+IronPort-SDR: Eq+gN6YFmS3ohlQqKPhOe2NcoL+vSDTiKtV8jXYqR+o7M3gFioVAeSG2I1hriVOiye0+/6X/8h
+ OqfLandO1LO14rrROu8L9enqiFcL2gLkDkVY+0SVwQ6ouPLhjJ41HSoB/Qi0BogF5/OcytdetB
+ mIxVAeP0V93Qzse3rdr+TlFOhU7KTCfEYYrsOz+4vM5iLXQmyRRmWkuGRVB86HgBJEBdrB0JOH
+ +TH3asiD+AJ9QUYIWOd4nz/Tv3VItzy03bKZLluN7MhPuT0A74mPOv+nNCXvrOKAsNJs2wTgDE
+ 6C4=
 X-SBRS: 3.7
-X-MesageID: 23979476
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 24124488
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,433,1589256000"; d="scan'208";a="23979476"
+X-IronPort-AV: E=Sophos;i="5.75,433,1589256000"; d="scan'208";a="24124488"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <qemu-devel@nongnu.org>
-Subject: [PULL 0/1] xen queue 2020-08-04
-Date: Tue, 4 Aug 2020 10:26:23 +0100
-Message-ID: <20200804092624.1126013-1-anthony.perard@citrix.com>
+Subject: [PULL 1/1] accel/xen: Fix xen_enabled() behavior on target-agnostic
+ objects
+Date: Tue, 4 Aug 2020 10:26:24 +0100
+Message-ID: <20200804092624.1126013-2-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20200804092624.1126013-1-anthony.perard@citrix.com>
+References: <20200804092624.1126013-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -60,33 +62,112 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Peter Maydell <peter.maydell@linaro.org>, xen-devel@lists.xenproject.org
+ Peter Maydell <peter.maydell@linaro.org>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The following changes since commit 5c1c3e4f02e458cf280c677c817ae4fd1ed9bf10:
+From: Philippe Mathieu-Daudé <philmd@redhat.com>
 
-  Merge remote-tracking branch 'remotes/pmaydell/tags/pull-target-arm-20200803' into staging (2020-08-03 20:34:26 +0100)
+CONFIG_XEN is generated by configure and stored in "config-target.h",
+which is (obviously) only include for target-specific objects.
+This is a problem for target-agnostic objects as CONFIG_XEN is never
+defined and xen_enabled() is always inlined as 'false'.
 
-are available in the Git repository at:
+Fix by following the KVM schema, defining CONFIG_XEN_IS_POSSIBLE
+when we don't know to force the call of the non-inlined function,
+returning the xen_allowed boolean.
 
-  https://xenbits.xen.org/git-http/people/aperard/qemu-dm.git tags/pull-xen-20200804
-
-for you to fetch changes up to 8e0ef068942e4152f0d23e76ca1f5e35dc4456f7:
-
-  accel/xen: Fix xen_enabled() behavior on target-agnostic objects (2020-08-04 10:21:35 +0100)
-
-----------------------------------------------------------------
-xen patch
-
-Bug fix.
-
-----------------------------------------------------------------
-Philippe Mathieu-Daudé (1):
-      accel/xen: Fix xen_enabled() behavior on target-agnostic objects
-
+Fixes: da278d58a092 ("accel: Move Xen accelerator code under accel/xen/")
+Reported-by: Paul Durrant <pdurrant@amazon.com>
+Suggested-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Message-Id: <20200804074930.13104-2-philmd@redhat.com>
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
  accel/stubs/xen-stub.c |  2 ++
  accel/xen/xen-all.c    |  7 +------
  include/sysemu/xen.h   | 18 ++++++++++++++----
  3 files changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/accel/stubs/xen-stub.c b/accel/stubs/xen-stub.c
+index dcca4e678a13..8ae658acff5f 100644
+--- a/accel/stubs/xen-stub.c
++++ b/accel/stubs/xen-stub.c
+@@ -9,6 +9,8 @@
+ #include "hw/xen/xen.h"
+ #include "qapi/qapi-commands-misc.h"
+ 
++bool xen_allowed;
++
+ void xenstore_store_pv_console_info(int i, Chardev *chr)
+ {
+ }
+diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
+index 0c24d4b191a4..60b971d0a82f 100644
+--- a/accel/xen/xen-all.c
++++ b/accel/xen/xen-all.c
+@@ -32,12 +32,7 @@
+     do { } while (0)
+ #endif
+ 
+-static bool xen_allowed;
+-
+-bool xen_enabled(void)
+-{
+-    return xen_allowed;
+-}
++bool xen_allowed;
+ 
+ xc_interface *xen_xc;
+ xenforeignmemory_handle *xen_fmem;
+diff --git a/include/sysemu/xen.h b/include/sysemu/xen.h
+index 1ca292715e69..2c2c429ea8bf 100644
+--- a/include/sysemu/xen.h
++++ b/include/sysemu/xen.h
+@@ -8,9 +8,19 @@
+ #ifndef SYSEMU_XEN_H
+ #define SYSEMU_XEN_H
+ 
+-#ifdef CONFIG_XEN
++#ifdef NEED_CPU_H
++# ifdef CONFIG_XEN
++#  define CONFIG_XEN_IS_POSSIBLE
++# endif
++#else
++# define CONFIG_XEN_IS_POSSIBLE
++#endif
++
++#ifdef CONFIG_XEN_IS_POSSIBLE
++
++extern bool xen_allowed;
+ 
+-bool xen_enabled(void);
++#define xen_enabled()           (xen_allowed)
+ 
+ #ifndef CONFIG_USER_ONLY
+ void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length);
+@@ -18,7 +28,7 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
+                    struct MemoryRegion *mr, Error **errp);
+ #endif
+ 
+-#else /* !CONFIG_XEN */
++#else /* !CONFIG_XEN_IS_POSSIBLE */
+ 
+ #define xen_enabled() 0
+ #ifndef CONFIG_USER_ONLY
+@@ -33,6 +43,6 @@ static inline void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
+ }
+ #endif
+ 
+-#endif /* CONFIG_XEN */
++#endif /* CONFIG_XEN_IS_POSSIBLE */
+ 
+ #endif
+-- 
+Anthony PERARD
+
 
