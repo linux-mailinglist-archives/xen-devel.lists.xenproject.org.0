@@ -2,58 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEC7023BD8F
+	by mail.lfdr.de (Postfix) with ESMTPS id 56A9223BD8D
 	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 17:51:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2zDF-0004kO-2l; Tue, 04 Aug 2020 15:50:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3j1i=BO=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1k2zDD-0004kD-Hi
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 15:50:47 +0000
-X-Inumbo-ID: 3957bb7d-4e80-46ef-b4d4-924741db5f8f
-Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3957bb7d-4e80-46ef-b4d4-924741db5f8f;
+	id 1k2zDF-0004kU-B2; Tue, 04 Aug 2020 15:50:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xzDE=BO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k2zDE-0004kJ-Ln
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 15:50:48 +0000
+X-Inumbo-ID: e3b9ef3c-a254-46b5-bbbd-726a425dbd82
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e3b9ef3c-a254-46b5-bbbd-726a425dbd82;
  Tue, 04 Aug 2020 15:50:46 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id c15so1658336wrs.11
- for <xen-devel@lists.xenproject.org>; Tue, 04 Aug 2020 08:50:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=6XBMq2OUK/ORpEVxRNpgI9GI/0wcOHymaMOtJI3tPKA=;
- b=fQb43r+i/RfpXyLIMvst09+jVfsqm03jPk+WeEj5yOEpeXMFrDAoFeRysGKhZ74/TV
- 8ywuXItfXe0tRE4TmQkHZ+q31AICl6f2HOcDELs9uu5F2AScgvd4Agaycj9EvAYxMGqe
- GpM6nuQFACmS5tNocisns3KxUquBT/T5RDLw1VKSgUPHBMxbF25qa1DzXwKQ6HyyTBPK
- 8/DFP7F7/owwSbHEqy3AwaHfvIzp+4SxdcRIrfRRdZpJKZ7WOAykoZ5JqYgrZ0v8PRR2
- QIMjiosuDf4KotQOX0FcvOjGuFxr7W+q/TSby9CdNgCa044FZ2kXhTisb9mhrCLF6mBM
- VWrQ==
-X-Gm-Message-State: AOAM530x8mdYLvF32hC6yax2O6lz4xF8PuDY3zoVFMMGuBoJ7OC4IYNA
- fwTygfNLE7KWnfLiTAqt+qk=
-X-Google-Smtp-Source: ABdhPJxV6Elycqx1dRICdiCNg79b4Htqdl3dOeDDKtv9plNUw3cTgOknWkb2K4DTrDHt370T7qeSHQ==
-X-Received: by 2002:a5d:55d2:: with SMTP id i18mr19291070wrw.378.1596556245535; 
- Tue, 04 Aug 2020 08:50:45 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id 69sm5417207wmb.8.2020.08.04.08.50.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Aug 2020 08:50:44 -0700 (PDT)
-Date: Tue, 4 Aug 2020 15:50:43 +0000
-From: Wei Liu <wl@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] libxl: avoid golang building without CONFIG_GOLANG=y
-Message-ID: <20200804155043.vq7aupbrvmmcgzlv@liuwe-devbox-debian-v2>
-References: <e8dd70a7-bdde-e12a-3f4d-f52e58016234@suse.com>
- <20200804141639.k2tpoqy7jj34gcm6@liuwe-devbox-debian-v2>
- <CAEBZRSf4opmGw2fDOCOMZLTtjisFXaP=Oe9aD6E2fTfUs2YFQQ@mail.gmail.com>
- <0deed4c6-ca87-09d3-a19c-ac0c00003cb7@suse.com>
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DE8FEAE9D;
+ Tue,  4 Aug 2020 15:51:01 +0000 (UTC)
+Subject: Re: [PATCH] x86emul: further FPU env testing relaxation for AMD-like
+ CPUs
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <b2667393-0196-30de-86e9-b7a6145ed03d@suse.com>
+ <91e628c6-cbbc-2023-51be-674de4901704@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <84af154e-c2b9-a6da-f8ee-8acafdd02dff@suse.com>
+Date: Tue, 4 Aug 2020 17:50:45 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0deed4c6-ca87-09d3-a19c-ac0c00003cb7@suse.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <91e628c6-cbbc-2023-51be-674de4901704@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,50 +48,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Aug 04, 2020 at 05:30:40PM +0200, Jan Beulich wrote:
-> On 04.08.2020 17:22, Nick Rosbrook wrote:
-> > On Tue, Aug 4, 2020 at 10:17 AM Wei Liu <wl@xen.org> wrote:
-> >>
-> >> On Mon, Aug 03, 2020 at 10:06:32AM +0200, Jan Beulich wrote:
-> >>> While this doesn't address the real problem I've run into (attempting to
-> >>> update r/o source files), not recursing into tools/golang/xenlight/ is
-> >>> enough to fix the build for me for the moment. I don't currently see why
-> >>> 60db5da62ac0 ("libxl: Generate golang bindings in libxl Makefile") found
-> >>> it necessary to invoke this build step unconditionally.
-> >>>
-> >>
-> >> Perhaps an oversight?
-> > 
-> > This is intentional, and I think the commit message in 60db5da62ac0
-> > ("libxl: Generate golang bindings in libxl Makefile") explains the
-> > reasoning well. But, to summarize, CONFIG_GOLANG is only used to
-> > control the bindings actually being compiled (i.e. with `go build`).
-> > However, we always want the code generation script
-> > (tools/golang/xenlight/gengotypes.py) to run if e.g.
-> > tools/libxl/libxl_types.idl is modified.
-> > 
-> > I hope this helps.
+On 04.08.2020 16:46, Andrew Cooper wrote:
+> On 04/08/2020 10:36, Jan Beulich wrote:
+>> See the code comment that's being extended. Additionally a few more
+>> zap_fpsel() invocations are needed - whenever we stored state after
+>> there potentially having been a context switch behind our backs.
+>>
+>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Not really - I'm still not seeing the "why" behind this behavior. I.e.
-> why build _anything_ that's not used further in the build, nor getting
-> installed? Also if (aiui) you effectively object to the change that
-> Wei has given his ack for, would you mind providing an alternative fix
-> for the problem at hand?
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Is the solution here to make the target check if IDL definition file is
-actually changed before regenerating the bindings?
+Thanks.
 
-Admittedly I had misunderstood what CONFIG_GOLANG meant.
-
-Wei.
-
+>> --- a/tools/tests/x86_emulator/test_x86_emulator.c
+>> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
+>> @@ -752,6 +752,13 @@ static struct x86_emulate_ops emulops =
+>>   * 64-bit OSes may not (be able to) properly restore the two selectors in
+>>   * the FPU environment. Zap them so that memcmp() on two saved images will
+>>   * work regardless of whether a context switch occurred in the middle.
+>> + *
+>> + * Additionally on AMD-like CPUs FDP/FIP/FOP may get lost across context
+>> + * switches, when there's no unmasked pending FP exception: With
 > 
-> Jan
+> I think you want a full stop rather than a colon, and ...
+
+I'd prefer to stick to the colon here, while ...
+
+>> + * CPUID[80000008].EBX[2] clear, the fields don't get written/read by
+>> + * {F,}XSAVE / {F,}XRSTOR, which OSes often compensate for by invoking an
+>> + * insn forcing the fields to gain a deterministic value. Whereas with said
+> 
+> ... a comma here rather than a full stop.
+> 
+> Having "whereas" at the beginning of a sentence like this is weird,
+> given that you're contrasting the behaviour of the CPUID bit.
+> 
+> Also, the more usual CPUID syntax would be CPUID.0x80000008.EBX[2].
+
+... I've adjusted these.
+
+Jan
 
