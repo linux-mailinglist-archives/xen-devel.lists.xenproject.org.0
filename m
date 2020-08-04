@@ -2,21 +2,22 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0020023BBC9
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 16:10:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DCFC23BBCB
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 16:10:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2xdZ-0002sl-SR; Tue, 04 Aug 2020 14:09:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k2xda-0002sr-4f; Tue, 04 Aug 2020 14:09:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hzL0=BO=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1k2xdY-0002sb-8N
+ id 1k2xdY-0002sc-EL
  for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 14:09:52 +0000
-X-Inumbo-ID: 3063303c-812f-4369-bd1a-e5783ee241cb
+X-Inumbo-ID: e6d1172f-13ce-442e-96b2-c2dfa8c30830
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3063303c-812f-4369-bd1a-e5783ee241cb;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e6d1172f-13ce-442e-96b2-c2dfa8c30830;
  Tue, 04 Aug 2020 14:09:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
@@ -24,24 +25,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=AKVB45EUCXOkdgrC6CNoKokTirVUG6f1cqctimQSqX0=; b=I9AuG1SkfAZr8sUbD0vACgKtuq
- 3oaXtPm1URuBFWqFxWbPZ39rnNv/6tJv8ms1v/iBhmORl++Dr/10waHWR/XtmTIIq8My4UENUr+1T
- NS52tIJkDUPvobIlEofy5gQPNFrF+c7dnZVDa/RxcF9AU2j2Lhiudv1sxH1SAjtI0Bi8=;
+ bh=IHm3gqKYAGKodBfFZkdVX7R/Bh2xcC6ZnjwhNY8umHs=; b=Ll5cp1FeUPCVrAHmjsFlUQiFRO
+ 8kbu9ol7KHkfVTGYi7UlsiYBPMnaZiiN2LKx9bqD+t+RoK/U7Lk8tY/pQ9n82DLDsr8rzndNldLax
+ FXOeY2mjGGM0DNyJeplH1w3cDVPWb3Ec6nhARC8NauYN54qcCUcww31WRP8+yH5TNYKk=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k2xdW-0000Nb-Dl; Tue, 04 Aug 2020 14:09:50 +0000
+ id 1k2xdW-0000NV-3W; Tue, 04 Aug 2020 14:09:50 +0000
 Received: from host86-143-223-30.range86-143.btcentralplus.com
  ([86.143.223.30] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1k2xD3-0003ag-8F; Tue, 04 Aug 2020 13:42:29 +0000
+ id 1k2xD4-0003ag-1m; Tue, 04 Aug 2020 13:42:30 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v4 13/14] vtd: use a bit field for context_entry
-Date: Tue,  4 Aug 2020 14:42:08 +0100
-Message-Id: <20200804134209.8717-14-paul@xen.org>
+Subject: [PATCH v4 14/14] vtd: use a bit field for dma_pte
+Date: Tue,  4 Aug 2020 14:42:09 +0100
+Message-Id: <20200804134209.8717-15-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200804134209.8717-1-paul@xen.org>
 References: <20200804134209.8717-1-paul@xen.org>
@@ -63,8 +64,8 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-This removes the need for much shifting, masking and several magic numbers.
-On the whole it makes the code quite a bit more readable.
+As with a prior patch for context_entry, this removes the need for much
+shifting, masking and several magic numbers.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
@@ -73,178 +74,100 @@ Cc: Kevin Tian <kevin.tian@intel.com>
 v4:
  - New in v4
 ---
- xen/drivers/passthrough/vtd/iommu.c   |  8 ++--
- xen/drivers/passthrough/vtd/iommu.h   | 65 +++++++++++++++++----------
- xen/drivers/passthrough/vtd/utils.c   |  6 +--
- xen/drivers/passthrough/vtd/x86/ats.c |  2 +-
- 4 files changed, 49 insertions(+), 32 deletions(-)
+ xen/drivers/passthrough/vtd/iommu.c |  9 ++---
+ xen/drivers/passthrough/vtd/iommu.h | 55 +++++++++++++++++------------
+ 2 files changed, 38 insertions(+), 26 deletions(-)
 
 diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index 76025f6ccd..766d33058e 100644
+index 766d33058e..2d60cebe67 100644
 --- a/xen/drivers/passthrough/vtd/iommu.c
 +++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -86,8 +86,6 @@ static int domain_iommu_domid(struct domain *d,
-     return -1;
- }
+@@ -1772,13 +1772,14 @@ static int __must_check intel_iommu_map_page(struct domain *d, dfn_t dfn,
+     old = *pte;
  
--#define DID_FIELD_WIDTH 16
--#define DID_HIGH_OFFSET 8
- static int context_set_domain_id(struct context_entry *context,
-                                  struct domain *d,
-                                  struct vtd_iommu *iommu)
-@@ -121,7 +119,7 @@ static int context_set_domain_id(struct context_entry *context,
-     }
+     dma_set_pte_addr(new, mfn_to_maddr(mfn));
+-    dma_set_pte_prot(new,
+-                     ((flags & IOMMUF_readable) ? DMA_PTE_READ  : 0) |
+-                     ((flags & IOMMUF_writable) ? DMA_PTE_WRITE : 0));
++    if ( flags & IOMMUF_readable )
++        dma_set_pte_readable(new);
++    if ( flags & IOMMUF_writable )
++        dma_set_pte_writable(new);
  
-     set_bit(i, iommu->domid_bitmap);
--    context->hi |= (i & ((1 << DID_FIELD_WIDTH) - 1)) << DID_HIGH_OFFSET;
-+    context_set_did(*context, i);
-     return 0;
- }
+     /* Set the SNP on leaf page table if Snoop Control available */
+     if ( iommu_snoop )
+-        dma_set_pte_snp(new);
++        dma_set_pte_snoop(new);
  
-@@ -135,7 +133,7 @@ static int context_get_domain_id(struct context_entry *context,
+     if ( old.val == new.val )
      {
-         nr_dom = cap_ndoms(iommu->cap);
- 
--        dom_index = context_domain_id(*context);
-+        dom_index = context_did(*context);
- 
-         if ( dom_index < nr_dom && iommu->domid_map )
-             domid = iommu->domid_map[dom_index];
-@@ -1396,7 +1394,7 @@ int domain_context_mapping_one(
-             return -ENOMEM;
-         }
- 
--        context_set_address_root(*context, pgd_maddr);
-+        context_set_slptp(*context, pgd_maddr);
-         if ( ats_enabled && ecap_dev_iotlb(iommu->ecap) )
-             context_set_translation_type(*context, CONTEXT_TT_DEV_IOTLB);
-         else
 diff --git a/xen/drivers/passthrough/vtd/iommu.h b/xen/drivers/passthrough/vtd/iommu.h
-index 031ac5f66c..509d13918a 100644
+index 509d13918a..017286b0e1 100644
 --- a/xen/drivers/passthrough/vtd/iommu.h
 +++ b/xen/drivers/passthrough/vtd/iommu.h
-@@ -199,6 +199,7 @@ struct root_entry {
-         };
-     };
- };
-+#define ROOT_ENTRY_NR (PAGE_SIZE_4K / sizeof(struct root_entry))
- 
- #define root_present(r) (r).p
- #define set_root_present(r) do { (r).p = 1; } while (0)
-@@ -208,35 +209,53 @@ struct root_entry {
-     do { (r).ctp = ((val) >> PAGE_SHIFT_4K); } while (0)
- 
- struct context_entry {
--    u64 lo;
--    u64 hi;
+@@ -283,29 +283,40 @@ struct context_entry {
+  * 12-63: Host physcial address
+  */
+ struct dma_pte {
+-    u64 val;
 +    union {
-+        __uint128_t val;
-+        struct { uint64_t lo, hi; };
++        uint64_t val;
 +        struct {
-+            /* 0 - 63 */
-+            uint64_t p:1;
-+            uint64_t fpd:1;
-+            uint64_t tt:2;
-+            uint64_t reserved0:8;
-+            uint64_t slptp:52;
-+
-+            /* 64 - 127 */
-+            uint64_t aw:3;
-+            uint64_t ignored:4;
-+            uint64_t reserved1:1;
-+            uint64_t did:16;
-+            uint64_t reserved2:40;
++            uint64_t r:1;
++            uint64_t w:1;
++            uint64_t reserved0:1;
++            uint64_t ignored0:4;
++            uint64_t ps:1;
++            uint64_t ignored1:3;
++            uint64_t snp:1;
++            uint64_t addr:52;
 +        };
 +    };
  };
--#define ROOT_ENTRY_NR (PAGE_SIZE_4K/sizeof(struct root_entry))
--#define context_present(c) ((c).lo & 1)
--#define context_fault_disable(c) (((c).lo >> 1) & 1)
--#define context_translation_type(c) (((c).lo >> 2) & 3)
--#define context_address_root(c) ((c).lo & PAGE_MASK_4K)
--#define context_address_width(c) ((c).hi &  7)
--#define context_domain_id(c) (((c).hi >> 8) & ((1 << 16) - 1))
--
--#define context_set_present(c) do {(c).lo |= 1;} while(0)
--#define context_clear_present(c) do {(c).lo &= ~1;} while(0)
--#define context_set_fault_enable(c) \
--    do {(c).lo &= (((u64)-1) << 2) | 1;} while(0)
--
--#define context_set_translation_type(c, val) do { \
--        (c).lo &= (((u64)-1) << 4) | 3; \
--        (c).lo |= (val & 3) << 2; \
--    } while(0)
+-#define DMA_PTE_READ (1)
+-#define DMA_PTE_WRITE (2)
+-#define DMA_PTE_PROT (DMA_PTE_READ | DMA_PTE_WRITE)
+-#define DMA_PTE_SP   (1 << 7)
+-#define DMA_PTE_SNP  (1 << 11)
+-#define dma_clear_pte(p)    do {(p).val = 0;} while(0)
+-#define dma_set_pte_readable(p) do {(p).val |= DMA_PTE_READ;} while(0)
+-#define dma_set_pte_writable(p) do {(p).val |= DMA_PTE_WRITE;} while(0)
+-#define dma_set_pte_superpage(p) do {(p).val |= DMA_PTE_SP;} while(0)
+-#define dma_set_pte_snp(p)  do {(p).val |= DMA_PTE_SNP;} while(0)
+-#define dma_set_pte_prot(p, prot) do { \
+-        (p).val = ((p).val & ~DMA_PTE_PROT) | ((prot) & DMA_PTE_PROT); \
+-    } while (0)
+-#define dma_pte_prot(p) ((p).val & DMA_PTE_PROT)
+-#define dma_pte_read(p) (dma_pte_prot(p) & DMA_PTE_READ)
+-#define dma_pte_write(p) (dma_pte_prot(p) & DMA_PTE_WRITE)
+-#define dma_pte_addr(p) ((p).val & PADDR_MASK & PAGE_MASK_4K)
+-#define dma_set_pte_addr(p, addr) do {\
+-            (p).val |= ((addr) & PAGE_MASK_4K); } while (0)
+-#define dma_pte_present(p) (((p).val & DMA_PTE_PROT) != 0)
+-#define dma_pte_superpage(p) (((p).val & DMA_PTE_SP) != 0)
 +
-+#define context_present(c) (c).p
-+#define context_set_present(c) do { (c).p = 1; } while (0)
-+#define context_clear_present(c) do { (c).p = 0; } while (0)
++#define dma_pte_read(p) ((p).r)
++#define dma_set_pte_readable(p) do { (p).r = 1; } while (0)
 +
-+#define context_fault_disable(c) (c).fpd
-+#define context_set_fault_enable(c) do { (c).fpd = 1; } while (0)
++#define dma_pte_write(p) ((p).w)
++#define dma_set_pte_writable(p) do { (p).w = 1; } while (0)
 +
-+#define context_translation_type(c) (c).tt
-+#define context_set_translation_type(c, val) do { (c).tt = val; } while (0)
- #define CONTEXT_TT_MULTI_LEVEL 0
- #define CONTEXT_TT_DEV_IOTLB   1
- #define CONTEXT_TT_PASS_THRU   2
- 
--#define context_set_address_root(c, val) \
--    do {(c).lo &= 0xfff; (c).lo |= (val) & PAGE_MASK_4K ;} while(0)
-+#define context_slptp(c) ((c).slptp << PAGE_SHIFT_4K)
-+#define context_set_slptp(c, val) \
-+    do { (c).slptp = (val) >> PAGE_SHIFT_4K; } while (0)
++#define dma_pte_addr(p) ((p).addr << PAGE_SHIFT_4K)
++#define dma_set_pte_addr(p, val) \
++    do { (p).addr =  (val) >> PAGE_SHIFT_4K; } while (0)
 +
-+#define context_address_width(c) (c).aw
- #define context_set_address_width(c, val) \
--    do {(c).hi &= 0xfffffff8; (c).hi |= (val) & 7;} while(0)
--#define context_clear_entry(c) do {(c).lo = 0; (c).hi = 0;} while(0)
-+    do { (c).aw = (val); } while (0)
++#define dma_pte_present(p) ((p).r || (p).w)
 +
-+#define context_did(c) (c).did
-+#define context_set_did(c, val) \
-+    do { (c).did = (val); } while (0)
++#define dma_pte_superpage(p) ((p).ps)
++#define dma_set_pte_superpage(p) do { (p).ps = 1; } while (0)
 +
-+#define context_clear_entry(c) do { (c).val = 0; } while (0)
++#define dma_pte_snoop(p) ((p).snp)
++#define dma_set_pte_snoop(p)  do { (p).snp = 1; } while (0)
++
++#define dma_clear_pte(p) do { (p).val = 0; } while (0)
  
- /* page table handling */
- #define LEVEL_STRIDE       (9)
-diff --git a/xen/drivers/passthrough/vtd/utils.c b/xen/drivers/passthrough/vtd/utils.c
-index 4c85242894..eae0c43269 100644
---- a/xen/drivers/passthrough/vtd/utils.c
-+++ b/xen/drivers/passthrough/vtd/utils.c
-@@ -129,9 +129,8 @@ void print_vtd_entries(struct vtd_iommu *iommu, int bus, int devfn, u64 gmfn)
-         return;
-     }
- 
--    val = ctxt_entry[devfn].lo;
--    printk("    context[%02x] = %"PRIx64"_%"PRIx64"\n",
--           devfn, ctxt_entry[devfn].hi, val);
-+    printk("    context[%02x] = %"PRIx64"_%"PRIx64"\n", devfn,
-+           ctxt_entry[devfn].hi, ctxt_entry[devfn].lo);
-     if ( !context_present(ctxt_entry[devfn]) )
-     {
-         unmap_vtd_domain_page(ctxt_entry);
-@@ -140,6 +139,7 @@ void print_vtd_entries(struct vtd_iommu *iommu, int bus, int devfn, u64 gmfn)
-     }
- 
-     level = agaw_to_level(context_address_width(ctxt_entry[devfn]));
-+    val = context_slptp(ctxt_entry[devfn]);
-     unmap_vtd_domain_page(ctxt_entry);
-     if ( level != VTD_PAGE_TABLE_LEVEL_3 &&
-          level != VTD_PAGE_TABLE_LEVEL_4)
-diff --git a/xen/drivers/passthrough/vtd/x86/ats.c b/xen/drivers/passthrough/vtd/x86/ats.c
-index 8369415dcc..a7bbd3198a 100644
---- a/xen/drivers/passthrough/vtd/x86/ats.c
-+++ b/xen/drivers/passthrough/vtd/x86/ats.c
-@@ -92,7 +92,7 @@ static bool device_in_domain(const struct vtd_iommu *iommu,
- 
-     context_entries = map_vtd_domain_page(root_ctp(*root_entry));
-     context_entry = &context_entries[pdev->devfn];
--    if ( context_domain_id(*context_entry) != did )
-+    if ( context_did(*context_entry) != did )
-         goto out;
- 
-     tt = context_translation_type(*context_entry);
+ /* interrupt remap entry */
+ struct iremap_entry {
 -- 
 2.20.1
 
