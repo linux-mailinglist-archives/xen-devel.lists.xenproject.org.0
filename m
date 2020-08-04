@@ -2,56 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1E4223BC8F
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 16:46:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDDA223BCD2
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 17:00:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2yCs-0006nL-Gy; Tue, 04 Aug 2020 14:46:22 +0000
+	id 1k2yQQ-0008VZ-08; Tue, 04 Aug 2020 15:00:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=exko=BO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k2yCq-0006nG-Ki
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 14:46:20 +0000
-X-Inumbo-ID: 58a3ea34-5590-469c-92f7-2325a1158269
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1k2yQP-0008VU-4w
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 15:00:21 +0000
+X-Inumbo-ID: ef5fadc4-4bba-468c-bea2-51884dd8007a
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 58a3ea34-5590-469c-92f7-2325a1158269;
- Tue, 04 Aug 2020 14:46:19 +0000 (UTC)
+ id ef5fadc4-4bba-468c-bea2-51884dd8007a;
+ Tue, 04 Aug 2020 15:00:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596552379;
+ d=citrix.com; s=securemail; t=1596553220;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=Nq19iTNJmoNA2xjrkYq5ivLgI2YhtNvzGmirNBmBNso=;
- b=fJkEx+PsQ43Y/v1Pjd/yc3Fm8PBUL08fft4bjm6ufihMZCTAPnnBXPSA
- xk5DhnzRYr/Riv5ojbI59ZPNDOwJh9g34QhuQTORDUmW8eMknh7OdfKYd
- mjBsHPD8p9wimc89WZ5p26dUS5xyuv7o6AM/JH4R3CEX/0pPcIHoT/IDG Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=zwI3V060M/+vMgnPet7K7MC8n3DXrk47Ov37cF5uQO4=;
+ b=ZeC9g0fRlgVZ2xoV+9FEcPe6480z/vun9HBnCa5sgNK7TSX2z/hJ1ucn
+ FUl11UCUGmMojnBH4ED9CZ2C7wjQ8gV3iAMjNBXqXitEhps+LipPG5hqp
+ UUvOAZg/JH+kLiuhxeO98jPDXVwH29lkSJe6+/Pq1GayeGUcIVEynmOHa Y=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: beRNKA3wdJ5hUdlqiUrNMXJuSmfctF21FctbsPOZor/2dTnkJFl39VCUnyFmuYVuDS8fJP6etC
- Usiv4Gz3wF+ovQV6ZjWqznQkoHgC73nubS2qOAYx7QCqH83Q81Pt5q871MgY4IUqZ5nGkHTf3R
- FDNrrzgJ2mGTv6tmrFX6QR0Bmagtoo1NE4L0lyq1nFCiaMKhXZQOUMi/48fuUDzVhrWbu8vpyL
- Rh7PTEO5Wks5Zij9aYxnTGGoxVTTOqI1i3qbLmUK6OPJ8pJv4uWEE29kiGiAB05neAk9HGldJS
- B+0=
+IronPort-SDR: ss79eXD16EMThyJMkPQ+Kjxnq4Tn0puUppM72GVsw/gxfUVNfW647jWQEuooJPFLtWfAwvhBt8
+ Hrh0cvVxp9Iq+fTaid0t7BXHi6KMwhVkM9tHXW44gNjoIkRdQTOZ/ZM6QYYGEPRSfIPFoAd8M1
+ SGgsBI6mGmcsTz945qiAhkHMNyyS4yLfOxwdjjMTQyrx/0hgiu12hP8a9hFL7FRNg99eIeaMBF
+ dxJ7F9D3jnzfS3qb9kl3h8fHyKB2AQOXu0HIpL+OvUgBIv5i/FKkFi0anl9/RH7Mqs7a+kf8BW
+ sTk=
 X-SBRS: 3.7
-X-MesageID: 23809598
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 24156014
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,434,1589256000"; d="scan'208";a="23809598"
-Subject: Re: [PATCH] x86emul: further FPU env testing relaxation for AMD-like
- CPUs
+X-IronPort-AV: E=Sophos;i="5.75,434,1589256000"; d="scan'208";a="24156014"
+Subject: Re: [PATCH 00/10] x86emul: full coverage mem access / write testing
 To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
  <xen-devel@lists.xenproject.org>
-References: <b2667393-0196-30de-86e9-b7a6145ed03d@suse.com>
+References: <97ca3d9c-7540-c7b1-cf84-34c75c9127df@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <91e628c6-cbbc-2023-51be-674de4901704@citrix.com>
-Date: Tue, 4 Aug 2020 15:46:13 +0100
+Message-ID: <9d401ca1-e09f-48f7-dbda-3c6914577ef2@citrix.com>
+Date: Tue, 4 Aug 2020 15:59:59 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <b2667393-0196-30de-86e9-b7a6145ed03d@suse.com>
+In-Reply-To: <97ca3d9c-7540-c7b1-cf84-34c75c9127df@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
@@ -72,46 +71,34 @@ Cc: Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04/08/2020 10:36, Jan Beulich wrote:
-> See the code comment that's being extended. Additionally a few more
-> zap_fpsel() invocations are needed - whenever we stored state after
-> there potentially having been a context switch behind our backs.
+On 03/08/2020 15:47, Jan Beulich wrote:
+> ... and a few fixes resulting from this work. This completes what
+> was started for legacy encoded GPR insns in a rush before 4.14.
 >
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> There's one thing I'm still planning on top of both this and the
+> EVEX-disp8 checking: For all encodings we produce via general
+> logic (and in particular without involvement of any assembler) I'd
+> like to add a kind of logging mechanism, the output of which could
+> be fed to gas and then some disassembler, to allow verification
+> that the produced encodings are actually valid ones. See e.g. the
+> first patch here or commit 5f55389d6960 - the problems addressed
+> there could have been caught earlier if the generated encodings
+> could be easily disassembled. What's not clear to me here is
+> whether this is deemed generally useful, or whether I should make
+> this a private addition of mine.
+>
+> 01: adjustments to mem access / write logic testing
+> 02: extend decoding / mem access testing to FPU insns
+> 03: extend decoding / mem access testing to MMX / SSE insns
+> 04: extend decoding / mem access testing to VEX-encoded insns
+> 05: extend decoding / mem access testing to XOP-encoded insns
+> 06: AVX512{F,BW} down conversion moves are memory writes
+> 07: AVX512F scatter insns are memory writes
+> 08: AVX512PF insns aren't memory accesses
+> 09: extend decoding / mem access testing to EVEX-encoded insns
+> 10: correct AVX512_BF16 insn names in EVEX Disp8 test
 
 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
->
-> --- a/tools/tests/x86_emulator/test_x86_emulator.c
-> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
-> @@ -752,6 +752,13 @@ static struct x86_emulate_ops emulops =
->   * 64-bit OSes may not (be able to) properly restore the two selectors in
->   * the FPU environment. Zap them so that memcmp() on two saved images will
->   * work regardless of whether a context switch occurred in the middle.
-> + *
-> + * Additionally on AMD-like CPUs FDP/FIP/FOP may get lost across context
-> + * switches, when there's no unmasked pending FP exception: With
-
-I think you want a full stop rather than a colon, and ...
-
-> + * CPUID[80000008].EBX[2] clear, the fields don't get written/read by
-> + * {F,}XSAVE / {F,}XRSTOR, which OSes often compensate for by invoking an
-> + * insn forcing the fields to gain a deterministic value. Whereas with said
-
-... a comma here rather than a full stop.
-
-Having "whereas" at the beginning of a sentence like this is weird,
-given that you're contrasting the behaviour of the CPUID bit.
-
-Also, the more usual CPUID syntax would be CPUID.0x80000008.EBX[2].
-
-~Andrew
-
-> + * bit set, zeroes will get written (and hence later restored).
->   */
->  static void zap_fpsel(unsigned int *env, bool is_32bit)
->  {
->
+Ideally with the commit message for patch 3 adjusted.
 
