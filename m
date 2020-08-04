@@ -2,72 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D7CE23B8D5
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 12:34:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4ECD23B934
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 13:07:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2uG5-00083P-Rz; Tue, 04 Aug 2020 10:33:25 +0000
+	id 1k2umQ-0002IO-LM; Tue, 04 Aug 2020 11:06:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+oob=BO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k2uG4-00083K-Fa
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 10:33:24 +0000
-X-Inumbo-ID: 662f1912-3de7-435a-956e-2b1d39521bfb
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=MwBG=BO=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1k2umO-0002IJ-Kl
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 11:06:48 +0000
+X-Inumbo-ID: a554e09f-f153-4f35-916c-f969ca5cc7c2
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 662f1912-3de7-435a-956e-2b1d39521bfb;
- Tue, 04 Aug 2020 10:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=dATT9PUBgAISaoVjQioYqYy2QiyGY8Dpg6za/3ZiRWc=; b=lYSQTYSctDRRiy6sdbySNnrGo
- vovm5JOSGQ1sga6QhdmTMZazLWFU1GRF8koiw6aYD8YHn+WC8oqswLcbgGFsZuNcHOf/kRfACAXjC
- Slcfz3NmQskbCA3zNNTDc6CN2u1l4DmuosL/uf4wWR6gPddqN9p3BXv1Fs+D357z6sngg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k2uG1-0003ul-VA; Tue, 04 Aug 2020 10:33:21 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k2uG1-0005D8-Ed; Tue, 04 Aug 2020 10:33:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k2uG1-00088A-Dv; Tue, 04 Aug 2020 10:33:21 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152454-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id a554e09f-f153-4f35-916c-f969ca5cc7c2;
+ Tue, 04 Aug 2020 11:06:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596539208;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:cc:subject:in-reply-to:references;
+ bh=aRRm9AtF4JI4OwPE6/C24E09a/p3FpZlFw/JCID9GQE=;
+ b=ZdQJ4bw/LNNvkQtMQFSRR/lwvKQdk0F28QiFhX+6BwDCU9l+d1QmA4pg
+ It4gHbii080ElrtP9fRF79EsYScokT96cd6Ry+EZkgODPf9dNi4Qr0cob
+ EBznWeYVreG3VpQPlWAJtdldFBBbsBwg0qfyqiFuo/uVzJLlSX2ML2LgQ 4=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: C7tKztucSK0C5k6Qce20AC1Orb5MB3kNMSAmv/Ia9Kbzm9pqawRt8lYYVS5AXUHs9SnGx4uG4T
+ xXBYxbY3d7UGicccUC3TC0w6rEA1poBepkjIRUU+BH5xIxBzTsEP50lapmIZmNuiMZQ1rp2ofq
+ k6H+ZyS78O6PXOctKKCJOTWX1J/qmH06DjkzQ9malDVTMO/0zZkoIHejP7eIxf+QCPPvlwbNfE
+ VwOvPy0KcdUarie06K+MZnM7pQbOqyMrHbcCW7ca7uvM16QpvxWEWzhxBrQEM20039g7QKc6Vt
+ g04=
+X-SBRS: 3.7
+X-MesageID: 23820123
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,433,1589256000"; d="scan'208";a="23820123"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Subject: [libvirt test] 152454: regressions - FAIL
-X-Osstest-Failures: libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=f4f3e6de4af28a8c56b33429aa31b4ae9b3bc70e
-X-Osstest-Versions-That: libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 04 Aug 2020 10:33:21 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24361.16705.741010.285482@mariner.uk.xensource.com>
+Date: Tue, 4 Aug 2020 12:06:41 +0100
+To: Paul Durrant <paul@xen.org>
+Subject: Re: [PATCH v2 1/4] tools/hotplug: add remove_from_bridge() and improve
+ debug output
+In-Reply-To: <20200803124931.2678-2-paul@xen.org>
+References: <20200803124931.2678-1-paul@xen.org>
+ <20200803124931.2678-2-paul@xen.org>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,137 +62,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Paul
+ Durrant <pdurrant@amazon.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152454 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152454/
+Paul Durrant writes ("[PATCH v2 1/4] tools/hotplug: add remove_from_bridge() and improve debug output"):
+> From: Paul Durrant <pdurrant@amazon.com>
+> 
+> This patch adds a remove_from_bridge() function into xen-network-common.sh
+> to partner with the existing add_to_bridge() function. The code in
+> add_to_bridge() is also slightly re-arranged to avoid duplication calls of
+> 'ip link'.
+> 
+> Both add_to_bridge() and remove_from_bridge() will check if their bridge
+> manipulation operations are necessary and emit a log message if they are not.
+> 
+> NOTE: A call to remove_from_bridge() will be added by a subsequent patch.
 
-Regressions :-(
+I think there is another semantic change here which is that now it
+executes the "ip link set up" even if the device is already on the
+bridge.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+I think this is correct, but it probably ought to be mentioned in the
+commit message.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+I hesitate to suggest this, but: my personal preference would have
+been to split that refactoring (in particular, the inversion of the
+early exit if approach) into yet another commit.  I find tiny commits
+easier to review.  But this commit is already quite small so if you
+prefer to keep it this way I think that is fine.
 
-version targeted for testing:
- libvirt              f4f3e6de4af28a8c56b33429aa31b4ae9b3bc70e
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+> +remove_from_bridge () {
+> +    local bridge=$1
+> +    local dev=$2
+> +
+> +    ip link set dev ${dev} down || :
+> +
+> +    # Don't remove $dev from $bridge if it's not on the bridge.
+> +    if [ -e "/sys/class/net/${bridge}/brif/${dev}" ]; then
+> +	log debug "removing $dev from bridge $bridge"
+> +	if which brctl >&/dev/null; then
+> +            brctl delif ${bridge} ${dev}
+> +	else
+> +            ip link set ${dev} nomaster
+> +	fi
+> +    else
+> +	log debug "$dev not on bridge $bridge"
+> +    fi
+> +}
 
-Last test of basis   151777  2020-07-10 04:19:19 Z   25 days
-Failing since        151818  2020-07-11 04:18:52 Z   24 days   25 attempts
-Testing same since   152454  2020-08-04 04:20:02 Z    0 days    1 attempts
+I think this is code motion split into two patches - here the added
+code and in 2/, the other copy is removed.  Could you please shuffle
+this addition into patch 2 ?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Martin Kletzander <mkletzan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 8450 lines long.)
+Thanks,
+Ian.
 
