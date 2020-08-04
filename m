@@ -2,55 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA8323B7A5
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 11:26:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9537123B7DF
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 11:37:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2tDP-0001sz-GQ; Tue, 04 Aug 2020 09:26:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FaF5=BO=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1k2tDO-0001sq-72
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 09:26:34 +0000
-X-Inumbo-ID: 95bd8dc8-d634-11ea-913d-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 95bd8dc8-d634-11ea-913d-bc764e2007e4;
- Tue, 04 Aug 2020 09:26:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596533193;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=q3ReqT69K9XKGGN+e8ZybiqO+/keDcz0thRqBcGSR3M=;
- b=SPB5k+Bhaw6JKzIojmQekE7L76rVDNoAbAPHQ61jksNJlb3zAkfbEBtP
- WGtemK6cDprR+IK5/vZqYwGURx59fFougDPKqHewAGZY8a8W80GQTEUFC
- FgyJ7HFDiJxwH4xhlaQK7u+KT6U3GpUZXvnTHrsSh50LJ4DW83ZYru2iT I=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: Eq+gN6YFmS3ohlQqKPhOe2NcoL+vSDTiKtV8jXYqR+o7M3gFioVAeSG2I1hriVOiye0+/6X/8h
- OqfLandO1LO14rrROu8L9enqiFcL2gLkDkVY+0SVwQ6ouPLhjJ41HSoB/Qi0BogF5/OcytdetB
- mIxVAeP0V93Qzse3rdr+TlFOhU7KTCfEYYrsOz+4vM5iLXQmyRRmWkuGRVB86HgBJEBdrB0JOH
- +TH3asiD+AJ9QUYIWOd4nz/Tv3VItzy03bKZLluN7MhPuT0A74mPOv+nNCXvrOKAsNJs2wTgDE
- 6C4=
-X-SBRS: 3.7
-X-MesageID: 24124488
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,433,1589256000"; d="scan'208";a="24124488"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <qemu-devel@nongnu.org>
-Subject: [PULL 1/1] accel/xen: Fix xen_enabled() behavior on target-agnostic
- objects
-Date: Tue, 4 Aug 2020 10:26:24 +0100
-Message-ID: <20200804092624.1126013-2-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200804092624.1126013-1-anthony.perard@citrix.com>
-References: <20200804092624.1126013-1-anthony.perard@citrix.com>
+	id 1k2tNP-0002tk-Ak; Tue, 04 Aug 2020 09:36:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xzDE=BO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1k2tNO-0002tf-4o
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 09:36:54 +0000
+X-Inumbo-ID: 78c85921-196b-437d-9fb0-e18aee3bf853
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 78c85921-196b-437d-9fb0-e18aee3bf853;
+ Tue, 04 Aug 2020 09:36:52 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AAF9BAB55;
+ Tue,  4 Aug 2020 09:37:07 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86emul: further FPU env testing relaxation for AMD-like CPUs
+Message-ID: <b2667393-0196-30de-86e9-b7a6145ed03d@suse.com>
+Date: Tue, 4 Aug 2020 11:36:51 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,113 +44,78 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Peter Maydell <peter.maydell@linaro.org>,
- =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
- xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Philippe Mathieu-Daudé <philmd@redhat.com>
+See the code comment that's being extended. Additionally a few more
+zap_fpsel() invocations are needed - whenever we stored state after
+there potentially having been a context switch behind our backs.
 
-CONFIG_XEN is generated by configure and stored in "config-target.h",
-which is (obviously) only include for target-specific objects.
-This is a problem for target-agnostic objects as CONFIG_XEN is never
-defined and xen_enabled() is always inlined as 'false'.
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Fix by following the KVM schema, defining CONFIG_XEN_IS_POSSIBLE
-when we don't know to force the call of the non-inlined function,
-returning the xen_allowed boolean.
-
-Fixes: da278d58a092 ("accel: Move Xen accelerator code under accel/xen/")
-Reported-by: Paul Durrant <pdurrant@amazon.com>
-Suggested-by: Peter Maydell <peter.maydell@linaro.org>
-Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-Reviewed-by: Paul Durrant <paul@xen.org>
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-Message-Id: <20200804074930.13104-2-philmd@redhat.com>
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
- accel/stubs/xen-stub.c |  2 ++
- accel/xen/xen-all.c    |  7 +------
- include/sysemu/xen.h   | 18 ++++++++++++++----
- 3 files changed, 17 insertions(+), 10 deletions(-)
-
-diff --git a/accel/stubs/xen-stub.c b/accel/stubs/xen-stub.c
-index dcca4e678a13..8ae658acff5f 100644
---- a/accel/stubs/xen-stub.c
-+++ b/accel/stubs/xen-stub.c
-@@ -9,6 +9,8 @@
- #include "hw/xen/xen.h"
- #include "qapi/qapi-commands-misc.h"
- 
-+bool xen_allowed;
-+
- void xenstore_store_pv_console_info(int i, Chardev *chr)
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -752,6 +752,13 @@ static struct x86_emulate_ops emulops =
+  * 64-bit OSes may not (be able to) properly restore the two selectors in
+  * the FPU environment. Zap them so that memcmp() on two saved images will
+  * work regardless of whether a context switch occurred in the middle.
++ *
++ * Additionally on AMD-like CPUs FDP/FIP/FOP may get lost across context
++ * switches, when there's no unmasked pending FP exception: With
++ * CPUID[80000008].EBX[2] clear, the fields don't get written/read by
++ * {F,}XSAVE / {F,}XRSTOR, which OSes often compensate for by invoking an
++ * insn forcing the fields to gain a deterministic value. Whereas with said
++ * bit set, zeroes will get written (and hence later restored).
+  */
+ static void zap_fpsel(unsigned int *env, bool is_32bit)
  {
- }
-diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-index 0c24d4b191a4..60b971d0a82f 100644
---- a/accel/xen/xen-all.c
-+++ b/accel/xen/xen-all.c
-@@ -32,12 +32,7 @@
-     do { } while (0)
- #endif
- 
--static bool xen_allowed;
--
--bool xen_enabled(void)
--{
--    return xen_allowed;
--}
-+bool xen_allowed;
- 
- xc_interface *xen_xc;
- xenforeignmemory_handle *xen_fmem;
-diff --git a/include/sysemu/xen.h b/include/sysemu/xen.h
-index 1ca292715e69..2c2c429ea8bf 100644
---- a/include/sysemu/xen.h
-+++ b/include/sysemu/xen.h
-@@ -8,9 +8,19 @@
- #ifndef SYSEMU_XEN_H
- #define SYSEMU_XEN_H
- 
--#ifdef CONFIG_XEN
-+#ifdef NEED_CPU_H
-+# ifdef CONFIG_XEN
-+#  define CONFIG_XEN_IS_POSSIBLE
-+# endif
-+#else
-+# define CONFIG_XEN_IS_POSSIBLE
-+#endif
+@@ -765,6 +772,21 @@ static void zap_fpsel(unsigned int *env,
+         env[2] &= ~0xffff;
+         env[3] &= ~0xffff;
+     }
 +
-+#ifdef CONFIG_XEN_IS_POSSIBLE
++    if ( cp.x86_vendor != X86_VENDOR_AMD && cp.x86_vendor != X86_VENDOR_HYGON )
++        return;
 +
-+extern bool xen_allowed;
- 
--bool xen_enabled(void);
-+#define xen_enabled()           (xen_allowed)
- 
- #ifndef CONFIG_USER_ONLY
- void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length);
-@@ -18,7 +28,7 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
-                    struct MemoryRegion *mr, Error **errp);
- #endif
- 
--#else /* !CONFIG_XEN */
-+#else /* !CONFIG_XEN_IS_POSSIBLE */
- 
- #define xen_enabled() 0
- #ifndef CONFIG_USER_ONLY
-@@ -33,6 +43,6 @@ static inline void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
++    if ( is_32bit )
++    {
++        env[3] = 0;
++        env[4] = 0;
++        env[5] = 0;
++    }
++    else
++    {
++        env[1] &= 0xffff;
++        env[2] = 0;
++    }
  }
- #endif
  
--#endif /* CONFIG_XEN */
-+#endif /* CONFIG_XEN_IS_POSSIBLE */
- 
- #endif
--- 
-Anthony PERARD
-
+ static void zap_xfpsel(unsigned int *env)
+@@ -2460,6 +2482,7 @@ int main(int argc, char **argv)
+         regs.edx = (unsigned long)res;
+         rc = x86_emulate(&ctxt, &emulops);
+         asm volatile ( "fnstenv %0" : "=m" (res[9]) :: "memory" );
++        zap_fpsel(&res[9], true);
+         if ( (rc != X86EMUL_OKAY) ||
+              memcmp(res + 2, res + 9, 28) ||
+              (regs.eip != (unsigned long)&instr[3]) )
+@@ -2487,6 +2510,7 @@ int main(int argc, char **argv)
+         res[23] = 0xaa55aa55;
+         res[24] = 0xaa55aa55;
+         rc = x86_emulate(&ctxt, &emulops);
++        zap_fpsel(&res[0], false);
+         if ( (rc != X86EMUL_OKAY) ||
+              memcmp(res, res + 25, 94) ||
+              (res[23] >> 16) != 0xaa55 ||
+@@ -2514,6 +2538,7 @@ int main(int argc, char **argv)
+         regs.edx = (unsigned long)res;
+         rc = x86_emulate(&ctxt, &emulops);
+         asm volatile ( "fnsave %0" : "=m" (res[27]) :: "memory" );
++        zap_fpsel(&res[27], true);
+         if ( (rc != X86EMUL_OKAY) ||
+              memcmp(res, res + 27, 108) ||
+              (regs.eip != (unsigned long)&instr[2]) )
 
