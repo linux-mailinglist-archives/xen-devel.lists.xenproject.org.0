@@ -2,66 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7BC223BE4C
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 18:43:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D62A23BF9A
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 21:12:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k300w-0001hG-Op; Tue, 04 Aug 2020 16:42:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k32LI-0005sK-Jk; Tue, 04 Aug 2020 19:11:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=e3JV=BO=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
- id 1k300u-0001h9-Ri
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 16:42:08 +0000
-X-Inumbo-ID: 2efdb852-1011-45be-ae0a-f981828cacba
-Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2efdb852-1011-45be-ae0a-f981828cacba;
- Tue, 04 Aug 2020 16:42:07 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id v4so34653756ljd.0
- for <xen-devel@lists.xenproject.org>; Tue, 04 Aug 2020 09:42:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Fp+iJT6C3dAg6jOiB3xVAFaJaKEb1vg9/C4xVCr/NCU=;
- b=I0eAguXD4G7wuk/9ZOOWkMhp3RVRQrizacSlb2U9yDnl2RXe3/l6NS8501BSIoUkKZ
- Siu1KGA9NzMa+9JPJBRACO3RjwqwEJmQM/28dnUUI34xLRh6NakqVFjuqvTkoyK6Hz8W
- jJ1QzzoylebmnNMoQC/XAz4vZYJcSzehVF68IETQL8mB03uBcfe15d3AVVxLYXEgtFGl
- QkLKhRPHtM1yce4qZ9vlW3Y0rxd7Gm1NZ9jMdaXXUKAnUp/FBvCZ/zDaOSq806/Yk1b3
- gqqUs9ueFFLd3/wqmGCu9/GeSF4OnQGWj1p+oaZf/liy/xAhxPhRm9/kT6GXvTCQkZrR
- udTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Fp+iJT6C3dAg6jOiB3xVAFaJaKEb1vg9/C4xVCr/NCU=;
- b=DNqxX8w6wDMSfU4Ud+1dRQIoJjYXa/z2OMW5EbyBB5f0TzcVEVnPc0l7VbKiPEd5Ze
- UDT1UicWnPhKFnnzCdiMvHMg+EzSTDbLNLOSiJnCc8gVZ0KW/eIQTvdIPegVV2QBGxmb
- ZT6frpGHgC79znX97oAcHfkDuDg7qVSqRJTSGoFyqdcfcUDvJtSpep8G0BAkDVjaOWp8
- 5Z9Iyk3Z4KrE+BoiMKuU8v2y8OF6XQqcNOXhQnhfwY+FejWgCDd+K9Mwtn0poNG5ME38
- W5oHAO+T5ap9mqvvFbCupRfWcyEl2qvt+76hPA2LeFjcUjyQ1I9m1rfvd5aBllPTj9up
- 4Nuw==
-X-Gm-Message-State: AOAM532YkkVf1SyatxmGcSD7HBfBjXnOK9TmyD4RhOHY+EodW5gGiAbm
- 2Pv5LP2iTz2+vtvPpK6WAAG+Lxhp5JO4HygbjFw=
-X-Google-Smtp-Source: ABdhPJx1RGduHOwZizmmY61EQTIxjBBceDacAlXmh7alNKz8UOMV8dGfNQ4V3ROD+7zCl3T1nBHBwgi02OYhZoNCPfY=
-X-Received: by 2002:a05:651c:1182:: with SMTP id
- w2mr9680574ljo.197.1596559326615; 
- Tue, 04 Aug 2020 09:42:06 -0700 (PDT)
+ <SRS0=gGWh=BO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k32LH-0005sC-6E
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 19:11:19 +0000
+X-Inumbo-ID: 1843586d-e402-4ff1-bc2e-7d0741c13e0e
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1843586d-e402-4ff1-bc2e-7d0741c13e0e;
+ Tue, 04 Aug 2020 19:11:17 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 75FD92086A;
+ Tue,  4 Aug 2020 19:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1596568277;
+ bh=cNzLu5oubj3oa6ifg+ClSYDUc7pQiFWRY0rRg3WdhE8=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=2KvCh74of8zz8mvuweyJbD7BTr7V77rvbnwIHN3W/7DD5vxovc7NiVaitcxL/tVmL
+ 29PDnMvw2bwtLvPqcvD0c/3iW3MuUBFFWWqNjVFpdED+SaW7OCAGrdjcB/f8+Zs2to
+ 1yPoh8q9gEkt89VloEgQvWIwB96r2b/El+qTwQ+8=
+Date: Tue, 4 Aug 2020 12:11:15 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature
+ common
+In-Reply-To: <f0c32cfe-5c33-30ae-b08a-3d72e935745a@xen.org>
+Message-ID: <alpine.DEB.2.21.2008041105510.5748@sstabellini-ThinkPad-T480s>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
+ <000c01d66a33$2bd56510$83802f30$@xen.org>
+ <9f83a7ed-ca97-449f-c7b9-a1140644abe9@gmail.com>
+ <f0c32cfe-5c33-30ae-b08a-3d72e935745a@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-References: <e8dd70a7-bdde-e12a-3f4d-f52e58016234@suse.com>
- <20200804141639.k2tpoqy7jj34gcm6@liuwe-devbox-debian-v2>
- <CAEBZRSf4opmGw2fDOCOMZLTtjisFXaP=Oe9aD6E2fTfUs2YFQQ@mail.gmail.com>
- <0deed4c6-ca87-09d3-a19c-ac0c00003cb7@suse.com>
- <20200804155043.vq7aupbrvmmcgzlv@liuwe-devbox-debian-v2>
- <12790d2b-020d-b6fe-4924-2233a4e93d83@suse.com>
- <20200804155707.rrtzkksrle2nojbj@liuwe-devbox-debian-v2>
- <43f706e4-0292-5758-eb19-9fbb99b1337e@suse.com>
-In-Reply-To: <43f706e4-0292-5758-eb19-9fbb99b1337e@suse.com>
-From: Nick Rosbrook <rosbrookn@gmail.com>
-Date: Tue, 4 Aug 2020 12:41:54 -0400
-Message-ID: <CAEBZRSc=xUjYq7ao9Rv-EEJsjiBkt5mio5QofvixErZj_SJUcw@mail.gmail.com>
-Subject: Re: [PATCH] libxl: avoid golang building without CONFIG_GOLANG=y
-To: Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; BOUNDARY="8323329-1983374449-1596565169=:5748"
+Content-ID: <alpine.DEB.2.21.2008041119500.5748@sstabellini-ThinkPad-T480s>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,68 +58,122 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Cc: 'Kevin Tian' <kevin.tian@intel.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Jun Nakajima' <jun.nakajima@intel.com>, 'Wei Liu' <wl@xen.org>, paul@xen.org,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Tim Deegan' <tim@xen.org>,
+ Oleksandr <olekstysh@gmail.com>,
+ 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Julien Grall' <julien.grall@arm.com>, 'Jan Beulich' <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Aug 4, 2020 at 12:02 PM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 04.08.2020 17:57, Wei Liu wrote:
-> > On Tue, Aug 04, 2020 at 05:53:49PM +0200, Jan Beulich wrote:
-> >> On 04.08.2020 17:50, Wei Liu wrote:
-> >>> On Tue, Aug 04, 2020 at 05:30:40PM +0200, Jan Beulich wrote:
-> >>>> On 04.08.2020 17:22, Nick Rosbrook wrote:
-> >>>>> On Tue, Aug 4, 2020 at 10:17 AM Wei Liu <wl@xen.org> wrote:
-> >>>>>>
-> >>>>>> On Mon, Aug 03, 2020 at 10:06:32AM +0200, Jan Beulich wrote:
-> >>>>>>> While this doesn't address the real problem I've run into (attempting to
-> >>>>>>> update r/o source files), not recursing into tools/golang/xenlight/ is
-> >>>>>>> enough to fix the build for me for the moment. I don't currently see why
-> >>>>>>> 60db5da62ac0 ("libxl: Generate golang bindings in libxl Makefile") found
-> >>>>>>> it necessary to invoke this build step unconditionally.
-> >>>>>>>
-> >>>>>>
-> >>>>>> Perhaps an oversight?
-> >>>>>
-> >>>>> This is intentional, and I think the commit message in 60db5da62ac0
-> >>>>> ("libxl: Generate golang bindings in libxl Makefile") explains the
-> >>>>> reasoning well. But, to summarize, CONFIG_GOLANG is only used to
-> >>>>> control the bindings actually being compiled (i.e. with `go build`).
-> >>>>> However, we always want the code generation script
-> >>>>> (tools/golang/xenlight/gengotypes.py) to run if e.g.
-> >>>>> tools/libxl/libxl_types.idl is modified.
-> >>>>>
-> >>>>> I hope this helps.
-> >>>>
-> >>>> Not really - I'm still not seeing the "why" behind this behavior. I.e.
-> >>>> why build _anything_ that's not used further in the build, nor getting
-> >>>> installed? Also if (aiui) you effectively object to the change that
-> >>>> Wei has given his ack for, would you mind providing an alternative fix
-> >>>> for the problem at hand?
-> >>>
-> >>> Is the solution here to make the target check if IDL definition file is
-> >>> actually changed before regenerating the bindings?
-> >>
-> >> I don't know - Nick? A move-if-changed based approach would likely deal
-> >> with the r/o source problem at the same time (at least until such time
-> >> where the directory containing the file(s) is also r/o).
-> >
-> > To make sure Nick and I understand your use case correct -- "r/o source
-> > problem" means you want the tools source to be read-only? But you would
-> > be fine recursing into tools directory to build all the libraries and
-> > programs?
->
-> Yes - until we support out-of-tree builds, nothing more can be expected
-> to work.
->
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Jan - is the problem specifically that a fresh clone,  or `git
-checkout`, etc. changes file timestamps in a way that triggers make to
-rebuild those targets? I have not used the move-if-changed approach
-before, but AFAICT that would be sufficient.
+--8323329-1983374449-1596565169=:5748
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2008041119501.5748@sstabellini-ThinkPad-T480s>
 
--NR
+On Tue, 4 Aug 2020, Julien Grall wrote:
+> On 04/08/2020 12:10, Oleksandr wrote:
+> > On 04.08.20 10:45, Paul Durrant wrote:
+> > > > +static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
+> > > > +{
+> > > > +    return ioreq->state == STATE_IOREQ_READY &&
+> > > > +           !ioreq->data_is_ptr &&
+> > > > +           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir !=
+> > > > IOREQ_WRITE);
+> > > > +}
+> > > I don't think having this in common code is correct. The short-cut of not
+> > > completing PIO reads seems somewhat x86 specific. 
+> 
+> Hmmm, looking at the code, I think it doesn't wait for PIO writes to complete
+> (not read). Did I miss anything?
+> 
+> > Does ARM even 
+> > > have the concept of PIO?
+> > 
+> > I am not 100% sure here, but it seems that doesn't have.
+> 
+> Technically, the PIOs exist on Arm, however they are accessed the same way as
+> MMIO and will have a dedicated area defined by the HW.
+> 
+> AFAICT, on Arm64, they are only used for PCI IO Bar.
+> 
+> Now the question is whether we want to expose them to the Device Emulator as
+> PIO or MMIO access. From a generic PoV, a DM shouldn't have to care about the
+> architecture used. It should just be able to request a given IOport region.
+> 
+> So it may make sense to differentiate them in the common ioreq code as well.
+> 
+> I had a quick look at QEMU and wasn't able to tell if PIOs and MMIOs address
+> space are different on Arm as well. Paul, Stefano, do you know what they are
+> doing?
+
+On the QEMU side, it looks like PIO (address_space_io) is used in
+connection with the emulation of the "in" or "out" instructions, see
+ioport.c:cpu_inb for instance. Some parts of PCI on QEMU emulate PIO
+space regardless of the architecture, such as
+hw/pci/pci_bridge.c:pci_bridge_initfn.
+
+However, because there is no "in" and "out" on ARM, I don't think
+address_space_io can be accessed. Specifically, there is no equivalent
+for target/i386/misc_helper.c:helper_inb on ARM.
+
+So I think PIO is unused on ARM in QEMU.
+
+
+FYI the ioreq type for PCI conf space reads and writes is
+IOREQ_TYPE_PCI_CONFIG (neither MMIO nor PIO) which is implemented as
+pci_host_config_read_common/pci_host_config_write_common directly
+(neither PIO nor MMIO).
+
+
+It looks like PIO-specific things could be kept x86-specific, without
+loss of functionalities on the ARM side.
+
+
+> The point of the check isn't to determine whether to wait, but
+> what to do after having waited. Reads need a retry round through
+> the emulator (to store the result in the designated place),
+> while writes don't have such a requirement (and hence guest
+> execution can continue immediately in the general case).
+
+The x86 code looks like this:
+
+            rc = hvm_send_ioreq(s, &p, 0);
+            if ( rc != X86EMUL_RETRY || currd->is_shutting_down )
+                vio->io_req.state = STATE_IOREQ_NONE;
+            else if ( !hvm_ioreq_needs_completion(&vio->io_req) )
+                rc = X86EMUL_OKAY;
+
+Basically hvm_send_ioreq is expected to return RETRY.
+Then, if it is a PIO write operation only, it is turned into OKAY right
+away. Otherwise, rc stays as RETRY.
+
+So, normally, hvmemul_do_io is expected to return RETRY, because the
+emulator is not done yet. Am I understanding the code correctly?
+
+If so, who is handling RETRY on x86? It tried to follow the call chain
+but ended up in the x86 emulator and got lost :-)
+
+
+At some point later, after the emulator (QEMU) has completed the
+request, handle_hvm_io_completion gets called which ends up calling
+handle_mmio() finishing the job on the Xen side too.
+
+
+In other words:
+RETRY ==> emulation in progress
+OKAY  ==> emulation completed
+
+
+Is that correct?
+--8323329-1983374449-1596565169=:5748--
 
