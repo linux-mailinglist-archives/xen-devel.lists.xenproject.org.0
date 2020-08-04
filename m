@@ -2,60 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C6E23C198
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 23:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3332623C22C
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 01:23:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k34b2-0000wz-NH; Tue, 04 Aug 2020 21:35:44 +0000
+	id 1k36GN-0001g6-Nn; Tue, 04 Aug 2020 23:22:31 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+oob=BO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k34b1-0000w1-G7
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 21:35:43 +0000
-X-Inumbo-ID: b8314ad0-d1cd-4936-b834-f8ff72e23112
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=gGWh=BO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1k36GM-0001g1-Oo
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 23:22:30 +0000
+X-Inumbo-ID: 1b6332ac-f65e-4ebd-8dbb-081a2cc29d21
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b8314ad0-d1cd-4936-b834-f8ff72e23112;
- Tue, 04 Aug 2020 21:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YAv3+qNsuf6ct6OcQvIsH4/EJgbJt+Ohq1aljL8aqkA=; b=hEAyInD6g/qI0NkOW61ZsEbv4
- YaaTvXe3oZb+jX+xRBN73BOMmLTL0dy7DU730ASHWvP7pj/OdxJnwVjMsuR75HOKw2rlJ3cQCOmN8
- +/yErpEUFphyQ0zaP/SXgNLwtknLaBIBVivbsPywDYYbIWeSl91PrUbjNh0g7W28e3JQ0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k34ay-0002PW-FX; Tue, 04 Aug 2020 21:35:40 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k34ay-0001R7-3H; Tue, 04 Aug 2020 21:35:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k34ay-0007tK-2h; Tue, 04 Aug 2020 21:35:40 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152473-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 1b6332ac-f65e-4ebd-8dbb-081a2cc29d21;
+ Tue, 04 Aug 2020 23:22:29 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D85C92073E;
+ Tue,  4 Aug 2020 23:22:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1596583348;
+ bh=PsSJUCD59asltcoFiaVL865acSKkt2G4DHIVsCjUDOs=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=UqSjPVKuhrcyUhuZlqz/uf2//X+bnHxeXL4pwtRu1HNLEEmeQB+NkDAlTPcLo06NQ
+ ZHdk9Zd9pmuO9R20Hjg1tkml5QRywe8TzUJQy/QyZ0g59UDiv9CPwsgUtVv4GOfvEN
+ fylxSKRjtfeABEWpflj9Vb6/xD/R8KGc1B2s2tNI=
+Date: Tue, 4 Aug 2020 16:22:27 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
+ IOREQ/DM features
+In-Reply-To: <6c4f7698-a015-91c7-83ec-203f63d48900@xen.org>
+Message-ID: <alpine.DEB.2.21.2008041345310.5748@sstabellini-ThinkPad-T480s>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
+ <001101d66a33$bba44670$32ecd350$@xen.org>
+ <6c4f7698-a015-91c7-83ec-203f63d48900@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 152473: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=fe49938f21c26f0ce630c69af055f927dd0ed75f
-X-Osstest-Versions-That: xen=9909532113692020c1b50eb974cac47d4ea10e69
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 04 Aug 2020 21:35:40 +0000
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,63 +56,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
+ paul@xen.org, 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>,
+ 'Oleksandr Tyshchenko' <olekstysh@gmail.com>,
+ 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Julien Grall' <julien.grall@arm.com>, 'Jan Beulich' <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>,
+ 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152473 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152473/
+On Tue, 4 Aug 2020, Julien Grall wrote:
+> On 04/08/2020 08:49, Paul Durrant wrote:
+> > > diff --git a/tools/libxc/xc_dom_arm.c b/tools/libxc/xc_dom_arm.c
+> > > index 931404c..b5fc066 100644
+> > > --- a/tools/libxc/xc_dom_arm.c
+> > > +++ b/tools/libxc/xc_dom_arm.c
+> > > @@ -26,11 +26,19 @@
+> > >   #include "xg_private.h"
+> > >   #include "xc_dom.h"
+> > > 
+> > > -#define NR_MAGIC_PAGES 4
+> > > +
+> > >   #define CONSOLE_PFN_OFFSET 0
+> > >   #define XENSTORE_PFN_OFFSET 1
+> > >   #define MEMACCESS_PFN_OFFSET 2
+> > >   #define VUART_PFN_OFFSET 3
+> > > +#define IOREQ_SERVER_PFN_OFFSET 4
+> > > +
+> > > +#define NR_IOREQ_SERVER_PAGES 8
+> > > +#define NR_MAGIC_PAGES (4 + NR_IOREQ_SERVER_PAGES)
+> > > +
+> > > +#define GUEST_MAGIC_BASE_PFN (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT)
+> > > +
+> > > +#define special_pfn(x)  (GUEST_MAGIC_BASE_PFN + (x))
+> > 
+> > Why introduce 'magic pages' for Arm? It's quite a horrible hack that we have
+> > begun to do away with by adding resource mapping.
+> 
+> This would require us to mandate at least Linux 4.17 in a domain that will run
+> an IOREQ server. If we don't mandate this, the minimum version would be 4.10
+> where DM OP was introduced.
+> 
+> Because of XSA-300, we could technically not safely run an IOREQ server with
+> existing Linux. So it is probably OK to enforce the use of the acquire
+> interface.
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  fe49938f21c26f0ce630c69af055f927dd0ed75f
-baseline version:
- xen                  9909532113692020c1b50eb974cac47d4ea10e69
-
-Last test of basis   152428  2020-08-03 15:03:25 Z    1 days
-Testing same since   152473  2020-08-04 15:18:46 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   9909532113..fe49938f21  fe49938f21c26f0ce630c69af055f927dd0ed75f -> smoke
++1
 
