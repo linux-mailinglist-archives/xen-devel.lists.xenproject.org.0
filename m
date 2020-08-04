@@ -2,72 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 438D623BB2E
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 15:31:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9271323BB4D
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Aug 2020 15:42:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k2x2B-0007Rm-TH; Tue, 04 Aug 2020 13:31:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PUrY=BO=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1k2x2A-0007Rh-Ag
- for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 13:31:14 +0000
-X-Inumbo-ID: a62b8f89-fafd-4d3a-bead-38dfb9e55709
-Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a62b8f89-fafd-4d3a-bead-38dfb9e55709;
- Tue, 04 Aug 2020 13:31:13 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id k8so2943557wma.2
- for <xen-devel@lists.xenproject.org>; Tue, 04 Aug 2020 06:31:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=Exfbsw1LYEHKpD3Fp0p8k5eNg19gqSg72l4KRzBAg6I=;
- b=HzPtCS01eh92n0k2bVH+lNGZU7hA5R1TKEV55OVPjq+4O6sQK2DQLNlJ4DWmnRcqSm
- ma1eeCoWGWFAReStrM98iWYfSp2ROtMfVzrKQ1x52jfZ9x8jNNtO6Wx6tmCWm2yiF8nr
- KJ3B5sU6yeRbW0UorRDLa2ONV+Ml5gl/jXLdkDtl1STDJP8h9seg9eQdK1lIHWQo3jDe
- 8m+ls99C3Lq8w+6hks+vAAsh0dheP9Eh6ZOAZu4KMmfkEqb5+dP3qAAjP6B2lCRmpFZf
- a1PUHKhWcELztWCH2WyBPgaOyFua/8FOdg1gc1WFfXYIkv6VglvCVHkYk0DdGJ+Wc/n2
- IrJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=Exfbsw1LYEHKpD3Fp0p8k5eNg19gqSg72l4KRzBAg6I=;
- b=BB7Bes3KblpCHGauJwXBJ78Zgit7Tx7hexc6wTw2nMfAeSGDVLgXTJlMFLA89nvvjV
- Qsrq9t53Fpe7o8w9BQctr5izZiMTZ2rG3zCubSV5qLy1b89Bpx344vKPWPZ0DXWJjeak
- iBDmbRe1lxPt8DSZFvwc0X4ERqFmXNQzbNvDKUqSIyoY3YKNkncUnXpNVOJCiv2waRuq
- uBcfCar7z0fDcwxZxzAtGPStK/zUaf42320x9L16SXZdGH+cdSKocpdSzrCgga6+3HDm
- uKJOqXI3EMdIo8/R4iPYs7jl44+xf10iLdlmDvAugzito9wnS8nbbuVk0KAlb0f4oAUL
- OwWw==
-X-Gm-Message-State: AOAM5334aiNj4opoZSe8U5Aw9puwMWjZ5N+Gz4Njia17s0dYazFnT0/c
- crTd9OQhU412JFEUYW26Ex0=
-X-Google-Smtp-Source: ABdhPJxxd5wng/cXBMewHz/8C3Z5LQFtsMnssxfrxAa/vBg5aukG6FkeVrYQyCo33P23uACXfImFQg==
-X-Received: by 2002:a1c:1d92:: with SMTP id d140mr4171448wmd.143.1596547872188; 
- Tue, 04 Aug 2020 06:31:12 -0700 (PDT)
-Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id l10sm30624211wru.3.2020.08.04.06.31.10
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 04 Aug 2020 06:31:10 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Ian Jackson'" <ian.jackson@citrix.com>
-References: <20200803124931.2678-1-paul@xen.org>	<20200803124931.2678-5-paul@xen.org>	<24361.17132.762055.478992@mariner.uk.xensource.com>	<002001d66a51$3cd055f0$b67101d0$@xen.org>
- <24361.18433.500622.984594@mariner.uk.xensource.com>
-In-Reply-To: <24361.18433.500622.984594@mariner.uk.xensource.com>
-Subject: RE: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the
- frontend via xenstore
-Date: Tue, 4 Aug 2020 14:31:12 +0100
-Message-ID: <002801d66a63$85fb8c10$91f2a430$@xen.org>
+	id 1k2xCv-0008Mf-4r; Tue, 04 Aug 2020 13:42:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hzL0=BO=xen.org=paul@srs-us1.protection.inumbo.net>)
+ id 1k2xCt-0008MU-Uf
+ for xen-devel@lists.xenproject.org; Tue, 04 Aug 2020 13:42:19 +0000
+X-Inumbo-ID: 7622e856-a2f1-4fcb-a52f-8dd9985ee52e
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7622e856-a2f1-4fcb-a52f-8dd9985ee52e;
+ Tue, 04 Aug 2020 13:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8IxjuGrfelQ0GDEesgxSqx9+VOb5d7SWH04DNE9oG3o=; b=EIedvXoBGl2Tw1aYppdVSMfLX3
+ q/9LRfnFrD7Wa9/WtkgSppUA+jxGcmP5mktbO8r1cPJwaIhLsycecpu0t5SEFw9hV7ifX7YzPHuyc
+ aWbqwb4dpzC/T91dYa168LqgnVOq16HRZYKTwfz91/pJA+4K6mAyKXDOm99uLrd8w3DQ=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1k2xCp-00083o-0M; Tue, 04 Aug 2020 13:42:15 +0000
+Received: from host86-143-223-30.range86-143.btcentralplus.com
+ ([86.143.223.30] helo=u2f063a87eabd5f.home)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1k2xCo-0003ag-KK; Tue, 04 Aug 2020 13:42:14 +0000
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v4 00/14] IOMMU cleanup
+Date: Tue,  4 Aug 2020 14:41:55 +0100
+Message-Id: <20200804134209.8717-1-paul@xen.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIYGZMBbauEfHj5QMvrSYCboUsizgIdsxRvAjZRG38CQrq5MgKDUJ7HqFvABxA=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,75 +57,80 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org, 'Paul Durrant' <pdurrant@amazon.com>,
- 'Wei Liu' <wl@xen.org>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Ian Jackson <ian.jackson@citrix.com>
-> Sent: 04 August 2020 12:35
-> To: paul@xen.org
-> Cc: xen-devel@lists.xenproject.org; 'Paul Durrant' <pdurrant@amazon.com>; 'Wei Liu' <wl@xen.org>
-> Subject: RE: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the frontend via xenstore
-> 
-> Paul Durrant writes ("RE: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the frontend via
-> xenstore"):
-> > > -----Original Message-----
-> > > From: Ian Jackson <ian.jackson@citrix.com>
-> > > Sent: 04 August 2020 12:14
-> > > To: Paul Durrant <paul@xen.org>
-> > > Cc: xen-devel@lists.xenproject.org; Paul Durrant <pdurrant@amazon.com>; Wei Liu <wl@xen.org>
-> > > Subject: Re: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the frontend via xenstore
-> > >
-> > > Paul Durrant writes ("[PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the frontend via
-> > > xenstore"):
-> > > > +       XENBUS_PATH="/local/domain/$domid/device/vif/$devid"
-> > > > +       xenstore_write "$XENBUS_PATH/mtu" ${mtu}
-> > >
-> > > It's surprising to me that this code doesn't have the xenbus path
-> > > already in some variable.  But I guess from the fact that you've added
-> > > this code, that it doesn't.
-> >
-> > It is set, but set to the backend path. For safety I guess it's probably best if I use a local in
-> this instance. Can I keep your R-b
-> > with such a change?
-> 
-> Oh, wow.  I hadn't realised that.  I take back my earlier R-b :-).
-> 
-> Can you please use a different variable name for the frontend path ?
-> 
+From: Paul Durrant <pdurrant@amazon.com>
 
-OK.
+v4:
+ - Added three more patches to convert root_entry, context_entry and
+   dma_pte to bit fields.
 
-> ...
-> 
-> Actually.
-> 
-> This shouldn't be in the frontend at all, should it ?  In general the
-> backend writes to the backend and the frontend to the frontend.
-> 
-> So maybe I need to take back my R-b of
->   [PATCH v2 3/4] public/io/netif: specify MTU override node
-> 
-> Sorry for the confusion.  I seem rather undercaffienated today.
-> 
+Paul Durrant (14):
+  x86/iommu: re-arrange arch_iommu to separate common fields...
+  x86/iommu: add common page-table allocator
+  x86/iommu: convert VT-d code to use new page table allocator
+  x86/iommu: convert AMD IOMMU code to use new page table allocator
+  iommu: remove unused iommu_ops method and tasklet
+  iommu: flush I/O TLB if iommu_map() or iommu_unmap() fail
+  iommu: make map, unmap and flush all take both an order and a count
+  remove remaining uses of iommu_legacy_map/unmap
+  common/grant_table: batch flush I/O TLB
+  iommu: remove the share_p2m operation
+  iommu: stop calling IOMMU page tables 'p2m tables'
+  vtd: use a bit field for root_entry
+  vtd: use a bit field for context_entry
+  vtd: use a bit field for dma_pte
 
-Too late. The xenstore node has been used by Windows frontends for the best part of a decade so we can't practically change the
-path. Another way would be to also modify netback to simply echo the value from backend into frontend, but that seems rather
-pointless.
-
-Interestingly libxl does define an 'mtu' field for libxl_device_nic, which it sets to 1492 in libxl__device_nic_setdefault() but
-never writes it into xenstore. There is even a comment:
-
-/* nic->mtu = */
-
-in libxl__nic_from_xenstore() which implies it should have been there, but isn't.
-I still think picking up the MTU from the bridge is the better way though. 
-
-  Paul
-
-> Ian.
+ xen/arch/arm/p2m.c                          |   2 +-
+ xen/arch/x86/domain.c                       |   9 +-
+ xen/arch/x86/mm.c                           |  21 +-
+ xen/arch/x86/mm/p2m-ept.c                   |  20 +-
+ xen/arch/x86/mm/p2m-pt.c                    |  15 +-
+ xen/arch/x86/mm/p2m.c                       |  29 ++-
+ xen/arch/x86/tboot.c                        |   4 +-
+ xen/arch/x86/x86_64/mm.c                    |  27 +-
+ xen/common/grant_table.c                    | 142 +++++++----
+ xen/common/memory.c                         |   9 +-
+ xen/drivers/passthrough/amd/iommu.h         |  20 +-
+ xen/drivers/passthrough/amd/iommu_guest.c   |   8 +-
+ xen/drivers/passthrough/amd/iommu_map.c     |  26 +-
+ xen/drivers/passthrough/amd/pci_amd_iommu.c | 110 +++-----
+ xen/drivers/passthrough/arm/ipmmu-vmsa.c    |   2 +-
+ xen/drivers/passthrough/arm/smmu.c          |   2 +-
+ xen/drivers/passthrough/iommu.c             | 118 ++-------
+ xen/drivers/passthrough/vtd/iommu.c         | 269 +++++++++-----------
+ xen/drivers/passthrough/vtd/iommu.h         | 153 ++++++-----
+ xen/drivers/passthrough/vtd/utils.c         |  10 +-
+ xen/drivers/passthrough/vtd/x86/ats.c       |  27 +-
+ xen/drivers/passthrough/x86/iommu.c         |  54 +++-
+ xen/include/asm-x86/iommu.h                 |  34 ++-
+ xen/include/xen/iommu.h                     |  37 +--
+ 24 files changed, 585 insertions(+), 563 deletions(-)
+---
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Jun Nakajima <jun.nakajima@intel.com>
+Cc: Kevin Tian <kevin.tian@intel.com>
+Cc: Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
+Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Wei Liu <wl@xen.org>
+-- 
+2.20.1
 
 
