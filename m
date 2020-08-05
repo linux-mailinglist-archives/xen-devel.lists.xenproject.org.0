@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 928F823CBA9
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 17:15:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1AF523CBC4
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 17:40:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3L8d-0008RH-57; Wed, 05 Aug 2020 15:15:31 +0000
+	id 1k3LVn-0001pP-54; Wed, 05 Aug 2020 15:39:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7mHh=BP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k3L8b-0008RC-Oi
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 15:15:29 +0000
-X-Inumbo-ID: 058fdea1-78f5-49ec-ab22-bb62daa0f237
+ id 1k3LVl-0001pK-Pz
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 15:39:25 +0000
+X-Inumbo-ID: 204fbe88-f953-4f1d-a239-24f35f21e742
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 058fdea1-78f5-49ec-ab22-bb62daa0f237;
- Wed, 05 Aug 2020 15:15:28 +0000 (UTC)
+ id 204fbe88-f953-4f1d-a239-24f35f21e742;
+ Wed, 05 Aug 2020 15:39:24 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CEC44ACA2;
- Wed,  5 Aug 2020 15:15:44 +0000 (UTC)
-Subject: Re: Unified Xen executable for UEFI Secure Boot support
-To: Trammell Hudson <hudson@trmm.net>
-References: <mFb-G5X8XaNz-i_kdJKwVPYaZxrnQJj52XN6TiXVR_Y02k-6ozrOhVqBePpiev8UNy6Koe-aXWxAvzcnQq2Ur_0LsIqhgYBR4qupMhnN5GY=@trmm.net>
+ by mx2.suse.de (Postfix) with ESMTP id 9F029AC97;
+ Wed,  5 Aug 2020 15:39:40 +0000 (UTC)
+Subject: Re: [PATCH v4 02/14] x86/iommu: add common page-table allocator
+To: Paul Durrant <paul@xen.org>
+References: <20200804134209.8717-1-paul@xen.org>
+ <20200804134209.8717-3-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f6834aeb-1997-3148-1964-bfeed1e9efab@suse.com>
-Date: Wed, 5 Aug 2020 17:15:28 +0200
+Message-ID: <6eb5810f-b0ca-3b57-7dc0-93e705512024@suse.com>
+Date: Wed, 5 Aug 2020 17:39:24 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <mFb-G5X8XaNz-i_kdJKwVPYaZxrnQJj52XN6TiXVR_Y02k-6ozrOhVqBePpiev8UNy6Koe-aXWxAvzcnQq2Ur_0LsIqhgYBR4qupMhnN5GY=@trmm.net>
+In-Reply-To: <20200804134209.8717-3-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -45,24 +46,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05.08.2020 13:29, Trammell Hudson wrote:
-> I have preliminary patches to support bundling the Xen hypervisor, xen.cfg, the Linux kernel, initrd and XSM into a single "unified" EFI executable that can be signed by sbsigntool for verification by UEFI Secure Boot.  It is inspired by systemd-boot's unified kernel technique and borrows the function to locate PE sections from systemd's LGPL'ed code.
+On 04.08.2020 15:41, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
 > 
-> The configuration, kernel, etc are added after building using objcopy to add named sections for each input file.  This allows an administrator to update the components independently without requiring rebuilding xen. During EFI boot, Xen looks at its own loaded image to locate the PE sections and, if secure boot is enabled, only allows use of the unified components.
+> Instead of having separate page table allocation functions in VT-d and AMD
+> IOMMU code, we could use a common allocation function in the general x86 code.
 > 
-> The resulting EFI executable can be invoked directly from the UEFI Boot Manager, removing the need to use a separate loader like grub. Unlike the shim based verification, the signature covers the entire Xen+config+kernel+initrd unified file. This also ensures that properly configured platforms will measure the entire runtime into the TPM for unsealing secrets or remote attestation.
+> This patch adds a new allocation function, iommu_alloc_pgtable(), for this
+> purpose. The function adds the page table pages to a list. The pages in this
+> list are then freed by iommu_free_pgtables(), which is called by
+> domain_relinquish_resources() after PCI devices have been de-assigned.
 > 
-> I've tested it on qemu OVMF with Secure Boot enabled, as well as on real Thinkpad hardware.  The EFI console is very slow, although it works and is able to boot into dom0.
-> 
-> The current patch set is here, and I'd appreciate suggestions on the technique or cleanup for submission:
-> https://github.com/osresearch/xen/tree/secureboot
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 
-Sounds quite interesting, thanks, but please post the Xen patches here
-for commenting, perhaps with an RFC tag for now.
-
-Jan
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
