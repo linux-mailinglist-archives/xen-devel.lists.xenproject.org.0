@@ -2,56 +2,135 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6355023CB01
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 15:31:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C901A23CB03
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 15:33:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3JVK-0006us-OJ; Wed, 05 Aug 2020 13:30:50 +0000
+	id 1k3JXQ-00073d-54; Wed, 05 Aug 2020 13:33:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FdrI=BP=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k3JVJ-0006uh-3d
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 13:30:49 +0000
-X-Inumbo-ID: 1fdd7be4-0537-4558-8ba0-31fef9e1cde0
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cQRI=BP=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1k3JXP-00073V-62
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 13:32:59 +0000
+X-Inumbo-ID: dacd694f-1b84-4c18-90b2-d4337cbfddca
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1fdd7be4-0537-4558-8ba0-31fef9e1cde0;
- Wed, 05 Aug 2020 13:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NhU77mw8lxmVWmWAz3GWPDyUog0FnaFTIwxGxqeKRsw=; b=AYF33p9gSoEp7Ud7goSZByRiWG
- 8aYQbLkjhxYn94eiyvwEYATNvjE+9kKZkGitcU4F3aSkvSxFeHHHgRuM2OX/6Dh6zNA8pqQTP0ORR
- J9G2yLAX9pohSOqwjbEo3IpY4p3ZiV++KurJITy9dpjF/BHv9AyAW/9mm+ZZCCM204uQ=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k3JV6-0005cr-S5; Wed, 05 Aug 2020 13:30:36 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k3JV6-0000U7-HJ; Wed, 05 Aug 2020 13:30:36 +0000
-Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature common
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <6bfc3920-8f29-188c-cff4-2b99dabe166f@xen.org>
-Date: Wed, 5 Aug 2020 14:30:33 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ id dacd694f-1b84-4c18-90b2-d4337cbfddca;
+ Wed, 05 Aug 2020 13:32:57 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 075DS6aw038978;
+ Wed, 5 Aug 2020 13:31:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=wYBFPjXevv4FEJxjfZDQbIVAOxKAPwLvh+4h5JhT3CQ=;
+ b=VFambJZ/EoDlm9yZUQgdDXONHvQkRuftCJ3aGlv07wUIl9YOPpK/myo5dAvWyfPbE7j9
+ Id8w3yFy4v3x+EDQB/OZvXW94e6POr7bHQhQlPuTE1A8BjB3be8VuS05QcNDIESSjGd/
+ Hd8rNH2giPY+QMS4b7defPYUjXf9wfU1Lr1ydfkmEYIgpqRorneUu+MIfjLG3Y8HiWpC
+ FiK9qkn0hyxQNxHiS+ulCz6cR1D4I/S/clcLenMEMAAjDut+izkO8qJMJV747m3jKx7H
+ FvQ8J9bpcecNhnv1dyZbKp6PcoOAFQC6gSDLsOxu4HNAMX6GHIKJAOTkR/1ln+hTDglO dw== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 32qnd42b1w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 05 Aug 2020 13:31:33 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 075DRlDt170630;
+ Wed, 5 Aug 2020 13:31:32 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 32njayrrum-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 05 Aug 2020 13:31:32 +0000
+Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 075DVPYl024799;
+ Wed, 5 Aug 2020 13:31:25 GMT
+Received: from [10.39.234.166] (/10.39.234.166)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 05 Aug 2020 06:31:25 -0700
+Subject: Re: [PATCH v2 01/11] xen/manage: keep track of the on-going suspend
+ mode
+To: Anchal Agarwal <anchalag@amazon.com>
+References: <20200721000348.GA19610@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <408d3ce9-2510-2950-d28d-fdfe8ee41a54@oracle.com>
+ <alpine.DEB.2.21.2007211640500.17562@sstabellini-ThinkPad-T480s>
+ <20200722180229.GA32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <alpine.DEB.2.21.2007221645430.17562@sstabellini-ThinkPad-T480s>
+ <20200723225745.GB32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <alpine.DEB.2.21.2007241431280.17562@sstabellini-ThinkPad-T480s>
+ <66a9b838-70ed-0807-9260-f2c31343a081@oracle.com>
+ <20200730230634.GA17221@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <53b577a3-6af9-5587-7e47-485be38b3653@oracle.com>
+ <20200804234201.GA23820@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
+ 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
+ Jg6OxFYd01z+a+oL
+Message-ID: <50d0dbe1-533e-792a-6916-8c72d623064a@oracle.com>
+Date: Wed, 5 Aug 2020 09:31:13 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20200804234201.GA23820@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9703
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ phishscore=0
+ mlxlogscore=999 mlxscore=0 spamscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2008050111
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9703
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ clxscore=1015 mlxscore=0
+ priorityscore=1501 mlxlogscore=999 malwarescore=0 adultscore=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2008050111
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,126 +141,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>, Jun Nakajima <jun.nakajima@intel.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: x86@kernel.org, len.brown@intel.com, peterz@infradead.org,
+ benh@kernel.crashing.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ pavel@ucw.cz, hpa@zytor.com, Stefano Stabellini <sstabellini@kernel.org>,
+ eduval@amazon.com, mingo@redhat.com, xen-devel@lists.xenproject.org,
+ sblbir@amazon.com, axboe@kernel.dk, konrad.wilk@oracle.com, bp@alien8.de,
+ tglx@linutronix.de, jgross@suse.com, netdev@vger.kernel.org,
+ linux-pm@vger.kernel.org, rjw@rjwysocki.net, kamatam@amazon.com,
+ vkuznets@redhat.com, davem@davemloft.net, dwmw@amazon.co.uk,
+ roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+On 8/4/20 7:42 PM, Anchal Agarwal wrote:
+>
+> I think this could be done. PM_HIBERNATION_PREPARE could return -ENOTSU=
+PP
+> for arm and pvh dom0 when the notifier call chain is invoked for this c=
+ase
+> in hibernate(). This will then be an empty notifier just for checking t=
+wo
+> usecases.
+> Also, for pvh dom0, the earlier code didn't register any notifier,
+> with this approach you are suggesting setup the notifier for hvm/pvh do=
+m0 and
+> arm but fail during notifier call chain during PM_HIBERNATION_PREPARE ?=
 
-On 03/08/2020 19:21, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> As a lot of x86 code can be re-used on Arm later on, this patch
-> splits IOREQ support into common and arch specific parts.
-> 
-> This support is going to be used on Arm to be able run device
-> emulator outside of Xen hypervisor.
-> 
-> Please note, this is a split/cleanup of Julien's PoC:
-> "Add support for Guest IO forwarding to a device emulator"
-> 
-> Signed-off-by: Julien Grall <julien.grall@arm.com>
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
->   xen/arch/x86/Kconfig            |    1 +
->   xen/arch/x86/hvm/dm.c           |    2 +-
->   xen/arch/x86/hvm/emulate.c      |    2 +-
->   xen/arch/x86/hvm/hvm.c          |    2 +-
->   xen/arch/x86/hvm/io.c           |    2 +-
->   xen/arch/x86/hvm/ioreq.c        | 1431 +--------------------------------------
->   xen/arch/x86/hvm/stdvga.c       |    2 +-
->   xen/arch/x86/hvm/vmx/realmode.c |    1 +
->   xen/arch/x86/hvm/vmx/vvmx.c     |    2 +-
->   xen/arch/x86/mm.c               |    2 +-
->   xen/arch/x86/mm/shadow/common.c |    2 +-
->   xen/common/Kconfig              |    3 +
->   xen/common/Makefile             |    1 +
->   xen/common/hvm/Makefile         |    1 +
->   xen/common/hvm/ioreq.c          | 1430 ++++++++++++++++++++++++++++++++++++++
->   xen/include/asm-x86/hvm/ioreq.h |   45 +-
->   xen/include/asm-x86/hvm/vcpu.h  |    7 -
->   xen/include/xen/hvm/ioreq.h     |   89 +++
->   18 files changed, 1575 insertions(+), 1450 deletions(-)
 
-That's quite a lot of code moved in a single patch. How can we check the 
-code moved is still correct? Is it a verbatim copy?
 
->   create mode 100644 xen/common/hvm/Makefile
->   create mode 100644 xen/common/hvm/ioreq.c
->   create mode 100644 xen/include/xen/hvm/ioreq.h
+Right.
 
-[...]
 
-> +static bool hvm_wait_for_io(struct hvm_ioreq_vcpu *sv, ioreq_t *p)
-> +{
-> +    unsigned int prev_state = STATE_IOREQ_NONE;
-> +
-> +    while ( sv->pending )
-> +    {
-> +        unsigned int state = p->state;
-> +
-> +        smp_rmb();
-> +
-> +    recheck:
-> +        if ( unlikely(state == STATE_IOREQ_NONE) )
-> +        {
-> +            /*
-> +             * The only reason we should see this case is when an
-> +             * emulator is dying and it races with an I/O being
-> +             * requested.
-> +             */
-> +            hvm_io_assist(sv, ~0ul);
-> +            break;
-> +        }
-> +
-> +        if ( unlikely(state < prev_state) )
-> +        {
-> +            gdprintk(XENLOG_ERR, "Weird HVM ioreq state transition %u -> %u\n",
-> +                     prev_state, state);
-> +            sv->pending = false;
-> +            domain_crash(sv->vcpu->domain);
-> +            return false; /* bail */
-> +        }
-> +
-> +        switch ( prev_state = state )
-> +        {
-> +        case STATE_IORESP_READY: /* IORESP_READY -> NONE */
-> +            p->state = STATE_IOREQ_NONE;
-> +            hvm_io_assist(sv, p->data);
-> +            break;
-> +        case STATE_IOREQ_READY:  /* IOREQ_{READY,INPROCESS} -> IORESP_READY */
-> +        case STATE_IOREQ_INPROCESS:
-> +            wait_on_xen_event_channel(sv->ioreq_evtchn,
-> +                                      ({ state = p->state;
-> +                                         smp_rmb();
-> +                                         state != prev_state; }));
-> +            goto recheck;
+(Although the earlier code did register the notifier:
+xen_setup_pm_notifier() would return an error for !xen_hvm_domain() and
+PVH *is* an HVM domain, so registration would actually happen)
 
-I recall some discussion on security@ about this specific code. An IOREQ 
-server can be destroyed at any time. When destroying IOREQ server, the 
-all the vCPUs will be paused to avoid race.
 
-On x86, this was considered to be safe because
-wait_on_xen_event_channel() will never return if the vCPU is re-scheduled.
+>
+> I think still getting rid of suspend mode that was earlier a part of th=
+is
+> notifier is a good idea as it seems redundant as you pointed out earlie=
+r.=20
 
-However, on Arm, this function will return even after rescheduling. In 
-this case, sv and p may point to invalid memory.
 
-IIRC, the suggestion was to harden hvm_wait_for_io(). I guess we could 
-fetch the sv and p after wait_on_xen_event_channel.
+Yes.
 
-Any opinions?
 
-Cheers,
+-boris
 
--- 
-Julien Grall
+
 
