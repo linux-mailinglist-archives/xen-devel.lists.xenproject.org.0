@@ -2,62 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 218C223C9D2
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 12:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C30923C9F0
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 12:38:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3GQM-00069e-Qz; Wed, 05 Aug 2020 10:13:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k3GnP-0007yW-Rb; Wed, 05 Aug 2020 10:37:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gIoy=BP=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1k3GQL-00069Z-JS
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 10:13:29 +0000
-X-Inumbo-ID: 3e590cc4-dab6-4703-818b-1afd6e1d0db2
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3e590cc4-dab6-4703-818b-1afd6e1d0db2;
- Wed, 05 Aug 2020 10:13:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596622408;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=pjG3v7tmHzM7X0me8MnApuXBjsCzdEESNfqc7e2/qxU=;
- b=hX1Lgsj6uIzwhgzlk2Dcsd7KKZMhE+J+/v6bz5gKL1oAdNsIBdYvwtIw
- 4wncaiX4MwfsFMSmxfE0DPdQNJnb3tnFKuRZ3ldEdJDw9dCvdwgj4Rur8
- GTHp1NjxdU7RjkSsd3uwXYDMFm8KL3gIA0CF4H2MBu4+qLEEpZmhaXUG+ k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: ablncfU/hRROiiFatEA3enkULTpRhqCFDPWlbDAwFm2fG0LCxhl/JF3sd8LkANW4vfRFIxxBE+
- k/nw0YqgJbOsWqskSwXHJYPAw0OdmYpgMjYRFMI/mQA20poD/R+ULlVubKzssD7pfb5wM8dIzU
- 56DPeOjiq7slsjbRCS1zzmsVCTIvLgclZndanBteOVbpd4xNIgTQ3tvhfKg/GcLtdvtpqk40/x
- Jr9h++69hBj4B9f+Hq9UFnoiiWKmBSpan7bp6YL7jDNOm9UbtoF74bcl7QydbONESSZEKqq0T8
- Cvw=
-X-SBRS: 3.7
-X-MesageID: 24804478
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,436,1589256000"; d="scan'208";a="24804478"
-From: Ian Jackson <ian.jackson@citrix.com>
+ <SRS0=i8x8=BP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k3GnO-0007yC-O2
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 10:37:18 +0000
+X-Inumbo-ID: 819afbe8-de10-4f5c-b525-d092565a1635
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 819afbe8-de10-4f5c-b525-d092565a1635;
+ Wed, 05 Aug 2020 10:37:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PvXYfQiV658z27YKhv9WPmac6pVamZ2UOuRIgaTayoY=; b=u5xrT0gcG3ZO4hNUPgD14cyDF
+ J5H0/LXeImd8LcN+hfmW47z+BEdL+XUUNpdHYwfEsuQXdXMJ9U3z6CCc3gxBHZpKURzUR9IEH4XHZ
+ R+CGGimwLzeXmQX9QPtMFsYhTWjEy5DCVMzT5J6mG3xjJfZj1VUaI1DZzzIm6dtiwN8tA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k3GnH-0001pE-8o; Wed, 05 Aug 2020 10:37:11 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k3GnG-0001SK-TH; Wed, 05 Aug 2020 10:37:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k3GnG-00086Z-Sc; Wed, 05 Aug 2020 10:37:10 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152488-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24362.34372.501505.911622@mariner.uk.xensource.com>
-Date: Wed, 5 Aug 2020 11:13:24 +0100
-To: "Durrant, Paul" <pdurrant@amazon.co.uk>
-Subject: RE: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the
- frontend via xenstore
-In-Reply-To: <f1e3c392c45246e1aba7329d1b03da5b@EX13D32EUC003.ant.amazon.com>
-References: <20200803124931.2678-1-paul@xen.org>
- <20200803124931.2678-5-paul@xen.org>
- <24361.17132.762055.478992@mariner.uk.xensource.com>
- <002001d66a51$3cd055f0$b67101d0$@xen.org>
- <24361.18433.500622.984594@mariner.uk.xensource.com>
- <002801d66a63$85fb8c10$91f2a430$@xen.org>
- <24362.31810.819871.943707@mariner.uk.xensource.com>
- <f1e3c392c45246e1aba7329d1b03da5b@EX13D32EUC003.ant.amazon.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Subject: [xen-unstable-coverity test] 152488: all pass - PUSHED
+X-Osstest-Versions-This: xen=c9f9a7258dc07735e2da2b6d0b51a0218c76a51f
+X-Osstest-Versions-That: xen=81fd0d3ca4b2cd309403c6e8da662c325dd35750
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 05 Aug 2020 10:37:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,68 +61,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- 'Wei Liu' <wl@xen.org>, "paul@xen.org" <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Durrant, Paul writes ("RE: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the frontend via xenstore"):
-> > -----Original Message-----
-> > From: Ian Jackson <ian.jackson@citrix.com>
-...
-> Well, I guess we address the driver domain issue in this way
-> too... I will add a patch to libxl to write the libxl_device_nic mtu
-> value into xenstore,
+flight 152488 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152488/
 
-Do you mean libxl in dom0 or libxl in the driver domain ?
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  c9f9a7258dc07735e2da2b6d0b51a0218c76a51f
+baseline version:
+ xen                  81fd0d3ca4b2cd309403c6e8da662c325dd35750
 
-libxl contains code that runs in both contexts.
+Last test of basis   152385  2020-08-02 09:18:50 Z    3 days
+Testing same since   152488  2020-08-05 09:18:39 Z    0 days    1 attempts
 
-See device_hotplug in libxl_device.c, in particular notice
-    if (aodev->dev->backend_domid != domid) {
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Wei Liu <wl@xen.org>
 
-If you want the mtu to be read from the bridge, it can only be
-determined by the driver domain, because the bridge is in the driver
-domain.
+jobs:
+ coverity-amd64                                               pass    
 
-In v2 of this series you arrange for the hotplug script to copy the
-mtu from the bridge into the frontend path.  That won't work because
-the hotplug script can't write to that xenstore node because (unlike a
-domo0 backend) a driver domain backend doesn't have write access to
-the frontend so can't create a new node there.
 
-ISTM that it is correct that it is the hotplug script that does this
-interface setup.  If it weren't for this erroneous use of the frontend
-path I think the right design would be:
-  * toolstack libxl reads the config file to find whether there is an MTU
-  * toolstack libxl writes mtu node in backend iff one was in config
-    (and leaves the node absent otherwise)
-  * driver domain libxl runs hotplug script
-  * driver domain hotplug script looks for mtu in backend; if there
-    isn't one, it gets the value from the bridge and writes it to
-    the backend in xenstore
-  * driver domain backend driver reads mtu value from backend path
-  * guest domain frontend driver reads mtu value from backend path
-  * on domain save/migrate, toolstack libxl will record the mtu
-    value as the actual configuration so that the migrated domain
-    will get the same mtu
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I don't think I understand what (in these kind of terms) you are
-proposing, in order to support the frontends that want to read the mtu
-from the frontend.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->  I think the current setting of 1492 can be changed to 1500 safely
-> (since nothing appears to currently use that value).
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Right, that seems correct to me.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> The hotplug script should then have sufficient access to update, and
-> a subsequent patch can add a mechanism to set the value from the
-> config.
 
-I think what I am missing is how this "subsequent patch" would work ?
-Ie what design are we aiming for, that we are now implementing part
-of ?
+Pushing revision :
 
-Ian.
+To xenbits.xen.org:/home/xen/git/xen.git
+   81fd0d3ca4..c9f9a7258d  c9f9a7258dc07735e2da2b6d0b51a0218c76a51f -> coverity-tested/smoke
 
