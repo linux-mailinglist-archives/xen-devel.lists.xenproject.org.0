@@ -2,135 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C901A23CB03
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 15:33:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7E8723CB4A
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 15:56:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3JXQ-00073d-54; Wed, 05 Aug 2020 13:33:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k3Jsr-0000Sf-5I; Wed, 05 Aug 2020 13:55:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cQRI=BP=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1k3JXP-00073V-62
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 13:32:59 +0000
-X-Inumbo-ID: dacd694f-1b84-4c18-90b2-d4337cbfddca
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dacd694f-1b84-4c18-90b2-d4337cbfddca;
- Wed, 05 Aug 2020 13:32:57 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 075DS6aw038978;
- Wed, 5 Aug 2020 13:31:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=wYBFPjXevv4FEJxjfZDQbIVAOxKAPwLvh+4h5JhT3CQ=;
- b=VFambJZ/EoDlm9yZUQgdDXONHvQkRuftCJ3aGlv07wUIl9YOPpK/myo5dAvWyfPbE7j9
- Id8w3yFy4v3x+EDQB/OZvXW94e6POr7bHQhQlPuTE1A8BjB3be8VuS05QcNDIESSjGd/
- Hd8rNH2giPY+QMS4b7defPYUjXf9wfU1Lr1ydfkmEYIgpqRorneUu+MIfjLG3Y8HiWpC
- FiK9qkn0hyxQNxHiS+ulCz6cR1D4I/S/clcLenMEMAAjDut+izkO8qJMJV747m3jKx7H
- FvQ8J9bpcecNhnv1dyZbKp6PcoOAFQC6gSDLsOxu4HNAMX6GHIKJAOTkR/1ln+hTDglO dw== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 32qnd42b1w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 05 Aug 2020 13:31:33 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 075DRlDt170630;
- Wed, 5 Aug 2020 13:31:32 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 32njayrrum-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 05 Aug 2020 13:31:32 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 075DVPYl024799;
- Wed, 5 Aug 2020 13:31:25 GMT
-Received: from [10.39.234.166] (/10.39.234.166)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 05 Aug 2020 06:31:25 -0700
-Subject: Re: [PATCH v2 01/11] xen/manage: keep track of the on-going suspend
- mode
-To: Anchal Agarwal <anchalag@amazon.com>
-References: <20200721000348.GA19610@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <408d3ce9-2510-2950-d28d-fdfe8ee41a54@oracle.com>
- <alpine.DEB.2.21.2007211640500.17562@sstabellini-ThinkPad-T480s>
- <20200722180229.GA32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <alpine.DEB.2.21.2007221645430.17562@sstabellini-ThinkPad-T480s>
- <20200723225745.GB32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <alpine.DEB.2.21.2007241431280.17562@sstabellini-ThinkPad-T480s>
- <66a9b838-70ed-0807-9260-f2c31343a081@oracle.com>
- <20200730230634.GA17221@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <53b577a3-6af9-5587-7e47-485be38b3653@oracle.com>
- <20200804234201.GA23820@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
- 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
- Jg6OxFYd01z+a+oL
-Message-ID: <50d0dbe1-533e-792a-6916-8c72d623064a@oracle.com>
-Date: Wed, 5 Aug 2020 09:31:13 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <SRS0=iBnt=BP=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k3Jsq-0000Sa-4v
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 13:55:08 +0000
+X-Inumbo-ID: eefbd95f-2a62-4165-84c7-0511a117ab01
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id eefbd95f-2a62-4165-84c7-0511a117ab01;
+ Wed, 05 Aug 2020 13:55:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596635706;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4gaE8tRpToc/tJWR936re1gQrXhgXYeq0Cw0ab7DDzc=;
+ b=iByycVsk1sGoMeq78N48XtUaJ6xyD1Y+SzERYWlwvOmEExJINesIS4/V
+ g1kLPIEueIY5Rpip+OYSBmnTm84S0EVmE/0Rk4ud4WR6Q/rR7al85TZk0
+ SnzgcCt0sUgJ7VQbdU6OFZeHRfkUldYPKzFEItiaS3msdcJfh+Jv4zYRx Q=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: l3AaX3pjiT/6Ld2AsmG+4tHWQXSR/XNWZW4+dDgDdUU1Icc0YoEKLFli+JVwc4A4R1JExpg5+e
+ v+SbinPt6V1uglH9UOcbhfKVckIrmozfDP7zwSJ7i1qIG7kBVeXR+1loRcuC3FSleKOLHlcjAY
+ PwlOx0KzAXhz/yN7Om0CgixkbxCyUTcqxlefHwoFIL8AHv0riHByA+QoxK6Tp1oeiN3uMPEP0I
+ QuRGV+JEaMO98orYLC/QuiwVNdftxbvXx02B35K2vvFuqKOT+iDUDWGg+fKg30x7KkiJa54FJT
+ a/U=
+X-SBRS: 3.7
+X-MesageID: 24253665
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,436,1589256000"; d="scan'208";a="24253665"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/ioapic: Improve code generation for __io_apic_{read,
+ write}()
+Date: Wed, 5 Aug 2020 14:54:18 +0100
+Message-ID: <20200805135418.31528-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200804234201.GA23820@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9703
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- phishscore=0
- mlxlogscore=999 mlxscore=0 spamscore=0 malwarescore=0 adultscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2008050111
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9703
- signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- clxscore=1015 mlxscore=0
- priorityscore=1501 mlxlogscore=999 malwarescore=0 adultscore=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2008050111
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,53 +59,75 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: x86@kernel.org, len.brown@intel.com, peterz@infradead.org,
- benh@kernel.crashing.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- pavel@ucw.cz, hpa@zytor.com, Stefano Stabellini <sstabellini@kernel.org>,
- eduval@amazon.com, mingo@redhat.com, xen-devel@lists.xenproject.org,
- sblbir@amazon.com, axboe@kernel.dk, konrad.wilk@oracle.com, bp@alien8.de,
- tglx@linutronix.de, jgross@suse.com, netdev@vger.kernel.org,
- linux-pm@vger.kernel.org, rjw@rjwysocki.net, kamatam@amazon.com,
- vkuznets@redhat.com, davem@davemloft.net, dwmw@amazon.co.uk,
- roger.pau@citrix.com
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 8/4/20 7:42 PM, Anchal Agarwal wrote:
->
-> I think this could be done. PM_HIBERNATION_PREPARE could return -ENOTSU=
-PP
-> for arm and pvh dom0 when the notifier call chain is invoked for this c=
-ase
-> in hibernate(). This will then be an empty notifier just for checking t=
-wo
-> usecases.
-> Also, for pvh dom0, the earlier code didn't register any notifier,
-> with this approach you are suggesting setup the notifier for hvm/pvh do=
-m0 and
-> arm but fail during notifier call chain during PM_HIBERNATION_PREPARE ?=
+The write into REGSEL prevents the optimiser from reusing the address
+calculation, forcing it to be calcualted twice.
 
+The calculation itself is quite expensive.  Pull it out into a local varaible.
 
+Bloat-o-meter reports:
+  add/remove: 0/0 grow/shrink: 0/26 up/down: 0/-1527 (-1527)
 
-Right.
+Also correct the register type, which is uint32_t, not int.
 
+No functional change.
 
-(Although the earlier code did register the notifier:
-xen_setup_pm_notifier() would return an error for !xen_hvm_domain() and
-PVH *is* an HVM domain, so registration would actually happen)
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/include/asm-x86/io_apic.h | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-
->
-> I think still getting rid of suspend mode that was earlier a part of th=
-is
-> notifier is a good idea as it seems redundant as you pointed out earlie=
-r.=20
-
-
-Yes.
-
-
--boris
-
+diff --git a/xen/include/asm-x86/io_apic.h b/xen/include/asm-x86/io_apic.h
+index daf17d4c3d..cb36e4ca1b 100644
+--- a/xen/include/asm-x86/io_apic.h
++++ b/xen/include/asm-x86/io_apic.h
+@@ -14,8 +14,8 @@
+  */
+ 
+ #define IO_APIC_BASE(idx)                                               \
+-    ((volatile int *)(__fix_to_virt(FIX_IO_APIC_BASE_0 + idx)           \
+-                      + (mp_ioapics[idx].mpc_apicaddr & ~PAGE_MASK)))
++    ((volatile uint32_t *)(__fix_to_virt(FIX_IO_APIC_BASE_0 + idx)      \
++                           + (mp_ioapics[idx].mpc_apicaddr & ~PAGE_MASK)))
+ 
+ #define IO_APIC_ID(idx) (mp_ioapics[idx].mpc_apicid)
+ 
+@@ -135,8 +135,10 @@ unsigned int io_apic_gsi_base(unsigned int apic);
+ 
+ static inline unsigned int __io_apic_read(unsigned int apic, unsigned int reg)
+ {
+-    *IO_APIC_BASE(apic) = reg;
+-    return *(IO_APIC_BASE(apic)+4);
++    volatile uint32_t *regs = IO_APIC_BASE(apic);
++
++    regs[0] = reg;
++    return regs[4];
+ }
+ 
+ static inline unsigned int io_apic_read(unsigned int apic, unsigned int reg)
+@@ -148,8 +150,10 @@ static inline unsigned int io_apic_read(unsigned int apic, unsigned int reg)
+ 
+ static inline void __io_apic_write(unsigned int apic, unsigned int reg, unsigned int value)
+ {
+-    *IO_APIC_BASE(apic) = reg;
+-    *(IO_APIC_BASE(apic)+4) = value;
++    volatile uint32_t *regs = IO_APIC_BASE(apic);
++
++    regs[0] = reg;
++    regs[4] = value;
+ }
+ 
+ static inline void io_apic_write(unsigned int apic, unsigned int reg, unsigned int value)
+-- 
+2.11.0
 
 
