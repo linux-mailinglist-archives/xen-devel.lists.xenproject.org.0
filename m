@@ -2,50 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23EE823CABA
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 14:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B9623CABC
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 14:52:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3ItH-0003IU-4P; Wed, 05 Aug 2020 12:51:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k3Itg-0003Lo-DO; Wed, 05 Aug 2020 12:51:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iBnt=BP=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k3ItG-0003IN-71
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 12:51:30 +0000
-X-Inumbo-ID: f6f37747-bb4b-4353-b544-2153e2890fba
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f6f37747-bb4b-4353-b544-2153e2890fba;
- Wed, 05 Aug 2020 12:51:28 +0000 (UTC)
+ id 1k3Ite-0003Lc-VC
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 12:51:54 +0000
+X-Inumbo-ID: c0ce91e3-776a-4307-9d4e-17039861a371
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c0ce91e3-776a-4307-9d4e-17039861a371;
+ Wed, 05 Aug 2020 12:51:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596631888;
+ d=citrix.com; s=securemail; t=1596631913;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=DqXQeOCb8wl+MEQ6DYesZt1pzQQgZ5aV7kpKWqbWJ5o=;
- b=H6sz06H2dPEL86H4zFKqZYCmroR8zmFIr7RcZg+E2b6Yg7iX0N1/HOIP
- 0bbAKEyLlrRDZSfXVLGh2V7uqPsyrt47pbtt0nB6NTTiqnu5ETtnpzmjm
- PqwGrnOoRAWiPVoEQymfAn2QB331yUaaF57SNuUgW71Dl456+PSY+maqq c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ bh=rRFT9u3/O3zvV8jxX2uNkA4cBsg0DH2hVxBAe+fvmPE=;
+ b=HiTX2IOepLYkTi2o/oX+dTL42qv9b9uk6ILjEECIuVPNG+v4/+mjjmZ1
+ dWpfPzYZFo6sV8aJRqZUxI3nyMb/9W5zW7luImr37b0TKr/3MpgmVyd93
+ CZjhGBQtf3B+W++3CDQcvy29gWIdvtvK0cAPNXNwLTw40NRh+5HADt0VQ o=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: H0IOtf+NmNNXtIb3vBP89mAfdirC7zbuDhNi6MaeCYBH7gNqSllvQWlWPDnHQfXv7QOxEAJPyE
- vqJDxUprDscE65Vj6snxU0t57kqjk2oJ1M0yuy3KDnHD04TyvydfNmf1H+SphV9xHPKAyrZism
- 9PK/9kl6k897Kz/WK2/qAX0s3Cn1EsLumCMdengXLaGHlK5qPkJ3eXtovNruFsqiVXpgGLp/ms
- tlOw/8QKUtNutCdWlFlwPP8RT14wVjnAfoVfRLfqRoyTYVq2ags30+95hytNMAEYu+0/bTSKcB
- VhA=
+IronPort-SDR: ohW9JmQu13lbrqMX3sYNIaH378KG3zbGQbpGh5NLpG4SXOlJm58gvC1FP0EN7C3lPO61nRNsqq
+ 8o9nRuZrqezEWldAMWarq/9chwQYNLQEs2355qDCkXScVcrkG/Obah3o8V1mkp7Y+rKqxiDrbo
+ jphMATrqV1EGja5YYJjVYEZsNKuENymEoVvU6y5pihkBJwDjlreG6bB5z3yy8dsyzOn4eCOPlQ
+ oWlRUJHe8ZTMCbITrTCTjb7OWIwUSbOqa1Mj9/9uaqrYNJ3aPa7CV8pKZJLaJ8fXNOBAt7tE9+
+ Cn8=
 X-SBRS: 3.7
-X-MesageID: 24248781
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 24813330
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,436,1589256000"; d="scan'208";a="24248781"
+X-IronPort-AV: E=Sophos;i="5.75,436,1589256000"; d="scan'208";a="24813330"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/ioapic: Fix fixmap error path logic in
- ioapic_init_mappings()
-Date: Wed, 5 Aug 2020 13:51:09 +0100
-Message-ID: <20200805125109.7348-1-andrew.cooper3@citrix.com>
+Subject: [PATCH] x86/ioapic: Fix style in io_apic.h
+Date: Wed, 5 Aug 2020 13:51:24 +0100
+Message-ID: <20200805125124.7763-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -66,11 +64,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In the case that bad_ioapic_register() fails, the current position of idx++
-means that clear_fixmap(idx) will be called with the wrong index, and not
-clean up the mapping just created.
+This file is a mix of Xen and Linux styles.  Switch it fully to Xen style.
 
-Increment idx as part of the loop, rather than midway through the loop body.
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -78,30 +74,101 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/io_apic.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ xen/include/asm-x86/io_apic.h | 48 +++++++++++++++++++++----------------------
+ 1 file changed, 24 insertions(+), 24 deletions(-)
 
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index 878ee5192d..e66fa99ec7 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -2543,7 +2543,7 @@ static void __init ioapic_init_mappings(void)
+diff --git a/xen/include/asm-x86/io_apic.h b/xen/include/asm-x86/io_apic.h
+index e006b2b8dd..daf17d4c3d 100644
+--- a/xen/include/asm-x86/io_apic.h
++++ b/xen/include/asm-x86/io_apic.h
+@@ -13,9 +13,9 @@
+  * Copyright (C) 1997, 1998, 1999, 2000 Ingo Molnar
+  */
  
-     nr_irqs_gsi = 0;
+-#define IO_APIC_BASE(idx) \
+-		((volatile int *)(__fix_to_virt(FIX_IO_APIC_BASE_0 + idx) \
+-		+ (mp_ioapics[idx].mpc_apicaddr & ~PAGE_MASK)))
++#define IO_APIC_BASE(idx)                                               \
++    ((volatile int *)(__fix_to_virt(FIX_IO_APIC_BASE_0 + idx)           \
++                      + (mp_ioapics[idx].mpc_apicaddr & ~PAGE_MASK)))
  
--    for ( i = 0; i < nr_ioapics; i++ )
-+    for ( i = 0; i < nr_ioapics; i++, idx++ )
-     {
-         union IO_APIC_reg_01 reg_01;
-         paddr_t ioapic_phys = mp_ioapics[i].mpc_apicaddr;
-@@ -2560,7 +2560,6 @@ static void __init ioapic_init_mappings(void)
-         set_fixmap_nocache(idx, ioapic_phys);
-         apic_printk(APIC_VERBOSE, "mapped IOAPIC to %08Lx (%08lx)\n",
-                     __fix_to_virt(idx), ioapic_phys);
--        idx++;
+ #define IO_APIC_ID(idx) (mp_ioapics[idx].mpc_apicid)
  
-         if ( bad_ioapic_register(i) )
-         {
+@@ -78,14 +78,14 @@ extern int nr_ioapics;
+ extern int nr_ioapic_entries[MAX_IO_APICS];
+ 
+ enum ioapic_irq_destination_types {
+-	dest_Fixed = 0,
+-	dest_LowestPrio = 1,
+-	dest_SMI = 2,
+-	dest__reserved_1 = 3,
+-	dest_NMI = 4,
+-	dest_INIT = 5,
+-	dest__reserved_2 = 6,
+-	dest_ExtINT = 7
++    dest_Fixed = 0,
++    dest_LowestPrio = 1,
++    dest_SMI = 2,
++    dest__reserved_1 = 3,
++    dest_NMI = 4,
++    dest_INIT = 5,
++    dest__reserved_2 = 6,
++    dest_ExtINT = 7
+ };
+ 
+ struct IO_APIC_route_entry {
+@@ -135,28 +135,28 @@ unsigned int io_apic_gsi_base(unsigned int apic);
+ 
+ static inline unsigned int __io_apic_read(unsigned int apic, unsigned int reg)
+ {
+-	*IO_APIC_BASE(apic) = reg;
+-	return *(IO_APIC_BASE(apic)+4);
++    *IO_APIC_BASE(apic) = reg;
++    return *(IO_APIC_BASE(apic)+4);
+ }
+ 
+ static inline unsigned int io_apic_read(unsigned int apic, unsigned int reg)
+ {
+-	if (ioapic_reg_remapped(reg))
+-		return iommu_read_apic_from_ire(apic, reg);
+-	return __io_apic_read(apic, reg);
++    if ( ioapic_reg_remapped(reg) )
++        return iommu_read_apic_from_ire(apic, reg);
++    return __io_apic_read(apic, reg);
+ }
+ 
+ static inline void __io_apic_write(unsigned int apic, unsigned int reg, unsigned int value)
+ {
+-	*IO_APIC_BASE(apic) = reg;
+-	*(IO_APIC_BASE(apic)+4) = value;
++    *IO_APIC_BASE(apic) = reg;
++    *(IO_APIC_BASE(apic)+4) = value;
+ }
+ 
+ static inline void io_apic_write(unsigned int apic, unsigned int reg, unsigned int value)
+ {
+-	if (ioapic_reg_remapped(reg))
+-		return iommu_update_ire_from_apic(apic, reg, value);
+-	__io_apic_write(apic, reg, value);
++    if ( ioapic_reg_remapped(reg) )
++        return iommu_update_ire_from_apic(apic, reg, value);
++    __io_apic_write(apic, reg, value);
+ }
+ 
+ /*
+@@ -165,9 +165,9 @@ static inline void io_apic_write(unsigned int apic, unsigned int reg, unsigned i
+  */
+ static inline void io_apic_modify(unsigned int apic, unsigned int reg, unsigned int value)
+ {
+-	if (ioapic_reg_remapped(reg))
+-		return iommu_update_ire_from_apic(apic, reg, value);
+-	*(IO_APIC_BASE(apic)+4) = value;
++    if ( ioapic_reg_remapped(reg) )
++        return iommu_update_ire_from_apic(apic, reg, value);
++    *(IO_APIC_BASE(apic)+4) = value;
+ }
+ 
+ /* 1 if "noapic" boot option passed */
 -- 
 2.11.0
 
