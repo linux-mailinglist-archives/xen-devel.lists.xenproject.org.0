@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93A823C655
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 09:02:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C92923C689
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 09:05:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3DQt-0005La-Gh; Wed, 05 Aug 2020 07:01:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k3DUD-0005SS-1X; Wed, 05 Aug 2020 07:05:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7mHh=BP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k3DQs-0005LV-Dx
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 07:01:50 +0000
-X-Inumbo-ID: 34209da2-a50b-4022-8269-d29ea3474df0
+ id 1k3DUA-0005SL-PR
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 07:05:14 +0000
+X-Inumbo-ID: bf9c5f1b-4e7c-440e-88cd-5eb7b69d1534
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 34209da2-a50b-4022-8269-d29ea3474df0;
- Wed, 05 Aug 2020 07:01:49 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bf9c5f1b-4e7c-440e-88cd-5eb7b69d1534;
+ Wed, 05 Aug 2020 07:05:11 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BD26DAC37;
- Wed,  5 Aug 2020 07:02:04 +0000 (UTC)
-Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature common
+ by mx2.suse.de (Postfix) with ESMTP id 1814AAC37;
+ Wed,  5 Aug 2020 07:05:27 +0000 (UTC)
+Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
+ IOREQ/DM features
 To: Stefano Stabellini <sstabellini@kernel.org>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
- <000c01d66a33$2bd56510$83802f30$@xen.org>
- <9f83a7ed-ca97-449f-c7b9-a1140644abe9@gmail.com>
- <f0c32cfe-5c33-30ae-b08a-3d72e935745a@xen.org>
- <alpine.DEB.2.21.2008041105510.5748@sstabellini-ThinkPad-T480s>
+ <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2008041327110.5748@sstabellini-ThinkPad-T480s>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2ab4c567-8efa-1b9d-ab00-4ea7e1ab323e@suse.com>
-Date: Wed, 5 Aug 2020 09:01:49 +0200
+Message-ID: <cb48c78c-60fc-7dad-58d0-7a0a095ab4d4@suse.com>
+Date: Wed, 5 Aug 2020 09:05:11 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2008041105510.5748@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2008041327110.5748@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -50,75 +49,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Kevin Tian' <kevin.tian@intel.com>, Julien Grall <julien@xen.org>,
- 'Wei Liu' <wl@xen.org>, paul@xen.org,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Tim Deegan' <tim@xen.org>,
- Oleksandr <olekstysh@gmail.com>,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Julien Grall' <julien.grall@arm.com>, 'Jun Nakajima' <jun.nakajima@intel.com>,
- xen-devel@lists.xenproject.org,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04.08.2020 21:11, Stefano Stabellini wrote:
->> The point of the check isn't to determine whether to wait, but
->> what to do after having waited. Reads need a retry round through
->> the emulator (to store the result in the designated place),
->> while writes don't have such a requirement (and hence guest
->> execution can continue immediately in the general case).
+On 05.08.2020 01:22, Stefano Stabellini wrote:
+> On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
+>> --- a/xen/include/asm-arm/p2m.h
+>> +++ b/xen/include/asm-arm/p2m.h
+>> @@ -385,10 +385,11 @@ static inline int set_foreign_p2m_entry(struct domain *d, unsigned long gfn,
+>>                                          mfn_t mfn)
+>>  {
+>>      /*
+>> -     * NOTE: If this is implemented then proper reference counting of
+>> -     *       foreign entries will need to be implemented.
+>> +     * XXX: handle properly reference. It looks like the page may not always
+>> +     * belong to d.
 > 
-> The x86 code looks like this:
-> 
->             rc = hvm_send_ioreq(s, &p, 0);
->             if ( rc != X86EMUL_RETRY || currd->is_shutting_down )
->                 vio->io_req.state = STATE_IOREQ_NONE;
->             else if ( !hvm_ioreq_needs_completion(&vio->io_req) )
->                 rc = X86EMUL_OKAY;
-> 
-> Basically hvm_send_ioreq is expected to return RETRY.
-> Then, if it is a PIO write operation only, it is turned into OKAY right
-> away. Otherwise, rc stays as RETRY.
-> 
-> So, normally, hvmemul_do_io is expected to return RETRY, because the
-> emulator is not done yet. Am I understanding the code correctly?
+> Just as a reference, and without taking away anything from the comment,
+> I think that QEMU is doing its own internal reference counting for these
+> mappings.
 
-"The emulator" unfortunately is ambiguous here: Do you mean qemu
-(or whichever else ioreq server) or the x86 emulator inside Xen?
-There are various conditions leading to RETRY. As far as
-hvm_send_ioreq() goes, it is expected to return RETRY whenever
-some sort of response is to be expected (the most notable
-exception being the hvm_send_buffered_ioreq() path), or when
-submitting the request isn't possible in the first place.
-
-> If so, who is handling RETRY on x86? It tried to follow the call chain
-> but ended up in the x86 emulator and got lost :-)
-
-Not sure I understand the question correctly, but I'll try an
-answer nevertheless: hvm_send_ioreq() arranges for the vCPU to be
-put to sleep (prepare_wait_on_xen_event_channel()). Once the event
-channel got signaled (and vCPU unblocked), hvm_do_resume() ->
-handle_hvm_io_completion() -> hvm_wait_for_io() then check whether
-the wait reason has been satisfied (wait_on_xen_event_channel()),
-and ...
-
-> At some point later, after the emulator (QEMU) has completed the
-> request, handle_hvm_io_completion gets called which ends up calling
-> handle_mmio() finishing the job on the Xen side too.
-
-..., as you say, handle_hvm_io_completion() invokes the retry of
-the original operation (handle_mmio() or handle_pio() in
-particular) if need be.
-
-What's potentially confusing is that there's a second form of
-retry, invoked by the x86 insn emulator itself when it needs to
-split complex insns (the repeated string insns being the most
-important example). This results in actually exiting back to guest
-context without having advanced rIP, but after having updated
-other register state suitably (to express the progress made so
-far).
+Which of course in no way replaces the need to do proper ref counting
+in Xen. (Just FAOD, as I'm not sure why you've said what you've said.)
 
 Jan
 
