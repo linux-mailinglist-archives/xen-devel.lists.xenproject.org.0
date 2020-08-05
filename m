@@ -2,61 +2,81 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C18F923C95E
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 11:39:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36B9C23C96B
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 11:45:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3FtG-0002Zq-HG; Wed, 05 Aug 2020 09:39:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FdrI=BP=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1k3FtE-0002Zl-U4
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 09:39:16 +0000
-X-Inumbo-ID: f4e3dd9e-7838-4d31-8b33-253b46ab88bd
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f4e3dd9e-7838-4d31-8b33-253b46ab88bd;
- Wed, 05 Aug 2020 09:39:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jRpEmS5YMER/RnQifqxP4UjBRHnj3hq0Ojyzac0TDHI=; b=OR0o3xO0cNXaAaEEexaMTFpeOQ
- 50ZnADrvTw5Gqy3FDhCXT61n/6hUr3hF41fPcqt90cTMVcYIqoa0SD9uXr8wq2mM+0Da1Bo1v5Ckr
- ADKOMztXk7HcAQ5gPjHZjsxSBMi8BUiefAzdOgHMiSMG0PTRf+7xHQbTqRR7f8oxLC5A=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k3Ft7-0000Sb-MO; Wed, 05 Aug 2020 09:39:09 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1k3Ft7-0001Wq-AO; Wed, 05 Aug 2020 09:39:09 +0000
-Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
- xendevicemodel_set_irq_level DM op
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
-Date: Wed, 5 Aug 2020 10:39:06 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+	id 1k3Fyc-0003Qh-98; Wed, 05 Aug 2020 09:44:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UJHd=BP=amazon.co.uk=prvs=479daf7cf=pdurrant@srs-us1.protection.inumbo.net>)
+ id 1k3Fya-0003Qc-J4
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 09:44:48 +0000
+X-Inumbo-ID: 64ea7f85-7265-410a-9f74-75ae43ad0366
+Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 64ea7f85-7265-410a-9f74-75ae43ad0366;
+ Wed, 05 Aug 2020 09:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
+ s=amazon201209; t=1596620687; x=1628156687;
+ h=from:to:cc:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version:subject;
+ bh=za7okMpA4SI+IfCgnq91XC9ou5HIclFe21JqbIWoxmw=;
+ b=UYxjuncvyLbTdloGOwhrAYO5x5EUzZIjAxK4NdK19D9IKYXJBrARa1sR
+ ojHNJaIA08W3ic0d/uWLW+F7Mp1xy2167nz0xlunxMnbk7qNicEzpxrq1
+ 6muhIXlTuULz6486PXjRrO1wq5k4e+YEp5KgmGhz+la60ye2Zt3udYdQE 4=;
+IronPort-SDR: rI2cdBR4CUe1Dzg4XdmWXd4I4RxSrjWtpUCmhzzGh9wFvLzDKck2Us+mEXbFCSaDX50ACSYgZE
+ KjtipuXjMsCQ==
+X-IronPort-AV: E=Sophos;i="5.75,436,1589241600"; d="scan'208";a="47582771"
+Subject: RE: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the
+ frontend via xenstore
+Thread-Topic: [PATCH v2 4/4] tools/hotplug: modify set_mtu() to inform the
+ frontend via xenstore
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2a-22cc717f.us-west-2.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP;
+ 05 Aug 2020 09:44:46 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+ by email-inbound-relay-2a-22cc717f.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 737C0A17C0; Wed,  5 Aug 2020 09:44:45 +0000 (UTC)
+Received: from EX13D32EUC002.ant.amazon.com (10.43.164.94) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 5 Aug 2020 09:44:44 +0000
+Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
+ EX13D32EUC002.ant.amazon.com (10.43.164.94) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 5 Aug 2020 09:44:44 +0000
+Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
+ EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
+ Wed, 5 Aug 2020 09:44:43 +0000
+From: "Durrant, Paul" <pdurrant@amazon.co.uk>
+To: Ian Jackson <ian.jackson@citrix.com>, "paul@xen.org" <paul@xen.org>
+Thread-Index: AQHWalBvjr/TvfDJJEyo1xgwd7E00aknzdYAgAAEPoCAACBVAIABTyMAgAACc7A=
+Date: Wed, 5 Aug 2020 09:44:43 +0000
+Message-ID: <f1e3c392c45246e1aba7329d1b03da5b@EX13D32EUC003.ant.amazon.com>
+References: <20200803124931.2678-1-paul@xen.org>
+ <20200803124931.2678-5-paul@xen.org>
+ <24361.17132.762055.478992@mariner.uk.xensource.com>
+ <002001d66a51$3cd055f0$b67101d0$@xen.org>
+ <24361.18433.500622.984594@mariner.uk.xensource.com>
+ <002801d66a63$85fb8c10$91f2a430$@xen.org>
+ <24362.31810.819871.943707@mariner.uk.xensource.com>
+In-Reply-To: <24362.31810.819871.943707@mariner.uk.xensource.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.166.209]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -64,82 +84,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 'Wei
+ Liu' <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+> -----Original Message-----
+> From: Ian Jackson <ian.jackson@citrix.com>
+> Sent: 05 August 2020 10:31
+> To: paul@xen.org
+> Cc: xen-devel@lists.xenproject.org; Durrant, Paul <pdurrant@amazon.co.uk>=
+; 'Wei Liu' <wl@xen.org>
+> Subject: RE: [EXTERNAL] [PATCH v2 4/4] tools/hotplug: modify set_mtu() to=
+ inform the frontend via
+> xenstore
+>=20
+> CAUTION: This email originated from outside of the organization. Do not c=
+lick links or open
+> attachments unless you can confirm the sender and know the content is saf=
+e.
+>=20
+>=20
+>=20
+> Paul Durrant writes ("RE: [PATCH v2 4/4] tools/hotplug: modify set_mtu() =
+to inform the frontend via
+> xenstore"):
+> > > -----Original Message-----
+> > > From: Ian Jackson <ian.jackson@citrix.com>
+> ...
+> > > Actually.
+> > >
+> > > This shouldn't be in the frontend at all, should it ?  In general the
+> > > backend writes to the backend and the frontend to the frontend.
+> > >
+> > > So maybe I need to take back my R-b of
+> > >   [PATCH v2 3/4] public/io/netif: specify MTU override node
+> > >
+> > > Sorry for the confusion.  I seem rather undercaffienated today.
+> >
+> > Too late. The xenstore node has been used by Windows frontends for the =
+best part of a decade so we
+> can't practically change the
+> > path. Another way would be to also modify netback to simply echo the va=
+lue from backend into
+> frontend, but that seems rather
+> > pointless.
+>=20
+> Hmm.  How does this interact with driver domains ?  I think a driver
+> domain might not have write access to this node.
+>=20
 
-On 05/08/2020 00:22, Stefano Stabellini wrote:
-> On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> This patch adds ability to the device emulator to notify otherend
->> (some entity running in the guest) using a SPI and implements Arm
->> specific bits for it. Proposed interface allows emulator to set
->> the logical level of a one of a domain's IRQ lines.
->>
->> Please note, this is a split/cleanup of Julien's PoC:
->> "Add support for Guest IO forwarding to a device emulator"
->>
->> Signed-off-by: Julien Grall <julien.grall@arm.com>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> ---
->>   tools/libs/devicemodel/core.c                   | 18 ++++++++++++++++++
->>   tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
->>   tools/libs/devicemodel/libxendevicemodel.map    |  1 +
->>   xen/arch/arm/dm.c                               | 22 +++++++++++++++++++++-
->>   xen/common/hvm/dm.c                             |  1 +
->>   xen/include/public/hvm/dm_op.h                  | 15 +++++++++++++++
->>   6 files changed, 60 insertions(+), 1 deletion(-)
->>
->> diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
->> index 4d40639..30bd79f 100644
->> --- a/tools/libs/devicemodel/core.c
->> +++ b/tools/libs/devicemodel/core.c
->> @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
->>       return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
->>   }
->>   
->> +int xendevicemodel_set_irq_level(
->> +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
->> +    unsigned int level)
-> 
-> It is a pity that having xen_dm_op_set_pci_intx_level and
-> xen_dm_op_set_isa_irq_level already we need to add a third one, but from
-> the names alone I don't think we can reuse either of them.
+That's a good point; I think we will also need to actually write it from li=
+bxl first in that case.
 
-The problem is not the name...
+> Is there a value we can store in it that won't break these Windows
+> frontends, that libxl in the toolstack domain could write, before the
+> hotplug script runs in the driver domain ?
+>=20
+> > Interestingly libxl does define an 'mtu' field for libxl_device_nic, wh=
+ich it sets to 1492 in
+> libxl__device_nic_setdefault() but
+> > never writes it into xenstore. There is even a comment:
+> >
+> > /* nic->mtu =3D */
+> >
+> > in libxl__nic_from_xenstore() which implies it should have been there, =
+but isn't.
+> > I still think picking up the MTU from the bridge is the better way thou=
+gh.
+>=20
+> I agree that the default should come from the bridge.  Ideally there
+> would be a way to override it in the config.
+>=20
 
-> 
-> It is very similar to set_isa_irq_level. We could almost rename
-> xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
-> better, just add an alias to it so that xendevicemodel_set_irq_level is
-> implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
-> not sure if it is worth doing it though. Any other opinions?
+Well, I guess we address the driver domain issue in this way too... I will =
+add a patch to libxl to write the libxl_device_nic mtu value into xenstore,=
+ in both backend (where it should always have been) and frontend. I think t=
+he current setting of 1492 can be changed to 1500 safely (since nothing app=
+ears to currently use that value). The hotplug script should then have suff=
+icient access to update, and a subsequent patch can add a mechanism to set =
+the value from the config.
 
-... the problem is the interrupt field is only 8-bit. So we would only 
-be able to cover IRQ 0 - 255.
-
-It is not entirely clear how the existing subop could be extended 
-without breaking existing callers.
-
-> 
-> 
-> But I think we should plan for not needing two calls (one to set level
-> to 1, and one to set it to 0):
-> https://marc.info/?l=xen-devel&m=159535112027405
-
-I am not sure to understand your suggestion here? Are you suggesting to 
-remove the 'level' parameter?
-
-Cheers,
-
--- 
-Julien Grall
+  Paul
 
