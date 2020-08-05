@@ -2,59 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BE6623D2E8
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 22:22:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74D6023D322
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 22:36:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3Put-0003H5-Ma; Wed, 05 Aug 2020 20:21:39 +0000
+	id 1k3Q8V-0004Ga-RJ; Wed, 05 Aug 2020 20:35:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i8x8=BP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k3Pus-0003Gf-If
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 20:21:38 +0000
-X-Inumbo-ID: a8351068-c87f-46f0-a77d-371101dd6f09
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=w8Yv=BP=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1k3Q8U-0004GV-GG
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 20:35:42 +0000
+X-Inumbo-ID: e03fe94c-19ab-41fd-b05c-461ace6b62c7
+Received: from mail-lj1-x242.google.com (unknown [2a00:1450:4864:20::242])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a8351068-c87f-46f0-a77d-371101dd6f09;
- Wed, 05 Aug 2020 20:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Jf6Krz4y7GvmYPLwU5KWYkDngGRPvt4PJrJtLCD3LZQ=; b=UqpQI6DLV2ARLnw+qFir6pU4j
- jh5Z7gJfYOl+Zx52cYmhNsJAYWjzRKHC9EpJLQPzklkeqFEXzHkY+OlaJtGn9LvjuOPJasyxIQyw1
- 0NoNZbIPzrr9KL6GsoL72WjQhMoWppzKAqnOP+G5HtlybKXHnG036y32tO36SRTyRbZeI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k3Pul-00076p-Ns; Wed, 05 Aug 2020 20:21:31 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k3Pul-0005zu-Cj; Wed, 05 Aug 2020 20:21:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k3Pul-0003A2-C1; Wed, 05 Aug 2020 20:21:31 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152494-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id e03fe94c-19ab-41fd-b05c-461ace6b62c7;
+ Wed, 05 Aug 2020 20:35:41 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id s16so33982682ljc.8
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Aug 2020 13:35:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=1YXgAcf/MkURvy5fQI+D8jfLLLAeCGsmKnn68DUsZ1c=;
+ b=E6PIY3OCuHOcBzxx7Kg6w0BCxIbeSkFhMiVY4qwom/Budu6VBpBCBmrw2p7zD1l9Dg
+ lmnqyiRsz4FvQus93cZ0/S6YTjA/B0Cn+derj+bhH/xutLJbzGU+D71Lynee60ZNFb/Q
+ uX+/P1BXBpYvkCwXCNOKvbmGqTU3sNzmS1bHGHEIuiZ9xEdmMbmf5lH88LbSg8QyMbPB
+ ySlfXwI54JZ78GqyY+yb8YVdvPt4ui+yQeKPsq1El9mgnIJhhQ8F6jAALQghPna8hnUX
+ XORpMsi/LC8ILrK04AsSSJO0EpByOTi/qYksB8BWowXRISYrnUMpc7tlkHnGlT3qH9+o
+ /mwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=1YXgAcf/MkURvy5fQI+D8jfLLLAeCGsmKnn68DUsZ1c=;
+ b=Pr0Tdtm3w9F1LyJ9+Ubn0sGQZJte8NAO9wkFfBZQXUwwavLzG7OtVWmyIoev/uUNM0
+ jvj8Mysl0fpIRdZJS/3SfFd+Uk4xajrqR4YnLsthdHXvKEof1eCtUCHfjPBXfBFNau6k
+ Ghi4wgwUwmwyLL/np5BUnB41G/qEyXlGh5me2BRARPE5W1hU1bG3wlJAMOEc2tnfeguO
+ lX9h1PmxWniWfjq4qzYMeE+MOBrrkcTBsPPqTE+YFNW8tgmpysTZUUaKyxCWEKxzifSX
+ 5/caupJ69b2qCqGoLUyA3Kb8sxMkIyDtlTduttskwRgfhlCaXx5wKeIbem6+6LfN2zNs
+ fubA==
+X-Gm-Message-State: AOAM531mvmbqNivSjcovQJnp477tWFbNXOEduL4bagUe0JXcDOi5a4ta
+ 7gOLinsP7WpWkwUjhahcdRE=
+X-Google-Smtp-Source: ABdhPJwjcNp5wjrYke3++cmCZ8Ebmm7LuoH5Cm7DU8h25kreAbFXeyvXJkM1+1yG0PFE4dufJ2Stdw==
+X-Received: by 2002:a2e:a49a:: with SMTP id h26mr2093549lji.168.1596659740380; 
+ Wed, 05 Aug 2020 13:35:40 -0700 (PDT)
+Received: from [192.168.1.2] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id y21sm1329036ljk.129.2020.08.05.13.35.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Aug 2020 13:35:39 -0700 (PDT)
+Subject: Re: [RFC PATCH V1 11/12] libxl: Insert "dma-coherent" property into
+ virtio-mmio device node
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-12-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2008041559330.5748@sstabellini-ThinkPad-T480s>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <5ed8d80a-da71-3f54-7e80-9f93bd285e4d@gmail.com>
+Date: Wed, 5 Aug 2020 23:35:34 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 152494: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=b2bc1e714462c6cc222e3bbc38d87b039b4fa405
-X-Osstest-Versions-That: xen=e58a71274c65e7547fc2e917f051c5c04e2820e2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 05 Aug 2020 20:21:31 +0000
+In-Reply-To: <alpine.DEB.2.21.2008041559330.5748@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +77,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152494 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152494/
 
-Failures :-/ but no regressions.
+On 05.08.20 02:23, Stefano Stabellini wrote:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Hi Stefano
 
-version targeted for testing:
- xen                  b2bc1e714462c6cc222e3bbc38d87b039b4fa405
-baseline version:
- xen                  e58a71274c65e7547fc2e917f051c5c04e2820e2
+> On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> Without "dma-coherent" property present in virtio-mmio device node,
+>> guest assumes it is non-coherent and making non-cacheable accesses
+>> to the vring when the DMA API is used for vring operations.
+>> But virtio-mmio device which runs at the host size is making cacheable
+>> accesses to vring. This all may result in a loss of coherency between
+>> the guest and host.
+>>
+>> With this patch we can avoid modifying guest at all, otherwise we
+>> need to force VirtIO framework to not use DMA API for vring operations.
+>>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> This should also be folded in the first patch for libxl
 
-Last test of basis   152487  2020-08-05 09:00:51 Z    0 days
-Testing same since   152494  2020-08-05 17:01:20 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Agree, will do
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+-- 
+Regards,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Oleksandr Tyshchenko
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   e58a71274c..b2bc1e7144  b2bc1e714462c6cc222e3bbc38d87b039b4fa405 -> smoke
 
