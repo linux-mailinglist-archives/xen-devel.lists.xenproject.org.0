@@ -2,44 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46BFE23CD29
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 19:22:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56D723CDB7
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 19:43:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3N6D-000498-1P; Wed, 05 Aug 2020 17:21:09 +0000
+	id 1k3NRA-0005zC-UH; Wed, 05 Aug 2020 17:42:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CKEr=BP=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1k3N6B-000493-Ii
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 17:21:07 +0000
-X-Inumbo-ID: 886d5c0b-818e-472d-8033-dc25ab1f62df
-Received: from mail-40133.protonmail.ch (unknown [185.70.40.133])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tQ3y=BP=amazon.com=prvs=479808023=anchalag@srs-us1.protection.inumbo.net>)
+ id 1k3NR9-0005z7-GB
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 17:42:47 +0000
+X-Inumbo-ID: 5426db28-2a1c-4b93-85b2-055c0a10ca65
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 886d5c0b-818e-472d-8033-dc25ab1f62df;
- Wed, 05 Aug 2020 17:21:01 +0000 (UTC)
-Date: Wed, 05 Aug 2020 17:20:56 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
- s=protonmail; t=1596648059;
- bh=l1doubPoPn+XYU/lLBZRazYcvNj3vmi0JDcutwQoyQ0=;
- h=Date:To:From:Reply-To:Subject:From;
- b=AGrU1KVLW16bS57DpbUTZZG+rG2iKEZMXg4QnH1b0D64iZwGnAEdbbIks8RsTVj6z
- JIIcK8OSVTUAf4V55cq3v8YyQjEJ+UUbYTTbBLHj5zpYKheiWsFOHSw3bRKA9xKdx6
- 9evw2IJpXS2OSKwtwAbDeByh8jhFeaBtI/mGxNFQ=
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Trammell Hudson <hudson@trmm.net>
-Subject: [RFC] efi/boot: Unified Xen executable for UEFI Secure Boot support
-Message-ID: <SQvDCuitxs8ZbVLJqpnPlbhTvIw_fMkZDetiBpJD-DID2X8EnTvReCaJgThJ8b-3kS9gHm3-HYRqNJk-k1cVYPIQf04R8uuhPjm9WNKzJh4=@trmm.net>
+ id 5426db28-2a1c-4b93-85b2-055c0a10ca65;
+ Wed, 05 Aug 2020 17:42:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1596649367; x=1628185367;
+ h=date:from:to:cc:message-id:references:mime-version:
+ in-reply-to:subject;
+ bh=lNEkMbYi0vdrAauS7Kx1F2bZJKjVMy/W93IpO/fQsUY=;
+ b=Fm6joPKFAVmwAkSmSuDiGnD7vVXqrnmajd3Am0kq/CpoJO3FbNIrY6py
+ 14raY8atiI10mrwX80EUIUmiaXIsyZ7N1WOakfgRfqv8DrMuGVa7lpK28
+ ZTImJ0P6hBK+xf/ZRsknkuLA+1Mg3toe48eITJj9HKd9xCjEkxkKD2cdW A=;
+IronPort-SDR: 9ySw8fWle7MttK7suY4BIhxnPpUpw/OAAJafe5LAcUtSaR7nXlHuY3JimXe5qJR44ypaJ2YRoP
+ 96gheUehfPyA==
+X-IronPort-AV: E=Sophos;i="5.75,438,1589241600"; d="scan'208";a="57653120"
+Subject: Re: [PATCH v2 01/11] xen/manage: keep track of the on-going suspend
+ mode
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2c-579b7f5b.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 05 Aug 2020 17:42:44 +0000
+Received: from EX13MTAUEB002.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+ by email-inbound-relay-2c-579b7f5b.us-west-2.amazon.com (Postfix) with ESMTPS
+ id C5250A2967; Wed,  5 Aug 2020 17:42:42 +0000 (UTC)
+Received: from EX13D08UEB001.ant.amazon.com (10.43.60.245) by
+ EX13MTAUEB002.ant.amazon.com (10.43.60.12) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 5 Aug 2020 17:42:20 +0000
+Received: from EX13MTAUEA002.ant.amazon.com (10.43.61.77) by
+ EX13D08UEB001.ant.amazon.com (10.43.60.245) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 5 Aug 2020 17:42:20 +0000
+Received: from dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com
+ (172.22.96.68) by mail-relay.amazon.com (10.43.61.169) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Wed, 5 Aug 2020 17:42:19 +0000
+Received: by dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com (Postfix,
+ from userid 4335130)
+ id D027740865; Wed,  5 Aug 2020 17:42:19 +0000 (UTC)
+Date: Wed, 5 Aug 2020 17:42:19 +0000
+From: Anchal Agarwal <anchalag@amazon.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <20200805174219.GA16105@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+References: <alpine.DEB.2.21.2007211640500.17562@sstabellini-ThinkPad-T480s>
+ <20200722180229.GA32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <alpine.DEB.2.21.2007221645430.17562@sstabellini-ThinkPad-T480s>
+ <20200723225745.GB32316@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <alpine.DEB.2.21.2007241431280.17562@sstabellini-ThinkPad-T480s>
+ <66a9b838-70ed-0807-9260-f2c31343a081@oracle.com>
+ <20200730230634.GA17221@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <53b577a3-6af9-5587-7e47-485be38b3653@oracle.com>
+ <20200804234201.GA23820@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
+ <50d0dbe1-533e-792a-6916-8c72d623064a@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=7.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mail.protonmail.ch
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <50d0dbe1-533e-792a-6916-8c72d623064a@oracle.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -47,433 +81,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Trammell Hudson <hudson@trmm.net>
+Cc: x86@kernel.org, len.brown@intel.com, peterz@infradead.org,
+ benh@kernel.crashing.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ pavel@ucw.cz, hpa@zytor.com, Stefano Stabellini <sstabellini@kernel.org>,
+ eduval@amazon.com, mingo@redhat.com, xen-devel@lists.xenproject.org,
+ sblbir@amazon.com, axboe@kernel.dk, konrad.wilk@oracle.com, bp@alien8.de,
+ tglx@linutronix.de, jgross@suse.com, netdev@vger.kernel.org,
+ linux-pm@vger.kernel.org, rjw@rjwysocki.net, kamatam@amazon.com,
+ vkuznets@redhat.com, davem@davemloft.net, dwmw@amazon.co.uk,
+ roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This preliminary patch adds support for bundling the Xen hypervisor, xen.cf=
-g, the Linux kernel, initrd and XSM into a single "unified" EFI executable =
-that can be signed by sbsigntool for verification by UEFI Secure Boot.  It =
-is inspired by systemd-boot's unified kernel technique and borrows the func=
-tion to locate PE sections from systemd's LGPL'ed code.
-
-The configuration, kernel, etc are added after building using objcopy to ad=
-d named sections for each input file.  This allows an administrator to upda=
-te the components independently without requiring rebuilding xen. During EF=
-I boot, Xen looks at its own loaded image to locate the PE sections and, if=
- secure boot is enabled, only allows use of the unified components.
-
-The resulting EFI executable can be invoked directly from the UEFI Boot Man=
-ager, removing the need to use a separate loader like grub. Unlike the shim=
- based verification, the signature covers the entire Xen+config+kernel+init=
-rd unified file. This also ensures that properly configured platforms will =
-measure the entire runtime into the TPM for unsealing secrets or remote att=
-estation.
-
-It has been tested on qemu OVMF with Secure Boot enabled, as well as on rea=
-l Thinkpad hardware.  The EFI console is very slow, although it works and i=
-s able to boot into dom0.
-
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 5a520bf..b7b08b6 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -102,6 +102,7 @@ union string {
-
- struct file {
-     UINTN size;
-+    bool need_to_free;
-     union {
-         EFI_PHYSICAL_ADDRESS addr;
-         void *ptr;
-@@ -330,13 +331,13 @@ static void __init noreturn blexit(const CHAR16 *str)
-     if ( !efi_bs )
-         efi_arch_halt();
-
--    if ( cfg.addr )
-+    if ( cfg.addr && cfg.need_to_free)
-         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
--    if ( kernel.addr )
-+    if ( kernel.addr && kernel.need_to_free)
-         efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
--    if ( ramdisk.addr )
-+    if ( ramdisk.addr && ramdisk.need_to_free)
-         efi_bs->FreePages(ramdisk.addr, PFN_UP(ramdisk.size));
--    if ( xsm.addr )
-+    if ( xsm.addr && xsm.need_to_free)
-         efi_bs->FreePages(xsm.addr, PFN_UP(xsm.size));
-
-     efi_arch_blexit();
-@@ -619,6 +620,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle=
-, CHAR16 *name,
-         what =3D what ?: L"Seek";
-     else
-     {
-+        file->need_to_free =3D true;
-         file->addr =3D min(1UL << (32 + PAGE_SHIFT),
-                          HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
-         ret =3D efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
-@@ -665,6 +667,136 @@ static bool __init read_file(EFI_FILE_HANDLE dir_hand=
-le, CHAR16 *name,
-     return true;
- }
-
-+
-+struct DosFileHeader {
-+        UINT8   Magic[2];
-+        UINT16  LastSize;
-+        UINT16  nBlocks;
-+        UINT16  nReloc;
-+        UINT16  HdrSize;
-+        UINT16  MinAlloc;
-+        UINT16  MaxAlloc;
-+        UINT16  ss;
-+        UINT16  sp;
-+        UINT16  Checksum;
-+        UINT16  ip;
-+        UINT16  cs;
-+        UINT16  RelocPos;
-+        UINT16  nOverlay;
-+        UINT16  reserved[4];
-+        UINT16  OEMId;
-+        UINT16  OEMInfo;
-+        UINT16  reserved2[10];
-+        UINT32  ExeHeader;
-+} __attribute__((packed));
-+
-+#define PE_HEADER_MACHINE_I386          0x014c
-+#define PE_HEADER_MACHINE_X64           0x8664
-+#define PE_HEADER_MACHINE_ARM64         0xaa64
-+
-+struct PeFileHeader {
-+        UINT16  Machine;
-+        UINT16  NumberOfSections;
-+        UINT32  TimeDateStamp;
-+        UINT32  PointerToSymbolTable;
-+        UINT32  NumberOfSymbols;
-+        UINT16  SizeOfOptionalHeader;
-+        UINT16  Characteristics;
-+} __attribute__((packed));
-+
-+struct PeHeader {
-+        UINT8   Magic[4];
-+        struct PeFileHeader FileHeader;
-+} __attribute__((packed));
-+
-+struct PeSectionHeader {
-+        UINT8   Name[8];
-+        UINT32  VirtualSize;
-+        UINT32  VirtualAddress;
-+        UINT32  SizeOfRawData;
-+        UINT32  PointerToRawData;
-+        UINT32  PointerToRelocations;
-+        UINT32  PointerToLinenumbers;
-+        UINT16  NumberOfRelocations;
-+        UINT16  NumberOfLinenumbers;
-+        UINT32  Characteristics;
-+} __attribute__((packed));
-+
-+static void * __init pe_find_section(const void * const image_base,
-+        const char * section_name, UINTN * size_out)
-+{
-+    const CHAR8 * const base =3D image_base;
-+    const struct DosFileHeader * dos =3D (const void*) base;
-+    const struct PeHeader * pe;
-+    const UINTN name_len =3D strlen(section_name);
-+    UINTN offset;
-+
-+    if ( base =3D=3D NULL )
-+        return NULL;
-+
-+    if ( memcmp(dos->Magic, "MZ", 2) !=3D 0 )
-+        return NULL;
-+
-+    pe =3D (const void *) &base[dos->ExeHeader];
-+    if ( memcmp(pe->Magic, "PE\0\0", 4) !=3D 0 )
-+        return NULL;
-+
-+    /* PE32+ Subsystem type */
-+    if (pe->FileHeader.Machine !=3D PE_HEADER_MACHINE_X64
-+    &&  pe->FileHeader.Machine !=3D PE_HEADER_MACHINE_ARM64
-+    &&  pe->FileHeader.Machine !=3D PE_HEADER_MACHINE_I386)
-+        return NULL;
-+
-+    if ( pe->FileHeader.NumberOfSections > 96 )
-+        return NULL;
-+
-+    offset =3D dos->ExeHeader + sizeof(*pe) + pe->FileHeader.SizeOfOptiona=
-lHeader;
-+
-+    for (UINTN i =3D 0; i < pe->FileHeader.NumberOfSections; i++)
-+    {
-+        const struct PeSectionHeader *const sect =3D (const struct PeSecti=
-onHeader *)&base[offset];
-+        if ( memcmp(sect->Name, section_name, name_len) =3D=3D 0 )
-+        {
-+            if ( size_out )
-+                *size_out =3D sect->VirtualSize;
-+            return (void*)(sect->VirtualAddress + (uintptr_t) image_base);
-+        }
-+
-+        offset +=3D sizeof(*sect);
-+    }
-+
-+    return NULL;
-+}
-+
-+static bool __init read_section(const void * const image_base,
-+        char * const name, struct file *file, char *options)
-+{
-+    union string name_string =3D { .s =3D name + 1 };
-+    if ( !image_base )
-+        return false;
-+
-+    file->ptr =3D pe_find_section(image_base, name, &file->size);
-+    if ( !file->ptr )
-+        return false;
-+
-+    file->need_to_free =3D false;
-+
-+    if ( file =3D=3D &cfg )
-+        return true;
-+
-+    s2w(&name_string);
-+    PrintStr(name_string.w);
-+    PrintStr(L": ");
-+    DisplayUint(file->addr, 2 * sizeof(file->addr));
-+    PrintStr(L"-");
-+    DisplayUint(file->addr + file->size, 2 * sizeof(file->addr));
-+    PrintStr(newline);
-+    efi_arch_handle_module(file, name_string.w, options);
-+    efi_bs->FreePool(name_string.w);
-+
-+    return true;
-+}
-+
- static void __init pre_parse(const struct file *cfg)
- {
-     char *ptr =3D cfg->ptr, *end =3D ptr + cfg->size;
-@@ -968,6 +1100,21 @@ static void __init setup_efi_pci(void)
-     efi_bs->FreePool(handles);
- }
-
-+static bool __init efi_secure_boot(void)
-+{
-+    static const EFI_GUID global_guid =3D EFI_GLOBAL_VARIABLE;
-+    uint8_t buf[8];
-+    UINTN size =3D sizeof(buf);
-+
-+    if ( efi_rs->GetVariable(L"SecureBoot", (EFI_GUID *)&global_guid, NULL=
-, &size, buf) !=3D EFI_SUCCESS )
-+        return false;
-+
-+    if ( size !=3D 1 )
-+        return false;
-+
-+    return buf[0] !=3D 0;
-+}
-+
- static void __init efi_variables(void)
- {
-     EFI_STATUS status;
-@@ -1143,6 +1290,7 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
-ystemTable)
-     static EFI_GUID __initdata loaded_image_guid =3D LOADED_IMAGE_PROTOCOL=
-;
-     static EFI_GUID __initdata shim_lock_guid =3D SHIM_LOCK_PROTOCOL_GUID;
-     EFI_LOADED_IMAGE *loaded_image;
-+    void * image_base =3D NULL;
-     EFI_STATUS status;
-     unsigned int i, argc;
-     CHAR16 **argv, *file_name, *cfg_file_name =3D NULL, *options =3D NULL;
-@@ -1153,6 +1301,7 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *S=
-ystemTable)
-     bool base_video =3D false;
-     char *option_str;
-     bool use_cfg_file;
-+    bool secure =3D false;
-
-     __set_bit(EFI_BOOT, &efi_flags);
-     __set_bit(EFI_LOADER, &efi_flags);
-@@ -1171,6 +1320,10 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *=
-SystemTable)
-         PrintErrMesg(L"No Loaded Image Protocol", status);
-
-     efi_arch_load_addr_check(loaded_image);
-+    if ( loaded_image )
-+        image_base =3D loaded_image->ImageBase;
-+
-+    secure =3D efi_secure_boot();
-
-     if ( use_cfg_file )
-     {
-@@ -1249,9 +1402,19 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *=
-SystemTable)
-         /* Get the file system interface. */
-         dir_handle =3D get_parent_handle(loaded_image, &file_name);
-
--        /* Read and parse the config file. */
--        if ( !cfg_file_name )
-+        if ( read_section(image_base, ".config", &cfg, NULL) )
-+        {
-+            if ( secure )
-+                PrintStr(L"Secure Boot enabled: ");
-+            PrintStr(L"Using unified config file\r\n");
-+        }
-+        else if ( secure )
-+        {
-+            blexit(L"Secure Boot enabled, but configuration not included."=
-);
-+        }
-+        else if ( !cfg_file_name )
-         {
-+            /* Read and parse the config file. */
-             CHAR16 *tail;
-
-             while ( (tail =3D point_tail(file_name)) !=3D NULL )
-@@ -1303,27 +1466,47 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE =
-*SystemTable)
-         efi_arch_cfg_file_early(dir_handle, section.s);
-
-         option_str =3D split_string(name.s);
--        read_file(dir_handle, s2w(&name), &kernel, option_str);
--        efi_bs->FreePool(name.w);
-
--        if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
--                        (void **)&shim_lock)) &&
--             (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D =
-EFI_SUCCESS )
--            PrintErrMesg(L"Dom0 kernel image could not be verified", statu=
-s);
--
--        name.s =3D get_value(&cfg, section.s, "ramdisk");
--        if ( name.s )
-+        if ( !read_section(image_base, ".kernel", &kernel, option_str) )
-         {
--            read_file(dir_handle, s2w(&name), &ramdisk, NULL);
-+            if ( secure )
-+                blexit(L"Secure Boot enabled, but no kernel included");
-+            read_file(dir_handle, s2w(&name), &kernel, option_str);
-             efi_bs->FreePool(name.w);
-+
-+            if ( !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
-+                            (void **)&shim_lock)) &&
-+                 (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=
-=3D EFI_SUCCESS )
-+                PrintErrMesg(L"Dom0 kernel image could not be verified", s=
-tatus);
-         }
-
--        name.s =3D get_value(&cfg, section.s, "xsm");
--        if ( name.s )
-+        if ( !read_section(image_base, ".ramdisk", &ramdisk, NULL) )
-         {
--            read_file(dir_handle, s2w(&name), &xsm, NULL);
--            efi_bs->FreePool(name.w);
-+            if ( secure )
-+                blexit(L"Secure Boot enabled, but no initrd included");
-+            name.s =3D get_value(&cfg, section.s, "ramdisk");
-+            if ( name.s )
-+            {
-+                read_file(dir_handle, s2w(&name), &ramdisk, NULL);
-+                efi_bs->FreePool(name.w);
-+            }
-+        }
-+
-+#ifdef CONFIG_XSM
-+        if ( !read_section(image_base, ".xsm", &xsm, NULL) )
-+        {
-+#ifndef CONFIG_XSM_FLASK_POLICY
-+            if ( secure )
-+                blexit(L"Secure Boot enabled, but no FLASK policy included=
-");
-+#endif
-+            name.s =3D get_value(&cfg, section.s, "xsm");
-+            if ( name.s )
-+            {
-+                read_file(dir_handle, s2w(&name), &xsm, NULL);
-+                efi_bs->FreePool(name.w);
-+            }
-         }
-+#endif
-
-         /*
-          * EFI_LOAD_OPTION does not supply an image name as first componen=
-t:
-diff --git a/xen/scripts/unify-xen b/xen/scripts/unify-xen
-new file mode 100755
-index 0000000..b6072b1
---- /dev/null
-+++ b/xen/scripts/unify-xen
-@@ -0,0 +1,68 @@
-+#!/bin/bash
-+# Merge a Linux kernel, initrd and commandline into xen.efi to produce a s=
-ingle signed
-+# EFI executable.
-+#
-+# turn off "expressions don't expand in single quotes"
-+# and "can't follow non-constant sources"
-+# shellcheck disable=3DSC2016 disable=3DSC1090
-+set -e -o pipefail
-+export LC_ALL=3DC
-+
-+die() { echo "$@" >&2 ; exit 1 ; }
-+warn() { echo "$@" >&2 ; }
-+debug() { [ "$VERBOSE" =3D=3D 1 ] && echo "$@" >&2 ; }
-+
-+cleanup() {
-+=09rm -rf "$TMP"
-+}
-+
-+TMP=3D$(mktemp -d)
-+TMP_MOUNT=3Dn
-+trap cleanup EXIT
-+
-+########################################
-+
-+# Usage
-+# unify xen.efi xen.cfg bzimage initrd
-+# Xen goes up to a pad at 00400000
-+
-+XEN=3D"$1"
-+CONFIG=3D"$2"
-+KERNEL=3D"$3"
-+RAMDISK=3D"$4"
-+#=09--change-section-vma  .config=3D0x0500000 \
-+#=09--change-section-vma  .kernel=3D0x0510000 \
-+#=09--change-section-vma .ramdisk=3D0x3000000 \
-+
-+objcopy \
-+=09--add-section .kernel=3D"$KERNEL" \
-+=09--add-section .ramdisk=3D"$RAMDISK" \
-+=09--add-section .config=3D"$CONFIG" \
-+=09--change-section-vma  .config=3D0xffff82d041000000 \
-+=09--change-section-vma  .kernel=3D0xffff82d041010000 \
-+=09--change-section-vma .ramdisk=3D0xffff82d042000000 \
-+=09"$XEN" \
-+=09"$TMP/xen.efi" \
-+|| die "$TMP/xen.efi: unable to create"
-+
-+KEY_ENGINE=3D""
-+KEY=3D"/etc/safeboot/signing.key"
-+CERT=3D"/etc/safeboot/cert.pem"
-+
-+for try in 1 2 3 ; do
-+=09warn "$TMP/xen.efi: Signing (ignore warnings about gaps)"
-+=09sbsign.safeboot \
-+=09=09$KEY_ENGINE \
-+=09=09--key "$KEY" \
-+=09=09--cert "$CERT" \
-+=09=09--output "xen.signed.efi" \
-+=09=09"$TMP/xen.efi" \
-+=09&& break
-+
-+=09if [ "$try" =3D=3D 3 ]; then
-+=09=09die "xen.signed.efi: failed after $try tries"
-+=09fi
-+
-+=09warn "$OUTDIR/linux.efi: signature failed! Try $try."
-+done
-+
-
+On Wed, Aug 05, 2020 at 09:31:13AM -0400, Boris Ostrovsky wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+> 
+> 
+> 
+> On 8/4/20 7:42 PM, Anchal Agarwal wrote:
+> >
+> > I think this could be done. PM_HIBERNATION_PREPARE could return -ENOTSUPP
+> > for arm and pvh dom0 when the notifier call chain is invoked for this case
+> > in hibernate(). This will then be an empty notifier just for checking two
+> > usecases.
+> > Also, for pvh dom0, the earlier code didn't register any notifier,
+> > with this approach you are suggesting setup the notifier for hvm/pvh dom0 and
+> > arm but fail during notifier call chain during PM_HIBERNATION_PREPARE ?
+> 
+> 
+> Right.
+> 
+> 
+> (Although the earlier code did register the notifier:
+> xen_setup_pm_notifier() would return an error for !xen_hvm_domain() and
+> PVH *is* an HVM domain, so registration would actually happen)
+>
+Yes you are right. My bad, what I meant with "earlier code" was whatever we
+discussed w.r.t to removing the notifier all together, it won't be registered for
+pvh dom0.
+Anyways got the point :)
+> 
+> >
+> > I think still getting rid of suspend mode that was earlier a part of this
+> > notifier is a good idea as it seems redundant as you pointed out earlier.
+> 
+> 
+> Yes.
+> 
+> 
+> -boris
+Thanks,
+Anchal
+> 
+> 
 
