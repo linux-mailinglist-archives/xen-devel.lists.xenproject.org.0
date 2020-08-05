@@ -2,60 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4981B23CC20
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 18:26:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF54623CC5E
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Aug 2020 18:40:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3MEw-0007KB-5P; Wed, 05 Aug 2020 16:26:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1k3MSg-0000Xy-Fk; Wed, 05 Aug 2020 16:40:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iBnt=BP=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k3MEu-0007K6-8e
- for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 16:26:04 +0000
-X-Inumbo-ID: 75ac753c-4178-44db-b230-d12dbf8976e7
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 75ac753c-4178-44db-b230-d12dbf8976e7;
- Wed, 05 Aug 2020 16:26:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596644763;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=xkJq30v5eX12PpbKZRUkUdv8sNBcmHMawcoz0s6EJgw=;
- b=QbIerY7wrQOhOqeFRcDHA8WWwrzkpc+hAFiUOwrpxDDl4+M25L5m7UW3
- hDjcQzVR4wMS6UvnYpW41E/celkle/ffxMGcOxnDefEbBGQ1w27zWFWOw
- b87szOJqRfhJtL38fmd0pxFQPkClwKpMhKtpPwMIFZB38hzSy04m8l/el k=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: ihCZq3+s5E+k/RSlmw/D4lYQLfyL2F0oK3snFL+sAjyEwpvXucv/VXs1V5HHqEBelmclWZHEWk
- cNDTPVQUrsYJ4CZq/xHGh99wjzvEAjIvQ1L9uiW2VcedMrVJDTNLCDeDAbBdRqmLtqzYDHtxed
- ezSSwPl5/QcBW0tshn9c+fb4wQWl72TDYgutY3cfEcCs5EzlrzkRiSzaPhgGJn/l6Gz3wb3Mjr
- 4f2BLo68cDF2u/FsPVEPVfYk4JJK+TanQaWjpTRlwF5f3+OXG6gfh94XnEze/B12ic8/u9LkGV
- kjA=
-X-SBRS: 3.7
-X-MesageID: 23961699
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,438,1589256000"; d="scan'208";a="23961699"
-Subject: Re: [PATCH] x86/tsc: Fix diagnostics for TSC frequency
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200805141804.2585-1-andrew.cooper3@citrix.com>
- <3123eedc-252d-7e9e-a4af-6f8bfae82f41@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a94f7aac-3368-945d-118c-964600862076@citrix.com>
-Date: Wed, 5 Aug 2020 17:25:57 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <SRS0=GWpV=BP=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1k3MSe-0000Xt-Uq
+ for xen-devel@lists.xenproject.org; Wed, 05 Aug 2020 16:40:17 +0000
+X-Inumbo-ID: bd41ee21-15ea-4adb-997c-98667faf51d9
+Received: from mail-wm1-x32e.google.com (unknown [2a00:1450:4864:20::32e])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bd41ee21-15ea-4adb-997c-98667faf51d9;
+ Wed, 05 Aug 2020 16:40:16 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id k20so6976052wmi.5
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Aug 2020 09:40:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=SaDNYE1xnldOkModmMjF+GRhgWILeGGODd/dskU7Ga4=;
+ b=f/aBI1/vhiyiVvof8DmP7+mcqj+PYgvymSU9wTPytp0+sbkk+lyrLCE3fYv9/3Iown
+ OErgOcHDRXE1eS1RdH4+cnPYXaZXJutNGZXzi0WJVQ1CEIY133htF2GfMKVuoIBEZhvx
+ PS8dbgx/pwP/ak+lKLLTITVRgSuxq3xA5lIqYSbCgzm8Zn89yHASnBh8y2iK60xz2e1W
+ cBVq6jwx8iU4IKBqSE6moOt/QOpcBfCzV1ME2fuqPp1freANxyVGZXeSWkcbhBwYT5jL
+ +5JRJkbPDD11BBqujrTsYAUrjtoFjk2k19bgZTvkvt1l0ot558uCOuSH7sg8ABkK/7ed
+ 0zEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=SaDNYE1xnldOkModmMjF+GRhgWILeGGODd/dskU7Ga4=;
+ b=OvYF4786mZzBdpnqS5cataJQIPAWNHx+fjUPSeOLQ80c2I01hjd223LmI4txqM6aRs
+ 1bxQNWcR38mZea9WlPTKgxp+A3ADSdDFHsIsqUctm0i9uVTEk2XGzICi9Se+TdgalyFm
+ vN8ImJXFivOr20AL4mh73R/1dtyITV+ZAkf1vu7kovCkXfpujb2fO8z5hhiuktrrjTJa
+ tPsc1ajA1WI1LtPcmScOju40v9/PsAGiy1UQHL3gV8gSRBDChy/KYoVuBX3H1njQylqM
+ H/uFmWVS735yZ/E/eijE6CxZt5ZfCCG1U7t9MN/ay1xTvwj854cVpNUZ1ymNlhbTFObK
+ fnuw==
+X-Gm-Message-State: AOAM530VZkRUyTZLevgvGLNTohqK4aIZdPUUXR3c7QLK4SWpvbNvAH9k
+ DqgIwLMwsYVY67Cbe+YxKh0=
+X-Google-Smtp-Source: ABdhPJycPFS19GDOO1UnYYa1JYd5SfgEsQ2Nuo61hTVplMA8adccp1QKIZdT0PoU+bJZDlLL+Las2Q==
+X-Received: by 2002:a1c:ddc3:: with SMTP id u186mr3858771wmg.72.1596645615200; 
+ Wed, 05 Aug 2020 09:40:15 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-234.amazon.com. [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id g16sm3265825wrs.88.2020.08.05.09.40.13
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 05 Aug 2020 09:40:14 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+ "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-8-git-send-email-olekstysh@gmail.com>
+ <4ffa6434-3ad6-04dc-bfde-f75196930fb4@suse.com>
+In-Reply-To: <4ffa6434-3ad6-04dc-bfde-f75196930fb4@suse.com>
+Subject: RE: [RFC PATCH V1 07/12] A collection of tweaks to be able to run
+ emulator in driver domain
+Date: Wed, 5 Aug 2020 17:40:20 +0100
+Message-ID: <005f01d66b47$1c58ccc0$550a6640$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <3123eedc-252d-7e9e-a4af-6f8bfae82f41@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQIHYXuU00Oy15gaFT3m+7M9vTQs4QJrY6HzAsS1Dt2onkgdgA==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,78 +80,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Reply-To: paul@xen.org
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>,
+ 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org, 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 05/08/2020 15:54, Jan Beulich wrote:
-> On 05.08.2020 16:18, Andrew Cooper wrote:
->> A Gemini Lake platform prints:
->>
->>   (XEN) CPU0: TSC: 19200000MHz * 279 / 3 = 1785600000MHz
->>   (XEN) CPU0: 800..1800 MHz
->>
->> during boot.  The units on the first line are Hz, not MHz, so correct that and
->> add a space for clarity.
->>
->> Also, for the min/max line, use three dots instead of two and add more spaces
->> so that the line can't be mistaken for being a double decimal point typo.
->>
->> Boot now reads:
->>
->>   (XEN) CPU0: TSC: 19200000 Hz * 279 / 3 = 1785600000 Hz
->>   (XEN) CPU0: 800 ... 1800 MHz
->>
->> Extend these changes to the other TSC diagnostics.
-> I'm happy to see the unit mistake fixed, but the choice of
-> formatting was pretty deliberate when the code was introduced:
-> As dense as possible without making things unreadable or
-> ambiguous. (Considering "a double decimal point typo" looks
-> like a joke to me, really.)
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 05 August 2020 17:20
+> To: Oleksandr Tyshchenko <olekstysh@gmail.com>; Paul Durrant =
+<paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko =
+<oleksandr_tyshchenko@epam.com>; Andrew
+> Cooper <andrew.cooper3@citrix.com>; George Dunlap =
+<george.dunlap@citrix.com>; Ian Jackson
+> <ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>; Stefano =
+Stabellini
+> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Daniel De Graaf =
+<dgdegra@tycho.nsa.gov>
+> Subject: Re: [RFC PATCH V1 07/12] A collection of tweaks to be able to =
+run emulator in driver domain
+>=20
+> On 03.08.2020 20:21, Oleksandr Tyshchenko wrote:
+> > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >
+> > Trying to run emulator in driver domain I ran into various issues
+> > mostly policy-related. So this patch tries to resolve all them
+> > plobably in a hackish way. I would like to get feedback how
+> > to implement them properly as having an emulator in driver domain
+> > is a completely valid use-case.
+>=20
+> From going over the comments I can only derive you want to run
+> an emulator in a driver domain, which doesn't really make sense
+> to me. A driver domain has a different purpose after all. If
+> instead you mean it to be run in just some other domain (which
+> also isn't the domain controlling the target), then there may
+> be more infrastructure changes needed.
+>=20
+> Paul - was/is your standalone ioreq server (demu?) able to run
+> in other than the domain controlling a guest?
+>=20
 
-I literally thought it was a typo until I read the code.  So no - I'm
-very much not joking.
+Not something I've done yet, but it was always part of the idea so that =
+we could e.g. pass through a device to a dedicated domain and then run =
+multiple demu instances there to virtualize it for many domUs. (I'm =
+thinking here of a device that is not SR-IOV and hence would need some =
+bespoke emulation code to share it out). That dedicated domain would be =
+termed the 'driver domain' simply because it is running the device =
+driver for the h/w that underpins the emulation.
 
-Decimal points are extremely commonly seen with frequencies, and nothing
-else in the log line gives any hint that it is range.
+  Paul
 
-Despite being deliberate, it is overly dense and ambiguous as a consequence.
-
->> --- a/xen/arch/x86/cpu/intel.c
->> +++ b/xen/arch/x86/cpu/intel.c
->> @@ -396,14 +396,14 @@ static void intel_log_freq(const struct cpuinfo_x86 *c)
->>  
->>              val *= ebx;
->>              do_div(val, eax);
->> -            printk("CPU%u: TSC: %uMHz * %u / %u = %LuMHz\n",
->> +            printk("CPU%u: TSC: %u Hz * %u / %u = %Lu Hz\n",
->>                     smp_processor_id(), ecx, ebx, eax, val);
-> For this one I wonder whether ecx wouldn't better be scaled down to
-> kHz, and val down to MHz.
-
-That depends on whether we will lose precision in the process.
-
-In principle we can, given ecx's unit of Hz, so I'd be tempted to leave
-it as is.
-
->
->>          }
->>          else if ( ecx | eax | ebx )
->>          {
->>              printk("CPU%u: TSC:", smp_processor_id());
->>              if ( ecx )
->> -                printk(" core: %uMHz", ecx);
->> +                printk(" core: %u MHz", ecx);
-> This one now clearly wants to say Hz too, or (as above) scaling
-> down to kHz.
-
-Oops.  Will fix.
-
-> With at least this last issue addressed
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks,
-
-~Andrew
 
