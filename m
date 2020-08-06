@@ -2,40 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A22B23D941
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 12:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DFA223D9AA
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 13:09:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3d8j-0008SI-Vh; Thu, 06 Aug 2020 10:28:49 +0000
+	id 1k3dl6-0003Zi-1V; Thu, 06 Aug 2020 11:08:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gxiU=BQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k3d8i-0008SD-8v
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 10:28:48 +0000
-X-Inumbo-ID: e8bdfaed-1eba-4c1b-93ba-e1b172916a3e
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=dZxa=BQ=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1k3dl4-0003Zd-Eo
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 11:08:26 +0000
+X-Inumbo-ID: 801f9e50-fc87-4094-a70f-c33bea81aa4d
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e8bdfaed-1eba-4c1b-93ba-e1b172916a3e;
- Thu, 06 Aug 2020 10:28:46 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E67DDACB0;
- Thu,  6 Aug 2020 10:29:02 +0000 (UTC)
-Subject: Re: [PATCH v4 08/14] remove remaining uses of iommu_legacy_map/unmap
-To: Paul Durrant <paul@xen.org>
-References: <20200804134209.8717-1-paul@xen.org>
- <20200804134209.8717-9-paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9d5a59cd-9e4e-2299-bc1c-af3c00a8719f@suse.com>
-Date: Thu, 6 Aug 2020 12:28:47 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ id 801f9e50-fc87-4094-a70f-c33bea81aa4d;
+ Thu, 06 Aug 2020 11:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=RdG9A3SQ2LlYPQ4zlvqznH3SbKGcDOhgE31bU0J3MN8=; b=qOBrPPl9qh2QwAHG2Du+rwOTvf
+ 0svHiUJvE8W/o+LrRAqhjGLi0Kx2rsOfIPGYzha4o3jjTzRaejgSIFqXGOYwYOMJncO0iNoxaqzij
+ V7KVaskdyB7Kw3b8VeNYf6qj04u8lvuH9Vv0geG7yaBFFDCXt1EjPJBD/GL38i99ODno=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k3dkt-0000JQ-8A; Thu, 06 Aug 2020 11:08:15 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1k3dks-0001mV-QD; Thu, 06 Aug 2020 11:08:15 +0000
+Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
+ IOREQ/DM features
+To: Oleksandr <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
+ <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
+ <11eaa2f0-84c7-5972-d14c-4cb02458e882@xen.org>
+ <3ee50c66-8761-6c86-3fab-a4c23622d2b8@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e8b0cccf-76cd-1be8-be75-33ccd571195e@xen.org>
+Date: Thu, 6 Aug 2020 12:08:12 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200804134209.8717-9-paul@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <3ee50c66-8761-6c86-3fab-a4c23622d2b8@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,242 +63,276 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 04.08.2020 15:42, Paul Durrant wrote:
-> The 'legacy' functions do implicit flushing so amend the callers to do the
-> appropriate flushing.
+
+
+On 05/08/2020 20:30, Oleksandr wrote:
 > 
-> Unfortunately, because of the structure of the P2M code, we cannot remove
-> the per-CPU 'iommu_dont_flush_iotlb' global and the optimization it
-> facilitates. It is now checked directly iommu_iotlb_flush(). Also, it is
-> now declared as bool (rather than bool_t) and setting/clearing it are no
-> longer pointlessly gated on is_iommu_enabled() returning true. (Arguably
-> it is also pointless to gate the call to iommu_iotlb_flush() on that
-> condition - since it is a no-op in that case - but the if clause allows
-> the scope of a stack variable to be restricted).
+> On 05.08.20 17:12, Julien Grall wrote:
+>> Hi,
 > 
-> NOTE: The code in memory_add() now fails if the number of pages passed to
->       a single call overflows an unsigned int. I don't believe this will
->       ever happen in practice.
+> Hi Julien
+> 
+> 
+>>
+>> On 03/08/2020 19:21, Oleksandr Tyshchenko wrote:
+>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>
+>>> This patch makes possible to forward Guest MMIO accesses
+>>> to a device emulator on Arm and enables that support for
+>>> Arm64.
+>>>
+>>> Also update XSM code a bit to let DM op be used on Arm.
+>>> New arch DM op will be introduced in the follow-up patch.
+>>>
+>>> Please note, at the moment build on Arm32 is broken
+>>> (see cmpxchg usage in hvm_send_buffered_ioreq()) if someone
+>>> wants to enable CONFIG_IOREQ_SERVER due to the lack of
+>>> cmpxchg_64 support on Arm32.
+>>>
+>>> Please note, this is a split/cleanup of Julien's PoC:
+>>> "Add support for Guest IO forwarding to a device emulator"
+>>>
+>>> Signed-off-by: Julien Grall <julien.grall@arm.com>
+>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>> ---
+>>>   tools/libxc/xc_dom_arm.c        |  25 +++++++---
+>>>   xen/arch/arm/Kconfig            |   1 +
+>>>   xen/arch/arm/Makefile           |   2 +
+>>>   xen/arch/arm/dm.c               |  34 +++++++++++++
+>>>   xen/arch/arm/domain.c           |   9 ++++
+>>>   xen/arch/arm/hvm.c              |  46 +++++++++++++++++-
+>>>   xen/arch/arm/io.c               |  67 +++++++++++++++++++++++++-
+>>>   xen/arch/arm/ioreq.c            |  86 
+>>> +++++++++++++++++++++++++++++++++
+>>>   xen/arch/arm/traps.c            |  17 +++++++
+>>>   xen/common/memory.c             |   5 +-
+>>>   xen/include/asm-arm/domain.h    |  80 +++++++++++++++++++++++++++++++
+>>>   xen/include/asm-arm/hvm/ioreq.h | 103 
+>>> ++++++++++++++++++++++++++++++++++++++++
+>>>   xen/include/asm-arm/mmio.h      |   1 +
+>>>   xen/include/asm-arm/p2m.h       |   7 +--
+>>>   xen/include/xsm/dummy.h         |   4 +-
+>>>   xen/include/xsm/xsm.h           |   6 +--
+>>>   xen/xsm/dummy.c                 |   2 +-
+>>>   xen/xsm/flask/hooks.c           |   5 +-
+>>>   18 files changed, 476 insertions(+), 24 deletions(-)
+>>>   create mode 100644 xen/arch/arm/dm.c
+>>>   create mode 100644 xen/arch/arm/ioreq.c
+>>>   create mode 100644 xen/include/asm-arm/hvm/ioreq.h
+>>
+>> It feels to me the patch is doing quite a few things that are 
+>> indirectly related. Can this be split to make the review easier?
+>>
+>> I would like at least the following split from the series:
+>>    - The tools changes
+>>    - The P2M changes
+>>    - The HVMOP plumbing (if we still require them)
+> Sure, will split.
+> However, I don't quite understand where we should leave HVMOP plumbing.
 
-I.e. you don't think adding 16Tb of memory in one go is possible?
-I wouldn't bet on that ...
+I think they will need to be droppped if we decide to use the acquire 
+interface.
 
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -2446,10 +2446,16 @@ static int cleanup_page_mappings(struct page_info *page)
->  
->          if ( d && unlikely(need_iommu_pt_sync(d)) && is_pv_domain(d) )
->          {
-> -            int rc2 = iommu_legacy_unmap(d, _dfn(mfn), PAGE_ORDER_4K);
-> +            unsigned int flush_flags = 0;
-> +            int err;
->  
-> +            err = iommu_unmap(d, _dfn(mfn), PAGE_ORDER_4K, 1, &flush_flags);
->              if ( !rc )
-> -                rc = rc2;
-> +                rc = err;
-> +
-> +            err = iommu_iotlb_flush(d, _dfn(mfn), PAGE_ORDER_4K, 1, flush_flags);
-> +            if ( !rc )
-> +                rc = err;
->          }
+> If I understand correctly the suggestion was to switch to acquire 
+> interface instead (which requires a Linux version to be v4.17 at least)?
 
-Wasn't the earlier change to add flushing in the error case to
-allow to simplify code like this to
+This was the suggestion.
 
-        if ( d && unlikely(need_iommu_pt_sync(d)) && is_pv_domain(d) )
-        {
-            unsigned int flush_flags = 0;
-            int err;
+> I suspect, this is all about "xen/privcmd: add 
+> IOCTL_PRIVCMD_MMAP_RESOURCE" support for Linux?
 
-            err = iommu_unmap(d, _dfn(mfn), PAGE_ORDER_4K, 1, &flush_flags);
-            if ( !err )
-                err = iommu_iotlb_flush(d, _dfn(mfn), PAGE_ORDER_4K, 1, flush_flags);
-            if ( !rc )
-                rc = err;
-        }
+Correct.
 
-?
+>> What is this function supposed to do?
+> Agree, sounds confusing a bit. I assume it is supposed to complete Guest 
+> MMIO access after finishing emulation.
+> 
+> Shall I rename it to something appropriate (maybe by adding ioreq prefix)?
 
-> @@ -1441,9 +1446,16 @@ int clear_identity_p2m_entry(struct domain *d, unsigned long gfn_l)
->  
->      if ( !paging_mode_translate(d) )
->      {
-> -        if ( !is_iommu_enabled(d) )
-> -            return 0;
-> -        return iommu_legacy_unmap(d, _dfn(gfn_l), PAGE_ORDER_4K);
-> +        unsigned int flush_flags = 0;
-> +        int err;
-> +
-> +        ret = iommu_unmap(d, _dfn(gfn_l), PAGE_ORDER_4K, 1, &flush_flags);
-> +
-> +        err = iommu_iotlb_flush(d, _dfn(gfn_l), PAGE_ORDER_4K, 1, flush_flags);
-> +        if ( !ret )
-> +            ret = err;
-> +
-> +        return ret;
->      }
+How about ioreq_handle_complete_mmio()?
 
-Similarly here then.
+>>> diff --git a/xen/common/memory.c b/xen/common/memory.c
+>>> index 9283e5e..0000477 100644
+>>> --- a/xen/common/memory.c
+>>> +++ b/xen/common/memory.c
+>>> @@ -8,6 +8,7 @@
+>>>    */
+>>>     #include <xen/domain_page.h>
+>>> +#include <xen/hvm/ioreq.h>
+>>>   #include <xen/types.h>
+>>>   #include <xen/lib.h>
+>>>   #include <xen/mm.h>
+>>> @@ -30,10 +31,6 @@
+>>>   #include <public/memory.h>
+>>>   #include <xsm/xsm.h>
+>>>   -#ifdef CONFIG_IOREQ_SERVER
+>>> -#include <xen/hvm/ioreq.h>
+>>> -#endif
+>>> -
+>>
+>> Why do you remove something your just introduced?
+> The reason I guarded that header is to make "xen/mm: Make x86's 
+> XENMEM_resource_ioreq_server handling common" (previous) patch buildable 
+> on Arm
+> without arch IOREQ header added yet. I tried to make sure that the 
+> result after each patch was buildable to retain bisectability.
+> As current patch adds Arm IOREQ specific bits (including header), that 
+> guard could be removed as not needed anymore.
+I agree we want to have the build bisectable. However, I am still 
+puzzled why it is necessary to remove the #ifdef and move it earlier in 
+the list.
 
-> --- a/xen/arch/x86/x86_64/mm.c
-> +++ b/xen/arch/x86/x86_64/mm.c
-> @@ -1413,21 +1413,22 @@ int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm)
->           !iommu_use_hap_pt(hardware_domain) &&
->           !need_iommu_pt_sync(hardware_domain) )
->      {
-> -        for ( i = spfn; i < epfn; i++ )
-> -            if ( iommu_legacy_map(hardware_domain, _dfn(i), _mfn(i),
-> -                                  PAGE_ORDER_4K,
-> -                                  IOMMUF_readable | IOMMUF_writable) )
-> -                break;
-> -        if ( i != epfn )
-> -        {
-> -            while (i-- > old_max)
-> -                /* If statement to satisfy __must_check. */
-> -                if ( iommu_legacy_unmap(hardware_domain, _dfn(i),
-> -                                        PAGE_ORDER_4K) )
-> -                    continue;
-> +        unsigned int flush_flags = 0;
-> +        unsigned int n = epfn - spfn;
-> +        int rc;
->  
-> +        ret = -EOVERFLOW;
-> +        if ( spfn + n != epfn )
-> +            goto destroy_m2p;
-> +
-> +        rc = iommu_map(hardware_domain, _dfn(i), _mfn(i),
-> +                       PAGE_ORDER_4K, n, IOMMUF_readable | IOMMUF_writable,
-> +                       &flush_flags);
-> +        if ( !rc )
-> +            rc = iommu_iotlb_flush(hardware_domain, _dfn(i), PAGE_ORDER_4K, n,
-> +                                       flush_flags);
-> +        if ( rc )
->              goto destroy_m2p;
-> -        }
->      }
+Do you mind to provide more details?
 
-Did you mean to use "ret" here instead of introducing "rc"?
+[...]
 
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -1225,11 +1225,23 @@ map_grant_ref(
->              kind = IOMMUF_readable;
->          else
->              kind = 0;
-> -        if ( kind && iommu_legacy_map(ld, _dfn(mfn_x(mfn)), mfn, 0, kind) )
-> +        if ( kind )
->          {
-> -            double_gt_unlock(lgt, rgt);
-> -            rc = GNTST_general_error;
-> -            goto undo_out;
-> +            dfn_t dfn = _dfn(mfn_x(mfn));
-> +            unsigned int flush_flags = 0;
-> +            int err;
-> +
-> +            err = iommu_map(ld, dfn, mfn, 0, 1, kind, &flush_flags);
-> +            if ( !err )
-> +                err = iommu_iotlb_flush(ld, dfn, 0, 1, flush_flags);
+>>> +
+>>> +bool handle_mmio(void);
+>>> +
+>>> +static inline bool handle_pio(uint16_t port, unsigned int size, int 
+>>> dir)
+>>> +{
+>>> +    /* XXX */
+>>
+>> Can you expand this TODO? What do you expect to do?
+> I didn't expect this to be called on Arm. Sorry, I am not sure l have an 
+> idea how to handle this properly. I would keep it unimplemented until a 
+> real reason.
+> Will expand TODO.
 
-Question of 0 vs PAGE_ORDER_4K again.
+Let see how the conversation on patch#1 goes about PIO vs MMIO.
 
-> @@ -1473,21 +1485,25 @@ unmap_common(
->      if ( rc == GNTST_okay && gnttab_need_iommu_mapping(ld) )
->      {
->          unsigned int kind;
-> +        dfn_t dfn = _dfn(mfn_x(op->mfn));
-> +        unsigned int flush_flags = 0;
->          int err = 0;
->  
->          double_gt_lock(lgt, rgt);
->  
->          kind = mapkind(lgt, rd, op->mfn);
->          if ( !kind )
-> -            err = iommu_legacy_unmap(ld, _dfn(mfn_x(op->mfn)), 0);
-> +            err = iommu_unmap(ld, dfn, 0, 1, &flush_flags);
->          else if ( !(kind & MAPKIND_WRITE) )
-> -            err = iommu_legacy_map(ld, _dfn(mfn_x(op->mfn)), op->mfn, 0,
-> -                                   IOMMUF_readable);
-> -
-> -        double_gt_unlock(lgt, rgt);
-> +            err = iommu_map(ld, dfn, op->mfn, 0, 1, IOMMUF_readable,
-> +                            &flush_flags);
->  
-> +        if ( !err )
-> +            err = iommu_iotlb_flush(ld, dfn, 0, 1, flush_flags);
->          if ( err )
->              rc = GNTST_general_error;
-> +
-> +        double_gt_unlock(lgt, rgt);
->      }
+>>
+>>
+>>> +    BUG();
+>>> +    return true;
+>>> +}
+>>> +
+>>> +static inline paddr_t hvm_mmio_first_byte(const ioreq_t *p)
+>>> +{
+>>> +    return p->addr;
+>>> +}
+>>
+>> I understand that the x86 version is more complex as it check p->df. 
+>> However, aside reducing the complexity, I am not sure why we would 
+>> want to diverge it.
+>>
+>> After all, IOREQ is now meant to be a common feature.
+> Well, no objections at all.
+> Could you please clarify how could 'df' (Direction Flag?) be 
+> handled/used on Arm?
 
-While moving the unlock ahead of the flush would be somewhat troublesome
-in the map case, it seems straightforward here. Even if this gets further
-adjusted by a later patch, it should imo be done here - the later patch
-may also go in much later.
+On x86, this is used by 'rep' instruction to tell the direction to 
+iterate (forward or backward).
 
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -824,8 +824,7 @@ int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap *xatp,
->      xatp->gpfn += start;
->      xatp->size -= start;
->  
-> -    if ( is_iommu_enabled(d) )
-> -       this_cpu(iommu_dont_flush_iotlb) = 1;
-> +    this_cpu(iommu_dont_flush_iotlb) = true;
+On Arm, all the accesses to MMIO region will do a single memory access. 
+So for now, we can safely always set to 0.
 
-Just like you replace the original instance here, ...
+> I see that try_fwd_ioserv() always sets it 0. Or I 
+> need to just reuse x86's helpers as is,
+> which (together with count = df = 0) will result in what we actually 
+> have here?
+AFAIU, both count and df should be 0 on Arm.
 
-> @@ -845,6 +844,8 @@ int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap *xatp,
->          }
->      }
->  
-> +    this_cpu(iommu_dont_flush_iotlb) = false;
-> +
->      if ( is_iommu_enabled(d) )
->      {
->          int ret;
+>>
+>>
+>>> +
+>>> +static inline int p2m_set_ioreq_server(struct domain *d,
+>>> +                                       unsigned int flags,
+>>> +                                       struct hvm_ioreq_server *s)
+>>> +{
+>>> +    return -EOPNOTSUPP;
+>>> +}
+>>
+>> This should be defined in p2m.h. But I am not even sure what it is 
+>> meant for. Can you expand it?
+> 
+> ok, will move.
+> 
+> 
+> In this series I tried to make as much IOREQ code common as possible and 
+> avoid complicating things, in order to achieve that a few stubs were 
+> added here. Please note,
+> that I also considered splitting into arch parts. But some functions 
+> couldn't be split easily.
+> This one is called from common hvm_destroy_ioreq_server() with flag 
+> being 0 (which will result in unmapping ioreq server from p2m type on x86).
+> I could add a comment describing why this stub is present here.
 
-... I'm sure you meant to also remove the original instance from
-down below here.
+Sorry if I wasn't clear. I wasn't asking why the stub is there but what 
+should be the expected implementation of the function.
 
-> @@ -364,7 +341,7 @@ int iommu_iotlb_flush(struct domain *d, dfn_t dfn, unsigned int page_order,
->      int rc;
->  
->      if ( !is_iommu_enabled(d) || !hd->platform_ops->iotlb_flush ||
-> -         !page_count || !flush_flags )
-> +         !page_count || !flush_flags || this_cpu(iommu_dont_flush_iotlb) )
->          return 0;
+In particular, you are returning -EOPNOTSUPP. The only reason you are 
+getting away from trouble is because the caller doesn't check the return.
 
-The patch description ought to assure the safety of this change: So
-far, despite the flag set callers of iommu_iotlb_flush() (which
-may be unaware of the flag's state) did get what they did ask for.
-The change relies on there not being any such uses.
+Would it make sense to have a stub arch_hvm_destroy_ioreq_server()?
 
-> @@ -370,15 +362,12 @@ void iommu_dev_iotlb_flush_timeout(struct domain *d, struct pci_dev *pdev);
->  
->  /*
->   * The purpose of the iommu_dont_flush_iotlb optional cpu flag is to
-> - * avoid unecessary iotlb_flush in the low level IOMMU code.
-> - *
-> - * iommu_map_page/iommu_unmap_page must flush the iotlb but somethimes
-> - * this operation can be really expensive. This flag will be set by the
-> - * caller to notify the low level IOMMU code to avoid the iotlb flushes.
-> - * iommu_iotlb_flush/iommu_iotlb_flush_all will be explicitly called by
-> - * the caller.
-> + * avoid unecessary IOMMU flushing while updating the P2M.
+> 
+> 
+>>
+>>
+>>> +
+>>> +static inline void msix_write_completion(struct vcpu *v)
+>>> +{
+>>> +}
+>>> +
+>>> +static inline void handle_realmode_completion(void)
+>>> +{
+>>> +    ASSERT_UNREACHABLE();
+>>> +}
+>>
+>> realmode is very x86 specific. So I don't think this function should 
+>> be called from common code. It might be worth considering to split 
+>> handle_hvm_io_completion() is 2 parts: common and arch specific.
+> 
+> I agree with you that realmode is x86 specific and looks not good in Arm 
+> header. 
+It is not a problem of looking good or not. Instead, it is about 
+abstraction. A developper shouldn't need to understand all the other 
+architectures we support in order to follow the common code.
 
-Correct the spelling of "unnecessary" at the same time?
+> I was thinking how to split handle_hvm_io_completion() 
+> gracefully but I failed find a good solution for that, so decided to add 
+> two stubs (msix_write_completion and handle_realmode_completion) on Arm. 
+> I could add a comment describing why they are here if appropriate. But 
+> if you think they shouldn't be called from the common code in any way, I 
+> will try to split it.
 
-Jan
+I am not entirely sure what msix_write_completion is meant to do on x86. 
+Is it dealing with virtual MSIx? Maybe Jan, Roger or Paul could help?
+
+Regarding handle_realmode_completion, I would add a new stub:
+
+arch_ioreq_handle_io_completion() that is called from the default case 
+of the switch.
+
+On x86 it would be implemented as:
+
+  switch (io_completion)
+  {
+     case HVMIO_realmode_completion:
+       ...
+     default:
+       ASSERT_UNREACHABLE();
+  }
+
+On Arm, it would be implemented as:
+
+   ASSERT_UNREACHABLE();
+
+Cheers,
+
+-- 
+Julien Grall
 
