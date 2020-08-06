@@ -2,62 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72EE423E035
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 20:15:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FB8C23E1F7
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 21:18:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3kPm-0001Gr-I3; Thu, 06 Aug 2020 18:14:54 +0000
+	id 1k3lNt-0006PH-El; Thu, 06 Aug 2020 19:17:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=49j5=BQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k3kPl-0001Gm-MN
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 18:14:53 +0000
-X-Inumbo-ID: 28bd1d69-615c-463c-9edd-5f52e2d15ec3
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1k3lNs-0006PC-12
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 19:17:00 +0000
+X-Inumbo-ID: 8cc625d6-1cb7-4673-9c0d-6780bb4433a5
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 28bd1d69-615c-463c-9edd-5f52e2d15ec3;
- Thu, 06 Aug 2020 18:14:52 +0000 (UTC)
+ id 8cc625d6-1cb7-4673-9c0d-6780bb4433a5;
+ Thu, 06 Aug 2020 19:16:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596737692;
+ d=citrix.com; s=securemail; t=1596741418;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=NnooFXVGBE3t5Dl34Ex/rObZe8p4BOXf0ZuzvzW4zlY=;
- b=SoVOxDN60H8OyHRihzyH1idLz3I/LBgatHW2tPhDOupGVmPplFokIbqm
- rEgVuN3Ov99chooFpFQxBkuQzmzGI0BMjTCzFCP6j8jQ9gqwBqpJrd9jI
- yQKfII4eIaUwAR/wn0vMpJXPsaCj+Ty/H2KDk+p3Oscx820rfia51rKUi g=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ bh=FEUdhmjUy/NnCsRpt6oD9B36F3Nekf8D3Ivt330Jyik=;
+ b=HW7gMjsJO3htpLgYC0WtuiKdeVvA6E8FMEo5xhLUKMG0iBXfLrQoODDm
+ rOp5LxK4V+FFlPMrXPOVljSUkyT7Sg9F/VNyGHDarGwBZdUuhlH5QJggp
+ xjEVaqi0BevWSVETQwMiIgYRx3s2ydFz6mazL72GHkhoi2VhQKoxUquzG 8=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 38KQS5iY/6syySpqkUy2DhJBo4gDFpxcatHY3SSKgAnUKagzlqdeCURXx7BV4ZiNhExGHmSAjH
- f59oU4s/mejxEJ27b0Dr32JdhkftFY6Ahr4ReOLJLcMTCFWyidhVqtW1+FEsCaFSBVDx9zBxaj
- sAG8fCxvYdDgBan/txE1YBdJ8IlUYh+ltGsR8uPYPTeaonN8MdUxtivZifc6HXjBxTRgTpBCV7
- N/mTg0BRR8ZmIxsGIZX2lUwf9DENpXsU2LY2yRCoUPTvAUKKfQ+R74V+SDEKQp5ED4ni+ig5D0
- KGk=
+IronPort-SDR: 1zR/2PDKAaqlrZNSqAWmRQn4vfqXx2M7qvWNZGpWj/h5L092BBCRMFy4QEqn82cByKTEnTJcP1
+ Q8Y64Zy0kqtw2VM5psYdNGmJxJFobVDrM3kaoPTLY4dHAvD6cxbaymZugsUsIBtBrQVpfzlfh8
+ F2bKKx2OOPpJSw1YoM/2cClgMDk6EQHwXsSU3YTgJ1FPXnMPsQKhmA+X2gn/kp8N7eRM2mFPyh
+ +RRP6NsdPTZ23RHkF9G5os8DNHkwmLJL/a5GdxrMBTr0cxUSnnIqKOjwDZBZf6cLAMex4OAjH/
+ ZvI=
 X-SBRS: 3.7
-X-MesageID: 24918326
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 24346601
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,441,1589256000"; d="scan'208";a="24918326"
-Subject: Re: [RFC] efi/boot: Unified Xen executable for UEFI Secure Boot
- support
-To: Trammell Hudson <hudson@trmm.net>, Jan Beulich <jbeulich@suse.com>
-References: <SQvDCuitxs8ZbVLJqpnPlbhTvIw_fMkZDetiBpJD-DID2X8EnTvReCaJgThJ8b-3kS9gHm3-HYRqNJk-k1cVYPIQf04R8uuhPjm9WNKzJh4=@trmm.net>
- <1bd2d79e-5bef-835c-f6cc-9fd367e8beb7@suse.com>
- <FKRB6MJm-n6DwX0LoYfI4Ysny1U_xRbxvZn7ttLHGxpKTEnAmcoDMLsLsgKZGYaB2eVuIzoNQ6UPpsfiMlaRPW-7AIXQ9mqz_i9sF-tI2Ks=@trmm.net>
- <5e3b16b3-0f93-4683-dcc7-852c805870c8@suse.com>
- <y5v76XS6whE9vu9FqI2eN6ieuvXkjnAJ1oaBXdXyKKNjJxvbLqaRnHi99iq_AIknqaQ9V18cLCLy9v3dV8YIEsfyrQq9apJRcWiQeFXuGuk=@trmm.net>
+X-IronPort-AV: E=Sophos;i="5.75,441,1589256000"; d="scan'208";a="24346601"
+Subject: Re: [PATCH 2/3] x86: don't maintain compat M2P when !PV32
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a2b8f0e9-77ea-6127-a25e-d8fd3dcbb866@suse.com>
+ <4575f42b-a347-b34e-0032-e04668106a9b@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <132b5b88-c78d-01cf-df27-6430689570e4@citrix.com>
-Date: Thu, 6 Aug 2020 19:14:47 +0100
+Message-ID: <52b4f80f-9967-fae9-ce85-c69bf3b6e22d@citrix.com>
+Date: Thu, 6 Aug 2020 20:16:53 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <y5v76XS6whE9vu9FqI2eN6ieuvXkjnAJ1oaBXdXyKKNjJxvbLqaRnHi99iq_AIknqaQ9V18cLCLy9v3dV8YIEsfyrQq9apJRcWiQeFXuGuk=@trmm.net>
+In-Reply-To: <4575f42b-a347-b34e-0032-e04668106a9b@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -69,89 +65,140 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 06/08/2020 15:15, Trammell Hudson wrote:
-> On Thursday, August 6, 2020 2:04 PM, Jan Beulich <jbeulich@suse.com> wrote:
+On 06/08/2020 10:28, Jan Beulich wrote:
+> Note that opt_pv32's declaration / #define need to be moved due to other
+> header dependencies; in particular can asm-x86/mm.h not include
+> asm-x86/pv/domain.h.
+
+While I do appreciate that our headers are a complete tangle, I can't
+help but feel that this is making the problem worse.
+
+mm.h isn't a better place for opt_pv32 to live.  config.h perhaps,
+seeing as its effects are wider than both the domain support itself, or
+the memory management support ?
+
+> While touching their definitions anyway, also adjust section placement
+> of m2p_compat_vstart and compat_idle_pg_table_l2. Similarly, while
+> putting init_xen_pae_l2_slots() inside #ifdef, also move it to a PV-only
+> source file.
 >
->> On 06.08.2020 13:44, Trammell Hudson wrote:
->>
->>> On Thursday, August 6, 2020 9:57 AM, Jan Beulich jbeulich@suse.com wrote:
->>>> Also, considering kernel and initrd are embedded, is there really a
->>>> strict need for a config file? It would seem to me that you could
->>>> boot the system fine without.
->>> The config file is still necessary for Xen options (console, etc) as
->>> well as the kernel command line.
->> But command line options are optional. Yes, you need a config file if
->> you want to pass any options. But you may be able to get away without
->> command line options, and hence without config file.
-> My concern is that if there is no config file embedded in the unified
-> image, then the logic for retrieving the untrustworthy file from disk
-> kicks in.  However, it is not a change from the status-quo, so I've
-> reverted the behavior (as part of also fixing the shim logic).
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+So interestingly, this is done out of the order which I was expecting to
+do things.  Its not a problem, but I'd like to double check that we
+aren't creating future problems.
+
+The goal of this suggestion was actually for PV-Shim, to have only the
+regular or compat M2P, as they're fairly large structures and adversely
+affect VM density.
+
+This of course requires the kernel elf file to be parsed earlier during
+boot, but that isn't a problem.  (It also allows for a PV/PVH dom0
+usability fix, whereby the Xen command line has to match the ELF image
+provided, rather than auto-selecting the default when only one option is
+available.)
+
+The other aspect would be to teach Xen to run on only the compat M2P,
+which is fine for any shim smaller than 16T.  (Honestly, if it weren't
+an ABI with guests, Shim ought to run exclusively on the compat M2P to
+reduce the memory overhead.)
+
+Then during boot, the Shim path would chose to construct only the
+regular or compat M2P, based on bitness of the provided kernel.
+
+> ---
+> An alternative place for opt_pv32.h would seem to be asm-x86/config.h.
+
+Oh - yes please.  I think that would be better overall.
+
 >
-> I also added code to load the ucode section from the unified image
-> if it is present, which required touching the arm tree as well to add
-> an additional parameter to efi_arch_cfg_file_late().  It also
-> appears that in the event of the error path that the ucode will
-> never be freed.  Probably not a big deal, unless you're launching
-> a failing Xen from the EFI shell over and over.
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -597,8 +597,10 @@ int arch_domain_create(struct domain *d,
+>      }
+>      d->arch.emulation_flags = emflags;
+>  
+> +#ifdef CONFIG_PV32
+>      HYPERVISOR_COMPAT_VIRT_START(d) =
+>          is_pv_domain(d) ? __HYPERVISOR_COMPAT_VIRT_START : ~0u;
+> +#endif
 
-For SecureBoot, it is important that nothing which is signed can be
-tricked into running unsigned code.
+Can we drop HYPERVISOR_COMPAT_VIRT_START() ?
 
-That includes configuration such as xen.cfg or the command line. 
-Consuming these from unsigned sources is ok, so long as we can guarantee
-that the parsing is robust (see boothole for how this goes wrong), and
-the effects are controlled.
+Its use here as an lvalue in particular makes logic especually hard to
+follow, but all it is actually doing is wrapping the shorter
+d->arch.hv_compat_vstart
 
-I can't think of a Xen example offhand, but consider Linux's
-"unsafe_fsgsbase" command line option which was inserted for a period of
-time which deliberately opened up a privilege escalation vulnerability
-for the purpose of testing the FSGSBASE series carefully.
+In particular, it would remove the need to conditionally stub
+HYPERVISOR_COMPAT_VIRT_START() later.
 
-I suppose the closest which Xen has is probably "ats" (but you've lost
-all security by using PCI Passthrough anyway...), but there are also
-problems with things like "flask=disabled", "hardware_domain", the
-various IVRS/DMAR fixup options.
+> --- a/xen/arch/x86/x86_64/mm.c
+> +++ b/xen/arch/x86/x86_64/mm.c
+> @@ -315,10 +318,10 @@ static void destroy_m2p_mapping(struct m
+>   */
+>  static int setup_compat_m2p_table(struct mem_hotadd_info *info)
+>  {
+> +    int err = 0;
+>      unsigned long i, smap, emap, epfn = info->epfn;
+>      mfn_t mfn;
+>      unsigned int n;
+> -    int err = 0;
 
-In the absence of a full audit of all our command line arguments, and
-extra vigilance reviewing code coming in, the safer alternative is to
-prohibit use of the command line, and only accept it in its Kconfig
-embedded form for now.
+Remnants of an earlier change?
 
-Beyond that, things like LIVEPATCH and KEXEC need compiling out, until
-they can be taught to verify signatures.
+> --- a/xen/include/asm-x86/mm.h
+> +++ b/xen/include/asm-x86/mm.h
+> @@ -42,8 +42,12 @@
+>  #define _PGT_validated    PG_shift(6)
+>  #define PGT_validated     PG_mask(1, 6)
+>   /* PAE only: is this an L2 page directory containing Xen-private mappings? */
+> +#ifdef CONFIG_PV32
+>  #define _PGT_pae_xen_l2   PG_shift(7)
+>  #define PGT_pae_xen_l2    PG_mask(1, 7)
+> +#else
+> +#define PGT_pae_xen_l2    0
+> +#endif
 
-Beyond that, things like the GDB serial stub probably need a way of
-being able to be compiled out, and then being compiled out.  (This is
-definitely not an exhaustive list.)
+Hmm - this is going to irritate Coverity and Clang some more.  I still
+need to figure out an effective way to make Coverity not object to this
+type of short circuiting like this.
 
-Xen's secureboot requirements also extend to the dom0 kernel, due to the
-responsibility-sharing which currently exists.  For a Linux dom0, Xen
-must ensure that lockdown mode is forced on (/dev/mem in dom0 still has
-a lot of system level power).  At a minimum, this involves extending
-lockdown mode to prohibit the use of /{dev/proc}/xen/privcmd, which is
-still a trivial privilege escalation hole in PV Linux that noone seems
-to want to admit to and fix.
+I've looked through the users and I think that they're all safe.  I do
+however wonder whether is_guest_l2_slot() can be simplified and have its
+is_pv_32bit_domain() clause dropped, seeing as it is expensive with its
+lfences, and the logic ought to only care about PGT_pae_xen_l2 vs
+PGT_l2_page_table.
 
+>  /* Has this page been *partially* validated for use as its current type? */
+>  #define _PGT_partial      PG_shift(8)
+>  #define PGT_partial       PG_mask(1, 8)
+> @@ -494,15 +498,39 @@ extern paddr_t mem_hotplug;
+>  #define SHARED_M2P_ENTRY         (~0UL - 1UL)
+>  #define SHARED_M2P(_e)           ((_e) == SHARED_M2P_ENTRY)
+>  
+> -#define compat_machine_to_phys_mapping ((unsigned int *)RDWR_COMPAT_MPT_VIRT_START)
+> +#ifdef CONFIG_PV32
+> +
+> +extern int8_t opt_pv32;
+> +
+> +# define compat_machine_to_phys_mapping ((unsigned int *)RDWR_COMPAT_MPT_VIRT_START)
+> +
+> +# define set_compat_m2p(mfn, entry) \
+> +    ((void)(!opt_pv32 || \
+> +            (mfn) >= (RDWR_COMPAT_MPT_VIRT_END - RDWR_COMPAT_MPT_VIRT_START) / 4 || \
+> +            (compat_machine_to_phys_mapping[mfn] = (entry))))
 
-I think it is great that work is being started in this direction, but
-there is a huge quantity of work to do before a downstream could
-plausibly put together a Xen system which honours the intent of SecureBoot.
+I know this is extracting previous logic, but "entry" would probably be
+better if it were named "val" or similar.
 
-I know Safeboot has different goals/rules here, but whatever we put
-together called "Secure Boot support" will have to be compatible with
-Microsoft's model for it to be useful in the general case.
-
-I think it might be worth having a CONFIG_SECURE_BOOT, selectable
-initially only under CONFIG_EXPERT, and use it to force off various
-other aspects of functionality, along with a list of known issues which
-can be chipped away at before it can be declared supported.
+However, see my reply to patch 3 which I think will simplify this
+substantially.
 
 ~Andrew
 
