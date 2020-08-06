@@ -2,73 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40CB323DABB
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 15:28:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3579D23DB07
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 16:05:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3fw2-0000Bx-P3; Thu, 06 Aug 2020 13:27:54 +0000
+	id 1k3gVY-0003dj-ME; Thu, 06 Aug 2020 14:04:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HTjn=BQ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k3fw2-0000Bs-04
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 13:27:54 +0000
-X-Inumbo-ID: 23dd9a41-138b-4a43-aa50-a4da4c5708de
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
+ <SRS0=49j5=BQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1k3gVX-0003de-8Z
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 14:04:35 +0000
+X-Inumbo-ID: bc74ab43-a97f-4293-ad70-9ef3ced1291b
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 23dd9a41-138b-4a43-aa50-a4da4c5708de;
- Thu, 06 Aug 2020 13:27:52 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id c15so8808549lfi.3
- for <xen-devel@lists.xenproject.org>; Thu, 06 Aug 2020 06:27:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=AFNf1CHEaQX3/Ff6dZ20hSWg+v+SYrJPNYYJhhp5oAU=;
- b=HqDqLihpLFKSrLKu4XSokEx1eEt2tz6oyMQjkNEP3mbqq7/HqrGBbVFQOL3txfC4Pt
- lTxn44IeiXP1THu1P7Hq4ctVWP+e0MKxxniTPVlRG59IhGUCsMtrVhSB2lgjc6CMB1E8
- XRWq24w/SinGUpx/hdFsgQ6AgdEi8dgKZideXtvGfxR7vwxbHZklSNk7OZYyIwl+UJtt
- 1gYdTihDOpWAeaW1d8HTiduCJ2ynBlNkpPVGMmiL4Cr1cVsQ7EdTJLsFmawLTkirrWNm
- KZbHi/I5dLkT+1d9YXSvqYN1HmDD3PHmEtoT/+4PWDlNYsxhCZErEUnMwFIN8a4GuIgs
- 7PRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=AFNf1CHEaQX3/Ff6dZ20hSWg+v+SYrJPNYYJhhp5oAU=;
- b=E4Nxa5MJn/uSCO7hD5rLfmQRVjBB9yda3UwKp0NpwCc7v3I3xQZyDOR4CGpWOl7RYZ
- 9Src1uhUtxhkJ/sB80MoIUoyxK/jCnVfmubj+PAop4dhPKTHqnOMqKQEwtxg1s3VCfGt
- CkZ2rOFRgFa4UwMPjSUTBriwsB0MECFggDfSdfQ+NkExFySP/zdWvLUkvIzVeTzvvQ9N
- HWlk4p+tXgCRJbKpwFBwOReO3i49ZSdKj191yMpiv/Nit8uKqExREXPlOc4kZO66/v5d
- /8ndb3Cc4tXYrhBJm9UByOtKe1lQBr0KxCl3q/mzonlSMDBwWWXhlcKuXUKZLpNVo3pm
- pfJw==
-X-Gm-Message-State: AOAM531O1BpjtdpX6UyppHdmYM5c89Sd1F++HCO6Sa/Ks5DlgnI3OLTe
- 06BJhqY6YOd8o7vyR826Wco=
-X-Google-Smtp-Source: ABdhPJyFWONz2LqDVd9oQHKJNYX4EV8KtEiYIc8CjqGRUu1U6wNQEclvRvyfcO132RStx2E3g/ZKkg==
-X-Received: by 2002:ac2:546f:: with SMTP id e15mr4052062lfn.133.1596720471343; 
- Thu, 06 Aug 2020 06:27:51 -0700 (PDT)
-Received: from [192.168.1.2] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id t1sm2699655lfc.52.2020.08.06.06.27.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Aug 2020 06:27:50 -0700 (PDT)
-Subject: Re: [RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for
- IOREQ/DM features
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-5-git-send-email-olekstysh@gmail.com>
- <11eaa2f0-84c7-5972-d14c-4cb02458e882@xen.org>
- <3ee50c66-8761-6c86-3fab-a4c23622d2b8@gmail.com>
- <e8b0cccf-76cd-1be8-be75-33ccd571195e@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <952392d9-22cc-af66-c1af-f82360b75cf4@gmail.com>
-Date: Thu, 6 Aug 2020 16:27:44 +0300
+ id bc74ab43-a97f-4293-ad70-9ef3ced1291b;
+ Thu, 06 Aug 2020 14:04:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1596722673;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=jcst+vUXWIDH9l1/b5ZOkB7hEbI0ii6Plnk5zFkhr7A=;
+ b=hT2c6qGkuFeIqBT2xrQbd7l91gSBsC/TGOD6kY28wm4QjqG4oaV8shW7
+ f7FFBtzqwMtWkxpulC8x1MzXaSwv+/UVhjRgq7XGttrpTkd6Zd6DkCv9R
+ rMsQkgLvTZtI36C8/+NJsFNPu77WBOY33eE2IxAmBYIejB0+l4X5dm9gT c=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none
+IronPort-SDR: 0UA42GqbT5uJQ+NWwSW/YZqyjubO0l8QFV+BH81zFoi/EJO9NgYdw0vc0kk/GV+OgL43mAxFbM
+ U9QuKqE+rNwqqCuaS0QG6yR9R4tCizUFj5BMirJ4wmvjCfQ3G4QgZGSc4ASDkVISiRcyNlbN3p
+ zgC8/asS0vuCVFMYnoJWmA/L+m51+S3+Kabn9F7/w3UTsHiP7WpEYZ3kUxxkPq4GANQx5T5U2r
+ qSOU9kbYHWuSwDhrMKK24NGVCDNhKWbwrL+ZP9z5z4ZXREOEMd9pCH3Fj57ZqOwZfRBvd+8az6
+ 5o4=
+X-SBRS: 3.7
+X-MesageID: 24323162
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.75,441,1589256000"; d="scan'208";a="24323162"
+Subject: Re: [PATCH 1/3] x86: slightly re-arrange 32-bit handling in
+ dom0_construct_pv()
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <a2b8f0e9-77ea-6127-a25e-d8fd3dcbb866@suse.com>
+ <0972ea3c-c2a8-b0f4-ae25-132bdb798f6a@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <0217c386-e93e-2f07-f2ac-9e683c14541a@citrix.com>
+Date: Thu, 6 Aug 2020 15:04:28 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <e8b0cccf-76cd-1be8-be75-33ccd571195e@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <0972ea3c-c2a8-b0f4-ae25-132bdb798f6a@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,234 +67,149 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On 06/08/2020 10:28, Jan Beulich wrote:
+> Add #ifdef-s (the 2nd one will be needed in particular, to guard the
+> uses of m2p_compat_vstart and HYPERVISOR_COMPAT_VIRT_START()) and fold
+> duplicate uses of elf_32bit().
+>
+> Also adjust what gets logged: Avoid "compat32" when support isn't built
+> in, and don't assume ELF class <> ELFCLASS64 means ELFCLASS32.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-On 06.08.20 14:08, Julien Grall wrote:
-
-Hi Julien
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com> although with some
+further suggestions.
 
 >
->>> What is this function supposed to do?
->> Agree, sounds confusing a bit. I assume it is supposed to complete 
->> Guest MMIO access after finishing emulation.
->>
->> Shall I rename it to something appropriate (maybe by adding ioreq 
->> prefix)?
+> --- a/xen/arch/x86/pv/dom0_build.c
+> +++ b/xen/arch/x86/pv/dom0_build.c
+> @@ -300,7 +300,6 @@ int __init dom0_construct_pv(struct doma
+>      struct page_info *page = NULL;
+>      start_info_t *si;
+>      struct vcpu *v = d->vcpu[0];
+> -    unsigned long long value;
+>      void *image_base = bootstrap_map(image);
+>      unsigned long image_len = image->mod_end;
+>      void *image_start = image_base + image_headroom;
+> @@ -357,27 +356,36 @@ int __init dom0_construct_pv(struct doma
+>          goto out;
+>  
+>      /* compatibility check */
+> +    printk(" Xen  kernel: 64-bit, lsb%s\n",
+> +           IS_ENABLED(CONFIG_PV32) ? ", compat32" : "");
+
+Here, and below, we print out lsb/msb for the ELF file.  However, we
+don't use or check that it is actually lsb, and blindly assume that it is.
+
+Why bother printing it then?
+
+>      compatible = 0;
+>      machine = elf_uval(&elf, elf.ehdr, e_machine);
+> -    printk(" Xen  kernel: 64-bit, lsb, compat32\n");
+> -    if ( elf_32bit(&elf) && parms.pae == XEN_PAE_BIMODAL )
+> -        parms.pae = XEN_PAE_EXTCR3;
+> -    if ( elf_32bit(&elf) && parms.pae && machine == EM_386 )
+> +
+> +#ifdef CONFIG_PV32
+> +    if ( elf_32bit(&elf) )
+>      {
+> -        if ( unlikely(rc = switch_compat(d)) )
+> +        if ( parms.pae == XEN_PAE_BIMODAL )
+> +            parms.pae = XEN_PAE_EXTCR3;
+> +        if ( parms.pae && machine == EM_386 )
+>          {
+> -            printk("Dom0 failed to switch to compat: %d\n", rc);
+> -            return rc;
+> -        }
+> +            if ( unlikely(rc = switch_compat(d)) )
+> +            {
+> +                printk("Dom0 failed to switch to compat: %d\n", rc);
+> +                return rc;
+> +            }
+>  
+> -        compatible = 1;
+> +            compatible = 1;
+> +        }
+>      }
+> -    if (elf_64bit(&elf) && machine == EM_X86_64)
+> +#endif
+> +
+> +    if ( elf_64bit(&elf) && machine == EM_X86_64 )
+>          compatible = 1;
+> -    printk(" Dom0 kernel: %s%s, %s, paddr %#" PRIx64 " -> %#" PRIx64 "\n",
+> -           elf_64bit(&elf) ? "64-bit" : "32-bit",
+> -           parms.pae       ? ", PAE"  : "",
+> -           elf_msb(&elf)   ? "msb"    : "lsb",
+> +
+> +    printk(" Dom0 kernel: %s-bit%s, %s, paddr %#" PRIx64 " -> %#" PRIx64 "\n",
+> +           elf_64bit(&elf) ? "64" : elf_32bit(&elf) ? "32" : "??",
+> +           parms.pae       ? ", PAE" : "",
+> +           elf_msb(&elf)   ? "msb"   : "lsb",
+>             elf.pstart, elf.pend);
+>      if ( elf.bsd_symtab_pstart )
+>          printk(" Dom0 symbol map %#" PRIx64 " -> %#" PRIx64 "\n",
+> @@ -405,23 +413,28 @@ int __init dom0_construct_pv(struct doma
+>      if ( parms.pae == XEN_PAE_EXTCR3 )
+>              set_bit(VMASST_TYPE_pae_extended_cr3, &d->vm_assist);
+>  
+> -    if ( !pv_shim && (parms.virt_hv_start_low != UNSET_ADDR) &&
+> -         elf_32bit(&elf) )
+> +#ifdef CONFIG_PV32
+> +    if ( elf_32bit(&elf) )
+>      {
+> -        unsigned long mask = (1UL << L2_PAGETABLE_SHIFT) - 1;
+> -        value = (parms.virt_hv_start_low + mask) & ~mask;
+> -        BUG_ON(!is_pv_32bit_domain(d));
+> -        if ( value > __HYPERVISOR_COMPAT_VIRT_START )
+> -            panic("Domain 0 expects too high a hypervisor start address\n");
+> -        HYPERVISOR_COMPAT_VIRT_START(d) =
+> -            max_t(unsigned int, m2p_compat_vstart, value);
+> -    }
+> +        if ( !pv_shim && (parms.virt_hv_start_low != UNSET_ADDR) )
+> +        {
+> +            unsigned long mask = (1UL << L2_PAGETABLE_SHIFT) - 1;
+> +            unsigned long value = (parms.virt_hv_start_low + mask) & ~mask;
+
+ROUNDUP() instead of opencoding it?
+
+>  
+> -    if ( (parms.p2m_base != UNSET_ADDR) && elf_32bit(&elf) )
+> -    {
+> -        printk(XENLOG_WARNING "P2M table base ignored\n");
+> -        parms.p2m_base = UNSET_ADDR;
+> +            BUG_ON(!is_pv_32bit_domain(d));
+
+This BUG_ON() is useless.  I suspect it is a vestigial safety measure
+from when the switch to compat was opencoded rather than using
+switch_compat() directly.
+
+> +            if ( value > __HYPERVISOR_COMPAT_VIRT_START )
+> +                panic("Domain 0 expects too high a hypervisor start address\n");
+
+It would be better to printk() and return -EINVAL, to be consistent with
+how other fatal errors are reported to the user.
+
+~Andrew
+
+> +            HYPERVISOR_COMPAT_VIRT_START(d) =
+> +                max_t(unsigned int, m2p_compat_vstart, value);
+> +        }
+> +
+> +        if ( parms.p2m_base != UNSET_ADDR )
+> +        {
+> +            printk(XENLOG_WARNING "P2M table base ignored\n");
+> +            parms.p2m_base = UNSET_ADDR;
+> +        }
+>      }
+> +#endif
+>  
+>      /*
+>       * Why do we need this? The number of page-table frames depends on the
 >
-> How about ioreq_handle_complete_mmio()?
-
-For me it sounds fine.
-
-
-
->
->>>> diff --git a/xen/common/memory.c b/xen/common/memory.c
->>>> index 9283e5e..0000477 100644
->>>> --- a/xen/common/memory.c
->>>> +++ b/xen/common/memory.c
->>>> @@ -8,6 +8,7 @@
->>>>    */
->>>>     #include <xen/domain_page.h>
->>>> +#include <xen/hvm/ioreq.h>
->>>>   #include <xen/types.h>
->>>>   #include <xen/lib.h>
->>>>   #include <xen/mm.h>
->>>> @@ -30,10 +31,6 @@
->>>>   #include <public/memory.h>
->>>>   #include <xsm/xsm.h>
->>>>   -#ifdef CONFIG_IOREQ_SERVER
->>>> -#include <xen/hvm/ioreq.h>
->>>> -#endif
->>>> -
->>>
->>> Why do you remove something your just introduced?
->> The reason I guarded that header is to make "xen/mm: Make x86's 
->> XENMEM_resource_ioreq_server handling common" (previous) patch 
->> buildable on Arm
->> without arch IOREQ header added yet. I tried to make sure that the 
->> result after each patch was buildable to retain bisectability.
->> As current patch adds Arm IOREQ specific bits (including header), 
->> that guard could be removed as not needed anymore.
-> I agree we want to have the build bisectable. However, I am still 
-> puzzled why it is necessary to remove the #ifdef and move it earlier 
-> in the list.
->
-> Do you mind to provide more details?
-Previous patch "xen/mm: Make x86's XENMEM_resource_ioreq_server handling 
-common" breaks build on Arm as it includes xen/hvm/ioreq.h which 
-requires arch header
-to be present (asm/hvm/ioreq.h). But the missing arch header together 
-with other arch specific bits are introduced here in current patch. 
-Probably I should have rearranged
-changes in a way to not introduce #ifdef and then remove it...
-
-
->
-> [...]
->
->>>> +
->>>> +bool handle_mmio(void);
->>>> +
->>>> +static inline bool handle_pio(uint16_t port, unsigned int size, 
->>>> int dir)
->>>> +{
->>>> +    /* XXX */
->>>
->>> Can you expand this TODO? What do you expect to do?
->> I didn't expect this to be called on Arm. Sorry, I am not sure l have 
->> an idea how to handle this properly. I would keep it unimplemented 
->> until a real reason.
->> Will expand TODO.
->
-> Let see how the conversation on patch#1 goes about PIO vs MMIO.
-
-ok
-
-
->
->>>
->>>
->>>> +    BUG();
->>>> +    return true;
->>>> +}
->>>> +
->>>> +static inline paddr_t hvm_mmio_first_byte(const ioreq_t *p)
->>>> +{
->>>> +    return p->addr;
->>>> +}
->>>
->>> I understand that the x86 version is more complex as it check p->df. 
->>> However, aside reducing the complexity, I am not sure why we would 
->>> want to diverge it.
->>>
->>> After all, IOREQ is now meant to be a common feature.
->> Well, no objections at all.
->> Could you please clarify how could 'df' (Direction Flag?) be 
->> handled/used on Arm?
->
-> On x86, this is used by 'rep' instruction to tell the direction to 
-> iterate (forward or backward).
->
-> On Arm, all the accesses to MMIO region will do a single memory 
-> access. So for now, we can safely always set to 0.
->
->> I see that try_fwd_ioserv() always sets it 0. Or I need to just reuse 
->> x86's helpers as is,
->> which (together with count = df = 0) will result in what we actually 
->> have here?
-> AFAIU, both count and df should be 0 on Arm.
-
-Thanks for the explanation. The only one question remains where to put 
-common helpers hvm_mmio_first_byte/hvm_mmio_last_byte (common io.h?)?
-
-
->>>
->>>> +
->>>> +static inline int p2m_set_ioreq_server(struct domain *d,
->>>> +                                       unsigned int flags,
->>>> +                                       struct hvm_ioreq_server *s)
->>>> +{
->>>> +    return -EOPNOTSUPP;
->>>> +}
->>>
->>> This should be defined in p2m.h. But I am not even sure what it is 
->>> meant for. Can you expand it?
->>
->> ok, will move.
->>
->>
->> In this series I tried to make as much IOREQ code common as possible 
->> and avoid complicating things, in order to achieve that a few stubs 
->> were added here. Please note,
->> that I also considered splitting into arch parts. But some functions 
->> couldn't be split easily.
->> This one is called from common hvm_destroy_ioreq_server() with flag 
->> being 0 (which will result in unmapping ioreq server from p2m type on 
->> x86).
->> I could add a comment describing why this stub is present here.
->
-> Sorry if I wasn't clear. I wasn't asking why the stub is there but 
-> what should be the expected implementation of the function.
->
-> In particular, you are returning -EOPNOTSUPP. The only reason you are 
-> getting away from trouble is because the caller doesn't check the return.
-
-True.
-
-
->
-> Would it make sense to have a stub arch_hvm_destroy_ioreq_server()?
-
-With what has been said above, it make sense, will create.
-
-
->>>> +
->>>> +static inline void msix_write_completion(struct vcpu *v)
->>>> +{
->>>> +}
->>>> +
->>>> +static inline void handle_realmode_completion(void)
->>>> +{
->>>> +    ASSERT_UNREACHABLE();
->>>> +}
->>>
->>> realmode is very x86 specific. So I don't think this function should 
->>> be called from common code. It might be worth considering to split 
->>> handle_hvm_io_completion() is 2 parts: common and arch specific.
->>
->> I agree with you that realmode is x86 specific and looks not good in 
->> Arm header. 
-> It is not a problem of looking good or not. Instead, it is about 
-> abstraction. A developper shouldn't need to understand all the other 
-> architectures we support in order to follow the common code.
->
->> I was thinking how to split handle_hvm_io_completion() gracefully but 
->> I failed find a good solution for that, so decided to add two stubs 
->> (msix_write_completion and handle_realmode_completion) on Arm. I 
->> could add a comment describing why they are here if appropriate. But 
->> if you think they shouldn't be called from the common code in any 
->> way, I will try to split it.
->
-> I am not entirely sure what msix_write_completion is meant to do on 
-> x86. Is it dealing with virtual MSIx? Maybe Jan, Roger or Paul could 
-> help?
->
-> Regarding handle_realmode_completion, I would add a new stub:
->
-> arch_ioreq_handle_io_completion() that is called from the default case 
-> of the switch.
->
-> On x86 it would be implemented as:
->
->  switch (io_completion)
->  {
->     case HVMIO_realmode_completion:
->       ...
->     default:
->       ASSERT_UNREACHABLE();
->  }
->
-> On Arm, it would be implemented as:
->
->   ASSERT_UNREACHABLE();
-
-
-Good point, will update.
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
 
 
