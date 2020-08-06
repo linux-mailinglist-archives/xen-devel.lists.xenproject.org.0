@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EAA623DA5A
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 14:35:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0129223DA6D
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 14:47:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3f5x-00041m-VD; Thu, 06 Aug 2020 12:34:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1k3fIN-000533-2I; Thu, 06 Aug 2020 12:46:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gxiU=BQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k3f5v-00041h-VV
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 12:34:03 +0000
-X-Inumbo-ID: 01afc08c-84a8-4d08-9041-a6b1920390aa
+ id 1k3fIM-00052y-Aw
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 12:46:54 +0000
+X-Inumbo-ID: 1020df48-aa5e-415b-bd5c-8f286dc0b102
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 01afc08c-84a8-4d08-9041-a6b1920390aa;
- Thu, 06 Aug 2020 12:34:03 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1020df48-aa5e-415b-bd5c-8f286dc0b102;
+ Thu, 06 Aug 2020 12:46:51 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A6532AC23;
- Thu,  6 Aug 2020 12:34:19 +0000 (UTC)
-Subject: Re: [PATCH v4 12/14] vtd: use a bit field for root_entry
+ by mx2.suse.de (Postfix) with ESMTP id 4B9B6AE09;
+ Thu,  6 Aug 2020 12:47:07 +0000 (UTC)
+Subject: Re: [PATCH v4 13/14] vtd: use a bit field for context_entry
 To: Paul Durrant <paul@xen.org>
 References: <20200804134209.8717-1-paul@xen.org>
- <20200804134209.8717-13-paul@xen.org>
+ <20200804134209.8717-14-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <71e1a4a9-eac0-5aae-f2d5-fa33ca8b6036@suse.com>
-Date: Thu, 6 Aug 2020 14:34:04 +0200
+Message-ID: <6de24196-019c-f91c-5cca-0971676a9b38@suse.com>
+Date: Thu, 6 Aug 2020 14:46:51 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200804134209.8717-13-paul@xen.org>
+In-Reply-To: <20200804134209.8717-14-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -52,75 +53,100 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 04.08.2020 15:42, Paul Durrant wrote:
-> --- a/xen/drivers/passthrough/vtd/iommu.h
-> +++ b/xen/drivers/passthrough/vtd/iommu.h
-> @@ -184,21 +184,28 @@
->  #define dma_frcd_source_id(c) (c & 0xffff)
->  #define dma_frcd_page_addr(d) (d & (((u64)-1) << 12)) /* low 64 bit */
+> @@ -208,35 +209,53 @@ struct root_entry {
+>      do { (r).ctp = ((val) >> PAGE_SHIFT_4K); } while (0)
 >  
-> -/*
-> - * 0: Present
-> - * 1-11: Reserved
-> - * 12-63: Context Ptr (12 - (haw-1))
-> - * 64-127: Reserved
-> - */
->  struct root_entry {
-> -    u64    val;
-> -    u64    rsvd1;
+>  struct context_entry {
+> -    u64 lo;
+> -    u64 hi;
 > +    union {
 > +        __uint128_t val;
-
-I couldn't find a use of this field, and I also can't foresee any.
-Could it be left out?
-
 > +        struct { uint64_t lo, hi; };
 > +        struct {
 > +            /* 0 - 63 */
 > +            uint64_t p:1;
-
-bool?
-
-> +            uint64_t reserved0:11;
-> +            uint64_t ctp:52;
+> +            uint64_t fpd:1;
+> +            uint64_t tt:2;
+> +            uint64_t reserved0:8;
+> +            uint64_t slptp:52;
 > +
 > +            /* 64 - 127 */
-> +            uint64_t reserved1;
+> +            uint64_t aw:3;
+> +            uint64_t ignored:4;
+> +            uint64_t reserved1:1;
+> +            uint64_t did:16;
+> +            uint64_t reserved2:40;
 > +        };
 > +    };
 >  };
-> -#define root_present(root)    ((root).val & 1)
-> -#define set_root_present(root) do {(root).val |= 1;} while(0)
-> -#define get_context_addr(root) ((root).val & PAGE_MASK_4K)
-> -#define set_root_value(root, value) \
-> -    do {(root).val |= ((value) & PAGE_MASK_4K);} while(0)
+> -#define ROOT_ENTRY_NR (PAGE_SIZE_4K/sizeof(struct root_entry))
+> -#define context_present(c) ((c).lo & 1)
+> -#define context_fault_disable(c) (((c).lo >> 1) & 1)
+> -#define context_translation_type(c) (((c).lo >> 2) & 3)
+> -#define context_address_root(c) ((c).lo & PAGE_MASK_4K)
+> -#define context_address_width(c) ((c).hi &  7)
+> -#define context_domain_id(c) (((c).hi >> 8) & ((1 << 16) - 1))
+> -
+> -#define context_set_present(c) do {(c).lo |= 1;} while(0)
+> -#define context_clear_present(c) do {(c).lo &= ~1;} while(0)
+> -#define context_set_fault_enable(c) \
+> -    do {(c).lo &= (((u64)-1) << 2) | 1;} while(0)
+> -
+> -#define context_set_translation_type(c, val) do { \
+> -        (c).lo &= (((u64)-1) << 4) | 3; \
+> -        (c).lo |= (val & 3) << 2; \
+> -    } while(0)
 > +
-> +#define root_present(r) (r).p
-> +#define set_root_present(r) do { (r).p = 1; } while (0)
+> +#define context_present(c) (c).p
+> +#define context_set_present(c) do { (c).p = 1; } while (0)
+> +#define context_clear_present(c) do { (c).p = 0; } while (0)
+> +
+> +#define context_fault_disable(c) (c).fpd
+> +#define context_set_fault_enable(c) do { (c).fpd = 1; } while (0)
+> +
+> +#define context_translation_type(c) (c).tt
+> +#define context_set_translation_type(c, val) do { (c).tt = val; } while (0)
+>  #define CONTEXT_TT_MULTI_LEVEL 0
+>  #define CONTEXT_TT_DEV_IOTLB   1
+>  #define CONTEXT_TT_PASS_THRU   2
+>  
+> -#define context_set_address_root(c, val) \
+> -    do {(c).lo &= 0xfff; (c).lo |= (val) & PAGE_MASK_4K ;} while(0)
+> +#define context_slptp(c) ((c).slptp << PAGE_SHIFT_4K)
+> +#define context_set_slptp(c, val) \
+> +    do { (c).slptp = (val) >> PAGE_SHIFT_4K; } while (0)
 
-And then "true" here?
+Presumably "slptp" is in line with the doc, but "address_root" is
+quite a bit more readable. I wonder if I could talk you into
+restoring the old (or some similar) names.
 
-> +#define root_ctp(r) ((r).ctp << PAGE_SHIFT_4K)
-> +#define set_root_ctp(r, val) \
-> +    do { (r).ctp = ((val) >> PAGE_SHIFT_4K); } while (0)
+More generally, and more so here than perhaps already on the previous
+patch - are these helper macros useful to have anymore?
 
-For documentation purposes, can the 2nd macro param be named maddr
-or some such?
+> +#define context_address_width(c) (c).aw
+>  #define context_set_address_width(c, val) \
+> -    do {(c).hi &= 0xfffffff8; (c).hi |= (val) & 7;} while(0)
+> -#define context_clear_entry(c) do {(c).lo = 0; (c).hi = 0;} while(0)
+> +    do { (c).aw = (val); } while (0)
+> +
+> +#define context_did(c) (c).did
+> +#define context_set_did(c, val) \
+> +    do { (c).did = (val); } while (0)
+> +
+> +#define context_clear_entry(c) do { (c).val = 0; } while (0)
 
-> --- a/xen/drivers/passthrough/vtd/x86/ats.c
-> +++ b/xen/drivers/passthrough/vtd/x86/ats.c
-> @@ -74,8 +74,8 @@ int ats_device(const struct pci_dev *pdev, const struct acpi_drhd_unit *drhd)
->  static bool device_in_domain(const struct vtd_iommu *iommu,
->                               const struct pci_dev *pdev, uint16_t did)
->  {
-> -    struct root_entry *root_entry;
-> -    struct context_entry *ctxt_entry = NULL;
-> +    struct root_entry *root_entry, *root_entries = NULL;
-> +    struct context_entry *context_entry, *context_entries = NULL;
+While this is in line with previous code, I'm concerned:
+domain_context_unmap_one() has
 
-Just like root_entry, root_entries doesn't look to need an initializer.
-I'm unconvinced anyway that you now need two variables each:
-unmap_vtd_domain_page() does quite fine with the low 12 bits not all
-being zero, afaict.
+    context_clear_present(*context);
+    context_clear_entry(*context);
+
+No barrier means no guarantee of ordering. I'd drop clear_present()
+here and make clear_entry() properly ordered. This, I think, will at
+the same time render the __uint128_t field unused and hence
+unnecessary again.
+
+Also comments given on the previous patch apply respectively here.
 
 Jan
 
