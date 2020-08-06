@@ -2,55 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0A6523E4CB
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 01:49:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B935923E4C6
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 01:49:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3pd9-00049C-CO; Thu, 06 Aug 2020 23:49:03 +0000
+	id 1k3pdE-00049i-Oc; Thu, 06 Aug 2020 23:49:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=flvv=BQ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k3pd8-000497-5t
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 23:49:02 +0000
-X-Inumbo-ID: 82206bd8-f719-4ff3-bfe6-c9c0a0a50d8b
+ id 1k3pdD-000497-6P
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 23:49:07 +0000
+X-Inumbo-ID: ef0a8600-ae4f-4719-be5a-8f4611405119
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82206bd8-f719-4ff3-bfe6-c9c0a0a50d8b;
- Thu, 06 Aug 2020 23:49:01 +0000 (UTC)
+ id ef0a8600-ae4f-4719-be5a-8f4611405119;
+ Thu, 06 Aug 2020 23:49:06 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0FAE121744;
- Thu,  6 Aug 2020 23:49:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C2937221E2;
+ Thu,  6 Aug 2020 23:49:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596757740;
- bh=4hvvMj7TSIsp1jNhqK0Abfhy7xqbt3iT7SqZXRwohxw=;
+ s=default; t=1596757746;
+ bh=1OY1VeWI4aiTYikcUEmnMBeLg9G9bo4U06TqQ4H7Hdw=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=PAaDKCmKriLeayD+ElW100QFbbE4pS9uXyxIlHallW5QQV3dvj+WePpQp5UneLa5v
- DTcMJ1d8qGE8st921Cyu8NCoFOgGnMXdcovNzg1luzZ83o5k7Ikzf9aQiNR4adSAZ5
- ZnCaxTIhIpYL+seKG5KriH3luRjrCKnXq9h33awQ=
-Date: Thu, 6 Aug 2020 16:48:59 -0700 (PDT)
+ b=HUBiKB++9n4ez6V/cQLegI0WNgHh/4pYY9lUFVv7i5V0Z7FEu5H8kpIjeG26m2uP7
+ rTBubGicmNQB/gQsmjJKK+gduOVTtEvuc8ZBYGXNm8RtyZFckwvXKE/AvxYQlDZ0Ws
+ T103tmchJWeEi8bzSQm0O8vabcEQtRc8k7Gaugy4=
+Date: Thu, 6 Aug 2020 16:49:05 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Julien Grall <julien@xen.org>
-Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature
- common
-In-Reply-To: <1afb9ffd-088c-ef4e-131a-0f2b62142405@xen.org>
-Message-ID: <alpine.DEB.2.21.2008061352141.16004@sstabellini-ThinkPad-T480s>
+Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
+ xendevicemodel_set_irq_level DM op
+In-Reply-To: <92e2b136-8468-2877-0e8c-c13ff2a0a1fb@xen.org>
+Message-ID: <alpine.DEB.2.21.2008061422300.16004@sstabellini-ThinkPad-T480s>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
- <000c01d66a33$2bd56510$83802f30$@xen.org>
- <9f83a7ed-ca97-449f-c7b9-a1140644abe9@gmail.com>
- <f0c32cfe-5c33-30ae-b08a-3d72e935745a@xen.org>
- <alpine.DEB.2.21.2008041105510.5748@sstabellini-ThinkPad-T480s>
- <5df97055-67f9-16cc-a274-864672d67164@xen.org>
- <alpine.DEB.2.21.2008051121580.5748@sstabellini-ThinkPad-T480s>
- <1afb9ffd-088c-ef4e-131a-0f2b62142405@xen.org>
+ <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
+ <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
+ <alpine.DEB.2.21.2008050943300.5748@sstabellini-ThinkPad-T480s>
+ <92e2b136-8468-2877-0e8c-c13ff2a0a1fb@xen.org>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1343060914-1596747559=:16004"
-Content-ID: <alpine.DEB.2.21.2008061359210.16004@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,137 +57,137 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Kevin Tian' <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- 'Jun Nakajima' <jun.nakajima@intel.com>, 'Wei Liu' <wl@xen.org>, paul@xen.org,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Tim Deegan' <tim@xen.org>,
- Oleksandr <olekstysh@gmail.com>,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Julien Grall' <julien.grall@arm.com>, 'Jan Beulich' <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1343060914-1596747559=:16004
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2008061359211.16004@sstabellini-ThinkPad-T480s>
 
 On Thu, 6 Aug 2020, Julien Grall wrote:
 > On 06/08/2020 01:37, Stefano Stabellini wrote:
 > > On Wed, 5 Aug 2020, Julien Grall wrote:
-> > > On 04/08/2020 20:11, Stefano Stabellini wrote:
-> > > > On Tue, 4 Aug 2020, Julien Grall wrote:
-> > > > > On 04/08/2020 12:10, Oleksandr wrote:
-> > > > > > On 04.08.20 10:45, Paul Durrant wrote:
-> > > > > > > > +static inline bool hvm_ioreq_needs_completion(const ioreq_t
-> > > > > > > > *ioreq)
-> > > > > > > > +{
-> > > > > > > > +    return ioreq->state == STATE_IOREQ_READY &&
-> > > > > > > > +           !ioreq->data_is_ptr &&
-> > > > > > > > +           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir !=
-> > > > > > > > IOREQ_WRITE);
-> > > > > > > > +}
-> > > > > > > I don't think having this in common code is correct. The short-cut
-> > > > > > > of
-> > > > > > > not
-> > > > > > > completing PIO reads seems somewhat x86 specific.
+> > > On 05/08/2020 00:22, Stefano Stabellini wrote:
+> > > > On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
+> > > > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > > > > > 
-> > > > > Hmmm, looking at the code, I think it doesn't wait for PIO writes to
-> > > > > complete
-> > > > > (not read). Did I miss anything?
+> > > > > This patch adds ability to the device emulator to notify otherend
+> > > > > (some entity running in the guest) using a SPI and implements Arm
+> > > > > specific bits for it. Proposed interface allows emulator to set
+> > > > > the logical level of a one of a domain's IRQ lines.
 > > > > > 
-> > > > > > Does ARM even
-> > > > > > > have the concept of PIO?
-> > > > > > 
-> > > > > > I am not 100% sure here, but it seems that doesn't have.
+> > > > > Please note, this is a split/cleanup of Julien's PoC:
+> > > > > "Add support for Guest IO forwarding to a device emulator"
 > > > > > 
-> > > > > Technically, the PIOs exist on Arm, however they are accessed the same
-> > > > > way
-> > > > > as
-> > > > > MMIO and will have a dedicated area defined by the HW.
+> > > > > Signed-off-by: Julien Grall <julien.grall@arm.com>
+> > > > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > > > ---
+> > > > >    tools/libs/devicemodel/core.c                   | 18
+> > > > > ++++++++++++++++++
+> > > > >    tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
+> > > > >    tools/libs/devicemodel/libxendevicemodel.map    |  1 +
+> > > > >    xen/arch/arm/dm.c                               | 22
+> > > > > +++++++++++++++++++++-
+> > > > >    xen/common/hvm/dm.c                             |  1 +
+> > > > >    xen/include/public/hvm/dm_op.h                  | 15
+> > > > > +++++++++++++++
+> > > > >    6 files changed, 60 insertions(+), 1 deletion(-)
 > > > > > 
-> > > > > AFAICT, on Arm64, they are only used for PCI IO Bar.
-> > > > > 
-> > > > > Now the question is whether we want to expose them to the Device
-> > > > > Emulator
-> > > > > as
-> > > > > PIO or MMIO access. From a generic PoV, a DM shouldn't have to care
-> > > > > about
-> > > > > the
-> > > > > architecture used. It should just be able to request a given IOport
-> > > > > region.
-> > > > > 
-> > > > > So it may make sense to differentiate them in the common ioreq code as
-> > > > > well.
-> > > > > 
-> > > > > I had a quick look at QEMU and wasn't able to tell if PIOs and MMIOs
-> > > > > address
-> > > > > space are different on Arm as well. Paul, Stefano, do you know what
-> > > > > they
-> > > > > are
-> > > > > doing?
+> > > > > diff --git a/tools/libs/devicemodel/core.c
+> > > > > b/tools/libs/devicemodel/core.c
+> > > > > index 4d40639..30bd79f 100644
+> > > > > --- a/tools/libs/devicemodel/core.c
+> > > > > +++ b/tools/libs/devicemodel/core.c
+> > > > > @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
+> > > > >        return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
+> > > > >    }
+> > > > >    +int xendevicemodel_set_irq_level(
+> > > > > +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
+> > > > > +    unsigned int level)
 > > > > 
-> > > > On the QEMU side, it looks like PIO (address_space_io) is used in
-> > > > connection with the emulation of the "in" or "out" instructions, see
-> > > > ioport.c:cpu_inb for instance. Some parts of PCI on QEMU emulate PIO
-> > > > space regardless of the architecture, such as
-> > > > hw/pci/pci_bridge.c:pci_bridge_initfn.
-> > > > 
-> > > > However, because there is no "in" and "out" on ARM, I don't think
-> > > > address_space_io can be accessed. Specifically, there is no equivalent
-> > > > for target/i386/misc_helper.c:helper_inb on ARM.
+> > > > It is a pity that having xen_dm_op_set_pci_intx_level and
+> > > > xen_dm_op_set_isa_irq_level already we need to add a third one, but from
+> > > > the names alone I don't think we can reuse either of them.
 > > > 
-> > > So how PCI I/O BAR are accessed? Surely, they could be used on Arm, right?
+> > > The problem is not the name...
+> > > 
+> > > > 
+> > > > It is very similar to set_isa_irq_level. We could almost rename
+> > > > xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
+> > > > better, just add an alias to it so that xendevicemodel_set_irq_level is
+> > > > implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
+> > > > not sure if it is worth doing it though. Any other opinions?
+> > > 
+> > > ... the problem is the interrupt field is only 8-bit. So we would only be
+> > > able
+> > > to cover IRQ 0 - 255.
 > > 
-> > PIO is also memory mapped on ARM and it seems to have its own MMIO
-> > address window.
-> This part is already well-understood :). However, this only tell us how an OS
-> is accessing a PIO.
+> > Argh, that's not going to work :-(  I wasn't sure if it was a good idea
+> > anyway.
+> > 
+> > 
+> > > It is not entirely clear how the existing subop could be extended without
+> > > breaking existing callers.
+> > > 
+> > > > But I think we should plan for not needing two calls (one to set level
+> > > > to 1, and one to set it to 0):
+> > > > https://marc.info/?l=xen-devel&m=159535112027405
+> > > 
+> > > I am not sure to understand your suggestion here? Are you suggesting to
+> > > remove
+> > > the 'level' parameter?
+> > 
+> > My hope was to make it optional to call the hypercall with level = 0,
+> > not necessarily to remove 'level' from the struct.
 > 
-> What I am trying to figure out is how the hardware (or QEMU) is meant to work.
+> From my understanding, the hypercall is meant to represent the status of the
+> line between the device and the interrupt controller (either low or high).
 > 
-> From my understanding, the MMIO access will be received by the hostbridge and
-> then forwarded to the appropriate PCI device. The two questions I am trying to
-> answer is: How the I/O BARs are configured? Will it contain an MMIO address or
-> an offset?
+> This is then up to the interrupt controller to decide when the interrupt is
+> going to be fired:
+>   - For edge interrupt, this will fire when the line move from low to high (or
+> vice versa).
+>   - For level interrupt, this will fire when line is high (assuming level
+> trigger high) and will keeping firing until the device decided to lower the
+> line.
 > 
-> If the answer is the latter, then we will need PIO because a DM will never see
-> the MMIO address (the hostbridge will be emulated in Xen).
+> For a device, it is common to keep the line high until an OS wrote to a
+> specific register.
+> 
+> Furthermore, technically, the guest OS is in charge to configure how an
+> interrupt is triggered. Admittely this information is part of the DT, but
+> nothing prevent a guest to change it.
+> 
+> As side note, we have a workaround in Xen for some buggy DT (see the arch
+> timer) exposing the wrong trigger type.
+> 
+> Because of that, I don't really see a way to make optional. Maybe you have
+> something different in mind?
 
-Now I understand the question :-)
+For level, we need the level parameter. For edge, we are only interested
+in the "edge", right? So maybe we don't want to specify the interrupt
+line state for edge interrupts (note that virtio interrupts are edge.)
 
-This is the way I understand it works. Let's say that the PIO aperture
-is 0x1000-0x2000 which is aliased to 0x3eff0000-0x3eff1000.
-0x1000-0x2000 are addresses that cannot be accessed directly.
-0x3eff0000-0x3eff1000 is the range that works.
+Maybe something like this:
 
-A PCI device PIO BAR will have an address in the 0x1000-0x2000 range,
-for instance 0x1100.
+    struct xen_dm_op_set_irq {
+        uint32_t irq;
+        #define XEN_DMOP_IRQ_LEVEL 0
+        #define XEN_DMOP_IRQ_EDGE  1
+        uint8_t type;
+        /*
+         * If type is XEN_DMOP_IRQ_EDGE, level is ignored.
+         * If type is XEN_DMOP_IRQ_LEVEL, level means:
+         *      Level: 0 -> level low
+         *      Level: 1 -> asserted
+         */
+        uint8_t level;
+    };
 
-However, when the operating system access 0x1100, it will issue a read
-to 0x3eff0100.
-
-Xen will trap the read to 0x3eff0100 and send it to QEMU.
-
-QEMU has to know that 0x3eff0000-0x3eff1000 is the alias to the PIO
-aperture and that 0x3eff0100 correspond to PCI device foobar. Similarly,
-QEMU has also to know the address range of the MMIO aperture and its
-remappings, if any (it is possible to have address remapping for MMIO
-addresses too.)
-
-I think today this information is "built-in" QEMU, not configurable. It
-works fine because *I think* the PCI aperture is pretty much the same on
-x86 boards, at least the one supported by QEMU for Xen.
-
-On ARM, I think we should explicitly declare the PCI MMIO aperture and
-its alias/address-remapping. When we do that, we can also declare the
-PIO aperture and its alias/address-remapping.
---8323329-1343060914-1596747559=:16004--
+So a level interrupt would get two xen_dm_op_set_irq hypercalls, an edge
+interrupt only one.
 
