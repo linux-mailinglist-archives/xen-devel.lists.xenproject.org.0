@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53B9023E4C7
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 01:49:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD6B023E4CE
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 01:50:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3pdu-0004Mn-8U; Thu, 06 Aug 2020 23:49:50 +0000
+	id 1k3pdz-0004SJ-5m; Thu, 06 Aug 2020 23:49:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=flvv=BQ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k3pds-0004FC-KX
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 23:49:48 +0000
-X-Inumbo-ID: 917eb6cc-950b-4155-96f7-ae1c6209ab86
+ id 1k3pdx-0004FC-Kj
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 23:49:53 +0000
+X-Inumbo-ID: 2e66862a-07a4-432f-a589-c70212a3ad76
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 917eb6cc-950b-4155-96f7-ae1c6209ab86;
+ id 2e66862a-07a4-432f-a589-c70212a3ad76;
  Thu, 06 Aug 2020 23:49:39 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
  (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7716522D01;
- Thu,  6 Aug 2020 23:49:38 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0B77622D05;
+ Thu,  6 Aug 2020 23:49:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596757778;
- bh=cE/8MB3BpG4nT+iCEeN/zJiUoBtOO+C3o59h9hTnhyw=;
+ s=default; t=1596757779;
+ bh=tG7IOMVzAKrOpHe65a5zGXzao6XoCl9HRXWwSXpjlE0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=M6SOR+q4lzAjtT2DpFvyBZYneDI0oJyCm6ObiDP1yKWgGb+g/eSlfGCU1iRSyETJG
- g13bkWEkwfGFTQATeuYuqp+bEbEOsTvfI7yizT/6+/Ne2tmVt5ZPpQjtcYXjM9V8L2
- arEEh76pTWR0cq0bpV8wqWE/CO24PvhzjqY19QpU=
+ b=GxI0OoETdZHYjWzTj7zc4Fx7XEP9Op9CJs1G9FU0BQNvMB2GW4qPIDUvWHf/BCHIq
+ ddrxZ/cSHMxwm9bGiH6wcUoxkQi0iFiursnZBvZz6U6d1sABRHB03beYxelhageYdv
+ 9c/MR87PwOwyC7H57kU4xg0+BW+t22TwJ0vwBAV0=
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH 04/14] kernel-doc: public/event_channel.h
-Date: Thu,  6 Aug 2020 16:49:23 -0700
-Message-Id: <20200806234933.16448-4-sstabellini@kernel.org>
+Subject: [PATCH 05/14] kernel-doc: public/features.h
+Date: Thu,  6 Aug 2020 16:49:24 -0700
+Message-Id: <20200806234933.16448-5-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
@@ -61,361 +61,153 @@ Convert in-code comments to kernel-doc format wherever possible.
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 ---
- xen/include/public/event_channel.h | 188 +++++++++++++++++++----------
- 1 file changed, 121 insertions(+), 67 deletions(-)
+ xen/include/public/features.h | 78 ++++++++++++++++++++++++++---------
+ 1 file changed, 59 insertions(+), 19 deletions(-)
 
-diff --git a/xen/include/public/event_channel.h b/xen/include/public/event_channel.h
-index cfb7929fef..893ea744d4 100644
---- a/xen/include/public/event_channel.h
-+++ b/xen/include/public/event_channel.h
-@@ -29,8 +29,8 @@
- 
- #include "xen.h"
+diff --git a/xen/include/public/features.h b/xen/include/public/features.h
+index 1613b2aab8..524d1758c4 100644
+--- a/xen/include/public/features.h
++++ b/xen/include/public/features.h
+@@ -27,8 +27,8 @@
+ #ifndef __XEN_PUBLIC_FEATURES_H__
+ #define __XEN_PUBLIC_FEATURES_H__
  
 -/*
-- * `incontents 150 evtchn Event Channels
+- * `incontents 200 elfnotes_features XEN_ELFNOTE_FEATURES
 +/**
-+ * DOC: Event Channels
++ * DOC: XEN_ELFNOTE_FEATURES
   *
-  * Event channels are the basic primitive provided by Xen for event
-  * notifications. An event is the Xen equivalent of a hardware
-@@ -79,27 +79,34 @@
- typedef uint32_t evtchn_port_t;
- DEFINE_XEN_GUEST_HANDLE(evtchn_port_t);
+  * The list of all the features the guest supports. They are set by
+  * parsing the XEN_ELFNOTE_FEATURES and XEN_ELFNOTE_SUPPORTED_FEATURES
+@@ -41,19 +41,25 @@
+  * XENFEAT_dom0 MUST be set if the guest is to be booted as dom0,
+  */
  
 -/*
-- * EVTCHNOP_alloc_unbound: Allocate a port in domain <dom> and mark as
-- * accepting interdomain bindings from domain <remote_dom>. A fresh port
-- * is allocated in <dom> and returned as <port>.
+- * If set, the guest does not need to write-protect its pagetables, and can
+- * update them via direct writes.
 +/**
-+ * struct evtchn_alloc_unbound - EVTCHNOP_alloc_unbound
++ * DOC: XENFEAT_writable_page_tables
 + *
-+ * Allocate a port in domain <dom> and mark as accepting interdomain
-+ * bindings from domain <remote_dom>. A fresh port is allocated in <dom>
-+ * and returned as <port>.
-+ *
-  * NOTES:
-  *  1. If the caller is unprivileged then <dom> must be DOMID_SELF.
-  *  2. <remote_dom> may be DOMID_SELF, allowing loopback connections.
++ * If set, the guest does not need to write-protect its pagetables, and
++ * can update them via direct writes.
   */
- struct evtchn_alloc_unbound {
--    /* IN parameters */
--    domid_t dom, remote_dom;
--    /* OUT parameters */
-+    /** @dom: IN parameter */
-+    domid_t dom;
-+    /** @remote_dom: IN parameter */
-+    domid_t remote_dom;
-+    /** @port: OUT parameter */
-     evtchn_port_t port;
- };
- typedef struct evtchn_alloc_unbound evtchn_alloc_unbound_t;
- 
--/*
-- * EVTCHNOP_bind_interdomain: Construct an interdomain event channel between
-- * the calling domain and <remote_dom>. <remote_dom,remote_port> must identify
-- * a port that is unbound and marked as accepting bindings from the calling
-- * domain. A fresh port is allocated in the calling domain and returned as
-+/**
-+ * struct evtchn_bind_interdomain - EVTCHNOP_bind_interdomain
-+ *
-+ * Construct an interdomain event channel between the calling domain and
-+ * <remote_dom>. <remote_dom,remote_port> must identify a port that is
-+ * unbound and marked as accepting bindings from the calling domain. A
-+ * fresh port is allocated in the calling domain and returned as
-  * <local_port>.
-  *
-  * In case the peer domain has already tried to set our event channel
-@@ -116,17 +123,20 @@ typedef struct evtchn_alloc_unbound evtchn_alloc_unbound_t;
-  *  1. <remote_dom> may be DOMID_SELF, allowing loopback connections.
-  */
- struct evtchn_bind_interdomain {
--    /* IN parameters. */
-+    /** @remote_dom: IN parameter */
-     domid_t remote_dom;
-+    /** @remote_port: IN parameter */
-     evtchn_port_t remote_port;
--    /* OUT parameters. */
-+    /** @local_port:OUT parameter */
-     evtchn_port_t local_port;
- };
- typedef struct evtchn_bind_interdomain evtchn_bind_interdomain_t;
- 
--/*
-- * EVTCHNOP_bind_virq: Bind a local event channel to VIRQ <irq> on specified
-- * vcpu.
-+/**
-+ * struct evtchn_bind_virq - EVTCHNOP_bind_virq
-+ *
-+ * Bind a local event channel to VIRQ <irq> on specified vcpu.
-+ *
-  * NOTES:
-  *  1. Virtual IRQs are classified as per-vcpu or global. See the VIRQ list
-  *     in xen.h for the classification of each VIRQ.
-@@ -137,65 +147,78 @@ typedef struct evtchn_bind_interdomain evtchn_bind_interdomain_t;
-  *     binding cannot be changed.
-  */
- struct evtchn_bind_virq {
--    /* IN parameters. */
--    uint32_t virq; /* enum virq */
-+    /** @virq: IN parameter, enum virq */
-+    uint32_t virq;
-+    /** @vcpu: IN parameter */
-     uint32_t vcpu;
--    /* OUT parameters. */
-+    /** @port: OUT parameter */
-     evtchn_port_t port;
- };
- typedef struct evtchn_bind_virq evtchn_bind_virq_t;
- 
--/*
-- * EVTCHNOP_bind_pirq: Bind a local event channel to a real IRQ (PIRQ <irq>).
-+/**
-+ * struct evtchn_bind_pirq - EVTCHNOP_bind_pirq
-+ *
-+ * Bind a local event channel to a real IRQ (PIRQ <irq>).
-  * NOTES:
-  *  1. A physical IRQ may be bound to at most one event channel per domain.
-  *  2. Only a sufficiently-privileged domain may bind to a physical IRQ.
-  */
- struct evtchn_bind_pirq {
--    /* IN parameters. */
-+    /** @pirq: IN parameter */
-     uint32_t pirq;
-+    /** @flags: IN parameter,  BIND_PIRQ__* */
- #define BIND_PIRQ__WILL_SHARE 1
--    uint32_t flags; /* BIND_PIRQ__* */
--    /* OUT parameters. */
-+    uint32_t flags;
-+    /** @port: OUT parameter */
-     evtchn_port_t port;
- };
- typedef struct evtchn_bind_pirq evtchn_bind_pirq_t;
- 
--/*
-- * EVTCHNOP_bind_ipi: Bind a local event channel to receive events.
-+/**
-+ * struct struct evtchn_bind_ipi - EVTCHNOP_bind_ipi
-+ *
-+ * Bind a local event channel to receive events.
-  * NOTES:
-  *  1. The allocated event channel is bound to the specified vcpu. The binding
-  *     may not be changed.
-  */
- struct evtchn_bind_ipi {
-+    /** @vcpu: IN parameter */
-     uint32_t vcpu;
--    /* OUT parameters. */
-+    /** @port: OUT parameter */
-     evtchn_port_t port;
- };
- typedef struct evtchn_bind_ipi evtchn_bind_ipi_t;
- 
--/*
-- * EVTCHNOP_close: Close a local event channel <port>. If the channel is
-- * interdomain then the remote end is placed in the unbound state
-+/**
-+ * struct evtchn_close - EVTCHNOP_close
-+ *
-+ * Close a local event channel <port>. If the channel is interdomain
-+ * then the remote end is placed in the unbound state
-  * (EVTCHNSTAT_unbound), awaiting a new connection.
-  */
- struct evtchn_close {
--    /* IN parameters. */
-+    /** @port: IN parameter */
-     evtchn_port_t port;
- };
- typedef struct evtchn_close evtchn_close_t;
- 
--/*
-- * EVTCHNOP_send: Send an event to the remote end of the channel whose local
-- * endpoint is <port>.
-+/**
-+ * struct evtchn_send - EVTCHNOP_send
-+ *
-+ * Send an event to the remote end of the channel whose local endpoint
-+ * is <port>.
-  */
- struct evtchn_send {
--    /* IN parameters. */
-+    /** @port: IN parameter */
-     evtchn_port_t port;
- };
- typedef struct evtchn_send evtchn_send_t;
+ #define XENFEAT_writable_page_tables       0
  
 -/*
 +/**
-+ * struct evtchn_status - EVTCHNOP_status
++ * DOC: XENFEAT_writable_descriptor_tables
 + *
-  * EVTCHNOP_status: Get the current status of the communication channel which
-  * has an endpoint at <dom, port>.
-  * NOTES:
-@@ -204,10 +227,11 @@ typedef struct evtchn_send evtchn_send_t;
-  *     channel for which <dom> is not DOMID_SELF.
+  * If set, the guest does not need to write-protect its segment descriptor
+  * tables, and can update them via direct writes.
   */
- struct evtchn_status {
--    /* IN parameters */
-+    /** @dom: IN parameter */
-     domid_t  dom;
-+    /** @port: IN parameter */
-     evtchn_port_t port;
--    /* OUT parameters */
-+    /** @status: OUT parameter */
- #define EVTCHNSTAT_closed       0  /* Channel is not in use.                 */
- #define EVTCHNSTAT_unbound      1  /* Channel is waiting interdom connection.*/
- #define EVTCHNSTAT_interdomain  2  /* Channel is connected to remote domain. */
-@@ -215,24 +239,39 @@ struct evtchn_status {
- #define EVTCHNSTAT_virq         4  /* Channel is bound to a virtual IRQ line */
- #define EVTCHNSTAT_ipi          5  /* Channel is bound to a virtual IPI line */
-     uint32_t status;
--    uint32_t vcpu;                 /* VCPU to which this channel is bound.   */
-+    /** @vcpu: OUT parameter, VCPU to which this channel is bound */
-+    uint32_t vcpu;
-+    /** @u: OUT parameter */
-     union {
-+        /**
-+         * @u.unbound: EVTCHNSTAT_unbound
-+         */
-         struct {
-             domid_t dom;
--        } unbound;                 /* EVTCHNSTAT_unbound */
-+        } unbound;
-+        /**
-+         * @u.interdomain: EVTCHNSTAT_interdomain
-+         */
-         struct {
-             domid_t dom;
-             evtchn_port_t port;
--        } interdomain;             /* EVTCHNSTAT_interdomain */
--        uint32_t pirq;             /* EVTCHNSTAT_pirq        */
--        uint32_t virq;             /* EVTCHNSTAT_virq        */
-+        } interdomain;
-+        /**
-+         * @u.pirq: EVTCHNSTAT_pirq
-+         */
-+        uint32_t pirq;
-+        /**
-+         * @u.virq: EVTCHNSTAT_virq
-+         */
-+        uint32_t virq;
-     } u;
- };
- typedef struct evtchn_status evtchn_status_t;
+ #define XENFEAT_writable_descriptor_tables 1
  
 -/*
-- * EVTCHNOP_bind_vcpu: Specify which vcpu a channel should notify when an
-- * event is pending.
 +/**
-+ * struct evtchn_bind_vcpu - EVTCHNOP_bind_vcpu
++ * DOC: XENFEAT_auto_translated_physmap
 + *
-+ * Specify which vcpu a channel should notify when an event is pending.
-  * NOTES:
-  *  1. IPI-bound channels always notify the vcpu specified at bind time.
-  *     This binding cannot be changed.
-@@ -243,24 +282,29 @@ typedef struct evtchn_status evtchn_status_t;
-  *     has its binding reset to vcpu0).
+  * If set, translation between the guest's 'pseudo-physical' address space
+  * and the host's machine address space are handled by the hypervisor. In this
+  * mode the guest does not need to perform phys-to/from-machine translations
+@@ -61,37 +67,63 @@
   */
- struct evtchn_bind_vcpu {
--    /* IN parameters. */
-+    /** @port: IN parameter */
-     evtchn_port_t port;
-+    /** @vcpu: IN parameter */
-     uint32_t vcpu;
- };
- typedef struct evtchn_bind_vcpu evtchn_bind_vcpu_t;
+ #define XENFEAT_auto_translated_physmap    2
+ 
+-/* If set, the guest is running in supervisor mode (e.g., x86 ring 0). */
++/**
++ * DOC: XENFEAT_supervisor_mode_kernel
++ *
++ * If set, the guest is running in supervisor mode (e.g., x86 ring 0).
++ */
+ #define XENFEAT_supervisor_mode_kernel     3
  
 -/*
-- * EVTCHNOP_unmask: Unmask the specified local event-channel port and deliver
-- * a notification to the appropriate VCPU if an event is pending.
 +/**
-+ * struct evtchn_unmask - EVTCHNOP_unmask
++ * DOC: XENFEAT_pae_pgdir_above_4gb
 + *
-+ * Unmask the specified local event-channel port and deliver a
-+ * notification to the appropriate VCPU if an event is pending.
+  * If set, the guest does not need to allocate x86 PAE page directories
+  * below 4GB. This flag is usually implied by auto_translated_physmap.
   */
- struct evtchn_unmask {
--    /* IN parameters. */
-+    /** @port: IN parameter */
-     evtchn_port_t port;
- };
- typedef struct evtchn_unmask evtchn_unmask_t;
+ #define XENFEAT_pae_pgdir_above_4gb        4
+ 
+-/* x86: Does this Xen host support the MMU_PT_UPDATE_PRESERVE_AD hypercall? */
++/**
++ * DOC: XENFEAT_mmu_pt_update_preserve_ad
++ * x86: Does this Xen host support the MMU_PT_UPDATE_PRESERVE_AD hypercall?
++ */
+ #define XENFEAT_mmu_pt_update_preserve_ad  5
+ 
+-/* x86: Does this Xen host support the MMU_{CLEAR,COPY}_PAGE hypercall? */
++/**
++ * DOC: XENFEAT_highmem_assist
++ * x86: Does this Xen host support the MMU_{CLEAR,COPY}_PAGE hypercall?
++ */
+ #define XENFEAT_highmem_assist             6
  
 -/*
-- * EVTCHNOP_reset: Close all event channels associated with specified domain.
 +/**
-+ * struct evtchn_reset - EVTCHNOP_reset
++ * DOC: XENFEAT_gnttab_map_avail_bits
 + *
-+ * Close all event channels associated with specified domain.
-  * NOTES:
-  *  1. <dom> may be specified as DOMID_SELF.
-  *  2. Only a sufficiently-privileged domain may specify other than DOMID_SELF.
-@@ -270,44 +314,54 @@ typedef struct evtchn_unmask evtchn_unmask_t;
-  *     as these events are likely to be lost.
+  * If set, GNTTABOP_map_grant_ref honors flags to be placed into guest kernel
+  * available pte bits.
   */
- struct evtchn_reset {
--    /* IN parameters. */
-+    /** @dom: IN parameter */
-     domid_t dom;
- };
- typedef struct evtchn_reset evtchn_reset_t;
+ #define XENFEAT_gnttab_map_avail_bits      7
+ 
+-/* x86: Does this Xen host support the HVM callback vector type? */
++/**
++ * DOC: XENFEAT_hvm_callback_vector
++ * x86: Does this Xen host support the HVM callback vector type?
++ */
+ #define XENFEAT_hvm_callback_vector        8
+ 
+-/* x86: pvclock algorithm is safe to use on HVM */
++/**
++ * DOC: XENFEAT_hvm_safe_pvclock
++ * x86: pvclock algorithm is safe to use on HVM
++ */
+ #define XENFEAT_hvm_safe_pvclock           9
+ 
+-/* x86: pirq can be used by HVM guests */
++/**
++ * DOC: XENFEAT_hvm_pirqs
++ * x86: pirq can be used by HVM guests
++ */
+ #define XENFEAT_hvm_pirqs                 10
+ 
+-/* operation as Dom0 is supported */
++/**
++ * DOC: XENFEAT_dom0
++ * operation as Dom0 is supported
++ */
+ #define XENFEAT_dom0                      11
+ 
+ /* Xen also maps grant references at pfn = mfn.
+@@ -99,13 +131,21 @@
+ #define XENFEAT_grant_map_identity        12
+  */
+ 
+-/* Guest can use XENMEMF_vnode to specify virtual node for memory op. */
++/**
++ * DOC: XENFEAT_memory_op_vnode_supported
++ * Guest can use XENMEMF_vnode to specify virtual node for memory op.
++ */
+ #define XENFEAT_memory_op_vnode_supported 13
+ 
+-/* arm: Hypervisor supports ARM SMC calling convention. */
++/**
++ * DOC: XENFEAT_ARM_SMCCC_supported
++ * arm: Hypervisor supports ARM SMC calling convention.
++ */
+ #define XENFEAT_ARM_SMCCC_supported       14
  
 -/*
-- * EVTCHNOP_init_control: initialize the control block for the FIFO ABI.
 +/**
-+ * struct evtchn_init_control - EVTCHNOP_init_control
++ * DOC: XENFEAT_linux_rsdp_unrestricted
 + *
-+ * Initialize the control block for the FIFO ABI.
-  *
-  * Note: any events that are currently pending will not be resent and
-  * will be lost.  Guests should call this before binding any event to
-  * avoid losing any events.
-  */
- struct evtchn_init_control {
--    /* IN parameters. */
-+    /** @control_gfn: IN parameter */
-     uint64_t control_gfn;
-+    /** @offset: IN parameter */
-     uint32_t offset;
-+    /** @vcpu: IN parameter */
-     uint32_t vcpu;
--    /* OUT parameters. */
-+    /** @link_bits: OUT parameter */
-     uint8_t link_bits;
-+    /** @_pad: padding */
-     uint8_t _pad[7];
- };
- typedef struct evtchn_init_control evtchn_init_control_t;
- 
--/*
-- * EVTCHNOP_expand_array: add an additional page to the event array.
-+/**
-+ * struct evtchn_expand_array - EVTCHNOP_expand_array
-+ *
-+ * Add an additional page to the event array.
-  */
- struct evtchn_expand_array {
--    /* IN parameters. */
-+    /** @array_gfn: IN parameter */
-     uint64_t array_gfn;
- };
- typedef struct evtchn_expand_array evtchn_expand_array_t;
- 
--/*
-- * EVTCHNOP_set_priority: set the priority for an event channel.
-+/**
-+ * struct evtchn_set_priority - EVTCHNOP_set_priority
-+ *
-+ * Set the priority for an event channel.
-  */
- struct evtchn_set_priority {
--    /* IN parameters. */
-+    /** @port: IN parameter */
-     evtchn_port_t port;
-+    /** @priority: IN parameter */
-     uint32_t priority;
- };
- typedef struct evtchn_set_priority evtchn_set_priority_t;
+  * x86/PVH: If set, ACPI RSDP can be placed at any address. Otherwise RSDP
+  * must be located in lower 1MB, as required by ACPI Specification for IA-PC
+  * systems.
 -- 
 2.17.1
 
