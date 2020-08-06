@@ -2,57 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950BE23DB42
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 16:58:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E50C323DB56
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 17:26:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3hL0-00086q-Iu; Thu, 06 Aug 2020 14:57:46 +0000
+	id 1k3hm8-0002WC-KO; Thu, 06 Aug 2020 15:25:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=49j5=BQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k3hKz-00086l-DJ
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 14:57:45 +0000
-X-Inumbo-ID: 69314e7d-1d3e-4e54-8e57-b508ae626cb9
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1k3hm7-0002W5-6m
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 15:25:47 +0000
+X-Inumbo-ID: bcfbc8a7-3df8-4100-b6a8-8f48f603add0
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 69314e7d-1d3e-4e54-8e57-b508ae626cb9;
- Thu, 06 Aug 2020 14:57:44 +0000 (UTC)
+ id bcfbc8a7-3df8-4100-b6a8-8f48f603add0;
+ Thu, 06 Aug 2020 15:25:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596725865;
+ d=citrix.com; s=securemail; t=1596727546;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=jFz80T16EOcJg2+pcu+RItNVey5tN69mEwikaX2UYpA=;
- b=G4RbuJs1TaoapNtUF0qH4oEEB6MneTcKMangY/RNhOXtAv7bcmuNUt7Q
- mzNP7WS9ipbHQg696mkIMSpfHw2FqOlhHLaYg9M7OQXv9eS2HKT2ZsD2Y
- TGZfBqJTr0yG8yCN33sE9fzYCgI72fhuobpurls7YZhdZ7RA1GqdlkKWa w=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ bh=K+oriAnIaJvKhD6uHcdVOVRcgp4QC3R04HEDnpu2fDk=;
+ b=W6Y0twERyKvBtdMUoejMX94OTPVUALZzXcQ3Yyx5By7k+vsOMATxZHVg
+ xOIQ36dlYbOgaTZvpeb7JtlCI0cJeGxDUPI6RhnQgLvIjFCGqwwOLGElC
+ fHSVdfbKfd5odnghpWtjtSRa0FRKHaIFwM3Hcgw+xdNRmQq4ESQqsunlH k=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none
-IronPort-SDR: 817E7x4PikiW+9i7BdycV0Pf9GSxivWjxZLH7dmxiaPUgImB8DsQrA3eGfSc8FExCVStn6wgIs
- jwuKwtmVum7Fj0gi1j2+yh5i8xaqcnfb87GJmkA8yMSc10T9nM7Xsa0k2JovJ6j3SkKhrtwjXN
- whTjikeURbgcnRJK6FWFr0Rm5jktCq73X3Zu7AW5h/Asg/5WFdonfcK8PhV+/TDtpYjvZonTip
- Icj8oQSx3+6jR6bTjHFppCxT6c5n9iqrmN2OFU8b8ePopHaY9ZCDS2+f9MruoJ6ubgI+Niti9F
- Ppc=
+IronPort-SDR: Kbr+6e/GVFDTfVNZLVRoVOv3aGr/uIu+2TIOgn2uwLLXTbCZjKhM+cfS0SlA1GELBjzymj3c8/
+ 87kXyY5PwS0M4+bPyVdsTA1gchDviL8YLCyqxvdRg1R8xNBPdBjNlQuRSyDjzvSzmSyYlI5wQ5
+ Wthr60Xas5DeJtpG4+93ByjUsx1C9bPjRMJw93wZkAkspdhjFV9gxmpwQNWziceJfxpBmKxzjh
+ hKxiM8fbo+flIL+M8LHIYqTAqwsEkALtmKyp+jL2NkdKXV9C/x+ewZcoVz9oKSGlHwFWdAeHg1
+ YB4=
 X-SBRS: 3.7
-X-MesageID: 24022695
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 24343692
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,441,1589256000"; d="scan'208";a="24022695"
-Subject: Re: [PATCH 1/4] build: work around bash issue
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
+X-IronPort-AV: E=Sophos;i="5.75,441,1589256000"; d="scan'208";a="24343692"
+Subject: Re: [PATCH 2/4] build: correctly report non-empty section sizes upon
+ .o -> .init.o conversion
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
 References: <305c2532-408a-9f78-61fe-c90a2e86eb8e@suse.com>
- <b427e8e6-b9ff-65d2-074b-19439a2e3d02@suse.com>
- <e8006147-31e5-d4c5-8c13-74250f267c0c@xen.org>
- <df45f8af-a32b-67cf-2f56-4761ce263a28@suse.com>
+ <5fcb47ec-4a0e-99a2-c548-f42ec1cc8030@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <6a7226b9-9702-9adc-c849-e21d27a8fced@citrix.com>
-Date: Thu, 6 Aug 2020 15:57:38 +0100
+Message-ID: <2d573b9e-e69e-80b9-444e-affbb105d8c5@citrix.com>
+Date: Thu, 6 Aug 2020 16:25:41 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <df45f8af-a32b-67cf-2f56-4761ce263a28@suse.com>
+In-Reply-To: <5fcb47ec-4a0e-99a2-c548-f42ec1cc8030@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
@@ -68,31 +68,22 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
  Ian Jackson <ian.jackson@citrix.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 06/08/2020 10:14, Jan Beulich wrote:
-> On 06.08.2020 11:07, Julien Grall wrote:
->> On 06/08/2020 10:04, Jan Beulich wrote:
->>> Older bash fails to honor "set -e" for certain built-in commands
->> "Older" is pretty vague. May I ask the exact version you run into the issue?
-> If I knew in what version the issue got fixed, I'd have specified
-> that version. I've observed it with 3.2.57(2).
+On 06/08/2020 10:05, Jan Beulich wrote:
+> The originally used sed expression converted not just multiple leading
+> zeroes (as intended), but also trailing ones, rendering the error
+> message somewhat confusing. Collapse zeroes in just the one place where
+> we need them collapsed, and leave objdump's output as is for all other
+> purposes.
+>
+> Fixes: 48115d14743e ("Move more kernel decompression bits to .init.* sections")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Its still very useful information for the commit message.
-
-I tend to phrase something like this as "Older versions of bash (at
-least, 3.2.57(2))" which gives a clear indication that the problem was
-observed with the specified version, without suggesting that this is a
-boundary of when the issue was introduced/fixed.
-
-With this adjusted, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-to avoid a second posting.
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
