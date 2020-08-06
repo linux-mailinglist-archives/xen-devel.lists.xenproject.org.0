@@ -2,41 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F04723D896
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 11:27:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 975C223D89A
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 11:28:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3cBG-0002TR-2S; Thu, 06 Aug 2020 09:27:22 +0000
+	id 1k3cBy-0002XF-C7; Thu, 06 Aug 2020 09:28:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gxiU=BQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k3cBF-0002TM-Gi
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 09:27:21 +0000
-X-Inumbo-ID: 3bd3c273-42dd-459a-bc18-41cb4c9eed69
+ id 1k3cBw-0002X7-Sm
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 09:28:04 +0000
+X-Inumbo-ID: 60544132-7af2-4fb0-820f-966b2ae4b41f
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3bd3c273-42dd-459a-bc18-41cb4c9eed69;
- Thu, 06 Aug 2020 09:27:19 +0000 (UTC)
+ id 60544132-7af2-4fb0-820f-966b2ae4b41f;
+ Thu, 06 Aug 2020 09:28:03 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EE2BFB666;
- Thu,  6 Aug 2020 09:27:35 +0000 (UTC)
-Subject: Re: [RFC PATCH V1 07/12] A collection of tweaks to be able to run
- emulator in driver domain
-To: Oleksandr <olekstysh@gmail.com>
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-8-git-send-email-olekstysh@gmail.com>
- <4ffa6434-3ad6-04dc-bfde-f75196930fb4@suse.com>
- <005f01d66b47$1c58ccc0$550a6640$@xen.org>
- <a9a8a3fb-10ad-96f7-651b-9bed46310ba2@gmail.com>
+ by mx2.suse.de (Postfix) with ESMTP id 40FCBB65C;
+ Thu,  6 Aug 2020 09:28:20 +0000 (UTC)
+Subject: [PATCH 1/3] x86: slightly re-arrange 32-bit handling in
+ dom0_construct_pv()
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e8105d18-338f-bd90-39a2-eb37e37345a7@suse.com>
-Date: Thu, 6 Aug 2020 11:27:20 +0200
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a2b8f0e9-77ea-6127-a25e-d8fd3dcbb866@suse.com>
+Message-ID: <0972ea3c-c2a8-b0f4-ae25-132bdb798f6a@suse.com>
+Date: Thu, 6 Aug 2020 11:28:05 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <a9a8a3fb-10ad-96f7-651b-9bed46310ba2@gmail.com>
+In-Reply-To: <a2b8f0e9-77ea-6127-a25e-d8fd3dcbb866@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -50,62 +46,123 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>, paul@xen.org,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org, 'Daniel De Graaf' <dgdegra@tycho.nsa.gov>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 06.08.2020 11:22, Oleksandr wrote:
-> 
-> On 05.08.20 19:40, Paul Durrant wrote:
-> 
-> Hi Jan, Paul
-> 
->>> -----Original Message-----
->>> From: Jan Beulich <jbeulich@suse.com>
->>> Sent: 05 August 2020 17:20
->>> To: Oleksandr Tyshchenko <olekstysh@gmail.com>; Paul Durrant <paul@xen.org>
->>> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Andrew
->>> Cooper <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Ian Jackson
->>> <ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
->>> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Daniel De Graaf <dgdegra@tycho.nsa.gov>
->>> Subject: Re: [RFC PATCH V1 07/12] A collection of tweaks to be able to run emulator in driver domain
->>>
->>> On 03.08.2020 20:21, Oleksandr Tyshchenko wrote:
->>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>
->>>> Trying to run emulator in driver domain I ran into various issues
->>>> mostly policy-related. So this patch tries to resolve all them
->>>> plobably in a hackish way. I would like to get feedback how
->>>> to implement them properly as having an emulator in driver domain
->>>> is a completely valid use-case.
->>>  From going over the comments I can only derive you want to run
->>> an emulator in a driver domain, which doesn't really make sense
->>> to me. A driver domain has a different purpose after all. If
->>> instead you mean it to be run in just some other domain (which
->>> also isn't the domain controlling the target), then there may
->>> be more infrastructure changes needed.
->>>
->>> Paul - was/is your standalone ioreq server (demu?) able to run
->>> in other than the domain controlling a guest?
->>>
->> Not something I've done yet, but it was always part of the idea so that we could e.g. pass through a device to a dedicated domain and then run multiple demu instances there to virtualize it for many domUs. (I'm thinking here of a device that is not SR-IOV and hence would need some bespoke emulation code to share it out).That dedicated domain would be termed the 'driver domain' simply because it is running the device driver for the h/w that underpins the emulation.
-> 
-> I may abuse "driver domain" terminology, but indeed in our use-case we 
-> pass through a set of H/W devices to a dedicated domain which is running 
-> the device drivers for that H/Ws. Our target system comprises a thin 
-> Dom0 (without H/W devices at all), DomD (which owns most of the H/W 
-> devices) and DomU which runs on virtual devices. This patch tries to 
-> make changes at Xen side to be able run standalone ioreq server 
-> (emulator) in that dedicated (driver?) domain.
+Add #ifdef-s (the 2nd one will be needed in particular, to guard the
+uses of m2p_compat_vstart and HYPERVISOR_COMPAT_VIRT_START()) and fold
+duplicate uses of elf_32bit().
 
-Okay, in which case I'm fine with the term. I simply wasn't aware of the
-targeted scenario, sorry.
+Also adjust what gets logged: Avoid "compat32" when support isn't built
+in, and don't assume ELF class <> ELFCLASS64 means ELFCLASS32.
 
-Jan
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -300,7 +300,6 @@ int __init dom0_construct_pv(struct doma
+     struct page_info *page = NULL;
+     start_info_t *si;
+     struct vcpu *v = d->vcpu[0];
+-    unsigned long long value;
+     void *image_base = bootstrap_map(image);
+     unsigned long image_len = image->mod_end;
+     void *image_start = image_base + image_headroom;
+@@ -357,27 +356,36 @@ int __init dom0_construct_pv(struct doma
+         goto out;
+ 
+     /* compatibility check */
++    printk(" Xen  kernel: 64-bit, lsb%s\n",
++           IS_ENABLED(CONFIG_PV32) ? ", compat32" : "");
+     compatible = 0;
+     machine = elf_uval(&elf, elf.ehdr, e_machine);
+-    printk(" Xen  kernel: 64-bit, lsb, compat32\n");
+-    if ( elf_32bit(&elf) && parms.pae == XEN_PAE_BIMODAL )
+-        parms.pae = XEN_PAE_EXTCR3;
+-    if ( elf_32bit(&elf) && parms.pae && machine == EM_386 )
++
++#ifdef CONFIG_PV32
++    if ( elf_32bit(&elf) )
+     {
+-        if ( unlikely(rc = switch_compat(d)) )
++        if ( parms.pae == XEN_PAE_BIMODAL )
++            parms.pae = XEN_PAE_EXTCR3;
++        if ( parms.pae && machine == EM_386 )
+         {
+-            printk("Dom0 failed to switch to compat: %d\n", rc);
+-            return rc;
+-        }
++            if ( unlikely(rc = switch_compat(d)) )
++            {
++                printk("Dom0 failed to switch to compat: %d\n", rc);
++                return rc;
++            }
+ 
+-        compatible = 1;
++            compatible = 1;
++        }
+     }
+-    if (elf_64bit(&elf) && machine == EM_X86_64)
++#endif
++
++    if ( elf_64bit(&elf) && machine == EM_X86_64 )
+         compatible = 1;
+-    printk(" Dom0 kernel: %s%s, %s, paddr %#" PRIx64 " -> %#" PRIx64 "\n",
+-           elf_64bit(&elf) ? "64-bit" : "32-bit",
+-           parms.pae       ? ", PAE"  : "",
+-           elf_msb(&elf)   ? "msb"    : "lsb",
++
++    printk(" Dom0 kernel: %s-bit%s, %s, paddr %#" PRIx64 " -> %#" PRIx64 "\n",
++           elf_64bit(&elf) ? "64" : elf_32bit(&elf) ? "32" : "??",
++           parms.pae       ? ", PAE" : "",
++           elf_msb(&elf)   ? "msb"   : "lsb",
+            elf.pstart, elf.pend);
+     if ( elf.bsd_symtab_pstart )
+         printk(" Dom0 symbol map %#" PRIx64 " -> %#" PRIx64 "\n",
+@@ -405,23 +413,28 @@ int __init dom0_construct_pv(struct doma
+     if ( parms.pae == XEN_PAE_EXTCR3 )
+             set_bit(VMASST_TYPE_pae_extended_cr3, &d->vm_assist);
+ 
+-    if ( !pv_shim && (parms.virt_hv_start_low != UNSET_ADDR) &&
+-         elf_32bit(&elf) )
++#ifdef CONFIG_PV32
++    if ( elf_32bit(&elf) )
+     {
+-        unsigned long mask = (1UL << L2_PAGETABLE_SHIFT) - 1;
+-        value = (parms.virt_hv_start_low + mask) & ~mask;
+-        BUG_ON(!is_pv_32bit_domain(d));
+-        if ( value > __HYPERVISOR_COMPAT_VIRT_START )
+-            panic("Domain 0 expects too high a hypervisor start address\n");
+-        HYPERVISOR_COMPAT_VIRT_START(d) =
+-            max_t(unsigned int, m2p_compat_vstart, value);
+-    }
++        if ( !pv_shim && (parms.virt_hv_start_low != UNSET_ADDR) )
++        {
++            unsigned long mask = (1UL << L2_PAGETABLE_SHIFT) - 1;
++            unsigned long value = (parms.virt_hv_start_low + mask) & ~mask;
+ 
+-    if ( (parms.p2m_base != UNSET_ADDR) && elf_32bit(&elf) )
+-    {
+-        printk(XENLOG_WARNING "P2M table base ignored\n");
+-        parms.p2m_base = UNSET_ADDR;
++            BUG_ON(!is_pv_32bit_domain(d));
++            if ( value > __HYPERVISOR_COMPAT_VIRT_START )
++                panic("Domain 0 expects too high a hypervisor start address\n");
++            HYPERVISOR_COMPAT_VIRT_START(d) =
++                max_t(unsigned int, m2p_compat_vstart, value);
++        }
++
++        if ( parms.p2m_base != UNSET_ADDR )
++        {
++            printk(XENLOG_WARNING "P2M table base ignored\n");
++            parms.p2m_base = UNSET_ADDR;
++        }
+     }
++#endif
+ 
+     /*
+      * Why do we need this? The number of page-table frames depends on the
+
 
