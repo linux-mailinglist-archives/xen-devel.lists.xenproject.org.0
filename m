@@ -2,42 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC02223DA30
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 14:05:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 919AD23DA33
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 14:11:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3edX-0001CW-TE; Thu, 06 Aug 2020 12:04:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gxiU=BQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1k3edW-0001CO-E4
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 12:04:42 +0000
-X-Inumbo-ID: 5ccde9d2-8749-4329-9cb7-b4be8137846f
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5ccde9d2-8749-4329-9cb7-b4be8137846f;
- Thu, 06 Aug 2020 12:04:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D3417ACC6;
- Thu,  6 Aug 2020 12:04:57 +0000 (UTC)
-Subject: Re: [RFC] efi/boot: Unified Xen executable for UEFI Secure Boot
- support
-To: Trammell Hudson <hudson@trmm.net>
-References: <SQvDCuitxs8ZbVLJqpnPlbhTvIw_fMkZDetiBpJD-DID2X8EnTvReCaJgThJ8b-3kS9gHm3-HYRqNJk-k1cVYPIQf04R8uuhPjm9WNKzJh4=@trmm.net>
- <1bd2d79e-5bef-835c-f6cc-9fd367e8beb7@suse.com>
- <FKRB6MJm-n6DwX0LoYfI4Ysny1U_xRbxvZn7ttLHGxpKTEnAmcoDMLsLsgKZGYaB2eVuIzoNQ6UPpsfiMlaRPW-7AIXQ9mqz_i9sF-tI2Ks=@trmm.net>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5e3b16b3-0f93-4683-dcc7-852c805870c8@suse.com>
-Date: Thu, 6 Aug 2020 14:04:42 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+	id 1k3eje-00023K-KB; Thu, 06 Aug 2020 12:11:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=G/J/=BQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k3ejd-00023B-NZ
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 12:11:01 +0000
+X-Inumbo-ID: 01b64f45-19c1-44cb-bab2-4cc82b867c99
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 01b64f45-19c1-44cb-bab2-4cc82b867c99;
+ Thu, 06 Aug 2020 12:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=HNFqvZLzS58u0UKm2xWeUoUfW2F4SICvBOP5dfa7F7k=; b=PbbHVKDvDNpmk/26bAkyqCSYF
+ OKFrihFwQWsSoxEA9abVrJp3zJKgQ1fhwSM4l3X8tUXPr/heTcn0PMSe3i/kwH1K8k7/+lp8qOIgw
+ K/OHM+AWfE56pDfPkZ1P9nBr9huNyTIenKvkii+/9A1uCfFGYFmaimYy/a/Fp6A8Z22as=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k3eja-0001gq-RR; Thu, 06 Aug 2020 12:10:58 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k3eja-0008Qv-Dg; Thu, 06 Aug 2020 12:10:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k3eja-00053u-Cz; Thu, 06 Aug 2020 12:10:58 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152495-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <FKRB6MJm-n6DwX0LoYfI4Ysny1U_xRbxvZn7ttLHGxpKTEnAmcoDMLsLsgKZGYaB2eVuIzoNQ6UPpsfiMlaRPW-7AIXQ9mqz_i9sF-tI2Ks=@trmm.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 152495: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=e188ecc8b4aed8fdd26b731d43883861f5e5e7b4
+X-Osstest-Versions-That: ovmf=aa211bb6ef8edc70d2e6dfdab01a7d29e53f1ee2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 06 Aug 2020 12:10:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,125 +61,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 06.08.2020 13:44, Trammell Hudson wrote:
-> On Thursday, August 6, 2020 9:57 AM, Jan Beulich <jbeulich@suse.com> wrote:
->> Overall I think it might help if this PE parsing code (if UEFI
->> doesn't offer a protocol to do it for us) was put into its own
->> source file.
-> 
-> I tried to putting it into a separate file and ran into link issues,
-> seems that it needs to be mentioned in both arch/x86/Makefile and
-> arch/x86/pe/Makefile, so this was a "just make it work" for the PoC.
-> Now that it is working, I'll go back to see if I can figure out the
-> makefile magic.
+flight 152495 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152495/
 
-I was rather thinking of e.g. xen/common/efi/pe.c.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 e188ecc8b4aed8fdd26b731d43883861f5e5e7b4
+baseline version:
+ ovmf                 aa211bb6ef8edc70d2e6dfdab01a7d29e53f1ee2
 
->> I also wonder if it wouldn't better be optional
->> (i.e. depend on a Kconfig option).
-> 
-> My preference would be to have it always on so that any Xen
-> executable can be unified and signed by the end user, rather than
-> requiring the user to do a separate build from source. For instance,
-> the Qubes install DVD has a normal xen.efi, but I can generate my own
-> signed version for my system by unifying it with the kernel and
-> initrd.
+Last test of basis   152459  2020-08-04 07:31:47 Z    2 days
+Testing same since   152495  2020-08-05 17:41:20 Z    0 days    1 attempts
 
-It's still a choice that can be left to the distro imo. In particular
-embedded use cases may want to save the extra logic.
+------------------------------------------------------------
+People who touched revisions under test:
+  Michael D Kinney <michael.d.kinney@intel.com>
 
->>> -   if ( efi_rs->GetVariable(L"SecureBoot", (EFI_GUID *)&global_guid, NULL, &size, buf) != EFI_SUCCESS )
->>> -          return false;
->>> -   return buf[0] != 0;
->>
->> I.e. "SecureBoot=N" still means "enabled"?
-> 
-> Maybe? UEFI 2.8, section 3.3 "Global Variables" says for SecureBoot:
-> 
-> "Whether the platform firmware is operating in Secure boot mode (1) or not (0). All other values
-> are reserved. Should be treated as read-only."
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-But in your expression that's then presumably '0', not 0?
 
->> Also, considering kernel and initrd are embedded, is there really a
->> strict need for a config file? It would seem to me that you could
->> boot the system fine without.
-> 
-> The config file is still necessary for Xen options (console, etc) as
-> well as the kernel command line.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-But command line options are optional. Yes, you need a config file if
-you want to pass any options. But you may be able to get away without
-command line options, and hence without config file.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->> [...]
->> Once you know whether you're dealing with a "unified" image, you
->> shouldn't have a need to make logic dependent upon read_section()
->> finding a particular section: Either you find all of them (and
->> don't even try to interpret respective config file settings), or
->> you read everything from disk.
-> 
-> Another option that might be better would be to have a "special"
-> file name -- if the config file has a leading "." then read_file()
-> could do the PE section search instead of going to the disk.
-> That way the config file could have some things on disk, and
-> some things unified.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-The config file name can by supplied on the xen.efi command line.
-There's nothing keeping a user from choosing a "special" file name.
-Hence your only option here would be to pick something which is
-guaranteed to not be a valid file name, not matter what file system.
-IOW - I'm unconvinced this is the route to go.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
->> [...]
->>> +# Xen goes up to a pad at 00400000
->>
->> "pad at 00400000"?
-> 
-> $ objdump -h xen.efi
-> 
-> xen.efi:     file format pei-x86-64
-> 
-> Sections:
-> Idx Name          Size      VMA               LMA               File off  Algn
-> [...]
->   8 .pad          00400000  ffff82d040c00000  ffff82d040c00000  00000000  2**2
->                   ALLOC
-> 
-> There is this pad at the end of the image; I wasn't sure if it was important,
-> so I had the script deposit the extra sections after it.  Hopefully there is
-> someway to automatically figure out the correct address for the additional
-> segments.
 
-There's no useful data in this section - see the linker script for
-why it exists. But an important issue here again is that there
-shouldn't be hard coded numbers. The size of this section can
-easily change over time.
+Pushing revision :
 
->>> +objcopy \
->>> -   --add-section .kernel="$KERNEL" \
->>> -   --add-section .ramdisk="$RAMDISK" \
->>> -   --add-section .config="$CONFIG" \
->>> -   --change-section-vma .config=0xffff82d041000000 \
->>> -   --change-section-vma .kernel=0xffff82d041010000 \
->>> -   --change-section-vma .ramdisk=0xffff82d042000000 \
->>
->> Of course these hard coded numbers will be eliminated in the
->> long run?
-> 
-> Ideally.  We could try to parse out the address based on the objdump output,
-> although oddly systemd-boot has hardcoded ones as well.
-
-Perhaps the Linux kernel (or whatever else they work on) doesn't
-ever change addresses. The addresses shown here have changed just
-recently (they moved down by 1Gb). Earlier today I've submitted a
-patch where, in the course of putting together, I did consider
-whether I'd change the virtual memory layout again (and then even
-conditionally upon CONFIG_PV32).
-
-Jan
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   aa211bb6ef..e188ecc8b4  e188ecc8b4aed8fdd26b731d43883861f5e5e7b4 -> xen-tested-master
 
