@@ -2,47 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26EAD23D4C1
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 02:38:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D38AE23D4BF
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Aug 2020 02:38:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3TuK-0008Sy-Fo; Thu, 06 Aug 2020 00:37:20 +0000
+	id 1k3TuQ-0008TC-OF; Thu, 06 Aug 2020 00:37:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=flvv=BQ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k3TuI-0008St-Ks
- for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 00:37:18 +0000
-X-Inumbo-ID: 677f2daf-3738-4a90-8d48-2da1ce953f19
+ id 1k3TuP-0008T7-Bx
+ for xen-devel@lists.xenproject.org; Thu, 06 Aug 2020 00:37:25 +0000
+X-Inumbo-ID: dd9a61fe-4e98-43f0-b7a4-06b57264fcd9
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 677f2daf-3738-4a90-8d48-2da1ce953f19;
- Thu, 06 Aug 2020 00:37:16 +0000 (UTC)
+ id dd9a61fe-4e98-43f0-b7a4-06b57264fcd9;
+ Thu, 06 Aug 2020 00:37:23 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4714720842;
- Thu,  6 Aug 2020 00:37:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id ED96C20842;
+ Thu,  6 Aug 2020 00:37:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596674235;
- bh=QL2X5XhqFxDTG6/bMrTWuGUIjxEqBB6EpA4FLHOdu94=;
+ s=default; t=1596674242;
+ bh=IvvjNayDWHWpV02+RT2Wm7bTN+tg82sFIQ4J452VtMY=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=K+RgeZLA5Yn124yXBV/brINIkhAyoYii2OQ9X2vyBUKIsU6UWzgDRPSIQT74Iam/b
- EqfnuLN30qpXXYLisXtq6TwLphrEN/Becv3R6c7CAj3z1HADho/6/JDYAd17k7eyHg
- e+lup9+nFhys67svZc3s9E3tyA9HK0VmF5vSgtkY=
-Date: Wed, 5 Aug 2020 17:37:14 -0700 (PDT)
+ b=aaiyM/WRGotg9LJl8yqafFSo0YLqLJ0ThXd47pNSk8X3LbX2Tj3qVtjLEBQFzCErX
+ U2KezIWoaOYIlbBLOI/af9/lYp5H+2hGkT8OKiFkF2TaH0uFHvUzb565ptS0j0n7N0
+ i+c1GHoOp/3RKJ6TuxWI0Iu6J+4DfMKOYTSL9PNs=
+Date: Wed, 5 Aug 2020 17:37:21 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
- xendevicemodel_set_irq_level DM op
-In-Reply-To: <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
-Message-ID: <alpine.DEB.2.21.2008050943300.5748@sstabellini-ThinkPad-T480s>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature
+ common
+In-Reply-To: <2ab4c567-8efa-1b9d-ab00-4ea7e1ab323e@suse.com>
+Message-ID: <alpine.DEB.2.21.2008051253230.5748@sstabellini-ThinkPad-T480s>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
- <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
+ <1596478888-23030-2-git-send-email-olekstysh@gmail.com>
+ <000c01d66a33$2bd56510$83802f30$@xen.org>
+ <9f83a7ed-ca97-449f-c7b9-a1140644abe9@gmail.com>
+ <f0c32cfe-5c33-30ae-b08a-3d72e935745a@xen.org>
+ <alpine.DEB.2.21.2008041105510.5748@sstabellini-ThinkPad-T480s>
+ <2ab4c567-8efa-1b9d-ab00-4ea7e1ab323e@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -56,83 +59,128 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: 'Kevin Tian' <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ 'Wei Liu' <wl@xen.org>, paul@xen.org,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Tim Deegan' <tim@xen.org>,
+ Oleksandr <olekstysh@gmail.com>,
+ 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Julien Grall' <julien.grall@arm.com>, 'Jun Nakajima' <jun.nakajima@intel.com>,
+ xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 5 Aug 2020, Julien Grall wrote:
-> On 05/08/2020 00:22, Stefano Stabellini wrote:
-> > On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
-> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > 
-> > > This patch adds ability to the device emulator to notify otherend
-> > > (some entity running in the guest) using a SPI and implements Arm
-> > > specific bits for it. Proposed interface allows emulator to set
-> > > the logical level of a one of a domain's IRQ lines.
-> > > 
-> > > Please note, this is a split/cleanup of Julien's PoC:
-> > > "Add support for Guest IO forwarding to a device emulator"
-> > > 
-> > > Signed-off-by: Julien Grall <julien.grall@arm.com>
-> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > ---
-> > >   tools/libs/devicemodel/core.c                   | 18 ++++++++++++++++++
-> > >   tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
-> > >   tools/libs/devicemodel/libxendevicemodel.map    |  1 +
-> > >   xen/arch/arm/dm.c                               | 22
-> > > +++++++++++++++++++++-
-> > >   xen/common/hvm/dm.c                             |  1 +
-> > >   xen/include/public/hvm/dm_op.h                  | 15 +++++++++++++++
-> > >   6 files changed, 60 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
-> > > index 4d40639..30bd79f 100644
-> > > --- a/tools/libs/devicemodel/core.c
-> > > +++ b/tools/libs/devicemodel/core.c
-> > > @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
-> > >       return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
-> > >   }
-> > >   +int xendevicemodel_set_irq_level(
-> > > +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
-> > > +    unsigned int level)
+On Wed, 5 Aug 2020, Jan Beulich wrote:
+> On 04.08.2020 21:11, Stefano Stabellini wrote:
+> >> The point of the check isn't to determine whether to wait, but
+> >> what to do after having waited. Reads need a retry round through
+> >> the emulator (to store the result in the designated place),
+> >> while writes don't have such a requirement (and hence guest
+> >> execution can continue immediately in the general case).
 > > 
-> > It is a pity that having xen_dm_op_set_pci_intx_level and
-> > xen_dm_op_set_isa_irq_level already we need to add a third one, but from
-> > the names alone I don't think we can reuse either of them.
-> 
-> The problem is not the name...
-> 
+> > The x86 code looks like this:
 > > 
-> > It is very similar to set_isa_irq_level. We could almost rename
-> > xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
-> > better, just add an alias to it so that xendevicemodel_set_irq_level is
-> > implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
-> > not sure if it is worth doing it though. Any other opinions?
+> >             rc = hvm_send_ioreq(s, &p, 0);
+> >             if ( rc != X86EMUL_RETRY || currd->is_shutting_down )
+> >                 vio->io_req.state = STATE_IOREQ_NONE;
+> >             else if ( !hvm_ioreq_needs_completion(&vio->io_req) )
+> >                 rc = X86EMUL_OKAY;
+> > 
+> > Basically hvm_send_ioreq is expected to return RETRY.
+> > Then, if it is a PIO write operation only, it is turned into OKAY right
+> > away. Otherwise, rc stays as RETRY.
+> > 
+> > So, normally, hvmemul_do_io is expected to return RETRY, because the
+> > emulator is not done yet. Am I understanding the code correctly?
 > 
-> ... the problem is the interrupt field is only 8-bit. So we would only be able
-> to cover IRQ 0 - 255.
+> "The emulator" unfortunately is ambiguous here: Do you mean qemu
+> (or whichever else ioreq server) or the x86 emulator inside Xen?
 
-Argh, that's not going to work :-(  I wasn't sure if it was a good idea
-anyway.
+I meant QEMU. I'll use "QEMU" instead of "emulator" in this thread going
+forward for clarity.
 
 
-> It is not entirely clear how the existing subop could be extended without
-> breaking existing callers.
->
-> > But I think we should plan for not needing two calls (one to set level
-> > to 1, and one to set it to 0):
-> > https://marc.info/?l=xen-devel&m=159535112027405
+> There are various conditions leading to RETRY. As far as
+> hvm_send_ioreq() goes, it is expected to return RETRY whenever
+> some sort of response is to be expected (the most notable
+> exception being the hvm_send_buffered_ioreq() path), or when
+> submitting the request isn't possible in the first place.
 > 
-> I am not sure to understand your suggestion here? Are you suggesting to remove
-> the 'level' parameter?
+> > If so, who is handling RETRY on x86? It tried to follow the call chain
+> > but ended up in the x86 emulator and got lost :-)
+> 
+> Not sure I understand the question correctly, but I'll try an
+> answer nevertheless: hvm_send_ioreq() arranges for the vCPU to be
+> put to sleep (prepare_wait_on_xen_event_channel()). Once the event
+> channel got signaled (and vCPU unblocked), hvm_do_resume() ->
+> handle_hvm_io_completion() -> hvm_wait_for_io() then check whether
+> the wait reason has been satisfied (wait_on_xen_event_channel()),
+> and ...
+> 
+> > At some point later, after the emulator (QEMU) has completed the
+> > request, handle_hvm_io_completion gets called which ends up calling
+> > handle_mmio() finishing the job on the Xen side too.
+> 
+> ..., as you say, handle_hvm_io_completion() invokes the retry of
+> the original operation (handle_mmio() or handle_pio() in
+> particular) if need be.
 
-My hope was to make it optional to call the hypercall with level = 0,
-not necessarily to remove 'level' from the struct.
+OK, thanks for the details. My interpretation seems to be correct.
+
+In which case, it looks like xen/arch/arm/io.c:try_fwd_ioserv should
+return IO_RETRY. Then, xen/arch/arm/traps.c:do_trap_stage2_abort_guest
+also needs to handle try_handle_mmio returning IO_RETRY the first
+around, and IO_HANDLED when after QEMU does its job.
+
+What should do_trap_stage2_abort_guest do on IO_RETRY? Simply return
+early and let the scheduler do its job? Something like:
+
+            enum io_state state = try_handle_mmio(regs, hsr, gpa);
+
+            switch ( state )
+            {
+            case IO_ABORT:
+                goto inject_abt;
+            case IO_HANDLED:
+                advance_pc(regs, hsr);
+                return;
+            case IO_RETRY:
+                /* finish later */
+                return;
+            case IO_UNHANDLED:
+                /* IO unhandled, try another way to handle it. */
+                break;
+            default:
+                ASSERT_UNREACHABLE();
+            }
+
+Then, xen/arch/arm/ioreq.c:handle_mmio() gets called by
+handle_hvm_io_completion() after QEMU completes the emulation. Today,
+handle_mmio just sets the user register with the read value.
+
+But it would be better if it called again the original function
+do_trap_stage2_abort_guest to actually retry the original operation.
+This time do_trap_stage2_abort_guest calls try_handle_mmio() and gets
+IO_HANDLED instead of IO_RETRY, thus, it will advance_pc (the program
+counter) completing the handling of this instruction.
+
+The user register with the read value could be set by try_handle_mmio if
+try_fwd_ioserv returns IO_HANDLED instead of IO_RETRY.
+
+Is that how the state machine is expected to work?
+
+
+> What's potentially confusing is that there's a second form of
+> retry, invoked by the x86 insn emulator itself when it needs to
+> split complex insns (the repeated string insns being the most
+> important example). This results in actually exiting back to guest
+> context without having advanced rIP, but after having updated
+> other register state suitably (to express the progress made so
+> far).
+
+Ah! And it seems to be exactly the same label: X86EMUL_RETRY. It would
+be a good idea to differentiate between them.
 
