@@ -2,55 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7413223F4D2
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Aug 2020 00:19:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E293E23F54E
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Aug 2020 01:46:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k4Ahi-0007La-5f; Fri, 07 Aug 2020 22:19:10 +0000
+	id 1k4C2z-000745-NE; Fri, 07 Aug 2020 23:45:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tO9i=BR=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1k4Ahg-0007LT-EF
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 22:19:08 +0000
-X-Inumbo-ID: 284a3f31-97a4-4ed2-b3a5-c49f995fcda9
-Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
+ id 1k4C2y-000740-9N
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 23:45:12 +0000
+X-Inumbo-ID: f8dc32a9-9fa5-484b-b7a9-4751a7c1e700
+Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 284a3f31-97a4-4ed2-b3a5-c49f995fcda9;
- Fri, 07 Aug 2020 22:19:07 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id z14so3782585ljm.1
- for <xen-devel@lists.xenproject.org>; Fri, 07 Aug 2020 15:19:07 -0700 (PDT)
+ id f8dc32a9-9fa5-484b-b7a9-4751a7c1e700;
+ Fri, 07 Aug 2020 23:45:11 +0000 (UTC)
+Received: by mail-lf1-x144.google.com with SMTP id h8so1834498lfp.9
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Aug 2020 16:45:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=kj4Bm7zVW/G9YqXBxFTfDMQ1Hf0mmGOOW4bVv9Zf+rU=;
- b=H4b6LI2upQmf7gF/zfst/s6b7W3sbHGR0CI81Qfutl3T4ayiOOU7tPzDF102t3waf3
- oPwlnc5XQIWklh0W4P4R08U3VG0tXqL9olZQQ0LxNjdD7wBBrwirG0FMFMQkvXn9zPxJ
- 8SS1R2q5rH1gVy3PlptmUNU3AIbHwXCGuqr+6NBYVAIdDO893NkXlmEDOPT16jJmU7zX
- Gs8Wv78eajDOZG3nzOP/QVBFVtX9+nx7PTC4eC4ooLMokPbaqoGtbkodDHWtRg9ujoqd
- rVhx6+46hULAzH9w8BP/ag90GJI3Cqdd7AMIymKSd4pcv1sCcla1j5K5LFGs2BkLfhou
- Ubmw==
+ bh=/DvT9xa8toEseeHzoJwpWlVyvQeSAfvo/Pdjio7ZUHo=;
+ b=TRk1K5rTfN3WTqw7I9O08Ep5Yb08hOBYekkD6qLJIRCIyLnzQW29UMpkjU751YxW1N
+ KLP2f79jgfxjqNx0wo1tTJ1envrH+cE5+Oaq1Md42cXR7SzvDyt+GDiIQiUbKCsX5pV2
+ QgKDYum5MYd/3oaj82C0k3G9GTELN7Skawkz0hXnu/hUj1Dh6nNfgh7T5zXMtzeVZzCb
+ feKZJ18rXgmVqfPDDADPyhwh6xVs6yULkeGdLle6yZ4QZOeCCI+Bggc7chx4cYveTAYE
+ kB8bTWfP25+JT/MNdeYjwS5UbatiRSPoHUxmeGFQ3d/9BcWSYJDpfzBESOQvwBnUVLXl
+ UHqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=kj4Bm7zVW/G9YqXBxFTfDMQ1Hf0mmGOOW4bVv9Zf+rU=;
- b=KnvrWhLpjCECE308BT2k32Ilp6yjYM6yFa77Y0Jc3jFuOudNAyUsy08CA8KvOS07bg
- q+4O3ELt1olg7oE+J0fH/pgdAPpr3vs2dNYv1nBlVzJzizMiLwJV30/OXirLUeloyMG3
- lGEZyIAbbjAuAUI6TQzAQijMFcr32cknJKfpyjAQkfucKZhFZKuCfYS/oT/b0AxPue2S
- QMTxyNkAHPnrzam/obZ2f7BXUUO4tiZnVa2yYqnErobL8P6TPzJ8tWHVVJe5lSz2My43
- fE/2ZpoMbo6RFjpB7qBXLXvOiYVHwlbj/4o4aWKVWa3ay5+0waNiPdwiZbdu9LTaPtJa
- JFsw==
-X-Gm-Message-State: AOAM533XK6cmz3sx0+tcd87k9xAKOzRO+zVtXSA0aAMq2XQqMbNpMjmL
- 3+LtQToQLcUHi92nBnQHOhg=
-X-Google-Smtp-Source: ABdhPJxgEB9BFCLKt0ZaVMBqxEgnqk5i7MFsZ211f4+LpjvjkG+xNiZS+99oxE4r1FCD7OfBpzqaEA==
-X-Received: by 2002:a2e:9c86:: with SMTP id x6mr6961727lji.346.1596838745819; 
- Fri, 07 Aug 2020 15:19:05 -0700 (PDT)
+ bh=/DvT9xa8toEseeHzoJwpWlVyvQeSAfvo/Pdjio7ZUHo=;
+ b=GPhE3VMJZAavHFQhX1WixHpz63DUd5OL2r72MamBaFzlWVA8py5V2Ea6Nyg+rNwzlg
+ xRWPhBfa3BEmWLdEwY5ftsbrYM61fh4MybjVy6mrI4sx2Qe41Kr6txqQjWD4Bk3gQuTz
+ bwBV6bR+GUo/F5a7KJTmWo8Rc1Pw0vQVTvn3FzDnITFtlzq0tgosTD432YUSPjYToOy4
+ v7UuOHNiZ7gseyB1AuAHqx+BleAHGfnIqZTC4iI4kpzITJf+EDd5jWfZ/dtsBb0mKfTs
+ 3G1VIRjPO3rLQnU49qJjZlUZTDON9DNVIwQEPPZcGzRVcWPXCpTWiRIkZL4WwWrV6PW3
+ 5mkQ==
+X-Gm-Message-State: AOAM531cd2VgFO9OWvJ6shhqPo5i1b/BhALI1ysWnSNx0lcxv/ZPHN6P
+ Il3xmu27MdYk8g+oKhvj6BU=
+X-Google-Smtp-Source: ABdhPJyvjoFf7UPJOZrqQkzqOQbQA2Is69QLebe6zjCOg3y15r5kBkOQz4J/k0430iZyH7agJ3rAOQ==
+X-Received: by 2002:a19:3c7:: with SMTP id 190mr7456986lfd.14.1596843909932;
+ Fri, 07 Aug 2020 16:45:09 -0700 (PDT)
 Received: from [192.168.1.2] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id g24sm4298490ljl.139.2020.08.07.15.19.04
+ by smtp.gmail.com with ESMTPSA id g24sm4364133ljl.139.2020.08.07.16.45.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Aug 2020 15:19:05 -0700 (PDT)
+ Fri, 07 Aug 2020 16:45:09 -0700 (PDT)
 Subject: Re: [RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature common
 To: Stefano Stabellini <sstabellini@kernel.org>
 References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
@@ -64,14 +64,14 @@ References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
  <013b142d-5296-5bbe-7d19-903f59e0c974@gmail.com>
  <alpine.DEB.2.21.2008071259580.16004@sstabellini-ThinkPad-T480s>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <06f78323-b8f5-fd11-486a-437267eccc29@gmail.com>
-Date: Sat, 8 Aug 2020 01:19:03 +0300
+Message-ID: <910ec6ee-1076-2c9d-c01d-b6b4cc0bc6b8@gmail.com>
+Date: Sat, 8 Aug 2020 02:45:03 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
 In-Reply-To: <alpine.DEB.2.21.2008071259580.16004@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -98,7 +98,7 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 08.08.20 00:50, Stefano Stabellini wrote:
 
-Hi Stefano
+Hi
 
 > On Fri, 7 Aug 2020, Oleksandr wrote:
 >> On 06.08.20 03:37, Stefano Stabellini wrote:
@@ -151,166 +151,27 @@ Hi Stefano
 > I think you should check the ioreq->state in try_fwd_ioserv(), if the
 > result is ready, then ioreq->state should be STATE_IORESP_READY, and you
 > can return IO_HANDLED.
-
-Indeed! Just coming to this opinion I saw your answer)
-
-This is a dirty test patch:
-
-
----
-  xen/arch/arm/io.c               | 12 ++++++++++++
-  xen/arch/arm/ioreq.c            | 12 ++++++++++++
-  xen/arch/arm/traps.c            |  6 ++++--
-  xen/include/asm-arm/hvm/ioreq.h |  2 ++
-  xen/include/asm-arm/traps.h     |  3 +++
-  5 files changed, 33 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-index 436f669..65a08f8 100644
---- a/xen/arch/arm/io.c
-+++ b/xen/arch/arm/io.c
-@@ -130,6 +130,10 @@ static enum io_state try_fwd_ioserv(struct 
-cpu_user_regs *regs,
-      {
-      case STATE_IOREQ_NONE:
-          break;
-+
-+    case STATE_IORESP_READY:
-+        return IO_HANDLED;
-+
-      default:
-          printk("d%u wrong state %u\n", v->domain->domain_id,
-                 vio->io_req.state);
-@@ -156,9 +160,11 @@ static enum io_state try_fwd_ioserv(struct 
-cpu_user_regs *regs,
-      else
-          vio->io_completion = HVMIO_mmio_completion;
-
-+#if 0
-      /* XXX: Decide what to do */
-      if ( rc == IO_RETRY )
-          rc = IO_HANDLED;
-+#endif
-
-      return rc;
-  }
-@@ -185,6 +191,12 @@ enum io_state try_handle_mmio(struct cpu_user_regs 
-*regs,
-
-  #ifdef CONFIG_IOREQ_SERVER
-          rc = try_fwd_ioserv(regs, v, &info);
-+        if ( rc == IO_HANDLED )
-+        {
-+            printk("HANDLED %s[%d]\n", __func__, __LINE__);
-+            handle_mmio_finish();
-+        } else
-+            printk("RETRY %s[%d]\n", __func__, __LINE__);
-  #endif
-
-          return rc;
-diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
-index 8f60c41..c8ed454 100644
---- a/xen/arch/arm/ioreq.c
-+++ b/xen/arch/arm/ioreq.c
-@@ -33,8 +33,20 @@
-  #include <public/hvm/dm_op.h>
-  #include <public/hvm/ioreq.h>
-
-+#include <asm/traps.h>
-+
-  bool handle_mmio(void)
-  {
-+    struct cpu_user_regs *regs = guest_cpu_user_regs();
-+    const union hsr hsr = { .bits = regs->hsr };
-+
-+    do_trap_stage2_abort_guest(regs, hsr);
-+
-+    return true;
-+}
-+
-+bool handle_mmio_finish(void)
-+{
-      struct vcpu *v = current;
-      struct cpu_user_regs *regs = guest_cpu_user_regs();
-      const union hsr hsr = { .bits = regs->hsr };
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index ea472d1..3493d77 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -1882,7 +1882,7 @@ static bool try_map_mmio(gfn_t gfn)
-      return !map_regions_p2mt(d, gfn, 1, mfn, p2m_mmio_direct_c);
-  }
-
--static void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
-+void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
-                                         const union hsr hsr)
-  {
-      /*
-@@ -1965,11 +1965,13 @@ static void do_trap_stage2_abort_guest(struct 
-cpu_user_regs *regs,
-              case IO_HANDLED:
-                  advance_pc(regs, hsr);
-                  return;
-+            case IO_RETRY:
-+                /* finish later */
-+                return;
-              case IO_UNHANDLED:
-                  /* IO unhandled, try another way to handle it. */
-                  break;
-              default:
--                /* XXX: Handle IO_RETRY */
-                  ASSERT_UNREACHABLE();
-              }
-          }
-diff --git a/xen/include/asm-arm/hvm/ioreq.h 
-b/xen/include/asm-arm/hvm/ioreq.h
-index 392ce64..fb4684d 100644
---- a/xen/include/asm-arm/hvm/ioreq.h
-+++ b/xen/include/asm-arm/hvm/ioreq.h
-@@ -27,6 +27,8 @@
-
-  bool handle_mmio(void);
-
-+bool handle_mmio_finish(void);
-+
-  static inline bool handle_pio(uint16_t port, unsigned int size, int dir)
-  {
-      /* XXX */
-diff --git a/xen/include/asm-arm/traps.h b/xen/include/asm-arm/traps.h
-index 997c378..392fdb1 100644
---- a/xen/include/asm-arm/traps.h
-+++ b/xen/include/asm-arm/traps.h
-@@ -40,6 +40,9 @@ void advance_pc(struct cpu_user_regs *regs, const 
-union hsr hsr);
-
-  void inject_undef_exception(struct cpu_user_regs *regs, const union 
-hsr hsr);
-
-+void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
-+                                        const union hsr hsr);
-+
-  /* read as zero and write ignore */
-  void handle_raz_wi(struct cpu_user_regs *regs, int regidx, bool read,
-                     const union hsr hsr, int min_el);
--- 
-2.7.4
-
-
 >
 > That is assuming that you are looking at the live version of the ioreq
 > shared with QEMU instead of a private copy of it, which I am not sure.
 > Looking at try_fwd_ioserv() it would seem that vio->io_req is just a
 > copy? The live version is returned by get_ioreq() ?
->
+
+If I understand the code correctly, indeed, get_ioreq() returns live 
+version shared with emulator.
+Desired state change (STATE_IORESP_READY) what actually the 
+hvm_wait_for_io() is waiting for is set here (in my case):
+https://xenbits.xen.org/gitweb/?p=people/pauldu/demu.git;a=blob;f=demu.c;h=f785b394d0cf141dffa05bdddecf338214358aea;hb=refs/heads/master#l698 
+
+
 > Even in handle_hvm_io_completion, instead of setting vio->io_req.state
 > to STATE_IORESP_READY by hand, it would be better to look at the live
 > version of the ioreq because QEMU will have already set ioreq->state
 > to STATE_IORESP_READY (hw/i386/xen/xen-hvm.c:cpu_handle_ioreq).
-
-I need to recheck that.
-
-
-Thank you.
+It seems that after detecting STATE_IORESP_READY in hvm_wait_for_io() 
+the state of live version is set to STATE_IOREQ_NONE immediately, so 
+looking at the live version down the handle_hvm_io_completion()
+or in try_fwd_ioserv() shows us nothing I am afraid.
 
 
 -- 
