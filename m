@@ -2,63 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC13F23EFD8
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 17:13:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6634323EFDB
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 17:14:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k4434-0002d1-5d; Fri, 07 Aug 2020 15:12:46 +0000
+	id 1k443z-0002gj-G9; Fri, 07 Aug 2020 15:13:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1r1P=BR=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1k4432-0002cw-NC
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 15:12:44 +0000
-X-Inumbo-ID: 6e73d427-1216-4706-998b-76718d023b63
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=l16/=BR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k443x-0002g1-O1
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 15:13:41 +0000
+X-Inumbo-ID: 10323f95-3e1c-4165-8328-722a33e63570
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6e73d427-1216-4706-998b-76718d023b63;
- Fri, 07 Aug 2020 15:12:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1596813162;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=iWe7U1LSxZC/AETA/35Xuxm0unXNKWryeklFWGAW/5A=;
- b=Mak56FsSH1oyTqFmFDYgQkvPmOIlCozJQLd30r4LNVa1Dgvj+pvf3tjm
- ce+C7ZsJpk30NgeAJlAPg2gzfTxznSR/hky47Ncboy/ptgMzgSxagADwV
- +vvprgmf7Ukb8eyNU9RyuIvyAZGPqG3jKDFOnYIHIJ6Mw4dU1J9S0R139 s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none
-IronPort-SDR: sItmGOFlMv+DnxvJprH98OAaukHpi19xFUrQhHgAVsoiJokVCvfC55M7C+EWKhjd77jrRJdLrv
- 3NaT12TvtHyMcv6JKR0+B+WzR1pbqIC1w0xJr1854GNIC9wbumJDtRWpAn0QsHGlEgvFakOcYZ
- v0XWPEHWHxyFml42ssnFzHf6vvRY5oOcIx4oRVLFIg+Bz211OjzASSoqoNIC1krG+UsmUm8Lrs
- gGNs1tFeIp2cYcyoh267I/PqdnnXHwx+YDZsvZA94fIrjF6dB1ulth/POGhrVugU2jCWepCBBr
- oaM=
-X-SBRS: 2.7
-X-MesageID: 24971644
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.75,446,1589256000"; d="scan'208";a="24971644"
-Subject: Re: [PATCH 3/4] build: also check for empty .bss.* in .o -> .init.o
- conversion
-To: Jan Beulich <jbeulich@suse.com>
-References: <305c2532-408a-9f78-61fe-c90a2e86eb8e@suse.com>
- <c99cf808-0710-51b1-c07c-07bf237e22a3@suse.com>
- <5b2bbc31-0095-c3e2-9e34-20453ea2aa5f@citrix.com>
- <61481966-3052-ebf2-e23b-aac292cd09a1@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <9a3cd872-bc6c-3113-fdf9-2f80ad8fabce@citrix.com>
-Date: Fri, 7 Aug 2020 16:12:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ id 10323f95-3e1c-4165-8328-722a33e63570;
+ Fri, 07 Aug 2020 15:13:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=FKsFWzYGU6fzzaDiAZUitSZ5clSCSNIRQFoYu57Cyco=; b=V6MRUQD1g03ROQg+OV9UE6+T4
+ s0U9hNTMr/SVHfxXdlN/Gx3HL0HAzMd4FmfXo1QCLIbjzpxGWvVuqCqSlzYl7UwiY2PDTxiSYuFas
+ 4qNVb84LebK4XWDrpEgOCv5LSPhi7Gn3Er/rQ2rsU0Twy4tndBvMZ6C1AajtzPP36tIy0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k443q-0003NZ-7S; Fri, 07 Aug 2020 15:13:34 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k443p-0005fN-S1; Fri, 07 Aug 2020 15:13:33 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k443p-0003UG-RM; Fri, 07 Aug 2020 15:13:33 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152524-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <61481966-3052-ebf2-e23b-aac292cd09a1@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: [xen-unstable-smoke test] 152524: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=16dcc135e89663628ee2eaf2d02991fc9ce954bf
+X-Osstest-Versions-That: xen=b2bc1e714462c6cc222e3bbc38d87b039b4fa405
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 07 Aug 2020 15:13:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,31 +66,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07/08/2020 11:56, Jan Beulich wrote:
-> On 06.08.2020 18:16, Andrew Cooper wrote:
->> On 06/08/2020 10:05, Jan Beulich wrote:
->> Can't we remove all of this by having CONFIG_XEN_PE expressed/selectable
->> properly in Kconfig, and gathering all the objects normally, rather than
->> bodging all of common/efi/ through arch/efi/ ?
-> _If_ we settle on Kconfig to be allowed to check compiler (and linker)
-> features, then yes. This continues to be a pending topic though, so
-> the switch can't be made like this at this point in time. (It could be
-> made a Kconfig item now - which, when enabled, implies the assertion
-> that a capable tool chain is in use.)
+flight 152524 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152524/
 
-I am still of the opinion that nothing needs discussing, but you are
-obviously not.
+Failures :-/ but no regressions.
 
-Please raise this as a topic and lets discuss it, because it has a
-meaningful impacting on a large number of pending series.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-~Andrew
+version targeted for testing:
+ xen                  16dcc135e89663628ee2eaf2d02991fc9ce954bf
+baseline version:
+ xen                  b2bc1e714462c6cc222e3bbc38d87b039b4fa405
+
+Last test of basis   152494  2020-08-05 17:01:20 Z    1 days
+Testing same since   152524  2020-08-07 12:02:32 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   b2bc1e7144..16dcc135e8  16dcc135e89663628ee2eaf2d02991fc9ce954bf -> smoke
 
