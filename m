@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C9D723F49A
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 23:51:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D44DF23F498
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 23:51:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k4AGR-0004ke-JP; Fri, 07 Aug 2020 21:50:59 +0000
+	id 1k4AGg-0004nO-RX; Fri, 07 Aug 2020 21:51:14 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tr6f=BR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1k4AGQ-0004kZ-EI
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 21:50:58 +0000
-X-Inumbo-ID: ffb5e211-c1d8-426a-9af0-6e8b40d0b556
+ id 1k4AGf-0004n5-3R
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 21:51:13 +0000
+X-Inumbo-ID: 7fae22d1-4225-4835-b1c8-1287742aeb5b
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ffb5e211-c1d8-426a-9af0-6e8b40d0b556;
- Fri, 07 Aug 2020 21:50:57 +0000 (UTC)
+ id 7fae22d1-4225-4835-b1c8-1287742aeb5b;
+ Fri, 07 Aug 2020 21:51:12 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3742B2177B;
- Fri,  7 Aug 2020 21:50:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 43BA32177B;
+ Fri,  7 Aug 2020 21:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596837056;
- bh=CG9QwhsLJfw504BN17t/b6iO0h5SQDJspA7AuuEQLzE=;
+ s=default; t=1596837071;
+ bh=BS4dpglETiiSLoYi4FTffbo0X4N/96tbX+74HErGi20=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=h7kqbL5Y5/HQcE/JUcQ320EUR2zVtfQQjXwZXHyGFzmg8VqZgbuoXUU7rZwm3Bu3Z
- wJUtq78ZjrKyN7vYfoN6y7suSCmz3kcptDBqm6PC9sBhdM2h+/vIpcgI3Vg7vq4Mdd
- KKc9YAkATqT2L/+E/C+vG0e0onh93BsnczQ6NfUs=
-Date: Fri, 7 Aug 2020 14:50:55 -0700 (PDT)
+ b=k4cfZ2rm8/F/isH3OXkB2W9ohWhkTMVtgic98icawn1kFHg/k8MxO9iloO49A5Ehk
+ vk1NIUVa/YQs/yIp3YhBdehR5c9BMUDnRr4IGgPfm39Ylw6BVCWFtMrAsEHYuxzb3p
+ g1IPttt9MKU4GTSpbqmYn+e3JG5k1Uckbat5N3hc=
+Date: Fri, 7 Aug 2020 14:51:10 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [RFC PATCH V1 05/12] hvm/dm: Introduce
- xendevicemodel_set_irq_level DM op
-In-Reply-To: <d8aa0f36-d3c4-011a-9ec1-32c1e3118112@suse.com>
-Message-ID: <alpine.DEB.2.21.2008071253520.16004@sstabellini-ThinkPad-T480s>
-References: <1596478888-23030-1-git-send-email-olekstysh@gmail.com>
- <1596478888-23030-6-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2008041358150.5748@sstabellini-ThinkPad-T480s>
- <00e261e0-295a-9cd8-ed11-7e3801a4eb58@xen.org>
- <alpine.DEB.2.21.2008050943300.5748@sstabellini-ThinkPad-T480s>
- <92e2b136-8468-2877-0e8c-c13ff2a0a1fb@xen.org>
- <alpine.DEB.2.21.2008061422300.16004@sstabellini-ThinkPad-T480s>
- <d8aa0f36-d3c4-011a-9ec1-32c1e3118112@suse.com>
+Subject: Re: [PATCH 00/14] kernel-doc: public/arch-arm.h
+In-Reply-To: <7923d0f4-a446-c852-5423-0fe65ef27a41@suse.com>
+Message-ID: <alpine.DEB.2.21.2008071210140.16004@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2008061605410.16004@sstabellini-ThinkPad-T480s>
+ <7923d0f4-a446-c852-5423-0fe65ef27a41@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -60,139 +53,80 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org, wl@xen.org,
+ andrew.cooper3@citrix.com, ian.jackson@eu.citrix.com, george.dunlap@citrix.com,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On Fri, 7 Aug 2020, Jan Beulich wrote:
 > On 07.08.2020 01:49, Stefano Stabellini wrote:
-> > On Thu, 6 Aug 2020, Julien Grall wrote:
-> >> On 06/08/2020 01:37, Stefano Stabellini wrote:
-> >>> On Wed, 5 Aug 2020, Julien Grall wrote:
-> >>>> On 05/08/2020 00:22, Stefano Stabellini wrote:
-> >>>>> On Mon, 3 Aug 2020, Oleksandr Tyshchenko wrote:
-> >>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> >>>>>>
-> >>>>>> This patch adds ability to the device emulator to notify otherend
-> >>>>>> (some entity running in the guest) using a SPI and implements Arm
-> >>>>>> specific bits for it. Proposed interface allows emulator to set
-> >>>>>> the logical level of a one of a domain's IRQ lines.
-> >>>>>>
-> >>>>>> Please note, this is a split/cleanup of Julien's PoC:
-> >>>>>> "Add support for Guest IO forwarding to a device emulator"
-> >>>>>>
-> >>>>>> Signed-off-by: Julien Grall <julien.grall@arm.com>
-> >>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> >>>>>> ---
-> >>>>>>    tools/libs/devicemodel/core.c                   | 18
-> >>>>>> ++++++++++++++++++
-> >>>>>>    tools/libs/devicemodel/include/xendevicemodel.h |  4 ++++
-> >>>>>>    tools/libs/devicemodel/libxendevicemodel.map    |  1 +
-> >>>>>>    xen/arch/arm/dm.c                               | 22
-> >>>>>> +++++++++++++++++++++-
-> >>>>>>    xen/common/hvm/dm.c                             |  1 +
-> >>>>>>    xen/include/public/hvm/dm_op.h                  | 15
-> >>>>>> +++++++++++++++
-> >>>>>>    6 files changed, 60 insertions(+), 1 deletion(-)
-> >>>>>>
-> >>>>>> diff --git a/tools/libs/devicemodel/core.c
-> >>>>>> b/tools/libs/devicemodel/core.c
-> >>>>>> index 4d40639..30bd79f 100644
-> >>>>>> --- a/tools/libs/devicemodel/core.c
-> >>>>>> +++ b/tools/libs/devicemodel/core.c
-> >>>>>> @@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
-> >>>>>>        return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
-> >>>>>>    }
-> >>>>>>    +int xendevicemodel_set_irq_level(
-> >>>>>> +    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
-> >>>>>> +    unsigned int level)
-> >>>>>
-> >>>>> It is a pity that having xen_dm_op_set_pci_intx_level and
-> >>>>> xen_dm_op_set_isa_irq_level already we need to add a third one, but from
-> >>>>> the names alone I don't think we can reuse either of them.
-> >>>>
-> >>>> The problem is not the name...
-> >>>>
-> >>>>>
-> >>>>> It is very similar to set_isa_irq_level. We could almost rename
-> >>>>> xendevicemodel_set_isa_irq_level to xendevicemodel_set_irq_level or,
-> >>>>> better, just add an alias to it so that xendevicemodel_set_irq_level is
-> >>>>> implemented by calling xendevicemodel_set_isa_irq_level. Honestly I am
-> >>>>> not sure if it is worth doing it though. Any other opinions?
-> >>>>
-> >>>> ... the problem is the interrupt field is only 8-bit. So we would only be
-> >>>> able
-> >>>> to cover IRQ 0 - 255.
-> >>>
-> >>> Argh, that's not going to work :-(  I wasn't sure if it was a good idea
-> >>> anyway.
-> >>>
-> >>>
-> >>>> It is not entirely clear how the existing subop could be extended without
-> >>>> breaking existing callers.
-> >>>>
-> >>>>> But I think we should plan for not needing two calls (one to set level
-> >>>>> to 1, and one to set it to 0):
-> >>>>> https://marc.info/?l=xen-devel&m=159535112027405
-> >>>>
-> >>>> I am not sure to understand your suggestion here? Are you suggesting to
-> >>>> remove
-> >>>> the 'level' parameter?
-> >>>
-> >>> My hope was to make it optional to call the hypercall with level = 0,
-> >>> not necessarily to remove 'level' from the struct.
-> >>
-> >> From my understanding, the hypercall is meant to represent the status of the
-> >> line between the device and the interrupt controller (either low or high).
-> >>
-> >> This is then up to the interrupt controller to decide when the interrupt is
-> >> going to be fired:
-> >>   - For edge interrupt, this will fire when the line move from low to high (or
-> >> vice versa).
-> >>   - For level interrupt, this will fire when line is high (assuming level
-> >> trigger high) and will keeping firing until the device decided to lower the
-> >> line.
-> >>
-> >> For a device, it is common to keep the line high until an OS wrote to a
-> >> specific register.
-> >>
-> >> Furthermore, technically, the guest OS is in charge to configure how an
-> >> interrupt is triggered. Admittely this information is part of the DT, but
-> >> nothing prevent a guest to change it.
-> >>
-> >> As side note, we have a workaround in Xen for some buggy DT (see the arch
-> >> timer) exposing the wrong trigger type.
-> >>
-> >> Because of that, I don't really see a way to make optional. Maybe you have
-> >> something different in mind?
+> > # THE KERNEL-DOC KEYWORDS USED
 > > 
-> > For level, we need the level parameter. For edge, we are only interested
-> > in the "edge", right?
+> > I used the "struct" keyword for structures, i.e.:
+> > 
+> > /**
+> >  * struct foobar
+> >  */
+> > 
+> > "struct" makes kernel-doc go and look at the following struct in the
+> > code, parses struct members comments, and generate a doc optimized to
+> > describe a struct. Note that in these cases the struct needs to follow
+> > immediately the comment. Thus, I had to move an #define between the
+> > comment and the struct in a few places.
+> > 
+> > Also note that kernel-doc supports nested structs but due to a quirk,
+> > comments for nested struct members cannot be on a single line. They have
+> > to be:
+> > 
+> >   struct foo {
+> >       struct {
+> >           /**
+> >            * @u.bar: foobar
+> >            */
+> >           bar;
+> >       } u;
+> >   }
 > 
-> I don't think so, unless Arm has special restrictions. Edges can be
-> both rising and falling ones.
+> Urgh.
+> 
+> > Otherwise for normal struct the single line comment works fine:
+> > 
+> >   struct foo {
+> >       /** @bar: foobar */
+> >       bar;
+> >   }
+> > 
+> > 
+> > I used the "DOC" keyword otherwise. "DOC" is freeform, not particularly
+> > tied to anything following (functions, enums, etc.) I kept a black line
+> > between "DOC" and the following comment if multiline and no blank line
+> > if it is single line.
+> > 
+> >   /**
+> >    * DOC: doc1
+> >    * single line comment
+> >    */
+> > 
+> >    /**
+> >     * DOC: doc2
+> >     *
+> >     * this is
+> >     * multiline
+> >     */
+> 
+> I think before the first piece of this goes in (or together with it
+> going in), ./CODING_STYLE wants to be updated to reflect this. It is
+> particularly relevant imo to mention the quirk above and hence the
+> necessary exception (even better of course would be to get the quirk
+> out of kernel-doc).
+ 
+Yes, I can add a patch to change ./CODING_STYLE. I think we should
+encourage people to use the kernel-doc syntax at least for public
+headers. I can document the use of the "struct" and "DOC" keywords, and
+also the quirk with nested structs.
 
-And the same is true for level interrupts too: they could be active-low
-or active-high.
-
-
-Instead of modelling the state of the line, which seems to be a bit
-error prone especially in the case of a single-device emulator that
-might not have enough information about the rest of the system (it might
-not know if the interrupt is active-high or active-low), we could model
-the triggering of the interrupt instead.
-
-In the case of level=1, it would mean that the interrupt line is active,
-no matter if it is active-low or active-high. In the case of level=0, it
-would mean that it is inactive.
-
-Similarly, in the case of an edge interrupt edge=1 or level=1 would mean
-that there is an edge, no matter if it is a rising or falling.
+Note that instead the black line after DOC is completely optional from
+a kernel-doc perspective, I did it for style, but I can add that to
+./CODING_STYLE too.
 
