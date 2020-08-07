@@ -2,49 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 570B523F2A6
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 20:23:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E487D23F323
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 21:37:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k470v-0003ro-4j; Fri, 07 Aug 2020 18:22:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Fjaa=BR=trmm.net=hudson@srs-us1.protection.inumbo.net>)
- id 1k470u-0003rj-6i
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 18:22:44 +0000
-X-Inumbo-ID: c2036141-5803-4be7-9ca0-92d2ce9a077a
-Received: from mail2.protonmail.ch (unknown [185.70.40.22])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c2036141-5803-4be7-9ca0-92d2ce9a077a;
- Fri, 07 Aug 2020 18:22:41 +0000 (UTC)
-Date: Fri, 07 Aug 2020 18:22:36 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=trmm.net;
- s=protonmail; t=1596824560;
- bh=mWuowmtVHupWq5n0J2fbIRjJDLNlHQjQNXMUB8Hgh2U=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=qF7p/RWxNknRFlOPEoAIAMhmrmqzJlZIkjpHwb9252ja1mJkPZowWh8M8zdzfQ59h
- UF9RUhWVR5zCp0sY5uSHhBGpWd3g3SkuH/Utf11DQpvidKQ2+AN3Xm8JLTBs2ERs8D
- rdXtTrn9RW/tBjUVU04DYaqdr1i5L+pyOinJipoI=
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-From: Trammell Hudson <hudson@trmm.net>
-Subject: Re: [RFC] efi/boot: Unified Xen executable for UEFI Secure Boot
- support
-Message-ID: <CXSQq8DgbTTtEtGG6W67lvGVMmT92dpQQWdC5bHKya9WwRwKZmcI3Oy4clutRHjY7BjDay5i-Iy5QVc6PAQsOKmIGvrI1MrfuN7RLnOnG1E=@trmm.net>
-In-Reply-To: <132b5b88-c78d-01cf-df27-6430689570e4@citrix.com>
-References: <SQvDCuitxs8ZbVLJqpnPlbhTvIw_fMkZDetiBpJD-DID2X8EnTvReCaJgThJ8b-3kS9gHm3-HYRqNJk-k1cVYPIQf04R8uuhPjm9WNKzJh4=@trmm.net>
- <1bd2d79e-5bef-835c-f6cc-9fd367e8beb7@suse.com>
- <FKRB6MJm-n6DwX0LoYfI4Ysny1U_xRbxvZn7ttLHGxpKTEnAmcoDMLsLsgKZGYaB2eVuIzoNQ6UPpsfiMlaRPW-7AIXQ9mqz_i9sF-tI2Ks=@trmm.net>
- <5e3b16b3-0f93-4683-dcc7-852c805870c8@suse.com>
- <y5v76XS6whE9vu9FqI2eN6ieuvXkjnAJ1oaBXdXyKKNjJxvbLqaRnHi99iq_AIknqaQ9V18cLCLy9v3dV8YIEsfyrQq9apJRcWiQeFXuGuk=@trmm.net>
- <132b5b88-c78d-01cf-df27-6430689570e4@citrix.com>
+	id 1k48AK-0001SF-44; Fri, 07 Aug 2020 19:36:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=l16/=BR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1k48AI-0001Ru-Ag
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 19:36:30 +0000
+X-Inumbo-ID: 26a4b76b-339e-4466-bdf6-bb851ba2d46b
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 26a4b76b-339e-4466-bdf6-bb851ba2d46b;
+ Fri, 07 Aug 2020 19:36:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Lsxnf6EbTRVC/vcZ0p4MuG+LUGoBKLkHXP/GQPSnZiE=; b=wsM6pdD2Jtkd96vGmukpPn9VS
+ t5sTQwmmzfYApKKQ9XqkA43DIbJXmBrplnHuVRkd7h3eXxLKQOwd/vpdHyEc8KiBeXip9s9KlGB5j
+ /NpiiMbcnWKnyBiA70xjIP4rBxO509Oo6Kzst6BSJRXcrfpjgt3lv0Jn6i+cjwWTNUACw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k48AB-0001OU-RO; Fri, 07 Aug 2020 19:36:23 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1k48AB-0007Zg-Hd; Fri, 07 Aug 2020 19:36:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1k48AB-0000km-Ge; Fri, 07 Aug 2020 19:36:23 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-152532-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=7.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mail.protonmail.ch
+Subject: [xen-unstable-smoke test] 152532: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=90c7eee53fcc0b48bd51aa3a7d1d0d9980ce1a7a
+X-Osstest-Versions-That: xen=16dcc135e89663628ee2eaf2d02991fc9ce954bf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 07 Aug 2020 19:36:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,73 +66,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: Trammell Hudson <hudson@trmm.net>
-Cc: Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thursday, August 6, 2020 8:14 PM, Andrew Cooper <andrew.cooper3@citrix.c=
-om> wrote:
-> For SecureBoot, it is important that nothing which is signed can be
-> tricked into running unsigned code.
->
-> That includes configuration such as xen.cfg or the command line.
-> Consuming these from unsigned sources is ok, so long as we can guarantee
-> that the parsing is robust (see boothole for how this goes wrong), and
-> the effects are controlled.
+flight 152532 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/152532/
 
-In addition to the "unsafe_fsgsbase", the Linux command line is full
-of potential issues, from subtle ones like "lockdown=3Dnone" to more
-brute force things like "init=3D/bin/sh".  safeboot uses the signed
-kernel command line to pass in the root hash of the dm-verity Merkle
-tree, which cryptographically protects the rest of the runtime, so
-it definitely needs to come from a trusted source.
+Failures :-/ but no regressions.
 
-> [...]
-> In the absence of a full audit of all our command line arguments, and
-> extra vigilance reviewing code coming in, the safer alternative is to
-> prohibit use of the command line, and only accept it in its Kconfig
-> embedded form for now.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Turning off command line or config parsing might be a step too far.
-Since the xen.cfg in the unified image is included in the signature,
-any options configured in it should be trustworthy.  This makes it easier
-for distributions to have a Xen build with boot-time work arounds for
-different hardware or configurations.
+version targeted for testing:
+ xen                  90c7eee53fcc0b48bd51aa3a7d1d0d9980ce1a7a
+baseline version:
+ xen                  16dcc135e89663628ee2eaf2d02991fc9ce954bf
 
-> [...]
-> I think it might be worth having a CONFIG_SECURE_BOOT, selectable
-> initially only under CONFIG_EXPERT, and use it to force off various
-> other aspects of functionality, along with a list of known issues which
-> can be chipped away at before it can be declared supported.
+Last test of basis   152524  2020-08-07 12:02:32 Z    0 days
+Testing same since   152532  2020-08-07 17:04:43 Z    0 days    1 attempts
 
-That makes sense to me.  Either doing it at compile time (by making
-CONFIG_LIVEPATCH and CONFIG_KEXEC and etc depend on !CONFIG_SECURE_BOOT),
-or having a global variable that turns off the code (similar to the
-Linux lockdown patches that are triggered if UEFI secure boot is enabled).
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
 
-> [...]
-> I think it is great that work is being started in this direction, but
-> there is a huge quantity of work to do before a downstream could
-> plausibly put together a Xen system which honours the intent of SecureBoo=
-t.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-I'm really worried that the current shim based approach is a false sense
-of security -- it provides trivial ways for attackers to bypass the
-SecureBoot guarantees, so closing some of those easy holes with the
-verified unified image is definitely an incremental improvement towards
-a more secure system.
 
-However, I also don't want the unified image patch to get bogged down
-while trying to pursue every UEFI SecureBoot(tm) related issue, so
-perhaps the patch series should be renamed to only focus on the unified
-build part, not the SecureBoot part.  That way downstream distributions
-can use it to add the security features that they need (caveat lector),
-without necessarily depending on the strict UEFI compliance.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---
-Trammell
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   16dcc135e8..90c7eee53f  90c7eee53fcc0b48bd51aa3a7d1d0d9980ce1a7a -> smoke
 
