@@ -2,54 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5998323E9A9
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 11:00:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 220C623EA6B
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 11:34:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3yEU-0001oj-SG; Fri, 07 Aug 2020 09:00:10 +0000
+	id 1k3ylB-0004Vw-M8; Fri, 07 Aug 2020 09:33:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l16/=BR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1k3yET-0001oe-09
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 09:00:09 +0000
-X-Inumbo-ID: 65eaaea1-c3c9-4d95-ba4f-f9e50b9ed558
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=3abS=BR=tronnes.org=noralf@srs-us1.protection.inumbo.net>)
+ id 1k3yl9-0004Vr-Bx
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 09:33:55 +0000
+X-Inumbo-ID: cc44c402-c43c-493f-be3f-f049b9594f81
+Received: from smtp.domeneshop.no (unknown [2a01:5b40:0:3005::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 65eaaea1-c3c9-4d95-ba4f-f9e50b9ed558;
- Fri, 07 Aug 2020 09:00:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ id cc44c402-c43c-493f-be3f-f049b9594f81;
+ Fri, 07 Aug 2020 09:33:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds201912;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=s51XE3ddaoYXVBREoTTdiJ84Ux9ukeDufU0lMiwEsns=; b=hvVofteG/JPFR9mScBcE/5hYA
- zcjDN36c4qOonoh4eZEe5T9BL5hTZntNN4K98kH0lOdjd/RoaW9RJ0JAbgF6qB8JDidDlFkIKZJO0
- aRdy32pjWGFYzTtHt4aQrcPHMB9FmRPimC7I0DHR5ljrALMAmWgXpIO8JDZ50xypmp16A=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k3yEQ-0003PX-Uy; Fri, 07 Aug 2020 09:00:06 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1k3yEQ-0006rt-JN; Fri, 07 Aug 2020 09:00:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1k3yEQ-0004fi-Ip; Fri, 07 Aug 2020 09:00:06 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-152504-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dhBn85DVkd9WiwzdeA0ZAk87Jr2Z06qRR9qaDjfK2Q0=; b=m+PWgSDl91eMGK8rvIUKM0yLbY
+ BTtvVt7GHjbFDWuiAwCew1o4DpGo0X5EvPmAu5NoF3KVa/WrJcno0rE7yU1ZuLLtdori78nG3MTCt
+ /b8lIQ2wjTrAa0IiTxbfflVOoB7ItTWH5BtnD5ca03DmpWO/VJDk2VuV869dshjYbkabO+gvNdp24
+ JWObB1zbNo/5PI0p3ZVDSwL/BO7R7V/6mJxK0CCdbPFRQbzPeg7iUN/yZAnyl20Pngs2xjN3NmTPy
+ zdQzdFT7BoYqEc5G2bz0PhPFH2d51HiC/khBGUEla9ZiuFb88uEbH9k/urcGwnv8sV65Q7rLD6Dvg
+ 5yexQLUA==;
+Received: from 211.81-166-168.customer.lyse.net ([81.166.168.211]:52994
+ helo=[192.168.10.61])
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1k3yl5-0001BT-1d; Fri, 07 Aug 2020 11:33:51 +0200
+Subject: Re: [PATCH 5/6] drm/xen-front: Pass dumb buffer data offset to the
+ backend
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, boris.ostrovsky@oracle.com, jgross@suse.com,
+ airlied@linux.ie, daniel@ffwll.ch
+References: <20200731125109.18666-1-andr2000@gmail.com>
+ <20200731125109.18666-6-andr2000@gmail.com>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+Message-ID: <a8930c22-756f-0fc9-6288-8945a058764e@tronnes.org>
+Date: Fri, 7 Aug 2020 11:33:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [ovmf test] 152504: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=8834e10b30125daa47da9f6c5c1a41b4eafbae7f
-X-Osstest-Versions-That: ovmf=e188ecc8b4aed8fdd26b731d43883861f5e5e7b4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 07 Aug 2020 09:00:06 +0000
+In-Reply-To: <20200731125109.18666-6-andr2000@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +63,23 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, sstabellini@kernel.org,
+ dan.carpenter@oracle.com,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 152504 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/152504/
-
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 8834e10b30125daa47da9f6c5c1a41b4eafbae7f
-baseline version:
- ovmf                 e188ecc8b4aed8fdd26b731d43883861f5e5e7b4
-
-Last test of basis   152495  2020-08-05 17:41:20 Z    1 days
-Testing same since   152504  2020-08-06 12:15:14 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Peter Grehan <grehan@freebsd.org>
-  Rebecca Cran <rebecca@bsdio.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Den 31.07.2020 14.51, skrev Oleksandr Andrushchenko:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> While importing a dmabuf it is possible that the data of the buffer
+> is put with offset which is indicated by the SGT offset.
+> Respect the offset value and forward it to the backend.
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> ---
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   e188ecc8b4..8834e10b30  8834e10b30125daa47da9f6c5c1a41b4eafbae7f -> xen-tested-master
+Acked-by: Noralf Trønnes <noralf@tronnes.org>
 
