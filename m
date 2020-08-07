@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BF3223E933
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 10:38:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E289023E92D
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Aug 2020 10:38:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1k3xtk-0006y1-G1; Fri, 07 Aug 2020 08:38:44 +0000
+	id 1k3xta-0006sZ-Vj; Fri, 07 Aug 2020 08:38:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yQGK=BR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1k3xtj-0006sR-Ah
- for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 08:38:43 +0000
-X-Inumbo-ID: 840a6692-13d7-48e9-855b-33b292bdcd00
+ id 1k3xtZ-0006sR-DY
+ for xen-devel@lists.xenproject.org; Fri, 07 Aug 2020 08:38:33 +0000
+X-Inumbo-ID: 076e7353-05c9-4c5a-854f-579ddf3fa160
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 840a6692-13d7-48e9-855b-33b292bdcd00;
+ id 076e7353-05c9-4c5a-854f-579ddf3fa160;
  Fri, 07 Aug 2020 08:38:32 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 607D9B63F;
+ by mx2.suse.de (Postfix) with ESMTP id A0329B641;
  Fri,  7 Aug 2020 08:38:49 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org, x86@kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/7] x86/xen: eliminate xen-asm_64.S
-Date: Fri,  7 Aug 2020 10:38:21 +0200
-Message-Id: <20200807083826.16794-3-jgross@suse.com>
+Subject: [PATCH v3 3/7] x86/xen: drop tests for highmem in pv code
+Date: Fri,  7 Aug 2020 10:38:22 +0200
+Message-Id: <20200807083826.16794-4-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200807083826.16794-1-jgross@suse.com>
 References: <20200807083826.16794-1-jgross@suse.com>
@@ -52,434 +52,318 @@ Cc: Juergen Gross <jgross@suse.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-With 32-bit pv-guest support removed xen-asm_64.S can be merged with
-xen-asm.S
+With support for 32-bit pv guests gone pure pv-code no longer needs to
+test for highmem. Dropping those tests removes the need for flushing
+in some places.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- arch/x86/xen/Makefile     |   3 +-
- arch/x86/xen/xen-asm.S    | 179 +++++++++++++++++++++++++++++++++++
- arch/x86/xen/xen-asm_64.S | 192 --------------------------------------
- 3 files changed, 180 insertions(+), 194 deletions(-)
- delete mode 100644 arch/x86/xen/xen-asm_64.S
+ arch/x86/xen/enlighten_pv.c |  11 ++-
+ arch/x86/xen/mmu_pv.c       | 138 ++++++++++++++----------------------
+ 2 files changed, 57 insertions(+), 92 deletions(-)
 
-diff --git a/arch/x86/xen/Makefile b/arch/x86/xen/Makefile
-index 084de77a109e..5de137d536cc 100644
---- a/arch/x86/xen/Makefile
-+++ b/arch/x86/xen/Makefile
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
--OBJECT_FILES_NON_STANDARD_xen-asm_$(BITS).o := y
-+OBJECT_FILES_NON_STANDARD_xen-asm.o := y
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 7d90b3da8bb4..9fec952f84f3 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -347,6 +347,7 @@ static void set_aliased_prot(void *v, pgprot_t prot)
+ 	unsigned long pfn;
+ 	struct page *page;
+ 	unsigned char dummy;
++	void *av;
  
- ifdef CONFIG_FUNCTION_TRACER
- # Do not profile debug and lowlevel utilities
-@@ -34,7 +34,6 @@ obj-$(CONFIG_XEN_PV)		+= mmu_pv.o
- obj-$(CONFIG_XEN_PV)		+= irq.o
- obj-$(CONFIG_XEN_PV)		+= multicalls.o
- obj-$(CONFIG_XEN_PV)		+= xen-asm.o
--obj-$(CONFIG_XEN_PV)		+= xen-asm_$(BITS).o
+ 	ptep = lookup_address((unsigned long)v, &level);
+ 	BUG_ON(ptep == NULL);
+@@ -383,14 +384,10 @@ static void set_aliased_prot(void *v, pgprot_t prot)
+ 	if (HYPERVISOR_update_va_mapping((unsigned long)v, pte, 0))
+ 		BUG();
  
- obj-$(CONFIG_XEN_PVH)		+= enlighten_pvh.o
+-	if (!PageHighMem(page)) {
+-		void *av = __va(PFN_PHYS(pfn));
++	av = __va(PFN_PHYS(pfn));
  
-diff --git a/arch/x86/xen/xen-asm.S b/arch/x86/xen/xen-asm.S
-index c59d077510bf..d1272a63f097 100644
---- a/arch/x86/xen/xen-asm.S
-+++ b/arch/x86/xen/xen-asm.S
-@@ -6,12 +6,19 @@
-  * operations here; the indirect forms are better handled in C.
-  */
+-		if (av != v)
+-			if (HYPERVISOR_update_va_mapping((unsigned long)av, pte, 0))
+-				BUG();
+-	} else
+-		kmap_flush_unused();
++	if (av != v && HYPERVISOR_update_va_mapping((unsigned long)av, pte, 0))
++		BUG();
  
-+#include <asm/errno.h>
- #include <asm/asm-offsets.h>
- #include <asm/percpu.h>
- #include <asm/processor-flags.h>
-+#include <asm/segment.h>
-+#include <asm/thread_info.h>
-+#include <asm/asm.h>
- #include <asm/frame.h>
- #include <asm/asm.h>
+ 	preempt_enable();
+ }
+diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
+index 1f9500d0b839..3774fa6d2ef7 100644
+--- a/arch/x86/xen/mmu_pv.c
++++ b/arch/x86/xen/mmu_pv.c
+@@ -537,25 +537,26 @@ __visible p4d_t xen_make_p4d(p4dval_t p4d)
+ PV_CALLEE_SAVE_REGS_THUNK(xen_make_p4d);
+ #endif  /* CONFIG_PGTABLE_LEVELS >= 5 */
  
-+#include <xen/interface/xen.h>
-+
-+#include <linux/init.h>
- #include <linux/linkage.h>
+-static int xen_pmd_walk(struct mm_struct *mm, pmd_t *pmd,
+-		int (*func)(struct mm_struct *mm, struct page *, enum pt_level),
+-		bool last, unsigned long limit)
++static void xen_pmd_walk(struct mm_struct *mm, pmd_t *pmd,
++			 void (*func)(struct mm_struct *mm, struct page *,
++				      enum pt_level),
++			 bool last, unsigned long limit)
+ {
+-	int i, nr, flush = 0;
++	int i, nr;
+ 
+ 	nr = last ? pmd_index(limit) + 1 : PTRS_PER_PMD;
+ 	for (i = 0; i < nr; i++) {
+ 		if (!pmd_none(pmd[i]))
+-			flush |= (*func)(mm, pmd_page(pmd[i]), PT_PTE);
++			(*func)(mm, pmd_page(pmd[i]), PT_PTE);
+ 	}
+-	return flush;
+ }
+ 
+-static int xen_pud_walk(struct mm_struct *mm, pud_t *pud,
+-		int (*func)(struct mm_struct *mm, struct page *, enum pt_level),
+-		bool last, unsigned long limit)
++static void xen_pud_walk(struct mm_struct *mm, pud_t *pud,
++			 void (*func)(struct mm_struct *mm, struct page *,
++				      enum pt_level),
++			 bool last, unsigned long limit)
+ {
+-	int i, nr, flush = 0;
++	int i, nr;
+ 
+ 	nr = last ? pud_index(limit) + 1 : PTRS_PER_PUD;
+ 	for (i = 0; i < nr; i++) {
+@@ -566,29 +567,26 @@ static int xen_pud_walk(struct mm_struct *mm, pud_t *pud,
+ 
+ 		pmd = pmd_offset(&pud[i], 0);
+ 		if (PTRS_PER_PMD > 1)
+-			flush |= (*func)(mm, virt_to_page(pmd), PT_PMD);
+-		flush |= xen_pmd_walk(mm, pmd, func,
+-				last && i == nr - 1, limit);
++			(*func)(mm, virt_to_page(pmd), PT_PMD);
++		xen_pmd_walk(mm, pmd, func, last && i == nr - 1, limit);
+ 	}
+-	return flush;
+ }
+ 
+-static int xen_p4d_walk(struct mm_struct *mm, p4d_t *p4d,
+-		int (*func)(struct mm_struct *mm, struct page *, enum pt_level),
+-		bool last, unsigned long limit)
++static void xen_p4d_walk(struct mm_struct *mm, p4d_t *p4d,
++			 void (*func)(struct mm_struct *mm, struct page *,
++				      enum pt_level),
++			 bool last, unsigned long limit)
+ {
+-	int flush = 0;
+ 	pud_t *pud;
+ 
+ 
+ 	if (p4d_none(*p4d))
+-		return flush;
++		return;
+ 
+ 	pud = pud_offset(p4d, 0);
+ 	if (PTRS_PER_PUD > 1)
+-		flush |= (*func)(mm, virt_to_page(pud), PT_PUD);
+-	flush |= xen_pud_walk(mm, pud, func, last, limit);
+-	return flush;
++		(*func)(mm, virt_to_page(pud), PT_PUD);
++	xen_pud_walk(mm, pud, func, last, limit);
+ }
  
  /*
-@@ -137,3 +144,175 @@ SYM_FUNC_START(xen_read_cr2_direct)
- 	FRAME_END
- 	ret
- SYM_FUNC_END(xen_read_cr2_direct);
+@@ -603,12 +601,12 @@ static int xen_p4d_walk(struct mm_struct *mm, p4d_t *p4d,
+  * We must skip the Xen hole in the middle of the address space, just after
+  * the big x86-64 virtual hole.
+  */
+-static int __xen_pgd_walk(struct mm_struct *mm, pgd_t *pgd,
+-			  int (*func)(struct mm_struct *mm, struct page *,
+-				      enum pt_level),
+-			  unsigned long limit)
++static void __xen_pgd_walk(struct mm_struct *mm, pgd_t *pgd,
++			   void (*func)(struct mm_struct *mm, struct page *,
++					enum pt_level),
++			   unsigned long limit)
+ {
+-	int i, nr, flush = 0;
++	int i, nr;
+ 	unsigned hole_low = 0, hole_high = 0;
+ 
+ 	/* The limit is the last byte to be touched */
+@@ -633,22 +631,20 @@ static int __xen_pgd_walk(struct mm_struct *mm, pgd_t *pgd,
+ 			continue;
+ 
+ 		p4d = p4d_offset(&pgd[i], 0);
+-		flush |= xen_p4d_walk(mm, p4d, func, i == nr - 1, limit);
++		xen_p4d_walk(mm, p4d, func, i == nr - 1, limit);
+ 	}
+ 
+ 	/* Do the top level last, so that the callbacks can use it as
+ 	   a cue to do final things like tlb flushes. */
+-	flush |= (*func)(mm, virt_to_page(pgd), PT_PGD);
+-
+-	return flush;
++	(*func)(mm, virt_to_page(pgd), PT_PGD);
+ }
+ 
+-static int xen_pgd_walk(struct mm_struct *mm,
+-			int (*func)(struct mm_struct *mm, struct page *,
+-				    enum pt_level),
+-			unsigned long limit)
++static void xen_pgd_walk(struct mm_struct *mm,
++			 void (*func)(struct mm_struct *mm, struct page *,
++				      enum pt_level),
++			 unsigned long limit)
+ {
+-	return __xen_pgd_walk(mm, mm->pgd, func, limit);
++	__xen_pgd_walk(mm, mm->pgd, func, limit);
+ }
+ 
+ /* If we're using split pte locks, then take the page's lock and
+@@ -681,26 +677,17 @@ static void xen_do_pin(unsigned level, unsigned long pfn)
+ 	xen_extend_mmuext_op(&op);
+ }
+ 
+-static int xen_pin_page(struct mm_struct *mm, struct page *page,
+-			enum pt_level level)
++static void xen_pin_page(struct mm_struct *mm, struct page *page,
++			 enum pt_level level)
+ {
+ 	unsigned pgfl = TestSetPagePinned(page);
+-	int flush;
+-
+-	if (pgfl)
+-		flush = 0;		/* already pinned */
+-	else if (PageHighMem(page))
+-		/* kmaps need flushing if we found an unpinned
+-		   highpage */
+-		flush = 1;
+-	else {
 +
-+.macro xen_pv_trap name
-+SYM_CODE_START(xen_\name)
-+	pop %rcx
-+	pop %r11
-+	jmp  \name
-+SYM_CODE_END(xen_\name)
-+_ASM_NOKPROBE(xen_\name)
-+.endm
++	if (!pgfl) {
+ 		void *pt = lowmem_page_address(page);
+ 		unsigned long pfn = page_to_pfn(page);
+ 		struct multicall_space mcs = __xen_mc_entry(0);
+ 		spinlock_t *ptl;
+ 
+-		flush = 0;
+-
+ 		/*
+ 		 * We need to hold the pagetable lock between the time
+ 		 * we make the pagetable RO and when we actually pin
+@@ -737,8 +724,6 @@ static int xen_pin_page(struct mm_struct *mm, struct page *page,
+ 			xen_mc_callback(xen_pte_unlock, ptl);
+ 		}
+ 	}
+-
+-	return flush;
+ }
+ 
+ /* This is called just after a mm has been created, but it has not
+@@ -752,14 +737,7 @@ static void __xen_pgd_pin(struct mm_struct *mm, pgd_t *pgd)
+ 
+ 	xen_mc_batch();
+ 
+-	if (__xen_pgd_walk(mm, pgd, xen_pin_page, USER_LIMIT)) {
+-		/* re-enable interrupts for flushing */
+-		xen_mc_issue(0);
+-
+-		kmap_flush_unused();
+-
+-		xen_mc_batch();
+-	}
++	__xen_pgd_walk(mm, pgd, xen_pin_page, USER_LIMIT);
+ 
+ 	xen_do_pin(MMUEXT_PIN_L4_TABLE, PFN_DOWN(__pa(pgd)));
+ 
+@@ -803,11 +781,10 @@ void xen_mm_pin_all(void)
+ 	spin_unlock(&pgd_lock);
+ }
+ 
+-static int __init xen_mark_pinned(struct mm_struct *mm, struct page *page,
+-				  enum pt_level level)
++static void __init xen_mark_pinned(struct mm_struct *mm, struct page *page,
++				   enum pt_level level)
+ {
+ 	SetPagePinned(page);
+-	return 0;
+ }
+ 
+ /*
+@@ -823,12 +800,12 @@ static void __init xen_after_bootmem(void)
+ 	xen_pgd_walk(&init_mm, xen_mark_pinned, FIXADDR_TOP);
+ }
+ 
+-static int xen_unpin_page(struct mm_struct *mm, struct page *page,
+-			  enum pt_level level)
++static void xen_unpin_page(struct mm_struct *mm, struct page *page,
++			   enum pt_level level)
+ {
+ 	unsigned pgfl = TestClearPagePinned(page);
+ 
+-	if (pgfl && !PageHighMem(page)) {
++	if (pgfl) {
+ 		void *pt = lowmem_page_address(page);
+ 		unsigned long pfn = page_to_pfn(page);
+ 		spinlock_t *ptl = NULL;
+@@ -859,8 +836,6 @@ static int xen_unpin_page(struct mm_struct *mm, struct page *page,
+ 			xen_mc_callback(xen_pte_unlock, ptl);
+ 		}
+ 	}
+-
+-	return 0;		/* never need to flush on unpin */
+ }
+ 
+ /* Release a pagetables pages back as normal RW */
+@@ -1554,20 +1529,14 @@ static inline void xen_alloc_ptpage(struct mm_struct *mm, unsigned long pfn,
+ 		if (static_branch_likely(&xen_struct_pages_ready))
+ 			SetPagePinned(page);
+ 
+-		if (!PageHighMem(page)) {
+-			xen_mc_batch();
++		xen_mc_batch();
+ 
+-			__set_pfn_prot(pfn, PAGE_KERNEL_RO);
++		__set_pfn_prot(pfn, PAGE_KERNEL_RO);
+ 
+-			if (level == PT_PTE && USE_SPLIT_PTE_PTLOCKS)
+-				__pin_pagetable_pfn(MMUEXT_PIN_L1_TABLE, pfn);
++		if (level == PT_PTE && USE_SPLIT_PTE_PTLOCKS)
++			__pin_pagetable_pfn(MMUEXT_PIN_L1_TABLE, pfn);
+ 
+-			xen_mc_issue(PARAVIRT_LAZY_MMU);
+-		} else {
+-			/* make sure there are no stray mappings of
+-			   this page */
+-			kmap_flush_unused();
+-		}
++		xen_mc_issue(PARAVIRT_LAZY_MMU);
+ 	}
+ }
+ 
+@@ -1590,16 +1559,15 @@ static inline void xen_release_ptpage(unsigned long pfn, unsigned level)
+ 	trace_xen_mmu_release_ptpage(pfn, level, pinned);
+ 
+ 	if (pinned) {
+-		if (!PageHighMem(page)) {
+-			xen_mc_batch();
++		xen_mc_batch();
+ 
+-			if (level == PT_PTE && USE_SPLIT_PTE_PTLOCKS)
+-				__pin_pagetable_pfn(MMUEXT_UNPIN_TABLE, pfn);
++		if (level == PT_PTE && USE_SPLIT_PTE_PTLOCKS)
++			__pin_pagetable_pfn(MMUEXT_UNPIN_TABLE, pfn);
+ 
+-			__set_pfn_prot(pfn, PAGE_KERNEL);
++		__set_pfn_prot(pfn, PAGE_KERNEL);
 +
-+xen_pv_trap asm_exc_divide_error
-+xen_pv_trap asm_xenpv_exc_debug
-+xen_pv_trap asm_exc_int3
-+xen_pv_trap asm_xenpv_exc_nmi
-+xen_pv_trap asm_exc_overflow
-+xen_pv_trap asm_exc_bounds
-+xen_pv_trap asm_exc_invalid_op
-+xen_pv_trap asm_exc_device_not_available
-+xen_pv_trap asm_exc_double_fault
-+xen_pv_trap asm_exc_coproc_segment_overrun
-+xen_pv_trap asm_exc_invalid_tss
-+xen_pv_trap asm_exc_segment_not_present
-+xen_pv_trap asm_exc_stack_segment
-+xen_pv_trap asm_exc_general_protection
-+xen_pv_trap asm_exc_page_fault
-+xen_pv_trap asm_exc_spurious_interrupt_bug
-+xen_pv_trap asm_exc_coprocessor_error
-+xen_pv_trap asm_exc_alignment_check
-+#ifdef CONFIG_X86_MCE
-+xen_pv_trap asm_exc_machine_check
-+#endif /* CONFIG_X86_MCE */
-+xen_pv_trap asm_exc_simd_coprocessor_error
-+#ifdef CONFIG_IA32_EMULATION
-+xen_pv_trap entry_INT80_compat
-+#endif
-+xen_pv_trap asm_exc_xen_hypervisor_callback
-+
-+	__INIT
-+SYM_CODE_START(xen_early_idt_handler_array)
-+	i = 0
-+	.rept NUM_EXCEPTION_VECTORS
-+	pop %rcx
-+	pop %r11
-+	jmp early_idt_handler_array + i*EARLY_IDT_HANDLER_SIZE
-+	i = i + 1
-+	.fill xen_early_idt_handler_array + i*XEN_EARLY_IDT_HANDLER_SIZE - ., 1, 0xcc
-+	.endr
-+SYM_CODE_END(xen_early_idt_handler_array)
-+	__FINIT
-+
-+hypercall_iret = hypercall_page + __HYPERVISOR_iret * 32
-+/*
-+ * Xen64 iret frame:
-+ *
-+ *	ss
-+ *	rsp
-+ *	rflags
-+ *	cs
-+ *	rip		<-- standard iret frame
-+ *
-+ *	flags
-+ *
-+ *	rcx		}
-+ *	r11		}<-- pushed by hypercall page
-+ * rsp->rax		}
-+ */
-+SYM_CODE_START(xen_iret)
-+	pushq $0
-+	jmp hypercall_iret
-+SYM_CODE_END(xen_iret)
-+
-+SYM_CODE_START(xen_sysret64)
-+	/*
-+	 * We're already on the usermode stack at this point, but
-+	 * still with the kernel gs, so we can easily switch back.
-+	 *
-+	 * tss.sp2 is scratch space.
-+	 */
-+	movq %rsp, PER_CPU_VAR(cpu_tss_rw + TSS_sp2)
-+	movq PER_CPU_VAR(cpu_current_top_of_stack), %rsp
-+
-+	pushq $__USER_DS
-+	pushq PER_CPU_VAR(cpu_tss_rw + TSS_sp2)
-+	pushq %r11
-+	pushq $__USER_CS
-+	pushq %rcx
-+
-+	pushq $VGCF_in_syscall
-+	jmp hypercall_iret
-+SYM_CODE_END(xen_sysret64)
-+
-+/*
-+ * Xen handles syscall callbacks much like ordinary exceptions, which
-+ * means we have:
-+ * - kernel gs
-+ * - kernel rsp
-+ * - an iret-like stack frame on the stack (including rcx and r11):
-+ *	ss
-+ *	rsp
-+ *	rflags
-+ *	cs
-+ *	rip
-+ *	r11
-+ * rsp->rcx
-+ */
-+
-+/* Normal 64-bit system call target */
-+SYM_FUNC_START(xen_syscall_target)
-+	popq %rcx
-+	popq %r11
-+
-+	/*
-+	 * Neither Xen nor the kernel really knows what the old SS and
-+	 * CS were.  The kernel expects __USER_DS and __USER_CS, so
-+	 * report those values even though Xen will guess its own values.
-+	 */
-+	movq $__USER_DS, 4*8(%rsp)
-+	movq $__USER_CS, 1*8(%rsp)
-+
-+	jmp entry_SYSCALL_64_after_hwframe
-+SYM_FUNC_END(xen_syscall_target)
-+
-+#ifdef CONFIG_IA32_EMULATION
-+
-+/* 32-bit compat syscall target */
-+SYM_FUNC_START(xen_syscall32_target)
-+	popq %rcx
-+	popq %r11
-+
-+	/*
-+	 * Neither Xen nor the kernel really knows what the old SS and
-+	 * CS were.  The kernel expects __USER32_DS and __USER32_CS, so
-+	 * report those values even though Xen will guess its own values.
-+	 */
-+	movq $__USER32_DS, 4*8(%rsp)
-+	movq $__USER32_CS, 1*8(%rsp)
-+
-+	jmp entry_SYSCALL_compat_after_hwframe
-+SYM_FUNC_END(xen_syscall32_target)
-+
-+/* 32-bit compat sysenter target */
-+SYM_FUNC_START(xen_sysenter_target)
-+	/*
-+	 * NB: Xen is polite and clears TF from EFLAGS for us.  This means
-+	 * that we don't need to guard against single step exceptions here.
-+	 */
-+	popq %rcx
-+	popq %r11
-+
-+	/*
-+	 * Neither Xen nor the kernel really knows what the old SS and
-+	 * CS were.  The kernel expects __USER32_DS and __USER32_CS, so
-+	 * report those values even though Xen will guess its own values.
-+	 */
-+	movq $__USER32_DS, 4*8(%rsp)
-+	movq $__USER32_CS, 1*8(%rsp)
-+
-+	jmp entry_SYSENTER_compat_after_hwframe
-+SYM_FUNC_END(xen_sysenter_target)
-+
-+#else /* !CONFIG_IA32_EMULATION */
-+
-+SYM_FUNC_START_ALIAS(xen_syscall32_target)
-+SYM_FUNC_START(xen_sysenter_target)
-+	lea 16(%rsp), %rsp	/* strip %rcx, %r11 */
-+	mov $-ENOSYS, %rax
-+	pushq $0
-+	jmp hypercall_iret
-+SYM_FUNC_END(xen_sysenter_target)
-+SYM_FUNC_END_ALIAS(xen_syscall32_target)
-+
-+#endif	/* CONFIG_IA32_EMULATION */
-diff --git a/arch/x86/xen/xen-asm_64.S b/arch/x86/xen/xen-asm_64.S
-deleted file mode 100644
-index aab1d99b2b48..000000000000
---- a/arch/x86/xen/xen-asm_64.S
-+++ /dev/null
-@@ -1,192 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Asm versions of Xen pv-ops, suitable for direct use.
-- *
-- * We only bother with direct forms (ie, vcpu in pda) of the
-- * operations here; the indirect forms are better handled in C.
-- */
--
--#include <asm/errno.h>
--#include <asm/percpu.h>
--#include <asm/processor-flags.h>
--#include <asm/segment.h>
--#include <asm/asm-offsets.h>
--#include <asm/thread_info.h>
--#include <asm/asm.h>
--
--#include <xen/interface/xen.h>
--
--#include <linux/init.h>
--#include <linux/linkage.h>
--
--.macro xen_pv_trap name
--SYM_CODE_START(xen_\name)
--	pop %rcx
--	pop %r11
--	jmp  \name
--SYM_CODE_END(xen_\name)
--_ASM_NOKPROBE(xen_\name)
--.endm
--
--xen_pv_trap asm_exc_divide_error
--xen_pv_trap asm_xenpv_exc_debug
--xen_pv_trap asm_exc_int3
--xen_pv_trap asm_xenpv_exc_nmi
--xen_pv_trap asm_exc_overflow
--xen_pv_trap asm_exc_bounds
--xen_pv_trap asm_exc_invalid_op
--xen_pv_trap asm_exc_device_not_available
--xen_pv_trap asm_exc_double_fault
--xen_pv_trap asm_exc_coproc_segment_overrun
--xen_pv_trap asm_exc_invalid_tss
--xen_pv_trap asm_exc_segment_not_present
--xen_pv_trap asm_exc_stack_segment
--xen_pv_trap asm_exc_general_protection
--xen_pv_trap asm_exc_page_fault
--xen_pv_trap asm_exc_spurious_interrupt_bug
--xen_pv_trap asm_exc_coprocessor_error
--xen_pv_trap asm_exc_alignment_check
--#ifdef CONFIG_X86_MCE
--xen_pv_trap asm_exc_machine_check
--#endif /* CONFIG_X86_MCE */
--xen_pv_trap asm_exc_simd_coprocessor_error
--#ifdef CONFIG_IA32_EMULATION
--xen_pv_trap entry_INT80_compat
--#endif
--xen_pv_trap asm_exc_xen_hypervisor_callback
--
--	__INIT
--SYM_CODE_START(xen_early_idt_handler_array)
--	i = 0
--	.rept NUM_EXCEPTION_VECTORS
--	pop %rcx
--	pop %r11
--	jmp early_idt_handler_array + i*EARLY_IDT_HANDLER_SIZE
--	i = i + 1
--	.fill xen_early_idt_handler_array + i*XEN_EARLY_IDT_HANDLER_SIZE - ., 1, 0xcc
--	.endr
--SYM_CODE_END(xen_early_idt_handler_array)
--	__FINIT
--
--hypercall_iret = hypercall_page + __HYPERVISOR_iret * 32
--/*
-- * Xen64 iret frame:
-- *
-- *	ss
-- *	rsp
-- *	rflags
-- *	cs
-- *	rip		<-- standard iret frame
-- *
-- *	flags
-- *
-- *	rcx		}
-- *	r11		}<-- pushed by hypercall page
-- * rsp->rax		}
-- */
--SYM_CODE_START(xen_iret)
--	pushq $0
--	jmp hypercall_iret
--SYM_CODE_END(xen_iret)
--
--SYM_CODE_START(xen_sysret64)
--	/*
--	 * We're already on the usermode stack at this point, but
--	 * still with the kernel gs, so we can easily switch back.
--	 *
--	 * tss.sp2 is scratch space.
--	 */
--	movq %rsp, PER_CPU_VAR(cpu_tss_rw + TSS_sp2)
--	movq PER_CPU_VAR(cpu_current_top_of_stack), %rsp
--
--	pushq $__USER_DS
--	pushq PER_CPU_VAR(cpu_tss_rw + TSS_sp2)
--	pushq %r11
--	pushq $__USER_CS
--	pushq %rcx
--
--	pushq $VGCF_in_syscall
--	jmp hypercall_iret
--SYM_CODE_END(xen_sysret64)
--
--/*
-- * Xen handles syscall callbacks much like ordinary exceptions, which
-- * means we have:
-- * - kernel gs
-- * - kernel rsp
-- * - an iret-like stack frame on the stack (including rcx and r11):
-- *	ss
-- *	rsp
-- *	rflags
-- *	cs
-- *	rip
-- *	r11
-- * rsp->rcx
-- */
--
--/* Normal 64-bit system call target */
--SYM_FUNC_START(xen_syscall_target)
--	popq %rcx
--	popq %r11
--
--	/*
--	 * Neither Xen nor the kernel really knows what the old SS and
--	 * CS were.  The kernel expects __USER_DS and __USER_CS, so
--	 * report those values even though Xen will guess its own values.
--	 */
--	movq $__USER_DS, 4*8(%rsp)
--	movq $__USER_CS, 1*8(%rsp)
--
--	jmp entry_SYSCALL_64_after_hwframe
--SYM_FUNC_END(xen_syscall_target)
--
--#ifdef CONFIG_IA32_EMULATION
--
--/* 32-bit compat syscall target */
--SYM_FUNC_START(xen_syscall32_target)
--	popq %rcx
--	popq %r11
--
--	/*
--	 * Neither Xen nor the kernel really knows what the old SS and
--	 * CS were.  The kernel expects __USER32_DS and __USER32_CS, so
--	 * report those values even though Xen will guess its own values.
--	 */
--	movq $__USER32_DS, 4*8(%rsp)
--	movq $__USER32_CS, 1*8(%rsp)
--
--	jmp entry_SYSCALL_compat_after_hwframe
--SYM_FUNC_END(xen_syscall32_target)
--
--/* 32-bit compat sysenter target */
--SYM_FUNC_START(xen_sysenter_target)
--	/*
--	 * NB: Xen is polite and clears TF from EFLAGS for us.  This means
--	 * that we don't need to guard against single step exceptions here.
--	 */
--	popq %rcx
--	popq %r11
--
--	/*
--	 * Neither Xen nor the kernel really knows what the old SS and
--	 * CS were.  The kernel expects __USER32_DS and __USER32_CS, so
--	 * report those values even though Xen will guess its own values.
--	 */
--	movq $__USER32_DS, 4*8(%rsp)
--	movq $__USER32_CS, 1*8(%rsp)
--
--	jmp entry_SYSENTER_compat_after_hwframe
--SYM_FUNC_END(xen_sysenter_target)
--
--#else /* !CONFIG_IA32_EMULATION */
--
--SYM_FUNC_START_ALIAS(xen_syscall32_target)
--SYM_FUNC_START(xen_sysenter_target)
--	lea 16(%rsp), %rsp	/* strip %rcx, %r11 */
--	mov $-ENOSYS, %rax
--	pushq $0
--	jmp hypercall_iret
--SYM_FUNC_END(xen_sysenter_target)
--SYM_FUNC_END_ALIAS(xen_syscall32_target)
--
--#endif	/* CONFIG_IA32_EMULATION */
++		xen_mc_issue(PARAVIRT_LAZY_MMU);
+ 
+-			xen_mc_issue(PARAVIRT_LAZY_MMU);
+-		}
+ 		ClearPagePinned(page);
+ 	}
+ }
 -- 
 2.26.2
 
